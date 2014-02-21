@@ -1,0 +1,22 @@
+{
+  "@context": {
+    "@vocab" : "http://iiif.io/api/image#",
+    "xsd" : "http://www.w3.org/2001/XMLSchema#",
+    "description": "http://purl.org/dc/terms/description",
+    "http_delete" : { "@type" : "xsd:boolean" },
+    "http_post" : { "@type" : "xsd:boolean" },
+    "http_put" : { "@type" : "xsd:boolean" },
+    "contentNegotiation" : { "@type" : "xsd:boolean" },
+    "enabled" : { "@type" : "xsd:boolean" },
+    "feature01325" : { "@type" : "xsd:boolean" },
+    "regionByPct" : { "@type" : "xsd:boolean" },
+    "regionByPx" : { "@type" : "xsd:boolean" },
+    "rotationArbitrary" : { "@type" : "xsd:boolean" },
+    "rotationBy90s" : { "@type" : "xsd:boolean" },
+    "sizeByForcedWH" : { "@type" : "xsd:boolean" },
+    "sizeByH" : { "@type" : "xsd:boolean" },
+    "sizeByPct" : { "@type" : "xsd:boolean" },
+    "sizeByW" : { "@type" : "xsd:boolean" },
+    "sizeByWH" : { "@type" : "xsd:boolean" }
+  }
+}
