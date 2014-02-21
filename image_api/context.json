@@ -10,6 +10,7 @@
     "region_by_px" : { "@type" : "xsd:boolean" },
     "rotation_arbitrary" : { "@type" : "xsd:boolean" },
     "rotation_by_90s" : { "@type" : "xsd:boolean" },
+    "size_above_100_pct" : { "@type" : "xsd:boolean" },
     "size_by_forced_wh" : { "@type" : "xsd:boolean" },
     "size_by_h" : { "@type" : "xsd:boolean" },
     "size_by_pct" : { "@type" : "xsd:boolean" },
