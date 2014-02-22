@@ -335,9 +335,9 @@ A server may declare the set of features that it implements in a capabilities do
 | Property | Required? | Description |
 | -------- | --------- | ----------- |
 | @context | Required | The context document that describes the semantics of the terms used in the document. This must be the URI: [http://iiif.io/api/image/1.2/context.json] for version 1.2 of the IIIF Image API. This document allows the response to be interpreted as RDF, using the [JSON-LD][29] serialization |
-| @id | Required | The URI of this capabilities document |
-| contact | Optional | A mailto URI for a person to contact about this service | 
-| contentNegotiation | Optional | Does the service support content negotation for image format? (boolean) |
+| @id      | Required | The URI of this capabilities document |
+| contact  | Optional | A mailto URI for a person to contact about this service | 
+| content_negotiation | Optional | Does the service support content negotation for image format? (boolean) |
 | default_format | Optional | The default format that the service will use when the image format is not supplied by the client (string) |
 | region_by_pct | Optional | Does the service support requesting regions of images given by percentage (boolean) |
 | region_by_px | Optional | Does the service support requesting regions of images given by pixel dimensions (boolean) |
