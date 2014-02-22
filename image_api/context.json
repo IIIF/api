@@ -4,6 +4,7 @@
     "xsd" : "http://www.w3.org/2001/XMLSchema#",
     "description": "http://purl.org/dc/terms/description",
     "extensions" : { "@type" : "@id" },
+    "contact" : { "@type" : "@id" },
     "content_negotiation" : { "@type" : "xsd:boolean" },
     "default_format" : { "@type" : "xsd:string" },
     "region_by_pct" : { "@type" : "xsd:boolean" },
