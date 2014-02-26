@@ -2,20 +2,20 @@
 
 **Editors**
 
-  * Robert Sanderson,_ Los Alamos National Laboratory_
-  * Ben Albritton,_ Stanford University_
-  * Markus Enders,_ British Library_
+  * Robert Sanderson, _Stanford University_
+  * Ben Albritton, _Stanford University_
 
 **Contributors**
 
 
   * Michael Appleby, _Yale University_
-  * Tom Cramer,_ Stanford University_
+  * Tom Cramer, _Stanford University_
   * Mark Patton, _John Hopkins University_
   * Neil Jeffries, _University of Oxford_
   * Tim Gollins, _UK National Archives_
   * Simeon Warner, _Cornell University_
   * Jon Stroop, _Princeton University_
+  * Markus Enders, _British Library_
 
 ## Status of this Document
 
@@ -48,7 +48,7 @@ Copyright © 2012-2013 the Contributors to the IIIF, DMS Council, and other Cont
     2. [Layer][21]
   7. [Examples][22]
 
-##  1\. Introduction ![][23]
+##  1 Introduction
 
 Access to image-based resources is fundamental to many research disciplines, scholarship and the transmission of cultural knowledge. Digital images are a container for much of the information content in the Web-based delivery of images, books, newspapers, manuscripts, maps, scrolls, single sheet collections, and even digital surrogates of textiles, realia and ephemera.
 
@@ -58,7 +58,7 @@ A digitized object may comprise a series of pages or surfaces; for example the p
 
 The principles of Linked Data and the architecture of the Web are adopted in order to provide a distributed and interoperable system. The [Shared Canvas data model][24] is leveraged in a specific, JSON based format that is easy to implement without understanding RDF, but is still compatible with it. As such it can be seen as a recommended serialization profile for Shared Canvas.
 
-### 1.1. Objectives and Scope ![][23]
+### 1.1. Objectives and Scope 
 
 The objective of the IIIF Metadata API is to provide the information necessary to allow a rich, online viewing environment for digitized physical objects to be presented to a user, in conjunction with the IIIF Image API. This is the sole purpose of the API; to provide easy access to the information necessary for a viewer to render an appropriate user experience for the digitized content. Therefore the descriptive information is given in a way that is human readable, but not necessarily semantically available to machines. In particular, it specifically does not aim to provide metadata that would drive discovery or user selection of the digitized objects, or machine actionable rights information. This specification is not concerned with in-document search, however that will be covered by a further document. Domain specific features, such as geo-referencing of maps to real world locations, are also not covered but may be addressed in additional documents in the future.
 
@@ -75,7 +75,7 @@ The following are not within scope:
 
 Note that in the following descriptions, "[physical] object" is used to refer to the physical object that has been digitized, and "resources" refer to the digital resources that are the result of that digitization process.
 
-##  2\. Motivating Use Cases ![][23]
+##  2. Motivating Use Cases 
 
 There are many different types of digitized resources, from ancient scrolls to modern newspapers, from medieval manuscripts to printed books, and from large maps to small photographs. Many of them bear texts, sometimes difficult to read either due to the decay of the physical object or lack of understanding of the script or language. The following use cases are motivations for this specification.
 
@@ -107,7 +107,7 @@ Collectively these use cases require a model in which one can characterise the d
 
 The need for these conceptual components, shown in italics, was recognised in earlier work concerned with viewing complex digitised manuscripts. The IIIF metadata model is thus derived from this earlier work but has been extended to meet the additional practical needs when viewing and navigating of other types of digitised content. The components and their use are described in the following sections.
 
-##  3\. Primary Resource Types ![][23]
+##  3. Primary Resource Types 
 
 This specification makes use of the following primary resource types:
 
@@ -118,12 +118,12 @@ This specification makes use of the following primary resource types:
 
 Each Manifest must, and is very likely to, have one Sequence, but may have more than one. Each Sequence must have one Canvas and is likely to have more than one. Each Canvas may have zero or more Content resources associated with it. Zero is unlikely, but represents the case where the page exists (or existed) but has not been digitized. This heirarchy is depicted below.
 
-![][25]
+![][25 =400x]
 Figure 1. Primary Resource Types
 
 There are other types of resource including Annotation Lists, Annotations, Ranges and Layers, which are discussed later.
 
-##  4\. Metadata Fields ![][23]
+##  4. Metadata Fields
 
 The following metadata fields are suggested by this specification, broken in to four sections. Each metadata field is repeatable, and most may be associated with any of the resource types:
 
@@ -169,12 +169,12 @@ Links are optional for all resources. They may also have type and format associa
 
 These metadata fields and requirements are depicted in the diagram below.
 
-![][27]
+![][27 =400x]
 Figure 2. Metadata Fields
 
 Other metadata fields are possible, either custom extensions or endorsed by the IIIF. If a client discovers fields that it does not understand, then it must ignore them.
 
-##  5\. Requests and Responses ![][23]
+##  5. Requests and Responses
 
 This section describes the recommended request and response patterns for the API that makes the metadata available. The REST approach is followed where a call will retrieve a description of a resource, and additional calls may be made by following links obtained from within the description. All of the requests use the HTTP GET method; creation and update of resources is not covered by this specification.
 
@@ -184,7 +184,9 @@ Each of the sections below recommends a URI pattern to follow for the different 
 
 The Base URI recommended for resources made available by the API is:
 
+```
 {scheme}://{host}/{prefix}/{identifier}
+```
 
 Where the parameters are:
 
@@ -203,11 +205,16 @@ The format for all responses is JSON, and the sections below describe the struct
 
 The media type for the responses (returned in the HTTP Content-Type header value) should be "application/ld%2Bjson", but may be "application/json" and clients should process both in the same manner.
 
+```
 Content-Type: application/ld%2Bjson
+```
 
 The HTTP server should also send the Cross Origin Access control header to allow clients to download the manifests via AJAX from remote sites. The header name is "Access-Control-Allow-Origin" and the value of the header should be "*". In the Apache web server this may be enabled with the following configuration snippet:
 
-LoadModule headers_module modules/mod_headers.so  Header set Access-Control-Allow-Origin "*" 
+```
+LoadModule headers_module modules/mod_headers.so  
+Header set Access-Control-Allow-Origin "*" 
+```
 
 Responses should be compressed by the server as there are significant performance gains to be made for very repetitive data.
 
@@ -215,7 +222,10 @@ Response Content Details
 
 Resource descriptions should be embedded within higher level resources, and may also be available via separate requests from URIs linked in the responses. These URIs are in the "@id" metadata field for the resource. Links to resources may either be given just as the URI if there is no additional information associated with them, or they may be a JSON object with the "@id" field. Thus the following two lines are equivalent, however the second should not be used without additional associated information:
 
-{"seeAlso" : "http://www.example.org/descriptions/book1.xml"} {"seeAlso" : {"@id":"http://www.example.org/descriptions/book1.xml"}}
+```
+{"seeAlso" : "http://www.example.org/descriptions/book1.xml"} 
+{"seeAlso" : {"@id":"http://www.example.org/descriptions/book1.xml"}}
+```
 
 Each response must have a single "@context" property, preferably as the very first key/value pair in the top most object. This tells Linked Data processors how to interpret the information. It must occur exactly once per response, and be omitted from any embedded resources. For example, when embedding a Sequence within a Manifest, the Sequence must not have the @context line.
 
