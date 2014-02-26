@@ -3,9 +3,16 @@
 **Authors**
 
   * Jon Stroop, _Princeton University_
+  * Simeon Warner, _Cornell University_
 > Add your name if you want!
 
+## Abstract
+
 This document describes an extension to the [IIIF Image API version 1.2][iiif-image-api-12] which compliant servers may implement to faciliate the management of images on a server using the HTTP protocol.
+
+Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss].
+
+## Table of Contents
 
   1. [Overview][1]
   2. [Requests][2]
@@ -21,11 +28,12 @@ This document describes an extension to the [IIIF Image API version 1.2][iiif-im
   5. [Authorization, Authentication and Security][5]
 
 ## 1. Overview
-There are cases where a client may want to store images on a IIIF compliant image server without having access to that server's file system. For example:
+
+There are cases where it is useful for a client to store, update or delete images on a IIIF compliant image server without having access to that server's file system. For example:
 
  1. A scholar who wants to drag and drop one of their own images into a web application for analysis along side other images already in that environment.
 
- 2. A digital repository that ingests images into its storage environment, but wants to store an access copy or derivative on a IIIF server as part of an automated workflow.
+ 2. A digital repository that ingests images into its storage environment, but creates an access copy or derivative on a IIIF server as part of an automated workflow to support IIIF client access.
 
  3. The IIIF Image API does not define a mechanism for getting the source image that the API calls are using to derive images according to the request. In some cases this may be available as:
    
@@ -59,7 +67,7 @@ Relevant Headers:
 | ------------------------- | -----------------| -------- | ----------- |
 | [Content-Type][http-content-type] | Request  | yes | The Media Type for the image |
 
-The server should only be capable of returning one format from this URI, and MAY either ignore the Accept header if it is included in request, or return a 406 (Not Acceptable) status.
+The server MUST return the image in a single format from this URI. It MAY either ignore any Accept header included in request, or return a 406 (Not Acceptable) status in response to an attempt to content-negotiate.
 
 ### 2.2 HEAD
 
@@ -95,6 +103,7 @@ Relevant Headers:
 The response body MAY contain the info.json that was extracted from the image, but it MUST NOT redirect to the info URI as the Location header the MUST contain the Base URI of the of the newly stored image.
 
 ### 2.4 POST
+
 Similar to PUT, except that the server will supply the identifier, and return it as part of the Location header.
 
 URI Pattern:
@@ -197,3 +206,4 @@ As of this writing authorization and authentication are topics of heavy dicussio
  [http-options]: http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.2
  [iiif-image-api-12]: http://iiif.io/api/image/1.2/
  [iiif-rest-context]: http://iiif.io/api/image/ext/rest.json
+ [iiif-discuss]: mailto:iiif-discuss%40googlegroups.com
