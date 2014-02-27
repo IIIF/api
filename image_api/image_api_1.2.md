@@ -35,7 +35,7 @@ Please send feedback to [iiif-discuss@googlegroups.com][1]
     2. [Image Information Request URL Syntax](#22-image-information-request-url-syntax)
     3. [Capabilities Request URL Syntax](#23-capabilities-request-url-syntax)
   3. [Identifier](#3-identifier)
-  4. [Parameters](#4-image-request-parameters)
+  4. [Image Request Parameters](#4-image-request-parameters)
     1. [Region](#41-region)
     2. [Size](#42-size)
     3. [Rotation](#43-rotation)
