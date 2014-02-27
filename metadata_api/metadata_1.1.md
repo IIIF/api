@@ -140,7 +140,7 @@ The following fields are defined by this specification, broken in to four sectio
   * __label__<br/>
   A human readable label, name or title for the object. This field is intended to be displayed as a short surrogate for the resource if a human needs to make a distinction between it and similar resources, for example between pages or between a choice of images to display.
 
-  Recommendations:
+  Usage:
    * A Manifest MUST have a label, and it SHOULD be the name of the physical object or title of the intellectual work that it embodies. 
    * A Sequence  MAY have a label, and if there are multiple Sequences in a single Manifest then they MUST have labels. The label SHOULD briefly convey the nature of sequence, such as "Current Page Order". 
    * A Canvas MUST have a label, and it SHOULD be the page label such as "p. 1" or "folio 1 recto". 
@@ -148,7 +148,7 @@ The following fields are defined by this specification, broken in to four sectio
   * __metadata__<br/>
   A list of short descriptive entries given as pairs of human readable label and value to be displayed by the client to the user. There are no semantics conveyed by this information, and clients should not use it for discovery or other purposes. This pool of descriptive pairs should be able to be displayed in a tabular form in the user interface. Descriptive pairs might be used to convey the author of the work, information about its creation, a brief physical description, or ownership information, amongst other use cases. The client is not expected to take any action on this information beyond displaying the label and value. An example pair of label and value might be a label of "Author" and a value of "Jehan Froissart". The client should display the pairs in the order provided by the description.  Clients SHOULD have a way to display the information about Manifests and Canvases, and MAY have a way to view the information about other resources.
   
-  Recommendations:
+  Usage:
    * A Manifest SHOULD have descriptive pairs associated with it describing the object or work.
    * A Sequence MAY have descriptive pairs associated with it to describe the difference between it and other Sequences.
    * A Canvas MAY have descriptive pairs associated with it to describe particular features of that Canvas compared to others.
@@ -156,51 +156,85 @@ The following fields are defined by this specification, broken in to four sectio
   * __description__ <br/>
   A longer form prose description of the object, intended to be conveyed to the user as a full text description, rather than a simple label and value. It can duplicate any of the above information, along with additional information required for the understanding of the digitized object, description of the physical object, bibliographic information and so forth. Like with the descriptive pairs in "metadata", clients SHOULD have a way to display the information about Manifests and Canvases, and MAY have a way to view the information about other resources.
   
-  Recommendations:
+  Usage:
    * A Manifest SHOULD have a description that describes the object or work.
    * A Sequence MAY have a descriptions to further explain how it differs from other Sequences.
    * A Canvas MAY have a description to describe particular features of the view.
    * A Content resource MAY have a description.
+
   * __thumbnail__<br/>
   A small image that represents the content of the object, such as the title page or significant image.  It is recommended that a IIIF Image Service be available for this image for rescaling.
 
-The Manifest and Canvas resources must have at least one Label, even if only the position of the Canvas within the Sequence to be displayed for navigation. Metadata and description are optional for the different types of resource.
+  Usage:
+   * A Manifest SHOULD have a thumbnail image that represents the entire object or work.
+   * A Sequence MAY have a thumbnail, particularly if there are multiple Sequences in a single Manifest. Each of the thumbnails SHOULD be different.
+   * A Canvas MAY have a thumbnail, particularly if there are multiple images or resources that make up the representation.
+   * A Content Resource MAY have a thumbnail, particularly if there is a choice of resource.
 
-#### 4.2. Rights Fields
+
+#### 4.2. Rights and Licensing Fields
 
   * __attribution__<br/>
-  A human readable label that must be displayed when the resource it is associated with is displayed or used. For example this could be used to present copyright or ownership, or simply an acknowledgement of the owning and/or publishing institutions.
+  A human readable label that MUST be displayed when the resource it is associated with is displayed or used. For example this could be used to present copyright or ownership, or simply an acknowledgement of the owning and/or publishing institutions.  It MAY be associated with any resource.
   * __logo__<br/>
-  A small image that represents an individual or organization associated with the object.  This could be the logo of the owning or hosting institution.  It is recommended that a IIIF Image Service be available for this image for rescaling.
+  A small image that represents an individual or organization associated with the object.  This could be the logo of the owning or hosting institution.  It is recommended that a IIIF Image Service be available for this image for rescaling. It MAY be associated with any resource.
   * __license__ <br/>
-  A link to a resource that describes the license or rights statement under which the resource is being used. The rationale for this being a URI not a human readable label is that typically there is one license for many resources, and the text is too long to be displayed to the user along with the object. If this is a requirement, then it is recommended to include the information in an attribution field instead.
+  A link to a resource that describes the license or rights statement under which the resource is being used. The rationale for this being a URI not a human readable label is that typically there is one license for many resources, and the text is too long to be displayed to the user along with the object. If this is a requirement, then it is recommended to include the information in an attribution field instead.  It MAY be associated with any resource.
 
-
-Rights metadata is optional for all resources.
 
 #### 4.3. Technical Fields
 
-  * __id__<br/>
+  * __@id__<br/>
     The URI that identifies the resource. Recommended, but not mandatory, URI patterns are presented below.
-  * __type__<br/>
-    The type of the resource, either Manifest/Sequence/Canvas or drawn from a list of igh level content types such as Image, Text or Audio.
+    Usage:
+     * A Manifest MUST have an id, and it MUST be the http[s] URI at which the Manifest is published.
+     * A Sequence MAY have an id.
+     * A Canvas MUST have an id.
+     * A Content Resource MUST have an id unless it is embedded in the response, and it MUST be the http[s] URI at which the resource is published. 
+
+  * __@type__<br/>
+    The type of the resource, either Manifest/Sequence/Canvas or drawn from a list of igh level content types such as Image, Text or Audio.  All resources MUST have at least one type given.
+
   * __format__<br/>
     The more specific media type (often called a MIME type) of a Content resource, for example "image/jpeg". This is important for distinguishing, for example, text in XML from plain text.
+    Usage:
+     * A Manifest, Sequence or Canvas MUST NOT have a format.
+     * A Content Resource SHOULD have a format, and if so, it MUST be the value of the Content-Type header returned when the resource is dereferenced.
+
   * __height__<br/>
     The height of a Canvas or Image resource. For images, this is in pixels. No particular units are required for Canvases, as the dimensions provide an aspect ratio for the resources to be located within rather than measuring any physical property of the object.
-  * __width__<br/>
-    The width of a Canvas or Image resource. For images, this is in pixels. No particular units are required for Canvases.
-  * __viewingDirection__<br/>
-   The direction that Canvases should be presented in a viewer for the object. This field is valid for a Manifest (and would apply to all Sequences and Ranges), a Sequence or a Range, and must be ne of the following, case-sensitive strings: "left-to-right", "right-to-left", "top-to-bottom", "bottom-to-top"
-  * __viewingHint__
-    A hint to the viewer as to the most appropriate method of displaying the object. It is valid on the Manifest, Sequence of Range as per viewingDirection. This field can be any string, however the following are defined:
-    * "individuals": The canvases are all individual sheets, and should not be presented in a specifically page turning interface. For example a sequence of letters or photographs.
-    * "paged": The canvases represent pages in a bound volume, and should be presented in a page turning interface.
-    * "continuous": The canvases each represent a complete side of a long scroll or roll and an appropriate rendering might only display part of the canvas at any given time rather than the entire object.
-    * "non-paged": Only valid on a Canvas, where the Manifest or Sequence have viewingHint of "paged".  Canvases with this hint must not be presented in a page turning interface.
-  * Additional image information may be provided, as described in the [IIIF Image API][26].
+    Usage:
+     * A Manifest or Sequence MUST NOT have a height.
+     * A Canvas MUST have a height, which does not have a unit type. It merely conveys, along with width, an aspect ratio.
+     * Image Content Resources SHOULD have a height, given in pixels.
+     * Non-Image Content Resources MAY have a height if appropriate, such as for video streams.
 
-The id and type are required for all primary resources. Height and width are required for Canvases and strongly recommended for image based content resources. Format is strongly recommended for all content resources. ViewingDirection and ViewingHint are only applicable to Sequences, and if not present then "Left-to-Right" and "paged" should be assumed.
+  * __width__<br/>
+    The width of a Canvas or Image resource. For images, this is in pixels. No particular units are required for Canvases.  The usage for width is the same as for height.
+
+  * __viewingDirection__<br/>
+    The direction that Canvases should be presented in a viewer for the object. Valid values are:
+     * "left-to-right": The object is read from left to right, and is the default if not specified
+     * "right-to-left": The object is read from right to left
+     * "top-to-bottom": The object is read from the top to the bottom
+     * "bottom-to-top": The object is read from the bottom to the top
+   Usage:
+    * A Manifest MAY have a viewing direction, and if so, it applies to all of its Sequences.
+    * A Sequence MAY have a viewing direction, and it MAY be different to that of the Manifest
+    * A Canvas or Content Resource MUST NOT have a viewing direction.
+    * A Range MAY have a viewing direction, 
+
+  * __viewingHint__
+    A hint to the viewer as to the most appropriate method of displaying the object. Any value may be given, and this specification defines the following:
+     * "individuals": The canvases are all individual sheets, and should not be presented in a specifically page turning interface. For example a sequence of letters or photographs.
+     * "paged": The canvases represent pages in a bound volume, and should be presented in a page turning interface.
+     * "continuous": The canvases each represent a complete side of a long scroll or roll and an appropriate rendering might only display part of the canvas at any given time rather than the entire object.
+     * "non-paged": Only valid on a Canvas and when the Manifest or Sequence has a viewingHint of "paged".  Canvases with this hint MUST NOT be presented in a page turning interface.
+    Usage:
+     * A Manifest, Sequence or Range MAY have a viewing hint, as per viewingDirection.
+     * A Canvas MAY have a viewing hint, and if so it MUST be "non-paged".  This is only valid if the Canvas is within a Manifest, Sequence or Range that is "paged", and the particular Canvas MUST NOT be displayed.
+     * Content Resources MAY have a viewing hint but there are no defined values for it in this specification.
+
 
 #### 4.4. Linking Fields
 
