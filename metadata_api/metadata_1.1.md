@@ -138,7 +138,8 @@ The following fields are defined by this specification, broken in to four sectio
 #### 4.1. Descriptive Fields
 
   * __label__<br/>
-  A human readable label, name or title for the object. This field is intended to be displayed as a short surrogate for the resource if a human needs to make a distinction between it and similar resources, for example between pages or between a choice of images to display. 
+  A human readable label, name or title for the object. This field is intended to be displayed as a short surrogate for the resource if a human needs to make a distinction between it and similar resources, for example between pages or between a choice of images to display.
+
   Recommendations:
    * A Manifest MUST have a label, and it SHOULD be the name of the physical object or title of the intellectual work that it embodies. 
    * A Sequence  MAY have a label, and if there are multiple Sequences in a single Manifest then they MUST have labels. The label SHOULD briefly convey the nature of sequence, such as "Current Page Order". 
@@ -146,6 +147,7 @@ The following fields are defined by this specification, broken in to four sectio
    * A Content resource MAY have a label, and if there is a Choice of Content resource for the same Canvas, then they MUST have labels. The label SHOULD be a brief description of the resource, such as "black and white" versus "color photograph"
   * __metadata__<br/>
   A list of short descriptive entries given as pairs of human readable label and value to be displayed by the client to the user. There are no semantics conveyed by this information, and clients should not use it for discovery or other purposes. This pool of descriptive pairs should be able to be displayed in a tabular form in the user interface. Descriptive pairs might be used to convey the author of the work, information about its creation, a brief physical description, or ownership information, amongst other use cases. The client is not expected to take any action on this information beyond displaying the label and value. An example pair of label and value might be a label of "Author" and a value of "Jehan Froissart". The client should display the pairs in the order provided by the description.  Clients SHOULD have a way to display the information about Manifests and Canvases, and MAY have a way to view the information about other resources.
+  
   Recommendations:
    * A Manifest SHOULD have descriptive pairs associated with it describing the object or work.
    * A Sequence MAY have descriptive pairs associated with it to describe the difference between it and other Sequences.
@@ -153,6 +155,7 @@ The following fields are defined by this specification, broken in to four sectio
    * A Content resource MAY have descriptive pairs associated with it.
   * __description__ <br/>
   A longer form prose description of the object, intended to be conveyed to the user as a full text description, rather than a simple label and value. It can duplicate any of the above information, along with additional information required for the understanding of the digitized object, description of the physical object, bibliographic information and so forth. Like with the descriptive pairs in "metadata", clients SHOULD have a way to display the information about Manifests and Canvases, and MAY have a way to view the information about other resources.
+  
   Recommendations:
    * A Manifest SHOULD have a description that describes the object or work.
    * A Sequence MAY have a descriptions to further explain how it differs from other Sequences.
