@@ -955,208 +955,209 @@ URL: _http://www.example.org/iiif/book1/manifest.json_
 | Layer | {scheme}://{host}/{prefix}/{identifier}/layer/{name}.json |
 
 ## B. Summary of Metadata Requirements
-            <ul class="legend">
-              <li>
-                <div class="req mandatory"></div> Mandatory/Required
-              </li>
-              <li>
-                <div class="req recommended"></div> Recommended
-              </li>
-              <li>
-                <div class="req optional"></div> Optional
-              </li>
-              <li>
-                <div class="req not-applicable"></div> Not Applicable
 
-              </li>
-            </ul>
+<ul class="legend">
+<li>
+  <div class="req mandatory"></div> Mandatory/Required
+</li>
+<li>
+  <div class="req recommended"></div> Recommended
+</li>
+<li>
+  <div class="req optional"></div> Optional
+</li>
+<li>
+  <div class="req not-applicable"></div> Not Applicable
 
-            <table class="image-api-table">
-              <tr>
-                <th class="visibility-hidden"></th>
-                <th colspan="3">Descriptive</th>
-                <th colspan="2">Rights</th>
-                <th colspan="7">Technical</th>
-                <th colspan="3">Linking</th>
-              </tr>
-              <tr>
-                <td class="visibility-hidden"></td>
-                <td>label</td>
-                <td>metadata</td>
-                <td>description</td>
-                <td>attributes</td>
-                <td>license</td>
-                <td>@id</td>
-                <td>@type</td>
-                <td>format</td>
-                <td>height</td>
-                <td>width</td>
-                <td>viewDir.</td>
-                <td>viewHint.</td>
-                <td>service</td>
-                <td>seeAlso</td>
-                <td>within</td>
-              </tr>
-              <tr>
-                <td>Manifest</td>
-                <td><div class="req mandatory"></div></td>
-                <td><div class="req optional"></div></td>
-                <td><div class="req recommended"></div></td>
-                <td><div class="req optional"></div></td>
-                <td><div class="req optional"></div></td>
-                <td><div class="req mandatory"></div></td>
-                <td><div class="req mandatory"></div></td>
-                <td><div class="req not-applicable"></div></td>
-                <td><div class="req not-applicable"></div></td>
-                <td><div class="req not-applicable"></div></td>
-                <td><div class="req optional"></div></td>
-                <td><div class="req optional"></div></td>
-                <td><div class="req optional"></div></td>
-                <td><div class="req optional"></div></td>
-                <td><div class="req optional"></div></td>
-              </tr>
-              <tr>
-                <td>Sequence</td>
-                <td><div class="req recommended"></div></td>
-                <td><div class="req optional"></div></td>
-                <td><div class="req optional"></div></td>
-                <td><div class="req optional"></div></td>
-                <td><div class="req optional"></div></td>
-                <td><div class="req recommended"></div></td>
-                <td><div class="req mandatory"></div></td>
-                <td><div class="req not-applicable"></div></td>
-                <td><div class="req not-applicable"></div></td>
-                <td><div class="req not-applicable"></div></td>
-                <td><div class="req optional"></div></td>
-                <td><div class="req optional"></div></td>
-                <td><div class="req optional"></div></td>
-                <td><div class="req optional"></div></td>
-                <td><div class="req optional"></div></td>
-              </tr>
-              <tr>
-                <td>Canvas</td>
-                <td><div class="req mandatory"></div></td>
-                <td><div class="req optional"></div></td>
-                <td><div class="req optional"></div></td>
-                <td><div class="req optional"></div></td>
-                <td><div class="req optional"></div></td>
-                <td><div class="req mandatory"></div></td>
-                <td><div class="req mandatory"></div></td>
-                <td><div class="req not-applicable"></div></td>
-                <td><div class="req mandatory"></div></td>
-                <td><div class="req mandatory"></div></td>
-                <td><div class="req not-applicable"></div></td>
-                <td><div class="req not-applicable"></div></td>
-                <td><div class="req optional"></div></td>
-                <td><div class="req optional"></div></td>
-                <td><div class="req optional"></div></td>
-              </tr>
-              <tr>
-                <td>Annotation</td>
-                <td><div class="req optional"></div></td>
-                <td><div class="req not-applicable"></div></td>
-                <td><div class="req not-applicable"></div></td>
-                <td><div class="req optional"></div></td>
-                <td><div class="req optional"></div></td>
-                <td><div class="req recommended"></div></td>
-                <td><div class="req mandatory"></div></td>
-                <td><div class="req not-applicable"></div></td>
-                <td><div class="req not-applicable"></div></td>
-                <td><div class="req not-applicable"></div></td>
-                <td><div class="req not-applicable"></div></td>
-                <td><div class="req not-applicable"></div></td>
-                <td><div class="req optional"></div></td>
-                <td><div class="req optional"></div></td>
-                <td><div class="req optional"></div></td>
-              </tr>
-              <tr>
-                <td>AnnotationList</td>
-                <td><div class="req optional"></div></td>
-                <td><div class="req not-applicable"></div></td>
-                <td><div class="req not-applicable"></div></td>
-                <td><div class="req optional"></div></td>
-                <td><div class="req optional"></div></td>
-                <td><div class="req mandatory"></div></td>
-                <td><div class="req mandatory"></div></td>
-                <td><div class="req not-applicable"></div></td>
-                <td><div class="req not-applicable"></div></td>
-                <td><div class="req not-applicable"></div></td>
-                <td><div class="req not-applicable"></div></td>
-                <td><div class="req not-applicable"></div></td>
-                <td><div class="req optional"></div></td>
-                <td><div class="req optional"></div></td>
-                <td><div class="req optional"></div></td>
-              </tr>
-              <tr>
-                <td>Range</td>
-                <td><div class="req mandatory"></div></td>
-                <td><div class="req optional"></div></td>
-                <td><div class="req optional"></div></td>
-                <td><div class="req optional"></div></td>
-                <td><div class="req optional"></div></td>
-                <td><div class="req mandatory"></div></td>
-                <td><div class="req mandatory"></div></td>
-                <td><div class="req not-applicable"></div></td>
-                <td><div class="req not-applicable"></div></td>
-                <td><div class="req not-applicable"></div></td>
-                <td><div class="req optional"></div></td>
-                <td><div class="req optional"></div></td>
-                <td><div class="req optional"></div></td>
-                <td><div class="req optional"></div></td>
-                <td><div class="req optional"></div></td>
-              </tr>              <tr>
-                <td>Layer</td>
-                <td><div class="req mandatory"></div></td>
-                <td><div class="req optional"></div></td>
-                <td><div class="req optional"></div></td>
-                <td><div class="req optional"></div></td>
-                <td><div class="req optional"></div></td>
-                <td><div class="req mandatory"></div></td>
-                <td><div class="req mandatory"></div></td>
-                <td><div class="req not-applicable"></div></td>
-                <td><div class="req not-applicable"></div></td>
-                <td><div class="req not-applicable"></div></td>
-                <td><div class="req optional"></div></td>
-                <td><div class="req optional"></div></td>
-                <td><div class="req optional"></div></td>
-                <td><div class="req optional"></div></td>
-                <td><div class="req optional"></div></td>
-              </tr>              <tr>
-                <td>Image Content</td>
-                <td><div class="req optional"></div></td>
-                <td><div class="req not-applicable"></div></td>
-                <td><div class="req not-applicable"></div></td>
-                <td><div class="req optional"></div></td>
-                <td><div class="req optional"></div></td>
-                <td><div class="req mandatory"></div></td>
-                <td><div class="req mandatory"></div></td>
-                <td><div class="req recommended"></div></td>
-                <td><div class="req recommended"></div></td>
-                <td><div class="req recommended"></div></td>
-                <td><div class="req not-applicable"></div></td>
-                <td><div class="req not-applicable"></div></td>
-                <td><div class="req optional"></div></td>
-                <td><div class="req optional"></div></td>
-                <td><div class="req optional"></div></td>
-              </tr>              <tr>
-                <td>Other Content</td>
-                <td><div class="req optional"></div></td>
-                <td><div class="req not-applicable"></div></td>
-                <td><div class="req not-applicable"></div></td>
-                <td><div class="req optional"></div></td>
-                <td><div class="req optional"></div></td>
-                <td><div class="req mandatory"></div></td>
-                <td><div class="req mandatory"></div></td>
-                <td><div class="req recommended"></div></td>
-                <td><div class="req not-applicable"></div></td>
-                <td><div class="req not-applicable"></div></td>
-                <td><div class="req not-applicable"></div></td>
-                <td><div class="req not-applicable"></div></td>
-                <td><div class="req optional"></div></td>
-                <td><div class="req optional"></div></td>
-                <td><div class="req optional"></div></td>
-              </tr>
-            </table>
+</li>
+</ul>
+
+<table class="image-api-table">
+<tr>
+  <th class="visibility-hidden"></th>
+  <th colspan="3">Descriptive</th>
+  <th colspan="2">Rights</th>
+  <th colspan="7">Technical</th>
+  <th colspan="3">Linking</th>
+</tr>
+<tr>
+  <td class="visibility-hidden"></td>
+  <td>label</td>
+  <td>metadata</td>
+  <td>description</td>
+  <td>attributes</td>
+  <td>license</td>
+  <td>@id</td>
+  <td>@type</td>
+  <td>format</td>
+  <td>height</td>
+  <td>width</td>
+  <td>viewDir.</td>
+  <td>viewHint.</td>
+  <td>service</td>
+  <td>seeAlso</td>
+  <td>within</td>
+</tr>
+<tr>
+  <td>Manifest</td>
+  <td><div class="req mandatory"></div></td>
+  <td><div class="req optional"></div></td>
+  <td><div class="req recommended"></div></td>
+  <td><div class="req optional"></div></td>
+  <td><div class="req optional"></div></td>
+  <td><div class="req mandatory"></div></td>
+  <td><div class="req mandatory"></div></td>
+  <td><div class="req not-applicable"></div></td>
+  <td><div class="req not-applicable"></div></td>
+  <td><div class="req not-applicable"></div></td>
+  <td><div class="req optional"></div></td>
+  <td><div class="req optional"></div></td>
+  <td><div class="req optional"></div></td>
+  <td><div class="req optional"></div></td>
+  <td><div class="req optional"></div></td>
+</tr>
+<tr>
+  <td>Sequence</td>
+  <td><div class="req recommended"></div></td>
+  <td><div class="req optional"></div></td>
+  <td><div class="req optional"></div></td>
+  <td><div class="req optional"></div></td>
+  <td><div class="req optional"></div></td>
+  <td><div class="req recommended"></div></td>
+  <td><div class="req mandatory"></div></td>
+  <td><div class="req not-applicable"></div></td>
+  <td><div class="req not-applicable"></div></td>
+  <td><div class="req not-applicable"></div></td>
+  <td><div class="req optional"></div></td>
+  <td><div class="req optional"></div></td>
+  <td><div class="req optional"></div></td>
+  <td><div class="req optional"></div></td>
+  <td><div class="req optional"></div></td>
+</tr>
+<tr>
+  <td>Canvas</td>
+  <td><div class="req mandatory"></div></td>
+  <td><div class="req optional"></div></td>
+  <td><div class="req optional"></div></td>
+  <td><div class="req optional"></div></td>
+  <td><div class="req optional"></div></td>
+  <td><div class="req mandatory"></div></td>
+  <td><div class="req mandatory"></div></td>
+  <td><div class="req not-applicable"></div></td>
+  <td><div class="req mandatory"></div></td>
+  <td><div class="req mandatory"></div></td>
+  <td><div class="req not-applicable"></div></td>
+  <td><div class="req not-applicable"></div></td>
+  <td><div class="req optional"></div></td>
+  <td><div class="req optional"></div></td>
+  <td><div class="req optional"></div></td>
+</tr>
+<tr>
+  <td>Annotation</td>
+  <td><div class="req optional"></div></td>
+  <td><div class="req not-applicable"></div></td>
+  <td><div class="req not-applicable"></div></td>
+  <td><div class="req optional"></div></td>
+  <td><div class="req optional"></div></td>
+  <td><div class="req recommended"></div></td>
+  <td><div class="req mandatory"></div></td>
+  <td><div class="req not-applicable"></div></td>
+  <td><div class="req not-applicable"></div></td>
+  <td><div class="req not-applicable"></div></td>
+  <td><div class="req not-applicable"></div></td>
+  <td><div class="req not-applicable"></div></td>
+  <td><div class="req optional"></div></td>
+  <td><div class="req optional"></div></td>
+  <td><div class="req optional"></div></td>
+</tr>
+<tr>
+  <td>AnnotationList</td>
+  <td><div class="req optional"></div></td>
+  <td><div class="req not-applicable"></div></td>
+  <td><div class="req not-applicable"></div></td>
+  <td><div class="req optional"></div></td>
+  <td><div class="req optional"></div></td>
+  <td><div class="req mandatory"></div></td>
+  <td><div class="req mandatory"></div></td>
+  <td><div class="req not-applicable"></div></td>
+  <td><div class="req not-applicable"></div></td>
+  <td><div class="req not-applicable"></div></td>
+  <td><div class="req not-applicable"></div></td>
+  <td><div class="req not-applicable"></div></td>
+  <td><div class="req optional"></div></td>
+  <td><div class="req optional"></div></td>
+  <td><div class="req optional"></div></td>
+</tr>
+<tr>
+  <td>Range</td>
+  <td><div class="req mandatory"></div></td>
+  <td><div class="req optional"></div></td>
+  <td><div class="req optional"></div></td>
+  <td><div class="req optional"></div></td>
+  <td><div class="req optional"></div></td>
+  <td><div class="req mandatory"></div></td>
+  <td><div class="req mandatory"></div></td>
+  <td><div class="req not-applicable"></div></td>
+  <td><div class="req not-applicable"></div></td>
+  <td><div class="req not-applicable"></div></td>
+  <td><div class="req optional"></div></td>
+  <td><div class="req optional"></div></td>
+  <td><div class="req optional"></div></td>
+  <td><div class="req optional"></div></td>
+  <td><div class="req optional"></div></td>
+</tr>              <tr>
+  <td>Layer</td>
+  <td><div class="req mandatory"></div></td>
+  <td><div class="req optional"></div></td>
+  <td><div class="req optional"></div></td>
+  <td><div class="req optional"></div></td>
+  <td><div class="req optional"></div></td>
+  <td><div class="req mandatory"></div></td>
+  <td><div class="req mandatory"></div></td>
+  <td><div class="req not-applicable"></div></td>
+  <td><div class="req not-applicable"></div></td>
+  <td><div class="req not-applicable"></div></td>
+  <td><div class="req optional"></div></td>
+  <td><div class="req optional"></div></td>
+  <td><div class="req optional"></div></td>
+  <td><div class="req optional"></div></td>
+  <td><div class="req optional"></div></td>
+</tr>              <tr>
+  <td>Image Content</td>
+  <td><div class="req optional"></div></td>
+  <td><div class="req not-applicable"></div></td>
+  <td><div class="req not-applicable"></div></td>
+  <td><div class="req optional"></div></td>
+  <td><div class="req optional"></div></td>
+  <td><div class="req mandatory"></div></td>
+  <td><div class="req mandatory"></div></td>
+  <td><div class="req recommended"></div></td>
+  <td><div class="req recommended"></div></td>
+  <td><div class="req recommended"></div></td>
+  <td><div class="req not-applicable"></div></td>
+  <td><div class="req not-applicable"></div></td>
+  <td><div class="req optional"></div></td>
+  <td><div class="req optional"></div></td>
+  <td><div class="req optional"></div></td>
+</tr>              <tr>
+  <td>Other Content</td>
+  <td><div class="req optional"></div></td>
+  <td><div class="req not-applicable"></div></td>
+  <td><div class="req not-applicable"></div></td>
+  <td><div class="req optional"></div></td>
+  <td><div class="req optional"></div></td>
+  <td><div class="req mandatory"></div></td>
+  <td><div class="req mandatory"></div></td>
+  <td><div class="req recommended"></div></td>
+  <td><div class="req not-applicable"></div></td>
+  <td><div class="req not-applicable"></div></td>
+  <td><div class="req not-applicable"></div></td>
+  <td><div class="req not-applicable"></div></td>
+  <td><div class="req optional"></div></td>
+  <td><div class="req optional"></div></td>
+  <td><div class="req optional"></div></td>
+</tr>
+</table>
 
 
    [1]: http://iiif.io#introduction
