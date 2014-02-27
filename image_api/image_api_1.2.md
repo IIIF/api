@@ -28,7 +28,7 @@ Please send feedback to [iiif-discuss@googlegroups.com][1]
 
 ## Table of Contents
 
-  1. [Audience](#Audience)
+  1. [Audience](#audience)
   2. [URL Syntax][3]
     1. [Image Request URL Syntax][4]
     2. [Image Information Request URL Syntax][5]

@@ -143,7 +143,7 @@ In addition to the error conditions discussed in [Section 6.2][] of the image AP
 | 403 Forbidden                | See [Section 5][5]. |
 | 404 Not Found                | For GETs and DELETES when the URI does not resolve to an image. |
 | 405 Method Not Allowed       | See [Section 5][5]. |
-| 413 Request Entity Too Large | Use for instances when the size of the image in a POST or PUT request is larger than the server will accept, if such a limit exists |
+| 413 Request Entity Too Large | Use for instances when the size of the image in a POST or PUT request is larger than the server will accept, if such a limit exists. |
 | 415 Unsupported Media Type   | The declared Content-Type is not one that the server supports, or the server can not extract technical metadata from the entity of the request based on the declared Content-Type |
 | 501 Not Implemented          | The server does not support the request method |
 | 503 Service Unavailable      | The server can not handle the request for some other reason. For example, it may be out of storge space |
