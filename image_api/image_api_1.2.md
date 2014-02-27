@@ -69,12 +69,12 @@ This document is intended for developers building applications that share digita
 
 ##  2. URL Syntax
 
-The IIIF Image API can be called in three forms: 
+The IIIF Image API can be called in three ways: 
  * Request an image, which may be part of a larger image 
  * Request a description of the available features of the image
  * Request the capabilities supported by the image server
 
-All of the forms convey the request's information in the path segments of the URI, rather than as query parameters. This makes responses easier to cache, either at the server or by standard web-caching infrastructure. It also permits a minimal implementation using pre-computed files in a matching directory structure.
+All three convey the request's information in the path segments of the URI, rather than as query parameters. This makes responses easier to cache, either at the server or by standard web-caching infrastructure. It also permits a minimal implementation using pre-computed files in a matching directory structure.
 
 There are four parameters shared by the requests, and other IIIF specifications:
 
@@ -369,8 +369,8 @@ A server may declare the set of features that it implements in a capabilities do
       "ext:myFeature" : {"@type" : "xsd:boolean"}
     }
   ],
-  "@id" : "http://iiif.example.com/server/capabilities.json",
-  "contact" : "mailto:admin@iiif.example.com",
+  "@id" : "http://www.example.org/image-service/capabilities.json",
+  "contact" : "mailto:admin@example.org",
   "content_negotiation" : "true",
   "default_format" : "jpg",
   "region_by_pct" : "true",
