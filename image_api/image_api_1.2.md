@@ -144,7 +144,7 @@ All parameters described below are required for compliant construction of a IIIF
 
 The region parameter defines the rectangular portion of the source image to be returned. Region can be specified by pixel coordinates, percentage or by the value “full”, which specifies that the entire region of the source image should be returned.
 
-| Form of Region Parameter |  Description |
+| Form |  Description |
 | ------------------------ | ------------ |
 | full                     | The complete image is returned, without any cropping. |
 | x,y,w,h                  | The region of the source image to be returned is defined in terms of absolute pixel values. The value of x represents the number of pixels from the 0 position on the horizontal axis. The value of y represents the number of pixels from the 0 position on the vertical axis. Thus the x,y position 0,0 is the upper left-most pixel of the image. w represents the width of the region and h represents the height of the region in pixels.  |
@@ -156,8 +156,8 @@ If the requested region's height or width is zero, or if the region is entirely 
 
 Examples:
 
-  1. http://www.example.org/image-service/abcd1234/full/full/0/native.jpg
-  2. http://www.example.org/image-service/abcd1234/80,15,60,75/full/0/native.jpg
+  1. `http://www.example.org/image-service/abcd1234/full/full/0/native.jpg`
+  2. `http://www.example.org/image-service/abcd1234/80,15,60,75/full/0/native.jpg`
   3. http://www.example.org/image-service/abcd1234/80,15,125,200/full/0/native.jpg
   4. http://www.example.org/image-service/abcd1234/pct:10,10,80,70/full/0/native.jpg
   5. http://www.example.org/image-service/abcd1234/pct:20,20,100,100/full/0/native.jpg
@@ -166,7 +166,7 @@ Examples:
 
 The size parameter determines the dimensions to which the extracted region is to be scaled.
 
-| Form of Region | Parameter Description |
+| Form | Description |
 |----------------|-----------------------|
 | full           | The extracted region is not scaled, and is returned at its full size. |
 | w,             | The extracted region should be scaled so that its width is exactly equal to w, and the height will be a calculated value that maintains the aspect ratio of the requested region. |
