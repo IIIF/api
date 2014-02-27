@@ -224,7 +224,7 @@ The following fields are defined by this specification, broken in to four sectio
     * A Canvas or Content Resource MUST NOT have a viewing direction.
     * A Range MAY have a viewing direction, 
 
-  * __viewingHint__
+  * __viewingHint__<br/>
     A hint to the viewer as to the most appropriate method of displaying the object. Any value may be given, and this specification defines the following:
      * "individuals": The canvases are all individual sheets, and should not be presented in a specifically page turning interface. For example a sequence of letters or photographs.
      * "paged": The canvases represent pages in a bound volume, and should be presented in a page turning interface.
@@ -239,22 +239,21 @@ The following fields are defined by this specification, broken in to four sectio
 #### 4.4. Linking Fields
 
   * __related__<br/>
-    A link to an external resource that is related to the current resource and intended for rendering to the user, such as a video or academic paper about a manuscript, a link to the website of the newspaper, a description of the photograph, and so forth. A label and the format of the target resource should be given if possible to assist clients in rendering the resource.
+    A link to an external resource that is related to the current resource and intended for rendering to the user, such as a video or academic paper about a manuscript, a link to the website of the newspaper, a description of the photograph, and so forth. A label and the format of the target resource should be given if possible to assist clients in rendering the resource.  This field MAY be used for any resource.
   * __service__<br/>
-    A link to a service that makes more functionality available for the resource, such as from an image to the base URI of an [IIIF Image API service][26]. The service resource should have additional information associated with it in order to allow the client to determine how to make appropriate use of it, such as a "profile" link to a service description or information duplicated from the IIIF Image API Information Request
+    A link to a service that makes more functionality available for the resource, such as from an image to the base URI of an [IIIF Image API service][26]. The service resource should have additional information associated with it in order to allow the client to determine how to make appropriate use of it, such as a "profile" link to a service description or information duplicated from the IIIF Image API Information Request. This field MAY be used for any resource.
   * __seeAlso__<br/>
-    A link to a document that describes the resource in a machine readable way. This could be an XML or RDF record, such as in EAD, Dublin Core or Bibo schemas. The "profile" and "format" information should be given if possible.
+    A link to a document that describes the resource in a machine readable way. This could be an XML or RDF record, such as in EAD, Dublin Core or Bibo schemas. The "profile" and "format" information should be given if possible. This field MAY be used for any resource.
   * __within__<br/>
-    A link to a resource that contains the current resource, such as a collection of Manifests. This would allow linking upwards to collections that allow browsing of the digitized objects available, but is not within the scope of the current document.
+    A link to a resource that contains the current resource, such as a collection of Manifests. This would allow linking upwards to collections that allow browsing of the digitized objects available, but is not within the scope of the current document. This field MAY be used for any resource.
 
-Links are optional for all resources. They may also have type and format associated with them.
 
 These metadata fields and requirements are depicted in the diagram below.
 
 ![][27]
 Figure 2. Metadata Fields
 
-Other metadata fields are possible, either custom extensions or endorsed by the IIIF. If a client discovers fields that it does not understand, then it must ignore them.
+Other metadata fields are possible, either custom extensions or endorsed by the IIIF. If a client discovers fields that it does not understand, then it MUST ignore them.
 
 ##  5. Requests and Responses
 
