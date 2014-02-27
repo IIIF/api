@@ -121,7 +121,7 @@ For each image made available, the server, prefix and identifier components of t
 
 ### 2.3. Capabilities Request URL Syntax
 
-The IIIF Image API URL for requesting the set of features that the server supports SHOULD conform to the following URI Template:
+IIIF Image API implementations MAY support requests for a description of capabilities. The IIIF Image API URL for requesting the set of capabilities that the server supports SHOULD conform to the following syntax:
 ```
 {scheme}://{server}{/prefix}/capabilities.json
 ```
@@ -311,7 +311,7 @@ The response will return the following information
 | formats | Optional | The list of image format parameter values available for the image. |
 | qualities | Optional | The list of image quality parameter values available for the image. |
 | profile | Optional | URI indicating the compliance level supported. Values as described in [Section 8. Compliance Levels][19] |
-| capabilities | Optional | URI for a capabilities document the describes the features supported. See section 5.2 for more information about this document |
+| capabilities | Optional | URI for a capabilities document the describes the capabilities supported. See section 5.2 for more information about this document |
 
 
 The JSON response should conform to the format shown in the following example:
@@ -338,7 +338,7 @@ The @context property is included to make the JSON document also a valid JSON-LD
 
 ### 5.2. Capabilities Request
 
-A server may declare the set of features that it implements in a capabilities document, which is linked to from the JSON response described in Section 5.1, in greater detail than is possible using the enumerated compliance levels in the profile property.
+A server may declare the set of capabilities that it implements in a capabilities document, which is linked to from the JSON response described in Section 5.1, in greater detail than is possible using the enumerated compliance levels in the profile property.
 
 | Property | Required? | Description |
 | -------- | --------- | ----------- |
