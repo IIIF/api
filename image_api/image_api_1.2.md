@@ -446,7 +446,7 @@ Additionally, if identifiers include any characters outside the US-ASCII set the
 | identifier=id1 region=full size=full rotation=0 quality=native | id1/full/full/0/native |
 | identifier=id1 region=0,10,100,200 size=pct:50 rotation=90 quality=native format=png | id1/0,10,100,200/pct:50/90/native.png |
 | identifier=id1 region=pct:10,10,80,80 size=50, rotation=22.5 quality=color format=jpg | id1/pct:10,10,80,80/50,/22.5/color.jpg |
-| identifier=bb157hs6068 region=full size=full rotation=270 quality=grey format=jpg bb157hs6068/full/full/270/grey.jpg |
+| identifier=bb157hs6068 region=full size=full rotation=270 quality=grey format=jpg | bb157hs6068/full/full/270/grey.jpg |
 | identifier=ark:/12025/654xz321 region=full size=full rotation=0 quality=native | ark:%2F12025%2F654xz321/full/full/0/native |
 | identifier=urn:foo:a123,456 region=full size=full rotation=0 quality=native | urn:foo:a123,456/full/full/0/native |
 | identifier=urn:sici:1046-8188(199501)13:1%3C69:FTTHBI%3E2.0.TX;2-4 region=full size=full rotation=0 quality=native | urn:sici:1046-8188(199501)13:1%253C69:FTTHBI%253E2.0.TX;2-4/full/full/0/native |
