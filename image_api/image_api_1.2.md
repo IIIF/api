@@ -158,9 +158,9 @@ Examples:
 
   1. `http://www.example.org/image-service/abcd1234/full/full/0/native.jpg`
   2. `http://www.example.org/image-service/abcd1234/80,15,60,75/full/0/native.jpg`
-  3. http://www.example.org/image-service/abcd1234/80,15,125,200/full/0/native.jpg
-  4. http://www.example.org/image-service/abcd1234/pct:10,10,80,70/full/0/native.jpg
-  5. http://www.example.org/image-service/abcd1234/pct:20,20,100,100/full/0/native.jpg
+  3. `http://www.example.org/image-service/abcd1234/80,15,125,200/full/0/native.jpg`
+  4. `http://www.example.org/image-service/abcd1234/pct:10,10,80,70/full/0/native.jpg`
+  5. `http://www.example.org/image-service/abcd1234/pct:20,20,100,100/full/0/native.jpg`
 
 ###  4.2. Size
 
@@ -181,24 +181,28 @@ The image server MAY support scaling beyond the full size of the extracted regio
 
 Examples:
 
-  1. http://www.example.org/image-service/abcd1234/full/full/0/native.jpg
-  2. http://www.example.org/image-service/abcd1234/full/100,/0/native.jpg
-  3. http://www.example.org/image-service/abcd1234/full/,100/0/native.jpg
-  4. http://www.example.org/image-service/abcd1234/full/pct:50/0/native.jpg
-  5. http://www.example.org/image-service/abcd1234/full/150,75/0/native.jpg
-  6. http://www.example.org/image-service/abcd1234/full/!150,75/0/native.jpg
+  1. `http://www.example.org/image-service/abcd1234/full/full/0/native.jpg`
+  2. `http://www.example.org/image-service/abcd1234/full/100,/0/native.jpg`
+  3. `http://www.example.org/image-service/abcd1234/full/,100/0/native.jpg`
+  4. `http://www.example.org/image-service/abcd1234/full/pct:50/0/native.jpg`
+  5. `http://www.example.org/image-service/abcd1234/full/150,75/0/native.jpg`
+  6. `http://www.example.org/image-service/abcd1234/full/!150,75/0/native.jpg`
 
 ###  4.3. Rotation
 
 The rotation value represents the number of degrees of clockwise rotation from the original, and may be any floating point number from 0 to 360. Initially most services will only support 0, 90, 180 or 270 as valid values.
 
+| Form | Description |
+| ---- | ----------- |
+| n    | The degrees of clockwise rotation from the original, from 0 up to 360. |
+
 Examples:
 
-  1. http://www.example.org/image-service/abcd1234/full/full/0/native.jpg
-  2. http://www.example.org/image-service/abcd1234/full/full/90/native.jpg
-  3. http://www.example.org/image-service/abcd1234/full/full/180/native.jpg
-  4. http://www.example.org/image-service/abcd1234/full/full/270/native.jpg
-  5. http://www.example.org/image-service/abcd1234/full/full/22.5/native.jpg
+  1. `http://www.example.org/image-service/abcd1234/full/full/0/native.jpg`
+  2. `http://www.example.org/image-service/abcd1234/full/full/90/native.jpg`
+  3. `http://www.example.org/image-service/abcd1234/full/full/180/native.jpg`
+  4. `http://www.example.org/image-service/abcd1234/full/full/270/native.jpg`
+  5. `http://www.example.org/image-service/abcd1234/full/full/22.5/native.jpg`
 
 In most cases a rotation will change the width and height dimensions of the returned image file. The service SHOULD return an image file that contains all of the image contents requested in the region and size parameters, even if the dimensions of the returned image file are different than specified in the size parameter. The image contents SHOULD NOT be scaled as a result of the rotation, and there SHOULD be no additional space between the corners of the rotated image contents and the bounding box of the returned image file.
 
@@ -217,10 +221,10 @@ The quality parameter determines the bit-depth of the delivered image. The quali
 
 Examples:
 
-  1. http://www.example.org/image-service/abcd1234/full/600,/0/native.jpg
-  2. http://www.example.org/image-service/abcd1234/full/600,/0/color.jpg
-  3. http://www.example.org/image-service/abcd1234/full/600,/0/grey.jpg
-  4. http://www.example.org/image-service/abcd1234/full/600,/0/bitonal.jpg
+  1. `http://www.example.org/image-service/abcd1234/full/600,/0/native.jpg`
+  2. `http://www.example.org/image-service/abcd1234/full/600,/0/color.jpg`
+  3. `http://www.example.org/image-service/abcd1234/full/600,/0/grey.jpg`
+  4. `http://www.example.org/image-service/abcd1234/full/600,/0/bitonal.jpg`
 
 ###  4.5. Format
 
@@ -235,9 +239,9 @@ The format of the returned image is optionally expressed as an extension at the 
 | jp2 | image/jp2 |
 | pdf | application/pdf |
 
-  1. http://www.example.org/image-service/abcd1234/full/600,/0/native.jpg
-  2. http://www.example.org/image-service/abcd1234/full/600,/0/native.png
-  3. http://www.example.org/image-service/abcd1234/full/600,/0/native.tif
+  1. `http://www.example.org/image-service/abcd1234/full/600,/0/native.jpg`
+  2. `http://www.example.org/image-service/abcd1234/full/600,/0/native.png`
+  3. `http://www.example.org/image-service/abcd1234/full/600,/0/native.tif`
 
 If the format is not specified in the URI, then the server SHOULD use the HTTP Accept header to determine the client’s preferences for the format. The server may either do 200 (return the representation in the response) or 30x (redirect to the correct URI with a format extension) style content negotiation. If neither are given, then the server should use a default format of its own choosing. 
 
@@ -260,10 +264,10 @@ In order to support the above requirements, clients should construct the image r
 
 | Parameter | Canonical value |
 | --------- | --------------- |
-| region    | `full` if the whole image is requested, otherwise the x,y,w,h description of the region. |
-| size      | `full` if the native size is requested, otherwise the pixel dimensions w,h. |
+| region    | "full" if the whole image is requested, otherwise the x,y,w,h description of the region. |
+| size      | "full" if the native size is requested, otherwise the pixel dimensions w,h. |
 | rotation  | An integer if possible, and trimming any trailing zeros in a decimal value. |
-| quality   | `native` unless a quality that is different from the native quality is requested. |
+| quality   | "native" unless a quality that is different from the native quality is requested. |
 | format    | Explicit format string required |
 
 When the client requests an image, the server MAY add a link header that indicates the canonical URI for that request:
@@ -276,10 +280,9 @@ Link: <http://iiif.example.com/server/full/full/0/native.jpg>;rel="canonical"
 
 ### 5.1. Image Information Request
 
-The service MUST return technical information about the requested image in [JSON-LD][37]. The request for technical information MUST conform to the URI structure:
-
+The service MUST return technical information about the requested image in [JSON-LD][37]. The request for technical information MUST conform to the URI Template:
 ```
-http[s]://server/[prefix/]identifier/info.json
+{scheme}://{server}{/prefix}/{identifier}/info.json
 ```
 
 The content-type of the response MUST be either "application/json" (regular JSON), or "application/ld+json" (JSON-LD).  If the client explicitly wants the JSON-LD content-type, then it must specify this in an Accept header, otherwise the server must return the regular JSON content-type.
@@ -308,7 +311,7 @@ The response will return the following information
 | formats | Optional | The list of image format parameter values available for the image. |
 | qualities | Optional | The list of image quality parameter values available for the image. |
 | profile | Optional | URI indicating the compliance level supported. Values as described in [Section 8. Compliance Levels][19] |
-| features | Optional | URI for a capabilities document the describes the features supported. See section 5.2 for more information about this document |
+| capabilities | Optional | URI for a capabilities document the describes the features supported. See section 5.2 for more information about this document |
 
 
 The JSON response should conform to the format shown in the following example:
@@ -327,7 +330,7 @@ The JSON response should conform to the format shown in the following example:
   "formats" : [ "jpg", "png" ], 
   "qualities" : [ "native", "grey" ], 
   "profile" : "http://iiif.io/api/image/1.2/profiles/level1.json",
-  "features" : "http://iiif.example.com/prefix/capabilities.json"
+  "capabilities" : "http://iiif.example.com/prefix/capabilities.json"
 }
 ```
 
@@ -424,7 +427,7 @@ WWW-Authenticate: Basic realm="Images"
 A service should specify on all responses the extent to which the API is supported. This is done by including an HTTP Link header ([RFC5988][31]) entry pointing to the description of the highest level of conformance of which ALL of the requirements are met. The “rel” type to be used is “profile”, and thus a complete header might look like:
 
 ```
-Link: <http://iiif.io/api/image/compliance.html#level0>;rel="profile"
+Link: <http://iiif.io/api/image/1.2/profiles/level1.json>;rel="profile"
 ```
 
 An image server MAY declare different compliance levels for different images. If the compliance level is not indicated, then a client should assume level 0 compliance only. For detailed compliance definitions see .
