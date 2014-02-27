@@ -33,7 +33,7 @@ Please send feedback to [iiif-discuss@googlegroups.com][1]
   2. [URL Syntax][3]
     1. [Image Request URL Syntax][4]
     2. [Image Information Request URL Syntax][5]
-    3. [Capabilities Request URL Syntax][39]
+    3. [Capabilities Request URL Syntax][40]
   3. [Identifier][6]
   4. [Parameters][7]
     1. [Region][8]
@@ -43,6 +43,8 @@ Please send feedback to [iiif-discuss@googlegroups.com][1]
     5. [Format][12]
     6. [Order of Implementation][13]
   5. [Image Information Request][14]
+    1. Image Information Request
+    2. Capabilities Request
   6. [Server Responses][15]
     1. [Successful Responses][16]
     2. [Error Conditions][17]
@@ -69,7 +71,7 @@ This document is intended for developers building applications that share digita
 
 The IIIF Image API can be called in three forms: 
  * Request an image, which may be part of a larger image 
- * Request technical information about the full image
+ * Request a description of the available features of the image
  * Request the capabilities supported by the image server
 
 All of the forms convey the request's information in the path segments of the URI, rather than as query parameters. This makes responses easier to cache, either at the server or by standard web-caching infrastructure. It also permits a minimal implementation using pre-computed files in a matching directory structure.
@@ -93,22 +95,11 @@ To allow for extension, this specification does not define the behaviour of an i
 
 ###  2.1. Image Request URL Syntax
 
-The IIIF Image API URL for requesting an image MUST conform to the following format:
-
-```
-http[s]://server/[prefix/]identifier/region/size/rotation/quality[.format]
-```
-
-where [] delimits components which are optional.
-
-The URI Template form is:
-
+The IIIF Image API URL for requesting an image MUST conform to the following URI Template:
 ```
 {scheme}://{server}{/prefix}/{identifier}/{region}/{size}/{rotation}/{quality}{.format}
 ```
-
 For example:
-
 ```
 http://www.example.org/image-service/abcd1234/full/full/0/native.jpg
 ```
@@ -117,16 +108,7 @@ The sections of the Image Request URL include region, size, rotation, quality an
 
 ###  2.2. Image Information Request URL Syntax
 
-The IIIF Image API URL for requesting image information MUST conform to the following syntax:
-```
-http[s]://server/[prefix/]identifier/info.json
-```
-
-where "info.json" is a literal string.
-
-For each image made available, the server, prefix and identifier components of the information request must be identical to those for the image request described above.
-
-The URI Template form is:
+The IIIF Image API URL for requesting image information MUST conform to the following URI Template:
 ```
 {scheme}://{server}{/prefix}/{identifier}/info.json
 ```
@@ -135,21 +117,11 @@ For example:
 http://www.example.org/image-service/abcd1234/info.json
 ```
 
-It is recommended that if the image’s base URI is dereferenced, then the client should either redirect to the information request using a 303 status code (see [Section 6.1][27]), or return the same result. See [Section 5.1 - Image Information Request][14] for more information.
+For each image made available, the server, prefix and identifier components of the information request must be identical to those for the image request described above.  It is recommended that if the image’s base URI is dereferenced, then the client should either redirect to the information request using a 303 status code (see [Section 6.1][27]), or return the same result. See [Section 5.1 - Image Information Request][14] for more information.
 
 ### 2.3. Capabilities Request URL Syntax
 
-The IIIF Image API URL for requesting the set of features that the server supports SHOULD conform to the following syntax:
-
-```
-http[s]://server/[prefix/]capabilities.json
-```
-
-where "capabilities.json" is a literal string.
-
-Each image information response (info.json) SHOULD link to the capabilities document if it is available.  Clients SHOULD NOT assume the existence of the capabilities document if it is not linked, and instead use the profile document if present in the image information response.  See [Section 5.2 - Capabilities Request][] for more information.
-
-The URI Template form is:
+The IIIF Image API URL for requesting the set of features that the server supports SHOULD conform to the following URI Template:
 ```
 {scheme}://{server}{/prefix}/capabilities.json
 ```
@@ -158,6 +130,7 @@ For example:
 http://www.example.org/image-service/capabilities.json
 ```
 
+Each image information response (info.json) SHOULD link to the capabilities document if it is available.  Clients SHOULD NOT assume the existence of the capabilities document if it is not linked, and instead use the profile document if present in the image information response.  See [Section 5.2 - Capabilities Request][] for more information.
 
 ##  3. Identifier
 
@@ -563,4 +536,6 @@ Many thanks to Matthieu Bonicel, Kevin Clarke, Mark Patton, Lynn McRae, Willy Me
    [37]: http://www.w3.org/TR/json-ld/
    [38]: http://www.w3.org/TR/json-ld/#interpreting-json-as-json-ld# NOTE: THIS IS A WORKING DRAFT. For the latest public release, see [http://iiif.io/api/image/1.1/][36]
    [39]: http://iiif.io#capabilities-request
+   [40]: http://iiif.io#url-syntax-capabilities-request
+
 
