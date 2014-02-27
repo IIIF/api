@@ -433,13 +433,15 @@ The compliance profile URI given in the Link header (between &lt; and &gt;) may 
 
 The URL syntax of this API relies upon slash (/) separators which MUST NOT be encoded. Clients MUST percent-encode special characters (the to-encode set below: percent and gen-delims of [RFC3986][32] except the colon) within the components of requests. For example, any slashes within the identifier part of the URL MUST be percent-encoded. Encoding is necessary only for the identifier because other components will not include special characters.
 
+```
 to-encode = "/" / "?" / "#" / "[" / "]" / "@" / "%"
+```
 
 Upon receiving an API request, a server MUST first split the URL path on slashes and then decode any percent-encoded characters in each component.
 
 Additionally, if identifiers include any characters outside the US-ASCII set then the encoding to octets must be defined consistently on client and server, and the octets MUST be percent-encoded. Percent-encoding other characters introduces no ambiguity but is unnecessary.
 
-| Parameters | URL path (without leading base_uri plus “/”) |
+| Parameters | URL path |
 | identifier=id1 region=full size=full rotation=0 quality=native | id1/full/full/0/native |
 | identifier=id1 region=0,10,100,200 size=pct:50 rotation=90 quality=native format=png | id1/0,10,100,200/pct:50/90/native.png |
 | identifier=id1 region=pct:10,10,80,80 size=50, rotation=22.5 quality=color format=jpg | id1/pct:10,10,80,80/50,/22.5/color.jpg |
