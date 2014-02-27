@@ -66,9 +66,14 @@ This document is intended for developers building applications that share digita
 
 ##  2. URL Syntax
 
-The IIIF Image API can be called in two forms: one to request an image, and a second to request techincal information about the image. Both forms convey the request's information in the path segments of the URI, rather than as query parameters. This makes responses more easily able to be cached, either at the server or by standard web-caching infrastructure. It also permits a minimal implementation using pre-computed files in a matching directory structure.
+The IIIF Image API can be called in three forms: 
+ * Request an image, which may be part of a larger image 
+ * Request techincal information about the full image
+ * Request the features supported by the image server
 
-There are four parameters shared by the two requests, and other IIIF specifications:
+All of the forms convey the request's information in the path segments of the URI, rather than as query parameters. This makes responses easier to cache, either at the server or by standard web-caching infrastructure. It also permits a minimal implementation using pre-computed files in a matching directory structure.
+
+There are four parameters shared by the requests, and other IIIF specifications:
 
 | scheme | Indicates the use of the http or https protocol in calling the service. 
 | server | The host server on which the service resides. |
@@ -110,7 +115,6 @@ The sections of the Image Request URL include region, size, rotation, quality an
 ###  2.2. Image Information Request URL Syntax
 
 The IIIF Image API URL for requesting image information MUST conform to the following syntax:
-
 ```
 http[s]://server/[prefix/]identifier/info.json
 ```
@@ -129,6 +133,28 @@ http://www.example.org/image-service/abcd1234/info.json
 ```
 
 It is recommended that if the image’s base URI is dereferenced, then the client should either redirect to the information request using a 303 status code (see [Section 6.1][27]), or return the same result. See [Section 5 - Image Information Request][14] for more information.
+
+### 2.3. Server Feature Request URL Syntax
+
+The IIIF Image API URL for requesting the set of features that the server supports SHOULD conform to the following syntax:
+
+```
+http[s]://server/[prefix/]features.json
+```
+
+where "features.json" is a literal string.
+
+Each image information response (info.json) SHOULD link to the features document if it is available.  Clients SHOULD NOT assume the existence of the features description if it is not linked, and instead use the profile document if present in the image information response.
+
+The URI Template form is:
+```
+{scheme}://{server}{/prefix}/features.json
+```
+For example:
+```
+http://www.example.org/image-service/features.json
+```
+
 
 ##  3. Identifier
 
