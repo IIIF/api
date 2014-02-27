@@ -160,32 +160,44 @@ Rights metadata is optional for all resources.
 
 #### Technical Metadata
 
-  * id: The URI that identifies the resource. Recommended, but not mandatory, URI patterns are presented below.
-  * type: The type of the resource, either Manifest/Sequence/Canvas or drawn from a list of igh level content types such as Image, Text or Audio.
-  * format: The more specific media type (often called a MIME type) of a Content resource, for example "image/jpeg". This is important for distinguishing, for example, text in XML from plain text.
-  * height: The height of a Canvas or Image resource. For images, this is in pixels. No particular units are required for Canvases, as the dimensions provide an aspect ratio for the resources to be located within rather than measuring any physical property of the object.
-  * width: The width of a Canvas or Image resource. For images, this is in pixels. No particular units are required for Canvases.
-  * viewingDirection: The direction that Canvases should be presented in a viewer for the object. This field is valid for a Manifest (and would apply to all Sequences and Ranges), a Sequence or a Range, and must be ne of the following, case-sensitive strings: "left-to-right", "right-to-left", "top-to-bottom", "bottom-to-top"
-  * viewingHint: A hint to the viewer as to the most appropriate method of displaying the object. It is valid on the Manifest, Sequence of Range as per viewingDirection. This field can be any string, however the following are defined:
+  * __id__<br/>
+    The URI that identifies the resource. Recommended, but not mandatory, URI patterns are presented below.
+  * __type__<br/>
+    The type of the resource, either Manifest/Sequence/Canvas or drawn from a list of igh level content types such as Image, Text or Audio.
+  * __format__<br/>
+    The more specific media type (often called a MIME type) of a Content resource, for example "image/jpeg". This is important for distinguishing, for example, text in XML from plain text.
+  * __height__<br/>
+    The height of a Canvas or Image resource. For images, this is in pixels. No particular units are required for Canvases, as the dimensions provide an aspect ratio for the resources to be located within rather than measuring any physical property of the object.
+  * __width__<br/>
+    The width of a Canvas or Image resource. For images, this is in pixels. No particular units are required for Canvases.
+  * __viewingDirection__<br/>
+   The direction that Canvases should be presented in a viewer for the object. This field is valid for a Manifest (and would apply to all Sequences and Ranges), a Sequence or a Range, and must be ne of the following, case-sensitive strings: "left-to-right", "right-to-left", "top-to-bottom", "bottom-to-top"
+  * __viewingHint__
+    A hint to the viewer as to the most appropriate method of displaying the object. It is valid on the Manifest, Sequence of Range as per viewingDirection. This field can be any string, however the following are defined:
     * "individuals": The canvases are all individual sheets, and should not be presented in a specifically page turning interface. For example a sequence of letters or photographs.
     * "paged": The canvases represent pages in a bound volume, and should be presented in a page turning interface.
     * "continuous": The canvases each represent a complete side of a long scroll or roll and an appropriate rendering might only display part of the canvas at any given time rather than the entire object.
+    * "non-paged": Only valid on a Canvas, where the Manifest or Sequence have viewingHint of "paged".  Canvases with this hint must not be presented in a page turning interface.
   * Additional image information may be provided, as described in the [IIIF Image API][26].
 
 The id and type are required for all primary resources. Height and width are required for Canvases and strongly recommended for image based content resources. Format is strongly recommended for all content resources. ViewingDirection and ViewingHint are only applicable to Sequences, and if not present then "Left-to-Right" and "paged" should be assumed.
 
 #### Links to Other Resources
 
-  * related: A link to an external resource that is related to the current resource and intended for rendering to the user, such as a video or academic paper about a manuscript, a link to the website of the newspaper, a description of the photograph, and so forth. A label and the format of the target resource should be given if possible to assist clients in rendering the resource.
-  * service: A link to a service that makes more functionality available for the resource, such as from an image to the base URI of an [IIIF Image API service][26]. The service resource should have additional information associated with it in order to allow the client to determine how to make appropriate use of it, such as a "profile" link to a service description or information duplicated from the IIIF Image API Information Request
-  * seeAlso: A link to a document that describes the resource in a machine readable way. This could be an XML or RDF record, such as in EAD, Dublin Core or Bibo schemas. The "profile" and "format" information should be given if possible.
-  * within: A link to a resource that contains the current resource, such as a collection of Manifests. This would allow linking upwards to collections that allow browsing of the digitized objects available, but is not within the scope of the current document.
+  * __related__<br/>
+    A link to an external resource that is related to the current resource and intended for rendering to the user, such as a video or academic paper about a manuscript, a link to the website of the newspaper, a description of the photograph, and so forth. A label and the format of the target resource should be given if possible to assist clients in rendering the resource.
+  * __service__<br/>
+    A link to a service that makes more functionality available for the resource, such as from an image to the base URI of an [IIIF Image API service][26]. The service resource should have additional information associated with it in order to allow the client to determine how to make appropriate use of it, such as a "profile" link to a service description or information duplicated from the IIIF Image API Information Request
+  * __seeAlso__<br/>
+    A link to a document that describes the resource in a machine readable way. This could be an XML or RDF record, such as in EAD, Dublin Core or Bibo schemas. The "profile" and "format" information should be given if possible.
+  * __within__<br/>
+    A link to a resource that contains the current resource, such as a collection of Manifests. This would allow linking upwards to collections that allow browsing of the digitized objects available, but is not within the scope of the current document.
 
 Links are optional for all resources. They may also have type and format associated with them.
 
 These metadata fields and requirements are depicted in the diagram below.
 
-![][27 =400x400]
+![][27]
 Figure 2. Metadata Fields
 
 Other metadata fields are possible, either custom extensions or endorsed by the IIIF. If a client discovers fields that it does not understand, then it must ignore them.
@@ -315,7 +327,7 @@ The example below includes only the Manifest level information, however it shoul
 }
 ```
 
-###  5.2. Sequence ![][23]
+###  5.2. Sequence 
 
 Recommended URI pattern:
 
@@ -329,13 +341,53 @@ Sequences may have their own descriptive, rights and linking metadata using the 
 
 In the Manifest example above, the sequence is referenced by its URI and contains only the basic information of label, type and id. The default sequence should be written out in full within the Manifest file, as below.
 
-{ // Metadata about this Sequence "@context":"http://www.shared-canvas.org/ns/context.json", "@id":"http://www.example.org/iiif/book1/sequence/normal.json", "@type":"sc:Sequence", "label":"Current Page Order", "viewingDirection":"left-to-right", "viewingHint":"paged", // The order of the Canvases "canvases": [ { "@id":"http://www.example.org/iiif/book1/canvas/p1.json", "@type":"sc:Canvas", "label":"p. 1", "height":1000, "width":750, "images": [ // Links to the Content resources go here ... ] }, { "@id":"http://www.example.org/iiif/book1/canvas/p2.json", "@type":"sc:Canvas", "label":"p. 2", "height":1000, "width":750 }, { "@id":"http://www.example.org/iiif/book1/canvas/p3.json", "@type":"sc:Canvas", "label":"p. 3", "height":1000, "width":750 } ] }
+```javascript
+{
+  // Metadata about this Sequence
+  "@context":"http://www.shared-canvas.org/ns/context.json",
+  "@id":"http://www.example.org/iiif/book1/sequence/normal.json",
+  "@type":"sc:Sequence",
+  "label":"Current Page Order",
 
-###  5.3. Canvas ![][23]
+  "viewingDirection":"left-to-right",
+  "viewingHint":"paged",
+
+  // The order of the Canvases
+  "canvases": [ 
+    {
+      "@id":"http://www.example.org/iiif/book1/canvas/p1.json",
+      "@type":"sc:Canvas",
+      "label":"p. 1",
+      "height":1000,
+      "width":750,
+      "images": [
+           // Links to the Content resources go here ...  
+      ]
+    },
+    {
+      "@id":"http://www.example.org/iiif/book1/canvas/p2.json",
+      "@type":"sc:Canvas",
+      "label":"p. 2",
+      "height":1000,
+      "width":750
+    },
+    {
+      "@id":"http://www.example.org/iiif/book1/canvas/p3.json",
+      "@type":"sc:Canvas",
+      "label":"p. 3",
+      "height":1000,
+      "width":750
+    }    
+  ]
+}
+```
+
+###  5.3. Canvas 
 
 Recommended URI pattern:
-
+```
 {scheme}://{host}/{prefix}/{identifier}/canvas/{name}.json
+```
 
 The Canvas represents an individual page and acts as a central point for different content resources to be associated with it, or with part of it as appropriate. The {name} parameter must uniquely distinguish the canvas from all other canvases in the object. As with Sequences, the name should not begin with a number. Suggested patterns are "f1r" or "p1".
 
@@ -345,13 +397,38 @@ Image resources, and only image resources, are included in the "images" section 
 
 Canvases may be dereferenced separately from the Manifest via their URIs, and the following representation information should be returned. This information should be embedded within the Sequence file, as per the previous section.
 
-{ // Metadata about this Canvas "@context":"http://www.shared-canvas.org/ns/context.json", "@id":"http://www.example.org/iiif/book1/canvas/p1.json", "@type":"sc:Canvas", "label":"p. 1", "height":1000, "width":750, "images": [ { "@type":"oa:Annotation" // Link from Image to Canvas should be included here, as below } ], "otherContent": [ { // Reference to list of other Content resources, not included directly "@id":"http://www.example.org/iiif/book1/list/p1.json", "@type":"sc:AnnotationList" } ] }
+```javascript
+{
+  // Metadata about this Canvas
+  "@context":"http://www.shared-canvas.org/ns/context.json",
+  "@id":"http://www.example.org/iiif/book1/canvas/p1.json",
+  "@type":"sc:Canvas",
+  "label":"p. 1",
+  "height":1000,
+  "width":750,
 
-###  5.4. Association of Image Resources ![][23]
+  "images": [
+    {
+      "@type":"oa:Annotation"
+      // Link from Image to Canvas should be included here, as below
+    }
+  ],
+  "otherContent": [
+    {
+      // Reference to list of other Content resources, not included directly
+      "@id":"http://www.example.org/iiif/book1/list/p1.json",
+      "@type":"sc:AnnotationList"
+    }
+  ]
+}
+```
+
+###  5.4. Association of Image Resources 
 
 Recommended URI pattern:
-
+```
 {scheme}://{host}/{prefix}/{identifier}/annotation/{name}.json
+```
 
 Association of images with their respective Canvases is done via Annotations. Although normally Annotations are used for associating commentary with the thing the annotation's text is about, the Open Annotation model allows any resource to be associated with any other resource, or parts thereof, and it is reused for both commentary and painting resources on the Canvas.
 
@@ -364,14 +441,36 @@ The image itself is linked in the "resource" property of the Annotation. It must
 If the [IIIF Image API][26] is available for the image, then a link to the service's endpoint should be included. The endpoint is the URI up to the identifier, but not including the trailing slash character or any of the subsequent parameters. The profile of the service should be the supported conformance level, and the additional fields from the [Image API info document][31] may be included in this JSON object to avoid requiring it to be downloaded separately.
 
 Additional features of the Open Annotation data model may also be used, such as selecting a segment of the Canvas or content resource, or embedding the comment or transcription within the Annotation. These additional advanced features are described below.
+```javascript
+{
+  "@context":"http://www.shared-canvas.org/ns/context.json",
+  "@id":"http://www.example.org/iiif/book1/annotation/p0001-image.json",
+  "@type":"oa:Annotation",
+  "motivation":"sc:painting",
+  "resource": {
+    "@id":"http://www.example.org/iiif/book1/res/page1.jpg",
+    "@type":"dctypes:Image",
+    "format":"image/jpeg",
+    "service": {
+      "@id":"http://www.example.org/images/book1-page1",
+      "profile":"http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1",
+      "scale_factors" : [ 1, 2, 4 ],
+      "tile_width" : 1024,
+      "tile_height" : 1024
+    },
+    "height":2000,
+    "width":1500
+  },
+  "on":"http://www.example.org/iiif/book1/canvas/p1.json"
+}
+```
 
-{ "@context":"http://www.shared-canvas.org/ns/context.json", "@id":"http://www.example.org/iiif/book1/annotation/p0001-image.json", "@type":"oa:Annotation", "motivation":"sc:painting", "resource": { "@id":"http://www.example.org/iiif/book1/res/page1.jpg", "@type":"dctypes:Image", "format":"image/jpeg", "service": { "@id":http://www.example.org/images/book1-page1", "profile":"http://library.stanford.edu/iiif/image-api/1.1/compliance.html#level1", "scale_factors" : [ 1, 2, 4 ], "tile_width" : 1024, "tile_height" : 1024 }, "height":2000, "width":1500 }, "on":"http://www.example.org/iiif/book1/canvas/p1.json" }
-
-###  5.5. Other Content Resources ![][23]
+###  5.5. Other Content Resources
 
 Recommended URI pattern:
-
+```
 {scheme}://{host}/{prefix}/{identifier}/list/{name}.json
+```
 
 For some digital facsimiles, there may be more than a single image available to represent the page. Other resources include the full text of the object, musical notations, musical performances, diagram transcriptions, higher resolution segments of part of the page, commentary annotations, tags, video, data and more. These additional resources are included in Annotation Lists, referenced from the Canvas.
 
@@ -381,43 +480,99 @@ The list of resource associations are given, after any metadata, in a "resources
 
 Please note the different types and formats for the Content resources. The format should be the media type that is returned when the resource is deferenced. For resources that are displayed as part of the facsimile (such as images, text transcriptions, performances of music from the manuscript and so forth) the motivation must be "sc:painting". The type should be taken from this [list in the Open Annotation specification][32], or a similar well-known resource type ontology.
 
-{ "@context":"http://www.shared-canvas.org/ns/context.json", "@id":"http://www.example.org/iiif/book1/list/p1.json", "@type":"sc:AnnotationList", "resources": [ { "@type":"oa:Annotation", "motivation":"sc:painting", "resource":{ "@id":"http://www.example.org/iiif/book1/res/music.mp3", "@type":"dctypes:Sound", "format":"audio/mpeg" } "on":"http://www.example.org/iiif/book1/canvas/p1.json" }, { "@type":"oa:Annotation", "motivation":"sc:painting", "resource":{ "@id":"http://www.example.org/iiif/book1/res/tei-text-p1.xml", "@type":"dctypes:Text", "format":"text/xml" } "on":"http://www.example.org/iiif/book1/canvas/p1.json" }, // ... and so on ] }
+```javascript
+{
+  "@context":"http://www.shared-canvas.org/ns/context.json",
+  "@id":"http://www.example.org/iiif/book1/list/p1.json",
+  "@type":"sc:AnnotationList",
 
-###  5.6. Advanced Association Features ![][23]
+  "resources": [
+    {
+      "@type":"oa:Annotation",
+      "motivation":"sc:painting",
+      "resource":{
+        "@id":"http://www.example.org/iiif/book1/res/music.mp3",
+        "@type":"dctypes:Sound",
+        "format":"audio/mpeg"
+      }
+      "on":"http://www.example.org/iiif/book1/canvas/p1.json"
+    },
+    {
+      "@type":"oa:Annotation",
+      "motivation":"sc:painting",
+      "resource":{
+        "@id":"http://www.example.org/iiif/book1/res/tei-text-p1.xml",
+        "@type":"dctypes:Text",
+        "format":"text/xml"
+      }
+      "on":"http://www.example.org/iiif/book1/canvas/p1.json"
+    },
+    // ... and so on
+  ]
+}
+```
+
+
+###  5.6. Advanced Association Features 
 
 The following sections describe known use cases for building representations of physical objects using the IIIF Metadata API, and clients should expect to encounter them. Other use cases are likely to exist, and must be encoded using the Open Annotation's context document mapping for any additional fields required.
 
-####  5.6.1. Segments ![][23]
+####  5.6.1. Segments
 
 It is important to be able to extract parts, or segments, of resources. In particular a very common requirement is to associate a resource with part of a Canvas, or part of an image with either the entire Canvas or part thereof. Secondly, as transcriptions are often made available in XML files, extracting the correct page to associate with the Canvas, or line to associate with part of the Canvas, is equally useful for reusing existing material. These can be accomplished using URI Fragments for simple cases. Two examples are given below:
 
   * Segments of both Images and Canvases may be easily selected by adding a [rectangular bounding box ][33]after the URI. The fragment must be structured:
-
-http://www.example.com/iiif/book1/canvas/p1.json#xywh=100,100,300,50
-
-Where the four numbers are the x and y coordinates in the image or canvas, followed by the width and height. Thus this segment is 300px wide, 50px high and starts at position 100,100. Note that only integers are allowed, and this may limit accuracy of assignment to canvases with small dimensions.
+        `http://www.example.com/iiif/book1/canvas/p1.json#xywh=100,100,300,50`
+    Where the four numbers are the x and y coordinates in the image or canvas, followed by the width and height. Thus this segment is 300px wide, 50px high and starts at position 100,100. Note that only integers are allowed, and this may limit accuracy of assignment to canvases with small dimensions.
 
   * Segments of XML files may be extracted with [XPaths][34]. The fragment must be structured:
+        `http://www.example.com/iiif/book1/res/tei.xml#xpointer(/path/to/element)`
 
-http://www.example.com/iiif/book1/res/tei.xml#xpointer(/path/to/element)
+```javascript
+{
+  "@context":"http://www.shared-canvas.org/ns/context.json",
+  "@id":"http://www.example.org/iiif/book1/annotation/anno1".json, 
+  "@type":"oa:Annotation",
+  "motivation":"sc:painting",
+  "resource":{
+    "@id":"http://www.example.org/iiif/book1/res/tei.xml#xpointer(//line[1])"
+    "@type":"dctypes:Text",
+    "format":"text/xml"
+  }
+  "on":"http://www.example.org/iiif/book1/canvas/p1.json#xywh=100,100,500,300"
+}
+```
 
-{ "@context":"http://www.shared-canvas.org/ns/context.json", "@id":"http://www.example.org/iiif/book1/annotation/anno1".json, "@type":"oa:Annotation", "motivation":"sc:painting", "resource":{ "@id":"http://www.example.org/iiif/book1/res/tei.xml#xpointer(//line[1])" "@type":"dctypes:Text", "format":"text/xml" } "on":"http://www.example.org/iiif/book1/canvas/p1.json#xywh=100,100,500,300" }
-
-####  5.6.2. Embedded Content ![][23]
+####  5.6.2. Embedded Content 
 
 Instead of referencing transcription text externally, it is often easier to record it in the Annotation itself. Equally, text based comments could also benefit from being included in the Annotation that associates the comment with the Canvas.
 
 Content may be embedded instead of referenced by using the following pattern within the Annotation block:
-
+```javascript
 "resource" : { "@type" : "cnt:ContextAsText", "chars" : "text here" }
+```
 
 If it is desirable to associate the language with the content, then it must be "language" not "@language" (otherwise the "chars" field would need to be an array with "@value"). The media type may be given using a "format" field.
 
 An example of this feature:
 
-{ "@context":"http://www.shared-canvas.org/ns/context.json", "@id":"http://www.example.org/iiif/book1/annotation/p1.json", "@type":"oa:Annotation", "motivation":"sc:painting", "resource":{ "@type":"cnt:ContentAsText", "chars":"Here starts book one...", "format":"text/plain", "language":"en" } "on":"http://www.example.org/iiif/book1/canvas/p1.json#xywh=100,150,500,25" }
+```javascript
+{
+  "@context":"http://www.shared-canvas.org/ns/context.json",
+  "@id":"http://www.example.org/iiif/book1/annotation/p1.json", 
+  "@type":"oa:Annotation",
+  "motivation":"sc:painting",
+  "resource":{
+    "@type":"cnt:ContentAsText",
+    "chars":"Here starts book one...",
+    "format":"text/plain",
+    "language":"en"
+  }
+  "on":"http://www.example.org/iiif/book1/canvas/p1.json#xywh=100,150,500,25"
+}
+```
 
-####  5.6.3. Choice of Alternative Resources ![][23]
+####  5.6.3. Choice of Alternative Resources
 
 A common requirement is to have a choice between multiple images that depict the page, such as different under different lights, or taken at different times. This can be accomplished by having a "oa:Choice" object as the resource, which then refers to the options to select from. It must have one "default" and at least one further "item" to choose from. The images should have a label for the viewer to display to the user so they can make their selection from among the options.
 
@@ -427,9 +582,32 @@ The item's identifier may be "rdf:nil". This means that a valid option is not to
 
 This may be used to model foldouts and other dynamic features of a page, by associating images of the different states with the Canvas. Depending on the nature of the images, this can be either done such that the entire image is switched to change state, or only the section of the image that has to change if the segment information is known. For further information, please see this [use case document][36].
 
-{ "@context":"http://www.shared-canvas.org/ns/context.json", "@id":"http://www.example.org/iiif/book1/annotation/anno1.json", "@type":"oa:Annotation", "motivation":"sc:painting", "resource":{ "@type":"oa:Choice", "default":{ "@id":"http://www.example.org/iiif/book1/res/page1.jpg", "@type":"dctypes:Image", "label":"Color" }, "item": [ { "@id":"http://www.example.org/iiif/book1/res/page1-blackandwhite.jpg", "@type":"dctypes:Image", "label":"Black and White" } ] } "on":"http://www.example.org/iiif/book1/canvas/p1.json" }
+```javascript
+{
+  "@context":"http://www.shared-canvas.org/ns/context.json",
+  "@id":"http://www.example.org/iiif/book1/annotation/anno1.json", 
+  "@type":"oa:Annotation",
+  "motivation":"sc:painting",
+  "resource":{
+    "@type":"oa:Choice",
+    "default":{
+      "@id":"http://www.example.org/iiif/book1/res/page1.jpg",
+      "@type":"dctypes:Image",
+      "label":"Color"
+    },
+    "item": [
+      {
+        "@id":"http://www.example.org/iiif/book1/res/page1-blackandwhite.jpg",
+        "@type":"dctypes:Image",
+        "label":"Black and White"
+      }
+    ]
+  }
+  "on":"http://www.example.org/iiif/book1/canvas/p1.json"
+}
+```
 
-####  5.6.4. Non Rectangular Segments ![][23]
+####  5.6.4. Non Rectangular Segments
 
 The Scalable Vector Graphics standard (SVG) is used to describe non rectangular areas of Canvas or Image resources. While SVG can, of course, describe rectangles this is not recommended, and the xywh bounding box described above should be used.
 
@@ -437,21 +615,98 @@ In this pattern, the resource of the annotation is a "oa:SpecificResource" which
 
 If the section of an image is mapped to part of a Canvas, as in the example below, then the target in "on" must be the rectangular bounding box in which the SVG viewport should be placed. If the entire canvas is the target, then the SVG viewport is assumed to cover the entire Canvas. If the dimensions of the viewport and the bounding box or canvas are not the same, then the SVG should be scaled such that it covers the region. This may result in different scaling ratios for the X and Y dimensions.
 
-{ "@context":"http://www.shared-canvas.org/ns/context.json", "@id":"http://www.example.org/iiif/book1/annotation/anno1.json", "@type":"oa:Annotation", "motivation":"sc:painting", "resource":{ "@type":"oa:SpecificResource", "full": { "@id":"http://www.example.org/iiif/book1/res/page1.jpg", "@type":"dctypes:Image" }, "selector": { "@type":["oa:SvgSelector","cnt:ContentAsText"], "chars":"" } } "on":"http://www.example.org/iiif/book1/canvas/p1.json#xywh=100,100,300,300" }
+```javascript
+{
+  "@context":"http://www.shared-canvas.org/ns/context.json",
+  "@id":"http://www.example.org/iiif/book1/annotation/anno1.json", 
+  "@type":"oa:Annotation",
+  "motivation":"sc:painting",
+  "resource":{
+    "@type":"oa:SpecificResource",
+    "full": {
+      "@id":"http://www.example.org/iiif/book1/res/page1.jpg",
+      "@type":"dctypes:Image"
+    },
+    "selector": {
+      "@type":["oa:SvgSelector","cnt:ContentAsText"],
+      "chars":"<svg xmlns="..."><path d="..."/></svg>"
+    }
+  }
+  "on":"http://www.example.org/iiif/book1/canvas/p1.json#xywh=100,100,300,300"
+}
+```
 
-####  5.6.5. Style ![][23]
+####  5.6.5. Style 
 
 The Cascading Style Sheets standard (CSS) is used to describe how the client should render a given resource to the user. The CSS information is embedded within the Annotation using the same ContentAsText approach above. As a stylesheet may contain more than one style, and be reused between annotations, it is attached to the annotation directly in the same manner as a stylesheet being linked to an HTML document. Then the name of the style class is attached to the resource that should be styled, again in the same manner as the class attribute in html, although we use "style" to avoid confusion with object classes.
 
 In the example below, the text should be colored red.
 
-{ "@context":"http://www.shared-canvas.org/ns/context.json", "@id":"http://www.example.org/iiif/book1/annotation/anno1.json", "@type":"oa:Annotation", "motivation":"sc:painting", "stylesheet":{ "@type": ["oa:CssStyle", "cnt:ContextAsText"], "chars": ".red {color: red;}" }, "resource":{ "@type":"oa:SpecificResource", "style":"red", "full": { "@type":"cnt:ContentAsText", "chars":"Rubrics are Red, ..." } } "on":"http://www.example.org/iiif/book1/canvas/p1.json#xywh=100,150,500,30" }
+```javascript
+{
+  "@context":"http://www.shared-canvas.org/ns/context.json",
+  "@id":"http://www.example.org/iiif/book1/annotation/anno1.json", 
+  "@type":"oa:Annotation",
+  "motivation":"sc:painting",
+  "stylesheet":{
+    "@type": ["oa:CssStyle", "cnt:ContextAsText"],
+    "chars": ".red {color: red;}"
+  },
+  "resource":{
+    "@type":"oa:SpecificResource",
+    "style":"red",
+    "full": {
+      "@type":"cnt:ContentAsText",
+      "chars":"Rubrics are Red, ..."
+    }
+  }
+  "on":"http://www.example.org/iiif/book1/canvas/p1.json#xywh=100,150,500,30"
+}
+```
 
 CSS may also be used for rotation of images which are not correctly aligned with the Canvas. In the example below, after the image is located within the 500 wide by 30 high space within the Canvas, it is then rotated by the rendering client application around the top left corner by 45 degrees anti-clockwise.
 
-{ "@context":"http://www.shared-canvas.org/ns/context.json", "@id":"http://www.example.org/iiif/book1/annotation/anno1.json", "@type":"oa:Annotation", "motivation":"sc:painting", "stylesheet":{ "@type": ["oa:CssStyle", "cnt:ContextAsText"], "chars": ".rotated {transform-origin: top left; transform: rotate(-45deg);}" }, "resource":{ "@type":"oa:SpecificResource", "style":"rotated", "full": { "@id":"http://www.example.org/iiif/book1/res/page1-detail.jpg", "@type":"dctypes:Image", } } "on":"http://www.example.org/iiif/book1/canvas/p1.json#xywh=100,150,500,30" }
+```javascript
+{
+  "@context":"http://www.shared-canvas.org/ns/context.json",
+  "@id":"http://www.example.org/iiif/book1/annotation/anno1.json", 
+  "@type":"oa:Annotation",
+  "motivation":"sc:painting",
+  "stylesheet":{
+    "@type": ["oa:CssStyle", "cnt:ContextAsText"],
+    "chars": ".rotated {transform-origin: top left; transform: rotate(-45deg);}"
+  },
+  "resource":{
+    "@type":"oa:SpecificResource",
+    "style":"rotated",
+    "full": {
+      "@id":"http://www.example.org/iiif/book1/res/page1-detail.jpg",
+      "@type":"dctypes:Image",
+    }
+  }
+  "on":"http://www.example.org/iiif/book1/canvas/p1.json#xywh=100,150,500,30"
+}
+```
 
-##  6\. Additional Resource Types ![][23]
+###  5.6.6. Comment Annotations
+
+For annotations which are comments about the Canvas, as opposed to painting content resources on to the Canvas, there are different types of motivation to make the distinction clear. For Annotations about the content (such as comments, notes, descriptions etc.) the motivation should be "oa:commenting", but may be any from the list given in the Open Annotation specification.
+
+```javascript
+{
+  "@type":"oa:Annotation",
+  "motivation":"oa:commenting",
+  "resource":{
+    "@id":"http://www.example.org/iiif/book1/res/comment1.html",
+    "@type":"dctypes:Text",
+    "format":"text/html"
+  }
+  "on":"http://www.example.org/iiif/book1/canvas/p1.json"
+}
+```
+
+
+##  6. Additional Resource Types
 
 There are cases where additional information is needed to fully represent an institution's information about the structure of a work.
 
@@ -462,108 +717,447 @@ Secondly, as the information is primarily divided by Canvas (and thus page), the
 ![][37]
 Figure 3. All Resource Types
 
-###  6.1. Ranges ![][23]
+###  6.1. Ranges
 
 Recommended URI pattern:
-
+```
 {scheme}://{host}/{prefix}/{identifier}/range/{name}.json
-
+```
 It may be important to describe additional structure within the text, such as newspaper articles that span pages, the range of non-content bearing pages at the beginning of a work, or chapters within a book. These are described using Ranges in a similar manner to Sequences.
 
 A range includes one or more Canvases, or parts of Canvases. The part must be rectangular, and is given using the xywh fragment approach. This allows for selecting, for example, the areas within two newspaper pages where an article is located. As the information about the Canvas is already in the Sequence, it should not be repeated. In order to present a table of the different ranges to allow a user to select one, every Range must have a label. It may also have any of the other metadata fields, including especially "within" to point to another Range of which the current one is part. For example, a subsection Range could point to the section Range that it is part of.
 
 Ranges are linked or embedded within the Manifest in a "structures" field, and have the same properties as Sequences:
 
-{ "@context":"http://www.shared-canvas.org/ns/context.json", "@id":"http://www.example.org/iiif/book1/manifest.json", "@type":"sc:Manifest", // Metadata ... "sequences": [ // Sequence etc. ... ], "structures": [ { "@id":"http://www.example.org/iiif/book1/range/r1.json", "@type":"sc:Range", "label":"Introduction", "canvases": [ "http://www.example.org/iiif/book1/canvas/p1.json", "http://www.example.org/iiif/book1/canvas/p2.json", "http://www.example.org/iiif/book1/canvas/p3.json#xywh=0,0,750,300" ] }, { "@id":"http://www.example.org/iiif/book1/range/r1-1.json", "@type":"sc:Range", "label":"Objectives and Scope", "within":"http://www.example.org/iiif/book1/range/r1.json", "canvases": ["http://www.example.org/iiif/book1/canvas/2.json#xywh=0,0,500,500"] } // And any additional ranges here ] }
+```javascript
+{
+  "@context":"http://www.shared-canvas.org/ns/context.json",
+  "@id":"http://www.example.org/iiif/book1/manifest.json",
+  "@type":"sc:Manifest",
+  // Metadata ... 
 
-###  6.2. Layers ![][23]
+  "sequences": [
+      // Sequence etc. ...  
+  ],
+
+  "structures": [
+    {
+        "@id":"http://www.example.org/iiif/book1/range/r1.json",
+        "@type":"sc:Range",
+        "label":"Introduction",
+        "canvases": [
+          "http://www.example.org/iiif/book1/canvas/p1.json",
+          "http://www.example.org/iiif/book1/canvas/p2.json",
+          "http://www.example.org/iiif/book1/canvas/p3.json#xywh=0,0,750,300"
+        ]
+    },
+    {
+        "@id":"http://www.example.org/iiif/book1/range/r1-1.json",
+        "@type":"sc:Range",
+        "label":"Objectives and Scope",
+        "within":"http://www.example.org/iiif/book1/range/r1.json",
+        "canvases": ["http://www.example.org/iiif/book1/canvas/p2.json#xywh=0,0,500,500"]
+    }
+    // And any additional ranges here       
+  ]
+}
+```
+
+###  6.2. Layers
 
 Recommended URI pattern:
-
+```
 {scheme}://{host}/{prefix}/{identifier}/layer/{name}.json
+```
 
 There may be groupings of annotations, such as all of the annotations that, regardless of which Canvas they target, represent a particular transcription or translation of the text in the object. In order to allow clients to maintain a coherent interface, the lists of these annotations are grouped together in Layers. Without the Layer construction, it would be impossible to determine which annotations belonged together. The client may then present a user interface that allows all of the annotations in a layer to be displayed or hidden according to the user's preference.
 
 Each Annotation List may be part of one or more Layers, and this is recorded using the "within" relationship in the Manifest and Annotation List responses. The Layer must have a Label so that it can be presented to a user to select whether or not to view it. Note that the "within" field may be only present in the Annotation List resource, and not in the Manifest.
 
-{ "@context":"http://www.shared-canvas.org/ns/context.json", "@id":"http://www.example.org/iiif/book1/list/l1.json" "@type":"sc:AnnotationList", "within": { "@id": "http://www.example.org/iiif/book1/layer/transcription.json", "@type": "sc:Layer", "label": "Diplomatic Transcription" } }
+```javascript
+{
+  "@context":"http://www.shared-canvas.org/ns/context.json",
+  "@id":"http://www.example.org/iiif/book1/list/l1.json"
+  "@type":"sc:AnnotationList",
+  "within": {
+    "@id": "http://www.example.org/iiif/book1/layer/transcription.json",
+    "@type": "sc:Layer",
+    "label": "Diplomatic Transcription"
+  }
+}
+  ```
 
-##  7\. Complete Example Response ![][23]
+##  7. Complete Example Response
 
 URL: _http://www.example.org/iiif/book1/manifest.json_
 
-{ "@context":"http://www.shared-canvas.org/ns/context.json", "@type":"sc:Manifest", "@id":"http://www.example.org/iiif/book1/manifest.json", "label":"Book 1", "metadata": [ {"label":"Author", "value":"Anne Author"}, {"label":"Published", "value": [ {"@value": "Paris, circa 1400", "@language":"en"}, {"@value": "Paris, environ 14eme siecle", "@language":"fr"} ] } ], "description":"A longer description of this example book. It should give some real information.", "license":"http://www.example.org/license.html", "attribution":"Provided by Example Organization", "service":"http://www.example.org/iiif/book1/search.html", "seeAlso": { "@id": "http://www.example.org/library/catalog/book1.marc", "format": "application/marc" }, "within":"http://www.example.org/collections/books/", "sequences" : [ { "@id":"http://www.example.org/iiif/book1/sequence/normal.json", "@type":"sc:Sequence", "label":"Current Page Order", "viewingDirection":"left-to-right", "viewingHint":"paged", "canvases": [ { "@id":"http://www.example.org/iiif/book1/canvas/p1.json", "@type":"sc:Canvas", "label":"p. 1", "height":1000, "width":750, "images": [ { "@type":"oa:Annotation", "motivation":"sc:painting", "resource":{ "@id":"http://www.example.org/iiif/book1/res/page1.jpg", "@type":"dctypes:Image", "format":"image/jpeg", "service": { "@id": "http://www.example.org/images/book1-page1", "profile":"http://library.stanford.edu/iiif/image-api/compliance.html#level0" }, "height":2000, "width":1500 }, "on":"http://www.example.org/iiif/book1/canvas/p1.json" } ], "otherContent": [ { "@id":"http://www.example.org/iiif/book1/list/p1.json", "@type":"sc:AnnotationList" } ] }, { "@id":"http://www.example.org/iiif/book1/canvas/p2.json", "@type":"sc:Canvas", "label":"p. 2", "height":1000, "width":750, "images": [ { "@type":"oa:Annotation", "motivation":"sc:painting", "resource":{ "@id":"http://www.example.org/images/book1-page2/full/1500,2000/0/native.jpg", "@type":"dctypes:Image", "format":"image/jpeg", "height":2000, "width":1500, "service": { "@id":"http://www.example.org/images/book1-page2", "profile":"http://library.stanford.edu/iiif/image-api/compliance.html#level0", "scale_factors": [1, 2, 4], "height":8000, "width":6000, "tile_width":1024, "tile_height":1024 } }, "on":"http://www.example.org/iiif/book1/canvas/p2.json" } ], "otherContent": [ { "@id":"http://www.example.org/iiif/book1/list/p2.json", "@type":"sc:AnnotationList" } ] }, { "@id":"http://www.example.org/iiif/book1/canvas/p3.json", "@type":"sc:Canvas", "label":"p. 3", "height":1000, "width":750, "images": [ { "@type":"oa:Annotation", "motivation":"sc:painting", "resource":{ "@id":"http://www.example.org/iiif/book1/res/page3.jpg", "@type":"dctypes:Image", "format":"image/jpeg", "service": { "@id":"http://www.example.org/images/book1-page3", "profile":"http://library.stanford.edu/iiif/image-api/compliance.html#level0" }, "height":2000, "width":1500 }, "on":"http://www.example.org/iiif/book1/canvas/p3.json" } ], "otherContent": [ { "@id":"http://www.example.org/iiif/book1/list/p3.json", "@type":"sc:AnnotationList" } ] } ] } ], "structures": [ { "@id": "http://www.example.org/iiif/book1/range/r1.json", "@type":"sc:Range", "label":"Introduction", "canvases": [ "http://www.example.org/iiif/book1/canvas/p1.json", "http://www.example.org/iiif/book1/canvas/p2.json", "http://www.example.org/iiif/book1/canvas/p3.json#xywh=0,0,750,300" ] } ] }
+```javascript
+{
+  "@context":"http://www.shared-canvas.org/ns/context.json",
+  "@type":"sc:Manifest",
+  "@id":"http://www.example.org/iiif/book1/manifest.json",
 
-##  Summary of URI Patterns ![][23]
+  "label":"Book 1",
+  "metadata": [
+    {"label":"Author", "value":"Anne Author"},
+    {"label":"Published", "value": [
+        {"@value": "Paris, circa 1400", "@language":"en"}, 
+        {"@value": "Paris, environ 14eme siecle", "@language":"fr"}
+        ]
+    }
+  ],
+  "description":"A longer description of this example book. It should give some real information.",
+  "license":"http://www.example.org/license.html",
+  "attribution":"Provided by Example Organization",
+  "service":"http://www.example.org/iiif/book1/search.html",
+  "seeAlso":
+    {
+      "@id": "http://www.example.org/library/catalog/book1.marc",
+      "format": "application/marc"
+    },
+  "within":"http://www.example.org/collections/books/",
+  
+  "sequences" : [
+      {
+        "@id":"http://www.example.org/iiif/book1/sequence/normal.json",
+        "@type":"sc:Sequence",
+        "label":"Current Page Order",
+    "viewingDirection":"left-to-right",
+        "viewingHint":"paged",
+        "canvases": [ 
+          {
+            "@id":"http://www.example.org/iiif/book1/canvas/p1.json",
+            "@type":"sc:Canvas",
+            "label":"p. 1",
+            "height":1000,
+            "width":750,
+            "images": [
+              {
+                "@type":"oa:Annotation",
+                "motivation":"sc:painting",
+                "resource":{
+                    "@id":"http://www.example.org/iiif/book1/res/page1.jpg",
+                    "@type":"dctypes:Image",
+                    "format":"image/jpeg",
+                    "service": {
+                        "@id": "http://www.example.org/images/book1-page1",
+                        "profile":"http://library.stanford.edu/iiif/image-api/compliance.html#level0"
+                    },
+                    "height":2000,
+                    "width":1500
+                },
+                "on":"http://www.example.org/iiif/book1/canvas/p1.json"
+              }
+            ],
+            "otherContent": [
+              {
+                "@id":"http://www.example.org/iiif/book1/list/p1.json",
+                "@type":"sc:AnnotationList"
+              }
+            ]
+        },
+          {
+            "@id":"http://www.example.org/iiif/book1/canvas/p2.json",
+            "@type":"sc:Canvas",
+            "label":"p. 2",
+            "height":1000,
+            "width":750,
+            "images": [
+              {
+                "@type":"oa:Annotation",
+                "motivation":"sc:painting",
+                "resource":{
+                    "@id":"http://www.example.org/images/book1-page2/full/1500,2000/0/native.jpg",
+                    "@type":"dctypes:Image",
+                    "format":"image/jpeg",
+                    "height":2000,
+                    "width":1500,
+                    "service": {
+                        "@id":"http://www.example.org/images/book1-page2",
+                        "profile":"http://library.stanford.edu/iiif/image-api/compliance.html#level0",
+                        "scale_factors": [1, 2, 4],
+                        "height":8000,
+                        "width":6000,                        
+                        "tile_width":1024,
+                        "tile_height":1024
+                    }          
+                },
+                "on":"http://www.example.org/iiif/book1/canvas/p2.json"
+              }
+            ],
+            "otherContent": [
+              {
+                "@id":"http://www.example.org/iiif/book1/list/p2.json",
+                "@type":"sc:AnnotationList"
+              }
+            ]
+          },
+          {
+            "@id":"http://www.example.org/iiif/book1/canvas/p3.json",
+            "@type":"sc:Canvas",
+            "label":"p. 3",
+            "height":1000,
+            "width":750,
+            "images": [
+              {
+                "@type":"oa:Annotation",
+                "motivation":"sc:painting",
+                "resource":{
+                    "@id":"http://www.example.org/iiif/book1/res/page3.jpg",
+                    "@type":"dctypes:Image",
+                    "format":"image/jpeg",
+                    "service": {
+                        "@id":"http://www.example.org/images/book1-page3",
+                        "profile":"http://library.stanford.edu/iiif/image-api/compliance.html#level0"
+          },
+                    "height":2000,
+                    "width":1500
+                },
+                "on":"http://www.example.org/iiif/book1/canvas/p3.json"
+              }
+            ],
+            "otherContent": [
+              {
+                "@id":"http://www.example.org/iiif/book1/list/p3.json",
+                "@type":"sc:AnnotationList"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+  "structures": [
+    {
+      "@id": "http://www.example.org/iiif/book1/range/r1.json",
+        "@type":"sc:Range",
+        "label":"Introduction",
+        "canvases": [
+          "http://www.example.org/iiif/book1/canvas/p1.json",
+          "http://www.example.org/iiif/book1/canvas/p2.json",
+          "http://www.example.org/iiif/book1/canvas/p3.json#xywh=0,0,750,300"
+        ]
+    }
+  ]
+}
+```
 
-Resource URI Pattern
+##  A. Summary of URI Patterns
 
-Manifest
-{scheme}://{host}/{prefix}/{identifier}/manifest.json
+| Resource | URI Pattern |
+| -------- | ----------- |
+| Manifest | {scheme}://{host}/{prefix}/{identifier}/manifest.json |
+| Sequence | {scheme}://{host}/{prefix}/{identifier}/sequence/{name}.json |
+| Canvas | {scheme}://{host}/{prefix}/{identifier}/canvas/{name}.json |
+| Content | {scheme}://{host}/{prefix}/{identifier}/res/{name}.{format} |
+| Annotation | {scheme}://{host}/{prefix}/{identifier}/annotation/{name}.json |
+| AnnotationList | {scheme}://{host}/{prefix}/{identifier}/list/{name}.json |
+| Range | {scheme}://{host}/{prefix}/{identifier}/range/{name}.json |
+| Layer | {scheme}://{host}/{prefix}/{identifier}/layer/{name}.json |
 
-Sequence
-{scheme}://{host}/{prefix}/{identifier}/sequence/{name}.json
+## B. Summary of Metadata Requirements
+            <ul class="legend">
+              <li>
+                <div class="req mandatory"></div> Mandatory/Required
+              </li>
+              <li>
+                <div class="req recommended"></div> Recommended
+              </li>
+              <li>
+                <div class="req optional"></div> Optional
+              </li>
+              <li>
+                <div class="req not-applicable"></div> Not Applicable
 
-Canvas
-{scheme}://{host}/{prefix}/{identifier}/canvas/{name}.json
+              </li>
+            </ul>
 
-Content
-{scheme}://{host}/{prefix}/{identifier}/res/{name}.{format}
+            <table class="image-api-table">
+              <tr>
+                <th class="visibility-hidden"></th>
+                <th colspan="3">Descriptive</th>
+                <th colspan="2">Rights</th>
+                <th colspan="7">Technical</th>
+                <th colspan="3">Linking</th>
+              </tr>
+              <tr>
+                <td class="visibility-hidden"></td>
+                <td>label</td>
+                <td>metadata</td>
+                <td>description</td>
+                <td>attributes</td>
+                <td>license</td>
+                <td>@id</td>
+                <td>@type</td>
+                <td>format</td>
+                <td>height</td>
+                <td>width</td>
+                <td>viewDir.</td>
+                <td>viewHint.</td>
+                <td>service</td>
+                <td>seeAlso</td>
+                <td>within</td>
+              </tr>
+              <tr>
+                <td>Manifest</td>
+                <td><div class="req mandatory"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req recommended"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req mandatory"></div></td>
+                <td><div class="req mandatory"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+              </tr>
+              <tr>
+                <td>Sequence</td>
+                <td><div class="req recommended"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req recommended"></div></td>
+                <td><div class="req mandatory"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+              </tr>
+              <tr>
+                <td>Canvas</td>
+                <td><div class="req mandatory"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req mandatory"></div></td>
+                <td><div class="req mandatory"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req mandatory"></div></td>
+                <td><div class="req mandatory"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+              </tr>
+              <tr>
+                <td>Annotation</td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req recommended"></div></td>
+                <td><div class="req mandatory"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+              </tr>
+              <tr>
+                <td>AnnotationList</td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req mandatory"></div></td>
+                <td><div class="req mandatory"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+              </tr>
+              <tr>
+                <td>Range</td>
+                <td><div class="req mandatory"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req mandatory"></div></td>
+                <td><div class="req mandatory"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+              </tr>              <tr>
+                <td>Layer</td>
+                <td><div class="req mandatory"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req mandatory"></div></td>
+                <td><div class="req mandatory"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+              </tr>              <tr>
+                <td>Image Content</td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req mandatory"></div></td>
+                <td><div class="req mandatory"></div></td>
+                <td><div class="req recommended"></div></td>
+                <td><div class="req recommended"></div></td>
+                <td><div class="req recommended"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+              </tr>              <tr>
+                <td>Other Content</td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req mandatory"></div></td>
+                <td><div class="req mandatory"></div></td>
+                <td><div class="req recommended"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+              </tr>
+            </table>
 
-Annotation
-{scheme}://{host}/{prefix}/{identifier}/annotation/{name}.json
-
-AnnotationList
-{scheme}://{host}/{prefix}/{identifier}/list/{name}.json
-
-Range
-{scheme}://{host}/{prefix}/{identifier}/range/{name}.json
-
-Layer
-{scheme}://{host}/{prefix}/{identifier}/layer/{name}.json
-
-##  Summary of Metadata Requirements ![][23]
-
-  * Mandatory/Required
-  * Recommended
-  * Optional
-  * Not Applicable
-
-Descriptive Rights Technical Linking
-
-label
-metadata
-description
-attributes
-license
-@id
-@type
-format
-height
-width
-viewDir.
-viewHint.
-service
-seeAlso
-within
-
-Manifest
-
-Sequence
-
-Canvas
-
-Annotation
-
-AnnotationList
-
-Range
-
-Layer
-
-Image Content
-
-Other Content
 
    [1]: http://iiif.io#introduction
    [2]: http://iiif.io#objectives
