@@ -319,7 +319,7 @@ The JSON response should conform to the format shown in the following example:
   "width" : 6000, 
   "height" : 4000, 
   "scale_factors" : [ 1, 2, 4 ], 
-  "other_sizes" : [ "150,100", "360,240". "3600,2400" ], 
+  "other_sizes" : [ "150,100", "360,240", "3600,2400" ], 
   "tile_width" : 1024, 
   "tile_height" : 1024, 
   "formats" : [ "jpg", "png" ], 
