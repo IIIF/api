@@ -186,6 +186,7 @@ The following fields are defined by this specification, broken in to four sectio
 
   * __@id__<br/>
     The URI that identifies the resource. Recommended, but not mandatory, URI patterns are presented below.
+
     Usage:
      * A Manifest MUST have an id, and it MUST be the http[s] URI at which the Manifest is published.
      * A Sequence MAY have an id.
@@ -197,12 +198,14 @@ The following fields are defined by this specification, broken in to four sectio
 
   * __format__<br/>
     The more specific media type (often called a MIME type) of a Content resource, for example "image/jpeg". This is important for distinguishing, for example, text in XML from plain text.
+
     Usage:
      * A Manifest, Sequence or Canvas MUST NOT have a format.
      * A Content Resource SHOULD have a format, and if so, it MUST be the value of the Content-Type header returned when the resource is dereferenced.
 
   * __height__<br/>
     The height of a Canvas or Image resource. For images, this is in pixels. No particular units are required for Canvases, as the dimensions provide an aspect ratio for the resources to be located within rather than measuring any physical property of the object.
+
     Usage:
      * A Manifest or Sequence MUST NOT have a height.
      * A Canvas MUST have a height, which does not have a unit type. It merely conveys, along with width, an aspect ratio.
@@ -218,6 +221,7 @@ The following fields are defined by this specification, broken in to four sectio
      * "right-to-left": The object is read from right to left
      * "top-to-bottom": The object is read from the top to the bottom
      * "bottom-to-top": The object is read from the bottom to the top
+
    Usage:
     * A Manifest MAY have a viewing direction, and if so, it applies to all of its Sequences.
     * A Sequence MAY have a viewing direction, and it MAY be different to that of the Manifest
@@ -230,6 +234,7 @@ The following fields are defined by this specification, broken in to four sectio
      * "paged": The canvases represent pages in a bound volume, and should be presented in a page turning interface.
      * "continuous": The canvases each represent a complete side of a long scroll or roll and an appropriate rendering might only display part of the canvas at any given time rather than the entire object.
      * "non-paged": Only valid on a Canvas and when the Manifest or Sequence has a viewingHint of "paged".  Canvases with this hint MUST NOT be presented in a page turning interface.
+
     Usage:
      * A Manifest, Sequence or Range MAY have a viewing hint, as per viewingDirection.
      * A Canvas MAY have a viewing hint, and if so it MUST be "non-paged".  This is only valid if the Canvas is within a Manifest, Sequence or Range that is "paged", and the particular Canvas MUST NOT be displayed.
@@ -266,65 +271,80 @@ Each of the sections below recommends a URI pattern to follow for the different 
 The Base URI recommended for resources made available by the API is:
 
 ```
-{scheme}://{host}/{prefix}/{identifier}
+{scheme}://{host}{/prefix}/{identifier}
 ```
 
 Where the parameters are:
 
   * {scheme}: Either "http" or "https"
   * {host}: The hostname (and optional port) of the server that provides the information. For example, "www.example.org"
-  * {prefix}: A static prefix such as "iiif" or "manifests". It must be the same for all of the resources that make up a facsimile. The prefix may contain multiple path elements such as "iiif/manuscripts/french/m804" but no semantics are associated with these additional steps by this specification.
+  * {prefix}: A static, optional prefix such as "iiif" or "manuscripts". It must be the same for all of the resources that make up a facsimile. The prefix may contain multiple path elements such as "iiif/manuscripts/french/c14" but no semantics are associated with these additional steps by this specification.
   * {identifier}: An identifier string for the object itself. For example "m804" or "issue3"
 
-The individual resources will have URIs below this top level pattern in the same way as the IIIF Image API, by appending a "/" and the additional information to identify the resource required. If a client requests a URI without a trailing ".json", then the server should attempt to do content-negotiation if other serializations are available, otherwise return the json representation.
+The individual resources MAY have URIs below this top level pattern in the same way as the IIIF Image API, by appending a "/" and the additional information to identify the resource required. If a client requests a URI without a trailing ".json", then the server SHOULD attempt to do content-negotiation if other serializations are available, otherwise return the json representation.
 
 #### Responses
 
-HTTP Details
+__HTTP Details__
 
-The format for all responses is JSON, and the sections below describe the structure to be returned in more detail. The primary response is when the Manifest is requested and for optimization reasons this must return the Manifest, with the default Sequence, Canvases and Associations for image Content resources embedded within it. Additional Sequences and Associations are made available via additional calls.
+The format for all responses is JSON, and the sections below describe the structure to be returned in more detail. The primary response is when the Manifest is requested and, for optimization reasons, this must return the Manifest with the default Sequence, Canvases and Associations for Image Content resources embedded within it. Additional Sequences and Associations may be made available via additional calls.
 
-The media type for the responses (returned in the HTTP Content-Type header value) should be "application/ld%2Bjson", but may be "application/json" and clients should process both in the same manner.
+The content-type of the response MUST be either "application/json" (regular JSON), or "application/ld+json" (JSON-LD). If the client explicitly wants the JSON-LD content-type, then it must specify this in an Accept header, otherwise the server MUST return the regular JSON content-type.
+
+If the regular JSON content-type is returned, then it is RECOMMENDED that the server provide a link header to the context document. The syntax for the link header is below, and further [described in section 6.8 of the JSON-LD specification][38]. The link header MUST NOT be given if the client requests "application/ld+json".
 
 ```
-Content-Type: application/ld+json
+Content-Type: application/json
+Link: <http://iiif.io/api/XXX/1.1/context.json>; rel="http://www.w3.org/ns/json-ld#context"
+                                               ; type="application/ld+json"
 ```
 
-The HTTP server should also send the Cross Origin Access control header to allow clients to download the manifests via AJAX from remote sites. The header name is "Access-Control-Allow-Origin" and the value of the header should be "*". In the Apache web server this may be enabled with the following configuration snippet:
 
+The HTTP server MUST also send the Cross Origin Access control header to allow clients to download the manifests via AJAX from remote sites. The header name is "Access-Control-Allow-Origin" and the value of the header SHOULD be "*". 
+```
+Access-Control-Allow-Origin: *
+```
+
+In the Apache web server this may be enabled with the following configuration snippet:
 ```
 LoadModule headers_module modules/mod_headers.so  
 Header set Access-Control-Allow-Origin "*" 
 ```
 
-Responses should be compressed by the server as there are significant performance gains to be made for very repetitive data.
+Responses SHOULD be compressed by the server as there are significant performance gains to be made for very repetitive data structures.
 
-Response Content Details
+__Response Content Details__
 
-Resource descriptions should be embedded within higher level resources, and may also be available via separate requests from URIs linked in the responses. These URIs are in the "@id" field for the resource. Links to resources may either be given just as the URI if there is no additional information associated with them, or they may be a JSON object with the "@id" field. Thus the following two lines are equivalent, however the second should not be used without additional associated information:
+Resource descriptions SHOULD be embedded within higher level resources, and MAY also be available via separate requests from URIs linked in the responses. These URIs are in the "@id" field for the resource. Links to resources may either be given just as the URI if there is no additional information associated with them, or they may be a JSON object with the "@id" field. Thus the following two lines are equivalent, however the second should not be used without additional information associated with the resource:
 
 ```javascript
 {"seeAlso" : "http://www.example.org/descriptions/book1.xml"} 
 {"seeAlso" : {"@id":"http://www.example.org/descriptions/book1.xml"}}
 ```
 
-Each response must have a single "@context" property, preferably as the very first key/value pair in the top most object. This tells Linked Data processors how to interpret the information. It must occur exactly once per response, and be omitted from any embedded resources. For example, when embedding a Sequence within a Manifest, the Sequence must not have the @context line.
+Each response MUST have a single "@context" field, and it SHOULD as the very first key/value pair in the top most object. This tells Linked Data processors how to interpret the information. It MUST occur exactly once per response, and be omitted from any embedded resources. For example, when embedding a Sequence within a Manifest, the Sequence MUST NOT have the @context field.
 
-Any additional fields beyond those defined in this specification must be mapped to RDF predicates using a Context document. In this case, the value of "@context" is an array with the first element being the IIIF context document, and the second (and subsequent) being extension Context documents. Extension contexts must not change the semantics of any of the fields defined in the IIIF context. The @context line would thus look like:
+Any additional fields beyond those defined in this specification SHOULD be mapped to RDF predicates using a Context document. In this case, the value of "@context" is an array with the first element being the IIIF context document, and the second (and subsequent) being extension Context documents. Extension contexts must not change the semantics of any of the fields defined in the IIIF context. The @context line would thus look like:
 
 ```javascript
 "@context": ["http://www.shared-canvas.org/ns/context.json", "http://www.example.org/sc/contexts/extension1.json"]
 ```
 
-Any of the fields may be repeated. In JSON this is done by giving a list, rather than a single string. Language may also be associated with descriptive metadata strings using the following pattern of value plus the [RFC 5646][28] code, instead of a plain string:
-
+Any of the fields may be repeated. This is done by giving a list, rather than a single string. 
 ```javascript
-{"@value":"Information", "@language":"en"}
+"seeAlso" : ["http://www.example.org/descriptions/book1.xml", "http://www.example.org/descriptions/book1.csv"]
 ```
 
-Note that [RFC 5646][28] allows the script of the text to be included after a hyphen, such as "ar-latn", and clients should be aware of this possibility. This allows for full internationalization of the user interface components described in the response, as the labels as well as values may be translated in this manner; examples are given below. Client developers should be aware that some implementations may add an "@graph" property at the top level, which contains the object. This is a side effect of JSON-LD serialization. This pattern is NOT recommended for implementation, and either the client or server can use the JSON-LD compaction algorithm to remove it. Using JSON-LD Framing with the [supplied Frames][29] will avoid the generation of the "@graph" pattern.
+Language may be associated with descriptive metadata strings using the following pattern of value plus the [RFC 5646][28] code, instead of a plain string.  For example a description might have a language associated with it:
 
-In the examples given below, comments in the JSON are given in blue italics and must be omitted. Example information that needs to be filled out is given in green italics. The order in which the examples are presented is to allow the example to build up from the top most resource, the Manifest, down to the association of Content resources with the Canvases.
+```javascript
+"description" : {"@value":"Here is a longer description of the object", "@language":"en"}
+```
+
+Note that [RFC 5646][28] allows the script of the text to be included after a hyphen, such as "ar-latn", and clients should be aware of this possibility. This allows for full internationalization of the user interface components described in the response, as the labels as well as values may be translated in this manner; examples are given below. 
+
+Client developers should be aware that some implementations may add an "@graph" property at the top level, which contains the object. This is a side effect of JSON-LD serialization, and servers SHOULD remove it before sending to the client. The client can use the JSON-LD compaction algorithm to remove it, if present. Using JSON-LD Framing with the [supplied Frames][29] will avoid the generation of the "@graph" pattern.
+
 
 ###  5.1. Manifest
 
