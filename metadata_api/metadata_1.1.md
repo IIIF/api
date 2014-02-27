@@ -119,20 +119,23 @@ This specification makes use of the following primary resource types:
 
 Each Manifest must, and is very likely to, have one Sequence, but may have more than one. Each Sequence must have one Canvas and is likely to have more than one. Each Canvas may have zero or more Content resources associated with it. Zero is unlikely, but represents the case where the page exists (or existed) but has not been digitized. This heirarchy is depicted below.
 
-![][25 =400x400]
+![][25]
 Figure 1. Primary Resource Types
 
 There are other types of resource including Annotation Lists, Annotations, Ranges and Layers, which are discussed later.
 
 ##  4. Metadata Fields
 
-The following fields are suggested by this specification, broken in to four sections. Each field is repeatable, and most may be associated with any of the resource types:
+The following fields are defined by this specification, broken in to four sections. Each field is repeatable, and most may be associated with any of the resource types:
 
-#### Descriptive Metadata
+#### Descriptive Fields
 
-  * label: A human readable label, name or title for the object. This field is intended to be displayed as a short surrogate for the resource if a human needs to make a distinction between it and similar resources, for example between pages or between a choice of images to display. When associated with the Manifest it should be the name of the physical object or title of the intellectual work that it embodies. When associated with a Sequence it should briefly convey the nature of sequence, such as "Current Page Order". When associated with a Canvas, it should be the page label such as "p. 1" or "folio 1 recto". Finally, when associated with an image or other content resource, it should be a brief description of the resource, such as "black and white" versus "color photograph"
-  * metadata: A list of metadata fields given as pairs of human readable label and value to be displayed by the client to the user. There are no semantics conveyed by this information, and clients should not use it for discovery or other purposes. This pool of metadata fields should be able to be displayed in a tabular form in the user interface. Metadata pairs might be used to convey the author of the work, information about its creation, a brief physical description, or ownership information amongst other use cases. The client is not expected to take any action on this information beyond displaying the label and value. An example pair of label and value might be: {"label": "Author", "value": "Froissart"}. The client should display the pairs in the order provided by the description.
-  * description: A longer form prose description of the object, intended to be conveyed to the user as a full text description, rather than a simple label. It can duplicate any of the above information, along with additional information required for the understanding of the digitized object, description of the physical object, bibliographic information and so forth.
+  * *label:* 
+  A human readable label, name or title for the object. This field is intended to be displayed as a short surrogate for the resource if a human needs to make a distinction between it and similar resources, for example between pages or between a choice of images to display. When associated with the Manifest it should be the name of the physical object or title of the intellectual work that it embodies. When associated with a Sequence it should briefly convey the nature of sequence, such as "Current Page Order". When associated with a Canvas, it should be the page label such as "p. 1" or "folio 1 recto". Finally, when associated with an image or other content resource, it should be a brief description of the resource, such as "black and white" versus "color photograph"
+  * metadata: 
+  A list of metadata fields given as pairs of human readable label and value to be displayed by the client to the user. There are no semantics conveyed by this information, and clients should not use it for discovery or other purposes. This pool of metadata fields should be able to be displayed in a tabular form in the user interface. Metadata pairs might be used to convey the author of the work, information about its creation, a brief physical description, or ownership information amongst other use cases. The client is not expected to take any action on this information beyond displaying the label and value. An example pair of label and value might be: {"label": "Author", "value": "Froissart"}. The client should display the pairs in the order provided by the description.
+  * description: 
+  A longer form prose description of the object, intended to be conveyed to the user as a full text description, rather than a simple label. It can duplicate any of the above information, along with additional information required for the understanding of the digitized object, description of the physical object, bibliographic information and so forth.
 
 The Manifest and Canvas resources must have at least one Label, even if only the position of the Canvas within the Sequence to be displayed for navigation. Metadata and description are optional for the different types of resource.
 
@@ -260,30 +263,43 @@ The metadata fields are included directly within the JSON object. Identifier is 
 The example below includes only the Manifest level information, however it should embed the Sequence, Canvas and content information as described in the following sections. It includes examples in the descriptive metadata for how to associate multiple entries with a single field and how to be explicit about the language of a particular entry.
 
 ```javascript
-{ 
-  // Metadata about this Manifest file 
-  "@context":"http://www.shared-canvas.org/ns/context.json", 
-  "@id":"http://www.example.org/iiif/book1/manifest.json", 
-  "@type":"sc:Manifest", 
-  // Metadata about the physical object/intellectual work 
-  "label":"Book 1", 
-  "metadata": [ {"label":"Author", "value":"Anne Author"}, {"label":"Published", "value": [ {"@value": "Paris, circa 1400", "@language":"en"}, {"@value": "Paris, environ 1400", "@language":"fr"} ] } ], 
-  "description":"A longer description of this example book. It should give some real information.", 
-  // Rights Metadata "license":"http://www.example.org/license.html", 
-  "attribution":"Provided by Example Organization", 
-  // Linking Metadata 
-  "service":"http://www.example.org/iiif/book1/search.html", 
-  "seeAlso":"http://www.example.org/library/catalog/book1.xml", 
-  "within":"http://www.example.org/collections/books/", 
-  // List of Sequences 
-  "sequences" : [ 
-  { "@id":"http://www.example.org/iiif/book1/sequence/normal.json", 
-  "@type":"sc:Sequence", 
-  "label":"Current Page Order" 
-  // Sequence's page order should be included here, see below... 
-  } 
-  // Any additional sequences can be referenced here... 
-  ] 
+{
+  // Metadata about this Manifest file
+  "@context":"http://www.shared-canvas.org/ns/context.json",
+  "@id":"http://www.example.org/iiif/book1/manifest.json",
+  "@type":"sc:Manifest",
+
+  // Metadata about the physical object/intellectual work
+  "label":"Book 1",
+  "metadata": [
+    {"label":"Author", "value":"Anne Author"},
+    {"label":"Published", "value": [
+        {"@value": "Paris, circa 1400", "@language":"en"}, 
+        {"@value": "Paris, environ 1400", "@language":"fr"}
+      ]
+    }
+  ],
+  "description":"A longer description of this example book. It should give some real information.",
+
+  // Rights Metadata
+  "license":"http://www.example.org/license.html",
+  "attribution":"Provided by Example Organization",
+
+  // Linking Metadata
+  "service":"http://www.example.org/iiif/book1/search.html",
+  "seeAlso":"http://www.example.org/library/catalog/book1.xml",
+  "within":"http://www.example.org/collections/books/",
+
+  // List of Sequences  
+  "sequences" : [
+      {
+        "@id":"http://www.example.org/iiif/book1/sequence/normal.json",
+        "@type":"sc:Sequence",
+        "label":"Current Page Order"
+        // Sequence's page order should be included here, see below...
+      }
+      // Any additional sequences can be referenced here...
+  ]
 }
 ```
 
