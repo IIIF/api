@@ -1,4 +1,5 @@
-# International Image Interoperability Framework › Metadata API 1.0
+# International Image Interoperability Framework › XXX API 1.1 DRAFT
+## Codename: Black Diamond
 
 **Editors**
 
@@ -48,19 +49,19 @@ Copyright © 2012-2013 the Contributors to the IIIF, DMS Council, and other Cont
     2. [Layer][21]
   7. [Examples][22]
 
-##  1 Introduction
+##  1. Introduction
 
 Access to image-based resources is fundamental to many research disciplines, scholarship and the transmission of cultural knowledge. Digital images are a container for much of the information content in the Web-based delivery of images, books, newspapers, manuscripts, maps, scrolls, single sheet collections, and even digital surrogates of textiles, realia and ephemera.
 
-This document describes how the structural and descriptive metadata about a digitized object can be made available in a standard manner. Many different styles of viewer can be implemented that consume the information to enable a rich and dynamic experience for their users across collections and hosting institutions.
+This document describes how the structure and layout of a digitized object can be made available in a standard manner. Many different styles of viewer can be implemented that consume the information to enable a rich and dynamic experience for their users across collections and hosting institutions.
 
-A digitized object may comprise a series of pages or surfaces; for example the pages of an edition of a newspaper, or the pages of a book together with its covers and spine. As such the primary requirements for the metadata API is to provide an order for the pages, and the essential metadata to allow the user to understand what they're seeing.
+A digitized object may comprise a series of pages or surfaces; for example the pages of an edition of a newspaper, or the pages of a book together with its covers and spine. As such the primary requirements for the XXX API is to provide an order for the pages or other views, the resources needed to display a representation of the view, and the information needed to allow the user to understand what they're seeing.
 
-The principles of Linked Data and the architecture of the Web are adopted in order to provide a distributed and interoperable system. The [Shared Canvas data model][24] is leveraged in a specific, JSON based format that is easy to implement without understanding RDF, but is still compatible with it. As such it can be seen as a recommended serialization profile for Shared Canvas.
+The principles of Linked Data and the Architecture of the Web are adopted in order to provide a distributed and interoperable system. The [Shared Canvas data model][24] is leveraged in a specific, JSON based format that is easy to implement without understanding RDF, but is still compatible with it. As such it can be seen as a recommended serialization profile for Shared Canvas.
 
 ### 1.1. Objectives and Scope 
 
-The objective of the IIIF Metadata API is to provide the information necessary to allow a rich, online viewing environment for digitized physical objects to be presented to a user, in conjunction with the IIIF Image API. This is the sole purpose of the API; to provide easy access to the information necessary for a viewer to render an appropriate user experience for the digitized content. Therefore the descriptive information is given in a way that is human readable, but not necessarily semantically available to machines. In particular, it specifically does not aim to provide metadata that would drive discovery or user selection of the digitized objects, or machine actionable rights information. This specification is not concerned with in-document search, however that will be covered by a further document. Domain specific features, such as geo-referencing of maps to real world locations, are also not covered but may be addressed in additional documents in the future.
+The objective of the IIIF XXX API is to provide the information necessary to allow a rich, online viewing environment for digitized physical objects to be presented to a user, likely in conjunction with the IIIF Image API. This is the sole purpose of the API; to provide easy access to the information necessary for a viewer to render an appropriate user experience for the digitized content. Therefore the descriptive information is given in a way that is human readable, but not semantically available to machines. In particular, it specifically does NOT aim to provide metadata that would drive discovery or user selection of the digitized objects. This specification is not concerned with in-document search, however that will be covered by a further document. Domain specific features, such as geo-referencing of maps to real world locations, are also not covered but may be addressed in additional documents in the future.
 
 The following are within the scope of the current document:
 
@@ -105,7 +106,7 @@ There are many different types of digitized resources, from ancient scrolls to m
 
 Collectively these use cases require a model in which one can characterise the digitised resource (the Manifest), the order in which individual pages or surfaces are viewed (the Sequence), and the individual pages or surfaces (a Canvas). Each Canvas may images and/or texts associated with it (the Content) to allow the page to be viewed. A resource may also have parts; for example, a book may have chapters where several pages may be associated with a single chapter (a Range) or there may be groups of content resource above the page level, such as all of the texts that make up a single transcription of a manuscript. (a Layer).
 
-The need for these conceptual components, shown in italics, was recognised in earlier work concerned with viewing complex digitised manuscripts. The IIIF metadata model is thus derived from this earlier work but has been extended to meet the additional practical needs when viewing and navigating of other types of digitised content. The components and their use are described in the following sections.
+The need for these conceptual components, shown in italics, was recognised in earlier work concerned with viewing complex digitised manuscripts. The IIIF XXX model is thus derived from this earlier work but has been extended to meet the additional practical needs when viewing and navigating of other types of digitised content. The components and their use are described in the following sections.
 
 ##  3. Primary Resource Types 
 
@@ -118,14 +119,14 @@ This specification makes use of the following primary resource types:
 
 Each Manifest must, and is very likely to, have one Sequence, but may have more than one. Each Sequence must have one Canvas and is likely to have more than one. Each Canvas may have zero or more Content resources associated with it. Zero is unlikely, but represents the case where the page exists (or existed) but has not been digitized. This heirarchy is depicted below.
 
-![][25 =400x]
+![][25 =400x400]
 Figure 1. Primary Resource Types
 
 There are other types of resource including Annotation Lists, Annotations, Ranges and Layers, which are discussed later.
 
 ##  4. Metadata Fields
 
-The following metadata fields are suggested by this specification, broken in to four sections. Each metadata field is repeatable, and most may be associated with any of the resource types:
+The following fields are suggested by this specification, broken in to four sections. Each field is repeatable, and most may be associated with any of the resource types:
 
 #### Descriptive Metadata
 
@@ -169,14 +170,14 @@ Links are optional for all resources. They may also have type and format associa
 
 These metadata fields and requirements are depicted in the diagram below.
 
-![][27 =400x]
+![][27 =400x400]
 Figure 2. Metadata Fields
 
 Other metadata fields are possible, either custom extensions or endorsed by the IIIF. If a client discovers fields that it does not understand, then it must ignore them.
 
 ##  5. Requests and Responses
 
-This section describes the recommended request and response patterns for the API that makes the metadata available. The REST approach is followed where a call will retrieve a description of a resource, and additional calls may be made by following links obtained from within the description. All of the requests use the HTTP GET method; creation and update of resources is not covered by this specification.
+This section describes the recommended request and response patterns for the API that makes the presentation information available. The REST approach is followed where a call will retrieve a description of a resource, and additional calls may be made by following links obtained from within the description. All of the requests use the HTTP GET method; creation and update of resources is not covered by this specification.
 
 #### Requests
 
@@ -192,7 +193,7 @@ Where the parameters are:
 
   * {scheme}: Either "http" or "https"
   * {host}: The hostname (and optional port) of the server that provides the information. For example, "www.example.org"
-  * {prefix}: A static prefix such as "iiif" or "metadata". It must be the same for all of the resources that make up a facsimile. The prefix may contain multiple path elements such as "iiif/manuscripts/french/m804" but no semantics are associated with these additional steps by this specification.
+  * {prefix}: A static prefix such as "iiif" or "manifests". It must be the same for all of the resources that make up a facsimile. The prefix may contain multiple path elements such as "iiif/manuscripts/french/m804" but no semantics are associated with these additional steps by this specification.
   * {identifier}: An identifier string for the object itself. For example "m804" or "issue3"
 
 The individual resources will have URIs below this top level pattern in the same way as the IIIF Image API, by appending a "/" and the additional information to identify the resource required. If a client requests a URI without a trailing ".json", then the server should attempt to do content-negotiation if other serializations are available, otherwise return the json representation.
@@ -206,7 +207,7 @@ The format for all responses is JSON, and the sections below describe the struct
 The media type for the responses (returned in the HTTP Content-Type header value) should be "application/ld%2Bjson", but may be "application/json" and clients should process both in the same manner.
 
 ```
-Content-Type: application/ld%2Bjson
+Content-Type: application/ld+json
 ```
 
 The HTTP server should also send the Cross Origin Access control header to allow clients to download the manifests via AJAX from remote sites. The header name is "Access-Control-Allow-Origin" and the value of the header should be "*". In the Apache web server this may be enabled with the following configuration snippet:
@@ -220,9 +221,9 @@ Responses should be compressed by the server as there are significant performanc
 
 Response Content Details
 
-Resource descriptions should be embedded within higher level resources, and may also be available via separate requests from URIs linked in the responses. These URIs are in the "@id" metadata field for the resource. Links to resources may either be given just as the URI if there is no additional information associated with them, or they may be a JSON object with the "@id" field. Thus the following two lines are equivalent, however the second should not be used without additional associated information:
+Resource descriptions should be embedded within higher level resources, and may also be available via separate requests from URIs linked in the responses. These URIs are in the "@id" field for the resource. Links to resources may either be given just as the URI if there is no additional information associated with them, or they may be a JSON object with the "@id" field. Thus the following two lines are equivalent, however the second should not be used without additional associated information:
 
-```
+```javascript
 {"seeAlso" : "http://www.example.org/descriptions/book1.xml"} 
 {"seeAlso" : {"@id":"http://www.example.org/descriptions/book1.xml"}}
 ```
@@ -231,21 +232,26 @@ Each response must have a single "@context" property, preferably as the very fir
 
 Any additional fields beyond those defined in this specification must be mapped to RDF predicates using a Context document. In this case, the value of "@context" is an array with the first element being the IIIF context document, and the second (and subsequent) being extension Context documents. Extension contexts must not change the semantics of any of the fields defined in the IIIF context. The @context line would thus look like:
 
+```javascript
 "@context": ["http://www.shared-canvas.org/ns/context.json", "http://www.example.org/sc/contexts/extension1.json"]
+```
 
-Any of the metadata fields may be repeated. In JSON this is done by giving a list, rather than a single string. Language may also be associated with descriptive metadata strings using the following pattern of value plus the [RFC 5646][28] code, instead of a plain string:
+Any of the fields may be repeated. In JSON this is done by giving a list, rather than a single string. Language may also be associated with descriptive metadata strings using the following pattern of value plus the [RFC 5646][28] code, instead of a plain string:
 
+```javascript
 {"@value":"Information", "@language":"en"}
+```
 
-Note that [RFC 5646][28] allows the script of the text to be included after a hyphen, such as "ar-latn", and clients should be aware of this possibility. This allows for full internationalization of the user interface components described in the response, as the metadata labels as well as values may be translated in this manner; examples are given below. Client developers should be aware that some implementations may add an "@graph" property at the top level, which contains the object. This is a side effect of JSON-LD serialization. This pattern is NOT recommended for implementation, and either the client or server can use the JSON-LD compaction algorithm to remove it. Using JSON-LD Framing with the [supplied Frames][29] will avoid the generation of the "@graph" pattern.
+Note that [RFC 5646][28] allows the script of the text to be included after a hyphen, such as "ar-latn", and clients should be aware of this possibility. This allows for full internationalization of the user interface components described in the response, as the labels as well as values may be translated in this manner; examples are given below. Client developers should be aware that some implementations may add an "@graph" property at the top level, which contains the object. This is a side effect of JSON-LD serialization. This pattern is NOT recommended for implementation, and either the client or server can use the JSON-LD compaction algorithm to remove it. Using JSON-LD Framing with the [supplied Frames][29] will avoid the generation of the "@graph" pattern.
 
 In the examples given below, comments in the JSON are given in blue italics and must be omitted. Example information that needs to be filled out is given in green italics. The order in which the examples are presented is to allow the example to build up from the top most resource, the Manifest, down to the association of Content resources with the Canvases.
 
-###  5.1. Manifest ![][23]
+###  5.1. Manifest
 
 Recommended URI pattern:
-
+```
 {scheme}://{host}/{prefix}/{identifier}/manifest.json
+```
 
 The Manifest contains sufficient information for the client to initialize itself and begin to display something quickly to the user. It represents a single physical object and the intellectual work or works embodied within that object. In particular it includes the descriptive, rights and linking metadata for this physical object. It then references or embeds the Sequence(s) of Canvases that should be rendered to the user viewing the facsimile.
 
@@ -253,7 +259,33 @@ The metadata fields are included directly within the JSON object. Identifier is 
 
 The example below includes only the Manifest level information, however it should embed the Sequence, Canvas and content information as described in the following sections. It includes examples in the descriptive metadata for how to associate multiple entries with a single field and how to be explicit about the language of a particular entry.
 
-{ // Metadata about this Manifest file "@context":"http://www.shared-canvas.org/ns/context.json", "@id":"http://www.example.org/iiif/book1/manifest.json", "@type":"sc:Manifest", // Metadata about the physical object/intellectual work "label":"Book 1", "metadata": [ {"label":"Author", "value":"Anne Author"}, {"label":"Published", "value": [ {"@value": "Paris, circa 1400", "@language":"en"}, {"@value": "Paris, environ 1400", "@language":"fr"} ] } ], "description":"A longer description of this example book. It should give some real information.", // Rights Metadata "license":"http://www.example.org/license.html", "attribution":"Provided by Example Organization", // Linking Metadata "service":"http://www.example.org/iiif/book1/search.html", "seeAlso":"http://www.example.org/library/catalog/book1.xml", "within":"http://www.example.org/collections/books/", // List of Sequences "sequences" : [ { "@id":"http://www.example.org/iiif/book1/sequence/normal.json", "@type":"sc:Sequence", "label":"Current Page Order" // Sequence's page order should be included here, see below... } // Any additional sequences can be referenced here... ] }
+```javascript
+{ 
+  // Metadata about this Manifest file 
+  "@context":"http://www.shared-canvas.org/ns/context.json", 
+  "@id":"http://www.example.org/iiif/book1/manifest.json", 
+  "@type":"sc:Manifest", 
+  // Metadata about the physical object/intellectual work 
+  "label":"Book 1", 
+  "metadata": [ {"label":"Author", "value":"Anne Author"}, {"label":"Published", "value": [ {"@value": "Paris, circa 1400", "@language":"en"}, {"@value": "Paris, environ 1400", "@language":"fr"} ] } ], 
+  "description":"A longer description of this example book. It should give some real information.", 
+  // Rights Metadata "license":"http://www.example.org/license.html", 
+  "attribution":"Provided by Example Organization", 
+  // Linking Metadata 
+  "service":"http://www.example.org/iiif/book1/search.html", 
+  "seeAlso":"http://www.example.org/library/catalog/book1.xml", 
+  "within":"http://www.example.org/collections/books/", 
+  // List of Sequences 
+  "sequences" : [ 
+  { "@id":"http://www.example.org/iiif/book1/sequence/normal.json", 
+  "@type":"sc:Sequence", 
+  "label":"Current Page Order" 
+  // Sequence's page order should be included here, see below... 
+  } 
+  // Any additional sequences can be referenced here... 
+  ] 
+}
+```
 
 ###  5.2. Sequence ![][23]
 
