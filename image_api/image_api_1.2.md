@@ -1,4 +1,5 @@
-# NOTE: THIS IS A WORKING DRAFT. For the latest public release, see [http://iiif.io/api/image/1.1/][36]
+# NOTE: THIS IS A WORKING DRAFT. 
+# For the latest public release, see [http://iiif.io/api/image/1.1/][36]
 
 # International Image Interoperability Framework › Image API 1.2 DRAFT (Codename: Voodoo)
 
@@ -299,6 +300,7 @@ The response will return the following information
 | height | Required | The height of the source image. | 
 | protocol | Required | The URI "http://iiif.io/api/image" which can be used to determine that the document describes an image service which is a version of the IIIF Image API. |
 | scale_factors | Optional | Some image servers support the creation of multiple resolution levels for a single image in order to optimize the efficiency in delivering images of different sizes. The scale_factors element expresses a list of resolution scaling factors. For example a scale factor of 4 indicates that the service can efficiently deliver images at 25% of the height and width of the source image. |
+| other_sizes | Optional | An array of dimensions in the "w,h," syntax that the server has available. This may be used to let the client know other sizes that are available when the server does not support requests for arbirary sizes (Compliance Level 0), or simply as a hint that requesting an image of this size may result in a faster response. |
 | tile_width | Optional | Some image servers efficiently support delivery of predefined tiles enabling easy assembly of portions of the image. It is assumed that the same tile sizes are used for all scale factors supported. The tile_width element expresses the width of the predefined tiles. |
 | tile_height | Optional | The tile_height element expresses the height of the predefined tiles. See description of tile_width. |
 | formats | Optional | The list of image format parameter values available for the image. |
@@ -317,6 +319,7 @@ The JSON response should conform to the format shown in the following example:
   "width" : 6000, 
   "height" : 4000, 
   "scale_factors" : [ 1, 2, 4 ], 
+  "other_sizes" : [ "150,100", "360,240". "3600,2400" ], 
   "tile_width" : 1024, 
   "tile_height" : 1024, 
   "formats" : [ "jpg", "png" ], 
