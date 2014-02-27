@@ -146,8 +146,8 @@ The following fields are defined by this specification, broken in to four sectio
    * A Canvas MUST have a label, and it SHOULD be the page label such as "p. 1" or "folio 1 recto". 
    * A Content resource MAY have a label, and if there is a Choice of Content resource for the same Canvas, then they MUST have labels. The label SHOULD be a brief description of the resource, such as "black and white" versus "color photograph"
   * __metadata__<br/>
-  A list of short descriptive entries given as pairs of human readable label and value to be displayed by the client to the user. There are no semantics conveyed by this information, and clients should not use it for discovery or other purposes. This pool of descriptive pairs should be able to be displayed in a tabular form in the user interface. Descriptive pairs might be used to convey the author of the work, information about its creation, a brief physical description, or ownership information, amongst other use cases. The client is not expected to take any action on this information beyond displaying the label and value. An example pair of label and value might be a label of "Author" and a value of "Jehan Froissart". The client should display the pairs in the order provided by the description.  Clients SHOULD have a way to display the information about Manifests and Canvases, and MAY have a way to view the information about other resources.
-  
+  A list of short descriptive entries given as pairs of human readable label and value to be displayed by the client to the user. The value SHOULD be either simple HTML or plain text, and the label SHOULD be plain text. There are no semantics conveyed by this information, and clients should not use it for discovery or other purposes. This pool of descriptive pairs should be able to be displayed in a tabular form in the user interface. Descriptive pairs might be used to convey the author of the work, information about its creation, a brief physical description, or ownership information, amongst other use cases. The client is not expected to take any action on this information beyond displaying the label and value. An example pair of label and value might be a label of "Author" and a value of "Jehan Froissart". The client should display the pairs in the order provided by the description.  Clients SHOULD have a way to display the information about Manifests and Canvases, and MAY have a way to view the information about other resources.
+
   Usage:
    * A Manifest SHOULD have descriptive pairs associated with it describing the object or work.
    * A Sequence MAY have descriptive pairs associated with it to describe the difference between it and other Sequences.
@@ -315,6 +315,8 @@ Responses SHOULD be compressed by the server as there are significant performanc
 
 __Response Content Details__
 
+The following applies to all of the responses from the server in the XXX API.  For the most part, these are features of the JSON-LD specification that have particular uses within the API.
+
 Resource descriptions SHOULD be embedded within higher level resources, and MAY also be available via separate requests from URIs linked in the responses. These URIs are in the "@id" field for the resource. Links to resources may either be given just as the URI if there is no additional information associated with them, or they may be a JSON object with the "@id" field. Thus the following two lines are equivalent, however the second should not be used without additional information associated with the resource:
 
 ```javascript
@@ -353,9 +355,9 @@ Recommended URI pattern:
 {scheme}://{host}/{prefix}/{identifier}/manifest.json
 ```
 
-The Manifest contains sufficient information for the client to initialize itself and begin to display something quickly to the user. It represents a single physical object and the intellectual work or works embodied within that object. In particular it includes the descriptive, rights and linking metadata for this physical object. It then references or embeds the Sequence(s) of Canvases that should be rendered to the user viewing the facsimile.
+The Manifest contains sufficient information for the client to initialize itself and begin to display something quickly to the user. It represents a single physical object and the intellectual work or works embodied within that object. In particular it includes the descriptive, rights and linking information for the object. It then references or embeds the Sequence(s) of Canvases that should be rendered to the user.
 
-The metadata fields are included directly within the JSON object. Identifier is given the special name of "@id" and may always be dereferenced to retrieve the description of the object. After the metadata, there is then a "sequences" section, which is a list of objects. Each object is a Sequence, described in then next section, that represents the order of the pages and the first such Sequence should be included within the Manifest as well as optionally being available from its own URI. Subsequent Sequences should only be referenced with their identifier ("@id") and class ("@type").
+The fields are included directly within the JSON object. The identifier in "@id" MUST always be able to be dereferenced to retrieve the description of the object. After the descriptive information, there is then a "sequences" section, which is a list of objects. Each object is a Sequence, described in then next section, that represents the order of the pages and the first such Sequence should be included within the Manifest as well as optionally being available from its own URI. Subsequent Sequences should only be referenced with their identifier ("@id") and class ("@type").
 
 The example below includes only the Manifest level information, however it should embed the Sequence, Canvas and content information as described in the following sections. It includes examples in the descriptive metadata for how to associate multiple entries with a single field and how to be explicit about the language of a particular entry.
 
@@ -374,15 +376,28 @@ The example below includes only the Manifest level information, however it shoul
         {"@value": "Paris, circa 1400", "@language":"en"}, 
         {"@value": "Paris, environ 1400", "@language":"fr"}
       ]
-    }
+    },
+    {"label":"Source", "value": "<a href=\"http://example.org/db/1.html\">Database</a>"}
   ],
   "description":"A longer description of this example book. It should give some real information.",
+  "thumbnail": {
+    "@id": "http://www.example.org/images/book1-page1/full/80,100/0/native.jpg"
+    "service": {
+      "@id":"http://www.example.org/images/book1-page1",
+      "profile":"http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1",
+    }
+  },
 
   // Rights Metadata
   "license":"http://www.example.org/license.html",
   "attribution":"Provided by Example Organization",
+  "logo": "http://www.example.org/logos/institution1.jpg",
 
   // Linking Metadata
+  "related":{ 
+    "@id": "http://www.example.org/videos/video-book1.mpg",
+    "format": "video/mpeg"
+  },
   "service":"http://www.example.org/iiif/book1/search.html",
   "seeAlso":"http://www.example.org/library/catalog/book1.xml",
   "within":"http://www.example.org/collections/books/",
@@ -406,13 +421,13 @@ Recommended URI pattern:
 
 {scheme}://{host}/{prefix}/{identifier}/sequence/{name}.json
 
-The Sequence conveys the ordering of the pages. The default sequence (and typically the only sequence) should be embedded within the Manifest, but may also be available from its own URI. Any additional sequences should be referred to from the Manifest but not embedded within it.
+The Sequence conveys the ordering of the pages. The default sequence (and typically the only sequence) SHOULD be embedded within the Manifest, but may also be available from its own URI. Any additional sequences SHOULD be referred to from the Manifest but not embedded within it.
 
-The new {name} parameter in the URI structure is to distinguish it from any other sequences that may be available for the physical object. Typical default names are "normal" or "basic". Names should not begin with a number, as it cannot be the first character of an XML tag making RDF/XML serialization impossible.
+The new {name} parameter in the URI structure is to distinguish it from any other sequences that may be available for the physical object. Typical default names for sequences are "normal" or "basic". Names SHOULD begin with a character in the range [a-zA-Z].
 
-Sequences may have their own descriptive, rights and linking metadata using the same fields as for Manifests. The Label field should be given for all sequences and must be given if there is more than one referenced from a Manifest. After the metadata, the set of pages in the object, represented by Canvas resources, are listed in order in the "canvases" property.
+Sequences may have their own descriptive, rights and linking metadata using the same fields as for Manifests. The Label field MAY be given for sequences and MUST be given if there is more than one referenced from a Manifest. After the metadata, the set of pages in the object, represented by Canvas resources, are listed in order in the "canvases" property.
 
-In the Manifest example above, the sequence is referenced by its URI and contains only the basic information of label, type and id. The default sequence should be written out in full within the Manifest file, as below.
+In the Manifest example above, the sequence is referenced by its URI and contains only the basic information of label, @type and @id. The default sequence should be written out in full within the Manifest file, as below.
 
 ```javascript
 {
