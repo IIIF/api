@@ -29,35 +29,36 @@ Please send feedback to [iiif-discuss@googlegroups.com][1]
 
 ## Table of Contents
 
-  1. [Audience](#audience)
-  2. [URL Syntax][3]
-    1. [Image Request URL Syntax][4]
-    2. [Image Information Request URL Syntax][5]
-    3. [Capabilities Request URL Syntax][40]
-  3. [Identifier][6]
-  4. [Parameters][7]
-    1. [Region][8]
-    2. [Size][9]
-    3. [Rotation][10]
-    4. [Quality][11]
-    5. [Format][12]
-    6. [Order of Implementation][13]
-  5. [Image Information Request][14]
-    1. Image Information Request
-    2. Capabilities Request
-  6. [Server Responses][15]
-    1. [Successful Responses][16]
-    2. [Error Conditions][17]
-  7. [Authentication][18]
-  8. [Compliance Levels][19]
-  9. [URL Encoding and Decoding][20]
-  10. [Security Considerations][21]
+  1. [Audience](#1-audience)
+  2. [URL Syntax](#2-url-syntax)
+    1. [Image Request URL Syntax](#21-image-request-url-syntax)
+    2. [Image Information Request URL Syntax](#22-image-information-request-url-syntax)
+    3. [Capabilities Request URL Syntax](#23-capabilities-request-url-syntax)
+  3. [Identifier](#3-identifier)
+  4. [Parameters](#4-image-request-parameters)
+    1. [Region](#41-region)
+    2. [Size](#42-size)
+    3. [Rotation](#43-rotation)
+    4. [Quality](#44-quality)
+    5. [Format](#45-format)
+    6. [Order of Implementation](#46-order-of-implementation)
+    7. [Canonical URI Syntax](#47-canonical-uri-syntax)
+  5. [Information Requests](#5-information-requests)
+    1. [Image Information Request](#51-image-information-request)
+    2. [Capabilities Request](#52-capabilities-request)
+  6. [Server Responses](#6-server-responses)
+    1. [Successful Responses](#61-successful-responses)
+    2. [Error Conditions](#62-error-conditions)
+  7. [Authentication](#7-authentication)
+  8. [Compliance Levels](#8-compliance-levels)
+  9. [URL Encoding and Decoding](#9-url-encoding-and-decoding)
+  10. [Security Considerations](#10-security-considerations)
 
 ## Appendices
 
-  1. [Implementation Notes][22]
-  2. [Acknowledgments][23]
-  3. [Change Log][24]
+  1. [Implementation Notes](#a-implementation-notes)
+  2. [Acknowledgments](#b-acknowledgments)
+  3. [Change Log](#c-change-log)
 
 ##  1. Audience
 
@@ -502,31 +503,7 @@ Many thanks to Matthieu Bonicel, Kevin Clarke, Mark Patton, Lynn McRae, Willy Me
 | 2012-05-02 | ssnydman | RFC version |
 
    [1]: mailto:iiif-discuss%40googlegroups.com
-   [2]: http://iiif.io#audience
-   [3]: http://iiif.io#url-syntax
-   [4]: http://iiif.io#url-syntax-image-request
-   [5]: http://iiif.io#url-syntax-image-info
-   [6]: http://iiif.io#identifier
-   [7]: http://iiif.io#parameters
-   [8]: http://iiif.io#parameters-region
-   [9]: http://iiif.io#parameters-size
-   [10]: http://iiif.io#parameters-rotation
-   [11]: http://iiif.io#parameters-quality
-   [12]: http://iiif.io#parameters-format
-   [13]: http://iiif.io#parameters-order
-   [14]: http://iiif.io#image-info-request
-   [15]: http://iiif.io#server-responses
-   [16]: http://iiif.io#server-responses-successful
-   [17]: http://iiif.io#server-responses-error
-   [18]: http://iiif.io#authentication
-   [19]: http://iiif.io#compliance-levels
-   [20]: http://iiif.io#url-encoding-and-decoding
-   [21]: http://iiif.io#security-considerations
-   [22]: http://iiif.io#implementation
-   [23]: http://iiif.io#acknowledgments
-   [24]: http://iiif.io#changelog
    [26]: http://tools.ietf.org/html/rfc6570
-   [27]: http://iiif.io#success
    [28]: http://library.stanford.edu/iiif/image-api/1.1/context.json
    [29]: http://www.json-ld.org/
    [30]: http://www.ietf.org/rfc/rfc2617
@@ -540,5 +517,3 @@ Many thanks to Matthieu Bonicel, Kevin Clarke, Mark Patton, Lynn McRae, Willy Me
    [38]: http://www.w3.org/TR/json-ld/#interpreting-json-as-json-ld# NOTE: THIS IS A WORKING DRAFT. For the latest public release, see [http://iiif.io/api/image/1.1/][36]
    [39]: http://iiif.io#capabilities-request
    [40]: http://iiif.io#url-syntax-capabilities-request
-
-
