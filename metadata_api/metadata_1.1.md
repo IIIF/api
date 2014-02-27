@@ -112,10 +112,14 @@ The need for these conceptual components, shown in italics, was recognised in ea
 
 This specification makes use of the following primary resource types:
 
-  * Manifest: The overall description of the structure of the digital facsimile and the content resources needed to render it. It represents the intellectual work and physical object itself, and thus carries information needed for the viewer to present the entire facsimile to the user, such as a title, people involved with its creation, and the location where it is currently held.
-  * Sequence: The order of the pages within the physical object. As books may be rebound over time or the page order otherwise change, multiple Sequences are allowed.
-  * Canvas: A container that represents a page and has content resources associated with it, or with parts of it. The Canvas provides a frame of reference for the layout of the page. The notion of a Canvas is drawn from standards like PDF and HTML, or applications like Photoshop, where the display starts from a blank canvas and images, text and other resources are "painted" on to it.
-  * Content: Content resources such as images or texts that are associated with a Canvas.
+  * __Manifest__
+    The overall description of the structure of the digital facsimile and the content resources needed to render it. It represents the intellectual work and physical object itself, and thus carries information needed for the viewer to present the entire facsimile to the user, such as a title, people involved with its creation, and the location where it is currently held.
+  * __Sequence__ 
+    The order of the pages within the physical object. As books may be rebound over time or the page order otherwise change, multiple Sequences are allowed.
+  * __Canvas__
+    A container that represents a page and has content resources associated with it, or with parts of it. The Canvas provides a frame of reference for the layout of the page. The notion of a Canvas is drawn from standards like PDF and HTML, or applications like Photoshop, where the display starts from a blank canvas and images, text and other resources are "painted" on to it.
+  * __Content__
+    Content resources such as images or texts that are associated with a Canvas.
 
 Each Manifest must, and is very likely to, have one Sequence, but may have more than one. Each Sequence must have one Canvas and is likely to have more than one. Each Canvas may have zero or more Content resources associated with it. Zero is unlikely, but represents the case where the page exists (or existed) but has not been digitized. This heirarchy is depicted below.
 
@@ -131,19 +135,12 @@ The following fields are defined by this specification, broken in to four sectio
 #### Descriptive Fields
 
   * __label__
-
   A human readable label, name or title for the object. This field is intended to be displayed as a short surrogate for the resource if a human needs to make a distinction between it and similar resources, for example between pages or between a choice of images to display. When associated with the Manifest it should be the name of the physical object or title of the intellectual work that it embodies. When associated with a Sequence it should briefly convey the nature of sequence, such as "Current Page Order". When associated with a Canvas, it should be the page label such as "p. 1" or "folio 1 recto". Finally, when associated with an image or other content resource, it should be a brief description of the resource, such as "black and white" versus "color photograph"
-
   * __metadata__
-
   A list of metadata fields given as pairs of human readable label and value to be displayed by the client to the user. There are no semantics conveyed by this information, and clients should not use it for discovery or other purposes. This pool of metadata fields should be able to be displayed in a tabular form in the user interface. Metadata pairs might be used to convey the author of the work, information about its creation, a brief physical description, or ownership information amongst other use cases. The client is not expected to take any action on this information beyond displaying the label and value. An example pair of label and value might be: {"label": "Author", "value": "Froissart"}. The client should display the pairs in the order provided by the description.
-  
   * __description__ 
-
   A longer form prose description of the object, intended to be conveyed to the user as a full text description, rather than a simple label. It can duplicate any of the above information, along with additional information required for the understanding of the digitized object, description of the physical object, bibliographic information and so forth.
-
   * __thumbnail__
-
   A small image that represents the content of the object, such as the title page or significant image.  It is recommended that a IIIF Image Service be available for this image for rescaling.
 
 The Manifest and Canvas resources must have at least one Label, even if only the position of the Canvas within the Sequence to be displayed for navigation. Metadata and description are optional for the different types of resource.
@@ -151,15 +148,10 @@ The Manifest and Canvas resources must have at least one Label, even if only the
 #### Rights Metadata
 
   * __attribution__
-
   A human readable label that must be displayed when the resource it is associated with is displayed or used. For example this could be used to present copyright or ownership, or simply an acknowledgement of the owning and/or publishing institutions.
-
   * __logo__
-
   A small image that represents an individual or organization associated with the object.  This could be the logo of the owning or hosting institution.  It is recommended that a IIIF Image Service be available for this image for rescaling.
-  
   * __license__ 
-
   A link to a resource that describes the license or rights statement under which the resource is being used. The rationale for this being a URI not a human readable label is that typically there is one license for many resources, and the text is too long to be displayed to the user along with the object. If this is a requirement, then it is recommended to include the information in an attribution field instead.
 
 
