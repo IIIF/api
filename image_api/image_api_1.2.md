@@ -33,6 +33,7 @@ Please send feedback to [iiif-discuss@googlegroups.com][1]
   2. [URL Syntax][3]
     1. [Image Request URL Syntax][4]
     2. [Image Information Request URL Syntax][5]
+    3. [Capabilities Request URL Syntax][39]
   3. [Identifier][6]
   4. [Parameters][7]
     1. [Region][8]
@@ -68,14 +69,16 @@ This document is intended for developers building applications that share digita
 
 The IIIF Image API can be called in three forms: 
  * Request an image, which may be part of a larger image 
- * Request techincal information about the full image
- * Request the features supported by the image server
+ * Request technical information about the full image
+ * Request the capabilities supported by the image server
 
 All of the forms convey the request's information in the path segments of the URI, rather than as query parameters. This makes responses easier to cache, either at the server or by standard web-caching infrastructure. It also permits a minimal implementation using pre-computed files in a matching directory structure.
 
 There are four parameters shared by the requests, and other IIIF specifications:
 
-| scheme | Indicates the use of the http or https protocol in calling the service. 
+| Name | Description |
+| ---- | ----------- |
+| scheme | Indicates the use of the http or https protocol in calling the service. |
 | server | The host server on which the service resides. |
 | prefix | The path on the host server to the service. This prefix is optional, but may be useful when the host server supports multiple services. The prefix MAY contain multiple path segments, delimited by slashes, but all other special characters MUST be encoded. See [Section 9][20] for more information. |
 | identifier | The identifier of the requested image, expressed as a string. This may be an ark, URN, filename, or other identifier. Special characters MUST be URI encoded. |
@@ -134,7 +137,7 @@ http://www.example.org/image-service/abcd1234/info.json
 
 It is recommended that if the image’s base URI is dereferenced, then the client should either redirect to the information request using a 303 status code (see [Section 6.1][27]), or return the same result. See [Section 5.1 - Image Information Request][14] for more information.
 
-### 2.3. Server Capabilities Request URL Syntax
+### 2.3. Capabilities Request URL Syntax
 
 The IIIF Image API URL for requesting the set of features that the server supports SHOULD conform to the following syntax:
 
@@ -148,11 +151,11 @@ Each image information response (info.json) SHOULD link to the capabilities docu
 
 The URI Template form is:
 ```
-{scheme}://{server}{/prefix}/features.json
+{scheme}://{server}{/prefix}/capabilities.json
 ```
 For example:
 ```
-http://www.example.org/image-service/features.json
+http://www.example.org/image-service/capabilities.json
 ```
 
 
@@ -560,4 +563,4 @@ Many thanks to Matthieu Bonicel, Kevin Clarke, Mark Patton, Lynn McRae, Willy Me
    [37]: http://www.w3.org/TR/json-ld/
    [38]: http://www.w3.org/TR/json-ld/#interpreting-json-as-json-ld# NOTE: THIS IS A WORKING DRAFT. For the latest public release, see [http://iiif.io/api/image/1.1/][36]
    [39]: http://iiif.io#capabilities-request
-   
+
