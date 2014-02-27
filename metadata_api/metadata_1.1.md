@@ -1,4 +1,5 @@
-# International Image Interoperability Framework › XXX API 1.1 DRAFT
+# International Image Interoperability Framework
+# XXX API 1.1 DRAFT
 ## Codename: Black Diamond
 
 **Editors**
@@ -22,7 +23,9 @@
 
 _This section describes the status of this document at the time of its publication. Other documents may supersede this document._
 
-Copyright © 2012-2013 the Contributors to the IIIF, DMS Council, and other Contributors, published by the IIIF under the CC-BY license.
+__DRAFT ONLY__
+
+Copyright © 2012-2014 the Contributors to the IIIF, DMS Council, and other Contributors, published by the IIIF under the CC-BY license.
 
 ## Table of Contents
 
@@ -55,24 +58,24 @@ Access to image-based resources is fundamental to many research disciplines, sch
 
 This document describes how the structure and layout of a digitized object can be made available in a standard manner. Many different styles of viewer can be implemented that consume the information to enable a rich and dynamic experience for their users across collections and hosting institutions.
 
-A digitized object may comprise a series of pages or surfaces; for example the pages of an edition of a newspaper, or the pages of a book together with its covers and spine. As such the primary requirements for the XXX API is to provide an order for the pages or other views, the resources needed to display a representation of the view, and the information needed to allow the user to understand what they're seeing.
+A digitized object may comprise a series of pages, surfaces or other views; for example the single view of a painting, the two sides of a photograph, four cardinal views of a statue, or the many pages of an edition of a newspaper or book. As such the primary requirements for the XXX API are to provide an order for these views, the resources needed to display a representation of the view, and the information needed to allow the user to understand what they're seeing.
 
 The principles of Linked Data and the Architecture of the Web are adopted in order to provide a distributed and interoperable system. The [Shared Canvas data model][24] is leveraged in a specific, JSON based format that is easy to implement without understanding RDF, but is still compatible with it. As such it can be seen as a recommended serialization profile for Shared Canvas.
 
 ### 1.1. Objectives and Scope 
 
-The objective of the IIIF XXX API is to provide the information necessary to allow a rich, online viewing environment for digitized physical objects to be presented to a user, likely in conjunction with the IIIF Image API. This is the sole purpose of the API; to provide easy access to the information necessary for a viewer to render an appropriate user experience for the digitized content. Therefore the descriptive information is given in a way that is human readable, but not semantically available to machines. In particular, it specifically does NOT aim to provide metadata that would drive discovery or user selection of the digitized objects. This specification is not concerned with in-document search, however that will be covered by a further document. Domain specific features, such as geo-referencing of maps to real world locations, are also not covered but may be addressed in additional documents in the future.
+The objective of the IIIF XXX API is to provide the information necessary to allow a rich, online viewing environment for digitized physical objects to be presented to a user, likely in conjunction with the IIIF Image API. This is the sole purpose of the API; to provide easy access to the information necessary for a viewer to present an appropriate user experience for the digitized content. Therefore the descriptive information is given in a way that is human readable, but not semantically available to machines. In particular, it specifically does NOT aim to provide metadata that would drive discovery or user selection of the digitized objects. This specification is not concerned with in-document search, however that will be covered by a further document. Domain specific features, such as geo-referencing of maps to real world locations, are also not covered but may be addressed in additional documents in the future.
 
 The following are within the scope of the current document:
 
   * The display of digitized images associated with a particular physical object.
-  * Navigation between the pages or surfaces of the object.
-  * The display of text, and resources of other media types, associated with the object or its pages – this includes descriptive information about the object, labels that can aid navigation such as numbers associated with individual pages, and copyright and attribution information, etc.
+  * Navigation between the pages, surfaces or views of the object.
+  * The display of text, and resources of other media types, associated with the object or its pages – this includes descriptive information about the object, labels that can aid navigation such as numbers associated with individual pages, copyright or attribution information, etc.
 
 The following are not within scope:
 
-  * The discovery or selection of interesting digitized objects is not supported – this falls within the scope of discovery.
-  * Search within the object is not supported by the Metadata API; however this will be covered by a further related specification.
+  * The discovery or selection of interesting digitized objects is not directly supported.
+  * Search within the object is not supported by the XXX API; however this will be covered by a further related specification.
 
 Note that in the following descriptions, "[physical] object" is used to refer to the physical object that has been digitized, and "resources" refer to the digital resources that are the result of that digitization process.
 
@@ -104,7 +107,7 @@ There are many different types of digitized resources, from ancient scrolls to m
   * Pages with foldouts, curtains or other additions that can be dynamically interacted with by the user to experience the different states that the object can be in.
   * Multiple transcriptions, editions, translations or other sets of information that should be associated with the digitized pages in a coherent and consistent fashion.
 
-Collectively these use cases require a model in which one can characterise the digitised resource (the Manifest), the order in which individual pages or surfaces are viewed (the Sequence), and the individual pages or surfaces (a Canvas). Each Canvas may images and/or texts associated with it (the Content) to allow the page to be viewed. A resource may also have parts; for example, a book may have chapters where several pages may be associated with a single chapter (a Range) or there may be groups of content resource above the page level, such as all of the texts that make up a single transcription of a manuscript. (a Layer).
+Collectively these use cases require a model in which one can characterise the digitised object (via the _Manifest_ resource), the order in which individual pages or surfaces are presented (the _Sequence_ resource), and the individual pages or surfaces (_Canvas_ resources). Each Canvas may have images and/or texts associated with it (_Content_ resources) to allow the page to be rendered. An object may also have parts; for example, a book may have chapters where several pages may be associated with a single chapter (a _Range_ resource) or there may be groups of content resource above the page level, such as all of the texts that make up a single transcription of a manuscript (a _Layer_ resource).
 
 The need for these conceptual components, shown in italics, was recognised in earlier work concerned with viewing complex digitised manuscripts. The IIIF XXX model is thus derived from this earlier work but has been extended to meet the additional practical needs when viewing and navigating of other types of digitised content. The components and their use are described in the following sections.
 
@@ -113,11 +116,11 @@ The need for these conceptual components, shown in italics, was recognised in ea
 This specification makes use of the following primary resource types:
 
   * __Manifest__<br/>
-    The overall description of the structure of the digital facsimile and the content resources needed to render it. It represents the intellectual work and physical object itself, and thus carries information needed for the viewer to present the entire facsimile to the user, such as a title, people involved with its creation, and the location where it is currently held.
+    The overall description of the structure of the digital representation of the object and the content resources needed to render it. It carries information needed for the viewer to present the entire facsimile to the user, such as a title and other descriptive information about the object or the intellectual work that it conveys.
   * __Sequence__ <br/>
-    The order of the pages within the physical object. As books may be rebound over time or the page order otherwise change, multiple Sequences are allowed.
+    The order of the views of the physical object. As books may be rebound over time or the page order otherwise change, multiple Sequences are allowed.
   * __Canvas__<br/>
-    A container that represents a page and has content resources associated with it, or with parts of it. The Canvas provides a frame of reference for the layout of the page. The notion of a Canvas is drawn from standards like PDF and HTML, or applications like Photoshop, where the display starts from a blank canvas and images, text and other resources are "painted" on to it.
+    A container that represents a page or view and has content resources associated with it or with parts of it. The Canvas provides a frame of reference for the layout of the page. The notion of a Canvas is drawn from standards like PDF and HTML, or applications like Photoshop and Powerpoint, where the display starts from a blank canvas and images, text and other resources are "painted" on to it.
   * __Content__<br/>
     Content resources such as images or texts that are associated with a Canvas.
 
@@ -128,24 +131,39 @@ Figure 1. Primary Resource Types
 
 There are other types of resource including Annotation Lists, Annotations, Ranges and Layers, which are discussed later.
 
-##  4. Metadata Fields
+##  4. Presentation Fields
 
 The following fields are defined by this specification, broken in to four sections. Each field is repeatable, and most may be associated with any of the resource types:
 
-#### Descriptive Fields
+#### 4.1. Descriptive Fields
 
   * __label__<br/>
-  A human readable label, name or title for the object. This field is intended to be displayed as a short surrogate for the resource if a human needs to make a distinction between it and similar resources, for example between pages or between a choice of images to display. When associated with the Manifest it should be the name of the physical object or title of the intellectual work that it embodies. When associated with a Sequence it should briefly convey the nature of sequence, such as "Current Page Order". When associated with a Canvas, it should be the page label such as "p. 1" or "folio 1 recto". Finally, when associated with an image or other content resource, it should be a brief description of the resource, such as "black and white" versus "color photograph"
+  A human readable label, name or title for the object. This field is intended to be displayed as a short surrogate for the resource if a human needs to make a distinction between it and similar resources, for example between pages or between a choice of images to display. 
+  Recommendations:
+   * A Manifest MUST have a label, and it SHOULD be the name of the physical object or title of the intellectual work that it embodies. 
+   * A Sequence  MAY have a label, and if there are multiple Sequences in a single Manifest then they MUST have labels. The label SHOULD briefly convey the nature of sequence, such as "Current Page Order". 
+   * A Canvas MUST have a label, and it SHOULD be the page label such as "p. 1" or "folio 1 recto". 
+   * A Content resource MAY have a label, and if there is a Choice of Content resource for the same Canvas, then they MUST have labels. The label SHOULD be a brief description of the resource, such as "black and white" versus "color photograph"
   * __metadata__<br/>
-  A list of metadata fields given as pairs of human readable label and value to be displayed by the client to the user. There are no semantics conveyed by this information, and clients should not use it for discovery or other purposes. This pool of metadata fields should be able to be displayed in a tabular form in the user interface. Metadata pairs might be used to convey the author of the work, information about its creation, a brief physical description, or ownership information amongst other use cases. The client is not expected to take any action on this information beyond displaying the label and value. An example pair of label and value might be: {"label": "Author", "value": "Froissart"}. The client should display the pairs in the order provided by the description.
+  A list of short descriptive entries given as pairs of human readable label and value to be displayed by the client to the user. There are no semantics conveyed by this information, and clients should not use it for discovery or other purposes. This pool of descriptive pairs should be able to be displayed in a tabular form in the user interface. Descriptive pairs might be used to convey the author of the work, information about its creation, a brief physical description, or ownership information, amongst other use cases. The client is not expected to take any action on this information beyond displaying the label and value. An example pair of label and value might be a label of "Author" and a value of "Jehan Froissart". The client should display the pairs in the order provided by the description.  Clients SHOULD have a way to display the information about Manifests and Canvases, and MAY have a way to view the information about other resources.
+  Recommendations:
+   * A Manifest SHOULD have descriptive pairs associated with it describing the object or work.
+   * A Sequence MAY have descriptive pairs associated with it to describe the difference between it and other Sequences.
+   * A Canvas MAY have descriptive pairs associated with it to describe particular features of that Canvas compared to others.
+   * A Content resource MAY have descriptive pairs associated with it.
   * __description__ <br/>
-  A longer form prose description of the object, intended to be conveyed to the user as a full text description, rather than a simple label. It can duplicate any of the above information, along with additional information required for the understanding of the digitized object, description of the physical object, bibliographic information and so forth.
+  A longer form prose description of the object, intended to be conveyed to the user as a full text description, rather than a simple label and value. It can duplicate any of the above information, along with additional information required for the understanding of the digitized object, description of the physical object, bibliographic information and so forth. Like with the descriptive pairs in "metadata", clients SHOULD have a way to display the information about Manifests and Canvases, and MAY have a way to view the information about other resources.
+  Recommendations:
+   * A Manifest SHOULD have a description that describes the object or work.
+   * A Sequence MAY have a descriptions to further explain how it differs from other Sequences.
+   * A Canvas MAY have a description to describe particular features of the view.
+   * A Content resource MAY have a description.
   * __thumbnail__<br/>
   A small image that represents the content of the object, such as the title page or significant image.  It is recommended that a IIIF Image Service be available for this image for rescaling.
 
 The Manifest and Canvas resources must have at least one Label, even if only the position of the Canvas within the Sequence to be displayed for navigation. Metadata and description are optional for the different types of resource.
 
-#### Rights Metadata
+#### 4.2. Rights Fields
 
   * __attribution__<br/>
   A human readable label that must be displayed when the resource it is associated with is displayed or used. For example this could be used to present copyright or ownership, or simply an acknowledgement of the owning and/or publishing institutions.
@@ -155,10 +173,9 @@ The Manifest and Canvas resources must have at least one Label, even if only the
   A link to a resource that describes the license or rights statement under which the resource is being used. The rationale for this being a URI not a human readable label is that typically there is one license for many resources, and the text is too long to be displayed to the user along with the object. If this is a requirement, then it is recommended to include the information in an attribution field instead.
 
 
-
 Rights metadata is optional for all resources.
 
-#### Technical Metadata
+#### 4.3. Technical Fields
 
   * __id__<br/>
     The URI that identifies the resource. Recommended, but not mandatory, URI patterns are presented below.
@@ -182,7 +199,7 @@ Rights metadata is optional for all resources.
 
 The id and type are required for all primary resources. Height and width are required for Canvases and strongly recommended for image based content resources. Format is strongly recommended for all content resources. ViewingDirection and ViewingHint are only applicable to Sequences, and if not present then "Left-to-Right" and "paged" should be assumed.
 
-#### Links to Other Resources
+#### 4.4. Linking Fields
 
   * __related__<br/>
     A link to an external resource that is related to the current resource and intended for rendering to the user, such as a video or academic paper about a manuscript, a link to the website of the newspaper, a description of the photograph, and so forth. A label and the format of the target resource should be given if possible to assist clients in rendering the resource.
