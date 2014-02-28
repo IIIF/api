@@ -283,7 +283,7 @@ There are two types of information requests: one to get information about an ima
 
 The syntax for the responses to both types of request is [JSON-LD][37]. The content-type of the response MUST be either "application/json" (regular JSON), or "application/ld+json" (JSON-LD).  If the client explicitly wants the JSON-LD content-type, then it must specify this in an Accept header, otherwise the server must return the regular JSON content-type.
 
-If the regular JSON content-type is returned, then it is RECOMMENDED that the server provide a link header to the context document. The syntax for the link header is below, and further [described in section 6.8 of the JSON-LD specification][38]. If the client requests "application/ld+json", the link header MAY still be included but MUST be ignored.
+If the regular JSON content-type is returned, then it is RECOMMENDED that the server provide a link header to the context document. The syntax for the link header is below, and further [described in section 6.8 of the JSON-LD specification][38]. If the client requests "application/ld+json", the link header MAY still be included but MUST be ignored. The entity body is identical regardless of the content-type, including the @context field.
 
 ```
 Link: <http://iiif.io/api/image/1.2/context.json>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"
@@ -297,7 +297,6 @@ The service MUST return technical information about the requested image. The req
 {scheme}://{server}{/prefix}/{identifier}/info.json
 ```
 
-Otherwise the entity body is identical regardless of the content-type, including the @context field.
 
 The response will return the following information
 
