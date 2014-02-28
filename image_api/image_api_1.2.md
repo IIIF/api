@@ -279,19 +279,22 @@ Link: <http://iiif.example.com/server/full/full/0/native.jpg>;rel="canonical"
 
 ##  5. Information Requests
 
-### 5.1. Image Information Request
+There are two types of information requests: one to get information about an image (Image Information Request) and one to get information about the capabilities of the server (Server Capabilities Request).
 
-The service MUST return technical information about the requested image in [JSON-LD][37]. The request for technical information MUST conform to the URI Template:
-```
-{scheme}://{server}{/prefix}/{identifier}/info.json
-```
+The syntax for the responses to both types of request is [JSON-LD][37]. The content-type of the response MUST be either "application/json" (regular JSON), or "application/ld+json" (JSON-LD).  If the client explicitly wants the JSON-LD content-type, then it must specify this in an Accept header, otherwise the server must return the regular JSON content-type.
 
-The content-type of the response MUST be either "application/json" (regular JSON), or "application/ld+json" (JSON-LD).  If the client explicitly wants the JSON-LD content-type, then it must specify this in an Accept header, otherwise the server must return the regular JSON content-type.
-
-If the regular JSON content-type is returned, then it is RECOMMENDED that the server provide a link header to the context document. The syntax for the link header is below, and further [described in section 6.8 of the JSON-LD specification][38]. The link header MUST NOT be given if the client requests "application/ld+json".
+If the regular JSON content-type is returned, then it is RECOMMENDED that the server provide a link header to the context document. The syntax for the link header is below, and further [described in section 6.8 of the JSON-LD specification][38]. If the client requests "application/ld+json", the link header MAY still be included but MUST be ignored.
 
 ```
 Link: <http://iiif.io/api/image/1.2/context.json>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"
+```
+
+### 5.1. Image Information Request
+
+The service MUST return technical information about the requested image. The request for technical information MUST conform to the URI Template:
+
+```
+{scheme}://{server}{/prefix}/{identifier}/info.json
 ```
 
 Otherwise the entity body is identical regardless of the content-type, including the @context field.
@@ -335,11 +338,11 @@ The JSON response should conform to the format shown in the following example:
 }
 ```
 
-The @context property is included to make the JSON document also a valid JSON-LD representation. In order to allow for extension, additional properties not specified here may be included but should be ignored if not understood.
+Additional properties not specified here may be included but should be ignored if not understood.
 
-### 5.2. Capabilities Request
+### 5.2. Server Capabilities Request
 
-A server may declare the set of capabilities that it implements in a capabilities document, which is linked to from the JSON response described in Section 5.1, in greater detail than is possible using the enumerated compliance levels in the profile property.
+A server MAY declare the set of capabilities that it implements in a capabilities document, which is linked to from the JSON response described in Section 5.1, in greater detail than is possible using the enumerated compliance levels in the profile property.
 
 | Property | Required? | Description |
 | -------- | --------- | ----------- |
