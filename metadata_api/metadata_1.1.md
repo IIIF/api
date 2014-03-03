@@ -1,5 +1,5 @@
 # International Image Interoperability Framework
-# XXX API 1.1 DRAFT
+# Presentation API 1.1 DRAFT
 ## Codename: Black Diamond
 
 **Editors**
@@ -58,13 +58,13 @@ Access to image-based resources is fundamental to many research disciplines, sch
 
 This document describes how the structure and layout of a digitized object can be made available in a standard manner. Many different styles of viewer can be implemented that consume the information to enable a rich and dynamic experience for their users across collections and hosting institutions.
 
-A digitized object may comprise a series of pages, surfaces or other views; for example the single view of a painting, the two sides of a photograph, four cardinal views of a statue, or the many pages of an edition of a newspaper or book. As such the primary requirements for the XXX API are to provide an order for these views, the resources needed to display a representation of the view, and the information needed to allow the user to understand what they're seeing.
+A digitized object may comprise a series of pages, surfaces or other views; for example the single view of a painting, the two sides of a photograph, four cardinal views of a statue, or the many pages of an edition of a newspaper or book. As such the primary requirements for the Presentation API are to provide an order for these views, the resources needed to display a representation of the view, and the information needed to allow the user to understand what they're seeing.
 
 The principles of Linked Data and the Architecture of the Web are adopted in order to provide a distributed and interoperable system. The [Shared Canvas data model][24] is leveraged in a specific, JSON based format that is easy to implement without understanding RDF, but is still compatible with it. As such it can be seen as a recommended serialization profile for Shared Canvas.
 
 ### 1.1. Objectives and Scope 
 
-The objective of the IIIF XXX API is to provide the information necessary to allow a rich, online viewing environment for digitized physical objects to be presented to a user, likely in conjunction with the IIIF Image API. This is the sole purpose of the API; to provide easy access to the information necessary for a viewer to present an appropriate user experience for the digitized content. Therefore the descriptive information is given in a way that is human readable, but not semantically available to machines. In particular, it specifically does NOT aim to provide metadata that would drive discovery or user selection of the digitized objects. This specification is not concerned with in-document search, however that will be covered by a further document. Domain specific features, such as geo-referencing of maps to real world locations, are also not covered but may be addressed in additional documents in the future.
+The objective of the IIIF Presentation API is to provide the information necessary to allow a rich, online viewing environment for digitized physical objects to be presented to a user, likely in conjunction with the IIIF Image API. This is the sole purpose of the API; to provide easy access to the information necessary for a viewer to present an appropriate user experience for the digitized content. Therefore the descriptive information is given in a way that is human readable, but not semantically available to machines. In particular, it specifically does NOT aim to provide metadata that would drive discovery or user selection of the digitized objects. This specification is not concerned with in-document search, however that will be covered by a further document. Domain specific features, such as geo-referencing of maps to real world locations, are also not covered but may be addressed in additional documents in the future.
 
 The following are within the scope of the current document:
 
@@ -75,7 +75,7 @@ The following are within the scope of the current document:
 The following are not within scope:
 
   * The discovery or selection of interesting digitized objects is not directly supported.
-  * Search within the object is not supported by the XXX API; however this will be covered by a further related specification.
+  * Search within the object is not supported by the Presentation API; however this will be covered by a further related specification.
 
 Note that in the following descriptions, "[physical] object" is used to refer to the physical object that has been digitized, and "resources" refer to the digital resources that are the result of that digitization process.
 
@@ -87,17 +87,17 @@ There are many different types of digitized resources, from ancient scrolls to m
   * An early printed book that has had each page digitized and the transcribed text associated with each page.
   * A digitized newspaper with the text extracted automatically by Optical Character Recognition and linked to the individual line in its depiction
   * A photograph, digitized front and back.
-  * A large map where the image depicting it can be zoomed and panned for ease of inspection
+  * A large map where the image depicting it can be zoomed and panned for ease of inspection.
   * A manuscript that has been disbound and is now separated across different institutions, some of which have digitized their leaves.
-  * An important manuscript that has had multiple digitizations over time as technology improves, any of which should be available to the user to compare
-  * A manuscript that has been re-used by erasing the original text and writing over top of it, where the original text can be recovered using modern techniques of multi-spectral imaging.
-  * That same manuscript (a palimpsest) where all of the different images of a single page, taken for the text reconstruction, are available to be displayed.
-  * A book where pages are known to have existed, but have been lost or still exist but are too fragile to digitize without destroying them.
-  * Non rectangular pages, such as heart shaped renaissance manuscripts.
+  * An important diary that has had multiple digitizations over time as technology improves, any of which should be available to the user to compare
+  * A painting that has been re-used by erasing the original and painting over top of it, where the original artwork can be recovered using modern techniques of multi-spectral imaging.
+  * A manuscript where different, multi-spectral images of a single page, taken for the text reconstruction, are available to be displayed.
+  * A letter where pages are known to have existed, but have been lost or still exist but are too fragile to digitize without destroying them.
+  * Objects that are not basically rectangular.
   * A page where only fragments of it remain, and they are not rectangular. These fragments are often digitized together, regardless of the page that they originally came from, and must be able to be associated with the correct pages separately.
   * The same fragment, where the text is known from other witnesses, or can be otherwise inferred, which should be associated in the display of the object even though the physical content no longer exists.
-  * Older projects which only digitized the "interesting" sections of an object, such as the illuminations or famous parts. Equivalently, they may have digitized those sections in more detail, and the rest to a lower quality.
-  * Disagreement between scholars as to the correct reconstruction of fragments, or how a text should be read.
+  * Older projects which only digitized the "interesting" sections of an object, such as the interesting or famous parts. Equivalently, they may have digitized those sections in more detail, and the rest to a lower quality.
+  * Disagreement between scholars as to the correct reconstruction of an object.
   * A score where the music has been transcribed into modern notation, which should be associated with the page in the same way as transcribed text.
   * The same score, where the music has been performed and recorded, which should be associated with the page so that the performance can be played to the user.
   * Transcription of diagrams, formulae, charts or tables into individual images, or other digitally accessible resources.
@@ -105,22 +105,22 @@ There are many different types of digitized resources, from ancient scrolls to m
   * Manuscripts that have been re-ordered, intentionally or otherwise, over time and the different sequences of pages are known.
   * Books that have had additional fly-leaves or other artifacts added to them over time which are now historically important, but the user should be able to display the object as it was before they were added.
   * Pages with foldouts, curtains or other additions that can be dynamically interacted with by the user to experience the different states that the object can be in.
-  * Multiple transcriptions, editions, translations or other sets of information that should be associated with the digitized pages in a coherent and consistent fashion.
+  * Multiple transcriptions, editions, translations or other sets of information that should be associated with the digitized object in a coherent and consistent fashion.
 
 Collectively these use cases require a model in which one can characterise the digitised object (via the _Manifest_ resource), the order in which individual pages or surfaces are presented (the _Sequence_ resource), and the individual pages or surfaces (_Canvas_ resources). Each Canvas may have images and/or texts associated with it (_Content_ resources) to allow the page to be rendered. An object may also have parts; for example, a book may have chapters where several pages may be associated with a single chapter (a _Range_ resource) or there may be groups of content resource above the page level, such as all of the texts that make up a single transcription of a manuscript (a _Layer_ resource).
 
-The need for these conceptual components, shown in italics, was recognised in earlier work concerned with viewing complex digitised manuscripts. The IIIF XXX model is thus derived from this earlier work but has been extended to meet the additional practical needs when viewing and navigating of other types of digitised content. The components and their use are described in the following sections.
+The need for these conceptual components, shown in italics, was recognised in earlier work concerned with viewing complex digitised manuscripts. The IIIF Presentation metadata model is thus derived from this earlier work but has been extended to meet the additional practical needs when viewing and navigating of other types of digitised content. The components and their use are described in the following sections.
 
 ##  3. Primary Resource Types 
 
 This specification makes use of the following primary resource types:
 
   * __Manifest__<br/>
-    The overall description of the structure of the digital representation of the object and the content resources needed to render it. It carries information needed for the viewer to present the entire facsimile to the user, such as a title and other descriptive information about the object or the intellectual work that it conveys.
+    The overall description of the structure of the digital representation of the object and the content resources needed to render it. It carries information needed for the viewer to present the digitized content to the user, such as a title and other descriptive information about the object or the intellectual work that it conveys.
   * __Sequence__ <br/>
     The order of the views of the physical object. As books may be rebound over time or the page order otherwise change, multiple Sequences are allowed.
   * __Canvas__<br/>
-    A container that represents a page or view and has content resources associated with it or with parts of it. The Canvas provides a frame of reference for the layout of the page. The notion of a Canvas is drawn from standards like PDF and HTML, or applications like Photoshop and Powerpoint, where the display starts from a blank canvas and images, text and other resources are "painted" on to it.
+    A container that represents a page or view and has content resources associated with it or with parts of it. The Canvas provides a frame of reference for the layout of the page. The concept of a Canvas is borrowed from standards like PDF and HTML, or applications like Photoshop and Powerpoint, where the display starts from a blank canvas and images, text and other resources are "painted" on to it.
   * __Content__<br/>
     Content resources such as images or texts that are associated with a Canvas.
 
@@ -295,12 +295,11 @@ If the regular JSON content-type is returned, then it is RECOMMENDED that the se
 
 ```
 Content-Type: application/json
-Link: <http://iiif.io/api/XXX/1.1/context.json>; rel="http://www.w3.org/ns/json-ld#context"
+Link: <http://iiif.io/api/presentation/1.1/context.json>; rel="http://www.w3.org/ns/json-ld#context"
                                                ; type="application/ld+json"
 ```
 
-
-The HTTP server MUST also send the Cross Origin Access control header to allow clients to download the manifests via AJAX from remote sites. The header name is "Access-Control-Allow-Origin" and the value of the header SHOULD be "*". 
+The HTTP server SHOULD, if at all possible, send the Cross Origin Access control header (often called "CORS") to allow clients to download the manifests via AJAX from remote sites. The header name is "Access-Control-Allow-Origin" and the value of the header SHOULD be "*". 
 ```
 Access-Control-Allow-Origin: *
 ```
@@ -315,7 +314,7 @@ Responses SHOULD be compressed by the server as there are significant performanc
 
 __Response Content Details__
 
-The following applies to all of the responses from the server in the XXX API.  For the most part, these are features of the JSON-LD specification that have particular uses within the API.
+The following applies to all of the responses from the server in the Presentation API.  For the most part, these are features of the JSON-LD specification that have particular uses within the API.
 
 Resource descriptions SHOULD be embedded within higher level resources, and MAY also be available via separate requests from URIs linked in the responses. These URIs are in the "@id" field for the resource. Links to resources may either be given just as the URI if there is no additional information associated with them, or they may be a JSON object with the "@id" field. Thus the following two lines are equivalent, however the second should not be used without additional information associated with the resource:
 
@@ -368,7 +367,7 @@ The example below includes only the Manifest level information, however it shoul
   "@id":"http://www.example.org/iiif/book1/manifest.json",
   "@type":"sc:Manifest",
 
-  // Metadata about the physical object/intellectual work
+  // Descriptive metadata about the physical object/intellectual work
   "label":"Book 1",
   "metadata": [
     {"label":"Author", "value":"Anne Author"},
@@ -377,7 +376,7 @@ The example below includes only the Manifest level information, however it shoul
         {"@value": "Paris, environ 1400", "@language":"fr"}
       ]
     },
-    {"label":"Source", "value": "<a href=\"http://example.org/db/1.html\">Database</a>"}
+    {"label":"Source", "value": "<a href=\"http://example.org/db/1.html\">Some Collection</a>"}
   ],
   "description":"A longer description of this example book. It should give some real information.",
   "thumbnail": {
@@ -388,12 +387,16 @@ The example below includes only the Manifest level information, however it shoul
     }
   },
 
-  // Rights Metadata
+  // Presentation Information
+  "viewingDirection": "right-to-left",
+  "viewingHint": "paged",
+
+  // Rights Information
   "license":"http://www.example.org/license.html",
   "attribution":"Provided by Example Organization",
   "logo": "http://www.example.org/logos/institution1.jpg",
 
-  // Linking Metadata
+  // Links
   "related":{ 
     "@id": "http://www.example.org/videos/video-book1.mpg",
     "format": "video/mpeg"
@@ -421,13 +424,13 @@ Recommended URI pattern:
 
 {scheme}://{host}/{prefix}/{identifier}/sequence/{name}.json
 
-The Sequence conveys the ordering of the pages. The default sequence (and typically the only sequence) SHOULD be embedded within the Manifest, but may also be available from its own URI. Any additional sequences SHOULD be referred to from the Manifest but not embedded within it.
+The Sequence conveys the ordering of the views of the object. The default sequence (and typically the only sequence) SHOULD be embedded within the Manifest, but may also be available from its own URI. Any additional sequences SHOULD be referred to from the Manifest but not embedded within it.
 
 The new {name} parameter in the URI structure is to distinguish it from any other sequences that may be available for the physical object. Typical default names for sequences are "normal" or "basic". Names SHOULD begin with a character in the range [a-zA-Z].
 
-Sequences may have their own descriptive, rights and linking metadata using the same fields as for Manifests. The Label field MAY be given for sequences and MUST be given if there is more than one referenced from a Manifest. After the metadata, the set of pages in the object, represented by Canvas resources, are listed in order in the "canvases" property.
+Sequences MAY have their own descriptive, rights and linking metadata using the same fields as for Manifests. The Label field MAY be given for sequences and MUST be given if there is more than one referenced from a Manifest. After the metadata, the set of pages in the object, represented by Canvas resources, are listed in order in the "canvases" property.
 
-In the Manifest example above, the sequence is referenced by its URI and contains only the basic information of label, @type and @id. The default sequence should be written out in full within the Manifest file, as below.
+In the Manifest example above, the sequence is referenced by its URI and contains only the basic information of label, @type and @id. The default sequence should be written out in full within the Manifest file, as below but without the @context link.
 
 ```javascript
 {
@@ -445,26 +448,21 @@ In the Manifest example above, the sequence is referenced by its URI and contain
     {
       "@id":"http://www.example.org/iiif/book1/canvas/p1.json",
       "@type":"sc:Canvas",
-      "label":"p. 1",
-      "height":1000,
-      "width":750,
-      "images": [
-           // Links to the Content resources go here ...  
+      "label":"p. 1"
+      // ... 
       ]
     },
     {
       "@id":"http://www.example.org/iiif/book1/canvas/p2.json",
       "@type":"sc:Canvas",
-      "label":"p. 2",
-      "height":1000,
-      "width":750
+      "label":"p. 2"
+      // ...
     },
     {
       "@id":"http://www.example.org/iiif/book1/canvas/p3.json",
       "@type":"sc:Canvas",
-      "label":"p. 3",
-      "height":1000,
-      "width":750
+      "label":"p. 3"
+      // ...
     }    
   ]
 }
@@ -477,11 +475,13 @@ Recommended URI pattern:
 {scheme}://{host}/{prefix}/{identifier}/canvas/{name}.json
 ```
 
-The Canvas represents an individual page and acts as a central point for different content resources to be associated with it, or with part of it as appropriate. The {name} parameter must uniquely distinguish the canvas from all other canvases in the object. As with Sequences, the name should not begin with a number. Suggested patterns are "f1r" or "p1".
+The Canvas represents an individual page or view and acts as a central point for laying out the different content resources that make up the display. The {name} parameter must uniquely distinguish the canvas from all other canvases in the object. As with Sequences, the name should not begin with a number. Suggested patterns are "f1r" or "p1".
 
-Every Canvas must have a label to display, such as "page 1", a height and a width as integers. A Canvas is a two dimensional rectangular space with an aspect ratio that represents a single logical view of some part of the physical item, and the aspect ratio is given with the height and width properties. This allows resources to be associated with specific parts of the Canvas, rather than the entire space. It is recommended that if there is (at the time of implementation) a single image that depicts the page, then the dimensions of the image are used as the dimensions of the Canvas for simplicity. If there are multiple full images, then the dimensions of the largest image should be used. If the largest image's dimensions are less than 1200 pixels on either edge, then the Canvas's dimensions should be double that of the image. Developers must be aware that this is not always the case, such as in the examples presented, and instead scale images into the space represented by the Canvas.
+Every Canvas must have a label to display, such as "page 1", a height and a width as integers. A Canvas is a two dimensional rectangular space with an aspect ratio that represents a single logical view of some part of the physical item, and the aspect ratio is given with the height and width properties. This allows resources to be associated with specific parts of the Canvas, rather than the entire space. It is recommended that if there is (at the time of implementation) a single image that depicts the page, then the dimensions of the image are used as the dimensions of the Canvas for simplicity. If there are multiple full images, then the dimensions of the largest image should be used. If the largest image's dimensions are less than 1200 pixels on either edge, then the Canvas's dimensions should be double that of the image. Developers must be aware that this is not always the case, such as in the examples presented, and instead must scale images into the space represented by the Canvas.
 
 Image resources, and only image resources, are included in the "images" section of the Canvas. These are linked via Annotations, used to associate the image Content resource with the Canvas. Other content, such as transcriptions, video, audio or commentary, is provided via external Annotation Lists referenced in the "otherContent" section. The value of both of these must be a list, even if there is only one entry. Both are optional, in the situation that there is no additional information associated with the Canvas. Note well that the items in the "otherContent" list may be either an object with an "@id" property or a string. In the case of a string, this is the URI of the annotation list and the type of "sc:AnnotationList" can be inferred.
+
+In a "paged" sequence, presented in a book viewing modality, the first Canvas is defined as a single up -- the cover, or first recto page. Thereafter, the Canvases represent the sides of the leaves, and hence may be presented two up as an opening of the book.  If there are Canvases which are in the Sequence but would break this ordering, then they must have the viewingHint of "non-paged".  Similarly if the first Canvas is not a single up, it must be marked as "non-paged" or an empty Canvas added before it. 
 
 Canvases may be dereferenced separately from the Manifest via their URIs, and the following representation information should be returned. This information should be embedded within the Sequence file, as per the previous section.
 
@@ -522,13 +522,13 @@ Association of images with their respective Canvases is done via Annotations. Al
 
 Annotations may also have their own URIs, conveyed by adding an "@id" property to the JSON object. The content of the Annotation should be returned if the URI is requested. Annotations are not intended in this specification to be dereferenced separately from their Annotation Lists, Sequences and Manifests, but some systems may like to do this and identifiers should be given using the recommended pattern if possible.
 
-Each Association of a Content Resource must have the "motivation" field and the value must be "sc:painting". This is in order to distinguish it from comment annotations about the Canvas, described in further detail in [Section 5.6.6][30].
+Each Association of a Content Resource must have the "motivation" field and the value must be "sc:painting". This is in order to distinguish it from comment annotations about the Canvas, described in further detail in [Section 5.6.6][30].  All resources which are to be displayed as part of the representation are given the motivation of "sc:painting", regardless of whether they are images or not.  For example, a transcription of the text in a page is considered painting as it is a representation of the physical object, whereas a comment about the page is not.
 
-The image itself is linked in the "resource" property of the Annotation. It must have an "@id" field, and it should have an "@type" of "dcterms:Image". Its media type may be listed in "format", and its height and width given as integer values for "height" and "width" respectively. Although it seems redundant, URI of the canvas must be repeated in the "on" field. This is to ensure consistency with annotations that target only part of the resource, described in more detail below.
+The image itself is linked in the "resource" property of the Annotation. It must have an "@id" field, with the value being the URI at which the image can be obtained from, and it should have an "@type" of "dcterms:Image". Its media type may be listed in "format", and its height and width given as integer values for "height" and "width" respectively. Although it seems redundant, the URI of the canvas must be repeated in the "on" field. This is to ensure consistency with annotations that target only part of the resource, described in more detail below.
 
-If the [IIIF Image API][26] is available for the image, then a link to the service's endpoint should be included. The endpoint is the URI up to the identifier, but not including the trailing slash character or any of the subsequent parameters. The profile of the service should be the supported conformance level, and the additional fields from the [Image API info document][31] may be included in this JSON object to avoid requiring it to be downloaded separately.
+If the [IIIF Image API][26] is available for the image, then a link to the service's endpoint should be included. The endpoint is the URI up to the identifier, but not including the trailing slash character or any of the subsequent parameters. The profile of the service should be the supported conformance level, and the additional fields from the [Image API info document][31] may be included in this JSON object to avoid requiring it to be downloaded separately, but this is not required.
 
-Additional features of the Open Annotation data model may also be used, such as selecting a segment of the Canvas or content resource, or embedding the comment or transcription within the Annotation. These additional advanced features are described below.
+Additional features of the Open Annotation data model may also be used, such as selecting a segment of the Canvas or content resource, or embedding the comment or transcription within the Annotation. These additional, advanced features are described below.
 ```javascript
 {
   "@context":"http://www.shared-canvas.org/ns/context.json",
@@ -541,10 +541,7 @@ Additional features of the Open Annotation data model may also be used, such as 
     "format":"image/jpeg",
     "service": {
       "@id":"http://www.example.org/images/book1-page1",
-      "profile":"http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1",
-      "scale_factors" : [ 1, 2, 4 ],
-      "tile_width" : 1024,
-      "tile_height" : 1024
+      "profile":"http://iiif.io/api/image/1.2/profiles/level2.json",
     },
     "height":2000,
     "width":1500
@@ -560,13 +557,13 @@ Recommended URI pattern:
 {scheme}://{host}/{prefix}/{identifier}/list/{name}.json
 ```
 
-For some digital facsimiles, there may be more than a single image available to represent the page. Other resources include the full text of the object, musical notations, musical performances, diagram transcriptions, higher resolution segments of part of the page, commentary annotations, tags, video, data and more. These additional resources are included in Annotation Lists, referenced from the Canvas.
+For some objects, there may be more than a single image available to represent the page. Other resources include the full text of the object, musical notations, musical performances, diagram transcriptions, higher resolution segments of part of the page, commentary annotations, tags, video, data and more. These additional resources are included in Annotation Lists, referenced from the Canvas.
 
 The {name} parameter in the URI pattern must uniquely distinguish it from all other lists, and is typically the same name as the Canvas. As a single Canvas may have multiple lists of additional resources, perhaps divided by type, this must not be assumed however, and the URIs must be followed rather than constructed a priori. As with other uses of the {name} parameter, it should not begin with a number.
 
-The list of resource associations are given, after any metadata, in a "resources" list. The items in the list are Annotations, as described above, however the resource of the annotation is something other than an image. The Canvas URI must be repeated in the "on" field, as above.
+The list of resource associations are given, after any metadata, in a "resources" list. The items in the list are Annotations, as described above, however the resource linked by the annotation is something other than an image. The Canvas URI must be repeated in the "on" field, as above.
 
-Please note the different types and formats for the Content resources. The format should be the media type that is returned when the resource is deferenced. For resources that are displayed as part of the facsimile (such as images, text transcriptions, performances of music from the manuscript and so forth) the motivation must be "sc:painting". The type should be taken from this [list in the Open Annotation specification][32], or a similar well-known resource type ontology.
+Please note the different types and formats for the Content resources. The format should be the media type that is returned when the resource is deferenced. For resources that are displayed as part of the facsimile (such as images, text transcriptions, performances of music from the manuscript and so forth) the motivation must be "sc:painting". The type of the Content resource SHOULD be taken from this [list in the Open Annotation specification][32], or a similar well-known resource type ontology.  The Content Resources may also have any of the other fields, including commonly label, description, metadata, license and attribution.
 
 ```javascript
 {
@@ -613,23 +610,40 @@ It is important to be able to extract parts, or segments, of resources. In parti
         `http://www.example.com/iiif/book1/canvas/p1.json#xywh=100,100,300,50`
     Where the four numbers are the x and y coordinates in the image or canvas, followed by the width and height. Thus this segment is 300px wide, 50px high and starts at position 100,100. Note that only integers are allowed, and this may limit accuracy of assignment to canvases with small dimensions.
 
+    ```javascript
+    {
+      "@context":"http://www.shared-canvas.org/ns/context.json",
+      "@id":"http://www.example.org/iiif/book1/annotation/anno1".json, 
+      "@type":"oa:Annotation",
+      "motivation":"sc:painting",
+      "resource":{
+        // Crop out scanning bed
+        "@id":"http://www.example.org/iiif/book1/res/page1.jpg#xywh=40,50,1200,1800",
+        "@type":"dctypes:Image",
+        "format":"image/jpeg"
+      }
+      // Canvas size is 1200x1800
+      "on":"http://www.example.org/iiif/book1/canvas/p1.json" 
+    }
+    ```
+
   * Segments of XML files may be extracted with [XPaths][34]. The fragment must be structured:
         `http://www.example.com/iiif/book1/res/tei.xml#xpointer(/path/to/element)`
 
-```javascript
-{
-  "@context":"http://www.shared-canvas.org/ns/context.json",
-  "@id":"http://www.example.org/iiif/book1/annotation/anno1".json, 
-  "@type":"oa:Annotation",
-  "motivation":"sc:painting",
-  "resource":{
-    "@id":"http://www.example.org/iiif/book1/res/tei.xml#xpointer(//line[1])"
-    "@type":"dctypes:Text",
-    "format":"text/xml"
-  }
-  "on":"http://www.example.org/iiif/book1/canvas/p1.json#xywh=100,100,500,300"
-}
-```
+    ```javascript
+    {
+      "@context":"http://www.shared-canvas.org/ns/context.json",
+      "@id":"http://www.example.org/iiif/book1/annotation/anno1".json, 
+      "@type":"oa:Annotation",
+      "motivation":"sc:painting",
+      "resource":{
+        "@id":"http://www.example.org/iiif/book1/res/tei.xml#xpointer(//line[1])"
+        "@type":"dctypes:Text",
+        "format":"text/xml"
+      }
+      "on":"http://www.example.org/iiif/book1/canvas/p1.json#xywh=100,100,500,300"
+    }
+    ```
 
 ####  5.6.2. Embedded Content 
 
@@ -694,6 +708,7 @@ This may be used to model foldouts and other dynamic features of a page, by asso
   "on":"http://www.example.org/iiif/book1/canvas/p1.json"
 }
 ```
+
 
 ####  5.6.4. Non Rectangular Segments
 
