@@ -45,7 +45,7 @@ Please send feedback to [iiif-discuss@googlegroups.com][1]
     7. [Canonical URI Syntax](#47-canonical-uri-syntax)
   5. [Information Requests](#5-information-requests)
     1. [Image Information Request](#51-image-information-request)
-    2. [Capabilities Request](#52-capabilities-request)
+    2. [Server Capabilities Request](#52-server-capabilities-request)
   6. [Server Responses](#6-server-responses)
     1. [Successful Responses](#61-successful-responses)
     2. [Error Conditions](#62-error-conditions)
@@ -131,7 +131,7 @@ For example:
 http://www.example.org/image-service/capabilities.json
 ```
 
-Each image information response (info.json) SHOULD link to the capabilities document if it is available.  Clients SHOULD NOT assume the existence of the capabilities document if it is not linked, and instead use the profile document if present in the image information response.  See [Section 5.2 - Capabilities Request](#52-capabilities-request) for more information.
+Each image information response (info.json) SHOULD link to the capabilities document if it is available.  Clients SHOULD NOT assume the existence of the capabilities document if it is not linked, and instead use the profile document if present in the image information response.  See [Section 5.2 - Server Capabilities Request](#52-server-capabilities-request) for more information.
 
 ##  3. Identifier
 
@@ -320,7 +320,7 @@ The response will return the following information
 | formats | Optional | The list of image format parameter values available for the image. |
 | qualities | Optional | The list of image quality parameter values available for the image. |
 | profile | Optional | URI indicating the compliance level supported. Values as described in [Section 8 - Compliance Levels](#8-compliance-levels) |
-| capabilities | Optional | URI for a capabilities document the describes the capabilities supported. See [Section 5.2 - Capabilities Request](#52-capabilities-request) for more information about this document |
+| capabilities | Optional | URI for a capabilities document the describes the capabilities supported. See [Section 5.2 - Server Capabilities Request](#52-server-capabilities-request) for more information about this document |
 
 
 The JSON response should conform to the format shown in the following example:
