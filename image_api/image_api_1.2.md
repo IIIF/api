@@ -83,7 +83,7 @@ There are four parameters shared by the requests, and other IIIF specifications:
 | ---- | ----------- |
 | scheme | Indicates the use of the http or https protocol in calling the service. |
 | server | The host server on which the service resides. |
-| prefix | The path on the host server to the service. This prefix is optional, but may be useful when the host server supports multiple services. The prefix MAY contain multiple path segments, delimited by slashes, but all other special characters MUST be encoded. See [Section 9 - URL Encoding and Decoding](##9-url-encoding-and-decoding) for more information. |
+| prefix | The path on the host server to the service. This prefix is optional, but may be useful when the host server supports multiple services. The prefix MAY contain multiple path segments, delimited by slashes, but all other special characters MUST be encoded. See [Section 9 - URL Encoding and Decoding](#9-url-encoding-and-decoding) for more information. |
 | identifier | The identifier of the requested image, expressed as a string. This may be an ark, URN, filename, or other identifier. Special characters MUST be URI encoded. |
 
 The combination of these parameters forms the image’s base URI, according to the following URI Template ([RFC6570][26]):
