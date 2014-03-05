@@ -83,7 +83,7 @@ There are four parameters shared by the requests, and other IIIF specifications:
 | ---- | ----------- |
 | scheme | Indicates the use of the http or https protocol in calling the service. |
 | server | The host server on which the service resides. |
-| prefix | The path on the host server to the service. This prefix is optional, but may be useful when the host server supports multiple services. The prefix MAY contain multiple path segments, delimited by slashes, but all other special characters MUST be encoded. See [Section 9][20] for more information. |
+| prefix | The path on the host server to the service. This prefix is optional, but may be useful when the host server supports multiple services. The prefix MAY contain multiple path segments, delimited by slashes, but all other special characters MUST be encoded. See [Section 9 - URL Encoding and Decoding](##9-url-encoding-and-decoding) for more information. |
 | identifier | The identifier of the requested image, expressed as a string. This may be an ark, URN, filename, or other identifier. Special characters MUST be URI encoded. |
 
 The combination of these parameters forms the image’s base URI, according to the following URI Template ([RFC6570][26]):
@@ -105,7 +105,7 @@ For example:
 http://www.example.org/image-service/abcd1234/full/full/0/native.jpg
 ```
 
-The sections of the Image Request URL include region, size, rotation, quality and format parameters defining the characteristics of the returned image. These are described in detail in [Section 4 - Image Request Parameters][7].
+The sections of the Image Request URL include region, size, rotation, quality and format parameters defining the characteristics of the returned image. These are described in detail in [Section 4 - Image Request Parameters](#4-image-request-parameters).
 
 ###  2.2. Image Information Request URL Syntax
 
@@ -118,7 +118,7 @@ For example:
 http://www.example.org/image-service/abcd1234/info.json
 ```
 
-For each image made available, the server, prefix and identifier components of the information request must be identical to those for the image request described above.  It is recommended that if the image’s base URI is dereferenced, then the client should either redirect to the information request using a 303 status code (see [Section 6.1][27]), or return the same result. See [Section 5.1 - Image Information Request][14] for more information.
+For each image made available, the server, prefix and identifier components of the information request must be identical to those for the image request described above.  It is recommended that if the image’s base URI is dereferenced, then the client should either redirect to the information request using a 303 status code (see [Section 6.1 - Successful Responses](#61-successful-responses)), or return the same result. See [Section 5.1 - Image Information Request](#51-image-information-request) for more information.
 
 ### 2.3. Capabilities Request URL Syntax
 
@@ -131,11 +131,11 @@ For example:
 http://www.example.org/image-service/capabilities.json
 ```
 
-Each image information response (info.json) SHOULD link to the capabilities document if it is available.  Clients SHOULD NOT assume the existence of the capabilities document if it is not linked, and instead use the profile document if present in the image information response.  See [Section 5.2 - Capabilities Request][] for more information.
+Each image information response (info.json) SHOULD link to the capabilities document if it is available.  Clients SHOULD NOT assume the existence of the capabilities document if it is not linked, and instead use the profile document if present in the image information response.  See [Section 5.2 - Capabilities Request](#52-capabilities-request) for more information.
 
 ##  3. Identifier
 
-The API places no restrictions on the form of the identifiers that a server may use or support, although the identifier MUST be expressed as a string. All special characters (e.g. ? or #) MUST be URI encoded to avoid unpredictable client behaviors. The URL syntax relies upon slash (/) separators so any slashes in the identifier MUST be URI encoded (aka. percent-encoded, replace / with %2F ). See discussion in [Section 9 - URL Encoding and Decoding][20].
+The API places no restrictions on the form of the identifiers that a server may use or support, although the identifier MUST be expressed as a string. All special characters (e.g. ? or #) MUST be URI encoded to avoid unpredictable client behaviors. The URL syntax relies upon slash (/) separators so any slashes in the identifier MUST be URI encoded (aka. percent-encoded, replace / with %2F ). See discussion in [Section 9 - URL Encoding and Decoding](#9-url-encoding-and-decoding).
 
 ##  4. Image Request Parameters
 
@@ -303,7 +303,7 @@ The response will return the following information
 | Property | Required? | Description |
 | -------- | --------- | ----------- |
 | @context | Required | The context document that describes the semantics of the terms used in the document. This must be the URI: [http://iiif.io/api/image/1.2/context.json] for version 1.2 of the IIIF Image API. This document allows the response to be interpreted as RDF, using the [JSON-LD][29] serialization. |
-| @id | Required | The base URI of the image (as defined in [Section 2][3]), including scheme, server, prefix and identifier without a trailing slash. |
+| @id | Required | The base URI of the image (as defined in [Section 2 - URL Syntax](#2-url-syntax)), including scheme, server, prefix and identifier without a trailing slash. |
 | width | Required | The width of the source image. |
 | height | Required | The height of the source image. | 
 | protocol | Required | The URI "http://iiif.io/api/image" which can be used to determine that the document describes an image service which is a version of the IIIF Image API. |
@@ -313,8 +313,8 @@ The response will return the following information
 | tile_height | Optional | The tile_height element expresses the height of the predefined tiles. See description of tile_width. |
 | formats | Optional | The list of image format parameter values available for the image. |
 | qualities | Optional | The list of image quality parameter values available for the image. |
-| profile | Optional | URI indicating the compliance level supported. Values as described in [Section 8. Compliance Levels][19] |
-| capabilities | Optional | URI for a capabilities document the describes the capabilities supported. See section 5.2 for more information about this document |
+| profile | Optional | URI indicating the compliance level supported. Values as described in [Section 8 - Compliance Levels](#8-compliance-levels) |
+| capabilities | Optional | URI for a capabilities document the describes the capabilities supported. See [Section 5.2 - Capabilities Request](#52-capabilities-request) for more information about this document |
 
 
 The JSON response should conform to the format shown in the following example:
@@ -476,7 +476,7 @@ Early sanity checking of URI’s (lengths, trailing GET, invalid characters, out
   * This specification makes no assertion about the rights status of requested images or metadata, whether or not authentication has been accomplished. Please see the IIIF Metadata API for rights information.
   * This API does not specify how image servers fulfill requests, what quality the returned images will have for different parameters, or how parameters may affect performance. See the compliance document for more discussion.
   * Image identifiers that include the slash (/ %2F) or backslash (\ %5C) characters may cause problems with some HTTP servers. Apache servers from version 2.2.18 support the "AllowEncodedSlashes NoDecode" (link to ) configuration directive which will correctly pass these characters to client applications without rejecting or decoding them. Servers using older versions of Apache and local identifiers which include these characters will need to use a workaround such as internally translating or escaping slash and backslash to safe value (perhaps by double URL-encoding them).
-  * As described in [Section 4.2 (Rotation)][10], in order to retain the size of the requested image contents, rotation will change the width and height dimensions of the returned image file. A formula for calculating the dimensions of the returned image file for a given rotation can be found here.
+  * As described in [Section 4.3 - Rotation](#43-rotation), in order to retain the size of the requested image contents, rotation will change the width and height dimensions of the returned image file. A formula for calculating the dimensions of the returned image file for a given rotation can be found here.
 
 ##  B. Acknowledgments
 
@@ -495,8 +495,8 @@ Many thanks to Matthieu Bonicel, Kevin Clarke, Mark Patton, Lynn McRae, Willy Me
 | Date | Editor |  Description |
 | ---- | ------ | ------------ |
 | 2013-09-17 | ssnydman | Version 1.1 released. |
-| 2013-09-04 | ssnydman | Added @context to Image Information Request table in [Section 5][14]. |
-| 2013-06-26 | ssnydman | Changed quality parameter definitions in [Section 4.4][11]. |
+| 2013-09-04 | ssnydman | Added @context to Image Information Request table in section 5. |
+| 2013-06-26 | ssnydman | Changed quality parameter definitions in section 4.4. |
 | 2013-06-17 | ssnydman | Draft release 1.1. [View change log][35]. |
 | 2012-08-10 | ssnydman | Release 1.0 |
 | 2012-07-13 | rsanderson | Incorporates responses to RFC feedback |
