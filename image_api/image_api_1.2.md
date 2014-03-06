@@ -218,7 +218,7 @@ The quality parameter determines the bit-depth of the delivered image. The quali
 | native | The image is returned at an unspecified bit-depth. |
 | color  | The image is returned in full color, typically using 24 bits per pixel. |
 | grey   | The image is returned in greyscale, where each pixel is black, white or any degree of grey in between, typically using 8 bits per pixel. |
-| bitonal | The image returned is bitonal, where each pixel is either black or white, using 1 bit per pixel when the format permits. |
+| bitonal | The image returned is bitonal, where each pixel is either black or white, using 1 bit per pixel when the format permits. This specification makes no recommendation regarding the algorithm that should be used to make image bitonal. |
 
 Examples:
 
