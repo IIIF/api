@@ -1,6 +1,6 @@
 {
   "@context": {
-    "@vocab" : "http://iiif.io/api/image#",
+    "@vocab" : "http://iiif.io/api/image/1#",
     "xsd" : "http://www.w3.org/2001/XMLSchema#",
     "description": "http://purl.org/dc/terms/description",
     "extensions" : { "@type" : "@id" },
