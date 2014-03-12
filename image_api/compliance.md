@@ -49,7 +49,7 @@ Three levels of compliance are defined. Level 0 is defined as the minimum set of
 | jp2         |         |         |          | x        | 
 
 ### Image Information Request
-| Attribute                 | Level 0 | Level 1 | Level 2  | Optional |
+| Property                  | Level 0 | Level 1 | Level 2  | Optional |
 | ------------------------- |:-------:|:-------:|:--------:|:--------:| 
 | @context                  | x       | x       | x        |          |
 | @id                       | x       | x       | x        |          |
@@ -65,7 +65,7 @@ Three levels of compliance are defined. Level 0 is defined as the minimum set of
 | tile_height<sup>*</sup>   |         |         |          | x        |
 | qualities<sup>*</sup>     |         |         |          | x        |
 
-<sup>*</sup>All attributes marked as optional SHOULD be included if applicable. 
+<sup>*</sup>All property marked as optional SHOULD be included if applicable. 
 
 Servers indicate compliance with level 0 by including the following header in IIIF responses:
 
