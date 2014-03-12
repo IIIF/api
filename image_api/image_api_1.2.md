@@ -46,6 +46,7 @@ Please send feedback to [iiif-discuss@googlegroups.com][1]
   5. [Information Requests](#5-information-requests)
     1. [Image Information Request](#51-image-information-request)
     2. [Server Capabilities Request](#52-server-capabilities-request)
+    3. [Information Request Extensions](#53-information-request-extensions)
   6. [Server Responses](#6-server-responses)
     1. [Successful Responses](#61-successful-responses)
     2. [Error Conditions](#62-error-conditions)
@@ -303,8 +304,7 @@ The service MUST return technical information about the requested image. The req
 {scheme}://{server}{/prefix}/{identifier}/info.json
 ```
 
-
-The response will return the following information
+The response will return the following information:
 
 | Property | Required? | Description |
 | -------- | --------- | ----------- |
@@ -328,7 +328,7 @@ The JSON response should conform to the format shown in the following example:
 ```javascript
 { 
   "@context" : "http://iiif.io/api/image/1.2/context.json", 
-  "@id" : "http://iiif.example.com/prefix/1E34750D-38DB-4825-A38A-B60A345E591C", 
+  "@id" : "http://www.example.org/image-service/abcd1234/1E34750D-38DB-4825-A38A-B60A345E591C", 
   "protocol" : "http://iiif.io/api/image",
   "width" : 6000, 
   "height" : 4000, 
@@ -339,11 +339,11 @@ The JSON response should conform to the format shown in the following example:
   "formats" : [ "jpg", "png" ], 
   "qualities" : [ "native", "grey" ], 
   "profile" : "http://iiif.io/api/image/1.2/profiles/level1.json",
-  "capabilities" : "http://iiif.example.com/prefix/capabilities.json"
+  "capabilities" : "http://www.example.org/image-service/capabilities.json"
 }
 ```
 
-Additional properties not specified here may be included but should be ignored if not understood.
+See [Information Request Extensions](#53-information-request-extensions) for an explanation of how to specify additional properties.
 
 ### 5.2. Server Capabilities Request
 
@@ -366,22 +366,17 @@ A server MAY declare the set of capabilities that it implements in a capabilitie
 | size_by_w | Optional | Does the service support returning an image with its size given in the form "w," (boolean) |
 | size_by_wh | Optional | Does the service support returning an image with its size given in the form "w,h" (boolean) |
 | cors | Optional | Does the service support the CORS HTTP headers on JSON responses (boolean) |
-| extensions | Optional | An array that identifies and describes one or more non-standard features supported by this server. (boolean) |
+| extensions | Optional | An array that identifies and describes one or more non-standard features supported by this server (boolean) |
 | description | Optional | A description of an extension feature (string) |
 
 
 ```javascript
 {
-  "@context" : [
-    "http://iiif.io/api/image/1.2/context.json", 
-    {
-      "ext" : "http://iiif.example.com/extensions/",
-      "ext:myFeature" : {"@type" : "xsd:boolean"}
-    }
-  ],
+  "@context" : "http://iiif.io/api/image/1.2/context.json",
   "@id" : "http://www.example.org/image-service/capabilities.json",
   "contact" : "mailto:admin@example.org",
   "content_negotiation" : "true",
+  "cors" : "true",
   "default_format" : "jpg",
   "region_by_pct" : "true",
   "region_by_px" : "true",
@@ -391,18 +386,61 @@ A server MAY declare the set of capabilities that it implements in a capabilitie
   "size_by_h" : "true",
   "size_by_pct" : "true",
   "size_by_w" : "true",
-  "size_by_wh" : "true",
-  "cors" : "true",
-  "ext:my_feature" : "true",
-  "extensions" : [
-    {
-      "@id" : "ext:my_feature",
-      "description" : "This is a description of my feature."
-    }
-  ] 
+  "size_by_wh" : "true"
 }
 
 ```
+
+### 5.3 Information Request Extensions
+
+Both the [Image Information Request](#51-image-information-request) and [Server Capabilities Request](#52-server-capabilities-request) documents may be extended by adding properties from another [JSON-LD context][42]. 
+
+
+The following shows an extension added to a server's capabilities document:
+
+```json
+{
+  "@context" : [
+    "http://iiif.io/api/image/1.2/context.json", 
+    {
+      "ext" : "http://my.namespace.com/extensions/",
+      "ext:feature" : { "@type" : "xsd:boolean" }
+    }
+  ],
+  "@id" : "http://www.example.org/image-service/capabilities.json",
+  "contact" : "mailto:admin@example.org",
+  ...
+  "cors" : "true",
+  "ext:feature" : "true",
+  "extensions" : [
+    {
+      "@id" : "ext:feature",
+      "description" : "This is a description of my non-standard feature."
+    }
+  ] 
+}
+```
+
+The mechanism is similar in the image information request syntax, but simpler as the extension property should not be described in the document:
+
+```json
+{
+  "@context": [ 
+      "http://iiif.io/api/image/1.2/context.json",
+      {
+        "ext" : "http://my.namespace.com/extensions/",
+        "ext:additional_metadata" : { "@type" : "xsd:string" }
+      }
+  ],
+   ....
+  "width": 5213,
+  "height": 5706,
+  "ext:additional_metadata" : "about the image"
+}
+
+```
+
+Properties that are not part of the this specification MUST be ignored if not understood.
 
 ##  6. Server Responses
 
@@ -524,8 +562,9 @@ Many thanks to Matthieu Bonicel, Kevin Clarke, Mark Patton, Lynn McRae, Willy Me
    [35]: http://iiif.io/change-log.html
    [36]: http://iiif.io/api/image/1.1/
    [37]: http://www.w3.org/TR/json-ld/
-   [38]: http://www.w3.org/TR/json-ld/#interpreting-json-as-json-ld# NOTE: THIS IS A WORKING DRAFT. For the latest public release, see [http://iiif.io/api/image/1.1/][36]
+   [38]: http://www.w3.org/TR/json-ld/#interpreting-json-as-json-ld
    [39]: http://iiif.io#capabilities-request
    [40]: http://iiif.io#url-syntax-capabilities-request
    [41]: http://www.w3.org/TR/cors/
+   [42]: http://www.w3.org/TR/json-ld/#the-context
    
