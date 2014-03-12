@@ -1,4 +1,4 @@
-# IIIF: Image API Compliance, v1.2
+# IIIF: Image API Compliance, Version 1.2
 
 This document is a companion to the [International Image Interoperability Framework Image API Specification, version 1.2][1]. It defines the set of supported parameters that correspond to different levels of compliance to the IIIF Image API.
 
@@ -66,6 +66,8 @@ Three levels of compliance are defined. Level 0 is defined as the minimum set of
 | qualities<sup>*</sup>     |         |         |          | x        |
 
 <sup>*</sup>All property marked as optional SHOULD be included if applicable. 
+
+## Indicating Compliance
 
 Servers indicate compliance with level 0 by including the following header in IIIF responses:
 
