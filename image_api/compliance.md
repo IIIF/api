@@ -1,11 +1,6 @@
-# IIIF: Image API Compliance, v1.1
+# IIIF: Image API Compliance, v1.2
 
-This document is a companion to the[ International Image Interoperability Framework Image API Specification, version 1.2][1]. It defines the set of supported parameters that correspond to different levels of compliance to the IIIF Image API.
-
-
-<!-- MarkdownTOC depth=2 -->
-
-<!-- /MarkdownTOC -->
+This document is a companion to the [International Image Interoperability Framework Image API Specification, version 1.2][1]. It defines the set of supported parameters that correspond to different levels of compliance to the IIIF Image API.
 
 
 Three levels of compliance are defined. Level 0 is defined as the minimum set of supported parameters and features to qualify an implementation of the service as compliant to the IIIF standard. Level 1 is defined as the RECOMMENDED set of parameters and features to be implemented.
@@ -54,12 +49,23 @@ Three levels of compliance are defined. Level 0 is defined as the minimum set of
 | jp2         |         |         |          | x        | 
 
 ### Image Information Request
-|             | Level 0 | Level 1 | Level 2  | Optional |
-| ----------- |:-------:|:-------:|:--------:|:--------:| 
-| info.json   | x       | x       | x        |          | 
+| Attribute                 | Level 0 | Level 1 | Level 2  | Optional |
+| ------------------------- |:-------:|:-------:|:--------:|:--------:| 
+| @context                  | x       | x       | x        |          |
+| @id                       | x       | x       | x        |          |
+| height                    | x       | x       | x        |          |
+| width                     | x       | x       | x        |          |
+| protocol                  | x       | x       | x        |          |
+| profile                   |         | x       | x        |          |
+| capabilities<sup>*</sup>  |         |         |          | x        |
+| formats<sup>*</sup>       |         |         |          | x        |
+| scale_factors<sup>*</sup> |         |         |          | x        |
+| sizes<sup>*</sup>         |         |         |          | x        |
+| tile_width<sup>*</sup>    |         |         |          | x        |
+| tile_height<sup>*</sup>   |         |         |          | x        |
+| qualities<sup>*</sup>     |         |         |          | x        |
 
-
-
+<sup>*</sup>All attributes marked as optional SHOULD be included if applicable. 
 
 Servers indicate compliance with level 0 by including the following header in IIIF responses:
 
