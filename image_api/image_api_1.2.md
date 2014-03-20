@@ -257,7 +257,7 @@ Region THEN Size THEN Rotation THEN Quality THEN Format
 
 ### 4.7. Canonical URI Syntax
 
-There are three situations where the diversity in ways of requesting the same image is a hindrance:
+Three situations have been identified in which the diversity in ways of requesting the same image is not optimal for performance:
 * Static file based implementations will have one file for each possible request, and thus in order to not get an HTTP 404 Not Found response, the client must use the same canonical syntax as the server.
 * Caching becomes significantly more efficient, both client and server side, when the URIs used are the same between systems and sessions.
 * Response times can be improved by avoiding redirects from the requested URI syntax to the canonical syntax by using the canonical form directly
