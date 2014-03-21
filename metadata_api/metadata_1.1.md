@@ -1,5 +1,5 @@
 # International Image Interoperability Framework
-# Presentation API 1.1 DRAFT
+# Presentation API 2.0.0 DRAFT
 ## Codename: Black Diamond
 
 **Editors**
@@ -50,6 +50,7 @@ Copyright © 2012-2014 the Contributors to the IIIF, DMS Council, and other Cont
   6. [Additional Resource Types][19]
     1. [Range][20]
     2. [Layer][21]
+    3. [Collection][400]
   7. [Examples][22]
 
 ##  1. Introduction
@@ -146,7 +147,7 @@ The following fields are defined by this specification, broken in to four sectio
    * A Canvas MUST have a label, and it SHOULD be the page label such as "p. 1" or "folio 1 recto". 
    * A Content resource MAY have a label, and if there is a Choice of Content resource for the same Canvas, then they MUST have labels. The label SHOULD be a brief description of the resource, such as "black and white" versus "color photograph"
   * __metadata__<br/>
-  A list of short descriptive entries given as pairs of human readable label and value to be displayed by the client to the user. The value SHOULD be either simple HTML or plain text, and the label SHOULD be plain text. There are no semantics conveyed by this information, and clients should not use it for discovery or other purposes. This pool of descriptive pairs should be able to be displayed in a tabular form in the user interface. Descriptive pairs might be used to convey the author of the work, information about its creation, a brief physical description, or ownership information, amongst other use cases. The client is not expected to take any action on this information beyond displaying the label and value. An example pair of label and value might be a label of "Author" and a value of "Jehan Froissart". The client should display the pairs in the order provided by the description.  Clients SHOULD have a way to display the information about Manifests and Canvases, and MAY have a way to view the information about other resources.
+  A list of short descriptive entries given as pairs of human readable label and value to be displayed by the client to the user. The value SHOULD be either simple HTML, including links and text markup, or plain text, and the label SHOULD be plain text. There are no semantics conveyed by this information, and clients should not use it for discovery or other purposes. This pool of descriptive pairs should be able to be displayed in a tabular form in the user interface. Descriptive pairs might be used to convey the author of the work, information about its creation, a brief physical description, or ownership information, amongst other use cases. The client is not expected to take any action on this information beyond displaying the label and value. An example pair of label and value might be a label of "Author" and a value of "Jehan Froissart". The client should display the pairs in the order provided by the description.  Clients SHOULD have a way to display the information about Manifests and Canvases, and MAY have a way to view the information about other resources.
 
   Usage:
    * A Manifest SHOULD have descriptive pairs associated with it describing the object or work.
@@ -185,7 +186,7 @@ The following fields are defined by this specification, broken in to four sectio
 #### 4.3. Technical Fields
 
   * __@id__<br/>
-    The URI that identifies the resource. Recommended, but not mandatory, URI patterns are presented below.
+    The URI that identifies the resource. Recommended URI patterns are presented below.
 
     Usage:
      * A Manifest MUST have an id, and it MUST be the http[s] URI at which the Manifest is published.
@@ -226,17 +227,17 @@ The following fields are defined by this specification, broken in to four sectio
     * A Manifest MAY have a viewing direction, and if so, it applies to all of its Sequences.
     * A Sequence MAY have a viewing direction, and it MAY be different to that of the Manifest
     * A Canvas or Content Resource MUST NOT have a viewing direction.
-    * A Range MAY have a viewing direction, 
+    * A Range MAY have a viewing direction. 
 
   * __viewingHint__<br/>
     A hint to the viewer as to the most appropriate method of displaying the object. Any value may be given, and this specification defines the following:
      * "individuals": The canvases are all individual sheets, and should not be presented in a specifically page turning interface. For example a sequence of letters or photographs.
-     * "paged": The canvases represent pages in a bound volume, and should be presented in a page turning interface.
+     * "paged": The canvases represent pages in a bound volume, and should be presented in a page turning interface.  The first canvas is a single view (the first recto) and thus the second canvas represents the back of the first canvas. 
      * "continuous": The canvases each represent a complete side of a long scroll or roll and an appropriate rendering might only display part of the canvas at any given time rather than the entire object.
-     * "non-paged": Only valid on a Canvas and when the Manifest or Sequence has a viewingHint of "paged".  Canvases with this hint MUST NOT be presented in a page turning interface.
+     * "non-paged": Only valid on a Canvas and when the Manifest or Sequence has a viewingHint of "paged".  Canvases with this hint MUST NOT be presented in a page turning interface, and skipped over when determining the sequence.
 
     Usage:
-     * A Manifest, Sequence or Range MAY have a viewing hint, as per viewingDirection.
+     * A Manifest, Sequence or Range MAY have a viewing hint, with scope as per viewingDirection.
      * A Canvas MAY have a viewing hint, and if so it MUST be "non-paged".  This is only valid if the Canvas is within a Manifest, Sequence or Range that is "paged", and the particular Canvas MUST NOT be displayed.
      * Content Resources MAY have a viewing hint but there are no defined values for it in this specification.
 
@@ -889,6 +890,73 @@ Each Annotation List may be part of one or more Layers, and this is recorded usi
   }
 }
   ```
+
+### 6.3 Collections
+
+Recommended URI pattern:
+```
+{scheme}://{host}/{prefix}/{identifier}/collection.json
+{scheme}://{host}/{prefix}/{identifier}/collection/{name}.json
+```
+
+Collections are used to list the manifests available for viewing, and to describe the collections that the physical objects are part of.  The Collections may include both other collections and manifests, to form a hierarchy of objects with Manifests at the leaf node of the tree.  Collection objects SHOULD NOT be embedded within other Collection objects, but instead have their own URI from which the description is made available.
+
+Collections have two new list-based properties:
+ * collections
+ References to sub-collections of the current collection.  Each referenced collection MUST have the appropriate @id, @type and label.
+ * manifests
+ References to manifests contained within the current collection. Each referenced manifest MUST have the appropriate @id, @type and label.
+
+Collections MUST have the following properties:
+ * @id
+ * @type and the value MUST be "sc:Collection"
+ * label
+
+Collections SHOULD have the following properties:
+ * At least one of collections and manifests.  Empty collections with neither are allowed but discouraged.
+ * description
+ * attribution
+
+Collections MAY have the following properties:
+ * metadata
+ * thumbnail
+ * logo
+ * license
+ * viewingHint, however no values are defined in this specification that are valid for Collections
+ * related
+ * service
+ * seeAlso
+ * within 
+
+
+```javascript
+{
+  "@context": "http://iiif.io/api/presentation/1.1/context.json",
+  "@id": "http://example.org/iiif/collection.json",
+  "@type": "sc:Collection",
+  "label": "Top Level Collection for Example Organization",
+  "description": "Description of Collection",
+  "attribution": "Provided by Example Organization",
+
+  "collections": [
+    { "@id": "http://example.org/iiif/collection/part1.json",
+      "@type": "sc:Collection",
+      "label": "Sub Collection 1"
+     },
+     { "@id": "http://example.org/iiif/collection/part2.json", 
+       "@type": "sc:Collection",
+       "label": "Sub Collection 2"
+      }
+  ],
+  "manifests": [
+    { "@id": "http://example.org/iiif/book1/manifest.json",
+      "@type": "sc:Manifest",
+      "label" : "Book 1"
+    },
+  ]
+}
+```
+
 
 ##  7. Complete Example Response
 
