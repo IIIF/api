@@ -3,10 +3,10 @@
     "@vocab" : "http://iiif.io/api/image/1#",
     "xsd" : "http://www.w3.org/2001/XMLSchema#",
     "description": "http://purl.org/dc/terms/description",
-    "extensions" : { "@type" : "@id" },
     "contact" : { "@type" : "@id" },
     "content_negotiation" : { "@type" : "xsd:boolean" },
     "default_format" : { "@type" : "xsd:string" },
+    "extensions" : { "@type" : "@id" },
     "region_by_pct" : { "@type" : "xsd:boolean" },
     "region_by_px" : { "@type" : "xsd:boolean" },
     "rotation_arbitrary" : { "@type" : "xsd:boolean" },
@@ -16,6 +16,17 @@
     "size_by_h" : { "@type" : "xsd:boolean" },
     "size_by_pct" : { "@type" : "xsd:boolean" },
     "size_by_w" : { "@type" : "xsd:boolean" },
-    "size_by_wh" : { "@type" : "xsd:boolean" }
+    "size_by_wh" : { "@type" : "xsd:boolean" },
+    "capabilities" : { "@type" : "@id" },
+    "formats" : { "@type" : "xsd:string" },
+    "height" : { "@type" : "xsd:integer" },
+    "width" : { "@type" : "xsd:integer" },
+    "tile_height" : { "@type" : "xsd:integer" },
+    "tile_width" : { "@type" : "xsd:integer" },
+    "profile" : { "@type" : "@id" },
+    "protocol" : { "@type" : "@id" },
+    "qualities" : { "@type" : "xsd:string" },
+    "scale_factors" : { "@type" : "xsd:string" },
+    "sizes" : { "@type" : "xsd:string" }
   }
 }
