@@ -812,11 +812,13 @@ For annotations which are comments about the Canvas, as opposed to painting cont
 
 ##  6. Additional Resource Types
 
-There are cases where additional information is needed to fully represent an institution's information about the structure of a work.
+There are cases where additional information is needed to fully represent an institution's set of works and their components.
 
 First, additional section information may be available as to which Canvases, or parts thereof, should be grouped together in some way. This could be for textual reasons, such as to distinguish books, chapters, verses, sections, non content bearing pages, the table of contents or similar. Equally, physical reasons might be important such as quires or gatherings, sections that have been added later and so forth. These cases are solved with Ranges.
 
 Secondly, as the information is primarily divided by Canvas (and thus page), there may be higher level groupings of annotations that need to be recorded. For example, all of the English translation annotations of a medieval French document could be kept separate from the direct transcription, or an edition into modern French. These cases are solved by assigning an AnnotationList to be within a Layer.
+
+And thirdly, the specification otherwise assumes that a Manifest is the highest level of description.  In order to allow easy advertisting and discovery of the manifests, we introduce a Collection which can aggregate sub-Collections and/or Manifests.  If the recommended URI pattern is used, this provides a client system a means to locate all of the Manifests provided by an institution.
 
 ![][37]
 Figure 3. All Resource Types
@@ -900,6 +902,10 @@ Recommended URI pattern:
 ```
 
 Collections are used to list the manifests available for viewing, and to describe the collections that the physical objects are part of.  The Collections may include both other collections and manifests, to form a hierarchy of objects with Manifests at the leaf node of the tree.  Collection objects SHOULD NOT be embedded within other Collection objects, but instead have their own URI from which the description is made available.
+
+Manifests or Collections MAY appear within more than one Collection. Crawlers should be aware of this and keep track of which documents have already been seen.  For example, an institution might define four collections: one for modern works, one for historical works, one for newspapers and one for books.  A modern newspaper would then appear in both the modern collection and the newspaper collection.  Alternatively, the institution may choose to have two separate newspaper collections, and reference each as a sub-collection of modern and historical.
+
+Note that the recommended URI pattern prevents the existence of a Manifest with the identifier "collection".
 
 Collections have two new list-based properties:
  * collections
