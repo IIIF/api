@@ -2,6 +2,7 @@
   "@context": {
     "@vocab" : "http://iiif.io/api/image/1#",
     "xsd" : "http://www.w3.org/2001/XMLSchema#",
+    "exif": "http://www.w3.org/2003/12/exif/ns#",
     "description": "http://purl.org/dc/terms/description",
     "contact" : { "@type" : "@id" },
     "content_negotiation" : { "@type" : "xsd:boolean" },
@@ -19,8 +20,8 @@
     "size_by_wh" : { "@type" : "xsd:boolean" },
     "capabilities" : { "@type" : "@id" },
     "formats" : { "@type" : "xsd:string" },
-    "height" : { "@type" : "xsd:integer" },
-    "width" : { "@type" : "xsd:integer" },
+    "height":  {"@type":"xsd:integer", "@id":"exif:height"},
+    "width": {"@type":"xsd:integer", "@id":"exif:width"},
     "tile_height" : { "@type" : "xsd:integer" },
     "tile_width" : { "@type" : "xsd:integer" },
     "profile" : { "@type" : "@id" },
