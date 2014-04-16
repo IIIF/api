@@ -1,0 +1,15 @@
+name: IIIF | International Image Interoperability Framework
+markdown: kramdown
+pygments: true
+exclude: [ dev.sh, publish.sh]
+kramdown:
+  input: GFM
+  parse_block_html: true
+  toc_levels: 2..6
+
+image:
+  api_latest: 1.2
+
+presentation:
+  api_latest: 1.1
+

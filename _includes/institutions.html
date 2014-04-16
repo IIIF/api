@@ -1,0 +1,13 @@
+<section class="participants wrapper">
+            <h2>Participating institutions</h2>
+            <p>The IIIF community consists of a growing number of cultural heritage institutions and open source software projects committed to sharing and displaying image resources across repositories and the web. Participating institutions include:</p>
+            <ul>
+            {% for i in site.data.institutions %}
+              <li>
+                {% if i.uri %}<a href="{{ i.uri }}">{% endif %}
+                  {{ i.name }}
+                {% if i.uri %}</a>{% endif %}
+              </li>
+            {% endfor %}
+            </ul>
+          </section>

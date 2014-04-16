@@ -1,0 +1,115 @@
+---
+title: Technical Details
+title_override: IIIF Quick Start Guide
+id: technical-details
+categories: [pages]
+layout: sub-page
+---
+          <section class="section-quick-links">
+            <a class="button-turquoise" href="/api/image/{{ site.image.api_latest }}/">IIIF Image API {{ site.image.api_latest }}</a>
+            <a class="button-turquoise" href="/api/metadata/{{ site.presentation.api_latest }}">IIIF Metadata API {{ site.presentation.api_latest }}</a>
+          </section>
+
+          <section class="quick-start wrapper">
+            <p>
+              This page is a quick-start guide for image repository managers and engineers who are interested in making
+              their image repository interoperable, or just experimenting with IIIF.
+            </p>
+            <p>
+              The basic steps to getting started with IIIF are:
+            </p>
+            <ol>
+              <li>Deploy an image server that supports the <a href="http://www-sul.stanford.edu/iiif/image-api/1.1/" target="_blank">IIIF Image API v1.1</a></li>
+              <li>Publish metadata about your image-based objects that complies to <a href="http://www.shared-canvas.org/datamodel/iiif/metadata-api.html" target="_blank">IIIF Metadata API v1.0</a></li>
+              <li>Deploy and integrate software that allows you to discover and display IIIF-compliant image resources</li>
+            </ol>
+          </section>
+
+          <!-- Step 2 -->
+          <section class="step step-1 wrapper">
+            <h2>Deploy an image server</h2>
+            <p>
+              In this step you will either deploy an image server for the first time, or adapt your existing image server to
+              support the IIIF. In either case your goal is to deploy an image server that fully supports delivery of images
+              via URL’s as specified in the <a href="/api/image/1.1/">IIIF Image API v1.1</a>.
+            </p>
+
+            <p class="question">
+              Just experimenting or trying to set up an interoperable image server for the first time?  Try one of these:
+            </p>
+            <ul>
+              <li>
+                <a href="https://github.com/pulibrary/loris" target="_blank">Loris</a> is an open source, Python-based image
+                server that supports the IIIF Image API ver 1.1. It supports JPEG, JPEG2000 and TIFF source images.
+              </li>
+              <li>
+                <a href="http://iipimage.sourceforge.net/documentation/server/" target="_blank">IIPImage Server</a> is an open
+                source Fast CGI module written in C++ that is designed to be embedded within a host web server such as Apache,
+                Lighttpd, MyServer or Nginx. It supports TIFF and JPEG2000 source images. The IIIF compatible version of IIPImage
+                Server can be found at <a href="https://github.com/ruven/iipsrv/tree/iiif" target="_blank">this branch</a>.
+              </li>
+            </ul>
+
+            <p class="question">
+              Do you currently have an image server based on djatoka, Aware, Luratech or FSI?
+            </p>
+            <p>
+              These are common image server technologies that drive many image repositories in the cultural heritage community, and
+              chances are that someone in the IIIF community has already built a shim or translator to make these IIIF compatible.
+              Email the <a href="https://groups.google.com/forum/#!forum/iiif-discuss" target="_blank">IIIF Discuss Google Group</a>
+              to find out. We will add documentation and pointers to these translators in the future.  For example:
+            </p>
+            <ul>
+              <li>
+                This <a href="https://github.com/jronallo/djatoka" target="_blank">Ruby on Rails</a> gem translates djatoka URI’s to IIIF-compatible URI’s.
+              </li>
+            </ul>
+            <p>
+              Once you have deployed your image server, we highly recommend that you <a href="http://iiif-test.stanford.edu/" target="_blank">validate it</a> to confirm that it complies with the
+              IIIF Image API, and to determine its level of <a href="/api/image/compliance.html">IIIF compliance</a>.
+            </p>
+          </section>
+
+          <!-- Step 2 -->
+          <section class="step step-2 wrapper">
+            <h2>Publish metadata</h2>
+            <p>
+              Now that you have an image server that delivers IIIF-compliant image URI’s, you need to publish metadata about your
+              image-based objects using the <a href="http://www.shared-canvas.org/datamodel/iiif/metadata-api.html" target="_blank">IIIF Metadata API v1.0</a>.
+            </p>
+          </section>
+
+          <!-- Step 3 -->
+          <section class="step step-3 wrapper">
+            <h2>Deploy and integrate software</h2>
+            <p>
+              Now that you have an image server and published metadata its time to deploy software that makes use of the IIIF technology stack.  Ultimately
+              you will want to integrate these services and supporting software into your repository infrastructure, but there are some simple ways to
+              prototype IIIF support:
+            </p>
+            <ul>
+              <li>
+                Deploy an image viewer that natively supports IIIF. Try to open your images in <a href="http://openseadragon.github.io/" target="_blank">OpenSeadragon</a>
+                or <a href="https://github.com/ruven/iipmooviewer" target="_blank">IIPMooViewer</a>, for example.
+              </li>
+              <li>
+                Deploy a version of <a href="https://github.com/DMSTech/mirador" target="_blank">Mirador</a> and try to compare your image resources to images
+                hosted by another IIIF-compatible repository.  Write the <a href="https://groups.google.com/d/forum/iiif-discuss" target="_blank">IIIF Discuss</a>
+                list and we’ll supply you with sample data.
+              </li>
+            </ul>
+          </section>
+
+          <section class="tips-n-tricks wrapper">
+            <h2>Implementation Tips &amp; Tricks</h2>
+            <ul>
+              <li>
+                Both the Image API <a href="/api/image/#image-info-request">Image Information Request</a> and the
+                <a href="/api/metadata/">Metadata API</a> are expressed as <a href="http://json-ld.org/" target="_blank">JSON-LD</a> serializations.
+              </li>
+              <li>
+                The goal of IIIF is to make your image resources available to web applications hosted on other domains.  Since most of the image viewers use javascript,
+                your image server will need to support <a href="http://enable-cors.org/" target="_blank">cross-origin resource sharing (CORS)</a>.
+              </li>
+            </ul>
+          </section>

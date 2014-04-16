@@ -1,0 +1,22 @@
+<section class="{{include.class}} wrapper">
+            <h2>{{include.head_text}}</h2>
+            <ul>
+              <!-- not ideal, but we can't seem to pass data ids through -->
+              {% if include.class == 'image-viewers' %}
+                {% assign data = site.data.image_clients %}
+              {% elsif include.class == 'image-servers' %}
+                {% assign data = site.data.image_servers %}
+              {% elsif include.class == 'impl-demos' %}
+                {% assign data = site.data.include.impl_demos %}
+              {% endif %}
+
+              {% for entry in data %}
+              <li>
+                <p class="font-weight-600"><a href="{{ entry.uri }}" target="_blank">{{ entry.name }}</a></p>
+                {% for p in entry.blurb %}
+                {{ p | markdownify }}
+                {% endfor %}
+              </li>
+              {% endfor %}
+            </ul>
+          </section>

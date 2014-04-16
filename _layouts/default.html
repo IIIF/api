@@ -1,0 +1,11 @@
+  {% include doctype.html %}
+  {% include head.html %}
+  <body>
+    {% include chromeframe.html %}
+    {% include nav.html %}
+    {{ content }}
+    {% include footer.html %}
+    {% if page.id == 'main' %}{%  include interactive_image_js.html %}{% endif %}
+    {% include ga.html %}
+  </body>
+</html>

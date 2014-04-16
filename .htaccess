@@ -1,0 +1,11 @@
+---
+# .htaccess is evaluated by Jekyll. You shouldn't need to change 
+# versions for redirects here.
+---
+Options +FollowSymLinks
+RewriteEngine on
+RedirectMatch 302 ^/api/image/$ /api/image/{{ site.image.api_latest }}/
+RewriteRule ^/?api/image/([^/]+)$ /api/image/{{ site.image.api_latest }}/$1 [L,R=302]
+RedirectMatch 302 ^/api/presentation/$ /api/presentation/{{ site.presentation.api_latest }}/
+RewriteRule ^/?api/presentation/([^/]+)$ /api/presentation/{{ site.presentation.api_latest }}/$1 [L,R=302]
+

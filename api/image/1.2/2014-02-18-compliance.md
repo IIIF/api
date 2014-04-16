@@ -1,3 +1,11 @@
+---
+title: "Image API Compliance, Version 1.2"
+id: image-api-compliance
+layout: sub-page
+permalink: compliance.html
+date: 2014-02-18
+categories: [compliance, image-api]
+---
 # IIIF: Image API Compliance, Version 1.2
 
 This document is a companion to the [International Image Interoperability Framework Image API Specification, version 1.2][1]. It defines the set of supported parameters that correspond to different levels of compliance to the IIIF Image API.

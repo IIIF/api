@@ -1,0 +1,32 @@
+- name: ARTstor
+  uri: 
+- name: Biblissima
+  uri: http://www.biblissima-condorcet.fr/
+- name: "Bodleian Libraries, Oxford University"
+  uri: 
+- name: British Library
+  uri: 
+- name: Codices Electronici Sangallenses
+  uri: 
+- name: Cornell University
+  uri: 
+- name: Harvard University
+  uri: 
+- name: Johns Hopkins University
+  uri: 
+- name: La Bibliothèque nationale de France
+  uri: 
+- name: Los Alamos National Laboratory
+  uri: 
+- name: Nasjonalbiblioteket (National Library of Norway)
+  uri: 
+- name: Princeton University Library
+  uri: http://library.princeton.edu
+- name: "St. Louis University, TPEN"
+  uri: 
+- name: Stanford University
+  uri: 
+- name: TextGrid
+  uri: 
+- name: Yale University
+  uri: 
