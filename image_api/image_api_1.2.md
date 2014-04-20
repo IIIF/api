@@ -1,7 +1,7 @@
 # NOTE: THIS IS A WORKING DRAFT. 
 # For the latest public release, see [http://iiif.io/api/image/1.1/][36]
 
-# International Image Interoperability Framework › Image API 1.2 DRAFT (Codename: Voodoo)
+# International Image Interoperability Framework › Image API 1.2 DRAFT (Codename: VoodooBunny)
 
 **Editors**
 
@@ -29,7 +29,7 @@ Please send feedback to [iiif-discuss@googlegroups.com][1]
 
 ## Table of Contents
 
-  1. [Audience](#1-audience)
+  1. [Audience and Scope](#1-audience-and-scope)
   2. [URL Syntax](#2-url-syntax)
     1. [Image Request URL Syntax](#21-image-request-url-syntax)
     2. [Image Information Request URL Syntax](#22-image-information-request-url-syntax)
@@ -61,7 +61,7 @@ Please send feedback to [iiif-discuss@googlegroups.com][1]
   2. [Acknowledgments](#b-acknowledgments)
   3. [Change Log](#c-change-log)
 
-##  1. Audience
+##  1. Audience and Scope
 
 This document is intended for developers building applications that share digital image assets. This includes:
 
@@ -69,6 +69,8 @@ This document is intended for developers building applications that share digita
   * Developers building web applications or software that want to retrieve images from compliant repositories.
   * A specifically targeted audience are developers and managers of digital image repositories, web applications and image tools at cultural heritage institutions, like museums, libraries and archives.
 
+This specification concerns the use of the images by a client, but not management of the images by the server. It therefore covers how to respond to the requests given in a particular URI syntax. It does not cover methods of implementation such as rotation algorithms, transcoding, color management, compression, or how to respond to URIs that do not conform to the specified syntax. This allows flexibility for implementation in domains with particular constraints or specific community practices, while supporting interoperability in the general case. 
+ 
 ##  2. URL Syntax
 
 The IIIF Image API can be called in three ways: 
@@ -219,7 +221,7 @@ The quality parameter determines the bit-depth of the delivered image. The quali
 | native | The image is returned at an unspecified bit-depth. |
 | color  | The image is returned in full color, typically using 24 bits per pixel. |
 | grey   | The image is returned in greyscale, where each pixel is black, white or any degree of grey in between, typically using 8 bits per pixel. |
-| bitonal | The image returned is bitonal, where each pixel is either black or white, using 1 bit per pixel when the format permits. This specification makes no recommendation regarding the algorithm that should be used to make image bitonal. |
+| bitonal | The image returned is bitonal, where each pixel is either black or white, using 1 bit per pixel when the format permits. |
 
 Examples:
 
