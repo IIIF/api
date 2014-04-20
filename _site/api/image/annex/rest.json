@@ -1,0 +1,10 @@
+{
+  "@context": {
+    "@vocab" : "http://iiif.io/api/image/ext/rest#",
+    "http_delete" : { "@type" : "xsd:boolean" },
+    "http_get" : { "@type" : "xsd:boolean" },
+    "http_head" : { "@type" : "xsd:boolean" },
+    "http_post" : { "@type" : "xsd:boolean" },
+    "http_put" : { "@type" : "xsd:boolean" }
+  }
+}

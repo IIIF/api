@@ -1,0 +1,7 @@
+Options +FollowSymLinks
+RewriteEngine on
+RedirectMatch 302 ^/api/image/$ /api/image/1.2/
+RewriteRule ^/?api/image/([^/]+)$ /api/image/1.2/$1 [L,R=302]
+RedirectMatch 302 ^/api/presentation/$ /api/presentation/1.1/
+RewriteRule ^/?api/presentation/([^/]+)$ /api/presentation/1.1/$1 [L,R=302]
+

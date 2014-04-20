@@ -1,0 +1,33 @@
+{
+  "@context": {
+    "@vocab" : "http://iiif.io/api/image/1#",
+    "xsd" : "http://www.w3.org/2001/XMLSchema#",
+    "exif": "http://www.w3.org/2003/12/exif/ns#",
+    "description": "http://purl.org/dc/terms/description",
+    "contact" : { "@type" : "@id" },
+    "content_negotiation" : { "@type" : "xsd:boolean" },
+    "default_format" : { "@type" : "xsd:string" },
+    "extensions" : { "@type" : "@id" },
+    "region_by_pct" : { "@type" : "xsd:boolean" },
+    "region_by_px" : { "@type" : "xsd:boolean" },
+    "rotation_arbitrary" : { "@type" : "xsd:boolean" },
+    "rotation_by_90s" : { "@type" : "xsd:boolean" },
+    "size_above_100_pct" : { "@type" : "xsd:boolean" },
+    "size_by_forced_wh" : { "@type" : "xsd:boolean" },
+    "size_by_h" : { "@type" : "xsd:boolean" },
+    "size_by_pct" : { "@type" : "xsd:boolean" },
+    "size_by_w" : { "@type" : "xsd:boolean" },
+    "size_by_wh" : { "@type" : "xsd:boolean" },
+    "capabilities" : { "@type" : "@id" },
+    "formats" : { "@type" : "xsd:string" },
+    "height":  {"@type":"xsd:integer", "@id":"exif:height"},
+    "width": {"@type":"xsd:integer", "@id":"exif:width"},
+    "tile_height" : { "@type" : "xsd:integer" },
+    "tile_width" : { "@type" : "xsd:integer" },
+    "profile" : { "@type" : "@id" },
+    "protocol" : { "@type" : "@id" },
+    "qualities" : { "@type" : "xsd:string" },
+    "scale_factors" : { "@type" : "xsd:string" },
+    "sizes" : { "@type" : "xsd:string" }
+  }
+}

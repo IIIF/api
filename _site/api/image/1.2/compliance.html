@@ -1,0 +1,172 @@
+  <!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>IIIF | International Image Interoperability Framework &rsaquo; Image API Compliance, Version 1.2</title>
+    <meta name="description" content="Interoperability Interoperability Image Framework : A community driven image framework with well defined APIs for making the world's image repositories interoperable and accessible">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="/css/normalize.min.css">
+    <link href='http://fonts.googleapis.com/css?family=Raleway:100,300,500' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/css/main.css">
+    <script src="/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+  </head>
+
+  <body>
+    <!--[if lt IE 7]>
+      <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+    <![endif]-->
+
+    <div class="header-container">
+      <header class="wrapper clearfix">
+        <a class="title" title="IIIF : International Image Interoperability Framework" href="/">Home</a>
+        <nav>
+          <ul>
+            <li><a  href="/about.html">About</a></li>
+            <li><a  href="/technical-details.html">Technical Details</a></li>
+            <li><a  href="/apps-demos.html">Apps &amp; Demos</a></li>
+            <li><a  href="/community.html">Community</a></li>
+          </ul>
+        </nav>
+      </header>
+    </div>
+
+    <div class="sub-pages-container">
+      <div class="image-api-compliance clearfix">
+        <article>
+          <header>
+            <div class="wrapper">
+              <h1>
+                    Image API Compliance, Version 1.2
+                  
+              </h1>
+            </div>
+          </header>
+
+          <h1 id="iiif-image-api-compliance-version-12">IIIF: Image API Compliance, Version 1.2</h1>
+
+<p>This document is a companion to the [International Image Interoperability Framework Image API Specification, version 1.2][1]. It defines the set of supported parameters that correspond to different levels of compliance to the IIIF Image API.</p>
+
+<p>Three levels of compliance are defined. Level 0 is defined as the minimum set of supported parameters and features to qualify an implementation of the service as compliant to the IIIF standard. Level 1 is defined as the RECOMMENDED set of parameters and features to be implemented.</p>
+
+<h3 id="region">Region</h3>
+<p>|             | Level 0 | Level 1 | Level 2  | Optional |<br />
+| ———– |:——-:|:——-:|:——–:|:——–:| <br />
+| full        | x       | x       | x        |          | <br />
+| x,y,w,h     |         | x       | x        |          | <br />
+| pct:x,y,w,h |         |         | x        |          | </p>
+
+<h3 id="size">Size</h3>
+<p>|             | Level 0 | Level 1 | Level 2  | Optional |<br />
+| ———– |:——-:|:——-:|:——–:|:——–:| <br />
+| full        | x       | x       | x        |          | <br />
+| w,          |         | x       | x        |          | <br />
+| ,h          |         | x       | x        |          | <br />
+| pct:x       |         | x       | x        |          | <br />
+| w,h         |         |         | x        |          | <br />
+| !w,h        |         |         | x        |          | </p>
+
+<h3 id="rotation">Rotation</h3>
+<p>|             | Level 0 | Level 1 | Level 2  | Optional |<br />
+| ———– |:——-:|:——-:|:——–:|:——–:| <br />
+| 0           | x       | x       | x        |          | <br />
+| 90,180,270  |         |         | x        |          | <br />
+| arbitrary   |         |         |          | x        | </p>
+
+<h3 id="quality">Quality</h3>
+<p>|             | Level 0 | Level 1 | Level 2  | Optional |<br />
+| ———– |:——-:|:——-:|:——–:|:——–:| <br />
+| native      | x       | x       | x        |          | <br />
+| color       |         |         | x        |          | <br />
+| grey        |         |         | x        |          | <br />
+| bitonal     |         |         | x        |          | </p>
+
+<h3 id="format">Format</h3>
+<p>|             | Level 0 | Level 1 | Level 2  | Optional |<br />
+| ———– |:——-:|:——-:|:——–:|:——–:| <br />
+| jpg         | x       | x       | x        |          | <br />
+| png         |         |         | x        |          | <br />
+| tif         |         |         |          | x        | <br />
+| gif         |         |         |          | x        | <br />
+| pdf         |         |         |          | x        | <br />
+| jp2         |         |         |          | x        | </p>
+
+<h3 id="image-information-request">Image Information Request</h3>
+<p>| Property                  | Level 0 | Level 1 | Level 2  | Optional |<br />
+| ————————- |:——-:|:——-:|:——–:|:——–:| <br />
+| @context                  | x       | x       | x        |          |<br />
+| @id                       | x       | x       | x        |          |<br />
+| height                    | x       | x       | x        |          |<br />
+| width                     | x       | x       | x        |          |<br />
+| protocol                  | x       | x       | x        |          |<br />
+| profile                   |         | x       | x        |          |<br />
+| capabilities<sup>*</sup>  |         |         |          | x        |<br />
+| formats<sup>*</sup>       |         |         |          | x        |<br />
+| scale_factors<sup>*</sup> |         |         |          | x        |<br />
+| sizes<sup>*</sup>         |         |         |          | x        |<br />
+| tile_width<sup>*</sup>    |         |         |          | x        |<br />
+| tile_height<sup>*</sup>   |         |         |          | x        |<br />
+| qualities<sup>*</sup>     |         |         |          | x        |</p>
+
+<p><sup>*</sup>All property marked as optional SHOULD be included if applicable. </p>
+
+<h2 id="indicating-compliance">Indicating Compliance</h2>
+
+<p>Servers indicate compliance with level 0 by including the following header in IIIF responses:</p>
+
+<pre><code>Link: &lt;http://iiif.io/image/1.2/compliance/level0.json&gt;;rel="profile"
+</code></pre>
+
+<p>A level 0 compliant image server MAY specify scaling_factors and/or tile_width and tile_height values in the Image information response. At Level 0 compliance, a server is only required to deliver images of sizes computed using the scaling factors declared in the Image Information response. If specified they should be interpreted with the following special meanings:</p>
+
+<ul>
+  <li>scaling_factors - only the specified scaling factors are supported</li>
+  <li>tile_width, tile_height - clients should request only regions that correspond to output tiles of the specified dimensions</li>
+</ul>
+
+<p>If a client requests an scaling or region outside these parameters then the image server MAY reject the request with a 400 Bad Request error.</p>
+
+<p>Servers indicate compliance with level 1 by including the following header in IIIF responses:</p>
+
+<pre><code>Link: &lt;http://iiif.io/image/1.2/compliance/level1.json&gt;;rel="profile"
+</code></pre>
+
+<p>Servers indicate compliance with level 2 by including the following header in IIIF responses:</p>
+
+<pre><code>Link: &lt;http://iiif.io/image/1.2/compliance/level2.json&gt;;rel="profile"
+</code></pre>
+
+<blockquote>
+  <p>TODO: add a note about the capabilites document here</p>
+</blockquote>
+
+        </article>
+      </div>
+    </div>
+
+    <div class="footer-container">
+      <footer class="wrapper">
+        Please send feedback to <a href="mailto:iiif-discuss@googlegroups.com">iiif-discuss@googlegroups.com</a>
+      </footer>
+    </div>
+
+    
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-7219229-22', 'iiif.io');
+      ga('send', 'pageview');
+    </script>
+
+  </body>
+</html>

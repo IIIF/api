@@ -257,10 +257,10 @@ Region THEN Size THEN Rotation THEN Quality THEN Format
 
 ### 4.7. Canonical URI Syntax
 
-Three situations have been identified in which the diversity in ways of requesting the same image is not optimal for performance:
-* Static file based implementations will have one file for each possible request, and thus in order to not get an HTTP 404 Not Found response, the client must use the same canonical syntax as the server.
+There are several reasons why a canonical URI syntax is desirable:
+* It enables static, file-system based implementations, which will have only a single URI at which the content is available.
 * Caching becomes significantly more efficient, both client and server side, when the URIs used are the same between systems and sessions.
-* Response times can be improved by avoiding redirects from the requested URI syntax to the canonical syntax by using the canonical form directly
+* Response times can be improved by avoiding redirects from a requested non-canonical URI syntax to the canonical syntax by using the canonical form directly
 
 In order to support the above requirements, clients should construct the image request URIs using to following canonical parameter values where possible.
 
@@ -313,12 +313,12 @@ The response will return the following information:
 | width | Required | The width of the source image. |
 | height | Required | The height of the source image. | 
 | protocol | Required | The URI "http://iiif.io/api/image" which can be used to determine that the document describes an image service which is a version of the IIIF Image API. |
-| scale_factors | Optional | Some image servers support the creation of multiple resolution levels for a single image in order to optimize the efficiency in delivering images of different sizes. The scale_factors element expresses a list of resolution scaling factors. For example a scale factor of 4 indicates that the service can efficiently deliver images at 25% of the height and width of the source image. |
-| sizes | Optional | An array of dimensions in the "w,h," syntax that the server has available. This may be used to let the client know other sizes that are available when the server does not support requests for arbirary sizes, or simply as a hint that requesting an image of this size may result in a faster response. |
+| scale_factors | Optional | Some image servers support the creation of multiple resolution levels for a single image in order to optimize the efficiency in delivering images of different sizes. The scale_factors property expresses a set of resolution scaling factors. For example, a scale factor of 4 indicates that the service can efficiently deliver images at 25% of the height and width of the source image. |
+| sizes | Optional | A set of dimensions that the server has available, expressed in the "w,h" syntax. This may be used to let a client know the sizes that are available when the server does not support requests for arbitrary sizes, or simply as a hint that requesting an image of this size may result in a faster response. |
 | tile_width | Optional | Some image servers efficiently support delivery of predefined tiles enabling easy assembly of portions of the image. It is assumed that the same tile sizes are used for all scale factors supported. The tile_width element expresses the width of the predefined tiles. |
 | tile_height | Optional | The tile_height element expresses the height of the predefined tiles. See description of tile_width. |
-| formats | Optional | The list of image format parameter values available for the image. |
-| qualities | Optional | The list of image quality parameter values available for the image. |
+| formats | Optional | The set of image format parameter values available for the image. |
+| qualities | Optional | The set of image quality parameter values available for the image. |
 | profile | Optional | URI indicating the compliance level supported. Values as described in [Section 8 - Compliance Levels](#8-compliance-levels) |
 | capabilities | Optional | URI for a capabilities document the describes the capabilities supported. See [Section 5.2 - Server Capabilities Request](#52-server-capabilities-request) for more information about this document |
 
@@ -353,8 +353,9 @@ A server MAY declare the set of capabilities that it implements in a capabilitie
 | -------- | --------- | ----------- |
 | @context | Required | The context document that describes the semantics of the terms used in the document. This must be the URI: [http://iiif.io/api/image/1.2/context.json] for version 1.2 of the IIIF Image API. This document allows the response to be interpreted as RDF, using the [JSON-LD][29] serialization |
 | @id      | Required | The URI of this capabilities document |
-| contact  | Optional | A mailto URI for a person to contact about this service | 
+| documentation  | Optional | A URI for a web page that describes or gives information about this service (URI) | 
 | content_negotiation | Optional | Does the service support content negotation for image format? (boolean) |
+| cors | Optional | Does the service support the CORS HTTP headers on JSON responses (boolean) |
 | default_format | Optional | The default format that the service will use when the image format is not supplied by the client (string) |
 | region_by_pct | Optional | Does the service support requesting regions of images given by percentage (boolean) |
 | region_by_px | Optional | Does the service support requesting regions of images given by pixel dimensions (boolean) |
@@ -365,16 +366,12 @@ A server MAY declare the set of capabilities that it implements in a capabilitie
 | size_by_pct | Optional | Does the service support returning an image with its size given in the form "pct:n" (boolean) |
 | size_by_w | Optional | Does the service support returning an image with its size given in the form "w," (boolean) |
 | size_by_wh | Optional | Does the service support returning an image with its size given in the form "w,h" (boolean) |
-| cors | Optional | Does the service support the CORS HTTP headers on JSON responses (boolean) |
-| extensions | Optional | An array that identifies and describes one or more non-standard features supported by this server (boolean) |
-| description | Optional | A description of an extension feature (string) |
-
 
 ```javascript
 {
   "@context" : "http://iiif.io/api/image/1.2/context.json",
   "@id" : "http://www.example.org/image-service/capabilities.json",
-  "contact" : "mailto:admin@example.org",
+  "documentation" : "http://www.example.com/image-service/documentation.html",
   "content_negotiation" : "true",
   "cors" : "true",
   "default_format" : "jpg",
@@ -386,61 +383,29 @@ A server MAY declare the set of capabilities that it implements in a capabilitie
   "size_by_h" : "true",
   "size_by_pct" : "true",
   "size_by_w" : "true",
-  "size_by_wh" : "true"
+  "size_by_wh" : "true",
 }
-
 ```
 
 ### 5.3 Information Request Extensions
 
-Both the [Image Information Request](#51-image-information-request) and [Server Capabilities Request](#52-server-capabilities-request) documents may be extended by adding properties from another [JSON-LD context][42]. 
-
+Both the [Image Information Request](#51-image-information-request) and [Server Capabilities Request](#52-server-capabilities-request) documents may be extended by adding properties from another [JSON-LD context][42]. This is done by adding another context document before the IIIF context.
 
 The following shows an extension added to a server's capabilities document:
 
 ```json
 {
   "@context" : [
-    "http://iiif.io/api/image/1.2/context.json", 
-    {
-      "ext" : "http://my.namespace.com/extensions/",
-      "ext:feature" : { "@type" : "xsd:boolean" }
-    }
+    "http://example.org/image-service/extensions/context.json",
+    "http://iiif.io/api/image/2/context.json"
   ],
   "@id" : "http://www.example.org/image-service/capabilities.json",
-  "contact" : "mailto:admin@example.org",
   ...
-  "cors" : "true",
-  "ext:feature" : "true",
-  "extensions" : [
-    {
-      "@id" : "ext:feature",
-      "description" : "This is a description of my non-standard feature."
-    }
-  ] 
+  "extension_feature" : "true"
 }
 ```
 
-The mechanism is similar in the image information request syntax, but simpler as the extension property should not be described in the document:
-
-```json
-{
-  "@context": [ 
-      "http://iiif.io/api/image/1.2/context.json",
-      {
-        "ext" : "http://my.namespace.com/extensions/",
-        "ext:additional_metadata" : { "@type" : "xsd:string" }
-      }
-  ],
-   ....
-  "width": 5213,
-  "height": 5706,
-  "ext:additional_metadata" : "about the image"
-}
-
-```
-
-Properties that are not part of the this specification MUST be ignored if not understood.
+Properties that are not understood MUST be ignored.
 
 ##  6. Server Responses
 
@@ -524,7 +489,21 @@ Early sanity checking of URI’s (lengths, trailing GET, invalid characters, out
   * Image identifiers that include the slash (/ %2F) or backslash (\ %5C) characters may cause problems with some HTTP servers. Apache servers from version 2.2.18 support the "AllowEncodedSlashes NoDecode" (link to ) configuration directive which will correctly pass these characters to client applications without rejecting or decoding them. Servers using older versions of Apache and local identifiers which include these characters will need to use a workaround such as internally translating or escaping slash and backslash to safe value (perhaps by double URL-encoding them).
   * As described in [Section 4.3 - Rotation](#43-rotation), in order to retain the size of the requested image contents, rotation will change the width and height dimensions of the returned image file. A formula for calculating the dimensions of the returned image file for a given rotation can be found here.
 
-##  B. Acknowledgments
+## B. Versioning
+
+Starting with version 2.0, this specification follows [Semantic Versioning][25] with version numbers of the form "MAJOR.MINOR.PATCH" where: 
+
+  * MAJOR version increment indicates incompatible API changes.
+  * MINOR version increment indicates addition of functionality in a backwards-compatible manner.
+  * PATCH version increment indicates backwards-compatible bug fixes.
+
+This versioning system will be implemented in the following ways:
+
+  * URIs for compliance and context will be updated with major versions only, and otherwise edited in place.
+  * URIs for the specifications will be updated with major and minor versions, with patch versions edited in place.
+  * The protocol URI does not change with versioning.
+
+##  C. Acknowledgments
 
 The production of this document was generously supported by a grant from the [Andrew W. Mellon Foundation][34].
 
@@ -536,7 +515,7 @@ Attendees of the third annual LibDevConX workshop gave an early draft of this AP
 
 Many thanks to Matthieu Bonicel, Kevin Clarke, Mark Patton, Lynn McRae, Willy Mene, Brian Tingle, Ian Davis and Scotty Logan for your thoughtful contributions to the effort and written feedback.
 
-##  C. Change Log
+##  D. Change Log
 
 | Date | Editor |  Description |
 | ---- | ------ | ------------ |
@@ -551,6 +530,7 @@ Many thanks to Matthieu Bonicel, Kevin Clarke, Mark Patton, Lynn McRae, Willy Me
 | 2012-05-02 | ssnydman | RFC version |
 
    [1]: mailto:iiif-discuss%40googlegroups.com
+   [25]: http://semver.org/
    [26]: http://tools.ietf.org/html/rfc6570
    [28]: http://library.stanford.edu/iiif/image-api/1.1/context.json
    [29]: http://www.json-ld.org/
@@ -568,3 +548,7 @@ Many thanks to Matthieu Bonicel, Kevin Clarke, Mark Patton, Lynn McRae, Willy Me
    [41]: http://www.w3.org/TR/cors/
    [42]: http://www.w3.org/TR/json-ld/#the-context
    
+
+
+
+
