@@ -56,7 +56,7 @@ Three levels of compliance are defined. Level 0 is defined as the minimum set of
 | height                    | x       | x       | x        |          |
 | width                     | x       | x       | x        |          |
 | protocol                  | x       | x       | x        |          |
-| profile                   |         | x       | x        |          |
+| profile                   | x       | x       | x        |          |
 | capabilities<sup>*</sup>  |         |         |          | x        |
 | formats<sup>*</sup>       |         |         |          | x        |
 | scale_factors<sup>*</sup> |         |         |          | x        |
