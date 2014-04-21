@@ -57,15 +57,15 @@ Three levels of compliance are defined. Level 0 is defined as the minimum set of
 | width                     | x       | x       | x        |          |
 | protocol                  | x       | x       | x        |          |
 | profile                   | x       | x       | x        |          |
-| capabilities<sup>*</sup>  |         |         |          | x        |
-| formats<sup>*</sup>       |         |         |          | x        |
-| scale_factors<sup>*</sup> |         |         |          | x        |
-| sizes<sup>*</sup>         |         |         |          | x        |
-| tile_width<sup>*</sup>    |         |         |          | x        |
-| tile_height<sup>*</sup>   |         |         |          | x        |
-| qualities<sup>*</sup>     |         |         |          | x        |
+| capabilities              |         |         |          | x        |
+| formats                   |         |         |          | x        |
+| scale_factors             |         |         |          | x        |
+| sizes                     |         |         |          | x        |
+| tile_width                |         |         |          | x        |
+| tile_height               |         |         |          | x        |
+| qualities                 |         |         |          | x        |
 
-<sup>*</sup>All property marked as optional SHOULD be included if applicable. 
+All property marked as optional SHOULD be included if applicable. 
 
 ## Indicating Compliance
 
