@@ -214,14 +214,14 @@ For non-90-degree rotations the API does not specify the background color.
 
 ###  4.4. Quality
 
-The quality parameter determines the bit-depth of the delivered image. The quality value of "native" requests an image of the same bit-depth as the source image. Values other than "native" are requested transformations of the bit-depth of the source image.
+The quality parameter determines whether the image is delivered in color, greyscale or black and white.  
 
 | Quality | Parameter Returned |
 | ------- | ------------------ |
-| native | The image is returned at an unspecified bit-depth. |
-| color  | The image is returned in full color, typically using 24 bits per pixel. |
-| grey   | The image is returned in greyscale, where each pixel is black, white or any degree of grey in between, typically using 8 bits per pixel. |
-| bitonal | The image returned is bitonal, where each pixel is either black or white, using 1 bit per pixel when the format permits. |
+| native | The image is returned using the server's default quality (e.g. color, grey or bitonal as below) for the image. |
+| color  | The image is returned in full color. |
+| grey   | The image is returned in greyscale, where each pixel is black, white or any shade of grey in between. |
+| bitonal | The image returned is bitonal, where each pixel is either black or white. |
 
 Examples:
 
@@ -421,11 +421,11 @@ The order in which servers parse requests and detect errors is not specified. A 
 
 | Error Code | Description |
 | ---------- | ----------- |
-| 400 Bad Request | This response is used when it is impossible for the server to fulfil the request, for example if the combination of parameters would result in a zero-sized image. |
+| 400 Bad Request | This response is used when it is impossible for the server to fulfil the request, as the syntax of the request is incorrect.  For example, this would be used if the size parameter does not match any of the specified syntaxes. |
 | 401 Unauthorized | Authentication is required and not provided. See Section 7 below for details. |
 | 403 Forbidden | The user, authenticated or not, is not permitted to perform the requested operation. |
-| 404 Not Found | The image resource specified by [identifier] does not exist|
-| 406 Not Acceptable| The server does not support the format requested by Content Negotiation. If the requested format is specified in the URI, and the server is not able to deliver it, then the appropriate error code is 400. |
+| 404 Not Found | The image resource specified by [identifier] does not exist, or the value of one or more of the parameters is not supported for this image. |
+| 406 Not Acceptable | The server does not support the format requested by Content Negotiation. If the requested format is specified in the URI, and the server is not able to deliver it, then the appropriate error code is 400. |
 | 500 Internal Server Error | The server encountered an unexpected error that prevented it from fulfilling the request. |
 | 501 Not Implemented | A valid IIIF request that is not implemented by this server. If the requested format is not implemented then a 415 error should be used. |
 | 503 Service Unavailable | Used when the server is busy/temporarily unavailable due to load/maintenance issues. An alternative to connection refusal with the option to specify a back-off period. |
