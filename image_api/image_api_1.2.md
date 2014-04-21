@@ -321,7 +321,7 @@ The response will return the following information:
 | tile_height | Optional | The tile_height element expresses the height of the predefined tiles. See description of tile_width. |
 | formats | Optional | The set of image format parameter values available for the image. |
 | qualities | Optional | The set of image quality parameter values available for the image. |
-| profile | Optional | URI indicating the compliance level supported. Values as described in [Section 8 - Compliance Levels](#8-compliance-levels) |
+| profile | Required | URI indicating the compliance level supported. Values as described in [Section 8 - Compliance Levels](#8-compliance-levels) |
 | capabilities | Optional | URI for a capabilities document the describes the capabilities supported. See [Section 5.2 - Server Capabilities Request](#52-server-capabilities-request) for more information about this document |
 
 
