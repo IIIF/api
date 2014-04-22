@@ -18,9 +18,3 @@ presentation_api:
     minor: 0
     patch: 0
 
-image:
-  api_latest: 1.2
-
-presentation:
-  api_latest: 1.1
-
