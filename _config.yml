@@ -7,6 +7,17 @@ kramdown:
   parse_block_html: true
   toc_levels: 2..6
 
+image_api:
+  latest:
+    major: 1
+    minor: 1
+    patch: 0
+presentation_api:
+  latest:
+    major: 1
+    minor: 0
+    patch: 0
+
 image:
   api_latest: 1.2
 

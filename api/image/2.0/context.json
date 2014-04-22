@@ -1,6 +1,8 @@
+---
+---
 {
   "@context": {
-    "iiif" :   "http://iiif.io/api/image/1#",
+    "iiif" :   "http://iiif.io/api/image/{{ site.image_api.latest.major }}#",
     "xsd" :    "http://www.w3.org/2001/XMLSchema#",
     "exif":    "http://www.w3.org/2003/12/exif/ns#",
     "dc":      "http://purl.org/dc/elements/1.1/",
