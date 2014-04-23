@@ -1,0 +1,15 @@
+---
+---
+{
+  "@context" : "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
+  "@id" : "http://iiif.io/api/image/{{ site.image_api.latest.major }}/profiles/level0.json",
+  "region_by_pct" : "false",
+  "region_by_px" : "false",
+  "rotation_arbitrary" : "false",
+  "rotation_by_90s" : "false",
+  "size_by_forced_wh" : "false",
+  "size_by_h" : "false",
+  "size_by_pct" : "false",
+  "size_by_w" : "false",
+  "size_by_wh" : "false",
+}
