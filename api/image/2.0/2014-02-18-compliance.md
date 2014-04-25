@@ -124,7 +124,7 @@ The Server Capabilities Document MAY be provided at any levels, and include prop
 Servers indicate compliance with level 0 by including the following header in IIIF responses:
 
 ```
-Link: <http://iiif.io/image/{{ page.major }}/compliance/level0.json>;rel="profile"
+Link: <http://iiif.io/image/{{ page.major }}/level0.json>;rel="profile"
 ```
 
 A level 0 compliant image server MAY specify scaling_factors and/or tile_width and tile_height values in the Image information response. At Level 0 compliance, a server is only required to deliver images of sizes computed using the scaling factors declared in the Image Information response. If specified they should be interpreted with the following special meanings:
@@ -137,13 +137,13 @@ If a client requests an scaling or region outside these parameters then the imag
 Servers indicate compliance with level 1 by including the following header in IIIF responses:
 
 ```
-Link: <http://iiif.io/image/{{ page.major }}/compliance/level1.json>;rel="profile"
+Link: <http://iiif.io/image/{{ page.major }}/level1.json>;rel="profile"
 ```
 
 Servers indicate compliance with level 2 by including the following header in IIIF responses:
 
 ```
-Link: <http://iiif.io/image/{{ page.major }}/compliance/level2.json>;rel="profile"
+Link: <http://iiif.io/image/{{ page.major }}/level2.json>;rel="profile"
 ```
 
    [1]: http://iiif.io/api/image/2.0

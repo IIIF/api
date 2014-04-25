@@ -2,7 +2,7 @@
 ---
 {
   "@context" : "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
-  "@id" : "http://iiif.io/api/image/{{ site.image_api.latest.major }}/profiles/level2.json",
+  "@id" : "http://iiif.io/api/image/{{ site.image_api.latest.major }}/level2.json",
   "region_by_pct" : "true",
   "region_by_px" : "true",
   "rotation_arbitrary" : "false",
