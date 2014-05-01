@@ -6,6 +6,12 @@ kramdown:
   input: GFM
   parse_block_html: true
   toc_levels: 2..6
+  use_coderay: true
+
+  coderay:
+    coderay_wrap: div
+    coderay_line_numbers: nil
+    coderay_css: class
 
 image_api:
   latest:
