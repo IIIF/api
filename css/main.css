@@ -445,56 +445,20 @@ a.button-turquoise {
   margin-left: 20px;
 }
 
-.sub-pages-container .image-api,
-.sub-pages-container .presentation-api {
+.sub-pages-container .image-api {
   color: #222;
 }
 
-
-.sub-pages-container .image-api .names ,
-.sub-pages-container .presentation-api .names {
+.sub-pages-container .image-api .names {
   list-style-type: none;
   margin: 1em 0 0 0;
   padding-left: 20px;
 }
 
-.sub-pages-container .image-api .names li,
-.sub-pages-container .presentation-api .names li {
-  line-height: 1.4;
+.sub-pages-container .image-api .names li {
+  line-height: 1.1;
   padding-left: 0;
 }
-
-.sub-pages-container .image-api .editors-authors .from,
-.sub-pages-container .presentation-api .editors-authors .from {
-  color: #999;
-}
-
-.sub-pages-container .image-api .editors-authors sup,
-.sub-pages-container .presentation-api .editors-authors sup {
-  color: #999;
-  padding-left: 3px;
-}
-
-.sub-pages-container .image-api .editors-authors em,
-.sub-pages-container .presentation-api .editors-authors em {
-  color: #999;
-}
-
-.sub-pages-container .image-api section,
-.sub-pages-container .presentation-api section {
-  margin-bottom: 2.5em;
-}
-
-.sub-pages-container .image-api section h2,
-.sub-pages-container .presentation-api section h2 {
-  font-size: 22px;
-}
-
-.sub-pages-container .image-api section h3,
-.sub-pages-container .presentation-api section h3 {
-  font-size: 21px;
-}
-
 
 .sub-pages-container .toc ol {
   counter-reset: item;
@@ -688,7 +652,7 @@ a.button-turquoise {
 }
 
 .req {
-  background: transparent url('/img/presentation-api/icons-metadata-requirements.png') left top no-repeat;
+  background: transparent url('/img/metadata-api/icons-metadata-requirements.png') left top no-repeat;
   height: 20px;
   margin: 0 auto;
   width: 20px;
