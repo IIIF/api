@@ -3,7 +3,14 @@
 {
   "@context" : "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
   "@id" : "http://iiif.io/api/image/{{ site.image_api.latest.major }}/level2.json",
+  "@type" : "iiif:ImageProfile",
+
+  "formats" : [ "jpg", "png" ],
+  "qualities" : [ "native", "bitonal" ],
   "supports" : [
+    "cors",
+    "jsonld_media_type",
+    "profile_link_header",
     "region_by_pct",
     "region_by_px",
     "rotation_by_90s",
