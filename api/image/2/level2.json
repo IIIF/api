@@ -3,13 +3,14 @@
 {
   "@context" : "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
   "@id" : "http://iiif.io/api/image/{{ site.image_api.latest.major }}/level2.json",
-  "region_by_pct" : "true",
-  "region_by_px" : "true",
-  "rotation_arbitrary" : "false",
-  "rotation_by_90s" : "true",
-  "size_by_forced_wh" : "true",
-  "size_by_h" : "true",
-  "size_by_pct" : "true",
-  "size_by_w" : "true",
-  "size_by_wh" : "true",
+  "supports" : [
+    "region_by_pct",
+    "region_by_px",
+    "rotation_by_90s",
+    "size_by_forced_wh",
+    "size_by_h",
+    "size_by_pct",
+    "size_by_w",
+    "size_by_wh"
+  ]
 }
