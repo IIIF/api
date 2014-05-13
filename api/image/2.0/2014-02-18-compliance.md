@@ -183,9 +183,9 @@ In the tables below "x" indicates that support is required, "o" indicates that s
 
 |             | Level 0 | Level 1 | Level 2  |
 | ----------- |:-------:|:-------:|:--------:|
-| native      | x       | x       | x        |
+| default     | x       | x       | x        |
 | color       | o       | o       | x (if applicable) |
-| grey        | o       | o       | x (if applicable) |
+| gray        | o       | o       | x (if applicable) |
 | bitonal     | o       | o       | x        |
 
 ### Format
