@@ -6,7 +6,7 @@
   "@type" : "iiif:ImageProfile",
 
   "formats" : [ "jpg", "png" ],
-  "qualities" : [ "native", "bitonal" ],
+  "qualities" : [ "default", "bitonal" ],
   "supports" : [
     "cors",
     "jsonld_media_type",
