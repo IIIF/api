@@ -23,6 +23,7 @@ In the tables below "x" indicates that support is required, "o" indicates that s
 ## Image Parameters
 
 ### Region
+
 |             | Level 0 | Level 1 | Level 2  |
 | ----------- |:-------:|:-------:|:--------:|
 | full        | x       | x       | x        | 
@@ -30,6 +31,7 @@ In the tables below "x" indicates that support is required, "o" indicates that s
 | pct:x,y,w,h | o       | o       | x        | 
 
 ### Size
+
 |             | Level 0 | Level 1 | Level 2  |
 | ----------- |:-------:|:-------:|:--------:|
 | full        | x       | x       | x        |
@@ -40,6 +42,7 @@ In the tables below "x" indicates that support is required, "o" indicates that s
 | !w,h        | o       | o       | x        |
 
 ### Rotation
+
 |             | Level 0 | Level 1 | Level 2  |
 | ----------- |:-------:|:-------:|:--------:|
 | 0           | x       | x       | x        |
@@ -47,14 +50,16 @@ In the tables below "x" indicates that support is required, "o" indicates that s
 | arbitrary   | o       | o       | o        |
 
 ### Quality
+
 |             | Level 0 | Level 1 | Level 2  |
 | ----------- |:-------:|:-------:|:--------:|
 | native      | x       | x       | x        |
-| color       | o       | o       | x        |
+| color       | o       | o       | x (if applicable) |
 | grey        | o       | o       | x        |
 | bitonal     | o       | o       | x        |
 
 ### Format
+
 |             | Level 0 | Level 1 | Level 2  |
 | ----------- |:-------:|:-------:|:--------:|
 | jpg         | x       | x       | x        |
@@ -63,7 +68,6 @@ In the tables below "x" indicates that support is required, "o" indicates that s
 | gif         | o       | o       | o        |
 | pdf         | o       | o       | o        |
 | jp2         | o       | o       | o        |
-
 
 ## HTTP Features
 
@@ -117,7 +121,6 @@ The Server Capabilities Document MAY be provided at any levels, and include prop
 | size_by_pct               | o       | o       | o        |
 | size_by_w                 | o       | o       | o        |
 | size_by_wh                | o       | o       | o        |
-
 
 ## Indicating Compliance
 
