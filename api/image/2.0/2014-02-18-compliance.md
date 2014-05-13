@@ -222,7 +222,6 @@ The Image Information Document MUST be provided at all levels, and include prope
 | width                     | x       | x       | x        |
 | protocol                  | x       | x       | x        |
 | profile                   | x       | x       | x        |
-| capabilities              | o       | o       | o        |
 | formats                   | o       | o       | o        |
 | scale_factors             | o       | o       | o        |
 | sizes                     | o       | o       | o        |
@@ -232,7 +231,7 @@ The Image Information Document MUST be provided at all levels, and include prope
 
 All properties marked as optional SHOULD be included if applicable.
 
-### Server Capabilities Document Properties
+### Profile Properties
 
 The Server Capabilities Document MAY be provided at any levels, and include properties as indicated in the table below:
 
@@ -240,12 +239,15 @@ The Server Capabilities Document MAY be provided at any levels, and include prop
 | ------------------------- |:-------:|:-------:|:--------:|
 | @context                  | x       | x       | x        |
 | @id                       | x       | x       | x        |
-| documentation             | o       | o       | o        |
+| canonical_link_header     | o       | o       | o        |
 | cors                      | o       | o       | o        |
+| jsonld_media_type         | o       | x       | x        |
+| profile_link_header       | o       | x       | x        |
 | region_by_pct             | o       | o       | o        |
 | region_by_px              | o       | o       | o        |
 | rotation_arbitrary        | o       | o       | o        |
 | rotation_by_90s           | o       | o       | o        |
+| size_above_full           | o       | o       | o        |
 | size_by_forced_wh         | o       | o       | o        |
 | size_by_h                 | o       | o       | o        |
 | size_by_pct               | o       | o       | o        |
