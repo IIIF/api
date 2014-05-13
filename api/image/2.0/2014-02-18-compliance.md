@@ -154,105 +154,68 @@ In the tables below "x" indicates that support is required, "o" indicates that s
 
 ### Region
 
-|             | Level 0 | Level 1 | Level 2  |
-| ----------- |:-------:|:-------:|:--------:|
-| full        | x       | x       | x        | 
-| x,y,w,h     | o       | x       | x        | 
-| pct:x,y,w,h | o       | o       | x        | 
+| Syntax      | Feature Name    | Level 0 | Level 1 | Level 2  |
+|:------------|:--------------- |:-------:|:-------:|:--------:|
+| `full`      |                 | x       | x       | x        | 
+| x,y,w,h     | `region_by_px`  | o       | x       | x        | 
+| pct:x,y,w,h | `region_by_pct` | o       | o       | x        | 
+{: .image-api-table}
 
 ### Size
 
-|             | Level 0 | Level 1 | Level 2  |
-| ----------- |:-------:|:-------:|:--------:|
-| full        | x       | x       | x        |
-| w,          | o       | x       | x        |
-| ,h          | o       | x       | x        |
-| pct:x       | o       | x       | x        |
-| w,h         | o       | o       | x        |
-| !w,h        | o       | o       | x        |
+| Syntax      | Feature Name        | Level 0 | Level 1 | Level 2  |
+|:------------|:--------------------|:-------:|:-------:|:--------:|
+| `full`      |                     | x       | x       | x        |
+| w,          | `size_by_w`         | o       | x       | x        |
+| ,h          | `size_by_h`         | o       | x       | x        |
+| pct:x       | `size_by_pct`       | o       | x       | x        |
+| w,h         | `size_by_forced_wh` | o       | o       | x        |
+| !w,h        | `size_by_wh`        | o       | o       | x        |
+|             | `size_above_full`   | o       | o       | o        |
+{: .image-api-table}
 
 ### Rotation
 
-|             | Level 0 | Level 1 | Level 2  |
-| ----------- |:-------:|:-------:|:--------:|
-| 0           | x       | x       | x        |
-| 90,180,270  | o       | o       | x        |
-| arbitrary   | o       | o       | o        |
+| Syntax           | Feature Name         | Level 0 | Level 1 | Level 2  |
+|:-----------------|:---------------------|:-------:|:-------:|:--------:|
+| `0`              |                      | x       | x       | x        |
+| `90`,`180`,`270` | `rotation_by_90s`    | o       | o       | x        |
+| _arbitrary_      | `rotation_arbitrary` | o       | o       | o        |
+{: .image-api-table}
 
 ### Quality
 
-|             | Level 0 | Level 1 | Level 2  |
-| ----------- |:-------:|:-------:|:--------:|
-| default     | x       | x       | x        |
-| color       | o       | o       | x (if applicable) |
-| gray        | o       | o       | x (if applicable) |
-| bitonal     | o       | o       | x        |
+| Syntax        | Level 0 | Level 1 | Level 2  |
+|:--------------|:-------:|:-------:|:--------:|
+| `default`     | x       | x       | x        |
+| `color`       | o       | o       | x (if applicable) |
+| `gray`        | o       | o       | x (if applicable) |
+| `bitonal`     | o       | o       | x        |
+{: .image-api-table}
 
 ### Format
 
-|             | Level 0 | Level 1 | Level 2  |
-| ----------- |:-------:|:-------:|:--------:|
-| jpg         | x       | x       | x        |
-| png         | o       | o       | x        |
-| tif         | o       | o       | o        |
-| gif         | o       | o       | o        |
-| pdf         | o       | o       | o        |
-| jp2         | o       | o       | o        |
+| Syntax      | Level 0 | Level 1 | Level 2  |
+|:------------|:-------:|:-------:|:--------:|
+| `jpg`       | x       | x       | x        |
+| `png`       | o       | o       | x        |
+| `tif`       | o       | o       | o        |
+| `gif`       | o       | o       | o        |
+| `pdf`       | o       | o       | o        |
+| `jp2`       | o       | o       | o        |
+{: .image-api-table}
 
 ## HTTP Features
 
-|                       | Level 0 | Level 1 | Level 2  |
-| --------------------- |:-------:|:-------:|:--------:|
-| CORS                  | o       | x       | x        |
-| json-ld media type    | o       | x       | x        |
-| profile link header   | o       | x       | x        |
-| canonical link header | o       | o       | o        |
+| HTTP Feature          | Feature Name                  | Level 0 | Level 1 | Level 2  |
+|:----------------------|:----------------------|:-------:|:-------:|:--------:|
+| CORS                  | `cors`                  | o       | x       | x        |
+| json-ld media type    | `jsonld_media_type`     | o       | x       | x        |
+| profile link header   | `profile_link_header`   | o       | x       | x        |
+| canonical link header | `canonical_link_header` | o       | o       | o        |
+{: .image-api-table}
 
-## Document Properties
 
-### Image Information Document Properties
-
-The Image Information Document MUST be provided at all levels, and include properties as indicated in the table below:
-
-| Property                  | Level 0 | Level 1 | Level 2  |
-| ------------------------- |:-------:|:-------:|:--------:|
-| @context                  | x       | x       | x        |
-| @id                       | x       | x       | x        |
-| height                    | x       | x       | x        |
-| width                     | x       | x       | x        |
-| protocol                  | x       | x       | x        |
-| profile                   | x       | x       | x        |
-| formats                   | o       | o       | o        |
-| scale_factors             | o       | o       | o        |
-| sizes                     | o       | o       | o        |
-| tile_width                | o       | o       | o        |
-| tile_height               | o       | o       | o        |
-| qualities                 | o       | o       | o        |
-
-All properties marked as optional SHOULD be included if applicable.
-
-### Profile Properties
-
-The Server Capabilities Document MAY be provided at any levels, and include properties as indicated in the table below:
-
-| Property                  | Level 0 | Level 1 | Level 2  |
-| ------------------------- |:-------:|:-------:|:--------:|
-| @context                  | x       | x       | x        |
-| @id                       | x       | x       | x        |
-| canonical_link_header     | o       | o       | o        |
-| cors                      | o       | o       | o        |
-| jsonld_media_type         | o       | x       | x        |
-| profile_link_header       | o       | x       | x        |
-| region_by_pct             | o       | o       | o        |
-| region_by_px              | o       | o       | o        |
-| rotation_arbitrary        | o       | o       | o        |
-| rotation_by_90s           | o       | o       | o        |
-| size_above_full           | o       | o       | o        |
-| size_by_forced_wh         | o       | o       | o        |
-| size_by_h                 | o       | o       | o        |
-| size_by_pct               | o       | o       | o        |
-| size_by_w                 | o       | o       | o        |
-| size_by_wh                | o       | o       | o        |
 
 ## Indicating Compliance
 
