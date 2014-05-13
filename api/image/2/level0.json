@@ -6,6 +6,6 @@
   "@type" : "iiif:ImageProfile",
   
   "formats" : [ "jpg" ],
-  "qualities" : [ "native" ], 
+  "qualities" : [ "default" ], 
   "supports" : [  ]
 }
