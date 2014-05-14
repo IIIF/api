@@ -11,4 +11,16 @@ rvm:
   - 2.1
 
 notifications:
-  email: false
+  email:
+    recipients:
+      - "azaroth42@gmail.com"
+      - "blalbrit@stanford.edu"
+      - "jpstroop@gmail.com"
+      - "michael.appleby@yale.edu"
+      - "simeon.warner@gmail.com"
+      - "snydman@stanford.edu"
+    on_success: "change"
+    on_failure: "always"
+    template:
+      - "%{repository}//%{branch}@%{commit} by %{author}: %{message} - %{build_url}"
+
