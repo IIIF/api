@@ -20,7 +20,7 @@ notifications:
       - "simeon.warner@gmail.com"
       - "snydman@stanford.edu"
     on_success: "change"
-    on_failure: "always"
+    on_failure: "change"
     template:
       - "%{repository}//%{branch}@%{commit} by %{author}: %{message} - %{build_url}"
 
