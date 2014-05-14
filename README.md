@@ -6,7 +6,7 @@ Markdown Source of specifications documents
 
 ### To Debug the Site
 
- 1. Get dependencies if necessary: `$ gem install jekyll kramdown`
+ 1. `bundle install`
 
  2. Run `$ ./dev.sh` to compile the site and run adev server on http://localhost:4000.
 
