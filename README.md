@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/IIIF/iiif.io.svg?branch=master)](https://travis-ci.org/IIIF/iiif.io)
+
 ## Specifications
 
 Markdown Source of specifications documents
