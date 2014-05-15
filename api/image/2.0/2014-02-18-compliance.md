@@ -249,4 +249,4 @@ Link: <http://iiif.io/api/image/{{ page.major }}/level2.json>;rel="profile"
 
 </div>
 
-   [1]: http://iiif.io/api/image/2.0
+   [1]: http://iiif.io/api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}

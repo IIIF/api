@@ -31,7 +31,7 @@ layout: sub-page
             <p>
               In this step you will either deploy an image server for the first time, or adapt your existing image server to
               support the IIIF. In either case your goal is to deploy an image server that fully supports delivery of images
-              via URL’s as specified in the <a href="/api/image/1.1/">IIIF Image API v1.1</a>.
+              via URL’s as specified in the <a href="/api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/">IIIF Image API v{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}</a>.
             </p>
 
             <p class="question">
@@ -66,7 +66,7 @@ layout: sub-page
             </ul>
             <p>
               Once you have deployed your image server, we highly recommend that you <a href="http://iiif-test.stanford.edu/" target="_blank">validate it</a> to confirm that it complies with the
-              IIIF Image API, and to determine its level of <a href="/api/image/compliance.html">IIIF compliance</a>.
+              IIIF Image API, and to determine its level of <a href="/api/image/{{ site.image_api.latest.major }}/{{ site.image_api.latest.minor }}/compliance.html">IIIF compliance</a>.
             </p>
           </section>
 
@@ -104,8 +104,8 @@ layout: sub-page
             <h2>Implementation Tips &amp; Tricks</h2>
             <ul>
               <li>
-                Both the Image API <a href="/api/image/#image-info-request">Image Information Request</a> and the
-                <a href="/api/metadata/">Metadata API</a> are expressed as <a href="http://json-ld.org/" target="_blank">JSON-LD</a> serializations.
+                Both the Image API <a href="/api/image/{{ site.image_api.latest.major }}/{{ site.image_api.latest.minor }}#image-info-request">Image Information Request</a> and the
+                <a href="/api/metadata/{{ site.presentation_api.latest.major }}/{{ site.presentation_api.latest.minor }}">Metadata API</a> are expressed as <a href="http://json-ld.org/" target="_blank">JSON-LD</a> serializations.
               </li>
               <li>
                 The goal of IIIF is to make your image resources available to web applications hosted on other domains.  Since most of the image viewers use javascript,
