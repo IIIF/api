@@ -3,7 +3,7 @@ before_install:
 
 script:
   - bundle exec jekyll build --trace
-  - bundle exec htmlproof ./_site
+  - bundle exec htmlproof ./_site --trace
 
 # environment
 language: ruby
