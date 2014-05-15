@@ -36,6 +36,5 @@
     "profile" : { "@id" : "dcterms:conformsTo", "@type" : "@id", "@container" : "@list" },
     "protocol" : { "@id" : "doap:implements", "@type" : "@id" },
     "supports" : { "@id" : "iiif:supports", "@type" : "@id" }
-
   }
 }
