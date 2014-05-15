@@ -34,7 +34,7 @@
     "qualities" : { "@id" : "iiif:quality", "@type" : "xsd:string" },
     "scale_factors" : { "@id" : "iiif:scaleFactor", "@type" : "xsd:string" },
     "sizes" : { "@id" : "iiif:size", "@type" : "xsd:string" },
-    "supports" : { "@id" : "iiif:supports", "@type" : "@id" },
+    "supports" : { "@id" : "iiif:supports", "@type" : "@id" }
 
   }
 }
