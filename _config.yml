@@ -2,6 +2,7 @@ name: IIIF | International Image Interoperability Framework
 markdown: kramdown
 pygments: true
 exclude: [ dev.sh, publish.sh, README.md, vendor ]
+relative_permalinks: true
 kramdown:
   input: GFM
   parse_block_html: true
