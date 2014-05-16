@@ -5,8 +5,4 @@ gem 'kramdown'
 
 group :test do
   gem 'html-proofer'
-  gem 'json-ld'
-  gem 'rake'
-  gem 'rdf-turtle'
-  gem 'rspec'
 end

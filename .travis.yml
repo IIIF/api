@@ -2,10 +2,9 @@ before_install:
   - export NOKOGIRI_USE_SYSTEM_LIBRARIES=true
 
 script:
-  - bundle exec rake spec
   - bundle exec jekyll build --trace
   - bundle exec htmlproof ./_site
-  
+
 
 # environment
 language: ruby
