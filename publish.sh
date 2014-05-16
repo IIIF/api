@@ -1,7 +1,7 @@
 #!/bin/bash
 # Publish the site to a directory.
 #
-# WARNING: Script DELETEs and replaces the contents of the supplied directory 
+# WARNING: Script DELETEs and replaces the contents of the supplied directory
 # path. Be careful where you point it!
 #
 # Usage: ./publish.sh /var/www/mysite
@@ -14,7 +14,4 @@ if [ $dir"X" == "X" ]; then
      exit 64
 fi
 
-if [ -d $dir ]; then
-  rm -rf $dir/*
-fi
 jekyll build -d $dir
