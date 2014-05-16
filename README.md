@@ -8,7 +8,7 @@ Markdown Source of specifications documents
 
  1. `bundle install`
 
- 2. Run `$ ./dev.sh` to compile the site and run a dev server on http://localhost:4000.
+ 2. Run `$ ./dev.sh` to compile the site and run a dev server on [http://localhost:4000](http://localhost:4000).
 
 ### To Publish the Site
 
