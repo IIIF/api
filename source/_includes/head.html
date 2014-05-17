@@ -10,5 +10,7 @@
     <link href='http://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="/css/main.css">
+    {% if page.categories contains 'spec-doc' %}<link rel="stylesheet" href="/css/spec-doc{{ page.major }}.css">
+    <link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono' rel='stylesheet' type='text/css'>{% endif %}
     <script src="/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
   </head>
