@@ -12,7 +12,11 @@ layout: default
             {% assign content = content | replace: upper, lower %}
           {% endfor %}
 
+          {% if page.categories contains 'spec-doc' %}<div class="specbody">{% endif %}
           {{ content }}
+          {% if page.categories contains 'spec-doc' %}</div>{% endif %}
+
+
         </article>
       </div>
     </div>

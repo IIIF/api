@@ -11,8 +11,6 @@ patch: 0
 pre: draft1
 ---
 
-<div class="specbody">
-
 ## Status of this Document
 
 This version: {{ page.major }}.{{ page.minor }}.{{ page.patch }}{% if page.pre != 'final' %}-{{ page.pre }}{% endif %}
@@ -126,6 +124,4 @@ Link: <http://iiif.io/api/image/{{ page.major }}/level2.json>;rel="profile"
 ```
 {: .urltemplate}
 
-</div>
-
-   [1]: http://iiif.io/api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}
+  [1]: http://iiif.io/api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }} "IIIF Image API"
