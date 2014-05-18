@@ -1,0 +1,17 @@
+{% assign html = include.html %}
+
+{% for word in site.data.rfc_words %}
+  {% assign upper_em = word | prepend: '<em>' | append: '</em>' %}
+  {% assign lower_em = upper_em | downcase | replace: '<em>', '<em class="rfc">' %}
+  {% assign html = html | replace: upper_em, lower_em %}
+
+  {% assign upper_td = word | prepend: '<td>' | append: '</td>' %}
+  {% capture image_td %}
+    <td>
+      <img alt="{{ word }}" src="/img/metadata-api/{{ word | downcase | replace: ' ', '_' }}.png">
+    </td>
+  {% endcapture %}
+  {% assign html = html | replace: upper_td, image_td %}
+{% endfor %}
+
+{{ html }}
