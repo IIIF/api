@@ -1285,7 +1285,6 @@ URL: _http://www.example.org/iiif/book1/manifest.json_
 | *empty*      | Not Allowed |
 {: .image-api-table}
 
-<<<<<<< HEAD:source/api/presentation/2.0/index.md
 |                | @id      | @type    | format   | height      | width       | viewingDirection | viewingHint |
 | -------------- | -------- | -------- | -------- | ----------- | ----------- | ---------------- | ----------- |
 | Collection     | REQUIRED | REQUIRED |          |             |             |                  | OPTIONAL    |
@@ -1298,23 +1297,6 @@ URL: _http://www.example.org/iiif/book1/manifest.json_
 | Layer          | REQUIRED | REQUIRED |          |             |             | OPTIONAL         | OPTIONAL    |
 | Image Content  | REQUIRED | REQUIRED | REQUIRED | RECOMMENDED | RECOMMENDED |                  | OPTIONAL    |
 | Other Content  | REQUIRED | REQUIRED | REQUIRED | OPTIONAL    | OPTIONAL    |                  | OPTIONAL    |
-=======
-|   | @id | @type | format | height | width | viewingDirection | viewingHint |
-| - | --- | ----- | ------ | ------ | ----- | ---------------- | ----------- |
-{% for item in page.summary %}| {{ item.title }} | {{ item.id }} | {{ item.type }} | {{ item.format }} | {{ item.height }} | {{ item.width }} | {{ item.viewingDirection }} | {{ item.viewingHint }} |
-{% endfor %}{: .image-api-table}
-
-| Collection     | ![required](/img/metadata-api/required.png) | ![required](/img/metadata-api/required.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![optional](/img/metadata-api/optional.png)           |
-| Manifest       | ![required](/img/metadata-api/required.png) | ![required](/img/metadata-api/required.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)           |
-| Sequence       | ![optional](/img/metadata-api/optional.png) | ![required](/img/metadata-api/required.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)           |
-| Canvas         | ![required](/img/metadata-api/required.png) | ![required](/img/metadata-api/required.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![required](/img/metadata-api/required.png)       | ![required](/img/metadata-api/required.png)       | ![not allowed](/img/metadata-api/not_allowed.png) | ![optional](/img/metadata-api/optional.png)           |
-| Annotation     | ![optional](/img/metadata-api/optional.png) | ![required](/img/metadata-api/required.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![optional](/img/metadata-api/optional.png)           |
-| AnnotationList | ![required](/img/metadata-api/required.png) | ![required](/img/metadata-api/required.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![optional](/img/metadata-api/optional.png)           |
-| Range          | ![required](/img/metadata-api/required.png) | ![required](/img/metadata-api/required.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)           |
-| Layer          | ![required](/img/metadata-api/required.png) | ![required](/img/metadata-api/required.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)           |
-| Image Content  | ![required](/img/metadata-api/required.png) | ![required](/img/metadata-api/required.png) | ![required](/img/metadata-api/required.png)       | ![recommended](/img/metadata-api/recommended.png) | ![recommended](/img/metadata-api/recommended.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![optional](/img/metadata-api/optional.png)           |
-| Other Content  | ![required](/img/metadata-api/required.png) | ![required](/img/metadata-api/required.png) | ![required](/img/metadata-api/required.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![not allowed](/img/metadata-api/not_allowed.png) | ![optional](/img/metadata-api/optional.png)           |
->>>>>>> new_branch_name:source/api/presentation/2.0/2014-02-18-spec.md
 {: .image-api-table}
 
 |                | label     | metadata     | description | thumbnail   | attribution | license  | logo     |
@@ -1331,7 +1313,6 @@ URL: _http://www.example.org/iiif/book1/manifest.json_
 | Other Content  | OPTIONAL  | OPTIONAL     | OPTIONAL    | OPTIONAL    | OPTIONAL    | OPTIONAL | OPTIONAL |
 {: .image-api-table}
 
-<<<<<<< HEAD:source/api/presentation/2.0/index.md
 |                | seeAlso  | service  | related  | within   |
 | -------------- | -------- | -------- | -------- | -------- |
 | Collection     | OPTIONAL | OPTIONAL | OPTIONAL | OPTIONAL |
@@ -1344,20 +1325,6 @@ URL: _http://www.example.org/iiif/book1/manifest.json_
 | Layer          | OPTIONAL | OPTIONAL | OPTIONAL | OPTIONAL |
 | Image Content  | OPTIONAL | OPTIONAL | OPTIONAL | OPTIONAL |
 | Other Content  | OPTIONAL | OPTIONAL | OPTIONAL | OPTIONAL |
-=======
-|                | seeAlso                                           | service                                           | related                                           | within                                           |
-| -------------- | ------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------ |
-| Collection     | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)      |
-| Manifest       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)      |
-| Sequence       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)      |
-| Canvas         | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)      |
-| Annotation     | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)      |
-| AnnotationList | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)      |
-| Range          | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)      |
-| Layer          | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)      |
-| Image Content  | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)      |
-| Other Content  | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)      |
->>>>>>> new_branch_name:source/api/presentation/2.0/2014-02-18-spec.md
 {: .image-api-table}
 
 ### C. Versioning
