@@ -4,6 +4,7 @@ pygments: true
 exclude: [ dev.sh, publish.sh, README.md, vendor, Gemfile, Gemfile.lock ]
 relative_permalinks: true
 source: source
+permalink: /blog/:year/:title/
 
 kramdown:
   input: GFM
