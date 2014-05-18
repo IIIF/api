@@ -3,8 +3,6 @@ title: Presentation API 2.0
 title_override: "IIIF Presentation API 2.0"
 id: presentation-api
 layout: sub-page
-permalink: index.html
-date: 2014-02-18
 categories: [specifications, presentation-api]
 major: 2
 minor: 0
