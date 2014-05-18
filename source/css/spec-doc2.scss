@@ -1,30 +1,26 @@
 ---
 ---
-// body {
-//   
 
-// }
-* {
-  font-family: sans-serif;
-}
-p {
-  margin-top: 10px;
-  margin-bottom: 10px
-}
 .wrapper {
   font-family: sans-serif;
   width: 80%;
   margin: 0 5%;
 }
 
-code, kbd, pre, samp {
-  font-family: 'Ubuntu Mono', monospace;
-  font-size: 1em;
-}
-
 .sub-pages-container {
-  
+  font-family: sans-serif;
+  color: #222;
   line-height: 1.2;
+
+  code, kbd, pre, samp {
+    font-family: 'Ubuntu Mono', monospace;
+    font-size: 1em;
+  }
+
+  p {
+    margin-top: 10px;
+    margin-bottom: 10px
+  }
 
   article h1 {
     font-family: sans-serif;
@@ -42,13 +38,17 @@ code, kbd, pre, samp {
     }
 
     h3 {
+      font-weight: 300;
+      color: #2f353e;
       font-family: sans-serif;
       margin-top: 12px
     }
 
     h4 {
+      font-weight: 300;
+      color: #2f353e;
       font-family: sans-serif;
-      margin-top: 10px
+      margin-top: 12px;
     }
 
     .names {
