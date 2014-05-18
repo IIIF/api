@@ -1,0 +1,15 @@
+---
+layout: default
+---
+
+<div class="sub-pages-container layout-post">
+  <article>
+    {% include sub-page_header.html %}
+    <div class="post-meta">
+      <p>{{ page.date | date_to_string }} by {{ page.author }}</p>
+    </div>
+    <div class="post-body">
+      {{ content }}
+    </div>
+  </article>
+</div>
