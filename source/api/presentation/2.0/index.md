@@ -298,14 +298,8 @@ within
 These metadata fields and requirements are depicted in the diagram below.
 
 <!-- XXX Make this into a markdown image -->
-<<<<<<< HEAD:source/api/presentation/2.0/index.md
-=======
-<<<<<<< HEAD
 <img src="/img/metadata-api/iiif-fields-cardinality.png" width="550px" alt="" />
-=======
->>>>>>> new_branch_name:source/api/presentation/2.0/2014-02-18-spec.md
-<img src="/img/metadata-api/iiif-fields-cardinality.png" width="550px"/>
->>>>>>> Simplify rfc tables. First draft
+
 
 Other metadata fields are possible, either via custom extensions or endorsed by the IIIF. If a client discovers fields that it does not understand, then it _must_{: .rfc} ignore them.
 
