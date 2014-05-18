@@ -1,5 +1,5 @@
 ---
-title: "Image API Compliance, Version 2.0.0-draft1"
+title: "Image API Compliance, Version 2.0.0"
 id: image-api-compliance
 layout: sub-page
 permalink: compliance.html
@@ -12,14 +12,23 @@ pre: draft1
 ---
 
 ## Status of this Document
+{:.no_toc}
 
 This version: {{ page.major }}.{{ page.minor }}.{{ page.patch }}{% if page.pre != 'final' %}-{{ page.pre }}{% endif %}
 
 Latest stable version: {{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}.{{ site.image_api.latest.patch }}
 
 ## Introduction
+{:.no_toc}
 
 This document is a companion to the [International Image Interoperability Framework Image API Specification][1]. It defines the set of supported parameters that correspond to different levels of compliance to the IIIF Image API.
+
+## Table of Contents
+{:.no_toc}
+
+* Goes Here
+{:toc}
+
 
 ## Compliance
 
@@ -84,15 +93,13 @@ In the tables below "x" indicates that support is required, "o" indicates that s
 
 ## HTTP Features
 
-| HTTP Feature          | Feature Name                  | Level 0 | Level 1 | Level 2  |
-|:----------------------|:----------------------|:-------:|:-------:|:--------:|
+| HTTP Feature          | Feature Name            | Level 0 | Level 1 | Level 2  |
+|:----------------------|:------------------------|:-------:|:-------:|:--------:|
 | CORS                  | `cors`                  | o       | x       | x        |
 | json-ld media type    | `jsonld_media_type`     | o       | x       | x        |
 | profile link header   | `profile_link_header`   | o       | x       | x        |
 | canonical link header | `canonical_link_header` | o       | o       | o        |
 {: .image-api-table}
-
-
 
 ## Indicating Compliance
 
