@@ -14,9 +14,7 @@ pre: draft
 
 **Author:** Jon Stroop
 
-__TODO__ IIIF Macro for Abbreviation
-
-This document is a companion to the [<abbr title="International Image Interoperability Framework">IIIF</abbr> Image API Specification, Version 2.0][api]. It describes the significant changes to the API since [Version 1.1][api-11]. set of supported parameters that correspond to different levels of compliance to the IIIF Image API. The changes broken into two groups: [Breaking Changes][breaking-changes], i.e. those that are not backwards compatible; and [Other Changes][other-changes] i.e. those that are backwards compatible. The latter group mostly describes new features.
+This document is a companion to the [<abbr title="International Image Interoperability Framework">IIIF</abbr> Image API Specification, Version 2.0][api]. It describes the significant changes to the API since [Version 1.1][api-11]. The changes broken into two groups: [Breaking Changes][breaking-changes], i.e. those that are not backwards compatible; and [Other Changes][other-changes] i.e. those that are backwards compatible. The latter group mostly describes new features.
 
 In addition to the changes described above:
 
