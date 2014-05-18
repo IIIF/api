@@ -10,13 +10,13 @@
     [IIP demo page](http://iipimage.sourceforge.net/demo/) to see the IIP
     viewers in action.
 - name: Mirador
-  uri: http://iiif.io/mirador/
+  uri: http://dmstech.github.io/mirador/
   blurb:
   - >
     Mirador is an open source image, Javascript and HTML5 viewer that delivers
     high resolution images in a workspace that enables comparison of multiple
     images from multiple repositories.  Mirador is fully IIIF-compatible. Visit
-    the [Mirador demo](http://iiif.io/mirador/demo/) to see it in
+    the [Mirador demo](http://dmstech.github.io/mirador/demo/) to see it in
     action.
 - name: OpenSeadragon
   uri: http://openseadragon.github.io/
