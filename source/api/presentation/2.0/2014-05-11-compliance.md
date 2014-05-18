@@ -5,7 +5,7 @@ id: presentation-api
 layout: sub-page
 permalink: compliance.html
 date: 2014-05-11
-categories: [specifications, presentation-api]
+categories: [specifications, presentation-api, spec-doc]
 major: 2
 minor: 0
 patch: 0

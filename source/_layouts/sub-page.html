@@ -6,7 +6,10 @@ layout: default
         <article>
           {% include sub-page_header.html %}
 
+          {% if page.categories contains 'spec-doc' %}<div class="specbody">{% endif %}
           {% include replace_rfc_words.html html=content %}
+          {% if page.categories contains 'spec-doc' %}</div>{% endif %}
+
         </article>
       </div>
     </div>

@@ -3,11 +3,35 @@ title: Presentation API 2.0
 title_override: "IIIF Presentation API 2.0"
 id: presentation-api
 layout: sub-page
+<<<<<<< HEAD:source/api/presentation/2.0/index.md
 categories: [specifications, presentation-api]
+=======
+permalink: index.html
+date: 2014-02-18
+categories: [specifications, presentation-api, spec-doc]
+>>>>>>> new_branch_name:source/api/presentation/2.0/2014-02-18-spec.md
 major: 2
 minor: 0
 patch: 0
 pre: draft1
+summary:
+  -
+    title: Collection
+    id: REQUIRED
+    type: REQUIRED
+    viewingHint: OPTIONAL
+  -
+    title: Manifest
+    id: REQUIRED
+    type: REQUIRED
+    viewingDirection: OPTIONAL
+    viewingHint: OPTIONAL
+  -
+    title: Sequence
+    id: OPTIONAL
+    type: REQUIRED
+    viewingDirection: OPTIONAL
+    viewingHint: OPTIONAL
 ---
 
 <style>
@@ -215,7 +239,7 @@ The need for these conceptual components, shown in italics above, was recognized
 ##  3. Primary Resource Types
 
 <div style="float:right; padding-right: 30px">
-  <img src="/img/metadata-api/iiif-objects.png" height="400px"/><br/>
+  <img src="/img/metadata-api/iiif-objects.png" height="400px" alt="Primary Resource Types" /><br/>
 </div>
 
 This specification makes use of the following primary resource types:
@@ -413,7 +437,14 @@ within
 These metadata fields and requirements are depicted in the diagram below.
 
 <!-- XXX Make this into a markdown image -->
+<<<<<<< HEAD:source/api/presentation/2.0/index.md
+=======
+<<<<<<< HEAD
+<img src="/img/metadata-api/iiif-fields-cardinality.png" width="550px" alt="" />
+=======
+>>>>>>> new_branch_name:source/api/presentation/2.0/2014-02-18-spec.md
 <img src="/img/metadata-api/iiif-fields-cardinality.png" width="550px"/>
+>>>>>>> Simplify rfc tables. First draft
 
 Other metadata fields are possible, either via custom extensions or endorsed by the IIIF. If a client discovers fields that it does not understand, then it _must_{: .rfc} ignore them.
 
@@ -1039,7 +1070,7 @@ Secondly, as the information is primarily divided by canvas (and thus page), the
 Thirdly, the specification otherwise assumes that a manifest is the highest level of description.  In order to allow easy advertising and discovery of the manifests, we introduce a collection resource which can aggregate sub-collections and/or manifests.  If the recommended URI pattern is used, this provides a client system a means to locate all of the manifests provided by an institution.
 
 <!-- XXX Add collection to image -->
-<img src="/img/metadata-api/iiif-objects-all.png" width="650px"/>
+<img src="/img/metadata-api/iiif-objects-all.png" width="650px" alt="All Resource Types"/>
 
 _Figure 3. All Resource Types_
 
@@ -1400,6 +1431,7 @@ URL: _http://www.example.org/iiif/book1/manifest.json_
 | *empty*      | Not Allowed |
 {: .image-api-table}
 
+<<<<<<< HEAD:source/api/presentation/2.0/index.md
 |                | @id      | @type    | format   | height      | width       | viewingDirection | viewingHint |
 | -------------- | -------- | -------- | -------- | ----------- | ----------- | ---------------- | ----------- |
 | Collection     | REQUIRED | REQUIRED |          |             |             |                  | OPTIONAL    |
@@ -1412,6 +1444,23 @@ URL: _http://www.example.org/iiif/book1/manifest.json_
 | Layer          | REQUIRED | REQUIRED |          |             |             | OPTIONAL         | OPTIONAL    |
 | Image Content  | REQUIRED | REQUIRED | REQUIRED | RECOMMENDED | RECOMMENDED |                  | OPTIONAL    |
 | Other Content  | REQUIRED | REQUIRED | REQUIRED | OPTIONAL    | OPTIONAL    |                  | OPTIONAL    |
+=======
+|   | @id | @type | format | height | width | viewingDirection | viewingHint |
+| - | --- | ----- | ------ | ------ | ----- | ---------------- | ----------- |
+{% for item in page.summary %}| {{ item.title }} | {{ item.id }} | {{ item.type }} | {{ item.format }} | {{ item.height }} | {{ item.width }} | {{ item.viewingDirection }} | {{ item.viewingHint }} |
+{% endfor %}{: .image-api-table}
+
+| Collection     | ![required](/img/metadata-api/required.png) | ![required](/img/metadata-api/required.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![optional](/img/metadata-api/optional.png)           |
+| Manifest       | ![required](/img/metadata-api/required.png) | ![required](/img/metadata-api/required.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)           |
+| Sequence       | ![optional](/img/metadata-api/optional.png) | ![required](/img/metadata-api/required.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)           |
+| Canvas         | ![required](/img/metadata-api/required.png) | ![required](/img/metadata-api/required.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![required](/img/metadata-api/required.png)       | ![required](/img/metadata-api/required.png)       | ![not allowed](/img/metadata-api/not_allowed.png) | ![optional](/img/metadata-api/optional.png)           |
+| Annotation     | ![optional](/img/metadata-api/optional.png) | ![required](/img/metadata-api/required.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![optional](/img/metadata-api/optional.png)           |
+| AnnotationList | ![required](/img/metadata-api/required.png) | ![required](/img/metadata-api/required.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![optional](/img/metadata-api/optional.png)           |
+| Range          | ![required](/img/metadata-api/required.png) | ![required](/img/metadata-api/required.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)           |
+| Layer          | ![required](/img/metadata-api/required.png) | ![required](/img/metadata-api/required.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)           |
+| Image Content  | ![required](/img/metadata-api/required.png) | ![required](/img/metadata-api/required.png) | ![required](/img/metadata-api/required.png)       | ![recommended](/img/metadata-api/recommended.png) | ![recommended](/img/metadata-api/recommended.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![optional](/img/metadata-api/optional.png)           |
+| Other Content  | ![required](/img/metadata-api/required.png) | ![required](/img/metadata-api/required.png) | ![required](/img/metadata-api/required.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![not allowed](/img/metadata-api/not_allowed.png) | ![optional](/img/metadata-api/optional.png)           |
+>>>>>>> new_branch_name:source/api/presentation/2.0/2014-02-18-spec.md
 {: .image-api-table}
 
 |                | label     | metadata     | description | thumbnail   | attribution | license  | logo     |
@@ -1428,6 +1477,7 @@ URL: _http://www.example.org/iiif/book1/manifest.json_
 | Other Content  | OPTIONAL  | OPTIONAL     | OPTIONAL    | OPTIONAL    | OPTIONAL    | OPTIONAL | OPTIONAL |
 {: .image-api-table}
 
+<<<<<<< HEAD:source/api/presentation/2.0/index.md
 |                | seeAlso  | service  | related  | within   |
 | -------------- | -------- | -------- | -------- | -------- |
 | Collection     | OPTIONAL | OPTIONAL | OPTIONAL | OPTIONAL |
@@ -1440,6 +1490,20 @@ URL: _http://www.example.org/iiif/book1/manifest.json_
 | Layer          | OPTIONAL | OPTIONAL | OPTIONAL | OPTIONAL |
 | Image Content  | OPTIONAL | OPTIONAL | OPTIONAL | OPTIONAL |
 | Other Content  | OPTIONAL | OPTIONAL | OPTIONAL | OPTIONAL |
+=======
+|                | seeAlso                                           | service                                           | related                                           | within                                           |
+| -------------- | ------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------ |
+| Collection     | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)      |
+| Manifest       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)      |
+| Sequence       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)      |
+| Canvas         | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)      |
+| Annotation     | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)      |
+| AnnotationList | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)      |
+| Range          | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)      |
+| Layer          | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)      |
+| Image Content  | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)      |
+| Other Content  | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)      |
+>>>>>>> new_branch_name:source/api/presentation/2.0/2014-02-18-spec.md
 {: .image-api-table}
 
 ### C. Versioning
@@ -1471,8 +1535,6 @@ XXX Trawl lists and ensure everyone gets credit who deserves it.
 | 2014-06-01 | rsanderson | Version 2.0.0-draft (Triumphant Giraffe) released. |
 | 2013-08-26 | rsanderson | Version 1.0 (unnamed) released.                    |
 | 2013-06-14 | rsanderson | Version 0.9 (unnamed) released.                    |
-
-</div>
 
    [1]: ../../annex/services/index.html
    [2]: http://www.shared-canvas.org/

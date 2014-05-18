@@ -2,7 +2,11 @@
 
 {% for word in site.data.rfc_words %}
   {% assign upper_em = word | prepend: '<em>' | append: '</em>' %}
+<<<<<<< HEAD
   {% assign lower_em = upper_em | downcase | replace: '<em>', '<em class="rfc">' %}
+=======
+  {% assign lower_em = upper | downcase | replace: '<em>', '<em class="rfc">' %}
+>>>>>>> new_branch_name
   {% assign html = html | replace: upper_em, lower_em %}
 
   {% assign upper_td = word | prepend: '<td>' | append: '</td>' %}
