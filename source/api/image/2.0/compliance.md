@@ -2,8 +2,6 @@
 title: "Image API Compliance, Version 2.0.0"
 id: image-api-compliance
 layout: sub-page
-permalink: compliance.html
-date: 2014-02-18
 categories: [compliance, image-api, spec-doc]
 major: 2
 minor: 0
@@ -42,9 +40,9 @@ In the tables below "x" indicates that support is required, "o" indicates that s
 
 | Syntax      | Feature Name    | Level 0 | Level 1 | Level 2  |
 |:------------|:--------------- |:-------:|:-------:|:--------:|
-| `full`      |                 | x       | x       | x        | 
-| x,y,w,h     | `region_by_px`  | o       | x       | x        | 
-| pct:x,y,w,h | `region_by_pct` | o       | o       | x        | 
+| `full`      |                 | x       | x       | x        |
+| x,y,w,h     | `region_by_px`  | o       | x       | x        |
+| pct:x,y,w,h | `region_by_pct` | o       | o       | x        |
 {: .image-api-table}
 
 ### Size

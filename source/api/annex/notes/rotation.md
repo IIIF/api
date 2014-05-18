@@ -1,8 +1,6 @@
 ---
 title: "Annex: Calculating the Size of a Rotated Image"
 layout: default
-permalink: rotation.html
-date: 2014-02-18
 categories: [annex, rotation, image-api, spec-doc]
 ---
 # Annex: Calculating the Size of a Rotated Image

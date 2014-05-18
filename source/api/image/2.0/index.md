@@ -3,8 +3,6 @@ title: Image API 2.0
 title_override: "IIIF Image API 2.0"
 id: image-api
 layout: sub-page
-permalink: index.html
-date: 2014-02-18
 categories: [specifications, image-api, spec-doc]
 major: 2
 minor: 0
@@ -146,9 +144,9 @@ If the requested region's height or width is zero, or if the region is entirely 
 Examples:
 
   1. `http://www.example.org/image-service/abcd1234/full/full/0/default.jpg`
-  2. `http://www.example.org/image-service/abcd1234/80,15,60,75/full/0/default.jpg`  
-  3. `http://www.example.org/image-service/abcd1234/80,15,125,200/full/0/default.jpg`  
-  4. `http://www.example.org/image-service/abcd1234/pct:10,10,80,70/full/0/default.jpg`  
+  2. `http://www.example.org/image-service/abcd1234/80,15,60,75/full/0/default.jpg`
+  3. `http://www.example.org/image-service/abcd1234/80,15,125,200/full/0/default.jpg`
+  4. `http://www.example.org/image-service/abcd1234/pct:10,10,80,70/full/0/default.jpg`
   5. `http://www.example.org/image-service/abcd1234/pct:20,20,100,100/full/0/default.jpg`
   {: .examplelist }
 

@@ -1,8 +1,6 @@
 ---
 title: RESTful Management of Source Images on an IIIF Server
 layout: default
-permalink: rest.html
-date: 2014-02-20
 categories: [annex, rest, image-api, spec-doc]
 ---
 # RESTful Management of Source Images on an IIIF Server
@@ -43,11 +41,11 @@ There are cases where it is useful for a client to store, update or delete image
  2. A digital repository that ingests images into its storage environment, but creates an access copy or derivative on a IIIF server as part of an automated workflow to support IIIF client access.
 
  3. The IIIF Image API does not define a mechanism for getting the source image that the API calls are using to derive images according to the request. In some cases this may be available as:
-   
+
     ```
     {scheme}://{server}{/prefix}/{identifier}/full/full/0/native
     ```
-    
+
     but the format can not be known, and furthermore the source image may not be in a format that the server can derive through regular requests.
 
 ## 2. Requests

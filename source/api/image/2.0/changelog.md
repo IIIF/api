@@ -3,8 +3,6 @@ title: "Image API 2.0 Changelog"
 title_override: "Changes for IIIF Image API Version 2.0"
 id: image-api-20-changelog
 layout: sub-page
-permalink: changelog.html
-date: 2014-05-17
 categories: [specifications, image-api, spec-doc, changelog]
 major: 2
 minor: 0
@@ -35,12 +33,12 @@ With the [2.0 Release of the IIIF Image API][api], the editors will begin using 
 ## Breaking Changes
 
 ### Added `profile` property to Image Information document
-   
-This is a response to several requests for the ability to describe the capabilites of a server or a particular image with finer granularity than that of the compliance levels. For example, a server may be completely compliant with level 1, but also support the `!w,h` syntax for specifying the size, which is a level 2 feature. This capability can be exposed using the `supports` property with the `profile` property. 
+
+This is a response to several requests for the ability to describe the capabilites of a server or a particular image with finer granularity than that of the compliance levels. For example, a server may be completely compliant with level 1, but also support the `!w,h` syntax for specifying the size, which is a level 2 feature. This capability can be exposed using the `supports` property with the `profile` property.
 
 The `supports` property may be used to describe extension features. See [5.2 Extensions][extensions] for details.
 
-`qualities` and `formats` have been moved into the `profile` attribute as well. 
+`qualities` and `formats` have been moved into the `profile` attribute as well.
 
 ### Added `protocol` property to Image Information document
 
@@ -50,15 +48,15 @@ The `protocol` property is required at all levels of compliance.
 
 ### Required <abbr title="Cross-Origin Resource Sharing">CORS</abbr> for level 1 Compliance
 
-The one of the core purposes--if not _the_ core purpose-- of IIIF is to share images across domains. This is is impossible 
+The one of the core purposes--if not _the_ core purpose-- of IIIF is to share images across domains. This is is impossible
 
 A few other HTTP features have been enumerated in the [HTTP Features][http-features] section of the [compliance document][20-compliance].
 
 ### Renamed Qualities
 
-Previously the specification used "grey" (not "gray") but "color" (not "colour"). While this does reflect the international nature if IIIF, it is not terribly consistent. From this release `grey` is now `gray`. 
+Previously the specification used "grey" (not "gray") but "color" (not "colour"). While this does reflect the international nature if IIIF, it is not terribly consistent. From this release `grey` is now `gray`.
 
-There was also confusion among users as to the meaning of `native`. The API does not recognize the notion of a source image, and the label `native` was tied too closely to such an idea. `native` has been replaced with `default`, with the implication that the server should return the image in a default quality, however this decision is made. 
+There was also confusion among users as to the meaning of `native`. The API does not recognize the notion of a source image, and the label `native` was tied too closely to such an idea. `native` has been replaced with `default`, with the implication that the server should return the image in a default quality, however this decision is made.
 
 ### Changed URIs for compliance levels
 
@@ -89,7 +87,7 @@ Rotation in multiples of 90 was previously a level 1 requirement. As this can be
 
 ### Added `size` property to Image Information document
 
-Servers that do not support arbitrary size parameters for image requests may still wish make multiple sizes of an image available. The sizes that are available may be listed using the `w,h`syntax in the `size` property. Even when a server does support arbitrary resizing, it may be useful to report pre-cached, recommended sizes of an image, e.g. thumbnails. 
+Servers that do not support arbitrary size parameters for image requests may still wish make multiple sizes of an image available. The sizes that are available may be listed using the `w,h`syntax in the `size` property. Even when a server does support arbitrary resizing, it may be useful to report pre-cached, recommended sizes of an image, e.g. thumbnails.
 
 ### Published JSON-LD Context
 
