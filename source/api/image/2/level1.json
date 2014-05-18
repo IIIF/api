@@ -7,7 +7,7 @@
 
   "formats" : [ "jpg" ],
   "qualities" : [ "default" ],
-  "suports" : [
+  "supports" : [
     "cors",
     "jsonld_media_type",
     "profile_link_header",
