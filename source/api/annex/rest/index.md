@@ -189,18 +189,18 @@ If one or more of the predicates is missing, a client MUST assume the method is 
 
 As of this writing authorization and authentication are topics of heavy dicussion within the IIIF community. This document will be revised as necessary, as the Image API specification evolves in this area.
 
- [1]: #1-overview
- [2]: #2-requests
- [2.1]: #21-get
- [2.2]: #22-head
- [2.3]: #23-put
- [2.4]: #24-post
- [2.5]: #25-delete
- [3]: #3-response-codes
- [3.1]: #31-successful-requests
- [3.2]: #32-error-conditions
- [4]: #4-extension-context
- [5]: #5-authorization-authentication-and-security
+ [1]: #overview
+ [2]: #requests
+ [2.1]: #get
+ [2.2]: #head
+ [2.3]: #put
+ [2.4]: #post
+ [2.5]: #delete
+ [3]: #response-codes
+ [3.1]: #successful-requests
+ [3.2]: #error-conditions
+ [4]: #extension-context
+ [5]: #authorization-authentication-and-security
  [fielding-rest]: https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm
  [http-access-control-allow-methods]: http://www.w3.org/TR/cors/#access-control-allow-methods-response-header
  [http-content-md5]: http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.15
