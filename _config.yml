@@ -1,7 +1,6 @@
 name: IIIF | International Image Interoperability Framework
 markdown: kramdown
 highlighter: pygments
-exclude: [ dev.sh, publish.sh, README.md, vendor, Gemfile, Gemfile.lock ]
 source: source
 
 kramdown:
