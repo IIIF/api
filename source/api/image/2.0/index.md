@@ -64,8 +64,8 @@ Both convey the request's information in the path segments of the URI, rather th
 
 There are four parameters shared by the requests, and other IIIF specifications:
 
-| Name | Description |
-| ---- | ----------- |
+| Name   | Description |
+| ------ | ----------- |
 | scheme | Indicates the use of the http or https protocol in calling the service. |
 | server | The host server on which the service resides. |
 | prefix | The path on the host server to the service. This prefix is optional, but may be useful when the host server supports multiple services. The prefix _MAY_ contain multiple path segments, delimited by slashes, but all other special characters _MUST_ be encoded. See [Section 9 - URI Encoding and Decoding](#url-encoding-and-decoding) for more information. |
@@ -124,22 +124,22 @@ The API places no restrictions on the form of the identifiers that a server may 
 
 ##  4. Image Request Parameters
 
-All parameters described below are required for compliant construction of a IIIF image API URI. The sequence of parameters in the URI _MUST_ be in the order described below. The order of the parameters is also intended as the order of the operations by which the service should manipulate the image content. Thus, the image content is first extracted as a region of the source image, then scaled to the requested size, rotated and transformed into the color depth and format. This resulting image content is returned as the representation for the URI. Image and region dimensions in pixels are always given as an integer numbers. Intermediate calculations may use floating point numbers and the rounding method is implementation specific. Some parameters, notably percentages, may be specified with floating point numbers. These should have at most 10 decimal digits and consist only of decimal digits and “.” with a leading zero if less than 1.
+All parameters described below are required for compliant construction of a IIIF image API URI. The sequence of parameters in the URI _MUST_ be in the order described below. The order of the parameters is also intended as the order of the operations by which the service should manipulate the image content. Thus, the requested image content is first extracted as a region of the complete image, then scaled to the requested size, rotated and transformed into the color depth and format. This resulting image content is returned as the representation for the URI. Image and region dimensions in pixels are always given as an integer numbers. Intermediate calculations may use floating point numbers and the rounding method is implementation specific. Some parameters, notably percentages, may be specified with floating point numbers. These should have at most 10 decimal digits and consist only of decimal digits and “.” with a leading zero if less than 1.
 
 ###  4.1. Region
 
-The region parameter defines the rectangular portion of the source image to be returned. Region can be specified by pixel coordinates, percentage or by the value “full”, which specifies that the entire region of the source image should be returned.
+The region parameter defines the rectangular portion of the full image to be returned. Region can be specified by pixel coordinates, percentage or by the value “full”, which specifies that the entire image should be returned.
 
 | Form |  Description |
 | ------------------------ | ------------ |
 | `full`                   | The complete image is returned, without any cropping. |
-| x,y,w,h                  | The region of the source image to be returned is defined in terms of absolute pixel values. The value of x represents the number of pixels from the 0 position on the horizontal axis. The value of y represents the number of pixels from the 0 position on the vertical axis. Thus the x,y position 0,0 is the upper left-most pixel of the image. w represents the width of the region and h represents the height of the region in pixels.  |
-| pct:x,y,w,h              | The region to be returned is specified as a sequence of percentages of the source image’s dimensions. Thus, x represents the number of pixels from the 0 position on the horizontal axis, calculated as a percentage of the source image’s width. w represents the width of the region calculated as a percentage of the source image’s width. The same applies to y and h respectively. These may be floating point numbers. |
+| x,y,w,h                  | The region of the full image to be returned is defined in terms of absolute pixel values. The value of x represents the number of pixels from the 0 position on the horizontal axis. The value of y represents the number of pixels from the 0 position on the vertical axis. Thus the x,y position 0,0 is the upper left-most pixel of the image. w represents the width of the region and h represents the height of the region in pixels.  |
+| pct:x,y,w,h              | The region to be returned is specified as a sequence of percentages of the full image's dimensions, as reported in the Image Information document. Thus, `x` represents the number of pixels from the 0 position on the horizontal axis, calculated as a percentage of the reported width. `w` represents the width of the region, also calculated as a percentage of the reported width. The same applies to y and h respectively. These may be floating point numbers. |
 {: .image-api-table}
 
-If the request specifies a region which extends beyond the dimensions of the source image, then the service _SHOULD_ return an image cropped at the boundary of the source image.
+If the request specifies a region which extends beyond the reported dimensions of the full image, then the service _SHOULD_ return an image cropped at the image's edge, rather than adding empty space.
 
-If the requested region's height or width is zero, or if the region is entirely outside the bounds of the source image, then the server _SHOULD_ return a 400 status code.
+If the requested region's height or width is zero, or if the region is entirely outside the bounds of the full image's reported dimensions, then the server _SHOULD_ return a 400 status code.
 
 Examples:
 
@@ -326,11 +326,11 @@ The JSON in the response will include the following properties:
 | ---------- | --------- | ----------- |
 | `@context` | Required | The context document that describes the semantics of the terms used in the document. This must be the URI: [http://iiif.io/api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/context.json] for version {{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }} of the IIIF Image API. This document allows the response to be interpreted as RDF, using the [JSON-LD][29] serialization. |
 | `@id` | Required | The Base URI of the image (as defined in [Section 2 - URI Syntax](#url-syntax)), including scheme, server, prefix and identifier without a trailing slash. |
-| `width` | Required | The width of the source image. |
-| `height` | Required | The height of the source image. |
+| `width` | Required | The width of the full image. |
+| `height` | Required | The height of the full image. |
 | `protocol` | Required | The URI "http://iiif.io/api/image" which can be used to determine that the document describes an image service which is a version of the IIIF Image API. |
 | `profile` | Required | An array of profiles, indicated by either a URI or an object describing the features supported.  The first entry in the array _MUST_ be a compliance level URI, as defined below. |
-| scale_factors | Optional | Some image servers support the creation of multiple resolution levels for a single image in order to optimize the efficiency in delivering images of different sizes. The scale_factors property expresses a set of resolution scaling factors. For example, a scale factor of 4 indicates that the service can efficiently deliver images at 25% of the height and width of the source image. |
+| scale_factors | Optional | Some image servers support the creation of multiple resolution levels for a single image in order to optimize the efficiency in delivering images of different sizes. The scale_factors property expresses a set of resolution scaling factors. For example, a scale factor of 4 indicates that the service can efficiently deliver images at 25% of the height and width of the full image. |
 | `sizes` | Optional | A set of dimensions that the server has available, expressed in the "w,h" syntax. This may be used to let a client know the sizes that are available when the server does not support requests for arbitrary sizes, or simply as a hint that requesting an image of this size may result in a faster response. |
 | `tile_width` | Optional | Some image servers efficiently support delivery of predefined tiles enabling easy assembly of portions of the image. It is assumed that the same tile sizes are used for all scale factors supported. The tile_width element expresses the width of the predefined tiles. |
 | `tile_height` | Optional | The tile_height element expresses the height of the predefined tiles. See description of tile_width. |
