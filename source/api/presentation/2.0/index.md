@@ -3,8 +3,6 @@ title: Presentation API 2.0
 title_override: "IIIF Presentation API 2.0"
 id: presentation-api
 layout: sub-page
-permalink: index.html
-date: 2014-02-18
 categories: [specifications, presentation-api, spec-doc]
 major: 2
 minor: 0
@@ -1287,11 +1285,11 @@ URL: _http://www.example.org/iiif/book1/manifest.json_
 | ![optional](/img/metadata-api/optional.png)        | Optional    |
 | ![not allowed](/img/metadata-api/not_allowed.png)  | Not Allowed |
 {: .image-api-table}
-                
+
 |                | @id                                         | @type                                       | format                                            | height                                            | width                                             | viewingDirection                                  | viewingHint                                           |
 | -------------- | ------------------------------------------- | ------------------------------------------- | ------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------- | ----------------------------------------------------- |
 | Collection     | ![required](/img/metadata-api/required.png) | ![required](/img/metadata-api/required.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![optional](/img/metadata-api/optional.png)           |
-| Manifest       | ![required](/img/metadata-api/required.png) | ![required](/img/metadata-api/required.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)           |    
+| Manifest       | ![required](/img/metadata-api/required.png) | ![required](/img/metadata-api/required.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)           |
 | Sequence       | ![optional](/img/metadata-api/optional.png) | ![required](/img/metadata-api/required.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)           |
 | Canvas         | ![required](/img/metadata-api/required.png) | ![required](/img/metadata-api/required.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![required](/img/metadata-api/required.png)       | ![required](/img/metadata-api/required.png)       | ![not allowed](/img/metadata-api/not_allowed.png) | ![optional](/img/metadata-api/optional.png)           |
 | Annotation     | ![optional](/img/metadata-api/optional.png) | ![required](/img/metadata-api/required.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![optional](/img/metadata-api/optional.png)           |
@@ -1316,10 +1314,10 @@ URL: _http://www.example.org/iiif/book1/manifest.json_
 | Other Content  | ![optional](/img/metadata-api/optional.png)  | ![optional](/img/metadata-api/optional.png)        | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)  | ![optional](/img/metadata-api/optional.png)   | ![optional](/img/metadata-api/optional.png)    |
 {: .image-api-table}
 
-|                | seeAlso                                           | service                                           | related                                           | within                                           | 
-| -------------- | ------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------ | 
+|                | seeAlso                                           | service                                           | related                                           | within                                           |
+| -------------- | ------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------ |
 | Collection     | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)      |
-| Manifest       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)      |    
+| Manifest       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)      |
 | Sequence       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)      |
 | Canvas         | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)      |
 | Annotation     | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)      |

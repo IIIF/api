@@ -1,8 +1,6 @@
 ---
 title: Linking to External Services
 layout: default
-permalink: index.html
-date: 2014-05-14
 categories: [annex, service, services, spec-doc]
 ---
 
