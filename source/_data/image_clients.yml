@@ -1,28 +1,28 @@
 # Use Markdown in the blurb if necessary for links, etc. Each list entry in the blurb gets a <p>.
 - name: IIPMooViewer
-  uri: https://github.com/ruven/iipmooviewer" 
-  blurb: 
+  uri: https://github.com/ruven/iipmooviewer
+  blurb:
   - >
-    IIPMooViewer is an open source, Javascript and HTML5 image streaming and 
-    zooming client. IIPMooViewer is IIIF-compatible and works with 
-    [IIPServer](https://github.com/ruven/iipsrv/tree/iiif) or other IIIF 
-    compatible servers. Visit the 
-    [IIP demo page](http://iipimage.sourceforge.net/demo) to see the IIP 
+    IIPMooViewer is an open source, Javascript and HTML5 image streaming and
+    zooming client. IIPMooViewer is IIIF-compatible and works with
+    [IIPServer](https://github.com/ruven/iipsrv/tree/iiif) or other IIIF
+    compatible servers. Visit the
+    [IIP demo page](http://iipimage.sourceforge.net/demo/) to see the IIP
     viewers in action.
 - name: Mirador
-  uri: http://dmstech.github.io/mirador/" 
-  blurb: 
+  uri: http://dmstech.github.io/mirador/
+  blurb:
   - >
-    Mirador is an open source image, Javascript and HTML5 viewer that delivers 
-    high resolution images in a workspace that enables comparison of multiple 
-    images from multiple repositories.  Mirador is fully IIIF-compatible. Visit 
-    the [Mirador demo](http://dmstech.github.io/mirador/demo) to see it in 
+    Mirador is an open source image, Javascript and HTML5 viewer that delivers
+    high resolution images in a workspace that enables comparison of multiple
+    images from multiple repositories.  Mirador is fully IIIF-compatible. Visit
+    the [Mirador demo](http://dmstech.github.io/mirador/demo/) to see it in
     action.
 - name: OpenSeadragon
-  uri: http://openseadragon.github.io/" 
-  blurb: 
+  uri: http://openseadragon.github.io/
+  blurb:
   - >
-    OpenSeadragon is an open-source, Javascript viewer enabling smooth deep 
-    zoom and pan of high resolution images. OpenSeadragon is IIIF compatible. 
-    A demo of OpenSeadragon in action can be seen on the 
+    OpenSeadragon is an open-source, Javascript viewer enabling smooth deep
+    zoom and pan of high resolution images. OpenSeadragon is IIIF compatible.
+    A demo of OpenSeadragon in action can be seen on the
     [project homepage](http://openseadragon.github.io/).
