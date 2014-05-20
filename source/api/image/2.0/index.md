@@ -544,7 +544,7 @@ __TODO: Link to the community page__ [link]
 
 [change-log11]: /api/image/1.1/change-log.html "Change Log for Version 1.1"
 [change-log]: /api/image/2.0/change-log.html "Change Log for Version 2.0"
-[compliance]: "/api/image/2.0/compliance.html" "Image API Compliance"
+[compliance]: /api/image/2.0/compliance.html "Image API Compliance"
 [cors-spec]: http://www.w3.org/TR/cors/ "Cross-Origin Resource Sharing"
 [iiif-discuss]: mailto:iiif-discuss%40googlegroups.com "Email Discussion List"
 [json-as-json-ld]: http://www.w3.org/TR/json-ld/#interpreting-json-as-json-ld "JSON-LD 1.0: 6.8 Interpreting JSON as JSON-LD"
