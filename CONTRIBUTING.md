@@ -2,7 +2,7 @@
 
 Follow the [branch-based workflow][flow].
 
-## Language
+## English
 
 Specs are written in American English. Use:
 
