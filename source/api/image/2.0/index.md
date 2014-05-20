@@ -587,3 +587,6 @@ __TODO: Link to the community page__ [link]
 [c-acknowledgments]: #c-acknowledgments "C. Acknowledgments"
 [d-change-log]: #d-change-log "D. Change Log"
 
+{% for acronym in site.data.acronyms %}
+  *[{{ acronym[0] }}]: {{ acronym[1] }}
+{% endfor %}
