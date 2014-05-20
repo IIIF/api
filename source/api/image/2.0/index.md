@@ -144,13 +144,19 @@ If the requested region's height or width is zero, or if the region is entirely 
 Examples:
 
   1. `http://www.example.org/image-service/abcd1234/full/full/0/default.jpg`
-  2. `http://www.example.org/image-service/abcd1234/80,15,60,75/full/0/default.jpg`
-  3. `http://www.example.org/image-service/abcd1234/80,15,125,200/full/0/default.jpg`
-  4. `http://www.example.org/image-service/abcd1234/pct:10,10,80,70/full/0/default.jpg`
-  5. `http://www.example.org/image-service/abcd1234/pct:20,20,100,100/full/0/default.jpg`
+  2. `http://www.example.org/image-service/abcd1234/125,15,120,140/full/0/default.jpg`
+  3. `http://www.example.org/image-service/abcd1234/pct:41.6,7.5,40,70/full/0/default.jpg`
+  4. `http://www.example.org/image-service/abcd1234/125,15,200,200/full/0/default.jpg`
+       _N.B. Returned image is 175,185 px_
+  5. `http://www.example.org/image-service/abcd1234/pct:41.6,7.5,66.6,100/full/0/default.jpg`
+       _N.B. Returned image is 175,185 px_
   {: .examplelist }
 
-![Region parameter examples](iiif-region.png)
+|:----:|:----:|
+|![Full Image](img/full.png){: .fullPct}__1__ region=full||
+|![Region by Pixels](img/region_px.png){: .fullPct}__2__ region=125,15,120,140|![Region by Percent](img/region_pct.png){: .fullPct}__3__ region=pct:41.6,7.5,40,70|
+|![Region by Pixels](img/region_px_over.png){: .fullPct}__4__ region=125,15,200,200|![Region by Percent](img/region_pct_over.png){: .fullPct}__5__ region=pct:41.6,7.5,66.6,100|
+{: .fullPct}
 
 ###  4.2. Size
 
@@ -173,14 +179,19 @@ The image server _MAY_ support scaling beyond the full size of the extracted reg
 Examples:
 
   1. `http://www.example.org/image-service/abcd1234/full/full/0/default.jpg`
-  2. `http://www.example.org/image-service/abcd1234/full/100,/0/default.jpg`
-  3. `http://www.example.org/image-service/abcd1234/full/,100/0/default.jpg`
+  2. `http://www.example.org/image-service/abcd1234/full/150,/0/default.jpg`
+  3. `http://www.example.org/image-service/abcd1234/full/,150/0/default.jpg`
   4. `http://www.example.org/image-service/abcd1234/full/pct:50/0/default.jpg`
-  5. `http://www.example.org/image-service/abcd1234/full/150,75/0/default.jpg`
-  6. `http://www.example.org/image-service/abcd1234/full/!150,75/0/default.jpg`
+  5. `http://www.example.org/image-service/abcd1234/full/225,100/0/default.jpg`
+  6. `http://www.example.org/image-service/abcd1234/full/!225,100/0/default.jpg`
   {: .examplelist}
 
-![Size parameter examples](iiif-size.png)
+|:----:|:----:|
+|![Full Size](img/full.png){: .fullPct}__1__ region=full|![Size by Width](img/size_wc.png){: .fullPct}__2__ size=150,|
+|![Size by Height](img/size_ch.png){: .fullPct}__3__ size=,150|![Size by Percent](img/size_pct.png){: .fullPct}__4__ size=pct:50|
+|![Size by Width,Height](img/size_wch.png){: .fullPct}__5__ size=225,100|![Size By Bang Width Height](img/size_bwch.png){: .fullPct}__6__ size=!225,100|
+{: .fullPct}
+
 
 ###  4.3. Rotation
 
@@ -196,13 +207,15 @@ A rotation value that is out of range or unsupported _SHOULD_ result in a 400 st
 Examples:
 
   1. `http://www.example.org/image-service/abcd1234/full/full/0/default.jpg`
-  2. `http://www.example.org/image-service/abcd1234/full/full/90/default.jpg`
-  3. `http://www.example.org/image-service/abcd1234/full/full/180/default.jpg`
-  4. `http://www.example.org/image-service/abcd1234/full/full/270/default.jpg`
-  5. `http://www.example.org/image-service/abcd1234/full/full/22.5/default.jpg`
+  2. `http://www.example.org/image-service/abcd1234/full/full/180/default.jpg`
+  3. `http://www.example.org/image-service/abcd1234/full/full/90/default.jpg`
+  4. `http://www.example.org/image-service/abcd1234/full/full/22.5/default.jpg`
   {: .examplelist}
 
-![Rotation parameter examples](iiif-rotation.png)
+|:----:|:----:|
+|![Rotation 0](img/full.png){: .fullPct}__1__ rotation=0|![Rotation 180](img/rotate_180.png){: .fullPct}__2__ rotation=180|
+|![Rotation 90](img/rotate_90.png){: .fullPct}__3__ rotation=90|![Rotation 22.5](img/rotate_22-5.png){: .fullPct}__4__ rotation=22.5|
+{: .fullPct}
 
 In most cases a rotation will change the width and height dimensions of the returned image file. The service _SHOULD_ return an image file that contains all of the image contents requested in the region and size parameters, even if the dimensions of the returned image file are different than specified in the size parameter. The image contents _should not_{: .rfc} be scaled as a result of the rotation, and there _SHOULD_ be no additional space between the corners of the rotated image contents and the bounding box of the returned image file.
 
@@ -224,13 +237,16 @@ A quality value that is unsupported _SHOULD_ result in a 400 status code.
 
 Examples:
 
-  1. `http://www.example.org/image-service/abcd1234/full/600,/0/default.jpg`
-  2. `http://www.example.org/image-service/abcd1234/full/600,/0/color.jpg`
-  3. `http://www.example.org/image-service/abcd1234/full/600,/0/gray.jpg`
-  4. `http://www.example.org/image-service/abcd1234/full/600,/0/bitonal.jpg`
+  1. `http://www.example.org/image-service/abcd1234/full/full/0/default.jpg`
+  2. `http://www.example.org/image-service/abcd1234/full/full/0/color.jpg`
+  3. `http://www.example.org/image-service/abcd1234/full/full/0/gray.jpg`
+  4. `http://www.example.org/image-service/abcd1234/full/full/0/bitonal.jpg`
   {: .examplelist}
 
-![Quality parameter examples](iiif-quality.png)
+|:----:|:----:|
+|![Default Quality](img/full.png){: .fullPct}__1__ quality=default|![Color Quality](img/full.png){: .fullPct}__2__ quality=color|
+|![Gray Quality](img/gray.png){: .fullPct}__3__ quality=gray|![Bitonal Quality](img/bitonal.png){: .fullPct}__4__ quality=bitonal|
+{: .fullPct}
 
 ###  4.5. Format
 
@@ -250,9 +266,9 @@ A format value that is unsupported _SHOULD_ result in a 400 status code.
 
 Examples:
 
-  1. `http://www.example.org/image-service/abcd1234/full/600,/0/default.jpg`
-  2. `http://www.example.org/image-service/abcd1234/full/600,/0/default.png`
-  3. `http://www.example.org/image-service/abcd1234/full/600,/0/default.tif`
+  1. `http://www.example.org/image-service/abcd1234/full/full/0/default.jpg`
+  2. `http://www.example.org/image-service/abcd1234/full/full/0/default.png`
+  3. `http://www.example.org/image-service/abcd1234/full/full/0/default.tif`
   {: .examplelist}
 
 ### 4.6. Order of Implementation
@@ -263,7 +279,9 @@ The parameters should be interpreted as if the the sequence of image manipulatio
 
 `Region THEN Size THEN Rotation THEN Quality THEN Format`
 
-![Order of implementation illustration](iiif-order.png)
+|:----:|
+|![Order of implementation illustration](img/transformation.png){:. fullPct}|
+|__1__ region=`125,15,120,140` size=`90,` rotation=`345` quality=`gray`|
 
 ### 4.7. Canonical URI Syntax
 
