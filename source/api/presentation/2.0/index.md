@@ -10,7 +10,6 @@ patch: 0
 pre: draft1
 ---
 
-
 ## Status of this Document
 {:.no_toc}
 __This Version:__ {{ page.major }}.{{ page.minor }}.{{ page.patch }}{% if page.pre != 'final' %}-{{ page.pre }}{% endif %}
@@ -47,11 +46,11 @@ This document describes how the structure and layout of a complex image-based ob
 
 An object may comprise a series of pages, surfaces or other views; for example the single view of a painting, the two sides of a photograph, four cardinal views of a statue, or the many pages of an edition of a newspaper or book. As such the primary requirements for the Presentation API are to provide an order for these views, the resources needed to display a representation of the view, and the information needed to allow the user to understand what is being seen.
 
-The principles of Linked Data and the [Architecture of the Web][web-arch] are adopted in order to provide a distributed and interoperable system. The [Shared Canvas data model][shared-canvas] is leveraged in a specific, JSON-based format that is easy to implement without understanding RDF, but is still compatible with it.
+The principles of [Linked Data][linked-data] and the [Architecture of the Web][web-arch] are adopted in order to provide a distributed and interoperable system. The [Shared Canvas data model][shared-canvas] is leveraged in a specific, JSON-based format that is easy to implement without understanding RDF, but is still compatible with it.
 
 ### 1.1. Objectives and Scope
 
-The objective of the IIIF Presentation API is to provide the information necessary to allow a rich, online viewing environment for primarily image-based objects to be presented to a user, likely in conjunction with the [IIIF Image API][image-api]. This is the sole purpose of the API; to provide easy access to the information necessary for a viewer to present an appropriate user experience for the digitized content. Therefore the descriptive information is given in a way that is intended for humans to read, but not semantically available to machines. In particular, it explicitly does NOT aim to provide metadata that would drive discovery of the digitized objects.
+The objective of the IIIF Presentation API is to provide the information necessary to allow a rich, online viewing environment for primarily image-based objects to be presented to a user, likely in conjunction with the [IIIF Image API][image-api]. This is the sole purpose of the API; to provide easy access to the information necessary for a viewer to present an appropriate user experience for the digitized content. Therefore the descriptive information is given in a way that is intended for humans to read, but not semantically available to machines. In particular, it explicitly does __not__ aim to provide metadata that would drive discovery of the digitized objects.
 
 The following are within the scope of the current document:
 
@@ -100,9 +99,9 @@ The need for these conceptual components, shown in italics above, was recognized
 
 ##  3. Primary Resource Types
 
-<div style="float:right; padding-right: 30px">
-  <img src="/img/metadata-api/iiif-objects.png" height="400px" alt="Primary Resource Types" /><br/>
-</div>
+
+![Primary Resource Types](img/objects.png){: .h400px}
+{: .floatRight}
 
 This specification makes use of the following primary resource types:
 
@@ -298,8 +297,7 @@ within
 
 These metadata fields and requirements are depicted in the diagram below.
 
-<!-- XXX Make this into a markdown image -->
-<img src="/img/metadata-api/iiif-fields-cardinality.png" width="550px" alt="Fields Cardinality" />
+![Cardinality of Fields](img/cardinality.png){: .h400px}
 
 Other metadata fields are possible, either via custom extensions or endorsed by the IIIF. If a client discovers fields that it does not understand, then it _MUST_ ignore them.
 
@@ -338,7 +336,7 @@ The format for all responses is JSON, and the sections below describe the struct
 
 The content-type of the response _MUST_ be either `application/json` (regular JSON), or `application/ld+json` (JSON-LD). If the client explicitly wants the JSON-LD content-type, then it _MUST_ specify this in an accept header, otherwise the server _MUST_ return the regular JSON content-type.
 
-If the regular JSON content-type is returned, then it is _recommended_{: .rfc} that the server provide a link header to the context document. The syntax for the link header is below, and further described in [section 6.8 of the JSON-LD specification][XXX]. The context _MUST NOT_ be given in the link header if the client requests `application/ld+json`.
+If the regular JSON content-type is returned, then it is _recommended_{: .rfc} that the server provide a link header to the context document. The syntax for the link header is below, and further described in [section 6.8 of the JSON-LD specification][json-ld-68]. The context _MUST NOT_ be given in the link header if the client requests `application/ld+json`.
 
 ```
 Content-Type: application/json
@@ -384,13 +382,13 @@ Any of the descriptive fields, such as description or attribution, _MAY_ be repe
 {"seeAlso" : ["http://www.example.org/descriptions/book1.xml", "http://www.example.org/descriptions/book1.csv"]}
 ```
 
-Language _MAY_ be associated with descriptive metadata strings using the following pattern of value plus the [RFC 5646][XXX] code, instead of a plain string.  For example a description might have a language associated with it:
+Language _MAY_ be associated with descriptive metadata strings using the following pattern of value plus the [RFC 5646][rfc5646] code, instead of a plain string.  For example a description might have a language associated with it:
 
 ``` json
 {"description" : {"@value":"Here is a longer description of the object", "@language":"en"} }
 ```
 
-Note that [RFC 5646][XXX] allows the script of the text to be included after a hyphen, such as `ar-latn`, and clients _SHOULD_ be aware of this possibility. This allows for full internationalization of the user interface components described in the response, as the labels as well as values may be translated in this manner; examples are given below.
+Note that [RFC 5646][rfc5646] allows the script of the text to be included after a hyphen, such as `ar-latn`, and clients _SHOULD_ be aware of this possibility. This allows for full internationalization of the user interface components described in the response, as the labels as well as values may be translated in this manner; examples are given below.
 
 Minimal HTML markup _MAY_ be included in descriptive strings using the pattern of `@value` with an `@type` property of `rdf:XMLLiteral`. This is included to allow manifest creators to add links and simple formatting instructions to blocks of plain text. The content _MUST_ be well-formed XML and therefore must be wrapped in an element such as `p` or `span`.  There _MUST NOT_ be whitespace on either side of the HTML string, and thus the first character in the string _MUST_ be a '<' character and the last character _MUST_ be '>'.
 
@@ -422,7 +420,10 @@ Each response _MUST_ have a `@context` property, and it _SHOULD_ appear as the v
 
 Any additional fields beyond those defined in this specification _SHOULD_ be mapped to RDF predicates using further context documents. In this case, the enclosing object _MUST_ have its own `@context` property as the first key/value pair. This is _required_{: .rfc} for `service` links that embed any information beyond a `profile`.  These contexts _MUST NOT_ redefine `profile`.
 
-Clients _SHOULD_ be aware that some implementations may add an `@graph` property at the top level, which contains the object. This is a side effect of JSON-LD serialization, and servers _SHOULD_ remove it before sending to the client. The client can use the JSON-LD compaction algorithm to remove it, if present. Using JSON-LD Framing with the [supplied frames][XXX] will avoid the generation of the `@graph` pattern.
+Clients _SHOULD_ be aware that some implementations may add an `@graph` property at the top level, which contains the object. This is a side effect of JSON-LD serialization, and servers _SHOULD_ remove it before sending to the client. The client can use the JSON-LD compaction algorithm to remove it, if present. 
+<!--
+Using JSON-LD Framing with the [supplied frames][XXX] will avoid the generation of the `@graph` pattern.
+-->
 
 ##  6. Primary Resource Types
 
@@ -612,7 +613,7 @@ Recommended URI pattern:
 ```
 {: .urltemplate}
 
-Association of images with their respective canvases is done via annotations. Although normally annotations are used for associating commentary with the thing the annotation's text is about, the [Open Annotation][XXX] model allows any resource to be associated with any other resource, or parts thereof, and it is reused for both commentary and painting resources on the canvas.
+Association of images with their respective canvases is done via annotations. Although normally annotations are used for associating commentary with the thing the annotation's text is about, the [Open Annotation][openanno] model allows any resource to be associated with any other resource, or parts thereof, and it is reused for both commentary and painting resources on the canvas.
 
 Annotations _MAY_ have their own URIs, conveyed by adding an `@id` property to the JSON object. The content of the annotation should be returned if the URI is requested. Annotations are _not required_{: .rfc} to be dereferenced separately from their annotation lists, sequences and manifests, but some systems may like to do this and identifiers should be given using the recommended pattern if possible.
 
@@ -620,11 +621,11 @@ Each association of a content resource _MUST_ have the `motivation` field and th
 
 The image itself is linked in the `resource` property of the annotation. It _MUST_ have an `@id` field, with the value being the URI at which the image can be obtained. It _SHOULD_ have an `@type` of "dcterms:Image". Its media type _MAY_ be listed in `format`, and its height and width _MAY_ be given as integer values for `height` and `width` respectively.
 
-If a [IIIF Image API][3] service is available for the image, then a link to the service's endpoint _SHOULD_ be included. The endpoint is the URI up to the identifier, but not including the trailing slash character or any of the subsequent parameters. The profile of the service should be the supported conformance level, and the additional fields from the [Image Information document][31] _MAY_ be included in this JSON object to avoid requiring it to be downloaded separately.
+If a [IIIF Image API][image-api] service is available for the image, then a link to the service's endpoint _SHOULD_ be included. The endpoint is the URI up to the identifier, but not including the trailing slash character or any of the subsequent parameters. The profile of the service should be the supported conformance level, and the additional fields from the Image Information document _MAY_ be included in this JSON object to avoid requiring it to be downloaded separately. See the [annex][annex] on using external services for more information.
 
 Although it seems redundant, the URI of the canvas _MUST_ be repeated in the `on` field of the Annotation. This is to ensure consistency with annotations that target only part of the resource, described in more detail below.
 
-Additional features of the [Open Annotation][XXX] data model _MAY_ also be used, such as selecting a segment of the canvas or content resource, or embedding the comment or transcription within the annotation. These additional features are described below.
+Additional features of the [Open Annotation][openanno] data model _MAY_ also be used, such as selecting a segment of the canvas or content resource, or embedding the comment or transcription within the annotation. These additional features are described below.
 
 ```javascript
 {
@@ -664,7 +665,7 @@ The annotation list _MUST_ have an http[s] URI given in `@id`, and the the JSON 
 
 The list of resource associations are given, after any metadata, in a `resources` list. The items in the list are annotations, as described above, however the resource linked by the annotation is something other than an image. The canvas URI _MUST_ be repeated in the `on` field, as above.
 
-Please note the different types and formats for the content resources. The format _SHOULD_ be included and _MUST_ be the media type that is returned when the resource is dereferenced. For resources that are displayed as part of the rendering (such as images, text transcriptions, performances of music from the manuscript and so forth) the motivation _MUST_ be "sc:painting". The type of the content resource _SHOULD_ be taken from this [list in the Open Annotation specification][XXX], or a similar well-known resource type ontology.  The content resources _MAY_ also have any of the other fields defined in this specification, including commonly `label`, `description`, `metadata`, `license` and `attribution`.
+Please note the different types and formats for the content resources. The format _SHOULD_ be included and _MUST_ be the media type that is returned when the resource is dereferenced. For resources that are displayed as part of the rendering (such as images, text transcriptions, performances of music from the manuscript and so forth) the motivation _MUST_ be "sc:painting". The type of the content resource _SHOULD_ be taken from this [list in the Open Annotation specification][openannotypes], or a similar well-known resource type ontology.  The content resources _MAY_ also have any of the other fields defined in this specification, including commonly `label`, `description`, `metadata`, `license` and `attribution`.
 
 Note well that Annotation Lists _MUST NOT_ be embedded within the manifest.
 
@@ -702,13 +703,13 @@ Note well that Annotation Lists _MUST NOT_ be embedded within the manifest.
 
 ###  6.6. Advanced Association Features
 
-The following sections describe known use cases for building representations of objects using the IIIF Presentation API, and clients _SHOULD_ expect to encounter them. Other use cases are likely to exist, and _MUST_ be encoded using the [Open Annotation's][XXX] context document mapping for any additional fields required.
+The following sections describe known use cases for building representations of objects using the IIIF Presentation API, and clients _SHOULD_ expect to encounter them. Other use cases are likely to exist, and _MUST_ be encoded using the [Open Annotation's][openanno] context document mapping for any additional fields required.
 
 ####  6.6.1. Segments
 
 It is important to be able to extract parts, or segments, of resources. In particular a very common requirement is to associate a resource with part of a canvas, or part of an image with either the entire canvas or part thereof. Secondly, as transcriptions are often made available in XML files, extracting the correct page to associate with the canvas, or line to associate with part of the canvas, is equally useful for reusing existing material. These can be accomplished using URI fragments for simple cases. Two examples are given below:
 
-  * Segments of both images and canvases may be selected by adding a [rectangular bounding box][33] after the URI. The fragment _MUST_ be structured:
+  * Segments of both images and canvases may be selected by adding a [rectangular bounding box][media-frags] after the URI. The fragment _MUST_ be structured:
 
       `http://www.example.com/iiif/book1/canvas/p1.json#xywh=100,100,300,50`
 
@@ -731,7 +732,7 @@ It is important to be able to extract parts, or segments, of resources. In parti
     }
     ```
 
-  * Segments of XML files may be extracted with [XPaths][34]. The fragment _MUST_ be structured:
+  * Segments of XML files may be extracted with [XPaths][xpath]. The fragment _MUST_ be structured:
         `http://www.example.com/iiif/book1/res/tei.xml#xpointer(/path/to/element)`
 
     ```javascript
@@ -783,7 +784,7 @@ An example of this feature:
 
 A common requirement is to have a choice between multiple images that depict the page, such as different under different lights, or taken at different times. This can be accomplished by having a "oa:Choice" object as the resource, which then refers to the options to select from. It _MUST_ have one `default` and at least one further `item` to choose from. The images _SHOULD_ have a `label` for the viewer to display to the user so they can make their selection from among the options.
 
-The same construction can be applied to a choice between other types of resources as well. This is described in the [Multiplicity section][XXX] of the Open Annotation specification.
+The same construction can be applied to a choice between other types of resources as well. This is described in the [Multiplicity section][openannomulti] of the Open Annotation specification.
 
 Either the `default` or `item` _MAY_ have a value of "rdf:nil". This means that a valid option is not to display anything. This _MUST NOT_ have a label associated with it, viewers should either use "Nothing" or an appropriate label of their choice.
 
@@ -816,7 +817,7 @@ This can be used to model foldouts and other dynamic features of a page, by asso
 
 ####  6.6.4. Non Rectangular Segments
 
-The [Scalable Vector Graphics][XXX] standard (SVG) is used to describe non-rectangular areas of canvas or image resources. While SVG can, of course, describe rectangles this is _not recommended_{: .rfc}, and the `xywh` bounding box described above _SHOULD_ be used instead.
+The [Scalable Vector Graphics][svg] standard (SVG) is used to describe non-rectangular areas of canvas or image resources. While SVG can, of course, describe rectangles this is _not recommended_{: .rfc}, and the `xywh` bounding box described above _SHOULD_ be used instead.
 
 In this pattern, the resource of the annotation is a "oa:SpecificResource" which has the complete image referenced in a `full` field and the SVG embedded in a `selector` field (as the SVG selects the part of the image needed). The SVG document is embedded using the same `ContentAsText` approach as for embedding comments or transcriptions.
 
@@ -845,7 +846,7 @@ If the section of an image is mapped to part of a canvas, as in the example belo
 
 ####  6.6.5. Style
 
-The [Cascading Style Sheets][XXX] standard (CSS) is used to describe how the client should render a given resource to the user. The CSS information is embedded within the annotation using the same `ContentAsText` approach above. As a stylesheet may contain more than one style, and be reused between annotations, it is attached to the annotation directly in the same manner as a stylesheet being linked to an HTML document. Then the name of the style class is attached to the resource that should be styled, again in the same manner as the class attribute in html, although we use `style` to avoid confusion with object classes.
+The [Cascading Style Sheets][css] standard (CSS) is used to describe how the client should render a given resource to the user. The CSS information is embedded within the annotation using the same `ContentAsText` approach above. As a stylesheet may contain more than one style, and be reused between annotations, it is attached to the annotation directly in the same manner as a stylesheet being linked to an HTML document. Then the name of the style class is attached to the resource that should be styled, again in the same manner as the class attribute in html, although we use `style` to avoid confusion with object classes.
 
 In the example below, the text should be colored red.
 
@@ -897,7 +898,7 @@ CSS may also be used for rotation of images which are not correctly aligned with
 
 ####  6.6.6. Comment Annotations
 
-For annotations which are comments about the canvas, as opposed to painting content resources onto the canvas, there are different types of motivation to make the distinction clear. For annotations about the content (such as comments, notes, descriptions etc.) the `motivation` _SHOULD_ be "oa:commenting", but _MAY_ be any from the list given in the [Open Annotation][XXX] specification.
+For annotations which are comments about the canvas, as opposed to painting content resources onto the canvas, there are different types of motivation to make the distinction clear. For annotations about the content (such as comments, notes, descriptions etc.) the `motivation` _SHOULD_ be "oa:commenting", but _MAY_ be any from the list given in the [Open Annotation][openanno] specification.
 
 ```javascript
 {
@@ -924,8 +925,7 @@ Secondly, as the information is primarily divided by canvas (and thus page), the
 
 Thirdly, the specification otherwise assumes that a manifest is the highest level of description.  In order to allow easy advertising and discovery of the manifests, we introduce a collection resource which can aggregate sub-collections and/or manifests.  If the recommended URI pattern is used, this provides a client system a means to locate all of the manifests provided by an institution.
 
-<!-- XXX Add collection to image -->
-<img src="/img/metadata-api/iiif-objects-all.png" width="650px" alt="All Resource Types"/>
+![All Resource Types](img/objects-all.png){: .h400px}
 
 _Figure 3. All Resource Types_
 
@@ -1330,7 +1330,7 @@ URL: _http://www.example.org/iiif/book1/manifest.json_
 
 ### C. Versioning
 
-Starting with version 2.0, this specification follows [Semantic Versioning][XXX] with version numbers of the form "MAJOR.MINOR.PATCH" where:
+Starting with version 2.0, this specification follows [Semantic Versioning][semver] with version numbers of the form "MAJOR.MINOR.PATCH" where:
 
   * MAJOR version increment indicates incompatible API changes.
   * MINOR version increment indicates addition of functionality in a backwards-compatible manner.
@@ -1344,11 +1344,11 @@ This versioning system will be implemented in the following ways:
 
 ### D. Acknowledgements
 
-The production of this document was generously supported by a grant from the [Andrew W. Mellon Foundation][XXX].
+The production of this document was generously supported by a grant from the [Andrew W. Mellon Foundation][mellon].
 
 Many thanks to Matthieu Bonicel, Tom Cramer, Ian Davis, Markus Enders, Tim Gollins, Antoine Isaac, Neil Jefferies, Sean Martin, Roger Mathisen, Mark Patton, Petter Rønningsen, Raphael Schwemmer and Stuart Snydman for their thoughtful contributions. Thanks also to the members of the IIIF for their continuous engagement, innovative ideas and feedback.
 
-XXX Trawl lists and ensure everyone gets credit who deserves it.
+__XXX Trawl lists and ensure everyone gets credit who deserves it.__
 
 ### E. ChangeLog
 
@@ -1360,19 +1360,19 @@ XXX Trawl lists and ensure everyone gets credit who deserves it.
 
    [iiif-discuss]: mailto:iiif-discuss%40googlegroups.com "Email Discussion List"
    [shared-canvas]: /model/shared-canvas/{{ site.shared_canvas.latest.major}}.{{ site.shared_canvas.latest.minor }} "Shared Canvas Data Model"
-   [image-api]: /api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/
+   [image-api]: /api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/ "Image API"
+   [annex]: /api/annex/services/ "Services Annex Document"
 
-
+   [openanno]: http://www.openannotation.org/spec/core/ "Open Annotation"
+   [openannotypes]: http://www.openannotation.org/spec/core/core.html#BodyTargetType
+   [openannomulti]: http://www.openannotation.org/spec/core/multiplicity.html#Choice
+   [linked-data]: http://linkeddata.org/ "Linked Data"
    [web-arch]: http://www.w3.org/TR/webarch/ "Architecture of the World Wide Web"
-
-   [1]: ../../annex/services/index.html
-   [2]: http://www.shared-canvas.org/
-   [3]: /api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/
-   [4]: http://tools.ietf.org/html/rfc5646
-   [5]: http://www.openannotation.org/spec/core/core.html#BodyTargetType
-   [6]: http://www.w3.org/TR/media-frags/#naming-space
-   [7]: http://en.wikipedia.org/wiki/XPointer
-   [8]: http://www.openannotation.org/spec/core/multiplicity.html#Choice
-   [100]: http://iiif.io/img/metadata-api/iiif-objects.png
-   [101]: http://iiif.io/img/metadata-api/iiif-objects-metadata.png
-   [102]: http://iiif.io/img/metadata-api/iiif-objects-all.png
+   [json-ld-68]: http://www.w3.org/TR/json-ld/#interpreting-json-as-json-ld "Interpreting JSON as JSON-LD"
+   [rfc5646]: http://tools.ietf.org/html/rfc5646 "RFC 5646"
+   [media-frags]: http://www.w3.org/TR/media-frags/#naming-space "Media Fragments"
+   [xpath]: http://en.wikipedia.org/wiki/XPointer "XPath / XPointer"
+   [svg]: http://www.w3.org/TR/SVG/ "Scalabe Vector Graphics"
+   [css]: http://www.w3.org/TR/CSS/ "Cascading Style Sheets"
+   [semver]: http://semver.org/spec/v2.0.0.html "Semantic Versioning 2.0.0"
+   [mellon]: http://www.mellon.org/ "The Andrew W. Mellon Foundation"
