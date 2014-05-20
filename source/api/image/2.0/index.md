@@ -300,9 +300,9 @@ The Image Information document contains both metadata about the image, such as m
 ```
 {: .urltemplate}
 
-The syntax for the response is [JSON-LD][37]. The content-type of the response _MUST_ be either "application/json" (regular JSON), or "application/ld+json" (JSON-LD).  If the client explicitly wants the JSON-LD content-type, then it must specify this in an Accept header, otherwise the server must return the regular JSON content-type.
+The syntax for the response is [JSON-LD][json-ld]. The content-type of the response _MUST_ be either "application/json" (regular JSON), or "application/ld+json" (JSON-LD).  If the client explicitly wants the JSON-LD content-type, then it must specify this in an Accept header, otherwise the server must return the regular JSON content-type.
 
-If the regular JSON content-type is returned, then it is _RECOMMENDED_ that the server provide a link header to the context document. The syntax for the link header is below, and further [described in section 6.8 of the JSON-LD specification][38]. If the client requests "application/ld+json", the link header _MAY_ still be included but _MUST_ be ignored. The entity body is identical regardless of the content-type, including the @context field.
+If the regular JSON content-type is returned, then it is _RECOMMENDED_ that the server provide a link header to the context document. The syntax for the link header is below, and further [described in section 6.8 of the JSON-LD specification][json-as-json-ld]. If the client requests "application/ld+json", the link header _MAY_ still be included but _MUST_ be ignored. The entity body is identical regardless of the content-type, including the @context field.
 
 ```
 Link: <http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json>
@@ -554,8 +554,8 @@ __TODO: Link to the community page__ [link]
    [34]: http://www.mellon.org/
    [35]: http://iiif.io/change-log.html
    [36]: http://iiif.io/api/image/{{ site.image_api.latest.major }}/
-   [37]: http://www.w3.org/TR/json-ld/
-   [38]: http://www.w3.org/TR/json-ld/#interpreting-json-as-json-ld
+   [json-ld]: http://www.w3.org/TR/json-ld/
+   [json-as-json-ld]: http://www.w3.org/TR/json-ld/#interpreting-json-as-json-ld
    [39]: http://iiif.io#capabilities-request
    [40]: http://iiif.io#url-syntax-capabilities-request
    [41]: http://www.w3.org/TR/cors/
