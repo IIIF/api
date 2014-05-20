@@ -389,7 +389,7 @@ The set of features, formats and qualities supported is the union of those decla
 
 The JSON response _MUST_ conform to the structure shown in the following example:
 
-```javascript
+{% highlight json %}
 {
   "@context" : "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
   "@id" : "http://www.example.org/image-service/abcd1234/1E34750D-38DB-4825-A38A-B60A345E591C",
@@ -412,8 +412,8 @@ The JSON response _MUST_ conform to the structure shown in the following example
     }
   ]
 }
-```
-{: .codetemplate}
+{% endhighlight %}
+
 
 ### 5.2 Extensions
 
@@ -422,7 +422,7 @@ Local additions to the image information document _MAY_ be specified in two ways
 1.  Extra properties _MAY_ be added to the document to provide information not defined in this specification. Clients _MUST_ ignore properties that are not understood.
 2.  URIs _MAY_ be added to the supports list of a profile to cover features not defined in this specification, and similarly clients _MUST_ ignore URIs that are not understood.
 
-```javascript
+{% highlight json %}
 {
   "@context" : "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
   // ...
@@ -434,8 +434,7 @@ Local additions to the image information document _MAY_ be specified in two ways
     {"supports" : ["http://www.example.com/my/feature.html"]}
   ]
 }
-```
-{: .codetemplate}
+{% endhighlight %}
 
 ##  6. Compliance Levels
 
