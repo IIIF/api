@@ -31,7 +31,7 @@ _Copyright © 2012-2014 Editors and contributors. Published by the IIIF under th
 {:.no_toc}
 This document describes an API to deliver structural and presentation information about digital content proposed by the International Image Interoperability Framework (IIIF) group. The IIIF Presentation API specifies a web service that returns JSON-LD structured documents that together describe how the structure and layout of a digitized object can be made available in a standard manner. Many different styles of viewer can be implemented that consume the information to enable a rich and dynamic experience for their users across collections and hosting institutions.
 
-Please send feedback to [iiif-discuss@googlegroups.com][1]
+Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss]
 
 ## Table of Contents
 {:.no_toc}
@@ -47,11 +47,11 @@ This document describes how the structure and layout of a complex image-based ob
 
 An object may comprise a series of pages, surfaces or other views; for example the single view of a painting, the two sides of a photograph, four cardinal views of a statue, or the many pages of an edition of a newspaper or book. As such the primary requirements for the Presentation API are to provide an order for these views, the resources needed to display a representation of the view, and the information needed to allow the user to understand what is being seen.
 
-The principles of Linked Data and the Architecture of the Web are adopted in order to provide a distributed and interoperable system. The [Shared Canvas data model][24] is leveraged in a specific, JSON-based format that is easy to implement without understanding RDF, but is still compatible with it.
+The principles of Linked Data and the [Architecture of the Web][web-arch] are adopted in order to provide a distributed and interoperable system. The [Shared Canvas data model][shared-canvas] is leveraged in a specific, JSON-based format that is easy to implement without understanding RDF, but is still compatible with it.
 
 ### 1.1. Objectives and Scope
 
-The objective of the IIIF Presentation API is to provide the information necessary to allow a rich, online viewing environment for primarily image-based objects to be presented to a user, likely in conjunction with the IIIF Image API. This is the sole purpose of the API; to provide easy access to the information necessary for a viewer to present an appropriate user experience for the digitized content. Therefore the descriptive information is given in a way that is intended for humans to read, but not semantically available to machines. In particular, it explicitly does NOT aim to provide metadata that would drive discovery of the digitized objects.
+The objective of the IIIF Presentation API is to provide the information necessary to allow a rich, online viewing environment for primarily image-based objects to be presented to a user, likely in conjunction with the [IIIF Image API][image-api]. This is the sole purpose of the API; to provide easy access to the information necessary for a viewer to present an appropriate user experience for the digitized content. Therefore the descriptive information is given in a way that is intended for humans to read, but not semantically available to machines. In particular, it explicitly does NOT aim to provide metadata that would drive discovery of the digitized objects.
 
 The following are within the scope of the current document:
 
@@ -59,7 +59,7 @@ The following are within the scope of the current document:
   * Navigation between the pages, surfaces or views of the object.
   * The display of text, and resources of other media types, associated with the object or its pages – this includes descriptive information about the object, labels that can aid navigation such as numbers associated with individual pages, copyright or attribution information, etc.
 
-The following are not within scope:
+The following are __not__ within scope:
 
   * The discovery or selection of interesting digitized objects is not directly supported, however hooks to reference further resources are available.
   * Search within the object is not supported by the Presentation API; however this will be covered by a further related specification.
@@ -118,7 +118,7 @@ Canvas
 Content
 :    Content resources such as images or texts that are associated with a canvas.
 
-Each manifest _must_{: .rfc}, and is very likely to, have one sequence, but _may_{: .rfc} have more than one. Each sequence _must_{: .rfc} have at least one canvas and is likely to have more than one. Each canvas _should_{: .rfc} have one or more content resources associated with it. Zero is possible but unlikely; it represents the case where the page exists (or existed) but has not been digitized.
+Each manifest _MUST_, and is very likely to, have one sequence, but _MAY_ have more than one. Each sequence _MUST_ have at least one canvas and is likely to have more than one. Each canvas _SHOULD_ have one or more content resources associated with it. Zero is possible but unlikely; it represents the case where the page exists (or existed) but has not been digitized.
 
 There are other types of resources including annotation lists, annotations, ranges and layers, which are discussed later.
 
@@ -133,63 +133,63 @@ label
 
     Usage:
     {: .usage}
-    * A manifest _must_{: .rfc} have a label, and it _should_{: .rfc} be the name of the physical object or title of the intellectual work that it embodies.
-    * A sequence  _may_{: .rfc} have a label, and if there are multiple sequences in a single manifest then they _must_{: .rfc} have labels. The label _should_{: .rfc} briefly convey the nature of sequence, such as "Current Page Order".
-    * A canvas _must_{: .rfc} have a label, and it _should_{: .rfc} be the page label such as "p. 1" or "folio 1 recto".
-    * A content resource _may_{: .rfc} have a label, and if there is a choice of content resource for the same canvas, then they _must_{: .rfc} have labels. The label _should_{: .rfc} be a brief description of the resource, such as "black and white" versus "color photograph"
+    * A manifest _MUST_ have a label, and it _SHOULD_ be the name of the physical object or title of the intellectual work that it embodies.
+    * A sequence  _MAY_ have a label, and if there are multiple sequences in a single manifest then they _MUST_ have labels. The label _SHOULD_ briefly convey the nature of sequence, such as "Current Page Order".
+    * A canvas _MUST_ have a label, and it _SHOULD_ be the page label such as "p. 1" or "folio 1 recto".
+    * A content resource _MAY_ have a label, and if there is a choice of content resource for the same canvas, then they _MUST_ have labels. The label _SHOULD_ be a brief description of the resource, such as "black and white" versus "color photograph"
 
 metadata
-:   A list of short descriptive entries given as pairs of human readable label and value to be displayed by the client to the user. The value _should_{: .rfc} be either simple HTML, including links and text markup, or plain text, and the label _should_{: .rfc} be plain text. There are no semantics conveyed by this information, and clients _should not_{: .rfc} use it for discovery or other purposes. This pool of descriptive pairs should be able to be displayed in a tabular form in the user interface. A pair might be used to convey the author of the work, information about its creation, a brief physical description, or ownership information, amongst other use cases. The client is not expected to take any action on this information beyond displaying the label and value. An example pair of label and value might be a label of "Author" and a value of "Jehan Froissart". The client _should_{: .rfc} display the pairs in the order provided by the description.  Clients _should_{: .rfc} have a way to display the information about manifests and canvases, and _may_{: .rfc} have a way to view the information about other resources.
+:   A list of short descriptive entries given as pairs of human readable label and value to be displayed by the client to the user. The value _SHOULD_ be either simple HTML, including links and text markup, or plain text, and the label _SHOULD_ be plain text. There are no semantics conveyed by this information, and clients _SHOULD NOT_ use it for discovery or other purposes. This pool of descriptive pairs should be able to be displayed in a tabular form in the user interface. A pair might be used to convey the author of the work, information about its creation, a brief physical description, or ownership information, amongst other use cases. The client is not expected to take any action on this information beyond displaying the label and value. An example pair of label and value might be a label of "Author" and a value of "Jehan Froissart". The client _SHOULD_ display the pairs in the order provided by the description.  Clients _SHOULD_ have a way to display the information about manifests and canvases, and _MAY_ have a way to view the information about other resources.
 
     Usage:
     {: .usage}
-    * A manifest _should_{: .rfc} have metadata pairs associated with it describing the object or work.
-    * A sequence _may_{: .rfc} have metadata pairs associated with it to describe the difference between it and other sequences.
-    * A canvas _may_{: .rfc} have metadata pairs associated with it to describe particular features of that canvas compared to others.
-    * A content resource _may_{: .rfc} have metadata pairs associated with it.
+    * A manifest _SHOULD_ have metadata pairs associated with it describing the object or work.
+    * A sequence _MAY_ have metadata pairs associated with it to describe the difference between it and other sequences.
+    * A canvas _MAY_ have metadata pairs associated with it to describe particular features of that canvas compared to others.
+    * A content resource _MAY_ have metadata pairs associated with it.
 
 description
-:   A longer-form prose description of the object, intended to be conveyed to the user as a full text description, rather than a simple label and value. It can duplicate any of the above information, along with additional information required for the understanding of the digitized object, description of the physical object, bibliographic information and so forth. Like with the pairs in `metadata`, clients _should_{: .rfc} have a way to display the information about manifests and canvases, and _may_{: .rfc} have a way to view the information about other resources.
+:   A longer-form prose description of the object, intended to be conveyed to the user as a full text description, rather than a simple label and value. It can duplicate any of the above information, along with additional information required for the understanding of the digitized object, description of the physical object, bibliographic information and so forth. Like with the pairs in `metadata`, clients _SHOULD_ have a way to display the information about manifests and canvases, and _MAY_ have a way to view the information about other resources.
 
     Usage:
     {: .usage}
-    * A manifest _should_{: .rfc} have a description that describes the object or work.
-    * A sequence _may_{: .rfc} have a description to further explain how it differs from other sequences.
-    * A canvas _may_{: .rfc} have a description to describe particular features of the view.
-    * A content resource _may_{: .rfc} have a description.
+    * A manifest _SHOULD_ have a description that describes the object or work.
+    * A sequence _MAY_ have a description to further explain how it differs from other sequences.
+    * A canvas _MAY_ have a description to describe particular features of the view.
+    * A content resource _MAY_ have a description.
 
 thumbnail
 :   A small image that represents the content of the object, such as the title page or significant image.  It is _recommended_{: .rfc} that a [IIIF Image API][3] service be available for this image for rescaling.
 
     Usage:
     {: .usage}
-    * A manifest _should_{: .rfc} have a thumbnail image that represents the entire object or work.
-    * A sequence _may_{: .rfc} have a thumbnail, particularly if there are multiple sequences in a single manifest. Each of the thumbnails _should_{: .rfc} be different.
-    * A canvas _may_{: .rfc} have a thumbnail, particularly if there are multiple images or resources that make up the representation.
-    * A content resource _may_{: .rfc} have a thumbnail, particularly if there is a choice of resource.
+    * A manifest _SHOULD_ have a thumbnail image that represents the entire object or work.
+    * A sequence _MAY_ have a thumbnail, particularly if there are multiple sequences in a single manifest. Each of the thumbnails _SHOULD_ be different.
+    * A canvas _MAY_ have a thumbnail, particularly if there are multiple images or resources that make up the representation.
+    * A content resource _MAY_ have a thumbnail, particularly if there is a choice of resource.
 
 ####  4.2. Rights and Licensing Fields
 
 attribution
-:   A human readable label that _must_{: .rfc} be displayed when the resource it is associated with is displayed or used. For example this could be used to present copyright or ownership, or simply an acknowledgement of the owning and/or publishing institutions.
+:   A human readable label that _MUST_ be displayed when the resource it is associated with is displayed or used. For example this could be used to present copyright or ownership, or simply an acknowledgement of the owning and/or publishing institutions.
 
     Usage:
     {: .usage}
-    * Any resource _may_{: .rfc} have an attribution label
+    * Any resource _MAY_ have an attribution label
 
 logo
 :   A small image that represents an individual or organization associated with the object.  This could be the logo of the owning or hosting institution.  It is _recommended_{: .rfc} that a [IIIF Image API][3] service be available for this image for rescaling.
 
     Usage:
     {: .usage}
-    * Any resource _may_{: .rfc} have a logo associated with it
+    * Any resource _MAY_ have a logo associated with it
 
 license
 :   A link to a resource that describes the license or rights statement under which the resource is being used. The rationale for this being a URI and not a human readable label is that typically there is one license for many resources, and the text is too long to be displayed to the user along with the object. If displaying the text is a requirement, then it is _recommended_{: .rfc} to include the information in an `attribution` field instead.
 
     Usage:
     {: .usage}
-    * Any resource _may_{: .rfc} have a license associated with it
+    * Any resource _MAY_ have a license associated with it
 
 ####  4.3. Technical Fields
 
@@ -198,35 +198,35 @@ license
 
     Usage:
     {: .usage}
-    * A manifest _must_{: .rfc} have an id, and it MUST be the http[s] URI at which the manifest is published.
-    * A sequence _may_{: .rfc} have an id.
-    * A canvas _must_{: .rfc} have an id.
-    * A content resource _must_{: .rfc} have an id unless it is embedded in the response, and it _must_{: .rfc} be the http[s] URI at which the resource is published.
+    * A manifest _MUST_ have an id, and it MUST be the http[s] URI at which the manifest is published.
+    * A sequence _MAY_ have an id.
+    * A canvas _MUST_ have an id.
+    * A content resource _MUST_ have an id unless it is embedded in the response, and it _MUST_ be the http[s] URI at which the resource is published.
 
 @type
 :   The type of the resource, either manifest/sequence/canvas or drawn from a list of high level content types such as image, text or audio.
 
     Usage:
     {: .usage}
-    * All resources _must_{: .rfc} have a type specified.
+    * All resources _MUST_ have a type specified.
 
 format
 :   The more specific media type (often called a MIME type) of a content resource, for example "image/jpeg". This is important for distinguishing, for example, text in XML from plain text.
 
     Usage:
     {: .usage}
-    * A manifest, sequence or canvas _must not_{: .rfc} have a format.
-    * A content resource _should_{: .rfc} have a format, and if so, it _must_{: .rfc} be the value of the `Content-Type` header returned when the resource is dereferenced.
+    * A manifest, sequence or canvas _MUST NOT_ have a format.
+    * A content resource _SHOULD_ have a format, and if so, it _MUST_ be the value of the `Content-Type` header returned when the resource is dereferenced.
 
 height
 :   The height of a canvas or image resource. For images, this is in pixels. No particular units are required for canvases, as the dimensions provide an aspect ratio for the resources to be located within rather than measuring any physical property of the object.
 
     Usage:
     {: .usage}
-    * A manifest or sequence _must not_{: .rfc} have a height.
-    * A canvas _must_{: .rfc} have a height, which does not have a unit type. It merely conveys, along with width, an aspect ratio.
-    * Image content resources _should_{: .rfc} have a height, given in pixels.
-    * Non-image content resources _may_{: .rfc} have a height if appropriate, such as for video streams.
+    * A manifest or sequence _MUST NOT_ have a height.
+    * A canvas _MUST_ have a height, which does not have a unit type. It merely conveys, along with width, an aspect ratio.
+    * Image content resources _SHOULD_ have a height, given in pixels.
+    * Non-image content resources _MAY_ have a height if appropriate, such as for video streams.
 
 width
 :   The width of a canvas or image resource. For images, this is in pixels. No particular units are required for canvases.
@@ -244,10 +244,10 @@ viewingDirection
 
     Usage:
     {: .usage}
-    * A manifest _may_{: .rfc} have a viewing direction, and if so, it applies to all of its sequences.
-    * A sequence _may_{: .rfc} have a viewing direction, and it MAY be different to that of the manifest.
-    * A canvas or content resource _must not_{: .rfc} have a viewing direction.
-    * A range _may_{: .rfc} have a viewing direction.
+    * A manifest _MAY_ have a viewing direction, and if so, it applies to all of its sequences.
+    * A sequence _MAY_ have a viewing direction, and it MAY be different to that of the manifest.
+    * A canvas or content resource _MUST NOT_ have a viewing direction.
+    * A range _MAY_ have a viewing direction.
 
 viewingHint
 :   A hint to the viewer as to the most appropriate method of displaying the resource. Any value may be given, and this specification defines the following:
@@ -255,31 +255,31 @@ viewingHint
     * "individuals": Valid on manifest, sequence and range. The canvases are all individual sheets, and should not be presented in a page-turning interface. For example a sequence of letters or photographs.
     * "paged": Valid on manifest, sequence and range. The canvases represent pages in a bound volume, and should be presented in a page-turning interface.  The first canvas is a single view (the first recto) and thus the second canvas represents the back of the first canvas.
     * "continuous": Valid on manifest, sequence and range.  The canvases each represent a complete side of a long scroll or roll and an appropriate rendering might only display part of the canvas at any given time rather than the entire object.
-    * "non-paged": Only valid on a canvas and when the manifest or sequence has a `viewingHint` of "paged".  canvases with this hint _must not_{: .rfc} be presented in a page turning interface, and _must_{: .rfc} be skipped over when determining the sequence.
-    * "start": Only valid on a canvas. A client _should_{: .rfc} advance to the canvas with this `viewingHint` when beginning navigation through a sequence.  This allows the client to start with the first canvas that contains interesting content rather than requiring the user to skip past blank or empty canvases manually.
-    * "top": Only valid on a range. A range which has this `viewingHint` is the top-most node in a hierarchy of ranges that represents a structure to be rendered by the client to assist in navigation. For example, a table of contents within a paged object, major sections of a 3d object, the textual areas within a single scroll, and so forth.  Other ranges that are descendants of the "top" range are the entries to be rendered in the navigation structure.  There _may_{: .rfc} be multiple ranges marked with this hint. If so, the client _should_{: .rfc} display a choice of multiple structures to navigate through.
+    * "non-paged": Only valid on a canvas and when the manifest or sequence has a `viewingHint` of "paged".  canvases with this hint _MUST NOT_ be presented in a page turning interface, and _MUST_ be skipped over when determining the sequence.
+    * "start": Only valid on a canvas. A client _SHOULD_ advance to the canvas with this `viewingHint` when beginning navigation through a sequence.  This allows the client to start with the first canvas that contains interesting content rather than requiring the user to skip past blank or empty canvases manually.
+    * "top": Only valid on a range. A range which has this `viewingHint` is the top-most node in a hierarchy of ranges that represents a structure to be rendered by the client to assist in navigation. For example, a table of contents within a paged object, major sections of a 3d object, the textual areas within a single scroll, and so forth.  Other ranges that are descendants of the "top" range are the entries to be rendered in the navigation structure.  There _MAY_ be multiple ranges marked with this hint. If so, the client _SHOULD_ display a choice of multiple structures to navigate through.
 
     Usage:
     {: .usage}
-    * A manifest, sequence or range _may_{: .rfc} have a viewing hint, with scope as per viewingDirection.
-    * A canvas _may_{: .rfc} have a viewing hint, and if so it _must_ be either "non-paged" or "start".  "non-paged" is only valid if the canvas is within a manifest, sequence or Range that is "paged", and the particular canvas _must not_{: .rfc} be displayed in a page-turning viewer. A canvas _must not_{:. rfc} be both "non-paged" and "start".
-    * A content resource _may_{: .rfc} have a viewing hint but there are no defined values in this specification.
+    * A manifest, sequence or range _MAY_ have a viewing hint, with scope as per viewingDirection.
+    * A canvas _MAY_ have a viewing hint, and if so it _must_ be either "non-paged" or "start".  "non-paged" is only valid if the canvas is within a manifest, sequence or Range that is "paged", and the particular canvas _MUST NOT_ be displayed in a page-turning viewer. A canvas _must not_{:. rfc} be both "non-paged" and "start".
+    * A content resource _MAY_ have a viewing hint but there are no defined values in this specification.
 
 ####  4.4. Linking Fields
 
 related
-:   A link to an external resource that is related to the current resource and intended for rendering to the user, such as a video or academic paper about a manuscript, a link to the website of the newspaper, a description of the photograph, and so forth. A label and the format of the target resource _should_{: .rfc} be given if possible to assist clients in rendering the resource.
+:   A link to an external resource that is related to the current resource and intended for rendering to the user, such as a video or academic paper about a manuscript, a link to the website of the newspaper, a description of the photograph, and so forth. A label and the format of the target resource _SHOULD_ be given if possible to assist clients in rendering the resource.
 
     Usage:
     {: .usage}
-    * Any resource _may_{: .rfc} have an external resource related to it.
+    * Any resource _MAY_ have an external resource related to it.
 
 service
-:   A link to a service that makes more functionality available for the resource, such as from an image to the base URI of an [IIIF Image API][3] service. The service resource _should_{: .rfc} have additional information associated with it in order to allow the client to determine how to make appropriate use of it, such as a `profile` link to a service description. It _may_{: .rfc} also have relevant information copied from the service itself. This duplication is permitted in order to increase the performance of rendering the object without necessitating additional HTTP requests.
+:   A link to a service that makes more functionality available for the resource, such as from an image to the base URI of an [IIIF Image API][3] service. The service resource _SHOULD_ have additional information associated with it in order to allow the client to determine how to make appropriate use of it, such as a `profile` link to a service description. It _MAY_ also have relevant information copied from the service itself. This duplication is permitted in order to increase the performance of rendering the object without necessitating additional HTTP requests.
 
     Usage:
     {: .usage}
-    * Any resource _may_{: .rfc} have a link to an external service.
+    * Any resource _MAY_ have a link to an external service.
     * Please see the [Service Profiles][1] document for known services.
 
 seeAlso
@@ -287,21 +287,21 @@ seeAlso
 
     Usage:
     {: .usage}
-    * Any resource _may_{: .rfc} have an external description related to it.
+    * Any resource _MAY_ have an external description related to it.
 
 within
 :   A link to a resource that contains the current resource, such as annotation lists within a layer. This also allows linking upwards to collections that allow browsing of the digitized objects available.
 
     Usage:
     {: .usage}
-    * Any resource _may_{: .rfc} be within a containing resource.
+    * Any resource _MAY_ be within a containing resource.
 
 These metadata fields and requirements are depicted in the diagram below.
 
 <!-- XXX Make this into a markdown image -->
 <img src="/img/metadata-api/iiif-fields-cardinality.png" width="550px" alt="Fields Cardinality" />
 
-Other metadata fields are possible, either via custom extensions or endorsed by the IIIF. If a client discovers fields that it does not understand, then it _must_{: .rfc} ignore them.
+Other metadata fields are possible, either via custom extensions or endorsed by the IIIF. If a client discovers fields that it does not understand, then it _MUST_ ignore them.
 
 ##  5. Requests and Responses
 
@@ -309,7 +309,7 @@ This section describes the recommended request and response patterns for the API
 
 ###  5.1 Requests
 
-Each of the sections below recommends a URI pattern to follow for the different resources. This is not required and clients _must not_{: .rfc} construct the URIs by themselves, instead they _must_{: .rfc} follow links from within retrieved descriptions.
+Each of the sections below recommends a URI pattern to follow for the different resources. This is not required and clients _MUST NOT_ construct the URIs by themselves, instead they _MUST_ follow links from within retrieved descriptions.
 
 The Base URI recommended for resources made available by the API is:
 
@@ -324,11 +324,11 @@ Where the parameters are:
 | ---- | ----------- |
 | scheme | Indicates the use of the http or https protocol in calling the service. |
 | server | The host server (and optional port) on which the service resides. |
-| prefix | The path on the host server to the service. This prefix is optional, but may be useful when the host server supports multiple services. The prefix _may_{: .rfc} contain multiple path segments, delimited by slashes, but all other special characters _must_{: .rfc} be encoded. |
-| identifier | The identifier of the requested image, expressed as a string. This may be an ark, URN, filename, or other identifier. Special characters _must_{: .rfc} be URI encoded. |
+| prefix | The path on the host server to the service. This prefix is optional, but may be useful when the host server supports multiple services. The prefix _MAY_ contain multiple path segments, delimited by slashes, but all other special characters _MUST_ be encoded. |
+| identifier | The identifier of the requested image, expressed as a string. This may be an ark, URN, filename, or other identifier. Special characters _MUST_ be URI encoded. |
 {: .image-api-table}
 
-The individual resources _may_{: .rfc} have URIs below this top-level pattern by appending a "/" and additional information to identify the resource. If a client requests a URI without a trailing ".json", then the server _should_{: .rfc} return the JSON representations defined below.
+The individual resources _MAY_ have URIs below this top-level pattern by appending a "/" and additional information to identify the resource. If a client requests a URI without a trailing ".json", then the server _SHOULD_ return the JSON representations defined below.
 
 ###  5.2 Responses
 
@@ -336,9 +336,9 @@ The individual resources _may_{: .rfc} have URIs below this top-level pattern by
 
 The format for all responses is JSON, and the sections below describe the structure to be returned in more detail. The primary response is when the manifest is requested and, for optimization reasons, this must return the manifest with the default sequence, canvases and associations for image content resources embedded within it. Additional sequences and associations may be made available via additional calls.
 
-The content-type of the response _must_{: .rfc} be either `application/json` (regular JSON), or `application/ld+json` (JSON-LD). If the client explicitly wants the JSON-LD content-type, then it _must_{: .rfc} specify this in an accept header, otherwise the server _must_{: .rfc} return the regular JSON content-type.
+The content-type of the response _MUST_ be either `application/json` (regular JSON), or `application/ld+json` (JSON-LD). If the client explicitly wants the JSON-LD content-type, then it _MUST_ specify this in an accept header, otherwise the server _MUST_ return the regular JSON content-type.
 
-If the regular JSON content-type is returned, then it is _recommended_{: .rfc} that the server provide a link header to the context document. The syntax for the link header is below, and further described in [section 6.8 of the JSON-LD specification][XXX]. The context _must not_{: .rfc} be given in the link header if the client requests `application/ld+json`.
+If the regular JSON content-type is returned, then it is _recommended_{: .rfc} that the server provide a link header to the context document. The syntax for the link header is below, and further described in [section 6.8 of the JSON-LD specification][XXX]. The context _MUST NOT_ be given in the link header if the client requests `application/ld+json`.
 
 ```
 Content-Type: application/json
@@ -348,7 +348,7 @@ Link: <http://iiif.io/api/presentation/{{ site.presentation_api.latest.major }}/
 ```
 {: .urltemplate}
 
-The HTTP server _should_{: .rfc}, if at all possible, send the Cross Origin Access Control header (often called "CORS") to allow clients to download the manifests via AJAX from remote sites. The header name is `Access-Control-Allow-Origin` and the value of the header _should_{: .rfc} be `*`.
+The HTTP server _SHOULD_, if at all possible, send the Cross Origin Access Control header (often called "CORS") to allow clients to download the manifests via AJAX from remote sites. The header name is `Access-Control-Allow-Origin` and the value of the header _SHOULD_ be `*`.
 
 ```
 Access-Control-Allow-Origin: *
@@ -363,13 +363,13 @@ Header set Access-Control-Allow-Origin "*"
 ```
 {: .urltemplate}
 
-Responses _should_{: .rfc} be compressed by the server as there are significant performance gains to be made for very repetitive data structures.
+Responses _SHOULD_ be compressed by the server as there are significant performance gains to be made for very repetitive data structures.
 
 ####  5.2.2 Content Details
 
 The following applies to all of the responses from the server in the Presentation API.  For the most part, these are features of the JSON-LD specification that have particular uses within the API.
 
-Resource descriptions _should_{: .rfc} be embedded within higher-level resources, and _may_{: .rfc} also be available via separate requests from URIs linked in the responses. These URIs are in the `@id` property for the resource. Links to resources may be either given as just the URI if there is no additional information associated with them, or they may be a JSON object with the `@id` property. Thus the following two lines are equivalent, however the second should not be used without additional information associated with the resource:
+Resource descriptions _SHOULD_ be embedded within higher-level resources, and _MAY_ also be available via separate requests from URIs linked in the responses. These URIs are in the `@id` property for the resource. Links to resources may be either given as just the URI if there is no additional information associated with them, or they may be a JSON object with the `@id` property. Thus the following two lines are equivalent, however the second should not be used without additional information associated with the resource:
 
 ``` javascript
 // Option 1, plain string
@@ -378,23 +378,23 @@ Resource descriptions _should_{: .rfc} be embedded within higher-level resources
 {"seeAlso" : {"@id":"http://www.example.org/descriptions/book1.xml"}}
 ```
 
-Any of the descriptive fields, such as description or attribution, _may_{: .rfc} be repeated. This is done by giving a list of values, rather than a single string.
+Any of the descriptive fields, such as description or attribution, _MAY_ be repeated. This is done by giving a list of values, rather than a single string.
 
 ``` json
 {"seeAlso" : ["http://www.example.org/descriptions/book1.xml", "http://www.example.org/descriptions/book1.csv"]}
 ```
 
-Language _may_{: .rfc} be associated with descriptive metadata strings using the following pattern of value plus the [RFC 5646][XXX] code, instead of a plain string.  For example a description might have a language associated with it:
+Language _MAY_ be associated with descriptive metadata strings using the following pattern of value plus the [RFC 5646][XXX] code, instead of a plain string.  For example a description might have a language associated with it:
 
 ``` json
 {"description" : {"@value":"Here is a longer description of the object", "@language":"en"} }
 ```
 
-Note that [RFC 5646][XXX] allows the script of the text to be included after a hyphen, such as `ar-latn`, and clients _should_{: .rfc} be aware of this possibility. This allows for full internationalization of the user interface components described in the response, as the labels as well as values may be translated in this manner; examples are given below.
+Note that [RFC 5646][XXX] allows the script of the text to be included after a hyphen, such as `ar-latn`, and clients _SHOULD_ be aware of this possibility. This allows for full internationalization of the user interface components described in the response, as the labels as well as values may be translated in this manner; examples are given below.
 
-Minimal HTML markup _may_{: .rfc} be included in descriptive strings using the pattern of `@value` with an `@type` property of `rdf:XMLLiteral`. This is included to allow manifest creators to add links and simple formatting instructions to blocks of plain text. The content _must_{: .rfc} be well-formed XML and therefore must be wrapped in an element such as `p` or `span`.  There _must not_{: .rfc} be whitespace on either side of the HTML string, and thus the first character in the string _must_{: .rfc} be a '<' character and the last character _must_{: .rfc} be '>'.
+Minimal HTML markup _MAY_ be included in descriptive strings using the pattern of `@value` with an `@type` property of `rdf:XMLLiteral`. This is included to allow manifest creators to add links and simple formatting instructions to blocks of plain text. The content _MUST_ be well-formed XML and therefore must be wrapped in an element such as `p` or `span`.  There _MUST NOT_ be whitespace on either side of the HTML string, and thus the first character in the string _MUST_ be a '<' character and the last character _MUST_ be '>'.
 
-In order to avoid HTML or script injection attacks, clients _must_{: .rfc} remove:
+In order to avoid HTML or script injection attacks, clients _MUST_ remove:
 
   * Tags such as `script`, `style`, `object`, `form`, `input`
   * All attributes other than `href` on the `a` tag, `src` and `alt` on the `img` tag
@@ -402,7 +402,7 @@ In order to avoid HTML or script injection attacks, clients _must_{: .rfc} remov
   * XML Comments
   * Processing instructions
 
-Clients _should_{: .rfc} allow only `a`, `b`, `br`, `i`, `img`, `p`, and `span` tags. Clients _may_{: .rfc} choose to remove any and all tags, therefore it _should not_{: .rfc} be assumed that the formating will always be rendered.
+Clients _SHOULD_ allow only `a`, `b`, `br`, `i`, `img`, `p`, and `span` tags. Clients _MAY_ choose to remove any and all tags, therefore it _SHOULD NOT_ be assumed that the formating will always be rendered.
 
 ```json
 {
@@ -414,15 +414,15 @@ Clients _should_{: .rfc} allow only `a`, `b`, `br`, `i`, `img`, `p`, and `span` 
 }
 ```
 
-Each response _must_{: .rfc} have a `@context` property, and it _should_{: .rfc} appear as the very first key/value pair in the top-most object. This tells Linked Data processors how to interpret the information. The IIIF context, below, _must_{: .rfc} occur exactly once per response, and be omitted from any embedded resources. For example, when embedding a sequence within a manifest, the sequence _must not_{: .rfc} have the @context field.
+Each response _MUST_ have a `@context` property, and it _SHOULD_ appear as the very first key/value pair in the top-most object. This tells Linked Data processors how to interpret the information. The IIIF context, below, _MUST_ occur exactly once per response, and be omitted from any embedded resources. For example, when embedding a sequence within a manifest, the sequence _MUST NOT_ have the @context field.
 
 ``` json
 {"@context": "http://iiif.io/api/presentation/{{ site.presentation_api.latest.major }}/context.json"}
 ```
 
-Any additional fields beyond those defined in this specification _should_{: .rfc} be mapped to RDF predicates using further context documents. In this case, the enclosing object _must_{: .rfc} have its own `@context` property as the first key/value pair. This is _required_{: .rfc} for `service` links that embed any information beyond a `profile`.  These contexts _must not_{: .rfc} redefine `profile`.
+Any additional fields beyond those defined in this specification _SHOULD_ be mapped to RDF predicates using further context documents. In this case, the enclosing object _MUST_ have its own `@context` property as the first key/value pair. This is _required_{: .rfc} for `service` links that embed any information beyond a `profile`.  These contexts _MUST NOT_ redefine `profile`.
 
-Clients _should_{: .rfc} be aware that some implementations may add an `@graph` property at the top level, which contains the object. This is a side effect of JSON-LD serialization, and servers _should_{: .rfc} remove it before sending to the client. The client can use the JSON-LD compaction algorithm to remove it, if present. Using JSON-LD Framing with the [supplied frames][XXX] will avoid the generation of the `@graph` pattern.
+Clients _SHOULD_ be aware that some implementations may add an `@graph` property at the top level, which contains the object. This is a side effect of JSON-LD serialization, and servers _SHOULD_ remove it before sending to the client. The client can use the JSON-LD compaction algorithm to remove it, if present. Using JSON-LD Framing with the [supplied frames][XXX] will avoid the generation of the `@graph` pattern.
 
 ##  6. Primary Resource Types
 
@@ -437,9 +437,9 @@ Recommended URI pattern:
 
 The manifest contains sufficient information for the client to initialize itself and begin to display something quickly to the user. It represents a single object and any intellectual work or works embodied within that object. In particular it includes the descriptive, rights and linking information for the object. It then embeds the sequence(s) of canvases that should be rendered to the user.
 
-The fields are included directly within the JSON object. The identifier in `@id` _must_{: .rfc} always be able to be dereferenced to retrieve the JSON description of the object. After the descriptive information, there is then a `sequences` section, which is a list of objects. Each object is a sequence, described in the next section, that represents the order of the views and the first such sequence should be included within the manifest as well as optionally being available from its own URI. Subsequent sequences _should_{: .rfc} only be referenced with their identifier (`@id`), class (`@type`) and `label` and thus _must_{: .rfc} be dereferenced by clients in order to process them if the user selects to view that sequence.
+The fields are included directly within the JSON object. The identifier in `@id` _MUST_ always be able to be dereferenced to retrieve the JSON description of the object. After the descriptive information, there is then a `sequences` section, which is a list of objects. Each object is a sequence, described in the next section, that represents the order of the views and the first such sequence should be included within the manifest as well as optionally being available from its own URI. Subsequent sequences _SHOULD_ only be referenced with their identifier (`@id`), class (`@type`) and `label` and thus _MUST_ be dereferenced by clients in order to process them if the user selects to view that sequence.
 
-The example below includes only the manifest-level information, however it _must_{: .rfc} embed the sequence, canvas and content information as described in the following sections. It includes examples in the descriptive metadata for how to associate multiple entries with a single field and how to be explicit about the language of a particular entry.
+The example below includes only the manifest-level information, however it _MUST_ embed the sequence, canvas and content information as described in the following sections. It includes examples in the descriptive metadata for how to associate multiple entries with a single field and how to be explicit about the language of a particular entry.
 
 ```javascript
 {
@@ -513,13 +513,13 @@ Recommended URI pattern:
 ```
 {: .urltemplate}
 
-The sequence conveys the ordering of the views of the object. The default sequence (and typically the only sequence) _must_{: .rfc} be embedded within the manifest, and _may_{: .rfc} also be available from its own URI. Any additional sequences _must_{: .rfc} be referred to from the manifest, not embedded within it.
+The sequence conveys the ordering of the views of the object. The default sequence (and typically the only sequence) _MUST_ be embedded within the manifest, and _MAY_ also be available from its own URI. Any additional sequences _MUST_ be referred to from the manifest, not embedded within it.
 
-The new {name} parameter in the URI structure is to distinguish it from any other sequences that may be available for the physical object. Typical default names for sequences are "normal" or "basic". Names _should_{: .rfc} begin with a character in the range [a-zA-Z].
+The new {name} parameter in the URI structure is to distinguish it from any other sequences that may be available for the physical object. Typical default names for sequences are "normal" or "basic". Names _SHOULD_ begin with a character in the range [a-zA-Z].
 
-Sequences _may_{: .rfc} have their own descriptive, rights and linking metadata using the same fields as for manifests. The `label` property _may_{: .rfc} be given for sequences and _must_{: .rfc} be given if there is more than one referenced from a manifest. After the metadata, the set of pages in the object, represented by canvas resources, are listed in order in the `canvases` property.  There _must_{: .rfc} be at least one canvas given.
+Sequences _MAY_ have their own descriptive, rights and linking metadata using the same fields as for manifests. The `label` property _MAY_ be given for sequences and _MUST_ be given if there is more than one referenced from a manifest. After the metadata, the set of pages in the object, represented by canvas resources, are listed in order in the `canvases` property.  There _MUST_ be at least one canvas given.
 
-In the manifest example above, the sequence is referenced by its URI and contains only the basic information of `label`, `@type` and `@id`. The default sequence should be written out in full within the manifest file, as below but _must not_{: .rfc} have the `@context` property.
+In the manifest example above, the sequence is referenced by its URI and contains only the basic information of `label`, `@type` and `@id`. The default sequence should be written out in full within the manifest file, as below but _MUST NOT_ have the `@context` property.
 
 ```javascript
 {
@@ -566,15 +566,15 @@ Recommended URI pattern:
 ```
 {: .urltemplate}
 
-The canvas represents an individual page or view and acts as a central point for laying out the different content resources that make up the display. The {name} parameter must uniquely distinguish the canvas from all other canvases in the object. As with sequences, the name _should not_{: .rfc} begin with a number. Suggested patterns are "f1r" or "p1".
+The canvas represents an individual page or view and acts as a central point for laying out the different content resources that make up the display. The {name} parameter must uniquely distinguish the canvas from all other canvases in the object. As with sequences, the name _SHOULD NOT_ begin with a number. Suggested patterns are "f1r" or "p1".
 
-Every canvas _must_{: .rfc} have a `label` to display, and a `height` and a `width` as integers. A canvas is a two-dimensional rectangular space with an aspect ratio that represents a single logical view of some part of the object, and the aspect ratio is given with the height and width properties. This allows resources to be associated with specific parts of the canvas, rather than the entire space. It is _recommended_{: .rfc} that if there is (at the time of implementation) a single image that depicts the page, then the dimensions of the image are used as the dimensions of the canvas for simplicity. If there are multiple full images, then the dimensions of the largest image should be used. If the largest image's dimensions are less than 1200 pixels on either edge, then the canvas's dimensions _should_{: .rfc} be double that of the image. Clients _must_{: .rfc} be aware that this is not always the case, such as in the examples presented, and instead _must_{: .rfc} always scale images into the space represented by the canvas.  The dimensions of the canvas _should_{: .rfc} be the same scale as the physical object, and thus images should depict only the object.  This can be accomplished by cropping the image, or associating only a segment of the image with the canvas.  The physical dimensions of the object may be available via a service, either embedded within the description or requiring an HTTP request to retrieve them.
+Every canvas _MUST_ have a `label` to display, and a `height` and a `width` as integers. A canvas is a two-dimensional rectangular space with an aspect ratio that represents a single logical view of some part of the object, and the aspect ratio is given with the height and width properties. This allows resources to be associated with specific parts of the canvas, rather than the entire space. It is _recommended_{: .rfc} that if there is (at the time of implementation) a single image that depicts the page, then the dimensions of the image are used as the dimensions of the canvas for simplicity. If there are multiple full images, then the dimensions of the largest image should be used. If the largest image's dimensions are less than 1200 pixels on either edge, then the canvas's dimensions _SHOULD_ be double that of the image. Clients _MUST_ be aware that this is not always the case, such as in the examples presented, and instead _MUST_ always scale images into the space represented by the canvas.  The dimensions of the canvas _SHOULD_ be the same scale as the physical object, and thus images should depict only the object.  This can be accomplished by cropping the image, or associating only a segment of the image with the canvas.  The physical dimensions of the object may be available via a service, either embedded within the description or requiring an HTTP request to retrieve them.
 
-Image resources, and only image resources, are included in the `images` section of the canvas. These are linked to the canvas via annotations. Other content, such as transcriptions, video, audio or commentary, is provided via external annotation lists referenced in the `otherContent` section. The value of both of these _must_{: .rfc} be a list, even if there is only one entry. Both are optional, in the situation that there is no additional information associated with the canvas. Note that the items in the `otherContent` list may be either objects with an "@id" property or strings. In the case of a string, this is the URI of the annotation list and the type of "sc:AnnotationList" can be inferred.
+Image resources, and only image resources, are included in the `images` section of the canvas. These are linked to the canvas via annotations. Other content, such as transcriptions, video, audio or commentary, is provided via external annotation lists referenced in the `otherContent` section. The value of both of these _MUST_ be a list, even if there is only one entry. Both are optional, in the situation that there is no additional information associated with the canvas. Note that the items in the `otherContent` list may be either objects with an "@id" property or strings. In the case of a string, this is the URI of the annotation list and the type of "sc:AnnotationList" can be inferred.
 
-In a sequence with the "paged" viewingHint, presented in a book viewing modality, the first canvas is defined as a single up -- typically either the cover, or first recto page. Thereafter, the canvases represent the sides of the leaves, and hence may be presented with two up as an opening of the book.  If there are canvases which are in the sequence but would break this ordering, then they _must_{: .rfc} have the `viewingHint` property with a value of "non-paged".  Similarly if the first canvas is not a single up, it _must_{: .rfc} be marked as "non-paged" or an empty canvas added before it.
+In a sequence with the "paged" viewingHint, presented in a book viewing modality, the first canvas is defined as a single up -- typically either the cover, or first recto page. Thereafter, the canvases represent the sides of the leaves, and hence may be presented with two up as an opening of the book.  If there are canvases which are in the sequence but would break this ordering, then they _MUST_ have the `viewingHint` property with a value of "non-paged".  Similarly if the first canvas is not a single up, it _MUST_ be marked as "non-paged" or an empty canvas added before it.
 
-Canvases _may_{: .rfc} be dereferenced separately from the manifest via their URIs, and the following representation information should be returned. This information should be embedded within the sequence file, as per previously.
+Canvases _MAY_ be dereferenced separately from the manifest via their URIs, and the following representation information should be returned. This information should be embedded within the sequence file, as per previously.
 
 ```javascript
 {
@@ -614,17 +614,17 @@ Recommended URI pattern:
 
 Association of images with their respective canvases is done via annotations. Although normally annotations are used for associating commentary with the thing the annotation's text is about, the [Open Annotation][XXX] model allows any resource to be associated with any other resource, or parts thereof, and it is reused for both commentary and painting resources on the canvas.
 
-Annotations _may_{: .rfc} have their own URIs, conveyed by adding an `@id` property to the JSON object. The content of the annotation should be returned if the URI is requested. Annotations are _not required_{: .rfc} to be dereferenced separately from their annotation lists, sequences and manifests, but some systems may like to do this and identifiers should be given using the recommended pattern if possible.
+Annotations _MAY_ have their own URIs, conveyed by adding an `@id` property to the JSON object. The content of the annotation should be returned if the URI is requested. Annotations are _not required_{: .rfc} to be dereferenced separately from their annotation lists, sequences and manifests, but some systems may like to do this and identifiers should be given using the recommended pattern if possible.
 
-Each association of a content resource _must_{: .rfc} have the `motivation` field and the value _must_{: .rfc} be "sc:painting". This is in order to distinguish it from comment annotations about the canvas, described in further detail in [Section 5.6.6].  All resources which are to be displayed as part of the representation are given the motivation of "sc:painting", regardless of whether they are images or not.  For example, a transcription of the text in a page is considered "painting" as it is a representation of the object, whereas a comment about the page is not.
+Each association of a content resource _MUST_ have the `motivation` field and the value _MUST_ be "sc:painting". This is in order to distinguish it from comment annotations about the canvas, described in further detail in [Section 5.6.6].  All resources which are to be displayed as part of the representation are given the motivation of "sc:painting", regardless of whether they are images or not.  For example, a transcription of the text in a page is considered "painting" as it is a representation of the object, whereas a comment about the page is not.
 
-The image itself is linked in the `resource` property of the annotation. It _must_{: .rfc} have an `@id` field, with the value being the URI at which the image can be obtained. It _should_{: .rfc} have an `@type` of "dcterms:Image". Its media type _may_{: .rfc} be listed in `format`, and its height and width _may_{: .rfc} be given as integer values for `height` and `width` respectively.
+The image itself is linked in the `resource` property of the annotation. It _MUST_ have an `@id` field, with the value being the URI at which the image can be obtained. It _SHOULD_ have an `@type` of "dcterms:Image". Its media type _MAY_ be listed in `format`, and its height and width _MAY_ be given as integer values for `height` and `width` respectively.
 
-If a [IIIF Image API][3] service is available for the image, then a link to the service's endpoint _should_{: .rfc} be included. The endpoint is the URI up to the identifier, but not including the trailing slash character or any of the subsequent parameters. The profile of the service should be the supported conformance level, and the additional fields from the [Image Information document][31] _may_{: .rfc} be included in this JSON object to avoid requiring it to be downloaded separately.
+If a [IIIF Image API][3] service is available for the image, then a link to the service's endpoint _SHOULD_ be included. The endpoint is the URI up to the identifier, but not including the trailing slash character or any of the subsequent parameters. The profile of the service should be the supported conformance level, and the additional fields from the [Image Information document][31] _MAY_ be included in this JSON object to avoid requiring it to be downloaded separately.
 
-Although it seems redundant, the URI of the canvas _must_{: .rfc} be repeated in the `on` field of the Annotation. This is to ensure consistency with annotations that target only part of the resource, described in more detail below.
+Although it seems redundant, the URI of the canvas _MUST_ be repeated in the `on` field of the Annotation. This is to ensure consistency with annotations that target only part of the resource, described in more detail below.
 
-Additional features of the [Open Annotation][XXX] data model _may_{: .rfc} also be used, such as selecting a segment of the canvas or content resource, or embedding the comment or transcription within the annotation. These additional features are described below.
+Additional features of the [Open Annotation][XXX] data model _MAY_ also be used, such as selecting a segment of the canvas or content resource, or embedding the comment or transcription within the annotation. These additional features are described below.
 
 ```javascript
 {
@@ -658,15 +658,15 @@ Recommended URI pattern:
 
 For some objects, there may be more than a single image available to represent the page. Other resources could include the full text of the object, musical notations, musical performances, diagram transcriptions, higher resolution segments of part of the page, commentary annotations, tags, video, data and more. These additional resources are included in annotation lists, referenced from the canvas.
 
-The {name} parameter in the URI pattern _must_{: .rfc} uniquely distinguish it from all other lists, and is typically the same name as the canvas. As a single canvas may have multiple lists of additional resources, perhaps divided by type, this _must not_{: .rfc} be assumed however, and the URIs must be followed rather than constructed _a priori_. As with other uses of the {name} parameter, it _should not_{: .rfc} begin with a number.
+The {name} parameter in the URI pattern _MUST_ uniquely distinguish it from all other lists, and is typically the same name as the canvas. As a single canvas may have multiple lists of additional resources, perhaps divided by type, this _MUST NOT_ be assumed however, and the URIs must be followed rather than constructed _a priori_. As with other uses of the {name} parameter, it _SHOULD NOT_ begin with a number.
 
-The annotation list _must_{: .rfc} have an http[s] URI given in `@id`, and the the JSON representation _must_{: .rfc} be returned when that URI is dereferenced.  They _may_{: .rfc} have any of the other fields defined in this specification.
+The annotation list _MUST_ have an http[s] URI given in `@id`, and the the JSON representation _MUST_ be returned when that URI is dereferenced.  They _MAY_ have any of the other fields defined in this specification.
 
-The list of resource associations are given, after any metadata, in a `resources` list. The items in the list are annotations, as described above, however the resource linked by the annotation is something other than an image. The canvas URI _must_{: .rfc} be repeated in the `on` field, as above.
+The list of resource associations are given, after any metadata, in a `resources` list. The items in the list are annotations, as described above, however the resource linked by the annotation is something other than an image. The canvas URI _MUST_ be repeated in the `on` field, as above.
 
-Please note the different types and formats for the content resources. The format _should_{: .rfc} be included and _must_{: .rfc} be the media type that is returned when the resource is dereferenced. For resources that are displayed as part of the rendering (such as images, text transcriptions, performances of music from the manuscript and so forth) the motivation _must_{: .rfc} be "sc:painting". The type of the content resource _should_{: .rfc} be taken from this [list in the Open Annotation specification][XXX], or a similar well-known resource type ontology.  The content resources _may_{: .rfc} also have any of the other fields defined in this specification, including commonly `label`, `description`, `metadata`, `license` and `attribution`.
+Please note the different types and formats for the content resources. The format _SHOULD_ be included and _MUST_ be the media type that is returned when the resource is dereferenced. For resources that are displayed as part of the rendering (such as images, text transcriptions, performances of music from the manuscript and so forth) the motivation _MUST_ be "sc:painting". The type of the content resource _SHOULD_ be taken from this [list in the Open Annotation specification][XXX], or a similar well-known resource type ontology.  The content resources _MAY_ also have any of the other fields defined in this specification, including commonly `label`, `description`, `metadata`, `license` and `attribution`.
 
-Note well that Annotation Lists _must not_{: .rfc} be embedded within the manifest.
+Note well that Annotation Lists _MUST NOT_ be embedded within the manifest.
 
 ```javascript
 {
@@ -702,13 +702,13 @@ Note well that Annotation Lists _must not_{: .rfc} be embedded within the manife
 
 ###  6.6. Advanced Association Features
 
-The following sections describe known use cases for building representations of objects using the IIIF Presentation API, and clients _should_{: .rfc} expect to encounter them. Other use cases are likely to exist, and _must_{: .rfc} be encoded using the [Open Annotation's][XXX] context document mapping for any additional fields required.
+The following sections describe known use cases for building representations of objects using the IIIF Presentation API, and clients _SHOULD_ expect to encounter them. Other use cases are likely to exist, and _MUST_ be encoded using the [Open Annotation's][XXX] context document mapping for any additional fields required.
 
 ####  6.6.1. Segments
 
 It is important to be able to extract parts, or segments, of resources. In particular a very common requirement is to associate a resource with part of a canvas, or part of an image with either the entire canvas or part thereof. Secondly, as transcriptions are often made available in XML files, extracting the correct page to associate with the canvas, or line to associate with part of the canvas, is equally useful for reusing existing material. These can be accomplished using URI fragments for simple cases. Two examples are given below:
 
-  * Segments of both images and canvases may be selected by adding a [rectangular bounding box][33] after the URI. The fragment _must_{: .rfc} be structured:
+  * Segments of both images and canvases may be selected by adding a [rectangular bounding box][33] after the URI. The fragment _MUST_ be structured:
 
       `http://www.example.com/iiif/book1/canvas/p1.json#xywh=100,100,300,50`
 
@@ -731,7 +731,7 @@ It is important to be able to extract parts, or segments, of resources. In parti
     }
     ```
 
-  * Segments of XML files may be extracted with [XPaths][34]. The fragment _must_{: .rfc} be structured:
+  * Segments of XML files may be extracted with [XPaths][34]. The fragment _MUST_ be structured:
         `http://www.example.com/iiif/book1/res/tei.xml#xpointer(/path/to/element)`
 
     ```javascript
@@ -753,13 +753,13 @@ It is important to be able to extract parts, or segments, of resources. In parti
 
 Instead of referencing transcription text externally, it is often easier to record it within the annotation itself. Equally, text based comments could also benefit from being included in the annotation that associates the comment with the canvas.
 
-Content _may_{: .rfc} be embedded instead of referenced by using the following pattern within the annotation block:
+Content _MAY_ be embedded instead of referenced by using the following pattern within the annotation block:
 
 ```javascript
 "resource" : { "@type" : "cnt:ContextAsText", "chars" : "text here" }
 ```
 
-If it is desirable to associate the language with the content, then it _must_{: .rfc} be `language` not `@language` (otherwise the `chars` field would need to be an array with `@value`). The media type _may_{: .rfc} be given using a `format` field.
+If it is desirable to associate the language with the content, then it _MUST_ be `language` not `@language` (otherwise the `chars` field would need to be an array with `@value`). The media type _MAY_ be given using a `format` field.
 
 An example of this feature:
 
@@ -781,11 +781,11 @@ An example of this feature:
 
 ####  6.6.3. Choice of Alternative Resources
 
-A common requirement is to have a choice between multiple images that depict the page, such as different under different lights, or taken at different times. This can be accomplished by having a "oa:Choice" object as the resource, which then refers to the options to select from. It _must_{: .rfc} have one `default` and at least one further `item` to choose from. The images _should_{: .rfc} have a `label` for the viewer to display to the user so they can make their selection from among the options.
+A common requirement is to have a choice between multiple images that depict the page, such as different under different lights, or taken at different times. This can be accomplished by having a "oa:Choice" object as the resource, which then refers to the options to select from. It _MUST_ have one `default` and at least one further `item` to choose from. The images _SHOULD_ have a `label` for the viewer to display to the user so they can make their selection from among the options.
 
 The same construction can be applied to a choice between other types of resources as well. This is described in the [Multiplicity section][XXX] of the Open Annotation specification.
 
-Either the `default` or `item` _may_{: .rfc} have a value of "rdf:nil". This means that a valid option is not to display anything. This _must not_{: .rfc} have a label associated with it, viewers should either use "Nothing" or an appropriate label of their choice.
+Either the `default` or `item` _MAY_ have a value of "rdf:nil". This means that a valid option is not to display anything. This _MUST NOT_ have a label associated with it, viewers should either use "Nothing" or an appropriate label of their choice.
 
 This can be used to model foldouts and other dynamic features of a page, by associating images of the different states with the canvas. Depending on the nature of the images, this can be either done such that the entire image is switched to change state, or only the section of the image that has to change if the segment information is known.
 
@@ -816,11 +816,11 @@ This can be used to model foldouts and other dynamic features of a page, by asso
 
 ####  6.6.4. Non Rectangular Segments
 
-The [Scalable Vector Graphics][XXX] standard (SVG) is used to describe non-rectangular areas of canvas or image resources. While SVG can, of course, describe rectangles this is _not recommended_{: .rfc}, and the `xywh` bounding box described above _should_{: .rfc} be used instead.
+The [Scalable Vector Graphics][XXX] standard (SVG) is used to describe non-rectangular areas of canvas or image resources. While SVG can, of course, describe rectangles this is _not recommended_{: .rfc}, and the `xywh` bounding box described above _SHOULD_ be used instead.
 
 In this pattern, the resource of the annotation is a "oa:SpecificResource" which has the complete image referenced in a `full` field and the SVG embedded in a `selector` field (as the SVG selects the part of the image needed). The SVG document is embedded using the same `ContentAsText` approach as for embedding comments or transcriptions.
 
-If the section of an image is mapped to part of a canvas, as in the example below, then the target in `on` _must_{: .rfc} be the rectangular bounding box in which the SVG viewport should be placed. If the entire canvas is the target, then the SVG viewport is assumed to cover the entire canvas. If the dimensions of the viewport and the bounding box or canvas are not the same, then the SVG _must_{: .rfc} be scaled such that it covers the region. This may result in different scaling ratios for the X and Y dimensions.
+If the section of an image is mapped to part of a canvas, as in the example below, then the target in `on` _MUST_ be the rectangular bounding box in which the SVG viewport should be placed. If the entire canvas is the target, then the SVG viewport is assumed to cover the entire canvas. If the dimensions of the viewport and the bounding box or canvas are not the same, then the SVG _MUST_ be scaled such that it covers the region. This may result in different scaling ratios for the X and Y dimensions.
 
 ```javascript
 {
@@ -897,7 +897,7 @@ CSS may also be used for rotation of images which are not correctly aligned with
 
 ####  6.6.6. Comment Annotations
 
-For annotations which are comments about the canvas, as opposed to painting content resources onto the canvas, there are different types of motivation to make the distinction clear. For annotations about the content (such as comments, notes, descriptions etc.) the `motivation` _should_{: .rfc} be "oa:commenting", but _may_{: .rfc} be any from the list given in the [Open Annotation][XXX] specification.
+For annotations which are comments about the canvas, as opposed to painting content resources onto the canvas, there are different types of motivation to make the distinction clear. For annotations about the content (such as comments, notes, descriptions etc.) the `motivation` _SHOULD_ be "oa:commenting", but _MAY_ be any from the list given in the [Open Annotation][XXX] specification.
 
 ```javascript
 {
@@ -940,9 +940,9 @@ Recommended URI pattern:
 
 It may be important to describe additional structure within the text, such as newspaper articles that span pages, the range of non-content-bearing pages at the beginning of a work, or chapters within a book. These are described using ranges in a similar manner to sequences. The intent of adding a range to the manifest is to allow the client to display a structured hierarchy to enable the user to navigate within the object without merely stepping through the current sequence.
 
-A range _must_{: .rfc} include one or more canvases or, different to sequences, parts of canvases with one exception. The part must be rectangular, and is given using the `xywh=` fragment approach. This allows for selecting, for example, the areas within two newspaper pages where an article is located. As the information about the canvas is already in the sequence, it _must_{: .rfc} not be repeated. In order to present a table of the different ranges to allow a user to select one, every range _must_{: .rfc} have a label and the top most range in the table _should_{: .rfc} have a `viewingHint` with the value "top". A range that is the top of a hierarchy does not need to list all of the canvases in the sequence, and _should_{: .rfc} only give the list of ranges below it.  Ranges _may_{: .rfc} also have any of the other properties defined in this specification.
+A range _MUST_ include one or more canvases or, different to sequences, parts of canvases with one exception. The part must be rectangular, and is given using the `xywh=` fragment approach. This allows for selecting, for example, the areas within two newspaper pages where an article is located. As the information about the canvas is already in the sequence, it _MUST_ not be repeated. In order to present a table of the different ranges to allow a user to select one, every range _MUST_ have a label and the top most range in the table _SHOULD_ have a `viewingHint` with the value "top". A range that is the top of a hierarchy does not need to list all of the canvases in the sequence, and _SHOULD_ only give the list of ranges below it.  Ranges _MAY_ also have any of the other properties defined in this specification.
 
-Ranges _may_{: .rfc} include other ranges.  This is done in a `ranges` property within the range.  The values within the range _must_{: .rfc} be strings giving the URIs of ranges in the list in the manifest.
+Ranges _MAY_ include other ranges.  This is done in a `ranges` property within the range.  The values within the range _MUST_ be strings giving the URIs of ranges in the list in the manifest.
 Ranges are linked or embedded within the manifest in a `structures` field.  It is a flat list of objects, even if there is only one range.
 
 ```javascript
@@ -1002,7 +1002,7 @@ Recommended URI pattern:
 
 There may be groupings of annotations, such as all of the annotations that, regardless of which canvas they target, represent a particular transcription or translation of the text in the object. In order to allow clients to maintain a coherent interface, the lists of these annotations are grouped together in layers. Without the layer construction, it would be impossible to determine which annotations belonged together. The client may then present a user interface that allows all of the annotations in a layer to be displayed or hidden according to the user's preference.
 
-Each annotation list _may_{: .rfc} be part of one or more layers, and this is recorded using the `within` relationship in both the manifest and annotation list responses. The layer _must_{: .rfc} have a `label` so that it can be presented to a user to select whether or not to view it.
+Each annotation list _MAY_ be part of one or more layers, and this is recorded using the `within` relationship in both the manifest and annotation list responses. The layer _MUST_ have a `label` so that it can be presented to a user to select whether or not to view it.
 
 ```javascript
 {
@@ -1027,9 +1027,9 @@ Recommended URI pattern:
 ```
 {: .urltemplate}
 
-Collections are used to list the manifests available for viewing, and to describe the structures, hierarchies or collections that the physical objects are part of.  The collections _may_{: .rfc} include both other collections and manifests, in order to form a hierarchy of objects with manifests at the leaf nodes of the tree.  Collection objects _should not_{: .rfc} be embedded inline within other collection objects, but instead have their own URI from which the description is made available.
+Collections are used to list the manifests available for viewing, and to describe the structures, hierarchies or collections that the physical objects are part of.  The collections _MAY_ include both other collections and manifests, in order to form a hierarchy of objects with manifests at the leaf nodes of the tree.  Collection objects _SHOULD NOT_ be embedded inline within other collection objects, but instead have their own URI from which the description is made available.
 
-Manifests or collections _may_{: .rfc} appear within more than one collection. For example, an institution might define four collections: one for modern works, one for historical works, one for newspapers and one for books.  The manifest for a modern newspaper would then appear in both the modern collection and the newspaper collection.  Alternatively, the institution may choose to have two separate newspaper collections, and reference each as a sub-collection of modern and historical.
+Manifests or collections _MAY_ appear within more than one collection. For example, an institution might define four collections: one for modern works, one for historical works, one for newspapers and one for books.  The manifest for a modern newspaper would then appear in both the modern collection and the newspaper collection.  Alternatively, the institution may choose to have two separate newspaper collections, and reference each as a sub-collection of modern and historical.
 
 The intended usage of collections is to allow clients to:
 
@@ -1043,24 +1043,24 @@ Note that the recommended URI pattern prevents the existence of a manifest with 
 Collections have two new list-based properties:
 
 collections
-: References to sub-collections of the current collection.  Each referenced collection _must_{: .rfc} have the appropriate @id, @type and label.
+: References to sub-collections of the current collection.  Each referenced collection _MUST_ have the appropriate @id, @type and label.
 
 manifests
-: References to manifests contained within the current collection. Each referenced manifest _must_{: .rfc} have the appropriate @id, @type and label.
+: References to manifests contained within the current collection. Each referenced manifest _MUST_ have the appropriate @id, @type and label.
 
-Collections _must_{: .rfc} have the following properties:
+Collections _MUST_ have the following properties:
 
   * `@id`
   * `@type` and the value MUST be "sc:Collection"
   * `label`
 
-Collections _should_{: .rfc} have the following properties:
+Collections _SHOULD_ have the following properties:
 
   * At least one of `collections` and `manifests`.  Empty collections with neither are allowed but discouraged.
   * `description`
   * `attribution`
 
-Collections _may_{: .rfc} have the following properties:
+Collections _MAY_ have the following properties:
 
   * `metadata`
   * `thumbnail`
@@ -1357,6 +1357,13 @@ XXX Trawl lists and ensure everyone gets credit who deserves it.
 | 2014-06-01 | Version 2.0.0-draft (Triumphant Giraffe) RFC       |
 | 2013-08-26 | Version 1.0 (unnamed) released.                    |
 | 2013-06-14 | Version 0.9 (unnamed) released.                    |
+
+   [iiif-discuss]: mailto:iiif-discuss%40googlegroups.com "Email Discussion List"
+   [shared-canvas]: /model/shared-canvas/{{ site.shared_canvas.latest.major}}.{{ site.shared_canvas.latest.minor }} "Shared Canvas Data Model"
+   [image-api]: /api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/
+
+
+   [web-arch]: http://www.w3.org/TR/webarch/ "Architecture of the World Wide Web"
 
    [1]: ../../annex/services/index.html
    [2]: http://www.shared-canvas.org/

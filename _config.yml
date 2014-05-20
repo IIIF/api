@@ -24,4 +24,9 @@ presentation_api:
     major: 1
     minor: 0
     patch: 0
+shared_canvas:
+  latest:
+    major: 1
+    minor: 0
+    patch: 0
 
