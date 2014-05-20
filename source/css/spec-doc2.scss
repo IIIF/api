@@ -113,6 +113,36 @@ dt {
   border: 1px dashed #bbb;
   padding: 3px
 }
+
+.highlight {
+  background: #eee;
+  border: 1px dashed #bbb;
+  padding-left: 5px;
+  margin-left: 30px  
+}
+
+.c1 {
+  font-style: italic;
+  color: #909090  
+}
+.s2 {
+  color: #209020
+}
+.nt {
+  color: #202090
+}
+.p {color: black}
+.o {color: black}
+
+.err {
+  font-style: italic;
+  color: #909090   
+}
+.mi {
+  color: #902020  
+}
+
+
 .CodeRay {
   background: #eee;
   border: 1px dashed #bbb;

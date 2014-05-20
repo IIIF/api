@@ -369,24 +369,28 @@ The following applies to all of the responses from the server in the Presentatio
 
 Resource descriptions _SHOULD_ be embedded within higher-level resources, and _MAY_ also be available via separate requests from URIs linked in the responses. These URIs are in the `@id` property for the resource. Links to resources may be either given as just the URI if there is no additional information associated with them, or they may be a JSON object with the `@id` property. Thus the following two lines are equivalent, however the second should not be used without additional information associated with the resource:
 
-``` javascript
-// Option 1, plain string
+{% highlight json %}
+// Option A, plain string
 {"seeAlso" : "http://www.example.org/descriptions/book1.xml"}
-// Option 2, object with @id property
+// Option B, object with @id property
 {"seeAlso" : {"@id":"http://www.example.org/descriptions/book1.xml"}}
-```
+{% endhighlight %}
 
 Any of the descriptive fields, such as description or attribution, _MAY_ be repeated. This is done by giving a list of values, rather than a single string.
 
-``` json
-{"seeAlso" : ["http://www.example.org/descriptions/book1.xml", "http://www.example.org/descriptions/book1.csv"]}
-```
+{% highlight json %}
+{ 
+  "seeAlso" : [
+    "http://www.example.org/descriptions/book1.xml", 
+    "http://www.example.org/descriptions/book1.csv" ]
+}
+{% endhighlight %}
 
 Language _MAY_ be associated with descriptive metadata strings using the following pattern of value plus the [RFC 5646][rfc5646] code, instead of a plain string.  For example a description might have a language associated with it:
 
-``` json
+{% highlight json %}
 {"description" : {"@value":"Here is a longer description of the object", "@language":"en"} }
-```
+{% endhighlight %}
 
 Note that [RFC 5646][rfc5646] allows the script of the text to be included after a hyphen, such as `ar-latn`, and clients _SHOULD_ be aware of this possibility. This allows for full internationalization of the user interface components described in the response, as the labels as well as values may be translated in this manner; examples are given below.
 
@@ -402,7 +406,7 @@ In order to avoid HTML or script injection attacks, clients _MUST_ remove:
 
 Clients _SHOULD_ allow only `a`, `b`, `br`, `i`, `img`, `p`, and `span` tags. Clients _MAY_ choose to remove any and all tags, therefore it _SHOULD NOT_ be assumed that the formating will always be rendered.
 
-```json
+{% highlight json %}
 {
   "description": {
     "@value":"<p>Some <b>description</b></p>",
@@ -410,13 +414,13 @@ Clients _SHOULD_ allow only `a`, `b`, `br`, `i`, `img`, `p`, and `span` tags. Cl
     "@language" : "en-latn"
   }
 }
-```
+{% endhighlight %}
 
 Each response _MUST_ have a `@context` property, and it _SHOULD_ appear as the very first key/value pair in the top-most object. This tells Linked Data processors how to interpret the information. The IIIF context, below, _MUST_ occur exactly once per response, and be omitted from any embedded resources. For example, when embedding a sequence within a manifest, the sequence _MUST NOT_ have the @context field.
 
-``` json
+{% highlight json %}
 {"@context": "http://iiif.io/api/presentation/{{ site.presentation_api.latest.major }}/context.json"}
-```
+{% endhighlight %}
 
 Any additional fields beyond those defined in this specification _SHOULD_ be mapped to RDF predicates using further context documents. In this case, the enclosing object _MUST_ have its own `@context` property as the first key/value pair. This is _required_{: .rfc} for `service` links that embed any information beyond a `profile`.  These contexts _MUST NOT_ redefine `profile`.
 
@@ -442,7 +446,7 @@ The fields are included directly within the JSON object. The identifier in `@id`
 
 The example below includes only the manifest-level information, however it _MUST_ embed the sequence, canvas and content information as described in the following sections. It includes examples in the descriptive metadata for how to associate multiple entries with a single field and how to be explicit about the language of a particular entry.
 
-```javascript
+{% highlight json %}
 {
   // Metadata about this manifest file
   "@context":"http://iiif.io/api/presentation/2/context.json",
@@ -503,7 +507,7 @@ The example below includes only the manifest-level information, however it _MUST
       // Any additional sequences can be referenced here...
   ]
 }
-```
+{% endhighlight %}
 
 ###  6.2. Sequence
 
@@ -522,7 +526,7 @@ Sequences _MAY_ have their own descriptive, rights and linking metadata using th
 
 In the manifest example above, the sequence is referenced by its URI and contains only the basic information of `label`, `@type` and `@id`. The default sequence should be written out in full within the manifest file, as below but _MUST NOT_ have the `@context` property.
 
-```javascript
+{% highlight json %}
 {
   // Metadata about this sequence
   "@context":"http://iiif.io/api/presentation/2/context.json",
@@ -556,7 +560,7 @@ In the manifest example above, the sequence is referenced by its URI and contain
     }
   ]
 }
-```
+{% endhighlight %}
 
 ###  6.3. Canvas
 
@@ -577,7 +581,7 @@ In a sequence with the "paged" viewingHint, presented in a book viewing modality
 
 Canvases _MAY_ be dereferenced separately from the manifest via their URIs, and the following representation information should be returned. This information should be embedded within the sequence file, as per previously.
 
-```javascript
+{% highlight json %}
 {
   // Metadata about this canvas
   "@context":"http://iiif.io/api/presentation/2/context.json",
@@ -602,7 +606,7 @@ Canvases _MAY_ be dereferenced separately from the manifest via their URIs, and 
   ]
 
 }
-```
+{% endhighlight %}
 
 ###  6.4. Association of Image Resources
 
@@ -627,7 +631,7 @@ Although it seems redundant, the URI of the canvas _MUST_ be repeated in the `on
 
 Additional features of the [Open Annotation][openanno] data model _MAY_ also be used, such as selecting a segment of the canvas or content resource, or embedding the comment or transcription within the annotation. These additional features are described below.
 
-```javascript
+{% highlight json %}
 {
   "@context":"http://iiif.io/api/presentation/2/context.json",
   "@id":"http://www.example.org/iiif/book1/annotation/p0001-image.json",
@@ -646,7 +650,7 @@ Additional features of the [Open Annotation][openanno] data model _MAY_ also be 
   },
   "on":"http://www.example.org/iiif/book1/canvas/p1.json"
 }
-```
+{% endhighlight %}
 
 ###  6.5. Other Content Resources
 
@@ -669,7 +673,7 @@ Please note the different types and formats for the content resources. The forma
 
 Note well that Annotation Lists _MUST NOT_ be embedded within the manifest.
 
-```javascript
+{% highlight json %}
 {
   "@context":"http://iiif.io/api/presentation/2/context.json",
   "@id":"http://www.example.org/iiif/book1/list/p1.json",
@@ -699,7 +703,7 @@ Note well that Annotation Lists _MUST NOT_ be embedded within the manifest.
     // ... and so on
   ]
 }
-```
+{% endhighlight %}
 
 ###  6.6. Advanced Association Features
 
@@ -715,7 +719,7 @@ It is important to be able to extract parts, or segments, of resources. In parti
 
       Where the four numbers are the x and y coordinates in the image or canvas, followed by the width and height. Thus this segment is 300px wide, 50px high and starts at position 100,100. Note that only integers are allowed in this syntax, and this may limit accuracy of assignment to canvases with small dimensions.
 
-    ```javascript
+    {% highlight json %}
     {
       "@context":"http://iiif.io/api/presentation/2/context.json",
       "@id":"http://www.example.org/iiif/book1/annotation/anno1".json,
@@ -730,12 +734,12 @@ It is important to be able to extract parts, or segments, of resources. In parti
       // canvas size is 1200x1800
       "on":"http://www.example.org/iiif/book1/canvas/p1.json"
     }
-    ```
+    {% endhighlight %}
 
   * Segments of XML files may be extracted with [XPaths][xpath]. The fragment _MUST_ be structured:
         `http://www.example.com/iiif/book1/res/tei.xml#xpointer(/path/to/element)`
 
-    ```javascript
+    {% highlight json %}
     {
       "@context":"http://iiif.io/api/presentation/2/context.json",
       "@id":"http://www.example.org/iiif/book1/annotation/anno1".json,
@@ -748,7 +752,7 @@ It is important to be able to extract parts, or segments, of resources. In parti
       },
       "on":"http://www.example.org/iiif/book1/canvas/p1.json#xywh=100,100,500,300"
     }
-    ```
+    {% endhighlight %}
 
 ####  6.6.2. Embedded Content
 
@@ -756,15 +760,15 @@ Instead of referencing transcription text externally, it is often easier to reco
 
 Content _MAY_ be embedded instead of referenced by using the following pattern within the annotation block:
 
-```javascript
+{% highlight json %}
 "resource" : { "@type" : "cnt:ContextAsText", "chars" : "text here" }
-```
+{% endhighlight %}
 
 If it is desirable to associate the language with the content, then it _MUST_ be `language` not `@language` (otherwise the `chars` field would need to be an array with `@value`). The media type _MAY_ be given using a `format` field.
 
 An example of this feature:
 
-```javascript
+{% highlight json %}
 {
   "@context":"http://iiif.io/api/presentation/2/context.json",
   "@id":"http://www.example.org/iiif/book1/annotation/p1.json",
@@ -778,7 +782,7 @@ An example of this feature:
   },
   "on":"http://www.example.org/iiif/book1/canvas/p1.json#xywh=100,150,500,25"
 }
-```
+{% endhighlight %}
 
 ####  6.6.3. Choice of Alternative Resources
 
@@ -790,7 +794,7 @@ Either the `default` or `item` _MAY_ have a value of "rdf:nil". This means that 
 
 This can be used to model foldouts and other dynamic features of a page, by associating images of the different states with the canvas. Depending on the nature of the images, this can be either done such that the entire image is switched to change state, or only the section of the image that has to change if the segment information is known.
 
-```javascript
+{% highlight json %}
 {
   "@context":"http://iiif.io/api/presentation/2/context.json",
   "@id":"http://www.example.org/iiif/book1/annotation/anno1.json",
@@ -813,7 +817,7 @@ This can be used to model foldouts and other dynamic features of a page, by asso
   },
   "on":"http://www.example.org/iiif/book1/canvas/p1.json"
 }
-```
+{% endhighlight %}
 
 ####  6.6.4. Non Rectangular Segments
 
@@ -823,7 +827,7 @@ In this pattern, the resource of the annotation is a "oa:SpecificResource" which
 
 If the section of an image is mapped to part of a canvas, as in the example below, then the target in `on` _MUST_ be the rectangular bounding box in which the SVG viewport should be placed. If the entire canvas is the target, then the SVG viewport is assumed to cover the entire canvas. If the dimensions of the viewport and the bounding box or canvas are not the same, then the SVG _MUST_ be scaled such that it covers the region. This may result in different scaling ratios for the X and Y dimensions.
 
-```javascript
+{% highlight json %}
 {
   "@context":"http://iiif.io/api/presentation/2/context.json",
   "@id":"http://www.example.org/iiif/book1/annotation/anno1.json",
@@ -842,7 +846,7 @@ If the section of an image is mapped to part of a canvas, as in the example belo
   },
   "on":"http://www.example.org/iiif/book1/canvas/p1.json#xywh=100,100,300,300"
 }
-```
+{% endhighlight %}
 
 ####  6.6.5. Style
 
@@ -850,7 +854,7 @@ The [Cascading Style Sheets][css] standard (CSS) is used to describe how the cli
 
 In the example below, the text should be colored red.
 
-```javascript
+{% highlight json %}
 {
   "@context":"http://iiif.io/api/presentation/2/context.json",
   "@id":"http://www.example.org/iiif/book1/annotation/anno1.json",
@@ -870,11 +874,11 @@ In the example below, the text should be colored red.
   },
   "on":"http://www.example.org/iiif/book1/canvas/p1.json#xywh=100,150,500,30"
 }
-```
+{% endhighlight %}
 
 CSS may also be used for rotation of images which are not correctly aligned with the canvas. In the example below, after the image is located within the 500 wide by 30 high space within the canvas, it is then rotated by the rendering client application around the top left corner by 45 degrees anti-clockwise.
 
-```javascript
+{% highlight json %}
 {
   "@context":"http://iiif.io/api/presentation/2/context.json",
   "@id":"http://www.example.org/iiif/book1/annotation/anno1.json",
@@ -894,13 +898,13 @@ CSS may also be used for rotation of images which are not correctly aligned with
   },
   "on":"http://www.example.org/iiif/book1/canvas/p1.json#xywh=100,150,500,30"
 }
-```
+{% endhighlight %}
 
 ####  6.6.6. Comment Annotations
 
 For annotations which are comments about the canvas, as opposed to painting content resources onto the canvas, there are different types of motivation to make the distinction clear. For annotations about the content (such as comments, notes, descriptions etc.) the `motivation` _SHOULD_ be "oa:commenting", but _MAY_ be any from the list given in the [Open Annotation][openanno] specification.
 
-```javascript
+{% highlight json %}
 {
   "@context":"http://iiif.io/api/presentation/2/context.json",
   "@id":"http://www.example.org/iiif/book1/annotation/anno1.json",
@@ -913,7 +917,7 @@ For annotations which are comments about the canvas, as opposed to painting cont
   },
   "on":"http://www.example.org/iiif/book1/canvas/p1.json"
 }
-```
+{% endhighlight %}
 
 ##  7. Additional Resource Types
 
@@ -945,7 +949,7 @@ A range _MUST_ include one or more canvases or, different to sequences, parts of
 Ranges _MAY_ include other ranges.  This is done in a `ranges` property within the range.  The values within the range _MUST_ be strings giving the URIs of ranges in the list in the manifest.
 Ranges are linked or embedded within the manifest in a `structures` field.  It is a flat list of objects, even if there is only one range.
 
-```javascript
+{% highlight json %}
 {
   "@context":"http://iiif.io/api/presentation/2/context.json",
   "@id":"http://www.example.org/iiif/book1/manifest.json",
@@ -989,7 +993,7 @@ Ranges are linked or embedded within the manifest in a `structures` field.  It i
     // And any additional ranges here
   ]
 }
-```
+{% endhighlight %}
 
 ###  7.2. Layers
 
@@ -1004,7 +1008,7 @@ There may be groupings of annotations, such as all of the annotations that, rega
 
 Each annotation list _MAY_ be part of one or more layers, and this is recorded using the `within` relationship in both the manifest and annotation list responses. The layer _MUST_ have a `label` so that it can be presented to a user to select whether or not to view it.
 
-```javascript
+{% highlight json %}
 {
   "@context":"http://iiif.io/api/presentation/2/context.json",
   "@id":"http://www.example.org/iiif/book1/list/l1.json",
@@ -1015,7 +1019,7 @@ Each annotation list _MAY_ be part of one or more layers, and this is recorded u
     "label": "Diplomatic Transcription"
   }
 }
-```
+{% endhighlight %}
 
 ###  7.3. Collections
 
@@ -1074,7 +1078,7 @@ Collections _MAY_ have the following properties:
 
 An example collection document:
 
-```javascript
+{% highlight json %}
 {
   "@context": "http://iiif.io/api/presentation/2/context.json",
   "@id": "http://example.org/iiif/collection.json",
@@ -1100,7 +1104,7 @@ An example collection document:
     }
   ]
 }
-```
+{% endhighlight %}
 
 
 ##  8. Complete Example Response
@@ -1109,7 +1113,7 @@ Note that 7.3 above contains a complete response for a Collection document.
 
 URL: _http://www.example.org/iiif/book1/manifest.json_
 
-```javascript
+{% highlight json %}
 {
   "@context":"http://iiif.io/api/presentation/2/context.json",
   "@type":"sc:Manifest",
@@ -1257,7 +1261,7 @@ URL: _http://www.example.org/iiif/book1/manifest.json_
     }
   ]
 }
-```
+{% endhighlight %}
 
 ## Appendices
 
