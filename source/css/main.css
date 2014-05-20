@@ -564,27 +564,19 @@ a.button-turquoise {
 }
 
 .figure-image-api-region {
-  background-image: url('/img/image-api/iiif-img-region-295x1255.png');
-  height: 1255px;
-  width: 295px;
+  background-image: url('/api/image/1.1/img/iiif-region.png');
 }
 
 .figure-image-api-size {
-  background-image: url('/img/image-api/iiif-img-size-215x1205.png');
-  height: 1205px;
-  width: 215px;
+  background-image: url('/api/image/1.1/img/iiif-size.png');
 }
 
 .figure-image-api-rotation {
-  background-image: url('/img/image-api/iiif-img-rotation-275x780.png');
-  height: 780px;
-  width: 275px;
+  background-image: url('/api/image/1.1/img/iiif-rotation.png');
 }
 
 .figure-image-api-quality {
-  background-image: url('/img/image-api/iiif-img-quality-215x845.png');
-  height: 845px;
-  width: 215px;
+  background-image: url('/api/image/1.1/img/iiif-quality.png');
 }
 
 .figure-presentation-api-objects {
@@ -893,36 +885,6 @@ a.button-turquoise {
     white-space: nowrap;
   }
 
-
-  .figure-image-api-region {
-    background-image: url('/img/image-api/iiif-img-region-535x840.png');
-    height: 840px;
-    width: 535px;
-  }
-
-  .figure-image-api-size {
-    background-image: url('/img/image-api/iiif-img-size-415x615.png');
-    height: 615px;
-    width: 415px;
-  }
-
-  .figure-image-api-rotation {
-    background-image: url('/img/image-api/iiif-img-rotation-500x505.png');
-    height: 505px;
-    width: 500px;
-  }
-
-  .figure-image-api-quality {
-    background-image: url('/img/image-api/iiif-img-quality-435x435.png');
-    height: 435px;
-    width: 435px;
-  }
-
-  .figure-image-api-order {
-    background-image: url('/img/image-api/iiif-img-order-220x1125.png');
-    height: 1125px;
-    width: 220px;
-  }
 
   .code-block {
     margin: 0 0 0 20px;
