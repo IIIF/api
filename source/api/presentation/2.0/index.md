@@ -761,7 +761,7 @@ Instead of referencing transcription text externally, it is often easier to reco
 Content _MAY_ be embedded instead of referenced by using the following pattern within the annotation block:
 
 {% highlight json %}
-"resource" : { "@type" : "cnt:ContextAsText", "chars" : "text here" }
+{ "resource" : { "@type" : "cnt:ContextAsText", "chars" : "text here" } }
 {% endhighlight %}
 
 If it is desirable to associate the language with the content, then it _MUST_ be `language` not `@language` (otherwise the `chars` field would need to be an array with `@value`). The media type _MAY_ be given using a `format` field.
@@ -946,7 +946,8 @@ It may be important to describe additional structure within the text, such as ne
 
 A range _MUST_ include one or more canvases or, different to sequences, parts of canvases with one exception. The part must be rectangular, and is given using the `xywh=` fragment approach. This allows for selecting, for example, the areas within two newspaper pages where an article is located. As the information about the canvas is already in the sequence, it _MUST_ not be repeated. In order to present a table of the different ranges to allow a user to select one, every range _MUST_ have a label and the top most range in the table _SHOULD_ have a `viewingHint` with the value "top". A range that is the top of a hierarchy does not need to list all of the canvases in the sequence, and _SHOULD_ only give the list of ranges below it.  Ranges _MAY_ also have any of the other properties defined in this specification.
 
-Ranges _MAY_ include other ranges.  This is done in a `ranges` property within the range.  The values within the range _MUST_ be strings giving the URIs of ranges in the list in the manifest.
+Ranges _MAY_ include other ranges.  This is done in a `ranges` property within the range.  The values within the ranges list _MUST_ be strings giving the URIs of ranges in the list in the manifest.  
+
 Ranges are linked or embedded within the manifest in a `structures` field.  It is a flat list of objects, even if there is only one range.
 
 {% highlight json %}
@@ -987,7 +988,6 @@ Ranges are linked or embedded within the manifest in a `structures` field.  It i
         "@id":"http://www.example.org/iiif/book1/range/r1-1.json",
         "@type":"sc:Range",
         "label":"Objectives and Scope",
-        "within":"http://www.example.org/iiif/book1/range/r1.json",
         "canvases": ["http://www.example.org/iiif/book1/canvas/p2.json#xywh=0,0,500,500"]
     }
     // And any additional ranges here
@@ -1362,7 +1362,7 @@ __XXX Trawl lists and ensure everyone gets credit who deserves it.__
 | 2013-08-26 | Version 1.0 (unnamed) released.                    |
 | 2013-06-14 | Version 0.9 (unnamed) released.                    |
 
-   [iiif-discuss]: mailto:iiif-discuss%40googlegroups.com "Email Discussion List"
+   [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
    [shared-canvas]: /model/shared-canvas/{{ site.shared_canvas.latest.major}}.{{ site.shared_canvas.latest.minor }} "Shared Canvas Data Model"
    [image-api]: /api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/ "Image API"
    [annex]: /api/annex/services/ "Services Annex Document"

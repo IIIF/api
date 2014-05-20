@@ -1,7 +1,7 @@
 ---
 title: Linking to External Services
-layout: default
-categories: [annex, service, services, spec-doc]
+layout: sub-page
+categories: [annex, service, services, spec-doc, specifications]
 ---
 
 ## Status of this Document
@@ -22,9 +22,9 @@ _Copyright © 2012-2014 Editors and contributors. Published by the IIIF under th
 
 ## Abstract
 {:.no_toc}
-This document describes the set of related services that have been identified within the IIIF as useful to reference from within the IIIF APIs.  This primarily relates to the [Presentation API][XXX] but may be of use beyond that.
+This document describes the set of related services that have been identified within the IIIF as useful to reference from within the IIIF APIs.  This primarily relates to the [Presentation API][prezi-api] but may be of use beyond that.
 
-Please send feedback to [iiif-discuss@googlegroups.com][XXX]
+Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss]
 
 ## Table of Contents
 {:.no_toc}
@@ -56,3 +56,9 @@ Please send feedback to [iiif-discuss@googlegroups.com][XXX]
 ### A. Acknowledgements
 
 ### B. Changelog
+
+
+
+   [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
+   [image-api]: /api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/ "Image API"
+   [prezi-api]: /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/ "Presentation API"
