@@ -65,8 +65,8 @@ The compliance URIs have been moved into the `http://iiif.io` domain. They now r
 As of this version, a client must specify the format of the image as a file-like suffix on the URI, e.g. `default__.jpg__`. There are several reasons for this change:
 
  * This a typical convention employed by image processing utilities, (cf. [ImageMagick][[imagemagick-output], [Pillow][pillow], [Kakadu][kdu-usage], and most others).
- * The formats in which the image is available are explictly enumerated by the info.json document for an image and/or the server compliance level document--a client should never need to guess, and `jpg` is always required.
- * Image files on the web typically have file extensions that indicate the format, and there was never a clear use case for when a client would prefer content negotiation over expressing the format in the URI.
+ * The formats in which the image is available are explicitly enumerated by the info.json document for an image and/or the server compliance level document. A client should never need to guess or let the server decide as `jpg` is always required.
+ * Static image files on the web typically have file extensions that indicate the format, and there was never a clear use case for when a client would prefer content negotiation over expressing the format in the URI.
 
 Servers should now return a 400 (Bad Request, if possible) or else a 404 (Not found) when an image request does not include a format suffix.
 
@@ -95,19 +95,21 @@ Servers that do not support arbitrary size parameters for image requests may sti
 
 ### Published JSON-LD Context
 
-__TODO__
+The [context document][context] for the info.json document was never published. It is now available.
 
 ### Support JSON-LD ContentType/Accept
 
-__TODO__
+As transition to JSON-LD (since it is not fully supported by browsers), clients that favor the "application/ld+json" media type in the accept header of their request may receive this as the content-type of the response. Also note that it is recommended that the server include the context URI in a Link header of the response if the request was for for "application/json". See [Section 5][info-request] and the documents to which it links for further details.
 
 [api-11]: /api/image/1.1/ "IIIF Image API 1.1"
 [api-compliance]: /api/image/2.0/#compliance-levels "Image API 6. Compliance Levels"
 [api]: /api/image/2.0/ "IIIF Image API 2.0"
 [breaking-changes]: #breaking-changes "Image API 2.0 Breaking Changes"
 [canonical-uris]: /api/image/2.0/#canonical-uri-syntax "Image API 4.7. Canonical URI Syntax"
+[info-request]: /api/image/2.0/#information-request "Image API Section 5. Information Request"
 [compliance-doc]: /api/image/2.0/compliance.html "Image API 2.0 Compliance Document"
-[extensions]: /api/image/2.0/#extensions "Image API 4.7 Canonical URI Syntax"
+[context]: /api/image/2/context.json  "Image API 2.0 JSON-LD Context"
+[extensions]: /api/image/2.0/#extensions "Image API 4.7. Canonical URI Syntax"
 [http-features]: /api/image/2.0/compliance.html#http-features "Image API Compliance: HTTP Features"
 [imagemagick-output]: http://www.imagemagick.org/script/command-line-processing.php#output "ImageMagick: Command-line Processing: Output Filename"
 [kdu-usage]: http://www.kakadusoftware.com/documents/Usage_Examples.txt "Usage Examples for the Demonstration Applications Supplied with Kakadu V7.0"
