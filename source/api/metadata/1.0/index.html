@@ -130,7 +130,7 @@
           <section class="wrapper introduction" id="introduction">
             <h2>
               1. Introduction
-              <a href="#toc" title="Back to Table of Contents"><img class="to-toc" src="/img/image-api/icon-toc.png" alt="To TOC"></a>
+              <a href="#toc" title="Back to Table of Contents"><img class="to-toc" src="/img/icon-toc.png" alt="To TOC"></a>
             </h2>
 
             <p>
@@ -160,7 +160,7 @@
 
           <!-- 1.1. Objectives and Scope -->
           <section class="wrapper objectives" id="objectives">
-            <h3>1.1. Objectives and Scope <a href="#toc"><img class="to-toc" src="/img/image-api/icon-toc.png" alt="To TOC"></a></h3>
+            <h3>1.1. Objectives and Scope <a href="#toc"><img class="to-toc" src="/img/icon-toc.png" alt="To TOC"></a></h3>
 
             <p>
               The objective of the IIIF Metadata API is to provide the information necessary to allow a rich, online viewing
@@ -215,7 +215,7 @@
           <section class="wrapper use-cases" id="use-cases">
             <h2>
               2. Motivating Use Cases
-              <a href="#toc" title="Back to Table of Contents"><img class="to-toc" src="/img/image-api/icon-toc.png" alt="To TOC"></a>
+              <a href="#toc" title="Back to Table of Contents"><img class="to-toc" src="/img/icon-toc.png" alt="To TOC"></a>
             </h2>
 
             <p>
@@ -337,7 +337,7 @@
           <section class="wrapper objects" id="objects">
             <h2>
               3. Primary Resource Types
-              <a href="#toc"><img class="to-toc" src="/img/image-api/icon-toc.png" alt="To TOC"></a>
+              <a href="#toc"><img class="to-toc" src="/img/icon-toc.png" alt="To TOC"></a>
             </h2>
 
             <p>
@@ -389,7 +389,7 @@
           <section class="wrapper fields" id="fields">
             <h2>
               4. Metadata Fields
-              <a href="#toc"><img class="to-toc" src="/img/image-api/icon-toc.png" alt="To TOC"></a>
+              <a href="#toc"><img class="to-toc" src="/img/icon-toc.png" alt="To TOC"></a>
             </h2>
 
             <p>
@@ -564,7 +564,7 @@
           <section class="wrapper api" id="api">
             <h2>
               5. Requests and Responses
-              <a href="#toc"><img class="to-toc" src="/img/image-api/icon-toc.png" alt="To TOC"></a>
+              <a href="#toc"><img class="to-toc" src="/img/icon-toc.png" alt="To TOC"></a>
             </h2>
 
             <p>
@@ -692,9 +692,13 @@
               response, as the metadata labels as well as values may be translated in this manner; examples are given below.
               Client developers should be aware that some implementations may add an "@graph" property at the top level, which
               contains the object. This is a side effect of JSON-LD serialization. This pattern is NOT recommended for implementation,
-              and either the client or server can use the JSON-LD compaction algorithm to remove it. Using JSON-LD Framing with the
+              and either the client or server can use the JSON-LD compaction algorithm to remove it. 
+
+<!--
+              Using JSON-LD Framing with the
               <a href="http://www.shared-canvas.org/datamodel/iiif/implementation.html#frames" target="_blank">supplied Frames</a>
               will avoid the generation of the "@graph" pattern.
+-->
             </p>
             <p>
               In the examples given below, comments in the JSON are given in blue italics and must be omitted. Example information
@@ -709,7 +713,7 @@
           <section class="wrapper api-manifest" id="api-manifest">
             <h3>
               5.1. Manifest
-              <a href="#toc"><img class="to-toc" src="/img/image-api/icon-toc.png" alt="To TOC"></a>
+              <a href="#toc"><img class="to-toc" src="/img/icon-toc.png" alt="To TOC"></a>
             </h3>
 
             <p>
@@ -783,7 +787,7 @@
           <section class="wrapper api-sequence" id="api-sequence">
             <h3>
               5.2. Sequence
-              <a href="#toc"><img class="to-toc" src="/img/image-api/icon-toc.png" alt="To TOC"></a>
+              <a href="#toc"><img class="to-toc" src="/img/icon-toc.png" alt="To TOC"></a>
             </h3>
 
             <p>
@@ -858,7 +862,7 @@
           <section class="wrapper api-canvas" id="api-canvas">
             <h3>
               5.3. Canvas
-              <a href="#toc"><img class="to-toc" src="/img/image-api/icon-toc.png" alt="To TOC"></a>
+              <a href="#toc"><img class="to-toc" src="/img/icon-toc.png" alt="To TOC"></a>
             </h3>
 
             <p>
@@ -929,7 +933,7 @@
           <section class="wrapper api-annotation" id="api-annotation">
             <h3>
               5.4. Association of Image Resources
-              <a href="#toc"><img class="to-toc" src="/img/image-api/icon-toc.png" alt="To TOC"></a>
+              <a href="#toc"><img class="to-toc" src="/img/icon-toc.png" alt="To TOC"></a>
             </h3>
 
             <p>
@@ -953,7 +957,7 @@
             <p>
               Each Association of a Content Resource must have the "motivation" field and the value must be "sc:painting". This is in
               order to distinguish it from comment annotations about the Canvas, described in further detail in
-              <a href="#advanced-comment">Section 5.6.6</a>.
+              <a href="#api-advanced-comments">Section 5.6.6</a>.
             </p>
             <p>
               The image itself is linked in the "resource" property of the Annotation. It must have an "@id" field, and it should have
@@ -1004,7 +1008,7 @@
           <section class="wrapper api-list" id="api-list">
             <h3>
               5.5. Other Content Resources
-              <a href="#toc"><img class="to-toc" src="/img/image-api/icon-toc.png" alt="To TOC"></a>
+              <a href="#toc"><img class="to-toc" src="/img/icon-toc.png" alt="To TOC"></a>
             </h3>
 
             <p>
@@ -1075,7 +1079,7 @@
           <section class="wrapper api-advanced" id="api-advanced">
             <h3>
               5.6. Advanced Association Features
-              <a href="#toc"><img class="to-toc" src="/img/image-api/icon-toc.png" alt="To TOC"></a>
+              <a href="#toc"><img class="to-toc" src="/img/icon-toc.png" alt="To TOC"></a>
             </h3>
 
             <p>
@@ -1090,7 +1094,7 @@
           <section class="wrapper api-advanced-segments" id="api-advanced-segments">
             <h4>
               5.6.1. Segments
-              <a href="#toc"><img class="to-toc" src="/img/image-api/icon-toc.png" alt="To TOC"></a>
+              <a href="#toc"><img class="to-toc" src="/img/icon-toc.png" alt="To TOC"></a>
             </h4>
 
             <p>
@@ -1147,7 +1151,7 @@
           <section class="wrapper api-advanced-embedded" id="api-advanced-embedded">
             <h4>
               5.6.2. Embedded Content
-              <a href="#toc"><img class="to-toc" src="/img/image-api/icon-toc.png" alt="To TOC"></a>
+              <a href="#toc"><img class="to-toc" src="/img/icon-toc.png" alt="To TOC"></a>
             </h4>
 
             <p>
@@ -1189,7 +1193,7 @@
           <section class="wrapper api-advanced-choice" id="api-advanced-choice">
             <h4>
               5.6.3. Choice of Alternative Resources
-              <a href="#toc"><img class="to-toc" src="/img/image-api/icon-toc.png" alt="To TOC"></a>
+              <a href="#toc"><img class="to-toc" src="/img/icon-toc.png" alt="To TOC"></a>
             </h4>
 
             <p>
@@ -1212,8 +1216,7 @@
             <p>
               This may be used to model foldouts and other dynamic features of a page, by associating images of the different states
               with the Canvas. Depending on the nature of the images, this can be either done such that the entire image is switched
-              to change state, or only the section of the image that has to change if the segment information is known. For further
-              information, please see this <a href="http://www.shared-canvas.org/datamodel/iiif/usecases/foldouts.html" target="_blank">use case document</a>.
+              to change state, or only the section of the image that has to change if the segment information is known.
             </p>
 
 <p class="code-block multi-line-code">{
@@ -1245,7 +1248,7 @@
           <section class="wrapper api-advanced-non-rectangular" id="api-advanced-non-rectangular">
             <h4>
               5.6.4. Non Rectangular Segments
-              <a href="#toc"><img class="to-toc" src="/img/image-api/icon-toc.png" alt="To TOC"></a>
+              <a href="#toc"><img class="to-toc" src="/img/icon-toc.png" alt="To TOC"></a>
             </h4>
 
             <p>
@@ -1292,7 +1295,7 @@
           <section class="wrapper api-advanced-style" id="api-advanced-style">
             <h4>
               5.6.5. Style
-              <a href="#toc"><img class="to-toc" src="/img/image-api/icon-toc.png" alt="To TOC"></a>
+              <a href="#toc"><img class="to-toc" src="/img/icon-toc.png" alt="To TOC"></a>
             </h4>
 
             <p>
@@ -1359,7 +1362,7 @@
           <section class="wrapper api-advanced-comments" id="api-advanced-comments">
             <h4>
               5.6.6. Comment Annotations
-              <a href="#toc"><img class="to-toc" src="/img/image-api/icon-toc.png" alt="To TOC"></a>
+              <a href="#toc"><img class="to-toc" src="/img/icon-toc.png" alt="To TOC"></a>
             </h4>
 
             <p>
@@ -1386,7 +1389,7 @@
           <section class="wrapper structure" id="structure">
             <h2>
               6. Additional Resource Types
-              <a href="#toc"><img class="to-toc" src="/img/image-api/icon-toc.png" alt="To TOC"></a>
+              <a href="#toc"><img class="to-toc" src="/img/icon-toc.png" alt="To TOC"></a>
             </h2>
 
             <p>
@@ -1418,7 +1421,7 @@
           <section class="wrapper structure-range" id="structure-range">
             <h3>
               6.1. Ranges
-              <a href="#toc"><img class="to-toc" src="/img/image-api/icon-toc.png" alt="To TOC"></a>
+              <a href="#toc"><img class="to-toc" src="/img/icon-toc.png" alt="To TOC"></a>
             </h3>
 
             <p>
@@ -1483,7 +1486,7 @@
           <section class="wrapper structure-layer" id="structure-layer">
             <h3>
               6.2. Layers
-              <a href="#toc"><img class="to-toc" src="/img/image-api/icon-toc.png" alt="To TOC"></a>
+              <a href="#toc"><img class="to-toc" src="/img/icon-toc.png" alt="To TOC"></a>
             </h3>
 
             <p>
@@ -1523,7 +1526,7 @@
           <section class="wrapper examples" id="examples">
             <h2>
               7. Complete Example Response
-              <a href="#toc"><img class="to-toc" src="/img/image-api/icon-toc.png" alt="To TOC"></a>
+              <a href="#toc"><img class="to-toc" src="/img/icon-toc.png" alt="To TOC"></a>
             </h2>
 
             <p>
@@ -1685,7 +1688,7 @@
           <section class="wrapper" id="">
             <h2>
               Summary of URI Patterns
-              <a href="#toc"><img class="to-toc" src="/img/image-api/icon-toc.png" alt="To TOC"></a>
+              <a href="#toc"><img class="to-toc" src="/img/icon-toc.png" alt="To TOC"></a>
             </h2>
 
             <table class="image-api-table">
@@ -1734,7 +1737,7 @@
           <section class="wrapper md-requirements" id="md-requirements">
             <h2>
               Summary of Metadata Requirements
-              <a href="#toc"><img class="to-toc" src="/img/image-api/icon-toc.png" alt="To TOC"></a>
+              <a href="#toc"><img class="to-toc" src="/img/icon-toc.png" alt="To TOC"></a>
             </h2>
 
             <ul class="legend">
