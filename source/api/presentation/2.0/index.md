@@ -1360,7 +1360,7 @@ XXX Trawl lists and ensure everyone gets credit who deserves it.
 
    [1]: ../../annex/services/index.html
    [2]: http://www.shared-canvas.org/
-   [3]: http://iiif.io/api/image/{{ site.image_api.latest.major }}./api/image/{{ site.image_api.latest.minor }}/
+   [3]: /api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/
    [4]: http://tools.ietf.org/html/rfc5646
    [5]: http://www.openannotation.org/spec/core/core.html#BodyTargetType
    [6]: http://www.w3.org/TR/media-frags/#naming-space
