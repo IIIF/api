@@ -1352,11 +1352,11 @@ XXX Trawl lists and ensure everyone gets credit who deserves it.
 
 ### E. ChangeLog
 
-| Date       | Editor     | Description                                        |
-| ---------- | ---------- | -------------------------------------------------- |
-| 2014-06-01 | rsanderson | Version 2.0.0-draft (Triumphant Giraffe) released. |
-| 2013-08-26 | rsanderson | Version 1.0 (unnamed) released.                    |
-| 2013-06-14 | rsanderson | Version 0.9 (unnamed) released.                    |
+| Date       | Description                                        |
+| ---------- | -------------------------------------------------- |
+| 2014-06-01 | Version 2.0.0-draft (Triumphant Giraffe) RFC       |
+| 2013-08-26 | Version 1.0 (unnamed) released.                    |
+| 2013-06-14 | Version 0.9 (unnamed) released.                    |
 
    [1]: ../../annex/services/index.html
    [2]: http://www.shared-canvas.org/
