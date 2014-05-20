@@ -33,7 +33,7 @@ _Copyright © 2012-2014 Editors and contributors. Published by the IIIF under th
 ## Abstract
 {:.no_toc}
 
-This document describes an image delivery API proposed by the International Image Interoperability Framework (IIIF) group. The IIIF image API specifies a web service that returns an image in response to a standard http or https request. The URI can specify the region, size, rotation, quality characteristics and format of the requested image. A URI can also be constructed to request basic technical information about the image to support client applications. The IIIF API was conceived of to facilitate systematic reuse of image resources in digital image repositories maintained by cultural heritage organizations. The API could be adopted by any image repository or service, and can be used to retrieve static images in response to a properly constructed URI.
+This document describes an image delivery API proposed by the International Image Interoperability Framework (IIIF) group. The IIIF Image API specifies a web service that returns an image in response to a standard http or https request. The URI can specify the region, size, rotation, quality characteristics and format of the requested image. A URI can also be constructed to request basic technical information about the image to support client applications. It was conceived of to facilitate systematic reuse of image resources in digital image repositories maintained by cultural heritage organizations. This API could be adopted by any image repository or service, and can be used to retrieve static images in response to a properly constructed URI.
 
 Please send feedback to [iiif-discuss@googlegroups.com][1]
 
