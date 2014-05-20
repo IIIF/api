@@ -546,18 +546,18 @@ Many thanks to  Ben Albritton, Matthieu Bonicel, Anatol Broder, Kevin Clarke, To
 
 ###  D. Change Log
 
-| Date | Editor |  Description |
-| ---- | ------ | ------------ |
-| 2014-05-XX | rsanderson | Version 2.0 (Voodoo Bunny) RFC [View change log][change-log] |
-| 2013-09-17 | ssnydman | Version 1.1 released. |
-| 2013-09-04 | ssnydman | Added @context to Image Information Request table in section 5. |
-| 2013-06-26 | ssnydman | Changed quality parameter definitions in section 4.4. |
-| 2013-06-17 | ssnydman | Draft release 1.1. [View change log][change-log11]. |
-| 2012-08-10 | ssnydman | Release 1.0 |
-| 2012-07-13 | rsanderson | Incorporates responses to RFC feedback |
-| 2012-03-09 | ssnydman | Initial release |
-| 2012-04-13 | ssnydman | 0.2 after internal review and IIIF April Meeting |
-| 2012-05-02 | ssnydman | RFC version |
+| Date       | Description |
+| ---------- | ----------- |
+| 2014-05-XX | Version 2.0 (Voodoo Bunny) RFC [View change log][change-log] |
+| 2013-09-17 | Version 1.1 released. |
+| 2013-09-04 | Added @context to Image Information Request table in section 5. |
+| 2013-06-26 | Changed quality parameter definitions in section 4.4. |
+| 2013-06-17 | Draft release 1.1. [View change log][change-log11]. |
+| 2012-08-10 | Release 1.0 |
+| 2012-07-13 | Incorporates responses to RFC feedback |
+| 2012-03-09 | Initial release |
+| 2012-04-13 | 0.2 after internal review and IIIF April Meeting |
+| 2012-05-02 | RFC version |
 {: .image-api-table}
 
 [change-log11]: /api/image/1.1/change-log.html "Change Log for Version 1.1"
