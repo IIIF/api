@@ -35,7 +35,7 @@ _Copyright © 2012-2014 Editors and contributors. Published by the IIIF under th
 
 This document describes an image delivery API proposed by the International Image Interoperability Framework (IIIF) group. The IIIF Image API specifies a web service that returns an image in response to a standard http or https request. The URI can specify the region, size, rotation, quality characteristics and format of the requested image. A URI can also be constructed to request basic technical information about the image to support client applications. It was conceived of to facilitate systematic reuse of image resources in digital image repositories maintained by cultural heritage organizations. This API could be adopted by any image repository or service, and can be used to retrieve static images in response to a properly constructed URI.
 
-Please send feedback to [iiif-discuss@googlegroups.com][1]
+Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss]
 
 ## Table of Contents
 {:.no_toc}
@@ -68,11 +68,11 @@ There are four parameters shared by the requests, and other IIIF specifications:
 | ------ | ----------- |
 | scheme | Indicates the use of the http or https protocol in calling the service. |
 | server | The host server on which the service resides. |
-| prefix | The path on the host server to the service. This prefix is optional, but may be useful when the host server supports multiple services. The prefix _MAY_ contain multiple path segments, delimited by slashes, but all other special characters _MUST_ be encoded. See [Section 9 - URI Encoding and Decoding](#url-encoding-and-decoding) for more information. |
+| prefix | The path on the host server to the service. This prefix is optional, but may be useful when the host server supports multiple services. The prefix _MAY_ contain multiple path segments, delimited by slashes, but all other special characters _MUST_ be encoded. See [URI Encoding and Decoding][uri-encoding-and-decoding] for more information. |
 | identifier | The identifier of the requested image, expressed as a string. This may be an ark, URN, filename, or other identifier. Special characters _MUST_ be URI encoded. |
 {: .image-api-table}
 
-The combination of these parameters forms the image’s Base URI and identifies the underlying image content. It is constructed according to the following URI Template ([RFC6570][26]):
+The combination of these parameters forms the image’s Base URI and identifies the underlying image content. It is constructed according to the following URI Template ([RFC6570][rfc-6570]):
 
 ```
 {scheme}://{server}{/prefix}/{identifier}
@@ -98,7 +98,7 @@ http://www.example.org/image-service/abcd1234/full/full/0/default.jpg
 ```
 {: .urltemplate}
 
-The sections of the Image Request URI include region, size, rotation, quality and format parameters, which define the characteristics of the returned image. These are described in detail in [Section 4 - Image Request Parameters](#image-request-parameters).
+The sections of the Image Request URI include region, size, rotation, quality and format parameters, which define the characteristics of the returned image. These are described in detail in [Image Request Parameters][image-request-parameters].
 
 ###  2.2. Image Information Request URI Syntax
 
@@ -120,15 +120,15 @@ For each image made available, the server, prefix and identifier components of t
 
 ##  3. Identifier
 
-The API places no restrictions on the form of the identifiers that a server may use or support, although the identifier _MUST_ be expressed as a string. All special characters (e.g. ? or #) _MUST_ be URI encoded to avoid unpredictable client behaviors. The URI syntax relies upon slash (/) separators so any slashes in the identifier _MUST_ be URI encoded (aka. percent-encoded, replace / with %2F ). See discussion in [Section 9 - URI Encoding and Decoding](#url-encoding-and-decoding).
+The API places no restrictions on the form of the identifiers that a server may use or support, although the identifier _MUST_ be expressed as a string. All special characters (e.g. ? or #) _MUST_ be URI encoded to avoid unpredictable client behaviors. The URI syntax relies upon slash (/) separators so any slashes in the identifier _MUST_ be URI encoded (aka. percent-encoded, replace / with %2F ). See discussion in [URI Encoding and Decoding][uri-encoding-and-decoding].
 
 ##  4. Image Request Parameters
 
-All parameters described below are required for compliant construction of a IIIF image API URI. The sequence of parameters in the URI _MUST_ be in the order described below. The order of the parameters is also intended as the order of the operations by which the service should manipulate the image content. Thus, the requested image content is first extracted as a region of the complete image, then scaled to the requested size, rotated and transformed into the color depth and format. This resulting image content is returned as the representation for the URI. Image and region dimensions in pixels are always given as an integer numbers. Intermediate calculations may use floating point numbers and the rounding method is implementation specific. Some parameters, notably percentages, may be specified with floating point numbers. These should have at most 10 decimal digits and consist only of decimal digits and “.” with a leading zero if less than 1.
+All parameters described below are required for compliant construction of a IIIF image API URI. The sequence of parameters in the URI _MUST_ be in the order described below. The order of the parameters is also intended as the order of the operations by which the service should manipulate the image content. Thus, the requested image content is first extracted as a region of the complete image, then scaled to the requested size, rotated and transformed into the color depth and format. This resulting image content is returned as the representation for the URI. Image and region dimensions in pixels are always given as an integer numbers. Intermediate calculations may use floating point numbers and the rounding method is implementation specific. Some parameters, notably percentages, may be specified with floating point numbers. These should have at most 10 decimal digits and consist only of decimal digits and "." with a leading zero if less than 1.
 
 ###  4.1. Region
 
-The region parameter defines the rectangular portion of the full image to be returned. Region can be specified by pixel coordinates, percentage or by the value “full”, which specifies that the entire image should be returned.
+The region parameter defines the rectangular portion of the full image to be returned. Region can be specified by pixel coordinates, percentage or by the value "full", which specifies that the entire image should be returned.
 
 | Form |  Description |
 | ------------------------ | ------------ |
@@ -300,7 +300,7 @@ The Image Information document contains both metadata about the image, such as m
 ```
 {: .urltemplate}
 
-The syntax for the response is [JSON-LD][json-ld]. The content-type of the response _MUST_ be either "application/json" (regular JSON), or "application/ld+json" (JSON-LD).  If the client explicitly wants the JSON-LD content-type, then it must specify this in an Accept header, otherwise the server must return the regular JSON content-type.
+The syntax for the response is [JSON-LD][json-ld-w3c]. The content-type of the response _MUST_ be either "application/json" (regular JSON), or "application/ld+json" (JSON-LD).  If the client explicitly wants the JSON-LD content-type, then it must specify this in an Accept header, otherwise the server must return the regular JSON content-type.
 
 If the regular JSON content-type is returned, then it is _RECOMMENDED_ that the server provide a link header to the context document. The syntax for the link header is below, and further [described in section 6.8 of the JSON-LD specification][json-as-json-ld]. If the client requests "application/ld+json", the link header _MAY_ still be included but _MUST_ be ignored. The entity body is identical regardless of the content-type, including the @context field.
 
@@ -311,7 +311,7 @@ Link: <http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json>
 ```
 {: .urltemplate}
 
-Servers _SHOULD_ send the Access-Control-Allow-Origin header with the value \* in response to information requests. The syntax is shown below and is described int the [CORS][41] specification. This header is required in order to allow the JSON responses to be used by Web applications hosted on different servers.
+Servers _SHOULD_ send the Access-Control-Allow-Origin header with the value \* in response to information requests. The syntax is shown below and is described int the [CORS][cors-spec] specification. This header is required in order to allow the JSON responses to be used by Web applications hosted on different servers.
 
 ```
 Access-Control-Allow-Origin: *
@@ -324,8 +324,8 @@ The JSON in the response will include the following properties:
 
 | Property   | Required? | Description |
 | ---------- | --------- | ----------- |
-| `@context` | Required | The context document that describes the semantics of the terms used in the document. This must be the URI: [http://iiif.io/api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/context.json] for version {{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }} of the IIIF Image API. This document allows the response to be interpreted as RDF, using the [JSON-LD][29] serialization. |
-| `@id` | Required | The Base URI of the image (as defined in [Section 2 - URI Syntax](#url-syntax)), including scheme, server, prefix and identifier without a trailing slash. |
+| `@context` | Required | The context document that describes the semantics of the terms used in the document. This must be the URI: [http://iiif.io/api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/context.json] for version {{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }} of the IIIF Image API. This document allows the response to be interpreted as RDF, using the [JSON-LD][json-ld-org] serialization. |
+| `@id` | Required | The Base URI of the image (as defined in [URI Syntax][uri-syntax], including scheme, server, prefix and identifier without a trailing slash. |
 | `width` | Required | The width of the full image. |
 | `height` | Required | The height of the full image. |
 | `protocol` | Required | The URI "http://iiif.io/api/image" which can be used to determine that the document describes an image service which is a version of the IIIF Image API. |
@@ -419,9 +419,9 @@ Local additions to the image information document _MAY_ be specified in two ways
 
 ##  6. Compliance Levels
 
-The Image Information document _MUST_ specify the extent to which the API is supported by including a compliance level URI as the first entry in the `profile` property.  This URI links to a description of the highest compliance level for which all requirements are met. The URI _MUST_ be one of those given in [Image API Compliance][43]. This description contains the profile related features, given in section [XXX](YYY). A server _MAY_ declare different compliance levels for different images.
+The Image Information document _MUST_ specify the extent to which the API is supported by including a compliance level URI as the first entry in the `profile` property.  This URI links to a description of the highest compliance level for which all requirements are met. The URI _MUST_ be one of those given in [Image API Compliance][compliance]. This description contains the profile related features, as discussed in [Image Information][image-information]. A server _MAY_ declare different compliance levels for different images.
 
-The compliance level URI _MAY_ also be given in the HTTP Link header ([RFC5988][31]) with the parameter `rel=“profile”`, and thus a complete header might look like:
+The compliance level URI _MAY_ also be given in the HTTP Link header ([RFC5988][rfc-5988]) with the parameter `rel="profile"`, and thus a complete header might look like:
 
 ```
 Link: <http://iiif.io/api/image/{{ site.image_api.latest.major }}/level1.json>;rel="profile"
@@ -452,7 +452,7 @@ The order in which servers parse requests and detect errors is not specified. A 
 
 ##  8. Authentication
 
-This API does not specify whether the image server will support authentication or what mechanism it might use. In the case of "401 Unauthorized" HTTP response, the content of the WWW-Authenticate header will depend on the authentication mechanism supported by the server. If the server supports HTTP Basic or Digest authentication then the header should follow [RFC2617][30], for example:
+This API does not specify whether the image server will support authentication or what mechanism it might use. In the case of "401 Unauthorized" HTTP response, the content of the WWW-Authenticate header will depend on the authentication mechanism supported by the server. If the server supports HTTP Basic or Digest authentication then the header should follow [RFC2617][rfc-2617], for example:
 
 ```
 WWW-Authenticate: Basic realm="Images"
@@ -461,7 +461,7 @@ WWW-Authenticate: Basic realm="Images"
 
 ##  9. URI Encoding and Decoding
 
-The URI syntax of this API relies upon slash (/) separators which _MUST NOT_ be encoded. Clients _MUST_ percent-encode special characters (the to-encode set below: percent and gen-delims of [RFC3986][32] except the colon) within the components of requests. For example, any slashes within the identifier part of the URI _MUST_ be percent-encoded. Encoding is necessary only for the identifier because other components will not include special characters.
+The URI syntax of this API relies upon slash (/) separators which _MUST NOT_ be encoded. Clients _MUST_ percent-encode special characters (the to-encode set below: percent and gen-delims of [RFC3986][rfc-3986] except the colon) within the components of requests. For example, any slashes within the identifier part of the URI _MUST_ be percent-encoded. Encoding is necessary only for the identifier because other components will not include special characters.
 
 ```
 to-encode = "/" / "?" / "#" / "[" / "]" / "@" / "%"
@@ -498,15 +498,15 @@ Early sanity checking of URI’s (lengths, trailing GET, invalid characters, out
 
 ###  A. Implementation Notes
 
-  * For use cases that enable the saving of the image, it is _RECOMMENDED_ to use the HTTP Content-Disposition header ([RFC6266][33]) to provide a convenient filename that distinguishes the image, based on the identifier and parameters provided.
+  * For use cases that enable the saving of the image, it is _RECOMMENDED_ to use the HTTP Content-Disposition header ([RFC6266][rfc-6266]) to provide a convenient filename that distinguishes the image, based on the identifier and parameters provided.
   * This specification makes no assertion about the rights status of requested images or metadata, whether or not authentication has been accomplished. Please see the IIIF Metadata API for rights information.
   * This API does not specify how image servers fulfill requests, what quality the returned images will have for different parameters, or how parameters may affect performance. See the compliance document for more discussion.
   * Image identifiers that include the slash (/ %2F) or backslash (\ %5C) characters may cause problems with some HTTP servers. Apache servers from version 2.2.18 support the "AllowEncodedSlashes NoDecode" (link to ) configuration directive which will correctly pass these characters to client applications without rejecting or decoding them. Servers using older versions of Apache and local identifiers which include these characters will need to use a workaround such as internally translating or escaping slash and backslash to safe value (perhaps by double URI-encoding them).
-  * As described in [Section 4.3 - Rotation](#rotation), in order to retain the size of the requested image contents, rotation will change the width and height dimensions of the returned image file. A formula for calculating the dimensions of the returned image file for a given rotation can be found here.
+  * As described in [Rotation][rotation], in order to retain the size of the requested image contents, rotation will change the width and height dimensions of the returned image file. A formula for calculating the dimensions of the returned image file for a given rotation can be found here.
 
 ### B. Versioning
 
-Starting with version 2.0, this specification follows [Semantic Versioning][25] with version numbers of the form "MAJOR.MINOR.PATCH" where:
+Starting with version 2.0, this specification follows [Semantic Versioning][semver] with version numbers of the form "MAJOR.MINOR.PATCH" where:
 
   * MAJOR version increment indicates incompatible API changes.
   * MINOR version increment indicates addition of functionality in a backwards-compatible manner.
@@ -520,7 +520,7 @@ This versioning system will be implemented in the following ways:
 
 ###  C. Acknowledgments
 
-The production of this document was generously supported by a grant from the [Andrew W. Mellon Foundation][34].
+The production of this document was generously supported by a grant from the [Andrew W. Mellon Foundation][mellon].
 
 Many thanks to  Ben Albritton, Matthieu Bonicel, Anatol Broder, Kevin Clarke, Tom Cramer, Ian Davis, Neil Jefferies, Scotty Logan, Sean Martin, Roger Mathisen, Lynn McRae, Willy Mene, Mark Patton, Petter Rønningsen, and Brian Tingle for your thoughtful contributions to the effort and written feedback.  Thanks also to the members of the IIIF for their continuous engagement, innovative ideas and feedback.
 
@@ -530,11 +530,11 @@ __TODO: Link to the community page__ [link]
 
 | Date | Editor |  Description |
 | ---- | ------ | ------------ |
-| 2014-05-XX | rsanderson | Version 2.0 (Voodoo Bunny) RFC |
+| 2014-05-XX | rsanderson | Version 2.0 (Voodoo Bunny) RFC [View change log][change-log] |
 | 2013-09-17 | ssnydman | Version 1.1 released. |
 | 2013-09-04 | ssnydman | Added @context to Image Information Request table in section 5. |
 | 2013-06-26 | ssnydman | Changed quality parameter definitions in section 4.4. |
-| 2013-06-17 | ssnydman | Draft release 1.1. [View change log][35]. |
+| 2013-06-17 | ssnydman | Draft release 1.1. [View change log][change-log11]. |
 | 2012-08-10 | ssnydman | Release 1.0 |
 | 2012-07-13 | rsanderson | Incorporates responses to RFC feedback |
 | 2012-03-09 | ssnydman | Initial release |
@@ -542,22 +542,48 @@ __TODO: Link to the community page__ [link]
 | 2012-05-02 | ssnydman | RFC version |
 {: .image-api-table}
 
-   [1]: mailto:iiif-discuss%40googlegroups.com
-   [25]: http://semver.org/
-   [26]: http://tools.ietf.org/html/rfc6570
-   [28]: http://library.stanford.edu/iiif/image-api/1.1/context.json
-   [29]: http://www.json-ld.org/
-   [30]: http://tools.ietf.org/html/rfc2617
-   [31]: http://tools.ietf.org/html/rfc5988
-   [32]: http://tools.ietf.org/html/rfc3986
-   [33]: http://tools.ietf.org/html/rfc6266
-   [34]: http://www.mellon.org/
-   [35]: http://iiif.io/change-log.html
-   [36]: http://iiif.io/api/image/{{ site.image_api.latest.major }}/
-   [json-ld]: http://www.w3.org/TR/json-ld/
-   [json-as-json-ld]: http://www.w3.org/TR/json-ld/#interpreting-json-as-json-ld
-   [39]: http://iiif.io#capabilities-request
-   [40]: http://iiif.io#url-syntax-capabilities-request
-   [41]: http://www.w3.org/TR/cors/
-   [42]: http://www.w3.org/TR/json-ld/#the-context
-   [43]: http://iiif.io/api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/compliance.html
+[change-log11]: /api/image/1.1/change-log.html "Change Log for Version 1.1"
+[change-log]: /api/image/2.0/change-log.html "Change Log for Version 2.0"
+[compliance]: "/api/image/2.0/compliance.html" "Image API Compliance"
+[cors-spec]: http://www.w3.org/TR/cors/ "Cross-Origin Resource Sharing"
+[iiif-discuss]: mailto:iiif-discuss%40googlegroups.com "Email Discussion List"
+[json-as-json-ld]: http://www.w3.org/TR/json-ld/#interpreting-json-as-json-ld "JSON-LD 1.0: 6.8 Interpreting JSON as JSON-LD"
+[json-ld-org]: http://www.json-ld.org/ "JSON for Linking Data"
+[json-ld-w3c]: http://www.w3.org/TR/json-ld/ "JSON-LD 1.0"
+[mellon]: http://www.mellon.org/ "The Andrew W. Mellon Foundation"
+[rfc-2617]: http://tools.ietf.org/html/rfc2617 "HTTP Authentication: Basic and Digest Access Authentication"
+[rfc-3986]: http://tools.ietf.org/html/rfc3986 "Uniform Resource Identifier (URI): Generic Syntax"
+[rfc-5988]: http://tools.ietf.org/html/rfc5988 "Web Linking"
+[rfc-6266]: http://tools.ietf.org/html/rfc6266 "Use of the Content-Disposition Header Field in the Hypertext Transfer Protocol (HTTP)"
+[rfc-6570]: http://tools.ietf.org/html/rfc6570 "URI Template"
+[semver]: http://semver.org/spec/v2.0.0.html "Semantic Versioning 2.0.0"
+
+[audience-and-scope]: #audience-and-scope "1. Audience and Scope"
+[uri-syntax]: #uri-syntax "2. URI Syntax"
+[image-request-uri-syntax]: #image-request-uri-syntax "2.1. Image Request URI Syntax"
+[image-information-request-uri-syntax]: #image-information-request-uri-syntax "2.2. Image "Information Request URI"
+[identifier]: #identifier "3. Identifier"
+[image-request-parameters]: #image-request-parameters "4. Image Request Parameters "
+[region]: #region "4.1. Region"
+[size]: #size "4.2. Size"
+[rotation]: #rotation "4.3. Rotation"
+[quality]: #quality "4.4. Quality"
+[format]: #format "4.5. Format"
+[order-of-implementation]: #order-of-implementation "4.6. Order of Implementation"
+[canonical-uri-syntax]: #canonical-uri-syntax "4.7. Canonical URI Syntax"
+[information-request]: #information-request "5. Information Request"
+[image-information]: #image-information "5.1. Image Information"
+[extensions]: #extensions "5.2 Extensions"
+[compliance-levels]: #compliance-levels "6. Compliance Levels"
+[server-responses]: #server-responses "7. Server Responses"
+[successful-responses]: #successful-responses "7.1. Successful Responses"
+[error-conditions]: #error-conditions "7.2. Error Conditions"
+[authentication]: #authentication "8. Authentication"
+[uri-encoding-and-decoding]: #uri-encoding-and-decoding "9. URI Encoding and Decoding"
+[security-considerations]: #security-considerations "10. Security Considerations"
+[appendices]: #appendices "11. Appendices"
+[a-implementation-notes]: #a-implementation-notes "A. Implementation Notes"
+[b-versioning]: #b-versioning "B. Versioning"
+[c-acknowledgments]: #c-acknowledgments "C. Acknowledgments"
+[d-change-log]: #d-change-log "D. Change Log"
+

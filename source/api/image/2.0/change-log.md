@@ -101,9 +101,9 @@ The [context document][context] for the info.json document was never published. 
 
 As transition to JSON-LD (since it is not fully supported by browsers), clients that favor the "application/ld+json" media type in the accept header of their request may receive this as the content-type of the response. Also note that it is recommended that the server include the context URI in a Link header of the response if the request was for for "application/json". See [Section 5][info-request] and the documents to which it links for further details.
 
-[api-11]: /api/image/1.1/ "IIIF Image API 1.1"
+[api-11]: /api/image/1.1/ "Image API 1.1"
 [api-compliance]: /api/image/2.0/#compliance-levels "Image API 6. Compliance Levels"
-[api]: /api/image/2.0/ "IIIF Image API 2.0"
+[api]: /api/image/2.0/ "Image API 2.0"
 [breaking-changes]: #breaking-changes "Image API 2.0 Breaking Changes"
 [canonical-uris]: /api/image/2.0/#canonical-uri-syntax "Image API 4.7. Canonical URI Syntax"
 [info-request]: /api/image/2.0/#information-request "Image API Section 5. Information Request"

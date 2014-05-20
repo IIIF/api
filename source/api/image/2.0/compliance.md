@@ -12,14 +12,14 @@ pre: draft1
 ## Status of this Document
 {:.no_toc}
 
-This version: {{ page.major }}.{{ page.minor }}.{{ page.patch }}{% if page.pre != 'final' %}-{{ page.pre }}{% endif %}
+__This version:__ {{ page.major }}.{{ page.minor }}.{{ page.patch }}{% if page.pre != 'final' %}-{{ page.pre }}{% endif %}
 
-Latest stable version: {{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}.{{ site.image_api.latest.patch }}
+__Latest stable version:__ {{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}.{{ site.image_api.latest.patch }}
 
 ## Introduction
 {:.no_toc}
 
-This document is a companion to the [International Image Interoperability Framework Image API Specification][1]. It defines the set of supported parameters that correspond to different levels of compliance to the IIIF Image API.
+This document is a companion to the [IIIF Image API Specification][image-api]. It defines the set of supported parameters that correspond to different levels of compliance to the API.
 
 ## Table of Contents
 {:.no_toc}
@@ -129,4 +129,4 @@ Link: <http://iiif.io/api/image/{{ page.major }}/level2.json>;rel="profile"
 ```
 {: .urltemplate}
 
-  [1]: http://iiif.io/api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }} "IIIF Image API"
+[image-api]: /api/image/2.0/ "Image API 2.0"
