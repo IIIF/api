@@ -1,6 +1,6 @@
 # Guidelines
 
-Make sure your pull request passes all tests.
+Follow the [branch-based workflow][flow].
 
 ## Language
 
@@ -16,3 +16,5 @@ Use markdown inside of specs.
 ## Images
 
 Images must be PNG.
+
+[flow]: https://guides.github.com/introduction/flow/
