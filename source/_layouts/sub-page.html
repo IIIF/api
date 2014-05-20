@@ -5,18 +5,14 @@ layout: default
       <div class="{{ page.id }} clearfix">
         <article>
           {% include sub-page_header.html %}
-
           {% for word in site.data.rfc_words %}
             {% assign upper = word | prepend: '<em>' | append: '</em>' %}
             {% assign lower = upper | downcase | replace: '<em>', '<em class="rfc">' %}
             {% assign content = content | replace: upper, lower %}
           {% endfor %}
-
           {% if page.categories contains 'spec-doc' %}<div class="specbody">{% endif %}
           {{ content }}
           {% if page.categories contains 'spec-doc' %}</div>{% endif %}
-
-
         </article>
       </div>
     </div>

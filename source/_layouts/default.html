@@ -1,6 +1,14 @@
   {% include doctype.html %}
   {% include head.html %}
   <body>
+              {% for acronym in site.data.acronyms %}
+            {% assign short = acronym[0] %}
+            {% capture open %}<abbr title="{{ acronym[1] }}">{% endcapture %}
+            {% assign close = '</abbr>' %}
+            {% assign markup =  short | prepend: open | append: close %}
+            {% assign content = content | replace: short, markup %} 
+          {% endfor %}
+
     {% include chromeframe.html %}
     {% include nav.html %}
     {{ content }}
