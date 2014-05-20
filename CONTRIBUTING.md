@@ -6,8 +6,8 @@ Follow the [branch-based workflow][flow].
 
 Specs are written in American English. Use:
 
-* *color* (not *colour*)
-* *gray* (not *grey*)
+* *color* ~~*colour*~~
+* *gray* ~~*grey*~~
 
 ## Markdown
 
