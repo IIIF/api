@@ -1,6 +1,6 @@
-# Based on 
-# https://github.com/kogakure/jekyll-plugin-abbr/blob/master/_plugins/abbreviation.rb
-# Original License follows:
+# Derived  from https://github.com/kogakure/jekyll-plugin-abbr
+#
+# Original license follows:
 #
 # ~~~~~
 # The MIT License
@@ -27,13 +27,13 @@
 
 # Just using Liquid, e.g.:
 #
-#    {% for acronym in site.data.acronyms %}
-#      {% assign short = acronym[0] %}
-#      {% capture open %}<abbr title="{{ acronym[1] }}">{% endcapture %}
-#      {% assign close = '</abbr>' %}
-#      {% assign markup = short | prepend: open | append: close %}
-#      {% assign content = content | replace: short, markup %} 
-#    {% endfor %}
+   # {% for acronym in site.data.acronyms %}
+   #   {% assign short = acronym[0] %}
+   #   {% capture open %}<abbr title="{{ acronym[1] }}">{% endcapture %}
+   #   {% assign close = '</abbr>' %}
+   #   {% assign markup = short | prepend: open | append: close %}
+   #   {% assign content = content | replace: short, markup %} 
+   # {% endfor %}
 #
 # Wraps instances in title and alt attributes as well, so a smarter filter
 # is necessary...
