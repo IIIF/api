@@ -1,6 +1,6 @@
 ---
 title: RESTful Management of Source Images on an IIIF Server
-layout: default
+layout: sub-page
 categories: [annex, rest, image-api, spec-doc]
 ---
 # RESTful Management of Source Images on an IIIF Server
@@ -13,7 +13,7 @@ categories: [annex, rest, image-api, spec-doc]
 
 ## Abstract
 
-This document describes an extension to the [IIIF Image API version 1.2][iiif-image-api-12] which compliant servers may implement to faciliate the management of images on a server using the HTTP protocol.
+This document describes an extension to the [IIIF Image API][iiif-image-api] which compliant servers may implement to faciliate the management of images on a server using the HTTP protocol.
 
 Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss].
 
@@ -164,7 +164,7 @@ In addition to the error conditions discussed in [Section 6.2][] of the image AP
 
 ## 4. Extension Context
 
-This extension defines five predicates in a separate [context][iiif-rest-context], one for each of the HTTP methods described in [Section 2][2]. A server that supports any of the HTTP methods as described by this document should modify its capabilities document to include this context, e.g., as follows:
+This extension defines five predicates in a separate context, one for each of the HTTP methods described in [Section 2][2]. A server that supports any of the HTTP methods as described by this document should modify its capabilities document to include this context, e.g., as follows:
 
 ```javascript
 {
@@ -209,6 +209,5 @@ As of this writing authorization and authentication are topics of heavy dicussio
  [http-if-none-match]: http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.26
  [http-location]: http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.30
  [http-options]: http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.2
- [iiif-image-api-12]: http://iiif.io/api/image/1.2/
- [iiif-rest-context]: http://iiif.io/api/image/ext/rest.json
+ [iiif-image-api]: /api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}
  [iiif-discuss]: mailto:iiif-discuss%40googlegroups.com
