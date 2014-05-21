@@ -7,7 +7,8 @@ categories: [annex, service, services, spec-doc, specifications]
 ## Status of this Document
 {:.no_toc}
 
-This document is not subject to semantic versioning. Changes will be tracked in Appendix B.
+This document is not subject to semantic versioning. 
+Changes will be tracked within the document.
 
 _Copyright © 2012-2014 Editors and contributors. Published by the IIIF under the CC-BY license._
 
