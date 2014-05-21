@@ -7,7 +7,7 @@ layout: sub-page
 ---
           <section class="section-quick-links">
             <a class="button-turquoise" href="/api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/">IIIF Image API {{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}</a>
-            <a class="button-turquoise" href="/api/metadata/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}">IIIF Metadata API {{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}</a>
+            <a class="button-turquoise" href="/api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}">IIIF Presentation API {{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}</a>
           </section>
 
           <section class="quick-start wrapper">
@@ -19,8 +19,8 @@ layout: sub-page
               The basic steps to getting started with IIIF are:
             </p>
             <ol>
-              <li>Deploy an image server that supports the <a href="http://www-sul.stanford.edu/iiif/image-api/1.1/" target="_blank">IIIF Image API v1.1</a></li>
-              <li>Publish metadata about your image-based objects that complies to <a href="http://www.shared-canvas.org/datamodel/iiif/metadata-api.html" target="_blank">IIIF Metadata API v1.0</a></li>
+              <li>Deploy an image server that supports the <a href="/api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/">IIIF Image API</a></li>
+              <li>Publish metadata about your image-based objects that complies to <a href="/api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}" target="_blank">IIIF Presentation API</a></li>
               <li>Deploy and integrate software that allows you to discover and display IIIF-compliant image resources</li>
             </ol>
           </section>
@@ -75,7 +75,7 @@ layout: sub-page
             <h2>Publish metadata</h2>
             <p>
               Now that you have an image server that delivers IIIF-compliant image URI’s, you need to publish metadata about your
-              image-based objects using the <a href="http://www.shared-canvas.org/datamodel/iiif/metadata-api.html" target="_blank">IIIF Metadata API v1.0</a>.
+              image-based objects using the <a href="/api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}">IIIF Presentation API</a>.
             </p>
           </section>
 
@@ -105,7 +105,7 @@ layout: sub-page
             <ul>
               <li>
                 Both the Image API <a href="/api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}#image-info-request">Image Information Request</a> and the
-                <a href="/api/metadata/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}">Metadata API</a> are expressed as <a href="http://json-ld.org/" target="_blank">JSON-LD</a> serializations.
+                <a href="/api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}">Metadata API</a> are expressed as <a href="http://json-ld.org/" target="_blank">JSON-LD</a> serializations.
               </li>
               <li>
                 The goal of IIIF is to make your image resources available to web applications hosted on other domains.  Since most of the image viewers use javascript,
