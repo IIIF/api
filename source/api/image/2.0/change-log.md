@@ -30,6 +30,12 @@ With the [2.0 Release of the IIIF Image API][api], the editors will begin using 
 
 ## Breaking Changes
 
+### Renamed Qualities
+
+Previous versions of the specification used "grey" (not "gray") but "color" (not "colour"). While this does reflect the international nature if IIIF, it is not terribly consistent. From this release `grey` is now `gray`.
+
+There was also confusion among users as to the meaning of `native`. The API does not recognize the notion of a source image, and the label `native` was tied too closely to such an idea. In 2.0 `native` has been replaced with `default`, with the implication that the server should return the image in a default quality, but the API provides no instructions as to how this decision is made (in the future, for example, authorization may determine the default quality).
+
 ### Added `profile` property to Image Information document
 
 This is a response to several requests for the ability to describe the capabilites of a server or a particular image with finer granularity than that of the compliance levels. For example, a server may be completely compliant with level 1, but also support the `!w,h` syntax for specifying the size, which is a level 2 feature. This capability can be exposed using the `supports` property with the `profile` property.
@@ -38,23 +44,11 @@ The `supports` property may also be used to describe extension features. See [5.
 
 The `qualities` and `formats` properties have been moved into the `profile` attribute as well.
 
-### Added `protocol` property to Image Information document
-
-The value of this property is always the URI `http://iiif.io/api/image` which purposefully does not reflect the version of the API the server implements or its level of compliance. This will enable clients that can consume other JSON-based image information syntaxes and/or multiple versions of the IIIF Image API to easily identify the image service as a IIIF image server.
-
-The `protocol` property is required at all levels of compliance.
-
 ### Required <abbr title="Cross-Origin Resource Sharing">CORS</abbr> for level 1 Compliance
 
-The one of the core purposes--if not _the_ core purpose--of IIIF is to share images across domains. This is is impossible
+One of the core purposes--if not _the_ core purpose--of IIIF is to share images between institutions. This is is impossible without the ability to exchange images and metadata across different HTTP domains. CORS is the standard way to do this.
 
 A few other HTTP features have been enumerated in the [HTTP Features][http-features] section of the [compliance document][compliance-doc].
-
-### Renamed Qualities
-
-Previous versions of the specification used "grey" (not "gray") but "color" (not "colour"). While this does reflect the international nature if IIIF, it is not terribly consistent. From this release `grey` is now `gray`.
-
-There was also confusion among users as to the meaning of `native`. The API does not recognize the notion of a source image, and the label `native` was tied too closely to such an idea. In 2.0 `native` has been replaced with `default`, with the implication that the server should return the image in a default quality, however this decision may be made (in the future, for example, authorization may determine the default quality).
 
 ### Changed URIs for compliance levels
 
@@ -84,6 +78,12 @@ There are potentially several ways to request the same image, and two cases aros
   * A level-2-compliant server may want to server may want to redirect to the canonical syntax for better cache performance.
 
 The canonical URI for an image may be specified in an HTTP Link Header with the attribute `rel=canonical`. See [Section 4.7 Canonical URI Syntax][canonical-uris] for details.
+
+### Added `protocol` property to Image Information document
+
+The value of this property is always the URI `http://iiif.io/api/image` which purposefully does not reflect the version of the API the server implements or its level of compliance. This will enable clients that can consume other JSON-based image information syntaxes and/or multiple versions of the IIIF Image API to easily identify the image service as a IIIF image server.
+
+The `protocol` property is required at all levels of compliance.
 
 ### Drop Rotation to Level 2 Compliance
 
