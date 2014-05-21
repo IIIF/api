@@ -2,6 +2,7 @@ name: IIIF | International Image Interoperability Framework
 markdown: kramdown
 highlighter: pygments
 source: source
+permalink: /blog/:year/:title/
 
 kramdown:
   input: GFM
