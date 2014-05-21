@@ -11,10 +11,11 @@ Specs are written in American English. Use:
 
 ## Markdown
 
-Use markdown inside of specs.
+Use the [Kramdown syntax][kram].
 
 ## Images
 
 Images must be PNG.
 
 [flow]: https://guides.github.com/introduction/flow/
+[kram]: http://kramdown.gettalong.org/syntax.html
