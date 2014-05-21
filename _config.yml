@@ -3,6 +3,8 @@ markdown: kramdown
 highlighter: pygments
 source: source
 
+permalink: /news/:year/:month/:day/:title
+
 kramdown:
   input: GFM
   parse_block_html: true

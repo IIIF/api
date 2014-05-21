@@ -7,6 +7,8 @@
             <li><a {% if page.id == 'technical-details' %}class="is-selected"{% endif %} href="/technical-details.html">Technical Details</a></li>
             <li><a {% if page.id == 'apps_demos' %}class="is-selected"{% endif %} href="/apps-demos.html">Apps &amp; Demos</a></li>
             <li><a {% if page.id == 'community' %}class="is-selected"{% endif %} href="/community.html">Community</a></li>
+            <li><a {% if page.url contains '/news/' %}class="is-selected"{% endif %} href="/news/">News</a></li>
+
           </ul>
         </nav>
       </header>

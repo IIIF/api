@@ -1,3 +1,5 @@
+---
+---
 /* ==========================================================================
    HTML5 Boilerplate styles - h5bp.com (generated via initializr.com)
    ========================================================================== */
@@ -64,6 +66,8 @@ body {
   color: #555;
   font: 15px/26px 'Open Sans', Helvetica, Helvetica Neue, Arial;
 }
+
+
 
 .wrapper {
   width: 90%;
@@ -1046,3 +1050,25 @@ a.button-turquoise {
     page-break-after: avoid;
   }
 }
+
+// Post styles
+.short-post-title {
+  .post-date {
+    font-size: smaller;
+  }
+}
+.post {
+  .meta {
+    p {
+      line-height: 1.1;
+      margin-top: 5px;
+      margin-bottom: 5px
+    }
+  }
+  dd {
+    ul {
+      margin: 0;
+      padding:0;
+    }
+  }
+} 
