@@ -7,7 +7,7 @@ categories: [annex, service, services, spec-doc, specifications]
 ## Status of this Document
 {:.no_toc}
 
-This document is not subject to semantic versioning.
+This document is not subject to semantic versioning. Changes will be tracked in Appendix B.
 
 _Copyright © 2012-2014 Editors and contributors. Published by the IIIF under the CC-BY license._
 
@@ -35,6 +35,8 @@ Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss]
 ## 1. Introduction
 
 There are many desirable features that could be usefully included in resource descriptions beyond those already defined in the [Presentation API][prezi-api].  However, in order to keep the API manageable and lean enough to be understood, implemented and validated, any feature which is not able to be justified as universally applicable will be imported as a service from an external resource.  The adoption of [JSON-LD][json-ld] is paramount in this respect, as it gives a solid basis for interoperability and disambiguation between systems.
+
+The inclusion of services in this document _MUST NOT_ be interpreted as endorsement, support or approval from the editors, IIIF community or any individual.  This annex is provided as a registry of services to advertise their existence and attempt to ensure some consistency between implementations for common but not universal requirements.  
 
 ## 2. Requirements
 
@@ -92,16 +94,56 @@ The service _MAY_ have additional information embedded from the Image Informatio
 
 ### 3.2 GeoJSON
 
+A frequently requested feature is the ability to associate a geographical place with a resource, in order to drive a map-based user interface or visualization tool.  This might be a location associated with the provenance of the object such as where it was created, or where it is currently held.  The location might also be related to the content of the resource, such as a city mentioned in the text or the landmark depicted in a photograph.
+
+As this feature is only useful to map-based user interfaces, is not universally available, and would open the door to further tagging of time, people, events, and other semantic metadata outside of the scope of the Presentation API, it is added as a service using an existing specification for location.  This specification is called [GeoJSON][geojson], and has a JSON-LD representation [available][geojson-ld].  Please see the documentation for the full functionality made available by this integration.
+
+The `@context` to use is: `http://geojson.org/contexts/geojson-base.jsonld`
+
+An external reference example for tagging a place, where the URI would return a GeoJSON description of the city of Paris, France:
+
+{% highlight json %}
+{
+  "service": {
+    "@context" : "http://geojson.org/contexts/geojson-base.jsonld",
+    "@id" : "http://www.example.org/geojson/paris.json"
+  } 
+}
+{% endhighlight %}
+
+Or embedding the content:
+
+{% highlight json %}
+{
+  "service": {
+    "@context" : "http://geojson.org/contexts/geojson-base.jsonld",
+    "@id" : "http://www.example.org/geojson/paris.json",     
+    "type": "Feature",
+    "properties": {"name": "Paris"},
+    "geometry": {
+      "type": "Point",
+      "coordinates" : [48.8567,2.3508]
+    }         
+  } 
+}
+{% endhighlight %}
+
+
+
 ### 3.3 Physical Dimensions
 
 For digitized objects, it is often useful to know the physical dimensions of the object.  If available, it would allow a client to present a ruler, or other rendition of physical scale, to the user.  
 This information might be available, but frequently:
+
   * It is not available at all
   * It is unreliable when it is recorded
   * It is different for every view of an object
   * The Canvas dimensions don't accurately reflect only the physical object, but are derived from an image that includes a ruler, color bar, or the scanning bed.
 
-As the Presentation API already includes an aspect ratio for the Canvas, the physical dimensions service need only report two additional pieces of information: the scale factor from canvas dimensions to physical dimensions, and the units for those generated physical dimensions.  It is _RECOMMENDED_ that the information always be embedded rather than requiring the client to retrieve it with a 
+As the Presentation API already includes an aspect ratio for the Canvas, the physical dimensions service need only report two additional pieces of information: the scale factor from canvas dimensions to physical dimensions, and the units for those generated physical dimensions.  It is _RECOMMENDED_ that the information always be embedded rather than requiring the client to retrieve it with an additional HTTP request.
+
+
+The description will include the following properties:
 
 | Property        | Required? | Description |
 | --------------- | --------- | ----------- |
@@ -129,11 +171,22 @@ The following example demonstrates the resulting structure:
 
 ### A. Acknowledgements
 
+The production of this document was generously supported by a grant from the [Andrew W. Mellon Foundation][mellon].
+
+Thanks to the members of the [IIIF][iiif-community] for their continuous engagement, innovative ideas and feedback.
+
 ### B. Changelog
 
-
+| Date       | Description                                        |
+| ---------- | -------------------------------------------------- |
+| 2014-06-01 | Version 1.0 RFC                                    |
 
    [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
    [image-api]: /api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/ "Image API"
    [prezi-api]: /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/ "Presentation API"
    [json-ld]: http://www.w3.org/TR/json-ld/ "JSON-LD"
+   [iiif-community]: /community.html "IIIF Community"
+   [mellon]: http://www.mellon.org/ "The Andrew W. Mellon Foundation"
+   [geojson]: http://geojson.org/ "GeoJSON"
+   [geojson-ld]: http://geojson.org/vocab "GeoJSON-LD"
+
