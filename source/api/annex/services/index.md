@@ -59,15 +59,70 @@ Services _SHOULD_ have a `profile` URI which can be used to determine the type o
 
 ### 3.1 Image Information
 
-The main usage of services is to provide a reference from the [Presentation API][prezi-api] to the content to be displayed via the [Image API][image-api].  The JSON-LD content to be referenced or embedded is the Image Information document, also known as `info.json`.  The URI to be given in `@id` is the base URI of the Image API service.     
+The main use of services is to provide a reference from the [Presentation API][prezi-api] to the content to be displayed via the [Image API][image-api].  The JSON-LD content to be referenced or embedded is the Image Information document, also known as `info.json`.  The service _MUST_ have the `@context`, `@id` and `profile` keys, pointing to the context document, service base URI and compliance level profile respectively.
 
 {% highlight json %}
+{
+  "service": {
+    "@context" : "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
+    "@id" : "http://www.example.org/image-service/abcd1234",
+    "profile": "http://iiif.io/api/image/1/level2.json"
+  } 
+}
 {% endhighlight %}
 
+The service _MAY_ have additional information embedded from the Image Information document to prevent the need to retrieve and parse it separately.  In this case, the profile _MAY_ also point to the profile of what functionality is supported, as described in the Image API.
+
+{% highlight json %}
+{
+  "service": {
+    "@context" : "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
+    "@id" : "http://www.example.org/image-service/abcd1234",
+    "profile": "http://iiif.io/api/image/1/level2.json",
+    "protocol": "http://iiif.io/api/image",
+    "width" : 6000,
+    "height" : 4000,
+    "scale_factors" : [ 1, 2, 4 ],
+    "sizes" : [ "150,100", "360,240", "3600,2400" ],
+    "tile_width" : 1024,
+    "tile_height" : 1024
+  } 
+}
+{% endhighlight %}
 
 ### 3.2 GeoJSON
 
 ### 3.3 Physical Dimensions
+
+For digitized objects, it is often useful to know the physical dimensions of the object.  If available, it would allow a client to present a ruler, or other rendition of physical scale, to the user.  
+This information might be available, but frequently:
+  * It is not available at all
+  * It is unreliable when it is recorded
+  * It is different for every view of an object
+  * The Canvas dimensions don't accurately reflect only the physical object, but are derived from an image that includes a ruler, color bar, or the scanning bed.
+
+As the Presentation API already includes an aspect ratio for the Canvas, the physical dimensions service need only report two additional pieces of information: the scale factor from canvas dimensions to physical dimensions, and the units for those generated physical dimensions.  It is _RECOMMENDED_ that the information always be embedded rather than requiring the client to retrieve it with a 
+
+| Property        | Required? | Description |
+| --------------- | --------- | ----------- |
+| `@context`      | Required  | The string "http://iiif.io/api/annex/service/physdim/1.0/context.json" |
+| `profile`       | Required  | The string "http://iiif.io/api/annex/service/physdim" |
+| `physicalScale` | Required  | The floating point ratio to convert from the canvas height and width to the physical objects height and width.  |
+| `physicalUnits` | Required  | The physical units for the generated height and width.  Possible values are: "mm", "cm", in" |
+{: .image-api-table}
+
+The following example demonstrates the resulting structure:
+
+{% highlight json %}
+{
+  "service": {
+    "@context": "http://iiif.io/api/annex/service/physdim/1.0/context.json",
+    "profile": "http://iiif.io/api/annex/service/physdim",
+    "physicalScale": 0.025,
+    "physicalUnits": "mm"
+  }
+}
+{% endhighlight %}
 
 
 ## Appendices
