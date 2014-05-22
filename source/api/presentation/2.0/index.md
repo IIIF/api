@@ -1282,54 +1282,54 @@ URL: _http://www.example.org/iiif/book1/manifest.json_
 
 ### B. Summary of Metadata Requirements
 
-| Field                                              | Meaning     |
-| -------------------------------------------------- | ----------- |
-| ![required](/img/metadata-api/required.png)        | Required    |
-| ![recommended](/img/metadata-api/recommended.png)  | Recommended |
-| ![optional](/img/metadata-api/optional.png)        | Optional    |
-| ![not allowed](/img/metadata-api/not_allowed.png)  | Not Allowed |
+| Field                      | Meaning     |
+| -------------------------- | ----------- |
+| ![required][icon-req]      | Required    |
+| ![recommended][icon-recc]  | Recommended |
+| ![optional][icon-opt]      | Optional    |
+| ![not allowed][icon-na]    | Not Allowed |
 {: .image-api-table}
 
-|                | @id                                         | @type                                       | format                                            | height                                            | width                                             | viewingDirection                                  | viewingHint                                           |
-| -------------- | ------------------------------------------- | ------------------------------------------- | ------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------- | ----------------------------------------------------- |
-| Collection     | ![required](/img/metadata-api/required.png) | ![required](/img/metadata-api/required.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![optional](/img/metadata-api/optional.png)           |
-| Manifest       | ![required](/img/metadata-api/required.png) | ![required](/img/metadata-api/required.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)           |
-| Sequence       | ![optional](/img/metadata-api/optional.png) | ![required](/img/metadata-api/required.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)           |
-| Canvas         | ![required](/img/metadata-api/required.png) | ![required](/img/metadata-api/required.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![required](/img/metadata-api/required.png)       | ![required](/img/metadata-api/required.png)       | ![not allowed](/img/metadata-api/not_allowed.png) | ![optional](/img/metadata-api/optional.png)           |
-| Annotation     | ![optional](/img/metadata-api/optional.png) | ![required](/img/metadata-api/required.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![optional](/img/metadata-api/optional.png)           |
-| AnnotationList | ![required](/img/metadata-api/required.png) | ![required](/img/metadata-api/required.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![optional](/img/metadata-api/optional.png)           |
-| Range          | ![required](/img/metadata-api/required.png) | ![required](/img/metadata-api/required.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)           |
-| Layer          | ![required](/img/metadata-api/required.png) | ![required](/img/metadata-api/required.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)           |
-| Image Content  | ![required](/img/metadata-api/required.png) | ![required](/img/metadata-api/required.png) | ![required](/img/metadata-api/required.png)       | ![recommended](/img/metadata-api/recommended.png) | ![recommended](/img/metadata-api/recommended.png) | ![not allowed](/img/metadata-api/not_allowed.png) | ![optional](/img/metadata-api/optional.png)           |
-| Other Content  | ![required](/img/metadata-api/required.png) | ![required](/img/metadata-api/required.png) | ![required](/img/metadata-api/required.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![not allowed](/img/metadata-api/not_allowed.png) | ![optional](/img/metadata-api/optional.png)           |
+|                | @id                   | @type                 | format                  | height                    | width                     | viewingDirection        | viewingHint                                           |
+| -------------- | --------------------- | --------------------- | ----------------------- | ------------------------- | ------------------------- | ----------------------- | ---------------------- |
+| Collection     | ![required][icon-req] | ![required][icon-req] | ![not allowed][icon-na] | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![not allowed][icon-na] | ![optional][icon-opt]  |
+| Manifest       | ![required][icon-req] | ![required][icon-req] | ![not allowed][icon-na] | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![optional][icon-opt]   | ![optional][icon-opt]  |
+| Sequence       | ![optional][icon-opt] | ![required][icon-req] | ![not allowed][icon-na] | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![optional][icon-opt]   | ![optional][icon-opt]  |
+| Canvas         | ![required][icon-req] | ![required][icon-req] | ![not allowed][icon-na] | ![required][icon-req]     | ![required][icon-req]     | ![not allowed][icon-na] | ![optional][icon-opt]  |
+| Annotation     | ![optional][icon-opt] | ![required][icon-req] | ![not allowed][icon-na] | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![not allowed][icon-na] | ![optional][icon-opt]  |
+| AnnotationList | ![required][icon-req] | ![required][icon-req] | ![not allowed][icon-na] | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![not allowed][icon-na] | ![optional][icon-opt]  |
+| Range          | ![required][icon-req] | ![required][icon-req] | ![not allowed][icon-na] | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![optional][icon-opt]   | ![optional][icon-opt]  |
+| Layer          | ![required][icon-req] | ![required][icon-req] | ![not allowed][icon-na] | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![optional][icon-opt]   | ![optional][icon-opt]  |
+| Image Content  | ![required][icon-req] | ![required][icon-req] | ![required][icon-req]   | ![recommended][icon-recc] | ![recommended][icon-recc] | ![not allowed][icon-na] | ![optional][icon-opt]  |
+| Other Content  | ![required][icon-req] | ![required][icon-req] | ![required][icon-req]   | ![optional][icon-opt]     | ![optional][icon-opt]     | ![not allowed][icon-na] | ![optional][icon-opt]  |
 {: .image-api-table}
 
-|                | label                                        | metadata                                           | description                                       | thumbnail                                         | attribution                                  | license                                       | logo                                           |
-| -------------- | -------------------------------------------- | -------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------- | -------------------------------------------- | --------------------------------------------- | ---------------------------------------------- |
-| Collection     | ![required](/img/metadata-api/required.png)  | ![optional](/img/metadata-api/optional.png)        | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)  | ![optional](/img/metadata-api/optional.png)   | ![optional](/img/metadata-api/optional.png)    |
-| Manifest       | ![required](/img/metadata-api/required.png)  | ![recommended](/img/metadata-api/recommended.png)  | ![recommended](/img/metadata-api/recommended.png) | ![recommended](/img/metadata-api/recommended.png) | ![optional](/img/metadata-api/optional.png)  | ![optional](/img/metadata-api/optional.png)   | ![optional](/img/metadata-api/optional.png)    |
-| Sequence       | ![optional](/img/metadata-api/optional.png)  | ![optional](/img/metadata-api/optional.png)        | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)  | ![optional](/img/metadata-api/optional.png)   | ![optional](/img/metadata-api/optional.png)    |
-| Canvas         | ![required](/img/metadata-api/required.png)  | ![optional](/img/metadata-api/optional.png)        | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)  | ![optional](/img/metadata-api/optional.png)   | ![optional](/img/metadata-api/optional.png)    |
-| Annotation     | ![optional](/img/metadata-api/optional.png)  | ![optional](/img/metadata-api/optional.png)        | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)  | ![optional](/img/metadata-api/optional.png)   | ![optional](/img/metadata-api/optional.png)    |
-| AnnotationList | ![optional](/img/metadata-api/optional.png)  | ![optional](/img/metadata-api/optional.png)        | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)  | ![optional](/img/metadata-api/optional.png)   | ![optional](/img/metadata-api/optional.png)    |
-| Range          | ![required](/img/metadata-api/required.png)  | ![optional](/img/metadata-api/optional.png)        | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)  | ![optional](/img/metadata-api/optional.png)   | ![optional](/img/metadata-api/optional.png)    |
-| Layer          | ![required](/img/metadata-api/required.png)  | ![optional](/img/metadata-api/optional.png)        | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)  | ![optional](/img/metadata-api/optional.png)   | ![optional](/img/metadata-api/optional.png)    |
-| Image Content  | ![optional](/img/metadata-api/optional.png)  | ![optional](/img/metadata-api/optional.png)        | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)  | ![optional](/img/metadata-api/optional.png)   | ![optional](/img/metadata-api/optional.png)    |
-| Other Content  | ![optional](/img/metadata-api/optional.png)  | ![optional](/img/metadata-api/optional.png)        | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)  | ![optional](/img/metadata-api/optional.png)   | ![optional](/img/metadata-api/optional.png)    |
+|                | label                  | metadata                     | description                 | thumbnail                   | attribution            | license                 | logo                     |
+| -------------- | ---------------------- | ---------------------------- | --------------------------- | ----------------------------| ---------------------- | ----------------------- | ------------------------ |
+| Collection     | ![required][icon-req]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
+| Manifest       | ![required][icon-req]  | ![recommended][icon-recc]    | ![recommended][icon-recc]   | ![recommended][icon-recc]   | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
+| Sequence       | ![optional][icon-opt]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
+| Canvas         | ![required][icon-req]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
+| Annotation     | ![optional][icon-opt]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
+| AnnotationList | ![optional][icon-opt]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
+| Range          | ![required][icon-req]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
+| Layer          | ![required][icon-req]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
+| Image Content  | ![optional][icon-opt]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
+| Other Content  | ![optional][icon-opt]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
 {: .image-api-table}
 
-|                | seeAlso                                           | service                                           | related                                           | within                                           |
-| -------------- | ------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------ |
-| Collection     | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)      |
-| Manifest       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)      |
-| Sequence       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)      |
-| Canvas         | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)      |
-| Annotation     | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)      |
-| AnnotationList | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)      |
-| Range          | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)      |
-| Layer          | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)      |
-| Image Content  | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)      |
-| Other Content  | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)       | ![optional](/img/metadata-api/optional.png)      |
+|                | seeAlso                     | service                     | related                     | within                     |
+| -------------- | --------------------------- | --------------------------- | --------------------------- | -------------------------- |
+| Collection     | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]      |
+| Manifest       | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]      |
+| Sequence       | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]      |
+| Canvas         | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]      |
+| Annotation     | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]      |
+| AnnotationList | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]      |
+| Range          | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]      |
+| Layer          | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]      |
+| Image Content  | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]      |
+| Other Content  | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]      |
 {: .image-api-table}
 
 ### C. Versioning
@@ -1379,6 +1379,11 @@ Many thanks to Matthieu Bonicel, Tom Cramer, Ian Davis, Markus Enders, Tim Golli
 [css]: http://www.w3.org/TR/CSS/ "Cascading Style Sheets"
 [semver]: http://semver.org/spec/v2.0.0.html "Semantic Versioning 2.0.0"
 [mellon]: http://www.mellon.org/ "The Andrew W. Mellon Foundation"
+
+[icon-req]: /img/metadata-api/required.png "Required"
+[icon-recc]: /img/metadata-api/recommended.png "Recommended"
+[icon-opt]: /img/metadata-api/optional.png "Optional"
+[icon-na]: /img/metadata-api/not_allowed.png "Not allowed"
 
 {% for acronym in site.data.acronyms %}
   *[{{ acronym[0] }}]: {{ acronym[1] }}
