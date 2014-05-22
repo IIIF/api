@@ -130,3 +130,7 @@ Link: <http://iiif.io/api/image/{{ page.major }}/level2.json>;rel="profile"
 {: .urltemplate}
 
 [image-api]: /api/image/2.0/ "Image API 2.0"
+
+{% for acronym in site.data.acronyms %}
+  *[{{ acronym[0] }}]: {{ acronym[1] }}
+{% endfor %}

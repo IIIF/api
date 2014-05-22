@@ -10,7 +10,7 @@ minor: 0
 pre: draft
 ---
 
-This document is a companion to the [<abbr title="International Image Interoperability Framework">IIIF</abbr> Image API Specification, Version 2.0][api]. It describes the significant changes to the API since [Version 1.1][api-11]. The changes are broken into two groups: [Breaking Changes][breaking-changes], i.e. those that are not backwards compatible from either a client or server perspective (or both); and [Other Changes][other-changes], i.e. those that are backwards compatible. The latter group consists mostly of new features.
+This document is a companion to the [IIIF Image API Specification, Version 2.0][api]. It describes the significant changes to the API since [Version 1.1][api-11]. The changes are broken into two groups: [Breaking Changes][breaking-changes], i.e. those that are not backwards compatible from either a client or server perspective (or both); and [Other Changes][other-changes], i.e. those that are backwards compatible. The latter group consists mostly of new features.
 
 In addition to the changes described above:
 
@@ -58,7 +58,7 @@ The compliance URIs have been moved into the `http://iiif.io` domain. They now r
 
 As of this version, a client must specify the format of the image as a file-like suffix on the URI, e.g. `default__.jpg__`. There are several reasons for this change:
 
- * This a typical convention employed by image processing utilities, (cf. [ImageMagick][[imagemagick-output], [Pillow][pillow], [Kakadu][kdu-usage], and most others).
+ * This a typical convention employed by image processing utilities, (cf. [ImageMagick][imagemagick-output], [Pillow][pillow], [Kakadu][kdu-usage], and most others).
  * The formats in which the image is available are explicitly enumerated by the info.json document for an image and/or the server compliance level document. A client should never need to guess or let the server decide as `jpg` is always required.
  * Static image files on the web typically have file extensions that indicate the format, and there was never a clear use case for when a client would prefer content negotiation over expressing the format in the URI.
 
@@ -118,3 +118,7 @@ As transition to JSON-LD (since it is not fully supported by browsers), clients 
 [rfc-2119]: http://tools.ietf.org/html/rfc2119 "Key words for use in RFCs to Indicate Requirement Levels"
 [semver]: http://semver.org/ "Semantic Versioning Specification"
 [versioning]: /api/image/2.0/#b-versioning "Image API Appendix B: Versioning"
+
+{% for acronym in site.data.acronyms %}
+  *[{{ acronym[0] }}]: {{ acronym[1] }}
+{% endfor %}

@@ -10,7 +10,7 @@ minor: 0
 pre: draft
 ---
 
-This document is a companion to the [<abbr title="International Image Interoperability Framework">IIIF</abbr> Presentation API Specification, Version 2.0][prezi-api]. It describes the significant changes to the API since [Version 1.0][prezi-api-10]. The changes are broken into three groups: [Breaking Changes][breaking-changes], i.e. those that are not backwards compatible from either a client or server perspective (or both); [Other Changes][other-changes], i.e. those that are backwards compatible; and [Deferred Changes][deferred-changes], i.e. those that have been discussed but did not make it into this version of the specification.
+This document is a companion to the [IIIF Presentation API Specification, Version 2.0][prezi-api]. It describes the significant changes to the API since [Version 1.0][prezi-api-10]. The changes are broken into three groups: [Breaking Changes][breaking-changes], i.e. those that are not backwards compatible from either a client or server perspective (or both); [Other Changes][other-changes], i.e. those that are backwards compatible; and [Deferred Changes][deferred-changes], i.e. those that have been discussed but did not make it into this version of the specification.
 
 In addition to the changes described above:
 
@@ -105,8 +105,9 @@ The Image API in 2.0 has a protocol field that makes the assertion that the info
 [api-11]: /api/image/1.1/ "Image API 1.1"
 [api-compliance]: /api/image/2.0/#compliance-levels "Image API 6. Compliance Levels"
 [api]: /api/image/2.0/ "Image API 2.0"
-[breaking-changes]: #breaking-changes "Image API 2.0 Breaking Changes"
+[breaking-changes]: #breaking-changes "Presentation API 2.0 Breaking Changes"
 [canonical-uris]: /api/image/2.0/#canonical-uri-syntax "Image API 4.7. Canonical URI Syntax"
+[deferred-changes]: #deferred-changes "Presentation API 2.0 Deferred Changes"
 [info-request]: /api/image/2.0/#information-request "Image API Section 5. Information Request"
 [compliance-doc]: /api/image/2.0/compliance.html "Image API 2.0 Compliance Document"
 [context]: /api/image/2/context.json  "Image API 2.0 JSON-LD Context"
@@ -115,7 +116,13 @@ The Image API in 2.0 has a protocol field that makes the assertion that the info
 [imagemagick-output]: http://www.imagemagick.org/script/command-line-processing.php#output "ImageMagick: Command-line Processing: Output Filename"
 [kdu-usage]: http://www.kakadusoftware.com/documents/Usage_Examples.txt "Usage Examples for the Demonstration Applications Supplied with Kakadu V7.0"
 [pillow]: http://pillow.readthedocs.org/en/latest/handbook/image-file-formats.html#image-file-formats "Pillow: Image file formats"
-[other-changes]: #other-changes "Image API 2.0 Other Changes"
+[other-changes]: #other-changes "Presentation API 2.0 Other Changes"
+[prezi-api]: /api/presentation/2.0/ "Presentation API 2.0"
+[prezi-api-10]: /api/presentation/1.0/ "Presentation API 1.0"
 [rfc-2119]: http://tools.ietf.org/html/rfc2119 "Key words for use in RFCs to Indicate Requirement Levels"
 [semver]: http://semver.org/ "Semantic Versioning Specification"
 [versioning]: /api/image/2.0/#b-versioning "Image API Appendix B: Versioning"
+
+{% for acronym in site.data.acronyms %}
+  *[{{ acronym[0] }}]: {{ acronym[1] }}
+{% endfor %}
