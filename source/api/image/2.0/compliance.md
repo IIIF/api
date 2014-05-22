@@ -30,7 +30,7 @@ This document is a companion to the [IIIF Image API Specification][image-api]. I
 
 ## Compliance
 
-Three levels of compliance are defined. Level 0 is defined as the minimum set of supported parameters and features to qualify an implementation of the service as compliant to the IIIF standard. Level 1 is defined as the RECOMMENDED set of parameters and features to be implemented.
+Three levels of compliance are defined. Level 0 is defined as the minimum set of supported parameters and features that _MUST_ be implemented to qualify the service as compliant to the IIIF standard. Level 1 is defined as the _RECOMMENDED_ set of parameters and features to be implemented.
 
 In the tables below "x" indicates that support is required, "o" indicates that support is optional.
 
@@ -109,12 +109,12 @@ Link: <http://iiif.io/api/image/{{ page.major }}/level0.json>;rel="profile"
 ```
 {: .urltemplate}
 
-A level 0 compliant image server MAY specify scaling_factors and/or tile_width and tile_height values in the Image information response. At Level 0 compliance, a server is only required to deliver images of sizes computed using the scaling factors declared in the Image Information response. If specified they should be interpreted with the following special meanings:
+A level 0 compliant image server _MAY_ specify `scale_factors` and/or `tile_width` and `tile_height` values in the Image Information response. At Level 0 compliance, a service is only required to deliver images of sizes computed using the scaling factors declared in the Image Information response. If specified they should be interpreted with the following special meanings:
 
- * scaling_factors - only the specified scaling factors are supported
- * tile_width, tile_height - clients should request only regions that correspond to output tiles of the specified dimensions
+ * `scale_factors` - only the specified scaling factors are supported
+ * `tile_width`, `tile_height` - clients should request only regions that correspond to output tiles of the specified dimensions
 
-If a client requests an scaling or region outside these parameters then the image server MAY reject the request with a 400 Bad Request error.
+If a client requests a size or region outside these parameters then the image server _MAY_ reject the request with an error.
 
 Servers indicate compliance with level 1 by including the following header in IIIF responses:
 
