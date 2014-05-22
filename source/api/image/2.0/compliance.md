@@ -32,7 +32,7 @@ This document is a companion to the [IIIF Image API Specification][image-api]. I
 
 Three levels of compliance are defined. Level 0 is defined as the minimum set of supported parameters and features that _MUST_ be implemented to qualify the service as compliant to the IIIF standard. Level 1 is defined as the _RECOMMENDED_ set of parameters and features to be implemented.
 
-In the tables below "x" indicates that support is required, "o" indicates that support is optional.
+In the tables below "![required][icon-req]" indicates that support is required, "![optional][icon-opt]" indicates that support is optional.
 
 ## Image Parameters
 
@@ -40,64 +40,64 @@ In the tables below "x" indicates that support is required, "o" indicates that s
 
 | Syntax      | Feature Name    | Level 0 | Level 1 | Level 2  |
 |:------------|:--------------- |:-------:|:-------:|:--------:|
-| `full`      |                 | x       | x       | x        |
-| x,y,w,h     | `region_by_px`  | o       | x       | x        |
-| pct:x,y,w,h | `region_by_pct` | o       | o       | x        |
+| `full`      |                 | ![required][icon-req] | ![required][icon-req]       | ![required][icon-req]        |
+| x,y,w,h     | `region_by_px`  | ![optional][icon-opt] | ![required][icon-req]       | ![required][icon-req]        |
+| pct:x,y,w,h | `region_by_pct` | ![optional][icon-opt] | ![optional][icon-opt]       | ![required][icon-req]        |
 {: .image-api-table}
 
 ### Size
 
 | Syntax      | Feature Name        | Level 0 | Level 1 | Level 2  |
 |:------------|:--------------------|:-------:|:-------:|:--------:|
-| `full`      |                     | x       | x       | x        |
-| w,          | `size_by_w`         | o       | x       | x        |
-| ,h          | `size_by_h`         | o       | x       | x        |
-| pct:x       | `size_by_pct`       | o       | x       | x        |
-| w,h         | `size_by_forced_wh` | o       | o       | x        |
-| !w,h        | `size_by_wh`        | o       | o       | x        |
-|             | `size_above_full`   | o       | o       | o        |
+| `full`      |                     | ![required][icon-req]      | ![required][icon-req]      | ![required][icon-req]       |
+| w,          | `size_by_w`         | ![optional][icon-opt]      | ![required][icon-req]      | ![required][icon-req]       |
+| ,h          | `size_by_h`         | ![optional][icon-opt]      | ![required][icon-req]      | ![required][icon-req]       |
+| pct:x       | `size_by_pct`       | ![optional][icon-opt]      | ![required][icon-req]      | ![required][icon-req]       |
+| w,h         | `size_by_forced_wh` | ![optional][icon-opt]      | ![optional][icon-opt]      | ![required][icon-req]       |
+| !w,h        | `size_by_wh`        | ![optional][icon-opt]      | ![optional][icon-opt]      | ![required][icon-req]       |
+|             | `size_above_full`   | ![optional][icon-opt]      | ![optional][icon-opt]      | ![optional][icon-opt]       |
 {: .image-api-table}
 
 ### Rotation
 
 | Syntax           | Feature Name         | Level 0 | Level 1 | Level 2  |
 |:-----------------|:---------------------|:-------:|:-------:|:--------:|
-| `0`              |                      | x       | x       | x        |
-| `90`,`180`,`270` | `rotation_by_90s`    | o       | o       | x        |
-| _arbitrary_      | `rotation_arbitrary` | o       | o       | o        |
+| `0`              |                      | ![required][icon-req]      | ![required][icon-req]      | ![required][icon-req]       |
+| `90`,`180`,`270` | `rotation_by_90s`    | ![optional][icon-opt]      | ![optional][icon-opt]      | ![required][icon-req]       |
+| _arbitrary_      | `rotation_arbitrary` | ![optional][icon-opt]      | ![optional][icon-opt]      | ![optional][icon-opt]       |
 {: .image-api-table}
 
 ### Quality
 
 | Syntax        | Level 0 | Level 1 | Level 2  |
 |:--------------|:-------:|:-------:|:--------:|
-| `default`     | x       | x       | x        |
-| `color`       | o       | o       | x (if applicable) |
-| `gray`        | o       | o       | x (if applicable) |
-| `bitonal`     | o       | o       | x        |
+| `default`     | ![required][icon-req]      | ![required][icon-req]      | ![required][icon-req]       |
+| `color`       | ![optional][icon-opt]      | ![optional][icon-opt]      | ![required][icon-req](if applicable) |
+| `gray`        | ![optional][icon-opt]      | ![optional][icon-opt]      | ![required][icon-req](if applicable) |
+| `bitonal`     | ![optional][icon-opt]      | ![optional][icon-opt]      | ![required][icon-req]       |
 {: .image-api-table}
 
 ### Format
 
 | Syntax      | Level 0 | Level 1 | Level 2  |
 |:------------|:-------:|:-------:|:--------:|
-| `jpg`       | x       | x       | x        |
-| `png`       | o       | o       | x        |
-| `tif`       | o       | o       | o        |
-| `gif`       | o       | o       | o        |
-| `pdf`       | o       | o       | o        |
-| `jp2`       | o       | o       | o        |
+| `jpg`       | ![required][icon-req]      | ![required][icon-req]      | ![required][icon-req]       |
+| `png`       | ![optional][icon-opt]      | ![optional][icon-opt]      | ![required][icon-req]       |
+| `tif`       | ![optional][icon-opt]      | ![optional][icon-opt]      | ![optional][icon-opt]       |
+| `gif`       | ![optional][icon-opt]      | ![optional][icon-opt]      | ![optional][icon-opt]       |
+| `pdf`       | ![optional][icon-opt]      | ![optional][icon-opt]      | ![optional][icon-opt]       |
+| `jp2`       | ![optional][icon-opt]      | ![optional][icon-opt]      | ![optional][icon-opt]       |
 {: .image-api-table}
 
 ## HTTP Features
 
 | HTTP Feature          | Feature Name            | Level 0 | Level 1 | Level 2  |
 |:----------------------|:------------------------|:-------:|:-------:|:--------:|
-| base URI redirects    | `base_uri_redirect`     | o       | x       | x        |
-| CORS                  | `cors`                  | o       | x       | x        |
-| json-ld media type    | `jsonld_media_type`     | o       | x       | x        |
-| profile link header   | `profile_link_header`   | o       | x       | x        |
-| canonical link header | `canonical_link_header` | o       | o       | o        |
+| base URI redirects    | `base_uri_redirect`     | ![optional][icon-opt]      | ![required][icon-req]      | ![required][icon-req]       |
+| CORS                  | `cors`                  | ![optional][icon-opt]      | ![required][icon-req]      | ![required][icon-req]       |
+| json-ld media type    | `jsonld_media_type`     | ![optional][icon-opt]      | ![required][icon-req]      | ![required][icon-req]       |
+| profile link header   | `profile_link_header`   | ![optional][icon-opt]      | ![required][icon-req]      | ![required][icon-req]       |
+| canonical link header | `canonical_link_header` | ![optional][icon-opt]      | ![optional][icon-opt]      | ![optional][icon-opt]       |
 {: .image-api-table}
 
 ## Indicating Compliance
@@ -131,6 +131,10 @@ Link: <http://iiif.io/api/image/{{ page.major }}/level2.json>;rel="profile"
 {: .urltemplate}
 
 [image-api]: /api/image/2.0/ "Image API 2.0"
+[icon-req]: /img/metadata-api/required.png "Required"
+[icon-recc]: /img/metadata-api/recommended.png "Recommended"
+[icon-opt]: /img/metadata-api/optional.png "Optional"
+[icon-na]: /img/metadata-api/not_allowed.png "Not allowed"
 
 {% for acronym in site.data.acronyms %}
   *[{{ acronym[0] }}]: {{ acronym[1] }}
