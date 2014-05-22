@@ -158,7 +158,7 @@ description
     * A content resource _MAY_ have a description.
 
 thumbnail
-:   A small image that represents the content of the object, such as the title page or significant image.  It is _recommended_{: .rfc} that a [IIIF Image API][3] service be available for this image for rescaling.
+:   A small image that represents the content of the object, such as the title page or significant image.  It is _recommended_{: .rfc} that a [IIIF Image API][image-api] service be available for this image for rescaling.
 
     Usage:
     {: .usage}
@@ -177,7 +177,7 @@ attribution
     * Any resource _MAY_ have an attribution label
 
 logo
-:   A small image that represents an individual or organization associated with the object.  This could be the logo of the owning or hosting institution.  It is _recommended_{: .rfc} that a [IIIF Image API][3] service be available for this image for rescaling.
+:   A small image that represents an individual or organization associated with the object.  This could be the logo of the owning or hosting institution.  It is _recommended_{: .rfc} that a [IIIF Image API][image-api] service be available for this image for rescaling.
 
     Usage:
     {: .usage}
@@ -274,12 +274,12 @@ related
     * Any resource _MAY_ have an external resource related to it.
 
 service
-:   A link to a service that makes more functionality available for the resource, such as from an image to the base URI of an [IIIF Image API][3] service. The service resource _SHOULD_ have additional information associated with it in order to allow the client to determine how to make appropriate use of it, such as a `profile` link to a service description. It _MAY_ also have relevant information copied from the service itself. This duplication is permitted in order to increase the performance of rendering the object without necessitating additional HTTP requests.
+:   A link to a service that makes more functionality available for the resource, such as from an image to the base URI of an [IIIF Image API][image-api] service. The service resource _SHOULD_ have additional information associated with it in order to allow the client to determine how to make appropriate use of it, such as a `profile` link to a service description. It _MAY_ also have relevant information copied from the service itself. This duplication is permitted in order to increase the performance of rendering the object without necessitating additional HTTP requests.
 
     Usage:
     {: .usage}
     * Any resource _MAY_ have a link to an external service.
-    * Please see the [Service Profiles][1] document for known services.
+    * Please see the [Service Profiles][annex] document for known services.
 
 seeAlso
 :   A link to a document that describes the resource in a machine readable way. This could be an XML or RDF record, such as in EAD, Dublin Core or Bibo schemas. The `profile` and `format` information should be given if possible.
@@ -1350,7 +1350,7 @@ This versioning system will be implemented in the following ways:
 
 The production of this document was generously supported by a grant from the [Andrew W. Mellon Foundation][mellon].
 
-Many thanks to Matthieu Bonicel, Tom Cramer, Ian Davis, Markus Enders, Tim Gollins, Antoine Isaac, Neil Jefferies, Sean Martin, Roger Mathisen, Mark Patton, Petter Rønningsen, Raphael Schwemmer and Stuart Snydman for their thoughtful contributions. Thanks also to the members of the IIIF for their continuous engagement, innovative ideas and feedback.
+Many thanks to Matthieu Bonicel, Tom Cramer, Ian Davis, Markus Enders, Renhart Gittens, Tim Gollins, Antoine Isaac, Neil Jefferies, Sean Martin, Roger Mathisen, Mark Patton, Petter Rønningsen, Raphael Schwemmer, Stuart Snydman and Simeon Warner for their thoughtful contributions. Thanks also to the members of the IIIF for their continuous engagement, innovative ideas and feedback.
 
 ### E. ChangeLog
 
