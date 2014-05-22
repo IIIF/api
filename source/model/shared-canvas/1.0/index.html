@@ -29,13 +29,9 @@
 
 <dl>
 	<dt>This version:</dt>
-	<dd><a href="/datamodel/spec/20120601.html">http://www.shared-canvas.org/datamodel/spec/20130214.html</a></dd>
+	<dd><a href="/model/shared-canvas/1.0/">http://iiif.io/model/shared-canvas/1.0/</a></dd>
 	<dt>Latest version:</dt>
-	<dd><a href="/datamodel/spec/">http://www.shared-canvas.org/datamodel/spec/</a></dd>
-<!--
-	<dt>Previous version:</dt>
-	<dd><a href="/datamodel/spec/XXX"> http://www.shared-canvas.org/datamodel/spec/ </a></dd>
--->
+	<dd><a href="/model/shared-canvas/">http://iiif.io/model/shared-canvas/</a></dd>
 </dl>
 
 <dl class="EditorsContributors">
@@ -110,7 +106,7 @@ list: <a href="http://groups.google.com/group/sharedcanvas">http://groups.google
 
 <li><a href="#Annotation"><b>Annotations</b></a>
 <ol>
-<li><a href="#AnnoRecommendations">Annotation Recommendations</a></li>
+<li><a href="#BasicAnnotation">Painting Motivation</a></li>
 </ol>
 </li>
 
@@ -135,9 +131,6 @@ list: <a href="http://groups.google.com/group/sharedcanvas">http://groups.google
 
 </ol>
 </li>
-
-
-<li><a href="#Summary"><b>Summary</b></a></li>
 
 <li><a href="#Appendix"><b>Appendices</b></a>
 <ol id="ToC_Appendix">
@@ -273,10 +266,7 @@ use cases with real resources.  The Turtle examples do not provide
 namespace declarations, and should be considered to follow
 the <a href="#Namespaces">Namespaces table</a> in Section 1.1.
 Usage examples in SPARQL are given for each section, based on a 
-requirement expressed in natural language. Additional examples of 
-how to model and implement specific situations are available in
-the <a href="http://www.shared-canvas.org/datamodel/cookbook/">Shared
-Canvas Cookbook</a>.
+requirement expressed in natural language.
 </p>
 <p>
 The diagrams in the specification use the following style:
@@ -366,7 +356,7 @@ Canvas is not an identifier for the physical page, it identifies the digital rep
 <p>
 <div class="diagramWrapper">
 <div class="diagram">
-<img src="images/canvasToPage.png" width="450px"/>
+ <img alt="Canvas to Page" src="images/canvasToPage.png" width="450px"/>
 <br/><span class="caption">Figure 2.0. Canvas/Page Correspondence</span>
 </div>
 </div>
@@ -404,7 +394,7 @@ rendering system should select an appropriate one.</td></tr>
 <div>Canvas Model:</div>
 <div class="diagramWrapper">
 	<div class="diagram">
-		<img src="images/canvas1.png" width="350px"/>
+		<img alt="Canvas Model" src="images/canvas1.png" width="350px"/>
 		<br/><span class="caption">Figure 2.1. Canvas Model</span>
 	</div>
 	
@@ -429,7 +419,7 @@ reading, without rotating the entire page.  Zones may be associated with multipl
 </p>
 <div class="diagramWrapper">
 	<div class="diagram">
-		<img src="images/zone-eg.png" width="450px"/>
+		<img alt="Zone Model" src="images/zone-eg.png" width="450px"/>
 		<br/><span class="caption">Figure 2.2.1. Zone Example</span>
 	</div>
 </div>
@@ -468,7 +458,7 @@ The Shared Canvas model uses:
 <div>Zone Model:</div>
 <div class="diagramWrapper">
 	<div class="diagram">
-		<img src="images/zone1.png" width="350px"/>
+		<img alt="Zone Model" src="images/zone1.png" width="350px"/>
 		<br/><span class="caption">Figure 2.2.2. Zone Model</span>
 	</div>
 	
@@ -501,7 +491,7 @@ Thus an image of a page may be associated with the Canvas as depicted below.
 <p>
 <div class="diagramWrapper">
 <div class="diagram">
-<img src="images/canvasAnnoPage.png" width="400px"/>
+<img alt="Annotation for Canvas" src="images/canvasAnnoPage.png" width="400px"/>
 <br/><span class="caption">Figure 3.0. Canvas/Image Linking by Annotation</span>
 </div>
 </div>
@@ -547,7 +537,7 @@ The Shared Canvas model uses:
 <div>Annotation Model:</div>
 <div class="diagramWrapper">
 	<div class="diagram">
-		<img src="images/anno1.png" width="600px"/>
+		<img alt="Annotation Example Model" src="images/anno1.png" width="600px"/>
 		<br/><span class="caption">Figure 3.1. Basic Annotation Model</span>
 	</div>
 	
@@ -564,9 +554,6 @@ The Shared Canvas model uses:
   &lt;image1&gt; a dctypes:Image ;
     dc:format "image/jpeg" .</pre>
 </div>    
-  
-    
-<p>Please see the <a href="/datamodel/cookbook/">Cookbook</a> for further usage of Annotations within the Shared Canvas model.</p>
 
 </div>
 
@@ -621,7 +608,7 @@ The Shared Canvas model uses:
 <div>Ordered Aggregation Model:</div>
 <div class="diagramWrapper">
 	<div class="diagram">
-		<img src="images/orderedaggr.png" width="500px"/>
+		<img alt="Ordered Aggregation Model" src="images/orderedaggr.png" width="500px"/>
 		<br/><span class="caption">Figure 4.1. Ordered Aggregation Model</span>
 	</div>
 	
@@ -677,7 +664,7 @@ The Shared Canvas model uses:
 <div>Sequence Model:</div>
 <div class="diagramWrapper">
 	<div class="diagram">
-		<img src="images/sequence.png" width="500px"/>
+		<img alt="Sequence Model" src="images/sequence.png" width="500px"/>
 		<br/><span class="caption">Figure 4.2. Sequence Model</span>
 	</div>
 	
@@ -735,7 +722,7 @@ The Shared Canvas model uses:
 <div>Range Model:</div>
 <div class="diagramWrapper">
 	<div class="diagram">
-		<img src="images/range.png" width="600px"/>
+		<img alt="Range Model" src="images/range.png" width="600px"/>
 		<br/><span class="caption">Figure 4.3. Range Model</span>
 	</div>
 	
@@ -811,7 +798,7 @@ The Shared Canvas model uses:
 <div>Annotation List Model:</div>
 <div class="diagramWrapper">
 	<div class="diagram">
-		<img src="images/annotationList.png" width="600px"/>
+		<img alt="Annotation List Model" src="images/annotationList.png" width="600px"/>
 		<br/><span class="caption">Figure 5.1. Annotation List Model</span>
 	</div>
 	
@@ -895,7 +882,7 @@ The Shared Canvas model uses:
 <div>Annotation List Model:</div>
 <div class="diagramWrapper">
 	<div class="diagram">
-		<img src="images/manifest.png" width="600px"/>
+		<img alt="Manifest Model" src="images/manifest.png" width="600px"/>
 		<br/><span class="caption">Figure 5.2. Manifest Model</span>
 	</div>
 	
@@ -969,7 +956,7 @@ The Shared Canvas model uses:
 <p>Services and Bibliographic Information Model:</p>
 <div class="diagramWrapper">
 	<div class="diagram">
-		<img src="images/svcbibl.png" width="600px"/>
+		<img alt="Bibliographic Service Model" src="images/svcbibl.png" width="600px"/>
 		<br/><span class="caption">Figure 5.2. Manifest Model</span>
 	</div>
 	
@@ -1018,7 +1005,7 @@ The Shared Canvas model uses:
 
 
 
-<div id="AppendixBlock">
+<div id="Appendix" name="Appendix">
 
 
 <a id="References" name="References"></a>
@@ -1068,7 +1055,7 @@ The editors would like to thank the following for their valuable contributions:
 </div>
 
 <div class="changelog">
-<h2><a id="changelog" name="changelog"></a>C. Change Log</h2>
+<h2><a id="ChangeLog" name="ChangeLog"></a>C. Change Log</h2>
 <table class="changelog" summary="change log">
 	<tbody>
 		<tr>
