@@ -74,7 +74,7 @@ layout: sub-page
           <section class="step step-2 wrapper">
             <h2>Publish metadata</h2>
             <p>
-              Now that you have an image server that delivers IIIF-compliant image URI’s, you need to publish metadata about your
+              Now that you have an image server that delivers IIIF-compliant image URI’s, you need to publish presentation based metadata about your
               image-based objects using the <a href="/api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}">IIIF Presentation API</a>.
             </p>
           </section>
@@ -104,8 +104,8 @@ layout: sub-page
             <h2>Implementation Tips &amp; Tricks</h2>
             <ul>
               <li>
-                Both the Image API <a href="/api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}#image-info-request">Image Information Request</a> and the
-                <a href="/api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}">Metadata API</a> are expressed as <a href="http://json-ld.org/" target="_blank">JSON-LD</a> serializations.
+                Both the Image API <a href="/api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}#image-information">Image Information Request</a> and the
+                <a href="/api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}">Presentation API</a> are expressed as <a href="http://json-ld.org/" target="_blank">JSON-LD</a> serializations.
               </li>
               <li>
                 The goal of IIIF is to make your image resources available to web applications hosted on other domains.  Since most of the image viewers use javascript,

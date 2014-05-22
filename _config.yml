@@ -18,12 +18,12 @@ kramdown:
 
 image_api:
   latest:
-    major: 1
-    minor: 1
+    major: 2
+    minor: 0
     patch: 0
 presentation_api:
   latest:
-    major: 1
+    major: 2
     minor: 0
     patch: 0
 shared_canvas:
