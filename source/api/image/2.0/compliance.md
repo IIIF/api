@@ -93,6 +93,7 @@ In the tables below "x" indicates that support is required, "o" indicates that s
 
 | HTTP Feature          | Feature Name            | Level 0 | Level 1 | Level 2  |
 |:----------------------|:------------------------|:-------:|:-------:|:--------:|
+| base URI redirects    | `base_uri_redirect`     | o       | x       | x        |
 | CORS                  | `cors`                  | o       | x       | x        |
 | json-ld media type    | `jsonld_media_type`     | o       | x       | x        |
 | profile link header   | `profile_link_header`   | o       | x       | x        |
