@@ -8,6 +8,7 @@
   "formats" : [ "jpg" ],
   "qualities" : [ "default" ],
   "supports" : [
+    "base_uri_redirect",
     "cors",
     "jsonld_media_type",
     "profile_link_header",

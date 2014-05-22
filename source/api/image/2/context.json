@@ -9,6 +9,7 @@
     "dcterms": "http://purl.org/dc/terms/",
     "doap" :   "http://usefulinc.com/ns/doap#",
 
+    "base_uri_redirect" : { "@id" : "iiif:baseUriRedirectFeature", "@type": "iiif:Feature" },
     "cors" : { "@id" : "iiif:corsFeature", "@type": "iiif:Feature" },
     "region_by_pct" : { "@id" : "iiif:regionByPctFeature", "@type": "iiif:Feature" },
     "region_by_px" : { "@id" : "iiif:regionByPxFeature", "@type": "iiif:Feature" },
