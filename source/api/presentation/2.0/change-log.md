@@ -118,7 +118,7 @@ The Image API in 2.0 has a protocol field that makes the assertion that the info
 [pillow]: http://pillow.readthedocs.org/en/latest/handbook/image-file-formats.html#image-file-formats "Pillow: Image file formats"
 [other-changes]: #other-changes "Presentation API 2.0 Other Changes"
 [prezi-api]: /api/presentation/2.0/ "Presentation API 2.0"
-[prezi-api-10]: /api/presentation/1.0/ "Presentation API 1.0"
+[prezi-api-10]: /api/metadata/1.0/ "Metadata API 1.0"
 [rfc-2119]: http://tools.ietf.org/html/rfc2119 "Key words for use in RFCs to Indicate Requirement Levels"
 [semver]: http://semver.org/ "Semantic Versioning Specification"
 [versioning]: /api/image/2.0/#b-versioning "Image API Appendix B: Versioning"
