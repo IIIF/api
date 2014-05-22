@@ -35,17 +35,17 @@ Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss]
 
 ## 1. Introduction
 
-There are many desirable features that could be usefully included in resource descriptions beyond those already defined in the [Presentation API][prezi-api].  However, in order to keep the API manageable and lean enough to be understood, implemented and validated, any feature which is not able to be justified as universally applicable will be imported as a service from an external resource.  The adoption of [JSON-LD][json-ld] is paramount in this respect, as it gives a solid basis for interoperability and disambiguation between systems.
+There are many desirable features that could be usefully included in resource descriptions beyond those already defined in the [Presentation API][prezi-api].  In order to keep the API manageable and lean enough to be understood, implemented and validated, any feature which is not able to be justified as universally applicable will be imported as a service from an external resource.  The adoption of [JSON-LD][json-ld] is paramount in this respect, as it gives a solid basis for interoperability and disambiguation between systems.
 
 The inclusion of services in this document _MUST NOT_ be interpreted as endorsement, support or approval from the editors, IIIF community or any individual.  This annex is provided as a registry of services to advertise their existence and attempt to ensure some consistency between implementations for common but not universal requirements.  
 
 ## 2. Requirements
 
-Services _SHOULD_ be valid [JSON-LD][json-ld], and if so _MUST_ have their own `@context` supplied in the Presentation API response.  Services _SHOULD_ have an `@id` that can be dereferenced, and if so, the representation retrieved _SHOULD_ be JSON-LD.
+Service information included in the Presentation API _MUST_ be valid [JSON-LD][json-ld], and _MUST_ have their own `@context` supplied in the Presentation API response.  Services _SHOULD_ have an `@id` that can be dereferenced, and if so, the representation retrieved from that URI _SHOULD_ be JSON-LD.  The service at the URI in `@id` _MAY_ require additional parameters, _MAY_ generate representations other than JSON-LD, and _MAY_ have no JSON-LD representation at all.
+
+Services _SHOULD_ have a `profile` URI which can be used to determine the type of service, especially for services that do not provide a JSON-LD representation.  The representation retrieved from the `profile` URI _SHOULD_ be a human or machine readable description of the service.
 
 Services _MAY_ be included either by reference or embedded within the Presentation API documents if appropriate.  The decision as to whether to embed or reference is left up to the implementer, however embedded descriptions should be kept as short as possible.  If the only properties of the object are `@context` and `@id`, then the client _SHOULD_ retrieve the resource from the URI given in `@id`.
-
-Services _SHOULD_ have a `profile` URI which can be used to determine the type of service.  The representation of the URI _SHOULD_ be a human or machine readable description of the service.
 
 {% highlight json %}
 {
@@ -69,7 +69,7 @@ The main use of services is to provide a reference from the [Presentation API][p
   "service": {
     "@context" : "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
     "@id" : "http://www.example.org/image-service/abcd1234",
-    "profile": "http://iiif.io/api/image/1/level2.json"
+    "profile": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/level2.json"
   } 
 }
 {% endhighlight %}
@@ -129,8 +129,6 @@ Or embedding the content:
 }
 {% endhighlight %}
 
-
-
 ### 3.3 Physical Dimensions
 
 For digitized objects, it is often useful to know the physical dimensions of the object.  If available, it would allow a client to present a ruler, or other rendition of physical scale, to the user.  
@@ -143,18 +141,19 @@ This information might be available, but frequently:
 
 As the Presentation API already includes an aspect ratio for the Canvas, the physical dimensions service need only report two additional pieces of information: the scale factor from canvas dimensions to physical dimensions, and the units for those generated physical dimensions.  It is _RECOMMENDED_ that the information always be embedded rather than requiring the client to retrieve it with an additional HTTP request.
 
-
 The description will include the following properties:
 
 | Property        | Required? | Description |
 | --------------- | --------- | ----------- |
 | `@context`      | Required  | The string "http://iiif.io/api/annex/service/physdim/1.0/context.json" |
+| `@id`           | Optional  | A URI that will return the information, perhaps generated dynamically from the image |
 | `profile`       | Required  | The string "http://iiif.io/api/annex/service/physdim" |
 | `physicalScale` | Required  | The floating point ratio to convert from the canvas height and width to the physical objects height and width.  |
 | `physicalUnits` | Required  | The physical units for the generated height and width.  Possible values are: "mm", "cm", in" |
+
 {: .image-api-table}
 
-The following example demonstrates the resulting structure:
+The following example demonstrates the resulting structure, as embedded within the Presentation API documents:
 
 {% highlight json %}
 {

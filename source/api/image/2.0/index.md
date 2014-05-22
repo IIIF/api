@@ -79,8 +79,9 @@ The combination of these parameters forms the image’s Base URI and identifies 
 ```
 {: .urltemplate}
 
-The behavior of HTTP requests on the Base URI is not defined by this specification, but is reserved for use in future IIIF specifications.  To allow for extensions, this specification does not define the server behavior when it receives requests that do not match either the Base URI or one of the described URI syntaxes below.
+When the base URI is dereferenced, the interaction _SHOULD_ result in the Image Information document.  It is _RECOMMENDED_ that the response be a 303 status redirection to the info.json URI.  Implementations _MAY_ also exhibit other behavior beyond the scope of this specification in response to http request headers.    
 
+To allow for extensions, this specification does not define the server behavior when it receives requests that do not match either the Base URI or one of the described URI syntaxes below.
 
 ###  2.1. Image Request URI Syntax
 
@@ -304,7 +305,7 @@ In order to support the above requirements, clients should construct the image r
 | format    | Explicit format string required |
 {: .image-api-table}
 
-When the client requests an image, the server _MAY_ add a link header that indicates the canonical URI for that request:
+When the client requests an image, the server _MAY_ add a link header to the response that indicates the canonical URI for that request:
 
 ```
 Link: <http://iiif.example.com/server/full/full/0/default.jpg>;rel="canonical"
@@ -331,7 +332,7 @@ Link: <http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json>
 ```
 {: .urltemplate}
 
-Servers _SHOULD_ send the Access-Control-Allow-Origin header with the value \* in response to information requests. The syntax is shown below and is described int the [CORS][cors-spec] specification. This header is required in order to allow the JSON responses to be used by Web applications hosted on different servers.
+Servers _SHOULD_ send the Access-Control-Allow-Origin header with the value \* in response to information requests. The syntax is shown below and is described in the [CORS][cors-spec] specification. This header is required in order to allow the JSON responses to be used by Web applications hosted on different servers.
 
 ```
 Access-Control-Allow-Origin: *

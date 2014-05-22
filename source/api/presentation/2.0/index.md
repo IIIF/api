@@ -422,7 +422,7 @@ Each response _MUST_ have a `@context` property, and it _SHOULD_ appear as the v
 {"@context": "http://iiif.io/api/presentation/{{ site.presentation_api.latest.major }}/context.json"}
 {% endhighlight %}
 
-Any additional fields beyond those defined in this specification _SHOULD_ be mapped to RDF predicates using further context documents. In this case, the enclosing object _MUST_ have its own `@context` property as the first key/value pair. This is _required_{: .rfc} for `service` links that embed any information beyond a `profile`.  These contexts _MUST NOT_ redefine `profile`.
+Any additional fields beyond those defined in this specification _SHOULD_ be mapped to RDF predicates using further context documents. In this case, the enclosing object _MUST_ have its own `@context` property, and it _SHOULD_ be the first key/value pair. This is _REQUIRED_{: .rfc} for `service` links that embed any information beyond a `profile`.  These contexts _SHOULD NOT_ redefine `profile`.
 
 Clients _SHOULD_ be aware that some implementations may add an `@graph` property at the top level, which contains the object. This is a side effect of JSON-LD serialization, and servers _SHOULD_ remove it before sending to the client. The client can use the JSON-LD compaction algorithm to remove it, if present. 
 <!--
@@ -473,8 +473,9 @@ The example below includes only the manifest-level information, however it _MUST
   "thumbnail": {
     "@id": "http://www.example.org/images/book1-page1/full/80,100/0/native.jpg",
     "service": {
+      "@context":"http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
       "@id":"http://www.example.org/images/book1-page1",
-      "profile":"http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1",
+      "profile":"http://iiif.io/api/image/{{ site.image_api.latest.major }}/level1.json"
     }
   },
 
@@ -492,7 +493,11 @@ The example below includes only the manifest-level information, however it _MUST
     "@id": "http://www.example.org/videos/video-book1.mpg",
     "format": "video/mpeg"
   },
-  "service":"http://www.example.org/iiif/book1/search.html",
+  "service": {
+    "@context": "http://example.org/ns/jsonld/context.json",
+    "@id": "http://example.org/service/example.json",
+    "profile": "http://example.org/docs/example-service.html"
+  },
   "seeAlso":"http://www.example.org/library/catalog/book1.xml",
   "within":"http://www.example.org/collections/books/",
 
@@ -625,7 +630,7 @@ Each association of a content resource _MUST_ have the `motivation` field and th
 
 The image itself is linked in the `resource` property of the annotation. It _MUST_ have an `@id` field, with the value being the URI at which the image can be obtained. It _SHOULD_ have an `@type` of "dcterms:Image". Its media type _MAY_ be listed in `format`, and its height and width _MAY_ be given as integer values for `height` and `width` respectively.
 
-If a [IIIF Image API][image-api] service is available for the image, then a link to the service's endpoint _SHOULD_ be included. The endpoint is the URI up to the identifier, but not including the trailing slash character or any of the subsequent parameters. The profile of the service should be the supported conformance level, and the additional fields from the Image Information document _MAY_ be included in this JSON object to avoid requiring it to be downloaded separately. See the [annex][annex] on using external services for more information.
+If a [IIIF Image API][image-api] service is available for the image, then a link to the service's base URI _SHOULD_ be included. The base URI is the URI up to the identifier, but not including the trailing slash character or any of the subsequent parameters. The Image API context document _MUST_ be included and the profile of the service _SHOULD_ be included with the supported conformance level. Additional fields from the Image Information document _MAY_ be included in this JSON object to avoid requiring it to be downloaded separately. See the [annex][annex] on using external services for more information.
 
 Although it seems redundant, the URI of the canvas _MUST_ be repeated in the `on` field of the Annotation. This is to ensure consistency with annotations that target only part of the resource, described in more detail below.
 
@@ -642,6 +647,7 @@ Additional features of the [Open Annotation][openanno] data model _MAY_ also be 
     "@type":"dctypes:Image",
     "format":"image/jpeg",
     "service": {
+      "@context": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
       "@id":"http://www.example.org/images/book1-page1",
       "profile":"http://iiif.io/api/image/{{ site.image_api.latest.major }}/profiles/level2.json",
     },
@@ -1131,7 +1137,11 @@ URL: _http://www.example.org/iiif/book1/manifest.json_
   "description":"A longer description of this example book. It should give some real information.",
   "license":"http://www.example.org/license.html",
   "attribution":"Provided by Example Organization",
-  "service":"http://www.example.org/iiif/book1/search.html",
+  "service": {
+    "@context": "http://example.org/ns/jsonld/context.json",
+    "@id": "http://example.org/service/example.json",
+    "profile": "http://example.org/docs/example-service.html"
+  },
   "seeAlso":
     {
       "@id": "http://www.example.org/library/catalog/book1.marc",
@@ -1162,8 +1172,9 @@ URL: _http://www.example.org/iiif/book1/manifest.json_
                     "@type":"dctypes:Image",
                     "format":"image/jpeg",
                     "service": {
+                        "@context": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
                         "@id": "http://www.example.org/images/book1-page1",
-                        "profile":"http://library.stanford.edu/iiif/image-api/compliance.html#level0"
+                        "profile":"http://iiif.io/api/image/{{ site.image_api.latest.major }}/level1.json"
                     },
                     "height":2000,
                     "width":1500
@@ -1195,8 +1206,9 @@ URL: _http://www.example.org/iiif/book1/manifest.json_
                     "height":2000,
                     "width":1500,
                     "service": {
-                        "@id":"http://www.example.org/images/book1-page2",
-                        "profile":"http://library.stanford.edu/iiif/image-api/compliance.html#level0",
+                        "@context": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
+                        "@id": "http://www.example.org/images/book1-page2",
+                        "profile":"http://iiif.io/api/image/{{ site.image_api.latest.major }}/level1.json"
                         "scale_factors": [1, 2, 4],
                         "height":8000,
                         "width":6000,
@@ -1229,8 +1241,9 @@ URL: _http://www.example.org/iiif/book1/manifest.json_
                     "@type":"dctypes:Image",
                     "format":"image/jpeg",
                     "service": {
-                        "@id":"http://www.example.org/images/book1-page3",
-                        "profile":"http://library.stanford.edu/iiif/image-api/compliance.html#level0"
+                        "@context": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
+                        "@id": "http://www.example.org/images/book1-page3",
+                        "profile":"http://iiif.io/api/image/{{ site.image_api.latest.major }}/level1.json"
           },
                     "height":2000,
                     "width":1500
@@ -1350,7 +1363,7 @@ This versioning system will be implemented in the following ways:
 
 The production of this document was generously supported by a grant from the [Andrew W. Mellon Foundation][mellon].
 
-Many thanks to Matthieu Bonicel, Tom Cramer, Ian Davis, Markus Enders, Renhart Gittens, Tim Gollins, Antoine Isaac, Neil Jefferies, Sean Martin, Roger Mathisen, Mark Patton, Petter Rønningsen, Raphael Schwemmer, Stuart Snydman and Simeon Warner for their thoughtful contributions. Thanks also to the members of the IIIF for their continuous engagement, innovative ideas and feedback.
+Many thanks to Matthieu Bonicel, Tom Cramer, Ian Davis, Markus Enders, Renhart Gittens, Tim Gollins, Antoine Isaac, Neil Jefferies, Sean Martin, Roger Mathisen, Mark Patton, Petter Rønningsen, Raphael Schwemmer, Stuart Snydman and Simeon Warner for their thoughtful contributions. Thanks also to the members of the [IIIF][iiif-community] for their continuous engagement, innovative ideas and feedback.
 
 ### E. ChangeLog
 
@@ -1365,6 +1378,7 @@ Many thanks to Matthieu Bonicel, Tom Cramer, Ian Davis, Markus Enders, Renhart G
 [image-api]: /api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/ "Image API"
 [annex]: /api/annex/services/ "Services Annex Document"
 [change-log]: /api/presentation/2.0/change-log.html "Presentation API 2.0 Change Log"
+[iiif-community]: /community.html "IIIF Community"
 
 [openanno]: http://www.openannotation.org/spec/core/ "Open Annotation"
 [openannotypes]: http://www.openannotation.org/spec/core/core.html#BodyTargetType
