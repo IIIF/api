@@ -32,7 +32,7 @@ This document is a companion to the [IIIF Image API Specification][image-api]. I
 
 Three levels of compliance are defined. Level 0 is defined as the minimum set of supported parameters and features that _MUST_ be implemented to qualify the service as compliant to the IIIF standard. Level 1 is defined as the _RECOMMENDED_ set of parameters and features to be implemented.
 
-In the tables below "![required][icon-req]" indicates that support is required, "![optional][icon-opt]" indicates that support is optional.
+In the tables below "![required][icon-req]" indicates that support is _REQUIRED_, "![optional][icon-opt]" indicates that support is _OPTIONAL_.
 
 ## Image Parameters
 
