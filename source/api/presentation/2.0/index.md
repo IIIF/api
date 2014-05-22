@@ -134,7 +134,7 @@ label
     {: .usage}
     * A manifest _MUST_ have a label, and it _SHOULD_ be the name of the physical object or title of the intellectual work that it embodies.
     * A sequence  _MAY_ have a label, and if there are multiple sequences in a single manifest then they _MUST_ have labels. The label _SHOULD_ briefly convey the nature of sequence, such as "Current Page Order".
-    * A canvas _MUST_ have a label, and it _SHOULD_ be the page label such as "p. 1" or "folio 1 recto".
+    * A canvas _MUST_ have a label, and it _SHOULD_ be the page or view label such as "p. 1", "folio 1 recto", or "north view".
     * A content resource _MAY_ have a label, and if there is a choice of content resource for the same canvas, then they _MUST_ have labels. The label _SHOULD_ be a brief description of the resource, such as "black and white" versus "color photograph"
 
 metadata
