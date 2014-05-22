@@ -1352,8 +1352,6 @@ The production of this document was generously supported by a grant from the [An
 
 Many thanks to Matthieu Bonicel, Tom Cramer, Ian Davis, Markus Enders, Tim Gollins, Antoine Isaac, Neil Jefferies, Sean Martin, Roger Mathisen, Mark Patton, Petter Rønningsen, Raphael Schwemmer and Stuart Snydman for their thoughtful contributions. Thanks also to the members of the IIIF for their continuous engagement, innovative ideas and feedback.
 
-__XXX Trawl lists and ensure everyone gets credit who deserves it.__
-
 ### E. ChangeLog
 
 | Date       | Description                                        |
