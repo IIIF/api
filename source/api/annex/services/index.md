@@ -63,6 +63,8 @@ Services _MAY_ be included either by reference or embedded within the [Presentat
 
 ### 3.1 Image Information
 
+Added: 2014-05-20
+
 The main use of services is to provide a reference from the [Presentation API][prezi-api] to the content to be displayed via the [Image API][image-api].  The JSON-LD content to be referenced or embedded is the Image Information document, also known as `info.json`.  The service _MUST_ have the `@context`, `@id` and `profile` keys, pointing to the context document, service base URI and compliance level profile respectively.
 
 {% highlight json %}
@@ -95,6 +97,8 @@ The service _MAY_ have additional information embedded from the Image Informatio
 {% endhighlight %}
 
 ### 3.2 GeoJSON
+
+Added: 2014-05-20
 
 A frequently requested feature is the ability to associate a geographical place with a resource, in order to drive a map-based user interface or visualization tool.  This might be a location associated with the provenance of the object such as where it was created, or where it is currently held.  The location might also be related to the content of the resource, such as a city mentioned in the text or the landmark depicted in a photograph.
 
@@ -132,6 +136,8 @@ Or embedding the content:
 
 ### 3.3 Physical Dimensions
 
+Added 2014-05-20
+
 For digitized objects, it is often useful to know the physical dimensions of the object.  If available, it would allow a client to present a ruler, or other rendition of physical scale, to the user.  
 This information might be available, but frequently:
 
@@ -149,8 +155,8 @@ The description will include the following properties:
 | `@context`       | Required  | The string "http://iiif.io/api/annex/service/physdim/1/context.json" |
 | `@id`            | Optional  | A URI that will return the information, perhaps generated dynamically from the image |
 | `profile`        | Required  | The string "http://iiif.io/api/annex/service/physdim" |
-| `physicalScale` | Required  | The floating point ratio to convert from the canvas height and width to the physical objects height and width.  |
-| `physicalUnits` | Required  | The physical units for the generated height and width.  Possible values are: "mm", "cm", in" |
+| `physical_scale` | Required  | The floating point ratio to convert from the canvas height and width to the physical objects height and width.  |
+| `physical_units` | Required  | The physical units for the generated height and width.  Possible values are: "mm", "cm", in" |
 
 {: .image-api-table}
 
@@ -161,8 +167,8 @@ The following example demonstrates the resulting structure, as embedded within t
   "service": {
     "@context": "http://iiif.io/api/annex/service/physdim/1.0/context.json",
     "profile": "http://iiif.io/api/annex/service/physdim",
-    "physicalScale": 0.025,
-    "physicalUnits": "mm"
+    "physical_scale": 0.025,
+    "physical_units": "mm"
   }
 }
 {% endhighlight %}
