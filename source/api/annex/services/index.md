@@ -41,11 +41,11 @@ The inclusion of services in this document that are outside of the IIIF domain _
 
 ## 2. Requirements
 
-Service information included in the Presentation API response _MUST_ be both valid [JSON-LD][json-ld], and have their own `@context` supplied.  Services _SHOULD_ have an `@id` that can be dereferenced, and if so, the representation retrieved from that URI _SHOULD_ be JSON-LD.  The service at the URI in `@id` _MAY_ require additional parameters, generate representations other than JSON-LD, and have no JSON-LD representation at all.
+Service information included in the [Presentation API][prezi-api] response _MUST_ be both valid [JSON-LD][json-ld], and have their own `@context` supplied.  Services _SHOULD_ have an `@id` that can be dereferenced, and if so, the representation retrieved from that URI _SHOULD_ be JSON-LD.  The service at the URI in `@id` _MAY_ require additional parameters, generate representations other than JSON-LD, and have no JSON-LD representation at all.
 
 Services _SHOULD_ have a `profile` URI which can be used to determine the type of service, especially for services that do not provide a JSON-LD representation.  The representation retrieved from the `profile` URI _SHOULD_ be a human or machine readable description of the service.  Services _MAY_ have a `label` property to provide a human readable string to display to the user in the situation that the service has to be selected or manually linked to rather than automatically processed.
 
-Services _MAY_ be included either by reference or embedded within the [Presentation API][prezi-api] documents if appropriate.  The decision as to whether to embed or reference is left up to the implementer, however embedded descriptions should be kept as short as possible.  If the only properties of the object are `@context`, `@id`, `profile` and/or `label`, then the client _SHOULD_ retrieve the resource from the URI given in `@id`.
+Services _MAY_ be included either by reference or embedded within the [Presentation API][prezi-api] response if appropriate.  The decision as to whether to embed or reference is left up to the implementer, however embedded descriptions should be kept as short as possible.  If the only properties of the object are `@context`, `@id`, `profile` and/or `label`, then the client _SHOULD_ retrieve the resource from the URI given in `@id`.
 
 {% highlight json %}
 {
@@ -140,7 +140,7 @@ This information might be available, but frequently:
   * It is different for every view of an object
   * The Canvas dimensions don't accurately reflect only the physical object, but are derived from an image that includes a ruler, color bar, or the scanning bed.
 
-As the Presentation API already includes an aspect ratio for the Canvas, the physical dimensions service need only report two additional pieces of information: the scale factor from canvas dimensions to physical dimensions, and the units for those generated physical dimensions.  It is _RECOMMENDED_ that the information always be embedded rather than requiring the client to retrieve it with an additional HTTP request.
+As the [Presentation API][prezi-api] already includes an aspect ratio for the Canvas, the physical dimensions service need only report two additional pieces of information: the scale factor from canvas dimensions to physical dimensions, and the units for those generated physical dimensions.  It is _RECOMMENDED_ that the information always be embedded rather than requiring the client to retrieve it with an additional HTTP request.
 
 The description will include the following properties:
 
@@ -154,7 +154,7 @@ The description will include the following properties:
 
 {: .image-api-table}
 
-The following example demonstrates the resulting structure, as embedded within the Presentation API documents:
+The following example demonstrates the resulting structure, as embedded within the [Presentation API][prezi-api] response:
 
 {% highlight json %}
 {
