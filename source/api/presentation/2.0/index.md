@@ -340,7 +340,7 @@ If the regular JSON content-type is returned, then it is _recommended_{: .rfc} t
 
 ```
 Content-Type: application/json
-Link: <http://iiif.io/api/presentation/{{ site.presentation_api.latest.major }}/context.json>
+Link: <http://iiif.io/api/presentation/{{ page.major }}/context.json>
             ;rel="http://www.w3.org/ns/json-ld#context"
             ;type="application/ld+json"
 ```
@@ -419,7 +419,7 @@ Clients _SHOULD_ allow only `a`, `b`, `br`, `i`, `img`, `p`, and `span` tags. Cl
 Each response _MUST_ have a `@context` property, and it _SHOULD_ appear as the very first key/value pair in the top-most object. This tells Linked Data processors how to interpret the information. The IIIF Presentation API context, below, _MUST_ occur exactly once per response, and be omitted from any embedded resources. For example, when embedding a sequence within a manifest, the sequence _MUST NOT_ have the `@context` field.
 
 {% highlight json %}
-{"@context": "http://iiif.io/api/presentation/{{ site.presentation_api.latest.major }}/context.json"}
+{"@context": "http://iiif.io/api/presentation/{{ page.major }}/context.json"}
 {% endhighlight %}
 
 Any additional fields beyond those defined in this specification _SHOULD_ be mapped to RDF predicates using further context documents. In this case, the enclosing object _MUST_ have its own `@context` property, and it _SHOULD_ be the first key/value pair. This is _REQUIRED_ for `service` links that embed any information beyond a `profile`.  These contexts _SHOULD NOT_ redefine `profile`.

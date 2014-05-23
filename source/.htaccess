@@ -9,3 +9,4 @@ RewriteRule ^/?api/image/([^/]+)$ /api/image/{{ site.image_api.latest.major }}.{
 RedirectMatch 302 ^/api/presentation/$ /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/
 RewriteRule ^/?api/presentation/([^/]+)$ /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/$1 [L,R=302]
 
+RewriteRule ^/?api/presentation/1.0/ /api/metadata/1.0/ [L,R=302]

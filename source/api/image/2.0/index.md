@@ -328,7 +328,7 @@ The syntax for the response is [JSON-LD][json-ld-w3c]. The content-type of the r
 If the regular JSON content-type is returned, then it is _RECOMMENDED_ that the server provide a link header to the context document. The syntax for the link header is below, and further [described in section 6.8 of the JSON-LD specification][json-as-json-ld]. If the client requests "application/ld+json", the link header _MAY_ still be included but _MUST_ be ignored. The entity body is identical regardless of the content-type, including the `@context` field.
 
 ```
-Link: <http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json>
+Link: <http://iiif.io/api/image/{{ page.major }}/context.json>
             ; rel="http://www.w3.org/ns/json-ld#context"
             ; type="application/ld+json"
 ```
@@ -347,7 +347,7 @@ The JSON in the response will include the following properties:
 
 | Property   | Required? | Description |
 | ---------- | --------- | ----------- |
-| `@context` | Required | The context document that describes the semantics of the terms used in the document. This must be the URI: `http://iiif.io/api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/context.json` for version {{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }} of the IIIF Image API. This document allows the response to be interpreted as RDF, using the [JSON-LD][json-ld-org] serialization. |
+| `@context` | Required | The context document that describes the semantics of the terms used in the document. This must be the URI: `http://iiif.io/api/image/{{ page.major }}.{{ page.minor }}/context.json` for version {{ page.major }}.{{ page.minor }} of the IIIF Image API. This document allows the response to be interpreted as RDF, using the [JSON-LD][json-ld-org] serialization. |
 | `@id` | Required | The Base URI of the image (as defined in [URI Syntax][uri-syntax], including scheme, server, prefix and identifier without a trailing slash. |
 | `width` | Required | The width of the full image. |
 | `height` | Required | The height of the full image. |
@@ -395,7 +395,7 @@ The JSON response _MUST_ conform to the structure shown in the following example
 
 {% highlight json %}
 {
-  "@context" : "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
+  "@context" : "http://iiif.io/api/image/{{ page.major }}/context.json",
   "@id" : "http://www.example.org/image-service/abcd1234/1E34750D-38DB-4825-A38A-B60A345E591C",
   "protocol" : "http://iiif.io/api/image",
   "width" : 6000,
@@ -405,7 +405,7 @@ The JSON response _MUST_ conform to the structure shown in the following example
   "tile_width" : 1024,
   "tile_height" : 1024,
   "profile" : [
-    "http://iiif.io/api/image/{{ site.image_api.latest.major }}/level2.json",
+    "http://iiif.io/api/image/{{ page.major }}/level2.json",
     {
       "formats" : [ "jpg", "png" ],
       "qualities" : [ "default" ],
@@ -428,12 +428,12 @@ Local additions to the image information document _MAY_ be specified in two ways
 
 {% highlight json %}
 {
-  "@context" : "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
+  "@context" : "http://iiif.io/api/image/{{ page.major }}/context.json",
   // ...
   "documentation" : "http://www.example.com/my/documentation.html",
   // ...
   "profile" : [
-    "http://iiif.io/api/image/{{ site.image_api.latest.major }}/level2.json",
+    "http://iiif.io/api/image/{{ page.major }}/level2.json",
     "http://www.example.com/my/profile-level-42.json",
     {"supports" : ["http://www.example.com/my/feature.html"]}
   ]
@@ -447,7 +447,7 @@ The Image Information document _MUST_ specify the extent to which the API is sup
 The compliance level URI _MAY_ also be given in the HTTP Link header ([RFC5988][rfc-5988]) with the parameter `rel="profile"`, and thus a complete header might look like:
 
 ```
-Link: <http://iiif.io/api/image/{{ site.image_api.latest.major }}/level1.json>;rel="profile"
+Link: <http://iiif.io/api/image/{{ page.major }}/level1.json>;rel="profile"
 ```
 {: .urltemplate}
 
