@@ -32,7 +32,7 @@ With the [2.0 Release of the IIIF Image API][api], the editors will begin using 
 
 ### Renamed Qualities
 
-Previous versions of the specification used "grey" (not "gray") but "color" (not "colour"). While this does reflect the international nature if IIIF, it is not terribly consistent. From this release `grey` is now `gray`.
+Previous versions of the specification used "grey" (not "gray") but "color" (not "colour"). While this does reflect the international nature of IIIF, it is not terribly consistent. From this release `grey` is now `gray`.
 
 There was also confusion among users as to the meaning of `native`. The API does not recognize the notion of a source image, and the label `native` was tied too closely to such an idea. In 2.0 `native` has been replaced with `default`, with the implication that the server should return the image in a default quality, but the API provides no instructions as to how this decision is made (in the future, for example, authorization may determine the default quality).
 
@@ -42,7 +42,7 @@ This is a response to several requests for the ability to describe the capabilit
 
 The `supports` property may also be used to describe extension features. See [5.2 Extensions][extensions] for details.
 
-The `qualities` and `formats` properties have been moved into the `profile` attribute as well.
+The `qualities` and `formats` properties have been moved into the object referenced in `profile`.
 
 ### Required <abbr title="Cross-Origin Resource Sharing">CORS</abbr> for level 1 Compliance
 
@@ -87,7 +87,7 @@ The `protocol` property is required at all levels of compliance.
 
 ### Drop Rotation to Level 2 Compliance
 
-Rotation in multiples of 90 was previously a level 1 requirement. As this can be--and frequently is--handled in the browser via the HTML 5 `<canvas>` element, the editors felt this was an unnecessary barrier to level 1 compliance.
+Rotation in multiples of 90 was previously a level 1 requirement. As this can be--and frequently is--handled in the browser via the HTML 5 `<canvas>` element or CSS instructions, the editors felt this was an unnecessary barrier to level 1 compliance.
 
 ### Added `size` property to Image Information document
 
@@ -97,7 +97,7 @@ Servers that do not support arbitrary size parameters for image requests may sti
 
 The [context document][context] for the info.json document was never published. It is now available.
 
-### Support JSON-LD ContentType/Accept
+### Support JSON-LD ContentType/Accept Header
 
 As transition to JSON-LD (since it is not fully supported by browsers), clients that favor the "application/ld+json" media type in the accept header of their request may receive this as the content-type of the response. Also note that it is recommended that the server include the context URI in a Link header of the response if the request was for for "application/json". See [Section 5][info-request] and the documents to which it links for further details.
 
