@@ -144,20 +144,46 @@ If the requested region's height or width is zero, or if the region is entirely 
 
 Examples:
 
-  1. `http://www.example.org/image-service/abcd1234/full/full/0/default.jpg`
-  2. `http://www.example.org/image-service/abcd1234/125,15,120,140/full/0/default.jpg`
-  3. `http://www.example.org/image-service/abcd1234/pct:41.6,7.5,40,70/full/0/default.jpg`
-  4. `http://www.example.org/image-service/abcd1234/125,15,200,200/full/0/default.jpg`
-       _N.B. Returned image is 175,185 px_
-  5. `http://www.example.org/image-service/abcd1234/pct:41.6,7.5,66.6,100/full/0/default.jpg`
-       _N.B. Returned image is 175,185 px_
-  {: .examplelist }
+<table class="ex_table">
+  <tbody>
+    <tr>
+      <td>
+        <img src="img/full.png" alt="Full Size" class="fullPct" /> 
+        <p><strong>1</strong> size=full</p>
+        <p><code>.../full/full/0/default.jpg</code></p>
+      </td>
+      <td>
+        <img src="img/region_px.png" alt="Region by Pixels" class="fullPct" /> 
+        <p><strong>2</strong> region=125,15,120,140</p>
+        <p><code>.../125,15,120,140/full/0/default.jpg</code></p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <img src="img/region_pct.png" alt="Region by Percent" class="fullPct" />
+        <p><strong>3</strong> region=pct:41.6,7.5,40,70</p>
+        <p><code>.../pct:41.6,7.5,40,70/full/0/default.jpg</code></p>
+      </td>
+      <td>
+        <img src="img/region_px_over.png" alt="Region by Pixels" class="fullPct" /> 
+        <p><strong>4</strong> region=125,15,200,200</p>
+        <p><code>.../125,15,200,200/full/0/default.jpg</code></p>
+        <p><em>N.B. Returned image is 175,185 px</em></p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <img src="img/region_pct_over.png" alt="Region by Percent" class="fullPct" /> 
+        <p><strong>5</strong> region=pct:41.6,7.5,66.6,100</p>
+        <p><code>.../pct:41.6,7.5,66.6,100/full/0/default.jpg</code></p>
+        <p><em>N.B. Returned image is 175,185 px</em></p>
+      </td>
+      <td/>
+    </tr>
+  </tbody>
+</table>
 
-|:----:|:----:|
-|![Full Image](img/full.png){: .fullPct}__1__ region=full||
-|![Region by Pixels](img/region_px.png){: .fullPct}__2__ region=125,15,120,140|![Region by Percent](img/region_pct.png){: .fullPct}__3__ region=pct:41.6,7.5,40,70|
-|![Region by Pixels](img/region_px_over.png){: .fullPct}__4__ region=125,15,200,200|![Region by Percent](img/region_pct_over.png){: .fullPct}__5__ region=pct:41.6,7.5,66.6,100|
-{: .fullPct}
+
 
 ###  4.2. Size
 
@@ -179,21 +205,45 @@ The image server _MAY_ support scaling beyond the full size of the extracted reg
 
 Examples:
 
-  1. `http://www.example.org/image-service/abcd1234/full/full/0/default.jpg`
-  2. `http://www.example.org/image-service/abcd1234/full/150,/0/default.jpg`
-  3. `http://www.example.org/image-service/abcd1234/full/,150/0/default.jpg`
-  4. `http://www.example.org/image-service/abcd1234/full/pct:50/0/default.jpg`
-  5. `http://www.example.org/image-service/abcd1234/full/225,100/0/default.jpg`
-  6. `http://www.example.org/image-service/abcd1234/full/!225,100/0/default.jpg`
-       _N.B. Returned image is 150,100 px_
-
-  {: .examplelist}
-
-|:----:|:----:|
-|![Full Size](img/full.png){: .fullPct}__1__ region=full|![Size by Width](img/size_wc.png){: .fullPct}__2__ size=150,|
-|![Size by Height](img/size_ch.png){: .fullPct}__3__ size=,150|![Size by Percent](img/size_pct.png){: .fullPct}__4__ size=pct:50|
-|![Size by Width,Height](img/size_wch.png){: .fullPct}__5__ size=225,100|![Size By Bang Width Height](img/size_bwch.png){: .fullPct}__6__ size=!225,100|
-{: .fullPct}
+<table class="ex_table">
+  <tbody>
+    <tr>
+      <td>
+        <img src="img/full.png" alt="Full Size" class="fullPct" /> 
+        <p><strong>1</strong> size=full</p>
+        <p><code>.../full/full/0/default.jpg</code></p>
+      </td>
+      <td>
+        <img src="img/size_wc.png" alt="Size by Width" class="fullPct" /> 
+        <p><strong>2</strong> size=150,</p>
+        <p><code>.../full/150,/0/default.jpg</code></p>
+      </td>
+      <td>
+        <img src="img/size_ch.png" alt="Size by Height" class="fullPct" />
+        <p><strong>3</strong> size=,150</p>
+        <p><code>.../full/,150/0/default.jpg</code></p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <img src="img/size_pct.png" alt="Size by Percent" class="fullPct" />
+        <p><strong>4</strong> size=pct:50</p>
+        <p><code>.../full/pct:50/0/default.jpg</code></p>
+      </td>
+      <td>
+        <img src="img/size_wch.png" alt="Size by Width,Height" class="fullPct" />
+        <p><strong>5</strong> size=225,100</p>
+        <p><code>.../full/225,100/0/default.jpg</code></p>
+      </td>
+      <td>
+        <img src="img/size_bwch.png" alt="Size By Bang Width Height" class="fullPct" />
+        <p><strong>6</strong> size=!225,100</p>
+        <p><code>.../full/!225,100/0/default.jpg</code></p>
+        <p><em>N.B. Returned image is 150,100 px</em></p>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 
 ###  4.3. Rotation
@@ -213,18 +263,34 @@ For non-90-degree rotations the API does not specify the background color.
 
 Examples:
 
-  1. `http://www.example.org/image-service/abcd1234/full/full/0/default.jpg`
-  2. `http://www.example.org/image-service/abcd1234/full/full/180/default.jpg`
-  3. `http://www.example.org/image-service/abcd1234/full/full/90/default.jpg`
-  4. `http://www.example.org/image-service/abcd1234/full/full/22.5/default.jpg`
-  {: .examplelist}
-
-|:----:|:----:|
-|![Rotation 0](img/full.png){: .fullPct}__1__ rotation=0|![Rotation 180](img/rotate_180.png){: .fullPct}__2__ rotation=180|
-|![Rotation 90](img/rotate_90.png){: .fullPct}__3__ rotation=90|![Rotation 22.5](img/rotate_22-5.png){: .fullPct}__4__ rotation=22.5|
-{: .fullPct}
-
-
+<table class="ex_table">
+  <tbody>
+    <tr>
+      <td>
+        <img src="img/full.png" alt="Rotation 0" class="fullPct" /> 
+        <p><strong>1</strong> rotation=0</p>
+        <p><code>.../full/full/0/default.jpg</code></p>
+      </td>
+      <td>
+        <img src="img/rotate_180.png" alt="Rotation 180" class="fullPct" /> 
+        <p><strong>2</strong> rotation=180</p>
+        <p><code>.../full/full/180/default.jpg</code></p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <img src="img/rotate_90.png" alt="Rotation 90" class="fullPct" />
+        <p><strong>3</strong> rotation=90</p>
+        <p><code>.../full/full/90/default.jpg</code></p>
+      </td>
+      <td>
+        <img src="img/rotate_22-5.png" alt="Rotation 22.5" class="fullPct" />
+        <p><strong>4</strong> rotation=22.5</p>
+        <p><code>.../full/full/22.5/default.jpg</code></p>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 ###  4.4. Quality
 
@@ -242,16 +308,34 @@ A quality value that is unsupported _SHOULD_ result in a 400 status code.
 
 Examples:
 
-  1. `http://www.example.org/image-service/abcd1234/full/full/0/default.jpg`
-  2. `http://www.example.org/image-service/abcd1234/full/full/0/color.jpg`
-  3. `http://www.example.org/image-service/abcd1234/full/full/0/gray.jpg`
-  4. `http://www.example.org/image-service/abcd1234/full/full/0/bitonal.jpg`
-  {: .examplelist}
-
-|:----:|:----:|
-|![Default Quality](img/full.png){: .fullPct}__1__ quality=default|![Color Quality](img/full.png){: .fullPct}__2__ quality=color|
-|![Gray Quality](img/gray.png){: .fullPct}__3__ quality=gray|![Bitonal Quality](img/bitonal.png){: .fullPct}__4__ quality=bitonal|
-{: .fullPct}
+<table class="ex_table">
+  <tbody>
+    <tr>
+      <td>
+        <img src="img/full.png" alt="Default Quality" class="fullPct" /> 
+        <p><strong>1</strong> quality=default</p>
+        <p><code>.../full/full/0/default.jpg</code></p>
+      </td>
+      <td>
+        <img src="img/full.png" alt="Color Quality" class="fullPct" /> 
+        <p><strong>2</strong> quality=color</p>
+        <p><code>.../full/full/0/color.jpg</code></p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <img src="img/gray.png" alt="Gray Quality" class="fullPct" />
+        <p><strong>3</strong> quality=gray</p>
+        <p><code>.../full/full/0/gray.jpg</code></p>
+      </td>
+      <td>
+        <img src="img/bitonal.png" alt="Bitonal Quality" class="fullPct" />
+        <p><strong>4</strong> quality=bitonal</p>
+        <p><code>.../full/full/0/bitonal.jpg</code></p>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 ###  4.5. Format
 
@@ -271,9 +355,9 @@ A format value that is unsupported _SHOULD_ result in a 400 status code.
 
 Examples:
 
-  1. `http://www.example.org/image-service/abcd1234/full/full/0/default.jpg`
-  2. `http://www.example.org/image-service/abcd1234/full/full/0/default.png`
-  3. `http://www.example.org/image-service/abcd1234/full/full/0/default.tif`
+  1. `.../full/full/0/default.jpg`
+  2. `.../full/full/0/default.png`
+  3. `.../full/full/0/default.tif`
   {: .examplelist}
 
 ### 4.6. Order of Implementation
@@ -284,9 +368,17 @@ The parameters should be interpreted as if the the sequence of image manipulatio
 
 `Region THEN Size THEN Rotation THEN Quality THEN Format`
 
-|:----:|
-|![Order of implementation illustration](img/transformation.png){:. fullPct}|
-|__1__ region=`125,15,120,140` size=`90,` rotation=`345` quality=`gray`|
+<table class="ex_table">
+  <tbody>
+    <tr>
+      <td>
+        <img style="max-width: 650px" src="img/transformation.png" alt="Order of Implementation" class="fullPct" /> 
+        <p><strong>1</strong> region=125,15,120,140 size=90, rotation=345 quality=gray</p>
+        <p><code>.../125,15,120,140/90,/345/gray.jpg</code></p>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 ### 4.7. Canonical URI Syntax
 
