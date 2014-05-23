@@ -529,17 +529,7 @@ Early sanity checking of URIs (lengths, trailing GET, invalid characters, out-of
 
 ### B. Versioning
 
-Starting with version 2.0, this specification follows [Semantic Versioning][semver] with version numbers of the form "MAJOR.MINOR.PATCH" where:
-
-  * MAJOR version increment indicates incompatible API changes.
-  * MINOR version increment indicates addition of functionality in a backwards-compatible manner.
-  * PATCH version increment indicates backwards-compatible bug fixes.
-
-This versioning system will be implemented in the following ways:
-
-  * URIs for compliance and context will be updated with major versions only, and otherwise edited in place.
-  * URIs for the specifications will be updated with major and minor versions, with patch versions edited in place.
-  * The protocol URI does not change with versioning.
+Starting with version 2.0, this specification follows [Semantic Versioning][semver]. See the note [Versioning of APIs][versioning] for details regarding how this is implemented.
 
 ###  C. Acknowledgments
 
@@ -580,6 +570,7 @@ Many thanks to  Ben Albritton, Matthieu Bonicel, Anatol Broder, Kevin Clarke, To
 [rfc-6570]: http://tools.ietf.org/html/rfc6570 "URI Template"
 [semver]: http://semver.org/spec/v2.0.0.html "Semantic Versioning 2.0.0"
 [iiif-community]: /community.html "IIIF Community"
+[versioning]: /api/annex/notes/semver.html "Versioning of APIs"
 [prezi-api]: /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/ "Presentation API"
 [apache-aesnd]: http://httpd.apache.org/docs/2.2/mod/core.html#allowencodedslashes "Allow Encoded Slashes directive"
 

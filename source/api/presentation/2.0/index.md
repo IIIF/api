@@ -1347,17 +1347,7 @@ URL: _http://www.example.org/iiif/book1/manifest.json_
 
 ### C. Versioning
 
-Starting with version 2.0, this specification follows [Semantic Versioning][semver] with version numbers of the form "MAJOR.MINOR.PATCH" where:
-
-  * MAJOR version increment indicates incompatible API changes.
-  * MINOR version increment indicates addition of functionality in a backwards-compatible manner.
-  * PATCH version increment indicates backwards-compatible bug fixes.
-
-This versioning system will be implemented in the following ways:
-
-  * The URI for context will be updated with major versions only, and otherwise edited in place.
-  * URIs for the specifications will be updated with major and minor versions, with patch versions edited in place.
-  * The protocol URI does not change with versioning.
+Starting with version 2.0, this specification follows [Semantic Versioning][semver]. See the note [Versioning of APIs][versioning] for details regarding how this is implemented.
 
 ### D. Acknowledgements
 
@@ -1395,6 +1385,7 @@ Many thanks to Matthieu Bonicel, Tom Cramer, Ian Davis, Markus Enders, Renhart G
 [semver]: http://semver.org/spec/v2.0.0.html "Semantic Versioning 2.0.0"
 [mellon]: http://www.mellon.org/ "The Andrew W. Mellon Foundation"
 [json-ld-compact]: http://www.w3.org/TR/json-ld-api/#compaction-algorithms "JSON-LD Compaction Algorithms"
+[versioning]: /api/annex/notes/semver.html "Versioning of APIs"
 
 [icon-req]: /img/metadata-api/required.png "Required"
 [icon-recc]: /img/metadata-api/recommended.png "Recommended"
