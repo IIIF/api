@@ -1,9 +1,9 @@
 ---
 title: "Presentation API 2.0 Changelog"
 title_override: "Changes for IIIF Presentation API Version 2.0"
-id: presentation-api-20-changelog
-layout: sub-page
-categories: [specifications, presentation-api, spec-doc, changelog]
+id: presentation-api-20-change-log
+layout: spec
+tags: [specifications, presentation-api, change-log]
 major: 2
 minor: 0
 # no patch
@@ -123,6 +123,4 @@ The Image API in 2.0 has a protocol field that makes the assertion that the info
 [semver]: http://semver.org/ "Semantic Versioning Specification"
 [versioning]: /api/image/2.0/#b-versioning "Image API Appendix B: Versioning"
 
-{% for acronym in site.data.acronyms %}
-  *[{{ acronym[0] }}]: {{ acronym[1] }}
-{% endfor %}
+{% include acronyms.md %}
