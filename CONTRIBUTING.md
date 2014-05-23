@@ -6,7 +6,7 @@ Please use [iiif-discuss@googlegroups.com][mailto:iiif-discuss@googlegroups.com]
 
 Please file issues in github for problems with the specifications or website.  One issue should be used per problem, so that we can work on them individually and either mark them as wontfix, defer, or close them when they're solved.  Please tag each specification issue with at least one of: `image`, `presentation`, `search`, `rest` or `auth` so it's easier to track.  If the issue is about the HTML, images, CSS or other part of the site, please tag it as `website`. Editors will assign who is responsible for the issue, and add the issue to the appropriate milestone.  
 
-The editors take responsibility for ensuring that comments and feedback on iiif-discuss are turned into issues.  Please check that your issue discussed on the email list hasn't already been added to avoid `duplicate`s.
+The editors take responsibility for ensuring that comments and feedback on iiif-discuss are turned into issues.  Please check that your issue discussed on the email list hasn't already been added.
 
 Pull requests are welcome.  Please read on for how to contribute directly.
 
