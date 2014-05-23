@@ -27,3 +27,6 @@ notifications:
       - "snydman@stanford.edu"
     on_success: "change"
     on_failure: "change"
+
+matrix:
+  fast_finish: true
