@@ -35,9 +35,9 @@ Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss]
 
 ## 1. Introduction
 
-There are many desirable features that could be usefully included in resource descriptions beyond those already defined in the [Presentation API][prezi-api].  In order to keep the API manageable and lean enough to be understood, implemented and validated, any feature which is not able to be justified as universally applicable will be imported as a service from an external resource.  The adoption of [JSON-LD][json-ld] is paramount in this respect, as it gives a solid basis for interoperability and disambiguation between systems.
+There are many additional features that could be included in resource descriptions beyond those already defined in the [Presentation API][prezi-api]. In order to keep the API manageable and lean enough to be understood, implemented, and validated, any feature which is not able to be justified as universally applicable will be imported as a service from an external resource. The adoption of [JSON-LD][json-ld] is paramount in this respect, as it provides a basis for interoperability and disambiguation between systems.
 
-The inclusion of services in this document _MUST NOT_ be interpreted as endorsement, support or approval from the editors, IIIF community or any individual.  This annex is provided as a registry of services to advertise their existence and attempt to ensure some consistency between implementations for common but not universal requirements.  
+The inclusion of services in this document that are outside of the IIIF domain _MUST NOT_ be interpreted as endorsement, support, or approval from the editors, the IIIF community or any individual. This annex is provided as a registry of services to advertise their existence and attempt to ensure some consistency between implementations for common but not universal requirements.  
 
 ## 2. Requirements
 
@@ -166,7 +166,6 @@ The following example demonstrates the resulting structure, as embedded within t
 }
 {% endhighlight %}
 
-
 ## Appendices
 
 ### A. Acknowledgements
@@ -190,3 +189,6 @@ Thanks to the members of the [IIIF][iiif-community] for their continuous engagem
    [geojson]: http://geojson.org/ "GeoJSON"
    [geojson-ld]: http://geojson.org/vocab "GeoJSON-LD"
 
+{% for acronym in site.data.acronyms %}
+  *[{{ acronym[0] }}]: {{ acronym[1] }}
+{% endfor %}
