@@ -1365,7 +1365,7 @@ The production of this document was generously supported by a grant from the [An
 
 Many thanks to Matthieu Bonicel, Tom Cramer, Ian Davis, Markus Enders, Renhart Gittens, Tim Gollins, Antoine Isaac, Neil Jefferies, Sean Martin, Roger Mathisen, Mark Patton, Petter Rønningsen, Raphael Schwemmer, Stuart Snydman and Simeon Warner for their thoughtful contributions. Thanks also to the members of the [IIIF][iiif-community] for their continuous engagement, innovative ideas and feedback.
 
-### E. ChangeLog
+### E. Change Log
 
 | Date       | Description                                        |
 | ---------- | -------------------------------------------------- |
