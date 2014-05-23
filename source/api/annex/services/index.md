@@ -8,9 +8,10 @@ tags: [annex, service, services, specifications]
 {:.no_toc}
 
 This document is not subject to semantic versioning. 
+
 Changes will be tracked within the document.
 
-_Copyright © 2012-2014 Editors and contributors. Published by the IIIF under the CC-BY license._
+_Copyright © 2012-2014 Editors and contributors. Published by the IIIF under the [CC-BY][cc-by] license._
 
 **Editors**
 
@@ -35,9 +36,9 @@ Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss]
 
 ## 1. Introduction
 
-There are many desirable features that could be usefully included in resource descriptions beyond those already defined in the [Presentation API][prezi-api].  In order to keep the API manageable and lean enough to be understood, implemented and validated, any feature which is not able to be justified as universally applicable will be imported as a service from an external resource.  The adoption of [JSON-LD][json-ld] is paramount in this respect, as it gives a solid basis for interoperability and disambiguation between systems.
+There are many additional features that could be included in resource descriptions beyond those already defined in the [Presentation API][prezi-api]. In order to keep the API manageable and lean enough to be understood, implemented, and validated, any feature which is not able to be justified as universally applicable will be imported as a service from an external resource. The adoption of [JSON-LD][json-ld] is paramount in this respect, as it provides a basis for interoperability and disambiguation between systems.
 
-The inclusion of services in this document _MUST NOT_ be interpreted as endorsement, support or approval from the editors, IIIF community or any individual.  This annex is provided as a registry of services to advertise their existence and attempt to ensure some consistency between implementations for common but not universal requirements.  
+The inclusion of services in this document that are outside of the IIIF domain _MUST NOT_ be interpreted as endorsement, support, or approval from the editors, the IIIF community or any individual. This annex is provided as a registry of services to advertise their existence and attempt to ensure some consistency between implementations for common but not universal requirements.  
 
 ## 2. Requirements
 
@@ -166,7 +167,6 @@ The following example demonstrates the resulting structure, as embedded within t
 }
 {% endhighlight %}
 
-
 ## Appendices
 
 ### A. Acknowledgements
@@ -175,18 +175,22 @@ The production of this document was generously supported by a grant from the [An
 
 Thanks to the members of the [IIIF][iiif-community] for their continuous engagement, innovative ideas and feedback.
 
-### B. Changelog
+### B. Change Log
 
 | Date       | Description                                        |
 | ---------- | -------------------------------------------------- |
 | 2014-06-01 | Version 1.0 RFC                                    |
 
-   [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
-   [image-api]: /api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/ "Image API"
-   [prezi-api]: /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/ "Presentation API"
-   [json-ld]: http://www.w3.org/TR/json-ld/ "JSON-LD"
-   [iiif-community]: /community.html "IIIF Community"
-   [mellon]: http://www.mellon.org/ "The Andrew W. Mellon Foundation"
-   [geojson]: http://geojson.org/ "GeoJSON"
-   [geojson-ld]: http://geojson.org/vocab "GeoJSON-LD"
+[cc-by]: http://creativecommons.org/licenses/by/4.0/ "Creative Commons &mdash; Attribution 4.0 International"
+[iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
+[image-api]: /api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/ "Image API"
+[prezi-api]: /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/ "Presentation API"
+[json-ld]: http://www.w3.org/TR/json-ld/ "JSON-LD"
+[iiif-community]: /community.html "IIIF Community"
+[mellon]: http://www.mellon.org/ "The Andrew W. Mellon Foundation"
+[geojson]: http://geojson.org/ "GeoJSON"
+[geojson-ld]: http://geojson.org/vocab "GeoJSON-LD"
 
+{% for acronym in site.data.acronyms %}
+  *[{{ acronym[0] }}]: {{ acronym[1] }}
+{% endfor %}

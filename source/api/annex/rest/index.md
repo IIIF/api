@@ -3,34 +3,34 @@ title: RESTful Management of Source Images on an IIIF Server
 layout: spec
 tags: [annex, rest, image-api]
 ---
-# RESTful Management of Source Images on an IIIF Server
+
+## Status of this Document
+{:.no_toc}
+
+This document is not subject to semantic versioning. 
+
+Changes will be tracked within the document.
+
+_Copyright © 2012-2014 Editors and contributors. Published by the IIIF under the [CC-BY][cc-by] license._
 
 **Authors**
 
+  * Robert Sanderson, _Stanford University_
   * Jon Stroop, _Princeton University_
   * Simeon Warner, _Cornell University_
-> Add your name if you want!
 
 ## Abstract
+{:.no_toc}
 
 This document describes an extension to the [IIIF Image API][iiif-image-api] which compliant servers may implement to faciliate the management of images on a server using the HTTP protocol.
 
 Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss].
 
 ## Table of Contents
+{:.no_toc}
 
-  1. [Overview][1]
-  2. [Requests][2]
-     1. [GET][2.1]
-     2. [HEAD][2.2]
-     3. [PUT][2.3]
-     4. [POST][2.4]
-     5. [DELETE][2.5]
-  3. [Response Codes][3]
-     1. [Successful Requests][3.1]
-     2. [Error Conditions][3.2]
-  4. [Extension Context][4]
-  5. [Authorization, Authentication and Security][5]
+* goes here
+{:toc}
 
 ## 1. Overview
 
@@ -189,27 +189,16 @@ If one or more of the predicates is missing, a client MUST assume the method is 
 
 As of this writing authorization and authentication are topics of heavy dicussion within the IIIF community. This document will be revised as necessary, as the Image API specification evolves in this area.
 
- [1]: #overview
- [2]: #requests
- [2.1]: #get
- [2.2]: #head
- [2.3]: #put
- [2.4]: #post
- [2.5]: #delete
- [3]: #response-codes
- [3.1]: #successful-requests
- [3.2]: #error-conditions
- [4]: #extension-context
- [5]: #authorization-authentication-and-security
- [fielding-rest]: https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm
- [http-access-control-allow-methods]: http://www.w3.org/TR/cors/#access-control-allow-methods-response-header
- [http-content-md5]: http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.15
- [http-content-type]: http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17
- [http-headers]: http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html
- [http-if-none-match]: http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.26
- [http-location]: http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.30
- [http-options]: http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.2
- [iiif-image-api]: /api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}
- [iiif-discuss]: mailto:iiif-discuss%40googlegroups.com
+[cc-by]: http://creativecommons.org/licenses/by/4.0/ "Creative Commons &mdash; Attribution 4.0 International"
+[fielding-rest]: https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm
+[http-access-control-allow-methods]: http://www.w3.org/TR/cors/#access-control-allow-methods-response-header
+[http-content-md5]: http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.15
+[http-content-type]: http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17
+[http-headers]: http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html
+[http-if-none-match]: http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.26
+[http-location]: http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.30
+[http-options]: http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.2
+[iiif-discuss]: mailto:iiif-discuss%40googlegroups.com
+[iiif-image-api]: /api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}
 
 {% include acronyms.md %}

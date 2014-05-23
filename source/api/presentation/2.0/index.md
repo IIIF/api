@@ -16,7 +16,7 @@ __This Version:__ {{ page.major }}.{{ page.minor }}.{{ page.patch }}{% if page.p
 
 __Latest Stable Version:__ {{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}.{{ site.presentation_api.latest.patch }}
 
-_Copyright © 2012-2014 Editors and contributors. Published by the IIIF under the CC-BY license._
+_Copyright © 2012-2014 Editors and contributors. Published by the IIIF under the [CC-BY][cc-by] license._
 
 **Editors**
 
@@ -1365,7 +1365,7 @@ The production of this document was generously supported by a grant from the [An
 
 Many thanks to Matthieu Bonicel, Tom Cramer, Ian Davis, Markus Enders, Renhart Gittens, Tim Gollins, Antoine Isaac, Neil Jefferies, Sean Martin, Roger Mathisen, Mark Patton, Petter Rønningsen, Raphael Schwemmer, Stuart Snydman and Simeon Warner for their thoughtful contributions. Thanks also to the members of the [IIIF][iiif-community] for their continuous engagement, innovative ideas and feedback.
 
-### E. ChangeLog
+### E. Change Log
 
 | Date       | Description                                        |
 | ---------- | -------------------------------------------------- |
@@ -1373,6 +1373,7 @@ Many thanks to Matthieu Bonicel, Tom Cramer, Ian Davis, Markus Enders, Renhart G
 | 2013-08-26 | Version 1.0 (unnamed) released.                    |
 | 2013-06-14 | Version 0.9 (unnamed) released.                    |
 
+[cc-by]: http://creativecommons.org/licenses/by/4.0/ "Creative Commons &mdash; Attribution 4.0 International"
 [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
 [shared-canvas]: /model/shared-canvas/{{ site.shared_canvas.latest.major}}.{{ site.shared_canvas.latest.minor }} "Shared Canvas Data Model"
 [image-api]: /api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/ "Image API"

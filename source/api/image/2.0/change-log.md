@@ -1,5 +1,5 @@
 ---
-title: "Image API 2.0 Changelog"
+title: "Image API 2.0 Change Log"
 title_override: "Changes for IIIF Image API Version 2.0"
 id: image-api-20-change-log
 layout: spec
