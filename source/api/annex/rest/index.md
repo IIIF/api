@@ -1,7 +1,7 @@
 ---
 title: RESTful Management of Source Images on an IIIF Server
-layout: sub-page
-categories: [annex, rest, image-api, spec-doc]
+layout: spec
+tags: [annex, rest, image-api]
 ---
 
 ## Status of this Document
@@ -189,7 +189,6 @@ If one or more of the predicates is missing, a client MUST assume the method is 
 
 As of this writing authorization and authentication are topics of heavy dicussion within the IIIF community. This document will be revised as necessary, as the Image API specification evolves in this area.
 
-
 [cc-by]: http://creativecommons.org/licenses/by/4.0/ "Creative Commons &mdash; Attribution 4.0 International"
 [fielding-rest]: https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm
 [http-access-control-allow-methods]: http://www.w3.org/TR/cors/#access-control-allow-methods-response-header
@@ -201,3 +200,5 @@ As of this writing authorization and authentication are topics of heavy dicussio
 [http-options]: http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.2
 [iiif-discuss]: mailto:iiif-discuss%40googlegroups.com
 [iiif-image-api]: /api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}
+
+{% include acronyms.md %}

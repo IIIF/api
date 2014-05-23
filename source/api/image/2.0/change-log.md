@@ -1,9 +1,9 @@
 ---
 title: "Image API 2.0 Change Log"
 title_override: "Changes for IIIF Image API Version 2.0"
-id: image-api-20-changelog
-layout: sub-page
-categories: [specifications, image-api, spec-doc, changelog]
+id: image-api-20-change-log
+layout: spec
+tags: [specifications, image-api, change-log]
 major: 2
 minor: 0
 # no patch
@@ -119,6 +119,4 @@ As transition to JSON-LD (since it is not fully supported by browsers), clients 
 [semver]: http://semver.org/ "Semantic Versioning Specification"
 [versioning]: /api/image/2.0/#b-versioning "Image API Appendix B: Versioning"
 
-{% for acronym in site.data.acronyms %}
-  *[{{ acronym[0] }}]: {{ acronym[1] }}
-{% endfor %}
+{% include acronyms.md %}

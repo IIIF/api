@@ -1,7 +1,7 @@
 ---
 title: Linking to External Services
-layout: sub-page
-categories: [annex, service, services, spec-doc, specifications]
+layout: spec
+tags: [annex, service, services, specifications]
 ---
 
 ## Status of this Document

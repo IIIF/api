@@ -2,8 +2,8 @@
 title: Presentation API 2.0
 title_override: "IIIF Presentation API 2.0"
 id: presentation-api
-layout: sub-page
-categories: [specifications, presentation-api, spec-doc]
+layout: spec
+tags: [specifications, presentation-api]
 major: 2
 minor: 0
 patch: 0
@@ -1401,6 +1401,4 @@ Many thanks to Matthieu Bonicel, Tom Cramer, Ian Davis, Markus Enders, Renhart G
 [icon-opt]: /img/metadata-api/optional.png "Optional"
 [icon-na]: /img/metadata-api/not_allowed.png "Not allowed"
 
-{% for acronym in site.data.acronyms %}
-  *[{{ acronym[0] }}]: {{ acronym[1] }}
-{% endfor %}
+{% include acronyms.md %}

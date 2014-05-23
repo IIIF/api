@@ -2,8 +2,8 @@
 title: Image API 2.0
 title_override: "IIIF Image API 2.0"
 id: image-api
-layout: sub-page
-categories: [specifications, image-api, spec-doc]
+layout: spec
+tags: [specifications, image-api]
 major: 2
 minor: 0
 patch: 0
@@ -612,6 +612,4 @@ Many thanks to  Ben Albritton, Matthieu Bonicel, Anatol Broder, Kevin Clarke, To
 [c-acknowledgments]: #c-acknowledgments "C. Acknowledgments"
 [d-change-log]: #d-change-log "D. Change Log"
 
-{% for acronym in site.data.acronyms %}
-  *[{{ acronym[0] }}]: {{ acronym[1] }}
-{% endfor %}
+{% include acronyms.md %}

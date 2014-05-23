@@ -1,8 +1,8 @@
 ---
 title: "Image API Compliance, Version 2.0.0"
 id: image-api-compliance
-layout: sub-page
-categories: [compliance, image-api, spec-doc]
+layout: spec
+tags: [compliance, image-api]
 major: 2
 minor: 0
 patch: 0
@@ -136,6 +136,4 @@ Link: <http://iiif.io/api/image/{{ page.major }}/level2.json>;rel="profile"
 [icon-opt]: /img/metadata-api/optional.png "Optional"
 [icon-na]: /img/metadata-api/not_allowed.png "Not allowed"
 
-{% for acronym in site.data.acronyms %}
-  *[{{ acronym[0] }}]: {{ acronym[1] }}
-{% endfor %}
+{% include acronyms.md %}
