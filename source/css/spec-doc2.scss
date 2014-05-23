@@ -1,6 +1,18 @@
 ---
 ---
 
+.sixtysix {
+  width: 66%;
+  margin-top: 5px;
+}
+
+
+
+.rn {
+
+}
+
+
 .wrapper {
   font-family: sans-serif;
   width: 80%;
@@ -26,11 +38,37 @@
     font-family: sans-serif;
   }
   .specbody {
-    width: 80%;
     margin: 0 5%;
 
     .fullPct {
       width: 100%;
+    }
+
+    .ex_table {
+      width: 100%;
+      margin-top: 5px;
+      tr {
+        vertical-align: top;
+        td {
+          text-align: center;
+          p  {
+            margin: 0;
+            line-height: 1.2;
+            padding: 0;
+          }
+          strong {
+            background: red;
+            color: white;
+            font-weight: bold;
+            font-family: sans-serif;
+            padding-left: 3px;
+            margin-left: 2px;
+            padding-right: 3px;
+            margin-right: 2px;
+            border-radius: 3px;            
+          }
+        }
+      }
     }
 
     .floatRight {
@@ -203,10 +241,10 @@ pre {
   width: 50%
 }
 table {
-  border: 1px solid black
+  border: 1px solid black;
 }
 tr {
-  border: 1px solid #666
+  border: 1px solid #666;
 }
 td, th {
   border: 1px solid #666;
