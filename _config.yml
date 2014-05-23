@@ -21,28 +21,13 @@ image_api:
     major: 1
     minor: 1
     patch: 0
-  draft:
-    use: true
-    major: 2
-    minor: 0
-    patch: 0
 presentation_api:
   latest:
     major: 1
     minor: 0
     patch: 0
-  draft:
-    use: true
-    major: 2
-    minor: 0
-    patch: 0
 shared_canvas:
   latest:
     major: 1
-    minor: 0
-    patch: 0
-  draft:
-    use: false
-    major: 2
     minor: 0
     patch: 0
