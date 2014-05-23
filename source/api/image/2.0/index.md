@@ -26,7 +26,7 @@ __Latest Stable Version:__ {{ site.image_api.latest.major }}.{{ site.image_api.l
   * Simeon Warner, _Cornell University_
   {: .names}
 
-_Copyright © 2012-2014 Editors and contributors. Published by the IIIF under the CC-BY license._
+_Copyright © 2012-2014 Editors and contributors. Published by the IIIF under the [CC-BY][cc-by] license._
 
 ----
 
@@ -563,6 +563,7 @@ Many thanks to  Ben Albritton, Matthieu Bonicel, Anatol Broder, Kevin Clarke, To
 | 2012-05-02 | RFC version |
 {: .image-api-table}
 
+[cc-by]: http://creativecommons.org/licenses/by/4.0/ "Creative Commons &mdash; Attribution 4.0 International"
 [change-log11]: /api/image/1.1/change-log.html "Change Log for Version 1.1"
 [change-log]: /api/image/2.0/change-log.html "Change Log for Version 2.0"
 [compliance]: /api/image/2.0/compliance.html "Image API Compliance"
