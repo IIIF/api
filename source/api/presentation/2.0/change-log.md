@@ -32,7 +32,7 @@ The name for the API used to be the "Metadata API", and this was changed to "Pre
 
 ### Underscores rather than Camel Case
 
-For consistency with the Image API, the property names which used camelCase were changed to use snake_case. The properties affected are: `viewingHint` to `viewing_hint`; `viewingDirection` to `viewing_direction`; and `seeAlso` to `see_also`.  Changing the Image API would have been significantly more work, and resulting in more breaking changes. 
+For consistency with the Image API, the property names which used camelCase were changed to use snake_case. The properties affected are: `viewingHint` to `viewing_hint`; `viewingDirection` to `viewing_direction`; `seeAlso` to `see_also`; and `otherContent` to `other_content`.  Changing the Image API would have been significantly more work, and resulting in more breaking changes. 
 
 ### Ranges Easier to Implement
 

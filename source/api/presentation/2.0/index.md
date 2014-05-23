@@ -580,7 +580,7 @@ The canvas represents an individual page or view and acts as a central point for
 
 Every canvas _MUST_ have a `label` to display, and a `height` and a `width` as integers. A canvas is a two-dimensional rectangular space with an aspect ratio that represents a single logical view of some part of the object, and the aspect ratio is given with the height and width properties. This allows resources to be associated with specific parts of the canvas, rather than the entire space. It is _recommended_{: .rfc} that if there is (at the time of implementation) a single image that depicts the page, then the dimensions of the image are used as the dimensions of the canvas for simplicity. If there are multiple full images, then the dimensions of the largest image should be used. If the largest image's dimensions are less than 1200 pixels on either edge, then the canvas's dimensions _SHOULD_ be double that of the image. Clients _MUST_ be aware that this is not always the case, such as in the examples presented, and instead _MUST_ always scale images into the space represented by the canvas.  The dimensions of the canvas _SHOULD_ be the same scale as the physical object, and thus images should depict only the object.  This can be accomplished by cropping the image, or associating only a segment of the image with the canvas.  The physical dimensions of the object may be available via a service, either embedded within the description or requiring an HTTP request to retrieve them.
 
-Image resources, and only image resources, are included in the `images` section of the canvas. These are linked to the canvas via annotations. Other content, such as transcriptions, video, audio or commentary, is provided via external annotation lists referenced in the `otherContent` section. The value of both of these _MUST_ be a list, even if there is only one entry. Both are optional, in the situation that there is no additional information associated with the canvas. Note that the items in the `otherContent` list may be either objects with an `@id` property or strings. In the case of a string, this is the URI of the annotation list and the type of "sc:AnnotationList" can be inferred.
+Image resources, and only image resources, are included in the `images` section of the canvas. These are linked to the canvas via annotations. Other content, such as transcriptions, video, audio or commentary, is provided via external annotation lists referenced in the `other_content` section. The value of both of these _MUST_ be a list, even if there is only one entry. Both are optional, in the situation that there is no additional information associated with the canvas. Note that the items in the `other_content` list may be either objects with an `@id` property or strings. In the case of a string, this is the URI of the annotation list and the type of "sc:AnnotationList" can be inferred.
 
 In a sequence with the "paged" `viewing_hint`, presented in a book viewing modality, the first canvas is defined as a single up -- typically either the cover, or first recto page. Thereafter, the canvases represent the sides of the leaves, and hence may be presented with two up as an opening of the book.  If there are canvases which are in the sequence but would break this ordering, then they _MUST_ have the `viewing_hint` property with a value of "non-paged".  Similarly if the first canvas is not a single up, it _MUST_ be marked as "non-paged" or an empty canvas added before it.
 
@@ -602,7 +602,7 @@ Canvases _MAY_ be dereferenced separately from the manifest via their URIs, and 
       // Link from Image to canvas should be included here, as below
     }
   ],
-  "otherContent": [
+  "other_content": [
     {
       // Reference to list of other Content resources, _not included directly_
       "@id":"http://www.example.org/iiif/book1/list/p1.json",
@@ -1182,7 +1182,7 @@ URL: _http://www.example.org/iiif/book1/manifest.json_
                 "on":"http://www.example.org/iiif/book1/canvas/p1.json"
               }
             ],
-            "otherContent": [
+            "other_content": [
               {
                 "@id":"http://www.example.org/iiif/book1/list/p1.json",
                 "@type":"sc:"
@@ -1208,7 +1208,7 @@ URL: _http://www.example.org/iiif/book1/manifest.json_
                     "service": {
                         "@context": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
                         "@id": "http://www.example.org/images/book1-page2",
-                        "profile":"http://iiif.io/api/image/{{ site.image_api.latest.major }}/level1.json"
+                        "profile":"http://iiif.io/api/image/{{ site.image_api.latest.major }}/level1.json",
                         "scale_factors": [1, 2, 4],
                         "height":8000,
                         "width":6000,
@@ -1219,7 +1219,7 @@ URL: _http://www.example.org/iiif/book1/manifest.json_
                 "on":"http://www.example.org/iiif/book1/canvas/p2.json"
               }
             ],
-            "otherContent": [
+            "other_content": [
               {
                 "@id":"http://www.example.org/iiif/book1/list/p2.json",
                 "@type":"sc:"
@@ -1251,7 +1251,7 @@ URL: _http://www.example.org/iiif/book1/manifest.json_
                 "on":"http://www.example.org/iiif/book1/canvas/p3.json"
               }
             ],
-            "otherContent": [
+            "other_content": [
               {
                 "@id":"http://www.example.org/iiif/book1/list/p3.json",
                 "@type":"sc:"
