@@ -175,7 +175,7 @@ The production of this document was generously supported by a grant from the [An
 
 Thanks to the members of the [IIIF][iiif-community] for their continuous engagement, innovative ideas and feedback.
 
-### B. Changelog
+### B. Change Log
 
 | Date       | Description                                        |
 | ---------- | -------------------------------------------------- |
