@@ -150,30 +150,32 @@ Examples:
       <td>
         <img src="img/full.png" alt="Full Size" class="fullPct" /> 
         <p><strong>1</strong> size=full</p>
-        <p><code>{base-uri}/full/full/0/default.jpg</code></p>
+        <p><code>.../full/full/0/default.jpg</code></p>
       </td>
       <td>
         <img src="img/region_px.png" alt="Region by Pixels" class="fullPct" /> 
         <p><strong>2</strong> region=125,15,120,140</p>
-        <p><code>{base-uri}/125,15,120,140/full/0/default.jpg</code></p>
-      </td>
-      <td>
-        <img src="img/region_pct.png" alt="Region by Percent" class="fullPct" />
-        <p><strong>3</strong> region=pct:41.6,7.5,40,70</p>
-        <p><code>{base-uri}/pct:41.6,7.5,40,70/full/0/default.jpg</code></p>
+        <p><code>.../125,15,120,140/full/0/default.jpg</code></p>
       </td>
     </tr>
     <tr>
       <td>
+        <img src="img/region_pct.png" alt="Region by Percent" class="fullPct" />
+        <p><strong>3</strong> region=pct:41.6,7.5,40,70</p>
+        <p><code>.../pct:41.6,7.5,40,70/full/0/default.jpg</code></p>
+      </td>
+      <td>
         <img src="img/region_px_over.png" alt="Region by Pixels" class="fullPct" /> 
         <p><strong>4</strong> region=125,15,200,200</p>
-        <p><code>{base-uri}/125,15,200,200/full/0/default.jpg</code></p>
+        <p><code>.../125,15,200,200/full/0/default.jpg</code></p>
         <p><em>N.B. Returned image is 175,185 px</em></p>
       </td>
+    </tr>
+    <tr>
       <td>
         <img src="img/region_pct_over.png" alt="Region by Percent" class="fullPct" /> 
         <p><strong>5</strong> region=pct:41.6,7.5,66.6,100</p>
-        <p><code>{base-uri}/pct:41.6,7.5,66.6,100/full/0/default.jpg</code></p>
+        <p><code>.../pct:41.6,7.5,66.6,100/full/0/default.jpg</code></p>
         <p><em>N.B. Returned image is 175,185 px</em></p>
       </td>
       <td/>
@@ -209,34 +211,34 @@ Examples:
       <td>
         <img src="img/full.png" alt="Full Size" class="fullPct" /> 
         <p><strong>1</strong> size=full</p>
-        <p><code>{base-uri}/full/full/0/default.jpg</code></p>
+        <p><code>.../full/full/0/default.jpg</code></p>
       </td>
       <td>
         <img src="img/size_wc.png" alt="Size by Width" class="fullPct" /> 
         <p><strong>2</strong> size=150,</p>
-        <p><code>{base-uri}/full/150,/0/default.jpg</code></p>
+        <p><code>.../full/150,/0/default.jpg</code></p>
       </td>
       <td>
         <img src="img/size_ch.png" alt="Size by Height" class="fullPct" />
         <p><strong>3</strong> size=,150</p>
-        <p><code>{base-uri}/full/,150/0/default.jpg</code></p>
+        <p><code>.../full/,150/0/default.jpg</code></p>
       </td>
     </tr>
     <tr>
       <td>
         <img src="img/size_pct.png" alt="Size by Percent" class="fullPct" />
         <p><strong>4</strong> size=pct:50</p>
-        <p><code>{base-uri}/full/pct:50/0/default.jpg</code></p>
+        <p><code>.../full/pct:50/0/default.jpg</code></p>
       </td>
       <td>
         <img src="img/size_wch.png" alt="Size by Width,Height" class="fullPct" />
         <p><strong>5</strong> size=225,100</p>
-        <p><code>{base-uri}/full/225,100/0/default.jpg</code></p>
+        <p><code>.../full/225,100/0/default.jpg</code></p>
       </td>
       <td>
         <img src="img/size_bwch.png" alt="Size By Bang Width Height" class="fullPct" />
         <p><strong>6</strong> size=!225,100</p>
-        <p><code>{base-uri}/full/!225,100/0/default.jpg</code></p>
+        <p><code>.../full/!225,100/0/default.jpg</code></p>
         <p><em>N.B. Returned image is 150,100 px</em></p>
       </td>
     </tr>
@@ -267,24 +269,24 @@ Examples:
       <td>
         <img src="img/full.png" alt="Rotation 0" class="fullPct" /> 
         <p><strong>1</strong> rotation=0</p>
-        <p><code>{base-uri}/full/full/0/default.jpg</code></p>
+        <p><code>.../full/full/0/default.jpg</code></p>
       </td>
       <td>
         <img src="img/rotate_180.png" alt="Rotation 180" class="fullPct" /> 
         <p><strong>2</strong> rotation=180</p>
-        <p><code>{base-uri}/full/full/180/default.jpg</code></p>
+        <p><code>.../full/full/180/default.jpg</code></p>
       </td>
     </tr>
     <tr>
       <td>
         <img src="img/rotate_90.png" alt="Rotation 90" class="fullPct" />
         <p><strong>3</strong> rotation=90</p>
-        <p><code>{base-uri}/full/full/90/default.jpg</code></p>
+        <p><code>.../full/full/90/default.jpg</code></p>
       </td>
       <td>
         <img src="img/rotate_22-5.png" alt="Rotation 22.5" class="fullPct" />
         <p><strong>4</strong> rotation=22.5</p>
-        <p><code>{base-uri}/full/full/22.5/default.jpg</code></p>
+        <p><code>.../full/full/22.5/default.jpg</code></p>
       </td>
     </tr>
   </tbody>
@@ -312,24 +314,24 @@ Examples:
       <td>
         <img src="img/full.png" alt="Default Quality" class="fullPct" /> 
         <p><strong>1</strong> quality=default</p>
-        <p><code>{base-uri}/full/full/0/default.jpg</code></p>
+        <p><code>.../full/full/0/default.jpg</code></p>
       </td>
       <td>
         <img src="img/full.png" alt="Color Quality" class="fullPct" /> 
         <p><strong>2</strong> quality=color</p>
-        <p><code>{base-uri}/full/full/0/color.jpg</code></p>
+        <p><code>.../full/full/0/color.jpg</code></p>
       </td>
     </tr>
     <tr>
       <td>
         <img src="img/gray.png" alt="Gray Quality" class="fullPct" />
         <p><strong>3</strong> quality=gray</p>
-        <p><code>{base-uri}/full/full/0/gray.jpg</code></p>
+        <p><code>.../full/full/0/gray.jpg</code></p>
       </td>
       <td>
         <img src="img/bitonal.png" alt="Bitonal Quality" class="fullPct" />
         <p><strong>4</strong> quality=bitonal</p>
-        <p><code>{base-uri}/full/full/0/bitonal.jpg</code></p>
+        <p><code>.../full/full/0/bitonal.jpg</code></p>
       </td>
     </tr>
   </tbody>
@@ -353,9 +355,9 @@ A format value that is unsupported _SHOULD_ result in a 400 status code.
 
 Examples:
 
-  1. `{base-uri}/full/full/0/default.jpg`
-  2. `{base-uri}/full/full/0/default.png`
-  3. `{base-uri}/full/full/0/default.tif`
+  1. `.../full/full/0/default.jpg`
+  2. `.../full/full/0/default.png`
+  3. `.../full/full/0/default.tif`
   {: .examplelist}
 
 ### 4.6. Order of Implementation
@@ -366,9 +368,17 @@ The parameters should be interpreted as if the the sequence of image manipulatio
 
 `Region THEN Size THEN Rotation THEN Quality THEN Format`
 
-|:----:|
-|![Order of implementation illustration](img/transformation.png){:. fullPct}|
-|__1__ region=`125,15,120,140` size=`90,` rotation=`345` quality=`gray`|
+<table class="ex_table">
+  <tbody>
+    <tr>
+      <td>
+        <img style="max-width: 650px" src="img/transformation.png" alt="Order of Implementation" class="fullPct" /> 
+        <p><strong>1</strong> region=125,15,120,140 size=90, rotation=345 quality=gray</p>
+        <p><code>.../125,15,120,140/90,/345/gray.jpg</code></p>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 ### 4.7. Canonical URI Syntax
 

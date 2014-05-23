@@ -1,18 +1,6 @@
 ---
 ---
 
-.sixtysix {
-  width: 66%;
-  margin-top: 5px;
-}
-
-
-
-.rn {
-
-}
-
-
 .wrapper {
   font-family: sans-serif;
   width: 80%;
@@ -55,6 +43,9 @@
             margin: 0;
             line-height: 1.2;
             padding: 0;
+          }
+          img {
+            max-width: 350px;
           }
           strong {
             background: red;
