@@ -10,7 +10,7 @@ categories: [annex, service, services, spec-doc, specifications]
 This document is not subject to semantic versioning. 
 Changes will be tracked within the document.
 
-_Copyright © 2012-2014 Editors and contributors. Published by the IIIF under the CC-BY license._
+_Copyright © 2012-2014 Editors and contributors. Published by the IIIF under the [CC-BY][cc-by] license._
 
 **Editors**
 
@@ -175,12 +175,13 @@ The production of this document was generously supported by a grant from the [An
 
 Thanks to the members of the [IIIF][iiif-community] for their continuous engagement, innovative ideas and feedback.
 
-### B. Changelog
+### B. Change Log
 
 | Date       | Description                                        |
 | ---------- | -------------------------------------------------- |
 | 2014-06-01 | Version 1.0 RFC                                    |
 
+   [cc-by]: http://creativecommons.org/licenses/by/4.0/ "Creative Commons &mdash; Attribution 4.0 International"
    [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
    [image-api]: /api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/ "Image API"
    [prezi-api]: /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/ "Presentation API"
