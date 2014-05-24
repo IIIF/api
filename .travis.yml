@@ -11,6 +11,9 @@ language: ruby
 rvm:
   - "2.1"
 
+branches:
+  - 'master'
+
 notifications:
   email:
     recipients:
