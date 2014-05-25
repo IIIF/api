@@ -7,7 +7,7 @@ tags: [annex, service, services, specifications]
 ## Status of this Document
 {:.no_toc}
 
-This document is not subject to semantic versioning. 
+This document is not subject to semantic versioning.
 Changes will be tracked within the document.
 
 _Copyright © 2012-2014 Editors and contributors. Published by the IIIF under the [CC-BY][cc-by] license._
@@ -37,7 +37,7 @@ Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss]
 
 There are many additional features that could be included in resource descriptions beyond those already defined in the [Presentation API][prezi-api]. In order to keep the API manageable and lean enough to be understood, implemented, and validated, any feature which is not able to be justified as universally applicable will be imported as a service from an external resource. The adoption of [JSON-LD][json-ld] is paramount in this respect, as it provides a basis for interoperability and disambiguation between systems.
 
-The inclusion of services in this document that are outside of the IIIF domain _MUST NOT_ be interpreted as endorsement, support, or approval from the editors, the IIIF community or any individual. This annex is provided as a registry of services to advertise their existence and attempt to ensure some consistency between implementations for common but not universal requirements. 
+The inclusion of services in this document that are outside of the IIIF domain _MUST NOT_ be interpreted as endorsement, support, or approval from the editors, the IIIF community or any individual. This annex is provided as a registry of services to advertise their existence and attempt to ensure some consistency between implementations for common but not universal requirements.
 
 ## 2. Requirements
 
@@ -54,7 +54,7 @@ Services _MAY_ be included either by reference or embedded within the [Presentat
     "@id": "http://example.org/service/example.json",
     "profile": "http://example.org/docs/example-service.html",
     "label": "Example Service"
-    // Additional keys may be embedded here, if not then the @id should be retrieved 
+    // Additional keys may be embedded here, if not then the @id should be retrieved
   }
 }
 {% endhighlight %}
@@ -71,7 +71,7 @@ The main use of services is to provide a reference from the [Presentation API][p
     "@context" : "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
     "@id" : "http://www.example.org/image-service/abcd1234",
     "profile": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/level2.json"
-  } 
+  }
 }
 {% endhighlight %}
 
@@ -90,7 +90,7 @@ The service _MAY_ have additional information embedded from the Image Informatio
     "sizes" : [ "150,100", "360,240", "3600,2400" ],
     "tile_width" : 1024,
     "tile_height" : 1024
-  } 
+  }
 }
 {% endhighlight %}
 
@@ -109,7 +109,7 @@ An external reference example for tagging a place, where the URI would return a 
   "service": {
     "@context" : "http://geojson.org/contexts/geojson-base.jsonld",
     "@id" : "http://www.example.org/geojson/paris.json"
-  } 
+  }
 }
 {% endhighlight %}
 
@@ -119,20 +119,20 @@ Or embedding the content:
 {
   "service": {
     "@context" : "http://geojson.org/contexts/geojson-base.jsonld",
-    "@id" : "http://www.example.org/geojson/paris.json",     
+    "@id" : "http://www.example.org/geojson/paris.json",
     "type": "Feature",
     "properties": {"name": "Paris"},
     "geometry": {
       "type": "Point",
       "coordinates" : [48.8567,2.3508]
-    }         
-  } 
+    }
+  }
 }
 {% endhighlight %}
 
 ### 3.3 Physical Dimensions
 
-For digitized objects, it is often useful to know the physical dimensions of the object.  If available, it would allow a client to present a ruler, or other rendition of physical scale, to the user.  
+For digitized objects, it is often useful to know the physical dimensions of the object.  If available, it would allow a client to present a ruler, or other rendition of physical scale, to the user.
 This information might be available, but frequently:
 
   * It is not available at all

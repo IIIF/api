@@ -7,7 +7,7 @@ tags: [annex, rest, image-api]
 ## Status of this Document
 {:.no_toc}
 
-This document is not subject to semantic versioning. 
+This document is not subject to semantic versioning.
 
 Changes will be tracked within the document.
 
