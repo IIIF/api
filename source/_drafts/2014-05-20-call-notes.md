@@ -6,7 +6,7 @@ tags: [minutes, meetings, mirador]
 layout: post
 ---
 
-I just wanted to send out some notes from last week's call and also let everyone in on the latest progress on M2, the development effort on the Mirador redesign. Our [latest sprint demo video](https://www.youtube.com/watch?v=jtlwRbVyOKE) is on the new [IIIF youtube channel](https://www.youtube.com/channel/UClcQIkLdYra7ZnOmMJnC5OA). I'll be adding some other useful resources to the channel to support mirador in particular and IIIF in general. It would be great to get the community's help compiling some installation guides for different levels of the stack (Loris, IIPImage, Mirador, etc.). 
+I just wanted to send out some notes from last week's call and also let everyone in on the latest progress on M2, the development effort on the Mirador redesign. Our [latest sprint demo video](https://www.youtube.com/watch?v=jtlwRbVyOKE) is on the new [IIIF youtube channel](https://www.youtube.com/channel/UClcQIkLdYra7ZnOmMJnC5OA). I'll be adding some other useful resources to the channel to support mirador in particular and IIIF in general. It would be great to get the community's help compiling some installation guides for different levels of the stack (Loris, IIPImage, Mirador, etc.).
 
 Here are last week's notes:
 
@@ -52,4 +52,4 @@ __Jan (National Library of Poland)__
 : * As part of the Polona project, have re-implemented openSeadragon with better performance.
  * IIP-image server, curious about adapting to IIIF
  * Another colleague will join the call next time to talk about more technical aspects.
- * [Demo](http://www.polona.pl/item/717521/50/) 
+ * [Demo](http://www.polona.pl/item/717521/50/)

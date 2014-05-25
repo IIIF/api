@@ -79,7 +79,7 @@ The combination of these parameters forms the image’s Base URI and identifies 
 ```
 {: .urltemplate}
 
-When the base URI is dereferenced, the interaction _SHOULD_ result in the Image Information document.  It is _RECOMMENDED_ that the response be a 303 status redirection to the Image Information document's URI.  Implementations _MAY_ also exhibit other behavior for the base URI beyond the scope of this specification in response to HTTP request headers and methods.    
+When the base URI is dereferenced, the interaction _SHOULD_ result in the Image Information document.  It is _RECOMMENDED_ that the response be a 303 status redirection to the Image Information document's URI.  Implementations _MAY_ also exhibit other behavior for the base URI beyond the scope of this specification in response to HTTP request headers and methods.
 
 To allow for extensions, this specification does not define the server behavior when it receives requests that do not match either the Base URI or one of the described URI syntaxes below.
 
@@ -148,12 +148,12 @@ Examples:
   <tbody>
     <tr>
       <td>
-        <img src="img/full.png" alt="Full Size" class="fullPct" /> 
+        <img src="img/full.png" alt="Full Size" class="fullPct" />
         <p><strong>1</strong> size=full</p>
         <p><code>.../full/full/0/default.jpg</code></p>
       </td>
       <td>
-        <img src="img/region_px.png" alt="Region by Pixels" class="fullPct" /> 
+        <img src="img/region_px.png" alt="Region by Pixels" class="fullPct" />
         <p><strong>2</strong> region=125,15,120,140</p>
         <p><code>.../125,15,120,140/full/0/default.jpg</code></p>
       </td>
@@ -165,7 +165,7 @@ Examples:
         <p><code>.../pct:41.6,7.5,40,70/full/0/default.jpg</code></p>
       </td>
       <td>
-        <img src="img/region_px_over.png" alt="Region by Pixels" class="fullPct" /> 
+        <img src="img/region_px_over.png" alt="Region by Pixels" class="fullPct" />
         <p><strong>4</strong> region=125,15,200,200</p>
         <p><code>.../125,15,200,200/full/0/default.jpg</code></p>
         <p><em>N.B. Returned image is 175,185 px</em></p>
@@ -173,7 +173,7 @@ Examples:
     </tr>
     <tr>
       <td>
-        <img src="img/region_pct_over.png" alt="Region by Percent" class="fullPct" /> 
+        <img src="img/region_pct_over.png" alt="Region by Percent" class="fullPct" />
         <p><strong>5</strong> region=pct:41.6,7.5,66.6,100</p>
         <p><code>.../pct:41.6,7.5,66.6,100/full/0/default.jpg</code></p>
         <p><em>N.B. Returned image is 175,185 px</em></p>
@@ -209,12 +209,12 @@ Examples:
   <tbody>
     <tr>
       <td>
-        <img src="img/full.png" alt="Full Size" class="fullPct" /> 
+        <img src="img/full.png" alt="Full Size" class="fullPct" />
         <p><strong>1</strong> size=full</p>
         <p><code>.../full/full/0/default.jpg</code></p>
       </td>
       <td>
-        <img src="img/size_wc.png" alt="Size by Width" class="fullPct" /> 
+        <img src="img/size_wc.png" alt="Size by Width" class="fullPct" />
         <p><strong>2</strong> size=150,</p>
         <p><code>.../full/150,/0/default.jpg</code></p>
       </td>
@@ -248,7 +248,7 @@ Examples:
 
 ###  4.3. Rotation
 
-The rotation value represents the number of degrees of clockwise rotation from the original, and may be any floating point number from 0 to 360. 
+The rotation value represents the number of degrees of clockwise rotation from the original, and may be any floating point number from 0 to 360.
 
 | Form | Description |
 | ---- | ----------- |
@@ -267,12 +267,12 @@ Examples:
   <tbody>
     <tr>
       <td>
-        <img src="img/full.png" alt="Rotation 0" class="fullPct" /> 
+        <img src="img/full.png" alt="Rotation 0" class="fullPct" />
         <p><strong>1</strong> rotation=0</p>
         <p><code>.../full/full/0/default.jpg</code></p>
       </td>
       <td>
-        <img src="img/rotate_180.png" alt="Rotation 180" class="fullPct" /> 
+        <img src="img/rotate_180.png" alt="Rotation 180" class="fullPct" />
         <p><strong>2</strong> rotation=180</p>
         <p><code>.../full/full/180/default.jpg</code></p>
       </td>
@@ -312,12 +312,12 @@ Examples:
   <tbody>
     <tr>
       <td>
-        <img src="img/full.png" alt="Default Quality" class="fullPct" /> 
+        <img src="img/full.png" alt="Default Quality" class="fullPct" />
         <p><strong>1</strong> quality=default</p>
         <p><code>.../full/full/0/default.jpg</code></p>
       </td>
       <td>
-        <img src="img/full.png" alt="Color Quality" class="fullPct" /> 
+        <img src="img/full.png" alt="Color Quality" class="fullPct" />
         <p><strong>2</strong> quality=color</p>
         <p><code>.../full/full/0/color.jpg</code></p>
       </td>
@@ -372,7 +372,7 @@ The parameters should be interpreted as if the the sequence of image manipulatio
   <tbody>
     <tr>
       <td>
-        <img style="max-width: 650px" src="img/transformation.png" alt="Order of Implementation" class="fullPct" /> 
+        <img style="max-width: 650px" src="img/transformation.png" alt="Order of Implementation" class="fullPct" />
         <p><strong>1</strong> region=125,15,120,140 size=90, rotation=345 quality=gray</p>
         <p><code>.../125,15,120,140/90,/345/gray.jpg</code></p>
       </td>
@@ -615,7 +615,7 @@ Early sanity checking of URIs (lengths, trailing GET, invalid characters, out-of
 
   * For use cases that enable the saving of the image, it is _RECOMMENDED_ to use the HTTP `Content-Disposition` header ([RFC6266][rfc-6266]) to provide a convenient filename that distinguishes the image, based on the identifier and parameters provided.
   * This specification makes no assertion about the rights status of requested images or any other descriptive metadata, whether or not authentication has been accomplished. Please see the [IIIF Presentation API][prezi-api] for rights and other information.
-  * This API does not specify how image servers fulfill requests, what quality the returned images will have for different parameters, or how parameters may affect performance. 
+  * This API does not specify how image servers fulfill requests, what quality the returned images will have for different parameters, or how parameters may affect performance.
   * Image identifiers that include the slash (/ %2F) or backslash (\ %5C) characters may cause problems with some HTTP servers. Apache servers from version 2.2.18 support the `AllowEncodedSlashes NoDecode` [configuration directive][apache-aesnd] which will correctly pass these characters to client applications without rejecting or decoding them. Servers using older versions of Apache and local identifiers which include these characters will need to use a workaround such as internally translating or escaping slash and backslash to safe value (perhaps by double URI-encoding them).
   * As described in [Rotation][rotation], in order to retain the size of the requested image contents, rotation will change the width and height dimensions of the returned image file. A formula for calculating the dimensions of the returned image file for a given rotation can be found here.
 
