@@ -1,10 +1,8 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
 <title>Shared Canvas Data Model</title>
-<meta http-equiv="Content-Type"
-	content="application/xhtml+xml; charset=utf-8" />
 <link rel="stylesheet" href="sharedcanvas.css" type="text/css" />
 
 </head>
@@ -127,11 +125,6 @@ list: <a href="http://groups.google.com/group/sharedcanvas">http://groups.google
 </ol>
 </li>
 
-<ol>
-
-</ol>
-</li>
-
 <li><a href="#Appendix"><b>Appendices</b></a>
 <ol id="ToC_Appendix">
 <li><a href="#References">References</a></li>
@@ -139,6 +132,8 @@ list: <a href="http://groups.google.com/group/sharedcanvas">http://groups.google
 <li><a href="#ChangeLog">Change Log</a></li>
 </ol>
 </li>
+</ol>
+
 </div>
 
 <hr />
@@ -268,9 +263,9 @@ the <a href="#Namespaces">Namespaces table</a> in Section 1.1.
 Usage examples in SPARQL are given for each section, based on a
 requirement expressed in natural language.
 </p>
-<p>
-The diagrams in the specification use the following style:
 
+<div>
+The diagrams in the specification use the following style:
 
 <ul>
 <li>Instances are depicted as colored ellipses
@@ -289,7 +284,7 @@ For example, <code>canvas1</code> is a specific instance of an Canvas, whereas '
 <li>Relationships not explicit in the model, but important for understanding, are depicted as curved, dashed, colored lines</li>
 <li>Conceptual resource boundaries not explicit in the model, but considered important for understanding, are depicted as grey dashed boxes around the components.  They are used to convey spatial parts of the diagrams and may be safely ignored.</li>
 </ul>
-</p>
+</div>
 </div>
 
 
@@ -353,14 +348,14 @@ around the page, and similarly for the bottom right hand corners.  The identifie
 Canvas is not an identifier for the physical page, it identifies the digital representation of it.
 </p>
 
-<p>
+<div>
 <div class="diagramWrapper">
 <div class="diagram">
- <img alt="Canvas to Page" src="images/canvasToPage.png" width="450px"/>
+ <img alt="Canvas to Page" src="images/canvasToPage.png" width="450"/>
 <br/><span class="caption">Figure 2.0. Canvas/Page Correspondence</span>
 </div>
 </div>
-</p>
+</div>
 
 <p>
 It is RECOMMENDED that the aspect ratio be expressed in such a way that alignment of images and other
@@ -394,7 +389,7 @@ rendering system should select an appropriate one.</td></tr>
 <div>Canvas Model:</div>
 <div class="diagramWrapper">
 	<div class="diagram">
-		<img alt="Canvas Model" src="images/canvas1.png" width="350px"/>
+		<img alt="Canvas Model" src="images/canvas1.png" width="350"/>
 		<br/><span class="caption">Figure 2.1. Canvas Model</span>
 	</div>
 
@@ -419,7 +414,7 @@ reading, without rotating the entire page.  Zones may be associated with multipl
 </p>
 <div class="diagramWrapper">
 	<div class="diagram">
-		<img alt="Zone Model" src="images/zone-eg.png" width="450px"/>
+		<img alt="Zone Model" src="images/zone-eg.png" width="450"/>
 		<br/><span class="caption">Figure 2.2.1. Zone Example</span>
 	</div>
 </div>
@@ -458,7 +453,7 @@ The Shared Canvas model uses:
 <div>Zone Model:</div>
 <div class="diagramWrapper">
 	<div class="diagram">
-		<img alt="Zone Model" src="images/zone1.png" width="350px"/>
+		<img alt="Zone Model" src="images/zone1.png" width="350"/>
 		<br/><span class="caption">Figure 2.2.2. Zone Model</span>
 	</div>
 
@@ -488,18 +483,18 @@ be rendered as part of the digital facsimile of the page.
 Thus an image of a page may be associated with the Canvas as depicted below.
 </p>
 
-<p>
+<div>
 <div class="diagramWrapper">
 <div class="diagram">
-<img alt="Annotation for Canvas" src="images/canvasAnnoPage.png" width="400px"/>
+<img alt="Annotation for Canvas" src="images/canvasAnnoPage.png" width="400"/>
 <br/><span class="caption">Figure 3.0. Canvas/Image Linking by Annotation</span>
 </div>
 </div>
-</p>
+</div>
 
-<p>The <a href="http://www.openannotation.org/spec/core/">Open Annotation model</a> is used to provide the baseline Annotation system.  It allows any resource to be annotated on to any other resource, which is important for image or other non-textual content, and provides mechanisms for selecting arbitrary segments of resources which is crucial for the fragment use case, amongst others.</p>
+<div>The <a href="http://www.openannotation.org/spec/core/">Open Annotation model</a> is used to provide the baseline Annotation system.  It allows any resource to be annotated on to any other resource, which is important for image or other non-textual content, and provides mechanisms for selecting arbitrary segments of resources which is crucial for the fragment use case, amongst others.</div>
 
-<p>It is important to become familiar with the Open Annotation model, as this section provides additional information and recommendations based upon it.
+<p>It is important to become familiar with the Open Annotation model, as this section provides additional information and recommendations based upon it.</p>
 
 <p>Using Annotations for both commentary and painting the Canvas reduces the number of technologies used, making implementation of the model easier and more
 consistent.  As Annotations are resources in their own right, not part of the Canvas directly, it enables a distributed model of creation and management of resources.
@@ -537,7 +532,7 @@ The Shared Canvas model uses:
 <div>Annotation Model:</div>
 <div class="diagramWrapper">
 	<div class="diagram">
-		<img alt="Annotation Example Model" src="images/anno1.png" width="600px"/>
+		<img alt="Annotation Example Model" src="images/anno1.png" width="600"/>
 		<br/><span class="caption">Figure 3.1. Basic Annotation Model</span>
 	</div>
 
@@ -608,7 +603,7 @@ The Shared Canvas model uses:
 <div>Ordered Aggregation Model:</div>
 <div class="diagramWrapper">
 	<div class="diagram">
-		<img alt="Ordered Aggregation Model" src="images/orderedaggr.png" width="500px"/>
+		<img alt="Ordered Aggregation Model" src="images/orderedaggr.png" width="500"/>
 		<br/><span class="caption">Figure 4.1. Ordered Aggregation Model</span>
 	</div>
 
@@ -664,7 +659,7 @@ The Shared Canvas model uses:
 <div>Sequence Model:</div>
 <div class="diagramWrapper">
 	<div class="diagram">
-		<img alt="Sequence Model" src="images/sequence.png" width="500px"/>
+		<img alt="Sequence Model" src="images/sequence.png" width="500"/>
 		<br/><span class="caption">Figure 4.2. Sequence Model</span>
 	</div>
 
@@ -722,7 +717,7 @@ The Shared Canvas model uses:
 <div>Range Model:</div>
 <div class="diagramWrapper">
 	<div class="diagram">
-		<img alt="Range Model" src="images/range.png" width="600px"/>
+		<img alt="Range Model" src="images/range.png" width="600"/>
 		<br/><span class="caption">Figure 4.3. Range Model</span>
 	</div>
 
@@ -788,9 +783,8 @@ The Shared Canvas model uses:
 <tr><th>Vocabulary Item</th><th>Type</th><th>Description</th></tr>
 <tr><td>sc:AnnotationList</td><td>Class</td><td>An ordered aggregation of Annotations</td></tr>
 <tr><td>sc:forCanvas</td><td>Relationship</td><td>The relationship between the AnnotationList and the Canvas(es) which are the targets of the included Annotations.
-<br/>Typically this relationship is used to describe the AnnotationList in a <a href="#Manifest">Manifest</a> to allow clients to determine which lists should be retrieved.</td>
+<br/>Typically this relationship is used to describe the AnnotationList in a <a href="#Manifest">Manifest</a> to allow clients to determine which lists should be retrieved.</td></tr>
 <tr><td>sc:forMotivation</td><td>Relationship</td><td>A shortcut relationship that implies that all of the Annotations in the list have that particular Motivation.</td></tr>
-</tr>
 </table>
 
 </blockquote>
@@ -798,7 +792,7 @@ The Shared Canvas model uses:
 <div>Annotation List Model:</div>
 <div class="diagramWrapper">
 	<div class="diagram">
-		<img alt="Annotation List Model" src="images/annotationList.png" width="600px"/>
+		<img alt="Annotation List Model" src="images/annotationList.png" width="600"/>
 		<br/><span class="caption">Figure 5.1. Annotation List Model</span>
 	</div>
 
@@ -847,8 +841,8 @@ Layers are another instance of an Ordered Aggregation that may aggregate either 
 <table>
 <tr><th>Vocabulary Item</th><th>Type</th><th>Description</th></tr>
 <tr><td>sc:Layer</td><td>Class</td><td>An ordered aggregation of Annotations or Annotation Lists.</td></tr>
-</tr>
 </table>
+</blockquote>
 
 </div>
 
@@ -882,7 +876,7 @@ The Shared Canvas model uses:
 <div>Annotation List Model:</div>
 <div class="diagramWrapper">
 	<div class="diagram">
-		<img alt="Manifest Model" src="images/manifest.png" width="600px"/>
+		<img alt="Manifest Model" src="images/manifest.png" width="600"/>
 		<br/><span class="caption">Figure 5.2. Manifest Model</span>
 	</div>
 
@@ -918,7 +912,7 @@ with the Shared Canvas guidelines.</p>
 </div>
 
 <div>
-<a id="Collection"></a>
+<a id="Collection-Info"></a>
 <h3>5.5. Services and Bibliographic Information</h3>
 
 <p>The Shared Canvas data model does not directly address search services, or full bibliographic descriptions of the objects that are being rendered by the digital facsimiles.
@@ -956,7 +950,7 @@ The Shared Canvas model uses:
 <p>Services and Bibliographic Information Model:</p>
 <div class="diagramWrapper">
 	<div class="diagram">
-		<img alt="Bibliographic Service Model" src="images/svcbibl.png" width="600px"/>
+		<img alt="Bibliographic Service Model" src="images/svcbibl.png" width="600"/>
 		<br/><span class="caption">Figure 5.2. Manifest Model</span>
 	</div>
 
@@ -1056,7 +1050,7 @@ The editors would like to thank the following for their valuable contributions:
 
 <div class="changelog">
 <h2><a id="ChangeLog"></a>C. Change Log</h2>
-<table class="changelog" summary="change log">
+<table class="changelog">
 	<tbody>
 		<tr>
 			<th>Date</th>
@@ -1079,6 +1073,6 @@ The editors would like to thank the following for their valuable contributions:
 
 </div>
 
-&nbsp;<br/><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" /></a><span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">This work </span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://iiif.io/" property="cc:attributionName" rel="cc:attributionURL">the IIIF</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>.
+&nbsp;<br/><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" /></a><span property="dct:title" rel="dct:type">This work </span> by <a href="http://iiif.io/" property="cc:attributionName" rel="cc:attributionURL">the IIIF</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>.
 </body>
 </html>

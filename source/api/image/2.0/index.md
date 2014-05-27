@@ -178,7 +178,7 @@ Examples:
         <p><code>.../pct:41.6,7.5,66.6,100/full/0/default.jpg</code></p>
         <p><em>N.B. Returned image is 175,185 px</em></p>
       </td>
-      <td/>
+      <td></td>
     </tr>
   </tbody>
 </table>
