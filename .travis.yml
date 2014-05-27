@@ -2,7 +2,7 @@ before_install:
   - export NOKOGIRI_USE_SYSTEM_LIBRARIES=true
 
 script:
-  - bundle exec jekyll build --trace
+  - bundle exec jekyll build --drafts
   - bundle exec htmlproof ./_site
 
 
@@ -10,6 +10,9 @@ script:
 language: ruby
 rvm:
   - "2.1"
+
+branches:
+  - 'master'
 
 notifications:
   email:

@@ -12,7 +12,7 @@
 */
 
 /* Subsequent changes
-   2007-09-21 thru 2007-10-15 for OAI-ORE alpha release [Simeon Warner]  
+   2007-09-21 thru 2007-10-15 for OAI-ORE alpha release [Simeon Warner]
    $Id: _ore-spec.css,v 1.4 2008-10-08 00:36:24 simeon Exp $ */
 
 body {
@@ -37,7 +37,7 @@ a:active { color: #C00; background: transparent }
 
 dfn { font-style: italic; font-weight: bold }
 
-a:visited img { border-style: none } 
+a:visited img { border-style: none }
 a:link img { border-style: none } /* no border on img links */
 a img { color: white; }    /* trick to hide the border in Netscape 4 */
 @media all {          /* hide the next rule from Netscape 4 */
@@ -106,7 +106,7 @@ div.diagramWrapper {
 
 div.diagram {
 	align: center;
-	text-align: center;	
+	text-align: center;
 }
 
 span.caption {
@@ -117,17 +117,17 @@ code.tech {
 	font-family: courier;
 }
 
-dd { margin-top: 0; margin-bottom: 0 } 
+dd { margin-top: 0; margin-bottom: 0 }
 dt { margin-top: 0; margin-bottom: 0 } /* opera 3.50 */
 dt { font-weight: bold }
 
-code { font-family: monospace; } 
+code { font-family: monospace; }
 
-pre { 
-	font-family: monospace ; 
+pre {
+	font-family: monospace ;
 	border: 1px dashed #2020FF ;
-	background: #f0f0f0; 
-	padding: 2px ; 
+	background: #f0f0f0;
+	padding: 2px ;
 	margin-left: 20px;
 	margin-right: 20px;
 } /* navigator 4 requires this */
@@ -155,19 +155,19 @@ div.toc ol ol li {
 
 ul li {
 	margin: 2px;
-	padding: 0px;	
+	padding: 0px;
 }
 
 /* other stuff */
 
-@media aural { 
+@media aural {
  h3 { stress: 20; richness: 90 }
  h2 { stress: 20; richness: 90 }
  h1 { stress: 20; richness: 90 }
  .hide { speak: none }
  p.copyright { volume: x-soft; speech-rate: x-fast }
  dt { pause-before: 20% }
- pre { speak-punctuation: code } 
+ pre { speak-punctuation: code }
 }
 
 
@@ -181,7 +181,7 @@ table.layout td {
 }
 
 .exhead {
-	font-weight: bold;	
+	font-weight: bold;
 }
 
 .exsubhead {

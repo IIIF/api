@@ -1,5 +1,5 @@
 ---
-# .htaccess is evaluated by Jekyll. You shouldn't need to change 
+# .htaccess is evaluated by Jekyll. You shouldn't need to change
 # versions for redirects here.
 ---
 Options +FollowSymLinks
@@ -10,3 +10,11 @@ RedirectMatch 302 ^/api/presentation/$ /api/presentation/{{ site.presentation_ap
 RewriteRule ^/?api/presentation/([^/]+)$ /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/$1 [L,R=302]
 
 RewriteRule ^/?api/presentation/1.0/ /api/metadata/1.0/ [L,R=302]
+
+# http://msdn.microsoft.com/en-us/library/cc817573.aspx
+<FilesMatch "\.(html)$">
+    <IfModule mod_headers.c>
+        BrowserMatch MSIE ie
+        Header set X-UA-Compatible "IE=edge,chrome=1" env=ie
+    </IfModule>
+</FilesMatch>

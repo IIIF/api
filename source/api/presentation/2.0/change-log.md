@@ -100,7 +100,7 @@ Particularly useful in the teaching and learning domain, the intended audience o
 
 The Image API has a very well formed set of compliance requirements.  The Presentation API, conversely, does not have any.  This was not seen as a requirement that needed to be solved for 2.0, and was deferred for future work.
 
-### Explicit Protocol 
+### Explicit Protocol
 
 The Image API in 2.0 has a protocol field that makes the assertion that the info.json document is part of the IIIF Image API protocol.  The Presentation API does not have this field.  There were no features or implementations identified that would make use of the field, and as backwards compatible it was deferred until a requirement was expressed.
 
