@@ -142,7 +142,7 @@ For digitized objects, it is often useful to know the physical dimensions of the
 
 As the [Presentation API][prezi-api] already includes an aspect ratio for the Canvas, the physical dimensions service need only report two additional pieces of information: the scale factor from canvas dimensions to physical dimensions, and the units for those generated physical dimensions.  It is _RECOMMENDED_ that the information always be embedded rather than requiring the client to retrieve it with an additional HTTP request, however some implementers _MAY WISH TO_ keep the information separate.
 
-The physics dimensions description includes the following properties:
+The physical dimensions description includes the following properties:
 
 | Property         | Required? | Description |
 | ---------------- | --------- | ----------- |
