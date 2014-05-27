@@ -3,12 +3,16 @@
         <a class="title" title="IIIF : International Image Interoperability Framework" href="/">Home</a>
         <nav>
           <ul>
-            <li><a {% if page.id == 'about' %}class="is-selected"{% endif %} href="/about.html">About</a></li>
-            <li><a {% if page.id == 'technical-details' %}class="is-selected"{% endif %} href="/technical-details.html">Technical Details</a></li>
-            <li><a {% if page.id == 'apps_demos' %}class="is-selected"{% endif %} href="/apps-demos.html">Apps &amp; Demos</a></li>
-            <li><a {% if page.id == 'community' %}class="is-selected"{% endif %} href="/community.html">Community</a></li>
-            <li><a {% if page.url contains '/news/' %}class="is-selected"{% endif %} href="/news/">News</a></li>
-
+          {% for item in site.data.navigation %}
+            {% if page.url == item.url or page.url contains item.url %}
+              {% assign class = 'is-selected' %}
+            {% else %}
+              {% assign class = '' %}
+            {% endif %}
+            <li>
+              <a href="{{ item.url }}" class="{{ class }}">{{ item.name }}</a>
+            </li>
+          {% endfor %}
           </ul>
         </nav>
       </header>
