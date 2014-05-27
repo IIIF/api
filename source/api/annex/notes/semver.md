@@ -12,13 +12,13 @@ Starting with the 2.0.0 releases of both the IIIF [Image API][image-api] and [Pr
 
 This versioning system will be implemented in the following ways:
 
-  * URIs for compliance and context will be updated with major versions only, and otherwise edited in place.
   * URIs for the specifications will be updated with major and minor versions, with patch versions edited in place.
-  * The protocol URI does not change with versioning.
+  * URIs for compliance and context documents will be updated with major versions only, and otherwise edited in place.
+  * The URI identifying the protocol (e.g. `http://iiif.io/api/image` for the IIIF [Image API][image-api]) does not change with versioning.
 
 In the case of the Image API, changes to either the API itself or the corresponding [compliance document][image-compliance] will increment the version number as appropriate. In all cases, major and minor releases will be accompanied by a change log, while changes in patch releases will be appended to the change log for the  latest major or minor release.
 
-While the Presentation and Image APIs should always be compatible, the editors do not necessarily intend to keep their version numbers synchronized. A change in one API will not advance the version number of the other.
+While the Presentation and Image APIs should always be compatible, it is not intended that their version numbers necessarily remain synchronized. A change in one API will not advance the version number of the other.
 
 [semver]: http://semver.org/spec/v2.0.0.html "Semantic Versioning 2.0.0"
 [image-api]: /api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/ "Image API 2.0"
