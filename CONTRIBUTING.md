@@ -56,5 +56,11 @@ The _config.yml file defines various site level variables, notably the current v
 
     and may include an excerpt.
 
+
+## Technical Decisions
+
+* Specs will use JSON and JSON-LD
+* Specs will use snake_case not camelCase
+
 [kram]: http://kramdown.gettalong.org/syntax.html
 [squash]: http://lmgtfy.com/?q=Squash+git+commits

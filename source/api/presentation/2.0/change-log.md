@@ -30,6 +30,10 @@ In addition to the changes described above:
 
 The name for the API used to be the "Metadata API", and this was changed to "Presentation API" with version 2.0.  This was to avoid the implication that the description was semantic, bibliographic information which is not, and has never been, the intent.  This resulted in the documentation moving to a different place, along with all of the auxilliary technical files like JSON-LD context and frames.
 
+### Underscores rather than Camel Case
+
+For consistency with the Image API, the property names which used camelCase were changed to use snake_case. The properties affected are: `viewingHint` to `viewing_hint`; `viewingDirection` to `viewing_direction`; `seeAlso` to `see_also`; and `otherContent` to `other_content`.  Changing the Image API would have been significantly more work, and resulting in more breaking changes. 
+
 ### Ranges Easier to Implement
 
 Ranges were changed to follow the top-down pattern of a list of included ranges and canvases, rather than bottom-up where they would assert which parent range they were within.  This makes it significantly easier to implement, and follows the rest of the API's patterns of listed containership.

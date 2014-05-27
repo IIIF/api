@@ -233,7 +233,7 @@ width
     {: .usage}
     * As for height above
 
-viewingDirection
+viewing_direction
 :   The direction that canvases should be presented in a viewer for the object. Valid values are:
 
     * "left-to-right": The object is read from left to right, and is the default if not specified
@@ -248,19 +248,19 @@ viewingDirection
     * A canvas or content resource _MUST NOT_ have a viewing direction.
     * A range _MAY_ have a viewing direction.
 
-viewingHint
+viewing_hint
 :   A hint to the viewer as to the most appropriate method of displaying the resource. Any value may be given, and this specification defines the following:
 
     * "individuals": Valid on manifest, sequence and range. The canvases are all individual sheets, and should not be presented in a page-turning interface. For example a sequence of letters or photographs.
     * "paged": Valid on manifest, sequence and range. The canvases represent pages in a bound volume, and should be presented in a page-turning interface.  The first canvas is a single view (the first recto) and thus the second canvas represents the back of the first canvas.
     * "continuous": Valid on manifest, sequence and range.  The canvases each represent a complete side of a long scroll or roll and an appropriate rendering might only display part of the canvas at any given time rather than the entire object.
-    * "non-paged": Only valid on a canvas and when the manifest or sequence has a `viewingHint` of "paged".  Canvases with this hint _MUST NOT_ be presented in a page turning interface, and _MUST_ be skipped over when determining the page sequence.
-    * "start": Only valid on a canvas. A client _SHOULD_ advance to the canvas with this `viewingHint` when beginning navigation through a sequence.  This allows the client to start with the first canvas that contains interesting content rather than requiring the user to skip past blank or empty canvases manually.
-    * "top": Only valid on a range. A range which has this `viewingHint` is the top-most node in a hierarchy of ranges that represents a structure to be rendered by the client to assist in navigation. For example, a table of contents within a paged object, major sections of a 3d object, the textual areas within a single scroll, and so forth.  Other ranges that are descendants of the "top" range are the entries to be rendered in the navigation structure.  There _MAY_ be multiple ranges marked with this hint. If so, the client _SHOULD_ display a choice of multiple structures to navigate through.
+    * "non-paged": Only valid on a canvas and when the manifest or sequence has a `viewing_hint` of "paged".  Canvases with this hint _MUST NOT_ be presented in a page turning interface, and _MUST_ be skipped over when determining the page sequence.
+    * "start": Only valid on a canvas. A client _SHOULD_ advance to the canvas with this `viewing_hint` when beginning navigation through a sequence.  This allows the client to start with the first canvas that contains interesting content rather than requiring the user to skip past blank or empty canvases manually.
+    * "top": Only valid on a range. A range which has this `viewing_hint` is the top-most node in a hierarchy of ranges that represents a structure to be rendered by the client to assist in navigation. For example, a table of contents within a paged object, major sections of a 3d object, the textual areas within a single scroll, and so forth.  Other ranges that are descendants of the "top" range are the entries to be rendered in the navigation structure.  There _MAY_ be multiple ranges marked with this hint. If so, the client _SHOULD_ display a choice of multiple structures to navigate through.
 
     Usage:
     {: .usage}
-    * A manifest, sequence or range _MAY_ have a viewing hint, with scope as per viewingDirection.
+    * A manifest, sequence or range _MAY_ have a viewing hint, with scope as per viewing_direction.
     * A canvas _MAY_ have a viewing hint, and if so it _must_ be either "non-paged" or "start".  "non-paged" is only valid if the canvas is within a manifest, sequence or range that is "paged", and the particular canvas _MUST NOT_ be displayed in a page-turning viewer. A canvas _must not_{:. rfc} be both "non-paged" and "start".
     * A content resource _MAY_ have a viewing hint but there are no defined values in this specification.
 
@@ -281,7 +281,7 @@ service
     * Any resource _MAY_ have a link to an external service.
     * Please see the [Service Profiles][annex] document for known services.
 
-seeAlso
+see_also
 :   A link to a document that describes the resource in a machine readable way. This could be an XML or RDF record, such as in EAD, Dublin Core or Bibo schemas. The `profile` and `format` information should be given if possible.
 
     Usage:
@@ -371,17 +371,17 @@ Resource descriptions _SHOULD_ be embedded within higher-level resources, and _M
 
 {% highlight json %}
 // Option A, plain string
-{"seeAlso" : "http://www.example.org/descriptions/book1.xml"}
+{"see_also" : "http://www.example.org/descriptions/book1.xml"}
 // Option B, object with @id property
-{"seeAlso" : {"@id":"http://www.example.org/descriptions/book1.xml"}}
+{"see_also" : {"@id":"http://www.example.org/descriptions/book1.xml"}}
 {% endhighlight %}
 
 Any of the descriptive fields, such as description or attribution, _MAY_ be repeated. This is done by giving a list of values, rather than a single string.
 
 {% highlight json %}
-{
-  "seeAlso" : [
-    "http://www.example.org/descriptions/book1.xml",
+{ 
+  "see_also" : [
+    "http://www.example.org/descriptions/book1.xml", 
     "http://www.example.org/descriptions/book1.csv" ]
 }
 {% endhighlight %}
@@ -480,8 +480,8 @@ The example below includes only the manifest-level information, however it _MUST
   },
 
   // Presentation Information
-  "viewingDirection": "right-to-left",
-  "viewingHint": "paged",
+  "viewing_direction": "right-to-left",
+  "viewing_hint": "paged",
 
   // Rights Information
   "license":"http://www.example.org/license.html",
@@ -498,7 +498,7 @@ The example below includes only the manifest-level information, however it _MUST
     "@id": "http://example.org/service/example.json",
     "profile": "http://example.org/docs/example-service.html"
   },
-  "seeAlso":"http://www.example.org/library/catalog/book1.xml",
+  "see_also":"http://www.example.org/library/catalog/book1.xml",
   "within":"http://www.example.org/collections/books/",
 
   // List of sequences
@@ -539,8 +539,8 @@ In the manifest example above, the sequence is referenced by its URI and contain
   "@type":"sc:Sequence",
   "label":"Current Page Order",
 
-  "viewingDirection":"left-to-right",
-  "viewingHint":"paged",
+  "viewing_direction":"left-to-right",
+  "viewing_hint":"paged",
 
   // The order of the canvases
   "canvases": [
@@ -580,9 +580,9 @@ The canvas represents an individual page or view and acts as a central point for
 
 Every canvas _MUST_ have a `label` to display, and a `height` and a `width` as integers. A canvas is a two-dimensional rectangular space with an aspect ratio that represents a single logical view of some part of the object, and the aspect ratio is given with the height and width properties. This allows resources to be associated with specific parts of the canvas, rather than the entire space. It is _recommended_{: .rfc} that if there is (at the time of implementation) a single image that depicts the page, then the dimensions of the image are used as the dimensions of the canvas for simplicity. If there are multiple full images, then the dimensions of the largest image should be used. If the largest image's dimensions are less than 1200 pixels on either edge, then the canvas's dimensions _SHOULD_ be double that of the image. Clients _MUST_ be aware that this is not always the case, such as in the examples presented, and instead _MUST_ always scale images into the space represented by the canvas.  The dimensions of the canvas _SHOULD_ be the same scale as the physical object, and thus images should depict only the object.  This can be accomplished by cropping the image, or associating only a segment of the image with the canvas.  The physical dimensions of the object may be available via a service, either embedded within the description or requiring an HTTP request to retrieve them.
 
-Image resources, and only image resources, are included in the `images` section of the canvas. These are linked to the canvas via annotations. Other content, such as transcriptions, video, audio or commentary, is provided via external annotation lists referenced in the `otherContent` section. The value of both of these _MUST_ be a list, even if there is only one entry. Both are optional, in the situation that there is no additional information associated with the canvas. Note that the items in the `otherContent` list may be either objects with an `@id` property or strings. In the case of a string, this is the URI of the annotation list and the type of "sc:AnnotationList" can be inferred.
+Image resources, and only image resources, are included in the `images` section of the canvas. These are linked to the canvas via annotations. Other content, such as transcriptions, video, audio or commentary, is provided via external annotation lists referenced in the `other_content` section. The value of both of these _MUST_ be a list, even if there is only one entry. Both are optional, in the situation that there is no additional information associated with the canvas. Note that the items in the `other_content` list may be either objects with an `@id` property or strings. In the case of a string, this is the URI of the annotation list and the type of "sc:AnnotationList" can be inferred.
 
-In a sequence with the "paged" `viewingHint`, presented in a book viewing modality, the first canvas is defined as a single up -- typically either the cover, or first recto page. Thereafter, the canvases represent the sides of the leaves, and hence may be presented with two up as an opening of the book.  If there are canvases which are in the sequence but would break this ordering, then they _MUST_ have the `viewingHint` property with a value of "non-paged".  Similarly if the first canvas is not a single up, it _MUST_ be marked as "non-paged" or an empty canvas added before it.
+In a sequence with the "paged" `viewing_hint`, presented in a book viewing modality, the first canvas is defined as a single up -- typically either the cover, or first recto page. Thereafter, the canvases represent the sides of the leaves, and hence may be presented with two up as an opening of the book.  If there are canvases which are in the sequence but would break this ordering, then they _MUST_ have the `viewing_hint` property with a value of "non-paged".  Similarly if the first canvas is not a single up, it _MUST_ be marked as "non-paged" or an empty canvas added before it.
 
 Canvases _MAY_ be dereferenced separately from the manifest via their URIs, and the following representation information should be returned. This information should be embedded within the sequence, as per previously.
 
@@ -602,7 +602,7 @@ Canvases _MAY_ be dereferenced separately from the manifest via their URIs, and 
       // Link from Image to canvas should be included here, as below
     }
   ],
-  "otherContent": [
+  "other_content": [
     {
       // Reference to list of other Content resources, _not included directly_
       "@id":"http://www.example.org/iiif/book1/list/p1.json",
@@ -950,7 +950,7 @@ Recommended URI pattern:
 
 It may be important to describe additional structure within the text, such as newspaper articles that span pages, the range of non-content-bearing pages at the beginning of a work, or chapters within a book. These are described using ranges in a similar manner to sequences. The intent of adding a range to the manifest is to allow the client to display a structured hierarchy to enable the user to navigate within the object without merely stepping through the current sequence.
 
-A range _MUST_ include one or more canvases or, different to sequences, parts of canvases with one exception. The part must be rectangular, and is given using the `xywh=` fragment approach. This allows for selecting, for example, the areas within two newspaper pages where an article is located. As the information about the canvas is already in the sequence, it _MUST_ not be repeated. In order to present a table of the different ranges to allow a user to select one, every range _MUST_ have a label and the top most range in the table _SHOULD_ have a `viewingHint` with the value "top". A range that is the top of a hierarchy does not need to list all of the canvases in the sequence, and _SHOULD_ only give the list of ranges below it.  Ranges _MAY_ also have any of the other properties defined in this specification.
+A range _MUST_ include one or more canvases or, different to sequences, parts of canvases with one exception. The part must be rectangular, and is given using the `xywh=` fragment approach. This allows for selecting, for example, the areas within two newspaper pages where an article is located. As the information about the canvas is already in the sequence, it _MUST_ not be repeated. In order to present a table of the different ranges to allow a user to select one, every range _MUST_ have a label and the top most range in the table _SHOULD_ have a `viewing_hint` with the value "top". A range that is the top of a hierarchy does not need to list all of the canvases in the sequence, and _SHOULD_ only give the list of ranges below it.  Ranges _MAY_ also have any of the other properties defined in this specification.
 
 Ranges _MAY_ include other ranges.  This is done in a `ranges` property within the range.  The values within the ranges list _MUST_ be strings giving the URIs of ranges in the list in the manifest.
 
@@ -972,7 +972,7 @@ Ranges are linked or embedded within the manifest in a `structures` field.  It i
       "@id":"http://www.example.org/iiif/book1/range/r0.json",
       "@type":"sc:Range",
       "label":"Table of Contents",
-      "viewingHint":"top",
+      "viewing_hint":"top",
       "ranges" : [
           "http://www.example.org/iiif/book1/range/r1.json",
           "http://www.example.org/iiif/book1/range/r2.json",
@@ -1076,10 +1076,10 @@ Collections _MAY_ have the following properties:
   * `thumbnail`
   * `logo`
   * `license`
-  * `viewingHint`, however no values are defined in this specification that are valid for Collections
+  * `viewing_hint`, however no values are defined in this specification that are valid for Collections
   * `related`
   * `service`
-  * `seeAlso`
+  * `see_also`
   * `within`
 
 An example collection document:
@@ -1142,7 +1142,7 @@ URL: _http://www.example.org/iiif/book1/manifest.json_
     "@id": "http://example.org/service/example.json",
     "profile": "http://example.org/docs/example-service.html"
   },
-  "seeAlso":
+  "see_also":
     {
       "@id": "http://www.example.org/library/catalog/book1.marc",
       "format": "application/marc"
@@ -1154,8 +1154,8 @@ URL: _http://www.example.org/iiif/book1/manifest.json_
         "@id":"http://www.example.org/iiif/book1/sequence/normal.json",
         "@type":"sc:Sequence",
         "label":"Current Page Order",
-        "viewingDirection":"left-to-right",
-        "viewingHint":"paged",
+        "viewing_direction":"left-to-right",
+        "viewing_hint":"paged",
         "canvases": [
           {
             "@id":"http://www.example.org/iiif/book1/canvas/p1.json",
@@ -1182,7 +1182,7 @@ URL: _http://www.example.org/iiif/book1/manifest.json_
                 "on":"http://www.example.org/iiif/book1/canvas/p1.json"
               }
             ],
-            "otherContent": [
+            "other_content": [
               {
                 "@id":"http://www.example.org/iiif/book1/list/p1.json",
                 "@type":"sc:"
@@ -1208,7 +1208,7 @@ URL: _http://www.example.org/iiif/book1/manifest.json_
                     "service": {
                         "@context": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
                         "@id": "http://www.example.org/images/book1-page2",
-                        "profile":"http://iiif.io/api/image/{{ site.image_api.latest.major }}/level1.json"
+                        "profile":"http://iiif.io/api/image/{{ site.image_api.latest.major }}/level1.json",
                         "scale_factors": [1, 2, 4],
                         "height":8000,
                         "width":6000,
@@ -1219,7 +1219,7 @@ URL: _http://www.example.org/iiif/book1/manifest.json_
                 "on":"http://www.example.org/iiif/book1/canvas/p2.json"
               }
             ],
-            "otherContent": [
+            "other_content": [
               {
                 "@id":"http://www.example.org/iiif/book1/list/p2.json",
                 "@type":"sc:"
@@ -1251,7 +1251,7 @@ URL: _http://www.example.org/iiif/book1/manifest.json_
                 "on":"http://www.example.org/iiif/book1/canvas/p3.json"
               }
             ],
-            "otherContent": [
+            "other_content": [
               {
                 "@id":"http://www.example.org/iiif/book1/list/p3.json",
                 "@type":"sc:"
@@ -1303,7 +1303,7 @@ URL: _http://www.example.org/iiif/book1/manifest.json_
 | ![not allowed][icon-na]    | Not Allowed |
 {: .image-api-table}
 
-|                | @id                   | @type                 | format                  | height                    | width                     | viewingDirection        | viewingHint                                           |
+|                | @id                   | @type                 | format                  | height                    | width                     | viewing_direction        | viewing_hint                                           |
 | -------------- | --------------------- | --------------------- | ----------------------- | ------------------------- | ------------------------- | ----------------------- | ---------------------- |
 | Collection     | ![required][icon-req] | ![required][icon-req] | ![not allowed][icon-na] | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![not allowed][icon-na] | ![optional][icon-opt]  |
 | Manifest       | ![required][icon-req] | ![required][icon-req] | ![not allowed][icon-na] | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![optional][icon-opt]   | ![optional][icon-opt]  |
@@ -1331,7 +1331,7 @@ URL: _http://www.example.org/iiif/book1/manifest.json_
 | Other Content  | ![optional][icon-opt]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
 {: .image-api-table}
 
-|                | seeAlso                     | service                     | related                     | within                     |
+|                | see_also                     | service                     | related                     | within                     |
 | -------------- | --------------------------- | --------------------------- | --------------------------- | -------------------------- |
 | Collection     | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]      |
 | Manifest       | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]      |
