@@ -7,7 +7,7 @@ tags: [annex, service, services, specifications]
 ## Status of this Document
 {:.no_toc}
 
-This document is not subject to semantic versioning.
+This document is not subject to [semantic versioning][semver].
 Changes will be tracked within the document.
 
 _Copyright © 2012-2014 Editors and contributors. Published by the IIIF under the [CC-BY][cc-by] license._
@@ -41,11 +41,11 @@ The inclusion of services in this document that are outside of the IIIF domain _
 
 ## 2. Requirements
 
-Service information included in the [Presentation API][prezi-api] response _MUST_ be both valid [JSON-LD][json-ld], and have their own `@context` supplied.  Services _SHOULD_ have an `@id` that can be dereferenced, and if so, the representation retrieved from that URI _SHOULD_ be JSON-LD.  The service at the URI in `@id` _MAY_ require additional parameters, generate representations other than JSON-LD, and have no JSON-LD representation at all.
+Service information included in the [Presentation API][prezi-api] response _MUST_ be both valid [JSON-LD][json-ld], and include a service-specific `@context`.  Services _SHOULD_ have an `@id` that can be dereferenced, and if so, the representation retrieved from that URI _SHOULD_ be JSON-LD.  The service at the URI in `@id` _MAY_ require additional parameters, generate representations other than JSON-LD, or have no JSON-LD representation at all.
 
 Services _SHOULD_ have a `profile` URI which can be used to determine the type of service, especially for services that do not provide a JSON-LD representation.  The representation retrieved from the `profile` URI _SHOULD_ be a human or machine readable description of the service.  Services _MAY_ have a `label` property to provide a human readable string to display to the user in the situation that the service has to be selected or manually linked to rather than automatically processed.
 
-Services _MAY_ be included either by reference or embedded within the [Presentation API][prezi-api] response if appropriate.  The decision as to whether to embed or reference is left up to the implementer, however embedded descriptions should be kept as short as possible.  If the only properties of the object are `@context`, `@id`, `profile` and/or `label`, then the client _SHOULD_ retrieve the resource from the URI given in `@id`.
+Services _MAY_ be included either by reference or embedded within the [Presentation API][prezi-api] response.  The decision as to whether to embed or reference is left up to the implementer, however embedded descriptions should be kept as short as possible.  If the only properties of the object are `@context`, `@id`, `profile` and/or `label`, then the client _SHOULD_ retrieve the resource from the URI given in `@id`.
 
 {% highlight json %}
 {
@@ -64,7 +64,7 @@ Services _MAY_ be included either by reference or embedded within the [Presentat
 ### 3.1 Image Information
 _Added: 2014-05-20_
 
-The main use of services is to provide a reference from the [Presentation API][prezi-api] to the content to be displayed via the [Image API][image-api].  The JSON-LD content to be referenced or embedded is the Image Information document, also known as `info.json`.  The service _MUST_ have the `@context`, `@id` and `profile` keys, pointing to the context document, service base URI and compliance level profile respectively.
+The Image Information service allows the [Presentation API][prezi-api] to reference content to be displayed via the [Image API][image-api].  The JSON-LD content to be referenced or embedded is the Image Information document, also known as `info.json`.  The service _MUST_ have the `@context`, `@id` and `profile` keys, pointing to the context document, service base URI and compliance level profile respectively.
 
 {% highlight json %}
 {
@@ -98,11 +98,9 @@ The service _MAY_ have additional information embedded from the Image Informatio
 ### 3.2 GeoJSON
 _Added: 2014-05-20_
 
-A frequently requested feature is the ability to associate a geographical place with a resource, in order to drive a map-based user interface or visualization tool.  This might be a location associated with the provenance of the object such as where it was created, or where it is currently held.  The location might also be related to the content of the resource, such as a city mentioned in the text or the landmark depicted in a photograph.
+[GeoJSON][geojson] provides the ability to associate a geographical place with a resource, in order to drive a map-based user interface or visualization tool.  This might be a location associated with the provenance of the object such as where it was created, or where it is currently held.  The location might also be related to the content of the resource, such as a city mentioned in the text or the landmark depicted in a photograph.  It is not appropriate to use this feature for tagging of time, people, events, and other semantic metadata outside of the scope of the Presentation API.
 
-As this feature is only useful to map-based user interfaces, is not universally available, and would open the door to further tagging of time, people, events, and other semantic metadata outside of the scope of the Presentation API, it is added as a service using an existing specification for location.  This specification is called [GeoJSON][geojson], and has a JSON-LD representation [available][geojson-ld].  Please see the documentation for the full functionality made available by this integration.
-
-The `@context` to use is: `http://geojson.org/contexts/geojson-base.jsonld`
+The [JSON-LD representation][geojson-ld] of GeoJSON, with `@context` `http://geojson.org/contexts/geojson-base.jsonld` _SHOULD_ be used. See the GeoJSON documentation for a full description of the functionality available.
 
 An external reference example for tagging a place, where the URI would return a GeoJSON description of the city of Paris, France:
 
@@ -135,8 +133,7 @@ Or embedding the content:
 ### 3.3 Physical Dimensions
 _Added 2014-05-20_
 
-For digitized objects, it is often useful to know the physical dimensions of the object.  If available, it would allow a client to present a ruler, or other rendition of physical scale, to the user.  
-This information might be available, but frequently:
+For digitized objects, it is often useful to know the physical dimensions of the object.  When available, they allow a client to present a ruler, or other rendition of physical scale, to the user.  However, implementers are warned that while this information may be available, frequently:
 
   * It is not available at all
   * It is unreliable when it is recorded
@@ -145,7 +142,7 @@ This information might be available, but frequently:
 
 As the [Presentation API][prezi-api] already includes an aspect ratio for the Canvas, the physical dimensions service need only report two additional pieces of information: the scale factor from canvas dimensions to physical dimensions, and the units for those generated physical dimensions.  It is _RECOMMENDED_ that the information always be embedded rather than requiring the client to retrieve it with an additional HTTP request, however some implementers _MAY WISH TO_ keep the information separate.
 
-The description will include the following properties:
+The physics dimensions description includes the following properties:
 
 | Property         | Required? | Description |
 | ---------------- | --------- | ----------- |
@@ -184,6 +181,7 @@ Thanks to the members of the [IIIF][iiif-community] for their continuous engagem
 | ---------- | -------------------------------------------------- |
 | 2014-06-01 | Version 1.0 RFC                                    |
 
+   [semver]: /api/annex/notes/semver.html "Versioning of APIs"
    [cc-by]: http://creativecommons.org/licenses/by/4.0/ "Creative Commons &mdash; Attribution 4.0 International"
    [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
    [image-api]: /api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/ "Image API"
