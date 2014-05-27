@@ -44,8 +44,8 @@ The use of HTML in the values of fields was permitted but inadequately specified
 
 ### Page-Turning Requirements
 
-In order to allow page turning modalities, additional requirements were added to manifests that claim to be 'paged'.  Notably the first canvas is to be shown by itself, and then subsequent canvases can be assumed to be left/right pairs (depending on the viewingDirection).
-An additional value of 'non-paged' was added to the viewingHint enumeration to assert that a particular Canvas is not part of the paging sequence.
+In order to allow page turning modalities, additional requirements were added to manifests that claim to be 'paged'.  Notably the first canvas is to be shown by itself, and then subsequent canvases can be assumed to be left/right pairs (depending on the viewing_direction).
+An additional value of 'non-paged' was added to the viewing_hint enumeration to assert that a particular Canvas is not part of the paging sequence.
 
 
 ## Other Changes
@@ -68,11 +68,11 @@ In order to manage requests for features that are not universally applicable, bu
 
 ### Start Canvas
 
-An additional value of 'start' was added to the viewingHint value enumeration, to be used on a canvas to assert that it's the one to be rendered to the user first, regardless of its position in the Sequence.
+An additional value of 'start' was added to the viewing_hint value enumeration, to be used on a canvas to assert that it's the one to be rendered to the user first, regardless of its position in the Sequence.
 
 ### Top-most Range
 
-An additional value of 'top' was added to the viewingHint value enumeration, to be used on a range which is the top-most level in a table of contents or other structure.
+An additional value of 'top' was added to the viewing_hint value enumeration, to be used on a range which is the top-most level in a table of contents or other structure.
 
 ### Restrictions Lifted
 
