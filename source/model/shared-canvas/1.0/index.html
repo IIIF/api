@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type"
 	content="application/xhtml+xml; charset=utf-8" />
 <link rel="stylesheet" href="sharedcanvas.css" type="text/css" />
- 
+
 </head>
 
 <body>
@@ -42,7 +42,7 @@
 
 
 <div class="abstract">
-<h2><a id="abstract" name="abstract"></a>Abstract</h2>
+<h2><a id="abstract"></a>Abstract</h2>
 <p> The SharedCanvas data model specifies a linked data based approach
 for describing digital facsimiles of physical objects in a
 collaborative fashion.  It is intended for use in the cultural
@@ -61,7 +61,7 @@ Aggregations</a>.
 </div>
 
 <div class="abstract">
-<h2><a id="status" name="status"></a>Status of this Document</h2>
+<h2><a id="status"></a>Status of this Document</h2>
 <p><i>This section describes the status of this document at the time
 of its publication. Other documents may supersede this
 document.</i></p>
@@ -84,7 +84,7 @@ list: <a href="http://groups.google.com/group/sharedcanvas">http://groups.google
 <hr />
 
 <div class="toc">
-<h2><a id="contents" name="contents"></a>Table of Contents</h2>
+<h2><a id="contents"></a>Table of Contents</h2>
 
 <p class="toc">
 
@@ -145,7 +145,7 @@ list: <a href="http://groups.google.com/group/sharedcanvas">http://groups.google
 
 <div class="body">
 
-<div id="IntroductionBlock"><a id="Introduction" name="Introduction"></a> 
+<div id="IntroductionBlock"><a id="Introduction"></a>
 
 <div id="IntroductionD">
 <h2>1. Introduction</h2>
@@ -212,7 +212,7 @@ trustworthy sets of information to the rendering environment.</p>
 
 
 <div id="NamespacesD">
-<a id="Namespaces" name="Namespaces"></a>
+<a id="Namespaces"></a>
 <h3>1.1 Namespaces</h3>
 
 <p>The Shared Canvas model defines a single namespace, which includes
@@ -247,17 +247,17 @@ will provide access to the most recent version.</p>
 </div>
 
 <div id="TerminologyD">
-<a id="Terminology" name="Terminology"></a>
+<a id="Terminology"></a>
 <h3>1.2 Terminology</h3>
 <p>
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" 
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL"
 in this document are to be interpreted as described in RFC 2119.
 </p>
 </div>
 
 
 <div id="ExamplesD">
-<a id="Examples" name="Examples"></a>
+<a id="Examples"></a>
 <h3>1.3 Examples</h3>
 <p>
 Examples used throughout the document will be conveyed as both a
@@ -265,7 +265,7 @@ diagram and in the Turtle RDF format, and do not represent specific
 use cases with real resources.  The Turtle examples do not provide
 namespace declarations, and should be considered to follow
 the <a href="#Namespaces">Namespaces table</a> in Section 1.1.
-Usage examples in SPARQL are given for each section, based on a 
+Usage examples in SPARQL are given for each section, based on a
 requirement expressed in natural language.
 </p>
 <p>
@@ -284,7 +284,7 @@ The diagrams in the specification use the following style:
 <li>Relationships are depicted as straight, black lines.<br/>Relationships are RDF predicates where the range is a Resource, and equivalent to OWL object properties.</li>
 <li>Properties are depicted as curved, black lines.<br/>Properties are RDF predicates where the range is a Literal, and equivalent to OWL datatype properties.</li>
 <li>Class instantiation (<code class="tech">rdf:type</code>) is depicted as a straight black line with white arrow head</li>
-<li>Example instance identifiers or example literal values always end in a number.<br/> 
+<li>Example instance identifiers or example literal values always end in a number.<br/>
 For example, <code>canvas1</code> is a specific instance of an Canvas, whereas '<code class="tech">sc:Canvas</code>' is a class</li>
 <li>Relationships not explicit in the model, but important for understanding, are depicted as curved, dashed, colored lines</li>
 <li>Conceptual resource boundaries not explicit in the model, but considered important for understanding, are depicted as grey dashed boxes around the components.  They are used to convey spatial parts of the diagrams and may be safely ignored.</li>
@@ -298,7 +298,7 @@ For example, <code>canvas1</code> is a specific instance of an Canvas, whereas '
 <div id="CanvasBlock">
 
 <div id="CanvasIntroD">
-<a id="CanvasIntro" name="CanvasIntro"></a>
+<a id="CanvasIntro"></a>
 <h2>2. Canvas Model</h2>
 
 <p>
@@ -342,14 +342,14 @@ aspect of the physical item.</p>
 
 
 <div id="CanvasD">
-<a id="Canvas" name="Canvas"></a>
+<a id="Canvas"></a>
 <h3>2.1 Canvas</h3>
 
 <p>
 A Canvas is the digital surrogate for a physical page which should be rendered to the user.
 Each Canvas has a rectangular aspect ratio, and is positioned such that the top left hand
 corner of the Canvas corresponds to the top left hand corner of a rectangular bounding box
-around the page, and similarly for the bottom right hand corners.  The identifier for the 
+around the page, and similarly for the bottom right hand corners.  The identifier for the
 Canvas is not an identifier for the physical page, it identifies the digital representation of it.
 </p>
 
@@ -365,7 +365,7 @@ Canvas is not an identifier for the physical page, it identifies the digital rep
 <p>
 It is RECOMMENDED that the aspect ratio be expressed in such a way that alignment of images and other
 resources does not require floating point values to give a reasonable level of accuracy.  Thus, values
-in the 1000 to 3000 range are more appropriate than in the 1 to 100 range. 
+in the 1000 to 3000 range are more appropriate than in the 1 to 100 range.
 </p>
 
 <h4>Model</h4>
@@ -397,19 +397,19 @@ rendering system should select an appropriate one.</td></tr>
 		<img alt="Canvas Model" src="images/canvas1.png" width="350px"/>
 		<br/><span class="caption">Figure 2.1. Canvas Model</span>
 	</div>
-	
+
 	<pre> &lt;Canvas1&gt; a sc:Canvas ;
     exif:height 1400 ;
     exif:width 1000 ;
     rdfs:label "Page 1" .</pre>
-</div>    
-    
+</div>
+
 </div>
 
 
 
 <div>
-<a id="Zone" name="Zone"></a>
+<a id="Zone"></a>
 <h3>2.2. Zones</h3>
 
 <p>A Zone is similar to a Canvas, as it is an abstract space with its own dimensions.  Information may be
@@ -461,12 +461,12 @@ The Shared Canvas model uses:
 		<img alt="Zone Model" src="images/zone1.png" width="350px"/>
 		<br/><span class="caption">Figure 2.2.2. Zone Model</span>
 	</div>
-	
+
 	<pre>  &lt;Zone1&gt; a sc:Zone ;
     exif:height 400 ;
     exif:width 600 ;
     rdfs:label "Fold 1" .</pre>
-</div>    
+</div>
 </div>
 
 
@@ -475,13 +475,13 @@ The Shared Canvas model uses:
 <div id="AnnotationBlock">
 
 <div id="AnnotationIntro">
-<a id="Annotation" name="Annotation"></a>
+<a id="Annotation"></a>
 <h2>3. Annotations</h2>
 <p>
 It is important to allow the distributed association of content resources, such as images and text, with the Canvas.  This allows a separation of
 concerns where one institution might provide images, another the transcribed text, and a third scholarly commentary about the page being represented.
 Following previous systems, an annotation paradigm is used to model this association, not only for transcription but also for any content resource that should
-be rendered as part of the digital facsimile of the page.    
+be rendered as part of the digital facsimile of the page.
 </p>
 
 <p>Each content resource is, typically, used as the body of its own Annotation, and the target of the Annotation (the resource the Annotation is about) is the Canvas.
@@ -503,7 +503,7 @@ Thus an image of a page may be associated with the Canvas as depicted below.
 
 <p>Using Annotations for both commentary and painting the Canvas reduces the number of technologies used, making implementation of the model easier and more
 consistent.  As Annotations are resources in their own right, not part of the Canvas directly, it enables a distributed model of creation and management of resources.
-The creator of the Annotation is not required to be the owner of the resource being annotated, or painted, on to the Canvas, nor the owner of the Canvas, enabling a 
+The creator of the Annotation is not required to be the owner of the resource being annotated, or painted, on to the Canvas, nor the owner of the Canvas, enabling a
 crowd-sourced model and for users to easily contribute their knowledge.</p>
 
 <p>Disagreement in the reconstruction of a resource can easily be modeled using Annotations, as differing opinions are represented by different Annotations with
@@ -514,11 +514,11 @@ different annotators.  It is then up to the client to determine which is correct
 
 
 <div>
-<a id="BasicAnnotation" name="BasicAnnotation"></a>
+<a id="BasicAnnotation"></a>
 <h3>3.1. Painting Motivation</h3>
 
 <p>Shared Canvas defines a new instance of <code>oa:Motivation</code> called <code>sc:painting</code>.
-This motivation allows a client system to easily distinguish between Annotations that associate Content to be rendered as part of the facsimile and other Annotations, which might be used for scholarly commentary, moderation, discussion or many other motivations.  These other Annotations should use appropriate motivations, as described in the 
+This motivation allows a client system to easily distinguish between Annotations that associate Content to be rendered as part of the facsimile and other Annotations, which might be used for scholarly commentary, moderation, discussion or many other motivations.  These other Annotations should use appropriate motivations, as described in the
 Open Annotation specification or by further communities.</p>
 
 <h4>Model</h4>
@@ -540,7 +540,7 @@ The Shared Canvas model uses:
 		<img alt="Annotation Example Model" src="images/anno1.png" width="600px"/>
 		<br/><span class="caption">Figure 3.1. Basic Annotation Model</span>
 	</div>
-	
+
 	<pre>  &lt;anno1&gt; a oa:Annotation ;
     oa:motivatedBy sc:painting ;
     oa:hasBody &lt;content1&gt; ;
@@ -553,7 +553,7 @@ The Shared Canvas model uses:
 
   &lt;image1&gt; a dctypes:Image ;
     dc:format "image/jpeg" .</pre>
-</div>    
+</div>
 
 </div>
 
@@ -565,10 +565,10 @@ The Shared Canvas model uses:
 <div id="OrderingBlock">
 
 <div id="OrderingIntroD">
-<a id="OrderingIntro" name="OrderingIntro"></a>
+<a id="OrderingIntro"></a>
 <h2>4. Ordering Model</h2>
 
-<p>A single Canvas can be used to render one side of a page, or perhaps an open scroll or newspaper, however multiple Canvases are 
+<p>A single Canvas can be used to render one side of a page, or perhaps an open scroll or newspaper, however multiple Canvases are
 required to create a page turning application in which a user can leaf through a book. The order in which these Canvases are displayed
 is, of course, crucial to ensuring a reasonable experience.  In a graph model such as RDF order is not inherent in the serialization,
 such as is the case for XML, JSON or other data models, and thus the order must be explicitly described within the graph.
@@ -579,10 +579,10 @@ such as is the case for XML, JSON or other data models, and thus the order must 
 
 
 <div>
-<a id="OrderedAggregation" name="OrderedAggregation"></a>
+<a id="OrderedAggregation"></a>
 <h3>4.1. Ordered Aggregations</h3>
 
-<p>Resources in RDF may be given multiple classes, thus at the same time a resource may be both an ore:Aggregation and an 
+<p>Resources in RDF may be given multiple classes, thus at the same time a resource may be both an ore:Aggregation and an
 <a href="http://www.w3.org/TR/rdf-schema/#ch_list">rdf:List</a>.
 Using this technique, it is possible to express a single linear order for the aggregated resources without the expense of minting
 Proxy resources.  The aggregated resources may be of any type, and the Shared Canvas specification uses it for both Canvases and other Aggregations.
@@ -611,32 +611,32 @@ The Shared Canvas model uses:
 		<img alt="Ordered Aggregation Model" src="images/orderedaggr.png" width="500px"/>
 		<br/><span class="caption">Figure 4.1. Ordered Aggregation Model</span>
 	</div>
-	
+
 	<pre>  &lt;aggr1&gt; a ore:Aggregation, rdf:List ;
       ore:aggregates &lt;canvas1&gt;, &lt;canvas2&gt;, &lt;canvas3&gt; ;
       rdf:first &lt;canvas1&gt; ;
-      rdf:rest ( &lt;canvas2&gt; &lt;canvas3&gt; ) . 
+      rdf:rest ( &lt;canvas2&gt; &lt;canvas3&gt; ) .
 
   &lt;resourceMap1&gt; a ore:ResourceMap ;
     ore:describes &lt;aggr1&gt; ;
     dcterms:modified "2011-08-24T19:09:59Z" .
-        
+
   &lt;canvas1&gt; a sc:Canvas .
   &lt;canvas2&gt; a sc:Canvas .
   &lt;canvas3&gt; a sc:Canvas .</pre>
 
-</div>    
-    
+</div>
+
 </div>
 
 
 <div>
-<a id="Sequence" name="Sequence"></a>
+<a id="Sequence"></a>
 <h3>4.2. Sequences</h3>
 
 <p>A Sequence is the ordered aggregation of Canvases that should be used by the client to display the Canvases in a particular order to the user.
 There may be multiple Sequences with different orders for the same or overlapping set of Canvases.  This is because a single set of pages may be rebound
-in different orders over time, or to have Sequences with only the pages that currently exist rather than the full set of original pages, some of which are now missing or destroyed. 
+in different orders over time, or to have Sequences with only the pages that currently exist rather than the full set of original pages, some of which are now missing or destroyed.
 </p>
 
 <p>The Sequence must express that it is an rdf:List for clients and systems that do not recognize the Shared Canvas specific class.</p>
@@ -667,36 +667,36 @@ The Shared Canvas model uses:
 		<img alt="Sequence Model" src="images/sequence.png" width="500px"/>
 		<br/><span class="caption">Figure 4.2. Sequence Model</span>
 	</div>
-	
+
 	<pre>  &lt;Seq1&gt; sc:Sequence, rdf:List ;
     ore:aggregates &lt;Canvas1&gt;, &lt;Canvas2&gt;, &lt;Canvas3&gt; ;
     rdf:first &lt;Canvas1&gt; ;
-    rdf:rest ( &lt;Canvas2&gt; &lt;Canvas3&gt; ) . 
+    rdf:rest ( &lt;Canvas2&gt; &lt;Canvas3&gt; ) .
 
   &lt;ResourceMap1&gt; a ore:ResourceMap ;
     ore:describes &lt;Se11&gt; ;
     dcterms:modified "2011-08-24T19:09:59Z" .
-        
+
   &lt;Canvas1&gt; a sc:Canvas .
   &lt;Canvas2&gt; a sc:Canvas .
   &lt;Canvas3&gt; a sc:Canvas .</pre>
 
-</div>    
+</div>
 
 
 </div>
 
 <div>
-<a id="Range" name="Range"></a>
+<a id="Range"></a>
 <h3>4.3. Ranges</h3>
 
 <p>The purpose of a Range is to provide a mechanism to select the Canvases and parts of Canvases that make up some intellectual entity.
 This might be based on the content, such as a story in an anthology, a verse of a poem or a chapter of a book, but equally may
-be used for any other purpose, such as identifying the flyleaves at the beginning or the non-contiguous set of pages that have 
+be used for any other purpose, such as identifying the flyleaves at the beginning or the non-contiguous set of pages that have
 illuminations or marginalia.</p>
 
 <p>The basic structure of a Range is the same as a Sequence, but it may also aggregate segments of Canvases as well as entire Canvases.
-The segment is an oa:SpecificResource, with a source of the Canvas and a Selector that describes it. 
+The segment is an oa:SpecificResource, with a source of the Canvas and a Selector that describes it.
 Please note that the Specific Resource is likely to have a UUID URN as its identifier, and thus should NOT be part of an ORE Aggregation, which states that the aggregated resources MUST have "protocol-based" URIs. We knowingly ignore this requirement, as the Specific Resource is a placeholder resource for the combination of the protocol-based Source (admittedly an abstract Canvas), and the selector which describes the desired part of that Canvas.
  </p>
 
@@ -725,36 +725,36 @@ The Shared Canvas model uses:
 		<img alt="Range Model" src="images/range.png" width="600px"/>
 		<br/><span class="caption">Figure 4.3. Range Model</span>
 	</div>
-	
+
 	<pre>  &lt;Range1&gt; a sc:Range, rdf:List ;
     dcterms:isPartOf &lt;Seq1&gt; ;
     ore:aggregates &lt;Part1&gt;, &lt;Canvas2&gt;, &lt;Canvas3&gt; ;
     rdf:first &lt;Part1&gt; ;
-    rdf:rest ( &lt;Canvas2&gt; &lt;Canvas3&gt; ) . 
+    rdf:rest ( &lt;Canvas2&gt; &lt;Canvas3&gt; ) .
 
   &lt;ResourceMap1&gt; a ore:ResourceMap ;
     ore:describes &lt;Range1&gt; ;
-    dcterms:modified "2011-08-24T19:09:59Z"; 
+    dcterms:modified "2011-08-24T19:09:59Z";
     dcterms:creator &lt;Agent1&gt;.
 
   &lt;Agent1&gt; a dcterms:Agent ;
     foaf:name "Creator Name" .
 
   &lt;Seq1&gt; a sc:Sequence ;
-        
+
   &lt;Part1&gt; a oa:SpecificResource ;
     oa:hasSource &lt;Canvas1&gt; ;
     oa:hasSelector &lt;Selector1&gt; .
-  
+
   &lt;Selector1&gt; a oa:FragmentSelector ;
     rdf:value "xywh=400,0,200,800" .
-  
+
   &lt;Canvas1&gt; a sc:Canvas .
   &lt;Canvas2&gt; a sc:Canvas .
   &lt;Canvas3&gt; a sc:Canvas .</pre>
 
-</div>    
-    
+</div>
+
 
 </div>
 
@@ -765,15 +765,15 @@ The Shared Canvas model uses:
 <div>
 
 <div id="DiscoveryIntroD">
-<a id="DiscoveryIntro" name="DiscoveryIntro"></a>
+<a id="DiscoveryIntro"></a>
 <h2>5. Discovery Model</h2>
 
-<p>In an ideal world, client applications would have access to all of the RDF triples describing the entire dataset.  Unfortunately this is not feasible, as there may be many millions of triples distributed around the web relating content to the Canvases,  providing comments or additional metadata.  Thus it is necessary to provide lists of pointers to the Annotations, Sequences and Ranges that are required to build up the presentation. 
+<p>In an ideal world, client applications would have access to all of the RDF triples describing the entire dataset.  Unfortunately this is not feasible, as there may be many millions of triples distributed around the web relating content to the Canvases,  providing comments or additional metadata.  Thus it is necessary to provide lists of pointers to the Annotations, Sequences and Ranges that are required to build up the presentation.
 </p>
 </div>
 
 <div>
-<a id="AnnotationList" name="AnnotationList"></a>
+<a id="AnnotationList"></a>
 <h3>5.1. Annotation Lists</h3>
 
 <p>An Annotation List is another use of the Ordered Aggregation construction, but instead of aggregating Canvases, it aggregates Annotations. The Annotations needed for a particular resource may be divided up amongst any number of Lists using any criteria for determining which list or lists they should be part of. Typical divisions are per Canvas or based on the content type of the Body resource, such that all of the Annotations that associate an Image with a Canvas would be together.
@@ -801,25 +801,25 @@ The Shared Canvas model uses:
 		<img alt="Annotation List Model" src="images/annotationList.png" width="600px"/>
 		<br/><span class="caption">Figure 5.1. Annotation List Model</span>
 	</div>
-	
+
 	<pre>  &lt;AnnoList1&gt; a sc:AnnotationList, ore:Aggregation, rdf:List ;
     ore:aggregates &lt;Anno1&gt;, &lt;Anno2&gt; ;
     rdf:first &lt;Anno1&gt; ;
-    rdf:rest ( &lt;Anno2&gt; ) . 
+    rdf:rest ( &lt;Anno2&gt; ) .
 
   &lt;ResourceMap1&gt; a ore:ResourceMap ;
     ore:describes &lt;AnnoList1&gt; ;
-    dcterms:modified "2011-08-24T19:09:59Z"; 
+    dcterms:modified "2011-08-24T19:09:59Z";
     dcterms:creator &lt;Agent1&gt;.
 
   &lt;Agent1&gt; a dcterms:Agent ;
     foaf:name "Creator Name" .
-        
+
   &lt;Anno1&gt; a sc:ContentAnnotation .
   &lt;Anno2&gt; a sc:ContentAnnotation .</pre>
 
-</div>    
-    
+</div>
+
 <h4>Usage</h4>
 
 <div>
@@ -833,10 +833,10 @@ The Shared Canvas model uses:
 
 
 <div>
-<a id="Layer" name="Layer"></a>
+<a id="Layer"></a>
 <h3>5.2. Layers</h3>
 
-<p>It might be important to group together multiple AnnotationLists to describe the common features, perhaps along with some additional Annotations. 
+<p>It might be important to group together multiple AnnotationLists to describe the common features, perhaps along with some additional Annotations.
 For example, a Layer could be used to group AnnotationLists of Text Annotations based on a common feature.   This would enable the transcription annotations to be kept separate from edition annotations or translation annotations. </p>
 
 <p>
@@ -853,7 +853,7 @@ Layers are another instance of an Ordered Aggregation that may aggregate either 
 </div>
 
 <div>
-<a id="Manifest" name="Manifest"></a>
+<a id="Manifest"></a>
 <h3>5.3. Manifests</h3>
 
 <p>The Manifest is what ties everything together.  It is an Aggregation of the Layers, AnnotationLists and Sequences that make up the description of the facsimile.
@@ -885,40 +885,40 @@ The Shared Canvas model uses:
 		<img alt="Manifest Model" src="images/manifest.png" width="600px"/>
 		<br/><span class="caption">Figure 5.2. Manifest Model</span>
 	</div>
-	
+
 	<pre>  &lt;Manifest1&gt; a sc:Manifest, ore:Aggregation ;
     ore:aggregates &lt;Seq1&gt;, &lt;Range1&gt;, &lt;AnnoList1&gt; .
 
   &lt;ResourceMap1&gt; a ore:ResourceMap ;
     ore:describes &lt;Manifest1&gt; ;
-    dcterms:modified "2011-08-24T19:09:59Z"; 
+    dcterms:modified "2011-08-24T19:09:59Z";
     dcterms:creator &lt;Agent1&gt;.
 
   &lt;Agent1&gt; a dcterms:Agent ;
     foaf:name "Creator Name" .
-        
+
   &lt;Seq1&gt; a sc:Sequence .
   &lt;Range1&gt; a sc:Range .
   &lt;AnnoList1&gt; a sc:AnnotationList ;
     sc:forCanvas &lt;Canvas1&gt; .</pre>
 
-</div>    
+</div>
 
 
 </div>
 
 <div>
-<a id="Collection" name="Collection"></a>
+<a id="Collection"></a>
 <h3>5.4. Collections</h3>
 
-<p>Shared Canvas does not address collections of Manifests (or of other Collections) directly. 
+<p>Shared Canvas does not address collections of Manifests (or of other Collections) directly.
 Ordered or regular ore:Aggregations are recommended as the basis of describing collections in a manner that would be compliant
 with the Shared Canvas guidelines.</p>
 
 </div>
 
 <div>
-<a id="Collection" name="Collection"></a>
+<a id="Collection"></a>
 <h3>5.5. Services and Bibliographic Information</h3>
 
 <p>The Shared Canvas data model does not directly address search services, or full bibliographic descriptions of the objects that are being rendered by the digital facsimiles.
@@ -959,16 +959,16 @@ The Shared Canvas model uses:
 		<img alt="Bibliographic Service Model" src="images/svcbibl.png" width="600px"/>
 		<br/><span class="caption">Figure 5.2. Manifest Model</span>
 	</div>
-	
+
 	<pre>  &lt;Manifest1&gt; a sc:Manifest, ore:Aggregation ;
     ore:aggregates &lt;Seq1&gt;, &lt;Range1&gt; ;
     rdfs:label "Title" ;
     sc:agentLabel "Name" ;
     sc:dateLabel "Date" ;
-    sc:hasRelatedService &lt;Service1&gt; ; 
+    sc:hasRelatedService &lt;Service1&gt; ;
     sc:hasRelatedDescription &lt;BibDesc1&gt; .</pre>
 
-</div>    
+</div>
 
 
 <h4>Recommendations</h4>
@@ -1005,28 +1005,28 @@ The Shared Canvas model uses:
 
 
 
-<div id="Appendix" name="Appendix">
+<div id="Appendix">
 
 
-<a id="References" name="References"></a>
+<a id="References"></a>
 <h2>A. References</h2>
 <dl>
-	<dt><a id="ref-cc" name="ref-cc">[Creative Commons]</a></dt>
+	<dt><a id="ref-cc">[Creative Commons]</a></dt>
 	<dd><a href="http://creativecommons.org/">Creative Commons</a>,	Creative Commons, May 18 2008</dd>
 
 <dt><a id="ref-content">[Content in RDF]</a></dt>
-<dd><a href="http://www.w3.org/TR/Content-in-RDF10/">Representing Content in RDF 1.0</a>, Koch, J. Velasco, C. 29 October 2009</dd>	
-	
-<dt><a id="ref-dc" name="ref-dc">[DC Elements]</a></dt>
+<dd><a href="http://www.w3.org/TR/Content-in-RDF10/">Representing Content in RDF 1.0</a>, Koch, J. Velasco, C. 29 October 2009</dd>
+
+<dt><a id="ref-dc">[DC Elements]</a></dt>
 <dd><a href="http://dublincore.org/documents/dces/">Dublin Core Metadata Elements</a>, DCMI Recommendation, 18 December 2006.</dd>
 
-<dt><a id="ref-dct" name="ref-dct">[DC Terms]</a></dt>
+<dt><a id="ref-dct">[DC Terms]</a></dt>
 <dd><a href="http://dublincore.org/documents/dcmi-terms/">DCMI Metadata Terms</a>, DCMI Usage Board, 18 December 2006.</dd>
-	
-<dt><a id="ref-rdf" name="ref-rdf">[RDF]</a></dt>
+
+<dt><a id="ref-rdf">[RDF]</a></dt>
 <dd><a href="http://www.w3.org/TR/rdf-primer/">RDF Primer</a>, F. Manola, E. Miller, Editors. W3C Recommendation, 10 February 2004.</dd>
 
-<dt><a id="ref-rdfs" name="ref-rdfs">[RDF Vocabulary]</a></dt>
+<dt><a id="ref-rdfs">[RDF Vocabulary]</a></dt>
 <dd><a href="http://www.w3.org/TR/rdf-schema/">RDF Vocabulary Description Language 1.0: RDF Schema</a>, Dan Brickley and R.V. Guha, Editors. W3C Recommendation, 10 February 2004.</dd>
 
 <dt><a id="ref-rfc-3986">[RFC 3986]</a></dt>
@@ -1037,13 +1037,13 @@ The Shared Canvas model uses:
 
 <!--  Why is this class body? -->
 <div class="body">
-<h2><a name="Acknowledgements" id="Acknowledgements"></a> B.
+<h2><a id="Acknowledgements"></a> B.
 Acknowledgements</h2>
 
 
 <p>The editors would like to acknowledge the financial support of the Mellon Foundation.</p>
 
-<!-- 
+<!--
 <p>
 The editors would like to thank the following for their valuable contributions:
 
@@ -1055,7 +1055,7 @@ The editors would like to thank the following for their valuable contributions:
 </div>
 
 <div class="changelog">
-<h2><a id="ChangeLog" name="ChangeLog"></a>C. Change Log</h2>
+<h2><a id="ChangeLog"></a>C. Change Log</h2>
 <table class="changelog" summary="change log">
 	<tbody>
 		<tr>
