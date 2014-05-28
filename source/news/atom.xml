@@ -4,13 +4,14 @@ layout: nil
 <?xml version="1.0"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>IIIF News and Announcements</title>
-  <link href="http://iiif.io/"/>
+  <subtitle>{{ site.data.meta.description }}</subtitle>
+  <link href="{{ site.data.meta.url }}"/>
   <link type="application/atom+xml" rel="self" href="/news/atom.xml"/>
   <updated>{{ site.time | date_to_xmlschema }}</updated>
-  <id>http://iiif.io/news</id>
+  <id>{{ site.data.meta.url }}/news/</id>
   <author>
     <name>IIIF Editors</name>
-    <email>iiif-discuss@googlegroups.com</email>
+    <email>{{ site.data.meta.email }}</email>
   </author>
   {% for post in site.posts %}
   <entry>
