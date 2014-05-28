@@ -44,9 +44,8 @@ The _config.yml file defines various site level variables, notably the current v
 
 ## Front Matter
 
- * Specs use `tags`, news and announements (`_posts`) use `categories`.
+ * Use `tags`, not `category` or `categories`.
  * Look at previous posts and specs to determine what tags/categories to use.
- * Anything in the `api` directory (and subdirectories thereof) must include the `spec-doc` tag.
  * News posts must include:
 
     * title
@@ -55,7 +54,6 @@ The _config.yml file defines various site level variables, notably the current v
     * layout: post
 
     and may include an excerpt.
-
 
 ## Technical Decisions
 
