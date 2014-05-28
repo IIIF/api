@@ -18,4 +18,4 @@ A complete list of the changes can be found on the IIIF website:
  * [Image API 2.0 Change Log](/api/image/2.0/change-log.html)
  * [Presentation API 2.0 Change Log](/api/presentation/2.0/change-log.html)
 
-We welcome your feedback, questions, and use cases, and encourage you to submit feedback to the [IIIF Discussion Listserv](mailto:iiif-discuss%40googlegroups.com).
+We welcome your feedback, questions, and use cases, and encourage you to submit feedback to the [IIIF Discussion Listserv](mailto:{{ site.data.organization.email }}).
