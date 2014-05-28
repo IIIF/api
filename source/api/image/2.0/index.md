@@ -502,8 +502,7 @@ The JSON response _MUST_ conform to the structure shown in the following example
       "formats" : [ "jpg", "png" ],
       "qualities" : [ "default" ],
       "supports" : [
-          "cors", "region_by_pct", "region_by_px", "rotation_arbitrary", "rotation_by_90s",
-          "size_by_forced_wh", "size_by_h", "size_by_pct", "size_by_w", "size_by_wh"
+          "canonical_link_header", "rotation_arbitrary"
       ]
     }
   ]
