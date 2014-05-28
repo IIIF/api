@@ -28,7 +28,7 @@ In addition to the changes described above:
 
 ### Name and URIs Changed
 
-The name for the API used to be the "Metadata API", and this was changed to "Presentation API" with version 2.0.  This was to avoid the implication that the description was semantic, bibliographic information which is not, and has never been, the intent.  This resulted in the documentation moving to a different place, along with all of the auxilliary technical files like JSON-LD context and frames.
+The name for the API has been changed from "Metadata API" to "Presentation API" with version 2.0.  This was to avoid the implication that the description was semantic, bibliographic information which is not, and has never been, the intent.  This resulted in the documentation moving to a different place, along with all of the auxilliary technical files like JSON-LD context and frames.
 
 ### Underscores rather than Camel Case
 
@@ -82,11 +82,11 @@ In 1.0 it was not possible to add most of the fields to content resources.  This
 
 ### Zones
 
-The underlying Shared Canvas data model has an additional construction called a Zone.  At least one institution has implemented this construction and would like to use IIIF, but can't until it is in the API.  At least one further institution recognizes that they have requirements that are solved by zones. The issue was deferred until 2.1 as the solution is not easy to implement, and can be overlaid without adding backwards incompatibility.
+The underlying Shared Canvas data model has an additional construction called a Zone.  At least one institution has implemented this construction and is unable to adopt the Presentation API until Zones are included.  At least one further institution recognizes that they have requirements that are solved by zones. The issue was deferred until 2.1 as the solution is not easy to implement, and can be overlaid without adding backwards incompatibility.
 
 ### Dynamic Annotation List Services
 
-An outstanding issue is the ability to associate either AnnotationLists or lists of AnnotationLists with canvases.  The requirements were decided to be not clearly enough defined at this stage, and may be simply AnnotationLists that are generated dynamically.  The major use cases also involved Authentication and Authorization, which have been deferred as well.  With the change to services, it is expected that this request can be experimented with and either blessed as a service or promoted to a full feature in the future without backwards incompatibility.
+An outstanding issue is the ability to associate AnnotationLists with a canvas dynamically rather than through explicit references in the Manifest.  The requirements were decided to be not clearly enough defined at this stage.  The major use cases also involved Authentication and Authorization, which have been deferred as well.  With the change to services, it is expected that this request can be experimented with and either blessed as a service or promoted to a full feature in the future without backwards incompatibility.
 
 ### Annotations on non-Canvas Resources
 
@@ -94,7 +94,7 @@ Only canvases may list their annotations, and thus it is impossible to refer to 
 
 ### Target Audience
 
-Particularly useful in the teaching and learning domain, the intended audience of resources is useful.  For commentary annotations this is important, and not covered in the base Open Annotation specification.  It was decided to defer this until the Open Annotation community can determine a resolution to be adopted, but to promote use cases and existing solutions such as the IDPF use of schema.org's Audience classes.  Also, not backwards incompatible and no clients are ready to use it yet.
+Particularly in the teaching and learning domain, it may be useful to specify the intended audience of resources.  For commentary annotations this is important, and not covered in the base Open Annotation specification.  It was decided to defer this until the Open Annotation community can determine a resolution to be adopted, but to promote use cases and existing solutions such as the IDPF use of schema.org's Audience classes.  Also, not backwards incompatible and no clients are ready to use it yet.
 
 ### Compliance
 
