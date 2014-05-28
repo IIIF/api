@@ -1,6 +1,6 @@
 ---
-title: Presentation API 2.0
-title_override: "IIIF Presentation API 2.0"
+title: "Presentation API 2.0 - DRAFT"
+title_override: "IIIF Presentation API 2.0 - DRAFT"
 id: presentation-api
 layout: spec
 tags: [specifications, presentation-api]
