@@ -1,8 +1,7 @@
-name: IIIF | International Image Interoperability Framework
 markdown: kramdown
 highlighter: pygments
 source: source
-
+safe: false
 permalink: /news/:year/:month/:day/:title/
 
 kramdown:
