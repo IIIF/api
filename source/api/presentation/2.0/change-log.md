@@ -10,9 +10,9 @@ minor: 0
 pre: draft
 ---
 
-This document is a companion to the [IIIF Presentation API Specification, Version 2.0][prezi-api]. It describes the significant changes to the API since [Version 1.0][prezi-api-10]. The changes are broken into three groups: [Breaking Changes][breaking-changes], i.e. those that are not backwards compatible from either a client or server perspective (or both); [Other Changes][other-changes], i.e. those that are backwards compatible; and [Deferred Changes][deferred-changes], i.e. those that have been discussed but did not make it into this version of the specification.
+This document is a companion to the [IIIF Presentation API Specification, Version 2.0][prezi-api]. It describes the significant changes to the API since [Version 1.0][prezi-api-10]. The changes are broken into two groups: [Breaking Changes][breaking-changes], i.e. those that are not backwards compatible from either a client or server perspective (or both); [Other Changes][other-changes], i.e. those that are backwards compatible. A third section, [Deferred Proposals][deferred-proposals], lists proposals that have been discussed but did not make it into this version of the specification.
 
-In addition to the changes described above:
+In addition to changes in the API, the specification documents have been changed as follows:
 
   * The use of [RFC 2119 keywords][rfc-2119] has been made more consistent.
   * Language has been adjusted to make the document less focused on paged objects.
@@ -28,11 +28,11 @@ In addition to the changes described above:
 
 ### Name and URIs Changed
 
-The name for the API used to be the "Metadata API", and this was changed to "Presentation API" with version 2.0.  This was to avoid the implication that the description was semantic, bibliographic information which is not, and has never been, the intent.  This resulted in the documentation moving to a different place, along with all of the auxilliary technical files like JSON-LD context and frames.
+The name for the API used to be the "Metadata API", and this was changed to "Presentation API" with version 2.0.  This was to avoid the implication that the API was for descriptive and/or bibliographic information which is not, and has never been, the intent.  This resulted in the documentation moving to different URIs, along with all of the auxilliary technical files like JSON-LD context and frames.
 
 ### Underscores rather than Camel Case
 
-For consistency with the Image API, the property names which used camelCase were changed to use snake_case. The properties affected are: `viewingHint` to `viewing_hint`; `viewingDirection` to `viewing_direction`; `seeAlso` to `see_also`; and `otherContent` to `other_content`.  Changing the Image API would have been significantly more work, and resulting in more breaking changes. 
+For consistency with the Image API, the property names which used camelCase were changed to use snake_case. The properties affected are: `viewingHint` to `viewing_hint`; `viewingDirection` to `viewing_direction`; `seeAlso` to `see_also`; and `otherContent` to `other_content`.  Changing the Image API would have been significantly more disruptive, and would have resulted in more breaking changes. 
 
 ### Ranges Easier to Implement
 
@@ -44,8 +44,7 @@ The use of HTML in the values of fields was permitted but inadequately specified
 
 ### Page-Turning Requirements
 
-In order to allow page turning modalities, additional requirements were added to manifests that claim to be 'paged'.  Notably the first canvas is to be shown by itself, and then subsequent canvases can be assumed to be left/right pairs (depending on the viewing_direction).
-An additional value of 'non-paged' was added to the viewing_hint enumeration to assert that a particular Canvas is not part of the paging sequence.
+In order to support different page turning modalities, additional requirements were added to manifests that claim to be `paged`.  Notably the first canvas is to be shown by itself, and then subsequent canvases can be assumed to be left/right pairs (depending on the `viewing_direction`). An additional value of `non-paged` was added to the `viewing_hint` enumeration to assert that a particular Canvas is not part of the paging sequence.
 
 
 ## Other Changes
@@ -58,9 +57,9 @@ Section 7.6 was added to describe collections of manifests, and sub-collections.
 
 Several new fields were added:
 
-* logo
-* thumbnail
-* related (although was used in practice in 1.0)
+* `logo`
+* `thumbnail`
+* `related` (although was used in practice in 1.0)
 
 ### Services Clarified and Extended
 
@@ -68,17 +67,17 @@ In order to manage requests for features that are not universally applicable, bu
 
 ### Start Canvas
 
-An additional value of 'start' was added to the viewing_hint value enumeration, to be used on a canvas to assert that it's the one to be rendered to the user first, regardless of its position in the Sequence.
+An additional value of `start` was added to the `viewing_hint` value enumeration, to be used on a canvas to assert that it's the one to be rendered to the user first, regardless of its position in the Sequence.
 
 ### Top-most Range
 
-An additional value of 'top' was added to the viewing_hint value enumeration, to be used on a range which is the top-most level in a table of contents or other structure.
+An additional value of `top` was added to the `viewing_hint` value enumeration, to be used on a range which is the top-most level in a table of contents or other structure.
 
 ### Restrictions Lifted
 
 In 1.0 it was not possible to add most of the fields to content resources.  This was not for any good reason, and the restrictions were lifted.
 
-## Deferred Changes
+## Deferred Proposals
 
 ### Zones
 
@@ -102,8 +101,7 @@ The Image API has a very well formed set of compliance requirements.  The Presen
 
 ### Explicit Protocol
 
-The Image API in 2.0 has a protocol field that makes the assertion that the info.json document is part of the IIIF Image API protocol.  The Presentation API does not have this field.  There were no features or implementations identified that would make use of the field, and as backwards compatible it was deferred until a requirement was expressed.
-
+The Image API in 2.0 has a protocol field that makes the assertion that the `info.json` document is part of the IIIF Image API protocol.  The Presentation API does not have this field.  There were no features or implementations identified that would make use of the field, and as it will be backwards compatible it was deferred until a requirement is expressed.
 
 
 [api-11]: /api/image/1.1/ "Image API 1.1"
@@ -111,7 +109,7 @@ The Image API in 2.0 has a protocol field that makes the assertion that the info
 [api]: /api/image/2.0/ "Image API 2.0"
 [breaking-changes]: #breaking-changes "Presentation API 2.0 Breaking Changes"
 [canonical-uris]: /api/image/2.0/#canonical-uri-syntax "Image API 4.7. Canonical URI Syntax"
-[deferred-changes]: #deferred-changes "Presentation API 2.0 Deferred Changes"
+[deferred-proposals]: #deferred-proposals "Presentation API 2.0 Deferred Proposals"
 [info-request]: /api/image/2.0/#information-request "Image API Section 5. Information Request"
 [compliance-doc]: /api/image/2.0/compliance.html "Image API 2.0 Compliance Document"
 [context]: /api/image/2/context.json  "Image API 2.0 JSON-LD Context"
