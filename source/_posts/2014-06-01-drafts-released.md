@@ -18,7 +18,7 @@ A complete list of the changes can be found on the IIIF website:
  * [Image API 2.0 Change Log](/api/image/2.0/change-log.html)
  * [Presentation API 2.0 Change Log](/api/presentation/2.0/change-log.html)
 
-We welcome your feedback, questions, and use cases, and encourage you to submit feedback to the [IIIF Discussion Listserv](mailto:{{ site.data.organization.email }}). While we intend to keep the drafts open for comment through August, with the goal of final releases in September or October, we would appreciate feedback as soon as possible to give the editors time to work in any additional changes.
+We welcome your feedback, questions, use cases, and encourage you to submit them to the [IIIF Discussion Listserv](mailto:{{ site.data.organization.email }}). While we intend to keep the drafts open for comment until the beginning of August, with the goal of final release in September, we would appreciate feedback early in order to work on and gain consensus for any necessary changes.
 
 Sincerely,
 
