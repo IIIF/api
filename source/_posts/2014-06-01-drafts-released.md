@@ -1,7 +1,7 @@
 ---
 title: IIIF Image and Presentation API Drafts Releases
 author: Jon Stroop
-date: 2014-06-01
+date: 2014-05-29
 tags: [specifications, image-api, presentation-api, announcements]
 layout: post
 ---
@@ -22,9 +22,18 @@ We welcome your feedback, questions, and use cases, and encourage you to submit 
 
 Sincerely,
 
-The IIIF Image and Presentation API Editors:
+The IIIF Image and Presentation API Editors
+Benjamin Albritton
 Michael Appleby
 Robert Sanderson
 Stuart Snydman
 Jon Stroop
 Simeon Warner
+
+cc:
+code4lib@listserv.nd.edu
+dlf-announce@lists.clir.org
+iiif-announce@googlegroups.com
+iiif-discuss@googlegroups.com
+libdevconx@mailman.stanford.edu
+lod-lam@googlegroups.com
