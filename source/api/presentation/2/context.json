@@ -14,13 +14,14 @@
 	        "rdf":     "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
 	        "rdfs":    "http://www.w3.org/2000/01/rdf-schema#",
 	        "xsd":     "http://www.w3.org/2001/XMLSchema#",
+		"svcs":    "http://rdfs.org/sioc/services#",
 
 	        "license":     {"@type":"@id", "@id":"dcterms:license"},
-	        "service":     {"@type":"@id", "@id":"sc:hasRelatedService"},
-	        "see_also":    {"@type":"@id", "@id":"sc:hasRelatedDescription"},
+	        "service":     {"@type":"@id", "@id":"svcs:has_service"},
+	        "see_also":    {"@type":"@id", "@id":"foaf:page"},
 	        "within":      {"@type":"@id", "@id":"dcterms:isPartOf"},
 	        "profile":     {"@type":"@id", "@id":"dcterms:conformsTo"},
-	        "related":     {"@type":"@id", "@id":"dcterms:related"},
+	        "related":     {"@type":"@id", "@id":"dcterms:relation"},
 	        "logo":        {"@type":"@id", "@id":"foaf:logo"},
 	        "thumbnail":   {"@type":"@id", "@id":"foaf:thumbnail"},
 
