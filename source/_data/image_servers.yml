@@ -53,3 +53,15 @@
   - > 
     Loris is an open source, Python-based image server that supports the IIIF 
     Image API ver 1.1. Loris supports JPEG and TIFF sources as well as JPEG2000.
+- name: digilib
+  uri: http://digilib.sourceforge.net/
+  blurb:
+  - > 
+    digilib is an open source, Java based image server for high resolution images.
+    It supports the IIIF Image API and a native API that also allows brightness,
+    contrast and color corrections and other operations.
+  - >
+    digilib supports JPEG, TIFF, PNG, JPEG2000 and other image formats via Java 
+    ImageIO. digilib also has a web client that offers continuous zoom, 
+    referenceable views, image annotations and other features for scholarly work.
+    
