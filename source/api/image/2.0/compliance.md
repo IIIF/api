@@ -72,8 +72,8 @@ In the tables below "![required][icon-req]" indicates that support is _REQUIRED_
 | Syntax        | Level 0 | Level 1 | Level 2  |
 |:--------------|:-------:|:-------:|:--------:|
 | `default`     | ![required][icon-req]      | ![required][icon-req]      | ![required][icon-req]       |
-| `color`       | ![optional][icon-opt]      | ![optional][icon-opt]      | ![required][icon-req](if applicable) |
-| `gray`        | ![optional][icon-opt]      | ![optional][icon-opt]      | ![required][icon-req](if applicable) |
+| `color`       | ![optional][icon-opt]      | ![optional][icon-opt]      | ![required][icon-req] (if applicable) |
+| `gray`        | ![optional][icon-opt]      | ![optional][icon-opt]      | ![required][icon-req] (if applicable) |
 | `bitonal`     | ![optional][icon-opt]      | ![optional][icon-opt]      | ![required][icon-req]       |
 {: .image-api-table}
 
