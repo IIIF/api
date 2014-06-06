@@ -298,11 +298,13 @@ The quality parameter determines whether the image is delivered in color, graysc
 
 | Quality   | Parameter Returned |
 | --------- | ------------------ |
-| `default` | The image is returned using the server's default quality (e.g. color, gray or bitonal as below) for the image. |
 | `color`   | The image is returned in full color. |
 | `gray`    | The image is returned in grayscale, where each pixel is black, white or any shade of gray in between. |
 | `bitonal` | The image returned is bitonal, where each pixel is either black or white. |
+| `default` | The image is returned using the server's default quality (e.g. color, gray or bitonal) for the image. |
 {: .image-api-table}
+
+The `default` quality exists to support [level 0 compliant implementations][compliance-quality] that may not know the qualities of individual images in their collections. It also provides a convenience for clients that know the values for all other parameters of a request except the quality (e.g. `.../full/120,/90/{quality}.png` to request a thumbnail) in that a preliminary image information request that would only serve to find out which qualities are available can be avoided.
 
 A quality value that is unsupported _SHOULD_ result in a 400 status code.
 
@@ -648,6 +650,7 @@ Many thanks to  Ben Albritton, Matthieu Bonicel, Anatol Broder, Kevin Clarke, To
 [change-log11]: /api/image/1.1/change-log.html "Change Log for Version 1.1"
 [change-log]: /api/image/2.0/change-log.html "Change Log for Version 2.0"
 [compliance]: /api/image/2.0/compliance.html "Image API Compliance"
+[compliance-quality]: /api/image/2.0/compliance.html#quality "Image API Compliance: Quality"
 [cors-spec]: http://www.w3.org/TR/cors/ "Cross-Origin Resource Sharing"
 [iiif-discuss]: mailto:iiif-discuss%40googlegroups.com "Email Discussion List"
 [json-as-json-ld]: http://www.w3.org/TR/json-ld/#interpreting-json-as-json-ld "JSON-LD 1.0: 6.8 Interpreting JSON as JSON-LD"
