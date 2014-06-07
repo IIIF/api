@@ -257,9 +257,9 @@ The rotation value represents the number of degrees of clockwise rotation from t
 
 A rotation value that is out of range or unsupported _SHOULD_ result in a 400 status code.
 
-In most cases a rotation will change the width and height dimensions of the returned image. The service _SHOULD_ return an image that contains all of the image contents requested in the region and size parameters, even if the dimensions of the returned image file are different than specified in the size parameter. The image contents _should not_{: .rfc} be scaled as a result of the rotation, and there _SHOULD_ be no additional space between the corners of the rotated image contents and the bounding box of the returned image content.
+In most cases a rotation will change the width and height dimensions of the returned image. The service _SHOULD_ return an image that contains all of the image contents requested in the region and size parameters, even if the dimensions of the returned image file are different than specified in the size parameter. The image contents _SHOULD NOT_ be scaled as a result of the rotation, and there _SHOULD_ be no additional space between the corners of the rotated image contents and the bounding box of the returned image content.
 
-For non-90-degree rotations the API does not specify the background color.
+For rotations which are not multiples of 90 degrees, it is _RECOMMENDED_ that the client request the image in a format that supports transparency, such as PNG, and that the server return the image with a transparent background.  There is no facility in the API for the client to request a particular background color or other fill pattern.
 
 Examples:
 
