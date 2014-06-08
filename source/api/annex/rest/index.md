@@ -7,8 +7,9 @@ tags: [annex, rest, image-api]
 ## Status of this Document
 {:.no_toc}
 
-This document is not subject to semantic versioning.
+This document is a DRAFT.  The contents should only be used for experimental purposes and not considered final.
 
+This document is not subject to semantic versioning.
 Changes will be tracked within the document.
 
 _Copyright © 2012-2014 Editors and contributors. Published by the IIIF under the [CC-BY][cc-by] license._
