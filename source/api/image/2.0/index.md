@@ -257,9 +257,9 @@ The rotation value represents the number of degrees of clockwise rotation from t
 
 A rotation value that is out of range or unsupported _SHOULD_ result in a 400 status code.
 
-In most cases a rotation will change the width and height dimensions of the returned image. The service _SHOULD_ return an image that contains all of the image contents requested in the region and size parameters, even if the dimensions of the returned image file are different than specified in the size parameter. The image contents _should not_{: .rfc} be scaled as a result of the rotation, and there _SHOULD_ be no additional space between the corners of the rotated image contents and the bounding box of the returned image content.
+In most cases a rotation will change the width and height dimensions of the returned image. The service _SHOULD_ return an image that contains all of the image contents requested in the region and size parameters, even if the dimensions of the returned image file are different than specified in the size parameter. The image contents _SHOULD NOT_ be scaled as a result of the rotation, and there _SHOULD_ be no additional space between the corners of the rotated image contents and the bounding box of the returned image content.
 
-For non-90-degree rotations the API does not specify the background color.
+For rotations which are not multiples of 90 degrees, it is _RECOMMENDED_ that the client request the image in a format that supports transparency, such as PNG, and that the server return the image with a transparent background.  There is no facility in the API for the client to request a particular background color or other fill pattern.
 
 Examples:
 
@@ -298,11 +298,13 @@ The quality parameter determines whether the image is delivered in color, graysc
 
 | Quality   | Parameter Returned |
 | --------- | ------------------ |
-| `default` | The image is returned using the server's default quality (e.g. color, gray or bitonal as below) for the image. |
 | `color`   | The image is returned in full color. |
 | `gray`    | The image is returned in grayscale, where each pixel is black, white or any shade of gray in between. |
 | `bitonal` | The image returned is bitonal, where each pixel is either black or white. |
+| `default` | The image is returned using the server's default quality (e.g. color, gray or bitonal) for the image. |
 {: .image-api-table}
+
+The `default` quality exists to support [level 0 compliant implementations][compliance-quality] that may not know the qualities of individual images in their collections. It also provides a convenience for clients that know the values for all other parameters of a request except the quality (e.g. `.../full/120,/90/{quality}.png` to request a thumbnail) in that a preliminary image information request that would only serve to find out which qualities are available can be avoided.
 
 A quality value that is unsupported _SHOULD_ result in a 400 status code.
 
@@ -648,6 +650,7 @@ Many thanks to  Ben Albritton, Matthieu Bonicel, Anatol Broder, Kevin Clarke, To
 [change-log11]: /api/image/1.1/change-log.html "Change Log for Version 1.1"
 [change-log]: /api/image/2.0/change-log.html "Change Log for Version 2.0"
 [compliance]: /api/image/2.0/compliance.html "Image API Compliance"
+[compliance-quality]: /api/image/2.0/compliance.html#quality "Image API Compliance: Quality"
 [cors-spec]: http://www.w3.org/TR/cors/ "Cross-Origin Resource Sharing"
 [iiif-discuss]: mailto:iiif-discuss%40googlegroups.com "Email Discussion List"
 [json-as-json-ld]: http://www.w3.org/TR/json-ld/#interpreting-json-as-json-ld "JSON-LD 1.0: 6.8 Interpreting JSON as JSON-LD"
