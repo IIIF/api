@@ -8,6 +8,7 @@
     "dc":      "http://purl.org/dc/elements/1.1/",
     "dcterms": "http://purl.org/dc/terms/",
     "doap" :   "http://usefulinc.com/ns/doap#",
+    "svcs":    "http://rdfs.org/sioc/services#",
 
     "base_uri_redirect" : { "@id" : "iiif:baseUriRedirectFeature", "@type": "iiif:Feature" },
     "cors" : { "@id" : "iiif:corsFeature", "@type": "iiif:Feature" },
@@ -37,6 +38,7 @@
 
     "profile" : { "@id" : "dcterms:conformsTo", "@type" : "@id", "@container" : "@list" },
     "protocol" : { "@id" : "doap:implements", "@type" : "@id" },
-    "supports" : { "@id" : "iiif:supports", "@type" : "@id" }
+    "supports" : { "@id" : "iiif:supports", "@type" : "@id" },
+    "service":     {"@type":"@id", "@id":"svcs:has_service"}
   }
 }
