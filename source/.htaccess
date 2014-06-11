@@ -19,6 +19,9 @@ RewriteRule ^/?api/presentation/1.0/ /api/metadata/1.0/ [L,R=302]
     </IfModule>
 </FilesMatch>
 
+# http://httpd.apache.org/docs/current/mod/core.html#keepalive
+KeepAlive On
+
 # http://httpd.apache.org/docs/current/mod/mod_expires.html
 <IfModule mod_expires.c>
   ExpiresActive On
