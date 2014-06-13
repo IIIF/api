@@ -60,11 +60,12 @@ In the tables below "![required][icon-req]" indicates that support is _REQUIRED_
 
 ### Rotation
 
-| Syntax           | Feature Name         | Level 0 | Level 1 | Level 2  |
-|:-----------------|:---------------------|:-------:|:-------:|:--------:|
-| `0`              |                      | ![required][icon-req]      | ![required][icon-req]      | ![required][icon-req]       |
-| `90`,`180`,`270` | `rotation_by_90s`    | ![optional][icon-opt]      | ![optional][icon-opt]      | ![required][icon-req]       |
-| _arbitrary_      | `rotation_arbitrary` | ![optional][icon-opt]      | ![optional][icon-opt]      | ![optional][icon-opt]       |
+| Syntax | Feature Name | Level 0 | Level 1 | Level 2  |
+|:-------|:-------------|:-------:|:-------:|:--------:|
+| `0`    |              | ![required][icon-req] | ![required][icon-req] | ![required][icon-req] |
+| `90`,`180`,`270` | `rotation_by_90s` | ![optional][icon-opt] | ![optional][icon-opt] | ![required][icon-req]       |
+| _arbitrary_ | `rotation_arbitrary` | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] |
+| !_n_ | `mirroring` | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] |
 {: .image-api-table}
 
 ### Quality

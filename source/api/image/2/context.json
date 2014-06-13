@@ -15,6 +15,7 @@
     "region_by_px" : { "@id" : "iiif:regionByPxFeature", "@type": "iiif:Feature" },
     "rotation_arbitrary" : { "@id" : "iiif:arbitraryRotationFeature", "@type": "iiif:Feature" },
     "rotation_by_90s" : { "@id" : "iiif:rotationBy90sFeature", "@type": "iiif:Feature" },
+    "mirroring" : { "@id" : "iiif:mirroringFeature", "@type": "iiif:Feature" },
     "size_above_full" : { "@id" : "iiif:sizeAboveFullFeature", "@type": "iiif:Feature" },
     "size_by_forced_wh" : { "@id" : "iiif:sizeByForcedWHFeature", "@type": "iiif:Feature" },
     "size_by_h" : { "@id" : "iiif:sizeByHFeature", "@type": "iiif:Feature" },

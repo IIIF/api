@@ -245,14 +245,13 @@ Examples:
   </tbody>
 </table>
 
-
 ###  4.3. Rotation
-
-The rotation value represents the number of degrees of clockwise rotation from the original, and may be any floating point number from 0 to 360.
+The rotation parameter specifies mirroring and rotation. A leading exclamation mark ("!") indicates that the image should be mirrored by reflection on the vertical axis before any rotation is applied. The numerical value represents the number of degrees of clockwise rotation, and may be any floating point number from 0 to 360.
 
 | Form | Description |
 | ---- | ----------- |
-| n    | The degrees of clockwise rotation from the original, from 0 up to 360. |
+| n    | The degrees of clockwise rotation from 0 up to 360.     |
+| !n   | The image should be mirrored and then rotated as above. |
 {: .image-api-table}
 
 A rotation value that is out of range or unsupported _SHOULD_ result in a 400 status code.
@@ -287,6 +286,18 @@ Examples:
         <img src="img/rotate_22-5.png" alt="Rotation 22.5" class="fullPct" />
         <p><strong>4</strong> rotation=22.5</p>
         <p><code>.../full/full/22.5/default.jpg</code></p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <img src="img/mirror.png" alt="Mirroring" class="fullPct" />
+        <p><strong>5</strong> rotation=!0</p>
+        <p><code>.../full/full/!0/default.jpg</code></p>
+      </td>
+      <td>
+        <img src="img/mirror_180.png" alt="Mirroring and Rotation" class="fullPct" />
+        <p><strong>6</strong> rotation=!180</p>
+        <p><code>.../full/full/!180/default.jpg</code></p>
       </td>
     </tr>
   </tbody>
@@ -370,13 +381,15 @@ The parameters should be interpreted as if the the sequence of image manipulatio
 
 `Region THEN Size THEN Rotation THEN Quality THEN Format`
 
+If the rotation parameter includes mirroring ("!"), the mirroring is applied before the rotation.
+
 <table class="ex_table">
   <tbody>
     <tr>
       <td>
         <img style="max-width: 650px" src="img/transformation.png" alt="Order of Implementation" class="fullPct" />
-        <p><strong>1</strong> region=125,15,120,140 size=90, rotation=345 quality=gray</p>
-        <p><code>.../125,15,120,140/90,/345/gray.jpg</code></p>
+        <p><strong>1</strong> region=125,15,120,140 size=90, rotation=!345 quality=gray</p>
+        <p><code>.../125,15,120,140/90,/!345/gray.jpg</code></p>
       </td>
     </tr>
   </tbody>
