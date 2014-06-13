@@ -88,6 +88,10 @@ The `protocol` property is required at all levels of compliance.
 
 Rotation in multiples of 90 was previously a level 1 requirement. As this can be--and frequently is--handled in the browser via the HTML 5 `<canvas>` element or CSS instructions, the editors felt this was an unnecessary barrier to level 1 compliance.
 
+### Add mirroring to rotation parameter
+
+The rotation value may now be preceded by an exclamation mark to specify mirroring about the vertical axis before rotation. The motivating use cases are display of negatives, reflection to support a carousel display, and support for reading bleed through text. 
+
 ### Added `sizes` property to Image Information document
 
 Servers that do not support arbitrary size parameters for image requests may still wish make multiple sizes of an image available. The sizes that are available may be listed using the `w,h` syntax in the `sizes` property. Even when a server does support arbitrary resizing, it may be useful to report pre-cached or otherwise recommended sizes of an image, e.g. thumbnails.
