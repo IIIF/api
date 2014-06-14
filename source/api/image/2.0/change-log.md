@@ -38,8 +38,6 @@ There was also confusion among users as to the meaning of `native`. The API does
 
 This is a response to several requests for the ability to describe the capabilities of a server or a particular image with finer granularity than that of the compliance levels. For example, a server may be completely compliant with level 1, but also support the `!w,h` syntax for specifying the size, which is a level 2 feature. This capability can be exposed using the `supports` property with the `profile` property.
 
-The `supports` property may also be used to describe extension features. See [5.2 Extensions][extensions] for details.
-
 The `qualities` and `formats` properties have been moved into the object referenced in `profile`.
 
 ### Required <abbr title="Cross-Origin Resource Sharing">CORS</abbr> for level 1 Compliance
