@@ -409,7 +409,7 @@ In order to support the above requirements, clients should construct the image r
 | --------- | --------------- |
 | region    | "full" if the whole image is requested, otherwise the x,y,w,h description of the region. |
 | size      | "full" if the default size is requested, otherwise the pixel dimensions w,h. |
-| rotation  | An integer if possible, and trimming any trailing zeros in a decimal value, and a leading 0 if the value is below 1. |
+| rotation  | "!" if the image is mirrored, followed by an integer if possible, and trimming any trailing zeros in a decimal value, and a leading 0 if the value is below 1. |
 | quality   | "default" unless a quality that is different from the default quality is requested. |
 | format    | Explicit format string required; 'jpg' is preferred. |
 {: .image-api-table}
@@ -456,11 +456,11 @@ The JSON in the response will include the following properties:
 | ---------- | --------- | ----------- |
 | `@context` | Required | The context document that describes the semantics of the terms used in the document. This must be the URI: `http://iiif.io/api/image/{{ page.major }}.{{ page.minor }}/context.json` for version {{ page.major }}.{{ page.minor }} of the IIIF Image API. This document allows the response to be interpreted as RDF, using the [JSON-LD][json-ld-org] serialization. |
 | `@id` | Required | The Base URI of the image (as defined in [URI Syntax][uri-syntax], including scheme, server, prefix and identifier without a trailing slash. |
-| `width` | Required | The width of the full image. |
-| `height` | Required | The height of the full image. |
+| `width` | Required | The width in pixels of the full image, given as an integer. |
+| `height` | Required | The height in pixels of the full image, given as an integer. |
 | `protocol` | Required | The URI `http://iiif.io/api/image` which can be used to determine that the document describes an image service which is a version of the IIIF Image API. |
 | `profile` | Required | An array of profiles, indicated by either a URI or an object describing the features supported.  The first entry in the array _MUST_ be a compliance level URI, as defined below. |
-| scale_factors | Optional | Some image servers support the creation of multiple resolution levels for a single image in order to optimize the efficiency in delivering images of different sizes. The `scale_factors` property expresses a set of resolution scaling factors. For example, a scale factor of 4 indicates that the service can efficiently deliver images at 1/4 or 25% of the height and width of the full image. |
+| `scale_factors` | Optional | Some image servers support the creation of multiple resolution levels for a single image in order to optimize the efficiency in delivering images of different sizes. The `scale_factors` property expresses a set of resolution scaling factors. For example, a scale factor of 4 indicates that the service can efficiently deliver images at 1/4 or 25% of the height and width of the full image. |
 | `sizes` | Optional | A set of dimensions that the server has available, expressed in the "w,h" syntax. This may be used to let a client know the sizes that are available when the server does not support requests for arbitrary sizes, or simply as a hint that requesting an image of this size may result in a faster response. |
 | `tile_width` | Optional | Some image servers efficiently support delivery of predefined tiles enabling easy assembly of portions of the image. It is assumed that the same tile sizes are used for all scale factors supported. The `tile_width` property expresses the width of the predefined tiles. |
 | `tile_height` | Optional | The `tile_height` property expresses the height of the predefined tiles. See description of `tile_width` for more information. |
@@ -470,9 +470,9 @@ Image profiles have the following properties:
 
 | Property  | Required? | Description |
 | --------- | --------- | ----------- |
-| `formats` | Optional | The set of image format parameter values available for the image. |
-| `qualities` | Optional | The set of image quality parameter values available for the image. |
-| `supports` | Optional | The set of additional features supported beyond those declared in the compliance level document |
+| `formats` | Optional | The set of image format parameter values available for the image, beyond those declared in the compliance level document. |
+| `qualities` | Optional | The set of image quality parameter values available for the image, beyond those declared in the compliance level document. |
+| `supports` | Optional | The set of additional features supported beyond those declared in the compliance level document. |
 {: .image-api-table}
 
 The set of features that may be specified in the `supports` property of an Image profile are:
@@ -498,7 +498,9 @@ The set of features that may be specified in the `supports` property of an Image
 
 The set of features, formats and qualities supported is the union of those declared in all of the external profile documents and any embedded profile objects.  If a property is not present in either the profile document or the `supports` property of an embedded profile, then a client _MUST_ assume that the feature is not supported.
 
-The JSON response _MUST_ conform to the structure shown in the following example:
+If any of `formats`, `qualities`, or `supports` would have an empty list as its value, then the property _SHOULD_ be omitted from the response instead. 
+
+The JSON response _MUST_ conform to the structure shown in the following example. The order of the keys in the response _SHOULD_ follow the order in the following example.
 
 {% highlight json %}
 {
@@ -514,8 +516,8 @@ The JSON response _MUST_ conform to the structure shown in the following example
   "profile" : [
     "http://iiif.io/api/image/{{ page.major }}/level2.json",
     {
-      "formats" : [ "jpg", "png" ],
-      "qualities" : [ "default" ],
+      "formats" : [ "gif", "pdf" ],
+      "qualities" : [ "color", "gray" ],
       "supports" : [
           "canonical_link_header", "rotation_arbitrary"
       ]
@@ -524,27 +526,6 @@ The JSON response _MUST_ conform to the structure shown in the following example
 }
 {% endhighlight %}
 
-
-### 5.2 Extensions
-
-Local additions to the image information document _MAY_ be specified in two ways:
-
-1.  Extra properties _MAY_ be added to the document to provide information not defined in this specification. Clients _MUST_ ignore properties that are not understood.
-2.  URIs _MAY_ be added to the supports list of a profile to cover features not defined in this specification, and similarly clients _MUST_ ignore URIs that are not understood.
-
-{% highlight json %}
-{
-  "@context" : "http://iiif.io/api/image/{{ page.major }}/context.json",
-  // ...
-  "documentation" : "http://www.example.com/my/documentation.html",
-  // ...
-  "profile" : [
-    "http://iiif.io/api/image/{{ page.major }}/level2.json",
-    "http://www.example.com/my/profile-level-42.json",
-    {"supports" : ["http://www.example.com/my/feature.html"]}
-  ]
-}
-{% endhighlight %}
 
 ##  6. Compliance Levels
 
