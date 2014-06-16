@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <link rel="stylesheet" type="text/css" href="css/mirador-combined.min.css">
+  <title>Mirador Viewer</title>
+  <style type="text/css">
+    body { padding: 0; margin: 0; overflow: hidden; font-size: 70%; }
+    #viewer { background: #333 url(images/debut_dark.png) left top repeat; width: 100%; height: 100%; position: fixed; }
+  </style>
+</head>
+<body>
+  <div id="viewer"></div>
+
+  <script src="js/mirador.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+
+      Mirador({
+        "id": "viewer",
+        "data": [
+        { "manifestUri": "http://manifests.ydc2.yale.edu/manifest/Admont23.json", "location": "Yale University", "title": "Admont 23", "widgets": [] },
+        { "manifestUri": "http://manifests.ydc2.yale.edu/manifest/Admont43.json", "location": "Yale University", "title": "Admont 43", "widgets": [] },
+        { "manifestUri": "http://manifests.ydc2.yale.edu/manifest/BeineckeMS10.json", "location": "Yale University", "title": "Beinecke MS 10", "widgets": [] },
+        { "manifestUri": "http://manifests.ydc2.yale.edu/manifest/BeineckeMS109.json", "location": "Yale University", "title": "Beinecke MS 109", "widgets": [] },
+        { "manifestUri": "http://manifests.ydc2.yale.edu/manifest/BeineckeMS310.json", "location": "Yale University", "title": "Beinecke MS 310", "widgets": [{
+            "height": 500,
+            "type": "thumbnailsView",
+            "width": 400
+          }, {
+            "height": 500,
+            "type": "imageView",
+            "openAt": "Beinecke MS 310, 19v",
+            "width": 400
+          }]
+        },
+        { "manifestUri": "http://manifests.ydc2.yale.edu/manifest/BeineckeMS360.json", "location": "Yale University", "title": "Beinecke MS 360", "widgets": [] },
+        { "manifestUri": "http://manifests.ydc2.yale.edu/manifest/BeineckeMS525.json", "location": "Yale University", "title": "Beinecke MS 525", "widgets": [] },
+        { "manifestUri": "http://manifests.ydc2.yale.edu/manifest/BeineckeMS748.json", "location": "Yale University", "title": "Beinecke MS 748", "widgets": [] },
+        { "manifestUri": "http://manifests.ydc2.yale.edu/manifest/BeineckeMS758_5.json", "title": "Beinecke MS 758.5", "widgets": [] },
+        { "manifestUri": "http://manifests.ydc2.yale.edu/manifest/BodleianMSBodley113.json", "location": "Yale University", "title": "Bodleian MS Bodley 113", "widgets": [] },
+        { "manifestUri": "http://www.shared-canvas.org/impl/demo1d/res/manifest.json", "location": "Shared Canvas", "title": "Pierpont Morgan MS.804", "widgets": [  { "height": 500, "type": "thumbnailsView", "width": 500 } ] },
+        { "manifestUri": "http://manifests.ydc2.yale.edu/manifest/Osbornfa1.json", "location": "Yale University", "title": "Osborn fa1", "widgets": [] }
+        ]
+
+      });
+
+
+    });
+  </script>
+</body>
+</html>
