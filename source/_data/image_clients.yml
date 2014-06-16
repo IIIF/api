@@ -10,7 +10,7 @@
     [IIP demo page](http://iipimage.sourceforge.net/demo/) to see the IIP
     viewers in action.
 - name: Mirador
-  uri: http://dmstech.github.io/mirador/
+  uri: http://iiif.github.io/mirador/
   blurb:
   - >
     Mirador is an open source image, Javascript and HTML5 viewer that delivers

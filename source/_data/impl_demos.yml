@@ -1,40 +1,40 @@
 # Use Markdown in the blurb if necessary for links, etc. Each list entry in the blurb gets a <p>.
 - name: Stanford University Libraries - Mirador demo
-  uri: http://dmstech.github.io/mirador/demo/
+  uri: http://iiif.github.io/mirador/demo/
   blurb:
   - >
-    This demo of Mirador, developed by the Stanford University Libraries, allows 
-    the user to compare images from several different image repositories, 
+    This demo of Mirador, developed by the Stanford University Libraries, allows
+    the user to compare images from several different image repositories,
     including the Stanford Digital Repository, Yale University and Los Alamos
     National Labs.
 - name: Princeton University Libraries
   uri: http://libimages.princeton.edu/osd-demo/
   blurb:
   - >
-    This demonstration, hosted by the Princeton University Libraries, shows 
+    This demonstration, hosted by the Princeton University Libraries, shows
     images being served by Loris and viewed using OpenSeadragon.
 - name: The British Library
   uri: http://sanddragon.bl.uk/mirador/
   blurb:
   - >
-    The British Library deployed a demonstration of Mirador that allows the user 
-    to compare images from the British Library, Yale University and Stanford 
-    University. The BL adapted Mirador to display a YouTube video within the 
+    The British Library deployed a demonstration of Mirador that allows the user
+    to compare images from the British Library, Yale University and Stanford
+    University. The BL adapted Mirador to display a YouTube video within the
     viewer that can be played while inspecting images.
 - name: Shared Canvas
   uri: http://www.shared-canvas.org/impl/
   blurb:
   - >
-    The Shared Canvas project has a variety of sample implementations that 
-    illustrate the power of the Shared Canvas data model (which is the basis of 
-    the IIIF Presentation API).  The image servers behind the demos are IIIF 
+    The Shared Canvas project has a variety of sample implementations that
+    illustrate the power of the Shared Canvas data model (which is the basis of
+    the IIIF Presentation API).  The image servers behind the demos are IIIF
     compatible.
 - name: Biblissima - Mirador Demo
   uri: http://demos.biblissima-condorcet.fr/mirador/
   blurb:
   - >
-    The [Biblissima Project](http://www.biblissima-condorcet.fr/) is a hub for 
-    digital humanities projects in France that is focused on the written cultural 
-    heritage of the Middle Ages and the Renaissance. They have an implementation 
-    of Mirador that currently shows content hosted at multiple institutions and 
+    The [Biblissima Project](http://www.biblissima-condorcet.fr/) is a hub for
+    digital humanities projects in France that is focused on the written cultural
+    heritage of the Middle Ages and the Renaissance. They have an implementation
+    of Mirador that currently shows content hosted at multiple institutions and
     will, increasingly, provide access to French content.
