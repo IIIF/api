@@ -464,15 +464,19 @@ The JSON in the response will include the following properties:
 | `scale_factors` | Optional | Some image servers support the creation of multiple resolution levels for a single image in order to optimize the efficiency in delivering images of different sizes. The `scale_factors` property expresses a set of resolution scaling factors. For example, a scale factor of 4 indicates that the service can efficiently deliver images at 1/4 or 25% of the height and width of the full image. |
 | `tile_width` | Optional | Some image servers efficiently support delivery of predefined tiles enabling easy assembly of portions of the image. It is assumed that the same tile sizes are used for all scale factors supported. The `tile_width` property expresses the width of the predefined tiles. |
 | `tile_height` | Optional | The `tile_height` property expresses the height of the predefined tiles. See description of `tile_width` for more information. |
+| `service` | Optional | The `service` property provides a hook for additional information to be included in the image description, for example the physical size of the object depicted.  Please see the [Service Profiles][service-profiles] annex for more information. |
 {: .image-api-table}
 
 Image profiles have the following properties:
 
-| Property  | Required? | Description |
-| --------- | --------- | ----------- |
-| `formats` | Optional | The set of image format parameter values available for the image, beyond those declared in the compliance level document. |
-| `qualities` | Optional | The set of image quality parameter values available for the image, beyond those declared in the compliance level document. |
-| `supports` | Optional | The set of additional features supported beyond those declared in the compliance level document. |
+| Property    | Required? | Description |
+| ----------- | --------- | ----------- |
+| `@context`  | Optional  | The string "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json". This should be included only if the profile's URI is dereferenced. |
+| `@id`       | Optional  | The URI of the profile. |
+| `@type`     | Optional  | The string "iiif:ImageProfile" |
+| `formats`   | Optional  | The set of image format parameter values available for the image. |
+| `qualities` | Optional  | The set of image quality parameter values available for the image. |
+| `supports`  | Optional  | The set of additional features supported beyond those declared in the compliance level document |
 {: .image-api-table}
 
 The set of features that may be specified in the `supports` property of an Image profile are:
@@ -496,11 +500,13 @@ The set of features that may be specified in the `supports` property of an Image
 | `size_by_wh` |   Size of images may be requested in the form "w,h"  |
 {: .image-api-table}
 
-The set of features, formats and qualities supported is the union of those declared in all of the external profile documents and any embedded profile objects.  If a property is not present in either the profile document or the `supports` property of an embedded profile, then a client _MUST_ assume that the feature is not supported.
+The set of features, formats and qualities supported is the union of those declared in all of the external profile documents and any embedded profile objects.  If a feature is not present in either the profile document or the `supports` property of an embedded profile, then a client _MUST_ assume that the feature is not supported.
 
 If any of `formats`, `qualities`, or `supports` would have an empty list as its value, then the property _SHOULD_ be omitted from the response instead. 
 
-The JSON response _MUST_ conform to the structure shown in the following example. The order of the keys in the response _SHOULD_ follow the order in the following example.
+URIs _MAY_ be added to the supports list of a profile to cover features not defined in this specification. Clients _MUST_ ignore URIs that are not understood.
+
+The JSON response is structured as shown in the following example. The order of the keys in the response _SHOULD_ follow the order in the example.
 
 {% highlight json %}
 {
@@ -519,10 +525,16 @@ The JSON response _MUST_ conform to the structure shown in the following example
       "formats" : [ "gif", "pdf" ],
       "qualities" : [ "color", "gray" ],
       "supports" : [
-          "canonical_link_header", "rotation_arbitrary"
+          "canonical_link_header", "rotation_arbitrary", "http://example.com/feature/"
       ]
     }
-  ]
+  ],
+  "service" : {
+    "@context": "http://iiif.io/api/annex/service/physdim/1.0/context.json",
+    "profile": "http://iiif.io/api/annex/service/physdim",
+    "physical_scale": 0.0025,
+    "physical_units": "in"
+  }
 }
 {% endhighlight %}
 
@@ -661,6 +673,7 @@ Many thanks to  Ben Albritton, Matthieu Bonicel, Anatol Broder, Kevin Clarke, To
 [versioning]: /api/annex/notes/semver.html "Versioning of APIs"
 [prezi-api]: /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/ "Presentation API"
 [apache-aesnd]: http://httpd.apache.org/docs/2.2/mod/core.html#allowencodedslashes "Allow Encoded Slashes directive"
+[service-profiles]: /api/annex/services/ "Services Annex Document"
 
 [audience-and-scope]: #audience-and-scope "1. Audience and Scope"
 [uri-syntax]: #uri-syntax "2. URI Syntax"

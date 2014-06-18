@@ -90,9 +90,16 @@ Rotation in multiples of 90 was previously a level 1 requirement. As this can be
 
 The rotation value may now be preceded by an exclamation mark to specify mirroring about the vertical axis before rotation. The motivating use cases are display of negatives, reflection to support a carousel display, and support for reading bleed through text. 
 
+### Added `services` property to Image Information document
+
+In order to provide the same extension point as is in the [Presentation API][prezi-api], the `services` property was added to info.json.  The predominant use case is recording pixels per inch, via the same mechanism as providing the size of the physical object in the Presentation API.  The [Services Annex][services] specifies which services can be used with which APIs.
+
+
 ### Added `sizes` property to Image Information document
 
 Servers that do not support arbitrary size parameters for image requests may still wish make multiple sizes of an image available. The sizes that are available may be listed using the `w,h` syntax in the `sizes` property. Even when a server does support arbitrary resizing, it may be useful to report pre-cached or otherwise recommended sizes of an image, e.g. thumbnails.
+
+
 
 ### Published JSON-LD Context
 
@@ -110,7 +117,6 @@ As transition to JSON-LD (since it is not fully supported by browsers), clients 
 [info-request]: /api/image/2.0/#information-request "Image API Section 5. Information Request"
 [compliance-doc]: /api/image/2.0/compliance.html "Image API 2.0 Compliance Document"
 [context]: /api/image/2/context.json  "Image API 2.0 JSON-LD Context"
-[extensions]: /api/image/2.0/#extensions "Image API 4.7. Canonical URI Syntax"
 [http-features]: /api/image/2.0/compliance.html#http-features "Image API Compliance: HTTP Features"
 [imagemagick-output]: http://www.imagemagick.org/script/command-line-processing.php#output "ImageMagick: Command-line Processing: Output Filename"
 [kdu-usage]: http://www.kakadusoftware.com/documents/Usage_Examples.txt "Usage Examples for the Demonstration Applications Supplied with Kakadu V7.0"
@@ -119,5 +125,7 @@ As transition to JSON-LD (since it is not fully supported by browsers), clients 
 [rfc-2119]: http://tools.ietf.org/html/rfc2119 "Key words for use in RFCs to Indicate Requirement Levels"
 [semver]: http://semver.org/ "Semantic Versioning Specification"
 [versioning]: /api/image/2.0/#b-versioning "Image API Appendix B: Versioning"
+[prezi-api]: /api/presentation/2.0/
+[services]: /api/annex/services/
 
 {% include acronyms.md %}
