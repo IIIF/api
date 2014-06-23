@@ -461,10 +461,9 @@ The JSON at the top level of the response will include the following properties:
 | `height` | Required | The height in pixels of the full image content, given as an integer. |
 | `profile` | Required | An array of profiles, indicated by either a URI or an object describing the features supported.  The first entry in the array _MUST_ be a compliance level URI, as defined below. |
 | `sizes` | Optional | A set of descriptions of the parameters to use to request complete images at different sizes that the server has available. This may be used to let a client know the sizes that are available when the server does not support requests for arbitrary sizes, or simply as a hint that requesting an image of this size may result in a faster response. |
-| `tiles` | Optional | A set of descriptions of the parameters to use to request regions of the image (tiles) that are efficient for the server to deliver.
+| `tiles` | Optional | A set of descriptions of the parameters to use to request regions of the image (tiles) that are efficient for the server to deliver. Each description gives a height and width plus a set of scale factors at which tiles of those dimensions are available. |
 | `service` | Optional | The `service` property provides a hook for additional information to be included in the image description, for example the physical size of the object depicted.  Please see the [Service Profiles][service-profiles] annex for more information. |
 {: .image-api-table}
-
 
 The objects in the `sizes` list have the properties in the following table.  Images requested using these sizes _SHOULD_ have a region parameter of "full" and rotation of "0". The full URL would be: `{base_url}/{identifier}/full/{width},{height}/0/default.jpg`
 
@@ -474,7 +473,6 @@ The objects in the `sizes` list have the properties in the following table.  Ima
 | `height` | Required | The height of the image to be requested. |
 | `viewing_hint` | Optional | A string giving a hint to the intended use of the size.  It may have any value, but the following are recommended: `icon`, `thumbnail`, `small`, `medium`, `large`, `xlarge` |
 {: .image-api-table}
-
 
 The objects in the `tiles` list have the properties in the following table.  The `width` and `height` should be used to fill the region parameter and the `scale_factors` to complete the size parameter of the image URL. This is described in detail in the [XXX-SIMEON-XXX][] implementation note.
 
@@ -534,7 +532,6 @@ The JSON response is structured as shown in the following example. The order of 
   "protocol" : "http://iiif.io/api/image",
   "width" : 6000,
   "height" : 4000,
-
   "sizes" : [
     {"width" : 150, "height" : 100, "viewing_hint" : "thumbnail"},
     {"width" : 600, "height" : 400, "viewing_hint" : "small"},
@@ -543,7 +540,6 @@ The JSON response is structured as shown in the following example. The order of 
   "tiles": [
     {"width" : 512, "scale_factors" : [1,2,4,8,16]}
   ],
-
   "profile" : [
     "http://iiif.io/api/image/{{ page.major }}/level2.json",
     {
