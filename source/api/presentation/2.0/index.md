@@ -28,7 +28,7 @@ _Copyright © 2012-2014 Editors and contributors. Published by the IIIF under th
 
 ## Abstract
 {:.no_toc}
-This document describes an API to deliver structural and presentation information about digital content proposed by the International Image Interoperability Framework (IIIF) group. The IIIF Presentation API specifies a web service that returns JSON-LD structured documents that together describe how the structure and layout of a digitized object can be made available in a standard manner. Many different styles of viewer can be implemented that consume the information to enable a rich and dynamic experience for their users across collections and hosting institutions.
+This document describes an API to deliver structural and presentation information about digital content proposed by the International Image Interoperability Framework (IIIF) group. The IIIF Presentation API specifies a web service that returns JSON-LD structured documents that together describe the structure and layout of a digitized object or other collection of images and related content. Many different styles of viewer can be implemented that consume the information to enable a rich and dynamic user experience, consuming content from across collections and hosting institutions.
 
 Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss]
 
@@ -42,15 +42,15 @@ Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss]
 
 Access to image-based resources is fundamental to many research disciplines, scholarship and the transmission of cultural knowledge. Digital images are a container for much of the information content in the Web-based delivery of images, museum objects, books, newspapers, letters, manuscripts, maps, scrolls, single sheet collections, and digital surrogates of textiles, realia and ephemera.  Collections of born-digital images can also benefit from a standardized method to structure their layout and presentation, such as slideshows, image carousels, web comics, and more.
 
-This document describes how the structure and layout of a complex image-based object can be made available in a standard manner. Many different styles of viewer can be implemented that consume the information to enable a rich and dynamic experience for their users across collections and hosting institutions.
+This document describes how the structure and layout of a complex image-based object can be made available in a standard manner. Many different styles of viewer can be implemented that consume the information to enable a rich and dynamic experience, consuming content from across collections and hosting institutions.
 
-An object may comprise a series of pages, surfaces or other views; for example the single view of a painting, the two sides of a photograph, four cardinal views of a statue, or the many pages of an edition of a newspaper or book. As such the primary requirements for the Presentation API are to provide an order for these views, the resources needed to display a representation of the view, and the information needed to allow the user to understand what is being seen.
+An object may comprise a series of pages, surfaces or other views; for example the single view of a painting, the two sides of a photograph, four cardinal views of a statue, or the many pages of an edition of a newspaper or book. The primary requirements for the Presentation API are to provide an order for these views, the resources needed to display a representation of the view, and the descriptive information needed to allow the user to understand what is being seen.
 
-The principles of [Linked Data][linked-data] and the [Architecture of the Web][web-arch] are adopted in order to provide a distributed and interoperable system. The [Shared Canvas data model][shared-canvas] is leveraged in a specific, JSON-based format that is easy to implement without understanding RDF, but is still compatible with it.
+The principles of [Linked Data][linked-data] and the [Architecture of the Web][web-arch] are adopted in order to provide a distributed and interoperable system. The [Shared Canvas data model][shared-canvas] is leveraged in a specific, JSON-based format that is easy to implement without understanding RDF, while still being completely compatible with it.
 
 ### 1.1. Objectives and Scope
 
-The objective of the IIIF Presentation API is to provide the information necessary to allow a rich, online viewing environment for primarily image-based objects to be presented to a user, likely in conjunction with the [IIIF Image API][image-api]. This is the sole purpose of the API; to provide easy access to the information necessary for a viewer to present an appropriate user experience for the digitized content. Therefore the descriptive information is given in a way that is intended for humans to read, but not semantically available to machines. In particular, it explicitly does __not__ aim to provide metadata that would drive discovery of the digitized objects.
+The objective of the IIIF Presentation API is to provide the information necessary to allow a rich, online viewing environment for primarily image-based objects to be presented to a human user, likely in conjunction with the [IIIF Image API][image-api]. This is the sole purpose of the API and therefore the descriptive information is given in a way that is intended for humans to read, but not semantically available to machines. In particular, it explicitly does __not__ aim to provide metadata that would drive discovery of the digitized objects.
 
 The following are within the scope of the current document:
 
@@ -61,41 +61,15 @@ The following are within the scope of the current document:
 The following are __not__ within scope:
 
   * The discovery or selection of interesting digitized objects is not directly supported, however hooks to reference further resources are available.
-  * Search within the object is not supported by the Presentation API; however this will be covered by a further related specification.
+  * Search within the object is not supported by the Presentation API; however this will be covered by a future IIIF specification.
 
-Note that in the following descriptions, "[physical] object" is used to refer to a physical object that has been digitized or the born-digital compound object, and "resources" refer to the digital resources that are the result of that digitization or creation process.
+Note that in the following descriptions, "[physical] object" is used to refer to a physical object that has been digitized or a born-digital compound object, and "resources" refer to the digital resources that are the result of that digitization or digital creation process.
 
 ##  2. Motivating Use Cases
 
-There are many different types of digitized resources, from ancient scrolls to modern newspapers, from medieval manuscripts to printed books, and from large maps to small photographs. Many of them bear texts, sometimes difficult to read either due to the decay of the physical object or lack of understanding of the script or language. The following use cases are motivations for this specification.
+There are many different types of digitized or digital compound objects, from ancient scrolls to modern newspapers, from medieval manuscripts to online comics, and from large maps to small photographs. Many of them bear texts, sometimes difficult to read either due to the decay of the physical object or lack of understanding of the script or language.  These use cases are described in a separate [document][use-case-doc]
 
-* A medieval manuscript that has had each page digitized, and the user should be able to step from the first page through to the end to view the images
-* An early printed book that has had each page digitized and the transcribed text associated with each page.
-* A large map where the image depicting it can be zoomed and panned for ease of inspection.
-* A digitized newspaper with the text extracted automatically by Optical Character Recognition and linked to the individual line in its depiction
-* A photograph, digitized front and back.
-* A manuscript that has been disbound and is now separated across different institutions, some of which have digitized their leaves.
-* An important diary that has had multiple digitizations over time as technology improves, any of which should be available to the user to compare
-* A painting that has been re-used by erasing the original and painting over top of it, where the original artwork can be recovered using modern techniques of multi-spectral imaging.
-* A manuscript where different, multi-spectral images of a single page, taken for the text reconstruction, are available to be displayed.
-* A letter where pages are known to have existed, but have been lost or still exist but are too fragile to digitize without destroying them.
-* Objects that are not basically rectangular.
-* A page where only fragments of it remain, and they are not rectangular. These fragments are often digitized together, regardless of the page that they originally came from, and must be able to be associated with the correct pages separately.
-* The same fragment, where the text is known from other witnesses, or can be otherwise inferred, which should be associated in the display of the object even though the physical content no longer exists.
-* Older projects which only digitized the "interesting" sections of an object, such as the interesting or famous parts. Equivalently, they may have digitized those sections in more detail, and the rest to a lower quality.
-* Disagreement between scholars as to the correct reconstruction of an object.
-* A score where the music has been transcribed into modern notation, which should be associated with the page in the same way as transcribed text.
-* The same score, where the music has been performed and recorded, which should be associated with the page so that the performance can be played to the user.
-* Transcription of diagrams, formulae, charts or tables into individual images, or other digitally accessible resources.
-* Structured texts, including chapters, sections, verses, books, articles, texts, where the structure is important for navigation around the document.
-* Manuscripts that have been re-ordered, intentionally or otherwise, over time and the different sequences of pages are known.
-* Books that have had additional fly-leaves or other artifacts added to them over time which are now historically important, but the user should be able to display the object as it was before they were added.
-* Pages with foldouts, curtains or other additions that can be dynamically interacted with by the user to experience the different states that the object can be in.
-* Multiple transcriptions, editions, translations or other sets of information that should be associated with the digitized object in a coherent and consistent fashion.
-
-Collectively these use cases require a model in which one can characterize the digitized object (via the _manifest_ resource), the order in which individual pages or surfaces are presented (the _sequence_ resource), and the individual pages or surfaces (_canvas_ resources). Each canvas may have images and/or texts associated with it (_content_ resources) to allow the page to be rendered. An object may also have parts; for example, a book may have chapters where several pages may be associated with a single chapter (a _range_ resource) or there may be groups of content resource above the page level, such as all of the texts that make up a single transcription of a manuscript (a _layer_ resource).
-
-The need for these conceptual components, shown in italics above, was recognized in earlier work concerned with viewing complex digitized manuscripts. The IIIF Presentation model is derived from this earlier work but has been extended to meet the additional practical needs when viewing and navigating other types of digitized content. The components and their use are described in the following sections.
+Collectively the use cases require a model in which one can characterize the object (via the _manifest_ resource), the order in which individual surfaces or views are presented (the _sequence_ resource), and the individual surfaces or views (_canvas_ resources). Each canvas may have images and/or other content resources associated with it (_content_ resources) to allow the view to be rendered. An object may also have parts; for example, a book may have chapters where several pages may be associated with a single chapter (a _range_ resource) or there may be groups of content resource above the page level, such as all of the texts that make up a single edition of a book (a _layer_ resource).  These resource types, along with their properties, make up the IIIF Presentation API.
 
 ##  3. Primary Resource Types
 
@@ -106,49 +80,49 @@ The need for these conceptual components, shown in italics above, was recognized
 This specification makes use of the following primary resource types:
 
 Manifest
-:    The overall description of the structure of the digital representation of an object and the content resources needed to render it. It carries information needed for the viewer to present the digitized content to the user, such as a title and other descriptive information about the object or the intellectual work that it conveys. Typically, each manifest will describe how to present a single, digitized object such as a book, photograph, map, scroll, music score, letter, or statue.
+:    The overall description of the structure and properties of the digital representation of an object. It carries information needed for the viewer to present the digitized content to the user, such as a title and other descriptive information about the object or the intellectual work that it conveys. Each manifest describes how to present a single object such as a book, a photograph, or a statue.
 
 Sequence
-:    The order of the views of a physical object. As books may be rebound over time or the page order otherwise change, multiple sequences are allowed.
+:    The order of the views of a physical object. Multiple sequences are allowed to cover situations when there are multiple equally valid orders through the content, such as when a manuscript's pages are rebound or archival collections are reordered.
 
 Canvas
-:    A container that represents a page or view and has content resources associated with it or with parts of it. The canvas provides a frame of reference for the layout of the page. The concept of a canvas is borrowed from standards like PDF and HTML, or applications like Photoshop and Powerpoint, where the display starts from a blank canvas and images, text and other resources are "painted" on to it.
+:    A virtual container that represents a page or view and has content resources associated with it or with parts of it. The canvas provides a frame of reference for the layout of the page. The concept of a canvas is borrowed from standards like PDF and HTML, or applications like Photoshop and Powerpoint, where the display starts from a blank canvas and images, text and other resources are "painted" on to it.
 
 Content
 :    Content resources such as images or texts that are associated with a canvas.
 
 Each manifest _MUST_, and is very likely to, have one sequence, but _MAY_ have more than one. Each sequence _MUST_ have at least one canvas and is likely to have more than one. Each canvas _SHOULD_ have one or more content resources associated with it. Zero is possible but unlikely; it represents the case where the page exists (or existed) but has not been digitized.
 
-There are other types of resources including annotation lists, annotations, ranges and layers, which are discussed later.
+There are other types of resources including annotation lists, annotations, ranges, layers and collections, which are discussed later.
 
-##  4. Presentation Fields
+##  4. Presentation Resource Properties
 
-The following fields are defined by this specification, broken into four sections. Each field is repeatable, and most may be associated with any of the resource types:
+This specification defines properties in four distinct areas. Most of the properties may be associated with any of the resource types, and may have more than one value.
 
-####  4.1. Descriptive Fields
+####  4.1. Descriptive Properties
 
 label
-:   A human readable label, name or title for the object. This field is intended to be displayed as a short surrogate for the resource if a human needs to make a distinction between it and similar resources, for example between pages or between a choice of images to display.
+:   A human readable label, name or title for the object. This property is intended to be displayed as a short, textual surrogate for the resource if a human needs to make a distinction between it and similar resources, for example between pages or between a choice of images to display.
 
     Usage:
     {: .usage}
-    * A manifest _MUST_ have a label, and it _SHOULD_ be the name of the physical object or title of the intellectual work that it embodies.
+    * A manifest _MUST_ have a label, and it _SHOULD_ be the name of the object or title of the intellectual work that it embodies.
     * A sequence  _MAY_ have a label, and if there are multiple sequences in a single manifest then they _MUST_ have labels. The label _SHOULD_ briefly convey the nature of sequence, such as "Current Page Order".
-    * A canvas _MUST_ have a label, and it _SHOULD_ be the page or view label such as "p. 1", "folio 1 recto", or "north view".
+    * A canvas _MUST_ have a label, and it _SHOULD_ be the page or view label such as "p. 1", "front", or "north view".
     * A content resource _MAY_ have a label, and if there is a choice of content resource for the same canvas, then they _MUST_ have labels. The label _SHOULD_ be a brief description of the resource, such as "black and white" versus "color photograph"
 
 metadata
-:   A list of short descriptive entries, given as pairs of human readable label and value to be displayed to the user. The value _SHOULD_ be either simple HTML, including links and text markup, or plain text, and the label _SHOULD_ be plain text. There are no semantics conveyed by this information, and clients _SHOULD NOT_ use it for discovery or other purposes. This pool of descriptive pairs _SHOULD_ be able to be displayed in a tabular form in the user interface. Clients _SHOULD_ have a way to display the information about manifests and canvases, and _MAY_ have a way to view the information about other resources. The client _SHOULD_ display the pairs in the order provided by the description. A pair might be used to convey the author of the work, information about its creation, a brief physical description, or ownership information, amongst other use cases. The client is not expected to take any action on this information beyond displaying the label and value. An example pair of label and value might be a label of "Author" and a value of "Jehan Froissart".
+:   A list of short descriptive entries, given as pairs of human readable label and value to be displayed to the user. The value _SHOULD_ be either simple HTML, including links and text markup, or plain text, and the label _SHOULD_ be plain text. There are no semantics conveyed by this information, and clients _SHOULD NOT_ use it for discovery or other purposes. This list of descriptive pairs _SHOULD_ be able to be displayed in a tabular form in the user interface. Clients _SHOULD_ have a way to display the information about manifests and canvases, and _MAY_ have a way to view the information about other resources. The client _SHOULD_ display the pairs in the order provided by the description. A pair might be used to convey the author of the work, information about its creation, a brief physical description, or ownership information, amongst other use cases. The client is not expected to take any action on this information beyond displaying the label and value. An example pair of label and value might be a label of "Author" and a value of "Jehan Froissart".
 
     Usage:
     {: .usage}
     * A manifest _SHOULD_ have metadata pairs associated with it describing the object or work.
     * A sequence _MAY_ have metadata pairs associated with it to describe the difference between it and other sequences.
-    * A canvas _MAY_ have metadata pairs associated with it to describe particular features of that canvas compared to others.
+    * A canvas _MAY_ have metadata pairs associated with it to describe its particular features.
     * A content resource _MAY_ have metadata pairs associated with it.
 
 description
-:   A longer-form prose description of the object, intended to be conveyed to the user as a full text description, rather than a simple label and value. It can duplicate any of the above information, along with additional information required for the understanding of the digitized object, description of the physical object, bibliographic information and so forth. Like with the pairs in `metadata`, clients _SHOULD_ have a way to display the descriptions of manifests and canvases, and _MAY_ have a way to view the information about other resources.
+:   A longer-form prose description of the object or resource, intended to be conveyed to the user as a full text description, rather than a simple label and value. It can duplicate any of the above information, along with additional information required to understand what is being displayed. Clients _SHOULD_ have a way to display the descriptions of manifests and canvases, and _MAY_ have a way to view the information about other resources.
 
     Usage:
     {: .usage}
@@ -158,7 +132,7 @@ description
     * A content resource _MAY_ have a description.
 
 thumbnail
-:   A small image that represents the content of the object, such as the title page or significant image.  It is _recommended_{: .rfc} that a [IIIF Image API][image-api] service be available for this image for rescaling.
+:   A small image that represents the content of the object, such as the title page or significant image.  It is _RECOMMENDED_ that a [IIIF Image API][image-api] service be available for this image for manipulations such as resizing.
 
     Usage:
     {: .usage}
@@ -167,33 +141,33 @@ thumbnail
     * A canvas _MAY_ have a thumbnail, particularly if there are multiple images or resources that make up the representation.
     * A content resource _MAY_ have a thumbnail, particularly if there is a choice of resource.
 
-####  4.2. Rights and Licensing Fields
+####  4.2. Rights and Licensing Properties
 
 attribution
-:   A human readable label that _MUST_ be displayed when the resource it is associated with is displayed or used. For example this could be used to present copyright or ownership, or simply an acknowledgement of the owning and/or publishing institutions.
+:   A human readable label that _MUST_ be displayed when the resource it is associated with is displayed or used. For example, this could be used to present copyright or ownership, or simply an acknowledgement of the owning and/or publishing institutions.
 
     Usage:
     {: .usage}
     * Any resource _MAY_ have an attribution label
 
 logo
-:   A small image that represents an individual or organization associated with the object.  This could be the logo of the owning or hosting institution.  It is _recommended_{: .rfc} that a [IIIF Image API][image-api] service be available for this image for rescaling.
+:   A small image that represents an individual or organization associated with the object.  This could be the logo of the owning or hosting institution.  It is _RECOMMENDED_ that a [IIIF Image API][image-api] service be available for this image for manipulations such as resizing.
 
     Usage:
     {: .usage}
     * Any resource _MAY_ have a logo associated with it
 
 license
-:   A link to a resource that describes the license or rights statement under which the resource is being used. The rationale for this being a URI and not a human readable label is that typically there is one license for many resources, and the text is too long to be displayed to the user along with the object. If displaying the text is a requirement, then it is _recommended_{: .rfc} to include the information in an `attribution` field instead.
+:   A link to a resource that describes the license or rights statement under which the resource is being used. The rationale for this being a URI and not a human readable label is that typically there is one license for many resources, and the text is too long to be displayed to the user along with the object. If displaying the text is a requirement, then it is _RECOMMENDED_ to include the information using the `attribution` property instead.
 
     Usage:
     {: .usage}
     * Any resource _MAY_ have a license associated with it
 
-####  4.3. Technical Fields
+####  4.3. Technical Properties
 
 @id
-:   The URI that identifies the resource. Recommended URI patterns are presented below.
+:   The URI that identifies the resource. Recommended URI patterns for the different classes of resource are given below.
 
     Usage:
     {: .usage}
@@ -203,14 +177,14 @@ license
     * A content resource _MUST_ have an id unless it is embedded in the response, and it _MUST_ be the http[s] URI at which the resource is published.
 
 @type
-:   The type of the resource, either manifest/sequence/canvas or drawn from a list of high level content types such as image, text or audio.
+:   The type of the resource, drawn from this specification or a list of high level content types such as image, text or audio.
 
     Usage:
     {: .usage}
     * All resources _MUST_ have a type specified.
 
 format
-:   The more specific media type (often called a MIME type) of a content resource, for example "image/jpeg". This is important for distinguishing, for example, text in XML from plain text.
+:   The specific media type (often called a MIME type) of a content resource, for example "image/jpeg". This is important for distinguishing text in XML from plain text, for example.
 
     Usage:
     {: .usage}
@@ -234,7 +208,7 @@ width
     * As for height above
 
 viewing_direction
-:   The direction that canvases should be presented in a viewer for the object. Valid values are:
+:   The direction that canvases should be presented in a viewer for the object. Possible values are:
 
     * "left-to-right": The object is read from left to right, and is the default if not specified
     * "right-to-left": The object is read from right to left
@@ -243,17 +217,17 @@ viewing_direction
 
     Usage:
     {: .usage}
-    * A manifest _MAY_ have a viewing direction, and if so, it applies to all of its sequences.
+    * A manifest _MAY_ have a viewing direction, and if so, it applies to all of its sequences unless the sequence specifies its own viewing direction.
     * A sequence _MAY_ have a viewing direction, and it MAY be different to that of the manifest.
     * A canvas or content resource _MUST NOT_ have a viewing direction.
-    * A range _MAY_ have a viewing direction.
+    * A range or layer _MAY_ have a viewing direction.
 
 viewing_hint
 :   A hint to the viewer as to the most appropriate method of displaying the resource. Any value may be given, and this specification defines the following:
 
-    * "individuals": Valid on manifest, sequence and range. The canvases are all individual sheets, and should not be presented in a page-turning interface. For example a sequence of letters or photographs.
-    * "paged": Valid on manifest, sequence and range. The canvases represent pages in a bound volume, and should be presented in a page-turning interface.  The first canvas is a single view (the first recto) and thus the second canvas represents the back of the first canvas.
-    * "continuous": Valid on manifest, sequence and range.  The canvases each represent a complete side of a long scroll or roll and an appropriate rendering might only display part of the canvas at any given time rather than the entire object.
+    * "individuals": Valid on manifest, sequence and range. The canvases referenced from the resource are all individual sheets, and _SHOULD NOT_ be presented in a page-turning interface. Examples include a set of views of a 3 dimensional object, or a set of the front sides of photographs in a collection.
+    * "paged": Valid on manifest, sequence and range. The canvases represent pages in a bound volume, and _SHOULD_ be presented in a page-turning interface if one is available.  The first canvas is a single view (the first recto) and thus the second canvas represents the back of the object in the first canvas.
+    * "continuous": Valid on manifest, sequence and range.  Each canvas is the complete view of one side of a long scroll or roll and an appropriate rendering might only display part of the canvas at any given time rather than the entire object.
     * "non-paged": Only valid on a canvas and when the manifest or sequence has a `viewing_hint` of "paged".  Canvases with this hint _MUST NOT_ be presented in a page turning interface, and _MUST_ be skipped over when determining the page sequence.
     * "start": Only valid on a canvas. A client _SHOULD_ advance to the canvas with this `viewing_hint` when beginning navigation through a sequence.  This allows the client to start with the first canvas that contains interesting content rather than requiring the user to skip past blank or empty canvases manually.
     * "top": Only valid on a range. A range which has this `viewing_hint` is the top-most node in a hierarchy of ranges that represents a structure to be rendered by the client to assist in navigation. For example, a table of contents within a paged object, major sections of a 3d object, the textual areas within a single scroll, and so forth.  Other ranges that are descendants of the "top" range are the entries to be rendered in the navigation structure.  There _MAY_ be multiple ranges marked with this hint. If so, the client _SHOULD_ display a choice of multiple structures to navigate through.
@@ -264,17 +238,17 @@ viewing_hint
     * A canvas _MAY_ have a viewing hint, and if so it _must_ be either "non-paged" or "start".  "non-paged" is only valid if the canvas is within a manifest, sequence or range that is "paged", and the particular canvas _MUST NOT_ be displayed in a page-turning viewer. A canvas _must not_{:. rfc} be both "non-paged" and "start".
     * A content resource _MAY_ have a viewing hint but there are no defined values in this specification.
 
-####  4.4. Linking Fields
+####  4.4. Linking Properties
 
 related
-:   A link to an external resource that is related to the current resource and intended for rendering to the user, such as a video or academic paper about a manuscript, a link to the website of the newspaper, a description of the photograph, and so forth. A label and the format of the target resource _SHOULD_ be given if possible to assist clients in rendering the resource.
+:   A link to an external resource that is related to the current resource and intended for rendering directly to the user, such as a video or academic paper about a manuscript, a link to the website of the newspaper, an HTML description of the photograph, and so forth. A label and the format of the target resource _SHOULD_ be given if possible to assist clients in rendering the resource.
 
     Usage:
     {: .usage}
     * Any resource _MAY_ have an external resource related to it.
 
 service
-:   A link to a service that makes more functionality available for the resource, such as from an image to the base URI of an [IIIF Image API][image-api] service. The service resource _SHOULD_ have additional information associated with it in order to allow the client to determine how to make appropriate use of it, such as a `profile` link to a service description. It _MAY_ also have relevant information copied from the service itself. This duplication is permitted in order to increase the performance of rendering the object without necessitating additional HTTP requests.
+:   A link to a service that makes more functionality available for the resource, such as from an image to the base URI of an associated [IIIF Image API][image-api] service. The service resource _SHOULD_ have additional information associated with it in order to allow the client to determine how to make appropriate use of it, such as a `profile` link to a service description. It _MAY_ also have relevant information copied from the service itself. This duplication is permitted in order to increase the performance of rendering the object without necessitating additional HTTP requests.
 
     Usage:
     {: .usage}
@@ -295,11 +269,11 @@ within
     {: .usage}
     * Any resource _MAY_ be within a containing resource.
 
-These metadata fields and requirements are depicted in the diagram below.
+These metadata properties and requirements are depicted in the diagram below.
 
 ![Cardinality of Fields](img/cardinality.png){: .h400px}
 
-Other metadata fields are possible, either via custom extensions or endorsed by the IIIF. If a client discovers fields that it does not understand, then it _MUST_ ignore them.
+Other properties are possible, either via custom extensions or endorsed by the IIIF. If a client discovers properties that it does not understand, then it _MUST_ ignore them.
 
 ##  5. Requests and Responses
 
@@ -323,7 +297,7 @@ Where the parameters are:
 | scheme | Indicates the use of the http or https protocol in calling the service. |
 | server | The host server (and optional port) on which the service resides. |
 | prefix | The path on the host server to the service. This prefix is optional, but may be useful when the host server supports multiple services. The prefix _MAY_ contain multiple path segments, delimited by slashes, but all other special characters _MUST_ be encoded. |
-| identifier | The identifier of the requested image, expressed as a string. This may be an ark, URN, filename, or other identifier. Special characters _MUST_ be URI encoded. |
+| identifier | The identifier for the object or collection, expressed as a string. This may be an ark, URN, or other identifier. Special characters _MUST_ be URI encoded. |
 {: .image-api-table}
 
 The individual resources _MAY_ have URIs below this top-level pattern by appending a "/" and additional information to identify the resource. If a client requests a URI without a trailing ".json", then the server _SHOULD_ return the JSON representations defined below.
@@ -332,11 +306,11 @@ The individual resources _MAY_ have URIs below this top-level pattern by appendi
 
 ####  5.2.1 HTTP Details
 
-The format for all responses is JSON, and the sections below describe the structure to be returned in more detail. The primary response is when the manifest is requested and, for optimization reasons, this _MUST_ return the manifest with the default sequence, canvases and associations for image content resources embedded within it. Additional sequences and associations _MAY_ be available via additional calls, and if so, _MUST_ be referenced in the manifest.
+The format for all responses is JSON, and the sections below describe the structure to be returned in more detail. The primary response is when the manifest is requested and, for optimization reasons, this _MUST_ return the manifest information with the default sequence, canvases and associations for image content resources embedded within it. Additional sequences and associations _MAY_ be available via additional calls, and if so, _MUST_ be referenced in the manifest.
 
 The content-type of the response _MUST_ be either `application/json` (regular JSON), or `application/ld+json` (JSON-LD). If the client explicitly wants the JSON-LD content-type, then it _MUST_ specify this in an Accept header, otherwise the server _MUST_ return the regular JSON content-type.
 
-If the regular JSON content-type is returned, then it is _recommended_{: .rfc} that the server provide a link header to the context document. The syntax for the link header is below, and further described in [section 6.8 of the JSON-LD specification][json-ld-68]. The context _MUST NOT_ be given in the link header if the client requests `application/ld+json`.
+If the regular JSON content-type is returned, then it is _RECOMMENDED_ that the server provide a link header to the context document. The syntax for the link header is below, and further described in [section 6.8 of the JSON-LD specification][json-ld-68]. The context _MUST NOT_ be given in the link header if the client requests `application/ld+json`.
 
 ```
 Content-Type: application/json
@@ -365,9 +339,9 @@ Responses _SHOULD_ be compressed by the server as there are significant performa
 
 ####  5.2.2 Content Details
 
-The following applies to all of the responses from the server in the Presentation API.  For the most part, these are features of the JSON-LD specification that have particular uses within the API.
+The following applies to all of the responses in the Presentation API.  For the most part, these are features of the JSON-LD specification that have particular uses within the API.
 
-Resource descriptions _SHOULD_ be embedded within higher-level resources, and _MAY_ also be available via separate requests from URIs linked in the responses. These URIs are in the `@id` property for the resource. Links to resources _MAY_ be either given as just the URI if there is no additional information associated with them, or as a JSON object with the `@id` property. Thus the following two lines are equivalent, however the second should not be used without additional information associated with the resource:
+Resource descriptions _SHOULD_ be embedded within higher-level descriptions, and _MAY_ also be available via separate requests from URIs linked in the responses. These URIs are in the `@id` property for the resource. Links to resources _MAY_ be either given as just the URI if there is no additional information associated with them, or as a JSON object with the `@id` property. The following two lines are equivalent, however the second object form should not be used unless there is additional information associated with the resource:
 
 {% highlight json %}
 // Option A, plain string
@@ -376,7 +350,7 @@ Resource descriptions _SHOULD_ be embedded within higher-level resources, and _M
 {"see_also" : {"@id":"http://www.example.org/descriptions/book1.xml"}}
 {% endhighlight %}
 
-Any of the descriptive fields, such as description or attribution, _MAY_ be repeated. This is done by giving a list of values, rather than a single string.
+Most of the properties _MAY_ be repeated. This is done by giving a list of values, rather than a single string.
 
 {% highlight json %}
 { 
@@ -386,7 +360,7 @@ Any of the descriptive fields, such as description or attribution, _MAY_ be repe
 }
 {% endhighlight %}
 
-Language _MAY_ be associated with descriptive metadata strings using the following pattern of value plus the [RFC 5646][rfc5646] code, instead of a plain string.  For example a description might have a language associated with it:
+Language _MAY_ be associated with strings using the following pattern of `@value` plus the [RFC 5646][rfc5646] code in `@language`, instead of a plain string.  For example:
 
 {% highlight json %}
 {"description" : {"@value":"Here is a longer description of the object", "@language":"en"} }
@@ -416,7 +390,7 @@ Clients _SHOULD_ allow only `a`, `b`, `br`, `i`, `img`, `p`, and `span` tags. Cl
 }
 {% endhighlight %}
 
-Each response _MUST_ have a `@context` property, and it _SHOULD_ appear as the very first key/value pair in the top-most object. This tells Linked Data processors how to interpret the information. The IIIF Presentation API context, below, _MUST_ occur exactly once per response, and be omitted from any embedded resources. For example, when embedding a sequence within a manifest, the sequence _MUST NOT_ have the `@context` field.
+The top level resource in the response _MUST_ have the `@context` property, and it _SHOULD_ appear as the very first key/value pair. This tells Linked Data processors how to interpret the information. The IIIF Presentation API context, below, _MUST_ occur exactly once per response, and be omitted from any embedded resources. For example, when embedding a sequence within a manifest, the sequence _MUST NOT_ have the `@context` field.
 
 {% highlight json %}
 {"@context": "http://iiif.io/api/presentation/{{ page.major }}/context.json"}
@@ -424,7 +398,7 @@ Each response _MUST_ have a `@context` property, and it _SHOULD_ appear as the v
 
 Any additional fields beyond those defined in this specification _SHOULD_ be mapped to RDF predicates using further context documents. In this case, the enclosing object _MUST_ have its own `@context` property, and it _SHOULD_ be the first key/value pair. This is _REQUIRED_ for `service` links that embed any information beyond a `profile`.  These contexts _SHOULD NOT_ redefine `profile`.
 
-Clients _SHOULD_ be aware that some implementations may add an `@graph` property at the top level, which contains the object. This is a side effect of JSON-LD serialization, and servers _SHOULD_ remove it before sending to the client. The client can use the [JSON-LD compaction algorithm][json-ld-compact] to remove it, if present.
+Clients _SHOULD_ be aware that some implementations will add an `@graph` property at the top level, which contains the object. This is a side effect of JSON-LD serialization, and servers _SHOULD_ remove it before sending to the client. The client can use the [JSON-LD compaction algorithm][json-ld-compact] to remove it, if present.
 <!--
 Using JSON-LD Framing with the [supplied frames][XXX] will avoid the generation of the `@graph` pattern.
 -->
@@ -440,11 +414,11 @@ Recommended URI pattern:
 ```
 {: .urltemplate}
 
-The manifest contains sufficient information for the client to initialize itself and begin to display something quickly to the user. It represents a single object and any intellectual work or works embodied within that object. In particular it includes the descriptive, rights and linking information for the object. It then embeds the sequence(s) of canvases that should be rendered to the user.
+The manifest response contains sufficient information for the client to initialize itself and begin to display something quickly to the user. The manifest resource represents a single object and any intellectual work or works embodied within that object. In particular it includes the descriptive, rights and linking information for the object. It then embeds the sequence(s) of canvases that should be rendered to the user.
 
-The fields are included directly within the JSON object. The identifier in `@id` _MUST_ always be able to be dereferenced to retrieve the JSON description of the object. After the descriptive information, there is then a `sequences` section, which is a list of objects. Each object is a sequence, described in the next section, that represents the order of the views and the first such sequence should be included within the manifest as well as optionally being available from its own URI. Subsequent sequences _SHOULD_ only be referenced with their identifier (`@id`), class (`@type`) and `label` and thus _MUST_ be dereferenced by clients in order to process them if the user selects to view that sequence.
+The identifier in `@id` _MUST_ always be able to be dereferenced to retrieve the JSON description of the manifest. After the descriptive information, there is then a `sequences` section, which is a list of objects. Each object is a sequence, described in the next section, that represents the order of the views and the first such sequence should be included within the manifest as well as optionally being available from its own URI. Subsequent sequences _SHOULD_ only be referenced with their identifier (`@id`), class (`@type`) and `label` and thus _MUST_ be dereferenced by clients in order to process them if the user selects to view that sequence.
 
-The example below includes only the manifest-level information, however it _MUST_ embed the sequence, canvas and content information as described in the following sections. It includes examples in the descriptive metadata for how to associate multiple entries with a single field and how to be explicit about the language of a particular entry.
+The example below includes only the manifest-level information, however it _MUST_ embed the sequence, canvas and content information. It includes examples in the descriptive metadata for how to associate multiple entries with a single field and how to be explicit about the language of a particular entry.
 
 {% highlight json %}
 {
@@ -453,7 +427,7 @@ The example below includes only the manifest-level information, however it _MUST
   "@id":"http://www.example.org/iiif/book1/manifest.json",
   "@type":"sc:Manifest",
 
-  // Descriptive metadata about the physical object/intellectual work
+  // Descriptive metadata about the object/work
   "label": "Book 1",
   "metadata": [
     {"label":"Author", "value":"Anne Author"},
@@ -471,7 +445,7 @@ The example below includes only the manifest-level information, however it _MUST
   ],
   "description":"A longer description of this example book. It should give some real information.",
   "thumbnail": {
-    "@id": "http://www.example.org/images/book1-page1/full/80,100/0/default.jpg",
+    "@id": "http://www.example.org/images/book1-page1/full/80,100/0/native.jpg",
     "service": {
       "@context":"http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
       "@id":"http://www.example.org/images/book1-page1",
@@ -578,11 +552,13 @@ Recommended URI pattern:
 
 The canvas represents an individual page or view and acts as a central point for laying out the different content resources that make up the display. The {name} parameter _MUST_ uniquely distinguish the canvas from all other canvases in the object. As with sequences, the name _SHOULD NOT_ begin with a number. Suggested patterns are "f1r" or "p1".
 
-Every canvas _MUST_ have a `label` to display, and a `height` and a `width` as integers. A canvas is a two-dimensional rectangular space with an aspect ratio that represents a single logical view of some part of the object, and the aspect ratio is given with the height and width properties. This allows resources to be associated with specific parts of the canvas, rather than the entire space. It is _recommended_{: .rfc} that if there is (at the time of implementation) a single image that depicts the page, then the dimensions of the image are used as the dimensions of the canvas for simplicity. If there are multiple full images, then the dimensions of the largest image should be used. If the largest image's dimensions are less than 1200 pixels on either edge, then the canvas's dimensions _SHOULD_ be double that of the image. Clients _MUST_ be aware that this is not always the case, such as in the examples presented, and instead _MUST_ always scale images into the space represented by the canvas.  The dimensions of the canvas _SHOULD_ be the same scale as the physical object, and thus images should depict only the object.  This can be accomplished by cropping the image, or associating only a segment of the image with the canvas.  The physical dimensions of the object may be available via a service, either embedded within the description or requiring an HTTP request to retrieve them.
+Every canvas _MUST_ have a `label` to display, and a `height` and a `width` as integers. A canvas is a two-dimensional rectangular space with an aspect ratio that represents a single logical view of some part of the object, and the aspect ratio is given with the height and width properties. This allows resources to be associated with specific parts of the canvas, rather than the entire space. Content _MUST NOT_ be associated with space outside of the canvas's dimensions, such as at coordinates below 0,0 or greater than the height or width.
 
-Image resources, and only image resources, are included in the `images` section of the canvas. These are linked to the canvas via annotations. Other content, such as transcriptions, video, audio or commentary, is provided via external annotation lists referenced in the `other_content` section. The value of both of these _MUST_ be a list, even if there is only one entry. Both are optional, in the situation that there is no additional information associated with the canvas. Note that the items in the `other_content` list may be either objects with an `@id` property or strings. In the case of a string, this is the URI of the annotation list and the type of "sc:AnnotationList" can be inferred.
+It is _RECOMMENDED_ that if there is (at the time of implementation) a single image that depicts the page, then the dimensions of the image are used as the dimensions of the canvas for simplicity. If there are multiple full images, then the dimensions of the largest image should be used. If the largest image's dimensions are less than 1200 pixels on either edge, then the canvas's dimensions _SHOULD_ be double that of the image. Clients _MUST_ be aware that this is not always the case, such as in the examples presented, and instead _MUST_ always scale images into the space represented by the canvas.  The dimensions of the canvas _SHOULD_ be the same scale as the physical object, and thus images should depict only the object.  This can be accomplished by cropping the image, or associating only a segment of the image with the canvas. The physical dimensions of the object may be available via a service, either embedded within the description or requiring an HTTP request to retrieve them.
 
-In a sequence with the "paged" `viewing_hint`, presented in a book viewing modality, the first canvas is defined as a single up -- typically either the cover, or first recto page. Thereafter, the canvases represent the sides of the leaves, and hence may be presented with two up as an opening of the book.  If there are canvases which are in the sequence but would break this ordering, then they _MUST_ have the `viewing_hint` property with a value of "non-paged".  Similarly if the first canvas is not a single up, it _MUST_ be marked as "non-paged" or an empty canvas added before it.
+Image resources, and only image resources, are included in the `images` property of the canvas. These are linked to the canvas via annotations. Other content, such as transcriptions, video, audio or commentary, is provided via external annotation lists referenced in the `other_content` property. The value of both of these _MUST_ be a list, even if there is only one entry. Both are optional, as there may be no additional information associated with the canvas. Note that the items in the `other_content` list may be either objects with an `@id` property or strings. In the case of a string, this is the URI of the annotation list and the type of "sc:AnnotationList" can be inferred.
+
+In a sequence with the `viewing_hint` value of "paged" and presented in a book viewing user interface, the first canvas _SHOULD_ be presented by itself -- it is typically either the cover or first recto page. Thereafter, the canvases represent the sides of the leaves, and hence may be presented with two canvases displayed as an opening of the book.  If there are canvases which are in the sequence but would break this ordering, then they _MUST_ have the `viewing_hint` property with a value of "non-paged".  Similarly if the first canvas is not a single up, it _MUST_ be marked as "non-paged" or an empty canvas added before it.
 
 Canvases _MAY_ be dereferenced separately from the manifest via their URIs, and the following representation information should be returned. This information should be embedded within the sequence, as per previously.
 
@@ -628,9 +604,9 @@ Annotations _MAY_ have their own URIs, conveyed by adding an `@id` property to t
 
 Each association of a content resource _MUST_ have the `motivation` field and the value _MUST_ be "sc:painting". This is in order to distinguish it from comment annotations about the canvas, described in further detail below.  All resources which are to be displayed as part of the representation are given the motivation of "sc:painting", regardless of whether they are images or not.  For example, a transcription of the text in a page is considered "painting" as it is a representation of the object, whereas a comment about the page is not.
 
-The image itself is linked in the `resource` property of the annotation. It _MUST_ have an `@id` field, with the value being the URI at which the image can be obtained. It _SHOULD_ have an `@type` of "dcterms:Image". Its media type _MAY_ be listed in `format`, and its height and width _MAY_ be given as integer values for `height` and `width` respectively.
+The image itself is linked in the `resource` property of the annotation. It _MUST_ have an `@id` field, with the value being the URI at which the image can be obtained. It _SHOULD_ have an `@type` of "dcterms:Image". Its media type _MAY_ be listed in `format`, and its height and width _SHOULD_ be given as integer values for `height` and `width` respectively.
 
-If a [IIIF Image API][image-api] service is available for the image, then a link to the service's base URI _SHOULD_ be included. The base URI is the URI up to the identifier, but not including the trailing slash character or any of the subsequent parameters. The Image API context document _MUST_ be included and the profile of the service _SHOULD_ be included with the supported conformance level. Additional fields from the Image Information document _MAY_ be included in this JSON object to avoid requiring it to be downloaded separately. See the [annex][annex] on using external services for more information.
+If a [IIIF Image API][image-api] service is available for the image, then a link to the service's base URI _SHOULD_ be included. The base URI is the URI up to the identifier, but not including the trailing slash character or any of the subsequent parameters. The Image API context document _MUST_ be included and the conformance level profile of the service _SHOULD_ be included. Additional fields from the Image Information document _MAY_ be included in this JSON object to avoid requiring it to be downloaded separately. See the [annex][annex] on using external services for more information.
 
 Although it seems redundant, the URI of the canvas _MUST_ be repeated in the `on` field of the Annotation. This is to ensure consistency with annotations that target only part of the resource, described in more detail below.
 
@@ -667,13 +643,13 @@ Recommended URI pattern:
 ```
 {: .urltemplate}
 
-For some objects, there may be more than a single image available to represent the page. Other resources could include the full text of the object, musical notations, musical performances, diagram transcriptions, higher resolution segments of part of the page, commentary annotations, tags, video, data and more. These additional resources are included in annotation lists, referenced from the canvas.
+For some objects, there may be more than just images available to represent the page. Other resources could include the full text of the object, musical notations, musical performances, diagram transcriptions, commentary annotations, tags, video, data and more. These additional resources are included in annotation lists, referenced from the canvas.
 
 The {name} parameter in the URI pattern _MUST_ uniquely distinguish it from all other lists, and is typically the same name as the canvas. As a single canvas may have multiple lists of additional resources, perhaps divided by type, this _MUST NOT_ be assumed however, and the URIs must be followed rather than constructed _a priori_. As with other uses of the {name} parameter, it _SHOULD NOT_ begin with a number.
 
 The annotation list _MUST_ have an http[s] URI given in `@id`, and the the JSON representation _MUST_ be returned when that URI is dereferenced.  They _MAY_ have any of the other fields defined in this specification.
 
-The list of resource associations are given, after any metadata, in a `resources` list. The items in the list are annotations, as described above, however the resource linked by the annotation is something other than an image. The canvas URI _MUST_ be repeated in the `on` field, as above.
+The list of resource associations are given in a `resources` list. The items in the list are annotations, as described above, however the resource linked by the annotation is something other than an image. The canvas URI _MUST_ be repeated in the `on` field, as above.
 
 The format of the resource _SHOULD_ be included and _MUST_ be the media type that is returned when the resource is dereferenced. The type of the content resource _SHOULD_ be taken from this [list in the Open Annotation specification][openannotypes], or a similar well-known resource type ontology. For resources that are displayed as part of the rendering (such as images, text transcriptions, performances of music from the manuscript and so forth) the motivation _MUST_ be "sc:painting". The content resources _MAY_ also have any of the other fields defined in this specification, including commonly `label`, `description`, `metadata`, `license` and `attribution`.
 
@@ -827,7 +803,7 @@ This can be used to model foldouts and other dynamic features of a page, by asso
 
 ####  6.6.4. Non Rectangular Segments
 
-The [Scalable Vector Graphics][svg] standard (SVG) is used to describe non-rectangular areas of canvas or image resources. While SVG can, of course, describe rectangles this is _NOT RECOMMENDED_, and either the [IIIF Image API][image-api] or the `xywh` bounding box described above _SHOULD_ be used instead.
+The [Scalable Vector Graphics][svg] standard (SVG) is used to describe non-rectangular areas of canvas or image resources. While SVG can, of course, describe rectangles this is _NOT RECOMMENDED_, and either the [IIIF Image API][image-api] or the `xywh` bounding box described above _SHOULD_ be used instead.  This is recognized as an advanced use case and that clients may not support it.
 
 In this pattern, the resource of the annotation is a "oa:SpecificResource" which has the complete image referenced in a `full` field and the SVG embedded in a `selector` field (as the SVG selects the part of the image needed). The SVG document is embedded using the same `ContentAsText` approach as for embedding comments or transcriptions.
 
@@ -882,9 +858,7 @@ In the example below, the text should be colored red.
 }
 {% endhighlight %}
 
-#### 6.6.6. Rotation
-
-CSS may also be used on the client side for rotation of images which are not correctly aligned with the canvas. In the example below, after the image is located within the 500 wide by 30 high space within the canvas, it is then rotated by the rendering client application around the top left corner by 45 degrees anti-clockwise.
+CSS may also be used for rotation of images which are not correctly aligned with the canvas. In the example below, after the image is located within the 500 wide by 30 high space within the canvas, it is then rotated by the rendering client application around the top left corner by 45 degrees anti-clockwise.
 
 {% highlight json %}
 {
@@ -908,37 +882,7 @@ CSS may also be used on the client side for rotation of images which are not cor
 }
 {% endhighlight %}
 
-Alternatively, if the image is available via the IIIF Image API, it may be more convenient to have the server do the rotation of the image.  This uses a custom Selector for the Image API, further described in the [Open Annotation extensions][oa-ext-annex] annex.  For the purposes of rotation, the example below demonstrates the pattern.
-
-{% highlight json %}
-{
-  "@context":"http://iiif.io/api/presentation/2/context.json",
-  "@id":"http://www.example.org/iiif/book1/annotation/anno1.json",
-  "@type":"oa:Annotation",
-  "motivation":"sc:painting",
-  "resource":{
-    "@id" : "http://www.example.org/iiif/book1-page1/full/full/90/default.jpg",
-    "@type":"oa:SpecificResource",
-    "full": {
-      "@id":"http://www.example.org/iiif/book1-page1/full/full/0/default.jpg",
-      "@type":"dctypes:Image",
-      "service": {
-        "@context": "http://iiif.io/api/image/2/context.json",
-        "@id": "http://www.example.org/iiif/book1-page1",
-        "profile":"http://iiif.io/api/image/2/level2.json"
-      }
-    },
-    "selector": {
-      "@type": "iiif:ImageApiSelector",
-      "rotation": 90
-    }
-  },
-  "on":"http://www.example.org/iiif/book1/canvas/p1.json#xywh=50,50,320,240"
-}
-{% endhighlight %}
-
-
-####  6.6.7. Comment Annotations
+####  6.6.6. Comment Annotations
 
 For annotations which are comments about the canvas, as opposed to painting content resources onto the canvas, there are different types of motivation to make the distinction clear. For annotations about the content (such as comments, notes, descriptions etc.) the `motivation` _SHOULD_ be "oa:commenting", but _MAY_ be any from the list given in the [Open Annotation][openanno] specification.
 
@@ -959,13 +903,13 @@ For annotations which are comments about the canvas, as opposed to painting cont
 
 ##  7. Additional Resource Types
 
-There are cases where additional information is needed to fully represent an institution's set of works and their components.
+There are cases where additional information is needed to fully represent objects and their components.
 
 First, additional section information may be available as to which canvases, or parts thereof, should be grouped together in some way. This could be for textual reasons, such as to distinguish books, chapters, verses, sections, non-content-bearing pages, the table of contents or similar. Equally, physical features might be important such as quires or gatherings, sections that have been added later and so forth. These cases are solved with range resources.
 
-Secondly, as the information is primarily divided by canvas (and thus page), there may be higher level groupings of annotations that need to be recorded. For example, all of the English translation annotations of a medieval French document could be kept separate from the direct transcription, or an edition into modern French. These cases are solved by assigning an annotation list to be within a layer resource.
+Secondly, as associated resource lists are divided per canvas, there may be higher level groupings of annotations that need to be recorded. For example, all of the English translation annotations of a medieval French document could be kept separate from the transcription, or an edition into modern French. These cases are solved by assigning an annotation list to be within a layer resource.
 
-Thirdly, the specification otherwise assumes that a manifest is the highest level of description.  In order to allow easy advertising and discovery of the manifests, we introduce a collection resource which can aggregate sub-collections and/or manifests.  If the recommended URI pattern is used, this provides a client system a means to locate all of the manifests provided by an institution.
+Thirdly, the specification otherwise assumes that a manifest is the highest level of description.  In order to allow easy advertising and browsing of the manifests, we introduce a collection resource which can aggregate sub-collections and/or manifests.  If the recommended URI pattern is used, this provides a client system a means to locate all of the manifests provided by a server.
 
 ![All Resource Types](img/objects-all.png){: .h400px}
 
@@ -980,7 +924,7 @@ Recommended URI pattern:
 ```
 {: .urltemplate}
 
-It may be important to describe additional structure within the text, such as newspaper articles that span pages, the range of non-content-bearing pages at the beginning of a work, or chapters within a book. These are described using ranges in a similar manner to sequences. The intent of adding a range to the manifest is to allow the client to display a structured hierarchy to enable the user to navigate within the object without merely stepping through the current sequence.
+It may be important to describe additional structure within an object, such as newspaper articles that span pages, the range of non-content-bearing pages at the beginning of a work, or chapters within a book. These are described using ranges in a similar manner to sequences. The intent of adding a range to the manifest is to allow the client to display a structured hierarchy to enable the user to navigate within the object without merely stepping through the current sequence.
 
 A range _MUST_ include one or more canvases or, different to sequences, parts of canvases with one exception. The part must be rectangular, and is given using the `xywh=` fragment approach. This allows for selecting, for example, the areas within two newspaper pages where an article is located. As the information about the canvas is already in the sequence, it _MUST_ not be repeated. In order to present a table of the different ranges to allow a user to select one, every range _MUST_ have a label and the top most range in the table _SHOULD_ have a `viewing_hint` with the value "top". A range that is the top of a hierarchy does not need to list all of the canvases in the sequence, and _SHOULD_ only give the list of ranges below it.  Ranges _MAY_ also have any of the other properties defined in this specification.
 
@@ -1042,7 +986,7 @@ Recommended URI pattern:
 ```
 {: .urltemplate}
 
-There may be groupings of annotations, such as all of the annotations that, regardless of which canvas they target, represent a particular transcription or translation of the text in the object. In order to allow clients to maintain a coherent interface, the lists of these annotations are grouped together in layers. Without the layer construction, it would be impossible to determine which annotations belonged together. The client may then present a user interface that allows all of the annotations in a layer to be displayed or hidden according to the user's preference.
+There may be groupings of annotations, such as all of the annotations that, regardless of which canvas they target, represent a particular set that should be collected together, such as all of the annotations that make up a particular translation of a text that spans across multiple canvases. In order to allow clients to maintain a coherent interface, the lists of these annotations are grouped together in layers. Without the layer construction, it would be impossible to determine which annotations belonged together. The client may then present a user interface that allows all of the annotations in a layer to be displayed or hidden according to the user's preference.
 
 Each annotation list _MAY_ be part of one or more layers, and this is recorded using the `within` relationship in both the manifest and annotation list responses. The layer _MUST_ have a `label` so that it can be presented to a user to select whether or not to view it.
 
@@ -1080,7 +1024,7 @@ The intended usage of collections is to allow clients to:
   * Visualize lists or hierarchies of related manifests
   * Provide navigation through a list or hierarchy of available manifests
 
-Note that the recommended URI pattern prevents the existence of a manifest with the identifier "collection".
+Note that the recommended URI pattern prevents the existence of a manifest or object with the identifier "collection".
 
 Collections have two new list-based properties:
 
@@ -1232,7 +1176,7 @@ URL: _http://www.example.org/iiif/book1/manifest.json_
                 "@type":"oa:Annotation",
                 "motivation":"sc:painting",
                 "resource":{
-                    "@id":"http://www.example.org/images/book1-page2/full/1500,2000/0/default.jpg",
+                    "@id":"http://www.example.org/images/book1-page2/full/1500,2000/0/native.jpg",
                     "@type":"dctypes:Image",
                     "format":"image/jpeg",
                     "height":2000,
@@ -1418,7 +1362,7 @@ Many thanks to Matthieu Bonicel, Tom Cramer, Ian Davis, Markus Enders, Renhart G
 [mellon]: http://www.mellon.org/ "The Andrew W. Mellon Foundation"
 [json-ld-compact]: http://www.w3.org/TR/json-ld-api/#compaction-algorithms "JSON-LD Compaction Algorithms"
 [versioning]: /api/annex/notes/semver.html "Versioning of APIs"
-[oa-ext-annex]: /api/annex/openannotation/index.html "IIIF Open Annotation Extensions"
+[use-case-doc]: /api/presentation/usecases.html "Presentation API Use Cases"
 
 [icon-req]: /img/metadata-api/required.png "Required"
 [icon-recc]: /img/metadata-api/recommended.png "Recommended"
