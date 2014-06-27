@@ -1,0 +1,11 @@
+{
+	"@context" : {
+		"iiif":    "http://iiif.io/api/image/{{ site.image_api.latest.major}}#",
+
+		"region" : {"@id" : "iiif:regionValue", "@type": "xsd:string"},
+		"size" : {"@id" : "iiif:sizeValue", "@type": "xsd:string"},
+		"rotation" : {"@id" : "iiif:rotationValue", "@type": "xsd:string"},
+		"format" : {"@id" : "iiif:formatValue", "@type": "xsd:string"},
+		"quality" : {"@id" : "iiif:qualityValue", "@type": "xsd:string"}
+	}
+}

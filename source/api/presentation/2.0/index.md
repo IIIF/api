@@ -929,8 +929,9 @@ Alternatively, if the image is available via the IIIF Image API, it may be more 
       }
     },
     "selector": {
+      "@context": "http://iiif.io/api/annex/openannotation/context.json",
       "@type": "iiif:ImageApiSelector",
-      "rotation": 90
+      "rotation": "90"
     }
   },
   "on":"http://www.example.org/iiif/book1/canvas/p1.json#xywh=50,50,320,240"
