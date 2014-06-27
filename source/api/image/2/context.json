@@ -9,6 +9,7 @@
     "dcterms": "http://purl.org/dc/terms/",
     "doap" :   "http://usefulinc.com/ns/doap#",
     "svcs":    "http://rdfs.org/sioc/services#",
+    "sc":      "http://iiif.io/api/presentation/{{ site.presentation_api.latest.major }}#",    
 
     "base_uri_redirect" : { "@id" : "iiif:baseUriRedirectFeature", "@type": "iiif:Feature" },
     "cors" : { "@id" : "iiif:corsFeature", "@type": "iiif:Feature" },
@@ -29,14 +30,14 @@
     
     "height":  { "@id" : "exif:height", "@type":"xsd:integer" },
     "width": { "@id" : "exif:width", "@type":"xsd:integer" },
-    "tile_height" : { "@id" : "iiif:tileHeight", "@type" : "xsd:integer" },
-    "tile_width" : { "@id" : "iiif:tileWidth", "@type" : "xsd:integer" },
     "scale_factors" : { "@id" : "iiif:scaleFactor", "@type" : "xsd:integer" },
     "formats" : { "@id" : "iiif:format", "@type" : "xsd:string" },
     "qualities" : { "@id" : "iiif:quality", "@type" : "xsd:string" },
-    "sizes" : { "@id" : "iiif:size", "@type" : "xsd:string" },
+    "viewing_hint" : { "@id": "sc:viewingHint", "@type": "xsd:string"},
 
-    "profile" : { "@id" : "dcterms:conformsTo", "@type" : "@id", "@container" : "@list" },
+    "sizes" : { "@id" : "iiif:size", "@type": "@id" },
+    "tiles" : { "@id" : "iiif:tile", "@type": "@id" },
+    "profile" : { "@id" : "dcterms:conformsTo", "@type" : "@id" },
     "protocol" : { "@id" : "doap:implements", "@type" : "@id" },
     "supports" : { "@id" : "iiif:supports", "@type" : "@id" },
     "service":     {"@type":"@id", "@id":"svcs:has_service"}
