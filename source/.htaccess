@@ -4,8 +4,11 @@
 ---
 
 RewriteEngine on
+RewriteRule 302 ^/api/image/([0-9.]+)$ /api/image/$1/ [L,R=302]
 RedirectMatch 302 ^/api/image/$ /api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/
 RewriteRule ^/?api/image/([^/]+)$ /api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/$1 [L,R=302]
+
+RedirectMatch 302 ^/api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}$ /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/
 RedirectMatch 302 ^/api/presentation/$ /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/
 RewriteRule ^/?api/presentation/([^/]+)$ /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/$1 [L,R=302]
 
