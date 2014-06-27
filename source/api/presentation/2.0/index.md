@@ -471,7 +471,7 @@ The example below includes only the manifest-level information, however it _MUST
   ],
   "description":"A longer description of this example book. It should give some real information.",
   "thumbnail": {
-    "@id": "http://www.example.org/images/book1-page1/full/80,100/0/native.jpg",
+    "@id": "http://www.example.org/images/book1-page1/full/80,100/0/default.jpg",
     "service": {
       "@context":"http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
       "@id":"http://www.example.org/images/book1-page1",
@@ -882,7 +882,9 @@ In the example below, the text should be colored red.
 }
 {% endhighlight %}
 
-CSS may also be used for rotation of images which are not correctly aligned with the canvas. In the example below, after the image is located within the 500 wide by 30 high space within the canvas, it is then rotated by the rendering client application around the top left corner by 45 degrees anti-clockwise.
+#### 6.6.6. Rotation
+
+CSS may also be used on the client side for rotation of images which are not correctly aligned with the canvas. In the example below, after the image is located within the 500 wide by 30 high space within the canvas, it is then rotated by the rendering client application around the top left corner by 45 degrees anti-clockwise.
 
 {% highlight json %}
 {
@@ -906,7 +908,38 @@ CSS may also be used for rotation of images which are not correctly aligned with
 }
 {% endhighlight %}
 
-####  6.6.6. Comment Annotations
+Alternatively, if the image is available via the IIIF Image API, it may be more convenient to have the server do the rotation of the image.  This uses a custom Selector for the Image API, further described in the [Open Annotation extensions][oa-ext-annex] annex.  For the purposes of rotation, the example below demonstrates the pattern.
+
+{% highlight json %}
+{
+  "@context":"http://iiif.io/api/presentation/2/context.json",
+  "@id":"http://www.example.org/iiif/book1/annotation/anno1.json",
+  "@type":"oa:Annotation",
+  "motivation":"sc:painting",
+  "resource":{
+    "@id" : "http://www.example.org/iiif/book1-page1/full/full/90/default.jpg",
+    "@type":"oa:SpecificResource",
+    "full": {
+      "@id":"http://www.example.org/iiif/book1-page1/full/full/0/default.jpg",
+      "@type":"dctypes:Image",
+      "service": {
+        "@context": "http://iiif.io/api/image/2/context.json",
+        "@id": "http://www.example.org/iiif/book1-page1",
+        "profile":"http://iiif.io/api/image/2/level2.json"
+      }
+    },
+    "selector": {
+      "@context": "http://iiif.io/api/annex/openannotation/context.json",
+      "@type": "iiif:ImageApiSelector",
+      "rotation": "90"
+    }
+  },
+  "on":"http://www.example.org/iiif/book1/canvas/p1.json#xywh=50,50,320,240"
+}
+{% endhighlight %}
+
+
+####  6.6.7. Comment Annotations
 
 For annotations which are comments about the canvas, as opposed to painting content resources onto the canvas, there are different types of motivation to make the distinction clear. For annotations about the content (such as comments, notes, descriptions etc.) the `motivation` _SHOULD_ be "oa:commenting", but _MAY_ be any from the list given in the [Open Annotation][openanno] specification.
 
@@ -1200,7 +1233,7 @@ URL: _http://www.example.org/iiif/book1/manifest.json_
                 "@type":"oa:Annotation",
                 "motivation":"sc:painting",
                 "resource":{
-                    "@id":"http://www.example.org/images/book1-page2/full/1500,2000/0/native.jpg",
+                    "@id":"http://www.example.org/images/book1-page2/full/1500,2000/0/default.jpg",
                     "@type":"dctypes:Image",
                     "format":"image/jpeg",
                     "height":2000,
@@ -1386,6 +1419,7 @@ Many thanks to Matthieu Bonicel, Tom Cramer, Ian Davis, Markus Enders, Renhart G
 [mellon]: http://www.mellon.org/ "The Andrew W. Mellon Foundation"
 [json-ld-compact]: http://www.w3.org/TR/json-ld-api/#compaction-algorithms "JSON-LD Compaction Algorithms"
 [versioning]: /api/annex/notes/semver.html "Versioning of APIs"
+[oa-ext-annex]: /api/annex/openannotation/index.html "IIIF Open Annotation Extensions"
 
 [icon-req]: /img/metadata-api/required.png "Required"
 [icon-recc]: /img/metadata-api/recommended.png "Recommended"
