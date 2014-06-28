@@ -474,7 +474,7 @@ The objects in the `sizes` list have the properties in the following table.  Ima
 | `viewing_hint` | Optional | A string giving a hint to the intended use of the size.  It may have any value, but the following are recommended: `icon`, `thumbnail`, `small`, `medium`, `large`, `xlarge` |
 {: .image-api-table}
 
-The objects in the `tiles` list have the properties in the following table.  The `width` and `height` should be used to fill the region parameter and the `scale_factors` to complete the size parameter of the image URL. This is described in detail in the [XXX-SIMEON-XXX][] implementation note.
+The objects in the `tiles` list have the properties in the following table.  The `width` and `height` should be used to fill the region parameter and the `scale_factors` to complete the size parameter of the image URL. This is described in detail in the [Implementation Notes][a-implementation-notes].
 
 | Property   | Required? | Description |
 | ---------- | --------- | ----------- |
@@ -645,6 +645,29 @@ Early sanity checking of URIs (lengths, trailing GET, invalid characters, out-of
   * This specification makes no assertion about the rights status of requested images or any other descriptive metadata, whether or not authentication has been accomplished. Please see the [IIIF Presentation API][prezi-api] for rights and other information.
   * This API does not specify how image servers fulfill requests, what quality the returned images will have for different parameters, or how parameters may affect performance.
   * Image identifiers that include the slash (/ %2F) or backslash (\ %5C) characters may cause problems with some HTTP servers. Apache servers from version 2.2.18 support the `AllowEncodedSlashes NoDecode` [configuration directive][apache-aesnd] which will correctly pass these characters to client applications without rejecting or decoding them. Servers using older versions of Apache and local identifiers which include these characters will need to use a workaround such as internally translating or escaping slash and backslash to safe value (perhaps by double URI-encoding them).
+  * When requesting image tiles, the [Region][region] and [Size][size] parameters must be calculated to take account of partial tiles along the right and lower edges for a full imagine that is not an exact multiple of the scaled tile size. The algorithm below is shown as Python code and assumes integer inputs and integer arithmetic throughout (ie. remainder discarded on division). Inputs are: size of full image content `(width,height)`, scale factor `s`, tile size `(tw,th)`, and tile coordinate `(n,m)` counting from `(0,0)` in the upper-left corner. 
+
+```python
+    # Calculate region parameters /xr,yr,wr,hr/
+    xr = n * tw * s 
+    yr = m * th * s
+    wr = tw * s
+    if (xr + wr > width):
+        wr = width - xr
+    hr = th * s
+    if (yr + hr > height):
+        hr = height - yr
+    # Calculate size parameters /ws,hs/
+    s2 = s/2  # use to implement rounding with integer arithmetic
+    ws = tw
+    if (xr + tw*s > width):
+        ws = (width - xr + s2) / s
+    hs = th
+    if (yr + th*s > height):
+        hs = (height - yr + s2) / s
+```
+{: .urltemplate}
+
   * As described in [Rotation][rotation], in order to retain the size of the requested image contents, rotation will change the width and height dimensions of the returned image file. A formula for calculating the dimensions of the returned image file for a given rotation can be found here.
 
 ### B. Versioning
