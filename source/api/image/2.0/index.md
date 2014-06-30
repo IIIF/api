@@ -645,9 +645,9 @@ Early sanity checking of URIs (lengths, trailing GET, invalid characters, out-of
   * This specification makes no assertion about the rights status of requested images or any other descriptive metadata, whether or not authentication has been accomplished. Please see the [IIIF Presentation API][prezi-api] for rights and other information.
   * This API does not specify how image servers fulfill requests, what quality the returned images will have for different parameters, or how parameters may affect performance.
   * Image identifiers that include the slash (/ %2F) or backslash (\ %5C) characters may cause problems with some HTTP servers. Apache servers from version 2.2.18 support the `AllowEncodedSlashes NoDecode` [configuration directive][apache-aesnd] which will correctly pass these characters to client applications without rejecting or decoding them. Servers using older versions of Apache and local identifiers which include these characters will need to use a workaround such as internally translating or escaping slash and backslash to safe value (perhaps by double URI-encoding them).
-  * When requesting image tiles, the [Region][region] and [Size][size] parameters must be calculated to take account of partial tiles along the right and lower edges for a full imagine that is not an exact multiple of the scaled tile size. The algorithm below is shown as Python code and assumes integer inputs and integer arithmetic throughout (ie. remainder discarded on division). Inputs are: size of full image content `(width,height)`, scale factor `s`, tile size `(tw,th)`, and tile coordinate `(n,m)` counting from `(0,0)` in the upper-left corner. 
+  * When requesting image tiles, the [Region][region] and [Size][size] parameters must be calculated to take account of partial tiles along the right and lower edges for a full imagine that is not an exact multiple of the scaled tile size. The algorithm below is shown as Python code and assumes integer inputs and integer arithmetic throughout (ie. remainder discarded on division). Inputs are: size of full image content `(width,height)`, scale factor `s`, tile size `(tw,th)`, and tile coordinate `(n,m)` counting from `(0,0)` in the upper-left corner. Note that the rounding method is implementation dependent.
 
-```python
+{% highlight python %}
     # Calculate region parameters /xr,yr,wr,hr/
     xr = n * tw * s 
     yr = m * th * s
@@ -658,17 +658,23 @@ Early sanity checking of URIs (lengths, trailing GET, invalid characters, out-of
     if (yr + hr > height):
         hr = height - yr
     # Calculate size parameters /ws,hs/
-    s2 = s/2  # use to implement rounding with integer arithmetic
     ws = tw
     if (xr + tw*s > width):
-        ws = (width - xr + s2) / s
+        ws = (width - xr + s - 1) / s  # +s-1 in numerator to round up
     hs = th
     if (yr + th*s > height):
-        hs = (height - yr + s2) / s
-```
+        hs = (height - yr + s - 1) / s
+{% endhighlight %}
 {: .urltemplate}
 
-  * As described in [Rotation][rotation], in order to retain the size of the requested image contents, rotation will change the width and height dimensions of the returned image file. A formula for calculating the dimensions of the returned image file for a given rotation can be found here.
+  * As described in [Rotation][rotation], in order to retain the size of the requested image contents, rotation will change the width and height dimensions of the image returned. A formula for calculating the dimensions of the image returned for a given starting size and rotation is given below. Note that the rounding method is implementation dependent and that some languages require conversion of the angle from degrees to radians.
+
+{% highlight python %}
+    # (w,h) are size parameters, n is rotation angle
+    w_returned = abs(w*cos(n)) + abs(h*sin(n))
+    h_returned = abs(h*cos(n)) + abs(w*sin(n))
+{% endhighlight %}
+{: .urltemplate}
 
 ### B. Versioning
 
