@@ -6,10 +6,7 @@ install:
   - bundle install
   - npm install grunt grunt-html --save-dev
 
-script:
-  - bundle exec jekyll build --drafts
-  - grunt test
-  - bundle exec htmlproof ./_site
+script: "./test.sh"
 
 # environment
 language: ruby
