@@ -1,13 +1,17 @@
 {
+	"api/presentation/1/index.html" : "/api/metadata/1.0/index.html",
 	"api/presentation/index.html" : "/api/presentation/2.0/index.html",
 	"api/presentation/2/index.html" : "/api/presentation/2.0/index.html",
 	"api/metadata/index.html" : "/api/metadata/1.0/index.html",
 	"api/metadata/1/index.html" : "/api/metadata/1.0/index.html",
+
 	"api/image/index.html" : "/api/image/1.1/index.html",
 	"api/image/1/index.html" : "/api/image/1.1/index.html",
 	"api/image/2/index.html" : "/api/image/2.0/index.html",
+
 	"api/index.html" : "/technical-details.html",
+
  	"model/index.html" : "/model/shared-canvas/1.0/index.html",
-    "model/shared-canvas/index.html" : "/model/shared-canvas/1.0/index.html"
+        "model/shared-canvas/index.html" : "/model/shared-canvas/1.0/index.html"
 }
 
