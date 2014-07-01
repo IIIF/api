@@ -1,13 +1,13 @@
 ---
 title: "Image API 2.0 - DRAFT"
-title_override: "IIIF Image API 2.0 - DRAFT"
+title_override: "IIIF Image API 2.0 - DRAFT 2"
 id: image-api
 layout: spec
 tags: [specifications, image-api]
 major: 2
 minor: 0
 patch: 0
-pre: draft1
+pre: draft2
 ---
 
 ## Status of this Document
@@ -690,7 +690,8 @@ Many thanks to  Ben Albritton, Matthieu Bonicel, Anatol Broder, Kevin Clarke, To
 
 | Date       | Description |
 | ---------- | ----------- |
-| 2014-05-XX | Version 2.0 (Voodoo Bunny) RFC [View change log][change-log] |
+| 2014-07-01 | Version 2.0-draft2 (Voodoo Bunny) RFC [View change log][change-log] |
+| 2014-06-01 | Version 2.0-draft (Voodoo Bunny) RFC |
 | 2013-09-17 | Version 1.1 released. |
 | 2013-09-04 | Added @context to Image Information Request table in section 5. |
 | 2013-06-26 | Changed quality parameter definitions in section 4.4. |
