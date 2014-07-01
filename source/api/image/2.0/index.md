@@ -7,7 +7,7 @@ tags: [specifications, image-api]
 major: 2
 minor: 0
 patch: 0
-pre: draft1
+pre: draft2
 ---
 
 ## Status of this Document

@@ -7,10 +7,10 @@ tags: [specifications, image-api, change-log]
 major: 2
 minor: 0
 # no patch
-pre: draft
+pre: draft2
 ---
 
-This document is a companion to the [IIIF Image API Specification, Version 2.0][api]. It describes the significant changes to the API since [Version 1.1][api-11]. The changes are broken into two groups: [Breaking Changes][breaking-changes], i.e. those that are not backwards compatible from either a client or server perspective (or both); and [Other Changes][other-changes], i.e. those that are backwards compatible. The latter group consists mostly of new features.
+This document is a companion to the [IIIF Image API Specification, Version 2.0][api]. It describes the significant changes to the API since [Version 1.1][api-11]. The changes are broken into three groups: [Breaking Changes][breaking-changes], i.e. those that are not backwards compatible from either a client or server perspective (or both) and mostly consists of new features; [Other Changes][other-changes], i.e. those that are backwards compatible; and [Deferred Changes][deferred-changes], i.e. those that will be made in a future iteration of the Image API.
 
 In addition to changes in the API, the specification documents have been changed as follows:
 
@@ -100,7 +100,6 @@ In order to provide the same extension point as is in the [Presentation API][pre
 Servers that do not support arbitrary size parameters for image requests may still wish make multiple sizes of an image available. The sizes that are available may be listed using the `w,h` syntax in the `sizes` property. Even when a server does support arbitrary resizing, it may be useful to report pre-cached or otherwise recommended sizes of an image, e.g. thumbnails.
 
 
-
 ### Published JSON-LD Context
 
 The [context document][context] for the `info.json` document was not published for version 1.1. It is now available.
@@ -108,6 +107,15 @@ The [context document][context] for the `info.json` document was not published f
 ### Support JSON-LD Content-Type/Accept header
 
 As transition to JSON-LD (since it is not fully supported by browsers), clients that favor the "application/ld+json" media type in the accept header of their request may receive this as the Content-Type of the response. Also note that it is recommended that the server include the context URI in a Link header of the response if the request was for for "application/json". See [Section 5][info-request] and the documents to which it links for further details.
+
+
+## Deferred Changes
+
+### Add Rights Information
+
+A proposal was made to add rights level information from the [Presentation API][prezi-api] to the Image Information response for images to avoid requiring support for both APIs just to give a license or attribution statement for the image.  This change was deferred until the next version of the API to coincide with the introduction of Authentication and Authorization information, and to allow extra time to gather use cases and requirements.
+
+
 
 [api-11]: /api/image/1.1/ "Image API 1.1"
 [api-compliance]: /api/image/2.0/#compliance-levels "Image API 6. Compliance Levels"

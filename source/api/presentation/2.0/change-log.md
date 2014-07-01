@@ -7,7 +7,7 @@ tags: [specifications, presentation-api, change-log]
 major: 2
 minor: 0
 # no patch
-pre: draft
+pre: draft2
 ---
 
 This document is a companion to the [IIIF Presentation API Specification, Version 2.0][prezi-api]. It describes the significant changes to the API since [Version 1.0][prezi-api-10]. The changes are broken into two groups: [Breaking Changes][breaking-changes], i.e. those that are not backwards compatible from either a client or server perspective (or both); [Other Changes][other-changes], i.e. those that are backwards compatible. A third section, [Deferred Proposals][deferred-proposals], lists proposals that have been discussed but did not make it into this version of the specification.
@@ -15,7 +15,7 @@ This document is a companion to the [IIIF Presentation API Specification, Versio
 In addition to changes in the API, the specification documents have been changed as follows:
 
   * The use of [RFC 2119 keywords][rfc-2119] has been made more consistent.
-  * Language has been adjusted to make the document less focused on paged objects.
+  * Language has been adjusted to make the document less focused on paged, digitized objects.
   * [Semantic Versioning][semver] will be used to enumerate releases.
 
 ## Table of Contents
@@ -65,6 +65,10 @@ Several new fields were added:
 
 In order to manage requests for features that are not universally applicable, but still useful, the service construction that was previously under-specified has been extended to allow additional external specifications to be embedded or referenced.  Services are now listed in an annex document, and include the oft-discussed geo-tagging and physical dimensions features.
 
+### Server-side Image Rotation Option
+
+Added and described an Open Annotation Selector object that allows specifying the parameters for an Image API URI separately.  The original use case was server side rotation of a segment image, however all of the parameters could be useful in different situations.
+
 ### Start Canvas
 
 An additional value of `start` was added to the `viewing_hint` value enumeration, to be used on a canvas to assert that it's the one to be rendered to the user first, regardless of its position in the Sequence.
@@ -76,6 +80,10 @@ An additional value of `top` was added to the `viewing_hint` value enumeration, 
 ### Restrictions Lifted
 
 In 1.0 it was not possible to add most of the fields to content resources.  This was not for any good reason, and the restrictions were lifted.
+
+### Extra-Canvas Coordinates
+
+Clarified that any reference to a location outside of the dimensions of a Canvas is an error.
 
 ## Deferred Proposals
 
