@@ -1,5 +1,5 @@
 ---
-title: IIIF Image and Presentation API Drafts Releases
+title: IIIF Image and Presentation API Drafts Released
 author: Jon Stroop
 date: 2014-05-29
 tags: [specifications, image-api, presentation-api, announcements]
