@@ -279,7 +279,7 @@ Other properties are possible, either via custom extensions or endorsed by the I
 
 This section describes the _RECOMMENDED_ request and response patterns for the API that makes the presentation information available. The REST and simple HATEOAS approach is followed where a call will retrieve a description of a resource, and additional calls may be made by following links obtained from within the description. All of the requests use the HTTP GET method; creation and update of resources is not covered by this specification.
 
-###  5.1 Requests
+###  5.1. Requests
 
 Each of the sections below recommends a URI pattern to follow for the different resources. This is not required and clients _MUST NOT_ construct the URIs by themselves, instead they _MUST_ follow links from within retrieved descriptions.
 
@@ -302,9 +302,9 @@ Where the parameters are:
 
 The individual resources _MAY_ have URIs below this top-level pattern by appending a "/" and additional information to identify the resource. If a client requests a URI without a trailing ".json", then the server _SHOULD_ return the JSON representations defined below.
 
-###  5.2 Responses
+###  5.2. Responses
 
-####  5.2.1 HTTP Details
+####  5.2.1. HTTP Details
 
 The format for all responses is JSON, and the sections below describe the structure to be returned in more detail. The primary response is when the manifest is requested and, for optimization reasons, this _MUST_ return the manifest information with the default sequence, canvases and associations for image content resources embedded within it. Additional sequences and associations _MAY_ be available via additional calls, and if so, _MUST_ be referenced in the manifest.
 
@@ -337,7 +337,7 @@ Header set Access-Control-Allow-Origin "*"
 
 Responses _SHOULD_ be compressed by the server as there are significant performance gains to be made for very repetitive data structures.
 
-####  5.2.2 Content Details
+####  5.2.2. Content Details
 
 The following applies to all of the responses in the Presentation API.  For the most part, these are features of the JSON-LD specification that have particular uses within the API.
 
@@ -368,7 +368,7 @@ Language _MAY_ be associated with strings using the following pattern of `@value
 
 Note that [RFC 5646][rfc5646] allows the script of the text to be included after a hyphen, such as `ar-latn`, and clients _SHOULD_ be aware of this possibility. This allows for full internationalization of the user interface components described in the response, as the labels as well as values may be translated in this manner; examples are given below.
 
-Minimal HTML markup _MAY_ be included in descriptive strings using the pattern of `@value` with an `@type` property of `rdf:XMLLiteral`. This is included to allow manifest creators to add links and simple formatting instructions to blocks of plain text. The content _MUST_ be well-formed XML and therefore must be wrapped in an element such as `p` or `span`.  There _MUST NOT_ be whitespace on either side of the HTML string, and thus the first character in the string _MUST_ be a '<' character and the last character _MUST_ be '>'.
+Minimal HTML markup _MAY_ be included in the `description`, `attribution` and 'metadata' properties using the pattern of `@value` with an `@type` property of `rdf:XMLLiteral`. This is included to allow manifest creators to add links and simple formatting instructions to blocks of plain text. The content _MUST_ be well-formed XML and therefore must be wrapped in an element such as `p` or `span`.  There _MUST NOT_ be whitespace on either side of the HTML string, and thus the first character in the string _MUST_ be a '<' character and the last character _MUST_ be '>'.
 
 In order to avoid HTML or script injection attacks, clients _MUST_ remove:
 
@@ -859,7 +859,7 @@ In the example below, the text should be colored red.
 {% endhighlight %}
 
 
-#### 6.6.6 Rotation
+####  6.6.6. Rotation
 
 CSS may also be used for rotation of images which are not correctly aligned with the canvas. In the example below, after the image is located within the 500 wide by 30 high space within the canvas, it is then rotated by the rendering client application around the top left corner by 45 degrees anti-clockwise.
 
