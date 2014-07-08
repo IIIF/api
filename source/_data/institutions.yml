@@ -15,18 +15,26 @@
 - name: Johns Hopkins University
   uri: 
 - name: La Bibliothèque nationale de France
-  uri: 
-- name: Los Alamos National Laboratory
-  uri: 
+  uri:  
 - name: Nasjonalbiblioteket (National Library of Norway)
   uri: 
+- name: National Library of Denmark
+  uri:
+- name: National Library of New Zealand
+  uri:
+- name: National Library of Poland
+  uri:
+- name: National Library of Wales
+  uri:
 - name: Princeton University Library
   uri: http://library.princeton.edu
-- name: "St. Louis University, TPEN"
+- name: "St. Louis University"
   uri: 
 - name: Stanford University
   uri: 
 - name: TextGrid
   uri: 
+- name: Wellcome Trust
+  uri:
 - name: Yale University
   uri: 
