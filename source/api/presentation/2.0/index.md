@@ -308,9 +308,21 @@ The individual resources _MAY_ have URIs below this top-level pattern by appendi
 
 The format for all responses is JSON, and the sections below describe the structure to be returned in more detail. The primary response is when the manifest is requested and, for optimization reasons, this _MUST_ return the manifest information with the default sequence, canvases and associations for image content resources embedded within it. Additional sequences and associations _MAY_ be available via additional calls, and if so, _MUST_ be referenced in the manifest.
 
-The content-type of the response _MUST_ be either `application/json` (regular JSON), or `application/ld+json` (JSON-LD). If the client explicitly wants the JSON-LD content-type, then it _MUST_ specify this in an Accept header, otherwise the server _MUST_ return the regular JSON content-type.
+The content-type of the response _MUST_ be either `application/json` (regular JSON),
 
-If the regular JSON content-type is returned, then it is _RECOMMENDED_ that the server provide a link header to the context document. The syntax for the link header is below, and further described in [section 6.8 of the JSON-LD specification][json-ld-68]. The context _MUST NOT_ be given in the link header if the client requests `application/ld+json`.
+```
+Content-Type: application/json
+```
+{: .urltemplate}
+
+or "application/ld+json" (JSON-LD). 
+
+```
+Content-Type: application/ld+json
+```
+{: .urltemplate}
+
+If the client explicitly wants the JSON-LD content-type, then it _MUST_ specify this in an Accept header, otherwise the server _MUST_ return the regular JSON content-type. If the regular JSON content-type is returned, then it is _RECOMMENDED_ that the server provide a link header to the context document. The syntax for the link header is below, and further described in [section 6.8 of the JSON-LD specification][json-ld-68]. The context _MUST NOT_ be given in the link header if the client requests `application/ld+json`.
 
 ```
 Content-Type: application/json
@@ -327,15 +339,9 @@ Access-Control-Allow-Origin: *
 ```
 {: .urltemplate}
 
-In the Apache web server this may be enabled with the following configuration snippet:
-
-```
-LoadModule headers_module modules/mod_headers.so
-Header set Access-Control-Allow-Origin "*"
-```
-{: .urltemplate}
-
 Responses _SHOULD_ be compressed by the server as there are significant performance gains to be made for very repetitive data structures.
+
+Recipes for enabling CORS and the conditional Content-type header are provided in the [Apache HTTP Server Implementation Notes][apache-notes].
 
 ####  5.2.2. Content Details
 
@@ -1380,7 +1386,7 @@ Many thanks to Matthieu Bonicel, Tom Cramer, Ian Davis, Markus Enders, Renhart G
 [annex]: /api/annex/services/ "Services Annex Document"
 [change-log]: /api/presentation/2.0/change-log.html "Presentation API 2.0 Change Log"
 [iiif-community]: /community.html "IIIF Community"
-
+[apache-notes]: /api/annex/notes/apache.html "Apache HTTP Server Implementation Notes"
 [openanno]: http://www.openannotation.org/spec/core/ "Open Annotation"
 [openannotypes]: http://www.openannotation.org/spec/core/core.html#BodyTargetType
 [openannomulti]: http://www.openannotation.org/spec/core/multiplicity.html#Choice
