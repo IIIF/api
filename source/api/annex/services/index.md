@@ -92,14 +92,27 @@ The service _MAY_ have additional information embedded from the Image Informatio
   "service": {
     "@context" : "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
     "@id" : "http://www.example.org/image-service/abcd1234",
-    "profile": "http://iiif.io/api/image/1/level2.json",
     "protocol": "http://iiif.io/api/image",
     "width" : 6000,
     "height" : 4000,
-    "scale_factors" : [ 1, 2, 4 ],
-    "sizes" : [ "150,100", "360,240", "3600,2400" ],
-    "tile_width" : 1024,
-    "tile_height" : 1024
+    "sizes" : [
+      {"width" : 150, "height" : 100, "viewing_hint" : "thumbnail"},
+      {"width" : 600, "height" : 400, "viewing_hint" : "small"},
+      {"width" : 3000, "height": 2000, "viewing_hint" : "large"}
+    ],
+    "tiles": [
+      {"width" : 512, "scale_factors" : [1,2,4,8,16]}
+    ],
+    "profile" : [
+      "http://iiif.io/api/image/{{ page.major }}/level2.json",
+      {
+        "formats" : [ "gif", "pdf" ],
+        "qualities" : [ "color", "gray" ],
+        "supports" : [
+            "canonical_link_header", "rotation_arbitrary", "http://example.com/feature/"
+        ]
+      }
+    ],
   }
 }
 {% endhighlight %}
