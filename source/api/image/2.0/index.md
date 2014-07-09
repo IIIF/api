@@ -455,9 +455,9 @@ Link: <http://iiif.io/api/image/{{ page.major }}/context.json>
 ```
 {: .urltemplate}
 
-A recipe for enabling these behaviors is provided in the [Apache HTTP Server Implementation Notes][apache-notes-conditional-content-type].
-
 Servers _SHOULD_ send the `Access-Control-Allow-Origin` header with the value `*` in response to information requests. The syntax is shown below and is described in the [CORS][cors-spec] specification. This header is required in order to allow the JSON responses to be used by Web applications hosted on different servers.
+
+A recipe for enabling these behaviors is provided in the [Apache HTTP Server Implementation Notes][apache-notes-conditional-content-type].
 
 ```
 Access-Control-Allow-Origin: *
