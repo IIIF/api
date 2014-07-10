@@ -71,7 +71,7 @@ Relevant Headers:
 
 | Header                    | Request/Response | Required | Description |
 | ------------------------- | -----------------| -------- | ----------- |
-| [Content-Type][http-content-type] | Request  | yes | The Media Type for the image |
+| [Content-Type][http-content-type] | Request  | yes | The Media Type for the image. |
 
 The server MUST return the image in a single format from this URI. It MAY either ignore any Accept header included in request, or return a 406 (Not Acceptable) status in response to an attempt to content-negotiate.
 
