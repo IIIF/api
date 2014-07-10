@@ -47,9 +47,9 @@ Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss]
 
 This document is intended for architects and developers building applications that share and consume digital images, particularly from cultural heritage institutions, museums, libraries and archives. Target applications include:
 
-  * Digital image repositories and distributed content networks
+  * Digital image repositories and distributed content networks.
   * Image focused web applications, such as pan/zoom viewers, book-readers, etc.
-  * Client applications using image content for analysis or comparison
+  * Client applications using image content for analysis or comparison.
 
 This specification concerns the use of the images by a client, but not management of the images by the server. It covers how to respond to the requests given in a particular URI syntax, but does not cover methods of implementation such as rotation algorithms, transcoding, color management, compression, or how to respond to URIs that do not conform to the specified syntax. This allows flexibility for implementation in domains with particular constraints or specific community practices, while supporting interoperability in the general case.
 
@@ -57,8 +57,8 @@ This specification concerns the use of the images by a client, but not managemen
 
 The IIIF Image API can be called in two ways:
 
- * Request an image, which may be part of a larger image
- * Request a description of the image characteristics and functionality available for that image
+ * Request an image, which may be part of a larger image.
+ * Request a description of the image characteristics and functionality available for that image.
 
 Both convey the request's information in the path segments of the URI, rather than as query parameters. This makes responses easier to cache, either at the server or by standard web-caching infrastructure. It also permits a minimal implementation using pre-computed files in a matching directory structure.
 
@@ -401,7 +401,7 @@ There are several reasons why a canonical URI syntax is desirable:
 
   * It enables static, file-system based implementations, which will have only a single URI at which the content is available.
   * Caching becomes significantly more efficient, both client and server side, when the URIs used are the same between systems and sessions.
-  * Response times can be improved by avoiding redirects from a requested non-canonical URI syntax to the canonical syntax by using the canonical form directly
+  * Response times can be improved by avoiding redirects from a requested non-canonical URI syntax to the canonical syntax by using the canonical form directly.
 
 In order to support the above requirements, clients should construct the image request URIs using to following canonical parameter values where possible.
 
@@ -457,12 +457,13 @@ Link: <http://iiif.io/api/image/{{ page.major }}/context.json>
 
 Servers _SHOULD_ send the `Access-Control-Allow-Origin` header with the value `*` in response to information requests. The syntax is shown below and is described in the [CORS][cors-spec] specification. This header is required in order to allow the JSON responses to be used by Web applications hosted on different servers.
 
-A recipe for enabling these behaviors is provided in the [Apache HTTP Server Implementation Notes][apache-notes-conditional-content-type].
-
 ```
 Access-Control-Allow-Origin: *
 ```
 {: .urltemplate}
+
+A recipe for enabling these behaviors is provided in the [Apache HTTP Server Implementation Notes][apache-notes-conditional-content-type].
+
 
 ### 5.1. Image Information
 
@@ -487,7 +488,7 @@ The objects in the `sizes` list have the properties in the following table.  Ima
 | ---------- | --------- | ----------- |
 | `width` | Required | The width of the image to be requested. |
 | `height` | Required | The height of the image to be requested. |
-| `viewing_hint` | Optional | A string giving a hint to the intended use of the size.  It may have any value, but the following are recommended: `icon`, `thumbnail`, `small`, `medium`, `large`, `xlarge` |
+| `viewing_hint` | Optional | A string giving a hint to the intended use of the size.  It may have any value, but the following are recommended: `icon`, `thumbnail`, `small`, `medium`, `large`, `xlarge`. |
 {: .image-api-table}
 
 The objects in the `tiles` list have the properties in the following table.  The `width` and `height` should be used to fill the region parameter and the `scale_factors` to complete the size parameter of the image URL. This is described in detail in the [Implementation Notes][a-implementation-notes].
@@ -505,32 +506,32 @@ The objects in the `profiles` list have the properties in the following table.  
 | ----------- | --------- | ----------- |
 | `@context`  | Optional  | The string "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json". This should be included only if the profile's URI is dereferenced. |
 | `@id`       | Optional  | The URI of the profile. |
-| `@type`     | Optional  | The string "iiif:ImageProfile" |
+| `@type`     | Optional  | The string "iiif:ImageProfile". |
 | `formats`   | Optional  | The set of image format parameter values available for the image. |
 | `qualities` | Optional  | The set of image quality parameter values available for the image. |
-| `supports`  | Optional  | The set of additional features supported beyond those declared in the compliance level document |
+| `supports`  | Optional  | The set of additional features supported beyond those declared in the compliance level document. |
 {: .image-api-table}
 
 The set of features that may be specified in the `supports` property of an Image profile are:
 
 | Feature Name | Description |
 | ------------ | ----------- |
-| `base_uri_redirect` | The base URI of the service will redirect to the Image Information document |
-| `canonical_link_header` | The canonical image URI HTTP link header is provided on image responses |
-| `cors` |  The CORS HTTP header is provided on all responses  |
-| `jsonld_media_type` | The JSON-LD media type is provided when JSON-LD is requested|
-| `mirroring` | The image may be rotated around the vertical axis, resulting in a left-to-right mirroring of the content |
-| `profile_link_header` | The profile link header is provided on image responses |
-| `region_by_pct` |  Regions of images may be requested by percentage  |
-| `region_by_px` |   Regions of images may be requested by pixel dimensions  |
-| `rotation_arbitrary` |   Rotation of images may be requested by degrees other than multiples of 90  |
-| `rotation_by_90s` |   Rotation of images may be requested by degrees in multiples of 90  |
-| `size_above_full` | Size of images may be requested larger than the "full" size |
-| `size_by_forced_wh` |   Size of images may be requested in the form "!w,h"  |
-| `size_by_h` |   Size of images may be requested in the form ",h"  |
-| `size_by_pct` |   Size of images may be requested in the form "pct:n"  |
-| `size_by_w` |   Size of images may be requested in the form "w,"  |
-| `size_by_wh` |   Size of images may be requested in the form "w,h"  |
+| `base_uri_redirect` | The base URI of the service will redirect to the Image Information document. |
+| `canonical_link_header` | The canonical image URI HTTP link header is provided on image responses. |
+| `cors` |  The CORS HTTP header is provided on all responses.  |
+| `jsonld_media_type` | The JSON-LD media type is provided when JSON-LD is requested. |
+| `mirroring` | The image may be rotated around the vertical axis, resulting in a left-to-right mirroring of the content. |
+| `profile_link_header` | The profile link header is provided on image responses. |
+| `region_by_pct` |  Regions of images may be requested by percentage.  |
+| `region_by_px` |   Regions of images may be requested by pixel dimensions.  |
+| `rotation_arbitrary` |   Rotation of images may be requested by degrees other than multiples of 90.  |
+| `rotation_by_90s` |   Rotation of images may be requested by degrees in multiples of 90.  |
+| `size_above_full` | Size of images may be requested larger than the "full" size. |
+| `size_by_forced_wh` |   Size of images may be requested in the form "!w,h".  |
+| `size_by_h` |   Size of images may be requested in the form ",h".  |
+| `size_by_pct` |   Size of images may be requested in the form "pct:n".  |
+| `size_by_w` |   Size of images may be requested in the form "w,".  |
+| `size_by_wh` |   Size of images may be requested in the form "w,h".  |
 {: .image-api-table}
 
 The set of features, formats and qualities supported is the union of those declared in all of the external profile documents and any embedded profile objects.  If a feature is not present in either the profile document or the `supports` property of an embedded profile, then a client _MUST_ assume that the feature is not supported.
@@ -661,8 +662,9 @@ Early sanity checking of URIs (lengths, trailing GET, invalid characters, out-of
   * For use cases that enable the saving of the image, it is _RECOMMENDED_ to use the HTTP `Content-Disposition` header ([RFC6266][rfc-6266]) to provide a convenient filename that distinguishes the image, based on the identifier and parameters provided.
   * This specification makes no assertion about the rights status of requested images or any other descriptive metadata, whether or not authentication has been accomplished. Please see the [IIIF Presentation API][prezi-api] for rights and other information.
   * This API does not specify how image servers fulfill requests, what quality the returned images will have for different parameters, or how parameters may affect performance.
+  * Additional [Apache HTTP Server implementation notes][apache-notes] are available.
   * When requesting image tiles, the [Region][region] and [Size][size] parameters must be calculated to take account of partial tiles along the right and lower edges for a full imagine that is not an exact multiple of the scaled tile size. The algorithm below is shown as Python code and assumes integer inputs and integer arithmetic throughout (ie. remainder discarded on division). Inputs are: size of full image content `(width,height)`, scale factor `s`, tile size `(tw,th)`, and tile coordinate `(n,m)` counting from `(0,0)` in the upper-left corner. Note that the rounding method is implementation dependent.
-  * Additional [Apache HTTP Server implementation notes][apache-notes] are also available.
+
 
 {% highlight python %}
     # Calculate region parameters /xr,yr,wr,hr/
