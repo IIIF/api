@@ -2,9 +2,9 @@
 from pyld.jsonld import compact, frame, to_rdf, from_rdf
 import json, urllib, pprint
 
-framejs = json.load(urllib.urlopen('http://localhost:4000/api/presentation/2/manifest_frame.json'))
-manifestjs = json.load(urllib.urlopen('http://localhost:4000/api/presentation/2.0/example/manifest1.json'))
-contextjs = json.load(urllib.urlopen('http://localhost:4000/api/presentation/2/context.json'))
+framejs = json.load(urllib.urlopen('http://iiif.io/api/presentation/2/manifest_frame.json'))
+manifestjs = json.load(urllib.urlopen('http://iiif.io/api/presentation/2.0/example/manifest1.json'))
+contextjs = json.load(urllib.urlopen('http://iiif.io/api/presentation/2/context.json'))
 contextURI = "http://iiif.io/api/presentation/2/context.json"
 
 # Convert example JSON-LD to RDF
