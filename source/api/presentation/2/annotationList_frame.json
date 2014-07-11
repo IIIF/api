@@ -1,0 +1,10 @@
+{
+    "@context" : "http://iiif.io/api/presentation/2/context.json",
+    "@type": "sc:AnnotationList",
+    "resources": [{
+        "@type": "oa:Annotation",
+        "on" : [{
+            "@embed" : false
+        }]
+    }]
+}

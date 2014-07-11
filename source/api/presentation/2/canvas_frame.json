@@ -1,0 +1,12 @@
+{
+    "@context" : "http://iiif.io/api/presentation/2/context.json",
+    "@type": "sc:Canvas",
+    "images": [{
+        "@type": "oa:Annotation",
+        "@embed": true
+    }],
+    "other_content": [{
+        "@type": "sc:AnnotationList",
+        "@embed": false
+    }]
+}

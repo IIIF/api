@@ -1,9 +1,10 @@
+---
+---
 {
 	"@context": [
-		"http://www.w3.org/ns/oa-context-20130208.json",
 		{
-			"sc":      "http://iiif.io/api/presentation/{{ site.presentation_api.latest.major }}#",
-	        "iiif":    "http://iiif.io/api/image/{{ site.image_api.latest.major}}#",
+			"sc":      "http://iiif.io/api/presentation/2#",
+	        "iiif":    "http://iiif.io/api/image/2#",
 	        "exif":    "http://www.w3.org/2003/12/exif/ns#",
 	        "oa":      "http://www.w3.org/ns/oa#",
 	        "cnt":     "http://www.w3.org/2011/content#",
@@ -59,6 +60,7 @@
 		    "language":    {"@id": "dc:language"},
 		    "value":       {"@id": "rdf:value"},
 		    "label":       {"@id": "rdfs:label"}
-		}
+		},
+		"http://www.w3.org/ns/oa-context-20130208.json"
 	]
 }
