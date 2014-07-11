@@ -1,0 +1,7 @@
+{
+    "@context" : "http://iiif.io/api/presentation/2/context.json",
+    "@type": "oa:Annotation",
+    "on" : [{
+        "@embed" : false
+    }]
+}

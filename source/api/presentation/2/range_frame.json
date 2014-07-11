@@ -1,0 +1,12 @@
+{
+    "@context" : "http://iiif.io/api/presentation/2/context.json",
+    "@type": "sc:Range",
+    "ranges": [{
+        "@type": "oa:Range",
+        "@embed" : false
+    }],
+    "canvases": [{
+        "@type": "oa:Canvas",
+        "@embed" : false
+    }],
+}

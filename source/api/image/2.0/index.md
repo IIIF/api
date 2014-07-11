@@ -576,6 +576,8 @@ The JSON response is structured as shown in the following example. The order of 
 }
 {% endhighlight %}
 
+Using the [supplied JSON-LD frame][annex-frames] will result in the correct structure.
+
 
 ##  6. Compliance Levels
 
@@ -744,6 +746,7 @@ Many thanks to  Ben Albritton, Matthieu Bonicel, Anatol Broder, Kevin Clarke, To
 [prezi-api]: /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/ "Presentation API"
 
 [service-profiles]: /api/annex/services/ "Services Annex Document"
+[annex-frames]: /api/annex/notes/frames.html "JSON-LD Frames Implementation Notes"
 [apache-notes]: /api/annex/notes/apache.html "Apache HTTP Server Implementation Notes"
 [apache-notes-conditional-content-type]: /api/annex/notes/apache.html#conditional-content-types "Apache HTTP Server Implementation Notes: Conditional Content Types"
 [apache-notes-set-compliance-link-header]: /api/annex/notes/apache.html#set-compliance-link-header "Apache HTTP Server Implementation Notes: Set Compliance Link Header" 

@@ -405,9 +405,9 @@ The top level resource in the response _MUST_ have the `@context` property, and 
 Any additional fields beyond those defined in this specification _SHOULD_ be mapped to RDF predicates using further context documents. In this case, the enclosing object _MUST_ have its own `@context` property, and it _SHOULD_ be the first key/value pair. This is _REQUIRED_ for `service` links that embed any information beyond a `profile`.  These contexts _SHOULD NOT_ redefine `profile`.
 
 Clients _SHOULD_ be aware that some implementations will add an `@graph` property at the top level, which contains the object. This is a side effect of JSON-LD serialization, and servers _SHOULD_ remove it before sending to the client. The client can use the [JSON-LD compaction algorithm][json-ld-compact] to remove it, if present.
-<!--
-Using JSON-LD Framing with the [supplied frames][XXX] will avoid the generation of the `@graph` pattern.
--->
+
+Using compaction and the JSON-LD Framing algorithm with the [supplied frames][annex-frames] will generate the correct structure.
+
 
 ##  6. Primary Resource Types
 
@@ -1200,7 +1200,7 @@ URL: _http://www.example.org/iiif/book1/manifest.json_
             "other_content": [
               {
                 "@id":"http://www.example.org/iiif/book1/list/p1.json",
-                "@type":"sc:"
+                "@type":"sc:AnnotationList"
               }
             ]
         },
@@ -1224,11 +1224,9 @@ URL: _http://www.example.org/iiif/book1/manifest.json_
                         "@context": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
                         "@id": "http://www.example.org/images/book1-page2",
                         "profile":"http://iiif.io/api/image/{{ site.image_api.latest.major }}/level1.json",
-                        "scale_factors": [1, 2, 4],
                         "height":8000,
                         "width":6000,
-                        "tile_width":1024,
-                        "tile_height":1024
+                        "tiles" : [{"width": 512, "scale_factors": [1,2,4,8,16]}]
                     }
                 },
                 "on":"http://www.example.org/iiif/book1/canvas/p2.json"
@@ -1237,7 +1235,7 @@ URL: _http://www.example.org/iiif/book1/manifest.json_
             "other_content": [
               {
                 "@id":"http://www.example.org/iiif/book1/list/p2.json",
-                "@type":"sc:"
+                "@type":"sc:AnnotationList"
               }
             ]
           },
@@ -1269,7 +1267,7 @@ URL: _http://www.example.org/iiif/book1/manifest.json_
             "other_content": [
               {
                 "@id":"http://www.example.org/iiif/book1/list/p3.json",
-                "@type":"sc:"
+                "@type":"sc:AnnotationList"
               }
             ]
           }
@@ -1403,6 +1401,7 @@ Many thanks to Matthieu Bonicel, Tom Cramer, Ian Davis, Markus Enders, Renhart G
 [json-ld-compact]: http://www.w3.org/TR/json-ld-api/#compaction-algorithms "JSON-LD Compaction Algorithms"
 [versioning]: /api/annex/notes/semver.html "Versioning of APIs"
 [use-case-doc]: /api/presentation/usecases.html "Presentation API Use Cases"
+[annex-frames]: /api/annex/notes/frames.html "JSON-LD Frames Implementation Notes"
 
 [icon-req]: /img/metadata-api/required.png "Required"
 [icon-recc]: /img/metadata-api/recommended.png "Recommended"

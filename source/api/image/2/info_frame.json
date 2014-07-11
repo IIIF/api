@@ -1,0 +1,4 @@
+{
+    "@context" : "http://iiif.io/api/image/2/context.json",
+    "@type": "iiif:Image",
+}
