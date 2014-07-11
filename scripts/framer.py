@@ -5,15 +5,15 @@ import json, urllib, pprint
 framejs = json.load(urllib.urlopen('http://iiif.io/api/presentation/2/manifest_frame.json'))
 manifestjs = json.load(urllib.urlopen('http://iiif.io/api/presentation/2.0/example/manifest1.json'))
 
-manifestjs = json.load(urllib.urlopen('http://localhost:4000/api/presentation/2.0/example/manifest1.json'))
+manifestjs = json.load(urllib.urlopen('http://localhost:4000/api/presentation/2.0/example/test_case.json'))
 
 contextjs = json.load(urllib.urlopen('http://iiif.io/api/presentation/2/context.json'))
 contextURI = "http://iiif.io/api/presentation/2/context.json"
 
 # Convert example JSON-LD to RDF
-rdf = to_rdf(manifestjs)
+#rdf = to_rdf(manifestjs)
 # Convert back to JSON-LD
-manifestjs2 = from_rdf(rdf)
+#manifestjs2 = from_rdf(rdf)
 
 
 # Frame the JSON-LD
