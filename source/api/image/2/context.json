@@ -2,14 +2,14 @@
 ---
 {
   "@context": {
-    "iiif" :   "http://iiif.io/api/image/{{ site.image_api.latest.major }}#",
+    "iiif" :   "http://iiif.io/api/image/2#",
     "xsd" :    "http://www.w3.org/2001/XMLSchema#",
     "exif":    "http://www.w3.org/2003/12/exif/ns#",
     "dc":      "http://purl.org/dc/elements/1.1/",
     "dcterms": "http://purl.org/dc/terms/",
     "doap" :   "http://usefulinc.com/ns/doap#",
     "svcs":    "http://rdfs.org/sioc/services#",
-    "sc":      "http://iiif.io/api/presentation/{{ site.presentation_api.latest.major }}#",    
+    "sc":      "http://iiif.io/api/presentation/2#",    
 
     "base_uri_redirect" : { "@id" : "iiif:baseUriRedirectFeature", "@type": "iiif:Feature" },
     "cors" : { "@id" : "iiif:corsFeature", "@type": "iiif:Feature" },

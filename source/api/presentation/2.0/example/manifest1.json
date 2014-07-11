@@ -82,11 +82,9 @@
                         "@context": "http://iiif.io/api/image/2/context.json",
                         "@id": "http://www.example.org/images/book1-page2",
                         "profile":"http://iiif.io/api/image/1/level1.json",
-                        "scale_factors": [1, 2, 4],
                         "height":8000,
                         "width":6000,
-                        "tile_width":1024,
-                        "tile_height":1024
+			"tiles" : [{"width": 512, "scale_factors" : [1,2,4,8,16]}]
                     }
                 },
                 "on":"http://www.example.org/iiif/book1/canvas/p2.json"
