@@ -451,7 +451,7 @@ The example below includes only the manifest-level information, however it _MUST
   ],
   "description":"A longer description of this example book. It should give some real information.",
   "thumbnail": {
-    "@id": "http://www.example.org/images/book1-page1/full/80,100/0/native.jpg",
+    "@id": "http://www.example.org/images/book1-page1/full/80,100/0/default.jpg",
     "service": {
       "@context":"http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
       "@id":"http://www.example.org/images/book1-page1",
@@ -699,13 +699,13 @@ The following sections describe known use cases for building representations of 
 
 ####  6.6.1. Segments
 
-It is important to be able to extract parts, or segments, of resources. In particular a very common requirement is to associate a resource with part of a canvas, or part of an image with either the entire canvas or part thereof. Secondly, as transcriptions are often made available in XML files, extracting the correct page to associate with the canvas, or line to associate with part of the canvas, is equally useful for reusing existing material. These can be accomplished using URI fragments for simple cases. Two examples are given below:
+It is important to be able to extract parts, or segments, of resources. In particular a very common requirement is to associate a resource with part of a canvas, or part of an image with either the entire canvas or part thereof. Secondly, as transcriptions are often made available in XML files, extracting the correct page to associate with the canvas, or line to associate with part of the canvas, is equally useful for reusing existing material. These can be accomplished using URI fragments for simple cases. Examples are given below:
 
-  * Segments of both images and canvases may be selected by adding a [rectangular bounding box][media-frags] after the URI. The fragment _MUST_ be structured:
+  * Segments of both static images and canvases may be selected by adding a [rectangular bounding box][media-frags] after the URI. The fragment _MUST_ be structured:
 
       `http://www.example.com/iiif/book1/canvas/p1.json#xywh=100,100,300,50`
 
-      Where the four numbers are the x and y coordinates in the image or canvas, followed by the width and height. Thus this segment is 300px wide, 50px high and starts at position 100,100. Note that only integers are allowed in this syntax, and this may limit accuracy of assignment to canvases with small dimensions.  For image resources with a [IIIF Image API][image-api] service, it is strongly _RECOMMENDED_ to instead use the Image API parameters rather than a fragment.
+      Where the four numbers are the x and y coordinates in the image or canvas, followed by the width and height. Thus this segment is 300px wide, 50px high and starts at position 100,100. Note that only integers are allowed in this syntax, and this may limit accuracy of assignment to canvases with small dimensions.  
 
     {% highlight json %}
     {
@@ -723,6 +723,37 @@ It is important to be able to extract parts, or segments, of resources. In parti
       "on":"http://www.example.org/iiif/book1/canvas/p1.json"
     }
     {% endhighlight %}
+
+  * For image resources with a [IIIF Image API][image-api] service, it is strongly _RECOMMENDED_ to instead use the Image API parameters rather than a fragment.
+
+    {% highlight json %}
+{
+  "@context":"http://iiif.io/api/presentation/2/context.json",
+  "@id":"http://www.example.org/iiif/book1/annotation/anno1.json",
+  "@type":"oa:Annotation",
+  "motivation":"sc:painting",
+  "resource":{
+    "@id" : "http://www.example.org/iiif/book1-page1/40,50,1200,1800/full/0/default.jpg",
+    "@type":"oa:SpecificResource",
+    "full": {
+      "@id":"http://www.example.org/iiif/book1-page1/full/full/0/default.jpg",
+      "@type":"dctypes:Image",
+      "service": {
+        "@context": "http://iiif.io/api/image/2/context.json",
+        "@id": "http://www.example.org/iiif/book1-page1",
+        "profile":"http://iiif.io/api/image/2/level2.json"
+      }
+    },
+    "selector": {
+      "@context": "http://iiif.io/api/annex/openannotation/context.json",
+      "@type": "iiif:ImageApiSelector",
+      "region": "40,50,1200,1800"
+    }
+  },
+  "on":"http://www.example.org/iiif/book1/canvas/p1.json#xywh=50,50,320,240"
+}
+    {% endhighlight %}
+
 
   * Segments of XML files may be extracted with [XPaths][xpath]. The fragment _MUST_ be structured as follows:
         `http://www.example.com/iiif/book1/res/tei.xml#xpointer(/xpath/to/element)`
@@ -1215,7 +1246,7 @@ URL: _http://www.example.org/iiif/book1/manifest.json_
                 "@type":"oa:Annotation",
                 "motivation":"sc:painting",
                 "resource":{
-                    "@id":"http://www.example.org/images/book1-page2/full/1500,2000/0/native.jpg",
+                    "@id":"http://www.example.org/images/book1-page2/full/1500,2000/0/default.jpg",
                     "@type":"dctypes:Image",
                     "format":"image/jpeg",
                     "height":2000,
@@ -1402,6 +1433,7 @@ Many thanks to Matthieu Bonicel, Tom Cramer, Ian Davis, Markus Enders, Renhart G
 [versioning]: /api/annex/notes/semver.html "Versioning of APIs"
 [use-case-doc]: /api/presentation/usecases.html "Presentation API Use Cases"
 [annex-frames]: /api/annex/notes/frames.html "JSON-LD Frames Implementation Notes"
+[oa-ext-annex]: /api/annex/openannotation/index.html "Open Annotation Extensions"
 
 [icon-req]: /img/metadata-api/required.png "Required"
 [icon-recc]: /img/metadata-api/recommended.png "Recommended"
