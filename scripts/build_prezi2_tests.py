@@ -1,0 +1,284 @@
+import os, sys
+from factory_20 import ManifestFactory
+	
+BASEURL = "http://iiif.io/api/presentation/2.0/example/fixtures/"
+HOMEDIR = "../source/api/presentation/2.0/example/fixtures/"
+imageWidth = 1200
+imageHeight = 1800
+
+imageUris = [BASEURL + "resources/page1-full.png", BASEURL + "resources/page2-full.png"]
+textUris = [BASEURL + "resources/page1.txt", BASEURL + "resources/page2.txt"]
+htmlUris = [BASEURL + "resources/page1.html", BASEURL + "resources/page2.html"]
+transcriptions = [ 
+	["Top of First Page to Display", "Middle of First Page on Angle", "Bottom of First Page to Display"],
+	["Top of Second Page to Display", "Middle of Second Page on Angle", "Bottom of Second Page on Angle"]
+]
+
+line1Dims = "225,70,750,150"
+
+
+# Configure the factory
+fac = ManifestFactory()
+fac.set_base_metadata_uri(BASEURL)
+fac.set_base_metadata_dir(HOMEDIR)
+fac.set_base_image_uri("http://iiif.io/api/image/2.0/example/")
+fac.set_iiif_image_info(2.0, 1)
+fac.set_debug('error')
+
+testInfo = {
+
+# Done
+1 : {"title": "Minimum Required Fields"},
+2 : {"title": "Metadata Pairs", 'mfprops': [('metadata',{'date': 'some date'})]},
+3 : {"title": "Metadata Pairs with Languages", 'mfprops': [('metadata', {'date': [{'en':'some data'}, {'fr':'quelquetemps'}]})]},
+4 : {"title": "Metadata Pairs with Multiple Values in same Language", 'mfprops':[('metadata',{'date': ['some date', 'some other date']})]},
+5 : {"title": "Description field", 'mfprops': [('description',"This is a description")]},
+6 : {"title": "Multiple Descriptions", 'mfprops': [('description',["This is one description", {"@value":"This is another", "@language":"en"}])]},
+7 : {"title": "Rights Metadata", 'mfprops': [('attribution', "Owning Institution"), ('license','http://creativecommons.org/licenses/by-nc/3.0/')]},
+8 : {"title": "SeeAlso link / Manifest", 'mfprops':[('seeAlso','http://www.example.org/link/to/metadata')]},
+9 : {"title": "Service link / Manifest", 'mfprops':[('service','http://www.example.org/link/to/searchService')]},
+10 : {"title": "Service link as Object", 'mfprops':[('service',{'@id': "http://www.example.org/link/to/searchService", "format":"text/html"})]},
+11 : {"title": "ViewingDirection: l-t-r", 'ncanvas':2, 'mfprops':[('viewingDirection', 'left-to-right')]},
+12 : {"title": "ViewingDirection: r-t-l", 'ncanvas':2, 'mfprops':[('viewingDirection', 'right-to-left')]},
+13 : {"title": "ViewingDirection: t-t-b", 'ncanvas':2, 'mfprops':[('viewingDirection', 'top-to-bottom')]},
+14 : {"title": "ViewingDirection: b-t-t", 'ncanvas':2, 'mfprops':[('viewingDirection', 'bottom-to-top')]},
+15 : {"title": "ViewingHint: paged", 'ncanvas':2, 'mfprops':[('viewingHint','paged')]},
+16 : {"title": "ViewingHint: continuous", 'ncanvas':2, 'mfprops':[('viewingHint','continuous')]},
+17 : {"title": "ViewingHint: individuals", 'ncanvas':2, 'mfprops':[('viewingHint','individuals')]},
+18 : {"title": "Non Standard Keys", 'mfprops':[('someProperty','someValue')]},
+19 : {"title": "Multiple Canvases", 'ncanvas':2},
+20 : {"title": "Multiple Sequences", 'nseqs':2},
+21 : {"title": "Sequence with Metadata", 'seqprops':[('metadata', {'date':'some date'})]},
+22 : {"title": "/Sequence/ with non l-t-r viewingDirection", 'seqprops':[('viewingDirection', 'right-to-left')]},
+23 : {"title": "/Sequence/ with non paged viewingHint", 'seqprops':[('viewingHint','individuals')]},
+24 : {"title": "Image with IIIF Service", 'iiif':True},
+25 : {"title": "Image with IIIF Service, embedded info", 'iiif':True},
+26 : {"title": "Image different size to Canvas", 'cvsprops': [('height', 900), ('width', 600)]},
+27 : {"title": "No Image"},
+43 : {"title": "Embedded Transcription on Canvas", 'annoBody': fac.text('\n'.join(transcriptions[0]))},
+44 : {"title": "Embedded Transcription on Fragment Segment", 'annoBody': fac.text(transcriptions[0][0]), 'annoTarget+': '#xywh='+line1Dims},
+65 : {"title": "Embedded Transcription on Selector Segment", 'annoBody': fac.text(transcriptions[0][0])},
+45 : {"title": "External text/plain Transcription on Canvas", 'annoBody': fac.text(ident=textUris[0])},
+46 : {"title": "External text/plain Transcription on Segment", 'annoBody': fac.text(ident=BASEURL+"resources/line1.txt"), 'annoTarget+':'#xywh='+line1Dims},
+47 : {"title": "Embedded HTML Transcription on Canvas", 'annoBody': fac.text("<br/>".join(transcriptions[0]), format='text/html')},
+48 : {"title": "Embedded HTML Transcription on Segment", 'annoBody': fac.text("<b>"+transcriptions[0][0]+"</b>", format='text/html'), 'annoTarget+':'#xywh='+line1Dims},
+51 : {"title": "Embedded Comment on a Canvas", 'annoBody': fac.text("Comment"), 'annoMotivation': 'oa:commenting'},
+52 : {"title": "Embedded Comment on a Segment", 'annoBody': fac.text("Comment"), 'annoMotivation': 'oa:commenting', 'annoTarget+': "#xywh=100,100,200,200"},
+54 : {"title": "Comment in HTML", 'annoBody': fac.text("<b>Comment</b>", format='text/html'), 'annoMotivation': 'oa:commenting'},
+28 : {"title": "Choice of Image"},
+29 : {"title": "Choice of Image with IIIF Service", 'iiif':True},
+30 : {"title": "Main + Detail Image"},
+31 : {"title": "Detail with IIIF Service", 'iiif':True},
+32 : {"title": "Multiple Detail Images"},
+33 : {"title": "Detail Image with Choice"},
+34 : {"title": "Detail Image with Choice, and 'no image' as option"},
+35 : {"title": "Partial Image as Main Image"},
+37 : {"title": "Partial Image as Detail Image"},
+39 : {"title": "Image with CSS Rotation"},
+}
+
+
+# To Do
+
+todo = {
+36 : {"title": "Partial Image as Main Image with IIIF Service", 'iiif':True},
+38 : {"title": "Partial Image as Detail Image with IIIF Service", 'iiif':True},
+40 : {"title": "Partial Image with CSS Rotation"},
+42 : {"title": "Non Rectangular Partial Image"},
+49 : {"title": "XML with XPointer Transcription on Segment"},
+50 : {"title": "Non Rectangular Transcription Segment"},
+53 : {"title": "Embedded Comment on a Non-Rectangular Segment", 'annoBody': fac.text("Comment"), 'annoMotivation': 'oa:commenting'},
+
+55 : {"title": "Image format Comment", 'annoMotivation': 'oa:commenting'},
+56 : {"title": "Audio format Comment", 'annoMotivation': 'oa:commenting'},
+57 : {"title": "Video format Comment", 'annoMotivation': 'oa:commenting'},
+58 : {"title": "Data as Comment", 'annoMotivation': 'oa:commenting'},
+59 : {"title": "Audio Transcription on Segment"},
+60 : {"title": "Video Transcription on Segment"},
+
+61 : {"title": "Multiple Texts in Named Layers"},
+62 : {"title": "Basic ToC via Ranges"},
+63 : {"title": "Overlapping/Hierarchical Ranges"},
+64 : {"title": "Range with Partial Canvas"}
+}
+
+
+def removeExtraLabels(manifest):
+	for s in manifest.sequences:
+		s.label = ""
+
+def addEmbedInfo(manifest):
+	for s in manifest.sequences:
+		for c in s.canvases:
+			for a in c.images:
+				svc = a.resource.service
+				svc['height'] = imageHeight
+				svc['width'] = imageWidth
+				svc['tiles'] = [{"width":512,"scale_factors":[1,2,4,8,16]}]
+				svc['profile'] = ["http://iiif.io/api/image/2/level2.json", 
+				{"formats": ["gif", "tif", "pdf"], "qualities": ["color", "gray"], 
+				"supports": ["canonical_link_header", "mirroring", "rotation_arbitrary", "size_above_full"]}]
+
+def removeImages(manifest):
+	for s in manifest.sequences:
+		for c in s.canvases:
+			c.images = []
+
+def addTxnSegment(manifest):
+	for s in manifest.sequences:
+		for c in s.canvases:
+			l = c.other_content[0]
+			a = l.resources[0]
+			a.on = c.make_selection("xywh="+line1Dims, summarize=True)
+
+def makeImageChoice(manifest):
+	# Make choice of image for the canvas
+	for s in manifest.sequences:
+		for c in s.canvases:
+			for a in c.images:
+				color = a.resource;
+				color.label = "Color"
+				grey = fac.image(ident="http://www.shared-canvas.org/iiif/page1-full/full/full/0/gray.jpg", label="Greyscale")
+				grey.set_hw(imageHeight, imageWidth)
+				a.choice(color, [grey])
+
+def addDetailImage(manifest):
+	for s in manifest.sequences:
+		for c in s.canvases:
+			# Add a detail image
+			a = c.annotation()
+			img = a.image(ident=BASEURL + "resources/detail.jpg", label="Detail Image", iiif=False)
+			img.set_hw(173,173)
+			a.on += "#xywh=%s,%s,173,173" % (200 * len(c.images), 200 * len(c.images))
+
+def addDetailImageIIIF(manifest):
+	for s in manifest.sequences:
+		for c in s.canvases:
+			# Add a detail image
+			a = c.annotation()
+			img = a.image(ident="detail", label="Detail Image", iiif=True)
+			img.set_hw(173,173)
+			a.on += "#xywh=%s,%s,173,173" % (200 * len(c.images), 200 * len(c.images))
+
+def makeDetailChoice(manifest):
+	# Make choice of image for the canvas
+	for s in manifest.sequences:
+		for c in s.canvases:
+			for a in c.images[1:]:
+				color = a.resource;
+				color.label = "Color"
+				grey = fac.image(ident="http://www.shared-canvas.org/iiif/detail/full/full/0/gray.jpg", label="Greyscale")
+				grey.set_hw(173,173)
+				a.choice(color, [grey])
+
+def makeNilChoice(manifest):
+	for s in manifest.sequences:
+		for c in s.canvases:
+			for a in c.images[1:]:
+				a.resource.item.append("rdf:nil")
+
+def makePartialImage(manifest):
+	for s in manifest.sequences:
+		for c in s.canvases:
+			c.height -= 200
+			c.width -= 200
+			img = c.images[0].resource
+			img.height -= 200
+			img.width -= 200
+			img.id += "#xywh=100,100,%s,%s" % (img.width, img.height)
+
+def makePartialDetail(manifest):
+	for s in manifest.sequences:
+		for c in s.canvases:
+			for a in c.images[1:]:
+				img = a.resource
+				img.height -= 20
+				img.width -= 20
+				img.id += "#xywh=10,10,%s,%s" % (img.width, img.height)
+				a.on = a.on.replace('173', '153')
+
+def addRotation(manifest):
+	for s in manifest.sequences:
+		for c in s.canvases:
+			for a in c.images:
+				# add stylesheet that does 180 rotation of image
+				a.stylesheet(".rotated {transform: rotate(180deg)}", "rotated")
+
+# n : list of functions to call on manifest
+extraFuncs = {	
+1 : [removeExtraLabels],
+25 : [addEmbedInfo],
+27: [removeImages],
+28: [makeImageChoice],
+29: [makeImageChoice],  # XXX Demonstrates grey zooming issue!
+30: [addDetailImage],
+31: [addDetailImageIIIF],
+32: [addDetailImage, addDetailImage],
+33: [addDetailImage, makeDetailChoice],
+34: [addDetailImage, makeDetailChoice, makeNilChoice],
+35: [makePartialImage],
+37: [addDetailImage, makePartialDetail],
+39: [addRotation],
+65: [addTxnSegment]
+}
+
+manifests = {}
+
+
+coln = fac.collection(label="Collection of Test Cases")
+
+for (idn, info) in testInfo.items():
+
+	print "Building %s" % info['title']
+	# Build the Manifest
+	mf = coln.manifest(ident="%s/manifest" % idn, label="Test %s Manifest: %s" % (idn, info['title']))
+	annolists = []
+	if info.has_key('mfprops'):
+		for (p,v) in info['mfprops']:
+			setattr(mf, p, v)
+
+	for sx in range(info.get('nseqs', 1)):
+		seq = mf.sequence(label="Test %s Sequence %s" % (idn, sx+1))
+		if info.has_key('seqprops'):
+			for (p,v) in info['seqprops']:
+				setattr(seq,p,v)
+
+		imageWithIIIF = info.has_key('iiif')
+		for cx in range(info.get('ncanvas', 1)):
+			cvs = seq.canvas(ident="%s/c%s" % (idn, cx+1), label="Test %s Canvas: %s" % (idn, cx+1))
+			cvs.set_hw(imageHeight, imageWidth)
+			anno = cvs.annotation()
+			imguri = imageUris[cx]
+
+			if imageWithIIIF:
+				img = anno.image(ident=imguri[imguri.rfind('/')+1:-4], iiif=True)
+			else:
+				img = anno.image(ident=imguri, iiif=False)
+			img.set_hw(imageHeight, imageWidth)
+
+			if info.has_key('cvsprops'):
+				for (p,v) in info['cvsprops']:
+					setattr(cvs, p, v)
+		
+		# Maybe make an annotation list with an annotation...
+		if info.has_key('annoBody'):
+			annolist = cvs.annotationList(ident="%s/list1" % idn, label="Test %s List 1" % idn)
+			anno = annolist.annotation()
+			anno.resource = info['annoBody']
+			#if info.has_key('annoTarget'):
+			#	anno.on = info['annoTarget']
+			if info.has_key('annoTarget+'):
+				anno.on += info['annoTarget+']
+			if info.has_key('annoMotivation'):
+				anno.motivation = info['annoMotivation']
+			annolists.append(annolist)
+
+	for fn in extraFuncs.get(idn, []):
+		fn(mf)
+
+	for annolist in annolists:
+		annolist.toFile(compact=False)
+	mf.toFile(compact=False)
+	manifests[idn] = mf
+
+coln.toFile(compact=False)
