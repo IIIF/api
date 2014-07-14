@@ -180,14 +180,29 @@
       "label": "Test 35 Manifest: Partial Image as Main Image"
     }, 
     {
+      "@id": "http://iiif.io/api/presentation/2.0/example/fixtures/36/manifest.json", 
+      "@type": "sc:Manifest", 
+      "label": "Test 36 Manifest: Partial Image as Main Image with IIIF Service"
+    }, 
+    {
       "@id": "http://iiif.io/api/presentation/2.0/example/fixtures/37/manifest.json", 
       "@type": "sc:Manifest", 
       "label": "Test 37 Manifest: Partial Image as Detail Image"
     }, 
     {
+      "@id": "http://iiif.io/api/presentation/2.0/example/fixtures/38/manifest.json", 
+      "@type": "sc:Manifest", 
+      "label": "Test 38 Manifest: Partial Image as Detail Image with IIIF Service"
+    }, 
+    {
       "@id": "http://iiif.io/api/presentation/2.0/example/fixtures/39/manifest.json", 
       "@type": "sc:Manifest", 
       "label": "Test 39 Manifest: Image with CSS Rotation"
+    }, 
+    {
+      "@id": "http://iiif.io/api/presentation/2.0/example/fixtures/41/manifest.json", 
+      "@type": "sc:Manifest", 
+      "label": "Test 41 Manifest: Main Image with Server side Rotation"
     }, 
     {
       "@id": "http://iiif.io/api/presentation/2.0/example/fixtures/43/manifest.json", 
@@ -235,9 +250,33 @@
       "label": "Test 54 Manifest: Comment in HTML"
     }, 
     {
-      "@id": "http://iiif.io/api/presentation/2.0/example/fixtures/65/manifest.json", 
+      "@id": "http://iiif.io/api/presentation/2.0/example/fixtures/61/manifest.json", 
       "@type": "sc:Manifest", 
-      "label": "Test 65 Manifest: Embedded Transcription on Selector Segment"
+      "label": "Test 61 Manifest: Embedded Transcription on Selector Segment"
+    }, 
+    {
+      "@id": "http://iiif.io/api/presentation/2.0/example/fixtures/62/manifest.json", 
+      "@type": "sc:Manifest", 
+      "label": [
+        {
+          "@value": "62: quelque titre", 
+          "@language": "fr"
+        }, 
+        {
+          "@value": "62: some title", 
+          "@language": "en"
+        }
+      ]
+    }, 
+    {
+      "@id": "http://iiif.io/api/presentation/2.0/example/fixtures/63/manifest.json", 
+      "@type": "sc:Manifest", 
+      "label": "Test 63 Manifest: Description in Multiple Languages"
+    }, 
+    {
+      "@id": "http://iiif.io/api/presentation/2.0/example/fixtures/64/manifest.json", 
+      "@type": "sc:Manifest", 
+      "label": "Test 64 Manifest: Description in HTML"
     }
   ]
 }

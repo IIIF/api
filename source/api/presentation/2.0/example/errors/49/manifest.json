@@ -1,0 +1,24 @@
+{
+  "@context": "http://iiif.io/api/presentation/2/context.json", 
+  "@id": "http://iiif.io/api/presentation/2.0/example/errors/manifest.json", 
+  "@type": "sc:Manifest", 
+  "label": "manifest", 
+  "description": {
+    "@type": "rdf:XMLLiteral", 
+    "@value": "<span><!-- &lt;script>function ownzor() {}&lt;/script>-->Naughty</span>"
+  }, 
+  "sequences": [
+    {
+      "@type": "sc:Sequence", 
+      "canvases": [
+        {
+          "@id": "http://iiif.io/api/presentation/2.0/example/errors/canvas/c1.json", 
+          "@type": "sc:Canvas", 
+          "label": "canvas", 
+          "height": 1, 
+          "width": 1
+        }
+      ]
+    }
+  ]
+}

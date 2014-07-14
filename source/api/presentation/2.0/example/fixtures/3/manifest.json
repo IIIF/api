@@ -8,10 +8,12 @@
       "label": "date", 
       "value": [
         {
-          "en": "some data"
+          "@value": "quelquetemps", 
+          "@language": "fr"
         }, 
         {
-          "fr": "quelquetemps"
+          "@value": "some data", 
+          "@language": "en"
         }
       ]
     }

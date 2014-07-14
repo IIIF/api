@@ -2,6 +2,7 @@
 import os, sys
 import commands
 import urllib
+import logging
 
 sys.path.append(os.getcwd())
 try:
@@ -28,19 +29,49 @@ except:
 # TODO: ImageMagick module
 # TODO: VIPS
 
+class PresentationError(Exception):
+	resource = None
 
-class ConfigurationError(Exception):
+	def __init__(self, msg, resource=None):
+		self.args = [msg]
+		self.resource = resource
+
+# Raised when an object (likely the factory) isn't configured properly for the current operation
+class ConfigurationError(PresentationError):
 	pass
 
-class MetadataError(Exception):
+# Base metadata exception
+class MetadataError(PresentationError):
+	pass
+
+# Raised when an object is not in the right place for the structure, or the structure is empty
+# and cannot be
+class StructuralError(MetadataError):
+	pass
+
+# Raised when a requirement of the model is not met (eg property is missing)
+class RequirementError(MetadataError):
+	pass
+
+# Raised when the data is invalid, either by content or type
+class DataError(MetadataError):
 	pass
 
 
 MAN_VIEWINGHINTS = ['individuals', 'paged', 'continuous']
-CVS_VIEWINGHINTS = ['non-paged', 'start']
+CVS_VIEWINGHINTS = ['non-paged', 'begin']
 RNG_VIEWINGHINTS = ['top', 'individuals', 'paged', 'continuous']
 VIEWINGDIRS = ['left-to-right', 'right-to-left', 'top-to-bottom', 'bottom-to-top']
-RENAMED_PROPS = {'viewingHint':'viewing_hint', 'viewingDirection':'viewing_direction', 'seeAlso':'see_also'}
+
+RENAMED_PROPS = {'viewingHint':'viewing_hint', 
+				 'viewingDirection':'viewing_direction', 
+				 'seeAlso':'see_also'}
+
+# Also
+#   Canvas.otherContent --> other_content
+#   Canvas.resources --> images 
+# lives in Canvas.__setattr__, as AnnotationList has a resources list
+
 
 BAD_HTML_TAGS = ['script', 'style', 'object', 'form', 'input']
 GOOD_HTML_TAGS = ['a', 'b', 'br', 'i', 'img', 'p', 'span']
@@ -50,8 +81,9 @@ class ManifestFactory(object):
 	image_base = ""
 	metadata_dir = ""
 	add_lang = False
+	convert_renamed = True
 
-	def __init__(self, version="2.0", mdbase="", imgbase="", mddir="", lang="en"):
+	def __init__(self, version="2.0", mdbase="", imgbase="", mddir="", lang="en", convert_renamed=True):
 		""" mdbase: (string) URI to which identities will be appended for metadata
 		imgbase: (string) URI to which image identities will be appended for IIIF Image API
 		mddir: (string) Directory where metadata files will be written
@@ -74,10 +106,12 @@ class ManifestFactory(object):
 		self.presentation_api_version = version
 		if version[0] == "2":
 			self.context_uri = "http://iiif.io/api/presentation/2/context.json"
-		elif version[0] == "1":
+		elif version == "1.0" or version == "0.9":
 			self.context_uri = "http://www.shared-canvas.org/ns/context.json"
 		else:
 			raise ConfigurationError("Unknown Presentation API Version: " + version )
+
+		self.convert_renamed = convert_renamed
 
 		# Default Image API info
 		self.default_image_api_version = -1
@@ -97,10 +131,23 @@ class ManifestFactory(object):
 			self.whichid = ""
 
 	def set_debug(self, typ):
+		# error = squash warnings
+		# warn = display warnings
+		# error_on_warning = raise exception for a warning rather than continuing
+
 		if typ in ['error', 'warn', 'error_on_warning']:
 			self.debug_level = typ
 		else:
 			raise ConfigurationError("Only levels are 'error', 'warn' and 'error_on_warning'")
+
+	def maybe_warn(self, msg):
+		if self.debug_level == "warn":
+			# XXX This needs to be a logger() so can capture for validator
+			print msg
+		elif self.debug_level == "error_on_warning":
+			# We don't know the type, just raise a MetadataError
+			raise MetadataError(msg)		
+
 
 	def assert_base_metadata_uri(self):
 		if not self.metadata_base:
@@ -165,44 +212,59 @@ class ManifestFactory(object):
 		return self.set_iiif_image_info(version, lvl)
 
 	def collection(self, ident="collection", label="", mdhash={}):
-		self.assert_base_metadata_uri()
+		if not ident.startswith('http'):
+			self.assert_base_metadata_uri()
 		return Collection(self, ident, label, mdhash)
 
 	def manifest(self, ident="manifest", label="", mdhash={}):
-		self.assert_base_metadata_uri()
+		if not ident.startswith('http'):
+			self.assert_base_metadata_uri()
 		return Manifest(self, ident, label, mdhash)
 
 	def sequence(self,ident="", label="", mdhash={}):
-		if ident:
+		if ident and not ident.startswith('http'):
 			self.assert_base_metadata_uri()
 		return Sequence(self, ident, label, mdhash)
 
 	def canvas(self,ident="", label="", mdhash={}):
-		if ident:
+		if not ident:
+			raise RequirementError("Canvases must have a real identity (Canvas['@id'] cannot be empty)")
+		elif not ident.startswith('http'):
 			self.assert_base_metadata_uri()
 		return Canvas(self, ident, label, mdhash)
 
 	def annotation(self, ident="", label="", mdhash={}):
-		if ident:
+		if ident and not ident.startswith('http'):
 			self.assert_base_metadata_uri()
 		return Annotation(self, ident, label=label)
 
 	def annotationList(self, ident="", label="", mdhash={}):
 		if not ident:
-			raise MetadataError("AnnotationLists must have a real identity")
+			raise RequirementError("AnnotationLists must have a real identity (AnnotationList['@id'] cannot be empty)")
+		elif not ident.startswith('http'):
+			self.assert_base_metadata_uri()
 		return AnnotationList(self, ident, label, mdhash)
 
 	def image(self, ident, label="", iiif=False):
 		if not ident:
-			raise MetadataError("Images must have a real identity")			
+			raise RequirementError("Images must have a real identity (Image['@id'] cannot be empty)")			
 		return Image(self, ident, label, iiif)
+
+	def audio(self, ident, label=""):
+		if not ident:
+			raise RequirementError("Audio must have a real identity (Audio['@id'] cannot be empty)")			
+		return Audio(self, ident, label)		
+
 
 	def choice(self, default, rest):
 		return Choice(self, default, rest)
 
+	def specificResource(self, full):
+		return SpecificResource(self, full)
+
 	def text(self, txt="", ident="", language="", format=""):
 		if not ident and not txt:
-			raise ConfigurationError("Text must have either a URI or embedded text")
+			raise ValueError("Text must have either a URI or embedded text")
 		elif txt:
 			return Text(self, txt, language, format)
 		else:
@@ -221,6 +283,8 @@ class BaseMetadataObject(object):
 		'attribution', 'license', 'logo', 'service', 'see_also', 'within', 'related',
 		'viewing_hint', 'viewing_direction']
 	_extra_properties = []
+	_integer_properties = []
+	_structure_properties = {}
 
 	def __init__(self, factory, ident="", label="", mdhash={}, **kw):
 		self._factory = factory
@@ -254,10 +318,17 @@ class BaseMetadataObject(object):
 		self.related = ""
 
 	def __setattr__(self, which, value):
-		if RENAMED_PROPS.has_key(which):
+		if RENAMED_PROPS.has_key(which) and self._factory.convert_renamed:
 			which = RENAMED_PROPS[which]
-		if which[0] != "_" and not which in self._properties and not which in self._extra_properties:
+		if which[0] != "_" and not which in self._properties and not which in self._extra_properties and not which in self._structure_properties.keys():
 			self.maybe_warn("Setting non-standard field '%s' on resource of type '%s'" % (which, self._type))
+		elif which[0] != '_' and not type(value) in [str, unicode, list, dict] and not which in self._integer_properties and not isinstance(value, BaseMetadataObject):
+			# Raise Exception for standard prop set to non standard value
+			# not perfect but stops some
+			raise DataError("%s['%s'] does not accept a %s" % (self._type, which, type(value).__name__), self)
+		elif which in self._integer_properties and type(value) != int:
+			raise DataError("%s['%s'] does not accept a %s, only an integer" % (self._type, which, type(value).__name__), self)
+
 		if hasattr(self, which) and hasattr(self, 'set_%s' % which):
 			fn = getattr(self, 'set_%s' % which)
 			return fn(value)
@@ -266,10 +337,8 @@ class BaseMetadataObject(object):
 
 	def maybe_warn(self, msg):
 		msg = "WARNING: " + msg
-		if self._factory.debug_level == "warn":
-			print msg
-		elif self._factory.debug_level == "error_on_warning":
-			raise MetadataError(msg)
+		self._factory.maybe_warn(msg)
+
 
 	def langhash_to_jsonld(self, lh, html=True):
 		# {"fr": "something in french", "en": "something in english", "de html" : "<span>German HTML</span>"}
@@ -279,31 +348,31 @@ class BaseMetadataObject(object):
 			if 'html' in k:
 				k = k.replace("html", '').strip()
 				if not html:
-					raise MetadataError("Cannot have HTML in '%s', only plain text" % v)
+					raise DataError("Cannot have HTML in '%s', only plain text" % v, self)
 				# process HTML here
 				if v[0] != '<' or v[-1] != '>':
-					raise MetadataError("First and last characters of HTML value must be '<' and '>' respectively, in '%r'" % v)
+					raise DataError("First and last characters of HTML value must be '<' and '>' respectively, in '%r'" % v, self)
 				if etree:
 					try:
 						dom = etree.XML(v)
 					except Exception, e:
-						raise MetadataError("Invalid XHTML in '%s':  %s" % (v, e))
+						raise DataError("Invalid XHTML in '%s':  %s" % (v, e), self)
 					for elm in dom.iter():
 						if elm.tag in BAD_HTML_TAGS:
-							raise MetadataError("HTML vulnerability '%s' in '%s'" % (elm.tag, v))
+							raise DataError("HTML vulnerability '%s' in '%s'" % (elm.tag, v), self)
 						elif elm.tag in [etree.Comment, etree.ProcessingInstruction]:
-							raise MetadataError("HTML Comment vulnerability '%s'" % elm)
+							raise DataError("HTML Comment vulnerability '%s'" % elm, self)
 						elif elm.tag == 'a':
 							for x in elm.attrib.keys():
 								if x != "href":
-									raise MetadataError("Vulnerable attribute '%s' on a tag" % x)
+									raise DataError("Vulnerable attribute '%s' on a tag" % x, self)
 						elif elm.tag == 'img':
 							for x in elm.attrib.keys():
 								if not x in ['src', 'alt']:
-									raise MetadataError("Vulnerable attribute '%s' on img tag" % x)
+									raise DataError("Vulnerable attribute '%s' on img tag" % x, self)
 						else:
 							if elm.attrib:
-								raise MetadataError("Attributes not allowed on %s tag" % (elm.tag))
+								raise DataError("Attributes not allowed on %s tag" % (elm.tag), self)
 							if not elm.tag in GOOD_HTML_TAGS:
 								self.maybe_warn("Risky HTML tag '%s' in '%s'" % (elm.tag, v))
 						# Cannot keep CDATA sections separate from text when parsing in LXML :(
@@ -317,7 +386,8 @@ class BaseMetadataObject(object):
 		return l
 
 	def set_metadata(self, mdhash):
-		# In:  {label:value}
+		# In:  {label:value, label2:value2}
+		# ... or:  {'label': langhash, 'value': langhash}
 		# Set: {"label":label, "value":value}
 		# Really add_metadata, as won't overwrite
 		
@@ -325,15 +395,32 @@ class BaseMetadataObject(object):
 			raise ValueError("set_metadata takes a dict()")
 
 		# by reference, not value, so can modify in place without
-		# triggering __setattr__  ;)
+		# triggering __setattr__ on the resource ;)
 		md = self.metadata
-		for (k,v) in mdhash.items():
+
+		mdk = mdhash.keys() 
+		mdk.sort()
+		if mdk == ['label', 'value']:
+			# Work around to allow multiple languages for label;
+			# just have to set_metadata() one at a time
+			k = mdhash['label']
+			v = mdhash['value']
+			if type(k) in [str, unicode] and self._factory.add_lang:
+				k = self.langhash_to_jsonld({self._factory.default_lang : k})
+			elif type(k) == dict:
+				k = self.langhash_to_jsonld(k)
 			if type(v) in [str, unicode] and self._factory.add_lang:
 				v = self.langhash_to_jsonld({self._factory.default_lang : v})
 			elif type(v) == dict:
-				# "date":{"en:"Circa 1400",fr":"Environ 1400"}
 				v = self.langhash_to_jsonld(v)
 			md.append({"label":k, "value":v})
+		else:
+			for (k,v) in mdhash.items():
+				if type(v) in [str, unicode] and self._factory.add_lang:
+					v = self.langhash_to_jsonld({self._factory.default_lang : v})
+				elif type(v) == dict:
+					v = self.langhash_to_jsonld(v)
+				md.append({"label":k, "value":v})
 
 	def _set_magic(self, which, value, html=True):
 		if type(value) in [str, unicode] and self._factory.add_lang:
@@ -341,6 +428,18 @@ class BaseMetadataObject(object):
 		elif type(value) == dict:
 			# {"en:"Something",fr":"Quelque Chose"}
 			value = self.langhash_to_jsonld(value, html)
+		elif type(value) == list:
+			# list of values
+			nl = []
+			for i in value:
+				if type(i) in [str, unicode] and self._factory.add_lang:
+					nl.extend(self.langhash_to_jsonld({self._factory.default_lang : i}, html))
+				elif type(i) == dict:
+					# {"en:"Something",fr":"Quelque Chose"}
+					nl.extend(self.langhash_to_jsonld(i, html))			
+				else:
+					nl.append(i)
+			value = nl
 		object.__setattr__(self, which, value)
 
 	def set_label(self, value):
@@ -362,7 +461,10 @@ class BaseMetadataObject(object):
 				del d[k]
 		for e in self._required:
 			if not d.has_key(e):
-				raise MetadataError("Resource type '%s' requires '%s' to be set" % (self._type, e))
+				if self._structure_properties.has_key(e):
+					raise StructuralError("Resource type '%s' requires '%s' to be set" % (self._type, e), self)
+				else:
+					raise RequirementError("Resource type '%s' requires '%s' to be set" % (self._type, e), self)
 		debug = self._factory.debug_level
 		if debug.find("warn") > -1:
 			for e in self._warn:
@@ -387,8 +489,8 @@ class BaseMetadataObject(object):
 		if d.has_key('viewing_direction'):
 			if hasattr(self, '_viewing_directions'):
 				if not d['viewing_direction'] in self._viewing_directions:
-					msg = "'%s' not a known viewing hint for type '%s': %s" % (d['viewing_direction'], self._type, ' '.join(self._viewing_directions))
-					self.maybe_warn(msg)
+					msg = "'%s' not a known viewing direction for type '%s': %s" % (d['viewing_direction'], self._type, ' '.join(self._viewing_directions))
+					raise DataError(msg, self)
 			else:
 				msg = "Resource type '%s' does not have any known viewing_directions; '%s' given" % (self._type, d['viewing_direction'])
 				self.maybe_warn(msg)
@@ -400,7 +502,45 @@ class BaseMetadataObject(object):
 			d['seeAlso'] = d['see_also']
 			del d['see_also']
 
+		# Recurse into structures, maybe minimally
+		for (p,sinfo) in self._structure_properties.items():
+			if d.has_key(p):
+				if type(d[p]) == list:
+					newl = []
+					for s in d[p]:
+						done = self._single_toJSON(s, sinfo, p)
+						newl.append(done)
+					d[p] = newl
+				else:
+					if sinfo.get('list', False):
+						raise StructuralError("%s['%s] must be a list, got %r" % (self._type, p, d[p]), self)
+					d[p] = self._single_toJSON(d[p], sinfo, p)
 		return d
+
+
+	def _single_toJSON(self, instance, sinfo, prop):
+		# duck typing. Bite me. 
+		typ = sinfo.get('subclass', None)
+		minimal = sinfo.get('minimal', False)
+		if type(instance) in [str, unicode]:
+			# Just a URI
+			return instance
+		elif ( isinstance(instance, BaseMetadataObject) and typ == None ) or (typ != None and isinstance(instance, typ)):
+			if minimal:
+				return {'@id': instance.id, '@type': instance._type, 'label': instance.label}
+			else:
+				return instance.toJSON(False)
+		elif type(instance) == dict and ( (instance.has_key('@type') and instance['@type'] == typ._type) or typ == None ):
+			if minimal:
+				return {'@id': instance['@id'], '@type':instance['@type'], 'label': instance['label']}
+			else:
+				return instance
+		elif type(instance) == dict:
+			raise StructuralError("%s['%s'] objects must be of type %s, got %s" % (self._type, prop, typ._type, instance.get('@type', None)), self)
+
+		else:
+			raise StructuralError("Saw unknown object in %s['%s']: %r" % (self._type, prop, instance), self)
+
 
 	def toString(self, compact=True):
 		js = self.toJSON(top=True)
@@ -463,7 +603,6 @@ class Collection(BaseMetadataObject):
 	_uri_segment = ""
 	_required = ["@id", 'label']
 	_warn = []
-	_extra_properties = ['collections', 'manifests']
 	collections = []
 	manifests = []
 
@@ -489,21 +628,6 @@ class Collection(BaseMetadataObject):
 		mn.within = self.id
 		return mn
 
-	def toJSON(self, top=True):
-		json = super(Collection, self).toJSON(top)
-		newcolls = []
-		newmans = []
-		if json.has_key('collections'):
-			# Add in only @id, @type, label
-			for c in json['collections']:
-				newcolls.append({"@id": c.id, '@type': 'sc:Collection', 'label': c.label})
-			json['collections'] = newcolls
-		if json.has_key('manifests'):
-			# Add in only @id, @type, label
-			for c in json['manifests']:
-				newmans.append({"@id": c.id, '@type': 'sc:Manifest', 'label': c.label})
-			json['manifests'] = newmans
-		return json
 
 class Manifest(BaseMetadataObject):
 	_type = "sc:Manifest"
@@ -512,7 +636,6 @@ class Manifest(BaseMetadataObject):
 	_warn = ["description"]
 	_viewing_hints = MAN_VIEWINGHINTS
 	_viewing_directions = VIEWINGDIRS
-	_extra_properties = ['sequences', 'structures']
 
 	sequences = []
 	structures = []
@@ -527,7 +650,7 @@ class Manifest(BaseMetadataObject):
 		if seq.id:
 			for s in self.sequences:
 				if s.id == seq.id:
-					raise MetadataError("Cannot have two Sequences with the same identity")
+					raise DataError("Cannot have two Sequences with the same identity", self)
 		self.sequences.append(seq)
 
 	def add_range(self, rng):
@@ -535,7 +658,7 @@ class Manifest(BaseMetadataObject):
 		if rng.id:
 			for r in self.structures:
 				if r.id == rng.id:
-					raise MetadataError("Cannot have two Ranges with the same identity")
+					raise DataError("Cannot have two Ranges with the same identity", self)
 		self.structures.append(rng)
 
 	def sequence(self, *args, **kw):
@@ -548,24 +671,6 @@ class Manifest(BaseMetadataObject):
 		self.add_range(rng)
 		return rng
 
-	def toJSON(self, top=True):
-		json = super(Manifest, self).toJSON(top)
-		newseqs = []
-
-		for s in json['sequences']:			
-			if isinstance(s, Sequence):
-				newseqs.append(s.toJSON(False))
-			elif type(s) == dict and dict['@type'] == 'sc:Sequence':
-				newseqs.append(s)
-			else:
-				raise MetadataError("Non-Sequence in Manifest['sequences']")
-		json['sequences'] = newseqs
-		if json.has_key('structures'):
-			newstructs = []
-			for s in json['structures']:
-				newstructs.append(s.toJSON(False))
-			json['structures'] = newstructs
-		return json
 
 
 class Sequence(BaseMetadataObject):
@@ -575,7 +680,7 @@ class Sequence(BaseMetadataObject):
 	_warn = ["@id", "label"]
 	_viewing_directions = VIEWINGDIRS
 	_viewing_hints = MAN_VIEWINGHINTS
-	_extra_properties = ['canvases']
+
 	canvases = []
 
 	def __init__(self, *args, **kw):
@@ -586,7 +691,7 @@ class Sequence(BaseMetadataObject):
 		if cvs.id:
 			for c in self.canvases:
 				if c.id == cvs.id:
-					raise MetadataError("Cannot have two Canvases with the same identity")
+					raise DataError("Cannot have two Canvases with the same identity", self)
 		self.canvases.append(cvs)
 
 	def canvas(self, *args, **kw):
@@ -594,19 +699,6 @@ class Sequence(BaseMetadataObject):
 		self.add_canvas(cvs)
 		return cvs
 
-	def toJSON(self, top=True):
-		json = super(Sequence, self).toJSON(top)
-		newcvs = []
-		for c in json['canvases']:
-			if isinstance(c, Canvas):
-				newcvs.append(c.toJSON(False))
-			elif type(c) == dict and c['@type'] == 'sc:Canvas':
-				newcvs.append(c)
-			else:
-				# break
-				raise MetadataError("Non Canvas as part of Sequence")
-		json['canvases'] = newcvs
-		return json
 
 class Canvas(ContentResource):
 	_type = "sc:Canvas"
@@ -614,14 +706,22 @@ class Canvas(ContentResource):
 	_required = ["@id", "label", "height", "width"]
 	_warn = ["images"]
 	_viewing_hints = CVS_VIEWINGHINTS
-	_extra_properties = ['height', 'width', 'images', 'other_content']
+	_extra_properties = ['height', 'width']
+	_integer_properties = ['height', 'width']
 	height = 0
 	width = 0
 	images = []
 	other_content = []
 
-	def __init__(self, *args, **kw):
+	def __setattr__(self, which, value):
+		if which[0] != "_" and self._factory.convert_renamed:
+			if which == 'otherContent':
+				which = 'other_content'
+			elif which == 'resources':
+				which = 'images'
+		return super(Canvas, self).__setattr__(which, value)
 
+	def __init__(self, *args, **kw):
 		super(Canvas, self).__init__(*args, **kw)
 		self.images = []
 		self.other_content = []
@@ -649,24 +749,21 @@ class Canvas(ContentResource):
 		self.add_annotationList(annol)
 		return annol
 
-	def toJSON(self, top=True):
-		json = super(Canvas, self).toJSON(top)
-		if json.has_key('images'):
-			newimgs = []
-			for c in json['images']:
-				newimgs.append(c.toJSON(False))
-			json['images'] = newimgs
-		if json.has_key('other_content'):
-			newlists = []
-			for c in json['other_content']:
-				newlists.append(c.toJSON(False))
-			json['other_content'] = newlists
-		elif json.has_key('otherContent'):
-			newlists = []
-			for c in json['otherContent']:
-				newlists.append(c.toJSON(False))
-			json['otherContent'] = newlists
-		return json
+	def toJSON(self, top=False):
+		# first verify that images are all for Image resources
+		for anno in self.images:
+			res = anno.resource
+			# if res is neither an Image, nor part of an Image, nor a Choice of those then break
+			if not (isinstance(res, Choice) or isinstance(res, Image) or (isinstance(res, SpecificResource) and isinstance(res.full, Image))):
+				raise StructuralError("Annotations in Canvas['images'] must have Images for their resources, got: %r" % res, self)
+
+		d = super(Canvas, self).toJSON(top)
+
+		# other_content WAS otherContent in 1.0
+		if self._factory.presentation_api_version[0] == '1' and d.has_key('other_content'):
+			d['otherContent'] = d['other_content']
+			del d['other_content']
+		return d
 
 
 class Annotation(BaseMetadataObject):
@@ -674,7 +771,7 @@ class Annotation(BaseMetadataObject):
 	_uri_segment = "annotation/"
 	_required = ["motivation", "resource", "on"]
 	_warn = ["@id"]
-	_extra_properties = ['motivation', 'on', 'resource', 'stylesheet']
+	_extra_properties = ['motivation', 'stylesheet']
 
 	def __init__(self, *args, **kw):
 		super(Annotation, self).__init__(*args, **kw)
@@ -707,7 +804,7 @@ class Annotation(BaseMetadataObject):
 		ss = { "@type": ["oa:CssStyle", "cnt:ContentAsText"], "format": "text/css", "chars" : css}
 		self.stylesheet = ss
 		if not self.resource:
-			raise MetadataError("Cannot set a stylesheet without first creating the body")
+			raise ConfigurationError("Cannot set a stylesheet without first creating the body")
 		if isinstance(self.resource, SpecificResource):
 			self.resource.style = cls
 		else:
@@ -715,19 +812,12 @@ class Annotation(BaseMetadataObject):
 			sr.style = cls
 			self.resource = sr
 
-	def toJSON(self, top=True):
-		json = super(Annotation, self).toJSON(top)
-		json['resource'] = json['resource'].toJSON(top=False)
-		if isinstance(json['on'], BaseMetadataObject):
-			json['on'] = json['on'].toJSON(top=False)
-		return json
-
 
 class SpecificResource(BaseMetadataObject):
 	_type = "oa:SpecificResource"
 	_required = ['full']
 	_warn = []
-	_extra_properties = ['style', 'selector', 'full']
+	_extra_properties = ['style', 'selector']
 	style = ""
 	selector = ""
 	full = None
@@ -736,13 +826,6 @@ class SpecificResource(BaseMetadataObject):
 		self._factory = factory
 		self.type = self.__class__._type
 		self.full=full
-
-	def toJSON(self, top=False):
-		json = super(SpecificResource, self).toJSON(top)
-		if isinstance(json['full'], BaseMetadataObject):
-			json['full'] = json['full'].toJSON()
-		return json
-
 
 
 class ExternalText(ContentResource):
@@ -795,6 +878,7 @@ class Image(ContentResource):
 	_required = ["@id"]
 	_warn = ["format", "height", "width"]
 	_extra_properties = ['format', 'height', 'width']
+	_integer_properties = ['height', 'width']
 
 	def __init__(self, factory, ident, label, iiif=False):
 		self._factory = factory
@@ -830,6 +914,7 @@ class Image(ContentResource):
 			if ident.startswith('http://') or ident.startswith('https://'):
 				self.id = ident
 			else:
+				factory.assert_base_image_uri()
 				self.id = factory.image_base + ident
 
 	def set_hw(self, h,w):
@@ -896,7 +981,7 @@ class Choice(BaseMetadataObject):
 	_uri_segment = "annotation" # not really necessary
 	_required = ["item"]
 	_warn = ["default"]
-	_extra_properties = ['default', 'item']
+
 	default = {}
 	item = []
 
@@ -908,30 +993,18 @@ class Choice(BaseMetadataObject):
 		self.item = rest
 
 
-	def toJSON(self, top=True):
-		json = super(Choice, self).toJSON(top)
-		json['default'] = json['default'].toJSON(top=False)
-		newitem = []
-		for c in json['item']:
-			if isinstance(c, BaseMetadataObject):
-				newitem.append(c.toJSON(False))
-			else:
-				newitem.append(c)
-		json['item'] = newitem		
-		return json
-
 class AnnotationList(BaseMetadataObject):
 	_type = "sc:AnnotationList"
 	_uri_segment = "list/"	
 	_required = ["@id"]
 	_warn = []
 	_canvas = None
-	_extra_properties = ["resources"]
 
 	resources = []
 	within = {}
 
 	def __init__(self, *args, **kw):
+
 		self.resources = []
 		self.within = []
 		self._canvas = None
@@ -952,32 +1025,13 @@ class AnnotationList(BaseMetadataObject):
 		self.within = lyr
 		return lyr
 
-
-	def toJSON(self, top=True):
-		# if top == false, only include @id, @type, label
-		# else, include everything
-		json = super(AnnotationList, self).toJSON(top)
-		if top:
-			newl = []
-			for c in json['resources']:
-				newl.append(c.toJSON(False))
-			json['resources'] = newl
-		else:
-			try:
-				del json['resources']
-			except:
-				# Could be just pointer to service
-				pass
-		return json
-
 class Range(BaseMetadataObject):
 	_type = "sc:Range"
 	_uri_segment = "range/"	
-	_required = ["@id", "label", "canvases"]
-	_warn = []
+	_required = ["@id", "label"]
+	_warn = ['canvases']
 	_viewing_hints = RNG_VIEWINGHINTS
 	_viewing_directions = VIEWINGDIRS
-	_extra_properties = ['canvases', 'ranges']
 
 	canvases = []
 	ranges = []
@@ -1008,6 +1062,24 @@ class Layer(BaseMetadataObject):
 	_required = ["@id", "label"]
 	_warn = []
 
+
+# Need to set these at the end, after the classes have been defined
+Collection._structure_properties = {'collections' : {'subclass': Collection, 'minimal': True, 'list': True}, 
+									'manifests': {'subclass': Manifest, 'minimal': True, 'list': True}}
+Manifest._structure_properties = {'sequences': {'subclass': Sequence, 'list':True}, 
+								  'structures': {'subclass': Range, 'list':True}}
+Sequence._structure_properties = {'canvases': {'subclass':Canvas, 'list':True}}
+Canvas._structure_properties = {'images': {'subclass': Annotation, 'list':True},
+								'other_content': {'subclass': AnnotationList, 'minimal':True, 'list':True}, 
+								'otherContent':  {'subclass': AnnotationList, 'minimal':True, 'list':True}}
+AnnotationList._structure_properties = {'resources': {'subclass': Annotation, 'list':True}}
+Range._structure_properties = {'canvases': {'subclass':Canvas, 'list':True, 'minimal':True}, # Could be canvas.json#xywh= ...
+							   'ranges': {'subclass': Range, 'list':True, 'minimal':True}}
+
+# Don't type check these as they're Content subclasses 
+Annotation._structure_properties = {'resource': {}, 'on':{'subclass': Canvas}}  
+SpecificResource._structure_properties = {'full':{}}
+Choice._structure_properties = {'default':{}, 'item':{}}
 
 if __name__ == "__main__":
 	factory = ManifestFactory()	

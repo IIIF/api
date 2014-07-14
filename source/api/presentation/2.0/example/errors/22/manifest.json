@@ -1,0 +1,19 @@
+{
+  "@context": "http://iiif.io/api/presentation/2/context.json", 
+  "@id": "http://iiif.io/api/presentation/2.0/example/errors/manifest.json", 
+  "@type": "sc:Manifest", 
+  "label": "manifest", 
+  "sequences": [
+    {
+      "@type": "sc:Sequence", 
+      "canvases": [
+        {
+          "@type": "sc:Canvas", 
+          "label": "canvas", 
+          "height": 1, 
+          "width": 1
+        }
+      ]
+    }
+  ]
+}

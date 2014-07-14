@@ -3,6 +3,7 @@ from factory_20 import ManifestFactory
 	
 BASEURL = "http://iiif.io/api/presentation/2.0/example/fixtures/"
 HOMEDIR = "../source/api/presentation/2.0/example/fixtures/"
+IMAGE_BASEURL = "http://iiif.io/api/image/2.0/example/"
 imageWidth = 1200
 imageHeight = 1800
 
@@ -21,7 +22,7 @@ line1Dims = "225,70,750,150"
 fac = ManifestFactory()
 fac.set_base_metadata_uri(BASEURL)
 fac.set_base_metadata_dir(HOMEDIR)
-fac.set_base_image_uri("http://iiif.io/api/image/2.0/example/")
+fac.set_base_image_uri(IMAGE_BASEURL)
 fac.set_iiif_image_info(2.0, 1)
 fac.set_debug('error')
 
@@ -30,7 +31,7 @@ testInfo = {
 # Done
 1 : {"title": "Minimum Required Fields"},
 2 : {"title": "Metadata Pairs", 'mfprops': [('metadata',{'date': 'some date'})]},
-3 : {"title": "Metadata Pairs with Languages", 'mfprops': [('metadata', {'date': [{'en':'some data'}, {'fr':'quelquetemps'}]})]},
+3 : {"title": "Metadata Pairs with Languages", 'mfprops': [('metadata', {'date': {'en':'some data','fr':'quelquetemps'}})]},
 4 : {"title": "Metadata Pairs with Multiple Values in same Language", 'mfprops':[('metadata',{'date': ['some date', 'some other date']})]},
 5 : {"title": "Description field", 'mfprops': [('description',"This is a description")]},
 6 : {"title": "Multiple Descriptions", 'mfprops': [('description',["This is one description", {"@value":"This is another", "@language":"en"}])]},
@@ -55,16 +56,6 @@ testInfo = {
 25 : {"title": "Image with IIIF Service, embedded info", 'iiif':True},
 26 : {"title": "Image different size to Canvas", 'cvsprops': [('height', 900), ('width', 600)]},
 27 : {"title": "No Image"},
-43 : {"title": "Embedded Transcription on Canvas", 'annoBody': fac.text('\n'.join(transcriptions[0]))},
-44 : {"title": "Embedded Transcription on Fragment Segment", 'annoBody': fac.text(transcriptions[0][0]), 'annoTarget+': '#xywh='+line1Dims},
-65 : {"title": "Embedded Transcription on Selector Segment", 'annoBody': fac.text(transcriptions[0][0])},
-45 : {"title": "External text/plain Transcription on Canvas", 'annoBody': fac.text(ident=textUris[0])},
-46 : {"title": "External text/plain Transcription on Segment", 'annoBody': fac.text(ident=BASEURL+"resources/line1.txt"), 'annoTarget+':'#xywh='+line1Dims},
-47 : {"title": "Embedded HTML Transcription on Canvas", 'annoBody': fac.text("<br/>".join(transcriptions[0]), format='text/html')},
-48 : {"title": "Embedded HTML Transcription on Segment", 'annoBody': fac.text("<b>"+transcriptions[0][0]+"</b>", format='text/html'), 'annoTarget+':'#xywh='+line1Dims},
-51 : {"title": "Embedded Comment on a Canvas", 'annoBody': fac.text("Comment"), 'annoMotivation': 'oa:commenting'},
-52 : {"title": "Embedded Comment on a Segment", 'annoBody': fac.text("Comment"), 'annoMotivation': 'oa:commenting', 'annoTarget+': "#xywh=100,100,200,200"},
-54 : {"title": "Comment in HTML", 'annoBody': fac.text("<b>Comment</b>", format='text/html'), 'annoMotivation': 'oa:commenting'},
 28 : {"title": "Choice of Image"},
 29 : {"title": "Choice of Image with IIIF Service", 'iiif':True},
 30 : {"title": "Main + Detail Image"},
@@ -73,33 +64,53 @@ testInfo = {
 33 : {"title": "Detail Image with Choice"},
 34 : {"title": "Detail Image with Choice, and 'no image' as option"},
 35 : {"title": "Partial Image as Main Image"},
+36 : {"title": "Partial Image as Main Image with IIIF Service", 'iiif':True},
 37 : {"title": "Partial Image as Detail Image"},
+38 : {"title": "Partial Image as Detail Image with IIIF Service", 'iiif':True},
 39 : {"title": "Image with CSS Rotation"},
+
+41 : {"title": "Main Image with Server side Rotation", 'iiif':True},
+
+43 : {"title": "Embedded Transcription on Canvas", 'annoBody': fac.text('\n'.join(transcriptions[0]))},
+44 : {"title": "Embedded Transcription on Fragment Segment", 'annoBody': fac.text(transcriptions[0][0]), 'annoTarget+': '#xywh='+line1Dims},
+45 : {"title": "External text/plain Transcription on Canvas", 'annoBody': fac.text(ident=textUris[0])},
+46 : {"title": "External text/plain Transcription on Segment", 'annoBody': fac.text(ident=BASEURL+"resources/line1.txt"), 'annoTarget+':'#xywh='+line1Dims},
+47 : {"title": "Embedded HTML Transcription on Canvas", 'annoBody': fac.text('<span>' + "<br/>".join(transcriptions[0]) + '</span>', format='text/html')},
+48 : {"title": "Embedded HTML Transcription on Segment", 'annoBody': fac.text("<b>"+transcriptions[0][0]+"</b>", format='text/html'), 'annoTarget+':'#xywh='+line1Dims},
+
+51 : {"title": "Embedded Comment on a Canvas", 'annoBody': fac.text("Comment"), 'annoMotivation': 'oa:commenting'},
+52 : {"title": "Embedded Comment on a Segment", 'annoBody': fac.text("Comment"), 'annoMotivation': 'oa:commenting', 'annoTarget+': "#xywh=100,100,200,200"},
+54 : {"title": "Comment in HTML", 'annoBody': fac.text("<b>Comment</b>", format='text/html'), 'annoMotivation': 'oa:commenting'},
+
+61 : {"title": "Embedded Transcription on Selector Segment", 'annoBody': fac.text(transcriptions[0][0])},
+62 : {"title": "Label in Multiple Languages", 'mfprops': [('label', {'en':'62: some title','fr':'62: quelque titre'})]},
+63 : {"title": "Description in Multiple Languages", 'mfprops': [('description', {'en':'description here','fr':'on le decrit ici'})]},
+64 : {"title": "Description in HTML", 'mfprops':[('description', {'en html': '<span>Some HTML</span>'})]}
+
 }
 
 
 # To Do
 
 todo = {
-36 : {"title": "Partial Image as Main Image with IIIF Service", 'iiif':True},
-38 : {"title": "Partial Image as Detail Image with IIIF Service", 'iiif':True},
+
+
 40 : {"title": "Partial Image with CSS Rotation"},
 42 : {"title": "Non Rectangular Partial Image"},
+
 49 : {"title": "XML with XPointer Transcription on Segment"},
+
 50 : {"title": "Non Rectangular Transcription Segment"},
 53 : {"title": "Embedded Comment on a Non-Rectangular Segment", 'annoBody': fac.text("Comment"), 'annoMotivation': 'oa:commenting'},
 
-55 : {"title": "Image format Comment", 'annoMotivation': 'oa:commenting'},
-56 : {"title": "Audio format Comment", 'annoMotivation': 'oa:commenting'},
-57 : {"title": "Video format Comment", 'annoMotivation': 'oa:commenting'},
-58 : {"title": "Data as Comment", 'annoMotivation': 'oa:commenting'},
-59 : {"title": "Audio Transcription on Segment"},
-60 : {"title": "Video Transcription on Segment"},
+# Following need new resources
+55 : {"title": "Audio Transcription on Segment"},
+56 : {"title": "Video Transcription on Segment"},
 
-61 : {"title": "Multiple Texts in Named Layers"},
-62 : {"title": "Basic ToC via Ranges"},
-63 : {"title": "Overlapping/Hierarchical Ranges"},
-64 : {"title": "Range with Partial Canvas"}
+57 : {"title": "Multiple Texts in Named Layers"},
+58 : {"title": "Basic ToC via Ranges"},
+59 : {"title": "Overlapping/Hierarchical Ranges"},
+60 : {"title": "Range with Partial Canvas"}
 }
 
 
@@ -138,7 +149,7 @@ def makeImageChoice(manifest):
 			for a in c.images:
 				color = a.resource;
 				color.label = "Color"
-				grey = fac.image(ident="http://www.shared-canvas.org/iiif/page1-full/full/full/0/gray.jpg", label="Greyscale")
+				grey = fac.image(ident=IMAGE_BASEURL+"page1-full/full/full/0/gray.jpg", label="Greyscale")
 				grey.set_hw(imageHeight, imageWidth)
 				a.choice(color, [grey])
 
@@ -167,7 +178,7 @@ def makeDetailChoice(manifest):
 			for a in c.images[1:]:
 				color = a.resource;
 				color.label = "Color"
-				grey = fac.image(ident="http://www.shared-canvas.org/iiif/detail/full/full/0/gray.jpg", label="Greyscale")
+				grey = fac.image(ident=IMAGE_BASEURL+"detail/full/full/0/gray.jpg", label="Greyscale")
 				grey.set_hw(173,173)
 				a.choice(color, [grey])
 
@@ -187,6 +198,18 @@ def makePartialImage(manifest):
 			img.width -= 200
 			img.id += "#xywh=100,100,%s,%s" % (img.width, img.height)
 
+def makePartialImageIIIF(manifest):
+	for s in manifest.sequences:
+		for c in s.canvases:
+			c.height -= 200
+			c.width -= 200
+			img = c.images[0].resource
+			region = "100,100,1000,1600"
+			sel = {"@type":"iiif:ImageApiSelector", "region":region}
+			sr = img.make_selection(sel)
+			sr.id = img.id.replace("/full", "/" + region, 1)
+			c.images[0].resource = sr
+
 def makePartialDetail(manifest):
 	for s in manifest.sequences:
 		for c in s.canvases:
@@ -197,12 +220,37 @@ def makePartialDetail(manifest):
 				img.id += "#xywh=10,10,%s,%s" % (img.width, img.height)
 				a.on = a.on.replace('173', '153')
 
+def makePartialDetailIIIF(manifest):
+	for s in manifest.sequences:
+		for c in s.canvases:
+			for a in c.images[1:]:
+				img = a.resource
+				img.height -= 20
+				img.width -= 20
+				region = "10,10,%s,%s" % (img.width, img.height)
+				sel = {"@type":"iiif:ImageApiSelector", "region":region}
+				sr = img.make_selection(sel)
+				sr.id = img.id.replace('/full', '/'+region, 1)
+				a.resource = sr
+				
 def addRotation(manifest):
 	for s in manifest.sequences:
 		for c in s.canvases:
 			for a in c.images:
 				# add stylesheet that does 180 rotation of image
 				a.stylesheet(".rotated {transform: rotate(180deg)}", "rotated")
+
+def addServerRotation(manifest):
+	for s in manifest.sequences:
+		for c in s.canvases:
+			for a in c.images:
+				img = a.resource
+				rot = "180"
+				sel = {"@type":"iiif:ImageApiSelector", "rotation":rot}
+				sr = img.make_selection(sel)
+				sr.id = img.id.replace("/0/", "/180/", 1)
+				c.images[0].resource = sr
+
 
 # n : list of functions to call on manifest
 extraFuncs = {	
@@ -217,8 +265,11 @@ extraFuncs = {
 33: [addDetailImage, makeDetailChoice],
 34: [addDetailImage, makeDetailChoice, makeNilChoice],
 35: [makePartialImage],
+36: [makePartialImageIIIF],
 37: [addDetailImage, makePartialDetail],
+38: [addDetailImageIIIF, makePartialDetailIIIF],
 39: [addRotation],
+41: [addServerRotation],
 65: [addTxnSegment]
 }
 
@@ -265,8 +316,6 @@ for (idn, info) in testInfo.items():
 			annolist = cvs.annotationList(ident="%s/list1" % idn, label="Test %s List 1" % idn)
 			anno = annolist.annotation()
 			anno.resource = info['annoBody']
-			#if info.has_key('annoTarget'):
-			#	anno.on = info['annoTarget']
 			if info.has_key('annoTarget+'):
 				anno.on += info['annoTarget+']
 			if info.has_key('annoMotivation'):

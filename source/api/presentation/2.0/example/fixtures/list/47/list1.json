@@ -10,7 +10,7 @@
       "resource": {
         "@type": "cnt:ContentAsText", 
         "format": "text/html", 
-        "chars": "Top of First Page to Display<br/>Middle of First Page on Angle<br/>Bottom of First Page to Display"
+        "chars": "<span>Top of First Page to Display<br/>Middle of First Page on Angle<br/>Bottom of First Page to Display</span>"
       }, 
       "on": "http://iiif.io/api/presentation/2.0/example/fixtures/canvas/47/c1.json"
     }
