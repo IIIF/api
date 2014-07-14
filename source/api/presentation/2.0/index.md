@@ -724,7 +724,7 @@ It is important to be able to extract parts, or segments, of resources. In parti
     }
     {% endhighlight %}
 
-  * For image resources with a [IIIF Image API][image-api] service, it is strongly _RECOMMENDED_ to instead use the Image API parameters rather than a fragment.
+  * For image resources with a [IIIF Image API][image-api] service, it is _RECOMMENDED_ to instead use the Image API parameters rather than a fragment as above.  The following structure allows simple clients to use the image directly (the URL with the segment) and advanced clients that understand the IIIF Image API to have sufficient information to intelligently construct the correct URLs to retrieve tiles or other transformations of the base image.
 
     {% highlight json %}
 {
