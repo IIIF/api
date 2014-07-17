@@ -223,20 +223,22 @@ viewing_direction
     * A range or layer _MAY_ have a viewing direction.
 
 viewing_hint
-:   A hint to the viewer as to the most appropriate method of displaying the resource. Any value may be given, and this specification defines the following:
+:   A hint to the viewer as to the most appropriate method of displaying the resource. This specification defines the following possible values:
 
     * "individuals": Valid on manifest, sequence and range. The canvases referenced from the resource are all individual sheets, and _SHOULD NOT_ be presented in a page-turning interface. Examples include a set of views of a 3 dimensional object, or a set of the front sides of photographs in a collection.
     * "paged": Valid on manifest, sequence and range. The canvases represent pages in a bound volume, and _SHOULD_ be presented in a page-turning interface if one is available.  The first canvas is a single view (the first recto) and thus the second canvas represents the back of the object in the first canvas.
     * "continuous": Valid on manifest, sequence and range.  Each canvas is the complete view of one side of a long scroll or roll and an appropriate rendering might only display part of the canvas at any given time rather than the entire object.
     * "non-paged": Only valid on a canvas and when the manifest or sequence has a `viewing_hint` of "paged".  Canvases with this hint _MUST NOT_ be presented in a page turning interface, and _MUST_ be skipped over when determining the page sequence.
-    * "start": Only valid on a canvas. A client _SHOULD_ advance to the canvas with this `viewing_hint` when beginning navigation through a sequence.  This allows the client to start with the first canvas that contains interesting content rather than requiring the user to skip past blank or empty canvases manually.
+    * "begin": Only valid on a canvas. A client _SHOULD_ advance to the canvas with this `viewing_hint` when beginning navigation through a sequence.  This allows the client to begin with the first canvas that contains interesting content rather than requiring the user to skip past blank or empty canvases manually.
     * "top": Only valid on a range. A range which has this `viewing_hint` is the top-most node in a hierarchy of ranges that represents a structure to be rendered by the client to assist in navigation. For example, a table of contents within a paged object, major sections of a 3d object, the textual areas within a single scroll, and so forth.  Other ranges that are descendants of the "top" range are the entries to be rendered in the navigation structure.  There _MAY_ be multiple ranges marked with this hint. If so, the client _SHOULD_ display a choice of multiple structures to navigate through.
 
     Usage:
     {: .usage}
     * A manifest, sequence or range _MAY_ have a viewing hint, with scope as per viewing_direction.
-    * A canvas _MAY_ have a viewing hint, and if so it _must_ be either "non-paged" or "start".  "non-paged" is only valid if the canvas is within a manifest, sequence or range that is "paged", and the particular canvas _MUST NOT_ be displayed in a page-turning viewer. A canvas _must not_{:. rfc} be both "non-paged" and "start".
+    * A canvas _MAY_ have a viewing hint, and if so it _must_ be either "non-paged" or "begin".  "non-paged" is only valid if the canvas is within a manifest, sequence or range that is "paged", and the particular canvas _MUST NOT_ be displayed in a page-turning viewer. A canvas _must not_{:. rfc} be both "non-paged" and "begin".
     * A content resource _MAY_ have a viewing hint but there are no defined values in this specification.
+
+    Other values _MAY_ be given, and if they are, they _MUST_ be URIs. 
 
 ####  4.4. Linking Properties
 
