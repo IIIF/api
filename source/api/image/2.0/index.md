@@ -362,6 +362,7 @@ The format of the returned image is expressed as an extension at the end of the 
 | `gif`     | image/gif |
 | `jp2`     | image/jp2 |
 | `pdf`     | application/pdf |
+| `webp`    | image/webp |
 {: .image-api-table}
 
 A format value that is unsupported _SHOULD_ result in a 400 status code.

@@ -88,7 +88,9 @@ In the tables below "![required][icon-req]" indicates that support is _REQUIRED_
 | `gif`       | ![optional][icon-opt]      | ![optional][icon-opt]      | ![optional][icon-opt]       |
 | `pdf`       | ![optional][icon-opt]      | ![optional][icon-opt]      | ![optional][icon-opt]       |
 | `jp2`       | ![optional][icon-opt]      | ![optional][icon-opt]      | ![optional][icon-opt]       |
+| `webp`      | ![optional][icon-opt]      | ![optional][icon-opt]      | ![optional][icon-opt]       |
 {: .image-api-table}
+
 
 ## HTTP Features
 
