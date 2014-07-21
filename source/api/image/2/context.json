@@ -30,11 +30,15 @@
     
     "icon" : {"@id":"iiif:iconViewingHint", "@type": "iiif:ViewingHint"},
     "thumbnail" : {"@id":"iiif:thumbnailViewingHint", "@type": "iiif:ViewingHint"},
+    "xx-small" : {"@id":"iiif:xxsmallViewingHint", "@type": "iiif:ViewingHint"},
+    "x-small" : {"@id":"iiif:xsmallViewingHint", "@type": "iiif:ViewingHint"},
     "small" : {"@id":"iiif:smallViewingHint", "@type": "iiif:ViewingHint"},
     "medium" : {"@id":"iiif:mediumViewingHint", "@type": "iiif:ViewingHint"},
     "large" : {"@id":"iiif:largeViewingHint", "@type": "iiif:ViewingHint"},
-    "xlarge" : {"@id":"iiif:xlargeViewingHint", "@type": "iiif:ViewingHint"},
+    "x-large" : {"@id":"iiif:xlargeViewingHint", "@type": "iiif:ViewingHint"},
+    "xx-large" : {"@id":"iiif:xxlargeViewingHint", "@type": "iiif:ViewingHint"},
     "full" : {"@id":"iiif:fullViewingHint", "@type": "iiif:ViewingHint"},
+
 
     "height":  { "@id" : "exif:height", "@type":"xsd:integer" },
     "width": { "@id" : "exif:width", "@type":"xsd:integer" },
