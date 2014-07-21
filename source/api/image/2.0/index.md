@@ -488,7 +488,7 @@ The objects in the `sizes` list have the properties in the following table.  Ima
 | ---------- | --------- | ----------- |
 | `width` | Required | The width of the image to be requested. |
 | `height` | Required | The height of the image to be requested. |
-| `viewing_hint` | Optional | A string giving a hint to the intended use of the size.  It may have any value, but the following are recommended: `icon`, `thumbnail`, `small`, `medium`, `large`, `xlarge`. |
+| `viewing_hint` | Optional | A hint to the intended use of the size.  The following values are defined by this specification: `icon`, `thumbnail`, `small`, `medium`, `large`, `xlarge`, `full`. If other values are given, they _MUST_ be URIs. |
 {: .image-api-table}
 
 The objects in the `tiles` list have the properties in the following table.  The `width` and `height` should be used to fill the region parameter and the `scale_factors` to complete the size parameter of the image URL. This is described in detail in the [Implementation Notes][a-implementation-notes].

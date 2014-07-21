@@ -28,6 +28,14 @@
     "canonical_link_header" : {"@id" : "iiif:canonicalLinkHeaderFeature", "@type": "iiif:Feature" },
     "jsonld_media_type" : {"@id" : "iiif:jsonLdMediaTypeFeature", "@type": "iiif:Feature" },
     
+    "icon" : {"@id":"iiif:iconViewingHint", "@type": "iiif:ViewingHint"},
+    "thumbnail" : {"@id":"iiif:thumbnailViewingHint", "@type": "iiif:ViewingHint"},
+    "small" : {"@id":"iiif:smallViewingHint", "@type": "iiif:ViewingHint"},
+    "medium" : {"@id":"iiif:mediumViewingHint", "@type": "iiif:ViewingHint"},
+    "large" : {"@id":"iiif:largeViewingHint", "@type": "iiif:ViewingHint"},
+    "xlarge" : {"@id":"iiif:xlargeViewingHint", "@type": "iiif:ViewingHint"},
+    "full" : {"@id":"iiif:fullViewingHint", "@type": "iiif:ViewingHint"},
+
     "height":  { "@id" : "exif:height", "@type":"xsd:integer" },
     "width": { "@id" : "exif:width", "@type":"xsd:integer" },
     "scale_factors" : { "@id" : "iiif:scaleFactor", "@type" : "xsd:integer" },
