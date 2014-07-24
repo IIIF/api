@@ -1,0 +1,126 @@
+<rng:grammar
+  xmlns:rng="http://relaxng.org/ns/structure/1.0"
+  xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+  xmlns="http://library.stanford.edu/iiif/image-api/ns/"
+  ns="http://library.stanford.edu/iiif/image-api/ns/"
+  datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+
+  <a:documentation>
+    
+Relax-NG schema to validate information and error documents for the 
+IIIF Image API (http://library.stanford.edu/iiif/image-api/). 
+Converted to Relax-NG W3C XML Schema using http://debeissat.nicolas.free.fr/
+2012-07-12 - First version (Simeon Warner)
+2012-08-01 - Added profile element (Simeon Warner)
+    
+  </a:documentation>
+
+  <a:documentation>
+    
+Two possible root elements for IIIF documents: info or error.
+    
+  </a:documentation>
+  <rng:start combine="choice">
+    <rng:ref name="info"/>
+  </rng:start>
+  <rng:define name="info">
+    <rng:element name="info">
+      <rng:ref name="iiif-info-type"/>
+    </rng:element>
+  </rng:define>
+  <rng:start combine="choice">
+    <rng:ref name="error"/>
+  </rng:start>
+  <rng:define name="error">
+    <rng:element name="error">
+      <rng:ref name="iiif-error-type"/>
+    </rng:element>
+  </rng:define>
+
+  <rng:define name="iiif-info-type">
+    
+    <rng:element name="identifier">
+      <rng:data type="string"/>
+    </rng:element>
+    <rng:element name="width">
+      <rng:data type="integer"/>
+    </rng:element>
+    <rng:element name="height">
+      <rng:data type="integer"/>
+    </rng:element>
+    <rng:optional>
+      <rng:element name="scale_factors">
+        <rng:ref name="iiif-scale-factors-type"/>
+      </rng:element>
+    </rng:optional>
+    <rng:optional>
+      <rng:element name="tile_width">
+        <rng:data type="integer"/>
+      </rng:element>
+    </rng:optional>
+    <rng:optional>
+      <rng:element name="tile_height">
+        <rng:data type="integer"/>
+      </rng:element>
+    </rng:optional>
+    <rng:optional>
+      <rng:element name="formats">
+        <rng:ref name="iiif-formats-type"/>
+      </rng:element>
+    </rng:optional>
+    <rng:optional>
+      <rng:element name="qualities">
+        <rng:ref name="iiif-qualities-type"/>
+      </rng:element>
+    </rng:optional>
+    <rng:optional>
+      <rng:element name="profile">
+        <rng:data type="anyURI"/>
+      </rng:element>
+    </rng:optional>
+  </rng:define>
+
+  <rng:define name="iiif-scale-factors-type">
+    <rng:oneOrMore>
+      <rng:element name="scale_factor">
+        <rng:data type="integer"/>
+      </rng:element>
+    </rng:oneOrMore>
+  </rng:define>
+
+  <rng:define name="iiif-formats-type">
+    <rng:oneOrMore>
+      <rng:element name="format">
+        <rng:data type="string"/>
+      </rng:element>
+    </rng:oneOrMore>
+  </rng:define>
+
+  <rng:define name="iiif-qualities-type">
+    <rng:oneOrMore>
+      <rng:element name="quality">
+        <rng:data type="string"/>
+      </rng:element>
+    </rng:oneOrMore>
+  </rng:define>
+
+  <rng:define name="iiif-error-type">
+    <rng:element name="parameter">
+      <rng:choice>
+        <rng:value>unknown</rng:value>
+        <rng:value>identifier</rng:value>
+        <rng:value>region</rng:value>
+        <rng:value>size</rng:value>
+        <rng:value>rotation</rng:value>
+        <rng:value>quality</rng:value>
+        <rng:value>format</rng:value>
+      </rng:choice>
+    </rng:element>
+    <rng:optional>
+      <rng:element name="text">
+        <rng:data type="string"/>
+      </rng:element>
+    </rng:optional>
+  </rng:define>
+
+</rng:grammar>
