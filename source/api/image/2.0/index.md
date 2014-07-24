@@ -497,7 +497,7 @@ The `width` of a tile, or the combination of `width` and `height` if `height` is
 
 | Property   | Required? | Description |
 | ---------- | --------- | ----------- |
-| `scale_factors` | Required | The set of resolution scaling factors for the image's predefined tiles, expressed as an integer by which to divide the full size of the image. For example, a scale factor of 4 indicates that the service can efficiently deliver images at 1/4 or 25% of the height and width of the full image. A scale factor _SHOULD_ only appear once in the list of tiles. |
+| `scale_factors` | Required | The set of resolution scaling factors for the image's predefined tiles, expressed as an integer by which to divide the full size of the image. For example, a scale factor of 4 indicates that the service can efficiently deliver images at 1/4 or 25% of the height and width of the full image. A particular scale factor value _SHOULD_ appear only once in the `tiles` list. |
 | `width` | Required | The width of the predefined tiles to be requested. |
 | `height` | Optional | The height of the predefined tiles to be requested.  If it is not specified in the JSON, then it defaults to the same as `width`, resulting in square tiles. |
 {: .image-api-table}
