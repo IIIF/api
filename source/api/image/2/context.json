@@ -33,7 +33,6 @@
     "scale_factors" : { "@id" : "iiif:scaleFactor", "@type" : "xsd:integer" },
     "formats" : { "@id" : "iiif:format", "@type" : "xsd:string" },
     "qualities" : { "@id" : "iiif:quality", "@type" : "xsd:string" },
-    "viewing_hint" : { "@id": "sc:viewingHint", "@type": "xsd:string"},
 
     "sizes" : { "@id" : "iiif:size", "@type": "@id" },
     "tiles" : { "@id" : "iiif:tile", "@type": "@id" },

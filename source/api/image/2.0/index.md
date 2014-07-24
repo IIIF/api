@@ -483,20 +483,21 @@ The JSON at the top level of the response will include the following properties:
 | `service` | Optional | The `service` property provides a hook for additional information to be included in the image description, for example the physical size of the object depicted.  Please see the [Service Profiles][service-profiles] annex for more information. |
 {: .image-api-table}
 
-The objects in the `sizes` list have the properties in the following table.  Images requested using these sizes _SHOULD_ have a region parameter of "full" and rotation of "0". The full URL would be: `{base_url}/{identifier}/full/{width},{height}/0/default.jpg`
+The objects in the `sizes` list have the properties in the following table. Images requested using these sizes _SHOULD_ have a region parameter of "full" and rotation of "0". The full URL would be: `{base_url}/{identifier}/full/{width},{height}/0/default.jpg`
 
 | Property   | Required? | Description |
 | ---------- | --------- | ----------- |
 | `width` | Required | The width of the image to be requested. |
 | `height` | Required | The height of the image to be requested. |
-| `viewing_hint` | Optional | A string giving a hint to the intended use of the size.  It may have any value, but the following are recommended: `icon`, `thumbnail`, `small`, `medium`, `large`, `xlarge`. |
 {: .image-api-table}
 
-The objects in the `tiles` list have the properties in the following table.  The `width` and `height` should be used to fill the region parameter and the `scale_factors` to complete the size parameter of the image URL. This is described in detail in the [Implementation Notes][a-implementation-notes].
+The objects in the `tiles` list have the properties in the following table. The `width` and `height` should be used to fill the region parameter and the `scale_factors` to complete the size parameter of the image URL. This is described in detail in the [Implementation Notes][a-implementation-notes].
+
+The `width` of a tile, or the combination of `width` and `height` if `height` is specified, _MUST_ be unique among the members of the `tiles` list.
 
 | Property   | Required? | Description |
 | ---------- | --------- | ----------- |
-| `scale_factors` | Required | The set of resolution scaling factors for the image's predefined tiles, expressed as an integer by which to divide the full size of the image. For example, a scale factor of 4 indicates that the service can efficiently deliver images at 1/4 or 25% of the height and width of the full image. |
+| `scale_factors` | Required | The set of resolution scaling factors for the image's predefined tiles, expressed as an integer by which to divide the full size of the image. For example, a scale factor of 4 indicates that the service can efficiently deliver images at 1/4 or 25% of the height and width of the full image. A scale factor _SHOULD_ only appear once in the list of tiles. |
 | `width` | Required | The width of the predefined tiles to be requested. |
 | `height` | Optional | The height of the predefined tiles to be requested.  If it is not specified in the JSON, then it defaults to the same as `width`, resulting in square tiles. |
 {: .image-api-table}
@@ -551,9 +552,9 @@ The JSON response is structured as shown in the following example. The order of 
   "width" : 6000,
   "height" : 4000,
   "sizes" : [
-    {"width" : 150, "height" : 100, "viewing_hint" : "thumbnail"},
-    {"width" : 600, "height" : 400, "viewing_hint" : "small"},
-    {"width" : 3000, "height": 2000, "viewing_hint" : "large"}
+    {"width" : 150, "height" : 100},
+    {"width" : 600, "height" : 400},
+    {"width" : 3000, "height": 2000}
   ],
   "tiles": [
     {"width" : 512, "scale_factors" : [1,2,4,8,16]}
