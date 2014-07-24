@@ -99,13 +99,10 @@ The rotation value may now be preceded by an exclamation mark to specify mirrori
 
 In order to provide the same extension point as is in the [Presentation API][prezi-api], the `services` property was added to info.json.  The predominant use case is recording pixels per inch, via the same mechanism as providing the size of the physical object in the Presentation API.  The [Services Annex][services] specifies which services can be used with which APIs.
 
-
 ### Added `sizes` property to Image Information document
 
-Servers that do not support arbitrary size parameters for image requests may still wish make multiple sizes of an image available. The sizes that are available may be listed using an array of JSON objects in the `sizes` property of the top level of the Image Information response.  The object has `height`, `width` and `viewing_hint` properties.  The `viewing_hint` property was added from the Presentation API to allow the server to provide a hint to the client about the intended use of the given image size, such as 'thumbnail' or 'icon'.
-
+Servers that do not support arbitrary size parameters for image requests may still wish make multiple sizes of an image available. The sizes that are available may be listed using an array of JSON objects in the `sizes` property of the top level of the Image Information response.  The object has `height` and `width` properties. 
 Even when a server does support arbitrary resizing, it may be useful to report pre-cached or otherwise recommended sizes of an image.
-
 
 ### Published JSON-LD Context
 
