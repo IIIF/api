@@ -24,6 +24,7 @@
     "size_by_pct" : { "@id" : "iiif:sizeByPctFeature", "@type": "iiif:Feature" },
     "size_by_w" : { "@id" : "iiif:sizeByWFeature", "@type": "iiif:Feature" },
     "size_by_wh" : { "@id" : "iiif:sizeByWHFeature", "@type": "iiif:Feature" },
+    "size_by_wh_listed" : { "@id" : "iiif:sizeByWHListedFeature", "@type": "iiif:Feature" },    
     "profile_link_header" : {"@id" : "iiif:profileLinkHeaderFeature", "@type": "iiif:Feature" },
     "canonical_link_header" : {"@id" : "iiif:canonicalLinkHeaderFeature", "@type": "iiif:Feature" },
     "jsonld_media_type" : {"@id" : "iiif:jsonLdMediaTypeFeature", "@type": "iiif:Feature" },
