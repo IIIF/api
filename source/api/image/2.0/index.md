@@ -408,11 +408,11 @@ In order to support the above requirements, clients should construct the image r
 
 | Parameter | Canonical value |
 | --------- | --------------- |
-| region    | "full" if the whole image is requested,<br/>&nbsp; otherwise the `x,y,w,h` syntax to describe the region. |
-| size      | "full" if the default size is requested,<br/>&nbsp; otherwise the `w,` syntax to describe the size if the height should be calculated by the server,<br/>&nbsp; otherwise the `w,h` syntax to describe the exact size requested. |
+| region    | "full" if the whole image is requested,<br/>otherwise the `x,y,w,h` syntax. |
+| size      | "full" if the default size is requested,<br/>the `w,` syntax for images that should be scaled maintaining the aspect ratio,<br/>and the `w,h` syntax for explicit sizes that change the aspect ratio. |
 | rotation  | "!" if the image is mirrored, followed by an integer if possible, and trimming any trailing zeros in a decimal value, and a leading 0 if the value is below 1. |
-| quality   | "default" if the server's default quality is requested,<br/>&nbsp; otherwise the quality string. |
-| format    | Explicit format string required; 'jpg' is preferred. |
+| quality   | "default" if the server's default quality is requested,<br/>otherwise the quality string. |
+| format    | The explicit format string is always required. |
 {: .image-api-table}
 
 When the client requests an image, the server _MAY_ add a link header to the response that indicates the canonical URI for that request:
