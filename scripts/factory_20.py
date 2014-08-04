@@ -5,11 +5,22 @@ import urllib
 import logging
 
 sys.path.append(os.getcwd())
+
 try:
-	import ljson as json
-except:
-	print "Falling back to regular json"
+	# Only available in 2.7+
+	# This makes the code a bit messy, but eliminates the need
+	# ... for the locally hacked ordered json encoder
+	from collections import OrderedDict
 	import json
+except:
+	# Use locally hacked 2.6- json
+
+	try:
+		import ljson as json
+	except:
+		# Okay, giving up on ordered keys
+		print "Falling back to regular json, and no OrderedDict"
+		import json
 
 try:
 	from PIL import Image as pil_image
@@ -18,7 +29,6 @@ except:
 		import Image as pil_image
 	except:
 		pil_image = None
-
 
 try:
 	from lxml import etree
@@ -72,9 +82,19 @@ RENAMED_PROPS = {'viewingHint':'viewing_hint',
 #   Canvas.resources --> images 
 # lives in Canvas.__setattr__, as AnnotationList has a resources list
 
-
 BAD_HTML_TAGS = ['script', 'style', 'object', 'form', 'input']
 GOOD_HTML_TAGS = ['a', 'b', 'br', 'i', 'img', 'p', 'span']
+
+KEY_ORDER = ["@context", "@id", "@type", "@value", "@language", "label", "value",
+             "metadata", "description", "thumbnail", "attribution", "license", "logo",
+             "format", "height", "width", "scale_factors", "tile_width", "tile_height",
+             "formats", "qualities", "viewingDirection", "viewing_direction", "viewingHint", 
+             "viewing_hint", "profile", "see_also", "search",
+             "seeAlso", "within", "motivation", "stylesheet", "resource", 
+             "on", "default", "item", "style", "full", "selector", "chars", "language", 
+             "sequences", "structures", "canvases", "resources", "images", "other_content", "otherContent" ] 
+
+KEY_ORDER_HASH = dict([(KEY_ORDER[x],x) for x in range(len(KEY_ORDER))])
 
 class ManifestFactory(object):
 	metadata_base = ""
@@ -324,8 +344,12 @@ class BaseMetadataObject(object):
 			self.maybe_warn("Setting non-standard field '%s' on resource of type '%s'" % (which, self._type))
 		elif which[0] != '_' and not type(value) in [str, unicode, list, dict] and not which in self._integer_properties and not isinstance(value, BaseMetadataObject):
 			# Raise Exception for standard prop set to non standard value
-			# not perfect but stops some
-			raise DataError("%s['%s'] does not accept a %s" % (self._type, which, type(value).__name__), self)
+			# not perfect but stops the worst cases. Need to check for OrderedDict in a try
+			try:
+				if not isinstance(value, OrderedDict):				
+					raise DataError("%s['%s'] does not accept a %s" % (self._type, which, type(value).__name__), self)
+			except:
+					raise DataError("%s['%s'] does not accept a %s" % (self._type, which, type(value).__name__), self)				
 		elif which in self._integer_properties and type(value) != int:
 			raise DataError("%s['%s'] does not accept a %s, only an integer" % (self._type, which, type(value).__name__), self)
 
@@ -383,7 +407,12 @@ class BaseMetadataObject(object):
 				l.append(h)				
 			else:
 				l.append({"@value":v, "@language":k})
-		return l
+
+		try:
+			return [OrderedDict(sorted(y.items(), key=lambda x: KEY_ORDER_HASH.get(x[0], 1000))) for y in l]
+		except:
+			raise				
+			return l
 
 	def set_metadata(self, mdhash):
 		# In:  {label:value, label2:value2}
@@ -413,13 +442,19 @@ class BaseMetadataObject(object):
 				v = self.langhash_to_jsonld({self._factory.default_lang : v})
 			elif type(v) == dict:
 				v = self.langhash_to_jsonld(v)
-			md.append({"label":k, "value":v})
+			try:
+				md.append(OrderedDict([("label", k), ("value", v)]))
+			except:
+				md.append({"label":k, "value":v})
 		else:
 			for (k,v) in mdhash.items():
 				if type(v) in [str, unicode] and self._factory.add_lang:
 					v = self.langhash_to_jsonld({self._factory.default_lang : v})
 				elif type(v) == dict:
 					v = self.langhash_to_jsonld(v)
+			try:
+				md.append(OrderedDict([("label", k), ("value", v)]))
+			except:
 				md.append({"label":k, "value":v})
 
 	def _set_magic(self, which, value, html=True):
@@ -515,8 +550,26 @@ class BaseMetadataObject(object):
 					if sinfo.get('list', False):
 						raise StructuralError("%s['%s] must be a list, got %r" % (self._type, p, d[p]), self)
 					d[p] = self._single_toJSON(d[p], sinfo, p)
-		return d
 
+
+		try:
+			# might have raw dicts in:  service
+			if d.has_key('service'):
+				serv = d['service']
+				if type(serv) == list:
+					nl = []
+					for s in serv:
+						if type(s) == dict:
+							nl.append(OrderedDict(sorted(s.items(), key=lambda x: KEY_ORDER_HASH.get(x[0], 1000))))
+						else:
+							nl.append(s)
+					d['service'] = nl
+				elif type(serv) == dict:
+					d['service'] = OrderedDict(sorted(serv.items(), key=lambda x: KEY_ORDER_HASH.get(x[0], 1000)))
+			return OrderedDict(sorted(d.items(), key=lambda x: KEY_ORDER_HASH.get(x[0], 1000)))
+		except:
+			# No OrderedDict to remap to
+			return d
 
 	def _single_toJSON(self, instance, sinfo, prop):
 		# duck typing. Bite me. 
@@ -542,12 +595,22 @@ class BaseMetadataObject(object):
 			raise StructuralError("Saw unknown object in %s['%s']: %r" % (self._type, prop, instance), self)
 
 
+	def _buildString(self, js, compact=True):
+		if type(js) == dict:
+			if compact:
+				out = json.dumps(js, sort_keys=True, separators=(',',':'))
+			else:
+				out = json.dumps(js, sort_keys=True, indent=2)
+		else:
+			if compact:
+				out = json.dumps(js, separators=(',',':'))
+			else:
+				out = json.dumps(js, indent=2)
+		return out 		
+
 	def toString(self, compact=True):
 		js = self.toJSON(top=True)
-		if compact:
-			return json.dumps(js, sort_keys=True, separators=(',',':'))
-		else:
-			return json.dumps(js, sort_keys=True, indent=2)
+		return self._buildString(js, compact)
 
 	def toFile(self, compact=True):
 		mdd = self._factory.metadata_dir
@@ -572,10 +635,8 @@ class BaseMetadataObject(object):
 				pass
 
 		fh = file(os.path.join(mdd, fp), 'w')
-		if compact:
-			json.dump(js, fh, sort_keys=True, separators=(',',':'))
-		else:
-			json.dump(js, fh, sort_keys=True, indent=2)
+		out = self._buildString(js, compact)
+		fh.write(out)
 		fh.close()
 
 class ContentResource(BaseMetadataObject):
@@ -801,7 +862,11 @@ class Annotation(BaseMetadataObject):
 
 	def stylesheet(self, css, cls):
 		# This has to go here, as need to modify both Annotation and Resource
-		ss = { "@type": ["oa:CssStyle", "cnt:ContentAsText"], "format": "text/css", "chars" : css}
+		try:
+			ss = OrderedDict([("@type", ["oa:CssStyle", "cnt:ContentAsText"]), 
+				("format", "text/css"), ("chars", css)])
+		except:
+			ss = { "@type": ["oa:CssStyle", "cnt:ContentAsText"], "format": "text/css", "chars": css}
 		self.stylesheet = ss
 		if not self.resource:
 			raise ConfigurationError("Cannot set a stylesheet without first creating the body")

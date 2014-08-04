@@ -1,8 +1,9 @@
 import os, sys
 from factory_20 import ManifestFactory
-	
+from collections import OrderedDict	
+
 BASEURL = "http://iiif.io/api/presentation/2.0/example/fixtures/"
-HOMEDIR = "../source/api/presentation/2.0/example/fixtures/"
+HOMEDIR = "tests"
 IMAGE_BASEURL = "http://iiif.io/api/image/2.0/example/"
 imageWidth = 1200
 imageHeight = 1800
@@ -34,7 +35,7 @@ testInfo = {
 3 : {"title": "Metadata Pairs with Languages", 'mfprops': [('metadata', {'date': {'en':'some data','fr':'quelquetemps'}})]},
 4 : {"title": "Metadata Pairs with Multiple Values in same Language", 'mfprops':[('metadata',{'date': ['some date', 'some other date']})]},
 5 : {"title": "Description field", 'mfprops': [('description',"This is a description")]},
-6 : {"title": "Multiple Descriptions", 'mfprops': [('description',["This is one description", {"@value":"This is another", "@language":"en"}])]},
+6 : {"title": "Multiple Descriptions", 'mfprops': [('description',["This is one description", {"en":"This is another"}])]},
 7 : {"title": "Rights Metadata", 'mfprops': [('attribution', "Owning Institution"), ('license','http://creativecommons.org/licenses/by-nc/3.0/')]},
 8 : {"title": "SeeAlso link / Manifest", 'mfprops':[('seeAlso','http://www.example.org/link/to/metadata')]},
 9 : {"title": "Service link / Manifest", 'mfprops':[('service','http://www.example.org/link/to/searchService')]},
@@ -122,13 +123,19 @@ def addEmbedInfo(manifest):
 	for s in manifest.sequences:
 		for c in s.canvases:
 			for a in c.images:
-				svc = a.resource.service
-				svc['height'] = imageHeight
-				svc['width'] = imageWidth
-				svc['tiles'] = [{"width":512,"scale_factors":[1,2,4,8,16]}]
-				svc['profile'] = ["http://iiif.io/api/image/2/level2.json", 
-				{"formats": ["gif", "tif", "pdf"], "qualities": ["color", "gray"], 
-				"supports": ["canonical_link_header", "mirroring", "rotation_arbitrary", "size_above_full"]}]
+				try:
+					svc = OrderedDict()
+					svc['height'] = imageHeight
+					svc['width'] = imageWidth
+					svc['tiles'] = [{"width":512,"scale_factors":[1,2,4,8,16]}]
+					profile = OrderedDict([("formats", ["gif", "tif", "pdf"]), 
+						("qualities", ["color", "gray"]), 
+						("supports", ["canonical_link_header", "mirroring", "rotation_arbitrary", "size_above_full"])])
+					svc['profile'] = ["http://iiif.io/api/image/2/level2.json", profile]
+					a.resource.service = svc
+				except:
+					svc = a.resource.service
+					raise
 
 def removeImages(manifest):
 	for s in manifest.sequences:
@@ -205,7 +212,10 @@ def makePartialImageIIIF(manifest):
 			c.width -= 200
 			img = c.images[0].resource
 			region = "100,100,1000,1600"
-			sel = {"@type":"iiif:ImageApiSelector", "region":region}
+			try:
+				sel = OrderedDict([("@type", "iiif:ImageApiSelector"), ("region", region)])
+			except:
+				sel = {"@type":"iiif:ImageApiSelector", "region":region}
 			sr = img.make_selection(sel)
 			sr.id = img.id.replace("/full", "/" + region, 1)
 			c.images[0].resource = sr
@@ -228,7 +238,10 @@ def makePartialDetailIIIF(manifest):
 				img.height -= 20
 				img.width -= 20
 				region = "10,10,%s,%s" % (img.width, img.height)
-				sel = {"@type":"iiif:ImageApiSelector", "region":region}
+				try:
+					sel = OrderedDict([("@type", "iiif:ImageApiSelector"), ("region", region)])
+				except:
+					sel = {"@type":"iiif:ImageApiSelector", "region":region}
 				sr = img.make_selection(sel)
 				sr.id = img.id.replace('/full', '/'+region, 1)
 				a.resource = sr
@@ -246,7 +259,11 @@ def addServerRotation(manifest):
 			for a in c.images:
 				img = a.resource
 				rot = "180"
-				sel = {"@type":"iiif:ImageApiSelector", "rotation":rot}
+
+				try:
+					sel = OrderedDict([("@type", "iiif:ImageApiSelector"), ("rotation", rot)])
+				except:
+					sel = {"@type":"iiif:ImageApiSelector", "rotation":rot}
 				sr = img.make_selection(sel)
 				sr.id = img.id.replace("/0/", "/180/", 1)
 				c.images[0].resource = sr
