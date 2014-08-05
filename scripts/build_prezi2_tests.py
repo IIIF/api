@@ -3,7 +3,7 @@ from factory_20 import ManifestFactory
 from collections import OrderedDict	
 
 BASEURL = "http://iiif.io/api/presentation/2.0/example/fixtures/"
-HOMEDIR = "tests"
+HOMEDIR = "../source/api/presentation/2.0/example/fixtures/"
 IMAGE_BASEURL = "http://iiif.io/api/image/2.0/example/"
 imageWidth = 1200
 imageHeight = 1800

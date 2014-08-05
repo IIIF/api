@@ -1,8 +1,4 @@
-try:
-	import ljson as json
-except:
-	import json
-
+import json
 import urllib, os
 import copy
 
@@ -65,10 +61,6 @@ def make_tests():
 	make_test(json.dumps(n, sort_keys=True, indent=2), 'JSON without a @type')
 	n['@type'] = "fish"
 	make_test(json.dumps(n, sort_keys=True, indent=2), 'JSON with a nonsense @type')	
-
-	# Errors in otherwise valid
-
-
 
 	# Config as ident defaults to manifest.json but needs a base URI to be set
 	#n['@type'] = "sc:Manifest"

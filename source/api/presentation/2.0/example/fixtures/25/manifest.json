@@ -26,10 +26,20 @@
                 "height": 1800, 
                 "width": 1200, 
                 "service": {
-                  "@context": "http://iiif.io/api/image/2/context.json", 
-                  "@id": "http://iiif.io/api/image/2.0/example/page1-full", 
                   "height": 1800, 
                   "width": 1200, 
+                  "tiles": [
+                    {
+                      "width": 512, 
+                      "scale_factors": [
+                        1, 
+                        2, 
+                        4, 
+                        8, 
+                        16
+                      ]
+                    }
+                  ], 
                   "profile": [
                     "http://iiif.io/api/image/2/level2.json", 
                     {
@@ -47,18 +57,6 @@
                         "mirroring", 
                         "rotation_arbitrary", 
                         "size_above_full"
-                      ]
-                    }
-                  ], 
-                  "tiles": [
-                    {
-                      "width": 512, 
-                      "scale_factors": [
-                        1, 
-                        2, 
-                        4, 
-                        8, 
-                        16
                       ]
                     }
                   ]

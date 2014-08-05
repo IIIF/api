@@ -2,25 +2,25 @@
 import os, sys
 import commands
 import urllib
-import logging
 
-sys.path.append(os.getcwd())
+try:
+	import json
+except:
+	# 2.5
+	import simplejson as json
 
 try:
 	# Only available in 2.7+
 	# This makes the code a bit messy, but eliminates the need
 	# ... for the locally hacked ordered json encoder
 	from collections import OrderedDict
-	import json
 except:
-	# Use locally hacked 2.6- json
-
+	# Backported...
 	try:
-		import ljson as json
+		from ordereddict import OrderedDict
 	except:
-		# Okay, giving up on ordered keys
-		print "Falling back to regular json, and no OrderedDict"
-		import json
+		print "You must: easy_install ordereddict"
+		raise
 
 try:
 	from PIL import Image as pil_image
@@ -34,10 +34,6 @@ try:
 	from lxml import etree
 except:
 	etree = None
-
-# TODO: New Python image library
-# TODO: ImageMagick module
-# TODO: VIPS
 
 class PresentationError(Exception):
 	resource = None
@@ -96,6 +92,7 @@ KEY_ORDER = ["@context", "@id", "@type", "@value", "@language", "label", "value"
 
 KEY_ORDER_HASH = dict([(KEY_ORDER[x],x) for x in range(len(KEY_ORDER))])
 
+
 class ManifestFactory(object):
 	metadata_base = ""
 	image_base = ""
@@ -142,6 +139,7 @@ class ManifestFactory(object):
 		self.default_image_api_dir = ""		
 
 		self.debug_level = "warn"
+		self.log_stream = sys.stdout
 
 		# Try to find ImageMagick's identify
 		try:
@@ -149,6 +147,9 @@ class ManifestFactory(object):
 		except:
 			# No IM or not unix
 			self.whichid = ""
+
+	def set_debug_stream(self, strm):
+		self.log_stream = strm
 
 	def set_debug(self, typ):
 		# error = squash warnings
@@ -162,8 +163,8 @@ class ManifestFactory(object):
 
 	def maybe_warn(self, msg):
 		if self.debug_level == "warn":
-			# XXX This needs to be a logger() so can capture for validator
-			print msg
+			self.log_stream.write(msg + "\n")
+			self.log_stream.flush()
 		elif self.debug_level == "error_on_warning":
 			# We don't know the type, just raise a MetadataError
 			raise MetadataError(msg)		
@@ -342,14 +343,10 @@ class BaseMetadataObject(object):
 			which = RENAMED_PROPS[which]
 		if which[0] != "_" and not which in self._properties and not which in self._extra_properties and not which in self._structure_properties.keys():
 			self.maybe_warn("Setting non-standard field '%s' on resource of type '%s'" % (which, self._type))
-		elif which[0] != '_' and not type(value) in [str, unicode, list, dict] and not which in self._integer_properties and not isinstance(value, BaseMetadataObject):
+		elif which[0] != '_' and not type(value) in [str, unicode, list, dict] and not which in self._integer_properties and not isinstance(value, BaseMetadataObject) and not isinstance(value, OrderedDict):
 			# Raise Exception for standard prop set to non standard value
-			# not perfect but stops the worst cases. Need to check for OrderedDict in a try
-			try:
-				if not isinstance(value, OrderedDict):				
-					raise DataError("%s['%s'] does not accept a %s" % (self._type, which, type(value).__name__), self)
-			except:
-					raise DataError("%s['%s'] does not accept a %s" % (self._type, which, type(value).__name__), self)				
+			# not perfect but stops the worst cases.				
+			raise DataError("%s['%s'] does not accept a %s" % (self._type, which, type(value).__name__), self)				
 		elif which in self._integer_properties and type(value) != int:
 			raise DataError("%s['%s'] does not accept a %s, only an integer" % (self._type, which, type(value).__name__), self)
 
@@ -362,7 +359,6 @@ class BaseMetadataObject(object):
 	def maybe_warn(self, msg):
 		msg = "WARNING: " + msg
 		self._factory.maybe_warn(msg)
-
 
 	def langhash_to_jsonld(self, lh, html=True):
 		# {"fr": "something in french", "en": "something in english", "de html" : "<span>German HTML</span>"}
@@ -401,18 +397,13 @@ class BaseMetadataObject(object):
 								self.maybe_warn("Risky HTML tag '%s' in '%s'" % (elm.tag, v))
 						# Cannot keep CDATA sections separate from text when parsing in LXML :(
 
-				h = {"@value":v, "@type":"rdf:XMLLiteral"}
+				h = OrderedDict([("@type","rdf:XMLLiteral"), ("@value",v)])
 				if k:
 					h['@language'] = k
 				l.append(h)				
 			else:
-				l.append({"@value":v, "@language":k})
-
-		try:
-			return [OrderedDict(sorted(y.items(), key=lambda x: KEY_ORDER_HASH.get(x[0], 1000))) for y in l]
-		except:
-			raise				
-			return l
+				l.append(OrderedDict([("@value",v), ("@language",k)]))
+		return l
 
 	def set_metadata(self, mdhash):
 		# In:  {label:value, label2:value2}
@@ -442,20 +433,15 @@ class BaseMetadataObject(object):
 				v = self.langhash_to_jsonld({self._factory.default_lang : v})
 			elif type(v) == dict:
 				v = self.langhash_to_jsonld(v)
-			try:
-				md.append(OrderedDict([("label", k), ("value", v)]))
-			except:
-				md.append({"label":k, "value":v})
+			md.append(OrderedDict([("label", k), ("value", v)]))
+
 		else:
 			for (k,v) in mdhash.items():
 				if type(v) in [str, unicode] and self._factory.add_lang:
 					v = self.langhash_to_jsonld({self._factory.default_lang : v})
 				elif type(v) == dict:
 					v = self.langhash_to_jsonld(v)
-			try:
-				md.append(OrderedDict([("label", k), ("value", v)]))
-			except:
-				md.append({"label":k, "value":v})
+			md.append(OrderedDict([("label", k), ("value", v)]))
 
 	def _set_magic(self, which, value, html=True):
 		if type(value) in [str, unicode] and self._factory.add_lang:
@@ -551,25 +537,21 @@ class BaseMetadataObject(object):
 						raise StructuralError("%s['%s] must be a list, got %r" % (self._type, p, d[p]), self)
 					d[p] = self._single_toJSON(d[p], sinfo, p)
 
+		# might have raw dicts in: service
+		if d.has_key('service'):
+			serv = d['service']
+			if type(serv) == list:
+				nl = []
+				for s in serv:
+					if type(s) == dict:
+						nl.append(OrderedDict(sorted(s.items(), key=lambda x: KEY_ORDER_HASH.get(x[0], 1000))))
+					else:
+						nl.append(s)
+				d['service'] = nl
+			elif type(serv) == dict:
+				d['service'] = OrderedDict(sorted(serv.items(), key=lambda x: KEY_ORDER_HASH.get(x[0], 1000)))
 
-		try:
-			# might have raw dicts in:  service
-			if d.has_key('service'):
-				serv = d['service']
-				if type(serv) == list:
-					nl = []
-					for s in serv:
-						if type(s) == dict:
-							nl.append(OrderedDict(sorted(s.items(), key=lambda x: KEY_ORDER_HASH.get(x[0], 1000))))
-						else:
-							nl.append(s)
-					d['service'] = nl
-				elif type(serv) == dict:
-					d['service'] = OrderedDict(sorted(serv.items(), key=lambda x: KEY_ORDER_HASH.get(x[0], 1000)))
-			return OrderedDict(sorted(d.items(), key=lambda x: KEY_ORDER_HASH.get(x[0], 1000)))
-		except:
-			# No OrderedDict to remap to
-			return d
+		return OrderedDict(sorted(d.items(), key=lambda x: KEY_ORDER_HASH.get(x[0], 1000)))
 
 	def _single_toJSON(self, instance, sinfo, prop):
 		# duck typing. Bite me. 
@@ -643,7 +625,7 @@ class ContentResource(BaseMetadataObject):
 
 	def make_selection(self, selector, summarize=False):
 		if summarize:
-			full = {"@id":self.id, "@type": self.type}
+			full = OrderedDict([("@id",self.id), ("@type", self.type)])
 			if self.label:
 				full['label'] = self.label
 		else:
@@ -651,7 +633,9 @@ class ContentResource(BaseMetadataObject):
 
 		sr = SpecificResource(self._factory, full)
 		if type(selector) == str:
-			selector = {"@type": "oa:FragmentSelector", "value": selector}
+			selector = OrderedDict([("@type", "oa:FragmentSelector"), ("value", selector)])
+		elif type(selector) == dict:
+			selector = OrderedDict(sorted(selector.items(), key=lambda x: KEY_ORDER_HASH.get(x[0], 1000)))
 		sr.selector = selector
 		return sr
 
@@ -862,11 +846,8 @@ class Annotation(BaseMetadataObject):
 
 	def stylesheet(self, css, cls):
 		# This has to go here, as need to modify both Annotation and Resource
-		try:
-			ss = OrderedDict([("@type", ["oa:CssStyle", "cnt:ContentAsText"]), 
-				("format", "text/css"), ("chars", css)])
-		except:
-			ss = { "@type": ["oa:CssStyle", "cnt:ContentAsText"], "format": "text/css", "chars": css}
+		ss = OrderedDict([("@type", ["oa:CssStyle", "cnt:ContentAsText"]), 
+			("format", "text/css"), ("chars", css)])
 		self.stylesheet = ss
 		if not self.resource:
 			raise ConfigurationError("Cannot set a stylesheet without first creating the body")
