@@ -50,7 +50,6 @@ def make_test(data, name):
 
 def make_tests():
 
-
 	# Some baseline nonsense
 	make_test('asdf', 'Non-JSON')
 	make_test('{}', 'Empty JSON')
