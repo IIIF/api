@@ -25,6 +25,7 @@
 	        "related":     {"@type":"@id", "@id":"dcterms:relation"},
 	        "logo":        {"@type":"@id", "@id":"foaf:logo"},
 	        "thumbnail":   {"@type":"@id", "@id":"foaf:thumbnail"},
+	        "start_canvas": {"@type":"@id", "@id":"sc:hasStartCanvas"},
 
 	        "sequences":   {"@type":"@id", "@id":"sc:hasSequences", "@container":"@list"},
 	        "canvases":    {"@type":"@id", "@id":"sc:hasCanvases", "@container":"@list"},
@@ -52,7 +53,6 @@
 	        "non-paged":     {"@id":"sc:nonPagedHint", "@type":"sc:ViewingHint"},   
 	        "continuous":    {"@id":"sc:continuousHint", "@type":"sc:ViewingHint"},
 	        "individuals":   {"@id":"sc:individualsHint", "@type":"sc:ViewingHint"}, 
-	        "begin":         {"@id":"sc:beginHint", "@type":"sc:ViewingHint"},
 	        "top":           {"@id":"sc:topHint", "@type":"sc:ViewingHint"},
 
 	        "motivation":  {"@type":"@id", "@id":"oa:motivatedBy"},
