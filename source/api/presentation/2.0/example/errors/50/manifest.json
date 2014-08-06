@@ -3,7 +3,6 @@
   "@id": "http://iiif.io/api/presentation/2.0/example/errors/manifest.json", 
   "@type": "sc:Manifest", 
   "label": "manifest", 
-  "viewing_direction": "upside-down", 
   "sequences": [
     {
       "@type": "sc:Sequence", 
@@ -11,11 +10,12 @@
         {
           "@id": "http://iiif.io/api/presentation/2.0/example/errors/canvas/c1.json", 
           "@type": "sc:Canvas", 
-          "label": "canvas", 
           "height": 1, 
+          "label": "canvas", 
           "width": 1
         }
       ]
     }
-  ]
+  ], 
+  "viewing_direction": "upside-down"
 }

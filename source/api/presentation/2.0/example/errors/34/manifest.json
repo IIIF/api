@@ -10,20 +10,20 @@
         {
           "@id": "http://iiif.io/api/presentation/2.0/example/errors/canvas/c1.json", 
           "@type": "sc:Canvas", 
-          "label": "canvas", 
           "height": 1, 
-          "width": 1, 
           "images": [
             {
               "@type": "oa:Annotation", 
               "motivation": "somethingElse", 
+              "on": "http://iiif.io/api/presentation/2.0/example/errors/canvas/c1.json", 
               "resource": {
                 "@id": "http://example.net/image.jpg", 
                 "@type": "dctypes:Image"
-              }, 
-              "on": "http://iiif.io/api/presentation/2.0/example/errors/canvas/c1.json"
+              }
             }
-          ]
+          ], 
+          "label": "canvas", 
+          "width": 1
         }
       ]
     }

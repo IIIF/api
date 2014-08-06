@@ -197,6 +197,11 @@ def make_tests():
 	n['viewing_direction'] = "upside-down"
 	make_test(json.dumps(n, sort_keys=True, indent=2), 'Invalid viewing_direction value')	
 
+	# Bad start_canvas to non-canvas
+	n = copy.deepcopy(basejs)
+	n['sequences'][0]['start_canvas'] = "http://example.net/not/a/canvas"
+	make_test(json.dumps(n, sort_keys=True, indent=2), 'Invalid start_canvas value')
+
 
 
 make_tests()		

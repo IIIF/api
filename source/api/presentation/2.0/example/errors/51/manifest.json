@@ -11,18 +11,11 @@
           "@id": "http://iiif.io/api/presentation/2.0/example/errors/canvas/c1.json", 
           "@type": "sc:Canvas", 
           "height": 1, 
-          "images": [
-            {
-              "@type": "oa:Annotation", 
-              "motivation": "sc:painting", 
-              "on": "http://iiif.io/api/presentation/2.0/example/errors/canvas/c1.json", 
-              "resource": 1.0
-            }
-          ], 
           "label": "canvas", 
           "width": 1
         }
-      ]
+      ], 
+      "start_canvas": "http://example.net/not/a/canvas"
     }
   ]
 }

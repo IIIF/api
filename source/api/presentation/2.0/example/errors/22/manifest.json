@@ -9,8 +9,8 @@
       "canvases": [
         {
           "@type": "sc:Canvas", 
-          "label": "canvas", 
           "height": 1, 
+          "label": "canvas", 
           "width": 1
         }
       ]

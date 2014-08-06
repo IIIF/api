@@ -65,7 +65,7 @@ class DataError(MetadataError):
 
 
 MAN_VIEWINGHINTS = ['individuals', 'paged', 'continuous']
-CVS_VIEWINGHINTS = ['non-paged', 'begin']
+CVS_VIEWINGHINTS = ['non-paged']
 RNG_VIEWINGHINTS = ['top', 'individuals', 'paged', 'continuous']
 VIEWINGDIRS = ['left-to-right', 'right-to-left', 'top-to-bottom', 'bottom-to-top']
 
@@ -725,6 +725,7 @@ class Sequence(BaseMetadataObject):
 	_warn = ["@id", "label"]
 	_viewing_directions = VIEWINGDIRS
 	_viewing_hints = MAN_VIEWINGHINTS
+	_extra_properties = ["start_canvas"]
 
 	canvases = []
 
@@ -732,18 +733,39 @@ class Sequence(BaseMetadataObject):
 		super(Sequence, self).__init__(*args, **kw)
 		self.canvases = []
 
-	def add_canvas(self, cvs):
+	def add_canvas(self, cvs, start=False):
 		if cvs.id:
 			for c in self.canvases:
 				if c.id == cvs.id:
 					raise DataError("Cannot have two Canvases with the same identity", self)
 		self.canvases.append(cvs)
+		if start:
+			self.set_start_canvas(cvs)
 
 	def canvas(self, *args, **kw):
 		cvs = self._factory.canvas(*args, **kw)
 		self.add_canvas(cvs)
 		return cvs
 
+	def set_start_canvas(self, cvs):
+		if type(cvs) in [unicode, str]:
+			cvsid = cvs
+		elif isinstance(cvs, Canvas):
+			cvsid = cvs.id
+		elif isinstance(cvs, OrderedDict):
+			cvsid = cvs['@id']
+		else:
+			raise ValueError("Expected string, dict or Canvas, got %r" % cvs)
+
+		okay = 0
+		for c in self.canvases:
+			if cvsid == c.id:
+				okay = 1
+				break
+		if okay:
+			self.start_canvas = cvsid
+		else:
+			raise RequirementError("Cannot set the start_canvas of a Sequence to a Canvas that is not in the Sequence")
 
 class Canvas(ContentResource):
 	_type = "sc:Canvas"

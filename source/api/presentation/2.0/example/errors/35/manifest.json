@@ -10,9 +10,7 @@
         {
           "@id": "http://iiif.io/api/presentation/2.0/example/errors/canvas/c1.json", 
           "@type": "sc:Canvas", 
-          "label": "canvas", 
           "height": 1, 
-          "width": 1, 
           "images": [
             {
               "@type": "oa:Annotation", 
@@ -22,7 +20,9 @@
                 "@type": "dctypes:Image"
               }
             }
-          ]
+          ], 
+          "label": "canvas", 
+          "width": 1
         }
       ]
     }
