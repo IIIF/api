@@ -2,7 +2,7 @@
   "@context": "http://iiif.io/api/presentation/2/context.json", 
   "@id": "http://iiif.io/api/presentation/2.0/example/fixtures/65/manifest.json", 
   "@type": "sc:Manifest", 
-  "label": "Test 65 Manifest: Embedded Transcription on Selector Segment", 
+  "label": "Test 65 Manifest: Sequence with start_canvas", 
   "within": "http://iiif.io/api/presentation/2.0/example/fixtures/collection.json", 
   "sequences": [
     {
@@ -27,16 +27,10 @@
               }, 
               "on": "http://iiif.io/api/presentation/2.0/example/fixtures/canvas/65/c1.json"
             }
-          ], 
-          "other_content": [
-            {
-              "@id": "http://iiif.io/api/presentation/2.0/example/fixtures/list/65/list1.json", 
-              "@type": "sc:AnnotationList", 
-              "label": "Test 65 List 1"
-            }
           ]
         }
-      ]
+      ], 
+      "start_canvas": "http://iiif.io/api/presentation/2.0/example/fixtures/canvas/64/c1.json"
     }
   ]
 }

@@ -277,6 +277,11 @@
       "@id": "http://iiif.io/api/presentation/2.0/example/fixtures/64/manifest.json", 
       "@type": "sc:Manifest", 
       "label": "Test 64 Manifest: Description in HTML"
+    }, 
+    {
+      "@id": "http://iiif.io/api/presentation/2.0/example/fixtures/65/manifest.json", 
+      "@type": "sc:Manifest", 
+      "label": "Test 65 Manifest: Sequence with start_canvas"
     }
   ]
 }
