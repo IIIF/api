@@ -1,0 +1,268 @@
+{
+  "@context": "http://iiif.io/api/presentation/2/context.json", 
+  "@id": "http://iiif.io/api/presentation/2.0/example/errors/collection.json", 
+  "@type": "sc:Collection", 
+  "label": "Collection of Errors", 
+  "manifests": [
+    {
+      "@id": "http://iiif.io/api/presentation/2.0/example/errors/0/manifest.json", 
+      "@type": "sc:Manifest", 
+      "label": "0: Non-JSON"
+    }, 
+    {
+      "@id": "http://iiif.io/api/presentation/2.0/example/errors/1/manifest.json", 
+      "@type": "sc:Manifest", 
+      "label": "1: Empty JSON"
+    }, 
+    {
+      "@id": "http://iiif.io/api/presentation/2.0/example/errors/2/manifest.json", 
+      "@type": "sc:Manifest", 
+      "label": "2: JSON without @context"
+    }, 
+    {
+      "@id": "http://iiif.io/api/presentation/2.0/example/errors/3/manifest.json", 
+      "@type": "sc:Manifest", 
+      "label": "3: JSON with empty @context"
+    }, 
+    {
+      "@id": "http://iiif.io/api/presentation/2.0/example/errors/4/manifest.json", 
+      "@type": "sc:Manifest", 
+      "label": "4: JSON with unknown @context"
+    }, 
+    {
+      "@id": "http://iiif.io/api/presentation/2.0/example/errors/5/manifest.json", 
+      "@type": "sc:Manifest", 
+      "label": "5: JSON without a @type"
+    }, 
+    {
+      "@id": "http://iiif.io/api/presentation/2.0/example/errors/6/manifest.json", 
+      "@type": "sc:Manifest", 
+      "label": "6: JSON with a nonsense @type"
+    }, 
+    {
+      "@id": "http://iiif.io/api/presentation/2.0/example/errors/7/manifest.json", 
+      "@type": "sc:Manifest", 
+      "label": "7: Manifest without an @id"
+    }, 
+    {
+      "@id": "http://iiif.io/api/presentation/2.0/example/errors/8/manifest.json", 
+      "@type": "sc:Manifest", 
+      "label": "8: Manifest with a nonsense @id"
+    }, 
+    {
+      "@id": "http://iiif.io/api/presentation/2.0/example/errors/9/manifest.json", 
+      "@type": "sc:Manifest", 
+      "label": "9: Manifest without a label"
+    }, 
+    {
+      "@id": "http://iiif.io/api/presentation/2.0/example/errors/10/manifest.json", 
+      "@type": "sc:Manifest", 
+      "label": "10: Manifest with a non-string label"
+    }, 
+    {
+      "@id": "http://iiif.io/api/presentation/2.0/example/errors/11/manifest.json", 
+      "@type": "sc:Manifest", 
+      "label": "11: Manifest without any Sequences (not present)"
+    }, 
+    {
+      "@id": "http://iiif.io/api/presentation/2.0/example/errors/12/manifest.json", 
+      "@type": "sc:Manifest", 
+      "label": "12: Manifest without any Sequences (empty)"
+    }, 
+    {
+      "@id": "http://iiif.io/api/presentation/2.0/example/errors/13/manifest.json", 
+      "@type": "sc:Manifest", 
+      "label": "13: Manifest with broken Sequence"
+    }, 
+    {
+      "@id": "http://iiif.io/api/presentation/2.0/example/errors/14/manifest.json", 
+      "@type": "sc:Manifest", 
+      "label": "14: Manifest with non Sequence"
+    }, 
+    {
+      "@id": "http://iiif.io/api/presentation/2.0/example/errors/15/manifest.json", 
+      "@type": "sc:Manifest", 
+      "label": "15: Manifest with non Sequence in list"
+    }, 
+    {
+      "@id": "http://iiif.io/api/presentation/2.0/example/errors/16/manifest.json", 
+      "@type": "sc:Manifest", 
+      "label": "16: Manifest with Sequence not in list"
+    }, 
+    {
+      "@id": "http://iiif.io/api/presentation/2.0/example/errors/17/manifest.json", 
+      "@type": "sc:Manifest", 
+      "label": "17: Manifest with empty Sequence"
+    }, 
+    {
+      "@id": "http://iiif.io/api/presentation/2.0/example/errors/18/manifest.json", 
+      "@type": "sc:Manifest", 
+      "label": "18: Manifest with empty Sequence"
+    }, 
+    {
+      "@id": "http://iiif.io/api/presentation/2.0/example/errors/19/manifest.json", 
+      "@type": "sc:Manifest", 
+      "label": "19: Sequence with non Canvas / non list"
+    }, 
+    {
+      "@id": "http://iiif.io/api/presentation/2.0/example/errors/20/manifest.json", 
+      "@type": "sc:Manifest", 
+      "label": "20: Sequence with non Canvas in a list"
+    }, 
+    {
+      "@id": "http://iiif.io/api/presentation/2.0/example/errors/21/manifest.json", 
+      "@type": "sc:Manifest", 
+      "label": "21: Sequence with Canvas not in a list"
+    }, 
+    {
+      "@id": "http://iiif.io/api/presentation/2.0/example/errors/22/manifest.json", 
+      "@type": "sc:Manifest", 
+      "label": "22: Canvas without id"
+    }, 
+    {
+      "@id": "http://iiif.io/api/presentation/2.0/example/errors/23/manifest.json", 
+      "@type": "sc:Manifest", 
+      "label": "23: Canvas without real URI"
+    }, 
+    {
+      "@id": "http://iiif.io/api/presentation/2.0/example/errors/24/manifest.json", 
+      "@type": "sc:Manifest", 
+      "label": "24: Canvas without label"
+    }, 
+    {
+      "@id": "http://iiif.io/api/presentation/2.0/example/errors/25/manifest.json", 
+      "@type": "sc:Manifest", 
+      "label": "25: Canvas with nonstring label"
+    }, 
+    {
+      "@id": "http://iiif.io/api/presentation/2.0/example/errors/26/manifest.json", 
+      "@type": "sc:Manifest", 
+      "label": "26: Canvas without height"
+    }, 
+    {
+      "@id": "http://iiif.io/api/presentation/2.0/example/errors/27/manifest.json", 
+      "@type": "sc:Manifest", 
+      "label": "27: Canvas with non integer height"
+    }, 
+    {
+      "@id": "http://iiif.io/api/presentation/2.0/example/errors/28/manifest.json", 
+      "@type": "sc:Manifest", 
+      "label": "28: Canvas without width"
+    }, 
+    {
+      "@id": "http://iiif.io/api/presentation/2.0/example/errors/29/manifest.json", 
+      "@type": "sc:Manifest", 
+      "label": "29: Canvas with non integer width"
+    }, 
+    {
+      "@id": "http://iiif.io/api/presentation/2.0/example/errors/30/manifest.json", 
+      "@type": "sc:Manifest", 
+      "label": "30: Canvas with non list images"
+    }, 
+    {
+      "@id": "http://iiif.io/api/presentation/2.0/example/errors/31/manifest.json", 
+      "@type": "sc:Manifest", 
+      "label": "31: Canvas with list of non annotations in images"
+    }, 
+    {
+      "@id": "http://iiif.io/api/presentation/2.0/example/errors/32/manifest.json", 
+      "@type": "sc:Manifest", 
+      "label": "32: Canvas with annotation directly in images"
+    }, 
+    {
+      "@id": "http://iiif.io/api/presentation/2.0/example/errors/33/manifest.json", 
+      "@type": "sc:Manifest", 
+      "label": "33: Annotation without a motivation"
+    }, 
+    {
+      "@id": "http://iiif.io/api/presentation/2.0/example/errors/34/manifest.json", 
+      "@type": "sc:Manifest", 
+      "label": "34: Annotation with a nonsense motivation"
+    }, 
+    {
+      "@id": "http://iiif.io/api/presentation/2.0/example/errors/35/manifest.json", 
+      "@type": "sc:Manifest", 
+      "label": "35: Annotation without a target/on"
+    }, 
+    {
+      "@id": "http://iiif.io/api/presentation/2.0/example/errors/36/manifest.json", 
+      "@type": "sc:Manifest", 
+      "label": "36: Annotation with a nonsense target/on"
+    }, 
+    {
+      "@id": "http://iiif.io/api/presentation/2.0/example/errors/37/manifest.json", 
+      "@type": "sc:Manifest", 
+      "label": "37: Annotation without a body/resource"
+    }, 
+    {
+      "@id": "http://iiif.io/api/presentation/2.0/example/errors/38/manifest.json", 
+      "@type": "sc:Manifest", 
+      "label": "38: Annotation with a nonsense body/resource"
+    }, 
+    {
+      "@id": "http://iiif.io/api/presentation/2.0/example/errors/39/manifest.json", 
+      "@type": "sc:Manifest", 
+      "label": "39: Annotation resource without a type"
+    }, 
+    {
+      "@id": "http://iiif.io/api/presentation/2.0/example/errors/40/manifest.json", 
+      "@type": "sc:Manifest", 
+      "label": "40: Annotation resource in images that isn't an Image"
+    }, 
+    {
+      "@id": "http://iiif.io/api/presentation/2.0/example/errors/41/manifest.json", 
+      "@type": "sc:Manifest", 
+      "label": "41: Image without an id"
+    }, 
+    {
+      "@id": "http://iiif.io/api/presentation/2.0/example/errors/42/manifest.json", 
+      "@type": "sc:Manifest", 
+      "label": "42: Image without a real id"
+    }, 
+    {
+      "@id": "http://iiif.io/api/presentation/2.0/example/errors/43/manifest.json", 
+      "@type": "sc:Manifest", 
+      "label": "43: Image with broken height"
+    }, 
+    {
+      "@id": "http://iiif.io/api/presentation/2.0/example/errors/44/manifest.json", 
+      "@type": "sc:Manifest", 
+      "label": "44: Image with broken width"
+    }, 
+    {
+      "@id": "http://iiif.io/api/presentation/2.0/example/errors/45/manifest.json", 
+      "@type": "sc:Manifest", 
+      "label": "45: Broken HTML in description"
+    }, 
+    {
+      "@id": "http://iiif.io/api/presentation/2.0/example/errors/46/manifest.json", 
+      "@type": "sc:Manifest", 
+      "label": "46: No Value in description"
+    }, 
+    {
+      "@id": "http://iiif.io/api/presentation/2.0/example/errors/47/manifest.json", 
+      "@type": "sc:Manifest", 
+      "label": "47: Vulnerable HTML attribute in description"
+    }, 
+    {
+      "@id": "http://iiif.io/api/presentation/2.0/example/errors/48/manifest.json", 
+      "@type": "sc:Manifest", 
+      "label": "48: Vulnerable HTML tag in description"
+    }, 
+    {
+      "@id": "http://iiif.io/api/presentation/2.0/example/errors/49/manifest.json", 
+      "@type": "sc:Manifest", 
+      "label": "49: Vulnerable HTML comment in description"
+    }, 
+    {
+      "@id": "http://iiif.io/api/presentation/2.0/example/errors/50/manifest.json", 
+      "@type": "sc:Manifest", 
+      "label": "50: Invalid viewing_direction value"
+    }, 
+    {
+      "@id": "http://iiif.io/api/presentation/2.0/example/errors/51/manifest.json", 
+      "@type": "sc:Manifest", 
+      "label": "51: Invalid start_canvas value"
+    }
+  ]
+}
