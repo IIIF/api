@@ -229,13 +229,12 @@ viewing_hint
     * "paged": Valid on manifest, sequence and range. The canvases represent pages in a bound volume, and _SHOULD_ be presented in a page-turning interface if one is available.  The first canvas is a single view (the first recto) and thus the second canvas represents the back of the object in the first canvas.
     * "continuous": Valid on manifest, sequence and range.  Each canvas is the complete view of one side of a long scroll or roll and an appropriate rendering might only display part of the canvas at any given time rather than the entire object.
     * "non-paged": Only valid on a canvas and when the manifest or sequence has a `viewing_hint` of "paged".  Canvases with this hint _MUST NOT_ be presented in a page turning interface, and _MUST_ be skipped over when determining the page sequence.
-    * "begin": Only valid on a canvas. A client _SHOULD_ advance to the canvas with this `viewing_hint` when beginning navigation through a sequence.  This allows the client to begin with the first canvas that contains interesting content rather than requiring the user to skip past blank or empty canvases manually.
     * "top": Only valid on a range. A range which has this `viewing_hint` is the top-most node in a hierarchy of ranges that represents a structure to be rendered by the client to assist in navigation. For example, a table of contents within a paged object, major sections of a 3d object, the textual areas within a single scroll, and so forth.  Other ranges that are descendants of the "top" range are the entries to be rendered in the navigation structure.  There _MAY_ be multiple ranges marked with this hint. If so, the client _SHOULD_ display a choice of multiple structures to navigate through.
 
     Usage:
     {: .usage}
     * A manifest, sequence or range _MAY_ have a viewing hint, with scope as per viewing_direction.
-    * A canvas _MAY_ have a viewing hint, and if so it _must_ be either "non-paged" or "begin".  "non-paged" is only valid if the canvas is within a manifest, sequence or range that is "paged", and the particular canvas _MUST NOT_ be displayed in a page-turning viewer. A canvas _must not_{:. rfc} be both "non-paged" and "begin".
+    * A canvas _MAY_ have a viewing hint, and if so it _MUST_ be "non-paged".  "non-paged" is only valid if the canvas is within a manifest, sequence or range that is "paged", and the particular canvas _MUST NOT_ be displayed in a page-turning viewer.
     * A content resource _MAY_ have a viewing hint but there are no defined values in this specification.
 
     Other values _MAY_ be given, and if they are, they _MUST_ be URIs. 
@@ -270,6 +269,14 @@ within
     Usage:
     {: .usage}
     * Any resource _MAY_ be within a containing resource.
+
+start_canvas
+:   A link from a sequence to a canvas that is contained within the sequence.  On seeing this relationship, a client _SHOULD_ advance to the specified canvas when beginning navigation through the sequence.  This allows the client to begin with the first canvas that contains interesting content rather than requiring the user to skip past blank or empty canvases manually.
+
+    Usage:
+    {: .usage}
+    * A sequence _MAY_ have this relationship, and the target _MUST_ be a canvas.
+    * Other resources _MUST NOT_ have this relationship.
 
 These metadata properties and requirements are depicted in the diagram below.
 
@@ -509,6 +516,8 @@ The new {name} parameter in the URI structure _MUST_ distinguish it from any oth
 
 Sequences _MAY_ have their own descriptive, rights and linking metadata using the same fields as for manifests. The `label` property _MAY_ be given for sequences and _MUST_ be given if there is more than one referenced from a manifest. After the metadata, the set of pages in the object, represented by canvas resources, are listed in order in the `canvases` property.  There _MUST_ be at least one canvas given.
 
+Sequences _MAY_ have a `start_canvas` with a single value containing the URI of a canvas resource that is contained within the sequence.  This is the canvas that a viewer _SHOULD_ initialize its display with for the user.  If it is not present, then the viewer _SHOULD_ use the first canvas in the sequence.
+
 In the manifest example above, the sequence is referenced by its URI and contains only the basic information of `label`, `@type` and `@id`. The default sequence should be written out in full within the manifest file, as below but _MUST NOT_ have the `@context` property.
 
 {% highlight json %}
@@ -521,6 +530,7 @@ In the manifest example above, the sequence is referenced by its URI and contain
 
   "viewing_direction":"left-to-right",
   "viewing_hint":"paged",
+  "start_canvas": "http://www.example.org/iiif/book1/canvas/p2.json",
 
   // The order of the canvases
   "canvases": [

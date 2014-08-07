@@ -3,6 +3,10 @@
     "@type": "sc:Manifest",
     "sequences": [{
         "@type": "sc:Sequence",
+        "start_canvas": {
+            "@type": "sc:Canvas",
+            "@embed": false
+        },
         "canvases": [{
             "@type": "sc:Canvas",
 	        "images": [{
