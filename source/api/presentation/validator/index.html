@@ -17,7 +17,7 @@ This service will validate a IIIF Presentation API resource against the specific
 <form method="GET" action="http://iiif.io/api/presentation/validator/service/validate">
 
 URL of Manifest to Validate:<br/>
-<input style="margin-left: 25px" type="text" name="url" size="80"></input><br/>
+<input style="margin-left: 25px" type="text" name="url" size="80"><br/>
 
 
 Select Presentation API Version:
@@ -26,8 +26,8 @@ Select Presentation API Version:
 	<option value="1.0">1.0</option>
 </select>
 <br/>
-<input type="hidden" name="format" value="html"></input><br/>
-<input type="submit" value="Go!"></submit>
+<input type="hidden" name="format" value="html"><br/>
+<input type="submit" value="Go!">
 </form>
 </div>
 
@@ -38,11 +38,11 @@ Select Presentation API Version:
 <b>Technical Note</b>
 <p>
 If you would like to use the validator programatically, there are two options:
+</p>
 <ul>
-	<li><a href="http://github.com/IIIF/presentation-api/">Download</a> the code from github and run it locally.</li>
+	<li><a href="http://github.com/IIIF/metadata-api/">Download</a> the code from github and run it locally.</li>
 	<li>Use it online with JSON based output, by an HTTP GET to this endpoint:<br/>http://iiif.io/api/presentation/validator/service/validate?format=json&amp;version=2.0&amp;url=<i>manifest-url-here</i></li>
 </ul>
-</p>
 </div>
 
 </section>

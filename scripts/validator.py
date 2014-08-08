@@ -4,17 +4,15 @@ from functools import partial
 from bottle import Bottle, route, run, request, response, abort, error
 
 import uuid
-import datetime
-
-import cgitb
 import urllib, urllib2, urlparse
 
 import StringIO
-import os, sys
-import re
+import os, sys, re
 import random
-import uuid
 import math
+
+from lxml import etree
+import magic
 
 try:
     from PIL import Image, ImageDraw
@@ -24,14 +22,14 @@ except:
 from uritemplate import expand
 
 class ValidatorError(Exception):
-    def __init__(self, type, got, expected, validator=None):
+    def __init__(self, type, got, expected, result=None):
         self.type = type
         self.got = got
         self.expected = expected
-        if validator != None:
-            self.url = validator.last_url
-            self.headers = validator.last_headers
-            self.status = validator.last_status
+        if result != None:
+            self.url = result.last_url
+            self.headers = result.last_headers
+            self.status = result.last_status
         else:
             self.url = None
             self.headers = None
@@ -44,15 +42,14 @@ class ValidatorError(Exception):
 class ValidationInfo(object):
     def __init__(self):
 
-        self.qualities = ['native','color','grey','bitonal']
-        self.formats= ['jpg','png','pdf','tif','gif','jp2']
         self.mimetypes = {'bmp' : 'image/bmp',  
                    'gif' : 'image/gif', 
                    'jpg': 'image/jpeg', 
                    'pcx' : 'image/pcx', 
                    'pdf' :  'application/pdf', 
                    'png' : 'image/png', 
-                   'tif' : 'image/tiff'}
+                   'tif' : 'image/tiff',
+                   'webp' : 'image/webp'}
 
         self.pil_formats = {'BMP' : 'image/bmp',  
                    'GIF' : 'image/gif', 
@@ -119,16 +116,30 @@ class TestSuite(object):
                 try:
                     data = json.loads(doc)
                 except:
-                    data = "{}"
+                    sys.stderr.write('failed to load data for test: %s\n' % t )
+                    data = {}
                 name = t[5:]
                 if version and data.has_key('versions') and not version in data['versions']:
                     continue
+                if data.has_key('level') and type(data['level']) == dict:
+                    # If not version, need to make a choice... make it max()
+                    if version:
+                        data['level'] = data['level'][version]
+                    else:
+                        data['level'] = max(data['level'].values())
+
                 tests[name] = data
         return tests
 
     def run_test(self, test, result):   
 
         fn = getattr(self, 'test_%s' % test)        
+        doc = fn.__doc__
+        try:
+            data = json.loads(doc)
+            result.test_info = data
+        except:
+            result.test_info = {}
         try:
             return fn(result)
         except ValidatorError, e:
@@ -140,19 +151,61 @@ class TestSuite(object):
                 
     def test_info_json(self, result):
         """{"label":"Check Image Information","level":0,"category":1,"versions":["1.0","1.1","2.0"]}"""
-
         # Does server have info.json
         try:
             info = result.get_info()
-            self.validationInfo.check('required-field: @id', info.has_key('@id'), True, result)
-            self.validationInfo.check('type-is-uri: @id', info['@id'].startswith('http'), True, result)
+
             self.validationInfo.check('required-field: width', info.has_key('width'), True, result)
             self.validationInfo.check('required-field: height', info.has_key('height'), True, result)
             self.validationInfo.check('type-is-int: height', type(info['height']) == int, True, result)
             self.validationInfo.check('type-is-int: width', type(info['width']) == int, True, result)
+
+            # Now switch on version
+            if result.version == "1.0":
+                self.validationInfo.check('required-field: identifier', info.has_key('identifier'), True, result)                
+            else:
+
+                self.validationInfo.check('required-field: @id', info.has_key('@id'), True, result)
+                self.validationInfo.check('type-is-uri: @id', info['@id'].startswith('http'), True, result)
+
+                self.validationInfo.check('required-field: @context', info.has_key('@context'), True, result)
+                if result.version == "1.1":
+                    self.validationInfo.check('correct-context', info['@context'], 
+                        ["http://library.stanford.edu/iiif/image-api/1.1/context.json", "http://iiif.io/api/image/1/context.json"], result)
+                elif result.version[0] == "2":
+                    self.validationInfo.check('correct-context', info['@context'], "http://iiif.io/api/image/2/context.json", result)
+                
+                if int(result.version[0]) >= 2:
+                    self.validationInfo.check('required-field: protocol', info.has_key('protocol'), True, result)
+                    self.validationInfo.check('correct-protocol', info['protocol'], 'http://iiif.io/api/image', result)
+
+                if result.version[0] == "2":
+                    self.validationInfo.check('required-field: profile', info.has_key('profile'), True, result)
+                    profs = info['profile']
+                    self.validationInfo.check('is-list', type(profs), list, result)
+                    self.validationInfo.check('profile-compliance', profs[0].startswith('http://iiif.io/api/image/2/level'), True, result)
+
+                    if info.has_key('sizes'):
+                        sizes = info['sizes']
+                        self.validationInfo.check('is-list', type(sizes), list, result)
+                        for sz in sizes:
+                            self.validationInfo.check('is-object', type(sz), dict, result)
+                            self.validationInfo.check('required-field: height', sz.has_key('height'), True, result)
+                            self.validationInfo.check('required-field: width', sz.has_key('width'), True, result)
+                            self.validationInfo.check('type-is-int: height', type(sz['height']), int, result)
+                            self.validationInfo.check('type-is-int: width', type(sz['width']), int, result)
+
+                    if info.has_key('tiles'):
+                        tiles = info['tiles']
+                        self.validationInfo.check('is-list', type(tiles), list, result)
+                        for t in tiles:
+                            self.validationInfo.check('is-object', type(t), dict, result)
+                            self.validationInfo.check('required-field: scale_factors', t.has_key('scale_factors'), True, result) 
+                            self.validationInfo.check('required-field: width', t.has_key('width'), True, result)                        
+                            self.validationInfo.check('type-is-int: width', type(sz['width']), int, result)
+
             return result
         except:
-            raise
             self.validationInfo.check('status', result.last_status, 200, result)
             ct = result.last_headers['content-type']
             scidx = ct.find(';')
@@ -160,7 +213,29 @@ class TestSuite(object):
                 ct = ct[:scidx]
             self.validationInfo.check('content-type', result.last_headers['content-type'], ['application/json', 'application/ld+json'], result)
             raise
-            
+    
+    def test_info_xml(self, result):
+        """{"label":"Check Image Information (XML)","level":0,"category":1,"versions":["1.0"]}"""        
+        url = result.make_info_url('xml')
+        try:
+            data = result.fetch(url)
+        except:
+            self.validationInfo.check('status', result.last_status, 200, result)
+            self.validationInfo.check('format', result.last_headers['content-type'], ['application/xml', 'text/xml'], result)
+            raise
+        try:
+            dom = etree.XML(data)
+        except:
+            raise ValidatorError('format', 'XML', 'Unknown', result)
+
+        ns = { 'i':'http://library.stanford.edu/iiif/image-api/ns/'}
+        self.validationInfo.check('required-field: /info', len(dom.xpath('/i:info', namespaces=ns)), 1, result)
+        self.validationInfo.check('required-field: /info/identifier', len(dom.xpath('/i:info/i:identifier', namespaces=ns)), 1, result)
+        self.validationInfo.check('required-field: /info/height', len(dom.xpath('/i:info/i:height', namespaces=ns)), 1, result)
+        self.validationInfo.check('required-field: /info/width', len(dom.xpath('/i:info/i:width', namespaces=ns)), 1, result)
+        return result
+
+
     def test_id_error_random(self, result):
         """{"label":"Random identifier gives 404","level":1,"category":1,"versions":["1.0","1.1","2.0"]}"""
         try:
@@ -176,6 +251,8 @@ class TestSuite(object):
         """{"label":"Unescaped identifier gives 400","level":1,"category":1,"versions":["1.0","1.1","2.0"]}"""
         try:
             url = result.make_url({'identifier': '[frob]'})
+            url = url.replace('%5B', '[')
+            url = url.replace('%5D', ']')
             error = result.fetch(url)
             self.validationInfo.check('status', result.last_status, [400, 404], result)
             return result   
@@ -217,6 +294,7 @@ class TestSuite(object):
             raise  
 
     def test_id_squares(self, result):
+        # Note this tests from the full image, not by requesting regions
         """{"label":"Correct image returned","level":0,"category":1,"versions":["1.0","1.1","2.0"]}"""        
         try:
             url = result.make_url({'format':'jpg'})
@@ -241,13 +319,12 @@ class TestSuite(object):
             if match >= 4:
                 return result
             else:
-                raise ValidatorError('color', 1,0,self)
+                raise ValidatorError('color', 1,0, result)
         except:
             raise        
         
     def test_region_error_random(self, result):
         """{"label":"Random region gives 400","level":1,"category":2,"versions":["1.0","1.1","2.0"]}"""
-
         try:
             url = result.make_url({'region': self.validationInfo.make_randomstring(6)})
             error = result.fetch(url)
@@ -276,13 +353,13 @@ class TestSuite(object):
             if match >= 4:         
                 return result
             else:
-                raise ValidatorError('color', 1,0,self)
+                raise ValidatorError('color', 1,0, result)
         except:
             # self.validationInfo.check('status', result.last_status, 200, result)
             raise
             
     def test_region_percent(self, result):
-        """{"label":"Region specified by percent","level":1,"category":2,"versions":["1.0","1.1","2.0"]}"""        
+        """{"label":"Region specified by percent","level":2,"category":2,"versions":["1.0","1.1","2.0"]}"""        
         try:
             match = 0
             for i in range(5):
@@ -296,7 +373,7 @@ class TestSuite(object):
             if match >= 4:         
                 return result
             else:
-                raise ValidatorError('color', 1,0,self)
+                raise ValidatorError('color', 1,0, result)
         except:
             self.validationInfo.check('status', result.last_status, 200, result)
             raise
@@ -337,7 +414,7 @@ class TestSuite(object):
             if match >= 4:           
                 return result
             else:
-                raise ValidatorError('color', 1,0,self)          
+                raise ValidatorError('color', 1,0, result)          
         except:
             self.validationInfo.check('status', result.last_status, 200, result)
             raise
@@ -369,7 +446,7 @@ class TestSuite(object):
             if match >= 4:           
                 return result
             else:
-                raise ValidatorError('color', 1,0,self)           
+                raise ValidatorError('color', 1,0, result)           
         except:
             self.validationInfo.check('status', result.last_status, 200, result)
             raise        
@@ -400,7 +477,7 @@ class TestSuite(object):
             if match >= 4:           
                 return result
             else:
-                raise ValidatorError('color', 1,0,self) 
+                raise ValidatorError('color', 1,0, result) 
            
         except:
             self.validationInfo.check('status', result.last_status, 200, result)
@@ -433,7 +510,7 @@ class TestSuite(object):
             if match >= 4:           
                 return result
             else:
-                raise ValidatorError('color', 1,0,self) 
+                raise ValidatorError('color', 1,0, result) 
    
         except:
             self.validationInfo.check('status', result.last_status, 200, result)
@@ -466,7 +543,7 @@ class TestSuite(object):
             if match >= 3:           
                 return result
             else:
-                raise ValidatorError('color', 1,0,self) 
+                raise ValidatorError('color', 1,0, result) 
                
         except:
             self.validationInfo.check('status', result.last_status, 200, result)
@@ -497,7 +574,7 @@ class TestSuite(object):
             if match >= 3:           
                 return result
             else:
-                raise ValidatorError('color', 1,0,self) 
+                raise ValidatorError('color', 1,0, result) 
         except:
             self.validationInfo.check('status', result.last_status, 200)
             raise
@@ -514,10 +591,10 @@ class TestSuite(object):
                 params['region'] = '%s,%s,100,100' % (x*100, y*100)
                 img = result.get_image(params)
                 if img.size != (s,s):
-                    raise ValidatorError('size', img.size, (s,s))        
+                    raise ValidatorError('size', img.size, (s,s), result)        
                 ok = self.validationInfo.do_test_square(img,x,y, result)
                 if not ok:
-                    raise ValidatorError('color', 1, self.validationInfo.colorInfo[0][0], self)            
+                    raise ValidatorError('color', 1, self.validationInfo.colorInfo[0][0], result)            
             return result
         except:
             self.validationInfo.check('status', result.last_status, 200, result)
@@ -534,7 +611,7 @@ class TestSuite(object):
             raise
     
     def test_rot_full_basic(self, result):
-        """{"label":"Rotation by 90 degree values","level":1,"category":4,"versions":["1.0","1.1","2.0"]}"""          
+        """{"label":"Rotation by 90 degree values","level":{"1.0":1, "1.1":1, "2.0":2},"category":4,"versions":["1.0","1.1","2.0"]}"""          
         try:
             params = {'rotation': '180'}
             img = result.get_image(params)
@@ -546,19 +623,55 @@ class TestSuite(object):
             sqr = img.crop(box)
             ok = self.validationInfo.do_test_square(sqr, 9, 9, result)
             if not ok:
-                raise ValidatorError('color', 1, self.validationInfo.colorInfo[9][9], self)
+                raise ValidatorError('color', 1, self.validationInfo.colorInfo[9][9], result)
             box = (912,912,976,976)
             sqr = img.crop(box)
             ok = self.validationInfo.do_test_square(sqr, 0, 0, result)
             if not ok:
-                raise ValidatorError('color', 1, self.validationInfo.colorInfo[0][0], self)             
-            return result             
+                raise ValidatorError('color', 1, self.validationInfo.colorInfo[0][0], result)
+
+            params = {'rotation': '90'}
+            img = result.get_image(params)
+            s = 1000
+            if not img.size[0] in [s-1, s, s+1]:
+                raise ValidatorError('size', img.size, (s,s))  
+            # Test 0,0 vs 9,0
+            box = (12,12,76,76)
+            sqr = img.crop(box)
+            ok = self.validationInfo.do_test_square(sqr, 0, 9, result)
+            if not ok:
+                raise ValidatorError('color', 1, self.validationInfo.colorInfo[9][9], result)
+            box = (912,912,976,976)
+            sqr = img.crop(box)
+            ok = self.validationInfo.do_test_square(sqr, 9, 0, result)
+            if not ok:
+                raise ValidatorError('color', 1, self.validationInfo.colorInfo[0][0], result)
+
+            params = {'rotation': '270'}
+            img = result.get_image(params)
+            s = 1000
+            if not img.size[0] in [s-1, s, s+1]:
+                raise ValidatorError('size', img.size, (s,s))  
+            # Test 0,0 vs 9,0
+            box = (12,12,76,76)
+            sqr = img.crop(box)
+            ok = self.validationInfo.do_test_square(sqr, 9, 0, result)
+            if not ok:
+                raise ValidatorError('color', 1, self.validationInfo.colorInfo[9][9], result)
+            box = (912,912,976,976)
+            sqr = img.crop(box)
+            ok = self.validationInfo.do_test_square(sqr, 0, 9, result)
+            if not ok:
+                raise ValidatorError('color', 1, self.validationInfo.colorInfo[0][0], result)
+
+            return result 
+
         except:
             self.validationInfo.check('status', result.last_status, 200, result)
             raise  
 
     def test_rot_full_non90(self, result):
-        """{"label":"Rotation by non 90 degree values","level":1,"category":4,"versions":["1.0","1.1","2.0"]}"""          
+        """{"label":"Rotation by non 90 degree values","level":3,"category":4,"versions":["1.0","1.1","2.0"]}"""          
         try:
             r = random.randint(1,359)
             params = {'rotation': '%s' % r}
@@ -571,7 +684,7 @@ class TestSuite(object):
 
     
     def test_rot_region_basic(self, result):
-        """{"label":"Rotation of region by 90 degree values","level":1,"category":4,"versions":["1.0","1.1","2.0"]}"""          
+        """{"label":"Rotation of region by 90 degree values","level":{"1.0":1, "1.1":1, "2.0":2},"category":4,"versions":["1.0","1.1","2.0"]}"""          
         try:
             s = 76
             # ask for a random region, at a random size < 100
@@ -586,14 +699,14 @@ class TestSuite(object):
                     raise ValidatorError('size', img.size, (s,s))        
                 ok = self.validationInfo.do_test_square(img,x,y, result)
                 if not ok:
-                    raise ValidatorError('color', 1, self.validationInfo.colorInfo[0][0], self)            
+                    raise ValidatorError('color', 1, self.validationInfo.colorInfo[0][0], result)            
             return result
         except:
             self.validationInfo.check('status', result.last_status, 200, result)
             raise
     
     def test_rot_region_non90(self, result):
-        """{"label":"Rotation by non 90 degree values","level":1,"category":4,"versions":["1.0","1.1","2.0"]}"""          
+        """{"label":"Rotation by non 90 degree values","level":3,"category":4,"versions":["1.0","1.1","2.0"]}"""          
         try:
             # ask for a random region, at a random size < 100
             for i in range(4):
@@ -609,6 +722,62 @@ class TestSuite(object):
             self.validationInfo.check('status', result.last_status, 200, result)
             raise
 
+
+    def test_rot_mirror(self, result):
+        """{"label":"Mirroring","level":3,"category":4,"versions":["2.0"]}""" 
+        try:
+            params = {'rotation': '!0'}
+            img = result.get_image(params)
+            s = 1000
+            if not img.size[0] in [s-1, s, s+1]:
+                raise ValidatorError('size', img.size, (s,s))  
+
+            #0,0 vs 9,0
+            box = (12,12,76,76)
+            sqr = img.crop(box)
+            ok = self.validationInfo.do_test_square(sqr, 9, 0, result)
+            if not ok:
+                raise ValidatorError('mirror', 1, self.validationInfo.colorInfo[9][9], result)
+
+            # 9,9 vs 0,9
+            box = (912,912,976,976)
+            sqr = img.crop(box)
+            ok = self.validationInfo.do_test_square(sqr, 0, 9, result)
+            if not ok:
+                raise ValidatorError('mirror', 1, self.validationInfo.colorInfo[0][0], result)             
+            return result             
+        except:
+            self.validationInfo.check('status', result.last_status, 200, result)
+            raise 
+
+
+    def test_rot_mirror_180(self, result):
+        """{"label":"Mirroring plus 180 rotation","level":3,"category":4,"versions":["2.0"]}""" 
+        try:
+            params = {'rotation': '!180'}
+            img = result.get_image(params)
+            s = 1000
+            if not img.size[0] in [s-1, s, s+1]:
+                raise ValidatorError('size', img.size, (s,s))  
+
+            #0,0 vs 9,9
+            box = (12,12,76,76)
+            sqr = img.crop(box)
+            ok = self.validationInfo.do_test_square(sqr, 0, 9, result)
+            if not ok:
+                raise ValidatorError('mirror', 1, self.validationInfo.colorInfo[9][9], result)
+
+            # 9,9 vs 0,0
+            box = (912,912,976,976)
+            sqr = img.crop(box)
+            ok = self.validationInfo.do_test_square(sqr, 9, 0, result)
+            if not ok:
+                raise ValidatorError('mirror', 1, self.validationInfo.colorInfo[0][0], result)             
+            return result             
+        except:
+            self.validationInfo.check('status', result.last_status, 200, result)
+            raise 
+
     
     def test_quality_error_random(self, result):
         """{"label":"Random quality gives 400","level":1,"category":5,"versions":["1.0","1.1","2.0"]}"""          
@@ -621,7 +790,7 @@ class TestSuite(object):
             raise
     
     def test_quality_color(self, result):
-        """{"label":"Color quality","level":1,"category":5,"versions":["1.0","1.1","2.0"]}"""           
+        """{"label":"Color quality","level":2,"category":5,"versions":["1.0","1.1","2.0"]}"""           
         try:
             params = {'quality': 'color'}
             img = result.get_image(params)
@@ -632,7 +801,7 @@ class TestSuite(object):
             raise
 
     def test_quality_grey(self, result):
-        """{"label":"Gray/Grey quality","level":1,"category":5,"versions":["1.0","1.1","2.0"]}"""          
+        """{"label":"Gray/Grey quality","level":2,"category":5,"versions":["1.0","1.1","2.0"]}"""          
         try:
             params = {'quality': 'grey'}
             img = result.get_image(params)
@@ -660,7 +829,7 @@ class TestSuite(object):
             raise    
 
     def test_quality_bitonal(self, result):
-        """{"label":"Bitonal quality","level":1,"category":5,"versions":["1.0","1.1","2.0"]}"""          
+        """{"label":"Bitonal quality","level":2,"category":5,"versions":["1.0","1.1","2.0"]}"""          
         try:
             params = {'quality': 'bitonal', 'format':'png'}
             img = result.get_image(params)
@@ -692,7 +861,7 @@ class TestSuite(object):
 
         
     def test_format_jpg(self, result):
-        """{"label":"JPG format","level":1,"category":6,"versions":["1.0","1.1","2.0"]}"""            
+        """{"label":"JPG format","level":{"1.0":1, "1.1":1, "2.0":0},"category":6,"versions":["1.0","1.1","2.0"]}"""            
         try:
             params = {'format': 'jpg'}
             img = result.get_image(params)
@@ -703,7 +872,7 @@ class TestSuite(object):
             raise 
 
     def test_format_png(self, result):
-        """{"label":"PNG format","level":1,"category":6,"versions":["1.0","1.1","2.0"]}"""          
+        """{"label":"PNG format","level":2,"category":6,"versions":["1.0","1.1","2.0"]}"""          
         try:
             params = {'format': 'png'}
             img = result.get_image(params)
@@ -714,7 +883,7 @@ class TestSuite(object):
             raise 
     
     def test_format_gif(self, result):
-        """{"label":"GIF format","level":1,"category":6,"versions":["1.0","1.1","2.0"]}"""          
+        """{"label":"GIF format","level":3,"category":6,"versions":["1.0","1.1","2.0"]}"""          
         try:
             params = {'format': 'gif'}
             img = result.get_image(params)
@@ -724,8 +893,74 @@ class TestSuite(object):
             self.validationInfo.check('status', result.last_status, 200, result)
             raise 
 
+    def test_format_tif(self, result):
+        """{"label":"TIFF format","level":3,"category":6,"versions":["1.0","1.1","2.0"]}"""   
+        try:
+            params = {'format': 'tif'}
+            img = result.get_image(params)
+            self.validationInfo.check('quality', img.format, 'TIFF', result)
+            return result
+        except:
+            self.validationInfo.check('status', result.last_status, 200, result)
+            raise
+
+
+    def test_format_pdf(self, result):
+        """{"label":"PDF format","level":3,"category":6,"versions":["1.0","1.1","2.0"]}"""   
+
+        params = {'format': 'pdf'}
+        url = result.make_url(params)
+        # Need as plain string for magic
+        wh = urllib.urlopen(url)
+        img = wh.read()
+        wh.close()
+
+        with magic.Magic() as m:
+            info = m.id_buffer(img)
+            if not info.startswith('PDF document'):
+                # Not JP2
+                raise ValidatorError('format', info, 'PDF', result)
+            else:
+                result.tests.append('format')
+                return result
+
+    def test_format_jp2(self, result):
+        """{"label":"JPEG2000 format","level":{"1.0": 2, "1.1": 3, "2.0": 3},"category":6,"versions":["1.0", "1.1", "2.0"]}"""   
+
+        params = {'format': 'jp2'}
+        url = result.make_url(params)
+        # Need as plain string for magic
+        wh = urllib.urlopen(url)
+        img = wh.read()
+        wh.close()
+
+        with magic.Magic() as m:
+            info = m.id_buffer(img)
+            if not info.startswith('JPEG 2000'):
+                # Not JP2
+                raise ValidatorError('format', info, 'JPEG 2000', result)
+            else:
+                result.tests.append('format')
+                return result
+
+    def test_format_webp(self, result):
+        """{"label":"WebP format","level":3,"category":6,"versions":["2.0"]}"""           
+
+        # chrs 8:12 == "WEBP"
+        params = {'format': 'jp2'}
+        url = result.make_url(params)
+        # Need as plain string for magic
+        wh = urllib.urlopen(url)
+        img = wh.read()
+        wh.close()
+        if img[8:12] != "WEBP":
+            raise ValidatorError('format', 'unknown', 'WEBP', result)
+        else:
+            result.tests.append('format')
+            return result
+
     def test_format_conneg(self, result):
-        """{"label":"Negotiated format","level":1,"category":6,"versions":["1.0","1.1"]}"""          
+        """{"label":"Negotiated format","level":1,"category":7,"versions":["1.0","1.1"]}"""          
         url = result.make_url()
         hdrs = {'Accept': 'image/png;q=1.0'}
         try:
@@ -742,25 +977,88 @@ class TestSuite(object):
         result.urls.append(url)
         self.validationInfo.check('format', ct, 'image/png', result)
         return result
+
+    def test_jsonld(self, result):
+        """{"label":"JSON-LD Media Type","level":1,"category":7,"versions":["2.0"]}"""         
+        url = result.make_info_url()
+        hdrs = {'Accept': 'application/ld+json'}
+        try:
+            r = urllib2.Request(url, headers=hdrs)
+            wh = urllib2.urlopen(r)
+            img = wh.read()   
+            wh.close()
+        except urllib2.HTTPError, e:
+            wh = e
+        ct = wh.headers['content-type']
+        self.validationInfo.check('json-ld', ct, 'application/ld+json', result)
+        return result
         
-    def test_linkheader(self, result):
-        """{"label":"Profile Link Header","level":1,"category":6,"versions":["1.0","1.1","2.0"]}"""          
+    def test_linkheader_profile(self, result):
+        """{"label":"Profile Link Header","level":1,"category":7,"versions":["1.0","1.1","2.0"]}"""          
         url = result.make_url()
         data = result.fetch(url)
         try:
             lh = result.last_headers['link']
         except KeyError:
-            raise ValidatorError('profile', '', 'URI')
+            raise ValidatorError('profile', '', 'URI', result)
         links = result.parse_links(lh)
         profile = result.get_uri_for_rel(links, 'profile')
         if not profile:
-            raise ValidatorError('profile', '', 'URI', self)
-        elif not profile.startswith('http://library.stanford.edu/iiif/image-api/compliance.html'):
-            raise ValidatorError('profile', profile, 'URI', self)
+            raise ValidatorError('profile', '', 'URI', result)
+        elif result.version == "1.0" and not profile.startswith('http://library.stanford.edu/iiif/image-api/compliance.html'):
+            raise ValidatorError('profile', profile, 'URI', result)
+        elif result.version == "1.1" and not profile.startswith('http://library.stanford.edu/iiif/image-api/1.1/compliance.html'):
+            raise ValidatorError('profile', profile, 'URI', result)
+        elif result.version == "2.0" and not profile.startswith('http://iiif.io/api/image/2/'):
+            raise ValidatorError('profile', profile, 'URI', result)            
         else:
             result.tests.append('linkheader')
             return result
 
+    def test_CORS(self, result):
+        """{"label":"Cross Origin Headers","level":1,"category":7,"versions":["1.0", "1.1", "2.0"]}"""  
+        info = result.get_info();
+        cors = result.last_headers.get('access-control-allow-origin', '')
+        self.validationInfo.check('CORS', cors, '*', result)
+        return result
+
+    def test_linkheader_canonical(self, result):
+        """{"label":"Canonical Link Header","level":3,"category":7,"versions":["2.0"]}"""  
+
+        url = result.make_url()
+        data = result.fetch(url)
+        try:
+            lh = result.last_headers['link']
+        except KeyError:
+            raise ValidatorError('canonical', '', 'URI', result)
+        links = result.parse_links(lh)
+        canonical = result.get_uri_for_rel(links, 'canonical')
+        if not canonical:
+            raise ValidatorError('canonical', '', 'URI', result)
+        else:
+            result.tests.append('linkheader')
+            return result
+
+    def test_baseurl_redirect(self, result):
+        """{"label":"Base URL Redirects","level":1,"category":7,"versions":["2.0"]}""" 
+        url = result.make_info_url()
+        url = url.replace('/info.json', '')
+        try:
+            r = urllib2.Request(url)
+            wh = urllib2.urlopen(r)
+            img = wh.read()   
+            wh.close()
+        except urllib2.HTTPError, e:
+            wh = e        
+
+        u = wh.geturl()
+        if u == url:
+            # we didn't redirect
+            raise ValidatorError('redirect', '', 'URI', result)
+        else:
+            # we must have redirected if our url is not what was requested
+            result.tests.append('redirect')
+            return result
 
 
 class ImageAPI(object):
@@ -768,6 +1066,7 @@ class ImageAPI(object):
 
         self.template = "{/prefix*}/{identifier}/{region}/{size}/{rotation}/{quality}{.format}"
         self.infoTemplate = "{/prefix*}/{identifier}/info.json"        
+        self.infoXmlTemplate = "{/prefix*}/{identifier}/info.xml" 
         self.iiifNS = "{http://library.stanford.edu/iiif/image-api/ns/}"
 
         self.scheme = scheme
@@ -943,16 +1242,22 @@ class ImageAPI(object):
         img = self.make_image(imgdata)
         return img
 
-    def get_info(self):
+    def make_info_url(self, format='json'):
         params = {'server':self.server, 'identifier':self.identifier, 'scheme':self.scheme}
         if self.prefix:
             params['prefix'] = self.prefix
-        url = expand(self.infoTemplate, params)
+        if format == 'xml':
+            url = expand(self.infoXmlTemplate, params)            
+        else:
+            url = expand(self.infoTemplate, params)
         scheme = params.get('scheme', self.scheme)
         server = params.get('server', self.server)
         url = "%s://%s%s" % (scheme, server, url)
-        self.urls.append(url)
+        return url
 
+    def get_info(self):
+
+        url = self.make_info_url()
         try:
             idata = self.fetch(url) 
         except:
@@ -970,6 +1275,9 @@ class Validator(object):
     def handle_test(self, testname):
 
         version = request.query.get('version', '2.0')
+
+        sys.stderr.write(repr(request.query.dict))
+        sys.stderr.flush()
 
         info = ValidationInfo()
         testSuite = TestSuite(info)
@@ -1023,6 +1331,9 @@ class Validator(object):
                 info = {'test' : testname, 'status': 'error', 'url':result.urls, 'got':e.got, 'expected': e.expected, 'type': e.type}
             else:
                 info = {'test' : testname, 'status': 'success', 'url':result.urls, 'tests':result.tests}
+            if result.test_info:
+                info['label'] = result.test_info['label']
+
         except Exception, e:
             raise
             info = {'test' : testname, 'status': 'internal-error', 'url':e.url, 'msg':str(e)}

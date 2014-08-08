@@ -7,7 +7,8 @@ function Tester() {
 		3: 'Size',
 		4: 'Rotation',
 		5: 'Quality',
-		6: 'Format'
+		6: 'Format',
+		7: 'HTTP'
 	};
 	
 	this.tests = {};	
@@ -40,16 +41,30 @@ Tester.prototype.fetchTestList = function() {
 	$.ajax({
 		url: this.baseUrl+"list_tests",
 		data: {
-			version: $("#version").val()
+			version: $("#version").val(),
+			t: new Date().getTime()
 		},
 		dataType: 'json',
 		success: function(data, status, xhr) {
+
 			_this.tests = data;
-			for (var t in _this.tests) {
-				var test = _this.tests[t];
-				var label = test.label || t;
+
+			ltests = [];
+			for (var t in data) {
+				if (data.hasOwnProperty(t)) {
+					test = data[t];
+					test.id = t;
+					ltests.push(test);
+				}
+			}
+			ltests.sort(function(a,b) {return a.level - b.level});
+
+			// sort tests by level
+
+			for (var t=0, test; test = ltests[t]; t++) {
+				var label = test.label || test.id;
 				$('#c_'+test.category).append('<div class="input">'+
-					'<input id="'+t+'" type="checkbox" name="'+t+'"/><label for="'+t+'">'+label+'</label>'+
+					'<input id="'+test.id+'" type="checkbox" name="'+test.id+'"/><label for="'+test.id+'">'+label+'</label>'+
 				'</div>');
 			}					
 			$('#tests input').click(function(ev) {

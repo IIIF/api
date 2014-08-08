@@ -70,6 +70,7 @@ Tester.prototype.runTests = function(uri, prefix, imageId, version) {
 					var result = $('#r_'+test);
 					var elapsed = testFinish - testStart;
 					result.find('.elapsed').html('Elapsed time (ms): '+elapsed);
+					result.find('.resultLabel').html(data.label);
 					
 					var message = '<ul>';
 					if (data.status) {
@@ -80,7 +81,7 @@ Tester.prototype.runTests = function(uri, prefix, imageId, version) {
 							result.addClass('fail');
 						}
 						for (var key in data) {
-							if (key != 'status' && key != 'test') {
+							if (key != 'status' && key != 'test' && key != 'label') {
 								message += '<li>'+key+': '+data[key]+'</li>';
 							}
 						}
