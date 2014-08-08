@@ -29,9 +29,8 @@ layout: sub-page
           <section class="step step-1 wrapper">
             <h2>Deploy an image server</h2>
             <p>
-              In this step you will either deploy an image server for the first time, or adapt your existing image server to
-              support the IIIF. In either case your goal is to deploy an image server that fully supports delivery of images
-              via URL’s as specified in the <a href="/api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/">IIIF Image API v{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}</a>.
+              In this step you will either deploy an image server for the first time, or adapt your existing image server. In either case your goal is to deploy an image server that fully supports delivery of images
+              via URLs as specified in the <a href="/api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/">IIIF Image API v{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}</a>.
             </p>
 
             <p class="question">
@@ -61,12 +60,11 @@ layout: sub-page
             </p>
             <ul>
               <li>
-                This <a href="https://github.com/jronallo/djatoka" target="_blank">Ruby on Rails</a> gem translates djatoka URI’s to IIIF-compatible URI’s.
+                This <a href="https://github.com/jronallo/djatoka" target="_blank">Ruby on Rails</a> gem translates djatoka URIs to IIIF-compatible URIs.
               </li>
             </ul>
             <p>
-              Once you have deployed your image server, we highly recommend that you <a href="http://iiif-test.stanford.edu/" target="_blank">validate it</a> to confirm that it complies with the
-              IIIF Image API, and to determine its level of <a href="/api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/compliance.html">IIIF compliance</a>.
+              Once you have deployed your image server, we highly recommend that you <a href="/api/image/validator/">validate it</a> to confirm that it complies with the IIIF Image API, and to determine its level of <a href="/api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/compliance.html">compliance</a>.
             </p>
           </section>
 
@@ -74,8 +72,11 @@ layout: sub-page
           <section class="step step-2 wrapper">
             <h2>Publish metadata</h2>
             <p>
-              Now that you have an image server that delivers IIIF-compliant image URI’s, you need to publish presentation based metadata about your
-              image-based objects using the <a href="/api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}">IIIF Presentation API</a>.
+              Now that you have an image server that delivers IIIF-compliant image URIs, you need to publish presentation based metadata about your image-based objects using the <a href="/api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}">IIIF Presentation API</a>.
+            </p>
+
+            <p>
+              You can also <a href="/api/presentation/validator/">validate your presentation API resources</a> to confirm that they comply with the specifications.
             </p>
           </section>
 
@@ -83,9 +84,7 @@ layout: sub-page
           <section class="step step-3 wrapper">
             <h2>Deploy and integrate software</h2>
             <p>
-              Now that you have an image server and published metadata its time to deploy software that makes use of the IIIF technology stack.  Ultimately
-              you will want to integrate these services and supporting software into your repository infrastructure, but there are some simple ways to
-              prototype IIIF support:
+              Now that you have an image server and published metadata, it's time to deploy software that makes use of the IIIF technology stack.  Ultimately you will want to integrate these services and supporting software into your existing infrastructure, but there are some simple ways to experiment with your new IIIF support:
             </p>
             <ul>
               <li>
@@ -93,9 +92,7 @@ layout: sub-page
                 or <a href="https://github.com/ruven/iipmooviewer" target="_blank">IIPMooViewer</a>, for example.
               </li>
               <li>
-                Deploy a version of <a href="https://github.com/DMSTech/mirador" target="_blank">Mirador</a> and try to compare your image resources to images
-                hosted by another IIIF-compatible repository.  Write the <a href="https://groups.google.com/d/forum/iiif-discuss" target="_blank">IIIF Discuss</a>
-                list and we’ll supply you with sample data.
+                Deploy a version of <a href="https://github.com/DMSTech/mirador" target="_blank">Mirador</a> and try to compare your image resources with images hosted by another IIIF-compatible repository.  Write the <a href="https://groups.google.com/d/forum/iiif-discuss" target="_blank">IIIF Discuss</a> list and we’ll supply you with sample data.
               </li>
             </ul>
           </section>
