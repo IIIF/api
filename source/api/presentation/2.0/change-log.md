@@ -7,7 +7,7 @@ tags: [specifications, presentation-api, change-log]
 major: 2
 minor: 0
 # no patch
-pre: draft2
+pre: final-draft
 ---
 
 This document is a companion to the [IIIF Presentation API Specification, Version 2.0][prezi-api]. It describes the significant changes to the API since [Version 1.0][prezi-api-10]. The changes are broken into two groups: [Breaking Changes][breaking-changes], i.e. those that are not backwards compatible from either a client or server perspective (or both); [Other Changes][other-changes], i.e. those that are backwards compatible. A third section, [Deferred Proposals][deferred-proposals], lists proposals that have been discussed but did not make it into this version of the specification.
@@ -44,8 +44,11 @@ The use of HTML in the values of fields was permitted but inadequately specified
 
 ### Page-Turning Requirements
 
-In order to support different page turning modalities, additional requirements were added to manifests that claim to be `paged`.  Notably the first canvas is to be shown by itself, and then subsequent canvases can be assumed to be left/right pairs (depending on the `viewing_direction`). An additional value of `non-paged` was added to the `viewing_hint` enumeration to assert that a particular Canvas is not part of the paging sequence.
+In order to support different page turning modalities, additional requirements were added to manifests that claim to be `paged`.  Notably the first canvas is to be shown by itself, and then subsequent canvases can be assumed to be left/right pairs (depending on the `viewing_direction`). An additional value of `non-paged` was added to the `viewing_hint` enumeration to assert that a particular Canvas is not part of the paging sequence.  
 
+### Viewing Hints as URIs
+
+Following the features in the Image API, viewing hints are now URIs defined in the JSON-LD context document.  The JSON representation is identical and hence this is a not a breaking change, however extensions must now use URIs not plain string literals.
 
 ## Other Changes
 
@@ -71,7 +74,7 @@ Added and described an Open Annotation Selector object that allows specifying th
 
 ### Start Canvas
 
-An additional value of `start` was added to the `viewing_hint` value enumeration, to be used on a canvas to assert that it's the one to be rendered to the user first, regardless of its position in the Sequence.
+A new relationship (`start_canvas`) was added to link to assert that it's the one to be rendered to the user first, regardless of its position in the Sequence or Range.  This is to enable viewers to skip past non-content canvases such as empty fly-leaves, the table of contents and so forth.
 
 ### Top-most Range
 
@@ -79,11 +82,18 @@ An additional value of `top` was added to the `viewing_hint` value enumeration, 
 
 ### Restrictions Lifted
 
-In 1.0 it was not possible to add most of the fields to content resources.  This was not for any good reason, and the restrictions were lifted.
+In 1.0 it was not possible to add most of the fields to content resources.  This was not for any good, or even known, reason and the restrictions were lifted.
 
 ### Extra-Canvas Coordinates
 
 Clarified that any reference to a location outside of the dimensions of a Canvas is an error.
+
+### Defined Layer Representation
+
+The representation of a Layer was undefined, and hence implementers could not know what to return if its URI was dereferenced.  A structure was defined following the pattern of other container objects.
+
+
+
 
 ## Deferred Proposals
 

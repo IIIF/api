@@ -7,7 +7,7 @@ tags: [specifications, image-api, change-log]
 major: 2
 minor: 0
 # no patch
-pre: draft2
+pre: final-draft
 ---
 
 This document is a companion to the [IIIF Image API Specification, Version 2.0][api]. It describes the significant changes to the API since [Version 1.1][api-11]. The changes are broken into three groups: [Breaking Changes][breaking-changes], i.e. those that are not backwards compatible from either a client or server perspective (or both) and mostly consists of new features; [Other Changes][other-changes], i.e. those that are backwards compatible; and [Deferred Changes][deferred-changes], i.e. those that will be made in a future iteration of the Image API.
@@ -116,12 +116,19 @@ As transition to JSON-LD (since it is not fully supported by browsers), clients 
 
 Clarified that clients should request image formats capable of transparent backgrounds when rotation is not a multiple of 90 degrees, and that servers should return transparent backgrounds for such images.  For formats that do not support transparent backgrounds, no requirements are specified.
 
+### Added WebP to Formats
+
+Added Google's [webp][goog-webp] to the list of supported image formats as optional.
 
 ## Deferred Changes
 
 ### Add Rights Information
 
 A proposal was made to add rights level information from the [Presentation API][prezi-api] to the Image Information response for images to avoid requiring support for both APIs just to give a license or attribution statement for the image.  This change was deferred until the next version of the API to coincide with the introduction of Authentication and Authorization information, and to allow extra time to gather use cases and requirements.
+
+### Add Compression 
+
+A recommendation was made to allow compression to be specified in the image URL in order to obtain a compressed representation of the image.  The motivation was bandwidth management, such as for mobile or rural areas where access is limited.  The change was deferred until the next version of the API to allow extra time to gather use cases and requirements, as no consensus was reached as to how this could be accomplished.  No proposal introduced a backwards incompatibility, and hence this feature can be introduced without a new major version.
 
 
 

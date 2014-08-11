@@ -195,6 +195,11 @@ The following example demonstrates the resulting structure, as embedded within t
 
 If the above example was associated with a Canvas of width 4000 and height 6000, then the physical object would be 4000 * 0.0025 = 10 inches wide, and 15 inches high.  If it was associated with an image with width 4000 and height 6000, then it would mean the image was 4000 pixels for 10 inches, or 400 pixels per inch.
 
+_Note_ 
+
+There is a proposal to add a confidence label or value to this service to allow clients to either determine if they should use the information, or to display an appropriate warning or description when using it.  This proposal is currently deferred until additional experience and use cases have been explored.  Any interest in this feature should be brought up on [iiif-discuss][iiif-discuss].
+
+
 ## Appendices
 
 ### A. Acknowledgements
