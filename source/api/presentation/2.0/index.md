@@ -234,7 +234,7 @@ viewing_hint
     Usage:
     {: .usage}
     * A manifest, sequence or range _MAY_ have a viewing hint, with scope as per viewing_direction.
-    * A canvas _MAY_ have a viewing hint, and if so it _MUST_ be "non-paged".  "non-paged" is only valid if the canvas is within a manifest, sequence or range that is "paged", and the particular canvas _MUST NOT_ be displayed in a page-turning viewer.
+    * A canvas _MAY_ have a viewing hint, and the only hint defined by this specification for canvases is "non-paged".  "non-paged" is only valid if the canvas is within a manifest, sequence or range that is "paged", and the particular canvas _MUST NOT_ be displayed in a page-turning viewer.
     * A content resource _MAY_ have a viewing hint but there are no defined values in this specification.
 
     Other values _MAY_ be given, and if they are, they _MUST_ be URIs. 
@@ -271,11 +271,11 @@ within
     * Any resource _MAY_ be within a containing resource.
 
 start_canvas
-:   A link from a sequence to a canvas that is contained within the sequence.  On seeing this relationship, a client _SHOULD_ advance to the specified canvas when beginning navigation through the sequence.  This allows the client to begin with the first canvas that contains interesting content rather than requiring the user to skip past blank or empty canvases manually.
+:   A link from a sequence or range to a canvas that is contained within the sequence.  On seeing this relationship, a client _SHOULD_ advance to the specified canvas when beginning navigation through the sequence/range.  This allows the client to begin with the first canvas that contains interesting content rather than requiring the user to skip past blank or empty canvases manually.
 
     Usage:
     {: .usage}
-    * A sequence _MAY_ have this relationship, and the target _MUST_ be a canvas.
+    * A sequence or a range _MAY_ have this relationship, and the target _MUST_ be a canvas.
     * Other resources _MUST NOT_ have this relationship.
 
 These metadata properties and requirements are depicted in the diagram below.
@@ -1006,7 +1006,7 @@ Recommended URI pattern:
 
 It may be important to describe additional structure within an object, such as newspaper articles that span pages, the range of non-content-bearing pages at the beginning of a work, or chapters within a book. These are described using ranges in a similar manner to sequences, and similarly _MAY_ have URIs but this is not required. The intent of adding a range to the manifest is to allow the client to display a structured hierarchy to enable the user to navigate within the object without merely stepping through the current sequence.
 
-A range _MUST_ include one or more canvases or, different to sequences, parts of canvases with one exception. The part must be rectangular, and is given using the `xywh=` fragment approach. This allows for selecting, for example, the areas within two newspaper pages where an article is located. As the information about the canvas is already in the sequence, it _MUST_ not be repeated. In order to present a table of the different ranges to allow a user to select one, every range _MUST_ have a label and the top most range in the table _SHOULD_ have a `viewing_hint` with the value "top". A range that is the top of a hierarchy does not need to list all of the canvases in the sequence, and _SHOULD_ only give the list of ranges below it.  Ranges _MAY_ also have any of the other properties defined in this specification.
+A range _MUST_ include one or more canvases or, different to sequences, parts of canvases with one exception. The part must be rectangular, and is given using the `xywh=` fragment approach. This allows for selecting, for example, the areas within two newspaper pages where an article is located. As the information about the canvas is already in the sequence, it _MUST_ not be repeated. In order to present a table of the different ranges to allow a user to select one, every range _MUST_ have a label and the top most range in the table _SHOULD_ have a `viewing_hint` with the value "top". A range that is the top of a hierarchy does not need to list all of the canvases in the sequence, and _SHOULD_ only give the list of ranges below it.  Ranges _MAY_ also have any of the other properties defined in this specification, including the `start_canvas` relationship to the first canvas within the range to start with, if it is not the first listed in `canvases`.
 
 Ranges _MAY_ include other ranges.  This is done in a `ranges` property within the range.  The values within the ranges list _MUST_ be strings giving the URIs of ranges in the list in the manifest.
 
