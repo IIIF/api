@@ -155,14 +155,14 @@ Or embedding the content:
 {% endhighlight %}
 
 ### 3.3 Physical Dimensions
-_Added: 2014-05-20_, _Latest Revision: 2014-06-08_
+_Added: 2014-05-20_, _Latest Revision: 2014-07-21_
 
 For digitized objects, it is often useful to know the physical dimensions of the object.  When available, they allow a client to present a ruler, or other rendition of physical scale, to the user.  However, implementers are warned that while this information may be available, frequently:
 
   * It is not available at all.
   * It is unreliable when it is recorded.
   * It is different for every view of an object.
-  * When used with the Presentation API, the Canvas dimensions don't accurately reflect only the physical object, but are derived from an image that includes a ruler, color bar, or the scanning bed.
+  * When used with the Presentation API, the Canvas might not be sized to depict only the physical object, but might also include a ruler, color bar, the scanning bed or other background objects.  In these cases, the Canvas height and width will not be representative of the main object.
 
 As the Presentation API already includes an aspect ratio for the Canvas, and the Image API includes the height and width of the Image, the physical dimensions service need only report two additional pieces of information: the scale factor to multiply the dimensions by to calculate the physical dimensions, and the units for those generated physical dimensions.  It is _RECOMMENDED_ that the information always be embedded rather than requiring the client to retrieve it with an additional HTTP request, however some implementers _MAY WISH TO_ keep the information separate.
 
@@ -175,7 +175,7 @@ The physical dimensions description includes the following properties:
 | `@context`       | Required  | The string "http://iiif.io/api/annex/service/physdim/1/context.json". |
 | `@id`            | Optional  | A URI that will return the information, perhaps generated dynamically from the image. |
 | `profile`        | Required  | The string "http://iiif.io/api/annex/service/physdim". |
-| `physical_scale` | Required  | The floating point ratio by which the digital resource's height and width are multipled in order to determine the physical object's height and width.  |
+| `physical_scale` | Required  | The floating point ratio by which the digital resource's height and width are multipled in order to determine the depicted scene's height and width.  |
 | `physical_units` | Required  | The physical units for the generated height and width.  Possible values are: "mm", "cm", in". |
 
 {: .image-api-table}
