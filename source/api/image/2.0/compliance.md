@@ -6,7 +6,7 @@ tags: [compliance, image-api]
 major: 2
 minor: 0
 patch: 0
-pre: draft1
+pre: final-draft
 ---
 
 ## Status of this Document

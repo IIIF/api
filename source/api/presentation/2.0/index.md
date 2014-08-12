@@ -1,13 +1,13 @@
 ---
 title: "Presentation API 2.0 - DRAFT"
-title_override: "IIIF Presentation API 2.0 - DRAFT 2"
+title_override: "IIIF Presentation API 2.0 - Final Draft"
 id: presentation-api
 layout: spec
 tags: [specifications, presentation-api]
 major: 2
 minor: 0
 patch: 0
-pre: draft2
+pre: final-draft
 ---
 
 ## Status of this Document
@@ -228,7 +228,7 @@ viewing_hint
     * "individuals": Valid on manifest, sequence and range. The canvases referenced from the resource are all individual sheets, and _SHOULD NOT_ be presented in a page-turning interface. Examples include a set of views of a 3 dimensional object, or a set of the front sides of photographs in a collection.
     * "paged": Valid on manifest, sequence and range. The canvases represent pages in a bound volume, and _SHOULD_ be presented in a page-turning interface if one is available.  The first canvas is a single view (the first recto) and thus the second canvas represents the back of the object in the first canvas.
     * "continuous": Valid on manifest, sequence and range.  Each canvas is the complete view of one side of a long scroll or roll and an appropriate rendering might only display part of the canvas at any given time rather than the entire object.
-    * "non-paged": Only valid on a canvas and when the manifest or sequence has a `viewing_hint` of "paged".  Canvases with this hint _MUST NOT_ be presented in a page turning interface, and _MUST_ be skipped over when determining the page sequence.
+    * "non-paged": Canvases with this hint _MUST NOT_ be presented in a page turning interface, and _MUST_ be skipped over when determining the page sequence. This viewing hint _MUST_ be ignored if the current sequence or manifest does not have the 'paged' viewing hint.
     * "top": Only valid on a range. A range which has this `viewing_hint` is the top-most node in a hierarchy of ranges that represents a structure to be rendered by the client to assist in navigation. For example, a table of contents within a paged object, major sections of a 3d object, the textual areas within a single scroll, and so forth.  Other ranges that are descendants of the "top" range are the entries to be rendered in the navigation structure.  There _MAY_ be multiple ranges marked with this hint. If so, the client _SHOULD_ display a choice of multiple structures to navigate through.
 
     Usage:
