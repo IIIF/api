@@ -721,15 +721,16 @@ Many thanks to  Ben Albritton, Matthieu Bonicel, Anatol Broder, Kevin Clarke, To
 
 | Date       | Description |
 | ---------- | ----------- |
-| 2014-07-01 | Version 2.0-draft2 (Voodoo Bunny) RFC [View change log][change-log] |
-| 2014-06-01 | Version 2.0-draft (Voodoo Bunny) RFC |
-| 2013-09-17 | Version 1.1 released. |
+| 2014-08-12 | Version 2.0-final-draft (Voodoo Bunny) RFC [View change log][change-log] |
+| 2014-07-01 | Version 2.0-draft2 (Voodoo Bunny) RFC  |
+| 2014-06-01 | Version 2.0-draft (Voodoo Bunny) RFC   |
+| 2013-09-17 | Version 1.1 released.                  |
 | 2013-09-04 | Added @context to Image Information Request table in section 5. |
 | 2013-06-26 | Changed quality parameter definitions in section 4.4. |
 | 2013-06-17 | Draft release 1.1. [View change log][change-log11]. |
-| 2012-08-10 | Release 1.0 |
+| 2012-08-10 | Release 1.0                            |
 | 2012-07-13 | Incorporates responses to RFC feedback |
-| 2012-03-09 | Initial release |
+| 2012-03-09 | Initial release                        |
 | 2012-04-13 | 0.2 after internal review and IIIF April Meeting |
 | 2012-05-02 | RFC version |
 {: .image-api-table}

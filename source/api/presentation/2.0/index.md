@@ -1436,7 +1436,8 @@ Many thanks to Matthieu Bonicel, Tom Cramer, Ian Davis, Markus Enders, Renhart G
 
 | Date       | Description                                        |
 | ---------- | -------------------------------------------------- |
-| 2014-07-01 | Version 2.0.0-draft2 (Triumphant Giraffe) RFC [View change log][change-log] |
+| 2014-08-12 | Version 2.0.0-final-draft (Triumphant Giraffe) RFC [View change log][change-log] |
+| 2014-07-01 | Version 2.0.0-draft2 (Triumphant Giraffe) RFC      |
 | 2014-06-01 | Version 2.0.0-draft (Triumphant Giraffe) RFC       |
 | 2013-08-26 | Version 1.0 (unnamed) released.                    |
 | 2013-06-14 | Version 0.9 (unnamed) released.                    |
