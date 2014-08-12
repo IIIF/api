@@ -1,0 +1,74 @@
+---
+title: IIIF Image API Validator
+title_override: IIIF Image API Validator
+id: technical-details
+categories: [pages]
+layout: spec
+---
+
+
+		<link property="" href="css/cupertino/jquery-ui-1.8.17.custom.css" type="text/css" rel="stylesheet">
+		<link property="" href="css/iiif.css" type="text/css" rel="stylesheet">
+		<script type="text/javascript" src="/js/vendor/jquery-1.10.1.min.js"></script>
+		<script type="text/javascript" src="/js/vendor/jquery-ui-1.8.17.custom.min.js"></script>
+		<script type="text/javascript" src="js/select.js"></script>
+
+<section class="wrapper">
+	<form method="get" action="results.html">
+		<div id="val">
+			<div id="inputs" class="section ui-corner-all ui-widget-header">
+				<div class="content ui-corner-all ui-widget-content">
+					<div class="category">
+						<h2>IIIF Server to Validate</h2>
+						<div class="input">
+							<label for="server">Server:</label>
+							<input type="text" id="server" name="server">
+							<ins class="ui-icon ui-icon-help"> </ins>
+						</div>
+						<div class="input">
+							<label for="prefix">Prefix:</label>
+							<input type="text" id="prefix" name="prefix">
+							<ins class="ui-icon ui-icon-help"> </ins>
+						</div>
+						<div class="input">
+							<label for="identifier">Image ID:</label>
+							<input type="text" id="identifier" name="identifier" value="67352ccc-d1b0-11e1-89ae-279075081939">
+							<ins class="ui-icon ui-icon-help"> </ins>
+						</div>
+					</div>
+					<div class="category">
+						<h2>Select Version and Level</h2>
+						<div class="input">
+							<select id="version" name="version">
+								<option value="2.0">Version 2.0</option>
+								<option value="1.1">Version 1.1</option>
+								<option value="1.0">Version 1.0</option>
+							</select>
+						</div>
+						<div class="input">
+							<select id="level" name="level">
+								<option value="0">Level 0 - Minimum</option>
+								<option value="1">Level 1 - Recommended</option>
+								<option value="2">Level 2 - Desirable</option>
+								<option value="3">Complete</option>
+								<option value="-1">Custom</option>
+							</select>
+						</div>
+						<div class="input">
+							<a href="download.html">Instructions / Get Test Image</a>
+						</div>
+
+					</div>
+					<div class="category">
+						<input type="submit" id="run_tests" value="Run Tests">
+					</div>
+				</div>
+			</div>
+			<div id="tests" class="section ui-corner-all ui-widget-header">
+				<h2>Tests</h2>
+				<div class="content ui-corner-all ui-widget-content">
+				</div>
+			</div>
+		</div>
+	</form>
+</section>
