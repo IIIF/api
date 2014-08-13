@@ -32,7 +32,7 @@ Since the release of the previous drafts only a small number of changes have bee
 
 ### Tools and Infrastructure Support
 
-In addition, tools to aid in the creation and testing of conforming applications and systems have been implemented and added to the iiif.io website.  These include validators for the Image and Presentation APIs:
+In addition, tools to aid in the creation and testing of conforming applications and systems are being implemented and added to the iiif.io website.  These include validators for the Image and Presentation APIs:
 
  * [Image API Validator](http://iiif.io/api/image/validator/)
  * [Presentation API Validator](http://iiif.io/api/presentation/validator/)
