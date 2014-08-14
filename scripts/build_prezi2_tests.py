@@ -101,7 +101,7 @@ testInfo = {
 62 : {"title": "Label in Multiple Languages", 'mfprops': [('label', {'en':'62: some title','fr':'62: quelque titre'})]},
 63 : {"title": "Description in Multiple Languages", 'mfprops': [('description', {'en':'description here','fr':'on le decrit ici'})]},
 64 : {"title": "Description in HTML", 'mfprops':[('description', {'en html': '<span>Some HTML</span>'})]},
-65 : {"title": "Sequence with start_canvas", 'seqprops':[('start_canvas', "http://iiif.io/api/presentation/2.0/example/fixtures/canvas/64/c1.json")]},
+65 : {"title": "Sequence with start_canvas", 'seqprops':[('start_canvas', "http://iiif.io/api/presentation/2.0/example/fixtures/canvas/65/c1.json")]},
 
 }
 

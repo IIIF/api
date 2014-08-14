@@ -359,6 +359,32 @@ class BaseMetadataObject(object):
 		msg = "WARNING: " + msg
 		self._factory.maybe_warn(msg)
 
+	def test_html(self, data):
+		if etree:
+			try:
+				dom = etree.XML(data)
+			except Exception, e:
+				raise DataError("Invalid XHTML in '%s':  %s" % (data, e), self)
+			for elm in dom.iter():
+				if elm.tag in BAD_HTML_TAGS:
+					raise DataError("HTML vulnerability '%s' in '%s'" % (elm.tag, data), self)
+				elif elm.tag in [etree.Comment, etree.ProcessingInstruction]:
+					raise DataError("HTML Comment vulnerability '%s'" % elm, self)
+				elif elm.tag == 'a':
+					for x in elm.attrib.keys():
+						if x != "href":
+							raise DataError("Vulnerable attribute '%s' on a tag" % x, self)
+				elif elm.tag == 'img':
+					for x in elm.attrib.keys():
+						if not x in ['src', 'alt']:
+							raise DataError("Vulnerable attribute '%s' on img tag" % x, self)
+				else:
+					if elm.attrib:
+						raise DataError("Attributes not allowed on %s tag" % (elm.tag), self)
+					if not elm.tag in GOOD_HTML_TAGS:
+						self.maybe_warn("Risky HTML tag '%s' in '%s'" % (elm.tag, data))
+				# Cannot keep CDATA sections separate from text when parsing in LXML :(		
+
 	def langhash_to_jsonld(self, lh, html=True):
 		# {"fr": "something in french", "en": "something in english", "de html" : "<span>German HTML</span>"}
 		# --> [{"@value": "something in french", "@language": "fr"}, ...]
@@ -371,35 +397,11 @@ class BaseMetadataObject(object):
 				# process HTML here
 				if v[0] != '<' or v[-1] != '>':
 					raise DataError("First and last characters of HTML value must be '<' and '>' respectively, in '%r'" % v, self)
-				if etree:
-					try:
-						dom = etree.XML(v)
-					except Exception, e:
-						raise DataError("Invalid XHTML in '%s':  %s" % (v, e), self)
-					for elm in dom.iter():
-						if elm.tag in BAD_HTML_TAGS:
-							raise DataError("HTML vulnerability '%s' in '%s'" % (elm.tag, v), self)
-						elif elm.tag in [etree.Comment, etree.ProcessingInstruction]:
-							raise DataError("HTML Comment vulnerability '%s'" % elm, self)
-						elif elm.tag == 'a':
-							for x in elm.attrib.keys():
-								if x != "href":
-									raise DataError("Vulnerable attribute '%s' on a tag" % x, self)
-						elif elm.tag == 'img':
-							for x in elm.attrib.keys():
-								if not x in ['src', 'alt']:
-									raise DataError("Vulnerable attribute '%s' on img tag" % x, self)
-						else:
-							if elm.attrib:
-								raise DataError("Attributes not allowed on %s tag" % (elm.tag), self)
-							if not elm.tag in GOOD_HTML_TAGS:
-								self.maybe_warn("Risky HTML tag '%s' in '%s'" % (elm.tag, v))
-						# Cannot keep CDATA sections separate from text when parsing in LXML :(
+				self.test_html(v)
 				if k:
-					h = OrderedDict([("@value",v), ("@language",k)])
+					l.append(OrderedDict([("@value",v), ("@language",k)]))
 				else:
-					h = v
-				l.append(h)				
+					l.append(v)		
 			else:
 				l.append(OrderedDict([("@value",v), ("@language",k)]))
 		return l
@@ -443,8 +445,11 @@ class BaseMetadataObject(object):
 			md.append(OrderedDict([("label", k), ("value", v)]))
 
 	def _set_magic(self, which, value, html=True):
-		if type(value) in [str, unicode] and self._factory.add_lang:
-			value = self.langhash_to_jsonld({self._factory.default_lang : value}, html)
+		if type(value) in [str, unicode]:
+			if self._factory.add_lang:
+				value = self.langhash_to_jsonld({self._factory.default_lang : value}, html)
+			elif value[0] == '<' and value[-1] == '>':
+				self.test_html(value)
 		elif type(value) == dict:
 			# {"en:"Something",fr":"Quelque Chose"}
 			value = self.langhash_to_jsonld(value, html)
@@ -452,8 +457,12 @@ class BaseMetadataObject(object):
 			# list of values
 			nl = []
 			for i in value:
-				if type(i) in [str, unicode] and self._factory.add_lang:
-					nl.extend(self.langhash_to_jsonld({self._factory.default_lang : i}, html))
+				if type(i) in [str, unicode]:
+					if self._factory.add_lang:
+						nl.extend(self.langhash_to_jsonld({self._factory.default_lang : i}, html))
+					elif value[0] == '<' and value[-1] == '>':
+						self.test_html(i)
+						nl.append(i)
 				elif type(i) == dict:
 					# {"en:"Something",fr":"Quelque Chose"}
 					nl.extend(self.langhash_to_jsonld(i, html))			
