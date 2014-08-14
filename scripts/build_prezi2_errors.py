@@ -2,7 +2,7 @@ import json
 import urllib, os
 import copy
 
-from factory_20 import ManifestFactory
+from factory import ManifestFactory
 
 BASEURL = "http://iiif.io/api/presentation/2.0/example/errors/"
 HOMEDIR = "../source/api/presentation/2.0/example/errors/"
@@ -179,18 +179,17 @@ def make_tests():
 	n['sequences'][0]['canvases'][0]['images'][0]['resource']['width'] = "six"
 	make_test(json.dumps(n, sort_keys=True, indent=2), 'Image with broken width')
 		
-
 	# Bad property values
 	n = copy.deepcopy(basejs)	
-	n['description'] = {"@value": "plain text", "@type": "rdf:XMLLiteral"}
-	make_test(json.dumps(n, sort_keys=True, indent=2), 'Broken HTML in description')		
-	n['description'] = {"@language": "en", "@type": "rdf:XMLLiteral"}
+	n['description'] = {"@value": "<x> <y> <plain text>"}
+	make_test(json.dumps(n, sort_keys=True, indent=2), 'Non HTML with < and > in description')		
+	n['description'] = {"@language": "en"}
 	make_test(json.dumps(n, sort_keys=True, indent=2), 'No Value in description')	
-	n['description'] = {"@value": "<span onmouseover='ownzor()'>Naughty</span>", "@type": "rdf:XMLLiteral"}
+	n['description'] = "<span onmouseover='ownzor()'>Naughty</span>"
 	make_test(json.dumps(n, sort_keys=True, indent=2), 'Vulnerable HTML attribute in description')	
-	n['description'] = {"@value": "<span><script>function ownzor() {}</script>Naughty</span>", "@type": "rdf:XMLLiteral"}
+	n['description'] = "<span><script>function ownzor() {}</script>Naughty</span>"
 	make_test(json.dumps(n, sort_keys=True, indent=2), 'Vulnerable HTML tag in description')
-	n['description'] = {"@value": "<span><!-- &lt;script>function ownzor() {}&lt;/script>-->Naughty</span>", "@type": "rdf:XMLLiteral"}
+	n['description'] = "<span><!-- &lt;script>function ownzor() {}&lt;/script>-->Naughty</span>"
 	make_test(json.dumps(n, sort_keys=True, indent=2), 'Vulnerable HTML comment in description')
 
 	n = copy.deepcopy(basejs)

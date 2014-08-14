@@ -1,5 +1,5 @@
 import os, sys
-from factory_20 import ManifestFactory
+from factory import ManifestFactory
 from collections import OrderedDict	
 
 BASEURL = "http://iiif.io/api/presentation/2.0/example/fixtures/"

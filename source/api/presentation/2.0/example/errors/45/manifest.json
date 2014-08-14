@@ -3,8 +3,7 @@
   "@id": "http://iiif.io/api/presentation/2.0/example/errors/manifest.json", 
   "@type": "sc:Manifest", 
   "description": {
-    "@type": "rdf:XMLLiteral", 
-    "@value": "plain text"
+    "@value": "<x> <y> <plain text>"
   }, 
   "label": "manifest", 
   "sequences": [

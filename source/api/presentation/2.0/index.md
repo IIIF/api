@@ -383,7 +383,7 @@ Language _MAY_ be associated with strings using the following pattern of `@value
 
 Note that [RFC 5646][rfc5646] allows the script of the text to be included after a hyphen, such as `ar-latn`, and clients _SHOULD_ be aware of this possibility. This allows for full internationalization of the user interface components described in the response, as the labels as well as values may be translated in this manner; examples are given below.
 
-Minimal HTML markup _MAY_ be included in the `description`, `attribution` and `metadata` properties using the pattern of `@value` with an `@type` property of `rdf:XMLLiteral`. This is included to allow manifest creators to add links and simple formatting instructions to blocks of plain text. The content _MUST_ be well-formed XML and therefore must be wrapped in an element such as `p` or `span`.  There _MUST NOT_ be whitespace on either side of the HTML string, and thus the first character in the string _MUST_ be a '<' character and the last character _MUST_ be '>'.
+Minimal HTML markup _MAY_ be included in the `description`, `attribution` and `metadata` properties. This is included to allow manifest creators to add links and simple formatting instructions to blocks of plain text. The content _MUST_ be well-formed XML and therefore must be wrapped in an element such as `p` or `span`.  There _MUST NOT_ be whitespace on either side of the HTML string, and thus the first character in the string _MUST_ be a '<' character and the last character _MUST_ be '>', allowing a consuming application to test whether the value is HTML or plain text using these.  To avoid a non-HTML string matching this, it is _RECOMMENDED_ that an additional whitespace character be added to the end of the value.
 
 In order to avoid HTML or script injection attacks, clients _MUST_ remove:
 
@@ -399,7 +399,6 @@ Clients _SHOULD_ allow only `a`, `b`, `br`, `i`, `img`, `p`, and `span` tags. Cl
 {
   "description": {
     "@value":"<p>Some <b>description</b></p>",
-    "@type": "rdf:XMLLiteral",
     "@language" : "en-latn"
   }
 }
@@ -449,12 +448,8 @@ The example below includes only the manifest-level information, however it _MUST
         {"@value": "Paris, environ 1400", "@language":"fr"}
       ]
     },
-    {"label":"Source", "value":
-      {
-        "@value" : "<span>From: <a href=\"http://example.org/db/1.html\">Some Collection</a></span>",
-        "@type" :  "rdf:XMLLiteral"
-      }
-    }
+    {"label":"Source", 
+     "value": "<span>From: <a href=\"http://example.org/db/1.html\">Some Collection</a></span>"}
   ],
   "description":"A longer description of this example book. It should give some real information.",
   "thumbnail": {
@@ -1408,7 +1403,7 @@ URL: _http://www.example.org/iiif/book1/manifest.json_
 | Other Content  | ![optional][icon-opt]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
 {: .image-api-table}
 
-|                | see_also                     | service                     | related                     | within                     |
+|                | see_also                    | service                     | related                     | within                     |
 | -------------- | --------------------------- | --------------------------- | --------------------------- | -------------------------- |
 | Collection     | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]      |
 | Manifest       | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]      |

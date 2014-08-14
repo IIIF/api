@@ -2,10 +2,7 @@
   "@context": "http://iiif.io/api/presentation/2/context.json", 
   "@id": "http://iiif.io/api/presentation/2.0/example/errors/manifest.json", 
   "@type": "sc:Manifest", 
-  "description": {
-    "@type": "rdf:XMLLiteral", 
-    "@value": "<span onmouseover='ownzor()'>Naughty</span>"
-  }, 
+  "description": "<span onmouseover='ownzor()'>Naughty</span>", 
   "label": "manifest", 
   "sequences": [
     {

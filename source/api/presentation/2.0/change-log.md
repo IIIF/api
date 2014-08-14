@@ -38,10 +38,6 @@ For consistency with the Image API, the property names which used camelCase were
 
 Ranges were changed to follow the top-down pattern of a list of included ranges and canvases, rather than bottom-up where they would assert which parent range they were within.  This makes it significantly easier to implement, and follows the rest of the API's patterns of listed containership.
 
-### Use of HTML Clarified
-
-The use of HTML in the values of fields was permitted but inadequately specified in 1.0.  This version makes it much clearer and easier to determine the content of the value, and provides solid guidance as to which HTML features are allowed.
-
 ### Page-Turning Requirements
 
 In order to support different page turning modalities, additional requirements were added to manifests that claim to be `paged`.  Notably the first canvas is to be shown by itself, and then subsequent canvases can be assumed to be left/right pairs (depending on the `viewing_direction`). An additional value of `non-paged` was added to the `viewing_hint` enumeration to assert that a particular Canvas is not part of the paging sequence.  
@@ -80,6 +76,10 @@ A new relationship (`start_canvas`) was added to link to assert that it's the on
 
 An additional value of `top` was added to the `viewing_hint` value enumeration, to be used on a range which is the top-most level in a table of contents or other structure.
 
+### Use of HTML Clarified
+
+The use of HTML in the values of fields was permitted but inadequately specified in 1.0.  This version makes it much clearer and easier to determine the content of the value, and provides solid guidance as to which HTML features are allowed.
+
 ### Restrictions Lifted
 
 In 1.0 it was not possible to add most of the fields to content resources.  This was not for any good, or even known, reason and the restrictions were lifted.
@@ -91,8 +91,6 @@ Clarified that any reference to a location outside of the dimensions of a Canvas
 ### Defined Layer Representation
 
 The representation of a Layer was undefined, and hence implementers could not know what to return if its URI was dereferenced.  A structure was defined following the pattern of other container objects.
-
-
 
 
 ## Deferred Proposals

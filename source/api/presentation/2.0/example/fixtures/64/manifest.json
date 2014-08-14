@@ -5,7 +5,6 @@
   "label": "Test 64 Manifest: Description in HTML", 
   "description": [
     {
-      "@type": "rdf:XMLLiteral", 
       "@value": "<span>Some HTML</span>", 
       "@language": "en"
     }

@@ -69,10 +69,6 @@ CVS_VIEWINGHINTS = ['non-paged']
 RNG_VIEWINGHINTS = ['top', 'individuals', 'paged', 'continuous']
 VIEWINGDIRS = ['left-to-right', 'right-to-left', 'top-to-bottom', 'bottom-to-top']
 
-RENAMED_PROPS = {'viewingHint':'viewing_hint', 
-				 'viewingDirection':'viewing_direction', 
-				 'seeAlso':'see_also'}
-
 # Also
 #   Canvas.otherContent --> other_content
 #   Canvas.resources --> images 
@@ -306,6 +302,9 @@ class BaseMetadataObject(object):
 	_extra_properties = []
 	_integer_properties = []
 	_structure_properties = {}
+	_renamed_properties = {'viewingHint':'viewing_hint', 
+				 'viewingDirection':'viewing_direction', 
+				 'seeAlso':'see_also'}
 
 	def __init__(self, factory, ident="", label="", mdhash={}, **kw):
 		self._factory = factory
@@ -339,8 +338,8 @@ class BaseMetadataObject(object):
 		self.related = ""
 
 	def __setattr__(self, which, value):
-		if RENAMED_PROPS.has_key(which) and self._factory.convert_renamed:
-			which = RENAMED_PROPS[which]
+		if self._renamed_properties.has_key(which) and self._factory.convert_renamed:
+			which = self._renamed_properties[which]
 		if which[0] != "_" and not which in self._properties and not which in self._extra_properties and not which in self._structure_properties.keys():
 			self.maybe_warn("Setting non-standard field '%s' on resource of type '%s'" % (which, self._type))
 		elif which[0] != '_' and not type(value) in [str, unicode, list, dict] and not which in self._integer_properties and not isinstance(value, BaseMetadataObject) and not isinstance(value, OrderedDict):
@@ -365,7 +364,7 @@ class BaseMetadataObject(object):
 		# --> [{"@value": "something in french", "@language": "fr"}, ...]
 		l = []
 		for (k,v) in lh.items():
-			if 'html' in k:
+			if 'html' in k or (v[0] == '<' and v[-1] == '>'):
 				k = k.replace("html", '').strip()
 				if not html:
 					raise DataError("Cannot have HTML in '%s', only plain text" % v, self)
@@ -396,10 +395,10 @@ class BaseMetadataObject(object):
 							if not elm.tag in GOOD_HTML_TAGS:
 								self.maybe_warn("Risky HTML tag '%s' in '%s'" % (elm.tag, v))
 						# Cannot keep CDATA sections separate from text when parsing in LXML :(
-
-				h = OrderedDict([("@type","rdf:XMLLiteral"), ("@value",v)])
 				if k:
-					h['@language'] = k
+					h = OrderedDict([("@value",v), ("@language",k)])
+				else:
+					h = v
 				l.append(h)				
 			else:
 				l.append(OrderedDict([("@value",v), ("@language",k)]))
@@ -775,18 +774,15 @@ class Canvas(ContentResource):
 	_viewing_hints = CVS_VIEWINGHINTS
 	_extra_properties = ['height', 'width']
 	_integer_properties = ['height', 'width']
+	_renamed_properties = {'viewingHint':'viewing_hint', 
+						   'viewingDirection':'viewing_direction', 
+						   'seeAlso':'see_also',
+					 	   'otherContent':'other_content',
+					 	   'resources':'images'}
 	height = 0
 	width = 0
 	images = []
 	other_content = []
-
-	def __setattr__(self, which, value):
-		if which[0] != "_" and self._factory.convert_renamed:
-			if which == 'otherContent':
-				which = 'other_content'
-			elif which == 'resources':
-				which = 'images'
-		return super(Canvas, self).__setattr__(which, value)
 
 	def __init__(self, *args, **kw):
 		super(Canvas, self).__init__(*args, **kw)
@@ -1098,9 +1094,11 @@ class Range(BaseMetadataObject):
 	_uri_segment = "range/"	
 	_required = ["@id", "label"]
 	_warn = ['canvases']
+	_extra_properties = ['start_canvas']
 	_viewing_hints = RNG_VIEWINGHINTS
 	_viewing_directions = VIEWINGDIRS
 
+	start_canvas = ""
 	canvases = []
 	ranges = []
 
@@ -1109,11 +1107,13 @@ class Range(BaseMetadataObject):
 		self.canvases = []	
 		self.ranges = []
 
-	def add_canvas(self, cvs, frag=""):
+	def add_canvas(self, cvs, frag="", start=False):
 		cvsid = cvs.id
 		if frag:
 			cvsid += frag
 		self.canvases.append(cvsid)
+		if start:
+			self.set_start_canvas(cvsid)
 
 	def range(self, ident="", label="", mdhash={}):
 		r = self._factory.range(ident, label, mdhash)
@@ -1122,6 +1122,21 @@ class Range(BaseMetadataObject):
 
 	def add_range(self, rng):
 		self.ranges.append(rng.id)		
+
+	def set_start_canvas(self, cvs):
+		if type(cvs) in [unicode, str]:
+			cvsid = cvs
+		elif isinstance(cvs, Canvas):
+			cvsid = cvs.id
+		elif isinstance(cvs, OrderedDict):
+			cvsid = cvs['@id']
+		else:
+			raise ValueError("Expected string, dict or Canvas, got %r" % cvs)
+
+		if cvsid in self.canvases:
+			self.start_canvas = cvsid
+		else:
+			raise RequirementError("Cannot set the start_canvas of a Range to a Canvas that is not in the Range")
 
 
 class Layer(BaseMetadataObject):
