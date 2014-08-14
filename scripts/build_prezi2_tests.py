@@ -1,6 +1,20 @@
 import os, sys
 from factory import ManifestFactory
-from collections import OrderedDict	
+try:
+	from collections import OrderedDict	
+except:
+	try:
+		from ordereddict import OrderedDict
+	except:
+		print "You must: easy_install ordereddict"
+		raise	
+
+try:
+	import pyld
+except:
+	print "WARNING: Not validating JSON-LD as pyld not available"
+	pyld = None
+
 
 BASEURL = "http://iiif.io/api/presentation/2.0/example/fixtures/"
 HOMEDIR = "../source/api/presentation/2.0/example/fixtures/"
@@ -342,9 +356,15 @@ for (idn, info) in testInfo.items():
 	for fn in extraFuncs.get(idn, []):
 		fn(mf)
 
+	if pyld:
+		# This will raise an error on invalid JSON-LD
+		rdf = pyld.jsonld.expand(mf.toJSON(top=True))
+
 	for annolist in annolists:
 		annolist.toFile(compact=False)
 	mf.toFile(compact=False)
 	manifests[idn] = mf
+
+
 
 coln.toFile(compact=False)
