@@ -10,6 +10,10 @@
   uri: 
 - name: Cornell University
   uri: 
+- name: DPLA
+  uri: http://dl.la/
+- name: Europeana
+  uri: http://europeana.eu/
 - name: Harvard University
   uri: 
 - name: Johns Hopkins University
@@ -24,6 +28,8 @@
   uri:
 - name: National Library of Poland
   uri:
+- name: National Library of Serbia
+  uri: 
 - name: National Library of Wales
   uri:
 - name: Princeton University Library
