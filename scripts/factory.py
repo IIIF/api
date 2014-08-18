@@ -69,10 +69,6 @@ CVS_VIEWINGHINTS = ['non-paged']
 RNG_VIEWINGHINTS = ['top', 'individuals', 'paged', 'continuous']
 VIEWINGDIRS = ['left-to-right', 'right-to-left', 'top-to-bottom', 'bottom-to-top']
 
-RENAMED_PROPS = {'viewingHint':'viewing_hint', 
-				 'viewingDirection':'viewing_direction', 
-				 'seeAlso':'see_also'}
-
 # Also
 #   Canvas.otherContent --> other_content
 #   Canvas.resources --> images 
@@ -306,6 +302,9 @@ class BaseMetadataObject(object):
 	_extra_properties = []
 	_integer_properties = []
 	_structure_properties = {}
+	_renamed_properties = {'viewingHint':'viewing_hint', 
+				 'viewingDirection':'viewing_direction', 
+				 'seeAlso':'see_also'}
 
 	def __init__(self, factory, ident="", label="", mdhash={}, **kw):
 		self._factory = factory
@@ -339,8 +338,8 @@ class BaseMetadataObject(object):
 		self.related = ""
 
 	def __setattr__(self, which, value):
-		if RENAMED_PROPS.has_key(which) and self._factory.convert_renamed:
-			which = RENAMED_PROPS[which]
+		if self._renamed_properties.has_key(which) and self._factory.convert_renamed:
+			which = self._renamed_properties[which]
 		if which[0] != "_" and not which in self._properties and not which in self._extra_properties and not which in self._structure_properties.keys():
 			self.maybe_warn("Setting non-standard field '%s' on resource of type '%s'" % (which, self._type))
 		elif which[0] != '_' and not type(value) in [str, unicode, list, dict] and not which in self._integer_properties and not isinstance(value, BaseMetadataObject) and not isinstance(value, OrderedDict):
@@ -360,47 +359,49 @@ class BaseMetadataObject(object):
 		msg = "WARNING: " + msg
 		self._factory.maybe_warn(msg)
 
+	def test_html(self, data):
+		if etree:
+			try:
+				dom = etree.XML(data)
+			except Exception, e:
+				raise DataError("Invalid XHTML in '%s':  %s" % (data, e), self)
+			for elm in dom.iter():
+				if elm.tag in BAD_HTML_TAGS:
+					raise DataError("HTML vulnerability '%s' in '%s'" % (elm.tag, data), self)
+				elif elm.tag in [etree.Comment, etree.ProcessingInstruction]:
+					raise DataError("HTML Comment vulnerability '%s'" % elm, self)
+				elif elm.tag == 'a':
+					for x in elm.attrib.keys():
+						if x != "href":
+							raise DataError("Vulnerable attribute '%s' on a tag" % x, self)
+				elif elm.tag == 'img':
+					for x in elm.attrib.keys():
+						if not x in ['src', 'alt']:
+							raise DataError("Vulnerable attribute '%s' on img tag" % x, self)
+				else:
+					if elm.attrib:
+						raise DataError("Attributes not allowed on %s tag" % (elm.tag), self)
+					if not elm.tag in GOOD_HTML_TAGS:
+						self.maybe_warn("Risky HTML tag '%s' in '%s'" % (elm.tag, data))
+				# Cannot keep CDATA sections separate from text when parsing in LXML :(		
+
 	def langhash_to_jsonld(self, lh, html=True):
 		# {"fr": "something in french", "en": "something in english", "de html" : "<span>German HTML</span>"}
 		# --> [{"@value": "something in french", "@language": "fr"}, ...]
 		l = []
 		for (k,v) in lh.items():
-			if 'html' in k:
+			if 'html' in k or (v[0] == '<' and v[-1] == '>'):
 				k = k.replace("html", '').strip()
 				if not html:
 					raise DataError("Cannot have HTML in '%s', only plain text" % v, self)
 				# process HTML here
 				if v[0] != '<' or v[-1] != '>':
 					raise DataError("First and last characters of HTML value must be '<' and '>' respectively, in '%r'" % v, self)
-				if etree:
-					try:
-						dom = etree.XML(v)
-					except Exception, e:
-						raise DataError("Invalid XHTML in '%s':  %s" % (v, e), self)
-					for elm in dom.iter():
-						if elm.tag in BAD_HTML_TAGS:
-							raise DataError("HTML vulnerability '%s' in '%s'" % (elm.tag, v), self)
-						elif elm.tag in [etree.Comment, etree.ProcessingInstruction]:
-							raise DataError("HTML Comment vulnerability '%s'" % elm, self)
-						elif elm.tag == 'a':
-							for x in elm.attrib.keys():
-								if x != "href":
-									raise DataError("Vulnerable attribute '%s' on a tag" % x, self)
-						elif elm.tag == 'img':
-							for x in elm.attrib.keys():
-								if not x in ['src', 'alt']:
-									raise DataError("Vulnerable attribute '%s' on img tag" % x, self)
-						else:
-							if elm.attrib:
-								raise DataError("Attributes not allowed on %s tag" % (elm.tag), self)
-							if not elm.tag in GOOD_HTML_TAGS:
-								self.maybe_warn("Risky HTML tag '%s' in '%s'" % (elm.tag, v))
-						# Cannot keep CDATA sections separate from text when parsing in LXML :(
-
-				h = OrderedDict([("@type","rdf:XMLLiteral"), ("@value",v)])
+				self.test_html(v)
 				if k:
-					h['@language'] = k
-				l.append(h)				
+					l.append(OrderedDict([("@value",v), ("@language",k)]))
+				else:
+					l.append(v)		
 			else:
 				l.append(OrderedDict([("@value",v), ("@language",k)]))
 		return l
@@ -444,8 +445,11 @@ class BaseMetadataObject(object):
 			md.append(OrderedDict([("label", k), ("value", v)]))
 
 	def _set_magic(self, which, value, html=True):
-		if type(value) in [str, unicode] and self._factory.add_lang:
-			value = self.langhash_to_jsonld({self._factory.default_lang : value}, html)
+		if type(value) in [str, unicode]:
+			if self._factory.add_lang:
+				value = self.langhash_to_jsonld({self._factory.default_lang : value}, html)
+			elif value[0] == '<' and value[-1] == '>':
+				self.test_html(value)
 		elif type(value) == dict:
 			# {"en:"Something",fr":"Quelque Chose"}
 			value = self.langhash_to_jsonld(value, html)
@@ -453,8 +457,12 @@ class BaseMetadataObject(object):
 			# list of values
 			nl = []
 			for i in value:
-				if type(i) in [str, unicode] and self._factory.add_lang:
-					nl.extend(self.langhash_to_jsonld({self._factory.default_lang : i}, html))
+				if type(i) in [str, unicode]:
+					if self._factory.add_lang:
+						nl.extend(self.langhash_to_jsonld({self._factory.default_lang : i}, html))
+					elif value[0] == '<' and value[-1] == '>':
+						self.test_html(i)
+						nl.append(i)
 				elif type(i) == dict:
 					# {"en:"Something",fr":"Quelque Chose"}
 					nl.extend(self.langhash_to_jsonld(i, html))			
@@ -775,18 +783,15 @@ class Canvas(ContentResource):
 	_viewing_hints = CVS_VIEWINGHINTS
 	_extra_properties = ['height', 'width']
 	_integer_properties = ['height', 'width']
+	_renamed_properties = {'viewingHint':'viewing_hint', 
+						   'viewingDirection':'viewing_direction', 
+						   'seeAlso':'see_also',
+					 	   'otherContent':'other_content',
+					 	   'resources':'images'}
 	height = 0
 	width = 0
 	images = []
 	other_content = []
-
-	def __setattr__(self, which, value):
-		if which[0] != "_" and self._factory.convert_renamed:
-			if which == 'otherContent':
-				which = 'other_content'
-			elif which == 'resources':
-				which = 'images'
-		return super(Canvas, self).__setattr__(which, value)
 
 	def __init__(self, *args, **kw):
 		super(Canvas, self).__init__(*args, **kw)
@@ -1098,9 +1103,11 @@ class Range(BaseMetadataObject):
 	_uri_segment = "range/"	
 	_required = ["@id", "label"]
 	_warn = ['canvases']
+	_extra_properties = ['start_canvas']
 	_viewing_hints = RNG_VIEWINGHINTS
 	_viewing_directions = VIEWINGDIRS
 
+	start_canvas = ""
 	canvases = []
 	ranges = []
 
@@ -1109,11 +1116,13 @@ class Range(BaseMetadataObject):
 		self.canvases = []	
 		self.ranges = []
 
-	def add_canvas(self, cvs, frag=""):
+	def add_canvas(self, cvs, frag="", start=False):
 		cvsid = cvs.id
 		if frag:
 			cvsid += frag
 		self.canvases.append(cvsid)
+		if start:
+			self.set_start_canvas(cvsid)
 
 	def range(self, ident="", label="", mdhash={}):
 		r = self._factory.range(ident, label, mdhash)
@@ -1122,6 +1131,21 @@ class Range(BaseMetadataObject):
 
 	def add_range(self, rng):
 		self.ranges.append(rng.id)		
+
+	def set_start_canvas(self, cvs):
+		if type(cvs) in [unicode, str]:
+			cvsid = cvs
+		elif isinstance(cvs, Canvas):
+			cvsid = cvs.id
+		elif isinstance(cvs, OrderedDict):
+			cvsid = cvs['@id']
+		else:
+			raise ValueError("Expected string, dict or Canvas, got %r" % cvs)
+
+		if cvsid in self.canvases:
+			self.start_canvas = cvsid
+		else:
+			raise RequirementError("Cannot set the start_canvas of a Range to a Canvas that is not in the Range")
 
 
 class Layer(BaseMetadataObject):

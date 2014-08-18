@@ -1,6 +1,20 @@
 import os, sys
-from factory_20 import ManifestFactory
-from collections import OrderedDict	
+from factory import ManifestFactory
+try:
+	from collections import OrderedDict	
+except:
+	try:
+		from ordereddict import OrderedDict
+	except:
+		print "You must: easy_install ordereddict"
+		raise	
+
+try:
+	import pyld
+except:
+	print "WARNING: Not validating JSON-LD as pyld not available"
+	pyld = None
+
 
 BASEURL = "http://iiif.io/api/presentation/2.0/example/fixtures/"
 HOMEDIR = "../source/api/presentation/2.0/example/fixtures/"
@@ -87,7 +101,7 @@ testInfo = {
 62 : {"title": "Label in Multiple Languages", 'mfprops': [('label', {'en':'62: some title','fr':'62: quelque titre'})]},
 63 : {"title": "Description in Multiple Languages", 'mfprops': [('description', {'en':'description here','fr':'on le decrit ici'})]},
 64 : {"title": "Description in HTML", 'mfprops':[('description', {'en html': '<span>Some HTML</span>'})]},
-65 : {"title": "Sequence with start_canvas", 'seqprops':[('start_canvas', "http://iiif.io/api/presentation/2.0/example/fixtures/canvas/64/c1.json")]},
+65 : {"title": "Sequence with start_canvas", 'seqprops':[('start_canvas', "http://iiif.io/api/presentation/2.0/example/fixtures/canvas/65/c1.json")]},
 
 }
 
@@ -342,9 +356,15 @@ for (idn, info) in testInfo.items():
 	for fn in extraFuncs.get(idn, []):
 		fn(mf)
 
+	if pyld:
+		# This will raise an error on invalid JSON-LD
+		rdf = pyld.jsonld.expand(mf.toJSON(top=True))
+
 	for annolist in annolists:
 		annolist.toFile(compact=False)
 	mf.toFile(compact=False)
 	manifests[idn] = mf
+
+
 
 coln.toFile(compact=False)

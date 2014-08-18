@@ -232,7 +232,7 @@
     {
       "@id": "http://iiif.io/api/presentation/2.0/example/errors/45/manifest.json", 
       "@type": "sc:Manifest", 
-      "label": "45: Broken HTML in description"
+      "label": "45: Non HTML with < and > in description"
     }, 
     {
       "@id": "http://iiif.io/api/presentation/2.0/example/errors/46/manifest.json", 

@@ -2,10 +2,7 @@
   "@context": "http://iiif.io/api/presentation/2/context.json", 
   "@id": "http://iiif.io/api/presentation/2.0/example/errors/manifest.json", 
   "@type": "sc:Manifest", 
-  "description": {
-    "@type": "rdf:XMLLiteral", 
-    "@value": "<span><script>function ownzor() {}</script>Naughty</span>"
-  }, 
+  "description": "<span><script>function ownzor() {}</script>Naughty</span>", 
   "label": "manifest", 
   "sequences": [
     {
