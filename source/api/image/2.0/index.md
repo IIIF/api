@@ -99,7 +99,7 @@ http://www.example.org/image-service/abcd1234/full/full/0/default.jpg
 ```
 {: .urltemplate}
 
-The sections of the Image Request URI include region, size, rotation, quality and format parameters, which define the characteristics of the returned image. These are described in detail in [Image Request Parameters][image-request-parameters].
+The parameters of the Image Request URI include region, size, rotation, quality and format, which define the characteristics of the returned image. These are described in detail in [Image Request Parameters][image-request-parameters].
 
 ###  2.2. Image Information Request URI Syntax
 
@@ -117,15 +117,15 @@ http://www.example.org/image-service/abcd1234/info.json
 ```
 {: .urltemplate}
 
-For each image made available, the server, prefix and identifier components of the information request _MUST_ be identical to those for the image request described above.  The Image Information document is described in detail in the [Image Information][image-information] section.
+The scheme, server, prefix and identifier components of the information request _MUST_ be identical to those for the image request described above for the image content that the Image Information document describes.  The Image Information document is described in detail in the [Image Information][image-information] section.
 
 ##  3. Identifier
 
-The API places no restrictions on the form of the identifiers that a server may use or support, although the identifier _MUST_ be expressed as a string. All special characters (e.g. ? or #) _MUST_ be URI encoded to avoid unpredictable client behaviors. The URI syntax relies upon slash (/) separators so any slashes in the identifier _MUST_ be URI encoded (aka. percent-encoded, replace / with %2F ). See the additional discussion in [URI Encoding and Decoding][uri-encoding-and-decoding].
+The API places no restrictions on the form of the identifiers that a server may use or support, although the identifier _MUST_ be expressed as a string. All special characters (e.g. ? or #) _MUST_ be URI encoded to avoid unpredictable client behaviors. The URI syntax relies upon slash (/) separators so any slashes in the identifier _MUST_ be URI encoded (also called "percent encoded"). See the additional discussion in [URI Encoding and Decoding][uri-encoding-and-decoding].
 
 ##  4. Image Request Parameters
 
-All parameters described below are required for compliant construction of a IIIF Image API URI. The sequence of parameters in the URI _MUST_ be in the order described below. The order of the parameters is also intended as the order of the operations by which the service should manipulate the image content. Thus, the requested image content is first extracted as a region of the complete image, then scaled to the requested size, rotated and transformed into the color depth and format. This resulting image content is returned as the representation for the URI. Image and region dimensions in pixels are always given as an integer numbers. Intermediate calculations may use floating point numbers and the rounding method is implementation specific. Some parameters, notably percentages, may be specified with floating point numbers. These should have at most 10 decimal digits and consist only of decimal digits and "." with a leading zero if less than 1.
+All parameters described below are required for compliant construction of a IIIF Image API URI. The sequence of parameters in the URI _MUST_ be in the order described below. The order of the parameters is also intended as a mnemonic for the order of the operations by which the service should manipulate the image content. Thus, the requested image content is first extracted as a region of the complete image, then scaled to the requested size, mirrored and/or rotated, and finally transformed into the color quality and format. This resulting image content is returned as the representation for the URI. Image and region dimensions in pixels are always given as an integer numbers. Intermediate calculations may use floating point numbers and the rounding method is implementation specific. Some parameters, notably percentages, may be specified with floating point numbers. These should have at most 10 decimal digits and consist only of decimal digits and "." with a leading zero if less than 1.0.
 
 ###  4.1. Region
 
@@ -138,9 +138,9 @@ The region parameter defines the rectangular portion of the full image to be ret
 | pct:x,y,w,h              | The region to be returned is specified as a sequence of percentages of the full image's dimensions, as reported in the Image Information document. Thus, `x` represents the number of pixels from the 0 position on the horizontal axis, calculated as a percentage of the reported width. `w` represents the width of the region, also calculated as a percentage of the reported width. The same applies to y and h respectively. These may be floating point numbers. |
 {: .image-api-table}
 
-If the request specifies a region which extends beyond the reported dimensions of the full image, then the service _SHOULD_ return an image cropped at the image's edge, rather than adding empty space.
+If the request specifies a region which extends beyond the dimensions reported in the Image Information document, then the service _SHOULD_ return an image cropped at the image's edge, rather than adding empty space.
 
-If the requested region's height or width is zero, or if the region is entirely outside the bounds of the full image's reported dimensions, then the server _SHOULD_ return a 400 status code.
+If the requested region's height or width is zero, or if the region is entirely outside the bounds of the reported dimensions, then the server _SHOULD_ return a 400 status code.
 
 Examples:
 
@@ -201,7 +201,7 @@ The size parameter determines the dimensions to which the extracted region is to
 
 If the resulting height or width is zero, then the server _SHOULD_ return a 400 (bad request) status code.
 
-The image server _MAY_ support scaling beyond the full size of the extracted region.
+The image server _MAY_ support scaling above the full size of the extracted region.
 
 Examples:
 
@@ -285,7 +285,7 @@ Examples:
       <td>
         <img src="img/rotate_22-5.png" alt="Rotation 22.5" class="fullPct" />
         <p><strong>4</strong> rotation=22.5</p>
-        <p><code>.../full/full/22.5/default.jpg</code></p>
+        <p><code>.../full/full/22.5/default.png</code></p>
       </td>
     </tr>
     <tr>
@@ -376,7 +376,7 @@ Examples:
 
 ### 4.6. Order of Implementation
 
-The sequence of parameters in the URI is intended to express the order in which image manipulations are made against the full image content. This is important to consider when implementing the service because applying the same parameters in a different sequence will often result in a different image being delivered. The order is critical so that the application calling the service reliably receives the output it expects.
+The sequence of parameters in the URI is intended as a mnemonic for the order in which image manipulations are made against the full image content. This is important to consider when implementing the service because applying the same parameters in a different sequence will often result in a different image being delivered. The order is critical so that the application calling the service reliably receives the output it expects.
 
 The parameters should be interpreted as if the the sequence of image manipulations were:
 
@@ -398,13 +398,13 @@ If the rotation parameter includes mirroring ("!"), the mirroring is applied bef
 
 ### 4.7. Canonical URI Syntax
 
-There are several reasons why a canonical URI syntax is desirable:
+There are many ways in which the same image can be described using the different forms of the parameters.  While it is useful for clients to be able to express their requests in a convenient form, there are several reasons why a canonical URI syntax is desirable:
 
   * It enables static, file-system based implementations, which will have only a single URI at which the content is available.
   * Caching becomes significantly more efficient, both client and server side, when the URIs used are the same between systems and sessions.
   * Response times can be improved by avoiding redirects from a requested non-canonical URI syntax to the canonical syntax by using the canonical form directly.
 
-In order to support the above requirements, clients should construct the image request URIs using to following canonical parameter values where possible.
+In order to support the above requirements, clients _SHOULD_ construct the image request URIs using to following canonical parameter values where possible.  Image servers _MAY_ redirect the client to the canonical URI from a non-canonical equivalent.
 
 | Parameter | Canonical value |
 | --------- | --------------- |
@@ -422,9 +422,11 @@ Link: <http://iiif.example.com/server/full/full/0/default.jpg>;rel="canonical"
 ```
 {: .urltemplate}
 
+The server _MAY_ include this link header on the Image Information response, however it is unnecessary as it is included in the JSON representation retrieved.
+
 ##  5. Information Request
 
-The Image Information document contains both metadata about the image, such as full height and width, and functionality available for it, such as the formats in which it may be retrieved.  The service _MUST_ return this information about the image. The request for technical information _MUST_ conform to the URI Template:
+The Image Information document contains both metadata about the image, such as full height and width, and functionality available for it, such as the formats in which it may be retrieved.  The service _MUST_ return this information about the image. The request for the information _MUST_ conform to the URI Template:
 
 ```
 {scheme}://{server}{/prefix}/{identifier}/info.json
@@ -445,7 +447,7 @@ Content-Type: application/ld+json
 ```
 {: .urltemplate}
 
-If the client explicitly wants the JSON-LD content-type, then it must specify this in an Accept header, otherwise the server _MUST_ return the regular JSON content-type.
+If the client explicitly wants the JSON-LD content-type, then it _MUST_ specify this in an Accept header, otherwise the server _MUST_ return the regular JSON content-type.
 
 If the regular JSON content-type is returned, then it is _RECOMMENDED_ that the server provide a link header to the context document. The syntax for the link header is below, and further [described in section 6.8 of the JSON-LD specification][json-as-json-ld]. If the client requests "application/ld+json", the link header _MAY_ still be included but _MUST_ be ignored. The entity body is identical regardless of the content-type, including the `@context` field.
 
@@ -472,14 +474,14 @@ The JSON at the top level of the response will include the following properties:
 
 | Property   | Required? | Description |
 | ---------- | --------- | ----------- |
-| `@context` | Required | The context document that describes the semantics of the terms used in the document. This must be the URI: `http://iiif.io/api/image/{{ page.major }}.{{ page.minor }}/context.json` for version {{ page.major }}.{{ page.minor }} of the IIIF Image API. This document allows the response to be interpreted as RDF, using the [JSON-LD][json-ld-org] serialization. |
-| `@id` | Required | The Base URI of the image (as defined in [URI Syntax][uri-syntax], including scheme, server, prefix and identifier without a trailing slash. |
+| `@context` | Required | The context document that describes the semantics of the terms used in the document. This must be the URI: `http://iiif.io/api/image/{{ page.major }}/context.json` for version {{ page.major }}.{{ page.minor }} of the IIIF Image API. This document allows the response to be interpreted as RDF, using the [JSON-LD][json-ld-org] serialization. |
+| `@id` | Required | The Base URI of the image as defined in [URI Syntax][uri-syntax], including scheme, server, prefix and identifier without a trailing slash. |
 | `protocol` | Required | The URI `http://iiif.io/api/image` which can be used to determine that the document describes an image service which is a version of the IIIF Image API. |
 | `width` | Required | The width in pixels of the full image content, given as an integer. |
 | `height` | Required | The height in pixels of the full image content, given as an integer. |
 | `profile` | Required | An array of profiles, indicated by either a URI or an object describing the features supported.  The first entry in the array _MUST_ be a compliance level URI, as defined below. |
-| `sizes` | Optional | A set of descriptions of the parameters to use to request complete images at different sizes that the server has available. This may be used to let a client know the sizes that are available when the server does not support requests for arbitrary sizes, or simply as a hint that requesting an image of this size may result in a faster response. A request constructed with the `w,h` syntax using these sizes _MUST_ be supported by the server, even if arbitrary width and height are not. |
-| `tiles` | Optional | A set of descriptions of the parameters to use to request regions of the image (tiles) that are efficient for the server to deliver. Each description gives a height and width plus a set of scale factors at which tiles of those dimensions are available. |
+| `sizes` | Optional | A set of height and width pairs the client should use in the `size` parameter to request complete images at different sizes that the server has available. This may be used to let a client know the sizes that are available when the server does not support requests for arbitrary sizes, or simply as a hint that requesting an image of this size may result in a faster response. A request constructed with the `w,h` syntax using these sizes _MUST_ be supported by the server, even if arbitrary width and height are not. |
+| `tiles` | Optional | A set of descriptions of the parameters to use to request regions of the image (tiles) that are efficient for the server to deliver. Each description gives a width, optionally a height for non-square tiles, and a set of scale factors at which tiles of those dimensions are available. |
 | `service` | Optional | The `service` property provides a hook for additional information to be included in the image description, for example the physical size of the object depicted.  Please see the [Service Profiles][service-profiles] annex for more information. |
 {: .image-api-table}
 
@@ -506,7 +508,7 @@ The objects in the `profiles` list have the properties in the following table.  
 
 | Property    | Required? | Description |
 | ----------- | --------- | ----------- |
-| `@context`  | Optional  | The string "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json". This should be included only if the profile's URI is dereferenced. |
+| `@context`  | Optional  | The string "http://iiif.io/api/image/{{ page.major }}/context.json". This should be included only if the profile's URI is dereferenced. |
 | `@id`       | Optional  | The URI of the profile. |
 | `@type`     | Optional  | The string "iiif:ImageProfile". |
 | `formats`   | Optional  | The set of image format parameter values available for the image. |
@@ -518,30 +520,30 @@ The set of features that may be specified in the `supports` property of an Image
 
 | Feature Name | Description |
 | ------------ | ----------- |
-| `base_uri_redirect` | The base URI of the service will redirect to the Image Information document. |
-| `canonical_link_header` | The canonical image URI HTTP link header is provided on image responses. |
+| `baseUriRedirect` | The base URI of the service will redirect to the Image Information document. |
+| `canonicalLinkHeader` | The canonical image URI HTTP link header is provided on image responses. |
 | `cors` |  The CORS HTTP header is provided on all responses.  |
-| `jsonld_media_type` | The JSON-LD media type is provided when JSON-LD is requested. |
+| `jsonldMediaType` | The JSON-LD media type is provided when JSON-LD is requested. |
 | `mirroring` | The image may be rotated around the vertical axis, resulting in a left-to-right mirroring of the content. |
-| `profile_link_header` | The profile link header is provided on image responses. |
-| `region_by_pct` |  Regions of images may be requested by percentage.  |
-| `region_by_px` |   Regions of images may be requested by pixel dimensions.  |
-| `rotation_arbitrary` |   Rotation of images may be requested by degrees other than multiples of 90.  |
-| `rotation_by_90s` |   Rotation of images may be requested by degrees in multiples of 90.  |
-| `size_above_full` | Size of images may be requested larger than the "full" size. |
-| `size_by_wh_listed` | Size of images given in the `sizes` field of the Image Information document may be requested using the `w,h` syntax. |
-| `size_by_forced_wh` |   Size of images may be requested in the form "!w,h".  |
-| `size_by_h` |   Size of images may be requested in the form ",h".  |
-| `size_by_pct` |   Size of images may be requested in the form "pct:n".  |
-| `size_by_w` |   Size of images may be requested in the form "w,".  |
-| `size_by_wh` |   Size of images may be requested in the form "w,h".  |
+| `profileLinkHeader` | The profile HTTP link header is provided on image responses. |
+| `regionByPct` |  Regions of images may be requested by percentage.  |
+| `regionByPx` |   Regions of images may be requested by pixel dimensions.  |
+| `rotationArbitrary` |   Rotation of images may be requested by degrees other than multiples of 90.  |
+| `rotationBy90s` |   Rotation of images may be requested by degrees in multiples of 90.  |
+| `sizeAboveFull` | Size of images may be requested larger than the "full" size. |
+| `sizeByWhListed` | Size of images given in the `sizes` field of the Image Information document may be requested using the `w,h` syntax. |
+| `sizeByForcedWh` |   Size of images may be requested in the form "!w,h".  |
+| `sizeByH` |   Size of images may be requested in the form ",h".  |
+| `sizeByPct` |   Size of images may be requested in the form "pct:n".  |
+| `sizeByW` |   Size of images may be requested in the form "w,".  |
+| `sizeByWh` |   Size of images may be requested in the form "w,h".  |
 {: .image-api-table}
 
 The set of features, formats and qualities supported is the union of those declared in all of the external profile documents and any embedded profile objects.  If a feature is not present in either the profile document or the `supports` property of an embedded profile, then a client _MUST_ assume that the feature is not supported.
 
 If any of `formats`, `qualities`, or `supports` would have an empty list as its value, then the property _SHOULD_ be omitted from the response instead. 
 
-URIs _MAY_ be added to the supports list of a profile to cover features not defined in this specification. Clients _MUST_ ignore URIs that are not understood.
+URIs _MAY_ be added to the supports list of a profile to cover features not defined in this specification. Clients _MUST_ ignore URIs that are not recognized.
 
 The JSON response is structured as shown in the following example. The order of the keys in the response _SHOULD_ follow the order in the example.
 
@@ -571,7 +573,7 @@ The JSON response is structured as shown in the following example. The order of 
     }
   ],
   "service" : {
-    "@context": "http://iiif.io/api/annex/service/physdim/1.0/context.json",
+    "@context": "http://iiif.io/api/annex/service/physdim/1/context.json",
     "profile": "http://iiif.io/api/annex/service/physdim",
     "physicalScale": 0.0025,
     "physicalUnits": "in"
@@ -584,7 +586,7 @@ Using the [supplied JSON-LD frame][annex-frames] will result in the correct stru
 
 ##  6. Compliance Levels
 
-The Image Information document _MUST_ specify the extent to which the API is supported by including a compliance level URI as the first entry in the `profile` property.  This URI links to a description of the highest compliance level for which all requirements are met. The URI _MUST_ be one of those given in [Image API Compliance][compliance]. This description contains the profile related features, as discussed in [Image Information][image-information]. A server _MAY_ declare different compliance levels for different images.
+The Image Information document _MUST_ specify the extent to which the API is supported by including a compliance level URI as the first entry in the `profile` property.  This URI links to a description of the highest compliance level for which all requirements are met. The URI _MUST_ be one of those listed in the [Image API Compliance][compliance] document. This description contains the set of features required by the profile, as discussed in [Image Information][image-information]. A server _MAY_ declare different compliance levels for images with different identifiers.
 
 The compliance level URI _MAY_ also be given in the HTTP Link header ([RFC5988][rfc-5988]) with the parameter `rel="profile"`, and thus a complete header might look like:
 
@@ -599,7 +601,7 @@ A recipe for setting this header on the Apache HTTP Server is shown in the [Apac
 
 ###  7.1. Successful Responses
 
-Servers may transmit HTTP responses with 200 (Successful) or 3xx (Redirect) status codes when the request has been successfully processed. If the status code is 200, then the entity-body _MUST_ be the requested image or information response. If the status code is 301, 302, 303, or 304, then the entity-body is unrestricted, but it is _RECOMMENDED_ to be empty. If the status code is 301, 302, or 303 then the Location HTTP Header _MUST_ be set containing the URI of the image that fulfills the request. This enables servers to have a single canonical URI to promote caching of responses. Status code 304 is handled exactly as per the HTTP specification. Clients _SHOULD_ expect to encounter all of these situations and _MUST NOT_ assume that the entity-body of the initial response necessarily contains the image data.
+Servers may transmit HTTP responses with 200 (Successful) or 3xx (Redirect) status codes when the request has been successfully processed. If the status code is 200, then the entity-body _MUST_ be the requested image or information document. If the status code is 301, 302, 303, or 304, then the entity-body is unrestricted, but it is _RECOMMENDED_ to be empty. If the status code is 301, 302, or 303 then the Location HTTP Header _MUST_ be set containing the URI of the image that fulfills the request. This enables servers to have a single canonical URI to promote caching of responses. Status code 304 is handled exactly as per the HTTP specification. Clients _SHOULD_ expect to encounter all of these situations and _MUST NOT_ assume that the entity-body of the initial response necessarily contains the image data.
 
 ###  7.2. Error Conditions
 

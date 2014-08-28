@@ -32,7 +32,7 @@ This document is a companion to the [IIIF Image API Specification][image-api]. I
 
 Three levels of compliance are defined. Level 0 is defined as the minimum set of supported parameters and features that _MUST_ be implemented to qualify the service as compliant to the IIIF standard. Level 1 is defined as the _RECOMMENDED_ set of parameters and features to be implemented.
 
-In the tables below "![required][icon-req]" indicates that support is _REQUIRED_, "![optional][icon-opt]" indicates that support is _OPTIONAL_.
+In the tables below "![required][icon-req]" indicates that support is _REQUIRED_, and "![optional][icon-opt]" indicates that support is _OPTIONAL_.
 
 ## Image Parameters
 
@@ -106,7 +106,7 @@ In the tables below "![required][icon-req]" indicates that support is _REQUIRED_
 
 ## Indicating Compliance
 
-Servers indicate compliance with level 0 by including the following header in IIIF responses:
+Servers _MAY_ indicate compliance with level 0 by including the following header in IIIF responses for images:
 
 ```
 Link: <http://iiif.io/api/image/{{ page.major }}/level0.json>;rel="profile"
@@ -120,14 +120,14 @@ A level 0 compliant image server _MAY_ specify `scaleFactors` and/or `width` and
 
 If a client requests a size or region outside these parameters then the image server _MAY_ reject the request with an error.
 
-Servers indicate compliance with level 1 by including the following header in IIIF responses:
+Servers _MUST_ indicate compliance with level 1 by including the following header in IIIF responses for images:
 
 ```
 Link: <http://iiif.io/api/image/{{ page.major }}/level1.json>;rel="profile"
 ```
 {: .urltemplate}
 
-Servers indicate compliance with level 2 by including the following header in IIIF responses:
+Servers _MUST_ indicate compliance with level 2 by including the following header in IIIF responses for images:
 
 ```
 Link: <http://iiif.io/api/image/{{ page.major }}/level2.json>;rel="profile"
