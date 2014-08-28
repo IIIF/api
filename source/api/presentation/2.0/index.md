@@ -131,6 +131,16 @@ description
     * A canvas _MAY_ have a description to describe particular features of the view.
     * A content resource _MAY_ have a description.
 
+thumbnail
+:   A small image that represents the content of the object, such as the title page or significant image.  It is _RECOMMENDED_ that a [IIIF Image API][image-api] service be available for this image for manipulations such as resizing.
+
+    Usage:
+    {: .usage}
+    * A manifest _SHOULD_ have a thumbnail image that represents the entire object or work.
+    * A sequence _MAY_ have a thumbnail, particularly if there are multiple sequences in a single manifest. Each of the thumbnails _SHOULD_ be different.
+    * A canvas _MAY_ have a thumbnail, particularly if there are multiple images or resources that make up the representation.
+    * A content resource _MAY_ have a thumbnail, particularly if there is a choice of resource.
+
 ####  4.2. Rights and Licensing Properties
 
 attribution
@@ -229,16 +239,6 @@ viewing_hint
     * A content resource _MAY_ have a viewing hint but there are no defined values in this specification.
 
     Other values _MAY_ be given, and if they are, they _MUST_ be URIs. 
-
-thumbnail
-:   A small image that represents the content of the object, such as the title page or significant image.  It is _RECOMMENDED_ that a [IIIF Image API][image-api] service be available for this image for manipulations such as resizing.
-
-    Usage:
-    {: .usage}
-    * A manifest _SHOULD_ have a thumbnail image that represents the entire object or work.
-    * A sequence _MAY_ have a thumbnail, particularly if there are multiple sequences in a single manifest. Each of the thumbnails _SHOULD_ be different.
-    * A canvas _MAY_ have a thumbnail, particularly if there are multiple images or resources that make up the representation.
-    * A content resource _MAY_ have a thumbnail, particularly if there is a choice of resource.
 
 
 ####  4.4. Linking Properties
@@ -1127,7 +1127,7 @@ Recommended URI pattern:
 ```
 {: .urltemplate}
 
-Collections are used to list the manifests available for viewing, and to describe the structures, hierarchies or collections that the physical objects are part of.  The collections _MAY_ include both other collections and manifests, in order to form a hierarchy of objects with manifests at the leaf nodes of the tree.  Collection objects _MAY_ be embedded inline within other collection objects, such as when the collection is used primarily to subdivide a larger one into more manageable pieces. Embedded collections _SHOULD_ have their own URI from which the description is also made available.
+Collections are used to list the manifests available for viewing, and to describe the structures, hierarchies or collections that the physical objects are part of.  The collections _MAY_ include both other collections and manifests, in order to form a hierarchy of objects with manifests at the leaf nodes of the tree.  Collection objects _MAY_ be embedded inline within other collection objects, such as when the collection is used primarily to subdivide a larger one into more manageable pieces, however manifests _MUST NOT_ be embedded within collections. Embedded collections _SHOULD_ have their own URI from which the description is also made available.
 
 Manifests or collections _MAY_ appear within more than one collection. For example, an institution might define four collections: one for modern works, one for historical works, one for newspapers and one for books.  The manifest for a modern newspaper would then appear in both the modern collection and the newspaper collection.  Alternatively, the institution may choose to have two separate newspaper collections, and reference each as a sub-collection of modern and historical.
 
@@ -1138,14 +1138,14 @@ The intended usage of collections is to allow clients to:
   * Visualize lists or hierarchies of related manifests.
   * Provide navigation through a list or hierarchy of available manifests.
 
-As such, it is _RECOMMENDED_ that collections have `metadata` and `description` properties to be displayed by the client such that the user can understand the structure they are interacting with.  If a collection does not have these properties, then a client is not required to render the collection to the user directly.
+As such, collections _MUST_ have a label, and _SHOULD_ have `metadata` and `description` properties to be displayed by the client such that the user can understand the structure they are interacting with.  If a collection does not have these properties, then a client is not required to render the collection to the user directly.
 
 Note that the recommended URI pattern prevents the existence of a manifest or object with the identifier "collection".
 
-Collections have two new list-based properties:
+Collections have two list-based properties:
 
 collections
-: References to sub-collections of the current collection.  Each referenced collection _MUST_ have the appropriate @id, @type and label.
+: References to sub-collections of the current collection.  Each referenced collection _MUST_ have the appropriate @id, @type and label, and _MAY_ be embedded in its entirety.
 
 manifests
 : References to manifests contained within the current collection. Each referenced manifest _MUST_ have the appropriate @id, @type and label.
@@ -1402,13 +1402,13 @@ URL: _http://www.example.org/iiif/book1/manifest_
 | AnnotationList | ![required][icon-req] | ![required][icon-req] | ![not allowed][icon-na] | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![not allowed][icon-na] | ![optional][icon-opt]  |
 | Range          | ![required][icon-req] | ![required][icon-req] | ![not allowed][icon-na] | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![optional][icon-opt]   | ![optional][icon-opt]  |
 | Layer          | ![required][icon-req] | ![required][icon-req] | ![not allowed][icon-na] | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![optional][icon-opt]   | ![optional][icon-opt]  |
-| Image Content  | ![required][icon-req] | ![required][icon-req] | ![required][icon-req]   | ![recommended][icon-recc] | ![recommended][icon-recc] | ![not allowed][icon-na] | ![optional][icon-opt]  |
-| Other Content  | ![required][icon-req] | ![required][icon-req] | ![required][icon-req]   | ![optional][icon-opt]     | ![optional][icon-opt]     | ![not allowed][icon-na] | ![optional][icon-opt]  |
+| Image Content  | ![required][icon-req] | ![required][icon-req] | ![optional][icon-opt]   | ![recommended][icon-opt]  | ![recommended][icon-opt]  | ![not allowed][icon-na] | ![optional][icon-opt]  |
+| Other Content  | ![required][icon-req] | ![required][icon-req] | ![optional][icon-opt]   | ![optional][icon-opt]     | ![optional][icon-opt]     | ![not allowed][icon-na] | ![optional][icon-opt]  |
 {: .image-api-table}
 
 |                | label                  | metadata                     | description                 | thumbnail                   | attribution            | license                 | logo                     |
 | -------------- | ---------------------- | ---------------------------- | --------------------------- | ----------------------------| ---------------------- | ----------------------- | ------------------------ |
-| Collection     | ![required][icon-req]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![recommended][icon-recc]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
+| Collection     | ![required][icon-req]  | ![recommended][icon-recc]    | ![recommended][icon-recc]   | ![recommended][icon-recc]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
 | Manifest       | ![required][icon-req]  | ![recommended][icon-recc]    | ![recommended][icon-recc]   | ![recommended][icon-recc]   | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
 | Sequence       | ![optional][icon-opt]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
 | Canvas         | ![required][icon-req]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![recommended][icon-recc]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
