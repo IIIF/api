@@ -357,7 +357,7 @@ Recipes for enabling CORS and the conditional Content-type header are provided i
 
 The following applies to all of the responses in the Presentation API.  For the most part, these are features of the JSON-LD specification that have particular uses within the API.
 
-The primary response is when the manifest response is requested and, for optimization reasons, this _MUST_ return the manifest information with the default sequence, canvases and associations for image content resources embedded within it. Additional sequences and associations _MAY_ be available via additional calls, and if so, _MUST_ be referenced in the manifest.
+Typically the first request will be for a manifest resource and, for optimization reasons, the response _MUST_ return the manifest information along with the default sequence, canvases and associations for image content resources embedded within it. Additional sequences and associations _MAY_ be available via additional calls, and if so, _MUST_ be referenced in the manifest.
 
 
 #### 5.3.1. URI Representation
@@ -393,7 +393,7 @@ Language _MAY_ be associated with strings that are intended to be displayed to t
 
 This pattern may be used in `label`, `description`, `attribution` and the `label` and `value` fields of the `metadata` construction.
 
-Note that [RFC 5646][rfc5646] allows the script of the text to be included after a hyphen, such as `ar-latn`, and clients _SHOULD_ be aware of this possibility. This allows for full internationalization of the user interface components described in the response, as the labels as well as values may be translated in this manner; examples are given below.
+Note that [RFC 5646][rfc5646] allows the script of the text to be included after a hyphen, such as `ar-latn`, and clients should be aware of this possibility. This allows for full internationalization of the user interface components described in the response, as the labels as well as values may be translated in this manner; examples are given below.
 
 #### 5.3.4. Property Values in HTML
 
