@@ -2,7 +2,7 @@
 	"@context": {
     	"iiif" :   "http://iiif.io/api/presentation/{{ site.presentation_api.latest.major }}#",
     	"xsd" :    "http://www.w3.org/2001/XMLSchema#",
-		"physical_scale": {"@id": "iiif:physicalScale", "@type": "xsd:float"},
-		"physical_units": {"@id": "iiif:physicalUnits", "@type": "xsd:string"}
+		"physicalScale": {"@id": "iiif:physicalScale", "@type": "xsd:float"},
+		"physicalUnits": {"@id": "iiif:physicalUnits", "@type": "xsd:string"}
 	}
 }

@@ -491,13 +491,13 @@ The objects in the `sizes` list have the properties in the following table. Imag
 | `height` | Required | The height of the image to be requested. |
 {: .image-api-table}
 
-The objects in the `tiles` list have the properties in the following table. The `width` and `height` should be used to fill the region parameter and the `scale_factors` to complete the size parameter of the image URL. This is described in detail in the [Implementation Notes][a-implementation-notes].
+The objects in the `tiles` list have the properties in the following table. The `width` and `height` should be used to fill the region parameter and the `scaleFactors` to complete the size parameter of the image URL. This is described in detail in the [Implementation Notes][a-implementation-notes].
 
 The `width` of a tile, or the combination of `width` and `height` if `height` is specified, _MUST_ be unique among the members of the `tiles` list.
 
 | Property   | Required? | Description |
 | ---------- | --------- | ----------- |
-| `scale_factors` | Required | The set of resolution scaling factors for the image's predefined tiles, expressed as an integer by which to divide the full size of the image. For example, a scale factor of 4 indicates that the service can efficiently deliver images at 1/4 or 25% of the height and width of the full image. A particular scale factor value _SHOULD_ appear only once in the `tiles` list. |
+| `scaleFactors` | Required | The set of resolution scaling factors for the image's predefined tiles, expressed as an integer by which to divide the full size of the image. For example, a scale factor of 4 indicates that the service can efficiently deliver images at 1/4 or 25% of the height and width of the full image. A particular scale factor value _SHOULD_ appear only once in the `tiles` list. |
 | `width` | Required | The width of the predefined tiles to be requested. |
 | `height` | Optional | The height of the predefined tiles to be requested.  If it is not specified in the JSON, then it defaults to the same as `width`, resulting in square tiles. |
 {: .image-api-table}
@@ -558,7 +558,7 @@ The JSON response is structured as shown in the following example. The order of 
     {"width" : 3000, "height": 2000}
   ],
   "tiles": [
-    {"width" : 512, "scale_factors" : [1,2,4,8,16]}
+    {"width" : 512, "scaleFactors" : [1,2,4,8,16]}
   ],
   "profile" : [
     "http://iiif.io/api/image/{{ page.major }}/level2.json",
@@ -566,15 +566,15 @@ The JSON response is structured as shown in the following example. The order of 
       "formats" : [ "gif", "pdf" ],
       "qualities" : [ "color", "gray" ],
       "supports" : [
-          "canonical_link_header", "rotation_arbitrary", "http://example.com/feature/"
+          "canonicalLinkHeader", "rotationArbitrary", "http://example.com/feature/"
       ]
     }
   ],
   "service" : {
     "@context": "http://iiif.io/api/annex/service/physdim/1.0/context.json",
     "profile": "http://iiif.io/api/annex/service/physdim",
-    "physical_scale": 0.0025,
-    "physical_units": "in"
+    "physicalScale": 0.0025,
+    "physicalUnits": "in"
   }
 }
 {% endhighlight %}
