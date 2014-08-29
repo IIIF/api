@@ -40,7 +40,7 @@ Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss]
 
 ##  1. Introduction
 
-Access to image-based resources is fundamental to many research disciplines, scholarship and the transmission of cultural knowledge. Digital images are a container for much of the information content in the Web-based delivery of images, museum objects, books, newspapers, letters, manuscripts, maps, scrolls, single sheet collections, and digital surrogates of textiles, realia and ephemera.  Collections of born-digital images can also benefit from a standardized method to structure their layout and presentation, such as slideshows, image carousels, web comics, and more.
+Access to image-based resources is fundamental to many research disciplines, scholarship and the transmission of cultural knowledge. Digital images are a container for much of the information content in the Web-based delivery of museum objects, books, newspapers, letters, manuscripts, maps, scrolls, single sheet collections, and digital surrogates of textiles, realia and ephemera.  Collections of born-digital images can also benefit from a standardized method to structure their layout and presentation, such as slideshows, image carousels, web comics, and more.
 
 This document describes how the structure and layout of a complex image-based object can be made available in a standard manner. Many different styles of viewer can be implemented that consume the information to enable a rich and dynamic experience, consuming content from across collections and hosting institutions.
 
@@ -122,7 +122,7 @@ metadata
     * A content resource _MAY_ have metadata pairs associated with it.
 
 description
-:   A longer-form prose description of the object or resource that the property is attached to, intended to be conveyed to the user as a full text description, rather than a simple label and value. It can duplicate any of the above information, along with additional information required to understand what is being displayed. Clients _SHOULD_ have a way to display the descriptions of manifests and canvases, and _MAY_ have a way to view the information about other resources.
+:   A longer-form prose description of the object or resource that the property is attached to, intended to be conveyed to the user as a full text description, rather than a simple label and value. It _MAY_ be in simple HTML or plain text.  It can duplicate any of the information from the `metadata` fields, along with additional information required to understand what is being displayed. Clients _SHOULD_ have a way to display the descriptions of manifests and canvases, and _MAY_ have a way to view the information about other resources.
 
     Usage:
     {: .usage}
@@ -132,33 +132,33 @@ description
     * A content resource _MAY_ have a description.
 
 thumbnail
-:   A small image that represents the content of the object, such as the title page or significant image.  It is _RECOMMENDED_ that a [IIIF Image API][image-api] service be available for this image for manipulations such as resizing.
+:   A small image that depicts or pictorially represents the resource that the property is attached to, such as the title page, a significant image or rendering of a canvas with multiple content resources associated with it.  It is _RECOMMENDED_ that a [IIIF Image API][image-api] service be available for this image for manipulations such as resizing.
 
     Usage:
     {: .usage}
     * A manifest _SHOULD_ have a thumbnail image that represents the entire object or work.
     * A sequence _MAY_ have a thumbnail, particularly if there are multiple sequences in a single manifest. Each of the thumbnails _SHOULD_ be different.
-    * A canvas _MAY_ have a thumbnail, particularly if there are multiple images or resources that make up the representation.
+    * A canvas _SHOULD_ have a thumbnail, particularly if there are multiple images or resources that make up the representation.
     * A content resource _MAY_ have a thumbnail, particularly if there is a choice of resource.
 
 ####  4.2. Rights and Licensing Properties
 
 attribution
-:   A human readable label that _MUST_ be displayed when the resource it is associated with is displayed or used. For example, this could be used to present copyright or ownership, or simply an acknowledgement of the owning and/or publishing institutions.
+:   A human readable label that _MUST_ be displayed when the resource it is associated with is displayed or used. For example, this could be used to present copyright or ownership statements, or simply an acknowledgement of the owning and/or publishing institutions.
 
     Usage:
     {: .usage}
     * Any resource _MAY_ have an attribution label.
 
 logo
-:   A small image that represents an individual or organization associated with the object.  This could be the logo of the owning or hosting institution.  It is _RECOMMENDED_ that a [IIIF Image API][image-api] service be available for this image for manipulations such as resizing.
+:   A small image that represents an individual or organization associated with the resource it is attached to.  This could be the logo of the owning or hosting institution.  It is _RECOMMENDED_ that a [IIIF Image API][image-api] service be available for this image for manipulations such as resizing.
 
     Usage:
     {: .usage}
     * Any resource _MAY_ have a logo associated with it.
 
 license
-:   A link to a resource that describes the license or rights statement under which the resource is being used. The rationale for this being a URI and not a human readable label is that typically there is one license for many resources, and the text is too long to be displayed to the user along with the object. If displaying the text is a requirement, then it is _RECOMMENDED_ to include the information using the `attribution` property instead.
+:   A link to an external resource that describes the license or rights statement under which the resource is being used. The rationale for this being a URI and not a human readable label is that typically there is one license for many resources, and the text is too long to be displayed to the user along with the object. If displaying the text is a requirement, then it is _RECOMMENDED_ to include the information using the `attribution` property instead.
 
     Usage:
     {: .usage}
@@ -167,13 +167,13 @@ license
 ####  4.3. Technical Properties
 
 @id
-:   The URI that identifies the resource. It is _RECOMMENDED_ that an HTTP URI be used for all resources. Recommended HTTP URI patterns for the different classes of resource are given below.  URIs from any [registered scheme][iana-uri-schemes] _MAY_ be used, and implementers may find it convenient to use a [UUID URN][rfc-4122] of the form: `"urn:uuid:uuid-goes-here-1234"`.  Resources that do not require URIs in the descriptions _MAY_ be assigned [blank node identifiers][rdf11-blank-nodes]; this is the same as omitting `@id`.
+:   The URI that identifies the resource. It is _RECOMMENDED_ that an HTTP URI be used for all resources. Recommended HTTP URI patterns for the different classes of resource are given below.  URIs from any [registered scheme][iana-uri-schemes] _MAY_ be used, and implementers may find it convenient to use a [UUID URN][rfc-4122] of the form: `"urn:uuid:uuid-goes-here-1234"`.  Resources that do not require URIs _MAY_ be assigned [blank node identifiers][rdf11-blank-nodes]; this is the same as omitting `@id`.
 
     Usage:
     {: .usage}
     * A manifest _MUST_ have an id, and it _MUST_ be the http[s] URI at which the manifest is published.
     * A sequence _MAY_ have an id.
-    * A canvas _MUST_ have an id, and it _MUST_ be a URI.  It _MAY_ be an http[s] URI, and if so, the canvas's description _SHOULD_ be published at that URI.
+    * A canvas _MUST_ have an id, and it _MUST_ be an http[s] URI.  The canvas's JSON representation _SHOULD_ be published at that URI.
     * A content resource _MUST_ have an id unless it is embedded in the response, and it _MUST_ be the http[s] URI at which the resource is published.
 
 @type
@@ -191,7 +191,7 @@ format
     * A manifest, sequence or canvas _MUST NOT_ have a format.
     * A content resource _MAY_ have a format, and if so, it _MUST_ be the value of the `Content-Type` header returned when the resource is dereferenced.
 
-_N.B._ This is different to the `formats` property in the [Image API][image-api], which gives the extension to use within that API.  It would be inappropriate to use in this case, as `format` can be used with any content resource, not just images.
+    _N.B._ This is different to the `formats` property in the [Image API][image-api], which gives the extension to use within that API.  It would be inappropriate to use in this case, as `format` can be used with any content resource, not just images.
 
 height
 :   The height of a canvas or image resource. For images, this is in pixels. No particular units are required for canvases, as the dimensions provide an aspect ratio for the resources to be located within rather than measuring any physical property of the object.
@@ -209,7 +209,7 @@ width
     * As for height above.
 
 viewingDirection
-:   The direction that canvases should be presented in a viewer for the object. Possible values are:
+:   The direction that canvases of the resource should be presented when rendered for the user to navigate and/or read. Possible values are:
 
     * "left-to-right": The object is read from left to right, and is the default if not specified.
     * "right-to-left": The object is read from right to left.
@@ -224,7 +224,7 @@ viewingDirection
     * A range or layer _MAY_ have a viewing direction.
 
 viewingHint
-:   A hint to the viewer as to the most appropriate method of displaying the resource. This specification defines the following possible values:
+:   A hint to the client as to the most appropriate method of displaying the resource. This specification defines the following possible values:
 
     * "individuals": Valid on manifest, sequence and range. The canvases referenced from the resource are all individual sheets, and _SHOULD NOT_ be presented in a page-turning interface. Examples include a set of views of a 3 dimensional object, or a set of the front sides of photographs in a collection.
     * "paged": Valid on manifest, sequence and range. The canvases represent pages in a bound volume, and _SHOULD_ be presented in a page-turning interface if one is available.  The first canvas is a single view (the first recto) and thus the second canvas represents the back of the object in the first canvas.
@@ -283,7 +283,7 @@ startCanvas
 The requirements for the metadata properties are summarized in [Appendix B][appendixB].
 
 
-Other properties are possible, either via custom extensions or endorsed by the IIIF. If a client discovers properties that it does not understand, then it _MUST_ ignore them.
+Other properties are possible, either via custom extensions or endorsed by the IIIF. If a client discovers properties that it does not understand, then it _MUST_ ignore them.  Other properties _SHOULD_ consist of a prefix and a name in the form "`prefix:name`" to ensure it does not collide with a property defined by IIIF specifications.  [Services][annex] _SHOULD_ be used for extensions if at all possible.
 
 ##  5. Requests and Responses
 
@@ -397,7 +397,7 @@ Note that [RFC 5646][rfc5646] allows the script of the text to be included after
 
 #### 5.3.4. Property Values in HTML
 
-Minimal HTML markup _MAY_ be included in the `description`, `attribution` and `metadata` properties.  It _MUST NOT_ be used in `label`. This is included to allow manifest creators to add links and simple formatting instructions to blocks of plain text. The content _MUST_ be well-formed XML and therefore must be wrapped in an element such as `p` or `span`.  There _MUST NOT_ be whitespace on either side of the HTML string, and thus the first character in the string _MUST_ be a '<' character and the last character _MUST_ be '>', allowing a consuming application to test whether the value is HTML or plain text using these.  To avoid a non-HTML string matching this, it is _RECOMMENDED_ that an additional whitespace character be added to the end of the value.
+Minimal HTML markup _MAY_ be included in the `description`, `attribution` and `metadata` properties.  It _MUST NOT_ be used in `label` or other properties. This is included to allow manifest creators to add links and simple formatting instructions to blocks of text. The content _MUST_ be well-formed XML and therefore must be wrapped in an element such as `p` or `span`.  There _MUST NOT_ be whitespace on either side of the HTML string, and thus the first character in the string _MUST_ be a '<' character and the last character _MUST_ be '>', allowing a consuming application to test whether the value is HTML or plain text using these.  To avoid a non-HTML string matching this, it is _RECOMMENDED_ that an additional whitespace character be added to the end of the value.
 
 In order to avoid HTML or script injection attacks, clients _MUST_ remove:
 
@@ -420,13 +420,13 @@ Clients _SHOULD_ allow only `a`, `b`, `br`, `i`, `img`, `p`, and `span` tags. Cl
 
 #### 5.3.5. Linked Data Context and Extensions
 
-The top level resource in the response _MUST_ have the `@context` property, and it _SHOULD_ appear as the very first key/value pair. This tells Linked Data processors how to interpret the information. The IIIF Presentation API context, below, _MUST_ occur exactly once per response, and be omitted from any embedded resources. For example, when embedding a sequence within a manifest, the sequence _MUST NOT_ have the `@context` field.
+The top level resource in the response _MUST_ have the `@context` property, and it _SHOULD_ appear as the very first key/value pair of the JSON representation. This tells Linked Data processors how to interpret the information. The IIIF Presentation API context, below, _MUST_ occur exactly once per response, and be omitted from any embedded resources. For example, when embedding a sequence within a manifest, the sequence _MUST NOT_ have the `@context` field.
 
 {% highlight json %}
 {"@context": "http://iiif.io/api/presentation/{{ page.major }}/context.json"}
 {% endhighlight %}
 
-Any additional fields beyond those defined in this specification _SHOULD_ be mapped to RDF predicates using further context documents. In this case, the enclosing object _MUST_ have its own `@context` property, and it _SHOULD_ be the first key/value pair. This is _REQUIRED_ for `service` links that embed any information beyond a `profile`.  These contexts _SHOULD NOT_ redefine `profile`.
+Any additional fields beyond those defined in this specification _SHOULD_ be mapped to RDF predicates using further context documents. In this case, the enclosing object _MUST_ have its own `@context` property, and it _SHOULD_ be the first key/value pair of that object. This is _REQUIRED_ for `service` links that embed any information beyond a `profile`.  These contexts _SHOULD NOT_ redefine `profile`.
 
 Clients _SHOULD_ be aware that some implementations will add an `@graph` property at the top level, which contains the object. This is a side effect of JSON-LD serialization, and servers _SHOULD_ remove it before sending to the client. The client can use the [JSON-LD compaction algorithm][json-ld-compact] to remove it, if present.  Using compaction and the JSON-LD Framing algorithm with the [supplied frames][annex-frames] will generate the correct structure.
 
@@ -577,7 +577,7 @@ Recommended URI pattern:
 ```
 {: .urltemplate}
 
-The canvas represents an individual page or view and acts as a central point for laying out the different content resources that make up the display. Canvases _MUST_ be identified by a URI, and HTTP URIs are _RECOMMENDED_. If following the recommended URI pattern, the {name} parameter _MUST_ uniquely distinguish the canvas from all other canvases in the object. As with sequences, the name _SHOULD NOT_ begin with a number. Suggested patterns are "f1r" or "p1".
+The canvas represents an individual page or view and acts as a central point for laying out the different content resources that make up the display. Canvases _MUST_ be identified by a URI and it _MUST_ be an HTTP[s] URI. If following the recommended URI pattern, the {name} parameter _MUST_ uniquely distinguish the canvas from all other canvases in the object. As with sequences, the name _SHOULD NOT_ begin with a number. Suggested patterns are "f1r" or "p1".
 
 Every canvas _MUST_ have a `label` to display, and a `height` and a `width` as integers. A canvas is a two-dimensional rectangular space with an aspect ratio that represents a single logical view of some part of the object, and the aspect ratio is given with the height and width properties. This allows resources to be associated with specific parts of the canvas, rather than the entire space. Content _MUST NOT_ be associated with space outside of the canvas's dimensions, such as at coordinates below 0,0 or greater than the height or width.
 

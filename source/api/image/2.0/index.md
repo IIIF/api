@@ -69,7 +69,7 @@ There are four parameters shared by the requests, and other IIIF specifications:
 | scheme | Indicates the use of the HTTP or HTTPS protocol in calling the service. |
 | server | The host server on which the service resides. |
 | prefix | The path on the host server to the service. This prefix is optional, but may be useful when the host server supports multiple services. The prefix _MAY_ contain multiple path segments, delimited by slashes, but all other special characters _MUST_ be encoded. See [URI Encoding and Decoding][uri-encoding-and-decoding] for more information. |
-| identifier | The identifier of the requested image, expressed as a string. This may be an ark, URN, filename, or other identifier. Special characters _MUST_ be URI encoded. |
+| identifier | The identifier of the requested image. This may be an ark, URN, filename, or other identifier. Special characters _MUST_ be URI encoded. |
 {: .image-api-table}
 
 The combination of these parameters forms the image’s Base URI and identifies the underlying image content. It is constructed according to the following URI Template ([RFC6570][rfc-6570]):
@@ -121,7 +121,7 @@ The scheme, server, prefix and identifier components of the information request 
 
 ##  3. Identifier
 
-The API places no restrictions on the form of the identifiers that a server may use or support, although the identifier _MUST_ be expressed as a string. All special characters (e.g. ? or #) _MUST_ be URI encoded to avoid unpredictable client behaviors. The URI syntax relies upon slash (/) separators so any slashes in the identifier _MUST_ be URI encoded (also called "percent encoded"). See the additional discussion in [URI Encoding and Decoding][uri-encoding-and-decoding].
+The API places no restrictions on the form of the identifiers that a server may use or support. All special characters (e.g. ? or #) _MUST_ be URI encoded to avoid unpredictable client behaviors. The URI syntax relies upon slash (/) separators so any slashes in the identifier _MUST_ be URI encoded (also called "percent encoded"). See the additional discussion in [URI Encoding and Decoding][uri-encoding-and-decoding].
 
 ##  4. Image Request Parameters
 
@@ -629,16 +629,12 @@ WWW-Authenticate: Basic realm="Images"
 
 ##  9. URI Encoding and Decoding
 
-The URI syntax of this API relies upon slash (/) separators which _MUST NOT_ be encoded. Clients _MUST_ percent-encode special characters (the to-encode set below: percent and gen-delims of [RFC3986][rfc-3986] except the colon) within the components of requests. For example, any slashes within the identifier part of the URI _MUST_ be percent-encoded. Encoding is necessary only for the identifier because other components will not include special characters.
+The URI syntax of this API relies upon slash (/) separators which _MUST NOT_ be encoded. Clients _MUST_ percent-encode special characters (the to-encode set below: percent and gen-delims of [RFC3986][rfc-3986] except the colon) plus any characters outside the US-ASCII set within the components of requests. For example, any slashes within the identifier part of the URI _MUST_ be percent-encoded. Encoding is necessary only for the identifier because other components will not include special characters. Percent-encoding other characters introduces no ambiguity but is unnecessary.
 
 ```
 to-encode = "/" / "?" / "#" / "[" / "]" / "@" / "%"
 ```
 {: .urltemplate}
-
-Upon receiving an API request, a server _MUST_ first split the URI path on slashes and then decode any percent-encoded characters in each component.
-
-Additionally, if identifiers include any characters outside the US-ASCII set then the encoding to octets must be defined consistently on client and server, and the octets _MUST_ be percent-encoded. Percent-encoding other characters introduces no ambiguity but is unnecessary.
 
 | Parameters | URI path |
 | ---------- | -------- |
@@ -668,7 +664,6 @@ Early sanity checking of URIs (lengths, trailing GET, invalid characters, out-of
 
   * For use cases that enable the saving of the image, it is _RECOMMENDED_ to use the HTTP `Content-Disposition` header ([RFC6266][rfc-6266]) to provide a convenient filename that distinguishes the image, based on the identifier and parameters provided.
   * This specification makes no assertion about the rights status of requested images or any other descriptive metadata, whether or not authentication has been accomplished. Please see the [IIIF Presentation API][prezi-api] for rights and other information.
-  * This API does not specify how image servers fulfill requests, what quality the returned images will have for different parameters, or how parameters may affect performance.
   * Additional [Apache HTTP Server implementation notes][apache-notes] are available.
   * When requesting sizes using the `w,` canonical syntax, if a particular height is desired, the following algorithm can be used:
 
