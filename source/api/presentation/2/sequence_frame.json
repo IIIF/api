@@ -3,7 +3,7 @@
     "@type": "sc:Sequence",
     "canvases": [{
         "@type": "sc:Canvas",
-        "start_canvas": {
+        "startCanvas": {
             "@type": "sc:Canvas",
             "@embed": false
         },        
@@ -13,7 +13,7 @@
                 "@type": "oa:Annotation",
                 "@embed": true
             }],
-            "other_content": [{
+            "otherContent": [{
                 "@type": "sc:AnnotationList",
                 "@embed": false
             }]

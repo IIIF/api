@@ -8,13 +8,13 @@
   "formats" : [ "jpg" ],
   "qualities" : [ "default" ],
   "supports" : [
-    "base_uri_redirect",
+    "baseUriRedirect",
     "cors",
-    "jsonld_media_type",
-    "profile_link_header",
-    "region_by_px",
-    "size_by_h",
-    "size_by_pct",
-    "size_by_w"
+    "jsonldMediaType",
+    "profileLinkHeader",
+    "regionByPx",
+    "sizeByH",
+    "sizeByPct",
+    "sizeByW"
   ]
 }

@@ -96,12 +96,12 @@ The service _MAY_ have additional information embedded from the Image Informatio
     "width" : 6000,
     "height" : 4000,
     "sizes" : [
-      {"width" : 150, "height" : 100, "viewing_hint" : "thumbnail"},
-      {"width" : 600, "height" : 400, "viewing_hint" : "small"},
-      {"width" : 3000, "height": 2000, "viewing_hint" : "large"}
+      {"width" : 150, "height" : 100},
+      {"width" : 600, "height" : 400},
+      {"width" : 3000, "height": 2000}
     ],
     "tiles": [
-      {"width" : 512, "scale_factors" : [1,2,4,8,16]}
+      {"width" : 512, "scaleFactors" : [1,2,4,8,16]}
     ],
     "profile" : [
       "http://iiif.io/api/image/{{ page.major }}/level2.json",
@@ -109,7 +109,7 @@ The service _MAY_ have additional information embedded from the Image Informatio
         "formats" : [ "gif", "pdf" ],
         "qualities" : [ "color", "gray" ],
         "supports" : [
-            "canonical_link_header", "rotation_arbitrary", "http://example.com/feature/"
+            "canonicalLinkHeader", "rotationArbitrary", "http://example.com/feature"
         ]
       }
     ],
@@ -175,8 +175,8 @@ The physical dimensions description includes the following properties:
 | `@context`       | Required  | The string "http://iiif.io/api/annex/service/physdim/1/context.json". |
 | `@id`            | Optional  | A URI that will return the information, perhaps generated dynamically from the image. |
 | `profile`        | Required  | The string "http://iiif.io/api/annex/service/physdim". |
-| `physical_scale` | Required  | The floating point ratio by which the digital resource's height and width are multipled in order to determine the depicted scene's height and width.  |
-| `physical_units` | Required  | The physical units for the generated height and width.  Possible values are: "mm", "cm", in". |
+| `physicalScale` | Required  | The floating point ratio by which the digital resource's height and width are multipled in order to determine the depicted scene's height and width.  |
+| `physicalUnits` | Required  | The physical units for the generated height and width.  Possible values are: "mm", "cm", in". |
 
 {: .image-api-table}
 
@@ -187,8 +187,8 @@ The following example demonstrates the resulting structure, as embedded within t
   "service": {
     "@context": "http://iiif.io/api/annex/service/physdim/1/context.json",
     "profile": "http://iiif.io/api/annex/service/physdim",
-    "physical_scale": 0.0025,
-    "physical_units": "in"
+    "physicalScale": 0.0025,
+    "physicalUnits": "in"
   }
 }
 {% endhighlight %}

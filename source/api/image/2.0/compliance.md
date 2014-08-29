@@ -32,7 +32,7 @@ This document is a companion to the [IIIF Image API Specification][image-api]. I
 
 Three levels of compliance are defined. Level 0 is defined as the minimum set of supported parameters and features that _MUST_ be implemented to qualify the service as compliant to the IIIF standard. Level 1 is defined as the _RECOMMENDED_ set of parameters and features to be implemented.
 
-In the tables below "![required][icon-req]" indicates that support is _REQUIRED_, "![optional][icon-opt]" indicates that support is _OPTIONAL_.
+In the tables below "![required][icon-req]" indicates that support is _REQUIRED_, and "![optional][icon-opt]" indicates that support is _OPTIONAL_.
 
 ## Image Parameters
 
@@ -41,8 +41,8 @@ In the tables below "![required][icon-req]" indicates that support is _REQUIRED_
 | Syntax      | Feature Name    | Level 0 | Level 1 | Level 2  |
 |:------------|:--------------- |:-------:|:-------:|:--------:|
 | `full`      |                 | ![required][icon-req] | ![required][icon-req]       | ![required][icon-req]        |
-| x,y,w,h     | `region_by_px`  | ![optional][icon-opt] | ![required][icon-req]       | ![required][icon-req]        |
-| pct:x,y,w,h | `region_by_pct` | ![optional][icon-opt] | ![optional][icon-opt]       | ![required][icon-req]        |
+| x,y,w,h     | `regionByPx`  | ![optional][icon-opt] | ![required][icon-req]       | ![required][icon-req]        |
+| pct:x,y,w,h | `regionByPct` | ![optional][icon-opt] | ![optional][icon-opt]       | ![required][icon-req]        |
 {: .image-api-table}
 
 ### Size
@@ -50,13 +50,13 @@ In the tables below "![required][icon-req]" indicates that support is _REQUIRED_
 | Syntax      | Feature Name        | Level 0 | Level 1 | Level 2  |
 |:------------|:--------------------|:-------:|:-------:|:--------:|
 | `full`      |                     | ![required][icon-req]      | ![required][icon-req]      | ![required][icon-req]       |
-| w,h       | `size_by_wh_listed` | ![required][icon-req]      | ![required][icon-req]      | ![required][icon-req]       |
-| w,          | `size_by_w`         | ![optional][icon-opt]      | ![required][icon-req]      | ![required][icon-req]       |
-| ,h          | `size_by_h`         | ![optional][icon-opt]      | ![required][icon-req]      | ![required][icon-req]       |
-| pct:x       | `size_by_pct`       | ![optional][icon-opt]      | ![required][icon-req]      | ![required][icon-req]       |
-| w,h         | `size_by_forced_wh` | ![optional][icon-opt]      | ![optional][icon-opt]      | ![required][icon-req]       |
-| !w,h        | `size_by_wh`        | ![optional][icon-opt]      | ![optional][icon-opt]      | ![required][icon-req]       |
-|             | `size_above_full`   | ![optional][icon-opt]      | ![optional][icon-opt]      | ![optional][icon-opt]       |
+| w,h         | `sizeByWhListed` | ![required][icon-req]      | ![required][icon-req]      | ![required][icon-req]       |
+| w,          | `sizeByW`         | ![optional][icon-opt]      | ![required][icon-req]      | ![required][icon-req]       |
+| ,h          | `sizeByH`         | ![optional][icon-opt]      | ![required][icon-req]      | ![required][icon-req]       |
+| pct:x       | `sizeByPct`       | ![optional][icon-opt]      | ![required][icon-req]      | ![required][icon-req]       |
+| w,h         | `sizeByForcedWh` | ![optional][icon-opt]      | ![optional][icon-opt]      | ![required][icon-req]       |
+| !w,h        | `sizeByWh`        | ![optional][icon-opt]      | ![optional][icon-opt]      | ![required][icon-req]       |
+|             | `sizeAboveFull`   | ![optional][icon-opt]      | ![optional][icon-opt]      | ![optional][icon-opt]       |
 {: .image-api-table}
 
 ### Rotation
@@ -64,8 +64,8 @@ In the tables below "![required][icon-req]" indicates that support is _REQUIRED_
 | Syntax | Feature Name | Level 0 | Level 1 | Level 2  |
 |:-------|:-------------|:-------:|:-------:|:--------:|
 | `0`    |              | ![required][icon-req] | ![required][icon-req] | ![required][icon-req] |
-| `90`,`180`,`270` | `rotation_by_90s` | ![optional][icon-opt] | ![optional][icon-opt] | ![required][icon-req]       |
-| _arbitrary_ | `rotation_arbitrary` | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] |
+| `90`,`180`,`270` | `rotationBy90s` | ![optional][icon-opt] | ![optional][icon-opt] | ![required][icon-req]       |
+| _arbitrary_ | `rotationArbitrary` | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] |
 | !_n_ | `mirroring` | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] |
 {: .image-api-table}
 
@@ -97,37 +97,37 @@ In the tables below "![required][icon-req]" indicates that support is _REQUIRED_
 
 | HTTP Feature          | Feature Name            | Level 0 | Level 1 | Level 2  |
 |:----------------------|:------------------------|:-------:|:-------:|:--------:|
-| base URI redirects    | `base_uri_redirect`     | ![optional][icon-opt]      | ![required][icon-req]      | ![required][icon-req]       |
+| base URI redirects    | `baseUriRedirect`     | ![optional][icon-opt]      | ![required][icon-req]      | ![required][icon-req]       |
 | CORS                  | `cors`                  | ![optional][icon-opt]      | ![required][icon-req]      | ![required][icon-req]       |
-| json-ld media type    | `jsonld_media_type`     | ![optional][icon-opt]      | ![required][icon-req]      | ![required][icon-req]       |
-| profile link header   | `profile_link_header`   | ![optional][icon-opt]      | ![required][icon-req]      | ![required][icon-req]       |
-| canonical link header | `canonical_link_header` | ![optional][icon-opt]      | ![optional][icon-opt]      | ![optional][icon-opt]       |
+| json-ld media type    | `jsonldMediaType`     | ![optional][icon-opt]      | ![required][icon-req]      | ![required][icon-req]       |
+| profile link header   | `profileLinkHeader`   | ![optional][icon-opt]      | ![required][icon-req]      | ![required][icon-req]       |
+| canonical link header | `canonicalLinkHeader` | ![optional][icon-opt]      | ![optional][icon-opt]      | ![optional][icon-opt]       |
 {: .image-api-table}
 
 ## Indicating Compliance
 
-Servers indicate compliance with level 0 by including the following header in IIIF responses:
+Servers _MAY_ indicate compliance with level 0 by including the following header in IIIF responses for images:
 
 ```
 Link: <http://iiif.io/api/image/{{ page.major }}/level0.json>;rel="profile"
 ```
 {: .urltemplate}
 
-A level 0 compliant image server _MAY_ specify `scale_factors` and/or `tile_width` and `tile_height` values in the Image Information response. At Level 0 compliance, a service is only required to deliver images of sizes computed using the scaling factors declared in the Image Information response. If specified they should be interpreted with the following special meanings:
+A level 0 compliant image server _MAY_ specify `scaleFactors` and/or `width` and `height` values for `tiles` in the Image Information response. At Level 0 compliance, a service is only required to deliver images of sizes computed using the scaling factors declared in the Image Information response. If specified they should be interpreted with the following special meanings:
 
- * `scale_factors` - only the specified scaling factors are supported
- * `tile_width`, `tile_height` - clients should request only regions that correspond to output tiles of the specified dimensions
+ * `scaleFactors` - only the specified scaling factors are supported
+ * `width`, `height` within `tiles` - clients should request only regions that correspond to output tiles of the specified dimensions
 
 If a client requests a size or region outside these parameters then the image server _MAY_ reject the request with an error.
 
-Servers indicate compliance with level 1 by including the following header in IIIF responses:
+Servers _MUST_ indicate compliance with level 1 by including the following header in IIIF responses for images:
 
 ```
 Link: <http://iiif.io/api/image/{{ page.major }}/level1.json>;rel="profile"
 ```
 {: .urltemplate}
 
-Servers indicate compliance with level 2 by including the following header in IIIF responses:
+Servers _MUST_ indicate compliance with level 2 by including the following header in IIIF responses for images:
 
 ```
 Link: <http://iiif.io/api/image/{{ page.major }}/level2.json>;rel="profile"

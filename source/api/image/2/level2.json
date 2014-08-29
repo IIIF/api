@@ -8,17 +8,17 @@
   "formats" : [ "jpg", "png" ],
   "qualities" : [ "default", "bitonal" ],
   "supports" : [
-    "base_uri_redirect",
+    "baseUriRedirect",
     "cors",
-    "jsonld_media_type",
-    "profile_link_header",
-    "region_by_pct",
-    "region_by_px",
-    "rotation_by_90s",
-    "size_by_forced_wh",
-    "size_by_h",
-    "size_by_pct",
-    "size_by_w",
-    "size_by_wh"
+    "jsonldMediaType",
+    "profileLinkHeader",
+    "regionByPx",
+    "sizeByH",
+    "sizeByPct",
+    "sizeByW"
+    "regionByPct",
+    "rotationBy90s",
+    "sizeByForcedWh",
+    "sizeByWh"
   ]
 }

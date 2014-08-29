@@ -5,7 +5,7 @@
         "@type": "oa:Annotation",
         "@embed": true
     }],
-    "other_content": [{
+    "otherContent": [{
         "@type": "sc:AnnotationList",
         "@embed": false
     }]
