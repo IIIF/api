@@ -1,6 +1,6 @@
 # Use Markdown in the blurb if necessary for links, etc. Each list entry in the blurb gets a <p>.
 - name: Stanford University Libraries - Mirador demo
-  uri: http://iiif.github.io/mirador/demo/
+  uri: http://demos.iiif.io/mirador/
   blurb:
   - >
     This demo of Mirador, developed by the Stanford University Libraries, allows
@@ -21,14 +21,6 @@
     to compare images from the British Library, Yale University and Stanford
     University. The BL adapted Mirador to display a YouTube video within the
     viewer that can be played while inspecting images.
-- name: Shared Canvas
-  uri: http://www.shared-canvas.org/impl/
-  blurb:
-  - >
-    The Shared Canvas project has a variety of sample implementations that
-    illustrate the power of the Shared Canvas data model (which is the basis of
-    the IIIF Presentation API).  The image servers behind the demos are IIIF
-    compatible.
 - name: Biblissima - Mirador Demo
   uri: http://demos.biblissima-condorcet.fr/mirador/
   blurb:
