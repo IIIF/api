@@ -43,7 +43,9 @@ Header set Link '<http://iiif.io/api/image/2/level1.json>;rel="profile"'
 
 ## Conditional Content Types
 
-Both specifications state that clients may request JSON-LD, as opposed to plain JSON. This may be enabled with the following configuration snippet (note that this assumes the compliance level Link header has been set [as above][set-compliance-link-header]):
+Both the [Image][image-api] and [Presentation][prezi-api] APIs state that clients may request JSON-LD, as opposed to plain JSON. 
+
+In the Image API, this may be enabled with the following configuration snippet (note that this assumes the compliance level Link header has been set [as above][set-compliance-link-header]):
 
 ```apacheconf
 <FilesMatch "\.json">
@@ -54,10 +56,26 @@ Both specifications state that clients may request JSON-LD, as opposed to plain 
 ```
 {: .urltemplate}
 
+The above configuration snippet may also be used for Presentation API implementations that have URIs ending in `.json`, but the line starting `Header append Link` should be deleted and it will not work for the recommended URI pattern. The following snippet will work for the recommended patterns:
+
+```apacheconf
+<LocationMatch "^/prefix/(collection/.*|.*/manifest|.*/(sequence|canvas|annotation|list|range|layer)/.*)$">
+    SetEnvIf Accept "application/ld\+json" WANTS_jsonld
+    Header set Content-Type "application/json"
+    Header set Content-Type "application/ld+json" env=WANTS_jsonld
+</LocationMatch>
+```
+{: .urltemplate}
+
+
+
+
 [uri-encoding-and-decoding]: /api/image/2.0#uri-encoding-and-decoding "Image API: URI Encoding and Decoding"
 [image-compliance-levels]: /api/image/2.0#compliance-levels "Image API: Compliance Levels"
 [apache-aesnd]: http://httpd.apache.org/docs/2.2/mod/core.html#allowencodedslashes "Allow Encoded Slashes directive"
 [set-compliance-link-header]: #set-compliance-link-header
+[image-api]: /api/image/2.0/
+[prezi-api]: /api/presentation/2.0/
 
 
 {% include acronyms.md %}
