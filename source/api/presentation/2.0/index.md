@@ -137,9 +137,9 @@ thumbnail
     Usage:
     {: .usage}
     * A manifest _SHOULD_ have a thumbnail image that represents the entire object or work.
-    * A sequence _MAY_ have a thumbnail, particularly if there are multiple sequences in a single manifest. Each of the thumbnails _SHOULD_ be different.
-    * A canvas _SHOULD_ have a thumbnail, particularly if there are multiple images or resources that make up the representation.
-    * A content resource _MAY_ have a thumbnail, particularly if there is a choice of resource.
+    * A sequence _MAY_ have a thumbnail and _SHOULD_ have a thumbnail if there are multiple sequences in a single manifest. Each of the thumbnails _SHOULD_ be different.
+    * A canvas _MAY_ have a thumbnail and _SHOULD_ have a thumbnail if there are multiple images or resources that make up the representation.
+    * A content resource _MAY_ have a thumbnail and _SHOULD_ have a thumbnail if it is an option in a choice of resources.
 
 ####  4.2. Rights and Licensing Properties
 
@@ -310,9 +310,9 @@ Where the parameters are:
 | identifier | The identifier for the object or collection, expressed as a string. This may be an ark, URN, or other identifier. Special characters _MUST_ be URI encoded. |
 {: .image-api-table}
 
-The individual resources _SHOULD_ have URIs below this top-level pattern by appending a "/" and additional information to identify the resource. Recommended patterns for these URIs are given in the sections below for the different resource types, and summarized in [Appendix A][appendix-a].
+The individual resources _SHOULD_ have URIs below this top-level pattern by appending a "/" and additional information to identify the resource. Recommended patterns for these URIs are given in the sections below for the different resource types, and summarized in [Appendix A][appendixa].
 
-If a client requests a URI that follows the recommended patterns, but with a trailing ".json" or ".jsonld" extension, then the server _SHOULD_ return the JSON representations defined below.
+In the situation where the JSON documents are maintained in a filesystem with no access to the web server's configuration, then including ".json" on the end of the URI is suggested to ensure that the correct content-type response header is sent to the client.  
 
 ###  5.2. HTTP Response Details
 
@@ -1302,7 +1302,7 @@ URL: _http://www.example.org/iiif/book1/manifest_
                         "profile":"http://iiif.io/api/image/{{ site.image_api.latest.major }}/level1.json",
                         "height":8000,
                         "width":6000,
-                        "tiles" : [{"width": 512, "scale_factors": [1,2,4,8,16]}]
+                        "tiles" : [{"width": 512, "scaleFactors": [1,2,4,8,16]}]
                     }
                 },
                 "on":"http://www.example.org/iiif/book1/canvas/p2"
@@ -1483,6 +1483,7 @@ Many thanks to Matthieu Bonicel, Tom Cramer, Ian Davis, Markus Enders, Renhart G
 [rdf11-blank-nodes]: http://www.w3.org/TR/rdf11-concepts/#section-blank-nodes "RDF 1.1 Concepts"
 [rfc-4122]: http://tools.ietf.org/html/rfc4122 "URN UUID Scheme"
 [oa-ext-annex]: /api/annex/openannotation/index.html "Open Annotation Extensions"
+[appendixa]: #a-summary-of-uri-patterns "Appendix A"
 [appendixb]: #b-summary-of-metadata-requirements "Appendix B"
 
 [icon-req]: /img/metadata-api/required.png "Required"
