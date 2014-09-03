@@ -312,7 +312,7 @@ Where the parameters are:
 
 The individual resources _SHOULD_ have URIs below this top-level pattern by appending a "/" and additional information to identify the resource. Recommended patterns for these URIs are given in the sections below for the different resource types, and summarized in [Appendix A][appendixa].
 
-In the situation where the JSON documents are maintained in a filesystem with no access to the web server's configuration, then including ".json" on the end of the URI is suggested to ensure that the correct content-type response header is sent to the client.  
+In the situation where the JSON documents are maintained in a filesystem with no access to the web server's configuration, then including ".json" on the end of the URI is suggested to ensure that the correct content-type response header is sent to the client.  While this does not follow the recommended URI patterns below, it is not prevented by the specification either.
 
 ###  5.2. HTTP Response Details
 
