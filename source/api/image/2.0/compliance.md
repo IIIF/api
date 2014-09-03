@@ -83,34 +83,43 @@ In the tables below "![required][icon-req]" indicates that support is _REQUIRED_
 
 | Syntax      | Level 0 | Level 1 | Level 2  |
 |:------------|:-------:|:-------:|:--------:|
-| `jpg`       | ![required][icon-req]      | ![required][icon-req]      | ![required][icon-req]       |
-| `png`       | ![optional][icon-opt]      | ![optional][icon-opt]      | ![required][icon-req]       |
-| `tif`       | ![optional][icon-opt]      | ![optional][icon-opt]      | ![optional][icon-opt]       |
-| `gif`       | ![optional][icon-opt]      | ![optional][icon-opt]      | ![optional][icon-opt]       |
-| `pdf`       | ![optional][icon-opt]      | ![optional][icon-opt]      | ![optional][icon-opt]       |
-| `jp2`       | ![optional][icon-opt]      | ![optional][icon-opt]      | ![optional][icon-opt]       |
-| `webp`      | ![optional][icon-opt]      | ![optional][icon-opt]      | ![optional][icon-opt]       |
+| `jpg`       | ![required][icon-req] | ![required][icon-req] | ![required][icon-req] |
+| `png`       | ![optional][icon-opt] | ![optional][icon-opt] | ![required][icon-req] |
+| `tif`       | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] |
+| `gif`       | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] |
+| `pdf`       | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] |
+| `jp2`       | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] |
+| `webp`      | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] |
 {: .image-api-table}
 
 
 ## HTTP Features
 
-| HTTP Feature          | Feature Name            | Level 0 | Level 1 | Level 2  |
-|:----------------------|:------------------------|:-------:|:-------:|:--------:|
-| base URI redirects    | `baseUriRedirect`     | ![optional][icon-opt]      | ![required][icon-req]      | ![required][icon-req]       |
-| CORS                  | `cors`                  | ![optional][icon-opt]      | ![required][icon-req]      | ![required][icon-req]       |
-| json-ld media type    | `jsonldMediaType`     | ![optional][icon-opt]      | ![required][icon-req]      | ![required][icon-req]       |
-| profile link header   | `profileLinkHeader`   | ![optional][icon-opt]      | ![required][icon-req]      | ![required][icon-req]       |
-| canonical link header | `canonicalLinkHeader` | ![optional][icon-opt]      | ![optional][icon-opt]      | ![optional][icon-opt]       |
+| HTTP Feature          | Feature Name          | Level 0 | Level 1 | Level 2  |
+|:----------------------|:----------------------|:-------:|:-------:|:--------:|
+| base URI redirects    | `baseUriRedirect`     | ![optional][icon-opt] | ![required][icon-req] | ![required][icon-req] |
+| CORS                  | `cors`                | ![optional][icon-opt] | ![required][icon-req] | ![required][icon-req] |
+| json-ld media type    | `jsonldMediaType`     | ![optional][icon-opt] | ![required][icon-req] | ![required][icon-req] |
+| profile link header   | `profileLinkHeader`   | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] |
+| canonical link header | `canonicalLinkHeader` | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] |
 {: .image-api-table}
 
 ## Indicating Compliance
 
-Servers _MAY_ indicate compliance with level 0 by including the following header in IIIF responses for images:
+Servers _MAY_ indicate compliance with by including a header in IIIF responses for images:
 
 ```
-Link: <http://iiif.io/api/image/{{ page.major }}/level0.json>;rel="profile"
+Link: <http://iiif.io/api/image/{{ page.major }}/level1.json>;rel="profile"
 ```
+{: .urltemplate}
+
+The URIs for the the compliance levels are as follows:
+
+| Level | URI                                                   |
+|:-----:|:------------------------------------------------------|
+| 0     | http://iiif.io/api/image/{{ page.major }}/level0.json |
+| 1     | http://iiif.io/api/image/{{ page.major }}/level1.json |
+| 2     | http://iiif.io/api/image/{{ page.major }}/level2.json |
 {: .urltemplate}
 
 A level 0 compliant image server _MAY_ specify `scaleFactors` and/or `width` and `height` values for `tiles` in the Image Information response. At Level 0 compliance, a service is only required to deliver images of sizes computed using the scaling factors declared in the Image Information response. If specified they should be interpreted with the following special meanings:
@@ -119,20 +128,6 @@ A level 0 compliant image server _MAY_ specify `scaleFactors` and/or `width` and
  * `width`, `height` within `tiles` - clients should request only regions that correspond to output tiles of the specified dimensions
 
 If a client requests a size or region outside these parameters then the image server _MAY_ reject the request with an error.
-
-Servers _MUST_ indicate compliance with level 1 by including the following header in IIIF responses for images:
-
-```
-Link: <http://iiif.io/api/image/{{ page.major }}/level1.json>;rel="profile"
-```
-{: .urltemplate}
-
-Servers _MUST_ indicate compliance with level 2 by including the following header in IIIF responses for images:
-
-```
-Link: <http://iiif.io/api/image/{{ page.major }}/level2.json>;rel="profile"
-```
-{: .urltemplate}
 
 [image-api]: /api/image/2.0/ "Image API 2.0"
 [icon-req]: /img/metadata-api/required.png "Required"
