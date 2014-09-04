@@ -8,7 +8,7 @@
     {
       "@type": "sc:Sequence", 
       "label": "Test 23 Sequence 1", 
-      "viewing_hint": "individuals", 
+      "viewingHint": "individuals", 
       "canvases": [
         {
           "@id": "http://iiif.io/api/presentation/2.0/example/fixtures/canvas/23/c1.json", 

@@ -3,7 +3,7 @@
   "@id": "http://iiif.io/api/presentation/2.0/example/fixtures/14/manifest.json", 
   "@type": "sc:Manifest", 
   "label": "Test 14 Manifest: ViewingDirection: b-t-t", 
-  "viewing_direction": "bottom-to-top", 
+  "viewingDirection": "bottom-to-top", 
   "within": "http://iiif.io/api/presentation/2.0/example/fixtures/collection.json", 
   "sequences": [
     {

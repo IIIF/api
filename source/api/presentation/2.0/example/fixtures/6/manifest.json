@@ -4,7 +4,6 @@
   "@type": "sc:Manifest", 
   "label": "Test 6 Manifest: Multiple Descriptions", 
   "description": [
-    "This is one description", 
     {
       "@value": "This is another", 
       "@language": "en"

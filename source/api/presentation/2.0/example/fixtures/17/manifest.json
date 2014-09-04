@@ -3,7 +3,7 @@
   "@id": "http://iiif.io/api/presentation/2.0/example/fixtures/17/manifest.json", 
   "@type": "sc:Manifest", 
   "label": "Test 17 Manifest: ViewingHint: individuals", 
-  "viewing_hint": "individuals", 
+  "viewingHint": "individuals", 
   "within": "http://iiif.io/api/presentation/2.0/example/fixtures/collection.json", 
   "sequences": [
     {

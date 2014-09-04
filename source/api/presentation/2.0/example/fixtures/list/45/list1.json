@@ -9,7 +9,7 @@
       "motivation": "sc:painting", 
       "resource": {
         "@id": "http://iiif.io/api/presentation/2.0/example/fixtures/resources/page1.txt", 
-        "@type": "dcterms:Text"
+        "@type": "dctypes:Text"
       }, 
       "on": "http://iiif.io/api/presentation/2.0/example/fixtures/canvas/45/c1.json"
     }
