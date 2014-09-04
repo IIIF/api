@@ -1367,7 +1367,7 @@ URL: _http://www.example.org/iiif/book1/manifest_
 
 ## Appendices
 
-###  A. Summary of URI Patterns
+###  A. Summary of Recommended URI Patterns
 
 | Resource       | URI Pattern                                                 |
 | -------------- | ----------------------------------------------------------- |
@@ -1483,7 +1483,7 @@ Many thanks to Matthieu Bonicel, Tom Cramer, Ian Davis, Markus Enders, Renhart G
 [rdf11-blank-nodes]: http://www.w3.org/TR/rdf11-concepts/#section-blank-nodes "RDF 1.1 Concepts"
 [rfc-4122]: http://tools.ietf.org/html/rfc4122 "URN UUID Scheme"
 [oa-ext-annex]: /api/annex/openannotation/index.html "Open Annotation Extensions"
-[appendixa]: #a-summary-of-uri-patterns "Appendix A"
+[appendixa]: #a-summary-of-recommended-uri-patterns "Appendix A"
 [appendixb]: #b-summary-of-metadata-requirements "Appendix B"
 
 [icon-req]: /img/metadata-api/required.png "Required"
