@@ -257,12 +257,12 @@
     {
       "@id": "http://iiif.io/api/presentation/2.0/example/errors/50/manifest.json", 
       "@type": "sc:Manifest", 
-      "label": "50: Invalid viewing_direction value"
+      "label": "50: Invalid viewingDirection value"
     }, 
     {
       "@id": "http://iiif.io/api/presentation/2.0/example/errors/51/manifest.json", 
       "@type": "sc:Manifest", 
-      "label": "51: Invalid start_canvas value"
+      "label": "51: Invalid startCanvas value"
     }
   ]
 }

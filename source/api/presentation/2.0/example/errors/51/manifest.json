@@ -15,7 +15,7 @@
           "width": 1
         }
       ], 
-      "start_canvas": "http://example.net/not/a/canvas"
+      "startCanvas": "http://example.net/not/a/canvas"
     }
   ]
 }
