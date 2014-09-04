@@ -142,10 +142,10 @@ def addEmbedInfo(manifest):
 					svc = OrderedDict()
 					svc['height'] = imageHeight
 					svc['width'] = imageWidth
-					svc['tiles'] = [{"width":512,"scale_factors":[1,2,4,8,16]}]
+					svc['tiles'] = [{"width":512,"scaleFactors":[1,2,4,8,16]}]
 					profile = OrderedDict([("formats", ["gif", "tif", "pdf"]), 
 						("qualities", ["color", "gray"]), 
-						("supports", ["canonical_link_header", "mirroring", "rotation_arbitrary", "size_above_full"])])
+						("supports", ["canonicalLinkHeader", "mirroring", "rotationArbitrary", "sizeAboveFull"])])
 					svc['profile'] = ["http://iiif.io/api/image/2/level2.json", profile]
 					a.resource.service = svc
 				except:

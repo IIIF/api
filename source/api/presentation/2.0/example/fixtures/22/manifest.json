@@ -8,7 +8,7 @@
     {
       "@type": "sc:Sequence", 
       "label": "Test 22 Sequence 1", 
-      "viewing_direction": "right-to-left", 
+      "viewingDirection": "right-to-left", 
       "canvases": [
         {
           "@id": "http://iiif.io/api/presentation/2.0/example/fixtures/canvas/22/c1.json", 

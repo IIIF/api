@@ -1,2 +1,4 @@
 _site
 node_modules/
+scripts/factory.py
+scripts/factory.pyc

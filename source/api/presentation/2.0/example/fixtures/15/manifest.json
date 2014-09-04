@@ -3,7 +3,7 @@
   "@id": "http://iiif.io/api/presentation/2.0/example/fixtures/15/manifest.json", 
   "@type": "sc:Manifest", 
   "label": "Test 15 Manifest: ViewingHint: paged", 
-  "viewing_hint": "paged", 
+  "viewingHint": "paged", 
   "within": "http://iiif.io/api/presentation/2.0/example/fixtures/collection.json", 
   "sequences": [
     {

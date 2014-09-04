@@ -193,14 +193,13 @@ def make_tests():
 	make_test(json.dumps(n, sort_keys=True, indent=2), 'Vulnerable HTML comment in description')
 
 	n = copy.deepcopy(basejs)
-	n['viewing_direction'] = "upside-down"
-	make_test(json.dumps(n, sort_keys=True, indent=2), 'Invalid viewing_direction value')	
+	n['viewingDirection'] = "upside-down"
+	make_test(json.dumps(n, sort_keys=True, indent=2), 'Invalid viewingDirection value')	
 
-	# Bad start_canvas to non-canvas
+	# Bad startCanvas to non-canvas
 	n = copy.deepcopy(basejs)
-	n['sequences'][0]['start_canvas'] = "http://example.net/not/a/canvas"
-	make_test(json.dumps(n, sort_keys=True, indent=2), 'Invalid start_canvas value')
-
+	n['sequences'][0]['startCanvas'] = "http://example.net/not/a/canvas"
+	make_test(json.dumps(n, sort_keys=True, indent=2), 'Invalid startCanvas value')
 
 
 make_tests()		

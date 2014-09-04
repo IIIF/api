@@ -3,7 +3,7 @@
   "@id": "http://iiif.io/api/presentation/2.0/example/fixtures/8/manifest.json", 
   "@type": "sc:Manifest", 
   "label": "Test 8 Manifest: SeeAlso link / Manifest", 
-  "see_also": "http://www.example.org/link/to/metadata", 
+  "seeAlso": "http://www.example.org/link/to/metadata", 
   "within": "http://iiif.io/api/presentation/2.0/example/fixtures/collection.json", 
   "sequences": [
     {

@@ -31,7 +31,7 @@
                   "tiles": [
                     {
                       "width": 512, 
-                      "scale_factors": [
+                      "scaleFactors": [
                         1, 
                         2, 
                         4, 
@@ -53,10 +53,10 @@
                         "gray"
                       ], 
                       "supports": [
-                        "canonical_link_header", 
+                        "canonicalLinkHeader", 
                         "mirroring", 
-                        "rotation_arbitrary", 
-                        "size_above_full"
+                        "rotationArbitrary", 
+                        "sizeAboveFull"
                       ]
                     }
                   ]
