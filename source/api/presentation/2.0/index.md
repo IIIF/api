@@ -826,7 +826,7 @@ An example of this feature:
 
 ###  7.3. Choice of Alternative Resources
 
-A common requirement is to have a choice between multiple images that depict the page, such as different under different lights, or taken at different times. This can be accomplished by having a "oa:Choice" object as the resource, which then refers to the options to select from. It _MUST_ have one `default` and at least one further `item` to choose from. The images _SHOULD_ have a `label` for the viewer to display to the user so they can make their selection from among the options.
+A common requirement is to have a choice between multiple images that depict the page, such as being photographed under different lights or at different times. This can be accomplished by having a "oa:Choice" object as the resource, which then refers to the options to select from. It _MUST_ have one `default` and at least one further `item` to choose from. The images _SHOULD_ have a `label` for the viewer to display to the user so they can make their selection from among the options.
 
 The same construction can be applied to a choice between other types of resources as well. This is described in the [Multiplicity section][openannomulti] of the Open Annotation specification.
 
@@ -1151,8 +1151,8 @@ manifests
 
 Collections _MUST_ have the following properties:
 
-  * `@id` and it _MUST_ be the HTTP URI from which the Collection's description can be retrieved.
-  * `@type` and the value MUST be "sc:Collection"
+  * `@id` and the value _MUST_ be the HTTP URI from which the Collection's description can be retrieved.
+  * `@type` and the value _MUST_ be "sc:Collection"
   * `label`
 
 Collections _SHOULD_ have the following properties:
