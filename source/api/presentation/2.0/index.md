@@ -826,7 +826,7 @@ An example of this feature:
 
 ###  7.3. Choice of Alternative Resources
 
-A common requirement is to have a choice between multiple images that depict the page, such as different under different lights, or taken at different times. This can be accomplished by having a "oa:Choice" object as the resource, which then refers to the options to select from. It _MUST_ have one `default` and at least one further `item` to choose from. The images _SHOULD_ have a `label` for the viewer to display to the user so they can make their selection from among the options.
+A common requirement is to have a choice between multiple images that depict the page, such as being photographed under different lights or at different times. This can be accomplished by having a "oa:Choice" object as the resource, which then refers to the options to select from. It _MUST_ have one `default` and at least one further `item` to choose from. The images _SHOULD_ have a `label` for the viewer to display to the user so they can make their selection from among the options.
 
 The same construction can be applied to a choice between other types of resources as well. This is described in the [Multiplicity section][openannomulti] of the Open Annotation specification.
 
@@ -1122,14 +1122,13 @@ If the layer's URI is dereferenced, the annotation list resources are given in a
 Recommended URI pattern:
 
 ```
-{scheme}://{host}/{prefix}/collection
 {scheme}://{host}/{prefix}/collection/{name}
 ```
 {: .urltemplate}
 
 Collections are used to list the manifests available for viewing, and to describe the structures, hierarchies or collections that the physical objects are part of.  The collections _MAY_ include both other collections and manifests, in order to form a hierarchy of objects with manifests at the leaf nodes of the tree.  Collection objects _MAY_ be embedded inline within other collection objects, such as when the collection is used primarily to subdivide a larger one into more manageable pieces, however manifests _MUST NOT_ be embedded within collections. Embedded collections _SHOULD_ have their own URI from which the description is also made available.
 
-The first form of the recommended URI pattern without a {name} parameter is for the top-most collection that an institution makes available, from which all other collections and manifests are discoverable by following the links within the hierarchy.  The second form is for all subsequent collections.  Note that this recommended URI pattern prevents the existence of a manifest or object with the identifier "collection".
+The URI pattern follows the same structure as the other resource types, however note that it prevents the existence of a manifest or object with the identifier "collection". It is also _RECOMMENDED_ that the topmost collection from which all other collections are discoverable by following links within the heirarchy be named `top`, if there is one.
 
 Manifests or collections _MAY_ appear within more than one collection. For example, an institution might define four collections: one for modern works, one for historical works, one for newspapers and one for books.  The manifest for a modern newspaper would then appear in both the modern collection and the newspaper collection.  Alternatively, the institution may choose to have two separate newspaper collections, and reference each as a sub-collection of modern and historical.
 
@@ -1152,8 +1151,8 @@ manifests
 
 Collections _MUST_ have the following properties:
 
-  * `@id` and it _MUST_ be the HTTP URI from which the Collection's description can be retrieved.
-  * `@type` and the value MUST be "sc:Collection"
+  * `@id` and the value _MUST_ be the HTTP URI from which the Collection's description can be retrieved.
+  * `@type` and the value _MUST_ be "sc:Collection"
   * `label`
 
 Collections _SHOULD_ have the following properties:
@@ -1165,6 +1164,7 @@ Collections _SHOULD_ have the following properties:
   * `thumbnail`
 
 Collections _MAY_ have the following properties:
+
   * `logo`
   * `license`
   * `viewingHint`, however no values are defined in this specification that are valid for Collections
@@ -1178,7 +1178,7 @@ An example collection document:
 {% highlight json %}
 {
   "@context": "http://iiif.io/api/presentation/2/context.json",
-  "@id": "http://example.org/iiif/collection",
+  "@id": "http://example.org/iiif/collection/top",
   "@type": "sc:Collection",
   "label": "Top Level Collection for Example Organization",
   "description": "Description of Collection",
