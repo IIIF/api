@@ -42,18 +42,22 @@ In order to support different page turning modalities, additional requirements w
 
 Following the features in the Image API, viewing hints are now URIs defined in the JSON-LD context document.  The JSON representation is identical and hence this is a not a breaking change, however extensions must now use URIs not plain string literals.
 
+### URI Requirements and Recommendations
+
+The recommended URI patterns were changed to be more inline with the best practice of [Cool URIs][cool-uris] and no longer have `.json` on the end.  This is not forbidden, and is still the easiest for the simplest server of just files on disk, but we should not recommend bad practice, no matter how easy.  Secondly, the recommendation for Canvas URIs being HTTP was upgraded to a requirement, as we rely on media fragments, which are only defined in terms of HTTP URIs.
+
 ## Other Changes
 
 ### Collections
 
-Section 7.6 was added to describe collections of manifests, and sub-collections.  This allows discovery in a pragmatic and simple way, that is easy to understand and follows the same structure and approach as the rest of the Presentation API.
+Section 7.6 was added to describe collections of manifests, and sub-collections.  This allows discovery in a pragmatic and simple way, that is easy to understand and follows the same structure and approach as the rest of the Presentation API.  Collections may embed other collections, in the same way that Manifests embed Sequences, but may not embed Manifests.
 
 ### Additional Fields
 
 Several new fields were added:
 
 * `logo`
-* `thumbnail`
+* `thumbnail` (recommended for Canvas, Manifest and Collection)
 * `related` (although was used in practice in 1.0)
 
 ### Services Clarified and Extended
@@ -63,6 +67,10 @@ In order to manage requests for features that are not universally applicable, bu
 ### Server-side Image Rotation Option
 
 Added and described an Open Annotation Selector object that allows specifying the parameters for an Image API URI separately.  The original use case was server side rotation of a segment image, however all of the parameters could be useful in different situations.
+
+### Image Annotation Requirements Reduced
+
+In order to reduce unnecessary repetition of information, some of the requirements for Image Annotations were dropped, including the need for height, width and format.
 
 ### Start Canvas
 
