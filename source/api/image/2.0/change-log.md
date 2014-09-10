@@ -154,5 +154,6 @@ A recommendation was made to allow compression to be specified in the image URL 
 [prezi-api]: /api/presentation/2.0/
 [services]: /api/annex/services/
 [goog-webp]: https://developers.google.com/speed/webp/
+[deferred-changes]: #deferred-changes "Deferred Changes"
 
 {% include acronyms.md %}

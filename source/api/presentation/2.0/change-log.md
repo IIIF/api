@@ -148,5 +148,6 @@ The content or commentary resources linked via annotations to a Canvas may be on
 [rfc-2119]: http://tools.ietf.org/html/rfc2119 "Key words for use in RFCs to Indicate Requirement Levels"
 [semver]: http://semver.org/ "Semantic Versioning Specification"
 [versioning]: /api/image/2.0/#b-versioning "Image API Appendix B: Versioning"
+[cool-uris]: http://www.w3.org/Provider/Style/URI.html "Cool URIs"
 
 {% include acronyms.md %}
