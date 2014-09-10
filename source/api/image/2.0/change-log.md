@@ -42,8 +42,7 @@ The `qualities` and `formats` properties have been moved into the object referen
 
 ### Added `tiles` property to Image Information document
 
-A `tiles` property was added to the top level of the JSON in the Image Information document response.  The rationale was to promote consistency between information about tiles (regions of an image at different sizes) and the different sizes available (see `sizes` below), to clarify that the `scale_factors` are related to tiles rather than the complete image, and to allow different tile sizes at different scale factors.  The property is a list of JSON objects, with `height`, `width` and `scale_factors` properties.  This change therefore renames `tile_height` and `tile_width`, and moves them along with `scale_factors` into the new structure.  The `height` property is now optional, defaulting to the same as `width`.  This makes the default of square tiles easier to record.
-
+A `tiles` property was added to the top level of the JSON in the Image Information document response.  The rationale was to promote consistency between information about tiles (regions of an image at different sizes) and the different sizes available (see `sizes` below), to clarify that the `scale_factors` are related to tiles rather than the complete image, and to allow different tile sizes at different scale factors.  The property is a list of JSON objects, with `height`, `width` and `scaleFactors` properties.  This change therefore renames `tile_height` to `height`, `tile_width` to `width`, `scale_factors` to `scaleFactors` (to follow the Presentation API's camelCase) and moves them into the new structure.  The `height` property is now optional, defaulting to the same as `width`.  This makes the default of square tiles easier to record.
 
 ### Required <abbr title="Cross-Origin Resource Sharing">CORS</abbr> for level 1 Compliance
 
@@ -53,7 +52,7 @@ A few other HTTP features have been enumerated in the [HTTP Features][http-featu
 
 ### Changed URIs for compliance levels
 
-The compliance URIs have been moved into the `http://iiif.io` domain. They now resolve to JSON-LD documents that enumerate the features that are supported by a server that implements this level of compliance. See [Section 6. Compliance Levels][api-compliance] for detailed explanation.
+The compliance URIs have been moved into the `http://iiif.io/` domain. They now resolve to JSON-LD documents that enumerate the features that are supported by a server that implements this level of compliance. See [Section 6. Compliance Levels][api-compliance] for detailed explanation.
 
 ### Dropped Support for Content Negotiation and Default Image Format
 
@@ -90,6 +89,10 @@ The `protocol` property is required at all levels of compliance.
 ### Drop Rotation from Level 1 Compliance
 
 Rotation in multiples of 90 was previously a level 1 requirement. As this can be--and frequently is--handled in the browser via the HTML 5 `<canvas>` element or CSS instructions, the editors felt this was an unnecessary barrier to level 1 compliance.
+
+### Drop Profile Link Header to Optional
+
+After much discussion, the profile link header for indicating the basic profile of an image resource was dropped to optional.  This was because clients typically cannot intercept link headers on resources without using AJAX, and if you were going to test for the profile by doing a HEAD or GET on an image you could more easily construct the Image Information document's URI and GET everything needed.
 
 ### Add mirroring to rotation parameter
 
@@ -150,5 +153,6 @@ A recommendation was made to allow compression to be specified in the image URL 
 [versioning]: /api/image/2.0/#b-versioning "Image API Appendix B: Versioning"
 [prezi-api]: /api/presentation/2.0/
 [services]: /api/annex/services/
+[goog-webp]: https://developers.google.com/speed/webp/
 
 {% include acronyms.md %}
