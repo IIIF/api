@@ -23,7 +23,7 @@ _Copyright © 2012-2014 Editors and contributors. Published by the IIIF under th
 ## Abstract
 {:.no_toc}
 
-This document describes an extension to the [IIIF Image API][iiif-image-api] which compliant servers may implement to faciliate the management of images on a server using the HTTP protocol.
+This document describes an extension to the [IIIF Image API][image-api] which compliant servers may implement to faciliate the management of images on a server using the HTTP protocol.
 
 Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss].
 
@@ -51,9 +51,9 @@ There are cases where it is useful for a client to store, update or delete image
 
 ## 2. Requests
 
-This document aims to follow the [REST style of architecture][fielding-rest], as commonly implemented in HTTP. There is one deviation from this approach, which is that rather than using the [OPTIONS][http-options] method or the [Access-Control-Allow-Methods][http-access-control-allow-methods] header to describe which methods the server supports, the a client should request the server's capabilities document, as described in [Section 5.2 of the IIIF Image API version 1.2][].
+This document aims to follow the [REST style of architecture][fielding-rest], as commonly implemented in HTTP. There is one deviation from this approach, which is that rather than using the [OPTIONS][http-options] method or the [Access-Control-Allow-Methods][http-access-control-allow-methods] header to describe which methods the server supports, the a client should request the server's capabilities document, as described in the [Image API][image-api].
 
-The predicates that should be used to indicate which methods are supported are defined in [Section 4: Extension Predicates][4].
+The predicates that should be used to indicate which methods are supported are defined in [Section 4][4].
 
 The headers required by each request and response should follow [Section 14 of the HTTP Specification][http-headers]. Additional requirements and options are described below.
 
@@ -140,7 +140,7 @@ There are no special requirements for the HTTP headers associated with a DELETE 
 
 ## 3. Response Codes
 
-In addition to the error conditions discussed in [Section 6.2][] of the image API, the following codes are likely to be relevant. Implementations may find additional codes useful to their applications.
+In addition to the error conditions discussed in the API documents, the following codes are likely to be relevant. Implementations may find additional codes useful to their applications.
 
 ### 3.1 Successful Requests
 
@@ -200,6 +200,9 @@ As of this writing authorization and authentication are topics of heavy dicussio
 [http-location]: http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.30
 [http-options]: http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.2
 [iiif-discuss]: mailto:iiif-discuss%40googlegroups.com
-[iiif-image-api]: /api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}
+[image-api]: /api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}
+[5]: #authorization-authentication-and-security
+[2]: #requests
+[4]: #extension-context
 
 {% include acronyms.md %}
