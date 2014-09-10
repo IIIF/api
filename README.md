@@ -18,3 +18,4 @@ Markdown Source of specifications documents
 
  * Much of the site data is in the YAML files in `_data/` (e.g. member institutions, server impls, demos, etc.) make edits there.
  * The latest versions of the APIs are set in `_config.yml`. Change there will get pushed to `.htaccess`, `technical-details.html`, and any other links.
+ * Always use the \[link text\]\[ref\] method of creating links.  `ref` must consist only of a-zA-Z0-9_- and the first character must be a-zA-Z

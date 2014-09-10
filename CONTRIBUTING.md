@@ -60,5 +60,10 @@ The _config.yml file defines various site level variables, notably the current v
 * Specs will use JSON and JSON-LD
 * Specs will use snake_case not camelCase
 
+## Links
+
+Links in Markdown documents must use the [reference link][reference-link] syntax, and the link id _MUST_ match this regex: `[a-zA-Z][_0-9a-zA-Z-]`, i.e., they must start with a letter, and may then contain letters, numerals, and the characters '_' and '-'.
+
 [kram]: http://kramdown.gettalong.org/syntax.html
 [squash]: http://lmgtfy.com/?q=Squash+git+commits
+[reference-link]: http://kramdown.gettalong.org/syntax.html#reference-links

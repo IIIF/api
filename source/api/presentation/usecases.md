@@ -90,7 +90,4 @@ Thanks to the members of the [IIIF][iiif-community] for their continuous engagem
 [icon-opt]: /img/metadata-api/optional.png "Optional"
 [icon-na]: /img/metadata-api/not_allowed.png "Not allowed"
 
-{% for acronym in site.data.acronyms %}
-  *[{{ acronym[0] }}]: {{ acronym[1] }}
-{% endfor %}
-
+{% include acronyms.md %}
