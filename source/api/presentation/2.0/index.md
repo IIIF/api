@@ -1,13 +1,13 @@
 ---
-title: "Presentation API 2.0 - DRAFT"
-title_override: "IIIF Presentation API 2.0 - Final Draft"
+title: "Presentation API 2.0"
+title_override: "IIIF Presentation API 2.0"
 id: presentation-api
 layout: spec
 tags: [specifications, presentation-api]
 major: 2
 minor: 0
 patch: 0
-pre: final-draft
+pre: final
 ---
 
 ## Status of this Document

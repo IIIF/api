@@ -1,13 +1,13 @@
 ---
-title: "Image API 2.0 - DRAFT"
-title_override: "IIIF Image API 2.0 - Final Draft"
+title: "Image API 2.0"
+title_override: "IIIF Image API 2.0"
 id: image-api
 layout: spec
 tags: [specifications, image-api]
 major: 2
 minor: 0
 patch: 0
-pre: final-draft
+pre: final
 ---
 
 ## Status of this Document
