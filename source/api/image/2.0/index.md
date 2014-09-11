@@ -33,7 +33,7 @@ _Copyright © 2012-2014 Editors and contributors. Published by the IIIF under th
 ## Abstract
 {:.no_toc}
 
-This document describes an image delivery API proposed by the International Image Interoperability Framework (IIIF) group. The IIIF Image API specifies a web service that returns an image in response to a standard HTTP or HTTPS request. The URI can specify the region, size, rotation, quality characteristics and format of the requested image. A URI can also be constructed to request basic technical information about the image to support client applications. It was conceived of to facilitate systematic reuse of image resources in digital image repositories maintained by cultural heritage organizations. This API could be adopted by any image repository or service, and can be used to retrieve static images in response to a properly constructed URI.
+This document describes an image delivery API proposed by the International Image Interoperability Framework (IIIF) group. The IIIF Image API specifies a web service that returns an image in response to a standard HTTP or HTTPS request. The URI can specify the region, size, rotation, quality characteristics and format of the requested image. A URI can also be constructed to request basic technical information about the image to support client applications. This API was conceived of to facilitate systematic reuse of image resources in digital image repositories maintained by cultural heritage organizations. It could be adopted by any image repository or service, and can be used to retrieve static images in response to a properly constructed URI.
 
 Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss]
 
@@ -51,7 +51,7 @@ This document is intended for architects and developers building applications th
   * Image focused web applications, such as pan/zoom viewers, book-readers, etc.
   * Client applications using image content for analysis or comparison.
 
-This specification concerns the use of the images by a client, but not management of the images by the server. It covers how to respond to the requests given in a particular URI syntax, but does not cover methods of implementation such as rotation algorithms, transcoding, color management, compression, or how to respond to URIs that do not conform to the specified syntax. This allows flexibility for implementation in domains with particular constraints or specific community practices, while supporting interoperability in the general case.
+This specification concerns image requests by a client, but not management of the images by the server. It covers how to respond to the requests given in a particular URI syntax, but does not cover methods of implementation such as rotation algorithms, transcoding, color management, compression, or how to respond to URIs that do not conform to the specified syntax. This allows flexibility for implementation in domains with particular constraints or specific community practices, while supporting interoperability in the general case.
 
 ## 2. URI Syntax
 
@@ -125,7 +125,7 @@ The API places no restrictions on the form of the identifiers that a server may 
 
 ##  4. Image Request Parameters
 
-All parameters described below are required for compliant construction of a IIIF Image API URI. The sequence of parameters in the URI _MUST_ be in the order described below. The order of the parameters is also intended as a mnemonic for the order of the operations by which the service should manipulate the image content. Thus, the requested image content is first extracted as a region of the complete image, then scaled to the requested size, mirrored and/or rotated, and finally transformed into the color quality and format. This resulting image content is returned as the representation for the URI. Image and region dimensions in pixels are always given as an integer numbers. Intermediate calculations may use floating point numbers and the rounding method is implementation specific. Some parameters, notably percentages, may be specified with floating point numbers. These should have at most 10 decimal digits and consist only of decimal digits and "." with a leading zero if less than 1.0.
+All parameters described below are required for compliant construction of an IIIF Image API URI. The sequence of parameters in the URI _MUST_ be in the order described below. The order of the parameters is also intended as a mnemonic for the order of the operations by which the service should manipulate the image content. Thus, the requested image content is first extracted as a region of the complete image, then scaled to the requested size, mirrored and/or rotated, and finally transformed into the color quality and format. This resulting image content is returned as the representation for the URI. Image and region dimensions in pixels are always given as an integer numbers. Intermediate calculations may use floating point numbers and the rounding method is implementation specific. Some parameters, notably percentages, may be specified with floating point numbers. These should have at most 10 decimal digits and consist only of decimal digits and "." with a leading zero if less than 1.0.
 
 ###  4.1. Region
 
@@ -192,8 +192,8 @@ The size parameter determines the dimensions to which the extracted region is to
 | Form | Description |
 |----------------|-----------------------|
 | `full`         | The extracted region is not scaled, and is returned at its full size. |
-| w,             | The extracted region should be scaled so that its width is exactly equal to w, and the height will be a calculated value that maintains the aspect ratio of the requested region. |
-| ,h             | The extracted region should be scaled so that its height is exactly equal to h, and the width will be a calculated value that maintains the aspect ratio of the requested region. |
+| w,             | The extracted region should be scaled so that its width is exactly equal to w, and the height will be a calculated value that maintains the aspect ratio of the extracted region. |
+| ,h             | The extracted region should be scaled so that its height is exactly equal to h, and the width will be a calculated value that maintains the aspect ratio of the extracted region. |
 | pct:n          | The width and height of the returned image is scaled to n% of the width and height of the extracted region. The aspect ratio of the returned image is the same as that of the extracted region. |
 | w,h            | The width and height of the returned image are exactly w and h. The aspect ratio of the returned image _MAY_ be different than the extracted region, resulting in a distorted image. |
 | !w,h           | The image content is scaled for the best fit such that the resulting width and height are less than or equal to the requested width and height. The exact scaling _MAY_ be determined by the service provider, based on characteristics including image quality and system performance. The dimensions of the returned image content are calculated to maintain the aspect ratio of the extracted region. |
@@ -485,7 +485,7 @@ The JSON at the top level of the response will include the following properties:
 | `service` | Optional | The `service` property provides a hook for additional information to be included in the image description, for example the physical size of the object depicted.  Please see the [Service Profiles][service-profiles] annex for more information. |
 {: .image-api-table}
 
-The objects in the `sizes` list have the properties in the following table. Images requested using these sizes _SHOULD_ have a region parameter of "full" and rotation of "0". The full URL would be: `{base_url}/{identifier}/full/{width},{height}/0/default.jpg`
+The objects in the `sizes` list have the properties in the following table. Images requested using these sizes _SHOULD_ have a region parameter of "full" and rotation of "0". The full URL for an image with "default" quality in "jpg" format would be: `{base_url}/{identifier}/full/{width},{height}/0/default.jpg`
 
 | Property   | Required? | Description |
 | ---------- | --------- | ----------- |
@@ -610,7 +610,7 @@ The order in which servers parse requests and detect errors is not specified. A 
 | Status Code | Description |
 | ---------- | ----------- |
 | 400 Bad Request | This response is used when it is impossible for the server to fulfil the request, as the syntax of the request is incorrect.  For example, this would be used if the size parameter does not match any of the specified syntaxes. |
-| 401 Unauthorized | Authentication is required and not provided. See Section 7 below for details. |
+| 401 Unauthorized | Authentication is required and not provided. See the [Authentication][authentication] section for details. |
 | 403 Forbidden | The user, authenticated or not, is not permitted to perform the requested operation. |
 | 404 Not Found | The image resource specified by [identifier] does not exist, or the value of one or more of the parameters is not supported for this image. |
 | 500 Internal Server Error | The server encountered an unexpected error that prevented it from fulfilling the request. |
