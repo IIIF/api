@@ -404,7 +404,7 @@ There are many ways in which the same image can be described using the different
   * Caching becomes significantly more efficient, both client and server side, when the URIs used are the same between systems and sessions.
   * Response times can be improved by avoiding redirects from a requested non-canonical URI syntax to the canonical syntax by using the canonical form directly.
 
-In order to support the above requirements, clients _SHOULD_ construct the image request URIs using to following canonical parameter values where possible.  Image servers _MAY_ redirect the client to the canonical URI from a non-canonical equivalent.
+In order to support the above requirements, clients _SHOULD_ construct the image request URIs using the following canonical parameter values where possible.  Image servers _MAY_ redirect the client to the canonical URI from a non-canonical equivalent.
 
 | Parameter | Canonical value |
 | --------- | --------------- |
@@ -511,9 +511,9 @@ The objects in the `profiles` list have the properties in the following table.  
 | `@context`  | Optional  | The string "http://iiif.io/api/image/{{ page.major }}/context.json". This should be included only if the profile's URI is dereferenced. |
 | `@id`       | Optional  | The URI of the profile. |
 | `@type`     | Optional  | The string "iiif:ImageProfile". |
-| `formats`   | Optional  | The set of image format parameter values available for the image. |
-| `qualities` | Optional  | The set of image quality parameter values available for the image. |
-| `supports`  | Optional  | The set of additional features supported beyond those declared in the compliance level document. |
+| `formats`   | Optional  | The set of image format parameter values available for the image.  If not specified then clients should assume only formats declared in the compliance level document.|
+| `qualities` | Optional  | The set of image quality parameter values available for the image.  If not specified then clients should assume only qualities declared in the compliance level document.|
+| `supports`  | Optional  | The set of features supported for the image.  If not specified then clients should assume only features declared in the compliance level document. |
 {: .image-api-table}
 
 The set of features that may be specified in the `supports` property of an Image profile are:
@@ -541,7 +541,9 @@ The set of features that may be specified in the `supports` property of an Image
 
 The set of features, formats and qualities supported is the union of those declared in all of the external profile documents and any embedded profile objects.  If a feature is not present in either the profile document or the `supports` property of an embedded profile, then a client _MUST_ assume that the feature is not supported.
 
-If any of `formats`, `qualities`, or `supports` would have an empty list as its value, then the property _SHOULD_ be omitted from the response instead. 
+Servers _SHOULD_ support requests for images with parameters specified by the `sizes` and `tiles` fields for all combinations of `qualities` and `formats` supported.
+
+If any of `formats`, `qualities`, or `supports` have no additional values beyond those specified in the referenced compliance level, then the property _SHOULD_ be omitted from the response rather than being present with an empty list. 
 
 URIs _MAY_ be added to the supports list of a profile to cover features not defined in this specification. Clients _MUST_ ignore URIs that are not recognized.
 
