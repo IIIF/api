@@ -1,20 +1,21 @@
 require 'spec_helper'
-require 'open3'
+require 'kramdown/document'
 
 describe 'Editors' do 
 
   they 'tend to screw up markdown' do
     
     report = {}
-    template = 'cat %s | kramdown 2>&1 >/dev/null | grep "link ID \'[a-zA-Z][_0-9a-zA-Z-]*\'"'
+    # template = 'cat %s | kramdown 2>&1 >/dev/null | grep "link ID \'[a-zA-Z][_0-9a-zA-Z-]*\'"'
     glob_pattern = File.join(File.expand_path('../../../source', __FILE__), '**/*.md')
     markdown_files = Dir.glob(glob_pattern)
     markdown_files.each do |mf|
       unless mf.end_with?('acronyms.md')
-        stdin, stdout, stderr, wait_thr = Open3.popen3(template % [mf])
-        errors = stdout.read.split('\n').map(&:strip)
-        unless errors.length == 0
-          report[mf] = errors
+        File.open(mf) do |f|
+          errors = Kramdown::Document.new(f.read).warnings.grep(/link ID '[a-zA-Z][_0-9a-zA-Z-]*'/)
+          unless errors.length == 0
+            report[mf] = errors
+          end
         end
       end
     end
