@@ -58,7 +58,7 @@ The _config.yml file defines various site level variables, notably the current v
 ## Technical Decisions
 
 * Specs will use JSON and JSON-LD
-* Specs will use snake_case not camelCase
+* Specs will use camelCase not snake_case
 
 ## Links
 

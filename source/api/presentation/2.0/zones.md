@@ -4,7 +4,7 @@ title_override: "IIIF Presentation API 2.1: Zones Notes"
 layout: spec
 tags: [specifications, presentation-api]
 major: 2
-minor: 0
+minor: 1
 patch: 0
 pre: draft1
 ---
