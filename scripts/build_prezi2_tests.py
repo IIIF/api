@@ -18,7 +18,7 @@ except:
 
 BASEURL = "http://iiif.io/api/presentation/2.0/example/fixtures/"
 HOMEDIR = "../source/api/presentation/2.0/example/fixtures/"
-IMAGE_BASEURL = "http://iiif.io/api/image/2.0/example/"
+IMAGE_BASEURL = "http://iiif.io/api/image/2.0/example/reference/"
 imageWidth = 1200
 imageHeight = 1800
 

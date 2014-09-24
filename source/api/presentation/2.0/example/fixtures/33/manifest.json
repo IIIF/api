@@ -41,7 +41,7 @@
                 }, 
                 "item": [
                   {
-                    "@id": "http://iiif.io/api/image/2.0/example/detail/full/full/0/gray.jpg", 
+                    "@id": "http://iiif.io/api/image/2.0/example/reference/detail/full/full/0/gray.jpg", 
                     "@type": "dctypes:Image", 
                     "label": "Greyscale", 
                     "height": 173, 
