@@ -22,7 +22,7 @@
               "resource": {
                 "@type": "oa:Choice", 
                 "default": {
-                  "@id": "http://iiif.io/api/image/2.0/example/page1-full/full/full/0/default.jpg", 
+                  "@id": "http://iiif.io/api/image/2.0/example/reference/page1-full/full/full/0/default.jpg", 
                   "@type": "dctypes:Image", 
                   "label": "Color", 
                   "format": "image/jpeg", 
@@ -30,13 +30,13 @@
                   "width": 1200, 
                   "service": {
                     "@context": "http://iiif.io/api/image/2/context.json", 
-                    "@id": "http://iiif.io/api/image/2.0/example/page1-full", 
+                    "@id": "http://iiif.io/api/image/2.0/example/reference/page1-full", 
                     "profile": "http://iiif.io/api/image/2/level1.json"
                   }
                 }, 
                 "item": [
                   {
-                    "@id": "http://iiif.io/api/image/2.0/example/page1-full/full/full/0/gray.jpg", 
+                    "@id": "http://iiif.io/api/image/2.0/example/reference/page1-full/full/full/0/gray.jpg", 
                     "@type": "dctypes:Image", 
                     "label": "Greyscale", 
                     "height": 1800, 

@@ -20,14 +20,14 @@
               "@type": "oa:Annotation", 
               "motivation": "sc:painting", 
               "resource": {
-                "@id": "http://iiif.io/api/image/2.0/example/page1-full/full/full/0/default.jpg", 
+                "@id": "http://iiif.io/api/image/2.0/example/reference/page1-full/full/full/0/default.jpg", 
                 "@type": "dctypes:Image", 
                 "format": "image/jpeg", 
                 "height": 1800, 
                 "width": 1200, 
                 "service": {
                   "@context": "http://iiif.io/api/image/2/context.json", 
-                  "@id": "http://iiif.io/api/image/2.0/example/page1-full", 
+                  "@id": "http://iiif.io/api/image/2.0/example/reference/page1-full", 
                   "profile": "http://iiif.io/api/image/2/level1.json"
                 }
               }, 
@@ -37,10 +37,10 @@
               "@type": "oa:Annotation", 
               "motivation": "sc:painting", 
               "resource": {
-                "@id": "http://iiif.io/api/image/2.0/example/detail/10,10,153,153/full/0/default.jpg", 
+                "@id": "http://iiif.io/api/image/2.0/example/reference/detail/10,10,153,153/full/0/default.jpg", 
                 "@type": "oa:SpecificResource", 
                 "full": {
-                  "@id": "http://iiif.io/api/image/2.0/example/detail/full/full/0/default.jpg", 
+                  "@id": "http://iiif.io/api/image/2.0/example/reference/detail/full/full/0/default.jpg", 
                   "@type": "dctypes:Image", 
                   "label": "Detail Image", 
                   "format": "image/jpeg", 
@@ -48,7 +48,7 @@
                   "width": 153, 
                   "service": {
                     "@context": "http://iiif.io/api/image/2/context.json", 
-                    "@id": "http://iiif.io/api/image/2.0/example/detail", 
+                    "@id": "http://iiif.io/api/image/2.0/example/reference/detail", 
                     "profile": "http://iiif.io/api/image/2/level1.json"
                   }
                 }, 
