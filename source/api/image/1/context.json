@@ -1,7 +1,7 @@
 ---
 ---
 {	
-  "@context": {
+    "@context": {
     "iiif":       "http://library.stanford.edu/iiif/image-api/ns/",
     "xsd" :    "http://www.w3.org/2001/XMLSchema#",
     "exif":    "http://www.w3.org/2003/12/exif/ns#",
@@ -14,6 +14,6 @@
     "scale_factors":{"@id":"iiif:scaleFactor", "@container":"@list"},
     "formats" :     {"@id":"iiif:formats", "@container":"@list"},
     "qualities":    {"@id":"iiif:qualities", "@container":"@list"},
-    "profile":    {"@type":"@id", "@id":"dcterms:conformsTo"},
-
+    "profile":    {"@type":"@id", "@id":"dcterms:conformsTo"}
+	}
 }
