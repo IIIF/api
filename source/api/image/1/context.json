@@ -1,0 +1,19 @@
+---
+---
+{	
+  "@context": {
+    "iiif":       "http://library.stanford.edu/iiif/image-api/ns/",
+    "xsd" :    "http://www.w3.org/2001/XMLSchema#",
+    "exif":    "http://www.w3.org/2003/12/exif/ns#",
+    "dcterms": "http://purl.org/dc/terms/",
+
+	"height":      {"@type":"xsd:integer", "@id":"exif:height"},
+    "width":       {"@type":"xsd:integer", "@id":"exif:width"},
+    "tile_height":  {"@type":"xsd:integer", "@id":"iiif:tileHeight"},
+    "tile_width":   {"@type":"xsd:integer", "@id":"iiif:tileWidth"},
+    "scale_factors":{"@id":"iiif:scaleFactor", "@container":"@list"},
+    "formats" :     {"@id":"iiif:formats", "@container":"@list"},
+    "qualities":    {"@id":"iiif:qualities", "@container":"@list"},
+    "profile":    {"@type":"@id", "@id":"dcterms:conformsTo"},
+
+}
