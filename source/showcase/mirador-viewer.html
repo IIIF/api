@@ -1,0 +1,19 @@
+---
+title: "Showcase : Mirador Viewer"
+id: showcase-mirador
+categories: [pages]
+layout: sub-page
+---
+
+<section class="showcase showcase-item wrapper">
+  {% include showcase_return.html %}
+  <iframe src="http://sul-reader-test.stanford.edu/mirador/" frameborder="0"></iframe>
+  <p>
+    {% for item in site.data.showcase %}
+      {% if item.id == "mirador" %}
+        <p>{{ item.desc }}</p>
+        {% if item.github_url %} <a href="{{ item.github_url }}" target="_blank" class="button-turquoise">GitHub</a> {% endif %}
+      {% endif %}
+    {% endfor %}
+  </p>
+</section>

@@ -1,0 +1,31 @@
+---
+title: Showcase
+id: showcase
+categories: [pages]
+layout: sub-page
+---
+
+<section class="showcase wrapper">
+  <div class="isotope-container">
+
+    {% for item in site.data.showcase %}
+    <div class="isotope-item"  ontouchstart="this.classList.toggle('hover');">
+      <div class="flipper">
+        <div class="front">
+          <img src="{{ item.img_url }}">
+          <p>{{ item.name }}</p>
+        </div>
+        <div class="back">
+          <p><strong>{{ item.name }}</strong></p>
+          <p class="desc">{{ item.desc }}</p>
+          <p>
+            {% if item.github_url %} <a href="{{ item.github_url }}" target="_blank" class="button-turquoise">GitHub</a> {% endif %}
+            {% if item.url %} <a href="{{ item.url }}" class="button-turquoise">Learn more</a> {% endif %}
+          </p>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+</section>
