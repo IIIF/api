@@ -6,6 +6,7 @@
     {{ content }}
     {% include footer.html %}
     {% if page.id == 'main' %}{%  include interactive_image_js.html %}{% endif %}
+    {% if page.id == 'showcase' %}{%  include showcase_js.html %}{% endif %}
     {% include ga.html %}
   </body>
 </html>

@@ -1,0 +1,22 @@
+---
+title: "Showcase : Wellcome Player"
+id: showcase-wellcome
+categories: [pages]
+layout: sub-page
+---
+
+<section class="showcase showcase-item wrapper">
+  {% include showcase_return.html %}
+
+  <div class="wellcomePlayer" data-uri="http://wellcomelibrary.org/package/b18035723" data-sequenceindex="0" data-assetindex="0" data-zoom="-0.5859,0,2.1719,1.3791" data-rotation"0" data-config="/service/playerconfig" style="width:100%; height:500px; background-color: #000"></div>
+  <script type="text/javascript" id="embedWellcomePlayer" src="http://wellcomelibrary.org/spas/player/build/wellcomeplayer/js/embed.js"></script><script type="text/javascript">/* wordpress fix */</script>
+  <p>
+    {% for item in site.data.showcase %}
+      {% if item.id == "wellcome" %}
+        <p>{{ item.desc }}</p>
+        {% if item.github_url %} <a href="{{ item.github_url }}" target="_blank" class="button-turquoise">GitHub</a> {% endif %}
+      {% endif %}
+    {% endfor %}
+  </p>
+
+</section>
