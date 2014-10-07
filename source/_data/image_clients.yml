@@ -16,7 +16,7 @@
     Mirador is an open source image, Javascript and HTML5 viewer that delivers
     high resolution images in a workspace that enables comparison of multiple
     images from multiple repositories.  Mirador is fully IIIF-compatible. Visit
-    the [Mirador demo](http://demos.iiif.io/mirador/) to see it in
+    the [Mirador demo](http://showcase.iiif.io/viewer/mirador/) to see it in
     action.
 - name: OpenSeadragon
   uri: http://openseadragon.github.io/
