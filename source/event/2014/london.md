@@ -30,20 +30,21 @@ Monday, 20th of October 2014
 | 10:15 - 10:45  | Coffee | |
 | 10:45 - 11:15  | Introducing the [Image API][image-api] | Simeon Warner & Jon Stroop (Princeton) |
 | 11:15 - 11:45  | Introducing the [Presentation API][prezi-api] | Rob Sanderson (Stanford) |
-| 11:45 - 12:00  | Discussion | Warner, Stroop, Sanderson |
+| 11:45 - 12:00  | Discussion | Simeon Warner, Jon Stroop, Rob Sanderson |
 | 12:00 - 13:30  | Lunch (not provided)| |
 | 13:30 - 15:00  | Software & Solutions Showcase | Rob Sanderson |
 |                | Open Seadragon and Loris | Jon Stroop |
 |                | IIPImage | Ruven Pillay (C2RMF) |
 |                | Wellcome Player | Tom Crane (Digirati) |
+|                | Georeferencer | Petr Pridal (KlokanTech) |
 |                | Mirador | Stu Snydman (Stanford) |
-|                | Museum Content in IIIF | Michael Appleby (Yale) |
 |                | Discussion | | 
 | 15:00 - 15:30  | Coffee |
 | 15:30 - 16:45  | Getting Started | Stu Snydman |
-|                | Case Study: e-codices | Rafael Schwemmer (e-codices) |
+|                | Case Study: e-codices | Rafael Schwemmer (Text & Bytes) |
+|                | Case Study: Yale Center for British Art | Michael Appleby (Yale) |
 |                | From 0 to 60 in 15 minutes | Rob Sanderson, Jon Stroop |
-|                | Panel Discussion | (TBD) |
+|                | Panel Discussion | Rafael Schwemmer, Michael Appleby, Matthew McGrattan (Oxford), Anders Conrad (Royal Library of Denmark) |
 | 16:45 - 17:00  | Next Steps & Close | Tom Cramer |
 {: .image-api-table}
 
