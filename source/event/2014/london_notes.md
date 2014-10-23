@@ -276,6 +276,8 @@ Restrictions on images only, but could imagine restricting annotations.
 
 ### Authentication Discussion
 
+Went through [authentication scenarios](london_auth_scenarios.md)
+ 
 if an authenticated user makes a degraded image/manifest (which will have a different URI), should they be redirected to the higher-quality one? (or simply provide awareness?)
 
 what happens in case where user credentials expire while they are viewing? how are they made aware?
