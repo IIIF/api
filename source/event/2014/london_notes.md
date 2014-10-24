@@ -677,7 +677,7 @@ Could be used when references are resolved
 
 Do stuff with Ranges
 
-ACTION:  continue work on Abstract API:  Drew, Matt, Jon, Rob, Digirati guy (lead)
+ACTION:  continue work on Abstract API:  Drew, Matt, Jon, Rob, Ed
 
 Additional specific modules
   -- do OSD based painting of canvas
@@ -697,3 +697,45 @@ Links to validators, tutorials and fixtures should be more prominent.
 Reference implementation of a client that handles all the fixture objects correctly
 Reference implementation to send your manifest URI to 
 Button on validator to open in mirador (or other client)
+Start validator from info.json URI
+
+## Additional Notes from Thursday
+
+### Auth Principles
+
+ * MUST work for both Image and Presentation (and any future services)
+ * Identifiers for 'degraded' (i.e. different) resources (e.g. images) MUST be different
+    * To ensure caches aren't invalidated
+    * To not break the interwebs
+       * E.g. links may fail but they should not be different for different users
+ * Authentication method is out of scope (as much as possible)
+    * E.g. OAuth, CAS, basic web auth
+ * Authorization roles/determination is out of scope
+    * E.g. no shared "student"
+ * How resources are degraded is out of scope, including description thereof
+    * E.g. Could be more compressed, could limit features, restrict qualities, watermark
+ * If you give access to info.json, you MUST give access to all the files it talks about
+ * The description of multiple authentication systems at once is out of scope
+    * Thus the info.json MUST have 0-1 services
+ * You must logout before getting prompted to authenticate again
+ * The service for authentication must provide the logout and somehow needs to clear it on the client if necessary
+
+![workflow](https://raw.githubusercontent.com/IIIF/iiif.io/master/source/event/2014/london-auth-workflow.png) Workflow Strawman
+
+### Notes to selves
+
+  * Don't forget rights/attribution in info as well
+  * label to describe in human readable way the degradation
+  * make sure that multiple levels of degradation is possible
+    * E.g. thumbnail without any, max size within IP, sign in to get full version
+    * E.g. different methods of degradation for different roles
+  * No redirect loops :)
+  * Optional hint at manifest level that logins will be required, so please authenticate early and often
+  * Figure out CORS and cookies (Access-Control-Allow-Credentials), security implications
+  * Cookies are required as you don't have access to request/response headers for image requests
+
+
+
+
+
+
