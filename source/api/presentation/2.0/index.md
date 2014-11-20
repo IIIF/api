@@ -938,7 +938,7 @@ CSS may also be used for rotation of images which are not correctly aligned with
     "style":"rotated",
     "full": {
       "@id":"http://www.example.org/iiif/book1/res/page1-detail.png",
-      "@type":"dctypes:Image",
+      "@type":"dctypes:Image"
     }
   },
   "on":"http://www.example.org/iiif/book1/canvas/p1#xywh=100,150,500,30"

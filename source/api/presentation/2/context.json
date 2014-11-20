@@ -27,6 +27,7 @@
 	        "thumbnail":   {"@type":"@id", "@id":"foaf:thumbnail"},
 	        "startCanvas": {"@type":"@id", "@id":"sc:hasStartCanvas"},
 
+	        "collections": {"@type":"@id", "@id":"sc:hasCollections", "@container":"@list"},
 	        "manifests":   {"@type":"@id", "@id":"sc:hasManifests", "@container":"@list"},
 	        "sequences":   {"@type":"@id", "@id":"sc:hasSequences", "@container":"@list"},
 	        "canvases":    {"@type":"@id", "@id":"sc:hasCanvases", "@container":"@list"},
@@ -39,9 +40,10 @@
 	        "metadata":    {"@type":"@id", "@id":"sc:metadataLabels", "@container":"@list"},
 
 	        "description": {"@id": "dc:description"},
-	        "attribution": {"@id": "sc:attributionLabel"},
 	        "height":      {"@type":"xsd:integer", "@id":"exif:height"},
 	        "width":       {"@type":"xsd:integer", "@id":"exif:width"},
+
+	        "attribution": {"@id": "sc:attributionLabel"},
 	        "viewingDirection": {"@id": "sc:viewingDirection", "@type":"@id"},
 	        "viewingHint": {"@id": "sc:viewingHint", "@type":"@id"},
 
