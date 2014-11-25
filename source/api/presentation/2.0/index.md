@@ -1206,7 +1206,7 @@ An example collection document:
 {% endhighlight %}
 
 
-##  8. Complete Example Response
+##  9. Complete Example Response
 
 Note that 7.3 above contains a complete response for a Collection document.
 

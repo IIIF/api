@@ -317,7 +317,7 @@ Could add a IIIF based attribute/xml doc.
 
 Logical place for it to live is the root of the image server eg {server}/{prefix}/image_sitemap.xml
 
-Manifests:  IIIF Collection of collections at a [well] known location.
+Manifests:  IIIF Collection of collections at a (well) known location.
 Can do both.
 
 ```xml
@@ -451,7 +451,7 @@ Experimental image search -- show hits that look like this.  eg shared iconograp
 _In Scope_
 
 * Full text and comment annotations
-* Return:  Range[s], *Canvas*, coordinates.   Hit, plus textual context on either side.
+* Return:  Range(s), *Canvas*, coordinates.   Hit, plus textual context on either side.
 * Desire: search within a bounding box, within canvas, within an annotationList, within a range, within a layer, within a sequence
 * How to refer from a manifest/range/canvas/list/layer to the search service
 * Parameters to the search service
@@ -733,9 +733,3 @@ Start validator from info.json URI
   * Optional hint at manifest level that logins will be required, so please authenticate early and often
   * Figure out CORS and cookies (Access-Control-Allow-Credentials), security implications
   * Cookies are required as you don't have access to request/response headers for image requests
-
-
-
-
-
-
