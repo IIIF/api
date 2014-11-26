@@ -5,7 +5,7 @@
   - >
     IIPMooViewer is an open source, Javascript and HTML5 image streaming and
     zooming client. IIPMooViewer is IIIF-compatible and works with
-    [IIPServer](https://github.com/ruven/iipsrv/tree/iiif) or other IIIF
+    [IIPServer](https://github.com/ruven/iipsrv) or other IIIF
     compatible servers. Visit the
     [IIP demo page](http://iipimage.sourceforge.net/demo/) to see the IIP
     viewers in action.

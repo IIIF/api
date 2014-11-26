@@ -199,7 +199,7 @@ As of this writing authorization and authentication are topics of heavy dicussio
 [http-if-none-match]: http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.26
 [http-location]: http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.30
 [http-options]: http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.2
-[iiif-discuss]: mailto:iiif-discuss%40googlegroups.com
+[iiif-discuss]: mailto:iiif-discuss@googlegroups.com
 [image-api]: /api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}
 [5]: #authorization-authentication-and-security
 [2]: #requests
