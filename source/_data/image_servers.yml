@@ -45,8 +45,8 @@
     The server  is an Fast CGI module written in C++ that is designed to be 
     embedded within a host web server such as Apache, Lighttpd, MyServer or Nginx.
   - > 
-    IIPImage server is IIIF compatible (see the 
-    [IIIF branch](https://github.com/ruven/iipsrv/tree/iiif) of the project).
+    IIPImage server is IIIF compatible (
+    [GitHub repo](https://github.com/ruven/iipsrv) of the project).
 - name: Loris
   uri: https://github.com/pulibrary/loris
   blurb:
