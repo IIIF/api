@@ -140,6 +140,8 @@ def addEmbedInfo(manifest):
 			for a in c.images:
 				try:
 					svc = OrderedDict()
+                                        svc['@context'] = "http://iiif.io/api/image/2/context.json"
+                                        svc['@id'] = c.id.replace("/full/full/0/default.jpg", '')
 					svc['height'] = imageHeight
 					svc['width'] = imageWidth
 					svc['tiles'] = [{"width":512,"scaleFactors":[1,2,4,8,16]}]
