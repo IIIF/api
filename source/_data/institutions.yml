@@ -8,8 +8,8 @@
   uri: 
 - name: British Library
   uri: 
-- name: Codices Electronici Sangallenses
-  uri: 
+- name: e-codices – Virtual Manuscript Library of Switzerland
+  uri:  http://www.e-codices.unifr.ch
 - name: Cornell University
   uri: 
 - name: DPLA
@@ -46,6 +46,8 @@
   uri: 
 - name: TextGrid
   uri: 
+- name: text &amp; bytes
+  uri:  http://www.textandbytes.com/en
 - name: Wellcome Trust
   uri:
 - name: Yale University
