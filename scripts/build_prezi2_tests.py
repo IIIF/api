@@ -53,7 +53,7 @@ testInfo = {
 7 : {"title": "Rights Metadata", 'mfprops': [('attribution', "Owning Institution"), ('license','http://creativecommons.org/licenses/by-nc/3.0/')]},
 8 : {"title": "SeeAlso link / Manifest", 'mfprops':[('seeAlso','http://www.example.org/link/to/metadata')]},
 9 : {"title": "Service link / Manifest", 'mfprops':[('service','http://www.example.org/link/to/searchService')]},
-10 : {"title": "Service link as Object", 'mfprops':[('service',{'@id': "http://www.example.org/link/to/searchService", "format":"text/html"})]},
+10 : {"title": "Service link as Object"},
 11 : {"title": "ViewingDirection: l-t-r", 'ncanvas':2, 'mfprops':[('viewingDirection', 'left-to-right')]},
 12 : {"title": "ViewingDirection: r-t-l", 'ncanvas':2, 'mfprops':[('viewingDirection', 'right-to-left')]},
 13 : {"title": "ViewingDirection: t-t-b", 'ncanvas':2, 'mfprops':[('viewingDirection', 'top-to-bottom')]},
@@ -84,6 +84,7 @@ testInfo = {
 38 : {"title": "Partial Image as Detail Image with IIIF Service", 'iiif':True},
 39 : {"title": "Image with CSS Rotation"},
 
+40 : {"title": "Multiple Languages for Metadata Labels", 'mfprops': [('metadata', {'label': {'fr':'date', 'en':'date'}, 'value': "2000"})]},
 41 : {"title": "Main Image with Server side Rotation", 'iiif':True},
 
 43 : {"title": "Embedded Transcription on Canvas", 'annoBody': fac.text('\n'.join(transcriptions[0]))},
@@ -138,21 +139,14 @@ def addEmbedInfo(manifest):
 	for s in manifest.sequences:
 		for c in s.canvases:
 			for a in c.images:
-				try:
-					svc = OrderedDict()
-                                        svc['@context'] = "http://iiif.io/api/image/2/context.json"
-                                        svc['@id'] = c.id.replace("/full/full/0/default.jpg", '')
-					svc['height'] = imageHeight
-					svc['width'] = imageWidth
-					svc['tiles'] = [{"width":512,"scaleFactors":[1,2,4,8,16]}]
-					profile = OrderedDict([("formats", ["gif", "tif", "pdf"]), 
-						("qualities", ["color", "gray"]), 
-						("supports", ["canonicalLinkHeader", "mirroring", "rotationArbitrary", "sizeAboveFull"])])
-					svc['profile'] = ["http://iiif.io/api/image/2/level2.json", profile]
-					a.resource.service = svc
-				except:
-					svc = a.resource.service
-					raise
+				svc = a.resource.service
+				svc.height = imageHeight
+				svc.width = imageWidth
+				svc.tiles = [{"width":512,"scaleFactors":[1,2,4,8,16]}]
+				profile = OrderedDict([("formats", ["gif", "tif", "pdf"]), 
+					("qualities", ["color", "gray"]), 
+					("supports", ["canonicalLinkHeader", "mirroring", "rotationArbitrary", "sizeAboveFull"])])
+				svc.profile = ["http://iiif.io/api/image/2/level2.json", profile]
 
 def removeImages(manifest):
 	for s in manifest.sequences:
@@ -285,10 +279,14 @@ def addServerRotation(manifest):
 				sr.id = img.id.replace("/0/", "/180/", 1)
 				c.images[0].resource = sr
 
+def addServiceObject(manifest):
+	svc = manifest.add_service(ident="http://example.org/path/to/service")
+	svc.format = "text/html"
 
 # n : list of functions to call on manifest
 extraFuncs = {	
 1 : [removeExtraLabels],
+10 : [addServiceObject],
 25 : [addEmbedInfo],
 27: [removeImages],
 28: [makeImageChoice],

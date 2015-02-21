@@ -32,7 +32,7 @@
       ]
     }, 
     {
-      "@id": "http://iiif.io/api/presentation/2.0/example/fixtures/sequence/20/s2.json",
+      "@id": "", 
       "@type": "sc:Sequence", 
       "label": "Test 20 Sequence 2"
     }
