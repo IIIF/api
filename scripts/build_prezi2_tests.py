@@ -320,7 +320,10 @@ for (idn, info) in testInfo.items():
 			setattr(mf, p, v)
 
 	for sx in range(info.get('nseqs', 1)):
-		seq = mf.sequence(label="Test %s Sequence %s" % (idn, sx+1))
+		if sx > 0:
+			seq = mf.sequence(ident="%s/s%s"%(idn, sx), label="Test %s Sequence %s" % (idn, sx+1))
+		else:
+			seq = mf.sequence(label="Test %s Sequence %s" % (idn, sx+1))
 		if info.has_key('seqprops'):
 			for (p,v) in info['seqprops']:
 				setattr(seq,p,v)
@@ -362,6 +365,10 @@ for (idn, info) in testInfo.items():
 
 	for annolist in annolists:
 		annolist.toFile(compact=False)
+
+	for sx in range(1, len(mf.sequences)):
+		mf.sequences[sx].toFile(compact=False)
+
 	mf.toFile(compact=False)
 	manifests[idn] = mf
 
