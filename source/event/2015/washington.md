@@ -16,7 +16,7 @@ The International Image Interoperability Framework community ([http://iiif.io/][
 
 Attendance is free, and widespread dissemination of the event is encouraged.  [Registration][logistics] is required in order to ensure that we do not exceed the capacity of the venue.  The event is hosted by the National Gallery of Art in Washington D.C., and will take place on Tuesday 5th of May, 2015.
 
-## Agenda
+## Draft Agenda
 
 Tuesday, 5th of May 2015
 
@@ -35,7 +35,7 @@ Tuesday, 5th of May 2015
 | 13:30 - 15:00  | Software & Solutions Showcase |  |
 | 15:00 - 15:30  | Coffee |
 | 15:30 - 16:45  | Getting Started |  |
-| 16:45 - 17:00  | Next Steps & Close | Tom Cramer |
+| 16:45 - 17:00  | Next Steps & Close | |
 {: .image-api-table}
 
 ## Logistics
