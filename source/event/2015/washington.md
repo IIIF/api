@@ -12,7 +12,7 @@ tags: [event]
 
 ## Introduction
 
-The International Image Interoperability Framework community ([http://iiif.io/][home-page]) is hosting a one day information sharing event about the use of images in and across Cultural Heritage institutions.  The day will focus on how museums, galleries, libraries and archives, or any online image service, can take advantage of a powerful technical framework for interoperability between image repositories.   This event will be valuable for organizational decision makers, repository and collection managers, software engineers, and anyone interested in exploring the wide range of use cases that are seamlessly enabled by the framework.  
+The International Image Interoperability Framework community ([http://iiif.io/][home-page]) and the National Gallery of Art are hosting a one day information sharing event about the use of images in and across Cultural Heritage institutions.  The day will focus on how museums, galleries, libraries and archives, or any online image service, can take advantage of a powerful technical framework for interoperability between image repositories.   This event will be valuable for organizational decision makers, repository and collection managers, software engineers, and anyone interested in exploring the wide range of use cases that are seamlessly enabled by the framework.  
 
 Attendance is free, and widespread dissemination of the event is encouraged.  [Registration][logistics] is required in order to ensure that we do not exceed the capacity of the venue.  The event is hosted by the National Gallery of Art in Washington D.C., and will take place on Tuesday 5th of May, 2015.
 
