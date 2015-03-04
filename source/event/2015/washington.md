@@ -20,21 +20,19 @@ Attendance is free, and widespread dissemination of the event is encouraged.  [R
 
 Tuesday, 5th of May 2015
 
-| Time | Session | Presenters |
-| ---- | ------- | ---------- |
-| 08:30 - 09:00  | Registration | | 
-| 09:00 - 09:15  | Welcome |  |
-| 09:15 - 09:40  | Introduction to IIIF |   |
-| 09:40 - 09:50  | Interoperability Demonstration |   |
-| 09:50 - 10:15  | Audience Spotlight and Discussion |   |
-| 10:15 - 10:45  | Coffee | |
-| 10:45 - 11:15  | Introducing the [Image API][image-api] |   |
-| 11:15 - 11:45  | Introducing the [Presentation API][prezi-api] |   |
-| 11:45 - 12:00  | Panel Discussion |   |
+| Time           | Session | Presenters |
+| -------------- | ------- | ---------- |
+| 10:00 - 10:15  | Assemble |  |
+| 10:15 - 10:30  | Welcome |   |
+| 10:30 - 11:00  | Introduction to IIIF |   |
+| 11:00 - 11:30  | Solutions Showcase | |
+| 11:30 - 12:00  | Audience Spotlight and Discussion |   |
 | 12:00 - 13:30  | Lunch (not provided)| |
-| 13:30 - 15:00  | Software & Solutions Showcase |  |
+| 13:30 - 15:00  | Demonstrations Showcase |  |
 | 15:00 - 15:30  | Coffee |
-| 15:30 - 16:45  | Getting Started |  |
+| 15:30 - 15:50  | Introducing the [Image API][image-api] |   |
+| 15:15 - 16:20  | Introducing the [Presentation API][prezi-api] |   |
+| 16:20 - 16:45  | Getting Started |  |
 | 16:45 - 17:00  | Next Steps & Close | |
 {: .image-api-table}
 
