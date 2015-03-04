@@ -1,7 +1,7 @@
 ---
 title: "Sharing Images of Global Cultural Heritage"
 layout: spec
-tags: [event]
+tags: [event ]
 ---
 
 ## Table of Contents

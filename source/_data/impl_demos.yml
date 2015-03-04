@@ -1,6 +1,6 @@
 # Use Markdown in the blurb if necessary for links, etc. Each list entry in the blurb gets a <p>.
 - name: Stanford University Libraries - Mirador demo
-  uri: http://showcase.iiif.io/mirador/
+  uri: http://showcase.iiif.io/viewer/mirador/
   blurb:
   - >
     This demo of Mirador, developed by the Stanford University Libraries, allows
