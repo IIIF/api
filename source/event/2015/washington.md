@@ -23,17 +23,17 @@ Tuesday, 5th of May 2015
 | Time           | Session | Presenters |
 | -------------- | ------- | ---------- |
 | 10:00 - 10:15  | Assemble |  |
-| 10:15 - 10:30  | Welcome |   |
-| 10:30 - 11:00  | Introduction to IIIF |   |
-| 11:00 - 11:30  | Solutions Showcase | |
-| 11:30 - 12:00  | Audience Spotlight and Discussion |   |
+| 10:15 - 10:30  | Welcome | Alan Newman |
+| 10:30 - 11:00  | Introduction to IIIF | Tom Cramer |
+| 11:00 - 11:30  | Solutions Showcase | Stuart Snydman |
+| 11:30 - 12:00  | Audience Spotlight and Discussion | Simeon Warner |
 | 12:00 - 13:30  | Lunch (not provided)| |
-| 13:30 - 15:00  | Demonstrations Showcase |  |
+| 13:30 - 15:00  | Demonstrations Showcase | Ben Albritton |
 | 15:00 - 15:30  | Coffee |
-| 15:30 - 15:50  | Introducing the [Image API][image-api] |   |
-| 15:15 - 16:20  | Introducing the [Presentation API][prezi-api] |   |
-| 16:20 - 16:45  | Getting Started |  |
-| 16:45 - 17:00  | Next Steps & Close | |
+| 15:30 - 15:50  | Introducing the [Image API][image-api] | Jon Stroop |
+| 15:15 - 16:20  | Introducing the [Presentation API][prezi-api] | Robert Sanderson |
+| 16:20 - 16:45  | Getting Started | Mike Appleby |
+| 16:45 - 17:00  | Next Steps & Close | Tom Cramer |
 {: .image-api-table}
 
 ## Logistics
