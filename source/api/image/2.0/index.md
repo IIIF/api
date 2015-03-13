@@ -1,11 +1,11 @@
 ---
-title: "Image API 2.0"
-title_override: "IIIF Image API 2.0"
+title: "Image API 2.1"
+title_override: "IIIF Image API 2.1"
 id: image-api
 layout: spec
 tags: [specifications, image-api]
 major: 2
-minor: 0
+minor: 1
 patch: 0
 pre: final
 ---
@@ -624,12 +624,60 @@ The order in which servers parse requests and detect errors is not specified. A 
 
 ##  8. Authentication
 
-This API does not specify whether the image server will support authentication or what mechanism it might use. In the case of "401 Unauthorized" HTTP response, the content of the WWW-Authenticate header will depend on the authentication mechanism supported by the server. If the server supports HTTP Basic or Digest authentication then the header _SHOULD_ follow [RFC2617][rfc-2617], for example:
+### 8.1 Introduction
 
+Images are generally secondary resources in a web page or application. In the case of web pages, images are embedded in the HTML `img` tag, and are retrieved via additional HTTP requests. When a user cannot load a web page, it is possible — and a generally accepted behavior — to redirect the user to another page and offer the opportunity to authenticate. This is not an option for secondary resources such as images, and the user is instead simply presented with the much-hated broken image icon.
+
+Authentication systems that span multiple domains are also complex, particularly when the interaction is via a Javascript client served from yet another domain, rather than from where the authentication challenge must be performed. Details such as passive mixed content (the mixture of HTTP and HTTPS), cross origin resource sharing (enabling the ability to request data from different domains), and the desire not degrade the user experience with unnecessary authentication popups provide further challenges in this space.
+
+Some access is generally better than no access. A grayscale version instead of color; a version of the image with a watermark; a version with more compression; or a smaller size is likely better than no image at all. Providing this functionality is more complex than traditional yes-or-no access controls, and serving the correct image and associated image information for the degraded version is necessary to prevent web caches from providing incorrect content.
+
+No new authentication systems are proposed in this specification, nor roles for authorization business logic. Instead, it is expected that authentication requirements and processes are handled outside of any IIIF-specific context, but within a larger workflow described below. This workflow is agnostic to the details of the authentication protocol.
+
+(QUESTION: should we explain why WWW-Authenticate isn't enough, i.e. because Javascript)
+
+### 8.2 Authentication Services
+
+As noted above, the client needs to know where the user can authenticate, and once authenticated, where she can logout.  This is conveyed in the Image Information json response, in a `service` block. There are two service profiles relevant to IIIF authentication, one for logging in, one for logging out.
+
+In order to have the client prompt the user to log in, the info.json MUST include:
+
+```json
+{
+  "service" : {
+    "@id": "http://authentication.example.org/login",
+    "profile": "http://iiif.io/api/image/2/auth/login",
+    "label": "Login to Example Service",
+  }
+}
 ```
-WWW-Authenticate: Basic realm="Images"
+
+Where the `@id` field is the URI that the client should load to allow the user to authenticate, the `profile` field is fixed and MUST have the above URI as a value, allowing clients to understand the use of the service, and the OPTIONAL `label` is the text suggested to be presented to the user to initiate the loading of the authentication service.
+
+Once the user has authenticated, the client will need to know where they can log out, and the following service pattern MUST be used in the Image Information response, with the same semantics and requirements for the fields as the login service.  Note especially the change in the profile URI to distinguish the logout service from the login service.
+
+```json
+{
+  "service" : {
+    "@id": "http://authentication.example.org/logout",
+    "profile": "http://iiif.io/api/image/2/auth/logout",
+    "label": "Logout from Example Service",
+  }
+}
 ```
-{: .urltemplate}
+
+When a client requests the Image Information, the response MUST include an authentication service block (described above) and the required [image information properties](#image-information) (`@context`, `@id`, `protocol`, `width`, `height`), thus allowing a client to draw a placeholder at the appropriate aspect-ratio.
+
+If a server does not support degraded access, and wishes to require authentication for access to its images, it MUST return the requested Image Information response with a 401 (Unauthorized) HTTP status code. This response MUST NOT include a `WWW-Authenticate` header, and if basic authentication is required, then it MUST be delivered from a different URI listed in the `@id` field of the login service block.
+
+If a server supports degraded access to its images while the user is not authenticated, then it MUST use a different identifier for the degraded image from that of the higher quality image. When the full Image Information is requested and the user is not authorized to use it, the server MUST redirect to the Image Information for the degraded image. The degraded image's Image Information response MUST include the login service block. Conversely, the logout service MUST be included in the higher quality image's Image Information, as this is only available after the user has authenticated and is authorized.
+
+If the user is authenticated but not authorized, or business logic on the server dictates that authorization will never be possible, then the server MUST respond to requests with the 403 (Forbidden) HTTP status code.
+
+### 8.3 Flow from the Client Perspective
+
+
+### 8.4 Flow from the Server Perspective
 
 ##  9. URI Encoding and Decoding
 
