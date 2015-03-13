@@ -2,6 +2,7 @@
 title: RESTful Management of Source Images on an IIIF Server
 layout: spec
 tags: [annex, rest, image-api]
+cssversion: 2
 ---
 
 ## Status of this Document

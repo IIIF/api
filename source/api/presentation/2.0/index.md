@@ -310,7 +310,7 @@ Where the parameters are:
 | server | The host server (and optional port) on which the service resides. |
 | prefix | The path on the host server to the service. This prefix is optional, but may be useful when the host server supports multiple services. The prefix _MAY_ contain multiple path segments, delimited by slashes, but all other special characters _MUST_ be encoded. |
 | identifier | The identifier for the object or collection, expressed as a string. This may be an ark, URN, or other identifier. Special characters _MUST_ be URI encoded. |
-{: .image-api-table}
+{: .api-table}
 
 The individual resources _SHOULD_ have URIs below this top-level pattern, formed by appending a "/" and additional information to identify the resource. Recommended patterns for these URIs are given in the sections below for the different resource types, and summarized in [Appendix A][appendixa].
 
@@ -1382,7 +1382,7 @@ URL: _http://www.example.org/iiif/book1/manifest_
 | Range          | {scheme}://{host}/{prefix}/{identifier}/range/{name}        |
 | Layer          | {scheme}://{host}/{prefix}/{identifier}/layer/{name}        |
 | Content        | {scheme}://{host}/{prefix}/{identifier}/res/{name}.{format} |
-{: .image-api-table}
+{: .api-table}
 
 ### B. Summary of Metadata Requirements
 
@@ -1392,7 +1392,7 @@ URL: _http://www.example.org/iiif/book1/manifest_
 | ![recommended][icon-recc]  | Recommended |
 | ![optional][icon-opt]      | Optional    |
 | ![not allowed][icon-na]    | Not Allowed |
-{: .image-api-table}
+{: .api-table}
 
 |                | @id                   | @type                 | format                  | height                    | width                     | viewingDirection        | viewingHint                                           |
 | -------------- | --------------------- | --------------------- | ----------------------- | ------------------------- | ------------------------- | ----------------------- | ---------------------- |
@@ -1406,7 +1406,7 @@ URL: _http://www.example.org/iiif/book1/manifest_
 | Layer          | ![required][icon-req] | ![required][icon-req] | ![not allowed][icon-na] | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![optional][icon-opt]   | ![optional][icon-opt]  |
 | Image Content  | ![required][icon-req] | ![required][icon-req] | ![optional][icon-opt]   | ![recommended][icon-opt]  | ![recommended][icon-opt]  | ![not allowed][icon-na] | ![optional][icon-opt]  |
 | Other Content  | ![required][icon-req] | ![required][icon-req] | ![optional][icon-opt]   | ![optional][icon-opt]     | ![optional][icon-opt]     | ![not allowed][icon-na] | ![optional][icon-opt]  |
-{: .image-api-table}
+{: .api-table}
 
 |                | label                  | metadata                     | description                 | thumbnail                   | attribution            | license                 | logo                     |
 | -------------- | ---------------------- | ---------------------------- | --------------------------- | ----------------------------| ---------------------- | ----------------------- | ------------------------ |
@@ -1420,7 +1420,7 @@ URL: _http://www.example.org/iiif/book1/manifest_
 | Layer          | ![required][icon-req]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
 | Image Content  | ![optional][icon-opt]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
 | Other Content  | ![optional][icon-opt]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
-{: .image-api-table}
+{: .api-table}
 
 |                | seeAlso                | service                | related                | within                     | startCanvas             |
 | -------------- | ---------------------- | ---------------------- | ---------------------- | -------------------------- | ----------------------- |
@@ -1434,7 +1434,7 @@ URL: _http://www.example.org/iiif/book1/manifest_
 | Layer          | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]      | ![not allowed][icon-na] |
 | Image Content  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]      | ![not allowed][icon-na] |
 | Other Content  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]      | ![not allowed][icon-na] |
-{: .image-api-table}
+{: .api-table}
 
 ### C. Versioning
 

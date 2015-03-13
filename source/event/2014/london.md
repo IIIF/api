@@ -46,7 +46,7 @@ Monday, 20th of October 2014
 |                | From 0 to 60 in 15 minutes | Rob Sanderson, Jon Stroop |
 |                | Panel Discussion | Rafael Schwemmer, Michael Appleby, Matthew McGrattan (Oxford), Anders Conrad (Royal Library of Denmark) |
 | 16:45 - 17:00  | Next Steps & Close | Tom Cramer |
-{: .image-api-table}
+{: .api-table}
 
 ## Logistics
 

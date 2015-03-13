@@ -2,6 +2,7 @@
 title: "JSON-LD Frames Implementation Notes"
 layout: spec
 tags: [annex, presentation-api, image-api]
+cssversion: 2
 ---
 
 ## Table of Contents

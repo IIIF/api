@@ -501,13 +501,13 @@ a.button-turquoise {
   margin: 25px 0;
 }
 
-.sub-pages-container .image-api-table tr {
+.sub-pages-container .api-table tr {
   border-top: 1px solid #2e8b74;
   border-bottom: 1px solid #2e8b74;
   font-size: 13px;
 }
 
-.sub-pages-container .image-api-table th {
+.sub-pages-container .api-table th {
   background-color: #2e8b74;
   color: #fff;
   font-weight: normal;
@@ -517,13 +517,13 @@ a.button-turquoise {
   white-space: normal;
 }
 
-.sub-pages-container .md-requirements .image-api-table th {
+.sub-pages-container .md-requirements .api-table th {
   border-right: 1px solid #fff;
   text-align: center;
   padding: 8px 5px;
 }
 
-.sub-pages-container .md-requirements .image-api-table td {
+.sub-pages-container .md-requirements .api-table td {
   padding: 8px 5px;
 }
 
@@ -538,12 +538,12 @@ a.button-turquoise {
   margin-right: 20px;
 }
 
-.sub-pages-container .image-api-table td:first-child {
+.sub-pages-container .api-table td:first-child {
   font-family: monospace;
   /*text-align: center;*/
 }
 
-.sub-pages-container .image-api-table td {
+.sub-pages-container .api-table td {
   padding: 8px 15px;
   vertical-align: middle;
   word-wrap: break-word;
@@ -553,7 +553,7 @@ a.button-turquoise {
   white-space: -hp-pre-wrap;  /* HP Printers */
 }
 
-.sub-pages-container .url-encoding-and-decoding .image-api-table td {
+.sub-pages-container .url-encoding-and-decoding .api-table td {
   word-break: break-all;
 }
 
@@ -656,9 +656,6 @@ a.button-turquoise {
   padding: 4px 6px 3px 6px;
 }
 
-.highlight {
-  color: #eb2026;
-}
 
 .req {
   background: transparent url('/img/metadata-api/icons-metadata-requirements.png') left top no-repeat;
@@ -898,7 +895,7 @@ a.button-turquoise {
   .sub-pages-container section.get-involved { background: transparent url(../img/text-bg-get-involved.png) left top no-repeat; }
   .sub-pages-container section.participants { background: transparent url(../img/text-bg-participants.png) left top no-repeat; }
 
-  .sub-pages-container .image-api-table th {
+  .sub-pages-container .api-table th {
     white-space: nowrap;
   }
 
