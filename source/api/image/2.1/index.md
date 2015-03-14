@@ -635,7 +635,7 @@ Some access is generally better than no access. A grayscale version instead of c
 No new authentication systems are proposed in this specification, nor roles for authorization business logic. Instead, it is expected that authentication requirements and processes are handled outside of any IIIF-specific context, but within a larger workflow described below. This workflow is agnostic to the details of the authentication protocol.
 
 <p style="color: red">
-(QUESTION: should we explain why WWW-Authenticate can't work, i.e. because Javascript. Should we explain other limitations imposed by Javascript, perhaps all in one paragraph near the top? Might lighten up later paras/sections).
+QUESTION: should we explain why WWW-Authenticate can't work, i.e. because Javascript? Should we explain other limitations imposed by Javascript, perhaps all in one paragraph near the top? Might lighten up later paras/sections.
 </p>
 
 ### 8.2 Authentication Services
@@ -649,7 +649,7 @@ In order to have the client prompt the user to log in, the info.json MUST includ
   "service" : {
     "@id": "http://authentication.example.org/login",
     "profile": "http://iiif.io/api/image/2/auth/login",
-    "label": "Login to Example Service",
+    "label": "Login to Example Service"
   }
 }
 ```
@@ -664,13 +664,13 @@ Once the user has authenticated, the client will need to know where they can log
   "service" : {
     "@id": "http://authentication.example.org/logout",
     "profile": "http://iiif.io/api/image/2/auth/logout",
-    "label": "Logout from Example Service",
+    "label": "Logout from Example Service"
   }
 }
 ```
 {: .urltemplate}
 
-When a client requests the Image Information, the response MUST include an authentication service block (described above) and the required [image information properties](#image-information) (`@context`, `@id`, `protocol`, `width`, `height`), thus allowing a client to draw a placeholder at the appropriate aspect-ratio.
+When a client requests the Image Information, the response MUST include an authentication service block (described above) and the required [Image Information properties](#image-information) (`@context`, `@id`, `protocol`, `width`, `height`), thus allowing a client to draw a placeholder at the appropriate aspect-ratio.
 
 If a server does not support degraded access, and wishes to require authentication for access to its images, it MUST return the requested Image Information response with a 401 (Unauthorized) HTTP status code. This response MUST NOT include a `WWW-Authenticate` header, and if basic authentication is required, then it MUST be delivered from a different URI listed in the `@id` field of the login service block.
 
@@ -681,7 +681,6 @@ If a server supports degraded access to its images while the user is not authent
 If server supports degraded access and the user is authenticated but not authorized, or business logic on the server dictates that authorization will never be possible, then the server MUST respond to requests with the 301 (Moved Permanently) HTTP status code and the Location header set to the degraded image's Image Information URI.
 
 After the authentication process has taken place, the resulting page should contain javascript to try and automatically close the window. Thus, web-browser based clients MUST present the authentication interface in a separate window or iframe. Clients SHOULD store the URIs of authentication systems that have been accessed by the user, and not redisplay them, regardless of whether they are present in the Image Information response.
-
 
 ### 8.3 Flow from the Client Perspective
 
