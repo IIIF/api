@@ -684,11 +684,13 @@ After the authentication process has taken place, the resulting page should cont
 
 ### 8.3 Flow from the Client Perspective
 
-[todo: graphic and walkthrough]
+![Client Authentication Flow][client-auth-img]
+
 
 ### 8.4 Flow from the Server Perspective
 
-[todo: graphic and walkthrough]
+![Server Authentication Flow][server-auth-img]
+
 
 ##  9. URI Encoding and Decoding
 
@@ -851,5 +853,8 @@ Many thanks to  Ben Albritton, Matthieu Bonicel, Anatol Broder, Kevin Clarke, To
 [d-change-log]: #d-change-log "D. Change Log"
 [prev-version]: http://iiif.io/api/image/1.1/ "Previous Version"
 [stable-version]: http://iiif.io/api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/ "Stable Version"
+
+[client-auth-img]: img/auth-flow-client.png
+[server-auth-img]: img/auth-flow-server.png
 
 {% include acronyms.md %}
