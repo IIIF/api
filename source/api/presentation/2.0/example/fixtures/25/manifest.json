@@ -10,11 +10,11 @@
       "label": "Test 25 Sequence 1", 
       "canvases": [
         {
-          "@id": "http://iiif.io/api/presentation/2.0/example/fixtures/canvas/25/c1.json",
-          "@type": "sc:Canvas",
-          "label": "Test 25 Canvas: 1",
-          "height": 1800,
-          "width": 1200,
+          "@id": "http://iiif.io/api/presentation/2.0/example/fixtures/canvas/25/c1.json", 
+          "@type": "sc:Canvas", 
+          "label": "Test 25 Canvas: 1", 
+          "height": 1800, 
+          "width": 1200, 
           "images": [
             {
               "@type": "oa:Annotation", 
@@ -26,22 +26,10 @@
                 "height": 1800, 
                 "width": 1200, 
                 "service": {
-                  "@context": "http://iiif.io/api/image/2/context.json",
-                  "@id": "http://iiif.io/api/image/2.0/example/reference/page1-full",
+                  "@context": "http://iiif.io/api/image/2/context.json", 
+                  "@id": "http://iiif.io/api/image/2.0/example/reference/page1-full", 
                   "height": 1800, 
                   "width": 1200, 
-                  "tiles": [
-                    {
-                      "width": 512, 
-                      "scaleFactors": [
-                        1, 
-                        2, 
-                        4, 
-                        8, 
-                        16
-                      ]
-                    }
-                  ], 
                   "profile": [
                     "http://iiif.io/api/image/2/level2.json", 
                     {
@@ -59,6 +47,18 @@
                         "mirroring", 
                         "rotationArbitrary", 
                         "sizeAboveFull"
+                      ]
+                    }
+                  ], 
+                  "tiles": [
+                    {
+                      "width": 512, 
+                      "scaleFactors": [
+                        1, 
+                        2, 
+                        4, 
+                        8, 
+                        16
                       ]
                     }
                   ]

@@ -200,6 +200,11 @@
       "label": "Test 39 Manifest: Image with CSS Rotation"
     }, 
     {
+      "@id": "http://iiif.io/api/presentation/2.0/example/fixtures/40/manifest.json", 
+      "@type": "sc:Manifest", 
+      "label": "Test 40 Manifest: Multiple Languages for Metadata Labels"
+    }, 
+    {
       "@id": "http://iiif.io/api/presentation/2.0/example/fixtures/41/manifest.json", 
       "@type": "sc:Manifest", 
       "label": "Test 41 Manifest: Main Image with Server side Rotation"
