@@ -24,6 +24,8 @@
   uri: http://www.klokantech.com/ 
 - name: La Bibliothèque nationale de France
   uri:  
+- name: National Library of Austria
+  uri:  
 - name: Nasjonalbiblioteket (National Library of Norway)
   uri: 
 - name: National Library of Denmark
