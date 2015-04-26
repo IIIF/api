@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF
+  xmlns:sc="http://iiif.io/api/presentation/2#"
+  xmlns:owl="http://www.w3.org/2002/07/owl#"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:oa="http://www.w3.org/ns/oa#"
+  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+>
+  <rdfs:Class rdf:about="http://iiif.io/api/presentation/2#Zone">
+    <rdfs:isDefinedBy>
+      <owl:Ontology rdf:about="http://iiif.io/api/presentation/2#">
+        <owl:versionInfo>2015-04-26 23:00:00Z</owl:versionInfo>
+      </owl:Ontology>
+    </rdfs:isDefinedBy>
+    <rdfs:comment>Used to group annotations together in an area of a Canvas, for example to model columns, foldouts or palimpsests</rdfs:comment>
+    <rdfs:label>Zone</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://iiif.io/api/presentation/2#Canvas"/>
+  </rdfs:Class>
+  <rdf:Property rdf:about="http://iiif.io/api/presentation/2#hasImageAnnotations">
+    <rdfs:subPropertyOf>
+      <rdf:Property rdf:about="http://iiif.io/api/presentation/2#hasAnnotations">
+        <rdfs:label>hasAnnotations</rdfs:label>
+        <rdfs:range rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+        <rdfs:isDefinedBy rdf:resource="http://iiif.io/api/presentation/2#"/>
+      </rdf:Property>
+    </rdfs:subPropertyOf>
+    <rdfs:range rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+    <rdfs:label>hasImageAnnotations</rdfs:label>
+    <rdfs:isDefinedBy rdf:resource="http://iiif.io/api/presentation/2#"/>
+  </rdf:Property>
+  <rdfs:Class rdf:about="http://iiif.io/api/presentation/2#Sequence">
+    <rdfs:isDefinedBy rdf:resource="http://iiif.io/api/presentation/2#"/>
+    <rdfs:label>Sequence</rdfs:label>
+    <rdfs:comment>The sequence conveys the ordering of the views of the object.</rdfs:comment>
+  </rdfs:Class>
+  <sc:ViewingHint rdf:about="http://iiif.io/api/presentation/2#pagedHint">
+    <rdfs:comment>Viewing Hint that object has canvases that represent pages that can be turned</rdfs:comment>
+  </sc:ViewingHint>
+  <sc:ViewingHint rdf:about="http://iiif.io/api/presentation/2#individualsHint">
+    <rdfs:comment>Each canvas represents a separate individual object, and should not have transitions</rdfs:comment>
+  </sc:ViewingHint>
+  <rdf:Property rdf:about="http://iiif.io/api/presentation/2#hasCollections">
+    <rdfs:isDefinedBy rdf:resource="http://iiif.io/api/presentation/2#"/>
+    <rdfs:domain rdf:resource="http://iiif.io/api/presentation/2#Collection"/>
+    <rdfs:label>hasCollections</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://iiif.io/api/presentation/2#hasCanvases">
+    <rdfs:label>hasCanvases</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+    <rdfs:isDefinedBy rdf:resource="http://iiif.io/api/presentation/2#"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://iiif.io/api/presentation/2#hasManifests">
+    <rdfs:domain rdf:resource="http://iiif.io/api/presentation/2#Collection"/>
+    <rdfs:range rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+    <rdfs:isDefinedBy rdf:resource="http://iiif.io/api/presentation/2#"/>
+    <rdfs:label>hasManifests</rdfs:label>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://iiif.io/api/presentation/2#attributionLabel">
+    <rdfs:label>attributionLabel</rdfs:label>
+    <rdfs:isDefinedBy rdf:resource="http://iiif.io/api/presentation/2#"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://iiif.io/api/presentation/2#hasLists">
+    <rdfs:range rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+    <rdfs:label>hasLists</rdfs:label>
+    <rdfs:isDefinedBy rdf:resource="http://iiif.io/api/presentation/2#"/>
+  </rdf:Property>
+  <sc:ViewingHint rdf:about="http://iiif.io/api/presentation/2#topHint">
+    <rdfs:comment>The topmost range in a nested hierarchy, such as a table of contents</rdfs:comment>
+  </sc:ViewingHint>
+  <rdfs:Class rdf:about="http://iiif.io/api/presentation/2#AnnotationList">
+    <rdfs:isDefinedBy rdf:resource="http://iiif.io/api/presentation/2#"/>
+    <rdfs:comment>AnnotationLists are an ordered list of Annotation objects. Typically all Annnotations in a list target the same Canvas</rdfs:comment>
+    <rdfs:label>AnnotationList</rdfs:label>
+  </rdfs:Class>
+  <sc:ViewingHint rdf:about="http://iiif.io/api/presentation/2#continuousHint">
+    <rdfs:comment>Each canvas represents a segment of a continuous object such as a long scroll</rdfs:comment>
+  </sc:ViewingHint>
+  <oa:Motivation rdf:about="http://iiif.io/api/presentation/2#painting"/>
+  <rdf:Property rdf:about="http://iiif.io/api/presentation/2#hasStartCanvas">
+    <rdfs:range rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+    <rdfs:label>hasStartCanvas</rdfs:label>
+    <rdfs:isDefinedBy rdf:resource="http://iiif.io/api/presentation/2#"/>
+  </rdf:Property>
+  <rdfs:Class rdf:about="http://iiif.io/api/presentation/2#Range">
+    <rdfs:comment>Ranges describe additional structure within an object, such as newspaper articles that span pages, the range of non-content-bearing pages at the beginning of a work, or chapters within a book</rdfs:comment>
+    <rdfs:isDefinedBy rdf:resource="http://iiif.io/api/presentation/2#"/>
+    <rdfs:label>Range</rdfs:label>
+  </rdfs:Class>
+  <rdf:Property rdf:about="http://iiif.io/api/presentation/2#hasRanges">
+    <rdfs:label>hasRanges</rdfs:label>
+    <rdfs:isDefinedBy rdf:resource="http://iiif.io/api/presentation/2#"/>
+    <rdfs:range rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://iiif.io/api/presentation/2#viewingDirection">
+    <rdfs:isDefinedBy rdf:resource="http://iiif.io/api/presentation/2#"/>
+    <rdfs:range rdf:resource="http://iiif.io/api/presentation/2#ViewingDirection"/>
+    <rdfs:label>viewingDirection</rdfs:label>
+  </rdf:Property>
+  <sc:ViewingDirection rdf:about="http://iiif.io/api/presentation/2#leftToRightDirection">
+    <rdfs:comment>Left-to-Right Viewing Direction</rdfs:comment>
+  </sc:ViewingDirection>
+  <rdf:Property rdf:about="http://iiif.io/api/presentation/2#viewingHint">
+    <rdfs:isDefinedBy rdf:resource="http://iiif.io/api/presentation/2#"/>
+    <rdfs:range rdf:resource="http://iiif.io/api/presentation/2#ViewingHint"/>
+    <rdfs:label>viewingHint</rdfs:label>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://iiif.io/api/presentation/2#hasSequences">
+    <rdfs:domain rdf:resource="http://iiif.io/api/presentation/2#Manifest"/>
+    <rdfs:isDefinedBy rdf:resource="http://iiif.io/api/presentation/2#"/>
+    <rdfs:range rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+    <rdfs:label>hasSequences</rdfs:label>
+  </rdf:Property>
+  <sc:ViewingHint rdf:about="http://iiif.io/api/presentation/2#nonPagedHint">
+    <rdfs:comment>Viewing Hint that the Canvas MUST NOT be presented in a page turner</rdfs:comment>
+  </sc:ViewingHint>
+  <sc:ViewingDirection rdf:about="http://iiif.io/api/presentation/2#rightToLeftDirection">
+    <rdfs:comment>Right-to-Left Viewing Direction</rdfs:comment>
+  </sc:ViewingDirection>
+  <rdf:Property rdf:about="http://iiif.io/api/presentation/2#metadataLabels">
+    <rdfs:isDefinedBy rdf:resource="http://iiif.io/api/presentation/2#"/>
+    <rdfs:range rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+    <rdfs:label>metadataLabels</rdfs:label>
+  </rdf:Property>
+  <rdfs:Class rdf:about="http://iiif.io/api/presentation/2#Layer">
+    <rdfs:comment>Layers are lists of AnnotationLists to group them together, for example to create the set of lists that make up a particular translation/edition of a text</rdfs:comment>
+    <rdfs:isDefinedBy rdf:resource="http://iiif.io/api/presentation/2#"/>
+    <rdfs:label>Layer</rdfs:label>
+  </rdfs:Class>
+  <sc:ViewingDirection rdf:about="http://iiif.io/api/presentation/2#topToBottomDirection">
+    <rdfs:comment>Top-to-Bottom Viewing Direction</rdfs:comment>
+  </sc:ViewingDirection>
+  <sc:ViewingDirection rdf:about="http://iiif.io/api/presentation/2#bottomToTopDirection">
+    <rdfs:comment>Bottom-to-Top Viewing Direction</rdfs:comment>
+  </sc:ViewingDirection>
+  <rdfs:Class rdf:about="http://iiif.io/api/presentation/2#ViewingDirection">
+    <rdfs:isDefinedBy rdf:resource="http://iiif.io/api/presentation/2#"/>
+    <rdfs:label>ViewingDirection</rdfs:label>
+  </rdfs:Class>
+  <rdfs:Class rdf:about="http://iiif.io/api/presentation/2#Manifest">
+    <rdfs:comment>The manifest resource represents a single object and any intellectual work or works embodied within that object</rdfs:comment>
+    <rdfs:isDefinedBy rdf:resource="http://iiif.io/api/presentation/2#"/>
+    <rdfs:label>Manifest</rdfs:label>
+  </rdfs:Class>
+  <rdfs:Class rdf:about="http://iiif.io/api/presentation/2#Canvas">
+    <rdfs:label>Canvas</rdfs:label>
+    <rdfs:isDefinedBy rdf:resource="http://iiif.io/api/presentation/2#"/>
+    <rdfs:comment>The canvas represents an individual page or view and acts as a central point for laying out the different content resources that make up the display.</rdfs:comment>
+  </rdfs:Class>
+  <rdfs:Class rdf:about="http://iiif.io/api/presentation/2#Collection">
+    <rdfs:label>Collection</rdfs:label>
+    <rdfs:isDefinedBy rdf:resource="http://iiif.io/api/presentation/2#"/>
+    <rdfs:comment>Collections are used to list the manifests available for viewing, and to describe the structures, hierarchies or collections that the physical objects are part of.</rdfs:comment>
+  </rdfs:Class>
+  <rdfs:Class rdf:about="http://iiif.io/api/presentation/2#ViewingHint">
+    <rdfs:label>ViewingHint</rdfs:label>
+    <rdfs:isDefinedBy rdf:resource="http://iiif.io/api/presentation/2#"/>
+  </rdfs:Class>
+</rdf:RDF>
+
