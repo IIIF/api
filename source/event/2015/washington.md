@@ -22,18 +22,24 @@ Tuesday, 5th of May 2015
 
 | Time           | Session | Presenters |
 | -------------- | ------- | ---------- |
-| 10:00 - 10:15  | Assemble |  |
-| 10:15 - 10:30  | Welcome | Alan Newman |
-| 10:30 - 11:00  | Introduction to IIIF | Tom Cramer |
-| 11:00 - 11:30  | Solutions Showcase | Stuart Snydman |
-| 11:30 - 12:00  | Audience Spotlight and Discussion | Simeon Warner |
-| 12:00 - 13:30  | Lunch (not provided)| |
-| 13:30 - 15:00  | Demonstrations Showcase | Ben Albritton |
-| 15:00 - 15:30  | Coffee |
-| 15:30 - 15:50  | Introducing the [Image API][image-api] | Jon Stroop |
-| 15:15 - 16:20  | Introducing the [Presentation API][prezi-api] | Robert Sanderson |
-| 16:20 - 16:45  | Getting Started | Mike Appleby |
-| 16:45 - 17:00  | Next Steps & Close | Tom Cramer |
+| 10:00 - 10:30  | Doors open, Assemble |  |
+| 10:30 - 10:45  | Welcome | Alan Newman (NGA) |
+| 10:45 - 11:00  | Introduction to IIIF | Tom Cramer (Stanford) |
+| 11:00 - 11:15  | Use Case: Libraries | Glen Robson (National Library of Wales) |
+| 11:15 - 11:30  | Use Case: Archives | Anna Naruta-Moya (New Mexico State Archives) |
+| 11:30 - 11:45  | Use Case: Museums | Emmanuelle Delmas-Glass, Edward (Yale Center for British Art) |
+| 11:45 - 12:15  | Audience Spotlight and Discussion | Simeon Warner (Cornell)|
+| 12:15 - 13:30  | Lunch (not provided)| |
+| 13:30 - 13:45  | Introduction to the Image API | Jon Stroop (Princeton) |
+| 13:45 - 14:00  | Mirador and Image Comparison | Stu Snydman (Stanford) |
+| 14:00 - 14:15  | Introduction to the Presentation API | Rob Sanderson (Stanford) |
+| 14:15 - 14:30  | Interacting with Objects with the Wellcome Player | Tom Crane (Digerati) |
+| 14:30 - 15:00  | Coffee Break| |
+| 15:00 - 15:15  | Use Case: Pedagogy | Franciska Frey (Harvard) |
+| 15:15 - 15:30  | Use Case: Discovery | Michael Appleby (Yale) |
+| 15:30 - 15:45  | Use Case: Aggregation | Rachel Frick (Digital Public Library of America) |
+| 15:45 - 16:15  | Audience Spotlight and Discussion | Simeon Warner (Cornell) |
+| 16:15 - 16:30  | Next Steps and Close | Tom Cramer (Stanford) |
 {: .image-api-table}
 
 ## Logistics
