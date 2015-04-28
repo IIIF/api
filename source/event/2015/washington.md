@@ -26,7 +26,7 @@ Tuesday, 5th of May 2015
 | 10:30 - 10:45  | Welcome | Alan Newman (National Gallery of Art) |
 | 10:45 - 11:00  | Introduction to IIIF | Tom Cramer (Stanford) |
 | 11:00 - 11:15  | Use Case: Libraries | Glen Robson (National Library of Wales) |
-| 11:15 - 11:30  | Use Case: Archives | Anna Naruta-Moya (New Mexico State Archives) |
+| 11:15 - 11:30  | Use Case: Archives | Anna Naruta-Moya (State of New Mexico Department of Cultural Affairs) |
 | 11:30 - 11:45  | Use Case: Museums | Emmanuelle Delmas-Glass, Edward Town (Yale Center for British Art) |
 | 11:45 - 12:15  | Audience Spotlight and Discussion | Simeon Warner (Cornell)|
 | 12:15 - 13:30  | Lunch (not provided)| |
@@ -63,4 +63,3 @@ All IIIF Events are covered by the [IIIF Code of Conduct][conduct]. IIIF is comm
 [logistics]: #logistics
 [image-api]: /api/image/2.0/
 [prezi-api]: /api/presentation/2.0/
-
