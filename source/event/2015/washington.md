@@ -14,26 +14,32 @@ tags: [event ]
 
 The International Image Interoperability Framework community ([http://iiif.io/][home-page]) and the National Gallery of Art are hosting a one day information sharing event about the use of images in and across Cultural Heritage institutions.  The day will focus on how museums, galleries, libraries and archives, or any online image service, can take advantage of a powerful technical framework for interoperability between image repositories.   This event will be valuable for organizational decision makers, repository and collection managers, software engineers, and anyone interested in exploring the wide range of use cases that are seamlessly enabled by the framework.  
 
-Attendance is free, and widespread dissemination of the event is encouraged.  [Registration][logistics] is required in order to ensure that we do not exceed the capacity of the venue.  The event is hosted by the National Gallery of Art in Washington D.C., and will take place on Tuesday 5th of May, 2015.
+Attendance is free, and widespread dissemination of the event is encouraged.  [Registration][logistics] is required in order to ensure that we do not exceed the capacity of the venue.  The event is hosted by the National Gallery of Art in Washington D.C., and will take place on Tuesday 5th of May, 2015. It will be in the West Building Lecture Hall.
 
-## Draft Agenda
+## Final Agenda
 
 Tuesday, 5th of May 2015
 
 | Time           | Session | Presenters |
 | -------------- | ------- | ---------- |
-| 10:00 - 10:15  | Assemble |  |
-| 10:15 - 10:30  | Welcome | Alan Newman |
-| 10:30 - 11:00  | Introduction to IIIF | Tom Cramer |
-| 11:00 - 11:30  | Solutions Showcase | Stuart Snydman |
-| 11:30 - 12:00  | Audience Spotlight and Discussion | Simeon Warner |
-| 12:00 - 13:30  | Lunch (not provided)| |
-| 13:30 - 15:00  | Demonstrations Showcase | Ben Albritton |
-| 15:00 - 15:30  | Coffee |
-| 15:30 - 15:50  | Introducing the [Image API][image-api] | Jon Stroop |
-| 15:15 - 16:20  | Introducing the [Presentation API][prezi-api] | Robert Sanderson |
-| 16:20 - 16:45  | Getting Started | Mike Appleby |
-| 16:45 - 17:00  | Next Steps & Close | Tom Cramer |
+| 10:00 - 10:30  | Doors open, Assemble |  |
+| 10:30 - 10:45  | Welcome | Alan Newman (National Gallery of Art) |
+| 10:45 - 11:00  | Introduction to IIIF | Tom Cramer (Stanford) |
+| 11:00 - 11:15  | Use Case: Libraries | Glen Robson (National Library of Wales) |
+| 11:15 - 11:30  | Use Case: Archives | Anna Naruta-Moya (New Mexico State Archives) |
+| 11:30 - 11:45  | Use Case: Museums | Emmanuelle Delmas-Glass, Edward Town (Yale Center for British Art) |
+| 11:45 - 12:15  | Audience Spotlight and Discussion | Simeon Warner (Cornell)|
+| 12:15 - 13:30  | Lunch (not provided)| |
+| 13:30 - 13:45  | Introduction to the Image API | Jon Stroop (Princeton) |
+| 13:45 - 14:00  | Mirador and Image Comparison | Stu Snydman (Stanford) |
+| 14:00 - 14:15  | Introduction to the Presentation API | Rob Sanderson (Stanford) |
+| 14:15 - 14:30  | Interacting with Objects using the Wellcome Player | Tom Crane (Digerati) |
+| 14:30 - 15:00  | Coffee Break| |
+| 15:00 - 15:15  | Use Case: Pedagogy | Franziska Frey (Harvard) |
+| 15:15 - 15:30  | Use Case: Tagging and Discovery | Michael Appleby (Yale) |
+| 15:30 - 15:45  | Use Case: Aggregation | Rachel Frick (Digital Public Library of America) |
+| 15:45 - 16:15  | Audience Spotlight and Discussion | Simeon Warner (Cornell) |
+| 16:15 - 16:30  | Next Steps and Close | Tom Cramer (Stanford) |
 {: .image-api-table}
 
 ## Logistics
