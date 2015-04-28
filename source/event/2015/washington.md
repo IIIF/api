@@ -31,9 +31,9 @@ Tuesday, 5th of May 2015
 | 11:45 - 12:15  | Audience Spotlight and Discussion | Simeon Warner (Cornell)|
 | 12:15 - 13:30  | Lunch (not provided)| |
 | 13:30 - 13:45  | Introduction to the Image API | Jon Stroop (Princeton) |
-| 13:45 - 14:00  | Mirador and Image Comparison | Stu Snydman (Stanford) |
+| 13:45 - 14:00  | Mirador and Image Comparison | Stu Snydman, Drew Winget (Stanford) |
 | 14:00 - 14:15  | Introduction to the Presentation API | Rob Sanderson (Stanford) |
-| 14:15 - 14:30  | Interacting with Objects using the Wellcome Player | Tom Crane (Digerati) |
+| 14:15 - 14:30  | Interacting with Objects using the Wellcome Player | Tom Crane, Ed Silverton (Digirati) |
 | 14:30 - 15:00  | Coffee Break| |
 | 15:00 - 15:15  | Use Case: Pedagogy | Franziska Frey (Harvard) |
 | 15:15 - 15:30  | Use Case: Tagging and Discovery | Michael Appleby (Yale) |
