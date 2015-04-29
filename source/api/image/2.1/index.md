@@ -684,13 +684,31 @@ After the authentication process has taken place, the resulting page should cont
 
 ### 8.3 Flow from the Server Perspective
 
-![Server Authentication Flow][server-auth-img]
+<table class="ex_table">
+  <tbody>
+    <tr>
+      <td>
+        <img style="max-width: 650px" src="img/auth-flow-server.png" alt="Server Authentication Flow" class="fullPct" />
+        <p><strong>1</strong> Server Authentication Workflow</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 When the server receives a request for the Image Information document, (Step 1), it first must determine if the image content is available, given the current credentials (if any) passed to it by the client.  If the client is authorized, then the server returns a 200 status response with the image information document (Step 2).  If not, and there is a degraded image available, the server returns a 302 status response redirecting the client to the Image Information document for the degraded image (Step 3).  If the server does not have a degraded image and the client is authenticated but not authorized to see the image, it returns a 403 status response to tell the client that it should not continue trying (Step 4).  Finally, if the client is not authenticated, the server returns a 401 status response with an Image Information document that contains the service link to where the client can authenticate (Step 5).    
 
 ### 8.4 Flow from the Client Perspective
 
-![Client Authentication Flow][client-auth-img]
+<table class="ex_table">
+  <tbody>
+    <tr>
+      <td>
+        <img style="max-width: 650px" src="img/auth-flow-client.png" alt="Client Authentication Flow" class="fullPct" />
+        <p><strong>2</strong> Client Authentication Workflow</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 Firstly, the client MUST request the Image Information document for the image that it wants to interact with (Step 1).  If the response is a 200 with the expected information, the client does not need to authenticate and should proceed to interact with the image service (Step 2).  If not, and the response is a 302 redirect, then the client follows the redirect to retrieve a new Image Information document (Step 3).  If the client has seen that document already, by comparing its URI with those in a list of seen URIs, then the user is not authorized to see the image, and it should display the degraded image described in the current response (Step 4).  Otherwise if it has not seen the response before, or the initial response is a 401 status with a link to the service (Step 5), the client follows the link to the authentication service in a newly created window (Step 6) and records that it has seen the URI.  The user must then attempt to authenticate using the service (Step 7), and the client waits until the window is closed, either automatically or manually by the user.  Once the window is closed, the client retries the request for the full Image Information document (Step 8), and proceeds back to make the same tests.  Finally, if the client receives a 403 response from the server, it should display no image as the user cannot gain authorization to interact with the image and there is no degraded version available.
 
