@@ -688,7 +688,7 @@ After the authentication process has taken place, the resulting page should cont
   <tbody>
     <tr>
       <td>
-        <img style="max-width: 300px" src="img/auth-flow-server.png" alt="Server Authentication Flow" class="fullPct" />
+        <img style="width: 300px" src="img/auth-flow-server.png" alt="Server Authentication Flow" class="fullPct" />
         <p><strong>1</strong> Server Authentication Workflow</p>
       </td>
     </tr>
