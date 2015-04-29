@@ -17,13 +17,12 @@ __This Version:__ {{ page.major }}.{{ page.minor }}.{{ page.patch }}{% if page.p
 
 __Latest Stable Version:__ [{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}.{{ site.image_api.latest.patch }}][stable-version]
 
-__Previous Version:__ [1.1][prev-version]
+__Previous Version:__ [2.0][prev-version]
 
 **Editors:**
 
   * Michael Appleby, _Yale University_
   * Robert Sanderson, _Stanford University_
-  * Stuart Snydman, _Stanford University_
   * Jon Stroop, _Princeton University_
   * Simeon Warner, _Cornell University_
   {: .names}
@@ -136,7 +135,8 @@ The region parameter defines the rectangular portion of the full image to be ret
 | Form |  Description |
 | ------------------------ | ------------ |
 | `full`                   | The complete image is returned, without any cropping. |
-| x,y,w,h                  | The region of the full image to be returned is defined in terms of absolute pixel values. The value of x represents the number of pixels from the 0 position on the horizontal axis. The value of y represents the number of pixels from the 0 position on the vertical axis. Thus the x,y position 0,0 is the upper left-most pixel of the image. w represents the width of the region and h represents the height of the region in pixels.  |
+| `square`                 | The region is defined as an area where the width and height are both equal to the length of the shorter side of the complete image.  The region may be positioned anywhere in the long edge of the image content at the server's discretion, and centered is often a reasonable default.|
+| x,y,w,h                  | The region of the full image to be returned is specified in terms of absolute pixel values. The value of x represents the number of pixels from the 0 position on the horizontal axis. The value of y represents the number of pixels from the 0 position on the vertical axis. Thus the x,y position 0,0 is the upper left-most pixel of the image. w represents the width of the region and h represents the height of the region in pixels.  |
 | pct:x,y,w,h              | The region to be returned is specified as a sequence of percentages of the full image's dimensions, as reported in the Image Information document. Thus, `x` represents the number of pixels from the 0 position on the horizontal axis, calculated as a percentage of the reported width. `w` represents the width of the region, also calculated as a percentage of the reported width. The same applies to y and h respectively. These may be floating point numbers. |
 {: .image-api-table}
 
@@ -150,37 +150,41 @@ Examples:
   <tbody>
     <tr>
       <td>
-        <img src="img/full.png" alt="Full Size" class="fullPct" />
-        <p><strong>1</strong> size=full</p>
+        <img src="img/full.png" alt="Full Region" class="fullPct" />
+        <p><strong>1</strong> region=full</p>
         <p><code>.../full/full/0/default.jpg</code></p>
       </td>
       <td>
-        <img src="img/region_px.png" alt="Region by Pixels" class="fullPct" />
-        <p><strong>2</strong> region=125,15,120,140</p>
-        <p><code>.../125,15,120,140/full/0/default.jpg</code></p>
+        <img src="img/region_square.png" alt="Square Region" class="fullPct" />
+        <p><strong>2</strong> region=square</p>
+        <p><code>.../square/full/0/default.jpg</code></p>
       </td>
     </tr>
     <tr>
       <td>
-        <img src="img/region_pct.png" alt="Region by Percent" class="fullPct" />
-        <p><strong>3</strong> region=pct:41.6,7.5,40,70</p>
-        <p><code>.../pct:41.6,7.5,40,70/full/0/default.jpg</code></p>
+        <img src="img/region_px.png" alt="Region by Pixels" class="fullPct" />
+        <p><strong>3</strong> region=125,15,120,140</p>
+        <p><code>.../125,15,120,140/full/0/default.jpg</code></p>
       </td>
       <td>
+        <img src="img/region_pct.png" alt="Region by Percent" class="fullPct" />
+        <p><strong>4</strong> region=pct:41.6,7.5,40,70</p>
+        <p><code>.../pct:41.6,7.5,40,70/full/0/default.jpg</code></p>
+      </td>
+    </tr>
+    <tr>      
+      <td>
         <img src="img/region_px_over.png" alt="Region by Pixels" class="fullPct" />
-        <p><strong>4</strong> region=125,15,200,200</p>
+        <p><strong>5</strong> region=125,15,200,200</p>
         <p><code>.../125,15,200,200/full/0/default.jpg</code></p>
         <p><em>N.B. Returned image is 175,185 px</em></p>
       </td>
-    </tr>
-    <tr>
       <td>
         <img src="img/region_pct_over.png" alt="Region by Percent" class="fullPct" />
-        <p><strong>5</strong> region=pct:41.6,7.5,66.6,100</p>
+        <p><strong>6</strong> region=pct:41.6,7.5,66.6,100</p>
         <p><code>.../pct:41.6,7.5,66.6,100/full/0/default.jpg</code></p>
         <p><em>N.B. Returned image is 175,185 px</em></p>
       </td>
-      <td></td>
     </tr>
   </tbody>
 </table>
@@ -628,15 +632,11 @@ The order in which servers parse requests and detect errors is not specified. A 
 
 Images are generally secondary resources in a web page or application. In the case of web pages, images are embedded in the HTML `img` tag, and are retrieved via additional HTTP requests. When a user cannot load a web page, it is possible — and a generally accepted behavior — to redirect the user to another page and offer the opportunity to authenticate. This is not an option for secondary resources such as images, and the user is instead simply presented with the much-hated broken image icon.
 
-Authentication systems that span multiple domains are also complex, particularly when the interaction is via a Javascript client served from yet another domain, rather than from where the authentication challenge must be performed. Details such as passive mixed content (the mixture of HTTP and HTTPS), cross origin resource sharing (enabling the ability to request data from different domains), and the desire not degrade the user experience with unnecessary authentication popups provide further challenges in this space.
+Authentication systems that span multiple domains are also complex, particularly when the interaction is via a Javascript client served from yet another domain, rather than from where the authentication challenge must be performed. Details such as passive mixed content (the mixture of HTTP and HTTPS), cross origin resource sharing (enabling the ability to request data from different domains), and the desire not degrade the user experience with unnecessary authentication popups provide further challenges in this space.  
 
 Some access is generally better than no access. A grayscale version instead of color; a version of the image with a watermark; a version with more compression; or a smaller size is likely better than no image at all. Providing this functionality is more complex than traditional yes-or-no access controls, and serving the correct image and associated image information for the degraded version is necessary to prevent web caches from providing incorrect content.
 
 No new authentication systems are proposed in this specification, nor roles for authorization business logic. Instead, it is expected that authentication requirements and processes are handled outside of any IIIF-specific context, but within a larger workflow described below. This workflow is agnostic to the details of the authentication protocol.
-
-<p style="color: red">
-QUESTION: should we explain why WWW-Authenticate can't work, i.e. because Javascript? Should we explain other limitations imposed by Javascript, perhaps all in one paragraph near the top? Might lighten up later paras/sections.
-</p>
 
 ### 8.2 Authentication Services
 
@@ -682,15 +682,17 @@ If server supports degraded access and the user is authenticated but not authori
 
 After the authentication process has taken place, the resulting page should contain javascript to try and automatically close the window. Thus, web-browser based clients MUST present the authentication interface in a separate window or iframe. Clients SHOULD store the URIs of authentication systems that have been accessed by the user, and not redisplay them, regardless of whether they are present in the Image Information response.
 
-### 8.3 Flow from the Client Perspective
-
-![Client Authentication Flow][client-auth-img]
-
-
-### 8.4 Flow from the Server Perspective
+### 8.3 Flow from the Server Perspective
 
 ![Server Authentication Flow][server-auth-img]
 
+When the server receives a request for the Image Information document, (Step 1), it first must determine if the image content is available, given the current credentials (if any) passed to it by the client.  If the client is authorized, then the server returns a 200 status response with the image information document (Step 2).  If not, and there is a degraded image available, the server returns a 302 status response redirecting the client to the Image Information document for the degraded image (Step 3).  If the server does not have a degraded image and the client is authenticated but not authorized to see the image, it returns a 403 status response to tell the client that it should not continue trying (Step 4).  Finally, if the client is not authenticated, the server returns a 401 status response with an Image Information document that contains the service link to where the client can authenticate (Step 5).    
+
+### 8.4 Flow from the Client Perspective
+
+![Client Authentication Flow][client-auth-img]
+
+Firstly, the client MUST request the Image Information document for the image that it wants to interact with (Step 1).  If the response is a 200 with the expected information, the client does not need to authenticate and should proceed to interact with the image service (Step 2).  If not, and the response is a 302 redirect, then the client follows the redirect to retrieve a new Image Information document (Step 3).  If the client has seen that document already, by comparing its URI with those in a list of seen URIs, then the user is not authorized to see the image, and it should display the degraded image described in the current response (Step 4).  Otherwise if it has not seen the response before, or the initial response is a 401 status with a link to the service (Step 5), the client follows the link to the authentication service in a newly created window (Step 6) and records that it has seen the URI.  The user must then attempt to authenticate using the service (Step 7), and the client waits until the window is closed, either automatically or manually by the user.  Once the window is closed, the client retries the request for the full Image Information document (Step 8), and proceeds back to make the same tests.  Finally, if the client receives a 403 response from the server, it should display no image as the user cannot gain authorization to interact with the image and there is no degraded version available.
 
 ##  9. URI Encoding and Decoding
 
