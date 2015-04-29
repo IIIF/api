@@ -489,6 +489,10 @@ The JSON at the top level of the response will include the following properties:
 | `sizes` | Optional | A set of height and width pairs the client should use in the `size` parameter to request complete images at different sizes that the server has available. This may be used to let a client know the sizes that are available when the server does not support requests for arbitrary sizes, or simply as a hint that requesting an image of this size may result in a faster response. A request constructed with the `w,h` syntax using these sizes _MUST_ be supported by the server, even if arbitrary width and height are not. |
 | `tiles` | Optional | A set of descriptions of the parameters to use to request regions of the image (tiles) that are efficient for the server to deliver. Each description gives a width, optionally a height for non-square tiles, and a set of scale factors at which tiles of those dimensions are available. |
 | `service` | Optional | The `service` property provides a hook for additional information to be included in the image description, for example the physical size of the object depicted.  Please see the [Service Profiles][service-profiles] annex for more information. |
+| `attribution` | Optional | A human readable label that MUST be displayed when the image is displayed or used.  It might include copyright or ownership statements, or a simple acknowledgement of the providing institution. The value MAY contain simple HTML, using only the `a`, `b`, `br`, `i`, `img`, `p` and `span` tags. Clients may remove all tags before display, at their discretion.|
+| `license` | Optional | The URL of an external resource that describes the license or rights statement under which the image may be used. |
+| `logo` | Optional | The URL of a small image that represents an individual or organization associated with the image service.  The logo image MUST be displayed when the main image is displayed or used. |  
+
 {: .image-api-table}
 
 The objects in the `sizes` list have the properties in the following table. Images requested using these sizes _SHOULD_ have a region parameter of "full" and rotation of "0". The full URL for an image with "default" quality in "jpg" format would be: `{base_url}/{identifier}/full/{width},{height}/0/default.jpg`
@@ -505,7 +509,7 @@ The `width` of a tile, or the combination of `width` and `height` if `height` is
 
 | Property   | Required? | Description |
 | ---------- | --------- | ----------- |
-| `scaleFactors` | Required | The set of resolution scaling factors for the image's predefined tiles, expressed as an integer by which to divide the full size of the image. For example, a scale factor of 4 indicates that the service can efficiently deliver images at 1/4 or 25% of the height and width of the full image. A particular scale factor value _SHOULD_ appear only once in the `tiles` list. |
+| `scaleFactors` | Required | The set of resolution scaling factors for the image's predefined tiles, expressed as positive integers by which to divide the full size of the image. For example, a scale factor of 4 indicates that the service can efficiently deliver images at 1/4 or 25% of the height and width of the full image. A particular scale factor value _SHOULD_ appear only once in the `tiles` list. |
 | `width` | Required | The width of the predefined tiles to be requested. |
 | `height` | Optional | The height of the predefined tiles to be requested.  If it is not specified in the JSON, then it defaults to the same as `width`, resulting in square tiles. |
 {: .image-api-table}
@@ -570,6 +574,9 @@ The JSON response is structured as shown in the following example. The order of 
   "tiles": [
     {"width" : 512, "scaleFactors" : [1,2,4,8,16]}
   ],
+  "attribution" : "<span>Provided by Example Organization</span>",
+  "logo" : "http://example.org/image-service/logo/full/full/0/default.jpg",
+  "license" : "http://example.org/rights/license1.html",
   "profile" : [
     "http://iiif.io/api/image/{{ page.major }}/level2.json",
     {
