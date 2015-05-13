@@ -14,6 +14,8 @@
   uri: 
 - name: DPLA
   uri: http://dp.la/
+- name: Digirati Ltd
+  uri: http://www.digirati.co.uk/
 - name: Europeana
   uri: http://europeana.eu/
 - name: Harvard University
@@ -51,6 +53,6 @@
 - name: text &amp; bytes
   uri:  http://www.textandbytes.com/en
 - name: Wellcome Trust
-  uri:
+  uri: http://wellcomelibrary.org
 - name: Yale University
   uri: 
