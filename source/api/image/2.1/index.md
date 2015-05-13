@@ -495,6 +495,8 @@ The JSON at the top level of the response will include the following properties:
 
 {: .image-api-table}
 
+Please note that the `attribution`, `license` and `logo` properties have the same semantics and requirements as those in the [Presentation API][prezi-api]. When both APIs express attributions or logos that _MUST_ be displayed, then clients _MUST_ display both unless they are exactly identical.  While possible, it is _RECOMMENDED_ that logos with IIIF services do not, themselves, have logos.  Clients encountering logos with logos are _NOT_ required to display a potentially infinite set.
+
 The objects in the `sizes` list have the properties in the following table. Images requested using these sizes _SHOULD_ have a region parameter of "full" and rotation of "0". The full URL for an image with "default" quality in "jpg" format would be: `{base_url}/{identifier}/full/{width},{height}/0/default.jpg`
 
 | Property   | Required? | Description |
