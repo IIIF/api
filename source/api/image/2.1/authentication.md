@@ -7,7 +7,7 @@ tags: [specifications, image-api]
 major: 2
 minor: 1
 patch: 0
-pre: final
+pre: draft
 ---
 
 ## Status of this Document
@@ -15,9 +15,6 @@ pre: final
 
 __This Version:__ {{ page.major }}.{{ page.minor }}.{{ page.patch }}{% if page.pre != 'final' %}-{{ page.pre }}{% endif %}
 
-__Latest Stable Version:__ [{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}.{{ site.image_api.latest.patch }}][stable-version]
-
-__Previous Version:__ [2.0][prev-version]
 
 **Editors:**
 
@@ -311,5 +308,10 @@ Many thanks to  Ben Albritton, Matthieu Bonicel, Anatol Broder, Kevin Clarke, To
 [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
 [client-auth-img]: img/auth-flow-client.png
 [server-auth-img]: img/auth-flow-server.png
+[semver]: http://semver.org/spec/v2.0.0.html "Semantic Versioning 2.0.0"
+[iiif-community]: /community.html "IIIF Community"
+[versioning]: /api/annex/notes/semver.html "Versioning of APIs"
+[mellon]: http://www.mellon.org/ "The Andrew W. Mellon Foundation"
+[change-log]: /api/image/2.0/change-log.html "Change Log for Version 2.0"
 
 {% include acronyms.md %}
