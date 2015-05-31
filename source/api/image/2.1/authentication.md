@@ -22,6 +22,7 @@ __Previous Version:__ [2.0][prev-version]
 **Editors:**
 
   * Michael Appleby, _Yale University_
+  * Tom Crane, _Digirati_
   * Robert Sanderson, _Stanford University_
   * Jon Stroop, _Princeton University_
   * Simeon Warner, _Cornell University_
