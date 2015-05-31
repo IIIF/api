@@ -253,7 +253,7 @@ Finally the client retries the request for the Image Information, with the acces
 Clients _SHOULD_ store the URIs of authentication systems that have been accessed by the user, and not redisplay them, regardless of whether they are present in the Image Information response as the user has already been authenticated by that service.
 
 
-### 4 Workflow from the Server Perspective
+## 4 Workflow from the Server Perspective
 
 <table class="ex_table">
   <tbody>
@@ -268,7 +268,7 @@ Clients _SHOULD_ store the URIs of authentication systems that have been accesse
 
 When the server receives a request for the Image Information document, (1), it first must determine if the image content is available, given the current credentials (if any) passed to it via the Authorization header.  If the user is authorized, then the server returns a 200 status response with the image information document (2).  If not, and there is a degraded image available, the server returns a 302 status response redirecting the client to the Image Information document for the degraded image (3).  If the server does not have a degraded image and the client is authenticated but not authorized to see the image, it returns a 403 status response to tell the client that it should not continue trying (4).  Finally, if the client is not authenticated, the server returns a 401 status response with an Image Information document that contains the service link to where the user can authenticate (5).    
 
-### 5 Workflow from the Client Perspective
+## 5 Workflow from the Client Perspective
 
 <table class="ex_table">
   <tbody>
@@ -283,6 +283,8 @@ When the server receives a request for the Image Information document, (1), it f
 
 The client MUST first request the Image Information document for the image that the user wishes to interact with (1).  If the response is a 200 with the expected information, the client does not need to authenticate and should proceed to interact with the image service (2).  If not, and the response is a 302 redirect, then the client follows the redirect to retrieve a new Image Information document (3).  If the client has seen that document already, by comparing its URI with those in a list of seen URIs, then the user is not authorized to see the image, and it should display the degraded image described in the current response (4).  Otherwise if it has not seen the response before, or the initial response is a 401 status with a link to the service (5), the client follows the link to the login service in a newly created window (6) and records that it has seen the URI.  The user must then attempt to authenticate using the service (7), and the client waits until the window is closed, either automatically or manually by the user.  Once the window is closed, the client retrieves an access token for the user and retries the request for the full Image Information document (8), and proceeds back to make the same tests.  Finally, if the client receives a 403 response from the server, it should display no image as the user cannot gain authorization to interact with the image and there is no degraded version available.
 
+
+## Appendices
 
 ### A. Versioning
 
