@@ -130,18 +130,6 @@ The response from the server _MUST_ be JSON using the following template:
 ```
 {: .urltemplate}
 
-Or, in the case of an error:
-
-```json
-{
-  "error": "error_code",
-  "error_description": "",
-  "error_uri": ""
-}
-```
-{: .urltemplate}
-
-Where `error_code` is one of:  `invalid_request`, `invalid_client`, `unauthorized_client`
 
 
 ### 2.4 Access Token Service
@@ -161,7 +149,7 @@ The final service provides the client with a token to identify the user on futur
 For browser based clients, this _MUST_ be done via the [JSONP][jsonp] pattern as credentials are not allowed to be passed to open systems via XMLHttpRequest.  Other systems _SHOULD_ request the URI directly.  If an authorization code was obtained using the Client Identity Service, then this _MUST_ be passed to the Access Token Service as well.  The code is passed using a query parameter to the service called `code` with the authorization code as the value.
 
 
-### 2.4.1 JSONP Request
+#### 2.4.1 JSONP Request
 
 Browser based clients _MUST_ use JSONP callbacks to retrieve the access token, as Cookies are not allowed to be sent to systems that do not have the `Access-Control-Allow-Credentials` response header set, and they also must not have `Access-Control-Allow-Origin` set to `*`, as required by the Image API.  The workaround of simply echoing the requester's origin back would expose the system to attacks on other resources than the Image Service.
 
@@ -176,27 +164,15 @@ The response from the token service _MUST_ be javascript with the requested call
 ```javascript
 callback_function(
 {
-  "access_token": "xyz123abc456",
+  "access_token": "TOKEN_HERE",
   "token_type": "Bearer",
   "expires_in": 3600
 }
 );
 ```
 
-Or, in the case of an error:
 
-```javascript
-callback_function(
-{
-  "error": "error_code",
-  "error_description": "",
-  "error_uri": ""
-}
-);
-```
-Where `error_code` is one of:  `invalid_request`, `invalid_client`, `unauthorized_client`
-
-### 2.4.2 Regular Request
+#### 2.4.2 Regular Request
 
 Non-browser clients do not have the same restrictions, and likely do not have a javascript implementation to execute the callback function.  Instead, they should simply request the URL directly using HTTP GET, potentially with the added authorization code parameter if required.
 
@@ -216,17 +192,21 @@ The response from the token service _MUST_ be JSON with the following template:
 }
 ```
 
-Or, in the case of an error:
+### 2.5 Error Conditions
+
+The response from the Client Identity Service or the Access Token Service may be an error.  The response _MUST_ be in JSON with the following template.  In the case of the JSONP request for the Access Token Service, it _MUST_ be wrapped in the callback function.
 
 ```json
 {
-  "error": "error_code",
+  "error": "ERROR_CODE_HERE",
   "error_description": "",
   "error_uri": ""
 }
 ```
-Where `error_code` is one of:  `invalid_request`, `invalid_client`, `unauthorized_client`
+{: .urltemplate}
 
+Where `ERROR_CODE_HERE` is one of:  `invalid_request`, `invalid_client`, `invalid_secret`
+The description and uri fields are optional and may give additional information to the user or client to determine how to avoid the error condition.
 
 
 ## 3 Workflow
