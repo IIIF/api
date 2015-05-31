@@ -220,7 +220,7 @@ The description and uri fields are optional and may give additional information 
 
 The first step for the client is to request the Image Information for the desired image.  The response will dictate its next step, and likely be to present the user with a login service in a new browser window.
 
-When a client requests the Image Information for its desired image, the response _MUST_ include the service blocks described above and the required [Image Information properties](#image-information) (`@context`, `@id`, `protocol`, `width`, `height`), thus allowing a client to draw a placeholder at the appropriate aspect-ratio, regardless of whether the user is authenticated or not.
+When a client requests the Image Information for its desired image, the response _MUST_ include the service blocks described above and the required Image Information properties (`@context`, `@id`, `protocol`, `width`, `height`), thus allowing a client to draw a placeholder at the appropriate aspect-ratio, regardless of whether the user is authenticated or not.
 
 If a server does not support degraded access, and wishes to require authentication for access to its images, it _MUST_ return the requested Image Information response with a 401 (Unauthorized) HTTP status code. This response _MUST NOT_ include a `WWW-Authenticate` header, and if basic authentication is required, then it _MUST_ be delivered from a different URI listed in the `@id` field of the login service block.
 
@@ -292,7 +292,7 @@ Starting with version 2.0, this specification follows [Semantic Versioning][semv
 
 The production of this document was generously supported by a grant from the [Andrew W. Mellon Foundation][mellon].
 
-Many thanks to  Ben Albritton, Matthieu Bonicel, Anatol Broder, Kevin Clarke, Tom Cramer, Ian Davis, Neil Jefferies, Scotty Logan, Sean Martin, Roger Mathisen, Lynn McRae, Willy Mene, Mark Patton, Petter Rønningsen, and Brian Tingle for your thoughtful contributions to the effort and written feedback.  Thanks also to the members of the [IIIF Community][iiif-community] for their continuous engagement, innovative ideas and feedback.
+Many thanks to the members of the [IIIF Community][iiif-community] for their continuous engagement, innovative ideas and feedback.
 
 ###  C. Change Log
 
