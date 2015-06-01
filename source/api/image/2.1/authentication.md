@@ -47,7 +47,7 @@ Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss]
 
 Images are generally secondary resources in a web page or application. In the case of web pages, images are embedded in the HTML `img` tag, and are retrieved via additional HTTP requests. When a user cannot load a web page, it is possible — and a generally accepted behavior — to redirect the user to another page and offer the opportunity to authenticate. This is not an option for secondary resources such as images, and the user is instead simply presented with the much-hated broken image icon.
 
-Authentication systems that span multiple domains are also complex, particularly when the interaction is via a Javascript client served from yet another domain, rather than from where the authentication challenge must be performed. Details such as passive mixed content (the mixture of HTTP and HTTPS), cross origin resource sharing (enabling the ability to request data from different domains), and the desire not degrade the user experience with unnecessary authentication popups provide further challenges in this space.  
+Authentication systems that span multiple domains are also complex, particularly when the interaction is via a JavaScript client served from yet another domain, rather than from where the authentication challenge must be performed. Details such as passive mixed content (the mixture of HTTP and HTTPS), cross origin resource sharing (enabling the ability to request data from different domains), and the desire not degrade the user experience with unnecessary authentication popups provide further challenges in this space.  
 
 Some access is generally better than no access. A grayscale version instead of color; a version of the image with a watermark; a version with more compression; or a smaller size is likely better than no image at all. Providing this functionality is more complex than traditional yes-or-no access controls, and serving the correct image and associated image information for the degraded version is necessary to prevent web caches from providing incorrect content.
 
@@ -55,7 +55,7 @@ No new authentication systems are proposed in this specification, nor roles for 
 
 ## 2 Authentication Services
 
-As noted above, the client needs to know where the user can authenticate, and once authenticated, where she can logout.  These service enpoints are referenced in the Image Information json response, in `service` blocks. There are four service profiles relevant to IIIF authentication: one for the user to log in, another to log out, a third client-focused service that returns an authorization token for the client to use on requests, and an optional client identity service to restrict access to only known client systems that have pre-registered with a secret key.
+As noted above, the client needs to know where the user can authenticate, and once authenticated, where she can logout.  These service endpoints are referenced in the Image Information json response, in `service` blocks. There are four service profiles relevant to IIIF authentication: one for the user to log in, another to log out, a third client-focused service that returns an authorization token for the client to use on requests, and an optional client identity service to restrict access to only known client systems that have pre-registered with a secret key.
 
 
 ### 2.1 Login Service
@@ -113,8 +113,8 @@ The request _MUST_ use HTTP POST and _MUST_ carry a body with the following JSON
 
 ```json
 {
-  "client_id" : "CLIENT_ID_HERE",
-  "client_secret" : "CLIENT_SECRET_HERE"
+  "clientId" : "CLIENT_ID_HERE",
+  "clientSecret" : "CLIENT_SECRET_HERE"
 }
 ```
 {: .urltemplate}
@@ -123,7 +123,7 @@ The response from the server _MUST_ be JSON using the following template:
 
 ```json
 {
-  "authorization_code" : "AUTH_CODE_HERE",
+  "authorizationCode" : "AUTH_CODE_HERE"
 }
 ```
 {: .urltemplate}
@@ -138,7 +138,7 @@ The final service provides the client with a token to identify the user on futur
 {
   "service" : {
     "@id": "http://authentication.example.org/token",
-    "profile": "http://iiif.io/api/image/2/auth/token",
+    "profile": "http://iiif.io/api/image/2/auth/token"
   }
 }
 ```
@@ -149,6 +149,7 @@ For browser based clients, this _MUST_ be done via the [JSONP][jsonp] pattern as
 Once obtained, the token _MUST_ be passed back to the server on all future requests for Image Information documents by adding an `Authorization` request header, with the value `Bearer TOKEN_HERE`.  Other systems or services on the same domain _MAY_ also use this token for providing access to restricted content or services, such as creating and managing images or other content.
 
 For example:
+
 ```
 GET /iiif/identifier/info.json HTTP/1.1
 Authorization: Bearer TOKEN_HERE
@@ -165,21 +166,21 @@ http://authentication.example.org/token?callback=callback_function&code=AUTH_COD
 ```
 { .urltemplate}
 
-The response from the token service _MUST_ be javascript with the requested callback_function wrapping a JSON object:
+The response from the token service _MUST_ be JavaScript with the requested callback_function wrapping a JSON object:
 
 ```javascript
 callback_function(
 {
-  "access_token": "TOKEN_HERE",
-  "token_type": "Bearer",
-  "expires_in": 3600
+  "accessToken": "TOKEN_HERE",
+  "tokenType": "Bearer",
+  "expiresIn": 3600
 }
 );
 ```
 
 #### 2.4.2 Regular Request
 
-Non-browser clients do not have the same restrictions, and likely do not have a javascript implementation to execute the callback function.  Instead, they should simply request the URL directly using HTTP GET, potentially with the added authorization code parameter if required.
+Non-browser clients do not have the same restrictions, and likely do not have a JavaScript implementation to execute the callback function.  Instead, they should simply request the URL directly using HTTP GET, potentially with the added authorization code parameter if required.
 
 Thus the client would GET:
 ```
@@ -191,9 +192,9 @@ The response from the token service _MUST_ be JSON with the following template:
 
 ```json
 {
-  "access_token": "xyz123abc456",
-  "token_type": "Bearer",
-  "expires_in": 3600
+  "accessToken": "xyz123abc456",
+  "tokenType": "Bearer",
+  "expiresIn": 3600
 }
 ```
 
@@ -204,19 +205,19 @@ The response from the Client Identity Service or the Access Token Service may be
 ```json
 {
   "error": "ERROR_CODE_HERE",
-  "error_description": "",
-  "error_uri": ""
+  "errorDescription": "",
+  "errorUri": ""
 }
 ```
 {: .urltemplate}
 
-Where `ERROR_CODE_HERE` is one of:  `invalid_request`, `invalid_client`, `invalid_secret`
+Where `ERROR_CODE_HERE` is one of:  `invalidRequest`, `invalidClient`, `invalidSecret`
 The description and uri fields are optional and may give additional information to the user or client to determine how to avoid the error condition.
 
 
 ## 3 Workflow
 
-### 3.1 Step 1: Request Image Information 
+### 3.1 Step 1: Request Image Information
 
 The first step for the client is to request the Image Information for the desired image.  The response will dictate its next step, and likely be to present the user with a login service in a new browser window.
 
@@ -226,7 +227,7 @@ If a server does not support degraded access, and wishes to require authenticati
 
 If the user is authenticated but not authorized, or business logic on the server dictates that authorization will never be possible, then the server _MUST_ respond to requests with the 403 (Forbidden) HTTP status code.
 
-If a server supports degraded access to its images while the user is not authenticated, then it _MUST_ use a different identifier for the degraded image from that of the higher quality image. When the full Image Information is requested and the user is not authorized to use it, the server _MUST_ issue a 302 (Found) HTTP status response to redirect to the Image Information for the degraded image. 
+If a server supports degraded access to its images while the user is not authenticated, then it _MUST_ use a different identifier for the degraded image from that of the higher quality image. When the full Image Information is requested and the user is not authorized to use it, the server _MUST_ issue a 302 (Found) HTTP status response to redirect to the Image Information for the degraded image.
 
 If server supports degraded access and the user is authenticated but not authorized for the higher quality image, or business logic on the server dictates that authorization will never be possible, then the server _MUST_ respond to requests with the 301 (Moved Permanently) HTTP status code and the Location header set to the degraded image's Image Information URI.
 
@@ -238,7 +239,7 @@ If the image provider requires clients to be registered, there _MUST_ be a clien
 
 After receiving the response from the Image Information request, the client will likely have a URL for a Login service for the user to authenticate.  The client _MUST_ present this URL to the user in a separate window with a URL bar to help prevent spoofing attacks.  It _SHOULD NOT_ be in an iframe or otherwise imported into the client user interface.
 
-After the authentication process has taken place, the resulting page _MUST_ set a cookie that will be retrieved by the Access Token service to identify the user. It _SHOULD_ also contain javascript to try and automatically close the window. The window closing is the trigger for the client to request the Access Token for the user.
+After the authentication process has taken place, the resulting page _MUST_ set a cookie that will be retrieved by the Access Token service to identify the user. It _SHOULD_ also contain JavaScript to try and automatically close the window. The window closing is the trigger for the client to request the Access Token for the user.
 
 ### 3.4 Step 4: Obtain Access Token
 
@@ -264,7 +265,7 @@ Clients _SHOULD_ store the URIs of authentication systems that have been accesse
   </tbody>
 </table>
 
-When the server receives a request for the Image Information document, (1), it first must determine if the image content is available, given the current credentials (if any) passed to it via the Authorization header.  If the user is authorized, then the server returns a 200 status response with the image information document (2).  If not, and there is a degraded image available, the server returns a 302 status response redirecting the client to the Image Information document for the degraded image (3).  If the server does not have a degraded image and the client is authenticated but not authorized to see the image, it returns a 403 status response to tell the client that it should not continue trying (4).  Finally, if the client is not authenticated, the server returns a 401 status response with an Image Information document that contains the service link to where the user can authenticate (5).    
+When the server receives a request for the Image Information document, (1), it first must determine if the image content is available, given the current credentials (if any) passed to it via the Authorization header.  If the user is authorized, then the server returns a 200 status response with the image information document (2).  If not, and there is a degraded image available, the server returns a 302 status response redirecting the client to the Image Information document for the degraded image (3).  If the server does not have a degraded image and the client is authenticated but not authorized to see the image, it returns a 403 status response to tell the client that it should not continue trying (4).  Finally, if the client is not authenticated, the server returns a 401 status response with an Image Information document that contains the service link to where the user can authenticate (5).
 
 ## 5 Workflow from the Client Perspective
 
