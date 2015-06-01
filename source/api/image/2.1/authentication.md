@@ -154,17 +154,18 @@ For example:
 GET /iiif/identifier/info.json HTTP/1.1
 Authorization: Bearer TOKEN_HERE
 ```
-{. urltemplate}
+{: .urltemplate}
 
 #### 2.4.1 JSONP Request
 
 Browser based clients _MUST_ use JSONP callbacks to retrieve the access token, as Cookies are not allowed to be sent to systems that do not have the `Access-Control-Allow-Credentials` response header set, and they also must not have `Access-Control-Allow-Origin` set to `*`, as required by the Image API.  The workaround of simply echoing the requester's origin back would expose the system to attacks on other resources than the Image Service.
 
 The request _MUST_ have a callback parameter added to the URL from the `@id` field, and if an authorization code is required, that _MUST_ be present in a `code` parameter.
+
 ```
 http://authentication.example.org/token?callback=callback_function&code=AUTH_CODE_HERE
 ```
-{ .urltemplate}
+{: .urltemplate}
 
 The response from the token service _MUST_ be JavaScript with the requested callback_function wrapping a JSON object:
 
@@ -177,6 +178,7 @@ callback_function(
 }
 );
 ```
+{: .urltemplate}
 
 #### 2.4.2 Regular Request
 
@@ -186,7 +188,7 @@ Thus the client would GET:
 ```
 http://authentication.example.org/token?code=AUTH_CODE_HERE
 ```
-{ .urltemplate}
+{: .urltemplate}
 
 The response from the token service _MUST_ be JSON with the following template:
 
@@ -197,6 +199,7 @@ The response from the token service _MUST_ be JSON with the following template:
   "expiresIn": 3600
 }
 ```
+{: .urltemplate}
 
 ### 2.5 Error Conditions
 
