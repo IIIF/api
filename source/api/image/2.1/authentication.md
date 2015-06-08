@@ -25,7 +25,7 @@ __This Version:__ {{ page.major }}.{{ page.minor }}.{{ page.patch }}{% if page.p
   * Simeon Warner, _Cornell University_
   {: .names}
 
-_Copyright © 2012-2014 Editors and contributors. Published by the IIIF under the [CC-BY][cc-by] license._
+_Copyright © 2012-2015 Editors and contributors. Published by the IIIF under the [CC-BY][cc-by] license._
 
 ----
 
@@ -302,7 +302,8 @@ Many thanks to the members of the [IIIF Community][iiif-community] for their con
 
 | Date       | Description |
 | ---------- | ----------- |
-| 2014-08-12 | Version 2.0-final-draft (Voodoo Bunny) RFC [View change log][change-log] |
+| 2014-08-12 | Version 2.0-draft (Voodoo Bunny) RFC [View change log][change-log] |
+| 2015-05-31 | Tokens draft |
 
 {: .image-api-table}
 
