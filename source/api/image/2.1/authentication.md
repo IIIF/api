@@ -246,14 +246,13 @@ After the authentication process has taken place, the resulting page _MUST_ set 
 
 ### 3.4 Step 4: Obtain Access Token
 
-The client requests an access token from the referenced service, potentially also sending the authorization code obtained in Step 2 if necessary.  The access token is added to all future requests for Image Information documents from the same domain by including it in an Authorization header.  The token service _SHOULD_ also delete the cookie that referenced the user's authentication information and set a new cookie or otherwise start a session to allow access to the image content without requiring that the access token be added to the image pixel requests.
+The client requests an access token from the referenced service, potentially also sending the authorization code obtained in Step 2 if necessary.  The access token must be added by the client to all future image information requests from the same domain by including it in an Authorization header.  A new cookie is set which will be automatically added by the browser to all future image requests (JavaScript clients cannot control the Authorization header of images requested by the browser).
 
 ### 3.5 Step 5: Re-request Image Information
 
 Finally the client retries the request for the Image Information, with the access token added in the Authorization header, to determine if the user is now successfully authenticated and authorized to view the image.
 
 Clients _SHOULD_ store the URIs of authentication systems that have been accessed by the user, and not redisplay them, regardless of whether they are present in the Image Information response as the user has already been authenticated by that service.
-
 
 ## 4 Workflow from the Server Perspective
 
