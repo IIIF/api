@@ -250,9 +250,16 @@ The client requests an access token from the referenced service, potentially als
 
 ### 3.5 Step 5: Re-request Image Information
 
-Finally the client retries the request for the Image Information, with the access token added in the Authorization header, to determine if the user is now successfully authenticated and authorized to view the image.
+Now with the access token added in the Authorization header, the client retries the request for the Image Information to determine whether the user is now successfully authenticated and authorized to view the image.
 
 Clients _SHOULD_ store the URIs of authentication systems that have been accessed by the user, and not redisplay them, regardless of whether they are present in the Image Information response as the user has already been authenticated by that service.
+
+If there is a Logout service described in the image information then the client _SHOULD_ provide a logout link. The client _MUST_ present this URL to the user in a separate window with a URL bar to help prevent spoofing attacks.  It _SHOULD NOT_ be in an iframe or otherwise imported into the client user interface.
+
+### 3.6 Step 6: Request Images
+
+Once the client successfully obtains the Image Information it can then make image requests to yeild an authenticated, non-degarded, view of the image. Authenticated access to images relies up the client sending any cookie or cookies set by the authentication service in step 4. Image requests do not rely upon the Authorization header used for Image Information requests because JavaScript clients are unable to set this for images included via HTML.
+
 
 ## 4 Workflow from the Server Perspective
 
