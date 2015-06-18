@@ -24,10 +24,10 @@ The IIIF-C aims to reduce inefficiency and needless redundancy born from incompa
  
 While IIIF’s origins are in libraries, the community is rapidly expanding to include museums, archives and image services of all types, creating new opportunities for exchange and collaboration across sectors. In addition to the founding IIIF-C members, 20 other institutions are contributing to discussions on specifications for interoperability and providing both open source and commercial implementations of the APIs currently available.
  
-By adopting the IIIF and becoming part of the community, institutions gain access to well supported and sustainable technologies, and enrich scholarly use of their materials.  For more information, visit http://iiif.io.
+By adopting the IIIF and becoming part of the community, institutions gain access to well supported and sustainable technologies, and enrich scholarly use of their materials.  For more information, visit [http://iiif.io](http://iiif.io).
 
  
-About IIIF | http://iiif.io
+About IIIF | [http://iiif.io](http://iiif.io)
 
 The IIIF is driven by a group of research libraries, national libraries, and nonprofit image repositories committed to opening access to cherished image resources. IIIF (International Image Interoperability Framework) has the following goals:
 
