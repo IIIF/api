@@ -273,6 +273,19 @@ a.button-turquoise {
   overflow: auto;
 }
 
+.front-announcement {
+  padding: 10px;
+  border-top:1px solid black; 
+  font-size: 14pt;
+  background: #21252c;
+  color: white;
+
+  div {
+    margin: 0 auto;
+    text-align: center;
+  }
+}
+
 .main-interactive-img-info {
   color: #9496A4;
   font-size: 13px;
