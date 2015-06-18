@@ -2,7 +2,7 @@
 title: IIIF Consortium Formed
 date: 2015-06-17
 author: Tom Cramer
-tags: [news]
+tags: news
 layout: post
 ---
 
