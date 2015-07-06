@@ -15,7 +15,7 @@
     "regionByPx",
     "sizeByH",
     "sizeByPct",
-    "sizeByW"
+    "sizeByW",
     "regionByPct",
     "rotationBy90s",
     "sizeByForcedWh",
