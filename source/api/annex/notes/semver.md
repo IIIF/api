@@ -23,7 +23,7 @@ As compliance documents specify required functionality and only have major versi
 While the APIs should always be consistent and compatible, it is not intended that version numbers will necessarily remain synchronized across the IIIF suite of APIs. A change in one API will not advance the version number of another.
 
 
-[scheduled-changes]: /api/notes/scheduled-changes.html "Scheduled Changes"
+[scheduled-changes]: /api/annex/notes/scheduled-changes.html "Scheduled Changes"
 [semver]: http://semver.org/spec/v2.0.0.html "Semantic Versioning 2.0.0"
 [image-api]: /api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/ "Image API 2.0"
 [prezi-api]: /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/ "Presentation API 2.0"
