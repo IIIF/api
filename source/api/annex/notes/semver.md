@@ -18,8 +18,12 @@ This versioning system will be implemented in the following ways:
 
 In the case of the APIs with external compliance documents, changes to either the API itself or the corresponding compliance document (e.g. [Image API compliance document][image-compliance]) will increment the version number as appropriate. In all cases, major and minor releases will be accompanied by a change log, while changes in patch releases will be appended to the change log for the latest major or minor release.
 
+As compliance documents specify required functionality and only have major versions, no new mandatory functionality will be introduced between major versions.  New features will be either recommended or optional.  If a feature is intended to become mandatory in a future major version, this will be recorded when the decision is made in the [scheduled changes][scheduled-changes] document. 
+
 While the APIs should always be consistent and compatible, it is not intended that version numbers will necessarily remain synchronized across the IIIF suite of APIs. A change in one API will not advance the version number of another.
 
+
+[scheduled-changes]: /api/notes/scheduled-changes.html "Scheduled Changes"
 [semver]: http://semver.org/spec/v2.0.0.html "Semantic Versioning 2.0.0"
 [image-api]: /api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/ "Image API 2.0"
 [prezi-api]: /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/ "Presentation API 2.0"
