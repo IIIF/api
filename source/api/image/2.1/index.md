@@ -28,16 +28,9 @@ __Previous Version:__ [2.0][prev-version]
   * Simeon Warner, _Cornell University_
   {: .names}
 
-_Copyright © 2012-2014 Editors and contributors. Published by the IIIF under the [CC-BY][cc-by] license._
+_Copyright © 2012-2015 Editors and contributors. Published by the IIIF under the [CC-BY][cc-by] license._
 
 ----
-
-## Abstract
-{:.no_toc}
-
-This document describes an image delivery API proposed by the International Image Interoperability Framework (IIIF) group. The IIIF Image API specifies a web service that returns an image in response to a standard HTTP or HTTPS request. The URI can specify the region, size, rotation, quality characteristics and format of the requested image. A URI can also be constructed to request basic technical information about the image to support client applications. This API was conceived of to facilitate systematic reuse of image resources in digital image repositories maintained by cultural heritage organizations. It could be adopted by any image repository or service, and can be used to retrieve static images in response to a properly constructed URI.
-
-Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss]
 
 ## Table of Contents
 {:.no_toc}
@@ -45,7 +38,13 @@ Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss]
 * Table of Discontent (will be replaced by macro)
 {:toc}
 
-##  1. Audience and Scope
+## 1. Introduction
+
+This document describes an image delivery API proposed by the International Image Interoperability Framework (IIIF) group. The IIIF Image API specifies a web service that returns an image in response to a standard HTTP or HTTPS request. The URI can specify the region, size, rotation, quality characteristics and format of the requested image. A URI can also be constructed to request basic technical information about the image to support client applications. This API was conceived of to facilitate systematic reuse of image resources in digital image repositories maintained by cultural heritage organizations. It could be adopted by any image repository or service, and can be used to retrieve static images in response to a properly constructed URI.
+
+Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss]
+
+### 1.1. Audience and Scope
 
 This document is intended for architects and developers building applications that share and consume digital images, particularly from cultural heritage institutions, museums, libraries and archives. Target applications include:
 
@@ -54,6 +53,10 @@ This document is intended for architects and developers building applications th
   * Client applications using image content for analysis or comparison.
 
 This specification concerns image requests by a client, but not management of the images by the server. It covers how to respond to the requests given in a particular URI syntax, but does not cover methods of implementation such as rotation algorithms, transcoding, color management, compression, or how to respond to URIs that do not conform to the specified syntax. This allows flexibility for implementation in domains with particular constraints or specific community practices, while supporting interoperability in the general case.
+
+### 1.2. Terminology
+
+The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _SHOULD NOT_, _RECOMMENDED_, and _OPTIONAL_ in this document are to be interpreted as described in [RFC 2119][rfc-2119].
 
 ## 2. URI Syntax
 
@@ -932,5 +935,7 @@ Many thanks to  Ben Albritton, Matthieu Bonicel, Anatol Broder, Kevin Clarke, To
 
 [client-auth-img]: img/auth-flow-client.png
 [server-auth-img]: img/auth-flow-server.png
+
+[rfc-2119]: https://www.ietf.org/rfc/rfc2119.txt "RFC 2119"
 
 {% include acronyms.md %}
