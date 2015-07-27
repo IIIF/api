@@ -1,3 +1,5 @@
+---
+---
 {
 	"@context" : {
 		"iiif":    "http://iiif.io/api/image/{{ site.image_api.latest.major}}#",
