@@ -102,6 +102,14 @@
       }
     } // x .names
 
+    .warning {
+      border-left: 4px solid red;
+      background: #aa0000;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      margin-left: 20px;
+    }
+
     .image-api-table {
       td:first-child {
         font-size: 1.1em;

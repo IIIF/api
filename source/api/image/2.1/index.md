@@ -144,6 +144,10 @@ The region parameter defines the rectangular portion of the full image to be ret
 | pct:x,y,w,h         | The region to be returned is specified as a sequence of percentages of the full image's dimensions, as reported in the Image Information document. Thus, `x` represents the number of pixels from the 0 position on the horizontal axis, calculated as a percentage of the reported width. `w` represents the width of the region, also calculated as a percentage of the reported width. The same applies to y and h respectively. These may be floating point numbers. |
 {: .image-api-table}
 
+_Deprecation Warning_
+The pct: form of the region parameter will no longer be available in version 3.0.
+{: .warning}
+
 If the request specifies a region which extends beyond the dimensions reported in the Image Information document, then the service _SHOULD_ return an image cropped at the image's edge, rather than adding empty space.
 
 If the requested region's height or width is zero, or if the region is entirely outside the bounds of the reported dimensions, then the server _SHOULD_ return a 400 status code.
@@ -194,7 +198,6 @@ Examples:
 </table>
 
 
-
 ###  4.2. Size
 
 The size parameter determines the dimensions to which the extracted region is to be scaled.
@@ -208,6 +211,10 @@ The size parameter determines the dimensions to which the extracted region is to
 | w,h            | The width and height of the returned image are exactly w and h. The aspect ratio of the returned image _MAY_ be different than the extracted region, resulting in a distorted image. |
 | !w,h           | The image content is scaled for the best fit such that the resulting width and height are less than or equal to the requested width and height. The exact scaling _MAY_ be determined by the service provider, based on characteristics including image quality and system performance. The dimensions of the returned image content are calculated to maintain the aspect ratio of the extracted region. |
 {: .image-api-table}
+
+_Deprecation Warning_
+The pct: form of the size parameter will no longer be available in version 3.0.
+{: .warning}
 
 If the resulting height or width is zero, then the server _SHOULD_ return a 400 (bad request) status code.
 
