@@ -114,21 +114,6 @@
         color: #E05252;
       }
     }
-    .alert {
-      border-left: 4px solid #E0CB52;
-      background: #FCFAEE;
-      padding-top: 5px;
-      padding-bottom: 20px;
-      padding-left: 20px;
-      vertical-align: top;
-
-      strong {
-        line-height: 35px;
-        font-weight: bold;
-        color: #B9AB2D;
-        margin-bottom: 10px;
-      }
-    }
 
     .api-table {
       td:first-child {
@@ -138,18 +123,8 @@
       td {
         font-family: sans-serif;
       }
-    } // .api-table (TO BE DELETED)
 
-    .api-table {
-      td:first-child {
-        font-size: 1.1em;
-        font-family: 'Ubuntu Mono', ;
-      }
-      td {
-        font-family: sans-serif;
-      }
     } // .api-table
-
   } // x .specbody
 } // x .sub-pages-container
 

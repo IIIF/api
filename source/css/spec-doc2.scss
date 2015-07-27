@@ -108,27 +108,10 @@
       padding-top: 20px;
       padding-bottom: 20px;
       padding-left: 20px;
-      padding-right: 24px;
 
       strong {
         font-weight: bold;
         color: #E05252;
-      }
-    }
-    .alert {
-      border-left: 4px solid #E0CB52;
-      background: #FCFAEE;
-      padding-top: 5px;
-      padding-bottom: 20px;
-      padding-left: 20px;
-      padding-right: 24px;
-      vertical-align: top;
-
-      strong {
-        line-height: 35px;
-        font-weight: bold;
-        color: #B9AB2D;
-        margin-bottom: 10px;
       }
     }
 
@@ -140,8 +123,8 @@
       td {
         font-family: sans-serif;
       }
-    } // .api-table
 
+    } // .api-table
   } // x .specbody
 } // x .sub-pages-container
 
@@ -241,36 +224,6 @@ dt {
   }
 }
 
-.javascript {
-  .c1 {
-    font-style: italic;
-    color: #909090
-  }
-  .s2 {
-    color: #209020
-  }
-  .nt {
-    color: #202090
-  }
-  .p {color: black}
-  .o {color: black}
-  .err {
-    font-style: italic;
-    color: #909090
-  }
-  .mi {
-    color: #902020
-  }
-  .mf {
-    color: #902020
-  }
-  .nx {
-    color: #902090
-  }
-  .p + .s2 {
-    color: #202090
-  }
-}
 
 .CodeRay {
   background: #eee;
