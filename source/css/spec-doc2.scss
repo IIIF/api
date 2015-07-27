@@ -103,11 +103,18 @@
     } // x .names
 
     .warning {
-      border-left: 4px solid red;
-      background: #aa0000;
+      border-left: 4px solid #E05252;
+      background: #fbe9e9;
       padding-top: 10px;
       padding-bottom: 10px;
       margin-left: 20px;
+      margin-right: 20px;
+
+      b {
+        font-size: +1;
+        font-weight: bold;
+        color: #FF0000;
+      }
     }
 
     .image-api-table {
