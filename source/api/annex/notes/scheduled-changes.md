@@ -11,7 +11,8 @@ This document records scheduled changes that are intended to be made in the futu
 # Image API
 
 * Require support for the `square` region at compliance level 1. [Issue][square]
-* Clarify that height and width are for calculating aspect ratio only, as there is no 'source' image. [Issue][aspectratio]
+* Clarify the semantics of height and width for calculating aspect ratio only, as there is no 'source' image. [Issue][aspectratio]
+* Remove support for the pct: syntax for region and size [Issue][deprecatepct]
 
 # Presentation API
 
@@ -26,4 +27,4 @@ This document records scheduled changes that are intended to be made in the futu
 [webanno]: https://github.com/IIIF/iiif.io/issues/496
 [choice]: https://github.com/IIIF/iiif.io/issues/368
 [annolist]: https://github.com/IIIF/iiif.io/issues/496
-
+[deprecatepct]: https://github.com/IIIF/iiif.io/issues/478
