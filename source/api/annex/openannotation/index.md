@@ -4,6 +4,7 @@ title_override: "IIIF Open Annotation Extensions"
 id: index
 layout: spec
 tags: [specifications, annex]
+cssversion: 2
 ---
 
 ## Status of this Document
@@ -56,7 +57,7 @@ One use of this is within the [IIIF Presentation API][prezi-api], when a Canvas 
 | rotation | "0"       | The string to put in the rotation parameter of the URI. Note that this must be a string in order to allow mirroring, for example "!90". |
 | quality  | "default" | The string to put in the quality parameter of the URI. |
 | format   | "jpg"     | The string to put in the format parameter of the URI.  Note that the '.' character is not part of the format, just the URI syntax.  |
-{: .image-api-table}
+{: .api-table}
 
 For example, the following object describes the parameters needed to rotate the top left hand 10% of the image clockwise by 90 degrees.
 

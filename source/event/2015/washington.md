@@ -40,7 +40,7 @@ Tuesday, 5th of May 2015
 | 15:30 - 15:45  | Use Case: Aggregation | Rachel Frick (Digital Public Library of America) |
 | 15:45 - 16:15  | Audience Spotlight and Discussion | Simeon Warner (Cornell) |
 | 16:15 - 16:30  | Next Steps and Close | Tom Cramer (Stanford) |
-{: .image-api-table}
+{: .api-table}
 
 ## Logistics
 

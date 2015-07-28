@@ -42,7 +42,7 @@ Tuesday, 21st of October 2014
 |                | From 0 to 60 in 15 minutes | Rob Sanderson, Jon Stroop |
 |                | Panel Discussion | (TBD) |
 | 16:45 - 17:00  | Next Steps & Close | Tom Cramer |
-{: .image-api-table}
+{: .api-table}
 
 
 Wednesday, 22nd of October 2014
@@ -72,7 +72,7 @@ Wednesday, 22nd of October 2014
 |                | From 0 to 60 in 15 minutes | Rob Sanderson, Jon Stroop |
 |                | Panel Discussion | (TBD) |
 | 16:45 - 17:00  | Next Steps & Close | Tom Cramer |
-{: .image-api-table}
+{: .api-table}
 
 
 ## Logistics

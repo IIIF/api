@@ -1,12 +1,12 @@
 ---
-title: "Image API Compliance, Version 2.0.0"
+title: "Image API Compliance, Version 2.1.0"
 id: image-api-compliance
 layout: spec
 tags: [compliance, image-api]
 major: 2
-minor: 0
+minor: 1
 patch: 0
-pre: final
+pre: draft
 ---
 
 ## Status of this Document
@@ -43,6 +43,8 @@ In the tables below "![required][icon-req]" indicates that support is _REQUIRED_
 | `full`      |                 | ![required][icon-req] | ![required][icon-req]       | ![required][icon-req]        |
 | x,y,w,h     | `regionByPx`  | ![optional][icon-opt] | ![required][icon-req]       | ![required][icon-req]        |
 | pct:x,y,w,h | `regionByPct` | ![optional][icon-opt] | ![optional][icon-opt]       | ![required][icon-req]        |
+| `square`    | `regionSquare` | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] |
+
 {: .api-table}
 
 ### Size

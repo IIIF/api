@@ -8,12 +8,15 @@
     "dc":      "http://purl.org/dc/elements/1.1/",
     "dcterms": "http://purl.org/dc/terms/",
     "doap" :   "http://usefulinc.com/ns/doap#",
-    "svcs":    "http://rdfs.org/sioc/services#",   
+    "svcs":    "http://rdfs.org/sioc/services#",
+    "foaf":    "http://xmlns.com/foaf/0.1/",   
+    "sc":      "http://iiif.io/api/presentation/2#",
 
     "baseUriRedirect" : { "@id" : "iiif:baseUriRedirectFeature", "@type": "iiif:Feature" },
     "cors" : { "@id" : "iiif:corsFeature", "@type": "iiif:Feature" },
     "regionByPct" : { "@id" : "iiif:regionByPctFeature", "@type": "iiif:Feature" },
     "regionByPx" : { "@id" : "iiif:regionByPxFeature", "@type": "iiif:Feature" },
+    "regionSquare" : { "@id" : "iiif:regionSquareFeature", "@type": "iiif:Feature" },
     "rotationArbitrary" : { "@id" : "iiif:arbitraryRotationFeature", "@type": "iiif:Feature" },
     "rotationBy90s" : { "@id" : "iiif:rotationBy90sFeature", "@type": "iiif:Feature" },
     "mirroring" : { "@id" : "iiif:mirroringFeature", "@type": "iiif:Feature" },
@@ -39,6 +42,10 @@
     "profile" : { "@id" : "dcterms:conformsTo", "@type" : "@id" },
     "protocol" : { "@id" : "doap:implements", "@type" : "@id" },
     "supports" : { "@id" : "iiif:supports", "@type" : "@id" },
-    "service":     {"@type":"@id", "@id":"svcs:has_service"}
+    "service":     {"@type":"@id", "@id":"svcs:has_service"},
+    "license":     {"@type":"@id", "@id":"dcterms:license"},
+    "logo":        {"@type":"@id", "@id":"foaf:logo"},
+    "attribution": {"@id": "sc:attributionLabel"}
+
   }
 }

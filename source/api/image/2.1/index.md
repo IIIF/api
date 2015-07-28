@@ -1,11 +1,11 @@
 ---
-title: "Image API 2.0"
-title_override: "IIIF Image API 2.0"
+title: "Image API 2.1"
+title_override: "IIIF Image API 2.1"
 id: image-api
 layout: spec
 tags: [specifications, image-api]
 major: 2
-minor: 0
+minor: 1
 patch: 0
 pre: final
 ---
@@ -17,13 +17,13 @@ __This Version:__ {{ page.major }}.{{ page.minor }}.{{ page.patch }}{% if page.p
 
 __Latest Stable Version:__ [{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}.{{ site.image_api.latest.patch }}][stable-version]
 
-__Previous Version:__ [1.1][prev-version]
+__Previous Version:__ [2.0][prev-version]
 
 **Editors:**
 
   * Michael Appleby, _Yale University_
+  * Tom Crane, _Digirati_
   * Robert Sanderson, _Stanford University_
-  * Stuart Snydman, _Stanford University_
   * Jon Stroop, _Princeton University_
   * Simeon Warner, _Cornell University_
   {: .names}
@@ -136,7 +136,8 @@ The region parameter defines the rectangular portion of the full image to be ret
 | Form |  Description |
 | ------------------------ | ------------ |
 | `full`                   | The complete image is returned, without any cropping. |
-| x,y,w,h                  | The region of the full image to be returned is defined in terms of absolute pixel values. The value of x represents the number of pixels from the 0 position on the horizontal axis. The value of y represents the number of pixels from the 0 position on the vertical axis. Thus the x,y position 0,0 is the upper left-most pixel of the image. w represents the width of the region and h represents the height of the region in pixels.  |
+| `square`                 | The region is defined as an area where the width and height are both equal to the length of the shorter side of the complete image.  The region may be positioned anywhere in the long edge of the image content at the server's discretion, and centered is often a reasonable default.|
+| x,y,w,h                  | The region of the full image to be returned is specified in terms of absolute pixel values. The value of x represents the number of pixels from the 0 position on the horizontal axis. The value of y represents the number of pixels from the 0 position on the vertical axis. Thus the x,y position 0,0 is the upper left-most pixel of the image. w represents the width of the region and h represents the height of the region in pixels.  |
 | pct:x,y,w,h              | The region to be returned is specified as a sequence of percentages of the full image's dimensions, as reported in the Image Information document. Thus, `x` represents the number of pixels from the 0 position on the horizontal axis, calculated as a percentage of the reported width. `w` represents the width of the region, also calculated as a percentage of the reported width. The same applies to y and h respectively. These may be floating point numbers. |
 {: .api-table}
 
@@ -150,37 +151,41 @@ Examples:
   <tbody>
     <tr>
       <td>
-        <img src="img/full.png" alt="Full Size" class="fullPct" />
-        <p><strong>1</strong> size=full</p>
+        <img src="img/full.png" alt="Full Region" class="fullPct" />
+        <p><strong>1</strong> region=full</p>
         <p><code>.../full/full/0/default.jpg</code></p>
       </td>
       <td>
-        <img src="img/region_px.png" alt="Region by Pixels" class="fullPct" />
-        <p><strong>2</strong> region=125,15,120,140</p>
-        <p><code>.../125,15,120,140/full/0/default.jpg</code></p>
+        <img src="img/region_square.png" alt="Square Region" class="fullPct" />
+        <p><strong>2</strong> region=square</p>
+        <p><code>.../square/full/0/default.jpg</code></p>
       </td>
     </tr>
     <tr>
       <td>
-        <img src="img/region_pct.png" alt="Region by Percent" class="fullPct" />
-        <p><strong>3</strong> region=pct:41.6,7.5,40,70</p>
-        <p><code>.../pct:41.6,7.5,40,70/full/0/default.jpg</code></p>
+        <img src="img/region_px.png" alt="Region by Pixels" class="fullPct" />
+        <p><strong>3</strong> region=125,15,120,140</p>
+        <p><code>.../125,15,120,140/full/0/default.jpg</code></p>
       </td>
       <td>
+        <img src="img/region_pct.png" alt="Region by Percent" class="fullPct" />
+        <p><strong>4</strong> region=pct:41.6,7.5,40,70</p>
+        <p><code>.../pct:41.6,7.5,40,70/full/0/default.jpg</code></p>
+      </td>
+    </tr>
+    <tr>      
+      <td>
         <img src="img/region_px_over.png" alt="Region by Pixels" class="fullPct" />
-        <p><strong>4</strong> region=125,15,200,200</p>
+        <p><strong>5</strong> region=125,15,200,200</p>
         <p><code>.../125,15,200,200/full/0/default.jpg</code></p>
         <p><em>N.B. Returned image is 175,185 px</em></p>
       </td>
-    </tr>
-    <tr>
       <td>
         <img src="img/region_pct_over.png" alt="Region by Percent" class="fullPct" />
-        <p><strong>5</strong> region=pct:41.6,7.5,66.6,100</p>
+        <p><strong>6</strong> region=pct:41.6,7.5,66.6,100</p>
         <p><code>.../pct:41.6,7.5,66.6,100/full/0/default.jpg</code></p>
         <p><em>N.B. Returned image is 175,185 px</em></p>
       </td>
-      <td></td>
     </tr>
   </tbody>
 </table>
@@ -485,7 +490,13 @@ The JSON at the top level of the response will include the following properties:
 | `sizes` | Optional | A set of height and width pairs the client should use in the `size` parameter to request complete images at different sizes that the server has available. This may be used to let a client know the sizes that are available when the server does not support requests for arbitrary sizes, or simply as a hint that requesting an image of this size may result in a faster response. A request constructed with the `w,h` syntax using these sizes _MUST_ be supported by the server, even if arbitrary width and height are not. |
 | `tiles` | Optional | A set of descriptions of the parameters to use to request regions of the image (tiles) that are efficient for the server to deliver. Each description gives a width, optionally a height for non-square tiles, and a set of scale factors at which tiles of those dimensions are available. |
 | `service` | Optional | The `service` property provides a hook for additional information to be included in the image description, for example the physical size of the object depicted.  Please see the [Service Profiles][service-profiles] annex for more information. |
+| `attribution` | Optional | A human readable label that MUST be displayed when the image is displayed or used.  It might include copyright or ownership statements, or a simple acknowledgement of the providing institution. The value MAY contain simple HTML, using only the `a`, `b`, `br`, `i`, `img`, `p` and `span` tags. Clients may remove all tags before display, at their discretion.|
+| `license` | Optional | The URL of an external resource that describes the license or rights statement under which the image may be used. |
+| `logo` | Optional | The URL of a small image that represents an individual or organization associated with the image service.  The logo image MUST be displayed when the main image is displayed or used. |  
+
 {: .api-table}
+
+Please note that the `attribution`, `license` and `logo` properties have the same semantics and requirements as those in the [Presentation API][prezi-api]. When both APIs express attributions or logos that _MUST_ be displayed, then clients _MUST_ display both unless they are exactly identical.  While possible, it is _RECOMMENDED_ that logos with IIIF services do not, themselves, have logos.  Clients encountering logos with logos are _NOT_ required to display a potentially infinite set.
 
 The objects in the `sizes` list have the properties in the following table. Images requested using these sizes _SHOULD_ have a region parameter of "full" and rotation of "0". The full URL for an image with "default" quality in "jpg" format would be: `{base_url}/{identifier}/full/{width},{height}/0/default.jpg`
 
@@ -501,7 +512,7 @@ The `width` of a tile, or the combination of `width` and `height` if `height` is
 
 | Property   | Required? | Description |
 | ---------- | --------- | ----------- |
-| `scaleFactors` | Required | The set of resolution scaling factors for the image's predefined tiles, expressed as an integer by which to divide the full size of the image. For example, a scale factor of 4 indicates that the service can efficiently deliver images at 1/4 or 25% of the height and width of the full image. A particular scale factor value _SHOULD_ appear only once in the `tiles` list. |
+| `scaleFactors` | Required | The set of resolution scaling factors for the image's predefined tiles, expressed as positive integers by which to divide the full size of the image. For example, a scale factor of 4 indicates that the service can efficiently deliver images at 1/4 or 25% of the height and width of the full image. A particular scale factor value _SHOULD_ appear only once in the `tiles` list. |
 | `width` | Required | The width of the predefined tiles to be requested. |
 | `height` | Optional | The height of the predefined tiles to be requested.  If it is not specified in the JSON, then it defaults to the same as `width`, resulting in square tiles. |
 {: .api-table}
@@ -530,6 +541,7 @@ The set of features that may be specified in the `supports` property of an Image
 | `profileLinkHeader` | The profile HTTP link header is provided on image responses. |
 | `regionByPct` |  Regions of images may be requested by percentage.  |
 | `regionByPx` |   Regions of images may be requested by pixel dimensions.  |
+| `regionSquare` |  A square region where the width and height are equal to the shorter side of the complete image content. |
 | `rotationArbitrary` |   Rotation of images may be requested by degrees other than multiples of 90.  |
 | `rotationBy90s` |   Rotation of images may be requested by degrees in multiples of 90.  |
 | `sizeAboveFull` | Size of images may be requested larger than the "full" size. |
@@ -566,6 +578,9 @@ The JSON response is structured as shown in the following example. The order of 
   "tiles": [
     {"width" : 512, "scaleFactors" : [1,2,4,8,16]}
   ],
+  "attribution" : "<span>Provided by Example Organization</span>",
+  "logo" : "http://example.org/image-service/logo/full/full/0/default.jpg",
+  "license" : "http://example.org/rights/license1.html",
   "profile" : [
     "http://iiif.io/api/image/{{ page.major }}/level2.json",
     {
@@ -624,12 +639,12 @@ The order in which servers parse requests and detect errors is not specified. A 
 
 ##  8. Authentication
 
-This API does not specify whether the image server will support authentication or what mechanism it might use. In the case of "401 Unauthorized" HTTP response, the content of the WWW-Authenticate header will depend on the authentication mechanism supported by the server. If the server supports HTTP Basic or Digest authentication then the header _SHOULD_ follow [RFC2617][rfc-2617], for example:
+### 8.1 Introduction
 
-```
-WWW-Authenticate: Basic realm="Images"
-```
-{: .urltemplate}
+Images are generally secondary resources in a web page or application. In the case of web pages, images are embedded in the HTML `img` tag, and are retrieved via additional HTTP requests. When a user cannot load a web page, it is possible — and a generally accepted behavior — to redirect the user to another page and offer the opportunity to authenticate. This is not an option for secondary resources such as images, and the user is instead simply presented with the much-hated broken image icon.
+
+No new authentication systems are proposed, nor roles for authorization business logic. Instead, it is expected that authentication requirements and processes are handled outside of any IIIF-specific context, but within a larger workflow. This workflow is agnostic to the details of the authentication protocol and is documented in the [authentication][authentication-ext] specification.
+
 
 ##  9. URI Encoding and Decoding
 
@@ -722,10 +737,11 @@ Many thanks to  Ben Albritton, Matthieu Bonicel, Anatol Broder, Kevin Clarke, To
 
 | Date       | Description |
 | ---------- | ----------- |
+| 2015-06-01 | Version 2.1 Draft (Cruising Cardinal) |
 | 2014-08-12 | Version 2.0-final-draft (Voodoo Bunny) RFC [View change log][change-log] |
-| 2014-07-01 | Version 2.0-draft2 (Voodoo Bunny) RFC  |
-| 2014-06-01 | Version 2.0-draft (Voodoo Bunny) RFC   |
-| 2013-09-17 | Version 1.1 released.                  |
+| 2014-07-01 | Version 2.0-draft2 RFC  |
+| 2014-06-01 | Version 2.0-draft RFC   |
+| 2013-09-17 | Version 1.1 (unnamed) released.                  |
 | 2013-09-04 | Added @context to Image Information Request table in section 5. |
 | 2013-06-26 | Changed quality parameter definitions in section 4.4. |
 | 2013-06-17 | Draft release 1.1. [View change log][change-log11]. |
@@ -736,6 +752,7 @@ Many thanks to  Ben Albritton, Matthieu Bonicel, Anatol Broder, Kevin Clarke, To
 | 2012-05-02 | RFC version |
 {: .api-table}
 
+[authentication-ext]: authentication.html
 [cc-by]: http://creativecommons.org/licenses/by/4.0/ "Creative Commons &mdash; Attribution 4.0 International"
 [change-log11]: /api/image/1.1/change-log.html "Change Log for Version 1.1"
 [change-log]: /api/image/2.0/change-log.html "Change Log for Version 2.0"
@@ -792,5 +809,8 @@ Many thanks to  Ben Albritton, Matthieu Bonicel, Anatol Broder, Kevin Clarke, To
 [d-change-log]: #d-change-log "D. Change Log"
 [prev-version]: http://iiif.io/api/image/1.1/ "Previous Version"
 [stable-version]: http://iiif.io/api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/ "Stable Version"
+
+[client-auth-img]: img/auth-flow-client.png
+[server-auth-img]: img/auth-flow-server.png
 
 {% include acronyms.md %}
