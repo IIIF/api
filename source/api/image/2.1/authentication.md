@@ -311,7 +311,7 @@ Many thanks to the members of the [IIIF Community][iiif-community] for their con
 | 2014-08-12 | Version 2.0-draft (Voodoo Bunny) RFC [View change log][change-log] |
 | 2015-05-31 | Tokens draft |
 
-{: .image-api-table}
+{: .api-table}
 
 [jsonp]: http://en.wikipedia.org/wiki/JSONP "JSONP"
 [cc-by]: http://creativecommons.org/licenses/by/4.0/ "Creative Commons &mdash; Attribution 4.0 International"

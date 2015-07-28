@@ -68,7 +68,7 @@ This table summarizes the services available and which APIs they may be used in.
 | [Image Information][imageinfo] | ![not allowed][icon-na]   | ![recommended][icon-recc] |  
 | [GeoJSON][lgeojson]            | ![not allowed][icon-na]   | ![recommended][icon-recc] |
 | [Physical Dimensions][physdim] | ![recommended][icon-recc] | ![recommended][icon-recc] |
-{: .image-api-table}
+{: .api-table}
 
 ### 3.1 Image Information
 _Added: 2014-05-20_
@@ -178,7 +178,7 @@ The physical dimensions description includes the following properties:
 | `physicalScale` | Required  | The floating point ratio by which the digital resource's height and width are multipled in order to determine the depicted scene's height and width.  |
 | `physicalUnits` | Required  | The physical units for the generated height and width.  Possible values are: "mm", "cm", in". |
 
-{: .image-api-table}
+{: .api-table}
 
 The following example demonstrates the resulting structure, as embedded within the [Presentation API][prezi-api] response:
 

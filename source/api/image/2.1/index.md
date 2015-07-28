@@ -75,7 +75,7 @@ There are four parameters shared by the requests, and other IIIF specifications:
 | server | The host server on which the service resides. |
 | prefix | The path on the host server to the service. This prefix is optional, but may be useful when the host server supports multiple services. The prefix _MAY_ contain multiple path segments, delimited by slashes, but all other special characters _MUST_ be encoded. See [URI Encoding and Decoding][uri-encoding-and-decoding] for more information. |
 | identifier | The identifier of the requested image. This may be an ark, URN, filename, or other identifier. Special characters _MUST_ be URI encoded. |
-{: .image-api-table}
+{: .api-table}
 
 The combination of these parameters forms the image’s Base URI and identifies the underlying image content. It is constructed according to the following URI Template ([RFC6570][rfc-6570]):
 
@@ -142,7 +142,7 @@ The region parameter defines the rectangular portion of the full image to be ret
 | `square`            | The region is defined as an area where the width and height are both equal to the length of the shorter dimension of the complete image. The region may be positioned anywhere in the longer dimension of the image content at the server's discretion, and centered is often a reasonable default.|
 | x,y,w,h             | The region of the full image to be returned is specified in terms of absolute pixel values. The value of x represents the number of pixels from the 0 position on the horizontal axis. The value of y represents the number of pixels from the 0 position on the vertical axis. Thus the x,y position 0,0 is the upper left-most pixel of the image. w represents the width of the region and h represents the height of the region in pixels.  |
 | pct:x,y,w,h         | The region to be returned is specified as a sequence of percentages of the full image's dimensions, as reported in the Image Information document. Thus, `x` represents the number of pixels from the 0 position on the horizontal axis, calculated as a percentage of the reported width. `w` represents the width of the region, also calculated as a percentage of the reported width. The same applies to y and h respectively. These may be floating point numbers. |
-{: .image-api-table}
+{: .api-table}
 
 __Deprecation Warning__
 The pct: form of the region parameter will no longer be available in version 3.0.
@@ -210,7 +210,7 @@ The size parameter determines the dimensions to which the extracted region is to
 | pct:n          | The width and height of the returned image is scaled to n% of the width and height of the extracted region. The aspect ratio of the returned image is the same as that of the extracted region. |
 | w,h            | The width and height of the returned image are exactly w and h. The aspect ratio of the returned image _MAY_ be different than the extracted region, resulting in a distorted image. |
 | !w,h           | The image content is scaled for the best fit such that the resulting width and height are less than or equal to the requested width and height. The exact scaling _MAY_ be determined by the service provider, based on characteristics including image quality and system performance. The dimensions of the returned image content are calculated to maintain the aspect ratio of the extracted region. |
-{: .image-api-table}
+{: .api-table}
 
 __Deprecation Warning__
 The pct: form of the size parameter will no longer be available in version 3.0.
@@ -269,7 +269,7 @@ The rotation parameter specifies mirroring and rotation. A leading exclamation m
 | ---- | ----------- |
 | n    | The degrees of clockwise rotation from 0 up to 360.     |
 | !n   | The image should be mirrored and then rotated as above. |
-{: .image-api-table}
+{: .api-table}
 
 A rotation value that is out of range or unsupported _SHOULD_ result in a 400 status code.
 
@@ -330,7 +330,7 @@ The quality parameter determines whether the image is delivered in color, graysc
 | `gray`    | The image is returned in grayscale, where each pixel is black, white or any shade of gray in between. |
 | `bitonal` | The image returned is bitonal, where each pixel is either black or white. |
 | `default` | The image is returned using the server's default quality (e.g. color, gray or bitonal) for the image. |
-{: .image-api-table}
+{: .api-table}
 
 The `default` quality exists to support [level 0 compliant implementations][compliance-quality] that may not know the qualities of individual images in their collections. It also provides a convenience for clients that know the values for all other parameters of a request except the quality (e.g. `.../full/120,/90/{quality}.png` to request a thumbnail) in that a preliminary image information request that would only serve to find out which qualities are available can be avoided.
 
@@ -380,7 +380,7 @@ The format of the returned image is expressed as an extension at the end of the 
 | `jp2`     | image/jp2 |
 | `pdf`     | application/pdf |
 | `webp`    | image/webp |
-{: .image-api-table}
+{: .api-table}
 
 A format value that is unsupported _SHOULD_ result in a 400 status code.
 
@@ -430,7 +430,7 @@ In order to support the above requirements, clients _SHOULD_ construct the image
 | rotation  | "!" if the image is mirrored, followed by an integer if possible, and trimming any trailing zeros in a decimal value, and a leading 0 if the value is below 1. |
 | quality   | "default" if the server's default quality is requested,<br/>otherwise the quality string. |
 | format    | The explicit format string is always required. |
-{: .image-api-table}
+{: .api-table}
 
 When the client requests an image, the server _MAY_ add a link header to the response that indicates the canonical URI for that request:
 
@@ -500,7 +500,7 @@ A recipe for enabling these behaviors is provided in the [Apache HTTP Server Imp
 | `profile` | Required | A list of profiles, indicated by either a URI or an object describing the features supported. The first entry in the list _MUST_ be a [compliance level URI][compliance-levels]. |
 | `sizes` | Optional | A set of height and width pairs the client should use in the `size` parameter to request complete images at different sizes that the server has available. This may be used to let a client know the sizes that are available when the server does not support requests for arbitrary sizes, or simply as a hint that requesting an image of this size may result in a faster response. A request constructed with the `w,h` syntax using these sizes _MUST_ be supported by the server, even if arbitrary width and height are not. |
 | `tiles` | Optional | A set of descriptions of the parameters to use to request regions of the image (tiles) that are efficient for the server to deliver. Each description gives a width, optionally a height for non-square tiles, and a set of scale factors at which tiles of those dimensions are available. |
-{: .image-api-table}
+{: .api-table}
 
 The objects in the `sizes` list have the properties in the following table. Images requested using these sizes _SHOULD_ have a region parameter of "full" and rotation of "0". The full URL for an image with "default" quality in "jpg" format would be: `{base_url}/{identifier}/full/{width},{height}/0/default.jpg`
 
@@ -508,7 +508,7 @@ The objects in the `sizes` list have the properties in the following table. Imag
 | ---------- | --------- | ----------- |
 | `width` | Required | The width in pixels of the image to be requested, given as an integer. |
 | `height` | Required | The height in pixels of the image to be requested, given as an integer. |
-{: .image-api-table}
+{: .api-table}
 
 The objects in the `tiles` list have the properties in the following table. The `width` and `height` should be used to fill the region parameter and the `scaleFactors` to complete the size parameter of the image URL. This is described in detail in the [Implementation Notes][a-implementation-notes].
 
@@ -519,7 +519,7 @@ The `width` of a tile, or the combination of `width` and `height` if `height` is
 | `scaleFactors` | Required | The set of resolution scaling factors for the image's predefined tiles, expressed as positive integers by which to divide the full size of the image. For example, a scale factor of 4 indicates that the service can efficiently deliver images at 1/4 or 25% of the height and width of the full image. A particular scale factor value _SHOULD_ appear only once in the `tiles` list. |
 | `width` | Required | The width in pixels of the predefined tiles to be requested, given as an integer. |
 | `height` | Optional | The height in pixels of the predefined tiles to be requested, given as an integer. If it is not specified in the JSON, then it defaults to the same as `width`, resulting in square tiles. |
-{: .image-api-table}
+{: .api-table}
 
 Servers _SHOULD_ support requests for images with parameters specified by the `sizes` and `tiles` fields for all combinations of qualities and formats supported.
 
@@ -556,7 +556,7 @@ In order to specify additional features that are supported for the image, a prof
 | `formats`   | Optional  | The set of image format parameter values available for the image.  If not specified then clients should assume only formats declared in the compliance level document.|
 | `qualities` | Optional  | The set of image quality parameter values available for the image.  If not specified then clients should assume only qualities declared in the compliance level document.|
 | `supports`  | Optional  | The set of features supported for the image.  If not specified then clients should assume only features declared in the compliance level document. |
-{: .image-api-table}
+{: .api-table}
 
 The set of features that may be specified in the `supports` property of an Image profile are:
 
@@ -580,7 +580,7 @@ The set of features that may be specified in the `supports` property of an Image
 | `sizeByPct` | Size of images may be requested in the form "pct:n".  |
 | `sizeByW` | Size of images may be requested in the form "w,".  |
 | `sizeByWh` | Size of images may be requested in the form "w,h".  |
-{: .image-api-table}
+{: .api-table}
 
 The set of features, formats and qualities supported is the union of those declared in all of the external profile documents and any embedded profile objects.  If a feature is not present in either the profile document or the `supports` property of an embedded profile, then a client _MUST_ assume that the feature is not supported.
 
@@ -616,7 +616,7 @@ The following fragment shows a profile indicating support for additional formats
 | `attribution` | Optional  | Text that _MUST_ be shown when the image is displayed or used. It might include copyright or ownership statements, or a simple acknowledgement of the providing institution. The value _MAY_ contain simple HTML, using only the `a`, `b`, `br`, `i`, `img`, `p` and `span` tags, as described in the [HTML Markup in Property Values][prezi-html] section of the Presentation API. The value may be a string, an object, or a list of strings and/or objects. |
 | `license` | Optional | The URL of an external resource that describes the license or rights statement under which the image may be used. |
 | `logo` | Optional | The URL of a small image that represents an individual or organization associated with the image service. The logo image _MUST_ be clearly rendered when the main image is displayed or used. Clients _MUST NOT_ crop, rotate, or otherwise distort the image. The value may be a string or an object. |
-{: .image-api-table}
+{: .api-table}
 
 The `attribution`, `license` and `logo` properties have the same semantics and requirements as those in the [Presentation API][prezi-api]. When both APIs express attributions or logos, then clients _MUST_ display both unless they are identical.
 
@@ -646,7 +646,7 @@ More complex examples are given in the [Complete Response Example](#complete-res
 | Property   | Required? | Description |
 | ---------- | --------- | ----------- |
 | `service`  | Optional  | The `service` property provides hooks for additional information to be included in the image description, for example a link to an authentication service. The value may be an object or a list of objects. |
-{: .image-api-table}
+{: .api-table}
 
 There _MAY_ be one or more services associated with an image. See the [Service Profiles][service-profiles] annex for more information.
 
@@ -764,7 +764,7 @@ The order in which servers parse requests and detect errors is not specified. A 
 | 500 Internal Server Error | The server encountered an unexpected error that prevented it from fulfilling the request. |
 | 501 Not Implemented | A valid IIIF request that is not implemented by this server. |
 | 503 Service Unavailable | Used when the server is busy/temporarily unavailable due to load/maintenance issues. An alternative to connection refusal with the option to specify a back-off period. |
-{: .image-api-table}
+{: .api-table}
 
 ##  8. Authentication
 
@@ -794,7 +794,7 @@ to-encode = "/" / "?" / "#" / "[" / "]" / "@" / "%"
 | identifier=urn:foo:a123,456 region=full size=full rotation=0 quality=default | `urn:foo:a123,456/full/full/0/default` |
 | identifier=urn:sici:1046-8188(199501)13:1%3C69:FTTHBI%3E2.0.TX;2-4 region=full size=full rotation=0 quality=default | `urn:sici:1046-8188(199501)13:1%253C69:FTTHBI%253E2.0.TX;2-4/full/full/0/default` |
 | identifier=http://example.com/?54#a region=full size=full rotation=0 quality=default | `http:%2F%2Fexample.com%2F%3F54%23a/full/full/0/default` |
-{: .image-api-table}
+{: .api-table}
 
 Servers which are incapable of processing arbitrarily encoded identifiers _SHOULD_ make their best efforts to expose only image identifiers for which clients will not encode any of the characters, and thus it is _RECOMMENDED_ to limit characters in identifiers to letters, numbers and the underscore character.
 
@@ -879,7 +879,7 @@ Many thanks to  Ben Albritton, Matthieu Bonicel, Anatol Broder, Kevin Clarke, To
 | 2012-03-09 | Initial release                        |
 | 2012-04-13 | 0.2 after internal review and IIIF April Meeting |
 | 2012-05-02 | RFC version |
-{: .image-api-table}
+{: .api-table}
 
 [authentication-ext]: authentication.html
 [cc-by]: http://creativecommons.org/licenses/by/4.0/ "Creative Commons &mdash; Attribution 4.0 International"

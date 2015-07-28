@@ -44,7 +44,7 @@ In the tables below "![required][icon-req]" indicates that support is _REQUIRED_
 | x,y,w,h     | `regionByPx`  | ![optional][icon-opt] | ![required][icon-req]       | ![required][icon-req]        |
 | pct:x,y,w,h | `regionByPct` | ![optional][icon-opt] | ![optional][icon-opt]       | ![required][icon-req]        |
 | `square`    | `regionSquare` | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] |
-{: .image-api-table}
+{: .api-table}
 
 ### Size
 
@@ -58,7 +58,7 @@ In the tables below "![required][icon-req]" indicates that support is _REQUIRED_
 | w,h         | `sizeByForcedWh` | ![optional][icon-opt]      | ![optional][icon-opt]      | ![required][icon-req]       |
 | !w,h        | `sizeByWh`        | ![optional][icon-opt]      | ![optional][icon-opt]      | ![required][icon-req]       |
 |             | `sizeAboveFull`   | ![optional][icon-opt]      | ![optional][icon-opt]      | ![optional][icon-opt]       |
-{: .image-api-table}
+{: .api-table}
 
 ### Rotation
 
@@ -68,7 +68,7 @@ In the tables below "![required][icon-req]" indicates that support is _REQUIRED_
 | `90`,`180`,`270` | `rotationBy90s` | ![optional][icon-opt] | ![optional][icon-opt] | ![required][icon-req]       |
 | _arbitrary_ | `rotationArbitrary` | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] |
 | !_n_ | `mirroring` | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] |
-{: .image-api-table}
+{: .api-table}
 
 ### Quality
 
@@ -78,7 +78,7 @@ In the tables below "![required][icon-req]" indicates that support is _REQUIRED_
 | `color`       | ![optional][icon-opt]      | ![optional][icon-opt]      | ![required][icon-req] (if applicable) |
 | `gray`        | ![optional][icon-opt]      | ![optional][icon-opt]      | ![required][icon-req] (if applicable) |
 | `bitonal`     | ![optional][icon-opt]      | ![optional][icon-opt]      | ![required][icon-req]       |
-{: .image-api-table}
+{: .api-table}
 
 ### Format
 
@@ -91,7 +91,7 @@ In the tables below "![required][icon-req]" indicates that support is _REQUIRED_
 | `pdf`       | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] |
 | `jp2`       | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] |
 | `webp`      | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] |
-{: .image-api-table}
+{: .api-table}
 
 
 ## HTTP Features
@@ -103,7 +103,7 @@ In the tables below "![required][icon-req]" indicates that support is _REQUIRED_
 | json-ld media type    | `jsonldMediaType`     | ![optional][icon-opt] | ![required][icon-req] | ![required][icon-req] |
 | profile link header   | `profileLinkHeader`   | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] |
 | canonical link header | `canonicalLinkHeader` | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] |
-{: .image-api-table}
+{: .api-table}
 
 ## Indicating Compliance
 
