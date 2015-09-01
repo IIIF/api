@@ -26,3 +26,9 @@
     zoom and pan of high resolution images. OpenSeadragon is IIIF compatible.
     A demo of OpenSeadragon in action can be seen on the
     [project homepage](http://openseadragon.github.io/).
+- name: Leaflet-IIIF
+  uri: https://github.com/mejackreed/Leaflet-IIIF
+  blurb:
+  - >
+    Leaflet-IIIF is a Leaflet plugin that enables zoomable IIIF images to be easily and quickly displayed. Leaflet + Leaflet-IIIF weigh in at just 35 KB and include great features like accessible keyboard controls and native touch/mobile support.
+    [Check out the demo](http://mejackreed.github.io/Leaflet-IIIF/examples/example.html)
