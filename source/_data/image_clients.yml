@@ -1,4 +1,14 @@
 # Use Markdown in the blurb if necessary for links, etc. Each list entry in the blurb gets a <p>.
+- name: Diva.js
+  uri: http://ddmal.github.io/diva.js/
+  blurb:
+  - >
+    Diva.js is an open-source document image viewer, especially suited for
+    use in archival book digitization initiatives where viewing high-resolution
+    images is a crucial part of the user experience. Using Diva, libraries,
+    archives, and museums can present high-resolution document page images
+    in a user-friendly “instant-on” interface that has been optimized for speed
+    and flexibility.
 - name: IIPMooViewer
   uri: https://github.com/ruven/iipmooviewer
   blurb:
