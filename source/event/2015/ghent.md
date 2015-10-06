@@ -1,5 +1,5 @@
 ---
-title: "The International Image Interoperability Framework"
+title: "The International Image Interoperability Framework - Ghent 2015"
 layout: spec
 tags: [event ]
 ---
@@ -49,6 +49,8 @@ __Location:__ Opera Gent - Schouwburgstraat 3, Ghent, Belgium
 
 __Cost:__ Free!
 
+__Information:__ [Visiting Ghent][visit-gent]
+
 
 ## Code of Conduct
 
@@ -57,7 +59,7 @@ All IIIF Events are covered by the [IIIF Code of Conduct][conduct]. IIIF is comm
 
 ## Related Events
 
-Participation is also encouraged in the following related, co-located events.  An Event Brite registration page will be available shortly.
+Participation is also encouraged in the following related, co-located events. The locations will be on the Ghent University campus.  Please register at [this Event Brite][event-brite-wg].
 
 ### Technical Workshop
 
@@ -80,8 +82,12 @@ Further events and details to be announced.
 
 [home-page]: http://iiif.io/
 [event-brite]: http://iiif-ghent-2015.eventbrite.com/
+[event-brite-wg]: https://iiif-winter-2015.eventbrite.com/
 [conduct]: /event/conduct.html
 [logistics]: #logistics
 [iiif-c]: http://iiif.io/news/2015/06/17/iiif-consortium/
 [tech-details]: http://iiif.io/technical-details.html
 [ghent-lib]: http://lib.ugent.be/
+[visit-gent]: http://www.visitgent.be/en/winter-gent 
+
+
