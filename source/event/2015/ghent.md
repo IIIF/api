@@ -1,5 +1,5 @@
 ---
-title: "Sharing Images of Global Cultural Heritage"
+title: "The International Image Interoperability Framework"
 layout: spec
 tags: [event ]
 ---
@@ -12,16 +12,32 @@ tags: [event ]
 
 ## Introduction
 
-The International Image Interoperability Framework community ([http://iiif.io/][home-page]) and Ghent University are hosting a one day information sharing event about the use of images in and across Cultural Heritage institutions.  The day will focus on how museums, galleries, libraries and archives, or any online image service, can take advantage of a powerful technical framework for interoperability between image repositories.   This event will be valuable for organizational decision makers, repository and collection managers, software engineers, and anyone interested in exploring the wide range of use cases that are seamlessly enabled by the framework.  
+On Tuesday, 8 December 2015, the International Image Interoperability Framework ([IIIF][home-page]) community and Ghent University Library are hosting a one day event describing the power and potential of interoperable image delivery over the Web. Embraced by a growing number of the world’s leading research and cultural heritage organizations, IIIF provides an open framework for organizations to publish their image-based resources, to be viewed, cited, annotated, and more by any compatible image-viewing application. The day will showcase how institutions are leveraging IIIF to reduce total cost and time to deploy image delivery solutions, while simultaneously improving end user experience with a new host of rich and dynamic features. It will also highlight how to participate in this growing movement to take advantage of the common framework. 
 
-Attendance is free, and widespread dissemination of the event is encouraged.  [Registration][logistics] is required in order to ensure that we do not exceed the capacity of the venue.  The event is hosted by Ghent University in Ghent, Belgium, and will take place on Tuesday, the 8th of December, 2015.
+This event will be valuable for organizational decision makers, repository and collection managers, software engineers; for cultural heritage or STEM (science / technology /  engineering / medicine) institutions; or for anyone engaged with image-based resources on the Web.  Attendance is free, and widespread dissemination of the event is encouraged. Registration is required in order to ensure that we do not exceed the capacity of the venue. The event is hosted by Ghent University Library in Ghent, Belgium, at the beautiful Ghent Opera House.
+
+_About IIIF_
+
+The IIIF community has been working together since 2011, and the IIIF Consortium was founded in 2015 with 11 global leaders comprising national, state & research libraries, as well as members representing foundations, museums and non-profit image services. Rather than a particular technology, IIIF specifies common interfaces for interacting with images on the Web, reducing the friction of putting and working with images.  
 
 ## Agenda
 
 Tuesday, 8th of December 2015
 
-Agenda in progress - watch this space!
+| Time           | Session | Presenters |
+| -------------- | ------- | ---------- |
+| 10:00 - 11:00  | Welcome and Introduction |  |
+| 11:00 - 12:00  | Use Cases: Libraries, Archives, Museums | |
+| 12:00 - 12:30  | Audience Spotlight and Discussion | |
+| 12:30 - 13:30  | Lunch | |
+| 13:30 - 14:30  | Introduction to the Framework | |
+| 14:30 - 15:00  | Coffee Break| |
+| 15:00 - 16:00  | Use Cases | |
+| 16:00 - 16:30  | Audience Spotlight and Discussion | |
+| 16:30 - 17:00  | Next Steps and Close | |
 {: .api-table}
+
+Agenda Details to be finalized
 
 ## Logistics
 
@@ -29,7 +45,7 @@ Registration is required and via [Event Brite][event-brite].
 
 __Date:__ Tuesday, 8th of December 2015
 
-__Location:__ Ghent University, Ghent, Belgium
+__Location:__ Opera Gent - Schouwburgstraat 3, Ghent, Belgium
 
 __Cost:__ Free!
 
@@ -38,9 +54,34 @@ __Cost:__ Free!
 
 All IIIF Events are covered by the [IIIF Code of Conduct][conduct]. IIIF is commited to an inclusive, friendly and safe collaboration environment both online and in person.
 
+
+## Related Events
+
+Participation is also encouraged in the following related, co-located events:
+
+### Technical Workshop
+
+This pre-event workshop will allow attendees who want to implement IIIF locally (in either their repository or application) to work with technical experts and existing implementers. The structure will be an informal “hack-a-thon”, with a chance to ask specific questions on the APIs, their use and their implementation. Time: Monday 7th, 1:30 - 4:30 PM.
+
+### IIIF Community Roundtable
+
+This event will start with a community round-table of ongoing efforts and progress in the IIIF space, including both demos and reports.  The community will also assess existing priorities and progress towards them, and affirm future work for the coming 12 months. In the afternoon discuss the proposed technical changes for the specifications towards ratification of the next versions of the APIs. Time:  Wednesday 9th, 9:00 AM - 5:00 PM
+
+### Mirador Contributors Group
+
+Mirador is one of the most fully featured IIIF clients, with support for both the Image and Presentation APIs and a comprehensive set of features.  This technical meeting is to discuss the current priorities towards a roadmap of efforts, possible improvements to the codebase, and processes for community ownership and development of the product. Thursday 10th, Time: 9:00 AM - 5:00 PM
+
+### Newspaper Interest Group
+
+The Newspaper Interest Group will is being convened to discuss and provide support for adoption of the IIIF APIs within the vibrant digital and digitized newspaper domain.  All around the world, newspaper content is being digitized and made available, and we see IIIF as a technical cornerstone to ensure broad adoption, access and reuse of the content.  The meeting will set goals and deliverables to align European and North American efforts in this space. Time: Thursday 10th, 9:00 AM - 5:00 PM
+
+Further events and details to be announced.
+
+
 [home-page]: http://iiif.io/
-[event-brite]: https://www.eventbrite.com/e/sharing-images-of-global-cultural-heritage-ghent-tickets-18768146030
+[event-brite]: http://iiif-ghent-2015.eventbrite.com/
 [conduct]: /event/conduct.html
 [logistics]: #logistics
-[image-api]: /api/image/2.0/
-[prezi-api]: /api/presentation/2.0/
+[iiif-c]: http://iiif.io/news/2015/06/17/iiif-consortium/
+[tech-details]: http://iiif.io/technical-details.html
+[ghent-lib]: http://lib.ugent.be/
