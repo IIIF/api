@@ -12,13 +12,13 @@ tags: [event ]
 
 ## Introduction
 
-On Tuesday, 8 December 2015, the International Image Interoperability Framework ([IIIF][home-page]) community and Ghent University Library are hosting a one day event describing the power and potential of interoperable image delivery over the Web. Embraced by a growing number of the world’s leading research and cultural heritage organizations, IIIF provides an open framework for organizations to publish their image-based resources, to be viewed, cited, annotated, and more by any compatible image-viewing application. The day will showcase how institutions are leveraging IIIF to reduce total cost and time to deploy image delivery solutions, while simultaneously improving end user experience with a new host of rich and dynamic features. It will also highlight how to participate in this growing movement to take advantage of the common framework. 
+On Tuesday, 8 December 2015, the International Image Interoperability Framework ([IIIF][home-page]) community and [Ghent University Library][ghent-lib] are hosting a one day event describing the power and potential of interoperable image delivery over the Web. Embraced by a growing number of the world’s leading research and cultural heritage organizations, IIIF provides an open framework for organizations to publish their image-based resources, to be viewed, cited, annotated, and more by any compatible image-viewing application. The day will showcase how institutions are leveraging IIIF to reduce total cost and time to deploy image delivery solutions, while simultaneously improving end user experience with a new host of rich and dynamic features. It will also highlight how to participate in this growing movement to take advantage of the common framework. 
 
 This event will be valuable for organizational decision makers, repository and collection managers, software engineers; for cultural heritage or STEM (science / technology /  engineering / medicine) institutions; or for anyone engaged with image-based resources on the Web.  Attendance is free, and widespread dissemination of the event is encouraged. Registration is required in order to ensure that we do not exceed the capacity of the venue. The event is hosted by Ghent University Library in Ghent, Belgium, at the beautiful Ghent Opera House.
 
 _About IIIF_
 
-The IIIF community has been working together since 2011, and the IIIF Consortium was founded in 2015 with 11 global leaders comprising national, state & research libraries, as well as members representing foundations, museums and non-profit image services. Rather than a particular technology, IIIF specifies common interfaces for interacting with images on the Web, reducing the friction of putting and working with images.  
+The IIIF community has been working together since 2011, and the [IIIF Consortium][iiif-c] was founded in 2015 with 11 global leaders comprising national, state & research libraries, as well as members representing foundations, museums and non-profit image services. Rather than a particular technology, IIIF specifies [common interfaces for interacting with images][tech-details] on the Web, reducing the friction of putting and working with images.  
 
 ## Agenda
 
@@ -57,7 +57,7 @@ All IIIF Events are covered by the [IIIF Code of Conduct][conduct]. IIIF is comm
 
 ## Related Events
 
-Participation is also encouraged in the following related, co-located events:
+Participation is also encouraged in the following related, co-located events.  An Event Brite registration page will be available shortly.
 
 ### Technical Workshop
 
