@@ -4,7 +4,7 @@ layout: spec
 tags: [event ]
 ---
 
-## Table of Contents
+# Table of Contents
 {:.no_toc}
 
 * Goes Here
@@ -15,7 +15,7 @@ tags: [event ]
 
 For more information, see: [http://www.bedandbreakfast-gent.be/](http://www.bedandbreakfast-gent.be/). Known Bed and Breakfast options are highlighted below.
 
-## * Bed and Breakfast 'De Walpoort'
+## &nbsp; Bed and Breakfast 'De Walpoort'
 
 Walpoortstraat 36
 9000 Gent 
