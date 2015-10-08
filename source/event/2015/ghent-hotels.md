@@ -114,11 +114,13 @@ Tel: +32 9 225 0707
 
 [http://www.accorhotels.com](http://www.accorhotels.com)
 
-Prices: 
+Prices:
+
   * Single: 100€ breakfast included
   * Double: 118€ breakfast included
 
 Notes:   
+
   * Contact Ruben Maes [H1455-re@accor.com](mailto:H1455-re@accor.com) and use code "Shared Canvas" before 30th of October 2015
 
 
@@ -153,6 +155,7 @@ Tel: +32 9 224 2230
 [http://www.accorhotels.com/](http://www.accorhotels.com/) or [http://www.novotel.com/](http://www.novotel.com/)
 
 Notes:
+
   * No special prices / options
 
 
@@ -167,6 +170,7 @@ Tel: +32 9 224 2424
 [http://www.courstgeorges.be/](http://www.courstgeorges.be/)
 
 Notes:
+
   * No special prices / options
 
 
