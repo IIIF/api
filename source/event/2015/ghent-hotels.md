@@ -13,28 +13,28 @@ tags: [event ]
 
 ## Bed and Breakfast
 
-See: [http://www.bedandbreakfast-gent.be/]
+For more information, see: [http://www.bedandbreakfast-gent.be/][http://www.bedandbreakfast-gent.be/]. Known Bed and Breakfast options are highlighted below.
 
 ### Bed and Breakfast 'De Walpoort'
 
 Walpoortstraat 36
 9000 Gent 
-info@walpoort.com
-+32 475 610 823
+Tel: +32 475 610 823
+[info@walpoort.com][mailto:info@walpoort.com]
 
-### Baeten’s bed & breakfast
+### Baeten’s Bed & Breakfast
 
 Burgstraat 11
 9000 Gent
-info@baetenbnbgent.be
-+32 9 2230617
+Tel: +32 9 223 0617
+[info@baetenbnbgent.be][mailto:info@baetenbnbgent.be]
 
-### Bonifant bed & breakfast
+### Bonifant Bed & Breakfast
 
 Bonifantenstraat 9
 9000 Gent
-T+32 9 2253188
-bonifant@hotmail.com
+Tel: +32 9 225 3188
+[bonifant@hotmail.com][mailto:bonifant@hotmail.com]
 
 
 ## Hotels
