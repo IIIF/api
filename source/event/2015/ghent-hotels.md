@@ -15,25 +15,28 @@ tags: [event ]
 
 For more information, see: [http://www.bedandbreakfast-gent.be/](http://www.bedandbreakfast-gent.be/). Known Bed and Breakfast options are highlighted below.
 
-### Bed and Breakfast 'De Walpoort'
+### * Bed and Breakfast 'De Walpoort'
 
 Walpoortstraat 36
 9000 Gent 
 Tel: +32 475 610 823
+
 [info@walpoort.com](mailto:info@walpoort.com)
 
-### Baeten’s Bed & Breakfast
+### * Baeten’s Bed & Breakfast
 
 Burgstraat 11
 9000 Gent
 Tel: +32 9 223 0617
+
 [info@baetenbnbgent.be](mailto:info@baetenbnbgent.be)
 
-### Bonifant Bed & Breakfast
+### * Bonifant Bed & Breakfast
 
 Bonifantenstraat 9
 9000 Gent
 Tel: +32 9 225 3188
+
 [bonifant@hotmail.com](mailto:bonifant@hotmail.com)
 
 
@@ -46,7 +49,9 @@ The event prices listed below are available at the time of writing but are likel
 Korenlei 10
 9000 Gent
 Tel: +32 9 269 7722
+
 [infoa@marriottghent.com](mailto:infoa@marriottghent.com)
+
 [http://www.marriottghent.be/](http://www.marriottghent.be/)
 
 ### Sandton Grand Hotel Reylof
@@ -55,13 +60,16 @@ Hoogstraat 36
 9000 Gent
 Tel: +32 9 325 4070
 Tel: +32 9 235 4076
+
 [http://www.sandton.eu/gent](http://www.sandton.eu/gent)
 
 Prices:
+
   * Single Charme Room: 142,50€ breakfast included
   * Single Deluxe Room: 152,50€ breakfast included
 
 Notes: 
+
   * Contact [Reservations.reylof@sandton.eu](mailto:Reservations.reylof@sandton.eu) and use code "Ugent Shared Canvas"
 
 
@@ -69,13 +77,16 @@ Notes:
 
 Hoogpoort 63
 9000 Gent
+
 [http://www.nh-hotels.com/](http://www.nh-hotels.com/)
 
 Prices:
+
   * Single BB: 144€ breakfast included
   * Double BB 159€ breakfast included
 
 Notes: 
+
   * Contact Thomas van Rossem [nhgentbelfort@ng-hotels.com](mailto:nhgentbelfort@ng-hotels.com) and use code "Ugent Shared Canvas"
 
 ### Ghent River Hotel
@@ -83,10 +94,13 @@ Notes:
 Waaistraat 5
 9000 Gent
 Tel: +32 9 266 1010
+
 [http://ghent-river-hotel.be/](http://ghent-river-hotel.be/)
+
 [info@ghent-river-hotel.be](mailto:info@ghent-river-hotel.be)
 
 Prices: 
+
   * Standard rooms: 
     * Single: 109€ breakfast included
     * Double: 119€ breakfast included 
@@ -95,13 +109,15 @@ Prices:
     * Double: 139€ breakfast included
 
 Notes:
-  * Contact [reservations@historic-hotels-ghent.com](mailto:reservations@historic-hotels-ghent.com) and use code "SharedCanvas2015"
+
+  * Contact [reservations@historic-hotels-ghent.com](mailto:reservations@historic-hotels-ghent.com) and use code   "SharedCanvas2015"
 
 ### Ibis Gent Centrum Opera
 
 Nederkouter 24-26
 9000 Gent
 Tel: +32 9 225 0707
+
 [http://www.accorhotels.com](http://www.accorhotels.com)
 
 Prices: 
@@ -117,14 +133,18 @@ Notes:
 Kasteellaan 51
 9000 Gent
 Tel: +32 9 235 0411
+
 [info@castelnou.be](mailto:info@castelnou.be)
+
 [http://www.castelnou.be/](http://www.castelnou.be/)
 
 Prices:
+
   * Single: 92€
   * Double: 98€
 
 Notes:
+
   * Contact [info@castelnou.be](mailto:info@castelnou.be) and use code "canvas2015" before 16th of November 2015 for 10% discount
 
 
@@ -133,7 +153,9 @@ Notes:
 Goudenleeuwplein 5
 9000 Gent
 Tel: +32 9 224 2230
+
 [H0840@accor.com](mailto:H0840@accor.com)
+
 [http://www.accorhotels.com/](http://www.accorhotels.com/) or [http://www.novotel.com/](http://www.novotel.com/)
 
 Notes:
@@ -145,7 +167,9 @@ Notes:
 Botermarkt 2
 9000 Gent
 Tel: +32 9 224 2424
+
 [Info@courstgeorges.com](mailto:Info@courstgeorges.com)
+
 [http://www.courstgeorges.be/](http://www.courstgeorges.be/)
 
 Notes:
