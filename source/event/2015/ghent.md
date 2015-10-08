@@ -49,6 +49,8 @@ __Location:__ Opera Gent - Schouwburgstraat 3, 9000 Ghent, Belgium
 
 __Cost:__ There is no cost to attend. It is offered by the IIIF Consortium Partners, Ghent University Library and event sponsors.
 
+__Hotels:__ A [Hotel List][ghent-hotels] is available with some discounted prices. Booking early is recommended.
+
 __Information:__ [Visiting Ghent][visit-gent]
 
 
@@ -93,5 +95,5 @@ Further events and details to be announced.
 [tech-details]: http://iiif.io/technical-details.html
 [ghent-lib]: http://lib.ugent.be/
 [visit-gent]: http://www.visitgent.be/en/winter-gent 
-
+[ghent-hotels]: ghent-hotels.html
 
