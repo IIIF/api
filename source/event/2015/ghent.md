@@ -47,7 +47,7 @@ __Date:__ Tuesday, 8th of December 2015
 
 __Location:__ Opera Gent - Schouwburgstraat 3, 9000 Ghent, Belgium
 
-__Cost:__ There is no cost to attend. It is offered by the IIIF Consortium Partners and event sponsors.
+__Cost:__ There is no cost to attend. It is offered by the IIIF Consortium Partners, Ghent University Library and event sponsors.
 
 __Information:__ [Visiting Ghent][visit-gent]
 
