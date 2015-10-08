@@ -7,7 +7,7 @@ tags: [specifications, image-api]
 major: 2
 minor: 1
 patch: 0
-pre: final
+pre: draft2
 ---
 
 ## Status of this Document
@@ -72,12 +72,12 @@ There are four parameters shared by the requests, and other IIIF specifications:
 | Name   | Description |
 | ------ | ----------- |
 | scheme | Indicates the use of the HTTP or HTTPS protocol in calling the service. |
-| server | The host server on which the service resides. |
+| server | The host server on which the service resides.  The parameter may also include a port number. |
 | prefix | The path on the host server to the service. This prefix is optional, but may be useful when the host server supports multiple services. The prefix _MAY_ contain multiple path segments, delimited by slashes, but all other special characters _MUST_ be encoded. See [URI Encoding and Decoding][uri-encoding-and-decoding] for more information. |
 | identifier | The identifier of the requested image. This may be an ark, URN, filename, or other identifier. Special characters _MUST_ be URI encoded. |
 {: .api-table}
 
-The combination of these parameters forms the image’s Base URI and identifies the underlying image content. It is constructed according to the following URI Template ([RFC6570][rfc-6570]):
+The combination of these parameters forms the image’s base URI and identifies the underlying image content. It is constructed according to the following URI Template ([RFC6570][rfc-6570]):
 
 ```
 {scheme}://{server}{/prefix}/{identifier}
@@ -86,7 +86,7 @@ The combination of these parameters forms the image’s Base URI and identifies 
 
 When the base URI is dereferenced, the interaction _SHOULD_ result in the Image Information document.  It is _RECOMMENDED_ that the response be a 303 status redirection to the Image Information document's URI.  Implementations _MAY_ also exhibit other behavior for the base URI beyond the scope of this specification in response to HTTP request headers and methods.
 
-To allow for extensions, this specification does not define the server behavior when it receives requests that do not match either the Base URI or one of the described URI syntaxes below.
+To allow for extensions, this specification does not define the server behavior when it receives requests that do not match either the base URI or one of the described URI syntaxes below.
 
 ###  2.1. Image Request URI Syntax
 
@@ -143,10 +143,6 @@ The region parameter defines the rectangular portion of the full image to be ret
 | x,y,w,h             | The region of the full image to be returned is specified in terms of absolute pixel values. The value of x represents the number of pixels from the 0 position on the horizontal axis. The value of y represents the number of pixels from the 0 position on the vertical axis. Thus the x,y position 0,0 is the upper left-most pixel of the image. w represents the width of the region and h represents the height of the region in pixels.  |
 | pct:x,y,w,h         | The region to be returned is specified as a sequence of percentages of the full image's dimensions, as reported in the Image Information document. Thus, `x` represents the number of pixels from the 0 position on the horizontal axis, calculated as a percentage of the reported width. `w` represents the width of the region, also calculated as a percentage of the reported width. The same applies to y and h respectively. These may be floating point numbers. |
 {: .api-table}
-
-__Deprecation Warning__
-The pct: form of the region parameter will no longer be available in version 3.0.
-{: .warning}
 
 If the request specifies a region which extends beyond the dimensions reported in the Image Information document, then the service _SHOULD_ return an image cropped at the image's edge, rather than adding empty space.
 
@@ -211,10 +207,6 @@ The size parameter determines the dimensions to which the extracted region is to
 | w,h            | The width and height of the returned image are exactly w and h. The aspect ratio of the returned image _MAY_ be different than the extracted region, resulting in a distorted image. |
 | !w,h           | The image content is scaled for the best fit such that the resulting width and height are less than or equal to the requested width and height. The exact scaling _MAY_ be determined by the service provider, based on characteristics including image quality and system performance. The dimensions of the returned image content are calculated to maintain the aspect ratio of the extracted region. |
 {: .api-table}
-
-__Deprecation Warning__
-The pct: form of the size parameter will no longer be available in version 3.0.
-{: .warning}
 
 If the resulting height or width is zero, then the server _SHOULD_ return a 400 (bad request) status code.
 
@@ -425,7 +417,7 @@ In order to support the above requirements, clients _SHOULD_ construct the image
 
 | Parameter | Canonical value |
 | --------- | --------------- |
-| region    | "full" if the whole image is requested,<br/>otherwise the `x,y,w,h` syntax. |
+| region    | "full" if the whole image is requested, (including a "square" region of a square image)<br/>otherwise the `x,y,w,h` syntax. |
 | size      | "full" if the default size is requested,<br/>the `w,` syntax for images that should be scaled maintaining the aspect ratio,<br/>and the `w,h` syntax for explicit sizes that change the aspect ratio. |
 | rotation  | "!" if the image is mirrored, followed by an integer if possible, and trimming any trailing zeros in a decimal value, and a leading 0 if the value is below 1. |
 | quality   | "default" if the server's default quality is requested,<br/>otherwise the quality string. |
@@ -470,15 +462,6 @@ Content-Type: application/ld+json
 
 If the client explicitly wants the JSON-LD content-type, then it _MUST_ specify this in an Accept header, otherwise the server _MUST_ return the regular JSON content-type.
 
-If the regular JSON content-type is returned, then it is _RECOMMENDED_ that the server provide a link header to the context document. The syntax for the link header is below, and further [described in section 6.8 of the JSON-LD specification][json-as-json-ld]. If the client requests "application/ld+json", the link header _MAY_ still be included but _MUST_ be ignored. The entity body is identical regardless of the content-type, including the `@context` field. Linked data implementations may construct the response using the frame supplied in the [JSON-LD framing implementation note][annex-frames].
-
-```
-Link: <http://iiif.io/api/image/{{ page.major }}/context.json>
-            ; rel="http://www.w3.org/ns/json-ld#context"
-            ; type="application/ld+json"
-```
-{: .urltemplate}
-
 Servers _SHOULD_ send the `Access-Control-Allow-Origin` header with the value `*` in response to information requests. The syntax is shown below and is described in the [CORS][cors-spec] specification. This header is required in order to allow the JSON responses to be used by Web applications hosted on different servers.
 
 ```
@@ -493,7 +476,7 @@ A recipe for enabling these behaviors is provided in the [Apache HTTP Server Imp
 | Technical Property   | Required? | Description |
 | ---------- | --------- | ----------- |
 | `@context` | Required | The context document that describes the semantics of the terms used in the document. This must be the URI: `http://iiif.io/api/image/{{ page.major }}/context.json` for version {{ page.major }}.{{ page.minor }} of the IIIF Image API. This document allows the response to be interpreted as RDF, using the [JSON-LD][json-ld-org] serialization. |
-| `@id` | Required | The Base URI of the image as defined in [URI Syntax][uri-syntax], including scheme, server, prefix and identifier without a trailing slash. |
+| `@id` | Required | The base URI of the image as defined in [URI Syntax][uri-syntax], including scheme, server, prefix and identifier without a trailing slash. |
 | `protocol` | Required | The URI `http://iiif.io/api/image` which can be used to determine that the document describes an image service which is a version of the IIIF Image API. |
 | `width` | Required | The width in pixels of the full image content, given as an integer. |
 | `height` | Required | The height in pixels of the full image content, given as an integer. |
@@ -502,7 +485,7 @@ A recipe for enabling these behaviors is provided in the [Apache HTTP Server Imp
 | `tiles` | Optional | A set of descriptions of the parameters to use to request regions of the image (tiles) that are efficient for the server to deliver. Each description gives a width, optionally a height for non-square tiles, and a set of scale factors at which tiles of those dimensions are available. |
 {: .api-table}
 
-The objects in the `sizes` list have the properties in the following table. Images requested using these sizes _SHOULD_ have a region parameter of "full" and rotation of "0". The full URL for an image with "default" quality in "jpg" format would be: `{base_url}/{identifier}/full/{width},{height}/0/default.jpg`
+The objects in the `sizes` list have the properties in the following table. Images requested using these sizes _SHOULD_ have a region parameter of "full" and rotation of "0".  The size SHOULD be requested using the canonical syntax of `w,`. Thus, the full URL for an image with "default" quality in "jpg" format would be: `{scheme}://{server}/{prefix}/{identifier}/full/{width},/0/default.jpg`
 
 | Size Object Property | Required? | Description |
 | ---------- | --------- | ----------- |
@@ -768,11 +751,9 @@ The order in which servers parse requests and detect errors is not specified. A 
 
 ##  8. Authentication
 
-### 8.1 Introduction
-
 Images are generally secondary resources in a web page or application. In the case of web pages, images are embedded in the HTML `img` tag, and are retrieved via additional HTTP requests. When a user cannot load a web page, it is possible — and a generally accepted behavior — to redirect the user to another page and offer the opportunity to authenticate. This is not an option for secondary resources such as images, and the user is instead simply presented with the much-hated broken image icon.
 
-No new authentication systems are proposed, nor roles for authorization business logic. Instead, it is expected that authentication requirements and processes are handled outside of any IIIF-specific context, but within a larger workflow. This workflow is agnostic to the details of the authentication protocol and is documented in the [authentication][authentication-ext] specification.
+No new authentication mechanisms are proposed, nor roles for authorization business logic. Instead, it is expected that authentication requirements and processes are handled outside of any IIIF-specific context, but within a larger workflow. This workflow is agnostic to the details of the authentication protocol and is documented in the [authentication][authentication-ext] specification.
 
 
 ##  9. URI Encoding and Decoding
@@ -813,6 +794,7 @@ Early sanity checking of URIs (lengths, trailing GET, invalid characters, out-of
   * For use cases that enable the saving of the image, it is _RECOMMENDED_ to use the HTTP `Content-Disposition` header ([RFC6266][rfc-6266]) to provide a convenient filename that distinguishes the image, based on the identifier and parameters provided.
   * This specification makes no assertion about the rights status of requested images or any other descriptive metadata, whether or not authentication has been accomplished. Please see the [IIIF Presentation API][prezi-api] for rights and other information.
   * Additional [Apache HTTP Server implementation notes][apache-notes] are available.
+  * Linked data implementations may construct the info.json response using the frame supplied in the [JSON-LD framing implementation note][annex-frames].
   * When requesting sizes using the `w,` canonical syntax, if a particular height is desired, the following algorithm can be used:
 
 {% highlight python %}
@@ -881,7 +863,7 @@ Many thanks to  Ben Albritton, Matthieu Bonicel, Anatol Broder, Kevin Clarke, To
 | 2012-05-02 | RFC version |
 {: .api-table}
 
-[authentication-ext]: authentication.html
+[authentication-ext]: /api/auth/
 [cc-by]: http://creativecommons.org/licenses/by/4.0/ "Creative Commons &mdash; Attribution 4.0 International"
 [change-log11]: /api/image/1.1/change-log.html "Change Log for Version 1.1"
 [change-log]: /api/image/2.0/change-log.html "Change Log for Version 2.0"
