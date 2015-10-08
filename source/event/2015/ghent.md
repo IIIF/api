@@ -1,5 +1,5 @@
 ---
-title: "The International Image Interoperability Framework - Ghent 2015"
+title: "IIIF: Access to the World's Images - Ghent 2015"
 layout: spec
 tags: [event ]
 ---
@@ -41,13 +41,13 @@ Agenda Details to be finalized
 
 ## Logistics
 
-Registration is required and via [Event Brite][event-brite].
+Registration is required and via [EventBrite][event-brite].
 
 __Date:__ Tuesday, 8th of December 2015
 
-__Location:__ Opera Gent - Schouwburgstraat 3, Ghent, Belgium
+__Location:__ Opera Gent - Schouwburgstraat 3, 9000 Ghent, Belgium
 
-__Cost:__ Free!
+__Cost:__ There is no cost to attend. It is offered by the IIIF Consortium Partners and event sponsors.
 
 __Information:__ [Visiting Ghent][visit-gent]
 
@@ -59,7 +59,7 @@ All IIIF Events are covered by the [IIIF Code of Conduct][conduct]. IIIF is comm
 
 ## Related Events
 
-Participation is also encouraged in the following related, co-located events. The locations will be on the Ghent University campus.  Please register at [this Event Brite][event-brite-wg].
+Participation is also encouraged in the following related, co-located events. The locations will be on the Ghent University campus.  Please register at [this EventBrite][event-brite-wg] by selecting a ticket for each day that you can attend.
 
 ### Technical Workshop
 
@@ -76,6 +76,10 @@ Mirador is one of the most fully featured IIIF clients, with support for both th
 ### Newspaper Interest Group
 
 The Newspaper Interest Group will is being convened to discuss and provide support for adoption of the IIIF APIs within the vibrant digital and digitized newspaper domain.  All around the world, newspaper content is being digitized and made available, and we see IIIF as a technical cornerstone to ensure broad adoption, access and reuse of the content.  The meeting will set goals and deliverables to align European and North American efforts in this space. Time: Thursday 10th, 9:00 AM - 5:00 PM
+
+### Unconference 
+
+Additional IIIF work on implementations, specifications, use cases and requirements will take place outside of the working group structure on both Thursday and Friday.
 
 Further events and details to be announced.
 
