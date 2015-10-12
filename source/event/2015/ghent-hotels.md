@@ -81,7 +81,7 @@ Prices:
 
 Notes: 
 
-  * Contact Thomas van Rossem [nhgentbelfort@ng-hotels.com](mailto:nhgentbelfort@nh-hotels.com) and use code "Ugent Shared Canvas"
+  * Contact Thomas van Rossem [nhgentbelfort@nh-hotels.com](mailto:nhgentbelfort@nh-hotels.com) and use code "Ugent Shared Canvas"
 
 ## &nbsp; Ghent River Hotel
 
