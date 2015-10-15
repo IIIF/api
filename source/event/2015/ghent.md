@@ -79,7 +79,11 @@ Mirador is one of the most fully featured IIIF clients, with support for both th
 
 The Newspaper Interest Group will is being convened to discuss and provide support for adoption of the IIIF APIs within the vibrant digital and digitized newspaper domain.  All around the world, newspaper content is being digitized and made available, and we see IIIF as a technical cornerstone to ensure broad adoption, access and reuse of the content.  The meeting will set goals and deliverables to align European and North American efforts in this space. Time: Thursday 10th, 9:00 AM - 5:00 PM
 
-### Unconference 
+### Universal Viewer and Manifesto
+
+The [Universal Viewer][universal-viewer] (UV) is a user-friendly viewer in use at a number of national and research libraries. It features beta implementations of the IIIF Auth and Search specifications as well as support for audio, video and other formats. It is now built using [Manifesto][manifesto], a Presentation API client library that can be used as the engine in other viewers and servers. This meeting is for both contributors and interested newcomers. Friday 11th, Time: 9:00 AM – 1:00 PM
+
+### Unconference
 
 Additional IIIF work on implementations, specifications, use cases and requirements will take place outside of the working group structure on both Thursday and Friday.
 
@@ -96,4 +100,5 @@ Further events and details to be announced.
 [ghent-lib]: http://lib.ugent.be/
 [visit-gent]: http://www.visitgent.be/en/winter-gent 
 [ghent-hotels]: ghent-hotels.html
-
+[universal-viewer]: https://github.com/UniversalViewer/universalviewer
+[manifesto]: https://github.com/UniversalViewer/manifesto
