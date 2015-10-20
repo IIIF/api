@@ -7,7 +7,7 @@ tags: [specifications, image-api]
 major: 2
 minor: 1
 patch: 0
-pre: draft2
+pre: draft3
 ---
 
 ## Status of this Document
@@ -18,6 +18,10 @@ __This Version:__ {{ page.major }}.{{ page.minor }}.{{ page.patch }}{% if page.p
 __Latest Stable Version:__ [{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}.{{ site.image_api.latest.patch }}][stable-version]
 
 __Previous Version:__ [2.0][prev-version]
+
+__Beta Specification for Trial Use__
+This is a work in progress. We are actively seeking implementations and feedback.  No section should be considered final, and the absence of any content does not imply that such content is out of scope, or may not appear in the future.  Please send any feedback to [iiif-discuss@googlegroups.com][iiif-discuss].
+{: .alert}
 
 **Editors:**
 
