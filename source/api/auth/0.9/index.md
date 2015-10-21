@@ -17,7 +17,7 @@ cssversion: 2
 __This Version:__ {{ page.major }}.{{ page.minor }}.{{ page.patch }}{% if page.pre != 'final' %}-{{ page.pre }}{% endif %}
 
 __Beta Specification for Trial Use__
-This is a work in progress. We are actively seeking implementations and feedback.  No section should be considered final, and the absence of any content does not imply that such content is out of scope, or may not appear in the future.  Please send any feedback to [iiif-discuss@googlegroups.com][iiif-discuss].
+This is a work in progress. We are actively seeking new implementations, updates to existing implementations, and feedback. No section should be considered final, and the absence of any content does not imply that such content is out of scope, or may not appear in the future.  Please send any feedback to [iiif-discuss@googlegroups.com][iiif-discuss].
 {: .alert}
 
 **Editors:**
@@ -100,7 +100,7 @@ Where the `@id` field _MUST_ be present and contains the URI that the client sho
 If the client identity service, described below, is present in the description, then the client _MUST_ include the authorization code in the URL as a query parameter named `code` when making its request to the service.
 
 User-interactive clients, such as web browsers, _MUST_ present the results of an HTTP `GET` request on the service's URI in a separate window with a URL bar to help prevent spoofing attacks.
- 
+
 With out-of-band knowledge, authorized non-user driven clients _MAY_ use POST to send the pre-authenticated user's information to the service.  As the information required depends on authorization business logic, the details are not specified by this API.  In these situations, use of the client identity service is strongly _RECOMMENDED_.
 
 The response from the service _MUST_ ensure that there is a cookie available for the access token service to retrieve to determine the user information provided by the authentication system.
@@ -195,7 +195,7 @@ The use of JSONP is necessary because cookies are not allowed to be sent to syst
 
 ### 2.3. Logout Service
 
-Once the user has authenticated, the client will need to know if and where the user can go to logout. 
+Once the user has authenticated, the client will need to know if and where the user can go to logout.
 
 #### 2.3.1. Service Description
 
@@ -223,7 +223,7 @@ If the authentication system supports users intentionally logging out, there _SH
 }
 {% endhighlight %}
 
-The same semantics and requirements for the fields as the login service apply to the logout service.  The value of the `profile` property _MUST_ be `http://iiif.io/api/auth/{{ page.major }}/logout`. 
+The same semantics and requirements for the fields as the login service apply to the logout service.  The value of the `profile` property _MUST_ be `http://iiif.io/api/auth/{{ page.major }}/logout`.
 
 #### 2.3.2. Interaction
 
@@ -386,7 +386,7 @@ If the access token service responds with an error condition, the client _SHOULD
 
 ### 3.5. Step 5: Re-request Description Resource
 
-Now with the access token added in the `Authorization` header, the client retries the request for the Description Resource to determine whether the user is now successfully authenticated and authorized. Clients _SHOULD_ store the URIs of login services that have been accessed by the user and not prompt the user to login again when they are already authenticated. 
+Now with the access token added in the `Authorization` header, the client retries the request for the Description Resource to determine whether the user is now successfully authenticated and authorized. Clients _SHOULD_ store the URIs of login services that have been accessed by the user and not prompt the user to login again when they are already authenticated.
 
 If there is a logout service described in the Description Resource then the client _SHOULD_ provide a logout link. The client _SHOULD_ present this URL to the user in a separate window with a URL bar to help prevent spoofing attacks.
 
