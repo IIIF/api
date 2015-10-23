@@ -1,0 +1,17 @@
+{
+  "@context": "http://iiif.io/api/presentation/2/context.json", 
+  "@id": "http://iiif.io/api/presentation/2.0/example/fixtures/list/44/list1.json", 
+  "@type": "sc:AnnotationList", 
+  "label": "Test 44 List 1", 
+  "resources": [
+    {
+      "@type": "oa:Annotation", 
+      "motivation": "sc:painting", 
+      "resource": {
+        "@type": "cnt:ContentAsText", 
+        "chars": "Top of First Page to Display"
+      }, 
+      "on": "http://iiif.io/api/presentation/2.0/example/fixtures/canvas/44/c1.json#xywh=225,70,750,150"
+    }
+  ]
+}

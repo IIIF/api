@@ -1,0 +1,29 @@
+{
+  "@context": "http://iiif.io/api/presentation/2/context.json", 
+  "@id": "http://iiif.io/api/presentation/2.0/example/errors/manifest.json", 
+  "@type": "sc:Manifest", 
+  "label": "manifest", 
+  "sequences": [
+    {
+      "@type": "sc:Sequence", 
+      "canvases": [
+        {
+          "@id": "http://iiif.io/api/presentation/2.0/example/errors/canvas/c1.json", 
+          "@type": "sc:Canvas", 
+          "height": 1, 
+          "images": {
+            "@type": "oa:Annotation", 
+            "motivation": "sc:painting", 
+            "on": "http://iiif.io/api/presentation/2.0/example/errors/canvas/c1.json", 
+            "resource": {
+              "@id": "http://example.net/image.jpg", 
+              "@type": "dctypes:Image"
+            }
+          }, 
+          "label": "canvas", 
+          "width": 1
+        }
+      ]
+    }
+  ]
+}
