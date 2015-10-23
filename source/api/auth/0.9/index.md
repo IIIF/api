@@ -1,12 +1,12 @@
 ---
-title: "IIIF Authentication: Version 0.9"
-title_override: "IIIF Authentication: Version 0.9"
+title: "IIIF Authentication: Version 0.9.1"
+title_override: "IIIF Authentication: Version 0.9.1"
 id: auth-api
 layout: spec
 tags: [specifications, image-api]
 major: 0
 minor: 9
-patch: 0
+patch: 1
 pre: final
 cssversion: 2
 ---
@@ -29,7 +29,7 @@ This is a work in progress. We are actively seeking implementations and feedback
   * Simeon Warner, _Cornell University_
   {: .names}
 
-_Copyright © 2012-2015 Editors and contributors. Published by the IIIF under the [CC-BY][cc-by] license._
+_Copyright © 2012-2015 Editors and contributors. Published by the IIIF Consortium under the [CC-BY][cc-by] license._
 
 ----
 
@@ -83,6 +83,7 @@ The Description Resource _MUST_ include a service using the following template:
 {
   // ...
   "service" : {
+    "@context": "http://iiif.io/api/auth/{{ page.major }}/context.json",
     "@id": "https://authentication.example.org/login",
     "profile": "http://iiif.io/api/auth/{{ page.major }}/login",
     "label": "Login to Example Service",
@@ -93,7 +94,7 @@ The Description Resource _MUST_ include a service using the following template:
 }
 {% endhighlight %}
 
-Where the `@id` field _MUST_ be present and contains the URI that the client should load to allow the user to authenticate. The value of `profile` _MUST_ be `http://iiif.io/api/auth/{{ page.major }}/login`, allowing clients to understand the use of the service. The `label` property _SHOULD_ be present and its value is to be shown to the user to initiate the loading of the authentication service.  The `service` field _MUST_ be present and will contain related services described below.
+Where the `@id` field _MUST_ be present and contains the URI that the client should load to allow the user to authenticate. The `@context` field _MUST_ be present with the value `http://iiif.io/api/auth/{{ page.major }}/context.json`, specifying the context to resolve the keys into RDF if necessary. The value of `profile` _MUST_ be `http://iiif.io/api/auth/{{ page.major }}/login`, allowing clients to understand the use of the service. The `label` property _SHOULD_ be present and its value is to be shown to the user to initiate the loading of the authentication service.  The `service` field _MUST_ be present and will contain related services described below.
 
 #### 2.1.2. Interaction
 
@@ -118,6 +119,7 @@ The login service description _MUST_ include a `service` following the template 
 {
   // ...
   "service" : {
+    "@context": "http://iiif.io/api/auth/{{ page.major }}/context.json",
     "@id": "https://authentication.example.org/login",
     "profile": "http://iiif.io/api/auth/{{ page.major }}/login",
     "label": "Login to Example Service",
@@ -131,7 +133,7 @@ The login service description _MUST_ include a `service` following the template 
 }
 {% endhighlight %}
 
-The `@id` field _MUST_ be present, and its value _MUST_ be the URI from which the client can request the token. The `profile` property _MUST_ be present and its value _MUST_ be `http://iiif.io/api/auth/{{ page.major }}/token` to distinguish it from other services.  There is no requirement to have a `label` property for this service, as it does not need to be presented to a user.
+The `@id` field _MUST_ be present, and its value _MUST_ be the URI from which the client can request the token. The `profile` property _MUST_ be present and its value _MUST_ be `http://iiif.io/api/auth/{{ page.major }}/token` to distinguish it from other services. There is no requirement to have a `label` property for this service, as it does not need to be presented to a user. There is no requirement for a duplicate `@context` field.
 
 #### 2.2.2. JSON Interaction
 
@@ -205,6 +207,7 @@ If the authentication system supports users intentionally logging out, there _SH
 {
   // ...
   "service" : {
+    "@context": "http://iiif.io/api/auth/{{ page.major }}/context.json",
     "@id": "https://authentication.example.org/login",
     "profile": "http://iiif.io/api/auth/{{ page.major }}/login",
     "label": "Login to Example Service",
@@ -242,6 +245,7 @@ The login service description _MAY_ include a client identity service descriptio
 {
   // ...
   "service" : {
+    "@context": "http://iiif.io/api/auth/{{ page.major }}/context.json",
     "@id": "https://authentication.example.org/login",
     "profile": "http://iiif.io/api/auth/{{ page.major }}/login",
     "label": "Login to Example Service",
@@ -259,7 +263,7 @@ The login service description _MAY_ include a client identity service descriptio
 }
 {% endhighlight %}
 
-The `@id` field _MUST_ be present, and its value _MUST_ be the URI at which the client can obtain an authorization code. The `profile` property _MUST_ be present and its value _MUST_ be `http://iiif.io/api/auth/{{ page.major }}/clientId` to distinguish it from other services. There is no requirement to have a `label` property for this service, as it does not need to be presented to a user.
+The `@id` field _MUST_ be present, and its value _MUST_ be the URI at which the client can obtain an authorization code. The `profile` property _MUST_ be present and its value _MUST_ be `http://iiif.io/api/auth/{{ page.major }}/clientId` to distinguish it from other services. There is no requirement to have a `label` property for this service, as it does not need to be presented to a user. There is no requirement to have a duplicate `@context` property for the service.
 
 #### 2.4.2. Interaction
 
@@ -335,6 +339,7 @@ The example below is a complete image information response for an example image 
     }
   ],
   "service" : {
+    "@context": "http://iiif.io/api/auth/{{ page.major }}/context.json",
     "@id": "https://authentication.example.org/login",
     "profile": "http://iiif.io/api/auth/{{ page.major }}/login",
     "label": "Login to Example Service",
@@ -451,6 +456,7 @@ Many thanks to the members of the [IIIF Community][iiif-community] for their con
 
 | Date       | Description |
 | ---------- | ----------- |
+| 2015-10-30 | Version 0.9.1 (Alchemical Key); add missing @context | 
 | 2015-07-28 | Version 0.9.0 (Alchemical Key); beta specification for review |
 {: .api-table}
 
