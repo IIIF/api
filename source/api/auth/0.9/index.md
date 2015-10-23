@@ -100,11 +100,11 @@ Where the `@id` field _MUST_ be present and contains the URI that the client sho
 
 If the client identity service, described below, is present in the description, then the client _MUST_ include the authorization code in the URL as a query parameter named `code` when making its request to the service.
 
-User-interactive clients, such as web browsers, _MUST_ present the results of an HTTP `GET` request on the service's URI in a separate window with a URL bar to help prevent spoofing attacks.
+User-interactive clients, such as web browsers, _MUST_ present the results of an HTTP `GET` request on the service's URI in a separate tab or window with a URL bar to help prevent spoofing attacks.
 
 With out-of-band knowledge, authorized non-user driven clients _MAY_ use POST to send the pre-authenticated user's information to the service.  As the information required depends on authorization business logic, the details are not specified by this API.  In these situations, use of the client identity service is strongly _RECOMMENDED_.
 
-The response from the service _MUST_ ensure that there is a cookie available for the access token service to retrieve to determine the user information provided by the authentication system.
+The response from the service _MUST_ ensure that there is a cookie available for the access token service to retrieve to determine the user information provided by the authentication system.  The response _SHOULD_ contain javascript that will attempt to close the tab or window, in order to trigger the next step in the workflow.  For more information about the process, see [Step 3][user-auths] in the workflow.
 
 
 ### 2.2. Access Token Service
@@ -137,7 +137,7 @@ The `@id` field _MUST_ be present, and its value _MUST_ be the URI from which th
 
 #### 2.2.2. JSON Interaction
 
-Clients that can send cookies _SHOULD_ request the access token service's URI directly, with all of the cookies sent to or established by the login service.
+Non-browser clients that can send cookies _SHOULD_ request the access token service's URI directly, with all of the cookies sent to or established by the login service.
 
 If an authorization code was obtained using the client identity service, described below, then this _MUST_ be passed to the access token service as well.  The authorization code is passed to the access token service as the value of a query parameter called `code`. An example URL:
 
@@ -172,7 +172,7 @@ Authorization: Bearer TOKEN_HERE
 
 #### 2.2.3. JSONP Interaction
 
-Browser based clients _MUST_ use [JSONP][jsonp] callbacks to retrieve the access token.  The request _MUST_ have a `callback` parameter added to the URL from the `@id` field, and if an authorization code is required, that _MUST_ be present in a `code` parameter.  An example URL:
+Browser based clients _MUST_ use [JSONP][jsonp] callbacks to retrieve the access token; see below for the rationale for this.  The request _MUST_ have a `callback` parameter added to the URL from the `@id` field, and if an authorization code is required, that _MUST_ be present in a `code` parameter.  An example URL:
 
 ```
 https://authentication.example.org/token?callback=callback_function&code=AUTH_CODE_HERE
@@ -230,7 +230,7 @@ The same semantics and requirements for the fields as the login service apply to
 
 #### 2.3.2. Interaction
 
-The client _SHOULD_ present the results of the an HTTP `GET` request on the service's URI in a separate window with a URL bar.  At the same time, the client _SHOULD_ discard any access token that it has received from the corresponding service. The server _SHOULD_ reset the user's logged in status when this request is made.
+The client _SHOULD_ present the results of the an HTTP `GET` request on the service's URI in a separate tab or window with a URL bar.  At the same time, the client _SHOULD_ discard any access token that it has received from the corresponding service. The server _SHOULD_ reset the user's logged in status when this request is made.
 
 
 ### 2.4. Client Identity Service
@@ -363,7 +363,7 @@ The following workflow steps through the basic interactions for authenticating a
 
 ### 3.1. Step 1: Request Description Resource
 
-The first step for the client is to request the desired Description Resource, such as an image information document (info.json), or a [Presentation API][prezi-api] manifest, collection, or annotation list.  The response will dictate the client's next step, which is likely to be to present the user with a login service in a new browser window.
+The first step for the client is to request the desired Description Resource, such as an image information document (info.json), or a [Presentation API][prezi-api] manifest, collection, or annotation list.  The response will dictate the client's next step, which is likely to be to present the user with a login service in a new browser tab or window.
 
 The response from the server _MUST_ include the service descriptions, as shown above, and any required properties such as `@context` and `@id`, thus allowing a client to present something to the user, regardless of whether the user is authenticated or not.
 
@@ -377,9 +377,9 @@ In cases where the server requires client software to be registered, there _MUST
 
 ### 3.3. Step 3: User Authenticates
 
-After receiving the response, the client will have a URL for a login service where the user can authenticate.  The client _MUST_ present this URL to the user in a separate window with a URL bar, not in an iFrame or otherwise imported into the client user interface, in order to help prevent spoofing attacks.
+After receiving the response, the client will have a URL for a login service where the user can authenticate.  The client _MUST_ present this URL to the user in a separate tab or window with a URL bar, not in an iFrame or otherwise imported into the client user interface, in order to help prevent spoofing attacks.
 
-After the authentication process has taken place, the login service _MUST_ ensure that the client has a cookie that identifies the user and will be visible to the access token service. It _SHOULD_ also contain JavaScript to try and automatically close the window. The window closing is the trigger for the client to request the access token for the user.
+After the authentication process has taken place, the login service _MUST_ ensure that the client has a cookie that identifies the user and will be visible to the access token service. It _SHOULD_ also contain JavaScript to try and automatically close the tab or window. The tab or window closing is the trigger for the client to request the access token for the user.
 
 ### 3.4. Step 4: Obtain Access Token
 
@@ -393,7 +393,7 @@ If the access token service responds with an error condition, the client _SHOULD
 
 Now with the access token added in the `Authorization` header, the client retries the request for the Description Resource to determine whether the user is now successfully authenticated and authorized. Clients _SHOULD_ store the URIs of login services that have been accessed by the user and not prompt the user to login again when they are already authenticated.
 
-If there is a logout service described in the Description Resource then the client _SHOULD_ provide a logout link. The client _SHOULD_ present this URL to the user in a separate window with a URL bar to help prevent spoofing attacks.
+If there is a logout service described in the Description Resource then the client _SHOULD_ provide a logout link. The client _SHOULD_ present this URL to the user in a separate tab or window with a URL bar to help prevent spoofing attacks.
 
 If the user is successfully authenticated but not authorized, or business logic on the server dictates that authorization will never be possible, then the server _MUST_ respond to Description Resource requests with the 403 (Forbidden) HTTP status code.
 
@@ -431,7 +431,7 @@ When the server receives a request for a Description Resource, (1), it first mus
   </tbody>
 </table>
 
-The client first requests the desired Description Resource (1).  If the response is a 200 with the expected information, the client does not need to authenticate and should proceed to use the resource as expected (2).  If not, and the response is a 302 redirect, then the client follows the redirect to retrieve a new resource (3).  If the client has seen that resource already, by comparing its URI with those in a list of seen URIs, then the user is not authorized to access the requested version, and it should use the degraded version from the current response (4).  Otherwise, if it has not seen the response before, or the initial response is a 401 status with a link to the service (5), the client follows the link to the login service in a newly created window (6) and records that it has seen the URI.  The user must then attempt to authenticate using the service (7), and the client waits until the window is closed, either automatically or manually by the user.  Once the window is closed, the client retrieves an access token for the user and retries the request for the original Description Resource (8), and proceeds back to make the same tests.  Finally, if the client receives a 403 response from the server, the user cannot gain authorization to interact with the resource and there is no degraded version available, and hence the client should not render anything beyond an error message.
+The client first requests the desired Description Resource (1).  If the response is a 200 with the expected information, the client does not need to authenticate and should proceed to use the resource as expected (2).  If not, and the response is a 302 redirect, then the client follows the redirect to retrieve a new resource (3).  If the client has seen that resource already, by comparing its URI with those in a list of seen URIs, then the user is not authorized to access the requested version, and it should use the degraded version from the current response (4).  Otherwise, if it has not seen the response before, or the initial response is a 401 status with a link to the service (5), the client follows the link to the login service in a newly created tab or window (6) and records that it has seen the URI.  The user must then attempt to authenticate using the service (7), and the client waits until the tab or window is closed, either automatically or manually by the user.  Once the tab or window is closed, the client retrieves an access token for the user and retries the request for the original Description Resource (8), and proceeds back to make the same tests.  Finally, if the client receives a 403 response from the server, the user cannot gain authorization to interact with the resource and there is no degraded version available, and hence the client should not render anything beyond an error message.
 
 ## Appendices
 
@@ -456,7 +456,7 @@ Many thanks to the members of the [IIIF Community][iiif-community] for their con
 
 | Date       | Description |
 | ---------- | ----------- |
-| 2015-10-30 | Version 0.9.1 (Alchemical Key); add missing @context | 
+| 2015-10-30 | Version 0.9.1 (Alchemical Key); add missing @context, clarifications | 
 | 2015-07-28 | Version 0.9.0 (Alchemical Key); beta specification for review |
 {: .api-table}
 
@@ -475,5 +475,6 @@ Many thanks to the members of the [IIIF Community][iiif-community] for their con
 [prezi-api]: /api/presentation/
 [image-api]: /api/image/
 [ext-services]: /api/annex/services/
+[user-auths]: #step-3-user-authenticates
 
 {% include acronyms.md %}
