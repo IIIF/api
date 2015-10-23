@@ -1,0 +1,36 @@
+{
+  "@context": "http://iiif.io/api/presentation/2/context.json", 
+  "@id": "http://iiif.io/api/presentation/2.0/example/fixtures/22/manifest.json", 
+  "@type": "sc:Manifest", 
+  "label": "Test 22 Manifest: /Sequence/ with non l-t-r viewingDirection", 
+  "within": "http://iiif.io/api/presentation/2.0/example/fixtures/collection.json", 
+  "sequences": [
+    {
+      "@type": "sc:Sequence", 
+      "label": "Test 22 Sequence 1", 
+      "viewingDirection": "right-to-left", 
+      "canvases": [
+        {
+          "@id": "http://iiif.io/api/presentation/2.0/example/fixtures/canvas/22/c1.json", 
+          "@type": "sc:Canvas", 
+          "label": "Test 22 Canvas: 1", 
+          "height": 1800, 
+          "width": 1200, 
+          "images": [
+            {
+              "@type": "oa:Annotation", 
+              "motivation": "sc:painting", 
+              "resource": {
+                "@id": "http://iiif.io/api/presentation/2.0/example/fixtures/resources/page1-full.png", 
+                "@type": "dctypes:Image", 
+                "height": 1800, 
+                "width": 1200
+              }, 
+              "on": "http://iiif.io/api/presentation/2.0/example/fixtures/canvas/22/c1.json"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
