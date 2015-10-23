@@ -460,6 +460,7 @@ Any additional fields beyond those defined in this specification _SHOULD_ be map
 {"@context": [
     "http://iiif.io/api/presentation/{{ page.major }}/context.json",
     "http://example.org/extension/context.json"
+  ]
 }
 {% endhighlight %}
 
