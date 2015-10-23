@@ -133,7 +133,7 @@ The login service description _MUST_ include a `service` following the template 
 }
 {% endhighlight %}
 
-The `@id` field _MUST_ be present, and its value _MUST_ be the URI from which the client can request the token. The `profile` property _MUST_ be present and its value _MUST_ be `http://iiif.io/api/auth/{{ page.major }}/token` to distinguish it from other services.  The `@context` field _MUST_ also be present. There is no requirement to have a `label` property for this service, as it does not need to be presented to a user.
+The `@id` field _MUST_ be present, and its value _MUST_ be the URI from which the client can request the token. The `profile` property _MUST_ be present and its value _MUST_ be `http://iiif.io/api/auth/{{ page.major }}/token` to distinguish it from other services. There is no requirement to have a `label` property for this service, as it does not need to be presented to a user. There is no requirement for a duplicate `@context` field.
 
 #### 2.2.2. JSON Interaction
 
@@ -263,7 +263,7 @@ The login service description _MAY_ include a client identity service descriptio
 }
 {% endhighlight %}
 
-The `@id` field _MUST_ be present, and its value _MUST_ be the URI at which the client can obtain an authorization code. The `profile` property _MUST_ be present and its value _MUST_ be `http://iiif.io/api/auth/{{ page.major }}/clientId` to distinguish it from other services. The `@context` field _MUST_ be present, as with other services. There is no requirement to have a `label` property for this service, as it does not need to be presented to a user.
+The `@id` field _MUST_ be present, and its value _MUST_ be the URI at which the client can obtain an authorization code. The `profile` property _MUST_ be present and its value _MUST_ be `http://iiif.io/api/auth/{{ page.major }}/clientId` to distinguish it from other services. There is no requirement to have a `label` property for this service, as it does not need to be presented to a user. There is no requirement to have a duplicate `@context` property for the service.
 
 #### 2.4.2. Interaction
 
