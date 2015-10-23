@@ -1538,7 +1538,7 @@ Starting with version 2.0, this specification follows [Semantic Versioning][semv
 
 The production of this document was generously supported by a grant from the [Andrew W. Mellon Foundation][mellon].
 
-Many thanks to Matthieu Bonicel, Tom Cramer, Ian Davis, Markus Enders, Renhart Gittens, Tim Gollins, Antoine Isaac, Neil Jefferies, Sean Martin, Roger Mathisen, Mark Patton, Petter Rønningsen, Raphael Schwemmer, Stuart Snydman and Simeon Warner for their thoughtful contributions. Thanks also to the members of the [IIIF][iiif-community] for their continuous engagement, innovative ideas and feedback.
+Many thanks to Matthieu Bonicel, Tom Cramer, Ian Davis, Markus Enders, Renhart Gittens, Tim Gollins, Antoine Isaac, Neil Jefferies, Sean Martin, Roger Mathisen, Mark Patton, Petter Rønningsen, Raphael Schwemmer and Stuart Snydman for their thoughtful contributions. Thanks also to the members of the [IIIF][iiif-community] for their continuous engagement, innovative ideas and feedback.
 
 ### F. Change Log
 
