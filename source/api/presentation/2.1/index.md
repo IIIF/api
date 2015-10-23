@@ -1544,13 +1544,10 @@ Many thanks to Matthieu Bonicel, Tom Cramer, Ian Davis, Markus Enders, Renhart G
 
 | Date       | Description                                        |
 | ---------- | -------------------------------------------------- |
-| 2015-05-13 | Version 2.1 Initial Draft (Trip Life) [View change log][change-log] |
+| 2015-10-23 | Version 2.1.0-draft3 (Trip Life) [View change log][change-log] |
 | 2014-09-11 | Version 2.0 (Triumphant Giraffe) [View change log][change-log-20] |
-| 2014-08-12 | Version 2.0.0-final-draft (Triumphant Giraffe)     |
-| 2014-07-01 | Version 2.0.0-draft2 (Triumphant Giraffe) RFC      |
-| 2014-06-01 | Version 2.0.0-draft (Triumphant Giraffe) RFC       |
-| 2013-08-26 | Version 1.0 (unnamed) released.                    |
-| 2013-06-14 | Version 0.9 (unnamed) released.                    |
+| 2013-08-26 | Version 1.0 (unnamed) released                     |
+| 2013-06-14 | Version 0.9 (unnamed) released                     |
 
 [cc-by]: http://creativecommons.org/licenses/by/4.0/ "Creative Commons &mdash; Attribution 4.0 International"
 [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
