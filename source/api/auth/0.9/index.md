@@ -289,7 +289,7 @@ The body of the response from the server _MUST_ be JSON and _MUST_ conform to th
 
 ### 2.5. Error Conditions
 
-The response from the client identity service or the access token service may be an error.  The response _MUST_ be in JSON with the following template.  In the case of the JSONP request for the access token service, it _MUST_ be wrapped in the callback function.
+The response from the client identity service or the access token service may be an error.  The body of the response _MUST_ be in JSON with the following template.  In the case of the JSONP request for the access token service, it _MUST_ be wrapped in the callback function.
 
 {% highlight json %}
 {
@@ -311,7 +311,7 @@ Where `ERROR_TYPE_HERE` _MUST_ be one of the types in the following table:
 
 The `description` property is _OPTIONAL_ and may give additional information to client developers for debugging the interaction. This information _SHOULD NOT_ be presented to end users.
 
-In cases other than when JSONP is requested, the service _MUST_ use the appropriate HTTP status code for the response.
+When JSONP is not requested, the service _MUST_ use the appropriate HTTP status code for the response to describe the error (for example 400, 401 or 403).  JSONP responses _MUST_ use the 200 HTTP status code to ensure that the body is received by the client correctly.
 
 ### 2.6. Example JSON Response
 
