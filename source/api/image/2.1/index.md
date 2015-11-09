@@ -637,7 +637,7 @@ More complex examples are given in the [Complete Response Example](#complete-res
 
 There _MAY_ be one or more services associated with an image. See the [Service Profiles][service-profiles] annex for more information.
 
-The following shows a simple use of `service` to associate geographic metadata with the image.
+The following shows a use of `service` to associate the login page of an authentication system needed to access the image.  For further information, please see [Authentication](#authentication).
 
 {% highlight json %}
 {
@@ -646,8 +646,9 @@ The following shows a simple use of `service` to associate geographic metadata w
   "protocol" : "http://iiif.io/api/image",
   //...
   "service": {
-    "@context" : "http://geojson.org/contexts/geojson-base.jsonld",
-    "@id" : "http://www.example.org/geojson/paris.json"
+    "@context" : "http://iiif.io/api/auth/{{ site.auth_api.latest.major }}/context.json",
+    "@id" : "http://www.example.org/auth/login.html",
+    "profile": "http://iiif.io/api/auth/{{ site.auth_api.latest.major }}/login"
   }
 }
 {% endhighlight %}
