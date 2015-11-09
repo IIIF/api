@@ -7,7 +7,7 @@ tags: [specifications, presentation-api]
 major: 2
 minor: 1
 patch: 0
-pre: draft3
+pre: draft
 ---
 
 ## Status of this Document
@@ -31,7 +31,7 @@ This is a work in progress. We are actively seeking new implementations, updates
   * Simeon Warner, _Cornell University_
   {: .names}
 
-_Copyright © 2012-2015 Editors and contributors. Published by the IIIF Consortium under the [CC-BY][cc-by] license._
+_Copyright © 2012-2015 Editors and contributors. Published by the IIIF under the [CC-BY][cc-by] license._
 
 ----
 
@@ -371,7 +371,15 @@ Content-Type: application/ld+json
 ```
 {: .urltemplate}
 
-If the client explicitly wants the JSON-LD content-type, then it _MUST_ specify this in an Accept header, otherwise the server _MUST_ return the regular JSON content-type. 
+If the client explicitly wants the JSON-LD content-type, then it _MUST_ specify this in an Accept header, otherwise the server _MUST_ return the regular JSON content-type. If the regular JSON content-type is returned, then it is _RECOMMENDED_ that the server provide a link header to the context document. The syntax for the link header is below, and further described in [section 6.8 of the JSON-LD specification][json-ld-68]. The context _MUST NOT_ be given in the link header if the client requests `application/ld+json`.
+
+```
+Content-Type: application/json
+Link: <http://iiif.io/api/presentation/{{ page.major }}/context.json>
+            ;rel="http://www.w3.org/ns/json-ld#context"
+            ;type="application/ld+json"
+```
+{: .urltemplate}
 
 The HTTP server _SHOULD_, if at all possible, send the Cross Origin Access Control header (often called "CORS") to allow clients to download the manifests via AJAX from remote sites. The header name is `Access-Control-Allow-Origin` and the value of the header _SHOULD_ be `*`.
 
@@ -454,15 +462,9 @@ The top level resource in the response _MUST_ have the `@context` property, and 
 {"@context": "http://iiif.io/api/presentation/{{ page.major }}/context.json"}
 {% endhighlight %}
 
-Any additional fields beyond those defined in this specification _SHOULD_ be mapped to RDF predicates using further context documents. In this case, the enclosing object _MUST_ have its own `@context` property, and it _SHOULD_ be the first key/value pair of that object. This is _REQUIRED_ for `service` links that embed any information beyond a `profile`.  These contexts _SHOULD NOT_ redefine `profile`.  As the top level resource _MUST_ have the IIIF Presentation API context, if there are any additional contexts needed, the value will become an array of URI strings:
+Any additional fields beyond those defined in this specification _SHOULD_ be mapped to RDF predicates using further context documents. In this case, the enclosing object _MUST_ have its own `@context` property, and it _SHOULD_ be the first key/value pair of that object. This is _REQUIRED_ for `service` links that embed any information beyond a `profile`.  These contexts _SHOULD NOT_ redefine `profile`.
 
-{% highlight json %}
-{"@context": [
-    "http://iiif.io/api/presentation/{{ page.major }}/context.json",
-    "http://example.org/extension/context.json"
-  ]
-}
-{% endhighlight %}
+Clients _SHOULD_ be aware that some implementations will add an `@graph` property at the top level, which contains the object. This is a side effect of JSON-LD serialization, and servers _SHOULD_ remove it before sending to the client. The client can use the [JSON-LD compaction algorithm][json-ld-compact] to remove it, if present.  Using compaction and the JSON-LD Framing algorithm with the [supplied frames][annex-frames] will generate the correct structure.
 
 
 ##  5. Primary Resource Types
@@ -629,7 +631,7 @@ Recommended URI pattern:
 ```
 {: .urltemplate}
 
-The canvas represents an individual page or view and acts as a central point for laying out the different content resources that make up the display. Canvases _MUST_ be identified by a URI and it _MUST_ be an HTTP(s) URI. If following the recommended URI pattern, the {name} parameter _MUST_ uniquely distinguish the canvas from all other canvases in the object. As with sequences, the name _SHOULD NOT_ begin with a number. Suggested patterns are "f1r" or "p1".
+The canvas represents an individual page or view and acts as a central point for laying out the different content resources that make up the display. Canvases _MUST_ be identified by a URI and it _MUST_ be an HTTP(s) URI. If following the recommended URI pattern, the {name} parameter _MUST_ uniquely distinguish the canvas from all other canvases in the object. As with sequences, the name _SHOULD NOT_ begin with a number. Suggested patterns are "f1r" or "p1". The URI of the canvas _SHOULD NOT_ contain a fragment (a `#` followed by further characters), as this would make it impossible to refer to segment of the canvas's area using the `#xywh=` syntax.
 
 Every canvas _MUST_ have a `label` to display, and a `height` and a `width` as integers. A canvas is a two-dimensional rectangular space with an aspect ratio that represents a single logical view of some part of the object, and the aspect ratio is given with the height and width properties. This allows resources to be associated with specific parts of the canvas, rather than the entire space. Content _MUST NOT_ be associated with space outside of the canvas's dimensions, such as at coordinates below 0,0 or greater than the height or width.
 
@@ -1227,7 +1229,7 @@ collections
 manifests
 : References to manifests contained within the current collection. Each referenced manifest _MUST_ have the appropriate @id, @type and label.
 
-At least one of `collections` and `manifests` _SHOULD_ be present.  Empty collections with neither are allowed but discouraged.
+At least one of `collections` and `manifests` _SHOULD_ be present in the response.  Responses with neither of `collections` or `manifests`, describing collections that have no members, are allowed but discouraged.
 
 An example collection document:
 
@@ -1264,7 +1266,7 @@ An example collection document:
 
 ## 8. Authentication
 
-It may be necessary to restrict access to the descriptions made available via the Presentation API.  As the primary means of interaction with the descriptions is by web browsers using XmlHttpRequests across domains, there are some considerations regarding the most appropriate methods for authenticating users and authorizing their access.  The approach taken is described in the [Authentication][auth] specification, and requires requesting a token to add to the requests to identify the user.  This token might also be used for other requests defined by other APIs.
+TODO
 
 ## 9. Complete Example Response
 
@@ -1526,28 +1528,27 @@ URL: _http://www.example.org/iiif/book1/manifest_
 | Other Content  | ![required][icon-req]  | 
 {: .api-table}
 
-### C. Implementation Notes
-
-Clients _SHOULD_ be aware that some implementations will add an `@graph` property at the top level, which contains the object. This is a side effect of JSON-LD serialization, and servers _SHOULD_ remove it before sending to the client. If this is seen in practice, the client can use the [JSON-LD compaction algorithm][json-ld-compact] and JSON-LD Framing with the [supplied frames][annex-frames] to remove it and generate the correct representation.
-
-### D. Versioning
+### C. Versioning
 
 Starting with version 2.0, this specification follows [Semantic Versioning][semver]. See the note [Versioning of APIs][versioning] for details regarding how this is implemented.
 
-### E. Acknowledgements
+### D. Acknowledgements
 
 The production of this document was generously supported by a grant from the [Andrew W. Mellon Foundation][mellon].
 
-Many thanks to Matthieu Bonicel, Tom Cramer, Ian Davis, Markus Enders, Renhart Gittens, Tim Gollins, Antoine Isaac, Neil Jefferies, Sean Martin, Roger Mathisen, Mark Patton, Petter Rønningsen, Raphael Schwemmer and Stuart Snydman for their thoughtful contributions. Thanks also to the members of the [IIIF][iiif-community] for their continuous engagement, innovative ideas and feedback.
+Many thanks to Matthieu Bonicel, Tom Cramer, Ian Davis, Markus Enders, Renhart Gittens, Tim Gollins, Antoine Isaac, Neil Jefferies, Sean Martin, Roger Mathisen, Mark Patton, Petter Rønningsen, Raphael Schwemmer, Stuart Snydman and Simeon Warner for their thoughtful contributions. Thanks also to the members of the [IIIF][iiif-community] for their continuous engagement, innovative ideas and feedback.
 
-### F. Change Log
+### E. Change Log
 
 | Date       | Description                                        |
 | ---------- | -------------------------------------------------- |
-| 2015-10-23 | Version 2.1.0-draft3 (Trip Life) [View change log][change-log] |
+| 2015-05-13 | Version 2.1 Initial Draft (Cruising Cardinal) [View change log][change-log] |
 | 2014-09-11 | Version 2.0 (Triumphant Giraffe) [View change log][change-log-20] |
-| 2013-08-26 | Version 1.0 (unnamed) released                     |
-| 2013-06-14 | Version 0.9 (unnamed) released                     |
+| 2014-08-12 | Version 2.0.0-final-draft (Triumphant Giraffe)     |
+| 2014-07-01 | Version 2.0.0-draft2 (Triumphant Giraffe) RFC      |
+| 2014-06-01 | Version 2.0.0-draft (Triumphant Giraffe) RFC       |
+| 2013-08-26 | Version 1.0 (unnamed) released.                    |
+| 2013-06-14 | Version 0.9 (unnamed) released.                    |
 
 [cc-by]: http://creativecommons.org/licenses/by/4.0/ "Creative Commons &mdash; Attribution 4.0 International"
 [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
@@ -1588,7 +1589,6 @@ Many thanks to Matthieu Bonicel, Tom Cramer, Ian Davis, Markus Enders, Renhart G
 [canvas]: #canvas
 [image-resources]: #image-resources
 [other-content-resources]: #other-content-resources
-[auth]: /api/auth/
 
 [icon-req]: /img/metadata-api/required.png "Required"
 [icon-recc]: /img/metadata-api/recommended.png "Recommended"
