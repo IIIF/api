@@ -94,7 +94,7 @@ The Description Resource _MUST_ include a service using the following template:
 }
 {% endhighlight %}
 
-Where the `@id` field _MUST_ be present and contains the URI that the client should load to allow the user to authenticate. The `@context` field _MUST_ be present with the value `http://iiif.io/api/auth/{{ page.major }}/context.json`, specifying the context to resolve the keys into RDF if necessary. The value of `profile` _MUST_ be `http://iiif.io/api/auth/{{ page.major }}/login`, allowing clients to understand the use of the service. The `label` property _SHOULD_ be present and its value is to be shown to the user to initiate the loading of the authentication service.  The `service` field _MUST_ be present and will contain related services described below.
+Where the `@id` field _MUST_ be present and contains the URI that the client should load in order to allow the user to authenticate. The `@context` field _MUST_ be present with the value `http://iiif.io/api/auth/{{ page.major }}/context.json`, specifying the context to resolve the keys into RDF if necessary. The value of `profile` _MUST_ be `http://iiif.io/api/auth/{{ page.major }}/login`, allowing clients to understand the use of the service. The `label` property _SHOULD_ be present and its value is to be shown to the user to initiate the loading of the authentication service.  The `service` field _MUST_ be present and will contain related services described below.
 
 #### 2.1.2. Interaction
 
@@ -172,7 +172,7 @@ Authorization: Bearer TOKEN_HERE
 
 #### 2.2.3. JSONP Interaction
 
-Browser based clients _MUST_ use [JSONP][jsonp] callbacks to retrieve the access token; see below for the rationale for this.  The request _MUST_ have a `callback` parameter added to the URL from the `@id` field, and if an authorization code is required, that _MUST_ be present in a `code` parameter.  An example URL:
+Browser based clients _MUST_ use [JSONP][jsonp] callbacks to retrieve the access token; see the note below for the rationale for this.  The request _MUST_ have a `callback` parameter added to the URL from the `@id` field, and if an authorization code is required, that _MUST_ be present in a `code` parameter.  An example URL:
 
 ```
 https://authentication.example.org/token?callback=callback_function&code=AUTH_CODE_HERE
@@ -191,8 +191,11 @@ callback_function(
 );
 {% endhighlight %}
 
+
 <!-- :( -->
+__Note:__
 The use of JSONP is necessary because cookies are not allowed to be sent to systems that do not have the `Access-Control-Allow-Credentials` response header set.  Systems that do have `Access-Control-Allow-Credentials` must not also have `Access-Control-Allow-Origin` set to `*`, as this would expose the system to attacks on other protected resources.  Simply echoing the requester's origin back would not mitigate this concern, as the effect would be the same as having a value of `*`, and the response could not be cached.
+{: .note}
 
 
 ### 2.3. Logout Service

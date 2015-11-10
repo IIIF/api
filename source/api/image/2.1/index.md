@@ -439,7 +439,7 @@ The server _MAY_ include this link header on the Image Information response, how
 
 ##  5. Image Information
 
-Servers _MUST_ support requests for image information. The response includes technical properties about the image and may also contain rights and licensing properties, and related services.
+Servers _MUST_ support requests for image information. The response includes technical properties about the image and may also contain rights and licensing properties, and services related to it.
 
 ### 5.1. Image Information Request
 
@@ -637,7 +637,7 @@ More complex examples are given in the [Complete Response Example](#complete-res
 
 There _MAY_ be one or more services associated with an image. See the [Service Profiles][service-profiles] annex for more information.
 
-The following shows a use of `service` to associate the login page of an authentication system needed to access the image.  For further information, please see [Authentication](#authentication).
+The following shows a use of `service` to associate the login page of an authentication system that users must go through in order to access the image.  For further information, please see [Authentication](#authentication).
 
 {% highlight json %}
 {
