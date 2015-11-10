@@ -7,7 +7,7 @@ cssversion: 2
 
 ## License
 
-Specifications published by the IIIF Consortium and Community are made available using the [Creative Commons Attribution Required][cc-by] license.
+Specifications published by the IIIF Consortium and Community are made available using the [Creative Commons Attribution Required][cc-by] (CC-BY) license.
 
 
 ## Disclaimers
