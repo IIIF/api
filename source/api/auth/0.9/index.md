@@ -1,12 +1,12 @@
 ---
-title: "IIIF Authentication: Version 0.9"
-title_override: "IIIF Authentication: Version 0.9"
+title: "IIIF Authentication: Version 0.9.1"
+title_override: "IIIF Authentication: Version 0.9.1"
 id: auth-api
 layout: spec
 tags: [specifications, image-api]
 major: 0
 minor: 9
-patch: 0
+patch: 1
 pre: final
 cssversion: 2
 ---
@@ -29,7 +29,7 @@ This is a work in progress. We are actively seeking implementations and feedback
   * Simeon Warner, _Cornell University_
   {: .names}
 
-_Copyright © 2012-2015 Editors and contributors. Published by the IIIF under the [CC-BY][cc-by] license._
+_Copyright © 2012-2015 Editors and contributors. Published by the IIIF Consortium under the [CC-BY][cc-by] license._
 
 ----
 
@@ -83,6 +83,7 @@ The Description Resource _MUST_ include a service using the following template:
 {
   // ...
   "service" : {
+    "@context": "http://iiif.io/api/auth/{{ page.major }}/context.json",
     "@id": "https://authentication.example.org/login",
     "profile": "http://iiif.io/api/auth/{{ page.major }}/login",
     "label": "Login to Example Service",
@@ -93,17 +94,17 @@ The Description Resource _MUST_ include a service using the following template:
 }
 {% endhighlight %}
 
-Where the `@id` field _MUST_ be present and contains the URI that the client should load to allow the user to authenticate. The value of `profile` _MUST_ be `http://iiif.io/api/auth/{{ page.major }}/login`, allowing clients to understand the use of the service. The `label` property _SHOULD_ be present and its value is to be shown to the user to initiate the loading of the authentication service.  The `service` field _MUST_ be present and will contain related services described below.
+Where the `@id` field _MUST_ be present and contains the URI that the client should load in order to allow the user to authenticate. The `@context` field _MUST_ be present with the value `http://iiif.io/api/auth/{{ page.major }}/context.json`, specifying the context to resolve the keys into RDF if necessary. The value of `profile` _MUST_ be `http://iiif.io/api/auth/{{ page.major }}/login`, allowing clients to understand the use of the service. The `label` property _SHOULD_ be present and its value is to be shown to the user to initiate the loading of the authentication service.  The `service` field _MUST_ be present and will contain related services described below.
 
 #### 2.1.2. Interaction
 
 If the client identity service, described below, is present in the description, then the client _MUST_ include the authorization code in the URL as a query parameter named `code` when making its request to the service.
 
-User-interactive clients, such as web browsers, _MUST_ present the results of an HTTP `GET` request on the service's URI in a separate window with a URL bar to help prevent spoofing attacks.
+User-interactive clients, such as web browsers, _MUST_ present the results of an HTTP `GET` request on the service's URI in a separate tab or window with a URL bar to help prevent spoofing attacks.
 
 With out-of-band knowledge, authorized non-user driven clients _MAY_ use POST to send the pre-authenticated user's information to the service.  As the information required depends on authorization business logic, the details are not specified by this API.  In these situations, use of the client identity service is strongly _RECOMMENDED_.
 
-The response from the service _MUST_ ensure that there is a cookie available for the access token service to retrieve to determine the user information provided by the authentication system.
+The response from the service _MUST_ ensure that there is a cookie available for the access token service to retrieve to determine the user information provided by the authentication system.  The response _SHOULD_ contain javascript that will attempt to close the tab or window, in order to trigger the next step in the workflow.  For more information about the process, see [Step 3][user-auths] in the workflow.
 
 
 ### 2.2. Access Token Service
@@ -118,6 +119,7 @@ The login service description _MUST_ include a `service` following the template 
 {
   // ...
   "service" : {
+    "@context": "http://iiif.io/api/auth/{{ page.major }}/context.json",
     "@id": "https://authentication.example.org/login",
     "profile": "http://iiif.io/api/auth/{{ page.major }}/login",
     "label": "Login to Example Service",
@@ -131,11 +133,11 @@ The login service description _MUST_ include a `service` following the template 
 }
 {% endhighlight %}
 
-The `@id` field _MUST_ be present, and its value _MUST_ be the URI from which the client can request the token. The `profile` property _MUST_ be present and its value _MUST_ be `http://iiif.io/api/auth/{{ page.major }}/token` to distinguish it from other services.  There is no requirement to have a `label` property for this service, as it does not need to be presented to a user.
+The `@id` field _MUST_ be present, and its value _MUST_ be the URI from which the client can request the token. The `profile` property _MUST_ be present and its value _MUST_ be `http://iiif.io/api/auth/{{ page.major }}/token` to distinguish it from other services. There is no requirement to have a `label` property for this service, as it does not need to be presented to a user. There is no requirement for a duplicate `@context` field.
 
 #### 2.2.2. JSON Interaction
 
-Clients that can send cookies _SHOULD_ request the access token service's URI directly, with all of the cookies sent to or established by the login service.
+Non-browser clients that can send cookies _SHOULD_ request the access token service's URI directly, with all of the cookies sent to or established by the login service.
 
 If an authorization code was obtained using the client identity service, described below, then this _MUST_ be passed to the access token service as well.  The authorization code is passed to the access token service as the value of a query parameter called `code`. An example URL:
 
@@ -170,7 +172,7 @@ Authorization: Bearer TOKEN_HERE
 
 #### 2.2.3. JSONP Interaction
 
-Browser based clients _MUST_ use [JSONP][jsonp] callbacks to retrieve the access token.  The request _MUST_ have a `callback` parameter added to the URL from the `@id` field, and if an authorization code is required, that _MUST_ be present in a `code` parameter.  An example URL:
+Browser based clients _MUST_ use [JSONP][jsonp] callbacks to retrieve the access token; see the note below for the rationale for this.  The request _MUST_ have a `callback` parameter added to the URL from the `@id` field, and if an authorization code is required, that _MUST_ be present in a `code` parameter.  An example URL:
 
 ```
 https://authentication.example.org/token?callback=callback_function&code=AUTH_CODE_HERE
@@ -189,8 +191,11 @@ callback_function(
 );
 {% endhighlight %}
 
+
 <!-- :( -->
+__Note:__
 The use of JSONP is necessary because cookies are not allowed to be sent to systems that do not have the `Access-Control-Allow-Credentials` response header set.  Systems that do have `Access-Control-Allow-Credentials` must not also have `Access-Control-Allow-Origin` set to `*`, as this would expose the system to attacks on other protected resources.  Simply echoing the requester's origin back would not mitigate this concern, as the effect would be the same as having a value of `*`, and the response could not be cached.
+{: .note}
 
 
 ### 2.3. Logout Service
@@ -205,6 +210,7 @@ If the authentication system supports users intentionally logging out, there _SH
 {
   // ...
   "service" : {
+    "@context": "http://iiif.io/api/auth/{{ page.major }}/context.json",
     "@id": "https://authentication.example.org/login",
     "profile": "http://iiif.io/api/auth/{{ page.major }}/login",
     "label": "Login to Example Service",
@@ -227,7 +233,7 @@ The same semantics and requirements for the fields as the login service apply to
 
 #### 2.3.2. Interaction
 
-The client _SHOULD_ present the results of the an HTTP `GET` request on the service's URI in a separate window with a URL bar.  At the same time, the client _SHOULD_ discard any access token that it has received from the corresponding service. The server _SHOULD_ reset the user's logged in status when this request is made.
+The client _SHOULD_ present the results of the an HTTP `GET` request on the service's URI in a separate tab or window with a URL bar.  At the same time, the client _SHOULD_ discard any access token that it has received from the corresponding service. The server _SHOULD_ reset the user's logged in status when this request is made.
 
 
 ### 2.4. Client Identity Service
@@ -242,6 +248,7 @@ The login service description _MAY_ include a client identity service descriptio
 {
   // ...
   "service" : {
+    "@context": "http://iiif.io/api/auth/{{ page.major }}/context.json",
     "@id": "https://authentication.example.org/login",
     "profile": "http://iiif.io/api/auth/{{ page.major }}/login",
     "label": "Login to Example Service",
@@ -259,7 +266,7 @@ The login service description _MAY_ include a client identity service descriptio
 }
 {% endhighlight %}
 
-The `@id` field _MUST_ be present, and its value _MUST_ be the URI at which the client can obtain an authorization code. The `profile` property _MUST_ be present and its value _MUST_ be `http://iiif.io/api/auth/{{ page.major }}/clientId` to distinguish it from other services. There is no requirement to have a `label` property for this service, as it does not need to be presented to a user.
+The `@id` field _MUST_ be present, and its value _MUST_ be the URI at which the client can obtain an authorization code. The `profile` property _MUST_ be present and its value _MUST_ be `http://iiif.io/api/auth/{{ page.major }}/clientId` to distinguish it from other services. There is no requirement to have a `label` property for this service, as it does not need to be presented to a user. There is no requirement to have a duplicate `@context` property for the service.
 
 #### 2.4.2. Interaction
 
@@ -285,7 +292,7 @@ The body of the response from the server _MUST_ be JSON and _MUST_ conform to th
 
 ### 2.5. Error Conditions
 
-The response from the client identity service or the access token service may be an error.  The response _MUST_ be in JSON with the following template.  In the case of the JSONP request for the access token service, it _MUST_ be wrapped in the callback function.
+The response from the client identity service or the access token service may be an error.  The body of the response _MUST_ be in JSON with the following template.  In the case of the JSONP request for the access token service, it _MUST_ be wrapped in the callback function.
 
 {% highlight json %}
 {
@@ -307,7 +314,7 @@ Where `ERROR_TYPE_HERE` _MUST_ be one of the types in the following table:
 
 The `description` property is _OPTIONAL_ and may give additional information to client developers for debugging the interaction. This information _SHOULD NOT_ be presented to end users.
 
-In cases other than when JSONP is requested, the service _MUST_ use the appropriate HTTP status code for the response.
+When JSONP is not requested, the service _MUST_ use the appropriate HTTP status code for the response to describe the error (for example 400, 401 or 403).  JSONP responses _MUST_ use the 200 HTTP status code to ensure that the body is received by the client correctly.
 
 ### 2.6. Example JSON Response
 
@@ -335,6 +342,7 @@ The example below is a complete image information response for an example image 
     }
   ],
   "service" : {
+    "@context": "http://iiif.io/api/auth/{{ page.major }}/context.json",
     "@id": "https://authentication.example.org/login",
     "profile": "http://iiif.io/api/auth/{{ page.major }}/login",
     "label": "Login to Example Service",
@@ -358,7 +366,7 @@ The following workflow steps through the basic interactions for authenticating a
 
 ### 3.1. Step 1: Request Description Resource
 
-The first step for the client is to request the desired Description Resource, such as an image information document (info.json), or a [Presentation API][prezi-api] manifest, collection, or annotation list.  The response will dictate the client's next step, which is likely to be to present the user with a login service in a new browser window.
+The first step for the client is to request the desired Description Resource, such as an image information document (info.json), or a [Presentation API][prezi-api] manifest, collection, or annotation list.  The response will dictate the client's next step, which is likely to be to present the user with a login service in a new browser tab or window.
 
 The response from the server _MUST_ include the service descriptions, as shown above, and any required properties such as `@context` and `@id`, thus allowing a client to present something to the user, regardless of whether the user is authenticated or not.
 
@@ -372,9 +380,9 @@ In cases where the server requires client software to be registered, there _MUST
 
 ### 3.3. Step 3: User Authenticates
 
-After receiving the response, the client will have a URL for a login service where the user can authenticate.  The client _MUST_ present this URL to the user in a separate window with a URL bar, not in an iFrame or otherwise imported into the client user interface, in order to help prevent spoofing attacks.
+After receiving the response, the client will have a URL for a login service where the user can authenticate.  The client _MUST_ present this URL to the user in a separate tab or window with a URL bar, not in an iFrame or otherwise imported into the client user interface, in order to help prevent spoofing attacks.
 
-After the authentication process has taken place, the login service _MUST_ ensure that the client has a cookie that identifies the user and will be visible to the access token service. It _SHOULD_ also contain JavaScript to try and automatically close the window. The window closing is the trigger for the client to request the access token for the user.
+After the authentication process has taken place, the login service _MUST_ ensure that the client has a cookie that identifies the user and will be visible to the access token service. It _SHOULD_ also contain JavaScript to try and automatically close the tab or window. The tab or window closing is the trigger for the client to request the access token for the user.
 
 ### 3.4. Step 4: Obtain Access Token
 
@@ -388,7 +396,7 @@ If the access token service responds with an error condition, the client _SHOULD
 
 Now with the access token added in the `Authorization` header, the client retries the request for the Description Resource to determine whether the user is now successfully authenticated and authorized. Clients _SHOULD_ store the URIs of login services that have been accessed by the user and not prompt the user to login again when they are already authenticated.
 
-If there is a logout service described in the Description Resource then the client _SHOULD_ provide a logout link. The client _SHOULD_ present this URL to the user in a separate window with a URL bar to help prevent spoofing attacks.
+If there is a logout service described in the Description Resource then the client _SHOULD_ provide a logout link. The client _SHOULD_ present this URL to the user in a separate tab or window with a URL bar to help prevent spoofing attacks.
 
 If the user is successfully authenticated but not authorized, or business logic on the server dictates that authorization will never be possible, then the server _MUST_ respond to Description Resource requests with the 403 (Forbidden) HTTP status code.
 
@@ -426,7 +434,7 @@ When the server receives a request for a Description Resource, (1), it first mus
   </tbody>
 </table>
 
-The client first requests the desired Description Resource (1).  If the response is a 200 with the expected information, the client does not need to authenticate and should proceed to use the resource as expected (2).  If not, and the response is a 302 redirect, then the client follows the redirect to retrieve a new resource (3).  If the client has seen that resource already, by comparing its URI with those in a list of seen URIs, then the user is not authorized to access the requested version, and it should use the degraded version from the current response (4).  Otherwise, if it has not seen the response before, or the initial response is a 401 status with a link to the service (5), the client follows the link to the login service in a newly created window (6) and records that it has seen the URI.  The user must then attempt to authenticate using the service (7), and the client waits until the window is closed, either automatically or manually by the user.  Once the window is closed, the client retrieves an access token for the user and retries the request for the original Description Resource (8), and proceeds back to make the same tests.  Finally, if the client receives a 403 response from the server, the user cannot gain authorization to interact with the resource and there is no degraded version available, and hence the client should not render anything beyond an error message.
+The client first requests the desired Description Resource (1).  If the response is a 200 with the expected information, the client does not need to authenticate and should proceed to use the resource as expected (2).  If not, and the response is a 302 redirect, then the client follows the redirect to retrieve a new resource (3).  If the client has seen that resource already, by comparing its URI with those in a list of seen URIs, then the user is not authorized to access the requested version, and it should use the degraded version from the current response (4).  Otherwise, if it has not seen the response before, or the initial response is a 401 status with a link to the service (5), the client follows the link to the login service in a newly created tab or window (6) and records that it has seen the URI.  The user must then attempt to authenticate using the service (7), and the client waits until the tab or window is closed, either automatically or manually by the user.  Once the tab or window is closed, the client retrieves an access token for the user and retries the request for the original Description Resource (8), and proceeds back to make the same tests.  Finally, if the client receives a 403 response from the server, the user cannot gain authorization to interact with the resource and there is no degraded version available, and hence the client should not render anything beyond an error message.
 
 ## Appendices
 
@@ -451,6 +459,7 @@ Many thanks to the members of the [IIIF Community][iiif-community] for their con
 
 | Date       | Description |
 | ---------- | ----------- |
+| 2015-10-30 | Version 0.9.1 (Alchemical Key); add missing @context, clarifications | 
 | 2015-07-28 | Version 0.9.0 (Alchemical Key); beta specification for review |
 {: .api-table}
 
@@ -469,5 +478,6 @@ Many thanks to the members of the [IIIF Community][iiif-community] for their con
 [prezi-api]: /api/presentation/
 [image-api]: /api/image/
 [ext-services]: /api/annex/services/
+[user-auths]: #step-3-user-authenticates
 
 {% include acronyms.md %}
