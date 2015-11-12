@@ -8,6 +8,8 @@
   uri: 
 - name: British Library
   uri: 
+- name: Cogapp
+  uri: http://www.cogapp.com
 - name: e-codices – Virtual Manuscript Library of Switzerland
   uri:  http://www.e-codices.unifr.ch
 - name: Cornell University
