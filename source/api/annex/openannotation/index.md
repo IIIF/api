@@ -89,12 +89,10 @@ Thanks to the members of the [IIIF][iiif-community] for their continuous engagem
 
 
    [semver]: /api/annex/notes/semver.html "Versioning of APIs"
-   [cc-by]: http://creativecommons.org/licenses/by/4.0/ "Creative Commons &mdash; Attribution 4.0 International"
    [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
    [json-ld]: http://www.w3.org/TR/json-ld/ "JSON-LD"
    [iiif-community]: /community.html "IIIF Community"
    [mellon]: http://www.mellon.org/ "The Andrew W. Mellon Foundation"
-
    [image-api]: /api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/ "Image API"
    [prezi-api]: /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/ "Presentation API"
    [openanno]: http://www.openannotation.org/spec/core/ "Open Annotation"

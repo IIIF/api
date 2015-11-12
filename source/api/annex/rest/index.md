@@ -192,7 +192,6 @@ If one or more of the predicates is missing, a client MUST assume the method is 
 
 As of this writing authorization and authentication are topics of heavy dicussion within the IIIF community. This document will be revised as necessary, as the Image API specification evolves in this area.
 
-[cc-by]: http://creativecommons.org/licenses/by/4.0/ "Creative Commons &mdash; Attribution 4.0 International"
 [fielding-rest]: https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm
 [http-access-control-allow-methods]: http://www.w3.org/TR/cors/#access-control-allow-methods-response-header
 [http-content-md5]: http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.15

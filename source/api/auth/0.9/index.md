@@ -464,7 +464,6 @@ Many thanks to the members of the [IIIF Community][iiif-community] for their con
 {: .api-table}
 
 [jsonp]: http://en.wikipedia.org/wiki/JSONP "JSONP"
-[cc-by]: http://creativecommons.org/licenses/by/4.0/ "Creative Commons &mdash; Attribution 4.0 International"
 [cors-spec]: http://www.w3.org/TR/cors/ "Cross-Origin Resource Sharing"
 [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
 [client-auth-img]: img/auth-flow-client.png
