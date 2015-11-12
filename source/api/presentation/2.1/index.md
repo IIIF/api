@@ -31,7 +31,7 @@ This is a work in progress. We are actively seeking new implementations, updates
   * Simeon Warner, _Cornell University_
   {: .names}
 
-_Copyright © 2012-2015 Editors and contributors. Published by the IIIF Consortium under the [CC-BY][cc-by] license._
+_Copyright © 2012-2015 Editors and contributors. Published by the IIIF Consortium under the [CC-BY][cc-by] license, see [disclaimer][disclaimer]._
 
 ----
 
@@ -1594,5 +1594,6 @@ Many thanks to Matthieu Bonicel, Tom Cramer, Ian Davis, Markus Enders, Renhart G
 [icon-recc]: /img/metadata-api/recommended.png "Recommended"
 [icon-opt]: /img/metadata-api/optional.png "Optional"
 [icon-na]: /img/metadata-api/not_allowed.png "Not allowed"
+[disclaimer]: /api/annex/notes/disclaimer.html
 
 {% include acronyms.md %}

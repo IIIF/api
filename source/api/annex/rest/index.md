@@ -13,7 +13,7 @@ This document is a DRAFT.  The contents should only be used for experimental pur
 This document is not subject to semantic versioning.
 Changes will be tracked within the document.
 
-_Copyright © 2012-2014 Editors and contributors. Published by the IIIF under the [CC-BY][cc-by] license._
+_Copyright © 2012-2015 Editors and contributors. Published by the IIIF Consortium under the [CC-BY][cc-by] license, see [disclaimer][disclaimer]._
 
 **Authors**
 
@@ -205,5 +205,6 @@ As of this writing authorization and authentication are topics of heavy dicussio
 [5]: #authorization-authentication-and-security
 [2]: #requests
 [4]: #extension-context
+[disclaimer]: /api/annex/notes/disclaimer.html
 
 {% include acronyms.md %}

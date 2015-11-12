@@ -32,7 +32,7 @@ This is a work in progress. We are actively seeking new implementations, updates
   * Simeon Warner, _Cornell University_
   {: .names}
 
-_Copyright © 2012-2015 Editors and contributors. Published by the IIIF Consortium under the [CC-BY][cc-by] license._
+_Copyright © 2012-2015 Editors and contributors. Published by the IIIF Consortium under the [CC-BY][cc-by] license, see [disclaimer][disclaimer]._
 
 ----
 
@@ -931,5 +931,6 @@ Many thanks to  Ben Albritton, Matthieu Bonicel, Anatol Broder, Kevin Clarke, To
 [server-auth-img]: img/auth-flow-server.png
 
 [rfc-2119]: https://www.ietf.org/rfc/rfc2119.txt "RFC 2119"
+[disclaimer]: /api/annex/notes/disclaimer.html
 
 {% include acronyms.md %}

@@ -29,7 +29,7 @@ This is a work in progress. We are actively seeking implementations and feedback
   * Simeon Warner, _Cornell University_
   {: .names}
 
-_Copyright © 2012-2015 Editors and contributors. Published by the IIIF Consortium under the [CC-BY][cc-by] license._
+_Copyright © 2012-2015 Editors and contributors. Published by the IIIF Consortium under the [CC-BY][cc-by] license, see [disclaimer][disclaimer]._
 
 ----
 
@@ -478,6 +478,10 @@ Many thanks to the members of the [IIIF Community][iiif-community] for their con
 [prezi-api]: /api/presentation/
 [image-api]: /api/image/
 [ext-services]: /api/annex/services/
+<<<<<<< HEAD
 [user-auths]: #step-3-user-authenticates
+=======
+[disclaimer]: /api/annex/notes/disclaimer.html
+>>>>>>> e6db5d3... Update disclaimer to remove endorsement clause, add to specs
 
 {% include acronyms.md %}

@@ -28,7 +28,7 @@ __Previous Version:__ [1.1][prev-version]
   * Simeon Warner, _Cornell University_
   {: .names}
 
-_Copyright © 2012-2014 Editors and contributors. Published by the IIIF under the [CC-BY][cc-by] license._
+_Copyright © 2012-2015 Editors and contributors. Published by the IIIF Consortium under the [CC-BY][cc-by] license, see [disclaimer][disclaimer]._
 
 ----
 
@@ -792,5 +792,6 @@ Many thanks to  Ben Albritton, Matthieu Bonicel, Anatol Broder, Kevin Clarke, To
 [d-change-log]: #d-change-log "D. Change Log"
 [prev-version]: http://iiif.io/api/image/1.1/ "Previous Version"
 [stable-version]: http://iiif.io/api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/ "Stable Version"
+[disclaimer]: /api/annex/notes/disclaimer.html
 
 {% include acronyms.md %}
