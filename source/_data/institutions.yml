@@ -46,6 +46,8 @@
   uri:
 - name: Princeton University Library
   uri: http://library.princeton.edu
+- name: Qatar National Library
+  uri: http://www.qnl.qa
 - name: "St. Louis University"
   uri: 
 - name: Stanford University
