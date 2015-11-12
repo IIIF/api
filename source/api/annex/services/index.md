@@ -11,8 +11,6 @@ cssversion: 2
 This document is not subject to [semantic versioning][semver].
 Changes will be tracked within the document.
 
-_Copyright © 2012-2015 Editors and contributors. Published by the IIIF Consortium under the [CC-BY][cc-by] license, see [disclaimer][disclaimer]._
-
 **Editors**
 
   * Benjamin Albritton, _Stanford University_
@@ -21,6 +19,8 @@ _Copyright © 2012-2015 Editors and contributors. Published by the IIIF Consorti
   * Jon Stroop, _Princeton University_
   * Simeon Warner, _Cornell University_
   {: .names}
+
+{% include copyright.md %}
 
 ## Abstract
 {:.no_toc}

@@ -29,7 +29,7 @@ This is a work in progress. We are actively seeking implementations and feedback
   * Simeon Warner, _Cornell University_
   {: .names}
 
-_Copyright © 2012-2015 Editors and contributors. Published by the IIIF Consortium under the [CC-BY][cc-by] license, see [disclaimer][disclaimer]._
+{% include copyright.md %}
 
 ----
 

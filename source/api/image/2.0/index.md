@@ -28,7 +28,7 @@ __Previous Version:__ [1.1][prev-version]
   * Simeon Warner, _Cornell University_
   {: .names}
 
-_Copyright © 2012-2015 Editors and contributors. Published by the IIIF Consortium under the [CC-BY][cc-by] license, see [disclaimer][disclaimer]._
+{% include copyright.md %}
 
 ----
 
