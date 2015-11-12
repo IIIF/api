@@ -8,6 +8,8 @@
   uri: 
 - name: British Library
   uri: 
+- name: Cogapp
+  uri: http://www.cogapp.com
 - name: e-codices – Virtual Manuscript Library of Switzerland
   uri:  http://www.e-codices.unifr.ch
 - name: Cornell University
@@ -44,6 +46,8 @@
   uri:
 - name: Princeton University Library
   uri: http://library.princeton.edu
+- name: Qatar National Library
+  uri: http://www.qnl.qa
 - name: "St. Louis University"
   uri: 
 - name: Stanford University
