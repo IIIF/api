@@ -1594,6 +1594,5 @@ Many thanks to Matthieu Bonicel, Tom Cramer, Ian Davis, Markus Enders, Renhart G
 [icon-recc]: /img/metadata-api/recommended.png "Recommended"
 [icon-opt]: /img/metadata-api/optional.png "Optional"
 [icon-na]: /img/metadata-api/not_allowed.png "Not allowed"
-[disclaimer]: /api/annex/notes/disclaimer.html
 
 {% include acronyms.md %}

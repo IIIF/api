@@ -234,7 +234,6 @@ Thanks to the members of the [IIIF][iiif-community] for their continuous engagem
 [icon-recc]: /img/metadata-api/recommended.png "Recommended"
 [icon-opt]: /img/metadata-api/optional.png "Optional"
 [icon-na]: /img/metadata-api/not_allowed.png "Not allowed"
-[disclaimer]: /api/annex/notes/disclaimer.html
 
 
 {% include acronyms.md %}

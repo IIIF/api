@@ -206,6 +206,5 @@ As of this writing authorization and authentication are topics of heavy dicussio
 [5]: #authorization-authentication-and-security
 [2]: #requests
 [4]: #extension-context
-[disclaimer]: /api/annex/notes/disclaimer.html
 
 {% include acronyms.md %}

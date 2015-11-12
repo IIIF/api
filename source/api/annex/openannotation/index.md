@@ -99,5 +99,3 @@ Thanks to the members of the [IIIF][iiif-community] for their continuous engagem
    [prezi-api]: /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/ "Presentation API"
    [openanno]: http://www.openannotation.org/spec/core/ "Open Annotation"
    [prezi-rot]: /api/presentation/2.0/#rotation "Rotation in Presentation API"
-
-[disclaimer]: /api/annex/notes/disclaimer.html

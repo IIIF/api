@@ -931,6 +931,5 @@ Many thanks to  Ben Albritton, Matthieu Bonicel, Anatol Broder, Kevin Clarke, To
 [server-auth-img]: img/auth-flow-server.png
 
 [rfc-2119]: https://www.ietf.org/rfc/rfc2119.txt "RFC 2119"
-[disclaimer]: /api/annex/notes/disclaimer.html
 
 {% include acronyms.md %}

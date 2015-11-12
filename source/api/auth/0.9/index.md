@@ -478,10 +478,7 @@ Many thanks to the members of the [IIIF Community][iiif-community] for their con
 [prezi-api]: /api/presentation/
 [image-api]: /api/image/
 [ext-services]: /api/annex/services/
-<<<<<<< HEAD
 [user-auths]: #step-3-user-authenticates
-=======
-[disclaimer]: /api/annex/notes/disclaimer.html
->>>>>>> e6db5d3... Update disclaimer to remove endorsement clause, add to specs
+
 
 {% include acronyms.md %}
