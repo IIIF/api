@@ -32,7 +32,7 @@ This is a work in progress. We are actively seeking new implementations, updates
   * Simeon Warner, _Cornell University_
   {: .names}
 
-_Copyright © 2012-2015 Editors and contributors. Published by the IIIF Consortium under the [CC-BY][cc-by] license._
+{% include copyright.md %}
 
 ----
 
@@ -873,7 +873,6 @@ Many thanks to  Ben Albritton, Matthieu Bonicel, Anatol Broder, Kevin Clarke, To
 {: .api-table}
 
 [authentication-ext]: /api/auth/
-[cc-by]: http://creativecommons.org/licenses/by/4.0/ "Creative Commons &mdash; Attribution 4.0 International"
 [change-log11]: /api/image/1.1/change-log.html "Change Log for Version 1.1"
 [change-log]: /api/image/2.0/change-log.html "Change Log for Version 2.0"
 [compliance]: /api/image/2.0/compliance.html "Image API Compliance"
@@ -933,7 +932,6 @@ Many thanks to  Ben Albritton, Matthieu Bonicel, Anatol Broder, Kevin Clarke, To
 
 [client-auth-img]: img/auth-flow-client.png
 [server-auth-img]: img/auth-flow-server.png
-
 [rfc-2119]: https://www.ietf.org/rfc/rfc2119.txt "RFC 2119"
 
 {% include acronyms.md %}

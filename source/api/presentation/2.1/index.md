@@ -31,7 +31,7 @@ This is a work in progress. We are actively seeking new implementations, updates
   * Simeon Warner, _Cornell University_
   {: .names}
 
-_Copyright © 2012-2015 Editors and contributors. Published by the IIIF Consortium under the [CC-BY][cc-by] license._
+{% include copyright.md %}
 
 ----
 
@@ -1549,7 +1549,6 @@ Many thanks to Matthieu Bonicel, Tom Cramer, Ian Davis, Markus Enders, Renhart G
 | 2013-08-26 | Version 1.0 (unnamed) released                     |
 | 2013-06-14 | Version 0.9 (unnamed) released                     |
 
-[cc-by]: http://creativecommons.org/licenses/by/4.0/ "Creative Commons &mdash; Attribution 4.0 International"
 [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
 [shared-canvas]: /model/shared-canvas/{{ site.shared_canvas.latest.major}}.{{ site.shared_canvas.latest.minor }} "Shared Canvas Data Model"
 [image-api]: /api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/ "Image API"

@@ -11,8 +11,6 @@ cssversion: 2
 This document is not subject to [semantic versioning][semver].
 Changes will be tracked within the document.
 
-_Copyright © 2012-2014 Editors and contributors. Published by the IIIF under the [CC-BY][cc-by] license._
-
 **Editors**
 
   * Benjamin Albritton, _Stanford University_
@@ -21,6 +19,8 @@ _Copyright © 2012-2014 Editors and contributors. Published by the IIIF under th
   * Jon Stroop, _Princeton University_
   * Simeon Warner, _Cornell University_
   {: .names}
+
+{% include copyright.md %}
 
 ## Abstract
 {:.no_toc}
@@ -216,7 +216,6 @@ Thanks to the members of the [IIIF][iiif-community] for their continuous engagem
 | 2014-06-01 | Version 1.0 RFC                                    |
 
    [semver]: /api/annex/notes/semver.html "Versioning of APIs"
-   [cc-by]: http://creativecommons.org/licenses/by/4.0/ "Creative Commons &mdash; Attribution 4.0 International"
    [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
    [image-api]: /api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/ "Image API"
    [prezi-api]: /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/ "Presentation API"
@@ -234,5 +233,6 @@ Thanks to the members of the [IIIF][iiif-community] for their continuous engagem
 [icon-recc]: /img/metadata-api/recommended.png "Recommended"
 [icon-opt]: /img/metadata-api/optional.png "Optional"
 [icon-na]: /img/metadata-api/not_allowed.png "Not allowed"
+
 
 {% include acronyms.md %}

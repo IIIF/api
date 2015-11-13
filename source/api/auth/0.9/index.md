@@ -29,7 +29,7 @@ This is a work in progress. We are actively seeking implementations and feedback
   * Simeon Warner, _Cornell University_
   {: .names}
 
-_Copyright © 2012-2015 Editors and contributors. Published by the IIIF Consortium under the [CC-BY][cc-by] license._
+{% include copyright.md %}
 
 ----
 
@@ -464,7 +464,6 @@ Many thanks to the members of the [IIIF Community][iiif-community] for their con
 {: .api-table}
 
 [jsonp]: http://en.wikipedia.org/wiki/JSONP "JSONP"
-[cc-by]: http://creativecommons.org/licenses/by/4.0/ "Creative Commons &mdash; Attribution 4.0 International"
 [cors-spec]: http://www.w3.org/TR/cors/ "Cross-Origin Resource Sharing"
 [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
 [client-auth-img]: img/auth-flow-client.png
@@ -479,5 +478,6 @@ Many thanks to the members of the [IIIF Community][iiif-community] for their con
 [image-api]: /api/image/
 [ext-services]: /api/annex/services/
 [user-auths]: #step-3-user-authenticates
+
 
 {% include acronyms.md %}

@@ -18,8 +18,6 @@ __Latest Stable Version:__ [{{ site.presentation_api.latest.major }}.{{ site.pre
 
 __Previous Version:__ [1.0][prev-version]
 
-_Copyright © 2012-2014 Editors and contributors. Published by the IIIF under the [CC-BY][cc-by] license._
-
 **Editors**
 
   * Benjamin Albritton, _Stanford University_
@@ -27,6 +25,8 @@ _Copyright © 2012-2014 Editors and contributors. Published by the IIIF under th
   * Robert Sanderson, _Stanford University_
   * Jon Stroop, _Princeton University_
   {: .names}
+
+{% include copyright.md %}
 
 ## Abstract
 {:.no_toc}
@@ -1456,7 +1456,6 @@ Many thanks to Matthieu Bonicel, Tom Cramer, Ian Davis, Markus Enders, Renhart G
 | 2013-08-26 | Version 1.0 (unnamed) released.                    |
 | 2013-06-14 | Version 0.9 (unnamed) released.                    |
 
-[cc-by]: http://creativecommons.org/licenses/by/4.0/ "Creative Commons &mdash; Attribution 4.0 International"
 [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
 [shared-canvas]: /model/shared-canvas/{{ site.shared_canvas.latest.major}}.{{ site.shared_canvas.latest.minor }} "Shared Canvas Data Model"
 [image-api]: /api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/ "Image API"
