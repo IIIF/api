@@ -106,12 +106,14 @@ Given that, we intend to go ahead with the events as scheduled, and both hope an
 We will continue to monitor the situation and keep as informed as possible.  If there are any changes, we will reassess and send out further updates as early as possible.   We will have a meeting point with staff every day of the week in case of questions or events that might occur while we are there.
 
 Some tips regarding safe travel to the event:
+
  * There are direct trains from Brussels Airport (Bruxelles Aéroport National) to Ghent (Gent Sint Pieters) that do not require going in to the center of Brussels.  The price is around 15 euro.
  * If people are traveling from the UK via Eurostar, Lille also has good connections direct to Ghent to avoid Brussels.
  * There is increased security, so allow extra time if possible and remain patient and polite.
  * As always, pay attention to your belongings and surroundings. 
 
 Some possible additions to security around the events:
+
  * Please carry ID at all times and wear your provided IIIF name badge prominently
  * Proof of ID may be required to collect the name badge
  * You may be asked by non event staff what your business is, particularly for the events on Monday, Thursday and Friday.  Please be courteous and explain that you are there for a conference, and the local organizer is Dries Moreels on behalf of Sylvia Van Peteghem, Ghent University Librarian. 
