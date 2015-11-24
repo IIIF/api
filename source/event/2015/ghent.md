@@ -20,24 +20,33 @@ _About IIIF_
 
 The IIIF community has been working together since 2011, and the [IIIF Consortium][iiif-c] was founded in 2015 with 11 global leaders comprising national, state & research libraries, as well as members representing foundations, museums and non-profit image services. Rather than a particular technology, IIIF specifies [common interfaces for interacting with images][tech-details] on the Web, reducing the friction of putting and working with images.  
 
+
 ## Agenda
 
 Tuesday, 8th of December 2015
 
 | Time           | Session | Presenters |
 | -------------- | ------- | ---------- |
-| 10:00 - 11:00  | Welcome and Introduction |  |
-| 11:00 - 12:00  | Use Cases: Libraries, Archives, Museums | |
-| 12:00 - 12:30  | Audience Spotlight and Discussion | |
+| 10:00 - 10:30  | Welcome | Sylvia Van Peteghem, Ghent University |
+| 10:30 - 11:00  | Introduction to IIIF | Tom Cramer, Stanford University |
+| 11:00 - 11:20  | Maps and Archives | Glen Robson, National Library of Wales |
+| 11:20 - 11:40  | Digitized Newspapers | Karen Estlund, Penn State University |
+| 11:40 - 12:00  | Aggregators | Mark Matienzo, DPLA and David Haskiya, Europeana |
+| 12:00 - 12:30  | Audience Spotlight and Discussion | Simeon Warner, Cornell University |
 | 12:30 - 13:30  | Lunch | |
-| 13:30 - 14:30  | Introduction to the Framework | |
+| 13:30 - 13:45  | Image API | Jon Stroop, Princeton University |
+| 13:45 - 14:00  | Mirador | Rashmi Singhal, Harvard University and Drew Winget, Stanford University |
+| 14:00 - 14:15  | Presentation API | Rob Sanderson, Stanford University |
+| 14:15 - 14:30  | Universal Viewer | Tom Cramer, Digirati |
 | 14:30 - 15:00  | Coffee Break| |
-| 15:00 - 16:00  | Use Cases | |
-| 16:00 - 16:30  | Audience Spotlight and Discussion | |
-| 16:30 - 17:00  | Next Steps and Close | |
+| 15:00 - 15:20  | Cloud Hosting | Christy Henshaw and Robert Kiley, Wellcome Trust |
+| 15:20 - 15:40  | Embedr.eu and Omeka | Petr Pridal, KlokanTech |
+| 15:40 - 16:00  | Tagging and Pedagogy | Michael Appleby, Yale University | 
+| 16:00 - 16:30  | Audience Spotlight and Discussion | Stuart Snydman, Stanford University |
+| 16:30 - 16:45  | IIIF Consortium | Michael Keller, Stanford University |
+| 16:30 - 17:00  | Next Steps and Close | Tom Cramer, Stanford University |
 {: .api-table}
 
-Agenda Details to be finalized
 
 ## Logistics
 
@@ -87,7 +96,29 @@ The [Universal Viewer][universal-viewer] (UV) is a user-friendly viewer in use a
 
 Additional IIIF work on implementations, specifications, use cases and requirements will take place outside of the working group structure on both Thursday and Friday.
 
-Further events and details to be announced.
+
+## Update on Security Concerns
+
+We're sure that everyone shares our concerns for colleagues and the security situation in France and Belgium that has emerged.  The organizers for the IIIF event in Ghent are paying strict attention, and working closely with local organizers to do whatever is possible to ensure the safety of the community traveling to the meeting.  To the best of our knowledge, nothing indicates that there are concerns for Ghent at this time.
+
+Given that, we intend to go ahead with the events as scheduled, and both hope and expect the situation to improve before December 6th.  We fully respect institutions and individuals regard for safety and tolerance of risk, and just ask that you let us know if you decide not to attend for this or any other reason.  Conversely, if you are intending to come and have not registered, please do so without further delay as registrations close on November 30th for all events.
+
+We will continue to monitor the situation and keep as informed as possible.  If there are any changes, we will reassess and send out further updates as early as possible.   We will have a meeting point with staff every day of the week in case of questions or events that might occur while we are there.
+
+Some tips regarding safe travel to the event:
+
+ * There are direct trains from Brussels Airport (Bruxelles Aéroport National) to Ghent (Gent Sint Pieters) that do not require going in to the center of Brussels.  The price is around 15 euro.
+ * If people are traveling from the UK via Eurostar, Lille also has good connections direct to Ghent to avoid Brussels.
+ * There is increased security, so allow extra time if possible and remain patient and polite.
+ * As always, pay attention to your belongings and surroundings. 
+
+Some possible additions to security around the events:
+
+ * Please carry ID at all times and wear your provided IIIF name badge prominently
+ * Proof of ID may be required to collect the name badge
+ * You may be asked by non event staff what your business is, particularly for the events on Monday, Thursday and Friday.  Please be courteous and explain that you are there for a conference, and the local organizer is Dries Moreels on behalf of Sylvia Van Peteghem, Ghent University Librarian. 
+
+We continue to look forwards to the discussions in Ghent, and hope that we'll see you there.
 
 
 [home-page]: http://iiif.io/
