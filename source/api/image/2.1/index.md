@@ -411,7 +411,7 @@ If the rotation parameter includes mirroring ("!"), the mirroring is applied bef
 
 ### 4.7. Canonical URI Syntax
 
-There are many ways in which the same image can be described using the different forms of the parameters.  While it is useful for clients to be able to express their requests in a convenient form, there are several reasons why a canonical URI syntax is desirable:
+It is possible to request the same image using different combinations of parameters. While it is useful for clients to be able to express their requests in a convenient form, there are several reasons why a canonical URI syntax is desirable:
 
   * It enables static, file-system based implementations, which will have only a single URI at which the content is available.
   * Caching becomes significantly more efficient, both client and server side, when the URIs used are the same between systems and sessions.
