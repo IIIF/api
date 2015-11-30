@@ -27,25 +27,28 @@ Tuesday, 8th of December 2015
 
 | Time           | Session | Presenters |
 | -------------- | ------- | ---------- |
-| 10:00 - 10:30  | Welcome | Sylvia Van Peteghem, Ghent University |
-| 10:30 - 11:00  | Introduction to IIIF | Tom Cramer, Stanford University |
-| 11:00 - 11:20  | Maps and Archives | Glen Robson, National Library of Wales |
-| 11:20 - 11:40  | Digitized Newspapers | Karen Estlund, Penn State University |
-| 11:40 - 12:00  | Aggregators | Mark Matienzo, DPLA and David Haskiya, Europeana |
-| 12:00 - 12:30  | Audience Spotlight and Discussion | Simeon Warner, Cornell University |
-| 12:30 - 13:30  | Lunch | |
-| 13:30 - 13:45  | Image API | Jon Stroop, Princeton University |
+| 10:00 - 10:25  | Welcome | Sylvia Van Peteghem, Ghent University |
+| 10:25 - 10:50  | Introduction to IIIF | Tom Cramer, Stanford University |
+| 10:50 - 11:10  | Maps and Archives | Glen Robson, National Library of Wales |
+| 11:10 - 11:30  | Digitized Newspapers | Karen Estlund, Penn State University |
+| 11:30 - 11:50  | Museums | Emmanuelle Delmas-Glass, Yale Center for British Art |
+| 11:50 - 12:10  | Aggregators | Mark Matienzo, DPLA and David Haskiya, Europeana |
+| 12:10 - 12:30  | Audience Spotlight and Discussion | Stuart Snydman, Stanford University |
+| 12:30 - 13:30  | Lunch | (on your own) |
+| 13:30 - 13:45  | Image API | Matthew McGrattan, Oxford University |
 | 13:45 - 14:00  | Mirador | Rashmi Singhal, Harvard University and Drew Winget, Stanford University |
 | 14:00 - 14:15  | Presentation API | Rob Sanderson, Stanford University |
-| 14:15 - 14:30  | Universal Viewer | Tom Cramer, Digirati |
+| 14:15 - 14:30  | Universal Viewer | Tom Crane, Digirati |
 | 14:30 - 15:00  | Coffee Break| |
 | 15:00 - 15:20  | Cloud Hosting | Christy Henshaw and Robert Kiley, Wellcome Trust |
 | 15:20 - 15:40  | Embedr.eu and Omeka | Petr Pridal, KlokanTech |
 | 15:40 - 16:00  | Tagging and Pedagogy | Michael Appleby, Yale University | 
-| 16:00 - 16:30  | Audience Spotlight and Discussion | Stuart Snydman, Stanford University |
+| 16:00 - 16:30  | Audience Spotlight and Discussion | Simeon Warner, Cornell University |
 | 16:30 - 16:45  | IIIF Consortium | Michael Keller, Stanford University |
-| 16:30 - 17:00  | Next Steps and Close | Tom Cramer, Stanford University |
+| 16:45 - 17:00  | Next Steps and Close | Tom Cramer, Stanford University |
 {: .api-table}
+
+An [Interactive Schedule][sched] for the events taking place is also available.
 
 
 ## Logistics
@@ -60,7 +63,11 @@ __Cost:__ There is no cost to attend. It is offered by the IIIF Consortium Partn
 
 __Hotels:__ A [Hotel List][ghent-hotels] is available with some discounted prices. Booking early is recommended.
 
-__Information:__ [Visiting Ghent][visit-gent]
+__Restaurants:__ A [Restaurant List][ghent-restaurants] is also available.
+
+__Information:__ An external guide to [Visiting Ghent][visit-gent]
+
+__Social Media:__ Tweets about the event should use #iiif or @iiif_io
 
 
 ## Code of Conduct
@@ -131,5 +138,8 @@ We continue to look forwards to the discussions in Ghent, and hope that we'll se
 [ghent-lib]: http://lib.ugent.be/
 [visit-gent]: http://www.visitgent.be/en/winter-gent 
 [ghent-hotels]: ghent-hotels.html
+[ghent-restaurants]: ghent-restaurants.html
 [universal-viewer]: https://github.com/UniversalViewer/universalviewer
 [manifesto]: https://github.com/UniversalViewer/manifesto
+[sched]: http://iiifghent2015.sched.org/
+
