@@ -138,7 +138,7 @@ We continue to look forwards to the discussions in Ghent, and hope that we'll se
 [ghent-lib]: http://lib.ugent.be/
 [visit-gent]: http://www.visitgent.be/en/winter-gent 
 [ghent-hotels]: ghent-hotels.html
-[ghent-hotels]: ghent-restaurants.html
+[ghent-restaurants]: ghent-restaurants.html
 [universal-viewer]: https://github.com/UniversalViewer/universalviewer
 [manifesto]: https://github.com/UniversalViewer/manifesto
 [sched]: http://iiifghent2015.sched.org/
