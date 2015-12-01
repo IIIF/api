@@ -33,17 +33,17 @@ Tuesday, 8th of December 2015
 | 11:10 - 11:30  | Digitized Newspapers | Karen Estlund, Penn State University |
 | 11:30 - 11:50  | Museums | Emmanuelle Delmas-Glass, Yale Center for British Art |
 | 11:50 - 12:10  | Aggregators | Mark Matienzo, DPLA and David Haskiya, Europeana |
-| 12:10 - 12:30  | Audience Spotlight and Discussion | Stuart Snydman, Stanford University |
+| 12:10 - 12:30  | Audience Spotlight and Discussion | Christy Henshaw, Wellcome Trust |
 | 12:30 - 13:30  | Lunch | (on your own) |
-| 13:30 - 13:45  | Image API | Matthew McGrattan, Oxford University |
+| 13:30 - 13:45  | Image API | Simeon Warner, Cornell University |
 | 13:45 - 14:00  | Mirador | Rashmi Singhal, Harvard University and Drew Winget, Stanford University |
 | 14:00 - 14:15  | Presentation API | Rob Sanderson, Stanford University |
 | 14:15 - 14:30  | Universal Viewer | Tom Crane, Digirati |
 | 14:30 - 15:00  | Coffee Break| |
-| 15:00 - 15:20  | Cloud Hosting | Christy Henshaw and Robert Kiley, Wellcome Trust |
+| 15:00 - 15:20  | Cloud Hosting | Robert Kiley, Wellcome Trust |
 | 15:20 - 15:40  | Embedr.eu and Omeka | Petr Pridal, KlokanTech |
 | 15:40 - 16:00  | Tagging and Pedagogy | Michael Appleby, Yale University | 
-| 16:00 - 16:30  | Audience Spotlight and Discussion | Simeon Warner, Cornell University |
+| 16:00 - 16:30  | Audience Spotlight and Discussion | Stuart Snydman, Stanford University |
 | 16:30 - 16:45  | IIIF Consortium | Michael Keller, Stanford University |
 | 16:45 - 17:00  | Next Steps and Close | Tom Cramer, Stanford University |
 {: .api-table}
