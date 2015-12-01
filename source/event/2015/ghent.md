@@ -31,7 +31,7 @@ Tuesday, 8th of December 2015
 | 10:25 - 10:50  | Introduction to IIIF | Tom Cramer, Stanford University |
 | 10:50 - 11:10  | Maps and Archives | Glen Robson, National Library of Wales |
 | 11:10 - 11:30  | Digitized Newspapers | Karen Estlund, Penn State University |
-| 11:30 - 11:50  | Museums | Emmanuelle Delmas-Glass, Yale Center for British Art |
+| 11:30 - 11:50  | Museums and Research | Emmanuelle Delmas-Glass, Yale Center for British Art |
 | 11:50 - 12:10  | Aggregators | Mark Matienzo, DPLA and David Haskiya, Europeana |
 | 12:10 - 12:30  | Audience Spotlight and Discussion | Christy Henshaw, Wellcome Trust |
 | 12:30 - 13:30  | Lunch | (on your own) |
