@@ -860,7 +860,9 @@ Content _MAY_ be embedded instead of referenced by using the following pattern w
 {"resource": {"@type": "cnt:ContextAsText", "chars": "text here"}}
 {% endhighlight %}
 
-If it is desirable to associate the language with the content, then it _MUST_ be `language` not `@language` (otherwise the `chars` field would need to be an array with `@value`). The media type _MAY_ be given using a `format` field.
+The media type _SHOULD_ be provided using the `format` field, and while any media type is possible, it is _RECOMMENDED_ that `text/plain` or `text/html` be used to maximize compatibility.
+
+If it is desirable to describe the language of the content, then it _MUST_ be given with the `language` property not `@language`. 
 
 An example of this feature:
 
