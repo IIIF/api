@@ -1070,6 +1070,26 @@ Other resources may also have comments made about them, including Manifests (com
 }
 {% endhighlight %}
 
+
+### 6.8 Hotspot Linking
+
+It is also possible to use Annotations to create links between resources, by using a `motivation` of "oa:linking". The region of the canvas that, which clicked, should trigger the link is specified in the `on` field in the same way as other Annotations, and the resource that is linked to it is in the `resource` field.  The linked resource _MAY_ also be another canvas or region of a canvas.  The user experience of whether the linked resource is opened in a new tab, new window or by replacing the current view is up to the implementation.
+
+{% highlight json %}
+{
+  "@context": "http://iiif.io/api/presentation/2/context.json",
+  "@id":"http://www.example.org/iiif/book1/annotation/anno1",
+  "@type":"oa:Annotation",
+  "motivation":"oa:linking",
+  "resource": {
+    "@id":"http://www.example.org/page-to-go-to.html",
+    "@type":"dctypes:Text",
+    "format":"text/html"
+  },
+  "on":"http://www.example.org/iiif/book1/canvas/p1#xywh=500,500,150,30"
+}
+{% endhighlight %}
+
 ##  7. Additional Resource Types
 
 There are cases where additional information is needed to fully represent objects and their components.
