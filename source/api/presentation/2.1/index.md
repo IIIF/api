@@ -1075,7 +1075,7 @@ Other resources may also have comments made about them, including Manifests (com
 
 It is also possible to use Annotations to create links between resources, both within the Manifest or to external content.  This can be used to link to the continuation of an article in a digitized newspaper in a different canvas, or to link to an external web page that describes the diagram in the canvas.
 
-The is accomplished by using a `motivation` of "oa:linking" in the Annotation. The region of the canvas that should trigger the link when clicked is specified in the `on` field in the same way as other Annotations. The linked resource is given in the `resource` field.  The linked resource _MAY_ also be another canvas or region of a canvas.  The user experience of whether the linked resource is opened in a new tab, new window or by replacing the current view is up to the implementation.
+Hotspot linking is accomplished using an Annotation with a `motivation` of "oa:linking". The region of the canvas that should trigger the link when clicked is specified in the `on` field in the same way as other Annotations. The linked resource is given in the `resource` field.  The linked resource _MAY_ also be another canvas or region of a canvas.  The user experience of whether the linked resource is opened in a new tab, new window or by replacing the current view is up to the implementation.
 
 {% highlight json %}
 {
