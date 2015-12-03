@@ -1052,7 +1052,7 @@ Unlike painting annotations, comments or annotations with other motivations, _SH
 }
 {% endhighlight %}
 
-Other resources may also have comments made about them, including Manifests (comments about the object), Sequences (comments about that particular ordering), Ranges (comments about the section), Annotations (replies to the targeted Annotation), and so forth.  In order for the client to discover these Annotations, they can be included in an AnnotationList referenced from the target resource.  This is accomplished by reusing the `otherContent` pattern.  Any resource may have a list of annotations associated with it in this way.
+Other resources may also have comments made about them, including manifests (comments about the object), sequences (comments about that particular ordering), ranges (comments about the section), annotations (replies to the targeted annotation), and so forth.  In order for the client to discover these annotations, they can be included in an AnnotationList referenced from the target resource.  This is accomplished by reusing the `otherContent` pattern.  Any resource may have a list of annotations associated with it in this way.
 
 {% highlight json %}
 {
@@ -1073,9 +1073,9 @@ Other resources may also have comments made about them, including Manifests (com
 
 ###  6.8. Hotspot Linking
 
-It is also possible to use Annotations to create links between resources, both within the Manifest or to external content.  This can be used to link to the continuation of an article in a digitized newspaper in a different canvas, or to link to an external web page that describes the diagram in the canvas.
+It is also possible to use annotations to create links between resources, both within the manifest or to external content.  This can be used to link to the continuation of an article in a digitized newspaper in a different canvas, or to link to an external web page that describes the diagram in the canvas.
 
-Hotspot linking is accomplished using an Annotation with a `motivation` of "oa:linking". The region of the canvas that should trigger the link when clicked is specified in the `on` field in the same way as other Annotations. The linked resource is given in the `resource` field.  The linked resource _MAY_ also be another canvas or region of a canvas.  The user experience of whether the linked resource is opened in a new tab, new window or by replacing the current view is up to the implementation.
+Hotspot linking is accomplished using an annotation with a `motivation` of "oa:linking". The region of the canvas that should trigger the link when clicked is specified in the `on` field in the same way as other annotations. The linked resource is given in the `resource` field.  The linked resource _MAY_ also be another canvas or region of a canvas.  The user experience of whether the linked resource is opened in a new tab, new window or by replacing the current view is up to the implementation.
 
 {% highlight json %}
 {
