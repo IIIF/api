@@ -156,7 +156,7 @@ Or embedding the content:
 {% endhighlight %}
 
 ### 3.3 Physical Dimensions
-_Added: 2014-05-20_, _Latest Revision: 2014-07-21_
+_Added: 2014-05-20_, _Latest Revision: 2015-12-04_
 
 For digitized objects, it is often useful to know the physical dimensions of the object.  When available, they allow a client to present a ruler, or other rendition of physical scale, to the user.  However, implementers are warned that while this information may be available, frequently:
 
@@ -173,12 +173,11 @@ The physical dimensions description includes the following properties:
 
 | Property         | Required? | Description |
 | ---------------- | --------- | ----------- |
-| `@context`       | Required  | The string "http://iiif.io/api/annex/service/physdim/1/context.json". |
+| `@context`       | Required  | The string "http://iiif.io/api/annex/services/physdim/1/context.json". |
 | `@id`            | Optional  | A URI that will return the information, perhaps generated dynamically from the image. |
-| `profile`        | Required  | The string "http://iiif.io/api/annex/service/physdim". |
+| `profile`        | Required  | The string "http://iiif.io/api/annex/services/physdim". |
 | `physicalScale` | Required  | The floating point ratio by which the digital resource's height and width are multipled in order to determine the depicted scene's height and width.  |
 | `physicalUnits` | Required  | The physical units for the generated height and width.  Possible values are: "mm", "cm", in". |
-
 {: .api-table}
 
 The following example demonstrates the resulting structure, as embedded within the [Presentation API][prezi-api] response:
@@ -186,8 +185,8 @@ The following example demonstrates the resulting structure, as embedded within t
 {% highlight json %}
 {
   "service": {
-    "@context": "http://iiif.io/api/annex/service/physdim/1/context.json",
-    "profile": "http://iiif.io/api/annex/service/physdim",
+    "@context": "http://iiif.io/api/annex/services/physdim/1/context.json",
+    "profile": "http://iiif.io/api/annex/services/physdim",
     "physicalScale": 0.0025,
     "physicalUnits": "in"
   }
@@ -196,9 +195,8 @@ The following example demonstrates the resulting structure, as embedded within t
 
 If the above example was associated with a Canvas of width 4000 and height 6000, then the physical object would be 4000 * 0.0025 = 10 inches wide, and 15 inches high.  If it was associated with an image with width 4000 and height 6000, then it would mean the image was 4000 pixels for 10 inches, or 400 pixels per inch.
 
-_Note_ 
-
 There is a proposal to add a confidence label or value to this service to allow clients to either determine if they should use the information, or to display an appropriate warning or description when using it.  This proposal is currently deferred until additional experience and use cases have been explored.  Any interest in this feature should be brought up on [iiif-discuss][iiif-discuss].
+{: .note}
 
 
 ## Appendices
@@ -213,7 +211,8 @@ Thanks to the members of the [IIIF][iiif-community] for their continuous engagem
 
 | Date       | Description                                        |
 | ---------- | -------------------------------------------------- |
-| 2014-06-01 | Version 1.0 RFC                                    |
+| 2015-12-04 | Fix link for physical dimensions context           | 
+| 2014-06-01 | Version 1.0                                        |
 
    [semver]: /api/annex/notes/semver.html "Versioning of APIs"
    [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
