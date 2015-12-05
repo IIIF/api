@@ -66,7 +66,7 @@ This table summarizes the services available and which APIs they may be used in.
 
 | Service                        | Image API                 | Presentation API          |
 | ------------------------------ |:-------------------------:|:-------------------------:|
-| [Image Information][imageinfo] | ![not allowed][icon-na]   | ![recommended][icon-recc] |  
+| [Image Information][imageinfo] | ![optional][icon-opt]     | ![recommended][icon-recc] |  
 | [GeoJSON][lgeojson]            | ![not allowed][icon-na]   | ![recommended][icon-recc] |
 | [Physical Dimensions][physdim] | ![recommended][icon-recc] | ![recommended][icon-recc] |
 {: .api-table}
@@ -74,7 +74,7 @@ This table summarizes the services available and which APIs they may be used in.
 ### 3.1 Image Information
 _Added: 2014-05-20_
 
-The Image Information service allows the [Presentation API][prezi-api] to reference content to be displayed via the [Image API][image-api].  The JSON-LD content to be referenced or embedded is the Image Information document, also known as `info.json`.  The service _MUST_ have the `@context`, `@id` and `profile` keys, pointing to the context document, service base URI and compliance level profile respectively.
+The Image Information service allows the [Presentation API][prezi-api], and potentially other APIs, to reference content to be displayed via the [Image API][image-api].  The JSON-LD content to be referenced or embedded is the Image Information document, also known as `info.json`.  The service _MUST_ have the `@context`, `@id` and `profile` keys, pointing to the context document, service base URI and compliance level profile respectively.
 
 {% highlight json %}
 {
@@ -118,6 +118,25 @@ The service _MAY_ have additional information embedded from the Image Informatio
 }
 {% endhighlight %}
 
+Note that with the inclusion of `icon` in the Image Information description in version 2.1, it is possible and reasonable for one info.json response to embed another using this pattern.  In this case, the second service is related to the icon that should be displayed when a client renders the image described by the main response.
+
+{% highlight json %}
+{
+  "@context" : "http://iiif.io/api/image/{{ page.major }}/context.json",
+  "@id" : "http://www.example.org/image-service/baseImage",
+  "protocol" : "http://iiif.io/api/image",
+  
+  "attribution" : "Provided by Example Organization",
+  "logo" : {
+    "@id": "http://example.org/image-service/logo/full/full/0/default.png",
+    "service": {
+      "@id": "http://example.org/image-service/logo",
+      "protocol": "http://iiif.io/api/image",
+      "profile": "http://iiif.io/api/image/{{ page.major }}/2/level2.json"
+    }
+  }
+}
+{% endhighlight %}
 
 
 ### 3.2 GeoJSON
