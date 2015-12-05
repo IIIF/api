@@ -41,7 +41,7 @@
     "tiles" : { "@id" : "iiif:tile", "@type": "@id" },
     "profile" : { "@id" : "dcterms:conformsTo", "@type" : "@id" },
     "protocol" : { "@id" : "doap:implements", "@type" : "@id" },
-    "supports" : { "@id" : "iiif:supports", "@type" : "@id" },
+    "supports" : { "@id" : "iiif:supports", "@type" : "@vocab" },
     "service":     {"@type":"@id", "@id":"svcs:has_service"},
     "license":     {"@type":"@id", "@id":"dcterms:license"},
     "logo":        {"@type":"@id", "@id":"foaf:logo"},
