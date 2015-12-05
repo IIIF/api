@@ -82,7 +82,6 @@
       "@id": "iiif:jsonLdMediaTypeFeature",
       "@type": "iiif:Feature"
     },
-
     "height": {
       "@id": "exif:height",
       "@type": "xsd:integer"
@@ -103,7 +102,6 @@
       "@id": "iiif:quality",
       "@type": "xsd:string"
     },
-
     "sizes": {
       "@id": "iiif:size",
       "@type": "@id"

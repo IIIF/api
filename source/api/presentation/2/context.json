@@ -13,7 +13,7 @@
     "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
     "xsd": "http://www.w3.org/2001/XMLSchema#",
     "svcs": "http://rdfs.org/sioc/services#",
-
+    "as": "http://www.w3.org/ns/activitystreams#",
     "license": {
       "@type": "@id",
       "@id": "dcterms:license"
@@ -50,7 +50,6 @@
       "@type": "@id",
       "@id": "sc:hasStartCanvas"
     },
-
     "collections": {
       "@type": "@id",
       "@id": "sc:hasCollections",
@@ -96,13 +95,11 @@
       "@id": "sc:hasRanges",
       "@container": "@list"
     },
-
     "metadata": {
       "@type": "@id",
       "@id": "sc:metadataLabels",
       "@container": "@list"
     },
-
     "description": {
       "@id": "dc:description"
     },
@@ -114,19 +111,17 @@
       "@type": "xsd:integer",
       "@id": "exif:width"
     },
-
     "attribution": {
       "@id": "sc:attributionLabel"
     },
     "viewingDirection": {
       "@id": "sc:viewingDirection",
-      "@type": "@id"
+      "@type": "@vocab"
     },
     "viewingHint": {
       "@id": "sc:viewingHint",
-      "@type": "@id"
+      "@type": "@vocab"
     },
-
     "left-to-right": {
       "@id": "sc:leftToRightDirection",
       "@type": "sc:ViewingDirection"
@@ -164,7 +159,14 @@
       "@id": "sc:topHint",
       "@type": "sc:ViewingHint"
     },
-
+	  "multi-part": {
+      "@id": "sc:multiPartHint", 
+      "@type": "sc:ViewingHint"
+    },
+	  "facing-pages": {
+      "@id": "sc:facingPagesHint", 
+      "@type": "sc:ViewingHint"
+    },
     "motivation": {
       "@type": "@id",
       "@id": "oa:motivatedBy"
@@ -192,7 +194,6 @@
     "style": {
       "@id": "oa:styleClass"
     },
-
     "default": {
       "@type": "@id",
       "@id": "oa:default"
@@ -221,6 +222,29 @@
     },
     "label": {
       "@id": "rdfs:label"
+    },
+		"first": {
+      "@type": "@id", 
+      "@id": "as:first"
+    },
+		"last":	{
+      "@type": "@id", 
+      "@id": "as:last"
+    },
+		"next": {
+      "@type": "@id", 
+      "@id": "as:next"
+    },		    
+	 "prev": {
+      "@type": "@id", 
+      "@id": "as:prev"
+    },
+		"total": {
+      "@id": "as:totalItems"
+    },
+		"startIndex":  {
+      "@id": "as:startIndex"
     }
-  }]
+	}
+  ]
 }
