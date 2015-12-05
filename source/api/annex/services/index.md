@@ -118,7 +118,7 @@ The service _MAY_ have additional information embedded from the Image Informatio
 }
 {% endhighlight %}
 
-Note that with the inclusion of `icon` in the Image Information description in version 2.1, it is possible and reasonable for one info.json response to embed another using this pattern.  In this case, the second service is related to the icon that should be displayed when a client renders the image described by the main response.
+With the `logo` property added to the Image Information description in version 2.1 of the Image API, it is possible and reasonable for one `info.json` response to embed another using this pattern.  In this case, the second service is related to the icon that should be displayed when a client renders the image described by the main response.
 
 {% highlight json %}
 {
