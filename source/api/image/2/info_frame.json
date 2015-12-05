@@ -1,5 +1,4 @@
 {
     "@context" : "http://iiif.io/api/image/2/context.json",
-    "@embed": "true",
-    "protocol": "http://iiif.io/api/image/"
+    "@type": "iiif:Image",
 }
