@@ -1,6 +1,6 @@
 ---
-title: "IIIF Content Search API 0.9"
-title_override: "IIIF Content Search API 0.9"
+title: "IIIF Content Search API 0.9.1"
+title_override: "IIIF Content Search API 0.9.1"
 id: content-search-api
 layout: spec
 tags: [specifications, content-search-api]
@@ -67,7 +67,7 @@ The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _S
 
 ## 2. Overview
 
-The IIIF [Presentation API][prezi] provides just enough information to a viewer so that it can present the images and other content to the user in a rich and understandable way.  Those content resources may have textual annotations associated with them.  Annotations may also be associated with the structural components of the Presentation API, such as the manifest itself, sequences, ranges, and layers.  Further, annotations can be replied to by annotating them to form a threaded discussion about the commentary, transcription, edition or translation.
+The IIIF [Presentation API][prezi-api] provides just enough information to a viewer so that it can present the images and other content to the user in a rich and understandable way.  Those content resources may have textual annotations associated with them.  Annotations may also be associated with the structural components of the Presentation API, such as the manifest itself, sequences, ranges, and layers.  Further, annotations can be replied to by annotating them to form a threaded discussion about the commentary, transcription, edition or translation.
 
 Annotations are typically made available to viewing applications in an annotation list, where all of the annotations in the list target the same resource, or part of it.  Where known, these lists can be directly referenced from the manifest document to allow clients to simply follow the link to retrieve them.  For fixed, curated content, this is an appropriate method to discover them, as the annotations do not frequently change, nor are they potentially distributed amongst multiple servers.  annotation lists can be included in layers to group them together, such as by the source of the annotations, to allow the user to manipulate that grouping as a whole.
 
@@ -77,13 +77,13 @@ Beyond the ability to search for words or phrases, users find it helpful to have
 
 ## 3. Search
 
-The search service takes a query, including typically a search term or uri, and potentially filtering further by the date the annotation was created or last modified, the motivation for the annotation as to whether it is painting a resource on to a canvas or not, or the user that created the annotation.
+The search service takes a query, including typically a search term or uri, and potentially filtering further by other properties including the date the annotation was created or last modified, the motivation for the annotation, or the user that created the annotation.
 
 ### 3.1. Service Description
 
 Any resource in the Presentation API may have a search service associated with it.  The resource determines the scope of the content that will be searched.  A service associated with a manifest will search all of the annotations on canvases or other objects below the manifest, a service associated with a particular range will only search the canvases within the range, or a service on a canvas will search only annotations on that particular canvas.  
 
-The description of the service follows the pattern established in the [Linking to Services][service-annex] pattern.  It _MUST_ have the `@context` property with the value "http://iiif.io/api/search/{{ page.major }}/context.json", the  `profile` property with the value "http://iiif.io/api/search/{{ page.major }}/search", and the `@id` property that contains the URI where the search can be performed.  
+The description of the service follows the pattern established in the [Linking to Services][service-annex] specification.  The description block _MUST_ have the `@context` property with the value "http://iiif.io/api/search/{{ page.major }}/context.json", the  `profile` property with the value "http://iiif.io/api/search/{{ page.major }}/search", and the `@id` property that contains the URI where the search can be performed.  
 
 An example service description block:
 
@@ -104,9 +104,9 @@ The search request is made to a service that is related to a particular Presenta
 
 #### 3.2.1. Query Parameters
 
-All parameters are _OPTIONAL_ in the request.  The default, if a parameter is empty or not supplied, is to not restrict the matching annotations by that parameter.
+All parameters are _OPTIONAL_ in the request.  The default, if a parameter is empty or not supplied, is to not restrict the annotations that match the search by that parameter.  If the value is supplied but the field is not present in an annotation, then the search does not match that annotation. For example if an annotation does not have a creator, and the query specifies a `user` parameter, then the annotation does not match the query.
 
-Servers _MUST_ implement the `q` parameter, and _SHOULD_ implement the `motivation` parameter, the others are _OPTIONAL_ to support. Parameters that are received in a request but not implemented _MUST_ be ignored, and _SHOULD_ be included in the `ignored` property of the Layer in the response, described in the next section.
+Servers _MUST_ implement the `q` parameter, and _SHOULD_ implement the `motivation` parameter. The other parameters are _OPTIONAL_ to support. Parameters that are received in a request but not implemented _MUST_ be ignored, and _SHOULD_ be included in the `ignored` property of the Layer in the response, described [below][ignored-parameters].
 
 | Parameter  | Definition | 
 | ---------  | ---------- |
@@ -141,7 +141,7 @@ http://example.org/services/manifest/search?q=bird&motivation=painting
 ```
 {: .urltemplate}
 
-Would search for annotations with the word "bird" in their textual content, and have the motivation of `painting`.  It would search within the resource the service was associated with.
+Would search for annotations with the word "bird" in their textual content, and have the motivation of `painting`.  It would search annotations within the resource the service was associated with.
 
 ### 3.3. Presentation API Compatible Responses
 
@@ -151,13 +151,13 @@ The search results are returned as annotations in the regular IIIF syntax. Note 
 
 #### 3.3.1. Simple Lists
 
-The simplest response looks exactly like a regular annotation list. The value of `@id` will be the same as the URI used in the query.  If the server does not support all of the request parameters it _MUST_ instead use the response structure discussed in the following section in order to report which parameters could not be processed.
+The simplest response looks exactly like a regular annotation list, where all of the matching annotations are returned in a single response. The value of `@id` will be the same as the URI used in the query, however servers _MAY_ drop query parameters that are ignored so long as they are reported in the `ignored` property.
 
-Clients wishing to know the total number of annotations that match may simply count the number of annotations in the `resources` property, as all have been returned.
+Clients wishing to know the total number of annotations that match may count the number of annotations in the `resources` property, as all matches have been returned.  The full annotation description _MUST_ be included in the response, even if the annotations are separately derefencable via their URIs.
 
 {% highlight json %}
 {
-  "@context":"http://iiif.io/api/presentation/{{ site.presentation_api.major }}/context.json",
+  "@context":"http://iiif.io/api/presentation/{{ site.presentation_api.latest.major }}/context.json",
   "@id":"http://example.org/service/manifest/search?q=bird&motivation=painting",
   "@type":"sc:AnnotationList",
 
@@ -179,9 +179,7 @@ Clients wishing to know the total number of annotations that match may simply co
 
 #### 3.3.2. Paging Results 
 
-For very long lists of annnotations, the server may choose to divide the response into multiple sections, often called pages.  Each page is an annotation list and can refer to other pages to allow the client to traverse the entire set.  This uses the paging features of the Presentation API introduced in version 2.1, but is backwards compatible with version 2.0.
-
-The next page of results _MUST_ be referenced in a `next` property of the annotation list, and the previous page _SHOULD_ be referenced in a `prev` property.  
+For long lists of annnotations, the server may choose to divide the response into multiple sections, often called pages.  Each page is an annotation list and can refer to other pages to allow the client to traverse the entire set.  This uses the [paging features][paging] introduced in version 2.1 of the Presentation API, but is backwards compatible with version 2.0.  The next page of results that follows the current response _MUST_ be referenced in a `next` property of the annotation list, and the previous page _SHOULD_ be referenced in a `prev` property.  
   
 The URI of the first annotation list reported in the `@id` property _MAY_ be different from the one used by the client to request the search.  Each page _SHOULD_ also have a `startIndex` property with an integer value that reports the position of the first result within the entire result set, where the first annotation has an index of 0.  For example, if the client has requested the first page which has 10 hits, then the `startIndex` will be 0, and the `startIndex` of second page will be 10, being the 11th hit.
 
@@ -200,7 +198,7 @@ And the response for the first page of annotations from a total of 125 matches:
 
 {% highlight json %}
 {
-  "@context":"http://iiif.io/api/presentation/{{ site.presentation.major }}/context.json",
+  "@context":"http://iiif.io/api/presentation/{{ site.presentation_api.latest.major }}/context.json",
   "@id":"http://example.org/service/manifest/search?q=bird&page=1",
   "@type":"sc:AnnotationList",
 
@@ -233,7 +231,7 @@ And the response for the first page of annotations from a total of 125 matches:
 
 The annotations may also include references to the structure or structures that the target (the resource in the `on` property) is found within.  The URI and type of the including resource _MUST_ be given, and a `label` _SHOULD_ be included.
 
-This structure is called out explicitly as although it uses only properties from the Presentation API, it is not a common or documented pattern, and thus clients may not be expecting it.
+This structure is called out explicitly as although it uses only properties from the Presentation API, it is not a common pattern and thus clients may not be expecting it.
 
 {% highlight json %}
 {
@@ -266,11 +264,11 @@ This structure is called out explicitly as although it uses only properties from
 
 ### 3.4 Search API Specific Responses
 
-There may be properties that are specific to the search result, and not features of the annotation in general, that are valuable to return to the client.  Examples include the text before and after the matched content to allow a result snippet to be presented, the matched text in case stemming or wildcards have been applied, or to link together annotations that together fulfil the search query for a phrase, such as when the phrase spans across lines of text.
+There may be properties that are specific to the search result, and not features of the annotation in general, that are valuable to return to the client.  Examples include the text before and after the matched content to allow a result snippet to be presented, the matched text in case stemming or wildcards have been applied, or to link annotations that together fulfil the search query for a phrase, such as when the phrase spans across lines of text.
 
 As these response include Search specific information, the value of `@context` _MUST_ be an array with both the Presentation API and the Search API context URIs included, in that order.  This allows the two APIs to develop separately and yet remain as synchronized as possible.
 
-To incrementally build upon existing solutions and provide graceful degradation for clients that do not support these features and retain compatibility with the Presentation API, much of the specific information is included in a second list within the annotation list called `hits`.  Annotation lists _MAY_ have this property, and servers _MAY_ support these features.
+To incrementally build upon existing solutions and provide graceful degradation for clients that do not support these features and retain compatibility with the Presentation API, the search API specific information is included in a second list within the annotation list called `hits`, other than the `ignored` property on the layer.  Annotation lists _MAY_ have this property, and servers _MAY_ support these features.
 
 If supported, each entry in the `hits` list is a `search:Hit` object.  This type must be included as the value of the `@type` property. Hit objects reference one or more annotations that they provide additional information for, in a list as the value of the hit's `annotations` property.  The reference is made to the value of the `@id` property of the annotation, and thus annotations _MUST_ have a URI to enable this further information.
 
@@ -279,7 +277,7 @@ The basic structure is:
 {% highlight json %}
 {
   "@context":[ 
-      "http://iiif.io/api/presentation/{{ site.presentation.major }}/context.json",
+      "http://iiif.io/api/presentation/{{ site.presentation_api.latest.major }}/context.json",
       "http://iiif.io/api/search/{{ page.major }}/context.json" 
   ],
   "@id":"http://example.org/service/manifest/search?q=bird&page=1",
@@ -316,17 +314,19 @@ The basic structure is:
 
 If the server has ignored any of the parameters in the request, then the layer _MUST_ be present and _MUST_ have an `ignored` property where the value is a list of the ignored parameters.
 
-If the request from section 3.3.3 had been:
+If the request from previous examples had been:
+
 ```
 http://example.org/service/manifest/search?q=bird&box=0,0,100,100
 ```
+{: .urltemplate}
 
 And the box parameter was ignored when processing the request, the response would be:
 
 {% highlight json %}
 {
   "@context":[ 
-      "http://iiif.io/api/presentation/{{ site.presentation.major }}/context.json",
+      "http://iiif.io/api/presentation/{{ site.presentation_api.latest.major }}/context.json",
       "http://iiif.io/api/search/{{ page.major }}/context.json" 
   ],
   "@id":"http://example.org/service/manifest/search?q=bird&page=1",
@@ -365,7 +365,7 @@ That the server matches against the plural "birds":
 {% highlight json %}
 {
   "@context":[ 
-      "http://iiif.io/api/presentation/{{ site.presentation.major }}/context.json",
+      "http://iiif.io/api/presentation/{{ site.presentation_api.latest.major }}/context.json",
       "http://iiif.io/api/search/{{ page.major }}/context.json" 
   ],
   "@id":"http://example.org/service/manifest/search?q=bird",
@@ -399,7 +399,7 @@ That the server matches against the plural "birds":
 }
 {% endhighlight %}
 
-#### 3.4.3. Highlight Search Term in the Annotation Content
+#### 3.4.3. Search Term Highlighting
 
 Many systems do not have full word-level coordinate information, and are restricted to line or paragraph level boundaries.  In this case the most useful thing that the client can do is to display the entire annotation and highlight the hits within it.  This is similar, but different, to the previous use case.  Here the word will appear somewhere within the `chars` property of the annotation, and the client needs to make it more prominent.  In the previous situation, the word was the entire content of the annotation, and the information was convenient for presenting it in a list.
 
@@ -428,7 +428,7 @@ The result might be:
 {% highlight json %}
 {
   "@context":[ 
-      "http://iiif.io/api/presentation/{{ site.presentation.major }}/context.json",
+      "http://iiif.io/api/presentation/{{ site.presentation_api.latest.major }}/context.json",
       "http://iiif.io/api/search/{{ page.major }}/context.json" 
   ],
   "@id":"http://example.org/service/manifest/search?q=b*&page=1",
@@ -474,7 +474,7 @@ The result might be:
 }
 {% endhighlight %}
 
-#### 3.4.4. Multiple Matching Annotations in a Single Hit
+#### 3.4.4. Multi-Annotations Hits
 
 There may be multiple annotations that match a single phrase search.  If the following line of the text was a continuation of the sentence "and they are worth one in the hand", and the user searched for the phrase "bush and", the match would span multiple annotations regardless of whether the annotation was at word or line level.
 
@@ -485,7 +485,7 @@ For the word level annotation case, the response might look like:
 {% highlight json %}
 {
   "@context":[ 
-      "http://iiif.io/api/presentation/{{ site.presentation.major }}/context.json",
+      "http://iiif.io/api/presentation/{{ site.presentation_api.latest.major }}/context.json",
       "http://iiif.io/api/search/{{ page.major }}/context.json" 
   ],
   "@id":"http://example.org/service/manifest/search?q=bird",
@@ -582,10 +582,11 @@ http://example.org/service/identifier/autocomplete?q=bir&motivation=painting&box
 ### 4.2. Response
 
 The response is a list of very simple objects that include the term and its number of occurrences.  The number of terms provided is determined by the server.  The matching term is given as the value of the `match` property, and the number of occurences is the integer value of the `count` property.
+The term objects are of `@type` "search:Term", and this _MAY_ be included explicitly but it is not necessary.
 
 Parameters that were not processed by the service _MUST_ be returned in the response in the `ignored` property of the main "TermList" object.
 
-The terms _SHOULD_ be provided in ascending alphabetically sorted order.
+The terms _SHOULD_ be provided in ascending alphabetically sorted order, but other orders are allowed, such as by the term's count descending to put the most common matches first.
 
 The example request above might generate the following response:
 
@@ -604,7 +605,7 @@ The example request above might generate the following response:
 }
 {% endhighlight %}
 
-Semantic Tags or other URIs searchable via the `q` parameter might also have labels to display to the user, rather than the URI that matched:
+Semantic Tags or other URIs searchable via the `q` parameter might also have labels to display to the user, rather than the URI that matched.  The order of the terms might be by the label, rather than the matching URI, if there is an associated label.
 
 {% highlight json %}
 {
@@ -628,27 +629,41 @@ Semantic Tags or other URIs searchable via the `q` parameter might also have lab
 
 ## 5. Property Definitions
 
-### 5.1. Descriptive Properties
-
 ignored
+:   The set of parameters that were received by the server but not taken into account when processing the query. The value _MUST_ be an array of strings.
+
+    Usage:
+    {: .usage}
+    * A TermList or a Layer _MAY_ have an ignored property, and _MUST_ have it if the server ignored any query parameter.
 
 match
+:   The text that triggered the search to match the particular anotation.  The value _MUST_ be a single string.
+
+    Usage:
+    {: .usage}
+    * A Hit _MAY_ have the `match` property.
+    * A Term _MUST_ have the `match` property.
 
 before
+:   A segment of text that occurs before the text that triggered the search to match the particular anotation.  The value _MUST_ be a single string.
+
+    Usage:
+    {: .usage}
+    * A Hit _MAY_ have the `before` property.
 
 after
+:   A segment of text that occurs after the text that triggered the search to match the particular anotation.  The value _MUST_ be a single string.
+
+    Usage:
+    {: .usage}
+    * A Hit _MAY_ have the `after` property.
 
 count
+:   A number of times that a term appears.  The value _MUST_ be an positive integer.
 
-### 5.2. Structural Properties
-
-hits
-
-terms
-
-annotations
-
-selectors
+    Usage:
+    {: .usage}
+    * A Term _SHOULD_ have the `count` property.
 
 
 ## Appendices
@@ -692,6 +707,7 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 [semver]: http://semver.org/spec/v2.0.0.html "Semantic Versioning 2.0.0"
 [iiif-community]: /community.html "IIIF Community"
 [stable-version]: http://iiif.io/api/image/{{ site.search_api.latest.major }}.{{ site.search_api.latest.minor }}/ "Stable Version"
+[paging]: /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.image_api.latest.minor }}/
 
 [image-api]: /api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/ "Image API"
 [openanno]: http://www.openannotation.org/spec/core/ "Open Annotation"
@@ -700,6 +716,8 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 [service-annex]: /api/annex/services/
 [prezi-annolist]: /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/index.html#other-content-resources 
 [prezi-layer]: /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/index.html#Layers
+[ignored-parameters]: #ignored-parameters
+[oa-textquotesel]: http://www.openannotation.org/spec/core/
 
 [icon-req]: /img/metadata-api/required.png "Required"
 [icon-recc]: /img/metadata-api/recommended.png "Recommended"
