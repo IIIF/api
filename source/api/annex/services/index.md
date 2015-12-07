@@ -118,14 +118,14 @@ The service _MAY_ have additional information embedded from the Image Informatio
 }
 {% endhighlight %}
 
-With the `logo` property added to the Image Information description in version 2.1 of the Image API, it is possible and reasonable for one `info.json` response to embed another using this pattern.  In this case, the second service is related to the icon that should be displayed when a client renders the image described by the main response.
+With the `logo` property added to the Image Information description in version 2.1 of the Image API{% unless site.image_api.latest.major >= 2 and site.image_api.latest.minor >= 1 %} (forthcoming){% endunless %}, it is possible and reasonable for one `info.json` response to embed another using this pattern.  In this case, the second service is related to the icon that should be displayed when a client renders the image described by the main response.
 
 {% highlight json %}
 {
   "@context" : "http://iiif.io/api/image/{{ page.major }}/context.json",
   "@id" : "http://www.example.org/image-service/baseImage",
   "protocol" : "http://iiif.io/api/image",
-  
+
   "attribution" : "Provided by Example Organization",
   "logo" : {
     "@id": "http://example.org/image-service/logo/full/full/0/default.png",
@@ -231,7 +231,7 @@ Thanks to the members of the [IIIF][iiif-community] for their continuous engagem
 
 | Date       | Description                                        |
 | ---------- | -------------------------------------------------- |
-| 2015-12-04 | Fix link for physical dimensions context           | 
+| 2015-12-04 | Fix link for physical dimensions context           |
 | 2014-06-01 | Version 1.0                                        |
 
    [semver]: /api/annex/notes/semver.html "Versioning of APIs"
