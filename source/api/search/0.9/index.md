@@ -15,9 +15,7 @@ cssversion: 2
 {:.no_toc}
 __This Version:__ {{ page.major }}.{{ page.minor }}.{{ page.patch }}{% if page.pre != 'final' %}-{{ page.pre }}{% endif %}
 
-{% if false %}
 {% include beta.md %}
-{% endif %}
 
 **Editors**
 
@@ -28,9 +26,7 @@ __This Version:__ {{ page.major }}.{{ page.minor }}.{{ page.patch }}{% if page.p
   * Simeon Warner, _Cornell University_
   {: .names}
 
-{% if false %}
 {% include copyright.md %}
-{% endif %}
 
 ## Table of Contents
 {:.no_toc}
@@ -616,7 +612,8 @@ Semantic Tags or other URIs searchable via the `q` parameter might also have lab
     {
       "match": "http://semtag.example.org/tag/bird", 
       "count": 15, 
-      "label": "bird"},
+      "label": "bird"
+    },
     {
       "match": "http://semtag.example.org/tag/biro", 
       "count": 3,
