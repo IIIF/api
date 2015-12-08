@@ -16,6 +16,8 @@
   uri: 
 - name: DPLA
   uri: http://dp.la/
+- name: Digital Image Archive of Medieval Music (DIAMM)
+  uri: http://www.diamm.ac.uk/
 - name: Digirati Ltd
   uri: http://www.digirati.co.uk/
 - name: Europeana
