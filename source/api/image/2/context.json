@@ -1,51 +1,144 @@
----
----
 {
   "@context": {
-    "iiif" :   "http://iiif.io/api/image/2#",
-    "xsd" :    "http://www.w3.org/2001/XMLSchema#",
-    "exif":    "http://www.w3.org/2003/12/exif/ns#",
-    "dc":      "http://purl.org/dc/elements/1.1/",
+    "iiif": "http://iiif.io/api/image/2#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "exif": "http://www.w3.org/2003/12/exif/ns#",
+    "dc": "http://purl.org/dc/elements/1.1/",
     "dcterms": "http://purl.org/dc/terms/",
-    "doap" :   "http://usefulinc.com/ns/doap#",
-    "svcs":    "http://rdfs.org/sioc/services#",
-    "foaf":    "http://xmlns.com/foaf/0.1/",   
-    "sc":      "http://iiif.io/api/presentation/2#",
+    "doap": "http://usefulinc.com/ns/doap#",
+    "svcs": "http://rdfs.org/sioc/services#",
+    "foaf": "http://xmlns.com/foaf/0.1/",
+    "sc": "http://iiif.io/api/presentation/2#",
 
-    "baseUriRedirect" : { "@id" : "iiif:baseUriRedirectFeature", "@type": "iiif:Feature" },
-    "cors" : { "@id" : "iiif:corsFeature", "@type": "iiif:Feature" },
-    "regionByPct" : { "@id" : "iiif:regionByPctFeature", "@type": "iiif:Feature" },
-    "regionByPx" : { "@id" : "iiif:regionByPxFeature", "@type": "iiif:Feature" },
-    "regionSquare" : { "@id" : "iiif:regionSquareFeature", "@type": "iiif:Feature" },
-    "rotationArbitrary" : { "@id" : "iiif:arbitraryRotationFeature", "@type": "iiif:Feature" },
-    "rotationBy90s" : { "@id" : "iiif:rotationBy90sFeature", "@type": "iiif:Feature" },
-    "mirroring" : { "@id" : "iiif:mirroringFeature", "@type": "iiif:Feature" },
-    "sizeAboveFull" : { "@id" : "iiif:sizeAboveFullFeature", "@type": "iiif:Feature" },
-    "sizeByForcedWh" : { "@id" : "iiif:sizeByForcedWHFeature", "@type": "iiif:Feature" },
-    "sizeByH" : { "@id" : "iiif:sizeByHFeature", "@type": "iiif:Feature" },
-    "sizeByPct" : { "@id" : "iiif:sizeByPctFeature", "@type": "iiif:Feature" },
-    "sizeByW" : { "@id" : "iiif:sizeByWFeature", "@type": "iiif:Feature" },
-    "sizeByWh" : { "@id" : "iiif:sizeByWHFeature", "@type": "iiif:Feature" },
-    "sizeByWhListed" : { "@id" : "iiif:sizeByWHListedFeature", "@type": "iiif:Feature" },    
-    "profileLinkHeader" : {"@id" : "iiif:profileLinkHeaderFeature", "@type": "iiif:Feature" },
-    "canonicalLinkHeader" : {"@id" : "iiif:canonicalLinkHeaderFeature", "@type": "iiif:Feature" },
-    "jsonldMediaType" : {"@id" : "iiif:jsonLdMediaTypeFeature", "@type": "iiif:Feature" },
-    
-    "height":  { "@id" : "exif:height", "@type":"xsd:integer" },
-    "width": { "@id" : "exif:width", "@type":"xsd:integer" },
-    "scaleFactors" : { "@id" : "iiif:scaleFactor", "@type" : "xsd:integer" },
-    "formats" : { "@id" : "iiif:format", "@type" : "xsd:string" },
-    "qualities" : { "@id" : "iiif:quality", "@type" : "xsd:string" },
+    "baseUriRedirect": {
+      "@id": "iiif:baseUriRedirectFeature",
+      "@type": "iiif:Feature"
+    },
+    "cors": {
+      "@id": "iiif:corsFeature",
+      "@type": "iiif:Feature"
+    },
+    "regionByPct": {
+      "@id": "iiif:regionByPctFeature",
+      "@type": "iiif:Feature"
+    },
+    "regionByPx": {
+      "@id": "iiif:regionByPxFeature",
+      "@type": "iiif:Feature"
+    },
+    "regionSquare": {
+      "@id": "iiif:regionSquareFeature",
+      "@type": "iiif:Feature"
+    },
+    "rotationArbitrary": {
+      "@id": "iiif:arbitraryRotationFeature",
+      "@type": "iiif:Feature"
+    },
+    "rotationBy90s": {
+      "@id": "iiif:rotationBy90sFeature",
+      "@type": "iiif:Feature"
+    },
+    "mirroring": {
+      "@id": "iiif:mirroringFeature",
+      "@type": "iiif:Feature"
+    },
+    "sizeAboveFull": {
+      "@id": "iiif:sizeAboveFullFeature",
+      "@type": "iiif:Feature"
+    },
+    "sizeByForcedWh": {
+      "@id": "iiif:sizeByForcedWHFeature",
+      "@type": "iiif:Feature"
+    },
+    "sizeByH": {
+      "@id": "iiif:sizeByHFeature",
+      "@type": "iiif:Feature"
+    },
+    "sizeByPct": {
+      "@id": "iiif:sizeByPctFeature",
+      "@type": "iiif:Feature"
+    },
+    "sizeByW": {
+      "@id": "iiif:sizeByWFeature",
+      "@type": "iiif:Feature"
+    },
+    "sizeByWh": {
+      "@id": "iiif:sizeByWHFeature",
+      "@type": "iiif:Feature"
+    },
+    "sizeByWhListed": {
+      "@id": "iiif:sizeByWHListedFeature",
+      "@type": "iiif:Feature"
+    },
+    "profileLinkHeader": {
+      "@id": "iiif:profileLinkHeaderFeature",
+      "@type": "iiif:Feature"
+    },
+    "canonicalLinkHeader": {
+      "@id": "iiif:canonicalLinkHeaderFeature",
+      "@type": "iiif:Feature"
+    },
+    "jsonldMediaType": {
+      "@id": "iiif:jsonLdMediaTypeFeature",
+      "@type": "iiif:Feature"
+    },
 
-    "sizes" : { "@id" : "iiif:size", "@type": "@id" },
-    "tiles" : { "@id" : "iiif:tile", "@type": "@id" },
-    "profile" : { "@id" : "dcterms:conformsTo", "@type" : "@id" },
-    "protocol" : { "@id" : "doap:implements", "@type" : "@id" },
-    "supports" : { "@id" : "iiif:supports", "@type" : "@id" },
-    "service":     {"@type":"@id", "@id":"svcs:has_service"},
-    "license":     {"@type":"@id", "@id":"dcterms:license"},
-    "logo":        {"@type":"@id", "@id":"foaf:logo"},
-    "attribution": {"@id": "sc:attributionLabel"}
+    "height": {
+      "@id": "exif:height",
+      "@type": "xsd:integer"
+    },
+    "width": {
+      "@id": "exif:width",
+      "@type": "xsd:integer"
+    },
+    "scaleFactors": {
+      "@id": "iiif:scaleFactor",
+      "@type": "xsd:integer"
+    },
+    "formats": {
+      "@id": "iiif:format",
+      "@type": "xsd:string"
+    },
+    "qualities": {
+      "@id": "iiif:quality",
+      "@type": "xsd:string"
+    },
+
+    "sizes": {
+      "@id": "iiif:size",
+      "@type": "@id"
+    },
+    "tiles": {
+      "@id": "iiif:tile",
+      "@type": "@id"
+    },
+    "profile": {
+      "@id": "dcterms:conformsTo",
+      "@type": "@id"
+    },
+    "protocol": {
+      "@id": "doap:implements",
+      "@type": "@id"
+    },
+    "supports": {
+      "@id": "iiif:supports",
+      "@type": "@id"
+    },
+    "service": {
+      "@type": "@id",
+      "@id": "svcs:has_service"
+    },
+    "license": {
+      "@type": "@id",
+      "@id": "dcterms:license"
+    },
+    "logo": {
+      "@type": "@id",
+      "@id": "foaf:logo"
+    },
+    "attribution": {
+      "@id": "sc:attributionLabel"
+    }
 
   }
 }

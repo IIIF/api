@@ -1,12 +1,12 @@
 {
-    "@context" : "http://iiif.io/api/presentation/2/context.json",
-    "@type": "sc:Canvas",
-    "images": [{
-        "@type": "oa:Annotation",
-        "@embed": true
-    }],
-    "otherContent": [{
-        "@type": "sc:AnnotationList",
-        "@embed": false
-    }]
+  "@context": "http://iiif.io/api/presentation/2/context.json",
+  "@type": "sc:Canvas",
+  "images": [{
+    "@type": "oa:Annotation",
+    "@embed": true
+  }],
+  "otherContent": [{
+    "@type": "sc:AnnotationList",
+    "@embed": false
+  }]
 }

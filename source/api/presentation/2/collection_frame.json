@@ -1,12 +1,12 @@
 {
-    "@context" : "http://iiif.io/api/presentation/2/context.json",
+  "@context": "http://iiif.io/api/presentation/2/context.json",
+  "@type": "sc:Collection",
+  "collections": [{
     "@type": "sc:Collection",
-    "collections": [{
-        "@type": "sc:Collection",
-        "@embed": false
-    }],
-    "manifests": [{
-        "@type":"sc:Manifest",
-        "@embed": false,
-    }]
+    "@embed": false
+  }],
+  "manifests": [{
+    "@type": "sc:Manifest",
+    "@embed": false
+  }]
 }

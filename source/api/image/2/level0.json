@@ -1,11 +1,9 @@
----
----
 {
-  "@context" : "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
-  "@id" : "http://iiif.io/api/image/{{ site.image_api.latest.major }}/level0.json",
-  "@type" : "iiif:ImageProfile",
-  
-  "formats" : [ "jpg" ],
-  "qualities" : [ "default" ], 
-  "supports" : [  ]
+  "@context": "http://iiif.io/api/image/2/context.json",
+  "@id": "http://iiif.io/api/image/2/level0.json",
+  "@type": "iiif:ImageProfile",
+
+  "formats": ["jpg"],
+  "qualities": ["default"],
+  "supports": []
 }
