@@ -58,5 +58,7 @@
   uri:  http://www.textandbytes.com/en
 - name: Wellcome Trust
   uri: http://wellcomelibrary.org
+- name: World Digital Library
+  uri: http://www.wdl.org
 - name: Yale University
   uri: 
