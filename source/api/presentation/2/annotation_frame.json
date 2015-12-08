@@ -1,6 +1,10 @@
 {
-    "@context" : "http://iiif.io/api/presentation/2/context.json",
-    "@type": "oa:Annotation",
-    "resource": {"@embed": true},
-    "on" : {"@embed" : true}
+  "@context": "http://iiif.io/api/presentation/2/context.json",
+  "@type": "oa:Annotation",
+  "resource": {
+    "@embed": true
+  },
+  "on": {
+    "@embed": true
+  }
 }

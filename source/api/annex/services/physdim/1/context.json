@@ -1,8 +1,14 @@
 {
-	"@context": {
-    	"iiif" :   "http://iiif.io/api/presentation/{{ site.presentation_api.latest.major }}#",
-    	"xsd" :    "http://www.w3.org/2001/XMLSchema#",
-		"physicalScale": {"@id": "iiif:physicalScale", "@type": "xsd:float"},
-		"physicalUnits": {"@id": "iiif:physicalUnits", "@type": "xsd:string"}
-	}
+  "@context": {
+    "iiif": "http://iiif.io/api/presentation/1#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "physicalScale": {
+      "@id": "iiif:physicalScale",
+      "@type": "xsd:float"
+    },
+    "physicalUnits": {
+      "@id": "iiif:physicalUnits",
+      "@type": "xsd:string"
+    }
+  }
 }
