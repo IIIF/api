@@ -431,7 +431,7 @@ In order to support the above requirements, clients _SHOULD_ construct the image
 When the client requests an image, the server _MAY_ add a link header to the response that indicates the canonical URI for that request:
 
 ```
-Link: <http://iiif.example.com/server/full/full/0/default.jpg>;rel="canonical"
+Link: <http://iiif.example.com/server/full/400,/0/default.jpg>;rel="canonical"
 ```
 {: .urltemplate}
 
@@ -613,7 +613,7 @@ The `attribution`, `license` and `logo` properties have the same semantics and r
 
 In the case where multiple values are supplied for `attribution`, clients _MUST_ display at least one value. Clients _SHOULD_ try to match the language preferred by the user, and if the preferred language is unclear or unavailable, then the client may choose which value to display.
 
-The value of the `logo` property may be an object in order to indicate the URI of the image and an IIIF Image API [service](#related-services) for the logo. While possible, it is _RECOMMENDED_ that logos with IIIF services do not, themselves, have logos. Clients encountering logos with logos are _NOT_ required to display a potentially infinite set.
+The value of the `logo` property may be an object in order to indicate the URI of the image and an IIIF Image API [service](#related-services) for the logo. While possible, it is _RECOMMENDED_ that logos with IIIF services do not, themselves, have logos. Clients encountering logos with logos are not required to display a potentially infinite set.
 
 The following shows a simple use of each of these properties:
 
@@ -857,24 +857,16 @@ Many thanks to  Ben Albritton, Matthieu Bonicel, Anatol Broder, Kevin Clarke, To
 
 | Date       | Description |
 | ---------- | ----------- |
-| 2015-06-01 | Version 2.1 Draft (Cruising Cardinal) |
-| 2014-08-12 | Version 2.0-final-draft (Voodoo Bunny) RFC [View change log][change-log] |
-| 2014-07-01 | Version 2.0-draft2 RFC  |
-| 2014-06-01 | Version 2.0-draft RFC   |
-| 2013-09-17 | Version 1.1 (unnamed) released.                  |
-| 2013-09-04 | Added @context to Image Information Request table in section 5. |
-| 2013-06-26 | Changed quality parameter definitions in section 4.4. |
-| 2013-06-17 | Draft release 1.1. [View change log][change-log11]. |
-| 2012-08-10 | Release 1.0                            |
-| 2012-07-13 | Incorporates responses to RFC feedback |
-| 2012-03-09 | Initial release                        |
-| 2012-04-13 | 0.2 after internal review and IIIF April Meeting |
-| 2012-05-02 | RFC version |
+| 2015-06-01 | Version 2.1-draft (Cruising Cardinal) RFC [View change log][change-log21] |
+| 2014-09-11 | Version 2.0 (Vodoo Bunny) released [View change log][change-log20] |
+| 2013-09-17 | Version 1.1 (unnamed) released [View change log][change-log11] |
+| 2012-08-10 | Version 1.0 |
 {: .api-table}
 
 [authentication-ext]: /api/auth/
 [change-log11]: /api/image/1.1/change-log.html "Change Log for Version 1.1"
-[change-log]: /api/image/2.0/change-log.html "Change Log for Version 2.0"
+[change-log20]: /api/image/2.0/change-log.html "Change Log for Version 2.0"
+[change-log21]: /api/image/2.1/change-log.html "Change Log for Version 2.1"
 [compliance]: /api/image/2.0/compliance.html "Image API Compliance"
 [compliance-quality]: /api/image/2.0/compliance.html#quality "Image API Compliance: Quality"
 [cors-spec]: http://www.w3.org/TR/cors/ "Cross-Origin Resource Sharing"
