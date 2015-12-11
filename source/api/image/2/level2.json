@@ -1,13 +1,11 @@
----
----
 {
-  "@context" : "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
-  "@id" : "http://iiif.io/api/image/{{ site.image_api.latest.major }}/level2.json",
-  "@type" : "iiif:ImageProfile",
+  "@context": "http://iiif.io/api/image/2/context.json",
+  "@id": "http://iiif.io/api/image/2/level2.json",
+  "@type": "iiif:ImageProfile",
 
-  "formats" : [ "jpg", "png" ],
-  "qualities" : [ "default", "bitonal" ],
-  "supports" : [
+  "formats": ["jpg", "png"],
+  "qualities": ["default", "bitonal"],
+  "supports": [
     "baseUriRedirect",
     "cors",
     "jsonldMediaType",
