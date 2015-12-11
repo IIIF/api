@@ -66,7 +66,7 @@ This table summarizes the services available and which APIs they may be used in.
 
 | Service                        | Image API                 | Presentation API          |
 | ------------------------------ |:-------------------------:|:-------------------------:|
-| [Image Information][imageinfo] | ![not allowed][icon-na]   | ![recommended][icon-recc] |  
+| [Image Information][imageinfo] | ![optional][icon-opt]     | ![recommended][icon-recc] |  
 | [GeoJSON][lgeojson]            | ![not allowed][icon-na]   | ![recommended][icon-recc] |
 | [Physical Dimensions][physdim] | ![recommended][icon-recc] | ![recommended][icon-recc] |
 {: .api-table}
@@ -74,7 +74,7 @@ This table summarizes the services available and which APIs they may be used in.
 ### 3.1 Image Information
 _Added: 2014-05-20_
 
-The Image Information service allows the [Presentation API][prezi-api] to reference content to be displayed via the [Image API][image-api].  The JSON-LD content to be referenced or embedded is the Image Information document, also known as `info.json`.  The service _MUST_ have the `@context`, `@id` and `profile` keys, pointing to the context document, service base URI and compliance level profile respectively.
+The Image Information service allows the [Presentation API][prezi-api], and potentially other APIs, to reference content to be displayed via the [Image API][image-api].  The JSON-LD content to be referenced or embedded is the Image Information document, also known as `info.json`.  The service _MUST_ have the `@context`, `@id` and `profile` keys, pointing to the context document, service base URI and compliance level profile respectively.
 
 {% highlight json %}
 {
@@ -118,6 +118,25 @@ The service _MAY_ have additional information embedded from the Image Informatio
 }
 {% endhighlight %}
 
+With the `logo` property added to the Image Information description in version 2.1 of the Image API{% unless site.image_api.latest.major >= 2 and site.image_api.latest.minor >= 1 %} (forthcoming){% endunless %}, it is possible and reasonable for one `info.json` response to embed another using this pattern.  In this case, the second service is related to the icon that should be displayed when a client renders the image described by the main response.
+
+{% highlight json %}
+{
+  "@context" : "http://iiif.io/api/image/{{ page.major }}/context.json",
+  "@id" : "http://www.example.org/image-service/baseImage",
+  "protocol" : "http://iiif.io/api/image",
+
+  "attribution" : "Provided by Example Organization",
+  "logo" : {
+    "@id": "http://example.org/image-service/logo/full/full/0/default.png",
+    "service": {
+      "@id": "http://example.org/image-service/logo",
+      "protocol": "http://iiif.io/api/image",
+      "profile": "http://iiif.io/api/image/{{ page.major }}/2/level2.json"
+    }
+  }
+}
+{% endhighlight %}
 
 
 ### 3.2 GeoJSON
@@ -156,7 +175,7 @@ Or embedding the content:
 {% endhighlight %}
 
 ### 3.3 Physical Dimensions
-_Added: 2014-05-20_, _Latest Revision: 2014-07-21_
+_Added: 2014-05-20_, _Latest Revision: 2015-12-04_
 
 For digitized objects, it is often useful to know the physical dimensions of the object.  When available, they allow a client to present a ruler, or other rendition of physical scale, to the user.  However, implementers are warned that while this information may be available, frequently:
 
@@ -173,12 +192,11 @@ The physical dimensions description includes the following properties:
 
 | Property         | Required? | Description |
 | ---------------- | --------- | ----------- |
-| `@context`       | Required  | The string "http://iiif.io/api/annex/service/physdim/1/context.json". |
+| `@context`       | Required  | The string "http://iiif.io/api/annex/services/physdim/1/context.json". |
 | `@id`            | Optional  | A URI that will return the information, perhaps generated dynamically from the image. |
-| `profile`        | Required  | The string "http://iiif.io/api/annex/service/physdim". |
+| `profile`        | Required  | The string "http://iiif.io/api/annex/services/physdim". |
 | `physicalScale` | Required  | The floating point ratio by which the digital resource's height and width are multipled in order to determine the depicted scene's height and width.  |
 | `physicalUnits` | Required  | The physical units for the generated height and width.  Possible values are: "mm", "cm", in". |
-
 {: .api-table}
 
 The following example demonstrates the resulting structure, as embedded within the [Presentation API][prezi-api] response:
@@ -186,8 +204,8 @@ The following example demonstrates the resulting structure, as embedded within t
 {% highlight json %}
 {
   "service": {
-    "@context": "http://iiif.io/api/annex/service/physdim/1/context.json",
-    "profile": "http://iiif.io/api/annex/service/physdim",
+    "@context": "http://iiif.io/api/annex/services/physdim/1/context.json",
+    "profile": "http://iiif.io/api/annex/services/physdim",
     "physicalScale": 0.0025,
     "physicalUnits": "in"
   }
@@ -196,9 +214,9 @@ The following example demonstrates the resulting structure, as embedded within t
 
 If the above example was associated with a Canvas of width 4000 and height 6000, then the physical object would be 4000 * 0.0025 = 10 inches wide, and 15 inches high.  If it was associated with an image with width 4000 and height 6000, then it would mean the image was 4000 pixels for 10 inches, or 400 pixels per inch.
 
-_Note_ 
-
+__Note:__
 There is a proposal to add a confidence label or value to this service to allow clients to either determine if they should use the information, or to display an appropriate warning or description when using it.  This proposal is currently deferred until additional experience and use cases have been explored.  Any interest in this feature should be brought up on [iiif-discuss][iiif-discuss].
+{: .note}
 
 
 ## Appendices
@@ -213,7 +231,8 @@ Thanks to the members of the [IIIF][iiif-community] for their continuous engagem
 
 | Date       | Description                                        |
 | ---------- | -------------------------------------------------- |
-| 2014-06-01 | Version 1.0 RFC                                    |
+| 2015-12-04 | Fix link for physical dimensions context           |
+| 2014-06-01 | Version 1.0                                        |
 
    [semver]: /api/annex/notes/semver.html "Versioning of APIs"
    [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"

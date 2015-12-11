@@ -776,7 +776,11 @@ The following sections describe known use cases for building representations of 
 
 ###  6.1. Segments
 
-It is important to be able to extract parts, or segments, of resources. In particular a very common requirement is to associate a resource with part of a canvas, or part of an image with either the entire canvas or part thereof. Secondly, as transcriptions are often made available in XML files, extracting the correct page to associate with the canvas, or line to associate with part of the canvas, is equally useful for reusing existing material. These can be accomplished using URI fragments for simple cases. Examples are given below:
+It is important to be able to extract parts, or segments, of resources. In particular a very common requirement is to associate a resource with part of a canvas, or part of an image with either the entire canvas or part thereof. Secondly, as transcriptions are often made available in XML files, extracting the correct page to associate with the canvas, or line to associate with part of the canvas, is equally useful for reusing existing material. These can be accomplished using URI fragments for simple cases. 
+
+Note that if both there are segments of both image and canvas, then the aspect ratio _SHOULD_ be the same, but there are circumstances where they _MAY_ be different.  In this case the rendering agent _SHOULD_ rescale the image segment to the dimensions provided on the canvas.
+
+Examples are given below:
 
   * Segments of both static images and canvases may be selected by adding a [rectangular bounding box][media-frags] after the URI. The fragment _MUST_ take the form of `#xywh=` as per this example:
 
@@ -810,7 +814,7 @@ It is important to be able to extract parts, or segments, of resources. In parti
   "@type": "oa:Annotation",
   "motivation": "sc:painting",
   "resource": {
-    "@id": "http://www.example.org/iiif/book1-page1/40,50,1200,1800/full/0/default.jpg",
+    "@id": "http://www.example.org/iiif/book1-page1/50,50,1250,1850/full/0/default.jpg",
     "@type": "oa:SpecificResource",
     "full": {
       "@id": "http://www.example.org/iiif/book1-page1/full/full/0/default.jpg",
@@ -824,10 +828,10 @@ It is important to be able to extract parts, or segments, of resources. In parti
     "selector": {
       "@context": "http://iiif.io/api/annex/openannotation/context.json",
       "@type": "iiif:ImageApiSelector",
-      "region": "40,50,1200,1800"
+      "region": "50,50,1250,1850"
     }
   },
-  "on": "http://www.example.org/iiif/book1/canvas/p1#xywh=50,50,320,240"
+  "on": "http://www.example.org/iiif/book1/canvas/p1#xywh=0,0,600,900"
 }
     {% endhighlight %}
 
