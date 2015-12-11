@@ -105,11 +105,11 @@ There are other types of resources including annotation lists, annotations, rang
 
 ##  3. Presentation Resource Properties
 
-This specification defines properties in four distinct areas. Most of the properties may be associated with any of the resource types, and may have more than one value.  The property relates to the resource that it is associated with, so a `description` property on a manifest is a description of the object, whereas a `description` property on a canvas is a description of that particular page or view of the object.
+This specification defines properties in five distinct areas. Most of the properties may be associated with any of the resource types, and may have more than one value.  The property relates to the resource that it is associated with, so a `description` property on a manifest is a description of the object, whereas a `description` property on a canvas is a description of that particular page or view of the object.
 
 The requirements for the use of the properties are summarized in [Appendix B][appendixB].
 
-Other properties are possible, either via custom extensions or endorsed by the IIIF. If a client discovers properties that it does not understand, then it _MUST_ ignore them.  Other properties _SHOULD_ consist of a prefix and a name in the form "`prefix:name`" to ensure it does not collide with a property defined by IIIF specifications.  [Services][annex] _SHOULD_ be used for extensions if at all possible, and a [JSON-LD context document][ld-exts] should be added that defines the semantics of the new properties.
+Other properties are allowed, either via custom extensions or endorsed by the IIIF. If a client discovers properties that it does not understand, then it _MUST_ ignore them.  Other properties _SHOULD_ consist of a prefix and a name in the form "`prefix:name`" to ensure it does not collide with a property defined by IIIF specifications.  [Services][annex] _SHOULD_ be used for extensions if at all possible, and a [JSON-LD context document][ld-exts] should be added that defines the semantics of the new properties.
 
 ####  3.1. Descriptive Properties
 
