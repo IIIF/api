@@ -860,7 +860,9 @@ Content _MAY_ be embedded instead of referenced by using the following pattern w
 {"resource": {"@type": "cnt:ContextAsText", "chars": "text here"}}
 {% endhighlight %}
 
-If it is desirable to associate the language with the content, then it _MUST_ be `language` not `@language` (otherwise the `chars` field would need to be an array with `@value`). The media type _MAY_ be given using a `format` field.
+The media type _SHOULD_ be provided using the `format` field, and while any media type is possible, it is _RECOMMENDED_ that `text/plain` or `text/html` be used to maximize compatibility.
+
+If it is desirable to describe the language of the content, then it _MUST_ be given with the `language` property not `@language`. 
 
 An example of this feature:
 
@@ -1050,7 +1052,7 @@ Unlike painting annotations, comments or annotations with other motivations, _SH
 }
 {% endhighlight %}
 
-Other resources may also have comments made about them, including Manifests (comments about the object), Sequences (comments about that particular ordering), Ranges (comments about the section), Annotations (replies to the targeted Annotation), and so forth.  In order for the client to discover these Annotations, they can be included in an AnnotationList referenced from the target resource.  This is accomplished by reusing the `otherContent` pattern.  Any resource may have a list of annotations associated with it in this way.
+Other resources may also have comments made about them, including manifests (comments about the object), sequences (comments about that particular ordering), ranges (comments about the section), annotations (replies to the targeted annotation), and so forth.  In order for the client to discover these annotations, they can be included in an AnnotationList referenced from the target resource.  This is accomplished by reusing the `otherContent` pattern.  Any resource may have a list of annotations associated with it in this way.
 
 {% highlight json %}
 {
@@ -1065,6 +1067,28 @@ Other resources may also have comments made about them, including Manifests (com
       "@type": "sc:AnnotationList"
     }
   ]
+}
+{% endhighlight %}
+
+
+###  6.8. Hotspot Linking
+
+It is also possible to use annotations to create links between resources, both within the manifest or to external content.  This can be used to link to the continuation of an article in a digitized newspaper in a different canvas, or to link to an external web page that describes the diagram in the canvas.
+
+Hotspot linking is accomplished using an annotation with a `motivation` of "oa:linking". The region of the canvas that should trigger the link when clicked is specified in the `on` field in the same way as other annotations. The linked resource is given in the `resource` field.  The linked resource _MAY_ also be another canvas or region of a canvas.  The user experience of whether the linked resource is opened in a new tab, new window or by replacing the current view is up to the implementation.
+
+{% highlight json %}
+{
+  "@context": "http://iiif.io/api/presentation/2/context.json",
+  "@id":"http://www.example.org/iiif/book1/annotation/anno1",
+  "@type":"oa:Annotation",
+  "motivation":"oa:linking",
+  "resource": {
+    "@id":"http://www.example.org/page-to-go-to.html",
+    "@type":"dctypes:Text",
+    "format":"text/html"
+  },
+  "on":"http://www.example.org/iiif/book1/canvas/p1#xywh=500,500,150,30"
 }
 {% endhighlight %}
 
