@@ -814,7 +814,7 @@ Examples are given below:
   "@type": "oa:Annotation",
   "motivation": "sc:painting",
   "resource": {
-    "@id": "http://www.example.org/iiif/book1-page1/50,50,1200,1800/full/0/default.jpg",
+    "@id": "http://www.example.org/iiif/book1-page1/50,50,1250,1850/full/0/default.jpg",
     "@type": "oa:SpecificResource",
     "full": {
       "@id": "http://www.example.org/iiif/book1-page1/full/full/0/default.jpg",
@@ -828,10 +828,9 @@ Examples are given below:
     "selector": {
       "@context": "http://iiif.io/api/annex/openannotation/context.json",
       "@type": "iiif:ImageApiSelector",
-      "region": "40,50,1200,1800"
+      "region": "50,50,1250,1850"
     }
   },
-  // Canvas aspect ratio is half that of the image
   "on": "http://www.example.org/iiif/book1/canvas/p1#xywh=0,0,600,900"
 }
     {% endhighlight %}
