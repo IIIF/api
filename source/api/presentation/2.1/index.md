@@ -282,7 +282,7 @@ related
     * Any resource _MAY_ have one or more external resources related to it.
 
 rendering
-:   A link to an external resource intended for display or download by a human user as an alternative rendering of the resource that has the property.  Examples include a rendering of a manifest as the PDF or EPUB with the images and text of the book, or a slide deck with the images of museum object.  A label and the format of the rendering resource _MUST_ be supplied to allow clients to present the option to the user.  This is a more specific relationship than the `related` property above, which could be any related resource rather than an alternate view of the resource.
+:   A link to an external resource intended for display or download by a human user. This property can be used to link from a manifest, collection or other resource to the preferred viewing environment for that resource, such as a viewer page on the publisher's web site. Other uses include a rendering of a manifest as a PDF or EPUB with the images and text of the book, or a slide deck with images of the museum object. A label and the format of the rendering resource must be supplied to allow clients to present the option to the user.
 
     Usage:
     {: .usage}
