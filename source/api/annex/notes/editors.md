@@ -30,13 +30,13 @@ This document is not subject to [IIIF's versioning semantics][iiif-semver]. Chan
 
 ## 1. Overview
 
-The IIIF editors are responsible for facilitating discussions across the IIIF community, digesting those discussions into use cases, and reflecting those use cases into new and revised specifications for the community to implement. This process is intended to be as transparent as possible. This document exists to further that intention by defining the IIIF editorial process and the responsibilities and expectations of the individual editors.
+The IIIF editors are responsible for facilitating discussions across the IIIF community, ensuring those discussions are captured as use cases, and reflecting those use cases into new and revised specifications for the community to implement. This process is intended to be as transparent as possible. This document exists to further that intention by defining the IIIF editorial process and the responsibilities and expectations of the editorial group.
 
 ## 2. Community Process
 
 ### 2.1 Proposals and Feedback
 
-Community members should propose and discuss features and changes via [IIIF-Discuss][iiif-discuss]. However, there are a few other ways in which the IIIF Community can reach out to the editors. In particular, the IIIF holds a bi-weekly community conference call, the details and agenda for which are announced on IIIF-Discuss. Additionally, the [iiif.io issues on Github][iiif-github-issues] are open, and are especially useful for implementers who want to track the editorial discussion of a specific issue. Finally, conversations with individual editors are also possible, but are the least practical way to propose changes because the conversation will then have to be repeated to allow community input through one or more of the channels listed above.
+Community members should propose and discuss features and changes via [IIIF-Discuss][iiif-discuss]. However, there are a few other ways in which the IIIF Community can engage in the specification process. In particular, the IIIF holds a bi-weekly community conference call, the details and agenda for which are announced on IIIF-Discuss. Additionally, the [iiif.io issues on Github][iiif-github-issues] are open, and are especially useful for implementers who want to track the discussion around an issue of interest. Finally, conversations with individual editors are also possible, but are the least practical way to propose changes because the conversation will then have to be repeated to allow community input through one or more of the channels listed above.
 
 ### 2.2 Use Cases and Support
 
@@ -44,7 +44,7 @@ New specifications and changes to existing specification must have one or more [
 
 ### 2.3 Evaluation and Testing
 
-In order to be considered ready for review, new features must have two open-source server-side implementations, at least one of which should be in production. New features must also have at least one open-source client-side implementation, which may be a proof-of-concept.
+In order to be considered ready for final review, as below, new features must have two open-source server-side implementations, at least one of which should be in production. New features must also have at least one open-source client-side implementation, which may be a proof-of-concept.
 
 ### 2.4 Community Review
 
@@ -74,7 +74,7 @@ The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _S
 
 Editorial collaboration takes place primarily in the [iiif.io repository on GitHub][iiif-github]. When editors submit changes for revision, they _MUST_ adhere to the following criteria:
 
- * There _SHOULD_ be a Github issue that explains the reason for the change and serves as a platform for discussion. Discussion regarding smaller changes may take place directly on a pull request.
+ * There _SHOULD_ be a Github issue that explains the reason for the change and serves as a platform for discussion. Discussion regarding smaller, primarily word level, changes may take place directly on a pull request in the comments or as line notes.
  * The changes _MUST_ be made in a branch.
  * The branch _MUST_ pass all integration tests before making a pull request.
  * A link to the branch (i.e. _http://mybranch.iiif.io_) _MUST_ be included in the pull request relevant to the change.
@@ -106,7 +106,7 @@ The editors _MUST_ provide a summary of all meetings, and _SHOULD_ provide a sum
 
 ## 4. Editorial Team Membership and Selection
 
-Per the IIIF Memorandum of Understanding covering the establishment of an IIIF Consortium, the editors may nominate additional editors at any time. All current editors _MUST_ agree before an invitation is issued. Editors will chose from participants within the community and/or experts willing to lend their knowledge and experience to new specifications. Opportunities to better the gender, race, and age balance of the existing editorial team will also be a consideration. New editors _MUST_ be approved by the IIIF Executive Group.
+Per the Memorandum of Understanding that established the IIIF Consortium, the editors may nominate additional editors at any time. All current editors _MUST_ agree before an invitation is issued. Editors will chose from participants within the community and/or experts willing to lend their knowledge and experience to new specifications. Opportunities to better the gender, race, and age balance of the existing editorial team will also be a consideration. New editors _MUST_ be approved by the IIIF Executive Group.
 
 There is no set number of editors, but this does not mean that the number of existing editors will not be taken into account when considering new editors. The existing editors will seek out new or additional editors when they are lacking knowledge or significant empathy for use cases in an area that the community has agreed is important.
 
