@@ -1,0 +1,22 @@
+{
+  "@context": {
+    "iiif": "http://iiif.io/api/image/2#",
+    "sc": "http://iiif.io/api/presentation/2#",
+    "auth": "http://iiif.io/api/auth/0#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "svcs": "http://rdfs.org/sioc/services#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+
+    "profile": {
+      "@id": "dcterms:conformsTo",
+      "@type": "@id"
+    },
+    "service": {
+      "@type": "@id",
+      "@id": "svcs:has_service"
+    },
+    "label": {
+      "@id": "rdfs:label"
+    }
+  }
+}
