@@ -16,7 +16,7 @@
     "as": "http://www.w3.org/ns/activitystreams#",
     "license": {
       "@type": "@id",
-      "@id": "dcterms:license"
+      "@id": "dcterms:rights"
     },
     "service": {
       "@type": "@id",
