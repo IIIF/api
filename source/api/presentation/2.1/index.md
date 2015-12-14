@@ -116,8 +116,6 @@ Other properties are allowed, either via custom extensions or endorsed by the II
 label
 :   A human readable label, name or title for the resource. This property is intended to be displayed as a short, textual surrogate for the resource if a human needs to make a distinction between it and similar resources, for example between pages or between a choice of images to display.
 
-    Usage:
-    {: .usage}
     * A manifest _MUST_ have at least one label, and it _SHOULD_ be the name of the object or title of the intellectual work that it embodies.
     * A sequence  _MAY_ have one or more labels, and if there are multiple sequences in a single manifest then they _MUST_ each have at least one label. The label _SHOULD_ briefly convey the nature of sequence, such as "Current Page Order".
     * A canvas _MUST_ have at least one label, and it _SHOULD_ be the page or view label such as "p. 1", "front", or "north view".
@@ -127,8 +125,6 @@ label
 metadata
 :   A list of short descriptive entries, given as pairs of human readable label and value to be displayed to the user. The value _SHOULD_ be either simple HTML, including links and text markup, or plain text, and the label _SHOULD_ be plain text. There are no semantics conveyed by this information, and clients _SHOULD NOT_ use it for discovery or other purposes. This list of descriptive pairs _SHOULD_ be able to be displayed in a tabular form in the user interface. Clients _SHOULD_ have a way to display the information about manifests and canvases, and _MAY_ have a way to view the information about other resources. The client _SHOULD_ display the pairs in the order provided by the description. A pair might be used to convey the author of the work, information about its creation, a brief physical description, or ownership information, amongst other use cases. The client is not expected to take any action on this information beyond displaying the label and value. An example pair of label and value might be a label of "Author" and a value of "Jehan Froissart".
 
-    Usage:
-    {: .usage}
     * A manifest _SHOULD_ have one or more metadata pairs associated with it describing the object or work.
     * A sequence _MAY_ have one or more metadata pairs associated with it to describe the difference between it and other sequences.
     * A canvas _MAY_ have one or more metadata pairs associated with it to describe its particular features.
@@ -138,8 +134,6 @@ metadata
 description
 :   A longer-form prose description of the object or resource that the property is attached to, intended to be conveyed to the user as a full text description, rather than a simple label and value. It _MAY_ be in simple HTML or plain text.  It can duplicate any of the information from the `metadata` fields, along with additional information required to understand what is being displayed. Clients _SHOULD_ have a way to display the descriptions of manifests and canvases, and _MAY_ have a way to view the information about other resources.
 
-    Usage:
-    {: .usage}
     * A manifest _SHOULD_ have one or more descriptions that describe the object or work.
     * A sequence _MAY_ have one or more descriptions to further explain how it differs from other sequences.
     * A canvas _MAY_ have one or more descriptions to describe particular features of the view.
@@ -149,8 +143,6 @@ description
 thumbnail
 :   A small image that depicts or pictorially represents the resource that the property is attached to, such as the title page, a significant image or rendering of a canvas with multiple content resources associated with it.  It is _RECOMMENDED_ that a [IIIF Image API][image-api] service be available for this image for manipulations such as resizing.
 
-    Usage:
-    {: .usage}
     * A manifest _SHOULD_ have exactly one thumbnail image that represents the entire object or work, and _MAY_ have more than one.
     * A sequence _MAY_ have one or more thumbnails and _SHOULD_ have at least one thumbnail if there are multiple sequences in a single manifest. Each of the thumbnails _SHOULD_ be different.
     * A canvas _MAY_ have one or more thumbnails and _SHOULD_ have at least one thumbnail if there are multiple images or resources that make up the representation.
@@ -162,22 +154,16 @@ thumbnail
 attribution
 :   Text that _MUST_ be shown when the resource it is associated with is displayed or used. For example, this could be used to present copyright or ownership statements, or simply an acknowledgement of the owning and/or publishing institution.   In the case where multiple values are supplied for attribution, clients _MUST_ display at least one value. Clients _SHOULD_ try to match the language preferred by the user, and if the preferred language is unclear or unavailable, then the client may choose which value to display.
 
-    Usage:
-    {: .usage}
     * Any resource _MAY_ have one or more attribution labels.
 
 license
 :   A link to an external resource that describes the license or rights statement under which the resource may be used. The rationale for this being a URI and not a human readable label is that typically there is one license for many resources, and the text is too long to be displayed to the user along with the object. If displaying the text is a requirement, then it is _RECOMMENDED_ to include the information using the `attribution` property instead.
 
-    Usage:
-    {: .usage}
     * Any resource _MAY_ have one or more licenses associated with it.
 
 logo
 :   A small image that represents an individual or organization associated with the resource it is attached to.  This could be the logo of the owning or hosting institution. The logo _MUST_ be clearly rendered when the resource is displayed or used, without cropping, rotating or otherwise distorting the image. It is _RECOMMENDED_ that a [IIIF Image API][image-api] service be available for this image for manipulations such as resizing. 
 
-    Usage:
-    {: .usage}
     * Any resource _MAY_ have exactly one logo associated with it.
 
 
@@ -186,8 +172,6 @@ logo
 @id
 :   The URI that identifies the resource. It is _RECOMMENDED_ that an HTTP URI be used for all resources. Recommended HTTP URI patterns for the different classes of resource are given below.  URIs from any [registered scheme][iana-uri-schemes] _MAY_ be used, and implementers may find it convenient to use a [UUID URN][rfc-4122] of the form: `"urn:uuid:uuid-goes-here-1234"`.  Resources that do not require URIs _MAY_ be assigned [blank node identifiers][rdf11-blank-nodes]; this is the same as omitting `@id`.
 
-    Usage:
-    {: .usage}
     * A manifest _MUST_ have exactly one id, and it _MUST_ be the http(s) URI at which the manifest is published.
     * A sequence _MAY_ have an id and _MUST NOT_ have more than one.
     * A canvas _MUST_ have exactly one id, and it _MUST_ be an http(s) URI.  The canvas's JSON representation _SHOULD_ be published at that URI.
@@ -197,15 +181,11 @@ logo
 @type
 :   The type of the resource.  For the resource types defined by this specification, the value of `@type` will be described in the sections below.  For content resources, the type may be drawn from other vocabularies. Recommendations for basic types such as image, text or audio are also given in the sections below.
 
-    Usage:
-    {: .usage}
     * All resources _MUST_ have at least one type specified.
 
 format
 :   The specific media type (often called a MIME type) of a content resource, for example "image/jpeg". This is important for distinguishing text in XML from plain text, for example.
 
-    Usage:
-    {: .usage}
     * A content resource _MAY_ have exactly one format, and if so, it _MUST_ be the value of the `Content-Type` header returned when the resource is dereferenced.
     * All other resources _MUST NOT_ have a format.
 
@@ -214,8 +194,6 @@ format
 height
 :   The height of a canvas or image resource. For images, the value is in pixels. For canvases, the value does not have a unit. In combination with the width, it conveys an aspect ratio for the space in which content resources are located.
 
-    Usage:
-    {: .usage}
     * A canvas _MUST_ have exactly one height. 
     * Content resources _MAY_ have exactly one height, given in pixels, if appropriate.
     * All other resources _MUST NOT_ have a height.
@@ -223,8 +201,6 @@ height
 width
 :   The width of a canvas or image resource. For images, the value is in pixels. For canvases, the value does not have a unit. In combination with the height, it conveys an aspect ratio for the space in which content resources are located.
 
-    Usage:
-    {: .usage}
     * A canvas _MUST_ have exactly one width. 
     * Content resources _MAY_ have exactly one width, given in pixels, if appropriate.
     * All other resources _MUST NOT_ have a width.
@@ -237,8 +213,6 @@ viewingDirection
     * "top-to-bottom": The object is displayed from the top to the bottom.
     * "bottom-to-top": The object is displayed from the bottom to the top.
 
-    Usage:
-    {: .usage}
     * A manifest _MAY_ have exactly one viewing direction, and if so, it applies to all of its sequences unless the sequence specifies its own viewing direction.
     * A sequence _MAY_ have exactly one viewing direction, and it _MAY_ be different to that of the manifest.
     * A collection, canvas or content resource _MUST NOT_ have a viewing direction.
@@ -255,8 +229,6 @@ viewingHint
     * "top": Only valid on a range. A range which has this `viewingHint` is the top-most node in a hierarchy of ranges that represents a structure to be rendered by the client to assist in navigation. For example, a table of contents within a paged object, major sections of a 3d object, the textual areas within a single scroll, and so forth.  Other ranges that are descendants of the "top" range are the entries to be rendered in the navigation structure.  There _MAY_ be multiple ranges marked with this hint. If so, the client _SHOULD_ display a choice of multiple structures to navigate through.
     * "facing-pages": Canvases with this hint, in a sequence or manifest with the "paged" viewing hint, _MUST_ be displayed by themselves, as they depict both parts of the opening.  If all of the canvases are like this, then page turning is not possible, so simply use "individuals" instead.
 
-    Usage:
-    {: .usage}
     * A manifest, sequence or range _MAY_ have one or more viewing hints, with scope as per viewingDirection.
     * A canvas _MAY_ have one or more viewing hints, and the only hint defined by this specification for canvases is "non-paged".  "non-paged" is only valid if the canvas is within a manifest, sequence or range that is "paged", and the particular canvas _MUST NOT_ be displayed in a page-turning viewer.
     * A content resource _MAY_ have one or more viewing hints but there are no defined values in this specification.
@@ -267,8 +239,6 @@ viewingHint
 navDate
 :   A date that the client can use for navigation purposes when presenting the resource to the user in a time-based user interface, such as a calendar or timeline.  The value _MUST_ be an `xsd:dateTime` literal in UTC, expressed in the form "YYYY-MM-DDThh:mm:ssZ".  If the exact time is not known, then "00:00:00" _SHOULD_ be used. Similarly, the month or day _SHOULD_ be 01 if not known.  There _MUST_ be at most one `navDate` associated with any given resource.  More descriptive date ranges, intended for display directly to the user, _SHOULD_ be included in the `metadata` property for human consumption.  
 
-    Usage:
-    {: .usage}
     * A collection or manifest _MAY_ have exactly one navigation date associated with it.
 
 
@@ -277,15 +247,11 @@ navDate
 related
 :   A link to an external resource intended to be displayed directly to the user, and is related to the resource that has the `related` property. Examples might include a video or academic paper about the resource, a website, an HTML description, and so forth. A label and the format of the related resource _SHOULD_ be given to assist clients in rendering the resource to the user.
 
-    Usage:
-    {: .usage}
     * Any resource _MAY_ have one or more external resources related to it.
 
 rendering
 :   A link to an external resource intended for display or download by a human user. This property can be used to link from a manifest, collection or other resource to the preferred viewing environment for that resource, such as a viewer page on the publisher's web site. Other uses include a rendering of a manifest as a PDF or EPUB with the images and text of the book, or a slide deck with images of the museum object. A label and the format of the rendering resource __MUST__ be supplied to allow clients to present the option to the user.
 
-    Usage:
-    {: .usage}
     * A manifest _MAY_ have one or more external rendering resources.
     * A sequence _MAY_ have one or more external rendering resources.
     * A canvas _MAY_ have one or more external rendering resources.
@@ -294,30 +260,22 @@ rendering
 service
 :   A link to a service that makes more functionality available for the resource, such as from an image to the base URI of an associated [IIIF Image API][image-api] service. The service resource _SHOULD_ have additional information associated with it in order to allow the client to determine how to make appropriate use of it, such as a `profile` link to a service description. It _MAY_ also have relevant information copied from the service itself. This duplication is permitted in order to increase the performance of rendering the object without necessitating additional HTTP requests.
 
-    Usage:
-    {: .usage}
     * Any resource _MAY_ have one or more links to an external service.
     * Please see the [Service Profiles][annex] document for known services.
 
 seeAlso
 :   A link to a machine readable document that semantically describes the resource with the `seeAlso` property, such as an XML or RDF description.  This document could be used for search and discovery or inferencing purposes, or just to provide a longer description of the resource. The `profile` and `format` properties of the document _SHOULD_ be given to help the client to make appropriate use of the document.
 
-    Usage:
-    {: .usage}
     * Any resource _MAY_ have one or more external descriptions related to it.
 
 within
 :   A link to a resource that contains the current resource, such as annotation lists within a layer. This also allows linking upwards to collections that allow browsing of the digitized objects available.
 
-    Usage:
-    {: .usage}
     * Any resource _MAY_ be within one or more containing resources.
 
 startCanvas
 :   A link from a sequence or range to a canvas that is contained within the sequence.  On seeing this relationship, a client _SHOULD_ advance to the specified canvas when beginning navigation through the sequence/range.  This allows the client to begin with the first canvas that contains interesting content rather than requiring the user to skip past blank or empty canvases manually.
 
-    Usage:
-    {: .usage}
     * A sequence or a range _MAY_ have exactly one canvas as its start canvas.
     * Other resources _MUST NOT_ have a start canvas.
 
@@ -326,48 +284,36 @@ startCanvas
 first
 :  A link from a containing resource, such as a collection or layer, to the first sub-resource, another collection or an annotation list respectively, that is contained within it. The sub-resource _SHOULD_ be referenced by just its URI (from `@id`) but _MAY_ also have more information associated with it as an object.
   
-    Usage:
-    {: .usage}
     * A collection _MAY_ have exactly one collection as its first sub-collection.
     * A layer _MAY_ have exactly one annotation list as its first annotation list.
 
 last
 :  A link from a containing resource to the last sub-resource that is contained within it. The sub-resource _SHOULD_ be referenced by just its URI (from `@id`) but _MAY_ also have more information associated with it as an object.
 
-    Usage:
-    {: .usage}
     * A collection _MAY_ have exactly one collection as its last sub-collection.
     * A layer _MAY_ have exactly one annotation list as its last annotation list.
 
 total
 :  The total number of leaf resources, such as annotations within a layer, contained within a set of sub-resources. The value _MUST_ be a non-negative integer.
 
-    Usage:
-    {: .usage}
     * A collection _MAY_ have exactly one total, which _MUST_ be the total number of manifests in all of its hierarchy of sub-collections.
     * A layer _MAY_ have exactly one total, which _MUST_ be the total number of annotations in all of its annotation lists.
 
 next
 :  A link from a contained sub-resource to the sibling sub-resource that follows it. The sibling sub-resource _SHOULD_ be referenced by just its URI (from `@id`) but _MAY_ also have more information associated with it as an object.
 
-    Usage:
-    {: .usage}
     * A sub-collection _MAY_ have exactly one collection as its next sibling.
     * An annotation list _MAY_ have exactly one annotation list as its next sibling.
 
 prev
 :  A link from a contained sub-resource to the sibling sub-resource that precedes it. The sibling sub-resource _SHOULD_ be referenced by just its URI (from `@id`) but _MAY_ also have more information associated with it as an object. 
 
-    Usage:
-    {: .usage}
     * A sub-collection _MAY_ have exactly one collection as its previous sibling.
     * An annotation list _MAY_ have exactly one annotation list as its previous sibling.
 
 startIndex
 :  The 0 based index of the first leaf resource in the current sub-resource, relative to the containing resource. The value _MUST_ be a non-negative integer.
 
-    Usage:
-    {: .usage}
     * A sub-collection _MAY_ have exactly one startIndex, which _MUST_ be the index of its first manifest relative to the order established by its top most containing collection.
     * An annotation list _MAY_ have exactly one startIndex, which _MUST_ be the index of its first annotation relative to the order established by its layer.
 
