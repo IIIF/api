@@ -50,6 +50,10 @@
       "@type": "@id",
       "@id": "sc:hasStartCanvas"
     },
+    "contentLayer": {
+      "@type": "@id",
+      "@id": "sc:hasContentLayer"
+    },
     "collections": {
       "@type": "@id",
       "@id": "sc:hasCollections",
