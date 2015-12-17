@@ -629,37 +629,27 @@ Semantic Tags or other URIs searchable via the `q` parameter might also have lab
 ignored
 :   The set of parameters that were received by the server but not taken into account when processing the query. The value _MUST_ be an array of strings.
 
-    Usage:
-    {: .usage}
     * A TermList or a Layer _MAY_ have an ignored property, and _MUST_ have it if the server ignored any query parameter.
 
 match
 :   The text that triggered the search to match the particular anotation.  The value _MUST_ be a single string.
 
-    Usage:
-    {: .usage}
     * A Hit _MAY_ have the `match` property.
     * A Term _MUST_ have the `match` property.
 
 before
 :   A segment of text that occurs before the text that triggered the search to match the particular anotation.  The value _MUST_ be a single string.
 
-    Usage:
-    {: .usage}
     * A Hit _MAY_ have the `before` property.
 
 after
 :   A segment of text that occurs after the text that triggered the search to match the particular anotation.  The value _MUST_ be a single string.
 
-    Usage:
-    {: .usage}
     * A Hit _MAY_ have the `after` property.
 
 count
 :   A number of times that a term appears.  The value _MUST_ be an positive integer.
 
-    Usage:
-    {: .usage}
     * A Term _SHOULD_ have the `count` property.
 
 
