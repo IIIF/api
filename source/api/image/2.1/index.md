@@ -584,7 +584,7 @@ If any of `formats`, `qualities`, or `supports` have no additional values beyond
 
 URIs _MAY_ be added to the supports list of a profile to cover features not defined in this specification. Clients _MUST_ ignore URIs that are not recognized.
 
-The following fragment shows a profile indicating support for additional formats, qualities, and features beyond level 2 [compliance][compliance-levels].
+The following fragment shows a profile indicating support for additional formats, qualities, and features beyond level 2 [compliance][compliance-levels]. It also includes a size limit.
 
 {% highlight json %}
 {
@@ -597,6 +597,7 @@ The following fragment shows a profile indicating support for additional formats
     {
       "formats" : [ "gif", "pdf" ],
       "qualities" : [ "color", "gray" ],
+      "maxWidth" : 2000,
       "supports" : [
           "canonicalLinkHeader", "rotationArbitrary", "profileLinkHeader", "http://example.com/feature/"
       ]
