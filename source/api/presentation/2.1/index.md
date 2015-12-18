@@ -152,7 +152,7 @@ thumbnail
 ####  3.2. Rights and Licensing Properties
 
 attribution
-:   Text that _MUST_ be shown when the resource it is associated with is displayed or used. For example, this could be used to present copyright or ownership statements, or simply an acknowledgement of the owning and/or publishing institution.   In the case where multiple values are supplied for attribution, clients _MUST_ display at least one value. Clients _SHOULD_ try to match the language preferred by the user, and if the preferred language is unclear or unavailable, then the client may choose which value to display.
+:   Text that _MUST_ be shown when the resource it is associated with is displayed or used. For example, this could be used to present copyright or ownership statements, or simply an acknowledgement of the owning and/or publishing institution. Clients _SHOULD_ try to match the language preferred by the user, and if the preferred language is unclear or unavailable, then the client may choose which value to display.  If there are multiple values of the same or unspecified language, then all of those values _MUST_ be displayed.
 
     * Any resource _MAY_ have one or more attribution labels.
 
@@ -164,7 +164,9 @@ license
 logo
 :   A small image that represents an individual or organization associated with the resource it is attached to.  This could be the logo of the owning or hosting institution. The logo _MUST_ be clearly rendered when the resource is displayed or used, without cropping, rotating or otherwise distorting the image. It is _RECOMMENDED_ that a [IIIF Image API][image-api] service be available for this image for manipulations such as resizing. 
 
-    * Any resource _MAY_ have exactly one logo associated with it.
+    * Any resource _MAY_ have one or more logos associated with it.
+
+_N.B._ Although the rights properties _MUST_ be displayed, they _MAY_ be presented in a user interface such that they are initially hidden. If so, the method of revealing them _MUST_ be obvious, such as a button or being part of a display of other properties.
 
 
 ####  3.3. Technical Properties
