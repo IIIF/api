@@ -279,6 +279,14 @@ startCanvas
     * A sequence or a range _MAY_ have exactly one canvas as its start canvas.
     * Other resources _MUST NOT_ have a start canvas.
 
+contentLayer
+:   A link from a range to a layer that includes the annotations of content resources for that range.  Clients might use this to present content to the user from a different canvas when interacting with the range, or to jump to the next part of the range within the same canvas.  
+
+    Usage:
+    {: .usage}
+    * A range _MAY_ have exactly one layer as its content layer.
+    * Other resources _MUST NOT_ have a content layer.
+
 ####  3.5. Paging Properties
 
 first
@@ -1117,6 +1125,8 @@ It may be important to describe additional structure within an object, such as n
 A range will typically include one or more canvases or, unlike sequences, parts of canvases. The part must be rectangular, and is given using the `xywh=` fragment approach. This allows for selecting, for example, the areas within two newspaper pages where an article is located. As the information about the canvas is already in the sequence, it _MUST_ not be repeated. In order to present a table of the different ranges to allow a user to select one, every range _MUST_ have a label and the top most range in the table _SHOULD_ have a `viewingHint` with the value "top". A range that is the top of a hierarchy does not need to list all of the canvases in the sequence, and _SHOULD_ only give the list of ranges below it.  Ranges _MAY_ also have any of the other properties defined in this specification, including the `startCanvas` relationship to the first canvas within the range to start with, if it is not the first listed in `canvases`.
 
 Ranges _MAY_ include other ranges.  This is done in a `ranges` property within the range.  The values within the ranges list _MUST_ be strings giving the URIs of ranges in the list in the manifest.
+
+Ranges _MAY_ link to a layer, described in the next section, that has the content of the range.  This allows, for example, the range representing a newspaper article that is split across multiple pages to be linked with the text of the article. Rendering clients might use this to display all of the article text, regardless of which canvas is being viewed. The link is created by adding a `contentLayer` property to the range, with a single value of the layer's URI.  The layer will then have one or more annotation lists, each of which contains annotations that target the areas of canvases within the range, and provide the content resources.
 
 Ranges are linked or embedded within the manifest in a `structures` field.  It is a flat list of objects, even if there is only one range.
 
