@@ -481,6 +481,7 @@ A recipe for enabling these behaviors is provided in the [Apache HTTP Server Imp
 | ---------- | --------- | ----------- |
 | `@context` | Required | The context document that describes the semantics of the terms used in the document. This must be the URI: `http://iiif.io/api/image/{{ page.major }}/context.json` for version {{ page.major }}.{{ page.minor }} of the IIIF Image API. This document allows the response to be interpreted as RDF, using the [JSON-LD][json-ld-org] serialization. |
 | `@id` | Required | The base URI of the image as defined in [URI Syntax][uri-syntax], including scheme, server, prefix and identifier without a trailing slash. |
+| `@type` | Optional | The type for the Image. If present, the value _MUST_ be the string `iiif:Image`. |
 | `protocol` | Required | The URI `http://iiif.io/api/image` which can be used to determine that the document describes an image service which is a version of the IIIF Image API. |
 | `width` | Required | The width in pixels of the full image content, given as an integer. |
 | `height` | Required | The height in pixels of the full image content, given as an integer. |
@@ -496,9 +497,10 @@ There is an inconsistency between the specification of the `sizes` list and the 
 {: .warning}
 
 | Size Object Property | Required? | Description |
-| ---------- | --------- | ----------- |
-| `width` | Required | The width in pixels of the image to be requested, given as an integer. |
-| `height` | Required | The height in pixels of the image to be requested, given as an integer. |
+| ---------- | -------- | ----------- |
+| `@type`    | Optional | The type of the object. If present, the value _MUST_ be the string `iiif:Size`. |
+| `width`    | Required | The width in pixels of the image to be requested, given aas an integer. |
+| `height`   | Required | The height in pixels of the image to be requested, given as an integer. |
 {: .api-table}
 
 The objects in the `tiles` list have the properties in the following table. The `width` and `height` should be used to fill the region parameter and the `scaleFactors` to complete the size parameter of the image URL. This is described in detail in the [Implementation Notes][a-implementation-notes].
@@ -506,7 +508,8 @@ The objects in the `tiles` list have the properties in the following table. The 
 The `width` of a tile, or the combination of `width` and `height` if `height` is specified, _MUST_ be unique among the members of the `tiles` list.
 
 | Tile Object Property | Required? | Description |
-| ---------- | --------- | ----------- |
+| ---------- | -------- | ----------- |
+| `@type`    | Optional | The type of the Tile. If present, the value _MUST_ be the string `iiif:Tile`. |
 | `scaleFactors` | Required | The set of resolution scaling factors for the image's predefined tiles, expressed as positive integers by which to divide the full size of the image. For example, a scale factor of 4 indicates that the service can efficiently deliver images at 1/4 or 25% of the height and width of the full image. A particular scale factor value _SHOULD_ appear only once in the `tiles` list. |
 | `width` | Required | The width in pixels of the predefined tiles to be requested, given as an integer. |
 | `height` | Optional | The height in pixels of the predefined tiles to be requested, given as an integer. If it is not specified in the JSON, then it defaults to the same as `width`, resulting in square tiles. |
@@ -543,7 +546,7 @@ In order to specify additional features that are supported for the image, a prof
 | ----------- | --------- | ----------- |
 | `@context`  | Optional  | The string "http://iiif.io/api/image/{{ page.major }}/context.json". This should be included only if the profile's URI is dereferenced. |
 | `@id`       | Optional  | The URI of the profile. |
-| `@type`     | Optional  | The string "iiif:ImageProfile". |
+| `@type`     | Optional  | The type of the object. If present, the value _MUST_ be the string "iiif:ImageProfile". |
 | `formats`   | Optional  | The set of image format parameter values available for the image.  If not specified then clients should assume only formats declared in the compliance level document.|
 | `qualities` | Optional  | The set of image quality parameter values available for the image.  If not specified then clients should assume only qualities declared in the compliance level document.|
 | `supports`  | Optional  | The set of features supported for the image.  If not specified then clients should assume only features declared in the compliance level document. |
