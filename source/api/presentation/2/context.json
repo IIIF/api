@@ -107,6 +107,13 @@
     "description": {
       "@id": "dc:description"
     },
+    "navDate": {
+      "@id": "sc:presentationDate"
+    },
+    "rendering": {
+      "@id": "dcterms:hasFormat",
+      "@type": "@id"
+    },
     "height": {
       "@type": "xsd:integer",
       "@id": "exif:height"
