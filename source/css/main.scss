@@ -125,8 +125,21 @@ nav a:hover {
   padding-top: 3px;
 }
 
+{% capture nowday %}{{ site.time | date: '%d'}}{% endcapture %}
+{% capture nowmonth %}{{ site.time | date: '%m'}}{% endcapture %}
+{% assign nowday = nowday | plus: 0 %}
+{% assign nowmonth = nowmonth | plus: 0 %}
+
 .title {
+
+{% if nowday > 20 and nowmonth == 12 %}
   background: transparent url('/img/logo-iiif-holiday-34x30.png') center 8px no-repeat;
+{% elsif nowday < 6 and nowmonth == 1 %}
+  background: transparent url('/img/logo-iiif-holiday-34x30.png') center 8px no-repeat;
+{% else %}
+  background: transparent url('/img/logo-iiif-34x30.png') center 8px no-repeat;
+{% endif %}
+
   display: block;
   font-size: 0;
   height: 40px;
