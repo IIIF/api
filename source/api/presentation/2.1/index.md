@@ -151,7 +151,7 @@ thumbnail
 
 ####  3.2. Rights and Licensing Properties
 
-Although the rights properties _MUST_ be displayed by a client to the user, they _MAY_ be presented in a user interface such that they are initially hidden. If so, the method of revealing them _MUST_ be obvious, such as a button or being part of a display with the other descriptive properties.
+The following properties ensure that the interests of the owning or publishing institutions are conveyed regardless of the viewing environment, and a client _MUST_ make these properties clearly available to the user. Given the wide variation of potential client user interfaces, it will not always be possible to display all or any of the properties to the user in the client's initial state. If initially hidden, the method of revealing them _MUST_ be obvious, such as a button or scroll bars.
 
 attribution
 :   Text that _MUST_ be shown when the resource it is associated with is displayed or used. For example, this could be used to present copyright or ownership statements, or simply an acknowledgement of the owning and/or publishing institution. Clients _SHOULD_ try to match the language preferred by the user, and if the preferred language is unknown or unavailable, then the client may choose which value to display.  If there are multiple values of the same or unspecified language, then all of those values _MUST_ be displayed.
