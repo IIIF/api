@@ -64,7 +64,7 @@ See also note under [Size][size] about combinations of Size and Region that may 
 |        | `sizeAboveFull`  | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] |
 {: .api-table}
 
-Note that servers may express limits on the sizes available for an image with the optional `maxWidth`, `maxHeight` and/or `maxArea` [Profile Description properties][profile]. Servers are compliant provided they support the forms of the Size parameter shown above for image sizes up to the limits specified. Clients _SHOULD NOT_ assume that Region and Size parameter combinations such as `/full/full/` will be supported. 
+Note that servers may express limits on the sizes available for an image with the optional `maxWidth`, `maxHeight` and/or `maxArea` [Profile Description properties][profile]. Servers are compliant provided they support the forms of the Size parameter shown above for image sizes up to the limits specified. Clients should not assume that Region and Size parameter combinations such as `/full/full/` will be supported. 
 
 ### 3.3 Rotation
 
