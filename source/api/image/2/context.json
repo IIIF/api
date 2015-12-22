@@ -103,11 +103,11 @@
       "@type": "xsd:string"
     },
     "sizes": {
-      "@id": "iiif:size",
+      "@id": "iiif:hasSize",
       "@type": "@id"
     },
     "tiles": {
-      "@id": "iiif:tile",
+      "@id": "iiif:hasTile",
       "@type": "@id"
     },
     "profile": {
