@@ -607,9 +607,9 @@ The following fragment shows a profile indicating support for additional formats
 
 | Rights and Licensing Property | Required? | Description |
 | ------------- | --------- | ----------- |
-| `attribution` | Optional  | Text that _MUST_ be shown when the image is displayed or used. It might include copyright or ownership statements, or a simple acknowledgement of the providing institution. The value _MAY_ contain simple HTML, using only the `a`, `b`, `br`, `i`, `img`, `p` and `span` tags, as described in the [HTML Markup in Property Values][prezi-html] section of the Presentation API. The value may be a string, an object, or a list of strings and/or objects. |
-| `license` | Optional | The URL of an external resource that describes the license or rights statement under which the image may be used. |
-| `logo` | Optional | The URL of a small image that represents an individual or organization associated with the image service. The logo image _MUST_ be clearly rendered when the main image is displayed or used. Clients _MUST NOT_ crop, rotate, or otherwise distort the image. The value may be a string or an object. |
+| `attribution` | Optional  | Text that _MUST_ be shown when the image is displayed or used. It might include copyright or ownership statements, or a simple acknowledgement of the providing institution. The value _MAY_ contain simple HTML, using only the `a`, `b`, `br`, `i`, `img`, `p` and `span` tags, as described in the [HTML Markup in Property Values][prezi-html] section of the Presentation API. |
+| `license` | Optional | One or more URLs of an external resource that describes the license or rights statement under which the image may be used. |
+| `logo` | Optional | One or more URLs of a small image that represents an individual or organization associated with the image service. The logo image _MUST_ be clearly rendered when the main image is displayed or used. Clients _MUST NOT_ crop, rotate, or otherwise distort the image. |
 {: .api-table}
 
 The `attribution`, `license` and `logo` properties have the same semantics and requirements as those in the [Presentation API][prezi-api]. When both APIs express attributions or logos, then clients _MUST_ display both unless they are identical.
