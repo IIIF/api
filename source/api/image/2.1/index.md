@@ -548,9 +548,14 @@ In order to specify additional features that are supported for the image, a prof
 | `@id`       | Optional  | The URI of the profile. |
 | `@type`     | Optional  | The type of the object. If present, the value _MUST_ be the string "iiif:ImageProfile". |
 | `formats`   | Optional  | The set of image format parameter values available for the image.  If not specified then clients should assume only formats declared in the compliance level document.|
+| `maxArea`   | Optional  | The maximum area in pixels supported for this image. Requests for images sizes with width*height greater than this may not be supported. |
+| `maxHeight` | Optional  | The maximum height in pixels supported for this image. Requests for images sizes with height greater than this may not be supported. If `maxWidth` is specified and `maxHeight` is not, then clients should infer that `maxHeight = maxWidth`.  |
+| `maxWidth`  | Optional  | The maximum width in pixels supported for this image. Requests for images sizes with width greater than this may not be supported. _MUST_ be specified if `maxHeight` is specified. |
 | `qualities` | Optional  | The set of image quality parameter values available for the image.  If not specified then clients should assume only qualities declared in the compliance level document.|
 | `supports`  | Optional  | The set of features supported for the image.  If not specified then clients should assume only features declared in the compliance level document. |
 {: .api-table}
+
+The `maxWidth`, `maxHeight` and `maxArea` parameters provide a way for image servers to express limits on the sizes supported for the image. If `maxWidth` alone, or `maxWidth` and `maxHeight` are specified then clients should expect requests with larger linear dimensions to be rejected. If `maxArea` is specified then clients should expect requests with larger pixel areas to be rejected. The `maxWidth / maxHeight`  and `maxArea` parameters are independent, servers may implement either or both limits. Servers _MUST_ ensure that sizes specified within any `sizes` or `tiles` properties are with any size limits expressed. Clients _SHOULD NOT_ make requests that exceed size limits expressed.
 
 The set of features that may be specified in the `supports` property of an Image profile are:
 
@@ -582,7 +587,7 @@ If any of `formats`, `qualities`, or `supports` have no additional values beyond
 
 URIs _MAY_ be added to the supports list of a profile to cover features not defined in this specification. Clients _MUST_ ignore URIs that are not recognized.
 
-The following fragment shows a profile indicating support for additional formats, qualities, and features beyond level 2 [compliance][compliance-levels].
+The following fragment shows a profile indicating support for additional formats, qualities, and features beyond level 2 [compliance][compliance-levels]. It also includes a size limit.
 
 {% highlight json %}
 {
@@ -595,6 +600,7 @@ The following fragment shows a profile indicating support for additional formats
     {
       "formats" : [ "gif", "pdf" ],
       "qualities" : [ "color", "gray" ],
+      "maxWidth" : 2000,
       "supports" : [
           "canonicalLinkHeader", "rotationArbitrary", "profileLinkHeader", "http://example.com/feature/"
       ]
@@ -755,7 +761,7 @@ The order in which servers parse requests and detect errors is not specified. A 
 | 400 Bad Request | This response is used when it is impossible for the server to fulfil the request, as the syntax of the request is incorrect.  For example, this would be used if the size parameter does not match any of the specified syntaxes. |
 | 401 Unauthorized | Authentication is required and not provided. See the [Authentication][authentication] section for details. |
 | 403 Forbidden | The user, authenticated or not, is not permitted to perform the requested operation. |
-| 404 Not Found | The image resource specified by [identifier] does not exist, or the value of one or more of the parameters is not supported for this image. |
+| 404 Not Found | The image resource specified by [identifier] does not exist, the value of one or more of the parameters is not supported for this image, or the requested size is greater than the limits specified. |
 | 500 Internal Server Error | The server encountered an unexpected error that prevented it from fulfilling the request. |
 | 501 Not Implemented | A valid IIIF request that is not implemented by this server. |
 | 503 Service Unavailable | Used when the server is busy/temporarily unavailable due to load/maintenance issues. An alternative to connection refusal with the option to specify a back-off period. |
@@ -870,8 +876,9 @@ Many thanks to  Ben Albritton, Matthieu Bonicel, Anatol Broder, Kevin Clarke, To
 [change-log11]: /api/image/1.1/change-log.html "Change Log for Version 1.1"
 [change-log20]: /api/image/2.0/change-log.html "Change Log for Version 2.0"
 [change-log21]: /api/image/2.1/change-log.html "Change Log for Version 2.1"
-[compliance]: /api/image/2.0/compliance.html "Image API Compliance"
-[compliance-quality]: /api/image/2.0/compliance.html#quality "Image API Compliance: Quality"
+[compliance]: /api/image/{{ page.major }}.{{ page.minor }}/compliance.html "Image API Compliance"
+[compliance-quality]: /api/image/{{ page.major }}.{{ page.minor }}/compliance.html#quality "Image API Compliance: Quality"
+
 [cors-spec]: http://www.w3.org/TR/cors/ "Cross-Origin Resource Sharing"
 [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
 [json-as-json-ld]: http://www.w3.org/TR/json-ld/#interpreting-json-as-json-ld "JSON-LD 1.0: 6.8 Interpreting JSON as JSON-LD"

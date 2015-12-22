@@ -14,12 +14,11 @@ pre: draft
 
 __This version:__ {{ page.major }}.{{ page.minor }}.{{ page.patch }}{% if page.pre != 'final' %}-{{ page.pre }}{% endif %}
 
-__Latest stable version:__ {{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}.{{ site.image_api.latest.patch }}
+__Latest stable version:__ [{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}.{{ site.image_api.latest.patch }}][stable-version]
 
-## Introduction
-{:.no_toc}
-
-This document is a companion to the [IIIF Image API Specification][image-api]. It defines the set of supported parameters that correspond to different levels of compliance to the API.
+__Beta Specification for Trial Use__
+This is a work in progress. We are actively seeking new implementations, updates to existing implementations, and feedback. No section should be considered final, and the absence of any content does not imply that such content is out of scope, or may not appear in the future.  Please send any feedback to [iiif-discuss@googlegroups.com][iiif-discuss].
+{: .alert}
 
 ## Table of Contents
 {:.no_toc}
@@ -27,16 +26,19 @@ This document is a companion to the [IIIF Image API Specification][image-api]. I
 * Goes Here
 {:toc}
 
+## 1. Introduction
 
-## Compliance
+This document is a companion to the [IIIF Image API Specification][image-api]. It defines the set of supported parameters that correspond to different levels of compliance to the API.
 
-Three levels of compliance are defined. Level 0 is defined as the minimum set of supported parameters and features that _MUST_ be implemented to qualify the service as compliant to the IIIF standard. Level 1 is defined as the _RECOMMENDED_ set of parameters and features to be implemented.
+## 2. Compliance
+
+Three levels of compliance are defined. Level 0 is the minimum set of parameters and features that _MUST_ be implemented to qualify the service as compliant with the IIIF Image API Specification. Level 1 is the _RECOMMENDED_ set of parameters and features to be implemented. Note that servers may not support all combinations of all supported parameters and features, as noted in the appropriate sections below.
 
 In the tables below "![required][icon-req]" indicates that support is _REQUIRED_, and "![optional][icon-opt]" indicates that support is _OPTIONAL_.
 
-## Image Parameters
+## 3. Image Parameters
 
-### Region
+### 3.1 Region
 
 | Syntax      | Feature Name    | Level 0 | Level 1 | Level 2  |
 |:------------|:--------------- |:-------:|:-------:|:--------:|
@@ -46,21 +48,25 @@ In the tables below "![required][icon-req]" indicates that support is _REQUIRED_
 | `square`    | `regionSquare` | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] |
 {: .api-table}
 
-### Size
+See also note under [Size][size] about combinations of Size and Region that may not be supported.
 
-| Syntax      | Feature Name        | Level 0 | Level 1 | Level 2  |
-|:------------|:--------------------|:-------:|:-------:|:--------:|
-| `full`      |                     | ![required][icon-req]      | ![required][icon-req]      | ![required][icon-req]       |
-| w,h         | `sizeByWhListed` | ![required][icon-req]      | ![required][icon-req]      | ![required][icon-req]       |
-| w,          | `sizeByW`         | ![optional][icon-opt]      | ![required][icon-req]      | ![required][icon-req]       |
-| ,h          | `sizeByH`         | ![optional][icon-opt]      | ![required][icon-req]      | ![required][icon-req]       |
-| pct:x       | `sizeByPct`       | ![optional][icon-opt]      | ![required][icon-req]      | ![required][icon-req]       |
-| w,h         | `sizeByForcedWh` | ![optional][icon-opt]      | ![optional][icon-opt]      | ![required][icon-req]       |
-| !w,h        | `sizeByWh`        | ![optional][icon-opt]      | ![optional][icon-opt]      | ![required][icon-req]       |
-|             | `sizeAboveFull`   | ![optional][icon-opt]      | ![optional][icon-opt]      | ![optional][icon-opt]       |
+### 3.2 Size
+
+| Syntax | Feature Name     | Level 0 | Level 1 | Level 2  |
+|:-------|:-----------------|:-------:|:-------:|:--------:|
+| `full` |                  | ![required][icon-req] | ![required][icon-req] | ![required][icon-req] |
+| w,h    | `sizeByWhListed` | ![required][icon-req] | ![required][icon-req] | ![required][icon-req] |
+| w,     | `sizeByW`        | ![optional][icon-opt] | ![required][icon-req] | ![required][icon-req] |
+| ,h     | `sizeByH`        | ![optional][icon-opt] | ![required][icon-req] | ![required][icon-req] |
+| pct:x  | `sizeByPct`      | ![optional][icon-opt] | ![required][icon-req] | ![required][icon-req] |
+| w,h    | `sizeByForcedWh` | ![optional][icon-opt] | ![optional][icon-opt] | ![required][icon-req] |
+| !w,h   | `sizeByWh`       | ![optional][icon-opt] | ![optional][icon-opt] | ![required][icon-req] |
+|        | `sizeAboveFull`  | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] |
 {: .api-table}
 
-### Rotation
+Note that servers may express limits on the sizes available for an image with the optional `maxWidth`, `maxHeight` and/or `maxArea` [Profile Description properties][profile]. Servers are compliant provided they support the forms of the Size parameter shown above for image sizes up to the limits specified. Clients should not assume that Region and Size parameter combinations such as `/full/full/` will be supported. 
+
+### 3.3 Rotation
 
 | Syntax | Feature Name | Level 0 | Level 1 | Level 2  |
 |:-------|:-------------|:-------:|:-------:|:--------:|
@@ -70,7 +76,7 @@ In the tables below "![required][icon-req]" indicates that support is _REQUIRED_
 | !_n_ | `mirroring` | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] |
 {: .api-table}
 
-### Quality
+### 3.4 Quality
 
 | Syntax        | Level 0 | Level 1 | Level 2  |
 |:--------------|:-------:|:-------:|:--------:|
@@ -80,7 +86,7 @@ In the tables below "![required][icon-req]" indicates that support is _REQUIRED_
 | `bitonal`     | ![optional][icon-opt]      | ![optional][icon-opt]      | ![required][icon-req]       |
 {: .api-table}
 
-### Format
+### 3.5 Format
 
 | Syntax      | Level 0 | Level 1 | Level 2  |
 |:------------|:-------:|:-------:|:--------:|
@@ -93,8 +99,7 @@ In the tables below "![required][icon-req]" indicates that support is _REQUIRED_
 | `webp`      | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] |
 {: .api-table}
 
-
-## HTTP Features
+## 4. HTTP Features
 
 | HTTP Feature          | Feature Name          | Level 0 | Level 1 | Level 2  |
 |:----------------------|:----------------------|:-------:|:-------:|:--------:|
@@ -105,7 +110,7 @@ In the tables below "![required][icon-req]" indicates that support is _REQUIRED_
 | canonical link header | `canonicalLinkHeader` | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] |
 {: .api-table}
 
-## Indicating Compliance
+## 5. Indicating Compliance
 
 Servers _MAY_ indicate compliance with by including a header in IIIF responses for images:
 
@@ -123,17 +128,25 @@ The URIs for the the compliance levels are as follows:
 | 2     | http://iiif.io/api/image/{{ page.major }}/level2.json |
 {: .urltemplate}
 
+### 5.1 Level 0 Compliance
+
 A level 0 compliant image server _MAY_ specify `scaleFactors` and/or `width` and `height` values for `tiles` in the Image Information response. At Level 0 compliance, a service is only required to deliver images of sizes computed using the scaling factors declared in the Image Information response. If specified they should be interpreted with the following special meanings:
 
  * `scaleFactors` - only the specified scaling factors are supported
  * `width`, `height` within `tiles` - clients should request only regions that correspond to output tiles of the specified dimensions
 
-If a client requests a size or region outside these parameters then the image server _MAY_ reject the request with an error.
+A level 0 compliant image server _MAY_ also specify `sizes` to indicate specific `width` and `height` values for sizes available for the `full` region.
 
-[image-api]: /api/image/2.0/ "Image API 2.0"
+If a client requests a combination of size and region outside these parameters then the image server _MAY_ reject the request with an error.
+
+[iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
+[image-api]: /api/image/{{ page.major }}.{{ page.minor }}/ "Image API {{ page.major }}.{{ page.minor }}"
 [icon-req]: /img/metadata-api/required.png "Required"
 [icon-recc]: /img/metadata-api/recommended.png "Recommended"
 [icon-opt]: /img/metadata-api/optional.png "Optional"
 [icon-na]: /img/metadata-api/not_allowed.png "Not allowed"
+[size]: #size "3.2 Size"
+[profile]: /api/image/{{ page.major }}.{{ page.minor }}/#profile-description "5.3 Profile Description"
+[stable-version]: /api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/compliance.html "Stable Version"
 
 {% include acronyms.md %}
