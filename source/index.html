@@ -19,7 +19,19 @@ layout: default
           </header>
           <section class="front-announcement">
             <div>
-                <a href="/event/2015/ghent.html">IIIF: Access to the World's Images</a> -- December 8th 2015, Ghent, Belgium
+{% capture nowday %}{{ site.time | date: '%d'}}{% endcapture %}
+{% capture nowmonth %}{{ site.time | date: '%m'}}{% endcapture %}
+{% assign nowday = nowday | plus: 0 %}
+{% assign nowmonth = nowmonth | plus: 0 %}
+
+{% if nowday > 20 and nowmonth == 12 %}
+    Happy Holidays from the IIIF Community
+{% elsif nowday < 6 and nowmonth == 1 %}
+    Happy Holidays from the IIIF Community
+{% else %}
+<!-- Regular message here -->
+    New Beta IIIF Specifications: <a href="/api/auth/">Authentication</a> and <a href="/api/search/">Search</a>
+{% endif %}
             </div>
           </section>
 
