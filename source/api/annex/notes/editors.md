@@ -19,7 +19,7 @@ This document is not subject to [IIIF's versioning semantics][iiif-semver]. Chan
   * Simeon Warner, _Cornell University_
   {: .names}
 
-{% include copyright.md %}
+{% include copyright2015.md %}
 
 ----
 
@@ -40,7 +40,7 @@ Community members should propose and discuss features and changes via [IIIF-Disc
 
 ### 2.2 Use Cases and Support
 
-New specifications and changes to existing specification must have one or more [documented use cases][use-cases], supported by at least two institutions that either have IIIF-based technology in production or are clearly blocked from doing so, as demonstrated by the use case. In the case of breaking changes, where applicable, the documented use case must clearly demonstrate why the previous approach was flawed or insufficient.
+New specifications and changes to existing specifications must have one or more [documented use cases][use-cases], supported by at least two institutions that either have IIIF-based technology in production or are clearly blocked from doing so, as demonstrated by the use case. In the case of breaking changes, where applicable, the documented use case must clearly demonstrate why the previous approach was flawed or insufficient.
 
 ### 2.3 Evaluation and Testing
 
@@ -48,7 +48,7 @@ In order to be considered ready for final review, new features must have two ope
 
 ### 2.4 Community Review
 
-New versions of specifications at or above 1.0 must be reviewed at an open meeting, to which the community is invited. These meetings will be announced on [IIIF-Discuss][iiif-discuss], [IIIF-Announce][iiif-announce] and other relevant community email lists. Such meetings must occur at least once per year, and should occur twice. The specifications will be frozen for two weeks prior to all review meetings, and this review period will be announced to the same lists as above.
+New versions of specifications at or above 1.0 must be reviewed at an open meeting, to which the community is invited. These meetings will be announced on [IIIF-Discuss][iiif-discuss], [IIIF-Announce][iiif-announce] and other relevant community email lists. Such meetings must occur at least once per year, and should occur twice. The specifications will be frozen for at least two weeks prior to all review meetings, and this review period will be announced to the same lists as above.
 
 Proposed revisions to specifications must reference a change log as a means to help the community review the changes. This change log should differentiate between backwards compatible changes and breaking changes, and provide a brief summary of each change. See the [Image API 2.0 Change Log][image-20-changelog] for an example.
 
@@ -58,9 +58,9 @@ The editors shall ensure that there is a response to, and, where possible, resol
 
 ### 2.5 Frequency of Releases
 
-No specification is perfect. New use cases surface, and refinements and clarifications need to be made. As such, specifications are generally considered to be under continuous revision. The editors will decide when new releases are proposed for review based on input from the community and balanced against the need for a degree of stability and relative to other IIIF priorities.
+No specification is perfect. New use cases surface, and refinements and clarifications need to be made. As such, specifications are generally considered to be under continuous revision. The editors will decide when new releases are proposed for review based on input from the community, balanced against the need for a degree of stability and consideration of other IIIF priorities.
 
-New IIIF specifications, and the Image and Presentation API specifications following their version 2.0.0 releases, follow semantic versioning as defined in the [IIIF Versioning Note][iiif-semver]. It is intended that minor, backwards compatible, releases will not be published more than once per year, and major releases will not be published more than once in two years.
+New IIIF specifications, and the Image and Presentation API specifications following their version 2.0.0 releases, follow semantic versioning as defined in the [IIIF Versioning Note][iiif-semver]. It is intended that minor, backwards compatible, releases will not be published more than once per year, and that major releases will not be published more than once in two years.
 
 Specification versions prior to 1.0 should be considered experimental, are not subject to community review, and may be updated with breaking changes at the editors' discretion.
 
@@ -118,13 +118,10 @@ Editors may be dismissed from work on a specification, or the editorial group al
 
 ## 5. Change Log
 
- | Date       | Description                                                                |
- | ---------- | -------------------------------------------------------------------------- |
- | 2015-12-13 | Changes following editors' Discussion during the Ghent meeting (@jpstroop) |
- | 2015-12-05 | Wordsmithing and minor clarifications (@jpstroop)                          |
- | 2015-12-05 | Round two after editors' call discussion (@zimeon)                         |
- | 2015-12-02 | Initial pass with comments (@jpstroop)                                     |
-
+ | Date       | Description                                                         |
+ | ---------- | ------------------------------------------------------------------- |
+ | 2015-12-22 | First release (@mikeapp, @tomcrane, @azaroth42, @jpstroop, @zimeon) |
+ 
 [change-log]: #change-log "Change Log"
 [acceptance-criteria-for-merging-changes]: #acceptance-criteria-for-merging-changes "Acceptance Criteria for Merging Changes"
 [iiif-announce]: https://groups.google.com/forum/#!forum/iiif-announce "IIIF Email Announcement List"
