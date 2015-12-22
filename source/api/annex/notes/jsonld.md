@@ -31,17 +31,22 @@ This [python code][context-checker] will check for conflicts in a context docume
 
 Term compaction in JSON-LD is the process of taking a full URI and a context, and trying to create the appropriate compact form for the serialization.  For example, if the URI is `http://example.com/ns/term`, and the context has a mapping from `eg` to `http://example.com/ns/`, then the URI will be compacted to `eg:term`.  Most JSON-LD libraries use an algorithm that tries to create the shortest term in the JSON serialization, however this has unintended side effects when there are terms which happen to be truncated forms of other terms, as the algorithm cannot distinguish between mappings added for the purposes of creating namespaces and those added for defining the keys of the JSON format.
 
-The IIIF Image API was subject to this issue for the size features during 2.0.    
+The IIIF Image API was subject to this issue for the size features until version 2.1 was released.  In particular, there was a definition of `sizes` to `iiif:size`, and the size related features were named according to the pattern: `iiif:sizeByX`, and thus `sizes:ByX` was the shortest legal, if unintended, compaction. For version 2.1, `iiif:size` was renamed to `iiif:hasSize` to avoid this issue.  See also the note on [Semantic Versioning and JSON-LD][int-semver] below.
 
+## Formats and Languages
 
-## Format and Language
+It is possible to associate a language with a literal in JSON-LD using an object with two keys, `@language` and `@value`, described in the [Presentation API][prezi-language]. It is also possible to describe the format of a literal using `@type`.  However, due to restrictions in RDF 1.1, it is not possible to use both of these features together to have a literal with both format and language declared.
 
+During the design of the Presentation API, it was determined that the correct solution was to be explicit about language as it cannot be determined heuristicly, and provide requirements to make the detection of HTML as easy as possible.  In the future, if RDF provides a method to have both format and language associated with the same literal, these restrictions will be lifted.  Other options were evaluated, including having a resource with `value`, `language` and `format` keys which was determined to be too intrusive compared to what regular JSON would look like, and using HTML with an `xml:lang` attribute and the `rdf:HTML` datatype, however this makes the choice of language much more complex as the values need to be parsed with an HTML parser, rather than using the JSON structure.  As internationalization of the values is a primary use case, the current method was the solution chosen.
 
 
 ## Semantic Versioning
 
+The IIIF editors do not consider the mappings from the JSON to the selected RDF ontology terms to be governed by semantic versioning.  They are provided as a convenience for Linked Data implementers, rather than being a requirement for all adopters of IIIF.  The JSON structure and the names of the keys are governed by semantic versioning, as changing them would break compatibility with the typical JSON based client. 
 
+This decision may change in the future, if there are significant Linked Data based clients built around IIIF.  Any such development should be announced on [iiif-discuss][iiif-discuss] so that the community becomes aware of it.
 
+The JSON-LD frames described in the next section are also not considered as governed by semantic versioning, and are provided as a convenience for implementers.
 
 ## Frames
 
@@ -106,5 +111,8 @@ pprint.pprint(
 [service-wiki]: https://en.wikipedia.org/wiki/Service_Location_Protocol#Adoption
 [resource-uri]: http://www.iana.org/assignments/uri-schemes/prov/resource
 [context-checker]: check_context.py
+[int-semver]: #semantic-versioning
+[prezi-language]: /api/presentation/2.1/#language-of-property-values
+[iiif-discuss]: mailto:iiif-discuss@googlegroups.com
 
 {% include acronyms.md %}
