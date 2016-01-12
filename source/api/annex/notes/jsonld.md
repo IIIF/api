@@ -83,7 +83,7 @@ The following code uses the Python [PyLD implementation][pyld] of JSON-LD to rea
 from pyld.jsonld import compact, frame
 import urllib, json, pprint
 
-manifest = json.load(urllib.urlopen("http://iiif.io/api/presentation/2/example/manifest1.json"))
+manifest = json.load(urllib.urlopen("http://iiif.io/api/presentation/2.0/example/fixtures/1/manifest.json"))
 pprint.pprint(
   compact(
     frame(manifest, "http://iiif.io/api/presentation/2/manifest_frame.json"), 
