@@ -40,6 +40,11 @@ Current IIIF specifications _SHOULD_ be used for all new work. Old versions are 
 | [Metadata API 0.9][meta09] | Draft of the "Metadata API", published 2013-06-11 |
 {: .api-table}
 
+## Notes
+
+IIIF also has a series of [Implementation Notes][notes] which are not subject to the same process as formal APIs but may be useful to implementers.
+
+
 [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
 [image21]: /api/image/2.1/ "Image API v2.1"
 [image20]: /api/image/2.0/ "Image API v2.0"
@@ -51,5 +56,6 @@ Current IIIF specifications _SHOULD_ be used for all new work. Old versions are 
 [meta09]: /api/metadata/0.9/ "Metadata API v0.9"
 [auth09]: /api/auth/0.9/ "Authentication API v0.9"
 [search09]: /api/search/0.9/ "Search API v0.9"
+[notes]: /api/annex/ "Implementation Notes"
 
 {% include acronyms.md %}
