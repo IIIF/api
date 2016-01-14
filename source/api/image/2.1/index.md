@@ -202,19 +202,24 @@ Examples:
 
 The size parameter determines the dimensions to which the extracted region is to be scaled.
 
-| Form | Description |
-|----------------|-----------------------|
-| `full`         | The extracted region is not scaled, and is returned at its full size. |
-| w,             | The extracted region should be scaled so that its width is exactly equal to w, and the height will be a calculated value that maintains the aspect ratio of the extracted region. |
-| ,h             | The extracted region should be scaled so that its height is exactly equal to h, and the width will be a calculated value that maintains the aspect ratio of the extracted region. |
-| pct:n          | The width and height of the returned image is scaled to n% of the width and height of the extracted region. The aspect ratio of the returned image is the same as that of the extracted region. |
-| w,h            | The width and height of the returned image are exactly w and h. The aspect ratio of the returned image _MAY_ be different than the extracted region, resulting in a distorted image. |
-| !w,h           | The image content is scaled for the best fit such that the resulting width and height are less than or equal to the requested width and height. The exact scaling _MAY_ be determined by the service provider, based on characteristics including image quality and system performance. The dimensions of the returned image content are calculated to maintain the aspect ratio of the extracted region. |
+| Form   | Description |
+|--------|-----------------------|
+| `full` | The image or region is not scaled, and is returned at its full size. Note [deprecation warning][full-dep]. |
+| `max`  | The image or region is returned at the maximum size available, as indicated by `maxWidth`, `maxHeight`, `maxArea` in the [profile description][profile-description]. This is the same as `full` if none of these are properties are provided. |
+| w,     | The image or region should be scaled so that its width is exactly equal to w, and the height will be a calculated value that maintains the aspect ratio of the extracted region. |
+| ,h     | The image or region should be scaled so that its height is exactly equal to h, and the width will be a calculated value that maintains the aspect ratio of the extracted region. |
+| pct:n  | The width and height of the returned image is scaled to n% of the width and height of the extracted region. The aspect ratio of the returned image is the same as that of the extracted region. |
+| w,h    | The width and height of the returned image are exactly w and h. The aspect ratio of the returned image _MAY_ be different than the extracted region, resulting in a distorted image. |
+| !w,h   | The image content is scaled for the best fit such that the resulting width and height are less than or equal to the requested width and height. The exact scaling _MAY_ be determined by the service provider, based on characteristics including image quality and system performance. The dimensions of the returned image content are calculated to maintain the aspect ratio of the extracted region. |
 {: .api-table}
 
 If the resulting height or width is zero, then the server _SHOULD_ return a 400 (bad request) status code.
 
 The image server _MAY_ support scaling above the full size of the extracted region.
+
+__Deprecation Warning__
+The size keyword `full` will be replaced in favor of `max` in Version 3.0. Feedback is welcome via [iiif-discuss][iiif-discuss] or on the [Github issue](https://github.com/IIIF/iiif.io/issues/678).
+{: .warning #full-dep}
 
 Examples:
 
@@ -227,17 +232,23 @@ Examples:
         <p><code>.../full/full/0/default.jpg</code></p>
       </td>
       <td>
+        <img src="img/size_max.png" alt="Maximum Size" class="fullPct" />
+        <p><strong>1</strong> size=full</p>
+        <p><code>.../full/max/0/default.jpg</code></p>
+        <p><em>N.B. Assuming that the image has a <code>maxWidth</code> of 200px</em></p>
+      </td>
+      <td>
         <img src="img/size_wc.png" alt="Size by Width" class="fullPct" />
         <p><strong>2</strong> size=150,</p>
         <p><code>.../full/150,/0/default.jpg</code></p>
       </td>
+    </tr>
+    <tr>
       <td>
         <img src="img/size_ch.png" alt="Size by Height" class="fullPct" />
         <p><strong>3</strong> size=,150</p>
         <p><code>.../full/,150/0/default.jpg</code></p>
       </td>
-    </tr>
-    <tr>
       <td>
         <img src="img/size_pct.png" alt="Size by Percent" class="fullPct" />
         <p><strong>4</strong> size=pct:50</p>
@@ -248,12 +259,16 @@ Examples:
         <p><strong>5</strong> size=225,100</p>
         <p><code>.../full/225,100/0/default.jpg</code></p>
       </td>
+    </tr>
+    <tr>
       <td>
         <img src="img/size_bwch.png" alt="Size By Bang Width Height" class="fullPct" />
         <p><strong>6</strong> size=!225,100</p>
         <p><code>.../full/!225,100/0/default.jpg</code></p>
         <p><em>N.B. Returned image is 150,100 px</em></p>
       </td>
+      <td></td>
+      <td></td>
     </tr>
   </tbody>
 </table>
@@ -422,7 +437,7 @@ In order to support the above requirements, clients _SHOULD_ construct the image
 | Parameter | Canonical value |
 | --------- | --------------- |
 | region    | "full" if the whole image is requested, (including a "square" region of a square image)<br/>otherwise the `x,y,w,h` syntax. |
-| size      | "full" if the default size is requested,<br/>the `w,` syntax for images that should be scaled maintaining the aspect ratio,<br/>and the `w,h` syntax for explicit sizes that change the aspect ratio. |
+| size      | "full" if the default size is requested,<br/>the `w,` syntax for images that should be scaled maintaining the aspect ratio,<br/>and the `w,h` syntax for explicit sizes that change the aspect ratio. <br/>__Note:__ The the size keyword "full" will be replaced with "max" in version 3.0. See the [deprecation warning][full-dep] under [size][size] for more information. |
 | rotation  | "!" if the image is mirrored, followed by an integer if possible, and trimming any trailing zeros in a decimal value, and a leading 0 if the value is below 1. |
 | quality   | "default" if the server's default quality is requested,<br/>otherwise the quality string. |
 | format    | The explicit format string is always required. |
@@ -916,6 +931,8 @@ Many thanks to  Ben Albritton, Matthieu Bonicel, Anatol Broder, Kevin Clarke, To
 [quality]: #quality "4.4. Quality"
 [format]: #format "4.5. Format"
 [features]: #features "API Features"
+[profile-description]: #profile-description "5.3 Profile Description"
+[full-dep]: #full-dep "Full Size Keyword Deprecation Warning"
 [order-of-implementation]: #order-of-implementation "4.6. Order of Implementation"
 [canonical-uri-syntax]: #canonical-uri-syntax "4.7. Canonical URI Syntax"
 [information-request]: #information-request "5. Information Request"

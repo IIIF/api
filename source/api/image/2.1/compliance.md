@@ -50,13 +50,14 @@ In the tables below "![required][icon-req]" indicates that support is _REQUIRED_
 | `square`    | `regionSquare` | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] |
 {: .api-table}
 
-See also note under [Size][size] about combinations of Size and Region that may not be supported.
+See also the note under [Size][size] about combinations of Size and Region that may not be supported.
 
 ### 3.2 Size
 
 | Syntax | Feature Name     | Level 0 | Level 1 | Level 2  |
 |:-------|:-----------------|:-------:|:-------:|:--------:|
 | `full` |                  | ![required][icon-req] | ![required][icon-req] | ![required][icon-req] |
+| `max`  |                  | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] |
 | w,h    | `sizeByWhListed` | ![required][icon-req] | ![required][icon-req] | ![required][icon-req] |
 | w,     | `sizeByW`        | ![optional][icon-opt] | ![required][icon-req] | ![required][icon-req] |
 | ,h     | `sizeByH`        | ![optional][icon-opt] | ![required][icon-req] | ![required][icon-req] |
@@ -67,6 +68,8 @@ See also note under [Size][size] about combinations of Size and Region that may 
 {: .api-table}
 
 Note that servers may express limits on the sizes available for an image with the optional `maxWidth`, `maxHeight` and/or `maxArea` [Profile Description properties][profile]. Servers are compliant provided they support the forms of the Size parameter shown above for image sizes up to the limits specified. Clients should not assume that Region and Size parameter combinations such as `/full/full/` will be supported.
+
+See also the [deprecation warning about `full`][full-dep].
 
 ### 3.3 Rotation
 
@@ -150,5 +153,6 @@ If a client requests a combination of size and region outside these parameters t
 [size]: #size "3.2 Size"
 [profile]: /api/image/{{ page.major }}.{{ page.minor }}/#profile-description "5.3 Profile Description"
 [stable-version]: /api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/compliance/ "Stable Version"
+[full-dep]: /api/image/2.{{ page.minor }}/#full-dep "Full Size Keyword Deprecation Warning"
 
 {% include acronyms.md %}
