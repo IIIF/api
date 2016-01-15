@@ -572,14 +572,14 @@ The set of features that may be specified in the `supports` property of an Image
 | `regionSquare` |  A square region where the width and height are equal to the shorter dimension of the complete image content. |
 | `rotationArbitrary` |   Rotation of images may be requested by degrees other than multiples of 90. |
 | `rotationBy90s` |   Rotation of images may be requested by degrees in multiples of 90. |
-| `sizeAboveFull` | Size of images may be requested larger than the "full" size. |
+| `sizeAboveFull` | Size of images may be requested larger than the "full" size. See [warning][max-dos-warning]. |
 | `sizeByWhListed` | Size of images given in the `sizes` field of the Image Information document may be requested using the `w,h` syntax. |
 | `sizeByForcedWh` | Size of images may be requested in the form "!w,h".  |
 | `sizeByH` | Size of images may be requested in the form ",h".  |
 | `sizeByPct` | Size of images may be requested in the form "pct:n".  |
 | `sizeByW` | Size of images may be requested in the form "w,".  |
 | `sizeByWh` | Size of images may be requested in the form "w,h".  |
-{: .api-table}
+{: .api-table #features}
 
 The set of features, formats and qualities supported is the union of those declared in all of the external profile documents and any embedded profile objects.  If a feature is not present in either the profile document or the `supports` property of an embedded profile, then a client _MUST_ assume that the feature is not supported.
 
@@ -801,15 +801,18 @@ Servers which are incapable of processing arbitrarily encoded identifiers _SHOUL
 
 This API defines a URI syntax and the semantics associated with its components. The composition of URIs has few security considerations except possible exposure of sensitive information in URIs or revealing of browse/view behavior of users.
 
-Server applications implementing this API _SHOULD_ consider possible denial-of-service attacks, and authentication vulnerabilities based on DNS spoofing. Applications _MUST_ be careful to parse incoming requests (URIs) in ways that avoid overflow or injection attacks.
+Server applications implementing this API should consider possible denial-of-service attacks, and authentication vulnerabilities based on DNS spoofing. Applications must be careful to parse incoming requests (URIs) in ways that avoid overflow or injection attacks.
 
-Early sanity checking of URIs (lengths, trailing GET, invalid characters, out-of-range parameters) and rejection with appropriate response codes is _RECOMMENDED_.
+It is recommended that servers implementing the `sizeAboveFull` [feature][features] also implement one or more of `maxWith`, `maxHeight`, or `maxArea` in order to prevent arbitrarily large image requests, thus exposing the server to denial-of-service attacks.
+{: #max-dos-warning}
+
+Early sanity checking of URIs (lengths, trailing GET, invalid characters, out-of-range parameters) and rejection with appropriate response codes is recommended.
 
 ## 11. Appendices
 
 ### A. Implementation Notes
 
-  * For use cases that enable the saving of the image, it is _RECOMMENDED_ to use the HTTP `Content-Disposition` header ([RFC6266][rfc-6266]) to provide a convenient filename that distinguishes the image, based on the identifier and parameters provided.
+  * For use cases that enable the saving of the image, it is recommended to use the HTTP `Content-Disposition` header ([RFC6266][rfc-6266]) to provide a convenient filename that distinguishes the image, based on the identifier and parameters provided.
   * This specification makes no assertion about the rights status of requested images or any other descriptive metadata, whether or not authentication has been accomplished. Please see the [IIIF Presentation API][prezi-api] for rights and other information.
   * Additional [Apache HTTP Server implementation notes][apache-notes] are available.
   * Linked data implementations may construct the info.json response using the frame supplied in the [JSON-LD framing implementation note][annex-frames].
@@ -912,6 +915,7 @@ Many thanks to  Ben Albritton, Matthieu Bonicel, Anatol Broder, Kevin Clarke, To
 [rotation]: #rotation "4.3. Rotation"
 [quality]: #quality "4.4. Quality"
 [format]: #format "4.5. Format"
+[features]: #features "API Features"
 [order-of-implementation]: #order-of-implementation "4.6. Order of Implementation"
 [canonical-uri-syntax]: #canonical-uri-syntax "4.7. Canonical URI Syntax"
 [information-request]: #information-request "5. Information Request"
@@ -924,6 +928,7 @@ Many thanks to  Ben Albritton, Matthieu Bonicel, Anatol Broder, Kevin Clarke, To
 [authentication]: #authentication "8. Authentication"
 [uri-encoding-and-decoding]: #uri-encoding-and-decoding "9. URI Encoding and Decoding"
 [security-considerations]: #security-considerations "10. Security Considerations"
+[max-dos-warning]: #max-dos-warning "Size Above Gull DOS Warning"
 [appendices]: #appendices "11. Appendices"
 [a-implementation-notes]: #a-implementation-notes "A. Implementation Notes"
 [b-versioning]: #b-versioning "B. Versioning"
