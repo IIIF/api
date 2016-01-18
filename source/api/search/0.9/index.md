@@ -625,7 +625,7 @@ The example request above might generate the following response:
 }
 ```
 
-URIs or other data that are searchable via the `q` parameter might also have `label`s to display to the user, rather than the exact string that matched.  This can also be useful if stemming or other term normalization has occured, in order to display the original rather than the processed term.
+It is also possible to associate one or more `label`s to display to the user with URIs or other data that are searchable via the `q` parameter, rather than using the exact string that matched.  This can also be useful if stemming or other term normalization has occured, in order to display the original rather than the processed term.
 
 ``` json-doc
 {
