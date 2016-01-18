@@ -1,12 +1,12 @@
 ---
-title: "IIIF Content Search API 0.9.1"
-title_override: "IIIF Content Search API 0.9.1"
+title: "IIIF Content Search API 0.9.2"
+title_override: "IIIF Content Search API 0.9.2"
 id: content-search-api
 layout: spec
 tags: [specifications, content-search-api]
 major: 0
 minor: 9
-patch: 1
+patch: 2
 pre: draft
 cssversion: 2
 ---
@@ -556,7 +556,10 @@ The autocomplete service _MUST_ have an `@id` property with the value of the URI
 
 The request is very similar to the search request, with one additional parameter to allow the number of occurrences of the term within the object to be constrained.  The value of the `q` parameter is the beginning characters from the term to be completed by the service.  For example, the query term of 'bir' might complete to 'bird', 'biro', 'birth', and 'birthday'.
 
+The term should be parsed as a complete string, regardless of whether there is whitespace included in it. For example, the query term of "green bir" should not autocomplete on fields that match "green" and also include something that starts with "bir", but instead look for terms that start with the string "green bir".
+
 The other parameters (`motivation`, `date`,`user` and `box`), if supported, would refine the set of terms in the response to only ones from the annotations that match those filters.  For example, if the motivation is given as "painting", then only text from painting transcriptions will contribute to the list of terms in the response.
+
 
 #### 4.2.1. Query Parameters
 
@@ -575,10 +578,17 @@ An example request
 
 ### 4.2. Response
 
-The response is a list of very simple objects that include the term and its number of occurrences.  The number of terms provided is determined by the server.  The matching term is given as the value of the `match` property, and the number of occurences is the integer value of the `count` property.
-The term objects are of `@type` "search:Term", and this _MAY_ be included explicitly but it is not necessary.
+The response is a list (a "search:TermList") of simple objects that include the term, a link to the search for that term, and the number of matches that search will have.  The number of terms provided in the list is determined by the server.  
 
-Parameters that were not processed by the service _MUST_ be returned in the response in the `ignored` property of the main "TermList" object.
+Parameters that were not processed by the service _MUST_ be returned in the `ignored` property of the main "TermList" object.  The value _MUST_ be an array of strings.
+
+The objects in the list of terms are all of `@type` "search:Term", and this _MAY_ be included explicitly but is not necessary.  The Term object has a number of possible properties:
+
+  * The matching term is given as the value of the `match` property, and _MUST_ be present.
+  * The link to the search to perform is the value of the `url` property, and this _MUST_ be present.
+  * The number of matches for the term is the integer value of the `count` property, and _SHOULD_ be present.
+  * A label to display instead of the match can be given as the value of the `label` property, and _MAY_ be present.  There may be more than one label given, to allow for internationaliation.
+
 
 The terms _SHOULD_ be provided in ascending alphabetically sorted order, but other orders are allowed, such as by the term's count descending to put the most common matches first.
 
@@ -591,15 +601,31 @@ The example request above might generate the following response:
   "@type": "search:TermList",
   "ignored": ["box"],
   "terms": [
-    {"match": "bird", "count": 15},
-    {"match": "biro", "count": 3},
-    {"match": "birth", "count": 9},
-    {"match": "birthday", "count": 21}
+    {
+      "match": "bird", 
+      "url": "http://example.org/service/identifier/search?motivation=painting&q=bird",
+      "count": 15
+    },
+    {
+      "match": "biro", 
+      "url": "http://example.org/service/identifier/search?motivation=painting&q=biro",
+      "count": 3
+    },
+    {
+      "match": "birth", 
+      "url": "http://example.org/service/identifier/search?motivation=painting&q=birth",
+      "count": 9
+    },
+    {
+      "match": "birthday", 
+       "url": "http://example.org/service/identifier/search?motivation=painting&q=birthday",
+      "count": 21
+    }
   ]
 }
 ```
 
-Semantic Tags or other URIs searchable via the `q` parameter might also have labels to display to the user, rather than the URI that matched.  The order of the terms might be by the label, rather than the matching URI, if there is an associated label.
+URIs or other data that are searchable via the `q` parameter might also have `label`s to display to the user, rather than the exact string that matched.  This can also be useful if stemming or other term normalization has occured, in order to display the original rather than the processed term.
 
 ``` json-doc
 {
@@ -608,12 +634,14 @@ Semantic Tags or other URIs searchable via the `q` parameter might also have lab
   "ignored": ["box"],
   "terms": [
     {
-      "match": "http://semtag.example.org/tag/bird",
-      "count": 15,
+      "match": "http://semtag.example.org/tag/bird", 
+      "url": "http://example.org/service/identifier/autocomplete?motivation=tagging&q=http://semtag.example.org/tag/bird",
+      "count": 15, 
       "label": "bird"
     },
     {
-      "match": "http://semtag.example.org/tag/biro",
+      "match": "http://semtag.example.org/tag/biro", 
+      "url": "http://example.org/service/identifier/autocomplete?motivation=tagging&q=http://semtag.example.org/tag/biro",
       "count": 3,
       "label": "biro"
     }
@@ -623,6 +651,21 @@ Semantic Tags or other URIs searchable via the `q` parameter might also have lab
 
 
 ## 5. Property Definitions
+
+after
+:   A segment of text that occurs after the text that triggered the search to match the particular anotation.  The value _MUST_ be a single string.
+
+    * A Hit _MAY_ have the `after` property.
+
+before
+:   A segment of text that occurs before the text that triggered the search to match the particular anotation.  The value _MUST_ be a single string.
+
+    * A Hit _MAY_ have the `before` property.
+
+count
+:   A number of times that a term appears.  The value _MUST_ be an positive integer.
+
+    * A Term _SHOULD_ have the `count` property.
 
 ignored
 :   The set of parameters that were received by the server but not taken into account when processing the query. The value _MUST_ be an array of strings.
@@ -634,21 +677,6 @@ match
 
     * A Hit _MAY_ have the `match` property.
     * A Term _MUST_ have the `match` property.
-
-before
-:   A segment of text that occurs before the text that triggered the search to match the particular anotation.  The value _MUST_ be a single string.
-
-    * A Hit _MAY_ have the `before` property.
-
-after
-:   A segment of text that occurs after the text that triggered the search to match the particular anotation.  The value _MUST_ be a single string.
-
-    * A Hit _MAY_ have the `after` property.
-
-count
-:   A number of times that a term appears.  The value _MUST_ be an positive integer.
-
-    * A Term _SHOULD_ have the `count` property.
 
 
 ## Appendices
