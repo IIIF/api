@@ -21,12 +21,12 @@ Once received, proposals will be reviewed by a team and a response provided with
 
   * Tom Cramer (IIIF Consortium)
   * Rob Sanderson (Stanford)
-  * Jon Stroop (Princeton)
+  * Jon Stroop, Shaun Ellis (Princeton)
   * Simeon Warner (Cornell)
-  * Randy Stern (Harvard)
+  * Randy Stern, Rashmi Singhal (Harvard)
   * Matthew McGrattan (Oxford)
 
-Further volunteers from the community are sought for the review team. Institutions that have members on the review team are not eligible to submit proposals, and the final decision for any proposal will be made by Stanford University Libraries, following the review outcomes.
+Further volunteers from the community are sought for the review team. Institutions that have members on the review team are not eligible to submit proposals, each institution only contributes one review, and the final decision for any proposal will be made by Stanford University Libraries, after the review process.
 
 Reviews will be based on the following weighted criteria
 
@@ -41,10 +41,8 @@ The response may be:
   * Please provide refinements in specified areas, or answers to questions
   * Apologies but the proposed work doesn't fit the criteria sufficiently
 
-The range of available funds is up to $20,000 USD per project, however for projects of extraordinary quality with significant matching funds, exceptions may be made.  If requesting more than this amount, please contact the team in advance.
+The range of available funds is up to $20,000 USD per project, however for projects of extraordinary quality with significant matching funds, exceptions may be made.  If requesting more than this amount, please contact the team in advance at [iiif-proposals@googlegroups.com](iiif-proposals@googlegroups.com).
 
 __Please circulate to other parties that may be interested!__
 
-
 {% include acronyms.md %}
-
