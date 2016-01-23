@@ -11,12 +11,12 @@ pre: draft1
 
 ## Zones Notes
 
-```
+``` none
 URI pattern:  {scheme}://{host}{/prefix}/{identifier}/zone/{name}.json
 ```
 {: .uriTemplate}
 
-{% highlight json %}
+``` json-doc
 {
   "@id": "mandatory-uri",
   "@type": "sc:Zone",
@@ -34,6 +34,6 @@ URI pattern:  {scheme}://{host}{/prefix}/{identifier}/zone/{name}.json
   "images": [ ... ],
   "other_content": [ ... ]
 }
-{% endhighlight %}
+```
 
 Then aggregate them in an AnnotationList referenced from other_content from the Canvas that it is associated with.

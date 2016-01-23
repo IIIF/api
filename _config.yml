@@ -1,14 +1,18 @@
 markdown: kramdown
-highlighter: pygments
 source: source
 safe: false
 permalink: /news/:year/:month/:day/:title/
+
+gems:
+  - jekyll-sitemap
+  - jekyll-redirect-from
 
 kramdown:
   input: GFM
   parse_block_html: true
   toc_levels: 2..6
-  use_coderay: true
+  enable_coderay: true
+  syntax_highlighter: rouge
 
   coderay:
     coderay_wrap: div
@@ -40,4 +44,3 @@ auth_api:
     major: 0
     minor: 9
     patch: 1
-    

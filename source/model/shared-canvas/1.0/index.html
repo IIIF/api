@@ -1,3 +1,8 @@
+---
+redirect_from:
+  - /model/
+  - /model/shared-canvas/
+---
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -11,13 +16,13 @@
 
 <div id="header">
 <table class="layout">
-	<tr>
-		<td><img alt="SharedCanvas logo" src="images/small-logo.png" height="100" /></td>
-		<td>
-		<h2 class="title">Shared Canvas Data Model</h2>
-		<h3 class="subTitle">1.0, 14 February 2013</h3>
-		</td>
-	</tr>
+  <tr>
+    <td><img alt="SharedCanvas logo" src="images/small-logo.png" height="100" /></td>
+    <td>
+    <h2 class="title">Shared Canvas Data Model</h2>
+    <h3 class="subTitle">1.0, 14 February 2013</h3>
+    </td>
+  </tr>
 </table>
 </div>
 
@@ -26,16 +31,16 @@
 <div id="abstractversionstatus">
 
 <dl>
-	<dt>This version:</dt>
-	<dd><a href="/model/shared-canvas/1.0/">http://iiif.io/model/shared-canvas/1.0/</a></dd>
-	<dt>Latest version:</dt>
-	<dd><a href="/model/shared-canvas/">http://iiif.io/model/shared-canvas/</a></dd>
+  <dt>This version:</dt>
+  <dd><a href="/model/shared-canvas/1.0/">http://iiif.io/model/shared-canvas/1.0/</a></dd>
+  <dt>Latest version:</dt>
+  <dd><a href="/model/shared-canvas/">http://iiif.io/model/shared-canvas/</a></dd>
 </dl>
 
 <dl class="EditorsContributors">
-	<dt>Editors:</dt>
-	<dd>Robert Sanderson, Los Alamos National Laboratory</dd>
-	<dd>Benjamin Albritton, Stanford University</dd>
+  <dt>Editors:</dt>
+  <dd>Robert Sanderson, Los Alamos National Laboratory</dd>
+  <dd>Benjamin Albritton, Stanford University</dd>
 </dl>
 
 
@@ -388,12 +393,12 @@ rendering system should select an appropriate one.</td></tr>
 
 <div>Canvas Model:</div>
 <div class="diagramWrapper">
-	<div class="diagram">
-		<img alt="Canvas Model" src="images/canvas1.png" width="350"/>
-		<br/><span class="caption">Figure 2.1. Canvas Model</span>
-	</div>
+  <div class="diagram">
+    <img alt="Canvas Model" src="images/canvas1.png" width="350"/>
+    <br/><span class="caption">Figure 2.1. Canvas Model</span>
+  </div>
 
-	<pre> &lt;Canvas1&gt; a sc:Canvas ;
+  <pre> &lt;Canvas1&gt; a sc:Canvas ;
     exif:height 1400 ;
     exif:width 1000 ;
     rdfs:label "Page 1" .</pre>
@@ -413,10 +418,10 @@ dynamic user interface features such as manipulating folds in a piece of paper, 
 reading, without rotating the entire page.  Zones may be associated with multiple Canvases, thus avoiding unnecessary repetition of the data.
 </p>
 <div class="diagramWrapper">
-	<div class="diagram">
-		<img alt="Zone Model" src="images/zone-eg.png" width="450"/>
-		<br/><span class="caption">Figure 2.2.1. Zone Example</span>
-	</div>
+  <div class="diagram">
+    <img alt="Zone Model" src="images/zone-eg.png" width="450"/>
+    <br/><span class="caption">Figure 2.2.1. Zone Example</span>
+  </div>
 </div>
 
 <p>Like Canvases, Zones have a height and width to provide an aspect ratio, and a label for choices and interpretation.  Zones may also have a <code class="tech">sc:naturalAngle</code> property to define the rotation for easy of reading.  They are associated with Canvases via Annotations, as described in the next section.
@@ -452,12 +457,12 @@ The Shared Canvas model uses:
 
 <div>Zone Model:</div>
 <div class="diagramWrapper">
-	<div class="diagram">
-		<img alt="Zone Model" src="images/zone1.png" width="350"/>
-		<br/><span class="caption">Figure 2.2.2. Zone Model</span>
-	</div>
+  <div class="diagram">
+    <img alt="Zone Model" src="images/zone1.png" width="350"/>
+    <br/><span class="caption">Figure 2.2.2. Zone Model</span>
+  </div>
 
-	<pre>  &lt;Zone1&gt; a sc:Zone ;
+  <pre>  &lt;Zone1&gt; a sc:Zone ;
     exif:height 400 ;
     exif:width 600 ;
     rdfs:label "Fold 1" .</pre>
@@ -531,12 +536,12 @@ The Shared Canvas model uses:
 
 <div>Annotation Model:</div>
 <div class="diagramWrapper">
-	<div class="diagram">
-		<img alt="Annotation Example Model" src="images/anno1.png" width="600"/>
-		<br/><span class="caption">Figure 3.1. Basic Annotation Model</span>
-	</div>
+  <div class="diagram">
+    <img alt="Annotation Example Model" src="images/anno1.png" width="600"/>
+    <br/><span class="caption">Figure 3.1. Basic Annotation Model</span>
+  </div>
 
-	<pre>  &lt;anno1&gt; a oa:Annotation ;
+  <pre>  &lt;anno1&gt; a oa:Annotation ;
     oa:motivatedBy sc:painting ;
     oa:hasBody &lt;content1&gt; ;
     oa:hasTarget &lt;canvas1&gt; .
@@ -602,12 +607,12 @@ The Shared Canvas model uses:
 
 <div>Ordered Aggregation Model:</div>
 <div class="diagramWrapper">
-	<div class="diagram">
-		<img alt="Ordered Aggregation Model" src="images/orderedaggr.png" width="500"/>
-		<br/><span class="caption">Figure 4.1. Ordered Aggregation Model</span>
-	</div>
+  <div class="diagram">
+    <img alt="Ordered Aggregation Model" src="images/orderedaggr.png" width="500"/>
+    <br/><span class="caption">Figure 4.1. Ordered Aggregation Model</span>
+  </div>
 
-	<pre>  &lt;aggr1&gt; a ore:Aggregation, rdf:List ;
+  <pre>  &lt;aggr1&gt; a ore:Aggregation, rdf:List ;
       ore:aggregates &lt;canvas1&gt;, &lt;canvas2&gt;, &lt;canvas3&gt; ;
       rdf:first &lt;canvas1&gt; ;
       rdf:rest ( &lt;canvas2&gt; &lt;canvas3&gt; ) .
@@ -658,12 +663,12 @@ The Shared Canvas model uses:
 
 <div>Sequence Model:</div>
 <div class="diagramWrapper">
-	<div class="diagram">
-		<img alt="Sequence Model" src="images/sequence.png" width="500"/>
-		<br/><span class="caption">Figure 4.2. Sequence Model</span>
-	</div>
+  <div class="diagram">
+    <img alt="Sequence Model" src="images/sequence.png" width="500"/>
+    <br/><span class="caption">Figure 4.2. Sequence Model</span>
+  </div>
 
-	<pre>  &lt;Seq1&gt; sc:Sequence, rdf:List ;
+  <pre>  &lt;Seq1&gt; sc:Sequence, rdf:List ;
     ore:aggregates &lt;Canvas1&gt;, &lt;Canvas2&gt;, &lt;Canvas3&gt; ;
     rdf:first &lt;Canvas1&gt; ;
     rdf:rest ( &lt;Canvas2&gt; &lt;Canvas3&gt; ) .
@@ -716,12 +721,12 @@ The Shared Canvas model uses:
 
 <div>Range Model:</div>
 <div class="diagramWrapper">
-	<div class="diagram">
-		<img alt="Range Model" src="images/range.png" width="600"/>
-		<br/><span class="caption">Figure 4.3. Range Model</span>
-	</div>
+  <div class="diagram">
+    <img alt="Range Model" src="images/range.png" width="600"/>
+    <br/><span class="caption">Figure 4.3. Range Model</span>
+  </div>
 
-	<pre>  &lt;Range1&gt; a sc:Range, rdf:List ;
+  <pre>  &lt;Range1&gt; a sc:Range, rdf:List ;
     dcterms:isPartOf &lt;Seq1&gt; ;
     ore:aggregates &lt;Part1&gt;, &lt;Canvas2&gt;, &lt;Canvas3&gt; ;
     rdf:first &lt;Part1&gt; ;
@@ -791,12 +796,12 @@ The Shared Canvas model uses:
 
 <div>Annotation List Model:</div>
 <div class="diagramWrapper">
-	<div class="diagram">
-		<img alt="Annotation List Model" src="images/annotationList.png" width="600"/>
-		<br/><span class="caption">Figure 5.1. Annotation List Model</span>
-	</div>
+  <div class="diagram">
+    <img alt="Annotation List Model" src="images/annotationList.png" width="600"/>
+    <br/><span class="caption">Figure 5.1. Annotation List Model</span>
+  </div>
 
-	<pre>  &lt;AnnoList1&gt; a sc:AnnotationList, ore:Aggregation, rdf:List ;
+  <pre>  &lt;AnnoList1&gt; a sc:AnnotationList, ore:Aggregation, rdf:List ;
     ore:aggregates &lt;Anno1&gt;, &lt;Anno2&gt; ;
     rdf:first &lt;Anno1&gt; ;
     rdf:rest ( &lt;Anno2&gt; ) .
@@ -875,12 +880,12 @@ The Shared Canvas model uses:
 
 <div>Annotation List Model:</div>
 <div class="diagramWrapper">
-	<div class="diagram">
-		<img alt="Manifest Model" src="images/manifest.png" width="600"/>
-		<br/><span class="caption">Figure 5.2. Manifest Model</span>
-	</div>
+  <div class="diagram">
+    <img alt="Manifest Model" src="images/manifest.png" width="600"/>
+    <br/><span class="caption">Figure 5.2. Manifest Model</span>
+  </div>
 
-	<pre>  &lt;Manifest1&gt; a sc:Manifest, ore:Aggregation ;
+  <pre>  &lt;Manifest1&gt; a sc:Manifest, ore:Aggregation ;
     ore:aggregates &lt;Seq1&gt;, &lt;Range1&gt;, &lt;AnnoList1&gt; .
 
   &lt;ResourceMap1&gt; a ore:ResourceMap ;
@@ -949,12 +954,12 @@ The Shared Canvas model uses:
 
 <p>Services and Bibliographic Information Model:</p>
 <div class="diagramWrapper">
-	<div class="diagram">
-		<img alt="Bibliographic Service Model" src="images/svcbibl.png" width="600"/>
-		<br/><span class="caption">Figure 5.2. Manifest Model</span>
-	</div>
+  <div class="diagram">
+    <img alt="Bibliographic Service Model" src="images/svcbibl.png" width="600"/>
+    <br/><span class="caption">Figure 5.2. Manifest Model</span>
+  </div>
 
-	<pre>  &lt;Manifest1&gt; a sc:Manifest, ore:Aggregation ;
+  <pre>  &lt;Manifest1&gt; a sc:Manifest, ore:Aggregation ;
     ore:aggregates &lt;Seq1&gt;, &lt;Range1&gt; ;
     rdfs:label "Title" ;
     sc:agentLabel "Name" ;
@@ -1005,8 +1010,8 @@ The Shared Canvas model uses:
 <a id="References"></a>
 <h2>A. References</h2>
 <dl>
-	<dt><a id="ref-cc">[Creative Commons]</a></dt>
-	<dd><a href="http://creativecommons.org/">Creative Commons</a>,	Creative Commons, May 18 2008</dd>
+  <dt><a id="ref-cc">[Creative Commons]</a></dt>
+  <dd><a href="http://creativecommons.org/">Creative Commons</a>,  Creative Commons, May 18 2008</dd>
 
 <dt><a id="ref-content">[Content in RDF]</a></dt>
 <dd><a href="http://www.w3.org/TR/Content-in-RDF10/">Representing Content in RDF 1.0</a>, Koch, J. Velasco, C. 29 October 2009</dd>
@@ -1051,23 +1056,23 @@ The editors would like to thank the following for their valuable contributions:
 <div class="changelog">
 <h2><a id="ChangeLog"></a>C. Change Log</h2>
 <table class="changelog">
-	<tbody>
-		<tr>
-			<th>Date</th>
-			<th>Editor</th>
-			<th>Description</th>
-		</tr>
-		<tr>
-			<td>2013-02-14</td>
-			<td>rsanderson</td>
-			<td>1.0</td>
-		</tr>		<tr>
-			<td>2012-05-01</td>
-			<td>rsanderson</td>
-			<td>Internal Draft</td>
-		</tr>
+  <tbody>
+    <tr>
+      <th>Date</th>
+      <th>Editor</th>
+      <th>Description</th>
+    </tr>
+    <tr>
+      <td>2013-02-14</td>
+      <td>rsanderson</td>
+      <td>1.0</td>
+    </tr>    <tr>
+      <td>2012-05-01</td>
+      <td>rsanderson</td>
+      <td>Internal Draft</td>
+    </tr>
 
-	</tbody>
+  </tbody>
 </table>
 </div>
 

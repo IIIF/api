@@ -83,7 +83,7 @@ Thanks to the members of the [IIIF][iiif-community] for their continuous engagem
    [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
    [image-api]: /api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/ "Image API"
    [prezi-api]: /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/ "Presentation API"
-   [iiif-community]: /community.html "IIIF Community"
+   [iiif-community]: /community/ "IIIF Community"
    [mellon]: http://www.mellon.org/ "The Andrew W. Mellon Foundation"
 [icon-req]: /img/metadata-api/required.png "Required"
 [icon-recc]: /img/metadata-api/recommended.png "Recommended"

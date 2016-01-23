@@ -83,7 +83,7 @@ The description of the service follows the pattern established in the [Linking t
 
 An example service description block:
 
-{% highlight json %}
+``` json-doc
 {
   // ... the resource that the search service is associated with ...
   "service": {
@@ -92,7 +92,7 @@ An example service description block:
     "profile": "http://iiif.io/api/search/{{ page.major }}/search"
   }
 }
-{% endhighlight %}
+```
 
 ### 3.2. Request
 
@@ -104,7 +104,7 @@ All parameters are _OPTIONAL_ in the request.  The default, if a parameter is em
 
 Servers _MUST_ implement the `q` parameter, and _SHOULD_ implement the `motivation` parameter. The other parameters are _OPTIONAL_ to support. Parameters that are received in a request but not implemented _MUST_ be ignored, and _SHOULD_ be included in the `ignored` property of the Layer in the response, described [below][ignored-parameters].
 
-| Parameter  | Definition | 
+| Parameter  | Definition |
 | ---------  | ---------- |
 | `q`          | A space separated list of search terms. The search terms _MAY_ be either words (to search for within textual bodies) or URIs (to search identities of annotation body resources).  The semantics of multiple, space separated terms is server implementation dependent.|
 | `motivation` | A space separated list of motivation terms. If multiple motivations are supplied, an annotation matches the search if any of the motivations are present. Expected values are given below. |
@@ -123,7 +123,6 @@ Common values for the motivation parameter are:
 | `describing`   | Annotations with the `oa:describing` motivation |
 | `tagging`      | Annotations with the `oa:tagging` motivation |
 | `linking`      | Annotations with the `oa:linking` motivation |
-
 {: .api-table}
 
 Other motivations are possible, and the full list from the [Open Annotation][openanno] specification _SHOULD_ be available by dropping the "oa:" prefix.  Other, community specific motivations _SHOULD_ include a prefix or use their full URI.
@@ -132,7 +131,7 @@ Other motivations are possible, and the full list from the [Open Annotation][ope
 
 This example request:
 
-```
+``` none
 http://example.org/services/manifest/search?q=bird&motivation=painting
 ```
 {: .urltemplate}
@@ -151,7 +150,7 @@ The simplest response looks exactly like a regular annotation list, where all of
 
 Clients wishing to know the total number of annotations that match may count the number of annotations in the `resources` property, as all matches have been returned.  The full annotation description _MUST_ be included in the response, even if the annotations are separately derefencable via their URIs.
 
-{% highlight json %}
+``` json-doc
 {
   "@context":"http://iiif.io/api/presentation/{{ site.presentation_api.latest.major }}/context.json",
   "@id":"http://example.org/service/manifest/search?q=bird&motivation=painting",
@@ -171,12 +170,12 @@ Clients wishing to know the total number of annotations that match may count the
     // Further matching annotations here ...
   ]
 }
-{% endhighlight %}
+```
 
-#### 3.3.2. Paging Results 
+#### 3.3.2. Paging Results
 
 For long lists of annnotations, the server may choose to divide the response into multiple sections, often called pages.  Each page is an annotation list and can refer to other pages to allow the client to traverse the entire set.  This uses the [paging features][paging] introduced in version 2.1 of the Presentation API, but is backwards compatible with version 2.0.  The next page of results that follows the current response _MUST_ be referenced in a `next` property of the annotation list, and the previous page _SHOULD_ be referenced in a `prev` property.  
-  
+
 The URI of the first annotation list reported in the `@id` property _MAY_ be different from the one used by the client to request the search.  Each page _SHOULD_ also have a `startIndex` property with an integer value that reports the position of the first result within the entire result set, where the first annotation has an index of 0.  For example, if the client has requested the first page which has 10 hits, then the `startIndex` will be 0, and the `startIndex` of second page will be 10, being the 11th hit.
 
 All of the pages are within a [layer][prezi-layer] that represents the entire resultset of matched annotations.  The layer is the value of a `within` property on each of the page annotation lists, and is recorded as an object with properties.
@@ -185,14 +184,14 @@ The layer _MUST_ have the `@type` property, with the value of "sc:Layer".  It _S
 
 An example request:
 
-```
+``` none
 http://example.org/service/manifest/search?q=bird
 ```
 {: .urltemplate}
 
 And the response for the first page of annotations from a total of 125 matches:
 
-{% highlight json %}
+``` json-doc
 {
   "@context":"http://iiif.io/api/presentation/{{ site.presentation_api.latest.major }}/context.json",
   "@id":"http://example.org/service/manifest/search?q=bird&page=1",
@@ -221,7 +220,7 @@ And the response for the first page of annotations from a total of 125 matches:
     // Further annotations from the first page here ...
   ]
 }
-{% endhighlight %}
+```
 
 #### 3.3.3. Target Resource Structure
 
@@ -229,7 +228,7 @@ The annotations may also include references to the structure or structures that 
 
 This structure is called out explicitly as although it uses only properties from the Presentation API, it is not a common pattern and thus clients may not be expecting it.
 
-{% highlight json %}
+``` json-doc
 {
   "@context":"http://iiif.io/api/search/{{ page.major }}/context.json",
   "@id":"http://example.org/service/manifest/search?q=bird&motivation=painting",
@@ -256,7 +255,7 @@ This structure is called out explicitly as although it uses only properties from
     // Further annotations here ...
   ]
 }
-{% endhighlight %}
+```
 
 ### 3.4 Search API Specific Responses
 
@@ -270,11 +269,11 @@ If supported, each entry in the `hits` list is a `search:Hit` object.  This type
 
 The basic structure is:
 
-{% highlight json %}
+``` json-doc
 {
-  "@context":[ 
+  "@context":[
       "http://iiif.io/api/presentation/{{ site.presentation_api.latest.major }}/context.json",
-      "http://iiif.io/api/search/{{ page.major }}/context.json" 
+      "http://iiif.io/api/search/{{ page.major }}/context.json"
   ],
   "@id":"http://example.org/service/manifest/search?q=bird&page=1",
   "@type":"sc:AnnotationList",
@@ -304,7 +303,7 @@ The basic structure is:
     // Further hits for the first page here ...
   ]
 }
-{% endhighlight %}
+```
 
 #### 3.4.1. Ignored Parameters
 
@@ -312,18 +311,18 @@ If the server has ignored any of the parameters in the request, then the layer _
 
 If the request from previous examples had been:
 
-```
+``` none
 http://example.org/service/manifest/search?q=bird&box=0,0,100,100
 ```
 {: .urltemplate}
 
 And the box parameter was ignored when processing the request, the response would be:
 
-{% highlight json %}
+``` json-doc
 {
-  "@context":[ 
+  "@context":[
       "http://iiif.io/api/presentation/{{ site.presentation_api.latest.major }}/context.json",
-      "http://iiif.io/api/search/{{ page.major }}/context.json" 
+      "http://iiif.io/api/search/{{ page.major }}/context.json"
   ],
   "@id":"http://example.org/service/manifest/search?q=bird&page=1",
   "@type":"sc:AnnotationList",
@@ -340,7 +339,7 @@ And the box parameter was ignored when processing the request, the response woul
     // Annotations ...
   ]
 }
-{% endhighlight %}
+```
 
 
 #### 3.4.2. Search Term Snippets
@@ -351,18 +350,18 @@ The service _MAY_ add a `before` property to the hit with some amount of text th
 
 For example, in a search for the query term "bird" in our example sentence, when the server has full word level coordinates:
 
-```
+``` none
 http://example.org/service/manifest/search?q=bird
 ```
 {: .urltemplate}
 
 That the server matches against the plural "birds":
 
-{% highlight json %}
+``` json-doc
 {
-  "@context":[ 
+  "@context":[
       "http://iiif.io/api/presentation/{{ site.presentation_api.latest.major }}/context.json",
-      "http://iiif.io/api/search/{{ page.major }}/context.json" 
+      "http://iiif.io/api/search/{{ page.major }}/context.json"
   ],
   "@id":"http://example.org/service/manifest/search?q=bird",
   "@type":"sc:AnnotationList",
@@ -393,7 +392,7 @@ That the server matches against the plural "birds":
     // Further hits for the first page here ...
   ]
 }
-{% endhighlight %}
+```
 
 #### 3.4.3. Search Term Highlighting
 
@@ -403,29 +402,29 @@ The client in this case needs to know the text that caused the service to create
 
 This would look like:
 
-{% highlight json %}
+``` json-doc
 {
   "@type": "oa:TextQuoteSelector",
   "exact": "birds",
   "prefix": "There are two ",
   "suffix": " in the bush"
 }
-{% endhighlight %}
+```
 
 As multiple words might match the query within the same annotation, multiple selectors may be given in the hit as objects within a `selectors` property.  For example, if the search used a wildcard to search for all words starting with "b" it would match the same annotation twice:
 
-```
+``` none
 http://example.org/service/manifest/search?q=b*
 ```
 {: .urltemplate}
 
 The result might be:
 
-{% highlight json %}
+``` json-doc
 {
-  "@context":[ 
+  "@context":[
       "http://iiif.io/api/presentation/{{ site.presentation_api.latest.major }}/context.json",
-      "http://iiif.io/api/search/{{ page.major }}/context.json" 
+      "http://iiif.io/api/search/{{ page.major }}/context.json"
   ],
   "@id":"http://example.org/service/manifest/search?q=b*&page=1",
   "@type":"sc:AnnotationList",
@@ -468,7 +467,7 @@ The result might be:
     // Further hits for the first page here ...
   ]
 }
-{% endhighlight %}
+```
 
 #### 3.4.4. Multi-Annotations Hits
 
@@ -478,11 +477,11 @@ In this case there needs to be more annotations than actual hits, as two annotat
 
 For the word level annotation case, the response might look like:
 
-{% highlight json %}
+``` json-doc
 {
-  "@context":[ 
+  "@context":[
       "http://iiif.io/api/presentation/{{ site.presentation_api.latest.major }}/context.json",
-      "http://iiif.io/api/search/{{ page.major }}/context.json" 
+      "http://iiif.io/api/search/{{ page.major }}/context.json"
   ],
   "@id":"http://example.org/service/manifest/search?q=bird",
   "@type":"sc:AnnotationList",
@@ -525,7 +524,7 @@ For the word level annotation case, the response might look like:
     // Further hits for the first page here ...
   ]
 }
-{% endhighlight %}
+```
 
 
 ## 4. Autocomplete
@@ -538,7 +537,7 @@ The autocomplete service is nested within the search service that it provides te
 
 The autocomplete service _MUST_ have an `@id` property with the value of the URI where the service can be interacted with, and _MUST_ have a `profile` property with the value "http://iiif.io/api/search/{{ page.major }}/autocomplete" to distinguish it from other types of service.
 
-{% highlight json %}
+``` json-doc
 {
   // Resource that the services are associated with ...
   "service": {
@@ -551,7 +550,7 @@ The autocomplete service _MUST_ have an `@id` property with the value of the URI
     }
   }
 }
-{% endhighlight %}
+```
 
 ### 4.2. Request
 
@@ -570,8 +569,7 @@ The other parameters (`motivation`, `date`,`user` and `box`), if supported, woul
 
 An example request
 
-```
-http://example.org/service/identifier/autocomplete?q=bir&motivation=painting&box=0,0,10,10
+``` none http://example.org/service/identifier/autocomplete?q=bir&motivation=painting&box=0,0,10,10
 ```
 {: .urltemplate}
 
@@ -586,7 +584,7 @@ The terms _SHOULD_ be provided in ascending alphabetically sorted order, but oth
 
 The example request above might generate the following response:
 
-{% highlight json %}
+``` json-doc
 {
   "@context": "http://iiif.io/api/search/{{ page.major }}/context.json",
   "@id": "http://example.org/service/identifier/autocomplete?q=bir&motivation=painting",
@@ -599,29 +597,29 @@ The example request above might generate the following response:
     {"match": "birthday", "count": 21}
   ]
 }
-{% endhighlight %}
+```
 
 Semantic Tags or other URIs searchable via the `q` parameter might also have labels to display to the user, rather than the URI that matched.  The order of the terms might be by the label, rather than the matching URI, if there is an associated label.
 
-{% highlight json %}
+``` json-doc
 {
   "@context": "http://iiif.io/api/search/{{ page.major }}/context.json",
   "@id": "http://example.org/service/identifier/autocomplete?q=http://semtag.example.org/tag/b&motivation=tagging",
   "ignored": ["box"],
   "terms": [
     {
-      "match": "http://semtag.example.org/tag/bird", 
-      "count": 15, 
+      "match": "http://semtag.example.org/tag/bird",
+      "count": 15,
       "label": "bird"
     },
     {
-      "match": "http://semtag.example.org/tag/biro", 
+      "match": "http://semtag.example.org/tag/biro",
       "count": 3,
       "label": "biro"
     }
   ]
 }
-{% endhighlight %}
+```
 
 
 ## 5. Property Definitions
@@ -692,7 +690,7 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 [versioning]: /api/annex/notes/semver.html "Versioning of APIs"
 [mellon]: http://www.mellon.org/ "The Andrew W. Mellon Foundation"
 [semver]: http://semver.org/spec/v2.0.0.html "Semantic Versioning 2.0.0"
-[iiif-community]: /community.html "IIIF Community"
+[iiif-community]: /community/ "IIIF Community"
 [stable-version]: http://iiif.io/api/image/{{ site.search_api.latest.major }}.{{ site.search_api.latest.minor }}/ "Stable Version"
 [paging]: /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.image_api.latest.minor }}/
 
@@ -701,7 +699,7 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 [prezi-api]: /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/ "Presentation API"
 [rfc-2119]: http://tools.ietf.org/html/rfc2119
 [service-annex]: /api/annex/services/
-[prezi-annolist]: /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/index.html#other-content-resources 
+[prezi-annolist]: /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/index.html#other-content-resources
 [prezi-layer]: /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/index.html#Layers
 [ignored-parameters]: #ignored-parameters
 [oa-textquotesel]: http://www.openannotation.org/spec/core/

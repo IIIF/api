@@ -48,7 +48,7 @@ Services _SHOULD_ have a `profile` URI which can be used to determine the type o
 
 Services _MAY_ be included either by reference or embedded within the response.  The decision as to whether to embed or reference is left up to the implementer, however embedded descriptions should be kept as short as possible.  If the only properties of the object are `@context`, `@id`, `profile` and/or `label`, then the client _SHOULD_ retrieve the resource from the URI given in `@id`.
 
-{% highlight json %}
+``` json-doc
 {
   "service": {
     "@context": "http://example.org/ns/jsonld/context.json",
@@ -58,7 +58,7 @@ Services _MAY_ be included either by reference or embedded within the response. 
     // Additional keys may be embedded here, if not then the @id should be retrieved
   }
 }
-{% endhighlight %}
+```
 
 ## 3. Services
 
@@ -76,7 +76,7 @@ _Added: 2014-05-20_
 
 The Image Information service allows the [Presentation API][prezi-api], and potentially other APIs, to reference content to be displayed via the [Image API][image-api].  The JSON-LD content to be referenced or embedded is the Image Information document, also known as `info.json`.  The service _MUST_ have the `@context`, `@id` and `profile` keys, pointing to the context document, service base URI and compliance level profile respectively.
 
-{% highlight json %}
+``` json-doc
 {
   "service": {
     "@context" : "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
@@ -84,11 +84,11 @@ The Image Information service allows the [Presentation API][prezi-api], and pote
     "profile": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/level2.json"
   }
 }
-{% endhighlight %}
+```
 
 The service _MAY_ have additional information embedded from the Image Information document to avoid the need to retrieve and parse it separately.  In this case, the profile _MAY_ also point to the profile of what functionality is supported, as described in the Image API.
 
-{% highlight json %}
+``` json-doc
 {
   "service": {
     "@context" : "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
@@ -116,11 +116,11 @@ The service _MAY_ have additional information embedded from the Image Informatio
     ],
   }
 }
-{% endhighlight %}
+```
 
 With the `logo` property added to the Image Information description in version 2.1 of the Image API{% unless site.image_api.latest.major >= 2 and site.image_api.latest.minor >= 1 %} (forthcoming){% endunless %}, it is possible and reasonable for one `info.json` response to embed another using this pattern.  In this case, the second service is related to the icon that should be displayed when a client renders the image described by the main response.
 
-{% highlight json %}
+``` json-doc
 {
   "@context" : "http://iiif.io/api/image/{{ page.major }}/context.json",
   "@id" : "http://www.example.org/image-service/baseImage",
@@ -136,7 +136,7 @@ With the `logo` property added to the Image Information description in version 2
     }
   }
 }
-{% endhighlight %}
+```
 
 
 ### 3.2 GeoJSON
@@ -148,18 +148,18 @@ The [JSON-LD representation][geojson-ld] of GeoJSON, with `@context` `http://geo
 
 An external reference example for tagging a place, where the URI would return a GeoJSON description of the city of Paris, France:
 
-{% highlight json %}
+``` json-doc
 {
   "service": {
     "@context" : "http://geojson.org/contexts/geojson-base.jsonld",
     "@id" : "http://www.example.org/geojson/paris.json"
   }
 }
-{% endhighlight %}
+```
 
 Or embedding the content:
 
-{% highlight json %}
+``` json-doc
 {
   "service": {
     "@context" : "http://geojson.org/contexts/geojson-base.jsonld",
@@ -172,7 +172,7 @@ Or embedding the content:
     }
   }
 }
-{% endhighlight %}
+```
 
 ### 3.3 Physical Dimensions
 _Added: 2014-05-20_, _Latest Revision: 2015-12-04_
@@ -201,7 +201,7 @@ The physical dimensions description includes the following properties:
 
 The following example demonstrates the resulting structure, as embedded within the [Presentation API][prezi-api] response:
 
-{% highlight json %}
+``` json-doc
 {
   "service": {
     "@context": "http://iiif.io/api/annex/services/physdim/1/context.json",
@@ -210,7 +210,7 @@ The following example demonstrates the resulting structure, as embedded within t
     "physicalUnits": "in"
   }
 }
-{% endhighlight %}
+```
 
 If the above example was associated with a Canvas of width 4000 and height 6000, then the physical object would be 4000 * 0.0025 = 10 inches wide, and 15 inches high.  If it was associated with an image with width 4000 and height 6000, then it would mean the image was 4000 pixels for 10 inches, or 400 pixels per inch.
 
@@ -239,7 +239,7 @@ Thanks to the members of the [IIIF][iiif-community] for their continuous engagem
    [image-api]: /api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/ "Image API"
    [prezi-api]: /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/ "Presentation API"
    [json-ld]: http://www.w3.org/TR/json-ld/ "JSON-LD"
-   [iiif-community]: /community.html "IIIF Community"
+   [iiif-community]: /community/ "IIIF Community"
    [mellon]: http://www.mellon.org/ "The Andrew W. Mellon Foundation"
    [geojson]: http://geojson.org/ "GeoJSON"
    [geojson-ld]: http://geojson.org/vocab "GeoJSON-LD"
