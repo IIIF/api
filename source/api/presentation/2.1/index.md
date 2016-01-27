@@ -164,7 +164,7 @@ license
     * Any resource _MAY_ have one or more licenses associated with it.
 
 logo
-:   A small image that represents an individual or organization associated with the resource it is attached to.  This could be the logo of the owning or hosting institution. The logo _MUST_ be clearly rendered when the resource is displayed or used, without cropping, rotating or otherwise distorting the image. It is _RECOMMENDED_ that a [IIIF Image API][image-api] service be available for this image for manipulations such as resizing. 
+:   A small image that represents an individual or organization associated with the resource it is attached to.  This could be the logo of the owning or hosting institution. The logo _MUST_ be clearly rendered when the resource is displayed or used, without cropping, rotating or otherwise distorting the image. It is _RECOMMENDED_ that a [IIIF Image API][image-api] service be available for this image for manipulations such as resizing.
 
     * Any resource _MAY_ have one or more logos associated with it.
 
@@ -196,14 +196,14 @@ format
 height
 :   The height of a canvas or image resource. For images, the value is in pixels. For canvases, the value does not have a unit. In combination with the width, it conveys an aspect ratio for the space in which content resources are located.
 
-    * A canvas _MUST_ have exactly one height. 
+    * A canvas _MUST_ have exactly one height.
     * Content resources _MAY_ have exactly one height, given in pixels, if appropriate.
     * All other resources _MUST NOT_ have a height.
 
 width
 :   The width of a canvas or image resource. For images, the value is in pixels. For canvases, the value does not have a unit. In combination with the height, it conveys an aspect ratio for the space in which content resources are located.
 
-    * A canvas _MUST_ have exactly one width. 
+    * A canvas _MUST_ have exactly one width.
     * Content resources _MAY_ have exactly one width, given in pixels, if appropriate.
     * All other resources _MUST NOT_ have a width.
 
@@ -236,7 +236,7 @@ viewingHint
     * A content resource _MAY_ have one or more viewing hints but there are no defined values in this specification.
     * A collection _MAY_ have one or more viewing hints.
 
-    Other values _MAY_ be given, and if they are, they _MUST_ be URIs. 
+    Other values _MAY_ be given, and if they are, they _MUST_ be URIs.
 
 navDate
 :   A date that the client can use for navigation purposes when presenting the resource to the user in a time-based user interface, such as a calendar or timeline.  The value _MUST_ be an `xsd:dateTime` literal in UTC, expressed in the form "YYYY-MM-DDThh:mm:ssZ".  If the exact time is not known, then "00:00:00" _SHOULD_ be used. Similarly, the month or day _SHOULD_ be 01 if not known.  There _MUST_ be at most one `navDate` associated with any given resource.  More descriptive date ranges, intended for display directly to the user, _SHOULD_ be included in the `metadata` property for human consumption.  
@@ -293,7 +293,7 @@ contentLayer
 
 first
 :  A link from a containing resource, such as a collection or layer, to the first sub-resource, another collection or an annotation list respectively, that is contained within it. The sub-resource _SHOULD_ be referenced by just its URI (from `@id`) but _MAY_ also have more information associated with it as an object.
-  
+
     * A collection _MAY_ have exactly one collection as its first sub-collection.
     * A layer _MAY_ have exactly one annotation list as its first annotation list.
 
@@ -316,7 +316,7 @@ next
     * An annotation list _MAY_ have exactly one annotation list as its next sibling.
 
 prev
-:  A link from a contained sub-resource to the sibling sub-resource that precedes it. The sibling sub-resource _SHOULD_ be referenced by just its URI (from `@id`) but _MAY_ also have more information associated with it as an object. 
+:  A link from a contained sub-resource to the sibling sub-resource that precedes it. The sibling sub-resource _SHOULD_ be referenced by just its URI (from `@id`) but _MAY_ also have more information associated with it as an object.
 
     * A sub-collection _MAY_ have exactly one collection as its previous sibling.
     * An annotation list _MAY_ have exactly one annotation list as its previous sibling.
@@ -338,7 +338,7 @@ Each of the sections below recommends a URI pattern to follow for the different 
 
 The Base URI, to which additional information is appended, that is _RECOMMENDED_ for resources made available by the API is:
 
-```
+``` none
 {scheme}://{host}{/prefix}/{identifier}
 ```
 {: .urltemplate}
@@ -359,27 +359,27 @@ In the situation where the JSON documents are maintained in a filesystem with no
 
 ###  4.2. HTTP Response Details
 
-The format for all responses is JSON, and the following sections describe the structure to be returned. 
+The format for all responses is JSON, and the following sections describe the structure to be returned.
 
 The content-type of the response _MUST_ be either `application/json` (regular JSON),
 
-```
+``` none
 Content-Type: application/json
 ```
 {: .urltemplate}
 
-or "application/ld+json" (JSON-LD). 
+or "application/ld+json" (JSON-LD).
 
-```
+``` none
 Content-Type: application/ld+json
 ```
 {: .urltemplate}
 
-If the client explicitly wants the JSON-LD content-type, then it _MUST_ specify this in an Accept header, otherwise the server _MUST_ return the regular JSON content-type. 
+If the client explicitly wants the JSON-LD content-type, then it _MUST_ specify this in an Accept header, otherwise the server _MUST_ return the regular JSON content-type.
 
 The HTTP server _SHOULD_, if at all possible, send the Cross Origin Access Control header (often called "CORS") to allow clients to download the manifests via AJAX from remote sites. The header name is `Access-Control-Allow-Origin` and the value of the header _SHOULD_ be `*`.
 
-```
+``` none
 Access-Control-Allow-Origin: *
 ```
 {: .urltemplate}
@@ -399,34 +399,34 @@ Typically the first request will be for a manifest resource and, for optimizatio
 
 Resource descriptions _SHOULD_ be embedded within higher-level descriptions, and _MAY_ also be available via separate requests from http(s) URIs linked in the responses. These URIs are in the `@id` property for the resource. Links to resources _MAY_ be either given as just the URI if there is no additional information associated with them, or as a JSON object with the `@id` property. Other URI schemes _MAY_ be used if the resource is not able to be retrieved via HTTP. Both options provide the same URI, however the second pattern associates additional information with the resource:
 
-{% highlight json %}
+``` json-doc
 // Option A, plain string
 {"seeAlso": "http://example.org/descriptions/book1.xml"}
 // Option B, object with @id property
 {"seeAlso": {"@id": "http://example.org/descriptions/book1.xml", "format": "text/xml"}}
-{% endhighlight %}
+```
 
 #### 4.3.2. Repeated Properties
 
 Most of the properties _MAY_ be repeated. This is done by giving a list of values, using either of the representations described above, rather than a single string.
 
-{% highlight json %}
-{ 
+``` json-doc
+{
   "seeAlso": [
-    "http://example.org/descriptions/book1.md", 
+    "http://example.org/descriptions/book1.md",
     "http://example.org/descriptions/book1.csv",
-    {"@id": "http://example.org/descriptions/book1.xml", "format": "text/xml"} 
+    {"@id": "http://example.org/descriptions/book1.xml", "format": "text/xml"}
   ]
 }
-{% endhighlight %}
+```
 
 #### 4.3.3. Language of Property Values
 
 Language _MAY_ be associated with strings that are intended to be displayed to the user with the following pattern of `@value` plus the [RFC 5646][rfc5646] code in `@language`, instead of a plain string.  For example:
 
-{% highlight json %}
+``` json-doc
 {"description": {"@value": "Here is a longer description of the object", "@language": "en"}}
-{% endhighlight %}
+```
 
 This pattern may be used in `label`, `description`, `attribution` and the `label` and `value` fields of the `metadata` construction.
 
@@ -446,27 +446,27 @@ In order to avoid HTML or script injection attacks, clients _MUST_ remove:
 
 Clients _SHOULD_ allow only `a`, `b`, `br`, `i`, `img`, `p`, and `span` tags. Clients _MAY_ choose to remove any and all tags, therefore it _SHOULD NOT_ be assumed that the formatting will always be rendered.
 
-{% highlight json %}
+``` json-doc
 {"description": {"@value": "<p>Some <b>description</b></p>", "@language": "en-latn"}}
-{% endhighlight %}
+```
 
 #### 4.3.5. Linked Data Context and Extensions
 
 The top level resource in the response _MUST_ have the `@context` property, and it _SHOULD_ appear as the very first key/value pair of the JSON representation. This tells Linked Data processors how to interpret the information. The IIIF Presentation API context, below, _MUST_ occur exactly once per response, and be omitted from any embedded resources. For example, when embedding a sequence within a manifest, the sequence _MUST NOT_ have the `@context` field.
 
-{% highlight json %}
+``` json-doc
 {"@context": "http://iiif.io/api/presentation/{{ page.major }}/context.json"}
-{% endhighlight %}
+```
 
 Any additional fields beyond those defined in this specification _SHOULD_ be mapped to RDF predicates using further context documents. In this case, the enclosing object _MUST_ have its own `@context` property, and it _SHOULD_ be the first key/value pair of that object. This is _REQUIRED_ for `service` links that embed any information beyond a `profile`.  These contexts _SHOULD NOT_ redefine `profile`.  As the top level resource _MUST_ have the IIIF Presentation API context, if there are any additional contexts needed, the value will become an array of URI strings:
 
-{% highlight json %}
+``` json-doc
 {"@context": [
     "http://iiif.io/api/presentation/{{ page.major }}/context.json",
     "http://example.org/extension/context.json"
   ]
 }
-{% endhighlight %}
+```
 
 
 ##  5. Primary Resource Types
@@ -475,7 +475,7 @@ Any additional fields beyond those defined in this specification _SHOULD_ be map
 
 Recommended URI pattern:
 
-```
+``` none
 {scheme}://{host}/{prefix}/{identifier}/manifest
 ```
 {: .urltemplate}
@@ -486,7 +486,7 @@ The identifier in `@id` _MUST_ always be able to be dereferenced to retrieve the
 
 The example below includes only the manifest-level information, however it _MUST_ embed the sequence, canvas and content information. It includes examples in the descriptive metadata of how to associate multiple entries with a single field and how to be explicit about the language of a particular entry.
 
-{% highlight json %}
+``` json-doc
 {
   // Metadata about this manifest file
   "@context": "http://iiif.io/api/presentation/2/context.json",
@@ -502,7 +502,7 @@ The example below includes only the manifest-level information, however it _MUST
         {"@value": "Paris, environ 1400", "@language": "fr"}
       ]
     },
-    {"label": "Source", 
+    {"label": "Source",
      "value": "<span>From: <a href=\"http://example.org/db/1.html\">Some Collection</a></span>"}
   ],
   "description": "A longer description of this example book. It should give some real information.",
@@ -566,13 +566,13 @@ The example below includes only the manifest-level information, however it _MUST
       // Any additional sequences can be referenced here...
   ]
 }
-{% endhighlight %}
+```
 
 ###  5.2. Sequence
 
 Recommended URI pattern:
 
-```
+``` none
 {scheme}://{host}/{prefix}/{identifier}/sequence/{name}
 ```
 {: .urltemplate}
@@ -587,7 +587,7 @@ Sequences _MAY_ have a `startCanvas` with a single value containing the URI of a
 
 In the manifest example above, the sequence is referenced by its URI and contains only the basic information of `label`, `@type` and `@id`. The default sequence should be written out in full within the manifest file, as below but _MUST NOT_ have the `@context` property.
 
-{% highlight json %}
+``` json-doc
 {
   // Metadata about this sequence
   "@context": "http://iiif.io/api/presentation/2/context.json",
@@ -622,13 +622,13 @@ In the manifest example above, the sequence is referenced by its URI and contain
     }
   ]
 }
-{% endhighlight %}
+```
 
 ###  5.3. Canvas
 
 Recommended URI pattern:
 
-```
+``` none
 {scheme}://{host}/{prefix}/{identifier}/canvas/{name}
 ```
 {: .urltemplate}
@@ -645,7 +645,7 @@ In a sequence with the `viewingHint` value of "paged" and presented in a book vi
 
 Canvases _MAY_ be dereferenced separately from the manifest via their URIs, and the following representation information should be returned. This information should be embedded within the sequence, as per previously.
 
-{% highlight json %}
+``` json-doc
 {
   // Metadata about this canvas
   "@context": "http://iiif.io/api/presentation/2/context.json",
@@ -670,13 +670,13 @@ Canvases _MAY_ be dereferenced separately from the manifest via their URIs, and 
   ]
 
 }
-{% endhighlight %}
+```
 
 ###  5.4. Image Resources
 
 Recommended URI pattern:
 
-```
+``` none
 {scheme}://{host}/{prefix}/{identifier}/annotation/{name}
 ```
 {: .urltemplate}
@@ -697,7 +697,7 @@ Additional features of the [Open Annotation][openanno] data model _MAY_ also be 
 
 The annotations that associate images, and only those annotations that associate images, are included in the canvas in the `images` property.  Other annotations, including both those that paint resources on the canvas and those that comment about the canvas, are included by referencing annotation lists, discussed in the following section.
 
-{% highlight json %}
+``` json-doc
 {
   "@context": "http://iiif.io/api/presentation/2/context.json",
   "@id": "http://example.org/iiif/book1/annotation/p0001-image",
@@ -717,13 +717,13 @@ The annotations that associate images, and only those annotations that associate
   },
   "on": "http://example.org/iiif/book1/canvas/p1"
 }
-{% endhighlight %}
+```
 
 ###  5.5. Other Content Resources
 
 Recommended URI pattern:
 
-```
+``` none
 {scheme}://{host}/{prefix}/{identifier}/list/{name}
 ```
 {: .urltemplate}
@@ -742,7 +742,7 @@ The format of the resource _SHOULD_ be included and _MUST_ be the media type tha
 
 Note well that Annotation Lists _MUST NOT_ be embedded within the manifest.
 
-{% highlight json %}
+``` json-doc
 {
   "@context": "http://iiif.io/api/presentation/2/context.json",
   "@id": "http://example.org/iiif/book1/list/p1",
@@ -772,7 +772,7 @@ Note well that Annotation Lists _MUST NOT_ be embedded within the manifest.
     // ... and so on
   ]
 }
-{% endhighlight %}
+```
 
 ##  6. Advanced Association Features
 
@@ -780,7 +780,7 @@ The following sections describe known use cases for building representations of 
 
 ###  6.1. Segments
 
-It is important to be able to extract parts, or segments, of resources. In particular a very common requirement is to associate a resource with part of a canvas, or part of an image with either the entire canvas or part thereof. Secondly, as transcriptions are often made available in XML files, extracting the correct page to associate with the canvas, or line to associate with part of the canvas, is equally useful for reusing existing material. These can be accomplished using URI fragments for simple cases. 
+It is important to be able to extract parts, or segments, of resources. In particular a very common requirement is to associate a resource with part of a canvas, or part of an image with either the entire canvas or part thereof. Secondly, as transcriptions are often made available in XML files, extracting the correct page to associate with the canvas, or line to associate with part of the canvas, is equally useful for reusing existing material. These can be accomplished using URI fragments for simple cases.
 
 Note that if both there are segments of both image and canvas, then the aspect ratio _SHOULD_ be the same, but there are circumstances where they _MAY_ be different.  In this case the rendering agent _SHOULD_ rescale the image segment to the dimensions provided on the canvas.
 
@@ -792,7 +792,7 @@ Examples are given below:
 
       Where the four numbers are the x and y coordinates of the top left hand corner of the bounding box in the image or canvas, followed by the width and height. Thus the segment above is 300px wide, 50px high and starts at position 100,100. Note that only integers are allowed in this syntax, and this may limit accuracy of assignment to canvases with small dimensions.  
 
-    {% highlight json %}
+    ``` json-doc
     {
       "@context": "http://iiif.io/api/presentation/2/context.json",
       "@id": "http://example.org/iiif/book1/annotation/anno1",
@@ -807,11 +807,11 @@ Examples are given below:
       // canvas size is 1200x1800
       "on": "http://example.org/iiif/book1/canvas/p1"
     }
-    {% endhighlight %}
+    ```
 
   * For image resources with a [IIIF Image API][image-api] service, it is _RECOMMENDED_ to instead use the Image API parameters rather than a fragment as above.  The following structure allows simple clients to use the image directly (the URL with the segment), and allows clients that implement the IIIF Image API to have sufficient information to construct appropriate URIs using the API.
 
-    {% highlight json %}
+    ``` json-doc
 {
   "@context": "http://iiif.io/api/presentation/2/context.json",
   "@id": "http://example.org/iiif/book1/annotation/anno1",
@@ -836,13 +836,13 @@ Examples are given below:
     }
     "on": "http://www.example.org/iiif/book1/canvas/p1#xywh=0,0,600,900"
 }
-    {% endhighlight %}
+    ```
 
 
   * Segments of XML files may be extracted with [XPaths][xpath]. The fragment _MUST_ be structured as follows:
         `http://www.example.com/iiif/book1/res/tei.xml#xpointer(/xpath/to/element)`
 
-    {% highlight json %}
+    ``` json-doc
     {
       "@context": "http://iiif.io/api/presentation/2/context.json",
       "@id": "http://example.org/iiif/book1/annotation/anno1",
@@ -855,7 +855,7 @@ Examples are given below:
       },
       "on": "http://example.org/iiif/book1/canvas/p1#xywh=100,100,500,300"
     }
-    {% endhighlight %}
+    ```
 
 ###  6.2. Embedded Content
 
@@ -863,17 +863,17 @@ Instead of referencing transcription text externally, it is often easier to reco
 
 Content _MAY_ be embedded instead of referenced by using the following pattern within the annotation block:
 
-{% highlight json %}
+``` json-doc
 {"resource": {"@type": "cnt:ContextAsText", "chars": "text here"}}
-{% endhighlight %}
+```
 
 The media type _SHOULD_ be provided using the `format` field, and while any media type is possible, it is _RECOMMENDED_ that `text/plain` or `text/html` be used to maximize compatibility.
 
-If it is desirable to describe the language of the content, then it _MUST_ be given with the `language` property not `@language`. 
+If it is desirable to describe the language of the content, then it _MUST_ be given with the `language` property not `@language`.
 
 An example of this feature:
 
-{% highlight json %}
+``` json-doc
 {
   "@context": "http://iiif.io/api/presentation/2/context.json",
   "@id": "http://example.org/iiif/book1/annotation/p1",
@@ -887,7 +887,7 @@ An example of this feature:
   },
   "on": "http://example.org/iiif/book1/canvas/p1#xywh=100,150,500,25"
 }
-{% endhighlight %}
+```
 
 ###  6.3. Choice of Alternative Resources
 
@@ -899,7 +899,7 @@ Either the `default` or `item` _MAY_ have a value of "rdf:nil". This means that 
 
 This can be used to model foldouts and other dynamic features of a page, by associating images of the different states with the canvas. Depending on the nature of the images, this can be either done such that the entire image is switched to change state, or only the section of the image that has to change if the segment information is known.
 
-{% highlight json %}
+``` json-doc
 {
   "@context": "http://iiif.io/api/presentation/2/context.json",
   "@id": "http://example.org/iiif/book1/annotation/anno1",
@@ -922,7 +922,7 @@ This can be used to model foldouts and other dynamic features of a page, by asso
   },
   "on": "http://example.org/iiif/book1/canvas/p1"
 }
-{% endhighlight %}
+```
 
 ###  6.4. Non Rectangular Segments
 
@@ -932,7 +932,7 @@ In this pattern, the resource of the annotation is a "oa:SpecificResource" which
 
 If the section of an image is mapped to part of a canvas, as in the example below, then the target in `on` _MUST_ be the rectangular bounding box in which the SVG viewport should be placed. If the entire canvas is the target, then the SVG viewport is assumed to cover the entire canvas. If the dimensions of the viewport and the bounding box or canvas are not the same, then the SVG _MUST_ be scaled such that it covers the region. This may result in different scaling ratios for the X and Y dimensions.
 
-{% highlight json %}
+``` json-doc
 {
   "@context": "http://iiif.io/api/presentation/2/context.json",
   "@id": "http://example.org/iiif/book1/annotation/anno1",
@@ -951,7 +951,7 @@ If the section of an image is mapped to part of a canvas, as in the example belo
   },
   "on": "http://example.org/iiif/book1/canvas/p1#xywh=100,100,300,300"
 }
-{% endhighlight %}
+```
 
 ###  6.5. Style
 
@@ -959,7 +959,7 @@ The [Cascading Style Sheets][css] standard (CSS) is used to describe how the cli
 
 In the example below, the text should be colored red.
 
-{% highlight json %}
+``` json-doc
 {
   "@context": "http://iiif.io/api/presentation/2/context.json",
   "@id": "http://example.org/iiif/book1/annotation/anno1",
@@ -979,14 +979,14 @@ In the example below, the text should be colored red.
   },
   "on": "http://example.org/iiif/book1/canvas/p1#xywh=100,150,500,30"
 }
-{% endhighlight %}
+```
 
 
 ###  6.6. Rotation
 
 CSS may also be used for rotation of images which are not correctly aligned with the canvas. In the example below, after the image is located within the 500 wide by 30 high space within the canvas, it is then rotated by the rendering client application around the top left corner by 45 degrees anti-clockwise.
 
-{% highlight json %}
+``` json-doc
 {
   "@context": "http://iiif.io/api/presentation/2/context.json",
   "@id": "http://example.org/iiif/book1/annotation/anno1",
@@ -1006,11 +1006,11 @@ CSS may also be used for rotation of images which are not correctly aligned with
   },
   "on": "http://example.org/iiif/book1/canvas/p1#xywh=100,150,500,30"
 }
-{% endhighlight %}
+```
 
 Alternatively, if the image is available via the IIIF Image API, it may be more convenient to have the server do the rotation of the image.  This uses a custom Selector for the Image API, further described in the [Open Annotation extensions][oa-ext-annex] annex.  For the purposes of rotation, the example below demonstrates the pattern.
 
-{% highlight json %}
+``` json-doc
 {
   "@context": "http://iiif.io/api/presentation/2/context.json",
   "@id": "http://example.org/iiif/book1/annotation/anno1",
@@ -1036,7 +1036,7 @@ Alternatively, if the image is available via the IIIF Image API, it may be more 
   },
   "on": "http://example.org/iiif/book1/canvas/p1#xywh=50,50,320,240"
 }
-{% endhighlight %}
+```
 
 ###  6.7. Comment Annotations
 
@@ -1044,7 +1044,7 @@ For annotations which are comments about the canvas, as opposed to painting cont
 
 Unlike painting annotations, comments or annotations with other motivations, _SHOULD_ have a URI assigned as their identity and provided in the `@id` property.  When dereferencing that URI, the representation of the annotation _SHOULD_ be returned.  This is to allow further annotations to annotate the comment, for example in order to reply to it, or to tag it for organizational or discovery purposes.
 
-{% highlight json %}
+``` json-doc
 {
   "@context": "http://iiif.io/api/presentation/2/context.json",
   "@id": "http://example.org/iiif/book1/annotation/anno1",
@@ -1057,11 +1057,11 @@ Unlike painting annotations, comments or annotations with other motivations, _SH
   },
   "on": "http://example.org/iiif/book1/canvas/p1"
 }
-{% endhighlight %}
+```
 
 Other resources may also have comments made about them, including manifests (comments about the object), sequences (comments about that particular ordering), ranges (comments about the section), annotations (replies to the targeted annotation), and so forth.  In order for the client to discover these annotations, they can be included in an AnnotationList referenced from the target resource.  This is accomplished by reusing the `otherContent` pattern.  Any resource may have a list of annotations associated with it in this way.
 
-{% highlight json %}
+``` json-doc
 {
   "@context": "http://iiif.io/api/presentation/2/context.json",
   "@id": "http://example.org/iiif/book1/manifest",
@@ -1075,7 +1075,7 @@ Other resources may also have comments made about them, including manifests (com
     }
   ]
 }
-{% endhighlight %}
+```
 
 
 ###  6.8. Hotspot Linking
@@ -1084,7 +1084,7 @@ It is also possible to use annotations to create links between resources, both w
 
 Hotspot linking is accomplished using an annotation with a `motivation` of "oa:linking". The region of the canvas that should trigger the link when clicked is specified in the `on` field in the same way as other annotations. The linked resource is given in the `resource` field.  The linked resource _MAY_ also be another canvas or region of a canvas.  The user experience of whether the linked resource is opened in a new tab, new window or by replacing the current view is up to the implementation.
 
-{% highlight json %}
+``` json-doc
 {
   "@context": "http://iiif.io/api/presentation/2/context.json",
   "@id":"http://www.example.org/iiif/book1/annotation/anno1",
@@ -1097,7 +1097,7 @@ Hotspot linking is accomplished using an annotation with a `motivation` of "oa:l
   },
   "on":"http://www.example.org/iiif/book1/canvas/p1#xywh=500,500,150,30"
 }
-{% endhighlight %}
+```
 
 ##  7. Additional Resource Types
 
@@ -1117,7 +1117,7 @@ _Figure 3. All Resource Types_
 
 Recommended URI pattern:
 
-```
+``` none
 {scheme}://{host}/{prefix}/{identifier}/range/{name}
 ```
 {: .urltemplate}
@@ -1132,7 +1132,7 @@ Ranges _MAY_ link to a layer, described in the next section, that has the conten
 
 Ranges are linked or embedded within the manifest in a `structures` field.  It is a flat list of objects, even if there is only one range.
 
-{% highlight json %}
+``` json-doc
 {
   "@context": "http://iiif.io/api/presentation/2/context.json",
   "@id": "http://example.org/iiif/book1/manifest",
@@ -1175,13 +1175,13 @@ Ranges are linked or embedded within the manifest in a `structures` field.  It i
     // And any additional ranges here
   ]
 }
-{% endhighlight %}
+```
 
 ###  7.2. Layers
 
 Recommended URI pattern:
 
-```
+``` none
 {scheme}://{host}/{prefix}/{identifier}/layer/{name}
 ```
 {: .urltemplate}
@@ -1190,9 +1190,9 @@ Layers represent groupings of annotation lists that should be collected together
 
 Layers _MUST_ have a URI, and it _SHOULD_ be an HTTP URI.  They _MUST_ have a `label` and _MAY_ have any of the other descriptive, linking or rights properties.
 
-Each annotation list _MAY_ be part of one or more layers. If the annotation list is part of a layer, then this _MUST_ be recorded using the `within` relationship in the annotation list response.  It _MAY_ also be included in the reference to the annotation list in the manifest response.  In the manifest response, the description of the layer _MAY_ be omitted after the first use, and just the URI given as a string.  Clients should refer to the first description given, based on the URI. 
+Each annotation list _MAY_ be part of one or more layers. If the annotation list is part of a layer, then this _MUST_ be recorded using the `within` relationship in the annotation list response.  It _MAY_ also be included in the reference to the annotation list in the manifest response.  In the manifest response, the description of the layer _MAY_ be omitted after the first use, and just the URI given as a string.  Clients should refer to the first description given, based on the URI.
 
-{% highlight json %}
+``` json-doc
 {
   "@context": "http://iiif.io/api/presentation/2/context.json",
   "@id": "http://example.org/iiif/book1/list/l1",
@@ -1203,13 +1203,13 @@ Each annotation list _MAY_ be part of one or more layers. If the annotation list
     "label": "Diplomatic Transcription"
   }
 }
-{% endhighlight %}
+```
 
 The layer _MAY_ be able to be dereferenced if it has an HTTP URI.  If a representation is available, it _MUST_ follow all of the requirements for JSON representations in this specification.  All of the properties of the Layer _SHOULD_ be included in the representation.  
 
 The annotation lists are referenced from the layer in an `otherContent` array, in the same way as they are referenced from a canvas.  The annotation lists _SHOULD_ be given as just URIs, but _MAY_ be objects with more information about them, such as in the [Canvas][canvas] example.
 
-{% highlight json %}
+``` json-doc
 {
   "@context": "http://iiif.io/api/presentation/2/context.json",
   "@id": "http://example.org/iiif/book1/layer/transcription",
@@ -1225,14 +1225,14 @@ The annotation lists are referenced from the layer in an `otherContent` array, i
     // More AnnotationLists here ...
   ]
 }
-{% endhighlight %}
+```
 
 
 ###  7.3. Collections
 
 Recommended URI pattern:
 
-```
+``` none
 {scheme}://{host}/{prefix}/collection/{name}
 ```
 {: .urltemplate}
@@ -1264,7 +1264,7 @@ At least one of `collections` and `manifests` _SHOULD_ be present in the respons
 
 An example collection document:
 
-{% highlight json %}
+``` json-doc
 {
   "@context": "http://iiif.io/api/presentation/2/context.json",
   "@id": "http://example.org/iiif/collection/top",
@@ -1293,7 +1293,7 @@ An example collection document:
     }
   ]
 }
-{% endhighlight %}
+```
 
 ### 7.4. Paging
 
@@ -1311,7 +1311,7 @@ The linked page resources _MAY_ have different properties from the paged resourc
 
 A layer representing a long transcription with almost half a million annotations, perhaps where each annotation paints a single word on the canvas:
 
-{% highlight json %}
+``` json-doc
 {
   "@context": "http://iiif.io/api/presentation/2/context.json",
   "@id": "http://example.org/iiif/book1/layer/transcription",
@@ -1321,11 +1321,11 @@ A layer representing a long transcription with almost half a million annotations
   "total": 496923,
   "first": "http://example.org/iiif/book1/list/l1"
 }
-{% endhighlight %}
+```
 
 And the corresponding first annotation list:
 
-{% highlight json %}
+``` json-doc
 {
   "@context": "http://iiif.io/api/presentation/2/context.json",
   "@id": "http://example.org/iiif/book1/list/l1",
@@ -1335,15 +1335,15 @@ And the corresponding first annotation list:
   "within": "http://example.org/iiif/book1/layer/transcription",
   "next": "http://example.org/iiif/book1/list/l2",
 
-  "resources": [ 
+  "resources": [
     // Annotations live here ...
   ]
 }
-{% endhighlight %}
+```
 
 Note that it is still expected that canvases will link directly to the annotation lists.  For example, a particular canvas might refer to the first two annotation lists within a layer:
 
-{% highlight json %}
+``` json-doc
 {
   "@context": "http://iiif.io/api/presentation/2/context.json",
   "@id": "http://example.org/iiif/book1/canvas/c1",
@@ -1353,18 +1353,18 @@ Note that it is still expected that canvases will link directly to the annotatio
   "width": 1000,
   "label": "Page 1",
 
-  "otherContent": [ 
+  "otherContent": [
     "http://example.org/iiif/book1/list/l1",
     "http://example.org/iiif/book1/list/l2"
   ]
 }
-{% endhighlight %}
+```
 
 #### 7.4.2. Example Paged Collection
 
 An example large collection with some 9.3 million objects in it:
 
-{% highlight json %}
+``` json-doc
 {
   "@context": "http://iiif.io/api/presentation/2/context.json",
   "@id": "http://example.org/iiif/collection/top",
@@ -1374,11 +1374,11 @@ An example large collection with some 9.3 million objects in it:
   "total": 9316290,
   "first": "http://example.org/iiif/collection/c1"
 }
-{% endhighlight %}
+```
 
 And the corresponding first page of manifests:
 
-{% highlight json %}
+``` json-doc
 {
   "@context": "http://iiif.io/api/presentation/2/context.json",
   "@id": "http://example.org/iiif/collection/c1",
@@ -1392,7 +1392,7 @@ And the corresponding first page of manifests:
     // Manifests live here ...
   ]
 }
-{% endhighlight %}
+```
 
 
 ## 8. Authentication
@@ -1406,7 +1406,7 @@ Note that 7.3 above contains a complete response for a Collection document.
 
 URL: _http://example.org/iiif/book1/manifest_
 
-{% highlight json %}
+``` json-doc
 {
   "@context": "http://iiif.io/api/presentation/2/context.json",
   "@type": "sc:Manifest",
@@ -1574,7 +1574,7 @@ URL: _http://example.org/iiif/book1/manifest_
     }
   ]
 }
-{% endhighlight %}
+```
 
 ## Appendices
 
@@ -1670,18 +1670,18 @@ __Paging Properties__
 __Protocol Behavior__
 
 |                | @id is dereferenceable |         
-| -------------- | ---------------------- | 
+| -------------- | ---------------------- |
 | Collection     | ![required][icon-req]  |
-| Manifest       | ![required][icon-req]  | 
+| Manifest       | ![required][icon-req]  |
 | Sequence (first)   | ![optional][icon-opt]  |
 | Sequence (second+) | ![required][icon-req]  |
-| Canvas         | ![optional][icon-opt]  | 
+| Canvas         | ![optional][icon-opt]  |
 | Annotation     | ![optional][icon-opt]  |
-| AnnotationList | ![required][icon-req]  | 
-| Range          | ![optional][icon-opt]  | 
+| AnnotationList | ![required][icon-req]  |
+| Range          | ![optional][icon-opt]  |
 | Layer          | ![optional][icon-opt]  |
-| Image Content  | ![required][icon-req]  | 
-| Other Content  | ![required][icon-req]  | 
+| Image Content  | ![required][icon-req]  |
+| Other Content  | ![required][icon-req]  |
 {: .api-table}
 
 ### C. Implementation Notes
@@ -1713,7 +1713,7 @@ Many thanks to Matthieu Bonicel, Tom Cramer, Ian Davis, Markus Enders, Renhart G
 [annex]: /api/annex/services/ "Services Annex Document"
 [change-log]: /api/presentation/2.1/change-log.html "Presentation API 2.1 Change Log"
 [change-log-20]: /api/presentation/2.0/change-log.html "Presentation API 2.0 Change Log"
-[iiif-community]: /community.html "IIIF Community"
+[iiif-community]: /community/ "IIIF Community"
 [apache-notes]: /api/annex/notes/apache.html "Apache HTTP Server Implementation Notes"
 [openanno]: http://www.openannotation.org/spec/core/ "Open Annotation"
 [openannotypes]: http://www.openannotation.org/spec/core/core.html#BodyTargetType

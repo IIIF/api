@@ -134,7 +134,7 @@ We continue to look forwards to the discussions in Ghent, and hope that we'll se
 [conduct]: /event/conduct.html
 [logistics]: #logistics
 [iiif-c]: http://iiif.io/news/2015/06/17/iiif-consortium/
-[tech-details]: http://iiif.io/technical-details.html
+[tech-details]: http://iiif.io/technical-details/
 [ghent-lib]: http://lib.ugent.be/
 [visit-gent]: http://www.visitgent.be/en/winter-gent 
 [ghent-hotels]: ghent-hotels.html

@@ -14,9 +14,9 @@ cssversion: 2
 
 ## Allow Encoded Slashes
 
-As [specified in the Image API][uri-encoding-and-decoding], slashes ("`/`", "`\`") in the identifer portion of the base uri MUST be encoded. This may cause problems with some HTTP servers. Apache servers from version 2.2.18 support the `AllowEncodedSlashes NoDecode` [configuration directive][apache-aesnd] which will correctly pass these characters to client applications without rejecting or decoding them. 
+As [specified in the Image API][uri-encoding-and-decoding], slashes ("`/`", "`\`") in the identifer portion of the base uri MUST be encoded. This may cause problems with some HTTP servers. Apache servers from version 2.2.18 support the `AllowEncodedSlashes NoDecode` [configuration directive][apache-aesnd] which will correctly pass these characters to client applications without rejecting or decoding them.
 
-```apacheconf
+``` apacheconf
 AllowEncodedSlashes On
 ```
 {: .urltemplate}
@@ -27,7 +27,7 @@ Servers using older versions of Apache and local identifiers which include these
 
 Both specifications prefer to have cross-origin resource sharing enabled. This may be enabled with the following configuration snippet:
 
-```apacheconf
+``` apacheconf
 LoadModule headers_module modules/mod_headers.so
 Header set Access-Control-Allow-Origin "*"
 ```
@@ -37,18 +37,18 @@ Header set Access-Control-Allow-Origin "*"
 
 The Image API states that a server [may indicate its compliance level in a link header][image-compliance-levels]. This can be done as follows:
 
-```apacheconf
+``` apacheconf
 Header set Link '<http://iiif.io/api/image/2/level1.json>;rel="profile"'
 ```
 {: .urltemplate}
 
 ## Conditional Content Types
 
-Both the [Image][image-api] and [Presentation][prezi-api] APIs state that clients may request JSON-LD, as opposed to plain JSON. 
+Both the [Image][image-api] and [Presentation][prezi-api] APIs state that clients may request JSON-LD, as opposed to plain JSON.
 
 In the Image API, this may be enabled with the following configuration snippet (note that this assumes the compliance level Link header has been set [as above][set-compliance-link-header]):
 
-```apacheconf
+``` apacheconf
 <FilesMatch "\.json">
     SetEnvIf Accept "application/ld\+json" WANTS_jsonld
     Header set Content-Type "application/ld+json" env=WANTS_jsonld
@@ -59,7 +59,7 @@ In the Image API, this may be enabled with the following configuration snippet (
 
 The above configuration snippet may also be used for Presentation API implementations that have URIs ending in `.json`, but the line starting `Header append Link` should be deleted and it will not work for the recommended URI pattern. The following snippet will work for the recommended patterns:
 
-```apacheconf
+``` apacheconf
 <LocationMatch "^/prefix/(collection/.*|.*/manifest|.*/(sequence|canvas|annotation|list|range|layer)/.*)$">
     SetEnvIf Accept "application/ld\+json" WANTS_jsonld
     Header set Content-Type "application/json"

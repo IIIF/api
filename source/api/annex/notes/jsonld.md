@@ -42,7 +42,7 @@ During the design of the Presentation API, it was determined that the correct so
 
 ## Semantic Versioning
 
-The IIIF editors do not consider the mappings from the JSON to the selected RDF ontology terms to be governed by semantic versioning.  They are provided as a convenience for Linked Data implementers, rather than being a requirement for all adopters of IIIF.  The JSON structure and the names of the keys are governed by semantic versioning, as changing them would break compatibility with the typical JSON based client. 
+The IIIF editors do not consider the mappings from the JSON to the selected RDF ontology terms to be governed by semantic versioning.  They are provided as a convenience for Linked Data implementers, rather than being a requirement for all adopters of IIIF.  The JSON structure and the names of the keys are governed by semantic versioning, as changing them would break compatibility with the typical JSON based client.
 
 This decision may change in the future, if there are significant Linked Data based clients built around IIIF.  Any such development should be announced on [iiif-discuss][iiif-discuss] so that the community becomes aware of it.
 
@@ -78,7 +78,7 @@ Frames for the main resources defined by the IIIF Presentation API.
 
 The following code uses the Python [PyLD implementation][pyld] of JSON-LD to read in example manifest data, parse it and then re-serialize using the manifest frame.
 
-{% highlight python %}
+``` python
 
 from pyld.jsonld import compact, frame
 import urllib, json, pprint
@@ -86,11 +86,11 @@ import urllib, json, pprint
 manifest = json.load(urllib.urlopen("http://iiif.io/api/presentation/2.0/example/fixtures/1/manifest.json"))
 pprint.pprint(
   compact(
-    frame(manifest, "http://iiif.io/api/presentation/2/manifest_frame.json"), 
+    frame(manifest, "http://iiif.io/api/presentation/2/manifest_frame.json"),
     "http://iiif.io/api/presentation/2/context.json")
 )
 
-{% endhighlight %}
+```
 
 <br/>
 

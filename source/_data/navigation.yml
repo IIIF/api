@@ -1,15 +1,15 @@
 -
   name: About
-  url: /about.html
+  url: /about/
 -
   name: Technical Details
-  url: /technical-details.html
+  url: /technical-details/
 -
   name: "Apps &amp; Demos"
-  url: /apps-demos.html
+  url: /apps-demos/
 -
   name: Community
-  url: /community.html
+  url: /community/
 -
   name: News
   url: /news/

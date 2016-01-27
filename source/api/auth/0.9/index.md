@@ -79,7 +79,7 @@ In order to have the client prompt the user to login, it must display part of th
 
 The Description Resource _MUST_ include a service using the following template:
 
-{% highlight json %}
+``` json-doc
 {
   // ...
   "service" : {
@@ -92,7 +92,7 @@ The Description Resource _MUST_ include a service using the following template:
     ]
   }
 }
-{% endhighlight %}
+```
 
 Where the `@id` field _MUST_ be present and contains the URI that the client should load in order to allow the user to authenticate. The `@context` field _MUST_ be present with the value `http://iiif.io/api/auth/{{ page.major }}/context.json`, specifying the context to resolve the keys into RDF if necessary. The value of `profile` _MUST_ be `http://iiif.io/api/auth/{{ page.major }}/login`, allowing clients to understand the use of the service. The `label` property _SHOULD_ be present and its value is to be shown to the user to initiate the loading of the authentication service.  The `service` field _MUST_ be present and will contain related services described below.
 
@@ -115,7 +115,7 @@ The access token service provides the client with a token to identify the user o
 
 The login service description _MUST_ include a `service` following the template below:
 
-{% highlight json %}
+``` json-doc
 {
   // ...
   "service" : {
@@ -131,7 +131,7 @@ The login service description _MUST_ include a `service` following the template 
     ]
   }
 }
-{% endhighlight %}
+```
 
 The `@id` field _MUST_ be present, and its value _MUST_ be the URI from which the client can request the token. The `profile` property _MUST_ be present and its value _MUST_ be `http://iiif.io/api/auth/{{ page.major }}/token` to distinguish it from other services. There is no requirement to have a `label` property for this service, as it does not need to be presented to a user. There is no requirement for a duplicate `@context` field.
 
@@ -141,20 +141,20 @@ Non-browser clients that can send cookies _SHOULD_ request the access token serv
 
 If an authorization code was obtained using the client identity service, described below, then this _MUST_ be passed to the access token service as well.  The authorization code is passed to the access token service as the value of a query parameter called `code`. An example URL:
 
-```
+``` none
 https://authentication.example.org/token?code=AUTH_CODE_HERE
 ```
 {: .urltemplate}
 
 The response from the token service _MUST_ be JSON with the following structure:
 
-{% highlight json %}
+``` json-doc
 {
   "accessToken": "TOKEN_HERE",
   "tokenType": "Bearer",
   "expiresIn": 3600
 }
-{% endhighlight %}
+```
 
 Where the value of the `accessToken` field is the token to be passed back in future requests, `tokenType` is always `Bearer`, and `expiresIn` is the number of seconds in which the token will cease to be valid.  If there is no timeout for the token, then `expiresIn` may be omitted from the response.
 
@@ -164,7 +164,7 @@ The service _SHOULD_ also ensure that the client has a cookie that allows the us
 
 For example, a request for the image information in the Image API would look like:
 
-```
+``` none
 GET /iiif/identifier/info.json HTTP/1.1
 Authorization: Bearer TOKEN_HERE
 ```
@@ -174,14 +174,14 @@ Authorization: Bearer TOKEN_HERE
 
 Browser based clients _MUST_ use [JSONP][jsonp] callbacks to retrieve the access token; see the note below for the rationale for this.  The request _MUST_ have a `callback` parameter added to the URL from the `@id` field, and if an authorization code is required, that _MUST_ be present in a `code` parameter.  An example URL:
 
-```
+``` none
 https://authentication.example.org/token?callback=callback_function&code=AUTH_CODE_HERE
 ```
 {: .urltemplate}
 
 The response from the token service _MUST_ be JavaScript with the Content-Type `application/javascript`, with a body that has the requested callback function wrapping the JSON description:
 
-{% highlight javascript %}
+``` json-doc
 callback_function(
   {
     "accessToken": "TOKEN_HERE",
@@ -189,7 +189,7 @@ callback_function(
     "expiresIn": 3600
   }
 );
-{% endhighlight %}
+```
 
 
 <!-- :( -->
@@ -206,7 +206,7 @@ Once the user has authenticated, the client will need to know if and where the u
 
 If the authentication system supports users intentionally logging out, there _SHOULD_ be a logout service associated with the login service following the template below:
 
-{% highlight json %}
+``` json-doc
 {
   // ...
   "service" : {
@@ -227,7 +227,7 @@ If the authentication system supports users intentionally logging out, there _SH
     ]
   }
 }
-{% endhighlight %}
+```
 
 The same semantics and requirements for the fields as the login service apply to the logout service.  The value of the `profile` property _MUST_ be `http://iiif.io/api/auth/{{ page.major }}/logout`.
 
@@ -244,7 +244,7 @@ The client identity service allows software clients to authenticate themselves a
 
 The login service description _MAY_ include a client identity service description following this template:
 
-{% highlight json %}
+``` json-doc
 {
   // ...
   "service" : {
@@ -264,7 +264,7 @@ The login service description _MAY_ include a client identity service descriptio
     ]
   }
 }
-{% endhighlight %}
+```
 
 The `@id` field _MUST_ be present, and its value _MUST_ be the URI at which the client can obtain an authorization code. The `profile` property _MUST_ be present and its value _MUST_ be `http://iiif.io/api/auth/{{ page.major }}/clientId` to distinguish it from other services. There is no requirement to have a `label` property for this service, as it does not need to be presented to a user. There is no requirement to have a duplicate `@context` property for the service.
 
@@ -274,32 +274,32 @@ The client _MUST_ POST a document containing its client id and a pre-established
 
 The request body _MUST_ be JSON and _MUST_ conform to the following template:
 
-{% highlight json %}
+``` json-doc
 {
   "clientId" : "CLIENT_ID_HERE",
   "clientSecret" : "CLIENT_SECRET_HERE"
 }
-{% endhighlight %}
+```
 
 The body of the response from the server _MUST_ be JSON and _MUST_ conform to the following template:
 
-{% highlight json %}
+``` json-doc
 {
   "authorizationCode" : "AUTH_CODE_HERE"
 }
-{% endhighlight %}
+```
 
 
 ### 2.5. Error Conditions
 
 The response from the client identity service or the access token service may be an error.  The body of the response _MUST_ be in JSON with the following template.  In the case of the JSONP request for the access token service, it _MUST_ be wrapped in the callback function.
 
-{% highlight json %}
+``` json-doc
 {
   "error": "ERROR_TYPE_HERE",
   "description": ""
 }
-{% endhighlight %}
+```
 
 Where `ERROR_TYPE_HERE` _MUST_ be one of the types in the following table:  
 
@@ -320,7 +320,7 @@ When JSONP is not requested, the service _MUST_ use the appropriate HTTP status 
 
 The example below is a complete image information response for an example image with three of the four possible services referenced.
 
-{% highlight json %}
+``` json-doc
 {
   "@context" : "http://iiif.io/api/image/2/context.json",
   "@id" : "https://www.example.org/images/image1",
@@ -358,7 +358,7 @@ The example below is a complete image information response for an example image 
     ]
   }
 }
-{% endhighlight %}
+```
 
 ## 3. Workflow
 
@@ -459,7 +459,7 @@ Many thanks to the members of the [IIIF Community][iiif-community] for their con
 
 | Date       | Description |
 | ---------- | ----------- |
-| 2015-10-30 | Version 0.9.1 (Alchemical Key); add missing @context, clarifications | 
+| 2015-10-30 | Version 0.9.1 (Alchemical Key); add missing @context, clarifications |
 | 2015-07-28 | Version 0.9.0 (Alchemical Key); beta specification for review |
 {: .api-table}
 
@@ -469,7 +469,7 @@ Many thanks to the members of the [IIIF Community][iiif-community] for their con
 [client-auth-img]: img/auth-flow-client.png
 [server-auth-img]: img/auth-flow-server.png
 [semver]: http://semver.org/spec/v2.0.0.html "Semantic Versioning 2.0.0"
-[iiif-community]: /community.html "IIIF Community"
+[iiif-community]: /community/ "IIIF Community"
 [versioning]: /api/annex/notes/semver.html "Versioning of APIs"
 [mellon]: http://www.mellon.org/ "The Andrew W. Mellon Foundation"
 [change-log]: /api/image/2.0/change-log.html "Change Log for Version 2.0"

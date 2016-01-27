@@ -1,11 +1,13 @@
-
+---
+sitemap: false
+---
 <!DOCTYPE html>
 <html>
 
 <head>
 <title>IIIF Metadata API</title>
 
-<!--  Reset counter to 0 for first page -->	
+<!--  Reset counter to 0 for first page -->
 <style>
 div.toc OL { counter-reset: item }
 
@@ -25,19 +27,19 @@ counter-increment:section;
 content:counter(section) ". ";
 }
 
-.subsection > h3:before 
+.subsection > h3:before
 {
 counter-increment:subsection;
 content:counter(section) "." counter(subsection) ". ";
 }
 
-.subsubsection > h4:before 
+.subsubsection > h4:before
 {
 counter-increment:subsubsection;
 content:counter(section) "." counter(subsection) "." counter(subsubsection) ". ";
 }
 
-</style>	
+</style>
 <link rel="stylesheet" href="oa-spec.css" type="text/css" />
 
 </head>
@@ -78,7 +80,7 @@ content:counter(section) "." counter(subsection) "." counter(subsubsection) ". "
 	<dd>Neil Jeffries, University of Oxford</dd>
 	<dd>Tim Gollins, UK National Archives</dd>
 	<dd>Simeon Warner, Cornell University</dd>
-	<dd>Jon Stroop, Princeton University</dd>	
+	<dd>Jon Stroop, Princeton University</dd>
 </dl>
 
 <div class="abstract">
@@ -86,7 +88,7 @@ content:counter(section) "." counter(subsection) "." counter(subsubsection) ". "
 <p><i>This section describes the status of this document at the time of its publication. Other documents may supersede this document.</i>
 </p>
 
-<p>Copyright &copy; 2012-2013 the Contributors to the IIIF, DMS Council, and other Contributors, 
+<p>Copyright &copy; 2012-2013 the Contributors to the IIIF, DMS Council, and other Contributors,
 published by the IIIF under the CC-BY license.
 </p>
 
@@ -104,7 +106,7 @@ This document has been made available to the IIIF and DMS Council members for re
 <ol>
 <li><a href="#Introduction">Introduction</a>
 <ol>
-<li><a href="#Objectives">Objectives and Scope</a></li>	
+<li><a href="#Objectives">Objectives and Scope</a></li>
 </ol>
 </li>
 <li><a href="#UseCases">Motivating Use Cases</a></li>
@@ -121,7 +123,7 @@ This document has been made available to the IIIF and DMS Council members for re
 		<ol>
 			<li><a href="#AdvSegment">Segments</a></li>
 			<li><a href="#AdvEmbedded">Embedded Content</a></li>
-			<li><a href="#AdvChoice">Choice of Alternative Resources</a></li>	
+			<li><a href="#AdvChoice">Choice of Alternative Resources</a></li>
 			<li><a href="#AdvNonRect">Non Rectangular Segments</a></li>
 			<li><a href="#AdvStyle">Style</a></li>
 			<li><a href="#AdvComment">Comments</a></li>
@@ -144,7 +146,7 @@ This document has been made available to the IIIF and DMS Council members for re
 <div class="body">
 
 <div class="section">
-<a id="Introduction" ></a> 
+<a id="Introduction" ></a>
 <h2>Introduction</h2>
 
 <p>Access to image-based resources is fundamental to many research disciplines, scholarship and the transmission of cultural knowledge. Digital images are a container for much of the information content in the Web-based delivery of images, books, newspapers, manuscripts, maps, scrolls, single sheet collections, and even digital surrogates of textiles, realia and ephemera.</p>
@@ -154,7 +156,7 @@ This document has been made available to the IIIF and DMS Council members for re
 <p>A digitized object may comprise a series of pages or surfaces; for example the pages of an edition of a newspaper, or the pages of a book together with its covers and spine.
 
 <div class="subsection">
-<a id="Objectives" ></a> 
+<a id="Objectives" ></a>
 <h3>Objectives and Scope</h3>
 
 <p>
@@ -169,12 +171,12 @@ The following are within the scope of the current document:
 </uL>
 
 <p>
-The purpose of these various fields is that the relevant information is presented to the user, or may be used to support navigation. Hence these are simple text fields and do not require a rich syntax or explicit semantics.  The API specifies how to transfer the information from the server to a client or viewer, but does not constrain the way in which the viewer uses that information. 
+The purpose of these various fields is that the relevant information is presented to the user, or may be used to support navigation. Hence these are simple text fields and do not require a rich syntax or explicit semantics.  The API specifies how to transfer the information from the server to a client or viewer, but does not constrain the way in which the viewer uses that information.
 <p>
 The following are not within scope:
 <ul>
 <li>The discovery or selection of interesting digitized objects is not supported – this falls within the scope of discovery.
-<li>Search within the object is not supported by the Metadata API; however this will be covered by a further related specification. 
+<li>Search within the object is not supported by the Metadata API; however this will be covered by a further related specification.
 </ul>
 
 <p>
@@ -185,7 +187,7 @@ The following are not within scope:
 </div>
 
 <div class="section">
-<a id="UseCases" ></a> 
+<a id="UseCases" ></a>
 <h2>Motivating Use Cases</h2>
 
 <p>
@@ -226,7 +228,7 @@ The need for these conceptual components, shown in italics, was recognised in ea
 
 
 <div class="section">
-<a id="Objects" ></a> 
+<a id="Objects" ></a>
 <h2>Primary Resource Types</h2>
 
 <p>
@@ -247,14 +249,14 @@ Each Manifest must, and is very likely to, have one Sequence, but may have more 
 	<div class="diagram">
 		<img src="images/iiif-objects.png" height="350" alt="Primary Resource Types"/>
 		<br/><span class="caption">Figure 1. Primary Resource Types</span>
-	</div>	
+	</div>
 </div>
 
 <p>
 	There are other types of resource including Annotation Lists, Annotations, Ranges and Layers, which are discussed later.
 
 <div class="section">
-<a id="Fields" ></a> 
+<a id="Fields" ></a>
 <h2>Metadata Fields</h2>
 
 <p>
@@ -291,10 +293,10 @@ The following metadata fields are suggested by this specification, broken in to 
     <li><b>viewingDirection:</b> The direction that Canvases should be presented in a viewer for the object. This field is valid for a Manifest or Sequence, and must be one of the following, case-sensitive strings: "left-to-right", "right-to-left", "top-to-bottom", "bottom-to-top"
 	<li><b>viewingHint:</b> A hint to the viewer as to the most appropriate method of displaying the object.  It is valid only on the Manfiest. This field can be any string, however the following are defined:
 	<ul>
-		<li><b>"individuals":</b> The canvases are all individual sheets, and should not be presented in a specifically page turning interface.  For example a sequence of letters or photographs.   	
+		<li><b>"individuals":</b> The canvases are all individual sheets, and should not be presented in a specifically page turning interface.  For example a sequence of letters or photographs.
 		<li><b>"paged":</b> The canvases represent pages in a bound volume, and should be presented in a page turning interface.
 		<li><b>"continuous":</b> The canvases each represent a complete side of a long scroll or roll and an appropriate rendering might only display part of the canvas at any given time rather than the entire object.
-	</ul>	
+	</ul>
 </ul>
 <p>
 	The id and type are required for all primary resources. Height and width are required for Canvases and strongly recommended for image based content resources. Format is strongly recommended for all content resources. ViewingDirection and ViewingHint are only applicable to Sequences, and if not present then "Left-to-Right" and "paged" should be assumed.
@@ -303,7 +305,7 @@ The following metadata fields are suggested by this specification, broken in to 
 <ul>
 	<li><b>service:</b> A link to a service that makes more functionality available for the resource, such as from an image to the base URI of an <a href="/api/image/">IIIF Image API service</a>. The service resource should have additional information associated with it in order to allow the client to determine how to make appropriate use of it, such as a "profile" link to a service description or information duplicated from the IIIF Image API Information Request</li>
 	<li><b>seeAlso:</b> A link to more detailed descriptive metadata, suitable for discovery purposes, for example.  This could be an XML or RDF record, such as in EAD, Dublin Core or Bibo schemas.</li>
-	<li><b>within:</b> A link to a resource that contains the current resource, such as a collection of Manifests.  This would allow linking upwards to collections that allow browsing of the digitized objects available, but is not within the scope of the current document.   
+	<li><b>within:</b> A link to a resource that contains the current resource, such as a collection of Manifests.  This would allow linking upwards to collections that allow browsing of the digitized objects available, but is not within the scope of the current document.
 </ul>
 <p>
 	Links are optional for all resources.  They may also have type and format associated with them.
@@ -316,7 +318,7 @@ The following metadata fields are suggested by this specification, broken in to 
 	<div class="diagram">
 		<img src="images/iiif-objects-metadata.png" height="400" alt="Metadata Fields"/>
 		<br/><span class="caption">Figure 2. Metadata Fields</span>
-	</div>	
+	</div>
 </div>
 
 <p>
@@ -324,7 +326,7 @@ The following metadata fields are suggested by this specification, broken in to 
 </div>
 
 <div class="section">
-<a id="API" ></a> 
+<a id="API" ></a>
 <h2>Requests and Responses</h2>
 
 <p>
@@ -354,7 +356,7 @@ The individual resources will have URIs below this top level pattern in the same
 	The format for all responses is JSON, and the sections below describe the structure to be returned in more detail.  The primary response is when the Manifest is requested and for optimization reasons this must return the Manifest, with the default Sequence, Canvases and Associations for image Content resources embedded within it.  Additional Sequences and Associations are made available via additional calls.
 
 <p>
-	The media type for the responses (returned in the HTTP Content-Type header value) should be "application/ld+json", but may be "application/json" and clients should process both in the same manner.  
+	The media type for the responses (returned in the HTTP Content-Type header value) should be "application/ld+json", but may be "application/json" and clients should process both in the same manner.
 
 <p>
 	Resources may be embedded within higher level resources, or available via separate requests to URIs given in the JSON responses.  These URIs are in the "@id" metadata field for the resource, and both identifier and resource type are given separate resource representations.  Links to resources may either be given just as the URI if there is no additional information associated with them, or they may be a JSON object with the "@id" field. Thus the following two lines are equivalent:
@@ -386,7 +388,7 @@ In the examples given below, comments in the JSON are given in blue italics and 
 
 
 <div class = "subsection">
-<a id="Manifest" ></a> 
+<a id="Manifest" ></a>
 <h3>Manifest</h3>
 <p>Recommended URI pattern: <i>{scheme}://{host}/{prefix}/{identifier}/manifest.json</i></p>
 <p>
@@ -409,7 +411,7 @@ The example below includes only the Manifest level information, however it shoul
   "label":"<i style="color:green">Book 1</i>",
   "agent":"<i style="color:green">Anne Author (author)</i>",
   "location":[ "<i style="color:green">Published: Paris, France</i>", "<i style="color:green">Written: London, England</i>" ],
-  "date":[ "<i style="color:green">Circa 1400</i>", 
+  "date":[ "<i style="color:green">Circa 1400</i>",
            {"@value":"<i style="color:green">Environ 1400</i>", "@language":"<i style="color:green">fr</i>"} ],
   "description":"<i style="color:green">A longer description of this example book. It should give some real information.</i>",
 
@@ -422,7 +424,7 @@ The example below includes only the Manifest level information, however it shoul
   "seeAlso":"<i style="color:green">http://www.example.org/library/catalog/book1.xml</i>",
   "within":"<i style="color:green">http://www.example.org/collections/books/</i>",
 
-  <i style="color:blue">// List of Sequences</i>	
+  <i style="color:blue">// List of Sequences</i>
   "sequences" : [
       {
         "@id":"<i style="color:green">http://www.example.org/iiif/book1/sequence/normal.json</i>",
@@ -438,7 +440,7 @@ The example below includes only the Manifest level information, however it shoul
 
 </div>
 <div class = "subsection">
-<a id="Sequence" ></a> 
+<a id="Sequence" ></a>
 <h3>Sequence</h3>
 <p>Recommended URI pattern: <i>{scheme}://{host}/{prefix}/{identifier}/sequence/{name}.json</i></p>
 <p>
@@ -458,7 +460,7 @@ In the Manifest example above, the sequence is referenced by its URI and contain
   "label":"<i style="color:green">Current Page Order</i>",
 
   <i style="color:blue">// The order of the Canvases</i>
-  "canvases": [ 
+  "canvases": [
     {
       "@id":"<i style="color:green">http://www.example.org/iiif/book1/canvas/p1.json</i>",
       "@type":"sc:Canvas",
@@ -466,7 +468,7 @@ In the Manifest example above, the sequence is referenced by its URI and contain
       "height":<i style="color:green">1000</i>,
       "width":<i style="color:green">750</i>,
       "resources": [
-           <i style="color:blue">// Links to the Content resources go here ...</i> 	
+           <i style="color:blue">// Links to the Content resources go here ...</i>
       ]
     },
     {
@@ -482,7 +484,7 @@ In the Manifest example above, the sequence is referenced by its URI and contain
       "label":"<i style="color:green">p. 3</i>",
       "height":<i style="color:green">1000</i>,
       "width":<i style="color:green">750</i>
-    }    
+    }
   ]
 }
 </pre>
@@ -490,7 +492,7 @@ In the Manifest example above, the sequence is referenced by its URI and contain
 </div>
 
 <div class = "subsection">
-<a id="Canvas" ></a> 
+<a id="Canvas" ></a>
 <h3>Canvas</h3>
 <p>Recommended URI pattern: <i>{scheme}://{host}/{prefix}/{identifier}/canvas/{name}.json</i></p>
 <p>
@@ -529,7 +531,7 @@ Canvases may be dereferenced separately from the Manifest via their URIs, and th
 </div>
 
 <div class = "subsection">
-<a id="Annotation" ></a> 
+<a id="Annotation" ></a>
 <h3>Association of Image Resources</h3>
 <p>Recommended URI pattern: <i>{scheme}://{host}/{prefix}/{identifier}/annotation/{name}.json</i></p>
 
@@ -568,7 +570,7 @@ Canvases may be dereferenced separately from the Manifest via their URIs, and th
 </div>
 
 <div class = "subsection">
-<a id="List" ></a> 
+<a id="List" ></a>
 <h3>Other Content Resources</h3>
 <p>Recommended URI pattern: <i>{scheme}://{host}/{prefix}/{identifier}/list/{name}.json</i></p>
 <p>
@@ -617,19 +619,19 @@ As the image is almost ubituous and required to present a meaningful rendering o
 
 
 <div class = "subsection">
-<a id="Advanced" ></a> 
+<a id="Advanced" ></a>
 <h3>Advanced Association Features</h3>
 
-The following sections describe known use cases for building representations of physical objects using the IIIF Metadata API, and clients should expect to encounter them.  Other use cases are likely to exist, and must be encoded using the Open Annotation's context document mapping for any additional fields required. 
+The following sections describe known use cases for building representations of physical objects using the IIIF Metadata API, and clients should expect to encounter them.  Other use cases are likely to exist, and must be encoded using the Open Annotation's context document mapping for any additional fields required.
 
 <div class = "subsubsection">
-<a id="AdvSegment" ></a> 
+<a id="AdvSegment" ></a>
 <h4>Segments</h4>
 
 <p>
 It is important to be able to extract parts, or segments, of resources.  In particular a very common requirement is to associate a resource with part of a Canvas, or part of an Image with either the entire Canvas or part thereof.  Secondly, as transcriptions are often made available in XML files, extracting the correct page or line to associate with the Canvas or part of the Canvas is equally useful for reusing existing material.
 <ul>
-	<li>Segments of images and Canvases may be easily selected by adding a <a href="http://www.w3.org/TR/media-frags/#naming-space">rectangular bounding box</a> after the URI.  The fragment must be structured: 
+	<li>Segments of images and Canvases may be easily selected by adding a <a href="http://www.w3.org/TR/media-frags/#naming-space">rectangular bounding box</a> after the URI.  The fragment must be structured:
 		<blockquote><i style="color:green">http://www.example.com/iiif/book1/canvas/p1.json</i>#xywh=<i style="color:green">100,100,300,50</i> </blockquote>
 	Where the four numbers are the x and y coordinates in the image or canvas, followed by the width and height. Thus this segment is 300px wide, 50px high and starts at position 100,100.</li>
 	<li>Segments of XML files may be extracted with <a href="http://en.wikipedia.org/wiki/XPointer">XPaths</a>.  The fragment must be structured:
@@ -639,7 +641,7 @@ It is important to be able to extract parts, or segments, of resources.  In part
 <pre>
 {
   "@context":"http://www.shared-canvas.org/ns/context.json",
-  "@id":"http://www.example.org/iiif/book1/annotation/anno1".json, 
+  "@id":"http://www.example.org/iiif/book1/annotation/anno1".json,
   "@type":"oa:Annotation",
   "motivation":"sc:painting",
   "resource":{
@@ -654,7 +656,7 @@ It is important to be able to extract parts, or segments, of resources.  In part
 </div>
 
 <div class = "subsubsection">
-<a id="AdvEmbedded" ></a> 
+<a id="AdvEmbedded" ></a>
 <h4>Embedded Content</h4>
 <p>
 	Instead of referencing transcription text externally, it is often easier to record it in the Annotation itself.  Equally, text based comments could also benefit from being included in the Annotation that associates the comment with the Canvas.
@@ -669,7 +671,7 @@ An example of this feature:
 <pre>
 {
   "@context":"http://www.shared-canvas.org/ns/context.json",
-  "@id":"http://www.example.org/iiif/book1/annotation/p1.json", 
+  "@id":"http://www.example.org/iiif/book1/annotation/p1.json",
   "@type":"oa:Annotation",
   "motivation":"sc:painting",
   "resource":{
@@ -684,7 +686,7 @@ An example of this feature:
 </div>
 
 <div class = "subsubsection">
-<a id="AdvChoice" ></a> 
+<a id="AdvChoice" ></a>
 <h4>Choice of Alternative Resources</h4>
 <p>
 A common requirement is to have a choice between multiple images that depict the page, such as different under different lights, or taken at different times.  This can be accomplished by having a "oa:Choice" object as the resource, which then refers to the options to select from.  It must have one "default" and at least one further "item" to choose from.  The same can be applied to a choice between other types of resources as well.  This is described in the <a href="http://www.openannotation.org/spec/core/multiplicity.html#Choice">Multiplicity section</a> of the Open Annotation specification.
@@ -697,7 +699,7 @@ A common requirement is to have a choice between multiple images that depict the
 <pre>
 {
   "@context":"http://www.shared-canvas.org/ns/context.json",
-  "@id":"http://www.example.org/iiif/book1/annotation/anno1.json", 
+  "@id":"http://www.example.org/iiif/book1/annotation/anno1.json",
   "@type":"oa:Annotation",
   "motivation":"sc:painting",
   "resource":{
@@ -719,7 +721,7 @@ A common requirement is to have a choice between multiple images that depict the
 </div>
 
 <div class = "subsubsection">
-<a id="AdvNonRect" ></a> 
+<a id="AdvNonRect" ></a>
 <h4>Non Rectangular Segments</h4>
 <p>
 The Scalable Vector Graphics standard (SVG) is used to describe non rectangular areas of Canvas or Image resources.  The SVG document is embedded within the Annotation using the same ContentAsText approach as for embedding comments or transcriptions.  If the section of an image is mapped to a Canvas, then it should be the bounding box in which the SVG viewport should be placed, rather than another SVG area.  If the entire canvas is the target, then the SVG viewport is assumed to cover the entire Canvas.
@@ -727,7 +729,7 @@ The Scalable Vector Graphics standard (SVG) is used to describe non rectangular 
 <pre>
 {
   "@context":"http://www.shared-canvas.org/ns/context.json",
-  "@id":"http://www.example.org/iiif/book1/annotation/anno1.json", 
+  "@id":"http://www.example.org/iiif/book1/annotation/anno1.json",
   "@type":"oa:Annotation",
   "motivation":"sc:painting",
   "resource":{
@@ -747,7 +749,7 @@ The Scalable Vector Graphics standard (SVG) is used to describe non rectangular 
 </div>
 
 <div class = "subsubsection">
-<a id="AdvStyle" ></a> 
+<a id="AdvStyle" ></a>
 <h4>Style</h4>
 <p>
 
@@ -757,7 +759,7 @@ The Cascading Style Sheets standard (CSS) is used to describe how the client sho
 <pre>
 {
   "@context":"http://www.shared-canvas.org/ns/context.json",
-  "@id":"http://www.example.org/iiif/book1/annotation/anno1.json", 
+  "@id":"http://www.example.org/iiif/book1/annotation/anno1.json",
   "@type":"oa:Annotation",
   "motivation":"sc:painting",
   "stylesheet":{
@@ -774,7 +776,7 @@ The Cascading Style Sheets standard (CSS) is used to describe how the client sho
   }
   "on":"http://www.example.org/iiif/book1/canvas/p1.json#xywh=100,150,500,30"
 }
-</pre>	
+</pre>
 
 <p>
 	CSS may also be used for rotation of images which are not correctly aligned with the Canvas.  In the example below, after the image is located within the 500 wide by 30 high space within the Canvas, it is then rotated by the rendering client application around the top left corner by 45 degrees anti-clockwise.
@@ -782,7 +784,7 @@ The Cascading Style Sheets standard (CSS) is used to describe how the client sho
 <pre>
 {
   "@context":"http://www.shared-canvas.org/ns/context.json",
-  "@id":"http://www.example.org/iiif/book1/annotation/anno1.json", 
+  "@id":"http://www.example.org/iiif/book1/annotation/anno1.json",
   "@type":"oa:Annotation",
   "motivation":"sc:painting",
   "stylesheet":{
@@ -803,11 +805,11 @@ The Cascading Style Sheets standard (CSS) is used to describe how the client sho
 </div>
 
 <div class = "subsubsection">
-<a id="AdvComment" ></a> 
+<a id="AdvComment" ></a>
 <h4>Comment Annotations</h4>
 
 <p>
-For annotations which are comments about the resource, as opposed to painting content resources on to the Canvas, there are different types of Motivation to make the distinction clear.  For annotations about the content (such as comments, notes, descriptions etc.) the motivation should be "oa:commenting", but may be any from the list <a href="http://www.openannotation.org/spec/core/core.html#Motivations">in the Open Annotation specification</a>. 
+For annotations which are comments about the resource, as opposed to painting content resources on to the Canvas, there are different types of Motivation to make the distinction clear.  For annotations about the content (such as comments, notes, descriptions etc.) the motivation should be "oa:commenting", but may be any from the list <a href="http://www.openannotation.org/spec/core/core.html#Motivations">in the Open Annotation specification</a>.
 
 <pre>
 {
@@ -826,7 +828,7 @@ For annotations which are comments about the resource, as opposed to painting co
 </div>
 
 <div class="section">
-<a id="Structure" ></a> 
+<a id="Structure" ></a>
 <h2>Additional Resource Types</h2>
 
 <p>
@@ -841,20 +843,20 @@ For annotations which are comments about the resource, as opposed to painting co
 	<div class="diagram">
 		<img src="images/iiif-objects-all.png" height="500" alt="All Resource Types"/>
 		<br/><span class="caption">Figure 3. All Resource Types</span>
-	</div>	
+	</div>
 </div>
 
 
 <div class="subsection">
-<a id="Range" ></a> 
+<a id="Range" ></a>
 <h3>Ranges</h3>
 <p>Recommended URI pattern: <i>{scheme}://{host}/{prefix}/{identifier}/range/{name}.json</i></p>
 <p>
 	It may be important to describe additional structure within the text, such as newspaper articles that span pages, the range of non-content bearing pages at the beginning of a work, or chapters within a book.  These are described using Ranges in a similar manner to Sequences.
 <p>
-	A range includes one or more Canvases, or parts of Canvases.  The part must be rectangular, and is given using the xywh fragment approach.  This allows for selecting, for example, the areas within two newspaper pages where an article is depicted.  As the information about the Canvas is already in the Sequence, it should not be repeated.  In order to present a table of the different ranges to allow a user to select one, every Range must have a label.  It may also have any of the other metadata fields, including especially "within" to point to another Range of which the current one is part.  For example, a subsection Range could point to the section Range that it is part of.  
+	A range includes one or more Canvases, or parts of Canvases.  The part must be rectangular, and is given using the xywh fragment approach.  This allows for selecting, for example, the areas within two newspaper pages where an article is depicted.  As the information about the Canvas is already in the Sequence, it should not be repeated.  In order to present a table of the different ranges to allow a user to select one, every Range must have a label.  It may also have any of the other metadata fields, including especially "within" to point to another Range of which the current one is part.  For example, a subsection Range could point to the section Range that it is part of.
 <p>
-	Ranges are linked or embedded within the Manifest in a "structures" field, and have the same properties as Sequences:		
+	Ranges are linked or embedded within the Manifest in a "structures" field, and have the same properties as Sequences:
 
 <pre>
 {
@@ -864,7 +866,7 @@ For annotations which are comments about the resource, as opposed to painting co
   <i style="color:blue">// Metadata ... </i>
 
   "sequences": [
-      <i style="color:blue">// Sequence etc. ... </i>	
+      <i style="color:blue">// Sequence etc. ... </i>
   ],
 
   "structures": [
@@ -885,7 +887,7 @@ For annotations which are comments about the resource, as opposed to painting co
         "within":"<i style="color:green">http://www.example.org/iiif/book1/range/r1.json</i>",
         "canvases": ["http://www.example.org/iiif/book1/canvas/2.json#xywh=0,0,500,500"]
     }
-    <i style="color:blue">// And any additional ranges here </i>	    
+    <i style="color:blue">// And any additional ranges here </i>
   ]
 }
 
@@ -893,7 +895,7 @@ For annotations which are comments about the resource, as opposed to painting co
 </div>
 
 <div class="subsection">
-<a id="Layer" ></a> 
+<a id="Layer" ></a>
 <h3>Layers</h3>
 <p>Recommended URI pattern: <i>{scheme}://{host}/{prefix}/{identifier}/layer/{name}.json</i></p>
 
@@ -921,7 +923,7 @@ For annotations which are comments about the resource, as opposed to painting co
 
 
 <div class="section">
-<a id="Example" ></a> 
+<a id="Example" ></a>
 <h2>Complete Example Response</h2>
 
 <p>
@@ -935,7 +937,7 @@ URL: <i>http://www.example.org/iiif/book1/manifest.json</i>
   "label":"Book 1",
   "agent":"Anne Author (author)",
   "location":[ "Published: Paris, France", "Written: London, England" ],
-  "date":[ "Circa 1400", 
+  "date":[ "Circa 1400",
            {"@value":"Environ 1400", "@language":"fr"} ],
   "description":"A longer description of this example book. It should give some real information.",
   "license":"http://www.example.org/license.html",
@@ -947,13 +949,13 @@ URL: <i>http://www.example.org/iiif/book1/manifest.json</i>
       "format": "application/marc"
     },
   "within":"http://www.example.org/collections/books/",
-	
+
   "sequences" : [
       {
         "@id":"http://www.example.org/iiif/book1/sequence/normal.json",
       	"@type":"sc:Sequence",
       	"label":"Current Page Order",
-        "canvases": [ 
+        "canvases": [
           {
             "@id":"http://www.example.org/iiif/book1/canvas/p1.json",
             "@type":"sc:Canvas",
@@ -1004,10 +1006,10 @@ URL: <i>http://www.example.org/iiif/book1/manifest.json</i>
                         "profile":"http://library.stanford.edu/iiif/image-api/compliance.html#level0",
                         "scale_factors": [1, 2, 4],
                         "height":8000,
-                        "width":6000,                        
+                        "width":6000,
                         "tile_width":1024,
                         "tile_height":1024
-                    }					 
+                    }
                 },
       	        "on":"http://www.example.org/iiif/book1/canvas/p2.json"
       	      },
@@ -1102,13 +1104,13 @@ URL: <i>http://www.example.org/iiif/book1/manifest.json</i>
 	<tr><th rowspan="2"> </th><th colspan="5">Descriptive</th><th colspan="2">Rights</th><th colspan="7">Technical</th><th colspan="3">Linking</th></tr>
 	<tr><th>label</th><th>agent</th><th>date</th><th>location</th><th>descript.</th><th>attribut.</th><th>license</th><th>@id</th><th>@type</th><th>format</th><th>height</th><th>width</th><th>viewDir.<th>viewHint.</th><th>service</th><th>seeAlso</th><th>within</th></tr>
 	<tr><th>Manifest</th>
-		<td class="man">MAN</td><td>OPT</td><td>OPT</td><td>OPT</td><td>REC</td><td>OPT</td><td>OPT</td><td class="man">MAN</td><td class="man">MAN</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>OPT</td><td>OPT</td><td>OPT</td>   
+		<td class="man">MAN</td><td>OPT</td><td>OPT</td><td>OPT</td><td>REC</td><td>OPT</td><td>OPT</td><td class="man">MAN</td><td class="man">MAN</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>OPT</td><td>OPT</td><td>OPT</td>
 	</tr>
 	<tr><th>Sequence</th>
-		<td>OPT</td><td>OPT</td><td>OPT</td><td>OPT</td><td>OPT</td><td>OPT</td><td>OPT</td><td>REC</td><td class="man">MAN</td><td>N/A</td><td>N/A</td><td>N/A</td><td>OPT</td><td>OPT</td><td>OPT</td><td>OPT</td><td>OPT</td> 
+		<td>OPT</td><td>OPT</td><td>OPT</td><td>OPT</td><td>OPT</td><td>OPT</td><td>OPT</td><td>REC</td><td class="man">MAN</td><td>N/A</td><td>N/A</td><td>N/A</td><td>OPT</td><td>OPT</td><td>OPT</td><td>OPT</td><td>OPT</td>
     </tr>
-	<tr><th>Canvas</th>	
-		<td class="man">MAN</td><td>OPT</td><td>OPT</td><td>OPT</td><td>OPT</td><td>OPT</td><td>OPT</td><td class="man">MAN</td><td class="man">MAN</td><td>N/A</td><td class="man">MAN</td><td class="man">MAN</td><td>N/A</td><td>N/A</td><td>OPT</td><td>OPT</td><td>OPT</td> 
+	<tr><th>Canvas</th>
+		<td class="man">MAN</td><td>OPT</td><td>OPT</td><td>OPT</td><td>OPT</td><td>OPT</td><td>OPT</td><td class="man">MAN</td><td class="man">MAN</td><td>N/A</td><td class="man">MAN</td><td class="man">MAN</td><td>N/A</td><td>N/A</td><td>OPT</td><td>OPT</td><td>OPT</td>
    </tr>
 	<tr><th>Annotation</th>
 		<td>OPT</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>OPT</td><td>OPT</td><td>REC</td><td class="man">MAN</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>OPT</td><td>OPT</td><td>OPT</td>
@@ -1116,17 +1118,17 @@ URL: <i>http://www.example.org/iiif/book1/manifest.json</i>
 	<tr><th>AnnotationList</th>
 		<td>OPT</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>OPT</td><td>OPT</td><td class="man">MAN</td><td class="man">MAN</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>OPT</td><td>OPT</td><td>OPT</td>
   </tr>
-	<tr><th>Range</th>	
+	<tr><th>Range</th>
 		<td class="man">MAN</td><td>OPT</td><td>OPT</td><td>OPT</td><td>OPT</td><td>OPT</td><td>OPT</td><td class="man">MAN</td><td class="man">MAN</td><td>N/A</td><td>N/A</td><td>N/A</td><td>OPT</td><td>OPT</td><td>OPT</td><td>OPT</td><td>OPT</td>
   </tr>
 	<tr><th>Layer</th>
 		<td class="man">MAN</td><td>OPT</td><td>OPT</td><td>OPT</td><td>OPT</td><td>OPT</td><td>OPT</td><td class="man">MAN</td><td class="man">MAN</td><td>N/A</td><td>N/A</td><td>N/A</td><td>OPT</td><td>OPT</td><td>OPT</td><td>OPT</td><td>OPT</td>
   </tr>
 	<tr><th>Image Content</th>
-		<td>OPT</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>OPT</td><td>OPT</td><td class="man">MAN</td><td class="man">MAN</td><td>REC</td><td>REC</td><td>REC</td><td>N/A</td><td>N/A</td><td>OPT</td><td>OPT</td><td>OPT</td>	
+		<td>OPT</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>OPT</td><td>OPT</td><td class="man">MAN</td><td class="man">MAN</td><td>REC</td><td>REC</td><td>REC</td><td>N/A</td><td>N/A</td><td>OPT</td><td>OPT</td><td>OPT</td>
    </tr>
 	<tr><th>Other Content</th>
-		<td>OPT</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>OPT</td><td>OPT</td><td class="man">MAN</td><td class="man">MAN</td><td>REC</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>OPT</td><td>OPT</td><td>OPT</td>		
+		<td>OPT</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>OPT</td><td>OPT</td><td class="man">MAN</td><td class="man">MAN</td><td>REC</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>OPT</td><td>OPT</td><td>OPT</td>
    </tr>
 
 </table>
@@ -1137,5 +1139,3 @@ URL: <i>http://www.example.org/iiif/book1/manifest.json</i>
 
 </body>
 </html>
-
-
