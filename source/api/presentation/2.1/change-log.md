@@ -8,6 +8,8 @@ major: 2
 minor: 1
 # no patch
 pre: final
+redirect_from:
+  - /api/presentation/2.1/change-log.html
 ---
 
 This document is a companion to the [IIIF Presentation API Specification, Version 2.1][prezi-api]. It describes the significant changes to the API since [Version 2.0][prezi-api-20]. The changes are all backwards compatible. A second section, [Deferred Proposals][deferred-proposals], lists proposals that have been discussed but did not make it into this version of the specification.

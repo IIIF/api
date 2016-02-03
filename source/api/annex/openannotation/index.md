@@ -88,7 +88,7 @@ Thanks to the members of the [IIIF][iiif-community] for their continuous engagem
 | 2014-07-01 | Version 1.0 RFC                                    |
 
 
-   [semver]: /api/annex/notes/semver.html "Versioning of APIs"
+   [semver]: /api/annex/notes/semver/ "Versioning of APIs"
    [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
    [json-ld]: http://www.w3.org/TR/json-ld/ "JSON-LD"
    [iiif-community]: /community/ "IIIF Community"

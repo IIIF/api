@@ -8,6 +8,8 @@ major: 2
 minor: 0
 # no patch
 pre: final
+redirect_from:
+  - /api/image/2.0/change-log.html
 ---
 
 This document is a companion to the [IIIF Image API Specification, Version 2.0][api]. It describes the significant changes to the API since [Version 1.1][api-11]. The changes are broken into three groups: [Breaking Changes][breaking-changes], i.e. those that are not backwards compatible from either a client or server perspective (or both) and mostly consists of new features; [Other Changes][other-changes], i.e. those that are backwards compatible; and [Deferred Changes][deferred-changes], i.e. those that will be made in a future iteration of the Image API.
@@ -96,7 +98,7 @@ After much discussion, the profile link header for indicating the basic profile 
 
 ### Add mirroring to rotation parameter
 
-The rotation value may now be preceded by an exclamation mark to specify mirroring about the vertical axis before rotation. The motivating use cases are display of negatives, reflection to support a carousel display, and support for reading bleed through text. 
+The rotation value may now be preceded by an exclamation mark to specify mirroring about the vertical axis before rotation. The motivating use cases are display of negatives, reflection to support a carousel display, and support for reading bleed through text.
 
 ### Added `services` property to Image Information document
 
@@ -104,7 +106,7 @@ In order to provide the same extension point as is in the [Presentation API][pre
 
 ### Added `sizes` property to Image Information document
 
-Servers that do not support arbitrary size parameters for image requests may still wish make multiple sizes of an image available. The sizes that are available may be listed using an array of JSON objects in the `sizes` property of the top level of the Image Information response.  The object has `height` and `width` properties. 
+Servers that do not support arbitrary size parameters for image requests may still wish make multiple sizes of an image available. The sizes that are available may be listed using an array of JSON objects in the `sizes` property of the top level of the Image Information response.  The object has `height` and `width` properties.
 Even when a server does support arbitrary resizing, it may be useful to report pre-cached or otherwise recommended sizes of an image.
 
 ### Published JSON-LD Context
@@ -129,7 +131,7 @@ Added Google's [webp][goog-webp] to the list of supported image formats as optio
 
 A proposal was made to add rights level information from the [Presentation API][prezi-api] to the Image Information response for images to avoid requiring support for both APIs just to give a license or attribution statement for the image.  This change was deferred until the next version of the API to coincide with the introduction of Authentication and Authorization information, and to allow extra time to gather use cases and requirements.
 
-### Add Compression 
+### Add Compression
 
 A recommendation was made to allow compression to be specified in the image URL in order to obtain a compressed representation of the image.  The motivation was bandwidth management, such as for mobile or rural areas where access is limited.  The change was deferred until the next version of the API to allow extra time to gather use cases and requirements, as no consensus was reached as to how this could be accomplished.  No proposal introduced a backwards incompatibility, and hence this feature can be introduced without a new major version.
 
@@ -141,9 +143,9 @@ A recommendation was made to allow compression to be specified in the image URL 
 [breaking-changes]: #breaking-changes "Image API 2.0 Breaking Changes"
 [canonical-uris]: /api/image/2.0/#canonical-uri-syntax "Image API 4.7. Canonical URI Syntax"
 [info-request]: /api/image/2.0/#information-request "Image API Section 5. Information Request"
-[compliance-doc]: /api/image/2.0/compliance.html "Image API 2.0 Compliance Document"
+[compliance-doc]: /api/image/2.0/compliance/ "Image API 2.0 Compliance Document"
 [context]: /api/image/2/context.json  "Image API 2.0 JSON-LD Context"
-[http-features]: /api/image/2.0/compliance.html#http-features "Image API Compliance: HTTP Features"
+[http-features]: /api/image/2.0/compliance/#http-features "Image API Compliance: HTTP Features"
 [imagemagick-output]: http://www.imagemagick.org/script/command-line-processing.php#output "ImageMagick: Command-line Processing: Output Filename"
 [kdu-usage]: http://kakadusoftware.com/wp-content/uploads/2014/06/Usage_Examples.txt "Usage Examples for the Demonstration Applications Supplied with Kakadu V7.4"
 [pillow]: http://pillow.readthedocs.org/en/latest/handbook/image-file-formats.html#image-file-formats "Pillow: Image file formats"

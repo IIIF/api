@@ -9,6 +9,8 @@ minor: 9
 patch: 1
 pre: final
 cssversion: 2
+redirect_from:
+  - /api/auth/index.html
 ---
 
 ## Status of this Document
@@ -470,9 +472,9 @@ Many thanks to the members of the [IIIF Community][iiif-community] for their con
 [server-auth-img]: img/auth-flow-server.png
 [semver]: http://semver.org/spec/v2.0.0.html "Semantic Versioning 2.0.0"
 [iiif-community]: /community/ "IIIF Community"
-[versioning]: /api/annex/notes/semver.html "Versioning of APIs"
+[versioning]: /api/annex/notes/semver/ "Versioning of APIs"
 [mellon]: http://www.mellon.org/ "The Andrew W. Mellon Foundation"
-[change-log]: /api/image/2.0/change-log.html "Change Log for Version 2.0"
+[change-log]: /api/image/2.0/change-log/ "Change Log for Version 2.0"
 [rfc-2119]: http://tools.ietf.org/html/rfc2119
 [prezi-api]: /api/presentation/
 [image-api]: /api/image/

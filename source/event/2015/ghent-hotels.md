@@ -2,6 +2,8 @@
 title: "Hotel List: Ghent 2015"
 layout: spec
 tags: [event ]
+redirect_from:
+  - /event/2015/ghent-hotels.html
 ---
 
 
@@ -12,7 +14,7 @@ For more information, see: [http://www.bedandbreakfast-gent.be/](http://www.beda
 ## &nbsp; Bed and Breakfast 'De Walpoort'
 
 Walpoortstraat 36
-9000 Gent 
+9000 Gent
 Tel: +32 475 610 823
 
 [info@walpoort.com](mailto:info@walpoort.com)
@@ -62,7 +64,7 @@ Prices:
   * Single Charme Room: 142,50€ breakfast included
   * Single Deluxe Room: 152,50€ breakfast included
 
-Notes: 
+Notes:
 
   * Contact [Reservations.reylof@sandton.eu](mailto:Reservations.reylof@sandton.eu) and use code "Ugent Shared Canvas"
 
@@ -79,7 +81,7 @@ Prices:
   * Single: 144€ breakfast included
   * Double: 159€ breakfast included
 
-Notes: 
+Notes:
 
   * Contact Thomas van Rossem [nhgentbelfort@nh-hotels.com](mailto:nhgentbelfort@nh-hotels.com) and use code "Ugent Shared Canvas"
 
@@ -93,11 +95,11 @@ Tel: +32 9 266 1010
 
 [info@ghent-river-hotel.be](mailto:info@ghent-river-hotel.be)
 
-Prices: 
+Prices:
 
-  * Standard rooms: 
+  * Standard rooms:
     * Single: 109€ breakfast included
-    * Double: 119€ breakfast included 
+    * Double: 119€ breakfast included
   * Executive rooms
     * Single: 129€ breakfast included
     * Double: 139€ breakfast included
@@ -177,5 +179,3 @@ Notes:
 # AirBnB
 
 [AirBnB](https://www.airbnb.com/s/Ghent--Belgium?guests=&checkin=12%2F07%2F2015&checkout=12%2F09%2F2015&ss_id=zfnanfkw&source=bb) may also have rooms available
-
-

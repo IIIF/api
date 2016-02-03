@@ -3,6 +3,8 @@ title: "IIIF Editorial Process"
 layout: spec
 tags: [annex, presentation-api, image-api]
 cssversion: 2
+redirect_from:
+  - /api/annex/notes/editors.html
 ---
 
 ## Status of this Document
@@ -121,7 +123,7 @@ Editors may be dismissed from work on a specification, or the editorial group al
  | Date       | Description                                                         |
  | ---------- | ------------------------------------------------------------------- |
  | 2015-12-22 | First release (@mikeapp, @tomcrane, @azaroth42, @jpstroop, @zimeon) |
- 
+
 [change-log]: #change-log "Change Log"
 [acceptance-criteria-for-merging-changes]: #acceptance-criteria-for-merging-changes "Acceptance Criteria for Merging Changes"
 [iiif-announce]: https://groups.google.com/forum/#!forum/iiif-announce "IIIF Email Announcement List"
@@ -130,9 +132,9 @@ Editors may be dismissed from work on a specification, or the editorial group al
 [iiif-github-issues]: https://github.com/IIIF/iiif.io/issues "iiif.io issues"
 [iiif-github]: https://github.com/IIIF/iiif.io "iiif.io on Github"
 [iiif-io]: http://iiif.io "iiif.io"
-[iiif-semver]: /api/annex/notes/semver.html "Versioning of APIs"
-[image-20-changelog]: http://iiif.io/api/image/2.0/change-log.html "Changes for IIIF Image API Version 2.0"
+[iiif-semver]: /api/annex/notes/semver/ "Versioning of APIs"
+[image-20-changelog]: /api/image/2.0/change-log/ "Changes for IIIF Image API Version 2.0"
 [merging-changes]: #acceptance-criteria-for-merging-changes "2.2 Acceptance Criteria for Merging Changes"
 [rfc-2119]: https://www.ietf.org/rfc/rfc2119.txt "RFC 2119"
-[spec-disclaimer]: http://iiif.io/api/annex/notes/disclaimer.html "Specification Disclaimer"
+[spec-disclaimer]: /api/annex/notes/disclaimer/ "Specification Disclaimer"
 {% include acronyms.md %}

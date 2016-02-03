@@ -7,6 +7,8 @@ major: 2
 minor: 1
 patch: 0
 pre: draft1
+redirect_from:
+  - /api/presentation/2.1/zones.html
 ---
 
 ## Zones Notes

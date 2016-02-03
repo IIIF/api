@@ -2,6 +2,8 @@
 title: "Sharing Images of Global Cultural Heritage"
 layout: spec
 tags: [event ]
+redirect_from:
+  - /event/2015/washington.html
 ---
 
 ## Table of Contents
@@ -59,7 +61,7 @@ All IIIF Events are covered by the [IIIF Code of Conduct][conduct]. IIIF is comm
 
 [home-page]: http://iiif.io/
 [event-brite]: https://www.eventbrite.com/e/sharing-images-of-global-culture-tickets-15546122872
-[conduct]: /event/conduct.html
+[conduct]: /event/conduct/
 [logistics]: #logistics
 [image-api]: /api/image/2.0/
 [prezi-api]: /api/presentation/2.0/

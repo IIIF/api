@@ -7,6 +7,8 @@ major: 2
 minor: 0
 patch: 0
 pre: final
+redirect_from:
+  - /api/image/2.0/compliance.html
 ---
 
 ## Status of this Document

@@ -7,7 +7,7 @@ cssversion: 2
 
 ## Call for Implementations
 
-The International Image Interoperability Framework community is inviting proposals for funding of open source implementations or other work that would improve the state of the community, particularly implementations that make existing software interoperable.  Proposals should be sent to [iiif-proposals@googlegroups.com](iiif-proposals@googlegroups.com) at any time, up until June 1, 2016.  Proposals will be assessed when they are received and thus the earlier proposals are submitted, the more likely they are to be funded.  The proposal process is intended to ensure openness, quality and timeliness.
+The International Image Interoperability Framework community is inviting proposals for funding of open source implementations or other work that would improve the state of the community, particularly implementations that make existing software interoperable.  Proposals should be sent to [iiif-proposals@googlegroups.com](mailto:iiif-proposals@googlegroups.com) at any time, up until June 1, 2016.  Proposals will be assessed when they are received and thus the earlier proposals are submitted, the more likely they are to be funded.  The proposal process is intended to ensure openness, quality and timeliness.
 
 The proposal should be a 1-2 page PDF document that outlines the following:
 
@@ -41,7 +41,7 @@ The response may be:
   * Please provide refinements in specified areas, or answers to questions
   * Apologies but the proposed work doesn't fit the criteria sufficiently
 
-The range of available funds is up to $20,000 USD per project, however for projects of extraordinary quality with significant matching funds, exceptions may be made.  If requesting more than this amount, please contact the team in advance at [iiif-proposals@googlegroups.com](iiif-proposals@googlegroups.com).
+The range of available funds is up to $20,000 USD per project, however for projects of extraordinary quality with significant matching funds, exceptions may be made.  If requesting more than this amount, please contact the team in advance at [iiif-proposals@googlegroups.com](mailto:iiif-proposals@googlegroups.com).
 
 __Please circulate to other parties that may be interested!__
 

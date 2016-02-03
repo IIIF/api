@@ -2,6 +2,8 @@
 title: "Proposed Breaking Changes"
 layout: spec
 tags: [annex, presentation-api, image-api]
+redirect_from:
+  - /api/annex/notes/proposed-changes.html
 ---
 
 # Introduction

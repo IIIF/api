@@ -8,6 +8,8 @@ major: 2
 minor: 0
 # no patch
 pre: final
+redirect_from:
+  - /api/presentation/2.0/change-log.html
 ---
 
 This document is a companion to the [IIIF Presentation API Specification, Version 2.0][prezi-api]. It describes the significant changes to the API since [Version 1.0][prezi-api-10]. The changes are broken into two groups: [Breaking Changes][breaking-changes], i.e. those that are not backwards compatible from either a client or server perspective (or both); [Other Changes][other-changes], i.e. those that are backwards compatible. A third section, [Deferred Proposals][deferred-proposals], lists proposals that have been discussed but did not make it into this version of the specification.
@@ -125,7 +127,7 @@ The Image API in 2.0 has a protocol field that makes the assertion that the `inf
 
 ### Minimum/Maximum Size Bounds for Annotation Rendering
 
-The content or commentary resources linked via annotations to a Canvas may be only useful to render at certain sizes, such as trying to render an image below 10 pixels width or text at less than 4 points.  While theoretically useful, no real world use cases have been presented that would justify its inclusion.  As a backwards compatible new feature, it was deferred until a requirement is expressed. 
+The content or commentary resources linked via annotations to a Canvas may be only useful to render at certain sizes, such as trying to render an image below 10 pixels width or text at less than 4 points.  While theoretically useful, no real world use cases have been presented that would justify its inclusion.  As a backwards compatible new feature, it was deferred until a requirement is expressed.
 
 
 [api-11]: /api/image/1.1/ "Image API 1.1"
@@ -135,10 +137,10 @@ The content or commentary resources linked via annotations to a Canvas may be on
 [canonical-uris]: /api/image/2.0/#canonical-uri-syntax "Image API 4.7. Canonical URI Syntax"
 [deferred-proposals]: #deferred-proposals "Presentation API 2.0 Deferred Proposals"
 [info-request]: /api/image/2.0/#information-request "Image API Section 5. Information Request"
-[compliance-doc]: /api/image/2.0/compliance.html "Image API 2.0 Compliance Document"
+[compliance-doc]: /api/image/2.0/compliance/ "Image API 2.0 Compliance Document"
 [context]: /api/image/2/context.json  "Image API 2.0 JSON-LD Context"
 [extensions]: /api/image/2.0/#extensions "Image API 4.7. Canonical URI Syntax"
-[http-features]: /api/image/2.0/compliance.html#http-features "Image API Compliance: HTTP Features"
+[http-features]: /api/image/2.0/compliance/#http-features "Image API Compliance: HTTP Features"
 [imagemagick-output]: http://www.imagemagick.org/script/command-line-processing.php#output "ImageMagick: Command-line Processing: Output Filename"
 [kdu-usage]: http://www.kakadusoftware.com/documents/Usage_Examples.txt "Usage Examples for the Demonstration Applications Supplied with Kakadu V7.0"
 [pillow]: http://pillow.readthedocs.org/en/latest/handbook/image-file-formats.html#image-file-formats "Pillow: Image file formats"

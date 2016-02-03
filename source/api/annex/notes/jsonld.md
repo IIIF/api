@@ -3,6 +3,8 @@ title: "JSON-LD Implementation Notes"
 layout: spec
 tags: [annex, presentation-api, image-api]
 cssversion: 2
+redirect_from:
+  - /api/annex/notes/jsonld.html
 ---
 
 ## Table of Contents
@@ -94,7 +96,7 @@ pprint.pprint(
 
 <br/>
 
-[prezi-api]: /api/presentation/2.0/index.html
+[prezi-api]: /api/presentation/2.0/
 [jsonld-framing]: http://json-ld.org/spec/latest/json-ld-framing/
 [pyld]: https://pypi.python.org/pypi/PyLD
 
@@ -110,7 +112,7 @@ pprint.pprint(
 [service-uri]: http://tools.ietf.org/html/rfc2609
 [service-wiki]: https://en.wikipedia.org/wiki/Service_Location_Protocol#Adoption
 [resource-uri]: http://www.iana.org/assignments/uri-schemes/prov/resource
-[context-checker]: check_context.py
+[context-checker]: /api/annex/notes/check_context.py
 [int-semver]: #semantic-versioning
 [prezi-language]: /api/presentation/2.1/#language-of-property-values
 [iiif-discuss]: mailto:iiif-discuss@googlegroups.com

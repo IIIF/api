@@ -1,6 +1,12 @@
+---
+title: "IIIF-6: London 2014 Authentication Scenarios"
+layout: spec
+redirect_from:
+  - /event/2014/london_auth_scenarios.html
+---
 # Granular IIIF Authorization Scenarios
 
-Notes distributed on iiif-discuss 2014-10-22 and discussed at [IIIF 6 London Working Group](london_notes.md).
+Notes distributed on iiif-discuss 2014-10-22 and discussed at [IIIF 6 London Working Group](/event/2014/london_notes/).
 
 *Assumption 1:* In both the Image API and the Presentation API, a given URI for an Image Information request, an Image request, or a Manifest request will result in the same bytestream if access is granted, irrespective of credentials and user identity.
 
@@ -36,4 +42,4 @@ A user without appropriate credentials to access a manifest should understand th
 
 ## U8. Provide degraded access Manifest in Presentation API client, credentials provide Manifest for higher-quality view
 
-A user without appropriate credentials to see the high-quality view should see a rendering based on the "degraded access Manifest" (might have some images missing, have limited additional information, or point to degraded images). They should be made aware that a higher quality view is available if they obtain certain credentials. They should have the option to click through to an authentication page where they can obtain these credentials (or see an explanation of other circumstances such as location based access restrictions). On successfully obtaining credentials the user should see the high-quality view (there may still be individual images with access conditions: U5, U6). If the user fails to obtain credentials they should be able to return to the degraded view. 
+A user without appropriate credentials to see the high-quality view should see a rendering based on the "degraded access Manifest" (might have some images missing, have limited additional information, or point to degraded images). They should be made aware that a higher quality view is available if they obtain certain credentials. They should have the option to click through to an authentication page where they can obtain these credentials (or see an explanation of other circumstances such as location based access restrictions). On successfully obtaining credentials the user should see the high-quality view (there may still be individual images with access conditions: U5, U6). If the user fails to obtain credentials they should be able to return to the degraded view.

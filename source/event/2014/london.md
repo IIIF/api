@@ -2,6 +2,8 @@
 title: "Sharing Images of Global Cultural Heritage"
 layout: spec
 tags: [event ]
+redirect_from:
+  - /event/2014/london.html
 ---
 
 ## Table of Contents
@@ -22,7 +24,7 @@ Monday, 20th of October 2014
 
 | Time | Session | Presenters |
 | ---- | ------- | ---------- |
-| 08:30 - 09:00  | Registration | | 
+| 08:30 - 09:00  | Registration | |
 | 09:00 - 09:15  | Welcome | Richard Boulderstone (BL) |
 | 09:15 - 09:40  | Introduction to IIIF | Tom Cramer (Stanford) |
 | 09:40 - 09:50  | Interoperability Demonstration | Benjamin Albritton (Stanford) |
@@ -38,7 +40,7 @@ Monday, 20th of October 2014
 |                | Wellcome Player | Tom Crane (Digirati) |
 |                | Georeferencer | Petr Pridal (KlokanTech) |
 |                | Mirador | Stu Snydman (Stanford) |
-|                | Discussion | | 
+|                | Discussion | |
 | 15:00 - 15:30  | Coffee |
 | 15:30 - 16:45  | Getting Started | Stu Snydman |
 |                | Case Study: e-codices | Rafael Schwemmer (Text & Bytes) |
@@ -66,9 +68,8 @@ All IIIF Events are covered by the [IIIF Code of Conduct][conduct]. IIIF is comm
 
 [home-page]: http://iiif.io/
 [event-brite]: https://www.eventbrite.com/e/shared-images-of-global-cultural-heritage-tickets-12961304611
-[conduct]: /event/conduct.html
+[conduct]: /event/conduct/
 [logistics]: #logistics
 [bl-cc]: http://www.bl.uk/conferencecentre/conference.html
 [image-api]: /api/image/2.0/
 [prezi-api]: /api/presentation/2.0/
-
