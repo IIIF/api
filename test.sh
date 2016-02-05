@@ -12,7 +12,5 @@ rm -rf ./_site
 # Build the site with draft news posts
 bundle exec jekyll build --drafts
 
-
 grunt test
-bundle exec htmlproof ./_site --href-ignore /.*sourceforge.*/
-rspec
+bundle exec rake test
