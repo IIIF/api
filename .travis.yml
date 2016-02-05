@@ -13,7 +13,7 @@ script: "./test.sh"
 # environment
 language: ruby
 rvm:
-  - "2.1"
+  - "2.2"
 jdk:
   - oraclejdk8
 

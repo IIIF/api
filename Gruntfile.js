@@ -8,7 +8,6 @@ module.exports = function(grunt) {
             /cc:attributionURL/,
             /Attribute “rel” not allowed on element “span”/,
             /Consider using the “h1” element/
-
           ]
         },
         src : '_site/**/*.html'
