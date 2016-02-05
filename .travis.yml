@@ -8,7 +8,7 @@ install:
   - bundle install
   - npm install grunt grunt-html --save-dev
 
-script: "./test.sh"
+script: rake ci
 
 # environment
 language: ruby
