@@ -2,6 +2,8 @@
 title: "IIIF Event Code of Conduct"
 layout: spec
 tags: [event ]
+redirect_from:
+  - /event/conduct.html
 ---
 
 All IIIF events are covered by the following Code of Conduct.

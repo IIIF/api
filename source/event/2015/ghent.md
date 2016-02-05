@@ -2,6 +2,8 @@
 title: "IIIF: Access to the World's Images - Ghent 2015"
 layout: spec
 tags: [event ]
+redirect_from:
+  - /event/2015/ghent.html
 ---
 
 ## Table of Contents
@@ -12,7 +14,7 @@ tags: [event ]
 
 ## Introduction
 
-On Tuesday, 8 December 2015, the International Image Interoperability Framework ([IIIF][home-page]) community and [Ghent University Library][ghent-lib] are hosting a one day event describing the power and potential of interoperable image delivery over the Web. Embraced by a growing number of the world’s leading research and cultural heritage organizations, IIIF provides an open framework for organizations to publish their image-based resources, to be viewed, cited, annotated, and more by any compatible image-viewing application. The day will showcase how institutions are leveraging IIIF to reduce total cost and time to deploy image delivery solutions, while simultaneously improving end user experience with a new host of rich and dynamic features. It will also highlight how to participate in this growing movement to take advantage of the common framework. 
+On Tuesday, 8 December 2015, the International Image Interoperability Framework ([IIIF][home-page]) community and [Ghent University Library][ghent-lib] are hosting a one day event describing the power and potential of interoperable image delivery over the Web. Embraced by a growing number of the world’s leading research and cultural heritage organizations, IIIF provides an open framework for organizations to publish their image-based resources, to be viewed, cited, annotated, and more by any compatible image-viewing application. The day will showcase how institutions are leveraging IIIF to reduce total cost and time to deploy image delivery solutions, while simultaneously improving end user experience with a new host of rich and dynamic features. It will also highlight how to participate in this growing movement to take advantage of the common framework.
 
 This event will be valuable for organizational decision makers, repository and collection managers, software engineers; for cultural heritage or STEM (science / technology /  engineering / medicine) institutions; or for anyone engaged with image-based resources on the Web.  Attendance is free, and widespread dissemination of the event is encouraged. Registration is required in order to ensure that we do not exceed the capacity of the venue. The event is hosted by Ghent University Library in Ghent, Belgium, at the beautiful Ghent Opera House.
 
@@ -42,7 +44,7 @@ Tuesday, 8th of December 2015
 | 14:30 - 15:00  | Coffee Break| |
 | 15:00 - 15:20  | Cloud Hosting | Robert Kiley, Wellcome Trust |
 | 15:20 - 15:40  | Embedr.eu and Omeka | Petr Pridal, KlokanTech |
-| 15:40 - 16:00  | Tagging and Pedagogy | Michael Appleby, Yale University | 
+| 15:40 - 16:00  | Tagging and Pedagogy | Michael Appleby, Yale University |
 | 16:00 - 16:30  | Audience Spotlight and Discussion | Stuart Snydman, Stanford University |
 | 16:30 - 16:45  | IIIF Consortium | Michael Keller, Stanford University |
 | 16:45 - 17:00  | Next Steps and Close | Tom Cramer, Stanford University |
@@ -117,13 +119,13 @@ Some tips regarding safe travel to the event:
  * There are direct trains from Brussels Airport (Bruxelles Aéroport National) to Ghent (Gent Sint Pieters) that do not require going in to the center of Brussels.  The price is around 15 euro.
  * If people are traveling from the UK via Eurostar, Lille also has good connections direct to Ghent to avoid Brussels.
  * There is increased security, so allow extra time if possible and remain patient and polite.
- * As always, pay attention to your belongings and surroundings. 
+ * As always, pay attention to your belongings and surroundings.
 
 Some possible additions to security around the events:
 
  * Please carry ID at all times and wear your provided IIIF name badge prominently
  * Proof of ID may be required to collect the name badge
- * You may be asked by non event staff what your business is, particularly for the events on Monday, Thursday and Friday.  Please be courteous and explain that you are there for a conference, and the local organizer is Dries Moreels on behalf of Sylvia Van Peteghem, Ghent University Librarian. 
+ * You may be asked by non event staff what your business is, particularly for the events on Monday, Thursday and Friday.  Please be courteous and explain that you are there for a conference, and the local organizer is Dries Moreels on behalf of Sylvia Van Peteghem, Ghent University Librarian.
 
 We continue to look forwards to the discussions in Ghent, and hope that we'll see you there.
 
@@ -131,15 +133,14 @@ We continue to look forwards to the discussions in Ghent, and hope that we'll se
 [home-page]: http://iiif.io/
 [event-brite]: http://iiif-ghent-2015.eventbrite.com/
 [event-brite-wg]: https://iiif-winter-2015.eventbrite.com/
-[conduct]: /event/conduct.html
+[conduct]: /event/conduct/
 [logistics]: #logistics
 [iiif-c]: http://iiif.io/news/2015/06/17/iiif-consortium/
 [tech-details]: http://iiif.io/technical-details/
 [ghent-lib]: http://lib.ugent.be/
-[visit-gent]: http://www.visitgent.be/en/winter-gent 
-[ghent-hotels]: ghent-hotels.html
-[ghent-restaurants]: ghent-restaurants.html
+[visit-gent]: http://www.visitgent.be/en/
+[ghent-hotels]: /event/2015/ghent-hotels/
+[ghent-restaurants]: /event/2015/ghent-restaurants/
 [universal-viewer]: https://github.com/UniversalViewer/universalviewer
 [manifesto]: https://github.com/UniversalViewer/manifesto
 [sched]: http://iiifghent2015.sched.org/
-

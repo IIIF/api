@@ -1711,10 +1711,10 @@ Many thanks to Matthieu Bonicel, Tom Cramer, Ian Davis, Markus Enders, Renhart G
 [shared-canvas]: /model/shared-canvas/{{ site.shared_canvas.latest.major}}.{{ site.shared_canvas.latest.minor }} "Shared Canvas Data Model"
 [image-api]: /api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/ "Image API"
 [annex]: /api/annex/services/ "Services Annex Document"
-[change-log]: /api/presentation/2.1/change-log.html "Presentation API 2.1 Change Log"
-[change-log-20]: /api/presentation/2.0/change-log.html "Presentation API 2.0 Change Log"
+[change-log]: /api/presentation/2.1/change-log/ "Presentation API 2.1 Change Log"
+[change-log-20]: /api/presentation/2.0/change-log/ "Presentation API 2.0 Change Log"
 [iiif-community]: /community/ "IIIF Community"
-[apache-notes]: /api/annex/notes/apache.html "Apache HTTP Server Implementation Notes"
+[apache-notes]: /api/annex/notes/apache/ "Apache HTTP Server Implementation Notes"
 [openanno]: http://www.openannotation.org/spec/core/ "Open Annotation"
 [openannotypes]: http://www.openannotation.org/spec/core/core.html#BodyTargetType
 [openannomulti]: http://www.openannotation.org/spec/core/multiplicity.html#Choice
@@ -1730,14 +1730,14 @@ Many thanks to Matthieu Bonicel, Tom Cramer, Ian Davis, Markus Enders, Renhart G
 [semver]: http://semver.org/spec/v2.0.0.html "Semantic Versioning 2.0.0"
 [mellon]: http://www.mellon.org/ "The Andrew W. Mellon Foundation"
 [json-ld-compact]: http://www.w3.org/TR/json-ld-api/#compaction-algorithms "JSON-LD Compaction Algorithms"
-[versioning]: /api/annex/notes/semver.html "Versioning of APIs"
-[use-case-doc]: /api/presentation/usecases.html "Presentation API Use Cases"
-[annex-frames]: /api/annex/notes/frames.html "JSON-LD Frames Implementation Notes"
+[versioning]: /api/annex/notes/semver/ "Versioning of APIs"
+[use-case-doc]: /api/presentation/usecases/ "Presentation API Use Cases"
+[annex-frames]: /api/annex/notes/jsonld/ "JSON-LD Frames Implementation Notes"
 [iana-uri-schemes]: http://www.iana.org/assignments/uri-schemes/uri-schemes.xhtml "IANA URI Schemes"
 [rdf11-blank-nodes]: http://www.w3.org/TR/rdf11-concepts/#section-blank-nodes "RDF 1.1 Concepts"
 [rfc-4122]: http://tools.ietf.org/html/rfc4122 "URN UUID Scheme"
 [rfc-2119]: http://tools.ietf.org/html/rfc2119
-[oa-ext-annex]: /api/annex/openannotation/index.html "Open Annotation Extensions"
+[oa-ext-annex]: /api/annex/openannotation/ "Open Annotation Extensions"
 [appendixa]: #a-summary-of-recommended-uri-patterns "Appendix A"
 [appendixb]: #b-summary-of-metadata-requirements "Appendix B"
 [prev-version]: /api/metadata/1.0/

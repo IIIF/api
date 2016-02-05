@@ -14,6 +14,8 @@ script: "./test.sh"
 language: ruby
 rvm:
   - "2.1"
+jdk:
+  - oraclejdk8
 
 branches:
   - 'master'

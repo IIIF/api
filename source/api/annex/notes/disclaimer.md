@@ -3,6 +3,8 @@ title: "Specification Disclaimer"
 layout: spec
 tags: [annex, presentation-api, image-api]
 cssversion: 2
+redirect_from:
+  - /api/annex/notes/disclaimer.html
 ---
 
 ## License
@@ -25,4 +27,3 @@ This disclaimer is the same as used by the [W3C][w3c] for its specifications.
 [w3c]: http://www.w3.org/Consortium/Legal/2015/doc-license
 
 {% include acronyms.md %}
-

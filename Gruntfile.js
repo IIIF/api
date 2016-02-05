@@ -3,10 +3,11 @@ module.exports = function(grunt) {
     htmllint: {
       all: {
         options: {
-          ignore : [ 
-            /Section lacks heading/, 
+          ignore : [
+            /Section lacks heading/,
             /cc:attributionURL/,
-            /Attribute “rel” not allowed on element “span”/
+            /Attribute “rel” not allowed on element “span”/,
+            /Consider using the “h1” element/
 
           ]
         },

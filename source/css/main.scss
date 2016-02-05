@@ -190,7 +190,7 @@ a.button-turquoise {
 
 .front-announcement {
   padding: 10px;
-  border-top:1px solid black; 
+  border-top:1px solid black;
   font-size: 14pt;
   background: #21252c;
   color: white;
@@ -206,9 +206,10 @@ a.button-turquoise {
 }
 
 .carousel-tab {
-  width: 31%px; 
-  height: 430px; 
+  height: 430px;
+  width: 400;
   background: #21252c;
+  text-align: center;
 }
 
 .carousel-wrapper .carousel-head {
@@ -279,6 +280,10 @@ a.button-turquoise {
 .sub-pages-container a:hover,
 .sub-pages-container a:active {
   border-bottom: 1px dotted #2e8b74;
+}
+
+.sub-pages-container article {
+  background-color: #fff;
 }
 
 .sub-pages-container article section {

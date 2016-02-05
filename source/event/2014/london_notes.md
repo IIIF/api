@@ -1,6 +1,8 @@
 ---
 title: "IIIF-6: London 2014 Working Group Notes"
 layout: spec
+redirect_from:
+  - /event/2014/london_notes.html
 ---
 
 ## Details
@@ -9,7 +11,7 @@ Dates: Tuesday 21 October 2014 -  Wednesday 22nd October 2014
 
 Location: British Museum, British Library
 
-Institutions Present: 
+Institutions Present:
 
   * ArtStor
   * Bibliotheque Nationale de France
@@ -17,7 +19,7 @@ Institutions Present:
   * British Library
   * British Museum
   * C2RMF (The Louvre)
-  * Cornell University 
+  * Cornell University
   * Europeana
   * e-codices
   * Harvard University
@@ -42,14 +44,14 @@ Institutions Present:
  * Further discussion of Prezi API REST (Oxford, Yale, Stanford, Princeton, Cornell)
  * Experimental implementations of interoperable client/server for annotation management (Stanford, Yale, NL Wales, Harvard)
  * Tutorial for IIIF Presentation API (Drew, Raphael [as non-editors])
- 
+
 ## Issues Raised
 
   * Image Validator could optionally (opt in) add the image server to a registry
   * Need an XML Image Sitemap validator  (Chris Beer/Stanford has one)
   * Somewhere in the manifest's json-ld point to a viewer instance that renders the current manifest eg {"viewer" : "http://example.org/mirador?http://example.org/iiif/manifest.json"}
 
-## Contents 
+## Contents
 {.toc}
 
 
@@ -90,7 +92,7 @@ Linked Open Data is a trend, didn't come through as well as it could.  Could be 
 
 Funding/community possibilities:  
 
-  * Maybe talk to JISC.  Getting people together. 
+  * Maybe talk to JISC.  Getting people together.
   * Europeana level might be better?  Opens up H2020 money perhaps.
   * Lots of work done in TEL.  Would like adoption of IIIF, so portal has better access. Might provide a backup of images. Also interested in presentation API.  Lot of the work is already done, via EDM. Added value for data providers.  Europeana provides an index, helps with discovery. Provide tools to the content providers.
 
@@ -102,20 +104,20 @@ Funding/community possibilities:
   * _#227_ Attribution in Image API (give attribution and rights in image API) - 90% interest
   * _#294_ Feedback from Google: Image compression necessary (can be readily added, not breaking) - 70%
   * _#39_ Dynamic annotation list (more general than IIIF, can't wait for W3C group as this is 2016 end, how do we put in pointer to service to get annotations?) - 50%
-  * _#207_ Bounds for annotation viewing (Drew argues conflates two features: z axis and information, what about annotation retrieval based on bounding box, perhaps ties with dynamic services, Neil mentions question of ordering of annotations but notes multiple criteria (say importance or size)) - perhaps roll search within bounding box with #39? - 50% 
+  * _#207_ Bounds for annotation viewing (Drew argues conflates two features: z axis and information, what about annotation retrieval based on bounding box, perhaps ties with dynamic services, Neil mentions question of ordering of annotations but notes multiple criteria (say importance or size)) - perhaps roll search within bounding box with #39? - 50%
   * _#80_ Object (Manifest) level annotations, not canvas (use cases: crowdsources description, commentary) - 45%, likely quick
-  * _#40b_ REST for remains of Presentation API (Oxford use case for manifest authoring as part of digitization workflow. Need auth first) - 35% 
+  * _#40b_ REST for remains of Presentation API (Oxford use case for manifest authoring as part of digitization workflow. Need auth first) - 35%
   * _#21_ REST for Image API (Kevin Clark has use case on f4 list for this. Consensus that create and delete OK, not sure about update. Need auth first) - 20%
-     * Also _#40_, _#215_ 
+     * Also _#40_, _#215_
      * May depend on Auth?
      * Prezi for Annotation/Prezi content (Oxford editor use case)
      * Image for Image (Fedora, Oxford, Princeton use cases)
      * _#215_, _#377_ are impl details to be worked out when/if we work on this
-  * _#76_ Presentation compliance? (have image api compliance but no similar notion for presentation api, requirements are more on the viewer, one argument is table on website to describe viewer capabilities) - 20% 
+  * _#76_ Presentation compliance? (have image api compliance but no similar notion for presentation api, requirements are more on the viewer, one argument is table on website to describe viewer capabilities) - 20%
   * _#82_ Intended Audience for Layer/AnnoList? (machine vs human, how different from other groupings? could it be just a different motivation) - 18.5%, not too hard
   * _#42_ SharedCanvas Zones in IIIF (spatial grouping of annotations on canvas. Newspaper use case @ BL, Julie Alinson @ York, Maryland? How far can we get with Ranges? Ranges allow grouping but no object to manipulate) - low priority + complicated, continue to defer
-  * _#56_ How do range order and sequence order interact (tricky question) - not a priority until we have use cases with multiple sequences, however consensus that not hard 
-  * _#99_ Should presentation have Protocol? (provides one line test for something being a Manifest, would be a breaking change) - defer to 3.0 
+  * _#56_ How do range order and sequence order interact (tricky question) - not a priority until we have use cases with multiple sequences, however consensus that not hard
+  * _#99_ Should presentation have Protocol? (provides one line test for something being a Manifest, would be a breaking change) - defer to 3.0
   * _#293_ Confidence/error bounds for physical scale (uncertainty about UI presentation, not sure how many places have error bounds) - defer for more need/use-cases/clients - 0%
 
 ## Authentication/Authorization Use Cases
@@ -180,7 +182,7 @@ Would be useful to allow the not authed user to know that there might be more an
 
 Licenses where providers give low res images and redirected through portal to the full image content. Need to have credentials for some of these cases.
 
-### e-codices: 
+### e-codices:
 
 Not for the metadata.  Open access as curated by e-codices.  Don't serve PDF/TEI that have copyright. All images cc-by-nc.  Some institutions might want to opt out in the future.  Might restrict to max resolution of the image available.
 
@@ -232,8 +234,8 @@ Want to restrict by authorization (password, shib, etc) IP Range, geo location. 
 
 ## Authentication Discussion
 
-Went through [authentication scenarios](london_auth_scenarios.md)
- 
+Went through [authentication scenarios](/event/2014/london_auth_scenarios/)
+
 If an authenticated user makes a degraded image/manifest (which will have a different URI), should they be redirected to the higher-quality one? (or simply provide awareness?)
 
 what happens in case where user credentials expire while they are viewing? how are they made aware?
@@ -550,7 +552,7 @@ mutator methods:
   X.insert(Y) / push / pop / etc
 Could be used when references are resolved
 Do stuff with Ranges
- 
+
 Additional specific modules
   -- do OSD based painting of canvas
   -- do OpenLayers based painting of canvas
@@ -567,7 +569,7 @@ Index of all the properties (alphabetical)
 Links to validators, tutorials and fixtures should be more prominent.
 
 Reference implementation of a client that handles all the fixture objects correctly
-Reference implementation to send your manifest URI to 
+Reference implementation to send your manifest URI to
 Button on validator to open in mirador (or other client)
 Start validator from info.json URI
 
@@ -592,7 +594,7 @@ Start validator from info.json URI
  * You must logout before getting prompted to authenticate again
  * The service for authentication must provide the logout and somehow needs to clear it on the client if necessary
 
-![workflow](london-auth-workflow.png) Workflow Strawman
+![workflow](/event/2014/london-auth-workflow.png) Workflow Strawman
 
 ### Notes to selves
 

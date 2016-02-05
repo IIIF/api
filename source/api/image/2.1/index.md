@@ -873,11 +873,11 @@ Many thanks to  Ben Albritton, Matthieu Bonicel, Anatol Broder, Kevin Clarke, To
 {: .api-table}
 
 [authentication-ext]: /api/auth/
-[change-log11]: /api/image/1.1/change-log.html "Change Log for Version 1.1"
-[change-log20]: /api/image/2.0/change-log.html "Change Log for Version 2.0"
-[change-log21]: /api/image/2.1/change-log.html "Change Log for Version 2.1"
-[compliance]: /api/image/{{ page.major }}.{{ page.minor }}/compliance.html "Image API Compliance"
-[compliance-quality]: /api/image/{{ page.major }}.{{ page.minor }}/compliance.html#quality "Image API Compliance: Quality"
+[change-log11]: /api/image/1.1/change-log/ "Change Log for Version 1.1"
+[change-log20]: /api/image/2.0/change-log/ "Change Log for Version 2.0"
+[change-log21]: /api/image/2.1/change-log/ "Change Log for Version 2.1"
+[compliance]: /api/image/{{ page.major }}.{{ page.minor }}/compliance/ "Image API Compliance"
+[compliance-quality]: /api/image/{{ page.major }}.{{ page.minor }}/compliance/#quality "Image API Compliance: Quality"
 
 [cors-spec]: http://www.w3.org/TR/cors/ "Cross-Origin Resource Sharing"
 [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
@@ -892,15 +892,15 @@ Many thanks to  Ben Albritton, Matthieu Bonicel, Anatol Broder, Kevin Clarke, To
 [rfc-6570]: http://tools.ietf.org/html/rfc6570 "URI Template"
 [semver]: http://semver.org/spec/v2.0.0.html "Semantic Versioning 2.0.0"
 [iiif-community]: /community/ "IIIF Community"
-[versioning]: /api/annex/notes/semver.html "Versioning of APIs"
+[versioning]: /api/annex/notes/semver/ "Versioning of APIs"
 [prezi-api]: /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/ "Presentation API"
 [prezi-html]: /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/#property-values-in-html "Presentation API Section 5.3.4"
 
 [service-profiles]: /api/annex/services/ "Services Annex Document"
-[annex-frames]: /api/annex/notes/frames.html "JSON-LD Frames Implementation Notes"
-[apache-notes]: /api/annex/notes/apache.html "Apache HTTP Server Implementation Notes"
-[apache-notes-conditional-content-type]: /api/annex/notes/apache.html#conditional-content-types "Apache HTTP Server Implementation Notes: Conditional Content Types"
-[apache-notes-set-compliance-link-header]: /api/annex/notes/apache.html#set-compliance-link-header "Apache HTTP Server Implementation Notes: Set Compliance Link Header"
+[annex-frames]: /api/annex/notes/jsonld/ "JSON-LD Frames Implementation Notes"
+[apache-notes]: /api/annex/notes/apache/ "Apache HTTP Server Implementation Notes"
+[apache-notes-conditional-content-type]: /api/annex/notes/apache/#conditional-content-types "Apache HTTP Server Implementation Notes: Conditional Content Types"
+[apache-notes-set-compliance-link-header]: /api/annex/notes/apache/#set-compliance-link-header "Apache HTTP Server Implementation Notes: Set Compliance Link Header"
 [audience-and-scope]: #audience-and-scope "1. Audience and Scope"
 [uri-syntax]: #uri-syntax "2. URI Syntax"
 [image-request-uri-syntax]: #image-request-uri-syntax "2.1. Image Request URI Syntax"
