@@ -1,10 +1,10 @@
 require 'spec_helper'
 require 'kramdown/document'
 
-describe 'Editors' do 
+describe 'Editors' do
 
   they 'tend to screw up markdown' do
-    
+
     report = {}
     # template = 'cat %s | kramdown 2>&1 >/dev/null | grep "link ID \'[a-zA-Z][_0-9a-zA-Z-]*\'"'
     glob_pattern = File.join(File.expand_path('../../../source', __FILE__), '**/*.md')
