@@ -1,5 +1,7 @@
 # Guidelines
 
+This document describes IIIF's practices related to Git and Github, Google Groups, Markdown, and other style practices. Some may wish to read about the [IIIF Editorial Process][ed-process] as well.
+
 ## Communication
 
 Please use [iiif-discuss@googlegroups.com](mailto:iiif-discuss@googlegroups.com) for general discussion, questions and feedback on the documents.  This is to ensure that the entire community can see what is being, and has been discussed. Searching in github issues for answers to a question that has already been answered is much less convenient than reading through issues in a google group.  It is also to ensure that non-technical contributors have a chance to engage without feeling intimidated by the more code-oriented nature of github.
@@ -67,3 +69,4 @@ Links in Markdown documents must use the [reference link][reference-link] syntax
 [kram]: http://kramdown.gettalong.org/syntax.html
 [squash]: http://lmgtfy.com/?q=Squash+git+commits
 [reference-link]: http://kramdown.gettalong.org/syntax.html#reference-links
+[ed-process]: http://iiif.io/api/annex/notes/editors/ "IIIF Editorial Process"
