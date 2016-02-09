@@ -24,7 +24,7 @@
     },
     "seeAlso": {
       "@type": "@id",
-      "@id": "foaf:page"
+      "@id": "rdfs:seeAlso"
     },
     "within": {
       "@type": "@id",
