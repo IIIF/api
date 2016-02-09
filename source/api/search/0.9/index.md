@@ -558,7 +558,7 @@ The request is very similar to the search request, with one additional parameter
 
 The term should be parsed as a complete string, regardless of whether there is whitespace included in it. For example, the query term of "green bir" should not autocomplete on fields that match "green" and also include something that starts with "bir", but instead look for terms that start with the string "green bir".
 
-The other parameters (`motivation`, `date`,`user` and `box`), if supported, would refine the set of terms in the response to only ones from the annotations that match those filters.  For example, if the motivation is given as "painting", then only text from painting transcriptions will contribute to the list of terms in the response.
+The other parameters (`motivation`, `date`, `user` and `box`), if supported, would refine the set of terms in the response to only ones from the annotations that match those filters.  For example, if the motivation is given as "painting", then only text from painting transcriptions will contribute to the list of terms in the response.
 
 
 #### 4.2.1. Query Parameters
@@ -572,7 +572,8 @@ The other parameters (`motivation`, `date`,`user` and `box`), if supported, woul
 
 An example request
 
-``` none http://example.org/service/identifier/autocomplete?q=bir&motivation=painting&box=0,0,10,10
+``` none
+http://example.org/service/identifier/autocomplete?q=bir&motivation=painting&box=0,0,10,10
 ```
 {: .urltemplate}
 
@@ -618,7 +619,7 @@ The example request above might generate the following response:
     },
     {
       "match": "birthday", 
-       "url": "http://example.org/service/identifier/search?motivation=painting&q=birthday",
+      "url": "http://example.org/service/identifier/search?motivation=painting&q=birthday",
       "count": 21
     }
   ]
@@ -708,6 +709,7 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 
 | Date       | Description                                        |
 | ---------- | -------------------------------------------------- |
+| 2016-02-08 | Version 0.9.2 (Trip Life) draft                    |
 | 2015-12-05 | Version 0.9.1 (Trip Life) draft                    |
 | 2015-07-20 | Version 0.9 draft                                  |
 {: .api-table}
