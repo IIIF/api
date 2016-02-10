@@ -813,7 +813,7 @@ Early sanity checking of URIs (lengths, trailing GET, invalid characters, out-of
 ### A. Implementation Notes
 
   * For use cases that enable the saving of the image, it is _RECOMMENDED_ to use the HTTP `Content-Disposition` header ([RFC6266][rfc-6266]) to provide a convenient filename that distinguishes the image, based on the identifier and parameters provided.
-  * Server implementations may rely on components or frameworks that always and unpreventably unescape the URI path. In such situations, request URIs for a given prefix may be parsed from the right in order to handle identifiers possibly containing slashes, given the knowledge of the API parameters and the prefix which the server handles requests for.  Responses for missing identifiers containing slashes should result in a 404 response, rather than a 400 response for incorrect parameter values if this parsing approach is taken.
+  * Server implementations may rely on components or frameworks that unescape the URI path, such as Python's [WSGI][wsgi]. In such situations, the requested URI may be parsed from the right in order to handle identifiers possibly containing slashes, given the knowledge of the API parameters and the prefix for which the server handles requests.
   * This specification makes no assertion about the rights status of requested images or any other descriptive metadata, whether or not authentication has been accomplished. Please see the [IIIF Presentation API][prezi-api] for rights and other information.
   * Additional [Apache HTTP Server implementation notes][apache-notes] are available.
   * Linked data implementations may construct the info.json response using the frame supplied in the [JSON-LD framing implementation note][annex-frames].
@@ -937,6 +937,7 @@ Many thanks to  Ben Albritton, Matthieu Bonicel, Anatol Broder, Kevin Clarke, To
 [d-change-log]: #d-change-log "D. Change Log"
 [prev-version]: http://iiif.io/api/image/1.1/ "Previous Version"
 [stable-version]: http://iiif.io/api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/ "Stable Version"
+[wsgi]: https://www.python.org/dev/peps/pep-0333/
 
 [client-auth-img]: img/auth-flow-client.png
 [server-auth-img]: img/auth-flow-server.png
