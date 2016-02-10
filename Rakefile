@@ -9,12 +9,8 @@ def jekyll(cmd)
   sh "bundle exec jekyll #{cmd}"
 end
 
-def remove_site
-  sh "rm -rf #{SITE_DIR}" if Dir.exists?(SITE_DIR)
-end
-
 def build_site
-  remove_site
+  jekyll 'clean'
   jekyll 'build'
 end
 
@@ -28,7 +24,6 @@ end
 
 'Run the site locally on localhost:4000'
 task :dev do
-  remove_site
   build_site
   jekyll 'serve --watch --drafts'
 end
