@@ -159,8 +159,16 @@
       }
     } // .api-table
 
+    .names {
+      a {
+        border-bottom: none;
+      }
+    }
+
   } // x .specbody
 } // x .sub-pages-container
+
+
 
 .usage {
   margin: 0px;
