@@ -558,7 +558,7 @@ The request is very similar to the search request, with one additional parameter
 
 The term should be parsed as a complete string, regardless of whether there is whitespace included in it. For example, the query term of "green bir" should not autocomplete on fields that match "green" and also include something that starts with "bir", but instead look for terms that start with the string "green bir".
 
-The other parameters (`motivation`, `date`, `user` and `box`), if supported, would refine the set of terms in the response to only ones from the annotations that match those filters.  For example, if the motivation is given as "painting", then only text from painting transcriptions will contribute to the list of terms in the response.
+The other parameters (`motivation`, `date`, `user` and `box`), if supported, refine the set of terms in the response to only ones from the annotations that match those filters.  For example, if the motivation is given as "painting", then only text from painting transcriptions will contribute to the list of terms in the response.
 
 
 #### 4.2.1. Query Parameters
