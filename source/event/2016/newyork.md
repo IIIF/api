@@ -1,5 +1,5 @@
 ---
-title: "Access to the World's Images - New York 2015"
+title: "Access to the World's Images - New York 2016"
 layout: spec
 tags: [event ]
 ---
