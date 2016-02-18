@@ -1,5 +1,5 @@
 ---
-title: "Access to the World's Images; the IIIF Conference - New York 2015"
+title: "Access to the World's Images - New York 2015"
 layout: spec
 tags: [event ]
 ---
@@ -10,7 +10,7 @@ tags: [event ]
 * Goes Here
 {:toc}
 
-## Advantages of IIIF and its Community
+## Access to the World's Images: The Advantages of IIIF
 
 On Tuesday, 10th of May 2016, the International Image Interoperability Framework ([IIIF][home-page]) community and the New York Museum of Modern Art ([MOMA][moma]) are hosting a one day event describing the power and potential of interoperable image delivery over the Web. Embraced by a growing number of the world’s leading research and cultural heritage organizations, IIIF provides an open framework for organizations to publish their image-based resources, to be viewed, cited, annotated, and more by any compatible image-viewing application. The day will showcase how institutions are leveraging IIIF to reduce total cost and time to deploy image delivery solutions, while simultaneously improving end user experience with a new host of rich and dynamic features. It will also highlight how to participate in this growing movement to take advantage of the common framework.
 
@@ -31,7 +31,7 @@ This event will be valuable for organizational decision makers, repository and c
 To be announced along with the IIIF Conference Schedule
 
 
-## IIIF Conference
+## Access to the World's Images: The IIIF Conference
 
 Following the introductory event, from Wednesday 11th through Friday 13th of May, the IIIF community will hold its first annual conference in New York City and welcomes submissions for presentations, panels, lightning talks, and facilitated "birds-of-a-feather" conversations.   The first day will be a plenary single tracked event, and the following two days will be parallel tracked sessions intended for collaborative action to advance the community. Submissions relevant to all aspects of the IIIF community, the IIIF specifications, software that implements these specifications, and the provision of access to image content are solicited across all three days. Submissions related to working groups within the IIIF community are also particularly welcomed, as are demonstrations of IIIF being used in novel and interesting ways. 
 
@@ -54,7 +54,7 @@ Submissions will be accepted up until March 21st, 2016 and no extensions to this
 
 ### Logistics
 
-* Registration: Separate [registration][eventbrite-conf ] is required.
+* Registration: Separate [registration][eventbrite-conf] is required.
 * Dates: 2016-05-11 to 2016-05-13, 9am to 5pm each day
 * Location:  [New York Academy of Medicine][nyam] ([map][nyam-map])
 * Cost: There is no cost to attend
@@ -69,8 +69,8 @@ The schedule will be announced in the week of March 28th.
 
 
 [home-page]: http://iiif.io/
-[eventbrite]: http://iiif-benefits-nyc-2016.eventbrite.com/
-[eventbrite-conf]: http://iiif-conference-nyc-2016.eventbrite.com/
+[eventbrite]: http://iiif-advantages-nyc.eventbrite.com/
+[eventbrite-conf]: http://iiif-conference-nyc.eventbrite.com/
 [conduct]: /event/conduct/
 [iiif-c]: http://iiif.io/news/2015/06/17/iiif-consortium/
 [tech-details]: http://iiif.io/technical-details/
@@ -79,4 +79,3 @@ The schedule will be announced in the week of March 28th.
 [moma-map]: https://goo.gl/maps/9wFHb2ZzVE72
 [nyam]: http://www.nyam.org/
 [nyam-map]: https://goo.gl/maps/ffTbs7UmjN42
-
