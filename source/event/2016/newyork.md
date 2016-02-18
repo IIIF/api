@@ -10,7 +10,7 @@ tags: [event ]
 * Goes Here
 {:toc}
 
-## IIIF and its Benefits
+## Advantages of IIIF and its Community
 
 On Tuesday, 10th of May 2016, the International Image Interoperability Framework ([IIIF][home-page]) community and the New York Museum of Modern Art ([MOMA][moma]) are hosting a one day event describing the power and potential of interoperable image delivery over the Web. Embraced by a growing number of the world’s leading research and cultural heritage organizations, IIIF provides an open framework for organizations to publish their image-based resources, to be viewed, cited, annotated, and more by any compatible image-viewing application. The day will showcase how institutions are leveraging IIIF to reduce total cost and time to deploy image delivery solutions, while simultaneously improving end user experience with a new host of rich and dynamic features. It will also highlight how to participate in this growing movement to take advantage of the common framework.
 
