@@ -25,6 +25,7 @@ __Previous Events__
 * Spring 2012: The Hague, Netherlands
 * Fall 2011: Cambridge, England 
 
+[conduct]: conduct/
 [nyc]: 2016/newyork/
 [ghent]: 2015/ghent/
 [dc]: 2015/washington/
