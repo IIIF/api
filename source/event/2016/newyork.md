@@ -74,7 +74,7 @@ The schedule will be announced in the week of March 28th.
 [conduct]: /event/conduct/
 [iiif-c]: http://iiif.io/news/2015/06/17/iiif-consortium/
 [tech-details]: http://iiif.io/technical-details/
-[proposals]: iiif-proposals@googlegroups.com
+[proposals]: mailto:iiif-proposals@googlegroups.com
 [moma]: http://www.moma.org/
 [moma-map]: https://goo.gl/maps/9wFHb2ZzVE72
 [nyam]: http://www.nyam.org/
