@@ -61,7 +61,7 @@ See also the note under [Size][size] about combinations of Size and Region that 
 | w,h    | `sizeByWhListed` | ![required][icon-req] | ![required][icon-req] | ![required][icon-req] |
 | w,     | `sizeByW`        | ![optional][icon-opt] | ![required][icon-req] | ![required][icon-req] |
 | ,h     | `sizeByH`        | ![optional][icon-opt] | ![required][icon-req] | ![required][icon-req] |
-| pct:x  | `sizeByPct`      | ![optional][icon-opt] | ![required][icon-req] | ![required][icon-req] |
+| pct:n  | `sizeByPct`      | ![optional][icon-opt] | ![required][icon-req] | ![required][icon-req] |
 | !w,h   | `sizeByForcedWh` | ![optional][icon-opt] | ![optional][icon-opt] | ![required][icon-req] |
 | w,h    | `sizeByWh`       | ![optional][icon-opt] | ![optional][icon-opt] | ![required][icon-req] |
 |        | `sizeAboveFull`  | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] |
