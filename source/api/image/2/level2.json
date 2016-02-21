@@ -6,6 +6,7 @@
   "formats": ["jpg", "png"],
   "qualities": ["default", "bitonal"],
   "supports": [
+    "sizeByWhListed",
     "baseUriRedirect",
     "cors",
     "jsonldMediaType",
