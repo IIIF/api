@@ -1250,11 +1250,11 @@ As such, collections _MUST_ have a label, and _SHOULD_ have `metadata` and `desc
 
 Collections have two list-based properties:
 
-collections
-: References to sub-collections of the current collection.  Each referenced collection _MUST_ have the appropriate @id, @type and label, and _MAY_ be embedded in its entirety.
+##### collections
+References to sub-collections of the current collection.  Each referenced collection _MUST_ have the appropriate @id, @type and label, and _MAY_ be embedded in its entirety.
 
-manifests
-: References to manifests contained within the current collection. Each referenced manifest _MUST_ have the appropriate @id, @type and label.
+##### manifests
+References to manifests contained within the current collection. Each referenced manifest _MUST_ have the appropriate @id, @type and label.
 
 At least one of `collections` and `manifests` _SHOULD_ be present in the response.  An empty collection, with neither `collections` or `manifests`, is allowed but discouraged.
 

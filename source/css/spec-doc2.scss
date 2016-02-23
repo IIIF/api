@@ -106,6 +106,7 @@
       margin-left: 2em;
     }
 
+    // yuck!
     h5+p+p, h5+p+p+ul, h5+p+ul, h5+p+ul+p {
       margin-left: 2em;
       margin-top: 0;
@@ -187,7 +188,9 @@
   } // x .specbody
 } // x .sub-pages-container
 
-
+.anchorjs-link {
+  border-bottom: none !important;
+}
 
 .usage {
   margin: 0px;
