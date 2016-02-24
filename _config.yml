@@ -10,7 +10,7 @@ gems:
 kramdown:
   input: GFM
   parse_block_html: true
-  toc_levels: 2..6
+  toc_levels: 2..4
   enable_coderay: true
   syntax_highlighter: rouge
 
