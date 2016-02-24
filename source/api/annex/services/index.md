@@ -105,7 +105,7 @@ The service _MAY_ have additional information embedded from the Image Informatio
       {"width" : 512, "scaleFactors" : [1,2,4,8,16]}
     ],
     "profile" : [
-      "http://iiif.io/api/image/{{ page.major }}/level2.json",
+      "http://iiif.io/api/image/{{ site.image_api.latest.major }}/level2.json",
       {
         "formats" : [ "gif", "pdf" ],
         "qualities" : [ "color", "gray" ],
@@ -122,7 +122,7 @@ With the `logo` property added to the Image Information description in version 2
 
 ``` json-doc
 {
-  "@context" : "http://iiif.io/api/image/{{ page.major }}/context.json",
+  "@context" : "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
   "@id" : "http://www.example.org/image-service/baseImage",
   "protocol" : "http://iiif.io/api/image",
 
@@ -132,7 +132,7 @@ With the `logo` property added to the Image Information description in version 2
     "service": {
       "@id": "http://example.org/image-service/logo",
       "protocol": "http://iiif.io/api/image",
-      "profile": "http://iiif.io/api/image/{{ page.major }}/2/level2.json"
+      "profile": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/level2.json"
     }
   }
 }
