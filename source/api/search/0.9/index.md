@@ -201,7 +201,7 @@ And the response for the first page of annotations from a total of 125 matches:
     "@type": "sc:Layer",
     "total": 125,
     "first": "http://example.org/service/manifest/search?q=bird&page=1",
-    "last": "http://example.org/service/identifier/search?q=bird&page=13",
+    "last": "http://example.org/service/identifier/search?q=bird&page=13"
   },
   "next": "http://example.org/service/identifier/search?q=bird&page=2",
   "startIndex": 0,
@@ -279,15 +279,15 @@ The basic structure is:
   "@type":"sc:AnnotationList",
 
   "within": {
-    "@type": "sc:Layer",
-    // Result set information
+    "@type": "sc:Layer"
+    // Result set information here ...
   },
 
   "resources": [
     {
       "@id": "http://example.org/identifier/annotation/anno1",
       "@type": "oa:Annotation"
-      // More regular annotation information here
+      // More regular annotation information here ...
     }
     // Further annotations from the first page here ...
   ],
@@ -298,7 +298,7 @@ The basic structure is:
       "annotations": [
         "http://example.org/identifier/annotation/anno1"
       ]
-      // More search specific information for anno1 here
+      // More search specific information for anno1 here ...
     }
     // Further hits for the first page here ...
   ]

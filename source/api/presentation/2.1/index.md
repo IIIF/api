@@ -458,7 +458,8 @@ The top level resource in the response _MUST_ have the `@context` property, and 
 Any additional fields beyond those defined in this specification _SHOULD_ be mapped to RDF predicates using further context documents. In this case, the enclosing object _MUST_ have its own `@context` property, and it _SHOULD_ be the first key/value pair of that object. This is _REQUIRED_ for `service` links that embed any information beyond a `profile`.  These contexts _SHOULD NOT_ redefine `profile`.  As the top level resource _MUST_ have the IIIF Presentation API context, if there are any additional contexts needed, the value will become an array of URI strings:
 
 ``` json-doc
-{"@context": [
+{
+  "@context": [
     "http://iiif.io/api/presentation/{{ page.major }}/context.json",
     "http://example.org/extension/context.json"
   ]
@@ -498,6 +499,7 @@ The example below includes only the manifest-level information, however it _MUST
         {"@value": "Paris, environ 1400", "@language": "fr"}
       ]
     },
+    {"label": "Notes", "value": ["Text of note 1", "Text of note 2"]},
     {"label": "Source",
      "value": "<span>From: <a href=\"http://example.org/db/1.html\">Some Collection</a></span>"}
   ],
@@ -602,7 +604,6 @@ In the manifest example above, the sequence is referenced by its URI and contain
       "@type": "sc:Canvas",
       "label": "p. 1"
       // ...
-      ]
     },
     {
       "@id": "http://example.org/iiif/book1/canvas/p2",
@@ -808,30 +809,31 @@ Examples are given below:
   * For image resources with a [IIIF Image API][image-api] service, it is _RECOMMENDED_ to instead use the Image API parameters rather than a fragment as above.  The following structure allows simple clients to use the image directly (the URL with the segment), and allows clients that implement the IIIF Image API to have sufficient information to construct appropriate URIs using the API.
 
     ``` json-doc
-{
-  "@context": "http://iiif.io/api/presentation/2/context.json",
-  "@id": "http://example.org/iiif/book1/annotation/anno1",
-  "@type": "oa:Annotation",
-  "motivation": "sc:painting",
-  "resource": {
-    "@id": "http://www.example.org/iiif/book1-page1/50,50,1250,1850/full/0/default.jpg",
-    "@type": "oa:SpecificResource",
-    "full": {
-      "@id": "http://example.org/iiif/book1-page1/full/full/0/default.jpg",
-      "@type": "dctypes:Image",
-      "service": {
-        "@context": "http://iiif.io/api/image/2/context.json",
-        "@id": "http://example.org/iiif/book1-page1",
-        "profile": "http://iiif.io/api/image/2/level2.json"
-      }
-    },
-    "selector": {
-      "@context": "http://iiif.io/api/annex/openannotation/context.json",
-      "@type": "iiif:ImageApiSelector",
-      "region": "50,50,1250,1850"
+    {
+      "@context": "http://iiif.io/api/presentation/2/context.json",
+      "@id": "http://example.org/iiif/book1/annotation/anno1",
+      "@type": "oa:Annotation",
+      "motivation": "sc:painting",
+      "resource": {
+        "@id": "http://www.example.org/iiif/book1-page1/50,50,1250,1850/full/0/default.jpg",
+        "@type": "oa:SpecificResource",
+        "full": {
+          "@id": "http://example.org/iiif/book1-page1/full/full/0/default.jpg",
+          "@type": "dctypes:Image",
+          "service": {
+            "@context": "http://iiif.io/api/image/2/context.json",
+            "@id": "http://example.org/iiif/book1-page1",
+            "profile": "http://iiif.io/api/image/2/level2.json"
+          }
+        },
+        "selector": {
+          "@context": "http://iiif.io/api/annex/openannotation/context.json",
+          "@type": "iiif:ImageApiSelector",
+          "region": "50,50,1250,1850"
+        }
+      },
+      "on": "http://www.example.org/iiif/book1/canvas/p1#xywh=0,0,600,900"      
     }
-    "on": "http://www.example.org/iiif/book1/canvas/p1#xywh=0,0,600,900"
-}
     ```
 
 

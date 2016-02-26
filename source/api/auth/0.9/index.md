@@ -183,7 +183,7 @@ https://authentication.example.org/token?callback=callback_function&code=AUTH_CO
 
 The response from the token service _MUST_ be JavaScript with the Content-Type `application/javascript`, with a body that has the requested callback function wrapping the JSON description:
 
-``` json-doc
+``` javascript
 callback_function(
   {
     "accessToken": "TOKEN_HERE",
