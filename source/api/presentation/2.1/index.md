@@ -1129,9 +1129,11 @@ A range will typically include one or more canvases or, unlike sequences, parts 
 
 Ranges _MAY_ include other ranges.  This is done in a `ranges` property within the range.  The values within the ranges list _MUST_ be strings giving the URIs of ranges in the list in the manifest.
 
-Ranges _MAY_ link to a layer, described in the next section, that has the content of the range.  This allows, for example, the range representing a newspaper article that is split across multiple pages to be linked with the text of the article. Rendering clients might use this to display all of the article text, regardless of which canvas is being viewed. The link is created by adding a `contentLayer` property to the range, with a single value of the layer's URI.  The layer will then have one or more annotation lists, each of which contains annotations that target the areas of canvases within the range, and provide the content resources.
+In cases where the ordering of a set of ranges and canvases is significant, the `members` property can be used. Each member of the `members` list _MUST_ be an object, and that object _MUST_ include `@id`, `@type`, and `label`.
 
-Ranges are linked or embedded within the manifest in a `structures` field.  It is a flat list of objects, even if there is only one range.
+__Deprecation Warning__
+The `canvases` and `ranges` properties will be removed in version 3.0 in favor of the single `members` property. Until that time, if a client sees a `members` property, it should use that property even if `canvases` and/or `ranges` are present. However, publishing systems should be aware that Presentation API version 2.0-compliant clients will not produce the expected results if they use `members` and do not provide a fall back with `canvases` and `ranges`.
+{: .warning }
 
 ``` json-doc
 {
@@ -1177,6 +1179,45 @@ Ranges are linked or embedded within the manifest in a `structures` field.  It i
   ]
 }
 ```
+
+An example range with `members`:
+
+``` json-doc
+{
+  "@context": "http://iiif.io/api/presentation/2/context.json",
+  "@id": "http://example.org/iiif/book1/manifest",
+  "@type": "sc:Manifest",
+  // Metadata ...
+
+  "sequences": [
+      // sequence etc. ...
+  ],
+
+  "structures": [
+    {
+      "@id": "http://example.org/iiif/book1/range/r0",
+      "@type": "sc:Range",
+      "label": "Table of Contents",
+      "viewingHint": "top",
+      "members": [
+        { "@id": "http://example.org/iiif/book1/range/r1", "@type": "sc:Range", "label": "Book 1" },
+        { "@id": "http://example.org/iiif/book1/canvas/p31", "@type": "sc:Canvas", "label": "binder's leaf recto" },
+        { "@id": "http://example.org/iiif/book1/canvas/p32", "@type": "sc:Canvas", "label": "binder's leaf verso" },
+        { "@id": "http://example.org/iiif/book1/range/r2", "@type": "sc:Range", "label": "Book 2" },
+        { "@id": "http://example.org/iiif/book1/canvas/p61", "@type": "sc:Canvas", "label": "binder's leaf recto" },
+        { "@id": "http://example.org/iiif/book1/canvas/p62", "@type": "sc:Canvas", "label": "binder's leaf verso" },
+        { "@id": "http://example.org/iiif/book1/range/r3", "@type": "sc:Range", "label": "Book 3" },
+        //...
+      ]
+    },
+    // And any additional ranges here
+  ]
+}
+```
+
+Ranges _MAY_ link to a layer, described in the next section, that has the content of the range. This allows, for example, the range representing a newspaper article that is split across multiple pages to be linked with the text of the article. Rendering clients might use this to display all of the article text, regardless of which canvas is being viewed. The link is created by adding a `contentLayer` property to the range, with a single value of the layer's URI. The layer will then have one or more annotation lists, each of which contains annotations that target the areas of canvases within the range, and provide the content resources.
+
+Ranges are linked or embedded within the manifest in a `structures` field.  It is a flat list of objects, even if there is only one range.
 
 ###  7.2. Layers
 
@@ -1240,7 +1281,7 @@ Recommended URI pattern:
 
 Collections are used to list the manifests available for viewing, and to describe the structures, hierarchies or collections that the physical objects are part of.  The collections _MAY_ include both other collections and manifests, in order to form a hierarchy of objects with manifests at the leaf nodes of the tree.  Collection objects _MAY_ be embedded inline within other collection objects, such as when the collection is used primarily to subdivide a larger one into more manageable pieces, however manifests _MUST NOT_ be embedded within collections. Embedded collections _SHOULD_ have their own URI from which the description is also made available.
 
-The URI pattern follows the same structure as the other resource types, however note that it prevents the existence of a manifest or object with the identifier "collection". It is also _RECOMMENDED_ that the topmost collection from which all other collections are discoverable by following links within the heirarchy be named `top`, if there is one.
+The URI pattern follows the same structure as the other resource types, however note that it prevents the existence of a manifest or object with the identifier "collection". It is also _RECOMMENDED_ that the topmost collection from which all other collections are discoverable by following links within the hierarchy be named `top`, if there is one.
 
 Manifests or collections _MAY_ appear within more than one collection. For example, an institution might define four collections: one for modern works, one for historical works, one for newspapers and one for books.  The manifest for a modern newspaper would then appear in both the modern collection and the newspaper collection.  Alternatively, the institution may choose to have two separate newspaper collections, and reference each as a sub-collection of modern and historical.
 
@@ -1253,7 +1294,7 @@ The intended usage of collections is to allow clients to:
 
 As such, collections _MUST_ have a label, and _SHOULD_ have `metadata` and `description` properties to be displayed by the client such that the user can understand the structure they are interacting with.  If a collection does not have these properties, then a client is not required to render the collection to the user directly.
 
-Collections have two list-based properties:
+Collections have three list-based properties:
 
 ##### collections
 References to sub-collections of the current collection.  Each referenced collection _MUST_ have the appropriate @id, @type and label, and _MAY_ be embedded in its entirety.
@@ -1261,7 +1302,15 @@ References to sub-collections of the current collection.  Each referenced collec
 ##### manifests
 References to manifests contained within the current collection. Each referenced manifest _MUST_ have the appropriate @id, @type and label.
 
-At least one of `collections` and `manifests` _SHOULD_ be present in the response.  An empty collection, with neither `collections` or `manifests`, is allowed but discouraged.
+members
+: In cases where the order of a collection is significant, `members` can be used to interfile collections and manifests. This is especially useful when a collection of books contains single- and multi-volume works (i.e. collections with the "multi-part" viewingHint), and when modeling archival material where original order is significant. Each member of the `members` list _MUST_ be an object and _MUST_ include `@id`, `@type`, `label`. If the URI in `@id` resolves to a collection, then `viewingHint` _MUST_ also be present.
+
+At least one of `collections`, `manifests`, or `members` _SHOULD_ be present in the response.  An empty collection, with neither `collections`, `manifests`, or `members`, is allowed but discouraged.
+
+
+__Deprecation Warning__
+The `collections` and `manifests` properties will be removed in version 3.0 in favor of the single `members` property. Until that time, if a client sees a `members` property, it should use that property even if `collections` and/or `manifests` are present. However, publishing systems should be aware that Presentation API version 2.0-compliant clients will not produce the expected results if they use `members` and do not provide a fall back with `collections` and `manifests`.
+{: .warning }
 
 An example collection document:
 
@@ -1295,6 +1344,42 @@ An example collection document:
   ]
 }
 ```
+
+An example collection document with `members`:
+
+``` json-doc
+{
+  "@context": "http://iiif.io/api/presentation/2/context.json",
+  "@id": "http://example.org/iiif/collection/top",
+  "@type": "sc:Collection",
+  "label": "Top Level Collection for Example Organization",
+  "description": "Description of Collection",
+  "attribution": "Provided by Example Organization",
+
+  "members": [
+    {
+      "@id": "http://example.org/iiif/collection/part1",
+      "@type": "sc:Collection",
+      "label": "My Multi-volume Set",
+      "viewingHint": "multi-part"
+    },
+    {
+      "@id": "http://example.org/iiif/book1/manifest1",
+      "@type": "sc:Manifest",
+      "label": "My Book"
+    },
+    {
+      "@id": "http://example.org/iiif/collection/part2",
+      "@type": "sc:Collection",
+      "label": "My Sub Collection",
+      "viewingHint": "individuals"
+    },
+
+  ]
+}
+```
+
+
 
 ### 7.4. Paging
 
