@@ -399,6 +399,9 @@ Resource descriptions _SHOULD_ be embedded within higher-level descriptions, and
 ``` json-doc
 // Option A, plain string
 {"seeAlso": "http://example.org/descriptions/book1.xml"}
+```
+
+``` json-doc
 // Option B, object with @id property
 {"seeAlso": {"@id": "http://example.org/descriptions/book1.xml", "format": "text/xml"}}
 ```
@@ -765,7 +768,7 @@ Note well that Annotation Lists _MUST NOT_ be embedded within the manifest.
         "format": "text/xml"
       },
       "on": "http://example.org/iiif/book1/canvas/p1"
-    },
+    }
     // ... and so on
   ]
 }
@@ -944,7 +947,7 @@ If the section of an image is mapped to part of a canvas, as in the example belo
     },
     "selector": {
       "@type":["oa:SvgSelector","cnt:ContentAsText"],
-      "chars": "<svg xmlns="..."><path d="..."/></svg>"
+      "chars": "<svg xmlns=\"...\"><path d=\"...\"/></svg>"
     }
   },
   "on": "http://example.org/iiif/book1/canvas/p1#xywh=100,100,300,300"
@@ -1219,7 +1222,7 @@ The annotation lists are referenced from the layer in an `otherContent` array, i
     "http://example.org/iiif/book1/list/l1",
     "http://example.org/iiif/book1/list/l2",
     "http://example.org/iiif/book1/list/l3",
-    "http://example.org/iiif/book1/list/l4",
+    "http://example.org/iiif/book1/list/l4"
     // More AnnotationLists here ...
   ]
 }

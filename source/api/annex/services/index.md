@@ -113,7 +113,7 @@ The service _MAY_ have additional information embedded from the Image Informatio
             "canonicalLinkHeader", "rotationArbitrary", "http://example.com/feature"
         ]
       }
-    ],
+    ]
   }
 }
 ```

@@ -506,7 +506,7 @@ For the word level annotation case, the response might look like:
         "chars": "and"
       },
       "on": "http://example.org/identifier/canvas1#xywh=200,100,40,20"
-    },
+    }
     // Further annotations here ...
   ],
 
@@ -515,7 +515,7 @@ For the word level annotation case, the response might look like:
       "@type": "search:Hit",
       "annotations": [
         "http://example.org/identifier/annotation/anno-bush",
-        "http://example.org/identifier/annotation/anno-and",
+        "http://example.org/identifier/annotation/anno-and"
       ],
       "match": "bush and",
       "before": "There are two birds in the ",

@@ -184,9 +184,10 @@ This extension defines five predicates in a separate context, one for each of th
   "http_get" : "false",
   "http_head" : "true",
   "http_post" : "false",
-  "http_put" :"true"
+  "http_put" : "true"
 }
 ```
+
 If one or more of the predicates is missing, a client MUST assume the method is not supported.
 
 ## 5. Authorization, Authentication and Security

@@ -18,6 +18,7 @@ end
 task :ci do
   build_site
   sh 'grunt test'
+  sh 'scripts/check_json.py -v'
   Rake::Task['spec'].invoke
   HTML::Proofer.new(SITE_DIR, cache: { timeframe: '2w' } ).run
 end

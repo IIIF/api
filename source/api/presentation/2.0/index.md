@@ -372,6 +372,9 @@ Resource descriptions _SHOULD_ be embedded within higher-level descriptions, and
 ``` json-doc
 // Option A, plain string
 {"seeAlso" : "http://www.example.org/descriptions/book1.xml"}
+```
+
+``` json-doc
 // Option B, object with @id property
 {"seeAlso" : { "@id" : "http://www.example.org/descriptions/book1.xml" } }
 ```
@@ -657,7 +660,7 @@ Additional features of the [Open Annotation][openanno] data model _MAY_ also be 
     "service": {
       "@context": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
       "@id":"http://www.example.org/images/book1-page1",
-      "profile":"http://iiif.io/api/image/{{ site.image_api.latest.major }}/profiles/level2.json",
+      "profile":"http://iiif.io/api/image/{{ site.image_api.latest.major }}/profiles/level2.json"
     },
     "height":2000,
     "width":1500
@@ -713,7 +716,7 @@ Note well that Annotation Lists _MUST NOT_ be embedded within the manifest.
         "format":"text/xml"
       },
       "on":"http://www.example.org/iiif/book1/canvas/p1"
-    },
+    }
     // ... and so on
   ]
 }
@@ -886,7 +889,7 @@ If the section of an image is mapped to part of a canvas, as in the example belo
     },
     "selector": {
       "@type":["oa:SvgSelector","cnt:ContentAsText"],
-      "chars":"<svg xmlns="..."><path d="..."/></svg>"
+      "chars":"<svg xmlns=\"...\"><path d=\"...\"/></svg>"
     }
   },
   "on":"http://www.example.org/iiif/book1/canvas/p1#xywh=100,100,300,300"
@@ -1115,7 +1118,7 @@ If the layer's URI is dereferenced, the annotation list resources are given in a
     "http://www.example.org/iiif/book1/list/l1",
     "http://www.example.org/iiif/book1/list/l2",
     "http://www.example.org/iiif/book1/list/l3",
-    "http://www.example.org/iiif/book1/list/l4",
+    "http://www.example.org/iiif/book1/list/l4"
     // More AnnotationLists here ...
   ]
 }
