@@ -7,7 +7,7 @@ tags: [specifications, presentation-api]
 major: 2
 minor: 1
 patch: 0
-pre: draft4
+pre: draft5
 ---
 
 ## Status of this Document
@@ -80,10 +80,12 @@ Collectively the use cases require a model in which one can characterize the obj
 The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _SHOULD NOT_, _RECOMMENDED_, _MAY_, and _OPTIONAL_ in this document are to be interpreted as described in [RFC 2119][rfc-2119].
 
 
-##  2. Primary Resource Types
+##  2. Resource Type Overview
 
 ![Primary Resource Types](img/objects.png){: .h400px}
 {: .floatRight}
+
+### 2.1. Basic Types
 
 This specification makes use of the following primary resource types:
 
@@ -91,19 +93,37 @@ This specification makes use of the following primary resource types:
 The overall description of the structure and properties of the digital representation of an object. It carries information needed for the viewer to present the digitized content to the user, such as a title and other descriptive information about the object or the intellectual work that it conveys. Each manifest describes how to present a single object such as a book, a photograph, or a statue.
 
 ##### Sequence
-The order of the views of a physical object. Multiple sequences are allowed to cover situations when there are multiple equally valid orders through the content, such as when a manuscript's pages are rebound or archival collections are reordered.
+The order of the views of a the object. Multiple sequences are allowed to cover situations when there are multiple equally valid orders through the content, such as when a manuscript's pages are rebound or archival collections are reordered.
 
 ##### Canvas
-A virtual container that represents a page or view and has content resources associated with it or with parts of it. The canvas provides a frame of reference for the layout of the page. The concept of a canvas is borrowed from standards like PDF and HTML, or applications like Photoshop and Powerpoint, where the display starts from a blank canvas and images, text and other resources are "painted" on to it.
+A virtual container that represents a page or view and has content resources associated with it or with parts of it. The canvas provides a frame of reference for the layout of the content. The concept of a canvas is borrowed from standards like PDF and HTML, or applications like Photoshop and Powerpoint, where the display starts from a blank canvas and images, text and other resources are "painted" on to it.
 
 ##### Content
 Content resources such as images or texts that are associated with a canvas.
 
-Each manifest _MUST_, and is very likely to, have one sequence, but _MAY_ have more than one. Each sequence _MUST_ have at least one canvas and is likely to have more than one. Each canvas _SHOULD_ have one or more content resources associated with it. Zero is possible but unlikely; it represents the case where the page exists (or existed) but has not been digitized.
+### 2.2. Additional Types
 
-There are other types of resources including annotation lists, annotations, ranges, layers and collections, which are discussed later.
+![All Resource Types](img/objects-all.png)
+{: .floatRight}
 
-##  3. Presentation Resource Properties
+##### Collection
+An ordered list of manifests, and/or further collections.  Collections allow easy advertising and browsing of the manifests in a hierarchical structure, potentially with its own descriptive information.  They can also provide clients with a means to locate all of the manifests known to the publishing institution.
+
+##### Annotation
+Content resources and commentary are associated with a canvas via an annotation.  This provides a single, coherent method for aligning information, and provides a standards based framework for distinguishing parts of resources and parts of canvases.  As annotations can be added later, it promotes a distributed system in which publishers can align their content with the descriptions created by others.
+
+##### AnnotationList
+An ordered list of annotations, typically associated with a single canvas.
+
+##### Layer
+An ordered list of annotation lists.  Layers allow higher level groupings of annotations to be recorded. For example, all of the English translation annotations of a medieval French document could be kept separate from the transcription or an edition in modern French.
+
+##### Range
+An ordered list of canvases, and/or further ranges.  Ranges allow canvases, or parts thereof, to be grouped together in some way. This could be for textual reasons, such as to distinguish books, chapters, verses, sections, non-content-bearing pages, the table of contents or similar. Equally, physical features might be important such as quires or gatherings, sections that have been added later and so forth.
+
+
+ 
+##  3. Resource Properties
 
 This specification defines properties in five distinct areas. Most of the properties may be associated with any of the resource types, and may have more than one value.  The property relates to the resource that it is associated with, so a `description` property on a manifest is a description of the object, whereas a `description` property on a canvas is a description of that particular page or view of the object.
 
@@ -326,73 +346,12 @@ The 0 based index of the first leaf resource in the current sub-resource, relati
  * A sub-collection _MAY_ have exactly one startIndex, which _MUST_ be the index of its first manifest relative to the order established by its top most containing collection.
  * An annotation list _MAY_ have exactly one startIndex, which _MUST_ be the index of its first annotation relative to the order established by its layer.
 
-##  4. Requests and Responses
 
-This section describes the _RECOMMENDED_ request and response patterns for the API that makes the presentation information available. The REST and simple HATEOAS approach is followed where a call will retrieve a description of a resource, and additional calls may be made by following links obtained from within the description. All of the requests use the HTTP GET method; creation and update of resources is not covered by this specification.
+##  4. JSON-LD Considerations
 
-###  4.1. Requests
+This section describes features applicable to all of the Presentation API content.  For the most part, these are features of the JSON-LD specification that have particular uses within the API.
 
-Each of the sections below recommends a URI pattern to follow for the different resources. This is not required and clients _MUST NOT_ construct the URIs by themselves, instead they _MUST_ follow links from within retrieved descriptions.
-
-The Base URI, to which additional information is appended, that is _RECOMMENDED_ for resources made available by the API is:
-
-``` none
-{scheme}://{host}{/prefix}/{identifier}
-```
-{: .urltemplate}
-
-Where the parameters are:
-
-| Name | Description |
-| ---- | ----------- |
-| scheme | Indicates the use of the http or https protocol in calling the service. |
-| server | The host server (and optional port) on which the service resides. |
-| prefix | The path on the host server to the service. This prefix is optional, but may be useful when the host server supports multiple services. The prefix _MAY_ contain multiple path segments, delimited by slashes, but all other special characters _MUST_ be encoded. |
-| identifier | The identifier for the object or collection, expressed as a string. This may be an ark, URN, or other identifier. Special characters _MUST_ be URI encoded. |
-{: .api-table}
-
-The individual resources _SHOULD_ have URIs below this top-level pattern, formed by appending a "/" and additional information to identify the resource. Recommended patterns for these URIs are given in the sections below for the different resource types, and summarized in [Appendix A][appendixa].
-
-In the situation where the JSON documents are maintained in a filesystem with no access to the web server's configuration, then including ".json" on the end of the URI is suggested to ensure that the correct content-type response header is sent to the client.  While this does not follow the recommended URI patterns below, it is not prevented by the specification either.
-
-###  4.2. HTTP Response Details
-
-The format for all responses is JSON, and the following sections describe the structure to be returned.
-
-The content-type of the response _MUST_ be either `application/json` (regular JSON),
-
-``` none
-Content-Type: application/json
-```
-{: .urltemplate}
-
-or "application/ld+json" (JSON-LD).
-
-``` none
-Content-Type: application/ld+json
-```
-{: .urltemplate}
-
-If the client explicitly wants the JSON-LD content-type, then it _MUST_ specify this in an Accept header, otherwise the server _MUST_ return the regular JSON content-type.
-
-The HTTP server _SHOULD_, if at all possible, send the Cross Origin Access Control header (often called "CORS") to allow clients to download the manifests via AJAX from remote sites. The header name is `Access-Control-Allow-Origin` and the value of the header _SHOULD_ be `*`.
-
-``` none
-Access-Control-Allow-Origin: *
-```
-{: .urltemplate}
-
-Responses _SHOULD_ be compressed by the server as there are significant performance gains to be made for very repetitive data structures.
-
-Recipes for enabling CORS and the conditional Content-type header are provided in the [Apache HTTP Server Implementation Notes][apache-notes].
-
-###  4.3. Response Content Details
-
-The following applies to all of the responses in the Presentation API.  For the most part, these are features of the JSON-LD specification that have particular uses within the API.
-
-Typically the first request will be for a manifest resource and, for optimization reasons, the response _MUST_ return the manifest information along with the default sequence, canvases and associations for image content resources embedded within it. Additional sequences and associations _MAY_ be available via additional calls, and if so, _MUST_ be referenced in the manifest.
-
-#### 4.3.1. URI Representation
+### 4.1. URI Representation
 
 Resource descriptions _SHOULD_ be embedded within higher-level descriptions, and _MAY_ also be available via separate requests from http(s) URIs linked in the responses. These URIs are in the `@id` property for the resource. Links to resources _MAY_ be either given as just the URI if there is no additional information associated with them, or as a JSON object with the `@id` property. Other URI schemes _MAY_ be used if the resource is not able to be retrieved via HTTP. Both options provide the same URI, however the second pattern associates additional information with the resource:
 
@@ -406,9 +365,9 @@ Resource descriptions _SHOULD_ be embedded within higher-level descriptions, and
 {"seeAlso": {"@id": "http://example.org/descriptions/book1.xml", "format": "text/xml"}}
 ```
 
-#### 4.3.2. Repeated Properties
+### 4.2. Repeated Properties
 
-Most of the properties _MAY_ be repeated. This is done by giving a list of values, using either of the representations described above, rather than a single string.
+Many of the properties in the API _MAY_ be repeated. This is done by giving a list of values, using either of the representations described above, rather than a single string.
 
 ``` json-doc
 {
@@ -420,7 +379,7 @@ Most of the properties _MAY_ be repeated. This is done by giving a list of value
 }
 ```
 
-#### 4.3.3. Language of Property Values
+### 4.3. Language of Property Values
 
 Language _MAY_ be associated with strings that are intended to be displayed to the user with the following pattern of `@value` plus the [RFC 5646][rfc5646] code in `@language`, instead of a plain string.  For example:
 
@@ -432,7 +391,7 @@ This pattern may be used in `label`, `description`, `attribution` and the `label
 
 Note that [RFC 5646][rfc5646] allows the script of the text to be included after a hyphen, such as `ar-latn`, and clients should be aware of this possibility. This allows for full internationalization of the user interface components described in the response, as the labels as well as values may be translated in this manner; examples are given below.
 
-#### 4.3.4. HTML Markup in Property Values
+### 4.4. HTML Markup in Property Values
 
 Minimal HTML markup _MAY_ be included in the `description`, `attribution` and `metadata` properties.  It _MUST NOT_ be used in `label` or other properties. This is included to allow manifest creators to add links and simple formatting instructions to blocks of text. The content _MUST_ be well-formed XML and therefore must be wrapped in an element such as `p` or `span`.  There _MUST NOT_ be whitespace on either side of the HTML string, and thus the first character in the string _MUST_ be a '<' character and the last character _MUST_ be '>', allowing a consuming application to test whether the value is HTML or plain text using these.  To avoid a non-HTML string matching this, it is _RECOMMENDED_ that an additional whitespace character be added to the end of the value.
 
@@ -450,7 +409,7 @@ Clients _SHOULD_ allow only `a`, `b`, `br`, `i`, `img`, `p`, and `span` tags. Cl
 {"description": {"@value": "<p>Some <b>description</b></p>", "@language": "en-latn"}}
 ```
 
-#### 4.3.5. Linked Data Context and Extensions
+### 4.5. Linked Data Context and Extensions
 
 The top level resource in the response _MUST_ have the `@context` property, and it _SHOULD_ appear as the very first key/value pair of the JSON representation. This tells Linked Data processors how to interpret the information. The IIIF Presentation API context, below, _MUST_ occur exactly once per response, and be omitted from any embedded resources. For example, when embedding a sequence within a manifest, the sequence _MUST NOT_ have the `@context` field.
 
@@ -469,7 +428,7 @@ Any additional fields beyond those defined in this specification _SHOULD_ be map
 }
 ```
 
-##  5. Primary Resource Types
+##  5. Resource Structure
 
 ###  5.1. Manifest
 
@@ -639,7 +598,7 @@ Every canvas _MUST_ have a `label` to display, and a `height` and a `width` as i
 
 It is _RECOMMENDED_ that if there is (at the time of implementation) a single image that depicts the page, then the dimensions of the image are used as the dimensions of the canvas for simplicity. If there are multiple full images, then the dimensions of the largest image should be used. If the largest image's dimensions are less than 1200 pixels on either edge, then the canvas's dimensions _SHOULD_ be double that of the image. Clients _MUST_ be aware that this is not always the case, such as in the examples presented, and instead _MUST_ always scale images into the space represented by the canvas.  The dimensions of the canvas _SHOULD_ be the same scale as the physical object, and thus images _SHOULD_ depict only the object.  This can be accomplished by cropping the image, or associating only a segment of the image with the canvas. The physical dimensions of the object may be available via a service, either embedded within the description or requiring an HTTP request to retrieve them.
 
-Image resources, and only image resources, are included in the `images` property of the canvas. These are linked to the canvas via annotations, as described in [Image Resources][image-resources]. Other content, such as transcriptions, video, audio or commentary, is provided via external annotation lists referenced in the `otherContent` property, as described in [Other Content Resources][other-content-resources]. The value of both of these properties _MUST_ be a list, even if there is only one entry. Both are optional, as there may be no additional information associated with the canvas. Note that the items in the `otherContent` list may be either objects with an `@id` property or strings. In the case of a string, this is the URI of the annotation list and the type of "sc:AnnotationList" can be inferred.
+Image resources, and only image resources, are included in the `images` property of the canvas. These are linked to the canvas via annotations, as described in [Image Resources][image-resources]. Other content, such as transcriptions, video, audio or commentary, is provided via external annotation lists referenced in the `otherContent` property, as described in [Annotation Lists][annotation-lists]. The value of both of these properties _MUST_ be a list, even if there is only one entry. Both are optional, as there may be no additional information associated with the canvas. Note that the items in the `otherContent` list may be either objects with an `@id` property or strings. In the case of a string, this is the URI of the annotation list and the type of "sc:AnnotationList" can be inferred.
 
 In a sequence with the `viewingHint` value of "paged" and presented in a book viewing user interface, the first canvas _SHOULD_ be presented by itself -- it is typically either the cover or first recto page. Thereafter, the canvases represent the sides of the leaves, and hence may be presented with two canvases displayed as an opening of the book.  If there are canvases which are in the sequence but would break this ordering, then they _MUST_ have the `viewingHint` property with a value of "non-paged".  Similarly if the first canvas is not a single up, it _MUST_ be marked as "non-paged" or an empty canvas added before it.
 
@@ -719,7 +678,7 @@ The annotations that associate images, and only those annotations that associate
 }
 ```
 
-###  5.5. Other Content Resources
+###  5.5. Annotation List
 
 Recommended URI pattern:
 
@@ -773,6 +732,343 @@ Note well that Annotation Lists _MUST NOT_ be embedded within the manifest.
   ]
 }
 ```
+
+###  5.6. Range
+
+Recommended URI pattern:
+
+``` none
+{scheme}://{host}/{prefix}/{identifier}/range/{name}
+```
+{: .urltemplate}
+
+It may be important to describe additional structure within an object, such as newspaper articles that span pages, the range of non-content-bearing pages at the beginning of a work, or chapters within a book. These are described using ranges in a similar manner to sequences. Ranges _MUST_ have URIs and they _SHOULD_ be http(s) URIs. The intent of adding a range to the manifest is to allow the client to display a structured hierarchy to enable the user to navigate within the object without merely stepping through the current sequence.  The rationale for separating ranges from sequences is that there is likely to be overlap between different ranges, such as the physical structure of a book compared to the textual structure of the work.  An example would be a newspaper with articles that are continued in different sections, or simply a section that starts half way through a page.
+
+Ranges are linked or embedded within the manifest in a `structures` field.  It is a flat list of objects, even if there is only one range.
+
+Ranges have three list based properties to express membership:
+
+##### ranges
+References to ranges within the current range.  Each included range _MUST_ be referenced via a string containing the range's URI.
+
+##### canvases
+References to canvases, or rectangular parts of a canvas, within the current range.  Each included canvas _MUST_ be referenced via a string containing the canvas's URI.
+
+##### members
+A combined list of both ranges and canvases.  If the range contains both other ranges and canvases, and the ordering of the different types of resource is significant, the range SHOULD instead use the `members` property.  The property's value is an array of canvases, parts of canvases or other ranges.  Each item in the array MUST be an object, and it MUST have the `@id`, `@type`, and `label` properties.
+
+A range will typically include one or more canvases or, unlike sequences, parts of canvases. The part must be rectangular, and is given using the `xywh=` fragment approach. This allows for selecting, for example, the areas within two newspaper pages where an article is located. 
+
+In order to present a table of the different ranges to allow a user to select one, every range _MUST_ have a label and the top most range in the table _SHOULD_ have a `viewingHint` with the value "top". A range that is the top of a hierarchy does not need to list all of the canvases in the sequence, and _SHOULD_ only give the list of ranges below it.  Ranges _MAY_ also have any of the other properties defined in this specification, including the `startCanvas` relationship to the first canvas within the range to start with, if it is not the first listed in `canvases` or `members`.
+
+Ranges _MAY_ link to a layer, described in the next section, that has the content of the range.  This allows, for example, the range representing a newspaper article that is split across multiple pages to be linked with the text of the article. Rendering clients might use this to display all of the article text, regardless of which canvas is being viewed. The link is created by adding a `contentLayer` property to the range, with a single value of the layer's URI.  The layer will then have one or more annotation lists, each of which contains annotations that target the areas of canvases within the range, and provide the content resources.
+
+``` json-doc
+{
+  "@context": "http://iiif.io/api/presentation/2/context.json",
+  "@id": "http://example.org/iiif/book1/manifest",
+  "@type": "sc:Manifest",
+  // Metadata here ...
+
+  "sequences": [
+    // Sequences here ...
+  ],
+
+  "structures": [
+    {
+      "@id": "http://example.org/iiif/book1/range/r0",
+      "@type": "sc:Range",
+      "label": "Table of Contents",
+      "viewingHint": "top",
+      "members": [
+        {
+          "@id": "http://example.org/iiif/book1/canvas/cover",
+          "@type": "sc:Canvas",
+          "label": "Front Cover"
+        },
+        {
+          "@id": "http://example.org/iiif/book1/range/r1",
+          "@type": "sc:Range",
+          "label": "Introduction"
+        },
+        {
+          "@id": "http://example.org/iiif/book1/canvas/backCover",
+          "@type": "sc:Canvas",
+          "label": "Back Cover"
+        }
+      ]
+    },
+    {
+      "@id": "http://example.org/iiif/book1/range/r1",
+      "@type": "sc:Range",
+      "label": "Introduction",
+      "ranges": ["http://example.org/iiif/book1/range/r1-1"],
+      "canvases": [
+        "http://example.org/iiif/book1/canvas/p1",
+        "http://example.org/iiif/book1/canvas/p2",
+        "http://example.org/iiif/book1/canvas/p3#xywh=0,0,750,300"
+      ]
+    },
+    {
+      "@id": "http://example.org/iiif/book1/range/r1-1",
+      "@type": "sc:Range",
+      "label": "Objectives and Scope",
+      "canvases": ["http://example.org/iiif/book1/canvas/p2#xywh=0,0,500,500"]
+    }
+  ]
+}
+```
+
+__Deprecation Warning__
+The `canvases` and `ranges` properties are likely to be removed in version 3.0 in favor of the single `members` property. Until that time, if a client sees a `members` property, it should use that property even if `canvases` and/or `ranges` are also present. However, publishing systems should be aware that Presentation API version 2.0-compliant clients will not produce the expected results if they use `members` and do not provide a fall back with `canvases` and `ranges`.  Publishing systems should only use `members` when it is important to have a single ordered list that contains both canvases and ranges.  Feedback on this deprecation is [requested][iiif-discuss].
+{: .warning}
+
+###  5.7. Layer
+
+Recommended URI pattern:
+
+``` none
+{scheme}://{host}/{prefix}/{identifier}/layer/{name}
+```
+{: .urltemplate}
+
+Layers represent groupings of annotation lists that should be collected together, regardless of which canvas they target, such as all of the annotations that make up a particular translation of the text of a book.  Without the layer construction, it would be impossible to determine which annotations belonged together across canvases. A client might then present a user interface that allows all of the annotations in a layer to be displayed or hidden according to the user's preference.
+
+Layers _MUST_ have a URI, and it _SHOULD_ be an HTTP URI.  They _MUST_ have a `label` and _MAY_ have any of the other descriptive, linking or rights properties.
+
+Each annotation list _MAY_ be part of one or more layers. If the annotation list is part of a layer, then this _MUST_ be recorded using the `within` relationship in the annotation list response.  It _MAY_ also be included in the reference to the annotation list in the manifest response.  In the manifest response, the description of the layer _MAY_ be omitted after the first use, and just the URI given as a string.  Clients should refer to the first description given, based on the URI.
+
+``` json-doc
+{
+  "@context": "http://iiif.io/api/presentation/2/context.json",
+  "@id": "http://example.org/iiif/book1/list/l1",
+  "@type": "sc:AnnotationList",
+  "within": {
+    "@id": "http://example.org/iiif/book1/layer/transcription",
+    "@type": "sc:Layer",
+    "label": "Diplomatic Transcription"
+  }
+}
+```
+
+The layer _MAY_ be able to be dereferenced if it has an HTTP URI.  If a representation is available, it _MUST_ follow all of the requirements for JSON representations in this specification.  All of the properties of the Layer _SHOULD_ be included in the representation.  
+
+The annotation lists are referenced from the layer in an `otherContent` array, in the same way as they are referenced from a canvas.  The annotation lists _SHOULD_ be given as just URIs, but _MAY_ be objects with more information about them, such as in the [Canvas][canvas] example.
+
+``` json-doc
+{
+  "@context": "http://iiif.io/api/presentation/2/context.json",
+  "@id": "http://example.org/iiif/book1/layer/transcription",
+  "@type": "sc:Layer",
+  "label": "Diplomatic Transcription",
+  // Other properties here ...
+
+  "otherContent": [
+    "http://example.org/iiif/book1/list/l1",
+    "http://example.org/iiif/book1/list/l2",
+    "http://example.org/iiif/book1/list/l3",
+    "http://example.org/iiif/book1/list/l4"
+    // More AnnotationLists here ...
+  ]
+}
+```
+
+
+###  5.8. Collection
+
+Recommended URI pattern:
+
+``` none
+{scheme}://{host}/{prefix}/collection/{name}
+```
+{: .urltemplate}
+
+Collections are used to list the manifests available for viewing, and to describe the structures, hierarchies or curated collections that the physical objects are part of.  The collections _MAY_ include both other collections and manifests, in order to form a hierarchy of objects with manifests at the leaf nodes of the tree.  Collection objects _MAY_ be embedded inline within other collection objects, such as when the collection is used primarily to subdivide a larger one into more manageable pieces, however manifests _MUST NOT_ be embedded within collections. Embedded collections _SHOULD_ have their own URI from which the description is also made available.
+
+The URI pattern follows the same structure as the other resource types, however note that it prevents the existence of a manifest or object with the identifier "collection". It is also _RECOMMENDED_ that the topmost collection from which all other collections are discoverable by following links within the heirarchy be named `top`, if there is one.
+
+Manifests or collections _MAY_ appear within more than one collection. For example, an institution might define four collections: one for modern works, one for historical works, one for newspapers and one for books.  The manifest for a modern newspaper would then appear in both the modern collection and the newspaper collection.  Alternatively, the institution may choose to have two separate newspaper collections, and reference each as a sub-collection of modern and historical.
+
+The intended usage of collections is to allow clients to:
+
+  * Load a pre-defined set of manifests at initialization time.
+  * Receive a set of manifests, such as search results, for rendering.
+  * Visualize lists or hierarchies of related manifests.
+  * Provide navigation through a list or hierarchy of available manifests.
+
+As such, collections _MUST_ have a label, and _SHOULD_ have `metadata` and `description` properties to be displayed by the client such that the user can understand the structure they are interacting with.  If a collection does not have these properties, then a client is not required to render the collection to the user directly.
+
+Collections have three list-based properties to express membership:
+
+##### collections
+References to sub-collections of the current collection.  Each referenced collection _MUST_ have the appropriate @id, @type and label, and _MAY_ be embedded in its entirety.
+
+##### manifests
+References to manifests contained within the current collection. Each referenced manifest _MUST_ have the appropriate @id, @type and label.
+
+##### members
+In cases where the order of a collection is significant, `members` can be used to interleave both collection and manifest resources. This is especially useful when a collection of books contains single- and multi-volume works (i.e. collections with the "multi-part" viewingHint), and when modeling archival material where original order is significant. Each entry in the `members` list _MUST_ be an object and _MUST_ include `@id`, `@type`, and `label`. If the entry is a collection, then `viewingHint` _MUST_ also be present.
+
+At least one of `collections`, `manifests` and `members` _SHOULD_ be present in the response.  An empty collection, with no member resources, is allowed but discouraged.
+
+An example collection document:
+
+``` json-doc
+{
+  "@context": "http://iiif.io/api/presentation/2/context.json",
+  "@id": "http://example.org/iiif/collection/top",
+  "@type": "sc:Collection",
+  "label": "Top Level Collection for Example Organization",
+  "viewingHint": "top",
+  "description": "Description of Collection",
+  "attribution": "Provided by Example Organization",
+
+  "collections": [
+    {
+      "@id": "http://example.org/iiif/collection/sub1",
+      "@type": "sc:Collection",
+      "label": "Sub-Collection 1",
+
+      "members": [  
+        {
+          "@id": "http://example.org/iiif/collection/part1",
+          "@type": "sc:Collection",
+          "label": "My Multi-volume Set",
+          "viewingHint": "multi-part"
+        },
+        {
+          "@id": "http://example.org/iiif/book1/manifest1",
+          "@type": "sc:Manifest",
+          "label": "My Book"
+        },
+        {
+          "@id": "http://example.org/iiif/collection/part2",
+          "@type": "sc:Collection",
+          "label": "My Sub Collection",
+          "viewingHint": "individuals"
+        }
+      ]
+    },
+    {
+      "@id": "http://example.org/iiif/collection/part2",
+      "@type": "sc:Collection",
+      "label": "Sub Collection 2"
+    }
+  ],
+
+  "manifests": [
+    {
+      "@id": "http://example.org/iiif/book1/manifest",
+      "@type": "sc:Manifest",
+      "label": "Book 1"
+    }
+  ]
+}
+```
+
+__Deprecation Warning__
+The `collections` and `manifests` properties are likely to be removed in version 3.0 in favor of the single `members` property. Until that time, if a client sees a `members` property, it should use that property even if `collections` and/or `manifests` are also present. However, publishing systems should be aware that Presentation API version 2.0-compliant clients will not produce the expected results if they use `members` and do not provide a fall back with `collections` and `manifests`.  Publishing systems should only use `members` when it is important to have a single ordered list that contains both collections and manifests.  Feedback on this deprecation is [requested][iiif-discuss].
+{: .warning}
+
+### 5.9. Paging
+
+In some situations, annotation lists or the list of manifests in a collection may be very long or expensive to create. The latter case is especially likely to occur when responses are generated dynamically. In these situations the server may break up the response using [paging properties][paging]. The length of a response is left to the server's discretion, but the server should take care not to produce overly long responses that would be difficult for clients to process.
+
+When breaking a response into pages, the paged resource _MUST_ link to the `first` page resource, and _MUST NOT_ include the corresponding list property (`collections` for a collection, `otherContent` for a layer). For example, a paged layer would link only to an annotation list as its first page.  If known, the resource _MAY_ also link to the last page.
+
+The linked page resource _SHOULD_ refer back to the containing paged resource using `within`. If there is a page resource that follows it (the next page), then it _MUST_ include a `next` link to it.  If there is a preceding page resource, then it _SHOULD_ include a `prev` link to it.
+
+The paged resource _MAY_ use the `total` property to list the total number of leaf resources that are contained within its pages.  This would be the total number of annotations in a layer, or the total number of manifests in a collection.  Conversely, the page resources _MAY_ include the `startIndex` property with index of the first resource in the page, counting from zero relative to the containing paged resource.
+
+The linked page resources _MAY_ have different properties from the paged resource, including different rights and descriptive properties.  Clients _MUST_ take into account any requirements derived from these properties, such as displaying `logo` or `attribution`.
+
+#### 5.9.1. Example Paged Layer
+
+A layer representing a long transcription with almost half a million annotations, perhaps where each annotation paints a single word on the canvas:
+
+``` json-doc
+{
+  "@context": "http://iiif.io/api/presentation/2/context.json",
+  "@id": "http://example.org/iiif/book1/layer/transcription",
+  "@type": "sc:Layer",
+  "label": "Example Long Transcription",
+
+  "total": 496923,
+  "first": "http://example.org/iiif/book1/list/l1"
+}
+```
+
+And the corresponding first annotation list:
+
+``` json-doc
+{
+  "@context": "http://iiif.io/api/presentation/2/context.json",
+  "@id": "http://example.org/iiif/book1/list/l1",
+  "@type": "sc:AnnotationList",
+
+  "startIndex": 0,
+  "within": "http://example.org/iiif/book1/layer/transcription",
+  "next": "http://example.org/iiif/book1/list/l2",
+
+  "resources": [
+    // Annotations live here ...
+  ]
+}
+```
+
+Note that it is still expected that canvases will link directly to the annotation lists.  For example, a particular canvas might refer to the first two annotation lists within a layer:
+
+``` json-doc
+{
+  "@context": "http://iiif.io/api/presentation/2/context.json",
+  "@id": "http://example.org/iiif/book1/canvas/c1",
+  "@type": "sc:Canvas",
+
+  "height": 1000,
+  "width": 1000,
+  "label": "Page 1",
+
+  "otherContent": [
+    "http://example.org/iiif/book1/list/l1",
+    "http://example.org/iiif/book1/list/l2"
+  ]
+}
+```
+
+#### 5.9.2. Example Paged Collection
+
+An example large collection with some 9.3 million objects in it:
+
+``` json-doc
+{
+  "@context": "http://iiif.io/api/presentation/2/context.json",
+  "@id": "http://example.org/iiif/collection/top",
+  "@type": "sc:Collection",
+  "label": "Example Big Collection",
+
+  "total": 9316290,
+  "first": "http://example.org/iiif/collection/c1"
+}
+```
+
+And the corresponding first page of manifests:
+
+``` json-doc
+{
+  "@context": "http://iiif.io/api/presentation/2/context.json",
+  "@id": "http://example.org/iiif/collection/c1",
+  "@type": "sc:Collection",
+
+  "within": "http://example.org/iiif/collection/top",
+  "startIndex": 0,
+  "next": "http://example.org/iiif/collection/c2",
+
+  "manifests": [
+    // Manifests live here ...
+  ]
+}
+```
+
 
 ##  6. Advanced Association Features
 
@@ -838,7 +1134,6 @@ Examples are given below:
       "on": "http://www.example.org/iiif/book1/canvas/p1#xywh=0,0,600,900"      
     }
     ```
-
 
   * Segments of XML files may be extracted with [XPaths][xpath]. The fragment _MUST_ be structured as follows:
         `http://www.example.com/iiif/book1/res/tei.xml#xpointer(/xpath/to/element)`
@@ -1100,385 +1395,65 @@ Hotspot linking is accomplished using an annotation with a `motivation` of "oa:l
 }
 ```
 
-##  7. Additional Resource Types
+## 7. HTTP Requests and Responses
 
-There are cases where additional information is needed to fully represent objects and their components.
+This section describes the _RECOMMENDED_ request and response interactions for the API. The REST and simple HATEOAS approach is followed where an interaction will retrieve a description of the resource, and additional calls may be made by following links obtained from within the description. All of the requests use the HTTP GET method; creation and update of resources is not covered by this specification.
 
-First, additional section information may be available as to which canvases, or parts thereof, should be grouped together in some way. This could be for textual reasons, such as to distinguish books, chapters, verses, sections, non-content-bearing pages, the table of contents or similar. Equally, physical features might be important such as quires or gatherings, sections that have been added later and so forth. These cases are solved with range resources.
+###  7.1. Requests
 
-Secondly, as associated resource lists are divided per canvas, there may be higher level groupings of annotations that need to be recorded. For example, all of the English translation annotations of a medieval French document could be kept separate from the transcription, or an edition into modern French. These cases are solved by assigning an annotation list to be within a layer resource.
+Each of the entries in section 4 recommends a URI pattern to follow for the different resources. Following these patterns is _NOT REQUIRED_ and clients _MUST NOT_ construct the URIs by themselves, instead they _MUST_ follow links from within retrieved descriptions.
 
-Thirdly, the specification otherwise assumes that a manifest is the highest level of description.  In order to allow easy advertising and browsing of the manifests, we introduce a collection resource which can aggregate sub-collections and/or manifests.  If the recommended URI pattern is used, this provides a client system a means to locate all of the manifests provided by a server.
-
-![All Resource Types](img/objects-all.png){: .h400px}
-
-_Figure 3. All Resource Types_
-
-###  7.1. Ranges
-
-Recommended URI pattern:
+The Base URI, to which additional information is appended, that is _RECOMMENDED_ for resources made available by the API is:
 
 ``` none
-{scheme}://{host}/{prefix}/{identifier}/range/{name}
+{scheme}://{host}{/prefix}/{identifier}
 ```
 {: .urltemplate}
 
-It may be important to describe additional structure within an object, such as newspaper articles that span pages, the range of non-content-bearing pages at the beginning of a work, or chapters within a book. These are described using ranges in a similar manner to sequences. Ranges _MUST_ have URIs and they _SHOULD_ be http(s) URIs. The intent of adding a range to the manifest is to allow the client to display a structured hierarchy to enable the user to navigate within the object without merely stepping through the current sequence.  The rationale for separating ranges from sequences is that there is likely to be overlap between different ranges, such as the physical structure of a book compared to the textual structure of the work.  An example would be a newspaper with articles that are continued in different sections, or simply a section that starts half way through a page.
+Where the parameters are:
 
-A range will typically include one or more canvases or, unlike sequences, parts of canvases. The part must be rectangular, and is given using the `xywh=` fragment approach. This allows for selecting, for example, the areas within two newspaper pages where an article is located. As the information about the canvas is already in the sequence, it _MUST_ not be repeated. In order to present a table of the different ranges to allow a user to select one, every range _MUST_ have a label and the top most range in the table _SHOULD_ have a `viewingHint` with the value "top". A range that is the top of a hierarchy does not need to list all of the canvases in the sequence, and _SHOULD_ only give the list of ranges below it.  Ranges _MAY_ also have any of the other properties defined in this specification, including the `startCanvas` relationship to the first canvas within the range to start with, if it is not the first listed in `canvases`.
+| Name | Description |
+| ---- | ----------- |
+| scheme | Indicates the use of the http or https protocol in calling the service. |
+| server | The host server (and optional port) on which the service resides. |
+| prefix | The path on the host server to the service. This prefix is optional, but may be useful when the host server supports multiple services. The prefix _MAY_ contain multiple path segments, delimited by slashes, but all other special characters _MUST_ be encoded. |
+| identifier | The identifier for the object or collection, expressed as a string. This may be an ark, URN, or other identifier. Special characters _MUST_ be URI encoded. |
+{: .api-table}
 
-Ranges _MAY_ include other ranges.  This is done in a `ranges` property within the range.  The values within the ranges list _MUST_ be strings giving the URIs of ranges in the list in the manifest.
+The individual resources _SHOULD_ have URIs below this top-level pattern, formed by appending a "/" and additional information to identify the resource. Recommended patterns for these URIs are given in the sections below for the different resource types, and summarized in [Appendix A][appendixa].
 
-In cases where the ordering of a set of ranges and canvases is significant, the `members` property can be used. Each member of the `members` list _MUST_ be an object, and that object _MUST_ include `@id`, `@type`, and `label`.
+In the situation where the JSON documents are maintained in a filesystem with no access to the web server's configuration, then including ".json" on the end of the URI is suggested to ensure that the correct content-type response header is sent to the client.  While this does not follow the recommended URI patterns below, it is not prevented by the specification either.
 
-__Deprecation Warning__
-The `canvases` and `ranges` properties will be removed in version 3.0 in favor of the single `members` property. Until that time, if a client sees a `members` property, it should use that property even if `canvases` and/or `ranges` are present. However, publishing systems should be aware that Presentation API version 2.0-compliant clients will not produce the expected results if they use `members` and do not provide a fall back with `canvases` and `ranges`.
-{: .warning }
+###  7.2. Responses
 
-``` json-doc
-{
-  "@context": "http://iiif.io/api/presentation/2/context.json",
-  "@id": "http://example.org/iiif/book1/manifest",
-  "@type": "sc:Manifest",
-  // Metadata ...
+The format for all responses is JSON, and the following sections describe the structure to be returned.
 
-  "sequences": [
-      // sequence etc. ...
-  ],
-
-  "structures": [
-    {
-      "@id": "http://example.org/iiif/book1/range/r0",
-      "@type": "sc:Range",
-      "label": "Table of Contents",
-      "viewingHint": "top",
-      "ranges": [
-          "http://example.org/iiif/book1/range/r1",
-          "http://example.org/iiif/book1/range/r2",
-          "http://example.org/iiif/book1/range/r3"
-      ]
-    },
-    {
-        "@id": "http://example.org/iiif/book1/range/r1",
-        "@type": "sc:Range",
-        "label": "Introduction",
-        "ranges": ["http://example.org/iiif/book1/range/r1-1"],
-        "canvases": [
-          "http://example.org/iiif/book1/canvas/p1",
-          "http://example.org/iiif/book1/canvas/p2",
-          "http://example.org/iiif/book1/canvas/p3#xywh=0,0,750,300"
-        ]
-    },
-    {
-        "@id": "http://example.org/iiif/book1/range/r1-1",
-        "@type": "sc:Range",
-        "label": "Objectives and Scope",
-        "canvases": ["http://example.org/iiif/book1/canvas/p2#xywh=0,0,500,500"]
-    }
-    // And any additional ranges here
-  ]
-}
-```
-
-An example range with `members`:
-
-``` json-doc
-{
-  "@context": "http://iiif.io/api/presentation/2/context.json",
-  "@id": "http://example.org/iiif/book1/manifest",
-  "@type": "sc:Manifest",
-  // Metadata ...
-
-  "sequences": [
-      // sequence etc. ...
-  ],
-
-  "structures": [
-    {
-      "@id": "http://example.org/iiif/book1/range/r0",
-      "@type": "sc:Range",
-      "label": "Table of Contents",
-      "viewingHint": "top",
-      "members": [
-        { "@id": "http://example.org/iiif/book1/range/r1", "@type": "sc:Range", "label": "Book 1" },
-        { "@id": "http://example.org/iiif/book1/canvas/p31", "@type": "sc:Canvas", "label": "binder's leaf recto" },
-        { "@id": "http://example.org/iiif/book1/canvas/p32", "@type": "sc:Canvas", "label": "binder's leaf verso" },
-        { "@id": "http://example.org/iiif/book1/range/r2", "@type": "sc:Range", "label": "Book 2" },
-        { "@id": "http://example.org/iiif/book1/canvas/p61", "@type": "sc:Canvas", "label": "binder's leaf recto" },
-        { "@id": "http://example.org/iiif/book1/canvas/p62", "@type": "sc:Canvas", "label": "binder's leaf verso" },
-        { "@id": "http://example.org/iiif/book1/range/r3", "@type": "sc:Range", "label": "Book 3" },
-        //...
-      ]
-    },
-    // And any additional ranges here
-  ]
-}
-```
-
-Ranges _MAY_ link to a layer, described in the next section, that has the content of the range. This allows, for example, the range representing a newspaper article that is split across multiple pages to be linked with the text of the article. Rendering clients might use this to display all of the article text, regardless of which canvas is being viewed. The link is created by adding a `contentLayer` property to the range, with a single value of the layer's URI. The layer will then have one or more annotation lists, each of which contains annotations that target the areas of canvases within the range, and provide the content resources.
-
-Ranges are linked or embedded within the manifest in a `structures` field.  It is a flat list of objects, even if there is only one range.
-
-###  7.2. Layers
-
-Recommended URI pattern:
+The content-type of the response _MUST_ be either `application/json` (regular JSON),
 
 ``` none
-{scheme}://{host}/{prefix}/{identifier}/layer/{name}
+Content-Type: application/json
 ```
 {: .urltemplate}
 
-Layers represent groupings of annotation lists that should be collected together, regardless of which canvas they target, such as all of the annotations that make up a particular translation of the text of a book.  Without the layer construction, it would be impossible to determine which annotations belonged together across canvases. A client might then present a user interface that allows all of the annotations in a layer to be displayed or hidden according to the user's preference.
-
-Layers _MUST_ have a URI, and it _SHOULD_ be an HTTP URI.  They _MUST_ have a `label` and _MAY_ have any of the other descriptive, linking or rights properties.
-
-Each annotation list _MAY_ be part of one or more layers. If the annotation list is part of a layer, then this _MUST_ be recorded using the `within` relationship in the annotation list response.  It _MAY_ also be included in the reference to the annotation list in the manifest response.  In the manifest response, the description of the layer _MAY_ be omitted after the first use, and just the URI given as a string.  Clients should refer to the first description given, based on the URI.
-
-``` json-doc
-{
-  "@context": "http://iiif.io/api/presentation/2/context.json",
-  "@id": "http://example.org/iiif/book1/list/l1",
-  "@type": "sc:AnnotationList",
-  "within": {
-    "@id": "http://example.org/iiif/book1/layer/transcription",
-    "@type": "sc:Layer",
-    "label": "Diplomatic Transcription"
-  }
-}
-```
-
-The layer _MAY_ be able to be dereferenced if it has an HTTP URI.  If a representation is available, it _MUST_ follow all of the requirements for JSON representations in this specification.  All of the properties of the Layer _SHOULD_ be included in the representation.  
-
-The annotation lists are referenced from the layer in an `otherContent` array, in the same way as they are referenced from a canvas.  The annotation lists _SHOULD_ be given as just URIs, but _MAY_ be objects with more information about them, such as in the [Canvas][canvas] example.
-
-``` json-doc
-{
-  "@context": "http://iiif.io/api/presentation/2/context.json",
-  "@id": "http://example.org/iiif/book1/layer/transcription",
-  "@type": "sc:Layer",
-  "label": "Diplomatic Transcription",
-  // Other properties here ...
-
-  "otherContent": [
-    "http://example.org/iiif/book1/list/l1",
-    "http://example.org/iiif/book1/list/l2",
-    "http://example.org/iiif/book1/list/l3",
-    "http://example.org/iiif/book1/list/l4"
-    // More AnnotationLists here ...
-  ]
-}
-```
-
-
-###  7.3. Collections
-
-Recommended URI pattern:
+or "application/ld+json" (JSON-LD).
 
 ``` none
-{scheme}://{host}/{prefix}/collection/{name}
+Content-Type: application/ld+json
 ```
 {: .urltemplate}
 
-Collections are used to list the manifests available for viewing, and to describe the structures, hierarchies or collections that the physical objects are part of.  The collections _MAY_ include both other collections and manifests, in order to form a hierarchy of objects with manifests at the leaf nodes of the tree.  Collection objects _MAY_ be embedded inline within other collection objects, such as when the collection is used primarily to subdivide a larger one into more manageable pieces, however manifests _MUST NOT_ be embedded within collections. Embedded collections _SHOULD_ have their own URI from which the description is also made available.
+If the client explicitly wants the JSON-LD content-type, then it _MUST_ specify this in an Accept header, otherwise the server _MUST_ return the regular JSON content-type.
 
-The URI pattern follows the same structure as the other resource types, however note that it prevents the existence of a manifest or object with the identifier "collection". It is also _RECOMMENDED_ that the topmost collection from which all other collections are discoverable by following links within the hierarchy be named `top`, if there is one.
+The HTTP server _SHOULD_, if at all possible, send the Cross Origin Access Control header (often called "CORS") to allow clients to download the manifests via AJAX from remote sites. The header name is `Access-Control-Allow-Origin` and the value of the header _SHOULD_ be `*`.
 
-Manifests or collections _MAY_ appear within more than one collection. For example, an institution might define four collections: one for modern works, one for historical works, one for newspapers and one for books.  The manifest for a modern newspaper would then appear in both the modern collection and the newspaper collection.  Alternatively, the institution may choose to have two separate newspaper collections, and reference each as a sub-collection of modern and historical.
-
-The intended usage of collections is to allow clients to:
-
-  * Load a pre-defined set of manifests at initialization time.
-  * Receive a set of manifests, such as search results, for rendering.
-  * Visualize lists or hierarchies of related manifests.
-  * Provide navigation through a list or hierarchy of available manifests.
-
-As such, collections _MUST_ have a label, and _SHOULD_ have `metadata` and `description` properties to be displayed by the client such that the user can understand the structure they are interacting with.  If a collection does not have these properties, then a client is not required to render the collection to the user directly.
-
-Collections have three list-based properties:
-
-##### collections
-References to sub-collections of the current collection.  Each referenced collection _MUST_ have the appropriate @id, @type and label, and _MAY_ be embedded in its entirety.
-
-##### manifests
-References to manifests contained within the current collection. Each referenced manifest _MUST_ have the appropriate @id, @type and label.
-
-members
-: In cases where the order of a collection is significant, `members` can be used to interfile collections and manifests. This is especially useful when a collection of books contains single- and multi-volume works (i.e. collections with the "multi-part" viewingHint), and when modeling archival material where original order is significant. Each member of the `members` list _MUST_ be an object and _MUST_ include `@id`, `@type`, `label`. If the URI in `@id` resolves to a collection, then `viewingHint` _MUST_ also be present.
-
-At least one of `collections`, `manifests`, or `members` _SHOULD_ be present in the response.  An empty collection, with neither `collections`, `manifests`, or `members`, is allowed but discouraged.
-
-
-__Deprecation Warning__
-The `collections` and `manifests` properties will be removed in version 3.0 in favor of the single `members` property. Until that time, if a client sees a `members` property, it should use that property even if `collections` and/or `manifests` are present. However, publishing systems should be aware that Presentation API version 2.0-compliant clients will not produce the expected results if they use `members` and do not provide a fall back with `collections` and `manifests`.
-{: .warning }
-
-An example collection document:
-
-``` json-doc
-{
-  "@context": "http://iiif.io/api/presentation/2/context.json",
-  "@id": "http://example.org/iiif/collection/top",
-  "@type": "sc:Collection",
-  "label": "Top Level Collection for Example Organization",
-  "description": "Description of Collection",
-  "attribution": "Provided by Example Organization",
-
-  "collections": [
-    {
-      "@id": "http://example.org/iiif/collection/part1",
-      "@type": "sc:Collection",
-      "label": "Sub Collection 1"
-    },
-    {
-      "@id": "http://example.org/iiif/collection/part2",
-      "@type": "sc:Collection",
-      "label": "Sub Collection 2"
-    }
-  ],
-  "manifests": [
-    {
-      "@id": "http://example.org/iiif/book1/manifest",
-      "@type": "sc:Manifest",
-      "label": "Book 1"
-    }
-  ]
-}
+``` none
+Access-Control-Allow-Origin: *
 ```
+{: .urltemplate}
 
-An example collection document with `members`:
+Responses _SHOULD_ be compressed by the server as there are significant performance gains to be made for very repetitive data structures.
 
-``` json-doc
-{
-  "@context": "http://iiif.io/api/presentation/2/context.json",
-  "@id": "http://example.org/iiif/collection/top",
-  "@type": "sc:Collection",
-  "label": "Top Level Collection for Example Organization",
-  "description": "Description of Collection",
-  "attribution": "Provided by Example Organization",
-
-  "members": [
-    {
-      "@id": "http://example.org/iiif/collection/part1",
-      "@type": "sc:Collection",
-      "label": "My Multi-volume Set",
-      "viewingHint": "multi-part"
-    },
-    {
-      "@id": "http://example.org/iiif/book1/manifest1",
-      "@type": "sc:Manifest",
-      "label": "My Book"
-    },
-    {
-      "@id": "http://example.org/iiif/collection/part2",
-      "@type": "sc:Collection",
-      "label": "My Sub Collection",
-      "viewingHint": "individuals"
-    },
-
-  ]
-}
-```
-
-
-
-### 7.4. Paging
-
-In some situations, annotation lists or the list of manifests in a collection may be very long or expensive to create. The latter case is especially likely to occur when responses are generated dynamically. In these situations the server may break up the response using [paging properties][paging]. The length of a response is left to the server's discretion, but the server should take care not to produce overly long responses that would be difficult for clients to process.
-
-When breaking a response into pages, the paged resource _MUST_ link to the `first` page resource, and _MUST NOT_ include the corresponding list property (`collections` for a collection, `otherContent` for a layer). For example, a paged layer would link only to an annotation list as its first page.  If known, the resource _MAY_ also link to the last page.
-
-The linked page resource _SHOULD_ refer back to the containing paged resource using `within`. If there is a page resource that follows it (the next page), then it _MUST_ include a `next` link to it.  If there is a preceding page resource, then it _SHOULD_ include a `prev` link to it.
-
-The paged resource _MAY_ use the `total` property to list the total number of leaf resources that are contained within its pages.  This would be the total number of annotations in a layer, or the total number of manifests in a collection.  Conversely, the page resources _MAY_ include the `startIndex` property with index of the first resource in the page, counting from zero relative to the containing paged resource.
-
-The linked page resources _MAY_ have different properties from the paged resource, including different rights and descriptive properties.  Clients _MUST_ take into account any requirements derived from these properties, such as displaying `logo` or `attribution`.
-
-#### 7.4.1. Example Paged Layer
-
-A layer representing a long transcription with almost half a million annotations, perhaps where each annotation paints a single word on the canvas:
-
-``` json-doc
-{
-  "@context": "http://iiif.io/api/presentation/2/context.json",
-  "@id": "http://example.org/iiif/book1/layer/transcription",
-  "@type": "sc:Layer",
-  "label": "Example Long Transcription",
-
-  "total": 496923,
-  "first": "http://example.org/iiif/book1/list/l1"
-}
-```
-
-And the corresponding first annotation list:
-
-``` json-doc
-{
-  "@context": "http://iiif.io/api/presentation/2/context.json",
-  "@id": "http://example.org/iiif/book1/list/l1",
-  "@type": "sc:AnnotationList",
-
-  "startIndex": 0,
-  "within": "http://example.org/iiif/book1/layer/transcription",
-  "next": "http://example.org/iiif/book1/list/l2",
-
-  "resources": [
-    // Annotations live here ...
-  ]
-}
-```
-
-Note that it is still expected that canvases will link directly to the annotation lists.  For example, a particular canvas might refer to the first two annotation lists within a layer:
-
-``` json-doc
-{
-  "@context": "http://iiif.io/api/presentation/2/context.json",
-  "@id": "http://example.org/iiif/book1/canvas/c1",
-  "@type": "sc:Canvas",
-
-  "height": 1000,
-  "width": 1000,
-  "label": "Page 1",
-
-  "otherContent": [
-    "http://example.org/iiif/book1/list/l1",
-    "http://example.org/iiif/book1/list/l2"
-  ]
-}
-```
-
-#### 7.4.2. Example Paged Collection
-
-An example large collection with some 9.3 million objects in it:
-
-``` json-doc
-{
-  "@context": "http://iiif.io/api/presentation/2/context.json",
-  "@id": "http://example.org/iiif/collection/top",
-  "@type": "sc:Collection",
-  "label": "Example Big Collection",
-
-  "total": 9316290,
-  "first": "http://example.org/iiif/collection/c1"
-}
-```
-
-And the corresponding first page of manifests:
-
-``` json-doc
-{
-  "@context": "http://iiif.io/api/presentation/2/context.json",
-  "@id": "http://example.org/iiif/collection/c1",
-  "@type": "sc:Collection",
-
-  "within": "http://example.org/iiif/collection/top",
-  "startIndex": 0,
-  "next": "http://example.org/iiif/collection/c2",
-
-  "manifests": [
-    // Manifests live here ...
-  ]
-}
-```
+Recipes for enabling CORS and the conditional Content-type header are provided in the [Apache HTTP Server Implementation Notes][apache-notes].
 
 
 ## 8. Authentication
@@ -1486,9 +1461,116 @@ And the corresponding first page of manifests:
 It may be necessary to restrict access to the descriptions made available via the Presentation API.  As the primary means of interaction with the descriptions is by web browsers using XmlHttpRequests across domains, there are some considerations regarding the most appropriate methods for authenticating users and authorizing their access.  The approach taken is described in the [Authentication][auth] specification, and requires requesting a token to add to the requests to identify the user.  This token might also be used for other requests defined by other APIs.
 
 
-## 9. Complete Example Response
 
-Note that 7.3 above contains a complete response for a Collection document.
+## Appendices
+
+###  A. Summary of Recommended URI Patterns
+
+| Resource       | URI Pattern                                                 |
+| -------------- | ----------------------------------------------------------- |
+| Collection     | {scheme}://{host}/{prefix}/collection/{name}                |
+| Manifest       | {scheme}://{host}/{prefix}/{identifier}/manifest            |
+| Sequence       | {scheme}://{host}/{prefix}/{identifier}/sequence/{name}     |
+| Canvas         | {scheme}://{host}/{prefix}/{identifier}/canvas/{name}       |
+| Annotation     | {scheme}://{host}/{prefix}/{identifier}/annotation/{name}   |
+| AnnotationList | {scheme}://{host}/{prefix}/{identifier}/list/{name}         |
+| Range          | {scheme}://{host}/{prefix}/{identifier}/range/{name}        |
+| Layer          | {scheme}://{host}/{prefix}/{identifier}/layer/{name}        |
+| Content        | {scheme}://{host}/{prefix}/{identifier}/res/{name}.{format} |
+{: .api-table}
+
+### B. Summary of Metadata Requirements
+
+| Field                      | Meaning     |
+| -------------------------- | ----------- |
+| ![required][icon-req]      | Required    |
+| ![recommended][icon-recc]  | Recommended |
+| ![optional][icon-opt]      | Optional    |
+| ![not allowed][icon-na]    | Not Allowed |
+{: .api-table}
+
+__Descriptive and Rights Properties__
+
+|                | label                  | metadata                     | description                 | thumbnail                   | attribution            | license                 | logo                     |
+| -------------- | ---------------------- | ---------------------------- | --------------------------- | ----------------------------| ---------------------- | ----------------------- | ------------------------ |
+| Collection     | ![required][icon-req]  | ![recommended][icon-recc]    | ![recommended][icon-recc]   | ![recommended][icon-recc]   | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
+| Manifest       | ![required][icon-req]  | ![recommended][icon-recc]    | ![recommended][icon-recc]   | ![recommended][icon-recc]   | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
+| Sequence       | ![optional][icon-opt]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
+| Canvas         | ![required][icon-req]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![recommended][icon-recc]   | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
+| Annotation     | ![optional][icon-opt]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
+| AnnotationList | ![optional][icon-opt]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
+| Range          | ![required][icon-req]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
+| Layer          | ![required][icon-req]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
+| Image Content  | ![optional][icon-opt]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
+| Other Content  | ![optional][icon-opt]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
+{: .api-table}
+
+__Technical Properties__
+
+|                | @id                       | @type                 | format                  | height                    | width                     | viewingDirection        | viewingHint            | navDate                  |
+| -------------- | ------------------------- | --------------------- | ----------------------- | ------------------------- | ------------------------- | ----------------------- | ---------------------- | ------------------------ |
+| Collection     | ![required][icon-req]     | ![required][icon-req] | ![not allowed][icon-na] | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![not allowed][icon-na] | ![optional][icon-opt]  | ![optional][icon-opt]    |
+| Manifest       | ![required][icon-req]     | ![required][icon-req] | ![not allowed][icon-na] | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![optional][icon-opt]   | ![optional][icon-opt]  | ![optional][icon-opt]    |
+| Sequence       | ![optional][icon-opt]     | ![required][icon-req] | ![not allowed][icon-na] | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![optional][icon-opt]   | ![optional][icon-opt]  | ![not allowed][icon-na]  |
+| Canvas         | ![required][icon-req]     | ![required][icon-req] | ![not allowed][icon-na] | ![required][icon-req]     | ![required][icon-req]     | ![not allowed][icon-na] | ![optional][icon-opt]  | ![not allowed][icon-na]  |
+| Annotation     | ![recommended][icon-recc] | ![required][icon-req] | ![not allowed][icon-na] | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![not allowed][icon-na] | ![optional][icon-opt]  | ![not allowed][icon-na]  |
+| AnnotationList | ![required][icon-req]     | ![required][icon-req] | ![not allowed][icon-na] | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![not allowed][icon-na] | ![optional][icon-opt]  | ![not allowed][icon-na]  |
+| Range          | ![required][icon-req]     | ![required][icon-req] | ![not allowed][icon-na] | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![optional][icon-opt]   | ![optional][icon-opt]  | ![not allowed][icon-na]  |
+| Layer          | ![required][icon-req]     | ![required][icon-req] | ![not allowed][icon-na] | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![optional][icon-opt]   | ![optional][icon-opt]  | ![not allowed][icon-na]  |
+| Image Content  | ![required][icon-req]     | ![required][icon-req] | ![optional][icon-opt]   | ![recommended][icon-opt]  | ![recommended][icon-opt]  | ![not allowed][icon-na] | ![optional][icon-opt]  | ![not allowed][icon-na]  |
+| Other Content  | ![required][icon-req]     | ![required][icon-req] | ![optional][icon-opt]   | ![optional][icon-opt]     | ![optional][icon-opt]     | ![not allowed][icon-na] | ![optional][icon-opt]  | ![not allowed][icon-na]  |
+{: .api-table}
+
+__Linking Properties__
+
+|                | seeAlso                | service                | related                | rendering              | within                 | startCanvas             |
+| -------------- | ---------------------- | ---------------------- | ---------------------- | ---------------------- | ---------------------- | ----------------------- |
+| Collection     | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![not allowed][icon-na] |
+| Manifest       | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![not allowed][icon-na] |
+| Sequence       | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]   |
+| Canvas         | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![not allowed][icon-na] |
+| Annotation     | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![not allowed][icon-na] |
+| AnnotationList | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![not allowed][icon-na] |
+| Range          | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]   |
+| Layer          | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![not allowed][icon-na] |
+| Image Content  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![not allowed][icon-na] |
+| Other Content  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![not allowed][icon-na] |
+{: .api-table}
+
+__Paging Properties__
+
+|                | first                | last                | total                | next              | prev                 | startIndex             |
+| -------------- | ---------------------- | ---------------------- | ---------------------- | ---------------------- | ---------------------- | ----------------------- |
+| Collection     | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt] |
+| Manifest       | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na] |
+| Sequence       | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na]   |
+| Canvas         | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na] |
+| Annotation     | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na] |
+| AnnotationList | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt] |
+| Range          | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na]   |
+| Layer          | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na] |
+| Image Content  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na] |
+| Other Content  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na] |
+{: .api-table}
+
+__Protocol Behavior__
+
+|                | @id is dereferenceable |         
+| -------------- | ---------------------- |
+| Collection     | ![required][icon-req]  |
+| Manifest       | ![required][icon-req]  |
+| Sequence (first)   | ![optional][icon-opt]  |
+| Sequence (second+) | ![required][icon-req]  |
+| Canvas         | ![optional][icon-opt]  |
+| Annotation     | ![optional][icon-opt]  |
+| AnnotationList | ![required][icon-req]  |
+| Range          | ![optional][icon-opt]  |
+| Layer          | ![optional][icon-opt]  |
+| Image Content  | ![required][icon-req]  |
+| Other Content  | ![required][icon-req]  |
+{: .api-table}
+
+### C. Example Manifest Response
 
 URL: _http://example.org/iiif/book1/manifest_
 
@@ -1662,133 +1744,26 @@ URL: _http://example.org/iiif/book1/manifest_
 }
 ```
 
-## Appendices
 
-###  A. Summary of Recommended URI Patterns
-
-| Resource       | URI Pattern                                                 |
-| -------------- | ----------------------------------------------------------- |
-| Collection     | {scheme}://{host}/{prefix}/collection/{name}                |
-| Manifest       | {scheme}://{host}/{prefix}/{identifier}/manifest            |
-| Sequence       | {scheme}://{host}/{prefix}/{identifier}/sequence/{name}     |
-| Canvas         | {scheme}://{host}/{prefix}/{identifier}/canvas/{name}       |
-| Annotation     | {scheme}://{host}/{prefix}/{identifier}/annotation/{name}   |
-| AnnotationList | {scheme}://{host}/{prefix}/{identifier}/list/{name}         |
-| Range          | {scheme}://{host}/{prefix}/{identifier}/range/{name}        |
-| Layer          | {scheme}://{host}/{prefix}/{identifier}/layer/{name}        |
-| Content        | {scheme}://{host}/{prefix}/{identifier}/res/{name}.{format} |
-{: .api-table}
-
-### B. Summary of Metadata Requirements
-
-| Field                      | Meaning     |
-| -------------------------- | ----------- |
-| ![required][icon-req]      | Required    |
-| ![recommended][icon-recc]  | Recommended |
-| ![optional][icon-opt]      | Optional    |
-| ![not allowed][icon-na]    | Not Allowed |
-{: .api-table}
-
-__Descriptive and Rights Properties__
-
-|                | label                  | metadata                     | description                 | thumbnail                   | attribution            | license                 | logo                     |
-| -------------- | ---------------------- | ---------------------------- | --------------------------- | ----------------------------| ---------------------- | ----------------------- | ------------------------ |
-| Collection     | ![required][icon-req]  | ![recommended][icon-recc]    | ![recommended][icon-recc]   | ![recommended][icon-recc]   | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
-| Manifest       | ![required][icon-req]  | ![recommended][icon-recc]    | ![recommended][icon-recc]   | ![recommended][icon-recc]   | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
-| Sequence       | ![optional][icon-opt]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
-| Canvas         | ![required][icon-req]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![recommended][icon-recc]   | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
-| Annotation     | ![optional][icon-opt]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
-| AnnotationList | ![optional][icon-opt]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
-| Range          | ![required][icon-req]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
-| Layer          | ![required][icon-req]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
-| Image Content  | ![optional][icon-opt]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
-| Other Content  | ![optional][icon-opt]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
-{: .api-table}
-
-__Technical Properties__
-
-|                | @id                       | @type                 | format                  | height                    | width                     | viewingDirection        | viewingHint            | navDate                  |
-| -------------- | ------------------------- | --------------------- | ----------------------- | ------------------------- | ------------------------- | ----------------------- | ---------------------- | ------------------------ |
-| Collection     | ![required][icon-req]     | ![required][icon-req] | ![not allowed][icon-na] | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![not allowed][icon-na] | ![optional][icon-opt]  | ![optional][icon-opt]    |
-| Manifest       | ![required][icon-req]     | ![required][icon-req] | ![not allowed][icon-na] | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![optional][icon-opt]   | ![optional][icon-opt]  | ![optional][icon-opt]    |
-| Sequence       | ![optional][icon-opt]     | ![required][icon-req] | ![not allowed][icon-na] | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![optional][icon-opt]   | ![optional][icon-opt]  | ![not allowed][icon-na]  |
-| Canvas         | ![required][icon-req]     | ![required][icon-req] | ![not allowed][icon-na] | ![required][icon-req]     | ![required][icon-req]     | ![not allowed][icon-na] | ![optional][icon-opt]  | ![not allowed][icon-na]  |
-| Annotation     | ![recommended][icon-recc] | ![required][icon-req] | ![not allowed][icon-na] | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![not allowed][icon-na] | ![optional][icon-opt]  | ![not allowed][icon-na]  |
-| AnnotationList | ![required][icon-req]     | ![required][icon-req] | ![not allowed][icon-na] | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![not allowed][icon-na] | ![optional][icon-opt]  | ![not allowed][icon-na]  |
-| Range          | ![required][icon-req]     | ![required][icon-req] | ![not allowed][icon-na] | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![optional][icon-opt]   | ![optional][icon-opt]  | ![not allowed][icon-na]  |
-| Layer          | ![required][icon-req]     | ![required][icon-req] | ![not allowed][icon-na] | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![optional][icon-opt]   | ![optional][icon-opt]  | ![not allowed][icon-na]  |
-| Image Content  | ![required][icon-req]     | ![required][icon-req] | ![optional][icon-opt]   | ![recommended][icon-opt]  | ![recommended][icon-opt]  | ![not allowed][icon-na] | ![optional][icon-opt]  | ![not allowed][icon-na]  |
-| Other Content  | ![required][icon-req]     | ![required][icon-req] | ![optional][icon-opt]   | ![optional][icon-opt]     | ![optional][icon-opt]     | ![not allowed][icon-na] | ![optional][icon-opt]  | ![not allowed][icon-na]  |
-{: .api-table}
-
-__Linking Properties__
-
-|                | seeAlso                | service                | related                | rendering              | within                 | startCanvas             |
-| -------------- | ---------------------- | ---------------------- | ---------------------- | ---------------------- | ---------------------- | ----------------------- |
-| Collection     | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![not allowed][icon-na] |
-| Manifest       | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![not allowed][icon-na] |
-| Sequence       | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]   |
-| Canvas         | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![not allowed][icon-na] |
-| Annotation     | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![not allowed][icon-na] |
-| AnnotationList | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![not allowed][icon-na] |
-| Range          | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]   |
-| Layer          | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![not allowed][icon-na] |
-| Image Content  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![not allowed][icon-na] |
-| Other Content  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![not allowed][icon-na] |
-{: .api-table}
-
-__Paging Properties__
-
-|                | first                | last                | total                | next              | prev                 | startIndex             |
-| -------------- | ---------------------- | ---------------------- | ---------------------- | ---------------------- | ---------------------- | ----------------------- |
-| Collection     | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt] |
-| Manifest       | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na] |
-| Sequence       | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na]   |
-| Canvas         | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na] |
-| Annotation     | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na] |
-| AnnotationList | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt] |
-| Range          | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na]   |
-| Layer          | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na] |
-| Image Content  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na] |
-| Other Content  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na] |
-{: .api-table}
-
-__Protocol Behavior__
-
-|                | @id is dereferenceable |         
-| -------------- | ---------------------- |
-| Collection     | ![required][icon-req]  |
-| Manifest       | ![required][icon-req]  |
-| Sequence (first)   | ![optional][icon-opt]  |
-| Sequence (second+) | ![required][icon-req]  |
-| Canvas         | ![optional][icon-opt]  |
-| Annotation     | ![optional][icon-opt]  |
-| AnnotationList | ![required][icon-req]  |
-| Range          | ![optional][icon-opt]  |
-| Layer          | ![optional][icon-opt]  |
-| Image Content  | ![required][icon-req]  |
-| Other Content  | ![required][icon-req]  |
-{: .api-table}
-
-### C. Implementation Notes
+### D. Implementation Notes
 
 Clients _SHOULD_ be aware that some implementations will add an `@graph` property at the top level, which contains the object. This is a side effect of JSON-LD serialization, and servers _SHOULD_ remove it before sending to the client. If this is seen in practice, the client can use the [JSON-LD compaction algorithm][json-ld-compact] and JSON-LD Framing with the [supplied frames][annex-frames] to remove it and generate the correct representation.
 
-### D. Versioning
+### E. Versioning
 
 Starting with version 2.0, this specification follows [Semantic Versioning][semver]. See the note [Versioning of APIs][versioning] for details regarding how this is implemented.
 
-### E. Acknowledgements
+### F. Acknowledgements
 
 The production of this document was generously supported by a grant from the [Andrew W. Mellon Foundation][mellon].
 
 Many thanks to Matthieu Bonicel, Tom Cramer, Ian Davis, Markus Enders, Renhart Gittens, Tim Gollins, Antoine Isaac, Neil Jefferies, Sean Martin, Roger Mathisen, Mark Patton, Petter Rønningsen, Raphael Schwemmer and Stuart Snydman for their thoughtful contributions. Thanks also to the members of the [IIIF][iiif-community] for their continuous engagement, innovative ideas and feedback.
 
-### F. Change Log
+### G. Change Log
 
 | Date       | Description                                        |
 | ---------- | -------------------------------------------------- |
-| 2015-10-23 | Version 2.1.0-draft3 (Trip Life) [View change log][change-log] |
+| 2016-02-26 | Version 2.1.0-draft5 (Trip Life) [View change log][change-log] |
 | 2014-09-11 | Version 2.0 (Triumphant Giraffe) [View change log][change-log-20] |
 | 2013-08-26 | Version 1.0 (unnamed) released                     |
 | 2013-06-14 | Version 0.9 (unnamed) released                     |
@@ -1830,7 +1805,7 @@ Many thanks to Matthieu Bonicel, Tom Cramer, Ian Davis, Markus Enders, Renhart G
 [stable-version]: /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/
 [canvas]: #canvas
 [image-resources]: #image-resources
-[other-content-resources]: #other-content-resources
+[annotation-lists]: #annotation-list
 [auth]: /api/auth/
 [ld-exts]: #linked-data-context-and-extensions
 [paging]: #paging-properties
