@@ -646,11 +646,11 @@ The following shows a simple use of each of these properties:
   "@context" : "http://iiif.io/api/image/{{ page.major }}/context.json",
   "@id" : "http://www.example.org/image-service/abcd1234/1E34750D-38DB-4825-A38A-B60A345E591C",
   "protocol" : "http://iiif.io/api/image",
-  //...
+  // ...
   "attribution" : "Provided by Example Organization",
   "logo" : "http://example.org/images/logo.png",
-  "license" : "http://example.org/rights/license1.html",
-  //...
+  "license" : "http://example.org/rights/license1.html"
+  // ...
 }
 ```
 
@@ -672,7 +672,7 @@ The following shows a use of `service` to associate the login page of an authent
   "@context" : "http://iiif.io/api/image/{{ page.major }}/context.json",
   "@id" : "http://www.example.org/image-service/abcd1234/1E34750D-38DB-4825-A38A-B60A345E591C",
   "protocol" : "http://iiif.io/api/image",
-  //...
+  // ...
   "service": {
     "@context" : "http://iiif.io/api/auth/{{ site.auth_api.latest.major }}/context.json",
     "@id" : "http://www.example.org/auth/login.html",
