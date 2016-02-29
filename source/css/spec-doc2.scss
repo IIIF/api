@@ -103,14 +103,10 @@
 
     h5+p {
       margin-top: 2px;
-      margin-left: 2em;
     }
 
-    // yuck!
-    h5+p+p, h5+p+p+ul, h5+p+ul, h5+p+ul+p {
-      margin-left: 2em;
-      margin-top: 0;
-      padding-top: 0;
+    .clearRight {
+      clear:right;
     }
 
     .names {

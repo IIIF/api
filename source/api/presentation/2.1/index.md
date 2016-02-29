@@ -116,7 +116,7 @@ Content resources such as images or texts that are associated with a canvas.
 ### 2.2. Additional Types
 
 ![All Resource Types](img/objects-all.png)
-{: .floatRight}
+{: .floatRight .clearRight}
 
 ##### Collection
 {: #overview-collection}
@@ -144,7 +144,7 @@ An ordered list of annotation lists.  Layers allow higher level groupings of ann
 An ordered list of canvases, and/or further ranges.  Ranges allow canvases, or parts thereof, to be grouped together in some way. This could be for textual reasons, such as to distinguish books, chapters, verses, sections, non-content-bearing pages, the table of contents or similar. Equally, physical features might be important such as quires or gatherings, sections that have been added later and so forth.
 
 
- 
+
 ##  3. Resource Properties
 
 This specification defines properties in five distinct areas. Most of the properties may be associated with any of the resource types, and may have more than one value.  The property relates to the resource that it is associated with, so a `description` property on a manifest is a description of the object, whereas a `description` property on a canvas is a description of that particular page or view of the object.
@@ -160,9 +160,9 @@ A human readable label, name or title for the resource. This property is intende
 
  * A collection _MUST_ have at least one label.
  * A manifest _MUST_ have at least one label, such as the name of the object or title of the intellectual work that it embodies.
- * A sequence  _MAY_ have one or more labels, and if there are multiple sequences in a single manifest then they _MUST_ each have at least one label. 
+ * A sequence  _MAY_ have one or more labels, and if there are multiple sequences in a single manifest then they _MUST_ each have at least one label.
  * A canvas _MUST_ have at least one label, such as the page number or short description of the view.
- * A content resource _MAY_ have one or more labels, and if there is a choice of content resource for the same canvas, then they _SHOULD_ each have at least one label. 
+ * A content resource _MAY_ have one or more labels, and if there is a choice of content resource for the same canvas, then they _SHOULD_ each have at least one label.
  * A range _MUST_ have at least one label.
  * A layer _MUST_ have at least one label.
  * Other resource types _MAY_ have labels.
@@ -172,7 +172,7 @@ A list of short descriptive entries, given as pairs of human readable label and 
 
  * A collection _SHOULD_ have one or more metadata pairs associated with it.
  * A manifest _SHOULD_ have one or more metadata pairs associated with it describing the object or work.
- * Other resource types _MAY_ have one or more metadata pairs. 
+ * Other resource types _MAY_ have one or more metadata pairs.
 
 
 ##### description
@@ -188,7 +188,7 @@ A small image that depicts or pictorially represents the resource that the prope
 
  * A collection _SHOULD_ have exactly one thumbnail image, and _MAY_ have more than one.
  * A manifest _SHOULD_ have exactly one thumbnail image, and _MAY_ have more than one.
- * A sequence _MAY_ have one or more thumbnails and _SHOULD_ have at least one thumbnail if there are multiple sequences in a single manifest. 
+ * A sequence _MAY_ have one or more thumbnails and _SHOULD_ have at least one thumbnail if there are multiple sequences in a single manifest.
  * A canvas _MAY_ have one or more thumbnails and _SHOULD_ have at least one thumbnail if there are multiple images or resources that make up the representation.
  * A content resource _MAY_ have one or more thumbnails and _SHOULD_ have at least one thumbnail if it is an option in a choice of resources.
  * Other resources types _MAY_ have one or more thumbnails.
@@ -219,11 +219,11 @@ The URI that identifies the resource. It is _RECOMMENDED_ that an HTTP URI be us
 
  * A collection _MUST_ have exactly one id, and it _MUST_ be the http(s) URI at which it is published.
  * A manifest _MUST_ have exactly one id, and it _MUST_ be the http(s) URI at which it is published.
- * A sequence _MAY_ have an id and _MUST NOT_ have more than one. 
+ * A sequence _MAY_ have an id and _MUST NOT_ have more than one.
  * A canvas _MUST_ have exactly one id, and it _MUST_ be an http(s) URI.  The canvas's JSON representation _SHOULD_ be published at that URI.
  * A content resource _MUST_ have exactly one id unless it is embedded in the response, and it _MUST_ be the http(s) URI at which the resource is published.
  * A range _MUST_ have exactly one id, and it _MUST_ be an http(s) URI.
- * A layer _MUST_ have exactly one id, and it _MUST_ be an http(s) URI. 
+ * A layer _MUST_ have exactly one id, and it _MUST_ be an http(s) URI.
  * An annotation list _MUST_ have exactly one id, and it _MUST_ be the http(s) URI at which it is published.
  * An annotation _SHOULD_ have exactly one id, _MUST NOT_ have more than one, and the annotation's representation _SHOULD_ be published at that URI.
 
@@ -788,7 +788,7 @@ References to canvases, or rectangular parts of a canvas, within the current ran
 ##### members
 A combined list of both ranges and canvases.  If the range contains both other ranges and canvases, and the ordering of the different types of resource is significant, the range _SHOULD_ instead use the `members` property.  The property's value is an array of canvases, parts of canvases or other ranges.  Each item in the array _MUST_ be an object, and it _MUST_ have the `@id`, `@type`, and `label` properties.
 
-A range will typically include one or more canvases or, unlike sequences, parts of canvases. The part must be rectangular, and is given using the `xywh=` fragment approach. This allows for selecting, for example, the areas within two newspaper pages where an article is located. 
+A range will typically include one or more canvases or, unlike sequences, parts of canvases. The part must be rectangular, and is given using the `xywh=` fragment approach. This allows for selecting, for example, the areas within two newspaper pages where an article is located.
 
 In order to present a table of the different ranges to allow a user to select one, every range _MUST_ have a label and the top most range in the table _SHOULD_ have a `viewingHint` with the value "top". A range that is the top of a hierarchy does not need to list all of the canvases in the sequence, and _SHOULD_ only give the list of ranges below it.  Ranges _MAY_ also have any of the other properties defined in this specification, including the `startCanvas` relationship to the first canvas within the range to start with, if it is not the first listed in `canvases` or `members`.
 
