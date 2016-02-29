@@ -570,7 +570,7 @@ Recommended URI pattern:
 
 The sequence conveys the ordering of the views of the object. The default sequence (and typically the only sequence) _MUST_ be embedded within the manifest, and _MAY_ also be available from its own URI.  The default sequence _MAY_ have a URI to identify it. Any additional sequences _MUST_ be referred to from the manifest, not embedded within it, and thus these additional sequences _MUST_ have an HTTP URI.
 
-The new {name} parameter in the URI structure _MUST_ distinguish it from any other sequences that may be available for the physical object. Typical default names for sequences are "normal" or "basic". Names _SHOULD_ begin with an alphabetical character.
+The {name} parameter in the URI structure _MUST_ distinguish it from any other sequences that may be available for the physical object. Typical default names for sequences are "normal" or "basic".
 
 Sequences _MAY_ have their own descriptive, rights and linking metadata using the same fields as for manifests. The `label` property _MAY_ be given for sequences and _MUST_ be given if there is more than one referenced from a manifest. After the metadata, the set of pages in the object, represented by canvas resources, are listed in order in the `canvases` property.  There _MUST_ be at least one canvas given.
 
@@ -623,7 +623,7 @@ Recommended URI pattern:
 ```
 {: .urltemplate}
 
-The canvas represents an individual page or view and acts as a central point for laying out the different content resources that make up the display. Canvases _MUST_ be identified by a URI and it _MUST_ be an HTTP(s) URI. If following the recommended URI pattern, the {name} parameter _MUST_ uniquely distinguish the canvas from all other canvases in the object. As with sequences, the name _SHOULD NOT_ begin with a number. Suggested patterns are "f1r" or "p1". The URI of the canvas _SHOULD NOT_ contain a fragment (a `#` followed by further characters), as this would make it impossible to refer to a segment of the canvas's area using the `#xywh=` syntax.
+The canvas represents an individual page or view and acts as a central point for laying out the different content resources that make up the display. Canvases _MUST_ be identified by a URI and it _MUST_ be an HTTP(s) URI. If following the recommended URI pattern, the {name} parameter _MUST_ uniquely distinguish the canvas from all other canvases in the object. The URI of the canvas _SHOULD NOT_ contain a fragment (a `#` followed by further characters), as this would make it impossible to refer to a segment of the canvas's area using the `#xywh=` syntax.
 
 Every canvas _MUST_ have a `label` to display, and a `height` and a `width` as integers. A canvas is a two-dimensional rectangular space with an aspect ratio that represents a single logical view of some part of the object, and the aspect ratio is given with the height and width properties. This allows resources to be associated with specific parts of the canvas, rather than the entire space. Content _MUST NOT_ be associated with space outside of the canvas's dimensions, such as at coordinates below 0,0 or greater than the height or width.
 
@@ -722,7 +722,7 @@ For some objects, there may be more than just images available to represent the 
 
 Annotation Lists are separate resources that _SHOULD_ be dereferenced when encountered.  They are collections of annotations, where each annotation targets the Canvas or part thereof.  The separation from the manifest representation is intended to allow clients to quickly display the images to the user, and then populate the display with further content and commentary when the user navigates to a particular canvas. It also allows the annotation list to be generated dynamically, while the manifest is static and more easily cached.
 
-The {name} parameter in the URI pattern _MUST_ uniquely distinguish it from all other lists, and is typically the same name as the canvas. As a single canvas may have multiple lists of additional resources, perhaps divided by type, this _MUST NOT_ be assumed however, and the URIs must be followed rather than constructed _a priori_. As with other uses of the {name} parameter, it _SHOULD NOT_ begin with a number.
+The {name} parameter in the URI pattern _MUST_ uniquely distinguish it from all other lists, and is typically the same name as the canvas. As a single canvas may have multiple lists of additional resources, perhaps divided by type, this _MUST NOT_ be assumed however, and the URIs must be followed rather than constructed _a priori_.
 
 The annotation list _MUST_ have an http(s) URI given in `@id`, and the the JSON representation _MUST_ be returned when that URI is dereferenced.  They _MAY_ have any of the other fields defined in this specification.
 
@@ -787,6 +787,7 @@ References to canvases, or rectangular parts of a canvas, within the current ran
 
 ##### members
 A combined list of both ranges and canvases.  If the range contains both other ranges and canvases, and the ordering of the different types of resource is significant, the range _SHOULD_ instead use the `members` property.  The property's value is an array of canvases, parts of canvases or other ranges.  Each item in the array _MUST_ be an object, and it _MUST_ have the `@id`, `@type`, and `label` properties.
+
 
 A range will typically include one or more canvases or, unlike sequences, parts of canvases. The part must be rectangular, and is given using the `xywh=` fragment approach. This allows for selecting, for example, the areas within two newspaper pages where an article is located.
 
@@ -1777,7 +1778,10 @@ URL: _http://example.org/iiif/book1/manifest_
 
 ### D. Implementation Notes
 
-Clients _SHOULD_ be aware that some implementations will add an `@graph` property at the top level, which contains the object. This is a side effect of JSON-LD serialization, and servers _SHOULD_ remove it before sending to the client. If this is seen in practice, the client can use the [JSON-LD compaction algorithm][json-ld-compact] and JSON-LD Framing with the [supplied frames][annex-frames] to remove it and generate the correct representation.
+ * Clients _SHOULD_ be aware that some implementations may add an `@graph` property at the top level, which contains the object. This is a side effect of JSON-LD serialization, and servers _SHOULD_ remove it before sending to the client. If this is seen in practice, the client can use the [JSON-LD compaction algorithm][json-ld-compact] and JSON-LD Framing with the [supplied frames][annex-frames] to remove it and generate the correct representation.
+
+ * If a {name} parameter in the recommended URI structure begins with a number, such as `.../canvas/1`, then certain technology stacks may be inconvenienced.  In particular, an RDF based stack that uses RDF/XML internally will not be able to derive a shared `.../canvas/` prefix and then use the `1` as a CURIE, as `&lt;canvas:1&gt;` is not a valid element in XML.  Producers might consider adding an alphabetical character as the initial character, and client implementations might consider avoiding such technology stacks. 
+
 
 ### E. Versioning
 
