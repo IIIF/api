@@ -90,15 +90,23 @@ The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _S
 This specification makes use of the following primary resource types:
 
 ##### Manifest
+{: #overview-manifest}
+
 The overall description of the structure and properties of the digital representation of an object. It carries information needed for the viewer to present the digitized content to the user, such as a title and other descriptive information about the object or the intellectual work that it conveys. Each manifest describes how to present a single object such as a book, a photograph, or a statue.
 
 ##### Sequence
+{: #overview-sequence}
+
 The order of the views of a the object. Multiple sequences are allowed to cover situations when there are multiple equally valid orders through the content, such as when a manuscript's pages are rebound or archival collections are reordered.
 
 ##### Canvas
+{: #overview-canvas}
+
 A virtual container that represents a page or view and has content resources associated with it or with parts of it. The canvas provides a frame of reference for the layout of the content. The concept of a canvas is borrowed from standards like PDF and HTML, or applications like Photoshop and Powerpoint, where the display starts from a blank canvas and images, text and other resources are "painted" on to it.
 
 ##### Content
+{: #overview-content}
+
 Content resources such as images or texts that are associated with a canvas.
 
 ### 2.2. Additional Types
@@ -107,18 +115,28 @@ Content resources such as images or texts that are associated with a canvas.
 {: .floatRight}
 
 ##### Collection
+{: #overview-collection}
+
 An ordered list of manifests, and/or further collections.  Collections allow easy advertising and browsing of the manifests in a hierarchical structure, potentially with its own descriptive information.  They can also provide clients with a means to locate all of the manifests known to the publishing institution.
 
 ##### Annotation
+{: #overview-annotation}
+
 Content resources and commentary are associated with a canvas via an annotation.  This provides a single, coherent method for aligning information, and provides a standards based framework for distinguishing parts of resources and parts of canvases.  As annotations can be added later, it promotes a distributed system in which publishers can align their content with the descriptions created by others.
 
 ##### AnnotationList
+{: #overview-annotationlist}
+
 An ordered list of annotations, typically associated with a single canvas.
 
 ##### Layer
+{: #overview-layer}
+
 An ordered list of annotation lists.  Layers allow higher level groupings of annotations to be recorded. For example, all of the English translation annotations of a medieval French document could be kept separate from the transcription or an edition in modern French.
 
 ##### Range
+{: #overview-range}
+
 An ordered list of canvases, and/or further ranges.  Ranges allow canvases, or parts thereof, to be grouped together in some way. This could be for textual reasons, such as to distinguish books, chapters, verses, sections, non-content-bearing pages, the table of contents or similar. Equally, physical features might be important such as quires or gatherings, sections that have been added later and so forth.
 
 
