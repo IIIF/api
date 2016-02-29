@@ -82,6 +82,8 @@ The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _S
 
 ##  2. Resource Type Overview
 
+This section provides an overview of the resource types (or classes) that are used in the specification.  They are each presented in more detail in [Section 5][resource-structure].
+
 ![Primary Resource Types](img/objects.png){: .h400px}
 {: .floatRight}
 
@@ -1835,6 +1837,7 @@ Many thanks to Matthieu Bonicel, Tom Cramer, Ian Davis, Markus Enders, Renhart G
 [auth]: /api/auth/
 [ld-exts]: #linked-data-context-and-extensions
 [paging]: #paging-properties
+[resource-structure]: #resource-structure
 
 [icon-req]: /img/metadata-api/required.png "Required"
 [icon-recc]: /img/metadata-api/recommended.png "Recommended"
