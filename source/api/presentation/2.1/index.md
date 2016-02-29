@@ -84,12 +84,14 @@ The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _S
 
 This section provides an overview of the resource types (or classes) that are used in the specification.  They are each presented in more detail in [Section 5][resource-structure].
 
-![Primary Resource Types](img/objects.png){: .h400px}
-{: .floatRight}
+
 
 ### 2.1. Basic Types
 
 This specification makes use of the following primary resource types:
+
+![Primary Resource Types](img/objects.png){: .h400px}
+{: .floatRight}
 
 ##### Manifest
 {: #overview-manifest}
@@ -1011,7 +1013,7 @@ The paged resource _MAY_ use the `total` property to list the total number of le
 
 The linked page resources _MAY_ have different properties from the paged resource, including different rights and descriptive properties.  Clients _MUST_ take into account any requirements derived from these properties, such as displaying `logo` or `attribution`.
 
-#### 5.9.1. Example Paged Layer
+##### Example Paged Layer
 
 A layer representing a long transcription with almost half a million annotations, perhaps where each annotation paints a single word on the canvas:
 
@@ -1064,7 +1066,7 @@ Note that it is still expected that canvases will link directly to the annotatio
 }
 ```
 
-#### 5.9.2. Example Paged Collection
+##### Example Paged Collection
 
 An example large collection with some 9.3 million objects in it:
 
