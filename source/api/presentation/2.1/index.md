@@ -136,38 +136,40 @@ Other properties are allowed, either via custom extensions or endorsed by the II
 ##### label
 A human readable label, name or title for the resource. This property is intended to be displayed as a short, textual surrogate for the resource if a human needs to make a distinction between it and similar resources, for example between pages or between a choice of images to display.
 
- * A manifest _MUST_ have at least one label, and it _SHOULD_ be the name of the object or title of the intellectual work that it embodies.
- * A sequence  _MAY_ have one or more labels, and if there are multiple sequences in a single manifest then they _MUST_ each have at least one  label. The label _SHOULD_ briefly convey the nature of sequence, such as "Current Page Order".
- * A canvas _MUST_ have at least one label, and it _SHOULD_ be the page or view label such as "p. 1", "front", or "north view".
- * A content resource _MAY_ have one or more labels, and if there is a choice of content resource for the same canvas, then they _MUST_ each have  at least one label. The label _SHOULD_ be a brief description of the resource, such as "black and white" versus "color photograph".
- * A collection _MUST_ have at least one label, and it _SHOULD_ be the name for the group of collected resources.
+ * A collection _MUST_ have at least one label.
+ * A manifest _MUST_ have at least one label, such as the name of the object or title of the intellectual work that it embodies.
+ * A sequence  _MAY_ have one or more labels, and if there are multiple sequences in a single manifest then they _MUST_ each have at least one label. 
+ * A canvas _MUST_ have at least one label, such as the page number or short description of the view.
+ * A content resource _MAY_ have one or more labels, and if there is a choice of content resource for the same canvas, then they _SHOULD_ each have at least one label. 
+ * A range _MUST_ have at least one label.
+ * A layer _MUST_ have at least one label.
+ * Other resource types _MAY_ have labels.
 
 ##### metadata
 A list of short descriptive entries, given as pairs of human readable label and value to be displayed to the user. The value _SHOULD_ be either simple HTML, including links and text markup, or plain text, and the label _SHOULD_ be plain text. There are no semantics conveyed by this information, and clients _SHOULD NOT_ use it for discovery or other purposes. This list of descriptive pairs _SHOULD_ be able to be displayed in a tabular form in the user interface. Clients _SHOULD_ have a way to display the information about manifests and canvases, and _MAY_ have a way to view the information about other resources. The client _SHOULD_ display the pairs in the order provided by the description. A pair might be used to convey the author of the work, information about its creation, a brief physical description, or ownership information, amongst other use cases. The client is not expected to take any action on this information beyond displaying the label and value. An example pair of label and value might be a label of "Author" and a value of "Jehan Froissart".
 
- * A manifest _SHOULD_ have one or more metadata pairs associated with it describing the object or work.
- * A sequence _MAY_ have one or more metadata pairs associated with it to describe the difference between it and other sequences.
- * A canvas _MAY_ have one or more metadata pairs associated with it to describe its particular features.
- * A content resource _MAY_ have one or more metadata pairs associated with it.
  * A collection _SHOULD_ have one or more metadata pairs associated with it.
+ * A manifest _SHOULD_ have one or more metadata pairs associated with it describing the object or work.
+ * Other resource types _MAY_ have one or more metadata pairs. 
+
 
 ##### description
 A longer-form prose description of the object or resource that the property is attached to, intended to be conveyed to the user as a full text description, rather than a simple label and value. It _MAY_ be in simple HTML or plain text.  It can duplicate any of the information from the `metadata` fields, along with additional information required to understand what is being displayed. Clients _SHOULD_ have a way to display the descriptions of manifests and canvases, and _MAY_ have a way to view the information about other resources.
 
- * A manifest _SHOULD_ have one or more descriptions that describe the object or work.
- * A sequence _MAY_ have one or more descriptions to further explain how it differs from other sequences.
- * A canvas _MAY_ have one or more descriptions to describe particular features of the view.
- * A content resource _MAY_ have one or more descriptions.
  * A collection _SHOULD_ have one or more descriptions.
+ * A manifest _SHOULD_ have one or more descriptions.
+ * Other resource types _MAY_ have one or more description.
+
 
 ##### thumbnail
-A small image that depicts or pictorially represents the resource that the property is attached to, such as the title page, a significant image or rendering of a canvas with multiple content resources associated with it.  It is _RECOMMENDED_ that a [IIIF Image API][image-api] service be available for this image for manipulations such as resizing.
+A small image that depicts or pictorially represents the resource that the property is attached to, such as the title page, a significant image or rendering of a canvas with multiple content resources associated with it.  It is _RECOMMENDED_ that a [IIIF Image API][image-api] service be available for this image for manipulations such as resizing. If a resource has multiple thumbnails, then each of them _SHOULD_ be different.
 
- * A manifest _SHOULD_ have exactly one thumbnail image that represents the entire object or work, and _MAY_ have more than one.
- * A sequence _MAY_ have one or more thumbnails and _SHOULD_ have at least one thumbnail if there are multiple sequences in a single manifest. Each of the thumbnails _SHOULD_ be different.
+ * A collection _SHOULD_ have exactly one thumbnail image, and _MAY_ have more than one.
+ * A manifest _SHOULD_ have exactly one thumbnail image, and _MAY_ have more than one.
+ * A sequence _MAY_ have one or more thumbnails and _SHOULD_ have at least one thumbnail if there are multiple sequences in a single manifest. 
  * A canvas _MAY_ have one or more thumbnails and _SHOULD_ have at least one thumbnail if there are multiple images or resources that make up the representation.
  * A content resource _MAY_ have one or more thumbnails and _SHOULD_ have at least one thumbnail if it is an option in a choice of resources.
- * A collection _SHOULD_ have exactly one thumbnail image that represents it.
+ * Other resources types _MAY_ have one or more thumbnails.
 
 ####  3.2. Rights and Licensing Properties
 
@@ -176,39 +178,44 @@ The following properties ensure that the interests of the owning or publishing i
 ##### attribution
 Text that _MUST_ be shown when the resource it is associated with is displayed or used. For example, this could be used to present copyright or ownership statements, or simply an acknowledgement of the owning and/or publishing institution. Clients _SHOULD_ try to match the language preferred by the user, and if the preferred language is unknown or unavailable, then the client may choose which value to display.  If there are multiple values of the same or unspecified language, then all of those values _MUST_ be displayed.
 
- * Any resource _MAY_ have one or more attribution labels.
+ * Any resource type _MAY_ have one or more attribution labels.
 
 ##### license
 A link to an external resource that describes the license or rights statement under which the resource may be used. The rationale for this being a URI and not a human readable label is that typically there is one license for many resources, and the text is too long to be displayed to the user along with the object. If displaying the text is a requirement, then it is _RECOMMENDED_ to include the information using the `attribution` property instead.
 
- * Any resource _MAY_ have one or more licenses associated with it.
+ * Any resource type _MAY_ have one or more licenses associated with it.
 
 ##### logo
 A small image that represents an individual or organization associated with the resource it is attached to.  This could be the logo of the owning or hosting institution. The logo _MUST_ be clearly rendered when the resource is displayed or used, without cropping, rotating or otherwise distorting the image. It is _RECOMMENDED_ that a [IIIF Image API][image-api] service be available for this image for manipulations such as resizing.
 
- * Any resource _MAY_ have one or more logos associated with it.
+ * Any resource type _MAY_ have one or more logos associated with it.
 
 ####  3.3. Technical Properties
 
 ##### @id
 The URI that identifies the resource. It is _RECOMMENDED_ that an HTTP URI be used for all resources. Recommended HTTP URI patterns for the different classes of resource are given below.  URIs from any [registered scheme][iana-uri-schemes] _MAY_ be used, and implementers may find it convenient to use a [UUID URN][rfc-4122] of the form: `"urn:uuid:uuid-goes-here-1234"`.  Resources that do not require URIs _MAY_ be assigned [blank node identifiers][rdf11-blank-nodes]; this is the same as omitting `@id`.
 
- * A manifest _MUST_ have exactly one id, and it _MUST_ be the http(s) URI at which the manifest is published.
- * A sequence _MAY_ have an id and _MUST NOT_ have more than one.
+ * A collection _MUST_ have exactly one id, and it _MUST_ be the http(s) URI at which it is published.
+ * A manifest _MUST_ have exactly one id, and it _MUST_ be the http(s) URI at which it is published.
+ * A sequence _MAY_ have an id and _MUST NOT_ have more than one. 
  * A canvas _MUST_ have exactly one id, and it _MUST_ be an http(s) URI.  The canvas's JSON representation _SHOULD_ be published at that URI.
  * A content resource _MUST_ have exactly one id unless it is embedded in the response, and it _MUST_ be the http(s) URI at which the resource is published.
- * A collection _MUST_ have exactly one id, and it _MUST_ be the http(s) URI at which it is published.
+ * A range _MUST_ have exactly one id, and it _MUST_ be an http(s) URI.
+ * A layer _MUST_ have exactly one id, and it _MUST_ be an http(s) URI. 
+ * An annotation list _MUST_ have exactly one id, and it _MUST_ be the http(s) URI at which it is published.
+ * An annotation _SHOULD_ have exactly one id, _MUST NOT_ have more than one, and the annotation's representation _SHOULD_ be published at that URI.
+
 
 ##### @type
 The type of the resource.  For the resource types defined by this specification, the value of `@type` will be described in the sections below.  For content resources, the type may be drawn from other vocabularies. Recommendations for basic types such as image, text or audio are also given in the sections below.
 
- * All resources _MUST_ have at least one type specified.
+ * All resource types _MUST_ have at least one type specified.
 
 ##### format
 The specific media type (often called a MIME type) of a content resource, for example "image/jpeg". This is important for distinguishing text in XML from plain text, for example.
 
  * A content resource _MAY_ have exactly one format, and if so, it _MUST_ be the value of the `Content-Type` header returned when the resource is dereferenced.
- * All other resources _MUST NOT_ have a format.
+ * Other resource types _MUST NOT_ have a format.
 
 _N.B._ This is different to the `formats` property in the [Image API][image-api], which gives the extension to use within that API.  It would be inappropriate to use in this case, as `format` can be used with any content resource, not just images.
 
@@ -217,135 +224,137 @@ The height of a canvas or image resource. For images, the value is in pixels. Fo
 
  * A canvas _MUST_ have exactly one height.
  * Content resources _MAY_ have exactly one height, given in pixels, if appropriate.
- * All other resources _MUST NOT_ have a height.
+ * Other resource types _MUST NOT_ have a height.
 
 ##### width
 The width of a canvas or image resource. For images, the value is in pixels. For canvases, the value does not have a unit. In combination with the height, it conveys an aspect ratio for the space in which content resources are located.
 
  * A canvas _MUST_ have exactly one width.
  * Content resources _MAY_ have exactly one width, given in pixels, if appropriate.
- * All other resources _MUST NOT_ have a width.
+ * Other resource types _MUST NOT_ have a width.
 
 ##### viewingDirection
-The direction that a sequence of canvases _SHOULD_ be displayed to the user. Possible values are:
-
- * "left-to-right": The object is displayed from left to right, and is the default if not specified.
- * "right-to-left": The object is displayed from right to left.
- * "top-to-bottom": The object is displayed from the top to the bottom.
- * "bottom-to-top": The object is displayed from the bottom to the top.
+The direction that a sequence of canvases _SHOULD_ be displayed to the user. Possible values are specified in the table below.
 
  * A manifest _MAY_ have exactly one viewing direction, and if so, it applies to all of its sequences unless the sequence specifies its own viewing direction.
- * A sequence _MAY_ have exactly one viewing direction, and it _MAY_ be different to that of the manifest.
- * A collection, canvas or content resource _MUST NOT_ have a viewing direction.
+ * A sequence _MAY_ have exactly one viewing direction.
  * A range or layer _MAY_ have exactly one viewing direction.
+ * Other resource types _MUST NOT_ have a viewing direction.
+
+> | Value | Description |
+| ----- | ----------- |
+| `left-to-right` | The object is displayed from left to right. The default if not specified. |
+| `right-to-left` | The object is displayed from right to left. |
+| `top-to-bottom` | The object is displayed from the top to the bottom. |
+| `bottom-to-top` | The object is displayed from the bottom to the top. |
+{: .api-table}
 
 ##### viewingHint
-A hint to the client as to the most appropriate method of displaying the resource. This specification defines the following possible values:
+A hint to the client as to the most appropriate method of displaying the resource. This specification defines the values specified in the table below. Other values _MAY_ be given, and if they are, they _MUST_ be URIs.
 
- * "individuals": Valid on collection, manifest, sequence and range. When used as the viewingHint of a collection, the client should treat each of the manifests as distinct individual objects. For manifest, sequence and range, the canvases referenced are all distinct individual views, and _SHOULD NOT_ be presented in a page-turning interface. Examples include a gallery of paintings, a set of views of a 3 dimensional object, or a set of the front sides of photographs in a collection.
- * "paged": Valid on manifest, sequence and range. The canvases represent pages in a bound volume, and _SHOULD_ be presented in a page-turning interface if one is available.  The first canvas is a single view (the first recto) and thus the second canvas represents the back of the object in the first canvas.
- * "continuous": Valid on manifest, sequence and range.  Each canvas is a partial view and an appropriate rendering might display either the canvases individually, or all of the canvases virtually stitched together in the display.  Examples when this would be appropriate include long scrolls, rolls, or objects designed to be displayed adjacent to each other.  If this `viewingHint` is present, then the resource _MUST_ also have a `viewingDirection` which will determine the arrangement of the canvases. Note that this does not allow for both sides of a scroll to be included in the same manifest with this `viewingHint`.  To accomplish that, the manifest should be "individuals" and have two ranges, one for each side, which are "continuous".  
- * "multi-part": Valid only for collections. Collections with this hint consist of multiple manifests that each form part of a logical whole. Clients might render the collection as a table of contents, rather than with thumbnails. Examples include multi-volume books or a set of journal issues or other serials.  
- * "non-paged": Canvases with this hint _MUST NOT_ be presented in a page turning interface, and _MUST_ be skipped over when determining the page sequence. This viewing hint _MUST_ be ignored if the current sequence or manifest does not have the 'paged' viewing hint.
- * "top": Only valid on a range. A range which has this `viewingHint` is the top-most node in a hierarchy of ranges that represents a structure to be rendered by the client to assist in navigation. For example, a table of contents within a paged object, major sections of a 3d object, the textual areas within a single scroll, and so forth.  Other ranges that are descendants of the "top" range are the entries to be rendered in the navigation structure.  There _MAY_ be multiple ranges marked with this hint. If so, the client _SHOULD_ display a choice of multiple structures to navigate through.
- * "facing-pages": Canvases with this hint, in a sequence or manifest with the "paged" viewing hint, _MUST_ be displayed by themselves, as they depict both parts of the opening.  If all of the canvases are like this, then page turning is not possible, so simply use "individuals" instead.
+ * Any resource type _MAY_ have one or more viewing hints.
 
- * A manifest, sequence or range _MAY_ have one or more viewing hints, with scope as per viewingDirection.
- * A canvas _MAY_ have one or more viewing hints, and the only hint defined by this specification for canvases is "non-paged".  "non-paged" is only valid if the canvas is within a manifest, sequence or range that is "paged", and the particular canvas _MUST NOT_ be displayed in a page-turning viewer.
- * A content resource _MAY_ have one or more viewing hints but there are no defined values in this specification.
- * A collection _MAY_ have one or more viewing hints.
+> | Value | Description |
+| ----- | ----------- |
+| `individuals` | Valid on collection, manifest, sequence and range. When used as the viewingHint of a collection, the client should treat each of the manifests as distinct individual objects. For manifest, sequence and range, the canvases referenced are all distinct individual views, and _SHOULD NOT_ be presented in a page-turning interface. Examples include a gallery of paintings, a set of views of a 3 dimensional object, or a set of the front sides of photographs in a collection. |
+| `paged` | Valid on manifest, sequence and range. The canvases represent pages in a bound volume, and _SHOULD_ be presented in a page-turning interface if one is available.  The first canvas is a single view (the first recto) and thus the second canvas represents the back of the object in the first canvas. |
+| `continuous` | Valid on manifest, sequence and range.  Each canvas is a partial view and an appropriate rendering might display either the canvases individually, or all of the canvases virtually stitched together in the display.  Examples when this would be appropriate include long scrolls, rolls, or objects designed to be displayed adjacent to each other.  If this `viewingHint` is present, then the resource _MUST_ also have a `viewingDirection` which will determine the arrangement of the canvases. Note that this does not allow for both sides of a scroll to be included in the same manifest with this `viewingHint`.  To accomplish that, the manifest should be "individuals" and have two ranges, one for each side, which are "continuous".  |
+| `multi-part` | Valid only for collections. Collections with this hint consist of multiple manifests that each form part of a logical whole. Clients might render the collection as a table of contents, rather than with thumbnails. Examples include multi-volume books or a set of journal issues or other serials. |
+| `non-paged` | Canvases with this hint _MUST NOT_ be presented in a page turning interface, and _MUST_ be skipped over when determining the page sequence. This viewing hint _MUST_ be ignored if the current sequence or manifest does not have the 'paged' viewing hint. |
+| `top` | Only valid on a range. A range which has this `viewingHint` is the top-most node in a hierarchy of ranges that represents a structure to be rendered by the client to assist in navigation. For example, a table of contents within a paged object, major sections of a 3d object, the textual areas within a single scroll, and so forth.  Other ranges that are descendants of the "top" range are the entries to be rendered in the navigation structure.  There _MAY_ be multiple ranges marked with this hint. If so, the client _SHOULD_ display a choice of multiple structures to navigate through. |
+| `facing-pages` | Canvases with this hint, in a sequence or manifest with the "paged" viewing hint, _MUST_ be displayed by themselves, as they depict both parts of the opening.  If all of the canvases are like this, then page turning is not possible, so simply use "individuals" instead. |
+{: .api-table}
 
-Other values _MAY_ be given, and if they are, they _MUST_ be URIs.
 
 ##### navDate
 A date that the client can use for navigation purposes when presenting the resource to the user in a time-based user interface, such as a calendar or timeline.  The value _MUST_ be an `xsd:dateTime` literal in UTC, expressed in the form "YYYY-MM-DDThh:mm:ssZ".  If the exact time is not known, then "00:00:00" _SHOULD_ be used. Similarly, the month or day _SHOULD_ be 01 if not known.  There _MUST_ be at most one `navDate` associated with any given resource.  More descriptive date ranges, intended for display directly to the user, _SHOULD_ be included in the `metadata` property for human consumption.  
 
  * A collection or manifest _MAY_ have exactly one navigation date associated with it.
-
+ * Other resource types _MUST NOT_ have navigation dates.
 
 ####  3.4. Linking Properties
 
 ##### related
 A link to an external resource intended to be displayed directly to the user, and is related to the resource that has the `related` property. Examples might include a video or academic paper about the resource, a website, an HTML description, and so forth. A label and the format of the related resource _SHOULD_ be given to assist clients in rendering the resource to the user.
 
- * Any resource _MAY_ have one or more external resources related to it.
+ * Any resource type _MAY_ have one or more external resources related to it.
 
 ##### rendering
 A link to an external resource intended for display or download by a human user. This property can be used to link from a manifest, collection or other resource to the preferred viewing environment for that resource, such as a viewer page on the publisher's web site. Other uses include a rendering of a manifest as a PDF or EPUB with the images and text of the book, or a slide deck with images of the museum object. A label and the format of the rendering resource __MUST__ be supplied to allow clients to present the option to the user.
 
- * A manifest _MAY_ have one or more external rendering resources.
- * A sequence _MAY_ have one or more external rendering resources.
- * A canvas _MAY_ have one or more external rendering resources.
- * A collection, range or layer _MAY_ have one or more external rendering resources.
+ * Any resource type _MAY_ have one or more external rendering resources.
+
 
 ##### service
-A link to a service that makes more functionality available for the resource, such as from an image to the base URI of an associated [IIIF Image API][image-api] service. The service resource _SHOULD_ have additional information associated with it in order to allow the client to determine how to make appropriate use of it, such as a `profile` link to a service description. It _MAY_ also have relevant information copied from the service itself. This duplication is permitted in order to increase the performance of rendering the object without necessitating additional HTTP requests.
+A link to a service that makes more functionality available for the resource, such as from an image to the base URI of an associated [IIIF Image API][image-api] service. The service resource _SHOULD_ have additional information associated with it in order to allow the client to determine how to make appropriate use of it, such as a `profile` link to a service description. It _MAY_ also have relevant information copied from the service itself. This duplication is permitted in order to increase the performance of rendering the object without necessitating additional HTTP requests. Please see the [Service Profiles][annex] document for known services.
 
- * Any resource _MAY_ have one or more links to an external service.
- * Please see the [Service Profiles][annex] document for known services.
+ * Any resource type _MAY_ have one or more links to an external service.
 
 ##### seeAlso
 A link to a machine readable document that semantically describes the resource with the `seeAlso` property, such as an XML or RDF description.  This document could be used for search and discovery or inferencing purposes, or just to provide a longer description of the resource. The `profile` and `format` properties of the document _SHOULD_ be given to help the client to make appropriate use of the document.
 
- * Any resource _MAY_ have one or more external descriptions related to it.
+ * Any resource type _MAY_ have one or more external descriptions related to it.
 
 ##### within
 A link to a resource that contains the current resource, such as annotation lists within a layer. This also allows linking upwards to collections that allow browsing of the digitized objects available.
 
- * Any resource _MAY_ be within one or more containing resources.
+ * Any resource type _MAY_ be within one or more containing resources.
 
 ##### startCanvas
 A link from a sequence or range to a canvas that is contained within the sequence.  On seeing this relationship, a client _SHOULD_ advance to the specified canvas when beginning navigation through the sequence/range.  This allows the client to begin with the first canvas that contains interesting content rather than requiring the user to skip past blank or empty canvases manually.
 
  * A sequence or a range _MAY_ have exactly one canvas as its start canvas.
- * Other resources _MUST NOT_ have a start canvas.
+ * Other resource types _MUST NOT_ have a start canvas.
 
 ##### contentLayer
 A link from a range to a layer that includes the annotations of content resources for that range.  Clients might use this to present content to the user from a different canvas when interacting with the range, or to jump to the next part of the range within the same canvas.  
 
-Usage:
-{: .usage}
  * A range _MAY_ have exactly one layer as its content layer.
- * Other resources _MUST NOT_ have a content layer.
+ * Other resource types _MUST NOT_ have a content layer.
 
 ####  3.5. Paging Properties
 
 ##### first
-A link from a containing resource, such as a collection or layer, to the first sub-resource, another collection or an annotation list respectively, that is contained within it. The sub-resource _SHOULD_ be referenced by just its URI (from `@id`) but _MAY_ also have more information associated with it as an object.
+A link from a resource with pages, such as a collection or layer, to its first page resource, another collection or an annotation list respectively. The page resource _SHOULD_ be referenced by just its URI (from `@id`) but _MAY_ also have more information associated with it as an object.
 
- * A collection _MAY_ have exactly one collection as its first sub-collection.
- * A layer _MAY_ have exactly one annotation list as its first annotation list.
+ * A collection _MAY_ have exactly one collection as its first page.
+ * A layer _MAY_ have exactly one annotation list as its first page.
+ * Other resource types _MUST NOT_ have a first page.
 
 ##### last
-A link from a containing resource to the last sub-resource that is contained within it. The sub-resource _SHOULD_ be referenced by just its URI (from `@id`) but _MAY_ also have more information associated with it as an object.
+A link from a resource with pages to its last page resource. The page resource _SHOULD_ be referenced by just its URI (from `@id`) but _MAY_ also have more information associated with it as an object.
 
- * A collection _MAY_ have exactly one collection as its last sub-collection.
- * A layer _MAY_ have exactly one annotation list as its last annotation list.
+ * A collection _MAY_ have exactly one collection as its last page.
+ * A layer _MAY_ have exactly one annotation list as its last page.
+ * Other resource types _MUST NOT_ have a last page.
 
 ##### total
-The total number of leaf resources, such as annotations within a layer, contained within a set of sub-resources. The value _MUST_ be a non-negative integer.
+The total number of leaf resources, such as annotations within a layer, within a list of pages. The value _MUST_ be a non-negative integer.
 
- * A collection _MAY_ have exactly one total, which _MUST_ be the total number of manifests in all of its hierarchy of sub-collections.
- * A layer _MAY_ have exactly one total, which _MUST_ be the total number of annotations in all of its annotation lists.
+ * A collection _MAY_ have exactly one total, which _MUST_ be the total number of collections and manifests in its list of pages.
+ * A layer _MAY_ have exactly one total, which _MUST_ be the total number of annotations in its list of pages.
+ * Other resource types _MUST NOT_ have a total.
 
 ##### next
-A link from a contained sub-resource to the sibling sub-resource that follows it. The sibling sub-resource _SHOULD_ be referenced by just its URI (from `@id`) but _MAY_ also have more information associated with it as an object.
+A link from a page resource to the next page resource that follows it in order. The resource _SHOULD_ be referenced by just its URI (from `@id`) but _MAY_ also have more information associated with it as an object.
 
- * A sub-collection _MAY_ have exactly one collection as its next sibling.
- * An annotation list _MAY_ have exactly one annotation list as its next sibling.
+ * A collection _MAY_ have exactly one collection as its next page.
+ * An annotation list _MAY_ have exactly one annotation list as its next page.
+ * Other resource types _MUST NOT_ have next pages.
 
 ##### prev
-A link from a contained sub-resource to the sibling sub-resource that precedes it. The sibling sub-resource _SHOULD_ be referenced by just its URI (from `@id`) but _MAY_ also have more information associated with it as an object.
+A link from a page resource to the previous page resource that precedes it in order. The resource _SHOULD_ be referenced by just its URI (from `@id`) but _MAY_ also have more information associated with it as an object.
 
- * A sub-collection _MAY_ have exactly one collection as its previous sibling.
- * An annotation list _MAY_ have exactly one annotation list as its previous sibling.
+ * A collection _MAY_ have exactly one collection as its previous page.
+ * An annotation list _MAY_ have exactly one annotation list as its previous page.
+ * Other resource types _MUST NOT_ have previous pages.
 
 ##### startIndex
-The 0 based index of the first leaf resource in the current sub-resource, relative to the containing resource. The value _MUST_ be a non-negative integer.
+The 0 based index of the first included resource in the current page, relative to the parent paged resource. The value _MUST_ be a non-negative integer.
 
- * A sub-collection _MAY_ have exactly one startIndex, which _MUST_ be the index of its first manifest relative to the order established by its top most containing collection.
- * An annotation list _MAY_ have exactly one startIndex, which _MUST_ be the index of its first annotation relative to the order established by its layer.
-
+ * A collection _MAY_ have exactly one startIndex, which _MUST_ be the index of its first collection or manifest relative to the order established by its paging collection.
+ * An annotation list _MAY_ have exactly one startIndex, which _MUST_ be the index of its first annotation relative to the order established by its paging layer.
+ * Other resource types _MUST NOT_ have a startIndex.
 
 ##  4. JSON-LD Considerations
 
@@ -755,7 +764,7 @@ References to ranges within the current range.  Each included range _MUST_ be re
 References to canvases, or rectangular parts of a canvas, within the current range.  Each included canvas _MUST_ be referenced via a string containing the canvas's URI.
 
 ##### members
-A combined list of both ranges and canvases.  If the range contains both other ranges and canvases, and the ordering of the different types of resource is significant, the range SHOULD instead use the `members` property.  The property's value is an array of canvases, parts of canvases or other ranges.  Each item in the array MUST be an object, and it MUST have the `@id`, `@type`, and `label` properties.
+A combined list of both ranges and canvases.  If the range contains both other ranges and canvases, and the ordering of the different types of resource is significant, the range _SHOULD_ instead use the `members` property.  The property's value is an array of canvases, parts of canvases or other ranges.  Each item in the array _MUST_ be an object, and it _MUST_ have the `@id`, `@type`, and `label` properties.
 
 A range will typically include one or more canvases or, unlike sequences, parts of canvases. The part must be rectangular, and is given using the `xywh=` fragment approach. This allows for selecting, for example, the areas within two newspaper pages where an article is located. 
 
@@ -1080,78 +1089,77 @@ It is important to be able to extract parts, or segments, of resources. In parti
 
 Note that if both there are segments of both image and canvas, then the aspect ratio _SHOULD_ be the same, but there are circumstances where they _MAY_ be different.  In this case the rendering agent _SHOULD_ rescale the image segment to the dimensions provided on the canvas.
 
-Examples are given below:
+Segments of both static images and canvases may be selected by adding a [rectangular bounding box][media-frags] after the URI. The fragment _MUST_ take the form of `#xywh=` as per the example below where the four numbers are the x and y coordinates of the top left hand corner of the bounding box in the image or canvas, followed by the width and height. Thus the segment above is 300px wide, 50px high and starts at position 100,100. Note that only integers are allowed in this syntax, and this may limit accuracy of assignment to canvases with small dimensions.  
 
-  * Segments of both static images and canvases may be selected by adding a [rectangular bounding box][media-frags] after the URI. The fragment _MUST_ take the form of `#xywh=` as per this example:
+`http://www.example.com/iiif/book1/canvas/p1#xywh=100,100,300,50`
+{: .urltemplate}
 
-      `http://www.example.com/iiif/book1/canvas/p1#xywh=100,100,300,50`
+``` json-doc
+{
+  "@context": "http://iiif.io/api/presentation/2/context.json",
+  "@id": "http://example.org/iiif/book1/annotation/anno1",
+  "@type": "oa:Annotation",
+  "motivation": "sc:painting",
+  "resource":{
+    // Crop out scanning bed
+    "@id": "http://example.org/iiif/book1/res/page1.jpg#xywh=40,50,1200,1800",
+    "@type": "dctypes:Image",
+    "format": "image/jpeg"
+  },
+  // canvas size is 1200x1800
+  "on": "http://example.org/iiif/book1/canvas/p1"
+}
+```
 
-      Where the four numbers are the x and y coordinates of the top left hand corner of the bounding box in the image or canvas, followed by the width and height. Thus the segment above is 300px wide, 50px high and starts at position 100,100. Note that only integers are allowed in this syntax, and this may limit accuracy of assignment to canvases with small dimensions.  
+For image resources with a [IIIF Image API][image-api] service, it is _RECOMMENDED_ to instead use the Image API parameters rather than a fragment as above.  The following structure allows simple clients to use the image directly (the URL with the segment), and allows clients that implement the IIIF Image API to have sufficient information to construct appropriate URIs using the API.
 
-    ``` json-doc
-    {
-      "@context": "http://iiif.io/api/presentation/2/context.json",
-      "@id": "http://example.org/iiif/book1/annotation/anno1",
-      "@type": "oa:Annotation",
-      "motivation": "sc:painting",
-      "resource":{
-        // Crop out scanning bed
-        "@id": "http://example.org/iiif/book1/res/page1.jpg#xywh=40,50,1200,1800",
-        "@type": "dctypes:Image",
-        "format": "image/jpeg"
-      },
-      // canvas size is 1200x1800
-      "on": "http://example.org/iiif/book1/canvas/p1"
+``` json-doc
+{
+  "@context": "http://iiif.io/api/presentation/2/context.json",
+  "@id": "http://example.org/iiif/book1/annotation/anno1",
+  "@type": "oa:Annotation",
+  "motivation": "sc:painting",
+  "resource": {
+    "@id": "http://www.example.org/iiif/book1-page1/50,50,1250,1850/full/0/default.jpg",
+    "@type": "oa:SpecificResource",
+    "full": {
+      "@id": "http://example.org/iiif/book1-page1/full/full/0/default.jpg",
+      "@type": "dctypes:Image",
+      "service": {
+        "@context": "http://iiif.io/api/image/2/context.json",
+        "@id": "http://example.org/iiif/book1-page1",
+        "profile": "http://iiif.io/api/image/2/level2.json"
+      }
+    },
+    "selector": {
+      "@context": "http://iiif.io/api/annex/openannotation/context.json",
+      "@type": "iiif:ImageApiSelector",
+      "region": "50,50,1250,1850"
     }
-    ```
+  },
+  "on": "http://www.example.org/iiif/book1/canvas/p1#xywh=0,0,600,900"      
+}
+```
 
-  * For image resources with a [IIIF Image API][image-api] service, it is _RECOMMENDED_ to instead use the Image API parameters rather than a fragment as above.  The following structure allows simple clients to use the image directly (the URL with the segment), and allows clients that implement the IIIF Image API to have sufficient information to construct appropriate URIs using the API.
+Segments of XML files may be extracted with [XPaths][xpath]. The fragment _MUST_ be structured as follows:
 
-    ``` json-doc
-    {
-      "@context": "http://iiif.io/api/presentation/2/context.json",
-      "@id": "http://example.org/iiif/book1/annotation/anno1",
-      "@type": "oa:Annotation",
-      "motivation": "sc:painting",
-      "resource": {
-        "@id": "http://www.example.org/iiif/book1-page1/50,50,1250,1850/full/0/default.jpg",
-        "@type": "oa:SpecificResource",
-        "full": {
-          "@id": "http://example.org/iiif/book1-page1/full/full/0/default.jpg",
-          "@type": "dctypes:Image",
-          "service": {
-            "@context": "http://iiif.io/api/image/2/context.json",
-            "@id": "http://example.org/iiif/book1-page1",
-            "profile": "http://iiif.io/api/image/2/level2.json"
-          }
-        },
-        "selector": {
-          "@context": "http://iiif.io/api/annex/openannotation/context.json",
-          "@type": "iiif:ImageApiSelector",
-          "region": "50,50,1250,1850"
-        }
-      },
-      "on": "http://www.example.org/iiif/book1/canvas/p1#xywh=0,0,600,900"      
-    }
-    ```
+`http://www.example.com/iiif/book1/res/tei.xml#xpointer(/xpath/to/element)`
+{: .urltemplate}
 
-  * Segments of XML files may be extracted with [XPaths][xpath]. The fragment _MUST_ be structured as follows:
-        `http://www.example.com/iiif/book1/res/tei.xml#xpointer(/xpath/to/element)`
-
-    ``` json-doc
-    {
-      "@context": "http://iiif.io/api/presentation/2/context.json",
-      "@id": "http://example.org/iiif/book1/annotation/anno1",
-      "@type": "oa:Annotation",
-      "motivation": "sc:painting",
-      "resource":{
-        "@id": "http://example.org/iiif/book1/res/tei.xml#xpointer(//line[1])",
-        "@type": "dctypes:Text",
-        "format": "text/xml"
-      },
-      "on": "http://example.org/iiif/book1/canvas/p1#xywh=100,100,500,300"
-    }
-    ```
+``` json-doc
+{
+  "@context": "http://iiif.io/api/presentation/2/context.json",
+  "@id": "http://example.org/iiif/book1/annotation/anno1",
+  "@type": "oa:Annotation",
+  "motivation": "sc:painting",
+  "resource":{
+    "@id": "http://example.org/iiif/book1/res/tei.xml#xpointer(//line[1])",
+    "@type": "dctypes:Text",
+    "format": "text/xml"
+  },
+  "on": "http://example.org/iiif/book1/canvas/p1#xywh=100,100,500,300"
+}
+```
 
 ###  6.2. Embedded Content
 
@@ -1561,8 +1569,8 @@ __Protocol Behavior__
 | Manifest       | ![required][icon-req]  |
 | Sequence (first)   | ![optional][icon-opt]  |
 | Sequence (second+) | ![required][icon-req]  |
-| Canvas         | ![optional][icon-opt]  |
-| Annotation     | ![optional][icon-opt]  |
+| Canvas         | ![recommended][icon-recc]  |
+| Annotation     | ![recommended][icon-recc]  |
 | AnnotationList | ![required][icon-req]  |
 | Range          | ![optional][icon-opt]  |
 | Layer          | ![optional][icon-opt]  |
