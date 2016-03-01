@@ -792,7 +792,7 @@ A range will typically include one or more canvases or, unlike sequences, parts 
 
 In order to present a table of the different ranges to allow a user to select one, every range _MUST_ have a label and the top most range in the table _SHOULD_ have a `viewingHint` with the value "top". A range that is the top of a hierarchy does not need to list all of the canvases in the sequence, and _SHOULD_ only give the list of ranges below it.  Ranges _MAY_ also have any of the other properties defined in this specification, including the `startCanvas` relationship to the first canvas within the range to start with, if it is not the first listed in `canvases` or `members`.
 
-Ranges _MAY_ link to a layer, described in the next section, that has the content of the range.  This allows, for example, the range representing a newspaper article that is split across multiple pages to be linked with the text of the article. Rendering clients might use this to display all of the article text, regardless of which canvas is being viewed. The link is created by adding a `contentLayer` property to the range, with a single value of the layer's URI.  The layer will then have one or more annotation lists, each of which contains annotations that target the areas of canvases within the range, and provide the content resources.
+Ranges _MAY_ also link to a layer, described in the next section, that has the content of the range using the `contentLayer` linking property. The referenced layer will contain one or more annotation lists, each of which contains annotations that target the areas of canvases within the range, and provide the content resources. This allows, for example, the range representing a newspaper article that is split across multiple pages to be linked with the text of the article. Rendering clients might use this to display all of the article text, regardless of which canvas is being viewed.
 
 ``` json-doc
 {
@@ -820,7 +820,8 @@ Ranges _MAY_ link to a layer, described in the next section, that has the conten
         {
           "@id": "http://example.org/iiif/book1/range/r1",
           "@type": "sc:Range",
-          "label": "Introduction"
+          "label": "Introduction",
+          "contentLayer": "http://example.org/iiif/book1/layer/introTexts"
         },
         {
           "@id": "http://example.org/iiif/book1/canvas/backCover",
