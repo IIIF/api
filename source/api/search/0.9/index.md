@@ -471,11 +471,10 @@ The result might be:
 
 #### 3.4.4. Multi-Annotations Hits
 
-There may be multiple annotations that match a single phrase search.  If the following line of the text was a continuation of the sentence "and they are worth one in the hand", and the user searched for the phrase "bush and", the match would span multiple annotations regardless of whether the annotation was at word or line level.
+Depending on the way that the text is made available via annotations, such as word by word or line by line, there may be multiple annotations that match a single search.  For example, if the first line was "Two birds in the bush", the second line was "are worth one in the hand", and the user search for the phrase "bush are", the match would span both of the line based annotations.  If the annotations are at word level, then phrases will require multiple annotations.
 
-In this case there needs to be more annotations than actual hits, as two annotations are needed to make up this one hit.   When the phrase spans multiple lines, only the lines can be matched as the highlighting selectors aren't associated directly with each annotation, and just the annotations would be listed together.
+In cases like this there are more annotations than hits as two or more annotations are needed to make up one hit.  The `match` property of the hit captures the text across the annotations. 
 
-For the word level annotation case, the response might look like:
 
 ``` json-doc
 {
@@ -483,7 +482,7 @@ For the word level annotation case, the response might look like:
       "http://iiif.io/api/presentation/{{ site.presentation_api.latest.major }}/context.json",
       "http://iiif.io/api/search/{{ page.major }}/context.json"
   ],
-  "@id":"http://example.org/service/manifest/search?q=bird",
+  "@id":"http://example.org/service/manifest/search?q=bush+are",
   "@type":"sc:AnnotationList",
 
   "resources": [
@@ -493,19 +492,19 @@ For the word level annotation case, the response might look like:
       "motivation": "sc:painting",
       "resource": {
         "@type": "cnt:ContentAsText",
-        "chars": "bush"
+        "chars": "Two birds in the bush"
       },
-      "on": "http://example.org/identifier/canvas1#xywh=200,100,40,20"
+      "on": "http://example.org/identifier/canvas1#xywh=200,100,150,30"
     },
     {
-      "@id": "http://example.org/identifier/annotation/anno-and",
+      "@id": "http://example.org/identifier/annotation/anno-are",
       "@type": "oa:Annotation",
       "motivation": "sc:painting",
       "resource": {
         "@type": "cnt:ContentAsText",
-        "chars": "and"
+        "chars": "are worth one in the hand"
       },
-      "on": "http://example.org/identifier/canvas1#xywh=200,100,40,20"
+      "on": "http://example.org/identifier/canvas1#xywh=200,140,170,30"
     }
     // Further annotations here ...
   ],
@@ -515,11 +514,11 @@ For the word level annotation case, the response might look like:
       "@type": "search:Hit",
       "annotations": [
         "http://example.org/identifier/annotation/anno-bush",
-        "http://example.org/identifier/annotation/anno-and"
+        "http://example.org/identifier/annotation/anno-are"
       ],
-      "match": "bush and",
-      "before": "There are two birds in the ",
-      "after": " they are worth two in the hand."
+      "match": "bush are",
+      "before": "Two birds in the ",
+      "after": " worth one in the hand"
     }
     // Further hits for the first page here ...
   ]
