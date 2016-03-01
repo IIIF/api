@@ -1780,7 +1780,7 @@ URL: _http://example.org/iiif/book1/manifest_
 
  * Clients _SHOULD_ be aware that some implementations may add an `@graph` property at the top level, which contains the object. This is a side effect of JSON-LD serialization, and servers _SHOULD_ remove it before sending to the client. If this is seen in practice, the client can use the [JSON-LD compaction algorithm][json-ld-compact] and JSON-LD Framing with the [supplied frames][annex-frames] to remove it and generate the correct representation.
 
- * If a {name} parameter in the recommended URI structure begins with a number, such as `.../canvas/1`, then certain technology stacks may be inconvenienced.  In particular, an RDF based stack that uses RDF/XML internally will not be able to derive a shared `.../canvas/` prefix and then use the `1` as a CURIE, as `&lt;canvas:1&gt;` is not a valid element in XML.  Producers might consider adding an alphabetical character as the initial character, and client implementations might consider avoiding such technology stacks. 
+ * If a {name} parameter in the recommended URI structure begins with a number, such as `.../canvas/1`, then certain technology stacks may be inconvenienced.  In particular, an RDF based stack that uses RDF/XML internally will not be able to derive a shared `.../canvas/` prefix and then use the `1` as a CURIE, as `&lt;canvas:1&gt;` is not a valid element in XML.  Producers might consider adding an alphabetical character as the initial character. 
 
 
 ### E. Versioning
