@@ -54,17 +54,18 @@ See also the note under [Size][size] about combinations of Size and Region that 
 
 ### 3.2 Size
 
-| Syntax | Feature Name     | Level 0 | Level 1 | Level 2  |
-|:-------|:-----------------|:-------:|:-------:|:--------:|
-| `full` |                  | ![required][icon-req] | ![required][icon-req] | ![required][icon-req] |
-| `max`  |                  | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] |
-| w,h    | `sizeByWhListed` | ![required][icon-req] | ![required][icon-req] | ![required][icon-req] |
-| w,     | `sizeByW`        | ![optional][icon-opt] | ![required][icon-req] | ![required][icon-req] |
-| ,h     | `sizeByH`        | ![optional][icon-opt] | ![required][icon-req] | ![required][icon-req] |
-| pct:n  | `sizeByPct`      | ![optional][icon-opt] | ![required][icon-req] | ![required][icon-req] |
-| !w,h   | `sizeByForcedWh` | ![optional][icon-opt] | ![optional][icon-opt] | ![required][icon-req] |
-| w,h    | `sizeByWh`       | ![optional][icon-opt] | ![optional][icon-opt] | ![required][icon-req] |
-|        | `sizeAboveFull`  | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] |
+| Syntax | Feature Name        | Level 0 | Level 1 | Level 2  |
+|:-------|:--------------------|:-------:|:-------:|:--------:|
+| `full` |                     | ![required][icon-req] | ![required][icon-req] | ![required][icon-req] |
+| `max`  |                     | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] |
+| w,h    | `sizeByWhListed`    | ![required][icon-req] | ![required][icon-req] | ![required][icon-req] |
+| w,     | `sizeByW`           | ![optional][icon-opt] | ![required][icon-req] | ![required][icon-req] |
+| ,h     | `sizeByH`           | ![optional][icon-opt] | ![required][icon-req] | ![required][icon-req] |
+| pct:n  | `sizeByPct`         | ![optional][icon-opt] | ![required][icon-req] | ![required][icon-req] |
+| !w,h   | `sizeByConfinedWh`  | ![optional][icon-opt] | ![optional][icon-opt] | ![required][icon-req] |
+| w,h    | `sizeByDistortedWh` | ![optional][icon-opt] | ![optional][icon-opt] | ![required][icon-req] |
+| w,h    | `sizeByWh`          | ![optional][icon-opt] | ![optional][icon-opt] | ![required][icon-req] |
+|        | `sizeAboveFull`     | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] |
 {: .api-table}
 
 Note that servers may express limits on the sizes available for an image with the optional `maxWidth`, `maxHeight` and/or `maxArea` [Profile Description properties][profile]. Servers are compliant provided they support the forms of the Size parameter shown above for image sizes up to the limits specified. Clients should not assume that Region and Size parameter combinations such as `/full/full/` will be supported.
