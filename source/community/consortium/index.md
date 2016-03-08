@@ -1,7 +1,6 @@
 ---
 title: IIIF Consortium
 id: consortium
-categories: [pages]
 layout: spec
 ---
 
