@@ -1,19 +1,34 @@
 - name: ARTstor
   uri: 
+  iiifc: 1
 - name: Bayerische Staatsbibliothek (Bavarian State Library)
   uri: 
+  iiifc: 1
+- name: La Bibliothèque nationale de France
+  uri:  
+  iiifc: 1
 - name: Biblissima
   uri: http://www.biblissima-condorcet.fr/
-- name: "Bodleian Libraries, Oxford University"
-  uri: 
+
 - name: British Library
   uri: 
+  iiifc: 1
+- name: British Museum
+  uri:
+  iiifc:
+- name: Brown University
+  uri:
+  iiifc: 2
 - name: Cogapp
   uri: http://www.cogapp.com
+- name: Columbia University
+  uri: 
+  iiifc:
 - name: e-codices – Virtual Manuscript Library of Switzerland
   uri:  http://www.e-codices.unifr.ch
 - name: Cornell University
-  uri: 
+  uri:
+  iiifc: 1 
 - name: DPLA
   uri: http://dp.la/
 - name: Digital Image Archive of Medieval Music (DIAMM)
@@ -22,45 +37,118 @@
   uri: http://www.digirati.co.uk/
 - name: Europeana
   uri: http://europeana.eu/
+- name: The J. Paul Getty Trust
+  uri: http://getty.edu/
+  iiifc: 2
+- name: Ghent University
+  uri:
+  iiifc:
+- name: Gottingen State and University Library
+  uri:
+  iiifc: 2
 - name: Harvard University
   uri: 
+  iiifc: 2
+- name: Indiana University
+  uri:
+  iiifc: 2
+- name: Internet Archive
+  uri:
+  iiifc:
 - name: Johns Hopkins University
   uri: 
+  iiifc: 2
 - name: Klokan Technologies
   uri: http://www.klokantech.com/ 
-- name: La Bibliothèque nationale de France
-  uri:  
+- name: Leiden University
+  uri:
+  iiifc: 2
+- name: MIT Libraries
+  uri: 
+  iiifc: 2
+- name: National Gallery of Art
+  uri:
+  iiifc:
 - name: National Library of Austria
   uri:  
 - name: Nasjonalbiblioteket (National Library of Norway)
-  uri: 
+  uri:
+  iiifc: 1 
 - name: National Library of Denmark
   uri:
+- name: National Library of Egypt
+  uri:
+  iiifc:
 - name: National Library of Israel
   uri:
+  iiifc: 2
 - name: National Library of New Zealand
   uri:
 - name: National Library of Poland
   uri:
+  iiifc: 2
 - name: National Library of Serbia
   uri: 
 - name: National Library of Wales
   uri:
+- name: New York University Libraries
+  uri:
+  iiifc: 2
+- name: Ohio State University
+  uri:
+  iiifc: 2
+- name: "Oxford University (Bodleian Library)"
+  uri:
+  iiifc: 1 
 - name: Princeton University Library
   uri: http://library.princeton.edu
+  iiifc: 1
 - name: Qatar National Library
   uri: http://www.qnl.qa
+- name: Sirma Group
+  uri:
+  iiifc: 
 - name: "St. Louis University"
   uri: 
 - name: Stanford University
-  uri: 
+  uri:
+  iiifc: 1 
 - name: TextGrid
   uri: 
 - name: text &amp; bytes
   uri:  http://www.textandbytes.com/en
+- name: University College Dublin
+  uri:
+  iiifc: 
+- name: University of Hong Kong
+  uri:
+  iiifc: 2
+- name: University of Illinois at Urbana-Champaign
+  uri:
+  iiifc:
+- name: University of Notre Dame
+  uri:
+  iiifc: 2
+- name: University of Pennsylvania
+  uri:
+  iiifc: 2
+- name: University of Toronto
+  uri:
+  iiifc: 2
+- name: Vatican Library
+  uri:
+  iiifc:
+- name: The Walters Art Museum
+  uri:
+  iiifc: 
 - name: Wellcome Trust
   uri: http://wellcomelibrary.org
+  iiifc: 1
 - name: World Digital Library
   uri: http://www.wdl.org
+- name: Yale Center for British Art
+  uri:
+  iiifc: 1
 - name: Yale University
   uri: 
+  iiifc: 1
