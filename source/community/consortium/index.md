@@ -26,9 +26,6 @@ The Consortium is currently in the process of hiring its first full-time staff m
 {% endfor %}
 </ul>
 
-
-
-
-[mou]: mou/
+[mou]: /community/consortium/mou/
 [news]: /news/2015/06/17/iiif-consortium/
 [clir]: http://clir.org/
