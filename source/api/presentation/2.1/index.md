@@ -320,7 +320,8 @@ A link to a machine readable document that semantically describes the resource w
 ##### within
 A link to a resource that contains the current resource, such as annotation lists within a layer. This also allows linking upwards to collections that allow browsing of the digitized objects available.
 
- * Any resource type _MAY_ be within one or more containing resources.
+ * Collections or annotation lists that serve as [pages][paging] _MUST_ be within exactly one paged resource.
+ * Other resource types, including collections or annotation lists not serving as pages, _MAY_ be within one or more containing resources.
 
 ##### startCanvas
 A link from a sequence or range to a canvas that is contained within the sequence.  On seeing this relationship, a client _SHOULD_ advance to the specified canvas when beginning navigation through the sequence/range.  This allows the client to begin with the first canvas that contains interesting content rather than requiring the user to skip past blank or empty canvases manually.
