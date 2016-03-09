@@ -476,11 +476,11 @@ The manifest response contains sufficient information for the client to initiali
 
 The identifier in `@id` _MUST_ always be able to be dereferenced to retrieve the JSON description of the manifest, and thus _MUST_ use the http(s) URI scheme. 
 
-After the descriptive information, there is then a `sequences` section, which is a list of objects. Each object is a sequence, described in the next section, that represents the order of the views and the first such sequence should be included within the manifest as well as optionally being available from its own URI. Subsequent sequences _MUST_ only be referenced with their identifier (`@id`), class (`@type`) and `label` and thus _MUST_ be dereferenced by clients in order to process them if the user selects to view that sequence.
+Along with the descriptive information, there is a `sequences` section, which is a list of JSON-LD objects. Each object describes a [Sequence][sequence], discussed in the next section, that represents the order of the parts of the work, each represented by a [Canvas][canvas].  The first such sequence _MUST_ be included within the manifest as well as optionally being available from its own URI. Subsequent sequences _MUST_ only be referenced with their identifier (`@id`), class (`@type`) and `label` and thus _MUST_ be dereferenced by clients in order to process them if the user selects to view that sequence.
 
-After the `sequences` section there _MAY_ be a `stuctures` section listing one or more [ranges][range] which describe additional structure. 
+There _MAY_ also be a `stuctures` section listing one or more [Ranges][range] which describe additional structure of the content, such as might be rendered as a table of contents.
 
-The example below includes only the manifest-level information, however it _MUST_ embed the sequence, canvas and content information. It includes examples in the descriptive metadata of how to associate multiple entries with a single field and how to be explicit about the language of a particular entry.
+The example below includes only the manifest-level information, however actual implementations _MUST_ embed the first sequence, canvas and content information. It includes examples in the descriptive metadata of how to associate multiple entries with a single field and how to be explicit about the language of a particular entry.
 
 ``` json-doc
 {
@@ -1858,6 +1858,7 @@ Many thanks to Matthieu Bonicel, Tom Cramer, Ian Davis, Markus Enders, Renhart G
 [appendixa]: #a-summary-of-recommended-uri-patterns "Appendix A"
 [appendixb]: #b-summary-of-metadata-requirements "Appendix B"
 [prev-version]: /api/metadata/1.0/
+[sequence]: #sequence
 [canvas]: #canvas
 [range]: #range
 [image-resources]: #image-resources
