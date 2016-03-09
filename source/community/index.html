@@ -1,0 +1,40 @@
+---
+title: Community
+id: community
+categories: [pages]
+layout: sub-page
+redirect_from:
+  - /community.html
+---
+
+          <section class="participants wrapper">
+            <h2>Participating Institutions</h2>
+            <p>The IIIF community consists of a rapidly growing number of cultural heritage institutions and open source software companies and projects committed to sharing and displaying image resources across repositories and the web. Participating institutions include, with members of the <a href="consortium/">IIIF Consortium</a> marked in bold:</p>
+            <ul>
+            {% for i in site.data.institutions %}
+              <li>
+                {% if i.uri %}<a href="{{ i.uri }}">{% endif %}
+                  {% if i.iiifc %}<b>{% endif %}
+                    {{ i.name }}
+                  {% if i.iiifc %}</b>{% endif %}
+                {% if i.uri %}</a>{% endif %}
+              </li>
+            {% endfor %}
+            </ul>
+          </section>
+
+          <section id="how-to-get-involved" class="get-involved wrapper">
+            <h2>How to get involved</h2>
+            <div>We welcome any organization or individual interested in adopting the IIIF, developing software to support it, or giving feedback on the effort to join our discussion list at:
+            <pre style="padding-left: 30px"><a href="https://groups.google.com/forum/#!forum/iiif-discuss" target="_blank">https://groups.google.com/forum/#!forum/iiif-discuss</a></pre>
+            </div>
+
+            <div>There is also a lower traffic announcements list at:
+            	<pre style="padding-left: 30px"><a href="https://groups.google.com/forum/#!forum/iiif-announce" target="_blank">https://groups.google.com/forum/#!forum/iiif-announce</a></pre></div>
+
+            <div>The IIIF community GitHub page is at:
+            	<pre style="padding-left: 30px"><a href="http://github.com/iiif">http://github.com/iiif</a></pre></div>
+
+            <div>There are also bi-weekly teleconferences, the details of which are posted in the iiif-discuss list. All community members are welcome and encouraged to participate in the calls.  Notes from the calls are posted in <a href="https://drive.google.com/drive/u/0/folders/0B8APFBow4sHvUHBtVmh3VE01OW8">this Google Drive folder</a>.</div>
+
+          </section>
