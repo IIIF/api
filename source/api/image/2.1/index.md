@@ -594,9 +594,13 @@ The set of features that may be specified in the `supports` property of an Image
 | `sizeByPct` | Size of images may be requested in the form "pct:n".  |
 | `sizeByW` | Size of images may be requested in the form "w,".  |
 | `sizeByWh` | Size of images may be requested in the form "w,h" where the supplied w and h preserve the aspect ratio.  |
-| `sizeByWhListed` | _Deprecated as an explicit named feature in 2.1 and will be removed in 3.0._ |
-| `sizeByForcedWh` | _Deprecated in favour of 'sizeByDistortedWh' in 2.1 and will be removed in 3.0._  |
+| `sizeByWhListed` | See [deprecation warning below][dep-sizes] |
+| `sizeByForcedWh` | See [deprecation warning below][dep-sizes]  |
 {: .api-table #features}
+
+__Deprecation Warning__
+Use of the named features `sizeByWhListed` and `sizeByForcedWh` is deprecated in version 2.1 of the specification, and they will be removed in version 3.0. 
+{: .warning #dep-sizes}
 
 The features `sizeByWh` and `sizeByDistortedWh` share the same "w,h" syntax for the size parameter, but they represent separate features. A server that supports `sizeByWh` but not `sizeByDistortedWh` would serve an image response at any scale (subject to separate `maxWidth`, `maxHeight`, `maxArea` and `sizeAboveFull` constraints if present), but only if the resulting image preserved the original aspect ratio. Requests for distorted images would not be served.
 
@@ -961,6 +965,7 @@ Many thanks to  Ben Albritton, Matthieu Bonicel, Anatol Broder, Kevin Clarke, To
 [prev-version]: http://iiif.io/api/image/1.1/ "Previous Version"
 [stable-version]: http://iiif.io/api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/ "Stable Version"
 [wsgi]: https://www.python.org/dev/peps/pep-0333/
+[dep-sizes]: #dep-sizes "Deprecated sizes warning"
 
 [client-auth-img]: img/auth-flow-client.png
 [server-auth-img]: img/auth-flow-server.png
