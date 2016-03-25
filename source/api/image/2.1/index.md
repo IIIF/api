@@ -88,7 +88,7 @@ The combination of these parameters forms the image’s base URI and identifies 
 ```
 {: .urltemplate}
 
-When the base URI is dereferenced, the interaction _SHOULD_ result in the Image Information document.  It is _RECOMMENDED_ that the response be a 303 status redirection to the Image Information document's URI.  Implementations _MAY_ also exhibit other behavior for the base URI beyond the scope of this specification in response to HTTP request headers and methods.
+When the base URI is dereferenced, the interaction _SHOULD_ result in the image information document.  It is _RECOMMENDED_ that the response be a 303 status redirection to the image information document's URI.  Implementations _MAY_ also exhibit other behavior for the base URI beyond the scope of this specification in response to HTTP request headers and methods.
 
 To allow for extensions, this specification does not define the server behavior when it receives requests that do not match either the base URI or one of the described URI syntaxes below.
 
@@ -126,7 +126,7 @@ http://www.example.org/image-service/abcd1234/info.json
 ```
 {: .urltemplate}
 
-The scheme, server, prefix and identifier components of the information request _MUST_ be identical to those for the image request described above for the image content that the Image Information document describes.  The Image Information document is described in detail in the [Image Information][image-information] section.
+The scheme, server, prefix and identifier components of the information request _MUST_ be identical to those for the image request described above for the image content that the image information document describes.  The image information document is described in detail in the [Image Information][image-information] section.
 
 ##  3. Identifier
 
@@ -145,10 +145,10 @@ The region parameter defines the rectangular portion of the full image to be ret
 | `full`              | The complete image is returned, without any cropping. |
 | `square`            | The region is defined as an area where the width and height are both equal to the length of the shorter dimension of the complete image. The region may be positioned anywhere in the longer dimension of the image content at the server's discretion, and centered is often a reasonable default.|
 | x,y,w,h             | The region of the full image to be returned is specified in terms of absolute pixel values. The value of x represents the number of pixels from the 0 position on the horizontal axis. The value of y represents the number of pixels from the 0 position on the vertical axis. Thus the x,y position 0,0 is the upper left-most pixel of the image. w represents the width of the region and h represents the height of the region in pixels.  |
-| pct:x,y,w,h         | The region to be returned is specified as a sequence of percentages of the full image's dimensions, as reported in the Image Information document. Thus, `x` represents the number of pixels from the 0 position on the horizontal axis, calculated as a percentage of the reported width. `w` represents the width of the region, also calculated as a percentage of the reported width. The same applies to y and h respectively. These may be floating point numbers. |
+| pct:x,y,w,h         | The region to be returned is specified as a sequence of percentages of the full image's dimensions, as reported in the image information document. Thus, `x` represents the number of pixels from the 0 position on the horizontal axis, calculated as a percentage of the reported width. `w` represents the width of the region, also calculated as a percentage of the reported width. The same applies to y and h respectively. These may be floating point numbers. |
 {: .api-table}
 
-If the request specifies a region which extends beyond the dimensions reported in the Image Information document, then the service _SHOULD_ return an image cropped at the image's edge, rather than adding empty space.
+If the request specifies a region which extends beyond the dimensions reported in the image information document, then the service _SHOULD_ return an image cropped at the image's edge, rather than adding empty space.
 
 If the requested region's height or width is zero, or if the region is entirely outside the bounds of the reported dimensions, then the server _SHOULD_ return a 400 status code.
 
@@ -450,7 +450,7 @@ Link: <http://iiif.example.com/server/full/400,/0/default.jpg>;rel="canonical"
 ```
 {: .urltemplate}
 
-The server _MAY_ include this link header on the Image Information response, however it is unnecessary as it is included in the JSON representation retrieved.
+The server _MAY_ include this link header on the image information response, however it is unnecessary as it is included in the JSON representation retrieved.
 
 ##  5. Image Information
 
@@ -555,7 +555,7 @@ The following shows a valid image information response, including the optional `
 
 ### 5.3. Profile Description
 
-In order to specify additional features that are supported for the image, a profile object may be added to the `profile` list. Objects in the `profile` list have the properties in the following table. The `@context`, `@id` and `@type` properties are _REQUIRED_ when the profile is dereferenced from a URI, but _SHOULD NOT_ be included in the Image Information response.
+In order to specify additional features that are supported for the image, a profile object may be added to the `profile` list. Objects in the `profile` list have the properties in the following table. The `@context`, `@id` and `@type` properties are _REQUIRED_ when the profile is dereferenced from a URI, but _SHOULD NOT_ be included in the image information response.
 
 | Profile Property | Required? | Description |
 | ----------- | --------- | ----------- |
@@ -576,7 +576,7 @@ The set of features that may be specified in the `supports` property of an Image
 
 | Feature Name | Description |
 | ------------ | ----------- |
-| `baseUriRedirect` | The base URI of the service will redirect to the Image Information document. |
+| `baseUriRedirect` | The base URI of the service will redirect to the image information document. |
 | `canonicalLinkHeader` | The canonical image URI HTTP link header is provided on image responses. |
 | `cors` |  The CORS HTTP header is provided on all responses.  |
 | `jsonldMediaType` | The JSON-LD media type is provided when JSON-LD is requested. |
@@ -604,7 +604,7 @@ Use of the feature names `sizeByWhListed` and `sizeByForcedWh` is deprecated. Th
 
 The features `sizeByWh` and `sizeByDistortedWh` share the same "w,h" syntax for the size parameter, but they represent separate features. A server that supports `sizeByWh` but not `sizeByDistortedWh` would serve an image response at any scale (subject to separate `maxWidth`, `maxHeight`, `maxArea` and `sizeAboveFull` constraints if present), but only if the resulting image preserved the original aspect ratio. Requests for distorted images would not be served.
 
-A server that supports neither `sizeByW` or `sizeByWh` is only required to serve the image sizes listed under the `sizes` property or implied by the `tiles` property of the Image Information Document, allowing for a static file implementation.
+A server that supports neither `sizeByW` or `sizeByWh` is only required to serve the image sizes listed under the `sizes` property or implied by the `tiles` property of the image information document, allowing for a static file implementation.
 
 The set of features, formats and qualities supported is the union of those declared in all of the external profile documents and any embedded profile objects.  If a feature is not present in either the profile document or the `supports` property of an embedded profile, then a client _MUST_ assume that the feature is not supported.
 
@@ -636,18 +636,30 @@ The following fragment shows a profile indicating support for additional formats
 
 ### 5.4. Rights and Licensing Properties
 
+The rights and licensing properties, `attribution`, `license` and `logo`, have the same semantics and requirements as those in the [Presentation API][prezi-api]. 
+
 | Rights and Licensing Property | Required? | Description |
 | ------------- | --------- | ----------- |
-| `attribution` | Optional  | Text that _MUST_ be shown when the image is displayed or used. It might include copyright or ownership statements, or a simple acknowledgement of the providing institution. The value _MAY_ contain simple HTML, using only the `a`, `b`, `br`, `i`, `img`, `p` and `span` tags, as described in the [HTML Markup in Property Values][prezi-html] section of the Presentation API. |
-| `license` | Optional | One or more URLs of an external resource that describes the license or rights statement under which the image may be used. |
-| `logo` | Optional | One or more URLs of a small image that represents an individual or organization associated with the image service. The logo image _MUST_ be clearly rendered when the main image is displayed or used. Clients _MUST NOT_ crop, rotate, or otherwise distort the image. |
+| `attribution` | Optional  | Text that _MUST_ be shown when content obtained from the Image API service is displayed or used. It might include copyright or ownership statements, or a simple acknowledgement of the providing institution. The value _MAY_ contain simple HTML as described in the [HTML Markup in Property Values][prezi-html] section of the Presentation API. |
+| `license` | Optional | A link to an external resource that describes the license or rights statement under which content obtained from the Image API service may be used. |
+| `logo` | Optional | A small image that represents an individual or organization associated with the content. Logo images _MUST_ be clearly rendered when content obtained from the Image API service is displayed or used. Clients _MUST NOT_ crop, rotate, or otherwise distort the image.   |
 {: .api-table}
 
-The `attribution`, `license` and `logo` properties have the same semantics and requirements as those in the [Presentation API][prezi-api]. When both APIs express attributions or logos, then clients _MUST_ display both unless they are identical.
+All of the rights and licensing properties _MAY_ have multiple values, expressed as a JSON array, or a single value.
 
-In the case where multiple values are supplied for `attribution`, clients _MUST_ display at least one value. Clients _SHOULD_ try to match the language preferred by the user, and if the preferred language is unclear or unavailable, then the client may choose which value to display.
+In the case where multiple values are supplied for `attribution`, clients _MUST_ use the following algorithm to determine which values to display to the user.  
 
-The value of the `logo` property may be an object in order to indicate the URI of the image and an IIIF Image API [service](#related-services) for the logo. While possible, it is _RECOMMENDED_ that logos with IIIF services do not, themselves, have logos. Clients encountering logos with logos are not required to display a potentially infinite set.
+
+* If none of the values have a language associated with them, the client _MUST_ display all of the values.
+* Else, the client should try to determine the user's language preferences.  If the user's language preferences are unknown, then the client _MUST_ supply a language preference. Then:
+  * If any of the values have a language associated with them, the client _MUST_ display all of the values associated with the language that best matches the language preference.
+  * If all of the values have a language associated with them, and none match the language preference, the client _MUST_ select a language and display all of the values associated with that language.
+  * If some of the values have a language associated with them, but none match the language preference, the client _MUST_ display all of the values that do not have a language associated with them.
+
+The value of the `logo` property may be a string containing the URL of the image, or a JSON object that indicates the URI of both the logo image and a IIIF Image API [service](#related-services) for the logo. While possible, it is _RECOMMENDED_ that logos with IIIF services do not, themselves, have logos. Clients encountering logos with logos are not required to display a potentially infinite set.
+
+When both the Image and Presentation APIs express attributions or logos, then clients _MUST_ display both unless they are identical.
+
 
 The following shows a simple use of each of these properties:
 
@@ -727,7 +739,7 @@ The following shows a response including all of the required and optional image 
       "service" : {
         "@context" : "http://iiif.io/api/image/2/context.json",
         "@id" : "http://example.org/image-service/logo",
-        "profile" : "http://iiif.io/api/image/2/profiles/level2.json"
+        "profile" : "http://iiif.io/api/image/2/level2.json"
       }
   },
   "license" : [
@@ -760,7 +772,7 @@ The following shows a response including all of the required and optional image 
 
 ##  6. Compliance Levels
 
-The Image Information document _MUST_ specify the extent to which the API is supported by including a compliance level URI as the first entry in the `profile` property. This URI links to a description of the highest compliance level for which all requirements are met. The URI _MUST_ be one of those listed in the [Image API Compliance][compliance] document. This description contains the set of features required by the profile, as discussed in [Image Information][image-information]. A server _MAY_ declare different compliance levels for images with different identifiers.
+The image information document _MUST_ specify the extent to which the API is supported by including a compliance level URI as the first entry in the `profile` property. This URI links to a description of the highest compliance level for which all requirements are met. The URI _MUST_ be one of those listed in the [Image API Compliance][compliance] document. This description contains the set of features required by the profile, as discussed in the [Image Information][image-information] section. A server _MAY_ declare different compliance levels for images with different identifiers.
 
 The compliance level URI _MAY_ also be given in the HTTP Link header ([RFC5988][rfc-5988]) with the parameter `rel="profile"`, and thus a complete header might look like:
 
@@ -870,7 +882,6 @@ Early sanity checking of URIs (lengths, trailing GET, invalid characters, out-of
     if (yr + th*s > height):
         hs = (height - yr + s - 1) / s
 ```
-{: .urltemplate}
 
   * As described in [Rotation][rotation], in order to retain the size of the requested image contents, rotation will change the width and height dimensions of the image returned. A formula for calculating the dimensions of the image returned for a given starting size and rotation is given below. Note that the rounding method is implementation dependent and that some languages require conversion of the angle from degrees to radians.
 
@@ -879,7 +890,6 @@ Early sanity checking of URIs (lengths, trailing GET, invalid characters, out-of
     w_returned = abs(w*cos(n)) + abs(h*sin(n))
     h_returned = abs(h*cos(n)) + abs(w*sin(n))
 ```
-{: .urltemplate}
 
 ### B. Versioning
 

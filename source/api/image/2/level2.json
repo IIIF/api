@@ -13,6 +13,7 @@
     "regionByPct",
     "regionByPx",
     "rotationBy90s",
+    "sizeByWhListed",
     "sizeByConfinedWh",
     "sizeByDistortedWh",
     "sizeByForcedWh",
