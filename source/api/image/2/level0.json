@@ -5,5 +5,5 @@
 
   "formats": ["jpg"],
   "qualities": ["default"],
-  "supports": []
+  "supports": ["sizeByWhListed"]
 }

@@ -218,7 +218,7 @@ If the resulting height or width is zero, then the server _SHOULD_ return a 400 
 The image server _MAY_ support scaling above the full size of the extracted region.
 
 __Deprecation Warning__
-The size keyword `full` will be replaced in favor of `max` in Version 3.0. Feedback is welcome via [iiif-discuss][iiif-discuss] or on the [Github issue](https://github.com/IIIF/iiif.io/issues/678).
+The size keyword `full` will be replaced in favor of `max` in version 3.0. Feedback is welcome via [iiif-discuss][iiif-discuss] or on the [Github issue](https://github.com/IIIF/iiif.io/issues/678).
 {: .warning #full-dep}
 
 Examples:
@@ -588,13 +588,23 @@ The set of features that may be specified in the `supports` property of an Image
 | `rotationArbitrary` |   Rotation of images may be requested by degrees other than multiples of 90. |
 | `rotationBy90s` |   Rotation of images may be requested by degrees in multiples of 90. |
 | `sizeAboveFull` | Size of images may be requested larger than the "full" size. See [warning][max-dos-warning]. |
-| `sizeByWhListed` | Size of images given in the `sizes` field of the Image Information document may be requested using the `w,h` syntax. |
-| `sizeByForcedWh` | Size of images may be requested in the form "!w,h".  |
+| `sizeByConfinedWh` | Size of images may be requested in the form "!w,h". |
+| `sizeByDistortedWh` | Size of images may be requested in the form "w,h", including sizes that would distort the image.   |
 | `sizeByH` | Size of images may be requested in the form ",h".  |
 | `sizeByPct` | Size of images may be requested in the form "pct:n".  |
 | `sizeByW` | Size of images may be requested in the form "w,".  |
-| `sizeByWh` | Size of images may be requested in the form "w,h".  |
+| `sizeByWh` | Size of images may be requested in the form "w,h" where the supplied w and h preserve the aspect ratio.  |
+| `sizeByWhListed` | See [deprecation warning below][dep-sizes]. |
+| `sizeByForcedWh` | See [deprecation warning below][dep-sizes]. |
 {: .api-table #features}
+
+__Deprecation Warning__
+Use of the feature names `sizeByWhListed` and `sizeByForcedWh` is deprecated. These names will be removed in version 3.0. `sizeByForcedWh` was inconsistently defined in version 2.0, and `sizeByWhListed` is implied by listing the sizes in the image information document and is therefore not required as a named feature.
+{: .warning #dep-sizes}
+
+The features `sizeByWh` and `sizeByDistortedWh` share the same "w,h" syntax for the size parameter, but they represent separate features. A server that supports `sizeByWh` but not `sizeByDistortedWh` would serve an image response at any scale (subject to separate `maxWidth`, `maxHeight`, `maxArea` and `sizeAboveFull` constraints if present), but only if the resulting image preserved the original aspect ratio. Requests for distorted images would not be served.
+
+A server that supports neither `sizeByW` or `sizeByWh` is only required to serve the image sizes listed under the `sizes` property or implied by the `tiles` property of the Image Information Document, allowing for a static file implementation.
 
 The set of features, formats and qualities supported is the union of those declared in all of the external profile documents and any embedded profile objects.  If a feature is not present in either the profile document or the `supports` property of an embedded profile, then a client _MUST_ assume that the feature is not supported.
 
@@ -955,6 +965,7 @@ Many thanks to  Ben Albritton, Matthieu Bonicel, Anatol Broder, Kevin Clarke, To
 [prev-version]: http://iiif.io/api/image/1.1/ "Previous Version"
 [stable-version]: http://iiif.io/api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/ "Stable Version"
 [wsgi]: https://www.python.org/dev/peps/pep-0333/
+[dep-sizes]: #dep-sizes "Deprecated sizes warning"
 
 [client-auth-img]: img/auth-flow-client.png
 [server-auth-img]: img/auth-flow-server.png
