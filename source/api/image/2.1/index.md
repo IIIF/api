@@ -218,7 +218,7 @@ If the resulting height or width is zero, then the server _SHOULD_ return a 400 
 The image server _MAY_ support scaling above the full size of the extracted region.
 
 __Deprecation Warning__
-The size keyword `full` will be replaced in favor of `max` in Version 3.0. Feedback is welcome via [iiif-discuss][iiif-discuss] or on the [Github issue](https://github.com/IIIF/iiif.io/issues/678).
+The size keyword `full` will be replaced in favor of `max` in version 3.0. Feedback is welcome via [iiif-discuss][iiif-discuss] or on the [Github issue](https://github.com/IIIF/iiif.io/issues/678).
 {: .warning #full-dep}
 
 Examples:
@@ -594,12 +594,12 @@ The set of features that may be specified in the `supports` property of an Image
 | `sizeByPct` | Size of images may be requested in the form "pct:n".  |
 | `sizeByW` | Size of images may be requested in the form "w,".  |
 | `sizeByWh` | Size of images may be requested in the form "w,h" where the supplied w and h preserve the aspect ratio.  |
-| `sizeByWhListed` | See [deprecation warning below][dep-sizes] |
-| `sizeByForcedWh` | See [deprecation warning below][dep-sizes]  |
+| `sizeByWhListed` | See [deprecation warning below][dep-sizes]. |
+| `sizeByForcedWh` | See [deprecation warning below][dep-sizes]. |
 {: .api-table #features}
 
 __Deprecation Warning__
-Use of the named features `sizeByWhListed` and `sizeByForcedWh` is deprecated in version 2.1 of the specification, and they will be removed in version 3.0. 
+Use of the feature names `sizeByWhListed` and `sizeByForcedWh` is deprecated in version 2.1 of the specification. These names will be removed in version 3.0. `sizeByForcedWh` was inconsistently defined in version 2.0, and `sizeByWhListed` is implied by listing the sizes in the image information document and is therefore not required as a named feature.
 {: .warning #dep-sizes}
 
 The features `sizeByWh` and `sizeByDistortedWh` share the same "w,h" syntax for the size parameter, but they represent separate features. A server that supports `sizeByWh` but not `sizeByDistortedWh` would serve an image response at any scale (subject to separate `maxWidth`, `maxHeight`, `maxArea` and `sizeAboveFull` constraints if present), but only if the resulting image preserved the original aspect ratio. Requests for distorted images would not be served.
