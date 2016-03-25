@@ -599,7 +599,7 @@ The set of features that may be specified in the `supports` property of an Image
 {: .api-table #features}
 
 __Deprecation Warning__
-Use of the feature names `sizeByWhListed` and `sizeByForcedWh` is deprecated in version 2.1 of the specification. These names will be removed in version 3.0. `sizeByForcedWh` was inconsistently defined in version 2.0, and `sizeByWhListed` is implied by listing the sizes in the image information document and is therefore not required as a named feature.
+Use of the feature names `sizeByWhListed` and `sizeByForcedWh` is deprecated. These names will be removed in version 3.0. `sizeByForcedWh` was inconsistently defined in version 2.0, and `sizeByWhListed` is implied by listing the sizes in the image information document and is therefore not required as a named feature.
 {: .warning #dep-sizes}
 
 The features `sizeByWh` and `sizeByDistortedWh` share the same "w,h" syntax for the size parameter, but they represent separate features. A server that supports `sizeByWh` but not `sizeByDistortedWh` would serve an image response at any scale (subject to separate `maxWidth`, `maxHeight`, `maxArea` and `sizeAboveFull` constraints if present), but only if the resulting image preserved the original aspect ratio. Requests for distorted images would not be served.
