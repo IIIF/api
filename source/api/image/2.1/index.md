@@ -904,7 +904,7 @@ Many thanks to  Ben Albritton, Matthieu Bonicel, Anatol Broder, Kevin Clarke, To
 
 | Date       | Description |
 | ---------- | ----------- |
-| 2016-01-20 | Version 2.1-draft (Cruising Cardinal) RFC [View change log][change-log21] |
+| 2016-03-25 | Version 2.1 (Crowned Eagle) RFC [View change log][change-log21] |
 | 2014-09-11 | Version 2.0 (Vodoo Bunny) released [View change log][change-log20] |
 | 2013-09-17 | Version 1.1 (unnamed) released [View change log][change-log11] |
 | 2012-08-10 | Version 1.0 |
