@@ -8,6 +8,7 @@
     "dc": "http://purl.org/dc/elements/1.1/",
     "dcterms": "http://purl.org/dc/terms/",
     "dctypes": "http://purl.org/dc/dcmitype/",
+    "doap": "http://usefulinc.com/ns/doap#",
     "foaf": "http://xmlns.com/foaf/0.1/",
     "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
     "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
@@ -32,7 +33,7 @@
     },
     "profile": {
       "@type": "@id",
-      "@id": "dcterms:conformsTo"
+      "@id": "doap:implements"
     },
     "related": {
       "@type": "@id",
@@ -170,12 +171,12 @@
       "@id": "sc:topHint",
       "@type": "sc:ViewingHint"
     },
-	  "multi-part": {
-      "@id": "sc:multiPartHint", 
+    "multi-part": {
+      "@id": "sc:multiPartHint",
       "@type": "sc:ViewingHint"
     },
-	  "facing-pages": {
-      "@id": "sc:facingPagesHint", 
+    "facing-pages": {
+      "@id": "sc:facingPagesHint",
       "@type": "sc:ViewingHint"
     },
     "motivation": {
@@ -234,28 +235,27 @@
     "label": {
       "@id": "rdfs:label"
     },
-		"first": {
-      "@type": "@id", 
+    "first": {
+      "@type": "@id",
       "@id": "as:first"
     },
-		"last":	{
-      "@type": "@id", 
+    "last": {
+      "@type": "@id",
       "@id": "as:last"
     },
-		"next": {
-      "@type": "@id", 
+    "next": {
+      "@type": "@id",
       "@id": "as:next"
-    },		    
-	 "prev": {
-      "@type": "@id", 
+    },
+    "prev": {
+      "@type": "@id",
       "@id": "as:prev"
     },
-		"total": {
+    "total": {
       "@id": "as:totalItems"
     },
-		"startIndex":  {
+    "startIndex": {
       "@id": "as:startIndex"
     }
-	}
-  ]
+  }]
 }

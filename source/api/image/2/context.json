@@ -119,11 +119,11 @@
       "@type": "@id"
     },
     "profile": {
-      "@id": "dcterms:conformsTo",
+      "@id": "doap:implements",
       "@type": "@id"
     },
     "protocol": {
-      "@id": "doap:implements",
+      "@id": "dcterms:conformsTo",
       "@type": "@id"
     },
     "supports": {
