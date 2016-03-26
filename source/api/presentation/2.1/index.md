@@ -1822,7 +1822,7 @@ Many thanks to Matthieu Bonicel, Tom Cramer, Ian Davis, Markus Enders, Renhart G
 
 | Date       | Description                                        |
 | ---------- | -------------------------------------------------- |
-| 2016-02-26 | Version 2.1.0-draft5 (Trip Life) [View change log][change-log] |
+| 2016-02-26 | Version 2.1.0-draft5 (Hinty McHintface) [View change log][change-log] |
 | 2014-09-11 | Version 2.0 (Triumphant Giraffe) [View change log][change-log-20] |
 | 2013-08-26 | Version 1.0 (unnamed) released                     |
 | 2013-06-14 | Version 0.9 (unnamed) released                     |
