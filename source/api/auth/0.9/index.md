@@ -461,8 +461,8 @@ Many thanks to the members of the [IIIF Community][iiif-community] for their con
 
 | Date       | Description |
 | ---------- | ----------- |
-| 2015-10-30 | Version 0.9.1 (Alchemical Key); add missing @context, clarifications |
-| 2015-07-28 | Version 0.9.0 (Alchemical Key); beta specification for review |
+| 2015-10-30 | Version 0.9.1 (Table Flip) add missing @context, clarifications |
+| 2015-07-28 | Version 0.9.0 (unnamed) draft |
 {: .api-table}
 
 [jsonp]: http://en.wikipedia.org/wiki/JSONP "JSONP"
