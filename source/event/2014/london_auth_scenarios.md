@@ -14,11 +14,11 @@ Notes distributed on iiif-discuss 2014-10-22 and discussed at [IIIF 6 London Wor
 
 ## U1. \<img\> tag inclusion of access controlled IIIF image
 
-In the case of an IIIF Image API URI in a HTML \<img\> tag, where credentials are required for access, it would be good for a user with no credentials to be directed to an authentication page to obtain credentials (or explain other circumstances such as location based access restrictions).
+In the case of a IIIF Image API URI in a HTML \<img\> tag, where credentials are required for access, it would be good for a user with no credentials to be directed to an authentication page to obtain credentials (or explain other circumstances such as location based access restrictions).
 
 ## U2. \<img\> tag inclusion of access controlled IIIF image with a degraded version
 
-In the case of an IIIF Image API URI in a HTML \<img\> tag where credentials are required for high-quality access, but where a degraded version is available without these credentials, a user viewing the HTML page should see the degraded version without the need for any intervention. (No means provided to obtain credentials.)
+In the case of a IIIF Image API URI in a HTML \<img\> tag where credentials are required for high-quality access, but where a degraded version is available without these credentials, a user viewing the HTML page should see the degraded version without the need for any intervention. (No means provided to obtain credentials.)
 
 ## U3. Image API client with access controlled image
 

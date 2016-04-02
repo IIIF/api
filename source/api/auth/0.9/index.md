@@ -56,7 +56,7 @@ Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss]
 
 ### 1.1. Terminology
 
-This specification distinguishes between Content Resources, such as images or videos, and Description Resources which conform to IIIF specifications, such as [Image API][image-api] image information (info.json) and [Presentation API][prezi-api] collection or manifest resources.  The reason for this distinction is that contemporary web browsers require different authentication methods to be used for resources that are requested and rendered by the browser (e.g. images), versus resources that are directly requested by JavaScript and processed (e.g. JSON via XMLHttpRequest).
+This specification distinguishes between Content Resources, such as images or videos, and Description Resources which conform to IIIF (pronounced "Triple-Eye-Eff") specifications, such as [Image API][image-api] image information (info.json) and [Presentation API][prezi-api] collection or manifest resources.  The reason for this distinction is that contemporary web browsers require different authentication methods to be used for resources that are requested and rendered by the browser (e.g. images), versus resources that are directly requested by JavaScript and processed (e.g. JSON via XMLHttpRequest).
 
 The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _SHOULD NOT_, _RECOMMENDED_, _MAY_, and _OPTIONAL_ in this document are to be interpreted as described in [RFC 2119][rfc-2119].
 
