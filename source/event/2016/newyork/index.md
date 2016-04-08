@@ -49,7 +49,7 @@ This event will be valuable for organizational decision makers, repository and c
 | 4:10 - 4:25   | Discovery          | Michael Stocking (Armadillo Systems) |
 | 4:25 - 4:45   | Q&A                | Simeon Warner (Cornell) | 
 | 4:45 - 5:00   | Close              | Tom Cramer (Stanford) |
-{: .api-table}
+{: .api-table .sched-table}
 
 ## Access to the World's Images: The IIIF Conference
 
@@ -93,13 +93,13 @@ Following the introductory event, from Wednesday 11th through Friday 13th of May
 |  3:00 -  3:30 | _Break_ | -- | 
 |  3:30 -  4:15 | IIIF and the Wider World: Alignment with Other Specifications (panel) | Mark Matienzo (DPLA), Rob Sanderson (Getty), Antoine Isaac (Europeana) |
 |  4:15 -  5:00 | Big Projects in the Big Tent: Organizing Large Scale, IIIF-wide Projects in the Emerging IIIF Community Framework (discussion) | Tom Cramer (Stanford, facilitator) |
-{: .api-table}
+{: .api-table .sched-table}
 
 ## Thursday
 
 | Time         | Session       | Facilitators  |
 |--------------|---------------|-------------|
-| 9:00 - 12:00 (A) | Universal Viewer Working Group | Ed Silverton (Digirati) |
+| 9:00 - 12:00 (A) | Universal Viewer Interest Group | Ed Silverton (Digirati) |
 | 9:00 - 12:00 (B) | Museums Working Group | Mike Appleby (Yale), Emmanuelle Delmas-Glass (Yale), Tina Shah (Art Institute of Chicago) |
 | 9:00 - 12:00 (C) | Manuscript Working Group | Ben Albritton (Stanford)  |
 | 12:00 - 1:00 | _Lunch_ | _On Your Own_  |
@@ -110,13 +110,13 @@ Following the introductory event, from Wednesday 11th through Friday 13th of May
 | 2:30 - 3:15 (B) | Training | Tom Cramer (Stanford) |
 | 3:15 - 3:30 | _Break_ | -- |
 | 3:30 - 5:00 (A) | IIIF A/V Update | IIIF Editors |
-{: .api-table}
+{: .api-table .sched-table}
 
 ## Friday
 
 | Time          | Session       | Facilitators  |
 |---------------|---------------|-------------|
-| 9:00 - 12:00 (A) | Mirador Working Group | Drew Winget (Stanford) |
+| 9:00 - 12:00 (A) | Mirador Interest Group | Drew Winget (Stanford) |
 | 9:00 - 12:00 (B) | Newspaper Working Group | Karen Estlund (Penn State) | 
 | 9:00 - 12:00 (C) | Manuscript Working Group | Ben Albritton (Stanford)  |
 | 12:00 - 1:30 | _Lunch_ | _On Your Own_ |
@@ -128,7 +128,7 @@ Following the introductory event, from Wednesday 11th through Friday 13th of May
 | 3:30 - 3:50  (A) | Metadata Search | Mark Patton (Johns Hopkins), John Abrahams (Johns Hopkins) |
 | 3:50 - 4:10  (A) | MediaChain and IIIF | Jesse Walden (Mine) | 
 | 4:10 - 5:00  (A) | REST | Jon Stroop (Princeton) | 
-{: .api-table}
+{: .api-table .sched-table}
 
 [home-page]: http://iiif.io/
 [eventbrite]: http://iiif-advantages-nyc.eventbrite.com/
