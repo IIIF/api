@@ -28,9 +28,6 @@ This event will be valuable for organizational decision makers, repository and c
 
 ### Schedule
 
-
-# Conference Schedule
-
 | Time          | Session            | Presenters               |
 |---------------|--------------------|-----------------------------------|
 | 10:00 - 10:10 | Welcome            |                                   |
@@ -70,7 +67,7 @@ Following the introductory event, from Wednesday 11th through Friday 13th of May
 ### Schedule
 
 
-## Wednesday
+#### Wednesday
 
 | Time          | Session       | Presenters            |
 |---------------|---------------|-----------------------|
@@ -95,7 +92,7 @@ Following the introductory event, from Wednesday 11th through Friday 13th of May
 |  4:15 -  5:00 | Big Projects in the Big Tent: Organizing Large Scale, IIIF-wide Projects in the Emerging IIIF Community Framework (discussion) | Tom Cramer (Stanford, facilitator) |
 {: .api-table}
 
-## Thursday
+#### Thursday
 
 | Time         | Session       | Facilitators  |
 |--------------|---------------|-------------|
@@ -112,7 +109,7 @@ Following the introductory event, from Wednesday 11th through Friday 13th of May
 | 3:30 - 5:00 (A) | IIIF A/V Update | IIIF Editors |
 {: .api-table}
 
-## Friday
+#### Friday
 
 | Time          | Session       | Facilitators  |
 |---------------|---------------|-------------|
