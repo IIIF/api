@@ -36,7 +36,7 @@ Version 2.0 incorrectly recommended the inclusion of a HTTP link header for the 
 
 ### Added `sizeByConfinedWh` and `sizeByDistortedWh` Feature Names
 
-New feature names `sizeByConfinedWh` and `sizeByDistortedWh` in the [profile description][profile-description] provide clear indications of support for `!w,h` and distorting `w,h` size requests respectively. As a result the related feature names `sizeByWhListed` and `sizeByForcedWh` have been [deprecated][sizebywhlisted-and-sizebyforcedwh-deprecated]. See [issue 720](https://github.com/IIIF/iiif.io/issues/720) and additional discussion on [pull pequest 727](https://github.com/IIIF/iiif.io/pull/727). 
+New feature names `sizeByConfinedWh` and `sizeByDistortedWh` in the [profile description][profile-description] provide clear indications of support for `!w,h` and distorting `w,h` size requests respectively. As a result the related feature names `sizeByWhListed` and `sizeByForcedWh` have been [deprecated][deprecated-sizebywhlisted-and-sizebyforcedwh]. See [issue 720](https://github.com/IIIF/iiif.io/issues/720) and additional discussion on [pull pequest 727](https://github.com/IIIF/iiif.io/pull/727). 
 
 ### Added `maxWidth`, `maxHeight` and `maxArea` Parameters
 
