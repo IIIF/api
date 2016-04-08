@@ -120,6 +120,9 @@
 - name: University College Dublin
   uri:
   iiifc: 
+- name: University of Edinburgh
+  uri: http://www.ed.ac.uk/
+  iiifc: 2
 - name: University of Hong Kong
   uri:
   iiifc: 2
