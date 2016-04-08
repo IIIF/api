@@ -49,28 +49,11 @@ This event will be valuable for organizational decision makers, repository and c
 | 4:10 - 4:25   | Discovery          | Michael Stocking (Armadillo Systems) |
 | 4:25 - 4:45   | Q&A                | Simeon Warner (Cornell) | 
 | 4:45 - 5:00   | Close              | Tom Cramer (Stanford) |
-
+{: .api-table}
 
 ## Access to the World's Images: The IIIF Conference
 
 Following the introductory event, from Wednesday 11th through Friday 13th of May, the IIIF community will hold its first annual conference in New York City and welcomes submissions for presentations, panels, lightning talks, and facilitated "birds-of-a-feather" conversations.   The first day will be a plenary single tracked event, and the following two days will be parallel tracked sessions intended for collaborative action to advance the community. Submissions relevant to all aspects of the IIIF community, the IIIF specifications, software that implements these specifications, and the provision of access to image content are solicited across all three days. Submissions related to working groups within the IIIF community are also particularly welcomed, as are demonstrations of IIIF being used in novel and interesting ways. 
-
-Submissions should be sent to [iiif-proposals@googlegroups.com][proposals] as PDF extended abstracts, of at most 2 pages in length, outlining the following:
-
-* Title of Presentation
-* Presentation type: 
-  * Lightning Talk: 5-10 minute presentation
-  * Talk/Demo: 20 minute presentation, including time for questions
-  * Panel: 60 minute session with three or more discussants on a topic of interest
-  * Conversation: A one hour or more facilitated discussion amongst attendees
-  * Working Session: A two hour, and likely more, session to make progress on API or Implementation topics to be described 
-* Who will present or lead the session
-* A description of the topic; visuals such as diagrams or screenshots are appreciated
-* Why it is of interest to the broader community 
-* How many people are anticipated to attend the session
-* Whether you would like it considered for the IIIF and its Benefits event at MOMA
-
-Submissions will be accepted up until March 21st, 2016 and no extensions to this date are expected.  They will be reviewed by a program committee consisting of members from the IIIF Editorial Board and the Coordinating Committee. An announcement as to the accepted presentations will be made in the week of March 28th, and a schedule available shortly thereafter. As with all IIIF Community events, the [Code of Conduct][conduct] applies and diversity of participation is strongly encouraged. No formal proceedings are anticipated, however crowd-sourced notes and reports are likely.
 
 ### Logistics
 
@@ -81,6 +64,7 @@ Submissions will be accepted up until March 21st, 2016 and no extensions to this
 * Capacity: 11th: 200, 12-13: 120
 * Code of Conduct: The IIIF [Code of Conduct][conduct] applies
 * Social Media: Tweets about the event should use #iiif or @iiif_io
+* Call for Papers: [Closed][cfp]
 
 
 ### Schedule
@@ -109,11 +93,11 @@ Submissions will be accepted up until March 21st, 2016 and no extensions to this
 |  3:00 -  3:30 | _Break_ | -- | 
 |  3:30 -  4:15 | IIIF and the Wider World: Alignment with Other Specifications (panel) | Mark Matienzo (DPLA), Rob Sanderson (Getty), Antoine Isaac (Europeana) |
 |  4:15 -  5:00 | Big Projects in the Big Tent: Organizing Large Scale, IIIF-wide Projects in the Emerging IIIF Community Framework (discussion) | Tom Cramer (Stanford, facilitator) |
-
+{: .api-table}
 
 ## Thursday
 
-| Time         | Session       | Presenters  |
+| Time         | Session       | Facilitators  |
 |--------------|---------------|-------------|
 | 9:00 - 12:00 (A) | Universal Viewer Working Group | Ed Silverton (Digirati) |
 | 9:00 - 12:00 (B) | Museums Working Group | Mike Appleby (Yale), Emmanuelle Delmas-Glass (Yale), Tina Shah (Art Institute of Chicago) |
@@ -126,11 +110,11 @@ Submissions will be accepted up until March 21st, 2016 and no extensions to this
 | 2:30 - 3:15 (B) | Training | Tom Cramer (Stanford) |
 | 3:15 - 3:30 | _Break_ | -- |
 | 3:30 - 5:00 (A) | IIIF A/V Update | IIIF Editors |
-
+{: .api-table}
 
 ## Friday
 
-| Time          | Session       | Presenters  |
+| Time          | Session       | Facilitators  |
 |---------------|---------------|-------------|
 | 9:00 - 12:00 (A) | Mirador Working Group | Drew Winget (Stanford) |
 | 9:00 - 12:00 (B) | Newspaper Working Group | Karen Estlund (Penn State) | 
@@ -144,7 +128,7 @@ Submissions will be accepted up until March 21st, 2016 and no extensions to this
 | 3:30 - 3:50  (A) | Metadata Search | Mark Patton (Johns Hopkins), John Abrahams (Johns Hopkins) |
 | 3:50 - 4:10  (A) | MediaChain and IIIF | Jesse Walden (Mine) | 
 | 4:10 - 5:00  (A) | REST | Jon Stroop (Princeton) | 
-
+{: .api-table}
 
 [home-page]: http://iiif.io/
 [eventbrite]: http://iiif-advantages-nyc.eventbrite.com/
@@ -157,3 +141,5 @@ Submissions will be accepted up until March 21st, 2016 and no extensions to this
 [moma-map]: https://goo.gl/maps/9wFHb2ZzVE72
 [nyam]: http://www.nyam.org/
 [nyam-map]: https://goo.gl/maps/ffTbs7UmjN42
+[cfp]: /event/2016/newyork/call-for-papers/
+
