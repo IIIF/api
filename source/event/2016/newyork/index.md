@@ -28,7 +28,27 @@ This event will be valuable for organizational decision makers, repository and c
 
 ### Schedule
 
-To be announced along with the IIIF Conference Schedule
+
+# Conference Schedule
+
+| Time          | Session            | Presenters               |
+|---------------|--------------------|-----------------------------------|
+| 10:00 - 10:10 | Welcome            |                                   |
+| 10:10 - 10:30 | Intro to IIIF      | Tom Cramer (Stanford)                       |
+| 10:30 - 11:00 | Library Use Cases  | Christy Henshaw (Wellcome Trust), Matthieu Bonicel (Bibliothèque nationale de France) |
+| 11:00 - 11:30 | Archival Use Cases | Anna Naruta-Moya (Indigenous Digital Archive), Mark Matienzo (DPLA)   |
+| 11:30 - 12:00 | Museum Use Cases   | Emmanuelle Delmas-Glass (YCBA), Michael Appleby (YCBA) |
+| 12:00 - 1:30  | _Lunch_              | _On Your Own_ |
+| 1:30 - 1:40   | Reconvene          | Tom Cramer (Stanford) |
+| 1:40 - 2:00   | Non-Scholarly Use Cases | Jeff Steward (Harvard)        |
+| 2:00 - 2:20   | Interoperable APIs | Rob Sanderson (Getty)            |
+| 2:20 - 2:40   | Viewer Applications | Stu Snydman (Stanford), Tom Crane (Digirati)  |
+| 2:40 - 3:00   | Platforms          | Jon Stroop (Princeton), Tom Crane (Digirati)  |
+| 3:00 - 3:30   | _Break_              | |
+| 3:30 - 4:10   | Open Access Panel  | Will Noel (University of Pennsylvania), Simon Tanner (King's College London), Don Waters (Andrew W. Mellon Foundation) |
+| 4:10 - 4:25   | Discovery          | Michael Stocking (Armadillo Systems) |
+| 4:25 - 4:45   | Q&A                | Simeon Warner (Cornell) | 
+| 4:45 - 5:00   | Close              | Tom Cramer (Stanford) |
 
 
 ## Access to the World's Images: The IIIF Conference
@@ -65,7 +85,65 @@ Submissions will be accepted up until March 21st, 2016 and no extensions to this
 
 ### Schedule
 
-The schedule will be announced in the week of March 28th.
+
+## Wednesday
+
+| Time          | Session       | Presenters            |
+|---------------|---------------|-----------------------|
+|  9:00 -  9:15 | Welcome       | Tom Cramer (Stanford) |
+|  9:15 -  9:45 | Lightning Talks 1: |               |
+|               | 3D Support in the Universal Viewer | Ed Silverton (Digirati) |
+|               | Mirador for Maps | G. Salim Mohammed (David Rumsey Map Center, Stanford) |
+|               | Open ONI and IIIF: NDNP data in an IIIF Viewer | Karen Estlund (PSU) |
+|  9:45 - 10:30 | Trends in IIIF: Discovery, A/V, Content Management  ... (panel) | Stu Snydman (Stanford), Simeon Warner (Cornell), Claire Knowles (Edinburgh) |
+| 10:30 - 11:00 | _Break_ | -- |
+| 11:00 - 12:00 | IIIF API Walkthrough: Image, Presentation, Search and Authentication | Mike Appleby (Yale), Tom Crane (Digirati), Rob Sanderson (Getty), Jon Stroop (Princeton) | 
+| 12:00 -  1:30 | _Lunch_ | _On Your Own_  |
+|  1:30 -  2:00 | Lightning Talks 2: |  |
+|               | IIIF as an Enabler to Interoperability within a Single Institution | Randy Stern (Harvard) |
+|               | Challenges Displaying Complex Image Data: New Tech & Old Institutions | Michael Toth (RB Toth Associates) |
+|               | Dynamic IIIF Presentation Manifest Generation | Fabio Torchetti (The Frick Collection)|
+|  2:00 -  2:20 | Creating an IIIF Image Server: Challenges and Solutions | Fabio Torchetti (The Frick Collection) |
+|  2:20 -  2:40 | Webmention: A Demonstration of IIIF Collaboration between Scholars and Holding Libraries | Jeffrey Witt (Loyola University), Rafael Schwemmer (text & bytes)|
+|  2:40 -  3:00 | Leaflet-IIIF: Plugins and Extensibility with IIIF | Jack Reed (Stanford) |
+|  3:00 -  3:30 | _Break_ | -- | 
+|  3:30 -  4:15 | IIIF and the Wider World: Alignment with Other Specifications (panel) | Mark Matienzo (DPLA), Rob Sanderson (Getty), Antoine Isaac (Europeana) |
+|  4:15 -  5:00 | Big Projects in the Big Tent: Organizing Large Scale, IIIF-wide Projects in the Emerging IIIF Community Framework (discussion) | Tom Cramer (Stanford, facilitator) |
+
+
+## Thursday
+
+| Time         | Session       | Presenters  |
+|--------------|---------------|-------------|
+| 9:00 - 12:00 (A) | Universal Viewer Working Group | Ed Silverton (Digirati) |
+| 9:00 - 12:00 (B) | Museums Working Group | Mike Appleby (Yale), Emmanuelle Delmas-Glass (Yale), Tina Shah (Art Institute of Chicago) |
+| 9:00 - 12:00 (C) | Manuscript Working Group | Ben Albritton (Stanford)  |
+| 12:00 - 1:00 | _Lunch_ | _On Your Own_  |
+| 1:00 - 2:30 (A) | Review of Specifications | IIIF Editors |
+| 1:00 - 2:30 (B) | 3D Workshop | Stu Snydman (Stanford) |
+| 1:00 - 5:00 (C) | Manuscript Working Group | Ben Albritton (Stanford)  |
+| 2:30 - 3:15 (A) | IIIF Authentication Specification | IIIF Editors |
+| 2:30 - 3:15 (B) | Training | Tom Cramer (Stanford) |
+| 3:15 - 3:30 | _Break_ | -- |
+| 3:30 - 5:00 (A) | IIIF A/V Update | IIIF Editors |
+
+
+## Friday
+
+| Time          | Session       | Presenters  |
+|---------------|---------------|-------------|
+| 9:00 - 12:00 (A) | Mirador Working Group | Drew Winget (Stanford) |
+| 9:00 - 12:00 (B) | Newspaper Working Group | Karen Estlund (Penn State) | 
+| 9:00 - 12:00 (C) | Manuscript Working Group | Ben Albritton (Stanford)  |
+| 12:00 - 1:30 | _Lunch_ | _On Your Own_ |
+| 1:30 - 5:00  (C) | Manuscript Working Group | Ben Albritton (Stanford) |
+| 1:30 - 5:00  (B) | Hackathon | -- |
+| 1:30 - 2:30  (A) | Discovery | Tom Crane (Digirati), Mike Appleby (YCBA) | 
+| 2:30 - 3:15  (A) | Crawling and Harvesting | Simeon Warner (Cornell) | 
+| 3:15 - 3:30  | _Break_ | -- |
+| 3:30 - 3:50  (A) | Metadata Search | Mark Patton (Johns Hopkins), John Abrahams (Johns Hopkins) |
+| 3:50 - 4:10  (A) | MediaChain and IIIF | Jesse Walden (Mine) | 
+| 4:10 - 5:00  (A) | REST | Jon Stroop (Princeton) | 
 
 
 [home-page]: http://iiif.io/
