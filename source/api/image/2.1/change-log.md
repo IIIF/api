@@ -22,68 +22,66 @@ This document is a companion to the [IIIF Image API Specification, Version 2.1][
 
 ## Non-breaking Changes
 
-### Add `square` region
+### Added `square` Region
 
-[Issue 425](https://github.com/IIIF/iiif.io/issues/425), [Issue 560](https://github.com/IIIF/iiif.io/issues/560).
+The `square` [region keyword][region] selects a region where the width and height are both equal to the length of the shorter dimension of the complete image. The region may be positioned anywhere in the longer dimension of the image content at the server’s discretion, and centered is often a reasonable default. The corresponding feature name `regionSquare` has also been added to the [profile description][profile-description]. It is an open question whether support for `square` will become mandatory at levels 1 and 2 in the next major version of the Image API. See [issue 425](https://github.com/IIIF/iiif.io/issues/425), [issue 560](https://github.com/IIIF/iiif.io/issues/560), and [issue 501](https://github.com/IIIF/iiif.io/issues/501).
 
-### Add Rights, Logo and Attribution Information
+### Added Rights and Licensing Properties
 
-[Issue 227](https://github.com/IIIF/iiif.io/issues/227).
+[Rights and Licensing Properties][rights] `attribution`, `license` and `logo` properties have been added to the Image Information. They have the same semantics and requirements as the properties of the same names in the Presentation API. See [issue 227](https://github.com/IIIF/iiif.io/issues/227) and note also deferred change of the JSON-LD tag name from `license` to `rights`.
 
-### JSON-LD Link Header to Content is not required
+### Removed Recommendation to include HTTP Link Header to JSON-LD Context
 
-[Issue 556](https://github.com/IIIF/iiif.io/issues/556).
+Version 2.0 incorrectly recommended the inclusion of a HTTP link header for the JSON-LD context. The description of the [Image Information Request][image-information-request] no longer includes this. A context link header should only be included if there is no `@context` AND the content-type is not `application/ld+json`. See [issue 556](https://github.com/IIIF/iiif.io/issues/556).
 
-This was an error in 2.0. The context link header should only be included if there is not a context AND if content-type is not `application/ld+json`
+### Added `sizeByConfinedWh` and `sizeByDistortedWh` Feature Names
 
-### Clarified "forced" in Features
+New feature names `sizeByConfinedWh` and `sizeByDistortedWh` in the [profile description][profile-description] provide clear indications of support for `!w,h` and distorting `w,h` size requests respectively. As a result the related feature names `sizeByWhListed` and `sizeByForcedWh` have been [deprecated][sizebywhlisted-and-sizebyforcedwh-deprecated]. See [issue 720](https://github.com/IIIF/iiif.io/issues/720) and additional discussion on [pull pequest 727](https://github.com/IIIF/iiif.io/pull/727). 
 
-[Issue 720](https://github.com/IIIF/iiif.io/issues/720). Additional Discussion on [Pull Request 727](https://github.com/IIIF/iiif.io/pull/727).
+### Added `maxWidth`, `maxHeight` and `maxArea` Parameters
 
-`sizeByForcedWh` was inconsistently defined in version 2.0, and `sizeByWhListed` is implied by listing the sizes in the image information document and is therefore not required as a named feature. `sizeByConfinedWh` and `sizeByDistortedWh` were added to clarify the distinction.
-
-### Added `maxArea`, `maxWidth`, `maxHeight`
-
-[Issue 620](https://github.com/IIIF/iiif.io/issues/620).
+The `maxWidth`, `maxHeight` and `maxArea` parameters in the [profile description][profile-description] provide a way for image servers to express limits on the sizes supported for the image requests. See [issue 620](https://github.com/IIIF/iiif.io/issues/620).
 
 ### Added `max` Size Keyword
 
-[Issue 663](https://github.com/IIIF/iiif.io/issues/663).
-
-See also [`full` size keyword deprecation][full-size-keyword]
+The [size keyword][size] `max` may be used to request that the image or region is returned at the maximum size available, as indicated by `maxWidth`, `maxHeight` and `maxArea` parameters. See [issue 663](https://github.com/IIIF/iiif.io/issues/663) and the related [deprecation of the size keyword `full`][deprecated-size-full].
 
 ## Deprecations
 
-### `full` size keyword
+### Deprecated Size Keyword `full`
 
-[Issue 678](https://github.com/IIIF/iiif.io/issues/678).
+The [size keyword][size] `full` will be replaced by `max` in version 3.0. With large images it is a commonly the case that `full` size is impractical to deliver, and thus the keyword is not helpful when the Image Information has not been read. When the Image Information has been read, clients can request the explicit `w,h` size. See [issue 678](https://github.com/IIIF/iiif.io/issues/678).
 
-### Canonical Syntax
+### Deprecated `sizeByWhListed` and `sizeByForcedWh` Feature Names 
 
-The 2.1 canonical syntax will change in the next major release due to two issues:
-
- * [Issue 554](https://github.com/IIIF/iiif.io/issues/544) changes the canonical size syntax to be consistent with the `sizes` array.
- * [Issue 678](https://github.com/IIIF/iiif.io/issues/678) changes `full` to `max` in
-
-### Feature names `sizeByWhListed` and `sizeByForcedWh`
-
-See [Clarified "forced" in Feature Names][clarified-forced-in-feature-names]
+The feature names `sizeByWhListed` and `sizeByForcedWh` will be removed from the [profile description][profile-description] in version 3.0. The feature `sizeByForcedWh` was inconsistently defined in version 2.0. The feature `sizeByWhListed` is implied by including `sizes` in the image information document and is therefore not required as a named feature. See [issue 720](https://github.com/IIIF/iiif.io/issues/720) and related [addition of `sizeByConfinedWh` and `sizeByDistortedWh`][added-sizebyconfinedwh-and-sizebydistortedwh].
 
 ## Deferred Changes
 
-### Add Compression
+### Change Canonical Syntax
 
-[Issue nnn]().
+The [canonical URI syntax][canonical-uri-syntax] will change in the next major release to use the `w,h` size syntax in a manner compatible with the `sizes` array, and to use `max` instead of `full` as the size keyword. See [issue 554](https://github.com/IIIF/iiif.io/issues/544) and [issue 678](https://github.com/IIIF/iiif.io/issues/678).
 
-A recommendation was made to allow compression to be specified in the image URL in order to obtain a compressed representation of the image.  The motivation was bandwidth management, such as for mobile or rural areas where access is limited.  The change was deferred until a future version of the API to allow extra time to gather use cases and requirements, as no consensus was reached as to how this could be accomplished. No proposal introduced a backwards incompatibility, and hence this feature can be introduced without a new major version.
+### Change `license` property name to `rights`
 
+The mapping of the [`license` property][rights] has already been changed to `dcterms:rights` in the [JSON-LD context][context] to more accurately represent its use for both rights and licensing information. However, the change of the property name will be a breaking change and thus must wait for the next major version release. See [issue 644](https://github.com/IIIF/iiif.io/issues/644).
+
+
+[added-sizebyconfinedwh-and-sizebydistortedwh]: #added-sizebyconfinedwh-and-sizebydistortedwh-feature-names "Added `sizeByConfinedWh` and `sizeByDistortedWh` Feature Names"
 [api-21]: /api/image/2.1/ "Image API 2.1"
 [api-compliance]: /api/image/2.0/#compliance-levels "Image API 6. Compliance Levels"
 [api-20]: /api/image/2.0/ "Image API 2.0"
-[non-breaking-changes]: #non-breaking-changes "Image API 2.0 Non-reaking Changes"
+[canonical-uri-syntax]: /api/image/2.1/#canonical-uri-syntax "Canonical URI syntax"
+[context]: /api/image/2/context.json "JSON-LD context"
+[deprecated-sizebywhlisted-and-sizebyforcedwh]: #deprecated-sizebywhlisted-and-sizebyforcedwh-feature-names "Deprecated `sizeByWhListed` and `sizeByForcedWh` Feature Names"
+[deprecated-size-full]: #deprecated-size-keyword-full "Deprecated Size Keyword `full`"
 [deferred-changes]: #deferred-changes "Deferred Changes"
 [deprecations]: #deprecations "Deprecations"
-[clarified-forced-in-feature-names]: #clarified-forced-in-feature-names "Clarified 'forced' in Feature Names"
-[full-size-keyword]: #full-size-keyword "`full` Size Keyword Deprecation"
+[image-information-request]: /api/image/2.1/#image-information-request "Image Information Request"
+[non-breaking-changes]: #non-breaking-changes "Image API 2.0 Non-reaking Changes"
+[profile-description]: /api/image/2.1/#profile-description "Profile Description"
+[region]: /api/image/2.1/#region "Region"
+[rights]: /api/image/2.1/#rights-and-licensing-properties "Rights and Licensing Properties"
+[size]: /api/image/2.1/#size "Size"
 
 {% include acronyms.md %}
