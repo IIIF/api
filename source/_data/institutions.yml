@@ -9,7 +9,7 @@
   iiifc: 1
 - name: Biblissima
   uri: http://www.biblissima-condorcet.fr/
-
+  iiifc: 
 - name: British Library
   uri: 
   iiifc: 1
@@ -19,8 +19,12 @@
 - name: Brown University
   uri:
   iiifc: 2
+- name: Centre de Recherche et de Restauration des Musées de France (C2RMF)
+  uri: http://c2rmf.fr/
+  iiifc: 
 - name: Cogapp
   uri: http://www.cogapp.com
+  iiifc: 
 - name: Columbia University
   uri: 
   iiifc:
@@ -147,6 +151,9 @@
 - name: Wellcome Trust
   uri: http://wellcomelibrary.org
   iiifc: 1
+- name: Wikipedia (Wikimedia Foundation)
+  uri: http://www.wikipedia.org/
+  iiifc: 
 - name: World Digital Library
   uri: http://www.wdl.org
 - name: Yale Center for British Art
