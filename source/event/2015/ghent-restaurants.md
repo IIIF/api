@@ -119,7 +119,7 @@ redirect_from:
 
 
 ## Gado Gado
-[http://gado-gado.gent/contact/](http://gado-gado.gent/contact/)
+[http://gado-gado.gent/](http://gado-gado.gent/)
 
 * Vrouwebroersstraat 21,
   9000 Gent
