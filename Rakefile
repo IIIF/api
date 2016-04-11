@@ -20,7 +20,8 @@ task :ci do
   sh 'grunt test'
   sh 'scripts/check_json.py -v'
   Rake::Task['spec'].invoke
-  HTML::Proofer.new(SITE_DIR, cache: { timeframe: '2w' } ).run
+  # See https://github.com/gjtorikian/html-proofer#configuring-caching
+  HTML::Proofer.new(SITE_DIR, cache: { timeframe: '4w' } ).run
 end
 
 'Run the site locally on localhost:4000'
