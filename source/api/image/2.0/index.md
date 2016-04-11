@@ -700,7 +700,6 @@ Early sanity checking of URIs (lengths, trailing GET, invalid characters, out-of
     if (yr + th*s > height):
         hs = (height - yr + s - 1) / s
 ```
-{: .urltemplate}
 
   * As described in [Rotation][rotation], in order to retain the size of the requested image contents, rotation will change the width and height dimensions of the image returned. A formula for calculating the dimensions of the image returned for a given starting size and rotation is given below. Note that the rounding method is implementation dependent and that some languages require conversion of the angle from degrees to radians.
 
@@ -709,7 +708,6 @@ Early sanity checking of URIs (lengths, trailing GET, invalid characters, out-of
     w_returned = abs(w*cos(n)) + abs(h*sin(n))
     h_returned = abs(h*cos(n)) + abs(w*sin(n))
 ```
-{: .urltemplate}
 
 ### B. Versioning
 
