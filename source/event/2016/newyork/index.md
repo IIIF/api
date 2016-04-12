@@ -28,6 +28,8 @@ This event will be valuable for organizational decision makers, repository and c
 
 ### Schedule
 
+A [sched][sched] site with the details will be available.
+
 | Time          | Session            | Presenters               |
 |---------------|--------------------|-----------------------------------|
 | 10:00 - 10:10 | Welcome            |                                   |
@@ -68,7 +70,7 @@ Following the introductory event, from Wednesday 11th through Friday 13th of May
 
 Wednesday will be plenary all day, the Thursday and Friday sessions are split into three tracks indicated with A (Technical), B (Community), C (Manuscripts) below.
 
-A [sched][sched] site with the details will be available soon.
+A [sched][sched] site with the details will be available.
 
 #### Wednesday
 
@@ -77,8 +79,8 @@ A [sched][sched] site with the details will be available soon.
 |  9:00 -  9:15 | Welcome       | Tom Cramer (Stanford) |
 |  9:15 -  9:45 | Lightning Talks 1: |               |
 |               | 3D Support in the Universal Viewer | Ed Silverton (Digirati) |
-|               | Mirador for Maps | G. Salim Mohammed (David Rumsey Map Center, Stanford) |
 |               | Open ONI and IIIF: NDNP data in an IIIF Viewer | Karen Estlund (PSU) |
+|               | Mirador for Maps | G. Salim Mohammed (David Rumsey Map Center, Stanford) |
 |  9:45 - 10:30 | Trends in IIIF (panel) | Claire Knowles (Edinburgh), Rashmi Singhal (Harvard), Stu Snydman (Stanford), Simeon Warner (Cornell)  |
 | 10:30 - 11:00 | _Break_ | -- |
 | 11:00 - 12:00 | IIIF API Walkthrough: Image, Presentation, Search and Authentication | Mike Appleby (Yale), Tom Crane (Digirati), Rob Sanderson (Getty), Jon Stroop (Princeton) | 
@@ -104,7 +106,7 @@ A [sched][sched] site with the details will be available soon.
 | 9:00 - 12:00 (C) | Manuscript Working Group | Ben Albritton (Stanford)  |
 | 12:00 - 1:00 | _Lunch_ | _On Your Own_  |
 | 1:00 - 2:30 (A) | Review of New Specifications | IIIF Editors |
-| 1:00 - 2:30 (B) | 3D Workshop | Stu Snydman (Stanford) |
+| 1:00 - 2:30 (B) | 3D Interest Group | Stu Snydman (Stanford) |
 | 1:00 - 5:00 (C) | Manuscript Working Group | Ben Albritton (Stanford)  |
 | 2:30 - 3:15 (A) | IIIF Authentication Specification | IIIF Editors |
 | 2:30 - 3:15 (B) | Training | Tom Cramer (Stanford) |
