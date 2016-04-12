@@ -106,7 +106,7 @@ A [sched][sched] site with the details will be available.
 | 9:00 - 12:00 (C) | Manuscript Working Group | Ben Albritton (Stanford)  |
 | 12:00 - 1:00 | _Lunch_ | _On Your Own_  |
 | 1:00 - 2:30 (A) | Review of New Specifications | IIIF Editors |
-| 1:00 - 2:30 (B) | 3D Interest Group | Stu Snydman (Stanford) |
+| 1:00 - 2:30 (B) | 3D Brainstorm | Stu Snydman (Stanford) |
 | 1:00 - 5:00 (C) | Manuscript Working Group | Ben Albritton (Stanford)  |
 | 2:30 - 3:15 (A) | IIIF Authentication Specification | IIIF Editors |
 | 2:30 - 3:15 (B) | Training | Tom Cramer (Stanford) |
