@@ -426,7 +426,7 @@ Note that [RFC 5646][rfc5646] allows the script of the text to be included after
 In the case where multiple values are supplied, clients _MUST_ use the following algorithm to determine which values to display to the user.  
 
 * If none of the values have a language associated with them, the client _MUST_ display all of the values.
-* Else, the client should try to determine the user's language preferences.  If the user's language preferences are unknown, then the client _MUST_ supply a language preference. Then:
+* Else, the client should try to determine the user's language preferences, or failing that use some default language preferences. Then:
   * If any of the values have a language associated with them, the client _MUST_ display all of the values associated with the language that best matches the language preference.
   * If all of the values have a language associated with them, and none match the language preference, the client _MUST_ select a language and display all of the values associated with that language.
   * If some of the values have a language associated with them, but none match the language preference, the client _MUST_ display all of the values that do not have a language associated with them.
