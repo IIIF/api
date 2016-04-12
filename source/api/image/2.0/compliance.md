@@ -110,10 +110,10 @@ In the tables below "![required][icon-req]" indicates that support is _REQUIRED_
 
 Servers _MAY_ indicate compliance with by including a header in IIIF responses for images:
 
-```
+``` none
 Link: <http://iiif.io/api/image/{{ page.major }}/level1.json>;rel="profile"
 ```
-{: .urltemplate}
+
 
 The URIs for the the compliance levels are as follows:
 
@@ -122,7 +122,7 @@ The URIs for the the compliance levels are as follows:
 | 0     | http://iiif.io/api/image/{{ page.major }}/level0.json |
 | 1     | http://iiif.io/api/image/{{ page.major }}/level1.json |
 | 2     | http://iiif.io/api/image/{{ page.major }}/level2.json |
-{: .urltemplate}
+{: .api-table}
 
 A level 0 compliant image server _MAY_ specify `scaleFactors` and/or `width` and `height` values for `tiles` in the Image Information response. At Level 0 compliance, a service is only required to deliver images of sizes computed using the scaling factors declared in the Image Information response. If specified they should be interpreted with the following special meanings:
 
