@@ -839,7 +839,22 @@ a.button-turquoise {
   .sub-pages-container .api-table th {
     white-space: nowrap;
   }
-
+  
+  
+  .sub-pages-container .sched-table {
+    width:100%;
+  }
+  
+  
+  .sub-pages-container .sched-table td:first-child {
+    width: 20%;
+  }
+  .sub-pages-container .sched-table td:nth-child(2) {
+    width: 45%;
+  }
+  .sub-pages-container .sched-table td:nth-child(3) {
+    width: 35%;
+  }
 
   .code-block {
     margin: 0 0 0 20px;
