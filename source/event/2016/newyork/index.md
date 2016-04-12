@@ -66,7 +66,9 @@ Following the introductory event, from Wednesday 11th through Friday 13th of May
 
 ### Schedule
 
-Wednesday will be plenary all day, the Thursday and Friday sessions are split into three tracks indicated with A, B, C below.
+Wednesday will be plenary all day, the Thursday and Friday sessions are split into three tracks indicated with A (Technical), B (Community), C (Manuscripts) below.
+
+A [sched][sched] site with the details will be available soon.
 
 #### Wednesday
 
@@ -77,7 +79,7 @@ Wednesday will be plenary all day, the Thursday and Friday sessions are split in
 |               | 3D Support in the Universal Viewer | Ed Silverton (Digirati) |
 |               | Mirador for Maps | G. Salim Mohammed (David Rumsey Map Center, Stanford) |
 |               | Open ONI and IIIF: NDNP data in an IIIF Viewer | Karen Estlund (PSU) |
-|  9:45 - 10:30 | Trends in IIIF: Discovery, A/V, Content Management  ... (panel) | Stu Snydman (Stanford), Simeon Warner (Cornell), Claire Knowles (Edinburgh) |
+|  9:45 - 10:30 | Trends in IIIF (panel) | Claire Knowles (Edinburgh), Rashmi Singhal (Harvard), Stu Snydman (Stanford), Simeon Warner (Cornell)  |
 | 10:30 - 11:00 | _Break_ | -- |
 | 11:00 - 12:00 | IIIF API Walkthrough: Image, Presentation, Search and Authentication | Mike Appleby (Yale), Tom Crane (Digirati), Rob Sanderson (Getty), Jon Stroop (Princeton) | 
 | 12:00 -  1:30 | _Lunch_ | _On Your Own_  |
@@ -98,14 +100,10 @@ Wednesday will be plenary all day, the Thursday and Friday sessions are split in
 | Time         | Session       | Facilitators  |
 |--------------|---------------|-------------|
 | 9:00 - 12:00 (A) | Universal Viewer Interest Group | Ed Silverton (Digirati) |
-<<<<<<< HEAD
-| 9:00 - 12:00 (B) | Museums Working Group | Mike Appleby (Yale), Emmanuelle Delmas-Glass (Yale), Tina Shah (Art Institute of Chicago) |
-=======
 | 9:00 - 12:00 (B) | Museums Working Group | Mike Appleby (Yale), Emmanuelle Delmas-Glass (Yale) |
->>>>>>> ec30aaff6002ede9cd9964e4e0c18a6c09d28e03
 | 9:00 - 12:00 (C) | Manuscript Working Group | Ben Albritton (Stanford)  |
 | 12:00 - 1:00 | _Lunch_ | _On Your Own_  |
-| 1:00 - 2:30 (A) | Review of Specifications | IIIF Editors |
+| 1:00 - 2:30 (A) | Review of New Specifications | IIIF Editors |
 | 1:00 - 2:30 (B) | 3D Workshop | Stu Snydman (Stanford) |
 | 1:00 - 5:00 (C) | Manuscript Working Group | Ben Albritton (Stanford)  |
 | 2:30 - 3:15 (A) | IIIF Authentication Specification | IIIF Editors |
@@ -122,14 +120,14 @@ Wednesday will be plenary all day, the Thursday and Friday sessions are split in
 | 9:00 - 12:00 (B) | Newspaper Working Group | Karen Estlund (Penn State) | 
 | 9:00 - 12:00 (C) | Manuscript Working Group | Ben Albritton (Stanford)  |
 | 12:00 - 1:30 | _Lunch_ | _On Your Own_ |
-| 1:30 - 5:00  (C) | Manuscript Working Group | Ben Albritton (Stanford) |
-| 1:30 - 5:00  (B) | Hackathon | -- |
+| 1:30 - 4:30  (C) | Manuscript Working Group | Ben Albritton (Stanford) |
+| 1:30 - 4:30  (B) | Hackathon | -- |
 | 1:30 - 2:30  (A) | Discovery | Tom Crane (Digirati), Mike Appleby (YCBA) | 
 | 2:30 - 3:15  (A) | Crawling and Harvesting | Simeon Warner (Cornell) | 
 | 3:15 - 3:30  | _Break_ | -- |
-| 3:30 - 3:50  (A) | Metadata Search | Mark Patton (Johns Hopkins), John Abrahams (Johns Hopkins) |
-| 3:50 - 4:10  (A) | MediaChain and IIIF | Jesse Walden (Mine) | 
-| 4:10 - 5:00  (A) | REST | Jon Stroop (Princeton) | 
+| 3:30 - 4:00  (A) | REST | Jon Stroop (Princeton) |
+| 4:00 - 4:15  (A) | Metadata Search | Mark Patton (Johns Hopkins), John Abrahams (Johns Hopkins) |
+| 4:15 - 4:30  (A) | MediaChain and IIIF | Jesse Walden (Mine) | 
 {: .api-table .sched-table}
 
 [home-page]: http://iiif.io/
@@ -144,3 +142,4 @@ Wednesday will be plenary all day, the Thursday and Friday sessions are split in
 [nyam]: http://www.nyam.org/
 [nyam-map]: https://goo.gl/maps/ffTbs7UmjN42
 [cfp]: /event/2016/newyork/call-for-papers/
+[sched]: https://sched.org/
