@@ -423,6 +423,15 @@ This pattern may be used in `label`, `description`, `attribution` and the `label
 
 Note that [RFC 5646][rfc5646] allows the script of the text to be included after a hyphen, such as `ar-latn`, and clients should be aware of this possibility. This allows for full internationalization of the user interface components described in the response, as the labels as well as values may be translated in this manner; examples are given below.
 
+In the case where multiple values are supplied, clients _MUST_ use the following algorithm to determine which values to display to the user.  
+
+* If none of the values have a language associated with them, the client _MUST_ display all of the values.
+* Else, the client should try to determine the user's language preferences, or failing that use some default language preferences. Then:
+  * If any of the values have a language associated with them, the client _MUST_ display all of the values associated with the language that best matches the language preference.
+  * If all of the values have a language associated with them, and none match the language preference, the client _MUST_ select a language and display all of the values associated with that language.
+  * If some of the values have a language associated with them, but none match the language preference, the client _MUST_ display all of the values that do not have a language associated with them.
+
+
 ### 4.4. HTML Markup in Property Values
 
 Minimal HTML markup _MAY_ be included in the `description`, `attribution` and `metadata` properties.  It _MUST NOT_ be used in `label` or other properties. This is included to allow manifest creators to add links and simple formatting instructions to blocks of text. The content _MUST_ be well-formed XML and therefore must be wrapped in an element such as `p` or `span`.  There _MUST NOT_ be whitespace on either side of the HTML string, and thus the first character in the string _MUST_ be a '<' character and the last character _MUST_ be '>', allowing a consuming application to test whether the value is HTML or plain text using these.  To avoid a non-HTML string matching this, it is _RECOMMENDED_ that an additional whitespace character be added to the end of the value.
