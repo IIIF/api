@@ -488,7 +488,7 @@ In cases like this there are more annotations than hits as two or more annotatio
 
   "resources": [
     {
-      "@id": "http://example.org/identifier/annotation/anno-bbird",
+      "@id": "http://example.org/identifier/annotation/anno-bird",
       "@type": "oa:Annotation",
       "motivation": "sc:painting",
       "resource": {
