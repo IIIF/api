@@ -42,7 +42,7 @@ This event will be valuable for organizational decision makers, repository and c
 | 2:20 - 2:40   | Viewer Applications | Stu Snydman (Stanford), Tom Crane (Digirati)  |
 | 2:40 - 3:00   | Platforms          | Jon Stroop (Princeton), Tom Crane (Digirati)  |
 | 3:00 - 3:30   | _Break_              | |
-| 3:30 - 4:10   | Open Access Panel  | Will Noel (University of Pennsylvania), Simon Tanner (King's College London), Don Waters (Andrew W. Mellon Foundation) |
+| 3:30 - 4:10   | Open Access Panel  | Will Noel (University of Pennsylvania), Simon Tanner (King's College London) |
 | 4:10 - 4:25   | Discovery          | Michael Stocking (Armadillo Systems) |
 | 4:25 - 4:45   | Q&A                | Simeon Warner (Cornell) | 
 | 4:45 - 5:00   | Close              | Tom Cramer (Stanford) |
@@ -63,9 +63,9 @@ Following the introductory event, from Wednesday 11th through Friday 13th of May
 * Social Media: Tweets about the event should use #iiif or @iiif_io
 * Call for Papers: [Closed][cfp]
 
-
 ### Schedule
 
+Wednesday will be plenary all day, the Thursday and Friday sessions are split into three tracks indicated with A, B, C below.
 
 #### Wednesday
 
@@ -139,4 +139,3 @@ Following the introductory event, from Wednesday 11th through Friday 13th of May
 [nyam]: http://www.nyam.org/
 [nyam-map]: https://goo.gl/maps/ffTbs7UmjN42
 [cfp]: /event/2016/newyork/call-for-papers/
-
