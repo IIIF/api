@@ -42,7 +42,7 @@ This event will be valuable for organizational decision makers, repository and c
 | 2:20 - 2:40   | Viewer Applications | Stu Snydman (Stanford), Tom Crane (Digirati)  |
 | 2:40 - 3:00   | Platforms          | Jon Stroop (Princeton), Tom Crane (Digirati)  |
 | 3:00 - 3:30   | _Break_              | |
-| 3:30 - 4:10   | Open Access Panel  | Will Noel (University of Pennsylvania), Simon Tanner (King's College London) |
+| 3:30 - 4:10   | Open Access Panel  | Will Noel (University of Pennsylvania), Merete Sanderhoff (National Gallery of Denmark), Simon Tanner (King's College London) |
 | 4:10 - 4:25   | Discovery          | Michael Stocking (Armadillo Systems) |
 | 4:25 - 4:45   | Q&A                | Simeon Warner (Cornell) | 
 | 4:45 - 5:00   | Close              | Tom Cramer (Stanford) |
