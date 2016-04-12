@@ -130,7 +130,7 @@ The API places no restrictions on the form of the identifiers that a server may 
 
 ##  4. Image Request Parameters
 
-All parameters described below are required for compliant construction of an IIIF Image API URI. The sequence of parameters in the URI _MUST_ be in the order described below. The order of the parameters is also intended as a mnemonic for the order of the operations by which the service should manipulate the image content. Thus, the requested image content is first extracted as a region of the complete image, then scaled to the requested size, mirrored and/or rotated, and finally transformed into the color quality and format. This resulting image content is returned as the representation for the URI. Image and region dimensions in pixels are always given as an integer numbers. Intermediate calculations may use floating point numbers and the rounding method is implementation specific. Some parameters, notably percentages, may be specified with floating point numbers. These should have at most 10 decimal digits and consist only of decimal digits and "." with a leading zero if less than 1.0.
+All parameters described below are required for compliant construction of a IIIF Image API URI. The sequence of parameters in the URI _MUST_ be in the order described below. The order of the parameters is also intended as a mnemonic for the order of the operations by which the service should manipulate the image content. Thus, the requested image content is first extracted as a region of the complete image, then scaled to the requested size, mirrored and/or rotated, and finally transformed into the color quality and format. This resulting image content is returned as the representation for the URI. Image and region dimensions in pixels are always given as an integer numbers. Intermediate calculations may use floating point numbers and the rounding method is implementation specific. Some parameters, notably percentages, may be specified with floating point numbers. These should have at most 10 decimal digits and consist only of decimal digits and "." with a leading zero if less than 1.0.
 
 ###  4.1. Region
 
@@ -700,7 +700,6 @@ Early sanity checking of URIs (lengths, trailing GET, invalid characters, out-of
     if (yr + th*s > height):
         hs = (height - yr + s - 1) / s
 ```
-{: .urltemplate}
 
   * As described in [Rotation][rotation], in order to retain the size of the requested image contents, rotation will change the width and height dimensions of the image returned. A formula for calculating the dimensions of the image returned for a given starting size and rotation is given below. Note that the rounding method is implementation dependent and that some languages require conversion of the angle from degrees to radians.
 
@@ -709,7 +708,6 @@ Early sanity checking of URIs (lengths, trailing GET, invalid characters, out-of
     w_returned = abs(w*cos(n)) + abs(h*sin(n))
     h_returned = abs(h*cos(n)) + abs(w*sin(n))
 ```
-{: .urltemplate}
 
 ### B. Versioning
 
