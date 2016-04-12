@@ -38,7 +38,7 @@ __This Version:__ {{ page.major }}.{{ page.minor }}.{{ page.patch }}{% if page.p
 
 In the IIIF (pronounced "Triple-Eye-Eff") [Presentation API][prezi-api], content is brought together from distributed systems via annotations.  That content might include images, often with a IIIF [Image API][image-api] service to access them, audio, video, rich or plain text, or anything else.  In a vibrant and dynamic system, that content can come from many sources and be rich, varied and abundant.  Of that list of content types, textual resources lend themselves to being searched, either as the transcription, translation or edition of the intellectual content, or commentary, description, tagging or other annotations about the object.  
 
-This specification lays out the interoperability mechanism for performing these searches within the IIIF context.  The scope of the specification is searching textual annotation content within a single IIIF resource, such as a Manifest or Range.  Every effort is made to keep the interaction as consistent with existing IIIF patterns as possible.  Searching for metadata or other descriptive properties is not in scope for this work.
+This specification lays out the interoperability mechanism for performing these searches within the IIIF context.  The scope of the specification is searching textual annotation content within a single IIIF resource, such as a Manifest or Range.  Every effort is made to keep the interaction as consistent with existing IIIF patterns as possible.  Searching for metadata or other descriptive properties is __not__ in scope for this work.
 
 In order to make searches easier against unknown content, a related service for the auto-completion of search terms is also specified. The auto-complete service is specific to a search service to ensure that the retrieved terms can simply be copied to the query of the search.
 
@@ -100,9 +100,9 @@ The search request is made to a service that is related to a particular Presenta
 
 #### 3.2.1. Query Parameters
 
-All parameters are _OPTIONAL_ in the request.  The default, if a parameter is empty or not supplied, is to not restrict the annotations that match the search by that parameter.  If the value is supplied but the field is not present in an annotation, then the search does not match that annotation. For example if an annotation does not have a creator, and the query specifies a `user` parameter, then the annotation does not match the query.
+Other than `q`, which is _RECOMMENDED_, all other parameters are _OPTIONAL_ in the request.  The default, if a parameter is empty or not supplied, is to not restrict the annotations that match the search by that parameter.  If the value is supplied but the field is not present in an annotation, then the search does not match that annotation. For example if an annotation does not have a creator, and the query specifies a `user` parameter, then the annotation does not match the query.
 
-Servers _MUST_ implement the `q` parameter, and _SHOULD_ implement the `motivation` parameter. The other parameters are _OPTIONAL_ to support. Parameters that are received in a request but not implemented _MUST_ be ignored, and _SHOULD_ be included in the `ignored` property of the Layer in the response, described [below][ignored-parameters].
+Servers _SHOULD_ implement the `q` and `motivation` parameters and _MAY_ implement the other parameters. Parameters that are received in a request but not implemented _MUST_ be ignored, and _SHOULD_ be included in the `ignored` property of the Layer in the response, described [below][ignored-parameters].
 
 | Parameter  | Definition |
 | ---------  | ---------- |
@@ -554,7 +554,7 @@ The autocomplete service _MUST_ have an `@id` property with the value of the URI
 
 ### 4.2. Request
 
-The request is very similar to the search request, with one additional parameter to allow the number of occurrences of the term within the object to be constrained.  The value of the `q` parameter is the beginning characters from the term to be completed by the service.  For example, the query term of 'bir' might complete to 'bird', 'biro', 'birth', and 'birthday'.
+The request is very similar to the search request, with one additional parameter to allow the number of occurrences of the term within the object to be constrained.  The value of the `q` parameter, which is _REQUIRED_ for the autocomplete service, is the beginning characters from the term to be completed by the service.  For example, the query term of 'bir' might complete to 'bird', 'biro', 'birth', and 'birthday'.
 
 The term should be parsed as a complete string, regardless of whether there is whitespace included in it. For example, the query term of "green bir" should not autocomplete on fields that match "green" and also include something that starts with "bir", but instead look for terms that start with the string "green bir".
 
@@ -686,8 +686,8 @@ match
 
 | Parameter | Required in Request | Required in Search | Required in Autocomplete |
 | --------- | ------------------- | ------------------ | ------------------------ |
-| `q`       | mandatory | mandatory | mandatory |
-| `motivation` | optional | recommended | mandatory |
+| `q`       | recommended | recommended | mandatory |
+| `motivation` | optional | recommended | optional |
 | `date`    | optional | optional | optional |
 | `uri`     | optional | optional | optional |
 | `min`     | optional | n/a | optional |
