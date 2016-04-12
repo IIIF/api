@@ -116,7 +116,7 @@ A [sched][sched] site with the details will be available soon.
 
 | Time          | Session       | Facilitators  |
 |---------------|---------------|-------------|
-| 9:00 - 12:00 (A) | Mirador Interest Group | Drew Winget (Stanford) |
+| 9:00 - 12:00 (A) | Mirador Interest Group | Rashmi Singhal (Harvard), Drew Winget (Stanford) |
 | 9:00 - 12:00 (B) | Newspaper Working Group | Karen Estlund (Penn State) | 
 | 9:00 - 12:00 (C) | Manuscript Working Group | Ben Albritton (Stanford)  |
 | 12:00 - 1:30 | _Lunch_ | _On Your Own_ |
