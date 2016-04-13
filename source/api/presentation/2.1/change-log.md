@@ -119,7 +119,7 @@ Until there is more experience with the Search API, several additions for Annota
 
 [langs]: /api/presentation/2.1/#language-of-property-values
 [properties]: /api/presentation/2.1/#resource-properties
-[search]: /api/search/1.0/
+[search]: /api/search/0.9/
 [as2]: https://www.w3.org/TR/activitystreams-core/#collections
 [paging]: /api/presentation/2.1/#paging
 [members]: /api/presentation/2.1/#range
