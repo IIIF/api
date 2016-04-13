@@ -1,6 +1,6 @@
 ---
-title: "IIIF Content Search API 0.9.2"
-title_override: "IIIF Content Search API 0.9.2"
+title: "IIIF Content Search API 0.9.3"
+title_override: "IIIF Content Search API 0.9.3"
 id: content-search-api
 layout: spec
 tags: [specifications, content-search-api]
@@ -38,7 +38,7 @@ __This Version:__ {{ page.major }}.{{ page.minor }}.{{ page.patch }}{% if page.p
 
 In the IIIF (pronounced "Triple-Eye-Eff") [Presentation API][prezi-api], content is brought together from distributed systems via annotations.  That content might include images, often with a IIIF [Image API][image-api] service to access them, audio, video, rich or plain text, or anything else.  In a vibrant and dynamic system, that content can come from many sources and be rich, varied and abundant.  Of that list of content types, textual resources lend themselves to being searched, either as the transcription, translation or edition of the intellectual content, or commentary, description, tagging or other annotations about the object.  
 
-This specification lays out the interoperability mechanism for performing these searches within the IIIF context.  The scope of the specification is searching textual annotation content within a single IIIF resource, such as a Manifest or Range.  Every effort is made to keep the interaction as consistent with existing IIIF patterns as possible.  Searching for metadata or other descriptive properties is __not__ in scope for this work.
+This specification lays out the interoperability mechanism for performing these searches within the IIIF context.  The scope of the specification is searching annotation content within a single IIIF resource, such as a Manifest, Range or Collection.  Every effort is made to keep the interaction as consistent with existing IIIF patterns as possible.  Searching for metadata or other descriptive properties is __not__ in scope for this work.
 
 In order to make searches easier against unknown content, a related service for the auto-completion of search terms is also specified. The auto-complete service is specific to a search service to ensure that the retrieved terms can simply be copied to the query of the search.
 

@@ -21,7 +21,7 @@ cssversion: 2
 | Image API          | [2.1.0][image21] *(Beta draft)* |
 | Presentation API   | [2.1.0][prezi21] *(Beta draft)* |
 | Authentication API | [0.9.1][auth09] *(Beta draft)* |
-| Search API         | [0.9.1][search09] *(Beta draft)* |
+| Search API         | [0.9.3][search09] *(Beta draft)* |
 {: .api-table}
 
 __Feedback Requested__
