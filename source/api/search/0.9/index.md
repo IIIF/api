@@ -48,12 +48,12 @@ Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss]
 
 Use cases for being able to search the annotations within the Presentation API include:
 
- * Searching OCR generated text to find words or phrases within a book, newspaper or other primarily textual content
- * Searching transcribed content, provided by crowd-sourcing or transformation of scholarly output
- * Searching multiple streams of content, such as the translation or edition, rather than the raw transcription of the content, to jump to the appropriate part of an object
+ * Searching OCR generated text to find words or phrases within a book, newspaper or other primarily textual content.
+ * Searching transcribed content, provided by crowd-sourcing or transformation of scholarly output.
+ * Searching multiple streams of content, such as the translation or edition, rather than the raw transcription of the content, to jump to the appropriate part of an object.
  * Searching on sections of text, such as defined chapters or articles.
  * Searching for user provided commentary about the resource, either as a discovery mechanism for the resource or for the discussion.
- * Discovering similar sections of text to compare either the content or the object
+ * Discovering similar sections of text to compare either the content or the object.
 
 User interfaces that could be built using the search response include highlighting matching words in the display, providing a heatmap of where the matches occur within the object, and providing a mechanism to jump between points within the object.  The auto-complete service assists users in identifying terms that exist within the selected scope.
 
@@ -65,7 +65,7 @@ The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _S
 
 The IIIF [Presentation API][prezi-api] provides just enough information to a viewer so that it can present the images and other content to the user in a rich and understandable way.  Those content resources may have textual annotations associated with them.  Annotations may also be associated with the structural components of the Presentation API, such as the manifest itself, sequences, ranges, and layers.  Further, annotations can be replied to by annotating them to form a threaded discussion about the commentary, transcription, edition or translation.
 
-Annotations are typically made available to viewing applications in an annotation list, where all of the annotations in the list target the same resource, or part of it.  Where known, these lists can be directly referenced from the manifest document to allow clients to simply follow the link to retrieve them.  For fixed, curated content, this is an appropriate method to discover them, as the annotations do not frequently change, nor are they potentially distributed amongst multiple servers.  annotation lists can be included in layers to group them together, such as by the source of the annotations, to allow the user to manipulate that grouping as a whole.
+Annotations are typically made available to viewing applications in an annotation list, where all of the annotations in the list target the same resource, or part of it.  Where known, these lists can be directly referenced from the manifest document to allow clients to simply follow the link to retrieve them.  For fixed, curated content, this is an appropriate method to discover them, as the annotations do not frequently change, nor are they potentially distributed amongst multiple servers. Annotation lists can be included in layers to group them together, such as by the source of the annotations, to allow the user to manipulate that grouping as a whole.
 
 However this is less useful for comment-style annotations, crowd-sourced or distributed transcriptions, corrections to automated OCR transcription, and similar, as the annotations may be in constant flux.  Further, being able to quickly discover individual annotations without stepping through all of the views of an object is essential for a reasonable user experience.  This specification adds this capability to the IIIF suite of specifications.  
 
@@ -73,7 +73,7 @@ Beyond the ability to search for words or phrases, users find it helpful to have
 
 ## 3. Search
 
-The search service takes a query, including typically a search term or uri, and potentially filtering further by other properties including the date the annotation was created or last modified, the motivation for the annotation, or the user that created the annotation.
+The search service takes a query, including typically a search term or URI, and potentially filtering further by other properties including the date the annotation was created or last modified, the motivation for the annotation, or the user that created the annotation.
 
 ### 3.1. Service Description
 
@@ -147,7 +147,7 @@ The search results are returned as annotations in the regular IIIF syntax. Note 
 
 The simplest response looks exactly like a regular annotation list, where all of the matching annotations are returned in a single response. The value of `@id` will be the same as the URI used in the query, however servers _MAY_ drop query parameters that are ignored so long as they are reported in the `ignored` property.
 
-Clients wishing to know the total number of annotations that match may count the number of annotations in the `resources` property, as all matches have been returned.  The full annotation description _MUST_ be included in the response, even if the annotations are separately derefencable via their URIs.
+Clients wishing to know the total number of annotations that match may count the number of annotations in the `resources` property, as all matches have been returned.  The full annotation description _MUST_ be included in the response, even if the annotations are separately dereferencable via their URIs.
 
 ``` json-doc
 {
@@ -258,9 +258,9 @@ This structure is called out explicitly as although it uses only properties from
 
 ### 3.4 Search API Specific Responses
 
-There may be properties that are specific to the search result, and not features of the annotation in general, that are valuable to return to the client.  Examples include the text before and after the matched content to allow a result snippet to be presented, the matched text in case stemming or wildcards have been applied, or to link annotations that together fulfil the search query for a phrase, such as when the phrase spans across lines of text.
+There may be properties that are specific to the search result, and not features of the annotation in general, that are valuable to return to the client.  Examples include the text before and after the matched content to allow a result snippet to be presented, the matched text in case stemming or wildcards have been applied, or to link annotations that together fulfill the search query for a phrase, such as when the phrase spans across lines of text.
 
-As these response include Search specific information, the value of `@context` _MUST_ be an array with both the Presentation API and the Search API context URIs included, in that order.  This allows the two APIs to develop separately and yet remain as synchronized as possible.
+As these responses include Search specific information, the value of `@context` _MUST_ be an array with both the Presentation API and the Search API context URIs included, in that order.  This allows the two APIs to develop separately and yet remain as synchronized as possible.
 
 To incrementally build upon existing solutions and provide graceful degradation for clients that do not support these features and retain compatibility with the Presentation API, the search API specific information is included in a second list within the annotation list called `hits`, other than the `ignored` property on the layer.  Annotation lists _MAY_ have this property, and servers _MAY_ support these features.
 
@@ -470,7 +470,7 @@ The result might be:
 
 #### 3.4.4. Multi-Annotations Hits
 
-Given the flexibility of alignment between the sections of the text (such as word, line, paragraph, page, or arbitrary sections) and the annotations that expose that text to the client, there may be multiple annotations that match a single multi-term search. These differences will depend primarily on the method that the text and annotations were generated and will likely be very different for manually transcribed texts and text that it is generated by Optical Character Recognition (OCR).
+Given the flexibility of alignment between the sections of the text (such as word, line, paragraph, page, or arbitrary sections) and the annotations that expose that text to the client, there may be multiple annotations that match a single multi-term search. These differences will depend primarily on the method by which the text and annotations were generated and will likely be very different for manually transcribed texts and text that it is generated by Optical Character Recognition (OCR).
 
 For example, imagine that the annotations are divided up line by line as they were manually transcribed that way and there are two lines of text. The first line is "A bird in the hand", the second line was "is worth two in the bush", and then the search is for the phrase "hand is", the match would span both of the line based annotations.  If the annotations were instead at word level, then phrases will always require multiple annotations.
 
@@ -654,17 +654,17 @@ It is also possible to associate one or more `label`s to display to the user wit
 ## 5. Property Definitions
 
 after
-:   A segment of text that occurs after the text that triggered the search to match the particular anotation.  The value _MUST_ be a single string.
+:   The segment of text that occurs after the text that triggered the search to match the particular anotation.  The value _MUST_ be a single string.
 
     * A Hit _MAY_ have the `after` property.
 
 before
-:   A segment of text that occurs before the text that triggered the search to match the particular anotation.  The value _MUST_ be a single string.
+:   The segment of text that occurs before the text that triggered the search to match the particular anotation.  The value _MUST_ be a single string.
 
     * A Hit _MAY_ have the `before` property.
 
 count
-:   A number of times that a term appears.  The value _MUST_ be an positive integer.
+:   The number of times that the term appears.  The value _MUST_ be an positive integer.
 
     * A Term _SHOULD_ have the `count` property.
 
