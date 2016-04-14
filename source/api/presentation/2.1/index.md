@@ -771,7 +771,7 @@ Note well that Annotation Lists _MUST NOT_ be embedded within the manifest.
       "resource":{
         "@id": "http://example.org/iiif/book1/res/tei-text-p1.xml",
         "@type": "dctypes:Text",
-        "format": "text/xml"
+        "format": "application/tei+xml"
       },
       "on": "http://example.org/iiif/book1/canvas/p1"
     }
@@ -1195,7 +1195,7 @@ Segments of XML files may be extracted with [XPaths][xpath]. The fragment _MUST_
   "resource":{
     "@id": "http://example.org/iiif/book1/res/tei.xml#xpointer(//line[1])",
     "@type": "dctypes:Text",
-    "format": "text/xml"
+    "format": "application/tei+xml"
   },
   "on": "http://example.org/iiif/book1/canvas/p1#xywh=100,100,500,300"
 }
