@@ -45,11 +45,11 @@ A commonly requested link from resources in the IIIF Presentation API to other w
 
 ### 1.6. Allow date-based user interfaces for navigation
 
-For newspaper or other date based series, it is a common requirement to allow navigation by date, such as might be done by a calendar user interface.  There was no property that could semantically hold a date and be recognizable by a client as intended for this purpose, so the [navDate][navdate] property was added. See issue [#442](https://github.com/IIIF/iiif.io/issues/442)
+For newspaper or other date based series, it is a common interface requirement to allow navigation by date, for example in a calendar or timeline.  The [navDate][navdate] property was added to hold a typed date intended for this purpose. See issue [#442](https://github.com/IIIF/iiif.io/issues/442)
 
-### 1.7. Link from Range to Layer that maintains the content
+### 1.7. Link from Range to Layer that contains the content
 
-Also inspired by digital newspaper requirements, where an article might span multiple non-contiguous pages and have full text supplied by annotations, a reference was added from the Range that identifies the area of the article in the canvases, to the Layer that maintains the annotations of the article's text.  The [contentLayer][contentlayer] relationship enables this use case.  See issue [#645](https://github.com/IIIF/iiif.io/issues/645)
+Also inspired by digital newspaper requirements, where an article might span multiple non-contiguous pages and have full text supplied by annotations, Ranges, such as those that identify the area of the article in the canvases, may now link to the Layer that contains the annotations representing the article's text.  The [contentLayer][contentlayer] relationship enables this use case.  See issue [#645](https://github.com/IIIF/iiif.io/issues/645)
 
 ### 1.8. Annotations of non-Canvas Resources
 
@@ -57,27 +57,27 @@ In order to allow comments on Ranges (such as a comment about a newspaper articl
 
 ### 1.9. Hotspot Annotations
 
-The ability to link spatial areas of Canvases to either other resources within the manifest (such as a "jump to" link) or to external resources (such as a remote description of the content) was requested.  This feature was enabled through the use of the [linking motivation][hotspots] from the [Open Annotation][openanno] specification. See issue [#611](https://github.com/IIIF/iiif.io/issues/611)
+The ability to link from spatial areas of Canvases to either other resources within the manifest (such as a "jump to" link) or to external resources (such as a remote description of the content) was requested.  This feature was enabled through the use of the [linking motivation][hotspots] from the [Open Annotation][openanno] specification. See issue [#611](https://github.com/IIIF/iiif.io/issues/611)
 
 ### 1.10. Facing Pages Viewing Hint
 
-A ["facing-pages" `viewingHint`][hints] value was added to capture the situation when a single canvas represents both sides of an open spread.  This is common in older digitization projects and also with Eastern works.  Without the addition of the hint, page turning viewer applications would try to "turn" the entire spread, and get out of sequence with left and right pages. See issue [#419](https://github.com/IIIF/iiif.io/issues/419)
+A ["facing-pages" `viewingHint`][hints] value was added to indicate that a single canvas represents both sides of an open spread.  This is common in older digitization projects, books containing plates, and many contemporary Eastern digitization projects.  Without the addition of the hint, page turning viewer applications would try to "turn" the entire spread, and get out of sequence with left and right pages. See issue [#419](https://github.com/IIIF/iiif.io/issues/419)
 
 ### 1.11. Multi-Part Collections Viewing Hint
 
-A ["multi-part" `viewingHint`][hints] value was added for the situation when a collection has manifests that are part of a logical whole, such as a multi-volume bound series of items. See issue [#466](https://github.com/IIIF/iiif.io/issues/466)
+A ["multi-part" `viewingHint`][hints] value was added to distinguish when a collection contains manifests that are part of a logical whole, such as a multi-volume book set. See issue [#466](https://github.com/IIIF/iiif.io/issues/466)
 
 ### 1.12. Usage of "continuous" viewingHint
 
-The intended usage of the ["continuous" `viewingHint`][hints] was clarified; technically this is a breaking change, but the original specification was unable to be implemented (the semantics were identical to those of the "individuals" `viewingHint`), it was impossible for any implementations to be affected. See issue [#451](https://github.com/IIIF/iiif.io/issues/451)
+The intended usage of the ["continuous" `viewingHint`][hints] was clarified; technically this is a breaking change, but it was not possible to implement the original specification because the semantics were identical to those of the "individuals" `viewingHint`. See issue [#451](https://github.com/IIIF/iiif.io/issues/451)
 
 ### 1.13. Reference Authentication API
 
-The section on [authentication][auth] was rewritten to refer to the Authentication API specification.
+The section on [authentication][auth] was rewritten to refer to the [Authentication API specification][auth-spec] which is nearly complete.
 
 ### 1.14. Modifications to JSON-LD Context and RDF Ontology
 
-The above changes and several others were made to the JSON-LD Context mapping of keys to RDF predicates, and the RDF ontology was updated in step. See issues [#636](https://github.com/IIIF/iiif.io/issues/636), [#666](https://github.com/IIIF/iiif.io/issues/666) 
+The above changes and several others were made to the JSON-LD Context mapping of keys to RDF predicates, and the RDF ontology was updated in step. See issues [#636](https://github.com/IIIF/iiif.io/issues/636), [#666](https://github.com/IIIF/iiif.io/issues/666)
 
 ### 1.15. Identity management
 
@@ -100,7 +100,7 @@ Many of the descriptions or definitions of the resource types and properties wer
 
 ### 3.1. Zones
 
-Zones continue to be deferred, however it is anticipated that they will be added to cover audio/visual requirements in a future release. See issue [#42](https://github.com/IIIF/iiif.io/issues/42)
+[Zones][zones] continue to be deferred, however it is anticipated that they will be added to cover audio/visual requirements in a future release. See issue [#42](https://github.com/IIIF/iiif.io/issues/42)
 
 ### 3.2. Specification Alignment
 
@@ -125,11 +125,13 @@ Until there is more experience with the Search API, several additions for Annota
 [members]: /api/presentation/2.1/#range
 [rendering]: /api/presentation/2.1/#rendering
 [navdate]: /api/presentation/2.1/#navdate
-[contentlayer]: /api/presentation/2.1/#contentlayer 
+[contentlayer]: /api/presentation/2.1/#contentlayer
 [comments]: /api/presentation/2.1/#comment-annotations
 [hotspots]: /api/presentation/2.1/#hotspot-linking
 [openanno]: http://openannotation.org/spec/core/core.html#Motivations
 [hints]: /api/presentation/2.1/#viewinghint
 [auth]: /api/presentation/2.1/#authentication
+[auth-spec]: /api/auth/
+[zones]: http://iiif.io/model/shared-canvas/1.0/#Zone
 
 {% include acronyms.md %}
