@@ -108,10 +108,11 @@ A [sched][sched] site with the details will be available.
 | 1:00 - 2:30 (A) | Review of New Specifications | IIIF Editors |
 | 1:00 - 2:30 (B) | 3D Brainstorm | Stu Snydman (Stanford) |
 | 1:00 - 5:00 (C) | Manuscript Working Group | Ben Albritton (Stanford)  |
-| 2:30 - 3:15 (A) | IIIF Authentication Specification | IIIF Editors |
+| 2:30 - 3:00 (A) | IIIF Authentication Specification | IIIF Editors |
+| 3:00 - 3:15 (A) | Metadata Search | Mark Patton (Johns Hopkins), John Abrahams (Johns Hopkins) |
 | 2:30 - 3:15 (B) | Training | Tom Cramer (Stanford) |
 | 3:15 - 3:30 | _Break_ | -- |
-| 3:30 - 5:00 (A) | IIIF A/V Update | IIIF Editors |
+| 3:30 - 5:00 (A) | IIIF A/V Update & Discussion | IIIF Editors |
 {: .api-table .sched-table}
 
 #### Friday
@@ -128,8 +129,7 @@ A [sched][sched] site with the details will be available.
 | 2:30 - 3:15  (A) | Crawling and Harvesting | Simeon Warner (Cornell) | 
 | 3:15 - 3:30  | _Break_ | -- |
 | 3:30 - 4:00  (A) | REST | Jon Stroop (Princeton) |
-| 4:00 - 4:15  (A) | Metadata Search | Mark Patton (Johns Hopkins), John Abrahams (Johns Hopkins) |
-| 4:15 - 4:30  (A) | MediaChain and IIIF | Jesse Walden (Mine) | 
+| 4:00 - 4:15  (A) | MediaChain and IIIF | Jesse Walden (Mine) | 
 {: .api-table .sched-table}
 
 [home-page]: http://iiif.io/
