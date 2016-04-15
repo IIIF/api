@@ -205,7 +205,7 @@ The size parameter determines the dimensions to which the extracted region is to
 | Form   | Description |
 |--------|-----------------------|
 | `full` | The image or region is not scaled, and is returned at its full size. Note [deprecation warning][full-dep]. |
-| `max`  | The image or region is returned at the maximum size available, as indicated by `maxWidth`, `maxHeight`, `maxArea` in the [profile description][profile-description]. This is the same as `full` if none of these are properties are provided. |
+| `max`  | The image or region is returned at the maximum size available, as indicated by `maxWidth`, `maxHeight`, `maxArea` in the [profile description][profile-description]. This is the same as `full` if none of these properties are provided. |
 | w,     | The image or region should be scaled so that its width is exactly equal to w, and the height will be a calculated value that maintains the aspect ratio of the extracted region. |
 | ,h     | The image or region should be scaled so that its height is exactly equal to h, and the width will be a calculated value that maintains the aspect ratio of the extracted region. |
 | pct:n  | The width and height of the returned image is scaled to n% of the width and height of the extracted region. The aspect ratio of the returned image is the same as that of the extracted region. |
@@ -406,7 +406,7 @@ Examples:
 
 The sequence of parameters in the URI is intended as a mnemonic for the order in which image manipulations are made against the full image content. This is important to consider when implementing the service because applying the same parameters in a different sequence will often result in a different image being delivered. The order is critical so that the application calling the service reliably receives the output it expects.
 
-The parameters should be interpreted as if the the sequence of image manipulations were:
+The parameters should be interpreted as if the sequence of image manipulations were:
 
 `Region THEN Size THEN Rotation THEN Quality THEN Format`
 
@@ -437,7 +437,7 @@ In order to support the above requirements, clients _SHOULD_ construct the image
 | Parameter | Canonical value |
 | --------- | --------------- |
 | region    | "full" if the whole image is requested, (including a "square" region of a square image)<br/>otherwise the `x,y,w,h` syntax. |
-| size      | "full" if the default size is requested,<br/>the `w,` syntax for images that should be scaled maintaining the aspect ratio,<br/>and the `w,h` syntax for explicit sizes that change the aspect ratio. <br/>__Note:__ The the size keyword "full" will be replaced with "max" in version 3.0. See the [deprecation warning][full-dep] under [size][size] for more information. |
+| size      | "full" if the default size is requested,<br/>the `w,` syntax for images that should be scaled maintaining the aspect ratio,<br/>and the `w,h` syntax for explicit sizes that change the aspect ratio. <br/>__Note:__ The size keyword "full" will be replaced with "max" in version 3.0. See the [deprecation warning][full-dep] under [size][size] for more information. |
 | rotation  | "!" if the image is mirrored, followed by an integer if possible, and trimming any trailing zeros in a decimal value, and a leading 0 if the value is below 1. |
 | quality   | "default" if the server's default quality is requested,<br/>otherwise the quality string. |
 | format    | The explicit format string is always required. |
@@ -514,7 +514,7 @@ There is an inconsistency between the specification of the `sizes` list and the 
 | Size Object Property | Required? | Description |
 | ---------- | -------- | ----------- |
 | `@type`    | Optional | The type of the object. If present, the value _MUST_ be the string `iiif:Size`. |
-| `width`    | Required | The width in pixels of the image to be requested, given aas an integer. |
+| `width`    | Required | The width in pixels of the image to be requested, given as an integer. |
 | `height`   | Required | The height in pixels of the image to be requested, given as an integer. |
 {: .api-table}
 
@@ -570,7 +570,7 @@ In order to specify additional features that are supported for the image, a prof
 | `supports`  | Optional  | The set of features supported for the image.  If not specified then clients should assume only features declared in the compliance level document. |
 {: .api-table}
 
-The `maxWidth`, `maxHeight` and `maxArea` parameters provide a way for image servers to express limits on the sizes supported for the image. If `maxWidth` alone, or `maxWidth` and `maxHeight` are specified then clients should expect requests with larger linear dimensions to be rejected. If `maxArea` is specified then clients should expect requests with larger pixel areas to be rejected. The `maxWidth / maxHeight`  and `maxArea` parameters are independent, servers may implement either or both limits. Servers _MUST_ ensure that sizes specified within any `sizes` or `tiles` properties are with any size limits expressed. Clients _SHOULD NOT_ make requests that exceed size limits expressed.
+The `maxWidth`, `maxHeight` and `maxArea` parameters provide a way for image servers to express limits on the sizes supported for the image. If `maxWidth` alone, or `maxWidth` and `maxHeight` are specified then clients should expect requests with larger linear dimensions to be rejected. If `maxArea` is specified then clients should expect requests with larger pixel areas to be rejected. The `maxWidth / maxHeight`  and `maxArea` parameters are independent, servers may implement either or both limits. Servers _MUST_ ensure that sizes specified by any `sizes` or `tiles` properties are within any size limits expressed. Clients _SHOULD NOT_ make requests that exceed size limits expressed.
 
 The set of features that may be specified in the `supports` property of an Image profile are:
 
@@ -795,7 +795,7 @@ The order in which servers parse requests and detect errors is not specified. A 
 
 | Status Code | Description |
 | ---------- | ----------- |
-| 400 Bad Request | This response is used when it is impossible for the server to fulfil the request, as the syntax of the request is incorrect.  For example, this would be used if the size parameter does not match any of the specified syntaxes. |
+| 400 Bad Request | This response is used when it is impossible for the server to fulfill the request, as the syntax of the request is incorrect.  For example, this would be used if the size parameter does not match any of the specified syntaxes. |
 | 401 Unauthorized | Authentication is required and not provided. See the [Authentication][authentication] section for details. |
 | 403 Forbidden | The user, authenticated or not, is not permitted to perform the requested operation. |
 | 404 Not Found | The image resource specified by [identifier] does not exist, the value of one or more of the parameters is not supported for this image, or the requested size is greater than the limits specified. |
@@ -860,7 +860,7 @@ Early sanity checking of URIs (lengths, trailing GET, invalid characters, out-of
     request_width = image_width * desired_height / image_height
 ```
 
-  * When requesting image tiles, the [Region][region] and [Size][size] parameters must be calculated to take account of partial tiles along the right and lower edges for a full imagine that is not an exact multiple of the scaled tile size. The algorithm below is shown as Python code and assumes integer inputs and integer arithmetic throughout (ie. remainder discarded on division). Inputs are: size of full image content `(width,height)`, scale factor `s`, tile size `(tw,th)`, and tile coordinate `(n,m)` counting from `(0,0)` in the upper-left corner. Note that the rounding method is implementation dependent.
+  * When requesting image tiles, the [Region][region] and [Size][size] parameters must be calculated to take account of partial tiles along the right and lower edges for a full image that is not an exact multiple of the scaled tile size. The algorithm below is shown as Python code and assumes integer inputs and integer arithmetic throughout (ie. remainder discarded on division). Inputs are: size of full image content `(width,height)`, scale factor `s`, tile size `(tw,th)`, and tile coordinate `(n,m)` counting from `(0,0)` in the upper-left corner. Note that the rounding method is implementation dependent.
 
 
 ``` python

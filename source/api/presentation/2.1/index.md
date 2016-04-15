@@ -101,7 +101,7 @@ The overall description of the structure and properties of the digital represent
 ##### Sequence
 {: #overview-sequence}
 
-The order of the views of a the object. Multiple sequences are allowed to cover situations when there are multiple equally valid orders through the content, such as when a manuscript's pages are rebound or archival collections are reordered.
+The order of the views of the object. Multiple sequences are allowed to cover situations when there are multiple equally valid orders through the content, such as when a manuscript's pages are rebound or archival collections are reordered.
 
 ##### Canvas
 {: #overview-canvas}
@@ -191,7 +191,7 @@ A small image that depicts or pictorially represents the resource that the prope
  * A sequence _MAY_ have one or more thumbnails and _SHOULD_ have at least one thumbnail if there are multiple sequences in a single manifest.
  * A canvas _MAY_ have one or more thumbnails and _SHOULD_ have at least one thumbnail if there are multiple images or resources that make up the representation.
  * A content resource _MAY_ have one or more thumbnails and _SHOULD_ have at least one thumbnail if it is an option in a choice of resources.
- * Other resources types _MAY_ have one or more thumbnails.
+ * Other resource types _MAY_ have one or more thumbnails.
 
 ####  3.2. Rights and Licensing Properties
 
@@ -771,7 +771,7 @@ Note well that Annotation Lists _MUST NOT_ be embedded within the manifest.
       "resource":{
         "@id": "http://example.org/iiif/book1/res/tei-text-p1.xml",
         "@type": "dctypes:Text",
-        "format": "text/xml"
+        "format": "application/tei+xml"
       },
       "on": "http://example.org/iiif/book1/canvas/p1"
     }
@@ -932,7 +932,7 @@ Recommended URI pattern:
 ```
 {: .urltemplate}
 
-Collections are used to list the manifests available for viewing, and to describe the structures, hierarchies or curated collections that the physical objects are part of.  The collections _MAY_ include both other collections and manifests, in order to form a hierarchy of objects with manifests at the leaf nodes of the tree.  Collection objects _MAY_ be embedded inline within other collection objects, such as when the collection is used primarily to subdivide a larger one into more manageable pieces, however manifests _MUST NOT_ be embedded within collections. Embedded collections _SHOULD_ have their own URI from which the description is also made available.
+Collections are used to list the manifests available for viewing, and to describe the structures, hierarchies or curated collections that the physical objects are part of.  The collections _MAY_ include both other collections and manifests, in order to form a hierarchy of objects with manifests at the leaf nodes of the tree.  Collection objects _MAY_ be embedded inline within other collection objects, such as when the collection is used primarily to subdivide a larger one into more manageable pieces, however manifests _MUST NOT_ be embedded within collections. An embedded collection _SHOULD_ also have its own URI from which the description is available.
 
 The URI pattern follows the same structure as the other resource types, however note that it prevents the existence of a manifest or object with the identifier "collection". It is also _RECOMMENDED_ that the topmost collection from which all other collections are discoverable by following links within the heirarchy be named `top`, if there is one.
 
@@ -1127,7 +1127,7 @@ The following sections describe known use cases for building representations of 
 
 It is important to be able to extract parts, or segments, of resources. In particular a very common requirement is to associate a resource with part of a canvas, or part of an image with either the entire canvas or part thereof. Secondly, as transcriptions are often made available in XML files, extracting the correct page to associate with the canvas, or line to associate with part of the canvas, is equally useful for reusing existing material. These can be accomplished using URI fragments for simple cases.
 
-Note that if both there are segments of both image and canvas, then the aspect ratio _SHOULD_ be the same, but there are circumstances where they _MAY_ be different.  In this case the rendering agent _SHOULD_ rescale the image segment to the dimensions provided on the canvas.
+Note that if there are segments of both image and canvas, then the aspect ratio _SHOULD_ be the same, but there are circumstances where they _MAY_ be different.  In this case the rendering agent _SHOULD_ rescale the image segment to the dimensions provided on the canvas.
 
 Segments of both static images and canvases may be selected by adding a [rectangular bounding box][media-frags] after the URI. The fragment _MUST_ take the form of `#xywh=` as per the example below where the four numbers are the x and y coordinates of the top left hand corner of the bounding box in the image or canvas, followed by the width and height. Thus the segment above is 300px wide, 50px high and starts at position 100,100. Note that only integers are allowed in this syntax, and this may limit accuracy of assignment to canvases with small dimensions.  
 
@@ -1195,7 +1195,7 @@ Segments of XML files may be extracted with [XPaths][xpath]. The fragment _MUST_
   "resource":{
     "@id": "http://example.org/iiif/book1/res/tei.xml#xpointer(//line[1])",
     "@type": "dctypes:Text",
-    "format": "text/xml"
+    "format": "application/tei+xml"
   },
   "on": "http://example.org/iiif/book1/canvas/p1#xywh=100,100,500,300"
 }
@@ -1241,7 +1241,7 @@ The same construction can be applied to a choice between other types of resource
 
 Either the `default` or `item` _MAY_ have a value of "rdf:nil". This means that a valid option is not to display anything. This _MUST NOT_ have a label associated with it, viewers should either use "Nothing" or an appropriate label of their choice.
 
-This can be used to model foldouts and other dynamic features of a page, by associating images of the different states with the canvas. Depending on the nature of the images, this can be either done such that the entire image is switched to change state, or only the section of the image that has to change if the segment information is known.
+This can be used to model foldouts and other dynamic features of a page, by associating images of the different states with the canvas. Depending on the nature of the images, this can be done such that either the entire image is switched to change state, or only the section of the image that has to change is switched, if the appropriate segment information is known.
 
 ``` json-doc
 {
