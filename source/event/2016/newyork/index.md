@@ -102,7 +102,7 @@ A [sched][sched] site with the details will be available.
 | Time         | Session       | Facilitators  |
 |--------------|---------------|-------------|
 | 9:00 - 12:00 (A) | Universal Viewer Interest Group | Ed Silverton (Digirati) |
-| 9:00 - 12:00 (B) | Museums Working Group | Mike Appleby (Yale), Emmanuelle Delmas-Glass (Yale) |
+| 9:00 - 12:00 (B) | Museums Working Group | Mike Appleby (Yale), Emmanuelle Delmas-Glass (Yale), Tina Shah (Art Institute of Chicago) |
 | 9:00 - 12:00 (C) | Manuscript Working Group | Ben Albritton (Stanford)  |
 | 12:00 - 1:00 | _Lunch_ | _On Your Own_  |
 | 1:00 - 2:30 (A) | Review of New Specifications | IIIF Editors |
