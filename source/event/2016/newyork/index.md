@@ -30,10 +30,10 @@ This event will be valuable for organizational decision makers, repository and c
 
 A [sched][sched] site with the details will be available.
 
-| Time          | Session            | Presenters               |
+| Time          | Session            | Presenters                        |
 |---------------|--------------------|-----------------------------------|
-| 10:00 - 10:10 | Welcome            |                                   |
-| 10:10 - 10:30 | Intro to IIIF      | Tom Cramer (Stanford)                       |
+| 10:00 - 10:10 | Welcome            | Milan Hughston (MOMA)             |
+| 10:10 - 10:30 | Intro to IIIF      | Tom Cramer (Stanford)             |
 | 10:30 - 11:00 | Library Use Cases  | Christy Henshaw (Wellcome Trust), Matthieu Bonicel (Bibliothèque nationale de France) |
 | 11:00 - 11:30 | Archival Use Cases | Anna Naruta-Moya (Indigenous Digital Archive), Mark Matienzo (DPLA)   |
 | 11:30 - 12:00 | Museum Use Cases   | Emmanuelle Delmas-Glass (YCBA), Michael Appleby (YCBA) |
