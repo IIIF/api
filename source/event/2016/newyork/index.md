@@ -93,44 +93,40 @@ A [sched][sched] site with the details will be available.
 |  2:20 -  2:40 | Webmention: A Demonstration of IIIF Collaboration between Scholars and Holding Libraries | Jeffrey Witt (Loyola University), Rafael Schwemmer (text & bytes)|
 |  2:40 -  3:00 | Leaflet-IIIF: Plugins and Extensibility with IIIF | Jack Reed (Stanford) |
 |  3:00 -  3:30 | _Break_ | -- | 
-|  3:30 -  4:15 | IIIF and the Wider World: Alignment with Other Specifications (panel) | Mark Matienzo (DPLA), Rob Sanderson (Getty), Antoine Isaac (Europeana) |
+|  3:30 -  4:15 | IIIF and the Wider World: Alignment with Other Specifications (panel) | Mark Matienzo (DPLA), Rob Sanderson (Getty) |
 |  4:15 -  5:00 | Big Projects in the Big Tent: Organizing Large Scale, IIIF-wide Projects in the Emerging IIIF Community Framework (discussion) | Tom Cramer (Stanford, facilitator) |
 {: .api-table .sched-table}
 
 #### Thursday
 
-| Time         | Session       | Facilitators  |
-|--------------|---------------|-------------|
-| 9:00 - 12:00 (A) | Universal Viewer Interest Group | Ed Silverton (Digirati) |
-| 9:00 - 12:00 (B) | Museums Working Group | Mike Appleby (Yale), Emmanuelle Delmas-Glass (Yale), Tina Shah (Art Institute of Chicago) |
-| 9:00 - 12:00 (C) | Manuscript Working Group | Ben Albritton (Stanford)  |
-| 12:00 - 1:00 | _Lunch_ | _On Your Own_  |
-| 1:00 - 2:30 (A) | Review of New Specifications | IIIF Editors |
-| 1:00 - 2:30 (B) | 3D Brainstorm | Stu Snydman (Stanford) |
-| 1:00 - 5:00 (C) | Manuscript Working Group | Ben Albritton (Stanford)  |
-| 2:30 - 3:00 (A) | IIIF Authentication Specification | IIIF Editors |
-| 3:00 - 3:15 (A) | Metadata Search | Mark Patton (Johns Hopkins), John Abrahams (Johns Hopkins) |
-| 2:30 - 3:15 (B) | Training | Tom Cramer (Stanford) |
-| 3:15 - 3:30 | _Break_ | -- |
-| 3:30 - 5:00 (A) | IIIF A/V Update & Discussion | IIIF Editors |
-{: .api-table .sched-table}
+| Time          | Track A       | Track B     | Track C     |
+|---------------|---------------|-------------|-------------|
+| 9:00 - 10:30  | Universal Viewer IG (Ed Silverton) | Museums WG (Mike Appleby, Emmanuelle Delmas-Glass, Tina Shah) | Manuscript WG (Ben Albritton) |
+| 10:30 - 11:00 ||_Coffee Break_||
+| 11:00 - 12:00 | Universal Viewer IG | Museums WG | Manuscript WG |
+| 12:00 - 1:30  ||_Lunch_||
+| 1:30 - 3:00   | Review of Specifications (Editors) | A/V and 3D Brainstorm (Stu Snydman) | Manuscript WG |
+| 3:00 - 3:30   ||_Coffee Break_||
+| 3:30 - 4:00   | Authentication Specification (Editors) | Training (Tom Cramer) | Manuscript WG |
+| 4:00 - 4:15   | Metadata Search (Mark Patton) | Training | Manuscript WG |
+| 4:15 - 5:00   | A/V Discussion (Editors, Stu) |   | Manuscript WG |
+{: .api-table .msched-table}
 
 #### Friday
 
-| Time          | Session       | Facilitators  |
-|---------------|---------------|-------------|
-| 9:00 - 12:00 (A) | Mirador Interest Group | Rashmi Singhal (Harvard), Drew Winget (Stanford) |
-| 9:00 - 12:00 (B) | Newspaper Working Group | Karen Estlund (Penn State) | 
-| 9:00 - 12:00 (C) | Manuscript Working Group | Ben Albritton (Stanford)  |
-| 12:00 - 1:30 | _Lunch_ | _On Your Own_ |
-| 1:30 - 4:30  (C) | Manuscript Working Group | Ben Albritton (Stanford) |
-| 1:30 - 4:30  (B) | Hackathon | -- |
-| 1:30 - 2:30  (A) | Discovery | Tom Crane (Digirati), Mike Appleby (YCBA) | 
-| 2:30 - 3:15  (A) | Crawling and Harvesting | Simeon Warner (Cornell) | 
-| 3:15 - 3:30  | _Break_ | -- |
-| 3:30 - 4:00  (A) | REST | Jon Stroop (Princeton) |
-| 4:00 - 4:15  (A) | MediaChain and IIIF | Jesse Walden (Mine) | 
-{: .api-table .sched-table}
+| Time          | Track A       | Track B     | Track C     |
+|---------------|---------------|-------------|-------------|
+| 9:00 - 10:30  | Mirador IG (Rashmi Singhal, Drew Winget) | Newspaper WG (Karen Estlund) | Manuscript WG (Ben Albritton) |
+| 10:30 - 11:00 ||_Coffee Break_||
+| 9:00 - 10:30  | Mirador IG | Newspaper WG | Manuscript WG |
+| 12:00 - 1:30  ||_Lunch_||
+| 1:30 - 2:15   | Discovery (Tom Crane, Mike Appleby) |  | Manuscript WG |
+| 2:15 - 3:00   | Crawling and Harvesting (Simeon Warner) |  | Manuscript WG |
+| 3:00 - 3:30   ||_Coffee Break_||
+| 3:30 - 4:00   | REST (Jon Stroop) |  | Manuscript WG |
+| 4:00 - 4:15   | MediaChain and IIIF (Jesse Walden) | | Manuscript WG |
+| 4:15 - 5:00   | Feedback, Next Steps, Close |  | Manuscript WG |
+{: .api-table .msched-table}
 
 [home-page]: http://iiif.io/
 [eventbrite]: http://iiif-advantages-nyc.eventbrite.com/
