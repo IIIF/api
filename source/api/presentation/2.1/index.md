@@ -233,7 +233,7 @@ The type of the resource.  For the resource types defined by this specification,
 
  * All resource types _MUST_ have at least one type specified. 
 
- _N.B._ This requirement applies only to the types described in [Section 2][resource-type-overview]. Services, Thumbnails and other resources will have their own requirements.
+ _N.B._ This requirement applies only to the types described in [Section 2][type-overview]. Services, Thumbnails and other resources will have their own requirements.
 
 ##### format
 The specific media type (often called a MIME type) of a content resource, for example "image/jpeg". This is important for distinguishing text in XML from plain text, for example.
