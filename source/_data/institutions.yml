@@ -91,6 +91,9 @@
 - name: National Library of Poland
   uri:
   iiifc: 2
+- name: National Library of Scotland
+  uri: http://www.nls.uk/
+  iiifc: 2
 - name: National Library of Serbia
   uri: 
 - name: National Library of Wales
