@@ -147,7 +147,7 @@ An ordered list of canvases, and/or further ranges.  Ranges allow canvases, or p
 
 ##  3. Resource Properties
 
-This specification defines properties in five distinct areas. Most of the properties may be associated with any of the resource types, and may have more than one value.  The property relates to the resource that it is associated with, so a `description` property on a manifest is a description of the object, whereas a `description` property on a canvas is a description of that particular page or view of the object.
+This specification defines properties in five distinct areas. Most of the properties may be associated with any of the resource types described above, and may have more than one value.  The property relates to the resource that it is associated with, so a `description` property on a manifest is a description of the object, whereas a `description` property on a canvas is a description of that particular page or view of the object.
 
 The requirements for the use of the properties are summarized in [Appendix B][appendixB].
 
@@ -231,7 +231,9 @@ The URI that identifies the resource. It is _RECOMMENDED_ that an HTTP URI be us
 ##### @type
 The type of the resource.  For the resource types defined by this specification, the value of `@type` will be described in the sections below.  For content resources, the type may be drawn from other vocabularies. Recommendations for basic types such as image, text or audio are also given in the sections below.
 
- * All resource types _MUST_ have at least one type specified.
+ * All resource types _MUST_ have at least one type specified. 
+
+ _N.B._ This requirement applies only to the types described in [Section 2][resource-type-overview]. Services, Thumbnails and other resources will have their own requirements.
 
 ##### format
 The specific media type (often called a MIME type) of a content resource, for example "image/jpeg". This is important for distinguishing text in XML from plain text, for example.
