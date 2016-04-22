@@ -856,6 +856,24 @@ a.button-turquoise {
     width: 35%;
   }
 
+  .sub-pages-container .msched-table {
+    width:100%;
+  }
+  
+  
+  .sub-pages-container .msched-table td:first-child {
+    width: 13%;
+  }
+  .sub-pages-container .msched-table td:nth-child(2) {
+    width: 29%;
+  }
+  .sub-pages-container .msched-table td:nth-child(3) {
+    width: 29%;
+  }
+  .sub-pages-container .msched-table td:nth-child(4) {
+    width: 29%;
+  }
+
   .code-block {
     margin: 0 0 0 20px;
   }
