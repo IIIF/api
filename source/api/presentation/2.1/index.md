@@ -63,7 +63,7 @@ The following are within the scope of the current document:
 
 The following are __not__ within scope:
 
-  * The discovery or selection of interesting digitized objects is not directly supported, however hooks to reference further resources are available.
+  * The discovery or selection of interesting digitized objects is not directly supported; however hooks to reference further resources are available.
   * Search within the object is not supported by the Presentation API; however this will be covered by a future IIIF specification.
 
 Note that in the following descriptions, "object" (or "physical object") is used to refer to a physical object that has been digitized or a born-digital compound object, and "resources" refer to the digital resources that are the result of that digitization or digital creation process.
@@ -490,7 +490,7 @@ The identifier in `@id` _MUST_ always be able to be dereferenced to retrieve the
 
 Along with the descriptive information, there is a `sequences` section, which is a list of JSON-LD objects. Each object describes a [Sequence][sequence], discussed in the next section, that represents the order of the parts of the work, each represented by a [Canvas][canvas].  The first such sequence _MUST_ be included within the manifest as well as optionally being available from its own URI. Subsequent sequences _MUST_ only be referenced with their identifier (`@id`), class (`@type`) and `label` and thus _MUST_ be dereferenced by clients in order to process them if the user selects to view that sequence.
 
-There _MAY_ also be a `stuctures` section listing one or more [Ranges][range] which describe additional structure of the content, such as might be rendered as a table of contents.
+There _MAY_ also be a `structures` section listing one or more [Ranges][range] which describe additional structure of the content, such as might be rendered as a table of contents.
 
 The example below includes only the manifest-level information, however actual implementations _MUST_ embed the first sequence, canvas and content information. It includes examples in the descriptive metadata of how to associate multiple entries with a single field and how to be explicit about the language of a particular entry.
 
@@ -645,7 +645,7 @@ The canvas represents an individual page or view and acts as a central point for
 
 Every canvas _MUST_ have a `label` to display, and a `height` and a `width` as integers. A canvas is a two-dimensional rectangular space with an aspect ratio that represents a single logical view of some part of the object, and the aspect ratio is given with the height and width properties. This allows resources to be associated with specific parts of the canvas, rather than the entire space. Content _MUST NOT_ be associated with space outside of the canvas's dimensions, such as at coordinates below 0,0 or greater than the height or width.
 
-It is _RECOMMENDED_ that if there is (at the time of implementation) a single image that depicts the page, then the dimensions of the image are used as the dimensions of the canvas for simplicity. If there are multiple full images, then the dimensions of the largest image should be used. If the largest image's dimensions are less than 1200 pixels on either edge, then the canvas's dimensions _SHOULD_ be double that of the image. Clients _MUST_ be aware that this is not always the case, such as in the examples presented, and instead _MUST_ always scale images into the space represented by the canvas.  The dimensions of the canvas _SHOULD_ be the same scale as the physical object, and thus images _SHOULD_ depict only the object.  This can be accomplished by cropping the image, or associating only a segment of the image with the canvas. The physical dimensions of the object may be available via a service, either embedded within the description or requiring an HTTP request to retrieve them.
+It is _RECOMMENDED_ that if there is (at the time of implementation) a single image that depicts the page, then the dimensions of the image are used as the dimensions of the canvas for simplicity. If there are multiple full images, then the dimensions of the largest image should be used. If the largest image's dimensions are less than 1200 pixels on either edge, then the canvas's dimensions _SHOULD_ be double those of the image. Clients _MUST_ be aware that this is not always the case, such as in the examples presented, and instead _MUST_ always scale images into the space represented by the canvas.  The dimensions of the canvas _SHOULD_ be the same scale as the physical object, and thus images _SHOULD_ depict only the object.  This can be accomplished by cropping the image, or associating only a segment of the image with the canvas. The physical dimensions of the object may be available via a service, either embedded within the description or requiring an HTTP request to retrieve them.
 
 Image resources, and only image resources, are included in the `images` property of the canvas. These are linked to the canvas via annotations, as described in [Image Resources][image-resources]. Other content, such as transcriptions, video, audio or commentary, is provided via external annotation lists referenced in the `otherContent` property, as described in [Annotation Lists][annotation-lists]. The value of both of these properties _MUST_ be a list, even if there is only one entry. Both are optional, as there may be no additional information associated with the canvas. Note that the items in the `otherContent` list may be either objects with an `@id` property or strings. In the case of a string, this is the URI of the annotation list and the type of "sc:AnnotationList" can be inferred.
 
@@ -902,7 +902,7 @@ Each annotation list _MAY_ be part of one or more layers. If the annotation list
 }
 ```
 
-The layer _MAY_ be able to be dereferenced if it has an HTTP URI.  If a representation is available, it _MUST_ follow all of the requirements for JSON representations in this specification.  All of the properties of the Layer _SHOULD_ be included in the representation.  
+The layer _MAY_ be able to be dereferenced if it has an HTTP URI.  If a representation is available, it _MUST_ follow all of the requirements for JSON representations in this specification.  All of the properties of the layer _SHOULD_ be included in the representation.  
 
 The annotation lists are referenced from the layer in an `otherContent` array, in the same way as they are referenced from a canvas.  The annotation lists _SHOULD_ be given as just URIs, but _MAY_ be objects with more information about them, such as in the [Canvas][canvas] example.
 
@@ -1388,7 +1388,7 @@ Alternatively, if the image is available via the IIIF Image API, it may be more 
 
 For annotations which are comments about the canvas, as opposed to painting content resources onto the canvas, there are different types of motivation to make the distinction clear. For annotations about the content (such as comments, notes, descriptions etc.) the `motivation` _SHOULD_ be "oa:commenting", but _MAY_ be any from the list given in the [Open Annotation][openanno] specification.
 
-Unlike painting annotations, comments or annotations with other motivations, _SHOULD_ have a URI assigned as their identity and provided in the `@id` property.  When dereferencing that URI, the representation of the annotation _SHOULD_ be returned.  This is to allow further annotations to annotate the comment, for example in order to reply to it, or to tag it for organizational or discovery purposes.
+Unlike painting annotations, comments or annotations with other motivations _SHOULD_ have a URI assigned as their identity and provided in the `@id` property.  When dereferencing that URI, the representation of the annotation _SHOULD_ be returned.  This is to allow further annotations to annotate the comment, for example in order to reply to it, or to tag it for organizational or discovery purposes.
 
 ``` json-doc
 {
