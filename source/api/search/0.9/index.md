@@ -15,6 +15,8 @@ cssversion: 2
 {:.no_toc}
 __This Version:__ {{ page.major }}.{{ page.minor }}.{{ page.patch }}{% if page.pre != 'final' %}-{{ page.pre }}{% endif %}
 
+__Latest Stable Version:__ [{{ site.search_api.latest.major }}.{{ site.search_api.latest.minor }}.{{ site.search_api.latest.patch }}][stable-version]
+
 {% include beta.md %}
 
 **Editors**
@@ -474,7 +476,7 @@ Given the flexibility of alignment between the sections of the text (such as wor
 
 For example, imagine that the annotations are divided up line by line as they were manually transcribed that way and there are two lines of text. The first line is "A bird in the hand", the second line was "is worth two in the bush", and then the search is for the phrase "hand is", the match would span both of the line based annotations.  If the annotations were instead at word level, then phrases will always require multiple annotations.
 
-In cases like this there are more annotations than hits as two or more annotations are needed to make up one hit.  The `match` property of the hit captures the text across the annotations. 
+In cases like this there are more annotations than hits as two or more annotations are needed to make up one hit.  The `match` property of the hit captures the text across the annotations.
 
 
 ``` json-doc
@@ -603,22 +605,22 @@ The example request above might generate the following response:
   "ignored": ["user"],
   "terms": [
     {
-      "match": "bird", 
+      "match": "bird",
       "url": "http://example.org/service/identifier/search?motivation=painting&q=bird",
       "count": 15
     },
     {
-      "match": "biro", 
+      "match": "biro",
       "url": "http://example.org/service/identifier/search?motivation=painting&q=biro",
       "count": 3
     },
     {
-      "match": "birth", 
+      "match": "birth",
       "url": "http://example.org/service/identifier/search?motivation=painting&q=birth",
       "count": 9
     },
     {
-      "match": "birthday", 
+      "match": "birthday",
       "url": "http://example.org/service/identifier/search?motivation=painting&q=birthday",
       "count": 21
     }
@@ -635,13 +637,13 @@ It is also possible to associate one or more `label`s to display to the user wit
   "ignored": ["user"],
   "terms": [
     {
-      "match": "http://semtag.example.org/tag/bird", 
+      "match": "http://semtag.example.org/tag/bird",
       "url": "http://example.org/service/identifier/autocomplete?motivation=tagging&q=http://semtag.example.org/tag/bird",
-      "count": 15, 
+      "count": 15,
       "label": "bird"
     },
     {
-      "match": "http://semtag.example.org/tag/biro", 
+      "match": "http://semtag.example.org/tag/biro",
       "url": "http://example.org/service/identifier/autocomplete?motivation=tagging&q=http://semtag.example.org/tag/biro",
       "count": 3,
       "label": "biro"
@@ -721,7 +723,7 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 [mellon]: http://www.mellon.org/ "The Andrew W. Mellon Foundation"
 [semver]: http://semver.org/spec/v2.0.0.html "Semantic Versioning 2.0.0"
 [iiif-community]: /community/ "IIIF Community"
-[stable-version]: http://iiif.io/api/image/{{ site.search_api.latest.major }}.{{ site.search_api.latest.minor }}/ "Stable Version"
+[stable-version]: /api/search/{{ site.search_api.latest.major }}.{{ site.search_api.latest.minor }}/ "Stable Version"
 [paging]: /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.image_api.latest.minor }}/
 
 [image-api]: /api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/ "Image API"
