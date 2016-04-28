@@ -1,13 +1,13 @@
 ---
-title: "IIIF Content Search API 0.9.3"
-title_override: "IIIF Content Search API 0.9.3"
+title: "IIIF Content Search API 1.0-beta"
+title_override: "IIIF Content Search API 1.0-beta"
 id: content-search-api
 layout: spec
 tags: [specifications, content-search-api]
-major: 0
-minor: 9
-patch: 3
-pre: draft
+major: 1
+minor: 0
+patch: 0
+pre: beta
 cssversion: 2
 ---
 

@@ -20,8 +20,8 @@ cssversion: 2
 | ------------------ | ---------------------------- |
 | Image API          | [2.1.0][image21] *(Beta draft)* |
 | Presentation API   | [2.1.0][prezi21] *(Beta draft)* |
+| Search API         | [1.0.0][search1] *(Beta draft)* |
 | Authentication API | [0.9.1][auth09] *(Beta draft)* |
-| Search API         | [0.9.3][search09] *(Beta draft)* |
 {: .api-table}
 
 __Feedback Requested__
@@ -55,7 +55,7 @@ IIIF also has a series of [Implementation Notes][notes] which are not subject to
 [meta10]: /api/metadata/1.0/ "Metadata API v1.0"
 [meta09]: /api/metadata/0.9/ "Metadata API v0.9"
 [auth09]: /api/auth/0.9/ "Authentication API v0.9"
-[search09]: /api/search/0.9/ "Search API v0.9"
+[search1]: /api/search/1.0/ "Search API v1.0"
 [notes]: /api/annex/ "Implementation Notes"
 
 {% include acronyms.md %}
