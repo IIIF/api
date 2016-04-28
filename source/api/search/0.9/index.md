@@ -16,6 +16,8 @@ sitemap: false
 {:.no_toc}
 __This Version:__ {{ page.major }}.{{ page.minor }}.{{ page.patch }}{% if page.pre != 'final' %}-{{ page.pre }}{% endif %}
 
+__Latest Stable Version:__ [{{ site.search_api.latest.major }}.{{ site.search_api.latest.minor }}.{{ site.search_api.latest.patch }}][stable-version]
+
 {% include beta.md %}
 
 **Editors**
@@ -722,7 +724,7 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 [mellon]: http://www.mellon.org/ "The Andrew W. Mellon Foundation"
 [semver]: http://semver.org/spec/v2.0.0.html "Semantic Versioning 2.0.0"
 [iiif-community]: /community/ "IIIF Community"
-[stable-version]: http://iiif.io/api/image/{{ site.search_api.latest.major }}.{{ site.search_api.latest.minor }}/ "Stable Version"
+[stable-version]: /api/search/{{ site.search_api.latest.major }}.{{ site.search_api.latest.minor }}/ "Stable Version"
 [paging]: /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.image_api.latest.minor }}/
 
 [image-api]: /api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/ "Image API"
