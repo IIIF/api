@@ -147,7 +147,7 @@ An ordered list of canvases, and/or further ranges.  Ranges allow canvases, or p
 
 ##  3. Resource Properties
 
-This specification defines properties in five distinct areas. Most of the properties may be associated with any of the resource types, and may have more than one value.  The property relates to the resource that it is associated with, so a `description` property on a manifest is a description of the object, whereas a `description` property on a canvas is a description of that particular page or view of the object.
+This specification defines properties in five distinct areas. Most of the properties may be associated with any of the resource types described above, and may have more than one value.  The property relates to the resource that it is associated with, so a `description` property on a manifest is a description of the object, whereas a `description` property on a canvas is a description of that particular page or view of the object.
 
 The requirements for the use of the properties are summarized in [Appendix B][appendixB].
 
@@ -231,7 +231,9 @@ The URI that identifies the resource. It is _RECOMMENDED_ that an HTTP URI be us
 ##### @type
 The type of the resource.  For the resource types defined by this specification, the value of `@type` will be described in the sections below.  For content resources, the type may be drawn from other vocabularies. Recommendations for basic types such as image, text or audio are also given in the sections below.
 
- * All resource types _MUST_ have at least one type specified.
+ * All resource types _MUST_ have at least one type specified. 
+
+This requirement applies only to the types described in [Section 2][type-overview]. Services, Thumbnails and other resources will have their own requirements.
 
 ##### format
 The specific media type (often called a MIME type) of a content resource, for example "image/jpeg". This is important for distinguishing text in XML from plain text, for example.
@@ -239,7 +241,7 @@ The specific media type (often called a MIME type) of a content resource, for ex
  * A content resource _MAY_ have exactly one format, and if so, it _MUST_ be the value of the `Content-Type` header returned when the resource is dereferenced.
  * Other resource types _MUST NOT_ have a format.
 
-_N.B._ This is different to the `formats` property in the [Image API][image-api], which gives the extension to use within that API.  It would be inappropriate to use in this case, as `format` can be used with any content resource, not just images.
+This is different to the `formats` property in the [Image API][image-api], which gives the extension to use within that API.  It would be inappropriate to use in this case, as `format` can be used with any content resource, not just images.
 
 ##### height
 The height of a canvas or image resource. For images, the value is in pixels. For canvases, the value does not have a unit. In combination with the width, it conveys an aspect ratio for the space in which content resources are located.
