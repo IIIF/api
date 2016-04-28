@@ -508,7 +508,7 @@ A recipe for enabling these behaviors is provided in the [Apache HTTP Server Imp
 The objects in the `sizes` list have the properties in the following table. Images requested using these sizes _SHOULD_ have a region parameter of "full" and rotation of "0".  The size _SHOULD_ be requested using the canonical syntax of `w,`. Thus, the full URL for an image with "default" quality in "jpg" format would be: `{scheme}://{server}/{prefix}/{identifier}/full/{width},/0/default.jpg`
 
 __Warning__
-There is an inconsistency between the specification of the `sizes` list and the canonical URI syntax. Clients _SHOULD_ use the [Canonical URI Syntax](#canonical-uri-syntax) when making image requests based on entries in `sizes`. For maximum compatibility, servers _SHOULD_ support both the `w,` and `w,h` forms of the `size` parameter for values in `sizes` that maintain the aspect ratio. This inconsistency will be addressed in the next major version of this specification
+There is an inconsistency between the specification of the `sizes` list and the canonical URI syntax. Clients _SHOULD_ use the [Canonical URI Syntax](#canonical-uri-syntax) when making image requests based on entries in `sizes`. For maximum compatibility, servers _SHOULD_ support both the `w,` and `w,h` forms of the `size` parameter for values in `sizes` that maintain the aspect ratio. This inconsistency will be addressed in the next major version of this specification.
 {: .warning}
 
 | Size Object Property | Required? | Description |
@@ -795,13 +795,13 @@ The order in which servers parse requests and detect errors is not specified. A 
 
 | Status Code | Description |
 | ---------- | ----------- |
-| 400 Bad Request | This response is used when it is impossible for the server to fulfill the request, as the syntax of the request is incorrect.  For example, this would be used if the size parameter does not match any of the specified syntaxes. |
+| 400 Bad Request | The server cannot fulfill the request, as the syntax of the request issued by the client is incorrect. |
 | 401 Unauthorized | Authentication is required and not provided. See the [Authentication][authentication] section for details. |
 | 403 Forbidden | The user, authenticated or not, is not permitted to perform the requested operation. |
 | 404 Not Found | The image resource specified by [identifier] does not exist, the value of one or more of the parameters is not supported for this image, or the requested size is greater than the limits specified. |
 | 500 Internal Server Error | The server encountered an unexpected error that prevented it from fulfilling the request. |
-| 501 Not Implemented | A valid IIIF request that is not implemented by this server. |
-| 503 Service Unavailable | Used when the server is busy/temporarily unavailable due to load/maintenance issues. An alternative to connection refusal with the option to specify a back-off period. |
+| 501 Not Implemented | The server received a valid IIIF request that is not implemented. |
+| 503 Service Unavailable | The server is busy/temporarily unavailable due to load/maintenance issues. |
 {: .api-table}
 
 ##  8. Authentication
