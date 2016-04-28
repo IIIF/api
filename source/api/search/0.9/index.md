@@ -9,6 +9,7 @@ minor: 9
 patch: 3
 pre: draft
 cssversion: 2
+sitemap: false
 ---
 
 ## Status of this Document
@@ -474,7 +475,7 @@ Given the flexibility of alignment between the sections of the text (such as wor
 
 For example, imagine that the annotations are divided up line by line as they were manually transcribed that way and there are two lines of text. The first line is "A bird in the hand", the second line was "is worth two in the bush", and then the search is for the phrase "hand is", the match would span both of the line based annotations.  If the annotations were instead at word level, then phrases will always require multiple annotations.
 
-In cases like this there are more annotations than hits as two or more annotations are needed to make up one hit.  The `match` property of the hit captures the text across the annotations. 
+In cases like this there are more annotations than hits as two or more annotations are needed to make up one hit.  The `match` property of the hit captures the text across the annotations.
 
 
 ``` json-doc
@@ -603,22 +604,22 @@ The example request above might generate the following response:
   "ignored": ["user"],
   "terms": [
     {
-      "match": "bird", 
+      "match": "bird",
       "url": "http://example.org/service/identifier/search?motivation=painting&q=bird",
       "count": 15
     },
     {
-      "match": "biro", 
+      "match": "biro",
       "url": "http://example.org/service/identifier/search?motivation=painting&q=biro",
       "count": 3
     },
     {
-      "match": "birth", 
+      "match": "birth",
       "url": "http://example.org/service/identifier/search?motivation=painting&q=birth",
       "count": 9
     },
     {
-      "match": "birthday", 
+      "match": "birthday",
       "url": "http://example.org/service/identifier/search?motivation=painting&q=birthday",
       "count": 21
     }
@@ -635,13 +636,13 @@ It is also possible to associate one or more `label`s to display to the user wit
   "ignored": ["user"],
   "terms": [
     {
-      "match": "http://semtag.example.org/tag/bird", 
+      "match": "http://semtag.example.org/tag/bird",
       "url": "http://example.org/service/identifier/autocomplete?motivation=tagging&q=http://semtag.example.org/tag/bird",
-      "count": 15, 
+      "count": 15,
       "label": "bird"
     },
     {
-      "match": "http://semtag.example.org/tag/biro", 
+      "match": "http://semtag.example.org/tag/biro",
       "url": "http://example.org/service/identifier/autocomplete?motivation=tagging&q=http://semtag.example.org/tag/biro",
       "count": 3,
       "label": "biro"
