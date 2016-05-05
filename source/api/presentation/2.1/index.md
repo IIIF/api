@@ -1657,7 +1657,7 @@ URL: _http://example.org/iiif/book1/manifest_
     }
   ],
   "description": "A longer description of this example book. It should give some real information.",
-  "viewingDate": "1856-01-01T00:00:00Z",
+  "navDate": "1856-01-01T00:00:00Z",
 
   "license": "http://example.org/license.html",
   "attribution": "Provided by Example Organization",
