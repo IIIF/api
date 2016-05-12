@@ -84,12 +84,11 @@ A [sched][sched] site with the details will be available.
 |  9:45 - 10:30 | Trends in IIIF (panel) | Claire Knowles (Edinburgh), Rashmi Singhal (Harvard), Stu Snydman (Stanford), Simeon Warner (Cornell)  |
 | 10:30 - 11:00 | _Break_ | -- |
 | 11:00 - 12:00 | IIIF API Walkthrough: Image, Presentation, Search and Authentication | Mike Appleby (Yale), Tom Crane (Digirati), Rob Sanderson (Getty), Jon Stroop (Princeton) | 
-| 12:00 -  1:30 | _Lunch_ | _On Your Own_  |
-|  1:30 -  2:00 | Lightning Talks 2: |  |
+| 12:00 -  1:45 | _Lunch_ | _On Your Own_  |
+|  1:45 -  2:20 | Lightning Talks 2: |  |
 |               | IIIF as an Enabler to Interoperability within a Single Institution | Randy Stern (Harvard) |
 |               | Challenges Displaying Complex Image Data: New Tech & Old Institutions | Michael Toth (RB Toth Associates) |
-|               | Dynamic IIIF Presentation Manifest Generation | Fabio Torchetti (The Frick Collection)|
-|  2:00 -  2:20 | Creating an IIIF Image Server: Challenges and Solutions | Fabio Torchetti (The Frick Collection) |
+|               | Metadata Search | Mark Patton (JHU)|
 |  2:20 -  2:40 | Webmention: A Demonstration of IIIF Collaboration between Scholars and Holding Libraries | Jeffrey Witt (Loyola University), Rafael Schwemmer (text & bytes)|
 |  2:40 -  3:00 | Leaflet-IIIF: Plugins and Extensibility with IIIF | Jack Reed (Stanford) |
 |  3:00 -  3:30 | _Break_ | -- | 
@@ -108,8 +107,7 @@ A [sched][sched] site with the details will be available.
 | 1:30 - 3:00   | Review of Specifications (Editors) | A/V and 3D Brainstorm (Stu Snydman) | Manuscript WG |
 | 3:00 - 3:30   ||_Coffee Break_||
 | 3:30 - 4:00   | Authentication Specification (Editors) | Training (Tom Cramer) | Manuscript WG |
-| 4:00 - 4:15   | Metadata Search (Mark Patton) | Training | Manuscript WG |
-| 4:15 - 5:00   | A/V Discussion (Editors, Stu) |   | Manuscript WG |
+| 4:00 - 5:00   | A/V Discussion (Editors, Stu) | Training | Manuscript WG |
 {: .api-table .msched-table}
 
 #### Friday
@@ -118,7 +116,7 @@ A [sched][sched] site with the details will be available.
 |---------------|---------------|-------------|-------------|
 | 9:00 - 10:30  | Mirador IG (Rashmi Singhal, Drew Winget) | Newspaper WG (Karen Estlund) | Manuscript WG (Ben Albritton) |
 | 10:30 - 11:00 ||_Coffee Break_||
-| 9:00 - 10:30  | Mirador IG | Newspaper WG | Manuscript WG |
+| 11:00 - 12:00  | Mirador IG | Newspaper WG | Manuscript WG |
 | 12:00 - 1:30  ||_Lunch_||
 | 1:30 - 2:15   | Discovery (Tom Crane, Mike Appleby) |  | Manuscript WG |
 | 2:15 - 3:00   | Crawling and Harvesting (Simeon Warner) |  | Manuscript WG |
