@@ -31,7 +31,7 @@ namespace :notify do
   desc 'Notify Google about sitemap update'
   task :google do
     run_locally do
-      res = Net::HTTP.get(URI("http://www.google.com/ping?sitemap=http://#{application}/sitemap.xml"))
+      res = Net::HTTP.get(URI("http://www.google.com/ping?sitemap=http://#{:application}/sitemap.xml"))
     end
   end
 end
