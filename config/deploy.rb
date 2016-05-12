@@ -37,4 +37,4 @@ namespace :notify do
 end
 
 after "deploy:symlink:release", "deploy:update_jekyll"
-after "deploy:published", "notify:google" if fetch(:branch) == 'master'
+#after "deploy:published", "notify:google" if fetch(:branch) == 'master'
