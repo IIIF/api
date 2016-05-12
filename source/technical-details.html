@@ -10,12 +10,15 @@ redirect_from:
           <section class="section-quick-links">
             <a class="button-turquoise" href="/api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/">IIIF Image API {{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}</a>
             <a class="button-turquoise" href="/api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}">IIIF Presentation API {{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}</a>
-            <a class="button-turquoise" href="/api/">All IIIF Specifications</a>
+            <a class="button-turquoise" href="/api/search/{{ site.search_api.latest.major }}.{{ site.search_api.latest.minor }}">IIIF Search API {{ site.search_api.latest.major }}.{{ site.search_api.latest.minor }}</a>
           </section>
 
           <section class="quick-start wrapper">
             <p>
-              This page is a quick-start guide for image repository managers and engineers who are interested in making
+               See also <a href="/api/">complete list of IIIF Specifications, including drafts</a>.
+            </p>
+            <p>
+              The following is a quick-start guide for image repository managers and engineers who are interested in making
               their image repository interoperable, or just experimenting with IIIF.
             </p>
             <p>
@@ -23,7 +26,7 @@ redirect_from:
             </p>
             <ol>
               <li>Deploy an image server that supports the <a href="/api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/">IIIF Image API</a></li>
-              <li>Publish metadata about your image-based objects that complies to <a href="/api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}" target="_blank">IIIF Presentation API</a></li>
+              <li>Publish metadata about your image-based objects that complies to <a href="/api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}">IIIF Presentation API</a></li>
               <li>Deploy and integrate software that allows you to discover and display IIIF-compliant image resources</li>
             </ol>
           </section>

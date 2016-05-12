@@ -7,7 +7,10 @@ tags: [specifications, presentation-api]
 major: 2
 minor: 1
 patch: 0
-pre: draft5
+pre: final
+redirect_from:
+  - /api/presentation/index.html
+  - /api/presentation/2/index.html
 ---
 
 ## Status of this Document
@@ -17,8 +20,6 @@ __This Version:__ {{ page.major }}.{{ page.minor }}.{{ page.patch }}{% if page.p
 __Latest Stable Version:__ [{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}.{{ site.presentation_api.latest.patch }}][stable-version]
 
 __Previous Version:__ [2.0][prev-version]
-
-{% include beta.md %}
 
 **Editors**
 
@@ -231,7 +232,7 @@ The URI that identifies the resource. It is _RECOMMENDED_ that an HTTP URI be us
 ##### @type
 The type of the resource.  For the resource types defined by this specification, the value of `@type` will be described in the sections below.  For content resources, the type may be drawn from other vocabularies. Recommendations for basic types such as image, text or audio are also given in the sections below.
 
- * All resource types _MUST_ have at least one type specified. 
+ * All resource types _MUST_ have at least one type specified.
 
 This requirement applies only to the types described in [Section 2][type-overview]. Services, Thumbnails and other resources will have their own requirements.
 
@@ -486,7 +487,7 @@ Recommended URI pattern:
 
 The manifest response contains sufficient information for the client to initialize itself and begin to display something quickly to the user. The manifest resource represents a single object and any intellectual work or works embodied within that object. In particular it includes the descriptive, rights and linking information for the object. It then embeds the sequence(s) of canvases that should be rendered to the user.
 
-The identifier in `@id` _MUST_ always be able to be dereferenced to retrieve the JSON description of the manifest, and thus _MUST_ use the http(s) URI scheme. 
+The identifier in `@id` _MUST_ always be able to be dereferenced to retrieve the JSON description of the manifest, and thus _MUST_ use the http(s) URI scheme.
 
 Along with the descriptive information, there is a `sequences` section, which is a list of JSON-LD objects. Each object describes a [Sequence][sequence], discussed in the next section, that represents the order of the parts of the work, each represented by a [Canvas][canvas].  The first such sequence _MUST_ be included within the manifest as well as optionally being available from its own URI. Subsequent sequences _MUST_ only be referenced with their identifier (`@id`), class (`@type`) and `label` and thus _MUST_ be dereferenced by clients in order to process them if the user selects to view that sequence.
 
@@ -701,7 +702,7 @@ If a [IIIF Image API][image-api] service is available for the image, then a link
 
 Although it seems redundant, the URI of the canvas _MUST_ be repeated in the `on` field of the Annotation. This is to ensure consistency with annotations that target only part of the resource, described in more detail below.
 
-Additional features of the [Open Annotation][openanno] data model _MAY_ also be used, such as selecting a segment of the canvas or content resource, or embedding the comment or transcription within the annotation. These additional features are described in the following section.  The use of advanced features sometimes results in situations where the resource is not an image, but instead a `SpecificResource`, a `Choice` or other non content object. Implementations should check the type of the resource and not assume that it is always an image. 
+Additional features of the [Open Annotation][openanno] data model _MAY_ also be used, such as selecting a segment of the canvas or content resource, or embedding the comment or transcription within the annotation. These additional features are described in the following section.  The use of advanced features sometimes results in situations where the resource is not an image, but instead a `SpecificResource`, a `Choice` or other non content object. Implementations should check the type of the resource and not assume that it is always an image.
 
 Only the annotations that associate images or parts of images are included in the canvas in the `images` property.  Other annotations, including both those that paint resources on the canvas and those that comment about the canvas, are included by referencing annotation lists, discussed in the following section.
 
@@ -1816,7 +1817,7 @@ URL: _http://example.org/iiif/book1/manifest_
 
  * Clients _SHOULD_ be aware that some implementations may add an `@graph` property at the top level, which contains the object. This is a side effect of JSON-LD serialization, and servers _SHOULD_ remove it before sending to the client. If this is seen in practice, the client can use the [JSON-LD compaction algorithm][json-ld-compact] and JSON-LD Framing with the [supplied frames][annex-frames] to remove it and generate the correct representation.
 
- * If a {name} parameter in the recommended URI structure begins with a number, such as `.../canvas/1`, then developers using certain technology stacks may be inconvenienced.  In particular, an RDF based stack that uses RDF/XML internally will not be able to derive a shared `.../canvas/` prefix and then use the `1` as a CURIE, as `<canvas:1>` is not a valid element in XML.  Producers might consider adding an alphabetical character as the initial character. 
+ * If a {name} parameter in the recommended URI structure begins with a number, such as `.../canvas/1`, then developers using certain technology stacks may be inconvenienced.  In particular, an RDF based stack that uses RDF/XML internally will not be able to derive a shared `.../canvas/` prefix and then use the `1` as a CURIE, as `<canvas:1>` is not a valid element in XML.  Producers might consider adding an alphabetical character as the initial character.
 
 
 ### E. Versioning
@@ -1827,16 +1828,16 @@ Starting with version 2.0, this specification follows [Semantic Versioning][semv
 
 The production of this document was generously supported by a grant from the [Andrew W. Mellon Foundation][mellon].
 
-Many thanks to Matthieu Bonicel, Tom Cramer, Ian Davis, Markus Enders, Renhart Gittens, Tim Gollins, Antoine Isaac, Neil Jefferies, Sean Martin, Roger Mathisen, Mark Patton, Petter Rønningsen, Raphael Schwemmer and Stuart Snydman for their thoughtful contributions. Thanks also to the members of the [IIIF][iiif-community] for their continuous engagement, innovative ideas and feedback.
+Many thanks to the members of the [IIIF][iiif-community] for their continuous engagement, innovative ideas and feedback.
 
 ### G. Change Log
 
-| Date       | Description                                        |
-| ---------- | -------------------------------------------------- |
-| 2016-02-26 | Version 2.1.0-draft5 (Hinty McHintface) [View change log][change-log] |
+| Date       | Description           |
+| ---------- | --------------------- |
+| 2016-05-12 | Version 2.1 (Hinty McHintface) [View change log][change-log] |
 | 2014-09-11 | Version 2.0 (Triumphant Giraffe) [View change log][change-log-20] |
-| 2013-08-26 | Version 1.0 (unnamed) released                     |
-| 2013-06-14 | Version 0.9 (unnamed) released                     |
+| 2013-08-26 | Version 1.0 (unnamed) |
+| 2013-06-14 | Version 0.9 (unnamed) |
 
 [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
 [shared-canvas]: /model/shared-canvas/{{ site.shared_canvas.latest.major}}.{{ site.shared_canvas.latest.minor }} "Shared Canvas Data Model"
@@ -1874,7 +1875,7 @@ Many thanks to Matthieu Bonicel, Tom Cramer, Ian Davis, Markus Enders, Renhart G
 [stable-version]: /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/
 [appendixa]: #a-summary-of-recommended-uri-patterns "Appendix A"
 [appendixb]: #b-summary-of-metadata-requirements "Appendix B"
-[prev-version]: /api/metadata/1.0/
+[prev-version]: /api/presentation/2.0/
 [sequence]: #sequence
 [canvas]: #canvas
 [range]: #range

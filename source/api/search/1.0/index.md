@@ -1,14 +1,17 @@
 ---
-title: "IIIF Content Search API 1.0-beta"
-title_override: "IIIF Content Search API 1.0-beta"
+title: "IIIF Content Search API 1.0"
+title_override: "IIIF Content Search API 1.0"
 id: content-search-api
 layout: spec
 tags: [specifications, content-search-api]
 major: 1
 minor: 0
 patch: 0
-pre: beta
+pre: final
 cssversion: 2
+redirect_from:
+  - /api/search/index.html
+  - /api/search/1/index.html
 ---
 
 ## Status of this Document
@@ -16,8 +19,6 @@ cssversion: 2
 __This Version:__ {{ page.major }}.{{ page.minor }}.{{ page.patch }}{% if page.pre != 'final' %}-{{ page.pre }}{% endif %}
 
 __Latest Stable Version:__ [{{ site.search_api.latest.major }}.{{ site.search_api.latest.minor }}.{{ site.search_api.latest.patch }}][stable-version]
-
-{% include beta.md %}
 
 **Editors**
 
@@ -29,6 +30,8 @@ __Latest Stable Version:__ [{{ site.search_api.latest.major }}.{{ site.search_ap
   {: .names}
 
 {% include copyright.md %}
+
+----
 
 ## Table of Contents
 {:.no_toc}
@@ -313,7 +316,7 @@ If the server has ignored any of the parameters in the request, then the layer _
 If the request from previous examples had been:
 
 ``` none
-http://example.org/service/manifest/search?q=bird&user=azaroth42
+http://example.org/service/manifest/search?q=bird&user=http%3A%2F%2Fexample.com%2Fusers%2Fazaroth42
 ```
 {: .urltemplate}
 
@@ -575,7 +578,7 @@ The other parameters (`motivation`, `date` and `user`), if supported, refine the
 An example request
 
 ``` none
-http://example.org/service/identifier/autocomplete?q=bir&motivation=painting&user=azaroth42
+http://example.org/service/identifier/autocomplete?q=bir&motivation=painting&user=http%3A%2F%2Fexample.com%2Fusers%2Fazaroth42
 ```
 {: .urltemplate}
 
@@ -633,18 +636,18 @@ It is also possible to associate one or more `label`s to display to the user wit
 ``` json-doc
 {
   "@context": "http://iiif.io/api/search/{{ page.major }}/context.json",
-  "@id": "http://example.org/service/identifier/autocomplete?q=http://semtag.example.org/tag/b&motivation=tagging",
+  "@id": "http://example.org/service/identifier/autocomplete?q=http%3A%2F%2Fsemtag.example.org%2Ftag%2Fb&motivation=tagging",
   "ignored": ["user"],
   "terms": [
     {
       "match": "http://semtag.example.org/tag/bird",
-      "url": "http://example.org/service/identifier/autocomplete?motivation=tagging&q=http://semtag.example.org/tag/bird",
+      "url": "http://example.org/service/identifier/autocomplete?motivation=tagging&q=http%3A%2F%2Fsemtag.example.org%2Ftag%2Fbird",
       "count": 15,
       "label": "bird"
     },
     {
       "match": "http://semtag.example.org/tag/biro",
-      "url": "http://example.org/service/identifier/autocomplete?motivation=tagging&q=http://semtag.example.org/tag/biro",
+      "url": "http://example.org/service/identifier/autocomplete?motivation=tagging&q=http%3A%2F%2Fsemtag.example.org%2Ftag%2Fbiro",
       "count": 3,
       "label": "biro"
     }
@@ -708,12 +711,10 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 
 ### D. Change Log
 
-| Date       | Description                                        |
-| ---------- | -------------------------------------------------- |
-| 2016-04-11 | Version 0.9.3 (Lost Summer) draft                  |
-| 2016-02-08 | Version 0.9.2 (Trip Life) draft                    |
-| 2015-12-05 | Version 0.9.1 (Trip Life) draft                    |
-| 2015-07-20 | Version 0.9 draft                                  |
+| Date       | Description               |
+| ---------- | ------------------------- |
+| 2016-05-12 | Version 1.0 (Lost Summer) |
+| 2015-07-20 | Version 0.9 (Trip Life)   |
 {: .api-table}
 
 
@@ -731,8 +732,8 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 [prezi-api]: /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/ "Presentation API"
 [rfc-2119]: http://tools.ietf.org/html/rfc2119
 [service-annex]: /api/annex/services/
-[prezi-annolist]: /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/#other-content-resources
-[prezi-layer]: /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/#Layers
+[prezi-annolist]: /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/#annotation-list
+[prezi-layer]: /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/#layer
 [ignored-parameters]: #ignored-parameters
 [oa-textquotesel]: http://www.openannotation.org/spec/core/
 

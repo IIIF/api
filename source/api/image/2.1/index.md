@@ -7,7 +7,10 @@ tags: [specifications, image-api]
 major: 2
 minor: 1
 patch: 0
-pre: draft3
+pre: final
+redirect_from:
+  - /api/image/index.html
+  - /api/image/2/index.html
 ---
 
 ## Status of this Document
@@ -18,10 +21,6 @@ __This Version:__ {{ page.major }}.{{ page.minor }}.{{ page.patch }}{% if page.p
 __Latest Stable Version:__ [{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}.{{ site.image_api.latest.patch }}][stable-version]
 
 __Previous Version:__ [2.0][prev-version]
-
-__Beta Specification for Trial Use__
-This is a work in progress. We are actively seeking new implementations, updates to existing implementations, and feedback. No section should be considered final, and the absence of any content does not imply that such content is out of scope, or may not appear in the future.  Please send any feedback to [iiif-discuss@googlegroups.com][iiif-discuss].
-{: .alert}
 
 **Editors:**
 
@@ -636,7 +635,7 @@ The following fragment shows a profile indicating support for additional formats
 
 ### 5.4. Rights and Licensing Properties
 
-The rights and licensing properties, `attribution`, `license` and `logo`, have the same semantics and requirements as those in the [Presentation API][prezi-api]. 
+The rights and licensing properties, `attribution`, `license` and `logo`, have the same semantics and requirements as those in the [Presentation API][prezi-api].
 
 | Rights and Licensing Property | Required? | Description |
 | ------------- | --------- | ----------- |
@@ -898,16 +897,16 @@ Starting with version 2.0, this specification follows [Semantic Versioning][semv
 
 The production of this document was generously supported by a grant from the [Andrew W. Mellon Foundation][mellon].
 
-Many thanks to  Ben Albritton, Matthieu Bonicel, Anatol Broder, Kevin Clarke, Tom Cramer, Ian Davis, Neil Jefferies, Scotty Logan, Sean Martin, Roger Mathisen, Lynn McRae, Willy Mene, Mark Patton, Petter Rønningsen, and Brian Tingle for your thoughtful contributions to the effort and written feedback. Thanks also to the members of the [IIIF Community][iiif-community] for their continuous engagement, innovative ideas and feedback.
+Many thanks to the members of the [IIIF][iiif-community] for their continuous engagement, innovative ideas and feedback.
 
 ###  D. Change Log
 
 | Date       | Description |
 | ---------- | ----------- |
-| 2016-03-25 | Version 2.1 (Crowned Eagle) RFC [View change log][change-log21] |
-| 2014-09-11 | Version 2.0 (Voodoo Bunny) released [View change log][change-log20] |
-| 2013-09-17 | Version 1.1 (unnamed) released [View change log][change-log11] |
-| 2012-08-10 | Version 1.0 |
+| 2016-05-12 | Version 2.1 (Crowned Eagle) [View change log][change-log21] |
+| 2014-09-11 | Version 2.0 (Voodoo Bunny) [View change log][change-log20] |
+| 2013-09-17 | Version 1.1 (unnamed) [View change log][change-log11] |
+| 2012-08-10 | Version 1.0 (unnamed) |
 {: .api-table}
 
 [authentication-ext]: /api/auth/
@@ -932,7 +931,7 @@ Many thanks to  Ben Albritton, Matthieu Bonicel, Anatol Broder, Kevin Clarke, To
 [iiif-community]: /community/ "IIIF Community"
 [versioning]: /api/annex/notes/semver/ "Versioning of APIs"
 [prezi-api]: /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/ "Presentation API"
-[prezi-html]: /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/#property-values-in-html "Presentation API Section 5.3.4"
+[prezi-html]: /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/#html-markup-in-property-values "Presentation API Section 4.4"
 
 [service-profiles]: /api/annex/services/ "Services Annex Document"
 [annex-frames]: /api/annex/notes/jsonld/ "JSON-LD Frames Implementation Notes"
@@ -971,7 +970,7 @@ Many thanks to  Ben Albritton, Matthieu Bonicel, Anatol Broder, Kevin Clarke, To
 [b-versioning]: #b-versioning "B. Versioning"
 [c-acknowledgments]: #c-acknowledgments "C. Acknowledgments"
 [d-change-log]: #d-change-log "D. Change Log"
-[prev-version]: http://iiif.io/api/image/1.1/ "Previous Version"
+[prev-version]: http://iiif.io/api/image/2.0/ "Previous Version"
 [stable-version]: http://iiif.io/api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/ "Stable Version"
 [wsgi]: https://www.python.org/dev/peps/pep-0333/
 [dep-sizes]: #dep-sizes "Deprecated sizes warning"

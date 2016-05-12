@@ -11,16 +11,14 @@ cssversion: 2
 | API                | Current Version |
 | ------------------ | --------------- |
 | Image API          | [{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}.{{ site.image_api.latest.patch}}][image{{ site.image_api.latest.major }}{{ site.image_api.latest.minor }}] |
-| Presentation API   | [{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}.{{ site.image_api.latest.patch }}][prezi{{ site.image_api.latest.major }}{{ site.image_api.latest.minor }}] |
+| Presentation API   | [{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}.{{ site.presentation_api.latest.patch }}][prezi{{ site.presentation_api.latest.major }}{{ site.presentation_api.latest.minor }}] |
+| Search API   | [{{ site.search_api.latest.major }}.{{ site.search_api.latest.minor }}.{{ site.search_api.latest.patch }}][search{{ site.search_api.latest.major }}{{ site.search_api.latest.minor }}] |
 {: .api-table}
 
 ## Draft Specifications
 
 | API                | Draft Version (Status)     |
 | ------------------ | ---------------------------- |
-| Image API          | [2.1.0][image21] *(Beta draft)* |
-| Presentation API   | [2.1.0][prezi21] *(Beta draft)* |
-| Search API         | [1.0.0][search1] *(Beta draft)* |
 | Authentication API | [0.9.1][auth09] *(Beta draft)* |
 {: .api-table}
 
@@ -34,10 +32,13 @@ Current IIIF specifications _SHOULD_ be used for all new work. Old versions are 
 
 | Old API Version            | Notes |
 | -------------------------- | ----- |
+| [Image API 2.0][image20]   | Published 2014-09-11 |
 | [Image API 1.1][image11]   | Published 2013-09-17 |
 | [Image API 1.0][image10]   | Published 2012-08-10 |
+| [Presentation API 2.0][prezi20] | Published 2014-08-12 |
 | [Metadata API 1.0][meta10] | "Metadata API" was replaced with the Presentation API, published 2013-09-16 |
 | [Metadata API 0.9][meta09] | Draft of the "Metadata API", published 2013-06-11 |
+| [Search API 0.9][search09] | Draft published 2016-04-11 |
 {: .api-table}
 
 ## Notes
@@ -55,7 +56,8 @@ IIIF also has a series of [Implementation Notes][notes] which are not subject to
 [meta10]: /api/metadata/1.0/ "Metadata API v1.0"
 [meta09]: /api/metadata/0.9/ "Metadata API v0.9"
 [auth09]: /api/auth/0.9/ "Authentication API v0.9"
-[search1]: /api/search/1.0/ "Search API v1.0"
+[search10]: /api/search/1.0/ "Search API v1.0"
+[search09]: /api/search/0.9/ "Search API v0.9"
 [notes]: /api/annex/ "Implementation Notes"
 
 {% include acronyms.md %}

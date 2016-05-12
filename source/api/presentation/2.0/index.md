@@ -8,9 +8,6 @@ major: 2
 minor: 0
 patch: 0
 pre: final
-redirect_from:
-  - /api/presentation/index.html
-  - /api/presentation/2/index.html
 ---
 
 ## Status of this Document
