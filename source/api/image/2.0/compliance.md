@@ -7,6 +7,7 @@ major: 2
 minor: 0
 patch: 0
 pre: final
+sitemap: false
 redirect_from:
   - /api/image/2.0/compliance.html
 ---
