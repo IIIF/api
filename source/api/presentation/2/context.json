@@ -55,11 +55,6 @@
       "@type": "@id",
       "@id": "sc:hasContentLayer"
     },
-    "members": {
-      "@type": "@id",
-      "@id": "sc:hasParts",
-      "@container": "@list"
-    },
     "collections": {
       "@type": "@id",
       "@id": "sc:hasCollections",
