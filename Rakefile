@@ -1,4 +1,4 @@
-require 'html/proofer'
+require 'html-proofer'
 require 'rspec/core/rake_task'
 
 RSpec::Core::RakeTask.new(:spec)
@@ -21,7 +21,7 @@ task :ci do
   sh 'scripts/check_json.py -v'
   Rake::Task['spec'].invoke
   # See https://github.com/gjtorikian/html-proofer#configuring-caching
-  HTML::Proofer.new(SITE_DIR, cache: { timeframe: '4w' } ).run
+  HTMLProofer.check_directory(SITE_DIR, cache: { timeframe: '4w' } ).run
 end
 
 'Run the site locally on localhost:4000'
