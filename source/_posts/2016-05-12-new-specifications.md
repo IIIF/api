@@ -6,7 +6,7 @@ tags: [specifications, image-api, presentation-api, search-api, announcements]
 layout: post
 ---
 
-The IIIF Editors are pleased to announce revised versions of the Image and Presentation APIs:
+We are pleased to announce revised versions of the Image and Presentation APIs:
 
  * [IIIF Image API 2.1.0][image21]
  * [IIIF Presentation API 2.1.0][prezi21]
@@ -19,11 +19,11 @@ Thank you, as always, to the IIIF community for your feedback, questions, and us
 
 Sincerely,
 
-The IIIF Editors
-Michael Appleby
-Tom Crane
-Robert Sanderson
-Jon Stroop
+The IIIF Editors:
+Michael Appleby,
+Tom Crane,
+Robert Sanderson,
+Jon Stroop,
 Simeon Warner
 
 [search10]: /api/search/1.0/ "Search API v1.0"
