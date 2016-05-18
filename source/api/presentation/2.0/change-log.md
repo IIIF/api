@@ -8,6 +8,7 @@ major: 2
 minor: 0
 # no patch
 pre: final
+sitemap: false
 redirect_from:
   - /api/presentation/2.0/change-log.html
 ---
