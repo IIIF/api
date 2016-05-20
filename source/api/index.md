@@ -22,8 +22,9 @@ cssversion: 2
 | Authentication API | [0.9.1][auth09] *(Beta draft)* |
 {: .api-table}
 
+
 __Feedback Requested__
-We welcome feedback on all IIIF Specifications. In particular, we are actively seeking implementations and feedback on beta draft specifications. Please send any feedback to [iiif-discuss@googlegroups.com][iiif-discuss].
+We welcome feedback on all IIIF Specifications. In particular, we are actively seeking implementations and feedback on the Authentication API draft specification. Please send any feedback to [iiif-discuss@googlegroups.com][iiif-discuss].
 {: .alert}
 
 ## Old Versions
@@ -45,6 +46,9 @@ Current IIIF specifications _SHOULD_ be used for all new work. Old versions are 
 
 IIIF also has a series of [Implementation Notes][notes] which are not subject to the same process as formal APIs but may be useful to implementers.
 
+## Process
+
+IIIF Specifications are created and published following the [IIIF Editorial Process][editors].
 
 [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
 [image21]: /api/image/2.1/ "Image API v2.1"
@@ -59,5 +63,6 @@ IIIF also has a series of [Implementation Notes][notes] which are not subject to
 [search10]: /api/search/1.0/ "Search API v1.0"
 [search09]: /api/search/0.9/ "Search API v0.9"
 [notes]: /api/annex/ "Implementation Notes"
+[editors]: /api/annex/notes/editors/ "IIIF Editorial Process"
 
 {% include acronyms.md %}
