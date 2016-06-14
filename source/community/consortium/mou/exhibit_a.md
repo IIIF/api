@@ -1,5 +1,5 @@
 ---
-title: "Memorandum of Understanding covering the establishment of an IIIF Consortium - Exhibit A"
+title: "Memorandum of Understanding covering the establishment of the IIIF Consortium - Exhibit A"
 id: iiifc_mou_exhibit_a
 layout: spec
 ---

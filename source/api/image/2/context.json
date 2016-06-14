@@ -70,6 +70,14 @@
       "@id": "iiif:sizeByWHListedFeature",
       "@type": "iiif:Feature"
     },
+    "sizeByConfinedWh": {
+      "@id": "iiif:sizeByConfinedWHFeature",
+      "@type": "iiif:Feature"
+    },
+    "sizeByDistortedWh": {
+      "@id": "iiif:sizeByDistortedWHFeature",
+      "@type": "iiif:Feature"
+    },
     "profileLinkHeader": {
       "@id": "iiif:profileLinkHeaderFeature",
       "@type": "iiif:Feature"
@@ -111,11 +119,11 @@
       "@type": "@id"
     },
     "profile": {
-      "@id": "dcterms:conformsTo",
+      "@id": "doap:implements",
       "@type": "@id"
     },
     "protocol": {
-      "@id": "doap:implements",
+      "@id": "dcterms:conformsTo",
       "@type": "@id"
     },
     "supports": {

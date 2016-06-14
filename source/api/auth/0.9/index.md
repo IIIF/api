@@ -26,7 +26,7 @@ This is a work in progress. We are actively seeking implementations and feedback
 
   * **[Michael Appleby](https://orcid.org/0000-0002-1266-298X)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0002-1266-298X), [_Yale University_](http://www.yale.edu/)
   * **[Tom Crane](https://orcid.org/0000-0003-1881-243X)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0003-1881-243X), [_Digirati_](http://digirati.com/)
-  * **[Robert Sanderson](http://www.stanford.edu/~azaroth/)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0003-4441-6852), [_Stanford University_](http://www.stanford.edu/)
+  * **[Robert Sanderson](https://orcid.org/0000-0003-4441-6852)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0003-4441-6852), [_Stanford University_](http://www.stanford.edu/)
   * **[Jon Stroop](https://orcid.org/0000-0002-0367-1243)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0002-0367-1243), [_Princeton University Library_](https://library.princeton.edu/)
   * **[Simeon Warner](https://orcid.org/0000-0002-7970-7855)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0002-7970-7855), [_Cornell University_](https://www.cornell.edu/)
   {: .names}
@@ -56,7 +56,7 @@ Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss]
 
 ### 1.1. Terminology
 
-This specification distinguishes between Content Resources, such as images or videos, and Description Resources which conform to IIIF specifications, such as [Image API][image-api] image information (info.json) and [Presentation API][prezi-api] collection or manifest resources.  The reason for this distinction is that contemporary web browsers require different authentication methods to be used for resources that are requested and rendered by the browser (e.g. images), versus resources that are directly requested by JavaScript and processed (e.g. JSON via XMLHttpRequest).
+This specification distinguishes between Content Resources, such as images or videos, and Description Resources which conform to IIIF (pronounced "Triple-Eye-Eff") specifications, such as [Image API][image-api] image information (info.json) and [Presentation API][prezi-api] collection or manifest resources.  The reason for this distinction is that contemporary web browsers require different authentication methods to be used for resources that are requested and rendered by the browser (e.g. images), versus resources that are directly requested by JavaScript and processed (e.g. JSON via XMLHttpRequest).
 
 The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _SHOULD NOT_, _RECOMMENDED_, _MAY_, and _OPTIONAL_ in this document are to be interpreted as described in [RFC 2119][rfc-2119].
 
@@ -461,8 +461,8 @@ Many thanks to the members of the [IIIF Community][iiif-community] for their con
 
 | Date       | Description |
 | ---------- | ----------- |
-| 2015-10-30 | Version 0.9.1 (Alchemical Key); add missing @context, clarifications |
-| 2015-07-28 | Version 0.9.0 (Alchemical Key); beta specification for review |
+| 2015-10-30 | Version 0.9.1 (Table Flip) add missing @context, clarifications |
+| 2015-07-28 | Version 0.9.0 (unnamed) draft |
 {: .api-table}
 
 [jsonp]: http://en.wikipedia.org/wiki/JSONP "JSONP"

@@ -10,13 +10,16 @@
     "cors",
     "jsonldMediaType",
     "profileLinkHeader",
+    "regionByPct",
     "regionByPx",
+    "rotationBy90s",
+    "sizeByWhListed",
+    "sizeByConfinedWh",
+    "sizeByDistortedWh",
+    "sizeByForcedWh",
     "sizeByH",
     "sizeByPct",
     "sizeByW",
-    "regionByPct",
-    "rotationBy90s",
-    "sizeByForcedWh",
     "sizeByWh"
   ]
 }

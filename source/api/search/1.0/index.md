@@ -1,15 +1,17 @@
 ---
-title: "IIIF Content Search API 0.9.3"
-title_override: "IIIF Content Search API 0.9.3"
+title: "IIIF Content Search API 1.0"
+title_override: "IIIF Content Search API 1.0"
 id: content-search-api
 layout: spec
 tags: [specifications, content-search-api]
-major: 0
-minor: 9
-patch: 3
-pre: draft
+major: 1
+minor: 0
+patch: 0
+pre: final
 cssversion: 2
-sitemap: false
+redirect_from:
+  - /api/search/index.html
+  - /api/search/1/index.html
 ---
 
 ## Status of this Document
@@ -17,8 +19,6 @@ sitemap: false
 __This Version:__ {{ page.major }}.{{ page.minor }}.{{ page.patch }}{% if page.pre != 'final' %}-{{ page.pre }}{% endif %}
 
 __Latest Stable Version:__ [{{ site.search_api.latest.major }}.{{ site.search_api.latest.minor }}.{{ site.search_api.latest.patch }}][stable-version]
-
-{% include beta.md %}
 
 **Editors**
 
@@ -30,6 +30,8 @@ __Latest Stable Version:__ [{{ site.search_api.latest.major }}.{{ site.search_ap
   {: .names}
 
 {% include copyright.md %}
+
+----
 
 ## Table of Contents
 {:.no_toc}
@@ -150,11 +152,11 @@ The search results are returned as annotations in the regular IIIF syntax. Note 
 
 The simplest response looks exactly like a regular annotation list, where all of the matching annotations are returned in a single response. The value of `@id` will be the same as the URI used in the query, however servers _MAY_ drop query parameters that are ignored so long as they are reported in the `ignored` property.
 
-Clients wishing to know the total number of annotations that match may count the number of annotations in the `resources` property, as all matches have been returned.  The full annotation description _MUST_ be included in the response, even if the annotations are separately dereferencable via their URIs.
+Clients wishing to know the total number of annotations that match may count the number of annotations in the `resources` property, as all matches have been returned.  The full annotation description _MUST_ be included in the response, even if the annotations are separately dereferenceable via their URIs.
 
 ``` json-doc
 {
-  "@context":"http://iiif.io/api/presentation/2/context.json",
+  "@context":"http://iiif.io/api/presentation/{{ site.presentation_api.latest.major }}/context.json",
   "@id":"http://example.org/service/manifest/search?q=bird&motivation=painting",
   "@type":"sc:AnnotationList",
 
@@ -195,7 +197,7 @@ And the response for the first page of annotations from a total of 125 matches:
 
 ``` json-doc
 {
-  "@context":"http://iiif.io/api/presentation/2/context.json",
+  "@context":"http://iiif.io/api/presentation/{{ site.presentation_api.latest.major }}/context.json",
   "@id":"http://example.org/service/manifest/search?q=bird&page=1",
   "@type":"sc:AnnotationList",
 
@@ -261,7 +263,7 @@ This structure is called out explicitly as although it uses only properties from
 
 ### 3.4 Search API Specific Responses
 
-There may be properties that are specific to the search result, and not features of the annotation in general, that are valuable to return to the client.  Examples include the text before and after the matched content to allow a result snippet to be presented, the matched text in case stemming or wildcards have been applied, or to link annotations that together fulfill the search query for a phrase, such as when the phrase spans across lines of text.
+There may be properties that are specific to the search result, and not features of the annotation in general, that are valuable to return to the client.  Examples of such properties include the text before and after the matched content (to allow a result snippet to be presented), the matched text itself (when case normalization, stemming or wildcards have been applied), and a reference to the set of annotations that together fulfill the search query (when a phrase spans across multiple annotations).
 
 As these responses include Search specific information, the value of `@context` _MUST_ be an array with both the Presentation API and the Search API context URIs included, in that order.  This allows the two APIs to develop separately and yet remain as synchronized as possible.
 
@@ -274,7 +276,7 @@ The basic structure is:
 ``` json-doc
 {
   "@context":[
-      "http://iiif.io/api/presentation/2/context.json",
+      "http://iiif.io/api/presentation/{{ site.presentation_api.latest.major }}/context.json",
       "http://iiif.io/api/search/{{ page.major }}/context.json"
   ],
   "@id":"http://example.org/service/manifest/search?q=bird&page=1",
@@ -314,7 +316,7 @@ If the server has ignored any of the parameters in the request, then the layer _
 If the request from previous examples had been:
 
 ``` none
-http://example.org/service/manifest/search?q=bird&user=azaroth42
+http://example.org/service/manifest/search?q=bird&user=http%3A%2F%2Fexample.com%2Fusers%2Fazaroth42
 ```
 {: .urltemplate}
 
@@ -323,7 +325,7 @@ And the user parameter was ignored when processing the request, the response wou
 ``` json-doc
 {
   "@context":[
-      "http://iiif.io/api/presentation/2/context.json",
+      "http://iiif.io/api/presentation/{{ site.presentation_api.latest.major }}/context.json",
       "http://iiif.io/api/search/{{ page.major }}/context.json"
   ],
   "@id":"http://example.org/service/manifest/search?q=bird&page=1",
@@ -346,7 +348,7 @@ And the user parameter was ignored when processing the request, the response wou
 
 #### 3.4.2. Search Term Snippets
 
-The simplest addition to the hit object is to add text that appears before and after the matching text in the annotation.  This allows the client to construct a snippet where the matching text is provided in the context of surrounding content, rather than simply by itself.  This is most useful when the service has word-level boundaries of the text on the canvas, such as available when OCR has been used to generate the text positions.
+The simplest addition to the hit object is to add text that appears before and after the matching text in the annotation.  This allows the client to construct a snippet where the matching text is provided in the context of surrounding content, rather than simply by itself.  This is most useful when the service has word-level boundaries of the text on the canvas, such as are available when Optical Character Recognition (OCR) has been used to generate the text positions.
 
 The service _MAY_ add a `before` property to the hit with some amount of text that appears before the content of the annotation (given in `chars`), and _MAY_ also add an `after` property with some amount of text that appears after the content of the annotation.
 
@@ -362,7 +364,7 @@ That the server matches against the plural "birds":
 ``` json-doc
 {
   "@context":[
-      "http://iiif.io/api/presentation/2/context.json",
+      "http://iiif.io/api/presentation/{{ site.presentation_api.latest.major }}/context.json",
       "http://iiif.io/api/search/{{ page.major }}/context.json"
   ],
   "@id":"http://example.org/service/manifest/search?q=bird",
@@ -425,7 +427,7 @@ The result might be:
 ``` json-doc
 {
   "@context":[
-      "http://iiif.io/api/presentation/2/context.json",
+      "http://iiif.io/api/presentation/{{ site.presentation_api.latest.major }}/context.json",
       "http://iiif.io/api/search/{{ page.major }}/context.json"
   ],
   "@id":"http://example.org/service/manifest/search?q=b*&page=1",
@@ -473,9 +475,9 @@ The result might be:
 
 #### 3.4.4. Multi-Annotations Hits
 
-Given the flexibility of alignment between the sections of the text (such as word, line, paragraph, page, or arbitrary sections) and the annotations that expose that text to the client, there may be multiple annotations that match a single multi-term search. These differences will depend primarily on the method by which the text and annotations were generated and will likely be very different for manually transcribed texts and text that it is generated by Optical Character Recognition (OCR).
+Given the flexibility of alignment between the sections of the text (such as word, line, paragraph, page, or arbitrary sections) and the annotations that expose that text to the client, there may be multiple annotations that match a single multi-term search. These differences will depend primarily on the method by which the text and annotations were generated and will likely be very different for manually transcribed texts and text that it is generated by OCR.
 
-For example, imagine that the annotations are divided up line by line as they were manually transcribed that way and there are two lines of text. The first line is "A bird in the hand", the second line was "is worth two in the bush", and then the search is for the phrase "hand is", the match would span both of the line based annotations.  If the annotations were instead at word level, then phrases will always require multiple annotations.
+For example, imagine that the annotations are divided up line by line, as they were manually transcribed that way, and there are two lines of text. In this example the first line is "A bird in the hand", the second line is "is worth two in the bush", and the search is for the phrase "hand is". Therefore the match spans both of the line-based annotations.  If the annotations were instead at word level, then all phrase searches would require multiple annotations.
 
 In cases like this there are more annotations than hits as two or more annotations are needed to make up one hit.  The `match` property of the hit captures the text across the annotations.
 
@@ -483,7 +485,7 @@ In cases like this there are more annotations than hits as two or more annotatio
 ``` json-doc
 {
   "@context":[
-      "http://iiif.io/api/presentation/2/context.json",
+      "http://iiif.io/api/presentation/{{ site.presentation_api.latest.major }}/context.json",
       "http://iiif.io/api/search/{{ page.major }}/context.json"
   ],
   "@id":"http://example.org/service/manifest/search?q=hand+is",
@@ -576,11 +578,11 @@ The other parameters (`motivation`, `date` and `user`), if supported, refine the
 An example request
 
 ``` none
-http://example.org/service/identifier/autocomplete?q=bir&motivation=painting&user=azaroth42
+http://example.org/service/identifier/autocomplete?q=bir&motivation=painting&user=http%3A%2F%2Fexample.com%2Fusers%2Fazaroth42
 ```
 {: .urltemplate}
 
-### 4.2. Response
+### 4.3. Response
 
 The response is a list (a "search:TermList") of simple objects that include the term, a link to the search for that term, and the number of matches that search will have.  The number of terms provided in the list is determined by the server.  
 
@@ -591,7 +593,7 @@ The objects in the list of terms are all of `@type` "search:Term", and this _MAY
   * The matching term is given as the value of the `match` property, and _MUST_ be present.
   * The link to the search to perform is the value of the `url` property, and this _MUST_ be present.
   * The number of matches for the term is the integer value of the `count` property, and _SHOULD_ be present.
-  * A label to display instead of the match can be given as the value of the `label` property, and _MAY_ be present.  There may be more than one label given, to allow for internationaliation.
+  * A label to display instead of the match can be given as the value of the `label` property, and _MAY_ be present.  There may be more than one label given, to allow for internationalization.
 
 
 The terms _SHOULD_ be provided in ascending alphabetically sorted order, but other orders are allowed, such as by the term's count descending to put the most common matches first.
@@ -629,23 +631,23 @@ The example request above might generate the following response:
 }
 ```
 
-It is also possible to associate one or more `label`s to display to the user with URIs or other data that are searchable via the `q` parameter, rather than using the exact string that matched.  This can also be useful if stemming or other term normalization has occured, in order to display the original rather than the processed term.
+It is also possible to associate one or more `label`s to display to the user with URIs or other data that are searchable via the `q` parameter, rather than using the exact string that matched.  This can also be useful if stemming or other term normalization has occurred, in order to display the original rather than the processed term.
 
 ``` json-doc
 {
   "@context": "http://iiif.io/api/search/{{ page.major }}/context.json",
-  "@id": "http://example.org/service/identifier/autocomplete?q=http://semtag.example.org/tag/b&motivation=tagging",
+  "@id": "http://example.org/service/identifier/autocomplete?q=http%3A%2F%2Fsemtag.example.org%2Ftag%2Fb&motivation=tagging",
   "ignored": ["user"],
   "terms": [
     {
       "match": "http://semtag.example.org/tag/bird",
-      "url": "http://example.org/service/identifier/autocomplete?motivation=tagging&q=http://semtag.example.org/tag/bird",
+      "url": "http://example.org/service/identifier/autocomplete?motivation=tagging&q=http%3A%2F%2Fsemtag.example.org%2Ftag%2Fbird",
       "count": 15,
       "label": "bird"
     },
     {
       "match": "http://semtag.example.org/tag/biro",
-      "url": "http://example.org/service/identifier/autocomplete?motivation=tagging&q=http://semtag.example.org/tag/biro",
+      "url": "http://example.org/service/identifier/autocomplete?motivation=tagging&q=http%3A%2F%2Fsemtag.example.org%2Ftag%2Fbiro",
       "count": 3,
       "label": "biro"
     }
@@ -657,12 +659,12 @@ It is also possible to associate one or more `label`s to display to the user wit
 ## 5. Property Definitions
 
 after
-:   The segment of text that occurs after the text that triggered the search to match the particular anotation.  The value _MUST_ be a single string.
+:   The segment of text that occurs after the text that triggered the search to match the particular annotation.  The value _MUST_ be a single string.
 
     * A Hit _MAY_ have the `after` property.
 
 before
-:   The segment of text that occurs before the text that triggered the search to match the particular anotation.  The value _MUST_ be a single string.
+:   The segment of text that occurs before the text that triggered the search to match the particular annotation.  The value _MUST_ be a single string.
 
     * A Hit _MAY_ have the `before` property.
 
@@ -677,7 +679,7 @@ ignored
     * A TermList or a Layer _MAY_ have an ignored property, and _MUST_ have it if the server ignored any query parameter.
 
 match
-:   The text that triggered the search to match the particular anotation.  The value _MUST_ be a single string.
+:   The text that triggered the search to match the particular annotation.  The value _MUST_ be a single string.
 
     * A Hit _MAY_ have the `match` property.
     * A Term _MUST_ have the `match` property.
@@ -709,12 +711,10 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 
 ### D. Change Log
 
-| Date       | Description                                        |
-| ---------- | -------------------------------------------------- |
-| 2016-04-11 | Version 0.9.3 (Lost Summer) draft                  |
-| 2016-02-08 | Version 0.9.2 (Trip Life) draft                    |
-| 2015-12-05 | Version 0.9.1 (Trip Life) draft                    |
-| 2015-07-20 | Version 0.9 (Trip Life) draft                      |
+| Date       | Description               |
+| ---------- | ------------------------- |
+| 2016-05-12 | Version 1.0 (Lost Summer) |
+| 2015-07-20 | Version 0.9 (Trip Life)   |
 {: .api-table}
 
 
@@ -725,15 +725,15 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 [semver]: http://semver.org/spec/v2.0.0.html "Semantic Versioning 2.0.0"
 [iiif-community]: /community/ "IIIF Community"
 [stable-version]: /api/search/{{ site.search_api.latest.major }}.{{ site.search_api.latest.minor }}/ "Stable Version"
-[paging]: /api/presentation/2.0/
+[paging]: /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.image_api.latest.minor }}/
 
-[image-api]: /api/image/2.0/ "Image API"
+[image-api]: /api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/ "Image API"
 [openanno]: http://www.openannotation.org/spec/core/ "Open Annotation"
-[prezi-api]: /api/presentation/2.0/ "Presentation API"
+[prezi-api]: /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/ "Presentation API"
 [rfc-2119]: http://tools.ietf.org/html/rfc2119
 [service-annex]: /api/annex/services/
-[prezi-annolist]: /api/presentation/2.0/#other-content-resources
-[prezi-layer]: /api/presentation/2.0/#Layers
+[prezi-annolist]: /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/#annotation-list
+[prezi-layer]: /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/#layer
 [ignored-parameters]: #ignored-parameters
 [oa-textquotesel]: http://www.openannotation.org/spec/core/
 

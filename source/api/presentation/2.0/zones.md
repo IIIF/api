@@ -7,6 +7,7 @@ major: 2
 minor: 1
 patch: 0
 pre: draft1
+sitemap: false
 redirect_from:
   - /api/presentation/2.0/zones.html
 ---

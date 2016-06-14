@@ -1,35 +1,8 @@
 ---
-title: "Access to the World's Images - New York 2016"
+title: "Call for Papers: Access to the World's Images - New York 2016"
 layout: spec
 tags: [event ]
 ---
-
-## Table of Contents
-{:.no_toc}
-
-* Goes Here
-{:toc}
-
-## Access to the World's Images: The Advantages of IIIF
-
-On Tuesday, 10th of May 2016, the International Image Interoperability Framework ([IIIF][home-page]) community and the New York Museum of Modern Art ([MOMA][moma]) are hosting a one day event describing the power and potential of interoperable image delivery over the Web. Embraced by a growing number of the world’s leading research and cultural heritage organizations, IIIF provides an open framework for organizations to publish their image-based resources, to be viewed, cited, annotated, and more by any compatible image-viewing application. The day will showcase how institutions are leveraging IIIF to reduce total cost and time to deploy image delivery solutions, while simultaneously improving end user experience with a new host of rich and dynamic features. It will also highlight how to participate in this growing movement to take advantage of the common framework.
-
-This event will be valuable for organizational decision makers, repository and collection managers, software engineers; for cultural heritage or STEM (science / technology /  engineering / medicine) institutions; or for anyone engaged with image-based resources on the Web.  It is intended for people who have not been involved with IIIF in the past to quickly get up to speed and understand the community and its benefits. Attendance is free, and widespread dissemination of the event is encouraged. [Registration][eventbrite] is required in order to ensure that we do not exceed the capacity of the venue. 
-
-### Logistics
-
-* Registration: Separate [registration][eventbrite] is required.
-* Date: 2016-05-10, 10am to 5pm
-* Location:  [MOMA][moma] ([map][moma-map])
-* Cost: There is no cost to attend
-* Capacity: 400
-* Code of Conduct: The IIIF [Code of Conduct][conduct] applies
-* Social Media: Tweets about the event should use #iiif or @iiif_io
-
-### Schedule
-
-To be announced along with the IIIF Conference Schedule
-
 
 ## Access to the World's Images: The IIIF Conference
 
@@ -51,22 +24,6 @@ Submissions should be sent to [iiif-proposals@googlegroups.com][proposals] as PD
 * Whether you would like it considered for the IIIF and its Benefits event at MOMA
 
 Submissions will be accepted up until March 21st, 2016 and no extensions to this date are expected.  They will be reviewed by a program committee consisting of members from the IIIF Editorial Board and the Coordinating Committee. An announcement as to the accepted presentations will be made in the week of March 28th, and a schedule available shortly thereafter. As with all IIIF Community events, the [Code of Conduct][conduct] applies and diversity of participation is strongly encouraged. No formal proceedings are anticipated, however crowd-sourced notes and reports are likely.
-
-### Logistics
-
-* Registration: Separate [registration][eventbrite-conf] is required.
-* Dates: 2016-05-11 to 2016-05-13, 9am to 5pm each day
-* Location:  [New York Academy of Medicine][nyam] ([map][nyam-map])
-* Cost: There is no cost to attend
-* Capacity: 11th: 200, 12-13: 120
-* Code of Conduct: The IIIF [Code of Conduct][conduct] applies
-* Social Media: Tweets about the event should use #iiif or @iiif_io
-
-
-### Schedule
-
-The schedule will be announced in the week of March 28th.
-
 
 [home-page]: http://iiif.io/
 [eventbrite]: http://iiif-advantages-nyc.eventbrite.com/
