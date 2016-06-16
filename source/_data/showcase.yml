@@ -125,6 +125,15 @@
   - >
     IIIF components are used to serve and view dynamically created fractal images up to 1 billion pixels wide and 1 billion pixels high. Fractals exhibit patterns that repeat as you zoom in. A standard IIIF viewer and web server are used, together with a fractal generator that emulates the way tiles are created from JPEG2000 images.
   url: http://showcase.iiif.io/showcase/fractals.html
+  
+- name: SAT Taishōzō Image DB
+  id: satdb
+  type: site
+  img_url: http://showcase.iiif.io/img/showcase/satdb.png
+  desc:
+  - >
+    Buddhist images can be searched not only from the search window but also from the value of the embedded tag on the images by clicking on it. Users can find search terms by English words with clicking "EN" button without inputting Japanese words by hand. This system also provides a function to display several images in parallel easily from a search result via a cart by use of Mirador.
+  url: http://showcase.iiif.io/showcase/satdb.html
 
 
 ### Other
