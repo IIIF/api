@@ -23,11 +23,24 @@ cssversion: 2
 {: .api-table}
 
 
-__Feedback Requested__
+__Feedback Requested__<br/>
 We welcome feedback on all IIIF Specifications. In particular, we are actively seeking implementations and feedback on the Authentication API draft specification. Please send any feedback to [iiif-discuss@googlegroups.com][iiif-discuss].
 {: .alert}
 
-## Old Versions
+## Community Translations
+
+| API              | Version | Translation           |
+| ---------------- | ------- | --------------------- |
+| Image API        | 2.1     | [Japanese][image-jp]  |
+| Presentation API | 2.1     | [Japanese][prezi-jp]  |
+| Search API       | 1.0     | [Japanese][search-jp] |
+{: .api-table}
+
+__Translation Note__<br/>
+Please note that the IIIF community does not guarantee the accuracy of any translation. They are linked to for information purposes only, and any discrepancies with the specifications are unintentional. The English versions of the specifications linked above are the definitive versions.
+{: .alert}
+
+## Older Versions
 
 Current IIIF specifications _SHOULD_ be used for all new work. Old versions are retained for reference and are listed below.
 
@@ -49,6 +62,10 @@ IIIF also has a series of [Implementation Notes][notes] which are not subject to
 ## Process
 
 IIIF Specifications are created and published following the [IIIF Editorial Process][editors].
+
+[image-jp]: http://www.asahi-net.or.jp/~ax2s-kmtn/ref/iiif/apiimage2.1.html
+[prezi-jp]: http://www.asahi-net.or.jp/~ax2s-kmtn/ref/iiif/apipresentation2.1.html
+[search-jp]: http://www.asahi-net.or.jp/~ax2s-kmtn/ref/iiif/searchapi1.0.html
 
 [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
 [image21]: /api/image/2.1/ "Image API v2.1"

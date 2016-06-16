@@ -178,7 +178,7 @@ Clients wishing to know the total number of annotations that match may count the
 
 #### 3.3.2. Paging Results
 
-For long lists of annnotations, the server may choose to divide the response into multiple sections, often called pages.  Each page is an annotation list and can refer to other pages to allow the client to traverse the entire set.  This uses the [paging features][paging] introduced in version 2.1 of the Presentation API, but is backwards compatible with version 2.0.  The next page of results that follows the current response _MUST_ be referenced in a `next` property of the annotation list, and the previous page _SHOULD_ be referenced in a `prev` property.  
+For long lists of annotations, the server may choose to divide the response into multiple sections, often called pages.  Each page is an annotation list and can refer to other pages to allow the client to traverse the entire set.  This uses the [paging features][paging] introduced in version 2.1 of the Presentation API, but is backwards compatible with version 2.0.  The next page of results that follows the current response _MUST_ be referenced in a `next` property of the annotation list, and the previous page _SHOULD_ be referenced in a `prev` property.  
 
 The URI of the first annotation list reported in the `@id` property _MAY_ be different from the one used by the client to request the search.  Each page _SHOULD_ also have a `startIndex` property with an integer value that reports the position of the first result within the entire result set, where the first annotation has an index of 0.  For example, if the client has requested the first page which has 10 hits, then the `startIndex` will be 0, and the `startIndex` of second page will be 10, being the 11th hit.
 
