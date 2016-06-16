@@ -13,7 +13,7 @@ The IIIF A/V Working Group aims to extend to A/V the benefits of interoperabilit
   * Chair: Jason Ronallo (NCSU)
   * Virtual meetings will be announced on [IIIF-Discuss][iiif-discuss]
   * Communicate via [IIIF-Discuss][iiif-discuss]
-  * Collect and organize [audiovisual user strories][av-user-stories]
+  * Collect and organize [audiovisual user stories][av-user-stories]
 
 [av-user-stories]: https://github.com/IIIF/iiif-stories/issues?q=is%3Aopen+is%3Aissue+label%3AA%2FV "Audiovisual User Stories"
 [bl-workshop-2016-04]: https://goo.gl/iVXEFD "Use cases and notes from April 2015 workshop at British Library"
