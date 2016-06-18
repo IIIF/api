@@ -19,6 +19,9 @@
 - name: Brown University
   uri:
   iiifc: 2
+- name: Cambridge University
+  uri:
+  iiifc: 2
 - name: Centre de Recherche et de Restauration des Musées de France (C2RMF)
   uri: http://c2rmf.fr/
   iiifc: 
@@ -28,8 +31,6 @@
 - name: Columbia University
   uri: 
   iiifc:
-- name: e-codices – Virtual Manuscript Library of Switzerland
-  uri:  http://www.e-codices.unifr.ch
 - name: Cornell University
   uri:
   iiifc: 1 
@@ -39,6 +40,8 @@
   uri: http://www.diamm.ac.uk/
 - name: Digirati Ltd
   uri: http://www.digirati.co.uk/
+- name: e-codices – Virtual Manuscript Library of Switzerland
+  uri:  http://www.e-codices.unifr.ch
 - name: Europeana
   uri: http://europeana.eu/
 - name: The J. Paul Getty Trust
@@ -136,7 +139,13 @@
 - name: University of Illinois at Urbana-Champaign
   uri:
   iiifc:
+- name: University of Michigan
+  uri:
+  iiifc: 2
 - name: University of Notre Dame
+  uri:
+  iiifc: 2
+- name: University of Oklahoma
   uri:
   iiifc: 2
 - name: University of Pennsylvania
@@ -147,7 +156,7 @@
   iiifc: 2
 - name: Vatican Library
   uri:
-  iiifc:
+  iiifc: 2
 - name: The Walters Art Museum
   uri:
   iiifc: 
