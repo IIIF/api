@@ -66,20 +66,20 @@ These features, combined with the requirements above, result in the following mo
 
 Interest Groups, as contrasted with Working Groups, are for discussion rather than developing specific deliverables.  It is expected that Working Groups will be formed out of Interest Groups as requirements emerge from the conversations.
   
-### Interest Group Formation
+### 4.1. Interest Group Formation
 
 * Interest Groups can be formed as needed. A lightweight statement of the topic, the scope and objectives of discussion of the interest group should be documented on the iiif.io website, and at least one channel for communication noted.
 * Interest Groups are approved by the IIIF Coordinating Committee, based on the statement above.  IGs should not be formed without some level of need within the community. 
 * Interest Groups may provide input towards chartering one or more Working Groups to accomplish specific objectives.
 
-### Interest Group Requirements
+### 4.2. Interest Group Requirements
 
 * At least three organizations must be represented in an interest group. One of those organizations must be a IIIF Consortium member. Anyone may be part of an IG.  
 * The discussions of the interest group must be transparent and public, and the channels used for communication must be published. There may be situations where either the discussion takes place offline or is not suitable for public dissemination.  These sorts of discussions are not expected to be common.
 * The primary channel of communication for all IGs is the iiif-discuss list. New lists should be formed only when the traffic is too high for useful discussion. Each interest group should also maintain an active presence in a IIIF Slack channel.
 * Interest groups should be constantly active, but may still exist while all of the participants are temporarily inactive.  
 
-### Interest Group Dissolution
+### 4.3. Interest Group Dissolution
 
 Interest groups can be dissolved if the participants decide that the topic has been explored.  The document describing the group should be updated to state this termination of the group, and otherwise left intact for future reference.
 
@@ -87,7 +87,7 @@ Interest groups can be dissolved if the participants decide that the topic has b
 
 Working Groups are the main working vehicle within the IIIF Community and may stand alone or be born out of existing WGs or IGs.  They are typically created to perform specific tasks in a defined realm and timescale, thereby allowing collaborative work to flourish in a structured environment.
 
-### Working Group Formation
+### 5.1. Working Group Formation
 
 Working Groups should be able to be convened with a minimum of effort, while still allowing participants to understand what they are signing up for. The group should emerge naturally from discussions and needs within the community, while not penalizing individuals or organizations that were not part of those initial discussions.  Participants in discussions that show promise of inter-institutional convergence and the possibility of joint development work should document the shared needs and requirements in a Google document following an available template. Once finalized, this document will be maintained as a record of the WG on the iiif.io website. 
 
@@ -102,7 +102,7 @@ The documentation process should result in a common understanding of:
 
 This document, henceforth the charter, provides the definition of the working group and its deliverables.  It is not a contract and may be changed with the consensus of the members of the working group at any time, however significant changes such as a 6 month or more delay in timeframes, the abandonment of a deliverable, or the change in the overall scope of the work should be announced to the community via the regular channels.
 
-### Working Group Approval
+### 5.2. Working Group Approval
 
 Once the draft charter is acceptable to the participants in the discussion, a Call for Participation (CfP) issued.  This is simply an email to appropriate lists, including at least iiif-discuss, that announces the document and seeks the engagement of additional participants. Organizations must respond to that email that they are willing to take part and commit resources towards the working group's goals.  At least three IIIF Consortium members must respond positively, and no more than three institutions may respond negatively, for the working group to be approved.  If fewer than three institutions are willing to contribute, then the working group's topic is likely too specific and the work should be done outside of the Working Group process.  If more than three institutions object to the work being done, then there is a significant issue that should be resolved before committing resources.
 
@@ -110,7 +110,7 @@ At least two calendar weeks must pass between the CfP and the working group bein
 
 Once the working group is approved, the link to the charter will be added to the IIIF community page that lists [active working groups][wgs].
 
-### Working Group Requirements
+### 5.3. Working Group Requirements
 
 All members of a working group must agree to have any contributed work licensed under a CC-BY license, or similar.  Participants meeting this requirement may join at any time, without any prior approval process: the gateway is activity, not reputation.
 
@@ -126,7 +126,7 @@ The WG must always have at least one member designated as Chair, and preferably 
 
 Working Groups may self-organize in the most convenient manner to accomplish their tasks, including creation and assignment of additional roles and responsibilities as appropriate.  Sub groups may be formed and disbanded at will, consisting only of members of the WG, often called Task Forces. They do not need to separately meet the requirements of the WG, such as having their own Chair or Consortium members.
 
-### Working Group Dissolution
+### 5.4. Working Group Dissolution
 
 Working groups are dissolved under the following circumstances:
 
@@ -153,7 +153,7 @@ Working and Interest groups should use an existing channel unless and until it b
 
 The following groups are standing, and cannot be dissolved.
 
-### Coordinating Committee
+### 7.1 Coordinating Committee
 
 The Coordinating Committee (CoCo) is responsible for organization and maintenance of the community, such as organizing outreach and plenary working sessions, maintaining the IIIF web sites and soliciting additions, inviting and welcoming new participants to the community, and so forth.  Each institution can have at most two representatives on CoCo, but Consortium membership is not required, only activity.
 
@@ -181,7 +181,7 @@ Additionally, IG and WG chairs are automatically invited if they are not already
 
 The members of the Editorial Board (below) and the chair of the IIIF Consortium Executive Committee are permanent members of the Coordinating Committee.  New members may be added at any time based on activity and agreement of the current committee members.
 
-### Editorial Board
+### 7.2. Editorial Board
 
 The Editorial Board is responsible for maintaining and overseeing the improvement of the technical specifications produced by the community.  The Editorial Board will ensure that changes proposed to the specifications through the deliverables of Working Groups are consistent with established best practices and justified by shared use cases.  They are responsible for the final text of the specifications, even if that is identical to the text provided by a WG.
 
