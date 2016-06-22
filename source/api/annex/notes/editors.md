@@ -108,7 +108,7 @@ The editors _MUST_ provide a summary of all meetings, and _SHOULD_ provide a sum
 
 ## 4. Editorial Team Membership and Selection
 
-Per the Memorandum of Understanding that established the IIIF Consortium, the editors may nominate additional editors at any time. All current editors _MUST_ agree before an invitation is issued. Editors will chose from participants within the community and/or experts willing to lend their knowledge and experience to new specifications. Opportunities to better the gender, race, and age balance of the existing editorial team will also be a consideration. New editors _MUST_ be approved by the IIIF Executive Group.
+Per the [Memorandum of Understanding][mou] that established the IIIF Consortium, the editors may nominate additional editors at any time. All current editors _MUST_ agree before an invitation is issued. Editors will chose from participants within the community and/or experts willing to lend their knowledge and experience to new specifications. Opportunities to better the gender, race, and age balance of the existing editorial team will also be a consideration. New editors _MUST_ be approved by the IIIF Executive Group.
 
 There is no set number of editors, but this does not mean that the number of existing editors will not be taken into account when considering new editors. The existing editors will seek out new or additional editors when they are lacking knowledge or significant empathy for use cases in an area that the community has agreed is important.
 
@@ -137,4 +137,5 @@ Editors may be dismissed from work on a specification, or the editorial group al
 [merging-changes]: #acceptance-criteria-for-merging-changes "2.2 Acceptance Criteria for Merging Changes"
 [rfc-2119]: https://www.ietf.org/rfc/rfc2119.txt "RFC 2119"
 [spec-disclaimer]: /api/annex/notes/disclaimer/ "Specification Disclaimer"
+[mou]: /community/consortium/mou/ "Memorandum of Understanding covering the establishment of the IIIF Consortium"
 {% include acronyms.md %}
