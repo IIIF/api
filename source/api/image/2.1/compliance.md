@@ -18,10 +18,6 @@ __This version:__ {{ page.major }}.{{ page.minor }}.{{ page.patch }}{% if page.p
 
 __Latest stable version:__ [{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}.{{ site.image_api.latest.patch }}][stable-version]
 
-__Beta Specification for Trial Use__
-This is a work in progress. We are actively seeking new implementations, updates to existing implementations, and feedback. No section should be considered final, and the absence of any content does not imply that such content is out of scope, or may not appear in the future.  Please send any feedback to [iiif-discuss@googlegroups.com][iiif-discuss].
-{: .alert}
-
 ## Table of Contents
 {:.no_toc}
 

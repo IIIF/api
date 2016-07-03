@@ -136,7 +136,7 @@
     },
     "license": {
       "@type": "@id",
-      "@id": "dcterms:license"
+      "@id": "dcterms:rights"
     },
     "logo": {
       "@type": "@id",
