@@ -34,6 +34,9 @@
 - name: Cornell University
   uri:
   iiifc: 1 
+- name: Data Futures Project (University of Westminster)
+  uri: https://www.data-futures.org/
+  iiifc: 2 
 - name: DPLA
   uri: http://dp.la/
 - name: Digital Image Archive of Medieval Music (DIAMM)
