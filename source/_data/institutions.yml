@@ -1,3 +1,6 @@
+- name: Art Institute of Chicago
+  uri:  http://www.artic.edu/
+  iiifc: 
 - name: ARTstor
   uri: 
   iiifc: 1
