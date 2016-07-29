@@ -5,7 +5,7 @@ tags: []
 cssversion: 2
 ---
 
-The IIIF A/V Working Group aims to extend to A/V the benefits of interoperability and the growing ecosystem of clients and servers that IIIF provides for images. The working group was formed following a British Library hosted a workshop to gather [use cases for extending IIIF to audio and video][bl-workshop-2016-04], and discussion at the [2016 IIIF Conference][iiif-conf-2016].
+The IIIF A/V Working Group aims to extend to A/V the benefits of interoperability and the growing ecosystem of clients and servers that IIIF provides for images. The working group was formed following a workshop hosted by the British Library to gather [use cases for extending IIIF to audio and video][bl-workshop-2016-04], and discussion at the [2016 IIIF Conference][iiif-conf-2016].
 
 ## Organization
 
