@@ -11,11 +11,12 @@ require "ri_cal"
 require "tzinfo"
 require "date"
 
-MODERATORS = [ "Appleby", "Crane", "Sanderson", "Stroop", "Warner" ]
+MODERATORS = [ "Albritton", "Appleby", "Cramer", "Crane", "McGrattan",
+  "Sanderson", "Snydman", "Rabun", "Stroop", "Warner" ].uniq.sort!
 
 # Make sure this is the date of a call or risk being off by a week.
-PERIOD_START = Date.new(2016,01,06)
-PERIOD_END = Date.new(2016,03,31)
+PERIOD_START = Date.new(2016,8,31)
+PERIOD_END = Date.new(2017,1,14)
 
 def next_moderator
   next_mod = MODERATORS.shift
@@ -32,7 +33,8 @@ dates = occurrences.map { |o| Date.parse(o.to_time.to_s) }
 calendar = RiCal.Calendar do |cal|
   dates.each do |date|
     m = next_moderator
-    label = "IIIF Bi-Weekly Community Call (#{m} moderates)"
+    labl = "IIIF Bi-Weekly Community Call (#{m} moderates)"
+    description = "Moderator Link: https://stanford.bluejeans.com/639555055/1114/"
 
     puts "#{date}: #{m}"
 
@@ -40,8 +42,8 @@ calendar = RiCal.Calendar do |cal|
     dt_end = DateTime.parse("#{date.to_s}T01:00:00").set_tzid("America/New_York")
 
     cal.event do |event|
-      event.summary = label
-      event.description = label
+      event.summary = labl
+      event.description = description
       event.dtstart = dt_start
       event.dtend = dt_end
     end
