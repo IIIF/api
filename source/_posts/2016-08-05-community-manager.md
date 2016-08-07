@@ -20,7 +20,7 @@ Rabun will serve as an employee of the Council on Library Information Resources 
 
 The Community & Communications Officer role is made possible with funding from the IIIF Consortium. Nearly three dozen institutions that have banded together to provide financial, logistical, technological support and content to advance IIIF. If you would like to join IIIF-C as a Founding Member, please email [iiif-secretariat@googlegroups.com][iiif-secretariat].
 
-[iiif-secretariat]: iiif-secretariat@googlegroups.com
+[iiif-secretariat]: mailto:iiif-secretariat@googlegroups.com
 [oregondigital]: https://oregondigital.org/catalog/
 [odnp]: http://odnp.uoregon.edu/
 [oregonnews]: http://oregonnews.uoregon.edu/
