@@ -1,6 +1,6 @@
 ---
 title: IIIF Community and Communications Officer Hired
-author: Gabrielle Karampelas
+author: Tom Cramer, Gabrielle Karampelas
 date: 2016-08-05
 tags: [specifications, image-api, presentation-api, search-api, announcements]
 layout: post
