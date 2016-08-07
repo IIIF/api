@@ -18,7 +18,7 @@ Rabun will serve as an employee of the Council on Library Information Resources 
 
 "Sheila's impressive accomplishments in various digital library and scholarly programs coupled with her strong critical thinking, analysis and communication skills will add great capacity for the entire IIIF community," said Keller, who is also the University Librarian at Stanford University. "We look forward to partnering with her to shape this very new, and exciting role in support of improved access to all our digital collections."
 
-The Community & Communications Officer role is made possible with funding from the IIIF Consortium, nearly three dozen institutions that have banded together to provide financial, logistical, technological support and content to advance IIIF. If you would like to join IIIF-C as a Founding Member, please email [iiif-secretariat@googlegroups.com][iiif-secretariat].
+The Community & Communications Officer role is made possible with funding from the IIIF Consortium. Nearly three dozen institutions that have banded together to provide financial, logistical, technological support and content to advance IIIF. If you would like to join IIIF-C as a Founding Member, please email [iiif-secretariat@googlegroups.com][iiif-secretariat].
 
 [iiif-secretariat]: iiif-secretariat@googlegroups.com
 [oregondigital]: https://oregondigital.org/catalog/
