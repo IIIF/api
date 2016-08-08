@@ -49,12 +49,12 @@ Open access to content is desirable, but policy, regulations or business models 
 * A single manifest can reference content resources at multiple institutions and hence from multiple domains.
 * Institutions have different existing access control systems (e.g., CAS). The IIIF (pronounced "Triple-Eye-Eff") specification can't force an institution to adopt a new protocol beyond the scope of image interoperability.
 * The specification can't require that a browser-based client destroys its state during an authentication flow.
-* The client can be a JavaScript viewer served from a different domain from the image services, and the authentication services that protect them. This domain is _untrusted_ - the authorising server must not require any prior knowledge of the domain hosting the viewer. The specification must not introduce or require any registry of trusted IIIF viewer domains and must assume that for image delivery, anyone can create any kind of viewer and run it from anywhere.  
+* The client can be a JavaScript viewer served from a different domain from the image services, and the authentication services that protect them. This domain is _untrusted_ - the authorizing server must not require any prior knowledge of the domain hosting the viewer. The specification must not introduce or require any registry of trusted IIIF viewer domains and must assume that for image delivery, anyone can create any kind of viewer and run it from anywhere.  
 * A IIIF client should not ask for or accept any credentials itself; the server hosting the content must be responsible for capturing credentials from a user and the IIIF viewer needs no knowledge of or access to this exchange.
 
 To meet these challenges, the IIIF Authentication specification describes a process for orchestrating the user through a content provider's existing access control system. What happens at the content provider (i.e., your server) is mostly outside the scope of the specification. It may involve a round-trip to a CAS server, or an OAuth2 provider, or a bespoke login system. In this sense, IIIF Authentication is not the same as a protocol like CAS; it is a pattern for interacting with arbitrary third party protocols. 
 
-A IIIF Authentication implementation provides a link to user interface (the login service) and a discovery mechanism modelled after elements of the OAUth2 workflow (the token service). Together they act as a bridge to the access control system in use on the server, without the client requiring knowledge of that system.
+A IIIF Authentication implementation provides a link to user interface (the login service) and a discovery mechanism modelled after elements of the OAuth2 workflow (the token service). Together they act as a bridge to the access control system in use on the server, without the client requiring knowledge of that system.
 
 Some access to content is generally better than no access. In the case of images, grayscale instead of color, a version with a watermark, a version with more compression, or a smaller size is likely better than no image at all. Providing this functionality is more complex than traditional yes-or-no access controls, and serving the correct image and associated image information for the degraded version is necessary to prevent web caches from providing incorrect content. The same notion of degraded access might apply for other types of resources.
 
@@ -75,7 +75,7 @@ The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _S
 
 ### 1.2. Authentication for Content Resources
 
-Content Resources, such as images, are generally secondary resources embedded in a web page or application. In the case of web pages, images might be included via the HTML `img` tag, and retrieved via additional HTTP requests by the browser. When a user is not authorised to load a web page, the server can redirect the user to another page and offer the opportunity to authenticate. This redirection is not possible for embedded Content Resources, and the user is simply presented with a broken image icon. If the image is access controlled, the browser must avoid broken images by sending a cookie that the server can accept as a credential that grants access to the image. The specification describes the process by which the user acquires this cookie.
+Content Resources, such as images, are generally secondary resources embedded in a web page or application. In the case of web pages, images might be included via the HTML `img` tag, and retrieved via additional HTTP requests by the browser. When a user is not authorized to load a web page, the server can redirect the user to another page and offer the opportunity to authenticate. This redirection is not possible for embedded Content Resources, and the user is simply presented with a broken image icon. If the image is access controlled, the browser must avoid broken images by sending a cookie that the server can accept as a credential that grants access to the image. The specification describes the process by which the user acquires this cookie.
 
 ### 1.3. Authentication for Description Resources
 
@@ -109,7 +109,7 @@ The Description Resource _MUST_ include a service using the following template:
     "@id": "https://authentication.example.org/login",
     "profile": "http://iiif.io/api/auth/{{ page.major }}/login",
     "label": "Login to Example Service",
-    "description": "Institution X requires that you log in with your X account to view this content."
+    "description": "Institution X requires that you log in with your X account to view this content.",
     "service": [
       // Related services ...
     ]
