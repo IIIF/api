@@ -44,17 +44,17 @@ This is a work in progress. We are actively seeking implementations and feedback
 
 ## 1. Introduction
 
-Open access to content is desirable, but policy, regulations or business models mean that sometimes users must authenticate and be authorized to interact with access-controlled resources. For interoperable content accessed through client applications running in a web browser, this poses many challenges:
+The IIIF (pronounced "Triple-Eye-Eff") specifications are designed to support uniform and rich access to resources hosted around the world. Open access to content is desirable, but policy, regulations or business models mean that sometimes users must authenticate and be authorized to interact with access-controlled resources. For interoperable content accessed through client applications running in a web browser, this poses many challenges:
 
-* A single manifest can reference content resources at multiple institutions and hence from multiple domains.
-* Institutions have different existing access control systems (e.g., CAS). The IIIF (pronounced "Triple-Eye-Eff") specification can't force an institution to adopt a new protocol beyond the scope of image interoperability.
-* The specification can't require that a browser-based client destroys its state during an authentication flow.
-* The client can be a JavaScript viewer served from a different domain from the image services, and the authentication services that protect them. This domain is _untrusted_ - the authorizing server must not require any prior knowledge of the domain hosting the viewer. The specification must not introduce or require any registry of trusted IIIF viewer domains and must assume that for image delivery, anyone can create any kind of viewer and run it from anywhere.  
+* A single IIIF Presentation API manifest can reference content resources at multiple institutions and hence from multiple domains.
+* Institutions have different existing access control systems (e.g., CAS, Kerberos). It is not reasonable to expect institutions to adopt a new access control system to support IIIF.
+* A IIIF client can be a JavaScript viewer served from a different domain from the image services, and the authentication services that protect them. This domain is _untrusted_ - the authorizing server must not require any prior knowledge of the domain hosting the viewer. The specification must not introduce or require any registry of trusted IIIF viewer domains and must assume that for image delivery, anyone can create any kind of viewer and run it from anywhere.  
 * A IIIF client should not ask for or accept any credentials itself; the server hosting the content must be responsible for capturing credentials from a user and the IIIF viewer needs no knowledge of or access to this exchange.
+* A browser-based IIIF client must not be required to destroy its state during an authentication flow.
 
 To meet these challenges, the IIIF Authentication specification describes a process for orchestrating the user through a content provider's existing access control system. What happens at the content provider (i.e., your server) is mostly outside the scope of the specification. It may involve a round-trip to a CAS server, or an OAuth2 provider, or a bespoke login system. In this sense, IIIF Authentication is not the same as a protocol like CAS; it is a pattern for interacting with arbitrary third party protocols. 
 
-A IIIF Authentication implementation provides a link to user interface (the login service) and a discovery mechanism modelled after elements of the OAuth2 workflow (the token service). Together they act as a bridge to the access control system in use on the server, without the client requiring knowledge of that system.
+A IIIF Authentication implementation provides a link to user interface (the login service) and a discovery mechanism modelled after elements of the OAuth2 workflow (the access token service). Together they act as a bridge to the access control system in use on the server, without the client requiring knowledge of that system.
 
 Some access to content is generally better than no access. In the case of images, grayscale instead of color, a version with a watermark, a version with more compression, or a smaller size is likely better than no image at all. Providing this functionality is more complex than traditional yes-or-no access controls, and serving the correct image and associated image information for the degraded version is necessary to prevent web caches from providing incorrect content. The same notion of degraded access might apply for other types of resources.
 
@@ -69,21 +69,21 @@ Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss]
 
 This specification distinguishes between Content Resources, such as images or videos, and Description Resources which conform to IIIF specifications, such as [Image API][image-api] image information (info.json) and [Presentation API][prezi-api] collection or manifest resources.  
 
-From the point of view of a client JavaScript application, Content Resources are loaded indirectly, by the browser, whereas Description Resources are typically loaded by script using the XMLHttpRequest interface. The [Cross Origin Resource Sharing][cors-spec] specification implemented in modern browsers describes the security rules that apply for these two different kinds of interaction.
+From the point of view of a client JavaScript application, Content Resources are loaded indirectly, by the browser, whereas Description Resources are typically loaded directly by JavaScript using the XMLHttpRequest interface. The [Cross Origin Resource Sharing][cors-spec] specification implemented in modern browsers describes the security rules that apply for these two different kinds of interaction.
 
 The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _SHOULD NOT_, _RECOMMENDED_, _MAY_, and _OPTIONAL_ in this document are to be interpreted as described in [RFC 2119][rfc-2119].
 
 ### 1.2. Authentication for Content Resources
 
-Content Resources, such as images, are generally secondary resources embedded in a web page or application. In the case of web pages, images might be included via the HTML `img` tag, and retrieved via additional HTTP requests by the browser. When a user is not authorized to load a web page, the server can redirect the user to another page and offer the opportunity to authenticate. This redirection is not possible for embedded Content Resources, and the user is simply presented with a broken image icon. If the image is access controlled, the browser must avoid broken images by sending a cookie that the server can accept as a credential that grants access to the image. The specification describes the process by which the user acquires this cookie.
+Content Resources, such as images, are generally secondary resources embedded in a web page or application. In the case of web pages, images might be included via the HTML `img` tag, and retrieved via additional HTTP requests by the browser. When a user is not authorized to load a web page, the server can redirect the user to another page and offer the opportunity to authenticate. This redirection is not possible for embedded Content Resources, and the user is simply presented with a broken image icon. If the image is access controlled, the browser must avoid broken images by sending a cookie that the server can accept as a credential that grants access to the image. The specification describes the process by which the user acquires this **access cookie**.
 
 ### 1.3. Authentication for Description Resources
 
 Description Resources, such as a Presentation API manifest or an Image API information document (info.json), give the client application the information it needs to make the browser request the Content Resources. A Description Resource must be on the same domain as the Content Resource it describes, but there is no requirement that the executing client code is also hosted on this domain.
 
-A browser running script from one domain cannot use XMLHttpRequest to load a Description Resource from another domain and include that domain's cookies in the request, without violating the requirement introduced above that the client must work when _untrusted_.  Instead, the client sends a **bearer token**. The Authentication Specification describes how, once the browser has acquired the cookie for the Content Resources, the client acquires the bearer token to use when making direct requests for Description Resources.
+A browser running script from one domain cannot use XMLHttpRequest to load a Description Resource from another domain and include that domain's cookies in the request, without violating the requirement introduced above that the client must work when _untrusted_.  Instead, the client sends a [bearer token][bearer-token], the **access token**, as a proxy for the access cookie. This Authentication Specification describes how, once the browser has acquired the access cookie for the Content Resources, the client acquires the access token to use when making direct requests for Description Resources.
 
-The server on the Resource Domain treats the bearer token as a representation of or proxy for the cookie that gains access to the Content Resources. When the client makes requests for the Description Resources and presents the token, the responses tell the client what will happen when the browser requests the corresponding content resources with the cookie the token represents. These responses let the client decide what user interface and/or Content Resources to show to the user.
+The server on the Resource Domain treats the access token as a representation of, or proxy for, the cookie that gains access to the Content Resources. When the client makes requests for the Description Resources and presents the access token, the responses tell the client what will happen when the browser requests the corresponding content resources with the access cookie the access token represents. These responses let the client decide what user interface and/or Content Resources to show to the user.
 
 __Note:__
 TC: An annotation is not a description resource like an info.json or a manifest; it IS the resource being access controlled rather than a description of it, and may require a more complex exchange; perhaps a 2-way postMessage handshake that is not required for "binary" content resources. v1.1?
@@ -131,11 +131,11 @@ With out-of-band knowledge, authorized non-user driven clients _MAY_ use POST to
 
 ### 2.2. Access Token Service
 
-The access token service provides the client with a bearer token. The client then includes this token in  requests for description resources. A request to the token service must include any cookies for the content domain acquired from the user's interaction with the parent login service, so that the server can issue the token.
+The access token service provides the client with a bearer access token. The client then includes this access token in requests for description resources. A request to the access token service must include any cookies for the content domain acquired from the user's interaction with the parent login service, so that the server can issue the access token.
 
 #### 2.2.1. Service Description
 
-The login service description _MUST_ include a token `service` following the template below:
+The login service description _MUST_ include an access token `service` following the template below:
 
 ``` json-doc
 {
@@ -155,12 +155,12 @@ The login service description _MUST_ include a token `service` following the tem
 }
 ```
 
-The `@id` field _MUST_ be present, and its value _MUST_ be the URI from which the client can obtain the token. The `profile` property _MUST_ be present and its value _MUST_ be `http://iiif.io/api/auth/{{ page.major }}/token` to distinguish it from other services. There is no requirement to have a `label` property for this service, as it does not need to be presented to a user. There is no requirement for a duplicate `@context` field.
+The `@id` field _MUST_ be present, and its value _MUST_ be the URI from which the client can obtain the access token. The `profile` property _MUST_ be present and its value _MUST_ be `http://iiif.io/api/auth/{{ page.major }}/token` to distinguish it from other services. There is no requirement to have a `label` property for this service, as it does not need to be presented to a user. There is no requirement for a duplicate `@context` field.
 
 
-#### 2.2.2. The JSON token response
+#### 2.2.2. The JSON access token response
 
-If the request has a valid cookie that the server recognises as having been issued by the login service, the token service response _MUST_ include a JSON (not JSON-LD) object with the following structure:
+If the request has a valid cookie that the server recognises as having been issued by the login service, the access token service response _MUST_ include a JSON (not JSON-LD) object with the following structure:
 
 ``` json-doc
 {
@@ -170,28 +170,28 @@ If the request has a valid cookie that the server recognises as having been issu
 }
 ```
 
-Where the value of the `accessToken` field is the token to be passed back in future requests, `tokenType` is always `Bearer`, and `expiresIn` is the number of seconds in which the token will cease to be valid.  If there is no timeout for the token, then `expiresIn` may be omitted from the response.
+Where the value of the `accessToken` field is the access token to be passed back in future requests, `tokenType` is always `Bearer`, and `expiresIn` is the number of seconds in which the access token will cease to be valid.  If there is no timeout for the access token, then `expiresIn` may be omitted from the response.
 
-Once obtained, the token value _MUST_ be passed back to the server on all future requests via the XMLHttpRequest interface by adding an `Authorization` request header, with the value `Bearer TOKEN_HERE`.  The token _SHOULD_ be added to all requests for resources from the same domain and subdomains that have a reference to the service, regardless of which API is being interacted with. It _MUST NOT_ be sent to other domains.
+Once obtained, the access token _MUST_ be passed back to the server on all future requests via the XMLHttpRequest interface by adding an `Authorization` request header, with the value `Bearer TOKEN_HERE`.  The access token _SHOULD_ be added to all requests for resources from the same domain and subdomains that have a reference to the service, regardless of which API is being interacted with. It _MUST NOT_ be sent to other domains.
 
-If the client is not a web browser, and can send cookies to the token service, it _SHOULD_ request the access token service's URI directly, with all of the cookies sent to or established by the login service, and the server _MUST_ respond with the above access token structure as the entire response body.
+If the client is not a web browser, and can send cookies to the access token service, it _SHOULD_ request the access token service's URI directly, with all of the cookies sent to or established by the login service, and the server _MUST_ respond with the above access token structure as the entire response body.
 
 
 #### 2.2.3. PostMessage Interaction for browser-based client applications
 
-If the client is a JavaScript application running in a web browser, it needs to make a direct request for the token and store the result. The client can't use XMLHttpRequest because it can't include the cookie acquired from the login service in a cross-domain request.
+If the client is a JavaScript application running in a web browser, it needs to make a direct request for the access token and store the result. The client can't use XMLHttpRequest because it can't include the cookie acquired from the login service in a cross-domain request.
 
-Instead, the client _MUST_ open the token service in an iFrame and be ready to receive a message posted by script in that iFrame, using the [postMessage API][postmessage]. To trigger this behaviour, the client _MUST_ append the query string parameter `messageId` to the token service URI with a generated value, and open this new URI in the iFrame. 
+Instead, the client _MUST_ open the access token service in an iFrame and be ready to receive a message posted by script in that iFrame, using the [postMessage API][postmessage]. To trigger this behaviour, the client _MUST_ append the query string parameter `messageId` to the token service URI with a generated value, and open this new URI in the iFrame. 
 
-When the server receives a request for the token service with the `messageId` parameter, it _MUST_ respond with  an HTML web page for the iFrame, rather than raw JSON. The web page _MUST_ contain script that sends a message to the opening page using the [postMessage API][postmessage]. The message body is the JSON token object, with the value of the supplied `messageId` as an extra property, as shown in the examples in the next section.
+When the server receives a request for the access token service with the `messageId` parameter, it _MUST_ respond with  an HTML web page for the iFrame, rather than raw JSON. The web page _MUST_ contain script that sends a message to the opening page using the [postMessage API][postmessage]. The message body is the JSON access token object, with the value of the supplied `messageId` as an extra property, as shown in the examples in the next section.
 
-The iFrame _SHOULD NOT_ be shown to the user. It is a mechanism for cross-domain messaging. The client _MUST_ register an event listener to receive the message that the opened token service page in the iFrame will post. The client can reuse the same listener and iFrame for multiple calls to the token service, or it can create new ones for each invocation depending on the implementation.
+The iFrame _SHOULD NOT_ be shown to the user. It is a mechanism for cross-domain messaging. The client _MUST_ register an event listener to receive the message that the opened access token service page in the iFrame will post. The client can reuse the same listener and iFrame for multiple calls to the access token service, or it can create new ones for each invocation depending on the implementation.
 
-The `messageId` parameter serves two purposes. It triggers the server to respond with the web page instead of JSON, and it allows the client to match token service requests with posted messages received by the registered event listener. If a client has no need to keep track of token requests and match them to received messages, it can use a dummy value for the parameter, e.g., `messageId=1`.
+The `messageId` parameter serves two purposes. It triggers the server to respond with the web page instead of JSON, and it allows the client to match access token service requests with posted messages received by the registered event listener. If a client has no need to keep track of access token requests and match them to received messages, it can use a dummy value for the parameter, e.g., `messageId=1`.
 
-#### 2.2.4. Example token requests and responses
+#### 2.2.4. Example access token requests and responses
 
-The simplest token request comes from a non-browser client that can send cookies across domains:
+The simplest acccess token request comes from a non-browser client that can send cookies across domains:
 
 ``` none
 GET /iiif/token HTTP/1.1
@@ -199,7 +199,7 @@ Cookie: <cookie-acquired-during-login>
 ```
 {: .urltemplate}
 
-The response is the JSON token object:
+The response is the JSON access token object:
 
 ``` json-doc
 {
@@ -234,7 +234,7 @@ function receive_message(event) {
     // ...
 }
 ```
-It can then open the token service in an iFrame:
+It can then open the access token service in an iFrame:
 
 ```javascript
 document.getElementById('messageFrame').src = 'https://authentication.example.org/token?messageId=1234';
@@ -258,14 +258,14 @@ The server response will then be a web page that can post a message to the regis
 ```
 
 __TODO:__ 
-We need to explain here why '\*' is an acceptable value for origin when the token is a proxy credential for the cookie, and never accepted as a credential for a resource that is valuable in its own right. That is, '\*' is OK if we're protecting image content resources, but not necessarily OK if we're acquiring a token for CRUD operations on annotations. Although postMessage solves injection problems, some of [these comments][tmp-impl-sec] still apply. This is where a "postMessage preflight" could establish trust (possibly including a message during the login step as well) to allow the server to use an explicit (trusted) domain in the postMessage call.
+We need to explain here why '\*' is an acceptable value for origin when the access token is a proxy credential for the cookie, and never accepted as a credential for a resource that is valuable in its own right. That is, '\*' is OK if we're protecting image content resources, but not necessarily OK if we're acquiring an access token for CRUD operations on annotations. Although postMessage solves injection problems, some of [these comments][tmp-impl-sec] still apply. This is where a "postMessage preflight" could establish trust (possibly including a message during the login step as well) to allow the server to use an explicit (trusted) domain in the postMessage call.
 This is not required for 1.0 when it covers description resources that describe cookie-protected content, but needs to extend to annos later.
 {: .warning}
 
 
-#### 2.2.5. Using the token
+#### 2.2.5. Using the access token
 
-The token is sent on all subsequent requests for Description Resources. For example, a request for the image information in the Image API would look like:
+The access token is sent on all subsequent requests for Description Resources. For example, a request for the image information in the Image API would look like:
 
 ``` none
 GET /iiif/identifier/info.json HTTP/1.1
@@ -368,7 +368,7 @@ The body of the response from the server _MUST_ be JSON and _MUST_ conform to th
 
 ### 2.5. Error Conditions
 
-The response from the client identity service or the access token service may be an error. The error _MUST_ be supplied as JSON with the following template. For browser-based clients using postMessage, the error object must be sent to the client via script, in the same way as the token is sent. For direct requests the response body is the raw JSON.
+The response from the client identity service or the access token service may be an error. The error _MUST_ be supplied as JSON with the following template. For browser-based clients using postMessage, the error object must be sent to the client via script, in the same way the access token is sent. For direct requests the response body is the raw JSON.
 
 ``` json-doc
 {
@@ -555,6 +555,7 @@ Many thanks to the members of the [IIIF Community][iiif-community] for their con
 [image-api]: /api/image/
 [ext-services]: /api/annex/services/
 [user-auths]: #step-3-user-authenticates
+[bearer-token]: https://tools.ietf.org/html/rfc6750 "FIXME - Need some ref describing bearer tokens so we don't have to, don't really want OAuth stuff"
 
 
 {% include acronyms.md %}
