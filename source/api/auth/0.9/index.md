@@ -456,21 +456,21 @@ In cases where the server requires client software to be registered, there _MUST
 
 ### 3.3. Step 3: User Authenticates
 
-After receiving the response, the client will have a URL for a login service where the user can authenticate.  The client _MUST_ present this URL to the user in a separate tab or window with a URL bar, not in an iFrame or otherwise imported into the client user interface, in order to help prevent spoofing attacks.
+After receiving the response, the client will have a URL for a login service where the user can authenticate.  The client _MUST_ present the login service to the user by opening the URL in a separate tab or window with a URL bar, not in an iFrame or otherwise imported into the client user interface, in order to help prevent spoofing attacks.
 
-After the authentication process has taken place, the login service _MUST_ ensure that the client has a cookie that identifies the user and will be visible to the access token service. It _SHOULD_ also contain JavaScript to try and automatically close the tab or window. The tab or window closing is the trigger for the client to request the access token for the user.
+The client has no visibility of or access to the user's interactions with the login service in the separate tab or window. If the user successfully authenticates, the login service _MUST_ ensure that the client has a cookie that identifies the user and will be visible to the access token service. It _SHOULD_ also contain JavaScript to try and automatically close the tab or window. The tab or window closing is the trigger for the client to request the access token for the user.
+
+(link to implementation note? Access to win.closed?)
 
 ### 3.4. Step 4: Obtain Access Token
 
-The client requests an access token from the access token service. If [step 2](#step-2-obtain-client-authorization-code-optional) was performed, the client authorization code _MUST_ also be sent.  The access token _MUST_ be added by the client to all future requests for Description Resources that have the same access token service, by including it in an `Authorization` header.
+The client requests an access token from the access token service. If [step 2](#step-2-obtain-client-authorization-code-optional) was performed, the client authorization code _MUST_ also be sent. The server _MUST_ detect and evaluate any cookie(s) obtained from the login service, and if present and valid it _MUST_ return an access token. The access token _MUST_ be added by the client to all future requests for Description Resources that have the same access token service, by including it in an `Authorization` header.
 
-The server _MUST_ ensure that the client has a cookie which _MUST_ be included in requests for Content Resources, such as images or video.
-
-If the access token service responds with an error condition, the client _SHOULD_ allow the user to attempt to login again.
+If the cookie is not present, or is present but invalid for any reason (for example, it represents an expired session), the server _MUST_ return an error message, and the client _SHOULD_ allow the user to attempt to login again.
 
 ### 3.5. Step 5: Re-request Description Resource
 
-Now with the access token added in the `Authorization` header, the client retries the request for the Description Resource to determine whether the user is now successfully authenticated and authorized. Clients _SHOULD_ store the URIs of login services that have been accessed by the user and not prompt the user to login again when they are already authenticated.
+Now with the access token added in the `Authorization` header, the client retries the request for the Description Resource to determine whether the user is now successfully authenticated and authorized. Clients _SHOULD_ store the URIs of login services that have been accessed by the user and not prompt the user to login again when they are already authenticated. Clients _SHOULD_ make use of the `expiresIn` property from the access token response.
 
 If there is a logout service described in the Description Resource then the client _SHOULD_ provide a logout link. The client _SHOULD_ present this URL to the user in a separate tab or window with a URL bar to help prevent spoofing attacks.
 
@@ -510,6 +510,11 @@ When the server receives a request for a Description Resource, (1), it first mus
   </tbody>
 </table>
 
+
+__TODO:__ 
+We need to say something here about detecting the 302 status, which cannot be seen directly by XHR as described in [implementation notes][tmp-impl-302]. Also some other parts of that document might be useful here.
+{: .warning}
+
 The client first requests the desired Description Resource (1).  If the response is a 200 with the expected information, the client does not need to authenticate and should proceed to use the resource as expected (2).  If not, and the response is a 302 redirect, then the client follows the redirect to retrieve a new resource (3).  If the client has seen that resource already, by comparing its URI with those in a list of seen URIs, then the user is not authorized to access the requested version, and it should use the degraded version from the current response (4).  Otherwise, if it has not seen the response before, or the initial response is a 401 status with a link to the service (5), the client follows the link to the login service in a newly created tab or window (6) and records that it has seen the URI.  The user must then attempt to authenticate using the service (7), and the client waits until the tab or window is closed, either automatically or manually by the user.  Once the tab or window is closed, the client retrieves an access token for the user and retries the request for the original Description Resource (8), and proceeds back to make the same tests.  Finally, if the client receives a 403 response from the server, the user cannot gain authorization to interact with the resource and there is no degraded version available, and hence the client should not render anything beyond an error message.
 
 ## Appendices
@@ -519,6 +524,8 @@ The client first requests the desired Description Resource (1).  If the response
  * Care is required to implement this specification in a way that does not expose credentials thus compromising the security of the resources intended to be protected, or other resources within the same security domain.
  * Services using authentication should use HTTPS, and thus clients should also be run from pages served via HTTPS.
  * Implementations must not reuse the access cookie value as the access token value, as it could be copied across domains when the access token is obtained from a malicious client.
+ 
+(how much of [implementation notes][tmp-impl] could go here?)
 
 
 ### B. Versioning
@@ -540,7 +547,9 @@ Many thanks to the members of the [IIIF Community][iiif-community] for their con
 {: .api-table}
 
 [postmessage]: https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage "window.postMessage"
-[tmp-impl-sec]: http://auth_notes.iiif.io/api/auth/0.9/implementation/#security-for-server-implementors
+[tmp-impl]: implementation/
+[tmp-impl-sec]: implementation/#security-for-server-implementors
+[tmp-impl-302]: implementation/#redirects-and-degraded-images
 [cors-spec]: http://www.w3.org/TR/cors/ "Cross-Origin Resource Sharing"
 [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
 [client-auth-img]: img/auth-flow-client.png
