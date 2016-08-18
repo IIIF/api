@@ -251,20 +251,22 @@ An example service description for the External interaction pattern:
 
 ### 2.2. Access Token Service
 
-The access token service provides the client with a bearer access token. The client then includes this access token in requests for description resources. A request to the access token service must include any cookies for the content domain acquired from the user's interaction with the parent login service, so that the server can issue the access token.
+The client uses this service to obtain an access token which it then uses when requesting Description Resources. A request to the access token service must include any cookies for the content domain acquired from the user's interaction with the corresponding access cookie service, so that the server can issue the access token.
 
 #### 2.2.1. Service Description
 
-The login service description _MUST_ include an access token `service` following the template below:
+The access cookie service description _MUST_ include an access token service description following the template below:
 
 ``` json-doc
 {
-  // ...
+  // Access Cookie Service
   "service" : {
     "@context": "http://iiif.io/api/auth/{{ page.major }}/context.json",
     "@id": "https://authentication.example.org/login",
     "profile": "http://iiif.io/api/auth/{{ page.major }}/login",
-    "label": "Login to Example Service",
+    "label": "Login to Example Institution",
+
+    // Access Token Service 
     "service": [
       {
         "@id": "https://authentication.example.org/token",
@@ -275,26 +277,28 @@ The login service description _MUST_ include an access token `service` following
 }
 ```
 
-The `@id` field _MUST_ be present, and its value _MUST_ be the URI from which the client can obtain the access token. The `profile` property _MUST_ be present and its value _MUST_ be `http://iiif.io/api/auth/{{ page.major }}/token` to distinguish it from other services. There is no requirement to have a `label` property for this service, as it does not need to be presented to a user. There is no requirement for a duplicate `@context` field.
-
+The `@id` property of the access token service _MUST_ be present, and its value _MUST_ be the URI from which the client can obtain the access token. The `profile` property _MUST_ be present and its value _MUST_ be `http://iiif.io/api/auth/{{ page.major }}/token` to distinguish it from other services. There is no requirement to repeat the `@context` property included in the enclosing access cookie service description, and there are no other properties for this service.
 
 #### 2.2.2. The JSON access token response
 
-If the request has a valid cookie that the server recognises as having been issued by the login service, the access token service response _MUST_ include a JSON (not JSON-LD) object with the following structure:
+If the request has a valid cookie that the server recognises as having been issued by the access cookie service, the access token service response _MUST_ include a JSON (not JSON-LD) object with the following structure:
 
 ``` json-doc
 {
   "accessToken": "TOKEN_HERE",
-  "tokenType": "Bearer",
   "expiresIn": 3600
 }
 ```
 
-Where the value of the `accessToken` field is the access token to be passed back in future requests, `tokenType` is always `Bearer`, and `expiresIn` is the number of seconds in which the access token will cease to be valid.  If there is no timeout for the access token, then `expiresIn` may be omitted from the response.
+The `accessToken` property is _REQUIRED_, and its value is the access token to be passed back in future requests. The `expiresIn` property is _OPTIONAL_ and, if present, the value is the number of seconds in which the access token will cease to be valid.
 
-Once obtained, the access token _MUST_ be passed back to the server on all future requests via the `XMLHttpRequest` interface by adding an `Authorization` request header, with the value `Bearer TOKEN_HERE`.  The access token _SHOULD_ be added to all requests for resources from the same domain and subdomains that have a reference to the service, regardless of which API is being interacted with. It _MUST NOT_ be sent to other domains.
+Once obtained, the access token _MUST_ be passed back to the server on all future requests for Description Resources by adding an `Authorization` request header, with the value `Bearer` followed by a space and the access token, such as:
 
-If the client is not a web browser, and can send cookies to the access token service, it _SHOULD_ request the access token service's URI directly, with all of the cookies sent to or established by the login service, and the server _MUST_ respond with the above access token structure as the entire response body.
+```
+Authorization: Bearer TOKEN_HERE
+```
+
+This authorization header _SHOULD_ be added to all requests for resources from the same domain and subdomains that have a reference to the service, regardless of which API is being interacted with. It _MUST NOT_ be sent to other domains.
 
 #### 2.2.3. Interaction for non-browser client applications
 
@@ -320,17 +324,13 @@ The response is the JSON access token object with the media type `application/js
 ``` json-doc
 {
   "accessToken": "TOKEN_HERE",
-  "tokenType": "Bearer",
   "expiresIn": 3600
 }
 ```
 
-
 #### 2.2.4. Interaction for browser-based client applications
 
-If the client is a JavaScript application running in a web browser, it needs to make a direct request for the access token and store the result. The client can't use `XMLHttpRequest` because it can't include the cookie acquired from the login service in a cross-domain request.
-
-Instead, the client _MUST_ open the access token service in a frame using an `iframe` element and be ready to receive a message posted by script in that frame using the [postMessage API][postmessage]. To trigger this behaviour, the client _MUST_ append the following query parameters to the token service URI, and open this new URI in the frame.
+If the client is a JavaScript application running in a web browser, it needs to make a direct request for the access token and store the result. The client can't use `XMLHttpRequest` because it can't include the access cookie in a cross-domain request. Instead, the client _MUST_ open the access token service in a frame using an `iframe` element and be ready to receive a message posted by script in that frame using the [postMessage API][postmessage]. To trigger this behavior, the client _MUST_ append the following query parameters to the access token service URI, and open this new URI in the frame.
 
 | Parameter | Description |
 | --------- | ----------- |
@@ -386,7 +386,6 @@ The server response will then be a web page with a media type of `text/html` tha
       {
         "messageId": "1234",
         "accessToken": "TOKEN_HERE",
-        "tokenType": "Bearer",
         "expiresIn": 3600
       }, 
       'https://client.example.com/'
@@ -406,14 +405,13 @@ Authorization: Bearer TOKEN_HERE
 ```
 {: .urltemplate}
 
-
 ### 2.3. Logout Service
 
-Once the user has authenticated, the client will need to know if and where the user can go to logout.
+In the case of the Login interaction pattern, the client will need to know if and where the user can go to log out. For example, the user may wish to close their session on a public terminal, or to log in again with a different account.
 
 #### 2.3.1. Service Description
 
-If the authentication system supports users intentionally logging out, there _SHOULD_ be a logout service associated with the login service following the template below:
+If the authentication system supports users intentionally logging out, there _SHOULD_ be a logout service associated with the access cookie service following the template below:
 
 ``` json-doc
 {
@@ -422,7 +420,7 @@ If the authentication system supports users intentionally logging out, there _SH
     "@context": "http://iiif.io/api/auth/{{ page.major }}/context.json",
     "@id": "https://authentication.example.org/login",
     "profile": "http://iiif.io/api/auth/{{ page.major }}/login",
-    "label": "Login to Example Service",
+    "label": "Login to Example Institution",
     "service" : [
       {
         "@id": "https://authentication.example.org/token",
@@ -431,36 +429,34 @@ If the authentication system supports users intentionally logging out, there _SH
       {
         "@id": "https://authentication.example.org/logout",
         "profile": "http://iiif.io/api/auth/{{ page.major }}/logout",
-        "label": "Logout from Example Service"
+        "label": "Logout from Example Institution"
       }
     ]
   }
 }
 ```
 
-The same semantics and requirements for the fields as the login service apply to the logout service.  The value of the `profile` property _MUST_ be `http://iiif.io/api/auth/{{ page.major }}/logout`.
+The value of the `profile` property _MUST_ be `http://iiif.io/api/auth/{{ page.major }}/logout`. 
 
 #### 2.3.2. Interaction
 
-The client _SHOULD_ present the results of the an HTTP `GET` request on the service's URI in a separate tab or window with a URL bar.  At the same time, the client _SHOULD_ discard any access token that it has received from the corresponding service. The server _SHOULD_ reset the user's logged in status when this request is made.
-
+The client _SHOULD_ present the results of an HTTP `GET` request on the service's URI in a separate tab or window with a URL bar.  At the same time, the client _SHOULD_ discard any access token that it has received from the corresponding service. The server _SHOULD_ reset the user's logged in status when this request is made and delete the access cookie.
 
 ### 2.4. Client Identity Service
 
-The client identity service allows software clients to authenticate themselves and receive an authorization code to use with the associated access token and login services. The service might be used by applications in library readng rooms, kiosk exhibits in museums or other environments where the client application is locked down. It would typically not be used on the open web in a general purpose client.
+This service allows a client to identify itself and receive an authorization code to use with the associated access cookie and access token services. The client identity service might be used by applications in library reading rooms, kiosk exhibits in museums or other environments where the client application is locked down. It would typically not be used on the open web in a general purpose client. Its use is _OPTIONAL_ for any of the access cookie interaction patterns.
 
 #### 2.4.1. Service Description
 
-The login service description _MAY_ include a client identity service description following this template:
+The access cookie service description _MAY_ include a client identity service description following this template:
 
 ``` json-doc
 {
   // ...
   "service" : {
     "@context": "http://iiif.io/api/auth/{{ page.major }}/context.json",
-    "@id": "https://authentication.example.org/login",
-    "profile": "http://iiif.io/api/auth/{{ page.major }}/login",
-    "label": "Login to Example Service",
+    "@id": "https://authentication.example.org/cookiebaker",
+    "profile": "http://iiif.io/api/auth/{{ page.major }}/kiosk",
     "service" : [
       {
         "@id": "https://authentication.example.org/token",
@@ -475,7 +471,7 @@ The login service description _MAY_ include a client identity service descriptio
 }
 ```
 
-The `@id` field _MUST_ be present, and its value _MUST_ be the URI at which the client can obtain an authorization code. The `profile` property _MUST_ be present and its value _MUST_ be `http://iiif.io/api/auth/{{ page.major }}/clientId` to distinguish it from other services. There is no requirement to have a `label` property for this service, as it does not need to be presented to a user. There is no requirement to have a duplicate `@context` property for the service.
+The `@id` field _MUST_ be present, and its value _MUST_ be the URI at which the client can obtain an authorization code. The `profile` property _MUST_ be present and its value _MUST_ be `http://iiif.io/api/auth/{{ page.major }}/clientId` to distinguish it from other services. There is no requirement to repeat the `@context` property included in the enclosing access cookie service description, and there are no other properties for this service.
 
 #### 2.4.2. Interaction
 
