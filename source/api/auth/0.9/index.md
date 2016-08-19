@@ -546,44 +546,22 @@ When a Description Resource is requested and the user is not authorized to acces
 
 When there are no lower tiers and the user is not authorized to access the current Description Resource, the server _MUST_ issue a `401` (Unauthorized) response. The client _SHOULD_ present information about the Login and/or Clickthrough services included in the Description Resource to allow the user to attempt to authenticate. 
  
-## 4. Workflow from the Server Perspective
-
-_This section is informative we hope_
+## 4. Workflow from the Browser Client Perspective
 
 <table class="ex_table">
   <tbody>
     <tr>
       <td>
-        <img style="width: 300px" src="img/auth-flow-server-093.png" alt="Server Authentication Flow" class="fullPct" />
-        <p><strong>1</strong> Server Authentication Workflow</p>
+        <img style="width: 650px" src="img/auth-flow-client-093.png" alt="Server Authentication Flow" class="fullPct" />
+        <p><strong>1</strong> Client Authentication Workflow</p>
       </td>
     </tr>
   </tbody>
 </table>
 
-_TODO_
-Write this text
-{: warning}
-
-## 5. Workflow from the Client Perspective
-
-<table class="ex_table">
-  <tbody>
-    <tr>
-      <td>
-        <img style="max-width: 650px" src="img/auth-flow-client-093.png" alt="Client Authentication Flow" class="fullPct" />
-        <p><strong>2</strong> Client Authentication Workflow</p>
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-
-__TODO__ 
+__TODO__
 Write this text
 {: .warning}
-
-
 
 ## Appendices
 
