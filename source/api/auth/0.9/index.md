@@ -94,7 +94,7 @@ Authentication services follow the pattern described in the IIIF [Linking to Ext
 
 The client uses this service to obtain a cookie that will be used when interacting with content such as images, and with the access token service. There are several different interaction patterns in which the client will use this service, based on the user interface that must be rendered for the user, indicated by a profile URI. The client obtains the link to the access cookie service from a service block in a description of the protected resource.
 
-The purpose of the access cookie service is to set a cookie during the user's interaction with the content server, so that when the client then makes image requests to the content server, the requests will succeed. The client has no knowledge of what happens at the login service, and it cannot see any cookies set for the content domain during the user's interaction with the login service. The browser may be redirected one or more times but this is invisible to the client application. The final response in the opened tab _SHOULD_ contain JavaScript that will attempt to close the tab, in order to trigger the next step in the workflow.  For more information about the process, see [Step 3][user-auths] in the workflow.
+The purpose of the access cookie service is to set a cookie during the user's interaction with the content server, so that when the client then makes image requests to the content server, the requests will succeed. The client has no knowledge of what happens at the login service, and it cannot see any cookies set for the content domain during the user's interaction with the login service. The browser may be redirected one or more times but this is invisible to the client application. The final response in the opened tab _SHOULD_ contain JavaScript that will attempt to close the tab, in order to trigger the next step in the workflow. 
 
 #### 2.1.1. Service Description
 
@@ -117,20 +117,39 @@ The service description is included in the Description Resource and has the foll
 | profile      | _REQUIRED_    | The profile for the service _MUST_ be one of the profile URIs from the table above.|
 | label        | _REQUIRED_    | The text to be shown to the user to initiate the loading of the authentication service when there are multiple services required. The value _MUST_ include the domain or institution to which the user is authenticating. |
 | confirmLabel | _RECOMMENDED_ | The text to be shown to the user on the button or element that triggers opening of the access cookie service. If not present, the client supplies text appropriate to the interaction pattern if needed. |
-| header       | _RECOMMENDED_ | A short text to be shown to the user as a header for the description, or alone if no description is given. |
+| header       | _RECOMMENDED_ | A short text that, if present, _MUST_ be shown to the user as a header for the description, or alone if no description is given. |
 | description  | _RECOMMENDED_ | Text that, if present, _MUST_ be shown to the user before opening the access cookie service. |
-| failureHeader | _OPTIONAL_ | A short text to be shown to the user as a header after failing to receive a token, or using the token results in an error. |
-| failureDescription | _OPTIONAL_ | Text that, if present, _SHOULD_ be shown to the user after failing to receive a token, or using the token results in an error. |
+| failureHeader | _OPTIONAL_ | A short text that, if present, _MAY_ be shown to the user as a header after failing to receive a token, or using the token results in an error. |
+| failureDescription | _OPTIONAL_ | Text that, if present, _MAY_ be shown to the user after failing to receive a token, or using the token results in an error. |
 | service      | _REQUIRED_    | References to access token and other related services, described below.|
 {: .api-table}
 
 
-#### 2.1.2. Login Interaction Pattern
+#### 2.1.2 Interaction with the Access Cookie Service
 
-In order to have the client prompt the user to log in, it must display part of the content provider's user interface. For the Login interaction pattern, the value of the `@id` property is the URI of that user interface.  The interaction has the following steps:
+The client _MUST_ append the following query parameter to all requests to an access cookie service URI, regardless of the interaction pattern, and open this URI in a new window or tab.
+
+| Parameter | Description |
+| --------- | ----------- |
+| origin    | A string containing the origin of the page in the window, consisting of a protocol, hostname and optionally port number, as described in the [postMessage API][postmessage] specification.  |
+{: .api-table}
+
+For example, given an access cookie service URI of `https://authentication.example.org/login`, a client instantiated by the page `https://client.example.com/viewer/index.html` would make its request to:
+
+```
+https://authentication.example.org/login?origin=https://client.example.com/
+```
+
+The server _MAY_ use this information to validate the origin supplied in subsequent requests to the access token service, for example by encoding it in the cookie returned.
+
+#### 2.1.3. Login Interaction Pattern
+
+In order to have the client prompt the user to log in, it must display part of the content provider's user interface. For the Login interaction pattern, the value of the `@id` property is the URI of that user interface. 
+
+The interaction has the following steps:
 
 * If the `header` and/or `description` properties are present, before opening the provider's authentication interface, the client _SHOULD_ display the values of the properties to the user.  The properties will describe what is about to happen when they click the element with the `confirmLabel`. 
-* When the `confirmLabel` element is activated, the client _MUST_ then open the URI from `@id`. This _MUST_ be done in a new window or tab to help prevent spoofing attacks. Browser security rules prevent the client from knowing what is happening in the new tab, therefore the client can only wait for and detect the closing of the opened tab.
+* When the `confirmLabel` element is activated, the client _MUST_ then open the URI from `@id` with the added `origin` query parameter. This _MUST_ be done in a new window or tab to help prevent spoofing attacks. Browser security rules prevent the client from knowing what is happening in the new tab, therefore the client can only wait for and detect the closing of the opened tab.
 * After the opened tab is closed, the client _MUST_ then use the related access token service, as described below.
 
 With out-of-band knowledge, authorized non-user-driven clients _MAY_ use POST to send the pre-authenticated user’s information to the service. As the information required depends on authorization logic, the details are not specified by this API. 
@@ -157,12 +176,12 @@ An example service description for the Login interaction pattern:
 }
 ```
 
-### 2.1.3. Clickthrough Interaction
+### 2.1.4. Clickthrough Interaction
 
 For the Clickthrough interaction pattern, the value of the `@id` property is the URI of a service that _MUST_ set an access cookie and then immediately close its window or tab without user interaction.  The interaction has the following steps:
 
 * If the `header` and/or `description` properties are present, before opening the service, the client _MUST_ display the values of the properties to the user.  The properties will describe the agreement implied by clicking the element with the `confirmLabel`. 
-* When the `confirmLabel` element is activated, the client _MUST_ then open the URI from `@id`. This _SHOULD_ be done in a new window or tab. Browser security rules prevent the client from knowing what is happening in the new tab, therefore the client can only wait for and detect the closing of the opened window or tab or iframe.
+* When the `confirmLabel` element is activated, the client _MUST_ then open the URI from `@id` with the added `origin` query parameter. This _SHOULD_ be done in a new window or tab. Browser security rules prevent the client from knowing what is happening in the new tab, therefore the client can only wait for and detect the closing of the opened window or tab or iframe.
 * After the opened tab is closed, the client _MUST_ then use the related access token service, as described below.
 
 Non-user-driven clients _MUST_ not use access cookie services with the Clickthrough interaction pattern, and instead halt.
@@ -189,12 +208,12 @@ An example service description for the Clickthrough interaction pattern:
 }
 ```
 
-### 2.1.4. Kiosk Interaction
+### 2.1.5. Kiosk Interaction
 
 For the Kiosk interaction pattern, the value of the `@id` property is the URI of a service that _MUST_ set an access cookie and then immediately close its window or tab without user interaction.  The interaction has the following steps:
 
 * There is no user interaction before opening the access cookie service URI, and therefore any of the `label`, `header`, `description` and `confirmLabel` properties are ignored if present.
-* The client _MUST_ immediately open the URI from `@id`. This _SHOULD_ be done in a new window or tab. Browser security rules prevent the client from knowing what is happening in the new tab, therefore the client can only wait for and detect the closing of the opened window or tab or frame.
+* The client _MUST_ immediately open the URI from `@id` with the added `origin` query parameter. This _SHOULD_ be done in a new window or tab. Browser security rules prevent the client from knowing what is happening in the new tab, therefore the client can only wait for and detect the closing of the opened window or tab or frame.
 * After the opened tab is closed, the client _MUST_ then use the related access token service, as described below.
 
 Non-user-driven clients simply access the URI from `@id` to obtain the access cookie, and then use the related access token service, as described below.
@@ -219,7 +238,7 @@ An example service description for the Kiosk interaction pattern:
 ```
 
 
-### 2.1.5. External Interaction
+### 2.1.6. External Interaction
 
 For the External interaction pattern, the user is required to have acquired the access cookie by out of band means. If the access cookie is not present, the user will receive the failure messages. The interaction has the following steps:
 
@@ -331,10 +350,10 @@ If the client is a JavaScript application running in a web browser, it needs to 
 | Parameter | Description |
 | --------- | ----------- |
 | messageId | A string that both prompts the server to respond with a web page instead of JSON, and allows the client to match access token service requests with the messages received.  If a client has no need to interact with multiple token services, it can use a dummy value for the parameter, e.g., `messageId=1`. |
-| origin    | A string containing the origin of the window, consisting of the protocol, hostname and optionally port number of the server the client is instantiated from, as described in the [postMessage API][postmessage] specification.  |
+| origin    | A string containing the origin of the page in the window, consisting of a protocol, hostname and optionally port number, as described in the [postMessage API][postmessage] specification. |
 {: .api-table}
 
-For example, a client running at `https://client.example.com/viewer/index.html` would request:
+For example, a client instantiated by the page at `https://client.example.com/viewer/index.html` would request:
 
 ```
 https://authentication.example.org/token?messageId=1&origin=https://client.example.com/
@@ -415,15 +434,16 @@ The value of the `error` property _MUST_ be one of the types in the following ta
 
 | Type | Description |
 | ---- | ----------- |
-| `invalidRequest`     | The service could not process the information sent in the body of the request |
-| `missingCredentials` | The request did not have the credentials required |
-| `invalidCredentials` | The request had credentials that are not valid for the service |
+| `invalidRequest`     | The service could not process the information sent in the body of the request. |
+| `missingCredentials` | The request did not have the credentials required. |
+| `invalidCredentials` | The request had credentials that are not valid for the service. |
+| `invalidOrigin`      | The request came from a different origin than that specified in the access cookie service request, or an origin that the server rejects for other reasons. |
 | `unavailable`        | The request could not be fulfilled for reasons other than those listed above, such as scheduled maintenance. |
 {: .api-table}
 
 The `description` property is _OPTIONAL_ and may give additional human-readable information about the error.
 
-When returning JSON directly, the service _MUST_ use the appropriate HTTP status code for the response to describe the error (for example 400, 401, 403 or 503).  The postMessage web page response _MUST_ use the 200 HTTP status code to ensure that the body is received by the client correctly.
+When returning JSON directly, the service _MUST_ use the appropriate HTTP status code for the response to describe the error (for example 400, 401 or 503).  The postMessage web page response _MUST_ use the 200 HTTP status code to ensure that the body is received by the client correctly.
 
 ### 2.3. Logout Service
 
@@ -508,34 +528,26 @@ The example below is a complete image information response for an example image 
 ```
 
 
-
-
 ## 3. Interaction with Access-Controlled Resources
 
-Describes how clients use the services above when interacting with access controlled resources and their descriptions
+This section describes how clients use the services above when interacting with Content Resources and Description Resources. 
 
-### Binary Access
+These interactions rely on requests for Description Resources returning HTTP status codes `200`, `302`, and `401` in different circumstances. In cases other than `302`, the body of the response _MUST_ be a valid Description Resource because the client needs to see the Authentication service descriptions in order to follow the appropriate workflow. Any response with a `302` status code will never be seen by browser-based client script interacting via the `XMLHttpRequest` API. The reported response will be the final one in the chain, and therefore the body of redirection responses is not required to be the Description Resource's representation.
 
-If the server does not support degraded access to the Content Resource, and the user is not authenticated, it _MUST_ return a response with a 401 (Unauthorized) HTTP status code for the corresponding Description Resource. This response _MUST NOT_ include a `WWW-Authenticate` header, and if basic authentication is required, then it _MUST_ be delivered from a different URI listed in the `@id` field of the access cookie service description.
+### 3.1. All or Nothing Access
 
-If the user is authenticated (via the authentication services) but not authorized, or the server determines that authorization will never be possible, then the server _MUST_ respond to further requests for the Description Resource with the 403 (Forbidden) HTTP status code.
+If the server does not support multiple tiers of access to a Content Resource, and the user is not authorized to access it, then the server _MUST_ return a response with a `401` (Unauthorized) HTTP status code for the corresponding Description Resource. 
 
-If the user is authorized for a Description Resource, the client can assume that requests for the described Content Resources will be authorized. Requests for the Content Resources rely on the access cookie to convey the authorization state.
+If the user is authorized for a Description Resource, the client can assume that requests for the described Content Resources will also be authorized. Requests for the Content Resources rely on the access cookie to convey the authorization state.
 
-### Degraded Access
+### 3.2. Tiered Access
 
-If a server supports degraded access for users that are not authenticated, then it _MUST_ use a different identifier for the degraded resource from that of the higher quality version. When the higher quality resource is requested and the user is not authorized to access it, the server _MUST_ issue a 302 (Found) HTTP status response to redirect to the degraded version.
+If a server supports multiple tiers of access, then it _MUST_ use a different identifier for each Description Resource and its corresponding Content Resource(s). For example, there _MUST_ be different Image Information documents (`/info.json`) at different URIs for each tier. When refering to Description Resources that have multiple tiers of access, systems _SHOULD_ use the identifier of the version that an appropriated authorized user should see. For example, when refering to an Image service from a Manifest, the reference would normally be to the highest quality image version rather than a degraded version.
+
+When a Description Resource is requested and the user is not authorized to access it and there are lower tiers available, the server _MUST_ issue a `302` (Found) HTTP status response to redirect to the Description Resource of a lower tier.  
+
+When there are no lower tiers and the user is not authorized to access the current Description Resource, the server _MUST_ issue a `401` (Unauthorized) response. The client _SHOULD_ present information about the Login and/or Clickthrough services included in the Description Resource to allow the user to attempt to authenticate. 
  
-If the server supports degraded access and the user is authenticated but not authorized for the higher quality version of the Content Resource, or the server determines that authorization will never be possible, then the server _SHOULD_ respond to requests with the 302 (Found) HTTP status code and the `Location` header set to the degraded version's URI.
-
-### Multiple Authentication Services
-
-Order of preference for access cookie services
-
-if multiple try in order until you succeed or run out.
-
-
-
 ## 4. Workflow from the Server Perspective
 
 _This section is informative we hope_
@@ -580,7 +592,12 @@ The client first requests the desired Description Resource (1).  If the response
  * Care is required to implement this specification in a way that does not expose credentials thus compromising the security of the resources intended to be protected, or other resources within the same security domain.
  * Services using authentication should use HTTPS, and thus clients should also be run from pages served via HTTPS.
  * Implementations must not reuse the access cookie value as the access token value, as it could be copied across domains when the access token is obtained from a malicious client.
- * Without a client identity
+
+This response _MUST NOT_ include a `WWW-Authenticate` header, and if basic authentication is required, then it _MUST_ be delivered from a different URI listed in the `@id` field of the access cookie service description.
+
+
+Multiple auth services: External then Kiosk then Clickthrough/Login
+
 
 (how much of [implementation notes][tmp-impl] could go here?)
 
