@@ -26,7 +26,7 @@ This is a work in progress. We are actively seeking implementations and feedback
 
   * **[Michael Appleby](https://orcid.org/0000-0002-1266-298X)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0002-1266-298X), [_Yale University_](http://www.yale.edu/)
   * **[Tom Crane](https://orcid.org/0000-0003-1881-243X)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0003-1881-243X), [_Digirati_](http://digirati.com/)
-  * **[Robert Sanderson](https://orcid.org/0000-0003-4441-6852)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0003-4441-6852), [_Stanford University_](http://www.stanford.edu/)
+  * **[Robert Sanderson](https://orcid.org/0000-0003-4441-6852)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0003-4441-6852), [_J. Paul Getty Trust_](http://www.getty.edu/)
   * **[Jon Stroop](https://orcid.org/0000-0002-0367-1243)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0002-0367-1243), [_Princeton University Library_](https://library.princeton.edu/)
   * **[Simeon Warner](https://orcid.org/0000-0002-7970-7855)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0002-7970-7855), [_Cornell University_](https://www.cornell.edu/)
   {: .names}
@@ -88,15 +88,13 @@ The server on the Resource Domain treats the access token as a representation of
 
 ## 2. Authentication Services
 
-Authentication services follow the pattern described in the IIIF [Linking to External Services][ext-services] note, and are referenced in one or more `service` blocks from the descriptions of the resources that are protected. There is a primary login service profile for authenticating users, and it has related services nested within its description.  The related services include a mandatory access token service, and optional client identity and logout services.
+Authentication services follow the pattern described in the IIIF [Linking to External Services][ext-services] note, and are referenced in one or more `service` blocks from the descriptions of the resources that are protected. There is a primary login service profile for authenticating users, and it has related services nested within its description.  The related services include a mandatory access token service, and an optional logout service.
 
 ### 2.1. Access Cookie Service
 
 The client uses this service to obtain a cookie that will be used when interacting with content such as images, and with the access token service. There are several different interaction patterns in which the client will use this service, based on the user interface that must be rendered for the user, indicated by a profile URI. The client obtains the link to the access cookie service from a service block in a description of the protected resource.
 
 The purpose of the access cookie service is to set a cookie during the user's interaction with the content server, so that when the client then makes image requests to the content server, the requests will succeed. The client has no knowledge of what happens at the login service, and it cannot see any cookies set for the content domain during the user's interaction with the login service. The browser may be redirected one or more times but this is invisible to the client application. The final response in the opened tab _SHOULD_ contain JavaScript that will attempt to close the tab, in order to trigger the next step in the workflow.  For more information about the process, see [Step 3][user-auths] in the workflow.
-
-If the client identity service, described below, is present in the description, then the client _MUST_ include the authorization code in the URL as a query parameter named `code` when making its request to the service.
 
 #### 2.1.1. Service Description
 
@@ -135,7 +133,7 @@ In order to have the client prompt the user to log in, it must display part of t
 * When the `confirmLabel` element is activated, the client _MUST_ then open the URI from `@id`. This _MUST_ be done in a new window or tab to help prevent spoofing attacks. Browser security rules prevent the client from knowing what is happening in the new tab, therefore the client can only wait for and detect the closing of the opened tab.
 * After the opened tab is closed, the client _MUST_ then use the related access token service, as described below.
 
-With out-of-band knowledge, authorized non-user-driven clients _MAY_ use POST to send the pre-authenticated user’s information to the service. As the information required depends on authorization logic, the details are not specified by this API. In these situations, use of the client identity service is strongly _RECOMMENDED_.
+With out-of-band knowledge, authorized non-user-driven clients _MAY_ use POST to send the pre-authenticated user’s information to the service. As the information required depends on authorization logic, the details are not specified by this API. 
 
 An example service description for the Login interaction pattern:
 
@@ -279,7 +277,7 @@ The access cookie service description _MUST_ include an access token service des
 
 The `@id` property of the access token service _MUST_ be present, and its value _MUST_ be the URI from which the client can obtain the access token. The `profile` property _MUST_ be present and its value _MUST_ be `http://iiif.io/api/auth/{{ page.major }}/token` to distinguish it from other services. There is no requirement to repeat the `@context` property included in the enclosing access cookie service description, and there are no other properties for this service.
 
-#### 2.2.2. The JSON access token response
+#### 2.2.2. The JSON Access Token Response
 
 If the request has a valid cookie that the server recognises as having been issued by the access cookie service, the access token service response _MUST_ include a JSON (not JSON-LD) object with the following structure:
 
@@ -300,21 +298,19 @@ Authorization: Bearer TOKEN_HERE
 
 This authorization header _SHOULD_ be added to all requests for resources from the same domain and subdomains that have a reference to the service, regardless of which API is being interacted with. It _MUST NOT_ be sent to other domains.
 
-#### 2.2.3. Interaction for non-browser client applications
+#### 2.2.3. Interaction for Non-Browser Client Applications
 
-The simplest access token request comes from a non-browser client that can send cookies across domains, where the CORS restrictions do not apply. If an authorization code was obtained using the client identity service, described below, then this _MUST_ be passed to the access token service as the value of a query parameter called `code`. 
-
-An example URL:
+The simplest access token request comes from a non-browser client that can send cookies across domains, where the CORS restrictions do not apply. An example URL:
 
 ``` none
-https://authentication.example.org/token?code=AUTH_CODE_HERE
+https://authentication.example.org/token
 ```
 {: .urltemplate}
 
 Would result in the HTTP Request:
 
 ``` none
-GET /iiif/token?code=AUTH_CODE_HERE HTTP/1.1
+GET /token HTTP/1.1
 Cookie: <cookie-acquired-during-login>
 ```
 {: .urltemplate}
@@ -328,7 +324,7 @@ The response is the JSON access token object with the media type `application/js
 }
 ```
 
-#### 2.2.4. Interaction for browser-based client applications
+#### 2.2.4. Interaction for Browser-Based Client Applications
 
 If the client is a JavaScript application running in a web browser, it needs to make a direct request for the access token and store the result. The client can't use `XMLHttpRequest` because it can't include the access cookie in a cross-domain request. Instead, the client _MUST_ open the access token service in a frame using an `iframe` element and be ready to receive a message posted by script in that frame using the [postMessage API][postmessage]. To trigger this behavior, the client _MUST_ append the following query parameters to the access token service URI, and open this new URI in the frame.
 
@@ -336,13 +332,12 @@ If the client is a JavaScript application running in a web browser, it needs to 
 | --------- | ----------- |
 | messageId | A string that both prompts the server to respond with a web page instead of JSON, and allows the client to match access token service requests with the messages received.  If a client has no need to interact with multiple token services, it can use a dummy value for the parameter, e.g., `messageId=1`. |
 | origin    | A string containing the origin of the window, consisting of the protocol, hostname and optionally port number of the server the client is instantiated from, as described in the [postMessage API][postmessage] specification.  |
-| code      | The client authorization code obtained, if any, as described below. |
 {: .api-table}
 
 For example, a client running at `https://client.example.com/viewer/index.html` would request:
 
 ```
-https://authentication.example.org/token?code=AUTH_CODE_HERE&messageId=1&origin=https://client.example.com/
+https://authentication.example.org/token?messageId=1&origin=https://client.example.com/
 ```
 
 When the server receives a request for the access token service with the `messageId` parameter, it _MUST_ respond with an HTML web page rather than raw JSON. The web page _MUST_ contain script that sends a message to the opening page using the postMessage API. The message body is the JSON access token object, with the value of the supplied `messageId` as an extra property, as shown in the examples in the next section.  
@@ -395,7 +390,7 @@ The server response will then be a web page with a media type of `text/html` tha
 </html>
 ```
 
-#### 2.2.5. Using the access token
+#### 2.2.5. Using the Access Token
 
 The access token is sent on all subsequent requests for Description Resources. For example, a request for the image information in the Image API would look like:
 
@@ -404,6 +399,31 @@ GET /iiif/identifier/info.json HTTP/1.1
 Authorization: Bearer TOKEN_HERE
 ```
 {: .urltemplate}
+
+#### 2.2.6. Access Token Error Conditions
+
+The response from the access token service may be an error. The error _MUST_ be supplied as JSON with the following template. For browser-based clients using the postMessage API, the error object must be sent to the client via JavaScript, in the same way the access token is sent. For direct requests the response body is the raw JSON.
+
+``` json-doc
+{
+  "error": "ERROR_TYPE_HERE",
+  "description": "..."
+}
+```
+
+The value of the `error` property _MUST_ be one of the types in the following table:  
+
+| Type | Description |
+| ---- | ----------- |
+| `invalidRequest`     | The service could not process the information sent in the body of the request |
+| `missingCredentials` | The request did not have the credentials required |
+| `invalidCredentials` | The request had credentials that are not valid for the service |
+| `unavailable`        | The request could not be fulfilled for reasons other than those listed above, such as scheduled maintenance. |
+{: .api-table}
+
+The `description` property is _OPTIONAL_ and may give additional human-readable information about the error.
+
+When returning JSON directly, the service _MUST_ use the appropriate HTTP status code for the response to describe the error (for example 400, 401, 403 or 503).  The postMessage web page response _MUST_ use the 200 HTTP status code to ensure that the body is received by the client correctly.
 
 ### 2.3. Logout Service
 
@@ -442,88 +462,9 @@ The value of the `profile` property _MUST_ be `http://iiif.io/api/auth/{{ page.m
 
 The client _SHOULD_ present the results of an HTTP `GET` request on the service's URI in a separate tab or window with a URL bar.  At the same time, the client _SHOULD_ discard any access token that it has received from the corresponding service. The server _SHOULD_ reset the user's logged in status when this request is made and delete the access cookie.
 
-### 2.4. Client Identity Service
+### 2.4. Example Description Resource with Authentication Services
 
-This service allows a client to identify itself and receive an authorization code to use with the associated access cookie and access token services. The client identity service might be used by applications in library reading rooms, kiosk exhibits in museums or other environments where the client application is locked down. It would typically not be used on the open web in a general purpose client. Its use is _OPTIONAL_ for any of the access cookie interaction patterns.
-
-#### 2.4.1. Service Description
-
-The access cookie service description _MAY_ include a client identity service description following this template:
-
-``` json-doc
-{
-  // ...
-  "service" : {
-    "@context": "http://iiif.io/api/auth/{{ page.major }}/context.json",
-    "@id": "https://authentication.example.org/cookiebaker",
-    "profile": "http://iiif.io/api/auth/{{ page.major }}/kiosk",
-    "service" : [
-      {
-        "@id": "https://authentication.example.org/token",
-        "profile": "http://iiif.io/api/auth/{{ page.major }}/token"
-      },
-      {
-        "@id": "https://authentication.example.org/clientId",
-        "profile": "http://iiif.io/api/auth/{{ page.major }}/clientId"
-      }
-    ]
-  }
-}
-```
-
-The `@id` field _MUST_ be present, and its value _MUST_ be the URI at which the client can obtain an authorization code. The `profile` property _MUST_ be present and its value _MUST_ be `http://iiif.io/api/auth/{{ page.major }}/clientId` to distinguish it from other services. There is no requirement to repeat the `@context` property included in the enclosing access cookie service description, and there are no other properties for this service.
-
-#### 2.4.2. Interaction
-
-The client _MUST_ POST a document containing its client id and a pre-established client secret key.  It will receive in response an authorization code to use when requesting the access token for the user.
-
-The request body _MUST_ be JSON and _MUST_ conform to the following template:
-
-``` json-doc
-{
-  "clientId" : "CLIENT_ID_HERE",
-  "clientSecret" : "CLIENT_SECRET_HERE"
-}
-```
-
-The body of the response from the server _MUST_ be JSON and _MUST_ conform to the following template:
-
-``` json-doc
-{
-  "authorizationCode" : "AUTH_CODE_HERE"
-}
-```
-
-
-### 2.5. Error Conditions
-
-The response from the client identity service or the access token service may be an error. The error _MUST_ be supplied as JSON with the following template. For browser-based clients using postMessage, the error object must be sent to the client via script, in the same way the access token is sent. For direct requests the response body is the raw JSON.
-
-``` json-doc
-{
-  "error": "ERROR_TYPE_HERE",
-  "description": ""
-}
-```
-
-Where `ERROR_TYPE_HERE` _MUST_ be one of the types in the following table:  
-
-| Type | Description |
-| ---- | ----------- |
-| `invalidRequest`      | The service could not process the information sent in the body of the request |
-| `missingCredentials`  | The request did not have the credentials required |
-| `invalidCredentials`  | The request had credentials that are not valid for the service |
-| `invalidClient`       | The client identity provided is unknown to the service |
-| `invalidClientSecret` | The client secret provided is not the secret expected by the service |
-{: .api-table}
-
-The `description` property is _OPTIONAL_ and may give additional information to client developers for debugging the interaction. This information _SHOULD NOT_ be presented to end users.
-
-When returning JSON directly, the service _MUST_ use the appropriate HTTP status code for the response to describe the error (for example 400, 401 or 403).  The postMessage web page response _MUST_ use the 200 HTTP status code to ensure that the body is received by the client correctly.
-
-### 2.6. Example JSON Response
-
-The example below is a complete image information response for an example image with three of the four possible services referenced.
+The example below is a complete image information response for an example image with all of the authentication services.
 
 ``` json-doc
 {
@@ -550,68 +491,54 @@ The example below is a complete image information response for an example image 
     "@context": "http://iiif.io/api/auth/{{ page.major }}/context.json",
     "@id": "https://authentication.example.org/login",
     "profile": "http://iiif.io/api/auth/{{ page.major }}/login",
-    "label": "Login to Example Service",
-    "service": [
-      {
-        "@id": "https://authentication.example.org/clientId",
-        "profile": "http://iiif.io/api/auth/{{ page.major }}/clientId"
-      },
+    "label": "Login to Example Institution",
+    "service" : [
       {
         "@id": "https://authentication.example.org/token",
         "profile": "http://iiif.io/api/auth/{{ page.major }}/token"
+      },
+      {
+        "@id": "https://authentication.example.org/logout",
+        "profile": "http://iiif.io/api/auth/{{ page.major }}/logout",
+        "label": "Logout from Example Institution"
       }
     ]
   }
 }
 ```
 
-## 3. Workflow
 
-The following workflow steps through the basic interactions for authenticating and requesting access to resources using the IIIF authentication services.  It assumes no prior interactions with the services. This section makes extensive use of the [terminology](#terminology) defined in the introduction.
 
-### 3.1. Step 1: Request Description Resource
 
-The first step for the client is to request the desired Description Resource, such as an image information document (info.json), or a [Presentation API][prezi-api] manifest, collection, or annotation list.  The response will dictate the client's next step, which is likely to be to present the user with a login service in a new browser tab or window.
+## 3. Interaction with Access-Controlled Resources
 
-The response from the server _MUST_ include the service descriptions, as shown above, and any required properties such as `@context` and `@id`, thus allowing a client to present something to the user, regardless of whether the user is authenticated or not.
+Describes how clients use the services above when interacting with access controlled resources and their descriptions
 
-If a server does not support degraded access to the resource, and wishes to require authentication, it _MUST_ return a response with a 401 (Unauthorized) HTTP status code. This response _MUST NOT_ include a `WWW-Authenticate` header, and if basic authentication is required, then it _MUST_ be delivered from a different URI listed in the `@id` field of the login service block.
+### Binary Access
+
+If the server does not support degraded access to the Content Resource, and the user is not authenticated, it _MUST_ return a response with a 401 (Unauthorized) HTTP status code for the corresponding Description Resource. This response _MUST NOT_ include a `WWW-Authenticate` header, and if basic authentication is required, then it _MUST_ be delivered from a different URI listed in the `@id` field of the access cookie service description.
+
+If the user is authenticated (via the authentication services) but not authorized, or the server determines that authorization will never be possible, then the server _MUST_ respond to further requests for the Description Resource with the 403 (Forbidden) HTTP status code.
+
+If the user is authorized for a Description Resource, the client can assume that requests for the described Content Resources will be authorized. Requests for the Content Resources rely on the access cookie to convey the authorization state.
+
+### Degraded Access
 
 If a server supports degraded access for users that are not authenticated, then it _MUST_ use a different identifier for the degraded resource from that of the higher quality version. When the higher quality resource is requested and the user is not authorized to access it, the server _MUST_ issue a 302 (Found) HTTP status response to redirect to the degraded version.
+ 
+If the server supports degraded access and the user is authenticated but not authorized for the higher quality version of the Content Resource, or the server determines that authorization will never be possible, then the server _SHOULD_ respond to requests with the 302 (Found) HTTP status code and the `Location` header set to the degraded version's URI.
 
-### 3.2. Step 2: Obtain Client Authorization Code (Optional)
+### Multiple Authentication Services
 
-In cases where the server requires client software to be registered, there _MUST_ be a client identity service in the response.  The client _MUST_ use the service to obtain an authorization code prior to requesting an access token for the user.
+Order of preference for access cookie services
 
-### 3.3. Step 3: User Authenticates
+if multiple try in order until you succeed or run out.
 
-After receiving the response, the client will have a URL for a login service where the user can authenticate.  The client _MUST_ present the login service to the user by opening the URL in a separate tab or window with a URL bar, not in an iFrame or otherwise imported into the client user interface, in order to help prevent spoofing attacks.
 
-The client has no visibility of or access to the user's interactions with the login service in the separate tab or window. If the user successfully authenticates, the login service _MUST_ ensure that the client has a cookie that identifies the user and will be visible to the access token service. It _SHOULD_ also contain JavaScript to try and automatically close the tab or window. The tab or window closing is the trigger for the client to request the access token for the user.
-
-(link to implementation note? Access to win.closed?)
-
-### 3.4. Step 4: Obtain Access Token
-
-The client requests an access token from the access token service. If [step 2](#step-2-obtain-client-authorization-code-optional) was performed, the client authorization code _MUST_ also be sent. The server _MUST_ detect and evaluate any cookie(s) obtained from the login service, and if present and valid it _MUST_ return an access token. The access token _MUST_ be added by the client to all future requests for Description Resources that have the same access token service, by including it in an `Authorization` header.
-
-If the cookie is not present, or is present but invalid for any reason (for example, it represents an expired session), the server _MUST_ return an error message, and the client _SHOULD_ allow the user to attempt to login again.
-
-### 3.5. Step 5: Re-request Description Resource
-
-Now with the access token added in the `Authorization` header, the client retries the request for the Description Resource to determine whether the user is now successfully authenticated and authorized. Clients _SHOULD_ store the URIs of login services that have been accessed by the user and not prompt the user to login again when they are already authenticated. Clients _SHOULD_ make use of the `expiresIn` property from the access token response.
-
-If there is a logout service described in the Description Resource then the client _SHOULD_ provide a logout link. The client _SHOULD_ present this URL to the user in a separate tab or window with a URL bar to help prevent spoofing attacks.
-
-If the user is successfully authenticated but not authorized, or business logic on the server dictates that authorization will never be possible, then the server _MUST_ respond to Description Resource requests with the 403 (Forbidden) HTTP status code.
-
-### 3.6. Step 6: Request Content Resource (Optional)
-
-Now that the client has the access cookie from [step 4](#step-4-obtain-access-token), it may then make futher requests for access-controlled, non-degraded Content Resources. Requests for Content Resources do not rely on the `Authorization` header because JavaScript clients are unable to set this for resources included via HTML.
-
-If the server supports degraded access and the user is authenticated but not authorized for the higher quality version of the Content Resource, or business logic dictates that authorization will never be possible, then the server _SHOULD_ respond to requests with the 302 (Found) HTTP status code and the `Location` header set to the degraded version's URI.
 
 ## 4. Workflow from the Server Perspective
+
+_This section is informative we hope_
 
 <table class="ex_table">
   <tbody>
@@ -672,6 +599,7 @@ Many thanks to the members of the [IIIF Community][iiif-community] for their con
 
 | Date       | Description |
 | ---------- | ----------- |
+| 2016-08-19 | Version 0.9.2 (Wasabi Kitkat) postMessage, separate profiles, remove client identity service |
 | 2015-10-30 | Version 0.9.1 (Table Flip) add missing @context, clarifications |
 | 2015-07-28 | Version 0.9.0 (unnamed) draft |
 {: .api-table}
