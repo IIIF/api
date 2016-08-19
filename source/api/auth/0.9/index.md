@@ -124,8 +124,7 @@ The service description is included in the Description Resource and has the foll
 | service      | _REQUIRED_    | References to access token and other related services, described below.|
 {: .api-table}
 
-
-#### 2.1.2 Interaction with the Access Cookie Service
+#### 2.1.2. Interaction with the Access Cookie Service
 
 The client _MUST_ append the following query parameter to all requests to an access cookie service URI, regardless of the interaction pattern, and open this URI in a new window or tab.
 
@@ -176,7 +175,7 @@ An example service description for the Login interaction pattern:
 }
 ```
 
-### 2.1.4. Clickthrough Interaction
+#### 2.1.4. Clickthrough Interaction Pattern
 
 For the Clickthrough interaction pattern, the value of the `@id` property is the URI of a service that _MUST_ set an access cookie and then immediately close its window or tab without user interaction.  The interaction has the following steps:
 
@@ -208,7 +207,7 @@ An example service description for the Clickthrough interaction pattern:
 }
 ```
 
-### 2.1.5. Kiosk Interaction
+#### 2.1.5. Kiosk Interaction Pattern
 
 For the Kiosk interaction pattern, the value of the `@id` property is the URI of a service that _MUST_ set an access cookie and then immediately close its window or tab without user interaction.  The interaction has the following steps:
 
@@ -237,8 +236,7 @@ An example service description for the Kiosk interaction pattern:
 }
 ```
 
-
-### 2.1.6. External Interaction
+#### 2.1.6. External Interaction Pattern
 
 For the External interaction pattern, the user is required to have acquired the access cookie by out of band means. If the access cookie is not present, the user will receive the failure messages. The interaction has the following steps:
 
@@ -616,7 +614,8 @@ Many thanks to the members of the [IIIF Community][iiif-community] for their con
 
 | Date       | Description |
 | ---------- | ----------- |
-| 2016-08-19 | Version 0.9.2 (Wasabi Kitkat) postMessage, separate profiles, remove client identity service |
+| 2016-08-19 | Version 0.9.3 (Wasabi KitKat) separate profiles, remove client identity service, add query parameters |
+| (unreleased) | Version 0.9.2 (unnamed) postMessage instead of JSONP |
 | 2015-10-30 | Version 0.9.1 (Table Flip) add missing @context, clarifications |
 | 2015-07-28 | Version 0.9.0 (unnamed) draft |
 {: .api-table}
