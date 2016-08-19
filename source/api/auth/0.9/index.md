@@ -554,14 +554,16 @@ _This section is informative we hope_
   <tbody>
     <tr>
       <td>
-        <img style="width: 300px" src="img/auth-flow-server.png" alt="Server Authentication Flow" class="fullPct" />
+        <img style="width: 300px" src="img/auth-flow-server-093.png" alt="Server Authentication Flow" class="fullPct" />
         <p><strong>1</strong> Server Authentication Workflow</p>
       </td>
     </tr>
   </tbody>
 </table>
 
-When the server receives a request for a Description Resource, (1), it first must determine if the user is authorized to access the resource or any content described by that resource, given the current credentials (if any) passed to it via the `Authorization` header.  If the user is authorized, then the server returns a 200 status response with the full information (2).  If not, and there is a description of a degraded resource available, the server returns a 302 status response redirecting the client to the degraded version (3).  If the server does not have a degraded version and the client is authenticated but not authorized to access the resource, it returns a 403 status response to tell the client that it should not continue trying (4).  Finally, if the client is not authenticated, the server returns a 401 status response with a JSON representation that contains the service link to where the user can authenticate (5).
+_TODO_
+Write this text
+{: warning}
 
 ## 5. Workflow from the Client Perspective
 
@@ -569,7 +571,7 @@ When the server receives a request for a Description Resource, (1), it first mus
   <tbody>
     <tr>
       <td>
-        <img style="max-width: 650px" src="img/auth-flow-client.png" alt="Client Authentication Flow" class="fullPct" />
+        <img style="max-width: 650px" src="img/auth-flow-client-093.png" alt="Client Authentication Flow" class="fullPct" />
         <p><strong>2</strong> Client Authentication Workflow</p>
       </td>
     </tr>
@@ -577,11 +579,11 @@ When the server receives a request for a Description Resource, (1), it first mus
 </table>
 
 
-__TODO:__ 
-We need to say something here about detecting the 302 status, which cannot be seen directly by XHR as described in [implementation notes][tmp-impl-302]. Also some other parts of that document might be useful here.
+__TODO__ 
+Write this text
 {: .warning}
 
-The client first requests the desired Description Resource (1).  If the response is a 200 with the expected information, the client does not need to authenticate and should proceed to use the resource as expected (2).  If not, and the response is a 302 redirect, then the client follows the redirect to retrieve a new resource (3).  If the client has seen that resource already, by comparing its URI with those in a list of seen URIs, then the user is not authorized to access the requested version, and it should use the degraded version from the current response (4).  Otherwise, if it has not seen the response before, or the initial response is a 401 status with a link to the service (5), the client follows the link to the login service in a newly created tab or window (6) and records that it has seen the URI.  The user must then attempt to authenticate using the service (7), and the client waits until the tab or window is closed, either automatically or manually by the user.  Once the tab or window is closed, the client retrieves an access token for the user and retries the request for the original Description Resource (8), and proceeds back to make the same tests.  Finally, if the client receives a 403 response from the server, the user cannot gain authorization to interact with the resource and there is no degraded version available, and hence the client should not render anything beyond an error message.
+
 
 ## Appendices
 
