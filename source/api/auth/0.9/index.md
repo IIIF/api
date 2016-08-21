@@ -46,7 +46,7 @@ This is a work in progress. We are actively seeking implementations and feedback
 
 The IIIF (pronounced "Triple-Eye-Eff") specifications are designed to support uniform and rich access to resources hosted around the world. Open access to content is desirable, but policy, regulations, or business models can require users to authenticate and be authorized to interact with access-controlled resources. The authentication process could range from a simple click-through agreement to a multi-factor scheme with a secure identity provider.
 
-Content providers often offer tiers of access beyond a simple all-or-nothing distinction. These tiers could provide versions of the resource that differ based on resolution, watermarking, or compression. Each version must have a distinct URI to prevent web caches from providing the wrong version. 
+Content providers often offer tiers of access beyond a simple all-or-nothing distinction. These tiers could provide versions of a  resource that differ based on resolution, watermarking, or compression. Each version must have a distinct URI to prevent web caches from providing the wrong version. 
 
 Providing interoperable content through client applications running in a web browser poses many challenges:
 
