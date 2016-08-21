@@ -52,7 +52,7 @@ Providing interoperable content through client applications running in a web bro
 
 * A single IIIF Presentation API manifest can reference content resources at multiple institutions and hence from multiple domains.
 * Institutions have different existing access control systems and should not have to adopt a new one to participate.
-* A IIIF client can be a JavaScript viewer served from a different domain from the image services, and the authentication services that protect them. This domain is _untrusted_ - the authorizing server must not require any prior knowledge of the domain hosting the viewer. The specification must not introduce or require any registry of trusted IIIF viewer domains and must assume that for image delivery, anyone can create any kind of viewer and run it from anywhere.  
+* A IIIF client can be a JavaScript viewer served from a different domain from the image services, and the authentication services that protect them. This domain is _untrusted_ - the authorizing server must not require any prior knowledge of the domain hosting the viewer. The specification aims to not introduce or require any registry of trusted IIIF viewer domains and must assume that for image delivery, anyone can create any kind of viewer and run it from anywhere.  
 * A IIIF client should not ask for or accept any credentials itself; the server hosting the content must be responsible for capturing credentials from a user and the IIIF viewer needs no knowledge of or access to this exchange.
 * A browser-based IIIF client must be able to maintain its state during an authentication flow.
 
