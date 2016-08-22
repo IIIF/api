@@ -1,12 +1,12 @@
 ---
-title: "IIIF Authentication: Version 0.9.2"
-title_override: "IIIF Authentication: Version 0.9.2"
+title: "IIIF Authentication: Version 0.9.3"
+title_override: "IIIF Authentication: Version 0.9.3"
 id: auth-api
 layout: spec
 tags: [specifications, image-api]
 major: 0
 minor: 9
-patch: 2
+patch: 3
 pre: final
 cssversion: 2
 redirect_from:
@@ -559,16 +559,31 @@ When there are no lower tiers and the user is not authorized to access the curre
   </tbody>
 </table>
 
-Clients will perform the following workflow in order to access access controlled resources:
+
+
+Browser-based clients will perform the following workflow in order to access access controlled resources:
 
 * The client requests the Description Resource and checks the status code of the response.
-* If the response is a 200, it checks whether the `@id` property in the response is the same URI as was requested.  If it is, then the client can proceed to request the Content Resource.
+* If the response is a 200, 
+  * The client checks whether the `@id` property in the response is the same URI as was requested.  
+  * If it is, then the client can proceed to request the Content Resource.
+  * If the URIs are different, then the resource is from a different tier from the requested one. The 200 status implies that the resource is available to be used, and the client can therefore render the resource. At the same time, the client checks for authentication services in the JSON received.
+* If the response is a 401,
+  * The client does not have access to the Content Resource, and thus the client checks for authentication services in the JSON received.
+* If the response is neither 200 nor 401, the client must handle other HTTP status codes
 
+* When the client checks for authentication services, it first checks the authentication services:
+  * First it looks for a External interaction pattern as this does not require any user interaction.  If present, it opens the Access Token service to see if the cookie has already been obtained.
+  * If not, it checks for a Kiosk interaction pattern as it does not involve user interaction. If present, it opens the Access Cookie service in a separate window.
+  * If not, it checks for a Clickthrough interaction pattern. If present, it renders the description of the service and a confirmation button to prompt for the user to click through. Once the user has clicked the confirmation, it opens the Access Cookie service in a separate window.
+  * If not, it presents any Login interaction patterns available and prompts the user to login with one of them. When the user selects the realm to log in at, which takes the Access Cookie service role, it opens that realm's user interface in a separate window.
+  * When the Access Cookie service window closes, either automatically or by the user, the   client Opens the Access Token Service. 
 
+* After the Access Token service has been requested, if the client receives a token, it tries again to read the Description Resource with the newly acquired credentials.
+  * If the client instead receives an error, it returns to look for further authentication services to interact with.
+  * If there are no further authentication services, then the user does not have the credentials to interact with any of the Content Resource versions, and the client cannot display anything. 
 
-__TODO__
-Write this text
-{: .warning}
+Please note that the server implementation involves providing `302` status responses to redirect the client from the requested tier to another tier if the user is not yet authorized to see the resource.  The browser-based client does not see these responses, and hence tests whether the identifier of the resource is the same as the one requested, rather than for the HTTP status code.
 
 ## Appendices
 
@@ -576,15 +591,8 @@ Write this text
 
  * Care is required to implement this specification in a way that does not expose credentials thus compromising the security of the resources intended to be protected, or other resources within the same security domain.
  * Services using authentication should use HTTPS, and thus clients should also be run from pages served via HTTPS.
- * Implementations must not reuse the access cookie value as the access token value, as it could be copied across domains when the access token is obtained from a malicious client.
-
-This response _MUST NOT_ include a `WWW-Authenticate` header, and if basic authentication is required, then it _MUST_ be delivered from a different URI listed in the `@id` field of the access cookie service description.
-
-
-Multiple auth services: External then Kiosk then Clickthrough/Login
-
-
-(how much of [implementation notes][tmp-impl] could go here?)
+ * Implementations must not reuse the access cookie value as the access token value, as it could be copied across domains if the access token were to be obtained from a malicious client.
+ * _further notes here_
 
 
 ### B. Versioning
@@ -601,7 +609,7 @@ Many thanks to the members of the [IIIF Community][iiif-community] for their con
 
 | Date       | Description |
 | ---------- | ----------- |
-| 2016-08-19 | Version 0.9.3 (Wasabi KitKat) separate profiles, remove client identity service, add query parameters |
+| 2016-08-22 | Version 0.9.3 (Wasabi KitKat) separate profiles, remove client identity service, add query parameters |
 | (unreleased) | Version 0.9.2 (unnamed) postMessage instead of JSONP |
 | 2015-10-30 | Version 0.9.1 (Table Flip) add missing @context, clarifications |
 | 2015-07-28 | Version 0.9.0 (unnamed) draft |
