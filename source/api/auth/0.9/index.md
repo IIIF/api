@@ -552,12 +552,19 @@ When there are no lower tiers and the user is not authorized to access the curre
   <tbody>
     <tr>
       <td>
-        <img style="width: 650px" src="img/auth-flow-client-093.png" alt="Server Authentication Flow" class="fullPct" />
+        <img style="max-width: 1000px" src="img/auth-flow-client-093.png" alt="Server Authentication Flow" class="fullPct" />
         <p><strong>1</strong> Client Authentication Workflow</p>
       </td>
     </tr>
   </tbody>
 </table>
+
+Clients will perform the following workflow in order to access access controlled resources:
+
+* The client requests the Description Resource and checks the status code of the response.
+* If the response is a 200, it checks whether the `@id` property in the response is the same URI as was requested.  If it is, then the client can proceed to request the Content Resource.
+
+
 
 __TODO__
 Write this text
