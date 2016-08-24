@@ -52,15 +52,15 @@ Providing interoperable content through client applications running in a web bro
 
 * A single IIIF Presentation API manifest can reference content resources at multiple institutions and hence from multiple domains.
 * Institutions have different existing access control systems.
-* Most IIIF viewers are client-side JavaScript applications, and may be served from a domain that is different, and thus untrusted, from the image services that it is required to load.
- * Similarly, the domain of the authentication services that protect IIIF-based services may be different from that of a viewer or IIIF resources. Therefore, the authorizing server must not require any prior knowledge of the domain hosting the viewer.
+* Most IIIF viewers are client-side JavaScript applications, and may be served from a domain that is different from, and thus untrusted by, the image services that it is required to load.
+* Similarly, the domain of the authentication services may be different from that of a viewer or the IIIF-based content. Therefore, the authorizing server must not require any prior knowledge of the domain hosting the viewer.
 
 Additionally, the IIIF community has the following goals for this specification:
 
-* A IIIF client should not ask for or accept any credentials itself; the server hosting the content must be responsible for capturing credentials from a user and the IIIF viewer needs no knowledge of or access to this exchange.
-* A browser-based IIIF client must be able to maintain its state during an authentication flow.
-* No registry of trusted domains is required. Anyone should be able to create any kind of viewer and run it from anywhere.
-* Institutions should not have to adopt a new authentication system to participate.
+* A IIIF client should not authenticate the user itself; the server hosting the content must be responsible for capturing credentials from a user and the IIIF viewer needs no knowledge of or access to this exchange.
+* A browser-based IIIF client must be able to maintain its own internal state during an authentication flow.
+* A registry of trusted domains should not be required; anyone should be able to create any kind of viewer and run it from anywhere.
+* Institutions should be able to use their existing authentication systems without modification.
 
 To meet these challenges and goals, the IIIF Authentication specification describes a set of workflows for guiding the user through an existing access control system. The process of authenticating the user is mostly outside the scope of the specification and may involve a round-trip to a CAS server, or an OAuth2 provider, or a bespoke login system. In this sense, IIIF Authentication is not the same as a protocol like CAS; it is a pattern for interacting with arbitrary third party protocols.
 
