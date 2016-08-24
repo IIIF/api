@@ -239,7 +239,7 @@ This approach represents an optimsation only, and clients should never depend on
 A client should not assume that a manifest will contains any hints of this nature, and should always assume the information in the Image Service Description Resource is correct if it disagrees with something asserted in the manifest. The above is a suggested approach for clients and servers to follow to convey the authenticaton information for the images at the manifest level in a concise manner.
 
 
-## 8. Browser-specfic issues
+## 8. Browser-specific issues
 
 ### 8.1 Internet Explorer
 
