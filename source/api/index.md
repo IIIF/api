@@ -19,7 +19,7 @@ cssversion: 2
 
 | API                | Draft Version (Status)     |
 | ------------------ | ---------------------------- |
-| Authentication API | [0.9.1][auth09] *(Beta draft)* |
+| Authentication API | [0.9.3][auth09] *(Beta draft)* |
 {: .api-table}
 
 
