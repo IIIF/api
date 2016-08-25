@@ -77,6 +77,8 @@ Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss].
 
 This specification distinguishes between __Content Resources__, such as images or videos, and __Description Resources__ which conform to IIIF specifications, such as [Image API][image-api] image information (info.json) and [Presentation API][prezi-api] collection or manifest resources.  From the point of view of a browser-based application, Content Resources are loaded indirectly via browser interpretation of HTML elements, whereas Description Resources are typically loaded directly by JavaScript using the `XMLHttpRequest` interface. The [Cross Origin Resource Sharing][cors-spec] (CORS) specification implemented in modern browsers describes the different security rules that apply to the interactions with these two types of resource.
 
+Two additional concepts, the __access cookie__ and __access token__, are described below.
+
 The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _SHOULD NOT_, _RECOMMENDED_, _MAY_, and _OPTIONAL_ in this document are to be interpreted as described in [RFC 2119][rfc-2119].
 
 ### 1.2. Authentication for Content Resources
