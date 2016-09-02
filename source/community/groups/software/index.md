@@ -10,6 +10,7 @@ As the IIIF developer community grows, it continues to have a greater need for r
 
 ## Purpose
 To advance the growth and adoption of interoperable software with IIIF, the Software Developers Interest Group has the following goals:
+
 * Provide a place for a community of software developers to converge on day-to-day practices, code quality, and development methodology (particularly around front-end development, which currently has more heterogeneous practices).
 * Develop documentation, training, and tutorials concerning IIIF-based software components.
 * Support this community with shared infrastructure (e.g. Github organisations).
