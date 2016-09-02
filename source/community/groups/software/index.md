@@ -4,7 +4,7 @@ layout: spec
 tags: [components, software development, implementation]
 cssversion: 2
 ---
-The Software Developers Interest Group formed in response to the growing need for shared, composable libraries for IIIF viewer software following the IIIF Meeting in New York in May 2016. Software developers from several institutions involved in developing user experiences on top of the IIIF APIs were duplicating each other’s effort and finding it difficult to consistently apply the specifications.
+The Software Developers Interest Group formed in response to the growing need for shared, composable libraries for IIIF viewer software following the IIIF Meeting in New York in May 2016. Software developers from several institutions involved in developing user experiences on top of the IIIF APIs were duplicating each other’s efforts and finding it difficult to consistently apply the specifications.
 
 As the IIIF developer community grows, it continues to have a greater need for reusable components that can be composed into special-purpose applications. In the interest of keeping pace with improvement to the Image and Presentation API specifications, as well as the introduction of new APIs, the interest group provides a vehicle for developers from multiple institutions to discuss, develop, and curate a collection of software components that adhere to certain standards of software quality, composability, and specification compliance.
 
