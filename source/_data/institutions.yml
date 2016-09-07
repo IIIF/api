@@ -160,6 +160,9 @@
 - name: University of Pennsylvania
   uri:
   iiifc: 2
+- name: University of Tokyo
+  uri:
+  iiifc: 2
 - name: University of Toronto
   uri:
   iiifc: 2
