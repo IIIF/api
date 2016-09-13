@@ -16,9 +16,9 @@ Since the initial push to provide "search inside" functionality for the Nubian M
 
 Welcome and congratulations to NCSU Libraries!
 
-[image-api]: http://iiif.io/api/image/2.1/
-[presentation-api]: http://iiif.io/api/presentation/2.1/
-[search-api]: http://iiif.io/api/search/1.0/
+[image-api]: http://iiif.io/api/image/
+[presentation-api]: http://iiif.io/api/presentation/
+[search-api]: http://iiif.io/api/search/
 [nubian-issues]: http://d.lib.ncsu.edu/collections/catalog?_=1472754815045&f%5Bispartof_facet%5D%5B%5D=Nubian+Message
 [ncsu-news]: https://www.lib.ncsu.edu/news/the-%22nubian-message%22-goes-digital
 [uv]: http://uvviewsoft.com/uviewer/
