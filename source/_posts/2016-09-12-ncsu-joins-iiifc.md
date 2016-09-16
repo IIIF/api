@@ -26,10 +26,10 @@ Welcome and congratulations to NCSU Libraries!
 [iiif-discuss]: https://groups.google.com/forum/#!forum/iiif-discuss
 [av-group]: http://iiif.io/community/groups/av/
 [technician]: http://d.lib.ncsu.edu/collections/catalog?f%5Bispartof_facet%5D%5B%5D=Technician
-[agromeck]: http://d.lib.ncsu.edu/collections/catalog?f[fulltext_bs][]=true&f[ispartof_facet][]=Agromeck+Yearbooks
-[pinetum]: http://d.lib.ncsu.edu/collections/catalog?f[fulltext_bs][]=true&f[ispartof_facet][]=Pinetum
+[agromeck]: http://d.lib.ncsu.edu/collections/catalog?f%5Bfulltext_bs%5D%5B%5D=true&f%5Bispartof_facet%5D%5B%5D=Agromeck+Yearbooks
+[pinetum]: http://d.lib.ncsu.edu/collections/catalog?f%5Bfulltext_bs%5D%5B%5D=true&f%5Bispartof_facet%5D%5B%5D=Pinetum
 [athletics]: http://d.lib.ncsu.edu/collections/catalog?f%5Bfulltext_bs%5D%5B%5D=true&f%5Bispartof_facet%5D%5B%5D=Athletics+Media
-[course]: http://d.lib.ncsu.edu/collections/catalog?f[fulltext_bs][]=true&f[ispartof_facet][]=Course+Catalogs
-[archival]: http://d.lib.ncsu.edu/collections/catalog?f[format][]=Folder&f[fulltext_bs][]=true
+[course]: http://d.lib.ncsu.edu/collections/catalog?f%5Bfulltext_bs%5D%5B%5D=true&f%5Bispartof_facet%5D%5B%5D=Course+Catalogs
+[archival]: http://d.lib.ncsu.edu/collections/catalog?f%5Bformat%5D%5B%5D=Folder&f%5Bfulltext_bs%5D%5B%5D=true
 [others]: http://d.lib.ncsu.edu/collections/catalog?f%5Bfulltext_bs%5D%5B%5D=true
 [iiif-c]: http://iiif.io/community/consortium/
