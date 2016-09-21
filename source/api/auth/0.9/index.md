@@ -95,7 +95,7 @@ The server on the Resource Domain treats the access token as a representation of
 
 ### 1.4. Security
 
-The purpose of this specification to support access-control for IIIF resources and hence security is a core concern. To prevent misuse, cookies and bearer tokens described in this specification need to be protected from disclosure in storage and in transport. Implementations _SHOULD_ use [HTTP over TLS][rfc-2818], commonly known as HTTPS, for all communication. All references to HTTP should be read assuming the use of HTTP over TLS. See also the [Implementation Notes][a-implementation-notes].
+The purpose of this specification to support access-control for IIIF resources and hence security is a core concern. To prevent misuse, cookies and bearer tokens described in this specification need to be protected from disclosure in storage and in transport. Implementations _SHOULD_ use [HTTP over TLS][rfc-2818], commonly known as HTTPS, for all communication. Furthermore, all IIIF clients that interact with access-controlled resources _SHOULD_ also be run from pages served via HTTPS. All references to HTTP in this specification should be read assuming the use of HTTPS. See also the [Implementation Notes][implementation-notes].
 
 ## 2. Authentication Services
 
@@ -600,10 +600,7 @@ Please note that the server implementation involves providing `302` status respo
 
 ### A. Implementation Notes
 
-  * Services using authentication _SHOULD_ use HTTPS ([HTTP over TLS][rfc-2818]) for all interactions, and thus clients should also be run from pages served via HTTPS.
-  * Care is required to implement this specification in a way that does not expose credentials thus compromising the security of the resources intended to be protected, or other resources within the same security domain.
-  * Implementations must not reuse the access cookie value (or any simple transformation of it) as the access token value. Access token values could be copied across domains if the access token were to be obtained by a malicious client.
-  * This specification is modelled after elements of the OAuth2 workflow and the [OAuth2 Security Considerations][oauth2-security] section provides useful additional guidance regarding threats, mitigations and recommended practices.
+Guidance for implementers is provided in a separate [Implementation Notes][implementation-notes] document. The notes cover many details relating to implementation of this specification in browser-based JavaScript applications, and additional security considerations.
 
 ### B. Versioning
 
@@ -640,7 +637,6 @@ Many thanks to the members of the [IIIF Community][iiif-community] for their con
 [ext-services]: /api/annex/services/
 [bearer-token]: https://tools.ietf.org/html/rfc6750#section-1.2 "OAuth2 Bearer Tokens"
 [rfc-2818]: https://tools.ietf.org/html/rfc2818 "HTTP Over TLS"
-[a-implementation-notes]: #a-implementation-notes "A. Implementation Notes"
-[oauth2-security]: https://tools.ietf.org/html/rfc6750#section-5 "OAuth2 Security Considerations"
+[implementation-notes]: implementation/ "IIIF Authentication: Implementation Notes"
 
 {% include acronyms.md %}
