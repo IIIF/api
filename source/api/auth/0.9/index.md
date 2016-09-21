@@ -114,7 +114,7 @@ There are four interaction patterns by which the client can obtain an access coo
 | Clickthrough | `http://iiif.io/api/auth/{{ page.major }}/clickthrough` | The user will be required to click a button within the client using content provided in the service description. |
 | Kiosk        | `http://iiif.io/api/auth/{{ page.major }}/kiosk` | The user will not be required to interact with an authentication system, the client is expected to use the access cookie service automatically. |
 | External     | `http://iiif.io/api/auth/{{ page.major }}/external` | The user is expected to have already acquired the appropriate cookie, and the access cookie service will not be used at all. |
-{: .api-table}
+{: .api-table .first-col-normal }
 
 The service description is included in the Description Resource and has the following properties:
 
@@ -621,7 +621,7 @@ Many thanks to the members of the [IIIF Community][iiif-community] for their con
 | (unreleased) | Version 0.9.2 (unnamed) postMessage instead of JSONP |
 | 2015-10-30 | Version 0.9.1 (Table Flip) add missing @context, clarifications |
 | 2015-07-28 | Version 0.9.0 (unnamed) draft |
-{: .api-table}
+{: .api-table .first-col-normal}
 
 [postmessage]: https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage "window.postMessage"
 [tmp-impl]: implementation/

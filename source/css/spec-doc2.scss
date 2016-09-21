@@ -168,12 +168,18 @@
     .api-table {
       td:first-child {
         font-size: 1.1em;
-        font-family: 'Ubuntu Mono', ;
+        font-family: 'Ubuntu Mono', monospace;
       }
       td {
         font-family: sans-serif;
       }
     } // .api-table
+
+    .first-col-normal {
+      td:first-child {
+        font-family: sans-serif;
+      }
+    } // .first-col-normal
 
     .names {
       a {
