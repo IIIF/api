@@ -95,7 +95,7 @@ The server on the Resource Domain treats the access token as a representation of
 
 ### 1.4. Security
 
-The purpose of this specification to support access-control for IIIF resources and hence security is a core concern. This specification prescribes the use of cookies and bearer tokens to convey authentication status. To prevent misuse, both cookies and bearer tokens need to be protected from disclosure in storage and in transport. Implementations _SHOULD_ use [HTTP over TLS][rfc-2818], commonly known as HTTPS, for all communication. All references to HTTP should be read assuming the use of HTTP over TLS. See also the [Implementation Notes][a-implementation-notes].
+The purpose of this specification to support access-control for IIIF resources and hence security is a core concern. To prevent misuse, cookies and bearer tokens described in this specification need to be protected from disclosure in storage and in transport. Implementations _SHOULD_ use [HTTP over TLS][rfc-2818], commonly known as HTTPS, for all communication. All references to HTTP should be read assuming the use of HTTP over TLS. See also the [Implementation Notes][a-implementation-notes].
 
 ## 2. Authentication Services
 
