@@ -20,9 +20,23 @@ task :ci do
   sh 'grunt test'
   sh 'scripts/check_json.py -v'
   Rake::Task['spec'].invoke
-  # See https://github.com/gjtorikian/html-proofer#configuring-caching
-  HTMLProofer.check_directory(SITE_DIR, cache: { timeframe: '4w' } ).run
+  Rake::Task['check_internal_links'].invoke
 end
+
+'Check internal links only without caching'
+task :check_internal_links do
+  HTMLProofer.check_directory(SITE_DIR, {
+    disable_external: true
+  }).run
+end
+
+'Check all links and cache the results'
+task :check_all_links do
+  HTMLProofer.check_directory(SITE_DIR, {
+    cache: { timeframe: '1w' }
+  }).run
+end
+
 
 'Run the site locally on localhost:4000'
 task :dev do
