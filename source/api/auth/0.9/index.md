@@ -93,6 +93,9 @@ A browser running JavaScript retrieved from one domain cannot use `XMLHttpReques
 
 The server on the Resource Domain treats the access token as a representation of, or proxy for, the cookie that gains access to the Content Resources. When the client makes requests for the Description Resources and presents the access token, the responses tell the client what will happen when the browser requests the corresponding content resources with the access cookie the access token represents. These responses let the client decide what user interface and/or Content Resources to show to the user.
 
+### 1.4. Security
+
+The purpose of this specification to support access-control for IIIF resources and hence security is a core concern. To prevent misuse, cookies and bearer tokens described in this specification need to be protected from disclosure in storage and in transport. Implementations _SHOULD_ use [HTTP over TLS][rfc-2818], commonly known as HTTPS, for all communication. Furthermore, all IIIF clients that interact with access-controlled resources _SHOULD_ also be run from pages served via HTTPS. All references to HTTP in this specification should be read assuming the use of HTTPS. See also the [Implementation Notes][implementation-notes].
 
 ## 2. Authentication Services
 
@@ -597,11 +600,7 @@ Please note that the server implementation involves providing `302` status respo
 
 ### A. Implementation Notes
 
- * Care is required to implement this specification in a way that does not expose credentials thus compromising the security of the resources intended to be protected, or other resources within the same security domain.
- * Services using authentication should use HTTPS, and thus clients should also be run from pages served via HTTPS.
- * Implementations must not reuse the access cookie value as the access token value, as it could be copied across domains if the access token were to be obtained from a malicious client.
- * _further notes here_
-
+Guidance for implementers is provided in a separate [Implementation Notes][implementation-notes] document. The notes cover many details relating to implementation of this specification in browser-based JavaScript applications, and additional security considerations.
 
 ### B. Versioning
 
@@ -624,9 +623,6 @@ Many thanks to the members of the [IIIF Community][iiif-community] for their con
 {: .api-table .first-col-normal}
 
 [postmessage]: https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage "window.postMessage"
-[tmp-impl]: implementation/
-[tmp-impl-sec]: implementation/#security-for-server-implementors
-[tmp-impl-302]: implementation/#redirects-and-degraded-images
 [cors-spec]: http://www.w3.org/TR/cors/ "Cross-Origin Resource Sharing"
 [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
 [client-auth-img]: img/auth-flow-client.png
@@ -635,12 +631,12 @@ Many thanks to the members of the [IIIF Community][iiif-community] for their con
 [iiif-community]: /community/ "IIIF Community"
 [versioning]: /api/annex/notes/semver/ "Versioning of APIs"
 [mellon]: http://www.mellon.org/ "The Andrew W. Mellon Foundation"
-[change-log]: /api/image/2.0/change-log/ "Change Log for Version 2.0"
-[rfc-2119]: http://tools.ietf.org/html/rfc2119
+[rfc-2119]: http://tools.ietf.org/html/rfc2119 "Key words for use in RFCs to Indicate Requirement Levels"
 [prezi-api]: /api/presentation/
 [image-api]: /api/image/
 [ext-services]: /api/annex/services/
-[user-auths]: #step-3-user-authenticates
 [bearer-token]: https://tools.ietf.org/html/rfc6750#section-1.2 "OAuth2 Bearer Tokens"
+[rfc-2818]: https://tools.ietf.org/html/rfc2818 "HTTP Over TLS"
+[implementation-notes]: implementation/ "IIIF Authentication: Implementation Notes"
 
 {% include acronyms.md %}
