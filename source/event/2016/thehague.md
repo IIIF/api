@@ -12,7 +12,7 @@ tags: [event ]
 
 ## IIIF Working Groups Meeting - The Hague - 2016
 
-The International Image Interoperability Framework ([IIIF][home-page]) Working Groups meeting in The Hague is intended for active IIIF community participants and [working groups][groups]. Attendance is free, but capacity is limited, so [registration][eventbrite] is required in order to ensure that we do not exceed the capacity of the venue. Meeting sessions and schedule will be made available by September 19, 2016 - please check back for schedule details.
+The International Image Interoperability Framework ([IIIF][home-page]) Working Groups meeting in The Hague is intended for active IIIF community participants and [working groups][groups]. Attendance is free, but capacity is limited, so [registration][eventbrite] is required in order to ensure that we do not exceed the capacity of the venue. Meeting sessions and schedule are available through [sched][sched].
 
 ### Logistics
 
@@ -22,11 +22,11 @@ The International Image Interoperability Framework ([IIIF][home-page]) Working G
 * Cost: There is no cost to attend
 * Capacity: 70
 * Code of Conduct: The IIIF [Code of Conduct][conduct] applies
-* Social Media: Tweets about the event should use #iiif or @iiif_io
+* Social Media: Tweets about the event should use #iiif and @iiif_io
 
 ### Schedule
 
-Coming soon!
+The session schedule is available through [sched][sched].  
 
 
 [home-page]: http://iiif.io/
@@ -34,3 +34,4 @@ Coming soon!
 [eventbrite]: https://iiif-wg-2016.eventbrite.com
 [conduct]: /event/conduct/
 [KB]: https://www.kb.nl/en/visitors/address-and-directions
+[sched]: https://iiifthehague2016.sched.org/
