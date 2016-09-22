@@ -6,9 +6,10 @@ tags: [compliance, image-api]
 major: 2
 minor: 1
 patch: 0
-pre: draft
+pre: final
 redirect_from:
-  - /api/image/2.1/compliance.html
+  - /api/image/compliance.html
+  - /api/image/2/compliance.html
 ---
 
 ## Status of this Document
