@@ -44,13 +44,14 @@ This is a work in progress. We are actively seeking implementations and feedback
 
 ## 1. Introduction
 
-The IIIF (pronounced "Triple-Eye-Eff") specifications are designed to support uniform and rich access to resources hosted around the world. Open access to content is desirable, but policy, regulations, or business models can require users to authenticate and be authorized to interact with access-controlled resources. The authentication process could range from a simple click-through agreement to a multi-factor scheme with a secure identity provider.
+The IIIF (pronounced "Triple-Eye-Eff") specifications are designed to support uniform and rich access to resources hosted around the world. Open access to content is desirable, but internal policies, legal regulations, business models, and other constraints can require users to authenticate and be authorized to interact with some resources. The authentication process could range from a simple restriction by IP address or a click-through agreement, to a multi-factor scheme with a secure identity provider.
 
-Content providers often offer tiers of access beyond a simple all-or-nothing distinction. These tiers could provide versions of a resource that differ based on resolution, watermarking, or compression. Each version must have a distinct URI to prevent web caches from providing the wrong version.
+Content providers that need to restrict access to their resources may offer tiered access to alternative versions that go beyond a simple all-or-nothing proposition. These alternative versions could be degraded based on resolution, watermarking, or compression, for example, but are often better than no access at all.
 
-Providing interoperable content through client applications running in a web browser poses many challenges:
+Providing interoperable access to restricted content through client applications running in a web browser poses many challenges:
 
 * A single IIIF Presentation API manifest can reference content resources at multiple institutions and hence from multiple domains.
+* Each version of a resource must have a distinct URI to prevent web caches from providing the wrong version.
 * Institutions have different existing access control systems.
 * Most IIIF viewers are client-side JavaScript applications, and may be served from a domain that is different from, and thus untrusted by, the image services that it is required to load.
 * Similarly, the domain of the authentication services may be different from that of a viewer or the IIIF-based content. Therefore, the authorizing server must not require any prior knowledge of the domain hosting the viewer.
@@ -62,13 +63,13 @@ Additionally, the IIIF community has the following goals for this specification:
 * A registry of trusted domains should not be required; anyone should be able to create any kind of viewer and run it from anywhere.
 * Institutions should be able to use their existing authentication systems without modification.
 
-To meet these challenges and goals, the IIIF Authentication specification describes a set of workflows for guiding the user through an existing access control system. The process of authenticating the user is mostly outside the scope of the specification and may involve a round-trip to a CAS server, or an OAuth2 provider, or a bespoke login system. In this sense, IIIF Authentication is not the same as a protocol like CAS; it is a pattern for interacting with arbitrary third party protocols.
+To meet these challenges and goals, the IIIF Authentication specification describes a set of workflows for guiding the user through an _existing_ access control system. The process of authenticating the user is mostly outside the scope of the specification and may involve a round-trip to a CAS server, or an OAuth2 provider, or a bespoke login system. In this sense, IIIF Authentication is not the same as a protocol like CAS; it is a pattern for interacting with arbitrary third party protocols.
 
-IIIF Authentication provides a link to a user interface for logging in, and services that provide credentials, modelled after elements of the OAuth2 workflow. Together they act as a bridge to the access control system in use on the server, without the client requiring knowledge of that system.
+IIIF Authentication provides a link to a user interface for logging in, and services that provide credentials, modeled after elements of the OAuth2 workflow. Together they act as a bridge to the access control system in use on the server, without the client requiring knowledge of that system.
 
 In summary, the specification describes how to:
 
-* From within a viewer, initiate an interaction with an access control system so that a user can acquire the credentials they need to view that content.
+* From within a viewer, initiate an interaction with an access control system so that a user can acquire the credentials they need to view restricted content.
 * Give the client just enough knowledge of the user's state with respect to the content provider to ensure a good user experience.
 
 Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss].
