@@ -7,7 +7,6 @@
     "doap": "http://usefulinc.com/ns/doap#",
     "svcs": "http://rdfs.org/sioc/services#",
     "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-
     "profile": {
       "@id": "doap:implements",
       "@type": "@id"
@@ -18,6 +17,21 @@
     },
     "label": {
       "@id": "rdfs:label"
+    },
+    "description": {
+      "@id": "dc:description"
+    },
+    "confirmLabel": {
+      "@id": "auth:confirmLabel"
+    },
+    "header": {
+      "@id": "auth:header"
+    },
+    "failureHeader": {
+      "@id": "auth:failureHeader"
+    },
+    "failureDescription": {
+      "@id": "auth:failureDescriptiom"
     }
   }
 }
