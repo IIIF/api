@@ -1,17 +1,16 @@
----
----
 {
-	"search": "http://iiif.io/api/search/1#",
+  "@context": {
+    "search": "http://iiif.io/api/search/1#",
 
-	"ignored": {"@id": "search:ignored", "@container": "@set", "@type": "xsd:string"},
-	"match": {"@id": "search:match"},
-	"before": {"@id": "search:before"},
-	"after": {"@id": "search:after"},
-	"count": {"@id": "search:count"},
+    "ignored": {"@id": "search:ignored", "@container": "@set", "@type": "xsd:string"},
+    "match": {"@id": "search:match"},
+    "before": {"@id": "search:before"},
+    "after": {"@id": "search:after"},
+    "count": {"@id": "search:count"},
 
-	"hits": {"@id": "search:hasHitList", "@container": "@list", "@type": "@id"},
-	"terms": {"@id": "search:hasTermList", "@container": "@list", "@type": "@id"},
-	"annotations": {"@id": "search:refines", "@container": "@set", "@type": "@id"},
-	"selectors": {"@id": "search:hasSelector", "@container": "@set", "@type":"@id"}
-
+    "hits": {"@id": "search:hasHitList", "@container": "@list", "@type": "@id"},
+    "terms": {"@id": "search:hasTermList", "@container": "@list", "@type": "@id"},
+    "annotations": {"@id": "search:refines", "@container": "@set", "@type": "@id"},
+    "selectors": {"@id": "search:hasSelector", "@container": "@set", "@type":"@id"}
+  }
 }
