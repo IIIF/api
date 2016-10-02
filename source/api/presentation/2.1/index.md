@@ -65,7 +65,7 @@ The following are within the scope of the current document:
 The following are __not__ within scope:
 
   * The discovery or selection of interesting digitized objects is not directly supported; however hooks to reference further resources are available.
-  * Search within the object is not supported by the Presentation API; however this will be covered by a future IIIF specification.
+  * Search within the object is described by the [IIIF Content Search API][search-api].
 
 Note that in the following descriptions, "object" (or "physical object") is used to refer to a physical object that has been digitized or a born-digital compound object, and "resources" refer to the digital resources that are the result of that digitization or digital creation process.
 
@@ -1842,6 +1842,7 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
 [shared-canvas]: /model/shared-canvas/{{ site.shared_canvas.latest.major}}.{{ site.shared_canvas.latest.minor }} "Shared Canvas Data Model"
 [image-api]: /api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/ "Image API"
+[search-api]: /api/search/{{ site.search_api.latest.major }}.{{ site.search_api.latest.minor }}/ "Content Search API"
 [annex]: /api/annex/services/ "Services Annex Document"
 [change-log]: /api/presentation/2.1/change-log/ "Presentation API 2.1 Change Log"
 [change-log-20]: /api/presentation/2.0/change-log/ "Presentation API 2.0 Change Log"
