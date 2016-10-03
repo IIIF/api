@@ -1,12 +1,12 @@
 ---
 title: "IIIF Authentication: Implementation Notes"
 title_override: "IIIF Authentication: Implementation Notes"
-id: image-api-compliance
+id: auth-api-notes
 layout: spec
-tags: [compliance, image-api]
+tags: [compliance, auth-api]
 major: 0
 minor: 9
-patch: 3
+patch: 4
 pre: final
 cssversion: 2
 redirect_from:
@@ -16,7 +16,7 @@ redirect_from:
 ## Status of this Document
 {:.no_toc}
 
-This document applies to version {{ page.major }}.{{ page.minor }}.{{ page.patch }}{% if page.pre != 'final' %}-{{ page.pre }}{% endif %} of the [IIIF Authentication Specification][auth-api].
+This document applies to version {{ page.major }}.{{ page.minor }}.{{ page.patch }}{% if page.pre != 'final' %}-{{ page.pre }}{% endif %} of the [IIIF Authentication API][auth-api] specification.
 
 __Beta Specification for Trial Use__
 This is a work in progress. We are actively seeking new implementations, updates to existing implementations, and feedback. No section should be considered final, and the absence of any content does not imply that such content is out of scope, or may not appear in the future.  Please send any feedback to [iiif-discuss@googlegroups.com][iiif-discuss].
@@ -30,11 +30,11 @@ This is a work in progress. We are actively seeking new implementations, updates
 
 ## 1. Introduction
 
-This document is a companion to the [IIIF Authentication Specification][auth-api]. It addresses issues that might be met when implementing the specification in a browser-based JavaScript application.
+This document is a companion to the [IIIF Authentication API][auth-api]  specification. It addresses issues that might be met when implementing the specification in a browser-based JavaScript application.
 
 ### 1.1 Summary of Authentication Flow
 
-As detailed in the [specification][auth-api], clients need to distinguish between Content Resources that are loaded indirectly, such as images or videos, and Description Resources typically loaded directly via the [XmlHttpRequest API][xmlhttprequest] (XHR), such as the info.json document that describes an image service. The client uses a Description Resource to build the elements that will trigger the browser to request the Content Resources
+As detailed in the [IIIF Authentication API][auth-api] specification, clients need to distinguish between Content Resources that are loaded indirectly, such as images or videos, and Description Resources typically loaded directly via the [XmlHttpRequest API][xmlhttprequest] (XHR), such as the info.json document that describes an image service. The client uses a Description Resource to build the elements that will trigger the browser to request the Content Resources
 
 A web page on the *host domain* loads a IIIF client application from the *client domain* (such as a content delivery network) which in turn loads the IIIF descriptions and content from one or more *resource domains*. Therefore all interactions are potentially subject to the cross-domain security polices of modern browsers.
 
@@ -59,7 +59,7 @@ There are different ways of doing implementing this in different styles of clien
 
 ## 2. CORS Support
 
-The [IIIF Authentication Specification][auth-api] requires a CORS-compliant browser. See the [browser-specific issues](#browser-specific-issues) section for more details.
+The [IIIF Authentication API][auth-api] specification requires a CORS-compliant browser. See the [browser-specific issues](#browser-specific-issues) section for more details.
 
 While the CORS and XHR specifications allow for a cross-domain request (from the *client domain* to the *resource domain*) that includes the browser's cookies for the resource domain, the conditions imposed make the approach unsuitable for IIIF use. Under these conditions, clients would make an XHR request with `XMLHttpRequest.withCredentials = true`, which triggers a CORS preflight request. The preflight response from the *resource domain* server must then include an `Access-Control-Allow-Origin` header whose value is the specific trusted *client domain*. In a request made with `XMLHttpRequest.withCredentials = true` the wildcard `*` value for `Access-Control-Allow-Origin` is invalid, and servers servers should not simply echo back the client origin header. Together these restrictions avoid cooked cookie leakage to an untrusted client script.
 
@@ -286,7 +286,7 @@ If, for example, the client domain and resource domain are in the *Internet* zon
 
 | Date       | Description |
 | ---------- | ----------- |
-| 2016-10-05 | Clarifications to text |
+| 2016-10-05 | Clarifications to text, applies to version 0.9.4 |
 | 2016-09-25 | Update implementation notes to apply to version 0.9.3 |
 {: .api-table .first-col-normal}
 
