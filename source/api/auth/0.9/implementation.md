@@ -34,7 +34,7 @@ This document is a companion to the [IIIF Authentication Specification][auth-api
 
 ### 1.1 Summary of Authentication Flow
 
-As detailed in the [specification][auth-api], clients need to distinguish between Content Resources that are loaded indirectly, such as images or videos, and Description Resources typically loaded directly via the XmlHttpRequest API (XHR), such as the info.json document that describes an image service. The client uses a Description Resource to build the elements that will trigger the browser to request the Content Resources
+As detailed in the [specification][auth-api], clients need to distinguish between Content Resources that are loaded indirectly, such as images or videos, and Description Resources typically loaded directly via the [XmlHttpRequest API][xmlhttprequest] (XHR), such as the info.json document that describes an image service. The client uses a Description Resource to build the elements that will trigger the browser to request the Content Resources
 
 A web page on the *host domain* loads a IIIF client application from the *client domain* (such as a content delivery network) which in turn loads the IIIF descriptions and content from one or more *resource domains*. Therefore all interactions are potentially subject to the cross-domain security polices of modern browsers.
 
@@ -303,6 +303,7 @@ If, for example, the client domain and resource domain are in the *Internet* zon
 [P3P]: https://www.w3.org/P3P/ "P3P"
 [p3p-summary]: http://blogs.msdn.com/b/ieinternals/archive/2013/09/17/simple-introduction-to-p3p-cookie-blocking-frame.aspx "P3P minimum details"
 [oauth2-considerations]: https://tools.ietf.org/html/rfc6750#section-5 "OAuth2 Security Considerations"
+[xmlhttprequest]: https://xhr.spec.whatwg.org/ "XMLHttpRequest API"
 
 {% include acronyms.md %}
 
