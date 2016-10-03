@@ -32,7 +32,7 @@ This is a work in progress. We are actively seeking new implementations, updates
 
 This document is a companion to the [IIIF Authentication Specification][auth-api]. It addresses issues that might be met when implementing the specification in a browser-based JavaScript application.
 
-### 1.1 Summary of authentication flow
+### 1.1 Summary of Authentication Flow
 
 As detailed in the [specification][auth-api], clients need to distinguish between Content Resources that are loaded indirectly, such as images or videos, and Description Resources typically loaded directly via the XmlHttpRequest API (XHR), such as the info.json document that describes an image service. The client uses a Description Resource to build the elements that will trigger the browser to request the Content Resources
 
@@ -57,7 +57,6 @@ At a minimum, a client implementation following a "happy path" would:
 
 There are different ways of doing implementing this in different styles of client user interface. These notes explore the issues implementors will encounter.
 
-
 ## 2. CORS Support
 
 The [IIIF Authentication Specification][auth-api] requires a CORS-compliant browser. See the [browser-specific issues](#browser-specific-issues) section for more details.
@@ -66,17 +65,17 @@ While the CORS and XHR specifications allow for a cross-domain request (from the
 
 The IIIF Authentication Specification must work for a client that is untrusted (in CORS terms); anyone should be able to run any IIIF client from anywhere and use it to load any resources. Therefore the specification assumes that any cookie information for the *resource domain* is unavailable to the client code, including the knowledge of the existence or otherwise of any cookies. IIIF clients do not need to make `withCredentials` requests.
 
-## 3. Use of service labels and descriptions
+## 3. Use of Service Labels and Descriptions
 
 Servers supporting the IIIF Authentication Specification will provide a [Service Description][service-description] that includes labels, and may include descriptions and header values, for the login services they expose. In this way the server can influence the presentation of the login services to the user. For example, the header and description could be used by the client as the title and text of a dialog box. Clients should present this text to the user to help them decide what to do; a publisher should assume that the login label will always be made obvious to the user during the authentication flow.
 
 A server could use different login services to provide different messaging to the user, even if the implementation is identical and they share the same token and logout services. One institution could have a single login service, another could have hundreds that differ not in their behavior but in their labels, descriptions and headers, allowing the content provider to customize the displayed text to fit the content. Client software is expected to make prominent use of the provided text. The label and description values can be string literals or JSON-LD value objects.
 
-## 4. Window behavior across devices
+## 4. Window Behavior Across Devices
 
 In the [browser client workflow][workflow-from-the-browser-client-perspective] an HTTP 401 response to a request for a Description Resource indicates the need to authenticate before any content can be displayed.
 
-### 4.1 Event initiation
+### 4.1 Event Initiation
 
 On detecting a 401 response, a client could trigger the load of the login service URL automatically, in a pop up window or new tab. The advantage of this approach is that if the user is already logged in on the Resource Domain, the window will close automatically straight away, and the client can continue with the login flow without unnecessarily troubling the user for credentials they have already established.
 
@@ -86,7 +85,7 @@ See also [browser-specific issues](#browser-specific-issues) for other reasons w
 
 A client can still prevent sending the user on unnecessary authentication flows by using the access token service as a probe; a call to the access token service can be used to see whether the user has credentials already, and to construct a request for the Description Resource with the appropriate Authorization header. The workflow in the specification describes the points at which the token service must be called, but client implementations are free to optimize the user experience with additional calls earlier in the flow.
 
-### 4.2 Windows and tabs
+### 4.2 Windows and Tabs
 
 The ```Window.open()``` API includes an optional parameter that allows the caller to specify various position, size, toolbar and "chrome" features of the opened window. A client confined to desktop browsers could use this to make the presentation of the login service URL feel more like a dialog box rather than a sudden visit to a different site. 
 
@@ -96,7 +95,7 @@ However, window features like this are not generally available on mobile devices
 
 The preceding comments on window behavior suggest that for consistency of user experience across devices and maximum compatibility, client applications should trigger the login flow in response to an explicit click, and open the login service URL in a new tab whose presentation is left up to the browser. 
 
-## 5. Redirects and degraded images
+## 5. Redirects and Degraded Images
 
 Clients should expect to deal with image services that offer nothing at all to unauthorized users, and those that offer a degraded image. The first use case could be for sensitive or rights-protected material where no access is feasible that would allow a user to read text. The second use case could be for a "premium content" approach, where detailed high-resolution images are only available to authorized users. In the first case, the server responds to an initial unauthenticated Description Resource request with an HTTP 401 status code. In the second case the server responds with status code 302.
 
@@ -116,7 +115,7 @@ switch(myXhr.statusCode){
 
 However, the 302 status code will never be seen by client script interacting with the XmlHttpRequest API. By design, this is transparent to the XHR object in browsers for security reasons, and the response will report only the final HTTP 200 status code of the degraded image. Whether this is signficant for a client depends on the approach it takes to the user interface.
 
-### 5.1 User interface patterns
+### 5.1 User Interface Patterns
 
 A client can present the authentication service information to the user in at least two distinct user interface patterns:
 
@@ -131,8 +130,7 @@ Evidence that a redirect has happened is available. If the `@id` of the service 
 
 A client could make a decision about what is happening based on a redirect having occurred, an authentication service being present, and perhaps a probe of a token service. The client can’t be completely sure that the user is seeing a degraded image. Implementations where login and logout buttons are always present and enabled for the current visible image if it has a login service don’t need to worry too much about this, as the user can decide from the image's appearance and the labelling of the service whether they are looking at the best possible image.
 
-
-## 6. Token storage strategies
+## 6. Token Storage Strategies
 
 Clients should keep track of the access tokens they acquire for the user and use them to improve the user experience. Careful use of access tokens can avoid unnecessary authentication interactions for the user, and unnecessary HTTP requests for the client. 
 
@@ -142,7 +140,7 @@ A client should always be prepared to discard a stored token and should never tr
 
 To encourage the frequent use of requests to the token service to improve the user experience, a client should assume that the token service is a lightweight operation, and servers should ensure that they can handle frequent token requests. 
 
-## 7. Security for server implementors
+## 7. Security for Server Implementors
 
 Server implementations must assume that they could be subject to attacks that attempt to use this IIIF Authentication Specification to trick users into authenticating and revealing secrets to malicious client code. Care is required to implement this specification in a way that does not expose credentials, compromising the security of the protected resources or other resources within the same security domain. 
 
@@ -164,7 +162,7 @@ __Future extension__
 The authentication interaction patterns will need to accommodate future functionality where the client is POSTing annotations or IIIF resources, where the token accompanying an XHR request is not just a proxy for the cookie the user has for the images, but is the "real" credential for writing a resource. The specification already requires that "origin" is appended to both the access cookie request and the token request, for the server to use in white-listing decisions if it wants to e.g., granting tokens that give access to image resources for any origin but only issuing tokens that authorize a state-changing operation to permitted origins. The server could use any additional (currently undefined) information obtained during the access cookie step (as well as the origin) to help it decide whether to then issue a token in the access token step (i.e., respond with a web page that makes a postMessage call to the origin supplied). 
 {: .note}
 
-## 8. Optimizations at the Presentation API level
+## 8. Optimizations at the Presentation API Level
 
 A IIIF client application that loads a manifest would need to load each referenced image service on each image of each canvas in turn to determine in advance whether authentication services were present on all the images the user might interact with. For some applications this knowledge is not required - the client can deal with any authentication concerns at the point the user interacts with a particular image. However, some client applications would benefit from knowledge of the authentication services across all the images, for example:
 
@@ -245,12 +243,11 @@ This approach represents an optimisation only, and clients should never depend o
 
 A client should not assume that a manifest will contain any hints of this nature, and should always assume the information in the Image Service Description Resource is correct if it disagrees with something asserted in the manifest. The above is a suggested approach for clients and servers to follow to convey the authentication information for the images at the manifest level in a concise manner, particularly when all the image services referenced in the manifest are provided by the manifest publisher.
 
-
-## 9. Browser-specific issues
+## 9. Browser-Specific Issues
 
 ### 9.1 Internet Explorer
 
-#### 9.1.1 CORS and XDomainRequest in IE9 and below
+#### 9.1.1 CORS and XDomainRequest in IE9 and Below
 
 IE8 and IE9 have the [HttpXmlRequest][xhr] object, but unlike the implementation in IE10+ and current versions of Safari, Chrome and Firefox it does not support CORS, so will not allow clients to attempt any kind of cross domain request.
 
@@ -267,7 +264,7 @@ In IE8/9, XmlHttpRequest won't let a client load the info.json at all (unless on
 
 This means that the IIIF Authentication Specification cannot be implemented in IE8 and IE9 cross-domain. A custom client deployment where the *host domain*, the *client domain* and the *resource domain* are all the same will allow an implementation of the specification that works on IE9; as of 2016 it is possible that some implementations may still have the requirement to work on IE9 and can satisfy this same-origin constraint. 
 
-#### 9.1.2 P3P Policy in IE prior to Edge
+#### 9.1.2 P3P Policy in IE Prior to Edge
 
 Internet Explorer versions prior to the current "Edge" specification (including IE11) implement [P3P], which in the context of the IIIF Authentication specification will prevent a browser sending cookies across domain even for a content resource like an image or for an indirect load of the token via the frame used for postMessage, if those cookies have an explicit expiry and could therefore be used for tracking purposes across browser sessions.
 
@@ -275,7 +272,7 @@ This can lead to hard-to-diagnose problems - one implementation of the specifica
 
 Internet Explorer *will* send the cookie if the resource domain [publishes a P3P policy][p3p-summary] in the form of a P3P HTTP header that summarizes the privacy policy of the site.
 
-#### 9.1.3 Security zones in all versions of IE
+#### 9.1.3 Security Zones in All Versions of IE
 
 Internet Explorer (all versions) assigns all websites to one of four security zones: Internet, Local intranet, Trusted sites, or Restricted sites. The zone to which a website is assigned specifies the security settings that are used for that site. Corporate IT policies can assign sites to zones for all users on a domain.
 
@@ -292,7 +289,6 @@ If, for example, the client domain and resource domain are in the *Internet* zon
 | 2016-10-05 | Clarifications to text |
 | 2016-09-25 | Update implementation notes to apply to version 0.9.3 |
 {: .api-table .first-col-normal}
-
 
 
 [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
