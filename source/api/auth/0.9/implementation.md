@@ -55,7 +55,7 @@ At a minimum, a client implementation following a "happy path" would:
 * Observe that the status code is now 200
 * Use the information in the Description Resource to display the Content Resource described
 
-There are different ways of doing implementing this in different styles of client user interface. These notes explore the issues implementors will encounter.
+There are different ways of implementing this in different styles of client user interface. These notes explore the issues implementers will encounter.
 
 ## 2. CORS Support
 
@@ -140,7 +140,7 @@ A client should always be prepared to discard a stored token and should never tr
 
 To encourage the frequent use of requests to the token service to improve the user experience, a client should assume that the token service is a lightweight operation, and servers should ensure that they can handle frequent token requests. 
 
-## 7. Security for Server Implementors
+## 7. Security for Server Implementers
 
 Server implementations must assume that they could be subject to attacks that attempt to use this IIIF Authentication Specification to trick users into authenticating and revealing secrets to malicious client code. Care is required to implement this specification in a way that does not expose credentials, compromising the security of the protected resources or other resources within the same security domain. 
 
