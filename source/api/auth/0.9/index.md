@@ -1,12 +1,12 @@
 ---
-title: "IIIF Authentication: Version 0.9.3"
-title_override: "IIIF Authentication: Version 0.9.3"
+title: "IIIF Authentication API 0.9.4"
+title_override: "IIIF Authentication API 0.9.4"
 id: auth-api
 layout: spec
-tags: [specifications, image-api]
+tags: [specifications, auth-api]
 major: 0
 minor: 9
-patch: 3
+patch: 4
 pre: final
 cssversion: 2
 redirect_from:
@@ -621,6 +621,7 @@ Many thanks to the members of the [IIIF Community][iiif-community] for their con
 
 | Date       | Description |
 | ---------- | ----------- |
+| 2016-10-05 | Version 0.9.4 (Incrementing Integer) add to security notes |
 | 2016-08-22 | Version 0.9.3 (Wasabi KitKat) separate profiles, remove client identity service, add query parameters |
 | (unreleased) | Version 0.9.2 (unnamed) postMessage instead of JSONP |
 | 2015-10-30 | Version 0.9.1 (Table Flip) add missing @context, clarifications |
