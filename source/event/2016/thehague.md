@@ -53,6 +53,7 @@ The session schedule is available through [sched][sched].
 |               | Artstor and IIIF              | William Ying (Artstor) |
 |               | Perceptual Hashing on Media Files              | Maarten Zeinstra (Kennisland) |
 |               | Update on UGhent IIIF golive              | Dries Moreels (Ghent University Library) |
+|               | Time Machine FET Flagship              | Frederic Kaplan (École polytechnique fédérale de Lausanne)|
 | 11:30 - 12:00 | Introduction to Forthcoming sessions      | Session leaders             |
 | 12:00 - 1:30  | _Lunch on your own_  | |
 {: .api-table .sched-table}
