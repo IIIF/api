@@ -1,0 +1,5 @@
+---
+permalink: /api/auth/0/external/index.html
+redirect_to: 
+ - /api/auth/0.9/#external-interaction-pattern
+---
