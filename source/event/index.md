@@ -12,11 +12,11 @@ All IIIF events are subject to the [Code of Conduct][conduct].
 
 __Upcoming Events__
 
-* Fall 2016: [The Hague][hague], Netherlands
 * Spring 2017: The Vatican, Rome (Week of June 5) - Details TBD
 
 __Previous Events__
 
+* Fall 2016: [The Hague][hague], Netherlands
 * Spring 2016: [New York City][nyc], USA
 * Winter 2015: [Ghent][ghent], Belgium
 * Spring 2015: [Washington D.C.][dc], USA
