@@ -28,6 +28,9 @@
 - name: Centre de Recherche et de Restauration des Musées de France (C2RMF)
   uri: http://c2rmf.fr/
   iiifc:
+- name: Chinese University of Hong Kong
+  uri:
+  iiifc: 2
 - name: Cogapp
   uri: http://www.cogapp.com
   iiifc:
