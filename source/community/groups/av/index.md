@@ -22,11 +22,11 @@ The IIIF A/V Technical Specification Group aims to extend to A/V the benefits of
 [iiif-conf-2016]: /event/2016/newyork/#wednesday "IIIF Conference 2016"
 [events]: /event "IIIF Events"
 [iiif-discuss]: https://groups.google.com/forum/#!forum/iiif-discuss "IIIF-Discuss Forum"
-[av-slack]: [https://iiif.slack.com/messages/av/details/]
-[av-folder]: [https://drive.google.com/drive/folders/0B8SS5OUXWs4GZ0ZfbEhIclhzb0k?usp=sharing]
-[slack]: [http://bit.ly/iiif-slack]
-[https://bluejeans.com/608386174]: [https://bluejeans.com/608386174]
-[iiif-calendar]: [http://iiif.io/community/groups/]
+[av-slack]: https://iiif.slack.com/messages/av/details/
+[av-folder]: https://drive.google.com/drive/folders/0B8SS5OUXWs4GZ0ZfbEhIclhzb0k?usp=sharing
+[slack]: http://bit.ly/iiif-slack
+[https://bluejeans.com/608386174]: https://bluejeans.com/608386174
+[iiif-calendar]: http://iiif.io/community/groups/
 
 
 {% include acronyms.md %}
