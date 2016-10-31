@@ -85,36 +85,36 @@ The following code uses the Python [PyLD implementation][pyld] of JSON-LD to rea
 from pyld.jsonld import compact, frame
 import urllib, json, pprint
 
-manifest = json.load(urllib.urlopen("http://iiif.io/api/presentation/2.0/example/fixtures/1/manifest.json"))
+manifest = json.load(urllib.urlopen("http://iiif.io/api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/example/fixtures/1/manifest.json"))
 pprint.pprint(
   compact(
-    frame(manifest, "http://iiif.io/api/presentation/2/manifest_frame.json"),
-    "http://iiif.io/api/presentation/2/context.json")
+    frame(manifest, "http://iiif.io/api/presentation/{{ site.presentation_api.latest.major }}/manifest_frame.json"),
+    "http://iiif.io/api/presentation/{{ site.presentation_api.latest.major }}/context.json")
 )
 
 ```
 
 <br/>
 
-[prezi-api]: /api/presentation/2.0/
+[prezi-api]: /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/
 [jsonld-framing]: http://json-ld.org/spec/latest/json-ld-framing/
 [pyld]: https://pypi.python.org/pypi/PyLD
 
-[image-api-frame]: /api/image/2/info_frame.json
-[manifest-frame]: /api/presentation/2/manifest_frame.json
-[annolist-frame]: /api/presentation/2/annotationList_frame.json
-[collection-frame]: /api/presentation/2/collection_frame.json
-[sequence-frame]: /api/presentation/2/sequence_frame.json
-[canvas-frame]: /api/presentation/2/canvas_frame.json
-[anno-frame]: /api/presentation/2/annotation_frame.json
-[range-frame]: /api/presentation/2/range_frame.json
+[image-api-frame]: /api/image/{{ site.image_api.latest.major }}/info_frame.json
+[manifest-frame]: /api/presentation/{{ site.presentation_api.latest.major }}/manifest_frame.json
+[annolist-frame]: /api/presentation/{{ site.presentation_api.latest.major }}/annotationList_frame.json
+[collection-frame]: /api/presentation/{{ site.presentation_api.latest.major }}/collection_frame.json
+[sequence-frame]: /api/presentation/{{ site.presentation_api.latest.major }}/sequence_frame.json
+[canvas-frame]: /api/presentation/{{ site.presentation_api.latest.major }}/canvas_frame.json
+[anno-frame]: /api/presentation/{{ site.presentation_api.latest.major }}/annotation_frame.json
+[range-frame]: /api/presentation/{{ site.presentation_api.latest.major }}/range_frame.json
 
 [service-uri]: http://tools.ietf.org/html/rfc2609
 [service-wiki]: https://en.wikipedia.org/wiki/Service_Location_Protocol#Adoption
 [resource-uri]: http://www.iana.org/assignments/uri-schemes/prov/resource
 [context-checker]: /api/annex/notes/check_context.py
 [int-semver]: #semantic-versioning
-[prezi-language]: /api/presentation/2.1/#language-of-property-values
+[prezi-language]: /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/#language-of-property-values
 [iiif-discuss]: mailto:iiif-discuss@googlegroups.com
 
 {% include acronyms.md %}
