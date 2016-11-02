@@ -6,7 +6,7 @@ layout: spec
 tags: [specifications, image-api]
 major: 2
 minor: 1
-patch: 0
+patch: 1
 pre: final
 redirect_from:
   - /api/image/index.html
@@ -757,8 +757,8 @@ The following shows a response including all of the required and optional image 
   ],
   "service" : [
     {
-      "@context": "http://iiif.io/api/annex/service/physdim/1/context.json",
-      "profile": "http://iiif.io/api/annex/service/physdim",
+      "@context": "http://iiif.io/api/annex/services/physdim/1/context.json",
+      "profile": "http://iiif.io/api/annex/services/physdim",
       "physicalScale": 0.0025,
       "physicalUnits": "in"
     },{
@@ -903,6 +903,7 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 
 | Date       | Description |
 | ---------- | ----------- |
+| 2016-09-27 | Version 2.1.1 - Fixes typo in example Complete Response |
 | 2016-05-12 | Version 2.1 (Crowned Eagle) [View change log][change-log21] |
 | 2014-09-11 | Version 2.0 (Voodoo Bunny) [View change log][change-log20] |
 | 2013-09-17 | Version 1.1 (unnamed) [View change log][change-log11] |
