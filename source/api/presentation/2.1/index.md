@@ -1629,7 +1629,7 @@ __Protocol Behavior__
 | Manifest       | ![required][icon-req]  |
 | Sequence (first)   | ![optional][icon-opt]  |
 | Sequence (second+) | ![required][icon-req]  |
-| Canvas         | ![recommended][icon-recc]  |
+| Canvas         | ![optional][icon-opt]  |
 | Annotation     | ![recommended][icon-recc]  |
 | AnnotationList | ![required][icon-req]  |
 | Range          | ![optional][icon-opt]  |
