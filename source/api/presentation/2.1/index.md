@@ -531,7 +531,7 @@ The example below includes only the manifest-level information, however actual i
   "navDate": "1856-01-01T00:00:00Z",
 
   // Rights Information
-  "license": "http://example.org/license.html",
+  "license": "http://rightsstatements.org/page/NoC-NC/1.0/",
   "attribution": "Provided by Example Organization",
 
   "logo": {
@@ -1660,7 +1660,7 @@ URL: _http://example.org/iiif/book1/manifest_
   "description": "A longer description of this example book. It should give some real information.",
   "navDate": "1856-01-01T00:00:00Z",
 
-  "license": "http://example.org/license.html",
+  "license": "https://creativecommons.org/publicdomain/zero/1.0/",
   "attribution": "Provided by Example Organization",
   "service": {
     "@context": "http://example.org/ns/jsonld/context.json",
