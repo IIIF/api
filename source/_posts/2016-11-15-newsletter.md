@@ -11,7 +11,7 @@ excerpt: >
 
 ## Community Snapshot
  * [IIIF-Discuss][iiif-discuss] = 568 members  
- * IIIF Slack = 202 members ([Join Slack][join-slack])  
+ * [IIIF Slack][join-slack] = 202 members  
  * [IIIF Consortium][iiif-c]  = 39 members  
  * IIIF is now seeking a dedicated staff member for the role of [IIIF Technology Coordinator][tech-coordinator]  
 
