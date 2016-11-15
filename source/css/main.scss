@@ -839,13 +839,13 @@ a.button-turquoise {
   .sub-pages-container .api-table th {
     white-space: nowrap;
   }
-  
-  
+
+
   .sub-pages-container .sched-table {
     width:100%;
   }
-  
-  
+
+
   .sub-pages-container .sched-table td:first-child {
     width: 20%;
   }
@@ -859,8 +859,8 @@ a.button-turquoise {
   .sub-pages-container .msched-table {
     width:100%;
   }
-  
-  
+
+
   .sub-pages-container .msched-table td:first-child {
     width: 13%;
   }
@@ -1042,6 +1042,9 @@ a.button-turquoise {
   }
 }
 .post {
+  h2, h3, h4 {
+    font-weight: 600;
+  }
   .meta {
     p {
       line-height: 1.1;
@@ -1054,5 +1057,9 @@ a.button-turquoise {
       margin: 0;
       padding:0;
     }
+  }
+  li {
+    padding-bottom: 0 !important;
+    padding-top: 0 !important;
   }
 }

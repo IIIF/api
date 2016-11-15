@@ -4,32 +4,35 @@ author: Sheila Rabun
 date: 2016-11-15
 tags: [news, newsletter, announcements]
 layout: post
+excerpt: >
+  Community Snapshot, Community Events, Technical Work, Museums Community Group,
+  Implementations and Adoption
 ---
 
-# **Community Snapshot:**
+## Community Snapshot
  * [IIIF-Discuss][iiif-discuss] = 568 members  
  * IIIF Slack = 202 members ([Join Slack][join-slack])  
  * [IIIF Consortium][iiif-c]  = 39 members  
  * IIIF is now seeking a dedicated staff member for the role of [IIIF Technology Coordinator][tech-coordinator]  
 
-# **Community Events:**
+## Community Events
 
-## **IIIF Working Meeting in The Hague**
+### IIIF Working Meeting in The Hague
 The recent IIIF Working Meeting, hosted by Europeana at the Koninklijke Bibliotheek in The Hague (Oct. 19-21), provided an exciting forum for discussion, formulation of action items, and brainstorming for improvements to the IIIF community and technical frameworks.
 
  * Attendees: 61 participants from 29 cultural heritage institutions and technology firms
  * Review [Notes][hague-notes] from each of the working sessions
  * Explore the [Slides][hague-slides] from community Lightning Talk presentations
 
-## **Outreach Event in Amsterdam**
+### Outreach Event in Amsterdam
 The IIIF Outreach Event at the Rijksmuseum in Amsterdam (Oct. 18), sponsored in part by Europeana, drew a crowd of 42 interested individuals from museums, libraries, and software companies around Europe. Presentations focused on an overview of the IIIF community and technical specifications, and demonstrations of IIIF functionality in action.
 
 * View [Slides][outreach-slides] from the Outreach Event
 
-## **IIIF and IPTC Discuss Alliance**
+### IIIF and IPTC Discuss Alliance
 After the Working Meeting, the IIIF editors met with the [International Press Telecommunications Council][iptc], the standards body for news media, at their annual general meeting in Berlin.  The two organizations discussed the mutual benefits of each other’s work and agreed to continue working towards technical integration and co-promotion across the two communities.
 
-## **IIIF Presence at Conferences and Meetings**
+### IIIF Presence at Conferences and Meetings
 Active community participants are encouraged to represent IIIF at conferences, workshops and events around the world. Those planning to present on IIIF at a conference or meeting, please fill out the “[IIIF Representation at Conferences and Meetings][outreach-survey]” Survey. Recent and upcoming IIIF appearances include:
 
  * Hydra Connect, October 2016
@@ -40,41 +43,41 @@ Active community participants are encouraged to represent IIIF at conferences, w
  * Coalition for Networked Information (CNI), December 2016
  * Linked Pasts 2016, December 2016  
 
-## **2nd Annual IIIF Conference**
+### 2nd Annual IIIF Conference
 Save the date: the next IIIF Conference is scheduled for the week of June 5, 2017, in The Vatican. Stay tuned to the [IIIF Events page][iiif-events] and email announcements via the [IIIF-Discuss][iiif-discuss] email list for more details.
 
-# **Technical Work:**
+## Technical Work
 
-## **A/V Technical Specification Work**
+### A/V Technical Specification Work
 After a productive [meeting in The Hague][av-notes], the IIIF Audio/Visual Technical Specification Group is currently seeking questions, feedback, mock-ups, and prototypes for the production of a IIIF A/V API. All interested parties are encouraged to get involved at varied levels of commitment. See the [A/V group page][iiif-av] for details on how to join in the discussion and learn more.
 
-## **Discovery of IIIF Resources**
+### Discovery of IIIF Resources
 Interoperable resources are only useful if they can be found. The community is launching a concerted effort to improve the IIIF resource discovery process, with a focus on leveraging existing techniques and tools. Next steps include gathering use cases and requirements and creating an initial implementation plan. Follow discussions on the [IIIF-Discuss][iiif-discuss] email list. For more information, see the Discovery [overview][disc-overview] and [technical][disc-technical] discussion notes from The Hague.
 
-## **IIIF Authentication API**
+### IIIF Authentication API
 The prospective [IIIF Authentication API][iiif-auth] is currently under review by the IIIF community, with a few questions remaining the be answered. Continuing discussions will ensue on the [IIIF-Discuss][iiif-discuss] email list and on upcoming community calls (see the [IIIF Community Calendar][iiif-calendar] for call details). For additional information, see the [Authentication meeting notes][auth-notes] from The Hague.
 
-## **Shared Canvas 2.0**
+### Shared Canvas 2.0
 [Shared Canvas][shared-canvas] is the data model that underlies the IIIF technical specifications. [Discussions in the Hague][shared-canvas-hague] focused on updating the Shared Canvas model to address the latest developments and advances in IIIF. This will serve to ensure alignment of the two efforts, especially as IIIF extends to A/V materials.
 
-# **Community Groups:**
+## Community Groups:
 Please see the [IIIF Community Groups page][iiif-calendar] for a calendar of group and community calls, as well as links to more information about each group.
 
-## **Manuscripts Community Group**
+### Manuscripts Community Group
 With the goal of promoting increased accessibility to world manuscript images via the IIIF APIs, the [IIIF Manuscripts community group][manuscripts] shares regular project updates and demonstrations of ever-improving functionality for digital manuscript research. Current shared interests include additions to functionality for scholarly data in the Mirador viewer, creating custom manifests from multiple image sources, and developing IIIF plugins for existing platforms such as Omeka.
 
-## **Museums Community Group**
+### Museums Community Group
 Several museums have recognized the benefits of IIIF for museum images, and the [IIIF Museums community group][museums] is leading the effort to reach out to the wider museums community. Next steps include compiling outreach and training materials specifically geared toward the museums community, and continued IIIF-based presentations at museum conferences.
 
-## **Newspapers Community Group**
+### Newspapers Community Group
 The [IIIF Newspapers community group][newspapers] has drafted [guidelines for implementing IIIF][newspaper-guidelines] specifically for digital newspapers and the IIIF Presentation API. A number of institutions have successfully implemented one or more of the IIIF APIs for digital newspaper collections, with additional implementations underway.
 
-## **Software Developers Community Group**
+### Software Developers Community Group
 A forum for sharing IIIF-related implementation questions, updates, and demos, the [IIIF Software Developers community group][devs] welcomes front end designers, back end developers, and usability experts. The group is currently documenting a set of software components that improve the developer experience and support productivity with the IIIF APIs. They are also building up a body of running, live examples of how existing components can be configured, composed, and wired up so developers can hit the ground running from a working foundation.
 
-# **Implementations and Adoption:**
+## Implementations and Adoption
 
-## **New Releases**
+### New Releases
 
  * [Mirador 2.1][mirador], with significant feature enhancements & more IIIF support
  * [Manifest editor tool][manifest-editor] – Oxford University, with Text and Bytes, has produced a tool to create, upload and edit IIIF manifests; there is a version installed at the [Bodleian][bodleian-editor]
@@ -83,7 +86,7 @@ A forum for sharing IIIF-related implementation questions, updates, and demos, t
  * [CONTENTdm][contentdm] has announced support for IIIF Image API in their next release, adding 20 million resources to the IIIF Universe
  * [LUNA][luna-iiif] now supports both the IIIF Image and Presentation APIs
 
-## **Innovations & Ongoing Work from Across the IIIF Community**
+### Innovations & Ongoing Work from Across the IIIF Community
 
  * [Stanford drag and drop][stanford-dnd] (plus tutorial video)
  * [NCSU newspapers with IIIF Search API][ncsu-search]
@@ -91,10 +94,10 @@ A forum for sharing IIIF-related implementation questions, updates, and demos, t
  * [Palette extraction tool][palette-service] – Image API service for palette extraction
  * [pontIIIF][pontiiif], a prototype IIIF crawler and search engine, from Brumfield Labs
 
-### **Edited by:**
+#### Edited by:
 Sheila Rabun, IIIF Community and Communications Officer
 
-### **With contributions from:**
+#### With contributions from:
 Michael Appleby (Yale Center for British Art)  
 Tom Cramer (Stanford University Libraries)  
 Karen Estlund (Pennsylvania State University Libraries)  
