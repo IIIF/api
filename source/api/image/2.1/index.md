@@ -506,6 +506,8 @@ A recipe for enabling these behaviors is provided in the [Apache HTTP Server Imp
 
 The objects in the `sizes` list have the properties in the following table. Images requested using these sizes _SHOULD_ have a region parameter of "full" and rotation of "0".  The size _SHOULD_ be requested using the canonical syntax of `w,`. Thus, the full URL for an image with "default" quality in "jpg" format would be: `{scheme}://{server}/{prefix}/{identifier}/full/{width},/0/default.jpg`
 
+Note that the values in `width` and `height` do not necessarily imply that an image of that size is available. If `sizes`, `maxArea`, `maxWidth`, or `maxHeight` are present, they may indicate constraints on the maximum size of image that can be requested. The `width` and `height` information is still required in order to construct tile requests and know the aspect ratio of the image.
+
 __Warning__
 There is an inconsistency between the specification of the `sizes` list and the canonical URI syntax. Clients _SHOULD_ use the [Canonical URI Syntax](#canonical-uri-syntax) when making image requests based on entries in `sizes`. For maximum compatibility, servers _SHOULD_ support both the `w,` and `w,h` forms of the `size` parameter for values in `sizes` that maintain the aspect ratio. This inconsistency will be addressed in the next major version of this specification.
 {: .warning}
