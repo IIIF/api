@@ -1,5 +1,5 @@
 ---
-title: "IIIF Manuscripts Group"
+title: "IIIF Manuscripts Community Group"
 layout: spec
 tags: []
 cssversion: 2
