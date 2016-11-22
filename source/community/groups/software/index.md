@@ -24,7 +24,7 @@ To advance the growth and adoption of interoperable software with IIIF, the Soft
 * **Communication Channels:** Virtual meetings announced on [IIIF-Discuss][iiif-discuss]. General discussion on the [# softwaredevs IIIF Slack channel][devs-slack] ([Join Slack][join-slack])
 * **Call Notes and Group Documents:** [IIIF Software Developers Folder][devs-folder]
 * **Regular Meeting Schedule:** Every other week (opposite the general IIIF Community Call) on Wednesdays at 12:00pm Eastern - see [IIIF Community Calendar][calendar] for details
-* **Call Connection Information:** Connect online at [https://bluejeans.com/782319325][bluejeans] or by Phone: +1.408.740.7256 (US)/ +1.888.240.2560 (US Toll Free)/ +1.408.317.9253 - Enter Meeting ID: 782319325
+* **Call Connection Information:** Connect online at [https://bluejeans.com/782319325][bluejeans] or by Phone: +1.888.240.2560 (US Toll Free) or see [international numbers][international-bluejeans] - Enter Meeting ID: 782319325
 
 
 [iiif-discuss]: https://groups.google.com/forum/#!forum/iiif-discuss
@@ -33,6 +33,7 @@ To advance the growth and adoption of interoperable software with IIIF, the Soft
 [devs-folder]: https://drive.google.com/drive/folders/0B8WLA_XCC1koZUF6TEFmQW5Vc0E?usp=sharing
 [calendar]: http://iiif.io/community/groups/
 [bluejeans]: https://bluejeans.com/782319325
+[international-bluejeans]: https://bluejeans.com/numbers?ll=en
 
 
 {% include acronyms.md %}
