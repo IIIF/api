@@ -18,7 +18,7 @@ The IIIF Museums Community Group was formed in order to facilitate the discussio
   * **Communication Channels:** Virtual meetings announced on the [IIIF-Discuss][iiif-discuss] email list. General discussion on the [# museums IIIF Slack channel][museums-slack] ([Join Slack][slack])
   * **Call Notes and Group Documents:** [IIIF Museums Community Group folder][museums-folder]
   * **Regular Call Schedule:** First Tuesday of every month at 11:00am Eastern - see [IIIF Community Calendar][iiif-calendar] for details
-  * **Call Connection Information:** Connect Online at [https://bluejeans.com/390621048][https://bluejeans.com/390621048] or by Phone: +1.408.740.7256 (US)/ +1.888.240.2560 (US Toll Free)/ +1.408.317.9253 - Enter Meeting ID: 390621048
+  * **Call Connection Information:** Connect Online at [https://bluejeans.com/390621048][https://bluejeans.com/390621048] or by Phone: +1.888.240.2560 (US Toll Free) or see [international numbers][international-bluejeans] - Enter Meeting ID: 390621048
 
   [iiif-discuss]: https://groups.google.com/forum/#!forum/iiif-discuss "IIIF-Discuss Forum"
   [museums-slack]: https://iiif.slack.com/messages/museums/details/
@@ -26,5 +26,6 @@ The IIIF Museums Community Group was formed in order to facilitate the discussio
   [slack]: http://bit.ly/iiif-slack
   [https://bluejeans.com/390621048]: https://bluejeans.com/390621048
   [iiif-calendar]: http://iiif.io/community/groups/
+  [international-bluejeans]: https://bluejeans.com/numbers?ll=en
 
 {% include acronyms.md %}
