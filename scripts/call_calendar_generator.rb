@@ -11,16 +11,42 @@ require "ri_cal"
 require "tzinfo"
 require "date"
 
-MODERATORS = [ "Albritton", "Appleby", "Cramer", "Crane", "McGrattan",
-  "Sanderson", "Snydman", "Rabun", "Stroop", "Warner" ].uniq.sort!
+MODERATORS = {
+    technical: [
+      "Appleby",
+      "Crane",
+      "Sanderson",
+      "Stroop",
+      "Warner"
+    ].uniq.sort!,
+    community: [
+      "Albritton",
+      "Cramer",
+      "McGrattan",
+      "Snydman",
+      "Rabun"
+    ].uniq.sort!
+}
 
 # Make sure this is the date of a call or risk being off by a week.
-PERIOD_START = Date.new(2016,8,31)
-PERIOD_END = Date.new(2017,1,14)
+PERIOD_START = Date.new(2017,01,18)
+PERIOD_END = Date.new(2017,06,30)
 
-def next_moderator
-  next_mod = MODERATORS.shift
-  MODERATORS.push(next_mod)
+class TopicTracker
+  def initialize
+    @next = :technical # this will be first
+    @now = :community
+  end
+
+  def next
+    @next, @now = @now, @next
+    return @now
+  end
+end
+
+def next_moderator(topic)
+  next_mod = MODERATORS[topic].shift
+  MODERATORS[topic].push(next_mod)
   next_mod
 end
 
@@ -30,13 +56,16 @@ occurrences = IceCube::Schedule.new(start=PERIOD_START) { |s|
 
 dates = occurrences.map { |o| Date.parse(o.to_time.to_s) }
 
+topic_tracker = TopicTracker.new
+
 calendar = RiCal.Calendar do |cal|
   dates.each do |date|
-    m = next_moderator
-    labl = "IIIF Bi-Weekly Community Call (#{m} moderates)"
-    description = "Moderator Link: https://stanford.bluejeans.com/639555055/1114/"
+    topic = topic_tracker.next
+    m = next_moderator(topic)
+    labl = "IIIF Bi-Weekly Community Call (#{topic.to_s}; #{m} moderates)"
+    description = "Moderator Link: https://bluejeans.com/273449388/1114/"
 
-    puts "#{date}: #{m}"
+    puts "#{date}: #{m} (#{topic.to_s})"
 
     dt_start = DateTime.parse("#{date.to_s}T12:00:00").set_tzid("America/New_York")
     dt_end = DateTime.parse("#{date.to_s}T01:00:00").set_tzid("America/New_York")
