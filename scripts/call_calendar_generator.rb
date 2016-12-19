@@ -15,6 +15,7 @@ MODERATORS = {
     technical: [
       "Appleby",
       "Crane",
+      "Ronallo",
       "Sanderson",
       "Stroop",
       "Warner"
@@ -22,9 +23,15 @@ MODERATORS = {
     community: [
       "Albritton",
       "Cramer",
+      "Estlund",
+      "Matienzo",
       "McGrattan",
+      "Rabun",
+      "Robson",
+      "Shaw",
+      "Singhal",
       "Snydman",
-      "Rabun"
+      "Winget"
     ].uniq.sort!
 }
 
