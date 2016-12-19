@@ -37,7 +37,7 @@ MODERATORS = {
 
 # Make sure this is the date of a call or risk being off by a week.
 PERIOD_START = Date.new(2017,01,18)
-PERIOD_END = Date.new(2017,06,30)
+PERIOD_END = Date.new(2017,12,31)
 
 class TopicTracker
   def initialize
