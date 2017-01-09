@@ -17,7 +17,7 @@ The second annual International Image Interoperability Framework ([IIIF][home-pa
 ### Logistics
 
 * Registration: An announcement will go out on the [IIIF Discuss][iiif-discuss] email list when registration opens
-* Dates: June 5-9, 2017
+* Dates: June 6-9, 2017
 * Location: [Institutum Patristicum Augustinianum][institute] (Augustinian Patristic Institute Conference Center)
 * Capacity: Varies - please see details in the schedule section below.
 * Code of Conduct: The IIIF [Code of Conduct][conduct] applies to all IIIF events and related activities.
@@ -28,11 +28,11 @@ The second annual International Image Interoperability Framework ([IIIF][home-pa
 
 The general conference schedule will be as follows:
 
-* Monday, June 5: IIIF Outreach program
-* Tuesday, June 6: IIIF Conference Plenary
-* Wednesday, June 7: IIIF Conference Parallel Tracks
+* Monday, June 5: IIIF-C Executive Committee meeting
+* Tuesday, June 6: IIIF Conference Plenary - Outreach Event
+* Wednesday, June 7: IIIF Conference Plenary
 * Thursday, June 8: IIIF Conference Parallel Tracks
-* Friday, June 9: TBD
+* Friday, June 9: IIIF Conference Parallel Tracks
 
 Stay tuned for more detailed schedule and capacity information.
 
