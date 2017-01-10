@@ -28,7 +28,6 @@ The second annual International Image Interoperability Framework ([IIIF][home-pa
 
 The general conference schedule will be as follows:
 
-* Monday, June 5: IIIF-C Executive Committee meeting
 * Tuesday, June 6: IIIF Conference Plenary - Outreach Event
 * Wednesday, June 7: IIIF Conference Plenary
 * Thursday, June 8: IIIF Conference Parallel Tracks
