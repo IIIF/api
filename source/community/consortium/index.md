@@ -35,4 +35,4 @@ srabun@iiif.io
 [mou]: /community/consortium/mou/
 [news]: /news/2015/06/17/iiif-consortium/
 [clir]: http://clir.org/
-[support-policy]: /community/consortium/policy/support
+[support-policy]: /community/policy/support
