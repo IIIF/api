@@ -45,7 +45,7 @@ To facilitate coordination within and across groups, IIIF maintains a common set
 
   * **Code Repositories**: GitHub is widely used within IIIF for code, documentation and issue tracking. The IIIF organization (<https://github.com/IIIF>) is used for core community products (such as the iiif.io website, technical infrastructure and specifications). Groups are encouraged to make use of GitHub repositories to manage the production of their deliverables and tracking issues and actions.
 
-  * **IIIF Working Meetings**: IIIF groups are encouraged to participate in regular in-person IIIF events, including helping to shape the agenda and allocating time/space for group discussion.  
+  * **IIIF Working Meetings**: IIIF groups are encouraged to participate in regular in-person IIIF events, including helping to shape the agenda and allocating time/space for group discussion.
 
 ## IIIF Community Groups
 
@@ -54,7 +54,7 @@ Community Groups provide interest-specific forums for general discussion, brains
 ### Community Group Formation and Approval
 
   * Community Groups should emerge naturally from discussions and needs within the community. The focus, scope and objectives of the group are ideally identified via open discussion on the [IIIF-Discuss][iiif-discuss] email list.
-  * Community Groups can be formed as needed by sending a lightweight statement of the topic, scope, and objectives of discussion for the proposed Community Group to the IIIF Community and Communications Officer. Proposals will then be assessed by the IIIF Coordinating Committee.  
+  * Community Groups can be formed as needed by sending a lightweight statement of the topic, scope, and objectives of discussion for the proposed Community Group to the IIIF Community and Communications Officer. Proposals will then be assessed by the IIIF Coordinating Committee.
   * Once approved, Community Groups should be documented on the iiif.io website, noting the following information:
     1. Statement of the group focus and/or goals, and how the group came to be formed
     2. Chair(s) of the group
@@ -87,8 +87,8 @@ Technical Specification Groups are the main working vehicle for adding new APIs 
   * The document outlining the above must be sent to the IIIF Community and Communications Officer for subsequent discussion and initial approval by the IIIF Coordinating Committee, typically within a one week timeframe. (Note: There are two stages of approval: initial approval by the Coordinating Committee, followed by an official approval by the wider community - see CfP process below).
   * Once initially approved, the group document becomes the group’s charter, providing definition of the group and its deliverables. The charter is not a contract and may be changed with the consensus of the members of the group at any time. However, significant changes such as a 6 month or more delay in timeframes, the abandonment of a deliverable, or the change in the overall scope of the work should be announced to the community via the regular channels.
   * Once the draft charter is acceptable to the participants in the discussion, a Call for Participation (CfP) is issued to appropriate lists (including [IIIF-Discuss][iiif-discuss] at the least) that announces the document and seeks the engagement of additional participants.
-    * Individuals from organizations across the IIIF community must respond to the CfP indicating that they are willing to take part and commit resources towards the Technical Specification Group's goals.  
-    * At least three IIIF participating institutions  must respond positively, and no more than three institutions may respond negatively, for the group to be officially approved by the wider community.  
+    * Individuals from organizations across the IIIF community must respond to the CfP indicating that they are willing to take part and commit resources towards the Technical Specification Group's goals.
+    * At least three IIIF participating institutions  must respond positively, and no more than three institutions may respond negatively, for the group to be officially approved by the wider community.
     * If fewer than three institutions are willing to contribute, then the group's topic is likely too specific and the work should be done outside of the Technical Specification Group process.  If more than three institutions object to the work being done, then there is a significant issue that should be resolved before committing resources.
     * For Technical Specification Groups where deliverables would involve additions or changes to existing technical specifications, at least two current members of the editorial board must sign up as members of the group to ensure consistency with existing and ongoing work.
   * At least two calendar weeks must pass between the CfP and official approval of the group.  If only one or two institutions are interested after four calendar weeks, then the CfP is considered closed and the original proposers of the charter should lead continued discussion and modify the charter before re-announcing.
@@ -104,11 +104,11 @@ Technical Specification Groups are the main working vehicle for adding new APIs 
 
 All members of a Technical Specification Group must agree to have any contributed work licensed under a CC-BY license, or similar.  Participants meeting this requirement may join at any time, without any prior approval process: the gateway is activity, not reputation.
 
-All discussion within the Technical Specification Group must be transparent and public, made available through the [IIIF Google Drive][iiif-drive] and the [IIIF-Discuss][iiif-discuss] email list.  This means that meetings must have notes taken about the attendance and any decisions or action items, general discussions take place on mailing lists maintained by the community, chat logs should be posted and so forth.  
+All discussion within the Technical Specification Group must be transparent and public, made available through the [IIIF Google Drive][iiif-drive] and the [IIIF-Discuss][iiif-discuss] email list.  This means that meetings must have notes taken about the attendance and any decisions or action items, general discussions take place on mailing lists maintained by the community, chat logs should be posted and so forth.
 
 Any meetings, face-to-face or by teleconference, at which decisions are made must be announced in advance and open to any group participant, otherwise any opinions expressed at the meeting must also be discussed on a mailing list.  Meeting times should be published far enough in advance to allow members to schedule their participation, and preferably use a consistent schedule. Every participant is encouraged to take an active role in ensuring the transparency of the work.
 
-Technical Specification Groups must remain active. Any group that does not respond to comments, questions or concerns either from participants or the community within three months will be closed and removed from the list of active groups.  
+Technical Specification Groups must remain active. Any group that does not respond to comments, questions or concerns either from participants or the community within three months will be closed and removed from the list of active groups.
 
 Technical Specification Groups must strive to meet their timelines and produce the deliverables designated in their charter.  The groups must always have at least one member designated as Chair, and preferably two or at most three.  Chairs are responsible for promoting continued activity within the group but have no additional powers or rights than any other participant.  Chairs do not need to be from a IIIF Consortium member organization. A group with only inactive chairs is considered to be inactive, and the group should select one or more new chairs.
 
@@ -132,9 +132,9 @@ This community framework is an evolving document, and will be updated by the III
 
 ## IIIF Community and Communications Contact
 
-Sheila Rabun  
-IIIF Community and Communications Officer  
-srabun@iiif.io  
+Sheila Rabun
+IIIF Community and Communications Officer
+srabun@iiif.io
 
 
 [hydra-groups]: https://wiki.duraspace.org/pages/viewpage.action?pageId=67241635
