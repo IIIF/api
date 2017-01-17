@@ -5,8 +5,6 @@ layout: spec
 ---
 ### Status of this Document
 
-**This Version:** 1.0
-
 **Date:** 19 December 2016
 
 ## IIIF Support for Grant Proposals
