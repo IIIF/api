@@ -43,7 +43,7 @@ To facilitate coordination within and across groups, IIIF maintains a common set
 
   * **Documents**: IIIF uses the [IIIF Google Drive][iiif-drive] as a common platform to produce and organize its documents. Each Community Group should use this as a place for collaborative note taking and storing relevant documents.
 
-  * **Code Repositories**: GitHub is widely used within IIIF for code, documentation and issue tracking. The IIIF organization (https://GitHub.com/IIIF) is used for core community products (such as the iiif.io website, technical infrastructure and specifications). Groups are encouraged to make use of GitHub repositories to manage the production of their deliverables and tracking issues and actions.
+  * **Code Repositories**: GitHub is widely used within IIIF for code, documentation and issue tracking. The IIIF organization (<https://github.com/IIIF>) is used for core community products (such as the iiif.io website, technical infrastructure and specifications). Groups are encouraged to make use of GitHub repositories to manage the production of their deliverables and tracking issues and actions.
 
   * **IIIF Working Meetings**: IIIF groups are encouraged to participate in regular in-person IIIF events, including helping to shape the agenda and allocating time/space for group discussion.  
 
