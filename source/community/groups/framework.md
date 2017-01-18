@@ -13,7 +13,8 @@ The IIIF Groups Framework is derived from the [Hydra Project group structure][hy
 
   * Be lightweight enough that work is not prevented from being done
   * Facilitate visibility and discovery of ongoing beneficial work
-  * Allow work within the community to take place within the group structure, while not preventing work from occurring outside of formal groups new participants to join ongoing development
+  * Allow work within the community to take place within the group structure, while not preventing work from occurring outside of formal groups
+  * Enable new participants to join ongoing development
   * Encourage the development of products by the community
   * Be fair and transparent with regards to any decision making process
 
@@ -94,11 +95,13 @@ Technical Specification Groups are the main working vehicle for adding new APIs 
   * At least two calendar weeks must pass between the CfP and official approval of the group.  If only one or two institutions are interested after four calendar weeks, then the CfP is considered closed and the original proposers of the charter should lead continued discussion and modify the charter before re-announcing.
   * Once officially approved, Technical Specification Groups should be documented on the iiif.io website, noting the following information:
     1. Statement of the group focus and/or goals, and how the group came to be formed
-    2. Chair(s) of the group
-    3. Communication channels ([Slack][iiif-slack], [IIIF-Discuss][iiif-discuss], etc.)
-    4. Link to group folder in the IIIF Google Drive for Call Notes and Group Documents
-    5. Regular call schedule
-    6. Call connection information
+    2. Link to the group charter
+    3. Chair(s) of the group
+    4. Communication channels ([Slack][iiif-slack], [IIIF-Discuss][iiif-discuss], etc.)
+    5. Link to group folder in the IIIF Google Drive for Call Notes and Group Documents
+    6. Link to relevant GitHub repositories
+    7. Regular call schedule
+    8. Call connection information
 
 ### Technical Specification Group Requirements
 
