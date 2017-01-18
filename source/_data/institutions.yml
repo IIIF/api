@@ -146,6 +146,9 @@
 - name: University College Dublin
   uri:
   iiifc:
+- name: University of Basel, Digital Humanities Lab
+  uri: http://dhlab.unibas.ch/
+  iiifc: 2
 - name: University of Edinburgh
   uri: http://www.ed.ac.uk/
   iiifc: 2
