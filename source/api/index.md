@@ -10,6 +10,7 @@ cssversion: 2
 
 | API                | Current Version |
 | ------------------ | --------------- |
+| Authentication API | [{{ site.auth_api.latest.major }}.{{ site.auth_api.latest.minor }}.{{ site.auth_api.latest.patch}}][auth{{ site.auth_api.latest.major }}{{ site.auth_api.latest.minor }}] |
 | Image API          | [{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}.{{ site.image_api.latest.patch}}][image{{ site.image_api.latest.major }}{{ site.image_api.latest.minor }}] |
 | Presentation API   | [{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}.{{ site.presentation_api.latest.patch }}][prezi{{ site.presentation_api.latest.major }}{{ site.presentation_api.latest.minor }}] |
 | Search API   | [{{ site.search_api.latest.major }}.{{ site.search_api.latest.minor }}.{{ site.search_api.latest.patch }}][search{{ site.search_api.latest.major }}{{ site.search_api.latest.minor }}] |
@@ -17,11 +18,10 @@ cssversion: 2
 
 ## Draft Specifications
 
-| API                | Draft Version (Status)     |
+| API                | Draft Version (Status)       |
 | ------------------ | ---------------------------- |
-| Authentication API | [0.9.3][auth09] *(Beta draft)* |
+| none               | none                         |
 {: .api-table}
-
 
 __Feedback Requested__<br/>
 We welcome feedback on all IIIF Specifications. In particular, we are actively seeking implementations and feedback on the Authentication API draft specification. Please send any feedback to [iiif-discuss@googlegroups.com][iiif-discuss].
@@ -46,6 +46,7 @@ Current IIIF specifications _SHOULD_ be used for all new work. Old versions are 
 
 | Old API Version            | Notes |
 | -------------------------- | ----- |
+| [Authentication API 0.9.4][auth094] | Published 2016-10-05 |
 | [Image API 2.0][image20]   | Published 2014-09-11 |
 | [Image API 1.1][image11]   | Published 2013-09-17 |
 | [Image API 1.0][image10]   | Published 2012-08-10 |
@@ -76,7 +77,8 @@ IIIF Specifications are created and published following the [IIIF Editorial Proc
 [prezi20]: /api/presentation/2.0/ "Presentation API v2.0"
 [meta10]: /api/metadata/1.0/ "Metadata API v1.0"
 [meta09]: /api/metadata/0.9/ "Metadata API v0.9"
-[auth09]: /api/auth/0.9/ "Authentication API v0.9"
+[auth10]: /api/auth/1.0/ "Authentication API v1.0"
+[auth094]: /api/auth/0.9/ "Authentication API v0.9.4"
 [search10]: /api/search/1.0/ "Search API v1.0"
 [search09]: /api/search/0.9/ "Search API v0.9"
 [notes]: /api/annex/ "Implementation Notes"
