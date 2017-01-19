@@ -41,6 +41,6 @@ search_api:
     patch: 0
 auth_api:
   latest:
-    major: 0
-    minor: 9
-    patch: 1
+    major: 1
+    minor: 0
+    patch: 0

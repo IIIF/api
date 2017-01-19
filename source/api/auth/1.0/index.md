@@ -1,16 +1,17 @@
 ---
-title: "IIIF Authentication API 0.9.4"
-title_override: "IIIF Authentication API 0.9.4"
+title: "IIIF Authentication API 1.0"
+title_override: "IIIF Authentication API 1.0"
 id: auth-api
 layout: spec
 tags: [specifications, auth-api]
-major: 0
-minor: 9
-patch: 4
+major: 1
+minor: 0
+patch: 0
 pre: final
 cssversion: 2
 redirect_from:
-  - /api/auth/0/index.html
+  - /api/auth/index.html
+  - /api/auth/1/index.html
 ---
 
 ## Status of this Document
@@ -20,9 +21,7 @@ __This Version:__ {{ page.major }}.{{ page.minor }}.{{ page.patch }}{% if page.p
 
 __Latest Stable Version:__ [{{ site.auth_api.latest.major }}.{{ site.auth_api.latest.minor }}.{{ site.auth_api.latest.patch }}][stable-version]
 
-__Beta Specification for Trial Use__
-This is a work in progress. We are actively seeking implementations and feedback.  No section should be considered final, and the absence of any content does not imply that such content is out of scope, or may not appear in the future.  Please send any feedback to [iiif-discuss@googlegroups.com][iiif-discuss].
-{: .alert}
+__Previous Version:__ [0.9.4][prev-version]
 
 **Editors:**
 
@@ -570,7 +569,7 @@ When there are no lower tiers and the user is not authorized to access the curre
   <tbody>
     <tr>
       <td>
-        <img style="max-width: 1000px" src="img/auth-flow-client-093.png" alt="Server Authentication Flow" class="fullPct" />
+        <img style="max-width: 1000px" src="img/auth-flow-client.png" alt="Server Authentication Flow" class="fullPct" />
         <p><strong>1</strong> Client Authentication Workflow</p>
       </td>
     </tr>
@@ -623,6 +622,7 @@ Many thanks to the members of the [IIIF Community][iiif-community] for their con
 
 | Date       | Description |
 | ---------- | ----------- |
+| 2017-01-19 | Version 1.0 (Alchemical Key) |
 | 2016-10-05 | Version 0.9.4 (Incrementing Integer) add to security notes |
 | 2016-08-22 | Version 0.9.3 (Wasabi KitKat) separate profiles, remove client identity service, add query parameters |
 | (unreleased) | Version 0.9.2 (unnamed) postMessage instead of JSONP |
@@ -633,8 +633,6 @@ Many thanks to the members of the [IIIF Community][iiif-community] for their con
 [postmessage]: https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage "window.postMessage"
 [cors-spec]: http://www.w3.org/TR/cors/ "Cross-Origin Resource Sharing"
 [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
-[client-auth-img]: img/auth-flow-client.png
-[server-auth-img]: img/auth-flow-server.png
 [semver]: http://semver.org/spec/v2.0.0.html "Semantic Versioning 2.0.0"
 [iiif-community]: /community/ "IIIF Community"
 [versioning]: /api/annex/notes/semver/ "Versioning of APIs"
@@ -647,5 +645,6 @@ Many thanks to the members of the [IIIF Community][iiif-community] for their con
 [rfc-2818]: https://tools.ietf.org/html/rfc2818 "HTTP Over TLS"
 [implementation-notes]: implementation/ "IIIF Authentication: Implementation Notes"
 [stable-version]: /api/auth/{{ site.auth_api.latest.major }}.{{ site.auth_api.latest.minor }}/ "Stable Version"
+[prev-version]: /api/auth/0.9/ "Previous Version"
 
 {% include acronyms.md %}

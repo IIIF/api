@@ -1,0 +1,37 @@
+{
+  "@context": {
+    "iiif": "http://iiif.io/api/image/2#",
+    "sc": "http://iiif.io/api/presentation/2#",
+    "auth": "http://iiif.io/api/auth/1#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "doap": "http://usefulinc.com/ns/doap#",
+    "svcs": "http://rdfs.org/sioc/services#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "profile": {
+      "@id": "doap:implements",
+      "@type": "@id"
+    },
+    "service": {
+      "@type": "@id",
+      "@id": "svcs:has_service"
+    },
+    "label": {
+      "@id": "rdfs:label"
+    },
+    "description": {
+      "@id": "dc:description"
+    },
+    "confirmLabel": {
+      "@id": "auth:confirmLabel"
+    },
+    "header": {
+      "@id": "auth:header"
+    },
+    "failureHeader": {
+      "@id": "auth:failureHeader"
+    },
+    "failureDescription": {
+      "@id": "auth:failureDescriptiom"
+    }
+  }
+}
