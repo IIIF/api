@@ -622,7 +622,7 @@ Many thanks to the members of the [IIIF Community][iiif-community] for their con
 
 | Date       | Description |
 | ---------- | ----------- |
-| 2017-01-18 | Version 1.0 (Alchemical Key) |
+| 2017-01-19 | Version 1.0 (Alchemical Key) |
 | 2016-10-05 | Version 0.9.4 (Incrementing Integer) add to security notes |
 | 2016-08-22 | Version 0.9.3 (Wasabi KitKat) separate profiles, remove client identity service, add query parameters |
 | (unreleased) | Version 0.9.2 (unnamed) postMessage instead of JSONP |

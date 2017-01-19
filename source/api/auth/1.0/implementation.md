@@ -284,7 +284,7 @@ If, for example, the client domain and resource domain are in the *Internet* zon
 
 | Date       | Description |
 | ---------- | ----------- |
-| 2017-01-18 | Updated to apply to version 1.0.0 |
+| 2017-01-19 | Updated to apply to version 1.0.0 |
 | 2016-10-05 | Clarifications to text, applies to version 0.9.4 |
 | 2016-09-25 | Update implementation notes to apply to version 0.9.3 |
 {: .api-table .first-col-normal}
