@@ -12,7 +12,7 @@ tags: [event ]
 
 ## IIIF Conference - The Vatican - 2017
 
-The second annual International Image Interoperability Framework ([IIIF][home-page]) Conference in The Vatican is intended for a wide range of participants and interested parties across the IIIF community. See below for more details about the conference schedule.
+The second annual International Image Interoperability Framework ([IIIF][home-page]) Conference in The Vatican is intended for a wide range of participants and interested parties across the IIIF community. A [Call for Proposals][vatican-cfp] is now open until February 23, 2017.
 
 ### Logistics
 
@@ -35,8 +35,11 @@ The general conference schedule will be as follows:
 
 Stay tuned for more detailed schedule and capacity information.
 
+*Last updated January 23, 2017*
+
 
 [home-page]: http://iiif.io/
 [conduct]: /event/conduct/
 [institute]: http://www.patristicum.org/en/conference-center
 [iiif-discuss]: https://groups.google.com/forum/#!forum/iiif-discuss
+[vatican-cfp]: /event/2017/vatican-cfp
