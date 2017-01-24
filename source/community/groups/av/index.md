@@ -11,11 +11,11 @@ The IIIF A/V Technical Specification Group aims to extend to A/V the benefits of
 
 ## Organization
 
-  * **Chair:** Jason Ronallo (North Carolina State University Libraries)
+  * **Chair:** Tom Crane (Digirati)
   * **Communication Channels:** Virtual meetings announced on the [IIIF-Discuss][iiif-discuss] email list. General discussion on the [# av IIIF Slack channel][av-slack] ([Join Slack][slack])
   * **Call Notes and Group Documents:** [IIIF A/V Tech Spec Group folder][av-folder]
   * **Regular Call Schedule:** Every other week (opposite the general IIIF Community Call) on Tuesdays at 12:00pm Eastern - see [IIIF Community Calendar][iiif-calendar] for details
-  * **Call Connection Information:** Connect Online at [https://bluejeans.com/608386174][https://bluejeans.com/608386174] or by Phone: +1.888.240.2560 (US Toll Free) or see [international numbers][international-bluejeans] - Enter Meeting ID: 608386174
+  * **Call Connection Information:** Connect Online at [https://bluejeans.com/222002812][https://bluejeans.com/222002812] or by Phone: +1.888.240.2560 (US Toll Free) or see [international numbers][international-bluejeans] - Enter Meeting ID: 222002812
 
 [av-user-stories]: https://github.com/IIIF/iiif-av/issues "Audiovisual User Stories"
 [bl-workshop-2016-04]: https://goo.gl/iVXEFD "Use cases and notes from April 2015 workshop at British Library"
@@ -25,7 +25,7 @@ The IIIF A/V Technical Specification Group aims to extend to A/V the benefits of
 [av-slack]: https://iiif.slack.com/messages/av/details/
 [av-folder]: https://drive.google.com/drive/folders/0B8SS5OUXWs4GZ0ZfbEhIclhzb0k?usp=sharing
 [slack]: http://bit.ly/iiif-slack
-[https://bluejeans.com/608386174]: https://bluejeans.com/608386174
+[https://bluejeans.com/222002812]: https://bluejeans.com/222002812
 [iiif-calendar]: http://iiif.io/community/groups/
 [international-bluejeans]: https://bluejeans.com/numbers?ll=en
 
