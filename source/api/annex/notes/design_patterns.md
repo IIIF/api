@@ -30,10 +30,12 @@ This document is not subject to [IIIF's versioning semantics][iiif-semver]. Chan
 
 ## 1. Overview
 
+This document aims to lay out the design principles that have been adopted, and the reasons why, during the creation of the IIIF specifications.  These principles are intended to guide the development of ongoing and future work within the community to try and maximize the likelihood of consistency.
 
-See [Community Process][process].
+The principles do not speak to the process by which the specifications are written and managed over time.  For notes on the adopted approaches for these, please see:
 
-
+  * [Editorial Process][process]: The community process of discussion, and the editorial process of writing, the specifications.
+  * [Semantic Versioning][semver]: The interpretation of the semantic versioning pattern for managing change of APIs in a responsible and responsive manner.
 
 
 ## 2. Design Principles Adopted
@@ -110,11 +112,8 @@ IIIF specifications define the functionality that can be expected to work and ho
 
 This decision was made to enable experimentation by implementers, thereby encouraging the early adoption and validation of new (minor) versions.   
 
-### Follow the IIIF Community Process
 
-
-
-## 4. Appendices
+## 3. Appendices
 
 ### A. Change Log
 
@@ -133,11 +132,10 @@ This decision was made to enable experimentation by implementers, thereby encour
 [services]: /api/annex/services/
 
 [rest]: https://en.wikipedia.org/wiki/Representational_state_transfer
-[lod]:
-[webarch]: 
+[lod]: https://en.wikipedia.org/wiki/Linked_data
+[webarch]: https://www.w3.org/TR/webarch/
 [jsonbp]: http://json-ld.org/spec/latest/json-ld-api-best-practices/
 [lodbp]: https://www.w3.org/TR/ld-bp/
 [databp]: https://www.w3.org/TR/dwbp/
-
 
 {% include acronyms.md %}
