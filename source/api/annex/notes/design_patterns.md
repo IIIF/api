@@ -42,7 +42,7 @@ The principles do not speak to the process by which the specifications are writt
 
 ### 2.1. Scope Design Through Shared Use Cases
 
-> [Discussion](https://github.com/IIIF/iiif.io/issues/1050)
+> * [Discuss](https://github.com/IIIF/iiif.io/issues/1050)
 
 IIIF specifications are scoped through documented and well understood, shared use cases.  This process governs the method by which decisions are made as to which features should be included or prioritized.  
 
@@ -50,13 +50,13 @@ This decision was made in order to keep the resulting specifications practical a
 
 ### 2.2. Select Solutions That Are as Simple as Possible and No Simpler
 
-> [Discussion](https://github.com/IIIF/iiif.io/issues/1041)
+> [Discuss](https://github.com/IIIF/iiif.io/issues/1041)
 
 IIIF specifications should be designed to reduce the complexity to the lowest possible point at which the use cases that feed them can be met.  They should make simple things easy and complex things possible.  They should allow implementers to build up from a minimum viable product in stages and incrementally enable more complex use cases.
 
 This decision was made to ensure the adoption of the specifications is as high as possible.
 
-### Intelligently Manage Ramping Up
+### 2.3. Intelligently Manage Ramping Up
 
 > [Discussion](https://github.com/IIIF/iiif.io/issues/1044)
 
@@ -64,7 +64,7 @@ IIIF specifications should allow basic implementation with static on-disk files,
 
 This decision was made to support simple and quick implementations as a way to encourage adoption.
 
-### Avoid Dependency on Specific Technologies
+### 2.4. Avoid Dependency on Specific Technologies
 
 > [Discussion](https://github.com/IIIF/iiif.io/issues/1055)
 
@@ -72,7 +72,7 @@ IIIF specifications should avoid placing undue value on one technology or format
 
 This decision was made in order to ensure that the specifications can be implemented in a variety of languages and styles.  It results from the combination of the previous two principles.
 
-### Use Resource Oriented Design
+### 2.5. Use Resource Oriented Design
 
 > [Discussion](https://github.com/IIIF/iiif.io/issues/1036)
 
@@ -80,7 +80,7 @@ IIIF specifications follow resource-centric design principles and use [REST][res
 
 This decision was made to ensure that the specifications are cacheable and performant, at the same time as being easy to understand and implement. 
 
-### Don't Break Web Caches
+### 2.6. Don't Break Web Caches
 
 > [Discussion](https://github.com/IIIF/iiif.io/issues/1048)
 
@@ -88,7 +88,7 @@ IIIF specifications are designed to work seamlessly with modern web caching infr
 
 This decision was made for performance and simplicity of implementation, and results from the previous principles.
 
-### Follow Linked Data Principles
+### 2.7. Follow Linked Data Principles
 
 > [Discussion](https://github.com/IIIF/iiif.io/issues/1037)
 
@@ -96,7 +96,7 @@ IIIF specifications conform to [Linked Data][lod], and relevant [web architectur
 
 This decision was made to ensure that the data published via IIIF specifications can be part of the Web, not just on the Web. The semantics of the properties and classes used in the APIs are therefore self-documenting and able to be shared.
 
-### Design for JSON-LD First
+### 2.8. Design for JSON-LD First
 
 > [Discussion](https://github.com/IIIF/iiif.io/issues/1038)
 
@@ -104,7 +104,7 @@ IIIF specifications that involve the description of resources, rather than the t
 
 This decision was made to ensure that the representation of the Linked Data is as easy to use as possible without the need for a full RDF development suite.  Developers must be able to treat the representation as plain JSON, with a predictable structure.  This ease of understanding increases the likelihood of wide spread adoption.
 
-### Use Existing Standards Where Possible
+### 2.9. Use Existing Standards Where Possible
 
 > [Discussion](https://github.com/IIIF/iiif.io/issues/1040)
 
@@ -112,13 +112,13 @@ IIIF specifications should be consistent with and use existing open standards wh
 
 This decision was made to ensure the continued integration of IIIF specifications with the wider web environment, and existing implementations.
  
-### Follow Existing Best Practices
+### 2.10. Follow Existing Best Practices
 
 IIIF specifications follow existing best practices for the standards that it adopts, including [JSON-LD best practices][jsonbp], [Linked Open Data best practices][lodbp], and [Data on the Web best practices][dwbp], where possible and appropriate.  Exceptions are made when the cost of following the best practice would prove to be a significant barrier to understanding or implementation, and hence adoption.
 
 This decision, as above, was made to ensure the continued integration of IIIF specifications with the wider web environment. The design of IIIF specifications should be informed by existing and ongoing work, but evaluated as to the appropriateness of the application to the IIIF context.
 
-### Separate Concerns, Loosely Couple APIs
+### 2.11. Separate Concerns, Loosely Couple APIs
 
 > [Discussion](https://github.com/IIIF/iiif.io/issues/1039)
 
@@ -126,7 +126,7 @@ In the well established pattern of doing one thing well, IIIF specifications sho
   
 This decision was made to ensure that the on-ramp for adopters was as easy and multi-entrant as possible.  The Presentation API can be a starting point for any of the other APIs, the Image API can be a starting point for the Presentation or Authentication APIs.  It also ensures the simplicity and scope of the APIs individually, as the complexity must be managed entirely within the API's specification.
 
-### Define Success, Not Failure
+### 2.12. Define Success, Not Failure
 
 > [Discussion](https://github.com/IIIF/iiif.io/issues/1042)
 
