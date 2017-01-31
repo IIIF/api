@@ -30,7 +30,7 @@ This document is not subject to [IIIF's versioning semantics][iiif-semver]. Chan
 
 ## 1. Overview
 
-This document aims to lay out the design principles that have been adopted, and the reasons why, during the creation of the IIIF specifications.  These principles are intended to guide the development of ongoing and future work within the community to try and maximize the likelihood of consistency.
+This document aims to describe, rationalize, and document the design principles that have evolved around the writing of IIIF specifications to date. These principles should be used as a guide for ongoing and future work in order to promote consistency across the growing number of IIIF specifications.
 
 The principles do not speak to the process by which the specifications are written and managed over time.  For notes on the adopted approaches for these, please see:
 
@@ -44,17 +44,15 @@ The principles do not speak to the process by which the specifications are writt
 
 > [Discuss](https://github.com/IIIF/iiif.io/issues/1050)
 
-IIIF specifications are scoped through documented and well understood, shared use cases.  This process governs the method by which decisions are made as to which features should be included or prioritized.  
+IIIF specifications are shaped by shared, documented, and well-understood use cases. Shared understanding promotes interoperability, and the specifications are more likely to be implemented if the results solve real--not speculative-- problems. These criteria are key factors in the process of determining which features should be included or prioritized.
 
-This decision was made in order to keep the resulting specifications practical and to solve real problems.  Implementers will invest time in solutions that solve their problems, and not speculative or abstract ones.  If the use case is shared by multiple organizations, then there is a need for interoperability.
-
-### 2.2. Select Solutions That Are as Simple as Possible and No Simpler
+### 2.2. Solutions should be as Simple as Possible and no Simpler
 
 > [Discuss](https://github.com/IIIF/iiif.io/issues/1041)
 
-IIIF specifications should be designed to reduce the complexity to the lowest possible point at which the use cases that feed them can be met.  They should make simple things easy and complex things possible.  They should allow implementers to build up from a minimum viable product in stages and incrementally enable more complex use cases.
+To help promote and ease adoption, IIIF specifications should limit complexity to the lowest possible point at which the use cases that drive them can be met. They should make simple things easy and complex things possible.
 
-This decision was made to ensure the adoption of the specifications is as high as possible.
+A key strategy for for ensuring that this principal is met is to design specifications around a minimum viable product ("level 0", see next section) that will allow implementers to layer on optional features in stages or as their use cases evolve to require those features.
 
 ### 2.3. Intelligently Manage Ramping Up
 
@@ -78,7 +76,7 @@ This decision was made in order to ensure that the specifications can be impleme
 
 IIIF specifications follow resource-centric design principles and use [REST][rest] interfaces, rather than service or operation-centric design patterns. This carries on from the previous design principles, and serves to provide a consistent and coherent pattern across many different functional areas.
 
-This decision was made to ensure that the specifications are cacheable and performant, at the same time as being easy to understand and implement. 
+This decision was made to ensure that the specifications are cacheable and performant, at the same time as being easy to understand and implement.
 
 ### 2.6. Don't Break Web Caches
 
@@ -111,7 +109,7 @@ This decision was made to ensure that the representation of the Linked Data is a
 IIIF specifications should be consistent with and use existing open standards when possible.  This is tempered by the need for ease of understanding, implementation and the timing of standards evolution and updates.
 
 This decision was made to ensure the continued integration of IIIF specifications with the wider web environment, and existing implementations.
- 
+
 ### 2.10. Follow Existing Best Practices
 
 > [Discuss](https://github.com/IIIF/iiif.io/issues/1040)
@@ -125,7 +123,7 @@ This decision, as above, was made to ensure the continued integration of IIIF sp
 > [Discuss](https://github.com/IIIF/iiif.io/issues/1039)
 
 In the well established pattern of doing one thing well, IIIF specifications should address their own area of concern and be loosely coupled rather than tightly bound together.  This allows for independent implementation and tooling, and simplifies the process for deployment by adopters and API updates by the community.  For example, it is possible to implement the Image API without the Presentation API and vice versa.  A counter example is that the Search API is more tightly linked to the Presentation API.
-  
+
 This decision was made to ensure that the on-ramp for adopters was as easy and multi-entrant as possible.  The Presentation API can be a starting point for any of the other APIs, the Image API can be a starting point for the Presentation or Authentication APIs.  It also ensures the simplicity and scope of the APIs individually, as the complexity must be managed entirely within the API's specification.
 
 ### 2.12. Define Success, Not Failure
