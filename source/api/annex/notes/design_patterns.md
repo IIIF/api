@@ -30,7 +30,7 @@ This document is not subject to [IIIF's versioning semantics][iiif-semver]. Chan
 
 ## 1. Overview
 
-This document aims to lay out the design principles that have been adopted during the creation of the IIIF specifications, and explain the reasons for adoption.  These principles are intended to guide ongoing and future work within the community in order to maximize the likelihood of consistency.
+This document aims to describe, rationalize, and document the design principles that have evolved around the creation of the IIIF specifications to date. These principles should be used as a guide for ongoing and future work in order to promote consistency across the growing number of IIIF specifications.
 
 The principles do not speak to the process by which the specifications are written and managed over time.  For notes on the adopted approaches for these, please see:
 
@@ -44,7 +44,7 @@ The principles do not speak to the process by which the specifications are writt
 
 > [Discuss](https://github.com/IIIF/iiif.io/issues/1050)
 
-IIIF specifications are scoped through documented and well understood, shared use cases.  This process governs the method by which decisions are made as to which features should be included or prioritized.
+IIIF specifications are shaped by shared, documented, and well-understood use cases. Shared understanding promotes interoperability, and the specifications are more likely to be implemented if the results solve real, not speculative, problems. Assessment of use cases is a key factor in the process of determining which features should be included or prioritized.
 
 The intent of adopting this principle is to keep the resulting specifications practical and to solve real problems.  Implementers will invest time in solutions that solve their problems, and not speculative or abstract ones.  If the use case is shared by multiple organizations, then there is a need for interoperability.
 
