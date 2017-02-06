@@ -19,7 +19,7 @@ This document is not subject to [IIIF's versioning semantics][iiif-semver]. Chan
   * **[Simeon Warner](https://orcid.org/0000-0002-7970-7855)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0002-7970-7855), [_Cornell University_](https://www.cornell.edu/)
   {: .names}
 
-{% include copyright2015.md %}
+{% include copyright2017.md %}
 
 ----
 
@@ -30,7 +30,7 @@ This document is not subject to [IIIF's versioning semantics][iiif-semver]. Chan
 
 ## 1. Overview
 
-This document aims to lay out the design principles that have been adopted, and the reasons why, during the creation of the IIIF specifications.  These principles are intended to guide the development of ongoing and future work within the community to try and maximize the likelihood of consistency.
+This document aims to lay out the design principles that have been adopted during the creation of the IIIF specifications, and explain the reasons for adoption.  These principles are intended to guide ongoing and future work within the community in order to maximize the likelihood of consistency.
 
 The principles do not speak to the process by which the specifications are written and managed over time.  For notes on the adopted approaches for these, please see:
 
@@ -38,13 +38,13 @@ The principles do not speak to the process by which the specifications are writt
   * [Semantic Versioning][iiif-semver]: The interpretation of the semantic versioning pattern for managing change of APIs in a responsible and responsive manner.
 
 
-## 2. Design Principles Adopted
+## 2. Design Principles
 
 ### 2.1. Scope Design Through Shared Use Cases
 
 > [Discuss](https://github.com/IIIF/iiif.io/issues/1050)
 
-IIIF specifications are scoped through documented and well understood, shared use cases.  This process governs the method by which decisions are made as to which features should be included or prioritized.  
+IIIF specifications are scoped through documented and well understood, shared use cases.  This process governs the method by which decisions are made as to which features should be included or prioritized.
 
 This decision was made in order to keep the resulting specifications practical and to solve real problems.  Implementers will invest time in solutions that solve their problems, and not speculative or abstract ones.  If the use case is shared by multiple organizations, then there is a need for interoperability.
 
@@ -60,7 +60,7 @@ This decision was made to ensure the adoption of the specifications is as high a
 
 > [Discuss](https://github.com/IIIF/iiif.io/issues/1044)
 
-IIIF specifications should allow basic implementation with static on-disk files, often called "level 0", when possible. They should not require costly or complicated libraries or tooling to get started, nor computationally expensive runtime processing. A useful implementation should require only a way of hosting files that are accessible via a web server.  
+IIIF specifications should allow basic implementation with static on-disk files, often called "level 0", when possible. They should not require costly or complicated libraries or tooling to get started, nor computationally expensive runtime processing. A useful implementation should require only a way of hosting files that are accessible via a web server.
 
 This decision was made to support simple and quick implementations as a way to encourage adoption.
 
@@ -78,13 +78,13 @@ This decision was made in order to ensure that the specifications can be impleme
 
 IIIF specifications follow resource-centric design principles and use [REST][rest] interfaces, rather than service or operation-centric design patterns. This carries on from the previous design principles, and serves to provide a consistent and coherent pattern across many different functional areas.
 
-This decision was made to ensure that the specifications are cacheable and performant, at the same time as being easy to understand and implement. 
+This decision was made to ensure that the specifications are cacheable and performant, at the same time as being easy to understand and implement.
 
 ### 2.6. Don't Break Web Caches
 
 > [Discuss](https://github.com/IIIF/iiif.io/issues/1048)
 
-IIIF specifications are designed to work seamlessly with modern web caching infrastructure.  The specifications will ensure that representations can be trivially cached by intermediate systems without loss of fidelity or function.  
+IIIF specifications are designed to work seamlessly with modern web caching infrastructure.  The specifications will ensure that representations can be trivially cached by intermediate systems without loss of fidelity or function.
 
 This decision was made for performance and simplicity of implementation, and results from the previous principles.
 
@@ -92,7 +92,7 @@ This decision was made for performance and simplicity of implementation, and res
 
 > [Discuss](https://github.com/IIIF/iiif.io/issues/1037)
 
-IIIF specifications conform to [Linked Data][lod], and relevant [web architecture][webarch] standards as defined by the W3C and IETF. They should not require an RDF based development stack to implement, but it must be possible to implement using one.  It should be possible to transform representations back and forth between triples and the JSON-LD serialiation without loss, but not necessarily without the use of custom code.  
+IIIF specifications conform to [Linked Data][lod], and relevant [web architecture][webarch] standards as defined by the W3C and IETF. They should not require an RDF based development stack to implement, but it must be possible to implement using one.  It should be possible to transform representations back and forth between triples and the [JSON-LD][json-ld] serialization without loss, but not necessarily without the use of custom code.
 
 This decision was made to ensure that the data published via IIIF specifications can be part of the Web, not just on the Web. The semantics of the properties and classes used in the APIs are therefore self-documenting and able to be shared.
 
@@ -100,7 +100,7 @@ This decision was made to ensure that the data published via IIIF specifications
 
 > [Discuss](https://github.com/IIIF/iiif.io/issues/1038)
 
-IIIF specifications that involve the description of resources, rather than the transfer of bitstreams, are designed for JSON-LD as the primary serialization. This is comprised of publishing and maintaining a JSON-LD context document, and providing JSON-LD Frames.
+IIIF specifications that involve the description of resources, rather than the transfer of bitstreams, are designed for [JSON-LD][json-ld] as the primary serialization. This is comprised of publishing and maintaining a JSON-LD context document, and providing JSON-LD Frames.
 
 This decision was made to ensure that the representation of the Linked Data is as easy to use as possible without the need for a full RDF development suite.  Developers must be able to treat the representation as plain JSON, with a predictable structure.  This ease of understanding increases the likelihood of wide spread adoption.
 
@@ -111,7 +111,7 @@ This decision was made to ensure that the representation of the Linked Data is a
 IIIF specifications should be consistent with and use existing open standards when possible.  This is tempered by the need for ease of understanding, implementation and the timing of standards evolution and updates.
 
 This decision was made to ensure the continued integration of IIIF specifications with the wider web environment, and existing implementations.
- 
+
 ### 2.10. Follow Existing Best Practices
 
 > [Discuss](https://github.com/IIIF/iiif.io/issues/1040)
@@ -124,26 +124,24 @@ This decision, as above, was made to ensure the continued integration of IIIF sp
 
 > [Discuss](https://github.com/IIIF/iiif.io/issues/1039)
 
-In the well established pattern of doing one thing well, IIIF specifications should address their own area of concern and be loosely coupled rather than tightly bound together.  This allows for independent implementation and tooling, and simplifies the process for deployment by adopters and API updates by the community.  For example, it is possible to implement the Image API without the Presentation API and vice versa.  A counter example is that the Search API is more tightly linked to the Presentation API.
-  
-This decision was made to ensure that the on-ramp for adopters was as easy and multi-entrant as possible.  The Presentation API can be a starting point for any of the other APIs, the Image API can be a starting point for the Presentation or Authentication APIs.  It also ensures the simplicity and scope of the APIs individually, as the complexity must be managed entirely within the API's specification.
+In the well established pattern of doing one thing well, IIIF specifications should address their own area of concern and be loosely coupled rather than tightly bound together.  This allows for independent implementation and tooling, and simplifies the process for deployment by adopters and API updates by the community.  For example, it is possible to implement the [Image API][image-api] without the [Presentation API][presentation-api] and vice versa.  A counter example is that the [Search API][search-api] is necessarily more tightly linked to the Presentation API.
+
+This decision was made to ensure that the on-ramp for adopters was as easy and multi-entrant as possible.  The Presentation API can be a starting point for any of the other APIs, the Image API can be a starting point for the Presentation or [Authentication API][auth-api]s.  It also ensures the simplicity and scope of the APIs individually, as the complexity must be managed entirely within the API's specification.
 
 ### 2.12. Define Success, Not Failure
 
 > [Discuss](https://github.com/IIIF/iiif.io/issues/1042)
 
-IIIF specifications define the functionality that can be expected to work and how to request it in an open manner, and do not limit the interpretation of requests that are beyond the scope or current definition of the specification.  Any pattern outside of those defined by the APIs is able to be used by implementers, keeping in mind that future official API extensions might make it inconsistent.  For example, an implementation of the Image API can recognize its own specific parameter values for quality or size, it just cannot change the interpretation of the parameter values specified.
+IIIF specifications define the functionality that can be expected to work and how to request it, and do not limit the interpretation of requests that are beyond the scope or current definition of the specification.  Any pattern outside of those defined by the APIs is able to be used by implementers, keeping in mind that future official API extensions might make it inconsistent.  For example, an implementation of the [Image API][image-api] can legitimately recognize its own specific parameter values for `quality` or `size`, but it should not change the interpretation of parameter values that are specified.
 
-This decision was made to enable experimentation by implementers, thereby encouraging the early adoption and validation of new (minor) versions.   
+This decision was made to enable experimentation by implementers, thereby encouraging the early adoption and validation of new (minor) versions.
 
 
-## 3. Appendices
-
-### A. Change Log
+## 3. Change Log
 
  | Date       | Description                                                         |
  | ---------- | ------------------------------------------------------------------- |
- | 2017-02-01 | Initial draft version |
+ | 2017-02-06 | Initial draft version |
 
 [change-log]: #change-log "Change Log"
 [iiif-announce]: https://groups.google.com/forum/#!forum/iiif-announce "IIIF Email Announcement List"
@@ -154,12 +152,17 @@ This decision was made to enable experimentation by implementers, thereby encour
 
 [process]: /api/annex/notes/editors/#community-process
 [services]: /api/annex/services/
+[image-api]: /api/image
+[presentation-api]: /api/presentation
+[search-api]: /api/search
+[auth-api]: /api/auth
 
 [rest]: https://en.wikipedia.org/wiki/Representational_state_transfer
 [lod]: https://en.wikipedia.org/wiki/Linked_data
 [webarch]: https://www.w3.org/TR/webarch/
+[json-ld]: https://www.w3.org/TR/json-ld/
 [jsonbp]: http://json-ld.org/spec/latest/json-ld-api-best-practices/
 [lodbp]: https://www.w3.org/TR/ld-bp/
-[databp]: https://www.w3.org/TR/dwbp/
+[dwbp]: https://www.w3.org/TR/dwbp/
 
 {% include acronyms.md %}
