@@ -12,7 +12,8 @@ All IIIF events are subject to the [Code of Conduct][conduct].
 
 __Upcoming Events__
 
-* Spring 2017: [The Vatican][vatican], Rome
+* Winter 2017: [Edinburgh][edinburgh], Scotland
+* Spring 2017: [The Vatican][vatican]
 
 __Previous Events__
 
@@ -28,6 +29,7 @@ __Previous Events__
 * Fall 2011: Cambridge, England
 
 [conduct]: conduct/
+[edinburgh]: 2017/edinburgh
 [vatican]: 2017/vatican
 [hague]: 2016/thehague/
 [nyc]: 2016/newyork/
