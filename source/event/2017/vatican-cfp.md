@@ -1,5 +1,5 @@
 ---
-title: "Call for Proposals: 2nd Annual IIIF Conference in The Vatican, June 6-9, 2017"
+title: "Call for Proposals: 2017 IIIF Conference in The Vatican"
 layout: spec
 tags: [event ]
 ---
