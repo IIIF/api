@@ -5,7 +5,7 @@ tags: [event ]
 ---
 
 
-The National Library of Scotland and the University of Edinburgh Library and University Collections, are co-hosting two IIIF events in Edinburgh on the 17th and 18th of March, 2017.
+The National Library of Scotland and the University of Edinburgh Library and University Collections, are co-hosting two IIIF events in Edinburgh on the 16th and 17th of March, 2017.
 
 ## IIIF Showcase: Improving Access to Image Collections
 
@@ -14,7 +14,7 @@ The IIIF Showcase brings together developers and early adopters to explain the b
 ### Logistics
 
 * Registration: [Registration][showcase-reg] is free but capacity is limited.
-* Date: March 16, 2017
+* Date: Friday, March 17, 2017
 * Location: National Library of Scotland (NLS) Boardroom on George IV Bridge (see [map][nls-map])
 * Audience: Individuals and institutional representatives interested in learning more about IIIF
 * Code of Conduct: The IIIF [Code of Conduct][conduct] applies to all IIIF events and related activities.
@@ -27,7 +27,7 @@ The IIIF Technical Workshop unconference, hosted by the University of Edinburgh 
 ### Logistics
 
 * Registration: [Registration][technical-reg] is free but capacity is limited.
-* Date: March 17, 2017
+* Date: Thursday, March 16, 2017
 * Location: University of Edinburgh Argyle House (see [map][ue-map])
 * Audience: Developers already working with IIIF or considering an implementation
 * Code of Conduct: The IIIF [Code of Conduct][conduct] applies to all IIIF events and related activities.
