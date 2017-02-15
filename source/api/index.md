@@ -1,5 +1,5 @@
 ---
-title: "IIIF API Specifications"
+title: "API Specifications - International Image Interoperability Framework™"
 id: apis
 layout: spec
 tags: [specifications ]
