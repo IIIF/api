@@ -4,14 +4,20 @@
 - name: ARTstor
   uri:
   iiifc: 1
+- name: Art Gallery of Ontario
+  uri: http://boxwood.ago.ca
+  iiifc:
 - name: Bayerische Staatsbibliothek (Bavarian State Library)
   uri:
   iiifc: 1
 - name: La Bibliothèque nationale de France
-  uri:
+  uri: http://www.bnf.fr
   iiifc: 1
 - name: Biblissima
   uri: http://www.biblissima-condorcet.fr/
+  iiifc:
+- name: Boston Public Library
+  uri: https://digitalcommonwealth.org
   iiifc:
 - name: British Library
   uri:
@@ -25,6 +31,9 @@
 - name: Cambridge University
   uri:
   iiifc: 2
+- name: Carnegie Art Museum
+  uri: http://records.cmoa.org
+  iiifc:
 - name: Centre de Recherche et de Restauration des Musées de France (C2RMF)
   uri: http://c2rmf.fr/
   iiifc:
@@ -36,6 +45,9 @@
   iiifc:
 - name: Columbia University
   uri:
+  iiifc:
+- name: CONTENTdm
+  uri: http://www.oclc.org/en-US/contentdm.html
   iiifc:
 - name: Cornell University
   uri:
@@ -63,6 +75,9 @@
 - name: Gottingen State and University Library
   uri:
   iiifc: 2
+- name: Harvard Art Museums
+  uri: http://www.harvardartmuseums.org/
+  iiifc:
 - name: Harvard University
   uri: http://iiif.harvard.edu
   iiifc: 2
@@ -77,15 +92,23 @@
   iiifc: 2
 - name: Klokan Technologies
   uri: http://www.klokantech.com/
+- name: KU Leuven - LIBIS+
+  uri: http://libisplus.be/libisplus/mirador-iiif-en
+  iiifc:
 - name: Kyoto University Library Network
   uri:
   iiifc: 2
 - name: Leiden University
   uri:
   iiifc: 2
+- name: LUNA Imaging
+  uri: http://www.lunaimaging.com/blog/2015/12/3/luna-and-iiif-1
 - name: MIT Libraries
   uri:
   iiifc: 2
+- name: Moravian Library (Moravská zemská knihovna)
+  uri: https://www.mzk.cz/
+  iiifc:
 - name: National Gallery of Art
   uri:
   iiifc:
@@ -100,7 +123,7 @@
   uri:
   iiifc:
 - name: National Library of Israel
-  uri:
+  uri: http://www.nli.org.il
   iiifc: 2
 - name: National Library of New Zealand
   uri:
@@ -124,7 +147,7 @@
   uri:
   iiifc: 2
 - name: "Oxford University (Bodleian Library)"
-  uri:
+  uri: www.bodleian.ox.ac.uk
   iiifc: 1
 - name: Princeton University Library
   uri: http://library.princeton.edu
@@ -144,7 +167,7 @@
 - name: text &amp; bytes
   uri:  http://www.textandbytes.com/en
 - name: University College Dublin
-  uri:
+  uri: http://www.ucd.ie/library/
   iiifc:
 - name: University of Basel, Digital Humanities Lab
   uri: http://dhlab.unibas.ch/
@@ -152,6 +175,9 @@
 - name: University of Edinburgh
   uri: http://www.ed.ac.uk/
   iiifc: 2
+- name: University of Glasgow
+  uri: http://hms.scot/fiddle/copies/
+  iiifc:
 - name: University of Hong Kong
   uri:
   iiifc: 2
@@ -159,7 +185,7 @@
   uri:
   iiifc:
 - name: University of Michigan
-  uri:
+  uri: https://www.lib.umich.edu/digital-library-platform-services-dlps
   iiifc: 2
 - name: University of Notre Dame
   uri:
@@ -191,7 +217,7 @@
 - name: World Digital Library
   uri: http://www.wdl.org
 - name: Yale Center for British Art
-  uri:
+  uri: http://britishart.yale.edu/
   iiifc: 1
 - name: Yale University
   uri:
