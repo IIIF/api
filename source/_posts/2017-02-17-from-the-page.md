@@ -2,7 +2,7 @@
 title: Full IIIF Support for Collaborative Digital Editions in FromThePage
 author: Ben Brumfield and Sara Carlstead Brumfield, Brumfield Labs
 date: 2017-02-17
-tags: [announcements]
+tags: [announcements ]
 layout: post
 ---
 
