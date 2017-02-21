@@ -147,7 +147,7 @@
   uri:
   iiifc: 2
 - name: "Oxford University (Bodleian Library)"
-  uri: www.bodleian.ox.ac.uk
+  uri: http://www.bodleian.ox.ac.uk
   iiifc: 1
 - name: Princeton University Library
   uri: http://library.princeton.edu
