@@ -4,43 +4,40 @@ layout: spec
 tags: [event ]
 ---
 
-## Table of Contents
-{:.no_toc}
+The International Image Interoperability Framework ([IIIF][home-page]) 2017 Conference in The Vatican is intended for a wide range of participants and interested parties, including digital image repository managers, content curators, software developers, scholars, and administrators at libraries, museums, cultural heritage institutions, software firms, and other organizations working with digital images and audio/visual materials. The conference will consist of two events with separate registration: a [IIIF Showcase event][showcase-reg] on Tuesday, June 6, followed by a [3-day conference June 7-9][conference-reg].
 
-* Goes Here
-{:toc}
+## IIIF Showcase: Unlocking the World's Digital Images
+The IIIF Showcase is intended for all interested parties who are new to IIIF and want to quickly get up to speed and understand the community, technology, and benefits of IIIF.
 
-## IIIF Conference - The Vatican - 2017
-
-The second annual International Image Interoperability Framework ([IIIF][home-page]) Conference in The Vatican is intended for a wide range of participants and interested parties across the IIIF community. The conference will consist of two events with separate capacity and registration:
-
-1. IIIF Showcase: Unlocking the World's Digital Images, an outreach event on Tuesday, June 6, intended for interested parties who are new to IIIF and want to quickly get up to speed and understand the community and its benefits.
-2. IIIF Conference Program, June 7-9, including plenary presentations and parallel sessions for content curators, repository managers, software developers, and researchers from across the IIIF community.
-
-A [Call for Proposals][vatican-cfp] is now open until February 23, 2017. A [Call for Sponsors][vatican-sponsors] is open with an initial deadline of March 15, 2017.
-
-### Logistics
-
-* Registration: An announcement will go out on the [IIIF Discuss][iiif-discuss] email list when registration opens
-* Dates: June 6-9, 2017
+* Dates: June 6, 2017
+* Registration: [https://iiif-showcase-vatican2017.eventbrite.com][showcase-reg]
 * Location: [Institutum Patristicum Augustinianum][institute] (Augustinian Patristic Institute Conference Center)
-* Capacity: Varies - please see details in the schedule section below.
-* Code of Conduct: The IIIF [Code of Conduct][conduct] applies to all IIIF events and related activities.
-* Social Media: Tweets about the event should use #iiif and @iiif_io
-* Questions: Please direct any questions about the IIIF Conference to Sheila Rabun, IIIF Community and Communications Officer, at srabun@iiif.io.
+* Capacity: 400 participants
 
-### Schedule
+## 2017 IIIF Conference
+The Conference will include lightning talks, presentations, workshops, and discussion sessions for content curators, repository managers, software developers, administrators, and researchers from across the IIIF community. Topics of interest include: IIIF implementations, Discovery of IIIF resources, Content communities (manuscripts, newspapers, archival content, etc.), IIIF and museums, Technical specifications, IIIF-compatible software and experimentation, and On-boarding, training materials, and documentation.
 
-The general conference schedule will be as follows:
+* Dates: June 7-9, 2017
+* Registration: [https://iiif-conference-vatican2017.eventbrite.com][conference-reg]
+* Location: [Institutum Patristicum Augustinianum][institute] (Augustinian Patristic Institute Conference Center)
+* Capacity: 200 participants
+
+A [Call for Proposals][vatican-cfp] is now open until February 23, 2017. A [Call for Sponsors][vatican-sponsors] is now open with an initial deadline of March 15, 2017.
+
+## Schedule
+
+The general schedule will be as follows:
 
 * Tuesday, June 6: IIIF Showcase: Unlocking the World's Digital Images
 * Wednesday, June 7: IIIF Conference Plenary
 * Thursday, June 8: IIIF Conference Parallel Tracks
 * Friday, June 9: IIIF Conference Parallel Tracks
 
-Stay tuned for more detailed schedule and capacity information.
+Stay tuned for more detailed schedule information.
 
-*Last updated February 8, 2017*
+The IIIF [Code of Conduct][conduct] applies to all IIIF events and related activities. Please direct any questions to Sheila Rabun, IIIF Community and Communications Officer, at srabun@iiif.io.
+
+*Last updated February 20, 2017*
 
 
 [home-page]: http://iiif.io/
@@ -49,3 +46,5 @@ Stay tuned for more detailed schedule and capacity information.
 [iiif-discuss]: https://groups.google.com/forum/#!forum/iiif-discuss
 [vatican-cfp]: /event/2017/vatican-cfp
 [vatican-sponsors]: /event/2017/vatican-sponsors
+[showcase-reg]: https://iiif-showcase-vatican2017.eventbrite.com
+[conference-reg]: https://iiif-conference-vatican2017.eventbrite.com
