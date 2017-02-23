@@ -15,13 +15,25 @@ If successful, the work will enable the collaborative development of global or t
 
 ## Organization
 
-  * **Chairs:** Robert Sanderson (The J. Paul Getty Trust) and Antoine Isaac (Europeana)
-  * **Communication Channels:** Virtual meetings announced on the [IIIF-Discuss][iiif-discuss] email list. General discussion on the [# discovery IIIF Slack channel][discovery-slack] ([Join Slack][slack])
-  * **Call Notes and Group Documents:** [IIIF Discovery Tech Spec Group folder][discovery-folder]
-  * **Regular Call Schedule:** Every other week (opposite the general IIIF Community Call) on Wednesdays at 1:00pm Eastern - see [IIIF Community Calendar][iiif-calendar] for details
-  * **Call Connection Information:** Connect Online at [https://bluejeans.com/447649804][https://bluejeans.com/447649804] or by Phone: +1.888.240.2560 (US Toll Free) or see [international numbers][international-bluejeans] - Enter Meeting ID: 447649804
+**Chairs:**
 
-[charter]: https://gist.github.com/azaroth42/01cd1a377d519e29572b8b072ac5980a
+  * Antoine Isaac (Europeana)
+  * Robert Sanderson (The J. Paul Getty Trust)
+
+**Communication Channels:**
+
+  * Calls very other week on Wednesdays at 1:00pm Eastern (opposite the general IIIF Community Call) - see [IIIF Community Calendar][iiif-calendar] for details
+  * Virtual meetings announced on the [IIIF-Discuss][iiif-discuss] email list.
+  * General discussion on the [# discovery IIIF Slack channel][discovery-slack] ([Join Slack][slack])
+
+**Call Notes and Group Documents:** [IIIF Discovery Tech Spec Group folder][discovery-folder]
+
+**Call Connection Information:**
+
+  * Online: [https://bluejeans.com/447649804][https://bluejeans.com/447649804]
+  * Phone: +1.888.240.2560 (US Toll Free) or see [international numbers][international-bluejeans] - Enter Meeting ID: 447649804
+
+[charter]: /community/groups/discovery/charter
 [events]: /event "IIIF Events"
 [iiif-discuss]: https://groups.google.com/forum/#!forum/iiif-discuss "IIIF-Discuss Forum"
 [discovery-slack]: https://iiif.slack.com/messages/discovery/details/
