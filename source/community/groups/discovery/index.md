@@ -26,7 +26,9 @@ If successful, the work will enable the collaborative development of global or t
   * Virtual meetings announced on the [IIIF-Discuss][iiif-discuss] email list.
   * General discussion on the [# discovery IIIF Slack channel][discovery-slack] ([Join Slack][slack])
 
-**Call Notes and Group Documents:** [IIIF Discovery Tech Spec Group folder][discovery-folder]
+**Call Notes and Group Documents:**
+
+  * [IIIF Discovery Tech Spec Group folder][discovery-folder]
 
 **Call Connection Information:**
 
