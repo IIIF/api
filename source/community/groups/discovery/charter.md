@@ -107,7 +107,7 @@ __Background work:__
 
 * Github Repository:  http://github.com/IIIF/discovery
 * Slack:  [#discovery][discovery-slack]
-* Email:  [IIIF-Discuss list][iiif-discuss] ; subject line: [discovery]
+* Email:  [IIIF-Discuss list][iiif-discuss] ; subject line: \[discovery\]
 * Face to Face: Annual [IIIF events][events] such as Conferences and Working Group meetings, plus as incidental travel allows
 * Calls: Initially bi-weekly, plus standing updates/feedback on Technical Call
 
