@@ -149,6 +149,9 @@
 - name: "Oxford University (Bodleian Library)"
   uri: http://www.bodleian.ox.ac.uk
   iiifc: 1
+- name: Pennsylvania State University Libaries
+  uri: https://libraries.psu.edu/
+  iiifc: 2
 - name: Princeton University Library
   uri: http://library.princeton.edu
   iiifc: 1
