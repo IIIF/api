@@ -149,7 +149,7 @@
 - name: "Oxford University (Bodleian Library)"
   uri: http://www.bodleian.ox.ac.uk
   iiifc: 1
-- name: Pennsylvania State University Libaries
+- name: Pennsylvania State University Libraries
   uri: https://libraries.psu.edu/
   iiifc: 2
 - name: Princeton University Library
