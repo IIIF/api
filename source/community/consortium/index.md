@@ -6,8 +6,7 @@ layout: spec
 
 ## The IIIF Consortium
 
-The IIIF Consortium (IIIF-C) was formed in [June 2015][news] to provide steering and sustainability to the IIIF community by signing a [Memorandum of Understanding][mou] in Oxford, England.  The Consortium provides ongoing oversight for the development of IIIF technologies and the growth of the community. Letters of support from the IIIF-C for IIIF-related grant applications may be requested according to the [IIIF Support for Grant Proposals policy][support-policy]. Consortium finances are managed through the [Council on Library and Information Resources][clir].
-
+The IIIF Consortium (IIIF-C) was formed in [June 2015][news] in Oxford, England, to provide steering and sustainability for the IIIF community. The IIIF-C now comprises more than 40 Founding Members across the globe who have signed the IIIF-C [Memorandum of Understanding][mou], committing to support the growth and adoption of IIIF. IIIF-C provides continued support for adoption, experimentation, outreach, and a thriving community of libraries, museums, software firms, scholars, and technologists working with IIIF. Please visit the [IIIF-C FAQ][iiifc-faq] for more information.
 
 
 ## Staff
@@ -34,5 +33,4 @@ srabun@iiif.io
 
 [mou]: /community/consortium/mou/
 [news]: /news/2015/06/17/iiif-consortium/
-[clir]: http://clir.org/
-[support-policy]: /community/policy/support
+[iiifc-faq]: /community/consortium/faq
