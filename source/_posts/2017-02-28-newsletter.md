@@ -126,7 +126,7 @@ The [IIIF Software Developers group][devs] meets every other week to share their
  * The Digital Bodleian adds more IIIF buttons for viewing content in Mirador and Universal Viewer ([example][bodleian-buttons])
  * 4Science creating [IIIF-compliant image viewer integration for DSpace][4science]
  * eLife Sciences publishing for life sciences and biomedicine is [adopting IIIF][eLife] and working to incorporate [support for annotations][eLife-anno]
- * Mirador use case in codicology and history of libraries - a [virtual reconstruction of the primitive state of the Bibliotheca bibliothecarum manuscriptorum nova (in 1713)][bbmn], a huge "catalogue of catalogues" of manuscripts from more than 200 libraries in Europe, by Bernard of Montfaucon. The work of identification and reconstruction has been made by Jérémy Delmulle (postdoctoral researcher, KU Leuven – IRHT – BnF).
+ * Mirador use case in codicology and history of libraries - a [virtual reconstruction of the primitive state of the Bibliotheca bibliothecarum manuscriptorum nova (in 1713)][bbmn], a huge "catalogue of catalogues" of manuscripts from more than 200 libraries in Europe, by Bernard of Montfaucon. The work of identification and reconstruction has been made by Jérémy Delmulle (postdoctoral researcher, KU Leuven – IRHT – BnF), with the Mirador demo created by Régis Robineau (Biblissima).
 
 #### Edited by:
 Sheila Rabun, IIIF Community and Communications Officer
