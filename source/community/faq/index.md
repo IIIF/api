@@ -57,3 +57,4 @@ IIIF allows for:
 [auth]: /api/auth/
 [wadm]: https://www.w3.org/TR/2017/REC-annotation-model-20170223/
 [conduct]: /event/conduct/
+[av]: /community/groups/av/
