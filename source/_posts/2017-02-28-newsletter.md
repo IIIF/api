@@ -204,7 +204,6 @@ Rashmi Singhal (Harvard)
 [eLife-anno]: https://elifesciences.org/elife-news/elife-partners-with-hypothes.is-to-advance-open-scholarly-annotation
 [bbmn]: http://demos.biblissima-condorcet.fr/bbmn-1713/mirador/
 [edinburgh]: /event/2017/edinburgh
-[uv]: https://digirati.com/technology/our-solutions/universal-viewer/
 [iiif-design]: /api/annex/notes/design_patterns/
 [ycba]: http://collections.britishart.yale.edu/vufind/Record/1667701
 [frick]: http://digitalcollections.frick.org/digico/#/
