@@ -33,7 +33,7 @@ This is a work in progress. We are actively seeking implementations and feedback
   * **[Simeon Warner](https://orcid.org/0000-0002-7970-7855)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0002-7970-7855), [_Cornell University_](https://www.cornell.edu/)
   {: .names}
 
-{% include copyright.md %}
+{% include copyright2015.md %}
 
 ----
 
