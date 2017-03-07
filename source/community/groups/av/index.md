@@ -7,15 +7,26 @@ cssversion: 2
 
 ## About
 
+While IIIF has focused primarily on Image based content, there has always been interest around the community in extending the paradigm to include Video and Audio resources, following the same [design principles][design-principles] as existing IIIF specifications.
+
 The IIIF A/V Technical Specification Group aims to extend to A/V the benefits of interoperability and the growing ecosystem of clients and servers that IIIF provides for images. The A/V specification group was formed following a workshop hosted by the British Library to gather [use cases for extending IIIF to audio and video][bl-workshop-2016-04], and discussion at the [2016 IIIF Conference][iiif-conf-2016] in New York City. At the Fall 2016 working meeting in The Hague, the group focused on determining an initial set of features. The A/V group welcomes contributions to their collection of [audiovisual user stories][av-user-stories] and mockups and prototypes.
+
+The [IIIF A/V charter][av-charter] provides an outline and timeline for anticipated work.
 
 ## Organization
 
-  * **Chair:** Tom Crane (Digirati)
-  * **Communication Channels:** Virtual meetings announced on the [IIIF-Discuss][iiif-discuss] email list. General discussion on the [# av IIIF Slack channel][av-slack] ([Join Slack][slack])
-  * **Call Notes and Group Documents:** [IIIF A/V Tech Spec Group folder][av-folder]
-  * **Regular Call Schedule:** Every other week (opposite the general IIIF Community Call) on Tuesdays at 12:00pm Eastern - see [IIIF Community Calendar][iiif-calendar] for details
-  * **Call Connection Information:** Connect Online at [https://bluejeans.com/222002812][https://bluejeans.com/222002812] or by Phone: +1.888.240.2560 (US Toll Free) or see [international numbers][international-bluejeans] - Enter Meeting ID: 222002812
+  * **Chairs:**
+    * Tom Crane (Digirati)
+    * Jon Dunn (Indiana University)
+  * **Communication Channels:**
+    * Calls every other week on Tuesdays at 12:00pm Eastern (opposite the general IIIF Community Call) - see [IIIF Community Calendar][iiif-calendar] for details
+    * Virtual meetings announced on the [IIIF-Discuss][iiif-discuss] email list.
+    * General discussion on the [# av IIIF Slack channel][av-slack] ([Join Slack][slack])
+  * **Call Notes and Group Documents:**
+    * [IIIF A/V Tech Spec Group folder][av-folder]
+  * **Call Connection Information:**
+    * Online: [https://bluejeans.com/222002812][https://bluejeans.com/222002812]
+    * Phone: +1.888.240.2560 (US Toll Free) or see [international numbers][international-bluejeans] - Enter Meeting ID: 222002812
 
 [av-user-stories]: https://github.com/IIIF/iiif-av/issues "Audiovisual User Stories"
 [bl-workshop-2016-04]: https://goo.gl/iVXEFD "Use cases and notes from April 2015 workshop at British Library"
@@ -28,6 +39,8 @@ The IIIF A/V Technical Specification Group aims to extend to A/V the benefits of
 [https://bluejeans.com/222002812]: https://bluejeans.com/222002812
 [iiif-calendar]: http://iiif.io/community/groups/
 [international-bluejeans]: https://bluejeans.com/numbers?ll=en
+[design-principles]: http://iiif.io/api/annex/notes/design_patterns/
+[av-charter]: /community/groups/av/charter
 
 
 {% include acronyms.md %}
