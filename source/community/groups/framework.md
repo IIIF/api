@@ -77,7 +77,7 @@ Technical Specification Groups are the main working vehicle for adding new APIs 
 
 ### Technical Specification Group Formation and Approval
 
-  * Technical Specification Groups should emerge naturally from discussions and needs within the community, brought to attention on the [IIIF-Discuss email list][iiif-discuss].
+  * Technical Specification Groups should emerge naturally from discussions and needs within the community, as discussed on the [IIIF-discuss mailing list][iiif-discuss]. If the discussion happens offline or in a smaller group, then summaries must be posted to solicit the input of the wider community.
   * Participants in discussions that show promise of inter-institutional convergence on common models or methods should document the shared needs and requirements in a Google document, resulting in a common understanding of:
     1. The overall domain into which the work will fall
     2. The shared needs and requirements within that domain
