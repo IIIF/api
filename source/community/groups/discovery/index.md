@@ -18,12 +18,13 @@ If successful, the work will enable the collaborative development of global or t
 **Chairs:**
 
   * Antoine Isaac (Europeana)
+  * Matt McGrattan (Digirati)
   * Robert Sanderson (The J. Paul Getty Trust)
 
 **Communication Channels:**
 
   * Calls very other week on Wednesdays at 1:00pm Eastern (opposite the general IIIF Community Call) - see [IIIF Community Calendar][iiif-calendar] for details
-  * Virtual meetings announced on the [IIIF-Discuss][iiif-discuss] email list.
+  * Virtual meetings announced on the [IIIF-Discuss][iiif-discuss] email list
   * General discussion on the [# discovery IIIF Slack channel][discovery-slack] ([Join Slack][slack])
 
 **Call Notes and Group Documents:**
