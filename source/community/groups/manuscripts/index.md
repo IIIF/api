@@ -21,11 +21,26 @@ The IIIF MSS Group seeks to advance aims of the [IIIF­C][iiifc], which are to r
 
 ## Organization
 
-  * **Chair:** Ben Albritton (Stanford)
-  * **Communication Channels:** Virtual meetings announced on the [IIIF-Manuscripts][iiif-manuscripts] and [IIIF-Discuss][iiif-discuss] email lists. General discussion on the [# manuscripts IIIF Slack channel][manuscripts-slack] ([Join Slack][join-slack])
-  * **Call Notes and Group Documents:** [IIIF Manuscripts Community Group Folder][manuscripts-folder]
-  * **Regular Call Schedule:** Second Wednesday of every month at 11am Eastern - see [IIIF Community Calendar][calendar] for details
-  * **Call Connection Information:** Connect Online at [https://bluejeans.com/153288361][https://bluejeans.com/153288361] or by Phone: +1.888.240.2560 (US Toll Free) or see [international numbers][international-bluejeans] - Enter Meeting ID: 153288361
+**Chairs:**
+
+  * Benjamin Albritton (Stanford University)
+  * Rachel Di Cresce (University of Toronto)
+  * Jeffrey Witt (Loyola University Maryland)
+
+**Communication Channels:**
+
+  * Calls on the second Wednesday of every month at 11am Eastern - see [IIIF Community Calendar][calendar] for details
+  * Virtual meetings announced on the [IIIF-Manuscripts][iiif-manuscripts] and [IIIF-Discuss][iiif-discuss] email lists.
+  * General discussion on the [# manuscripts IIIF Slack channel][manuscripts-slack] ([Join Slack][join-slack])
+
+**Call Notes and Group Documents:**
+
+  * [IIIF Manuscripts Community Group Folder][manuscripts-folder]
+
+**Call Connection Information:**
+
+  * Online: [https://bluejeans.com/153288361][https://bluejeans.com/153288361]
+  * Phone: +1.888.240.2560 (US Toll Free) or see [international numbers][international-bluejeans] - Enter Meeting ID: 153288361
 
 [ghent]: /event/2015/ghent/ "IIIF: Access to the World's Images - Ghent 2015"
 [iiifc]: /community/consortium/ "IIIF Consortium"

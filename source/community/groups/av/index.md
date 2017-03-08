@@ -15,18 +15,25 @@ The [IIIF A/V charter][av-charter] provides an outline and timeline for anticipa
 
 ## Organization
 
-  * **Chairs:**
-    * Tom Crane (Digirati)
-    * Jon Dunn (Indiana University)
-  * **Communication Channels:**
-    * Calls every other week on Tuesdays at 12:00pm Eastern (opposite the general IIIF Community Call) - see [IIIF Community Calendar][iiif-calendar] for details
-    * Virtual meetings announced on the [IIIF-Discuss][iiif-discuss] email list.
-    * General discussion on the [# av IIIF Slack channel][av-slack] ([Join Slack][slack])
-  * **Call Notes and Group Documents:**
-    * [IIIF A/V Tech Spec Group folder][av-folder]
-  * **Call Connection Information:**
-    * Online: [https://bluejeans.com/222002812][https://bluejeans.com/222002812]
-    * Phone: +1.888.240.2560 (US Toll Free) or see [international numbers][international-bluejeans] - Enter Meeting ID: 222002812
+**Chairs:**
+
+  * Tom Crane (Digirati)
+  * Jon Dunn (Indiana University)
+
+**Communication Channels:**
+
+  * Calls every other week on Tuesdays at 12:00pm Eastern (opposite the general IIIF Community Call) - see [IIIF Community Calendar][iiif-calendar] for details
+  * Virtual meetings announced on the [IIIF-Discuss][iiif-discuss] email list
+  * General discussion on the [# av IIIF Slack channel][av-slack] ([Join Slack][slack])
+
+**Call Notes and Group Documents:**
+
+  * [IIIF A/V Tech Spec Group folder][av-folder]
+
+**Call Connection Information:**
+
+  * Online: [https://bluejeans.com/222002812][https://bluejeans.com/222002812]
+  * Phone: +1.888.240.2560 (US Toll Free) or see [international numbers][international-bluejeans] - Enter Meeting ID: 222002812
 
 [av-user-stories]: https://github.com/IIIF/iiif-av/issues "Audiovisual User Stories"
 [bl-workshop-2016-04]: https://goo.gl/iVXEFD "Use cases and notes from April 2015 workshop at British Library"

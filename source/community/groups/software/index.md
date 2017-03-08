@@ -20,11 +20,26 @@ To advance the growth and adoption of interoperable software with IIIF, the Soft
 * Develop opportunities and development practices for sustainable collaboration efforts across institutions and funding resources.
 
 ## Organization
-* **Chairs:** Rashmi Singhal (Harvard University) and Drew Winget (Stanford University)
-* **Communication Channels:** Virtual meetings announced on [IIIF-Discuss][iiif-discuss]. General discussion on the [# softwaredevs IIIF Slack channel][devs-slack] ([Join Slack][join-slack])
-* **Call Notes and Group Documents:** [IIIF Software Developers Folder][devs-folder]
-* **Regular Meeting Schedule:** Every other week (opposite the general IIIF Community Call) on Wednesdays at 12:00pm Eastern - see [IIIF Community Calendar][calendar] for details
-* **Call Connection Information:** Connect online at [https://bluejeans.com/782319325][bluejeans] or by Phone: +1.888.240.2560 (US Toll Free) or see [international numbers][international-bluejeans] - Enter Meeting ID: 782319325
+
+**Chairs:**
+
+  * Rashmi Singhal (Harvard University)
+  * Drew Winget (Stanford University)
+
+**Communication Channels:**
+
+  * Calls every other week on Wednesdays at 12:00pm Eastern (opposite the general IIIF Community Call)  - see [IIIF Community Calendar][calendar] for details
+  * Virtual meetings announced on [IIIF-Discuss][iiif-discuss]
+  * General discussion on the [# softwaredevs IIIF Slack channel][devs-slack] ([Join Slack][join-slack])
+
+**Call Notes and Group Documents:**
+
+  * [IIIF Software Developers Folder][devs-folder]
+
+**Call Connection Information:**
+
+  * Online: [https://bluejeans.com/782319325][bluejeans]
+  * Phone: +1.888.240.2560 (US Toll Free) or see [international numbers][international-bluejeans] - Enter Meeting ID: 782319325
 
 
 [iiif-discuss]: https://groups.google.com/forum/#!forum/iiif-discuss

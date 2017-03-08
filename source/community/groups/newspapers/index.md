@@ -19,11 +19,25 @@ The IIIF Newspapers Community Group welcomes participants with an interest in im
 
 ## Organization
 
-  * **Chairs:** Karen Estlund (Pennsylvania State University) and Glen Robson (National Library of Wales)
-  * **Communication Channels:** Virtual meetings announced on the [IIIF-Discuss][iiif-discuss] email list. General discussion on the [# newspapers IIIF Slack channel][newspapers-slack] ([Join Slack][join-slack])
-  * **Call Notes and Group Documents:** [IIIF Newspapers Community Group Folder][newspapers-folder]
-  * **Regular Call Schedule:** Fourth Wednesday of every month at 11am Eastern - see [IIIF Community Calendar][calendar] for details
-  * **Call Connection Information:** Connect Online at [https://bluejeans.com/753929435][https://bluejeans.com/753929435] or by Phone: +1.888.240.2560 (US Toll Free) or see [international numbers][international-bluejeans] - Enter Meeting ID: 753929435
+**Chairs:**
+
+  * Karen Estlund (Pennsylvania State University)
+  * Glen Robson (National Library of Wales)
+
+**Communication Channels:**
+
+  * Calls on the fourth Wednesday of every month at 11am Eastern - see [IIIF Community Calendar][calendar] for details
+  * Virtual meetings announced on the [IIIF-Discuss][iiif-discuss] email list
+  * General discussion on the [# newspapers IIIF Slack channel][newspapers-slack] ([Join Slack][join-slack])
+
+**Call Notes and Group Documents:**
+
+  * [IIIF Newspapers Community Group Folder][newspapers-folder]
+
+**Call Connection Information:**
+
+  * Online: [https://bluejeans.com/753929435][https://bluejeans.com/753929435]
+  * Phone: +1.888.240.2560 (US Toll Free) or see [international numbers][international-bluejeans] - Enter Meeting ID: 753929435
 
 [newspapers-awesome-iiif]: https://github.com/IIIF/awesome-iiif#newspapers "Newspapers on Awesome-IIIF"
 [events]: /event "IIIF Events"
