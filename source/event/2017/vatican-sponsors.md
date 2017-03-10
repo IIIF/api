@@ -22,7 +22,7 @@ The International Image Interoperability Framework (IIIF) conference offers an e
   * All of the Silver benefits listed above, plus:
   * Logo on iiif.io website and event registration form
   * Logo on June 6 plenary program
-  * Option for designated classroom space during June 7 & 8 parallel sessions
+  * Option for designated classroom space during June 8 & 9 parallel sessions
   * Informational table and/or poster in common space
   * 1 additional conference registration (2 total)
 
