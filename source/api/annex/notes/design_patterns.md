@@ -1,4 +1,4 @@
-1;2c>---
+---
 title: "IIIF Design Patterns"
 layout: spec
 tags: [annex, presentation-api, image-api]
