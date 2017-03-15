@@ -1,4 +1,4 @@
----
+1;2c>---
 title: "IIIF Design Patterns"
 layout: spec
 tags: [annex, presentation-api, image-api]
@@ -142,6 +142,7 @@ The intent of adopting this pattern is to enable experimentation by implementers
  | Date       | Description                                                         |
  | ---------- | ------------------------------------------------------------------- |
  | 2017-02-06 | Initial draft version |
+ | 2017-03-15 | First published version after community review |
 
 [change-log]: #change-log "Change Log"
 [iiif-announce]: https://groups.google.com/forum/#!forum/iiif-announce "IIIF Email Announcement List"
