@@ -54,7 +54,7 @@ The intent of adopting this pattern is to keep the resulting specifications prac
 
 IIIF specifications should be designed to reduce the complexity to the lowest possible point at which the use cases that feed them can be met.  They should make simple things easy and complex things possible.  They should allow implementers to build up from a minimum viable product in stages and incrementally enable more complex use cases.
 
-The intent of adopting this pattern is to ensure the adoption of the specifications is as high as possible.
+The intent of adopting this pattern is to ensure the adoption of the specifications is as high as possible. Simplicity is often a trade-off between parties, and must take into account the generation and publishing of the data on the server side, and the consumption and processing of the data on the client side.
 
 ### 2.3. Intelligently Manage Ramping Up
 
@@ -76,7 +76,7 @@ The intent of adopting this pattern is to ensure that the specifications can be 
 
 > [Discuss](https://github.com/IIIF/iiif.io/issues/1036)
 
-IIIF specifications follow resource-centric design patterns and use [REST][rest] interfaces, rather than service or operation-centric design patterns. This carries on from the previous design patterns, and serves to provide a consistent and coherent pattern across many different functional areas.
+IIIF specifications follow resource-centric design patterns, for example by using [REST][rest] interfaces rather than service or operation-centric design patterns. This carries on from the previous design patterns, and serves to provide a consistent and coherent pattern across many different functional areas.
 
 The intent of adopting this pattern is to ensure that the specifications are cacheable and performant, at the same time as being easy to understand and implement.
 
