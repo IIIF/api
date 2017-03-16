@@ -661,9 +661,14 @@ Canvases _MAY_ be dereferenced separately from the manifest via their URIs, and 
   "@id": "http://example.org/iiif/book1/canvas/p1",
   "@type": "sc:Canvas",
   "label": "p. 1",
-  "height":1000,
-  "width":750,
-
+  "height": 1000,
+  "width": 750,
+  "thumbnail" : {
+    "@id" : "http://example.org/iiif/book1/canvas/p1/thumb.jpg",
+    "@type": "dctypes:Image",
+    "height: 200,
+    "width": 150
+  },
   "images": [
     {
       "@type": "oa:Annotation"
