@@ -124,8 +124,8 @@ Editors may be dismissed from work on a specification, or the editorial group al
 
  | Date       | Description                                                         |
  | ---------- | ------------------------------------------------------------------- |
- | 2015-12-22 | First release (@mikeapp, @tomcrane, @azaroth42, @jpstroop, @zimeon) |
  | 2017-03-17 | Updates to sections 1 and 2.1 (@srabun, @azaroth, @zimeon, @tcramer) |
+ | 2015-12-22 | First release (@mikeapp, @tomcrane, @azaroth42, @jpstroop, @zimeon) |
 
 [change-log]: #change-log "Change Log"
 [acceptance-criteria-for-merging-changes]: #acceptance-criteria-for-merging-changes "Acceptance Criteria for Merging Changes"
