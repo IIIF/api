@@ -32,7 +32,7 @@ This document is not subject to [IIIF's versioning semantics][iiif-semver]. Chan
 
 ## 1. Overview
 
-The IIIF editors are responsible for facilitating discussions across the IIIF community, ensuring those discussions are captured as use cases, and reflecting those use cases into new and revised specifications for the community to implement. This process is intended to be as transparent as possible. This document exists to further that intention by defining the IIIF editorial process and the responsibilities and expectations of the editorial group.
+This document describes the process by which specifications are designed and written within the IIIF community. The first part describes the expected participation of the community throughout the process, including gathering real world use cases, discussing solutions and implementing products. The second part describes the processes that the editorial team use to ensure that the specifications are of the highest quality possible.  The processes are intended to be as transparent and inclusive as possible, while still making progress quickly and responsibly. 
 
 ## 2. Community Process
 
@@ -40,7 +40,7 @@ The IIIF editors are responsible for facilitating discussions across the IIIF co
 
 Community members should propose and discuss features and changes via [IIIF-Discuss][iiif-discuss], and within Technical Specification Groups if an an appropriate group exists. However, there are a few other ways in which the IIIF Community can engage in the specification process. In particular, the IIIF holds a bi-weekly [community conference call][comm-call] as well as various [Community Group and Technical Specification Group meetings][groups], the details and agenda for which are announced on IIIF-Discuss. Additionally, the [iiif.io issues on Github][iiif-github-issues] are open, and are especially useful for implementers who want to track the discussion around an issue of interest. Finally, conversations with individual editors are also possible, but are the least practical way to propose changes because the conversation will then have to be repeated to allow community input through one or more of the channels listed above.
 
-Within Technical Specification Groups, consensus for decision-making is sought via discussion and healthy debate. If disagreements arise, proponents of each approach should provide mock-ups, examples, and demonstrate practicality of implementation as well as conformance to accepted [design principles][design-principles], in order to justify their approaches. These suggestions will be reviewed by other group members and discussed further within the group, on the [IIIF-Discuss list][iiif-discuss], and on technically-focused community calls.
+Within Technical Specification Groups, consensus for decision-making is sought via discussion and healthy debate. If disagreements arise, proponents of each approach should provide mock-ups, examples, and demonstrate practicality of implementation as well as conformance to accepted [design patterns][design-patterns], in order to justify their approaches. These suggestions will be reviewed by other group members and discussed further within the group, on the [IIIF-Discuss list][iiif-discuss], and on technically-focused community calls.
 
 ### 2.2 Use Cases and Support
 
@@ -142,5 +142,5 @@ Editors may be dismissed from work on a specification, or the editorial group al
 [mou]: /community/consortium/mou/ "Memorandum of Understanding covering the establishment of the IIIF Consortium"
 [comm-call]: /community/call/
 [groups]: /community/groups/
-[design-principles]: /api/annex/notes/design_patterns/
+[design-patterns]: /api/annex/notes/design_patterns/
 {% include acronyms.md %}
