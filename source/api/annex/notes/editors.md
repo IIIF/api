@@ -32,7 +32,7 @@ This document is not subject to [IIIF's versioning semantics][iiif-semver]. Chan
 
 ## 1. Overview
 
-This document describes the process by which specifications are designed and written within the IIIF community. The first part describes the expected participation of the community throughout the process, including gathering real world use cases, discussing solutions and implementing products. The second part describes the processes that the editorial team use to ensure that the specifications are of the highest quality possible.  The processes are intended to be as transparent and inclusive as possible, while still making progress quickly and responsibly. 
+This document describes the process by which specifications are designed and written within the IIIF community. The first part describes the expected participation of the community throughout the process, including gathering real world use cases, discussing solutions and implementing products. The second part describes the processes that the editorial team use to ensure that the specifications are of the highest quality possible.  The processes are intended to be as transparent and inclusive as possible, while still making progress quickly and responsibly.
 
 ## 2. Community Process
 
@@ -125,6 +125,7 @@ Editors may be dismissed from work on a specification, or the editorial group al
  | Date       | Description                                                         |
  | ---------- | ------------------------------------------------------------------- |
  | 2015-12-22 | First release (@mikeapp, @tomcrane, @azaroth42, @jpstroop, @zimeon) |
+ | 2017-03-17 | Updates to sections 1 and 2.1 (@srabun, @azaroth, @zimeon, @tcramer) |
 
 [change-log]: #change-log "Change Log"
 [acceptance-criteria-for-merging-changes]: #acceptance-criteria-for-merging-changes "Acceptance Criteria for Merging Changes"
