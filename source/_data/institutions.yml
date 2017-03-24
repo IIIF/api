@@ -146,9 +146,6 @@
 - name: Ohio State University
   uri:
   iiifc: 2
-- name: "Oxford University (Bodleian Library)"
-  uri: http://www.bodleian.ox.ac.uk
-  iiifc: 1
 - name: Pennsylvania State University Libraries
   uri: https://libraries.psu.edu/
   iiifc: 2
@@ -196,6 +193,9 @@
 - name: University of Oklahoma
   uri:
   iiifc: 2
+- name: University of Oxford (Bodleian Library)
+  uri: http://www.bodleian.ox.ac.uk
+  iiifc: 1
 - name: University of Pennsylvania
   uri:
   iiifc: 2
