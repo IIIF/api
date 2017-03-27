@@ -12,11 +12,11 @@ All IIIF events are subject to the [Code of Conduct][conduct].
 
 __Upcoming Events__
 
-* Winter 2017: [Edinburgh][edinburgh], Scotland
 * Spring 2017: [The Vatican][vatican]
 
 __Previous Events__
 
+* Winter 2017: [Edinburgh][edinburgh], Scotland
 * Fall 2016: [The Hague][hague], Netherlands
 * Spring 2016: [New York City][nyc], USA
 * Winter 2015: [Ghent][ghent], Belgium
