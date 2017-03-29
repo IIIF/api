@@ -140,18 +140,18 @@ With the `logo` property added to the Image Information description in version 2
 
 
 ### 3.2 GeoJSON
-_Added: 2014-05-20_
+_Added: 2014-05-20_, _Latest Revision: 2017-03-29_
 
 [GeoJSON][geojson] provides the ability to associate a geographical place with a resource, in order to drive a map-based user interface or visualization tool.  This might be a location associated with the provenance of the object such as where it was created, or where it is currently held.  The location might also be related to the content of the resource, such as a city mentioned in the text or the landmark depicted in a photograph.  It is not appropriate to use this feature for tagging of time, people, events, and other semantic metadata outside of the scope of the Presentation API.
 
-The [JSON-LD representation][geojson-ld] of GeoJSON, with `@context` `http://geojson.org/contexts/geojson-base.jsonld` _SHOULD_ be used. See the GeoJSON documentation for a full description of the functionality available.
+The [JSON-LD representation][geojson-ld] of GeoJSON, with `@context` `http://geojson.org/geojson-ld/geojson-context.jsonld` _SHOULD_ be used. See the GeoJSON documentation for a full description of the functionality available.
 
 An external reference example for tagging a place, where the URI would return a GeoJSON description of the city of Paris, France:
 
 ``` json-doc
 {
   "service": {
-    "@context" : "http://geojson.org/contexts/geojson-base.jsonld",
+    "@context" : "http://geojson.org/geojson-ld/geojson-context.jsonld",
     "@id" : "http://www.example.org/geojson/paris.json"
   }
 }
@@ -162,7 +162,7 @@ Or embedding the content:
 ``` json-doc
 {
   "service": {
-    "@context" : "http://geojson.org/contexts/geojson-base.jsonld",
+    "@context" : "http://geojson.org/geojson-ld/geojson-context.jsonld",
     "@id" : "http://www.example.org/geojson/paris.json",
     "type": "Feature",
     "properties": {"name": "Paris"},
@@ -231,6 +231,7 @@ Thanks to the members of the [IIIF][iiif-community] for their continuous engagem
 
 | Date       | Description                                        |
 | ---------- | -------------------------------------------------- |
+| 2017-03-29 | Fix externally changed context URI for GeoJSON     |
 | 2015-12-04 | Fix link for physical dimensions context           |
 | 2014-06-01 | Version 1.0                                        |
 
