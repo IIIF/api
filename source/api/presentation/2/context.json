@@ -208,6 +208,11 @@
     "label": {
       "@id": "rdfs:label"
     },
+
+    "prefix": "oa:prefix",
+    "suffix": "oa:suffix",
+    "exact": "oa:exact",
+
     "first": {
       "@type": "@id",
       "@id": "as:first"
