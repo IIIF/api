@@ -243,7 +243,7 @@ Thanks to the members of the [IIIF][iiif-community] for their continuous engagem
    [iiif-community]: /community/ "IIIF Community"
    [mellon]: http://www.mellon.org/ "The Andrew W. Mellon Foundation"
    [geojson]: http://geojson.org/ "GeoJSON"
-   [geojson-ld]: http://geojson.org/vocab "GeoJSON-LD"
+   [geojson-ld]: http://geojson.org/geojson-ld/ "GeoJSON-LD"
 
 [imageinfo]: #image-information
 [lgeojson]: #geojson
