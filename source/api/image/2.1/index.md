@@ -672,7 +672,7 @@ The following shows a simple use of each of these properties:
   // ...
   "attribution" : "Provided by Example Organization",
   "logo" : "http://example.org/images/logo.png",
-  "license" : "http://rightsstatements.org/page/InC-EDU/1.0/"
+  "license" : "http://rightsstatements.org/vocab/InC-EDU/1.0/"
   // ...
 }
 ```
@@ -745,7 +745,7 @@ The following shows a response including all of the required and optional image 
   },
   "license" : [
     "http://example.org/rights/license1.html",
-    "http://rightsstatements.org/page/InC-EDU/1.0/"
+    "http://rightsstatements.org/vocab/InC-EDU/1.0/"
   ],
   "profile" : [
     "http://iiif.io/api/image/{{ page.major }}/level2.json",
