@@ -43,7 +43,17 @@ The Conference will include lightning talks, presentations, workshops, and discu
 
 The IIIF [Code of Conduct][conduct] applies to all IIIF events and related activities. The IIIF Conference activities will be conducted in English. Please direct any questions to Sheila Rabun, IIIF Community and Communications Officer, at srabun@iiif.io.
 
-*Last updated March 27, 2017*
+## Sponsors
+The 2017 IIIF Conference is sponsored by:
+
+* The [IIIF Consortium][iiif-c]
+* [Cogapp][cogapp] - Silver Sponsor
+* [OCLC][oclc] - Silver Sponsor
+* Synaptica - Silver Sponsor
+
+Please see the [Call for Sponsors][vatican-sponsors] for more information, or to become a sponsor.
+
+*Last updated March 29, 2017*
 
 
 [home-page]: http://iiif.io/
@@ -58,3 +68,6 @@ The IIIF [Code of Conduct][conduct] applies to all IIIF events and related activ
 [uv]: https://digirati.com/technology/our-solutions/universal-viewer/
 [pre-conf]: https://2017iiifconferencethevatican.sched.com/tag/Pre-conference
 [conf-sched]: https://2017iiifconferencethevatican.sched.com/
+[cogapp]: http://www.cogapp.com/iiif
+[oclc]: http://www.oclc.org/en/contentdm.html
+[iiif-c]: /community/consortium
