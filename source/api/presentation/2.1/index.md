@@ -1278,11 +1278,11 @@ This can be used to model foldouts and other dynamic features of a page, by asso
 
 ###  6.4. Non Rectangular Segments
 
-The [Scalable Vector Graphics][svg] standard (SVG) is used to describe non-rectangular areas of canvas or image resources. While SVG can, of course, describe rectangles this is _NOT RECOMMENDED_, and either the [IIIF Image API][image-api] or the `xywh` bounding box described above _SHOULD_ be used instead.  This is recognized as an advanced use case and that clients may not support it.
-
-In this pattern, the resource of the annotation is a "oa:SpecificResource" which has the complete image referenced in a `full` field and the SVG embedded in a `selector` field (as the SVG selects the part of the image needed). The SVG document is embedded using the same `ContentAsText` approach as for embedding comments or transcriptions.
+The [Scalable Vector Graphics][svg] standard (SVG) is used to describe non-rectangular, and rotated rectangular, areas of canvas or image resources. In this pattern, the resource of the annotation is a "oa:SpecificResource" which has the complete image referenced in a `full` field and the SVG embedded in a `selector` field (as the SVG selects the part of the image needed). The SVG document is embedded using the same `ContentAsText` approach as for embedding comments or transcriptions.
 
 If the section of an image is mapped to part of a canvas, as in the example below, then the target in `on` _MUST_ be the rectangular bounding box in which the SVG viewport should be placed. If the entire canvas is the target, then the SVG viewport is assumed to cover the entire canvas. If the dimensions of the viewport and the bounding box or canvas are not the same, then the SVG _MUST_ be scaled such that it covers the region. This may result in different scaling ratios for the X and Y dimensions.
+
+SVG _SHOULD NOT_ be used to describe non-rotated rectangular regions. The [IIIF Image API][image-api] or the `xywh` bounding box described above _SHOULD_ be used instead.
 
 ``` json-doc
 {
