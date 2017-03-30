@@ -234,19 +234,19 @@ Thanks to the members of the [IIIF][iiif-community] for their continuous engagem
 | 2015-12-04 | Fix link for physical dimensions context           |
 | 2014-06-01 | Version 1.0                                        |
 
-   [semver]: /api/annex/notes/semver/ "Versioning of APIs"
-   [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
-   [image-api]: /api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/ "Image API"
-   [prezi-api]: /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/ "Presentation API"
-   [json-ld]: http://www.w3.org/TR/json-ld/ "JSON-LD"
-   [iiif-community]: /community/ "IIIF Community"
-   [mellon]: http://www.mellon.org/ "The Andrew W. Mellon Foundation"
-   [geojson]: http://geojson.org/ "GeoJSON"
-   [geojson-ld]: http://geojson.org/vocab "GeoJSON-LD"
+[semver]: /api/annex/notes/semver/ "Versioning of APIs"
+[iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
+[image-api]: /api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/ "Image API"
+[prezi-api]: /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/ "Presentation API"
+[json-ld]: http://www.w3.org/TR/json-ld/ "JSON-LD"
+[iiif-community]: /community/ "IIIF Community"
+[mellon]: http://www.mellon.org/ "The Andrew W. Mellon Foundation"
+[geojson]: http://geojson.org/ "GeoJSON"
+[geojson-ld]: http://geojson.org/vocab "GeoJSON-LD"
 
-[imageinfo]: #image-information
-[lgeojson]: #geojson
-[physdim]: #physical-dimensions
+[imageinfo]: #31-image-information
+[lgeojson]: #32-geojson
+[physdim]: #33-physical-dimensions
 
 [icon-req]: /img/metadata-api/required.png "Required"
 [icon-recc]: /img/metadata-api/recommended.png "Recommended"

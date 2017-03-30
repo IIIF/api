@@ -120,14 +120,14 @@ The intent of adopting this pattern is to enable experimentation by implementers
  | 2017-03-15 | First published version after community review |
  | 2017-02-06 | Initial draft version |
 
-[change-log]: #change-log "Change Log"
+[change-log]: #3-change-log "Change Log"
 [iiif-announce]: https://groups.google.com/forum/#!forum/iiif-announce "IIIF Email Announcement List"
 [iiif-discuss]: https://groups.google.com/forum/#!forum/iiif-discuss "IIIF Email Discussion List"
 [iiif-semver]: /api/annex/notes/semver/ "Versioning of APIs"
 [rfc-2119]: https://www.ietf.org/rfc/rfc2119.txt "RFC 2119"
 [spec-disclaimer]: /api/annex/notes/disclaimer/ "Specification Disclaimer"
 
-[process]: /api/annex/notes/editors/#community-process
+[process]: /api/annex/notes/editors/#2-community-process
 [services]: /api/annex/services/
 [image-api]: /api/image
 [presentation-api]: /api/presentation

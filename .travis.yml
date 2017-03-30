@@ -13,7 +13,8 @@ script: rake ci
 # environment
 language: ruby
 rvm:
-  - "2.2"
+  - "2.2.3"
+
 jdk:
   - oraclejdk8
 

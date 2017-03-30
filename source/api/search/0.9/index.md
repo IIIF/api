@@ -732,9 +732,9 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 [prezi-api]: /api/presentation/2.0/ "Presentation API"
 [rfc-2119]: http://tools.ietf.org/html/rfc2119
 [service-annex]: /api/annex/services/
-[prezi-annolist]: /api/presentation/2.0/#other-content-resources
-[prezi-layer]: /api/presentation/2.0/#Layers
-[ignored-parameters]: #ignored-parameters
+[prezi-annolist]: /api/presentation/2.0/#65-other-content-resources
+[prezi-layer]: /api/presentation/2.0/#82-layers
+[ignored-parameters]: #341-ignored-parameters
 [oa-textquotesel]: http://www.openannotation.org/spec/core/
 
 [icon-req]: /img/metadata-api/required.png "Required"

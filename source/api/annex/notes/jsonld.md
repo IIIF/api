@@ -114,7 +114,7 @@ pprint.pprint(
 [resource-uri]: http://www.iana.org/assignments/uri-schemes/prov/resource
 [context-checker]: /api/annex/notes/check_context.py
 [int-semver]: #semantic-versioning
-[prezi-language]: /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/#language-of-property-values
+[prezi-language]: /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/#43-language-of-property-values
 [iiif-discuss]: mailto:iiif-discuss@googlegroups.com
 
 {% include acronyms.md %}

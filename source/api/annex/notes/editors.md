@@ -116,7 +116,7 @@ There is no set number of editors, but this does not mean that the number of exi
 
 Editors _MUST_ agree to all of the processes set out in this document, including attendance at meetings, and to the [intellectual property conditions under which the specifications are published][spec-disclaimer]. They are responsible for confirming that these conditions are also acceptable to their employer, where applicable.
 
-It is not expected that every editor comment on every issue, though they _SHOULD_ make every effort to do so. See [Acceptance Criteria for Merging Changes][merging-changes].
+It is not expected that every editor comment on every issue, though they _SHOULD_ make every effort to do so. See [Acceptance Criteria for Merging Changes][acceptance-criteria-for-merging-changes].
 
 Editors may be dismissed from work on a specification, or the editorial group altogether, when they fail to meet the expectations of their colleagues, as described here.
 
@@ -127,8 +127,8 @@ Editors may be dismissed from work on a specification, or the editorial group al
  | 2017-03-17 | Updates to sections 1 and 2.1 (@srabun, @azaroth, @zimeon, @tcramer) |
  | 2015-12-22 | First release (@mikeapp, @tomcrane, @azaroth42, @jpstroop, @zimeon) |
 
-[change-log]: #change-log "Change Log"
-[acceptance-criteria-for-merging-changes]: #acceptance-criteria-for-merging-changes "Acceptance Criteria for Merging Changes"
+[change-log]: #5-change-log "Change Log"
+[acceptance-criteria-for-merging-changes]: #33-acceptance-criteria-for-merging-changes "Acceptance Criteria for Merging Changes"
 [iiif-announce]: https://groups.google.com/forum/#!forum/iiif-announce "IIIF Email Announcement List"
 [iiif-discuss]: https://groups.google.com/forum/#!forum/iiif-discuss "IIIF Email Discussion List"
 [use-cases]: https://github.com/IIIF/iiif-stories/issues "IIIF user stories and use cases"
@@ -137,7 +137,6 @@ Editors may be dismissed from work on a specification, or the editorial group al
 [iiif-io]: http://iiif.io "iiif.io"
 [iiif-semver]: /api/annex/notes/semver/ "Versioning of APIs"
 [image-20-changelog]: /api/image/2.0/change-log/ "Changes for IIIF Image API Version 2.0"
-[merging-changes]: #acceptance-criteria-for-merging-changes "2.2 Acceptance Criteria for Merging Changes"
 [rfc-2119]: https://www.ietf.org/rfc/rfc2119.txt "RFC 2119"
 [spec-disclaimer]: /api/annex/notes/disclaimer/ "Specification Disclaimer"
 [mou]: /community/consortium/mou/ "Memorandum of Understanding covering the establishment of the IIIF Consortium"

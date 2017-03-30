@@ -14,10 +14,9 @@ kramdown:
   enable_coderay: true
   syntax_highlighter: rouge
 
-  coderay:
-    coderay_wrap: div
-    coderay_line_numbers: nil
-    coderay_css: class
+  syntax_highlighter_opts:
+    wrap: div
+    css: class
 
 image_api:
   latest:
