@@ -764,7 +764,7 @@ The following shows a response including all of the required and optional image 
       "physicalScale": 0.0025,
       "physicalUnits": "in"
     },{
-      "@context" : "http://geojson.org/contexts/geojson-base.jsonld",
+      "@context" : "http://geojson.org/geojson-ld/geojson-context.jsonld",
       "@id" : "http://www.example.org/geojson/paris.json"
     }
   ]
