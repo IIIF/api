@@ -2,13 +2,13 @@
   uri:  http://www.artic.edu/
   iiifc:
 - name: ARTstor
-  uri: www.ithaka.org
+  uri: http://www.ithaka.org
   iiifc: 1
 - name: Art Gallery of Ontario
   uri: http://boxwood.ago.ca
   iiifc:
 - name: Bayerische Staatsbibliothek (Bavarian State Library)
-  uri: www.bsb-muenchen.de
+  uri: http://www.bsb-muenchen.de
   iiifc: 1
 - name: La Bibliothèque nationale de France
   uri: http://www.bnf.fr
@@ -53,7 +53,7 @@
   uri: http://www.oclc.org/en-US/contentdm.html
   iiifc:
 - name: Cooper Hewitt Smithsonian Design Museum
-  uri: www.cooperhewitt.org
+  uri: http://www.cooperhewitt.org
   iiifc:
 - name: Cornell University
   uri: https://www.library.cornell.edu/
@@ -126,7 +126,7 @@
   uri: https://www.mzk.cz/
   iiifc:
 - name: National Gallery of Art
-  uri: www.nga.gov
+  uri: http://www.nga.gov
   iiifc:
 - name: National Library of Austria
   uri:
