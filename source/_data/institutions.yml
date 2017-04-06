@@ -2,13 +2,13 @@
   uri:  http://www.artic.edu/
   iiifc:
 - name: ARTstor
-  uri:
+  uri: http://www.ithaka.org
   iiifc: 1
 - name: Art Gallery of Ontario
   uri: http://boxwood.ago.ca
   iiifc:
 - name: Bayerische Staatsbibliothek (Bavarian State Library)
-  uri:
+  uri: http://www.bsb-muenchen.de
   iiifc: 1
 - name: La Bibliothèque nationale de France
   uri: http://www.bnf.fr
@@ -20,18 +20,21 @@
   uri: https://digitalcommonwealth.org
   iiifc:
 - name: British Library
-  uri:
+  uri: https://www.bl.uk/
   iiifc: 1
 - name: British Museum
-  uri:
+  uri: http://www.britishmuseum.org/
   iiifc:
 - name: Brown University
-  uri:
+  uri: https://repository.library.brown.edu
   iiifc: 2
 - name: Cambridge University
   uri:
   iiifc: 2
-- name: Carnegie Art Museum
+- name: Canadiana.org
+  uri: http://canadiana.org
+  iiifc:
+- name: Carnegie Museum of Art
   uri: http://records.cmoa.org
   iiifc:
 - name: Centre de Recherche et de Restauration des Musées de France (C2RMF)
@@ -49,8 +52,11 @@
 - name: CONTENTdm
   uri: http://www.oclc.org/en-US/contentdm.html
   iiifc:
+- name: Cooper Hewitt Smithsonian Design Museum
+  uri: http://www.cooperhewitt.org
+  iiifc:
 - name: Cornell University
-  uri:
+  uri: https://www.library.cornell.edu/
   iiifc: 1
 - name: Data Futures Project (University of Westminster)
   uri: https://www.data-futures.org/
@@ -73,7 +79,7 @@
   uri:
   iiifc:
 - name: Gottingen State and University Library
-  uri:
+  uri: https://textgrid.de/en/
   iiifc: 2
 - name: Harvard Art Museums
   uri: http://www.harvardartmuseums.org/
@@ -81,6 +87,11 @@
 - name: Harvard University
   uri: http://iiif.harvard.edu
   iiifc: 2
+- name: Hill Museum & Manuscript Library (HMML)
+  uri: https://www.vhmml.org/
+  iiifc:
+- name: Huygens ING (KNAW)
+  uri: https://www.huygens.knaw.nl/
 - name: Indiana University
   uri:
   iiifc: 2
@@ -99,10 +110,15 @@
   uri:
   iiifc: 2
 - name: Leiden University
-  uri:
+  uri: https://www.library.universiteitleiden.nl
   iiifc: 2
+- name: Library of Congress
+  uri: https://www.wdl.org
+  iiifc:
 - name: LUNA Imaging
   uri: http://www.lunaimaging.com/blog/2015/12/3/luna-and-iiif-1
+- name: Max Planck Institute for European Legal History
+  uri:
 - name: MIT Libraries
   uri:
   iiifc: 2
@@ -110,7 +126,7 @@
   uri: https://www.mzk.cz/
   iiifc:
 - name: National Gallery of Art
-  uri:
+  uri: http://www.nga.gov
   iiifc:
 - name: National Library of Austria
   uri:
@@ -137,11 +153,13 @@
   uri:
 - name: National Library of Wales
   uri:
+- name: Nationalmuseum Sweden
+  uri: http://www.nationalmuseum.se
 - name: New York University Libraries
   uri:
   iiifc: 2
 - name: North Carolina State University Libraries
-  uri:
+  uri: https://www.lib.ncsu.edu/
   iiifc: 2
 - name: Ohio State University
   uri:
@@ -160,7 +178,7 @@
 - name: "St. Louis University"
   uri:
 - name: Stanford University
-  uri:
+  uri: http://library.stanford.edu/
   iiifc: 1
 - name: TextGrid
   uri:
@@ -168,6 +186,9 @@
   uri:  http://www.textandbytes.com/en
 - name: University College Dublin
   uri: http://www.ucd.ie/library/
+  iiifc:
+- name: University of Alberta Libraries
+  uri: https://www.library.ualberta.ca
   iiifc:
 - name: University of Basel, Digital Humanities Lab
   uri: http://dhlab.unibas.ch/
@@ -188,7 +209,7 @@
   uri: https://www.lib.umich.edu/digital-library-platform-services-dlps
   iiifc: 2
 - name: University of Notre Dame
-  uri:
+  uri: http://library.nd.edu
   iiifc: 2
 - name: University of Oklahoma
   uri:
@@ -200,16 +221,19 @@
   uri:
   iiifc: 2
 - name: University of Tokyo
-  uri:
+  uri: http://21dzk.l.u-tokyo.ac.jp/DHI/
   iiifc: 2
 - name: University of Toronto
-  uri:
+  uri: https://library.utoronto.ca
   iiifc: 2
 - name: Vatican Library
   uri:
   iiifc: 2
+- name: Villanova University
+  uri: https://digital.library.villanova.edu/
+  iiifc:
 - name: The Walters Art Museum
-  uri:
+  uri: http://thewalters.org
   iiifc:
 - name: Wellcome Trust
   uri: http://wellcomelibrary.org
