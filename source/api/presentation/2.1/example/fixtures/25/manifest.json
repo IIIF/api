@@ -1,16 +1,16 @@
 {
   "@context": "http://iiif.io/api/presentation/2/context.json", 
-  "@id": "http://iiif.io/api/presentation/2.0/example/fixtures/25/manifest.json", 
+  "@id": "http://iiif.io/api/presentation/2.1/example/fixtures/25/manifest.json", 
   "@type": "sc:Manifest", 
   "label": "Test 25 Manifest: Image with IIIF Service, embedded info", 
-  "within": "http://iiif.io/api/presentation/2.0/example/fixtures/collection.json", 
+  "within": "http://iiif.io/api/presentation/2.1/example/fixtures/collection.json", 
   "sequences": [
     {
       "@type": "sc:Sequence", 
       "label": "Test 25 Sequence 1", 
       "canvases": [
         {
-          "@id": "http://iiif.io/api/presentation/2.0/example/fixtures/canvas/25/c1.json", 
+          "@id": "http://iiif.io/api/presentation/2.1/example/fixtures/canvas/25/c1.json", 
           "@type": "sc:Canvas", 
           "label": "Test 25 Canvas: 1", 
           "height": 1800, 
@@ -20,14 +20,14 @@
               "@type": "oa:Annotation", 
               "motivation": "sc:painting", 
               "resource": {
-                "@id": "http://iiif.io/api/image/2.0/example/reference/page1-full/full/full/0/default.jpg", 
+                "@id": "http://iiif.io/api/image/2.1/example/reference/page1-full/full/full/0/default.jpg", 
                 "@type": "dctypes:Image", 
                 "format": "image/jpeg", 
                 "height": 1800, 
                 "width": 1200, 
                 "service": {
                   "@context": "http://iiif.io/api/image/2/context.json", 
-                  "@id": "http://iiif.io/api/image/2.0/example/reference/page1-full", 
+                  "@id": "http://iiif.io/api/image/2.1/example/reference/page1-full", 
                   "height": 1800, 
                   "width": 1200, 
                   "profile": [
@@ -64,7 +64,7 @@
                   ]
                 }
               }, 
-              "on": "http://iiif.io/api/presentation/2.0/example/fixtures/canvas/25/c1.json"
+              "on": "http://iiif.io/api/presentation/2.1/example/fixtures/canvas/25/c1.json"
             }
           ]
         }

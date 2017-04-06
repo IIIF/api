@@ -1,16 +1,16 @@
 {
   "@context": "http://iiif.io/api/presentation/2/context.json", 
-  "@id": "http://iiif.io/api/presentation/2.0/example/fixtures/41/manifest.json", 
+  "@id": "http://iiif.io/api/presentation/2.1/example/fixtures/41/manifest.json", 
   "@type": "sc:Manifest", 
   "label": "Test 41 Manifest: Main Image with Server side Rotation", 
-  "within": "http://iiif.io/api/presentation/2.0/example/fixtures/collection.json", 
+  "within": "http://iiif.io/api/presentation/2.1/example/fixtures/collection.json", 
   "sequences": [
     {
       "@type": "sc:Sequence", 
       "label": "Test 41 Sequence 1", 
       "canvases": [
         {
-          "@id": "http://iiif.io/api/presentation/2.0/example/fixtures/canvas/41/c1.json", 
+          "@id": "http://iiif.io/api/presentation/2.1/example/fixtures/canvas/41/c1.json", 
           "@type": "sc:Canvas", 
           "label": "Test 41 Canvas: 1", 
           "height": 1800, 
@@ -20,17 +20,17 @@
               "@type": "oa:Annotation", 
               "motivation": "sc:painting", 
               "resource": {
-                "@id": "http://iiif.io/api/image/2.0/example/reference/page1-full/full/full/180/default.jpg", 
+                "@id": "http://iiif.io/api/image/2.1/example/reference/page1-full/full/full/180/default.jpg", 
                 "@type": "oa:SpecificResource", 
                 "full": {
-                  "@id": "http://iiif.io/api/image/2.0/example/reference/page1-full/full/full/0/default.jpg", 
+                  "@id": "http://iiif.io/api/image/2.1/example/reference/page1-full/full/full/0/default.jpg", 
                   "@type": "dctypes:Image", 
                   "format": "image/jpeg", 
                   "height": 1800, 
                   "width": 1200, 
                   "service": {
                     "@context": "http://iiif.io/api/image/2/context.json", 
-                    "@id": "http://iiif.io/api/image/2.0/example/reference/page1-full", 
+                    "@id": "http://iiif.io/api/image/2.1/example/reference/page1-full", 
                     "profile": "http://iiif.io/api/image/2/level1.json"
                   }
                 }, 
@@ -39,7 +39,7 @@
                   "rotation": "180"
                 }
               }, 
-              "on": "http://iiif.io/api/presentation/2.0/example/fixtures/canvas/41/c1.json"
+              "on": "http://iiif.io/api/presentation/2.1/example/fixtures/canvas/41/c1.json"
             }
           ]
         }

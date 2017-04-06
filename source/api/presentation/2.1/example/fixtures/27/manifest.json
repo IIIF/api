@@ -1,16 +1,16 @@
 {
   "@context": "http://iiif.io/api/presentation/2/context.json", 
-  "@id": "http://iiif.io/api/presentation/2.0/example/fixtures/27/manifest.json", 
+  "@id": "http://iiif.io/api/presentation/2.1/example/fixtures/27/manifest.json", 
   "@type": "sc:Manifest", 
   "label": "Test 27 Manifest: No Image", 
-  "within": "http://iiif.io/api/presentation/2.0/example/fixtures/collection.json", 
+  "within": "http://iiif.io/api/presentation/2.1/example/fixtures/collection.json", 
   "sequences": [
     {
       "@type": "sc:Sequence", 
       "label": "Test 27 Sequence 1", 
       "canvases": [
         {
-          "@id": "http://iiif.io/api/presentation/2.0/example/fixtures/canvas/27/c1.json", 
+          "@id": "http://iiif.io/api/presentation/2.1/example/fixtures/canvas/27/c1.json", 
           "@type": "sc:Canvas", 
           "label": "Test 27 Canvas: 1", 
           "height": 1800, 
