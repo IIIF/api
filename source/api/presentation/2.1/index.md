@@ -666,7 +666,7 @@ Canvases _MAY_ be dereferenced separately from the manifest via their URIs, and 
   "thumbnail" : {
     "@id" : "http://example.org/iiif/book1/canvas/p1/thumb.jpg",
     "@type": "dctypes:Image",
-    "height: 200,
+    "height": 200,
     "width": 150
   },
   "images": [
