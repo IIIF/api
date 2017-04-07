@@ -877,7 +877,7 @@ Ranges _MAY_ also link to a layer, described in the next section, that has the c
 ```
 
 __Deprecation Warning__
-The `canvases` and `ranges` properties are likely to be removed in version 3.0 in favor of the single `members` property. Until that time, if a client sees a `members` property, it should use that property even if `canvases` and/or `ranges` are also present. However, publishing systems should be aware that Presentation API version 2.0-compliant clients will not produce the expected results if they use `members` and do not provide a fall back with `canvases` and `ranges`.  Publishing systems should only use `members` when it is important to have a single ordered list that contains both canvases and ranges.  Feedback on this deprecation is [requested][iiif-discuss].
+Several issues have arisen with respect to the current specification for ranges, and a new pattern is anticipated in API version 3.0 to address these concerns. Feedback on this deprecation is [requested][iiif-discuss].
 {: .warning}
 
 ###  5.7. Layer
