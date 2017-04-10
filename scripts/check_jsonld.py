@@ -76,7 +76,7 @@ framejs['@context'] = ctxtjs['@context']
 fixturedir = 'source/api/presentation/2.1/example/fixtures'
 dirs = os.listdir(fixturedir)
 
-# Remove 18 as extra property will be stripped ... as it should
+# The extra property is dropped, as it should be
 dirs.remove('18')
 
 # Remove 24,25,29,31,36 as embedded @contexts will disappear
@@ -89,7 +89,7 @@ dirs.remove('36')
 dirs.remove('38')
 dirs.remove('41')
 
-# Example 32 is broken for framing, as duplicate resource is not described twice in compacted output.
+# Remove 32, as duplicate resource is not described twice in compacted output.
 # XXX Fix this in the manifest to use two different resources.
 dirs.remove('32')
 

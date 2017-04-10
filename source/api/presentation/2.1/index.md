@@ -666,7 +666,7 @@ Canvases _MAY_ be dereferenced separately from the manifest via their URIs, and 
   "thumbnail" : {
     "@id" : "http://example.org/iiif/book1/canvas/p1/thumb.jpg",
     "@type": "dctypes:Image",
-    "height: 200,
+    "height": 200,
     "width": 150
   },
   "images": [
@@ -813,7 +813,7 @@ References to canvases, or rectangular parts of a canvas, within the current ran
 A combined list of both ranges and canvases.  If the range contains both other ranges and canvases, and the ordering of the different types of resource is significant, the range _SHOULD_ instead use the `members` property.  The property's value is an array of canvases, parts of canvases or other ranges.  Each item in the array _MUST_ be an object, and it _MUST_ have the `@id`, `@type`, and `label` properties.
 
 
-A range will typically include one or more canvases or, unlike sequences, parts of canvases. The part must be rectangular, and is given using the `xywh=` fragment approach. This allows for selecting, for example, the areas within two newspaper pages where an article is located.
+A range will typically include one or more canvases or, unlike sequences, parts of canvases. The part must be rectangular, and is given using the `xywh=` fragment approach. This allows for selecting, for example, the areas within two newspaper pages where an article is located. An empty range, with no member resources, is allowed but discouraged. The reason for the empty range could be described in the `label` property, or in the `description` property for more discursive text.
 
 In order to present a table of the different ranges to allow a user to select one, every range _MUST_ have a label and the top most range in the table _SHOULD_ have a `viewingHint` with the value "top". A range that is the top of a hierarchy does not need to list all of the canvases in the sequence, and _SHOULD_ only give the list of ranges below it.  Ranges _MAY_ also have any of the other properties defined in this specification, including the `startCanvas` relationship to the first canvas within the range to start with, if it is not the first listed in `canvases` or `members`.
 
@@ -877,7 +877,7 @@ Ranges _MAY_ also link to a layer, described in the next section, that has the c
 ```
 
 __Deprecation Warning__
-The `canvases` and `ranges` properties are likely to be removed in version 3.0 in favor of the single `members` property. Until that time, if a client sees a `members` property, it should use that property even if `canvases` and/or `ranges` are also present. However, publishing systems should be aware that Presentation API version 2.0-compliant clients will not produce the expected results if they use `members` and do not provide a fall back with `canvases` and `ranges`.  Publishing systems should only use `members` when it is important to have a single ordered list that contains both canvases and ranges.  Feedback on this deprecation is [requested][iiif-discuss].
+Several issues have arisen with respect to the current specification for ranges, and a new pattern is anticipated in API version 3.0 to address these concerns. Feedback on this deprecation is [requested][iiif-discuss].
 {: .warning}
 
 ###  5.7. Layer
