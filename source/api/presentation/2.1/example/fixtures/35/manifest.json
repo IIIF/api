@@ -1,16 +1,16 @@
 {
   "@context": "http://iiif.io/api/presentation/2/context.json", 
-  "@id": "http://iiif.io/api/presentation/2.0/example/fixtures/35/manifest.json", 
+  "@id": "http://iiif.io/api/presentation/2.1/example/fixtures/35/manifest.json", 
   "@type": "sc:Manifest", 
   "label": "Test 35 Manifest: Partial Image as Main Image", 
-  "within": "http://iiif.io/api/presentation/2.0/example/fixtures/collection.json", 
+  "within": "http://iiif.io/api/presentation/2.1/example/fixtures/collection.json", 
   "sequences": [
     {
       "@type": "sc:Sequence", 
       "label": "Test 35 Sequence 1", 
       "canvases": [
         {
-          "@id": "http://iiif.io/api/presentation/2.0/example/fixtures/canvas/35/c1.json", 
+          "@id": "http://iiif.io/api/presentation/2.1/example/fixtures/canvas/35/c1.json", 
           "@type": "sc:Canvas", 
           "label": "Test 35 Canvas: 1", 
           "height": 1600, 
@@ -20,12 +20,12 @@
               "@type": "oa:Annotation", 
               "motivation": "sc:painting", 
               "resource": {
-                "@id": "http://iiif.io/api/presentation/2.0/example/fixtures/resources/page1-full.png#xywh=100,100,1000,1600", 
+                "@id": "http://iiif.io/api/presentation/2.1/example/fixtures/resources/page1-full.png#xywh=100,100,1000,1600", 
                 "@type": "dctypes:Image", 
                 "height": 1600, 
                 "width": 1000
               }, 
-              "on": "http://iiif.io/api/presentation/2.0/example/fixtures/canvas/35/c1.json"
+              "on": "http://iiif.io/api/presentation/2.1/example/fixtures/canvas/35/c1.json"
             }
           ]
         }

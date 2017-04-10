@@ -1,6 +1,6 @@
 {
   "@context": "http://iiif.io/api/presentation/2/context.json", 
-  "@id": "http://iiif.io/api/presentation/2.0/example/fixtures/40/manifest.json", 
+  "@id": "http://iiif.io/api/presentation/2.1/example/fixtures/40/manifest.json", 
   "@type": "sc:Manifest", 
   "label": "Test 40 Manifest: Multiple Languages for Metadata Labels", 
   "metadata": [
@@ -18,14 +18,14 @@
       "value": "2000"
     }
   ], 
-  "within": "http://iiif.io/api/presentation/2.0/example/fixtures/collection.json", 
+  "within": "http://iiif.io/api/presentation/2.1/example/fixtures/collection.json", 
   "sequences": [
     {
       "@type": "sc:Sequence", 
       "label": "Test 40 Sequence 1", 
       "canvases": [
         {
-          "@id": "http://iiif.io/api/presentation/2.0/example/fixtures/canvas/40/c1.json", 
+          "@id": "http://iiif.io/api/presentation/2.1/example/fixtures/canvas/40/c1.json", 
           "@type": "sc:Canvas", 
           "label": "Test 40 Canvas: 1", 
           "height": 1800, 
@@ -35,12 +35,12 @@
               "@type": "oa:Annotation", 
               "motivation": "sc:painting", 
               "resource": {
-                "@id": "http://iiif.io/api/presentation/2.0/example/fixtures/resources/page1-full.png", 
+                "@id": "http://iiif.io/api/presentation/2.1/example/fixtures/resources/page1-full.png", 
                 "@type": "dctypes:Image", 
                 "height": 1800, 
                 "width": 1200
               }, 
-              "on": "http://iiif.io/api/presentation/2.0/example/fixtures/canvas/40/c1.json"
+              "on": "http://iiif.io/api/presentation/2.1/example/fixtures/canvas/40/c1.json"
             }
           ]
         }

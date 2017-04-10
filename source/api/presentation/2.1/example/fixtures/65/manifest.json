@@ -1,16 +1,17 @@
 {
   "@context": "http://iiif.io/api/presentation/2/context.json", 
-  "@id": "http://iiif.io/api/presentation/2.0/example/fixtures/65/manifest.json", 
+  "@id": "http://iiif.io/api/presentation/2.1/example/fixtures/65/manifest.json", 
   "@type": "sc:Manifest", 
-  "label": "Test 65 Manifest: Sequence with start_canvas", 
-  "within": "http://iiif.io/api/presentation/2.0/example/fixtures/collection.json", 
+  "label": "Test 65 Manifest: Sequence with startCanvas", 
+  "within": "http://iiif.io/api/presentation/2.1/example/fixtures/collection.json", 
   "sequences": [
     {
       "@type": "sc:Sequence", 
       "label": "Test 65 Sequence 1", 
+      "startCanvas": "http://iiif.io/api/presentation/2.0/example/fixtures/canvas/65/c1.json", 
       "canvases": [
         {
-          "@id": "http://iiif.io/api/presentation/2.0/example/fixtures/canvas/65/c1.json", 
+          "@id": "http://iiif.io/api/presentation/2.1/example/fixtures/canvas/65/c1.json", 
           "@type": "sc:Canvas", 
           "label": "Test 65 Canvas: 1", 
           "height": 1800, 
@@ -20,17 +21,16 @@
               "@type": "oa:Annotation", 
               "motivation": "sc:painting", 
               "resource": {
-                "@id": "http://iiif.io/api/presentation/2.0/example/fixtures/resources/page1-full.png", 
+                "@id": "http://iiif.io/api/presentation/2.1/example/fixtures/resources/page1-full.png", 
                 "@type": "dctypes:Image", 
                 "height": 1800, 
                 "width": 1200
               }, 
-              "on": "http://iiif.io/api/presentation/2.0/example/fixtures/canvas/65/c1.json"
+              "on": "http://iiif.io/api/presentation/2.1/example/fixtures/canvas/65/c1.json"
             }
           ]
         }
-      ], 
-      "start_canvas": "http://iiif.io/api/presentation/2.0/example/fixtures/canvas/65/c1.json"
+      ]
     }
   ]
 }
