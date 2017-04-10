@@ -93,11 +93,6 @@ dirs.remove('41')
 # XXX Fix this in the manifest to use two different resources.
 dirs.remove('32')
 
-# Example 64 is broken. Should be fixed.
-# https://github.com/iiif-prezi/iiif-prezi/issues/36
-# https://github.com/IIIF/iiif.io/issues/1123
-dirs.remove('64')
-
 for d in dirs:
 	if not d.isdigit():
 		continue
