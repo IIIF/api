@@ -531,7 +531,7 @@ The example below includes only the manifest-level information, however actual i
   "navDate": "1856-01-01T00:00:00Z",
 
   // Rights Information
-  "license": "http://rightsstatements.org/page/NoC-NC/1.0/",
+  "license": "http://rightsstatements.org/vocab/NoC-NC/1.0/",
   "attribution": "Provided by Example Organization",
 
   "logo": {
