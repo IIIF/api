@@ -2,7 +2,7 @@
 title: Register Now for IIIF Events in The Vatican, June 5-9, 2017
 author: Sheila Rabun
 date: 2017-04-12
-tags: [announcements]
+tags: [event, announcements]
 layout: post
 ---
 
