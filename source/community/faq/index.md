@@ -51,17 +51,17 @@ IIIF allows for:
  * [Authentication API][auth]
  * In Progress: [IIIF for Audio/Visual materials][av]
 
-##  How does IIIF relate to my current, internal interoperability layer?
+##  How do the IIIF APIs relate to my current, internal interoperability layer?
 
-* Some institutions implement IIIF using a shim, or translation layer, on top of their existing interoperability layer.  In other cases, IIIF is implemented without dependencies on existing services. IIIF provides for different levels of compliance, beginning with the IIIF Image API. For more information, please see [IIIF technical details][tech-details].  
+* Some institutions implement IIIF using shims, or translation layers, on top of their existing interoperability layer.  In other cases, IIIF is implemented without dependencies on existing services. IIIF provides for different levels of compliance, beginning with the IIIF Image API. For more information, please see [IIIF technical details][tech-details].  
 
 ## Does IIIF replace or integrate with my Digital Asset Management (DAM) software?
 
-* IIIF is a method for delivery of assets, not storage. Integration with your DAM software is dependent on your DAM provider. The IIIF community is currently in the midst of asking popular DAMS providers to support IIIF.
+* IIIF is a method for delivery of assets, not storage. Integration with your DAM software is dependent on your DAM provider. The IIIF community encourages DAM software providers to incorporate native IIIF support into their products.
 
-## Is IIIF an aggregator?
+## Does the IIIF Consortium serve as an aggregator of IIIF content?
 
-* No, IIIF does not aggregate content.  IIIF defines APIs that allow for interoperability between digital image repositories.  Because these APIs are well documented and understood, use of IIIF can enable aggregators such as DPLA and Europeana to access your images more easily.  
+* No, the IIIF Consortium and wider community does not have a single aggregation platform for content.  IIIF defines APIs that allow for interoperability between digital image repositories, including aggregators.  Because the IIIF APIs are well documented and understood, use of IIIF can enable aggregators such as Artstor, DPLA, and Europeana to access your images more easily.  
 
 [search]: /api/search/
 [presentation]: /api/presentation/
@@ -74,4 +74,4 @@ IIIF allows for:
 [wadm]: https://www.w3.org/TR/2017/REC-annotation-model-20170223/
 [conduct]: /event/conduct/
 [av]: /community/groups/av/
-[tech-details]: http://iiif.io/technical-details/
+[tech-details]: /technical-details/
