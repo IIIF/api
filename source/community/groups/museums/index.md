@@ -5,6 +5,19 @@ tags: []
 cssversion: 2
 ---
 
+## About
+
+Several museums have started to adopt IIIF for their digitized collections, including the Art Gallery of Ontario, the Art Institute of Chicago, the Carnegie Museum of Art, the Cooper Hewitt Smithsonian Design Museum, the Frick Collection, the J. Paul Getty Trust, Harvard Art Museums, the Hill Museum and Manuscript Library (HMML), the National Gallery of Art, the Paul Mellon Centre, and the Yale Center for British Art.
+
+As museums across the globe continue to make digital images available online, the implications and benefits of IIIF for the museums community are increasingly clear: 
+
+* **System flexibility and easy re-use of images:** Using IIIF within your institution allows for dynamic creation of derivatives as well as copying, re-using, and sharing images and regions of interest within an image. IIIF-compatible image servers can dynamically create derivatives of original images or regions of images, avoiding the need to store multiple derivatives locally.
+* **Open Access and Authentication:** As more museums offer digital image content under an Open Access policy, IIIF allows institutions to deliver open content on the web in a common way, facilitating cross-collaboration within and between multiple institutions. Such openness can be reached through tools that support IIIF, such as Mirador for scholarly research, or the ability to easily embed content from multiple repositories in the same site. For restricted content, the IIIF Authentication API provides a mechanism for user authentication with IIIF images.
+* **Creating diverse and interactive exhibits:** Thanks to its visualization features and image manipulation functionality, IIIF-compatible solutions can deliver various means of displaying content (definition, zoom, quality), and therefore extend the possibilities offered to enhance user experience on a broader level. Image viewing clients that support IIIF offer the ability to create dynamic, interactive digital exhibits, using IIIF images from across repositories.
+* For more details on the general benefits of IIIF and more, see the **[IIIF FAQ][iiif-faq]**.
+
+## Purpose
+
 The IIIF Museums Community Group was formed in order to facilitate the discussion of museum-specific topics in relation to IIIF, including:
 
   * Mutual assistance with technical infrastructure issues related to IIIF adoption
@@ -42,5 +55,6 @@ The IIIF Museums Community Group was formed in order to facilitate the discussio
   [https://bluejeans.com/100103152]: https://bluejeans.com/100103152
   [iiif-calendar]: http://iiif.io/community/groups/
   [international-bluejeans]: https://bluejeans.com/numbers?ll=en
+  [iiif-faq]: /community/faq/
 
 {% include acronyms.md %}

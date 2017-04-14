@@ -39,6 +39,10 @@ IIIF allows for:
 
 * The IIIF Community encompasses a large and growing group of interested and active individuals and organizations dedicated to leading and sustaining the IIIF. As a community-driven initiative, IIIF thrives on active discussion, input, and feedback from a wide array of diverse individuals from libraries, museums, cultural heritage institutions, software firms, and other organizations working with digital images and audio/visual materials. We welcome any organization or individual interested in adopting the IIIF, developing software to support it, or giving feedback on the effort to get involved. Participants in all IIIF activities are expected to follow the IIIF [code of conduct][conduct]. The [list of known IIIF community participants][community-list] is always growing. Additionally, the IIIF Consortium (IIIF-C) provides sustainability and steering for the initiative. For more information about the IIIF-C, see the [Consortium page][iiif-c] and [IIIF-C FAQ][iiifc-faq].
 
+## How can I participate in the IIIF Community?
+
+* Please see the [IIIF Community page][community-list] for details on how to get involved.
+
 ## What are the current IIIF specifications?
 
  * [Image API][image]
@@ -46,6 +50,18 @@ IIIF allows for:
  * [Content Search API][search]
  * [Authentication API][auth]
  * In Progress: [IIIF for Audio/Visual materials][av]
+
+##  How do the IIIF APIs relate to my current, internal interoperability layer?
+
+* Some institutions implement IIIF using shims, or translation layers, on top of their existing interoperability layer.  In other cases, IIIF is implemented without dependencies on existing services. IIIF provides for different levels of compliance, beginning with the IIIF Image API. For more information, please see [IIIF technical details][tech-details].  
+
+## Does IIIF replace or integrate with my Digital Asset Management (DAM) software?
+
+* IIIF is a method for delivery of assets, not storage. Integration with your DAM software is dependent on your DAM provider. The IIIF community encourages DAM software providers to incorporate native IIIF support into their products.
+
+## Does the IIIF Consortium serve as an aggregator of IIIF content?
+
+* No, the IIIF Consortium and wider community does not have a single aggregation platform for content.  IIIF defines APIs that allow for interoperability between digital image repositories, including aggregators.  Because the IIIF APIs are well documented and understood, use of IIIF can enable aggregators such as Artstor, DPLA, and Europeana to access your images more easily.  
 
 [search]: /api/search/
 [presentation]: /api/presentation/
@@ -58,3 +74,4 @@ IIIF allows for:
 [wadm]: https://www.w3.org/TR/2017/REC-annotation-model-20170223/
 [conduct]: /event/conduct/
 [av]: /community/groups/av/
+[tech-details]: /technical-details/
