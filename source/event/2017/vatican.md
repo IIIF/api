@@ -30,7 +30,7 @@ The IIIF Showcase is intended for all interested parties who are new to IIIF and
 * Registration: [https://iiif-showcase-vatican2017.eventbrite.com][showcase-reg]
 * Location: [Institutum Patristicum Augustinianum][institute] (Augustinian Patristic Institute Conference Center)
 * Capacity: 400 participants
-* Schedule: Coming Soon!
+* Schedule: [https://2017iiifconferencethevatican.sched.com/tag/Showcase][showcase]
 
 ## 2017 IIIF Conference
 The Conference will include lightning talks, presentations, workshops, and discussion sessions for content curators, repository managers, software developers, administrators, and researchers from across the IIIF community. Topics of interest include: IIIF implementations, Discovery of IIIF resources, Content communities (manuscripts, newspapers, archival content, etc.), IIIF and museums, Technical specifications, IIIF-compatible software and experimentation, and On-boarding, training materials, and documentation.
@@ -48,12 +48,15 @@ The 2017 IIIF Conference is sponsored by:
 
 * The [IIIF Consortium][iiif-c]
 * [Cogapp][cogapp] - Silver Sponsor
+* [Digirati][digirati] - Silver Sponsor
+* [Klokan Technologies][klokan] - Silver Sponsor
 * [OCLC][oclc] - Silver Sponsor
-* Synaptica - Silver Sponsor
+* [Synaptica][synaptica] - Silver Sponsor
+* [Zegami][zegami] - Silver Sponsor
 
 Please see the [Call for Sponsors][vatican-sponsors] for more information, or to become a sponsor.
 
-*Last updated March 29, 2017*
+*Last updated April 12, 2017*
 
 
 [home-page]: http://iiif.io/
@@ -71,3 +74,8 @@ Please see the [Call for Sponsors][vatican-sponsors] for more information, or to
 [cogapp]: http://www.cogapp.com/iiif
 [oclc]: http://www.oclc.org/en/contentdm.html
 [iiif-c]: /community/consortium
+[digirati]: https://digirati.com/
+[klokan]: https://www.klokantech.com/
+[synaptica]: http://www.synaptica.com/
+[zegami]: https://zegami.com/
+[showcase]: https://2017iiifconferencethevatican.sched.com/tag/Showcase
