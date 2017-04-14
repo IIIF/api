@@ -226,6 +226,9 @@
 - name: University of Toronto
   uri: https://library.utoronto.ca
   iiifc: 2
+- name: University of Virginia Library
+  uri: http://www.library.virginia.edu/
+  iiifc:
 - name: Vatican Library
   uri:
   iiifc: 2
