@@ -8,7 +8,7 @@ tags: [event ]
 
 The International Image Interoperability Framework ([IIIF][home-page]) 2017 Conference in The Vatican is intended for a wide range of participants and interested parties, including digital image repository managers, content curators, software developers, scholars, and administrators at libraries, museums, cultural heritage institutions, software firms, and other organizations working with digital images and audio/visual materials. The conference will consist of two events with separate registration: a [IIIF Showcase event][showcase-reg] on Tuesday, June 6, followed by a [3-day conference June 7-9][conference-reg]. The pre-conference [Mirador Viewer][mirador] and [Universal Viewer][uv] group meetings will take place on Monday, June 5, prior to the Showcase event and conference.
 
-Schedule details are available via [Sched][conf-sched]. The general schedule will be as follows:
+All event proceedings will be in English. Schedule details are available via [Sched][conf-sched]. The general schedule will be as follows:
 
 * Monday, June 5: Pre-conference meetings: Mirador and Universal Viewer
 * **Tuesday, June 6: [IIIF Showcase: Unlocking the World's Digital Images][showcase-reg]**
