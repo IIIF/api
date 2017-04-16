@@ -1,0 +1,233 @@
+{
+    "@context": "http://www.shared-canvas.org/ns/context.json", 
+    "@id": "http://dms-data.stanford.edu/Walters/rn216th9534/manifest.json", 
+    "@type": "sc:Manifest", 
+    "label": "Walters Manuscript W.788, Ethiopian scroll with angels and talismans, Geez (1700 - 1800 CE, Ethiopia)", 
+    "agent": "", 
+    "date": "18th century CE", 
+    "description": "This scroll was created in the eighteenth\n                    century for a woman named Marta. Having once been possessed by a devil, she had\n                    this prayer scroll made as a way to ward off evil. Containing prayers against\n                    demons, as well as talismans and a depiction of a guardian angel (perhaps\n                    Phanuel, who is invoked in one of the prayers), the scroll was intended to be\n                    worn as an apotropaic device. Ethiopian prayer scrolls were made to be the\n                    length of the person who commissioned them, thereby protecting the owner from\n                    head to toe; this one is 165.7 cm, making Marta 5'5\" tall. For full description, see http://www.thedigitalwalters.org/Data/WaltersManuscripts/html/W788/description.html", 
+    "attribution": "Provided by the Walters Art Museum, Baltimore, MD", 
+    "license": "Licensed for use under Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported Access Rights, http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode. Images are free for any noncommercial use, provided you follow the terms of this license. You do not need to apply to the Walters prior to using the images. We ask only that you cite the source of the images as the Walters Art Museum (see citation style at http://www.thedigitalwalters.org/03_ReadMe.html). Additionally, we request that a copy of any work created using these materials be sent to the Curator of Manuscripts and Rare Books at the Walters Art Museum, 600 N. Charles Street, Baltimore, MD 21201, mss-curator@thewalters.org.", 
+    "seeAlso": {
+        "@id": "http://purl.stanford.edu/rn216th9534.mods", 
+        "profile": "application/mods+xml"
+    }, 
+    "within": "http://dms-data.stanford.edu/Walters/", 
+    "sequences": [
+        {
+            "@id": "http://dms-data.stanford.edu/Walters/bd183mz0176/normal", 
+            "@type": "sc:Sequence", 
+            "label": "Current page order", 
+            "canvases": [
+                {
+                    "@id": "http://dms-data.stanford.edu/Walters/rn216th9534/canvas/canvas-1", 
+                    "@type": "sc:Canvas", 
+                    "label": "cm 0-25", 
+                    "height": 3390, 
+                    "width": 1423, 
+                    "resources": [
+                        {
+                            "@id": "http://dms-data.stanford.edu/Walters/rn216th9534/imageanno/anno-1", 
+                            "@type": "oa:Annotation", 
+                            "motivation": "sc:painting", 
+                            "resource": {
+                                "@id": "http://stacks.stanford.edu/image/rn216th9534/W788_000001_300", 
+                                "@type": "dctypes:Image", 
+                                "format": "image/jpeg", 
+                                "height": 3390, 
+                                "width": 1423, 
+                                "service": {
+                                    "@id": "https://stacks.stanford.edu/image/iiif/rn216th9534%252FW788_000001_300", 
+                                    "profile": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                                }
+                            }, 
+                            "on": "http://dms-data.stanford.edu/Walters/rn216th9534/canvas/canvas-1"
+                        }
+                    ]
+                }, 
+                {
+                    "@id": "http://dms-data.stanford.edu/Walters/rn216th9534/canvas/canvas-2", 
+                    "@type": "sc:Canvas", 
+                    "label": "cm 23-48", 
+                    "height": 3207, 
+                    "width": 1303, 
+                    "resources": [
+                        {
+                            "@id": "http://dms-data.stanford.edu/Walters/rn216th9534/imageanno/anno-2", 
+                            "@type": "oa:Annotation", 
+                            "motivation": "sc:painting", 
+                            "resource": {
+                                "@id": "http://stacks.stanford.edu/image/rn216th9534/W788_000002_300", 
+                                "@type": "dctypes:Image", 
+                                "format": "image/jpeg", 
+                                "height": 3207, 
+                                "width": 1303, 
+                                "service": {
+                                    "@id": "https://stacks.stanford.edu/image/iiif/rn216th9534%252FW788_000002_300", 
+                                    "profile": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                                }
+                            }, 
+                            "on": "http://dms-data.stanford.edu/Walters/rn216th9534/canvas/canvas-2"
+                        }
+                    ]
+                }, 
+                {
+                    "@id": "http://dms-data.stanford.edu/Walters/rn216th9534/canvas/canvas-3", 
+                    "@type": "sc:Canvas", 
+                    "label": "cm 46-71", 
+                    "height": 3286, 
+                    "width": 1218, 
+                    "resources": [
+                        {
+                            "@id": "http://dms-data.stanford.edu/Walters/rn216th9534/imageanno/anno-3", 
+                            "@type": "oa:Annotation", 
+                            "motivation": "sc:painting", 
+                            "resource": {
+                                "@id": "http://stacks.stanford.edu/image/rn216th9534/W788_000003_300", 
+                                "@type": "dctypes:Image", 
+                                "format": "image/jpeg", 
+                                "height": 3286, 
+                                "width": 1218, 
+                                "service": {
+                                    "@id": "https://stacks.stanford.edu/image/iiif/rn216th9534%252FW788_000003_300", 
+                                    "profile": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                                }
+                            }, 
+                            "on": "http://dms-data.stanford.edu/Walters/rn216th9534/canvas/canvas-3"
+                        }
+                    ]
+                }, 
+                {
+                    "@id": "http://dms-data.stanford.edu/Walters/rn216th9534/canvas/canvas-4", 
+                    "@type": "sc:Canvas", 
+                    "label": "cm 69-84", 
+                    "height": 3398, 
+                    "width": 1298, 
+                    "resources": [
+                        {
+                            "@id": "http://dms-data.stanford.edu/Walters/rn216th9534/imageanno/anno-4", 
+                            "@type": "oa:Annotation", 
+                            "motivation": "sc:painting", 
+                            "resource": {
+                                "@id": "http://stacks.stanford.edu/image/rn216th9534/W788_000004_300", 
+                                "@type": "dctypes:Image", 
+                                "format": "image/jpeg", 
+                                "height": 3398, 
+                                "width": 1298, 
+                                "service": {
+                                    "@id": "https://stacks.stanford.edu/image/iiif/rn216th9534%252FW788_000004_300", 
+                                    "profile": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                                }
+                            }, 
+                            "on": "http://dms-data.stanford.edu/Walters/rn216th9534/canvas/canvas-4"
+                        }
+                    ]
+                }, 
+                {
+                    "@id": "http://dms-data.stanford.edu/Walters/rn216th9534/canvas/canvas-5", 
+                    "@type": "sc:Canvas", 
+                    "label": "cm 77-102", 
+                    "height": 3231, 
+                    "width": 1362, 
+                    "resources": [
+                        {
+                            "@id": "http://dms-data.stanford.edu/Walters/rn216th9534/imageanno/anno-5", 
+                            "@type": "oa:Annotation", 
+                            "motivation": "sc:painting", 
+                            "resource": {
+                                "@id": "http://stacks.stanford.edu/image/rn216th9534/W788_000005_300", 
+                                "@type": "dctypes:Image", 
+                                "format": "image/jpeg", 
+                                "height": 3231, 
+                                "width": 1362, 
+                                "service": {
+                                    "@id": "https://stacks.stanford.edu/image/iiif/rn216th9534%252FW788_000005_300", 
+                                    "profile": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                                }
+                            }, 
+                            "on": "http://dms-data.stanford.edu/Walters/rn216th9534/canvas/canvas-5"
+                        }
+                    ]
+                }, 
+                {
+                    "@id": "http://dms-data.stanford.edu/Walters/rn216th9534/canvas/canvas-6", 
+                    "@type": "sc:Canvas", 
+                    "label": "cm 100-125", 
+                    "height": 3229, 
+                    "width": 1285, 
+                    "resources": [
+                        {
+                            "@id": "http://dms-data.stanford.edu/Walters/rn216th9534/imageanno/anno-6", 
+                            "@type": "oa:Annotation", 
+                            "motivation": "sc:painting", 
+                            "resource": {
+                                "@id": "http://stacks.stanford.edu/image/rn216th9534/W788_000006_300", 
+                                "@type": "dctypes:Image", 
+                                "format": "image/jpeg", 
+                                "height": 3229, 
+                                "width": 1285, 
+                                "service": {
+                                    "@id": "https://stacks.stanford.edu/image/iiif/rn216th9534%252FW788_000006_300", 
+                                    "profile": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                                }
+                            }, 
+                            "on": "http://dms-data.stanford.edu/Walters/rn216th9534/canvas/canvas-6"
+                        }
+                    ]
+                }, 
+                {
+                    "@id": "http://dms-data.stanford.edu/Walters/rn216th9534/canvas/canvas-7", 
+                    "@type": "sc:Canvas", 
+                    "label": "cm 123-148", 
+                    "height": 3252, 
+                    "width": 1338, 
+                    "resources": [
+                        {
+                            "@id": "http://dms-data.stanford.edu/Walters/rn216th9534/imageanno/anno-7", 
+                            "@type": "oa:Annotation", 
+                            "motivation": "sc:painting", 
+                            "resource": {
+                                "@id": "http://stacks.stanford.edu/image/rn216th9534/W788_000007_300", 
+                                "@type": "dctypes:Image", 
+                                "format": "image/jpeg", 
+                                "height": 3252, 
+                                "width": 1338, 
+                                "service": {
+                                    "@id": "https://stacks.stanford.edu/image/iiif/rn216th9534%252FW788_000007_300", 
+                                    "profile": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                                }
+                            }, 
+                            "on": "http://dms-data.stanford.edu/Walters/rn216th9534/canvas/canvas-7"
+                        }
+                    ]
+                }, 
+                {
+                    "@id": "http://dms-data.stanford.edu/Walters/rn216th9534/canvas/canvas-8", 
+                    "@type": "sc:Canvas", 
+                    "label": "cm 146-165.7", 
+                    "height": 2715, 
+                    "width": 1336, 
+                    "resources": [
+                        {
+                            "@id": "http://dms-data.stanford.edu/Walters/rn216th9534/imageanno/anno-8", 
+                            "@type": "oa:Annotation", 
+                            "motivation": "sc:painting", 
+                            "resource": {
+                                "@id": "http://stacks.stanford.edu/image/rn216th9534/W788_000008_300", 
+                                "@type": "dctypes:Image", 
+                                "format": "image/jpeg", 
+                                "height": 2715, 
+                                "width": 1336, 
+                                "service": {
+                                    "@id": "https://stacks.stanford.edu/image/iiif/rn216th9534%252FW788_000008_300", 
+                                    "profile": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                                }
+                            }, 
+                            "on": "http://dms-data.stanford.edu/Walters/rn216th9534/canvas/canvas-8"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

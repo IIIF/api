@@ -1,0 +1,73 @@
+{
+  "@context": {
+    "dc": "http://purl.org/dc/elements/1.1/",
+    "ore": "http://www.openarchives.org/ore/terms/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "tei": "http://www.tei-c.org/ns/1.0/"
+  },
+  "@graph": [
+    {
+      "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/ImageAnnotations.json",
+      "@type": "ore:ResourceMap",
+      "dc:format": "application/rdf+xml"
+    },
+    {
+      "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/Manifest.json",
+      "@type": "ore:ResourceMap",
+      "dc:format": "application/rdf+xml",
+      "ore:describes": {
+        "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/Manifest"
+      }
+    },
+    {
+      "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/ImageAnnotations",
+      "@type": [
+        "rdf:List",
+        "http://dms.stanford.edu/ns/ImageAnnotationList",
+        "ore:Aggregation"
+      ],
+      "ore:isDescribedBy": {
+        "@id": "data/Parker/cg362wn0438/ImageAnnotations.json"
+      }
+    },
+    {
+      "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/Manifest",
+      "@type": [
+        "http://dms.stanford.edu/ns/Manifest",
+        "ore:Aggregation"
+      ],
+      "dc:identifier": "CCCC 150",
+      "dc:title": "CCCC 150",
+      "ore:aggregates": [
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/ImageAnnotations"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/NormalSequence"
+        }
+      ],
+      "tei:country": "United Kingdom",
+      "tei:idno": "150",
+      "tei:institution": "Corpus Christi College",
+      "tei:repository": "Parker Library",
+      "tei:settlement": "Cambridge"
+    },
+    {
+      "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/NormalSequence.json",
+      "@type": "ore:ResourceMap",
+      "dc:format": "application/rdf+xml"
+    },
+    {
+      "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/NormalSequence",
+      "@type": [
+        "rdf:List",
+        "http://dms.stanford.edu/ns/Sequence",
+        "ore:Aggregation"
+      ],
+      "ore:isDescribedBy": {
+        "@id": "data/Parker/cg362wn0438/NormalSequence.json"
+      }
+    }
+  ]
+}

@@ -1,0 +1,3251 @@
+{
+  "@context": {
+    "dc": "http://purl.org/dc/elements/1.1/",
+    "exif": "http://www.w3.org/2003/12/exif/ns#",
+    "oac": "http://www.openannotation.org/ns/",
+    "ore": "http://www.openarchives.org/ore/terms/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#"
+  },
+  "@graph": [
+    {
+      "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/canvas-204",
+      "@type": "http://dms.stanford.edu/ns/Canvas",
+      "dc:title": "f. 94 V",
+      "exif:height": {
+        "@type": "http://www.w3.org/2001/XMLSchema#integer",
+        "@value": "9012"
+      },
+      "exif:width": {
+        "@type": "http://www.w3.org/2001/XMLSchema#integer",
+        "@value": "5868"
+      }
+    },
+    {
+      "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/canvas-205",
+      "@type": "http://dms.stanford.edu/ns/Canvas",
+      "dc:title": "f. 95 R",
+      "exif:height": {
+        "@type": "http://www.w3.org/2001/XMLSchema#integer",
+        "@value": "9023"
+      },
+      "exif:width": {
+        "@type": "http://www.w3.org/2001/XMLSchema#integer",
+        "@value": "5800"
+      }
+    },
+    {
+      "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/canvas-206",
+      "@type": "http://dms.stanford.edu/ns/Canvas",
+      "dc:title": "f. 95 V",
+      "exif:height": {
+        "@type": "http://www.w3.org/2001/XMLSchema#integer",
+        "@value": "9034"
+      },
+      "exif:width": {
+        "@type": "http://www.w3.org/2001/XMLSchema#integer",
+        "@value": "5878"
+      }
+    },
+    {
+      "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/canvas-207",
+      "@type": "http://dms.stanford.edu/ns/Canvas",
+      "dc:title": "f. 96 R",
+      "exif:height": {
+        "@type": "http://www.w3.org/2001/XMLSchema#integer",
+        "@value": "8811"
+      },
+      "exif:width": {
+        "@type": "http://www.w3.org/2001/XMLSchema#integer",
+        "@value": "5801"
+      }
+    },
+    {
+      "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/canvas-200",
+      "@type": "http://dms.stanford.edu/ns/Canvas",
+      "dc:title": "f. 92 V",
+      "exif:height": {
+        "@type": "http://www.w3.org/2001/XMLSchema#integer",
+        "@value": "9046"
+      },
+      "exif:width": {
+        "@type": "http://www.w3.org/2001/XMLSchema#integer",
+        "@value": "5756"
+      }
+    },
+    {
+      "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/canvas-201",
+      "@type": "http://dms.stanford.edu/ns/Canvas",
+      "dc:title": "f. 93 R",
+      "exif:height": {
+        "@type": "http://www.w3.org/2001/XMLSchema#integer",
+        "@value": "9001"
+      },
+      "exif:width": {
+        "@type": "http://www.w3.org/2001/XMLSchema#integer",
+        "@value": "5879"
+      }
+    },
+    {
+      "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/canvas-202",
+      "@type": "http://dms.stanford.edu/ns/Canvas",
+      "dc:title": "f. 93 V",
+      "exif:height": {
+        "@type": "http://www.w3.org/2001/XMLSchema#integer",
+        "@value": "9001"
+      },
+      "exif:width": {
+        "@type": "http://www.w3.org/2001/XMLSchema#integer",
+        "@value": "5879"
+      }
+    },
+    {
+      "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/canvas-203",
+      "@type": "http://dms.stanford.edu/ns/Canvas",
+      "dc:title": "f. 94 R",
+      "exif:height": {
+        "@type": "http://www.w3.org/2001/XMLSchema#integer",
+        "@value": "9001"
+      },
+      "exif:width": {
+        "@type": "http://www.w3.org/2001/XMLSchema#integer",
+        "@value": "5856"
+      }
+    },
+    {
+      "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/canvas-208",
+      "@type": "http://dms.stanford.edu/ns/Canvas",
+      "dc:title": "f. 96 V",
+      "exif:height": {
+        "@type": "http://www.w3.org/2001/XMLSchema#integer",
+        "@value": "8779"
+      },
+      "exif:width": {
+        "@type": "http://www.w3.org/2001/XMLSchema#integer",
+        "@value": "5934"
+      }
+    },
+    {
+      "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/canvas-209",
+      "@type": "http://dms.stanford.edu/ns/Canvas",
+      "dc:title": "f. 97 R",
+      "exif:height": {
+        "@type": "http://www.w3.org/2001/XMLSchema#integer",
+        "@value": "9012"
+      },
+      "exif:width": {
+        "@type": "http://www.w3.org/2001/XMLSchema#integer",
+        "@value": "5835"
+      }
+    },
+    {
+      "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/canvas-118",
+      "@type": "http://dms.stanford.edu/ns/Canvas",
+      "dc:title": "f. 51 V",
+      "exif:height": {
+        "@type": "http://www.w3.org/2001/XMLSchema#integer",
+        "@value": "8559"
+      },
+      "exif:width": {
+        "@type": "http://www.w3.org/2001/XMLSchema#integer",
+        "@value": "5783"
+      }
+    },
+    {
+      "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/canvas-119",
+      "@type": "http://dms.stanford.edu/ns/Canvas",
+      "dc:title": "f. 52 R",
+      "exif:height": {
+        "@type": "http://www.w3.org/2001/XMLSchema#integer",
+        "@value": "8726"
+      },
+      "exif:width": {
+        "@type": "http://www.w3.org/2001/XMLSchema#integer",
+        "@value": "5838"
+      }
+    },
+    {
+      "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/canvas-110",
+      "@type": "http://dms.stanford.edu/ns/Canvas",
+      "dc:title": "f. 47 V",
+      "exif:height": {
+        "@type": "http://www.w3.org/2001/XMLSchema#integer",
+        "@value": "8596"
+      },
+      "exif:width": {
+        "@type": "http://www.w3.org/2001/XMLSchema#integer",
+        "@value": "5699"
+      }
+    },
+    {
+      "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/canvas-111",
+      "@type": "http://dms.stanford.edu/ns/Canvas",
+      "dc:title": "f. 48 R",
+      "exif:height": {
+        "@type": "http://www.w3.org/2001/XMLSchema#integer",
+        "@value": "8862"
+      },
+      "exif:width": {
+        "@type": "http://www.w3.org/2001/XMLSchema#integer",
+        "@value": "5701"
+      }
+    },
+    {
+      "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/canvas-112",
+      "@type": "http://dms.stanford.edu/ns/Canvas",
+      "dc:title": "f. 48 V",
+      "exif:height": {
+        "@type": "http://www.w3.org/2001/XMLSchema#integer",
+        "@value": "8725"
+      },
+      "exif:width": {
+        "@type": "http://www.w3.org/2001/XMLSchema#integer",
+        "@value": "5690"
+      }
+    },
+    {
+      "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-204",
+      "@type": [
+        "rdf:rest",
+        "http://dms.stanford.edu/ns/ImageAnnotation",
+        "oac:Annotation"
+      ],
+      "oac:hasBody": {
+        "@id": "http://stacks.stanford.edu/image/cg362wn0438/150_94_V_TC_46"
+      },
+      "oac:hasTarget": {
+        "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/canvas-204"
+      }
+    },
+    {
+      "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-205",
+      "@type": [
+        "rdf:rest",
+        "http://dms.stanford.edu/ns/ImageAnnotation",
+        "oac:Annotation"
+      ],
+      "oac:hasBody": {
+        "@id": "http://stacks.stanford.edu/image/cg362wn0438/150_95_R_TC_46"
+      },
+      "oac:hasTarget": {
+        "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/canvas-205"
+      }
+    },
+    {
+      "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-206",
+      "@type": [
+        "rdf:rest",
+        "http://dms.stanford.edu/ns/ImageAnnotation",
+        "oac:Annotation"
+      ],
+      "oac:hasBody": {
+        "@id": "http://stacks.stanford.edu/image/cg362wn0438/150_95_V_TC_46"
+      },
+      "oac:hasTarget": {
+        "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/canvas-206"
+      }
+    },
+    {
+      "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-207",
+      "@type": [
+        "rdf:rest",
+        "http://dms.stanford.edu/ns/ImageAnnotation",
+        "oac:Annotation"
+      ],
+      "oac:hasBody": {
+        "@id": "http://stacks.stanford.edu/image/cg362wn0438/150_96_R_TC_46"
+      },
+      "oac:hasTarget": {
+        "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/canvas-207"
+      }
+    },
+    {
+      "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-200",
+      "@type": [
+        "rdf:rest",
+        "http://dms.stanford.edu/ns/ImageAnnotation",
+        "oac:Annotation"
+      ],
+      "oac:hasBody": {
+        "@id": "http://stacks.stanford.edu/image/cg362wn0438/150_92_V_TC_46"
+      },
+      "oac:hasTarget": {
+        "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/canvas-200"
+      }
+    },
+    {
+      "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-201",
+      "@type": [
+        "rdf:rest",
+        "http://dms.stanford.edu/ns/ImageAnnotation",
+        "oac:Annotation"
+      ],
+      "oac:hasBody": {
+        "@id": "http://stacks.stanford.edu/image/cg362wn0438/150_93_R_TC_46"
+      },
+      "oac:hasTarget": {
+        "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/canvas-201"
+      }
+    },
+    {
+      "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-202",
+      "@type": [
+        "rdf:rest",
+        "http://dms.stanford.edu/ns/ImageAnnotation",
+        "oac:Annotation"
+      ],
+      "oac:hasBody": {
+        "@id": "http://stacks.stanford.edu/image/cg362wn0438/150_93_V_TC_46"
+      },
+      "oac:hasTarget": {
+        "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/canvas-202"
+      }
+    },
+    {
+      "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-203",
+      "@type": [
+        "rdf:rest",
+        "http://dms.stanford.edu/ns/ImageAnnotation",
+        "oac:Annotation"
+      ],
+      "oac:hasBody": {
+        "@id": "http://stacks.stanford.edu/image/cg362wn0438/150_94_R_TC_46"
+      },
+      "oac:hasTarget": {
+        "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/canvas-203"
+      }
+    },
+    {
+      "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-208",
+      "@type": [
+        "rdf:rest",
+        "http://dms.stanford.edu/ns/ImageAnnotation",
+        "oac:Annotation"
+      ],
+      "oac:hasBody": {
+        "@id": "http://stacks.stanford.edu/image/cg362wn0438/150_96_V_TC_46"
+      },
+      "oac:hasTarget": {
+        "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/canvas-208"
+      }
+    },
+    {
+      "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-209",
+      "@type": [
+        "rdf:rest",
+        "http://dms.stanford.edu/ns/ImageAnnotation",
+        "oac:Annotation"
+      ],
+      "oac:hasBody": {
+        "@id": "http://stacks.stanford.edu/image/cg362wn0438/150_97_R_TC_46"
+      },
+      "oac:hasTarget": {
+        "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/canvas-209"
+      }
+    },
+    {
+      "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-118",
+      "@type": [
+        "rdf:rest",
+        "http://dms.stanford.edu/ns/ImageAnnotation",
+        "oac:Annotation"
+      ],
+      "oac:hasBody": {
+        "@id": "http://stacks.stanford.edu/image/cg362wn0438/150_51_V_TC_46"
+      },
+      "oac:hasTarget": {
+        "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/canvas-118"
+      }
+    },
+    {
+      "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-119",
+      "@type": [
+        "rdf:rest",
+        "http://dms.stanford.edu/ns/ImageAnnotation",
+        "oac:Annotation"
+      ],
+      "oac:hasBody": {
+        "@id": "http://stacks.stanford.edu/image/cg362wn0438/150_52_R_TC_46"
+      },
+      "oac:hasTarget": {
+        "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/canvas-119"
+      }
+    },
+    {
+      "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-110",
+      "@type": [
+        "rdf:rest",
+        "http://dms.stanford.edu/ns/ImageAnnotation",
+        "oac:Annotation"
+      ],
+      "oac:hasBody": {
+        "@id": "http://stacks.stanford.edu/image/cg362wn0438/150_47_V_TC_46"
+      },
+      "oac:hasTarget": {
+        "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/canvas-110"
+      }
+    },
+    {
+      "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-111",
+      "@type": [
+        "rdf:rest",
+        "http://dms.stanford.edu/ns/ImageAnnotation",
+        "oac:Annotation"
+      ],
+      "oac:hasBody": {
+        "@id": "http://stacks.stanford.edu/image/cg362wn0438/150_48_R_TC_46"
+      },
+      "oac:hasTarget": {
+        "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/canvas-111"
+      }
+    },
+    {
+      "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-112",
+      "@type": [
+        "rdf:rest",
+        "http://dms.stanford.edu/ns/ImageAnnotation",
+        "oac:Annotation"
+      ],
+      "oac:hasBody": {
+        "@id": "http://stacks.stanford.edu/image/cg362wn0438/150_48_V_TC_46"
+      },
+      "oac:hasTarget": {
+        "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/canvas-112"
+      }
+    },
+
+
+
+    {
+      "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/ImageAnnotations.json",
+      "@type": "ore:ResourceMap",
+      "dc:format": "application/rdf+xml",
+      "ore:describes": {
+        "@list": [
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-1"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-2"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-3"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-4"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-5"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-6"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-7"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-8"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-9"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-10"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-11"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-12"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-13"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-14"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-15"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-16"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-17"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-18"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-19"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-20"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-21"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-22"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-23"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-24"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-25"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-26"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-27"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-28"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-29"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-30"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-31"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-32"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-33"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-34"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-35"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-36"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-37"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-38"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-39"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-40"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-41"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-42"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-43"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-44"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-45"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-46"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-47"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-48"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-49"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-50"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-51"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-52"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-53"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-54"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-55"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-56"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-57"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-58"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-59"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-60"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-61"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-62"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-63"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-64"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-65"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-66"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-67"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-68"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-69"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-70"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-71"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-72"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-73"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-74"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-75"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-76"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-77"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-78"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-79"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-80"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-81"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-82"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-83"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-84"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-85"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-86"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-87"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-88"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-89"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-90"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-91"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-92"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-93"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-94"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-95"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-96"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-97"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-98"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-99"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-100"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-101"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-102"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-103"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-104"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-105"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-106"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-107"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-108"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-109"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-110"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-111"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-112"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-113"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-114"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-115"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-116"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-117"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-118"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-119"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-120"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-121"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-122"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-123"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-124"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-125"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-126"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-127"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-128"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-129"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-130"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-131"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-132"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-133"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-134"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-135"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-136"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-137"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-138"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-139"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-140"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-141"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-142"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-143"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-144"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-145"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-146"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-147"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-148"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-149"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-150"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-151"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-152"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-153"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-154"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-155"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-156"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-157"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-158"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-159"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-160"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-161"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-162"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-163"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-164"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-165"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-166"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-167"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-168"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-169"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-170"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-171"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-172"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-173"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-174"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-175"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-176"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-177"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-178"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-179"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-180"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-181"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-182"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-183"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-184"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-185"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-186"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-187"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-188"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-189"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-190"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-191"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-192"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-193"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-194"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-195"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-196"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-197"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-198"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-199"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-200"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-201"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-202"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-203"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-204"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-205"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-206"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-207"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-208"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-209"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-210"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-211"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-212"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-213"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-214"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-215"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-216"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-217"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-218"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-219"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-220"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-221"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-222"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-223"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-224"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-225"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-226"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-227"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-228"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-229"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-230"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-231"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-232"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-233"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-234"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-235"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-236"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-237"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-238"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-239"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-240"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-241"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-242"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-243"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-244"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-245"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-246"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-247"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-248"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-249"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-250"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-251"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-252"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-253"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-254"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-255"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-256"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-257"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-258"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-259"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-260"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-261"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-262"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-263"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-264"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-265"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-266"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-267"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-268"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-269"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-270"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-271"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-272"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-273"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-274"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-275"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-276"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-277"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-278"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-279"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-280"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-281"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-282"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-283"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-284"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-285"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-286"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-287"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-288"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-289"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-290"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-291"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-292"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-293"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-294"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-295"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-296"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-297"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-298"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-299"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-300"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-301"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-302"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-303"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-304"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-305"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-306"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-307"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-308"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-309"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-310"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-311"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-312"
+          }
+        ]
+      }
+    },
+    {
+      "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/ImageAnnotations",
+      "@type": [
+        "http://dms.stanford.edu/ns/ImageCollection",
+        "ore:Aggregation",
+        "rdf:List"
+      ],
+      "ore:aggregates": [
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-254"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-122"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-22"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-120"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-8"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-257"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-212"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-121"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-54"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-211"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-43"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-45"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-197"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-207"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-300"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-312"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-153"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-266"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-297"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-279"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-103"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-48"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-62"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-26"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-29"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-128"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-288"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-5"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-117"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-38"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-180"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-201"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-271"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-194"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-20"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-7"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-130"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-228"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-40"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-31"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-239"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-132"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-129"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-109"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-278"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-219"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-184"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-145"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-111"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-307"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-155"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-171"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-231"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-252"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-280"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-84"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-208"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-123"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-277"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-249"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-260"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-262"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-41"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-61"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-74"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-304"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-87"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-251"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-259"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-82"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-14"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-46"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-165"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-303"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-86"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-289"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-140"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-268"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-190"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-235"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-218"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-66"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-113"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-216"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-248"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-275"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-72"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-146"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-181"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-137"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-258"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-245"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-292"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-220"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-136"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-127"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-63"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-273"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-57"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-49"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-90"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-166"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-241"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-104"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-1"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-214"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-126"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-246"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-183"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-147"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-94"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-51"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-105"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-4"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-188"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-293"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-81"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-232"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-187"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-75"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-96"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-142"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-276"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-305"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-71"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-272"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-53"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-295"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-44"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-225"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-167"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-281"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-101"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-106"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-203"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-11"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-294"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-17"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-15"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-152"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-12"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-16"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-56"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-158"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-217"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-172"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-256"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-191"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-168"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-119"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-131"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-200"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-264"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-116"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-99"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-35"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-83"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-88"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-34"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-243"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-202"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-77"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-28"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-224"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-138"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-68"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-60"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-76"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-107"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-263"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-178"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-192"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-143"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-97"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-222"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-18"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-286"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-149"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-125"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-80"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-27"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-223"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-55"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-204"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-39"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-177"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-265"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-100"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-269"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-308"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-230"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-162"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-91"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-169"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-93"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-98"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-240"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-114"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-242"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-310"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-124"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-64"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-261"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-21"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-206"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-267"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-92"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-13"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-115"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-33"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-37"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-285"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-69"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-50"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-301"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-250"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-148"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-193"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-164"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-67"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-238"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-95"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-6"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-205"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-19"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-189"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-42"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-186"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-24"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-196"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-110"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-221"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-174"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-311"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-198"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-306"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-274"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-291"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-25"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-47"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-79"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-134"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-185"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-227"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-108"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-10"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-161"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-209"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-282"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-287"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-135"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-36"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-236"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-247"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-32"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-298"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-226"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-78"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-213"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-89"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-141"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-233"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-309"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-175"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-73"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-302"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-229"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-2"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-23"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-30"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-253"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-139"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-299"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-182"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-3"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-52"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-179"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-154"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-85"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-199"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-118"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-58"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-144"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-290"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-157"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-159"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-283"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-215"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-112"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-150"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-65"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-59"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-170"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-9"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-270"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-163"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-296"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-102"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-195"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-173"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-151"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-234"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-156"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-70"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-160"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-255"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-284"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-210"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-176"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-237"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-244"
+        },
+        {
+          "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-133"
+        }
+      ],
+      "rdf:first": {
+        "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-1"
+      },
+      "rdf:rest": {
+        "@list": [
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-2"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-3"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-4"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-5"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-6"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-7"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-8"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-9"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-10"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-11"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-12"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-13"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-14"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-15"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-16"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-17"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-18"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-19"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-20"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-21"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-22"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-23"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-24"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-25"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-26"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-27"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-28"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-29"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-30"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-31"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-32"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-33"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-34"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-35"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-36"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-37"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-38"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-39"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-40"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-41"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-42"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-43"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-44"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-45"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-46"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-47"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-48"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-49"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-50"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-51"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-52"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-53"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-54"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-55"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-56"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-57"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-58"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-59"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-60"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-61"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-62"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-63"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-64"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-65"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-66"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-67"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-68"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-69"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-70"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-71"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-72"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-73"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-74"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-75"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-76"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-77"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-78"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-79"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-80"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-81"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-82"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-83"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-84"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-85"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-86"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-87"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-88"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-89"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-90"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-91"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-92"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-93"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-94"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-95"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-96"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-97"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-98"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-99"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-100"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-101"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-102"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-103"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-104"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-105"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-106"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-107"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-108"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-109"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-110"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-111"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-112"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-113"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-114"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-115"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-116"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-117"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-118"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-119"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-120"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-121"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-122"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-123"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-124"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-125"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-126"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-127"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-128"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-129"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-130"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-131"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-132"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-133"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-134"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-135"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-136"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-137"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-138"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-139"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-140"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-141"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-142"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-143"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-144"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-145"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-146"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-147"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-148"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-149"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-150"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-151"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-152"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-153"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-154"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-155"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-156"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-157"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-158"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-159"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-160"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-161"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-162"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-163"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-164"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-165"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-166"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-167"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-168"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-169"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-170"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-171"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-172"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-173"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-174"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-175"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-176"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-177"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-178"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-179"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-180"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-181"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-182"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-183"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-184"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-185"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-186"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-187"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-188"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-189"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-190"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-191"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-192"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-193"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-194"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-195"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-196"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-197"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-198"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-199"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-200"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-201"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-202"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-203"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-204"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-205"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-206"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-207"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-208"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-209"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-210"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-211"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-212"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-213"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-214"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-215"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-216"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-217"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-218"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-219"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-220"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-221"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-222"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-223"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-224"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-225"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-226"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-227"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-228"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-229"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-230"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-231"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-232"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-233"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-234"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-235"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-236"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-237"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-238"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-239"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-240"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-241"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-242"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-243"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-244"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-245"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-246"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-247"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-248"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-249"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-250"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-251"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-252"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-253"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-254"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-255"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-256"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-257"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-258"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-259"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-260"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-261"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-262"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-263"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-264"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-265"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-266"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-267"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-268"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-269"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-270"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-271"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-272"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-273"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-274"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-275"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-276"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-277"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-278"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-279"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-280"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-281"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-282"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-283"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-284"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-285"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-286"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-287"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-288"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-289"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-290"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-291"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-292"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-293"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-294"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-295"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-296"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-297"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-298"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-299"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-300"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-301"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-302"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-303"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-304"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-305"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-306"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-307"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-308"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-309"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-310"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-311"
+          },
+          {
+            "@id": "http://dms-data.stanford.edu/Parker/cg362wn0438/imageanno-312"
+          }
+        ]
+      }
+    }
+  ]
+}
