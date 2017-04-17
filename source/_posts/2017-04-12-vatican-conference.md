@@ -6,7 +6,7 @@ tags: [event, announcements]
 layout: post
 ---
 
-Do you work with digital images on the web? Join the International Image Interoperability Framework (IIIF) community the week of 5 June for two exciting events in The Vatican! Registration closes on 22 May, 2017.
+Do you work with digital images on the web? Join the International Image Interoperability Framework (IIIF) community the week of 5 June for two exciting events in The Vatican! All event proceedings will be conducted in English. Registration closes on 22 May, 2017.
 
 ## IIIF Showcase: Unlocking the World’s Digital Images
 **[Register Now][showcase-reg]**
