@@ -96,4 +96,4 @@ Thanks to the members of the [IIIF][iiif-community] for their continuous engagem
    [image-api]: /api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/ "Image API"
    [prezi-api]: /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/ "Presentation API"
    [openanno]: http://www.openannotation.org/spec/core/ "Open Annotation"
-   [prezi-rot]: /api/presentation/2.0/#rotation "Rotation in Presentation API"
+   [prezi-rot]: /api/presentation/2.1/#66-rotation "Rotation in Presentation API"

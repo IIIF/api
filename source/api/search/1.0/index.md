@@ -732,9 +732,9 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 [prezi-api]: /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/ "Presentation API"
 [rfc-2119]: http://tools.ietf.org/html/rfc2119
 [service-annex]: /api/annex/services/
-[prezi-annolist]: /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/#annotation-list
-[prezi-layer]: /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/#layer
-[ignored-parameters]: #ignored-parameters
+[prezi-annolist]: /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/#55-annotation-list
+[prezi-layer]: /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/#57-layer
+[ignored-parameters]: #341-ignored-parameters
 [oa-textquotesel]: http://www.openannotation.org/spec/core/
 
 [icon-req]: /img/metadata-api/required.png "Required"

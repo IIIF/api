@@ -111,26 +111,26 @@ Several issues have been deferred until the publication of the W3C's technical r
 Until there is more experience with the Search API, several additions for Annotation Lists have also been deferred. See [#758](https://github.com/IIIF/iiif.io/issues/758), [#754](https://github.com/IIIF/iiif.io/issues/754)  
 
 
-[deferred-proposals]: #deferred-proposals "Presentation API 2.1 Deferred Proposals"
+[deferred-proposals]: #3-deferred-proposals "Presentation API 2.1 Deferred Proposals"
 [other-changes]: #other-changes "Presentation API 2.1 Non-Breaking Changes"
 [prezi-api]: /api/presentation/2.1/ "Presentation API 2.1"
 [prezi-api-20]: /api/presentation/2.0/ "Presentation API 2.0"
 [prezi-api-10]: /api/metadata/1.0/ "Metadata API 1.0"
 
-[langs]: /api/presentation/2.1/#language-of-property-values
-[properties]: /api/presentation/2.1/#resource-properties
+[langs]: /api/presentation/2.1/#43-language-of-property-values
+[properties]: /api/presentation/2.1/#3-resource-properties
 [search]: /api/search/1.0/
 [as2]: https://www.w3.org/TR/activitystreams-core/#collections
-[paging]: /api/presentation/2.1/#paging
-[members]: /api/presentation/2.1/#range
+[paging]: /api/presentation/2.1/#59-paging
+[members]: /api/presentation/2.1/#56-range
 [rendering]: /api/presentation/2.1/#rendering
 [navdate]: /api/presentation/2.1/#navdate
 [contentlayer]: /api/presentation/2.1/#contentlayer
-[comments]: /api/presentation/2.1/#comment-annotations
-[hotspots]: /api/presentation/2.1/#hotspot-linking
+[comments]: /api/presentation/2.1/#67-comment-annotations
+[hotspots]: /api/presentation/2.1/#68-hotspot-linking
 [openanno]: http://openannotation.org/spec/core/core.html#Motivations
 [hints]: /api/presentation/2.1/#viewinghint
-[auth]: /api/presentation/2.1/#authentication
+[auth]: /api/presentation/2.1/#8-authentication
 [auth-spec]: /api/auth/
 [zones]: http://iiif.io/model/shared-canvas/1.0/#Zone
 

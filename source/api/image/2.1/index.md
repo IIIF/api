@@ -507,7 +507,7 @@ A recipe for enabling these behaviors is provided in the [Apache HTTP Server Imp
 The objects in the `sizes` list have the properties in the following table. Images requested using these sizes _SHOULD_ have a region parameter of "full" and rotation of "0".  The size _SHOULD_ be requested using the canonical syntax of `w,`. Thus, the full URL for an image with "default" quality in "jpg" format would be: `{scheme}://{server}/{prefix}/{identifier}/full/{width},/0/default.jpg`
 
 __Warning__
-There is an inconsistency between the specification of the `sizes` list and the canonical URI syntax. Clients _SHOULD_ use the [Canonical URI Syntax](#canonical-uri-syntax) when making image requests based on entries in `sizes`. For maximum compatibility, servers _SHOULD_ support both the `w,` and `w,h` forms of the `size` parameter for values in `sizes` that maintain the aspect ratio. This inconsistency will be addressed in the next major version of this specification.
+There is an inconsistency between the specification of the `sizes` list and the canonical URI syntax. Clients _SHOULD_ use the [Canonical URI Syntax][canonical-uri-syntax] when making image requests based on entries in `sizes`. For maximum compatibility, servers _SHOULD_ support both the `w,` and `w,h` forms of the `size` parameter for values in `sizes` that maintain the aspect ratio. This inconsistency will be addressed in the next major version of this specification.
 {: .warning}
 
 | Size Object Property | Required? | Description |
@@ -655,7 +655,7 @@ In the case where multiple values are supplied for `attribution`, clients _MUST_
   * If all of the values have a language associated with them, and none match the language preference, the client _MUST_ select a language and display all of the values associated with that language.
   * If some of the values have a language associated with them, but none match the language preference, the client _MUST_ display all of the values that do not have a language associated with them.
 
-The value of the `logo` property may be a string containing the URL of the image, or a JSON object that indicates the URI of both the logo image and a IIIF Image API [service](#related-services) for the logo. While possible, it is _RECOMMENDED_ that logos with IIIF services do not, themselves, have logos. Clients encountering logos with logos are not required to display a potentially infinite set.
+The value of the `logo` property may be a string containing the URL of the image, or a JSON object that indicates the URI of both the logo image and a IIIF Image API [service][related-services] for the logo. While possible, it is _RECOMMENDED_ that logos with IIIF services do not, themselves, have logos. Clients encountering logos with logos are not required to display a potentially infinite set.
 
 When both the Image and Presentation APIs express attributions or logos, then clients _MUST_ display both unless they are identical.
 
@@ -675,7 +675,7 @@ The following shows a simple use of each of these properties:
 }
 ```
 
-More complex examples are given in the [Complete Response Example](#complete-response).
+More complex examples are given in the [Complete Response Example][complete-response].
 
 ### 5.5. Related Services
 
@@ -686,7 +686,7 @@ More complex examples are given in the [Complete Response Example](#complete-res
 
 There _MAY_ be one or more services associated with an image. See the [Service Profiles][service-profiles] annex for more information.
 
-The following shows a use of `service` to associate the login page of an authentication system that users must go through in order to access the image.  For further information, please see [Authentication](#authentication).
+The following shows a use of `service` to associate the login page of an authentication system that users must go through in order to access the image.  For further information, please see [Authentication][authentication].
 
 ``` json-doc
 {
@@ -702,7 +702,7 @@ The following shows a use of `service` to associate the login page of an authent
 }
 ```
 
-More complex examples are given in the [Complete Response Example](#complete-response).
+More complex examples are given in the [Complete Response Example][complete-response].
 
 ### 5.6. Complete Response
 
@@ -914,7 +914,7 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 [change-log20]: /api/image/2.0/change-log/ "Change Log for Version 2.0"
 [change-log21]: /api/image/2.1/change-log/ "Change Log for Version 2.1"
 [compliance]: /api/image/{{ page.major }}.{{ page.minor }}/compliance/ "Image API Compliance"
-[compliance-quality]: /api/image/{{ page.major }}.{{ page.minor }}/compliance/#quality "Image API Compliance: Quality"
+[compliance-quality]: /api/image/{{ page.major }}.{{ page.minor }}/compliance/#34-quality "Image API Compliance: Quality"
 
 [cors-spec]: http://www.w3.org/TR/cors/ "Cross-Origin Resource Sharing"
 [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
@@ -931,41 +931,43 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 [iiif-community]: /community/ "IIIF Community"
 [versioning]: /api/annex/notes/semver/ "Versioning of APIs"
 [prezi-api]: /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/ "Presentation API"
-[prezi-html]: /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/#html-markup-in-property-values "Presentation API Section 4.4"
+[prezi-html]: /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/#44-html-markup-in-property-values "Presentation API Section 4.4"
 
 [service-profiles]: /api/annex/services/ "Services Annex Document"
 [annex-frames]: /api/annex/notes/jsonld/ "JSON-LD Frames Implementation Notes"
 [apache-notes]: /api/annex/notes/apache/ "Apache HTTP Server Implementation Notes"
 [apache-notes-conditional-content-type]: /api/annex/notes/apache/#conditional-content-types "Apache HTTP Server Implementation Notes: Conditional Content Types"
 [apache-notes-set-compliance-link-header]: /api/annex/notes/apache/#set-compliance-link-header "Apache HTTP Server Implementation Notes: Set Compliance Link Header"
-[audience-and-scope]: #audience-and-scope "1. Audience and Scope"
-[uri-syntax]: #uri-syntax "2. URI Syntax"
-[image-request-uri-syntax]: #image-request-uri-syntax "2.1. Image Request URI Syntax"
-[image-information-request-uri-syntax]: #image-information-request-uri-syntax "2.2. Image "Information Request URI"
-[identifier]: #identifier "3. Identifier"
-[image-request-parameters]: #image-request-parameters "4. Image Request Parameters "
-[region]: #region "4.1. Region"
-[size]: #size "4.2. Size"
-[rotation]: #rotation "4.3. Rotation"
-[quality]: #quality "4.4. Quality"
-[format]: #format "4.5. Format"
+[audience-and-scope]: #1-audience-and-scope "1. Audience and Scope"
+[uri-syntax]: #2-uri-syntax "2. URI Syntax"
+[image-request-uri-syntax]: #21-image-request-uri-syntax "2.1. Image Request URI Syntax"
+[image-information-request-uri-syntax]: #22-image-information-request-uri-syntax "2.2. Image "Information Request URI"
+[identifier]: #3-identifier "3. Identifier"
+[image-request-parameters]: #4-image-request-parameters "4. Image Request Parameters "
+[region]: #41-region "4.1. Region"
+[size]: #42-size "4.2. Size"
+[rotation]: #43-rotation "4.3. Rotation"
+[quality]: #44-quality "4.4. Quality"
+[format]: #45-format "4.5. Format"
 [features]: #features "API Features"
-[profile-description]: #profile-description "5.3 Profile Description"
+[profile-description]: #53-profile-description "5.3 Profile Description"
+[related-services]: #55-related-services "5.5 Related Services"
+[complete-response]: #56-complete-response "5.6. Complete Image Information Response"
 [full-dep]: #full-dep "Full Size Keyword Deprecation Warning"
-[order-of-implementation]: #order-of-implementation "4.6. Order of Implementation"
-[canonical-uri-syntax]: #canonical-uri-syntax "4.7. Canonical URI Syntax"
-[information-request]: #information-request "5. Information Request"
-[image-information]: #image-information "5.1. Image Information"
-[extensions]: #extensions "5.2 Extensions"
-[compliance-levels]: #compliance-levels "6. Compliance Levels"
-[server-responses]: #server-responses "7. Server Responses"
-[successful-responses]: #successful-responses "7.1. Successful Responses"
-[error-conditions]: #error-conditions "7.2. Error Conditions"
-[authentication]: #authentication "8. Authentication"
-[uri-encoding-and-decoding]: #uri-encoding-and-decoding "9. URI Encoding and Decoding"
-[security-considerations]: #security-considerations "10. Security Considerations"
-[max-dos-warning]: #max-dos-warning "Size Above Gull DOS Warning"
-[appendices]: #appendices "11. Appendices"
+[order-of-implementation]: #46-order-of-implementation "4.6. Order of Implementation"
+[canonical-uri-syntax]: #47-canonical-uri-syntax "4.7. Canonical URI Syntax"
+[information-request]: #5-information-request "5. Information Request"
+[image-information]: #51-image-information-request "5.1. Image Information Request"
+[extensions]: #52-extensions "5.2 Extensions"
+[compliance-levels]: #6-compliance-levels "6. Compliance Levels"
+[server-responses]: #7-server-responses "7. Server Responses"
+[successful-responses]: #71-successful-responses "7.1. Successful Responses"
+[error-conditions]: #72-error-conditions "7.2. Error Conditions"
+[authentication]: #8-authentication "8. Authentication"
+[uri-encoding-and-decoding]: #9-uri-encoding-and-decoding "9. URI Encoding and Decoding"
+[security-considerations]: #10-security-considerations "10. Security Considerations"
+[max-dos-warning]: #max-dos-warning "Size Above Full DOS Warning"
+[appendices]: #11-appendices "11. Appendices"
 [a-implementation-notes]: #a-implementation-notes "A. Implementation Notes"
 [b-versioning]: #b-versioning "B. Versioning"
 [c-acknowledgments]: #c-acknowledgments "C. Acknowledgments"

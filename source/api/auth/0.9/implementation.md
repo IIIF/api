@@ -40,7 +40,7 @@ A web page on the *host domain* loads a IIIF client application from the *client
 
 A client implementing the IIIF Authentication Specification orchestrates a sequence of user interactions and HTTP requests that result in the user's browser acquiring an __access cookie__ from the *resource domain* that grants access to Content Resources on that domain. Code from the *client domain* cannot see the access cookie set by the server on the *resource domain* and has limited ability to infer the user's authentication state from observations of the browser's interactions with the Content Resources. Instead, the specification relies on the client's ability to inspect the HTTP status codes and body content of the responses received from requests for Description Resources, typically made via XHR.
 
-When the client requests a Description Resource via XHR, the browser cannot usually send any cookies it has for the *resource domain*, for the reason given in the [CORS support](#cors-support) section. Instead, the client sends an __access token__. The IIIF Authentication Specification describes how, once the browser has acquired the access cookie, the client code acquires the access token to use when making direct requests for Description Resources. 
+When the client requests a Description Resource via XHR, the browser cannot usually send any cookies it has for the *resource domain*, for the reason given in the [CORS support][cors-support] section. Instead, the client sends an __access token__. The IIIF Authentication Specification describes how, once the browser has acquired the access cookie, the client code acquires the access token to use when making direct requests for Description Resources.
 
 At a minimum, a client implementation following a "happy path" would:
 
@@ -59,7 +59,7 @@ There are different ways of implementing this in different styles of client user
 
 ## 2. CORS Support
 
-The [IIIF Authentication API][auth-api] specification requires a CORS-compliant browser. See the [browser-specific issues](#browser-specific-issues) section for more details.
+The [IIIF Authentication API][auth-api] specification requires a CORS-compliant browser. See the [Browser-Specific Issues][browser-specific-issues] section for more details.
 
 While the CORS and XHR specifications allow for a cross-domain request (from the *client domain* to the *resource domain*) that includes the browser's cookies for the resource domain, the conditions imposed make the approach unsuitable for IIIF use. Under these conditions, clients would make an XHR request with `XMLHttpRequest.withCredentials = true`, which triggers a CORS preflight request. The preflight response from the *resource domain* server must then include an `Access-Control-Allow-Origin` header whose value is the specific trusted *client domain*. In a request made with `XMLHttpRequest.withCredentials = true` the wildcard `*` value for `Access-Control-Allow-Origin` is invalid, and servers servers should not simply echo back the client origin header. Together these restrictions avoid cooked cookie leakage to an untrusted client script.
 
@@ -81,19 +81,19 @@ On detecting a 401 response, a client could trigger the load of the login servic
 
 However, this approach stands a strong chance of being blocked on a desktop browser, and an almost certain chance of being blocked on a mobile browser. Popup blockers in general don’t like windows that aren’t opened by an event sequence initiated directly by user click or equivalent, although the user might be notified by a "popup blocked" warning. On most mobile platforms, a “new window” (in this case a browser tab) must ALWAYS be initiated by a user interaction with an element (e.g., button click) and cannot be faked by artificially clicking elements, even if the user has popups enabled.
 
-See also [browser-specific issues](#browser-specific-issues) for other reasons why new windows might be blocked.
+See also [Browser-Specific Issues][browser-specific-issues] for other reasons why new windows might be blocked.
 
 A client can still prevent sending the user on unnecessary authentication flows by using the access token service as a probe; a call to the access token service can be used to see whether the user has credentials already, and to construct a request for the Description Resource with the appropriate Authorization header. The workflow in the specification describes the points at which the token service must be called, but client implementations are free to optimize the user experience with additional calls earlier in the flow.
 
 ### 4.2 Windows and Tabs
 
-The ```Window.open()``` API includes an optional parameter that allows the caller to specify various position, size, toolbar and "chrome" features of the opened window. A client confined to desktop browsers could use this to make the presentation of the login service URL feel more like a dialog box rather than a sudden visit to a different site. 
+The ```Window.open()``` API includes an optional parameter that allows the caller to specify various position, size, toolbar and "chrome" features of the opened window. A client confined to desktop browsers could use this to make the presentation of the login service URL feel more like a dialog box rather than a sudden visit to a different site.
 
-However, window features like this are not generally available on mobile devices and clients on those platforms might find the window blocked if it is opened with specific features. 
+However, window features like this are not generally available on mobile devices and clients on those platforms might find the window blocked if it is opened with specific features.
 
 ### 4.3 Consistency
 
-The preceding comments on window behavior suggest that for consistency of user experience across devices and maximum compatibility, client applications should trigger the login flow in response to an explicit click, and open the login service URL in a new tab whose presentation is left up to the browser. 
+The preceding comments on window behavior suggest that for consistency of user experience across devices and maximum compatibility, client applications should trigger the login flow in response to an explicit click, and open the login service URL in a new tab whose presentation is left up to the browser.
 
 ## 5. Redirects and Degraded Images
 
@@ -103,12 +103,12 @@ A client might attempt to deal with the response like this:
 
 ```javascript
 switch(myXhr.statusCode){
-    case 200: 
+    case 200:
         // process Content Resource for rendering        	
-    case 302: 
+    case 302:
         // process Content Resource for rendering
         // notify user that image is degraded, encourage user to click "log in"     
-    case 401: 
+    case 401:
         // unauthorized, encourage user to click "log in"
 }
 ```
@@ -132,19 +132,19 @@ A client could make a decision about what is happening based on a redirect havin
 
 ## 6. Token Storage Strategies
 
-Clients should keep track of the access tokens they acquire for the user and use them to improve the user experience. Careful use of access tokens can avoid unnecessary authentication interactions for the user, and unnecessary HTTP requests for the client. 
+Clients should keep track of the access tokens they acquire for the user and use them to improve the user experience. Careful use of access tokens can avoid unnecessary authentication interactions for the user, and unnecessary HTTP requests for the client.
 
 An implementation could store a dictionary of acquired access tokens where the key is the `@id` of the token service, and try the most recently used "pre-emptively" for new requests to the same domain. This dictionary could be saved to browser local storage. The client should not use an expired token, so it needs to keep track of when the token was acquired for comparison with the token's time-to-live.
 
 A client should always be prepared to discard a stored token and should never trust its stored token as a true representation of the user's current authentication status on the Resource Domain. Any point at which the client receives a status code other than 200 could trigger a re-run of the authentication flow, but it could first trigger a call to the token service for the resource to check the user's state.
 
-To encourage the frequent use of requests to the token service to improve the user experience, a client should assume that the token service is a lightweight operation, and servers should ensure that they can handle frequent token requests. 
+To encourage the frequent use of requests to the token service to improve the user experience, a client should assume that the token service is a lightweight operation, and servers should ensure that they can handle frequent token requests.
 
 ## 7. Security for Server Implementers
 
-Server implementations must assume that they could be subject to attacks that attempt to use this IIIF Authentication Specification to trick users into authenticating and revealing secrets to malicious client code. Care is required to implement this specification in a way that does not expose credentials, compromising the security of the protected resources or other resources within the same security domain. 
+Server implementations must assume that they could be subject to attacks that attempt to use this IIIF Authentication Specification to trick users into authenticating and revealing secrets to malicious client code. Care is required to implement this specification in a way that does not expose credentials, compromising the security of the protected resources or other resources within the same security domain.
 
-The specification relies on making the access token available to third party script (i.e., any untrusted script running on the client domain). The token is deliberately "leaked" to the client domain by the postMessage interaction. This means that ANY third-party script could acquire a user's access token, if it can persuade the user to follow the authentication flow. 
+The specification relies on making the access token available to third party script (i.e., any untrusted script running on the client domain). The token is deliberately "leaked" to the client domain by the postMessage interaction. This means that ANY third-party script could acquire a user's access token, if it can persuade the user to follow the authentication flow.
 
 Therefore servers should follow these principles:
 
@@ -152,14 +152,14 @@ Therefore servers should follow these principles:
 * Don't use the same value for the access token as the access cookie, or use a value for the access cookie that could be deduced or calculated from the access token value.
 * Don't include secrets in the Description Resources. Usually the metadata in a Description Resource such as an info.json is not itself secret, even if the Content Resources (e.g. in the case of images, the pixels) requires authorisation. However, there may be some Description Resources for which the metadata is sensitive. In these cases the response body for an unauthorized request should omit the secrets. The Description response cannot be empty - it needs to describe the authentication services to the client as well as convey enough information to let the client decide whether it's worth authenticating to view the material. It still needs to describe what it is, but it isn't required to go into the same detail as the fully authorized response.
 * Ensure that the web server isn't configured to serve custom error pages - the client needs to see the info.json, even when the HTTP response status is not 200.
-* Access cookies should be relatively short-lived - minutes rather than months. Any client can trigger an interaction with the token service. The browser will send the access cookie to the token service and so any client can acquire the token later on. Limiting the access cookie lifetime helps mitigate threats. 
+* Access cookies should be relatively short-lived - minutes rather than months. Any client can trigger an interaction with the token service. The browser will send the access cookie to the token service and so any client can acquire the token later on. Limiting the access cookie lifetime helps mitigate threats.
 
-If these guidelines are followed, then a malicious script that obtains an access token cannot do anything useful with it. The malicious script can't send the access token somewhere where it can be used to construct a request to gain access to the content resources or other resources protected by the same cookie on the content domain. The access token remains just a token - a symbol of the real credential (the access cookie) that the user has for the resources. 
+If these guidelines are followed, then a malicious script that obtains an access token cannot do anything useful with it. The malicious script can't send the access token somewhere where it can be used to construct a request to gain access to the content resources or other resources protected by the same cookie on the content domain. The access token remains just a token - a symbol of the real credential (the access cookie) that the user has for the resources.
 
 The specification is modelled after elements of the OAuth2 workflow and the [OAuth2 Security Considerations][oauth2-considerations] section provides useful additional guidance regarding threats, mitigations and recommended practices.
 
 __Future extension__
-The authentication interaction patterns will need to accommodate future functionality where the client is POSTing annotations or IIIF resources, where the token accompanying an XHR request is not just a proxy for the cookie the user has for the images, but is the "real" credential for writing a resource. The specification already requires that "origin" is appended to both the access cookie request and the token request, for the server to use in white-listing decisions if it wants to e.g., granting tokens that give access to image resources for any origin but only issuing tokens that authorize a state-changing operation to permitted origins. The server could use any additional (currently undefined) information obtained during the access cookie step (as well as the origin) to help it decide whether to then issue a token in the access token step (i.e., respond with a web page that makes a postMessage call to the origin supplied). 
+The authentication interaction patterns will need to accommodate future functionality where the client is POSTing annotations or IIIF resources, where the token accompanying an XHR request is not just a proxy for the cookie the user has for the images, but is the "real" credential for writing a resource. The specification already requires that "origin" is appended to both the access cookie request and the token request, for the server to use in white-listing decisions if it wants to e.g., granting tokens that give access to image resources for any origin but only issuing tokens that authorize a state-changing operation to permitted origins. The server could use any additional (currently undefined) information obtained during the access cookie step (as well as the origin) to help it decide whether to then issue a token in the access token step (i.e., respond with a web page that makes a postMessage call to the origin supplied).
 {: .note}
 
 ## 8. Optimizations at the Presentation API Level
@@ -168,7 +168,7 @@ A IIIF client application that loads a manifest would need to load each referenc
 
 * rendering large numbers of thumbnails from access controlled services
 * adding visual clues to the navigation user interface to indicate that some of the images in the manifest are protected
- 
+
 If a server could convey this information in the manifest the client would have what it needs in the initial load. There's nothing stopping a manifest publisher of the manifest including the full authentication services:
 
 ``` json-doc
@@ -213,7 +213,7 @@ If a server could convey this information in the manifest the client would have 
   "on": "http://example.org/iiif/book1/canvas/p1"
 }
 ```
- 
+
 However, this would result in a very large manifest if there are a large number of images, and there is a lot of repetition of information. As a JSON-LD document, the login service does not have to be stated in full every time - if the above example provided the full service on the first canvas, then the next canvas could state the same information using the service URL alone:
 
 ``` json-doc
@@ -262,7 +262,7 @@ This means two things:
 
 In IE8/9, XmlHttpRequest won't let a client load the info.json at all (unless on the same domain) and XDomainRequest won't let a client do anything with it unless it was a 200. XmlHttpRequest in IE8/9 (and, in fact, even earlier) *will* let a client see the status code.
 
-This means that the IIIF Authentication Specification cannot be implemented in IE8 and IE9 cross-domain. A custom client deployment where the *host domain*, the *client domain* and the *resource domain* are all the same will allow an implementation of the specification that works on IE9; as of 2016 it is possible that some implementations may still have the requirement to work on IE9 and can satisfy this same-origin constraint. 
+This means that the IIIF Authentication Specification cannot be implemented in IE8 and IE9 cross-domain. A custom client deployment where the *host domain*, the *client domain* and the *resource domain* are all the same will allow an implementation of the specification that works on IE9; as of 2016 it is possible that some implementations may still have the requirement to work on IE9 and can satisfy this same-origin constraint.
 
 #### 9.1.2 P3P Policy in IE Prior to Edge
 
@@ -292,10 +292,11 @@ If, for example, the client domain and resource domain are in the *Internet* zon
 
 
 [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
-[image-api]: /api/image/{{ page.major }}.{{ page.minor }}/ "Image API {{ page.major }}.{{ page.minor }}"
+[image-api]: /api/image/2.1/ "Image API 2.1"
 [auth-api]: /api/auth/{{ page.major }}.{{ page.minor }}/ "Authentication API {{ page.major }}.{{ page.minor }}"
-[service-description]: /api/auth/{{ page.major }}.{{ page.minor }}/#service-description "Authentication API Service Description"
-[workflow-from-the-browser-client-perspective]: /api/auth/{{ page.major }}.{{ page.minor }}/#workflow-from-the-browser-client-perspective "Authentication API Workflow from the Browser Client Perspective"
+[service-description]: /api/auth/{{ page.major }}.{{ page.minor }}/#211-service-description "Authentication API Service Description"
+[workflow-from-the-browser-client-perspective]: /api/auth/{{ page.major }}.{{ page.minor }}/#4-workflow-from-the-browser-client-perspective "Authentication API Workflow from the Browser Client Perspective"
+[browser-specific-issues]: #9-browser-specific-issues "9. Browser-Specific Issues"
 [xhr]: https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest "HttpXmlRequest"
 [xdr]: https://developer.mozilla.org/en-US/docs/Web/API/XDomainRequest "XDomainRequest"
 [moonscript]: https://github.com/MoonScript/jQuery-ajaxTransport-XDomainRequest "jQuery-ajaxTransport-XDomainRequest"
@@ -304,6 +305,6 @@ If, for example, the client domain and resource domain are in the *Internet* zon
 [p3p-summary]: http://blogs.msdn.com/b/ieinternals/archive/2013/09/17/simple-introduction-to-p3p-cookie-blocking-frame.aspx "P3P minimum details"
 [oauth2-considerations]: https://tools.ietf.org/html/rfc6750#section-5 "OAuth2 Security Considerations"
 [xmlhttprequest]: https://xhr.spec.whatwg.org/ "XMLHttpRequest API"
+[cors-support]: #2-cors-support "2. CORS Support"
 
 {% include acronyms.md %}
-

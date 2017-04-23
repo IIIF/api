@@ -139,11 +139,11 @@ A recommendation was made to allow compression to be specified in the image URL 
 
 
 [api-11]: /api/image/1.1/ "Image API 1.1"
-[api-compliance]: /api/image/2.0/#compliance-levels "Image API 6. Compliance Levels"
+[api-compliance]: /api/image/2.0/#6-compliance-levels "Image API 6. Compliance Levels"
 [api]: /api/image/2.0/ "Image API 2.0"
 [breaking-changes]: #breaking-changes "Image API 2.0 Breaking Changes"
-[canonical-uris]: /api/image/2.0/#canonical-uri-syntax "Image API 4.7. Canonical URI Syntax"
-[info-request]: /api/image/2.0/#information-request "Image API Section 5. Information Request"
+[canonical-uris]: /api/image/2.0/#47-canonical-uri-syntax "Image API 4.7. Canonical URI Syntax"
+[info-request]: /api/image/2.0/#5-information-request "Image API Section 5. Information Request"
 [compliance-doc]: /api/image/2.0/compliance/ "Image API 2.0 Compliance Document"
 [context]: /api/image/2/context.json  "Image API 2.0 JSON-LD Context"
 [http-features]: /api/image/2.0/compliance/#http-features "Image API Compliance: HTTP Features"

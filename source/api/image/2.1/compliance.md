@@ -149,8 +149,8 @@ If a client requests a combination of size and region outside these parameters t
 [icon-recc]: /img/metadata-api/recommended.png "Recommended"
 [icon-opt]: /img/metadata-api/optional.png "Optional"
 [icon-na]: /img/metadata-api/not_allowed.png "Not allowed"
-[size]: #size "3.2 Size"
-[profile]: /api/image/{{ page.major }}.{{ page.minor }}/#profile-description "5.3 Profile Description"
+[size]: #32-size "3.2 Size"
+[profile]: /api/image/{{ page.major }}.{{ page.minor }}/#53-profile-description "5.3 Profile Description"
 [stable-version]: /api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/compliance/ "Stable Version"
 [full-dep]: /api/image/2.{{ page.minor }}/#full-dep "Full Size Keyword Deprecation Warning"
 

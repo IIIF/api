@@ -32,11 +32,11 @@ The `square` [region keyword][region] selects a region where the width and heigh
 
 ### 1.3. Removed Recommendation to include HTTP Link Header to JSON-LD Context
 
-Version 2.0 incorrectly recommended the inclusion of a HTTP link header for the JSON-LD context, which was unnecessary as the `@context` key in the JSON document would override it. Therefore, the description of the [Image Information Request][image-information-request] no longer includes this. See [issue 556](https://github.com/IIIF/iiif.io/issues/556).
+Version 2.0 incorrectly recommended the inclusion of a HTTP link header for the JSON-LD context, which was unnecessary as the `@context` key in the JSON document would override it. Therefore, the description of the [Image Information Request][image-information] no longer includes this. See [issue 556](https://github.com/IIIF/iiif.io/issues/556).
 
 ### 1.4. Added `sizeByConfinedWh` and `sizeByDistortedWh` Feature Names
 
-New feature names `sizeByConfinedWh` and `sizeByDistortedWh` in the [profile description][profile-description] provide clear indications of support for `!w,h` and distorting `w,h` size requests respectively. As a result the related feature names `sizeByWhListed` and `sizeByForcedWh` have been [deprecated][deprecated-sizebywhlisted-and-sizebyforcedwh]. See [issue 720](https://github.com/IIIF/iiif.io/issues/720) and additional discussion on [pull pequest 727](https://github.com/IIIF/iiif.io/pull/727). 
+New feature names `sizeByConfinedWh` and `sizeByDistortedWh` in the [profile description][profile-description] provide clear indications of support for `!w,h` and distorting `w,h` size requests respectively. As a result the related feature names `sizeByWhListed` and `sizeByForcedWh` have been [deprecated][deprecated-sizebywhlisted-and-sizebyforcedwh]. See [issue 720](https://github.com/IIIF/iiif.io/issues/720) and additional discussion on [pull pequest 727](https://github.com/IIIF/iiif.io/pull/727).
 
 ### 1.5. Added `maxWidth`, `maxHeight` and `maxArea` Properties
 
@@ -52,7 +52,7 @@ The [size keyword][size] `max` may be used to request that the image or region i
 
 The [size keyword][size] `full` will be replaced by `max` in version 3.0. It is impractical to deliver the full size of very large images, and thus the keyword is not helpful when the Image Information has not been read. When the Image Information has been read, clients can request the explicit `w,h` size. See [issue 678](https://github.com/IIIF/iiif.io/issues/678).
 
-### 2.2. Deprecated `sizeByWhListed` and `sizeByForcedWh` Feature Names 
+### 2.2. Deprecated `sizeByWhListed` and `sizeByForcedWh` Feature Names
 
 The feature names `sizeByWhListed` and `sizeByForcedWh` will be removed from the [profile description][profile-description] in version 3.0. The feature `sizeByForcedWh` was inconsistently defined in version 2.0. The feature `sizeByWhListed` is implied by including `sizes` in the image information document and is therefore not required as a named feature. See [issue 720](https://github.com/IIIF/iiif.io/issues/720) and related [addition of `sizeByConfinedWh` and `sizeByDistortedWh`][added-sizebyconfinedwh-and-sizebydistortedwh].
 
@@ -67,21 +67,21 @@ The [canonical URI syntax][canonical-uri-syntax] will change in the next major r
 The mapping of the [`license` property][rights] has already been changed to `dcterms:rights` in the [JSON-LD context][context] to more accurately represent its use for both rights and licensing information. However, the change of the property name will be a breaking change and thus must wait for the next major version release. See [issue 644](https://github.com/IIIF/iiif.io/issues/644).
 
 
-[added-sizebyconfinedwh-and-sizebydistortedwh]: #added-sizebyconfinedwh-and-sizebydistortedwh-feature-names "Added `sizeByConfinedWh` and `sizeByDistortedWh` Feature Names"
+[added-sizebyconfinedwh-and-sizebydistortedwh]: #14-added-sizebyconfinedwh-and-sizebydistortedwh-feature-names "Added `sizeByConfinedWh` and `sizeByDistortedWh` Feature Names"
 [api-21]: /api/image/2.1/ "Image API 2.1"
-[api-compliance]: /api/image/2.0/#compliance-levels "Image API 6. Compliance Levels"
+[api-compliance]: /api/image/2.1/#6-compliance-levels "Image API 6. Compliance Levels"
 [api-20]: /api/image/2.0/ "Image API 2.0"
-[canonical-uri-syntax]: /api/image/2.1/#canonical-uri-syntax "Canonical URI syntax"
+[canonical-uri-syntax]: /api/image/2.1/#47-canonical-uri-syntax "Canonical URI syntax"
 [context]: /api/image/2/context.json "JSON-LD context"
-[deprecated-sizebywhlisted-and-sizebyforcedwh]: #deprecated-sizebywhlisted-and-sizebyforcedwh-feature-names "Deprecated `sizeByWhListed` and `sizeByForcedWh` Feature Names"
-[deprecated-size-full]: #deprecated-size-keyword-full "Deprecated Size Keyword `full`"
-[deferred-changes]: #deferred-changes "Deferred Changes"
-[deprecations]: #deprecations "Deprecations"
-[image-information-request]: /api/image/2.1/#image-information-request "Image Information Request"
-[non-breaking-changes]: #non-breaking-changes "Image API 2.0 Non-reaking Changes"
-[profile-description]: /api/image/2.1/#profile-description "Profile Description"
-[region]: /api/image/2.1/#region "Region"
-[rights]: /api/image/2.1/#rights-and-licensing-properties "Rights and Licensing Properties"
-[size]: /api/image/2.1/#size "Size"
+[deprecated-sizebywhlisted-and-sizebyforcedwh]: #22-deprecated-sizebywhlisted-and-sizebyforcedwh-feature-names "Deprecated `sizeByWhListed` and `sizeByForcedWh` Feature Names"
+[deprecated-size-full]: #21-deprecated-size-keyword-full "Deprecated Size Keyword `full`"
+[deferred-changes]: #3-deferred-changes "Deferred Changes"
+[deprecations]: #2-deprecations "Deprecations"
+[image-information]: /api/image/2.1/#5-image-information "Image Information Request"
+[non-breaking-changes]: #1-non-breaking-changes "Image API 2.1 Non-breaking Changes"
+[profile-description]: /api/image/2.1/#53-profile-description "Profile Description"
+[region]: /api/image/2.1/#41-region "Region"
+[rights]: /api/image/2.1/#54-rights-and-licensing-properties "Rights and Licensing Properties"
+[size]: /api/image/2.1/#42-size "Size"
 
 {% include acronyms.md %}

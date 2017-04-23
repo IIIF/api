@@ -1876,16 +1876,16 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 [appendixa]: #a-summary-of-recommended-uri-patterns "Appendix A"
 [appendixb]: #b-summary-of-metadata-requirements "Appendix B"
 [prev-version]: /api/presentation/2.0/
-[sequence]: #sequence
-[canvas]: #canvas
-[range]: #range
-[image-resources]: #image-resources
-[annotation-lists]: #annotation-list
-[type-overview]: #resource-type-overview
+[sequence]: #52-sequence "5.2 Sequence"
+[canvas]: #53-canvas "5.3 Canvas"
+[range]: #56-range "5.6 Range"
+[image-resources]: #54-image-resources "5.4 Image Resources"
+[annotation-lists]: #55-annotation-list "5.5 Annotation List"
+[type-overview]: #2-resource-type-overview "2 Resource Type Overview"
 
-[ld-exts]: #linked-data-context-and-extensions
-[paging]: #paging-properties
-[resource-structure]: #resource-structure
+[ld-exts]: #45-linked-data-context-and-extensions "4.5 Linked Data Context and Extensions"
+[paging]: #35-paging-properties "3.5 Paging Properties"
+[resource-structure]: #5-resource-structure "5. Resource Structure"
 
 [icon-req]: /img/metadata-api/required.png "Required"
 [icon-recc]: /img/metadata-api/recommended.png "Recommended"
