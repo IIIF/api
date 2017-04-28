@@ -4,6 +4,8 @@ author: Sheila Rabun
 date: 2017-04-27
 tags: [news, announcements]
 layout: post
+excerpt: >
+  Several institutions in the IIIF community have come together to launch the first phase of a collaborative effort to facilitate improvement of [OpenJPEG][openjpeg], an open source [JPEG 2000][jpeg2000] codec.
 ---
 
 Several institutions in the IIIF community have come together to launch the first phase of a collaborative effort to facilitate improvement of [OpenJPEG][openjpeg], an open source [JPEG 2000][jpeg2000] codec, freely available under a [BSD license][bsd]. OpenJPEG has achieved a great deal of success, and has been adopted for various uses by the JPEG 2000 community, which includes members of the IIIF community. However, it has not been optimized for fast delivery in a production environment – until now. A project to improve performance, scalability, security, and robustness of OpenJPEG will begin on May 1, 2017, with the initial phase focused on  improving decoding speed, region-of-interest decoding, and memory footprint.
