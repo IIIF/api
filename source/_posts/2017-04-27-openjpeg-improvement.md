@@ -12,7 +12,7 @@ Several institutions in the IIIF community have come together to launch the firs
 
 Led by Antonin Descampe of the Université catholique de Louvain (UCL) in Belgium, in collaboration with [intoPIX][intopix] (Belgium), and developer Even Rouault, the project ultimately aims to produce an ever more viable open source solution for JPEG 2000 in digital image repositories large and small. Five cultural heritage institutions – The Wellcome Library, Stanford University, the University of Michigan, the Koninklijke Bibliotheek (National Library of the Netherlands), and the University of California, Los Angeles – have dedicated funding to the first phase of the project, with new releases expected by the end of 2017. Project status can be tracked via [GitHub][github], and more details can be found on the [OpenJPEG website][openjpeg-news].
 
-The project team welcomes additional funding institutions to contribute to future phases and sustain the effort to bring OpenJPEG up to speed with proprietary JPEG 2000 codecs. To learn more and get involved, please contact Sheila Rabun, IIIF Community and Communications Officer, at srabun@iiif.io.
+The project team welcomes additional funding institutions to contribute to future phases and sustain the effort to bring OpenJPEG up to speed with proprietary implementations of the JPEG 2000 standard. To learn more and get involved, please contact Sheila Rabun, IIIF Community and Communications Officer, at <srabun@iiif.io>.
 
 [openjpeg]: http://www.openjpeg.org/
 [jpeg2000]: https://jpeg.org/jpeg2000/
