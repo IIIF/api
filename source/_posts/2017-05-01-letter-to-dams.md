@@ -30,38 +30,38 @@ Thank you for your consideration.
 
 Sincerely,
 
-* The J. Paul Getty Trust
-* Philadelphia Museum of Art
-* Marvin Lipofsky Studio Archive
-* Portland Art Museum, Portland, OR
-* Bodleian Libraries, University of Oxford, UK
-* Europeana Foundation, Netherlands
-* Nationalmuseum, Sweden
-* Royal Institute for Cultural Heritage (KIK-IRPA), Belgium
-* Princeton University Art Museum
-* Balboa Park Online Collaborative
-* Indianapolis Museum of Art
-* Harvard Art Museums
-* The Jewish Museum
-* San Francisco Museum of Modern Art
-* The Corning Museum of Glass
-* Koninklijk Museum voor Schone Kunsten Antwerpen (KMSKA), Belgium
-* PACKED - Centre of Expertise in Digital Heritage, Belgium
-* Royal Museums of Art and History (KMKG-MRAH), Belgium
-* Glencairn Museum, Bryn Athyn, PA
-* The Walters Art Museum
-* Museum of Contemporary Art Chicago
-* The Andy Warhol Museum
-* SMK - The National Gallery of Denmark
-* De Vlaamse Kunstcollectie, The Flemish Art Collection
-* Minneapolis Institute of Art
-* Boston Public Library
-* Georgia O’Keeffe Museum
-* National Library of Sweden
-* Historical Medical Library of The College of Physicians of Philadelphia
-* Swedish National Archives
-* The Frick Collection and Frick Art Reference Library
-* The Metropolitan Museum of Art
-* National Historical Museums, Sweden
+* The Andy Warhol Museum, Pittsburgh, Pennsylvania, US
+* Balboa Park Online Collaborative, San Diego, California, US
+* Bodleian Libraries, University of Oxford, Oxford, UK
+* Boston Public Library, Boston, Massachusetts, US
+* The Corning Museum of Glass, New York, US
+* De Vlaamse Kunstcollectie, The Flemish Art Collection, Belgium
+* Europeana Foundation, The Hague, Netherlands
+* The Frick Collection and Frick Art Reference Library, New York City, New York, US
+* Georgia O’Keeffe Museum, Santa Fe, New Mexico, US
+* Glencairn Museum, Bryn Athyn, Pennsylvania, US
+* Harvard Art Museums, Cambridge, Massachusetts, US
+* Historical Medical Library of The College of Physicians of Philadelphia, Pennsylvania, US
+* Indianapolis Museum of Art, Indianapolis, Indiana, US
+* The J. Paul Getty Trust, Los Angeles, California, US
+* The Jewish Museum, San Francisco, California, US
+* Koninklijk Museum voor Schone Kunsten Antwerpen (KMSKA), Antwerp, Belgium
+* Lukas - Art in Flanders, Ghent, Belgium
+* Marvin Lipofsky Studio Archive, Berkeley, California, US
+* The Metropolitan Museum of Art, New York City, New York, US
+* Minneapolis Institute of Art, Minneapolis, Minnesota, US
+* Museum of Contemporary Art Chicago, Illinois, US
+* National Library of Sweden, Stockholm, Sweden
+* National Historical Museums, Stockholm, Sweden
+* Nationalmuseum, Stockholm, Sweden
+* PACKED - Centre of Expertise in Digital Heritage, Brussels, Belgium
+* Philadelphia Museum of Art, Philadelphia, Pennsylvania, US
+* Portland Art Museum, Portland, Oregon, US
+* Princeton University Art Museum, Princeton, New Jersey, US
 * The Royal Armoury, Skokloster Castle and the Hallwyl Museum, Sweden
-* Lukas - Art in Flanders
+* Royal Institute for Cultural Heritage (KIK-IRPA), Brussels, Belgium
+* Royal Museums of Art and History (KMKG-MRAH), Brussels, Belgium
+* San Francisco Museum of Modern Art, San Francisco, California, US
+* SMK - The National Gallery of Denmark, Copenhagen, Denmark
+* Swedish National Archives, Stockholm, Sweden
+* The Walters Art Museum, Baltimore, Maryland, US
