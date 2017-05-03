@@ -3,12 +3,10 @@
   "@id": "http://iiif.io/api/presentation/2.1/example/fixtures/64/manifest.json", 
   "@type": "sc:Manifest", 
   "label": "Test 64 Manifest: Description in HTML", 
-  "description": [
-    {
-      "@value": "<span>Some HTML</span>", 
-      "@language": "en"
-    }
-  ], 
+  "description": {
+    "@value": "<span>Some HTML</span>", 
+    "@language": "en"
+  }, 
   "within": "http://iiif.io/api/presentation/2.1/example/fixtures/collection.json", 
   "sequences": [
     {
