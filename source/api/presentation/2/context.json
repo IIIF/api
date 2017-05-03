@@ -185,7 +185,8 @@
     },
     "item": {
       "@type": "@id",
-      "@id": "oa:item"
+      "@id": "oa:item",
+      "@container": "@set"      
     },
     "chars": {
       "@id": "cnt:chars"

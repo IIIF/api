@@ -76,7 +76,7 @@ framejs['@context'] = ctxtjs['@context']
 fixturedir = 'source/api/presentation/2.1/example/fixtures'
 dirs = os.listdir(fixturedir)
 
-# Remove 18 as extra property will be stripped, as it should
+# The extra property is dropped, as it should be
 dirs.remove('18')
 
 # Remove 24,25,29,31,36 as embedded @contexts will disappear
@@ -92,12 +92,6 @@ dirs.remove('41')
 # Remove 32, as duplicate resource is not described twice in compacted output.
 # XXX Fix this in the manifest to use two different resources.
 dirs.remove('32')
-
-# Example is broken. Should be fixed.
-# XXX https://github.com/IIIF/iiif.io/issues/1122
-dirs.remove('6')
-dirs.remove('64')
-dirs.remove('65')
 
 for d in dirs:
 	if not d.isdigit():
