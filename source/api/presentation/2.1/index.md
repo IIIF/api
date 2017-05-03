@@ -1216,7 +1216,7 @@ Instead of referencing transcription text externally, it is often easier to reco
 Content _MAY_ be embedded instead of referenced by using the following pattern within the annotation block:
 
 ``` json-doc
-{"resource": {"@type": "cnt:ContextAsText", "chars": "text here"}}
+{"resource": {"@type": "cnt:ContentAsText", "chars": "text here"}}
 ```
 
 The media type _SHOULD_ be provided using the `format` field, and while any media type is possible, it is _RECOMMENDED_ that `text/plain` or `text/html` be used to maximize compatibility.
@@ -1318,7 +1318,7 @@ In the example below, the text should be colored red.
   "@type": "oa:Annotation",
   "motivation": "sc:painting",
   "stylesheet":{
-    "@type": ["oa:CssStyle", "cnt:ContextAsText"],
+    "@type": ["oa:CssStyle", "cnt:ContentAsText"],
     "chars": ".red {color: red;}"
   },
   "resource":{
@@ -1345,7 +1345,7 @@ CSS may also be used for rotation of images which are not correctly aligned with
   "@type": "oa:Annotation",
   "motivation": "sc:painting",
   "stylesheet":{
-    "@type": ["oa:CssStyle", "cnt:ContextAsText"],
+    "@type": ["oa:CssStyle", "cnt:ContentAsText"],
     "chars": ".rotated {transform-origin: top left; transform: rotate(-45deg);}"
   },
   "resource":{
