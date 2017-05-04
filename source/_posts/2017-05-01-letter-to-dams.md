@@ -31,6 +31,7 @@ Thank you for your consideration.
 Sincerely,
 
 * The Andy Warhol Museum, Pittsburgh, Pennsylvania, US
+* The Art Institute of Chicago, Chicago, Illinois, US
 * Balboa Park Online Collaborative, San Diego, California, US
 * Bodleian Libraries, University of Oxford, Oxford, UK
 * Boston Public Library, Boston, Massachusetts, US
