@@ -1839,7 +1839,8 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 
 | Date       | Description           |
 | ---------- | --------------------- |
-| 2016-05-12 | Version 2.1 (Hinty McHintface) [View change log][change-log] |
+| 2017-05-24 | Version 2.1.1 [View change log][change-log-211]
+| 2016-05-12 | Version 2.1 (Hinty McHintface) [View change log][change-log-21] |
 | 2014-09-11 | Version 2.0 (Triumphant Giraffe) [View change log][change-log-20] |
 | 2013-08-26 | Version 1.0 (unnamed) |
 | 2013-06-14 | Version 0.9 (unnamed) |
@@ -1849,7 +1850,8 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 [image-api]: /api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/ "Image API"
 [search-api]: /api/search/{{ site.search_api.latest.major }}.{{ site.search_api.latest.minor }}/ "Content Search API"
 [annex]: /api/annex/services/ "Services Annex Document"
-[change-log]: /api/presentation/2.1/change-log/ "Presentation API 2.1 Change Log"
+[change-log-211]: /api/presentation/2.1/change-log-211/ "Presentation API 2.1.1 Change Log"
+[change-log-21]: /api/presentation/2.1/change-log/ "Presentation API 2.1 Change Log"
 [change-log-20]: /api/presentation/2.0/change-log/ "Presentation API 2.0 Change Log"
 [iiif-community]: /community/ "IIIF Community"
 [apache-notes]: /api/annex/notes/apache/ "Apache HTTP Server Implementation Notes"
