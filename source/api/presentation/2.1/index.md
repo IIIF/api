@@ -1159,6 +1159,7 @@ Segments of both static images and canvases may be selected by adding a [rectang
 }
 ```
 
+<a name="image-api-selection"/>
 For image resources with a [IIIF Image API][image-api] service, it is _RECOMMENDED_ to instead use the Image API parameters rather than a fragment as above.  The following structure allows simple clients to use the image directly (the URL with the segment), and allows clients that implement the IIIF Image API to have sufficient information to construct appropriate URIs using the API.
 
 ``` json-doc
@@ -1282,7 +1283,7 @@ The [Scalable Vector Graphics][svg] standard (SVG) is used to describe non-recta
 
 If the section of an image is mapped to part of a canvas, as in the example below, then the target in `on` _MUST_ be the rectangular bounding box in which the SVG viewport should be placed. If the entire canvas is the target, then the SVG viewport is assumed to cover the entire canvas. If the dimensions of the viewport and the bounding box or canvas are not the same, then the SVG _MUST_ be scaled such that it covers the region. This may result in different scaling ratios for the X and Y dimensions.
 
-SVG _SHOULD NOT_ be used to describe non-rotated rectangular regions. The [IIIF Image API][image-api] or the `xywh` bounding box described above _SHOULD_ be used instead.
+SVG _SHOULD NOT_ be used to describe non-rotated rectangular regions. The [IIIF Image API][image-api] or the `xywh` bounding box [described above][segments] _SHOULD_ be used instead.
 
 ``` json-doc
 {
@@ -1890,6 +1891,7 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 [image-resources]: #image-resources
 [annotation-lists]: #annotation-list
 [type-overview]: #resource-type-overview
+[segments]: #segments
 
 [ld-exts]: #linked-data-context-and-extensions
 [paging]: #paging-properties
