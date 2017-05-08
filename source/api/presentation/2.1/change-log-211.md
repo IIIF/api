@@ -41,35 +41,30 @@ See issue [#960](https://github.com/IIIF/iiif.io/issues/960)
 
 ### 1.4. Clarify use of non-rectangular region annotations
 
-The description of non-rectangular regions confusingly talked about rectangular regions at the same time.  The description was improved.
-See issue [#941](https://github.com/IIIF/iiif.io/issues/941)
-
-### 1.5. Clarify use of non-rectangular region annotations
-
 The description of non-rectangular regions confusingly talked about rectangular regions at the same time.  The description was improved, including better links.
 See issue [#941](https://github.com/IIIF/iiif.io/issues/941)
 
-### 1.6. Update references to other specifications
+### 1.5. Update references to other specifications
 
 The introduction referred to a "future specification", meaning the Search API. The reference was updated now that API is available.
 See issue [#1003](https://github.com/IIIF/iiif.io/issues/1003)
 
-### 1.7. Clarify ranges without children are permitted
+### 1.6. Clarify ranges without children are permitted
 
 The specification was clear that empty Collections are possible but was not obvious whether the same was true of Ranges (a Range with no child Ranges or Canvases).  This was clarified as possible, with the same proviso that this is discouraged without careful thought. 
 See issue [#1016](https://github.com/IIIF/iiif.io/issues/1016)
 
-### 1.8. Expand thumbnail examples to promote good practice
+### 1.7. Expand thumbnail examples to promote good practice
 
 The examples that included thumbnails did not include information about the thumbnail representation, which would be valuable to viewing applications.  The examples were updated to promote better practice.
 See issue [#1098](https://github.com/IIIF/iiif.io/issues/1098)
 
-### 1.9. Update deprecation warning for Ranges
+### 1.8. Update deprecation warning for Ranges
 
 The discussions about Ranges in the Audio-Visual work has led to a proposal for a significantly more consistent and functional representation in a future version of the Presentation API.  The deprecation warning for `canvases` and `ranges` was made less specific to not assume any particular conclusion from those discussions.
 See issue [#1118](https://github.com/IIIF/iiif.io/issues/1118)
 
-### 1.10. Typos for `ContentAsText`
+### 1.9. Typos for `ContentAsText`
 
 There were several typos for `ContentAsText` in the example JSON documents. These were corrected.
 See issue [#1139](https://github.com/IIIF/iiif.io/issues/1139)
