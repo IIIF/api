@@ -112,6 +112,9 @@
 - name: Leiden University
   uri: https://www.library.universiteitleiden.nl
   iiifc: 2
+- name: Leipzig University Library (Universitätsbibliothek Leipzig)
+  uri: https://www.ub.uni-leipzig.de
+  iiifc:
 - name: Library of Congress
   uri: https://www.wdl.org
   iiifc:
