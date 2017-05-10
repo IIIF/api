@@ -91,9 +91,7 @@ See issue [#946](https://github.com/IIIF/iiif.io/issues/946)
 The specifications were not clear as to how to represent a single option other than the default, whether it should be a list with a single item, or just the item. This is clarified that it should always be a list, and the context updated to add `@container: @set` to the definition.
 See issue [#1120](https://github.com/IIIF/iiif.io/issues/946)
 
-### 2.2. Frames
-
-#### 2.2.1. Frames should use `@explicit` to ensure correct summaries
+### 2.2. Frames should use `@explicit` to ensure correct summaries
 
 The frame documents used `@embed: false` for referenced resources such as an external AnnotationList.  This meant that only the URI was included, but not `@type` or `label`. The solution was to use `@explicit` to list the set of terms that should be included.
 See issue [#959](https://github.com/IIIF/iiif.io/issues/959)

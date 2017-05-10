@@ -1159,8 +1159,8 @@ Segments of both static images and canvases may be selected by adding a [rectang
 }
 ```
 
-<a name="image-api-selection"/>
 For image resources with a [IIIF Image API][image-api] service, it is _RECOMMENDED_ to instead use the Image API parameters rather than a fragment as above.  The following structure allows simple clients to use the image directly (the URL with the segment), and allows clients that implement the IIIF Image API to have sufficient information to construct appropriate URIs using the API.
+{: #image-api-selection}
 
 ``` json-doc
 {
