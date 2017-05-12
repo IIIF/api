@@ -37,6 +37,8 @@
 - name: Carnegie Museum of Art
   uri: http://records.cmoa.org
   iiifc:
+- name: Center for Open Data in the Humanities, Research Organization of Information and Systems, Japan
+  uri: http://codh.rois.ac.jp/
 - name: Centre de Recherche et de Restauration des Musées de France (C2RMF)
   uri: http://c2rmf.fr/
   iiifc:
@@ -67,6 +69,8 @@
   uri: http://www.diamm.ac.uk/
 - name: Digirati Ltd
   uri: http://www.digirati.co.uk/
+- name: Durham University Library
+  uri: https://www.dur.ac.uk/library/asc/
 - name: e-codices – Virtual Manuscript Library of Switzerland
   uri:  http://www.e-codices.unifr.ch
 - name: Europeana
@@ -99,15 +103,17 @@
   uri:
   iiifc:
 - name: Johns Hopkins University
-  uri:
+  uri: http://library.jhu.edu
   iiifc: 2
+- name: Keio University Libraries
+  uri: http://www.lib.keio.ac.jp/en/
 - name: Klokan Technologies
   uri: http://www.klokantech.com/
 - name: KU Leuven - LIBIS+
   uri: http://libisplus.be/libisplus/mirador-iiif-en
   iiifc:
 - name: Kyoto University Library Network
-  uri:
+  uri: http://www.kulib.kyoto-u.ac.jp/
   iiifc: 2
 - name: Leiden University
   uri: https://www.library.universiteitleiden.nl
@@ -123,7 +129,7 @@
 - name: Max Planck Institute for European Legal History
   uri:
 - name: MIT Libraries
-  uri:
+  uri: http://libraries.mit.edu
   iiifc: 2
 - name: Moravian Library (Moravská zemská knihovna)
   uri: https://www.mzk.cz/
@@ -147,7 +153,7 @@
 - name: National Library of New Zealand
   uri:
 - name: National Library of Poland
-  uri:
+  uri: http://bn.org.pl
   iiifc: 2
 - name: National Library of Scotland
   uri: http://www.nls.uk/
@@ -180,13 +186,23 @@
   iiifc:
 - name: "St. Louis University"
   uri:
+- name: St. Mary's University
+  uri: http://jubilees.stmarytx.edu
 - name: Stanford University
   uri: http://library.stanford.edu/
   iiifc: 1
+- name: Synaptica
+  uri: http://www.synaptica.com/
 - name: TextGrid
-  uri:
+  uri: https://textgrid.de/en/
 - name: text &amp; bytes
   uri:  http://www.textandbytes.com/en
+- name: Trinity College Dublin
+  uri:  https://repository.dri.ie
+- name: United States Holocaust Memorial Museum
+  uri: https://www.ushmm.org/
+- name: Universidad de la Habana, Biblioteca Nacional de Cuba José Martí
+  uri:
 - name: University College Dublin
   uri: http://www.ucd.ie/library/
   iiifc:
@@ -233,7 +249,7 @@
   uri: http://www.library.virginia.edu/
   iiifc:
 - name: Vatican Library
-  uri:
+  uri: https://www.vatlib.it
   iiifc: 2
 - name: Villanova University
   uri: https://digital.library.villanova.edu/
@@ -255,3 +271,5 @@
 - name: Yale University
   uri:
   iiifc: 1
+- name: Zegami
+  uri: https://zegami.com/
