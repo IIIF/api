@@ -53,10 +53,9 @@ The 2017 IIIF Conference is sponsored by:
 * [OCLC][oclc] - Silver Sponsor
 * [Synaptica][synaptica] - Silver Sponsor
 * [Zegami][zegami] - Silver Sponsor
+* [4Science][4science] - Silver Sponsor
 
 Please see the [Call for Sponsors][vatican-sponsors] for more information, or to become a sponsor.
-
-*Last updated April 12, 2017*
 
 
 [home-page]: http://iiif.io/
@@ -79,3 +78,4 @@ Please see the [Call for Sponsors][vatican-sponsors] for more information, or to
 [synaptica]: http://www.synaptica.com/
 [zegami]: https://zegami.com/
 [showcase]: https://2017iiifconferencethevatican.sched.com/tag/Showcase
+[4science]: http://www.4science.it/en/iiif-image-viewer/

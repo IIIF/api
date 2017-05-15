@@ -49,6 +49,7 @@ Schedule information for the Conference is available via [Sched][conf-sched]. Th
 * [OCLC][oclc] - Silver Sponsor
 * [Synaptica][synaptica] - Silver Sponsor
 * [Zegami][zegami] - Silver Sponsor
+* [4Science][4science] - Silver Sponsor
 
 Please see the [Call for Sponsors][vatican-sponsors] for more information, or to become a sponsor.
 
@@ -71,3 +72,4 @@ For more event information, please see the [Vatican event page][vatican]. Questi
 [synaptica]: http://www.synaptica.com/
 [zegami]: https://zegami.com/
 [vatican-sponsors]: /event/2017/vatican-sponsors
+[4science]: http://www.4science.it/en/iiif-image-viewer/
