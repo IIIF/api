@@ -1,12 +1,12 @@
 ---
-title: "Presentation API 2.1"
-title_override: "IIIF Presentation API 2.1"
+title: "Presentation API 2.1.1"
+title_override: "IIIF Presentation API 2.1.1"
 id: presentation-api
 layout: spec
 tags: [specifications, presentation-api]
 major: 2
 minor: 1
-patch: 0
+patch: 1
 pre: final
 redirect_from:
   - /api/presentation/index.html
@@ -25,7 +25,7 @@ __Previous Version:__ [2.0][prev-version]
 
   * **[Michael Appleby](https://orcid.org/0000-0002-1266-298X)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0002-1266-298X), [_Yale University_](http://www.yale.edu/)
   * **[Tom Crane](https://orcid.org/0000-0003-1881-243X)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0003-1881-243X), [_Digirati_](http://digirati.com/)
-  * **[Robert Sanderson](https://orcid.org/0000-0003-4441-6852)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0003-4441-6852), [_Stanford University_](http://www.stanford.edu/)
+  * **[Robert Sanderson](https://orcid.org/0000-0003-4441-6852)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0003-4441-6852), [_J. Paul Getty Trust_](http://www.getty.edu/)
   * **[Jon Stroop](https://orcid.org/0000-0002-0367-1243)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0002-0367-1243), [_Princeton University Library_](https://library.princeton.edu/)
   * **[Simeon Warner](https://orcid.org/0000-0002-7970-7855)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0002-7970-7855), [_Cornell University_](https://www.cornell.edu/)
   {: .names}
@@ -1160,6 +1160,7 @@ Segments of both static images and canvases may be selected by adding a [rectang
 ```
 
 For image resources with a [IIIF Image API][image-api] service, it is _RECOMMENDED_ to instead use the Image API parameters rather than a fragment as above.  The following structure allows simple clients to use the image directly (the URL with the segment), and allows clients that implement the IIIF Image API to have sufficient information to construct appropriate URIs using the API.
+{: #image-api-selection}
 
 ``` json-doc
 {
@@ -1282,7 +1283,7 @@ The [Scalable Vector Graphics][svg] standard (SVG) is used to describe non-recta
 
 If the section of an image is mapped to part of a canvas, as in the example below, then the target in `on` _MUST_ be the rectangular bounding box in which the SVG viewport should be placed. If the entire canvas is the target, then the SVG viewport is assumed to cover the entire canvas. If the dimensions of the viewport and the bounding box or canvas are not the same, then the SVG _MUST_ be scaled such that it covers the region. This may result in different scaling ratios for the X and Y dimensions.
 
-SVG _SHOULD NOT_ be used to describe non-rotated rectangular regions. The [IIIF Image API][image-api] or the `xywh` bounding box described above _SHOULD_ be used instead.
+SVG _SHOULD NOT_ be used to describe non-rotated rectangular regions. The [IIIF Image API][image-api] or the `xywh` bounding box [described above][segments] _SHOULD_ be used instead.
 
 ``` json-doc
 {
@@ -1839,7 +1840,8 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 
 | Date       | Description           |
 | ---------- | --------------------- |
-| 2016-05-12 | Version 2.1 (Hinty McHintface) [View change log][change-log] |
+| 2017-05-24 | Version 2.1.1 [View change log][change-log-211]
+| 2016-05-12 | Version 2.1 (Hinty McHintface) [View change log][change-log-21] |
 | 2014-09-11 | Version 2.0 (Triumphant Giraffe) [View change log][change-log-20] |
 | 2013-08-26 | Version 1.0 (unnamed) |
 | 2013-06-14 | Version 0.9 (unnamed) |
@@ -1849,7 +1851,8 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 [image-api]: /api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/ "Image API"
 [search-api]: /api/search/{{ site.search_api.latest.major }}.{{ site.search_api.latest.minor }}/ "Content Search API"
 [annex]: /api/annex/services/ "Services Annex Document"
-[change-log]: /api/presentation/2.1/change-log/ "Presentation API 2.1 Change Log"
+[change-log-211]: /api/presentation/2.1/change-log-211/ "Presentation API 2.1.1 Change Log"
+[change-log-21]: /api/presentation/2.1/change-log/ "Presentation API 2.1 Change Log"
 [change-log-20]: /api/presentation/2.0/change-log/ "Presentation API 2.0 Change Log"
 [iiif-community]: /community/ "IIIF Community"
 [apache-notes]: /api/annex/notes/apache/ "Apache HTTP Server Implementation Notes"
@@ -1888,6 +1891,7 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 [image-resources]: #image-resources
 [annotation-lists]: #annotation-list
 [type-overview]: #resource-type-overview
+[segments]: #segments
 
 [ld-exts]: #linked-data-context-and-extensions
 [paging]: #paging-properties
