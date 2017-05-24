@@ -12,7 +12,7 @@ redirect_from:
   - /api/presentation/2.1/change-log-211.html
 ---
 
-This document is a companion to the [IIIF Presentation API Specification, Version 2.1.1][prezi-api]. It describes the editorial changes to the API made in this patch release. The changes are all clarifications, typo corrections or to related documents that are not [semantically versioned][semver] such as example resources and resources to manage transformation to and from the JSON-LD serialization.
+This document is a companion to the [IIIF Presentation API Specification, Version 2.1.1][prezi-api]. It describes the editorial changes to the API specification made in this patch release, such as clarifications and typo corrections. It also describes corrections to related documents that are not [semantically versioned][semver], such as example resources and resources to manage transformation to and from the JSON-LD serialization.
 
 For the significant changes between 2.0 and 2.1, please see the [2.1 Change Log][changelog-21].
 
