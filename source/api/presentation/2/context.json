@@ -139,51 +139,19 @@
       "@id": "sc:viewingHint",
       "@type": "@vocab"
     },
-    "left-to-right": {
-      "@id": "sc:leftToRightDirection",
-      "@type": "sc:ViewingDirection"
-    },
-    "right-to-left": {
-      "@id": "sc:rightToLeftDirection",
-      "@type": "sc:ViewingDirection"
-    },
-    "top-to-bottom": {
-      "@id": "sc:topToBottomDirection",
-      "@type": "sc:ViewingDirection"
-    },
-    "bottom-to-top": {
-      "@id": "sc:bottomToTopDirection",
-      "@type": "sc:ViewingDirection"
-    },
+    "left-to-right": "sc:leftToRightDirection",
+    "right-to-left": "sc:rightToLeftDirection",
+    "top-to-bottom": "sc:topToBottomDirection",
+    "bottom-to-top": "sc:bottomToTopDirection",
 
-    "paged": {
-      "@id": "sc:pagedHint",
-      "@type": "sc:ViewingHint"
-    },
-    "non-paged": {
-      "@id": "sc:nonPagedHint",
-      "@type": "sc:ViewingHint"
-    },
-    "continuous": {
-      "@id": "sc:continuousHint",
-      "@type": "sc:ViewingHint"
-    },
-    "individuals": {
-      "@id": "sc:individualsHint",
-      "@type": "sc:ViewingHint"
-    },
-    "top": {
-      "@id": "sc:topHint",
-      "@type": "sc:ViewingHint"
-    },
-    "multi-part": {
-      "@id": "sc:multiPartHint",
-      "@type": "sc:ViewingHint"
-    },
-    "facing-pages": {
-      "@id": "sc:facingPagesHint",
-      "@type": "sc:ViewingHint"
-    },
+    "paged": "sc:pagedHint",
+    "non-paged": "sc:nonPagedHint",
+    "continuous": "sc:continuousHint",
+    "individuals": "sc:individualsHint",
+    "top": "sc:topHint",
+    "multi-part": "sc:multiPartHint",
+    "facing-pages": "sc:facingPagesHint",
+
     "motivation": {
       "@type": "@id",
       "@id": "oa:motivatedBy"
@@ -217,7 +185,8 @@
     },
     "item": {
       "@type": "@id",
-      "@id": "oa:item"
+      "@id": "oa:item",
+      "@container": "@set"      
     },
     "chars": {
       "@id": "cnt:chars"
@@ -240,6 +209,11 @@
     "label": {
       "@id": "rdfs:label"
     },
+
+    "prefix": "oa:prefix",
+    "suffix": "oa:suffix",
+    "exact": "oa:exact",
+
     "first": {
       "@type": "@id",
       "@id": "as:first"

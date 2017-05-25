@@ -1,10 +1,12 @@
 {
   "@context": "http://iiif.io/api/presentation/2/context.json",
   "@type": "sc:Manifest",
+  "startCanvas": {
+    "@embed": false
+  },
   "sequences": [{
     "@type": "sc:Sequence",
     "startCanvas": {
-      "@type": "sc:Canvas",
       "@embed": false
     },
     "canvases": [{
@@ -14,8 +16,10 @@
         "@embed": true
       }],
       "otherContent": [{
+        "@explicit": true,
+        "@embed": true,
         "@type": "sc:AnnotationList",
-        "@embed": false
+        "label": {"@embed": true}
       }]
     }]
   }],
@@ -27,6 +31,12 @@
     }],
     "ranges": [{
       "@embed": false
+    }],
+    "members": [{
+      "@embed": true,
+      "@explicit": true,
+      "@type": "",
+      "label": {"@embed": true}
     }]
   }]
 }

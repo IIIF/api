@@ -1,5 +1,5 @@
 import os, sys
-from factory import ManifestFactory
+from iiif_prezi.factory import ManifestFactory
 try:
 	from collections import OrderedDict	
 except:
@@ -32,11 +32,10 @@ transcriptions = [
 
 line1Dims = "225,70,750,150"
 
-
 # Configure the factory
 fac = ManifestFactory()
-fac.set_base_metadata_uri(BASEURL)
-fac.set_base_metadata_dir(HOMEDIR)
+fac.set_base_prezi_uri(BASEURL)
+fac.set_base_prezi_dir(HOMEDIR)
 fac.set_base_image_uri(IMAGE_BASEURL)
 fac.set_iiif_image_info(2.0, 1)
 fac.set_debug('error')
@@ -83,26 +82,22 @@ testInfo = {
 37 : {"title": "Partial Image as Detail Image"},
 38 : {"title": "Partial Image as Detail Image with IIIF Service", 'iiif':True},
 39 : {"title": "Image with CSS Rotation"},
-
 40 : {"title": "Multiple Languages for Metadata Labels", 'mfprops': [('metadata', {'label': {'fr':'date', 'en':'date'}, 'value': "2000"})]},
 41 : {"title": "Main Image with Server side Rotation", 'iiif':True},
-
 43 : {"title": "Embedded Transcription on Canvas", 'annoBody': fac.text('\n'.join(transcriptions[0]))},
 44 : {"title": "Embedded Transcription on Fragment Segment", 'annoBody': fac.text(transcriptions[0][0]), 'annoTarget+': '#xywh='+line1Dims},
 45 : {"title": "External text/plain Transcription on Canvas", 'annoBody': fac.text(ident=textUris[0])},
 46 : {"title": "External text/plain Transcription on Segment", 'annoBody': fac.text(ident=BASEURL+"resources/line1.txt"), 'annoTarget+':'#xywh='+line1Dims},
 47 : {"title": "Embedded HTML Transcription on Canvas", 'annoBody': fac.text('<span>' + "<br/>".join(transcriptions[0]) + '</span>', format='text/html')},
 48 : {"title": "Embedded HTML Transcription on Segment", 'annoBody': fac.text("<b>"+transcriptions[0][0]+"</b>", format='text/html'), 'annoTarget+':'#xywh='+line1Dims},
-
 51 : {"title": "Embedded Comment on a Canvas", 'annoBody': fac.text("Comment"), 'annoMotivation': 'oa:commenting'},
 52 : {"title": "Embedded Comment on a Segment", 'annoBody': fac.text("Comment"), 'annoMotivation': 'oa:commenting', 'annoTarget+': "#xywh=100,100,200,200"},
 54 : {"title": "Comment in HTML", 'annoBody': fac.text("<b>Comment</b>", format='text/html'), 'annoMotivation': 'oa:commenting'},
-
 61 : {"title": "Embedded Transcription on Selector Segment", 'annoBody': fac.text(transcriptions[0][0])},
 62 : {"title": "Label in Multiple Languages", 'mfprops': [('label', {'en':'62: some title','fr':'62: quelque titre'})]},
 63 : {"title": "Description in Multiple Languages", 'mfprops': [('description', {'en':'description here','fr':'on le decrit ici'})]},
 64 : {"title": "Description in HTML", 'mfprops':[('description', {'en html': '<span>Some HTML</span>'})]},
-65 : {"title": "Sequence with start_canvas", 'seqprops':[('start_canvas', "http://iiif.io/api/presentation/2.0/example/fixtures/canvas/65/c1.json")]},
+65 : {"title": "Sequence with startCanvas", 'seqprops':[('startCanvas', "http://iiif.io/api/presentation/2.0/example/fixtures/canvas/65/c1.json")]},
 
 }
 
@@ -110,20 +105,15 @@ testInfo = {
 # To Do
 
 todo = {
-
-
 40 : {"title": "Partial Image with CSS Rotation"},
 42 : {"title": "Non Rectangular Partial Image"},
-
 49 : {"title": "XML with XPointer Transcription on Segment"},
-
 50 : {"title": "Non Rectangular Transcription Segment"},
 53 : {"title": "Embedded Comment on a Non-Rectangular Segment", 'annoBody': fac.text("Comment"), 'annoMotivation': 'oa:commenting'},
 
 # Following need new resources
 55 : {"title": "Audio Transcription on Segment"},
 56 : {"title": "Video Transcription on Segment"},
-
 57 : {"title": "Multiple Texts in Named Layers"},
 58 : {"title": "Basic ToC via Ranges"},
 59 : {"title": "Overlapping/Hierarchical Ranges"},
@@ -371,7 +361,6 @@ for (idn, info) in testInfo.items():
 
 	mf.toFile(compact=False)
 	manifests[idn] = mf
-
 
 
 coln.toFile(compact=False)

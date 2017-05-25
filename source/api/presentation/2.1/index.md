@@ -65,7 +65,7 @@ The following are within the scope of the current document:
 The following are __not__ within scope:
 
   * The discovery or selection of interesting digitized objects is not directly supported; however hooks to reference further resources are available.
-  * Search within the object is not supported by the Presentation API; however this will be covered by a future IIIF specification.
+  * Search within the object is described by the [IIIF Content Search API][search-api].
 
 Note that in the following descriptions, "object" (or "physical object") is used to refer to a physical object that has been digitized or a born-digital compound object, and "resources" refer to the digital resources that are the result of that digitization or digital creation process.
 
@@ -282,12 +282,12 @@ A hint to the client as to the most appropriate method of displaying the resourc
 > | Value | Description |
 | ----- | ----------- |
 | `individuals` | Valid on collection, manifest, sequence and range. When used as the viewingHint of a collection, the client should treat each of the manifests as distinct individual objects. For manifest, sequence and range, the canvases referenced are all distinct individual views, and _SHOULD NOT_ be presented in a page-turning interface. Examples include a gallery of paintings, a set of views of a 3 dimensional object, or a set of the front sides of photographs in a collection. |
-| `paged` | Valid on manifest, sequence and range. The canvases represent pages in a bound volume, and _SHOULD_ be presented in a page-turning interface if one is available.  The first canvas is a single view (the first recto) and thus the second canvas represents the back of the object in the first canvas. |
-| `continuous` | Valid on manifest, sequence and range.  Each canvas is a partial view and an appropriate rendering might display either the canvases individually, or all of the canvases virtually stitched together in the display.  Examples when this would be appropriate include long scrolls, rolls, or objects designed to be displayed adjacent to each other.  If this `viewingHint` is present, then the resource _MUST_ also have a `viewingDirection` which will determine the arrangement of the canvases. Note that this does not allow for both sides of a scroll to be included in the same manifest with this `viewingHint`.  To accomplish that, the manifest should be "individuals" and have two ranges, one for each side, which are "continuous".  |
-| `multi-part` | Valid only for collections. Collections with this hint consist of multiple manifests that each form part of a logical whole. Clients might render the collection as a table of contents, rather than with thumbnails. Examples include multi-volume books or a set of journal issues or other serials. |
-| `non-paged` | Canvases with this hint _MUST NOT_ be presented in a page turning interface, and _MUST_ be skipped over when determining the page sequence. This viewing hint _MUST_ be ignored if the current sequence or manifest does not have the 'paged' viewing hint. |
-| `top` | Only valid on a range. A range which has this `viewingHint` is the top-most node in a hierarchy of ranges that represents a structure to be rendered by the client to assist in navigation. For example, a table of contents within a paged object, major sections of a 3d object, the textual areas within a single scroll, and so forth.  Other ranges that are descendants of the "top" range are the entries to be rendered in the navigation structure.  There _MAY_ be multiple ranges marked with this hint. If so, the client _SHOULD_ display a choice of multiple structures to navigate through. |
-| `facing-pages` | Canvases with this hint, in a sequence or manifest with the "paged" viewing hint, _MUST_ be displayed by themselves, as they depict both parts of the opening.  If all of the canvases are like this, then page turning is not possible, so simply use "individuals" instead. |
+| `paged` | Valid on manifest, sequence and range. Canvases with this `viewingHint` represent pages in a bound volume, and _SHOULD_ be presented in a page-turning interface if one is available.  The first canvas is a single view (the first recto) and thus the second canvas represents the back of the object in the first canvas. |
+| `continuous` | Valid on manifest, sequence and range.  A canvas with this `viewingHint` is a partial view and an appropriate rendering might display either the canvases individually, or all of the canvases virtually stitched together in the display.  Examples when this would be appropriate include long scrolls, rolls, or objects designed to be displayed adjacent to each other.  If this `viewingHint` is present, then the resource _MUST_ also have a `viewingDirection` which will determine the arrangement of the canvases. Note that this does not allow for both sides of a scroll to be included in the same manifest with this `viewingHint`.  To accomplish that, the manifest should be "individuals" and have two ranges, one for each side, which are "continuous".  |
+| `multi-part` | Valid only for collections. Collections with this `viewingHint` consist of multiple manifests that each form part of a logical whole. Clients might render the collection as a table of contents, rather than with thumbnails. Examples include multi-volume books or a set of journal issues or other serials. |
+| `non-paged` | Valid only for canvases. Canvases with this `viewingHint` _MUST NOT_ be presented in a page turning interface, and _MUST_ be skipped over when determining the page sequence. This viewing hint _MUST_ be ignored if the current sequence or manifest does not have the 'paged' viewing hint. |
+| `top` | Valid only for ranges. A Range with this `viewingHint` is the top-most node in a hierarchy of ranges that represents a structure to be rendered by the client to assist in navigation. For example, a table of contents within a paged object, major sections of a 3d object, the textual areas within a single scroll, and so forth.  Other ranges that are descendants of the "top" range are the entries to be rendered in the navigation structure.  There _MAY_ be multiple ranges marked with this hint. If so, the client _SHOULD_ display a choice of multiple structures to navigate through. |
+| `facing-pages` | Valid only for canvases. Canvases with this `viewingHint`, in a sequence or manifest with the "paged" viewing hint, _MUST_ be displayed by themselves, as they depict both parts of the opening.  If all of the canvases are like this, then page turning is not possible, so simply use "individuals" instead. |
 {: .api-table}
 
 
@@ -531,7 +531,7 @@ The example below includes only the manifest-level information, however actual i
   "navDate": "1856-01-01T00:00:00Z",
 
   // Rights Information
-  "license": "http://example.org/license.html",
+  "license": "http://rightsstatements.org/vocab/NoC-NC/1.0/",
   "attribution": "Provided by Example Organization",
 
   "logo": {
@@ -661,9 +661,14 @@ Canvases _MAY_ be dereferenced separately from the manifest via their URIs, and 
   "@id": "http://example.org/iiif/book1/canvas/p1",
   "@type": "sc:Canvas",
   "label": "p. 1",
-  "height":1000,
-  "width":750,
-
+  "height": 1000,
+  "width": 750,
+  "thumbnail" : {
+    "@id" : "http://example.org/iiif/book1/canvas/p1/thumb.jpg",
+    "@type": "dctypes:Image",
+    "height": 200,
+    "width": 150
+  },
   "images": [
     {
       "@type": "oa:Annotation"
@@ -808,7 +813,7 @@ References to canvases, or rectangular parts of a canvas, within the current ran
 A combined list of both ranges and canvases.  If the range contains both other ranges and canvases, and the ordering of the different types of resource is significant, the range _SHOULD_ instead use the `members` property.  The property's value is an array of canvases, parts of canvases or other ranges.  Each item in the array _MUST_ be an object, and it _MUST_ have the `@id`, `@type`, and `label` properties.
 
 
-A range will typically include one or more canvases or, unlike sequences, parts of canvases. The part must be rectangular, and is given using the `xywh=` fragment approach. This allows for selecting, for example, the areas within two newspaper pages where an article is located.
+A range will typically include one or more canvases or, unlike sequences, parts of canvases. The part must be rectangular, and is given using the `xywh=` fragment approach. This allows for selecting, for example, the areas within two newspaper pages where an article is located. An empty range, with no member resources, is allowed but discouraged. The reason for the empty range could be described in the `label` property, or in the `description` property for more discursive text.
 
 In order to present a table of the different ranges to allow a user to select one, every range _MUST_ have a label and the top most range in the table _SHOULD_ have a `viewingHint` with the value "top". A range that is the top of a hierarchy does not need to list all of the canvases in the sequence, and _SHOULD_ only give the list of ranges below it.  Ranges _MAY_ also have any of the other properties defined in this specification, including the `startCanvas` relationship to the first canvas within the range to start with, if it is not the first listed in `canvases` or `members`.
 
@@ -872,7 +877,7 @@ Ranges _MAY_ also link to a layer, described in the next section, that has the c
 ```
 
 __Deprecation Warning__
-The `canvases` and `ranges` properties are likely to be removed in version 3.0 in favor of the single `members` property. Until that time, if a client sees a `members` property, it should use that property even if `canvases` and/or `ranges` are also present. However, publishing systems should be aware that Presentation API version 2.0-compliant clients will not produce the expected results if they use `members` and do not provide a fall back with `canvases` and `ranges`.  Publishing systems should only use `members` when it is important to have a single ordered list that contains both canvases and ranges.  Feedback on this deprecation is [requested][iiif-discuss].
+Several issues have arisen with respect to the current specification for ranges, and a new pattern is anticipated in API version 3.0 to address these concerns. Feedback on this deprecation is [requested][iiif-discuss].
 {: .warning}
 
 ###  5.7. Layer
@@ -1211,7 +1216,7 @@ Instead of referencing transcription text externally, it is often easier to reco
 Content _MAY_ be embedded instead of referenced by using the following pattern within the annotation block:
 
 ``` json-doc
-{"resource": {"@type": "cnt:ContextAsText", "chars": "text here"}}
+{"resource": {"@type": "cnt:ContentAsText", "chars": "text here"}}
 ```
 
 The media type _SHOULD_ be provided using the `format` field, and while any media type is possible, it is _RECOMMENDED_ that `text/plain` or `text/html` be used to maximize compatibility.
@@ -1273,11 +1278,11 @@ This can be used to model foldouts and other dynamic features of a page, by asso
 
 ###  6.4. Non Rectangular Segments
 
-The [Scalable Vector Graphics][svg] standard (SVG) is used to describe non-rectangular areas of canvas or image resources. While SVG can, of course, describe rectangles this is _NOT RECOMMENDED_, and either the [IIIF Image API][image-api] or the `xywh` bounding box described above _SHOULD_ be used instead.  This is recognized as an advanced use case and that clients may not support it.
-
-In this pattern, the resource of the annotation is a "oa:SpecificResource" which has the complete image referenced in a `full` field and the SVG embedded in a `selector` field (as the SVG selects the part of the image needed). The SVG document is embedded using the same `ContentAsText` approach as for embedding comments or transcriptions.
+The [Scalable Vector Graphics][svg] standard (SVG) is used to describe non-rectangular, and rotated rectangular, areas of canvas or image resources. In this pattern, the resource of the annotation is a "oa:SpecificResource" which has the complete image referenced in a `full` field and the SVG embedded in a `selector` field (as the SVG selects the part of the image needed). The SVG document is embedded using the same `ContentAsText` approach as for embedding comments or transcriptions.
 
 If the section of an image is mapped to part of a canvas, as in the example below, then the target in `on` _MUST_ be the rectangular bounding box in which the SVG viewport should be placed. If the entire canvas is the target, then the SVG viewport is assumed to cover the entire canvas. If the dimensions of the viewport and the bounding box or canvas are not the same, then the SVG _MUST_ be scaled such that it covers the region. This may result in different scaling ratios for the X and Y dimensions.
+
+SVG _SHOULD NOT_ be used to describe non-rotated rectangular regions. The [IIIF Image API][image-api] or the `xywh` bounding box described above _SHOULD_ be used instead.
 
 ``` json-doc
 {
@@ -1313,7 +1318,7 @@ In the example below, the text should be colored red.
   "@type": "oa:Annotation",
   "motivation": "sc:painting",
   "stylesheet":{
-    "@type": ["oa:CssStyle", "cnt:ContextAsText"],
+    "@type": ["oa:CssStyle", "cnt:ContentAsText"],
     "chars": ".red {color: red;}"
   },
   "resource":{
@@ -1340,7 +1345,7 @@ CSS may also be used for rotation of images which are not correctly aligned with
   "@type": "oa:Annotation",
   "motivation": "sc:painting",
   "stylesheet":{
-    "@type": ["oa:CssStyle", "cnt:ContextAsText"],
+    "@type": ["oa:CssStyle", "cnt:ContentAsText"],
     "chars": ".rotated {transform-origin: top left; transform: rotate(-45deg);}"
   },
   "resource":{
@@ -1629,7 +1634,7 @@ __Protocol Behavior__
 | Manifest       | ![required][icon-req]  |
 | Sequence (first)   | ![optional][icon-opt]  |
 | Sequence (second+) | ![required][icon-req]  |
-| Canvas         | ![recommended][icon-recc]  |
+| Canvas         | ![optional][icon-opt]  |
 | Annotation     | ![recommended][icon-recc]  |
 | AnnotationList | ![required][icon-req]  |
 | Range          | ![optional][icon-opt]  |
@@ -1660,7 +1665,7 @@ URL: _http://example.org/iiif/book1/manifest_
   "description": "A longer description of this example book. It should give some real information.",
   "navDate": "1856-01-01T00:00:00Z",
 
-  "license": "http://example.org/license.html",
+  "license": "https://creativecommons.org/publicdomain/zero/1.0/",
   "attribution": "Provided by Example Organization",
   "service": {
     "@context": "http://example.org/ns/jsonld/context.json",
@@ -1842,6 +1847,7 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
 [shared-canvas]: /model/shared-canvas/{{ site.shared_canvas.latest.major}}.{{ site.shared_canvas.latest.minor }} "Shared Canvas Data Model"
 [image-api]: /api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/ "Image API"
+[search-api]: /api/search/{{ site.search_api.latest.major }}.{{ site.search_api.latest.minor }}/ "Content Search API"
 [annex]: /api/annex/services/ "Services Annex Document"
 [change-log]: /api/presentation/2.1/change-log/ "Presentation API 2.1 Change Log"
 [change-log-20]: /api/presentation/2.0/change-log/ "Presentation API 2.0 Change Log"
