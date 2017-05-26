@@ -21,7 +21,7 @@ Many thanks to the 70 institutions who have completed the [Basic IIIF Adopters S
     * 51 institutions are currently using either version 1.X or 2.X of the IIIF Image API
     * 34 institutions are investigating or developing support for the IIIF Image API
  * **Presentation API:**
-    * 39 institutions have adopted either version 1.X or 2.X of the IIIF Presentation API
+    * 42 institutions have adopted either version 1.X or 2.X of the IIIF Presentation API
     * 39 institutions are currently investigating or developing support for the IIIF Presentation API
  * **Content Search API:**
     * According to the survey, five institutions support the IIIF Content Search API in production: The British Library, North Carolina State University (NCSU), University College Dublin, the National Library of Wales, and the Wellcome Trust.
