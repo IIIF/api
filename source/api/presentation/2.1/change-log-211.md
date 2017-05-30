@@ -69,6 +69,10 @@ See issue [#1118](https://github.com/IIIF/iiif.io/issues/1118)
 There were several typos for `ContentAsText` in the example JSON documents. These were corrected.
 See issue [#1139](https://github.com/IIIF/iiif.io/issues/1139)
 
+### 1.10. Typos for Image Profile URI
+
+There were two typos for the Image Profile URI that included an extra `profiles` path component. These were corrected.  See issue [#1170](https://github.com/IIIF/iiif.io/issues/1170)
+
 
 ## 2. Changes to Non-Semantically-Versioned Documents
 

@@ -539,7 +539,7 @@ The example below includes only the manifest-level information, however actual i
     "service": {
         "@context": "http://iiif.io/api/image/2/context.json",
         "@id": "http://example.org/service/inst1",
-        "profile": "http://iiif.io/api/image/2/profiles/level2.json"
+        "profile": "http://iiif.io/api/image/2/level2.json"
     }
   },
 
@@ -724,7 +724,7 @@ Only the annotations that associate images or parts of images are included in th
     "service": {
       "@context": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
       "@id": "http://example.org/images/book1-page1",
-      "profile": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/profiles/level2.json"
+      "profile": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/level2.json"
     },
     "height":2000,
     "width":1500
