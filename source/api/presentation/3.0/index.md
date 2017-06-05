@@ -3,6 +3,7 @@ title: "Presentation API 3.0 ALPHA DRAFT"
 title_override: "IIIF Presentation API 3.0 ALPHA DRAFT"
 id: presentation-api
 layout: spec
+cssversion: 2
 tags: [specifications, presentation-api]
 major: 3
 minor: 0
@@ -129,15 +130,15 @@ An ordered list of manifests, and/or further collections.  Collections allow eas
 Content resources and commentary are associated with a canvas via an annotation.  This provides a single, coherent method for aligning information, and provides a standards based framework for distinguishing parts of resources and parts of canvases.  As annotations can be added later, it promotes a distributed system in which publishers can align their content with the descriptions created by others.
 
 ##### AnnotationPage
-{: #overview-annotationlist}
+{: #overview-annotationpage}
 
 An ordered list of annotations in a single response, typically associated with a single canvas, and can be part of an AnnotationCollection.
 {: .changed}
 
 ##### AnnotationCollection
-{: #overview-layer}
+{: #overview-annotationcollection}
 
-An ordered list of Annotation Pages.  Layers allow higher level groupings of annotations to be recorded. For example, all of the English translation annotations of a medieval French document could be kept separate from the transcription or an edition in modern French.
+An ordered list of Annotation Pages.  AnnotationCollections allow higher level groupings of annotations to be recorded. For example, all of the English translation annotations of a medieval French document could be kept separate from the transcription or an edition in modern French.
 {: .changed}
 
 ##### Range
@@ -165,8 +166,8 @@ A human readable label, name or title for the resource. This property is intende
  * A sequence  _MAY_ have one or more labels, and if there are multiple sequences in a single manifest then they _MUST_ each have at least one label.
  * A canvas _MUST_ have at least one label, such as the page number or short description of the view.
  * A content resource _MAY_ have one or more labels, and if there is a choice of content resource for the same canvas, then they _SHOULD_ each have at least one label.
- * A range _MUST_ have at least one label.
- * A layer _MUST_ have at least one label.
+ * A range _SHOULD_ have at least one label. {: .changed}
+ * An annotation collection _MUST_ have at least one label.
  * Other resource types _MAY_ have labels.
 
 ##### metadata
@@ -204,10 +205,13 @@ Text that _MUST_ be shown when the resource it is associated with is displayed o
 
  * Any resource type _MAY_ have one or more attribution labels.
 
-##### license
+##### rights
+{: .changed} 
+
 A link to an external resource that describes the license or rights statement under which the resource may be used. The rationale for this being a URI and not a human readable label is that typically there is one license for many resources, and the text is too long to be displayed to the user along with the object. If displaying the text is a requirement, then it is _RECOMMENDED_ to include the information using the `attribution` property instead.
 
- * Any resource type _MAY_ have one or more licenses associated with it.
+ * Any resource type _MAY_ have one or more rights statements or licenses associated 
+ with it.
 
 ##### logo
 A small image that represents an individual or organization associated with the resource it is attached to.  This could be the logo of the owning or hosting institution. The logo _MUST_ be clearly rendered when the resource is displayed or used, without cropping, rotating or otherwise distorting the image. It is _RECOMMENDED_ that a [IIIF Image API][image-api] service be available for this image for manipulations such as resizing.
@@ -216,8 +220,10 @@ A small image that represents an individual or organization associated with the 
 
 ####  3.3. Technical Properties
 
-##### @id
-The URI that identifies the resource. It is _RECOMMENDED_ that an HTTP URI be used for all resources. Recommended HTTP URI patterns for the different classes of resource are given below.  URIs from any [registered scheme][iana-uri-schemes] _MAY_ be used, and implementers may find it convenient to use a [UUID URN][rfc-4122] of the form: `"urn:uuid:uuid-goes-here-1234"`.  Resources that do not require URIs _MAY_ be assigned [blank node identifiers][rdf11-blank-nodes]; this is the same as omitting `@id`.
+##### id
+{: .changed}
+
+The URI that identifies the resource. It is _RECOMMENDED_ that an HTTP URI be used for all resources. Recommended HTTP URI patterns for the different classes of resource are given below.  URIs from any [registered scheme][iana-uri-schemes] _MAY_ be used, and implementers may find it convenient to use a [UUID URN][rfc-4122] of the form: `"urn:uuid:uuid-goes-here-1234"`.  Resources that do not require URIs _MAY_ be assigned [blank node identifiers][rdf11-blank-nodes]; this is the same as omitting `id`.
 
  * A collection _MUST_ have exactly one id, and it _MUST_ be the http(s) URI at which it is published.
  * A manifest _MUST_ have exactly one id, and it _MUST_ be the http(s) URI at which it is published.
@@ -225,13 +231,15 @@ The URI that identifies the resource. It is _RECOMMENDED_ that an HTTP URI be us
  * A canvas _MUST_ have exactly one id, and it _MUST_ be an http(s) URI.  The canvas's JSON representation _SHOULD_ be published at that URI.
  * A content resource _MUST_ have exactly one id unless it is embedded in the response, and it _MUST_ be the http(s) URI at which the resource is published.
  * A range _MUST_ have exactly one id, and it _MUST_ be an http(s) URI.
- * A layer _MUST_ have exactly one id, and it _MUST_ be an http(s) URI.
- * An annotation list _MUST_ have exactly one id, and it _MUST_ be the http(s) URI at which it is published.
- * An annotation _SHOULD_ have exactly one id, _MUST NOT_ have more than one, and the annotation's representation _SHOULD_ be published at that URI.
+ * An annotation collection _MUST_ have exactly one id, and it _MUST_ be an http(s) URI.
+ * An annotation page _MUST_ have exactly one id, and it _MUST_ be the http(s) URI at which it is published.
+ * An annotation _MUST_ have exactly one id, and the annotation's representation _SHOULD_ be published at that URI. {: .changed}
 
 
-##### @type
-The type of the resource.  For the resource types defined by this specification, the value of `@type` will be described in the sections below.  For content resources, the type may be drawn from other vocabularies. Recommendations for basic types such as image, text or audio are also given in the sections below.
+##### type
+{: .changed}
+
+The type of the resource.  For the resource types defined by this specification, the value of `type` will be described in the sections below.  For content resources, the type may be drawn from other vocabularies. Recommendations for basic types such as image, text or audio are also given in the sections below.
 
  * All resource types _MUST_ have at least one type specified.
 
@@ -246,18 +254,25 @@ The specific media type (often called a MIME type) of a content resource, for ex
 This is different to the `formats` property in the [Image API][image-api], which gives the extension to use within that API.  It would be inappropriate to use in this case, as `format` can be used with any content resource, not just images.
 
 ##### height
-The height of a canvas or image resource. For images, the value is in pixels. For canvases, the value does not have a unit. In combination with the width, it conveys an aspect ratio for the space in which content resources are located.
+The height of a canvas or content resource. For content resources, the value is in pixels. For canvases, the value does not have a unit. In combination with the width, it conveys an aspect ratio for the space in which content resources are located.
 
- * A canvas _MUST_ have exactly one height.
+ * A canvas _SHOULD_ have exactly one height, and _MUST NOT_ have more than one. {: .changed}
  * Content resources _MAY_ have exactly one height, given in pixels, if appropriate.
  * Other resource types _MUST NOT_ have a height.
 
 ##### width
-The width of a canvas or image resource. For images, the value is in pixels. For canvases, the value does not have a unit. In combination with the height, it conveys an aspect ratio for the space in which content resources are located.
+The width of a canvas or content resource. For content resources, the value is in pixels. For canvases, the value does not have a unit. In combination with the height, it conveys an aspect ratio for the space in which content resources are located.
 
- * A canvas _MUST_ have exactly one width.
+ * A canvas _SHOULD_ have exactly one width, and _MUST NOT_ have more than one. {: .changed}
  * Content resources _MAY_ have exactly one width, given in pixels, if appropriate.
  * Other resource types _MUST NOT_ have a width.
+
+##### duration
+The duration of a canvas or content resource, given in seconds. 
+
+ * A canvas _MAY_ have exactly one duration, and _MUST NOT_ have more than one.
+ * Content resources _MAY_ have exactly one duration, and _MUST NOT_ have more than one.
+ * Other resource types _MUST NOT_ have a duration.
 
 ##### viewingDirection
 The direction that a sequence of canvases _SHOULD_ be displayed to the user. Possible values are specified in the table below.
