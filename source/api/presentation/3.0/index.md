@@ -26,7 +26,7 @@ __Previous Version:__ [2.1.1][prev-version]
 
   * **[Michael Appleby](https://orcid.org/0000-0002-1266-298X)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0002-1266-298X), [_Yale University_](http://www.yale.edu/)
   * **[Tom Crane](https://orcid.org/0000-0003-1881-243X)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0003-1881-243X), [_Digirati_](http://digirati.com/)
-  * **[Robert Sanderson](https://orcid.org/0000-0003-4441-6852)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0003-4441-6852), [_J. Paul Getty Trust_](http://getty.edu/)
+  * **[Robert Sanderson](https://orcid.org/0000-0003-4441-6852)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0003-4441-6852), [_J. Paul Getty Trust_](http://www.getty.edu/)
   * **[Jon Stroop](https://orcid.org/0000-0002-0367-1243)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0002-0367-1243), [_Princeton University Library_](https://library.princeton.edu/)
   * **[Simeon Warner](https://orcid.org/0000-0002-7970-7855)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0002-7970-7855), [_Cornell University_](https://www.cornell.edu/)
   {: .names}
@@ -310,20 +310,20 @@ A hint to the client as to the most appropriate method of displaying the resourc
 
 > | Value | Description |
 | ----- | ----------- |
-| `individuals` | Valid on collection, manifest, sequence and range. When used as the viewingHint of a collection, the client should treat each of the manifests as distinct individual objects. For manifest, sequence and range, the canvases referenced are all distinct individual views, and _SHOULD NOT_ be presented in a page-turning interface. Examples include a gallery of paintings, a set of views of a 3 dimensional object, or a set of the front sides of photographs in a collection. |
-| `paged` | Valid on manifest, sequence and range. The canvases represent pages in a bound volume, and _SHOULD_ be presented in a page-turning interface if one is available.  The first canvas is a single view (the first recto) and thus the second canvas represents the back of the object in the first canvas. |
-| `continuous` | Valid on manifest, sequence and range.  Each canvas is a partial view and an appropriate rendering might display either the canvases individually, or all of the canvases virtually stitched together in the display.  Examples when this would be appropriate include long scrolls, rolls, or objects designed to be displayed adjacent to each other.  If this `viewingHint` is present, then the resource _MUST_ also have a `viewingDirection` which will determine the arrangement of the canvases. Note that this does not allow for both sides of a scroll to be included in the same manifest with this `viewingHint`.  To accomplish that, the manifest should be "individuals" and have two ranges, one for each side, which are "continuous".  |
-| `multi-part` | Valid only for collections. Collections with this hint consist of multiple manifests that each form part of a logical whole. Clients might render the collection as a table of contents, rather than with thumbnails. Examples include multi-volume books or a set of journal issues or other serials. |
-| `non-paged` | Canvases with this hint _MUST NOT_ be presented in a page turning interface, and _MUST_ be skipped over when determining the page sequence. This viewing hint _MUST_ be ignored if the current sequence or manifest does not have the 'paged' viewing hint. |
-| `top` | Only valid on a range. A range which has this `viewingHint` is the top-most node in a hierarchy of ranges that represents a structure to be rendered by the client to assist in navigation. For example, a table of contents within a paged object, major sections of a 3d object, the textual areas within a single scroll, and so forth.  Other ranges that are descendants of the "top" range are the entries to be rendered in the navigation structure.  There _MAY_ be multiple ranges marked with this hint. If so, the client _SHOULD_ display a choice of multiple structures to navigate through. |
-| `facing-pages` | Canvases with this hint, in a sequence or manifest with the "paged" viewing hint, _MUST_ be displayed by themselves, as they depict both parts of the opening.  If all of the canvases are like this, then page turning is not possible, so simply use "individuals" instead. |
-| `none` | Valid for AnnotationCollections, AnnotationPages, Annotations, SpecificResources, or Choices. If this hint is provided, then the client should not render the resource by default, but allow the user to turn it on and off.|
-| `auto-advance` | Valid for Collection, Manifest, Sequence and Canvas. When the client reaches the end of a Canvas with a duration dimension that has (or is within a resource that has) this `viewingHint`, it _SHOULD_ immediately proceed to the next Canvas and render it. If there is no subsequent Canvas in the current context, then this `viewingHint` should be ignored. When applied to a Collection, the client should treat the first Canvas of the next Manifest as following the last Canvas of the previous Manifest, respecting any `startCanvas` specified.|
-| `together` | Collections. A client _SHOULD_ present all of the child manifests to the user at once in a separate viewing area with its own controls. Clients _SHOULD_ catch attempts to create too many viewing areas and not do that. The `together` value _SHOULD NOT_ be interpreted as applying to the members of children.|
+| `individuals` | Valid on Collection, Manifest, Sequence and Range. When used as the `viewingHint` of a Collection, the client should treat each of the manifests as distinct individual objects. For manifest, sequence and range, the canvases referenced are all distinct individual views, and _SHOULD NOT_ be presented in a page-turning interface. Examples include a gallery of paintings, a set of views of a 3 dimensional object, or a set of the front sides of photographs in a collection. |
+| `paged` | Valid on Manifest, Sequence and Range. Canvases with this `viewingHint` represent pages in a bound volume, and _SHOULD_ be presented in a page-turning interface if one is available.  The first canvas is a single view (the first recto) and thus the second canvas represents the back of the object in the first canvas. |
+| `continuous` | Valid on Manifest, Sequence and Range.  A canvas with this `viewingHint` is a partial view and an appropriate rendering might display either the canvases individually, or all of the canvases virtually stitched together in the display.  Examples when this would be appropriate include long scrolls, rolls, or objects designed to be displayed adjacent to each other.  If this `viewingHint` is present, then the resource _MUST_ also have a `viewingDirection` which will determine the arrangement of the canvases. Note that this does not allow for both sides of a scroll to be included in the same manifest with this `viewingHint`.  To accomplish that, the manifest should be "individuals" and have two ranges, one for each side, which are "continuous".  |
+| `multi-part` | Valid only for Collections. Collections with this `viewingHint` consist of multiple manifests that each form part of a logical whole. Clients might render the collection as a table of contents, rather than with thumbnails. Examples include multi-volume books or a set of journal issues or other serials. |
+| `non-paged` | Valid only for Canvases. Canvases with this `viewingHint` _MUST NOT_ be presented in a page turning interface, and _MUST_ be skipped over when determining the page sequence. This viewing hint _MUST_ be ignored if the current sequence or manifest does not have the 'paged' viewing hint. |
+| `top` | Valid only for Ranges. A Range with this `viewingHint` is the top-most node in a hierarchy of ranges that represents a structure to be rendered by the client to assist in navigation. For example, a table of contents within a paged object, major sections of a 3d object, the textual areas within a single scroll, and so forth.  Other ranges that are descendants of the "top" range are the entries to be rendered in the navigation structure.  There _MAY_ be multiple ranges marked with this hint. If so, the client _SHOULD_ display a choice of multiple structures to navigate through. |
+| `facing-pages` | Valid only for Canvases. Canvases with this `viewingHint`, in a sequence or manifest with the "paged" viewing hint, _MUST_ be displayed by themselves, as they depict both parts of the opening.  If all of the canvases are like this, then page turning is not possible, so simply use "individuals" instead. |
+| `none` | Valid on annotation collection, annotation pages, annotations, SpecificResources, or Choices. If this hint is provided, then the client should not render the resource by default, but allow the user to turn it on and off.|
+| `auto-advance` | Valid on Collection, Manifest, Sequence and Canvas. When the client reaches the end of a Canvas with a duration dimension that has (or is within a resource that has) this `viewingHint`, it _SHOULD_ immediately proceed to the next Canvas and render it. If there is no subsequent Canvas in the current context, then this `viewingHint` should be ignored. When applied to a Collection, the client should treat the first Canvas of the next Manifest as following the last Canvas of the previous Manifest, respecting any `startCanvas` specified.|
+| `together` | Valid only for Collections. A client _SHOULD_ present all of the child manifests to the user at once in a separate viewing area with its own controls. Clients _SHOULD_ catch attempts to create too many viewing areas and not do that. The `together` value _SHOULD NOT_ be interpreted as applying to the members of children.|
 {: .api-table}
 
 ##### choiceHint
-{ .changed}
+{: .changed}
 
 A hint associated with a Choice resource that a client can use to determine the publisher's intent as to which agent _SHOULD_ make the choice between the different options.  In the absence of any `choiceHint` value, the rendering application can use any algorithm or process to make the determination.
 
@@ -333,7 +333,7 @@ A hint associated with a Choice resource that a client can use to determine the 
 | `user` | The client software is expected to present an interface to allow the user to explicitly select an option. |
 
 ##### timeMode
-{ .changed}
+{: .changed}
 
 A mode associated with an annotation that is to be applied to the rendering of any time-based media used as a body resource of that annotation. Note that the association of `timeMode` with the annotation means that different resources in the body cannot have different values.
 
@@ -342,7 +342,6 @@ A mode associated with an annotation that is to be applied to the rendering of a
 | `trim` | (default, if not supplied) If the content resource has a longer duration than the duration of portion of the canvas it is associated with, then at the end of the canvas's duration, the playback of the content resource _MUST_ also end. If the content resource has a shorter duration than the duration of the portion of the canvas it is associated with, then, for video resources, the last frame _SHOULD_ persist on-screen until the end of the canvas portion's duration. For example, a video of 120 seconds annotated to a canvas with a duration of 100 seconds would play only the first 60 seconds at normal speed. |
 | `scale` | Fit the duration of content resource to the duration of the portion of the canvas it is associated with by scaling. For example, a video of 120 seconds annotated to a canvas with a duration of 60 seconds would be played at double-speed. |
 | `loop` | If the content resource is shorter than the `duration` of the canvas, it _MUST_ be repeated to fill the entire duration. Resources longer than the `duration` _MUST_ be trimmed as described above. For example, if a 20 second duration audio stream is annotated onto a canvas with duration 30 seconds, it will be played one and a half times. |
-
 
 
 ####  3.4. Linking Properties
@@ -356,7 +355,6 @@ A link to an external resource intended to be displayed directly to the user, an
 A link to an external resource intended for display or download by a human user. This property can be used to link from a manifest, collection or other resource to the preferred viewing environment for that resource, such as a viewer page on the publisher's web site. Other uses include a rendering of a manifest as a PDF or EPUB with the images and text of the book, or a slide deck with images of the museum object. A label and the format of the rendering resource _MUST_ be supplied to allow clients to present the option to the user.
 
  * Any resource type _MAY_ have one or more external rendering resources.
-
 
 ##### service
 A link to a service that makes more functionality available for the resource, such as from an image to the base URI of an associated [IIIF Image API][image-api] service. The service resource _SHOULD_ have additional information associated with it in order to allow the client to determine how to make appropriate use of it, such as a `profile` link to a service description. It _MAY_ also have relevant information copied from the service itself. This duplication is permitted in order to increase the performance of rendering the object without necessitating additional HTTP requests. Please see the [Service Profiles][annex] document for known services.
@@ -389,14 +387,14 @@ A link from a range to a layer that includes the annotations of content resource
 ####  3.5. Paging Properties
 
 ##### first
-A link from a resource with pages, such as a collection or layer, to its first page resource, another collection or an annotation list respectively. The page resource _SHOULD_ be referenced by just its URI (from `@id`) but _MAY_ also have more information associated with it as an object.
+A link from a resource with pages, such as a Collection or Annotation Collection, to its first page resource, another collection or an annotation list respectively. The page resource _SHOULD_ be referenced by just its URI (from `id`) but _MAY_ also have more information associated with it as an object.
 
  * A collection _MAY_ have exactly one collection as its first page.
  * A layer _MAY_ have exactly one annotation list as its first page.
  * Other resource types _MUST NOT_ have a first page.
 
 ##### last
-A link from a resource with pages to its last page resource. The page resource _SHOULD_ be referenced by just its URI (from `@id`) but _MAY_ also have more information associated with it as an object.
+A link from a resource with pages to its last page resource. The page resource _SHOULD_ be referenced by just its URI (from `id`) but _MAY_ also have more information associated with it as an object.
 
  * A collection _MAY_ have exactly one collection as its last page.
  * A layer _MAY_ have exactly one annotation list as its last page.
@@ -410,14 +408,14 @@ The total number of leaf resources, such as annotations within a layer, within a
  * Other resource types _MUST NOT_ have a total.
 
 ##### next
-A link from a page resource to the next page resource that follows it in order. The resource _SHOULD_ be referenced by just its URI (from `@id`) but _MAY_ also have more information associated with it as an object.
+A link from a page resource to the next page resource that follows it in order. The resource _SHOULD_ be referenced by just its URI (from `id`) but _MAY_ also have more information associated with it as an object.
 
  * A collection _MAY_ have exactly one collection as its next page.
  * An annotation list _MAY_ have exactly one annotation list as its next page.
  * Other resource types _MUST NOT_ have next pages.
 
 ##### prev
-A link from a page resource to the previous page resource that precedes it in order. The resource _SHOULD_ be referenced by just its URI (from `@id`) but _MAY_ also have more information associated with it as an object.
+A link from a page resource to the previous page resource that precedes it in order. The resource _SHOULD_ be referenced by just its URI (from `id`) but _MAY_ also have more information associated with it as an object.
 
  * A collection _MAY_ have exactly one collection as its previous page.
  * An annotation list _MAY_ have exactly one annotation list as its previous page.
@@ -430,13 +428,20 @@ The 0 based index of the first included resource in the current page, relative t
  * An annotation list _MAY_ have exactly one startIndex, which _MUST_ be the index of its first annotation relative to the order established by its paging layer.
  * Other resource types _MUST NOT_ have a startIndex.
 
+#### 3.6. Structural Properties
+
+##### items
+
+##### structures
+
+
 ##  4. JSON-LD Considerations
 
 This section describes features applicable to all of the Presentation API content.  For the most part, these are features of the JSON-LD specification that have particular uses within the API.
 
 ### 4.1. URI Representation
 
-Resource descriptions _SHOULD_ be embedded within higher-level descriptions, and _MAY_ also be available via separate requests from http(s) URIs linked in the responses. These URIs are in the `@id` property for the resource. Links to resources _MAY_ be either given as just the URI if there is no additional information associated with them, or as a JSON object with the `@id` property. Other URI schemes _MAY_ be used if the resource is not able to be retrieved via HTTP. Both options provide the same URI, however the second pattern associates additional information with the resource:
+Resource descriptions _SHOULD_ be embedded within higher-level descriptions, and _MAY_ also be available via separate requests from http(s) URIs linked in the responses. These URIs are in the `id` property for the resource. Links to resources _MAY_ be either given as just the URI if there is no additional information associated with them, or as a JSON object with the `id` property. Other URI schemes _MAY_ be used if the resource is not able to be retrieved via HTTP. Both options provide the same URI, however the second pattern associates additional information with the resource:
 
 ``` json-doc
 // Option A, plain string
@@ -444,8 +449,8 @@ Resource descriptions _SHOULD_ be embedded within higher-level descriptions, and
 ```
 
 ``` json-doc
-// Option B, object with @id property
-{"seeAlso": {"@id": "http://example.org/descriptions/book1.xml", "format": "text/xml"}}
+// Option B, object with id property
+{"seeAlso": {"id": "http://example.org/descriptions/book1.xml", "format": "text/xml"}}
 ```
 
 ### 4.2. Repeated Properties
@@ -457,7 +462,7 @@ Many of the properties in the API _MAY_ be repeated. This is done by giving a li
   "seeAlso": [
     "http://example.org/descriptions/book1.md",
     "http://example.org/descriptions/book1.csv",
-    {"@id": "http://example.org/descriptions/book1.xml", "format": "text/xml"}
+    {"id": "http://example.org/descriptions/book1.xml", "format": "text/xml"}
   ]
 }
 ```
@@ -535,9 +540,9 @@ Recommended URI pattern:
 
 The manifest response contains sufficient information for the client to initialize itself and begin to display something quickly to the user. The manifest resource represents a single object and any intellectual work or works embodied within that object. In particular it includes the descriptive, rights and linking information for the object. It then embeds the sequence(s) of canvases that should be rendered to the user.
 
-The identifier in `@id` _MUST_ always be able to be dereferenced to retrieve the JSON description of the manifest, and thus _MUST_ use the http(s) URI scheme.
+The identifier in `id` _MUST_ always be able to be dereferenced to retrieve the JSON description of the manifest, and thus _MUST_ use the http(s) URI scheme.
 
-Along with the descriptive information, there is a `sequences` section, which is a list of JSON-LD objects. Each object describes a [Sequence][sequence], discussed in the next section, that represents the order of the parts of the work, each represented by a [Canvas][canvas].  The first such sequence _MUST_ be included within the manifest as well as optionally being available from its own URI. Subsequent sequences _MUST_ only be referenced with their identifier (`@id`), class (`@type`) and `label` and thus _MUST_ be dereferenced by clients in order to process them if the user selects to view that sequence.
+Along with the descriptive information, there is a `sequences` section, which is a list of JSON-LD objects. Each object describes a [Sequence][sequence], discussed in the next section, that represents the order of the parts of the work, each represented by a [Canvas][canvas].  The first such sequence _MUST_ be included within the manifest as well as optionally being available from its own URI. Subsequent sequences _MUST_ only be referenced with their identifier (`id`), class (`type`) and `label` and thus _MUST_ be dereferenced by clients in order to process them if the user selects to view that sequence.
 
 There _MAY_ also be a `structures` section listing one or more [Ranges][range] which describe additional structure of the content, such as might be rendered as a table of contents.
 
@@ -547,8 +552,8 @@ The example below includes only the manifest-level information, however actual i
 {
   // Metadata about this manifest file
   "@context": "http://iiif.io/api/presentation/2/context.json",
-  "@id": "http://example.org/iiif/book1/manifest",
-  "@type": "sc:Manifest",
+  "id": "http://example.org/iiif/book1/manifest",
+  "type": "sc:Manifest",
 
   // Descriptive metadata about the object/work
   "label": "Book 1",
@@ -565,10 +570,10 @@ The example below includes only the manifest-level information, however actual i
   ],
   "description": "A longer description of this example book. It should give some real information.",
   "thumbnail": {
-    "@id": "http://example.org/images/book1-page1/full/80,100/0/default.jpg",
+    "id": "http://example.org/images/book1-page1/full/80,100/0/default.jpg",
     "service": {
       "@context": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
-      "@id": "http://example.org/images/book1-page1",
+      "id": "http://example.org/images/book1-page1",
       "profile": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/level1.json"
     }
   },
@@ -583,31 +588,31 @@ The example below includes only the manifest-level information, however actual i
   "attribution": "Provided by Example Organization",
 
   "logo": {
-    "@id": "http://example.org/logos/institution1.jpg",
+    "id": "http://example.org/logos/institution1.jpg",
     "service": {
         "@context": "http://iiif.io/api/image/2/context.json",
-        "@id": "http://example.org/service/inst1",
+        "id": "http://example.org/service/inst1",
         "profile": "http://iiif.io/api/image/2/profiles/level2.json"
     }
   },
 
   // Links
   "related":{
-    "@id": "http://example.org/videos/video-book1.mpg",
+    "id": "http://example.org/videos/video-book1.mpg",
     "format": "video/mpeg"
   },
   "service": {
     "@context": "http://example.org/ns/jsonld/context.json",
-    "@id": "http://example.org/service/example",
+    "id": "http://example.org/service/example",
     "profile": "http://example.org/docs/example-service.html"
   },
   "seeAlso": {
-    "@id": "http://example.org/library/catalog/book1.xml",
+    "id": "http://example.org/library/catalog/book1.xml",
     "format": "text/xml",
     "profile": "http://example.org/profiles/bibliographic"
   },
   "rendering": {
-    "@id": "http://example.org/iiif/book1.pdf",
+    "id": "http://example.org/iiif/book1.pdf",
     "label": "Download as PDF",
     "format": "application/pdf"
   },
@@ -616,8 +621,8 @@ The example below includes only the manifest-level information, however actual i
   // List of sequences
   "sequences": [
       {
-        "@id": "http://example.org/iiif/book1/sequence/normal",
-        "@type": "sc:Sequence",
+        "id": "http://example.org/iiif/book1/sequence/normal",
+        "type": "sc:Sequence",
         "label": "Current Page Order"
         // sequence's page order should be included here, see below...
       }
@@ -643,14 +648,14 @@ Sequences _MAY_ have their own descriptive, rights and linking metadata using th
 
 Sequences _MAY_ have a `startCanvas` with a single value containing the URI of a canvas resource that is contained within the sequence.  This is the canvas that a viewer _SHOULD_ initialize its display with for the user.  If it is not present, then the viewer _SHOULD_ use the first canvas in the sequence.
 
-In the manifest example above, the sequence is referenced by its URI and contains only the basic information of `label`, `@type` and `@id`. The default sequence should be written out in full within the manifest file, as below but _MUST NOT_ have the `@context` property.
+In the manifest example above, the sequence is referenced by its URI and contains only the basic information of `label`, `type` and `id`. The default sequence should be written out in full within the manifest file, as below but _MUST NOT_ have the `@context` property.
 
 ``` json-doc
 {
   // Metadata about this sequence
   "@context": "http://iiif.io/api/presentation/2/context.json",
-  "@id": "http://example.org/iiif/book1/sequence/normal",
-  "@type": "sc:Sequence",
+  "id": "http://example.org/iiif/book1/sequence/normal",
+  "type": "sc:Sequence",
   "label": "Current Page Order",
 
   "viewingDirection": "left-to-right",
@@ -660,20 +665,20 @@ In the manifest example above, the sequence is referenced by its URI and contain
   // The order of the canvases
   "canvases": [
     {
-      "@id": "http://example.org/iiif/book1/canvas/p1",
-      "@type": "sc:Canvas",
+      "id": "http://example.org/iiif/book1/canvas/p1",
+      "type": "sc:Canvas",
       "label": "p. 1"
       // ...
     },
     {
-      "@id": "http://example.org/iiif/book1/canvas/p2",
-      "@type": "sc:Canvas",
+      "id": "http://example.org/iiif/book1/canvas/p2",
+      "type": "sc:Canvas",
       "label": "p. 2"
       // ...
     },
     {
-      "@id": "http://example.org/iiif/book1/canvas/p3",
-      "@type": "sc:Canvas",
+      "id": "http://example.org/iiif/book1/canvas/p3",
+      "type": "sc:Canvas",
       "label": "p. 3"
       // ...
     }
@@ -696,7 +701,7 @@ Every canvas _MUST_ have a `label` to display, and a `height` and a `width` as i
 
 It is _RECOMMENDED_ that if there is (at the time of implementation) a single image that depicts the page, then the dimensions of the image are used as the dimensions of the canvas for simplicity. If there are multiple full images, then the dimensions of the largest image should be used. If the largest image's dimensions are less than 1200 pixels on either edge, then the canvas's dimensions _SHOULD_ be double those of the image. Clients _MUST_ be aware that this is not always the case, such as in the examples presented, and instead _MUST_ always scale images into the space represented by the canvas.  The dimensions of the canvas _SHOULD_ be the same scale as the physical object, and thus images _SHOULD_ depict only the object.  This can be accomplished by cropping the image, or associating only a segment of the image with the canvas. The physical dimensions of the object may be available via a service, either embedded within the description or requiring an HTTP request to retrieve them.
 
-Image resources, and only image resources, are included in the `images` property of the canvas. These are linked to the canvas via annotations, as described in [Image Resources][image-resources]. Other content, such as transcriptions, video, audio or commentary, is provided via external annotation lists referenced in the `otherContent` property, as described in [Annotation Lists][annotation-lists]. The value of both of these properties _MUST_ be a list, even if there is only one entry. Both are optional, as there may be no additional information associated with the canvas. Note that the items in the `otherContent` list may be either objects with an `@id` property or strings. In the case of a string, this is the URI of the annotation list and the type of "sc:AnnotationList" can be inferred.
+Image resources, and only image resources, are included in the `images` property of the canvas. These are linked to the canvas via annotations, as described in [Image Resources][image-resources]. Other content, such as transcriptions, video, audio or commentary, is provided via external annotation lists referenced in the `otherContent` property, as described in [Annotation Lists][annotation-lists]. The value of both of these properties _MUST_ be a list, even if there is only one entry. Both are optional, as there may be no additional information associated with the canvas. Note that the items in the `otherContent` list may be either objects with an `id` property or strings. In the case of a string, this is the URI of the annotation list and the type of "sc:AnnotationList" can be inferred.
 
 In a sequence with the `viewingHint` value of "paged" and presented in a book viewing user interface, the first canvas _SHOULD_ be presented by itself -- it is typically either the cover or first recto page. Thereafter, the canvases represent the sides of the leaves, and hence may be presented with two canvases displayed as an opening of the book.  If there are canvases which are in the sequence but would break this ordering, then they _MUST_ have the `viewingHint` property with a value of "non-paged".  Similarly if the first canvas is not a single up, it _MUST_ be marked as "non-paged" or an empty canvas added before it.
 
@@ -706,23 +711,23 @@ Canvases _MAY_ be dereferenced separately from the manifest via their URIs, and 
 {
   // Metadata about this canvas
   "@context": "http://iiif.io/api/presentation/2/context.json",
-  "@id": "http://example.org/iiif/book1/canvas/p1",
-  "@type": "sc:Canvas",
+  "id": "http://example.org/iiif/book1/canvas/p1",
+  "type": "sc:Canvas",
   "label": "p. 1",
   "height":1000,
   "width":750,
 
   "images": [
     {
-      "@type": "oa:Annotation"
+      "type": "oa:Annotation"
       // Link from Image to canvas should be included here, as below
     }
   ],
   "otherContent": [
     {
       // Reference to list of other Content resources, _not included directly_
-      "@id": "http://example.org/iiif/book1/list/p1",
-      "@type": "sc:AnnotationList"
+      "id": "http://example.org/iiif/book1/list/p1",
+      "type": "sc:AnnotationList"
     }
   ]
 
@@ -740,11 +745,11 @@ Recommended URI pattern:
 
 Association of images with their respective canvases is done via annotations. Although normally annotations are used for associating commentary with the thing the annotation's text is about, the [Open Annotation][openanno] model allows any resource to be associated with any other resource, or parts thereof, and it is reused for both commentary and painting resources on the canvas.
 
-Annotations _MAY_ have their own URIs, conveyed by adding an `@id` property to the JSON object, and if so _SHOULD_ be HTTP URIs. The content of the annotation _SHOULD_ be returned if the URI is dereferenced. Annotations _MAY_ be dereferenced separately from their annotation lists, sequences and manifests; some systems may do this and identifiers should be given using the recommended pattern if possible.
+Annotations _MAY_ have their own URIs, conveyed by adding an `id` property to the JSON object, and if so _SHOULD_ be HTTP URIs. The content of the annotation _SHOULD_ be returned if the URI is dereferenced. Annotations _MAY_ be dereferenced separately from their annotation lists, sequences and manifests; some systems may do this and identifiers should be given using the recommended pattern if possible.
 
 Each association of an image _MUST_ have the `motivation` field and the value _MUST_ be "sc:painting". This is in order to distinguish it from comment annotations about the canvas, described in further detail below.  Note that all resources which are to be displayed as part of the representation are given the motivation of "sc:painting", regardless of whether they are images or not.  For example, a transcription of the text in a page is considered "painting" as it is a representation of the object, whereas a comment about the page is not.
 
-The image itself is linked in the `resource` property of the annotation. The image _MUST_ have an `@id` field, with the value being the URI at which the image can be obtained. If a IIIF Image service is available for the image, then the URL _MAY_ be the complete URL to a particular size of the image content, such as `http://example.org/image1/full/1000,/0/default.jpg`. It _SHOULD_ have an `@type` of "dctypes:Image". Its media type _MAY_ be listed in `format`, and its height and width _MAY_ be given as integer values for `height` and `width` respectively.
+The image itself is linked in the `resource` property of the annotation. The image _MUST_ have an `id` field, with the value being the URI at which the image can be obtained. If a IIIF Image service is available for the image, then the URL _MAY_ be the complete URL to a particular size of the image content, such as `http://example.org/image1/full/1000,/0/default.jpg`. It _SHOULD_ have an `type` of "dctypes:Image". Its media type _MAY_ be listed in `format`, and its height and width _MAY_ be given as integer values for `height` and `width` respectively.
 
 If a [IIIF Image API][image-api] service is available for the image, then a link to the service's base URI _SHOULD_ be included. The base URI is the URI up to the identifier, but not including the trailing slash character or any of the subsequent parameters. A reference to the Image API context document _MUST_ be included and the conformance level profile of the service _SHOULD_ be included. Additional fields from the Image Information document _MAY_ be included in this JSON object to avoid requiring it to be downloaded separately. See the [annex][annex] on using external services for more information.
 
@@ -757,16 +762,16 @@ Only the annotations that associate images or parts of images are included in th
 ``` json-doc
 {
   "@context": "http://iiif.io/api/presentation/2/context.json",
-  "@id": "http://example.org/iiif/book1/annotation/p0001-image",
-  "@type": "oa:Annotation",
+  "id": "http://example.org/iiif/book1/annotation/p0001-image",
+  "type": "oa:Annotation",
   "motivation": "sc:painting",
   "resource": {
-    "@id": "http://example.org/iiif/book1/res/page1.jpg",
-    "@type": "dctypes:Image",
+    "id": "http://example.org/iiif/book1/res/page1.jpg",
+    "type": "dctypes:Image",
     "format": "image/jpeg",
     "service": {
       "@context": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
-      "@id": "http://example.org/images/book1-page1",
+      "id": "http://example.org/images/book1-page1",
       "profile": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/profiles/level2.json"
     },
     "height":2000,
@@ -791,7 +796,7 @@ Annotation Lists are separate resources that _SHOULD_ be dereferenced when encou
 
 The {name} parameter in the URI pattern _MUST_ uniquely distinguish it from all other lists, and is typically the same name as the canvas. As a single canvas may have multiple lists of additional resources, perhaps divided by type, this _MUST NOT_ be assumed however, and the URIs must be followed rather than constructed _a priori_.
 
-The annotation list _MUST_ have an http(s) URI given in `@id`, and the JSON representation _MUST_ be returned when that URI is dereferenced.  They _MAY_ have any of the other fields defined in this specification.
+The annotation list _MUST_ have an http(s) URI given in `id`, and the JSON representation _MUST_ be returned when that URI is dereferenced.  They _MAY_ have any of the other fields defined in this specification.
 
 The annotations, as described above, are given in a `resources` list. The resource linked by the annotation _MUST_ be something other than an image if the motivation is `sc:painting`, these are recorded in the `images` property of the canvas. The canvas URI _MUST_ be repeated in the `on` field, as above.
 
@@ -802,26 +807,26 @@ Note well that Annotation Lists _MUST NOT_ be embedded within the manifest.
 ``` json-doc
 {
   "@context": "http://iiif.io/api/presentation/2/context.json",
-  "@id": "http://example.org/iiif/book1/list/p1",
-  "@type": "sc:AnnotationList",
+  "id": "http://example.org/iiif/book1/list/p1",
+  "type": "sc:AnnotationList",
 
   "resources": [
     {
-      "@type": "oa:Annotation",
+      "type": "oa:Annotation",
       "motivation": "sc:painting",
       "resource":{
-        "@id": "http://example.org/iiif/book1/res/music.mp3",
-        "@type": "dctypes:Sound",
+        "id": "http://example.org/iiif/book1/res/music.mp3",
+        "type": "dctypes:Sound",
         "format": "audio/mpeg"
       },
       "on": "http://example.org/iiif/book1/canvas/p1"
     },
     {
-      "@type": "oa:Annotation",
+      "type": "oa:Annotation",
       "motivation": "sc:painting",
       "resource":{
-        "@id": "http://example.org/iiif/book1/res/tei-text-p1.xml",
-        "@type": "dctypes:Text",
+        "id": "http://example.org/iiif/book1/res/tei-text-p1.xml",
+        "type": "dctypes:Text",
         "format": "application/tei+xml"
       },
       "on": "http://example.org/iiif/book1/canvas/p1"
@@ -853,7 +858,7 @@ References to ranges within the current range.  Each included range _MUST_ be re
 References to canvases, or rectangular parts of a canvas, within the current range.  Each included canvas _MUST_ be referenced via a string containing the canvas's URI.
 
 ##### members
-A combined list of both ranges and canvases.  If the range contains both other ranges and canvases, and the ordering of the different types of resource is significant, the range _SHOULD_ instead use the `members` property.  The property's value is an array of canvases, parts of canvases or other ranges.  Each item in the array _MUST_ be an object, and it _MUST_ have the `@id`, `@type`, and `label` properties.
+A combined list of both ranges and canvases.  If the range contains both other ranges and canvases, and the ordering of the different types of resource is significant, the range _SHOULD_ instead use the `members` property.  The property's value is an array of canvases, parts of canvases or other ranges.  Each item in the array _MUST_ be an object, and it _MUST_ have the `id`, `type`, and `label` properties.
 
 
 A range will typically include one or more canvases or, unlike sequences, parts of canvases. The part must be rectangular, and is given using the `xywh=` fragment approach. This allows for selecting, for example, the areas within two newspaper pages where an article is located.
@@ -865,8 +870,8 @@ Ranges _MAY_ also link to a layer, described in the next section, that has the c
 ``` json-doc
 {
   "@context": "http://iiif.io/api/presentation/2/context.json",
-  "@id": "http://example.org/iiif/book1/manifest",
-  "@type": "sc:Manifest",
+  "id": "http://example.org/iiif/book1/manifest",
+  "type": "sc:Manifest",
   // Metadata here ...
 
   "sequences": [
@@ -875,32 +880,32 @@ Ranges _MAY_ also link to a layer, described in the next section, that has the c
 
   "structures": [
     {
-      "@id": "http://example.org/iiif/book1/range/r0",
-      "@type": "sc:Range",
+      "id": "http://example.org/iiif/book1/range/r0",
+      "type": "sc:Range",
       "label": "Table of Contents",
       "viewingHint": "top",
       "members": [
         {
-          "@id": "http://example.org/iiif/book1/canvas/cover",
-          "@type": "sc:Canvas",
+          "id": "http://example.org/iiif/book1/canvas/cover",
+          "type": "sc:Canvas",
           "label": "Front Cover"
         },
         {
-          "@id": "http://example.org/iiif/book1/range/r1",
-          "@type": "sc:Range",
+          "id": "http://example.org/iiif/book1/range/r1",
+          "type": "sc:Range",
           "label": "Introduction",
           "contentLayer": "http://example.org/iiif/book1/layer/introTexts"
         },
         {
-          "@id": "http://example.org/iiif/book1/canvas/backCover",
-          "@type": "sc:Canvas",
+          "id": "http://example.org/iiif/book1/canvas/backCover",
+          "type": "sc:Canvas",
           "label": "Back Cover"
         }
       ]
     },
     {
-      "@id": "http://example.org/iiif/book1/range/r1",
-      "@type": "sc:Range",
+      "id": "http://example.org/iiif/book1/range/r1",
+      "type": "sc:Range",
       "label": "Introduction",
       "ranges": ["http://example.org/iiif/book1/range/r1-1"],
       "canvases": [
@@ -910,8 +915,8 @@ Ranges _MAY_ also link to a layer, described in the next section, that has the c
       ]
     },
     {
-      "@id": "http://example.org/iiif/book1/range/r1-1",
-      "@type": "sc:Range",
+      "id": "http://example.org/iiif/book1/range/r1-1",
+      "type": "sc:Range",
       "label": "Objectives and Scope",
       "canvases": ["http://example.org/iiif/book1/canvas/p2#xywh=0,0,500,500"]
     }
@@ -941,11 +946,11 @@ Each annotation list _MAY_ be part of one or more layers. If the annotation list
 ``` json-doc
 {
   "@context": "http://iiif.io/api/presentation/2/context.json",
-  "@id": "http://example.org/iiif/book1/list/l1",
-  "@type": "sc:AnnotationList",
+  "id": "http://example.org/iiif/book1/list/l1",
+  "type": "sc:AnnotationList",
   "within": {
-    "@id": "http://example.org/iiif/book1/layer/transcription",
-    "@type": "sc:Layer",
+    "id": "http://example.org/iiif/book1/layer/transcription",
+    "type": "sc:Layer",
     "label": "Diplomatic Transcription"
   }
 }
@@ -958,8 +963,8 @@ The annotation lists are referenced from the layer in an `otherContent` array, i
 ``` json-doc
 {
   "@context": "http://iiif.io/api/presentation/2/context.json",
-  "@id": "http://example.org/iiif/book1/layer/transcription",
-  "@type": "sc:Layer",
+  "id": "http://example.org/iiif/book1/layer/transcription",
+  "type": "sc:Layer",
   "label": "Diplomatic Transcription",
   // Other properties here ...
 
@@ -1001,13 +1006,13 @@ As such, collections _MUST_ have a label, and _SHOULD_ have `metadata` and `desc
 Collections have three list-based properties to express membership:
 
 ##### collections
-References to sub-collections of the current collection.  Each referenced collection _MUST_ have the appropriate @id, @type and label, and _MAY_ be embedded in its entirety.
+References to sub-collections of the current collection.  Each referenced collection _MUST_ have the appropriate id, type and label, and _MAY_ be embedded in its entirety.
 
 ##### manifests
-References to manifests contained within the current collection. Each referenced manifest _MUST_ have the appropriate @id, @type and label.
+References to manifests contained within the current collection. Each referenced manifest _MUST_ have the appropriate id, type and label.
 
 ##### members
-In cases where the order of a collection is significant, `members` can be used to interleave both collection and manifest resources. This is especially useful when a collection of books contains single- and multi-volume works (i.e. collections with the "multi-part" viewingHint), and when modeling archival material where original order is significant. Each entry in the `members` list _MUST_ be an object and _MUST_ include `@id`, `@type`, and `label`. If the entry is a collection, then `viewingHint` _MUST_ also be present.
+In cases where the order of a collection is significant, `members` can be used to interleave both collection and manifest resources. This is especially useful when a collection of books contains single- and multi-volume works (i.e. collections with the "multi-part" viewingHint), and when modeling archival material where original order is significant. Each entry in the `members` list _MUST_ be an object and _MUST_ include `id`, `type`, and `label`. If the entry is a collection, then `viewingHint` _MUST_ also be present.
 
 At least one of `collections`, `manifests` and `members` _SHOULD_ be present in the response.  An empty collection, with no member resources, is allowed but discouraged.
 
@@ -1016,8 +1021,8 @@ An example collection document:
 ``` json-doc
 {
   "@context": "http://iiif.io/api/presentation/2/context.json",
-  "@id": "http://example.org/iiif/collection/top",
-  "@type": "sc:Collection",
+  "id": "http://example.org/iiif/collection/top",
+  "type": "sc:Collection",
   "label": "Top Level Collection for Example Organization",
   "viewingHint": "top",
   "description": "Description of Collection",
@@ -1025,41 +1030,41 @@ An example collection document:
 
   "collections": [
     {
-      "@id": "http://example.org/iiif/collection/sub1",
-      "@type": "sc:Collection",
+      "id": "http://example.org/iiif/collection/sub1",
+      "type": "sc:Collection",
       "label": "Sub-Collection 1",
 
       "members": [  
         {
-          "@id": "http://example.org/iiif/collection/part1",
-          "@type": "sc:Collection",
+          "id": "http://example.org/iiif/collection/part1",
+          "type": "sc:Collection",
           "label": "My Multi-volume Set",
           "viewingHint": "multi-part"
         },
         {
-          "@id": "http://example.org/iiif/book1/manifest1",
-          "@type": "sc:Manifest",
+          "id": "http://example.org/iiif/book1/manifest1",
+          "type": "sc:Manifest",
           "label": "My Book"
         },
         {
-          "@id": "http://example.org/iiif/collection/part2",
-          "@type": "sc:Collection",
+          "id": "http://example.org/iiif/collection/part2",
+          "type": "sc:Collection",
           "label": "My Sub Collection",
           "viewingHint": "individuals"
         }
       ]
     },
     {
-      "@id": "http://example.org/iiif/collection/part2",
-      "@type": "sc:Collection",
+      "id": "http://example.org/iiif/collection/part2",
+      "type": "sc:Collection",
       "label": "Sub Collection 2"
     }
   ],
 
   "manifests": [
     {
-      "@id": "http://example.org/iiif/book1/manifest",
-      "@type": "sc:Manifest",
+      "id": "http://example.org/iiif/book1/manifest",
+      "type": "sc:Manifest",
       "label": "Book 1"
     }
   ]
@@ -1089,8 +1094,8 @@ A layer representing a long transcription with almost half a million annotations
 ``` json-doc
 {
   "@context": "http://iiif.io/api/presentation/2/context.json",
-  "@id": "http://example.org/iiif/book1/layer/transcription",
-  "@type": "sc:Layer",
+  "id": "http://example.org/iiif/book1/layer/transcription",
+  "type": "sc:Layer",
   "label": "Example Long Transcription",
 
   "total": 496923,
@@ -1103,8 +1108,8 @@ And the corresponding first annotation list:
 ``` json-doc
 {
   "@context": "http://iiif.io/api/presentation/2/context.json",
-  "@id": "http://example.org/iiif/book1/list/l1",
-  "@type": "sc:AnnotationList",
+  "id": "http://example.org/iiif/book1/list/l1",
+  "type": "sc:AnnotationList",
 
   "startIndex": 0,
   "within": "http://example.org/iiif/book1/layer/transcription",
@@ -1121,8 +1126,8 @@ Note that it is still expected that canvases will link directly to the annotatio
 ``` json-doc
 {
   "@context": "http://iiif.io/api/presentation/2/context.json",
-  "@id": "http://example.org/iiif/book1/canvas/c1",
-  "@type": "sc:Canvas",
+  "id": "http://example.org/iiif/book1/canvas/c1",
+  "type": "sc:Canvas",
 
   "height": 1000,
   "width": 1000,
@@ -1142,8 +1147,8 @@ An example large collection with some 9.3 million objects in it:
 ``` json-doc
 {
   "@context": "http://iiif.io/api/presentation/2/context.json",
-  "@id": "http://example.org/iiif/collection/top",
-  "@type": "sc:Collection",
+  "id": "http://example.org/iiif/collection/top",
+  "type": "sc:Collection",
   "label": "Example Big Collection",
 
   "total": 9316290,
@@ -1156,8 +1161,8 @@ And the corresponding first page of manifests:
 ``` json-doc
 {
   "@context": "http://iiif.io/api/presentation/2/context.json",
-  "@id": "http://example.org/iiif/collection/c1",
-  "@type": "sc:Collection",
+  "id": "http://example.org/iiif/collection/c1",
+  "type": "sc:Collection",
 
   "within": "http://example.org/iiif/collection/top",
   "startIndex": 0,
@@ -1169,336 +1174,11 @@ And the corresponding first page of manifests:
 }
 ```
 
-
-##  6. Advanced Association Features
-
-The following sections describe known use cases for building representations of objects using the IIIF Presentation API, and clients _SHOULD_ expect to encounter them. Other use cases are likely to exist, and _MUST_ be encoded using the [Open Annotation's][openanno] context document mapping for any additional fields required.
-
-###  6.1. Segments
-
-It is important to be able to extract parts, or segments, of resources. In particular a very common requirement is to associate a resource with part of a canvas, or part of an image with either the entire canvas or part thereof. Secondly, as transcriptions are often made available in XML files, extracting the correct page to associate with the canvas, or line to associate with part of the canvas, is equally useful for reusing existing material. These can be accomplished using URI fragments for simple cases.
-
-Note that if there are segments of both image and canvas, then the aspect ratio _SHOULD_ be the same, but there are circumstances where they _MAY_ be different.  In this case the rendering agent _SHOULD_ rescale the image segment to the dimensions provided on the canvas.
-
-Segments of both static images and canvases may be selected by adding a [rectangular bounding box][media-frags] after the URI. The fragment _MUST_ take the form of `#xywh=` as per the example below where the four numbers are the x and y coordinates of the top left hand corner of the bounding box in the image or canvas, followed by the width and height. Thus the segment above is 300px wide, 50px high and starts at position 100,100. Note that only integers are allowed in this syntax, and this may limit accuracy of assignment to canvases with small dimensions.  
-
-`http://www.example.com/iiif/book1/canvas/p1#xywh=100,100,300,50`
-{: .urltemplate}
-
-``` json-doc
-{
-  "@context": "http://iiif.io/api/presentation/2/context.json",
-  "@id": "http://example.org/iiif/book1/annotation/anno1",
-  "@type": "oa:Annotation",
-  "motivation": "sc:painting",
-  "resource":{
-    // Crop out scanning bed
-    "@id": "http://example.org/iiif/book1/res/page1.jpg#xywh=40,50,1200,1800",
-    "@type": "dctypes:Image",
-    "format": "image/jpeg"
-  },
-  // canvas size is 1200x1800
-  "on": "http://example.org/iiif/book1/canvas/p1"
-}
-```
-
-For image resources with a [IIIF Image API][image-api] service, it is _RECOMMENDED_ to instead use the Image API parameters rather than a fragment as above.  The following structure allows simple clients to use the image directly (the URL with the segment), and allows clients that implement the IIIF Image API to have sufficient information to construct appropriate URIs using the API.
-
-``` json-doc
-{
-  "@context": "http://iiif.io/api/presentation/2/context.json",
-  "@id": "http://example.org/iiif/book1/annotation/anno1",
-  "@type": "oa:Annotation",
-  "motivation": "sc:painting",
-  "resource": {
-    "@id": "http://www.example.org/iiif/book1-page1/50,50,1250,1850/full/0/default.jpg",
-    "@type": "oa:SpecificResource",
-    "full": {
-      "@id": "http://example.org/iiif/book1-page1/full/full/0/default.jpg",
-      "@type": "dctypes:Image",
-      "service": {
-        "@context": "http://iiif.io/api/image/2/context.json",
-        "@id": "http://example.org/iiif/book1-page1",
-        "profile": "http://iiif.io/api/image/2/level2.json"
-      }
-    },
-    "selector": {
-      "@context": "http://iiif.io/api/annex/openannotation/context.json",
-      "@type": "iiif:ImageApiSelector",
-      "region": "50,50,1250,1850"
-    }
-  },
-  "on": "http://www.example.org/iiif/book1/canvas/p1#xywh=0,0,600,900"      
-}
-```
-
-Segments of XML files may be extracted with [XPaths][xpath]. The fragment _MUST_ be structured as follows:
-
-`http://www.example.com/iiif/book1/res/tei.xml#xpointer(/xpath/to/element)`
-{: .urltemplate}
-
-``` json-doc
-{
-  "@context": "http://iiif.io/api/presentation/2/context.json",
-  "@id": "http://example.org/iiif/book1/annotation/anno1",
-  "@type": "oa:Annotation",
-  "motivation": "sc:painting",
-  "resource":{
-    "@id": "http://example.org/iiif/book1/res/tei.xml#xpointer(//line[1])",
-    "@type": "dctypes:Text",
-    "format": "application/tei+xml"
-  },
-  "on": "http://example.org/iiif/book1/canvas/p1#xywh=100,100,500,300"
-}
-```
-
-###  6.2. Embedded Content
-
-Instead of referencing transcription text externally, it is often easier to record it within the annotation itself. Equally, text based comments could also benefit from being included in the annotation that associates the comment with the canvas.
-
-Content _MAY_ be embedded instead of referenced by using the following pattern within the annotation block:
-
-``` json-doc
-{"resource": {"@type": "cnt:ContextAsText", "chars": "text here"}}
-```
-
-The media type _SHOULD_ be provided using the `format` field, and while any media type is possible, it is _RECOMMENDED_ that `text/plain` or `text/html` be used to maximize compatibility.
-
-If it is desirable to describe the language of the content, then it _MUST_ be given with the `language` property not `@language`.
-
-An example of this feature:
-
-``` json-doc
-{
-  "@context": "http://iiif.io/api/presentation/2/context.json",
-  "@id": "http://example.org/iiif/book1/annotation/p1",
-  "@type": "oa:Annotation",
-  "motivation": "sc:painting",
-  "resource":{
-    "@type": "cnt:ContentAsText",
-    "chars": "Here starts book one...",
-    "format": "text/plain",
-    "language": "en"
-  },
-  "on": "http://example.org/iiif/book1/canvas/p1#xywh=100,150,500,25"
-}
-```
-
-###  6.3. Choice of Alternative Resources
-
-A common requirement is to have a choice between multiple images that depict the page, such as being photographed under different lights or at different times. This can be accomplished by having a "oa:Choice" object as the resource, which then refers to the options to select from. It _MUST_ have one `default` and at least one further `item` to choose from. The images _SHOULD_ have a `label` for the viewer to display to the user so they can make their selection from among the options.
-
-The same construction can be applied to a choice between other types of resources as well. This is described in the [Multiplicity section][openannomulti] of the Open Annotation specification.
-
-Either the `default` or `item` _MAY_ have a value of "rdf:nil". This means that a valid option is not to display anything. This _MUST NOT_ have a label associated with it, viewers should either use "Nothing" or an appropriate label of their choice.
-
-This can be used to model foldouts and other dynamic features of a page, by associating images of the different states with the canvas. Depending on the nature of the images, this can be done such that either the entire image is switched to change state, or only the section of the image that has to change is switched, if the appropriate segment information is known.
-
-``` json-doc
-{
-  "@context": "http://iiif.io/api/presentation/2/context.json",
-  "@id": "http://example.org/iiif/book1/annotation/anno1",
-  "@type": "oa:Annotation",
-  "motivation": "sc:painting",
-  "resource":{
-    "@type": "oa:Choice",
-    "default":{
-      "@id": "http://example.org/iiif/book1/res/page1.jpg",
-      "@type": "dctypes:Image",
-      "label": "Color"
-    },
-    "item": [
-      {
-        "@id": "http://example.org/iiif/book1/res/page1-blackandwhite.jpg",
-        "@type": "dctypes:Image",
-        "label": "Black and White"
-      }
-    ]
-  },
-  "on": "http://example.org/iiif/book1/canvas/p1"
-}
-```
-
-###  6.4. Non Rectangular Segments
-
-The [Scalable Vector Graphics][svg] standard (SVG) is used to describe non-rectangular areas of canvas or image resources. While SVG can, of course, describe rectangles this is _NOT RECOMMENDED_, and either the [IIIF Image API][image-api] or the `xywh` bounding box described above _SHOULD_ be used instead.  This is recognized as an advanced use case and that clients may not support it.
-
-In this pattern, the resource of the annotation is a "oa:SpecificResource" which has the complete image referenced in a `full` field and the SVG embedded in a `selector` field (as the SVG selects the part of the image needed). The SVG document is embedded using the same `ContentAsText` approach as for embedding comments or transcriptions.
-
-If the section of an image is mapped to part of a canvas, as in the example below, then the target in `on` _MUST_ be the rectangular bounding box in which the SVG viewport should be placed. If the entire canvas is the target, then the SVG viewport is assumed to cover the entire canvas. If the dimensions of the viewport and the bounding box or canvas are not the same, then the SVG _MUST_ be scaled such that it covers the region. This may result in different scaling ratios for the X and Y dimensions.
-
-``` json-doc
-{
-  "@context": "http://iiif.io/api/presentation/2/context.json",
-  "@id": "http://example.org/iiif/book1/annotation/anno1",
-  "@type": "oa:Annotation",
-  "motivation": "sc:painting",
-  "resource":{
-    "@type": "oa:SpecificResource",
-    "full": {
-      "@id": "http://example.org/iiif/book1/res/page1.jpg",
-      "@type": "dctypes:Image"
-    },
-    "selector": {
-      "@type":["oa:SvgSelector","cnt:ContentAsText"],
-      "chars": "<svg xmlns=\"...\"><path d=\"...\"/></svg>"
-    }
-  },
-  "on": "http://example.org/iiif/book1/canvas/p1#xywh=100,100,300,300"
-}
-```
-
-###  6.5. Style
-
-The [Cascading Style Sheets][css] standard (CSS) is used to describe how the client should render a given resource to the user. The CSS information is embedded within the annotation using the same `ContentAsText` approach above. As a stylesheet may contain more than one style, and be reused between annotations, it is attached to the annotation directly in the same manner as a stylesheet being linked to an HTML document. Then the name of the style class is attached to the resource that should be styled, again in the same manner as the class attribute in html, although we use `style` to avoid confusion with object classes.
-
-In the example below, the text should be colored red.
-
-``` json-doc
-{
-  "@context": "http://iiif.io/api/presentation/2/context.json",
-  "@id": "http://example.org/iiif/book1/annotation/anno1",
-  "@type": "oa:Annotation",
-  "motivation": "sc:painting",
-  "stylesheet":{
-    "@type": ["oa:CssStyle", "cnt:ContextAsText"],
-    "chars": ".red {color: red;}"
-  },
-  "resource":{
-    "@type": "oa:SpecificResource",
-    "style": "red",
-    "full": {
-      "@type": "cnt:ContentAsText",
-      "chars": "Rubrics are Red, ..."
-    }
-  },
-  "on": "http://example.org/iiif/book1/canvas/p1#xywh=100,150,500,30"
-}
-```
-
-
-###  6.6. Rotation
-
-CSS may also be used for rotation of images which are not correctly aligned with the canvas. In the example below, after the image is located within the 500 wide by 30 high space within the canvas, it is then rotated by the rendering client application around the top left corner by 45 degrees anti-clockwise.
-
-``` json-doc
-{
-  "@context": "http://iiif.io/api/presentation/2/context.json",
-  "@id": "http://example.org/iiif/book1/annotation/anno1",
-  "@type": "oa:Annotation",
-  "motivation": "sc:painting",
-  "stylesheet":{
-    "@type": ["oa:CssStyle", "cnt:ContextAsText"],
-    "chars": ".rotated {transform-origin: top left; transform: rotate(-45deg);}"
-  },
-  "resource":{
-    "@type": "oa:SpecificResource",
-    "style": "rotated",
-    "full": {
-      "@id": "http://example.org/iiif/book1/res/page1-detail.png",
-      "@type": "dctypes:Image"
-    }
-  },
-  "on": "http://example.org/iiif/book1/canvas/p1#xywh=100,150,500,30"
-}
-```
-
-Alternatively, if the image is available via the IIIF Image API, it may be more convenient to have the server do the rotation of the image.  This uses a custom Selector for the Image API, further described in the [Open Annotation extensions][oa-ext-annex] annex.  For the purposes of rotation, the example below demonstrates the pattern.
-
-``` json-doc
-{
-  "@context": "http://iiif.io/api/presentation/2/context.json",
-  "@id": "http://example.org/iiif/book1/annotation/anno1",
-  "@type": "oa:Annotation",
-  "motivation": "sc:painting",
-  "resource":{
-    "@id": "http://example.org/iiif/book1-page1/full/full/90/default.jpg",
-    "@type": "oa:SpecificResource",
-    "full": {
-      "@id": "http://example.org/iiif/book1-page1/full/full/0/default.jpg",
-      "@type": "dctypes:Image",
-      "service": {
-        "@context": "http://iiif.io/api/image/2/context.json",
-        "@id": "http://example.org/iiif/book1-page1",
-        "profile": "http://iiif.io/api/image/2/level2.json"
-      }
-    },
-    "selector": {
-      "@context": "http://iiif.io/api/annex/openannotation/context.json",
-      "@type": "iiif:ImageApiSelector",
-      "rotation": "90"
-    }
-  },
-  "on": "http://example.org/iiif/book1/canvas/p1#xywh=50,50,320,240"
-}
-```
-
-###  6.7. Comment Annotations
-
-For annotations which are comments about the canvas, as opposed to painting content resources onto the canvas, there are different types of motivation to make the distinction clear. For annotations about the content (such as comments, notes, descriptions etc.) the `motivation` _SHOULD_ be "oa:commenting", but _MAY_ be any from the list given in the [Open Annotation][openanno] specification.
-
-Unlike painting annotations, comments or annotations with other motivations _SHOULD_ have a URI assigned as their identity and provided in the `@id` property.  When dereferencing that URI, the representation of the annotation _SHOULD_ be returned.  This is to allow further annotations to annotate the comment, for example in order to reply to it, or to tag it for organizational or discovery purposes.
-
-``` json-doc
-{
-  "@context": "http://iiif.io/api/presentation/2/context.json",
-  "@id": "http://example.org/iiif/book1/annotation/anno1",
-  "@type": "oa:Annotation",
-  "motivation": "oa:commenting",
-  "resource":{
-    "@id": "http://example.org/iiif/book1/res/comment1.html",
-    "@type": "dctypes:Text",
-    "format": "text/html"
-  },
-  "on": "http://example.org/iiif/book1/canvas/p1"
-}
-```
-
-Other resources may also have comments made about them, including manifests (comments about the object), sequences (comments about that particular ordering), ranges (comments about the section), annotations (replies to the targeted annotation), and so forth.  In order for the client to discover these annotations, they can be included in an AnnotationList referenced from the target resource.  This is accomplished by reusing the `otherContent` pattern.  Any resource may have a list of annotations associated with it in this way.
-
-``` json-doc
-{
-  "@context": "http://iiif.io/api/presentation/2/context.json",
-  "@id": "http://example.org/iiif/book1/manifest",
-  "@type": "sc:Manifest",
-  // ...
-
-  "otherContent": [
-    {
-      "@id": "http://example.org/iiif/book1/list/book1",
-      "@type": "sc:AnnotationList"
-    }
-  ]
-}
-```
-
-
-###  6.8. Hotspot Linking
-
-It is also possible to use annotations to create links between resources, both within the manifest or to external content.  This can be used to link to the continuation of an article in a digitized newspaper in a different canvas, or to link to an external web page that describes the diagram in the canvas.
-
-Hotspot linking is accomplished using an annotation with a `motivation` of "oa:linking". The region of the canvas that should trigger the link when clicked is specified in the `on` field in the same way as other annotations. The linked resource is given in the `resource` field.  The linked resource _MAY_ also be another canvas or region of a canvas.  The user experience of whether the linked resource is opened in a new tab, new window or by replacing the current view is up to the implementation.
-
-``` json-doc
-{
-  "@context": "http://iiif.io/api/presentation/2/context.json",
-  "@id":"http://www.example.org/iiif/book1/annotation/anno1",
-  "@type":"oa:Annotation",
-  "motivation":"oa:linking",
-  "resource": {
-    "@id":"http://www.example.org/page-to-go-to.html",
-    "@type":"dctypes:Text",
-    "format":"text/html"
-  },
-  "on":"http://www.example.org/iiif/book1/canvas/p1#xywh=500,500,150,30"
-}
-```
-
-## 7. HTTP Requests and Responses
+## 6. HTTP Requests and Responses
 
 This section describes the _RECOMMENDED_ request and response interactions for the API. The REST and simple HATEOAS approach is followed where an interaction will retrieve a description of the resource, and additional calls may be made by following links obtained from within the description. All of the requests use the HTTP GET method; creation and update of resources is not covered by this specification.
 
-###  7.1. Requests
+###  6.1. Requests
 
 Each of the entries in section 4 recommends a URI pattern to follow for the different resources. Following these patterns is _NOT REQUIRED_ and clients _MUST NOT_ construct the URIs by themselves, instead they _MUST_ follow links from within retrieved descriptions.
 
@@ -1523,7 +1203,7 @@ The individual resources _SHOULD_ have URIs below this top-level pattern, formed
 
 In the situation where the JSON documents are maintained in a filesystem with no access to the web server's configuration, then including ".json" on the end of the URI is suggested to ensure that the correct content-type response header is sent to the client.  While this does not follow the recommended URI patterns below, it is not prevented by the specification either.
 
-###  7.2. Responses
+###  6.2. Responses
 
 The format for all responses is JSON, and the following sections describe the structure to be returned.
 
@@ -1555,7 +1235,7 @@ Responses _SHOULD_ be compressed by the server as there are significant performa
 Recipes for enabling CORS and the conditional Content-type header are provided in the [Apache HTTP Server Implementation Notes][apache-notes].
 
 
-## 8. Authentication
+## 7. Authentication
 
 It may be necessary to restrict access to the descriptions made available via the Presentation API.  As the primary means of interaction with the descriptions is by web browsers using XmlHttpRequests across domains, there are some considerations regarding the most appropriate methods for authenticating users and authorizing their access.  The approach taken is described in the [Authentication][auth] specification, and requires requesting a token to add to the requests to identify the user.  This token might also be used for other requests defined by other APIs.
 
@@ -1606,7 +1286,7 @@ __Descriptive and Rights Properties__
 
 __Technical Properties__
 
-|                | @id                       | @type                 | format                  | height                    | width                     | viewingDirection        | viewingHint            | navDate                  |
+|                | id                       | type                 | format                  | height                    | width                     | viewingDirection        | viewingHint            | navDate                  |
 | -------------- | ------------------------- | --------------------- | ----------------------- | ------------------------- | ------------------------- | ----------------------- | ---------------------- | ------------------------ |
 | Collection     | ![required][icon-req]     | ![required][icon-req] | ![not allowed][icon-na] | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![not allowed][icon-na] | ![optional][icon-opt]  | ![optional][icon-opt]    |
 | Manifest       | ![required][icon-req]     | ![required][icon-req] | ![not allowed][icon-na] | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![optional][icon-opt]   | ![optional][icon-opt]  | ![optional][icon-opt]    |
@@ -1671,7 +1351,7 @@ __Structural Properties__
 
 __Protocol Behavior__
 
-|                | @id is dereferenceable |         
+|                | id is dereferenceable |         
 | -------------- | ---------------------- |
 | Collection     | ![required][icon-req]  |
 | Manifest       | ![required][icon-req]  |
@@ -1693,8 +1373,8 @@ URL: _http://example.org/iiif/book1/manifest_
 ``` json-doc
 {
   "@context": "http://iiif.io/api/presentation/2/context.json",
-  "@type": "sc:Manifest",
-  "@id": "http://example.org/iiif/book1/manifest",
+  "type": "sc:Manifest",
+  "id": "http://example.org/iiif/book1/manifest",
 
   "label": "Book 1",
   "metadata": [
@@ -1712,17 +1392,17 @@ URL: _http://example.org/iiif/book1/manifest_
   "attribution": "Provided by Example Organization",
   "service": {
     "@context": "http://example.org/ns/jsonld/context.json",
-    "@id": "http://example.org/service/example",
+    "id": "http://example.org/service/example",
     "profile": "http://example.org/docs/example-service.html"
   },
   "seeAlso":
     {
-      "@id": "http://example.org/library/catalog/book1.marc",
+      "id": "http://example.org/library/catalog/book1.marc",
       "format": "application/marc",
       "profile": "http://example.org/profiles/marc21"
     },
   "rendering": {
-    "@id": "http://example.org/iiif/book1.pdf",
+    "id": "http://example.org/iiif/book1.pdf",
     "label": "Download as PDF",
     "format": "application/pdf"
   },
@@ -1730,29 +1410,29 @@ URL: _http://example.org/iiif/book1/manifest_
 
   "sequences": [
       {
-        "@id": "http://example.org/iiif/book1/sequence/normal",
-        "@type": "sc:Sequence",
+        "id": "http://example.org/iiif/book1/sequence/normal",
+        "type": "sc:Sequence",
         "label": "Current Page Order",
         "viewingDirection": "left-to-right",
         "viewingHint": "paged",
         "canvases": [
           {
-            "@id": "http://example.org/iiif/book1/canvas/p1",
-            "@type": "sc:Canvas",
+            "id": "http://example.org/iiif/book1/canvas/p1",
+            "type": "sc:Canvas",
             "label": "p. 1",
             "height":1000,
             "width":750,
             "images": [
               {
-                "@type": "oa:Annotation",
+                "type": "oa:Annotation",
                 "motivation": "sc:painting",
                 "resource":{
-                    "@id": "http://example.org/iiif/book1/res/page1.jpg",
-                    "@type": "dctypes:Image",
+                    "id": "http://example.org/iiif/book1/res/page1.jpg",
+                    "type": "dctypes:Image",
                     "format": "image/jpeg",
                     "service": {
                         "@context": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
-                        "@id": "http://example.org/images/book1-page1",
+                        "id": "http://example.org/images/book1-page1",
                         "profile": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/level1.json"
                     },
                     "height":2000,
@@ -1763,35 +1443,35 @@ URL: _http://example.org/iiif/book1/manifest_
             ],
             "otherContent": [
               {
-                "@id": "http://example.org/iiif/book1/list/p1",
-                "@type": "sc:AnnotationList",
+                "id": "http://example.org/iiif/book1/list/p1",
+                "type": "sc:AnnotationList",
                 "within": {
-                    "@id": "http://example.org/iiif/book1/layer/l1",
-                    "@type": "sc:Layer",
+                    "id": "http://example.org/iiif/book1/layer/l1",
+                    "type": "sc:Layer",
                     "label": "Example Layer"
                 }
               }
             ]
         },
           {
-            "@id": "http://example.org/iiif/book1/canvas/p2",
-            "@type": "sc:Canvas",
+            "id": "http://example.org/iiif/book1/canvas/p2",
+            "type": "sc:Canvas",
             "label": "p. 2",
             "height":1000,
             "width":750,
             "images": [
               {
-                "@type": "oa:Annotation",
+                "type": "oa:Annotation",
                 "motivation": "sc:painting",
                 "resource":{
-                    "@id": "http://example.org/images/book1-page2/full/1500,2000/0/default.jpg",
-                    "@type": "dctypes:Image",
+                    "id": "http://example.org/images/book1-page2/full/1500,2000/0/default.jpg",
+                    "type": "dctypes:Image",
                     "format": "image/jpeg",
                     "height":2000,
                     "width":1500,
                     "service": {
                         "@context": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
-                        "@id": "http://example.org/images/book1-page2",
+                        "id": "http://example.org/images/book1-page2",
                         "profile": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/level1.json",
                         "height":8000,
                         "width":6000,
@@ -1803,29 +1483,29 @@ URL: _http://example.org/iiif/book1/manifest_
             ],
             "otherContent": [
               {
-                "@id": "http://example.org/iiif/book1/list/p2",
-                "@type": "sc:AnnotationList",
+                "id": "http://example.org/iiif/book1/list/p2",
+                "type": "sc:AnnotationList",
                 "within": "http://example.org/iiif/book1/layer/l1"  
               }
             ]
           },
           {
-            "@id": "http://example.org/iiif/book1/canvas/p3",
-            "@type": "sc:Canvas",
+            "id": "http://example.org/iiif/book1/canvas/p3",
+            "type": "sc:Canvas",
             "label": "p. 3",
             "height":1000,
             "width":750,
             "images": [
               {
-                "@type": "oa:Annotation",
+                "type": "oa:Annotation",
                 "motivation": "sc:painting",
                 "resource":{
-                    "@id": "http://example.org/iiif/book1/res/page3.jpg",
-                    "@type": "dctypes:Image",
+                    "id": "http://example.org/iiif/book1/res/page3.jpg",
+                    "type": "dctypes:Image",
                     "format": "image/jpeg",
                     "service": {
                         "@context": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
-                        "@id": "http://example.org/images/book1-page3",
+                        "id": "http://example.org/images/book1-page3",
                         "profile": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/level1.json"
           },
                     "height":2000,
@@ -1836,8 +1516,8 @@ URL: _http://example.org/iiif/book1/manifest_
             ],
             "otherContent": [
               {
-                "@id": "http://example.org/iiif/book1/list/p3",
-                "@type": "sc:AnnotationList",
+                "id": "http://example.org/iiif/book1/list/p3",
+                "type": "sc:AnnotationList",
                 "within": "http://example.org/iiif/book1/layer/l1"               
               }
             ]
@@ -1847,8 +1527,8 @@ URL: _http://example.org/iiif/book1/manifest_
     ],
   "structures": [
     {
-      "@id": "http://example.org/iiif/book1/range/r1",
-        "@type": "sc:Range",
+      "id": "http://example.org/iiif/book1/range/r1",
+        "type": "sc:Range",
         "label": "Introduction",
         "canvases": [
           "http://example.org/iiif/book1/canvas/p1",
