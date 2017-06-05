@@ -97,22 +97,22 @@ This specification makes use of the following primary resource types:
 ##### Manifest
 {: #overview-manifest}
 
-The overall description of the structure and properties of the digital representation of an object. It carries information needed for the viewer to present the digitized content to the user, such as a title and other descriptive information about the object or the intellectual work that it conveys. Each manifest describes how to present a single object such as a book, a photograph, or a statue.
+The overall description of the structure and properties of the digital representation of an object. It carries information needed for the viewer to present the digitized content to the user, such as a title and other descriptive information about the object or the intellectual work that it conveys. Each Manifest describes how to present a single object such as a book, a photograph, or a statue.
 
 ##### Sequence
 {: #overview-sequence}
 
-The order of the views of the object. Multiple sequences are allowed to cover situations when there are multiple equally valid orders through the content, such as when a manuscript's pages are rebound or archival collections are reordered.
+The order of the views of the object. Multiple Sequences are allowed to cover situations when there are multiple equally valid orders through the content, such as when a manuscript's pages are rebound or archival collections are reordered.
 
 ##### Canvas
 {: #overview-canvas}
 
-A virtual container that represents a page or view and has content resources associated with it or with parts of it. The canvas provides a frame of reference for the layout of the content. The concept of a canvas is borrowed from standards like PDF and HTML, or applications like Photoshop and Powerpoint, where the display starts from a blank canvas and images, text and other resources are "painted" on to it.
+A virtual container that represents a page or view and has content resources associated with it or with parts of it. The Canvas provides a frame of reference for the layout of the content. The concept of a Canvas is borrowed from standards like PDF and HTML, or applications like Photoshop and Powerpoint, where the display starts from a blank display and images, video, text and other resources are "painted" on to it.
 
 ##### Content
 {: #overview-content}
 
-Content resources such as images or texts that are associated with a canvas.
+Content resources such as images, audio, video or text that are associated with a Canvas.
 
 ### 2.2. Additional Types
 
@@ -122,85 +122,84 @@ Content resources such as images or texts that are associated with a canvas.
 ##### Collection
 {: #overview-collection}
 
-An ordered list of manifests, and/or further collections.  Collections allow easy advertising and browsing of the manifests in a hierarchical structure, potentially with its own descriptive information.  They can also provide clients with a means to locate all of the manifests known to the publishing institution.
+An ordered list of Manifests, and/or further Collections.  Collections allow easy advertising and browsing of the Manifests in a hierarchical structure, potentially with its own descriptive information.  They can also provide clients with a means to locate all of the Manifests known to the publishing institution.
 
 ##### Annotation
 {: #overview-annotation}
 
-Content resources and commentary are associated with a canvas via an annotation.  This provides a single, coherent method for aligning information, and provides a standards based framework for distinguishing parts of resources and parts of canvases.  As annotations can be added later, it promotes a distributed system in which publishers can align their content with the descriptions created by others.
+Content resources and commentary are associated with a Canvas via an Annotation.  This provides a single, coherent method for aligning information, and provides a standards based framework for distinguishing parts of resources and parts of Canvases.  As Annotations can be added later, it promotes a distributed system in which publishers can align their content with the descriptions created by others.
 
 ##### AnnotationPage
 {: #overview-annotationpage}
 
-An ordered list of annotations in a single response, typically associated with a single canvas, and can be part of an AnnotationCollection.
+An ordered list of Annotations in a single response, typically associated with a single Canvas, and can be part of an AnnotationCollection.
 {: .changed}
 
 ##### AnnotationCollection
 {: #overview-annotationcollection}
 
-An ordered list of Annotation Pages.  AnnotationCollections allow higher level groupings of annotations to be recorded. For example, all of the English translation annotations of a medieval French document could be kept separate from the transcription or an edition in modern French.
+An ordered list of AnnotationPages.  AnnotationCollections allow higher level groupings of Annotations to be recorded. For example, all of the English translation Annotations of a medieval French document could be kept separate from the transcription or an edition in modern French.
 {: .changed}
 
 ##### Range
 {: #overview-range}
 
-An ordered list of canvases, and/or further ranges.  Ranges allow canvases, or parts thereof, to be grouped together in some way. This could be for textual reasons, such as to distinguish books, chapters, verses, sections, non-content-bearing pages, the table of contents or similar. Equally, physical features might be important such as quires or gatherings, sections that have been added later and so forth.
-
+An ordered list of Canvases, and/or further Ranges.  Ranges allow Canvases, or parts thereof, to be grouped together in some way. This could be for textual reasons, such as to distinguish books, chapters, verses, sections, non-content-bearing pages, the table of contents or similar. Equally, physical features might be important such as quires or gatherings, sections that have been added later and so forth.
 
 
 ##  3. Resource Properties
 
-This specification defines properties in five distinct areas. Most of the properties may be associated with any of the resource types described above, and may have more than one value.  The property relates to the resource that it is associated with, so a `description` property on a manifest is a description of the object, whereas a `description` property on a canvas is a description of that particular page or view of the object.
+This specification defines properties in five distinct areas. Most of the properties may be associated with any of the resource types described above, and may have more than one value.  The property relates to the resource that it is associated with, so a `description` property on a Manifest is a description of the object, whereas a `description` property on a Canvas is a description of that particular page or view of the object.
 
 The requirements for the use of the properties are summarized in [Appendix B][appendixB].
 
-Other properties are allowed, either via custom extensions or endorsed by the IIIF. If a client discovers properties that it does not understand, then it _MUST_ ignore them.  Other properties _SHOULD_ consist of a prefix and a name in the form "`prefix:name`" to ensure it does not collide with a property defined by IIIF specifications.  [Services][annex] _SHOULD_ be used for extensions if at all possible, and a [JSON-LD context document][ld-exts] should be added that defines the semantics of the new properties.
+Other properties are allowed, either via custom extensions or endorsed by IIIF. If a client discovers properties that it does not understand, then it _MUST_ ignore them.  Other properties _SHOULD_ consist of a prefix and a name in the form "`prefix:name`" to ensure it does not collide with a property defined by IIIF specifications.  [Services][annex] _SHOULD_ be used for extensions if at all possible, and a [JSON-LD context document][ld-exts] should be added that defines the semantics of the new properties.
 
 ####  3.1. Descriptive Properties
 
 ##### label
-A human readable label, name or title for the resource. This property is intended to be displayed as a short, textual surrogate for the resource if a human needs to make a distinction between it and similar resources, for example between pages or between a choice of images to display.
+A human readable label, name or title for the resource. This property is intended to be displayed as a short, textual surrogate for the resource if a human needs to make a distinction between it and similar resources, for example between pages or between a choice of images to display. The value of the property _MUST_ be a JSON object, as described in the [languages][languages] section.
 
- * A collection _MUST_ have at least one label.
- * A manifest _MUST_ have at least one label, such as the name of the object or title of the intellectual work that it embodies.
- * A sequence  _MAY_ have one or more labels, and if there are multiple sequences in a single manifest then they _MUST_ each have at least one label.
- * A canvas _MUST_ have at least one label, such as the page number or short description of the view.
- * A content resource _MAY_ have one or more labels, and if there is a choice of content resource for the same canvas, then they _SHOULD_ each have at least one label.
- * A range _SHOULD_ have at least one label. 
+ * A Collection _MUST_ have at least one label.
+ * A Manifest _MUST_ have at least one label, such as the name of the object or title of the intellectual work that it embodies.
+ * A Sequence  _MAY_ have one or more labels, and if there are multiple Sequences in a single manifest then they _MUST_ each have at least one label.
+ * A Canvas _MUST_ have at least one label, such as the page number or short description of the view.
+ * A content resource _MAY_ have one or more labels, and if there is a choice of content resource for the same Canvas, then they _SHOULD_ each have at least one label.
+ * A Range _SHOULD_ have at least one label. 
    {: .changed}
- * An annotation collection _MUST_ have at least one label.
+ * An AnnotationCollection _MUST_ have at least one label.
  * Other resource types _MAY_ have labels.
 
 ##### metadata
-A list of short descriptive entries, given as pairs of human readable label and value to be displayed to the user. The value _SHOULD_ be either simple HTML, including links and text markup, or plain text, and the label _SHOULD_ be plain text. There are no semantics conveyed by this information, and clients _SHOULD NOT_ use it for discovery or other purposes. This list of descriptive pairs _SHOULD_ be able to be displayed in a tabular form in the user interface. Clients _SHOULD_ have a way to display the information about manifests and canvases, and _MAY_ have a way to view the information about other resources. The client _SHOULD_ display the pairs in the order provided by the description. A pair might be used to convey the author of the work, information about its creation, a brief physical description, or ownership information, amongst other use cases. The client is not expected to take any action on this information beyond displaying the label and value. An example pair of label and value might be a label of "Author" and a value of "Jehan Froissart".
+A list of short descriptive entries, given as pairs of human readable `label` and `value` to be displayed to the user. The value of both `label` and `value` _MUST_ be a JSON object, as described in the [languages][languages] section. There are no semantics conveyed by this information, and clients _SHOULD NOT_ use it for discovery or other purposes. This list of descriptive pairs _SHOULD_ be able to be displayed in a tabular form in the user interface. Clients _SHOULD_ have a way to display the information about Manifests and Canvases, and _MAY_ have a way to view the information about other resources. The client _SHOULD_ display the pairs in the order provided by the description. A pair might be used to convey the author of the work, information about its creation, a brief physical description, or ownership information, amongst other use cases. The client is not expected to take any action on this information beyond displaying the label and value. An example pair of label and value might be a label of "Author" and a value of "Jehan Froissart".
 
- * A collection _SHOULD_ have one or more metadata pairs associated with it.
- * A manifest _SHOULD_ have one or more metadata pairs associated with it describing the object or work.
+ * A Collection _SHOULD_ have one or more metadata pairs associated with it.
+ * A Manifest _SHOULD_ have one or more metadata pairs associated with it describing the object or work.
  * Other resource types _MAY_ have one or more metadata pairs.
 
 
 ##### description
-A longer-form prose description of the object or resource that the property is attached to, intended to be conveyed to the user as a full text description, rather than a simple label and value. It _MAY_ be in simple HTML or plain text.  It can duplicate any of the information from the `metadata` fields, along with additional information required to understand what is being displayed. Clients _SHOULD_ have a way to display the descriptions of manifests and canvases, and _MAY_ have a way to view the information about other resources.
+A longer-form prose description of the object or resource that the property is attached to, intended to be conveyed to the user as a full text description, rather than a simple label and value. The value of the property _MUST_ be a JSON object, as described in the [languages][languages] section.  It can duplicate any of the information from the `metadata` fields, along with additional information required to understand what is being displayed. Clients _SHOULD_ have a way to display the descriptions of Manifests and Canvases, and _MAY_ have a way to view the information about other resources.
 
- * A collection _SHOULD_ have one or more descriptions.
- * A manifest _SHOULD_ have one or more descriptions.
+ * A Collection _SHOULD_ have one or more descriptions.
+ * A Manifest _SHOULD_ have one or more descriptions.
  * Other resource types _MAY_ have one or more description.
 
 
 ##### thumbnail
-A small image that depicts or pictorially represents the resource that the property is attached to, such as the title page, a significant image or rendering of a canvas with multiple content resources associated with it.  It is _RECOMMENDED_ that a [IIIF Image API][image-api] service be available for this image for manipulations such as resizing. If a resource has multiple thumbnails, then each of them _SHOULD_ be different.
+A small image that depicts or pictorially represents the resource that the property is attached to, such as the title page, a significant image or rendering of a Canvas with multiple content resources associated with it.  It is _RECOMMENDED_ that a [IIIF Image API][image-api] service be available for this image for manipulations such as resizing. If a resource has multiple thumbnails, then each of them _SHOULD_ be different.
 
- * A collection _SHOULD_ have exactly one thumbnail image, and _MAY_ have more than one.
- * A manifest _SHOULD_ have exactly one thumbnail image, and _MAY_ have more than one.
- * A sequence _MAY_ have one or more thumbnails and _SHOULD_ have at least one thumbnail if there are multiple sequences in a single manifest.
- * A canvas _MAY_ have one or more thumbnails and _SHOULD_ have at least one thumbnail if there are multiple images or resources that make up the representation.
+ * A Collection _SHOULD_ have exactly one thumbnail image, and _MAY_ have more than one.
+ * A Manifest _SHOULD_ have exactly one thumbnail image, and _MAY_ have more than one.
+ * A Sequence _MAY_ have one or more thumbnails and _SHOULD_ have at least one thumbnail if there are multiple Sequences in a single Manifest.
+ * A Canvas _MAY_ have one or more thumbnails and _SHOULD_ have at least one thumbnail if there are multiple images or resources that make up the representation.
  * A content resource _MAY_ have one or more thumbnails and _SHOULD_ have at least one thumbnail if it is an option in a choice of resources.
  * Other resource types _MAY_ have one or more thumbnails.
 
 ##### navDate
 A date that the client can use for navigation purposes when presenting the resource to the user in a time-based user interface, such as a calendar or timeline.  The value _MUST_ be an `xsd:dateTime` literal in UTC, expressed in the form "YYYY-MM-DDThh:mm:ssZ".  If the exact time is not known, then "00:00:00" _SHOULD_ be used. Similarly, the month or day _SHOULD_ be 01 if not known.  There _MUST_ be at most one `navDate` associated with any given resource.  More descriptive date ranges, intended for display directly to the user, _SHOULD_ be included in the `metadata` property for human consumption.  
 
- * A collection or manifest _MAY_ have exactly one navigation date associated with it.
+ * A Collection or Manifest _MAY_ have exactly one navigation date associated with it.
  * Other resource types _MUST NOT_ have navigation dates.
 
 
@@ -209,7 +208,7 @@ A date that the client can use for navigation purposes when presenting the resou
 The following properties ensure that the interests of the owning or publishing institutions are conveyed regardless of the viewing environment, and a client _MUST_ make these properties clearly available to the user. Given the wide variation of potential client user interfaces, it will not always be possible to display all or any of the properties to the user in the client's initial state. If initially hidden, the method of revealing them _MUST_ be obvious, such as a button or scroll bars.
 
 ##### attribution
-Text that _MUST_ be shown when the resource it is associated with is displayed or used. For example, this could be used to present copyright or ownership statements, or simply an acknowledgement of the owning and/or publishing institution. Clients _SHOULD_ try to match the language preferred by the user, and if the preferred language is unknown or unavailable, then the client may choose which value to display.  If there are multiple values of the same or unspecified language, then all of those values _MUST_ be displayed.
+Text that _MUST_ be shown when the resource it is associated with is displayed or used. For example, this could be used to present copyright or ownership statements, or simply an acknowledgement of the owning and/or publishing institution. The value of the property _MUST_ be a JSON object, as described in the [languages][languages] section.
 
  * Any resource type _MAY_ have one or more attribution labels.
 
@@ -218,8 +217,7 @@ Text that _MUST_ be shown when the resource it is associated with is displayed o
 
 A link to an external resource that describes the license or rights statement under which the resource may be used. The rationale for this being a URI and not a human readable label is that typically there is one license for many resources, and the text is too long to be displayed to the user along with the object. If displaying the text is a requirement, then it is _RECOMMENDED_ to include the information using the `attribution` property instead.
 
- * Any resource type _MAY_ have one or more rights statements or licenses associated 
- with it.
+ * Any resource type _MAY_ have one or more rights statements or licenses associated with it.
 
 ##### logo
 A small image that represents an individual or organization associated with the resource it is attached to.  This could be the logo of the owning or hosting institution. The logo _MUST_ be clearly rendered when the resource is displayed or used, without cropping, rotating or otherwise distorting the image. It is _RECOMMENDED_ that a [IIIF Image API][image-api] service be available for this image for manipulations such as resizing.
@@ -233,15 +231,15 @@ A small image that represents an individual or organization associated with the 
 
 The URI that identifies the resource. It is _RECOMMENDED_ that an HTTP URI be used for all resources. Recommended HTTP URI patterns for the different classes of resource are given below.  URIs from any [registered scheme][iana-uri-schemes] _MAY_ be used, and implementers may find it convenient to use a [UUID URN][rfc-4122] of the form: `"urn:uuid:uuid-goes-here-1234"`.  Resources that do not require URIs _MAY_ be assigned [blank node identifiers][rdf11-blank-nodes]; this is the same as omitting `id`.
 
- * A collection _MUST_ have exactly one id, and it _MUST_ be the http(s) URI at which it is published.
- * A manifest _MUST_ have exactly one id, and it _MUST_ be the http(s) URI at which it is published.
- * A sequence _MAY_ have an id and _MUST NOT_ have more than one.
- * A canvas _MUST_ have exactly one id, and it _MUST_ be an http(s) URI.  The canvas's JSON representation _SHOULD_ be published at that URI.
+ * A Collection _MUST_ have exactly one id, and it _MUST_ be the http(s) URI at which it is published.
+ * A Manifest _MUST_ have exactly one id, and it _MUST_ be the http(s) URI at which it is published.
+ * A Sequence _MAY_ have an id and _MUST NOT_ have more than one.
+ * A Canvas _MUST_ have exactly one id, and it _MUST_ be an http(s) URI.  The Canvas's JSON representation _SHOULD_ be published at that URI.
  * A content resource _MUST_ have exactly one id unless it is embedded in the response, and it _MUST_ be the http(s) URI at which the resource is published.
- * A range _MUST_ have exactly one id, and it _MUST_ be an http(s) URI.
- * An annotation collection _MUST_ have exactly one id, and it _MUST_ be an http(s) URI.
- * An annotation page _MUST_ have exactly one id, and it _MUST_ be the http(s) URI at which it is published.
- * An annotation _MUST_ have exactly one id, and the annotation's representation _SHOULD_ be published at that URI. 
+ * A Range _MUST_ have exactly one id, and it _MUST_ be an http(s) URI.
+ * An AnnotationCollection _MUST_ have exactly one id, and it _MUST_ be an http(s) URI.
+ * An AnnotationPage _MUST_ have exactly one id, and it _MUST_ be the http(s) URI at which it is published.
+ * An Annotation _MUST_ have exactly one id, and the Annotation's representation _SHOULD_ be published at that URI. 
   {: .changed}
 
 ##### type
@@ -262,37 +260,36 @@ The specific media type (often called a MIME type) of a content resource, for ex
 This is different to the `formats` property in the [Image API][image-api], which gives the extension to use within that API.  It would be inappropriate to use in this case, as `format` can be used with any content resource, not just images.
 
 ##### height
-The height of a canvas or content resource. For content resources, the value is in pixels. For canvases, the value does not have a unit. In combination with the width, it conveys an aspect ratio for the space in which content resources are located.
+The height of a Canvas or content resource. For content resources, the value is in pixels. For Canvases, the value does not have a unit. In combination with the width, it conveys an aspect ratio for the space in which content resources are located.
 
- * A canvas _SHOULD_ have exactly one height, and _MUST NOT_ have more than one. If it has a height, it _MUST_ also have a width.
+ * A Canvas _SHOULD_ have exactly one height, and _MUST NOT_ have more than one. If it has a height, it _MUST_ also have a width.
    {: .changed}
  * Content resources _MAY_ have exactly one height, given in pixels, if appropriate.
  * Other resource types _MUST NOT_ have a height.
 
 ##### width
-The width of a canvas or content resource. For content resources, the value is in pixels. For canvases, the value does not have a unit. In combination with the height, it conveys an aspect ratio for the space in which content resources are located.
+The width of a Canvas or content resource. For content resources, the value is in pixels. For Canvases, the value does not have a unit. In combination with the height, it conveys an aspect ratio for the space in which content resources are located.
 
- * A canvas _SHOULD_ have exactly one width, and _MUST NOT_ have more than one. If it has a width, it _MUST_ also have a height.
+ * A Canvas _SHOULD_ have exactly one width, and _MUST NOT_ have more than one. If it has a width, it _MUST_ also have a height.
    {: .changed}
  * Content resources _MAY_ have exactly one width, given in pixels, if appropriate.
  * Other resource types _MUST NOT_ have a width.
 
 ##### duration
 {: .changed}
-The duration of a canvas or content resource, given in seconds as a non-negative floating point number. 
+The duration of a Canvas or content resource, given in seconds as a non-negative floating point number. 
 
- * A canvas _MAY_ have exactly one duration, and _MUST NOT_ have more than one.
+ * A Canvas _MAY_ have exactly one duration, and _MUST NOT_ have more than one.
  * Content resources _MAY_ have exactly one duration, and _MUST NOT_ have more than one.
  * Other resource types _MUST NOT_ have a duration.
 {: .changed}
 
-
 ##### viewingDirection
-The direction that a sequence of canvases _SHOULD_ be displayed to the user. Possible values are specified in the table below.
+The direction that a set of Canvases _SHOULD_ be displayed to the user. Possible values are specified in the table below.
 
- * A manifest _MAY_ have exactly one viewing direction, and if so, it applies to all of its sequences unless the sequence specifies its own viewing direction.
- * A sequence _MAY_ have exactly one viewing direction.
- * A range or layer _MAY_ have exactly one viewing direction.
+ * A Manifest _MAY_ have exactly one viewing direction, and if so, it applies to all of its sequences unless the sequence specifies its own viewing direction.
+ * A Sequence _MAY_ have exactly one viewing direction.
+ * A Range _MAY_ have exactly one viewing direction.
  * Other resource types _MUST NOT_ have a viewing direction.
 
 > | Value | Description |
@@ -310,16 +307,16 @@ A hint to the client as to the most appropriate method of displaying the resourc
 
 > | Value | Description |
 | ----- | ----------- |
-| `individuals` | Valid on Collection, Manifest, Sequence and Range. When used as the `viewingHint` of a Collection, the client should treat each of the manifests as distinct individual objects. For manifest, sequence and range, the canvases referenced are all distinct individual views, and _SHOULD NOT_ be presented in a page-turning interface. Examples include a gallery of paintings, a set of views of a 3 dimensional object, or a set of the front sides of photographs in a collection. |
+| `individuals` | Valid on Collection, Manifest, Sequence and Range. When used as the `viewingHint` of a Collection, the client should treat each of the Manifests as distinct individual objects. For Manifest, Sequence and Range, the Canvases referenced are all distinct individual views, and _SHOULD NOT_ be presented in a page-turning interface. Examples include a gallery of paintings, a set of views of a 3 dimensional object, or a set of the front sides of photographs in a museum collection. |
 | `paged` | Valid on Manifest, Sequence and Range. Canvases with this `viewingHint` represent pages in a bound volume, and _SHOULD_ be presented in a page-turning interface if one is available.  The first canvas is a single view (the first recto) and thus the second canvas represents the back of the object in the first canvas. |
-| `continuous` | Valid on Manifest, Sequence and Range.  A canvas with this `viewingHint` is a partial view and an appropriate rendering might display either the canvases individually, or all of the canvases virtually stitched together in the display.  Examples when this would be appropriate include long scrolls, rolls, or objects designed to be displayed adjacent to each other.  If this `viewingHint` is present, then the resource _MUST_ also have a `viewingDirection` which will determine the arrangement of the canvases. Note that this does not allow for both sides of a scroll to be included in the same manifest with this `viewingHint`.  To accomplish that, the manifest should be "individuals" and have two ranges, one for each side, which are "continuous".  |
-| `multi-part` | Valid only for Collections. Collections with this `viewingHint` consist of multiple manifests that each form part of a logical whole. Clients might render the collection as a table of contents, rather than with thumbnails. Examples include multi-volume books or a set of journal issues or other serials. |
-| `non-paged` | Valid only for Canvases. Canvases with this `viewingHint` _MUST NOT_ be presented in a page turning interface, and _MUST_ be skipped over when determining the page sequence. This viewing hint _MUST_ be ignored if the current sequence or manifest does not have the 'paged' viewing hint. |
-| `top` | Valid only for Ranges. A Range with this `viewingHint` is the top-most node in a hierarchy of ranges that represents a structure to be rendered by the client to assist in navigation. For example, a table of contents within a paged object, major sections of a 3d object, the textual areas within a single scroll, and so forth.  Other ranges that are descendants of the "top" range are the entries to be rendered in the navigation structure.  There _MAY_ be multiple ranges marked with this hint. If so, the client _SHOULD_ display a choice of multiple structures to navigate through. |
-| `facing-pages` | Valid only for Canvases. Canvases with this `viewingHint`, in a sequence or manifest with the "paged" viewing hint, _MUST_ be displayed by themselves, as they depict both parts of the opening.  If all of the canvases are like this, then page turning is not possible, so simply use "individuals" instead. |
-| `none` | Valid on annotation collection, annotation pages, annotations, SpecificResources, or Choices. If this hint is provided, then the client should not render the resource by default, but allow the user to turn it on and off.|
+| `continuous` | Valid on Manifest, Sequence and Range.  A Canvas with this `viewingHint` is a partial view and an appropriate rendering might display either the Canvases individually, or all of the Canvases virtually stitched together in the display.  Examples when this would be appropriate include long scrolls, rolls, or objects designed to be displayed adjacent to each other.  If this `viewingHint` is present, then the resource _MUST_ also have a `viewingDirection` which will determine the arrangement of the canvases. Note that this does not allow for both sides of a scroll to be included in the same Manifest with this `viewingHint`.  To accomplish that, the Manifest should be "individuals" and have two Ranges, one for each side, which are "continuous".  |
+| `multi-part` | Valid only for Collection. Collections with this `viewingHint` consist of multiple Manifests that each form part of a logical whole. Clients might render the Collection as a table of contents, rather than with thumbnails. Examples include multi-volume books or a set of journal issues or other serials. |
+| `non-paged` | Valid only for Canvas. Canvases with this `viewingHint` _MUST NOT_ be presented in a page turning interface, and _MUST_ be skipped over when determining the page sequence. This viewing hint _MUST_ be ignored if the current Sequence or Manifest does not have the 'paged' viewing hint. |
+| `top` | Valid on Collection and Range. A Collection or Range with this `viewingHint` is the top-most node in a hierarchy that represents a structure to be rendered by the client to assist in navigation. For example, a table of contents within a paged object, major sections of a 3d object, the textual areas within a single scroll, and so forth.  Other Ranges that are descendants of the "top" Range are the entries to be rendered in the navigation structure.  There _MAY_ be multiple Ranges marked with this hint. If so, the client _SHOULD_ display a choice of multiple structures to navigate through. |
+| `facing-pages` | Valid only for Canvas. Canvases with this `viewingHint`, in a Sequence or Manifest with the "paged" viewing hint, _MUST_ be displayed by themselves, as they depict both parts of the opening.  If all of the Canvases are like this, then page turning is not possible, so simply use "individuals" instead. |
+| `none` | Valid on AnnotationCollection, AnnotationPage, Annotation, SpecificResource and Choice. If this hint is provided, then the client should not render the resource by default, but allow the user to turn it on and off.|
 | `auto-advance` | Valid on Collection, Manifest, Sequence and Canvas. When the client reaches the end of a Canvas with a duration dimension that has (or is within a resource that has) this `viewingHint`, it _SHOULD_ immediately proceed to the next Canvas and render it. If there is no subsequent Canvas in the current context, then this `viewingHint` should be ignored. When applied to a Collection, the client should treat the first Canvas of the next Manifest as following the last Canvas of the previous Manifest, respecting any `startCanvas` specified.|
-| `together` | Valid only for Collections. A client _SHOULD_ present all of the child manifests to the user at once in a separate viewing area with its own controls. Clients _SHOULD_ catch attempts to create too many viewing areas and not do that. The `together` value _SHOULD NOT_ be interpreted as applying to the members of children.|
+| `together` | Valid only for Collection. A client _SHOULD_ present all of the child Manifests to the user at once in a separate viewing area with its own controls. Clients _SHOULD_ catch attempts to create too many viewing areas. The `together` value _SHOULD NOT_ be interpreted as applying to the members any child resources.|
 {: .api-table}
 
 ##### choiceHint
@@ -335,13 +332,13 @@ A hint associated with a Choice resource that a client can use to determine the 
 ##### timeMode
 {: .changed}
 
-A mode associated with an annotation that is to be applied to the rendering of any time-based media used as a body resource of that annotation. Note that the association of `timeMode` with the annotation means that different resources in the body cannot have different values.
+A mode associated with an Annotation that is to be applied to the rendering of any time-based media used as a body resource of that Annotation. Note that the association of `timeMode` with the Annotation means that different resources in the body cannot have different values.
 
 > | Value | Description |
 | ----- | ----------- |
-| `trim` | (default, if not supplied) If the content resource has a longer duration than the duration of portion of the canvas it is associated with, then at the end of the canvas's duration, the playback of the content resource _MUST_ also end. If the content resource has a shorter duration than the duration of the portion of the canvas it is associated with, then, for video resources, the last frame _SHOULD_ persist on-screen until the end of the canvas portion's duration. For example, a video of 120 seconds annotated to a canvas with a duration of 100 seconds would play only the first 60 seconds at normal speed. |
-| `scale` | Fit the duration of content resource to the duration of the portion of the canvas it is associated with by scaling. For example, a video of 120 seconds annotated to a canvas with a duration of 60 seconds would be played at double-speed. |
-| `loop` | If the content resource is shorter than the `duration` of the canvas, it _MUST_ be repeated to fill the entire duration. Resources longer than the `duration` _MUST_ be trimmed as described above. For example, if a 20 second duration audio stream is annotated onto a canvas with duration 30 seconds, it will be played one and a half times. |
+| `trim` | (default, if not supplied) If the content resource has a longer duration than the duration of portion of the Canvas it is associated with, then at the end of the Canvas's duration, the playback of the content resource _MUST_ also end. If the content resource has a shorter duration than the duration of the portion of the Canvas it is associated with, then, for video resources, the last frame _SHOULD_ persist on-screen until the end of the Canvas portion's duration. For example, a video of 120 seconds annotated to a Canvas with a duration of 100 seconds would play only the first 60 seconds at normal speed. |
+| `scale` | Fit the duration of content resource to the duration of the portion of the Canvas it is associated with by scaling. For example, a video of 120 seconds annotated to a Canvas with a duration of 60 seconds would be played at double-speed. |
+| `loop` | If the content resource is shorter than the `duration` of the Canvas, it _MUST_ be repeated to fill the entire duration. Resources longer than the `duration` _MUST_ be trimmed as described above. For example, if a 20 second duration audio stream is annotated onto a Canvas with duration 30 seconds, it will be played one and a half times. |
 
 
 ####  3.4. Linking Properties
@@ -369,20 +366,20 @@ A link to a machine readable document that semantically describes the resource w
 ##### within
 A link to a resource that contains the current resource, such as annotation lists within a layer. This also allows linking upwards to collections that allow browsing of the digitized objects available.
 
- * Collections or annotation lists that serve as [pages][paging] _MUST_ be within exactly one paged resource.
- * Other resource types, including collections or annotation lists not serving as pages, _MAY_ be within one or more containing resources.
+ * Collections or AnnotationPages that serve as [pages][paging] _MUST_ be within exactly one paged resource.
+ * Other resource types, including Collections or AnnotationPages not serving as pages, _MAY_ be within one or more containing resources.
 
 ##### startCanvas
-A link from a sequence or range to a canvas that is contained within the sequence.  On seeing this relationship, a client _SHOULD_ advance to the specified canvas when beginning navigation through the sequence/range.  This allows the client to begin with the first canvas that contains interesting content rather than requiring the user to skip past blank or empty canvases manually.
+A link from a Sequence or Range to a Canvas that is contained within it.  On seeing this relationship, a client _SHOULD_ advance to the specified Canvas when beginning navigation through the Sequence/Range.  This allows the client to begin with the first Canvas that contains interesting content rather than requiring the user to skip past blank or empty Canvases manually.
 
- * A sequence or a range _MAY_ have exactly one canvas as its start canvas.
- * Other resource types _MUST NOT_ have a start canvas.
+ * A Sequence or Range _MAY_ have exactly one Canvas as its starting Canvas.
+ * Other resource types _MUST NOT_ have a starting Canvas.
 
-##### contentLayer
-A link from a range to a layer that includes the annotations of content resources for that range.  Clients might use this to present content to the user from a different canvas when interacting with the range, or to jump to the next part of the range within the same canvas.  
+##### contentAnnotations
+A link from a Range to an AnnotationCollection that includes the Annotations of content resources for that Range.  Clients might use this to present content to the user from a different Canvas when interacting with the Range, or to jump to the next part of the Range within the same Canvas.  
 
- * A range _MAY_ have exactly one layer as its content layer.
- * Other resource types _MUST NOT_ have a content layer.
+ * A Range _MAY_ have exactly one AnnotationCollection as its content.
+ * Other resource types _MUST NOT_ have `contentAnnotations`.
 
 ####  3.5. Paging Properties
 
@@ -434,6 +431,8 @@ The 0 based index of the first included resource in the current page, relative t
 
 ##### structures
 
+##### content
+
 
 ##  4. JSON-LD Considerations
 
@@ -469,19 +468,25 @@ Many of the properties in the API _MAY_ be repeated. This is done by giving a li
 
 ### 4.3. Language of Property Values
 
-Language _MAY_ be associated with strings that are intended to be displayed to the user with the following pattern of `@value` plus the [RFC 5646][rfc5646] code in `@language`, instead of a plain string.  For example:
+Language _MAY_ be associated with strings that are intended to be displayed to the user for the `label`, `description`, `attribution` fields, plus the `label` and `value` fields of the `metadata` construction. 
+
+The values of these fields _MUST_ be JSON objects, with the keys being the [RFC 5646][rfc5646] language code for the language, or if the language is either not known or the string does not have a language, then the key must be `"@none"`. The associated values _MUST_ be arrays of strings, where each string is the content in the given language.
+
 
 ``` json-doc
-{"description": {"@value": "Here is a longer description of the object", "@language": "en"}}
+{"description": {
+    "en": ["Here is the description of the object in English", 
+           "And a second description"],
+    "fr": ["Voici le description de l'objet en français"],
+    "@none": ["A description in an unknown language"]
+}
 ```
-
-This pattern may be used in `label`, `description`, `attribution` and the `label` and `value` fields of the `metadata` construction.
 
 Note that [RFC 5646][rfc5646] allows the script of the text to be included after a hyphen, such as `ar-latn`, and clients should be aware of this possibility. This allows for full internationalization of the user interface components described in the response, as the labels as well as values may be translated in this manner; examples are given below.
 
 In the case where multiple values are supplied, clients _MUST_ use the following algorithm to determine which values to display to the user.  
 
-* If none of the values have a language associated with them, the client _MUST_ display all of the values.
+* If all of the values are in the `@none` list, treated as not having a language associated with them, the client _MUST_ display all of those values.
 * Else, the client should try to determine the user's language preferences, or failing that use some default language preferences. Then:
   * If any of the values have a language associated with them, the client _MUST_ display all of the values associated with the language that best matches the language preference.
   * If all of the values have a language associated with them, and none match the language preference, the client _MUST_ select a language and display all of the values associated with that language.
@@ -500,28 +505,31 @@ In order to avoid HTML or script injection attacks, clients _MUST_ remove:
   * XML Comments.
   * Processing instructions.
 
-Clients _SHOULD_ allow only `a`, `b`, `br`, `i`, `img`, `p`, and `span` tags. Clients _MAY_ choose to remove any and all tags, therefore it _SHOULD NOT_ be assumed that the formatting will always be rendered.
+Clients _SHOULD_ allow only `a`, `b`, `br`, `i`, `img`, `p`, and `span` tags. Clients _MAY_ choose to remove any and all tags, therefore it _SHOULD NOT_ be assumed that the formatting will always be rendered. 
 
 ``` json-doc
-{"description": {"@value": "<p>Some <b>description</b></p>", "@language": "en-latn"}}
+{"description": {"en-latn": ["<p>Some <b>description</b></p>"]}
 ```
 
 ### 4.5. Linked Data Context and Extensions
 
-The top level resource in the response _MUST_ have the `@context` property, and it _SHOULD_ appear as the very first key/value pair of the JSON representation. This tells Linked Data processors how to interpret the information. The IIIF Presentation API context, below, _MUST_ occur exactly once per response, and be omitted from any embedded resources. For example, when embedding a sequence within a manifest, the sequence _MUST NOT_ have the `@context` field.
+The top level resource in the response _MUST_ have the `@context` property, and it _SHOULD_ appear as the very first key/value pair of the JSON representation. This tells Linked Data processors how to interpret the information. The IIIF Presentation API context, below, _MUST_ occur exactly once per response, and be omitted from any embedded resources. For example, when embedding a sequence without any extensions within a manifest, the sequence _MUST NOT_ have the `@context` field.
+
+The value of the `@context` property _MUST_ be a list, and the first two values _MUST_ be the Presentation API context and the Web Annotation context, in that order.
 
 ``` json-doc
-{"@context": "http://iiif.io/api/presentation/{{ page.major }}/context.json"}
+{"@context": [
+    "http://iiif.io/api/presentation/{{ page.major }}/context.json"
+    "http://www.w3.org/ns/anno.jsonld"
+  ]
+}
 ```
 
-Any additional fields beyond those defined in this specification _SHOULD_ be mapped to RDF predicates using further context documents. In this case, the enclosing object _MUST_ have its own `@context` property, and it _SHOULD_ be the first key/value pair of that object. This is _REQUIRED_ for `service` links that embed any information beyond a `profile`.  These contexts _SHOULD NOT_ redefine `profile`.  As the top level resource _MUST_ have the IIIF Presentation API context, if there are any additional contexts needed, the value will become an array of URI strings:
+Any additional fields beyond those defined in this specification or the Web Annotation Data Model _SHOULD_ be mapped to RDF predicates using further context documents. In this case, the enclosing object _MUST_ have its own `@context` property, and it _SHOULD_ be the first key/value pair of that object. This is _REQUIRED_ for `service` links that embed any information beyond a `profile`.  These contexts _SHOULD NOT_ redefine `profile`.  For the top resource in the response, any extensions _MUST_ be added after the IIIF and Annotation contexts in the array.  For embedded resources, the extension context could be just a string.
 
 ``` json-doc
 {
-  "@context": [
-    "http://iiif.io/api/presentation/{{ page.major }}/context.json",
-    "http://example.org/extension/context.json"
-  ]
+  "@context": "http://example.org/extension/context.json"
 }
 ```
 
@@ -538,7 +546,7 @@ Recommended URI pattern:
 ```
 {: .urltemplate}
 
-The manifest response contains sufficient information for the client to initialize itself and begin to display something quickly to the user. The manifest resource represents a single object and any intellectual work or works embodied within that object. In particular it includes the descriptive, rights and linking information for the object. It then embeds the sequence(s) of canvases that should be rendered to the user.
+The Manifest response contains sufficient information for the client to initialize itself and begin to display something quickly to the user. The manifest resource represents a single object and any intellectual work or works embodied within that object. In particular it includes the descriptive, rights and linking information for the object. It then embeds the sequence(s) of canvases that should be rendered to the user.
 
 The identifier in `id` _MUST_ always be able to be dereferenced to retrieve the JSON description of the manifest, and thus _MUST_ use the http(s) URI scheme.
 
@@ -553,22 +561,22 @@ The example below includes only the manifest-level information, however actual i
   // Metadata about this manifest file
   "@context": "http://iiif.io/api/presentation/2/context.json",
   "id": "http://example.org/iiif/book1/manifest",
-  "type": "sc:Manifest",
+  "type": "Manifest",
 
   // Descriptive metadata about the object/work
   "label": "Book 1",
   "metadata": [
-    {"label": "Author", "value": "Anne Author"},
-    {"label": "Published", "value": [
-        {"@value": "Paris, circa 1400", "@language": "en"},
-        {"@value": "Paris, environ 1400", "@language": "fr"}
-      ]
+    {"label": {"en": "Author"}, "value": {"@none": "Anne Author"}},
+    {"label": {"en": "Published", "value": {
+        "en": "Paris, circa 1400",
+        "fr": "Paris, environ 1400"
+      }
     },
-    {"label": "Notes", "value": ["Text of note 1", "Text of note 2"]},
-    {"label": "Source",
-     "value": "<span>From: <a href=\"http://example.org/db/1.html\">Some Collection</a></span>"}
+    {"label": {"en": "Notes", "value": {"en": ["Text of note 1", "Text of note 2"]},
+    {"label": {"en": "Source",
+     "value": {"@none": "<span>From: <a href=\"http://example.org/db/1.html\">Some Collection</a></span>"}
   ],
-  "description": "A longer description of this example book. It should give some real information.",
+  "description": {"en": "A longer description of this example book. It should give some real information."},
   "thumbnail": {
     "id": "http://example.org/images/book1-page1/full/80,100/0/default.jpg",
     "service": {
@@ -584,7 +592,7 @@ The example below includes only the manifest-level information, however actual i
   "navDate": "1856-01-01T00:00:00Z",
 
   // Rights Information
-  "license": "http://example.org/license.html",
+  "rights": "http://example.org/license.html",
   "attribution": "Provided by Example Organization",
 
   "logo": {
@@ -622,7 +630,7 @@ The example below includes only the manifest-level information, however actual i
   "sequences": [
       {
         "id": "http://example.org/iiif/book1/sequence/normal",
-        "type": "sc:Sequence",
+        "type": "Sequence",
         "label": "Current Page Order"
         // sequence's page order should be included here, see below...
       }
@@ -655,7 +663,7 @@ In the manifest example above, the sequence is referenced by its URI and contain
   // Metadata about this sequence
   "@context": "http://iiif.io/api/presentation/2/context.json",
   "id": "http://example.org/iiif/book1/sequence/normal",
-  "type": "sc:Sequence",
+  "type": "Sequence",
   "label": "Current Page Order",
 
   "viewingDirection": "left-to-right",
@@ -666,19 +674,19 @@ In the manifest example above, the sequence is referenced by its URI and contain
   "canvases": [
     {
       "id": "http://example.org/iiif/book1/canvas/p1",
-      "type": "sc:Canvas",
+      "type": "Canvas",
       "label": "p. 1"
       // ...
     },
     {
       "id": "http://example.org/iiif/book1/canvas/p2",
-      "type": "sc:Canvas",
+      "type": "Canvas",
       "label": "p. 2"
       // ...
     },
     {
       "id": "http://example.org/iiif/book1/canvas/p3",
-      "type": "sc:Canvas",
+      "type": "Canvas",
       "label": "p. 3"
       // ...
     }
@@ -701,7 +709,7 @@ Every canvas _MUST_ have a `label` to display, and a `height` and a `width` as i
 
 It is _RECOMMENDED_ that if there is (at the time of implementation) a single image that depicts the page, then the dimensions of the image are used as the dimensions of the canvas for simplicity. If there are multiple full images, then the dimensions of the largest image should be used. If the largest image's dimensions are less than 1200 pixels on either edge, then the canvas's dimensions _SHOULD_ be double those of the image. Clients _MUST_ be aware that this is not always the case, such as in the examples presented, and instead _MUST_ always scale images into the space represented by the canvas.  The dimensions of the canvas _SHOULD_ be the same scale as the physical object, and thus images _SHOULD_ depict only the object.  This can be accomplished by cropping the image, or associating only a segment of the image with the canvas. The physical dimensions of the object may be available via a service, either embedded within the description or requiring an HTTP request to retrieve them.
 
-Image resources, and only image resources, are included in the `images` property of the canvas. These are linked to the canvas via annotations, as described in [Image Resources][image-resources]. Other content, such as transcriptions, video, audio or commentary, is provided via external annotation lists referenced in the `otherContent` property, as described in [Annotation Lists][annotation-lists]. The value of both of these properties _MUST_ be a list, even if there is only one entry. Both are optional, as there may be no additional information associated with the canvas. Note that the items in the `otherContent` list may be either objects with an `id` property or strings. In the case of a string, this is the URI of the annotation list and the type of "sc:AnnotationList" can be inferred.
+Image resources, and only image resources, are included in the `images` property of the canvas. These are linked to the canvas via annotations, as described in [Image Resources][image-resources]. Other content, such as transcriptions, video, audio or commentary, is provided via external annotation lists referenced in the `otherContent` property, as described in [Annotation Lists][annotation-lists]. The value of both of these properties _MUST_ be a list, even if there is only one entry. Both are optional, as there may be no additional information associated with the canvas. Note that the items in the `otherContent` list may be either objects with an `id` property or strings. In the case of a string, this is the URI of the annotation list and the type of "AnnotationList" can be inferred.
 
 In a sequence with the `viewingHint` value of "paged" and presented in a book viewing user interface, the first canvas _SHOULD_ be presented by itself -- it is typically either the cover or first recto page. Thereafter, the canvases represent the sides of the leaves, and hence may be presented with two canvases displayed as an opening of the book.  If there are canvases which are in the sequence but would break this ordering, then they _MUST_ have the `viewingHint` property with a value of "non-paged".  Similarly if the first canvas is not a single up, it _MUST_ be marked as "non-paged" or an empty canvas added before it.
 
@@ -712,14 +720,14 @@ Canvases _MAY_ be dereferenced separately from the manifest via their URIs, and 
   // Metadata about this canvas
   "@context": "http://iiif.io/api/presentation/2/context.json",
   "id": "http://example.org/iiif/book1/canvas/p1",
-  "type": "sc:Canvas",
+  "type": "Canvas",
   "label": "p. 1",
   "height":1000,
   "width":750,
 
   "images": [
     {
-      "type": "oa:Annotation"
+      "type": "Annotation"
       // Link from Image to canvas should be included here, as below
     }
   ],
@@ -727,7 +735,7 @@ Canvases _MAY_ be dereferenced separately from the manifest via their URIs, and 
     {
       // Reference to list of other Content resources, _not included directly_
       "id": "http://example.org/iiif/book1/list/p1",
-      "type": "sc:AnnotationList"
+      "type": "AnnotationList"
     }
   ]
 
@@ -747,7 +755,7 @@ Association of images with their respective canvases is done via annotations. Al
 
 Annotations _MAY_ have their own URIs, conveyed by adding an `id` property to the JSON object, and if so _SHOULD_ be HTTP URIs. The content of the annotation _SHOULD_ be returned if the URI is dereferenced. Annotations _MAY_ be dereferenced separately from their annotation lists, sequences and manifests; some systems may do this and identifiers should be given using the recommended pattern if possible.
 
-Each association of an image _MUST_ have the `motivation` field and the value _MUST_ be "sc:painting". This is in order to distinguish it from comment annotations about the canvas, described in further detail below.  Note that all resources which are to be displayed as part of the representation are given the motivation of "sc:painting", regardless of whether they are images or not.  For example, a transcription of the text in a page is considered "painting" as it is a representation of the object, whereas a comment about the page is not.
+Each association of an image _MUST_ have the `motivation` field and the value _MUST_ be "painting". This is in order to distinguish it from comment annotations about the canvas, described in further detail below.  Note that all resources which are to be displayed as part of the representation are given the motivation of "painting", regardless of whether they are images or not.  For example, a transcription of the text in a page is considered "painting" as it is a representation of the object, whereas a comment about the page is not.
 
 The image itself is linked in the `resource` property of the annotation. The image _MUST_ have an `id` field, with the value being the URI at which the image can be obtained. If a IIIF Image service is available for the image, then the URL _MAY_ be the complete URL to a particular size of the image content, such as `http://example.org/image1/full/1000,/0/default.jpg`. It _SHOULD_ have an `type` of "dctypes:Image". Its media type _MAY_ be listed in `format`, and its height and width _MAY_ be given as integer values for `height` and `width` respectively.
 
@@ -763,8 +771,8 @@ Only the annotations that associate images or parts of images are included in th
 {
   "@context": "http://iiif.io/api/presentation/2/context.json",
   "id": "http://example.org/iiif/book1/annotation/p0001-image",
-  "type": "oa:Annotation",
-  "motivation": "sc:painting",
+  "type": "Annotation",
+  "motivation": "painting",
   "resource": {
     "id": "http://example.org/iiif/book1/res/page1.jpg",
     "type": "dctypes:Image",
@@ -798,9 +806,9 @@ The {name} parameter in the URI pattern _MUST_ uniquely distinguish it from all 
 
 The annotation list _MUST_ have an http(s) URI given in `id`, and the JSON representation _MUST_ be returned when that URI is dereferenced.  They _MAY_ have any of the other fields defined in this specification.
 
-The annotations, as described above, are given in a `resources` list. The resource linked by the annotation _MUST_ be something other than an image if the motivation is `sc:painting`, these are recorded in the `images` property of the canvas. The canvas URI _MUST_ be repeated in the `on` field, as above.
+The annotations, as described above, are given in a `resources` list. The resource linked by the annotation _MUST_ be something other than an image if the motivation is `painting`, these are recorded in the `images` property of the canvas. The canvas URI _MUST_ be repeated in the `on` field, as above.
 
-The format of the resource _SHOULD_ be included and _MUST_ be the media type that is returned when the resource is dereferenced. The type of the content resource _SHOULD_ be taken from this [list in the Open Annotation specification][openannotypes], or a similar well-known resource type ontology. For resources that are displayed as part of the rendering (such as images, text transcriptions, performances of music from the manuscript and so forth) the motivation _MUST_ be "sc:painting". The content resources _MAY_ also have any of the other fields defined in this specification, including commonly `label`, `description`, `metadata`, `license` and `attribution`.
+The format of the resource _SHOULD_ be included and _MUST_ be the media type that is returned when the resource is dereferenced. The type of the content resource _SHOULD_ be taken from this [list in the Open Annotation specification][openannotypes], or a similar well-known resource type ontology. For resources that are displayed as part of the rendering (such as images, text transcriptions, performances of music from the manuscript and so forth) the motivation _MUST_ be "painting". The content resources _MAY_ also have any of the other fields defined in this specification, including commonly `label`, `description`, `metadata`, `license` and `attribution`.
 
 Note well that Annotation Lists _MUST NOT_ be embedded within the manifest.
 
@@ -808,12 +816,12 @@ Note well that Annotation Lists _MUST NOT_ be embedded within the manifest.
 {
   "@context": "http://iiif.io/api/presentation/2/context.json",
   "id": "http://example.org/iiif/book1/list/p1",
-  "type": "sc:AnnotationList",
+  "type": "AnnotationList",
 
   "resources": [
     {
-      "type": "oa:Annotation",
-      "motivation": "sc:painting",
+      "type": "Annotation",
+      "motivation": "painting",
       "resource":{
         "id": "http://example.org/iiif/book1/res/music.mp3",
         "type": "dctypes:Sound",
@@ -822,8 +830,8 @@ Note well that Annotation Lists _MUST NOT_ be embedded within the manifest.
       "on": "http://example.org/iiif/book1/canvas/p1"
     },
     {
-      "type": "oa:Annotation",
-      "motivation": "sc:painting",
+      "type": "Annotation",
+      "motivation": "painting",
       "resource":{
         "id": "http://example.org/iiif/book1/res/tei-text-p1.xml",
         "type": "dctypes:Text",
@@ -871,7 +879,7 @@ Ranges _MAY_ also link to a layer, described in the next section, that has the c
 {
   "@context": "http://iiif.io/api/presentation/2/context.json",
   "id": "http://example.org/iiif/book1/manifest",
-  "type": "sc:Manifest",
+  "type": "Manifest",
   // Metadata here ...
 
   "sequences": [
@@ -881,31 +889,31 @@ Ranges _MAY_ also link to a layer, described in the next section, that has the c
   "structures": [
     {
       "id": "http://example.org/iiif/book1/range/r0",
-      "type": "sc:Range",
+      "type": "Range",
       "label": "Table of Contents",
       "viewingHint": "top",
       "members": [
         {
           "id": "http://example.org/iiif/book1/canvas/cover",
-          "type": "sc:Canvas",
+          "type": "Canvas",
           "label": "Front Cover"
         },
         {
           "id": "http://example.org/iiif/book1/range/r1",
-          "type": "sc:Range",
+          "type": "Range",
           "label": "Introduction",
           "contentLayer": "http://example.org/iiif/book1/layer/introTexts"
         },
         {
           "id": "http://example.org/iiif/book1/canvas/backCover",
-          "type": "sc:Canvas",
+          "type": "Canvas",
           "label": "Back Cover"
         }
       ]
     },
     {
       "id": "http://example.org/iiif/book1/range/r1",
-      "type": "sc:Range",
+      "type": "Range",
       "label": "Introduction",
       "ranges": ["http://example.org/iiif/book1/range/r1-1"],
       "canvases": [
@@ -916,7 +924,7 @@ Ranges _MAY_ also link to a layer, described in the next section, that has the c
     },
     {
       "id": "http://example.org/iiif/book1/range/r1-1",
-      "type": "sc:Range",
+      "type": "Range",
       "label": "Objectives and Scope",
       "canvases": ["http://example.org/iiif/book1/canvas/p2#xywh=0,0,500,500"]
     }
@@ -947,10 +955,10 @@ Each annotation list _MAY_ be part of one or more layers. If the annotation list
 {
   "@context": "http://iiif.io/api/presentation/2/context.json",
   "id": "http://example.org/iiif/book1/list/l1",
-  "type": "sc:AnnotationList",
+  "type": "AnnotationList",
   "within": {
     "id": "http://example.org/iiif/book1/layer/transcription",
-    "type": "sc:Layer",
+    "type": "Layer",
     "label": "Diplomatic Transcription"
   }
 }
@@ -964,7 +972,7 @@ The annotation lists are referenced from the layer in an `otherContent` array, i
 {
   "@context": "http://iiif.io/api/presentation/2/context.json",
   "id": "http://example.org/iiif/book1/layer/transcription",
-  "type": "sc:Layer",
+  "type": "Layer",
   "label": "Diplomatic Transcription",
   // Other properties here ...
 
@@ -1022,7 +1030,7 @@ An example collection document:
 {
   "@context": "http://iiif.io/api/presentation/2/context.json",
   "id": "http://example.org/iiif/collection/top",
-  "type": "sc:Collection",
+  "type": "Collection",
   "label": "Top Level Collection for Example Organization",
   "viewingHint": "top",
   "description": "Description of Collection",
@@ -1031,24 +1039,24 @@ An example collection document:
   "collections": [
     {
       "id": "http://example.org/iiif/collection/sub1",
-      "type": "sc:Collection",
+      "type": "Collection",
       "label": "Sub-Collection 1",
 
       "members": [  
         {
           "id": "http://example.org/iiif/collection/part1",
-          "type": "sc:Collection",
+          "type": "Collection",
           "label": "My Multi-volume Set",
           "viewingHint": "multi-part"
         },
         {
           "id": "http://example.org/iiif/book1/manifest1",
-          "type": "sc:Manifest",
+          "type": "Manifest",
           "label": "My Book"
         },
         {
           "id": "http://example.org/iiif/collection/part2",
-          "type": "sc:Collection",
+          "type": "Collection",
           "label": "My Sub Collection",
           "viewingHint": "individuals"
         }
@@ -1056,7 +1064,7 @@ An example collection document:
     },
     {
       "id": "http://example.org/iiif/collection/part2",
-      "type": "sc:Collection",
+      "type": "Collection",
       "label": "Sub Collection 2"
     }
   ],
@@ -1064,7 +1072,7 @@ An example collection document:
   "manifests": [
     {
       "id": "http://example.org/iiif/book1/manifest",
-      "type": "sc:Manifest",
+      "type": "Manifest",
       "label": "Book 1"
     }
   ]
@@ -1095,7 +1103,7 @@ A layer representing a long transcription with almost half a million annotations
 {
   "@context": "http://iiif.io/api/presentation/2/context.json",
   "id": "http://example.org/iiif/book1/layer/transcription",
-  "type": "sc:Layer",
+  "type": "Layer",
   "label": "Example Long Transcription",
 
   "total": 496923,
@@ -1109,7 +1117,7 @@ And the corresponding first annotation list:
 {
   "@context": "http://iiif.io/api/presentation/2/context.json",
   "id": "http://example.org/iiif/book1/list/l1",
-  "type": "sc:AnnotationList",
+  "type": "AnnotationList",
 
   "startIndex": 0,
   "within": "http://example.org/iiif/book1/layer/transcription",
@@ -1127,7 +1135,7 @@ Note that it is still expected that canvases will link directly to the annotatio
 {
   "@context": "http://iiif.io/api/presentation/2/context.json",
   "id": "http://example.org/iiif/book1/canvas/c1",
-  "type": "sc:Canvas",
+  "type": "Canvas",
 
   "height": 1000,
   "width": 1000,
@@ -1148,7 +1156,7 @@ An example large collection with some 9.3 million objects in it:
 {
   "@context": "http://iiif.io/api/presentation/2/context.json",
   "id": "http://example.org/iiif/collection/top",
-  "type": "sc:Collection",
+  "type": "Collection",
   "label": "Example Big Collection",
 
   "total": 9316290,
@@ -1162,7 +1170,7 @@ And the corresponding first page of manifests:
 {
   "@context": "http://iiif.io/api/presentation/2/context.json",
   "id": "http://example.org/iiif/collection/c1",
-  "type": "sc:Collection",
+  "type": "Collection",
 
   "within": "http://example.org/iiif/collection/top",
   "startIndex": 0,
@@ -1373,7 +1381,7 @@ URL: _http://example.org/iiif/book1/manifest_
 ``` json-doc
 {
   "@context": "http://iiif.io/api/presentation/2/context.json",
-  "type": "sc:Manifest",
+  "type": "Manifest",
   "id": "http://example.org/iiif/book1/manifest",
 
   "label": "Book 1",
@@ -1411,21 +1419,21 @@ URL: _http://example.org/iiif/book1/manifest_
   "sequences": [
       {
         "id": "http://example.org/iiif/book1/sequence/normal",
-        "type": "sc:Sequence",
+        "type": "Sequence",
         "label": "Current Page Order",
         "viewingDirection": "left-to-right",
         "viewingHint": "paged",
         "canvases": [
           {
             "id": "http://example.org/iiif/book1/canvas/p1",
-            "type": "sc:Canvas",
+            "type": "Canvas",
             "label": "p. 1",
             "height":1000,
             "width":750,
             "images": [
               {
-                "type": "oa:Annotation",
-                "motivation": "sc:painting",
+                "type": "Annotation",
+                "motivation": "painting",
                 "resource":{
                     "id": "http://example.org/iiif/book1/res/page1.jpg",
                     "type": "dctypes:Image",
@@ -1444,10 +1452,10 @@ URL: _http://example.org/iiif/book1/manifest_
             "otherContent": [
               {
                 "id": "http://example.org/iiif/book1/list/p1",
-                "type": "sc:AnnotationList",
+                "type": "AnnotationList",
                 "within": {
                     "id": "http://example.org/iiif/book1/layer/l1",
-                    "type": "sc:Layer",
+                    "type": "Layer",
                     "label": "Example Layer"
                 }
               }
@@ -1455,14 +1463,14 @@ URL: _http://example.org/iiif/book1/manifest_
         },
           {
             "id": "http://example.org/iiif/book1/canvas/p2",
-            "type": "sc:Canvas",
+            "type": "Canvas",
             "label": "p. 2",
             "height":1000,
             "width":750,
             "images": [
               {
-                "type": "oa:Annotation",
-                "motivation": "sc:painting",
+                "type": "Annotation",
+                "motivation": "painting",
                 "resource":{
                     "id": "http://example.org/images/book1-page2/full/1500,2000/0/default.jpg",
                     "type": "dctypes:Image",
@@ -1484,21 +1492,21 @@ URL: _http://example.org/iiif/book1/manifest_
             "otherContent": [
               {
                 "id": "http://example.org/iiif/book1/list/p2",
-                "type": "sc:AnnotationList",
+                "type": "AnnotationList",
                 "within": "http://example.org/iiif/book1/layer/l1"  
               }
             ]
           },
           {
             "id": "http://example.org/iiif/book1/canvas/p3",
-            "type": "sc:Canvas",
+            "type": "Canvas",
             "label": "p. 3",
             "height":1000,
             "width":750,
             "images": [
               {
-                "type": "oa:Annotation",
-                "motivation": "sc:painting",
+                "type": "Annotation",
+                "motivation": "painting",
                 "resource":{
                     "id": "http://example.org/iiif/book1/res/page3.jpg",
                     "type": "dctypes:Image",
@@ -1517,7 +1525,7 @@ URL: _http://example.org/iiif/book1/manifest_
             "otherContent": [
               {
                 "id": "http://example.org/iiif/book1/list/p3",
-                "type": "sc:AnnotationList",
+                "type": "AnnotationList",
                 "within": "http://example.org/iiif/book1/layer/l1"               
               }
             ]
@@ -1528,7 +1536,7 @@ URL: _http://example.org/iiif/book1/manifest_
   "structures": [
     {
       "id": "http://example.org/iiif/book1/range/r1",
-        "type": "sc:Range",
+        "type": "Range",
         "label": "Introduction",
         "canvases": [
           "http://example.org/iiif/book1/canvas/p1",
