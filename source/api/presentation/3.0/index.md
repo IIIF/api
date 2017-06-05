@@ -566,17 +566,20 @@ The example below includes only the manifest-level information, however actual i
   // Descriptive metadata about the object/work
   "label": "Book 1",
   "metadata": [
-    {"label": {"en": "Author"}, "value": {"@none": "Anne Author"}},
-    {"label": {"en": "Published", "value": {
+    {"label": {"en": "Author"}, 
+     "value": {"@none": "Anne Author"}},
+    {"label": {"en": "Published"}, 
+     "value": {
         "en": "Paris, circa 1400",
-        "fr": "Paris, environ 1400"
-      }
+        "fr": "Paris, environ 1400"}
     },
-    {"label": {"en": "Notes", "value": {"en": ["Text of note 1", "Text of note 2"]},
-    {"label": {"en": "Source",
-     "value": {"@none": "<span>From: <a href=\"http://example.org/db/1.html\">Some Collection</a></span>"}
+    {"label": {"en": "Notes"}, 
+     "value": {"en": ["Text of note 1", "Text of note 2"]}},
+    {"label": {"en": "Source"},
+     "value": {"@none": "<span>From: <a href=\"http://example.org/db/1.html\">Some Collection</a></span>"}}
   ],
   "description": {"en": "A longer description of this example book. It should give some real information."},
+
   "thumbnail": {
     "id": "http://example.org/images/book1-page1/full/80,100/0/default.jpg",
     "service": {
@@ -631,7 +634,7 @@ The example below includes only the manifest-level information, however actual i
       {
         "id": "http://example.org/iiif/book1/sequence/normal",
         "type": "Sequence",
-        "label": "Current Page Order"
+        "label": {"en": "Current Page Order"}
         // sequence's page order should be included here, see below...
       }
       // Any additional sequences can be referenced here...
@@ -648,7 +651,7 @@ Recommended URI pattern:
 ```
 {: .urltemplate}
 
-The sequence conveys the ordering of the views of the object. The default sequence (and typically the only sequence) _MUST_ be embedded within the manifest, and _MAY_ also be available from its own URI.  The default sequence _MAY_ have a URI to identify it. Any additional sequences _MUST_ be referred to from the manifest, not embedded within it, and thus these additional sequences _MUST_ have an HTTP URI.
+The Sequence conveys the ordering of the views of the object. The default sequence (and typically the only sequence) _MUST_ be embedded within the manifest, and _MAY_ also be available from its own URI.  The default sequence _MAY_ have a URI to identify it. Any additional sequences _MUST_ be referred to from the manifest, not embedded within it, and thus these additional sequences _MUST_ have an HTTP URI.
 
 The {name} parameter in the URI structure _MUST_ distinguish it from any other sequences that may be available for the physical object. Typical default names for sequences are "normal" or "basic".
 
