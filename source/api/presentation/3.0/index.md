@@ -166,7 +166,8 @@ A human readable label, name or title for the resource. This property is intende
  * A sequence  _MAY_ have one or more labels, and if there are multiple sequences in a single manifest then they _MUST_ each have at least one label.
  * A canvas _MUST_ have at least one label, such as the page number or short description of the view.
  * A content resource _MAY_ have one or more labels, and if there is a choice of content resource for the same canvas, then they _SHOULD_ each have at least one label.
- * A range _SHOULD_ have at least one label. {: .changed}
+ * A range _SHOULD_ have at least one label. 
+ {: .changed}
  * An annotation collection _MUST_ have at least one label.
  * Other resource types _MAY_ have labels.
 
@@ -195,6 +196,13 @@ A small image that depicts or pictorially represents the resource that the prope
  * A canvas _MAY_ have one or more thumbnails and _SHOULD_ have at least one thumbnail if there are multiple images or resources that make up the representation.
  * A content resource _MAY_ have one or more thumbnails and _SHOULD_ have at least one thumbnail if it is an option in a choice of resources.
  * Other resource types _MAY_ have one or more thumbnails.
+
+##### navDate
+A date that the client can use for navigation purposes when presenting the resource to the user in a time-based user interface, such as a calendar or timeline.  The value _MUST_ be an `xsd:dateTime` literal in UTC, expressed in the form "YYYY-MM-DDThh:mm:ssZ".  If the exact time is not known, then "00:00:00" _SHOULD_ be used. Similarly, the month or day _SHOULD_ be 01 if not known.  There _MUST_ be at most one `navDate` associated with any given resource.  More descriptive date ranges, intended for display directly to the user, _SHOULD_ be included in the `metadata` property for human consumption.  
+
+ * A collection or manifest _MAY_ have exactly one navigation date associated with it.
+ * Other resource types _MUST NOT_ have navigation dates.
+
 
 ####  3.2. Rights and Licensing Properties
 
@@ -233,8 +241,8 @@ The URI that identifies the resource. It is _RECOMMENDED_ that an HTTP URI be us
  * A range _MUST_ have exactly one id, and it _MUST_ be an http(s) URI.
  * An annotation collection _MUST_ have exactly one id, and it _MUST_ be an http(s) URI.
  * An annotation page _MUST_ have exactly one id, and it _MUST_ be the http(s) URI at which it is published.
- * An annotation _MUST_ have exactly one id, and the annotation's representation _SHOULD_ be published at that URI. {: .changed}
-
+ * An annotation _MUST_ have exactly one id, and the annotation's representation _SHOULD_ be published at that URI. 
+ {: .changed}
 
 ##### type
 {: .changed}
@@ -256,23 +264,28 @@ This is different to the `formats` property in the [Image API][image-api], which
 ##### height
 The height of a canvas or content resource. For content resources, the value is in pixels. For canvases, the value does not have a unit. In combination with the width, it conveys an aspect ratio for the space in which content resources are located.
 
- * A canvas _SHOULD_ have exactly one height, and _MUST NOT_ have more than one. {: .changed}
+ * A canvas _SHOULD_ have exactly one height, and _MUST NOT_ have more than one. If it has a height, it _MUST_ also have a width.
+   {: .changed}
  * Content resources _MAY_ have exactly one height, given in pixels, if appropriate.
  * Other resource types _MUST NOT_ have a height.
 
 ##### width
 The width of a canvas or content resource. For content resources, the value is in pixels. For canvases, the value does not have a unit. In combination with the height, it conveys an aspect ratio for the space in which content resources are located.
 
- * A canvas _SHOULD_ have exactly one width, and _MUST NOT_ have more than one. {: .changed}
+ * A canvas _SHOULD_ have exactly one width, and _MUST NOT_ have more than one. If it has a width, it _MUST_ also have a height.
+   {: .changed}
  * Content resources _MAY_ have exactly one width, given in pixels, if appropriate.
  * Other resource types _MUST NOT_ have a width.
 
 ##### duration
-The duration of a canvas or content resource, given in seconds. 
+{: .changed}
+The duration of a canvas or content resource, given in seconds as a non-negative floating point number. 
 
  * A canvas _MAY_ have exactly one duration, and _MUST NOT_ have more than one.
  * Content resources _MAY_ have exactly one duration, and _MUST NOT_ have more than one.
  * Other resource types _MUST NOT_ have a duration.
+{: .changed}
+
 
 ##### viewingDirection
 The direction that a sequence of canvases _SHOULD_ be displayed to the user. Possible values are specified in the table below.
@@ -304,14 +317,33 @@ A hint to the client as to the most appropriate method of displaying the resourc
 | `non-paged` | Canvases with this hint _MUST NOT_ be presented in a page turning interface, and _MUST_ be skipped over when determining the page sequence. This viewing hint _MUST_ be ignored if the current sequence or manifest does not have the 'paged' viewing hint. |
 | `top` | Only valid on a range. A range which has this `viewingHint` is the top-most node in a hierarchy of ranges that represents a structure to be rendered by the client to assist in navigation. For example, a table of contents within a paged object, major sections of a 3d object, the textual areas within a single scroll, and so forth.  Other ranges that are descendants of the "top" range are the entries to be rendered in the navigation structure.  There _MAY_ be multiple ranges marked with this hint. If so, the client _SHOULD_ display a choice of multiple structures to navigate through. |
 | `facing-pages` | Canvases with this hint, in a sequence or manifest with the "paged" viewing hint, _MUST_ be displayed by themselves, as they depict both parts of the opening.  If all of the canvases are like this, then page turning is not possible, so simply use "individuals" instead. |
+| `none` | Valid for AnnotationCollections, AnnotationPages, Annotations, SpecificResources, or Choices. If this hint is provided, then the client should not render the resource by default, but allow the user to turn it on and off.|
+| `auto-advance` | Valid for Collection, Manifest, Sequence and Canvas. When the client reaches the end of a Canvas with a duration dimension that has (or is within a resource that has) this `viewingHint`, it _SHOULD_ immediately proceed to the next Canvas and render it. If there is no subsequent Canvas in the current context, then this `viewingHint` should be ignored. When applied to a Collection, the client should treat the first Canvas of the next Manifest as following the last Canvas of the previous Manifest, respecting any `startCanvas` specified.|
+| `together` | Collections. A client _SHOULD_ present all of the child manifests to the user at once in a separate viewing area with its own controls. Clients _SHOULD_ catch attempts to create too many viewing areas and not do that. The `together` value _SHOULD NOT_ be interpreted as applying to the members of children.|
 {: .api-table}
 
+##### choiceHint
+{ .changed}
 
-##### navDate
-A date that the client can use for navigation purposes when presenting the resource to the user in a time-based user interface, such as a calendar or timeline.  The value _MUST_ be an `xsd:dateTime` literal in UTC, expressed in the form "YYYY-MM-DDThh:mm:ssZ".  If the exact time is not known, then "00:00:00" _SHOULD_ be used. Similarly, the month or day _SHOULD_ be 01 if not known.  There _MUST_ be at most one `navDate` associated with any given resource.  More descriptive date ranges, intended for display directly to the user, _SHOULD_ be included in the `metadata` property for human consumption.  
+A hint associated with a Choice resource that a client can use to determine the publisher's intent as to which agent _SHOULD_ make the choice between the different options.  In the absence of any `choiceHint` value, the rendering application can use any algorithm or process to make the determination.
 
- * A collection or manifest _MAY_ have exactly one navigation date associated with it.
- * Other resource types _MUST NOT_ have navigation dates.
+> | Value | Description |
+| ----- | ----------- |
+| `client` | The client software is expected to select an appropriate option without user interaction. |
+| `user` | The client software is expected to present an interface to allow the user to explicitly select an option. |
+
+##### timeMode
+{ .changed}
+
+A mode associated with an annotation that is to be applied to the rendering of any time-based media used as a body resource of that annotation. Note that the association of `timeMode` with the annotation means that different resources in the body cannot have different values.
+
+> | Value | Description |
+| ----- | ----------- |
+| `trim` | (default, if not supplied) If the content resource has a longer duration than the duration of portion of the canvas it is associated with, then at the end of the canvas's duration, the playback of the content resource _MUST_ also end. If the content resource has a shorter duration than the duration of the portion of the canvas it is associated with, then, for video resources, the last frame _SHOULD_ persist on-screen until the end of the canvas portion's duration. For example, a video of 120 seconds annotated to a canvas with a duration of 100 seconds would play only the first 60 seconds at normal speed. |
+| `scale` | Fit the duration of content resource to the duration of the portion of the canvas it is associated with by scaling. For example, a video of 120 seconds annotated to a canvas with a duration of 60 seconds would be played at double-speed. |
+| `loop` | If the content resource is shorter than the `duration` of the canvas, it _MUST_ be repeated to fill the entire duration. Resources longer than the `duration` _MUST_ be trimmed as described above. For example, if a 20 second duration audio stream is annotated onto a canvas with duration 30 seconds, it will be played one and a half times. |
+
+
 
 ####  3.4. Linking Properties
 
