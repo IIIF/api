@@ -167,7 +167,7 @@ A human readable label, name or title for the resource. This property is intende
  * A canvas _MUST_ have at least one label, such as the page number or short description of the view.
  * A content resource _MAY_ have one or more labels, and if there is a choice of content resource for the same canvas, then they _SHOULD_ each have at least one label.
  * A range _SHOULD_ have at least one label. 
- {: .changed}
+   {: .changed}
  * An annotation collection _MUST_ have at least one label.
  * Other resource types _MAY_ have labels.
 
@@ -242,7 +242,7 @@ The URI that identifies the resource. It is _RECOMMENDED_ that an HTTP URI be us
  * An annotation collection _MUST_ have exactly one id, and it _MUST_ be an http(s) URI.
  * An annotation page _MUST_ have exactly one id, and it _MUST_ be the http(s) URI at which it is published.
  * An annotation _MUST_ have exactly one id, and the annotation's representation _SHOULD_ be published at that URI. 
- {: .changed}
+  {: .changed}
 
 ##### type
 {: .changed}
