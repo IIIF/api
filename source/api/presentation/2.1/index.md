@@ -1840,7 +1840,7 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 
 | Date       | Description           |
 | ---------- | --------------------- |
-| 2017-05-24 | Version 2.1.1 [View change log][change-log-211]
+| 2017-06-09 | Version 2.1.1 [View change log][change-log-211]
 | 2016-05-12 | Version 2.1 (Hinty McHintface) [View change log][change-log-21] |
 | 2014-09-11 | Version 2.0 (Triumphant Giraffe) [View change log][change-log-20] |
 | 2013-08-26 | Version 1.0 (unnamed) |
