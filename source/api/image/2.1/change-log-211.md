@@ -31,7 +31,7 @@ See issue [#477](https://github.com/IIIF/iiif.io/issues/477)
 
 ### 1.2. Clarify the canonical form of `max`
 
-The size keyword `max` will replace `full` in version 3.0 on the Image API, at which time it can be used in the canonical form of requests. Until then, the canonical form of requests equivalent to `max` must continue to use the `w,` syntax, or the `full` syntax if they are equivalent.
+The size keyword `max` will replace `full` in version 3.0 of the Image API, at which time it can be used in the canonical form of requests. Until then, the canonical form of requests equivalent to `max` must continue to use the `w,` syntax, or the `full` syntax if they are equivalent.
 See issue [#883](https://github.com/IIIF/iiif.io/issues/883)
 
 ### 1.3. Typo in `@context` for Complete Response example
