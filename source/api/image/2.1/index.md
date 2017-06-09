@@ -905,7 +905,7 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 
 | Date       | Description |
 | ---------- | ----------- |
-| 2017-05-24 | Version 2.1.1 [View change log][change-log-211] |
+| 2017-06-09 | Version 2.1.1 [View change log][change-log-211] |
 | 2016-05-12 | Version 2.1 (Crowned Eagle) [View change log][change-log21] |
 | 2014-09-11 | Version 2.0 (Voodoo Bunny) [View change log][change-log20] |
 | 2013-09-17 | Version 1.1 (unnamed) [View change log][change-log11] |
