@@ -8,7 +8,7 @@ tags: [specifications, presentation-api]
 major: 3
 minor: 0
 patch: 0
-pre: alpha
+pre: ALPHA
 redirect_from:
   - /api/presentation/index.html
   - /api/presentation/3/index.html
@@ -170,6 +170,10 @@ A human readable label, name or title for the resource. This property is intende
  * An AnnotationCollection _MUST_ have at least one label.
  * Other resource types _MAY_ have labels.
 
+``` json-doc
+{"label": {"en": ["Label Value"]}}
+```
+
 ##### metadata
 A list of short descriptive entries, given as pairs of human readable `label` and `value` to be displayed to the user. The value of both `label` and `value` _MUST_ be a JSON object, as described in the [languages][languages] section. There are no semantics conveyed by this information, and clients _SHOULD NOT_ use it for discovery or other purposes. This list of descriptive pairs _SHOULD_ be able to be displayed in a tabular form in the user interface. Clients _SHOULD_ have a way to display the information about Manifests and Canvases, and _MAY_ have a way to view the information about other resources. The client _SHOULD_ display the pairs in the order provided by the description. A pair might be used to convey the author of the work, information about its creation, a brief physical description, or ownership information, amongst other use cases. The client is not expected to take any action on this information beyond displaying the label and value. An example pair of label and value might be a label of "Author" and a value of "Jehan Froissart".
 
@@ -177,6 +181,9 @@ A list of short descriptive entries, given as pairs of human readable `label` an
  * A Manifest _SHOULD_ have one or more metadata pairs associated with it describing the object or work.
  * Other resource types _MAY_ have one or more metadata pairs.
 
+``` json-doc
+{"metadata": [ {"label": {"en": ["Label"]}, "value": {"en": ["Value"]}} ]}
+```
 
 ##### description
 A longer-form prose description of the object or resource that the property is attached to, intended to be conveyed to the user as a full text description, rather than a simple label and value. The value of the property _MUST_ be a JSON object, as described in the [languages][languages] section.  It can duplicate any of the information from the `metadata` fields, along with additional information required to understand what is being displayed. Clients _SHOULD_ have a way to display the descriptions of Manifests and Canvases, and _MAY_ have a way to view the information about other resources.
@@ -185,9 +192,12 @@ A longer-form prose description of the object or resource that the property is a
  * A Manifest _SHOULD_ have one or more descriptions.
  * Other resource types _MAY_ have one or more description.
 
+``` json-doc
+{"description": {"en": ["Description Value"]}}
+```
 
 ##### thumbnail
-A small image that depicts or pictorially represents the resource that the property is attached to, such as the title page, a significant image or rendering of a Canvas with multiple content resources associated with it.  It is _RECOMMENDED_ that a [IIIF Image API][image-api] service be available for this image for manipulations such as resizing. If a resource has multiple thumbnails, then each of them _SHOULD_ be different.
+A small image that depicts or pictorially represents the resource that the property is attached to, such as the title page, a significant image or rendering of a Canvas with multiple content resources associated with it.  It is _RECOMMENDED_ that a [IIIF Image API][image-api] service be available for this image for manipulations such as resizing. If a resource has multiple thumbnails, then each of them _SHOULD_ be different. The value _MUST_ be a JSON array, with each item in the array being a JSON object with at least an `id` and `type` property.
 
  * A Collection _SHOULD_ have exactly one thumbnail image, and _MAY_ have more than one.
  * A Manifest _SHOULD_ have exactly one thumbnail image, and _MAY_ have more than one.
@@ -196,12 +206,19 @@ A small image that depicts or pictorially represents the resource that the prope
  * A content resource _MAY_ have one or more thumbnails and _SHOULD_ have at least one thumbnail if it is an option in a choice of resources.
  * Other resource types _MAY_ have one or more thumbnails.
 
+``` json-doc
+{"thumbnail": [{"id": "https://example.org/img/thumb.jpg", "type": "Image"}]}
+```
+
 ##### navDate
 A date that the client can use for navigation purposes when presenting the resource to the user in a time-based user interface, such as a calendar or timeline.  The value _MUST_ be an `xsd:dateTime` literal in UTC, expressed in the form "YYYY-MM-DDThh:mm:ssZ".  If the exact time is not known, then "00:00:00" _SHOULD_ be used. Similarly, the month or day _SHOULD_ be 01 if not known.  There _MUST_ be at most one `navDate` associated with any given resource.  More descriptive date ranges, intended for display directly to the user, _SHOULD_ be included in the `metadata` property for human consumption.  
 
  * A Collection or Manifest _MAY_ have exactly one navigation date associated with it.
  * Other resource types _MUST NOT_ have navigation dates.
 
+``` json-doc
+{"navDate": "2010-01-01T00:00:00Z"}
+```
 
 ####  3.2. Rights and Licensing Properties
 
@@ -212,17 +229,30 @@ Text that _MUST_ be shown when the resource it is associated with is displayed o
 
  * Any resource type _MAY_ have one or more attribution labels.
 
+``` json-doc
+{"attribution": {"en": ["Attribution Text"]}}
+```
+
 ##### rights
 {: .changed} 
 
-A link to an external resource that describes the license or rights statement under which the resource may be used. The rationale for this being a URI and not a human readable label is that typically there is one license for many resources, and the text is too long to be displayed to the user along with the object. If displaying the text is a requirement, then it is _RECOMMENDED_ to include the information using the `attribution` property instead.
+A link to an external resource that describes the license or rights statement under which the resource may be used. The rationale for this being a URI and not a human readable label is that typically there is one license for many resources, and the text is too long to be displayed to the user along with the object. If displaying the text is a requirement, then it is _RECOMMENDED_ to include the information using the `attribution` property instead. The value _MUST_ be an array of strings, each being a URI.
 
  * Any resource type _MAY_ have one or more rights statements or licenses associated with it.
+
+``` json-doc
+{"description": ["http://example.org/rights/copyright.html"]}
+```
 
 ##### logo
 A small image that represents an individual or organization associated with the resource it is attached to.  This could be the logo of the owning or hosting institution. The logo _MUST_ be clearly rendered when the resource is displayed or used, without cropping, rotating or otherwise distorting the image. It is _RECOMMENDED_ that a [IIIF Image API][image-api] service be available for this image for manipulations such as resizing.
 
  * Any resource type _MAY_ have one or more logos associated with it.
+
+``` json-doc
+{"logo": [{"id": "https://example.org/img/logo.jpg", "type": "Image"}]}
+```
+
 
 ####  3.3. Technical Properties
 
@@ -242,6 +272,10 @@ The URI that identifies the resource. It is _RECOMMENDED_ that an HTTP URI be us
  * An Annotation _MUST_ have exactly one id, and the Annotation's representation _SHOULD_ be published at that URI. 
   {: .changed}
 
+``` json-doc
+{"id": "https://example.org/iiif/1/manifest"}
+```
+
 ##### type
 {: .changed}
 
@@ -249,7 +283,11 @@ The type of the resource.  For the resource types defined by this specification,
 
  * All resource types _MUST_ have at least one type specified.
 
-This requirement applies only to the types described in [Section 2][type-overview]. Services, Thumbnails and other resources will have their own requirements.
+This requirement applies only to the types described in [Section 2][type-overview]. 
+
+``` json-doc
+{"type": "Image"}
+```
 
 ##### format
 The specific media type (often called a MIME type) of a content resource, for example "image/jpeg". This is important for distinguishing text in XML from plain text, for example.
@@ -259,6 +297,10 @@ The specific media type (often called a MIME type) of a content resource, for ex
 
 This is different to the `formats` property in the [Image API][image-api], which gives the extension to use within that API.  It would be inappropriate to use in this case, as `format` can be used with any content resource, not just images.
 
+``` json-doc
+{"format": "image/jpeg"}
+```
+
 ##### height
 The height of a Canvas or content resource. For content resources, the value is in pixels. For Canvases, the value does not have a unit. In combination with the width, it conveys an aspect ratio for the space in which content resources are located.
 
@@ -266,6 +308,10 @@ The height of a Canvas or content resource. For content resources, the value is 
    {: .changed}
  * Content resources _MAY_ have exactly one height, given in pixels, if appropriate.
  * Other resource types _MUST NOT_ have a height.
+
+``` json-doc
+{"height": 1800}
+```
 
 ##### width
 The width of a Canvas or content resource. For content resources, the value is in pixels. For Canvases, the value does not have a unit. In combination with the height, it conveys an aspect ratio for the space in which content resources are located.
@@ -275,6 +321,10 @@ The width of a Canvas or content resource. For content resources, the value is i
  * Content resources _MAY_ have exactly one width, given in pixels, if appropriate.
  * Other resource types _MUST NOT_ have a width.
 
+``` json-doc
+{"width": 1200}
+```
+
 ##### duration
 {: .changed}
 The duration of a Canvas or content resource, given in seconds as a non-negative floating point number. 
@@ -283,6 +333,10 @@ The duration of a Canvas or content resource, given in seconds as a non-negative
  * Content resources _MAY_ have exactly one duration, and _MUST NOT_ have more than one.
  * Other resource types _MUST NOT_ have a duration.
 {: .changed}
+
+``` json-doc
+{"duration": 125.6}
+```
 
 ##### viewingDirection
 The direction that a set of Canvases _SHOULD_ be displayed to the user. Possible values are specified in the table below.
@@ -299,6 +353,10 @@ The direction that a set of Canvases _SHOULD_ be displayed to the user. Possible
 | `top-to-bottom` | The object is displayed from the top to the bottom. |
 | `bottom-to-top` | The object is displayed from the bottom to the top. |
 {: .api-table}
+
+``` json-doc
+{"viewingDirection": "left-to-right"}
+```
 
 ##### viewingHint
 A hint to the client as to the most appropriate method of displaying the resource. This specification defines the values specified in the table below. Other values _MAY_ be given, and if they are, they _MUST_ be URIs.
@@ -319,6 +377,10 @@ A hint to the client as to the most appropriate method of displaying the resourc
 | `together` | Valid only for Collection. A client _SHOULD_ present all of the child Manifests to the user at once in a separate viewing area with its own controls. Clients _SHOULD_ catch attempts to create too many viewing areas. The `together` value _SHOULD NOT_ be interpreted as applying to the members any child resources.|
 {: .api-table}
 
+``` json-doc
+{"viewingHint": ["auto-advance", "individuals"]}
+```
+
 ##### choiceHint
 {: .changed}
 
@@ -328,6 +390,10 @@ A hint associated with a Choice resource that a client can use to determine the 
 | ----- | ----------- |
 | `client` | The client software is expected to select an appropriate option without user interaction. |
 | `user` | The client software is expected to present an interface to allow the user to explicitly select an option. |
+
+``` json-doc
+{"choiceHint": "client"}
+```
 
 ##### timeMode
 {: .changed}
@@ -340,6 +406,10 @@ A mode associated with an Annotation that is to be applied to the rendering of a
 | `scale` | Fit the duration of content resource to the duration of the portion of the Canvas it is associated with by scaling. For example, a video of 120 seconds annotated to a Canvas with a duration of 60 seconds would be played at double-speed. |
 | `loop` | If the content resource is shorter than the `duration` of the Canvas, it _MUST_ be repeated to fill the entire duration. Resources longer than the `duration` _MUST_ be trimmed as described above. For example, if a 20 second duration audio stream is annotated onto a Canvas with duration 30 seconds, it will be played one and a half times. |
 
+``` json-doc
+{"timeMode": "trim"}
+```
+
 
 ####  3.4. Linking Properties
 
@@ -348,20 +418,40 @@ A link to an external resource intended to be displayed directly to the user, an
 
  * Any resource type _MAY_ have one or more external resources related to it.
 
+``` json-doc
+{"related": [{"id": "https://example.com/info/", "format": "text/html"}]}
+```
+
 ##### rendering
 A link to an external resource intended for display or download by a human user. This property can be used to link from a manifest, collection or other resource to the preferred viewing environment for that resource, such as a viewer page on the publisher's web site. Other uses include a rendering of a manifest as a PDF or EPUB with the images and text of the book, or a slide deck with images of the museum object. A label and the format of the rendering resource _MUST_ be supplied to allow clients to present the option to the user.
 
  * Any resource type _MAY_ have one or more external rendering resources.
+
+``` json-doc
+{"rendering": [{"id": "https://example.org/1.pdf", "format": "application/pdf"}]}
+```
 
 ##### service
 A link to a service that makes more functionality available for the resource, such as from an image to the base URI of an associated [IIIF Image API][image-api] service. The service resource _SHOULD_ have additional information associated with it in order to allow the client to determine how to make appropriate use of it, such as a `profile` link to a service description. It _MAY_ also have relevant information copied from the service itself. This duplication is permitted in order to increase the performance of rendering the object without necessitating additional HTTP requests. Please see the [Service Profiles][annex] document for known services.
 
  * Any resource type _MAY_ have one or more links to an external service.
 
+``` json-doc
+{"service": [
+  {"id": "https://example.org/service", 
+   "profile": ["http://example.org/docs/service"]
+  }]
+}
+```
+
 ##### seeAlso
 A link to a machine readable document that semantically describes the resource with the `seeAlso` property, such as an XML or RDF description.  This document could be used for search and discovery or inferencing purposes, or just to provide a longer description of the resource. The `profile` and `format` properties of the document _SHOULD_ be given to help the client to make appropriate use of the document.
 
  * Any resource type _MAY_ have one or more external descriptions related to it.
+
+``` json-doc
+{"rendering": [{"id": "https://example.org/1.xml", "format": "text/xml"}]}
+```
 
 ##### within
 A link to a resource that contains the current resource, such as annotation lists within a layer. This also allows linking upwards to collections that allow browsing of the digitized objects available.
@@ -369,17 +459,30 @@ A link to a resource that contains the current resource, such as annotation list
  * Collections or AnnotationPages that serve as [pages][paging] _MUST_ be within exactly one paged resource.
  * Other resource types, including Collections or AnnotationPages not serving as pages, _MAY_ be within one or more containing resources.
 
+
+``` json-doc
+{"within": [{"id": "https://example.org/iiif/1", "type": "Manifest"}]}
+```
+
 ##### startCanvas
 A link from a Sequence or Range to a Canvas that is contained within it.  On seeing this relationship, a client _SHOULD_ advance to the specified Canvas when beginning navigation through the Sequence/Range.  This allows the client to begin with the first Canvas that contains interesting content rather than requiring the user to skip past blank or empty Canvases manually.
 
  * A Sequence or Range _MAY_ have exactly one Canvas as its starting Canvas.
  * Other resource types _MUST NOT_ have a starting Canvas.
 
+``` json-doc
+{"startCanvas": "https://example.org/iiif/1/canvas/1"}
+```
+
 ##### contentAnnotations
 A link from a Range to an AnnotationCollection that includes the Annotations of content resources for that Range.  Clients might use this to present content to the user from a different Canvas when interacting with the Range, or to jump to the next part of the Range within the same Canvas.  
 
  * A Range _MAY_ have exactly one AnnotationCollection as its content.
  * Other resource types _MUST NOT_ have `contentAnnotations`.
+
+``` json-doc
+{"contentAnnotations": "https://example.org/iiif/1/annos/1"}
+```
 
 ####  3.5. Paging Properties
 
@@ -390,12 +493,20 @@ A link from a resource with pages, such as a Collection or Annotation Collection
  * A layer _MAY_ have exactly one annotation list as its first page.
  * Other resource types _MUST NOT_ have a first page.
 
+``` json-doc
+{"first": {"id": "https://example.org/iiif/1/annos/1", "type": "AnnotationPage"}]}
+```
+
 ##### last
 A link from a resource with pages to its last page resource. The page resource _SHOULD_ be referenced by just its URI (from `id`) but _MAY_ also have more information associated with it as an object.
 
  * A collection _MAY_ have exactly one collection as its last page.
  * A layer _MAY_ have exactly one annotation list as its last page.
  * Other resource types _MUST NOT_ have a last page.
+
+``` json-doc
+{"last": {"id": "https://example.org/iiif/1/annos/23", "type": "AnnotationPage"}]}
+```
 
 ##### total
 The total number of leaf resources, such as annotations within a layer, within a list of pages. The value _MUST_ be a non-negative integer.
@@ -404,12 +515,20 @@ The total number of leaf resources, such as annotations within a layer, within a
  * A layer _MAY_ have exactly one total, which _MUST_ be the total number of annotations in its list of pages.
  * Other resource types _MUST NOT_ have a total.
 
+``` json-doc
+{"total": 2217}
+```
+
 ##### next
 A link from a page resource to the next page resource that follows it in order. The resource _SHOULD_ be referenced by just its URI (from `id`) but _MAY_ also have more information associated with it as an object.
 
  * A collection _MAY_ have exactly one collection as its next page.
  * An annotation list _MAY_ have exactly one annotation list as its next page.
  * Other resource types _MUST NOT_ have next pages.
+
+``` json-doc
+{"next": {"id": "https://example.org/iiif/1/annos/3", "type": "AnnotationPage"}]}
+```
 
 ##### prev
 A link from a page resource to the previous page resource that precedes it in order. The resource _SHOULD_ be referenced by just its URI (from `id`) but _MAY_ also have more information associated with it as an object.
@@ -418,12 +537,20 @@ A link from a page resource to the previous page resource that precedes it in or
  * An annotation list _MAY_ have exactly one annotation list as its previous page.
  * Other resource types _MUST NOT_ have previous pages.
 
+``` json-doc
+{"prev": {"id": "https://example.org/iiif/1/annos/2", "type": "AnnotationPage"}]}
+```
+
 ##### startIndex
 The 0 based index of the first included resource in the current page, relative to the parent paged resource. The value _MUST_ be a non-negative integer.
 
  * A collection _MAY_ have exactly one startIndex, which _MUST_ be the index of its first collection or manifest relative to the order established by its paging collection.
  * An annotation list _MAY_ have exactly one startIndex, which _MUST_ be the index of its first annotation relative to the order established by its paging layer.
  * Other resource types _MUST NOT_ have a startIndex.
+
+``` json-doc
+{"startIndex": 300}
+```
 
 #### 3.6. Structural Properties
 
@@ -440,27 +567,22 @@ This section describes features applicable to all of the Presentation API conten
 
 ### 4.1. URI Representation
 
-Resource descriptions _SHOULD_ be embedded within higher-level descriptions, and _MAY_ also be available via separate requests from http(s) URIs linked in the responses. These URIs are in the `id` property for the resource. Links to resources _MAY_ be either given as just the URI if there is no additional information associated with them, or as a JSON object with the `id` property. Other URI schemes _MAY_ be used if the resource is not able to be retrieved via HTTP. Both options provide the same URI, however the second pattern associates additional information with the resource:
+Resource descriptions _SHOULD_ be embedded within higher-level descriptions, and _MAY_ also be available via separate requests from http(s) URIs linked in the responses. These URIs are in the `id` property for the resource. Links to resources _MUST_ be given as a JSON object with the `id` property and at least one other property, typically either `type`, `format` or `profile` to give a hint as to what sort of resource is being referred to. Other URI schemes _MAY_ be used if the resource is not able to be retrieved via HTTP. 
 
 ``` json-doc
-// Option A, plain string
-{"seeAlso": "http://example.org/descriptions/book1.xml"}
+{"seeAlso": [{"id": "http://example.org/descriptions/book1.xml", "format": "text/xml"}]}
 ```
 
-``` json-doc
-// Option B, object with id property
-{"seeAlso": {"id": "http://example.org/descriptions/book1.xml", "format": "text/xml"}}
-```
+Should `startCanvas` and `contentLayer` also require an object?
+{: .warning}
 
 ### 4.2. Repeated Properties
 
-Many of the properties in the API _MAY_ be repeated. This is done by giving a list of values, using either of the representations described above, rather than a single string.
+Any of the properties in the API that can be repeated _MUST_ always be given as an array of values, even if there is only a single item in that array.
 
 ``` json-doc
 {
   "seeAlso": [
-    "http://example.org/descriptions/book1.md",
-    "http://example.org/descriptions/book1.csv",
     {"id": "http://example.org/descriptions/book1.xml", "format": "text/xml"}
   ]
 }
@@ -495,7 +617,7 @@ In the case where multiple values are supplied, clients _MUST_ use the following
 
 ### 4.4. HTML Markup in Property Values
 
-Minimal HTML markup _MAY_ be included in the `description`, `attribution` and `metadata` properties.  It _MUST NOT_ be used in `label` or other properties. This is included to allow manifest creators to add links and simple formatting instructions to blocks of text. The content _MUST_ be well-formed XML and therefore must be wrapped in an element such as `p` or `span`.  There _MUST NOT_ be whitespace on either side of the HTML string, and thus the first character in the string _MUST_ be a '<' character and the last character _MUST_ be '>', allowing a consuming application to test whether the value is HTML or plain text using these.  To avoid a non-HTML string matching this, it is _RECOMMENDED_ that an additional whitespace character be added to the end of the value.
+Minimal HTML markup _MAY_ be included in the `description`, `attribution` and `value` properties.  It _MUST NOT_ be used in `label` or other properties. This is included to allow manifest creators to add links and simple formatting instructions to blocks of text. The content _MUST_ be well-formed XML and therefore must be wrapped in an element such as `p` or `span`.  There _MUST NOT_ be whitespace on either side of the HTML string, and thus the first character in the string _MUST_ be a '<' character and the last character _MUST_ be '>', allowing a consuming application to test whether the value is HTML or plain text using these.  To avoid a non-HTML string matching this, it is _RECOMMENDED_ that an additional whitespace character be added to the end of the value.
 
 In order to avoid HTML or script injection attacks, clients _MUST_ remove:
 
@@ -559,78 +681,86 @@ The example below includes only the manifest-level information, however actual i
 ``` json-doc
 {
   // Metadata about this manifest file
-  "@context": "http://iiif.io/api/presentation/2/context.json",
+  "@context": [
+    "http://iiif.io/api/presentation/2/context.json",
+    "http://www.w3.org/ns/anno.jsonld"
+  ],
   "id": "http://example.org/iiif/book1/manifest",
   "type": "Manifest",
 
   // Descriptive metadata about the object/work
-  "label": "Book 1",
+  "label": {"en": ["Book 1"]},
   "metadata": [
-    {"label": {"en": "Author"}, 
-     "value": {"@none": "Anne Author"}},
-    {"label": {"en": "Published"}, 
+    {"label": {"en": ["Author"]}, 
+     "value": {"@none": ["Anne Author"]}},
+    {"label": {"en": ["Published"]}, 
      "value": {
-        "en": "Paris, circa 1400",
-        "fr": "Paris, environ 1400"}
+        "en": ["Paris, circa 1400"],
+        "fr": ["Paris, environ 1400"]}
     },
-    {"label": {"en": "Notes"}, 
+    {"label": {"en": ["Notes"]}, 
      "value": {"en": ["Text of note 1", "Text of note 2"]}},
-    {"label": {"en": "Source"},
-     "value": {"@none": "<span>From: <a href=\"http://example.org/db/1.html\">Some Collection</a></span>"}}
+    {"label": {"en": ["Source"]},
+     "value": {"@none": ["<span>From: <a href=\"http://example.org/db/1.html\">Some Collection</a></span>"]}}
   ],
-  "description": {"en": "A longer description of this example book. It should give some real information."},
+  "description": {"en": ["A longer description of this example book. It should give some real information."]},
 
-  "thumbnail": {
+  "thumbnail": [{
     "id": "http://example.org/images/book1-page1/full/80,100/0/default.jpg",
     "service": {
       "@context": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
       "id": "http://example.org/images/book1-page1",
-      "profile": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/level1.json"
+      "profile": ["http://iiif.io/api/image/{{ site.image_api.latest.major }}/level1.json"]
     }
-  },
+  }],
 
   // Presentation Information
   "viewingDirection": "right-to-left",
-  "viewingHint": "paged",
+  "viewingHint": ["paged"],
   "navDate": "1856-01-01T00:00:00Z",
 
   // Rights Information
-  "rights": "http://example.org/license.html",
-  "attribution": "Provided by Example Organization",
+  "rights": [{
+    "id":"http://example.org/license.html", 
+    "format": "text/html"}],
+  "attribution": {"en": ["Provided by Example Organization"]},
 
   "logo": {
     "id": "http://example.org/logos/institution1.jpg",
     "service": {
         "@context": "http://iiif.io/api/image/2/context.json",
         "id": "http://example.org/service/inst1",
-        "profile": "http://iiif.io/api/image/2/profiles/level2.json"
+        "profile": ["http://iiif.io/api/image/2/profiles/level2.json"]
     }
   },
 
   // Links
-  "related":{
+  "related": [{
     "id": "http://example.org/videos/video-book1.mpg",
     "format": "video/mpeg"
-  },
-  "service": {
+  }],
+  "service": [{
     "@context": "http://example.org/ns/jsonld/context.json",
     "id": "http://example.org/service/example",
-    "profile": "http://example.org/docs/example-service.html"
-  },
-  "seeAlso": {
+    "profile": ["http://example.org/docs/example-service.html"]
+  }],
+  "seeAlso": [{
     "id": "http://example.org/library/catalog/book1.xml",
     "format": "text/xml",
-    "profile": "http://example.org/profiles/bibliographic"
-  },
-  "rendering": {
+    "profile": ["http://example.org/profiles/bibliographic"]
+  }],
+  "rendering": [{
     "id": "http://example.org/iiif/book1.pdf",
-    "label": "Download as PDF",
+    "label": {"en": ["Download as PDF"]},
     "format": "application/pdf"
-  },
-  "within": "http://example.org/collections/books/",
+  }],
+  "within": [{
+    "id": "http://example.org/collections/books/",
+    "type": "Collection"
+  }],
 
   // List of sequences
-  "sequences": [
+  "items": [
       {
         "id": "http://example.org/iiif/book1/sequence/normal",
         "type": "Sequence",
