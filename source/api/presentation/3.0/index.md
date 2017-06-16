@@ -241,7 +241,7 @@ A link to an external resource that describes the license or rights statement un
  * Any resource type _MAY_ have one or more rights statements or licenses associated with it.
 
 ``` json-doc
-{"description": ["http://example.org/rights/copyright.html"]}
+{"rights": [{"id": "http://example.org/rights/copyright.html", "format": "text/html"}]}
 ```
 
 ##### logo
@@ -764,7 +764,7 @@ The example below includes only the manifest-level information, however actual i
       {
         "id": "http://example.org/iiif/book1/sequence/normal",
         "type": "Sequence",
-        "label": {"en": "Current Page Order"}
+        "label": {"en": ["Current Page Order"]}
         // sequence's page order should be included here, see below...
       }
       // Any additional sequences can be referenced here...
@@ -781,7 +781,7 @@ Recommended URI pattern:
 ```
 {: .urltemplate}
 
-The Sequence conveys the ordering of the views of the object. The default sequence (and typically the only sequence) _MUST_ be embedded within the manifest, and _MAY_ also be available from its own URI.  The default sequence _MAY_ have a URI to identify it. Any additional sequences _MUST_ be referred to from the manifest, not embedded within it, and thus these additional sequences _MUST_ have an HTTP URI.
+The Sequence conveys the ordering of the views of the object. The default sequence (and typically the only sequence) _MUST_ be embedded within the manifest, and _MAY_ also be available from its own URI.  The default sequence _MAY_ have a URI to identify it. Any additional sequences _SHOULD_ be referred to from the manifest, not embedded within it, and thus these additional sequences _MUST_ have an HTTP URI.
 
 The {name} parameter in the URI structure _MUST_ distinguish it from any other sequences that may be available for the physical object. Typical default names for sequences are "normal" or "basic".
 
