@@ -8,11 +8,11 @@
     including the Stanford Digital Repository, Yale University and Los Alamos
     National Labs.
 - name: Princeton University Libraries
-  uri: http://libimages.princeton.edu/osd-demo/
+  uri: https://libimages1.princeton.edu/osd-demo/?feedme=pudl0123/8172070/01/00000001.jp2
   blurb:
   - >
-    This demonstration, hosted by the Princeton University Libraries, shows
-    images being served by Loris and viewed using OpenSeadragon.
+    This demonstration, hosted by the Princeton University Libraries, shows an
+    image being served by Loris and viewed using OpenSeadragon.
 - name: The British Library
   uri: http://sanddragon.bl.uk/mirador/
   blurb:
@@ -30,3 +30,13 @@
     heritage of the Middle Ages and the Renaissance. They have an implementation
     of Mirador that currently shows content hosted at multiple institutions and
     will, increasingly, provide access to French content.
+- name: Europeana
+  uri: http://europeana.eu
+  blurb:
+  - >
+    [Europeana](http://europeana.eu), Europe's platform for digital cultural heritage,
+    encourages its network of partners (libraries, archives, museum) to provide access
+    to high-quality content. They have started to encourage data providers to adopt IIIF,
+    and have adapted their infrastructure so that it can handle IIIF resources. The first
+    IIIF datasets following the agreed Europeana guidelines for IIIF can be accessed on the
+    [Europeana Collections portal](http://www.europeana.eu/portal/en/search?view=grid&q=sv_dcterms_conformsTo%3A*iiif*).
