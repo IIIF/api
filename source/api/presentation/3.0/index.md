@@ -281,13 +281,14 @@ The URI that identifies the resource. It is _RECOMMENDED_ that an HTTP URI be us
 
 The type of the resource.  For the resource types defined by this specification, the value of `type` will be described in the sections below.  For content resources, the type may be drawn from other vocabularies. Recommendations for basic types such as image, text or audio are also given in the sections below.
 
- * All resource types _MUST_ have at least one type specified.
-
-This requirement applies only to the types described in [Section 2][type-overview]. 
+ * All resource types _MUST_ have exactly one type specified.
 
 ``` json-doc
 {"type": "Image"}
 ```
+
+Warning: Following [#1131](https://github.com/IIIF/iiif.io/issues/1131), if there can ever be more than one type, then the value MUST be an array. Except @type's definition is fixed according to the JSON-LD specification, per [#1106](https://github.com/IIIF/iiif.io/issues/1106). Thus the change to exactly one from at least one.
+{: .warning}
 
 ##### format
 The specific media type (often called a MIME type) of a content resource, for example "image/jpeg". This is important for distinguishing text in XML from plain text, for example.
@@ -573,8 +574,6 @@ Resource descriptions _SHOULD_ be embedded within higher-level descriptions, and
 {"seeAlso": [{"id": "http://example.org/descriptions/book1.xml", "format": "text/xml"}]}
 ```
 
-Should `startCanvas` and `contentLayer` also require an object?
-{: .warning}
 
 ### 4.2. Repeated Properties
 
@@ -637,23 +636,18 @@ Clients _SHOULD_ allow only `a`, `b`, `br`, `i`, `img`, `p`, and `span` tags. Cl
 
 The top level resource in the response _MUST_ have the `@context` property, and it _SHOULD_ appear as the very first key/value pair of the JSON representation. This tells Linked Data processors how to interpret the information. The IIIF Presentation API context, below, _MUST_ occur exactly once per response, and be omitted from any embedded resources. For example, when embedding a sequence without any extensions within a manifest, the sequence _MUST NOT_ have the `@context` field.
 
-The value of the `@context` property _MUST_ be a list, and the first two values _MUST_ be the Presentation API context and the Web Annotation context, in that order.
+The value of the `@context` property _MUST_ be a list, and the __last__ two values _MUST_ be the Web Annotation context and the Presentation API context, in that order.  And further contexts _MUST_ be added at the beginning of the list.
 
 ``` json-doc
 {"@context": [
+    "http://www.w3.org/ns/anno.jsonld",
     "http://iiif.io/api/presentation/{{ page.major }}/context.json"
-    "http://www.w3.org/ns/anno.jsonld"
   ]
 }
 ```
 
-Any additional fields beyond those defined in this specification or the Web Annotation Data Model _SHOULD_ be mapped to RDF predicates using further context documents. In this case, the enclosing object _MUST_ have its own `@context` property, and it _SHOULD_ be the first key/value pair of that object. This is _REQUIRED_ for `service` links that embed any information beyond a `profile`.  These contexts _SHOULD NOT_ redefine `profile`.  For the top resource in the response, any extensions _MUST_ be added after the IIIF and Annotation contexts in the array.  For embedded resources, the extension context could be just a string.
+Any additional fields beyond those defined in this specification or the Web Annotation Data Model _SHOULD_ be mapped to RDF predicates using further context documents.   If possible, these extensions _SHOULD_ be added to the top level `@context` field, and _MUST_ be added before the above contexts.  The JSON-LD 1.1 functionality of type and predicate specific context definitions _SHOULD_ be used if possible to try to minimize any cross-extension collisions.
 
-``` json-doc
-{
-  "@context": "http://example.org/extension/context.json"
-}
-```
 
 ##  5. Resource Structure
 
@@ -668,22 +662,22 @@ Recommended URI pattern:
 ```
 {: .urltemplate}
 
-The Manifest response contains sufficient information for the client to initialize itself and begin to display something quickly to the user. The manifest resource represents a single object and any intellectual work or works embodied within that object. In particular it includes the descriptive, rights and linking information for the object. It then embeds the sequence(s) of canvases that should be rendered to the user.
+The Manifest response contains sufficient information for the client to initialize itself and begin to display something quickly to the user. The Manifest resource represents a single object and any intellectual work or works embodied within that object. In particular it includes the descriptive, rights and linking information for the object. It then embeds the Sequence(s) of Canvases that should be rendered to the user.
 
-The identifier in `id` _MUST_ always be able to be dereferenced to retrieve the JSON description of the manifest, and thus _MUST_ use the http(s) URI scheme.
+The identifier in `id` _MUST_ be able to be dereferenced to retrieve the JSON description of the Manifest, and thus _MUST_ use the http(s) URI scheme.
 
-Along with the descriptive information, there is a `sequences` section, which is a list of JSON-LD objects. Each object describes a [Sequence][sequence], discussed in the next section, that represents the order of the parts of the work, each represented by a [Canvas][canvas].  The first such sequence _MUST_ be included within the manifest as well as optionally being available from its own URI. Subsequent sequences _MUST_ only be referenced with their identifier (`id`), class (`type`) and `label` and thus _MUST_ be dereferenced by clients in order to process them if the user selects to view that sequence.
+Along with the descriptive information, there is an `items` section, which is a list of JSON-LD objects. Each object describes a [Sequence][sequence], discussed in the next section, that represents the order of the parts of the work, each represented by a [Canvas][canvas].  The first such Sequence _MUST_ be included within the Manifest as well as optionally being available from its own URI. Subsequent Sequences _MAY_ be embedded within the Manifest, or referenced with their identifier (`id`), class (`type`) and label (`label`).
 
 There _MAY_ also be a `structures` section listing one or more [Ranges][range] which describe additional structure of the content, such as might be rendered as a table of contents.
 
-The example below includes only the manifest-level information, however actual implementations _MUST_ embed the first sequence, canvas and content information. It includes examples in the descriptive metadata of how to associate multiple entries with a single field and how to be explicit about the language of a particular entry.
+The example below includes only the Manifest-level information, however actual implementations _MUST_ embed the first sequence, canvas and content information. It includes examples in the descriptive metadata of how to associate multiple entries with a single field and how to be explicit about the language of a particular entry.
 
 ``` json-doc
 {
   // Metadata about this manifest file
   "@context": [
-    "http://iiif.io/api/presentation/2/context.json",
-    "http://www.w3.org/ns/anno.jsonld"
+    "http://www.w3.org/ns/anno.jsonld",
+    "http://iiif.io/api/presentation/2/context.json"
   ],
   "id": "http://example.org/iiif/book1/manifest",
   "type": "Manifest",
@@ -759,15 +753,26 @@ The example below includes only the manifest-level information, however actual i
     "type": "Collection"
   }],
 
-  // List of sequences
+  // List of Sequences
   "items": [
       {
         "id": "http://example.org/iiif/book1/sequence/normal",
         "type": "Sequence",
         "label": {"en": ["Current Page Order"]}
-        // sequence's page order should be included here, see below...
+        // sequence's page order should be included here
       }
-      // Any additional sequences can be referenced here...
+      // Any additional sequences can be included here
+  ],
+
+  // List of top level Ranges
+  "structures": [
+    {
+      "id": "http://example.org/iiif/book1/range/top",
+      "type": "Range",
+      "viewingHint": ["top"],
+      // Ranges members should be included here
+    }
+    // Any additional top level ranges can be included here
   ]
 }
 ```
@@ -781,30 +786,29 @@ Recommended URI pattern:
 ```
 {: .urltemplate}
 
-The Sequence conveys the ordering of the views of the object. The default sequence (and typically the only sequence) _MUST_ be embedded within the manifest, and _MAY_ also be available from its own URI.  The default sequence _MAY_ have a URI to identify it. Any additional sequences _SHOULD_ be referred to from the manifest, not embedded within it, and thus these additional sequences _MUST_ have an HTTP URI.
+The Sequence conveys the ordering of the views of the object. The default Sequence (and typically the only Sequence) _MUST_ be embedded within the Manifest as the first object in the `items` property, and _MAY_ also be available from its own URI.  This Sequence _SHOULD_ have a URI to identify it. Any additional Sequences _MAY_ be included, or maintained externally from the Manifest.  All external Sequences _MUST_ have an http(s) URI, and the description of the Sequence _MUST_ be available by dereferencing that URI.
 
-The {name} parameter in the URI structure _MUST_ distinguish it from any other sequences that may be available for the physical object. Typical default names for sequences are "normal" or "basic".
+If the URI pattern is used, then the {name} parameter _MUST_ distinguish it from any other sequences that may be available for the object. Typical default names for sequences are "normal" or "basic" or "0".
 
-Sequences _MAY_ have their own descriptive, rights and linking metadata using the same fields as for manifests. The `label` property _MAY_ be given for sequences and _MUST_ be given if there is more than one referenced from a manifest. After the metadata, the set of pages in the object, represented by canvas resources, are listed in order in the `canvases` property.  There _MUST_ be at least one canvas given.
+Sequences _MAY_ have their own descriptive, rights and linking metadata using the same fields as for Manifests. The `label` property _MAY_ be given for Sequences and _MUST_ be given if there is more than one referenced from a Manifest. After the metadata, the set of views of the object, represented by Canvas resources, _MUST_ be listed in order in the `items` property.  There _MUST_ be at least one Canvas given.
 
-Sequences _MAY_ have a `startCanvas` with a single value containing the URI of a canvas resource that is contained within the sequence.  This is the canvas that a viewer _SHOULD_ initialize its display with for the user.  If it is not present, then the viewer _SHOULD_ use the first canvas in the sequence.
+Sequences _MAY_ have a `startCanvas` with a single value containing the URI of a Canvas resource that is contained within the Sequence.  This is the Canvas that a viewer _SHOULD_ initialize its display with for the user.  If it is not present, then the viewer _SHOULD_ use the first Canvas in the Sequence.
 
-In the manifest example above, the sequence is referenced by its URI and contains only the basic information of `label`, `type` and `id`. The default sequence should be written out in full within the manifest file, as below but _MUST NOT_ have the `@context` property.
+In the Manifest example above, the Sequence is referenced by its URI and contains only the basic information of `label`, `type` and `id`. The default sequence should be written out in full within the Manifest file, as below.
 
 ``` json-doc
 {
   // Metadata about this sequence
-  "@context": "http://iiif.io/api/presentation/2/context.json",
   "id": "http://example.org/iiif/book1/sequence/normal",
   "type": "Sequence",
-  "label": "Current Page Order",
+  "label": {"en": Current Page Order"},
 
   "viewingDirection": "left-to-right",
-  "viewingHint": "paged",
+  "viewingHint": ["paged"],
   "startCanvas": "http://example.org/iiif/book1/canvas/p2",
 
   // The order of the canvases
-  "canvases": [
+  "items": [
     {
       "id": "http://example.org/iiif/book1/canvas/p1",
       "type": "Canvas",
