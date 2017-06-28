@@ -10,7 +10,7 @@ tags: [event ]
 * Goes Here
 {:toc}
 
-## IIIF Working Groups Meeting - The Hague - 2016
+## IIIF Working Groups Meeting - Toronto - 2017
 
 The International Image Interoperability Framework ([IIIF][home-page]) Working Groups meeting in Toronto is intended for active IIIF community participants and [working groups][groups]. Attendance is free, but capacity is limited, so registration will be required in order to ensure that we do not exceed the capacity of the venue. Stay tuned to the [IIIF-Discuss][iiif-discuss] email list for announcements and more information.
 
