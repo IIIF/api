@@ -28,7 +28,7 @@ To advance the growth and adoption of interoperable software with IIIF, the Soft
 
 **Communication Channels:**
 
-  * Calls every other week on Wednesdays at 12:00pm Eastern (opposite the general IIIF Community Call)  - see [IIIF Community Calendar][calendar] for details
+  * Calls every four weeks on Wednesdays at 12:00pm Eastern - see [IIIF Community Calendar][calendar] for details
   * Virtual meetings announced on [IIIF-Discuss][iiif-discuss]
   * General discussion on the [# softwaredevs IIIF Slack channel][devs-slack] ([Join Slack][join-slack])
 
@@ -38,8 +38,8 @@ To advance the growth and adoption of interoperable software with IIIF, the Soft
 
 **Call Connection Information:**
 
-  * Online: [https://bluejeans.com/782319325][bluejeans]
-  * Phone: +1.888.240.2560 (US Toll Free) or see [international numbers][international-bluejeans] - Enter Meeting ID: 782319325
+  * Online: [https://stanford.zoom.us/j/641742844][zoom]
+  * Phone: see [international numbers][international-zoom] - Enter Meeting ID: 641742844, Participant ID: #
 
 
 [iiif-discuss]: https://groups.google.com/forum/#!forum/iiif-discuss
@@ -47,8 +47,8 @@ To advance the growth and adoption of interoperable software with IIIF, the Soft
 [join-slack]: http://bit.ly/iiif-slack
 [devs-folder]: https://drive.google.com/drive/folders/0B8WLA_XCC1koZUF6TEFmQW5Vc0E?usp=sharing
 [calendar]: http://iiif.io/community/groups/
-[bluejeans]: https://bluejeans.com/782319325
-[international-bluejeans]: https://bluejeans.com/numbers?ll=en
+[zoom]: https://stanford.zoom.us/j/641742844
+[international-zoom]: https://zoom.us/zoomconference
 
 
 {% include acronyms.md %}

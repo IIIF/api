@@ -32,8 +32,8 @@ The [IIIF A/V charter][av-charter] provides an outline and timeline for anticipa
 
 **Call Connection Information:**
 
-  * Online: [https://bluejeans.com/222002812][https://bluejeans.com/222002812]
-  * Phone: +1.888.240.2560 (US Toll Free) or see [international numbers][international-bluejeans] - Enter Meeting ID: 222002812
+  * Online: [https://stanford.zoom.us/j/538552143][https://stanford.zoom.us/j/538552143]
+  * Phone: see [international numbers][international-zoom] - Enter Meeting ID: 538552143, Participant ID: #
 
 [av-user-stories]: https://github.com/IIIF/iiif-av/issues "Audiovisual User Stories"
 [bl-workshop-2016-04]: https://goo.gl/iVXEFD "Use cases and notes from April 2015 workshop at British Library"
@@ -43,9 +43,9 @@ The [IIIF A/V charter][av-charter] provides an outline and timeline for anticipa
 [av-slack]: https://iiif.slack.com/messages/av/details/
 [av-folder]: https://drive.google.com/drive/folders/0B8SS5OUXWs4GZ0ZfbEhIclhzb0k?usp=sharing
 [slack]: http://bit.ly/iiif-slack
-[https://bluejeans.com/222002812]: https://bluejeans.com/222002812
+[https://stanford.zoom.us/j/538552143]: https://stanford.zoom.us/j/538552143
 [iiif-calendar]: http://iiif.io/community/groups/
-[international-bluejeans]: https://bluejeans.com/numbers?ll=en
+[international-zoom]: https://zoom.us/zoomconference
 [design-principles]: http://iiif.io/api/annex/notes/design_patterns/
 [av-charter]: /community/groups/av/charter
 
