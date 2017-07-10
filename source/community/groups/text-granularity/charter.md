@@ -58,7 +58,7 @@ Relevant use cases will be collected in [IIIF-Stories][stories] using the text-g
 
 * Github Repository: [IIIF-Stories][stories]
 * Slack: [# text-granularity][text-slack]
-* Email: [IIIF-Discuss][iiif-discuss]; subject line: [granularity]
+* Email: [IIIF-Discuss][iiif-discuss]; subject line: \[granularity\]
 * Face to face: Annual Conference and Working Group meetings, plus as incidental travel allows
 * Calls: Initially bi-weekly, plus standing updates/feedback on Technical Call
     * Online: [https://stanford.zoom.us/j/375412551][zoom]
