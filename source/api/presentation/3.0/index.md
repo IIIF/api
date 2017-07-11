@@ -133,13 +133,11 @@ Content resources and commentary are associated with a Canvas via an Annotation.
 {: #overview-annotationpage}
 
 An ordered list of Annotations in a single response, typically associated with a single Canvas, and can be part of an AnnotationCollection.
-{: .changed}
 
 ##### AnnotationCollection
 {: #overview-annotationcollection}
 
 An ordered list of AnnotationPages.  AnnotationCollections allow higher level groupings of Annotations to be recorded. For example, all of the English translation Annotations of a medieval French document could be kept separate from the transcription or an edition in modern French.
-{: .changed}
 
 ##### Range
 {: #overview-range}
@@ -233,8 +231,7 @@ Text that _MUST_ be shown when the resource it is associated with is displayed o
 {"attribution": {"en": ["Attribution Text"]}}
 ```
 
-##### rights
-{: .changed} 
+##### rights 
 
 A link to an external resource that describes the license or rights statement under which the resource may be used. The rationale for this being a URI and not a human readable label is that typically there is one license for many resources, and the text is too long to be displayed to the user along with the object. If displaying the text is a requirement, then it is _RECOMMENDED_ to include the information using the `attribution` property instead. The value _MUST_ be an array of strings, each being a URI.
 
@@ -253,11 +250,9 @@ A small image that represents an individual or organization associated with the 
 {"logo": [{"id": "https://example.org/img/logo.jpg", "type": "Image"}]}
 ```
 
-
 ####  3.3. Technical Properties
 
 ##### id
-{: .changed}
 
 The URI that identifies the resource. It is _RECOMMENDED_ that an HTTP URI be used for all resources. Recommended HTTP URI patterns for the different classes of resource are given below.  URIs from any [registered scheme][iana-uri-schemes] _MAY_ be used, and implementers may find it convenient to use a [UUID URN][rfc-4122] of the form: `"urn:uuid:uuid-goes-here-1234"`.  Resources that do not require URIs _MAY_ be assigned [blank node identifiers][rdf11-blank-nodes]; this is the same as omitting `id`.
 
@@ -270,14 +265,12 @@ The URI that identifies the resource. It is _RECOMMENDED_ that an HTTP URI be us
  * An AnnotationCollection _MUST_ have exactly one id, and it _MUST_ be an http(s) URI.
  * An AnnotationPage _MUST_ have exactly one id, and it _MUST_ be the http(s) URI at which it is published.
  * An Annotation _MUST_ have exactly one id, and the Annotation's representation _SHOULD_ be published at that URI. 
-  {: .changed}
 
 ``` json-doc
 {"id": "https://example.org/iiif/1/manifest"}
 ```
 
 ##### type
-{: .changed}
 
 The type of the resource.  For the resource types defined by this specification, the value of `type` will be described in the sections below.  For content resources, the type may be drawn from other vocabularies. Recommendations for basic types such as image, text or audio are also given in the sections below.
 
@@ -286,9 +279,6 @@ The type of the resource.  For the resource types defined by this specification,
 ``` json-doc
 {"type": "Image"}
 ```
-
-Warning: Following [#1131](https://github.com/IIIF/iiif.io/issues/1131), if there can ever be more than one type, then the value MUST be an array. Except @type's definition is fixed according to the JSON-LD specification, per [#1106](https://github.com/IIIF/iiif.io/issues/1106). Thus the change to exactly one from at least one.
-{: .warning}
 
 ##### format
 The specific media type (often called a MIME type) of a content resource, for example "image/jpeg". This is important for distinguishing text in XML from plain text, for example.
@@ -383,9 +373,10 @@ A hint to the client as to the most appropriate method of displaying the resourc
 ```
 
 ##### choiceHint
-{: .changed}
 
-A hint associated with a Choice resource that a client can use to determine the publisher's intent as to which agent _SHOULD_ make the choice between the different options.  In the absence of any `choiceHint` value, the rendering application can use any algorithm or process to make the determination.
+A hint associated with a Choice resource that a client can use to determine the publisher's intent as to which agent _SHOULD_ make the choice between the different options.  In the absence of any `choiceHint` value, the rendering application can use any algorithm or process to make the determination.  The value _MUST_ be either taken from the table below (`client` or `user`), or be a URI for custom extensions.
+
+* A Choice _MAY_ have exactly one `choiceHint`.
 
 > | Value | Description |
 | ----- | ----------- |
@@ -397,9 +388,10 @@ A hint associated with a Choice resource that a client can use to determine the 
 ```
 
 ##### timeMode
-{: .changed}
 
-A mode associated with an Annotation that is to be applied to the rendering of any time-based media used as a body resource of that Annotation. Note that the association of `timeMode` with the Annotation means that different resources in the body cannot have different values.
+A mode associated with an Annotation that is to be applied to the rendering of any time-based media, or otherwise could be considered to have a duration, used as a body resource of that Annotation. Note that the association of `timeMode` with the Annotation means that different resources in the body cannot have different values. The value _MUST_ be taken from the list in the table below, or be a URI for custom extensions.
+
+* An Annotation _MAY_ have exactly one `timeMode` property.
 
 > | Value | Description |
 | ----- | ----------- |
@@ -446,7 +438,7 @@ A link to a service that makes more functionality available for the resource, su
 ```
 
 ##### seeAlso
-A link to a machine readable document that semantically describes the resource with the `seeAlso` property, such as an XML or RDF description.  This document could be used for search and discovery or inferencing purposes, or just to provide a longer description of the resource. The `profile` and `format` properties of the document _SHOULD_ be given to help the client to make appropriate use of the document.
+A link to a machine readable document that semantically describes the resource with the `seeAlso` property, such as an XML or RDF description.  This document could be used for search and discovery or inferencing purposes, or just to provide a longer description of the resource. The `profile` and `format` properties of the document _SHOULD_ be given to help the client select between multiple descriptions (if provided), and to make appropriate use of the document.
 
  * Any resource type _MAY_ have one or more external descriptions related to it.
 
@@ -459,7 +451,6 @@ A link to a resource that contains the current resource, such as annotation list
 
  * Collections or AnnotationPages that serve as [pages][paging] _MUST_ be within exactly one paged resource.
  * Other resource types, including Collections or AnnotationPages not serving as pages, _MAY_ be within one or more containing resources.
-
 
 ``` json-doc
 {"within": [{"id": "https://example.org/iiif/1", "type": "Manifest"}]}
@@ -488,10 +479,10 @@ A link from a Range to an AnnotationCollection that includes the Annotations of 
 ####  3.5. Paging Properties
 
 ##### first
-A link from a resource with pages, such as a Collection or Annotation Collection, to its first page resource, another collection or an annotation list respectively. The page resource _SHOULD_ be referenced by just its URI (from `id`) but _MAY_ also have more information associated with it as an object.
+A link from a resource with pages, such as a Collection or AnnotationCollection, to its first page resource, another Collection or an AnnotationPage respectively. The page resource _MUST_ be referenced as an object with at least `id` and `type` properties.
 
- * A collection _MAY_ have exactly one collection as its first page.
- * A layer _MAY_ have exactly one annotation list as its first page.
+ * A Collection _MAY_ have exactly one Collection as its first page.
+ * An AnnotationCollection _MAY_ have exactly one AnnotationPage as its first page.
  * Other resource types _MUST NOT_ have a first page.
 
 ``` json-doc
@@ -499,7 +490,7 @@ A link from a resource with pages, such as a Collection or Annotation Collection
 ```
 
 ##### last
-A link from a resource with pages to its last page resource. The page resource _SHOULD_ be referenced by just its URI (from `id`) but _MAY_ also have more information associated with it as an object.
+A link from a resource with pages to its last page resource. The page resource _MUST_ be referenced as an object with at least `id` and `type` properties.
 
  * A collection _MAY_ have exactly one collection as its last page.
  * A layer _MAY_ have exactly one annotation list as its last page.
@@ -510,10 +501,10 @@ A link from a resource with pages to its last page resource. The page resource _
 ```
 
 ##### total
-The total number of leaf resources, such as annotations within a layer, within a list of pages. The value _MUST_ be a non-negative integer.
+The total number of leaf resources in a paged list, such as the number of Annotations within an AnnotationCollection. The value _MUST_ be a non-negative integer.
 
- * A collection _MAY_ have exactly one total, which _MUST_ be the total number of collections and manifests in its list of pages.
- * A layer _MAY_ have exactly one total, which _MUST_ be the total number of annotations in its list of pages.
+ * A Collection _MAY_ have exactly one total, which _MUST_ be the total number of Collections and Manifests in its list of pages.
+ * An AnnotationCollection _MAY_ have exactly one total, which _MUST_ be the total number of Annotations in its list of pages.
  * Other resource types _MUST NOT_ have a total.
 
 ``` json-doc
@@ -521,10 +512,10 @@ The total number of leaf resources, such as annotations within a layer, within a
 ```
 
 ##### next
-A link from a page resource to the next page resource that follows it in order. The resource _SHOULD_ be referenced by just its URI (from `id`) but _MAY_ also have more information associated with it as an object.
+A link from a page resource to the next page resource that follows it in order. The page resource _MUST_ be referenced as an object with at least `id` and `type` properties.
 
- * A collection _MAY_ have exactly one collection as its next page.
- * An annotation list _MAY_ have exactly one annotation list as its next page.
+ * A Collection _MAY_ have exactly one Collection as its next page.
+ * An AnnotationPage _MAY_ have exactly one AnnotationPage as its next page.
  * Other resource types _MUST NOT_ have next pages.
 
 ``` json-doc
@@ -532,10 +523,10 @@ A link from a page resource to the next page resource that follows it in order. 
 ```
 
 ##### prev
-A link from a page resource to the previous page resource that precedes it in order. The resource _SHOULD_ be referenced by just its URI (from `id`) but _MAY_ also have more information associated with it as an object.
+A link from a page resource to the previous page resource that precedes it in order. The page resource _MUST_ be referenced as an object with at least `id` and `type` properties.
 
- * A collection _MAY_ have exactly one collection as its previous page.
- * An annotation list _MAY_ have exactly one annotation list as its previous page.
+ * A Collection _MAY_ have exactly one Collection as its previous page.
+ * An AnnotationPage _MAY_ have exactly one AnnotationPage as its previous page.
  * Other resource types _MUST NOT_ have previous pages.
 
 ``` json-doc
@@ -545,8 +536,8 @@ A link from a page resource to the previous page resource that precedes it in or
 ##### startIndex
 The 0 based index of the first included resource in the current page, relative to the parent paged resource. The value _MUST_ be a non-negative integer.
 
- * A collection _MAY_ have exactly one startIndex, which _MUST_ be the index of its first collection or manifest relative to the order established by its paging collection.
- * An annotation list _MAY_ have exactly one startIndex, which _MUST_ be the index of its first annotation relative to the order established by its paging layer.
+ * A Collection _MAY_ have exactly one startIndex, which _MUST_ be the index of its first Collection or Manifest relative to the order established by its parent paging Collection.
+ * An AnnotationPage _MAY_ have exactly one startIndex, which _MUST_ be the index of its first Annotation relative to the order established by its parent paging AnnotationCollection.
  * Other resource types _MUST NOT_ have a startIndex.
 
 ``` json-doc
@@ -557,9 +548,25 @@ The 0 based index of the first included resource in the current page, relative t
 
 ##### items
 
-##### structures
+Much of the functionality of the IIIF Presentation API is simply recording the order in which child resources occur within a parent resource, such as Collections or Manifests within a parent Collection, Sequences within a Manifest, or Canvases within a Sequence.  All of these situations are covered with a single property, `items`.  The value _MUST_ be an array of objects.
+
+* A Collection _MUST_ have a list of Collections and/or Manifests as its items.
+* A Manifest _MUST_ have a list of Sequences as its items.
+* A Sequence _MUST_ have a list of Canvases as its items.
+* A Range _MUST_ have a list of Ranges and/or Canvases as its items.
+* An AnnotationPage _MUST_ have a list of Annotations as its items.
+
+##### structure
+
+The structure of an object represented as a Manifest can be described using a hierarchy of Ranges.  The top level Ranges of these hierarchies are given in the `structure` property.
+
+* A Manifest _MAY_ have one or more Ranges in the `structure` property.
 
 ##### content
+
+The resources associated with a Canvas are given in the `content` property of the Canvas.
+
+* A Canvas _SHOULD_ have one or more AnnotationPages in the `content` property. 
 
 
 ##  4. JSON-LD Considerations
@@ -759,20 +766,20 @@ The example below includes only the Manifest-level information, however actual i
         "id": "http://example.org/iiif/book1/sequence/normal",
         "type": "Sequence",
         "label": {"en": ["Current Page Order"]}
-        // sequence's page order should be included here
+        // Sequence's page order should be included here
       }
-      // Any additional sequences can be included here
+      // Any additional Sequences can be included here
   ],
 
-  // List of top level Ranges
-  "structures": [
+  // structure of the resource, described with Ranges
+  "structure": [
     {
       "id": "http://example.org/iiif/book1/range/top",
       "type": "Range",
-      "viewingHint": ["top"],
+      "viewingHint": ["top"]
       // Ranges members should be included here
     }
-    // Any additional top level ranges can be included here
+    // Any additional top level Ranges can be included here
   ]
 }
 ```
@@ -952,7 +959,7 @@ Note well that Annotation Lists _MUST NOT_ be embedded within the manifest.
   "id": "http://example.org/iiif/book1/list/p1",
   "type": "AnnotationList",
 
-  "resources": [
+  "items": [
     {
       "type": "Annotation",
       "motivation": "painting",
@@ -999,7 +1006,7 @@ References to ranges within the current range.  Each included range _MUST_ be re
 ##### canvases
 References to canvases, or rectangular parts of a canvas, within the current range.  Each included canvas _MUST_ be referenced via a string containing the canvas's URI.
 
-##### members
+##### items
 A combined list of both ranges and canvases.  If the range contains both other ranges and canvases, and the ordering of the different types of resource is significant, the range _SHOULD_ instead use the `members` property.  The property's value is an array of canvases, parts of canvases or other ranges.  Each item in the array _MUST_ be an object, and it _MUST_ have the `id`, `type`, and `label` properties.
 
 
@@ -1714,6 +1721,7 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
 [shared-canvas]: /model/shared-canvas/{{ site.shared_canvas.latest.major}}.{{ site.shared_canvas.latest.minor }} "Shared Canvas Data Model"
 [image-api]: /api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/ "Image API"
+[search-api]: /api/search/{{ site.search_api.latest.major}}.{{ site.search_api.latest.minor }}/ "Search API"
 [annex]: /api/annex/services/ "Services Annex Document"
 [change-log]: /api/presentation/2.1/change-log/ "Presentation API 2.1 Change Log"
 [change-log-20]: /api/presentation/2.0/change-log/ "Presentation API 2.0 Change Log"
