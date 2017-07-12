@@ -164,7 +164,6 @@ A human readable label, name or title for the resource. This property is intende
  * A Canvas _MUST_ have at least one label, such as the page number or short description of the view.
  * A content resource _MAY_ have one or more labels, and if there is a choice of content resource for the same Canvas, then they _SHOULD_ each have at least one label.
  * A Range _SHOULD_ have at least one label. 
-   {: .changed}
  * An AnnotationCollection _MUST_ have at least one label.
  * Other resource types _MAY_ have labels.
 
@@ -296,7 +295,6 @@ This is different to the `formats` property in the [Image API][image-api], which
 The height of a Canvas or content resource. For content resources, the value is in pixels. For Canvases, the value does not have a unit. In combination with the width, it conveys an aspect ratio for the space in which content resources are located.
 
  * A Canvas _SHOULD_ have exactly one height, and _MUST NOT_ have more than one. If it has a height, it _MUST_ also have a width.
-   {: .changed}
  * Content resources _MAY_ have exactly one height, given in pixels, if appropriate.
  * Other resource types _MUST NOT_ have a height.
 
@@ -308,7 +306,6 @@ The height of a Canvas or content resource. For content resources, the value is 
 The width of a Canvas or content resource. For content resources, the value is in pixels. For Canvases, the value does not have a unit. In combination with the height, it conveys an aspect ratio for the space in which content resources are located.
 
  * A Canvas _SHOULD_ have exactly one width, and _MUST NOT_ have more than one. If it has a width, it _MUST_ also have a height.
-   {: .changed}
  * Content resources _MAY_ have exactly one width, given in pixels, if appropriate.
  * Other resource types _MUST NOT_ have a width.
 
@@ -317,13 +314,11 @@ The width of a Canvas or content resource. For content resources, the value is i
 ```
 
 ##### duration
-{: .changed}
 The duration of a Canvas or content resource, given in seconds as a non-negative floating point number. 
 
  * A Canvas _MAY_ have exactly one duration, and _MUST NOT_ have more than one.
  * Content resources _MAY_ have exactly one duration, and _MUST NOT_ have more than one.
  * Other resource types _MUST NOT_ have a duration.
-{: .changed}
 
 ``` json-doc
 {"duration": 125.6}
@@ -564,7 +559,7 @@ The structure of an object represented as a Manifest can be described using a hi
 
 ##### content
 
-The resources associated with a Canvas are given in the `content` property of the Canvas.
+The resources associated with a Canvas via Annotations are given in the `content` property of the Canvas.  Each resource in the list is an AnnotationPage, and can either be embedded or referenced via its `id` and `type`.
 
 * A Canvas _SHOULD_ have one or more AnnotationPages in the `content` property. 
 
@@ -578,11 +573,14 @@ This section describes features applicable to all of the Presentation API conten
 Resource descriptions _SHOULD_ be embedded within higher-level descriptions, and _MAY_ also be available via separate requests from http(s) URIs linked in the responses. These URIs are in the `id` property for the resource. Links to resources _MUST_ be given as a JSON object with the `id` property and at least one other property, typically either `type`, `format` or `profile` to give a hint as to what sort of resource is being referred to. Other URI schemes _MAY_ be used if the resource is not able to be retrieved via HTTP. 
 
 ``` json-doc
-{"seeAlso": [{"id": "http://example.org/descriptions/book1.xml", "format": "text/xml"}]}
+{
+  "seeAlso": [
+    {"id": "http://example.org/descriptions/book1.xml", "format": "text/xml"}
+  ]
+}
 ```
 
-
-### 4.2. Repeated Properties
+### 4.2. Repeatable Properties
 
 Any of the properties in the API that can be repeated _MUST_ always be given as an array of values, even if there is only a single item in that array.
 
@@ -620,10 +618,11 @@ In the case where multiple values are supplied, clients _MUST_ use the following
   * If all of the values have a language associated with them, and none match the language preference, the client _MUST_ select a language and display all of the values associated with that language.
   * If some of the values have a language associated with them, but none match the language preference, the client _MUST_ display all of the values that do not have a language associated with them.
 
+Note also that this does not apply to embedded textual bodies in Annotations, which use the Web Annotation pattern of `value` and `langauge` as separate properties.
 
 ### 4.4. HTML Markup in Property Values
 
-Minimal HTML markup _MAY_ be included in the `description`, `attribution` and `value` properties.  It _MUST NOT_ be used in `label` or other properties. This is included to allow manifest creators to add links and simple formatting instructions to blocks of text. The content _MUST_ be well-formed XML and therefore must be wrapped in an element such as `p` or `span`.  There _MUST NOT_ be whitespace on either side of the HTML string, and thus the first character in the string _MUST_ be a '<' character and the last character _MUST_ be '>', allowing a consuming application to test whether the value is HTML or plain text using these.  To avoid a non-HTML string matching this, it is _RECOMMENDED_ that an additional whitespace character be added to the end of the value.
+Minimal HTML markup _MAY_ be included in the `description`, `attribution` properties and the `value` property of a `label`/`value` pair in `metadata`.  It _MUST NOT_ be used in `label` or other properties. This is included to allow manifest creators to add links and simple formatting instructions to blocks of text. The content _MUST_ be well-formed XML and therefore must be wrapped in an element such as `p` or `span`.  There _MUST NOT_ be whitespace on either side of the HTML string, and thus the first character in the string _MUST_ be a '<' character and the last character _MUST_ be '>', allowing a consuming application to test whether the value is HTML or plain text using these.  To avoid a non-HTML string matching this, it is _RECOMMENDED_ that an additional whitespace character be added to the end of the value.
 
 In order to avoid HTML or script injection attacks, clients _MUST_ remove:
 
