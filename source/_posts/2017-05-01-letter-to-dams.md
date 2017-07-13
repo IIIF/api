@@ -61,6 +61,7 @@ Sincerely,
 * Princeton University Art Museum, Princeton, New Jersey, US
 * The Royal Armoury, Skokloster Castle and the Hallwyl Museum, Sweden
 * Royal Institute for Cultural Heritage (KIK-IRPA), Brussels, Belgium
+* Royal Library of Belgium, Brussels, Belgium
 * Royal Museums of Art and History (KMKG-MRAH), Brussels, Belgium
 * San Francisco Museum of Modern Art, San Francisco, California, US
 * SMK - The National Gallery of Denmark, Copenhagen, Denmark
