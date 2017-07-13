@@ -3,26 +3,28 @@
   uri: http://www.contentdm.org/
   blurb:
   - >
-    ContentDM is a full-featured digital collection management system 
+    ContentDM is a full-featured digital collection management system
     supported by OCLC that includes image hosting and metadata management.
+    CONTENTdm allows for easy building and showcasing of digital collections
+    on personalized websites, making them more discoverable to people around the world.
+    CONTENTdm also secures and monitors master files in a cloud-based preservation
+    archive so they remain safe for the future.
   - >
-    A [Python-based translator](https://github.com/IIIF/image-api/tree/master/translators/ContentDM) 
-    has been produced that can make the images hosted in your ContentDM 
-    installation fully IIIF compatible.
+    Digital repositories using CONTENTdm support the IIIF Image API. For more details see the [CONTENTdm IIIF Support page](http://oc.lc/IIIFandCONTENTdm).
 - name: Djatoka
   uri: http://sourceforge.net/projects/djatoka/
   blurb:
   - >
-    Djatoka is an open source, Java-based image server that provides 
-    compression and region extraction of JPEG 2000 images, URI-addressability 
-    of regions, and support for multiple image formats (including., BMP, GIF, 
-    JPG, PNG, PNM, TIF, JPEG 2000). Djatoka comes with a plug-in framework that 
-    allows transformations to be applied to regions and resolutions (e.g., 
+    Djatoka is an open source, Java-based image server that provides
+    compression and region extraction of JPEG 2000 images, URI-addressability
+    of regions, and support for multiple image formats (including., BMP, GIF,
+    JPG, PNG, PNM, TIF, JPEG 2000). Djatoka comes with a plug-in framework that
+    allows transformations to be applied to regions and resolutions (e.g.,
     watermarking).
   - >
-    Djatoka is not natively IIIF-compatible. However, djatoka URI’s are easily 
-    translated to IIIF URI’s (for example see this 
-    [Ruby on Rails gem](https://github.com/jronallo/djatoka) that does the 
+    Djatoka is not natively IIIF-compatible. However, djatoka URI’s are easily
+    translated to IIIF URI’s (for example see this
+    [Ruby on Rails gem](https://github.com/jronallo/djatoka) that does the
     translation).
 - name: FSI Server
   uri: http://www.fsi-viewer.com/
@@ -30,38 +32,37 @@
   - >
     There is a [IIIF adaptor for FSI server](https://github.com/jhu-digital-manuscripts/rosa/tree/master/rosa-iiif-endpoint).
   - >
-    FSI Server is a popular commercial solution for serving high resolution 
-    images in multiple formats.&nbsp; It accompanies the Flash-based FSI Viewer 
+    FSI Server is a popular commercial solution for serving high resolution
+    images in multiple formats.&nbsp; It accompanies the Flash-based FSI Viewer
     for zoom and pan.
 - name: IIPImage Server
   uri: http://iipimage.sourceforge.net/documentation/server/
   blurb:
-  - > 
-    The IIPImage server is a high performance image server for streaming high 
-    resolution images. It supports advanced image features such as 16 and 32 
-    bit color depths, floating point data, CIELAB colorimetric images and 
+  - >
+    The IIPImage server is a high performance image server for streaming high
+    resolution images. It supports advanced image features such as 16 and 32
+    bit color depths, floating point data, CIELAB colorimetric images and
     scientific imagery such as multispectral or hyperspectral images.
-  - > 
-    The server  is an Fast CGI module written in C++ that is designed to be 
+  - >
+    The server  is an Fast CGI module written in C++ that is designed to be
     embedded within a host web server such as Apache, Lighttpd, MyServer or Nginx.
-  - > 
+  - >
     IIPImage server is IIIF compatible (
     [GitHub repo](https://github.com/ruven/iipsrv) of the project).
 - name: Loris
   uri: https://github.com/pulibrary/loris
   blurb:
-  - > 
-    Loris is an open source, Python-based image server that supports the IIIF 
+  - >
+    Loris is an open source, Python-based image server that supports the IIIF
     Image API ver 1.1. Loris supports JPEG and TIFF sources as well as JPEG2000.
 - name: digilib
   uri: http://digilib.sourceforge.net/
   blurb:
-  - > 
+  - >
     digilib is an open source, Java based image server for high resolution images.
     It supports the IIIF Image API and a native API that also allows brightness,
     contrast and color corrections and other operations.
   - >
-    digilib supports JPEG, TIFF, PNG, JPEG2000 and other image formats via Java 
-    ImageIO. digilib also has a web client that offers continuous zoom, 
+    digilib supports JPEG, TIFF, PNG, JPEG2000 and other image formats via Java
+    ImageIO. digilib also has a web client that offers continuous zoom,
     referenceable views, image annotations and other features for scholarly work.
-    
