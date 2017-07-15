@@ -33,6 +33,10 @@ __Previous Version:__ [2.1.1][prev-version]
 
 {% include copyright.md %}
 
+__Status warning__
+This is a work in progress and may change without any notices. Implementers should be aware that this document is not stable. Implementers are likely to find the specification changing in incompatible ways. Those interested in implementing this document before it reaches beta or release stages should join the [mailing list][iiif-discuss] and take part in the discussions, and follow the [emerging issues][prezi3-milestone] on Github.
+{: .warning}
+
 ----
 
 ## Table of Contents
@@ -1718,6 +1722,7 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 | 2013-06-14 | Version 0.9 (unnamed) |
 
 [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
+[prezi3-milestone]: https://github.com/iiif/iiif.io/issues?q=is%3Aopen+is%3Aissue+milestone%3A%22Presentation+3.0%22 "Presentation 3.0 Milestone" 
 [shared-canvas]: /model/shared-canvas/{{ site.shared_canvas.latest.major}}.{{ site.shared_canvas.latest.minor }} "Shared Canvas Data Model"
 [image-api]: /api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/ "Image API"
 [search-api]: /api/search/{{ site.search_api.latest.major}}.{{ site.search_api.latest.minor }}/ "Search API"
