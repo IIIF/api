@@ -94,6 +94,9 @@
 - name: Hill Museum & Manuscript Library (HMML)
   uri: https://www.vhmml.org/
   iiifc:
+- name: Holoscene
+  uri: http://holoscene.io
+  iiifc:
 - name: Huygens ING (KNAW)
   uri: https://www.huygens.knaw.nl/
 - name: Indiana University
