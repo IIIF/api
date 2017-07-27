@@ -329,7 +329,7 @@ The duration of a Canvas or content resource, given in seconds as a non-negative
 ```
 
 ##### viewingDirection
-The direction that a set of Canvases _SHOULD_ be displayed to the user. Possible values are specified in the table below.
+The direction that a set of Canvases _SHOULD_ be displayed to the user. This specification defines four viewing direction values in the table below. Other values _MAY_ also be used, and they _MUST_ be full URIs.
 
  * A Manifest _MAY_ have exactly one viewing direction, and if so, it applies to all of its sequences unless the sequence specifies its own viewing direction.
  * A Sequence _MAY_ have exactly one viewing direction.
@@ -373,7 +373,7 @@ A hint to the client as to the most appropriate method of displaying the resourc
 
 ##### choiceHint
 
-A hint associated with a Choice resource that a client can use to determine the publisher's intent as to which agent _SHOULD_ make the choice between the different options.  In the absence of any `choiceHint` value, the rendering application can use any algorithm or process to make the determination.  The value _MUST_ be either taken from the table below (`client` or `user`), or be a URI for custom extensions.
+A hint associated with a Choice resource that a client can use to determine the publisher's intent as to which agent _SHOULD_ make the choice between the different options.  In the absence of any `choiceHint` value, the rendering application can use any algorithm or process to make the determination.  This specification defines the two values specified in the table below. Other values _MAY_ be given, and if they are, they _MUST_ be URIs.
 
 * A Choice _MAY_ have exactly one `choiceHint`.
 
@@ -388,7 +388,7 @@ A hint associated with a Choice resource that a client can use to determine the 
 
 ##### timeMode
 
-A mode associated with an Annotation that is to be applied to the rendering of any time-based media, or otherwise could be considered to have a duration, used as a body resource of that Annotation. Note that the association of `timeMode` with the Annotation means that different resources in the body cannot have different values. The value _MUST_ be taken from the list in the table below, or be a URI for custom extensions.
+A mode associated with an Annotation that is to be applied to the rendering of any time-based media, or otherwise could be considered to have a duration, used as a body resource of that Annotation. Note that the association of `timeMode` with the Annotation means that different resources in the body cannot have different values. This specification defines the values specified in the table below. Other values _MAY_ be given, and if they are, they _MUST_ be URIs.
 
 * An Annotation _MAY_ have exactly one `timeMode` property.
 
@@ -456,7 +456,7 @@ A link to a resource that contains the current resource, such as annotation list
 ```
 
 ##### startCanvas
-A link from a Sequence or Range to a Canvas that is contained within it.  On seeing this relationship, a client _SHOULD_ advance to the specified Canvas when beginning navigation through the Sequence/Range.  This allows the client to begin with the first Canvas that contains interesting content rather than requiring the user to skip past blank or empty Canvases manually.
+A link from a Sequence or Range to a Canvas that is contained within it.  The value of `startCanvas` _MUST_ be a string containing the URI of the Canvas.  On seeing this relationship, a client _SHOULD_ advance to the specified Canvas when beginning navigation through the Sequence/Range.  This allows the client to begin with the first Canvas that contains interesting content rather than requiring the user to skip past blank or empty Canvases manually.  The Canvas _MUST_ be included in the first Sequence embedded within the Manifest.
 
  * A Sequence or Range _MAY_ have exactly one Canvas as its starting Canvas.
  * Other resource types _MUST NOT_ have a starting Canvas.
@@ -466,7 +466,7 @@ A link from a Sequence or Range to a Canvas that is contained within it.  On see
 ```
 
 ##### contentAnnotations
-A link from a Range to an AnnotationCollection that includes the Annotations of content resources for that Range.  Clients might use this to present content to the user from a different Canvas when interacting with the Range, or to jump to the next part of the Range within the same Canvas.  
+A link from a Range to an AnnotationCollection that includes the Annotations of content resources for that Range.  The value of `contentAnnotations` _MUST_ be a string containing the URI of the AnnotationCollection. Clients might use this to present content to the user from a different Canvas when interacting with the Range, or to jump to the next part of the Range within the same Canvas.  
 
  * A Range _MAY_ have exactly one AnnotationCollection as its content.
  * Other resource types _MUST NOT_ have `contentAnnotations`.
@@ -545,6 +545,8 @@ The 0 based index of the first included resource in the current page, relative t
 
 #### 3.6. Structural Properties
 
+These properties define the structure of the object being represented in IIIF by allowing the inclusion of child resources within parents, such as a Canvas within a Sequence, or a Manifest within a Collection.  The majority of cases use `items`, however there are two special cases for different sorts of structures.
+
 ##### items
 
 Much of the functionality of the IIIF Presentation API is simply recording the order in which child resources occur within a parent resource, such as Collections or Manifests within a parent Collection, Sequences within a Manifest, or Canvases within a Sequence.  All of these situations are covered with a single property, `items`.  The value _MUST_ be an array of objects.
@@ -555,24 +557,51 @@ Much of the functionality of the IIIF Presentation API is simply recording the o
 * A Range _MUST_ have a list of Ranges and/or Canvases as its items.
 * An AnnotationPage _MUST_ have a list of Annotations as its items.
 
+```json-doc
+{"items": [{"id": "..."}]}
+```
+
 ##### structure
 
 The structure of an object represented as a Manifest can be described using a hierarchy of Ranges.  The top level Ranges of these hierarchies are given in the `structure` property.
 
 * A Manifest _MAY_ have one or more Ranges in the `structure` property.
 
+```json-doc
+{"structure": [
+  {
+    "id": "http://example.org/iiif/range/1",
+    "type": "Range",
+    "viewingHint": ["top"]
+  }
+]}
+```
+
 ##### content
 
-The resources associated with a Canvas via Annotations are given in the `content` property of the Canvas.  Each resource in the list is an AnnotationPage, and can either be embedded or referenced via its `id` and `type`.
+The resources associated with a Canvas via Annotations are given in the `content` property of the Canvas.  Each resource in the list is an AnnotationPage, and can either be embedded in its entirety or referenced via its `id` and `type`.
 
 * A Canvas _SHOULD_ have one or more AnnotationPages in the `content` property. 
 
+```json-doc
+{"content": [
+  {
+    "id": "http://example.org/iiif/annotationPage/1",
+    "type": "AnnotationPage",
+    "items": [ ... ]
+  }
+]}
+```
 
-##  4. JSON-LD Considerations
+##  4. Linked Data Considerations
 
-This section describes features applicable to all of the Presentation API content.  For the most part, these are features of the JSON-LD specification that have particular uses within the API.
+This section describes features applicable to all of the Presentation API content.  For the most part, these are features of the JSON-LD specification that have particular uses within the API and recommendations about URIs to use.
 
-### 4.1. URI Representation
+### 4.1. HTTPS URI Scheme
+
+It is strongly _RECOMMENDED_ that all URIs use the HTTPS scheme, and be available via that protocol.  All URIs _MUST_ be either HTTPS or HTTP, henceforth described more simply as http(s).
+
+### 4.2. URI Representation
 
 Resource descriptions _SHOULD_ be embedded within higher-level descriptions, and _MAY_ also be available via separate requests from http(s) URIs linked in the responses. These URIs are in the `id` property for the resource. Links to resources _MUST_ be given as a JSON object with the `id` property and at least one other property, typically either `type`, `format` or `profile` to give a hint as to what sort of resource is being referred to. Other URI schemes _MAY_ be used if the resource is not able to be retrieved via HTTP. 
 
@@ -584,24 +613,24 @@ Resource descriptions _SHOULD_ be embedded within higher-level descriptions, and
 }
 ```
 
-### 4.2. Repeatable Properties
+### 4.3. Repeatable Properties
 
 Any of the properties in the API that can be repeated _MUST_ always be given as an array of values, even if there is only a single item in that array.
 
 ``` json-doc
 {
   "seeAlso": [
-    {"id": "http://example.org/descriptions/book1.xml", "format": "text/xml"}
+    {"id": "http://example.org/descriptions/book1.xml", "format": "text/xml"},
+    {"id": "http://example.org/descriptions/book1.json", "format": "application/json"}   
   ]
 }
 ```
 
-### 4.3. Language of Property Values
+### 4.4. Language of Property Values
 
 Language _MAY_ be associated with strings that are intended to be displayed to the user for the `label`, `description`, `attribution` fields, plus the `label` and `value` fields of the `metadata` construction. 
 
 The values of these fields _MUST_ be JSON objects, with the keys being the [RFC 5646][rfc5646] language code for the language, or if the language is either not known or the string does not have a language, then the key must be `"@none"`. The associated values _MUST_ be arrays of strings, where each string is the content in the given language.
-
 
 ``` json-doc
 {"description": {
@@ -622,9 +651,9 @@ In the case where multiple values are supplied, clients _MUST_ use the following
   * If all of the values have a language associated with them, and none match the language preference, the client _MUST_ select a language and display all of the values associated with that language.
   * If some of the values have a language associated with them, but none match the language preference, the client _MUST_ display all of the values that do not have a language associated with them.
 
-Note also that this does not apply to embedded textual bodies in Annotations, which use the Web Annotation pattern of `value` and `langauge` as separate properties.
+Note that this does not apply to embedded textual bodies in Annotations, which use the Web Annotation pattern of `value` and `langauge` as separate properties.
 
-### 4.4. HTML Markup in Property Values
+### 4.5. HTML Markup in Property Values
 
 Minimal HTML markup _MAY_ be included in the `description`, `attribution` properties and the `value` property of a `label`/`value` pair in `metadata`.  It _MUST NOT_ be used in `label` or other properties. This is included to allow manifest creators to add links and simple formatting instructions to blocks of text. The content _MUST_ be well-formed XML and therefore must be wrapped in an element such as `p` or `span`.  There _MUST NOT_ be whitespace on either side of the HTML string, and thus the first character in the string _MUST_ be a '<' character and the last character _MUST_ be '>', allowing a consuming application to test whether the value is HTML or plain text using these.  To avoid a non-HTML string matching this, it is _RECOMMENDED_ that an additional whitespace character be added to the end of the value.
 
@@ -642,7 +671,7 @@ Clients _SHOULD_ allow only `a`, `b`, `br`, `i`, `img`, `p`, and `span` tags. Cl
 {"description": {"en-latn": ["<p>Some <b>description</b></p>"]}
 ```
 
-### 4.5. Linked Data Context and Extensions
+### 4.6. Linked Data Context and Extensions
 
 The top level resource in the response _MUST_ have the `@context` property, and it _SHOULD_ appear as the very first key/value pair of the JSON representation. This tells Linked Data processors how to interpret the information. The IIIF Presentation API context, below, _MUST_ occur exactly once per response, and be omitted from any embedded resources. For example, when embedding a sequence without any extensions within a manifest, the sequence _MUST NOT_ have the `@context` field.
 
@@ -711,9 +740,11 @@ The example below includes only the Manifest-level information, however actual i
 
   "thumbnail": [{
     "id": "http://example.org/images/book1-page1/full/80,100/0/default.jpg",
+    "type": "Image",
     "service": {
       "@context": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
       "id": "http://example.org/images/book1-page1",
+      "type": "Service",
       "profile": ["http://iiif.io/api/image/{{ site.image_api.latest.major }}/level1.json"]
     }
   }],
@@ -726,7 +757,9 @@ The example below includes only the Manifest-level information, however actual i
   // Rights Information
   "rights": [{
     "id":"http://example.org/license.html", 
+    "type": "Text",
     "format": "text/html"}],
+
   "attribution": {"en": ["Provided by Example Organization"]},
 
   "logo": {
@@ -734,6 +767,7 @@ The example below includes only the Manifest-level information, however actual i
     "service": {
         "@context": "http://iiif.io/api/image/2/context.json",
         "id": "http://example.org/service/inst1",
+        "type": "Service",
         "profile": ["http://iiif.io/api/image/2/profiles/level2.json"]
     }
   },
@@ -741,20 +775,24 @@ The example below includes only the Manifest-level information, however actual i
   // Links
   "related": [{
     "id": "http://example.org/videos/video-book1.mpg",
+    "type": "Video",
     "format": "video/mpeg"
   }],
   "service": [{
     "@context": "http://example.org/ns/jsonld/context.json",
     "id": "http://example.org/service/example",
+    "type": "Service",
     "profile": ["http://example.org/docs/example-service.html"]
   }],
   "seeAlso": [{
     "id": "http://example.org/library/catalog/book1.xml",
+    "type": "Dataset",
     "format": "text/xml",
     "profile": ["http://example.org/profiles/bibliographic"]
   }],
   "rendering": [{
     "id": "http://example.org/iiif/book1.pdf",
+    "type": "Text",
     "label": {"en": ["Download as PDF"]},
     "format": "application/pdf"
   }],
@@ -796,7 +834,7 @@ Recommended URI pattern:
 ```
 {: .urltemplate}
 
-The Sequence conveys the ordering of the views of the object. The default Sequence (and typically the only Sequence) _MUST_ be embedded within the Manifest as the first object in the `items` property, and _MAY_ also be available from its own URI.  This Sequence _SHOULD_ have a URI to identify it. Any additional Sequences _MAY_ be included, or maintained externally from the Manifest.  All external Sequences _MUST_ have an http(s) URI, and the description of the Sequence _MUST_ be available by dereferencing that URI.
+The Sequence conveys the ordering of the views of the object. The default Sequence (and typically the only Sequence) _MUST_ be embedded within the Manifest as the first object in the `items` property, and _MAY_ also be available from its own URI.  This Sequence _SHOULD_ have a URI to identify it. Any additional Sequences _MAY_ be included, or referenced externally from the Manifest.  All external Sequences _MUST_ have an http(s) URI, and the description of the Sequence _MUST_ be available by dereferencing that URI.
 
 If the URI pattern is used, then the {name} parameter _MUST_ distinguish it from any other sequences that may be available for the object. Typical default names for sequences are "normal" or "basic" or "0".
 
@@ -811,7 +849,7 @@ In the Manifest example above, the Sequence is referenced by its URI and contain
   // Metadata about this sequence
   "id": "http://example.org/iiif/book1/sequence/normal",
   "type": "Sequence",
-  "label": {"en": Current Page Order"},
+  "label": {"en": ["Current Page Order"]},
 
   "viewingDirection": "left-to-right",
   "viewingHint": ["paged"],
@@ -822,19 +860,19 @@ In the Manifest example above, the Sequence is referenced by its URI and contain
     {
       "id": "http://example.org/iiif/book1/canvas/p1",
       "type": "Canvas",
-      "label": "p. 1"
+      "label": {"@none": ["p. 1"]}
       // ...
     },
     {
       "id": "http://example.org/iiif/book1/canvas/p2",
       "type": "Canvas",
-      "label": "p. 2"
+      "label": {"@none": ["p. 2"]}
       // ...
     },
     {
       "id": "http://example.org/iiif/book1/canvas/p3",
       "type": "Canvas",
-      "label": "p. 3"
+      "label": {"@none": ["p. 3"]}
       // ...
     }
   ]
@@ -870,9 +908,9 @@ In a sequence with the `viewingHint` value of "paged" and presented in a book vi
   // Metadata about this canvas
   "id": "http://example.org/iiif/book1/canvas/p1",
   "type": "Canvas",
-  "label": "p. 1",
-  "height":1000,
-  "width":750,
+  "label": {"@none": ["p. 1"]},
+  "height": 1000,
+  "width": 750,
 
   "content": [
     {
@@ -1366,10 +1404,10 @@ Content-Type: application/json
 ```
 {: .urltemplate}
 
-or "application/ld+json" (JSON-LD).
+or "application/ld+json" (JSON-LD) with the `profile` parameter given as the context document: `http://iiif.io/api/presentation/3/context.json`.
 
 ``` none
-Content-Type: application/ld+json
+Content-Type: application/ld+json;profile="http://iiif.io/api/presentation/3/context.json"
 ```
 {: .urltemplate}
 
