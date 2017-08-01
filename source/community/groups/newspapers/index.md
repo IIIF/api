@@ -26,7 +26,7 @@ The IIIF Newspapers Community Group welcomes participants with an interest in im
 
 **Communication Channels:**
 
-  * Calls on the fourth Wednesday of every month at 11am Eastern - see [IIIF Community Calendar][calendar] for details
+  * Quarterly calls - see [IIIF Community Calendar][calendar] for details
   * Virtual meetings announced on the [IIIF-Discuss][iiif-discuss] email list
   * General discussion on the [# newspapers IIIF Slack channel][newspapers-slack] ([Join Slack][join-slack])
 
