@@ -6,13 +6,7 @@ redirect_from:
   - /event/conduct.html
 ---
 
-**This Version:** [1.0][conduct]
-
-**Latest Version:** [1.0][conduct]
-
-**Previous Version:** [0.9][conduct-09]
-
-All IIIF events and interactions are covered by the following Code of Conduct.
+All IIIF events and interactions are covered by the following Code of Conduct. Changes will be tracked within the document and its [internal change log][change-log].
 
 ---
 
@@ -125,6 +119,14 @@ The IIIF Code of Conduct has been modeled on the Code of Conduct policies from [
 
  _This work is licensed under a Creative Commons Attribution 4.0 International License._
 
+## Change Log
+
+  | Date       | Description                                                         |
+  | ---------- | ------------------------------------------------------------------- |
+  | 2017-08-01 | Added community norms and expectations, reporting guidelines, conduct team selection process, appeal process, and acknowledgements |
+  | 2015-12-01 | First release |
+
+[change-log]: #change-log "Change Log"
 [iiif-discuss]: https://groups.google.com/forum/#!forum/iiif-discuss
 [iiif-slack]: https://iiif.slack.com
 [github]: https://github.com/IIIF
@@ -137,6 +139,5 @@ The IIIF Code of Conduct has been modeled on the Code of Conduct policies from [
 [iiif-c]: /community/consortium/
 [volunteer-form]: https://goo.gl/forms/KCrb3u86W0e4LhC23
 [conduct]: /event/conduct/
-[conduct-09]: /event/conduct-09/
 [ed-process]: /api/annex/notes/editors/
 [design-patterns]: /api/annex/notes/design_patterns/
