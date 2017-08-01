@@ -1,7 +1,7 @@
 ---
 title: "IIIF Code of Conduct"
 layout: spec
-tags: [event]
+tags: [event ]
 redirect_from:
   - /event/conduct.html
 ---
