@@ -253,7 +253,7 @@ A small image that represents an individual or organization associated with the 
 
 ##### id
 
-The URI that identifies the resource. It is _RECOMMENDED_ that an HTTP URI be used for all resources. Recommended HTTP URI patterns for the different classes of resource are given below.  URIs from any [registered scheme][iana-uri-schemes] _MAY_ be used, and implementers may find it convenient to use a [UUID URN][rfc-4122] of the form: `"urn:uuid:uuid-goes-here-1234"`.  Resources that do not require URIs _MAY_ be assigned [blank node identifiers][rdf11-blank-nodes]; this is the same as omitting `id`.
+The URI that identifies the resource. It is _RECOMMENDED_ that an HTTP URI be used for all resources. URIs from any [registered scheme][iana-uri-schemes] _MAY_ be used, and implementers may find it convenient to use a [UUID URN][rfc-4122] of the form: `"urn:uuid:uuid-goes-here-1234"`.  Resources that do not require URIs _MAY_ be assigned [blank node identifiers][rdf11-blank-nodes]; this is the same as omitting `id`.
 
  * A Collection _MUST_ have exactly one id, and it _MUST_ be the http(s) URI at which it is published.
  * A Manifest _MUST_ have exactly one id, and it _MUST_ be the http(s) URI at which it is published.
@@ -1103,7 +1103,7 @@ The annotation lists are referenced from the layer in an `otherContent` array, i
 
 Collections are used to list the manifests available for viewing, and to describe the structures, hierarchies or curated collections that the physical objects are part of.  The collections _MAY_ include both other collections and manifests, in order to form a hierarchy of objects with manifests at the leaf nodes of the tree.  Collection objects _MAY_ be embedded inline within other collection objects, such as when the collection is used primarily to subdivide a larger one into more manageable pieces, however manifests _MUST NOT_ be embedded within collections. An embedded collection _SHOULD_ also have its own URI from which the description is available.
 
-It is _RECOMMENDED_ that the topmost collection from which all other collections are discoverable by following links within the heirarchy be named `top`, if there is one.
+It is _RECOMMENDED_ that the topmost collection from which all other collections are discoverable by following links within the hierarchy be named `top`, if there is one.
 
 Manifests or Collections _MAY_ appear within more than one collection. For example, an institution might define four collections: one for modern works, one for historical works, one for newspapers and one for books.  The manifest for a modern newspaper would then appear in both the modern collection and the newspaper collection.  Alternatively, the institution may choose to have two separate newspaper collections, and reference each as a sub-collection of modern and historical.
 
@@ -1283,28 +1283,9 @@ This section describes the _RECOMMENDED_ request and response interactions for t
 
 ###  6.1. Requests
 
-Each of the entries in section 4 recommends a URI pattern to follow for the different resources. Following these patterns is _NOT REQUIRED_ and clients _MUST NOT_ construct the URIs by themselves, instead they _MUST_ follow links from within retrieved descriptions.
+Clients _MUST NOT_ construct resource URIs by themselves, instead they _MUST_ follow links from within retrieved descriptions.
 
-The Base URI, to which additional information is appended, that is _RECOMMENDED_ for resources made available by the API is:
-
-``` none
-{scheme}://{host}{/prefix}/{identifier}
-```
-{: .urltemplate}
-
-Where the parameters are:
-
-| Name | Description |
-| ---- | ----------- |
-| scheme | Indicates the use of the http or https protocol in calling the service. |
-| server | The host server (and optional port) on which the service resides. |
-| prefix | The path on the host server to the service. This prefix is optional, but may be useful when the host server supports multiple services. The prefix _MAY_ contain multiple path segments, delimited by slashes, but all other special characters _MUST_ be encoded. |
-| identifier | The identifier for the object or collection, expressed as a string. This may be an ark, URN, or other identifier. Special characters _MUST_ be URI encoded. |
-{: .api-table}
-
-The individual resources _SHOULD_ have URIs below this top-level pattern, formed by appending a "/" and additional information to identify the resource. Recommended patterns for these URIs are given in the sections below for the different resource types, and summarized in [Appendix A][appendixa].
-
-In the situation where the JSON documents are maintained in a filesystem with no access to the web server's configuration, then including ".json" on the end of the URI is suggested to ensure that the correct content-type response header is sent to the client.  While this does not follow the recommended URI patterns below, it is not prevented by the specification either.
+In the situation where the JSON documents are maintained in a filesystem with no access to the web server's configuration, then including ".json" on the end of the URI is suggested to ensure that the correct content-type response header is sent to the client.
 
 ###  6.2. Responses
 
@@ -1346,22 +1327,7 @@ It is possible to include Image API service descriptions within the manifest, an
 
 ## Appendices
 
-###  A. Summary of Recommended URI Patterns
-
-| Resource       | URI Pattern                                                 |
-| -------------- | ----------------------------------------------------------- |
-| Collection     | {scheme}://{host}/{prefix}/collection/{name}                |
-| Manifest       | {scheme}://{host}/{prefix}/{identifier}/manifest            |
-| Sequence       | {scheme}://{host}/{prefix}/{identifier}/sequence/{name}     |
-| Canvas         | {scheme}://{host}/{prefix}/{identifier}/canvas/{name}       |
-| Annotation     | {scheme}://{host}/{prefix}/{identifier}/annotation/{name}   |
-| AnnotationList | {scheme}://{host}/{prefix}/{identifier}/list/{name}         |
-| Range          | {scheme}://{host}/{prefix}/{identifier}/range/{name}        |
-| Layer          | {scheme}://{host}/{prefix}/{identifier}/layer/{name}        |
-| Content        | {scheme}://{host}/{prefix}/{identifier}/res/{name}.{format} |
-{: .api-table}
-
-### B. Summary of Metadata Requirements
+### A. Summary of Metadata Requirements
 
 | Field                      | Meaning     |
 | -------------------------- | ----------- |
@@ -1469,7 +1435,7 @@ __Protocol Behavior__
 | Other Content  | ![required][icon-req]  |
 {: .api-table}
 
-### C. Example Manifest Response
+### B. Example Manifest Response
 
 URL: _http://example.org/iiif/book1/manifest_
 
@@ -1644,26 +1610,21 @@ URL: _http://example.org/iiif/book1/manifest_
 ```
 
 
-### D. Implementation Notes
-
- * Clients _SHOULD_ be aware that some implementations may add an `@graph` property at the top level, which contains the object. This is a side effect of JSON-LD serialization, and servers _SHOULD_ remove it before sending to the client. If this is seen in practice, the client can use the [JSON-LD compaction algorithm][json-ld-compact] and JSON-LD Framing with the [supplied frames][annex-frames] to remove it and generate the correct representation.
-
- * If a {name} parameter in the recommended URI structure begins with a number, such as `.../canvas/1`, then developers using certain technology stacks may be inconvenienced.  In particular, an RDF based stack that uses RDF/XML internally will not be able to derive a shared `.../canvas/` prefix and then use the `1` as a CURIE, as `<canvas:1>` is not a valid element in XML.  Producers might consider adding an alphabetical character as the initial character.
+### C. Implementation Notes
 
 * It is _RECOMMENDED_ that if there is (at the time of implementation) a single image that depicts the page, then the dimensions of the image are used as the dimensions of the canvas for simplicity. If there are multiple full images, then the dimensions of the largest image should be used. If the largest image's dimensions are less than 1200 pixels on either edge, then the canvas's dimensions _SHOULD_ be double those of the image.
 
-
-### E. Versioning
+### D. Versioning
 
 Starting with version 2.0, this specification follows [Semantic Versioning][semver]. See the note [Versioning of APIs][versioning] for details regarding how this is implemented.
 
-### F. Acknowledgements
+### E. Acknowledgements
 
 The production of this document was generously supported by a grant from the [Andrew W. Mellon Foundation][mellon].
 
 Many thanks to the members of the [IIIF][iiif-community] for their continuous engagement, innovative ideas and feedback.
 
-### G. Change Log
+### F. Change Log
 
 | Date       | Description           |
 | ---------- | --------------------- |
