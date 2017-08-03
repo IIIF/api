@@ -82,6 +82,9 @@
 - name: Europeana
   uri: http://europeana.eu/
   iiifc: 2
+- name: Folger Shakespeare Library
+  uri: http://www.folger.edu/
+  iiifc: 2
 - name: The J. Paul Getty Trust
   uri: http://getty.edu/
   iiifc: 2
