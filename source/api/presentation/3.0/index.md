@@ -709,7 +709,7 @@ Along with the descriptive information, there is an `items` section, which is a 
 
 There _MAY_ also be a `structures` section listing one or more [Ranges][range] which describe additional structure of the content, such as might be rendered as a table of contents.
 
-The example below includes only the Manifest-level information, however actual implementations _MUST_ embed the first sequence, canvas and content information. It includes examples in the descriptive metadata of how to associate multiple entries with a single field and how to be explicit about the language of a particular entry.
+The example below includes only the Manifest-level information, however actual implementations _MUST_ embed at least the first Sequence, Canvas and content information.
 
 ``` json-doc
 {
@@ -892,16 +892,16 @@ The Canvas represents an individual page or view and acts as a central point for
 
 Every Canvas _SHOULD_ have a `label` to display. If one is not provided, the client _MAY_ automatically generate one for use based on the Canvas's position within the current Sequence.
 
-A Canvas _MUST_ have a rectangular aspect ratio (described with the `height` and `width` properties) and/or a `duration` to provide an extent in time. These dimensions allow resources to be associated with specific regions of the Canvas, within the space and/or the time extents provided. Content _MUST NOT_ be associated with space or time outside of the Canvas's dimensions, such as at coordinates below 0,0, greater than the height or width, before 0 seconds, or after the duration.
+A Canvas _MUST_ have a rectangular aspect ratio (described with the `height` and `width` properties) and/or a `duration` to provide an extent in time. These dimensions allow resources to be associated with specific regions of the Canvas, within the space and/or time extents provided. Content _MUST NOT_ be associated with space or time outside of the Canvas's dimensions, such as at coordinates below 0,0, greater than the height or width, before 0 seconds, or after the duration.
  
-Renderers _MUST_ scale content into the space/time represented by the Canvas, following any `timeMode` provided for time-based media.  If the Canvas represents a view of a physical object, the dimensions of the Canvas _SHOULD_ be the same scale as that physical object, and images _SHOULD_ depict only the object.
+Renderers _MUST_ scale content into the space/time represented by the Canvas, following any `timeMode` adjustment provided for time-based media.  If the Canvas represents a view of a physical object, the dimensions of the Canvas _SHOULD_ be the same scale as that physical object, and images _SHOULD_ depict only the object.
 
-Content resources are associated with the Canvas via Annotations. The Annotations are recorded in the `items` of one or more AnnotationPages, refered to in the `content` array of the Canvas. If the Annotation should be rendered quickly, in the view of the publisher, then it _SHOULD_ be embedded within the Manifest directly.  Other AnnotationPages can be referenced with just their `id`, `type` and optionally a `label`, and clients _SHOULD_ dereference these pages to discover further content.  Content in this case includes media assets such as images, video and audio, textual transcriptions or editions of the Canvas, and commentary about the object represented by the Canvas.  These different uses _MAY_ be split up across different AnnotationPages.
+Content resources are associated with the Canvas via Web Annotations. The Annotations are recorded in the `items` of one or more AnnotationPages, refered to in the `content` array of the Canvas. If the Annotation should be rendered quickly, in the view of the publisher, then it _SHOULD_ be embedded within the Manifest directly.  Other AnnotationPages can be referenced with just their `id`, `type` and optionally a `label`, and clients _SHOULD_ dereference these pages to discover further content.  Content in this case includes media assets such as images, video and audio, textual transcriptions or editions of the Canvas, as well as commentary about the object represented by the Canvas.  These different uses _MAY_ be split up across different AnnotationPages.
 
 
 __Where should the following paragraph actually live?__
 
-In a sequence with the `viewingHint` value of "paged" and presented in a book viewing user interface, the first canvas _SHOULD_ be presented by itself -- it is typically either the cover or first recto page. Thereafter, the canvases represent the sides of the leaves, and hence may be presented with two canvases displayed as an opening of the book.  If there are canvases which are in the sequence but would break this ordering, then they _MUST_ have the `viewingHint` property with a value of "non-paged".  Similarly if the first canvas is not a single up, it _MUST_ be marked as "non-paged" or an empty canvas added before it.
+> In a sequence with the `viewingHint` value of "paged" and presented in a book viewing user interface, the first canvas _SHOULD_ be presented by itself -- it is typically either the cover or first recto page. Thereafter, the canvases represent the sides of the leaves, and hence may be presented with two canvases displayed as an opening of the book.  If there are canvases which are in the sequence but would break this ordering, then they _MUST_ have the `viewingHint` property with a value of "non-paged".  Similarly if the first canvas is not a single up, it _MUST_ be marked as "non-paged" or an empty canvas added before it.
 
 ``` json-doc
 {
@@ -933,52 +933,12 @@ Recommended URI pattern:
 ```
 {: .urltemplate}
 
-Association of images with their respective canvases is done via annotations. Although normally annotations are used for associating commentary with the thing the annotation's text is about, the [Open Annotation][openanno] model allows any resource to be associated with any other resource, or parts thereof, and it is reused for both commentary and painting resources on the canvas.
+Association of images with their respective Canvases is done via Annotations. Traditionally Annotations are used for associating commentary with the resource the Annotation's text or body is about, the [Web Annotation][webanno] model allows any resource to be associated with any other resource, or parts thereof, and it is reused for both commentary and painting resources on the Canvas.
 
-Annotations _MAY_ have their own URIs, conveyed by adding an `id` property to the JSON object, and if so _SHOULD_ be HTTP URIs. The content of the annotation _SHOULD_ be returned if the URI is dereferenced. Annotations _MAY_ be dereferenced separately from their annotation lists, sequences and manifests; some systems may do this and identifiers should be given using the recommended pattern if possible.
+Annotations are collected together in AnnotationPage resources. 
 
-Each association of an image _MUST_ have the `motivation` field and the value _MUST_ be "painting". This is in order to distinguish it from comment annotations about the canvas, described in further detail below.  Note that all resources which are to be displayed as part of the representation are given the motivation of "painting", regardless of whether they are images or not.  For example, a transcription of the text in a page is considered "painting" as it is a representation of the object, whereas a comment about the page is not.
 
-The image itself is linked in the `resource` property of the annotation. The image _MUST_ have an `id` field, with the value being the URI at which the image can be obtained. If a IIIF Image service is available for the image, then the URL _MAY_ be the complete URL to a particular size of the image content, such as `http://example.org/image1/full/1000,/0/default.jpg`. It _SHOULD_ have an `type` of "dctypes:Image". Its media type _MAY_ be listed in `format`, and its height and width _MAY_ be given as integer values for `height` and `width` respectively.
-
-If a [IIIF Image API][image-api] service is available for the image, then a link to the service's base URI _SHOULD_ be included. The base URI is the URI up to the identifier, but not including the trailing slash character or any of the subsequent parameters. A reference to the Image API context document _MUST_ be included and the conformance level profile of the service _SHOULD_ be included. Additional fields from the Image Information document _MAY_ be included in this JSON object to avoid requiring it to be downloaded separately. See the [annex][annex] on using external services for more information.
-
-Although it seems redundant, the URI of the canvas _MUST_ be repeated in the `on` field of the Annotation. This is to ensure consistency with annotations that target only part of the resource, described in more detail below.
-
-Additional features of the [Open Annotation][openanno] data model _MAY_ also be used, such as selecting a segment of the canvas or content resource, or embedding the comment or transcription within the annotation. These additional features are described in the following section.  The use of advanced features sometimes results in situations where the resource is not an image, but instead a `SpecificResource`, a `Choice` or other non content object. Implementations should check the type of the resource and not assume that it is always an image.
-
-Only the annotations that associate images or parts of images are included in the canvas in the `images` property.  Other annotations, including both those that paint resources on the canvas and those that comment about the canvas, are included by referencing annotation lists, discussed in the following section.
-
-``` json-doc
-{
-  "@context": "http://iiif.io/api/presentation/2/context.json",
-  "id": "http://example.org/iiif/book1/annotation/p0001-image",
-  "type": "Annotation",
-  "motivation": "painting",
-  "resource": {
-    "id": "http://example.org/iiif/book1/res/page1.jpg",
-    "type": "dctypes:Image",
-    "format": "image/jpeg",
-    "service": {
-      "@context": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
-      "id": "http://example.org/images/book1-page1",
-      "profile": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/profiles/level2.json"
-    },
-    "height":2000,
-    "width":1500
-  },
-  "on": "http://example.org/iiif/book1/canvas/p1"
-}
-```
-
-###  5.5. Annotation List
-
-Recommended URI pattern:
-
-``` none
-{scheme}://{host}/{prefix}/{identifier}/list/{name}
-```
-{: .urltemplate}
+__ UP TO HERE __
 
 For some objects, there may be more than just images available to represent the page. Other resources could include the full text of the object, musical notations, musical performances, diagram transcriptions, commentary annotations, tags, video, data and more. These additional resources are included in annotation lists, referenced from the canvas they are associated with.
 
@@ -991,8 +951,6 @@ The annotation list _MUST_ have an http(s) URI given in `id`, and the JSON repre
 The annotations, as described above, are given in a `resources` list. The resource linked by the annotation _MUST_ be something other than an image if the motivation is `painting`, these are recorded in the `images` property of the canvas. The canvas URI _MUST_ be repeated in the `on` field, as above.
 
 The format of the resource _SHOULD_ be included and _MUST_ be the media type that is returned when the resource is dereferenced. The type of the content resource _SHOULD_ be taken from this [list in the Open Annotation specification][openannotypes], or a similar well-known resource type ontology. For resources that are displayed as part of the rendering (such as images, text transcriptions, performances of music from the manuscript and so forth) the motivation _MUST_ be "painting". The content resources _MAY_ also have any of the other fields defined in this specification, including commonly `label`, `description`, `metadata`, `license` and `attribution`.
-
-Note well that Annotation Lists _MUST NOT_ be embedded within the manifest.
 
 ``` json-doc
 {
@@ -1025,6 +983,60 @@ Note well that Annotation Lists _MUST NOT_ be embedded within the manifest.
   ]
 }
 ```
+
+
+
+
+### 5.5. Annotations
+
+Annotations follow the [Web Annotation][webanno] data model.  The description provided here is a summary plus any IIIF specific requirements. It must be noted that the W3C standard is the official documentation.
+
+Annotations _MUST_ have their own http(s) URIs, conveyed in the `id` property. The JSON-LD description of the Annotation _SHOULD_ be returned if the URI is dereferenced, according to the [Web Annotation Protocol][webannoprotocol].
+
+Annotations that associate content _MUST_ have the `motivation` field and the value _MUST_ be "painting". This is in order to distinguish it from comment Annotations, described in further detail below.  Note that all resources which are to be displayed as part of the representation are given the motivation of "painting", regardless of whether they are images or not.  For example, a transcription of the text in a page is considered "painting" as it is a representation of the object, whereas a textual comment about the page is not.
+
+The content resource, such as an image, is linked in the `body` property of the Annotation. The content resource _MUST_ have an `id` field, with the value being the URI at which it can be obtained. If a IIIF Image service is available for an image, then the URI _MUST_ be the complete URI to a particular size of the image content, such as `http://example.org/image1/full/1000,/0/default.jpg`. It _MUST_ have a `type` of "Image". Its media type _MAY_ be listed in `format`, and its height and width _MAY_ be given as integer values for `height` and `width` respectively.
+
+Although it might seem redundant, the URI of the Canvas _MUST_ be repeated in the `target` field of the Annotation. This is to ensure consistency with Annotations that target only part of the resource, described in more detail below, and to remain faithful to the Web Annotation specification, where `target` is mandatory.
+
+Additional features of the [Web Annotation][webanno] data model _MAY_ also be used, such as selecting a segment of the Canvas or content resource, or embedding the comment or transcription within the Annotation. The use of advanced features sometimes results in situations where the `target` is not a content resource, but instead a `SpecificResource`, a `Choice`, or other non-content object. Implementations should check the `type` of the resource and not assume that it is always content to be rendered.
+
+__Move the below para to the annotation document__
+
+> If a [IIIF Image API][image-api] service is available for the image, then a link to the service's base URI _SHOULD_ be included. The base URI is the URI up to the identifier, but not including the trailing slash character or any of the subsequent parameters. A reference to the Image API context document _MUST_ be included and the conformance level profile of the service _SHOULD_ be included. Additional fields from the Image Information document _MAY_ be included in this JSON object to avoid requiring it to be downloaded separately. See the [annex][annex] on using external services for more information.
+
+
+``` json-doc
+{
+  "@context": "http://iiif.io/api/presentation/2/context.json",
+  "id": "http://example.org/iiif/book1/annotation/p0001-image",
+  "type": "Annotation",
+  "motivation": "painting",
+  "body": {
+    "id": "http://example.org/iiif/book1/res/page1.jpg",
+    "type": "Image",
+    "format": "image/jpeg",
+    "service": {
+      "@context": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
+      "id": "http://example.org/images/book1-page1",
+      "profile": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/profiles/level2.json"
+    },
+    "height":2000,
+    "width":1500
+  },
+  "target": "http://example.org/iiif/book1/canvas/p1"
+}
+```
+
+###  5.6. Annotation List
+
+Recommended URI pattern:
+
+``` none
+{scheme}://{host}/{prefix}/{identifier}/list/{name}
+```
+{: .urltemplate}
+
 
 ###  5.6. Range
 
