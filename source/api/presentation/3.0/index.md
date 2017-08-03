@@ -704,7 +704,7 @@ The example below includes only the Manifest-level information, however actual i
   // Metadata about this manifest file
   "@context": [
     "http://www.w3.org/ns/anno.jsonld",
-    "http://iiif.io/api/presentation/2/context.json"
+    "http://iiif.io/api/presentation/{{ page.major }}/context.json"
   ],
   "id": "http://example.org/iiif/book1/manifest",
   "type": "Manifest",
@@ -906,7 +906,10 @@ The AnnotationPage _MUST_ have an http(s) URI given in `id`, and the JSON repres
 
 ``` json-doc
 {
-  "@context": "http://iiif.io/api/presentation/3/context.json",
+  "@context": [
+    "http://www.w3.org/ns/anno.jsonld",
+    "http://iiif.io/api/presentation/{{ page.major }}/context.json"
+  ],
   "id": "http://example.org/iiif/book1/list/p1",
   "type": "AnnotationPage",
 
@@ -960,7 +963,10 @@ __Move the below para to the annotation document__
 
 ``` json-doc
 {
-  "@context": "http://iiif.io/api/presentation/2/context.json",
+  "@context": [
+    "http://www.w3.org/ns/anno.jsonld",
+    "http://iiif.io/api/presentation/{{ page.major }}/context.json"
+  ],
   "id": "http://example.org/iiif/book1/annotation/p0001-image",
   "type": "Annotation",
   "motivation": "painting",
@@ -1000,7 +1006,10 @@ Ranges _MAY_ also link to a layer, described in the next section, that has the c
 
 ``` json-doc
 {
-  "@context": "http://iiif.io/api/presentation/2/context.json",
+  "@context": [
+    "http://www.w3.org/ns/anno.jsonld",
+    "http://iiif.io/api/presentation/{{ page.major }}/context.json"
+  ],
   "id": "http://example.org/iiif/book1/manifest",
   "type": "Manifest",
   // Metadata here ...
@@ -1082,7 +1091,10 @@ The annotation lists are referenced from the layer in an `otherContent` array, i
 
 ``` json-doc
 {
-  "@context": "http://iiif.io/api/presentation/2/context.json",
+  "@context": [
+    "http://www.w3.org/ns/anno.jsonld",
+    "http://iiif.io/api/presentation/{{ page.major }}/context.json"
+  ],
   "id": "http://example.org/iiif/book1/layer/transcription",
   "type": "Layer",
   "label": "Diplomatic Transcription",
@@ -1127,7 +1139,10 @@ An example collection document:
 
 ``` json-doc
 {
-  "@context": "http://iiif.io/api/presentation/2/context.json",
+  "@context": [
+    "http://www.w3.org/ns/anno.jsonld",
+    "http://iiif.io/api/presentation/{{ page.major }}/context.json"
+  ],
   "id": "http://example.org/iiif/collection/top",
   "type": "Collection",
   "label": "Top Level Collection for Example Organization",
@@ -1196,7 +1211,10 @@ A layer representing a long transcription with almost half a million annotations
 
 ``` json-doc
 {
-  "@context": "http://iiif.io/api/presentation/2/context.json",
+  "@context": [
+    "http://www.w3.org/ns/anno.jsonld",
+    "http://iiif.io/api/presentation/{{ page.major }}/context.json"
+  ],
   "id": "http://example.org/iiif/book1/layer/transcription",
   "type": "Layer",
   "label": "Example Long Transcription",
@@ -1210,7 +1228,10 @@ And the corresponding first annotation list:
 
 ``` json-doc
 {
-  "@context": "http://iiif.io/api/presentation/2/context.json",
+  "@context": [
+    "http://www.w3.org/ns/anno.jsonld",
+    "http://iiif.io/api/presentation/{{ page.major }}/context.json"
+  ],
   "id": "http://example.org/iiif/book1/list/l1",
   "type": "AnnotationList",
 
@@ -1228,7 +1249,10 @@ Note that it is still expected that canvases will link directly to the annotatio
 
 ``` json-doc
 {
-  "@context": "http://iiif.io/api/presentation/2/context.json",
+  "@context": [
+    "http://www.w3.org/ns/anno.jsonld",
+    "http://iiif.io/api/presentation/{{ page.major }}/context.json"
+  ],
   "id": "http://example.org/iiif/book1/canvas/c1",
   "type": "Canvas",
 
@@ -1249,7 +1273,10 @@ An example large collection with some 9.3 million objects in it:
 
 ``` json-doc
 {
-  "@context": "http://iiif.io/api/presentation/2/context.json",
+  "@context": [
+    "http://www.w3.org/ns/anno.jsonld",
+    "http://iiif.io/api/presentation/{{ page.major }}/context.json"
+  ],
   "id": "http://example.org/iiif/collection/top",
   "type": "Collection",
   "label": "Example Big Collection",
@@ -1263,7 +1290,10 @@ And the corresponding first page of manifests:
 
 ``` json-doc
 {
-  "@context": "http://iiif.io/api/presentation/2/context.json",
+  "@context": [
+    "http://www.w3.org/ns/anno.jsonld",
+    "http://iiif.io/api/presentation/{{ page.major }}/context.json"
+  ],
   "id": "http://example.org/iiif/collection/c1",
   "type": "Collection",
 
@@ -1441,7 +1471,10 @@ URL: _http://example.org/iiif/book1/manifest_
 
 ``` json-doc
 {
-  "@context": "http://iiif.io/api/presentation/2/context.json",
+  "@context": "http://iiif.io/api/presentation/2/context.json",  "@context": [
+    "http://www.w3.org/ns/anno.jsonld",
+    "http://iiif.io/api/presentation/{{ page.major }}/context.json"
+  ],
   "type": "Manifest",
   "id": "http://example.org/iiif/book1/manifest",
 
