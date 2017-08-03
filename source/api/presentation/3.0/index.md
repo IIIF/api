@@ -47,7 +47,7 @@ This is a work in progress and may change without any notices. Implementers shou
 
 ##  1. Introduction
 
-Access to image-based resources is fundamental to many research disciplines, scholarship and the transmission of cultural knowledge. Digital images are a container for much of the information content in the Web-based delivery of museum objects, books, newspapers, letters, manuscripts, maps, scrolls, single sheet collections, and digital surrogates of textiles, realia and ephemera.  Collections of born-digital images can also benefit from a standardized method to structure their layout and presentation, such as slideshows, image carousels, web comics, and more.
+Access to image-based resources is fundamental to many research disciplines, scholarship and the transmission of cultural knowledge. Digital images are a container for much of the information content in the Web-based delivery of museum objects, books, newspapers, letters, manuscripts, maps, scrolls, and digital surrogates of textiles, realia and ephemera. Collections of born-digital images can also benefit from a standardized method to structure their layout and presentation, such as slideshows, image carousels, web comics, and more.
 
 This document describes how the structure and layout of a complex image-based object can be made available in a standard manner. Many different styles of viewer can be implemented that consume the information to enable a rich and dynamic experience, consuming content from across collections and hosting institutions.
 
@@ -79,7 +79,7 @@ Note that in the following descriptions, "object" (or "physical object") is used
 
 There are many different types of digitized or digital compound objects, from ancient scrolls to modern newspapers, from medieval manuscripts to online comics, and from large maps to small photographs. Many of them bear texts, sometimes difficult to read either due to the decay of the physical object or lack of understanding of the script or language.  These use cases are described in a separate [document][use-case-doc].
 
-Collectively the use cases require a model in which one can characterize the object (via the _manifest_ resource), the order in which individual surfaces or views are presented (the _sequence_ resource), and the individual surfaces or views (_canvas_ resources). Each canvas may have images and/or other content resources associated with it (_content_ resources) to allow the view to be rendered. An object may also have parts; for example, a book may have chapters where several pages may be associated with a single chapter (a _range_ resource) or there may be groups of content resource above the page level, such as all of the texts that make up a single edition of a book (a _layer_ resource).  These resource types, along with their properties, make up the IIIF Presentation API.
+Collectively the use cases require a model in which one can characterize the object (via the _Manifest_ resource), the order in which individual surfaces or views are presented (the _Sequence_ resource), and the individual surfaces or views (_Canvas_ resources). Each Canvas may have images and/or other content resources associated with it (_Content_ resources) to allow the view to be rendered. An object may also have parts; for example, a book may have chapters where several pages may be associated with a single chapter (a _Range_ resource) and there may be groups of objects (_Collection_ resources).  These resource types, along with their properties, make up the IIIF Presentation API.
 
 ### 1.3. Terminology
 
@@ -89,7 +89,6 @@ The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _S
 ##  2. Resource Type Overview
 
 This section provides an overview of the resource types (or classes) that are used in the specification.  They are each presented in more detail in [Section 5][resource-structure].
-
 
 ### 2.1. Basic Types
 
@@ -120,23 +119,20 @@ Content resources such as images, audio, video or text that are associated with 
 
 ### 2.2. Additional Types
 
-![All Resource Types](img/objects-all.png)
-{: .floatRight .clearRight}
-
 ##### Collection
 {: #overview-collection}
 
 An ordered list of Manifests, and/or further Collections.  Collections allow easy advertising and browsing of the Manifests in a hierarchical structure, potentially with its own descriptive information.  They can also provide clients with a means to locate all of the Manifests known to the publishing institution.
 
-##### Annotation
-{: #overview-annotation}
-
-Content resources and commentary are associated with a Canvas via an Annotation.  This provides a single, coherent method for aligning information, and provides a standards based framework for distinguishing parts of resources and parts of Canvases.  As Annotations can be added later, it promotes a distributed system in which publishers can align their content with the descriptions created by others.
-
 ##### AnnotationPage
 {: #overview-annotationpage}
 
 An ordered list of Annotations in a single response, typically associated with a single Canvas, and can be part of an AnnotationCollection.
+
+##### Annotation
+{: #overview-annotation}
+
+Content resources and commentary are associated with a Canvas via an Annotation.  This provides a single, coherent method for aligning information, and provides a standards based framework for distinguishing parts of resources and parts of Canvases.  As Annotations can be added later, it promotes a distributed system in which publishers can align their content with the descriptions created by others.
 
 ##### AnnotationCollection
 {: #overview-annotationcollection}
@@ -155,7 +151,7 @@ This specification defines properties in five distinct areas. Most of the proper
 
 The requirements for the use of the properties are summarized in [Appendix B][appendixB].
 
-Other properties are allowed, either via custom extensions or endorsed by IIIF. If a client discovers properties that it does not understand, then it _MUST_ ignore them.  Other properties _SHOULD_ consist of a prefix and a name in the form "`prefix:name`" to ensure it does not collide with a property defined by IIIF specifications.  [Services][annex] _SHOULD_ be used for extensions if at all possible, and a [JSON-LD context document][ld-exts] should be added that defines the semantics of the new properties.
+Other properties are allowed, either via custom extensions or endorsed by IIIF. If a client discovers properties that it does not understand, then it _MUST_ ignore them.  Other properties _SHOULD_ consist of a prefix and a name in the form "`prefix:name`" to ensure it does not collide with a property defined by IIIF specifications.
 
 ####  3.1. Descriptive Properties
 
@@ -402,7 +398,6 @@ A mode associated with an Annotation that is to be applied to the rendering of a
 {"timeMode": "trim"}
 ```
 
-
 ####  3.4. Linking Properties
 
 ##### related
@@ -636,7 +631,7 @@ The values of these fields _MUST_ be JSON objects, with the keys being the [RFC 
 {"description": {
     "en": ["Here is the description of the object in English", 
            "And a second description"],
-    "fr": ["Voici le description de l'objet en français"],
+    "fr": ["Voici la description de l'objet en français"],
     "@none": ["A description in an unknown language"]
 }
 ```
@@ -693,13 +688,6 @@ Any additional fields beyond those defined in this specification or the Web Anno
 This section provides detailed description of the resource types used in this specification. [Section 2][type-overview] provides an overview of the resource types and figures illustrating allowed relationships between them, and [Appendix B][appendixb] provides summary tables of the property requirements.
 
 ###  5.1. Manifest
-
-Recommended URI pattern:
-
-``` none
-{scheme}://{host}/{prefix}/{identifier}/manifest
-```
-{: .urltemplate}
 
 The Manifest response contains sufficient information for the client to initialize itself and begin to display something quickly to the user. The Manifest resource represents a single object and any intellectual work or works embodied within that object. In particular it includes the descriptive, rights and linking information for the object. It then embeds the Sequence(s) of Canvases that should be rendered to the user.
 
@@ -827,16 +815,7 @@ The example below includes only the Manifest-level information, however actual i
 
 ###  5.2. Sequence
 
-Recommended URI pattern:
-
-``` none
-{scheme}://{host}/{prefix}/{identifier}/sequence/{name}
-```
-{: .urltemplate}
-
 The Sequence conveys the ordering of the views of the object. The default Sequence (and typically the only Sequence) _MUST_ be embedded within the Manifest as the first object in the `items` property, and _MAY_ also be available from its own URI.  This Sequence _SHOULD_ have a URI to identify it. Any additional Sequences _MAY_ be included, or referenced externally from the Manifest.  All external Sequences _MUST_ have an http(s) URI, and the description of the Sequence _MUST_ be available by dereferencing that URI.
-
-If the URI pattern is used, then the {name} parameter _MUST_ distinguish it from any other sequences that may be available for the object. Typical default names for sequences are "normal" or "basic" or "0".
 
 Sequences _MAY_ have their own descriptive, rights and linking metadata using the same fields as for Manifests. The `label` property _MAY_ be given for Sequences and _MUST_ be given if there is more than one referenced from a Manifest. After the metadata, the set of views of the object, represented by Canvas resources, _MUST_ be listed in order in the `items` property.  There _MUST_ be at least one Canvas given.
 
@@ -881,14 +860,7 @@ In the Manifest example above, the Sequence is referenced by its URI and contain
 
 ###  5.3. Canvas
 
-Recommended URI pattern:
-
-``` none
-{scheme}://{host}/{prefix}/{identifier}/canvas/{name}
-```
-{: .urltemplate}
-
-The Canvas represents an individual page or view and acts as a central point for laying out the different content resources that make up the display. Canvases _MUST_ be identified by a URI and it _MUST_ be an http(s) URI. If following the recommended URI pattern, the {name} parameter _MUST_ uniquely distinguish the canvas from all other canvases in the object. The URI of the canvas _MUST NOT_ contain a fragment (a `#` followed by further characters), as this would make it impossible to refer to a segment of the Canvas's area using the `#xywh=` syntax. Canvases _SHOULD_ be able to be dereferenced separately from the Manifest via their URIs as well as being embedded within the Sequence.
+The Canvas represents an individual page or view and acts as a central point for laying out the different content resources that make up the display. Canvases _MUST_ be identified by a URI and it _MUST_ be an http(s) URI. The URI of the canvas _MUST NOT_ contain a fragment (a `#` followed by further characters), as this would make it impossible to refer to a segment of the Canvas's area using the `#xywh=` syntax. Canvases _SHOULD_ be able to be dereferenced separately from the Manifest via their URIs as well as being embedded within the Sequence.
 
 Every Canvas _SHOULD_ have a `label` to display. If one is not provided, the client _MAY_ automatically generate one for use based on the Canvas's position within the current Sequence.
 
@@ -914,8 +886,8 @@ __Where should the following paragraph actually live?__
 
   "content": [
     {
-      "id": "http://example.org/iiif/book1/page/p1/1"
-      "type": "AnnotationPage"
+      "id": "http://example.org/iiif/book1/page/p1/1",
+      "type": "AnnotationPage",
       "items": [
         // Annotations on the Canvas are included here
       ]
@@ -926,66 +898,44 @@ __Where should the following paragraph actually live?__
 
 ###  5.4. Annotation Pages
 
-Recommended URI pattern:
+Association of images and other content with their respective Canvases is done via Annotations. Traditionally Annotations are used for associating commentary with the resource the Annotation's text or body is about, the [Web Annotation][webanno] model allows any resource to be associated with any other resource, or parts thereof, and it is reused for both commentary and painting resources on the Canvas. Other resources beyond images might include the full text of the object, musical notations, musical performances, diagram transcriptions, commentary annotations, tags, video, data and more.
 
-``` none
-{scheme}://{host}/{prefix}/{identifier}/annotation/{name}
-```
-{: .urltemplate}
+These Annotations are collected together in AnnotationPage resources, which are included in the `content` list from the Canvas.  Each AnnotationPage can be embedded in its entirety, if the Annotations should be processed as soon as possible when the user navigates to that Canvas, or a reference to an external resource via `id`, `type`, and optionally `label`. All of the Annotations in the AnnotationPage __SHOULD__ have the Canvas as their `target`.
 
-Association of images with their respective Canvases is done via Annotations. Traditionally Annotations are used for associating commentary with the resource the Annotation's text or body is about, the [Web Annotation][webanno] model allows any resource to be associated with any other resource, or parts thereof, and it is reused for both commentary and painting resources on the Canvas.
-
-Annotations are collected together in AnnotationPage resources. 
-
-
-__ UP TO HERE __
-
-For some objects, there may be more than just images available to represent the page. Other resources could include the full text of the object, musical notations, musical performances, diagram transcriptions, commentary annotations, tags, video, data and more. These additional resources are included in annotation lists, referenced from the canvas they are associated with.
-
-Annotation Lists are separate resources that _SHOULD_ be dereferenced when encountered.  They are collections of annotations, where each annotation targets the Canvas or part thereof.  The separation from the manifest representation is intended to allow clients to quickly display the images to the user, and then populate the display with further content and commentary when the user navigates to a particular canvas. It also allows the annotation list to be generated dynamically, while the manifest is static and more easily cached.
-
-The {name} parameter in the URI pattern _MUST_ uniquely distinguish it from all other lists, and is typically the same name as the canvas. As a single canvas may have multiple lists of additional resources, perhaps divided by type, this _MUST NOT_ be assumed however, and the URIs must be followed rather than constructed _a priori_.
-
-The annotation list _MUST_ have an http(s) URI given in `id`, and the JSON representation _MUST_ be returned when that URI is dereferenced.  They _MAY_ have any of the other fields defined in this specification.
-
-The annotations, as described above, are given in a `resources` list. The resource linked by the annotation _MUST_ be something other than an image if the motivation is `painting`, these are recorded in the `images` property of the canvas. The canvas URI _MUST_ be repeated in the `on` field, as above.
-
-The format of the resource _SHOULD_ be included and _MUST_ be the media type that is returned when the resource is dereferenced. The type of the content resource _SHOULD_ be taken from this [list in the Open Annotation specification][openannotypes], or a similar well-known resource type ontology. For resources that are displayed as part of the rendering (such as images, text transcriptions, performances of music from the manuscript and so forth) the motivation _MUST_ be "painting". The content resources _MAY_ also have any of the other fields defined in this specification, including commonly `label`, `description`, `metadata`, `license` and `attribution`.
+The AnnotationPage _MUST_ have an http(s) URI given in `id`, and the JSON representation _MUST_ be returned when that URI is dereferenced.  They _MAY_ have any of the other fields defined in this specification, or the Web Annotation specification.  The Annotations are listed in an `items` list of the AnnotationPage.
 
 ``` json-doc
 {
-  "@context": "http://iiif.io/api/presentation/2/context.json",
+  "@context": "http://iiif.io/api/presentation/3/context.json",
   "id": "http://example.org/iiif/book1/list/p1",
-  "type": "AnnotationList",
+  "type": "AnnotationPage",
 
   "items": [
     {
+      "id": "",
       "type": "Annotation",
       "motivation": "painting",
-      "resource":{
+      "body":{
         "id": "http://example.org/iiif/book1/res/music.mp3",
-        "type": "dctypes:Sound",
+        "type": "Sound",
         "format": "audio/mpeg"
       },
-      "on": "http://example.org/iiif/book1/canvas/p1"
+      "target": "http://example.org/iiif/book1/canvas/p1"
     },
     {
       "type": "Annotation",
       "motivation": "painting",
-      "resource":{
+      "body": {
         "id": "http://example.org/iiif/book1/res/tei-text-p1.xml",
-        "type": "dctypes:Text",
+        "type": "Text",
         "format": "application/tei+xml"
       },
-      "on": "http://example.org/iiif/book1/canvas/p1"
+      "target": "http://example.org/iiif/book1/canvas/p1"
     }
     // ... and so on
   ]
 }
 ```
-
-
-
 
 ### 5.5. Annotations
 
@@ -998,6 +948,8 @@ Annotations that associate content _MUST_ have the `motivation` field and the va
 The content resource, such as an image, is linked in the `body` property of the Annotation. The content resource _MUST_ have an `id` field, with the value being the URI at which it can be obtained. If a IIIF Image service is available for an image, then the URI _MUST_ be the complete URI to a particular size of the image content, such as `http://example.org/image1/full/1000,/0/default.jpg`. It _MUST_ have a `type` of "Image". Its media type _MAY_ be listed in `format`, and its height and width _MAY_ be given as integer values for `height` and `width` respectively.
 
 Although it might seem redundant, the URI of the Canvas _MUST_ be repeated in the `target` field of the Annotation. This is to ensure consistency with Annotations that target only part of the resource, described in more detail below, and to remain faithful to the Web Annotation specification, where `target` is mandatory.
+
+The format of the resource _MUST_ be included and _MUST_ be the media type that is returned when the resource is dereferenced. The type of the content resource _SHOULD_ be taken from this [list in the Open Annotation specification][openannotypes], or a similar well-known resource type ontology. For resources that are displayed as part of the rendering (such as images, text transcriptions, performances of music from the manuscript and so forth) the motivation _MUST_ be "painting". The content resources _MAY_ also have any of the other fields defined in this specification, including commonly `label`, `description`, `metadata`, `license` and `attribution`.
 
 Additional features of the [Web Annotation][webanno] data model _MAY_ also be used, such as selecting a segment of the Canvas or content resource, or embedding the comment or transcription within the Annotation. The use of advanced features sometimes results in situations where the `target` is not a content resource, but instead a `SpecificResource`, a `Choice`, or other non-content object. Implementations should check the `type` of the resource and not assume that it is always content to be rendered.
 
@@ -1028,36 +980,13 @@ __Move the below para to the annotation document__
 }
 ```
 
-###  5.6. Annotation List
-
-Recommended URI pattern:
-
-``` none
-{scheme}://{host}/{prefix}/{identifier}/list/{name}
-```
-{: .urltemplate}
-
-
 ###  5.6. Range
-
-Recommended URI pattern:
-
-``` none
-{scheme}://{host}/{prefix}/{identifier}/range/{name}
-```
-{: .urltemplate}
 
 It may be important to describe additional structure within an object, such as newspaper articles that span pages, the range of non-content-bearing pages at the beginning of a work, or chapters within a book. These are described using ranges in a similar manner to sequences. Ranges _MUST_ have URIs and they _SHOULD_ be http(s) URIs. The intent of adding a range to the manifest is to allow the client to display a structured hierarchy to enable the user to navigate within the object without merely stepping through the current sequence.  The rationale for separating ranges from sequences is that there is likely to be overlap between different ranges, such as the physical structure of a book compared to the textual structure of the work.  An example would be a newspaper with articles that are continued in different sections, or simply a section that starts half way through a page.
 
 Ranges are linked or embedded within the manifest in a `structures` field.  It is a flat list of objects, even if there is only one range.
 
 Ranges have three list based properties to express membership:
-
-##### ranges
-References to ranges within the current range.  Each included range _MUST_ be referenced via a string containing the range's URI.
-
-##### canvases
-References to canvases, or rectangular parts of a canvas, within the current range.  Each included canvas _MUST_ be referenced via a string containing the canvas's URI.
 
 ##### items
 A combined list of both ranges and canvases.  If the range contains both other ranges and canvases, and the ordering of the different types of resource is significant, the range _SHOULD_ instead use the `members` property.  The property's value is an array of canvases, parts of canvases or other ranges.  Each item in the array _MUST_ be an object, and it _MUST_ have the `id`, `type`, and `label` properties.
@@ -1126,20 +1055,9 @@ Ranges _MAY_ also link to a layer, described in the next section, that has the c
 }
 ```
 
-__Deprecation Warning__
-The `canvases` and `ranges` properties are likely to be removed in version 3.0 in favor of the single `members` property. Until that time, if a client sees a `members` property, it should use that property even if `canvases` and/or `ranges` are also present. However, publishing systems should be aware that Presentation API version 2.0-compliant clients will not produce the expected results if they use `members` and do not provide a fall back with `canvases` and `ranges`.  Publishing systems should only use `members` when it is important to have a single ordered list that contains both canvases and ranges.  Feedback on this deprecation is [requested][iiif-discuss].
-{: .warning}
+###  5.7. AnnotationCollection
 
-###  5.7. Layer
-
-Recommended URI pattern:
-
-``` none
-{scheme}://{host}/{prefix}/{identifier}/layer/{name}
-```
-{: .urltemplate}
-
-Layers represent groupings of annotation lists that should be collected together, regardless of which canvas they target, such as all of the annotations that make up a particular translation of the text of a book.  Without the layer construction, it would be impossible to determine which annotations belonged together across canvases. A client might then present a user interface that allows all of the annotations in a layer to be displayed or hidden according to the user's preference.
+AnnotationCollections represent groupings of AnnotationPages that should be managed as a single whole, regardless of which canvas they target, such as all of the annotations that make up a particular translation of the text of a book.  Without the layer construction, it would be impossible to determine which annotations belonged together across canvases. A client might then present a user interface that allows all of the annotations in a layer to be displayed or hidden according to the user's preference.
 
 Layers _MUST_ have a URI, and it _SHOULD_ be an HTTP URI.  They _MUST_ have a `label` and _MAY_ have any of the other descriptive, linking or rights properties.
 
@@ -1183,18 +1101,11 @@ The annotation lists are referenced from the layer in an `otherContent` array, i
 
 ###  5.8. Collection
 
-Recommended URI pattern:
-
-``` none
-{scheme}://{host}/{prefix}/collection/{name}
-```
-{: .urltemplate}
-
 Collections are used to list the manifests available for viewing, and to describe the structures, hierarchies or curated collections that the physical objects are part of.  The collections _MAY_ include both other collections and manifests, in order to form a hierarchy of objects with manifests at the leaf nodes of the tree.  Collection objects _MAY_ be embedded inline within other collection objects, such as when the collection is used primarily to subdivide a larger one into more manageable pieces, however manifests _MUST NOT_ be embedded within collections. An embedded collection _SHOULD_ also have its own URI from which the description is available.
 
-The URI pattern follows the same structure as the other resource types, however note that it prevents the existence of a manifest or object with the identifier "collection". It is also _RECOMMENDED_ that the topmost collection from which all other collections are discoverable by following links within the heirarchy be named `top`, if there is one.
+It is _RECOMMENDED_ that the topmost collection from which all other collections are discoverable by following links within the heirarchy be named `top`, if there is one.
 
-Manifests or collections _MAY_ appear within more than one collection. For example, an institution might define four collections: one for modern works, one for historical works, one for newspapers and one for books.  The manifest for a modern newspaper would then appear in both the modern collection and the newspaper collection.  Alternatively, the institution may choose to have two separate newspaper collections, and reference each as a sub-collection of modern and historical.
+Manifests or Collections _MAY_ appear within more than one collection. For example, an institution might define four collections: one for modern works, one for historical works, one for newspapers and one for books.  The manifest for a modern newspaper would then appear in both the modern collection and the newspaper collection.  Alternatively, the institution may choose to have two separate newspaper collections, and reference each as a sub-collection of modern and historical.
 
 The intended usage of collections is to allow clients to:
 
@@ -1207,13 +1118,7 @@ As such, collections _MUST_ have a label, and _SHOULD_ have `metadata` and `desc
 
 Collections have three list-based properties to express membership:
 
-##### collections
-References to sub-collections of the current collection.  Each referenced collection _MUST_ have the appropriate id, type and label, and _MAY_ be embedded in its entirety.
-
-##### manifests
-References to manifests contained within the current collection. Each referenced manifest _MUST_ have the appropriate id, type and label.
-
-##### members
+##### items
 In cases where the order of a collection is significant, `members` can be used to interleave both collection and manifest resources. This is especially useful when a collection of books contains single- and multi-volume works (i.e. collections with the "multi-part" viewingHint), and when modeling archival material where original order is significant. Each entry in the `members` list _MUST_ be an object and _MUST_ include `id`, `type`, and `label`. If the entry is a collection, then `viewingHint` _MUST_ also be present.
 
 At least one of `collections`, `manifests` and `members` _SHOULD_ be present in the response.  An empty collection, with no member resources, is allowed but discouraged.
@@ -1272,10 +1177,6 @@ An example collection document:
   ]
 }
 ```
-
-__Deprecation Warning__
-The `collections` and `manifests` properties are likely to be removed in version 3.0 in favor of the single `members` property. Until that time, if a client sees a `members` property, it should use that property even if `collections` and/or `manifests` are also present. However, publishing systems should be aware that Presentation API version 2.0-compliant clients will not produce the expected results if they use `members` and do not provide a fall back with `collections` and `manifests`.  Publishing systems should only use `members` when it is important to have a single ordered list that contains both collections and manifests.  Feedback on this deprecation is [requested][iiif-discuss].
-{: .warning}
 
 ### 5.9. Paging
 
