@@ -14,12 +14,12 @@ redirect_from:
     <meta name="description" content="Interoperability Interoperability Image Framework : A community driven image framework with well defined APIs for making the world's image repositories interoperable and accessible">
     <meta name="viewport" content="width=device-width">
 
-    <link rel="stylesheet" href="/css/normalize.min.css">
+    <link rel="stylesheet" href="{{ site.url }}{{ site.baseurl }}/css/normalize.min.css">
     <link href='http://fonts.googleapis.com/css?family=Raleway:100,300,500' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="{{ site.url }}{{ site.baseurl }}/css/main.css">
 
-    <script src="/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+    <script src="{{ site.url }}{{ site.baseurl }}/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
   </head>
   <body>
     <!--[if lt IE 7]>
@@ -28,13 +28,13 @@ redirect_from:
 
     <div class="header-container">
       <header class="wrapper clearfix">
-        <a class="title" title="IIIF : International Image Interoperability Framework" href="/">Home</a>
+        <a class="title" title="IIIF : International Image Interoperability Framework" href="{{page.webprefix}}/">Home</a>
         <nav>
           <ul>
-            <li><a href="/about/">About</a></li>
-            <li><a href="/technical-details/">Technical Details</a></li>
-            <li><a href="/apps-demos/">Apps &amp; Demos</a></li>
-            <li><a href="/community/">Community</a></li>
+            <li><a href="{{page.webprefix}}/about/">About</a></li>
+            <li><a href="{{page.webprefix}}/technical-details/">Technical Details</a></li>
+            <li><a href="{{page.webprefix}}/apps-demos/">Apps &amp; Demos</a></li>
+            <li><a href="{{page.webprefix}}/community/">Community</a></li>
           </ul>
         </nav>
       </header>
@@ -54,13 +54,13 @@ redirect_from:
           <section class="wrapper changes-log" id="changes-log">
             <p>
               The following changes have been made to the
-              <a href="/api/image/1.1/">IIIF Image API Specification, version 1.1</a>.
+              <a href="{{ site.url }}{{ site.baseurl }}/api/image/1.1/">IIIF Image API Specification, version 1.1</a>.
             </p>
 
             <h3>Section 2</h3>
             <ul>
               <li>
-                <strong>Base URI defined</strong>. <a href="/api/image/1.1/#url-syntax-image-info">Section 2.2</a> recommends that this URI returns the image
+                <strong>Base URI defined</strong>. <a href="{{ site.url }}{{ site.baseurl }}/api/image/1.1/#url-syntax-image-info">Section 2.2</a> recommends that this URI returns the image
                 information or redirects to the image information request URI when dereferenced.
               </li>
               <li>

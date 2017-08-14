@@ -17,10 +17,10 @@ redirect_from:
     <meta name="description" content="Interoperability Interoperability Image Framework : A community driven image framework with well defined APIs for making the world's image repositories interoperable and accessible">
     <meta name="viewport" content="width=device-width">
 
-    <link rel="stylesheet" href="/css/normalize.min.css">
+    <link rel="stylesheet" href="{{ site.url }}{{ site.baseurl }}/css/normalize.min.css">
     <link href='http://fonts.googleapis.com/css?family=Raleway:100,300,500' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="{{ site.url }}{{ site.baseurl }}/css/main.css">
 
 <style>
     .warning {
@@ -38,7 +38,7 @@ redirect_from:
       }
 </style>
 
-    <script src="/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+    <script src="{{ site.url }}{{ site.baseurl }}/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
   </head>
   <body>
     <!--[if lt IE 7]>
@@ -47,13 +47,13 @@ redirect_from:
 
     <div class="header-container">
       <header class="wrapper clearfix">
-        <a class="title" title="IIIF : International Image Interoperability Framework" href="/">Home</a>
+        <a class="title" title="IIIF : International Image Interoperability Framework" href="{{page.webprefix}}/">Home</a>
         <nav>
           <ul>
-            <li><a href="/about/">About</a></li>
-            <li><a href="/technical-details/">Technical Details</a></li>
-            <li><a href="/apps-demos/">Apps &amp; Demos</a></li>
-            <li><a href="/community/">Community</a></li>
+            <li><a href="{{page.webprefix}}/about/">About</a></li>
+            <li><a href="{{page.webprefix}}/technical-details/">Technical Details</a></li>
+            <li><a href="{{page.webprefix}}/apps-demos/">Apps &amp; Demos</a></li>
+            <li><a href="{{page.webprefix}}/community/">Community</a></li>
           </ul>
         </nav>
       </header>
@@ -70,7 +70,7 @@ redirect_from:
 
 <blockquote>
 <div class="warning">
-This API has been replaced by the <a href="/api/presentation/"><strong>IIIF Presentation API</strong></a> and should not be used.
+This API has been replaced by the <a href="{{ site.url }}{{ site.baseurl }}/api/presentation/"><strong>IIIF Presentation API</strong></a> and should not be used.
 </div>
 </blockquote>
 
@@ -160,7 +160,7 @@ This API has been replaced by the <a href="/api/presentation/"><strong>IIIF Pres
           <section class="wrapper introduction" id="introduction">
             <h2>
               1. Introduction
-              <a href="#toc" title="Back to Table of Contents"><img class="to-toc" src="/img/icon-toc.png" alt="To TOC"></a>
+              <a href="#toc" title="Back to Table of Contents"><img class="to-toc" src="{{ site.url }}{{ site.baseurl }}/img/icon-toc.png" alt="To TOC"></a>
             </h2>
 
             <p>
@@ -190,7 +190,7 @@ This API has been replaced by the <a href="/api/presentation/"><strong>IIIF Pres
 
           <!-- 1.1. Objectives and Scope -->
           <section class="wrapper objectives" id="objectives">
-            <h3>1.1. Objectives and Scope <a href="#toc"><img class="to-toc" src="/img/icon-toc.png" alt="To TOC"></a></h3>
+            <h3>1.1. Objectives and Scope <a href="#toc"><img class="to-toc" src="{{ site.url }}{{ site.baseurl }}/img/icon-toc.png" alt="To TOC"></a></h3>
 
             <p>
               The objective of the IIIF Metadata API is to provide the information necessary to allow a rich, online viewing
@@ -245,7 +245,7 @@ This API has been replaced by the <a href="/api/presentation/"><strong>IIIF Pres
           <section class="wrapper use-cases" id="use-cases">
             <h2>
               2. Motivating Use Cases
-              <a href="#toc" title="Back to Table of Contents"><img class="to-toc" src="/img/icon-toc.png" alt="To TOC"></a>
+              <a href="#toc" title="Back to Table of Contents"><img class="to-toc" src="{{ site.url }}{{ site.baseurl }}/img/icon-toc.png" alt="To TOC"></a>
             </h2>
 
             <p>
@@ -367,7 +367,7 @@ This API has been replaced by the <a href="/api/presentation/"><strong>IIIF Pres
           <section class="wrapper objects" id="objects">
             <h2>
               3. Primary Resource Types
-              <a href="#toc"><img class="to-toc" src="/img/icon-toc.png" alt="To TOC"></a>
+              <a href="#toc"><img class="to-toc" src="{{ site.url }}{{ site.baseurl }}/img/icon-toc.png" alt="To TOC"></a>
             </h2>
 
             <p>
@@ -404,7 +404,7 @@ This API has been replaced by the <a href="/api/presentation/"><strong>IIIF Pres
             </p>
 
             <p class="container-figure">
-              <img height="450" class="figure-metadata-api-objects" src="/img/metadata-api/iiif-objects.png" alt="Primary Resource Types"> <br/>
+              <img height="450" class="figure-metadata-api-objects" src="{{ site.url }}{{ site.baseurl }}/img/metadata-api/iiif-objects.png" alt="Primary Resource Types"> <br/>
               <span class="figure-label">Figure 1. Primary Resource Types</span>
             </p>
 
@@ -419,7 +419,7 @@ This API has been replaced by the <a href="/api/presentation/"><strong>IIIF Pres
           <section class="wrapper fields" id="fields">
             <h2>
               4. Metadata Fields
-              <a href="#toc"><img class="to-toc" src="/img/icon-toc.png" alt="To TOC"></a>
+              <a href="#toc"><img class="to-toc" src="{{ site.url }}{{ site.baseurl }}/img/icon-toc.png" alt="To TOC"></a>
             </h2>
 
             <p>
@@ -531,7 +531,7 @@ This API has been replaced by the <a href="/api/presentation/"><strong>IIIF Pres
                 </ul>
               </li>
               <li>
-                Additional image information may be provided, as described in the <a href="/api/image/1.1/">IIIF Image API</a>.
+                Additional image information may be provided, as described in the <a href="{{ site.url }}{{ site.baseurl }}/api/image/1.1/">IIIF Image API</a>.
               </li>
             </ul>
 
@@ -553,7 +553,7 @@ This API has been replaced by the <a href="/api/presentation/"><strong>IIIF Pres
               </li>
               <li>
                 <span class="font-weight-600">service</span>: A link to a service that makes more functionality available for the resource, such as from
-                an image to the base URI of an <a href="/api/image/1.1/">IIIF Image API service</a>. The
+                an image to the base URI of an <a href="{{ site.url }}{{ site.baseurl }}/api/image/1.1/">IIIF Image API service</a>. The
                 service resource should have additional information associated with it in order to allow the client to determine how to make appropriate
                 use of it, such as a "profile" link to a service description or information duplicated from the IIIF Image API Information Request
               </li>
@@ -578,7 +578,7 @@ This API has been replaced by the <a href="/api/presentation/"><strong>IIIF Pres
 
 
             <p class="container-figure">
-              <img height="450" class="figure-metadata-api-objects-md" src="/img/metadata-api/iiif-objects-metadata.png" alt="Metadata Fields"> <br/>
+              <img height="450" class="figure-metadata-api-objects-md" src="{{ site.url }}{{ site.baseurl }}/img/metadata-api/iiif-objects-metadata.png" alt="Metadata Fields"> <br/>
               <span class="figure-label">Figure 2. Metadata Fields</span>
             </p>
 
@@ -594,7 +594,7 @@ This API has been replaced by the <a href="/api/presentation/"><strong>IIIF Pres
           <section class="wrapper api" id="api">
             <h2>
               5. Requests and Responses
-              <a href="#toc"><img class="to-toc" src="/img/icon-toc.png" alt="To TOC"></a>
+              <a href="#toc"><img class="to-toc" src="{{ site.url }}{{ site.baseurl }}/img/icon-toc.png" alt="To TOC"></a>
             </h2>
 
             <p>
@@ -743,7 +743,7 @@ This API has been replaced by the <a href="/api/presentation/"><strong>IIIF Pres
           <section class="wrapper api-manifest" id="api-manifest">
             <h3>
               5.1. Manifest
-              <a href="#toc"><img class="to-toc" src="/img/icon-toc.png" alt="To TOC"></a>
+              <a href="#toc"><img class="to-toc" src="{{ site.url }}{{ site.baseurl }}/img/icon-toc.png" alt="To TOC"></a>
             </h3>
 
             <p>
@@ -817,7 +817,7 @@ This API has been replaced by the <a href="/api/presentation/"><strong>IIIF Pres
           <section class="wrapper api-sequence" id="api-sequence">
             <h3>
               5.2. Sequence
-              <a href="#toc"><img class="to-toc" src="/img/icon-toc.png" alt="To TOC"></a>
+              <a href="#toc"><img class="to-toc" src="{{ site.url }}{{ site.baseurl }}/img/icon-toc.png" alt="To TOC"></a>
             </h3>
 
             <p>
@@ -892,7 +892,7 @@ This API has been replaced by the <a href="/api/presentation/"><strong>IIIF Pres
           <section class="wrapper api-canvas" id="api-canvas">
             <h3>
               5.3. Canvas
-              <a href="#toc"><img class="to-toc" src="/img/icon-toc.png" alt="To TOC"></a>
+              <a href="#toc"><img class="to-toc" src="{{ site.url }}{{ site.baseurl }}/img/icon-toc.png" alt="To TOC"></a>
             </h3>
 
             <p>
@@ -963,7 +963,7 @@ This API has been replaced by the <a href="/api/presentation/"><strong>IIIF Pres
           <section class="wrapper api-annotation" id="api-annotation">
             <h3>
               5.4. Association of Image Resources
-              <a href="#toc"><img class="to-toc" src="/img/icon-toc.png" alt="To TOC"></a>
+              <a href="#toc"><img class="to-toc" src="{{ site.url }}{{ site.baseurl }}/img/icon-toc.png" alt="To TOC"></a>
             </h3>
 
             <p>
@@ -997,11 +997,11 @@ This API has been replaced by the <a href="/api/presentation/"><strong>IIIF Pres
               detail below.
             </p>
             <p>
-              If the <a href="/api/image/1.1/">IIIF Image API</a> is available for
+              If the <a href="{{ site.url }}{{ site.baseurl }}/api/image/1.1/">IIIF Image API</a> is available for
               the image, then a link to the service's endpoint should be included. The endpoint is the URI up to the identifier, but not
               including the trailing slash character or any of the subsequent parameters. The profile of the service should be the
               supported conformance level, and the additional fields from the
-              <a href="/api/image/1.1/#image-info-request">Image API info document</a> may be
+              <a href="{{ site.url }}{{ site.baseurl }}/api/image/1.1/#image-info-request">Image API info document</a> may be
               included in this JSON object to avoid requiring it to be downloaded separately.
             </p>
             <p>
@@ -1038,7 +1038,7 @@ This API has been replaced by the <a href="/api/presentation/"><strong>IIIF Pres
           <section class="wrapper api-list" id="api-list">
             <h3>
               5.5. Other Content Resources
-              <a href="#toc"><img class="to-toc" src="/img/icon-toc.png" alt="To TOC"></a>
+              <a href="#toc"><img class="to-toc" src="{{ site.url }}{{ site.baseurl }}/img/icon-toc.png" alt="To TOC"></a>
             </h3>
 
             <p>
@@ -1109,7 +1109,7 @@ This API has been replaced by the <a href="/api/presentation/"><strong>IIIF Pres
           <section class="wrapper api-advanced" id="api-advanced">
             <h3>
               5.6. Advanced Association Features
-              <a href="#toc"><img class="to-toc" src="/img/icon-toc.png" alt="To TOC"></a>
+              <a href="#toc"><img class="to-toc" src="{{ site.url }}{{ site.baseurl }}/img/icon-toc.png" alt="To TOC"></a>
             </h3>
 
             <p>
@@ -1124,7 +1124,7 @@ This API has been replaced by the <a href="/api/presentation/"><strong>IIIF Pres
           <section class="wrapper api-advanced-segments" id="api-advanced-segments">
             <h4>
               5.6.1. Segments
-              <a href="#toc"><img class="to-toc" src="/img/icon-toc.png" alt="To TOC"></a>
+              <a href="#toc"><img class="to-toc" src="{{ site.url }}{{ site.baseurl }}/img/icon-toc.png" alt="To TOC"></a>
             </h4>
 
             <p>
@@ -1181,7 +1181,7 @@ This API has been replaced by the <a href="/api/presentation/"><strong>IIIF Pres
           <section class="wrapper api-advanced-embedded" id="api-advanced-embedded">
             <h4>
               5.6.2. Embedded Content
-              <a href="#toc"><img class="to-toc" src="/img/icon-toc.png" alt="To TOC"></a>
+              <a href="#toc"><img class="to-toc" src="{{ site.url }}{{ site.baseurl }}/img/icon-toc.png" alt="To TOC"></a>
             </h4>
 
             <p>
@@ -1223,7 +1223,7 @@ This API has been replaced by the <a href="/api/presentation/"><strong>IIIF Pres
           <section class="wrapper api-advanced-choice" id="api-advanced-choice">
             <h4>
               5.6.3. Choice of Alternative Resources
-              <a href="#toc"><img class="to-toc" src="/img/icon-toc.png" alt="To TOC"></a>
+              <a href="#toc"><img class="to-toc" src="{{ site.url }}{{ site.baseurl }}/img/icon-toc.png" alt="To TOC"></a>
             </h4>
 
             <p>
@@ -1278,7 +1278,7 @@ This API has been replaced by the <a href="/api/presentation/"><strong>IIIF Pres
           <section class="wrapper api-advanced-non-rectangular" id="api-advanced-non-rectangular">
             <h4>
               5.6.4. Non Rectangular Segments
-              <a href="#toc"><img class="to-toc" src="/img/icon-toc.png" alt="To TOC"></a>
+              <a href="#toc"><img class="to-toc" src="{{ site.url }}{{ site.baseurl }}/img/icon-toc.png" alt="To TOC"></a>
             </h4>
 
             <p>
@@ -1325,7 +1325,7 @@ This API has been replaced by the <a href="/api/presentation/"><strong>IIIF Pres
           <section class="wrapper api-advanced-style" id="api-advanced-style">
             <h4>
               5.6.5. Style
-              <a href="#toc"><img class="to-toc" src="/img/icon-toc.png" alt="To TOC"></a>
+              <a href="#toc"><img class="to-toc" src="{{ site.url }}{{ site.baseurl }}/img/icon-toc.png" alt="To TOC"></a>
             </h4>
 
             <p>
@@ -1392,7 +1392,7 @@ This API has been replaced by the <a href="/api/presentation/"><strong>IIIF Pres
           <section class="wrapper api-advanced-comments" id="api-advanced-comments">
             <h4>
               5.6.6. Comment Annotations
-              <a href="#toc"><img class="to-toc" src="/img/icon-toc.png" alt="To TOC"></a>
+              <a href="#toc"><img class="to-toc" src="{{ site.url }}{{ site.baseurl }}/img/icon-toc.png" alt="To TOC"></a>
             </h4>
 
             <p>
@@ -1419,7 +1419,7 @@ This API has been replaced by the <a href="/api/presentation/"><strong>IIIF Pres
           <section class="wrapper structure" id="structure">
             <h2>
               6. Additional Resource Types
-              <a href="#toc"><img class="to-toc" src="/img/icon-toc.png" alt="To TOC"></a>
+              <a href="#toc"><img class="to-toc" src="{{ site.url }}{{ site.baseurl }}/img/icon-toc.png" alt="To TOC"></a>
             </h2>
 
             <p>
@@ -1440,7 +1440,7 @@ This API has been replaced by the <a href="/api/presentation/"><strong>IIIF Pres
             </p>
 
             <p class="container-figure">
-              <img height="500" class="figure-metadata-api-objects-all" src="/img/metadata-api/iiif-objects-all.png" alt="All Resource Types"> <br/>
+              <img height="500" class="figure-metadata-api-objects-all" src="{{ site.url }}{{ site.baseurl }}/img/metadata-api/iiif-objects-all.png" alt="All Resource Types"> <br/>
               <span class="figure-label">Figure 3. All Resource Types</span>
             </p>
 
@@ -1451,7 +1451,7 @@ This API has been replaced by the <a href="/api/presentation/"><strong>IIIF Pres
           <section class="wrapper structure-range" id="structure-range">
             <h3>
               6.1. Ranges
-              <a href="#toc"><img class="to-toc" src="/img/icon-toc.png" alt="To TOC"></a>
+              <a href="#toc"><img class="to-toc" src="{{ site.url }}{{ site.baseurl }}/img/icon-toc.png" alt="To TOC"></a>
             </h3>
 
             <p>
@@ -1516,7 +1516,7 @@ This API has been replaced by the <a href="/api/presentation/"><strong>IIIF Pres
           <section class="wrapper structure-layer" id="structure-layer">
             <h3>
               6.2. Layers
-              <a href="#toc"><img class="to-toc" src="/img/icon-toc.png" alt="To TOC"></a>
+              <a href="#toc"><img class="to-toc" src="{{ site.url }}{{ site.baseurl }}/img/icon-toc.png" alt="To TOC"></a>
             </h3>
 
             <p>
@@ -1556,7 +1556,7 @@ This API has been replaced by the <a href="/api/presentation/"><strong>IIIF Pres
           <section class="wrapper examples" id="examples">
             <h2>
               7. Complete Example Response
-              <a href="#toc"><img class="to-toc" src="/img/icon-toc.png" alt="To TOC"></a>
+              <a href="#toc"><img class="to-toc" src="{{ site.url }}{{ site.baseurl }}/img/icon-toc.png" alt="To TOC"></a>
             </h2>
 
             <p>
@@ -1717,7 +1717,7 @@ This API has been replaced by the <a href="/api/presentation/"><strong>IIIF Pres
           <section class="wrapper" id="uri-patterns">
             <h2>
               Summary of URI Patterns
-              <a href="#toc"><img class="to-toc" src="/img/icon-toc.png" alt="To TOC"></a>
+              <a href="#toc"><img class="to-toc" src="{{ site.url }}{{ site.baseurl }}/img/icon-toc.png" alt="To TOC"></a>
             </h2>
 
             <table class="image-api-table">
@@ -1766,7 +1766,7 @@ This API has been replaced by the <a href="/api/presentation/"><strong>IIIF Pres
           <section class="wrapper md-requirements" id="md-requirements">
             <h2>
               Summary of Metadata Requirements
-              <a href="#toc"><img class="to-toc" src="/img/icon-toc.png" alt="To TOC"></a>
+              <a href="#toc"><img class="to-toc" src="{{ site.url }}{{ site.baseurl }}/img/icon-toc.png" alt="To TOC"></a>
             </h2>
 
             <ul class="legend">
