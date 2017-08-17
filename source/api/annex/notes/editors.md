@@ -134,7 +134,7 @@ Editors may be dismissed from work on a specification, or the editorial group al
 [use-cases]: https://github.com/IIIF/iiif-stories/issues "IIIF user stories and use cases"
 [iiif-github-issues]: https://github.com/IIIF/iiif.io/issues "iiif.io issues"
 [iiif-github]: https://github.com/IIIF/iiif.io "iiif.io on Github"
-[iiif-io]: http://iiif.io "iiif.io"
+[iiif-io]: {{ page.webprefix }} "iiif.io"
 [iiif-semver]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/semver/ "Versioning of APIs"
 [image-20-changelog]: {{ site.url }}{{ site.baseurl }}/api/image/2.0/change-log/ "Changes for IIIF Image API Version 2.0"
 [merging-changes]: #acceptance-criteria-for-merging-changes "2.2 Acceptance Criteria for Merging Changes"

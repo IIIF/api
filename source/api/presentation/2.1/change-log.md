@@ -132,6 +132,6 @@ Until there is more experience with the Search API, several additions for Annota
 [hints]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.1/#viewinghint
 [auth]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.1/#authentication
 [auth-spec]: {{ site.url }}{{ site.baseurl }}/api/auth/
-[zones]: http://iiif.io/model/shared-canvas/1.0/#Zone
+[zones]: {{ site.url }}{{ site.baseurl }}/model/shared-canvas/1.0/#Zone
 
 {% include acronyms.md %}
