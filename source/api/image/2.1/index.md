@@ -24,11 +24,11 @@ __Previous Version:__ [2.0][prev-version]
 
 **Editors:**
 
-  * **[Michael Appleby](https://orcid.org/0000-0002-1266-298X)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0002-1266-298X), [_Yale University_](http://www.yale.edu/)
-  * **[Tom Crane](https://orcid.org/0000-0003-1881-243X)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0003-1881-243X), [_Digirati_](http://digirati.com/)
-  * **[Robert Sanderson](https://orcid.org/0000-0003-4441-6852)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0003-4441-6852), [_J. Paul Getty Trust_](http://www.getty.edu/)
-  * **[Jon Stroop](https://orcid.org/0000-0002-0367-1243)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0002-0367-1243), [_Princeton University Library_](https://library.princeton.edu/)
-  * **[Simeon Warner](https://orcid.org/0000-0002-7970-7855)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0002-7970-7855), [_Cornell University_](https://www.cornell.edu/)
+  * **[Michael Appleby](https://orcid.org/0000-0002-1266-298X)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0002-1266-298X), [_Yale University_](http://www.yale.edu/)
+  * **[Tom Crane](https://orcid.org/0000-0003-1881-243X)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0003-1881-243X), [_Digirati_](http://digirati.com/)
+  * **[Robert Sanderson](https://orcid.org/0000-0003-4441-6852)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0003-4441-6852), [_J. Paul Getty Trust_](http://www.getty.edu/)
+  * **[Jon Stroop](https://orcid.org/0000-0002-0367-1243)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0002-0367-1243), [_Princeton University Library_](https://library.princeton.edu/)
+  * **[Simeon Warner](https://orcid.org/0000-0002-7970-7855)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0002-7970-7855), [_Cornell University_](https://www.cornell.edu/)
   {: .names}
 
 {% include copyright.md %}
@@ -912,13 +912,13 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 | 2012-08-10 | Version 1.0 (unnamed) |
 {: .api-table}
 
-[authentication-ext]: /api/auth/
-[change-log-211]: /api/image/2.1/change-log-211/ "Image API 2.1.1 Change Log"
-[change-log11]: /api/image/1.1/change-log/ "Change Log for Version 1.1"
-[change-log20]: /api/image/2.0/change-log/ "Change Log for Version 2.0"
-[change-log21]: /api/image/2.1/change-log/ "Change Log for Version 2.1"
-[compliance]: /api/image/{{ page.major }}.{{ page.minor }}/compliance/ "Image API Compliance"
-[compliance-quality]: /api/image/{{ page.major }}.{{ page.minor }}/compliance/#quality "Image API Compliance: Quality"
+[authentication-ext]: {{ site.url }}{{ site.baseurl }}/api/auth/
+[change-log-211]: {{ site.url }}{{ site.baseurl }}/api/image/2.1/change-log-211/ "Image API 2.1.1 Change Log"
+[change-log11]: {{ site.url }}{{ site.baseurl }}/api/image/1.1/change-log/ "Change Log for Version 1.1"
+[change-log20]: {{ site.url }}{{ site.baseurl }}/api/image/2.0/change-log/ "Change Log for Version 2.0"
+[change-log21]: {{ site.url }}{{ site.baseurl }}/api/image/2.1/change-log/ "Change Log for Version 2.1"
+[compliance]: {{ site.url }}{{ site.baseurl }}/api/image/{{ page.major }}.{{ page.minor }}/compliance/ "Image API Compliance"
+[compliance-quality]: {{ site.url }}{{ site.baseurl }}/api/image/{{ page.major }}.{{ page.minor }}/compliance/#quality "Image API Compliance: Quality"
 
 [cors-spec]: http://www.w3.org/TR/cors/ "Cross-Origin Resource Sharing"
 [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
@@ -932,16 +932,16 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 [rfc-6266]: http://tools.ietf.org/html/rfc6266 "Use of the Content-Disposition Header Field in the Hypertext Transfer Protocol (HTTP)"
 [rfc-6570]: http://tools.ietf.org/html/rfc6570 "URI Template"
 [semver]: http://semver.org/spec/v2.0.0.html "Semantic Versioning 2.0.0"
-[iiif-community]: /community/ "IIIF Community"
-[versioning]: /api/annex/notes/semver/ "Versioning of APIs"
-[prezi-api]: /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/ "Presentation API"
-[prezi-html]: /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/#html-markup-in-property-values "Presentation API Section 4.4"
+[iiif-community]: {{page.webprefix}}/community/ "IIIF Community"
+[versioning]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/semver/ "Versioning of APIs"
+[prezi-api]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/ "Presentation API"
+[prezi-html]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/#html-markup-in-property-values "Presentation API Section 4.4"
 
-[service-profiles]: /api/annex/services/ "Services Annex Document"
-[annex-frames]: /api/annex/notes/jsonld/ "JSON-LD Frames Implementation Notes"
-[apache-notes]: /api/annex/notes/apache/ "Apache HTTP Server Implementation Notes"
-[apache-notes-conditional-content-type]: /api/annex/notes/apache/#conditional-content-types "Apache HTTP Server Implementation Notes: Conditional Content Types"
-[apache-notes-set-compliance-link-header]: /api/annex/notes/apache/#set-compliance-link-header "Apache HTTP Server Implementation Notes: Set Compliance Link Header"
+[service-profiles]: {{ site.url }}{{ site.baseurl }}/api/annex/services/ "Services Annex Document"
+[annex-frames]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/jsonld/ "JSON-LD Frames Implementation Notes"
+[apache-notes]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/apache/ "Apache HTTP Server Implementation Notes"
+[apache-notes-conditional-content-type]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/apache/#conditional-content-types "Apache HTTP Server Implementation Notes: Conditional Content Types"
+[apache-notes-set-compliance-link-header]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/apache/#set-compliance-link-header "Apache HTTP Server Implementation Notes: Set Compliance Link Header"
 [audience-and-scope]: #audience-and-scope "1. Audience and Scope"
 [uri-syntax]: #uri-syntax "2. URI Syntax"
 [image-request-uri-syntax]: #image-request-uri-syntax "2.1. Image Request URI Syntax"

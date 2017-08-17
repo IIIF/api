@@ -11,37 +11,33 @@ end
 
 def build_site
   jekyll 'clean'
-  jekyll 'build'
+  jekyll "build -d _site/test --baseurl /test"
 end
 
-'Run the Markdown specs and HTML Proofer'
+desc 'Run the Markdown specs and HTML Proofer'
 task :ci do
   build_site
   sh 'grunt test'
   sh 'scripts/check_json.py -v'
   Rake::Task['spec'].invoke
-  Rake::Task['check_internal_links'].invoke
+  Rake::Task['check_html'].invoke
 end
 
-'Check internal links only without caching'
-task :check_internal_links do
+desc 'Check all links and cache the results'
+task :check_html do
   HTMLProofer.check_directory(SITE_DIR, {
-    disable_external: true
-  }).run
-end
-
-'Check all links and cache the results'
-task :check_all_links do
-  HTMLProofer.check_directory(SITE_DIR, {
-    cache: { timeframe: '1w' }
+    cache: { timeframe: '1w' },
+	 check_html: true,
+	 http_status_ignore: [0, 301, 302]
   }).run
 end
 
 
-'Run the site locally on localhost:4000'
+desc 'Run the site locally on localhost:4000'
 task :dev do
-  build_site
-  jekyll 'serve --watch --drafts'
+  sh 'bundle exec jekyll clean'
+  sh 'bundle exec jekyll build'
+  sh 'bundle exec jekyll serve --watch --drafts'
 end
 
 task default: :ci
