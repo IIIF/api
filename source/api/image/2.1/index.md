@@ -974,8 +974,8 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 [b-versioning]: #b-versioning "B. Versioning"
 [c-acknowledgments]: #c-acknowledgments "C. Acknowledgments"
 [d-change-log]: #d-change-log "D. Change Log"
-[prev-version]: http://iiif.io/api/image/2.0/ "Previous Version"
-[stable-version]: http://iiif.io/api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/ "Stable Version"
+[prev-version]: {{ page.webprefix }}/api/image/2.0/ "Previous Version"
+[stable-version]: {{ page.webprefix }}/api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/ "Stable Version"
 [wsgi]: https://www.python.org/dev/peps/pep-0333/
 [dep-sizes]: #dep-sizes "Deprecated sizes warning"
 
