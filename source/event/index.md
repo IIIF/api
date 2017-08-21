@@ -12,7 +12,8 @@ All IIIF events are subject to the [Code of Conduct][conduct].
 
 __Upcoming Events__
 
-* Fall 2017: [Toronto][toronto], Canada
+* Fall 2017 IIIF Working Meeting: [Toronto][toronto], Canada
+* Fall 2017 Showcase and Technical Workshop: [London][london-va], England
 
 __Previous Events__
 
@@ -30,6 +31,7 @@ __Previous Events__
 * Fall 2011: Cambridge, England
 
 [conduct]: conduct/
+[london-va]: 2017/london/
 [toronto]: 2017/toronto/
 [edinburgh]: 2017/edinburgh
 [vatican]: 2017/vatican
