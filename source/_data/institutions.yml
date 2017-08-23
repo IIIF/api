@@ -148,7 +148,7 @@
   iiifc:
 - name: National Gallery of Art
   uri: http://www.nga.gov
-  iiifc:
+  iiifc: 2
 - name: National Library of Austria
   uri: https://www.onb.ac.at/en/
 - name: Nasjonalbiblioteket (National Library of Norway)
