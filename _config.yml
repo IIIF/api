@@ -48,4 +48,4 @@ defaults:
     scope:
       path: ""
     values:
-      webprefix: "http://iiif-io.us-east-1.elasticbeanstalk.com"
+      webprefix: "http://stage.iiif.io"
