@@ -198,6 +198,9 @@
 - name: Sirma Group
   uri: https://sirma.com/
   iiifc:
+- name: Smithsonian Institution
+  uri: https://www.si.edu/
+  iiifc: 2
 - name: "St. Louis University"
   uri: https://www.slu.edu/
 - name: St. Mary's University
