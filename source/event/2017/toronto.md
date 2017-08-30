@@ -12,7 +12,7 @@ tags: [event ]
 
 ## IIIF Working Meeting - Toronto - 2017
 
-The International Image Interoperability Framework ([IIIF][home-page]) Working Meeting in Toronto provides an in-person venue for active IIIF community participants and [IIIF groups][groups] to make progress on advancing specific aspects of IIIF such as specifications, software, and community development (as opposed to the annual IIIF conference, which is more geared toward sharing knowledge). Attendance is free, but capacity is limited, so [registration][registration] is required in order to ensure that we do not exceed the capacity of the venue.
+The International Image Interoperability Framework ([IIIF][home-page]) Working Meeting in Toronto provides an in-person venue for active IIIF community participants and [IIIF groups][groups] to make progress on advancing specific aspects of IIIF such as specifications, software, and community development. Attendance is free, but capacity is limited, so [registration][registration] is required in order to ensure that we do not exceed the capacity of the venue.
 
 Working meeting participants are welcome to also attend the [IIIF Showcase][toronto-showcase] and reception in Toronto on Tuesday, October 10; [separate registration][showcase-reg] is required to attend the Showcase.
 
