@@ -2,7 +2,7 @@
 title: IIIF Technical Coordinator Hired
 author: Tom Cramer, Mike Keller
 date: 2017-08-30
-tags: [announcements]
+tags: [news, announcements]
 layout: post
 ---
 

@@ -307,12 +307,10 @@ Sheila Rabun, IIIF Community and Communications Officer
 [beyond-words]: http://beyondwords2016.org/
 [3d-survey]: https://goo.gl/2s1fU7
 [software-survey]: https://goo.gl/forms/ejJUIUP9gqOXnvPI2
-[submission-form]: https://goo.gl/forms/9SlSw0unFCBcJupm2
 [conduct-team]: /event/conduct/#iiif-code-of-conduct-team-selection-process
 [conduct-form]: https://goo.gl/forms/o79VAMHEAl72fPmV2
 [conduct]: /event/conduct/
 [iiifc-faq]: /community/consortium/faq/
-[slu]: https://www.slu.edu/the-ong-center
 [georgetown]: https://wiki.duraspace.org/display/DSPACE/IIIF+Experimentation+at+Georgetown+-+June+2017
 [georeferencer]: http://www.georeferencer.com/compare
 [compariscope]: https://vanda.github.io/iiif-features/
