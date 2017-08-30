@@ -12,7 +12,11 @@ tags: [event ]
 
 ## IIIF Working Meeting - Toronto - 2017
 
-The International Image Interoperability Framework ([IIIF][home-page]) Working Meeting in Toronto provides an in-person venue for active IIIF community participants and [IIIF groups][groups] to make progress on advancing specific aspects of IIIF such as specifications, software, and community development (as opposed to the annual IIIF conference, which is more geared toward sharing knowledge). Attendance is free, but capacity is limited, so [registration][registration] is required in order to ensure that we do not exceed the capacity of the venue. Stay tuned to the [IIIF-Discuss][iiif-discuss] email list for announcements and more information.
+The International Image Interoperability Framework ([IIIF][home-page]) Working Meeting in Toronto provides an in-person venue for active IIIF community participants and [IIIF groups][groups] to make progress on advancing specific aspects of IIIF such as specifications, software, and community development. Attendance is free, but capacity is limited, so [registration][registration] is required in order to ensure that we do not exceed the capacity of the venue.
+
+Working meeting participants are welcome to also attend the [IIIF Showcase][toronto-showcase] and reception in Toronto on Tuesday, October 10; [separate registration][showcase-reg] is required to attend the Showcase.
+
+Stay tuned to the [IIIF-Discuss][iiif-discuss] email list for announcements and more information.
 
 ### Logistics
 
@@ -51,3 +55,5 @@ The session schedule is coming soon.
 [IIIF-Discuss]: https://groups.google.com/forum/#!forum/iiif-discuss
 [registration]: https://iiif-toronto.eventbrite.com
 [holiday-inn]: https://drive.google.com/file/d/0B8biwZuDijgeeWkzWjcxcF9EZGs/view?usp=sharing
+[toronto-showcase]: /event/2017/toronto-showcase/
+[showcase-reg]: https://iiifshowcase-toronto.eventbrite.com

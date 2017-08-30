@@ -138,6 +138,8 @@
   iiifc:
 - name: LUNA Imaging
   uri: http://www.lunaimaging.com/blog/2015/12/3/luna-and-iiif-1
+- name: Manuscriptorium - Digital Library of Written Cultural Heritage
+  uri: http://www.manuscriptorium.com/
 - name: Max Planck Institute for European Legal History
   uri: http://www.rg.mpg.de/en
 - name: MIT Libraries
@@ -281,6 +283,9 @@
 - name: Villanova University
   uri: https://digital.library.villanova.edu/
   iiifc:
+- name: Walter J. Ong, S.J. Center for Digital Humanities at Saint Louis University
+  uri: https://www.slu.edu/the-ong-center
+  iiifc: 2
 - name: The Walters Art Museum
   uri: http://thewalters.org
   iiifc:
