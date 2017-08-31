@@ -53,17 +53,17 @@ Session descriptions, agendas, and notes are coming soon via Sched - stay tuned 
 | Time          | Blackburn Room     | Room 4022       | Lab 4034     | Room 2009     |
 |---------------|---------------|-------------|-------------|
 | 9:00 - 10:30  | Technical Intro/Prep Session | IIIF Newspapers Community Group | IIIF Museums Community Group | IIIF Manuscripts Community Group |
-| 10:30 - 11:00  | _Break_ | _Break_ | _Break_ |
+| 10:30 - 11:00  | _Break_ | _Break_ | _Break_ | _Break_ |
 | 11:00 - 12:30 |  Technical Intro/Prep Session continued | IIIF Software Developers Community Group | IIIF Text Granularity Technical Specification Group | End User/DH Training Documentation & Curriculum Development |
 | 12:30 - 2:00 | _Lunch on your own_ | _Lunch on your own_ | _Lunch on your own_ | _Lunch on your own_ |
-{: .api-table .msched-table}
+{: .api-table}
 
 #### Wednesday, October 11, Afternoon
 
 | Time          | Session            | Presenters                        |
 |---------------|--------------------|-----------------------------------|
 | 2:00 - 5:30   | Plenary - stay tuned for more details| |
-{: .api-table .sched-table}
+{: .api-table .msched-table}
 
 #### Thursday, October 12
 
