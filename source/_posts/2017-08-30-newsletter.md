@@ -276,7 +276,7 @@ Sheila Rabun, IIIF Community and Communications Officer
 [digipalooza]: https://digipalooza.com/
 [mec]: http://music-encoding.org/community/conference/
 [bl-poc]: https://dev.filmicweb.org/clients/digirati/iiif-av-bl/
-[slu]: https://www.slu.edu/the-ong-center
+[slu]: https://www.slu.edu/center-for-digital-humanities
 [avalon-demo]: https://avalonmediasystem.github.io/avalon-poc-standalone/build/
 [presi3]: http://prezi3.iiif.io/api/presentation/3.0
 [discovery-group]: http://iiif.io/community/groups/discovery/
