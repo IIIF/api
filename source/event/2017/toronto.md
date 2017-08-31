@@ -50,11 +50,11 @@ Session descriptions, agendas, and notes are coming soon via Sched - stay tuned 
 
 #### Wednesday, October 11, Morning
 
-| Time          | Room 4022       | Lab 4034     | Room 2009     | Blackburn Room     |
+| Time          | Blackburn Room     | Room 4022       | Lab 4034     | Room 2009     |
 |---------------|---------------|-------------|-------------|
-| 9:00 - 10:30  | IIIF Newspapers Community Group | IIIF Museums Community Group | IIIF Manuscripts Community Group | Technical Intro/Prep Session |
+| 9:00 - 10:30  | Technical Intro/Prep Session | IIIF Newspapers Community Group | IIIF Museums Community Group | IIIF Manuscripts Community Group |
 | 10:30 - 11:00  | _Break_ | _Break_ | _Break_ |
-| 11:00 - 12:30 | IIIF Software Developers Community Group | IIIF Text Granularity Technical Specification Group | End User/DH Training Documentation & Curriculum Development | Technical Intro/Prep Session continued |
+| 11:00 - 12:30 |  Technical Intro/Prep Session continued | IIIF Software Developers Community Group | IIIF Text Granularity Technical Specification Group | End User/DH Training Documentation & Curriculum Development |
 | 12:30 - 2:00 | _Lunch on your own_ | _Lunch on your own_ | _Lunch on your own_ | _Lunch on your own_ |
 {: .api-table .msched-table}
 
@@ -103,4 +103,3 @@ Session descriptions, agendas, and notes are coming soon via Sched - stay tuned 
 [holiday-inn]: https://drive.google.com/file/d/0B8biwZuDijgeeWkzWjcxcF9EZGs/view?usp=sharing
 [toronto-showcase]: /event/2017/toronto-showcase/
 [showcase-reg]: https://iiifshowcase-toronto.eventbrite.com
-[sched]: https://iiifworkingmeetingtoronto2017.sched.com/
