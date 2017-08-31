@@ -46,7 +46,53 @@ Two hotel blocks with discounted rates are available for October 10-14:
 
 ### Schedule
 
-The session schedule is coming soon.
+Session descriptions and notes are available on [Sched][sched].
+
+#### Wednesday, October 11, Morning
+
+| Time          | Room 4022       | Lab 4034     | Room 2009     | Blackburn Room     |
+|---------------|---------------|-------------|-------------|
+| 9:00 - 10:30  | IIIF Newspapers Community Group | IIIF Museums Community Group | IIIF Manuscripts Community Group | Technical Intro/Prep Session |
+| 10:30 - 11:00  | _Break_ | _Break_ | _Break_ |
+| 11:00 - 12:30 | IIIF Software Developers Community Group | IIIF Text Granularity Technical Specification Group | End User/DH Training Documentation & Curriculum Development | Technical Intro/Prep Session continued |
+| 12:30 - 2:00 | _Lunch on your own_ | _Lunch on your own_ | _Lunch on your own_ | _Lunch on your own_ |
+{: .api-table .msched-table}
+
+#### Wednesday, October 11, Afternoon
+
+| Time          | Session            | Presenters                        |
+|---------------|--------------------|-----------------------------------|
+| 2:00 - 5:30   | Plenary - stay tuned for more details| |
+{: .api-table .sched-table}
+
+#### Thursday, October 12
+
+| Time          | Blackburn Room       | Room 4022     | Lab 4034     |
+|---------------|---------------|-------------|-------------|
+| 8:30 - 9:00   | _Coffee_ | _Coffee_ | _Coffee_ |
+| 9:00 - 10:30  | IIIF A/V Technical Specification Group |  |  |
+| 10:30 - 11:00 | _Break_ | _Break_ | _Break_ |
+| 11:00 - 12:30 | IIIF A/V Technical Specification Group continued | Curators of Awesome working session | Software Hack Space |
+| 12:30 - 2:00  | _Lunch on your own_ | _Lunch on your own_ | _Lunch on your own_ |
+| 2:00 - 3:30   | IIIF Presentation API v. 3.0 |  |  |
+| 3:30 - 4:00   | _Break_ | _Break_ | _Break_ |
+| 4:00 - 5:30   | IIIF Presentation API v. 3.0 continued | Implementers Training Documentation & Curriculum Development | Software Hack Space |
+{: .api-table .msched-table}
+
+#### Friday, October 21
+
+| Time          | Blackburn Room       | Room 4022     | Lab 4034     |
+|---------------|---------------|-------------|-------------|
+| 8:30 - 9:00   | _Coffee_ | _Coffee_ | _Coffee_ |
+| 9:00 - 10:30  | IIIF Discovery Technical Specification Group |  |  |
+| 10:30 - 11:00 | _Break_ | _Break_ | _Break_ |
+| 11:00 - 12:30 | IIIF Discovery Technical Specification Group continued | Curators of Awesome working session | Software Hack Space |
+| 12:30 - 2:00  | _Lunch on your own_ | _Lunch on your own_ | _Lunch on your own_ |
+| 2:00 - 2:45   | IIIF and 3D discussion |  |Software Hack Space |
+| 2:45 - 3:30   | IIIF and STEM discussion |  |Software Hack Space |
+| 3:30 - 4:00   | _Break_ | _Break_ | _Break_ |
+| 4:00 - 5:30   | Closing Plenary |  |  |
+{: .api-table .msched-table}
 
 [home-page]: http://iiif.io/
 [groups]: http://iiif.io/community/groups/
@@ -57,3 +103,4 @@ The session schedule is coming soon.
 [holiday-inn]: https://drive.google.com/file/d/0B8biwZuDijgeeWkzWjcxcF9EZGs/view?usp=sharing
 [toronto-showcase]: /event/2017/toronto-showcase/
 [showcase-reg]: https://iiifshowcase-toronto.eventbrite.com
+[sched]: https://iiifworkingmeetingtoronto2017.sched.com/
