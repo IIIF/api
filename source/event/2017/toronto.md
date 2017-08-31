@@ -46,7 +46,7 @@ Two hotel blocks with discounted rates are available for October 10-14:
 
 ### Schedule
 
-Session descriptions and notes are available on [Sched][sched].
+Session descriptions, agendas, and notes are coming soon via Sched - stay tuned for more details!
 
 #### Wednesday, October 11, Morning
 
