@@ -47,7 +47,7 @@ This is a work in progress and may change without any notices. Implementers shou
 
 ##  1. Introduction
 
-Access to image-based resources is fundamental to many research disciplines, scholarship and the transmission of cultural knowledge. Digital images are a container for much of the information content in the Web-based delivery of museum objects, books, newspapers, letters, manuscripts, maps, scrolls, and digital surrogates of textiles, realia and ephemera. Collections of born-digital images can also benefit from a standardized method to structure their layout and presentation, such as slideshows, image carousels, web comics, and more.
+Access to image-based resources is fundamental to many research disciplines, scholarship and the transmission of cultural knowledge. Digital images are a container for much of the information content in the Web-based delivery of digitized cultural heritage objects. Collections of born-digital images can also benefit from a standardized method to structure their layout and presentation, such as slideshows, image carousels, web comics, and more.
 
 This document describes how the structure and layout of a complex image-based object can be made available in a standard manner. Many different styles of viewer can be implemented that consume the information to enable a rich and dynamic experience, consuming content from across collections and hosting institutions.
 
@@ -64,8 +64,8 @@ The objective of the IIIF (pronounced "Triple-Eye-Eff") Presentation API is to p
 The following are within the scope of the current document:
 
   * The display of digitized images associated with a particular physical object, or born-digital compound object.
-  * Navigation between the pages, surfaces or views of the object.
-  * The display of text, and resources of other media types, associated with the object or its pages – this includes descriptive information about the object, labels that can aid navigation such as numbers associated with individual pages, copyright or attribution information, etc.
+  * Navigation between multiple views of the object.
+  * The display of text, and resources of other media types, associated with the object views – this includes descriptive information about the object, labels that can aid navigation such as numbers associated with individual pages, copyright or attribution information, etc.
 
 The following are __not__ within scope:
 
@@ -79,7 +79,7 @@ Note that in the following descriptions, "object" (or "physical object") is used
 
 There are many different types of digitized or digital compound objects, from ancient scrolls to modern newspapers, from medieval manuscripts to online comics, and from large maps to small photographs. Many of them bear texts, sometimes difficult to read either due to the decay of the physical object or lack of understanding of the script or language.  These use cases are described in a separate [document][use-case-doc].
 
-Collectively the use cases require a model in which one can characterize the object (via the _Manifest_ resource), the order in which individual surfaces or views are presented (the _Sequence_ resource), and the individual surfaces or views (_Canvas_ resources). Each Canvas may have images and/or other content resources associated with it (_Content_ resources) to allow the view to be rendered. An object may also have parts; for example, a book may have chapters where several pages may be associated with a single chapter (a _Range_ resource) and there may be groups of objects (_Collection_ resources).  These resource types, along with their properties, make up the IIIF Presentation API.
+Collectively the use cases require a model in which one can characterize the object (via the _Manifest_ resource), the order(s) in which individual views are presented (the _Sequence_ resource), and the individual views (_Canvas_ resources). Each Canvas may have images and/or other content resources associated with it (_Content_ resources) to allow the view to be rendered. An object may also have parts; for example, a book may have chapters where several pages may be associated with a single chapter (a _Range_ resource) and there may be groups of objects (_Collection_ resources).  These resource types, along with their properties, make up the IIIF Presentation API.
 
 ### 1.3. Terminology
 
@@ -122,7 +122,7 @@ Content resources such as images, audio, video or text that are associated with 
 ##### Collection
 {: #overview-collection}
 
-An ordered list of Manifests, and/or further Collections.  Collections allow easy advertising and browsing of the Manifests in a hierarchical structure, potentially with its own descriptive information.  They can also provide clients with a means to locate all of the Manifests known to the publishing institution.
+An ordered list of Manifests, and/or further Collections.  Collections allow easy navigation among the Manifests in a hierarchical structure, potentially each with its own descriptive information.
 
 ##### AnnotationPage
 {: #overview-annotationpage}
@@ -147,7 +147,7 @@ An ordered list of Canvases, and/or further Ranges.  Ranges allow Canvases, or p
 
 ##  3. Resource Properties
 
-This specification defines properties in five distinct areas. Most of the properties may be associated with any of the resource types described above, and may have more than one value.  The property relates to the resource that it is associated with, so a `description` property on a Manifest is a description of the object, whereas a `description` property on a Canvas is a description of that particular page or view of the object.
+This specification defines properties in five distinct areas. Most of the properties may be associated with any of the resource types described above, and may have more than one value.  The property relates to the resource that it is associated with, so a `description` property on a Manifest is a description of the object, whereas a `description` property on a Canvas is a description of that particular view.
 
 The requirements for the use of the properties are summarized in [Appendix B][appendixB].
 
@@ -161,7 +161,7 @@ A human readable label, name or title for the resource. This property is intende
  * A Collection _MUST_ have at least one label.
  * A Manifest _MUST_ have at least one label, such as the name of the object or title of the intellectual work that it embodies.
  * A Sequence  _MAY_ have one or more labels, and if there are multiple Sequences in a single manifest then they _MUST_ each have at least one label.
- * A Canvas _MUST_ have at least one label, such as the page number or short description of the view.
+ * A Canvas _SHOULD_ have at least one label, such as the page number or short description of the view.
  * A content resource _MAY_ have one or more labels, and if there is a choice of content resource for the same Canvas, then they _SHOULD_ each have at least one label.
  * A Range _SHOULD_ have at least one label. 
  * An AnnotationCollection _MUST_ have at least one label.
@@ -172,7 +172,11 @@ A human readable label, name or title for the resource. This property is intende
 ```
 
 ##### metadata
-A list of short descriptive entries, given as pairs of human readable `label` and `value` to be displayed to the user. The value of both `label` and `value` _MUST_ be a JSON object, as described in the [languages][languages] section. There are no semantics conveyed by this information, and clients _SHOULD NOT_ use it for discovery or other purposes. This list of descriptive pairs _SHOULD_ be able to be displayed in a tabular form in the user interface. Clients _SHOULD_ have a way to display the information about Manifests and Canvases, and _MAY_ have a way to view the information about other resources. The client _SHOULD_ display the pairs in the order provided by the description. A pair might be used to convey the author of the work, information about its creation, a brief physical description, or ownership information, amongst other use cases. The client is not expected to take any action on this information beyond displaying the label and value. An example pair of label and value might be a label of "Author" and a value of "Jehan Froissart".
+A list of short descriptive entries, given as pairs of human readable `label` and `value` to be displayed to the user. The value of both `label` and `value` _MUST_ be a JSON object, as described in the [languages][languages] section. There are no semantics conveyed by this information, and clients _SHOULD NOT_ use it for discovery or other purposes.  A pair might be used to convey to the user information such as the creator of the object, information about its creation, a brief physical description, or ownership information, amongst other use cases. An example pair of label and value might be a label of "Author" and a value of "Jehan Froissart".
+
+__ Take out client functionality requirements:__
+
+> Clients _SHOULD_ have a way to display the information about Manifests and Canvases, and _MAY_ have a way to view the information about other resources. The client _SHOULD_ display the pairs in the order provided by the description.
 
  * A Collection _SHOULD_ have one or more metadata pairs associated with it.
  * A Manifest _SHOULD_ have one or more metadata pairs associated with it describing the object or work.
@@ -183,7 +187,11 @@ A list of short descriptive entries, given as pairs of human readable `label` an
 ```
 
 ##### description
-A longer-form prose description of the object or resource that the property is attached to, intended to be conveyed to the user as a full text description, rather than a simple label and value. The value of the property _MUST_ be a JSON object, as described in the [languages][languages] section.  It can duplicate any of the information from the `metadata` fields, along with additional information required to understand what is being displayed. Clients _SHOULD_ have a way to display the descriptions of Manifests and Canvases, and _MAY_ have a way to view the information about other resources.
+A longer-form prose description of the object or resource that the property is attached to, intended to be conveyed to the user as a full text description, rather than a simple label and value. The value of the property _MUST_ be a JSON object, as described in the [languages][languages] section.  It can duplicate any of the information from the `metadata` fields, along with additional information required to understand what is being displayed. 
+
+__Take out client functionality requirements:__
+
+> Clients _SHOULD_ have a way to display the descriptions of Manifests and Canvases, and _MAY_ have a way to view the information about other resources.
 
  * A Collection _SHOULD_ have one or more descriptions.
  * A Manifest _SHOULD_ have one or more descriptions.
@@ -194,12 +202,12 @@ A longer-form prose description of the object or resource that the property is a
 ```
 
 ##### thumbnail
-A small image that depicts or pictorially represents the resource that the property is attached to, such as the title page, a significant image or rendering of a Canvas with multiple content resources associated with it.  It is _RECOMMENDED_ that a [IIIF Image API][image-api] service be available for this image for manipulations such as resizing. If a resource has multiple thumbnails, then each of them _SHOULD_ be different. The value _MUST_ be a JSON array, with each item in the array being a JSON object with at least an `id` and `type` property.
+A small content resource that represents the resource that the property is attached to, such as a small image or short audio clip.  It is _RECOMMENDED_ that a [IIIF Image API][image-api] service be available for images to enable manipulations such as resizing. The value _MUST_ be a JSON array, with each item in the array being a JSON object that _MUST_ have an `id` property and _SHOULD_ have at least one of `type` and `format`.
 
- * A Collection _SHOULD_ have exactly one thumbnail image, and _MAY_ have more than one.
- * A Manifest _SHOULD_ have exactly one thumbnail image, and _MAY_ have more than one.
+ * A Collection _SHOULD_ have exactly one thumbnail resource, and _MAY_ have more than one.
+ * A Manifest _SHOULD_ have exactly one thumbnail resource, and _MAY_ have more than one.
  * A Sequence _MAY_ have one or more thumbnails and _SHOULD_ have at least one thumbnail if there are multiple Sequences in a single Manifest.
- * A Canvas _MAY_ have one or more thumbnails and _SHOULD_ have at least one thumbnail if there are multiple images or resources that make up the representation.
+ * A Canvas _MAY_ have one or more thumbnails and _SHOULD_ have at least one thumbnail if there are multiple resources that make up the representation.
  * A content resource _MAY_ have one or more thumbnails and _SHOULD_ have at least one thumbnail if it is an option in a choice of resources.
  * Other resource types _MAY_ have one or more thumbnails.
 
@@ -219,7 +227,9 @@ A date that the client can use for navigation purposes when presenting the resou
 
 ####  3.2. Rights and Licensing Properties
 
-The following properties ensure that the interests of the owning or publishing institutions are conveyed regardless of the viewing environment, and a client _MUST_ make these properties clearly available to the user. Given the wide variation of potential client user interfaces, it will not always be possible to display all or any of the properties to the user in the client's initial state. If initially hidden, the method of revealing them _MUST_ be obvious, such as a button or scroll bars.
+__WHERE DO CLIENT REQUIREMENTS LIVE?__
+
+The following properties ensure that the interests of the owning or publishing institutions are conveyed regardless of the viewing environment, and a client _MUST_ make these properties clearly available to the user. Given the wide variation of potential client user interfaces, it will not always be possible to display all or any of the properties to the user in the client's initial state. If initially hidden, the method of revealing them _MUST_ be obvious, such as a button or scroll bar.
 
 ##### attribution
 Text that _MUST_ be shown when the resource it is associated with is displayed or used. For example, this could be used to present copyright or ownership statements, or simply an acknowledgement of the owning and/or publishing institution. The value of the property _MUST_ be a JSON object, as described in the [languages][languages] section.
@@ -232,7 +242,7 @@ Text that _MUST_ be shown when the resource it is associated with is displayed o
 
 ##### rights 
 
-A link to an external resource that describes the license or rights statement under which the resource may be used. The rationale for this being a URI and not a human readable label is that typically there is one license for many resources, and the text is too long to be displayed to the user along with the object. If displaying the text is a requirement, then it is _RECOMMENDED_ to include the information using the `attribution` property instead. The value _MUST_ be an array of strings, each being a URI.
+A link to an external resource that describes the license or rights statement under which the resource may be used. The rationale for this being a URI and not a human readable label is that typically there is one license for many resources, and the text is too long to be displayed to the user along with the object. If displaying the text is a requirement, then it is _RECOMMENDED_ to include the information using the `attribution` property instead or in metadata. The value _MUST_ be an array of JSON objects, each of which _MUST_ have an `id` and _SHOULD_ have at least one of `type` and `format`.
 
  * Any resource type _MAY_ have one or more rights statements or licenses associated with it.
 
@@ -241,7 +251,7 @@ A link to an external resource that describes the license or rights statement un
 ```
 
 ##### logo
-A small image that represents an individual or organization associated with the resource it is attached to.  This could be the logo of the owning or hosting institution. The logo _MUST_ be clearly rendered when the resource is displayed or used, without cropping, rotating or otherwise distorting the image. It is _RECOMMENDED_ that a [IIIF Image API][image-api] service be available for this image for manipulations such as resizing.
+A small image that represents an individual or organization associated with the resource it is attached to.  This could be the logo of the owning or hosting institution. The logo _MUST_ be clearly rendered when the resource is displayed or used, without cropping, rotating or otherwise distorting the image. It is _RECOMMENDED_ that a [IIIF Image API][image-api] service be available for this image for other manipulations such as resizing. The value _MUST_ be an array of JSON objects, each of which _MUST_ have an `id` and _SHOULD_ have at least one of `type` and `format`.
 
  * Any resource type _MAY_ have one or more logos associated with it.
 
@@ -253,13 +263,13 @@ A small image that represents an individual or organization associated with the 
 
 ##### id
 
-The URI that identifies the resource. It is _RECOMMENDED_ that an HTTP URI be used for all resources. URIs from any [registered scheme][iana-uri-schemes] _MAY_ be used, and implementers may find it convenient to use a [UUID URN][rfc-4122] of the form: `"urn:uuid:uuid-goes-here-1234"`.  Resources that do not require URIs _MAY_ be assigned [blank node identifiers][rdf11-blank-nodes]; this is the same as omitting `id`.
+The URI that identifies the resource. It is _RECOMMENDED_ that an HTTPS URI be used for all resources. The value _MUST_ be a string.
 
  * A Collection _MUST_ have exactly one id, and it _MUST_ be the http(s) URI at which it is published.
  * A Manifest _MUST_ have exactly one id, and it _MUST_ be the http(s) URI at which it is published.
  * A Sequence _MAY_ have an id and _MUST NOT_ have more than one.
- * A Canvas _MUST_ have exactly one id, and it _MUST_ be an http(s) URI.  The Canvas's JSON representation _SHOULD_ be published at that URI.
- * A content resource _MUST_ have exactly one id unless it is embedded in the response, and it _MUST_ be the http(s) URI at which the resource is published.
+ * A Canvas _MUST_ have exactly one id, and it _MUST_ be an http(s) URI.  The Canvas's JSON representation _MAY_ be published at that URI.
+ * A content resource _MUST_ have exactly one id, and it _MUST_ be the http(s) URI at which the resource is published.
  * A Range _MUST_ have exactly one id, and it _MUST_ be an http(s) URI.
  * An AnnotationCollection _MUST_ have exactly one id, and it _MUST_ be an http(s) URI.
  * An AnnotationPage _MUST_ have exactly one id, and it _MUST_ be the http(s) URI at which it is published.
@@ -271,7 +281,7 @@ The URI that identifies the resource. It is _RECOMMENDED_ that an HTTP URI be us
 
 ##### type
 
-The type of the resource.  For the resource types defined by this specification, the value of `type` will be described in the sections below.  For content resources, the type may be drawn from other vocabularies. Recommendations for basic types such as image, text or audio are also given in the sections below.
+The type of the resource.  For the resource types defined by this specification, the value of `type` will be described in the sections below.  For content resources, the type are drawn from other vocabularies. Recommendations for basic types such as image, text or audio are also given in the sections below. The value _MUST_ be a string.
 
  * All resource types _MUST_ have exactly one type specified.
 
@@ -280,19 +290,19 @@ The type of the resource.  For the resource types defined by this specification,
 ```
 
 ##### format
-The specific media type (often called a MIME type) of a content resource, for example "image/jpeg". This is important for distinguishing text in XML from plain text, for example.
+The specific media type (often called a MIME type) of a content resource, for example "image/jpeg". This is important for distinguishing text in XML from plain text, for example. The value _MUST_ be a string.
 
  * A content resource _MAY_ have exactly one format, and if so, it _MUST_ be the value of the `Content-Type` header returned when the resource is dereferenced.
  * Other resource types _MUST NOT_ have a format.
 
-This is different to the `formats` property in the [Image API][image-api], which gives the extension to use within that API.  It would be inappropriate to use in this case, as `format` can be used with any content resource, not just images.
+Note that this is different to the `formats` property in the [Image API][image-api], which gives the extension to use within that API.  It would be inappropriate to use in this case, as `format` can be used with any content resource, not just images.
 
 ``` json-doc
 {"format": "image/jpeg"}
 ```
 
 ##### height
-The height of a Canvas or content resource. For content resources, the value is in pixels. For Canvases, the value does not have a unit. In combination with the width, it conveys an aspect ratio for the space in which content resources are located.
+The height of a Canvas or content resource. For content resources, the value is in pixels. For Canvases, the value does not have a unit. In combination with the width, it conveys an aspect ratio for the space in which content resources are located. The value _MUST_ be either an integer or a float.
 
  * A Canvas _SHOULD_ have exactly one height, and _MUST NOT_ have more than one. If it has a height, it _MUST_ also have a width.
  * Content resources _MAY_ have exactly one height, given in pixels, if appropriate.
@@ -303,7 +313,7 @@ The height of a Canvas or content resource. For content resources, the value is 
 ```
 
 ##### width
-The width of a Canvas or content resource. For content resources, the value is in pixels. For Canvases, the value does not have a unit. In combination with the height, it conveys an aspect ratio for the space in which content resources are located.
+The width of a Canvas or content resource. For content resources, the value is in pixels. For Canvases, the value does not have a unit. In combination with the height, it conveys an aspect ratio for the space in which content resources are located. The value _MUST_ be either an integer or a float.
 
  * A Canvas _SHOULD_ have exactly one width, and _MUST NOT_ have more than one. If it has a width, it _MUST_ also have a height.
  * Content resources _MAY_ have exactly one width, given in pixels, if appropriate.
@@ -314,18 +324,18 @@ The width of a Canvas or content resource. For content resources, the value is i
 ```
 
 ##### duration
-The duration of a Canvas or content resource, given in seconds as a non-negative floating point number. 
+The duration of a Canvas or content resource, given in seconds.  The value _MUST_ be a non-negative floating point number. 
 
  * A Canvas _MAY_ have exactly one duration, and _MUST NOT_ have more than one.
  * Content resources _MAY_ have exactly one duration, and _MUST NOT_ have more than one.
  * Other resource types _MUST NOT_ have a duration.
 
 ``` json-doc
-{"duration": 125.6}
+{"duration": 125.0}
 ```
 
 ##### viewingDirection
-The direction that a set of Canvases _SHOULD_ be displayed to the user. This specification defines four viewing direction values in the table below. Other values _MAY_ also be used, and they _MUST_ be full URIs.
+The direction that a set of Canvases _SHOULD_ be displayed to the user. This specification defines four viewing direction values in the table below. Other values _MAY_ also be used, and they _MUST_ be full URIs. The value _MUST_ be a string.
 
  * A Manifest _MAY_ have exactly one viewing direction, and if so, it applies to all of its sequences unless the sequence specifies its own viewing direction.
  * A Sequence _MAY_ have exactly one viewing direction.
@@ -345,7 +355,7 @@ The direction that a set of Canvases _SHOULD_ be displayed to the user. This spe
 ```
 
 ##### viewingHint
-A hint to the client as to the most appropriate method of displaying the resource. This specification defines the values specified in the table below. Other values _MAY_ be given, and if they are, they _MUST_ be URIs.
+A hint to the client as to the most appropriate method of displaying the resource. This specification defines the values specified in the table below. Other values _MAY_ be given, and if they are, they _MUST_ be URIs. The value _MUST_ be an array of strings.
 
  * Any resource type _MAY_ have one or more viewing hints.
 
@@ -369,7 +379,7 @@ A hint to the client as to the most appropriate method of displaying the resourc
 
 ##### choiceHint
 
-A hint associated with a Choice resource that a client can use to determine the publisher's intent as to which agent _SHOULD_ make the choice between the different options.  In the absence of any `choiceHint` value, the rendering application can use any algorithm or process to make the determination.  This specification defines the two values specified in the table below. Other values _MAY_ be given, and if they are, they _MUST_ be URIs.
+A hint associated with a Choice resource that a client can use to determine the publisher's intent as to which agent _SHOULD_ make the choice between the different options.  In the absence of any `choiceHint` value, the rendering application can use any algorithm or process to make the determination.  This specification defines the two values specified in the table below. Other hints _MAY_ be given, and if they are, they _MUST_ be URIs. The value _MUST_ be a string.
 
 * A Choice _MAY_ have exactly one `choiceHint`.
 
@@ -384,7 +394,7 @@ A hint associated with a Choice resource that a client can use to determine the 
 
 ##### timeMode
 
-A mode associated with an Annotation that is to be applied to the rendering of any time-based media, or otherwise could be considered to have a duration, used as a body resource of that Annotation. Note that the association of `timeMode` with the Annotation means that different resources in the body cannot have different values. This specification defines the values specified in the table below. Other values _MAY_ be given, and if they are, they _MUST_ be URIs.
+A mode associated with an Annotation that is to be applied to the rendering of any time-based media, or otherwise could be considered to have a duration, used as a body resource of that Annotation. Note that the association of `timeMode` with the Annotation means that different resources in the body cannot have different values. This specification defines the values specified in the table below. Other modes _MAY_ be given, and if they are, they _MUST_ be URIs. The value _MUST_ be a string.
 
 * An Annotation _MAY_ have exactly one `timeMode` property.
 
@@ -401,7 +411,7 @@ A mode associated with an Annotation that is to be applied to the rendering of a
 ####  3.4. Linking Properties
 
 ##### related
-A link to an external resource intended to be displayed directly to the user, and is related to the resource that has the `related` property. Examples might include a video or academic paper about the resource, a website, an HTML description, and so forth. A label and the format of the related resource _SHOULD_ be given to assist clients in rendering the resource to the user.
+A link to an external resource that is about the IIIF resource. The external resource _MUST_ be able to be displayed directly to the user. Examples might include a video or academic paper about the resource, a website, an HTML description, and so forth. A label and the format of the related resource _MUST_ be supplied to assist clients in rendering the link or resource.
 
  * Any resource type _MAY_ have one or more external resources related to it.
 
@@ -410,7 +420,7 @@ A link to an external resource intended to be displayed directly to the user, an
 ```
 
 ##### rendering
-A link to an external resource intended for display or download by a human user. This property can be used to link from a manifest, collection or other resource to the preferred viewing environment for that resource, such as a viewer page on the publisher's web site. Other uses include a rendering of a manifest as a PDF or EPUB with the images and text of the book, or a slide deck with images of the museum object. A label and the format of the rendering resource _MUST_ be supplied to allow clients to present the option to the user.
+A link to an external resource that is an alternative, non-IIIF representation of the IIIF resource. The external resource _MUST_ be able to be displayed directly to a human user. Examples might include the preferred viewing environment for the IIIF resource, such as a viewer page on the publisher's web site. Other uses include a rendering of a manifest as a PDF or EPUB with the images and text of the book, or a slide deck with images of the museum object. A label and the format of the rendering resource _MUST_ be supplied to assist clients in rendering the link or resource.
 
  * Any resource type _MAY_ have one or more external rendering resources.
 
@@ -419,7 +429,7 @@ A link to an external resource intended for display or download by a human user.
 ```
 
 ##### service
-A link to a service that makes more functionality available for the resource, such as from an image to the base URI of an associated [IIIF Image API][image-api] service. The service resource _SHOULD_ have additional information associated with it in order to allow the client to determine how to make appropriate use of it, such as a `profile` link to a service description. It _MAY_ also have relevant information copied from the service itself. This duplication is permitted in order to increase the performance of rendering the object without necessitating additional HTTP requests. Please see the [Service Profiles][annex] document for known services.
+A link to a service that makes more functionality available for the resource, such as from an image to the base URI of an associated [IIIF Image API][image-api] service. The service resource _SHOULD_ have additional information associated with it in order to allow the client to determine how to make appropriate use of it, such as a `profile` link to a service description. Please see the [Service Profiles][annex] document for currently known service types.
 
  * Any resource type _MAY_ have one or more links to an external service.
 
@@ -441,7 +451,7 @@ A link to a machine readable document that semantically describes the resource w
 ```
 
 ##### within
-A link to a resource that contains the current resource, such as annotation lists within a layer. This also allows linking upwards to collections that allow browsing of the digitized objects available.
+A link to a resource that contains the current resource, such as a Manifest within a Collection. 
 
  * Collections or AnnotationPages that serve as [pages][paging] _MUST_ be within exactly one paged resource.
  * Other resource types, including Collections or AnnotationPages not serving as pages, _MAY_ be within one or more containing resources.
@@ -594,7 +604,7 @@ This section describes features applicable to all of the Presentation API conten
 
 ### 4.1. HTTPS URI Scheme
 
-It is strongly _RECOMMENDED_ that all URIs use the HTTPS scheme, and be available via that protocol.  All URIs _MUST_ be either HTTPS or HTTP, henceforth described more simply as http(s).
+It is strongly _RECOMMENDED_ that all URIs use the HTTPS scheme, and be available via that protocol.  All URIs _MUST_ be either HTTPS or HTTP, described more simply as "http(s)".
 
 ### 4.2. URI Representation
 
@@ -610,7 +620,7 @@ Resource descriptions _SHOULD_ be embedded within higher-level descriptions, and
 
 ### 4.3. Repeatable Properties
 
-Any of the properties in the API that can be repeated _MUST_ always be given as an array of values, even if there is only a single item in that array.
+Any of the properties in the API that can have multiple values _MUST_ always be given as an array of values, even if there is only a single item in that array.
 
 ``` json-doc
 {
@@ -650,7 +660,7 @@ Note that this does not apply to embedded textual bodies in Annotations, which u
 
 ### 4.5. HTML Markup in Property Values
 
-Minimal HTML markup _MAY_ be included in the `description`, `attribution` properties and the `value` property of a `label`/`value` pair in `metadata`.  It _MUST NOT_ be used in `label` or other properties. This is included to allow manifest creators to add links and simple formatting instructions to blocks of text. The content _MUST_ be well-formed XML and therefore must be wrapped in an element such as `p` or `span`.  There _MUST NOT_ be whitespace on either side of the HTML string, and thus the first character in the string _MUST_ be a '<' character and the last character _MUST_ be '>', allowing a consuming application to test whether the value is HTML or plain text using these.  To avoid a non-HTML string matching this, it is _RECOMMENDED_ that an additional whitespace character be added to the end of the value.
+Minimal HTML markup _MAY_ be included in the `description`, `attribution` properties and the `value` property of a `label`/`value` pair in `metadata`.  It _MUST NOT_ be used in `label` or other properties. This is included to allow manifest creators to add links and simple formatting instructions to blocks of text. The content _MUST_ be well-formed XML and therefore must be wrapped in an element such as `p` or `span`.  There _MUST NOT_ be whitespace on either side of the HTML string, and thus the first character in the string _MUST_ be a '<' character and the last character _MUST_ be '>', allowing a consuming application to test whether the value is HTML or plain text using these.  To avoid a non-HTML string matching this, it is _RECOMMENDED_ that an additional whitespace character be added to the end of the value in situations where plain text happens to start and end this way.
 
 In order to avoid HTML or script injection attacks, clients _MUST_ remove:
 
@@ -689,7 +699,7 @@ This section provides detailed description of the resource types used in this sp
 
 ###  5.1. Manifest
 
-The Manifest response contains sufficient information for the client to initialize itself and begin to display something quickly to the user. The Manifest resource represents a single object and any intellectual work or works embodied within that object. In particular it includes the descriptive, rights and linking information for the object. It then embeds the Sequence(s) of Canvases that should be rendered to the user.
+The Manifest resource represents a single object and any intellectual work or works embodied within that object. In particular it includes the descriptive, rights and linking information for the object. It then embeds the Sequence(s) of Canvases that should be rendered to the user. The Manifest response contains sufficient information for the client to initialize itself and begin to display something quickly to the user. 
 
 The identifier in `id` _MUST_ be able to be dereferenced to retrieve the JSON description of the Manifest, and thus _MUST_ use the http(s) URI scheme.
 
