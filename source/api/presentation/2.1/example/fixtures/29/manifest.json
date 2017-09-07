@@ -1,16 +1,16 @@
 {
   "@context": "http://iiif.io/api/presentation/2/context.json", 
-  "@id": "http://iiif.io/api/presentation/2.0/example/fixtures/29/manifest.json", 
+  "@id": "http://iiif.io/api/presentation/2.1/example/fixtures/29/manifest.json", 
   "@type": "sc:Manifest", 
   "label": "Test 29 Manifest: Choice of Image with IIIF Service", 
-  "within": "http://iiif.io/api/presentation/2.0/example/fixtures/collection.json", 
+  "within": "http://iiif.io/api/presentation/2.1/example/fixtures/collection.json", 
   "sequences": [
     {
       "@type": "sc:Sequence", 
       "label": "Test 29 Sequence 1", 
       "canvases": [
         {
-          "@id": "http://iiif.io/api/presentation/2.0/example/fixtures/canvas/29/c1.json", 
+          "@id": "http://iiif.io/api/presentation/2.1/example/fixtures/canvas/29/c1.json", 
           "@type": "sc:Canvas", 
           "label": "Test 29 Canvas: 1", 
           "height": 1800, 
@@ -22,7 +22,7 @@
               "resource": {
                 "@type": "oa:Choice", 
                 "default": {
-                  "@id": "http://iiif.io/api/image/2.0/example/reference/page1-full/full/full/0/default.jpg", 
+                  "@id": "http://iiif.io/api/image/2.1/example/reference/page1-full/full/full/0/default.jpg", 
                   "@type": "dctypes:Image", 
                   "label": "Color", 
                   "format": "image/jpeg", 
@@ -30,13 +30,13 @@
                   "width": 1200, 
                   "service": {
                     "@context": "http://iiif.io/api/image/2/context.json", 
-                    "@id": "http://iiif.io/api/image/2.0/example/reference/page1-full", 
+                    "@id": "http://iiif.io/api/image/2.1/example/reference/page1-full", 
                     "profile": "http://iiif.io/api/image/2/level1.json"
                   }
                 }, 
                 "item": [
                   {
-                    "@id": "http://iiif.io/api/image/2.0/example/reference/page1-full/full/full/0/gray.jpg", 
+                    "@id": "http://iiif.io/api/image/2.1/example/reference/page1-full/full/full/0/gray.jpg", 
                     "@type": "dctypes:Image", 
                     "label": "Greyscale", 
                     "height": 1800, 
@@ -44,7 +44,7 @@
                   }
                 ]
               }, 
-              "on": "http://iiif.io/api/presentation/2.0/example/fixtures/canvas/29/c1.json"
+              "on": "http://iiif.io/api/presentation/2.1/example/fixtures/canvas/29/c1.json"
             }
           ]
         }

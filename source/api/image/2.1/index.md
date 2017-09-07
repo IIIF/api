@@ -1,12 +1,12 @@
 ---
-title: "Image API 2.1"
-title_override: "IIIF Image API 2.1"
+title: "Image API 2.1.1"
+title_override: "IIIF Image API 2.1.1"
 id: image-api
 layout: spec
 tags: [specifications, image-api]
 major: 2
 minor: 1
-patch: 0
+patch: 1
 pre: final
 redirect_from:
   - /api/image/index.html
@@ -26,7 +26,7 @@ __Previous Version:__ [2.0][prev-version]
 
   * **[Michael Appleby](https://orcid.org/0000-0002-1266-298X)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0002-1266-298X), [_Yale University_](http://www.yale.edu/)
   * **[Tom Crane](https://orcid.org/0000-0003-1881-243X)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0003-1881-243X), [_Digirati_](http://digirati.com/)
-  * **[Robert Sanderson](https://orcid.org/0000-0003-4441-6852)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0003-4441-6852), [_Stanford University_](http://www.stanford.edu/)
+  * **[Robert Sanderson](https://orcid.org/0000-0003-4441-6852)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0003-4441-6852), [_J. Paul Getty Trust_](http://www.getty.edu/)
   * **[Jon Stroop](https://orcid.org/0000-0002-0367-1243)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0002-0367-1243), [_Princeton University Library_](https://library.princeton.edu/)
   * **[Simeon Warner](https://orcid.org/0000-0002-7970-7855)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0002-7970-7855), [_Cornell University_](https://www.cornell.edu/)
   {: .names}
@@ -217,7 +217,7 @@ If the resulting height or width is zero, then the server _SHOULD_ return a 400 
 The image server _MAY_ support scaling above the full size of the extracted region.
 
 __Deprecation Warning__
-The size keyword `full` will be replaced in favor of `max` in version 3.0. Feedback is welcome via [iiif-discuss][iiif-discuss] or on the [Github issue](https://github.com/IIIF/iiif.io/issues/678).
+The size keyword `full` will be replaced in favor of `max` in version 3.0. Until that time, the `w,` syntax should be considered the [canonical form][canonical-uri-syntax] of request for the `max` size, unless `max` is equivalent to `full`. Feedback is welcome via [iiif-discuss][iiif-discuss] or on the [Github issue](https://github.com/IIIF/iiif.io/issues/678).
 {: .warning #full-dep}
 
 Examples:
@@ -506,6 +506,8 @@ A recipe for enabling these behaviors is provided in the [Apache HTTP Server Imp
 
 The objects in the `sizes` list have the properties in the following table. Images requested using these sizes _SHOULD_ have a region parameter of "full" and rotation of "0".  The size _SHOULD_ be requested using the canonical syntax of `w,`. Thus, the full URL for an image with "default" quality in "jpg" format would be: `{scheme}://{server}/{prefix}/{identifier}/full/{width},/0/default.jpg`
 
+Note that the values in `width` and `height` do not necessarily imply that an image of that size is available. If `sizes`, `maxArea`, `maxWidth`, or `maxHeight` are present, they may indicate constraints on the maximum size of image that can be requested. The `width` and `height` information is still required in order to construct tile requests and know the aspect ratio of the image.
+
 __Warning__
 There is an inconsistency between the specification of the `sizes` list and the canonical URI syntax. Clients _SHOULD_ use the [Canonical URI Syntax](#canonical-uri-syntax) when making image requests based on entries in `sizes`. For maximum compatibility, servers _SHOULD_ support both the `w,` and `w,h` forms of the `size` parameter for values in `sizes` that maintain the aspect ratio. This inconsistency will be addressed in the next major version of this specification.
 {: .warning}
@@ -670,7 +672,7 @@ The following shows a simple use of each of these properties:
   // ...
   "attribution" : "Provided by Example Organization",
   "logo" : "http://example.org/images/logo.png",
-  "license" : "http://example.org/rights/license1.html"
+  "license" : "http://rightsstatements.org/vocab/InC-EDU/1.0/"
   // ...
 }
 ```
@@ -743,7 +745,7 @@ The following shows a response including all of the required and optional image 
   },
   "license" : [
     "http://example.org/rights/license1.html",
-    "https://creativecommons.org/licenses/by/4.0/"
+    "http://rightsstatements.org/vocab/InC-EDU/1.0/"
   ],
   "profile" : [
     "http://iiif.io/api/image/{{ page.major }}/level2.json",
@@ -757,12 +759,12 @@ The following shows a response including all of the required and optional image 
   ],
   "service" : [
     {
-      "@context": "http://iiif.io/api/annex/service/physdim/1/context.json",
-      "profile": "http://iiif.io/api/annex/service/physdim",
+      "@context": "http://iiif.io/api/annex/services/physdim/1/context.json",
+      "profile": "http://iiif.io/api/annex/services/physdim",
       "physicalScale": 0.0025,
       "physicalUnits": "in"
     },{
-      "@context" : "http://geojson.org/contexts/geojson-base.jsonld",
+      "@context" : "http://geojson.org/geojson-ld/geojson-context.jsonld",
       "@id" : "http://www.example.org/geojson/paris.json"
     }
   ]
@@ -903,6 +905,7 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 
 | Date       | Description |
 | ---------- | ----------- |
+| 2017-06-09 | Version 2.1.1 [View change log][change-log-211] |
 | 2016-05-12 | Version 2.1 (Crowned Eagle) [View change log][change-log21] |
 | 2014-09-11 | Version 2.0 (Voodoo Bunny) [View change log][change-log20] |
 | 2013-09-17 | Version 1.1 (unnamed) [View change log][change-log11] |
@@ -910,6 +913,7 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 {: .api-table}
 
 [authentication-ext]: /api/auth/
+[change-log-211]: /api/image/2.1/change-log-211/ "Image API 2.1.1 Change Log"
 [change-log11]: /api/image/1.1/change-log/ "Change Log for Version 1.1"
 [change-log20]: /api/image/2.0/change-log/ "Change Log for Version 2.0"
 [change-log21]: /api/image/2.1/change-log/ "Change Log for Version 2.1"

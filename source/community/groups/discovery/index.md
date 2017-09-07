@@ -33,8 +33,8 @@ If successful, the work will enable the collaborative development of global or t
 
 **Call Connection Information:**
 
-  * Online: [https://bluejeans.com/447649804][https://bluejeans.com/447649804]
-  * Phone: +1.888.240.2560 (US Toll Free) or see [international numbers][international-bluejeans] - Enter Meeting ID: 447649804
+  * Online: [https://stanford.zoom.us/j/829945399][https://stanford.zoom.us/j/829945399]
+  * Phone: see [international numbers][international-zoom] - Enter Meeting ID: 829945399, Participant ID: #
 
 [charter]: /community/groups/discovery/charter
 [events]: /event "IIIF Events"
@@ -42,9 +42,9 @@ If successful, the work will enable the collaborative development of global or t
 [discovery-slack]: https://iiif.slack.com/messages/discovery/details/
 [discovery-folder]: https://drive.google.com/drive/u/0/folders/0B_Alni5J8UNITzlpYW1MdnFpSlU
 [slack]: http://bit.ly/iiif-slack
-[https://bluejeans.com/447649804]: https://bluejeans.com/447649804
+[https://stanford.zoom.us/j/829945399]: https://stanford.zoom.us/j/829945399
 [iiif-calendar]: http://iiif.io/community/groups/
-[international-bluejeans]: https://bluejeans.com/numbers?ll=en
+[international-zoom]: https://zoom.us/zoomconference
 
 
 {% include acronyms.md %}

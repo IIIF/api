@@ -1,22 +1,23 @@
 {
   "@context": "http://iiif.io/api/presentation/2/context.json", 
-  "@id": "http://iiif.io/api/presentation/2.0/example/fixtures/6/manifest.json", 
+  "@id": "http://iiif.io/api/presentation/2.1/example/fixtures/6/manifest.json", 
   "@type": "sc:Manifest", 
   "label": "Test 6 Manifest: Multiple Descriptions", 
   "description": [
+    "This is one description", 
     {
       "@value": "This is another", 
       "@language": "en"
     }
   ], 
-  "within": "http://iiif.io/api/presentation/2.0/example/fixtures/collection.json", 
+  "within": "http://iiif.io/api/presentation/2.1/example/fixtures/collection.json", 
   "sequences": [
     {
       "@type": "sc:Sequence", 
       "label": "Test 6 Sequence 1", 
       "canvases": [
         {
-          "@id": "http://iiif.io/api/presentation/2.0/example/fixtures/canvas/6/c1.json", 
+          "@id": "http://iiif.io/api/presentation/2.1/example/fixtures/canvas/6/c1.json", 
           "@type": "sc:Canvas", 
           "label": "Test 6 Canvas: 1", 
           "height": 1800, 
@@ -26,12 +27,12 @@
               "@type": "oa:Annotation", 
               "motivation": "sc:painting", 
               "resource": {
-                "@id": "http://iiif.io/api/presentation/2.0/example/fixtures/resources/page1-full.png", 
+                "@id": "http://iiif.io/api/presentation/2.1/example/fixtures/resources/page1-full.png", 
                 "@type": "dctypes:Image", 
                 "height": 1800, 
                 "width": 1200
               }, 
-              "on": "http://iiif.io/api/presentation/2.0/example/fixtures/canvas/6/c1.json"
+              "on": "http://iiif.io/api/presentation/2.1/example/fixtures/canvas/6/c1.json"
             }
           ]
         }

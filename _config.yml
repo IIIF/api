@@ -22,12 +22,12 @@ image_api:
   latest:
     major: 2
     minor: 1
-    patch: 0
+    patch: 1
 presentation_api:
   latest:
     major: 2
     minor: 1
-    patch: 0
+    patch: 1
 shared_canvas:
   latest:
     major: 1

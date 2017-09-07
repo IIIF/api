@@ -39,8 +39,8 @@ The IIIF MSS Group seeks to advance aims of the [IIIF­C][iiifc], which are to r
 
 **Call Connection Information:**
 
-  * Online: [https://bluejeans.com/153288361][https://bluejeans.com/153288361]
-  * Phone: +1.888.240.2560 (US Toll Free) or see [international numbers][international-bluejeans] - Enter Meeting ID: 153288361
+  * Online: [https://stanford.zoom.us/j/674108679][https://stanford.zoom.us/j/674108679]
+  * Phone: see [international numbers][international-zoom] - Enter Meeting ID: 674108679, Participant ID: #
 
 [ghent]: /event/2015/ghent/ "IIIF: Access to the World's Images - Ghent 2015"
 [iiifc]: /community/consortium/ "IIIF Consortium"
@@ -51,7 +51,7 @@ The IIIF MSS Group seeks to advance aims of the [IIIF­C][iiifc], which are to r
 [manuscripts-slack]: https://iiif.slack.com/messages/manuscripts/details/
 [join-slack]: http://bit.ly/iiif-slack
 [calendar]: http://iiif.io/community/groups/
-[https://bluejeans.com/153288361]: https://bluejeans.com/153288361
-[international-bluejeans]: https://bluejeans.com/numbers?ll=en
+[https://stanford.zoom.us/j/674108679]: https://stanford.zoom.us/j/674108679
+[international-zoom]: https://zoom.us/zoomconference
 
 {% include acronyms.md %}

@@ -26,7 +26,7 @@ The IIIF Newspapers Community Group welcomes participants with an interest in im
 
 **Communication Channels:**
 
-  * Calls on the fourth Wednesday of every month at 11am Eastern - see [IIIF Community Calendar][calendar] for details
+  * Quarterly calls - see [IIIF Community Calendar][calendar] for details
   * Virtual meetings announced on the [IIIF-Discuss][iiif-discuss] email list
   * General discussion on the [# newspapers IIIF Slack channel][newspapers-slack] ([Join Slack][join-slack])
 
@@ -36,8 +36,8 @@ The IIIF Newspapers Community Group welcomes participants with an interest in im
 
 **Call Connection Information:**
 
-  * Online: [https://bluejeans.com/753929435][https://bluejeans.com/753929435]
-  * Phone: +1.888.240.2560 (US Toll Free) or see [international numbers][international-bluejeans] - Enter Meeting ID: 753929435
+  * Online: [https://stanford.zoom.us/j/948530998][https://stanford.zoom.us/j/948530998]
+  * Phone: see [international numbers][international-zoom] - Enter Meeting ID: 948530998, Participant ID: #
 
 [newspapers-awesome-iiif]: https://github.com/IIIF/awesome-iiif#newspapers "Newspapers on Awesome-IIIF"
 [events]: /event "IIIF Events"
@@ -47,7 +47,7 @@ The IIIF Newspapers Community Group welcomes participants with an interest in im
 [newspapers-slack]: https://iiif.slack.com/messages/newspapers/details/
 [join-slack]: http://bit.ly/iiif-slack
 [calendar]: http://iiif.io/community/groups/
-[https://bluejeans.com/753929435]: https://bluejeans.com/753929435
-[international-bluejeans]: https://bluejeans.com/numbers?ll=en
+[https://stanford.zoom.us/j/948530998]: https://stanford.zoom.us/j/948530998
+[international-zoom]: https://zoom.us/zoomconference
 
 {% include acronyms.md %}

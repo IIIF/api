@@ -1,3 +1,6 @@
+- name: 4Science
+  uri:  https://www.4science.it/en/
+  iiifc:
 - name: Art Institute of Chicago
   uri:  http://www.artic.edu/
   iiifc:
@@ -29,7 +32,7 @@
   uri: https://repository.library.brown.edu
   iiifc: 2
 - name: Cambridge University
-  uri:
+  uri: https://www.cam.ac.uk/
   iiifc: 2
 - name: Canadiana.org
   uri: http://canadiana.org
@@ -49,7 +52,7 @@
   uri: http://www.cogapp.com
   iiifc:
 - name: Columbia University
-  uri:
+  uri: http://www.columbia.edu/
   iiifc:
 - name: CONTENTdm
   uri: http://www.oclc.org/en-US/contentdm.html
@@ -73,14 +76,20 @@
   uri: https://www.dur.ac.uk/library/asc/
 - name: e-codices – Virtual Manuscript Library of Switzerland
   uri:  http://www.e-codices.unifr.ch
+- name: École polytechnique fédérale de Lausanne (EPFL)
+  uri: https://www.epfl.ch/index.en.html
+  iiifc: 2
 - name: Europeana
   uri: http://europeana.eu/
+  iiifc: 2
+- name: Folger Shakespeare Library
+  uri: http://www.folger.edu/
   iiifc: 2
 - name: The J. Paul Getty Trust
   uri: http://getty.edu/
   iiifc: 2
 - name: Ghent University
-  uri:
+  uri: https://www.ugent.be/en
   iiifc:
 - name: Gottingen State and University Library
   uri: https://textgrid.de/en/
@@ -94,13 +103,16 @@
 - name: Hill Museum & Manuscript Library (HMML)
   uri: https://www.vhmml.org/
   iiifc:
+- name: Holoscene
+  uri: http://holoscene.io
+  iiifc:
 - name: Huygens ING (KNAW)
   uri: https://www.huygens.knaw.nl/
 - name: Indiana University
-  uri:
+  uri: https://www.iu.edu/
   iiifc: 2
 - name: Internet Archive
-  uri:
+  uri: https://archive.org/index.php
   iiifc:
 - name: Johns Hopkins University
   uri: http://library.jhu.edu
@@ -126,8 +138,10 @@
   iiifc:
 - name: LUNA Imaging
   uri: http://www.lunaimaging.com/blog/2015/12/3/luna-and-iiif-1
+- name: Manuscriptorium - Digital Library of Written Cultural Heritage
+  uri: http://www.manuscriptorium.com/
 - name: Max Planck Institute for European Legal History
-  uri:
+  uri: http://www.rg.mpg.de/en
 - name: MIT Libraries
   uri: http://libraries.mit.edu
   iiifc: 2
@@ -136,22 +150,22 @@
   iiifc:
 - name: National Gallery of Art
   uri: http://www.nga.gov
-  iiifc:
+  iiifc: 2
 - name: National Library of Austria
-  uri:
+  uri: https://www.onb.ac.at/en/
 - name: Nasjonalbiblioteket (National Library of Norway)
-  uri:
+  uri: http://www.nb.no/English
   iiifc: 1
 - name: National Library of Denmark
-  uri:
+  uri: http://www.kb.dk/en/
 - name: National Library of Egypt
-  uri:
+  uri: http://www.darelkotob.gov.eg/index.html
   iiifc:
 - name: National Library of Israel
   uri: http://www.nli.org.il
   iiifc: 2
 - name: National Library of New Zealand
-  uri:
+  uri: https://natlib.govt.nz/
 - name: National Library of Poland
   uri: http://bn.org.pl
   iiifc: 2
@@ -159,19 +173,19 @@
   uri: http://www.nls.uk/
   iiifc: 2
 - name: National Library of Serbia
-  uri:
+  uri: https://www.nb.rs/?change_lang=en
 - name: National Library of Wales
-  uri:
+  uri: https://www.llgc.org.uk/
 - name: Nationalmuseum Sweden
   uri: http://www.nationalmuseum.se
 - name: New York University Libraries
-  uri:
+  uri: http://library.nyu.edu/
   iiifc: 2
 - name: North Carolina State University Libraries
   uri: https://www.lib.ncsu.edu/
   iiifc: 2
 - name: Ohio State University
-  uri:
+  uri: https://www.osu.edu/
   iiifc: 2
 - name: Pennsylvania State University Libraries
   uri: https://libraries.psu.edu/
@@ -179,18 +193,26 @@
 - name: Princeton University Library
   uri: http://library.princeton.edu
   iiifc: 1
+- name: Public Record Office Victoria
+  uri: https://www.prov.vic.gov.au/
 - name: Qatar National Library
   uri: http://www.qnl.qa
 - name: Sirma Group
-  uri:
+  uri: https://sirma.com/
   iiifc:
+- name: Smithsonian Institution
+  uri: https://www.si.edu/
+  iiifc: 2
 - name: "St. Louis University"
-  uri:
+  uri: https://www.slu.edu/
 - name: St. Mary's University
   uri: http://jubilees.stmarytx.edu
 - name: Stanford University
   uri: http://library.stanford.edu/
   iiifc: 1
+- name: State Library of Queensland
+  uri: http://www.slq.qld.gov.au/
+  iiifc:
 - name: Synaptica
   uri: http://www.synaptica.com/
 - name: TextGrid
@@ -202,7 +224,7 @@
 - name: United States Holocaust Memorial Museum
   uri: https://www.ushmm.org/
 - name: Universidad de la Habana, Biblioteca Nacional de Cuba José Martí
-  uri:
+  uri: http://www.bnjm.cu/
 - name: University College Dublin
   uri: http://www.ucd.ie/library/
   iiifc:
@@ -212,6 +234,10 @@
 - name: University of Basel, Digital Humanities Lab
   uri: http://dhlab.unibas.ch/
   iiifc: 2
+- name: University of California, Los Angeles
+  uri: http://www.ucla.edu/
+- name: University of California, Santa Barbara
+  uri: http://www.ucsb.edu/
 - name: University of Edinburgh
   uri: http://www.ed.ac.uk/
   iiifc: 2
@@ -219,10 +245,10 @@
   uri: http://hms.scot/fiddle/copies/
   iiifc:
 - name: University of Hong Kong
-  uri:
+  uri: http://www.hku.hk/
   iiifc: 2
 - name: University of Illinois at Urbana-Champaign
-  uri:
+  uri: http://illinois.edu/
   iiifc:
 - name: University of Michigan
   uri: https://www.lib.umich.edu/digital-library-platform-services-dlps
@@ -231,13 +257,13 @@
   uri: http://library.nd.edu
   iiifc: 2
 - name: University of Oklahoma
-  uri:
+  uri: https://www.ou.edu/
   iiifc: 2
 - name: University of Oxford (Bodleian Library)
   uri: http://www.bodleian.ox.ac.uk
   iiifc: 1
 - name: University of Pennsylvania
-  uri:
+  uri: http://www.upenn.edu/
   iiifc: 2
 - name: University of Tokyo
   uri: http://21dzk.l.u-tokyo.ac.jp/DHI/
@@ -245,6 +271,9 @@
 - name: University of Toronto
   uri: https://library.utoronto.ca
   iiifc: 2
+- name: University of Utah
+  uri: https://lib.utah.edu/
+  iiifc:
 - name: University of Virginia Library
   uri: http://www.library.virginia.edu/
   iiifc:
@@ -254,6 +283,9 @@
 - name: Villanova University
   uri: https://digital.library.villanova.edu/
   iiifc:
+- name: Walter J. Ong, S.J. Center for Digital Humanities at Saint Louis University
+  uri: https://www.slu.edu/center-for-digital-humanities
+  iiifc: 2
 - name: The Walters Art Museum
   uri: http://thewalters.org
   iiifc:
@@ -269,7 +301,7 @@
   uri: http://britishart.yale.edu/
   iiifc: 1
 - name: Yale University
-  uri:
+  uri: https://www.yale.edu/
   iiifc: 1
 - name: Zegami
   uri: https://zegami.com/
