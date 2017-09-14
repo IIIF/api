@@ -1,5 +1,5 @@
 ---
-title: "IIIF Working Groups Meeting - Toronto - 2017"
+title: "IIIF Working Meeting - Toronto - 2017"
 layout: spec
 tags: [event ]
 ---
@@ -30,19 +30,12 @@ Stay tuned to the [IIIF-Discuss][iiif-discuss] email list for announcements and 
 
 ### Lodging
 
-Two hotel blocks with discounted rates are available for October 10-14:
+A hotel block with discounted rates is available for October 10-14:
 
 **Park Hyatt Hotel (4 Avenue Road)**
 
 * $269/night, single/double occupancy
 * Book at this address: <https://aws.passkey.com/go/IIIFMeeting>
-
-**Holiday Inn Bloor Yorkville**
-
-* One Queen bed: $179.99 single/double occupancy
-* Two Double beds: $184.99 single/double occupancy
-* [Instructions for booking][holiday-inn] - use code “IFM” and mention the IIIF Fall Meeting
-* This rate expires _September 10_
 
 ### Schedule
 
@@ -60,9 +53,27 @@ Session descriptions, agendas, and notes are coming soon via Sched - stay tuned 
 
 #### Wednesday, October 11, Afternoon
 
-| Time          | Session            | Presenters                        |
+| Time          | Plenary Session            | Presenters                        |
 |---------------|--------------------|-----------------------------------|
-| 2:00 - 5:30   | Plenary - stay tuned for more details| |
+| 2:00 - 2:15   | Indigenous Welcome| Alex Gillespie (University of Toronto) |
+| 2:15 - 2:20   | Welcome and Logistics | Julia King (University of Toronto) |
+| 2:20 - 2:25   | Community Updates | Sheila Rabun (IIIF) |
+| 2:25 - 2:30   | IIIF Consortium (IIIF-C) Updates | Tom Cramer (Stanford) |
+| 2:30 - 2:40   | IIIF A/V Report | Tom Crane (Digirati) |
+| 2:40 - 2:45   | IIIF A/V at the British Library | Andy Irving (British Library) |
+| 2:45 - 2:50   | IIIF A/V and Avalon Media System | Maria Whitaker (Indiana University) |
+| 2:50 - 3:00   | IIIF Presentation API 3.0 Update | Rob Sanderson (The J. Paul Getty Trust) |
+| 3:00 - 3:05   | Presentation 3.0 work at Stanford | TBD |
+| 3:05 - 3:15   | IIIF Discovery Update | Matt McGrattan (Digirati) |
+| 3:15 - 3:20   | IIIF Text Granularity Update | Peter Binkley (University of Alberta) |
+| 3:20 - 3:25   | IIIF Authentication API Update | Simeon Warner (Cornell) |
+| 3:25 - 3:30   | IIIF Authentication work at Digirati | Tom Crane (Digirati) |
+| 3:30 - 4:00   | _Break_ | _Break_ |
+| 4:00 - 4:05   | IIIF Manuscripts Community Group Update | Rachel Di Cresce (University of Toronto) |
+| 4:05 - 4:10   | IIIF Museums Community Group Update | Michael Appleby (Yale Center for British Art)|
+| 4:10 - 4:15   | IIIF Newspapers Community Group Update | Karen Estlund (Pennsylvania State University) |
+| 4:15 - 4:20   | IIIF Software Developers Community Group Update | Drew Winget (Stanford) |
+| 4:20 - 5:30   | Strategic Road-mapping discussion | Tom Cramer (Stanford)|
 {: .api-table .msched-table}
 
 #### Thursday, October 12
@@ -79,7 +90,7 @@ Session descriptions, agendas, and notes are coming soon via Sched - stay tuned 
 | 4:00 - 5:30   | IIIF Presentation API v. 3.0 continued | Implementers Training Documentation & Curriculum Development | Software Hack Space |
 {: .api-table .msched-table}
 
-#### Friday, October 21
+#### Friday, October 13
 
 | Time          | Blackburn Room       | Room 4022     | Lab 4034     |
 |---------------|---------------|-------------|-------------|
