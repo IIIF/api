@@ -598,7 +598,7 @@ The resources associated with a Canvas via Annotations are given in the `content
 ]}
 ```
 
-##  4. Linked Data Considerations
+##  4. JSON-LD Considerations
 
 This section describes features applicable to all of the Presentation API content.  For the most part, these are features of the JSON-LD specification that have particular uses within the API and recommendations about URIs to use.
 
@@ -757,9 +757,7 @@ The example below includes only the Manifest-level information, however actual i
     "id":"http://example.org/license.html", 
     "type": "Text",
     "format": "text/html"}],
-
   "attribution": {"en": ["Provided by Example Organization"]},
-
   "logo": {
     "id": "http://example.org/logos/institution1.jpg",
     "service": {
@@ -774,6 +772,7 @@ The example below includes only the Manifest-level information, however actual i
   "related": [{
     "id": "http://example.org/videos/video-book1.mpg",
     "type": "Video",
+    "label": {"en":["Video discussing this book"]},
     "format": "video/mpeg"
   }],
   "service": [{
@@ -807,7 +806,7 @@ The example below includes only the Manifest-level information, however actual i
         "label": {"en": ["Current Page Order"]}
         // Sequence's page order should be included here
       }
-      // Any additional Sequences can be included here
+      // Any additional Sequences can be included or linked here
   ],
 
   // structure of the resource, described with Ranges
@@ -880,7 +879,6 @@ Renderers _MUST_ scale content into the space/time represented by the Canvas, fo
 
 Content resources are associated with the Canvas via Web Annotations. The Annotations are recorded in the `items` of one or more AnnotationPages, refered to in the `content` array of the Canvas. If the Annotation should be rendered quickly, in the view of the publisher, then it _SHOULD_ be embedded within the Manifest directly.  Other AnnotationPages can be referenced with just their `id`, `type` and optionally a `label`, and clients _SHOULD_ dereference these pages to discover further content.  Content in this case includes media assets such as images, video and audio, textual transcriptions or editions of the Canvas, as well as commentary about the object represented by the Canvas.  These different uses _MAY_ be split up across different AnnotationPages.
 
-
 __Where should the following paragraph actually live?__
 
 > In a sequence with the `viewingHint` value of "paged" and presented in a book viewing user interface, the first canvas _SHOULD_ be presented by itself -- it is typically either the cover or first recto page. Thereafter, the canvases represent the sides of the leaves, and hence may be presented with two canvases displayed as an opening of the book.  If there are canvases which are in the sequence but would break this ordering, then they _MUST_ have the `viewingHint` property with a value of "non-paged".  Similarly if the first canvas is not a single up, it _MUST_ be marked as "non-paged" or an empty canvas added before it.
@@ -893,6 +891,7 @@ __Where should the following paragraph actually live?__
   "label": {"@none": ["p. 1"]},
   "height": 1000,
   "width": 750,
+  "duration": 180.0,
 
   "content": [
     {
@@ -910,7 +909,7 @@ __Where should the following paragraph actually live?__
 
 Association of images and other content with their respective Canvases is done via Annotations. Traditionally Annotations are used for associating commentary with the resource the Annotation's text or body is about, the [Web Annotation][webanno] model allows any resource to be associated with any other resource, or parts thereof, and it is reused for both commentary and painting resources on the Canvas. Other resources beyond images might include the full text of the object, musical notations, musical performances, diagram transcriptions, commentary annotations, tags, video, data and more.
 
-These Annotations are collected together in AnnotationPage resources, which are included in the `content` list from the Canvas.  Each AnnotationPage can be embedded in its entirety, if the Annotations should be processed as soon as possible when the user navigates to that Canvas, or a reference to an external resource via `id`, `type`, and optionally `label`. All of the Annotations in the AnnotationPage __SHOULD__ have the Canvas as their `target`.
+These Annotations are collected together in AnnotationPage resources, which are included in the `content` list from the Canvas.  Each AnnotationPage can be embedded in its entirety, if the Annotations should be processed as soon as possible when the user navigates to that Canvas, or a reference to an external resource via `id`, `type`, and optionally `label`. All of the Annotations in the AnnotationPage _SHOULD_ have the Canvas as their `target`.
 
 The AnnotationPage _MUST_ have an http(s) URI given in `id`, and the JSON representation _MUST_ be returned when that URI is dereferenced.  They _MAY_ have any of the other fields defined in this specification, or the Web Annotation specification.  The Annotations are listed in an `items` list of the AnnotationPage.
 
@@ -925,27 +924,15 @@ The AnnotationPage _MUST_ have an http(s) URI given in `id`, and the JSON repres
 
   "items": [
     {
-      "id": "",
-      "type": "Annotation",
-      "motivation": "painting",
-      "body":{
-        "id": "http://example.org/iiif/book1/res/music.mp3",
-        "type": "Sound",
-        "format": "audio/mpeg"
-      },
-      "target": "http://example.org/iiif/book1/canvas/p1"
+      "id": "http://example.org/iiif/book1/list/p1/a1",
+      "type": "Annotation"
+      // ...
     },
     {
-      "type": "Annotation",
-      "motivation": "painting",
-      "body": {
-        "id": "http://example.org/iiif/book1/res/tei-text-p1.xml",
-        "type": "Text",
-        "format": "application/tei+xml"
-      },
-      "target": "http://example.org/iiif/book1/canvas/p1"
+      "id": "http://example.org/iiif/book1/list/p1/a2",
+      "type": "Annotation"
+      // ...
     }
-    // ... and so on
   ]
 }
 ```
@@ -998,21 +985,21 @@ __Move the below para to the annotation document__
 
 ###  5.6. Range
 
-It may be important to describe additional structure within an object, such as newspaper articles that span pages, the range of non-content-bearing pages at the beginning of a work, or chapters within a book. These are described using ranges in a similar manner to sequences. Ranges _MUST_ have URIs and they _SHOULD_ be http(s) URIs. The intent of adding a range to the manifest is to allow the client to display a structured hierarchy to enable the user to navigate within the object without merely stepping through the current sequence.  The rationale for separating ranges from sequences is that there is likely to be overlap between different ranges, such as the physical structure of a book compared to the textual structure of the work.  An example would be a newspaper with articles that are continued in different sections, or simply a section that starts half way through a page.
+Ranges are used to describe additional structure within an object, such as newspaper articles that span pages or chapters within a book. Ranges have an `items` list, where each entry is a Canvases, part of a Canvas, or another Range. By including child Ranges, a nested tree structure can be described like a table of contents.
 
-Ranges are linked or embedded within the manifest in a `structures` field.  It is a flat list of objects, even if there is only one range.
+The intent of adding a Range to the Manifest is to allow the client to display a hierarchical navigation interface to enable the user to quickly move through the object's content. Only Ranges with the `label` property and without the "no-nav" `viewingHint` will be presented to the user.
 
-Ranges have three list based properties to express membership:
+Ranges _MUST_ have URIs and they _SHOULD_ be http(s) URIs.  Ranges are linked or embedded within the Manifest in a `structures` field of the Manifest. Ranges then embed or reference other Ranges, Canvases or parts of Canvases in the `items` field.  Each entry in the `items` field _MUST_ be a JSON object, and it _MUST_ have the `id` and `type` properties. 
 
-##### items
-A combined list of both ranges and canvases.  If the range contains both other ranges and canvases, and the ordering of the different types of resource is significant, the range _SHOULD_ instead use the `members` property.  The property's value is an array of canvases, parts of canvases or other ranges.  Each item in the array _MUST_ be an object, and it _MUST_ have the `id`, `type`, and `label` properties.
+All of the Canvases or parts that should be considered as being part of a Range _MUST_ be included within the Range's members, or a descendant Range's members.
+
+The Canvases and parts of Canvases may or may not be contiguous or in the same order as any Sequence.  Examples include newspaper articles that are continued in different sections, or simply a chapter that starts half way through a page. Parts of Canvases _MUST_ be rectangular and are described using the `xywh=` fragment approach.
+
+__Does this really work for fragments? Is part of a canvas a canvas?__
 
 
-A range will typically include one or more canvases or, unlike sequences, parts of canvases. The part must be rectangular, and is given using the `xywh=` fragment approach. This allows for selecting, for example, the areas within two newspaper pages where an article is located.
+Ranges _MAY_ link to an AnnotationCollection that has the content of the Range using the `____` linking property. The referenced AnnotationCollection will contain Annotations that target areas of Canvases within the Range, and provide the content resources.
 
-In order to present a table of the different ranges to allow a user to select one, every range _MUST_ have a label and the top most range in the table _SHOULD_ have a `viewingHint` with the value "top". A range that is the top of a hierarchy does not need to list all of the canvases in the sequence, and _SHOULD_ only give the list of ranges below it.  Ranges _MAY_ also have any of the other properties defined in this specification, including the `startCanvas` relationship to the first canvas within the range to start with, if it is not the first listed in `canvases` or `members`.
-
-Ranges _MAY_ also link to a layer, described in the next section, that has the content of the range using the `contentLayer` linking property. The referenced layer will contain one or more annotation lists, each of which contains annotations that target the areas of canvases within the range, and provide the content resources. This allows, for example, the range representing a newspaper article that is split across multiple pages to be linked with the text of the article. Rendering clients might use this to display all of the article text, regardless of which canvas is being viewed.
 
 ``` json-doc
 {
@@ -1033,7 +1020,6 @@ Ranges _MAY_ also link to a layer, described in the next section, that has the c
       "id": "http://example.org/iiif/book1/range/r0",
       "type": "Range",
       "label": "Table of Contents",
-      "viewingHint": "top",
       "members": [
         {
           "id": "http://example.org/iiif/book1/canvas/cover",
@@ -1044,7 +1030,12 @@ Ranges _MAY_ also link to a layer, described in the next section, that has the c
           "id": "http://example.org/iiif/book1/range/r1",
           "type": "Range",
           "label": "Introduction",
-          "contentLayer": "http://example.org/iiif/book1/layer/introTexts"
+          "contentLayer": "http://example.org/iiif/book1/layer/introTexts",
+          "items": [
+        "http://example.org/iiif/book1/canvas/p1",
+        "http://example.org/iiif/book1/canvas/p2",
+        "http://example.org/iiif/book1/canvas/p3#xywh=0,0,750,300"
+          ]
         },
         {
           "id": "http://example.org/iiif/book1/canvas/backCover",
@@ -1052,23 +1043,6 @@ Ranges _MAY_ also link to a layer, described in the next section, that has the c
           "label": "Back Cover"
         }
       ]
-    },
-    {
-      "id": "http://example.org/iiif/book1/range/r1",
-      "type": "Range",
-      "label": "Introduction",
-      "ranges": ["http://example.org/iiif/book1/range/r1-1"],
-      "canvases": [
-        "http://example.org/iiif/book1/canvas/p1",
-        "http://example.org/iiif/book1/canvas/p2",
-        "http://example.org/iiif/book1/canvas/p3#xywh=0,0,750,300"
-      ]
-    },
-    {
-      "id": "http://example.org/iiif/book1/range/r1-1",
-      "type": "Range",
-      "label": "Objectives and Scope",
-      "canvases": ["http://example.org/iiif/book1/canvas/p2#xywh=0,0,500,500"]
     }
   ]
 }
