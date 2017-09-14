@@ -184,6 +184,9 @@
 - name: North Carolina State University Libraries
   uri: https://www.lib.ncsu.edu/
   iiifc: 2
+- name: OCLC
+  uri: http://www.oclc.org/
+  iiifc: 2
 - name: Ohio State University
   uri: https://www.osu.edu/
   iiifc: 2
@@ -284,7 +287,7 @@
   uri: https://digital.library.villanova.edu/
   iiifc:
 - name: Walter J. Ong, S.J. Center for Digital Humanities at Saint Louis University
-  uri: https://www.slu.edu/center-for-digital-humanities
+  uri: https://github.com/CenterForDigitalHumanities
   iiifc: 2
 - name: The Walters Art Museum
   uri: http://thewalters.org
