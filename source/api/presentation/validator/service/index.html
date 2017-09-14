@@ -14,21 +14,22 @@ This service will validate a IIIF Presentation API resource against the specific
 
 
 <div style="border: 1px solid black;margin-left: 10px; margin-top: 20px; padding: 10px">
-<form method="GET" action="{{ site.url }}{{ site.baseurl }}/api/presentation/validator/service/validate">
+<form id='manifest-validation-form' method="GET" action="{{ site.url }}{{ site.baseurl }}/api/presentation/validator/service/validate">
 
-URL of Manifest to Validate:<br/>
-<input style="margin-left: 25px" type="text" name="url" size="80"><br/>
+                URL of Manifest to Validate:<br/>
+                <input style="margin-left: 25px" type="text" name="url" size="80"><br/>
 
+                Select Presentation API Version:
+                <select name="version">
+                  <option value="2.1">2.1</option>
+                  <option value="2.0">2.0</option>
+                  <option value="1.0">1.0</option>
+                </select>
+                <br/>
 
-Select Presentation API Version:
-<select name="version">
-	<option value="2.0">2.0</option>
-	<option value="1.0">1.0</option>
-</select>
-<br/>
-<input type="hidden" name="format" value="html"><br/>
-<input type="submit" value="Go!">
-</form>
+                <input type="submit" value="Go!" id="submit-url">
+              </form>
+
 </div>
 
 <br/>
@@ -44,5 +45,46 @@ If you would like to use the validator programatically, there are two options:
 	<li>Use it online with JSON based output, by an HTTP GET to this endpoint:<br/>http://iiif.io/api/presentation/validator/service/validate?format=json&amp;version=2.0&amp;url=<i>manifest-url-here</i></li>
 </ul>
 </div>
+    <!-- AJAX code for form submission -->
+    <script type="text/javascript">
+      
+      // Call out to the validation service and get a result
+      function handleSubmission(e) {
+        e.preventDefault();
+        var data = {
+          url: $("input[name='url']").val(),
+          version: $("select[name='version']").val()
+        }
+        var url = $('#manifest-validation-form').attr("action");
+        $.getJSON(url,data,handleValidationResponse);
+      }
+
+      // Handle validation service response, render response block
+      function handleValidationResponse(data) {
+        str  = '<div style="margin-left: 20px">'
+        str += '<div>URL Tested: '+ data.url + '</div><br/>'
+        if (data.okay) {
+          str += '<div><h2 style="color:green">Validated successfully</h2></div>'
+        }
+        else {
+          str += '<div><h2 style="color:red">Validation Error: '+data.error+'</h2></div>'
+        }
+        if (data.warnings.length){
+          str += '<div style="margin-top: 20px">Warnings:<ul>';
+          for(var i =0; i < data.warnings.length; i++) {
+            str+= '<li>'+data.warnings[i]+'</li>';
+          }
+          str += '</ul></div>';
+        }
+       str += '</div>';
+
+       $('#results-content').html(str);
+       $('#results').show();
+      }
+
+      // Set up event handler.
+      $('#submit-url').on("click", handleSubmission);
+    </script>
+ 
 
 </section>
