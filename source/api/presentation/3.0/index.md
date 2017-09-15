@@ -153,7 +153,7 @@ The requirements for which classes have which properties are summarized in [Appe
 
 Other properties are allowed, either via custom extensions or endorsed by IIIF. If a client discovers properties that it does not understand, then it _MUST_ ignore them.  Other properties _SHOULD_ consist of a prefix and a name in the form "`prefix:name`" to ensure it does not collide with a property defined by IIIF specifications.
 
-####  3.1. Descriptive Properties
+###  3.1. Descriptive Properties
 
 ##### label
 A human readable label, name or title for the resource. This property is intended to be displayed as a short, textual surrogate for the resource if a human needs to make a distinction between it and similar resources, for example between pages or between a choice of images to display. 
@@ -161,23 +161,22 @@ A human readable label, name or title for the resource. This property is intende
 The value of the property _MUST_ be a JSON object, as described in the [languages][languages] section.
 
  * A Collection _MUST_ have at least one label.<br/>
-   Clients _MUST_ process label on a Collection. 
+   Clients _MUST_ render label on a Collection. 
  * A Manifest _MUST_ have at least one label.<br/>
-   Clients _MUST_ process label on a Manifest.
+   Clients _MUST_ render label on a Manifest.
  * A Sequence  _MAY_ have one or more labels, and if there are multiple Sequences in a single Manifest then they _MUST_ each have at least one label.<br/>
-   Clients _SHOULD_ support multiple Sequences, and if they do, _MUST_ process label on a Sequence.
+   Clients _SHOULD_ support multiple Sequences, and if they do, _MUST_ render label on a Sequence. Clients _MAY_ render label on a single Sequence.
  * A Canvas _SHOULD_ have at least one label.<br/>
-   Clients _MUST_ process label on a Canvas, and _MUST_ generate a label for Canvases that do not have them.
+   Clients _MUST_ render label on a Canvas, and _MUST_ generate a label for Canvases that do not have them.
  * A content resource _MAY_ have one or more labels, and if there is a choice of content resource for the same Canvas, then they _SHOULD_ each have at least one label.<br/>
-   Clients _MAY_ process label on content resources, and _MUST_ process them when part of a Choice.
+   Clients _MAY_ render label on content resources, and _MUST_ render them when part of a Choice.
  * A Range _SHOULD_ have at least one label. <br/>
-   Clients _MUST_ process label on a Range.
+   Clients _MUST_ render label on a Range.
  * An AnnotationCollection _MUST_ have at least one label.<br/>
-   Clients _MUST_ process label on an AnnotationCollection.
+   Clients _MUST_ render label on an AnnotationCollection.
  * Other resource types _MAY_ have labels.<br/>
-   Clients _MAY_ process label on other resource types.
+   Clients _MAY_ render label on other resource types.
 
-__Example:__
 ``` json-doc
 {"label": {"en": ["Label Value"]}}
 ```
@@ -188,17 +187,16 @@ A list of short descriptive entries, given as pairs of human readable `label` an
 The value of the `metadata` property _MUST_ be an array of objects, where each object has both `label` and `value` properties. The values of both `label` and `value` _MUST_ be JSON objects, as described in the [languages][languages] section.
 
  * A Collection _SHOULD_ have one or more metadata pairs associated with it.<br/>
-   Clients _MUST_ process metadata on a Collection.
+   Clients _MUST_ render metadata on a Collection.
  * A Manifest _SHOULD_ have one or more metadata pairs associated with it.<br/>
-   Clients _MUST_ process metadata on a Manifest.
+   Clients _MUST_ render metadata on a Manifest.
  * A Canvas _MAY_ have one or more metadata pairs associated with it.<br/>
-   Clients _SHOULD_ process metadata on a Canvas.
+   Clients _SHOULD_ render metadata on a Canvas.
  * Other resource types _MAY_ have one or more metadata pairs.<br/>
-   Clients _MAY_ process metadata on other resource types.
+   Clients _MAY_ render metadata on other resource types.
 
 Clients _SHOULD_ display the metadata pairs in the order provided. Clients _SHOULD NOT_ use metadata for indexing and discovery purposes, as there are intentionally no consistent semantics.
 
-__Example:__
 ``` json-doc
 {"metadata": [ {"label": {"en": ["Label"]}, "value": {"en": ["Value"]}} ]}
 ```
@@ -209,15 +207,14 @@ A longer-form prose description of the object or resource that the property is a
 The value of the property _MUST_ be a JSON object, as described in the [languages][languages] section.
 
  * A Collection _SHOULD_ have one or more descriptions.<br/>
-   Clients _SHOULD_ process description on a Collection.
+   Clients _SHOULD_ render description on a Collection.
  * A Manifest _SHOULD_ have one or more descriptions.
-   Clients _SHOULD_ process description on a Manifest.
+   Clients _SHOULD_ render description on a Manifest.
  * A Canvas _MAY_ have one or more descriptions.<br/>
-   Clients _SHOULD_ process description on a Canvas.
+   Clients _SHOULD_ render description on a Canvas.
  * Other resource types _MAY_ have one or more description.<br/>
-   Clients _MAY_ process description on other resource types.
+   Clients _MAY_ render description on other resource types.
 
-__Example:__
 ``` json-doc
 {"description": {"en": ["Description Value"]}}
 ```
@@ -227,14 +224,19 @@ A small content resource that represents the resource that the property is attac
 
 The value _MUST_ be a JSON array, with each item in the array being a JSON object that _MUST_ have an `id` property and _SHOULD_ have at least one of `type` and `format`.
 
- * A Collection _SHOULD_ have exactly one thumbnail resource, and _MAY_ have more than one.
- * A Manifest _SHOULD_ have exactly one thumbnail resource, and _MAY_ have more than one.
- * A Sequence _MAY_ have one or more thumbnails and _SHOULD_ have at least one thumbnail if there are multiple Sequences in a single Manifest.
- * A Canvas _MAY_ have one or more thumbnails and _SHOULD_ have at least one thumbnail if there are multiple resources that make up the representation.
- * A content resource _MAY_ have one or more thumbnails and _SHOULD_ have at least one thumbnail if it is an option in a choice of resources.
- * Other resource types _MAY_ have one or more thumbnails.
+ * A Collection _SHOULD_ have exactly one thumbnail resource, and _MAY_ have more than one.<br/>
+   Clients _SHOULD_ render thumbnail on a Collection.
+ * A Manifest _SHOULD_ have exactly one thumbnail resource, and _MAY_ have more than one.<br/>
+   Clients _SHOULD_ render thumbnail on a Manifest.
+ * A Sequence _MAY_ have one or more thumbnails and _SHOULD_ have at least one thumbnail if there are multiple Sequences in a single Manifest.<br/>
+   Clients _SHOULD_ render thumbnail on a Sequence.
+ * A Canvas _MAY_ have one or more thumbnails and _SHOULD_ have at least one thumbnail if there are multiple resources that make up the representation.<br/>
+   Clients _SHOULD_ render thumbnail on a Canvas.
+ * A content resource _MAY_ have one or more thumbnails and _SHOULD_ have at least one thumbnail if it is an option in a choice of resources.<br/>
+   Clients _SHOULD_ render thumbnail on a content resource.
+ * Other resource types _MAY_ have one or more thumbnails.<br/>
+   Clients _MAY_ render thumbnail on other resource types.
 
-__Example:__
 ``` json-doc
 {"thumbnail": [{"id": "https://example.org/img/thumb.jpg", "type": "Image"}]}
 ```
@@ -242,23 +244,26 @@ __Example:__
 ##### navDate
 A date that the client can use for navigation purposes when presenting the resource to the user in a time-based user interface, such as a calendar or timeline.  The value _MUST_ be an `xsd:dateTime` literal in UTC, expressed in the form "YYYY-MM-DDThh:mm:ssZ".  If the exact time is not known, then "00:00:00" _SHOULD_ be used. Similarly, the month or day _SHOULD_ be 01 if not known.  There _MUST_ be at most one `navDate` associated with any given resource.  More descriptive date ranges, intended for display directly to the user, _SHOULD_ be included in the `metadata` property for human consumption.  
 
- * A Collection or Manifest _MAY_ have exactly one navigation date associated with it.
- * Other resource types _MUST NOT_ have navigation dates.
+ * A Collection or Manifest _MAY_ have exactly one navigation date associated with it.<br/>
+   Clients _MAY_ render navDate on Collections or Manifests.
+ * Other resource types _MUST NOT_ have navigation dates.<br/>
+   Clients _SHOULD_ ignore navDate on other resource types.
 
 ``` json-doc
 {"navDate": "2010-01-01T00:00:00Z"}
 ```
 
-####  3.2. Rights and Licensing Properties
+###  3.2. Rights and Licensing Properties
 
-__WHERE DO CLIENT REQUIREMENTS LIVE?__
-
-The following properties ensure that the interests of the owning or publishing institutions are conveyed regardless of the viewing environment, and a client _MUST_ make these properties clearly available to the user. Given the wide variation of potential client user interfaces, it will not always be possible to display all or any of the properties to the user in the client's initial state. If initially hidden, the method of revealing them _MUST_ be obvious, such as a button or scroll bar.
+The following properties ensure that the interests of the owning or publishing institutions are conveyed regardless of the viewing environment. Given the wide variation of potential client user interfaces, it will not always be possible to display all or any of the properties to the user in the client's initial state. If initially hidden, the method of revealing them _MUST_ be obvious, such as a button or scroll bar.
 
 ##### attribution
-Text that _MUST_ be shown when the resource it is associated with is displayed or used. For example, this could be used to present copyright or ownership statements, or simply an acknowledgement of the owning and/or publishing institution. The value of the property _MUST_ be a JSON object, as described in the [languages][languages] section.
+Text that must be displayed when the resource it is associated with is displayed or used. For example, this could be used to present copyright or ownership statements, or simply an acknowledgement of the owning and/or publishing institution. 
 
- * Any resource type _MAY_ have one or more attribution labels.
+The value of the property _MUST_ be a JSON object, as described in the [languages][languages] section.
+
+ * Any resource type _MAY_ have one or more attribution labels.<br/>
+   Clients _MUST_ render attribution on every resource type.
 
 ``` json-doc
 {"attribution": {"en": ["Attribution Text"]}}
@@ -266,38 +271,55 @@ Text that _MUST_ be shown when the resource it is associated with is displayed o
 
 ##### rights 
 
-A link to an external resource that describes the license or rights statement under which the resource may be used. The rationale for this being a URI and not a human readable label is that typically there is one license for many resources, and the text is too long to be displayed to the user along with the object. If displaying the text is a requirement, then it is _RECOMMENDED_ to include the information using the `attribution` property instead or in metadata. The value _MUST_ be an array of JSON objects, each of which _MUST_ have an `id` and _SHOULD_ have at least one of `type` and `format`.
+A link to an external resource that describes the license or rights statement under which the resource may be used. The rationale for this being a URI and not a human readable label is that typically there is one license for many resources, and the text is too long to be displayed to the user along with the object. If displaying the text is a requirement, then it is _RECOMMENDED_ to include the information using the `attribution` property instead or in `metadata`. 
 
- * Any resource type _MAY_ have one or more rights statements or licenses associated with it.
+The value _MUST_ be an array of JSON objects, each of which _MUST_ have an `id` and _SHOULD_ have at least one of `type` and `format`.
+
+ * Any resource type _MAY_ have one or more rights statements or licenses associated with it.<br/>
+   Clients _MUST_ render rights on every resource type.
 
 ``` json-doc
 {"rights": [{"id": "http://example.org/rights/copyright.html", "format": "text/html"}]}
 ```
 
 ##### logo
-A small image that represents an individual or organization associated with the resource it is attached to.  This could be the logo of the owning or hosting institution. The logo _MUST_ be clearly rendered when the resource is displayed or used, without cropping, rotating or otherwise distorting the image. It is _RECOMMENDED_ that a [IIIF Image API][image-api] service be available for this image for other manipulations such as resizing. The value _MUST_ be an array of JSON objects, each of which _MUST_ have an `id` and _SHOULD_ have at least one of `type` and `format`.
+A small image that represents an individual or organization associated with the resource it is attached to.  This could be the logo of the owning or hosting institution. The logo _MUST_ be clearly rendered when the resource is displayed or used, without cropping, rotating or otherwise distorting the image. It is _RECOMMENDED_ that a [IIIF Image API][image-api] service be available for this image for other manipulations such as resizing. 
 
- * Any resource type _MAY_ have one or more logos associated with it.
+The value _MUST_ be an array of JSON objects, each of which _MUST_ have an `id` and _SHOULD_ have at least one of `type` and `format`.
+
+ * Any resource type _MAY_ have one or more logos associated with it.<br/>
+   Clients _MUST_ render logo on every resource type.
 
 ``` json-doc
 {"logo": [{"id": "https://example.org/img/logo.jpg", "type": "Image"}]}
 ```
 
-####  3.3. Technical Properties
+###  3.3. Technical Properties
 
 ##### id
 
-The URI that identifies the resource. It is _RECOMMENDED_ that an HTTPS URI be used for all resources. The value _MUST_ be a string.
+The URI that identifies the resource. It is _RECOMMENDED_ that an HTTPS URI be used for all resources. 
 
- * A Collection _MUST_ have exactly one id, and it _MUST_ be the http(s) URI at which it is published.
- * A Manifest _MUST_ have exactly one id, and it _MUST_ be the http(s) URI at which it is published.
- * A Sequence _MAY_ have an id and _MUST NOT_ have more than one.
- * A Canvas _MUST_ have exactly one id, and it _MUST_ be an http(s) URI.  The Canvas's JSON representation _MAY_ be published at that URI.
- * A content resource _MUST_ have exactly one id, and it _MUST_ be the http(s) URI at which the resource is published.
- * A Range _MUST_ have exactly one id, and it _MUST_ be an http(s) URI.
+The value _MUST_ be a string.
+
+ * A Collection _MUST_ have exactly one id, and it _MUST_ be the http(s) URI at which it is published.<br/>
+   Clients _SHOULD_ render id on a Collection.
+ * A Manifest _MUST_ have exactly one id, and it _MUST_ be the http(s) URI at which it is published.<br/>
+   Clients _SHOULD_ render id on a Manifest.
+ * A Sequence _MAY_ have an id and _MUST NOT_ have more than one.<br/>
+   Clients _MAY_ render id on a Sequence.
+ * A Canvas _MUST_ have exactly one id, and it _MUST_ be an http(s) URI.  The Canvas's JSON representation _MAY_ be published at that URI.<br/>
+   Clients _SHOULD_ render id on a Canvas.
+ * A content resource _MUST_ have exactly one id, and it _MUST_ be the http(s) URI at which the resource is published.<br/>
+   Clients _MAY_ render id on content resources.
+ * A Range _MUST_ have exactly one id, and it _MUST_ be an http(s) URI.<br/>
+   Clients _MAY_ render id on a Range.
  * An AnnotationCollection _MUST_ have exactly one id, and it _MUST_ be an http(s) URI.
- * An AnnotationPage _MUST_ have exactly one id, and it _MUST_ be the http(s) URI at which it is published.
- * An Annotation _MUST_ have exactly one id, and the Annotation's representation _SHOULD_ be published at that URI. 
+   Clients _MAY_ render id on an AnnotationCollection.
+ * An AnnotationPage _MUST_ have exactly one id, and it _MUST_ be the http(s) URI at which it is published.<br/>
+   Clients _MAY_ render id on an AnnotationPage.
+ * An Annotation _MUST_ have exactly one id, and the Annotation's representation _SHOULD_ be published at that URI.<br/>
+   Clients _MAY_ render id on an Annotation.
 
 ``` json-doc
 {"id": "https://example.org/iiif/1/manifest"}
@@ -305,19 +327,26 @@ The URI that identifies the resource. It is _RECOMMENDED_ that an HTTPS URI be u
 
 ##### type
 
-The type of the resource.  For the resource types defined by this specification, the value of `type` will be described in the sections below.  For content resources, the type are drawn from other vocabularies. Recommendations for basic types such as image, text or audio are also given in the sections below. The value _MUST_ be a string.
+The type of the resource.  For the resource types defined by this specification, the value of `type` will be described in the sections below.  For content resources, the type are drawn from other vocabularies. Recommendations for basic types such as image, text or audio are also given in the sections below. 
 
- * All resource types _MUST_ have exactly one type specified.
+The value _MUST_ be a string.
+
+ * All resource types _MUST_ have exactly one type specified.<br/>
+   Clients _MAY_ render type on any resource type.
 
 ``` json-doc
 {"type": "Image"}
 ```
 
 ##### format
-The specific media type (often called a MIME type) of a content resource, for example "image/jpeg". This is important for distinguishing text in XML from plain text, for example. The value _MUST_ be a string.
+The specific media type (often called a MIME type) of a content resource, for example "image/jpeg". This is important for distinguishing text in XML from plain text, for example. 
 
- * A content resource _MAY_ have exactly one format, and if so, it _MUST_ be the value of the `Content-Type` header returned when the resource is dereferenced.
+The value _MUST_ be a string.
+
+ * A content resource _MAY_ have exactly one format, and if so, it _SHOULD_ be the value of the `Content-Type` header returned when the resource is dereferenced.<br/>
+   Clients _MAY_ render the format of any content resource.
  * Other resource types _MUST NOT_ have a format.
+   Clients _SHOULD_ ignore format on other resource types.
 
 Note that this is different to the `formats` property in the [Image API][image-api], which gives the extension to use within that API.  It would be inappropriate to use in this case, as `format` can be used with any content resource, not just images.
 
@@ -326,45 +355,68 @@ Note that this is different to the `formats` property in the [Image API][image-a
 ```
 
 ##### height
-The height of a Canvas or content resource. For content resources, the value is in pixels. For Canvases, the value does not have a unit. In combination with the width, it conveys an aspect ratio for the space in which content resources are located. The value _MUST_ be either an integer or a float.
+The height of a Canvas or content resource. For content resources, the value is in pixels. For Canvases, the value does not have a unit. In combination with the width, it conveys an aspect ratio for the space in which content resources are located. 
 
- * A Canvas _SHOULD_ have exactly one height, and _MUST NOT_ have more than one. If it has a height, it _MUST_ also have a width.
- * Content resources _MAY_ have exactly one height, given in pixels, if appropriate.
- * Other resource types _MUST NOT_ have a height.
+The value _MUST_ be a non-negative integer or floating point number.
+
+ * A Canvas _SHOULD_ have exactly one height, and _MUST NOT_ have more than one. If it has a height, it _MUST_ also have a width.<br/>
+   Clients _MUST_ process, and _MAY_ render, height on a Canvas.
+ * Content resources _MAY_ have exactly one height, given in pixels, if appropriate.<br/>
+   Clients _SHOULD_ process, and _MAY_ render, height on content resources.
+ * Other resource types _MUST NOT_ have a height.<br/>
+   Cliens _SHOULD_ ignore height on other resource types.
 
 ``` json-doc
 {"height": 1800}
 ```
 
 ##### width
-The width of a Canvas or content resource. For content resources, the value is in pixels. For Canvases, the value does not have a unit. In combination with the height, it conveys an aspect ratio for the space in which content resources are located. The value _MUST_ be either an integer or a float.
+The width of a Canvas or content resource. For content resources, the value is in pixels. For Canvases, the value does not have a unit. In combination with the height, it conveys an aspect ratio for the space in which content resources are located. 
 
- * A Canvas _SHOULD_ have exactly one width, and _MUST NOT_ have more than one. If it has a width, it _MUST_ also have a height.
- * Content resources _MAY_ have exactly one width, given in pixels, if appropriate.
- * Other resource types _MUST NOT_ have a width.
+The value _MUST_ be a non-negative integer or floating point number.
+
+ * A Canvas _SHOULD_ have exactly one width, and _MUST NOT_ have more than one. If it has a width, it _MUST_ also have a height.<br/>
+   Clients _MUST_ process, and _MAY_ render, width on a Canvas.
+ * Content resources _MAY_ have exactly one width, given in pixels, if appropriate.<br/>
+   Clients _SHOULD_ process, and _MAY_ render, width on content resources.
+ * Other resource types _MUST NOT_ have a width.<br/>
+   Clients _SHOULD_ ignore width on other resource types.
 
 ``` json-doc
 {"width": 1200}
 ```
 
 ##### duration
-The duration of a Canvas or content resource, given in seconds.  The value _MUST_ be a non-negative floating point number. 
+The duration of a Canvas or content resource, given in seconds.  
 
- * A Canvas _MAY_ have exactly one duration, and _MUST NOT_ have more than one.
- * Content resources _MAY_ have exactly one duration, and _MUST NOT_ have more than one.
- * Other resource types _MUST NOT_ have a duration.
+The value _MUST_ be a non-negative floating point number. 
+
+ * A Canvas _MAY_ have exactly one duration, and _MUST NOT_ have more than one.<br/>
+   Clients _MUST_ process, and _MAY_ render, duration on a Canvas.
+ * Content resources _MAY_ have exactly one duration, and _MUST NOT_ have more than one.<br/>
+   Clients _SHOULD_ process, and _MAY_ render, duration on content resources.
+ * Other resource types _MUST NOT_ have a duration.<br/>
+   Clients _SHOULD_ ignore duration on other resource types.
 
 ``` json-doc
 {"duration": 125.0}
 ```
 
 ##### viewingDirection
-The direction that a set of Canvases _SHOULD_ be displayed to the user. This specification defines four viewing direction values in the table below. Other values _MAY_ also be used, and they _MUST_ be full URIs. The value _MUST_ be a string.
+The direction that a set of Canvases _SHOULD_ be displayed to the user. This specification defines four viewing direction values in the table below. Others may be defined externally and given as a full URI.
 
- * A Manifest _MAY_ have exactly one viewing direction, and if so, it applies to all of its sequences unless the sequence specifies its own viewing direction.
- * A Sequence _MAY_ have exactly one viewing direction.
- * A Range _MAY_ have exactly one viewing direction.
- * Other resource types _MUST NOT_ have a viewing direction.
+The value _MUST_ be a string, taken from the table below or a full URI.
+
+ * A Collection _MAY_ have exactly one viewing direction, and if so, it applies to the order in which its members are rendered.<br/>
+   Clients _SHOULD_ process viewingDirection on a Collection.
+ * A Manifest _MAY_ have exactly one viewing direction, and if so, it applies to all of its sequences unless the sequence specifies its own viewing direction.<br/>
+   Clients _SHOULD_ process viewingDirection on a Manifest.
+ * A Sequence _MAY_ have exactly one viewing direction.<br/>
+   Clients _SHOULD_ process viewingDirection on a Sequence.
+ * A Range _MAY_ have exactly one viewing direction.<br/>
+   Clients _MAY_ process viewingDirection on a Range.
+ * Other resource types _MUST NOT_ have a viewing direction.<br/>
+   Clients _SHOULD_ ignore viewingDirection on other resource types.
 
 > | Value | Description |
 | ----- | ----------- |
@@ -379,9 +431,12 @@ The direction that a set of Canvases _SHOULD_ be displayed to the user. This spe
 ```
 
 ##### viewingHint
-A hint to the client as to the most appropriate method of displaying the resource. This specification defines the values specified in the table below. Other values _MAY_ be given, and if they are, they _MUST_ be URIs. The value _MUST_ be an array of strings.
+A hint to the client as to the most appropriate method of displaying the resource. This specification defines the values specified in the table below. Others may be defined externally, and would be given as a full URI.
 
- * Any resource type _MAY_ have one or more viewing hints.
+The value _MUST_ be an array of strings, taken from the table below or a full URI.
+
+ * Any resource type _MAY_ have one or more viewing hints.<br/>
+   Clients _SHOULD_ process viewingHint on any resource where it is valid, unless otherwise stated in the table below (e.g. `non-paged`, `facing-pages`).
 
 > | Value | Description |
 | ----- | ----------- |
@@ -390,9 +445,8 @@ A hint to the client as to the most appropriate method of displaying the resourc
 | `continuous` | Valid on Manifest, Sequence and Range.  A Canvas with this `viewingHint` is a partial view and an appropriate rendering might display either the Canvases individually, or all of the Canvases virtually stitched together in the display.  Examples when this would be appropriate include long scrolls, rolls, or objects designed to be displayed adjacent to each other.  If this `viewingHint` is present, then the resource _MUST_ also have a `viewingDirection` which will determine the arrangement of the canvases. Note that this does not allow for both sides of a scroll to be included in the same Manifest with this `viewingHint`.  To accomplish that, the Manifest should be "individuals" and have two Ranges, one for each side, which are "continuous".  |
 | `multi-part` | Valid only for Collection. Collections with this `viewingHint` consist of multiple Manifests that each form part of a logical whole. Clients might render the Collection as a table of contents, rather than with thumbnails. Examples include multi-volume books or a set of journal issues or other serials. |
 | `non-paged` | Valid only for Canvas. Canvases with this `viewingHint` _MUST NOT_ be presented in a page turning interface, and _MUST_ be skipped over when determining the page sequence. This viewing hint _MUST_ be ignored if the current Sequence or Manifest does not have the 'paged' viewing hint. |
-| `top` | Valid on Collection and Range. A Collection or Range with this `viewingHint` is the top-most node in a hierarchy that represents a structure to be rendered by the client to assist in navigation. For example, a table of contents within a paged object, major sections of a 3d object, the textual areas within a single scroll, and so forth.  Other Ranges that are descendants of the "top" Range are the entries to be rendered in the navigation structure.  There _MAY_ be multiple Ranges marked with this hint. If so, the client _SHOULD_ display a choice of multiple structures to navigate through. |
 | `facing-pages` | Valid only for Canvas. Canvases with this `viewingHint`, in a Sequence or Manifest with the "paged" viewing hint, _MUST_ be displayed by themselves, as they depict both parts of the opening.  If all of the Canvases are like this, then page turning is not possible, so simply use "individuals" instead. |
-| `none` | Valid on AnnotationCollection, AnnotationPage, Annotation, SpecificResource and Choice. If this hint is provided, then the client should not render the resource by default, but allow the user to turn it on and off.|
+| `none` | Valid on AnnotationCollection, AnnotationPage, Annotation, SpecificResource and Choice. If this hint is provided, then the client _SHOULD NOT_ render the resource by default, but allow the user to turn it on and off.|
 | `auto-advance` | Valid on Collection, Manifest, Sequence and Canvas. When the client reaches the end of a Canvas with a duration dimension that has (or is within a resource that has) this `viewingHint`, it _SHOULD_ immediately proceed to the next Canvas and render it. If there is no subsequent Canvas in the current context, then this `viewingHint` should be ignored. When applied to a Collection, the client should treat the first Canvas of the next Manifest as following the last Canvas of the previous Manifest, respecting any `startCanvas` specified.|
 | `together` | Valid only for Collection. A client _SHOULD_ present all of the child Manifests to the user at once in a separate viewing area with its own controls. Clients _SHOULD_ catch attempts to create too many viewing areas. The `together` value _SHOULD NOT_ be interpreted as applying to the members any child resources.|
 {: .api-table}
@@ -403,9 +457,12 @@ A hint to the client as to the most appropriate method of displaying the resourc
 
 ##### choiceHint
 
-A hint associated with a Choice resource that a client can use to determine the publisher's intent as to which agent _SHOULD_ make the choice between the different options.  In the absence of any `choiceHint` value, the rendering application can use any algorithm or process to make the determination.  This specification defines the two values specified in the table below. Other hints _MAY_ be given, and if they are, they _MUST_ be URIs. The value _MUST_ be a string.
+A hint associated with a Choice resource that a client can use to determine the publisher's intent as to which agent _SHOULD_ make the choice between the different options.  In the absence of any `choiceHint` value, the rendering application can use any algorithm or process to make the determination.  This specification defines the two values specified in the table below. Others may be defined externally, and would be given as a full URI.
 
-* A Choice _MAY_ have exactly one `choiceHint`.
+The value _MUST_ be a string, taken from the table below or a full URI.
+
+* A Choice _MAY_ have exactly one `choiceHint`.<br/>
+  Clients _SHOULD_ process choiceHint on Choice.
 
 > | Value | Description |
 | ----- | ----------- |
@@ -418,9 +475,12 @@ A hint associated with a Choice resource that a client can use to determine the 
 
 ##### timeMode
 
-A mode associated with an Annotation that is to be applied to the rendering of any time-based media, or otherwise could be considered to have a duration, used as a body resource of that Annotation. Note that the association of `timeMode` with the Annotation means that different resources in the body cannot have different values. This specification defines the values specified in the table below. Other modes _MAY_ be given, and if they are, they _MUST_ be URIs. The value _MUST_ be a string.
+A mode associated with an Annotation that is to be applied to the rendering of any time-based media, or otherwise could be considered to have a duration, used as a body resource of that Annotation. Note that the association of `timeMode` with the Annotation means that different resources in the body cannot have different values. This specification defines the values specified in the table below. Others may be defined externally, and would be given as a full URI.
 
-* An Annotation _MAY_ have exactly one `timeMode` property.
+The value _MUST_ be a string, taken from the table below or a full URI.
+
+* An Annotation _MAY_ have exactly one `timeMode` property.<br/>
+  Clients _SHOULD_ process timeMode on an Annotation.
 
 > | Value | Description |
 | ----- | ----------- |
@@ -432,79 +492,108 @@ A mode associated with an Annotation that is to be applied to the rendering of a
 {"timeMode": "trim"}
 ```
 
-####  3.4. Linking Properties
+###  3.4. Linking Properties
+
+#### 3.4.1 External Links
 
 ##### related
-A link to an external resource that is about the IIIF resource. The external resource _MUST_ be able to be displayed directly to the user. Examples might include a video or academic paper about the resource, a website, an HTML description, and so forth. A label and the format of the related resource _MUST_ be supplied to assist clients in rendering the link or resource.
+A link to an external resource that is about the IIIF resource. The external resource _MUST_ be able to be displayed directly to the user. Examples might include a video or academic paper about the resource, a website, an HTML description, and so forth. 
 
- * Any resource type _MAY_ have one or more external resources related to it.
+The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id`, `type` and `label` properties, and _SHOULD_ have a `format` property.
+
+ * Any resource type _MAY_ have one or more external resources related to it.<br/>
+   Clients _SHOULD_ render related on a Collection, Manifest or Canvas, and _MAY_ render related on other resource types.
 
 ``` json-doc
-{"related": [{"id": "https://example.com/info/", "format": "text/html"}]}
+{"related": [{"id": "https://example.com/info/", "type": "Text", format": "text/html"}]}
 ```
 
 ##### rendering
-A link to an external resource that is an alternative, non-IIIF representation of the IIIF resource. The external resource _MUST_ be able to be displayed directly to a human user. Examples might include the preferred viewing environment for the IIIF resource, such as a viewer page on the publisher's web site. Other uses include a rendering of a manifest as a PDF or EPUB with the images and text of the book, or a slide deck with images of the museum object. A label and the format of the rendering resource _MUST_ be supplied to assist clients in rendering the link or resource.
+A link to an external resource that is an alternative, non-IIIF representation of the IIIF resource. The external resource _MUST_ be able to be displayed directly to a human user. Examples might include the preferred viewing environment for the IIIF resource, such as a viewer page on the publisher's web site. Other uses include a rendering of a manifest as a PDF or EPUB with the images and text of the book, or a slide deck with images of the museum object. 
 
- * Any resource type _MAY_ have one or more external rendering resources.
+The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id`, `type` and `label` properties, and _SHOULD_ have a `format` property.
+
+ * Any resource type _MAY_ have one or more external rendering resources.<br/>
+   Clients _SHOULD_ render `rendering` on a Collection, Manifest or Canvas, and _MAY_ render `rendering` on other resource types.
 
 ``` json-doc
-{"rendering": [{"id": "https://example.org/1.pdf", "format": "application/pdf"}]}
+{"rendering": [{"id": "https://example.org/1.pdf", "type": "Text", format": "application/pdf"}]}
 ```
 
 ##### service
-A link to a service that makes more functionality available for the resource, such as from an image to the base URI of an associated [IIIF Image API][image-api] service. The service resource _SHOULD_ have additional information associated with it in order to allow the client to determine how to make appropriate use of it, such as a `profile` link to a service description. Please see the [Service Profiles][annex] document for currently known service types.
+A link to a service that makes more functionality available for the resource, such as from an image to the base URI of an associated [IIIF Image API][image-api] service. The service resource _SHOULD_ have additional information associated with it in order to allow the client to determine how to make appropriate use of it. Please see the [Service Profiles][annex] document for currently known service types.
 
- * Any resource type _MAY_ have one or more links to an external service.
+The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `label` and `profile` properties.
+
+ * Any resource type _MAY_ have one or more links to an external service.<br/>
+   Clients _MAY_ process service on any resource type, and _SHOULD_ process the IIIF Image API service.
 
 ``` json-doc
 {"service": [
   {"id": "https://example.org/service", 
+   "type": "Service",
    "profile": ["http://example.org/docs/service"]
   }]
 }
 ```
 
 ##### seeAlso
-A link to a machine readable document that semantically describes the resource with the `seeAlso` property, such as an XML or RDF description.  This document could be used for search and discovery or inferencing purposes, or just to provide a longer description of the resource. The `profile` and `format` properties of the document _SHOULD_ be given to help the client select between multiple descriptions (if provided), and to make appropriate use of the document.
+A link to a machine readable document that semantically describes the resource with the `seeAlso` property, such as an XML or RDF description.  This document could be used for search and discovery or inferencing purposes, or just to provide a longer description of the resource. Properties of the document should be given to help the client select between multiple descriptions (if provided), and to make appropriate use of the document.
 
- * Any resource type _MAY_ have one or more external descriptions related to it.
+The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `label`, `format` and `profile` properties.
+
+ * Any resource type _MAY_ have one or more external descriptions related to it.<br/>
+   Clients _MAY_ process seeAlso on any resource type.
 
 ``` json-doc
-{"rendering": [{"id": "https://example.org/1.xml", "format": "text/xml"}]}
+{"rendering": [{"id": "https://example.org/1.xml", "type": "Text", format": "text/xml"}]}
 ```
 
-##### within
-A link to a resource that contains the current resource, such as a Manifest within a Collection. 
+#### 3.4.2. Internal Links
 
- * Collections or AnnotationPages that serve as [pages][paging] _MUST_ be within exactly one paged resource.
- * Other resource types, including Collections or AnnotationPages not serving as pages, _MAY_ be within one or more containing resources.
+##### within
+A link to another resource that contains the current resource, such as a Manifest within a Collection. 
+
+The value _MUST_ be an array of JSON objects.  Each object _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `label` property.
+
+ * Collections or AnnotationPages that serve as [pages][paging] _MUST_ be within exactly one paged resource.<br/>
+   Clients _SHOULD_ render within on a Collection or AnnotationPage.
+ * Other resource types, including Collections or AnnotationPages not serving as pages, _MAY_ be within one or more containing resources.<br/>
+   Clients _MAY_ render within on other resource types.
 
 ``` json-doc
 {"within": [{"id": "https://example.org/iiif/1", "type": "Manifest"}]}
 ```
 
 ##### startCanvas
-A link from a Sequence or Range to a Canvas that is contained within it.  The value of `startCanvas` _MUST_ be a string containing the URI of the Canvas.  On seeing this relationship, a client _SHOULD_ advance to the specified Canvas when beginning navigation through the Sequence/Range.  This allows the client to begin with the first Canvas that contains interesting content rather than requiring the user to skip past blank or empty Canvases manually.  The Canvas _MUST_ be included in the first Sequence embedded within the Manifest.
+A link from a Sequence or Range to a Canvas that is contained within it. On seeing this relationship, a client _SHOULD_ advance to the specified Canvas when beginning navigation through the Sequence/Range.  This allows the client to begin with the first Canvas that contains interesting content rather than requiring the user to skip past blank or empty Canvases manually.  The Canvas _MUST_ be included in the first Sequence embedded within the Manifest.
+
+The value _MUST_ be a string.
 
  * A Sequence or Range _MAY_ have exactly one Canvas as its starting Canvas.
+   Clients _SHOULD_ process startCanvas on a Sequence or Range.
  * Other resource types _MUST NOT_ have a starting Canvas.
+   Clients _SHOULD_ ignore startCanvas on other resource types.
 
 ``` json-doc
 {"startCanvas": "https://example.org/iiif/1/canvas/1"}
 ```
 
 ##### contentAnnotations
-A link from a Range to an AnnotationCollection that includes the Annotations of content resources for that Range.  The value of `contentAnnotations` _MUST_ be a string containing the URI of the AnnotationCollection. Clients might use this to present content to the user from a different Canvas when interacting with the Range, or to jump to the next part of the Range within the same Canvas.  
+A link from a Range to an AnnotationCollection that includes the Annotations of content resources for that Range.  Clients might use this to present content to the user from a different Canvas when interacting with the Range, or to jump to the next part of the Range within the same Canvas.  
 
- * A Range _MAY_ have exactly one AnnotationCollection as its content.
- * Other resource types _MUST NOT_ have `contentAnnotations`.
+The value _MUST_ be a string.
+
+ * A Range _MAY_ have exactly one AnnotationCollection as its content.<br/>
+   Clients _MAY_ process contentAnnotations on a Range.
+ * Other resource types _MUST NOT_ have `contentAnnotations`.<br/>
+   Clients _SHOULD_ ignore contentAnnotations on other resource types.
 
 ``` json-doc
 {"contentAnnotations": "https://example.org/iiif/1/annos/1"}
 ```
 
-####  3.5. Paging Properties
+###  3.5. Paging Properties
 
 ##### first
 A link from a resource with pages, such as a Collection or AnnotationCollection, to its first page resource, another Collection or an AnnotationPage respectively. The page resource _MUST_ be referenced as an object with at least `id` and `type` properties.
@@ -572,7 +661,7 @@ The 0 based index of the first included resource in the current page, relative t
 {"startIndex": 300}
 ```
 
-#### 3.6. Structural Properties
+### 3.6. Structural Properties
 
 These properties define the structure of the object being represented in IIIF by allowing the inclusion of child resources within parents, such as a Canvas within a Sequence, or a Manifest within a Collection.  The majority of cases use `items`, however there are two special cases for different sorts of structures.
 
