@@ -52,7 +52,7 @@ In order to be considered ready for final review, new features must have two ope
 
 ### 2.4 Community Review
 
-New versions of specifications at or above 1.0 must be reviewed at an open meeting, to which the community is invited. These meetings will be announced on [IIIF-Discuss][iiif-discuss], [IIIF-Announce][iiif-announce] and other relevant community email lists. Such meetings must occur at least once per year, and should occur twice. The specifications will be frozen for at least two weeks prior to all review meetings, and this review period will be announced to the same lists as above.
+New versions of specifications at or above 1.0 must be reviewed at an open meeting, to which the community is invited. These meetings will be announced on [IIIF-Discuss][iiif-discuss], [IIIF-Announce][iiif-announce] and other relevant community email lists. Such meetings must occur at least once per year, and should occur twice. The specifications will be frozen for at least two weeks prior to all review meetings, and this review period will be announced to the same lists as above. For patch level releases, that only make clarifications, a community call (or series of calls) is considered a sufficient venue for a review meeting.
 
 Proposed revisions to specifications must reference a change log as a means to help the community review the changes. This change log should differentiate between backwards compatible changes and breaking changes, and provide a brief summary of each change. See the [Image API 2.0 Change Log][image-20-changelog] for an example.
 
@@ -64,7 +64,7 @@ The editors shall ensure that there is a response to, and, where possible, resol
 
 No specification is perfect. New use cases surface, and refinements and clarifications need to be made. As such, specifications are generally considered to be under continuous revision. The editors will decide when new releases are proposed for review based on input from the community, balanced against the need for a degree of stability and consideration of other IIIF priorities.
 
-New IIIF specifications, and the Image and Presentation API specifications following their version 2.0.0 releases, follow semantic versioning as defined in the [IIIF Versioning Note][iiif-semver]. It is intended that minor, backwards compatible, releases will not be published more than once per year, and that major releases will not be published more than once in two years.
+New IIIF specifications, and the Image and Presentation API specifications beyond their version 2.0.0 releases, follow semantic versioning as defined in the [IIIF Versioning Note][iiif-semver]. It is intended that minor, backwards compatible, releases will not be published more than once per year, and that major releases will not be published more than once every two years.
 
 Specification versions prior to 1.0 should be considered experimental, are not subject to community review, and may be updated with breaking changes at the editors' discretion.
 
