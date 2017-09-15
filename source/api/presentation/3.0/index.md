@@ -187,15 +187,15 @@ A list of short descriptive entries, given as pairs of human readable `label` an
 The value of the `metadata` property _MUST_ be an array of objects, where each object has both `label` and `value` properties. The values of both `label` and `value` _MUST_ be JSON objects, as described in the [languages][languages] section.
 
  * A Collection _SHOULD_ have one or more metadata pairs associated with it.<br/>
-   Clients _MUST_ render metadata on a Collection.
+   Clients _MUST_ render `metadata` on a Collection.
  * A Manifest _SHOULD_ have one or more metadata pairs associated with it.<br/>
-   Clients _MUST_ render metadata on a Manifest.
+   Clients _MUST_ render `metadata` on a Manifest.
  * A Canvas _MAY_ have one or more metadata pairs associated with it.<br/>
-   Clients _SHOULD_ render metadata on a Canvas.
+   Clients _SHOULD_ render `metadata` on a Canvas.
  * Other resource types _MAY_ have one or more metadata pairs.<br/>
-   Clients _MAY_ render metadata on other resource types.
+   Clients _MAY_ render `metadata` on other resource types.
 
-Clients _SHOULD_ display the metadata pairs in the order provided. Clients _SHOULD NOT_ use metadata for indexing and discovery purposes, as there are intentionally no consistent semantics.
+Clients _SHOULD_ display the pairs in the order provided. Clients _SHOULD NOT_ use `metadata` for indexing and discovery purposes, as there are intentionally no consistent semantics.
 
 ``` json-doc
 {"metadata": [ {"label": {"en": ["Label"]}, "value": {"en": ["Value"]}} ]}
@@ -206,14 +206,14 @@ A longer-form prose description of the object or resource that the property is a
 
 The value of the property _MUST_ be a JSON object, as described in the [languages][languages] section.
 
- * A Collection _SHOULD_ have one or more descriptions.<br/>
-   Clients _SHOULD_ render description on a Collection.
- * A Manifest _SHOULD_ have one or more descriptions.
-   Clients _SHOULD_ render description on a Manifest.
- * A Canvas _MAY_ have one or more descriptions.<br/>
-   Clients _SHOULD_ render description on a Canvas.
- * Other resource types _MAY_ have one or more description.<br/>
-   Clients _MAY_ render description on other resource types.
+ * A Collection _SHOULD_ have one or more `description`s.<br/>
+   Clients _SHOULD_ render `description` on a Collection.
+ * A Manifest _SHOULD_ have one or more `description`s.
+   Clients _SHOULD_ render `description` on a Manifest.
+ * A Canvas _MAY_ have one or more `description`s.<br/>
+   Clients _SHOULD_ render `description` on a Canvas.
+ * Other resource types _MAY_ have one or more `description`.<br/>
+   Clients _MAY_ render `description` on other resource types.
 
 ``` json-doc
 {"description": {"en": ["Description Value"]}}
@@ -224,18 +224,18 @@ A small content resource that represents the resource that the property is attac
 
 The value _MUST_ be a JSON array, with each item in the array being a JSON object that _MUST_ have an `id` property and _SHOULD_ have at least one of `type` and `format`.
 
- * A Collection _SHOULD_ have exactly one thumbnail resource, and _MAY_ have more than one.<br/>
-   Clients _SHOULD_ render thumbnail on a Collection.
- * A Manifest _SHOULD_ have exactly one thumbnail resource, and _MAY_ have more than one.<br/>
-   Clients _SHOULD_ render thumbnail on a Manifest.
- * A Sequence _MAY_ have one or more thumbnails and _SHOULD_ have at least one thumbnail if there are multiple Sequences in a single Manifest.<br/>
-   Clients _SHOULD_ render thumbnail on a Sequence.
- * A Canvas _MAY_ have one or more thumbnails and _SHOULD_ have at least one thumbnail if there are multiple resources that make up the representation.<br/>
-   Clients _SHOULD_ render thumbnail on a Canvas.
- * A content resource _MAY_ have one or more thumbnails and _SHOULD_ have at least one thumbnail if it is an option in a choice of resources.<br/>
-   Clients _SHOULD_ render thumbnail on a content resource.
- * Other resource types _MAY_ have one or more thumbnails.<br/>
-   Clients _MAY_ render thumbnail on other resource types.
+ * A Collection _SHOULD_ have exactly one `thumbnail`, and _MAY_ have more than one.<br/>
+   Clients _SHOULD_ render `thumbnail` on a Collection.
+ * A Manifest _SHOULD_ have exactly one `thumbnail`, and _MAY_ have more than one.<br/>
+   Clients _SHOULD_ render `thumbnail` on a Manifest.
+ * A Sequence _MAY_ have one or more `thumbnail`s.<br/>
+   Clients _SHOULD_ render `thumbnail` on a Sequence.
+ * A Canvas _MAY_ have one or more `thumbnail`s and _SHOULD_ have at least one `thumbnail` if there are multiple resources that make up the representation.<br/>
+   Clients _SHOULD_ render `thumbnail` on a Canvas.
+ * A content resource _MAY_ have one or more `thumbnail`s and _SHOULD_ have at least one `thumbnail` if it is an option in a Choice of resources.<br/>
+   Clients _SHOULD_ render `thumbnail` on a content resource.
+ * Other resource types _MAY_ have one or more `thumbnail`s.<br/>
+   Clients _MAY_ render `thumbnail` on other resource types.
 
 ``` json-doc
 {"thumbnail": [{"id": "https://example.org/img/thumb.jpg", "type": "Image"}]}
@@ -245,9 +245,9 @@ The value _MUST_ be a JSON array, with each item in the array being a JSON objec
 A date that the client can use for navigation purposes when presenting the resource to the user in a time-based user interface, such as a calendar or timeline.  The value _MUST_ be an `xsd:dateTime` literal in UTC, expressed in the form "YYYY-MM-DDThh:mm:ssZ".  If the exact time is not known, then "00:00:00" _SHOULD_ be used. Similarly, the month or day _SHOULD_ be 01 if not known.  There _MUST_ be at most one `navDate` associated with any given resource.  More descriptive date ranges, intended for display directly to the user, _SHOULD_ be included in the `metadata` property for human consumption.  
 
  * A Collection or Manifest _MAY_ have exactly one navigation date associated with it.<br/>
-   Clients _MAY_ render navDate on Collections or Manifests.
+   Clients _MAY_ render `navDate` on Collections or Manifests.
  * Other resource types _MUST NOT_ have navigation dates.<br/>
-   Clients _SHOULD_ ignore navDate on other resource types.
+   Clients _SHOULD_ ignore `navDate` on other resource types.
 
 ``` json-doc
 {"navDate": "2010-01-01T00:00:00Z"}
@@ -262,8 +262,8 @@ Text that must be displayed when the resource it is associated with is displayed
 
 The value of the property _MUST_ be a JSON object, as described in the [languages][languages] section.
 
- * Any resource type _MAY_ have one or more attribution labels.<br/>
-   Clients _MUST_ render attribution on every resource type.
+ * Any resource type _MAY_ have one or more `attribution`s.<br/>
+   Clients _MUST_ render `attribution` on every resource type.
 
 ``` json-doc
 {"attribution": {"en": ["Attribution Text"]}}
@@ -276,7 +276,7 @@ A link to an external resource that describes the license or rights statement un
 The value _MUST_ be an array of JSON objects, each of which _MUST_ have an `id` and _SHOULD_ have at least one of `type` and `format`.
 
  * Any resource type _MAY_ have one or more rights statements or licenses associated with it.<br/>
-   Clients _MUST_ render rights on every resource type.
+   Clients _MUST_ render `rights` on every resource type.
 
 ``` json-doc
 {"rights": [{"id": "http://example.org/rights/copyright.html", "format": "text/html"}]}
@@ -287,8 +287,8 @@ A small image that represents an individual or organization associated with the 
 
 The value _MUST_ be an array of JSON objects, each of which _MUST_ have an `id` and _SHOULD_ have at least one of `type` and `format`.
 
- * Any resource type _MAY_ have one or more logos associated with it.<br/>
-   Clients _MUST_ render logo on every resource type.
+ * Any resource type _MAY_ have one or more `logo`s associated with it.<br/>
+   Clients _MUST_ render `logo` on every resource type.
 
 ``` json-doc
 {"logo": [{"id": "https://example.org/img/logo.jpg", "type": "Image"}]}
@@ -302,24 +302,24 @@ The URI that identifies the resource. It is _RECOMMENDED_ that an HTTPS URI be u
 
 The value _MUST_ be a string.
 
- * A Collection _MUST_ have exactly one id, and it _MUST_ be the http(s) URI at which it is published.<br/>
-   Clients _SHOULD_ render id on a Collection.
- * A Manifest _MUST_ have exactly one id, and it _MUST_ be the http(s) URI at which it is published.<br/>
-   Clients _SHOULD_ render id on a Manifest.
- * A Sequence _MAY_ have an id and _MUST NOT_ have more than one.<br/>
-   Clients _MAY_ render id on a Sequence.
- * A Canvas _MUST_ have exactly one id, and it _MUST_ be an http(s) URI.  The Canvas's JSON representation _MAY_ be published at that URI.<br/>
-   Clients _SHOULD_ render id on a Canvas.
- * A content resource _MUST_ have exactly one id, and it _MUST_ be the http(s) URI at which the resource is published.<br/>
-   Clients _MAY_ render id on content resources.
- * A Range _MUST_ have exactly one id, and it _MUST_ be an http(s) URI.<br/>
-   Clients _MAY_ render id on a Range.
- * An AnnotationCollection _MUST_ have exactly one id, and it _MUST_ be an http(s) URI.
-   Clients _MAY_ render id on an AnnotationCollection.
- * An AnnotationPage _MUST_ have exactly one id, and it _MUST_ be the http(s) URI at which it is published.<br/>
-   Clients _MAY_ render id on an AnnotationPage.
- * An Annotation _MUST_ have exactly one id, and the Annotation's representation _SHOULD_ be published at that URI.<br/>
-   Clients _MAY_ render id on an Annotation.
+ * A Collection _MUST_ have exactly one `id`, and it _MUST_ be the http(s) URI at which it is published.<br/>
+   Clients _SHOULD_ render `id` on a Collection.
+ * A Manifest _MUST_ have exactly one `id`, and it _MUST_ be the http(s) URI at which it is published.<br/>
+   Clients _SHOULD_ render `id` on a Manifest.
+ * A Sequence _MAY_ have an `id` and _MUST NOT_ have more than one.<br/>
+   Clients _MAY_ render `id` on a Sequence.
+ * A Canvas _MUST_ have exactly one `id`, and it _MUST_ be an http(s) URI.  The Canvas's JSON representation _MAY_ be published at that URI.<br/>
+   Clients _SHOULD_ render `id` on a Canvas.
+ * A content resource _MUST_ have exactly one `id`, and it _MUST_ be the http(s) URI at which the resource is published.<br/>
+   Clients _MAY_ render `id` on content resources.
+ * A Range _MUST_ have exactly one `id`, and it _MUST_ be an http(s) URI.<br/>
+   Clients _MAY_ render `id` on a Range.
+ * An AnnotationCollection _MUST_ have exactly one `id`, and it _MUST_ be an http(s) URI.
+   Clients _MAY_ render `id` on an AnnotationCollection.
+ * An AnnotationPage _MUST_ have exactly one `id`, and it _MUST_ be the http(s) URI at which it is published.<br/>
+   Clients _MAY_ render `id` on an AnnotationPage.
+ * An Annotation _MUST_ have exactly one `id`, and the Annotation's representation _SHOULD_ be published at that URI.<br/>
+   Clients _MAY_ render `id` on an Annotation.
 
 ``` json-doc
 {"id": "https://example.org/iiif/1/manifest"}
@@ -331,8 +331,8 @@ The type of the resource.  For the resource types defined by this specification,
 
 The value _MUST_ be a string.
 
- * All resource types _MUST_ have exactly one type specified.<br/>
-   Clients _MAY_ render type on any resource type.
+ * All resource types _MUST_ have exactly one `type`.<br/>
+   Clients _MUST_ process, and_MAY_ render, `type` on any resource type.
 
 ``` json-doc
 {"type": "Image"}
@@ -343,10 +343,10 @@ The specific media type (often called a MIME type) of a content resource, for ex
 
 The value _MUST_ be a string.
 
- * A content resource _MAY_ have exactly one format, and if so, it _SHOULD_ be the value of the `Content-Type` header returned when the resource is dereferenced.<br/>
-   Clients _MAY_ render the format of any content resource.
- * Other resource types _MUST NOT_ have a format.<br/>
-   Clients _SHOULD_ ignore format on other resource types.
+ * A content resource _MAY_ have exactly one `format`, and if so, it _SHOULD_ be the value of the `Content-Type` header returned when the resource is dereferenced.<br/>
+   Clients _MAY_ render the `format` of any content resource.
+ * Other resource types _MUST NOT_ have a `format`.<br/>
+   Clients _SHOULD_ ignore `format` on other resource types.
 
 Note that this is different to the `formats` property in the [Image API][image-api], which gives the extension to use within that API.  It would be inappropriate to use in this case, as `format` can be used with any content resource, not just images.
 
@@ -359,12 +359,12 @@ The height of a Canvas or content resource. For content resources, the value is 
 
 The value _MUST_ be a non-negative integer or floating point number.
 
- * A Canvas _SHOULD_ have exactly one height, and _MUST NOT_ have more than one. If it has a height, it _MUST_ also have a width.<br/>
-   Clients _MUST_ process, and _MAY_ render, height on a Canvas.
- * Content resources _MAY_ have exactly one height, given in pixels, if appropriate.<br/>
-   Clients _SHOULD_ process, and _MAY_ render, height on content resources.
- * Other resource types _MUST NOT_ have a height.<br/>
-   Cliens _SHOULD_ ignore height on other resource types.
+ * A Canvas _SHOULD_ have exactly one `height`, and _MUST NOT_ have more than one. If it has a `height`, it _MUST_ also have a `width`.<br/>
+   Clients _MUST_ process, and _MAY_ render, `height` on a Canvas.
+ * Content resources _MAY_ have exactly one `height`, given in pixels, if appropriate.<br/>
+   Clients _SHOULD_ process, and _MAY_ render, `height` on content resources.
+ * Other resource types _MUST NOT_ have a `height`.<br/>
+   Cliens _SHOULD_ ignore `height` on other resource types.
 
 ``` json-doc
 {"height": 1800}
@@ -375,12 +375,12 @@ The width of a Canvas or content resource. For content resources, the value is i
 
 The value _MUST_ be a non-negative integer or floating point number.
 
- * A Canvas _SHOULD_ have exactly one width, and _MUST NOT_ have more than one. If it has a width, it _MUST_ also have a height.<br/>
-   Clients _MUST_ process, and _MAY_ render, width on a Canvas.
- * Content resources _MAY_ have exactly one width, given in pixels, if appropriate.<br/>
-   Clients _SHOULD_ process, and _MAY_ render, width on content resources.
- * Other resource types _MUST NOT_ have a width.<br/>
-   Clients _SHOULD_ ignore width on other resource types.
+ * A Canvas _SHOULD_ have exactly one `width`, and _MUST NOT_ have more than one. If it has a `width`, it _MUST_ also have a `height`.<br/>
+   Clients _MUST_ process, and _MAY_ render, `width` on a Canvas.
+ * Content resources _MAY_ have exactly one `width`, given in pixels, if appropriate.<br/>
+   Clients _SHOULD_ process, and _MAY_ render, `width` on content resources.
+ * Other resource types _MUST NOT_ have a `width`.<br/>
+   Clients _SHOULD_ ignore `width` on other resource types.
 
 ``` json-doc
 {"width": 1200}
@@ -391,32 +391,32 @@ The duration of a Canvas or content resource, given in seconds.
 
 The value _MUST_ be a non-negative floating point number. 
 
- * A Canvas _MAY_ have exactly one duration, and _MUST NOT_ have more than one.<br/>
-   Clients _MUST_ process, and _MAY_ render, duration on a Canvas.
- * Content resources _MAY_ have exactly one duration, and _MUST NOT_ have more than one.<br/>
-   Clients _SHOULD_ process, and _MAY_ render, duration on content resources.
- * Other resource types _MUST NOT_ have a duration.<br/>
-   Clients _SHOULD_ ignore duration on other resource types.
+ * A Canvas _MAY_ have exactly one `duration`, and _MUST NOT_ have more than one.<br/>
+   Clients _MUST_ process, and _MAY_ render, `duration` on a Canvas.
+ * Content resources _MAY_ have exactly one `duration`, and _MUST NOT_ have more than one.<br/>
+   Clients _SHOULD_ process, and _MAY_ render, `duration` on content resources.
+ * Other resource types _MUST NOT_ have a `duration`.<br/>
+   Clients _SHOULD_ ignore `duration` on other resource types.
 
 ``` json-doc
 {"duration": 125.0}
 ```
 
-##### viewingDirection
-The direction that a set of Canvases _SHOULD_ be displayed to the user. This specification defines four viewing direction values in the table below. Others may be defined externally and given as a full URI.
+##### displayDirection
+The direction that a set of Canvases _SHOULD_ be displayed to the user. This specification defines four direction values in the table below. Others may be defined externally and given as a full URI.
 
 The value _MUST_ be a string, taken from the table below or a full URI.
 
- * A Collection _MAY_ have exactly one viewing direction, and if so, it applies to the order in which its members are rendered.<br/>
-   Clients _SHOULD_ process viewingDirection on a Collection.
- * A Manifest _MAY_ have exactly one viewing direction, and if so, it applies to all of its sequences unless the sequence specifies its own viewing direction.<br/>
-   Clients _SHOULD_ process viewingDirection on a Manifest.
- * A Sequence _MAY_ have exactly one viewing direction.<br/>
-   Clients _SHOULD_ process viewingDirection on a Sequence.
- * A Range _MAY_ have exactly one viewing direction.<br/>
-   Clients _MAY_ process viewingDirection on a Range.
- * Other resource types _MUST NOT_ have a viewing direction.<br/>
-   Clients _SHOULD_ ignore viewingDirection on other resource types.
+ * A Collection _MAY_ have exactly one `displayDirection`, and if so, it applies to the order in which its members are rendered.<br/>
+   Clients _SHOULD_ process `displayDirection` on a Collection.
+ * A Manifest _MAY_ have exactly one `displayDirection`, and if so, it applies to all of its sequences unless the sequence specifies its own value.<br/>
+   Clients _SHOULD_ process `displayDirection` on a Manifest.
+ * A Sequence _MAY_ have exactly one `displayDirection`.<br/>
+   Clients _SHOULD_ process `displayDirection` on a Sequence.
+ * A Range _MAY_ have exactly one `displayDirection`.<br/>
+   Clients _MAY_ process `displayDirection` on a Range.
+ * Other resource types _MUST NOT_ have a `displayDirection`.<br/>
+   Clients _SHOULD_ ignore `displayDirection` on other resource types.
 
 > | Value | Description |
 | ----- | ----------- |
@@ -427,32 +427,32 @@ The value _MUST_ be a string, taken from the table below or a full URI.
 {: .api-table}
 
 ``` json-doc
-{"viewingDirection": "left-to-right"}
+{"displayDirection": "left-to-right"}
 ```
 
-##### viewingHint
+##### displayHint
 A hint to the client as to the most appropriate method of displaying the resource. This specification defines the values specified in the table below. Others may be defined externally, and would be given as a full URI.
 
 The value _MUST_ be an array of strings, taken from the table below or a full URI.
 
- * Any resource type _MAY_ have one or more viewing hints.<br/>
-   Clients _SHOULD_ process viewingHint on any resource where it is valid, unless otherwise stated in the table below (e.g. `non-paged`, `facing-pages`).
+ * Any resource type _MAY_ have one or more `displayHint`s.<br/>
+   Clients _SHOULD_ process `displayHint` on any resource where it is valid, unless otherwise stated in the table below (e.g. `non-paged`, `facing-pages`).
 
 > | Value | Description |
 | ----- | ----------- |
-| `individuals` | Valid on Collection, Manifest, Sequence and Range. When used as the `viewingHint` of a Collection, the client should treat each of the Manifests as distinct individual objects. For Manifest, Sequence and Range, the Canvases referenced are all distinct individual views, and _SHOULD NOT_ be presented in a page-turning interface. Examples include a gallery of paintings, a set of views of a 3 dimensional object, or a set of the front sides of photographs in a museum collection. |
-| `paged` | Valid on Manifest, Sequence and Range. Canvases with this `viewingHint` represent pages in a bound volume, and _SHOULD_ be presented in a page-turning interface if one is available.  The first canvas is a single view (the first recto) and thus the second canvas represents the back of the object in the first canvas. |
-| `continuous` | Valid on Manifest, Sequence and Range.  A Canvas with this `viewingHint` is a partial view and an appropriate rendering might display either the Canvases individually, or all of the Canvases virtually stitched together in the display.  Examples when this would be appropriate include long scrolls, rolls, or objects designed to be displayed adjacent to each other.  If this `viewingHint` is present, then the resource _MUST_ also have a `viewingDirection` which will determine the arrangement of the canvases. Note that this does not allow for both sides of a scroll to be included in the same Manifest with this `viewingHint`.  To accomplish that, the Manifest should be "individuals" and have two Ranges, one for each side, which are "continuous".  |
-| `multi-part` | Valid only for Collection. Collections with this `viewingHint` consist of multiple Manifests that each form part of a logical whole. Clients might render the Collection as a table of contents, rather than with thumbnails. Examples include multi-volume books or a set of journal issues or other serials. |
-| `non-paged` | Valid only for Canvas. Canvases with this `viewingHint` _MUST NOT_ be presented in a page turning interface, and _MUST_ be skipped over when determining the page sequence. This viewing hint _MUST_ be ignored if the current Sequence or Manifest does not have the 'paged' viewing hint. |
-| `facing-pages` | Valid only for Canvas. Canvases with this `viewingHint`, in a Sequence or Manifest with the "paged" viewing hint, _MUST_ be displayed by themselves, as they depict both parts of the opening.  If all of the Canvases are like this, then page turning is not possible, so simply use "individuals" instead. |
+| `individuals` | Valid on Collection, Manifest, Sequence and Range. When used as the `displayHint` of a Collection, the client should treat each of the Manifests as distinct individual objects. For Manifest, Sequence and Range, the Canvases referenced are all distinct individual views, and _SHOULD NOT_ be presented in a page-turning interface. Examples include a gallery of paintings, a set of views of a 3 dimensional object, or a set of the front sides of photographs in a museum collection. |
+| `paged` | Valid on Manifest, Sequence and Range. Canvases with this `displayHint` represent pages in a bound volume, and _SHOULD_ be presented in a page-turning interface if one is available.  The first canvas is a single view (the first recto) and thus the second canvas represents the back of the object in the first canvas. |
+| `continuous` | Valid on Manifest, Sequence and Range.  A Canvas with this `displayHint` is a partial view and an appropriate rendering might display either the Canvases individually, or all of the Canvases virtually stitched together in the display.  Examples when this would be appropriate include long scrolls, rolls, or objects designed to be displayed adjacent to each other.  If this `displayHint` is present, then the resource _MUST_ also have a `displayDirection` which will determine the arrangement of the canvases. Note that this does not allow for both sides of a scroll to be included in the same Manifest with this `displayHint`.  To accomplish that, the Manifest should be "individuals" and have two Ranges, one for each side, which are "continuous".  |
+| `multi-part` | Valid only for Collection. Collections with this `displayHint` consist of multiple Manifests that each form part of a logical whole. Clients might render the Collection as a table of contents, rather than with thumbnails. Examples include multi-volume books or a set of journal issues or other serials. |
+| `non-paged` | Valid only for Canvas. Canvases with this `displayHint` _MUST NOT_ be presented in a page turning interface, and _MUST_ be skipped over when determining the page sequence. This displayHint _MUST_ be ignored if the current Sequence or Manifest does not have the 'paged' displayHint. |
+| `facing-pages` | Valid only for Canvas. Canvases with this `displayHint`, in a Sequence or Manifest with the "paged" `displayHint`, _MUST_ be displayed by themselves, as they depict both parts of the opening.  If all of the Canvases are like this, then page turning is not possible, so simply use "individuals" instead. |
 | `none` | Valid on AnnotationCollection, AnnotationPage, Annotation, SpecificResource and Choice. If this hint is provided, then the client _SHOULD NOT_ render the resource by default, but allow the user to turn it on and off.|
-| `auto-advance` | Valid on Collection, Manifest, Sequence and Canvas. When the client reaches the end of a Canvas with a duration dimension that has (or is within a resource that has) this `viewingHint`, it _SHOULD_ immediately proceed to the next Canvas and render it. If there is no subsequent Canvas in the current context, then this `viewingHint` should be ignored. When applied to a Collection, the client should treat the first Canvas of the next Manifest as following the last Canvas of the previous Manifest, respecting any `startCanvas` specified.|
+| `auto-advance` | Valid on Collection, Manifest, Sequence and Canvas. When the client reaches the end of a Canvas with a duration dimension that has (or is within a resource that has) this `displayHint`, it _SHOULD_ immediately proceed to the next Canvas and render it. If there is no subsequent Canvas in the current context, then this `displayHint` should be ignored. When applied to a Collection, the client should treat the first Canvas of the next Manifest as following the last Canvas of the previous Manifest, respecting any `startCanvas` specified.|
 | `together` | Valid only for Collection. A client _SHOULD_ present all of the child Manifests to the user at once in a separate viewing area with its own controls. Clients _SHOULD_ catch attempts to create too many viewing areas. The `together` value _SHOULD NOT_ be interpreted as applying to the members any child resources.|
 {: .api-table}
 
 ``` json-doc
-{"viewingHint": ["auto-advance", "individuals"]}
+{"displayHint": ["auto-advance", "individuals"]}
 ```
 
 ##### choiceHint
@@ -462,7 +462,7 @@ A hint associated with a Choice resource that a client can use to determine the 
 The value _MUST_ be a string, taken from the table below or a full URI.
 
 * A Choice _MAY_ have exactly one `choiceHint`.<br/>
-  Clients _SHOULD_ process choiceHint on Choice.
+  Clients _SHOULD_ process `choiceHint` on a Choice.
 
 > | Value | Description |
 | ----- | ----------- |
@@ -480,7 +480,7 @@ A mode associated with an Annotation that is to be applied to the rendering of a
 The value _MUST_ be a string, taken from the table below or a full URI.
 
 * An Annotation _MAY_ have exactly one `timeMode` property.<br/>
-  Clients _SHOULD_ process timeMode on an Annotation.
+  Clients _SHOULD_ process `timeMode` on an Annotation.
 
 > | Value | Description |
 | ----- | ----------- |
@@ -502,7 +502,7 @@ A link to an external resource that is about the IIIF resource. The external res
 The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id`, `type` and `label` properties, and _SHOULD_ have a `format` property.
 
  * Any resource type _MAY_ have one or more external resources related to it.<br/>
-   Clients _SHOULD_ render related on a Collection, Manifest or Canvas, and _MAY_ render related on other resource types.
+   Clients _SHOULD_ render `related` on a Collection, Manifest or Canvas, and _MAY_ render `related` on other resource types.
 
 ``` json-doc
 {"related": [{"id": "https://example.com/info/", "type": "Text", "format": "text/html"}]}
@@ -526,7 +526,7 @@ A link to a service that makes more functionality available for the resource, su
 The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `label` and `profile` properties.
 
  * Any resource type _MAY_ have one or more links to an external service.<br/>
-   Clients _MAY_ process service on any resource type, and _SHOULD_ process the IIIF Image API service.
+   Clients _MAY_ process `service` on any resource type, and _SHOULD_ process the IIIF Image API service.
 
 ``` json-doc
 {"service": [
@@ -543,7 +543,7 @@ A link to a machine readable document that semantically describes the resource w
 The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `label`, `format` and `profile` properties.
 
  * Any resource type _MAY_ have one or more external descriptions related to it.<br/>
-   Clients _MAY_ process seeAlso on any resource type.
+   Clients _MAY_ process `seeAlso` on any resource type.
 
 ``` json-doc
 {"rendering": [{"id": "https://example.org/1.xml", "type": "Text", "format": "text/xml"}]}
@@ -557,9 +557,9 @@ A link to another resource that contains the current resource, such as a Manifes
 The value _MUST_ be an array of JSON objects.  Each object _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `label` property.
 
  * Collections or AnnotationPages that serve as [pages][paging] _MUST_ be within exactly one paged resource.<br/>
-   Clients _SHOULD_ render within on a Collection or AnnotationPage.
+   Clients _SHOULD_ render `within` on a Collection or AnnotationPage.
  * Other resource types, including Collections or AnnotationPages not serving as pages, _MAY_ be within one or more containing resources.<br/>
-   Clients _MAY_ render within on other resource types.
+   Clients _MAY_ render `within` on other resource types.
 
 ``` json-doc
 {"within": [{"id": "https://example.org/iiif/1", "type": "Manifest"}]}
@@ -571,9 +571,9 @@ A link from a Sequence or Range to a Canvas that is contained within it. On seei
 The value _MUST_ be a string.
 
  * A Sequence or Range _MAY_ have exactly one Canvas as its starting Canvas.
-   Clients _SHOULD_ process startCanvas on a Sequence or Range.
+   Clients _SHOULD_ process `startCanvas` on a Sequence or Range.
  * Other resource types _MUST NOT_ have a starting Canvas.
-   Clients _SHOULD_ ignore startCanvas on other resource types.
+   Clients _SHOULD_ ignore `startCanvas` on other resource types.
 
 ``` json-doc
 {"startCanvas": "https://example.org/iiif/1/canvas/1"}
@@ -585,9 +585,9 @@ A link from a Range to an AnnotationCollection that includes the Annotations of 
 The value _MUST_ be a string.
 
  * A Range _MAY_ have exactly one AnnotationCollection as its content.<br/>
-   Clients _MAY_ process contentAnnotations on a Range.
+   Clients _MAY_ process `contentAnnotations` on a Range.
  * Other resource types _MUST NOT_ have `contentAnnotations`.<br/>
-   Clients _SHOULD_ ignore contentAnnotations on other resource types.
+   Clients _SHOULD_ ignore `contentAnnotations` on other resource types.
 
 ``` json-doc
 {"contentAnnotations": "https://example.org/iiif/1/annos/1"}
@@ -897,8 +897,8 @@ The example below includes only the Manifest-level information, however actual i
   }],
 
   // Presentation Information
-  "viewingDirection": "right-to-left",
-  "viewingHint": ["paged"],
+  "displayDirection": "right-to-left",
+  "displayHint": ["paged"],
   "navDate": "1856-01-01T00:00:00Z",
 
   // Rights Information
@@ -963,7 +963,7 @@ The example below includes only the Manifest-level information, however actual i
     {
       "id": "http://example.org/iiif/book1/range/top",
       "type": "Range",
-      "viewingHint": ["top"]
+      "displayHint": ["top"]
       // Ranges members should be included here
     }
     // Any additional top level Ranges can be included here
@@ -988,8 +988,8 @@ In the Manifest example above, the Sequence is referenced by its URI and contain
   "type": "Sequence",
   "label": {"en": ["Current Page Order"]},
 
-  "viewingDirection": "left-to-right",
-  "viewingHint": ["paged"],
+  "displayDirection": "left-to-right",
+  "displayHint": ["paged"],
   "startCanvas": "http://example.org/iiif/book1/canvas/p2",
 
   // The order of the canvases
@@ -1030,7 +1030,7 @@ Content resources are associated with the Canvas via Web Annotations. The Annota
 
 __Where should the following paragraph actually live?__
 
-> In a sequence with the `viewingHint` value of "paged" and presented in a book viewing user interface, the first canvas _SHOULD_ be presented by itself -- it is typically either the cover or first recto page. Thereafter, the canvases represent the sides of the leaves, and hence may be presented with two canvases displayed as an opening of the book.  If there are canvases which are in the sequence but would break this ordering, then they _MUST_ have the `viewingHint` property with a value of "non-paged".  Similarly if the first canvas is not a single up, it _MUST_ be marked as "non-paged" or an empty canvas added before it.
+> In a sequence with the `displayHint` value of "paged" and presented in a book viewing user interface, the first canvas _SHOULD_ be presented by itself -- it is typically either the cover or first recto page. Thereafter, the canvases represent the sides of the leaves, and hence may be presented with two canvases displayed as an opening of the book.  If there are canvases which are in the sequence but would break this ordering, then they _MUST_ have the `displayHint` property with a value of "non-paged".  Similarly if the first canvas is not a single up, it _MUST_ be marked as "non-paged" or an empty canvas added before it.
 
 ``` json-doc
 {
@@ -1136,7 +1136,7 @@ __Move the below para to the annotation document__
 
 Ranges are used to describe additional structure within an object, such as newspaper articles that span pages or chapters within a book. Ranges have an `items` list, where each entry is a Canvases, part of a Canvas, or another Range. By including child Ranges, a nested tree structure can be described like a table of contents.
 
-The intent of adding a Range to the Manifest is to allow the client to display a hierarchical navigation interface to enable the user to quickly move through the object's content. Only Ranges with the `label` property and without the "no-nav" `viewingHint` will be presented to the user.
+The intent of adding a Range to the Manifest is to allow the client to display a hierarchical navigation interface to enable the user to quickly move through the object's content. Only Ranges with the `label` property and without the "no-nav" `displayHint` will be presented to the user.
 
 Ranges _MUST_ have URIs and they _SHOULD_ be http(s) URIs.  Ranges are linked or embedded within the Manifest in a `structures` field of the Manifest. Ranges then embed or reference other Ranges, Canvases or parts of Canvases in the `items` field.  Each entry in the `items` field _MUST_ be a JSON object, and it _MUST_ have the `id` and `type` properties. 
 
@@ -1264,7 +1264,7 @@ As such, collections _MUST_ have a label, and _SHOULD_ have `metadata` and `desc
 Collections have three list-based properties to express membership:
 
 ##### items
-In cases where the order of a collection is significant, `members` can be used to interleave both collection and manifest resources. This is especially useful when a collection of books contains single- and multi-volume works (i.e. collections with the "multi-part" viewingHint), and when modeling archival material where original order is significant. Each entry in the `members` list _MUST_ be an object and _MUST_ include `id`, `type`, and `label`. If the entry is a collection, then `viewingHint` _MUST_ also be present.
+In cases where the order of a collection is significant, `members` can be used to interleave both collection and manifest resources. This is especially useful when a collection of books contains single- and multi-volume works (i.e. collections with the "multi-part" displayHint), and when modeling archival material where original order is significant. Each entry in the `members` list _MUST_ be an object and _MUST_ include `id`, `type`, and `label`. If the entry is a collection, then `displayHint` _MUST_ also be present.
 
 At least one of `collections`, `manifests` and `members` _SHOULD_ be present in the response.  An empty collection, with no member resources, is allowed but discouraged.
 
@@ -1279,7 +1279,7 @@ An example collection document:
   "id": "http://example.org/iiif/collection/top",
   "type": "Collection",
   "label": "Top Level Collection for Example Organization",
-  "viewingHint": "top",
+  "displayHint": "top",
   "description": "Description of Collection",
   "attribution": "Provided by Example Organization",
 
@@ -1294,7 +1294,7 @@ An example collection document:
           "id": "http://example.org/iiif/collection/part1",
           "type": "Collection",
           "label": "My Multi-volume Set",
-          "viewingHint": "multi-part"
+          "displayHint": "multi-part"
         },
         {
           "id": "http://example.org/iiif/book1/manifest1",
@@ -1305,7 +1305,7 @@ An example collection document:
           "id": "http://example.org/iiif/collection/part2",
           "type": "Collection",
           "label": "My Sub Collection",
-          "viewingHint": "individuals"
+          "displayHint": "individuals"
         }
       ]
     },
@@ -1518,7 +1518,7 @@ __Descriptive and Rights Properties__
 
 __Technical Properties__
 
-|                | id                       | type                 | format                  | height                    | width                     | viewingDirection        | viewingHint            | navDate                  |
+|                | id                       | type                 | format                  | height                    | width                     | displayDirection        | displayHint            | navDate                  |
 | -------------- | ------------------------- | --------------------- | ----------------------- | ------------------------- | ------------------------- | ----------------------- | ---------------------- | ------------------------ |
 | Collection     | ![required][icon-req]     | ![required][icon-req] | ![not allowed][icon-na] | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![not allowed][icon-na] | ![optional][icon-opt]  | ![optional][icon-opt]    |
 | Manifest       | ![required][icon-req]     | ![required][icon-req] | ![not allowed][icon-na] | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![optional][icon-opt]   | ![optional][icon-opt]  | ![optional][icon-opt]    |
@@ -1648,8 +1648,8 @@ URL: _http://example.org/iiif/book1/manifest_
         "id": "http://example.org/iiif/book1/sequence/normal",
         "type": "Sequence",
         "label": "Current Page Order",
-        "viewingDirection": "left-to-right",
-        "viewingHint": "paged",
+        "displayDirection": "left-to-right",
+        "displayHint": "paged",
         "canvases": [
           {
             "id": "http://example.org/iiif/book1/canvas/p1",
