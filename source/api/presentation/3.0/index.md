@@ -74,7 +74,6 @@ The following are __not__ within scope:
 
 Note that in the following descriptions, "object" (or "physical object") is used to refer to a physical object that has been digitized or a born-digital compound object, and "resources" refer to the digital resources that are the result of that digitization or digital creation process.
 
-
 ###  1.2. Motivating Use Cases
 
 There are many different types of digitized or digital compound objects, from ancient scrolls to modern newspapers, from medieval manuscripts to online comics, and from large maps to small photographs. Many of them bear texts, sometimes difficult to read either due to the decay of the physical object or lack of understanding of the script or language.  These use cases are described in a separate [document][use-case-doc].
@@ -568,7 +567,7 @@ The value _MUST_ be an array of JSON objects.  Each object _MUST_ have the `id` 
 ##### startCanvas
 A link from a Sequence or Range to a Canvas that is contained within it. On seeing this relationship, a client _SHOULD_ advance to the specified Canvas when beginning navigation through the Sequence/Range.  This allows the client to begin with the first Canvas that contains interesting content rather than requiring the user to skip past blank or empty Canvases manually.  The Canvas _MUST_ be included in the first Sequence embedded within the Manifest.
 
-The value _MUST_ be a string.
+The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` properties.
 
  * A Sequence or Range _MAY_ have exactly one Canvas as its starting Canvas.
    Clients _SHOULD_ process `startCanvas` on a Sequence or Range.
@@ -576,13 +575,13 @@ The value _MUST_ be a string.
    Clients _SHOULD_ ignore `startCanvas` on other resource types.
 
 ``` json-doc
-{"startCanvas": "https://example.org/iiif/1/canvas/1"}
+{"startCanvas": {"id": "https://example.org/iiif/1/canvas/1", "type": "Canvas"}}
 ```
 
 ##### contentAnnotations
 A link from a Range to an AnnotationCollection that includes the Annotations of content resources for that Range.  Clients might use this to present content to the user from a different Canvas when interacting with the Range, or to jump to the next part of the Range within the same Canvas.  
 
-The value _MUST_ be a string.
+The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` properties.
 
  * A Range _MAY_ have exactly one AnnotationCollection as its content.<br/>
    Clients _MAY_ process `contentAnnotations` on a Range.
@@ -590,7 +589,7 @@ The value _MUST_ be a string.
    Clients _SHOULD_ ignore `contentAnnotations` on other resource types.
 
 ``` json-doc
-{"contentAnnotations": "https://example.org/iiif/1/annos/1"}
+{"contentAnnotations": {"id": "https://example.org/iiif/1/annos/1", "type": "AnnotationCollection"}}
 ```
 
 ###  3.5. Paging Properties
@@ -1776,25 +1775,22 @@ URL: _http://example.org/iiif/book1/manifest_
 ```
 
 
-### C. Implementation Notes
-
-* It is _RECOMMENDED_ that if there is (at the time of implementation) a single image that depicts the page, then the dimensions of the image are used as the dimensions of the canvas for simplicity. If there are multiple full images, then the dimensions of the largest image should be used. If the largest image's dimensions are less than 1200 pixels on either edge, then the canvas's dimensions _SHOULD_ be double those of the image.
-
-### D. Versioning
+### C. Versioning
 
 Starting with version 2.0, this specification follows [Semantic Versioning][semver]. See the note [Versioning of APIs][versioning] for details regarding how this is implemented.
 
-### E. Acknowledgements
+### D. Acknowledgements
 
 The production of this document was generously supported by a grant from the [Andrew W. Mellon Foundation][mellon].
 
 Many thanks to the members of the [IIIF][iiif-community] for their continuous engagement, innovative ideas and feedback.
 
-### F. Change Log
+### E. Change Log
 
 | Date       | Description           |
 | ---------- | --------------------- |
-| 2016-05-12 | Version 2.1 (Hinty McHintface) [View change log][change-log] |
+| 2017-06-09 | Version 2.1.1 [View change log][change-log] |
+| 2016-05-12 | Version 2.1 (Hinty McHintface) [View change log][change-log-211] |
 | 2014-09-11 | Version 2.0 (Triumphant Giraffe) [View change log][change-log-20] |
 | 2013-08-26 | Version 1.0 (unnamed) |
 | 2013-06-14 | Version 0.9 (unnamed) |
@@ -1805,8 +1801,10 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 [image-api]: /api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/ "Image API"
 [search-api]: /api/search/{{ site.search_api.latest.major}}.{{ site.search_api.latest.minor }}/ "Search API"
 [annex]: /api/annex/services/ "Services Annex Document"
-[change-log]: /api/presentation/2.1/change-log/ "Presentation API 2.1 Change Log"
+[change-log-211]: /api/presentation/2.1/change-log-211/ "Presentation API 2.1.1 Change Log"
+[change-log-21]: /api/presentation/2.1/change-log/ "Presentation API 2.1 Change Log"
 [change-log-20]: /api/presentation/2.0/change-log/ "Presentation API 2.0 Change Log"
+[change-log-30]: /api/presentation/3.0/change-log/ "Presentation API 3.0 Change Log"
 [iiif-community]: /community/ "IIIF Community"
 [apache-notes]: /api/annex/notes/apache/ "Apache HTTP Server Implementation Notes"
 [openanno]: http://www.openannotation.org/spec/core/ "Open Annotation"
