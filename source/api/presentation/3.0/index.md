@@ -160,22 +160,22 @@ A human readable label, name or title for the resource. This property is intende
 
 The value of the property _MUST_ be a JSON object, as described in the [languages][languages] section.
 
- * A Collection _MUST_ have at least one label.<br/>
-   Clients _MUST_ render label on a Collection. 
- * A Manifest _MUST_ have at least one label.<br/>
-   Clients _MUST_ render label on a Manifest.
- * A Sequence  _MAY_ have one or more labels, and if there are multiple Sequences in a single Manifest then they _MUST_ each have at least one label.<br/>
-   Clients _SHOULD_ support multiple Sequences, and if they do, _MUST_ render label on a Sequence. Clients _MAY_ render label on a single Sequence.
- * A Canvas _SHOULD_ have at least one label.<br/>
-   Clients _MUST_ render label on a Canvas, and _MUST_ generate a label for Canvases that do not have them.
- * A content resource _MAY_ have one or more labels, and if there is a choice of content resource for the same Canvas, then they _SHOULD_ each have at least one label.<br/>
-   Clients _MAY_ render label on content resources, and _MUST_ render them when part of a Choice.
- * A Range _SHOULD_ have at least one label. <br/>
-   Clients _MUST_ render label on a Range.
- * An AnnotationCollection _MUST_ have at least one label.<br/>
-   Clients _MUST_ render label on an AnnotationCollection.
- * Other resource types _MAY_ have labels.<br/>
-   Clients _MAY_ render label on other resource types.
+ * A Collection _MUST_ have at least one `label`.<br/>
+   Clients _MUST_ render `label` on a Collection. 
+ * A Manifest _MUST_ have at least one `label`.<br/>
+   Clients _MUST_ render `label` on a Manifest.
+ * A Sequence  _MAY_ have one or more `label`s, and if there are multiple Sequences in a single Manifest then they _MUST_ each have at least one `label`.<br/>
+   Clients _SHOULD_ support multiple Sequences, and if they do, _MUST_ render `label` on a Sequence. Clients _MAY_ render `label` on a single Sequence.
+ * A Canvas _SHOULD_ have at least one `label`.<br/>
+   Clients _MUST_ render `label` on a Canvas, and _MUST_ generate a `label` for Canvases that do not have them.
+ * A content resource _MAY_ have one or more `label`s, and if there is a choice of content resource for the same Canvas, then they _SHOULD_ each have at least one `label`.<br/>
+   Clients _MAY_ render `label` on content resources, and _MUST_ render them when part of a Choice.
+ * A Range _SHOULD_ have at least one `label`. <br/>
+   Clients _MUST_ render `label` on a Range.
+ * An AnnotationCollection _MUST_ have at least one `label`.<br/>
+   Clients _MUST_ render `label` on an AnnotationCollection.
+ * Other resource types _MAY_ have `label`s.<br/>
+   Clients _MAY_ render `label` on other resource types.
 
 ``` json-doc
 {"label": {"en": ["Label Value"]}}
@@ -345,7 +345,7 @@ The value _MUST_ be a string.
 
  * A content resource _MAY_ have exactly one format, and if so, it _SHOULD_ be the value of the `Content-Type` header returned when the resource is dereferenced.<br/>
    Clients _MAY_ render the format of any content resource.
- * Other resource types _MUST NOT_ have a format.
+ * Other resource types _MUST NOT_ have a format.<br/>
    Clients _SHOULD_ ignore format on other resource types.
 
 Note that this is different to the `formats` property in the [Image API][image-api], which gives the extension to use within that API.  It would be inappropriate to use in this case, as `format` can be used with any content resource, not just images.
@@ -505,7 +505,7 @@ The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id`, 
    Clients _SHOULD_ render related on a Collection, Manifest or Canvas, and _MAY_ render related on other resource types.
 
 ``` json-doc
-{"related": [{"id": "https://example.com/info/", "type": "Text", format": "text/html"}]}
+{"related": [{"id": "https://example.com/info/", "type": "Text", "format": "text/html"}]}
 ```
 
 ##### rendering
@@ -517,7 +517,7 @@ The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id`, 
    Clients _SHOULD_ render `rendering` on a Collection, Manifest or Canvas, and _MAY_ render `rendering` on other resource types.
 
 ``` json-doc
-{"rendering": [{"id": "https://example.org/1.pdf", "type": "Text", format": "application/pdf"}]}
+{"rendering": [{"id": "https://example.org/1.pdf", "type": "Text", "format": "application/pdf"}]}
 ```
 
 ##### service
@@ -546,7 +546,7 @@ The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id` a
    Clients _MAY_ process seeAlso on any resource type.
 
 ``` json-doc
-{"rendering": [{"id": "https://example.org/1.xml", "type": "Text", format": "text/xml"}]}
+{"rendering": [{"id": "https://example.org/1.xml", "type": "Text", "format": "text/xml"}]}
 ```
 
 #### 3.4.2. Internal Links
@@ -708,7 +708,7 @@ The value _MUST_ be an array of objects.
 * An AnnotationPage _MUST_ have a list of Annotations as its items.
 
 ```json-doc
-{"items": [{"id": "..."}]}
+{"items": [{ ... }]}
 ```
 
 ##### structures
@@ -724,7 +724,7 @@ The value _MUST_ be an array of objects.
   {
     "id": "http://example.org/iiif/range/1",
     "type": "Range",
-    "items": [ ... ]
+    "items": [{ ... }]
   }
 ]}
 ```
@@ -742,7 +742,7 @@ The value _MUST_ be an array of objects. Each object _MUST_ have at least the `i
   {
     "id": "http://example.org/iiif/annotationPage/1",
     "type": "AnnotationPage",
-    "items": [ ... ]
+    "items": [{ ... }]
   }
 ]}
 ```
