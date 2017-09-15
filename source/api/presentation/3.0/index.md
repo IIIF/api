@@ -156,7 +156,9 @@ Other properties are allowed, either via custom extensions or endorsed by IIIF. 
 ####  3.1. Descriptive Properties
 
 ##### label
-A human readable label, name or title for the resource. This property is intended to be displayed as a short, textual surrogate for the resource if a human needs to make a distinction between it and similar resources, for example between pages or between a choice of images to display. The value of the property _MUST_ be a JSON object, as described in the [languages][languages] section.
+A human readable label, name or title for the resource. This property is intended to be displayed as a short, textual surrogate for the resource if a human needs to make a distinction between it and similar resources, for example between pages or between a choice of images to display. 
+
+The value of the property _MUST_ be a JSON object, as described in the [languages][languages] section.
 
  * A Collection _MUST_ have at least one label.<br/>
    Clients _MUST_ process label on a Collection. 
@@ -175,42 +177,55 @@ A human readable label, name or title for the resource. This property is intende
  * Other resource types _MAY_ have labels.<br/>
    Clients _MAY_ process label on other resource types.
 
+__Example:__
 ``` json-doc
 {"label": {"en": ["Label Value"]}}
 ```
 
 ##### metadata
-A list of short descriptive entries, given as pairs of human readable `label` and `value` to be displayed to the user. The value of both `label` and `value` _MUST_ be a JSON object, as described in the [languages][languages] section. There are no semantics conveyed by this information, and clients _SHOULD NOT_ use it for discovery or other purposes.  A pair might be used to convey to the user information such as the creator of the object, information about its creation, a brief physical description, or ownership information, amongst other use cases. An example pair of label and value might be a label of "Author" and a value of "Jehan Froissart".
+A list of short descriptive entries, given as pairs of human readable `label` and `value` to be displayed to the user. There are no semantics conveyed by this information, only strings to present to the user.  A pair might be used to convey to the user information such as the creator of the object, information about its creation, a brief physical description, or ownership information, amongst other use cases. An example pair of label and value might be a label of "Author" and a value of "Jehan Froissart". 
 
-__ Take out client functionality requirements:__
+The value of the `metadata` property _MUST_ be an array of objects, where each object has both `label` and `value` properties. The values of both `label` and `value` _MUST_ be JSON objects, as described in the [languages][languages] section.
 
-> Clients _SHOULD_ have a way to display the information about Manifests and Canvases, and _MAY_ have a way to view the information about other resources. The client _SHOULD_ display the pairs in the order provided by the description.
+ * A Collection _SHOULD_ have one or more metadata pairs associated with it.<br/>
+   Clients _MUST_ process metadata on a Collection.
+ * A Manifest _SHOULD_ have one or more metadata pairs associated with it.<br/>
+   Clients _MUST_ process metadata on a Manifest.
+ * A Canvas _MAY_ have one or more metadata pairs associated with it.<br/>
+   Clients _SHOULD_ process metadata on a Canvas.
+ * Other resource types _MAY_ have one or more metadata pairs.<br/>
+   Clients _MAY_ process metadata on other resource types.
 
- * A Collection _SHOULD_ have one or more metadata pairs associated with it.
- * A Manifest _SHOULD_ have one or more metadata pairs associated with it describing the object or work.
- * Other resource types _MAY_ have one or more metadata pairs.
+Clients _SHOULD_ display the metadata pairs in the order provided. Clients _SHOULD NOT_ use metadata for indexing and discovery purposes, as there are intentionally no consistent semantics.
 
+__Example:__
 ``` json-doc
 {"metadata": [ {"label": {"en": ["Label"]}, "value": {"en": ["Value"]}} ]}
 ```
 
 ##### description
-A longer-form prose description of the object or resource that the property is attached to, intended to be conveyed to the user as a full text description, rather than a simple label and value. The value of the property _MUST_ be a JSON object, as described in the [languages][languages] section.  It can duplicate any of the information from the `metadata` fields, along with additional information required to understand what is being displayed. 
+A longer-form prose description of the object or resource that the property is attached to, intended to be conveyed to the user as a full text description, rather than a simple label and value. It can duplicate any of the information from the `metadata` fields, along with additional information required to understand what is being displayed. 
 
-__Take out client functionality requirements:__
+The value of the property _MUST_ be a JSON object, as described in the [languages][languages] section.
 
-> Clients _SHOULD_ have a way to display the descriptions of Manifests and Canvases, and _MAY_ have a way to view the information about other resources.
-
- * A Collection _SHOULD_ have one or more descriptions.
+ * A Collection _SHOULD_ have one or more descriptions.<br/>
+   Clients _SHOULD_ process description on a Collection.
  * A Manifest _SHOULD_ have one or more descriptions.
- * Other resource types _MAY_ have one or more description.
+   Clients _SHOULD_ process description on a Manifest.
+ * A Canvas _MAY_ have one or more descriptions.<br/>
+   Clients _SHOULD_ process description on a Canvas.
+ * Other resource types _MAY_ have one or more description.<br/>
+   Clients _MAY_ process description on other resource types.
 
+__Example:__
 ``` json-doc
 {"description": {"en": ["Description Value"]}}
 ```
 
 ##### thumbnail
-A small content resource that represents the resource that the property is attached to, such as a small image or short audio clip.  It is _RECOMMENDED_ that a [IIIF Image API][image-api] service be available for images to enable manipulations such as resizing. The value _MUST_ be a JSON array, with each item in the array being a JSON object that _MUST_ have an `id` property and _SHOULD_ have at least one of `type` and `format`.
+A small content resource that represents the resource that the property is attached to, such as a small image or short audio clip.  It is _RECOMMENDED_ that a [IIIF Image API][image-api] service be available for images to enable manipulations such as resizing. 
+
+The value _MUST_ be a JSON array, with each item in the array being a JSON object that _MUST_ have an `id` property and _SHOULD_ have at least one of `type` and `format`.
 
  * A Collection _SHOULD_ have exactly one thumbnail resource, and _MAY_ have more than one.
  * A Manifest _SHOULD_ have exactly one thumbnail resource, and _MAY_ have more than one.
@@ -219,6 +234,7 @@ A small content resource that represents the resource that the property is attac
  * A content resource _MAY_ have one or more thumbnails and _SHOULD_ have at least one thumbnail if it is an option in a choice of resources.
  * Other resource types _MAY_ have one or more thumbnails.
 
+__Example:__
 ``` json-doc
 {"thumbnail": [{"id": "https://example.org/img/thumb.jpg", "type": "Image"}]}
 ```
@@ -1707,6 +1723,7 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 [ld-exts]: #linked-data-context-and-extensions
 [paging]: #paging-properties
 [resource-structure]: #resource-structure
+[languages]: #languages
 
 [icon-req]: /img/metadata-api/required.png "Required"
 [icon-recc]: /img/metadata-api/recommended.png "Recommended"
