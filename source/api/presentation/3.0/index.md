@@ -596,66 +596,96 @@ The value _MUST_ be a string.
 ###  3.5. Paging Properties
 
 ##### first
-A link from a resource with pages, such as a Collection or AnnotationCollection, to its first page resource, another Collection or an AnnotationPage respectively. The page resource _MUST_ be referenced as an object with at least `id` and `type` properties.
+A link from a resource with pages, such as a Collection or AnnotationCollection, to its first page resource, another Collection or an AnnotationPage respectively. 
 
- * A Collection _MAY_ have exactly one Collection as its first page.
- * An AnnotationCollection _MAY_ have exactly one AnnotationPage as its first page.
- * Other resource types _MUST NOT_ have a first page.
+The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `label` property.
+
+ * A Collection _MAY_ have exactly one Collection as its first page.<br/>
+   Clients _SHOULD_ process, and _MAY_ render, first on a Collection.
+ * An AnnotationCollection _MAY_ have exactly one AnnotationPage as its first page.<br/>
+   Clients _SHOULD_ process, and _MAY_ render, first on an AnnotationCollection.
+ * Other resource types _MUST NOT_ have a first page.<br/>
+   Clients _SHOULD_ ignore first on other resource types.
 
 ``` json-doc
 {"first": {"id": "https://example.org/iiif/1/annos/1", "type": "AnnotationPage"}]}
 ```
 
 ##### last
-A link from a resource with pages to its last page resource. The page resource _MUST_ be referenced as an object with at least `id` and `type` properties.
+A link from a resource with pages to its last page resource. 
 
- * A collection _MAY_ have exactly one collection as its last page.
- * A layer _MAY_ have exactly one annotation list as its last page.
- * Other resource types _MUST NOT_ have a last page.
+The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `label` property.
+
+ * A Collection _MAY_ have exactly one Collection as its last page.<br/>
+   Clients _MAY_ render last on a Collection.
+ * An AnnotationCollection _MAY_ have exactly one AnnotationPage as its last page.<br/>
+   Clients _MAY_ render last on an AnnotationCollection.
+ * Other resource types _MUST NOT_ have a last page.<br/>
+   Clients _SHOULD_ ignore last on other resource types.
 
 ``` json-doc
 {"last": {"id": "https://example.org/iiif/1/annos/23", "type": "AnnotationPage"}]}
 ```
 
 ##### total
-The total number of leaf resources in a paged list, such as the number of Annotations within an AnnotationCollection. The value _MUST_ be a non-negative integer.
+The total number of leaf resources in a paged list, such as the number of Annotations within an AnnotationCollection. 
 
- * A Collection _MAY_ have exactly one total, which _MUST_ be the total number of Collections and Manifests in its list of pages.
- * An AnnotationCollection _MAY_ have exactly one total, which _MUST_ be the total number of Annotations in its list of pages.
- * Other resource types _MUST NOT_ have a total.
+The value _MUST_ be a non-negative integer.
+
+ * A Collection _MAY_ have exactly one total, which _MUST_ be the total number of Collections and Manifests in its list of pages.<br/>
+   Clients _MAY_ render total on a Collection.
+ * An AnnotationCollection _MAY_ have exactly one total, which _MUST_ be the total number of Annotations in its list of pages.<br/>
+   Clients _MAY_ render total on an AnnotationCollection.
+ * Other resource types _MUST NOT_ have a total.<br/>
+   Clients _SHOULD_ ignore total on other resource types.
 
 ``` json-doc
 {"total": 2217}
 ```
 
 ##### next
-A link from a page resource to the next page resource that follows it in order. The page resource _MUST_ be referenced as an object with at least `id` and `type` properties.
+A link from a page resource to the next page resource that follows it in order.
 
- * A Collection _MAY_ have exactly one Collection as its next page.
- * An AnnotationPage _MAY_ have exactly one AnnotationPage as its next page.
- * Other resource types _MUST NOT_ have next pages.
+The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `label` property.
+
+ * A Collection _MAY_ have exactly one Collection as its next page.<br/>
+   Clients _SHOULD_ process, and _MAY_ render next on a Collection.
+ * An AnnotationPage _MAY_ have exactly one AnnotationPage as its next page.<br/>
+   Clients _SHOULD_ process, and _MAY_ render next on an AnnotationPage.
+ * Other resource types _MUST NOT_ have next pages.<br/>
+   Clients _SHOULD_ ignore next on other resource types.
 
 ``` json-doc
 {"next": {"id": "https://example.org/iiif/1/annos/3", "type": "AnnotationPage"}]}
 ```
 
 ##### prev
-A link from a page resource to the previous page resource that precedes it in order. The page resource _MUST_ be referenced as an object with at least `id` and `type` properties.
+A link from a page resource to the previous page resource that precedes it in order.
 
- * A Collection _MAY_ have exactly one Collection as its previous page.
- * An AnnotationPage _MAY_ have exactly one AnnotationPage as its previous page.
- * Other resource types _MUST NOT_ have previous pages.
+The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `label` property.
+
+ * A Collection _MAY_ have exactly one Collection as its previous page.<br/>
+   Clients _SHOULD_ process, and _MAY_ render prev on a Collection.
+ * An AnnotationPage _MAY_ have exactly one AnnotationPage as its previous page.<br/>
+   Clients _SHOULD_ process, and _MAY_ render prev on an AnnotationPage.
+ * Other resource types _MUST NOT_ have previous pages.<br/>
+   Clients _SHOULD_ ignore prev on other resource types.
 
 ``` json-doc
 {"prev": {"id": "https://example.org/iiif/1/annos/2", "type": "AnnotationPage"}]}
 ```
 
 ##### startIndex
-The 0 based index of the first included resource in the current page, relative to the parent paged resource. The value _MUST_ be a non-negative integer.
+The 0 based index of the first included resource in the current page, relative to the parent paged resource. 
 
- * A Collection _MAY_ have exactly one startIndex, which _MUST_ be the index of its first Collection or Manifest relative to the order established by its parent paging Collection.
- * An AnnotationPage _MAY_ have exactly one startIndex, which _MUST_ be the index of its first Annotation relative to the order established by its parent paging AnnotationCollection.
- * Other resource types _MUST NOT_ have a startIndex.
+The value _MUST_ be a non-negative integer.
+
+ * A Collection _MAY_ have exactly one startIndex, which _MUST_ be the index of its first Collection or Manifest relative to the order established by its parent paging Collection.<br/>
+   Clients _MAY_ process or render startIndex on a Collection.
+ * An AnnotationPage _MAY_ have exactly one startIndex, which _MUST_ be the index of its first Annotation relative to the order established by its parent paging AnnotationCollection.<br/>
+   Clients _MAY_ process or render startIndex on an AnnotationPage.
+ * Other resource types _MUST NOT_ have a startIndex.<br/>
+   Clients _SHOULD_ ignore startIndex on other resource types.
 
 ``` json-doc
 {"startIndex": 300}
@@ -667,7 +697,9 @@ These properties define the structure of the object being represented in IIIF by
 
 ##### items
 
-Much of the functionality of the IIIF Presentation API is simply recording the order in which child resources occur within a parent resource, such as Collections or Manifests within a parent Collection, Sequences within a Manifest, or Canvases within a Sequence.  All of these situations are covered with a single property, `items`.  The value _MUST_ be an array of objects.
+Much of the functionality of the IIIF Presentation API is simply recording the order in which child resources occur within a parent resource, such as Collections or Manifests within a parent Collection, Sequences within a Manifest, or Canvases within a Sequence.  All of these situations are covered with a single property, `items`.  
+
+The value _MUST_ be an array of objects.
 
 * A Collection _MUST_ have a list of Collections and/or Manifests as its items.
 * A Manifest _MUST_ have a list of Sequences as its items.
@@ -679,30 +711,34 @@ Much of the functionality of the IIIF Presentation API is simply recording the o
 {"items": [{"id": "..."}]}
 ```
 
-##### structure
+##### structures
 
-The structure of an object represented as a Manifest can be described using a hierarchy of Ranges.  The top level Ranges of these hierarchies are given in the `structure` property.
+The structure of an object represented as a Manifest can be described using a hierarchy of Ranges.  The top level Ranges of these hierarchies are given in the `structures` property.
 
-* A Manifest _MAY_ have one or more Ranges in the `structure` property.
+The value _MUST_ be an array of objects.
+
+* A Manifest _MAY_ have one or more Ranges in the `structures` property.
 
 ```json-doc
-{"structure": [
+{"structures": [
   {
     "id": "http://example.org/iiif/range/1",
     "type": "Range",
-    "viewingHint": ["top"]
+    "items": [ ... ]
   }
 ]}
 ```
 
-##### content
+##### contents
 
-The resources associated with a Canvas via Annotations are given in the `content` property of the Canvas.  Each resource in the list is an AnnotationPage, and can either be embedded in its entirety or referenced via its `id` and `type`.
+The resources associated with a Canvas via Annotations are given in the `contents` property of the Canvas.  Each resource in the list is an AnnotationPage, and can either be embedded in its entirety or referenced via its URI.
+
+The value _MUST_ be an array of objects. Each object _MUST_ have at least the `id` and `type` properties.
 
 * A Canvas _SHOULD_ have one or more AnnotationPages in the `content` property. 
 
 ```json-doc
-{"content": [
+{"contents": [
   {
     "id": "http://example.org/iiif/annotationPage/1",
     "type": "AnnotationPage",
