@@ -158,21 +158,21 @@ Other properties are allowed, either via custom extensions or endorsed by IIIF. 
 ##### label
 A human readable label, name or title for the resource. This property is intended to be displayed as a short, textual surrogate for the resource if a human needs to make a distinction between it and similar resources, for example between pages or between a choice of images to display. The value of the property _MUST_ be a JSON object, as described in the [languages][languages] section.
 
- * A Collection _MUST_ have at least one label.
+ * A Collection _MUST_ have at least one label.<br/>
    Clients _MUST_ process label on a Collection. 
- * A Manifest _MUST_ have at least one label.
+ * A Manifest _MUST_ have at least one label.<br/>
    Clients _MUST_ process label on a Manifest.
- * A Sequence  _MAY_ have one or more labels, and if there are multiple Sequences in a single Manifest then they _MUST_ each have at least one label.
+ * A Sequence  _MAY_ have one or more labels, and if there are multiple Sequences in a single Manifest then they _MUST_ each have at least one label.<br/>
    Clients _SHOULD_ support multiple Sequences, and if they do, _MUST_ process label on a Sequence.
- * A Canvas _SHOULD_ have at least one label.
+ * A Canvas _SHOULD_ have at least one label.<br/>
    Clients _MUST_ process label on a Canvas, and _MUST_ generate a label for Canvases that do not have them.
- * A content resource _MAY_ have one or more labels, and if there is a choice of content resource for the same Canvas, then they _SHOULD_ each have at least one label.
+ * A content resource _MAY_ have one or more labels, and if there is a choice of content resource for the same Canvas, then they _SHOULD_ each have at least one label.<br/>
    Clients _MAY_ process label on content resources, and _MUST_ process them when part of a Choice.
- * A Range _SHOULD_ have at least one label. 
+ * A Range _SHOULD_ have at least one label. <br/>
    Clients _MUST_ process label on a Range.
- * An AnnotationCollection _MUST_ have at least one label.
+ * An AnnotationCollection _MUST_ have at least one label.<br/>
    Clients _MUST_ process label on an AnnotationCollection.
- * Other resource types _MAY_ have labels.
+ * Other resource types _MAY_ have labels.<br/>
    Clients _MAY_ process label on other resource types.
 
 ``` json-doc
