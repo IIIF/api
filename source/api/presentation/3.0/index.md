@@ -149,7 +149,7 @@ An ordered list of Canvases, and/or further Ranges.  Ranges allow Canvases, or p
 
 This specification defines properties in five distinct areas. Most of the properties may be associated with any of the resource types described above, and may have more than one value.  The property relates to the resource that it is associated with, so a `description` property on a Manifest is a description of the object, whereas a `description` property on a Canvas is a description of that particular view.
 
-The requirements for the use of the properties are summarized in [Appendix B][appendixB].
+The requirements for which classes have which properties are summarized in [Appendix B][appendixB].
 
 Other properties are allowed, either via custom extensions or endorsed by IIIF. If a client discovers properties that it does not understand, then it _MUST_ ignore them.  Other properties _SHOULD_ consist of a prefix and a name in the form "`prefix:name`" to ensure it does not collide with a property defined by IIIF specifications.
 
@@ -159,13 +159,21 @@ Other properties are allowed, either via custom extensions or endorsed by IIIF. 
 A human readable label, name or title for the resource. This property is intended to be displayed as a short, textual surrogate for the resource if a human needs to make a distinction between it and similar resources, for example between pages or between a choice of images to display. The value of the property _MUST_ be a JSON object, as described in the [languages][languages] section.
 
  * A Collection _MUST_ have at least one label.
- * A Manifest _MUST_ have at least one label, such as the name of the object or title of the intellectual work that it embodies.
- * A Sequence  _MAY_ have one or more labels, and if there are multiple Sequences in a single manifest then they _MUST_ each have at least one label.
- * A Canvas _SHOULD_ have at least one label, such as the page number or short description of the view.
+   Clients _MUST_ process label on a Collection. 
+ * A Manifest _MUST_ have at least one label.
+   Clients _MUST_ process label on a Manifest.
+ * A Sequence  _MAY_ have one or more labels, and if there are multiple Sequences in a single Manifest then they _MUST_ each have at least one label.
+   Clients _SHOULD_ support multiple Sequences, and if they do, _MUST_ process label on a Sequence.
+ * A Canvas _SHOULD_ have at least one label.
+   Clients _MUST_ process label on a Canvas, and _MUST_ generate a label for Canvases that do not have them.
  * A content resource _MAY_ have one or more labels, and if there is a choice of content resource for the same Canvas, then they _SHOULD_ each have at least one label.
+   Clients _MAY_ process label on content resources, and _MUST_ process them when part of a Choice.
  * A Range _SHOULD_ have at least one label. 
+   Clients _MUST_ process label on a Range.
  * An AnnotationCollection _MUST_ have at least one label.
+   Clients _MUST_ process label on an AnnotationCollection.
  * Other resource types _MAY_ have labels.
+   Clients _MAY_ process label on other resource types.
 
 ``` json-doc
 {"label": {"en": ["Label Value"]}}
