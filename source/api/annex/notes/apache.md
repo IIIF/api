@@ -73,12 +73,12 @@ The above configuration snippet may also be used for Presentation API implementa
 
 
 
-[uri-encoding-and-decoding]: /api/image/2.0#uri-encoding-and-decoding "Image API: URI Encoding and Decoding"
-[image-compliance-levels]: /api/image/2.0#compliance-levels "Image API: Compliance Levels"
+[uri-encoding-and-decoding]: {{ site.url }}{{ site.baseurl }}/api/image/2.0#uri-encoding-and-decoding "Image API: URI Encoding and Decoding"
+[image-compliance-levels]: {{ site.url }}{{ site.baseurl }}/api/image/2.0#compliance-levels "Image API: Compliance Levels"
 [apache-aesnd]: http://httpd.apache.org/docs/2.2/mod/core.html#allowencodedslashes "Allow Encoded Slashes directive"
 [set-compliance-link-header]: #set-compliance-link-header
-[image-api]: /api/image/2.0/
-[prezi-api]: /api/presentation/2.0/
+[image-api]: {{ site.url }}{{ site.baseurl }}/api/image/2.0/
+[prezi-api]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.0/
 
 
 {% include acronyms.md %}

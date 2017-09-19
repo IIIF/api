@@ -8,7 +8,8 @@ install:
   - bundle install
   - npm install grunt grunt-html --save-dev
 
-script: rake ci
+script:
+  - rake ci
 
 # environment
 language: ruby
@@ -16,9 +17,41 @@ rvm:
   - "2.2.3"
 jdk:
   - oraclejdk8
+dist: precise
 
-branches:
-  - 'master'
+before_deploy: if [[ ${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH} != master ]]; then
+    bundle exec jekyll clean && bundle exec jekyll build --baseurl /api/${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH};
+  else
+    bundle exec jekyll clean && bundle exec jekyll build;
+  fi
+
+deploy:
+  - provider: s3
+    access_key_id:
+      secure: "BETxnNI3qDjtTJrFm2BHA2IQlg2cGEJCJvvwe6qN4WULz727IgB84FxD4dLqSBt/Qz1Soew8/Y+D4gz+Wzq1l8S//n+QNeOYl6OZ8+VxSorV0RpO8wqT4Yk/p6s3IQBs5JKaxXz8YKxsk4JpD2Uez3CMr81PoVVVMN90s5SlSS8Bia2CAKPJg7VhyrED+efUDhHMAL44nQ/orj6B3TFeai/dc03P0ZFQik3MTmKx+FDGTh/Qx0lowDmOv0JjZ2Tb0hhoLVchK8SnkE2i4VP4rPnPmktywUAKTr9qxePKMgq+4zKTtBNk6pN/jdVY4QPTFGekMb8jRCwRdbd7oUW2yuc985JrsX5WESou2sdAmMZUTGGdpSakc5K2APGgkHOrAAVl3GkyJobECFF3pxB6zOpoqFZd+2xTFaayimNQ5NyPiERtwx0fexwn2lLJYmIYBi1g63CF8xjXCVWD9Qdm+h5vCqF3wl0ffGXXkpJZ2l3hxde4SNALCT4Fz4crNnHK+dTnpDiZmzh7G2rKQ0OLFE0OU4SICbE20dE5LvErOZi28CwWQnOOMaTllWe1nrCkvj9L70OQ+1KNkoixNVKVW0cYHvVaK4JrFqQuDPjJvyFn5V48fE5SHKPf1mqoturGue/70/Itu0fe8O6iPQ7q0CmMU5sN95WZ0K+gyjNevow="
+    secret_access_key:
+      secure: "KIb7mJaoeWpAI8aVUOcr0XIwbc1t5ma07SUpnJNMG14VDbFXa6i5PLjueEp2x6MBhC6qzqiUwwub9RT9fJQf7IF3aG3XG8T6AnyyDHgCZmU0O7sSi2Zcceg9mlE/thOuM+GX85Mw8wiBf4/iO0uddmphbx0YObsW4qr5z2ZCoyZx2dZEVZYbz6Le4T3OGOqLNPbfHX/MFhrDGuxsvNF2KugK41YAd+9eiyCeLaFh1VQvB/XzBYei5pwewBPjJt0/0Mpr3ydCufSrmzeAvVvXkw/uh3yhbBEBApsL5DJGCY0EnXedTquzvD/d3pTfTggb0nlqdsAaz7cGdO9lgzFv9eLXRtVlG3MiQhwsEoWvJKNhcUn0UdtScgPh3qs/wzvfXNs7QNfjxkhZ0StFQaQbbl4/lJhiBHNKP6ISktVZ5Dr0tEgL7jqTFLUsbLUmAhMNsk4t5d9ix/lh72ikxVhMFPrGTam7CCEYroocB6+UqAZE9LUq75gvH35ZATldd13kCid7nAJoAmzxARHVMQ0qoXRuSYogMxgiLifJycPXMRzH5PEh1CTKjY0K18kebOMaWijvYnYDMBw3vtHdTC/r1j7N3HgdZDAbTtYYLHkgA9omRs21YcESsW33tCvD530fsU/S+D0aFRgKQibrXmW/IGC08lwXRfycbKwg+Yd5/tI="
+    bucket: iiif-api-website
+    skip_cleanup: true
+    acl: public_read
+    region: us-east-1
+    local_dir: _site
+    on:
+      branch: master
+  - provider: s3
+    access_key_id:
+      secure: "R3uHSMYkFAWbbl6Fxqm8664KQLQJ5TF4cmM4XRzo4DW14uDLvTx8h4TdS6kv7YtDo/DJhAu2sligcBGQgK+tHVhHkfxkMAssOXmPlSirPkgreu+IfiumoqjWPI4WWqgiBBiQ2RLTsSplGBkVdMZcXnCRZ/0GIDpbAAAhZ9cOiACPXFGQ4B3zS4wx0Qsf5MfTAWAmNEkbctSzdb5pst1DCPnL0Z7fmCJ1S9Kgs/Qkp2l250cD15xwDwz26kx+JjdYw0kQPZttJ+wNmURW6yj0U6jPN7gFXxbeByrVH71R1ZXhx+W3SpLil6IgxP7hhZglxtjA/OpCVl7C/c6p0s83EiIrYhmFjuhxfoLLc9Bd2e+48xSdI1TTV+YbOV12ES77S153bMJez2LMaR6sGaro5xIqGLLZMRZYTn1iWRFxHK+dyADIlWnMXfxJJbjKaQ9v0/kX3sgyQJ9Li3ywOSvR0kE3pPBL2mHMNgcGnrBSNegZVjpyfN2S/UMgRG1rJri9VNYvcWGiqZ0IkhZXAEnFbHHKj0mKQj6/3nK+q0bkRzkNjIAiP5ayzvnN++xqpuTR16fYq7Xm9hq9mYiOOlzdKFhjbswiOUErf0bssRxpUBKyk1WUCAM2SF6nDtFQj086uAIM5EtZfjUtymNmrQrWwRm5P+FO5g+ddl+p/JsQPRY="
+    secret_access_key:
+      secure: "BdYV+F3z+wnlJ3C9USXGAL0HlCh6ENXhM1E+qwvXhUQawPin+qYIg4lrxvsN/tNSvUKWIPQq4l1++FnJulumI/iGB8KqeUum2HiLNGYEHJZOlM6oWtgxaE7faet6Tvb0JHQORzXsl2wzOrO8s0U6IVuTtkLDYAfMdm+ZdPLW6nk6PBS9tFa9IQAsE0sIttfnbWiw4sTF0TfwE3WBdc7kJEPlbXiMy6AzWpryMZjpfT+U2PwF+ik85KyzSY4cbkKWTY5k11Iaj/34JbF1jDqCR/d37RjocMNKk5Uw9rpO+RJB1jnJ4EIy31mYFHcNtOkB8P6RGJqcXQAIU2JCHNEgfz3cbl1OrrrKQXehx4rmsrlaymq60k5+eGsfvY20Xnbd6hcMrjWkXMwnZYKRwBCpDPP1/3RsPTeChEU5woj+YOzAZhe4SU3+uM4K1twm4y1YQx69zOGHUWj1lkgNY4zXSM8j24SsLt7dzIb5wE3n2PuyPgq7O68mB67CEyXE9j2fjhayNmN1+c4hmA53nsP+qLZjflZ4hMRQmLtJmPQEl98k9v4z6RwYJ3WhCc96PtdrXnThEtIymCmC0fM+rCbdw3G4ZVaDsIgR3JyaLba6u050r7zWlOEC+P7LDGjGqYvIYGd81xhBERaQB4p0I/uYDjTCJ8uUxkLizJdYxyNA4lU="
+    bucket: preview.iiif.io
+    skip_cleanup: true
+    acl: public_read
+    region: us-east-1
+    local_dir: _site
+    upload-dir: "api/$TRAVIS_BRANCH"
+    on:
+      all_branches: true
+      condition: "$TRAVIS_BRANCH != master"
 
 notifications:
   email:
@@ -28,6 +61,6 @@ notifications:
       - "jpstroop@gmail.com"
       - "michael.appleby@yale.edu"
       - "simeon.warner@gmail.com"
-      - "snydman@stanford.edu"
+      - "glen.robson@gmail.com"
     on_success: "change"
     on_failure: "change"

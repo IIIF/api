@@ -12,11 +12,11 @@ This document is not subject to [IIIF's versioning semantics][iiif-semver]. Chan
 
 **Authors:**
 
-  * **[Michael Appleby](https://orcid.org/0000-0002-1266-298X)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0002-1266-298X), [_Yale University_](http://www.yale.edu/)
-  * **[Tom Crane](https://orcid.org/0000-0003-1881-243X)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0003-1881-243X), [_Digirati_](http://digirati.com/)
-  * **[Robert Sanderson](https://orcid.org/0000-0003-4441-6852)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0003-4441-6852), [_J Paul Getty Trust_](http://www.getty.edu/)
-  * **[Jon Stroop](https://orcid.org/0000-0002-0367-1243)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0002-0367-1243), [_Princeton University Library_](https://library.princeton.edu/)
-  * **[Simeon Warner](https://orcid.org/0000-0002-7970-7855)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0002-7970-7855), [_Cornell University_](https://www.cornell.edu/)
+  * **[Michael Appleby](https://orcid.org/0000-0002-1266-298X)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0002-1266-298X), [_Yale University_](http://www.yale.edu/)
+  * **[Tom Crane](https://orcid.org/0000-0003-1881-243X)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0003-1881-243X), [_Digirati_](http://digirati.com/)
+  * **[Robert Sanderson](https://orcid.org/0000-0003-4441-6852)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0003-4441-6852), [_J Paul Getty Trust_](http://www.getty.edu/)
+  * **[Jon Stroop](https://orcid.org/0000-0002-0367-1243)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0002-0367-1243), [_Princeton University Library_](https://library.princeton.edu/)
+  * **[Simeon Warner](https://orcid.org/0000-0002-7970-7855)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0002-7970-7855), [_Cornell University_](https://www.cornell.edu/)
   {: .names}
 
 {% include copyright2017.md %}
@@ -123,16 +123,16 @@ The intent of adopting this pattern is to enable experimentation by implementers
 [change-log]: #change-log "Change Log"
 [iiif-announce]: https://groups.google.com/forum/#!forum/iiif-announce "IIIF Email Announcement List"
 [iiif-discuss]: https://groups.google.com/forum/#!forum/iiif-discuss "IIIF Email Discussion List"
-[iiif-semver]: /api/annex/notes/semver/ "Versioning of APIs"
+[iiif-semver]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/semver/ "Versioning of APIs"
 [rfc-2119]: https://www.ietf.org/rfc/rfc2119.txt "RFC 2119"
-[spec-disclaimer]: /api/annex/notes/disclaimer/ "Specification Disclaimer"
+[spec-disclaimer]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/disclaimer/ "Specification Disclaimer"
 
-[process]: /api/annex/notes/editors/#community-process
-[services]: /api/annex/services/
-[image-api]: /api/image
-[presentation-api]: /api/presentation
-[search-api]: /api/search
-[auth-api]: /api/auth
+[process]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/editors/#community-process
+[services]: {{ site.url }}{{ site.baseurl }}/api/annex/services/
+[image-api]: {{ site.url }}{{ site.baseurl }}/api/image
+[presentation-api]: {{ site.url }}{{ site.baseurl }}/api/presentation
+[search-api]: {{ site.url }}{{ site.baseurl }}/api/search
+[auth-api]: {{ site.url }}{{ site.baseurl }}/api/auth
 
 [rest]: https://en.wikipedia.org/wiki/Representational_state_transfer
 [lod]: https://en.wikipedia.org/wiki/Linked_data

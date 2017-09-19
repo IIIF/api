@@ -291,9 +291,9 @@ If, for example, the client domain and resource domain are in the *Internet* zon
 
 
 [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
-[auth-api]: /api/auth/{{ page.major }}.{{ page.minor }}/ "Authentication API {{ page.major }}.{{ page.minor }}"
-[service-description]: /api/auth/{{ page.major }}.{{ page.minor }}/#service-description "Authentication API Service Description"
-[workflow-from-the-browser-client-perspective]: /api/auth/{{ page.major }}.{{ page.minor }}/#workflow-from-the-browser-client-perspective "Authentication API Workflow from the Browser Client Perspective"
+[auth-api]: {{ site.url }}{{ site.baseurl }}/api/auth/{{ page.major }}.{{ page.minor }}/ "Authentication API {{ page.major }}.{{ page.minor }}"
+[service-description]: {{ site.url }}{{ site.baseurl }}/api/auth/{{ page.major }}.{{ page.minor }}/#service-description "Authentication API Service Description"
+[workflow-from-the-browser-client-perspective]: {{ site.url }}{{ site.baseurl }}/api/auth/{{ page.major }}.{{ page.minor }}/#workflow-from-the-browser-client-perspective "Authentication API Workflow from the Browser Client Perspective"
 [xhr]: https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest "HttpXmlRequest"
 [xdr]: https://developer.mozilla.org/en-US/docs/Web/API/XDomainRequest "XDomainRequest"
 [moonscript]: https://github.com/MoonScript/jQuery-ajaxTransport-XDomainRequest "jQuery-ajaxTransport-XDomainRequest"

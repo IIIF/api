@@ -13,11 +13,11 @@ Changes will be tracked within the document.
 
 **Editors**
 
-  * **[Benjamin Albritton](https://orcid.org/0000-0001-8774-7964)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0001-8774-7964), [_Stanford University_](http://www.stanford.edu)
-  * **[Michael Appleby](https://orcid.org/0000-0002-1266-298X)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0002-1266-298X), [_Yale University_](http://www.yale.edu/)
-  * **[Robert Sanderson](https://orcid.org/0000-0003-4441-6852)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0003-4441-6852), [_Stanford University_](http://www.stanford.edu/)
-  * **[Jon Stroop](https://orcid.org/0000-0002-0367-1243)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0002-0367-1243), [_Princeton University Library_](https://library.princeton.edu/)
-  * **[Simeon Warner](https://orcid.org/0000-0002-7970-7855)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0002-7970-7855), [_Cornell University_](https://www.cornell.edu/)
+  * **[Benjamin Albritton](https://orcid.org/0000-0001-8774-7964)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0001-8774-7964), [_Stanford University_](http://www.stanford.edu)
+  * **[Michael Appleby](https://orcid.org/0000-0002-1266-298X)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0002-1266-298X), [_Yale University_](http://www.yale.edu/)
+  * **[Robert Sanderson](https://orcid.org/0000-0003-4441-6852)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0003-4441-6852), [_Stanford University_](http://www.stanford.edu/)
+  * **[Jon Stroop](https://orcid.org/0000-0002-0367-1243)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0002-0367-1243), [_Princeton University Library_](https://library.princeton.edu/)
+  * **[Simeon Warner](https://orcid.org/0000-0002-7970-7855)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0002-7970-7855), [_Cornell University_](https://www.cornell.edu/)
   {: .names}
 
 {% include copyright.md %}
@@ -235,12 +235,12 @@ Thanks to the members of the [IIIF][iiif-community] for their continuous engagem
 | 2015-12-04 | Fix link for physical dimensions context           |
 | 2014-06-01 | Version 1.0                                        |
 
-   [semver]: /api/annex/notes/semver/ "Versioning of APIs"
+   [semver]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/semver/ "Versioning of APIs"
    [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
-   [image-api]: /api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/ "Image API"
-   [prezi-api]: /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/ "Presentation API"
+   [image-api]: {{ site.url }}{{ site.baseurl }}/api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/ "Image API"
+   [prezi-api]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/ "Presentation API"
    [json-ld]: http://www.w3.org/TR/json-ld/ "JSON-LD"
-   [iiif-community]: /community/ "IIIF Community"
+   [iiif-community]: {{page.webprefix}}/community/ "IIIF Community"
    [mellon]: http://www.mellon.org/ "The Andrew W. Mellon Foundation"
    [geojson]: http://geojson.org/ "GeoJSON"
    [geojson-ld]: http://geojson.org/geojson-ld/ "GeoJSON-LD"
@@ -249,10 +249,10 @@ Thanks to the members of the [IIIF][iiif-community] for their continuous engagem
 [lgeojson]: #geojson
 [physdim]: #physical-dimensions
 
-[icon-req]: /img/metadata-api/required.png "Required"
-[icon-recc]: /img/metadata-api/recommended.png "Recommended"
-[icon-opt]: /img/metadata-api/optional.png "Optional"
-[icon-na]: /img/metadata-api/not_allowed.png "Not allowed"
+[icon-req]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/required.png "Required"
+[icon-recc]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/recommended.png "Recommended"
+[icon-opt]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/optional.png "Optional"
+[icon-na]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/not_allowed.png "Not allowed"
 
 
 {% include acronyms.md %}

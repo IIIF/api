@@ -112,7 +112,7 @@ DEPENDENCIES
   capistrano (> 3.4)
   capistrano-bundler (> 1.1.4)
   capistrano-rvm
-  html-proofer (~> 3.0, >= 3.0.5)
+  html-proofer
   jekyll (= 3.4.3)
   jekyll-redirect-from (> 0.10.0)
   jekyll-sitemap (> 0.10.0)
@@ -121,4 +121,4 @@ DEPENDENCIES
   rspec
 
 BUNDLED WITH
-   1.14.6
+   1.15.3
