@@ -600,11 +600,11 @@ A link from a resource with pages, such as a Collection or AnnotationCollection,
 The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `label` property.
 
  * A Collection _MAY_ have exactly one Collection as its first page.<br/>
-   Clients _SHOULD_ process, and _MAY_ render, first on a Collection.
+   Clients _SHOULD_ process, and _MAY_ render, `first` on a Collection.
  * An AnnotationCollection _MAY_ have exactly one AnnotationPage as its first page.<br/>
-   Clients _SHOULD_ process, and _MAY_ render, first on an AnnotationCollection.
+   Clients _SHOULD_ process, and _MAY_ render, `first` on an AnnotationCollection.
  * Other resource types _MUST NOT_ have a first page.<br/>
-   Clients _SHOULD_ ignore first on other resource types.
+   Clients _SHOULD_ ignore `first` on other resource types.
 
 ``` json-doc
 {"first": {"id": "https://example.org/iiif/1/annos/1", "type": "AnnotationPage"}]}
@@ -616,11 +616,11 @@ A link from a resource with pages to its last page resource.
 The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `label` property.
 
  * A Collection _MAY_ have exactly one Collection as its last page.<br/>
-   Clients _MAY_ render last on a Collection.
+   Clients _MAY_ render `last` on a Collection.
  * An AnnotationCollection _MAY_ have exactly one AnnotationPage as its last page.<br/>
-   Clients _MAY_ render last on an AnnotationCollection.
+   Clients _MAY_ render `last` on an AnnotationCollection.
  * Other resource types _MUST NOT_ have a last page.<br/>
-   Clients _SHOULD_ ignore last on other resource types.
+   Clients _SHOULD_ ignore `last` on other resource types.
 
 ``` json-doc
 {"last": {"id": "https://example.org/iiif/1/annos/23", "type": "AnnotationPage"}]}
@@ -632,11 +632,11 @@ The total number of leaf resources in a paged list, such as the number of Annota
 The value _MUST_ be a non-negative integer.
 
  * A Collection _MAY_ have exactly one total, which _MUST_ be the total number of Collections and Manifests in its list of pages.<br/>
-   Clients _MAY_ render total on a Collection.
+   Clients _MAY_ render `total` on a Collection.
  * An AnnotationCollection _MAY_ have exactly one total, which _MUST_ be the total number of Annotations in its list of pages.<br/>
-   Clients _MAY_ render total on an AnnotationCollection.
+   Clients _MAY_ render `total` on an AnnotationCollection.
  * Other resource types _MUST NOT_ have a total.<br/>
-   Clients _SHOULD_ ignore total on other resource types.
+   Clients _SHOULD_ ignore `total` on other resource types.
 
 ``` json-doc
 {"total": 2217}
@@ -648,11 +648,11 @@ A link from a page resource to the next page resource that follows it in order.
 The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `label` property.
 
  * A Collection _MAY_ have exactly one Collection as its next page.<br/>
-   Clients _SHOULD_ process, and _MAY_ render next on a Collection.
+   Clients _SHOULD_ process, and _MAY_ render `next` on a Collection.
  * An AnnotationPage _MAY_ have exactly one AnnotationPage as its next page.<br/>
-   Clients _SHOULD_ process, and _MAY_ render next on an AnnotationPage.
+   Clients _SHOULD_ process, and _MAY_ render `next` on an AnnotationPage.
  * Other resource types _MUST NOT_ have next pages.<br/>
-   Clients _SHOULD_ ignore next on other resource types.
+   Clients _SHOULD_ ignore `next` on other resource types.
 
 ``` json-doc
 {"next": {"id": "https://example.org/iiif/1/annos/3", "type": "AnnotationPage"}]}
@@ -664,11 +664,11 @@ A link from a page resource to the previous page resource that precedes it in or
 The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `label` property.
 
  * A Collection _MAY_ have exactly one Collection as its previous page.<br/>
-   Clients _SHOULD_ process, and _MAY_ render prev on a Collection.
+   Clients _SHOULD_ process, and _MAY_ render `prev` on a Collection.
  * An AnnotationPage _MAY_ have exactly one AnnotationPage as its previous page.<br/>
-   Clients _SHOULD_ process, and _MAY_ render prev on an AnnotationPage.
+   Clients _SHOULD_ process, and _MAY_ render `prev` on an AnnotationPage.
  * Other resource types _MUST NOT_ have previous pages.<br/>
-   Clients _SHOULD_ ignore prev on other resource types.
+   Clients _SHOULD_ ignore `prev` on other resource types.
 
 ``` json-doc
 {"prev": {"id": "https://example.org/iiif/1/annos/2", "type": "AnnotationPage"}]}
@@ -679,12 +679,12 @@ The 0 based index of the first included resource in the current page, relative t
 
 The value _MUST_ be a non-negative integer.
 
- * A Collection _MAY_ have exactly one startIndex, which _MUST_ be the index of its first Collection or Manifest relative to the order established by its parent paging Collection.<br/>
-   Clients _MAY_ process or render startIndex on a Collection.
- * An AnnotationPage _MAY_ have exactly one startIndex, which _MUST_ be the index of its first Annotation relative to the order established by its parent paging AnnotationCollection.<br/>
-   Clients _MAY_ process or render startIndex on an AnnotationPage.
- * Other resource types _MUST NOT_ have a startIndex.<br/>
-   Clients _SHOULD_ ignore startIndex on other resource types.
+ * A Collection _MAY_ have exactly one `startIndex`, which _MUST_ be the index of its first Collection or Manifest relative to the order established by its parent paging Collection.<br/>
+   Clients _MAY_ process or render `startIndex` on a Collection.
+ * An AnnotationPage _MAY_ have exactly one `startIndex`, which _MUST_ be the index of its first Annotation relative to the order established by its parent paging AnnotationCollection.<br/>
+   Clients _MAY_ process or render `startIndex` on an AnnotationPage.
+ * Other resource types _MUST NOT_ have a `startIndex`.<br/>
+   Clients _SHOULD_ ignore `startIndex` on other resource types.
 
 ``` json-doc
 {"startIndex": 300}
@@ -700,11 +700,16 @@ Much of the functionality of the IIIF Presentation API is simply recording the o
 
 The value _MUST_ be an array of objects.
 
-* A Collection _MUST_ have a list of Collections and/or Manifests as its items.
-* A Manifest _MUST_ have a list of Sequences as its items.
-* A Sequence _MUST_ have a list of Canvases as its items.
-* A Range _MUST_ have a list of Ranges and/or Canvases as its items.
-* An AnnotationPage _MUST_ have a list of Annotations as its items.
+* A Collection _MUST_ have a list of zero or more Collections and/or Manifests in `items`.<br/>
+  Clients _MUST_ process `items` on a Collection. 
+* A Manifest _MUST_ have a list of one or more Sequences in `items`.<br/>
+  Clients _MUST_ process `items` on a Manifest. 
+* A Sequence _MUST_ have a list of one or more Canvases in `items`.<br/>
+  Clients _MUST_ process `items` on a Sequence. 
+* A Range _MUST_ have a list of one or more Ranges and/or Canvases in `items`.<br/>
+  Clients _SHOULD_ process `items` on a Range. 
+* An AnnotationPage _MUST_ have a list of zero or more Annotations in `items`.<br/>
+  Clients _MUST_ process `items` on an AnnotationPage. 
 
 ```json-doc
 {"items": [{ ... }]}
@@ -716,7 +721,8 @@ The structure of an object represented as a Manifest can be described using a hi
 
 The value _MUST_ be an array of objects.
 
-* A Manifest _MAY_ have one or more Ranges in the `structures` property.
+* A Manifest _MAY_ have a list of one or more Ranges in `structures`.<br/>
+  Clients _SHOULD_ process `structures` on a Manifest.
 
 ```json-doc
 {"structures": [
@@ -734,7 +740,8 @@ The resources associated with a Canvas via Annotations are given in the `content
 
 The value _MUST_ be an array of objects. Each object _MUST_ have at least the `id` and `type` properties.
 
-* A Canvas _SHOULD_ have one or more AnnotationPages in the `content` property. 
+* A Canvas _SHOULD_ have a list of one or more AnnotationPages in `contents`.<br/>
+  Clients _MUST_ process `contents` on a Canvas.
 
 ```json-doc
 {"contents": [
