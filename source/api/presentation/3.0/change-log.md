@@ -1,19 +1,20 @@
 ---
-title: "Presentation API 2.1 Change Log"
-title_override: "Changes for IIIF Presentation API Version 2.1"
-id: presentation-api-21-change-log
+title: "Presentation API 2.1.1 Change Log"
+title_override: "Changes for IIIF Presentation API Version 2.1.1"
+id: presentation-api-211-change-log
 layout: spec
 tags: [specifications, presentation-api, change-log]
 major: 2
 minor: 1
-# no patch
+patch: 1
 pre: final
 redirect_from:
-  - /api/presentation/2.1/change-log.html
+  - /api/presentation/2.1/change-log-211.html
 ---
 
-This document is a companion to the [IIIF Presentation API Specification, Version 2.1][prezi-api]. It describes the significant changes to the API since [Version 2.0][prezi-api-20] as well as editorial changes. The changes are all backwards compatible. A third section, [Deferred Proposals][deferred-proposals], lists proposals that have been discussed but did not make it into this version of the specification.
+This document is a companion to the [IIIF Presentation API Specification, Version 2.1.1][prezi-api]. It describes the editorial changes to the API specification made in this patch release, such as clarifications and typo corrections. It also describes corrections to related documents that are not [semantically versioned][semver], such as example resources and resources to manage transformation to and from the JSON-LD serialization.
 
+For the significant changes between 2.0 and 2.1, please see the [2.1 Change Log][changelog-21].
 
 ## Table of Contents
 {:.no_toc}
@@ -21,117 +22,104 @@ This document is a companion to the [IIIF Presentation API Specification, Versio
 * Goes Here
 {:toc}
 
-## 1. Non-Breaking Changes
+## 1. Editorial Changes
 
-### 1.1. Specify language selection algorithm
+### 1.1. Clarify use of `viewingHint`
 
-It was unclear what a client was required to do when it encountered multiple values associated with a single property, when some values had a language associated with them and some did not. This is particularly problematic for `label` and `attribution` as the client is required to render them. The Presentation API now specifies an [algorithm][langs] for how to handle this. See issues [#759](https://github.com/IIIF/iiif.io/issues/759), [#777](https://github.com/IIIF/iiif.io/issues/777)
+Not all of the `viewingHint` values were clearly described as to which resources they could be used with. The validity was clarified and the descriptions improved.
+See issue [#878](https://github.com/IIIF/iiif.io/issues/878)
 
-### 1.2. Specify property cardinalities
+### 1.2. Clarify if Canvas id should be dereferencable
 
-It was unclear as to which properties could be repeated, under which circumstances. The property [descriptions and definitions][properties] now specify for each resource type the number of times that they must or may appear. See issue [#468](https://github.com/IIIF/iiif.io/issues/468)
+The text of the document said that the id MAY be able to be dereferenced, whereas the summary table said SHOULD. The summary table was updated to reflect the normative text. This issue does not set a precedent for changing to SHOULD or even MUST in future major versions.
+See issue [#884](https://github.com/IIIF/iiif.io/issues/884)
 
-### 1.3. Add paging capabilities for Collection and AnnotationList
+### 1.3. Use better URIs for example rights/licenses
 
-With the introduction of the [Search API][search], and the creation of very large collections and annotation lists, it became necessary to introduce [paging][paging] of the resource descriptions.  The solution adopted is from the [ActivityStreams][as2] work of the W3C, mapped into the IIIF use cases and context. See issue [#598](https://github.com/IIIF/iiif.io/issues/598)
+The URIs were not helpful in giving realistic examples. The examples were updated to use Creative Commons and Rights Statements URIs to promote the use of shared agreements.
+See issue [#960](https://github.com/IIIF/iiif.io/issues/960)
 
-### 1.4. Allow single ordered list for Collection and Range
+### 1.4. Clarify use of non-rectangular region annotations
 
-There are situations in which it is important to have a single order for Collections and Manifests within a Collection, such as Manifests representing single volume works and Collections with the new "multi-part" viewingHint that represent multi-volume works in the same series.  The same can occur for Canvases and Ranges within a single Canvas.  The previous solution was to create a Collection or Range with a single Manifest or Canvas within it, respectively, however this is inefficient.  The addition of a new [members][members] list allows for the resources to be included in a single order. See issues [#716](https://github.com/IIIF/iiif.io/issues/716), [#697](https://github.com/IIIF/iiif.io/issues/697), [#646](https://github.com/IIIF/iiif.io/issues/646)
+The description of non-rectangular regions confusingly talked about rectangular regions at the same time.  The description was improved, including better links.
+See issue [#941](https://github.com/IIIF/iiif.io/issues/941)
 
-### 1.5. Link to alternate representations of Resources
+### 1.5. Update references to other specifications
 
-A commonly requested link from resources in the IIIF Presentation API to other web resources was to link to alternate representations, such as a PDF of the object that the manifest describes.  This was enabled by adding the [rendering][rendering] property, on any type of resource in the model. See issue [#458](https://github.com/IIIF/iiif.io/issues/458)
+The introduction referred to a "future specification", meaning the Search API. The reference was updated now that API is available.
+See issue [#1003](https://github.com/IIIF/iiif.io/issues/1003)
 
-### 1.6. Allow date-based user interfaces for navigation
+### 1.6. Clarify ranges without children are permitted
 
-For newspaper or other date based series, it is a common interface requirement to allow navigation by date, for example in a calendar or timeline.  The [navDate][navdate] property was added to hold a typed date intended for this purpose. See issue [#442](https://github.com/IIIF/iiif.io/issues/442)
+The specification was clear that empty Collections are possible but was not obvious whether the same was true of Ranges (a Range with no child Ranges or Canvases).  This was clarified as possible, with the same proviso that this is discouraged without careful thought. 
+See issue [#1016](https://github.com/IIIF/iiif.io/issues/1016)
 
-### 1.7. Link from Range to Layer that contains the content
+### 1.7. Expand thumbnail examples to promote good practice
 
-Also inspired by digital newspaper requirements, where an article might span multiple non-contiguous pages and have full text supplied by annotations, Ranges, such as those that identify the area of the article in the canvases, may now link to the Layer that contains the annotations representing the article's text.  The [contentLayer][contentlayer] relationship enables this use case.  See issue [#645](https://github.com/IIIF/iiif.io/issues/645)
+The examples that included thumbnails did not include information about the thumbnail representation, which would be valuable to viewing applications.  The examples were updated to promote better practice.
+See issue [#1098](https://github.com/IIIF/iiif.io/issues/1098)
 
-### 1.8. Annotations of non-Canvas Resources
+### 1.8. Update deprecation warning for Ranges
 
-In order to allow comments on Ranges (such as a comment about a newspaper article), Manifests (such as a comment about the work as a whole) and other resource types, AnnotationLists may be [referenced][comments] from any resource, when the annotations in the list are comments.  This issue was deferred from version 2.0. See issue [#80](https://github.com/IIIF/iiif.io/issues/80)
+The discussions about Ranges in the Audio-Visual work has led to a proposal for a significantly more consistent and functional representation in a future version of the Presentation API.  The deprecation warning for `canvases` and `ranges` was made less specific to not assume any particular conclusion from those discussions.
+See issue [#1118](https://github.com/IIIF/iiif.io/issues/1118)
 
-### 1.9. Hotspot Annotations
+### 1.9. Typos for `ContentAsText`
 
-The ability to link from spatial areas of Canvases to either other resources within the manifest (such as a "jump to" link) or to external resources (such as a remote description of the content) was requested.  This feature was enabled through the use of the [linking motivation][hotspots] from the [Open Annotation][openanno] specification. See issue [#611](https://github.com/IIIF/iiif.io/issues/611)
+There were several typos for `ContentAsText` in the example JSON documents. These were corrected.
+See issue [#1139](https://github.com/IIIF/iiif.io/issues/1139)
 
-### 1.10. Facing Pages Viewing Hint
+### 1.10. Typos for Image Profile URI
 
-A ["facing-pages" `viewingHint`][hints] value was added to indicate that a single canvas represents both sides of an open spread.  This is common in older digitization projects, books containing plates, and many contemporary Eastern digitization projects.  Without the addition of the hint, page turning viewer applications would try to "turn" the entire spread, and get out of sequence with left and right pages. See issue [#419](https://github.com/IIIF/iiif.io/issues/419)
-
-### 1.11. Multi-Part Collections Viewing Hint
-
-A ["multi-part" `viewingHint`][hints] value was added to distinguish when a collection contains manifests that are part of a logical whole, such as a multi-volume book set. See issue [#466](https://github.com/IIIF/iiif.io/issues/466)
-
-### 1.12. Usage of "continuous" Viewing Hint
-
-The intended usage of the ["continuous" `viewingHint`][hints] was clarified; technically this is a breaking change, but it was not possible to implement the original specification because the semantics were identical to those of the "individuals" `viewingHint`. See issue [#451](https://github.com/IIIF/iiif.io/issues/451)
-
-### 1.13. Reference Authentication API
-
-The section on [authentication][auth] was rewritten to refer to the [Authentication API specification][auth-spec] which is nearly complete.
-
-### 1.14. Modifications to JSON-LD Context and RDF Ontology
-
-The above changes and several others were made to the JSON-LD Context mapping of keys to RDF predicates, and the RDF ontology was updated in step. See issues [#636](https://github.com/IIIF/iiif.io/issues/636), [#666](https://github.com/IIIF/iiif.io/issues/666)
-
-### 1.15. Identity management
-
-Requirements and recommendations around the use of URIs were added to promote best practices of linking and dereferencing resources. See issues: [#591](https://github.com/IIIF/iiif.io/issues/591), [#439](https://github.com/IIIF/iiif.io/issues/439)
+There were two typos for the Image Profile URI that included an extra `profiles` path component. These were corrected.  See issue [#1170](https://github.com/IIIF/iiif.io/issues/1170)
 
 
-## 2. Significant Editorial Changes
+## 2. Changes to Non-Semantically-Versioned Documents
 
+These changes were scheduled to coincide with the release of 2.1.1 to benefit from a shared deadline, but are not managed in the same way as the main specification documents with respect to versioning.
 
-### 2.1. Restructure of the document
+### 2.1. Context
 
-The document was thoroughly restructured, including moving the descriptions of the resource types into a single coherent section.  Further changes, including the removal of the annotation patterns to a separate document, are likely in the future.
+#### 2.1.1. Missing Search API terms
 
-### 2.2. Edits for clarity
+The terms for `exact`, `prefix` and `suffix` were missing from both the Search and Presentation context documents. They were added to the Presentation context to ensure availability.
+See issue [#952](https://github.com/IIIF/iiif.io/issues/952)
 
-Many of the descriptions or definitions of the resource types and properties were edited for clarity, based on feedback and questions from the IIIF Community.
+#### 2.1.2. Unnecessary types prevent compaction
 
+The intended-to-be-helpful types provided in the context such as `ViewingHint` and `ViewingDirection` instead just prevented the values from being compacted correctly when these types were not asserted. The types were removed to make this easier.
+See issue [#946](https://github.com/IIIF/iiif.io/issues/946)
 
-## 3. Deferred Proposals
+#### 2.1.3. Choice options should always be a set
 
-### 3.1. Zones
+The specifications were not clear as to how to represent a single option other than the default, whether it should be a list with a single item, or just the item. This is clarified that it should always be a list, and the context updated to add `@container: @set` to the definition.
+See issue [#1120](https://github.com/IIIF/iiif.io/issues/946)
 
-[Zones][zones] continue to be deferred, however it is anticipated that they will be added to cover audio/visual requirements in a future release. See issue [#42](https://github.com/IIIF/iiif.io/issues/42)
+### 2.2. Frames should use `@explicit` to ensure correct summaries
 
-### 3.2. Specification Alignment
+The frame documents used `@embed: false` for referenced resources such as an external AnnotationList.  This meant that only the URI was included, but not `@type` or `label`. The solution was to use `@explicit` to list the set of terms that should be included.
+See issue [#959](https://github.com/IIIF/iiif.io/issues/959)
 
-Several issues have been deferred until the publication of the W3C's technical recommendation based on Open Annotation.  See issues: [#368](https://github.com/IIIF/iiif.io/issues/368), [456](https://github.com/IIIF/iiif.io/issues/456), [#496](https://github.com/IIIF/iiif.io/issues/496), [#590](https://github.com/IIIF/iiif.io/issues/590), [#644](https://github.com/IIIF/iiif.io/issues/644), [#755](https://github.com/IIIF/iiif.io/issues/755)
+### 2.3. Fixtures
 
-### 3.3 AnnotationList hints
+#### 2.3.1. Fixture 6 did not have multiple descriptions
 
-Until there is more experience with the Search API, several additions for Annotation Lists have also been deferred. See [#758](https://github.com/IIIF/iiif.io/issues/758), [#754](https://github.com/IIIF/iiif.io/issues/754)  
+The fixture example for multiple descriptions did not actually have multiple descriptions.  The bug in the generation software was fixed that was stripping the second description.
+See issue [#1122](https://github.com/IIIF/iiif.io/issues/1122)
 
+#### 2.3.2. Fixture 64 had unnecessary array
 
-[deferred-proposals]: #deferred-proposals "Presentation API 2.1 Deferred Proposals"
-[other-changes]: #other-changes "Presentation API 2.1 Non-Breaking Changes"
-[prezi-api]: /api/presentation/2.1/ "Presentation API 2.1"
-[prezi-api-20]: /api/presentation/2.0/ "Presentation API 2.0"
-[prezi-api-10]: /api/metadata/1.0/ "Metadata API 1.0"
+The fixture object had an array around a single description, which made it incompatible with the JSON-LD framing algorithm. 
+See issue [#1123](https://github.com/IIIF/iiif.io/issues/1123)
 
-[langs]: /api/presentation/2.1/#language-of-property-values
-[properties]: /api/presentation/2.1/#resource-properties
-[search]: /api/search/1.0/
-[as2]: https://www.w3.org/TR/activitystreams-core/#collections
-[paging]: /api/presentation/2.1/#paging
-[members]: /api/presentation/2.1/#range
-[rendering]: /api/presentation/2.1/#rendering
-[navdate]: /api/presentation/2.1/#navdate
-[contentlayer]: /api/presentation/2.1/#contentlayer
-[comments]: /api/presentation/2.1/#comment-annotations
-[hotspots]: /api/presentation/2.1/#hotspot-linking
-[openanno]: http://openannotation.org/spec/core/core.html#Motivations
-[hints]: /api/presentation/2.1/#viewinghint
-[auth]: /api/presentation/2.1/#authentication
-[auth-spec]: /api/auth/
-[zones]: http://iiif.io/model/shared-canvas/1.0/#Zone
+#### 2.3.3. Fixture 65 had typo for startCanvas
+
+The fixture for `startCanvas` instead had the pre-2.0 use of `start_canvas` before snake and camel case were reconciled.  This was corrected.
+See issue [#1125](https://github.com/IIIF/iiif.io/issues/1125)
+ 
+[prezi-api]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.1/ "Presentation API 2.1"
+[prezi-api-20]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.0/ "Presentation API 2.0"
+[changelog-21]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.1/change-log.html "Presentation API 2.1 Change Log"
+[semver]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/semver/ "Note on Semantic Versioning"
 
 {% include acronyms.md %}
