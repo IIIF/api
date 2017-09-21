@@ -1797,8 +1797,9 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 
 | Date       | Description           |
 | ---------- | --------------------- |
-| 2017-06-09 | Version 2.1.1 [View change log][change-log] |
-| 2016-05-12 | Version 2.1 (Hinty McHintface) [View change log][change-log-211] |
+| XXXX-YY-ZZ | Version 3.0 |
+| 2017-06-09 | Version 2.1.1 [View change log][change-log-30] |
+| 2016-05-12 | Version 2.1 (Hinty McHintface) [View change log][change-log-21] |
 | 2014-09-11 | Version 2.0 (Triumphant Giraffe) [View change log][change-log-20] |
 | 2013-08-26 | Version 1.0 (unnamed) |
 | 2013-06-14 | Version 0.9 (unnamed) |
@@ -1815,6 +1816,8 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 [change-log-30]: /api/presentation/3.0/change-log/ "Presentation API 3.0 Change Log"
 [iiif-community]: /community/ "IIIF Community"
 [apache-notes]: /api/annex/notes/apache/ "Apache HTTP Server Implementation Notes"
+[webanno]: http://w3.org/TR/annotation-model/
+[webannoprotocol]: http://w3.org/TR/annotation-protocol/
 [openanno]: http://www.openannotation.org/spec/core/ "Open Annotation"
 [openannotypes]: http://www.openannotation.org/spec/core/core.html#BodyTargetType
 [openannomulti]: http://www.openannotation.org/spec/core/multiplicity.html#Choice
