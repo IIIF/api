@@ -148,7 +148,7 @@ An ordered list of Canvases, and/or further Ranges.  Ranges allow Canvases, or p
 
 This specification defines properties in five distinct areas. Most of the properties may be associated with any of the resource types described above, and may have more than one value.  The property relates to the resource that it is associated with, so a `description` property on a Manifest is a description of the object, whereas a `description` property on a Canvas is a description of that particular view.
 
-The requirements for which classes have which properties are summarized in [Appendix B][appendixB].
+The requirements for which classes have which properties are summarized in [Appendix A][appendixa].
 
 Other properties are allowed, either via custom extensions or endorsed by IIIF. If a client discovers properties that it does not understand, then it _MUST_ ignore them.  Other properties _SHOULD_ consist of a prefix and a name in the form "`prefix:name`" to ensure it does not collide with a property defined by IIIF specifications.
 
@@ -851,7 +851,7 @@ Any additional fields beyond those defined in this specification or the Web Anno
 
 ##  5. Resource Structure
 
-This section provides detailed description of the resource types used in this specification. [Section 2][type-overview] provides an overview of the resource types and figures illustrating allowed relationships between them, and [Appendix B][appendixb] provides summary tables of the property requirements.
+This section provides detailed description of the resource types used in this specification. [Section 2][type-overview] provides an overview of the resource types and figures illustrating allowed relationships between them, and [Appendix A][appendixa] provides summary tables of the property requirements.
 
 ###  5.1. Manifest
 
