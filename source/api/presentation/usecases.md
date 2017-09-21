@@ -80,12 +80,12 @@ Thanks to the members of the [IIIF][iiif-community] for their continuous engagem
 | ---------- | -------------------------------------------------- |
 | 2014-06-01 | Version 1.0 RFC                                    |
 
-   [semver]: /api/annex/notes/semver/ "Versioning of APIs"
+   [semver]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/semver/ "Versioning of APIs"
    [cc-by]: http://creativecommons.org/licenses/by/4.0/ "Creative Commons &mdash; Attribution 4.0 International"
    [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
-   [image-api]: /api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/ "Image API"
-   [prezi-api]: /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/ "Presentation API"
-   [iiif-community]: /community/ "IIIF Community"
+   [image-api]: {{ site.url }}{{ site.baseurl }}/api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/ "Image API"
+   [prezi-api]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/ "Presentation API"
+   [iiif-community]: {{page.webprefix}}/community/ "IIIF Community"
    [mellon]: http://www.mellon.org/ "The Andrew W. Mellon Foundation"
 [icon-req]: /img/metadata-api/required.png "Required"
 [icon-recc]: /img/metadata-api/recommended.png "Recommended"

@@ -26,11 +26,11 @@ This is a work in progress. We are actively seeking implementations and feedback
 
 **Editors:**
 
-  * **[Michael Appleby](https://orcid.org/0000-0002-1266-298X)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0002-1266-298X), [_Yale University_](http://www.yale.edu/)
-  * **[Tom Crane](https://orcid.org/0000-0003-1881-243X)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0003-1881-243X), [_Digirati_](http://digirati.com/)
-  * **[Robert Sanderson](https://orcid.org/0000-0003-4441-6852)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0003-4441-6852), [_J. Paul Getty Trust_](http://www.getty.edu/)
-  * **[Jon Stroop](https://orcid.org/0000-0002-0367-1243)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0002-0367-1243), [_Princeton University Library_](https://library.princeton.edu/)
-  * **[Simeon Warner](https://orcid.org/0000-0002-7970-7855)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0002-7970-7855), [_Cornell University_](https://www.cornell.edu/)
+  * **[Michael Appleby](https://orcid.org/0000-0002-1266-298X)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0002-1266-298X), [_Yale University_](http://www.yale.edu/)
+  * **[Tom Crane](https://orcid.org/0000-0003-1881-243X)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0003-1881-243X), [_Digirati_](http://digirati.com/)
+  * **[Robert Sanderson](https://orcid.org/0000-0003-4441-6852)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0003-4441-6852), [_J. Paul Getty Trust_](http://www.getty.edu/)
+  * **[Jon Stroop](https://orcid.org/0000-0002-0367-1243)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0002-0367-1243), [_Princeton University Library_](https://library.princeton.edu/)
+  * **[Simeon Warner](https://orcid.org/0000-0002-7970-7855)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0002-7970-7855), [_Cornell University_](https://www.cornell.edu/)
   {: .names}
 
 {% include copyright2015.md %}
@@ -636,16 +636,16 @@ Many thanks to the members of the [IIIF Community][iiif-community] for their con
 [client-auth-img]: img/auth-flow-client.png
 [server-auth-img]: img/auth-flow-server.png
 [semver]: http://semver.org/spec/v2.0.0.html "Semantic Versioning 2.0.0"
-[iiif-community]: /community/ "IIIF Community"
-[versioning]: /api/annex/notes/semver/ "Versioning of APIs"
+[iiif-community]: {{page.webprefix}}/community/ "IIIF Community"
+[versioning]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/semver/ "Versioning of APIs"
 [mellon]: http://www.mellon.org/ "The Andrew W. Mellon Foundation"
 [rfc-2119]: http://tools.ietf.org/html/rfc2119 "Key words for use in RFCs to Indicate Requirement Levels"
-[prezi-api]: /api/presentation/
-[image-api]: /api/image/
-[ext-services]: /api/annex/services/
+[prezi-api]: {{ site.url }}{{ site.baseurl }}/api/presentation/
+[image-api]: {{ site.url }}{{ site.baseurl }}/api/image/
+[ext-services]: {{ site.url }}{{ site.baseurl }}/api/annex/services/
 [bearer-token]: https://tools.ietf.org/html/rfc6750#section-1.2 "OAuth2 Bearer Tokens"
 [rfc-2818]: https://tools.ietf.org/html/rfc2818 "HTTP Over TLS"
 [implementation-notes]: implementation/ "IIIF Authentication: Implementation Notes"
-[stable-version]: /api/auth/{{ site.auth_api.latest.major }}.{{ site.auth_api.latest.minor }}/ "Stable Version"
+[stable-version]: {{ site.url }}{{ site.baseurl }}/api/auth/{{ site.auth_api.latest.major }}.{{ site.auth_api.latest.minor }}/ "Stable Version"
 
 {% include acronyms.md %}

@@ -132,10 +132,10 @@ A level 0 compliant image server _MAY_ specify `scaleFactors` and/or `width` and
 
 If a client requests a size or region outside these parameters then the image server _MAY_ reject the request with an error.
 
-[image-api]: /api/image/2.0/ "Image API 2.0"
-[icon-req]: /img/metadata-api/required.png "Required"
-[icon-recc]: /img/metadata-api/recommended.png "Recommended"
-[icon-opt]: /img/metadata-api/optional.png "Optional"
-[icon-na]: /img/metadata-api/not_allowed.png "Not allowed"
+[image-api]: {{ site.url }}{{ site.baseurl }}/api/image/2.0/ "Image API 2.0"
+[icon-req]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/required.png "Required"
+[icon-recc]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/recommended.png "Recommended"
+[icon-opt]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/optional.png "Optional"
+[icon-na]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/not_allowed.png "Not allowed"
 
 {% include acronyms.md %}

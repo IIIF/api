@@ -14,11 +14,11 @@ This document is not subject to [IIIF's versioning semantics][iiif-semver]. Chan
 
 **Authors:**
 
-  * **[Michael Appleby](https://orcid.org/0000-0002-1266-298X)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0002-1266-298X), [_Yale University_](http://www.yale.edu/)
-  * **[Tom Crane](https://orcid.org/0000-0003-1881-243X)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0003-1881-243X), [_Digirati_](http://digirati.com/)
-  * **[Robert Sanderson](https://orcid.org/0000-0003-4441-6852)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0003-4441-6852), [_Stanford University_](http://www.stanford.edu/)
-  * **[Jon Stroop](https://orcid.org/0000-0002-0367-1243)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0002-0367-1243), [_Princeton University Library_](https://library.princeton.edu/)
-  * **[Simeon Warner](https://orcid.org/0000-0002-7970-7855)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0002-7970-7855), [_Cornell University_](https://www.cornell.edu/)
+  * **[Michael Appleby](https://orcid.org/0000-0002-1266-298X)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0002-1266-298X), [_Yale University_](http://www.yale.edu/)
+  * **[Tom Crane](https://orcid.org/0000-0003-1881-243X)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0003-1881-243X), [_Digirati_](http://digirati.com/)
+  * **[Robert Sanderson](https://orcid.org/0000-0003-4441-6852)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0003-4441-6852), [_Stanford University_](http://www.stanford.edu/)
+  * **[Jon Stroop](https://orcid.org/0000-0002-0367-1243)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0002-0367-1243), [_Princeton University Library_](https://library.princeton.edu/)
+  * **[Simeon Warner](https://orcid.org/0000-0002-7970-7855)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0002-7970-7855), [_Cornell University_](https://www.cornell.edu/)
   {: .names}
 
 {% include copyright2015.md %}
@@ -134,14 +134,14 @@ Editors may be dismissed from work on a specification, or the editorial group al
 [use-cases]: https://github.com/IIIF/iiif-stories/issues "IIIF user stories and use cases"
 [iiif-github-issues]: https://github.com/IIIF/iiif.io/issues "iiif.io issues"
 [iiif-github]: https://github.com/IIIF/iiif.io "iiif.io on Github"
-[iiif-io]: http://iiif.io "iiif.io"
-[iiif-semver]: /api/annex/notes/semver/ "Versioning of APIs"
-[image-20-changelog]: /api/image/2.0/change-log/ "Changes for IIIF Image API Version 2.0"
+[iiif-io]: {{ page.webprefix }} "iiif.io"
+[iiif-semver]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/semver/ "Versioning of APIs"
+[image-20-changelog]: {{ site.url }}{{ site.baseurl }}/api/image/2.0/change-log/ "Changes for IIIF Image API Version 2.0"
 [merging-changes]: #acceptance-criteria-for-merging-changes "2.2 Acceptance Criteria for Merging Changes"
 [rfc-2119]: https://www.ietf.org/rfc/rfc2119.txt "RFC 2119"
-[spec-disclaimer]: /api/annex/notes/disclaimer/ "Specification Disclaimer"
-[mou]: /community/consortium/mou/ "Memorandum of Understanding covering the establishment of the IIIF Consortium"
-[comm-call]: /community/call/
-[groups]: /community/groups/
-[design-patterns]: /api/annex/notes/design_patterns/
+[spec-disclaimer]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/disclaimer/ "Specification Disclaimer"
+[mou]: {{page.webprefix}}/community/consortium/mou/ "Memorandum of Understanding covering the establishment of the IIIF Consortium"
+[comm-call]: {{page.webprefix}}/community/call/
+[groups]: {{page.webprefix}}/community/groups/
+[design-patterns]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/design_patterns/
 {% include acronyms.md %}

@@ -64,10 +64,10 @@ The URI of the `@context` to be used for GeoJSON services has changed and the [S
 See issue [#1001](https://github.com/IIIF/iiif.io/issues/1001)
 
  
-[image-api]: /api/image/2.1/ "Image API 2.1"
-[changelog-21]: /api/image/2.1/change-log.html "Image API 2.1 Change Log"
-[semver]: /api/annex/notes/semver/ "Note on Semantic Versioning"
-[service-profiles]: /api/annex/services/ "Services Annex Document"
+[image-api]: {{ site.url }}{{ site.baseurl }}/api/image/2.1/ "Image API 2.1"
+[changelog-21]: {{ site.url }}{{ site.baseurl }}/api/image/2.1/change-log.html "Image API 2.1 Change Log"
+[semver]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/semver/ "Note on Semantic Versioning"
+[service-profiles]: {{ site.url }}{{ site.baseurl }}/api/annex/services/ "Services Annex Document"
 
 
 {% include acronyms.md %}

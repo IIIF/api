@@ -117,9 +117,9 @@ See issue [#1123](https://github.com/IIIF/iiif.io/issues/1123)
 The fixture for `startCanvas` instead had the pre-2.0 use of `start_canvas` before snake and camel case were reconciled.  This was corrected.
 See issue [#1125](https://github.com/IIIF/iiif.io/issues/1125)
  
-[prezi-api]: /api/presentation/2.1/ "Presentation API 2.1"
-[prezi-api-20]: /api/presentation/2.0/ "Presentation API 2.0"
-[changelog-21]: /api/presentation/2.1/change-log.html "Presentation API 2.1 Change Log"
-[semver]: /api/annex/notes/semver/ "Note on Semantic Versioning"
+[prezi-api]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.1/ "Presentation API 2.1"
+[prezi-api-20]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.0/ "Presentation API 2.0"
+[changelog-21]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.1/change-log.html "Presentation API 2.1 Change Log"
+[semver]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/semver/ "Note on Semantic Versioning"
 
 {% include acronyms.md %}

@@ -50,7 +50,7 @@ content:counter(section) "." counter(subsection) "." counter(subsubsection) ". "
 <div id="header">
 <table class="layout">
 	<tr>
-		<td><a href=http://www.w3.org/><img alt="IIIF" src="/img/logo-iiif-34x30.png"></a></td>
+		<td><a href=http://www.w3.org/><img alt="IIIF" src="{{ site.url }}{{ site.baseurl }}/img/logo-iiif-34x30.png"></a></td>
 		<td>
 		<h2 class="title">IIIF Metadata API</h2>
 		<h3 class="subTitle">Version 0.9, 11 June 2013</h3>
@@ -303,7 +303,7 @@ The following metadata fields are suggested by this specification, broken in to 
 <p>
 <b>Links to Other Resources</b>
 <ul>
-	<li><b>service:</b> A link to a service that makes more functionality available for the resource, such as from an image to the base URI of an <a href="/api/image/">IIIF Image API service</a>. The service resource should have additional information associated with it in order to allow the client to determine how to make appropriate use of it, such as a "profile" link to a service description or information duplicated from the IIIF Image API Information Request</li>
+	<li><b>service:</b> A link to a service that makes more functionality available for the resource, such as from an image to the base URI of an <a href="{{ site.url }}{{ site.baseurl }}/api/image/">IIIF Image API service</a>. The service resource should have additional information associated with it in order to allow the client to determine how to make appropriate use of it, such as a "profile" link to a service description or information duplicated from the IIIF Image API Information Request</li>
 	<li><b>seeAlso:</b> A link to more detailed descriptive metadata, suitable for discovery purposes, for example.  This could be an XML or RDF record, such as in EAD, Dublin Core or Bibo schemas.</li>
 	<li><b>within:</b> A link to a resource that contains the current resource, such as a collection of Manifests.  This would allow linking upwards to collections that allow browsing of the digitized objects available, but is not within the scope of the current document.
 </ul>
