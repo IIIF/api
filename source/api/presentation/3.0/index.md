@@ -843,11 +843,10 @@ The value of the `@context` property _MUST_ be a list, and the __last__ two valu
     "http://www.w3.org/ns/anno.jsonld",
     "http://iiif.io/api/presentation/{{ page.major }}/context.json"
   ]
-} [
+}
 ```
 
 Any additional fields beyond those defined in this specification or the Web Annotation Data Model _SHOULD_ be mapped to RDF predicates using further context documents.   If possible, these extensions _SHOULD_ be added to the top level `@context` field, and _MUST_ be added before the above contexts.  The JSON-LD 1.1 functionality of type and predicate specific context definitions _SHOULD_ be used if possible to try to minimize any cross-extension collisions.
-
 
 
 ##  5. Resource Structure
