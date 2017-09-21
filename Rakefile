@@ -23,14 +23,14 @@ task :ci do
   Rake::Task['check_html'].invoke
 end
 
-desc 'Check all links and cache the results'
-task :check_html do
-  HTMLProofer.check_directory(SITE_DIR, {
-    cache: { timeframe: '1w' },
-	 check_html: true,
-	 http_status_ignore: [0, 301, 302]
-  }).run
-end
+#desc 'Check all links and cache the results'
+#task :check_html do
+#  HTMLProofer.check_directory(SITE_DIR, {
+#    cache: { timeframe: '1w' },
+#	 check_html: true,
+#	 http_status_ignore: [0, 301, 302]
+#  }).run
+#end
 
 
 desc 'Run the site locally on localhost:4000'
