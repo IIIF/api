@@ -1805,7 +1805,7 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 | 2013-06-14 | Version 0.9 (unnamed) |
 
 
-
+[prezi3-milestone]:  https://github.com/IIIF/iiif.io/milestone/8
 [change-log-30]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/change-log/ "Presentation API 3.0 Change Log"
 [webanno]: http://w3.org/TR/annotation-model/
 [webannoprotocol]: http://w3.org/TR/annotation-protocol/
@@ -1856,6 +1856,7 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 [annotation-lists]: #annotation-list
 [type-overview]: #resource-type-overview
 [segments]: #segments
+[languages]: #language-of-property-values
 
 [ld-exts]: #linked-data-context-and-extensions
 [paging]: #paging-properties
