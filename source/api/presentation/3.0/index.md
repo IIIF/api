@@ -607,7 +607,7 @@ The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` propert
    Clients _SHOULD_ ignore `first` on other resource types.
 
 ``` json-doc
-{"first": {"id": "https://example.org/iiif/1/annos/1", "type": "AnnotationPage"}]}
+{"first": {"id": "https://example.org/iiif/1/annos/1", "type": "AnnotationPage"}}
 ```
 
 ##### last
@@ -623,7 +623,7 @@ The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` propert
    Clients _SHOULD_ ignore `last` on other resource types.
 
 ``` json-doc
-{"last": {"id": "https://example.org/iiif/1/annos/23", "type": "AnnotationPage"}]}
+{"last": {"id": "https://example.org/iiif/1/annos/23", "type": "AnnotationPage"}}
 ```
 
 ##### total
@@ -655,7 +655,7 @@ The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` propert
    Clients _SHOULD_ ignore `next` on other resource types.
 
 ``` json-doc
-{"next": {"id": "https://example.org/iiif/1/annos/3", "type": "AnnotationPage"}]}
+{"next": {"id": "https://example.org/iiif/1/annos/3", "type": "AnnotationPage"}}
 ```
 
 ##### prev
@@ -671,7 +671,7 @@ The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` propert
    Clients _SHOULD_ ignore `prev` on other resource types.
 
 ``` json-doc
-{"prev": {"id": "https://example.org/iiif/1/annos/2", "type": "AnnotationPage"}]}
+{"prev": {"id": "https://example.org/iiif/1/annos/2", "type": "AnnotationPage"}}
 ```
 
 ##### startIndex
@@ -798,6 +798,7 @@ The values of these fields _MUST_ be JSON objects, with the keys being the [RFC 
            "And a second description"],
     "fr": ["Voici la description de l'objet en français"],
     "@none": ["A description in an unknown language"]
+  }
 }
 ```
 
@@ -828,7 +829,7 @@ In order to avoid HTML or script injection attacks, clients _MUST_ remove:
 Clients _SHOULD_ allow only `a`, `b`, `br`, `i`, `img`, `p`, and `span` tags. Clients _MAY_ choose to remove any and all tags, therefore it _SHOULD NOT_ be assumed that the formatting will always be rendered. 
 
 ``` json-doc
-{"description": {"en-latn": ["<p>Some <b>description</b></p>"]}
+{"description": {"en-latn": ["<p>Some <b>description</b></p>"]}}
 ```
 
 ### 4.6. Linked Data Context and Extensions
