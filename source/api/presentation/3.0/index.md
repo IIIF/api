@@ -1847,7 +1847,6 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 
 [stable-version]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/
 [appendixa]: #a-summary-of-recommended-uri-patterns "Appendix A"
-[appendixb]: #b-summary-of-metadata-requirements "Appendix B"
 [prev-version]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.0/
 [sequence]: #sequence
 [canvas]: #canvas

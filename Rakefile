@@ -1,4 +1,4 @@
-require 'html-proofer'
+# require 'html-proofer'
 require 'rspec/core/rake_task'
 
 RSpec::Core::RakeTask.new(:spec)
@@ -20,7 +20,7 @@ task :ci do
   sh 'grunt test'
   sh 'scripts/check_json.py -v'
   Rake::Task['spec'].invoke
-  Rake::Task['check_html'].invoke
+  # Rake::Task['check_html'].invoke
 end
 
 #desc 'Check all links and cache the results'
