@@ -25,7 +25,7 @@ Commits to `github.com/iiif/iiif.io` will automatically be deployed to `iiif.io`
 
  * Much of the site data is in the YAML files in `_data/` (e.g. member institutions, server impls, demos, etc.) make edits there.
  * The latest versions of the APIs are set in `_config.yml`. Change there will get pushed to `.htaccess`, `technical-details/`, and any other links.
- * The website is now split with the root website living in [iiif/root-website](../iiif-root-website). This repo contains the specifications in `/api/` and `/model/`. Links internal and external should be in the following forms:
+ * The website is now split with the root website living in [iiif/root-website](https://github.com/IIIF/iiif-root-website). This repo contains the specifications in `/api/` and `/model/`. Links internal and external should be in the following forms:
     * Internal relative link `[hyperlink text]({{ site.url }}{{ site.baseurl }}/end/point)`
     * link to root website from api website (not relative to this repo) `[hyperlink text]({{ page.webprefix }}/end/point)`
     * External link `[anchor-text](http://example.com/end/point)`
