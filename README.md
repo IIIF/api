@@ -19,16 +19,14 @@ rake ci
 
 ## To Publish the Site to iiif.io
 
-We now use Capistrano to deploy the site.
-
-```
-bundle exec cap production deploy
-```
-
-Will deploy to the iiif.io site if you have permission.
+Commits to `github.com/iiif/iiif.io` will automatically be deployed to `iiif.io` using a link with AWS S3.
 
 ## Some Things to Note
 
  * Much of the site data is in the YAML files in `_data/` (e.g. member institutions, server impls, demos, etc.) make edits there.
  * The latest versions of the APIs are set in `_config.yml`. Change there will get pushed to `.htaccess`, `technical-details/`, and any other links.
- * Always use the \[link text\]\[ref\] method of creating links.  `ref` must consist only of a-zA-Z0-9_- and the first character must be a-zA-Z
+ * The website is now split with the root website living in [iiif/root-website](../iiif-root-website). This repo contains the specifications in `/api/` and `/model/`. Links internal and external should be in the following forms:
+    * Internal relative link `[hyperlink text]({{ site.url }}{{ site.baseurl }}/end/point)`
+    * link to root website from api website (not relative to this repo) `[hyperlink text]({{ page.webprefix }}/end/point)`
+    * External link `[anchor-text](http://example.com/end/point)`
+    * Reference link `[text][link_name]` where link_name is expanded at the bottom of the page.

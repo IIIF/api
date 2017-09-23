@@ -26,10 +26,10 @@ As compliance documents specify required functionality and only have major versi
 While the APIs should always be consistent and compatible, it is not intended that version numbers will necessarily remain synchronized across the IIIF suite of APIs. A change in one API will not advance the version number of another.
 
 
-[proposed-changes]: /api/annex/notes/proposed-changes/ "Proposed Changes"
+[proposed-changes]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/proposed-changes/ "Proposed Changes"
 [semver]: http://semver.org/spec/v2.0.0.html "Semantic Versioning 2.0.0"
-[image-api]: /api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/ "Image API 2.0"
-[prezi-api]: /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/ "Presentation API 2.0"
-[image-compliance]: /api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/compliance/ "Image API Compliance"
+[image-api]: {{ site.url }}{{ site.baseurl }}/api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/ "Image API 2.0"
+[prezi-api]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/ "Presentation API 2.0"
+[image-compliance]: {{ site.url }}{{ site.baseurl }}/api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/compliance/ "Image API Compliance"
 
 {% include acronyms.md %}

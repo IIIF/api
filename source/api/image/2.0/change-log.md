@@ -138,24 +138,24 @@ A recommendation was made to allow compression to be specified in the image URL 
 
 
 
-[api-11]: /api/image/1.1/ "Image API 1.1"
-[api-compliance]: /api/image/2.0/#compliance-levels "Image API 6. Compliance Levels"
-[api]: /api/image/2.0/ "Image API 2.0"
+[api-11]: {{ site.url }}{{ site.baseurl }}/api/image/1.1/ "Image API 1.1"
+[api-compliance]: {{ site.url }}{{ site.baseurl }}/api/image/2.0/#compliance-levels "Image API 6. Compliance Levels"
+[api]: {{ site.url }}{{ site.baseurl }}/api/image/2.0/ "Image API 2.0"
 [breaking-changes]: #breaking-changes "Image API 2.0 Breaking Changes"
-[canonical-uris]: /api/image/2.0/#canonical-uri-syntax "Image API 4.7. Canonical URI Syntax"
-[info-request]: /api/image/2.0/#information-request "Image API Section 5. Information Request"
-[compliance-doc]: /api/image/2.0/compliance/ "Image API 2.0 Compliance Document"
-[context]: /api/image/2/context.json  "Image API 2.0 JSON-LD Context"
-[http-features]: /api/image/2.0/compliance/#http-features "Image API Compliance: HTTP Features"
+[canonical-uris]: {{ site.url }}{{ site.baseurl }}/api/image/2.0/#canonical-uri-syntax "Image API 4.7. Canonical URI Syntax"
+[info-request]: {{ site.url }}{{ site.baseurl }}/api/image/2.0/#information-request "Image API Section 5. Information Request"
+[compliance-doc]: {{ site.url }}{{ site.baseurl }}/api/image/2.0/compliance/ "Image API 2.0 Compliance Document"
+[context]: {{ site.url }}{{ site.baseurl }}/api/image/2/context.json  "Image API 2.0 JSON-LD Context"
+[http-features]: {{ site.url }}{{ site.baseurl }}/api/image/2.0/compliance/#http-features "Image API Compliance: HTTP Features"
 [imagemagick-output]: http://www.imagemagick.org/script/command-line-processing.php#output "ImageMagick: Command-line Processing: Output Filename"
 [kdu-usage]: http://kakadusoftware.com/wp-content/uploads/2014/06/Usage_Examples.txt "Usage Examples for the Demonstration Applications Supplied with Kakadu V7.4"
 [pillow]: http://pillow.readthedocs.org/en/latest/handbook/image-file-formats.html#image-file-formats "Pillow: Image file formats"
 [other-changes]: #other-changes "Image API 2.0 Other Changes"
 [rfc-2119]: http://tools.ietf.org/html/rfc2119 "Key words for use in RFCs to Indicate Requirement Levels"
 [semver]: http://semver.org/ "Semantic Versioning Specification"
-[versioning]: /api/image/2.0/#b-versioning "Image API Appendix B: Versioning"
-[prezi-api]: /api/presentation/2.0/
-[services]: /api/annex/services/
+[versioning]: {{ site.url }}{{ site.baseurl }}/api/image/2.0/#b-versioning "Image API Appendix B: Versioning"
+[prezi-api]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.0/
+[services]: {{ site.url }}{{ site.baseurl }}/api/annex/services/
 [goog-webp]: https://developers.google.com/speed/webp/
 [deferred-changes]: #deferred-changes "Deferred Changes"
 

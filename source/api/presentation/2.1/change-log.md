@@ -113,25 +113,25 @@ Until there is more experience with the Search API, several additions for Annota
 
 [deferred-proposals]: #deferred-proposals "Presentation API 2.1 Deferred Proposals"
 [other-changes]: #other-changes "Presentation API 2.1 Non-Breaking Changes"
-[prezi-api]: /api/presentation/2.1/ "Presentation API 2.1"
-[prezi-api-20]: /api/presentation/2.0/ "Presentation API 2.0"
-[prezi-api-10]: /api/metadata/1.0/ "Metadata API 1.0"
+[prezi-api]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.1/ "Presentation API 2.1"
+[prezi-api-20]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.0/ "Presentation API 2.0"
+[prezi-api-10]: {{ site.url }}{{ site.baseurl }}/api/metadata/1.0/ "Metadata API 1.0"
 
-[langs]: /api/presentation/2.1/#language-of-property-values
-[properties]: /api/presentation/2.1/#resource-properties
-[search]: /api/search/1.0/
+[langs]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.1/#language-of-property-values
+[properties]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.1/#resource-properties
+[search]: {{ site.url }}{{ site.baseurl }}/api/search/1.0/
 [as2]: https://www.w3.org/TR/activitystreams-core/#collections
-[paging]: /api/presentation/2.1/#paging
-[members]: /api/presentation/2.1/#range
-[rendering]: /api/presentation/2.1/#rendering
-[navdate]: /api/presentation/2.1/#navdate
-[contentlayer]: /api/presentation/2.1/#contentlayer
-[comments]: /api/presentation/2.1/#comment-annotations
-[hotspots]: /api/presentation/2.1/#hotspot-linking
+[paging]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.1/#paging
+[members]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.1/#range
+[rendering]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.1/#rendering
+[navdate]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.1/#navdate
+[contentlayer]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.1/#contentlayer
+[comments]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.1/#comment-annotations
+[hotspots]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.1/#hotspot-linking
 [openanno]: http://openannotation.org/spec/core/core.html#Motivations
-[hints]: /api/presentation/2.1/#viewinghint
-[auth]: /api/presentation/2.1/#authentication
-[auth-spec]: /api/auth/
-[zones]: http://iiif.io/model/shared-canvas/1.0/#Zone
+[hints]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.1/#viewinghint
+[auth]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.1/#authentication
+[auth-spec]: {{ site.url }}{{ site.baseurl }}/api/auth/
+[zones]: {{ site.url }}{{ site.baseurl }}/model/shared-canvas/1.0/#Zone
 
 {% include acronyms.md %}

@@ -22,11 +22,11 @@ __Previous Version:__ [1.1][prev-version]
 
 **Editors:**
 
-  * **[Michael Appleby](https://orcid.org/0000-0002-1266-298X)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0002-1266-298X), [_Yale University_](http://www.yale.edu/)
-  * **[Robert Sanderson](https://orcid.org/0000-0003-4441-6852)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0003-4441-6852), [_Stanford University_](http://www.stanford.edu/)
+  * **[Michael Appleby](https://orcid.org/0000-0002-1266-298X)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0002-1266-298X), [_Yale University_](http://www.yale.edu/)
+  * **[Robert Sanderson](https://orcid.org/0000-0003-4441-6852)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0003-4441-6852), [_Stanford University_](http://www.stanford.edu/)
   * **[Stuart Snydman](https://profiles.stanford.edu/stuart-snydman)**, [_Stanford University_](http://www.stanford.edu/)
-  * **[Jon Stroop](https://orcid.org/0000-0002-0367-1243)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0002-0367-1243), [_Princeton University Library_](https://library.princeton.edu/)
-  * **[Simeon Warner](https://orcid.org/0000-0002-7970-7855)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0002-7970-7855), [_Cornell University_](https://www.cornell.edu/)
+  * **[Jon Stroop](https://orcid.org/0000-0002-0367-1243)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0002-0367-1243), [_Princeton University Library_](https://library.princeton.edu/)
+  * **[Simeon Warner](https://orcid.org/0000-0002-7970-7855)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0002-7970-7855), [_Cornell University_](https://www.cornell.edu/)
   {: .names}
 
 {% include copyright.md %}
@@ -736,10 +736,10 @@ Many thanks to  Ben Albritton, Matthieu Bonicel, Anatol Broder, Kevin Clarke, To
 | 2012-05-02 | RFC version |
 {: .api-table}
 
-[change-log11]: /api/image/1.1/change-log/ "Change Log for Version 1.1"
-[change-log]: /api/image/2.0/change-log/ "Change Log for Version 2.0"
-[compliance]: /api/image/2.0/compliance/ "Image API Compliance"
-[compliance-quality]: /api/image/2.0/compliance/#quality "Image API Compliance: Quality"
+[change-log11]: {{ site.url }}{{ site.baseurl }}/api/image/1.1/change-log/ "Change Log for Version 1.1"
+[change-log]: {{ site.url }}{{ site.baseurl }}/api/image/2.0/change-log/ "Change Log for Version 2.0"
+[compliance]: {{ site.url }}{{ site.baseurl }}/api/image/2.0/compliance/ "Image API Compliance"
+[compliance-quality]: {{ site.url }}{{ site.baseurl }}/api/image/2.0/compliance/#quality "Image API Compliance: Quality"
 [cors-spec]: http://www.w3.org/TR/cors/ "Cross-Origin Resource Sharing"
 [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
 [json-as-json-ld]: http://www.w3.org/TR/json-ld/#interpreting-json-as-json-ld "JSON-LD 1.0: 6.8 Interpreting JSON as JSON-LD"
@@ -752,15 +752,15 @@ Many thanks to  Ben Albritton, Matthieu Bonicel, Anatol Broder, Kevin Clarke, To
 [rfc-6266]: http://tools.ietf.org/html/rfc6266 "Use of the Content-Disposition Header Field in the Hypertext Transfer Protocol (HTTP)"
 [rfc-6570]: http://tools.ietf.org/html/rfc6570 "URI Template"
 [semver]: http://semver.org/spec/v2.0.0.html "Semantic Versioning 2.0.0"
-[iiif-community]: /community/ "IIIF Community"
-[versioning]: /api/annex/notes/semver/ "Versioning of APIs"
-[prezi-api]: /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/ "Presentation API"
+[iiif-community]: {{page.webprefix}}/community/ "IIIF Community"
+[versioning]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/semver/ "Versioning of APIs"
+[prezi-api]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/ "Presentation API"
 
-[service-profiles]: /api/annex/services/ "Services Annex Document"
-[annex-frames]: /api/annex/notes/jsonld/ "JSON-LD Frames Implementation Notes"
-[apache-notes]: /api/annex/notes/apache/ "Apache HTTP Server Implementation Notes"
-[apache-notes-conditional-content-type]: /api/annex/notes/apache/#conditional-content-types "Apache HTTP Server Implementation Notes: Conditional Content Types"
-[apache-notes-set-compliance-link-header]: /api/annex/notes/apache/#set-compliance-link-header "Apache HTTP Server Implementation Notes: Set Compliance Link Header"
+[service-profiles]: {{ site.url }}{{ site.baseurl }}/api/annex/services/ "Services Annex Document"
+[annex-frames]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/jsonld/ "JSON-LD Frames Implementation Notes"
+[apache-notes]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/apache/ "Apache HTTP Server Implementation Notes"
+[apache-notes-conditional-content-type]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/apache/#conditional-content-types "Apache HTTP Server Implementation Notes: Conditional Content Types"
+[apache-notes-set-compliance-link-header]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/apache/#set-compliance-link-header "Apache HTTP Server Implementation Notes: Set Compliance Link Header"
 [audience-and-scope]: #audience-and-scope "1. Audience and Scope"
 [uri-syntax]: #uri-syntax "2. URI Syntax"
 [image-request-uri-syntax]: #image-request-uri-syntax "2.1. Image Request URI Syntax"
@@ -789,7 +789,7 @@ Many thanks to  Ben Albritton, Matthieu Bonicel, Anatol Broder, Kevin Clarke, To
 [b-versioning]: #b-versioning "B. Versioning"
 [c-acknowledgments]: #c-acknowledgments "C. Acknowledgments"
 [d-change-log]: #d-change-log "D. Change Log"
-[prev-version]: http://iiif.io/api/image/1.1/ "Previous Version"
-[stable-version]: http://iiif.io/api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/ "Stable Version"
+[prev-version]: {{ page.webprefix }}/api/image/1.1/ "Previous Version"
+[stable-version]: {{ page.webprefix }}/api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/ "Stable Version"
 
 {% include acronyms.md %}

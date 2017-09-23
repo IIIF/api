@@ -21,10 +21,10 @@ __Previous Version:__ [1.0][prev-version]
 
 **Editors**
 
-  * **[Benjamin Albritton](https://orcid.org/0000-0001-8774-7964)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0001-8774-7964), [_Stanford University_](http://www.stanford.edu)
-  * **[Michael Appleby](https://orcid.org/0000-0002-1266-298X)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0002-1266-298X), [_Yale University_](http://www.yale.edu/)
-  * **[Robert Sanderson](https://orcid.org/0000-0003-4441-6852)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0003-4441-6852), [_Stanford University_](http://www.stanford.edu/)
-  * **[Jon Stroop](https://orcid.org/0000-0002-0367-1243)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0002-0367-1243), [_Princeton University Library_](https://library.princeton.edu/)
+  * **[Benjamin Albritton](https://orcid.org/0000-0001-8774-7964)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0001-8774-7964), [_Stanford University_](http://www.stanford.edu)
+  * **[Michael Appleby](https://orcid.org/0000-0002-1266-298X)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0002-1266-298X), [_Yale University_](http://www.yale.edu/)
+  * **[Robert Sanderson](https://orcid.org/0000-0003-4441-6852)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0003-4441-6852), [_Stanford University_](http://www.stanford.edu/)
+  * **[Jon Stroop](https://orcid.org/0000-0002-0367-1243)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0002-0367-1243), [_Princeton University Library_](https://library.princeton.edu/)
   {: .names}
 
 {% include copyright.md %}
@@ -1461,12 +1461,12 @@ Many thanks to Matthieu Bonicel, Tom Cramer, Ian Davis, Markus Enders, Renhart G
 | 2013-06-14 | Version 0.9 (unnamed) released.                    |
 
 [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
-[shared-canvas]: /model/shared-canvas/{{ site.shared_canvas.latest.major}}.{{ site.shared_canvas.latest.minor }} "Shared Canvas Data Model"
-[image-api]: /api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/ "Image API"
-[annex]: /api/annex/services/ "Services Annex Document"
-[change-log]: /api/presentation/2.0/change-log/ "Presentation API 2.0 Change Log"
-[iiif-community]: /community/ "IIIF Community"
-[apache-notes]: /api/annex/notes/apache/ "Apache HTTP Server Implementation Notes"
+[shared-canvas]: {{ site.url }}{{ site.baseurl }}/model/shared-canvas/{{ site.shared_canvas.latest.major}}.{{ site.shared_canvas.latest.minor }} "Shared Canvas Data Model"
+[image-api]: {{ site.url }}{{ site.baseurl }}/api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/ "Image API"
+[annex]: {{ site.url }}{{ site.baseurl }}/api/annex/services/ "Services Annex Document"
+[change-log]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.0/change-log/ "Presentation API 2.0 Change Log"
+[iiif-community]: {{page.webprefix}}/community/ "IIIF Community"
+[apache-notes]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/apache/ "Apache HTTP Server Implementation Notes"
 [openanno]: http://www.openannotation.org/spec/core/ "Open Annotation"
 [openannotypes]: http://www.openannotation.org/spec/core/core.html#BodyTargetType
 [openannomulti]: http://www.openannotation.org/spec/core/multiplicity.html#Choice
@@ -1481,21 +1481,21 @@ Many thanks to Matthieu Bonicel, Tom Cramer, Ian Davis, Markus Enders, Renhart G
 [semver]: http://semver.org/spec/v2.0.0.html "Semantic Versioning 2.0.0"
 [mellon]: http://www.mellon.org/ "The Andrew W. Mellon Foundation"
 [json-ld-compact]: http://www.w3.org/TR/json-ld-api/#compaction-algorithms "JSON-LD Compaction Algorithms"
-[versioning]: /api/annex/notes/semver/ "Versioning of APIs"
-[use-case-doc]: /api/presentation/usecases/ "Presentation API Use Cases"
-[annex-frames]: /api/annex/notes/jsonld/ "JSON-LD Frames Implementation Notes"
+[versioning]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/semver/ "Versioning of APIs"
+[use-case-doc]: {{ site.url }}{{ site.baseurl }}/api/presentation/usecases/ "Presentation API Use Cases"
+[annex-frames]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/jsonld/ "JSON-LD Frames Implementation Notes"
 [iana-uri-schemes]: http://www.iana.org/assignments/uri-schemes/uri-schemes.xhtml "IANA URI Schemes"
 [rdf11-blank-nodes]: http://www.w3.org/TR/rdf11-concepts/#section-blank-nodes "RDF 1.1 Concepts"
 [rfc-4122]: http://tools.ietf.org/html/rfc4122 "URN UUID Scheme"
-[oa-ext-annex]: /api/annex/openannotation/ "Open Annotation Extensions"
+[oa-ext-annex]: {{ site.url }}{{ site.baseurl }}/api/annex/openannotation/ "Open Annotation Extensions"
 [appendixa]: #a-summary-of-recommended-uri-patterns "Appendix A"
 [appendixb]: #b-summary-of-metadata-requirements "Appendix B"
-[prev-version]: /api/metadata/1.0/
-[stable-version]: /api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/
+[prev-version]: {{ site.url }}{{ site.baseurl }}/api/metadata/1.0/
+[stable-version]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/
 
-[icon-req]: /img/metadata-api/required.png "Required"
-[icon-recc]: /img/metadata-api/recommended.png "Recommended"
-[icon-opt]: /img/metadata-api/optional.png "Optional"
-[icon-na]: /img/metadata-api/not_allowed.png "Not allowed"
+[icon-req]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/required.png "Required"
+[icon-recc]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/recommended.png "Recommended"
+[icon-opt]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/optional.png "Optional"
+[icon-na]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/not_allowed.png "Not allowed"
 
 {% include acronyms.md %}
