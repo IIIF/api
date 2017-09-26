@@ -87,7 +87,7 @@ The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _S
 
 ##  2. Resource Type Overview
 
-This section provides an overview of the resource types (or classes) that are used in the specification.  They are each presented in more detail in [Section 5][resource-structure].
+This section provides an overview of the resource types (or classes) that are used in the specification.  They are each presented in more detail in [Section 5][resource-structure-prezi30].
 
 ### 2.1. Basic Types
 
@@ -148,7 +148,7 @@ An ordered list of Canvases, and/or further Ranges.  Ranges allow Canvases, or p
 
 This specification defines properties in five distinct areas. Most of the properties may be associated with any of the resource types described above, and may have more than one value.  The property relates to the resource that it is associated with, so a `description` property on a Manifest is a description of the object, whereas a `description` property on a Canvas is a description of that particular view.
 
-The requirements for which classes have which properties are summarized in [Appendix A][appendixa].
+The requirements for which classes have which properties are summarized in [Appendix A][appendixa-prezi30].
 
 Other properties are allowed, either via custom extensions or endorsed by IIIF. If a client discovers properties that it does not understand, then it _MUST_ ignore them.  Other properties _SHOULD_ consist of a prefix and a name in the form "`prefix:name`" to ensure it does not collide with a property defined by IIIF specifications.
 
@@ -157,7 +157,7 @@ Other properties are allowed, either via custom extensions or endorsed by IIIF. 
 ##### label
 A human readable label, name or title for the resource. This property is intended to be displayed as a short, textual surrogate for the resource if a human needs to make a distinction between it and similar resources, for example between pages or between a choice of images to display.
 
-The value of the property _MUST_ be a JSON object, as described in the [languages][languages] section.
+The value of the property _MUST_ be a JSON object, as described in the [languages][languages-prezi30] section.
 
  * A Collection _MUST_ have at least one `label`.<br/>
    Clients _MUST_ render `label` on a Collection.
@@ -183,7 +183,7 @@ The value of the property _MUST_ be a JSON object, as described in the [language
 ##### metadata
 A list of short descriptive entries, given as pairs of human readable `label` and `value` to be displayed to the user. There are no semantics conveyed by this information, only strings to present to the user.  A pair might be used to convey to the user information such as the creator of the object, information about its creation, a brief physical description, or ownership information, amongst other use cases. An example pair of label and value might be a label of "Author" and a value of "Jehan Froissart".
 
-The value of the `metadata` property _MUST_ be an array of objects, where each object has both `label` and `value` properties. The values of both `label` and `value` _MUST_ be JSON objects, as described in the [languages][languages] section.
+The value of the `metadata` property _MUST_ be an array of objects, where each object has both `label` and `value` properties. The values of both `label` and `value` _MUST_ be JSON objects, as described in the [languages][languages-prezi30] section.
 
  * A Collection _SHOULD_ have one or more metadata pairs associated with it.<br/>
    Clients _MUST_ render `metadata` on a Collection.
@@ -203,7 +203,7 @@ Clients _SHOULD_ display the pairs in the order provided. Clients _SHOULD NOT_ u
 ##### description
 A longer-form prose description of the object or resource that the property is attached to, intended to be conveyed to the user as a full text description, rather than a simple label and value. It can duplicate any of the information from the `metadata` fields, along with additional information required to understand what is being displayed.
 
-The value of the property _MUST_ be a JSON object, as described in the [languages][languages] section.
+The value of the property _MUST_ be a JSON object, as described in the [languages][languages-prezi30] section.
 
  * A Collection _SHOULD_ have one or more `description`s.<br/>
    Clients _SHOULD_ render `description` on a Collection.
@@ -259,7 +259,7 @@ The following properties ensure that the interests of the owning or publishing i
 ##### attribution
 Text that must be displayed when the resource it is associated with is displayed or used. For example, this could be used to present copyright or ownership statements, or simply an acknowledgement of the owning and/or publishing institution.
 
-The value of the property _MUST_ be a JSON object, as described in the [languages][languages] section.
+The value of the property _MUST_ be a JSON object, as described in the [languages][languages-prezi30] section.
 
  * Any resource type _MAY_ have one or more `attribution`s.<br/>
    Clients _MUST_ render `attribution` on every resource type.
@@ -857,7 +857,7 @@ Any additional fields beyond those defined in this specification or the Web Anno
 
 ##  5. Resource Structure
 
-This section provides detailed description of the resource types used in this specification. [Section 2][type-overview] provides an overview of the resource types and figures illustrating allowed relationships between them, and [Appendix A][appendixa] provides summary tables of the property requirements.
+This section provides detailed description of the resource types used in this specification. [Section 2][type-overview-prezi30] provides an overview of the resource types and figures illustrating allowed relationships between them, and [Appendix A][appendixa-prezi30] provides summary tables of the property requirements.
 
 ###  5.1. Manifest
 
@@ -865,9 +865,9 @@ The Manifest resource represents a single object and any intellectual work or wo
 
 The identifier in `id` _MUST_ be able to be dereferenced to retrieve the JSON description of the Manifest, and thus _MUST_ use the http(s) URI scheme.
 
-Along with the descriptive information, there is an `items` section, which is a list of JSON-LD objects. Each object describes a [Sequence][sequence], discussed in the next section, that represents the order of the parts of the work, each represented by a [Canvas][canvas].  The first such Sequence _MUST_ be included within the Manifest as well as optionally being available from its own URI. Subsequent Sequences _MAY_ be embedded within the Manifest, or referenced with their identifier (`id`), class (`type`) and label (`label`).
+Along with the descriptive information, there is an `items` section, which is a list of JSON-LD objects. Each object describes a [Sequence][sequence-prezi30], discussed in the next section, that represents the order of the parts of the work, each represented by a [Canvas][canvas-prezi30].  The first such Sequence _MUST_ be included within the Manifest as well as optionally being available from its own URI. Subsequent Sequences _MAY_ be embedded within the Manifest, or referenced with their identifier (`id`), class (`type`) and label (`label`).
 
-There _MAY_ also be a `structures` section listing one or more [Ranges][range] which describe additional structure of the content, such as might be rendered as a table of contents.
+There _MAY_ also be a `structures` section listing one or more [Ranges][range-prezi30] which describe additional structure of the content, such as might be rendered as a table of contents.
 
 The example below includes only the Manifest-level information, however actual implementations _MUST_ embed at least the first Sequence, Canvas and content information.
 
@@ -1233,7 +1233,7 @@ Each annotation list _MAY_ be part of one or more layers. If the annotation list
 
 The layer _MAY_ be able to be dereferenced if it has an HTTP URI.  If a representation is available, it _MUST_ follow all of the requirements for JSON representations in this specification.  All of the properties of the layer _SHOULD_ be included in the representation.  
 
-The annotation lists are referenced from the layer in an `otherContent` array, in the same way as they are referenced from a canvas.  The annotation lists _SHOULD_ be given as just URIs, but _MAY_ be objects with more information about them, such as in the [Canvas][canvas] example.
+The annotation lists are referenced from the layer in an `otherContent` array, in the same way as they are referenced from a canvas.  The annotation lists _SHOULD_ be given as just URIs, but _MAY_ be objects with more information about them, such as in the [Canvas][canvas-prezi30] example.
 
 ``` json-doc
 {
@@ -1811,68 +1811,5 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 | 2013-06-14 | Version 0.9 (unnamed) |
 
 
-[prezi3-milestone]:  https://github.com/IIIF/iiif.io/milestone/8
-[change-log-30]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/change-log/ "Presentation API 3.0 Change Log"
-[webanno]: http://w3.org/TR/annotation-model/
-[webannoprotocol]: http://w3.org/TR/annotation-protocol/
-
-[iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
-[shared-canvas]: {{ site.url }}{{ site.baseurl }}/model/shared-canvas/{{ site.shared_canvas.latest.major}}.{{ site.shared_canvas.latest.minor }} "Shared Canvas Data Model"
-[image-api]: {{ site.url }}{{ site.baseurl }}/api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/ "Image API"
-[search-api]: {{ site.url }}{{ site.baseurl }}/api/search/{{ site.search_api.latest.major }}.{{ site.search_api.latest.minor }}/ "Content Search API"
-[annex]: {{ site.url }}{{ site.baseurl }}/api/annex/services/ "Services Annex Document"
-[change-log-211]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.1/change-log-211/ "Presentation API 2.1.1 Change Log"
-[change-log-21]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.1/change-log/ "Presentation API 2.1 Change Log"
-[change-log-20]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.0/change-log/ "Presentation API 2.0 Change Log"
-[iiif-community]: {{page.webprefix}}/community/ "IIIF Community"
-[apache-notes]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/apache/ "Apache HTTP Server Implementation Notes"
-[openanno]: http://www.openannotation.org/spec/core/ "Open Annotation"
-[openannotypes]: http://www.openannotation.org/spec/core/core.html#BodyTargetType
-[openannomulti]: http://www.openannotation.org/spec/core/multiplicity.html#Choice
-[linked-data]: http://linkeddata.org/ "Linked Data"
-[web-arch]: http://www.w3.org/TR/webarch/ "Architecture of the World Wide Web"
-[json-ld]: http://www.w3.org/TR/json-ld/ "JSON-LD"
-[json-ld-68]: http://www.w3.org/TR/json-ld/#interpreting-json-as-json-ld "Interpreting JSON as JSON-LD"
-[rfc5646]: http://tools.ietf.org/html/rfc5646 "RFC 5646"
-[media-frags]: http://www.w3.org/TR/media-frags/#naming-space "Media Fragments"
-[xpath]: https://en.wikipedia.org/wiki/XPointer "XPath / XPointer"
-[svg]: http://www.w3.org/TR/SVG/ "Scalabe Vector Graphics"
-[css]: http://www.w3.org/TR/CSS/ "Cascading Style Sheets"
-[semver]: http://semver.org/spec/v2.0.0.html "Semantic Versioning 2.0.0"
-[mellon]: http://www.mellon.org/ "The Andrew W. Mellon Foundation"
-[json-ld-compact]: http://www.w3.org/TR/json-ld-api/#compaction-algorithms "JSON-LD Compaction Algorithms"
-[versioning]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/semver/ "Versioning of APIs"
-[use-case-doc]: {{ site.url }}{{ site.baseurl }}/api/presentation/usecases/ "Presentation API Use Cases"
-[annex-frames]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/jsonld/ "JSON-LD Frames Implementation Notes"
-[iana-uri-schemes]: http://www.iana.org/assignments/uri-schemes/uri-schemes.xhtml "IANA URI Schemes"
-[rdf11-blank-nodes]: http://www.w3.org/TR/rdf11-concepts/#section-blank-nodes "RDF 1.1 Concepts"
-[rfc-4122]: http://tools.ietf.org/html/rfc4122 "URN UUID Scheme"
-[rfc-2119]: http://tools.ietf.org/html/rfc2119
-[oa-ext-annex]: {{ site.url }}{{ site.baseurl }}/api/annex/openannotation/ "Open Annotation Extensions"
-[auth]: {{ site.url }}{{ site.baseurl }}/api/auth/
-
-[stable-version]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/
-[appendixa]: #a-summary-of-metadata-requirements
-
-[prev-version]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.0/
-[sequence]: #sequence
-[canvas]: #canvas
-[range]: #range
-[image-resources]: #image-resources
-[annotation-lists]: #annotation-list
-[type-overview]: #resource-type-overview
-[segments]: #segments
-[languages]: #language-of-property-values
-
-[ld-exts]: #linked-data-context-and-extensions
-[paging]: #paging-properties
-[resource-structure]: #resource-structure
-
-[icon-req]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/required.png "Required"
-[icon-recc]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/recommended.png "Recommended"
-[icon-opt]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/optional.png "Optional"
-[icon-na]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/not_allowed.png "Not allowed"
-
-
-
 {% include acronyms.md %}
+{% include links.md %}
