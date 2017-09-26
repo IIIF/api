@@ -561,7 +561,7 @@ A link to another resource that contains the current resource, such as a Manifes
 
 The value _MUST_ be an array of JSON objects.  Each object _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `label` property.
 
- * Collections or AnnotationPages that serve as [pages][paging] _MUST_ be within exactly one paged resource.<br/>
+ * Collections or AnnotationPages that serve as [pages][paging-prezi30] _MUST_ be within exactly one paged resource.<br/>
    Clients _SHOULD_ render `within` on a Collection or AnnotationPage.
  * Other resource types, including Collections or AnnotationPages not serving as pages, _MAY_ be within one or more containing resources.<br/>
    Clients _MAY_ render `within` on other resource types.
@@ -1341,7 +1341,7 @@ An example collection document:
 
 ### 5.9. Paging
 
-In some situations, annotation lists or the list of manifests in a collection may be very long or expensive to create. The latter case is especially likely to occur when responses are generated dynamically. In these situations the server may break up the response using [paging properties][paging]. The length of a response is left to the server's discretion, but the server should take care not to produce overly long responses that would be difficult for clients to process.
+In some situations, annotation lists or the list of manifests in a collection may be very long or expensive to create. The latter case is especially likely to occur when responses are generated dynamically. In these situations the server may break up the response using [paging properties][paging-prezi30]. The length of a response is left to the server's discretion, but the server should take care not to produce overly long responses that would be difficult for clients to process.
 
 When breaking a response into pages, the paged resource _MUST_ link to the `first` page resource, and _MUST NOT_ include the corresponding list property (`collections` for a collection, `otherContent` for a layer). For example, a paged layer would link only to an annotation list as its first page.  If known, the resource _MAY_ also link to the last page.
 
@@ -1809,7 +1809,6 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 | 2014-09-11 | Version 2.0 (Triumphant Giraffe) [View change log][change-log-20] |
 | 2013-08-26 | Version 1.0 (unnamed) |
 | 2013-06-14 | Version 0.9 (unnamed) |
-
 
 {% include acronyms.md %}
 {% include links.md %}

@@ -39,7 +39,7 @@
 [rfc5646]: http://tools.ietf.org/html/rfc5646 "RFC 5646"
 [search-api]: {{ site.url }}{{ site.baseurl }}/api/search/{{ site.search_api.latest.major }}.{{ site.search_api.latest.minor }}/ "Content Search API"
 [semver]: http://semver.org/spec/v2.0.0.html "Semantic Versioning 2.0.0"
-[sequence]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#sequence
+[sequence-prezi30]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#sequence
 [shared-canvas]: {{ site.url }}{{ site.baseurl }}/model/shared-canvas/{{ site.shared_canvas.latest.major}}.{{ site.shared_canvas.latest.minor }} "Shared Canvas Data Model"
 [stable-version]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/
 [svg]: http://www.w3.org/TR/SVG/ "Scalabe Vector Graphics"
