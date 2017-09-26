@@ -508,8 +508,7 @@ The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id`, 
 {"related": [{
   "id": "https://example.com/info/", 
   "type": "Text", 
-  "format": "text/html"}]
-}
+  "format": "text/html"}]}
 ```
 
 ##### rendering
@@ -524,8 +523,7 @@ The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id`, 
 {"rendering": [{
   "id": "https://example.org/1.pdf", 
   "type": "Text", 
-  "format": "application/pdf"}]
-}
+  "format": "application/pdf"}]}
 ```
 
 ##### service
@@ -541,8 +539,7 @@ The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id` a
   {"id": "https://example.org/service",
    "type": "Service",
    "profile": ["http://example.org/docs/service"]
-  }]
-}
+  }]}
 ```
 
 ##### seeAlso
@@ -554,14 +551,11 @@ The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id` a
    Clients _MAY_ process `seeAlso` on any resource type.
 
 ``` json-doc
-
-{
-  "seeAlso" : [{
+{"seeAlso" : [{
     "@id": "http://example.org/library/catalog/book1.xml",
     "format": "text/xml",
     "profile": "http://example.org/profiles/bibliographic"
-  }]
-}
+  }]}
 ```
 
 #### 3.4.2. Internal Links
