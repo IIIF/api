@@ -155,12 +155,12 @@ Other properties are allowed, either via custom extensions or endorsed by IIIF. 
 ###  3.1. Descriptive Properties
 
 ##### label
-A human readable label, name or title for the resource. This property is intended to be displayed as a short, textual surrogate for the resource if a human needs to make a distinction between it and similar resources, for example between pages or between a choice of images to display. 
+A human readable label, name or title for the resource. This property is intended to be displayed as a short, textual surrogate for the resource if a human needs to make a distinction between it and similar resources, for example between pages or between a choice of images to display.
 
 The value of the property _MUST_ be a JSON object, as described in the [languages][languages] section.
 
  * A Collection _MUST_ have at least one `label`.<br/>
-   Clients _MUST_ render `label` on a Collection. 
+   Clients _MUST_ render `label` on a Collection.
  * A Manifest _MUST_ have at least one `label`.<br/>
    Clients _MUST_ render `label` on a Manifest.
  * A Sequence  _MAY_ have one or more `label`s, and if there are multiple Sequences in a single Manifest then they _MUST_ each have at least one `label`.<br/>
@@ -181,7 +181,7 @@ The value of the property _MUST_ be a JSON object, as described in the [language
 ```
 
 ##### metadata
-A list of short descriptive entries, given as pairs of human readable `label` and `value` to be displayed to the user. There are no semantics conveyed by this information, only strings to present to the user.  A pair might be used to convey to the user information such as the creator of the object, information about its creation, a brief physical description, or ownership information, amongst other use cases. An example pair of label and value might be a label of "Author" and a value of "Jehan Froissart". 
+A list of short descriptive entries, given as pairs of human readable `label` and `value` to be displayed to the user. There are no semantics conveyed by this information, only strings to present to the user.  A pair might be used to convey to the user information such as the creator of the object, information about its creation, a brief physical description, or ownership information, amongst other use cases. An example pair of label and value might be a label of "Author" and a value of "Jehan Froissart".
 
 The value of the `metadata` property _MUST_ be an array of objects, where each object has both `label` and `value` properties. The values of both `label` and `value` _MUST_ be JSON objects, as described in the [languages][languages] section.
 
@@ -201,7 +201,7 @@ Clients _SHOULD_ display the pairs in the order provided. Clients _SHOULD NOT_ u
 ```
 
 ##### description
-A longer-form prose description of the object or resource that the property is attached to, intended to be conveyed to the user as a full text description, rather than a simple label and value. It can duplicate any of the information from the `metadata` fields, along with additional information required to understand what is being displayed. 
+A longer-form prose description of the object or resource that the property is attached to, intended to be conveyed to the user as a full text description, rather than a simple label and value. It can duplicate any of the information from the `metadata` fields, along with additional information required to understand what is being displayed.
 
 The value of the property _MUST_ be a JSON object, as described in the [languages][languages] section.
 
@@ -219,7 +219,7 @@ The value of the property _MUST_ be a JSON object, as described in the [language
 ```
 
 ##### thumbnail
-A small content resource that represents the resource that the property is attached to, such as a small image or short audio clip.  It is _RECOMMENDED_ that a [IIIF Image API][image-api] service be available for images to enable manipulations such as resizing. 
+A small content resource that represents the resource that the property is attached to, such as a small image or short audio clip.  It is _RECOMMENDED_ that a [IIIF Image API][image-api] service be available for images to enable manipulations such as resizing.
 
 The value _MUST_ be a JSON array, with each item in the array being a JSON object that _MUST_ have an `id` property and _SHOULD_ have at least one of `type` and `format`.
 
@@ -257,7 +257,7 @@ A date that the client can use for navigation purposes when presenting the resou
 The following properties ensure that the interests of the owning or publishing institutions are conveyed regardless of the viewing environment. Given the wide variation of potential client user interfaces, it will not always be possible to display all or any of the properties to the user in the client's initial state. If initially hidden, the method of revealing them _MUST_ be obvious, such as a button or scroll bar.
 
 ##### attribution
-Text that must be displayed when the resource it is associated with is displayed or used. For example, this could be used to present copyright or ownership statements, or simply an acknowledgement of the owning and/or publishing institution. 
+Text that must be displayed when the resource it is associated with is displayed or used. For example, this could be used to present copyright or ownership statements, or simply an acknowledgement of the owning and/or publishing institution.
 
 The value of the property _MUST_ be a JSON object, as described in the [languages][languages] section.
 
@@ -268,9 +268,9 @@ The value of the property _MUST_ be a JSON object, as described in the [language
 {"attribution": {"en": ["Attribution Text"]}}
 ```
 
-##### rights 
+##### rights
 
-A link to an external resource that describes the license or rights statement under which the resource may be used. The rationale for this being a URI and not a human readable label is that typically there is one license for many resources, and the text is too long to be displayed to the user along with the object. If displaying the text is a requirement, then it is _RECOMMENDED_ to include the information using the `attribution` property instead or in `metadata`. 
+A link to an external resource that describes the license or rights statement under which the resource may be used. The rationale for this being a URI and not a human readable label is that typically there is one license for many resources, and the text is too long to be displayed to the user along with the object. If displaying the text is a requirement, then it is _RECOMMENDED_ to include the information using the `attribution` property instead or in `metadata`.
 
 The value _MUST_ be an array of JSON objects, each of which _MUST_ have an `id` and _SHOULD_ have at least one of `type` and `format`.
 
@@ -282,7 +282,7 @@ The value _MUST_ be an array of JSON objects, each of which _MUST_ have an `id` 
 ```
 
 ##### logo
-A small image that represents an individual or organization associated with the resource it is attached to.  This could be the logo of the owning or hosting institution. The logo _MUST_ be clearly rendered when the resource is displayed or used, without cropping, rotating or otherwise distorting the image. It is _RECOMMENDED_ that a [IIIF Image API][image-api] service be available for this image for other manipulations such as resizing. 
+A small image that represents an individual or organization associated with the resource it is attached to.  This could be the logo of the owning or hosting institution. The logo _MUST_ be clearly rendered when the resource is displayed or used, without cropping, rotating or otherwise distorting the image. It is _RECOMMENDED_ that a [IIIF Image API][image-api] service be available for this image for other manipulations such as resizing.
 
 The value _MUST_ be an array of JSON objects, each of which _MUST_ have an `id` and _SHOULD_ have at least one of `type` and `format`.
 
@@ -297,7 +297,7 @@ The value _MUST_ be an array of JSON objects, each of which _MUST_ have an `id` 
 
 ##### id
 
-The URI that identifies the resource. It is _RECOMMENDED_ that an HTTPS URI be used for all resources. 
+The URI that identifies the resource. It is _RECOMMENDED_ that an HTTPS URI be used for all resources.
 
 The value _MUST_ be a string.
 
@@ -326,7 +326,7 @@ The value _MUST_ be a string.
 
 ##### type
 
-The type of the resource.  For the resource types defined by this specification, the value of `type` will be described in the sections below.  For content resources, the type are drawn from other vocabularies. Recommendations for basic types such as image, text or audio are also given in the sections below. 
+The type of the resource.  For the resource types defined by this specification, the value of `type` will be described in the sections below.  For content resources, the type are drawn from other vocabularies. Recommendations for basic types such as image, text or audio are also given in the sections below.
 
 The value _MUST_ be a string.
 
@@ -338,7 +338,7 @@ The value _MUST_ be a string.
 ```
 
 ##### format
-The specific media type (often called a MIME type) of a content resource, for example "image/jpeg". This is important for distinguishing text in XML from plain text, for example. 
+The specific media type (often called a MIME type) of a content resource, for example "image/jpeg". This is important for distinguishing text in XML from plain text, for example.
 
 The value _MUST_ be a string.
 
@@ -354,7 +354,7 @@ Note that this is different to the `formats` property in the [Image API][image-a
 ```
 
 ##### height
-The height of a Canvas or content resource. For content resources, the value is in pixels. For Canvases, the value does not have a unit. In combination with the width, it conveys an aspect ratio for the space in which content resources are located. 
+The height of a Canvas or content resource. For content resources, the value is in pixels. For Canvases, the value does not have a unit. In combination with the width, it conveys an aspect ratio for the space in which content resources are located.
 
 The value _MUST_ be a non-negative integer or floating point number.
 
@@ -370,7 +370,7 @@ The value _MUST_ be a non-negative integer or floating point number.
 ```
 
 ##### width
-The width of a Canvas or content resource. For content resources, the value is in pixels. For Canvases, the value does not have a unit. In combination with the height, it conveys an aspect ratio for the space in which content resources are located. 
+The width of a Canvas or content resource. For content resources, the value is in pixels. For Canvases, the value does not have a unit. In combination with the height, it conveys an aspect ratio for the space in which content resources are located.
 
 The value _MUST_ be a non-negative integer or floating point number.
 
@@ -388,7 +388,7 @@ The value _MUST_ be a non-negative integer or floating point number.
 ##### duration
 The duration of a Canvas or content resource, given in seconds.  
 
-The value _MUST_ be a non-negative floating point number. 
+The value _MUST_ be a non-negative floating point number.
 
  * A Canvas _MAY_ have exactly one `duration`, and _MUST NOT_ have more than one.<br/>
    Clients _MUST_ process, and _MAY_ render, `duration` on a Canvas.
@@ -497,7 +497,7 @@ The value _MUST_ be a string, taken from the table below or a full URI.
 #### 3.4.1 External Links
 
 ##### related
-A link to an external resource that is about the IIIF resource. The external resource _MUST_ be able to be displayed directly to the user. Examples might include a video or academic paper about the resource, a website, an HTML description, and so forth. 
+A link to an external resource that is about the IIIF resource. The external resource _MUST_ be able to be displayed directly to the user. Examples might include a video or academic paper about the resource, a website, an HTML description, and so forth.
 
 The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id`, `type` and `label` properties, and _SHOULD_ have a `format` property.
 
@@ -513,7 +513,7 @@ The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id`, 
 ```
 
 ##### rendering
-A link to an external resource that is an alternative, non-IIIF representation of the IIIF resource. The external resource _MUST_ be able to be displayed directly to a human user. Examples might include the preferred viewing environment for the IIIF resource, such as a viewer page on the publisher's web site. Other uses include a rendering of a manifest as a PDF or EPUB with the images and text of the book, or a slide deck with images of the museum object. 
+A link to an external resource that is an alternative, non-IIIF representation of the IIIF resource. The external resource _MUST_ be able to be displayed directly to a human user. Examples might include the preferred viewing environment for the IIIF resource, such as a viewer page on the publisher's web site. Other uses include a rendering of a manifest as a PDF or EPUB with the images and text of the book, or a slide deck with images of the museum object.
 
 The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id`, `type` and `label` properties, and _SHOULD_ have a `format` property.
 
@@ -538,7 +538,7 @@ The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id` a
 
 ``` json-doc
 {"service": [
-  {"id": "https://example.org/service", 
+  {"id": "https://example.org/service",
    "type": "Service",
    "profile": ["http://example.org/docs/service"]
   }]
@@ -554,17 +554,20 @@ The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id` a
    Clients _MAY_ process `seeAlso` on any resource type.
 
 ``` json-doc
-{"seeAlso": [{
-  "id": "https://example.org/1.xml", 
-  "type": "Text", 
-  "format": "text/xml"}]
+
+{
+  "seeAlso" : [{
+    "@id": "http://example.org/library/catalog/book1.xml",
+    "format": "text/xml",
+    "profile": "http://example.org/profiles/bibliographic"
+  }]
 }
 ```
 
 #### 3.4.2. Internal Links
 
 ##### within
-A link to another resource that contains the current resource, such as a Manifest within a Collection. 
+A link to another resource that contains the current resource, such as a Manifest within a Collection.
 
 The value _MUST_ be an array of JSON objects.  Each object _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `label` property.
 
@@ -608,7 +611,7 @@ The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` propert
 ###  3.5. Paging Properties
 
 ##### first
-A link from a resource with pages, such as a Collection or AnnotationCollection, to its first page resource, another Collection or an AnnotationPage respectively. 
+A link from a resource with pages, such as a Collection or AnnotationCollection, to its first page resource, another Collection or an AnnotationPage respectively.
 
 The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `label` property.
 
@@ -624,7 +627,7 @@ The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` propert
 ```
 
 ##### last
-A link from a resource with pages to its last page resource. 
+A link from a resource with pages to its last page resource.
 
 The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `label` property.
 
@@ -640,7 +643,7 @@ The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` propert
 ```
 
 ##### total
-The total number of leaf resources in a paged list, such as the number of Annotations within an AnnotationCollection. 
+The total number of leaf resources in a paged list, such as the number of Annotations within an AnnotationCollection.
 
 The value _MUST_ be a non-negative integer.
 
@@ -688,7 +691,7 @@ The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` propert
 ```
 
 ##### startIndex
-The 0 based index of the first included resource in the current page, relative to the parent paged resource. 
+The 0 based index of the first included resource in the current page, relative to the parent paged resource.
 
 The value _MUST_ be a non-negative integer.
 
@@ -714,15 +717,15 @@ Much of the functionality of the IIIF Presentation API is simply recording the o
 The value _MUST_ be an array of objects.
 
 * A Collection _MUST_ have a list of zero or more Collections and/or Manifests in `items`.<br/>
-  Clients _MUST_ process `items` on a Collection. 
+  Clients _MUST_ process `items` on a Collection.
 * A Manifest _MUST_ have a list of one or more Sequences in `items`.<br/>
-  Clients _MUST_ process `items` on a Manifest. 
+  Clients _MUST_ process `items` on a Manifest.
 * A Sequence _MUST_ have a list of one or more Canvases in `items`.<br/>
-  Clients _MUST_ process `items` on a Sequence. 
+  Clients _MUST_ process `items` on a Sequence.
 * A Range _MUST_ have a list of one or more Ranges and/or Canvases in `items`.<br/>
-  Clients _SHOULD_ process `items` on a Range. 
+  Clients _SHOULD_ process `items` on a Range.
 * An AnnotationPage _MUST_ have a list of zero or more Annotations in `items`.<br/>
-  Clients _MUST_ process `items` on an AnnotationPage. 
+  Clients _MUST_ process `items` on an AnnotationPage.
 
 ```json-doc
 {"items": [{ ... }]}
@@ -776,7 +779,7 @@ It is strongly _RECOMMENDED_ that all URIs use the HTTPS scheme, and be availabl
 
 ### 4.2. URI Representation
 
-Resource descriptions _SHOULD_ be embedded within higher-level descriptions, and _MAY_ also be available via separate requests from http(s) URIs linked in the responses. These URIs are in the `id` property for the resource. Links to resources _MUST_ be given as a JSON object with the `id` property and at least one other property, typically either `type`, `format` or `profile` to give a hint as to what sort of resource is being referred to. Other URI schemes _MAY_ be used if the resource is not able to be retrieved via HTTP. 
+Resource descriptions _SHOULD_ be embedded within higher-level descriptions, and _MAY_ also be available via separate requests from http(s) URIs linked in the responses. These URIs are in the `id` property for the resource. Links to resources _MUST_ be given as a JSON object with the `id` property and at least one other property, typically either `type`, `format` or `profile` to give a hint as to what sort of resource is being referred to. Other URI schemes _MAY_ be used if the resource is not able to be retrieved via HTTP.
 
 ``` json-doc
 {
@@ -801,13 +804,13 @@ Any of the properties in the API that can have multiple values _MUST_ always be 
 
 ### 4.4. Language of Property Values
 
-Language _MAY_ be associated with strings that are intended to be displayed to the user for the `label`, `description`, `attribution` fields, plus the `label` and `value` fields of the `metadata` construction. 
+Language _MAY_ be associated with strings that are intended to be displayed to the user for the `label`, `description`, `attribution` fields, plus the `label` and `value` fields of the `metadata` construction.
 
 The values of these fields _MUST_ be JSON objects, with the keys being the [RFC 5646][rfc5646] language code for the language, or if the language is either not known or the string does not have a language, then the key must be `"@none"`. The associated values _MUST_ be arrays of strings, where each string is the content in the given language.
 
 ``` json-doc
 {"description": {
-    "en": ["Here is the description of the object in English", 
+    "en": ["Here is the description of the object in English",
            "And a second description"],
     "fr": ["Voici la description de l'objet en français"],
     "@none": ["A description in an unknown language"]
@@ -839,7 +842,7 @@ In order to avoid HTML or script injection attacks, clients _MUST_ remove:
   * XML Comments.
   * Processing instructions.
 
-Clients _SHOULD_ allow only `a`, `b`, `br`, `i`, `img`, `p`, and `span` tags. Clients _MAY_ choose to remove any and all tags, therefore it _SHOULD NOT_ be assumed that the formatting will always be rendered. 
+Clients _SHOULD_ allow only `a`, `b`, `br`, `i`, `img`, `p`, and `span` tags. Clients _MAY_ choose to remove any and all tags, therefore it _SHOULD NOT_ be assumed that the formatting will always be rendered.
 
 ``` json-doc
 {"description": {"en-latn": ["<p>Some <b>description</b></p>"]}}
@@ -868,7 +871,7 @@ This section provides detailed description of the resource types used in this sp
 
 ###  5.1. Manifest
 
-The Manifest resource represents a single object and any intellectual work or works embodied within that object. In particular it includes the descriptive, rights and linking information for the object. It then embeds the Sequence(s) of Canvases that should be rendered to the user. The Manifest response contains sufficient information for the client to initialize itself and begin to display something quickly to the user. 
+The Manifest resource represents a single object and any intellectual work or works embodied within that object. In particular it includes the descriptive, rights and linking information for the object. It then embeds the Sequence(s) of Canvases that should be rendered to the user. The Manifest response contains sufficient information for the client to initialize itself and begin to display something quickly to the user.
 
 The identifier in `id` _MUST_ be able to be dereferenced to retrieve the JSON description of the Manifest, and thus _MUST_ use the http(s) URI scheme.
 
@@ -891,14 +894,14 @@ The example below includes only the Manifest-level information, however actual i
   // Descriptive metadata about the object/work
   "label": {"en": ["Book 1"]},
   "metadata": [
-    {"label": {"en": ["Author"]}, 
+    {"label": {"en": ["Author"]},
      "value": {"@none": ["Anne Author"]}},
-    {"label": {"en": ["Published"]}, 
+    {"label": {"en": ["Published"]},
      "value": {
         "en": ["Paris, circa 1400"],
         "fr": ["Paris, environ 1400"]}
     },
-    {"label": {"en": ["Notes"]}, 
+    {"label": {"en": ["Notes"]},
      "value": {"en": ["Text of note 1", "Text of note 2"]}},
     {"label": {"en": ["Source"]},
      "value": {"@none": ["<span>From: <a href=\"http://example.org/db/1.html\">Some Collection</a></span>"]}}
@@ -923,7 +926,7 @@ The example below includes only the Manifest-level information, however actual i
 
   // Rights Information
   "rights": [{
-    "id":"http://example.org/license.html", 
+    "id":"http://example.org/license.html",
     "type": "Text",
     "format": "text/html"}],
   "attribution": {"en": ["Provided by Example Organization"]},
@@ -1043,7 +1046,7 @@ The Canvas represents an individual page or view and acts as a central point for
 Every Canvas _SHOULD_ have a `label` to display. If one is not provided, the client _MAY_ automatically generate one for use based on the Canvas's position within the current Sequence.
 
 A Canvas _MUST_ have a rectangular aspect ratio (described with the `height` and `width` properties) and/or a `duration` to provide an extent in time. These dimensions allow resources to be associated with specific regions of the Canvas, within the space and/or time extents provided. Content _MUST NOT_ be associated with space or time outside of the Canvas's dimensions, such as at coordinates below 0,0, greater than the height or width, before 0 seconds, or after the duration.
- 
+
 Renderers _MUST_ scale content into the space/time represented by the Canvas, following any `timeMode` adjustment provided for time-based media.  If the Canvas represents a view of a physical object, the dimensions of the Canvas _SHOULD_ be the same scale as that physical object, and images _SHOULD_ depict only the object.
 
 Content resources are associated with the Canvas via Web Annotations. The Annotations are recorded in the `items` of one or more AnnotationPages, refered to in the `content` array of the Canvas. If the Annotation should be rendered quickly, in the view of the publisher, then it _SHOULD_ be embedded within the Manifest directly.  Other AnnotationPages can be referenced with just their `id`, `type` and optionally a `label`, and clients _SHOULD_ dereference these pages to discover further content.  Content in this case includes media assets such as images, video and audio, textual transcriptions or editions of the Canvas, as well as commentary about the object represented by the Canvas.  These different uses _MAY_ be split up across different AnnotationPages.
@@ -1158,7 +1161,7 @@ Ranges are used to describe additional structure within an object, such as newsp
 
 The intent of adding a Range to the Manifest is to allow the client to display a hierarchical navigation interface to enable the user to quickly move through the object's content. Only Ranges with the `label` property and without the "no-nav" `renderingHint` will be presented to the user.
 
-Ranges _MUST_ have URIs and they _SHOULD_ be http(s) URIs.  Ranges are linked or embedded within the Manifest in a `structures` field of the Manifest. Ranges then embed or reference other Ranges, Canvases or parts of Canvases in the `items` field.  Each entry in the `items` field _MUST_ be a JSON object, and it _MUST_ have the `id` and `type` properties. 
+Ranges _MUST_ have URIs and they _SHOULD_ be http(s) URIs.  Ranges are linked or embedded within the Manifest in a `structures` field of the Manifest. Ranges then embed or reference other Ranges, Canvases or parts of Canvases in the `items` field.  Each entry in the `items` field _MUST_ be a JSON object, and it _MUST_ have the `id` and `type` properties.
 
 All of the Canvases or parts that should be considered as being part of a Range _MUST_ be included within the Range's members, or a descendant Range's members.
 
