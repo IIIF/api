@@ -1,0 +1,27 @@
+
+{
+	"id": "...",
+	"type": "Manifest",
+	"stuff": [
+		{
+			"type": "AnnotationPage",
+			"items": []			
+		}
+	],
+	"items": [
+		{
+			"type": "Sequence",
+			"items": [
+				{
+					"type": "Canvas",
+					"stuff": [
+						{
+							"type": "AnnotationPage",
+							"items": []						
+						}
+					]
+				}
+			]
+		}
+	]
+}
