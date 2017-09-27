@@ -1,6 +1,5 @@
-
 {
-	"id": "...",
+	"id": "https://example.org/manifest-uri",
 	"type": "Manifest",
 	"stuff": [
 		{
@@ -12,7 +11,7 @@
 					"body": {
 						"value": "I like this Painting"
 					},
-					"target": "http://manifest-uri/"
+					"target": "https://example.org/manifest-uri"
 				}
 			]			
 		}
@@ -22,6 +21,7 @@
 			"type": "Sequence",
 			"items": [
 				{
+					"id": "https://example.org/canvas-uri",
 					"type": "Canvas",
 					"stuff": [
 						{
@@ -30,8 +30,8 @@
 								{
 									"type": "Annotation",
 									"motivation": "painting",
-									"body": "http://image-uri/",
-									"target": "http://canvas-uri/"
+									"body": "https://example.com/image-uri",
+									"target": "https://example.org/canvas-uri"
 								}
 							]						
 						}
