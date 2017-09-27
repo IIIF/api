@@ -5,7 +5,16 @@
 	"stuff": [
 		{
 			"type": "AnnotationPage",
-			"items": []			
+			"items": [
+				{
+					"type": "Annotation",
+					"motivation": "commenting",
+					"body": {
+						"value": "I like this Painting"
+					},
+					"target": "http://manifest-uri/"
+				}
+			]			
 		}
 	],
 	"items": [
@@ -17,7 +26,14 @@
 					"stuff": [
 						{
 							"type": "AnnotationPage",
-							"items": []						
+							"items": [
+								{
+									"type": "Annotation",
+									"motivation": "painting",
+									"body": "http://image-uri/",
+									"target": "http://canvas-uri/"
+								}
+							]						
 						}
 					]
 				}
