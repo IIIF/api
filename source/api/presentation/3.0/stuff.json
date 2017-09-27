@@ -1,6 +1,7 @@
 {
 	"id": "https://example.org/manifest-uri",
 	"type": "Manifest",
+	"label": "Example Painting",
 	"stuff": [
 		{
 			"type": "AnnotationPage",
@@ -8,8 +9,9 @@
 				{
 					"type": "Annotation",
 					"motivation": "commenting",
+					"creator": {"name": "Rob"},
 					"body": {
-						"value": "I like this Painting"
+						"value": "I like the Example Painting!"
 					},
 					"target": "https://example.org/manifest-uri"
 				}
