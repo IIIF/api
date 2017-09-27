@@ -5,6 +5,9 @@ DO_NOT_CHECK = %w{acronyms.md links.md}
 
 def check_doc(src_str)
   # returns a hash of errors we care about
+  if has_links_include?(src_str)
+    src_str = add_links(src_str)
+  end
   r = /link ID '[a-zA-Z][_0-9a-zA-Z-]*'/
   Kramdown::Document.new(src_str).warnings.grep(r)
 end
@@ -36,9 +39,6 @@ describe 'Editors' do
     markdown_files.each do |mf|
       File.open(mf) do |f|
         src = f.read
-        if has_links_include?(src)
-          src = add_links(src)
-        end
         errors = check_doc(src)
         unless errors.length == 0
           report[mf] = errors
