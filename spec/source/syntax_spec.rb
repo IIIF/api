@@ -6,13 +6,18 @@ describe 'Editors' do
   they 'tend to screw up markdown' do
 
     report = {}
-    # template = 'cat %s | kramdown 2>&1 >/dev/null | grep "link ID \'[a-zA-Z][_0-9a-zA-Z-]*\'"'
     glob_pattern = File.join(File.expand_path('../../../source', __FILE__), '**/*.md')
     markdown_files = Dir.glob(glob_pattern)
+    links_include_path = File.expand_path('../../../source/_includes/links.md', __FILE__)
+    links_include = File.open(links_include_path, 'rb').read
     markdown_files.each do |mf|
-      unless mf.end_with?('acronyms.md')
+      unless %w{acronyms.md links.md}.any? { |inclood| mf.end_with? inclood }
         File.open(mf) do |f|
-          errors = Kramdown::Document.new(f.read).warnings.grep(/link ID '[a-zA-Z][_0-9a-zA-Z-]*'/)
+          src = f.read
+          if src.include? "{% include links.md %}"
+            src = [src, links_include].join('').gsub(/{% include links.md %}/, '')
+          end
+          errors = Kramdown::Document.new(src).warnings.grep(/link ID '[a-zA-Z][_0-9a-zA-Z-]*'/)
           unless errors.length == 0
             report[mf] = errors
           end
