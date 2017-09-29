@@ -313,7 +313,7 @@ The value _MUST_ be a string.
    Clients _MAY_ render `id` on content resources.
  * A Range _MUST_ have exactly one `id`, and it _MUST_ be an http(s) URI.<br/>
    Clients _MAY_ render `id` on a Range.
- * An AnnotationCollection _MUST_ have exactly one `id`, and it _MUST_ be an http(s) URI.
+ * An AnnotationCollection _MUST_ have exactly one `id`, and it _MUST_ be an http(s) URI.<br/>
    Clients _MAY_ render `id` on an AnnotationCollection.
  * An AnnotationPage _MUST_ have exactly one `id`, and it _MUST_ be the http(s) URI at which it is published.<br/>
    Clients _MAY_ render `id` on an AnnotationPage.
@@ -508,6 +508,7 @@ The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id`, 
 {"related": [{
   "id": "https://example.com/info/", 
   "type": "Text", 
+  "label": "Related Web Page",
   "format": "text/html"}]}
 ```
 
@@ -523,6 +524,7 @@ The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id`, 
 {"rendering": [{
   "id": "https://example.org/1.pdf", 
   "type": "Text", 
+  "label": "PDF Rendering of Book",
   "format": "application/pdf"}]}
 ```
 
@@ -553,6 +555,7 @@ The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id` a
 ``` json-doc
 {"seeAlso" : [{
     "@id": "http://example.org/library/catalog/book1.xml",
+    "type": "Dataset",
     "format": "text/xml",
     "profile": "http://example.org/profiles/bibliographic"
   }]}
