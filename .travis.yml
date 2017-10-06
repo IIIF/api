@@ -1,5 +1,7 @@
 sudo: false
-
+env:
+  global:
+    - ROOT_INSTALL="true"
 before_install:
   - export NOKOGIRI_USE_SYSTEM_LIBRARIES=true
   - npm install -g grunt-cli
@@ -19,9 +21,11 @@ jdk:
   - oraclejdk8
 dist: precise
 
-before_deploy: if [[ ${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH} != master ]]; then
+before_deploy: if [[ ${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH} != master && ${ROOT_INSTALL} != "true" ]]; then
+    echo "Building relative ${ROOT_INSTALL}";
     bundle exec jekyll clean && bundle exec jekyll build --baseurl /api/${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH};
   else
+    echo "Building at root ${ROOT_INSTALL}";
     bundle exec jekyll clean && bundle exec jekyll build;
   fi
 
