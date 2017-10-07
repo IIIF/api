@@ -278,7 +278,7 @@ The value _MUST_ be an array of JSON objects, each of which _MUST_ have an `id` 
    Clients _MUST_ render `rights` on every resource type.
 
 ``` json-doc
-{"rights": [{"id": "http://example.org/rights/copyright.html", "format": "text/html"}]}
+{"rights": [{"id": "http://example.org/rights/copyright.html", "type": "Text", format": "text/html"}]}
 ```
 
 ##### logo
@@ -497,6 +497,7 @@ The value _MUST_ be a string, taken from the table below or a full URI.
 | `trim` | (default, if not supplied) If the content resource has a longer duration than the duration of portion of the Canvas it is associated with, then at the end of the Canvas's duration, the playback of the content resource _MUST_ also end. If the content resource has a shorter duration than the duration of the portion of the Canvas it is associated with, then, for video resources, the last frame _SHOULD_ persist on-screen until the end of the Canvas portion's duration. For example, a video of 120 seconds annotated to a Canvas with a duration of 100 seconds would play only the first 100 seconds and drop the last 20 second. |
 | `scale` | Fit the duration of content resource to the duration of the portion of the Canvas it is associated with by scaling. For example, a video of 120 seconds annotated to a Canvas with a duration of 60 seconds would be played at double-speed. |
 | `loop` | If the content resource is shorter than the `duration` of the Canvas, it _MUST_ be repeated to fill the entire duration. Resources longer than the `duration` _MUST_ be trimmed as described above. For example, if a 20 second duration audio stream is annotated onto a Canvas with duration 30 seconds, it will be played one and a half times. |
+{: .api-table}
 
 ``` json-doc
 {"timeMode": "trim"}
@@ -850,7 +851,7 @@ In order to avoid HTML or script injection attacks, clients _MUST_ remove:
   * XML Comments.
   * Processing instructions.
 
-Clients _SHOULD_ allow only `a`, `b`, `br`, `i`, `img`, `p`, and `span` tags. Clients _MAY_ choose to remove any and all tags, therefore it _SHOULD NOT_ be assumed that the formatting will always be rendered.
+Clients _SHOULD_ allow only `a`, `b`, `br`, `i`, `img`, `p`, `small`, `span`, `sub` and `sup` tags. Clients _MAY_ choose to remove any and all tags, therefore it _SHOULD NOT_ be assumed that the formatting will always be rendered.
 
 ``` json-doc
 {"description": {"en-latn": ["<p>Some <b>description</b></p>"]}}
