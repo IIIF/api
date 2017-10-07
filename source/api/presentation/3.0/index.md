@@ -177,11 +177,11 @@ The value of the property _MUST_ be a JSON object, as described in the [language
    Clients _MAY_ render `label` on other resource types.
 
 ``` json-doc
-{"label": {"en": ["Label Value"]}}
+{"label": {"en": ["Example Object Title"]}}
 ```
 
 ##### metadata
-A list of short descriptive entries, given as pairs of human readable `label` and `value` to be displayed to the user. There are no semantics conveyed by this information, only strings to present to the user.  A pair might be used to convey to the user information such as the creator of the object, information about its creation, a brief physical description, or ownership information, amongst other use cases. An example pair of label and value might be a label of "Author" and a value of "Jehan Froissart".
+A list of descriptive entries, given as pairs of human readable `label` and `value` to be displayed to the user. There are no semantics conveyed by this information, only strings to present to the user.  A pair might be used to convey to the user information such as information about the creation of the object, a physical description, or ownership information, amongst other use cases.
 
 The value of the `metadata` property _MUST_ be an array of objects, where each object has both `label` and `value` properties. The values of both `label` and `value` _MUST_ be JSON objects, as described in the [languages][languages-prezi30] section.
 
@@ -194,14 +194,14 @@ The value of the `metadata` property _MUST_ be an array of objects, where each o
  * Other resource types _MAY_ have one or more metadata pairs.<br/>
    Clients _MAY_ render `metadata` on other resource types.
 
-Clients _SHOULD_ display the pairs in the order provided. Clients _SHOULD NOT_ use `metadata` for indexing and discovery purposes, as there are intentionally no consistent semantics.
+Clients _SHOULD_ display the pairs in the order provided. Clients _SHOULD NOT_ use `metadata` for indexing and discovery purposes, as there are intentionally no consistent semantics. Clients _SHOULD_ expect to encounter long texts in the `value` field, and render them appropriately, such as with an expand button, or in a tabbed interface.
 
 ``` json-doc
-{"metadata": [ {"label": {"en": ["Label"]}, "value": {"en": ["Value"]}} ]}
+{"metadata": [ {"label": {"en": ["Creator"]}, "value": {"en": ["Anne Artist (1776-1824)"]}} ]}
 ```
 
 ##### description
-A longer-form prose description of the object or resource that the property is attached to, intended to be conveyed to the user as a full text description, rather than a simple label and value. It can duplicate any of the information from the `metadata` fields, along with additional information required to understand what is being displayed.
+A short textual description or summary of the resource that the property is attached to, intended to be conveyed to the user when the `metadata` fields are not being displayed.
 
 The value of the property _MUST_ be a JSON object, as described in the [languages][languages-prezi30] section.
 
@@ -215,7 +215,7 @@ The value of the property _MUST_ be a JSON object, as described in the [language
    Clients _MAY_ render `description` on other resource types.
 
 ``` json-doc
-{"description": {"en": ["Description Value"]}}
+{"description": {"en": ["This is a summary of the object."]}}
 ```
 
 ##### thumbnail
@@ -265,7 +265,7 @@ The value of the property _MUST_ be a JSON object, as described in the [language
    Clients _MUST_ render `attribution` on every resource type.
 
 ``` json-doc
-{"attribution": {"en": ["Attribution Text"]}}
+{"attribution": {"en": ["Provided courtesy of Example Institution"]}}
 ```
 
 ##### rights
@@ -333,6 +333,16 @@ The value _MUST_ be a string.
  * All resource types _MUST_ have exactly one `type`.<br/>
    Clients _MUST_ process, and_MAY_ render, `type` on any resource type.
 
+> | Class         | Description                      |
+| ------------- | -------------------------------- |
+| `Application` | Software intended to be executed |
+| `Dataset`     | Data not intended to be rendered to humans directly |
+| `Image`       | Two dimensional visual resources primarily intended to be seen |
+| `Sound`       | Auditory resources primarily intended to be heard |
+| `Text`        | Resources primarily intended to be read |
+| `Video`       | Moving images, with or without accompanying audio |
+{: .api-table}
+
 ``` json-doc
 {"type": "Image"}
 ```
@@ -342,7 +352,7 @@ The specific media type (often called a MIME type) of a content resource, for ex
 
 The value _MUST_ be a string.
 
- * A content resource _MAY_ have exactly one `format`, and if so, it _SHOULD_ be the value of the `Content-Type` header returned when the resource is dereferenced.<br/>
+ * A content resource _SHOULD_ have exactly one `format`, and if so, it _SHOULD_ be the value of the `Content-Type` header returned when the resource is dereferenced.<br/>
    Clients _MAY_ render the `format` of any content resource.
  * Other resource types _MUST NOT_ have a `format`.<br/>
    Clients _SHOULD_ ignore `format` on other resource types.
@@ -439,15 +449,15 @@ The value _MUST_ be an array of strings, taken from the table below or a full UR
 
 > | Value | Description |
 | ----- | ----------- |
-| `individuals` | Valid on Collection, Manifest, Sequence and Range. When used as the `renderingHint` of a Collection, the client should treat each of the Manifests as distinct individual objects. For Manifest, Sequence and Range, the Canvases referenced are all distinct individual views, and _SHOULD NOT_ be presented in a page-turning interface. Examples include a gallery of paintings, a set of views of a 3 dimensional object, or a set of the front sides of photographs in a museum collection. |
-| `paged` | Valid on Manifest, Sequence and Range. Canvases with this `renderingHint` represent pages in a bound volume, and _SHOULD_ be presented in a page-turning interface if one is available.  The first canvas is a single view (the first recto) and thus the second canvas represents the back of the object in the first canvas. |
-| `continuous` | Valid on Manifest, Sequence and Range.  A Canvas with this `renderingHint` is a partial view and an appropriate rendering might display all of the Canvases virtually stitched together. This viewingHint has no implication for audio resources. Examples when this would be appropriate include long scrolls split into separate sections. The `renderingDirection` of the Sequence or Manifest will determine the appropriate arrangement of the Canvases. Note that this does not allow for both sides of a scroll to be included in the same Manifest with this `renderingHint`.  To accomplish that, the Manifest should be "individuals" and have two Ranges, one for each side, which are "continuous".  |
-| `multi-part` | Valid only for Collection. Collections with this `renderingHint` consist of multiple Manifests that each form part of a logical whole. Clients might render the Collection as a table of contents, rather than with thumbnails. Examples include multi-volume books or a set of journal issues or other serials. |
-| `non-paged` | Valid only for Canvas. Canvases with this `renderingHint` _MUST NOT_ be presented in a page turning interface, and _MUST_ be skipped over when determining the page sequence. This renderingHint _MUST_ be ignored if the current Sequence or Manifest does not have the 'paged' renderingHint. |
-| `facing-pages` | Valid only for Canvas. Canvases with this `renderingHint`, in a Sequence or Manifest with the "paged" `renderingHint`, _MUST_ be displayed by themselves, as they depict both parts of the opening.  If all of the Canvases are like this, then page turning is not possible, so simply use "individuals" instead. |
+| `individuals` | Valid on Collection, Manifest, Sequence and Range. For Collections with this hint, each of the included Manifests are distinct objects. For Manifest, Sequence and Range, the included Canvases are distinct views, and _SHOULD NOT_ be presented in a page-turning interface. This is the default `renderingHint` if none are specified. |
+| `paged` | Valid on Manifest, Sequence and Range. Canvases with this hint represent pages in a bound volume, and _SHOULD_ be presented in a page-turning interface if one is available.  The first canvas is a single view (the first recto) and thus the second canvas represents the back of the object in the first canvas. |
+| `continuous` | Valid on Manifest, Sequence and Range.  A Canvas with this hint is a partial view and an appropriate rendering might display all of the Canvases virtually stitched together, such as a long scroll split into sections. This hint has no implication for audio resources. The `renderingDirection` of the Sequence or Manifest will determine the appropriate arrangement of the Canvases. |
+| `multi-part` | Valid only for Collection. Collections with this hint consist of multiple Manifests that each form part of a logical whole, such as multi-volume books or a set of journal issues. Clients might render the Collection as a table of contents, rather than with thumbnails. |
+| `non-paged` | Valid only for Canvas. Canvases with this hint _MUST NOT_ be presented in a page turning interface, and _MUST_ be skipped over when determining the page sequence. This hint _MUST_ be ignored if the current Sequence or Manifest does not have the 'paged' renderingHint. |
+| `facing-pages` | Valid only for Canvas. Canvases with this hint, in a Sequence or Manifest with the "paged" `renderingHint`, _MUST_ be displayed by themselves, as they depict both parts of the opening.  If all of the Canvases are like this, then page turning is not possible, so simply use "individuals" instead. |
 | `none` | Valid on AnnotationCollection, AnnotationPage, Annotation, SpecificResource and Choice. If this hint is provided, then the client _SHOULD NOT_ render the resource by default, but allow the user to turn it on and off.|
-| `no-nav` | Valid only for Range. Ranges with this `renderingHint` _MUST NOT_ be displayed to the user in a navigation hierarchy. This allows for Ranges to be present that capture unnamed regions with no interesting content, that never-the-less exist within the Sequence.|
-| `auto-advance` | Valid on Collection, Manifest, Sequence and Canvas. When the client reaches the end of a Canvas with a duration dimension that has (or is within a resource that has) this `renderingHint`, it _SHOULD_ immediately proceed to the next Canvas and render it. If there is no subsequent Canvas in the current context, then this `renderingHint` should be ignored. When applied to a Collection, the client should treat the first Canvas of the next Manifest as following the last Canvas of the previous Manifest, respecting any `startCanvas` specified.|
+| `no-nav` | Valid only for Range. Ranges with this hint _MUST NOT_ be displayed to the user in a navigation hierarchy. This allows for Ranges to be present that capture unnamed regions with no interesting content. |
+| `auto-advance` | Valid on Collection, Manifest, Sequence and Canvas. When the client reaches the end of a Canvas with a duration dimension that has (or is within a resource that has) this hint, it _SHOULD_ immediately proceed to the next Canvas and render it. If there is no subsequent Canvas in the current context, then this hint should be ignored. When applied to a Collection, the client should treat the first Canvas of the next Manifest as following the last Canvas of the previous Manifest, respecting any `startCanvas` specified.|
 | `together` | Valid only for Collection. A client _SHOULD_ present all of the child Manifests to the user at once in a separate viewing area with its own controls. Clients _SHOULD_ catch attempts to create too many viewing areas. The `together` value _SHOULD NOT_ be interpreted as applying to the members any child resources.|
 {: .api-table}
 
@@ -497,7 +507,7 @@ The value _MUST_ be a string, taken from the table below or a full URI.
 #### 3.4.1 External Links
 
 ##### related
-A link to an external resource that is about the IIIF resource. The external resource _MUST_ be able to be displayed directly to the user. Examples might include a video or academic paper about the resource, a website, an HTML description, and so forth.
+A link to an external resource that describes or is about the IIIF resource. The external resource _MUST_ be able to be displayed directly to the user. Examples might include a video or academic paper about the resource, a website, an HTML description, and so forth.
 
 The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id`, `type` and `label` properties, and _SHOULD_ have a `format` property.
 
@@ -529,7 +539,7 @@ The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id`, 
 ```
 
 ##### service
-A link to a service that makes more functionality available for the resource, such as from an image to the base URI of an associated [IIIF Image API][image-api] service. The service resource _SHOULD_ have additional information associated with it in order to allow the client to determine how to make appropriate use of it. Please see the [Service Profiles][annex] document for currently known service types.
+A link to an external service that the client might interact with directly, such as from an image to the base URI of an associated [IIIF Image API][image-api] service. The service resource _SHOULD_ have additional information associated with it in order to allow the client to determine how to make appropriate use of it. Please see the [Service Profiles][annex] document for currently known service types.
 
 The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `label` and `profile` properties.
 
@@ -540,16 +550,16 @@ The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id` a
 {"service": [
   {"id": "https://example.org/service",
    "type": "Service",
-   "profile": ["http://example.org/docs/service"]
+   "profile": "http://example.org/docs/service"
   }]}
 ```
 
 ##### seeAlso
-A link to a machine readable document that semantically describes the resource with the `seeAlso` property, such as an XML or RDF description.  This document could be used for search and discovery or inferencing purposes, or just to provide a longer description of the resource. Properties of the document should be given to help the client select between multiple descriptions (if provided), and to make appropriate use of the document.
+A link to a machine readable document that is related to the resource with the `seeAlso` property, such as an XML or RDF description. Properties of the document should be given to help the client select between multiple descriptions (if provided), and to make appropriate use of the document. If the relationship between the resource and the document needs to be more specific, then the document should include that relationship rather than the IIIF resource. Other IIIF resources, such as a related Manifest, are valid targets for `seeAlso`.
 
 The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `label`, `format` and `profile` properties.
 
- * Any resource type _MAY_ have one or more external descriptions related to it.<br/>
+ * Any resource type _MAY_ have one or more external documents related to it.<br/>
    Clients _MAY_ process `seeAlso` on any resource type.
 
 ``` json-doc
@@ -591,18 +601,18 @@ The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` propert
 {"startCanvas": {"id": "https://example.org/iiif/1/canvas/1", "type": "Canvas"}}
 ```
 
-##### contentAnnotations
+##### includes
 A link from a Range to an AnnotationCollection that includes the Annotations of content resources for that Range.  Clients might use this to present content to the user from a different Canvas when interacting with the Range, or to jump to the next part of the Range within the same Canvas.  
 
-The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` properties.
+The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` properties, and the `type` _MUST_ be `AnnotationCollection`.
 
- * A Range _MAY_ have exactly one AnnotationCollection as its content.<br/>
-   Clients _MAY_ process `contentAnnotations` on a Range.
- * Other resource types _MUST NOT_ have `contentAnnotations`.<br/>
-   Clients _SHOULD_ ignore `contentAnnotations` on other resource types.
+ * A Range _MAY_ have exactly one `includes` property.<br/>
+   Clients _MAY_ process `includes` on a Range.
+ * Other resource types _MUST NOT_ have the `includes` property.<br/>
+   Clients _SHOULD_ ignore `includes` on other resource types.
 
 ``` json-doc
-{"contentAnnotations": {"id": "https://example.org/iiif/1/annos/1", "type": "AnnotationCollection"}}
+{"includes": {"id": "https://example.org/iiif/1/annos/1", "type": "AnnotationCollection"}}
 ```
 
 ###  3.5. Paging Properties
@@ -719,10 +729,13 @@ The value _MUST_ be an array of objects.
   Clients _MUST_ process `items` on a Manifest.
 * A Sequence _MUST_ have a list of one or more Canvases in `items`.<br/>
   Clients _MUST_ process `items` on a Sequence.
-* A Range _MUST_ have a list of one or more Ranges and/or Canvases in `items`.<br/>
-  Clients _SHOULD_ process `items` on a Range.
+* A Canvas _SHOULD_ have a list of one or more AnnotationPages in `items`.<br/>
+  Clients _MUST_ process `items` on a Canvas.
 * An AnnotationPage _MUST_ have a list of zero or more Annotations in `items`.<br/>
   Clients _MUST_ process `items` on an AnnotationPage.
+* A Range _MUST_ have a list of one or more Ranges and/or Canvases in `items`.<br/>
+  Clients _SHOULD_ process `items` on a Range.
+
 
 ```json-doc
 {"items": [{ ... }]}
@@ -747,17 +760,15 @@ The value _MUST_ be an array of objects.
 ]}
 ```
 
-##### content
-
-The resources associated with a Canvas via Annotations are given in the `content` property of the Canvas.  Each resource in the list is an AnnotationPage, and can either be embedded in its entirety or referenced via its URI.
+##### annotations
 
 The value _MUST_ be an array of objects. Each object _MUST_ have at least the `id` and `type` properties.
 
-* A Canvas _SHOULD_ have a list of one or more AnnotationPages in `content`.<br/>
+* Any resource type Canvas _SHOULD_ have a list of one or more AnnotationPages in `content`.<br/>
   Clients _MUST_ process `content` on a Canvas.
 
 ```json-doc
-{"content": [
+{"annotations": [
   {
     "id": "http://example.org/iiif/annotationPage/1",
     "type": "AnnotationPage",
