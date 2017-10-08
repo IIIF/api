@@ -68,3 +68,6 @@ notifications:
       - "glen.robson@gmail.com"
     on_success: "change"
     on_failure: "change"
+
+notifications:
+  slack: iiif:gf5bcug4sVJsPHdRibCEDi2F
