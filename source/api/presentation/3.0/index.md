@@ -278,7 +278,7 @@ The value _MUST_ be an array of JSON objects, each of which _MUST_ have an `id` 
    Clients _MUST_ render `rights` on every resource type.
 
 ``` json-doc
-{"rights": [{"id": "http://example.org/rights/copyright.html", "type": "Text", format": "text/html"}]}
+{"rights": [{"id": "http://example.org/rights/copyright.html", "type": "Text", "format": "text/html"}]}
 ```
 
 ##### logo
