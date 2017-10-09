@@ -344,7 +344,7 @@ The value _MUST_ be a string.
 {: .api-table}
 
 ``` json-doc
-{"type": "Image"}
+{"type": "Dataset"}
 ```
 
 ##### format
@@ -360,8 +360,31 @@ The value _MUST_ be a string.
 Note that this is different to the `formats` property in the [Image API][image-api], which gives the extension to use within that API.  It would be inappropriate to use in this case, as `format` can be used with any content resource, not just images.
 
 ``` json-doc
-{"format": "image/jpeg"}
+{"type": "Dataset", "format": "application/xml"}
 ```
+
+##### profile
+
+A schema or named set of functionality available from the resource.  The profile can further clarify the `type` and/or `format` of an external resource or service, allowing clients to customize their handling of the resource.
+
+The value _MUST_ be a string, either taken from the table below or a URI.
+
+* Services and resources referenced by `seeAlso` _SHOULD_ have exactly one `profile`.
+  Clients _SHOULD_ process the `profile` of a service or external resource.
+* Other resource types _MAY_ have exactly one `profile`.
+  Clients _MAY_ process the `profile` of other resource types. 
+
+``` json-doc
+{
+  "type": "Dataset", 
+  "format": "application/xml", 
+  "profile": "info:srw/schema/1/mods-v3.3"
+}
+```
+
+__Specification Management Warning__
+Should there really be a table in the specification? But otherwise how do we keep it up to date between versions?
+{: .warning}
 
 ##### height
 The height of a Canvas or content resource. For content resources, the value is in pixels. For Canvases, the value does not have a unit. In combination with the width, it conveys an aspect ratio for the space in which content resources are located.
