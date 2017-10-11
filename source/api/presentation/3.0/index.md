@@ -382,8 +382,8 @@ The value _MUST_ be a string, either taken from the table below or a URI.
 }
 ```
 
-__Specification Management Warning__
-Should there really be a table in the specification? But otherwise how do we keep it up to date between versions?
+__Specification Management Warning:__
+Should there really be a table in the specification? But otherwise how do we keep it up to date between versions?  If it's external, how do clients stay up to date? URIs are always okay... should it instead always be a URI?
 {: .warning}
 
 ##### height
@@ -473,7 +473,7 @@ The value _MUST_ be an array of strings, taken from the table below or a full UR
 > | Value | Description |
 | ----- | ----------- |
 | `individuals` | Valid on Collection, Manifest, Sequence and Range. For Collections with this hint, each of the included Manifests are distinct objects. For Manifest, Sequence and Range, the included Canvases are distinct views, and _SHOULD NOT_ be presented in a page-turning interface. This is the default `renderingHint` if none are specified. |
-| `paged` | Valid on Manifest, Sequence and Range. Canvases with this hint represent pages in a bound volume, and _SHOULD_ be presented in a page-turning interface if one is available.  The first canvas is a single view (the first recto) and thus the second canvas represents the back of the object in the first canvas. |
+| `paged` | Valid on Manifest, Sequence and Range. Canvases with this hint represent pages in a bound volume, and _SHOULD_ be presented in a page-turning interface if one is available.  The first canvas is a single view (the first recto) and thus the second canvas likely represents the back of the object in the first canvas. If this is not the case, see the `non-paged` hint. |
 | `continuous` | Valid on Manifest, Sequence and Range.  A Canvas with this hint is a partial view and an appropriate rendering might display all of the Canvases virtually stitched together, such as a long scroll split into sections. This hint has no implication for audio resources. The `renderingDirection` of the Sequence or Manifest will determine the appropriate arrangement of the Canvases. |
 | `multi-part` | Valid only for Collection. Collections with this hint consist of multiple Manifests that each form part of a logical whole, such as multi-volume books or a set of journal issues. Clients might render the Collection as a table of contents, rather than with thumbnails. |
 | `non-paged` | Valid only for Canvas. Canvases with this hint _MUST NOT_ be presented in a page turning interface, and _MUST_ be skipped over when determining the page sequence. This hint _MUST_ be ignored if the current Sequence or Manifest does not have the 'paged' renderingHint. |
@@ -612,12 +612,12 @@ The value _MUST_ be an array of JSON objects.  Each object _MUST_ have the `id` 
 ```
 
 ##### startCanvas
-A link from a Sequence or Range to a Canvas that is contained within it. On seeing this relationship, a client _SHOULD_ advance to the specified Canvas when beginning navigation through the Sequence/Range.  This allows the client to begin with the first Canvas that contains interesting content rather than requiring the user to skip past blank or empty Canvases manually.  The Canvas _MUST_ be included in the first Sequence embedded within the Manifest.
+A link from a Manifest, Sequence or Range to a Canvas that is contained within it. On seeing this relationship, a client _SHOULD_ advance to the specified Canvas when beginning navigation through the Sequence/Range.  This allows the client to begin with the first Canvas that contains interesting content rather than requiring the user to skip past blank or empty Canvases manually.  The Canvas _MUST_ be included in the first Sequence embedded within the Manifest.
 
 The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` properties.
 
- * A Sequence or Range _MAY_ have exactly one Canvas as its starting Canvas.
-   Clients _SHOULD_ process `startCanvas` on a Sequence or Range.
+ * A Manifest, Sequence or Range _MAY_ have exactly one Canvas as its starting Canvas.
+   Clients _SHOULD_ process `startCanvas` on a Manifest, Sequence or Range.
  * Other resource types _MUST NOT_ have a starting Canvas.
    Clients _SHOULD_ ignore `startCanvas` on other resource types.
 
@@ -815,8 +815,8 @@ Resource descriptions _SHOULD_ be embedded within higher-level descriptions, and
 
 ``` json-doc
 {
-  "seeAlso": [
-    {"id": "http://example.org/descriptions/book1.xml", "format": "text/xml"}
+  "thumbnail": [
+    {"id": "http://example.org/images/thumb1.jpg", "type": "Image"}
   ]
 }
 ```
@@ -828,8 +828,8 @@ Any of the properties in the API that can have multiple values _MUST_ always be 
 ``` json-doc
 {
   "seeAlso": [
-    {"id": "http://example.org/descriptions/book1.xml", "format": "text/xml"},
-    {"id": "http://example.org/descriptions/book1.json", "format": "application/json"}   
+    {"id": "http://example.org/images/thumb1.jpg", "type": "Image"},
+    {"id": "http://example.org/videos/thumb1.pmg", "type": "Video"}   
   ]
 }
 ```
@@ -877,7 +877,7 @@ In order to avoid HTML or script injection attacks, clients _MUST_ remove:
 Clients _SHOULD_ allow only `a`, `b`, `br`, `i`, `img`, `p`, `small`, `span`, `sub` and `sup` tags. Clients _MAY_ choose to remove any and all tags, therefore it _SHOULD NOT_ be assumed that the formatting will always be rendered.
 
 ``` json-doc
-{"description": {"en-latn": ["<p>Some <b>description</b></p>"]}}
+{"description": {"en-latn": ["<p>Short summary <b>description</b></p>"]}}
 ```
 
 ### 4.6. Linked Data Context and Extensions
@@ -896,20 +896,21 @@ The value of the `@context` property _MUST_ be a list, and the __last__ two valu
 
 Any additional fields beyond those defined in this specification or the Web Annotation Data Model _SHOULD_ be mapped to RDF predicates using further context documents.   If possible, these extensions _SHOULD_ be added to the top level `@context` field, and _MUST_ be added before the above contexts.  The JSON-LD 1.1 functionality of type and predicate specific context definitions _SHOULD_ be used if possible to try to minimize any cross-extension collisions.
 
-
 ##  5. Resource Structure
 
 This section provides detailed description of the resource types used in this specification. [Section 2][type-overview-prezi30] provides an overview of the resource types and figures illustrating allowed relationships between them, and [Appendix A][appendixa-prezi30] provides summary tables of the property requirements.
 
 ###  5.1. Manifest
 
-The Manifest resource represents a single object and any intellectual work or works embodied within that object. In particular it includes the descriptive, rights and linking information for the object. It then embeds the Sequence(s) of Canvases that should be rendered to the user. The Manifest response contains sufficient information for the client to initialize itself and begin to display something quickly to the user.
+The Manifest resource typically represents a single object and any intellectual work or works embodied within that object. In particular it includes the descriptive, rights and linking information for the object. It then embeds the Sequence(s) of Canvases that should be rendered to the user. The Manifest response contains sufficient information for the client to initialize itself and begin to display something quickly to the user.
 
 The identifier in `id` _MUST_ be able to be dereferenced to retrieve the JSON description of the Manifest, and thus _MUST_ use the http(s) URI scheme.
 
-Along with the descriptive information, there is an `items` section, which is a list of JSON-LD objects. Each object describes a [Sequence][sequence-prezi30], discussed in the next section, that represents the order of the parts of the work, each represented by a [Canvas][canvas-prezi30].  The first such Sequence _MUST_ be included within the Manifest as well as optionally being available from its own URI. Subsequent Sequences _MAY_ be embedded within the Manifest, or referenced with their identifier (`id`), class (`type`) and label (`label`).
+Along with the descriptive information, there is an `items` section, which is a list of JSON-LD objects. Each object describes a [Sequence][sequence-prezi30], discussed in the next section, that represents the order of the parts of the work, each represented by a [Canvas][canvas-prezi30].  There _MUST_ be at least one Sequence, and the first Sequence _MUST_ be included within the Manifest as well as optionally being available from its own URI. Subsequent Sequences _MAY_ be embedded within the Manifest, or referenced with their identifier (`id`), class (`type`) and label (`label`).
 
 There _MAY_ also be a `structures` section listing one or more [Ranges][range-prezi30] which describe additional structure of the content, such as might be rendered as a table of contents.
+
+Finally, the Manifest _MAY_ have an `annotations` list, which includes AnnotationPage resources where the Annotations are have the Manifest as their `target`.  These will typically be comment style annotations, and _MUST NOT_ have `painting` as their `motivation`. The `annotations` property may also be found on any other resource type with these same restrictions.
 
 The example below includes only the Manifest-level information, however actual implementations _MUST_ embed at least the first Sequence, Canvas and content information.
 
@@ -938,16 +939,15 @@ The example below includes only the Manifest-level information, however actual i
     {"label": {"en": ["Source"]},
      "value": {"@none": ["<span>From: <a href=\"http://example.org/db/1.html\">Some Collection</a></span>"]}}
   ],
-  "description": {"en": ["A longer description of this example book. It should give some real information."]},
+  "description": {"en": ["Book 1, written be Anne Author, published in Paris around 1400."]},
 
   "thumbnail": [{
     "id": "http://example.org/images/book1-page1/full/80,100/0/default.jpg",
     "type": "Image",
     "service": {
-      "@context": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
       "id": "http://example.org/images/book1-page1",
-      "type": "Service",
-      "profile": ["http://iiif.io/api/image/{{ site.image_api.latest.major }}/level1.json"]
+      "type": "ImageService3",
+      "profile": "level1"
     }
   }],
 
@@ -960,15 +960,15 @@ The example below includes only the Manifest-level information, however actual i
   "rights": [{
     "id":"http://example.org/license.html",
     "type": "Text",
+    "language": "en",
     "format": "text/html"}],
   "attribution": {"en": ["Provided by Example Organization"]},
   "logo": {
     "id": "http://example.org/logos/institution1.jpg",
     "service": {
-        "@context": "http://iiif.io/api/image/2/context.json",
         "id": "http://example.org/service/inst1",
-        "type": "Service",
-        "profile": ["http://iiif.io/api/image/2/profiles/level2.json"]
+        "type": "ImageService3",
+        "profile": "level2"
     }
   },
 
@@ -980,16 +980,15 @@ The example below includes only the Manifest-level information, however actual i
     "format": "video/mpeg"
   }],
   "service": [{
-    "@context": "http://example.org/ns/jsonld/context.json",
     "id": "http://example.org/service/example",
     "type": "Service",
-    "profile": ["http://example.org/docs/example-service.html"]
+    "profile": "http://example.org/docs/example-service.html"
   }],
   "seeAlso": [{
     "id": "http://example.org/library/catalog/book1.xml",
     "type": "Dataset",
     "format": "text/xml",
-    "profile": ["http://example.org/profiles/bibliographic"]
+    "profile": "http://example.org/profiles/bibliographic"
   }],
   "rendering": [{
     "id": "http://example.org/iiif/book1.pdf",
@@ -1001,6 +1000,10 @@ The example below includes only the Manifest-level information, however actual i
     "id": "http://example.org/collections/books/",
     "type": "Collection"
   }],
+  "startCanvas": {
+    "id": "http://example.org/iiif/book1/canvas/p2",
+    "type": "Canvas"
+  },
 
   // List of Sequences
   "items": [
@@ -1017,11 +1020,21 @@ The example below includes only the Manifest-level information, however actual i
   "structure": [
     {
       "id": "http://example.org/iiif/book1/range/top",
-      "type": "Range",
-      "renderingHint": ["top"]
+      "type": "Range"
       // Ranges members should be included here
     }
     // Any additional top level Ranges can be included here
+  ],
+
+  // Commentary Annotations on the Manifest
+  "annotations": [
+    {
+      "id": "http://example.org/iiif/book1/annotations/p1",
+      "type": "AnnotationPage",
+      "items": [
+        // Annotations about the Manifest are included here
+      ]
+    }
   ]
 }
 ```
@@ -1031,10 +1044,6 @@ The example below includes only the Manifest-level information, however actual i
 The Sequence conveys the ordering of the views of the object. The default Sequence (and typically the only Sequence) _MUST_ be embedded within the Manifest as the first object in the `items` property, and _MAY_ also be available from its own URI.  This Sequence _SHOULD_ have a URI to identify it. Any additional Sequences _MAY_ be included, or referenced externally from the Manifest.  All external Sequences _MUST_ have an http(s) URI, and the description of the Sequence _MUST_ be available by dereferencing that URI.
 
 Sequences _MAY_ have their own descriptive, rights and linking metadata using the same fields as for Manifests. The `label` property _MAY_ be given for Sequences and _MUST_ be given if there is more than one referenced from a Manifest. After the metadata, the set of views of the object, represented by Canvas resources, _MUST_ be listed in order in the `items` property.  There _MUST_ be at least one Canvas given.
-
-Sequences _MAY_ have a `startCanvas` with a single value containing the URI of a Canvas resource that is contained within the Sequence.  This is the Canvas that a viewer _SHOULD_ initialize its display with for the user.  If it is not present, then the viewer _SHOULD_ use the first Canvas in the Sequence.
-
-In the Manifest example above, the Sequence is referenced by its URI and contains only the basic information of `label`, `type` and `id`. The default sequence should be written out in full within the Manifest file, as below.
 
 ``` json-doc
 {
@@ -1073,19 +1082,16 @@ In the Manifest example above, the Sequence is referenced by its URI and contain
 
 ###  5.3. Canvas
 
-The Canvas represents an individual page or view and acts as a central point for laying out the different content resources that make up the display. Canvases _MUST_ be identified by a URI and it _MUST_ be an http(s) URI. The URI of the canvas _MUST NOT_ contain a fragment (a `#` followed by further characters), as this would make it impossible to refer to a segment of the Canvas's area using the `#xywh=` syntax. Canvases _SHOULD_ be able to be dereferenced separately from the Manifest via their URIs as well as being embedded within the Sequence.
+The Canvas represents an individual page or view and acts as a central point for laying out the different content resources that make up the display. Canvases _MUST_ be identified by a URI and it _MUST_ be an http(s) URI. The URI of the canvas _MUST NOT_ contain a fragment (a `#` followed by further characters), as this would make it impossible to refer to a segment of the Canvas's area using the `#xywh=` syntax. Canvases _MAY_ be able to be dereferenced separately from the Manifest via their URIs as well as being embedded within the Sequence.
 
-Every Canvas _SHOULD_ have a `label` to display. If one is not provided, the client _MAY_ automatically generate one for use based on the Canvas's position within the current Sequence.
+Every Canvas _SHOULD_ have a `label` to display. If one is not provided, the client _SHOULD_ automatically generate one for use based on the Canvas's position within the current Sequence.
 
 A Canvas _MUST_ have a rectangular aspect ratio (described with the `height` and `width` properties) and/or a `duration` to provide an extent in time. These dimensions allow resources to be associated with specific regions of the Canvas, within the space and/or time extents provided. Content _MUST NOT_ be associated with space or time outside of the Canvas's dimensions, such as at coordinates below 0,0, greater than the height or width, before 0 seconds, or after the duration.
 
-Renderers _MUST_ scale content into the space/time represented by the Canvas, following any `timeMode` adjustment provided for time-based media.  If the Canvas represents a view of a physical object, the dimensions of the Canvas _SHOULD_ be the same scale as that physical object, and images _SHOULD_ depict only the object.
+Renderers _MUST_ scale content into the space represented by the Canvas, and _SHOULD_ follow any `timeMode` adjustment provided for time-based media.  If the Canvas represents a view of a physical object, the spatial dimensions of the Canvas _SHOULD_ be the same scale as that physical object, and images _SHOULD_ depict only the object.
 
 Content resources are associated with the Canvas via Web Annotations. The Annotations are recorded in the `items` of one or more AnnotationPages, refered to in the `content` array of the Canvas. If the Annotation should be rendered quickly, in the view of the publisher, then it _SHOULD_ be embedded within the Manifest directly.  Other AnnotationPages can be referenced with just their `id`, `type` and optionally a `label`, and clients _SHOULD_ dereference these pages to discover further content.  Content in this case includes media assets such as images, video and audio, textual transcriptions or editions of the Canvas, as well as commentary about the object represented by the Canvas.  These different uses _MAY_ be split up across different AnnotationPages.
 
-__Where should the following paragraph actually live?__
-
-> In a sequence with the `renderingHint` value of "paged" and presented in a book viewing user interface, the first canvas _SHOULD_ be presented by itself -- it is typically either the cover or first recto page. Thereafter, the canvases represent the sides of the leaves, and hence may be presented with two canvases displayed as an opening of the book.  If there are canvases which are in the sequence but would break this ordering, then they _MUST_ have the `renderingHint` property with a value of "non-paged".  Similarly if the first canvas is not a single up, it _MUST_ be marked as "non-paged" or an empty canvas added before it.
 
 ``` json-doc
 {
@@ -1097,7 +1103,7 @@ __Where should the following paragraph actually live?__
   "width": 750,
   "duration": 180.0,
 
-  "content": [
+  "items": [
     {
       "id": "http://example.org/iiif/book1/page/p1/1",
       "type": "AnnotationPage",
@@ -1113,7 +1119,7 @@ __Where should the following paragraph actually live?__
 
 Association of images and other content with their respective Canvases is done via Annotations. Traditionally Annotations are used for associating commentary with the resource the Annotation's text or body is about, the [Web Annotation][webanno] model allows any resource to be associated with any other resource, or parts thereof, and it is reused for both commentary and painting resources on the Canvas. Other resources beyond images might include the full text of the object, musical notations, musical performances, diagram transcriptions, commentary annotations, tags, video, data and more.
 
-These Annotations are collected together in AnnotationPage resources, which are included in the `content` list from the Canvas.  Each AnnotationPage can be embedded in its entirety, if the Annotations should be processed as soon as possible when the user navigates to that Canvas, or a reference to an external resource via `id`, `type`, and optionally `label`. All of the Annotations in the AnnotationPage _SHOULD_ have the Canvas as their `target`.
+These Annotations are collected together in AnnotationPage resources, which are included in the `items` list from the Canvas.  Each AnnotationPage can be embedded in its entirety, if the Annotations should be processed as soon as possible when the user navigates to that Canvas, or a reference to an external resource via `id`, `type`, and optionally `label`. All of the Annotations in the AnnotationPage _SHOULD_ have the Canvas as their `target`.  Embedded AnnotationPages _SHOULD_ be processed by the client first, before externally referenced pages.
 
 The AnnotationPage _MUST_ have an http(s) URI given in `id`, and the JSON representation _MUST_ be returned when that URI is dereferenced.  They _MAY_ have any of the other fields defined in this specification, or the Web Annotation specification.  The Annotations are listed in an `items` list of the AnnotationPage.
 
@@ -1147,19 +1153,15 @@ Annotations follow the [Web Annotation][webanno] data model.  The description pr
 
 Annotations _MUST_ have their own http(s) URIs, conveyed in the `id` property. The JSON-LD description of the Annotation _SHOULD_ be returned if the URI is dereferenced, according to the [Web Annotation Protocol][webannoprotocol].
 
-Annotations that associate content _MUST_ have the `motivation` field and the value _MUST_ be "painting". This is in order to distinguish it from comment Annotations, described in further detail below.  Note that all resources which are to be displayed as part of the representation are given the motivation of "painting", regardless of whether they are images or not.  For example, a transcription of the text in a page is considered "painting" as it is a representation of the object, whereas a textual comment about the page is not.
+Annotations that associate content that is part of the representation of the view _MUST_ have the `motivation` field and the value _MUST_ be "painting". This is in order to distinguish it from commentary style Annotations. Text may be thus either be associated with the Canvas via a "painting" annotation, meaning the content is part of the representation, or with another `motivation`, meaning that it is somehow about the view.
 
-The content resource, such as an image, is linked in the `body` property of the Annotation. The content resource _MUST_ have an `id` field, with the value being the URI at which it can be obtained. If a IIIF Image service is available for an image, then the URI _MUST_ be the complete URI to a particular size of the image content, such as `http://example.org/image1/full/1000,/0/default.jpg`. It _MUST_ have a `type` of "Image". Its media type _MAY_ be listed in `format`, and its height and width _MAY_ be given as integer values for `height` and `width` respectively.
+The content resource is linked in the `body` of the Annotation. The content resource _MUST_ have an `id` field, with the value being the URI at which it can be obtained. If a IIIF Image service is available for an image, then the URI _MUST_ be the complete URI to a particular size of the image content, such as `http://example.org/image1/full/1000,/0/default.jpg`. It _MUST_ have a `type` of "Image". Its media type _MAY_ be listed in `format`, and its height and width _MAY_ be given as integer values for `height` and `width` respectively. The image then _SHOULD_ have the service referenced from it.
 
 Although it might seem redundant, the URI of the Canvas _MUST_ be repeated in the `target` field of the Annotation. This is to ensure consistency with Annotations that target only part of the resource, described in more detail below, and to remain faithful to the Web Annotation specification, where `target` is mandatory.
 
-The format of the resource _MUST_ be included and _MUST_ be the media type that is returned when the resource is dereferenced. The type of the content resource _SHOULD_ be taken from this [list in the Open Annotation specification][openannotypes], or a similar well-known resource type ontology. For resources that are displayed as part of the rendering (such as images, text transcriptions, performances of music from the manuscript and so forth) the motivation _MUST_ be "painting". The content resources _MAY_ also have any of the other fields defined in this specification, including commonly `label`, `description`, `metadata`, `license` and `attribution`.
+The type of the content resource _MUST_ be included, and _SHOULD_ be taken from the table listed under the definition of `type`. The format of the resource _SHOULD_ be included and, if so, _SHOULD_ be the media type that is returned when the resource is dereferenced. The content resources _MAY_ also have any of the other fields defined in this specification, including commonly `label`, `description`, `metadata`, `license` and `attribution`.
 
-Additional features of the [Web Annotation][webanno] data model _MAY_ also be used, such as selecting a segment of the Canvas or content resource, or embedding the comment or transcription within the Annotation. The use of advanced features sometimes results in situations where the `target` is not a content resource, but instead a `SpecificResource`, a `Choice`, or other non-content object. Implementations should check the `type` of the resource and not assume that it is always content to be rendered.
-
-__Move the below para to the annotation document__
-
-> If a [IIIF Image API][image-api] service is available for the image, then a link to the service's base URI _SHOULD_ be included. The base URI is the URI up to the identifier, but not including the trailing slash character or any of the subsequent parameters. A reference to the Image API context document _MUST_ be included and the conformance level profile of the service _SHOULD_ be included. Additional fields from the Image Information document _MAY_ be included in this JSON object to avoid requiring it to be downloaded separately. See the [annex][annex] on using external services for more information.
+Additional features of the [Web Annotation][webanno] data model _MAY_ also be used, such as selecting a segment of the Canvas or content resource, or embedding the comment or transcription within the Annotation. The use of these advanced features sometimes results in situations where the `target` is not a content resource, but instead a `SpecificResource`, a `Choice`, or other non-content object. Implementations should check the `type` of the resource and not assume that it is always content to be rendered.
 
 
 ``` json-doc
@@ -1176,9 +1178,9 @@ __Move the below para to the annotation document__
     "type": "Image",
     "format": "image/jpeg",
     "service": {
-      "@context": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
       "id": "http://example.org/images/book1-page1",
-      "profile": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/profiles/level2.json"
+      "type": "ImageService3",
+      "profile": "level2"
     },
     "height":2000,
     "width":1500
@@ -1189,20 +1191,17 @@ __Move the below para to the annotation document__
 
 ###  5.6. Range
 
-Ranges are used to describe additional structure within an object, such as newspaper articles that span pages or chapters within a book. Ranges have an `items` list, where each entry is a Canvases, part of a Canvas, or another Range. By including child Ranges, a nested tree structure can be described like a table of contents.
+Ranges are used to describe additional structure within an object, such as newspaper articles that span pages or chapters within a book. Ranges can include Canvases, parts of Canvases, or other Ranges, creating a nested tree structure such as a table of contents.
 
-The intent of adding a Range to the Manifest is to allow the client to display a hierarchical navigation interface to enable the user to quickly move through the object's content. Only Ranges with the `label` property and without the "no-nav" `renderingHint` will be presented to the user.
+The intent of adding a Range to the Manifest is to allow the client to display a hierarchical navigation interface to enable the user to quickly move through the object's content. Clients _SHOULD_ present only Ranges with the `label` property and without the "no-nav" `renderingHint` to the user. Clients _SHOULD NOT_ render Canvas labels as part of the navigation, and a Range that wraps the Canvas _MUST_ be created if this is the desired presentation.
 
-Ranges _MUST_ have URIs and they _SHOULD_ be http(s) URIs.  Ranges are linked or embedded within the Manifest in a `structures` field of the Manifest. Ranges then embed or reference other Ranges, Canvases or parts of Canvases in the `items` field.  Each entry in the `items` field _MUST_ be a JSON object, and it _MUST_ have the `id` and `type` properties.
+Ranges _MUST_ have URIs and they _SHOULD_ be http(s) URIs.  Ranges are embedded or referenced within the Manifest in a `structures` property. Ranges then embed or reference other Ranges, Canvases or parts of Canvases in the `items` field.  Each entry in the `items` field _MUST_ be a JSON object, and it _MUST_ have the `id` and `type` properties.
 
 All of the Canvases or parts that should be considered as being part of a Range _MUST_ be included within the Range's members, or a descendant Range's members.
 
 The Canvases and parts of Canvases may or may not be contiguous or in the same order as any Sequence.  Examples include newspaper articles that are continued in different sections, or simply a chapter that starts half way through a page. Parts of Canvases _MUST_ be rectangular and are described using the `xywh=` fragment approach.
 
-__Does this really work for fragments? Is part of a canvas a canvas?__
-
-
-Ranges _MAY_ link to an AnnotationCollection that has the content of the Range using the `____` linking property. The referenced AnnotationCollection will contain Annotations that target areas of Canvases within the Range, and provide the content resources.
+Ranges _MAY_ link to an AnnotationCollection that has the content of the Range using the `includes` property. The referenced AnnotationCollection will contain Annotations that target areas of Canvases within the Range, and provide the content resources.
 
 
 ``` json-doc
@@ -1224,27 +1223,34 @@ Ranges _MAY_ link to an AnnotationCollection that has the content of the Range u
       "id": "http://example.org/iiif/book1/range/r0",
       "type": "Range",
       "label": "Table of Contents",
-      "members": [
+      "items": [
         {
           "id": "http://example.org/iiif/book1/canvas/cover",
-          "type": "Canvas",
-          "label": "Front Cover"
+          "type": "Canvas"
         },
         {
           "id": "http://example.org/iiif/book1/range/r1",
           "type": "Range",
           "label": "Introduction",
-          "contentLayer": "http://example.org/iiif/book1/layer/introTexts",
+          "includes": "http://example.org/iiif/book1/layer/introTexts",
           "items": [
-        "http://example.org/iiif/book1/canvas/p1",
-        "http://example.org/iiif/book1/canvas/p2",
-        "http://example.org/iiif/book1/canvas/p3#xywh=0,0,750,300"
+            {
+              "id": "http://example.org/iiif/book1/canvas/p1",
+              "type": "Canvas"
+            },
+            {
+              "id": "http://example.org/iiif/book1/canvas/p2",
+              "type": "Canvas"
+            },
+            {
+              "id": "http://example.org/iiif/book1/canvas/p3#xywh=0,0,750,300",
+              "type": "Canvas"
+            }  
           ]
         },
         {
           "id": "http://example.org/iiif/book1/canvas/backCover",
-          "type": "Canvas",
-          "label": "Back Cover"
+          "type": "Canvas"
         }
       ]
     }
@@ -1254,28 +1260,25 @@ Ranges _MAY_ link to an AnnotationCollection that has the content of the Range u
 
 ###  5.7. AnnotationCollection
 
-AnnotationCollections represent groupings of AnnotationPages that should be managed as a single whole, regardless of which canvas they target, such as all of the annotations that make up a particular translation of the text of a book.  Without the layer construction, it would be impossible to determine which annotations belonged together across canvases. A client might then present a user interface that allows all of the annotations in a layer to be displayed or hidden according to the user's preference.
+AnnotationCollections represent groupings of AnnotationPages that should be managed as a single whole, regardless of which Canvas or resource they target. This allows, for example, all of the Annotations that make up a particular translation of the text of a book to be collected together. A client might then present a user interface that allows all of the Annotations in an AnnotationCollection to be displayed or hidden according to the user's preference.
 
-Layers _MUST_ have a URI, and it _SHOULD_ be an HTTP URI.  They _MUST_ have a `label` and _MAY_ have any of the other descriptive, linking or rights properties.
+AnnotationCollections _MUST_ have a URI, and it _SHOULD_ be an HTTP URI.  They _MUST_ have a `label` and _MAY_ have any of the other descriptive, linking or rights properties.
 
-Each annotation list _MAY_ be part of one or more layers. If the annotation list is part of a layer, then this _MUST_ be recorded using the `within` relationship in the annotation list response.  It _MAY_ also be included in the reference to the annotation list in the manifest response.  In the manifest response, the description of the layer _MAY_ be omitted after the first use, and just the URI given as a string.  Clients should refer to the first description given, based on the URI.
 
 ``` json-doc
 {
-  "@context": "http://iiif.io/api/presentation/2/context.json",
+  "@context": [],
   "id": "http://example.org/iiif/book1/list/l1",
-  "type": "AnnotationList",
+  "type": "AnnotationPage",
   "within": {
-    "id": "http://example.org/iiif/book1/layer/transcription",
-    "type": "Layer",
+    "id": "http://example.org/iiif/book1/annocolls/transcription",
+    "type": "AnnotationCollection",
     "label": "Diplomatic Transcription"
   }
 }
 ```
 
-The layer _MAY_ be able to be dereferenced if it has an HTTP URI.  If a representation is available, it _MUST_ follow all of the requirements for JSON representations in this specification.  All of the properties of the layer _SHOULD_ be included in the representation.  
-
-The annotation lists are referenced from the layer in an `otherContent` array, in the same way as they are referenced from a canvas.  The annotation lists _SHOULD_ be given as just URIs, but _MAY_ be objects with more information about them, such as in the [Canvas][canvas-prezi30] example.
+// ...
 
 ``` json-doc
 {
