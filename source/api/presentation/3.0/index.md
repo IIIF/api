@@ -33,7 +33,7 @@ __Previous Version:__ [2.1.1][prev-version]
 
 {% include copyright.md %}
 
-__Status warning__
+__Status Warning__
 This is a work in progress and may change without any notices. Implementers should be aware that this document is not stable. Implementers are likely to find the specification changing in incompatible ways. Those interested in implementing this document before it reaches beta or release stages should join the [mailing list][iiif-discuss] and take part in the discussions, and follow the [emerging issues][prezi3-milestone] on Github.
 {: .warning}
 
@@ -1270,10 +1270,10 @@ AnnotationCollections _MUST_ have a URI, and it _SHOULD_ be an HTTP URI.  They _
   "@context": [],
   "id": "http://example.org/iiif/book1/list/l1",
   "type": "AnnotationPage",
-  "within": {
+  "partOf": {
     "id": "http://example.org/iiif/book1/annocolls/transcription",
     "type": "AnnotationCollection",
-    "label": "Diplomatic Transcription"
+    "label": {"en": ["Diplomatic Transcription"]}
   }
 }
 ```
@@ -1286,27 +1286,21 @@ AnnotationCollections _MUST_ have a URI, and it _SHOULD_ be an HTTP URI.  They _
     "http://www.w3.org/ns/anno.jsonld",
     "http://iiif.io/api/presentation/{{ page.major }}/context.json"
   ],
-  "id": "http://example.org/iiif/book1/layer/transcription",
-  "type": "Layer",
-  "label": "Diplomatic Transcription",
-  // Other properties here ...
+  "id": "http://example.org/iiif/book1/annocolls/transcription",
+  "type": "AnnotationCollection",
+  "label": {"en": ["Diplomatic Transcription"]},
 
-  "otherContent": [
-    "http://example.org/iiif/book1/list/l1",
-    "http://example.org/iiif/book1/list/l2",
-    "http://example.org/iiif/book1/list/l3",
-    "http://example.org/iiif/book1/list/l4"
-    // More AnnotationLists here ...
-  ]
+  "first": {"id": "http://example.org/iiif/book1/list/l1", "type": "AnnotationPage"},
+  "last": {"id": "http://example.org/iiif/book1/list/l120", "type": "AnnotationPage"}
 }
 ```
 
 
 ###  5.8. Collection
 
-Collections are used to list the manifests available for viewing, and to describe the structures, hierarchies or curated collections that the physical objects are part of.  The collections _MAY_ include both other collections and manifests, in order to form a hierarchy of objects with manifests at the leaf nodes of the tree.  Collection objects _MAY_ be embedded inline within other collection objects, such as when the collection is used primarily to subdivide a larger one into more manageable pieces, however manifests _MUST NOT_ be embedded within collections. An embedded collection _SHOULD_ also have its own URI from which the description is available.
+Collections are used to list the manifests available for viewing, and to describe the structures, hierarchies or curated collections that the objects are part of.  Collections _MAY_ include both other Collections and Manifests, in order to form a tree-structured hierarchy.  
 
-It is _RECOMMENDED_ that the topmost collection from which all other collections are discoverable by following links within the hierarchy be named `top`, if there is one.
+Collection objects _MAY_ be embedded inline within other collection objects, such as when the collection is used primarily to subdivide a larger one into more manageable pieces, however manifests _MUST NOT_ be embedded within collections. An embedded collection _SHOULD_ also have its own URI from which the description is available.
 
 Manifests or Collections _MAY_ appear within more than one collection. For example, an institution might define four collections: one for modern works, one for historical works, one for newspapers and one for books.  The manifest for a modern newspaper would then appear in both the modern collection and the newspaper collection.  Alternatively, the institution may choose to have two separate newspaper collections, and reference each as a sub-collection of modern and historical.
 
@@ -1317,14 +1311,8 @@ The intended usage of collections is to allow clients to:
   * Visualize lists or hierarchies of related manifests.
   * Provide navigation through a list or hierarchy of available manifests.
 
-As such, collections _MUST_ have a label, and _SHOULD_ have `metadata` and `description` properties to be displayed by the client such that the user can understand the structure they are interacting with.  If a collection does not have these properties, then a client is not required to render the collection to the user directly.
 
-Collections have three list-based properties to express membership:
-
-##### items
-In cases where the order of a collection is significant, `members` can be used to interleave both collection and manifest resources. This is especially useful when a collection of books contains single- and multi-volume works (i.e. collections with the "multi-part" renderingHint), and when modeling archival material where original order is significant. Each entry in the `members` list _MUST_ be an object and _MUST_ include `id`, `type`, and `label`. If the entry is a collection, then `renderingHint` _MUST_ also be present.
-
-At least one of `collections`, `manifests` and `members` _SHOULD_ be present in the response.  An empty collection, with no member resources, is allowed but discouraged.
+An empty collection, with no member resources, is allowed but discouraged.
 
 An example collection document:
 
@@ -1341,46 +1329,8 @@ An example collection document:
   "description": "Description of Collection",
   "attribution": "Provided by Example Organization",
 
-  "collections": [
-    {
-      "id": "http://example.org/iiif/collection/sub1",
-      "type": "Collection",
-      "label": "Sub-Collection 1",
+  "items": []
 
-      "members": [  
-        {
-          "id": "http://example.org/iiif/collection/part1",
-          "type": "Collection",
-          "label": "My Multi-volume Set",
-          "renderingHint": "multi-part"
-        },
-        {
-          "id": "http://example.org/iiif/book1/manifest1",
-          "type": "Manifest",
-          "label": "My Book"
-        },
-        {
-          "id": "http://example.org/iiif/collection/part2",
-          "type": "Collection",
-          "label": "My Sub Collection",
-          "renderingHint": "individuals"
-        }
-      ]
-    },
-    {
-      "id": "http://example.org/iiif/collection/part2",
-      "type": "Collection",
-      "label": "Sub Collection 2"
-    }
-  ],
-
-  "manifests": [
-    {
-      "id": "http://example.org/iiif/book1/manifest",
-      "type": "Manifest",
-      "label": "Book 1"
-    }
-  ]
 }
 ```
 
@@ -1388,7 +1338,7 @@ An example collection document:
 
 In some situations, annotation lists or the list of manifests in a collection may be very long or expensive to create. The latter case is especially likely to occur when responses are generated dynamically. In these situations the server may break up the response using [paging properties][paging-prezi30]. The length of a response is left to the server's discretion, but the server should take care not to produce overly long responses that would be difficult for clients to process.
 
-When breaking a response into pages, the paged resource _MUST_ link to the `first` page resource, and _MUST NOT_ include the corresponding list property (`collections` for a collection, `otherContent` for a layer). For example, a paged layer would link only to an annotation list as its first page.  If known, the resource _MAY_ also link to the last page.
+When breaking a response into pages, the paged resource _MUST_ link to the `first` page resource, and _MUST NOT_ include the `items` property.
 
 The linked page resource _SHOULD_ refer back to the containing paged resource using `within`. If there is a page resource that follows it (the next page), then it _MUST_ include a `next` link to it.  If there is a preceding page resource, then it _SHOULD_ include a `prev` link to it.
 
@@ -1506,29 +1456,32 @@ This section describes the _RECOMMENDED_ request and response interactions for t
 
 Clients _MUST NOT_ construct resource URIs by themselves, instead they _MUST_ follow links from within retrieved descriptions.
 
-In the situation where the JSON documents are maintained in a filesystem with no access to the web server's configuration, then including ".json" on the end of the URI is suggested to ensure that the correct content-type response header is sent to the client.
+Implementation note doesn't belong in spec
+{: .warning}
+In the situation where the JSON documents are maintained in a filesystem with no access to the web server's configuration, then including ".json" on the end of the URI is suggested to ensure that an appropriate `content-type` response header is sent to the client.
+
 
 ###  6.2. Responses
 
 The format for all responses is JSON, and the following sections describe the structure to be returned.
 
-The content-type of the response _MUST_ be either `application/json` (regular JSON),
 
-``` none
-Content-Type: application/json
-```
-{: .urltemplate}
 
-or "application/ld+json" (JSON-LD) with the `profile` parameter given as the context document: `http://iiif.io/api/presentation/3/context.json`.
+The content-type of the response _SHOULD_ be "application/ld+json" (JSON-LD) with the `profile` parameter given as the context document: `http://iiif.io/api/presentation/3/context.json`.
 
 ``` none
 Content-Type: application/ld+json;profile="http://iiif.io/api/presentation/3/context.json"
 ```
 {: .urltemplate}
 
-If the client explicitly wants the JSON-LD content-type, then it _MUST_ specify this in an Accept header, otherwise the server _MUST_ return the regular JSON content-type.
+If this cannot be generated due to server configuration details, then the content-type _MUST_ instead be `application/json` (regular JSON).
 
-The HTTP server _SHOULD_, if at all possible, send the Cross Origin Access Control header (often called "CORS") to allow clients to download the manifests via AJAX from remote sites. The header name is `Access-Control-Allow-Origin` and the value of the header _SHOULD_ be `*`.
+``` none
+Content-Type: application/json
+```
+{: .urltemplate}
+
+The HTTP server _MUST_ follow the CORS requirements, including the `Access-Control-Allow-Origin` and the value of the header _SHOULD_ be `*`.
 
 ``` none
 Access-Control-Allow-Origin: *
@@ -1645,8 +1598,7 @@ __Protocol Behavior__
 | -------------- | ---------------------- |
 | Collection     | ![required][icon-req]  |
 | Manifest       | ![required][icon-req]  |
-| Sequence (first)   | ![optional][icon-opt]  |
-| Sequence (second+) | ![required][icon-req]  |
+| Sequence       | ![optional][icon-opt]  |
 | Canvas         | ![recommended][icon-recc]  |
 | Annotation     | ![recommended][icon-recc]  |
 | AnnotationList | ![required][icon-req]  |
@@ -1658,180 +1610,8 @@ __Protocol Behavior__
 
 ### B. Example Manifest Response
 
-URL: _http://example.org/iiif/book1/manifest_
-
-``` json-doc
-{
-  "@context": "http://iiif.io/api/presentation/2/context.json",  "@context": [
-    "http://www.w3.org/ns/anno.jsonld",
-    "http://iiif.io/api/presentation/{{ page.major }}/context.json"
-  ],
-  "type": "Manifest",
-  "id": "http://example.org/iiif/book1/manifest",
-
-  "label": "Book 1",
-  "metadata": [
-    {"label": "Author", "value": "Anne Author"},
-    {"label": "Published", "value": [
-        {"@value": "Paris, circa 1400", "@language": "en"},
-        {"@value": "Paris, environ 14eme siecle", "@language": "fr"}
-        ]
-    }
-  ],
-  "description": "A longer description of this example book. It should give some real information.",
-  "navDate": "1856-01-01T00:00:00Z",
-
-  "license": "http://example.org/license.html",
-  "attribution": "Provided by Example Organization",
-  "service": {
-    "@context": "http://example.org/ns/jsonld/context.json",
-    "id": "http://example.org/service/example",
-    "profile": "http://example.org/docs/example-service.html"
-  },
-  "seeAlso":
-    {
-      "id": "http://example.org/library/catalog/book1.marc",
-      "format": "application/marc",
-      "profile": "http://example.org/profiles/marc21"
-    },
-  "rendering": {
-    "id": "http://example.org/iiif/book1.pdf",
-    "label": "Download as PDF",
-    "format": "application/pdf"
-  },
-  "within": "http://example.org/collections/books/",
-
-  "sequences": [
-      {
-        "id": "http://example.org/iiif/book1/sequence/normal",
-        "type": "Sequence",
-        "label": "Current Page Order",
-        "renderingDirection": "left-to-right",
-        "renderingHint": "paged",
-        "canvases": [
-          {
-            "id": "http://example.org/iiif/book1/canvas/p1",
-            "type": "Canvas",
-            "label": "p. 1",
-            "height":1000,
-            "width":750,
-            "images": [
-              {
-                "type": "Annotation",
-                "motivation": "painting",
-                "resource":{
-                    "id": "http://example.org/iiif/book1/res/page1.jpg",
-                    "type": "dctypes:Image",
-                    "format": "image/jpeg",
-                    "service": {
-                        "@context": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
-                        "id": "http://example.org/images/book1-page1",
-                        "profile": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/level1.json"
-                    },
-                    "height":2000,
-                    "width":1500
-                },
-                "on": "http://example.org/iiif/book1/canvas/p1"
-              }
-            ],
-            "otherContent": [
-              {
-                "id": "http://example.org/iiif/book1/list/p1",
-                "type": "AnnotationList",
-                "within": {
-                    "id": "http://example.org/iiif/book1/layer/l1",
-                    "type": "Layer",
-                    "label": "Example Layer"
-                }
-              }
-            ]
-        },
-          {
-            "id": "http://example.org/iiif/book1/canvas/p2",
-            "type": "Canvas",
-            "label": "p. 2",
-            "height":1000,
-            "width":750,
-            "images": [
-              {
-                "type": "Annotation",
-                "motivation": "painting",
-                "resource":{
-                    "id": "http://example.org/images/book1-page2/full/1500,2000/0/default.jpg",
-                    "type": "dctypes:Image",
-                    "format": "image/jpeg",
-                    "height":2000,
-                    "width":1500,
-                    "service": {
-                        "@context": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
-                        "id": "http://example.org/images/book1-page2",
-                        "profile": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/level1.json",
-                        "height":8000,
-                        "width":6000,
-                        "tiles": [{"width": 512, "scaleFactors": [1,2,4,8,16]}]
-                    }
-                },
-                "on": "http://example.org/iiif/book1/canvas/p2"
-              }
-            ],
-            "otherContent": [
-              {
-                "id": "http://example.org/iiif/book1/list/p2",
-                "type": "AnnotationList",
-                "within": "http://example.org/iiif/book1/layer/l1"  
-              }
-            ]
-          },
-          {
-            "id": "http://example.org/iiif/book1/canvas/p3",
-            "type": "Canvas",
-            "label": "p. 3",
-            "height":1000,
-            "width":750,
-            "images": [
-              {
-                "type": "Annotation",
-                "motivation": "painting",
-                "resource":{
-                    "id": "http://example.org/iiif/book1/res/page3.jpg",
-                    "type": "dctypes:Image",
-                    "format": "image/jpeg",
-                    "service": {
-                        "@context": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
-                        "id": "http://example.org/images/book1-page3",
-                        "profile": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/level1.json"
-          },
-                    "height":2000,
-                    "width":1500
-                },
-                "on": "http://example.org/iiif/book1/canvas/p3"
-              }
-            ],
-            "otherContent": [
-              {
-                "id": "http://example.org/iiif/book1/list/p3",
-                "type": "AnnotationList",
-                "within": "http://example.org/iiif/book1/layer/l1"               
-              }
-            ]
-          }
-        ]
-      }
-    ],
-  "structures": [
-    {
-      "id": "http://example.org/iiif/book1/range/r1",
-        "type": "Range",
-        "label": "Introduction",
-        "canvases": [
-          "http://example.org/iiif/book1/canvas/p1",
-          "http://example.org/iiif/book1/canvas/p2",
-          "http://example.org/iiif/book1/canvas/p3#xywh=0,0,750,300"
-        ]
-    }
-  ]
-}
-```
+Rebuild the example
+{: .warning}
 
 
 ### C. Versioning
@@ -1839,8 +1619,6 @@ URL: _http://example.org/iiif/book1/manifest_
 Starting with version 2.0, this specification follows [Semantic Versioning][semver]. See the note [Versioning of APIs][versioning] for details regarding how this is implemented.
 
 ### D. Acknowledgements
-
-The production of this document was generously supported by a grant from the [Andrew W. Mellon Foundation][mellon].
 
 Many thanks to the members of the [IIIF][iiif-community] for their continuous engagement, innovative ideas and feedback.
 
