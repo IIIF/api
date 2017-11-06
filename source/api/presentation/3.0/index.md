@@ -331,7 +331,7 @@ The type of the resource.  For the resource types defined by this specification,
 The value _MUST_ be a string.
 
  * All resource types _MUST_ have exactly one `type`.<br/>
-   Clients _MUST_ process, and_MAY_ render, `type` on any resource type.
+   Clients _MUST_ process, and _MAY_ render, `type` on any resource type.
 
 > | Class         | Description                      |
 | ------------- | -------------------------------- |
