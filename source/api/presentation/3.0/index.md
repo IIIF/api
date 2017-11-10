@@ -488,24 +488,6 @@ The value _MUST_ be an array of strings, taken from the table below or a full UR
 {"renderingHint": ["auto-advance", "individuals"]}
 ```
 
-##### choiceHint
-
-A hint associated with a Choice resource that a client can use to determine the publisher's intent as to which agent _SHOULD_ make the choice between the different options.  In the absence of any `choiceHint` value, the rendering application can use any algorithm or process to make the determination.  This specification defines the two values specified in the table below. Others may be defined externally, and would be given as a full URI.
-
-The value _MUST_ be a string, taken from the table below or a full URI.
-
-* A Choice _MAY_ have exactly one `choiceHint`.<br/>
-  Clients _SHOULD_ process `choiceHint` on a Choice.
-
-> | Value | Description |
-| ----- | ----------- |
-| `client` | The client software is expected to select an appropriate option without user interaction. |
-| `user` | The client software is expected to present an interface to allow the user to explicitly select an option. |
-
-``` json-doc
-{"choiceHint": "client"}
-```
-
 ##### timeMode
 
 A mode associated with an Annotation that is to be applied to the rendering of any time-based media, or otherwise could be considered to have a duration, used as a body resource of that Annotation. Note that the association of `timeMode` with the Annotation means that different resources in the body cannot have different values. This specification defines the values specified in the table below. Others may be defined externally, and would be given as a full URI.
@@ -841,11 +823,13 @@ Language _MAY_ be associated with strings that are intended to be displayed to t
 The values of these fields _MUST_ be JSON objects, with the keys being the [RFC 5646][rfc5646] language code for the language, or if the language is either not known or the string does not have a language, then the key must be `"@none"`. The associated values _MUST_ be arrays of strings, where each string is the content in the given language.
 
 ``` json-doc
-{"description": {
-    "en": ["Here is the description of the object in English",
-           "And a second description"],
-    "fr": ["Voici la description de l'objet en français"],
-    "@none": ["A description in an unknown language"]
+{"label": {
+    "en": ["Whistler's Mother",
+           "Arrangement in Grey and Black No. 1: The Artist's Mother"],
+    "fr": ["Arrangement en gris et noir no 1",
+           "Portrait de la mère de l'artiste",
+           "La Mère de Whistler"],
+    "@none": ["Whistler (1871)"]
   }
 }
 ```
