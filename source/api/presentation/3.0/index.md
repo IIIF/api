@@ -896,6 +896,9 @@ The value of the `@context` property _MUST_ be a list, and the __last__ two valu
 
 Any additional fields beyond those defined in this specification or the Web Annotation Data Model _SHOULD_ be mapped to RDF predicates using further context documents.   If possible, these extensions _SHOULD_ be added to the top level `@context` field, and _MUST_ be added before the above contexts.  The JSON-LD 1.1 functionality of type and predicate specific context definitions _SHOULD_ be used if possible to try to minimize any cross-extension collisions.
 
+For embedded JSON-LD data that uses a JSON-LD version 1.0 context definition, such as references to older external services or extensions, these _MAY_ require the context to be injected within the service description, rather than listed in the top resource.  Care should be taken to use the mappings defined by those contexts, especially with regards to `id` versus `@id`, and `type` versus `@type`, to ensure that clients receive the keys that they are expecting to process.
+
+
 ##  5. Resource Structure
 
 This section provides detailed description of the resource types used in this specification. [Section 2][type-overview-prezi30] provides an overview of the resource types and figures illustrating allowed relationships between them, and [Appendix A][appendixa-prezi30] provides summary tables of the property requirements.
