@@ -767,12 +767,12 @@ The value _MUST_ be an array of objects.
 
 ##### structures
 
-The structure of an object represented as a Manifest can be described using a hierarchy of Ranges.  The top level Ranges of these hierarchies are given in the `structures` property.
+The navigational structure of an object represented as a Manifest can be described using a hierarchy of Ranges. This can be used to describe the "table of contents" of the object or other navigational structures that the user can interact with beyond a simple linear progression described in the Sequence.  The hierarchy is built by nesting the child Range resources in the `items` array of the higher level Range.  The top level Ranges of these hierarchies are given in the `structures` property. 
 
 The value _MUST_ be an array of objects.
 
 * A Manifest _MAY_ have a list of one or more Ranges in `structures`.<br/>
-  Clients _SHOULD_ process `structures` on a Manifest.
+  Clients _SHOULD_ process `structures` on a Manifest. The first hierarchy _SHOULD_ be presented to the user by default, and further hierarchies _SHOULD_ be able to be selected as alternative structures by the user.
 
 ```json-doc
 {"structures": [
