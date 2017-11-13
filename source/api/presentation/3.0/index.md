@@ -579,7 +579,7 @@ The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id` a
 ```
 
 ##### seeAlso
-A link to a machine readable document that is related to the resource with the `seeAlso` property, such as an XML or RDF description. Properties of the document should be given to help the client select between multiple descriptions (if provided), and to make appropriate use of the document. If the relationship between the resource and the document needs to be more specific, then the document should include that relationship rather than the IIIF resource. Other IIIF resources, such as a related Manifest, are valid targets for `seeAlso`.
+A link to a machine readable document that is related to the resource with the `seeAlso` property, such as an XML or RDF description. Properties of the document should be given to help the client select between multiple descriptions (if provided), and to make appropriate use of the document. If the relationship between the resource and the document needs to be more specific, then the document should include that relationship rather than the IIIF resource. Other IIIF resources, such as a related Manifest, are valid targets for `seeAlso`. The URI of the document _MUST_ identify a single representation with a single `format`. For example, if the same data exists in JSON and XML, with a URL that supports content negotiation for the two formats, then the URIs of each representation can be provided separately. 
 
 The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `label`, `format` and `profile` properties.
 
