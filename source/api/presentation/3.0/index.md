@@ -1490,17 +1490,17 @@ Recipes for enabling CORS and the conditional Content-Type header are provided i
 
 While any URI is technically acceptable for any of the resources, there are several best practices for designing the URIs for the resources.
 
-* Use HTTPS, not HTTP.
+* The URI _SHOULD_ use the HTTPS scheme, not HTTP.
 * Consider the hostname for your resources, such that it could redirect to separate systems if needed. For example: `https://data.example.org/`
 * Use a consistent prefix path for IIIF resources, such as `https://data.example.org/iiif/`
 * Use a natural identifier for the resource in its management system in the URI, such as `https://data.example.org/iiif/849/` for object number 849
-* Use the type of the resource in the UR, such as `https://data.example.org/iiif/849/manifest/`
-* Don't use `.json` or `.jsonld` on the end of the URI unless you need to
+* Use the type of the resource in the URI, such as `https://data.example.org/iiif/849/manifest/`
+* Don't use `.json` or `.jsonld` on the end of the URI unless you need to due to implementation requirements
 * Remember to encode special characters
 * Consider future expansion of the data, and related services, such as `https://data.example.org/iiif/849/manifest/search/` for a [IIIF search service][search-api] over the object's annotations
-* Do not use query parameters or fragments in the URIs
-* Once published, they should be as persistent and unchanging as possible
-
+* Do not use query parameters or fragments as part of the URI
+* When dereferenced, the URI _SHOULD_ return the JSON-LD description of the resource
+* Once published, they _SHOULD_ be as persistent and unchanging as possible
 
 
 ## 7. Authentication
