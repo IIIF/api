@@ -880,6 +880,8 @@ The value of the `@context` property _MUST_ be a list, and the __last__ two valu
 
 Any additional fields beyond those defined in this specification or the Web Annotation Data Model _SHOULD_ be mapped to RDF predicates using further context documents.   If possible, these extensions _SHOULD_ be added to the top level `@context` field, and _MUST_ be added before the above contexts.  The JSON-LD 1.1 functionality of type and predicate specific context definitions _SHOULD_ be used if possible to try to minimize any cross-extension collisions.
 
+The output _MUST NOT_ include the `@graph` key at the top level of the JSON, which might be created when serializing directly from RDF data using the JSON-LD compaction algorithm. Instead JSON-LD framing and/or custom code should be used to ensure the structure of the documents is as per this specification.
+
 Embedded JSON-LD data that uses a JSON-LD version 1.0 context definition, such as references to older external services or extensions, _MAY_ require the context to be included within the service description, rather than listed in the top resource.  Care should be taken to use the mappings defined by those contexts, especially with regard to `id` versus `@id`, and `type` versus `@type`, to ensure that clients receive the keys that they are expecting to process.
 
 ##  5. Resource Structure
