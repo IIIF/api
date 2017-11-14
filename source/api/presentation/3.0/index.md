@@ -363,6 +363,17 @@ Note that this is different to the `formats` property in the [Image API][image-a
 {"type": "Dataset", "format": "application/xml"}
 ```
 
+##### language
+The language or languages used in the content of an external resource. This property is already available from the Web Annotation model for resources that are annotated onto Canvases, however it _MAY_ also be used for resources referenced with `related`, `rendering`, `rights` and similar properties.
+
+The value _MUST_ be an array of strings.
+
+ * An external resource _MAY_ have one or more `language` values, and each value _MUST_ be a valid language code, as described under the [languages section][languages].<br/>
+   Clients _SHOULD_ process the `language` of external resources to present the most appropriate content to the user.
+ * Other resource types _MUST NOT_ have a `language`.<br/>
+   Clients _SHOULD_ ignore `language` on other resource types.
+
+
 ##### profile
 
 A schema or named set of functionality available from the resource.  The profile can further clarify the `type` and/or `format` of an external resource or service, allowing clients to customize their handling of the resource.
