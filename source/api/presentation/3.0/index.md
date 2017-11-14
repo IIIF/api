@@ -1456,32 +1456,26 @@ This section describes the _RECOMMENDED_ request and response interactions for t
 
 Clients _MUST NOT_ construct resource URIs by themselves, instead they _MUST_ follow links from within retrieved descriptions.
 
-Implementation note doesn't belong in spec
-{: .warning}
-In the situation where the JSON documents are maintained in a filesystem with no access to the web server's configuration, then including ".json" on the end of the URI is suggested to ensure that an appropriate `content-type` response header is sent to the client.
-
 
 ###  6.2. Responses
 
-The format for all responses is JSON, and the following sections describe the structure to be returned.
+The format for all responses is JSON, as described above.
 
-
-
-The content-type of the response _SHOULD_ be "application/ld+json" (JSON-LD) with the `profile` parameter given as the context document: `http://iiif.io/api/presentation/3/context.json`.
+The HTTP `Content-Type` header of the response _SHOULD_ have the value "application/ld+json" (JSON-LD) with the `profile` parameter given as the context document: `http://iiif.io/api/presentation/3/context.json`.
 
 ``` none
 Content-Type: application/ld+json;profile="http://iiif.io/api/presentation/3/context.json"
 ```
 {: .urltemplate}
 
-If this cannot be generated due to server configuration details, then the content-type _MUST_ instead be `application/json` (regular JSON).
+If this cannot be generated due to server configuration details, then the content-type _MUST_ instead be `application/json` (regular JSON), without a `profile` parameter.
 
 ``` none
 Content-Type: application/json
 ```
 {: .urltemplate}
 
-The HTTP server _MUST_ follow the CORS requirements, including the `Access-Control-Allow-Origin` and the value of the header _SHOULD_ be `*`.
+The HTTP server _MUST_ follow the CORS requirements, including an `Access-Control-Allow-Origin` header with the value of `*`.
 
 ``` none
 Access-Control-Allow-Origin: *
@@ -1490,7 +1484,23 @@ Access-Control-Allow-Origin: *
 
 Responses _SHOULD_ be compressed by the server as there are significant performance gains to be made for very repetitive data structures.
 
-Recipes for enabling CORS and the conditional Content-type header are provided in the [Apache HTTP Server Implementation Notes][apache-notes].
+Recipes for enabling CORS and the conditional Content-Type header are provided in the [Apache HTTP Server Implementation Notes][apache-notes].
+
+### 6.3 URI Recommendations
+
+While any URI is technically acceptable for any of the resources, there are several best practices for designing the URIs for the resources.
+
+* Use HTTPS, not HTTP.
+* Consider the hostname for your resources, such that it could redirect to separate systems if needed. For example: `https://data.example.org/`
+* Use a consistent prefix path for IIIF resources, such as `https://data.example.org/iiif/`
+* Use a natural identifier for the resource in its management system in the URI, such as `https://data.example.org/iiif/849/` for object number 849
+* Use the type of the resource in the UR, such as `https://data.example.org/iiif/849/manifest/`
+* Don't use `.json` or `.jsonld` on the end of the URI unless you need to
+* Remember to encode special characters
+* Consider future expansion of the data, and related services, such as `https://data.example.org/iiif/849/manifest/search/` for a [IIIF search service][search] over the object's annotations
+* Do not use query parameters or fragments in the URIs
+* Once published, they should be as persistent and unchanging as possible
+
 
 
 ## 7. Authentication
