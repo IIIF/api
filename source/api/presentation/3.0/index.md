@@ -1497,7 +1497,7 @@ While any URI is technically acceptable for any of the resources, there are seve
 * Use the type of the resource in the UR, such as `https://data.example.org/iiif/849/manifest/`
 * Don't use `.json` or `.jsonld` on the end of the URI unless you need to
 * Remember to encode special characters
-* Consider future expansion of the data, and related services, such as `https://data.example.org/iiif/849/manifest/search/` for a [IIIF search service][search] over the object's annotations
+* Consider future expansion of the data, and related services, such as `https://data.example.org/iiif/849/manifest/search/` for a [IIIF search service][search-api] over the object's annotations
 * Do not use query parameters or fragments in the URIs
 * Once published, they should be as persistent and unchanging as possible
 
