@@ -767,7 +767,7 @@ The value _MUST_ be an array of objects.
 
 ##### structures
 
-The navigational structure of an object represented as a Manifest can be described using a hierarchy of Ranges. This can be used to describe the "table of contents" of the object or other navigational structures that the user can interact with beyond a simple linear progression described in the Sequence.  The hierarchy is built by nesting the child Range resources in the `items` array of the higher level Range.  The top level Ranges of these hierarchies are given in the `structures` property. 
+The structure of an object represented as a Manifest can be described using a hierarchy of Ranges. Ranges can be used to describe the "table of contents" of the object or other structures that the user can interact with beyond a simple linear progression described in the Sequence. The hierarchy is built by nesting the child Range resources in the `items` array of the higher level Range. The top level Ranges of these hierarchies are given in the `structures` property. 
 
 The value _MUST_ be an array of objects.
 
