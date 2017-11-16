@@ -297,11 +297,11 @@ The value _MUST_ be an array of JSON objects, each of which _MUST_ have an `id` 
 
 ##### id
 
-The URI that identifies the resource. It is _RECOMMENDED_ that an HTTPS URI be used for all resources.
+The URI that identifies the resource. It is _RECOMMENDED_ that an HTTPS URI be used for all resources. If the resource is only available embedded within another resource, such as a Sequence within a Manifest, then the URI _MAY_ be the URI of the encapsulating resource with a unique fragment on the end. This is not true for Canvases, which _MUST_ have their own URI without a fragment.
 
 The value _MUST_ be a string.
 
- * A Collection _MUST_ have exactly one `id`, and it _MUST_ be the http(s) URI at which it is published.<br/>
+ * A Collection _MUST_ have exactly one `id`, and it _MUST_ be the http(s) URI at which it is published. <br/>
    Clients _SHOULD_ render `id` on a Collection.
  * A Manifest _MUST_ have exactly one `id`, and it _MUST_ be the http(s) URI at which it is published.<br/>
    Clients _SHOULD_ render `id` on a Manifest.
