@@ -341,7 +341,7 @@ The value _MUST_ be a string.
 | `Sound`       | Auditory resources primarily intended to be heard |
 | `Text`        | Resources primarily intended to be read |
 | `Video`       | Moving images, with or without accompanying audio |
-{: .api-table}
+{: .api-table #table-type}
 
 ``` json-doc
 {"type": "Dataset"}
@@ -456,7 +456,7 @@ The value _MUST_ be a string, taken from the table below or a full URI.
 | `right-to-left` | The object is displayed from right to left. |
 | `top-to-bottom` | The object is displayed from the top to the bottom. |
 | `bottom-to-top` | The object is displayed from the bottom to the top. |
-{: .api-table}
+{: .api-table #table-direction}
 
 ``` json-doc
 {"renderingDirection": "left-to-right"}
@@ -482,7 +482,7 @@ The value _MUST_ be an array of strings, taken from the table below or a full UR
 | `no-nav` | Valid only for Range. Ranges with this hint _MUST NOT_ be displayed to the user in a navigation hierarchy. This allows for Ranges to be present that capture unnamed regions with no interesting content. |
 | `auto-advance` | Valid on Collection, Manifest, Sequence and Canvas. When the client reaches the end of a Canvas with a duration dimension that has (or is within a resource that has) this hint, it _SHOULD_ immediately proceed to the next Canvas and render it. If there is no subsequent Canvas in the current context, then this hint should be ignored. When applied to a Collection, the client should treat the first Canvas of the next Manifest as following the last Canvas of the previous Manifest, respecting any `startCanvas` specified.|
 | `together` | Valid only for Collection. A client _SHOULD_ present all of the child Manifests to the user at once in a separate viewing area with its own controls. Clients _SHOULD_ catch attempts to create too many viewing areas. The `together` value _SHOULD NOT_ be interpreted as applying to the members any child resources.|
-{: .api-table}
+{: .api-table #table-behavior}
 
 ``` json-doc
 {"renderingHint": ["auto-advance", "individuals"]}
@@ -502,7 +502,7 @@ The value _MUST_ be a string, taken from the table below or a full URI.
 | `trim` | (default, if not supplied) If the content resource has a longer duration than the duration of portion of the Canvas it is associated with, then at the end of the Canvas's duration, the playback of the content resource _MUST_ also end. If the content resource has a shorter duration than the duration of the portion of the Canvas it is associated with, then, for video resources, the last frame _SHOULD_ persist on-screen until the end of the Canvas portion's duration. For example, a video of 120 seconds annotated to a Canvas with a duration of 100 seconds would play only the first 100 seconds and drop the last 20 second. |
 | `scale` | Fit the duration of content resource to the duration of the portion of the Canvas it is associated with by scaling. For example, a video of 120 seconds annotated to a Canvas with a duration of 60 seconds would be played at double-speed. |
 | `loop` | If the content resource is shorter than the `duration` of the Canvas, it _MUST_ be repeated to fill the entire duration. Resources longer than the `duration` _MUST_ be trimmed as described above. For example, if a 20 second duration audio stream is annotated onto a Canvas with duration 30 seconds, it will be played one and a half times. |
-{: .api-table}
+{: .api-table #table-timemode}
 
 ``` json-doc
 {"timeMode": "trim"}
@@ -1497,7 +1497,7 @@ It is possible to include Image API service descriptions within the manifest, an
 | ![recommended][icon-recc]  | Recommended |
 | ![optional][icon-opt]      | Optional    |
 | ![not allowed][icon-na]    | Not Allowed |
-{: .api-table}
+{: .api-table #table-reqs-icons} 
 
 __Descriptive and Rights Properties__
 
@@ -1513,7 +1513,7 @@ __Descriptive and Rights Properties__
 | Layer          | ![required][icon-req]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
 | Image Content  | ![optional][icon-opt]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
 | Other Content  | ![optional][icon-opt]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
-{: .api-table}
+{: .api-table #table-reqs-1}
 
 __Technical Properties__
 
@@ -1529,7 +1529,7 @@ __Technical Properties__
 | Layer          | ![required][icon-req]     | ![required][icon-req] | ![not allowed][icon-na] | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![optional][icon-opt]   | ![optional][icon-opt]  | ![not allowed][icon-na]  |
 | Image Content  | ![required][icon-req]     | ![required][icon-req] | ![optional][icon-opt]   | ![recommended][icon-opt]  | ![recommended][icon-opt]  | ![not allowed][icon-na] | ![optional][icon-opt]  | ![not allowed][icon-na]  |
 | Other Content  | ![required][icon-req]     | ![required][icon-req] | ![optional][icon-opt]   | ![optional][icon-opt]     | ![optional][icon-opt]     | ![not allowed][icon-na] | ![optional][icon-opt]  | ![not allowed][icon-na]  |
-{: .api-table}
+{: .api-table #table-reqs-2}
 
 __Linking Properties__
 
@@ -1545,7 +1545,7 @@ __Linking Properties__
 | Layer          | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![not allowed][icon-na] |
 | Image Content  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![not allowed][icon-na] |
 | Other Content  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![not allowed][icon-na] |
-{: .api-table}
+{: .api-table #table-reqs-3}
 
 __Paging Properties__
 
@@ -1561,7 +1561,7 @@ __Paging Properties__
 | Layer          | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na] |
 | Image Content  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na] |
 | Other Content  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na] |
-{: .api-table}
+{: .api-table #table-reqs-4}
 
 __Structural Properties__
 
@@ -1577,7 +1577,7 @@ __Structural Properties__
 | Layer          | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![optional][icon-opt]   | ![not allowed][icon-na] | ![not allowed][icon-na] |
 | Image Content  | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] |
 | Other Content  | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] |
-{: .api-table}
+{: .api-table #table-reqs-5}
 
 
 __Protocol Behavior__
@@ -1594,7 +1594,7 @@ __Protocol Behavior__
 | Layer          | ![optional][icon-opt]  |
 | Image Content  | ![required][icon-req]  |
 | Other Content  | ![required][icon-req]  |
-{: .api-table}
+{: .api-table #table-reqs-deref}
 
 ### B. Example Manifest Response
 
