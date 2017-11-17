@@ -434,21 +434,21 @@ The value _MUST_ be a non-negative floating point number.
 {"duration": 125.0}
 ```
 
-##### renderingDirection
+##### viewingDirection
 The direction that a set of Canvases _SHOULD_ be displayed to the user. This specification defines four direction values in the table below. Others may be defined externally and given as a full URI.
 
 The value _MUST_ be a string, taken from the table below or a full URI.
 
- * A Collection _MAY_ have exactly one `renderingDirection`, and if so, it applies to the order in which its members are rendered.<br/>
-   Clients _SHOULD_ process `renderingDirection` on a Collection.
- * A Manifest _MAY_ have exactly one `renderingDirection`, and if so, it applies to all of its sequences unless the sequence specifies its own value.<br/>
-   Clients _SHOULD_ process `renderingDirection` on a Manifest.
- * A Sequence _MAY_ have exactly one `renderingDirection`.<br/>
-   Clients _SHOULD_ process `renderingDirection` on a Sequence.
- * A Range _MAY_ have exactly one `renderingDirection`.<br/>
-   Clients _MAY_ process `renderingDirection` on a Range.
- * Other resource types _MUST NOT_ have a `renderingDirection`.<br/>
-   Clients _SHOULD_ ignore `renderingDirection` on other resource types.
+ * A Collection _MAY_ have exactly one `viewingDirection`, and if so, it applies to the order in which its members are rendered.<br/>
+   Clients _SHOULD_ process `viewingDirection` on a Collection.
+ * A Manifest _MAY_ have exactly one `viewingDirection`, and if so, it applies to all of its sequences unless the sequence specifies its own value.<br/>
+   Clients _SHOULD_ process `viewingDirection` on a Manifest.
+ * A Sequence _MAY_ have exactly one `viewingDirection`.<br/>
+   Clients _SHOULD_ process `viewingDirection` on a Sequence.
+ * A Range _MAY_ have exactly one `viewingDirection`.<br/>
+   Clients _MAY_ process `viewingDirection` on a Range.
+ * Other resource types _MUST NOT_ have a `viewingDirection`.<br/>
+   Clients _SHOULD_ ignore `viewingDirection` on other resource types.
 
 > | Value | Description |
 | ----- | ----------- |
@@ -459,33 +459,33 @@ The value _MUST_ be a string, taken from the table below or a full URI.
 {: .api-table}
 
 ``` json-doc
-{"renderingDirection": "left-to-right"}
+{"viewingDirection": "left-to-right"}
 ```
 
-##### renderingHint
-A hint to the client as to the most appropriate method of displaying the resource. This specification defines the values specified in the table below. Others may be defined externally, and would be given as a full URI.
+##### behavior
+A set of flags that describe requested methods for the client to use when displaying the resource to the user. This specification defines the values specified in the table below. Others may be defined externally, and would be given as a URI.
 
-The value _MUST_ be an array of strings, taken from the table below or a full URI.
+The value _MUST_ be an array of strings, taken from the table below or a URI.
 
- * Any resource type _MAY_ have one or more `renderingHint`s.<br/>
-   Clients _SHOULD_ process `renderingHint` on any resource where it is valid, unless otherwise stated in the table below (e.g. `non-paged`, `facing-pages`).
+ * Any resource type _MAY_ have one or more `behavior`s.<br/>
+   Clients _SHOULD_ process `behavior` on any resource where it is valid, unless otherwise stated in the table below (e.g. `non-paged`, `facing-pages`).
 
 > | Value | Description |
 | ----- | ----------- |
-| `individuals` | Valid on Collection, Manifest, Sequence and Range. For Collections with this hint, each of the included Manifests are distinct objects. For Manifest, Sequence and Range, the included Canvases are distinct views, and _SHOULD NOT_ be presented in a page-turning interface. This is the default `renderingHint` if none are specified. |
-| `paged` | Valid on Manifest, Sequence and Range. Canvases with this hint represent pages in a bound volume, and _SHOULD_ be presented in a page-turning interface if one is available.  The first canvas is a single view (the first recto) and thus the second canvas likely represents the back of the object in the first canvas. If this is not the case, see the `non-paged` hint. |
-| `continuous` | Valid on Manifest, Sequence and Range.  A Canvas with this hint is a partial view and an appropriate rendering might display all of the Canvases virtually stitched together, such as a long scroll split into sections. This hint has no implication for audio resources. The `renderingDirection` of the Sequence or Manifest will determine the appropriate arrangement of the Canvases. |
-| `multi-part` | Valid only for Collection. Collections with this hint consist of multiple Manifests that each form part of a logical whole, such as multi-volume books or a set of journal issues. Clients might render the Collection as a table of contents, rather than with thumbnails. |
-| `non-paged` | Valid only for Canvas. Canvases with this hint _MUST NOT_ be presented in a page turning interface, and _MUST_ be skipped over when determining the page sequence. This hint _MUST_ be ignored if the current Sequence or Manifest does not have the 'paged' renderingHint. |
-| `facing-pages` | Valid only for Canvas. Canvases with this hint, in a Sequence or Manifest with the "paged" `renderingHint`, _MUST_ be displayed by themselves, as they depict both parts of the opening.  If all of the Canvases are like this, then page turning is not possible, so simply use "individuals" instead. |
-| `none` | Valid on AnnotationCollection, AnnotationPage, Annotation, SpecificResource and Choice. If this hint is provided, then the client _SHOULD NOT_ render the resource by default, but allow the user to turn it on and off.|
-| `no-nav` | Valid only for Range. Ranges with this hint _MUST NOT_ be displayed to the user in a navigation hierarchy. This allows for Ranges to be present that capture unnamed regions with no interesting content. |
-| `auto-advance` | Valid on Collection, Manifest, Sequence and Canvas. When the client reaches the end of a Canvas with a duration dimension that has (or is within a resource that has) this hint, it _SHOULD_ immediately proceed to the next Canvas and render it. If there is no subsequent Canvas in the current context, then this hint should be ignored. When applied to a Collection, the client should treat the first Canvas of the next Manifest as following the last Canvas of the previous Manifest, respecting any `startCanvas` specified.|
-| `together` | Valid only for Collection. A client _SHOULD_ present all of the child Manifests to the user at once in a separate viewing area with its own controls. Clients _SHOULD_ catch attempts to create too many viewing areas. The `together` value _SHOULD NOT_ be interpreted as applying to the members any child resources.|
+| `individuals` | Valid on Collection, Manifest, Sequence and Range. For Collections with this `behavior`, each of the included Manifests are distinct objects. For Manifest, Sequence and Range, the included Canvases are distinct views, and _SHOULD NOT_ be presented in a page-turning interface. This is the default `behavior` if none are specified. |
+| `paged` | Valid on Manifest, Sequence and Range. Canvases with this `behavior` represent pages in a bound volume, and _SHOULD_ be presented in a page-turning interface if one is available.  The first canvas is a single view (the first recto) and thus the second canvas likely represents the back of the object in the first canvas. If this is not the case, see the "non-paged" `behavior`. |
+| `continuous` | Valid on Manifest, Sequence and Range.  A Canvas with this `behavior` is a partial view and an appropriate rendering might display all of the Canvases virtually stitched together, such as a long scroll split into sections. This `behavior` has no implication for audio resources. The `viewingDirection` of the Sequence or Manifest will determine the appropriate arrangement of the Canvases. |
+| `multi-part` | Valid only for Collection. Collections with this `behavior` consist of multiple Manifests that each form part of a logical whole, such as multi-volume books or a set of journal issues. Clients might render the Collection as a table of contents, rather than with thumbnails. |
+| `non-paged` | Valid only for Canvas. Canvases with this `behavior` _MUST NOT_ be presented in a page turning interface, and _MUST_ be skipped over when determining the page sequence. This `behavior` _MUST_ be ignored if the current Sequence or Manifest does not have the "paged" `behavior`. |
+| `facing-pages` | Valid only for Canvas. Canvases with this `behavior`, in a Sequence or Manifest with the "paged" `behavior`, _MUST_ be displayed by themselves, as they depict both parts of the opening.  If all of the Canvases are like this, then page turning is not possible, so simply use "individuals" instead. |
+| `none` | Valid on AnnotationCollection, AnnotationPage, Annotation, SpecificResource and Choice. If this `behavior` is provided, then the client _SHOULD NOT_ render the resource by default, but allow the user to turn it on and off.|
+| `no-nav` | Valid only for Range. Ranges with this `behavior` _MUST NOT_ be displayed to the user in a navigation hierarchy. This allows for Ranges to be present that capture unnamed regions with no interesting content. |
+| `auto-advance` | Valid on Collection, Manifest, Sequence and Canvas. When the client reaches the end of a Canvas with a duration dimension that has (or is within a resource that has) this `behavior`, it _SHOULD_ immediately proceed to the next Canvas and render it. If there is no subsequent Canvas in the current context, then this `behavior` should be ignored. When applied to a Collection, the client should treat the first Canvas of the next Manifest as following the last Canvas of the previous Manifest, respecting any `startCanvas` specified.|
+| `together` | Valid only for Collection. A client _SHOULD_ present all of the child Manifests to the user at once in a separate viewing area with its own controls. Clients _SHOULD_ catch attempts to create too many viewing areas. The "together" value _SHOULD NOT_ be interpreted as applying to the members any child resources.|
 {: .api-table}
 
 ``` json-doc
-{"renderingHint": ["auto-advance", "individuals"]}
+{"behavior": ["auto-advance", "individuals"]}
 ```
 
 ##### timeMode
@@ -940,8 +940,8 @@ The example below includes only the Manifest-level information, however actual i
   }],
 
   // Presentation Information
-  "renderingDirection": "right-to-left",
-  "renderingHint": ["paged"],
+  "viewingDirection": "right-to-left",
+  "behavior": ["paged"],
   "navDate": "1856-01-01T00:00:00Z",
 
   // Rights Information
@@ -1040,8 +1040,8 @@ Sequences _MAY_ have their own descriptive, rights and linking metadata using th
   "type": "Sequence",
   "label": {"en": ["Current Page Order"]},
 
-  "renderingDirection": "left-to-right",
-  "renderingHint": ["paged"],
+  "viewingDirection": "left-to-right",
+  "behavior": ["paged"],
   "startCanvas": "http://example.org/iiif/book1/canvas/p2",
 
   // The order of the canvases
@@ -1181,7 +1181,7 @@ Additional features of the [Web Annotation][webanno] data model _MAY_ also be us
 
 Ranges are used to describe additional structure within an object, such as newspaper articles that span pages or chapters within a book. Ranges can include Canvases, parts of Canvases, or other Ranges, creating a nested tree structure such as a table of contents.
 
-The intent of adding a Range to the Manifest is to allow the client to display a hierarchical navigation interface to enable the user to quickly move through the object's content. Clients _SHOULD_ present only Ranges with the `label` property and without the "no-nav" `renderingHint` to the user. Clients _SHOULD NOT_ render Canvas labels as part of the navigation, and a Range that wraps the Canvas _MUST_ be created if this is the desired presentation.
+The intent of adding a Range to the Manifest is to allow the client to display a hierarchical navigation interface to enable the user to quickly move through the object's content. Clients _SHOULD_ present only Ranges with the `label` property and without the "no-nav" `behavior` to the user. Clients _SHOULD NOT_ render Canvas labels as part of the navigation, and a Range that wraps the Canvas _MUST_ be created if this is the desired presentation.
 
 Ranges _MUST_ have URIs and they _SHOULD_ be http(s) URIs.  Ranges are embedded or referenced within the Manifest in a `structures` property. Ranges then embed or reference other Ranges, Canvases or parts of Canvases in the `items` field.  Each entry in the `items` field _MUST_ be a JSON object, and it _MUST_ have the `id` and `type` properties.
 
@@ -1312,10 +1312,10 @@ An example collection document:
   ],
   "id": "http://example.org/iiif/collection/top",
   "type": "Collection",
-  "label": "Top Level Collection for Example Organization",
-  "renderingHint": "top",
-  "description": "Description of Collection",
-  "attribution": "Provided by Example Organization",
+  "label": {"en": ["Top Level Collection for Example Organization"]},
+  "behavior": ["top"],
+  "description": {"en": ["Description of Collection"]},
+  "attribution": {"en": ["Provided by Example Organization"]},
 
   "items": []
 
@@ -1517,7 +1517,7 @@ __Descriptive and Rights Properties__
 
 __Technical Properties__
 
-|                | id                       | type                 | format                  | height                    | width                     | renderingDirection        | renderingHint            | navDate                  |
+|                | id                       | type                 | format                  | height                    | width                     | viewingDirection        | behavior            | navDate                  |
 | -------------- | ------------------------- | --------------------- | ----------------------- | ------------------------- | ------------------------- | ----------------------- | ---------------------- | ------------------------ |
 | Collection     | ![required][icon-req]     | ![required][icon-req] | ![not allowed][icon-na] | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![not allowed][icon-na] | ![optional][icon-opt]  | ![optional][icon-opt]    |
 | Manifest       | ![required][icon-req]     | ![required][icon-req] | ![not allowed][icon-na] | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![optional][icon-opt]   | ![optional][icon-opt]  | ![optional][icon-opt]    |
