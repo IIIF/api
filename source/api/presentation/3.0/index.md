@@ -373,6 +373,9 @@ The value _MUST_ be an array of strings.
  * Other resource types _MUST NOT_ have a `language`.<br/>
    Clients _SHOULD_ ignore `language` on other resource types.
 
+``` json-doc
+{"rendering": [{"id": "http://example.org/docs/doc.pdf", "type": "Text", "format": "application/pdf", "language": ["en"]}]}
+```
 
 ##### profile
 
