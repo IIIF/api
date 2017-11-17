@@ -372,12 +372,12 @@ The value _MUST_ be a string, either taken from the table below or a URI.
 * Services and resources referenced by `seeAlso` _SHOULD_ have exactly one `profile`.
   Clients _SHOULD_ process the `profile` of a service or external resource.
 * Other resource types _MAY_ have exactly one `profile`.
-  Clients _MAY_ process the `profile` of other resource types. 
+  Clients _MAY_ process the `profile` of other resource types.
 
 ``` json-doc
 {
-  "type": "Dataset", 
-  "format": "application/xml", 
+  "type": "Dataset",
+  "format": "application/xml",
   "profile": "info:srw/schema/1/mods-v3.3"
 }
 ```
@@ -540,8 +540,8 @@ The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id`, 
 
 ``` json-doc
 {"related": [{
-  "id": "https://example.com/info/", 
-  "type": "Text", 
+  "id": "https://example.com/info/",
+  "type": "Text",
   "label": "Related Web Page",
   "format": "text/html"}]}
 ```
@@ -556,8 +556,8 @@ The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id`, 
 
 ``` json-doc
 {"rendering": [{
-  "id": "https://example.org/1.pdf", 
-  "type": "Text", 
+  "id": "https://example.org/1.pdf",
+  "type": "Text",
   "label": "PDF Rendering of Book",
   "format": "application/pdf"}]}
 ```
@@ -579,7 +579,7 @@ The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id` a
 ```
 
 ##### seeAlso
-A link to a machine readable document that is related to the resource with the `seeAlso` property, such as an XML or RDF description. Properties of the document should be given to help the client select between multiple descriptions (if provided), and to make appropriate use of the document. If the relationship between the resource and the document needs to be more specific, then the document should include that relationship rather than the IIIF resource. Other IIIF resources, such as a related Manifest, are valid targets for `seeAlso`. The URI of the document _MUST_ identify a single representation (the data in a particular format). For example, if the same data exists in JSON and XML, then separate resources should be added for each representation, with distinct `id` and `format` properties.
+A link to a machine readable document that is related to the resource with the `seeAlso` property, such as an XML or RDF description. Properties of the document should be given to help the client select between multiple descriptions (if provided), and to make appropriate use of the document. If the relationship between the resource and the document needs to be more specific, then the document should include that relationship rather than the IIIF resource. Other IIIF resources, such as a related Manifest, are valid targets for `seeAlso`. The URI of the document _MUST_ identify a single representation of the data in a particular format. For example, if the same data exists in JSON and XML, then separate resources should be added for each representation, with distinct `id` and `format` properties.
 
 The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `label`, `format` and `profile` properties.
 
