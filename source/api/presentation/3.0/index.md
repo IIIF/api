@@ -1179,7 +1179,7 @@ Additional features of the [Web Annotation][webanno] data model _MAY_ also be us
 
 ###  5.6. Range
 
-Ranges are used to describe additional structure within an object, such as newspaper sections or articles, or chapters within a book. Ranges can include Canvases, parts of Canvases, or other Ranges, creating a tree structure like a table of contents.
+Ranges are used to represent structure within an object beyond the overall Sequence, such as newspaper sections or articles, chapters within a book, or movements within a piece of music. Ranges can include Canvases, parts of Canvases, or other Ranges, creating a tree structure like a table of contents.
 
 The intent of adding a Range to the Manifest is to allow the client to display a hierarchical navigation interface to enable the user to quickly move through the object's content. Clients _SHOULD_ present only Ranges with the `label` property and without the "no-nav" `renderingHint` to the user. Clients _SHOULD NOT_ render Canvas labels as part of the navigation, and a Range that wraps the Canvas _MUST_ be created if this is the desired presentation.
 
@@ -1187,7 +1187,9 @@ Ranges _MUST_ have URIs and they _SHOULD_ be http(s) URIs.  Ranges are embedded 
 
 All of the Canvases or parts that should be considered as being part of a Range _MUST_ be included within the Range's `items` list, or a descendant Range's `items`. 
 
-The Canvases and parts of Canvases may or may not be contiguous or in the same order as in any Sequence.  Examples include newspaper articles that are continued in different sections, or simply a chapter that starts half way through a page. Parts of Canvases _MUST_ be rectangular and are described by appending an `xywh=` fragment to the end of the Canvas's URI.
+Parts of Canvases are still Canvases and have a `type` of "Canvas". Spatial parts of Canvases _MUST_ be rectangular and are described by appending an `xywh=` fragment to the end of the Canvas's URI. Temporal parts of Canvases _MUST_ be described by appending a `t=` fragment to the end of the Canvas's URI. Spatial and temporal fragments _MAY_ be combined, using an `&` character between them. 
+
+The Canvases and parts of Canvases need not be contiguous or in the same order as in any Sequence. Examples include newspaper articles that are continued in different sections, a chapter that starts half way through a page, or time segments of a single canvas that represent different sections of a piece of music. 
 
 Ranges _MAY_ link to an AnnotationCollection that has the content of the Range using the `includes` property. The referenced AnnotationCollection will contain Annotations that target areas of Canvases within the Range and link content resources to those Canvases.
 
