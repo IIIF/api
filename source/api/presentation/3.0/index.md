@@ -1440,36 +1440,38 @@ And the corresponding first page of manifests:
 
 This section describes the _RECOMMENDED_ request and response interactions for the API. The REST and simple HATEOAS approach is followed where an interaction will retrieve a description of the resource, and additional calls may be made by following links obtained from within the description. All of the requests use the HTTP GET method; creation and update of resources is not covered by this specification.
 
-###  6.1. Requests
+### 6.1 URI Recommendations
 
-Clients _MUST NOT_ construct resource URIs by themselves, instead they _MUST_ follow links from within retrieved descriptions.
+While any URI is technically acceptable for any of the resources in the API, there are several best practices for designing the URIs for the resources.
 
-Implementation note doesn't belong in spec
-{: .warning}
-In the situation where the JSON documents are maintained in a filesystem with no access to the web server's configuration, then including ".json" on the end of the URI is suggested to ensure that an appropriate `content-type` response header is sent to the client.
+* The URI _SHOULD_ use the HTTPS scheme, not HTTP.
+* The URI _SHOULD NOT_ include query parameters or fragments.
+* Once published, they _SHOULD_ be as persistent and unchanging as possible.
+* Special characters _MUST_ be encoded.
 
+###  6.2. Requests
 
-###  6.2. Responses
+Clients _MUST NOT_ attempt to construct resource URIs by themselves, instead they _MUST_ follow links from within retrieved descriptions or elsewhere.
 
-The format for all responses is JSON, and the following sections describe the structure to be returned.
+###  6.3. Responses
 
+The format for all responses is JSON, as described above.  The different requirements for which resources _MUST_ provide a response is summarized in [Appendix A][appendixa-prezi30]. While some resources do not require their URI to provide the description, it is good practice if possible.
 
-
-The content-type of the response _SHOULD_ be "application/ld+json" (JSON-LD) with the `profile` parameter given as the context document: `http://iiif.io/api/presentation/3/context.json`.
+The HTTP `Content-Type` header of the response _SHOULD_ have the value "application/ld+json" (JSON-LD) with the `profile` parameter given as the context document: `http://iiif.io/api/presentation/3/context.json`.
 
 ``` none
 Content-Type: application/ld+json;profile="http://iiif.io/api/presentation/3/context.json"
 ```
 {: .urltemplate}
 
-If this cannot be generated due to server configuration details, then the content-type _MUST_ instead be `application/json` (regular JSON).
+If this cannot be generated due to server configuration details, then the content-type _MUST_ instead be `application/json` (regular JSON), without a `profile` parameter.
 
 ``` none
 Content-Type: application/json
 ```
 {: .urltemplate}
 
-The HTTP server _MUST_ follow the CORS requirements, including the `Access-Control-Allow-Origin` and the value of the header _SHOULD_ be `*`.
+The HTTP server _MUST_ follow the [CORS requirements][w3c-cors] to enable browser-based clients to retrieve the descriptions. In particular, the response _MUST_ include the `Access-Control-Allow-Origin` header, and the value _SHOULD_ be `*`.
 
 ``` none
 Access-Control-Allow-Origin: *
@@ -1478,7 +1480,7 @@ Access-Control-Allow-Origin: *
 
 Responses _SHOULD_ be compressed by the server as there are significant performance gains to be made for very repetitive data structures.
 
-Recipes for enabling CORS and the conditional Content-type header are provided in the [Apache HTTP Server Implementation Notes][apache-notes].
+Recipes for enabling CORS, conditional Content-Type headers and other technical details are provided in the [Apache HTTP Server Implementation Notes][apache-notes].
 
 
 ## 7. Authentication
