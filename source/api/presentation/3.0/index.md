@@ -463,11 +463,11 @@ The value _MUST_ be a string, taken from the table below or a full URI.
 ```
 
 ##### behavior
-A set of flags that describe requested methods for the client to use when displaying the resource to the user. This specification defines the values specified in the table below. Others may be defined externally, and would be given as a URI.
+A set of user experience features for the client to use when presenting this resource to the user. This specification defines the values specified in the table below. Others may be defined externally, and would be given as a URI.
 
 The value _MUST_ be an array of strings, taken from the table below or a URI.
 
- * Any resource type _MAY_ have one or more `behavior`s.<br/>
+ * Any resource type _MAY_ have one or more features in `behavior`.<br/>
    Clients _SHOULD_ process `behavior` on any resource where it is valid, unless otherwise stated in the table below (e.g. `non-paged`, `facing-pages`).
 
 > | Value | Description |
