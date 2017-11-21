@@ -78,7 +78,7 @@ The intent of adopting this pattern is ensure performance and simplicity of impl
 
 ### 2.7. Follow Linked Data Principles
 
-IIIF specifications conform to [Linked Data][lod], and relevant [web architecture][webarch] standards as defined by the W3C and IETF. They should not require an RDF based development stack to implement, but it must be possible to implement using one.  It should be possible to transform representations back and forth between triples and the [JSON-LD][json-ld] serialization without loss, but not necessarily without the use of custom code.
+IIIF specifications conform to [Linked Data][lod], and relevant [web architecture][webarch] standards as defined by the W3C and IETF. They should not require an RDF based development stack to implement, but it must be possible to implement using one.  It should be possible to transform the data present in a single document back and forth between triples and the [JSON-LD][json-ld] serialization without loss, but not necessarily without the use of custom code. 
 
 The intent of adopting this pattern is to ensure that the data published via IIIF specifications can be part of the Web, not just on the Web. The semantics of the properties and classes used in the APIs are therefore self-documenting and able to be shared.
 
