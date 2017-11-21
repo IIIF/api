@@ -219,7 +219,7 @@ The value of the property _MUST_ be a JSON object, as described in the [language
 ```
 
 ##### thumbnail
-A small content resource that represents the resource that the property is attached to, such as a small image or short audio clip.  It is _RECOMMENDED_ that a [IIIF Image API][image-api] service be available for images to enable manipulations such as resizing.
+A content resource that represents the IIIF resource, such as a small image or short audio clip.  It is _RECOMMENDED_ that a [IIIF Image API][image-api] service be available for images to enable manipulations such as resizing. The same resource _MAY_ have multiple thumbnails with the same or different `type` and `format`.
 
 The value _MUST_ be a JSON array, with each item in the array being a JSON object that _MUST_ have an `id` property and _SHOULD_ have at least one of `type` and `format`.
 
@@ -297,11 +297,11 @@ The value _MUST_ be an array of JSON objects, each of which _MUST_ have an `id` 
 
 ##### id
 
-The URI that identifies the resource. It is _RECOMMENDED_ that an HTTPS URI be used for all resources.
+The URI that identifies the resource. It is _RECOMMENDED_ that an HTTPS URI be used for all resources. If the resource is only available embedded within another resource, such as a Sequence within a Manifest, then the URI _MAY_ be the URI of the encapsulating resource with a unique fragment on the end. This is not true for Canvases, which _MUST_ have their own URI without a fragment.
 
 The value _MUST_ be a string.
 
- * A Collection _MUST_ have exactly one `id`, and it _MUST_ be the http(s) URI at which it is published.<br/>
+ * A Collection _MUST_ have exactly one `id`, and it _MUST_ be the http(s) URI at which it is published. <br/>
    Clients _SHOULD_ render `id` on a Collection.
  * A Manifest _MUST_ have exactly one `id`, and it _MUST_ be the http(s) URI at which it is published.<br/>
    Clients _SHOULD_ render `id` on a Manifest.
@@ -341,7 +341,7 @@ The value _MUST_ be a string.
 | `Sound`       | Auditory resources primarily intended to be heard |
 | `Text`        | Resources primarily intended to be read |
 | `Video`       | Moving images, with or without accompanying audio |
-{: .api-table}
+{: .api-table #table-type}
 
 ``` json-doc
 {"type": "Dataset"}
@@ -363,6 +363,20 @@ Note that this is different to the `formats` property in the [Image API][image-a
 {"type": "Dataset", "format": "application/xml"}
 ```
 
+##### language
+The language or languages used in the content of an external resource. This property is already available from the Web Annotation model for content resources that are the body or target of an Annotation, however it _MAY_ also be used for resources referenced from `related`, `rendering`, `rights`, and `within`.
+
+The value _MUST_ be an array of strings.
+
+ * An external resource _MAY_ have one or more `language` values, and each value _MUST_ be a valid language code, as described under the [languages section][languages-prezi30].<br/>
+   Clients _SHOULD_ process the `language` of external resources to present the most appropriate content to the user.
+ * Other resource types _MUST NOT_ have a `language`.<br/>
+   Clients _SHOULD_ ignore `language` on other resource types.
+
+``` json-doc
+{"rendering": [{"id": "http://example.org/docs/doc.pdf", "type": "Text", "format": "application/pdf", "language": ["en"]}]}
+```
+
 ##### profile
 
 A schema or named set of functionality available from the resource.  The profile can further clarify the `type` and/or `format` of an external resource or service, allowing clients to customize their handling of the resource.
@@ -372,12 +386,12 @@ The value _MUST_ be a string, either taken from the table below or a URI.
 * Services and resources referenced by `seeAlso` _SHOULD_ have exactly one `profile`.
   Clients _SHOULD_ process the `profile` of a service or external resource.
 * Other resource types _MAY_ have exactly one `profile`.
-  Clients _MAY_ process the `profile` of other resource types. 
+  Clients _MAY_ process the `profile` of other resource types.
 
 ``` json-doc
 {
-  "type": "Dataset", 
-  "format": "application/xml", 
+  "type": "Dataset",
+  "format": "application/xml",
   "profile": "info:srw/schema/1/mods-v3.3"
 }
 ```
@@ -456,7 +470,7 @@ The value _MUST_ be a string, taken from the table below or a full URI.
 | `right-to-left` | The object is displayed from right to left. |
 | `top-to-bottom` | The object is displayed from the top to the bottom. |
 | `bottom-to-top` | The object is displayed from the bottom to the top. |
-{: .api-table}
+{: .api-table #table-direction}
 
 ``` json-doc
 {"renderingDirection": "left-to-right"}
@@ -482,7 +496,7 @@ The value _MUST_ be an array of strings, taken from the table below or a full UR
 | `no-nav` | Valid only for Range. Ranges with this hint _MUST NOT_ be displayed to the user in a navigation hierarchy. This allows for Ranges to be present that capture unnamed regions with no interesting content. |
 | `auto-advance` | Valid on Collection, Manifest, Sequence and Canvas. When the client reaches the end of a Canvas with a duration dimension that has (or is within a resource that has) this hint, it _SHOULD_ immediately proceed to the next Canvas and render it. If there is no subsequent Canvas in the current context, then this hint should be ignored. When applied to a Collection, the client should treat the first Canvas of the next Manifest as following the last Canvas of the previous Manifest, respecting any `startCanvas` specified.|
 | `together` | Valid only for Collection. A client _SHOULD_ present all of the child Manifests to the user at once in a separate viewing area with its own controls. Clients _SHOULD_ catch attempts to create too many viewing areas. The `together` value _SHOULD NOT_ be interpreted as applying to the members any child resources.|
-{: .api-table}
+{: .api-table #table-behavior}
 
 ``` json-doc
 {"renderingHint": ["auto-advance", "individuals"]}
@@ -502,7 +516,7 @@ The value _MUST_ be a string, taken from the table below or a full URI.
 | `trim` | (default, if not supplied) If the content resource has a longer duration than the duration of portion of the Canvas it is associated with, then at the end of the Canvas's duration, the playback of the content resource _MUST_ also end. If the content resource has a shorter duration than the duration of the portion of the Canvas it is associated with, then, for video resources, the last frame _SHOULD_ persist on-screen until the end of the Canvas portion's duration. For example, a video of 120 seconds annotated to a Canvas with a duration of 100 seconds would play only the first 100 seconds and drop the last 20 second. |
 | `scale` | Fit the duration of content resource to the duration of the portion of the Canvas it is associated with by scaling. For example, a video of 120 seconds annotated to a Canvas with a duration of 60 seconds would be played at double-speed. |
 | `loop` | If the content resource is shorter than the `duration` of the Canvas, it _MUST_ be repeated to fill the entire duration. Resources longer than the `duration` _MUST_ be trimmed as described above. For example, if a 20 second duration audio stream is annotated onto a Canvas with duration 30 seconds, it will be played one and a half times. |
-{: .api-table}
+{: .api-table #table-timemode}
 
 ``` json-doc
 {"timeMode": "trim"}
@@ -522,8 +536,8 @@ The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id`, 
 
 ``` json-doc
 {"related": [{
-  "id": "https://example.com/info/", 
-  "type": "Text", 
+  "id": "https://example.com/info/",
+  "type": "Text",
   "label": "Related Web Page",
   "format": "text/html"}]}
 ```
@@ -538,8 +552,8 @@ The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id`, 
 
 ``` json-doc
 {"rendering": [{
-  "id": "https://example.org/1.pdf", 
-  "type": "Text", 
+  "id": "https://example.org/1.pdf",
+  "type": "Text",
   "label": "PDF Rendering of Book",
   "format": "application/pdf"}]}
 ```
@@ -561,7 +575,7 @@ The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id` a
 ```
 
 ##### seeAlso
-A link to a machine readable document that is related to the resource with the `seeAlso` property, such as an XML or RDF description. Properties of the document should be given to help the client select between multiple descriptions (if provided), and to make appropriate use of the document. If the relationship between the resource and the document needs to be more specific, then the document should include that relationship rather than the IIIF resource. Other IIIF resources, such as a related Manifest, are valid targets for `seeAlso`.
+A link to a machine readable document that is related to the resource with the `seeAlso` property, such as an XML or RDF description. Properties of the document should be given to help the client select between multiple descriptions (if provided), and to make appropriate use of the document. If the relationship between the resource and the document needs to be more specific, then the document should include that relationship rather than the IIIF resource. Other IIIF resources, such as a related Manifest, are valid targets for `seeAlso`. The URI of the document _MUST_ identify a single representation of the data in a particular format. For example, if the same data exists in JSON and XML, then separate resources should be added for each representation, with distinct `id` and `format` properties.
 
 The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `label`, `format` and `profile` properties.
 
@@ -570,7 +584,7 @@ The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id` a
 
 ``` json-doc
 {"seeAlso" : [{
-    "@id": "http://example.org/library/catalog/book1.xml",
+    "id": "http://example.org/library/catalog/book1.xml",
     "type": "Dataset",
     "format": "text/xml",
     "profile": "http://example.org/profiles/bibliographic"
@@ -749,12 +763,12 @@ The value _MUST_ be an array of objects.
 
 ##### structures
 
-The structure of an object represented as a Manifest can be described using a hierarchy of Ranges.  The top level Ranges of these hierarchies are given in the `structures` property.
+The structure of an object represented as a Manifest can be described using a hierarchy of Ranges. Ranges can be used to describe the "table of contents" of the object or other structures that the user can interact with beyond a simple linear progression described in the Sequence. The hierarchy is built by nesting the child Range resources in the `items` array of the higher level Range. The top level Ranges of these hierarchies are given in the `structures` property. 
 
 The value _MUST_ be an array of objects.
 
 * A Manifest _MAY_ have a list of one or more Ranges in `structures`.<br/>
-  Clients _SHOULD_ process `structures` on a Manifest.
+  Clients _SHOULD_ process `structures` on a Manifest. The first hierarchy _SHOULD_ be presented to the user by default, and further hierarchies _SHOULD_ be able to be selected as alternative structures by the user.
 
 ```json-doc
 {"structures": [
@@ -1442,36 +1456,38 @@ And the corresponding first page of manifests:
 
 This section describes the _RECOMMENDED_ request and response interactions for the API. The REST and simple HATEOAS approach is followed where an interaction will retrieve a description of the resource, and additional calls may be made by following links obtained from within the description. All of the requests use the HTTP GET method; creation and update of resources is not covered by this specification.
 
-###  6.1. Requests
+### 6.1 URI Recommendations
 
-Clients _MUST NOT_ construct resource URIs by themselves, instead they _MUST_ follow links from within retrieved descriptions.
+While any URI is technically acceptable for any of the resources in the API, there are several best practices for designing the URIs for the resources.
 
-Implementation note doesn't belong in spec
-{: .warning}
-In the situation where the JSON documents are maintained in a filesystem with no access to the web server's configuration, then including ".json" on the end of the URI is suggested to ensure that an appropriate `content-type` response header is sent to the client.
+* The URI _SHOULD_ use the HTTPS scheme, not HTTP.
+* The URI _SHOULD NOT_ include query parameters or fragments.
+* Once published, they _SHOULD_ be as persistent and unchanging as possible.
+* Special characters _MUST_ be encoded.
 
+###  6.2. Requests
 
-###  6.2. Responses
+Clients _MUST NOT_ attempt to construct resource URIs by themselves, instead they _MUST_ follow links from within retrieved descriptions or elsewhere.
 
-The format for all responses is JSON, and the following sections describe the structure to be returned.
+###  6.3. Responses
 
+The format for all responses is JSON, as described above.  The different requirements for which resources _MUST_ provide a response is summarized in [Appendix A][appendixa-prezi30]. While some resources do not require their URI to provide the description, it is good practice if possible.
 
-
-The content-type of the response _SHOULD_ be "application/ld+json" (JSON-LD) with the `profile` parameter given as the context document: `http://iiif.io/api/presentation/3/context.json`.
+The HTTP `Content-Type` header of the response _SHOULD_ have the value "application/ld+json" (JSON-LD) with the `profile` parameter given as the context document: `http://iiif.io/api/presentation/3/context.json`.
 
 ``` none
 Content-Type: application/ld+json;profile="http://iiif.io/api/presentation/3/context.json"
 ```
 {: .urltemplate}
 
-If this cannot be generated due to server configuration details, then the content-type _MUST_ instead be `application/json` (regular JSON).
+If this cannot be generated due to server configuration details, then the content-type _MUST_ instead be `application/json` (regular JSON), without a `profile` parameter.
 
 ``` none
 Content-Type: application/json
 ```
 {: .urltemplate}
 
-The HTTP server _MUST_ follow the CORS requirements, including the `Access-Control-Allow-Origin` and the value of the header _SHOULD_ be `*`.
+The HTTP server _MUST_ follow the [CORS requirements][w3c-cors] to enable browser-based clients to retrieve the descriptions. In particular, the response _MUST_ include the `Access-Control-Allow-Origin` header, and the value _SHOULD_ be `*`.
 
 ``` none
 Access-Control-Allow-Origin: *
@@ -1480,14 +1496,14 @@ Access-Control-Allow-Origin: *
 
 Responses _SHOULD_ be compressed by the server as there are significant performance gains to be made for very repetitive data structures.
 
-Recipes for enabling CORS and the conditional Content-type header are provided in the [Apache HTTP Server Implementation Notes][apache-notes].
+Recipes for enabling CORS, conditional Content-Type headers and other technical details are provided in the [Apache HTTP Server Implementation Notes][apache-notes].
 
 
 ## 7. Authentication
 
 It may be necessary to restrict access to the descriptions made available via the Presentation API.  As the primary means of interaction with the descriptions is by web browsers using XmlHttpRequests across domains, there are some considerations regarding the most appropriate methods for authenticating users and authorizing their access.  The approach taken is described in the [Authentication][auth] specification, and requires requesting a token to add to the requests to identify the user.  This token might also be used for other requests defined by other APIs.
 
-It is possible to include Image API service descriptions within the manifest, and within those it is also possible to include links to the Authentication API's services that are needed to interact with the image content. The first time an Authentication API service is included within a manifest, it _MUST_ be the complete description. Subsequent references _SHOULD_ be just the URL of the service, and clients are expected to look up the details from the full description by matching the URL.  Clients _MUST_ anticipate situations where the Authentication service description in the manifest is out of date: the source of truth is the Image Information document, or other system that references the Authentication API services.
+It is possible to include Image API service descriptions within the manifest, and within those it is also possible to include links to the Authentication API's services that are needed to interact with the image content. The first time an Authentication API service is included within a manifest, it _MUST_ be the complete description. Subsequent references _SHOULD_ be just the URI of the service, and clients are expected to look up the details from the full description by matching the URI.  Clients _MUST_ anticipate situations where the Authentication service description in the manifest is out of date: the source of truth is the Image Information document, or other system that references the Authentication API services.
 
 ## Appendices
 
@@ -1499,7 +1515,7 @@ It is possible to include Image API service descriptions within the manifest, an
 | ![recommended][icon-recc]  | Recommended |
 | ![optional][icon-opt]      | Optional    |
 | ![not allowed][icon-na]    | Not Allowed |
-{: .api-table}
+{: .api-table #table-reqs-icons} 
 
 __Descriptive and Rights Properties__
 
@@ -1515,7 +1531,7 @@ __Descriptive and Rights Properties__
 | Layer          | ![required][icon-req]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
 | Image Content  | ![optional][icon-opt]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
 | Other Content  | ![optional][icon-opt]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
-{: .api-table}
+{: .api-table #table-reqs-1}
 
 __Technical Properties__
 
@@ -1531,7 +1547,7 @@ __Technical Properties__
 | Layer          | ![required][icon-req]     | ![required][icon-req] | ![not allowed][icon-na] | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![optional][icon-opt]   | ![optional][icon-opt]  | ![not allowed][icon-na]  |
 | Image Content  | ![required][icon-req]     | ![required][icon-req] | ![optional][icon-opt]   | ![recommended][icon-opt]  | ![recommended][icon-opt]  | ![not allowed][icon-na] | ![optional][icon-opt]  | ![not allowed][icon-na]  |
 | Other Content  | ![required][icon-req]     | ![required][icon-req] | ![optional][icon-opt]   | ![optional][icon-opt]     | ![optional][icon-opt]     | ![not allowed][icon-na] | ![optional][icon-opt]  | ![not allowed][icon-na]  |
-{: .api-table}
+{: .api-table #table-reqs-2}
 
 __Linking Properties__
 
@@ -1547,7 +1563,7 @@ __Linking Properties__
 | Layer          | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![not allowed][icon-na] |
 | Image Content  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![not allowed][icon-na] |
 | Other Content  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![not allowed][icon-na] |
-{: .api-table}
+{: .api-table #table-reqs-3}
 
 __Paging Properties__
 
@@ -1563,7 +1579,7 @@ __Paging Properties__
 | Layer          | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na] |
 | Image Content  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na] |
 | Other Content  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na]  | ![not allowed][icon-na] |
-{: .api-table}
+{: .api-table #table-reqs-4}
 
 __Structural Properties__
 
@@ -1579,7 +1595,7 @@ __Structural Properties__
 | Layer          | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![optional][icon-opt]   | ![not allowed][icon-na] | ![not allowed][icon-na] |
 | Image Content  | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] |
 | Other Content  | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] |
-{: .api-table}
+{: .api-table #table-reqs-5}
 
 
 __Protocol Behavior__
@@ -1596,7 +1612,7 @@ __Protocol Behavior__
 | Layer          | ![optional][icon-opt]  |
 | Image Content  | ![required][icon-req]  |
 | Other Content  | ![required][icon-req]  |
-{: .api-table}
+{: .api-table #table-reqs-deref}
 
 ### B. Example Manifest Response
 
