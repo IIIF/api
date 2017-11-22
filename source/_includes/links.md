@@ -49,4 +49,5 @@
 [web-arch]: http://www.w3.org/TR/webarch/ "Architecture of the World Wide Web"
 [webanno]: http://w3.org/TR/annotation-model/
 [webannoprotocol]: http://w3.org/TR/annotation-protocol/
+[w3c-cors]: https://www.w3.org/TR/cors/
 [xpath]: https://en.wikipedia.org/wiki/XPointer "XPath / XPointer"
