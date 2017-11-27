@@ -301,21 +301,21 @@ The URI that identifies the resource. It is _RECOMMENDED_ that an HTTPS URI be u
 
 The value _MUST_ be a string.
 
- * A Collection _MUST_ have exactly one `id`, and it _MUST_ be the http(s) URI at which it is published. <br/>
+ * A Collection _MUST_ have exactly one `id`, and it _MUST_ be the HTTP(S) URI at which it is published. <br/>
    Clients _SHOULD_ render `id` on a Collection.
- * A Manifest _MUST_ have exactly one `id`, and it _MUST_ be the http(s) URI at which it is published.<br/>
+ * A Manifest _MUST_ have exactly one `id`, and it _MUST_ be the HTTP(S) URI at which it is published.<br/>
    Clients _SHOULD_ render `id` on a Manifest.
  * A Sequence _MAY_ have an `id` and _MUST NOT_ have more than one.<br/>
    Clients _MAY_ render `id` on a Sequence.
- * A Canvas _MUST_ have exactly one `id`, and it _MUST_ be an http(s) URI.  The Canvas's JSON representation _MAY_ be published at that URI.<br/>
+ * A Canvas _MUST_ have exactly one `id`, and it _MUST_ be an HTTP(S) URI.  The Canvas's JSON representation _MAY_ be published at that URI.<br/>
    Clients _SHOULD_ render `id` on a Canvas.
- * A content resource _MUST_ have exactly one `id`, and it _MUST_ be the http(s) URI at which the resource is published.<br/>
+ * A content resource _MUST_ have exactly one `id`, and it _MUST_ be the HTTP(S) URI at which the resource is published.<br/>
    Clients _MAY_ render `id` on content resources.
- * A Range _MUST_ have exactly one `id`, and it _MUST_ be an http(s) URI.<br/>
+ * A Range _MUST_ have exactly one `id`, and it _MUST_ be an HTTP(S) URI.<br/>
    Clients _MAY_ render `id` on a Range.
- * An AnnotationCollection _MUST_ have exactly one `id`, and it _MUST_ be an http(s) URI.<br/>
+ * An AnnotationCollection _MUST_ have exactly one `id`, and it _MUST_ be an HTTP(S) URI.<br/>
    Clients _MAY_ render `id` on an AnnotationCollection.
- * An AnnotationPage _MUST_ have exactly one `id`, and it _MUST_ be the http(s) URI at which it is published.<br/>
+ * An AnnotationPage _MUST_ have exactly one `id`, and it _MUST_ be the HTTP(S) URI at which it is published.<br/>
    Clients _MAY_ render `id` on an AnnotationPage.
  * An Annotation _MUST_ have exactly one `id`, and the Annotation's representation _SHOULD_ be published at that URI.<br/>
    Clients _MAY_ render `id` on an Annotation.
@@ -584,7 +584,7 @@ The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id` a
 
 ``` json-doc
 {"seeAlso" : [{
-    "id": "http://example.org/library/catalog/book1.xml",
+    "id": "https://example.org/library/catalog/book1.xml",
     "type": "Dataset",
     "format": "text/xml",
     "profile": "http://example.org/profiles/bibliographic"
@@ -773,7 +773,7 @@ The value _MUST_ be an array of objects.
 ```json-doc
 {"structures": [
   {
-    "id": "http://example.org/iiif/range/1",
+    "id": "https://example.org/iiif/range/1",
     "type": "Range",
     "items": [{ ... }]
   }
@@ -790,7 +790,7 @@ The value _MUST_ be an array of objects. Each object _MUST_ have at least the `i
 ```json-doc
 {"annotations": [
   {
-    "id": "http://example.org/iiif/annotationPage/1",
+    "id": "https://example.org/iiif/annotationPage/1",
     "type": "AnnotationPage",
     "items": [{ ... }]
   }
@@ -803,16 +803,16 @@ This section describes features applicable to all of the Presentation API conten
 
 ### 4.1. HTTPS URI Scheme
 
-It is strongly _RECOMMENDED_ that all URIs use the HTTPS scheme, and be available via that protocol.  All URIs _MUST_ be either HTTPS or HTTP, described more simply as "http(s)".
+It is strongly _RECOMMENDED_ that all URIs use the HTTPS scheme, and be available via that protocol.  All URIs _MUST_ be either HTTPS or HTTP, abbreviated to "HTTP(S)" in this specification.
 
 ### 4.2. URI Representation
 
-Resource descriptions _SHOULD_ be embedded within higher-level descriptions, and _MAY_ also be available via separate requests from http(s) URIs linked in the responses. These URIs are in the `id` property for the resource. Links to resources _MUST_ be given as a JSON object with the `id` property and at least one other property, typically either `type`, `format` or `profile` to give a hint as to what sort of resource is being referred to. Other URI schemes _MAY_ be used if the resource is not able to be retrieved via HTTP.
+Resource descriptions _SHOULD_ be embedded within higher-level descriptions, and _MAY_ also be available via separate requests from HTTP(S) URIs linked in the responses. These URIs are in the `id` property for the resource. Links to resources _MUST_ be given as a JSON object with the `id` property and at least one other property, typically either `type`, `format` or `profile` to give a hint as to what sort of resource is being referred to. Other URI schemes _MAY_ be used if the resource is not able to be retrieved via HTTP(S).
 
 ``` json-doc
 {
   "thumbnail": [
-    {"id": "http://example.org/images/thumb1.jpg", "type": "Image"}
+    {"id": "https://example.org/images/thumb1.jpg", "type": "Image"}
   ]
 }
 ```
@@ -824,8 +824,8 @@ Any of the properties in the API that can have multiple values _MUST_ always be 
 ``` json-doc
 {
   "seeAlso": [
-    {"id": "http://example.org/images/thumb1.jpg", "type": "Image"},
-    {"id": "http://example.org/videos/thumb1.pmg", "type": "Video"}   
+    {"id": "https://example.org/images/thumb1.jpg", "type": "Image"},
+    {"id": "https://example.org/videos/thumb1.pmg", "type": "Video"}   
   ]
 }
 ```
@@ -906,7 +906,7 @@ This section provides detailed description of the resource types used in this sp
 
 The Manifest resource typically represents a single object and any intellectual work or works embodied within that object. In particular it includes the descriptive, rights and linking information for the object. It then embeds the Sequence(s) of Canvases that should be rendered to the user. The Manifest response contains sufficient information for the client to initialize itself and begin to display something quickly to the user.
 
-The identifier in `id` _MUST_ be able to be dereferenced to retrieve the JSON description of the Manifest, and thus _MUST_ use the http(s) URI scheme.
+The identifier in `id` _MUST_ be able to be dereferenced to retrieve the JSON description of the Manifest, and thus _MUST_ use the HTTP(S) URI scheme.
 
 Along with the descriptive information, there is an `items` section, which is a list of JSON-LD objects. Each object describes a [Sequence][sequence-prezi30], discussed in the next section, that represents the order of the parts of the work, each represented by a [Canvas][canvas-prezi30].  There _MUST_ be at least one Sequence, and the first Sequence _MUST_ be included within the Manifest as well as optionally being available from its own URI. Subsequent Sequences _MAY_ be embedded within the Manifest, or referenced with their identifier (`id`), class (`type`) and label (`label`).
 
@@ -923,7 +923,7 @@ The example below includes only the Manifest-level information, however actual i
     "http://www.w3.org/ns/anno.jsonld",
     "http://iiif.io/api/presentation/{{ page.major }}/context.json"
   ],
-  "id": "http://example.org/iiif/book1/manifest",
+  "id": "https://example.org/iiif/book1/manifest",
   "type": "Manifest",
 
   // Descriptive metadata about the object/work
@@ -944,10 +944,10 @@ The example below includes only the Manifest-level information, however actual i
   "description": {"en": ["Book 1, written be Anne Author, published in Paris around 1400."]},
 
   "thumbnail": [{
-    "id": "http://example.org/images/book1-page1/full/80,100/0/default.jpg",
+    "id": "https://example.org/images/book1-page1/full/80,100/0/default.jpg",
     "type": "Image",
     "service": {
-      "id": "http://example.org/images/book1-page1",
+      "id": "https://example.org/images/book1-page1",
       "type": "ImageService3",
       "profile": "level1"
     }
@@ -966,9 +966,9 @@ The example below includes only the Manifest-level information, however actual i
     "format": "text/html"}],
   "attribution": {"en": ["Provided by Example Organization"]},
   "logo": {
-    "id": "http://example.org/logos/institution1.jpg",
+    "id": "https://example.org/logos/institution1.jpg",
     "service": {
-        "id": "http://example.org/service/inst1",
+        "id": "https://example.org/service/inst1",
         "type": "ImageService3",
         "profile": "level2"
     }
@@ -976,18 +976,18 @@ The example below includes only the Manifest-level information, however actual i
 
   // Links
   "related": [{
-    "id": "http://example.org/videos/video-book1.mpg",
+    "id": "https://example.org/videos/video-book1.mpg",
     "type": "Video",
     "label": {"en":["Video discussing this book"]},
     "format": "video/mpeg"
   }],
   "service": [{
-    "id": "http://example.org/service/example",
+    "id": "https://example.org/service/example",
     "type": "Service",
     "profile": "http://example.org/docs/example-service.html"
   }],
   "seeAlso": [{
-    "id": "http://example.org/library/catalog/book1.xml",
+    "id": "https://example.org/library/catalog/book1.xml",
     "type": "Dataset",
     "format": "text/xml",
     "profile": "http://example.org/profiles/bibliographic"
