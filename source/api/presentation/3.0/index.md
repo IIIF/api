@@ -146,7 +146,7 @@ An ordered list of Canvases, and/or further Ranges.  Ranges allow Canvases, or p
 
 ##  3. Resource Properties
 
-This specification defines properties in five distinct areas. Most of the properties may be associated with any of the resource types described above, and may have more than one value.  The property relates to the resource that it is associated with, so a `description` property on a Manifest is a description of the object, whereas a `description` property on a Canvas is a description of that particular view.
+This specification defines properties in five distinct areas. Most of the properties may be associated with any of the resource types described above, and may have more than one value.  The property relates to the resource that it is associated with,  so the `label` property on a Manifest is the human readable label of the Manifest, whereas the same `label` property on a Canvas is the human readable label for that particular view.  In the descriptions of the properties, the resource that the property is associated with is called "this resource".
 
 The requirements for which classes have which properties are summarized in [Appendix A][appendixa-prezi30].
 
@@ -155,7 +155,7 @@ Other properties are allowed, either via custom extensions or endorsed by IIIF. 
 ###  3.1. Descriptive Properties
 
 ##### label
-A human readable label, name or title for the resource. This property is intended to be displayed as a short, textual surrogate for the resource if a human needs to make a distinction between it and similar resources, for example between pages or between a choice of images to display.
+A human readable label, name or title for this resource. This property is intended to be displayed as a short, textual surrogate for the resource if a human needs to make a distinction between it and similar resources, for example between objects, pages, or options for a choice of images to display.
 
 The value of the property _MUST_ be a JSON object, as described in the [languages][languages-prezi30] section.
 
@@ -181,7 +181,7 @@ The value of the property _MUST_ be a JSON object, as described in the [language
 ```
 
 ##### metadata
-A list of descriptive entries, given as pairs of human readable `label` and `value` to be displayed to the user. There are no semantics conveyed by this information, only strings to present to the user.  A pair might be used to convey to the user information such as information about the creation of the object, a physical description, or ownership information, amongst other use cases.
+A list of descriptive entries, given as pairs of human readable `label` and `value` entries to be displayed to the user. There are no semantics conveyed by this information, only strings to present to the user when the user is interacting with this resource.  A pair might be used to convey information about the creation of the object, a physical description, ownership information, and many other use cases. 
 
 The value of the `metadata` property _MUST_ be an array of objects, where each object has both `label` and `value` properties. The values of both `label` and `value` _MUST_ be JSON objects, as described in the [languages][languages-prezi30] section.
 
@@ -201,25 +201,10 @@ Clients _SHOULD_ display the pairs in the order provided. Clients _SHOULD NOT_ u
 ```
 
 ##### description
-A short textual description or summary of the resource that the property is attached to, intended to be conveyed to the user when the `metadata` fields are not being displayed.
 
-The value of the property _MUST_ be a JSON object, as described in the [languages][languages-prezi30] section.
-
- * A Collection _SHOULD_ have one or more `description`s.<br/>
-   Clients _SHOULD_ render `description` on a Collection.
- * A Manifest _SHOULD_ have one or more `description`s.
-   Clients _SHOULD_ render `description` on a Manifest.
- * A Canvas _MAY_ have one or more `description`s.<br/>
-   Clients _SHOULD_ render `description` on a Canvas.
- * Other resource types _MAY_ have one or more `description`.<br/>
-   Clients _MAY_ render `description` on other resource types.
-
-``` json-doc
-{"description": {"en": ["This is a summary of the object."]}}
-```
 
 ##### thumbnail
-A content resource that represents the IIIF resource, such as a small image or short audio clip.  It is _RECOMMENDED_ that a [IIIF Image API][image-api] service be available for images to enable manipulations such as resizing. The same resource _MAY_ have multiple thumbnails with the same or different `type` and `format`.
+An external content resource that represents this resource, such as a small image or short audio clip.  It is _RECOMMENDED_ that a [IIIF Image API][image-api] service be available for images to enable manipulations such as resizing. The same resource _MAY_ have multiple thumbnails with the same or different `type` and `format`.
 
 The value _MUST_ be a JSON array, with each item in the array being a JSON object that _MUST_ have an `id` property and _SHOULD_ have at least one of `type` and `format`.
 
@@ -241,7 +226,7 @@ The value _MUST_ be a JSON array, with each item in the array being a JSON objec
 ```
 
 ##### navDate
-A date that the client can use for navigation purposes when presenting the resource to the user in a time-based user interface, such as a calendar or timeline.  The value _MUST_ be an `xsd:dateTime` literal in UTC, expressed in the form "YYYY-MM-DDThh:mm:ssZ".  If the exact time is not known, then "00:00:00" _SHOULD_ be used. Similarly, the month or day _SHOULD_ be 01 if not known.  There _MUST_ be at most one `navDate` associated with any given resource.  More descriptive date ranges, intended for display directly to the user, _SHOULD_ be included in the `metadata` property for human consumption.  
+A date that the client can use for navigation purposes when presenting this resource to the user in a time-based user interface, such as a calendar or timeline.  The value _MUST_ be an `xsd:dateTime` literal in UTC, expressed in the form "YYYY-MM-DDThh:mm:ssZ".  If the exact time is not known, then "00:00:00" _SHOULD_ be used. Similarly, the month or day _SHOULD_ be "01" if not known.  There _MUST_ be at most one `navDate` associated with any given resource.  More descriptive date ranges, intended for display directly to the user, _SHOULD_ be included in the `metadata` property for human consumption.  
 
  * A Collection or Manifest _MAY_ have exactly one navigation date associated with it.<br/>
    Clients _MAY_ render `navDate` on Collections or Manifests.
@@ -257,7 +242,7 @@ A date that the client can use for navigation purposes when presenting the resou
 The following properties ensure that the interests of the owning or publishing institutions are conveyed regardless of the viewing environment. Given the wide variation of potential client user interfaces, it will not always be possible to display all or any of the properties to the user in the client's initial state. If initially hidden, the method of revealing them _MUST_ be obvious, such as a button or scroll bar.
 
 ##### attribution
-Text that must be displayed when the resource it is associated with is displayed or used. For example, this could be used to present copyright or ownership statements, or simply an acknowledgement of the owning and/or publishing institution.
+Text that must be displayed when this resource is displayed or used. For example, the `attribution` property could be used to present copyright or ownership statements, or simply an acknowledgement of the owning and/or publishing institution.
 
 The value of the property _MUST_ be a JSON object, as described in the [languages][languages-prezi30] section.
 
@@ -270,7 +255,7 @@ The value of the property _MUST_ be a JSON object, as described in the [language
 
 ##### rights
 
-A link to an external resource that describes the license or rights statement under which the resource may be used. The rationale for this being a URI and not a human readable label is that typically there is one license for many resources, and the text is too long to be displayed to the user along with the object. If displaying the text is a requirement, then it is _RECOMMENDED_ to include the information using the `attribution` property instead or in `metadata`.
+A link to an external resource that describes the license or rights statement under which this resource may be used. The rationale for the value being a URI and not a human readable text is that typically there is one license for many resources, and the text is too long to be displayed to the user at the same time as the object. If displaying the text directly to the user is a requirement, then it is _RECOMMENDED_ to include the information using the `attribution` property instead, or in `metadata`.
 
 The value _MUST_ be an array of JSON objects, each of which _MUST_ have an `id` and _SHOULD_ have at least one of `type` and `format`.
 
@@ -282,7 +267,7 @@ The value _MUST_ be an array of JSON objects, each of which _MUST_ have an `id` 
 ```
 
 ##### logo
-A small image that represents an individual or organization associated with the resource it is attached to.  This could be the logo of the owning or hosting institution. The logo _MUST_ be clearly rendered when the resource is displayed or used, without cropping, rotating or otherwise distorting the image. It is _RECOMMENDED_ that a [IIIF Image API][image-api] service be available for this image for other manipulations such as resizing.
+A small external image resource that represents an individual or organization associated with this resource.  This could be the logo of the owning or hosting institution. The logo _MUST_ be clearly rendered when the resource is displayed or used, without cropping, rotating or otherwise distorting the image. It is _RECOMMENDED_ that a [IIIF Image API][image-api] service be available for this image for other manipulations such as resizing.
 
 The value _MUST_ be an array of JSON objects, each of which _MUST_ have an `id` and _SHOULD_ have at least one of `type` and `format`.
 
@@ -297,7 +282,7 @@ The value _MUST_ be an array of JSON objects, each of which _MUST_ have an `id` 
 
 ##### id
 
-The URI that identifies the resource. It is _RECOMMENDED_ that an HTTPS URI be used for all resources. If the resource is only available embedded within another resource, such as a Sequence within a Manifest, then the URI _MAY_ be the URI of the encapsulating resource with a unique fragment on the end. This is not true for Canvases, which _MUST_ have their own URI without a fragment.
+The URI that identifies this resource. It is _RECOMMENDED_ that an HTTPS URI be used for all resources. If the resource is only available embedded within another resource, such as a Sequence within a Manifest, then the URI _MAY_ be the URI of the encapsulating resource with a unique fragment on the end. This is not true for Canvases, which _MUST_ have their own URI without a fragment.
 
 The value _MUST_ be a string.
 
