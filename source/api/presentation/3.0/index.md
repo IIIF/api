@@ -200,22 +200,22 @@ Clients _SHOULD_ display the pairs in the order provided. Clients _SHOULD NOT_ u
 {"metadata": [ {"label": {"en": ["Creator"]}, "value": {"en": ["Anne Artist (1776-1824)"]}} ]}
 ```
 
-##### description
-A short textual description or summary of the resource that the property is attached to, intended to be conveyed to the user when the `metadata` fields are not being displayed.
+##### summary
+A short textual summary of this resource, intended to be conveyed to the user when the `metadata` pairs for the resource are not being displayed.  This could be used as a snippet for item level search results, for limited screen real-estate environments, or an alternative in the user interface for when the `metadata` is not being rendered. 
 
 The value of the property _MUST_ be a JSON object, as described in the [languages][languages-prezi30] section.
 
- * A Collection _SHOULD_ have one or more `description`s.<br/>
-   Clients _SHOULD_ render `description` on a Collection.
- * A Manifest _SHOULD_ have one or more `description`s.
-   Clients _SHOULD_ render `description` on a Manifest.
- * A Canvas _MAY_ have one or more `description`s.<br/>
-   Clients _SHOULD_ render `description` on a Canvas.
- * Other resource types _MAY_ have one or more `description`.<br/>
-   Clients _MAY_ render `description` on other resource types.
+ * A Collection _SHOULD_ have one or more `summary`s.<br/>
+   Clients _SHOULD_ render `summary` on a Collection.
+ * A Manifest _SHOULD_ have one or more `summmary`s.
+   Clients _SHOULD_ render `summary` on a Manifest.
+ * A Canvas _MAY_ have one or more `summary`s.<br/>
+   Clients _SHOULD_ render `summary` on a Canvas.
+ * Other resource types _MAY_ have one or more `summary`s.<br/>
+   Clients _MAY_ render `summary` on other resource types.
 
 ``` json-doc
-{"description": {"en": ["This is a summary of the object."]}}
+{"summary": {"en": ["This is a summary of the object."]}}
 ```
 
 ##### thumbnail
@@ -832,7 +832,7 @@ Any of the properties in the API that can have multiple values _MUST_ always be 
 
 ### 4.4. Language of Property Values
 
-Language _MAY_ be associated with strings that are intended to be displayed to the user for the `label`, `description`, `attribution` fields, plus the `label` and `value` fields of the `metadata` construction.
+Language _MAY_ be associated with strings that are intended to be displayed to the user for the `label`, `summary`, `attribution` fields, plus the `label` and `value` fields of the `metadata` construction.
 
 The values of these fields _MUST_ be JSON objects, with the keys being the [RFC 5646][rfc5646] language code for the language, or if the language is either not known or the string does not have a language, then the key must be `"@none"`. The associated values _MUST_ be arrays of strings, where each string is the content in the given language.
 
@@ -862,7 +862,7 @@ Note that this does not apply to embedded textual bodies in Annotations, which u
 
 ### 4.5. HTML Markup in Property Values
 
-Minimal HTML markup _MAY_ be included in the `description`, `attribution` properties and the `value` property of a `label`/`value` pair in `metadata`.  It _MUST NOT_ be used in `label` or other properties. This is included to allow manifest creators to add links and simple formatting instructions to blocks of text. The content _MUST_ be well-formed XML and therefore must be wrapped in an element such as `p` or `span`.  There _MUST NOT_ be whitespace on either side of the HTML string, and thus the first character in the string _MUST_ be a '<' character and the last character _MUST_ be '>', allowing a consuming application to test whether the value is HTML or plain text using these.  To avoid a non-HTML string matching this, it is _RECOMMENDED_ that an additional whitespace character be added to the end of the value in situations where plain text happens to start and end this way.
+Minimal HTML markup _MAY_ be included in the `summary`, `attribution` properties and the `value` property of a `label`/`value` pair in `metadata`.  It _MUST NOT_ be used in `label` or other properties. This is included to allow manifest creators to add links and simple formatting instructions to blocks of text. The content _MUST_ be well-formed XML and therefore must be wrapped in an element such as `p` or `span`.  There _MUST NOT_ be whitespace on either side of the HTML string, and thus the first character in the string _MUST_ be a '<' character and the last character _MUST_ be '>', allowing a consuming application to test whether the value is HTML or plain text using these.  To avoid a non-HTML string matching this, it is _RECOMMENDED_ that an additional whitespace character be added to the end of the value in situations where plain text happens to start and end this way.
 
 In order to avoid HTML or script injection attacks, clients _MUST_ remove:
 
@@ -875,7 +875,7 @@ In order to avoid HTML or script injection attacks, clients _MUST_ remove:
 Clients _SHOULD_ allow only `a`, `b`, `br`, `i`, `img`, `p`, `small`, `span`, `sub` and `sup` tags. Clients _MAY_ choose to remove any and all tags, therefore it _SHOULD NOT_ be assumed that the formatting will always be rendered.
 
 ``` json-doc
-{"description": {"en-latn": ["<p>Short summary <b>description</b></p>"]}}
+{"summary": {"en-latn": ["<p>Short <b>summary</b> of the resource.</p>"]}}
 ```
 
 ### 4.6. Linked Data Context and Extensions
@@ -941,7 +941,7 @@ The example below includes only the Manifest-level information, however actual i
     {"label": {"en": ["Source"]},
      "value": {"@none": ["<span>From: <a href=\"http://example.org/db/1.html\">Some Collection</a></span>"]}}
   ],
-  "description": {"en": ["Book 1, written be Anne Author, published in Paris around 1400."]},
+  "summary": {"en": ["Book 1, written be Anne Author, published in Paris around 1400."]},
 
   "thumbnail": [{
     "id": "http://example.org/images/book1-page1/full/80,100/0/default.jpg",
@@ -1161,7 +1161,7 @@ The content resource is linked in the `body` of the Annotation. The content reso
 
 Although it might seem redundant, the URI of the Canvas _MUST_ be repeated in the `target` field of the Annotation. This is to ensure consistency with Annotations that target only part of the resource, described in more detail below, and to remain faithful to the Web Annotation specification, where `target` is mandatory.
 
-The type of the content resource _MUST_ be included, and _SHOULD_ be taken from the table listed under the definition of `type`. The format of the resource _SHOULD_ be included and, if so, _SHOULD_ be the media type that is returned when the resource is dereferenced. The content resources _MAY_ also have any of the other fields defined in this specification, including commonly `label`, `description`, `metadata`, `license` and `attribution`.
+The type of the content resource _MUST_ be included, and _SHOULD_ be taken from the table listed under the definition of `type`. The format of the resource _SHOULD_ be included and, if so, _SHOULD_ be the media type that is returned when the resource is dereferenced. The content resources _MAY_ also have any of the other fields defined in this specification, including commonly `label`, `summary`, `metadata`, `license` and `attribution`.
 
 Additional features of the [Web Annotation][webanno] data model _MAY_ also be used, such as selecting a segment of the Canvas or content resource, or embedding the comment or transcription within the Annotation. The use of these advanced features sometimes results in situations where the `target` is not a content resource, but instead a `SpecificResource`, a `Choice`, or other non-content object. Implementations should check the `type` of the resource and not assume that it is always content to be rendered.
 
@@ -1313,7 +1313,6 @@ The intended usage of collections is to allow clients to:
   * Visualize lists or hierarchies of related manifests.
   * Provide navigation through a list or hierarchy of available manifests.
 
-
 An empty collection, with no member resources, is allowed but discouraged.
 
 An example collection document:
@@ -1326,10 +1325,10 @@ An example collection document:
   ],
   "id": "http://example.org/iiif/collection/top",
   "type": "Collection",
-  "label": "Top Level Collection for Example Organization",
+  "label": {"en": ["Top Level Collection for Example Organization"]},
   "renderingHint": "top",
-  "description": "Description of Collection",
-  "attribution": "Provided by Example Organization",
+  "summary": {"en": ["Short summary of the Collection"]},
+  "attribution": {"en": ["Provided by Example Organization"]},
 
   "items": []
 
@@ -1517,7 +1516,7 @@ It is possible to include Image API service descriptions within the manifest, an
 
 __Descriptive and Rights Properties__
 
-|                | label                  | metadata                     | description                 | thumbnail                   | attribution            | license                 | logo                     |
+|                | label                  | metadata                     | summary                 | thumbnail                   | attribution            | license                 | logo                     |
 | -------------- | ---------------------- | ---------------------------- | --------------------------- | ----------------------------| ---------------------- | ----------------------- | ------------------------ |
 | Collection     | ![required][icon-req]  | ![recommended][icon-recc]    | ![recommended][icon-recc]   | ![recommended][icon-recc]   | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
 | Manifest       | ![required][icon-req]  | ![recommended][icon-recc]    | ![recommended][icon-recc]   | ![recommended][icon-recc]   | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
