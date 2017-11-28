@@ -282,7 +282,7 @@ The value _MUST_ be an array of JSON objects, each of which _MUST_ have an `id` 
 
 ##### id
 
-The URI that identifies this resource. It is _RECOMMENDED_ that an HTTPS URI be used for all resources. If the resource is only available embedded within another resource, such as a Sequence within a Manifest, then the URI _MAY_ be the URI of the encapsulating resource with a unique fragment on the end. This is not true for Canvases, which _MUST_ have their own URI without a fragment.
+The URI that identifies this resource. It is _RECOMMENDED_ that an HTTPS URI be used for all resources. If this resource is only available embedded within another resource, such as a Sequence within a Manifest, then the URI _MAY_ be the URI of the encapsulating resource with a unique fragment on the end. This is not true for Canvases, which _MUST_ have their own URI without a fragment.
 
 The value _MUST_ be a string.
 
@@ -311,7 +311,7 @@ The value _MUST_ be a string.
 
 ##### type
 
-The type of the resource.  For the resource types defined by this specification, the value of `type` will be described in the sections below.  For content resources, the type are drawn from other vocabularies. Recommendations for basic types such as image, text or audio are also given in the sections below.
+The type or class of this resource.  For types defined by this specification, the value of `type` will be described in the sections below describing the individual classes.  For external resources, the type is drawn from other specifications. Recommendations for basic types such as image, text or audio are given in the table below.
 
 The value _MUST_ be a string.
 
@@ -333,7 +333,7 @@ The value _MUST_ be a string.
 ```
 
 ##### format
-The specific media type (often called a MIME type) of a content resource, for example "image/jpeg". This is important for distinguishing text in XML from plain text, for example.
+The specific media type (often called a MIME type) for this content resource, for example "image/jpeg". This is important for distinguishing different formats of the same overall type of resource, such as distinguishing text in XML from plain text.
 
 The value _MUST_ be a string.
 
@@ -349,7 +349,7 @@ Note that this is different to the `formats` property in the [Image API][image-a
 ```
 
 ##### language
-The language or languages used in the content of an external resource. This property is already available from the Web Annotation model for content resources that are the body or target of an Annotation, however it _MAY_ also be used for resources referenced from `related`, `rendering`, `rights`, and `within`.
+The language or languages used in the content of this external resource. This property is already available from the Web Annotation model for content resources that are the body or target of an Annotation, however it _MAY_ also be used for resources referenced from `related`, `rendering`, `rights`, and `within`.
 
 The value _MUST_ be an array of strings.
 
@@ -364,7 +364,7 @@ The value _MUST_ be an array of strings.
 
 ##### profile
 
-A schema or named set of functionality available from the resource.  The profile can further clarify the `type` and/or `format` of an external resource or service, allowing clients to customize their handling of the resource.
+A schema or named set of functionality available from this resource.  The profile can further clarify the `type` and/or `format` of an external resource or service, allowing clients to customize their handling of this resource.
 
 The value _MUST_ be a string, either taken from the table below or a URI.
 
@@ -381,12 +381,8 @@ The value _MUST_ be a string, either taken from the table below or a URI.
 }
 ```
 
-__Specification Management Warning:__
-Should there really be a table in the specification? But otherwise how do we keep it up to date between versions?  If it's external, how do clients stay up to date? URIs are always okay... should it instead always be a URI?
-{: .warning}
-
 ##### height
-The height of a Canvas or content resource. For content resources, the value is in pixels. For Canvases, the value does not have a unit. In combination with the width, it conveys an aspect ratio for the space in which content resources are located.
+The height of this Canvas or external content resource. For content resources, the value is in pixels. For Canvases, the value does not have a unit. In combination with the width, it conveys an aspect ratio for the space in which content resources are located.
 
 The value _MUST_ be a non-negative integer or floating point number.
 
@@ -402,7 +398,7 @@ The value _MUST_ be a non-negative integer or floating point number.
 ```
 
 ##### width
-The width of a Canvas or content resource. For content resources, the value is in pixels. For Canvases, the value does not have a unit. In combination with the height, it conveys an aspect ratio for the space in which content resources are located.
+The width of this Canvas or external content resource. For content resources, the value is in pixels. For Canvases, the value does not have a unit. In combination with the height, it conveys an aspect ratio for the space in which content resources are located.
 
 The value _MUST_ be a non-negative integer or floating point number.
 
@@ -418,7 +414,7 @@ The value _MUST_ be a non-negative integer or floating point number.
 ```
 
 ##### duration
-The duration of a Canvas or content resource, given in seconds.  
+The duration of this Canvas or external content resource, given in seconds.  
 
 The value _MUST_ be a non-negative floating point number.
 
@@ -434,7 +430,7 @@ The value _MUST_ be a non-negative floating point number.
 ```
 
 ##### renderingDirection
-The direction that a set of Canvases _SHOULD_ be displayed to the user. This specification defines four direction values in the table below. Others may be defined externally and given as a full URI.
+The direction that a set of Canvases _SHOULD_ be displayed in to the user. This specification defines four direction values in the table below. Others may be defined externally and given as a full URI.
 
 The value _MUST_ be a string, taken from the table below or a full URI.
 
@@ -462,7 +458,7 @@ The value _MUST_ be a string, taken from the table below or a full URI.
 ```
 
 ##### renderingHint
-A hint to the client as to the most appropriate method of displaying the resource. This specification defines the values specified in the table below. Others may be defined externally, and would be given as a full URI.
+A hint to the client as to the most appropriate method of displaying this resource. This specification defines the values specified in the table below. Others may be defined externally, and would be given as a full URI.
 
 The value _MUST_ be an array of strings, taken from the table below or a full URI.
 
@@ -512,7 +508,7 @@ The value _MUST_ be a string, taken from the table below or a full URI.
 #### 3.4.1 External Links
 
 ##### related
-A link to an external resource that describes or is about the IIIF resource. The external resource _MUST_ be able to be displayed directly to the user. Examples might include a video or academic paper about the resource, a website, an HTML description, and so forth.
+A link to an external resource that describes or is about this resource. The external resource _MUST_ be able to be displayed directly to the user. Examples might include a video or academic paper about the resource, a website, an HTML description, and so forth.
 
 The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id`, `type` and `label` properties, and _SHOULD_ have a `format` property.
 
@@ -528,7 +524,7 @@ The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id`, 
 ```
 
 ##### rendering
-A link to an external resource that is an alternative, non-IIIF representation of the IIIF resource. The external resource _MUST_ be able to be displayed directly to a human user, and _MUST NOT_ have a splash page or other interstitial resource that gates access to it. If access control is required, then the [IIIF Authentication API][auth] is _RECOMMENDED_. Examples might include the preferred viewing environment for the IIIF resource, such as a viewer page on the publisher's web site. Other uses include a rendering of a manifest as a PDF or EPUB with the images and text of the book, or a slide deck with images of the museum object.
+A link to an external resource that is an alternative, non-IIIF representation of this resource. The external resource _MUST_ be able to be displayed directly to a human user, and _MUST NOT_ have a splash page or other interstitial resource that gates access to it. If access control is required, then the [IIIF Authentication API][auth] is _RECOMMENDED_. Examples might include the preferred viewing environment for the IIIF resource, such as a viewer page on the publisher's web site. Other uses include a rendering of a manifest as a PDF or EPUB with the images and text of the book, or a slide deck with images of the museum object.
 
 The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id`, `type` and `label` properties, and _SHOULD_ have a `format` property.
 
@@ -544,7 +540,7 @@ The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id`, 
 ```
 
 ##### service
-A link to an external service that the client might interact with directly, such as from an image to the base URI of an associated [IIIF Image API][image-api] service. The service resource _SHOULD_ have additional information associated with it in order to allow the client to determine how to make appropriate use of it. Please see the [Service Profiles][annex] document for currently known service types.
+A link to an external service that the client might interact with directly and gain additional information or functionality for using this resource, such as from an image to the base URI of an associated [IIIF Image API][image-api] service. The service resource _SHOULD_ have additional information associated with it in order to allow the client to determine how to make appropriate use of it. Please see the [Service Profiles][annex] document for currently known service types.
 
 The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `label` and `profile` properties.
 
@@ -560,7 +556,7 @@ The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id` a
 ```
 
 ##### seeAlso
-A link to a machine readable document that is related to the resource with the `seeAlso` property, such as an XML or RDF description. Properties of the document should be given to help the client select between multiple descriptions (if provided), and to make appropriate use of the document. If the relationship between the resource and the document needs to be more specific, then the document should include that relationship rather than the IIIF resource. Other IIIF resources, such as a related Manifest, are valid targets for `seeAlso`. The URI of the document _MUST_ identify a single representation of the data in a particular format. For example, if the same data exists in JSON and XML, then separate resources should be added for each representation, with distinct `id` and `format` properties.
+A link to an external, machine-readable resource that is related to this resource, such as an XML or RDF description. Properties of the external resource should be given to help the client select between multiple descriptions (if provided), and to make appropriate use of the document. If the relationship between the resource and the document needs to be more specific, then the document should include that relationship rather than the IIIF resource. Other IIIF resources, such as a related Manifest, are valid targets for `seeAlso`. The URI of the document _MUST_ identify a single representation of the data in a particular format. For example, if the same data exists in JSON and XML, then separate resources should be added for each representation, with distinct `id` and `format` properties.
 
 The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `label`, `format` and `profile` properties.
 
@@ -579,7 +575,7 @@ The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id` a
 #### 3.4.2. Internal Links
 
 ##### within
-A link to another resource that contains the current resource, such as a Manifest within a Collection.
+A link to another resource that contains this resource, such as a Manifest within a Collection.
 
 The value _MUST_ be an array of JSON objects.  Each object _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `label` property.
 
@@ -593,7 +589,7 @@ The value _MUST_ be an array of JSON objects.  Each object _MUST_ have the `id` 
 ```
 
 ##### startCanvas
-A link from a Manifest, Sequence or Range to a Canvas that is contained within it. On seeing this relationship, a client _SHOULD_ advance to the specified Canvas when beginning navigation through the Sequence/Range.  This allows the client to begin with the first Canvas that contains interesting content rather than requiring the user to skip past blank or empty Canvases manually.  The Canvas _MUST_ be included in the first Sequence embedded within the Manifest.
+A link from this Manifest, Sequence or Range to a Canvas that is contained within it. On seeing this relationship, a client _SHOULD_ advance to the specified Canvas when beginning navigation through the Sequence/Range.  This allows the client to begin with the first Canvas that contains interesting content rather than requiring the user to skip past blank or empty Canvases manually.  The Canvas _MUST_ be included in the first Sequence embedded within the Manifest.
 
 The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` properties.
 
@@ -607,7 +603,7 @@ The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` propert
 ```
 
 ##### includes
-A link from a Range to an AnnotationCollection that includes the Annotations of content resources for that Range.  Clients might use this to present content to the user from a different Canvas when interacting with the Range, or to jump to the next part of the Range within the same Canvas.  
+A link from this Range to an AnnotationCollection that includes the Annotations of content resources for the Range.  Clients might use this to present content to the user from a different Canvas when interacting with the Range, or to jump to the next part of the Range within the same Canvas.  
 
 The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` properties, and the `type` _MUST_ be `AnnotationCollection`.
 
@@ -623,7 +619,7 @@ The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` propert
 ###  3.5. Paging Properties
 
 ##### first
-A link from a resource with pages, such as a Collection or AnnotationCollection, to its first page resource, another Collection or an AnnotationPage respectively.
+A link from this paged resource, such as a Collection or AnnotationCollection, to its first page resource, another Collection or an AnnotationPage respectively.
 
 The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `label` property.
 
@@ -639,7 +635,7 @@ The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` propert
 ```
 
 ##### last
-A link from a resource with pages to its last page resource.
+A link from this paged resource to its last page resource.
 
 The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `label` property.
 
@@ -655,7 +651,7 @@ The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` propert
 ```
 
 ##### total
-The total number of leaf resources in a paged list, such as the number of Annotations within an AnnotationCollection.
+The total number of leaf resources in this paged resource, such as the number of Annotations within an AnnotationCollection.
 
 The value _MUST_ be a non-negative integer.
 
@@ -671,7 +667,7 @@ The value _MUST_ be a non-negative integer.
 ```
 
 ##### next
-A link from a page resource to the next page resource that follows it in order.
+A link from this page resource to the next page resource that follows it in order.
 
 The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `label` property.
 
@@ -687,7 +683,7 @@ The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` propert
 ```
 
 ##### prev
-A link from a page resource to the previous page resource that precedes it in order.
+A link from this page resource to the previous page resource that precedes it in order.
 
 The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `label` property.
 
@@ -703,7 +699,7 @@ The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` propert
 ```
 
 ##### startIndex
-The 0 based index of the first included resource in the current page, relative to the parent paged resource.
+The 0 based index of the first included resource in this page resource, relative to the parent paged resource.
 
 The value _MUST_ be a non-negative integer.
 
