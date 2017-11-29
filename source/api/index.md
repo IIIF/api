@@ -20,11 +20,11 @@ cssversion: 2
 
 | API                | Draft Version (Status)       |
 | ------------------ | ---------------------------- |
-| none               | none                         |
+| Presentation API   | [3.0.0 ALPHA][prezi3-draft] |
 {: .api-table}
 
 __Feedback Requested__<br/>
-We welcome feedback on all IIIF Specifications. In particular, we are actively seeking implementations and feedback on the Authentication API draft specification. Please send any feedback to [iiif-discuss@googlegroups.com][iiif-discuss].
+We welcome feedback on all IIIF Specifications. In particular, we are actively seeking feedback on the Presentation API version 3.0 draft specification. Please send any feedback to [iiif-discuss@googlegroups.com][iiif-discuss].
 {: .alert}
 
 ## Community Translations
@@ -42,7 +42,7 @@ Please note that the IIIF community does not guarantee the accuracy of any trans
 
 ## Older Versions
 
-Current IIIF specifications _SHOULD_ be used for all new work. Old versions are retained for reference and are listed below.
+Current IIIF specifications _SHOULD_ be used for all new work. Old versions are retained for reference and are listed below. Technical resources and reference implementations of older versions are _NOT_ guaranteed to be maintained across new major versions.
 
 | Old API Version            | Notes |
 | -------------------------- | ----- |
@@ -83,5 +83,6 @@ IIIF Specifications are created and published following the [IIIF Editorial Proc
 [search09]: {{ site.url }}{{ site.baseurl }}/api/search/0.9/ "Search API v0.9"
 [notes]: {{ site.url }}{{ site.baseurl }}/api/annex/ "Implementation Notes"
 [editors]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/editors/ "IIIF Editorial Process"
+[prezi3-draft]: http://prezi3.iiif.io/api/presentation/3.0/ "Presentation API v3.0 DRAFT"
 
 {% include acronyms.md %}
