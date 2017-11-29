@@ -1043,7 +1043,7 @@ The example below includes only the Manifest-level information, however actual i
 
 ###  5.2. Sequence
 
-The Sequence conveys the ordering of the views of the object. The default Sequence (and typically the only Sequence) _MUST_ be embedded within the Manifest as the first object in the `items` property, and _MAY_ also be available from its own URI.  This Sequence _SHOULD_ have a URI to identify it. Any additional Sequences _MAY_ be included, or referenced externally from the Manifest.  References to external Sequences _MUST_ an `id` and `type`, _SHOULD_ have a `label`, and _MUST NOT_ have an `items` property, and the description of the Sequence _MUST_ be available by dereferencing that URI.
+The Sequence conveys the ordering of the views of the object. The default Sequence (and typically the only Sequence) _MUST_ be embedded within the Manifest as the first object in the `items` property, and _MAY_ also be available from its own URI.  This Sequence _SHOULD_ have a URI to identify it. Any additional Sequences _MAY_ be included, or referenced externally from the Manifest.  References to external Sequences _MUST_ include an `id` and `type`, _SHOULD_ have a `label`, and _MUST NOT_ have an `items` property. The description of the Sequence _MUST_ be available by dereferencing the HTTP(S) URI in `id`.
 
 Sequences _MAY_ have their own descriptive, rights and linking metadata using the same fields as for Manifests. The `label` property _MAY_ be given for Sequences and _MUST_ be given if there is more than one referenced from a Manifest. After the metadata, the set of views of the object, represented by Canvas resources, _MUST_ be listed in order in the `items` property.  There _MUST_ be at least one Canvas given.
 
