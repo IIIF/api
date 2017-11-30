@@ -1092,6 +1092,8 @@ Content resources are associated with the Canvas via Web Annotations.  Content t
 
 A Canvas _MUST_ have a rectangular aspect ratio (described with the `height` and `width` properties) and/or a `duration` to provide an extent in time. These dimensions allow resources to be associated with specific regions of the Canvas, within the space and/or time extents provided. Content _MUST NOT_ be associated with space or time outside of the Canvas's dimensions, such as at coordinates below 0,0, greater than the height or width, before 0 seconds, or after the duration. Content resources that have dimensions which are not defined for the Canvas _MUST NOT_ be associated with that Canvas. For example, it is valid to use a "painting" Annotation to associate an Image (which has only height and width) with a Canvas that has all three dimensions, but it is an error to associate a Video resource (which has height, width and duration) with a Canvas that does not have all three dimensions. Such a resource _SHOULD_ instead be referenced with the `rendering` property, or by Annotations with a `motivation` other than "painting" in the `annotations` property.
 
+Parts of Canvases are still Canvases and have a `type` of "Canvas". Parts of Canvases can be referenced from Ranges, Annotations or the `start` property. Spatial parts of Canvases, when referenced from outside an Annotation, _MUST_ be rectangular and are described by appending an `xywh=` fragment to the end of the Canvas's URI. Similarly, temporal parts of Canvases _MUST_ be described by appending a `t=` fragment to the end of the Canvas's URI. Spatial and temporal fragments _MAY_ be combined, using an `&` character between them, and the temporal dimension _SHOULD_ come first.  It is an error to select a region using a dimension that is not defined by the Canvas, such as a temporal region of a Canvas that only has height and width dimensions.
+
 Renderers _MUST_ scale content into the space represented by the Canvas, and _SHOULD_ follow any `timeMode` value provided for time-based media.  If the Canvas represents a view of a physical object, the spatial dimensions of the Canvas _SHOULD_ be the same scale as that physical object, and images _SHOULD_ depict only the object.
 
 
@@ -1193,17 +1195,17 @@ Additional features of the [Web Annotation][webanno] data model _MAY_ also be us
 
 ###  5.6. Range
 
-Ranges are used to describe additional structure within an object, such as newspaper articles that span pages or chapters within a book. Ranges can include Canvases, parts of Canvases, or other Ranges, creating a nested tree structure such as a table of contents.
+Ranges are used to represent structure within an object beyond the overall Sequence, such as newspaper sections or articles, chapters within a book, or movements within a piece of music. Ranges can include Canvases, parts of Canvases, or other Ranges, creating a tree structure like a table of contents.
 
 The intent of adding a Range to the Manifest is to allow the client to display a hierarchical navigation interface to enable the user to quickly move through the object's content. Clients _SHOULD_ present only Ranges with the `label` property and without the "no-nav" `behavior` to the user. Clients _SHOULD NOT_ render Canvas labels as part of the navigation, and a Range that wraps the Canvas _MUST_ be created if this is the desired presentation.
 
 Ranges _MUST_ have URIs and they _SHOULD_ be HTTP(S) URIs.  Top level Ranges are embedded or externally referenced within the Manifest in a `structures` property. These top level Ranges then embed other Ranges, Canvases or parts of Canvases in the `items` property.  Each entry in the `items` field _MUST_ be a JSON object, and it _MUST_ have the `id` and `type` properties.  If a top level Range needs to be dereferenced by the client, then it _MUST NOT_ have the `items` property, such that clients are able to recognize that it should be retrieved in order to be processed.
 
-All of the Canvases or parts that should be considered as being part of a Range _MUST_ be included within the Range's members, or a descendant Range's members.
+All of the Canvases or parts that should be considered as being part of a Range _MUST_ be included within the Range's `items` list, or a descendant Range's `items`. 
 
-The Canvases and parts of Canvases may or may not be contiguous or in the same order as any Sequence.  Examples include newspaper articles that are continued in different sections, or simply a chapter that starts half way through a page. Parts of Canvases _MUST_ be rectangular and are described using the `xywh=` fragment approach.
+The Canvases and parts of Canvases need not be contiguous or in the same order as in any Sequence. Examples include newspaper articles that are continued in different sections, a chapter that starts half way through a page, or time segments of a single canvas that represent different sections of a piece of music. 
 
-Ranges _MAY_ link to an AnnotationCollection that has the content of the Range using the `includes` property. The referenced AnnotationCollection will contain Annotations that target areas of Canvases within the Range, and provide the content resources.
+Ranges _MAY_ link to an AnnotationCollection that has the content of the Range using the `includes` property. The referenced AnnotationCollection will contain Annotations that target areas of Canvases within the Range and link content resources to those Canvases.
 
 
 ``` json-doc
