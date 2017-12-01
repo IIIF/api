@@ -1084,7 +1084,7 @@ Sequences _MAY_ have their own descriptive, rights and linking metadata using th
 
 ###  5.3. Canvas
 
-The Canvas represents an individual page or view and acts as a central point for laying out the different content resources that make up the display. Canvases _MUST_ be identified by a URI and it _MUST_ be an http(s) URI. The URI of the canvas _MUST NOT_ contain a fragment (a `#` followed by further characters), as this would make it impossible to refer to a segment of the Canvas's area using the `#xywh=` syntax. Canvases _MAY_ be able to be dereferenced separately from the Manifest via their URIs as well as being embedded within the Sequence.
+The Canvas represents an individual page or view and acts as a central point for laying out the different content resources that make up the display. Canvases _MUST_ be identified by a URI and it _MUST_ be an HTTP(S) URI. The URI of the canvas _MUST NOT_ contain a fragment (a `#` followed by further characters), as this would make it impossible to refer to a segment of the Canvas's area using the `#xywh=` syntax. Canvases _MAY_ be able to be dereferenced separately from the Manifest via their URIs as well as being embedded within the Sequence.
 
 Every Canvas _SHOULD_ have a `label` to display. If one is not provided, the client _SHOULD_ automatically generate one for use based on the Canvas's position within the current Sequence.
 
@@ -1125,7 +1125,7 @@ Association of images and other content with their respective Canvases is done v
 
 These Annotations are collected together in AnnotationPage resources, which are included in the `items` list from the Canvas.  Each AnnotationPage can be embedded in its entirety, if the Annotations should be processed as soon as possible when the user navigates to that Canvas, or a reference to an external page. This reference _MUST_ include `id` and `type`, _MUST NOT_ include `items` and _MAY_ include other properties, such as `behavior`. All of the Annotations in the AnnotationPage _SHOULD_ have the Canvas as their `target`.  Embedded AnnotationPages _SHOULD_ be processed by the client first, before externally referenced pages.
 
-The AnnotationPage _MUST_ have an http(s) URI given in `id`, and the JSON representation _MUST_ be returned when that URI is dereferenced.  They _MAY_ have any of the other fields defined in this specification, or the Web Annotation specification.  The Annotations are listed in an `items` list of the AnnotationPage.
+The AnnotationPage _MUST_ have an HTTP(S) URI given in `id`, and the JSON representation _MUST_ be returned when that URI is dereferenced.  They _MAY_ have any of the other fields defined in this specification, or the Web Annotation specification.  The Annotations are listed in an `items` list of the AnnotationPage.
 
 ``` json-doc
 {
@@ -1155,7 +1155,7 @@ The AnnotationPage _MUST_ have an http(s) URI given in `id`, and the JSON repres
 
 Annotations follow the [Web Annotation][webanno] data model.  The description provided here is a summary plus any IIIF specific requirements. It must be noted that the W3C standard is the official documentation.
 
-Annotations _MUST_ have their own http(s) URIs, conveyed in the `id` property. The JSON-LD description of the Annotation _SHOULD_ be returned if the URI is dereferenced, according to the [Web Annotation Protocol][webannoprotocol].
+Annotations _MUST_ have their own HTTP(S) URIs, conveyed in the `id` property. The JSON-LD description of the Annotation _SHOULD_ be returned if the URI is dereferenced, according to the [Web Annotation Protocol][webannoprotocol].
 
 Annotations that associate content that is part of the representation of the view _MUST_ have the `motivation` field and the value _MUST_ be "painting". This is in order to distinguish it from commentary style Annotations. Text may be thus either be associated with the Canvas via a "painting" annotation, meaning the content is part of the representation, or with another `motivation`, meaning that it is somehow about the view.
 
