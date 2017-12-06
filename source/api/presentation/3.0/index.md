@@ -473,7 +473,6 @@ The value _MUST_ be a string, taken from the table below or a full URI.
 {"viewingDirection": "left-to-right"}
 ```
 
-
 ##### behavior
 A set of user experience features for the client to use when presenting this resource to the user. This specification defines the values specified in the table below. Others may be defined externally, and would be given as a URI.
 
