@@ -181,7 +181,7 @@ The value of the property _MUST_ be a JSON object, as described in the [language
 ```
 
 ##### metadata
-A list of descriptive entries, given as pairs of human readable `label` and `value` entries to be displayed to the user. There are no semantics conveyed by this information, only strings to present to the user when the user is interacting with this resource.  A pair might be used to convey information about the creation of the object, a physical description, ownership information, and many other use cases. 
+A list of descriptive entries to be displayed to the user when they interact with this resource, given as pairs of human readable `label` and `value` entries. There are no semantics conveyed by this information, only strings to present to the user when the user is interacting with this resource.  A pair might be used to convey information about the creation of the object, a physical description, ownership information, and many other use cases. 
 
 The value of the `metadata` property _MUST_ be an array of objects, where each object has both `label` and `value` properties. The values of both `label` and `value` _MUST_ be JSON objects, as described in the [languages][languages-prezi30] section.
 
@@ -201,7 +201,7 @@ Clients _SHOULD_ display the pairs in the order provided. Clients _SHOULD NOT_ u
 ```
 
 ##### summary
-A short textual summary of this resource, intended to be conveyed to the user when the `metadata` pairs for the resource are not being displayed.  This could be used as a snippet for item level search results, for limited screen real-estate environments, or an alternative in the user interface for when the `metadata` is not being rendered. 
+A short textual summary of this resource, intended to be conveyed to the user when the `metadata` pairs for the resource are not being displayed.  This could be used as a snippet for item level search results, for limited screen real-estate environments, or as an alternative user interface when the `metadata` fields are not rendered. 
 
 The value of the property _MUST_ be a JSON object, as described in the [languages][languages-prezi30] section.
 
@@ -753,7 +753,6 @@ The value _MUST_ be an array of objects.
 * A Range _MUST_ have a list of one or more Ranges and/or Canvases in `items`.<br/>
   Clients _SHOULD_ process `items` on a Range.
 
-
 ```json-doc
 {"items": [{ ... }]}
 ```
@@ -779,10 +778,12 @@ The value _MUST_ be an array of objects.
 
 ##### annotations
 
+A list of AnnotationPages that contain commentary or other Annotations about this resource, separate from the annotations that are used to paint content on to a Canvas. The `motivation` of the Annotations _MUST NOT_ be "painting" or "transcribing", and the target of the Annotations _MUST_ be this resource or part of it.
+
 The value _MUST_ be an array of objects. Each object _MUST_ have at least the `id` and `type` properties.
 
-* Any resource type Canvas _SHOULD_ have a list of one or more AnnotationPages in `content`.<br/>
-  Clients _MUST_ process `content` on a Canvas.
+* Any resource type _SHOULD_ have a list of one or more AnnotationPages in `content`.<br/>
+  Clients _SHOULD_ process `annotations` on any resource.
 
 ```json-doc
 {"annotations": [
