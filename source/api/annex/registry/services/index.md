@@ -52,7 +52,7 @@ This table summarizes the services available and which APIs they may be used in.
 
 | Service                        | Image API                 | Presentation API          |
 | ------------------------------ |:-------------------------:|:-------------------------:|
-| [Image Information][imageinfo] | ![optional][icon-opt]     | ![recommended][icon-recc] |  
+| [Image Information][image-api] | ![optional][icon-opt]     | ![recommended][icon-recc] |  
 {: .api-table}
 
 
