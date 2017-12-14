@@ -17,6 +17,9 @@
 [iiif-community]: {{page.webprefix}}/community/ "IIIF Community"
 [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
 [image-api]: {{ site.url }}{{ site.baseurl }}/api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/ "Image API"
+[image-api-1]: {{ site.url }}{{ site.baseurl }}/api/image/1.1/
+[image-api-2]: {{ site.url }}{{ site.baseurl }}/api/image/2.1/
+[image-api-3]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/
 [json-ld-68]: http://www.w3.org/TR/json-ld/#interpreting-json-as-json-ld "Interpreting JSON as JSON-LD"
 [json-ld-compact]: http://www.w3.org/TR/json-ld-api/#compaction-algorithms "JSON-LD Compaction Algorithms"
 [json-ld]: http://www.w3.org/TR/json-ld/ "JSON-LD"
@@ -38,6 +41,7 @@
 [rfc-4122]: http://tools.ietf.org/html/rfc4122 "URN UUID Scheme"
 [rfc5646]: http://tools.ietf.org/html/rfc5646 "RFC 5646"
 [search-api]: {{ site.url }}{{ site.baseurl }}/api/search/{{ site.search_api.latest.major }}.{{ site.search_api.latest.minor }}/ "Content Search API"
+[search-api-1]: {{ site.url }}{{ site.baseurl }}/api/search/1.0/
 [semver]: http://semver.org/spec/v2.0.0.html "Semantic Versioning 2.0.0"
 [sequence-prezi30]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#sequence
 [shared-canvas]: {{ site.url }}{{ site.baseurl }}/model/shared-canvas/{{ site.shared_canvas.latest.major}}.{{ site.shared_canvas.latest.minor }} "Shared Canvas Data Model"

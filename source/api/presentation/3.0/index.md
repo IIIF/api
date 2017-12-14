@@ -575,9 +575,9 @@ For cross-version consistency, this specification defines the following types fo
 
 | Value          | Specification |
 | -------------- | ------------- |
-| ImageService1  | [Image API version 1][]  |
-| ImageService2  | [Image API version 2][]  |
-| SearchService1 | [Search API version 1][] |
+| ImageService1  | [Image API version 1][image-api-1]  |
+| ImageService2  | [Image API version 2][image-api-2]  |
+| SearchService1 | [Search API version 1][search-api-1] |
 
 A reference from a version 3 Presentation API document to a version 2 Image API end point would thus follow the pattern in the example below.  Consuming implementations should not expect to encounter the `type` and `profile` parameters in the representation returned from the `id`.
 
