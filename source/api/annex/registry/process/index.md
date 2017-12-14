@@ -36,98 +36,13 @@ Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss]
 
 ## 1. Introduction
 
-### 1.1. Disclaimer
 
-The inclusion of entries in this document that are outside of the IIIF domain _MUST NOT_ be interpreted as endorsement, support, or approval from the editors, the IIIF community or any individual. This annex is provided as a registry to advertise the existence of these extensions and attempt to ensure some consistency between implementations for common but not universal requirements.
+## 2. Registration Process
 
-### 1.2. Inclusion Process 
-
-The process for having a new entry added to this registry is [described here][registry-process].
-
-## 2. Requirements for Inclusion
-
-## 3. Registry
-
-This table summarizes the services available and which APIs they may be used in.  The '![not allowed][icon-na]' icon means that the service is not to be used in the API. The '![recommended][icon-recc]' icon means that the service can be used in the API.
-
-| Service                        | Image API                 | Presentation API          |
-| ------------------------------ |:-------------------------:|:-------------------------:|
-| [Image Information][imageinfo] | ![optional][icon-opt]     | ![recommended][icon-recc] |  
-{: .api-table}
-
-
-### 3.1 Image Information
-_Added: 2014-05-20_
-
-The Image Information service allows the [Presentation API][prezi-api], and potentially other APIs, to reference content to be displayed via the [Image API][image-api].  The JSON-LD content to be referenced or embedded is the Image Information document, also known as `info.json`.  The service _MUST_ have the `@context`, `@id` and `profile` keys, pointing to the context document, service base URI and compliance level profile respectively.
-
-``` json-doc
-{
-  "service": {
-    "@context" : "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
-    "@id" : "http://www.example.org/image-service/abcd1234",
-    "profile": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/level2.json"
-  }
-}
-```
-
-The service _MAY_ have additional information embedded from the Image Information document to avoid the need to retrieve and parse it separately.  In this case, the profile _MAY_ also point to the profile of what functionality is supported, as described in the Image API.
-
-``` json-doc
-{
-  "service": {
-    "@context" : "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
-    "@id" : "http://www.example.org/image-service/abcd1234",
-    "protocol": "http://iiif.io/api/image",
-    "width" : 6000,
-    "height" : 4000,
-    "sizes" : [
-      {"width" : 150, "height" : 100},
-      {"width" : 600, "height" : 400},
-      {"width" : 3000, "height": 2000}
-    ],
-    "tiles": [
-      {"width" : 512, "scaleFactors" : [1,2,4,8,16]}
-    ],
-    "profile" : [
-      "http://iiif.io/api/image/{{ site.image_api.latest.major }}/level2.json",
-      {
-        "formats" : [ "gif", "pdf" ],
-        "qualities" : [ "color", "gray" ],
-        "supports" : [
-            "canonicalLinkHeader", "rotationArbitrary", "http://example.com/feature"
-        ]
-      }
-    ]
-  }
-}
-```
-
-With the `logo` property added to the Image Information description in version 2.1 of the Image API{% unless site.image_api.latest.major >= 2 and site.image_api.latest.minor >= 1 %} (forthcoming){% endunless %}, it is possible and reasonable for one `info.json` response to embed another using this pattern.  In this case, the second service is related to the icon that should be displayed when a client renders the image described by the main response.
-
-``` json-doc
-{
-  "@context" : "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
-  "@id" : "http://www.example.org/image-service/baseImage",
-  "protocol" : "http://iiif.io/api/image",
-
-  "attribution" : "Provided by Example Organization",
-  "logo" : {
-    "@id": "http://example.org/image-service/logo/full/full/0/default.png",
-    "service": {
-      "@id": "http://example.org/image-service/logo",
-      "protocol": "http://iiif.io/api/image",
-      "profile": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/level2.json"
-    }
-  }
-}
-```
 
 ## Appendices
 
 ### A. Acknowledgements
-
-The production of this document was generously supported by a grant from the [Andrew W. Mellon Foundation][mellon].
 
 Thanks to the members of the [IIIF][iiif-community] for their continuous engagement, innovative ideas and feedback.
 
@@ -138,11 +53,6 @@ Thanks to the members of the [IIIF][iiif-community] for their continuous engagem
 | 2018-XX-YY | New Version 3 Registries                           |
 
 
-[icon-req]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/required.png "Required"
-[icon-recc]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/recommended.png "Recommended"
-[icon-opt]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/optional.png "Optional"
-[icon-na]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/not_allowed.png "Not allowed"
-[registry-process]: {{ site.url }}{{ site.baseurl }}/api/annex/registry/process/
 
 {% include acronyms.md %}
 {% include links.md %}
