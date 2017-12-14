@@ -556,7 +556,7 @@ The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id`, 
 ```
 
 ##### service
-A link to an external service that the client might interact with directly and gain additional information or functionality for using this resource, such as from an image to the base URI of an associated [IIIF Image API][image-api] service. The service resource _SHOULD_ have additional information associated with it in order to allow the client to determine how to make appropriate use of it. Please see the [Service Profiles][annex] document for currently known service types.
+A link to an external service that the client might interact with directly and gain additional information or functionality for using this resource, such as from an image to the base URI of an associated [IIIF Image API][image-api] service. The service resource _SHOULD_ have additional information associated with it in order to allow the client to determine how to make appropriate use of it. Please see the [Service Profiles][annex] document for the details of currently known service types.
 
 The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `label` and `profile` properties.
 
@@ -571,7 +571,7 @@ The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id` a
   }]}
 ```
 
-For cross-version consistency, this specification defines a few types for backwards compatibility with other IIIF APIs:
+For cross-version consistency, this specification defines a few types for backwards compatibility with other IIIF APIs. Future versions of these APIs will define their own types.
 
 | Value          | Specification |
 | -------------- | ------------- |
@@ -579,7 +579,7 @@ For cross-version consistency, this specification defines a few types for backwa
 | ImageService2  | [Image API version 2][]  |
 | SearchService1 | [Search API version 1][] |
 
-A reference from a version 3 Presentation API document to a version 2 Image API end point would thus follow the pattern in this example:
+A reference from a version 3 Presentation API document to a version 2 Image API end point would thus follow the pattern in the example below.  Consuming implementations should not expect to encounter the `type` and `profile` parameters in the representation returned from the `id`.
 
 ``` json-doc
 {
