@@ -571,7 +571,7 @@ The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id` a
   }]}
 ```
 
-For cross-version consistency, this specification defines a few types for backwards compatibility with other IIIF APIs. Future versions of these APIs will define their own types.
+For cross-version consistency, this specification defines the following types for backwards compatibility with other IIIF APIs. Future versions of these APIs will define their own types.
 
 | Value          | Specification |
 | -------------- | ------------- |
