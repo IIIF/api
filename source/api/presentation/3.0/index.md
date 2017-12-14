@@ -571,6 +571,29 @@ The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id` a
   }]}
 ```
 
+For cross-version consistency, this specification defines a few types for backwards compatibility with other IIIF APIs:
+
+| Value          | Specification |
+| -------------- | ------------- |
+| ImageService1  | [Image API version 1][]  |
+| ImageService2  | [Image API version 2][]  |
+| SearchService1 | [Search API version 1][] |
+
+A reference from a version 3 Presentation API document to a version 2 Image API end point would thus follow the pattern in this example:
+
+``` json-doc
+{
+  "service": [
+    {
+      "id": "http://https://example.org/iiif/image1/identifier",
+      "type": "ImageService2",
+      "profile": "level1"
+    }
+  ]
+}
+```
+
+
 ##### seeAlso
 A link to an external, machine-readable resource that is related to this resource, such as an XML or RDF description. Properties of the external resource should be given to help the client select between multiple descriptions (if provided), and to make appropriate use of the document. If the relationship between the resource and the document needs to be more specific, then the document should include that relationship rather than the IIIF resource. Other IIIF resources, such as a related Manifest, are valid targets for `seeAlso`. The URI of the document _MUST_ identify a single representation of the data in a particular format. For example, if the same data exists in JSON and XML, then separate resources should be added for each representation, with distinct `id` and `format` properties.
 
