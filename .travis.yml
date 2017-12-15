@@ -22,11 +22,11 @@ jdk:
 dist: precise
 
 before_deploy: if [[ ${ROOT_BRANCHES} =~ .*${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH}.* ]]; then
-    echo "Building relative ${ROOT_INSTALL}";
-    bundle exec jekyll clean && bundle exec jekyll build --baseurl /api/${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH};
-  else
     echo "Building at root ${ROOT_INSTALL}";
     bundle exec jekyll clean && bundle exec jekyll build;
+  else
+    echo "Building relative ${ROOT_INSTALL}";
+    bundle exec jekyll clean && bundle exec jekyll build --baseurl /api/${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH};
   fi
 
 deploy:
