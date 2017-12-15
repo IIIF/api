@@ -1,7 +1,7 @@
 sudo: false
 env:
   global:
-    - ROOT_BRANCHES="master prezi3 simplfy_root_apps"
+    - ROOT_BRANCHES="master prezi3"
 before_install:
   - export NOKOGIRI_USE_SYSTEM_LIBRARIES=true
   - npm install -g grunt-cli
