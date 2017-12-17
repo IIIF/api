@@ -240,6 +240,19 @@ The value _MUST_ be a JSON array, with each item in the array being a JSON objec
 {"thumbnail": [{"id": "https://example.org/img/thumb.jpg", "type": "Image"}]}
 ```
 
+##### posterCanvas
+A single Canvas providing content that represents this resource, such as image to show while a duration-only Canvas is playing audio, or images, text and sound shown for video content before the user initiates playback. Whereas a client might use `thumbnail` for navigation or summary views of multiple resources, a client can choose to show content from `posterCanvas` as part of the presentation of this resource without requiring the content of `posterCanvas` to be part of this resource. The poster Canvas can have different dimensions to the Canvas(es) of this resource.
+
+  * A Collection _MAY_ have exactly one `posterCanvas`.
+  * A Manifest _MAY_ have exactly one `posterCanvas`.
+  * A Sequence _MAY_ have exactly one `posterCanvas`.
+  * A Canvas _MAY_ have exactly one `posterCanvas`.
+  * A Range _MAY_ have exactly one `posterCanvas`.
+  * Other resource types _MUST NOT_ have a poster canvas.
+
+Publishers should not assume that a client will display the content of the poster Canvas to the user. 
+
+
 ##### navDate
 A date that the client can use for navigation purposes when presenting this resource to the user in a time-based user interface, such as a calendar or timeline.  The value _MUST_ be an `xsd:dateTime` literal in UTC, expressed in the form "YYYY-MM-DDThh:mm:ssZ".  If the exact time is not known, then "00:00:00" _SHOULD_ be used. Similarly, the month or day _SHOULD_ be "01" if not known.  There _MUST_ be at most one `navDate` associated with any given resource.  More descriptive date ranges, intended for display directly to the user, _SHOULD_ be included in the `metadata` property for human consumption.  
 
