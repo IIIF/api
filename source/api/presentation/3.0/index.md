@@ -591,7 +591,7 @@ The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id` a
 #### 3.4.2. Internal Links
 
 ##### within
-A link to another resource that contains this resource, such as a Manifest within a Collection.
+A link to another resource that contains this resource, such as a Manifest that is part of a Collection. When encountering the `within` property and the referenced resource is not included in the current representation, clients might retrieve the referenced resource to contribute to the processing of this resource. For example, if a Canvas is encountered as a stand alone resource, it might be `within` a Manifest that includes the Sequence and other contextual information, or a Manifest might be `within` a Collection, which would aid in navigation.
 
 The value _MUST_ be an array of JSON objects.  Each object _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `label` property.
 
