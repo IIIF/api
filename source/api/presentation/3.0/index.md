@@ -535,7 +535,7 @@ The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id`, 
 {"related": [{
   "id": "https://example.com/info/",
   "type": "Text",
-  "label": "Related Web Page",
+  "label": {"en": ["Related web page"]},
   "format": "text/html"}]}
 ```
 
@@ -551,7 +551,7 @@ The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id`, 
 {"rendering": [{
   "id": "https://example.org/1.pdf",
   "type": "Text",
-  "label": "PDF Rendering of Book",
+  "label": {"en": ["PDF Rendering of Book"]},
   "format": "application/pdf"}]}
 ```
 
@@ -1224,7 +1224,7 @@ Ranges _MAY_ link to an AnnotationCollection that has the content of the Range u
     {
       "id": "http://example.org/iiif/book1/range/r0",
       "type": "Range",
-      "label": "Table of Contents",
+      "label": {"en": ["Table of Contents"]},
       "items": [
         {
           "id": "http://example.org/iiif/book1/canvas/cover",
@@ -1233,7 +1233,7 @@ Ranges _MAY_ link to an AnnotationCollection that has the content of the Range u
         {
           "id": "http://example.org/iiif/book1/range/r1",
           "type": "Range",
-          "label": "Introduction",
+          "label": {"en": ["Introduction"]},
           "includes": "http://example.org/iiif/book1/annocoll/introTexts",
           "items": [
             {
@@ -1359,7 +1359,7 @@ An AnnotationCollection representing a long transcription with almost half a mil
   ],
   "id": "http://example.org/iiif/book1/annocoll/transcription",
   "type": "AnnotationCollection",
-  "label": "Example Long Transcription",
+  "label": {"en": ["Example Long Transcription"]},
 
   "total": 496923,
   "first": "http://example.org/iiif/book1/annopage/l1"
@@ -1400,7 +1400,7 @@ Note that it is still expected that canvases will link directly to the Annotatio
 
   "height": 1000,
   "width": 1000,
-  "label": "Page 1",
+  "label": {"en": ["Page 1"]},
 
   "otherContent": [
     "http://example.org/iiif/book1/annopage/l1",
@@ -1421,7 +1421,7 @@ An example large collection with some 9.3 million objects in it:
   ],
   "id": "http://example.org/iiif/collection/top",
   "type": "Collection",
-  "label": "Example Big Collection",
+  "label": {"en": ["Example Big Collection"]},
 
   "total": 9316290,
   "first": "http://example.org/iiif/collection/c1"
