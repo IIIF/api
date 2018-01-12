@@ -241,7 +241,9 @@ The value _MUST_ be a JSON array, with each item in the array being a JSON objec
 ```
 
 ##### posterCanvas
-A single Canvas providing content that represents this resource, such as image to show while a duration-only Canvas is playing audio, or images, text and sound shown for video content before the user initiates playback. Whereas a client might use `thumbnail` for navigation or summary views of multiple resources, a client can choose to show content from `posterCanvas` as part of the presentation of this resource without requiring the content of `posterCanvas` to be part of this resource. The poster Canvas can have different dimensions to the Canvas(es) of this resource.
+A single Canvas providing content associated with the object represented by this resource but not part of that object. Examples include an image to show while a duration-only Canvas is playing audio; images, text and sound standing in for video content before the user initiates playback; or a film poster to attract user attention. The content provided by `posterCanvas` differs from a thumbnail: a client might use `thumbnail` to summarise and navigate multiple resources, then show content from `posterCanvas` as part of the presentation of a single resource. The poster Canvas can have different dimensions to the Canvas(es) of this resource.
+
+Clients _MAY_ display the content of a linked poster Canvas when presenting the resource: publishers should not assume that this content will be seen in all clients. When more than one Canvas is available, for example if `posterCanvas` is provided for the currently selected Range and the current Manifest, and the client is able to show a poster Canvas, the client _SHOULD_ pick the Canvas most specific to the content. 
 
   * A Collection _MAY_ have exactly one `posterCanvas`.
   * A Manifest _MAY_ have exactly one `posterCanvas`.
@@ -249,8 +251,6 @@ A single Canvas providing content that represents this resource, such as image t
   * A Canvas _MAY_ have exactly one `posterCanvas`.
   * A Range _MAY_ have exactly one `posterCanvas`.
   * Other resource types _MUST NOT_ have a poster canvas.
-
-Publishers should not assume that a client will display the content of the poster Canvas to the user. 
 
 
 ##### navDate
