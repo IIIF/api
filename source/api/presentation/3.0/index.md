@@ -245,12 +245,18 @@ One or more Canvases providing content associated with the object represented by
 
 Clients _MAY_ display the content of a linked poster Canvas when presenting the resource, and if more than one is available _MAY_ choose the one most suited to the client user interface. When more than one Canvas is available, for example if `posterCanvas` is provided for the currently selected Range and the current Manifest, and the client is able to show a poster Canvas, the client _SHOULD_ pick the Canvas most specific to the content. Publishers _SHOULD NOT_ assume that `posterCanvas` content will be seen in all clients. Clients _SHOULD_ take care to avoid conflicts between time-based media in the `posterCanvas` and the content of the resource it is associated with.
 
-  * A Collection _MAY_ have one or more `posterCanvas` properties.
-  * A Manifest _MAY_ have one or more `posterCanvas` properties.
-  * A Sequence _MAY_ have one or more `posterCanvas` properties.
-  * A Canvas _MAY_ have one or more `posterCanvas` properties.
-  * A Range _MAY_ have one or more `posterCanvas` properties.
-  * Other resource types _MUST NOT_ have a `posterCanvas`.
+  * A Collection _MAY_ have one or more `posterCanvas` properties.<br/>
+   Clients _MAY_ render `posterCanvas` on a Collection.
+  * A Manifest _MAY_ have one or more `posterCanvas` properties.<br/>
+   Clients _MAY_ render `posterCanvas` on a Manifest.
+  * A Sequence _MAY_ have one or more `posterCanvas` properties.<br/>
+   Clients _MAY_ render `posterCanvas` on a Sequence.
+  * A Canvas _MAY_ have one or more `posterCanvas` properties.<br/>
+   Clients _MAY_ render `posterCanvas` on a Canvas.
+  * A Range _MAY_ have one or more `posterCanvas` properties.<br/>
+   Clients _MAY_ render `posterCanvas` on a Range.
+  * Other resource types _MUST NOT_ have a `posterCanvas`.<br/>
+   Clients _SHOULD_ ignore `posterCanvas` on other resource types.
 
 
 ##### navDate
