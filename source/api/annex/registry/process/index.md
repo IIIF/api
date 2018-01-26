@@ -1,5 +1,5 @@
 ---
-title: Registry of Services
+title: Process for Adding Entries to Registries
 layout: spec
 tags: [annex, service, services, specifications]
 cssversion: 2
@@ -24,7 +24,7 @@ Changes will be tracked within the document.
 
 ## Abstract
 {:.no_toc}
-This document describes the set of related services that have been identified as useful to reference from the IIIF APIs.  The services may be defined by the IIIF community, or outside of it.
+This document describes the process by which additions to the [IIIF registries][registry-home] occur.
 
 Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss]
 

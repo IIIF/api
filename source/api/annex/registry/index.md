@@ -22,7 +22,5 @@ The process for having an entry included in one of the IIIF registries is [descr
 * [Types](types/)
 * [ViewingDirections](viewingDirections/)
 
-[registry-process]: {{ site.url }}{{ site.baseurl }}/api/annex/registry/process/
-
 {% include acronyms.md %}
 {% include links.md %}

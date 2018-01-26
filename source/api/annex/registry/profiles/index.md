@@ -1,5 +1,5 @@
 ---
-title: Registry of Behaviors
+title: Registry of Profiles
 layout: spec
 tags: [annex, service, services, specifications]
 cssversion: 2
@@ -24,7 +24,7 @@ Changes will be tracked within the document.
 
 ## Abstract
 {:.no_toc}
-This document describes the set of related behaviors that have been identified as useful to reference from the IIIF APIs.  The services may be defined by the IIIF community, or outside of it.
+This is one of a number of [IIIF registries][registry-home]. It lists a set of profile URIs that have been identified as useful for implementations, across the APIs.  They may be defined by the IIIF community, or outside of it.
 
 Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss]
 
@@ -35,6 +35,8 @@ Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss]
 {:toc}
 
 ## 1. Introduction
+
+This is one of a number of [IIIF registries][registry-home]. It lists a set of profile URIs that have been identified as useful for implementations, across the APIs.  They may be defined by the IIIF community, or outside of it.
 
 ### 1.1. Disclaimer
 

@@ -24,7 +24,7 @@ Changes will be tracked within the document.
 
 ## Abstract
 {:.no_toc}
-This document describes the set of related behaviors that have been identified as useful to reference from the IIIF APIs.  The services may be defined by the IIIF community, or outside of it.
+This document lists a set of behaviors, previously called viewing hints, in the Presentation API that have been identified as useful for implementations.  They may be defined by the IIIF community, or outside of it.
 
 Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss]
 
@@ -35,6 +35,8 @@ Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss]
 {:toc}
 
 ## 1. Introduction
+
+This is one of a number of [IIIF registries][registry-home]. It lists a set of behaviors, previously called viewing hints, in the Presentation API that have been identified as useful for implementations.  They may be defined by the IIIF community, or outside of it.
 
 ### 1.1. Disclaimer
 
@@ -48,7 +50,7 @@ The process for having a new entry added to this registry is [described here][re
 
 ## 3. Registry
 
-This table summarizes the known behaviors available, for use with the [Presentation API][prezi-api].
+This table summarizes the known behaviors available for use with the [Presentation API][prezi-api].
 
 | Behavior                       | 
 | ------------------------------ |
