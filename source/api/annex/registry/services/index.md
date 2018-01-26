@@ -139,7 +139,5 @@ Thanks to the members of the [IIIF][iiif-community] for their continuous engagem
 | ---------- | -------------------------------------------------- |
 | 2018-XX-YY | New Version 3 Registries                           |
 
-[registry-process]: {{ site.url }}{{ site.baseurl }}/api/annex/registry/process/
-
 {% include acronyms.md %}
 {% include links.md %}
