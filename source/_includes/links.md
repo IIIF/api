@@ -33,10 +33,13 @@
 [openannotypes]: http://www.openannotation.org/spec/core/core.html#BodyTargetType
 [paging-prezi30]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#paging-properties
 [prev-version]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.0/
+[prezi-api]: {{site.url}}{{ site.baseurl }}/api/presentation/3.0/
 [prezi3-milestone]:  https://github.com/IIIF/iiif.io/milestone/8
 [range-prezi30]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#range
 [rdf11-blank-nodes]: http://www.w3.org/TR/rdf11-concepts/#section-blank-nodes "RDF 1.1 Concepts"
 [resource-structure-prezi30]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#resource-structure
+[registry-home]: {{site.url}}{{ site.baseurl }}/api/annex/registry/
+[registry-process]: {{site.url}}{{ site.baseurl }}/api/annex/registry/process/
 [rfc-2119]: http://tools.ietf.org/html/rfc2119
 [rfc-4122]: http://tools.ietf.org/html/rfc4122 "URN UUID Scheme"
 [rfc5646]: http://tools.ietf.org/html/rfc5646 "RFC 5646"

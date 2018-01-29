@@ -535,7 +535,7 @@ The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id`, 
 {"related": [{
   "id": "https://example.com/info/",
   "type": "Text",
-  "label": "Related Web Page",
+  "label": {"en": ["Related web page"]},
   "format": "text/html"}]}
 ```
 
@@ -551,7 +551,7 @@ The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id`, 
 {"rendering": [{
   "id": "https://example.org/1.pdf",
   "type": "Text",
-  "label": "PDF Rendering of Book",
+  "label": {"en": ["PDF Rendering of Book"]},
   "format": "application/pdf"}]}
 ```
 
@@ -614,7 +614,7 @@ The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id` a
 #### 3.4.2. Internal Links
 
 ##### within
-A link to another resource that contains this resource, such as a Manifest within a Collection.
+A link to another resource that contains this resource, such as a Manifest that is part of a Collection. When encountering the `within` property and the referenced resource is not included in the current representation, clients might retrieve the referenced resource to contribute to the processing of this resource. For example, if a Canvas is encountered as a stand alone resource, it might be `within` a Manifest that includes the Sequence and other contextual information, or a Manifest might be `within` a Collection, which would aid in navigation.
 
 The value _MUST_ be an array of JSON objects.  Each object _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `label` property.
 
@@ -817,6 +817,20 @@ The value _MUST_ be an array of objects. Each object _MUST_ have at least the `i
   }
 ]}
 ```
+
+### 3.7. Values
+
+##### Values for motivation
+
+This specification defines two values for the Web Annotation property of `motivation`, or `purpose` when used on a SpecificResource or TextualBody.  Annotations are used to both associate resources that make up the rendering of the Canvas as well as commentary Annotations that are about the Canvas. These motivations allow clients to determine the intent of the Annotation with regards to how it should be rendered to the user, by distinguishing between Annotations that provide the content of the Canvas from ones that are comments about the Canvas. 
+
+Additional motivations may be added to the Annotation to further clarify the intent, drawn from extensions.  Known extensions are listed in [this annex][].  Clients _MUST_ ignore extension motivation values that they do not understand.  Other motivation values given in the Web Annotation specification _SHOULD_ be used where appropriate, and examples are given in the [Presentation API Cookbook][].
+
+> | Value | Description |
+| ----- | ----------- |
+| painting | Resources associated with a Canvas by an Annotation with the "painting" motivation _MUST_ be presented to the user as the representation of the Canvas.  The content can be thought of as being "of" the Canvas. The use of this motivation with target resources other than Canvases is undefined. For example, an Annotation with the "painting" motivation, a body of an Image and the target of the Canvas is an instruction to present that Image as (part of) the visual representation of the Canvas.  Similarly, a textual body is to be presented as (part of) the visual representation of the Canvas and not positioned in some other part of the user interface.|
+| transcribing | Resources associated with a Canvas by an Annotation with the "transcribing" motivation _MAY_ be presented to the user as part of the representation of the Canvas, or _MAY_ be presented in a different part of the user interface. The content can be thought of as being "from" the Canvas.  The use of this motivation with target resources other than Canvases is undefined.  For example, an Annotation with the "transcribing" motivation, a body of an Image and the target of part of the Canvas is an instruction to present that Image to the user either in the Canvas's rendering area or somewhere associated with it, and could be used to present an easier to read representation of a diagram. Similar, a textual body is to be presented either in the targeted region of the Canvas or otherwise associated with it, and might be a transcription of handwritten text or captions for what is being said in a Canvas with audio content. |
+{: .api-table #table-motivations}
 
 ##  4. JSON-LD Considerations
 
@@ -1109,9 +1123,10 @@ The Canvas represents an individual page or view and acts as a central point for
 
 Every Canvas _SHOULD_ have a `label` to display. If one is not provided, the client _SHOULD_ automatically generate one for use based on the Canvas's position within the current Sequence.
 
-Content resources are associated with the Canvas via Web Annotations.  Content that is to be rendered as part of the Canvas _MUST_ be associated by an Annotation with the "painting" `motivation`. These Annotations are recorded in the `items` of one or more AnnotationPages, referred to in the `items` array of the Canvas. If, according to the organization providing the Manifest, clients _SHOULD_ render the Annotation quickly then it _SHOULD_ be embedded within the Manifest directly.  Other AnnotationPages can be referenced with just their `id`, `type` and optionally a `label`, and clients _SHOULD_ dereference these pages to discover further content.  Content in this case includes media assets such as images, video and audio, textual transcriptions or editions of the Canvas, as well as commentary about the object represented by the Canvas.  These different uses _MAY_ be split up across different AnnotationPages.
+Content resources are associated with the Canvas via Web Annotations.  Content that is to be rendered as part of the Canvas _MUST_ be associated by an Annotation with the "painting" `motivation`. Content that is derived from the Canvas, such as a transcription of text in an image or the words spoken in an audio representation, _MUST_ be associated by an Annotation with the "transcribing" `motivation`. These Annotations are recorded in the `items` of one or more AnnotationPages, referred to in the `items` array of the Canvas. If, according to the organization providing the Manifest, clients _SHOULD_ render the Annotation quickly then it _SHOULD_ be embedded within the Manifest directly.  Other AnnotationPages can be referenced with just their `id`, `type` and optionally a `label`, and clients _SHOULD_ dereference these pages to discover further content.
 
-A Canvas _MUST_ have a rectangular aspect ratio (described with the `height` and `width` properties) and/or a `duration` to provide an extent in time. These dimensions allow resources to be associated with specific regions of the Canvas, within the space and/or time extents provided. Content _MUST NOT_ be associated with space or time outside of the Canvas's dimensions, such as at coordinates below 0,0, greater than the height or width, before 0 seconds, or after the duration. Content resources that have dimensions which are not defined for the Canvas _MUST NOT_ be associated with that Canvas. For example, it is valid to use a "painting" Annotation to associate an Image (which has only height and width) with a Canvas that has all three dimensions, but it is an error to associate a Video resource (which has height, width and duration) with a Canvas that does not have all three dimensions. Such a resource _SHOULD_ instead be referenced with the `rendering` property, or by Annotations with a `motivation` other than "painting" in the `annotations` property.
+A Canvas _MUST_ have a rectangular aspect ratio (described with the `height` and `width` properties) and/or a `duration` to provide an extent in time. These dimensions allow resources to be associated with specific regions of the Canvas, within the space and/or time extents provided. Content _MUST NOT_ be associated with space or time outside of the Canvas's dimensions, such as at coordinates below 0,0, greater than the height or width, before 0 seconds, or after the duration. Content resources that have dimensions which are not defined for the Canvas _MUST NOT_ be associated with that Canvas. For example, it is valid to use a "painting" Annotation to associate an Image (which has only height and width) with a Canvas that has all three dimensions, but it is an error to associate a Video resource (which has height, width and duration) with a Canvas that does not have all three dimensions. Such a resource _SHOULD_ instead be referenced with the `rendering` property, or by Annotations with a `motivation` other than "painting" or "transcribing" in the `annotations` property.
+
 
 Parts of Canvases are still Canvases and have a `type` of "Canvas". Parts of Canvases can be referenced from Ranges, Annotations or the `start` property. Spatial parts of Canvases, when referenced from outside an Annotation, _MUST_ be rectangular and are described by appending an `xywh=` fragment to the end of the Canvas's URI. Similarly, temporal parts of Canvases _MUST_ be described by appending a `t=` fragment to the end of the Canvas's URI. Spatial and temporal fragments _MAY_ be combined, using an `&` character between them, and the temporal dimension _SHOULD_ come first.  It is an error to select a region using a dimension that is not defined by the Canvas, such as a temporal region of a Canvas that only has height and width dimensions.
 
@@ -1247,7 +1262,7 @@ Ranges _MAY_ link to an AnnotationCollection that has the content of the Range u
     {
       "id": "http://example.org/iiif/book1/range/r0",
       "type": "Range",
-      "label": "Table of Contents",
+      "label": {"en": ["Table of Contents"]},
       "items": [
         {
           "id": "http://example.org/iiif/book1/canvas/cover",
@@ -1256,7 +1271,7 @@ Ranges _MAY_ link to an AnnotationCollection that has the content of the Range u
         {
           "id": "http://example.org/iiif/book1/range/r1",
           "type": "Range",
-          "label": "Introduction",
+          "label": {"en": ["Introduction"]},
           "includes": "http://example.org/iiif/book1/annocoll/introTexts",
           "items": [
             {
@@ -1382,7 +1397,7 @@ An AnnotationCollection representing a long transcription with almost half a mil
   ],
   "id": "http://example.org/iiif/book1/annocoll/transcription",
   "type": "AnnotationCollection",
-  "label": "Example Long Transcription",
+  "label": {"en": ["Example Long Transcription"]},
 
   "total": 496923,
   "first": "http://example.org/iiif/book1/annopage/l1"
@@ -1423,7 +1438,7 @@ Note that it is still expected that canvases will link directly to the Annotatio
 
   "height": 1000,
   "width": 1000,
-  "label": "Page 1",
+  "label": {"en": ["Page 1"]},
 
   "otherContent": [
     "http://example.org/iiif/book1/annopage/l1",
@@ -1444,7 +1459,7 @@ An example large collection with some 9.3 million objects in it:
   ],
   "id": "http://example.org/iiif/collection/top",
   "type": "Collection",
-  "label": "Example Big Collection",
+  "label": {"en": ["Example Big Collection"]},
 
   "total": 9316290,
   "first": "http://example.org/iiif/collection/c1"
