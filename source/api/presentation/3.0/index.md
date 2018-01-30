@@ -947,7 +947,7 @@ The Manifest resource typically represents a single object and any intellectual 
 
 The identifier in `id` _MUST_ be able to be dereferenced to retrieve the JSON description of the Manifest, and thus _MUST_ use the HTTP(S) URI scheme.
 
-Along with the descriptive information, there is an `items` section, which is a list of JSON-LD objects. Each object describes a [Sequence][prezi-api-3-sequence], discussed in the next section, that represents the order of the parts of the work, each represented by a [Canvas][prez-api-3-canvas].  There _MUST_ be at least one Sequence, and the first Sequence _MUST_ be included within the Manifest as well as optionally being available from its own URI. Subsequent Sequences _MAY_ be embedded within the Manifest, or referenced with their identifier (`id`), class (`type`) and label (`label`).
+Along with the descriptive information, there is an `items` section, which is a list of JSON-LD objects. Each object describes a [Sequence][prezi-api-3-sequence], discussed in the next section, that represents the order of the parts of the work, each represented by a [Canvas][prezi-api-3-canvas].  There _MUST_ be at least one Sequence, and the first Sequence _MUST_ be included within the Manifest as well as optionally being available from its own URI. Subsequent Sequences _MAY_ be embedded within the Manifest, or referenced with their identifier (`id`), class (`type`) and label (`label`).
 
 There _MAY_ also be a `structures` section listing one or more [Ranges][prezi-api-3-range] which describe additional structure of the content, such as might be rendered as a table of contents.
 
@@ -1672,9 +1672,9 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 | Date       | Description           |
 | ---------- | --------------------- |
 | XXXX-YY-ZZ | Version 3.0 |
-| 2017-06-09 | Version 2.1.1 [View change log][change-log-30] |
-| 2016-05-12 | Version 2.1 (Hinty McHintface) [View change log][change-log-21] |
-| 2014-09-11 | Version 2.0 (Triumphant Giraffe) [View change log][change-log-20] |
+| 2017-06-09 | Version 2.1.1 [View change log][prezi-change-log-30] |
+| 2016-05-12 | Version 2.1 (Hinty McHintface) [View change log][prezi-change-log-21] |
+| 2014-09-11 | Version 2.0 (Triumphant Giraffe) [View change log][prezi-change-log-20] |
 | 2013-08-26 | Version 1.0 (unnamed) |
 | 2013-06-14 | Version 0.9 (unnamed) |
 
