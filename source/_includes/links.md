@@ -50,9 +50,9 @@
 [prezi-use-case-doc]: {{ site.url }}{{ site.baseurl }}/api/presentation/usecases/ "Presentation API Use Cases"
 [rdf11-blank-nodes]: http://www.w3.org/TR/rdf11-concepts/#section-blank-nodes "RDF 1.1 Concepts"
 [registry-home]: {{site.url}}{{ site.baseurl }}/api/annex/registry/
-[registry-motivation]: {{site.url}}{{ site.baseurl }}/api/annex/registry/motivation/
+[registry-motivations]: {{site.url}}{{ site.baseurl }}/api/annex/registry/motivations/
 [registry-process]: {{site.url}}{{ site.baseurl }}/api/annex/registry/process/
-[registry-service]: {{site.url}}{{ site.baseurl }}/api/annex/registry/service/
+[registry-services]: {{site.url}}{{ site.baseurl }}/api/annex/registry/services/
 [rfc-2119]: http://tools.ietf.org/html/rfc2119
 [rfc-4122]: http://tools.ietf.org/html/rfc4122 "URN UUID Scheme"
 [rfc5646]: http://tools.ietf.org/html/rfc5646 "RFC 5646"

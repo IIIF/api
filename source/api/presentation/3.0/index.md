@@ -556,7 +556,7 @@ The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id`, 
 ```
 
 ##### service
-A link to an external service that the client might interact with directly and gain additional information or functionality for using this resource, such as from an image to the base URI of an associated [IIIF Image API][image-api] service. The service resource _SHOULD_ have additional information associated with it in order to allow the client to determine how to make appropriate use of it. Please see the [Service Registry][registry-service] document for the details of currently known service types.
+A link to an external service that the client might interact with directly and gain additional information or functionality for using this resource, such as from an image to the base URI of an associated [IIIF Image API][image-api] service. The service resource _SHOULD_ have additional information associated with it in order to allow the client to determine how to make appropriate use of it. Please see the [Service Registry][registry-services] document for the details of currently known service types.
 
 The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `label` and `profile` properties.
 
@@ -828,7 +828,7 @@ The value _MUST_ be an array of objects. Each object _MUST_ have at least the `i
 
 This specification defines two values for the Web Annotation property of `motivation`, or `purpose` when used on a SpecificResource or TextualBody.  Annotations are used to both associate resources that make up the rendering of the Canvas as well as commentary Annotations that are about the Canvas. These motivations allow clients to determine the intent of the Annotation with regards to how it should be rendered to the user, by distinguishing between Annotations that provide the content of the Canvas from ones that are comments about the Canvas. 
 
-Additional motivations may be added to the Annotation to further clarify the intent, drawn from extensions.  Known extensions are listed in the [Motivation registry][registry-motivation].  Clients _MUST_ ignore extension motivation values that they do not understand.  Other motivation values given in the Web Annotation specification _SHOULD_ be used where appropriate, and examples are given in the [Presentation API Cookbook][cookbook].
+Additional motivations may be added to the Annotation to further clarify the intent, drawn from extensions.  Known extensions are listed in the [Motivation registry][registry-motivations].  Clients _MUST_ ignore extension motivation values that they do not understand.  Other motivation values given in the Web Annotation specification _SHOULD_ be used where appropriate, and examples are given in the [Presentation API Cookbook][cookbook].
 
 > | Value | Description |
 | ----- | ----------- |
