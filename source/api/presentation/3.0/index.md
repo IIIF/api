@@ -492,7 +492,7 @@ The value _MUST_ be an array of strings, taken from the table below or a URI.
 | `none` | Valid on AnnotationCollection, AnnotationPage, Annotation, SpecificResource and Choice. If this `behavior` is provided, then the client _SHOULD NOT_ render the resource by default, but allow the user to turn it on and off.|
 | `no-nav` | Valid only for Range. Ranges with this `behavior` _MUST NOT_ be displayed to the user in a navigation hierarchy. This allows for Ranges to be present that capture unnamed regions with no interesting content. |
 | `thumbnail-nav` | Valid only for Range. Ranges with this `behavior` _MAY_ be used by the client to present an alternative navigation or overview based on thumbnails, such as regular keyframes along a timeline for a video, or sections of a long scroll. Clients _SHOULD NOT_ use them to generate a conventional table of contents. Child Ranges of a Range with this `behavior` _MUST_ have a suitable `thumbnail` property. |
-| `auto-advance` | Valid on Collection, Manifest, Sequence and Canvas. When the client reaches the end of a Canvas with a duration dimension that has (or is within a resource that has) this `behavior`, it _SHOULD_ immediately proceed to the next Canvas and render it. If there is no subsequent Canvas in the current context, then this `behavior` should be ignored. When applied to a Collection, the client should treat the first Canvas of the next Manifest as following the last Canvas of the previous Manifest, respecting any `startCanvas` specified.|
+| `auto-advance` | Valid on Collection, Manifest, Sequence and Canvas. When the client reaches the end of a Canvas with a duration dimension that has (or is within a resource that has) this `behavior`, it _SHOULD_ immediately proceed to the next Canvas and render it. If there is no subsequent Canvas in the current context, then this `behavior` should be ignored. When applied to a Collection, the client should treat the first Canvas of the next Manifest as following the last Canvas of the previous Manifest, respecting any `start` Canvas specified.|
 | `together` | Valid only for Collection. A client _SHOULD_ present all of the child Manifests to the user at once in a separate viewing area with its own controls. Clients _SHOULD_ catch attempts to create too many viewing areas. The "together" value _SHOULD NOT_ be interpreted as applying to the members any child resources.|
 {: .api-table #table-behavior}
 
@@ -632,18 +632,18 @@ The value _MUST_ be an array of JSON objects.  Each object _MUST_ have the `id` 
 {"within": [{"id": "https://example.org/iiif/1", "type": "Manifest"}]}
 ```
 
-##### startCanvas
-A link from this Manifest, Sequence or Range to a Canvas that is contained within it. On seeing this relationship, a client _SHOULD_ advance to the specified Canvas when beginning navigation through the Sequence/Range.  This allows the client to begin with the first Canvas that contains interesting content rather than requiring the user to skip past blank or empty Canvases manually.  The Canvas _MUST_ be included in the first Sequence embedded within the Manifest.
+##### start
+A link from this Manifest, Sequence or Range to a Canvas, or part of a Canvas, that is contained within it. The reference to part of a Canvas is handled in the same way that Ranges reference parts of Canvases, by adding a fragment to the end of the Canvas's URI specifing the spatial and/or temporal segment of interest.  When processing this relationship, a client _SHOULD_ advance to the specified Canvas, or specified segment of the Canvas, when beginning navigation through the Sequence or Range.  This allows the client to begin with the first Canvas that contains interesting content rather than requiring the user to manually skip past uninteresting content.  The Canvas _MUST_ be included in the first Sequence embedded within the Manifest.
 
 The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` properties.
 
  * A Manifest, Sequence or Range _MAY_ have exactly one Canvas as its starting Canvas.
-   Clients _SHOULD_ process `startCanvas` on a Manifest, Sequence or Range.
+   Clients _SHOULD_ process `start` on a Manifest, Sequence or Range.
  * Other resource types _MUST NOT_ have a starting Canvas.
-   Clients _SHOULD_ ignore `startCanvas` on other resource types.
+   Clients _SHOULD_ ignore `start` on other resource types.
 
 ``` json-doc
-{"startCanvas": {"id": "https://example.org/iiif/1/canvas/1", "type": "Canvas"}}
+{"start": {"id": "https://example.org/iiif/1/canvas/1#t=120", "type": "Canvas"}}
 ```
 
 ##### includes
@@ -1042,7 +1042,7 @@ The example below includes only the Manifest-level information, however actual i
     "id": "https://example.org/collections/books/",
     "type": "Collection"
   }],
-  "startCanvas": {
+  "start": {
     "id": "https://example.org/iiif/book1/canvas/p2",
     "type": "Canvas"
   },
@@ -1096,7 +1096,7 @@ Sequences _MAY_ have their own descriptive, rights and linking metadata using th
 
   "viewingDirection": "left-to-right",
   "behavior": ["paged"],
-  "startCanvas": "https://example.org/iiif/book1/canvas/p2",
+  "start": "https://example.org/iiif/book1/canvas/p2",
 
   // The order of the canvases
   "items": [
@@ -1591,7 +1591,7 @@ __Technical Properties__
 
 __Linking Properties__
 
-|                      | seeAlso                | service                | related                | rendering              | within                 | startCanvas             |
+|                      | seeAlso                | service                | related                | rendering              | within                 | start                  |
 | -------------------- | ---------------------- | ---------------------- | ---------------------- | ---------------------- | ---------------------- | ----------------------- |
 | Collection           | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![not allowed][icon-na] |
 | Manifest             | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![not allowed][icon-na] |
