@@ -121,7 +121,7 @@ Content resources such as images, audio, video or text that are associated with 
 ##### Collection
 {: #overview-collection}
 
-An ordered list of Manifests, and/or further Collections.  Collections allow easy navigation among the Manifests in a hierarchical structure, potentially each with its own descriptive information.
+An ordered list of Manifests, and/or further Collections.  Collections allow easy navigation among the Manifests in a hierarchical structure, potentially each with its own descriptive information. Collections might be used to model dynamic result sets from a search, fixed sets of related resources, or other groupings of Manifests for presentation.
 
 ##### AnnotationPage
 {: #overview-annotationpage}
@@ -1343,22 +1343,22 @@ AnnotationCollections _MUST_ have a URI, and it _SHOULD_ be an HTTP URI.  They _
 
 ###  5.8. Collection
 
-Collections are used to list the manifests available for viewing, and to describe the structures, hierarchies or curated collections that the objects are part of.  Collections _MAY_ include both other Collections and Manifests, in order to form a tree-structured hierarchy.  
+Collections are used to list the manifests available for viewing, and to describe the structures, hierarchies or sets that the resources are part of.  Collections _MAY_ include both other Collections and Manifests, in order to form a tree-structured hierarchy.  Collections might be used to model dynamic result sets from a search, fixed sets of related resources, or other groupings of Manifests for presentation to the user, typically for navigation amongst the member items.
 
-Collection objects _MAY_ be embedded inline within other collection objects, such as when the collection is used primarily to subdivide a larger one into more manageable pieces, however manifests _MUST NOT_ be embedded within collections. An embedded collection _SHOULD_ also have its own URI from which the description is available.
+Collection objects _MAY_ be embedded inline within other Collection objects, such as when the Collection is used primarily to subdivide a larger one into more manageable pieces, however Manifests _MUST NOT_ be embedded within Collections. An embedded Collection _SHOULD_ also have its own URI from which the JSON description is available.
 
-Manifests or Collections _MAY_ appear within more than one collection. For example, an institution might define four collections: one for modern works, one for historical works, one for newspapers and one for books.  The manifest for a modern newspaper would then appear in both the modern collection and the newspaper collection.  Alternatively, the institution may choose to have two separate newspaper collections, and reference each as a sub-collection of modern and historical.
+Manifests or Collections _MAY_ appear within more than one Collection. For example, an institution might define four Collections: one for modern works, one for historical works, one for newspapers and one for books.  The Manifest for a modern newspaper would then appear in both the modern Collection and the newspaper Collection.  Alternatively, the institution may choose to have two separate newspaper Collections, and reference each as a sub-Collection of modern and historical.
 
 The intended usage of collections is to allow clients to:
 
-  * Load a pre-defined set of manifests at initialization time.
-  * Receive a set of manifests, such as search results, for rendering.
-  * Visualize lists or hierarchies of related manifests.
-  * Provide navigation through a list or hierarchy of available manifests.
+  * Load a pre-defined set of Manifests at initialization time.
+  * Receive a set of Manifests, such as search results, for rendering.
+  * Visualize lists or hierarchies of related Manifests.
+  * Provide navigation through a list or hierarchy of available Manifests.
 
-An empty collection, with no member resources, is allowed but discouraged.
+An empty Collection, with no member resources, is allowed but discouraged.
 
-An example collection document:
+An example Collection document:
 
 ``` json-doc
 {
