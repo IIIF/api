@@ -278,7 +278,7 @@ The value _MUST_ be an array of JSON objects, each of which _MUST_ have an `id` 
    Clients _MUST_ render `rights` on every resource type.
 
 ``` json-doc
-{"rights": [{"id": "http://example.org/rights/copyright.html", "type": "Text", "format": "text/html"}]}
+{"rights": [{"id": "https://example.org/rights/copyright.html", "type": "Text", "format": "text/html"}]}
 ```
 
 ##### logo
@@ -374,7 +374,7 @@ The value _MUST_ be an array of strings.
    Clients _SHOULD_ ignore `language` on other resource types.
 
 ``` json-doc
-{"rendering": [{"id": "http://example.org/docs/doc.pdf", "type": "Text", "format": "application/pdf", "language": ["en"]}]}
+{"rendering": [{"id": "https://example.org/docs/doc.pdf", "type": "Text", "format": "application/pdf", "language": ["en"]}]}
 ```
 
 ##### profile
@@ -568,7 +568,7 @@ The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id` a
 {"service": [
   {"id": "https://example.org/service",
    "type": "Service",
-   "profile": "http://example.org/docs/service"
+   "profile": "https://example.org/docs/service"
   }]}
 ```
 
@@ -612,7 +612,7 @@ The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id` a
     "id": "https://example.org/library/catalog/book1.xml",
     "type": "Dataset",
     "format": "text/xml",
-    "profile": "http://example.org/profiles/bibliographic"
+    "profile": "https://example.org/profiles/bibliographic"
   }]}
 ```
 
@@ -979,7 +979,7 @@ The example below includes only the Manifest-level information, however actual i
     {"label": {"en": ["Notes"]},
      "value": {"en": ["Text of note 1", "Text of note 2"]}},
     {"label": {"en": ["Source"]},
-     "value": {"@none": ["<span>From: <a href=\"http://example.org/db/1.html\">Some Collection</a></span>"]}}
+     "value": {"@none": ["<span>From: <a href=\"https://example.org/db/1.html\">Some Collection</a></span>"]}}
   ],
   "summary": {"en": ["Book 1, written be Anne Author, published in Paris around 1400."]},
 
@@ -1000,7 +1000,7 @@ The example below includes only the Manifest-level information, however actual i
 
   // Rights Information
   "rights": [{
-    "id":"http://example.org/license.html",
+    "id":"https://example.org/license.html",
     "type": "Text",
     "language": "en",
     "format": "text/html"}],
@@ -1024,33 +1024,33 @@ The example below includes only the Manifest-level information, however actual i
   "service": [{
     "id": "https://example.org/service/example",
     "type": "Service",
-    "profile": "http://example.org/docs/example-service.html"
+    "profile": "https://example.org/docs/example-service.html"
   }],
   "seeAlso": [{
     "id": "https://example.org/library/catalog/book1.xml",
     "type": "Dataset",
     "format": "text/xml",
-    "profile": "http://example.org/profiles/bibliographic"
+    "profile": "https://example.org/profiles/bibliographic"
   }],
   "rendering": [{
-    "id": "http://example.org/iiif/book1.pdf",
+    "id": "https://example.org/iiif/book1.pdf",
     "type": "Text",
     "label": {"en": ["Download as PDF"]},
     "format": "application/pdf"
   }],
   "within": [{
-    "id": "http://example.org/collections/books/",
+    "id": "https://example.org/collections/books/",
     "type": "Collection"
   }],
   "startCanvas": {
-    "id": "http://example.org/iiif/book1/canvas/p2",
+    "id": "https://example.org/iiif/book1/canvas/p2",
     "type": "Canvas"
   },
 
   // List of Sequences
   "items": [
       {
-        "id": "http://example.org/iiif/book1/sequence/normal",
+        "id": "https://example.org/iiif/book1/sequence/normal",
         "type": "Sequence",
         "label": {"en": ["Current Page Order"]}
         // Sequence's page order should be included here
@@ -1061,7 +1061,7 @@ The example below includes only the Manifest-level information, however actual i
   // structure of the resource, described with Ranges
   "structure": [
     {
-      "id": "http://example.org/iiif/book1/range/top",
+      "id": "https://example.org/iiif/book1/range/top",
       "type": "Range"
       // Ranges members should be included here
     }
@@ -1071,7 +1071,7 @@ The example below includes only the Manifest-level information, however actual i
   // Commentary Annotations on the Manifest
   "annotations": [
     {
-      "id": "http://example.org/iiif/book1/annotations/p1",
+      "id": "https://example.org/iiif/book1/annotations/p1",
       "type": "AnnotationPage",
       "items": [
         // Annotations about the Manifest are included here
@@ -1090,30 +1090,30 @@ Sequences _MAY_ have their own descriptive, rights and linking metadata using th
 ``` json-doc
 {
   // Metadata about this sequence
-  "id": "http://example.org/iiif/book1/sequence/normal",
+  "id": "https://example.org/iiif/book1/sequence/normal",
   "type": "Sequence",
   "label": {"en": ["Current Page Order"]},
 
   "viewingDirection": "left-to-right",
   "behavior": ["paged"],
-  "startCanvas": "http://example.org/iiif/book1/canvas/p2",
+  "startCanvas": "https://example.org/iiif/book1/canvas/p2",
 
   // The order of the canvases
   "items": [
     {
-      "id": "http://example.org/iiif/book1/canvas/p1",
+      "id": "https://example.org/iiif/book1/canvas/p1",
       "type": "Canvas",
       "label": {"@none": ["p. 1"]}
       // ...
     },
     {
-      "id": "http://example.org/iiif/book1/canvas/p2",
+      "id": "https://example.org/iiif/book1/canvas/p2",
       "type": "Canvas",
       "label": {"@none": ["p. 2"]}
       // ...
     },
     {
-      "id": "http://example.org/iiif/book1/canvas/p3",
+      "id": "https://example.org/iiif/book1/canvas/p3",
       "type": "Canvas",
       "label": {"@none": ["p. 3"]}
       // ...
@@ -1141,7 +1141,7 @@ Renderers _MUST_ scale content into the space represented by the Canvas, and _SH
 ``` json-doc
 {
   // Metadata about this canvas
-  "id": "http://example.org/iiif/book1/canvas/p1",
+  "id": "https://example.org/iiif/book1/canvas/p1",
   "type": "Canvas",
   "label": {"@none": ["p. 1"]},
   "height": 1000,
@@ -1150,7 +1150,7 @@ Renderers _MUST_ scale content into the space represented by the Canvas, and _SH
 
   "items": [
     {
-      "id": "http://example.org/iiif/book1/page/p1/1",
+      "id": "https://example.org/iiif/book1/page/p1/1",
       "type": "AnnotationPage",
       "items": [
         // Content Annotations on the Canvas are included here
@@ -1174,17 +1174,17 @@ The AnnotationPage _MUST_ have an HTTP(S) URI given in `id`, and the JSON repres
     "http://www.w3.org/ns/anno.jsonld",
     "http://iiif.io/api/presentation/{{ page.major }}/context.json"
   ],
-  "id": "http://example.org/iiif/book1/annopage/p1",
+  "id": "https://example.org/iiif/book1/annopage/p1",
   "type": "AnnotationPage",
 
   "items": [
     {
-      "id": "http://example.org/iiif/book1/annopage/p1/a1",
+      "id": "https://example.org/iiif/book1/annopage/p1/a1",
       "type": "Annotation"
       // ...
     },
     {
-      "id": "http://example.org/iiif/book1/annopage/p1/a2",
+      "id": "https://example.org/iiif/book1/annopage/p1/a2",
       "type": "Annotation"
       // ...
     }
@@ -1200,7 +1200,7 @@ Annotations _MUST_ have their own HTTP(S) URIs, conveyed in the `id` property. T
 
 Annotations that associate content that is part of the representation of the view _MUST_ have the `motivation` field and the value _MUST_ be "painting". This is in order to distinguish it from commentary style Annotations. Text may be thus either be associated with the Canvas via a "painting" annotation, meaning the content is part of the representation, or with another `motivation`, meaning that it is somehow about the view.
 
-The content resource is linked in the `body` of the Annotation. The content resource _MUST_ have an `id` field, with the value being the URI at which it can be obtained. If a IIIF Image service is available for an image, then the URI _MUST_ be the complete URI to a particular size of the image content, such as `http://example.org/image1/full/1000,/0/default.jpg`. It _MUST_ have a `type` of "Image". Its media type _MAY_ be listed in `format`, and its height and width _MAY_ be given as integer values for `height` and `width` respectively. The image then _SHOULD_ have the service referenced from it.
+The content resource is linked in the `body` of the Annotation. The content resource _MUST_ have an `id` field, with the value being the URI at which it can be obtained. If a IIIF Image service is available for an image, then the URI _MUST_ be the complete URI to a particular size of the image content, such as `https://example.org/image1/full/1000,/0/default.jpg`. It _MUST_ have a `type` of "Image". Its media type _MAY_ be listed in `format`, and its height and width _MAY_ be given as integer values for `height` and `width` respectively. The image then _SHOULD_ have the service referenced from it.
 
 Although it might seem redundant, the URI of the Canvas _MUST_ be repeated in the `target` field of the Annotation. This is to ensure consistency with Annotations that target only part of the resource, described in more detail below, and to remain faithful to the Web Annotation specification, where `target` is mandatory.
 
@@ -1215,22 +1215,22 @@ Additional features of the [Web Annotation][webanno] data model _MAY_ also be us
     "http://www.w3.org/ns/anno.jsonld",
     "http://iiif.io/api/presentation/{{ page.major }}/context.json"
   ],
-  "id": "http://example.org/iiif/book1/annotation/p0001-image",
+  "id": "https://example.org/iiif/book1/annotation/p0001-image",
   "type": "Annotation",
   "motivation": "painting",
   "body": {
-    "id": "http://example.org/iiif/book1/res/page1.jpg",
+    "id": "https://example.org/iiif/book1/res/page1.jpg",
     "type": "Image",
     "format": "image/jpeg",
     "service": {
-      "id": "http://example.org/images/book1-page1",
+      "id": "https://example.org/images/book1-page1",
       "type": "ImageService3",
       "profile": "level2"
     },
     "height":2000,
     "width":1500
   },
-  "target": "http://example.org/iiif/book1/canvas/p1"
+  "target": "https://example.org/iiif/book1/canvas/p1"
 }
 ```
 
@@ -1255,7 +1255,7 @@ Ranges _MAY_ link to an AnnotationCollection that has the content of the Range u
     "http://www.w3.org/ns/anno.jsonld",
     "http://iiif.io/api/presentation/{{ page.major }}/context.json"
   ],
-  "id": "http://example.org/iiif/book1/manifest",
+  "id": "https://example.org/iiif/book1/manifest",
   "type": "Manifest",
   // Metadata here ...
 
@@ -1265,36 +1265,36 @@ Ranges _MAY_ link to an AnnotationCollection that has the content of the Range u
 
   "structures": [
     {
-      "id": "http://example.org/iiif/book1/range/r0",
+      "id": "https://example.org/iiif/book1/range/r0",
       "type": "Range",
       "label": {"en": ["Table of Contents"]},
       "items": [
         {
-          "id": "http://example.org/iiif/book1/canvas/cover",
+          "id": "https://example.org/iiif/book1/canvas/cover",
           "type": "Canvas"
         },
         {
-          "id": "http://example.org/iiif/book1/range/r1",
+          "id": "https://example.org/iiif/book1/range/r1",
           "type": "Range",
           "label": {"en": ["Introduction"]},
-          "includes": "http://example.org/iiif/book1/annocoll/introTexts",
+          "includes": "https://example.org/iiif/book1/annocoll/introTexts",
           "items": [
             {
-              "id": "http://example.org/iiif/book1/canvas/p1",
+              "id": "https://example.org/iiif/book1/canvas/p1",
               "type": "Canvas"
             },
             {
-              "id": "http://example.org/iiif/book1/canvas/p2",
+              "id": "https://example.org/iiif/book1/canvas/p2",
               "type": "Canvas"
             },
             {
-              "id": "http://example.org/iiif/book1/canvas/p3#xywh=0,0,750,300",
+              "id": "https://example.org/iiif/book1/canvas/p3#xywh=0,0,750,300",
               "type": "Canvas"
             }  
           ]
         },
         {
-          "id": "http://example.org/iiif/book1/canvas/backCover",
+          "id": "https://example.org/iiif/book1/canvas/backCover",
           "type": "Canvas"
         }
       ]
@@ -1313,10 +1313,10 @@ AnnotationCollections _MUST_ have a URI, and it _SHOULD_ be an HTTP URI.  They _
 ``` json-doc
 {
   "@context": [],
-  "id": "http://example.org/iiif/book1/annopage/l1",
+  "id": "https://example.org/iiif/book1/annopage/l1",
   "type": "AnnotationPage",
   "partOf": {
-    "id": "http://example.org/iiif/book1/annocoll/transcription",
+    "id": "https://example.org/iiif/book1/annocoll/transcription",
     "type": "AnnotationCollection",
     "label": {"en": ["Diplomatic Transcription"]}
   }
@@ -1331,12 +1331,12 @@ AnnotationCollections _MUST_ have a URI, and it _SHOULD_ be an HTTP URI.  They _
     "http://www.w3.org/ns/anno.jsonld",
     "http://iiif.io/api/presentation/{{ page.major }}/context.json"
   ],
-  "id": "http://example.org/iiif/book1/annocoll/transcription",
+  "id": "https://example.org/iiif/book1/annocoll/transcription",
   "type": "AnnotationCollection",
   "label": {"en": ["Diplomatic Transcription"]},
 
-  "first": {"id": "http://example.org/iiif/book1/annopage/l1", "type": "AnnotationPage"},
-  "last": {"id": "http://example.org/iiif/book1/annopage/l120", "type": "AnnotationPage"}
+  "first": {"id": "https://example.org/iiif/book1/annopage/l1", "type": "AnnotationPage"},
+  "last": {"id": "https://example.org/iiif/book1/annopage/l120", "type": "AnnotationPage"}
 }
 ```
 
@@ -1366,7 +1366,7 @@ An example collection document:
     "http://www.w3.org/ns/anno.jsonld",
     "http://iiif.io/api/presentation/{{ page.major }}/context.json"
   ],
-  "id": "http://example.org/iiif/collection/top",
+  "id": "https://example.org/iiif/collection/top",
   "type": "Collection",
   "label": {"en": ["Top Level Collection for Example Organization"]},
   "summary": {"en": ["Short summary of the Collection"]},
@@ -1400,12 +1400,12 @@ An AnnotationCollection representing a long transcription with almost half a mil
     "http://www.w3.org/ns/anno.jsonld",
     "http://iiif.io/api/presentation/{{ page.major }}/context.json"
   ],
-  "id": "http://example.org/iiif/book1/annocoll/transcription",
+  "id": "https://example.org/iiif/book1/annocoll/transcription",
   "type": "AnnotationCollection",
   "label": {"en": ["Example Long Transcription"]},
 
   "total": 496923,
-  "first": "http://example.org/iiif/book1/annopage/l1"
+  "first": "https://example.org/iiif/book1/annopage/l1"
 }
 ```
 
@@ -1417,12 +1417,12 @@ And the corresponding first AnnotationPage:
     "http://www.w3.org/ns/anno.jsonld",
     "http://iiif.io/api/presentation/{{ page.major }}/context.json"
   ],
-  "id": "http://example.org/iiif/book1/annopage/l1",
+  "id": "https://example.org/iiif/book1/annopage/l1",
   "type": "AnnotationPage",
 
   "startIndex": 0,
-  "within": "http://example.org/iiif/book1/annocoll/transcription",
-  "next": "http://example.org/iiif/book1/annopage/l2",
+  "within": "https://example.org/iiif/book1/annocoll/transcription",
+  "next": "https://example.org/iiif/book1/annopage/l2",
 
   "resources": [
     // Annotations live here ...
@@ -1438,7 +1438,7 @@ Note that it is still expected that canvases will link directly to the Annotatio
     "http://www.w3.org/ns/anno.jsonld",
     "http://iiif.io/api/presentation/{{ page.major }}/context.json"
   ],
-  "id": "http://example.org/iiif/book1/canvas/c1",
+  "id": "https://example.org/iiif/book1/canvas/c1",
   "type": "Canvas",
 
   "height": 1000,
@@ -1446,8 +1446,8 @@ Note that it is still expected that canvases will link directly to the Annotatio
   "label": {"en": ["Page 1"]},
 
   "otherContent": [
-    "http://example.org/iiif/book1/annopage/l1",
-    "http://example.org/iiif/book1/annopage/l2"
+    "https://example.org/iiif/book1/annopage/l1",
+    "https://example.org/iiif/book1/annopage/l2"
   ]
 }
 ```
@@ -1462,12 +1462,12 @@ An example large collection with some 9.3 million objects in it:
     "http://www.w3.org/ns/anno.jsonld",
     "http://iiif.io/api/presentation/{{ page.major }}/context.json"
   ],
-  "id": "http://example.org/iiif/collection/top",
+  "id": "https://example.org/iiif/collection/top",
   "type": "Collection",
   "label": {"en": ["Example Big Collection"]},
 
   "total": 9316290,
-  "first": "http://example.org/iiif/collection/c1"
+  "first": "https://example.org/iiif/collection/c1"
 }
 ```
 
@@ -1479,12 +1479,12 @@ And the corresponding first page of manifests:
     "http://www.w3.org/ns/anno.jsonld",
     "http://iiif.io/api/presentation/{{ page.major }}/context.json"
   ],
-  "id": "http://example.org/iiif/collection/c1",
+  "id": "https://example.org/iiif/collection/c1",
   "type": "Collection",
 
-  "within": "http://example.org/iiif/collection/top",
+  "within": "https://example.org/iiif/collection/top",
   "startIndex": 0,
-  "next": "http://example.org/iiif/collection/c2",
+  "next": "https://example.org/iiif/collection/c2",
 
   "manifests": [
     // Manifests live here ...
