@@ -34,6 +34,7 @@ We welcome feedback on all IIIF Specifications. In particular, we are actively s
 | Image API        | 2.1     | [Japanese][image-jp]  |
 | Presentation API | 2.1     | [Japanese][prezi-jp]  |
 | Search API       | 1.0     | [Japanese][search-jp] |
+| Authentication API | 1.0      | [Japanese][auth-jp] |
 {: .api-table}
 
 __Translation Note__<br/>
@@ -67,6 +68,7 @@ IIIF Specifications are created and published following the [IIIF Editorial Proc
 [image-jp]: http://www.asahi-net.or.jp/~ax2s-kmtn/ref/iiif/apiimage2.1.html
 [prezi-jp]: http://www.asahi-net.or.jp/~ax2s-kmtn/ref/iiif/apipresentation2.1.html
 [search-jp]: http://www.asahi-net.or.jp/~ax2s-kmtn/ref/iiif/searchapi1.0.html
+[auth-jp]: http://www.asahi-net.or.jp/~ax2s-kmtn/ref/iiif/apiauthentication1.0.html
 
 [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
 [image21]: {{ site.url }}{{ site.baseurl }}/api/image/2.1/ "Image API v2.1"
