@@ -47,11 +47,11 @@ This is a work in progress and may change without any notices. Implementers shou
 
 ##  1. Introduction
 
-Access to image-based resources is fundamental to many research disciplines, scholarship and the transmission of cultural knowledge. Digital images are a container for much of the information content in the Web-based delivery of digitized cultural heritage objects. Collections of born-digital images can also benefit from a standardized method to structure their layout and presentation, such as slideshows, image carousels, web comics, and more.
+Access to digital representations of structured resources is a fundamental requirement for many research pursuits, the transmission of cultural knowledge and for the daily pursuits of every web citizen. Digital content is the primary mode of transmission for access to cultural heritage, science and entertainment. Collections of both digitized physical objects and born-digital content can benefit from a standardized description of their structure, layout and presentation mode.
 
-This document describes how the structure and layout of a complex image-based object can be made available in a standard manner. Many different styles of viewer can be implemented that consume the information to enable a rich and dynamic experience, consuming content from across collections and hosting institutions.
+This document describes how the structure and layout of a composite objects can be made available in a standard manner. Many different styles of viewer can be implemented that consume the information to enable a rich and dynamic experience, consuming content from across collections and institutions.
 
-An object may comprise a series of pages, surfaces or other views; for example the single view of a painting, the two sides of a photograph, four cardinal views of a statue, or the many pages of an edition of a newspaper or book. The primary requirements for the Presentation API are to provide an order for these views, the resources needed to display a representation of the view, and the descriptive information needed to allow the user to understand what is being seen.
+A composite object may comprise a series of pages, surfaces or other views; for example the single view of a painting, the two sides of a photograph, four cardinal views of a statue, or the many pages of an edition of a newspaper or book. The primary requirements for this specification are to provide an order for these views, the resources needed to display a representation of the view, and the descriptive information needed to allow the user to understand what is being seen.
 
 The principles of [Linked Data][linked-data] and the [Architecture of the Web][web-arch] are adopted in order to provide a distributed and interoperable system. The [Shared Canvas data model][shared-canvas] and [JSON-LD][json-ld] are leveraged to create an easy-to-implement, JSON-based format.
 
@@ -59,26 +59,26 @@ Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss]
 
 ### 1.1. Objectives and Scope
 
-The objective of the IIIF (pronounced "Triple-Eye-Eff") Presentation API is to provide the information necessary to allow a rich, online viewing environment for primarily image-based objects to be presented to a human user, likely in conjunction with the [IIIF Image API][image-api]. This is the sole purpose of the API and therefore the descriptive information is given in a way that is intended for humans to read, but not semantically available to machines. In particular, it explicitly does __not__ aim to provide metadata that would drive discovery of the digitized objects.
+The objective of the IIIF (pronounced "Triple-Eye-Eff") Presentation API is to provide the information necessary to allow a rich, online viewing environment for structured digital objects to be presented to a human user, likely in conjunction with the [IIIF Image API][image-api]. This is the sole purpose of the API and therefore the descriptive information is given in a way that is intended for humans to read, but not semantically available to machines. In particular, it explicitly does __not__ aim to provide metadata that would drive discovery of the objects.
 
-The following are within the scope of the current document:
+Implementations of this specification will be able to:
 
-  * The display of digitized images associated with a particular physical object, or born-digital compound object.
-  * Navigation between multiple views of the object.
-  * The display of text, and resources of other media types, associated with the object views – this includes descriptive information about the object, labels that can aid navigation such as numbers associated with individual pages, copyright or attribution information, etc.
+  * display to the user digitized images, video, audio and other content types associated with a particular physical object, or born-digital compound object ; 
+  * allow the user to navigate between multiple views of the object, either sequentially or hierarchically ;
+  * and display descriptive information about the object, view or navigation structure to provide context to the user.
 
 The following are __not__ within scope:
 
-  * The discovery or selection of interesting digitized objects is not directly supported; however hooks to reference further resources are available.
+  * The discovery or selection of interesting objects is not directly supported; however hooks to reference further resources are available.
   * Search within the object; which is described by the [IIIF Content Search API][search-api].
 
-Note that in the following descriptions, "object" (or "physical object") is used to refer to a physical object that has been digitized or a born-digital compound object, and "resources" refer to the digital resources that are the result of that digitization or digital creation process.
+Note that in the following descriptions, "object" is used to refer to the object that has been digitized or a born-digital compound object, and "resources" refer to the digital resources and content that are the result of that digitization or digital creation process.
 
 ###  1.2. Motivating Use Cases
 
-There are many different types of digitized or digital compound objects, from ancient scrolls to modern newspapers, from medieval manuscripts to online comics, and from large maps to small photographs. Many of them bear texts, sometimes difficult to read either due to the decay of the physical object or lack of understanding of the script or language.  These use cases are described in a separate [document][prezi-use-case-doc].
+There are many different types of digitized or digital compound objects, from ancient scrolls to modern newspapers, from operas to pop music, and from the earliest black and white film to to computer generated animations. Many of them bear text, sometimes difficult to read either due to the decay of the physical object or lack of understanding of the script or language.  These use cases are described in a separate [document][prezi-use-case-doc].
 
-Collectively the use cases require a model in which one can characterize the object (via the _Manifest_ resource), the order(s) in which individual views are presented (the _Sequence_ resource), and the individual views (_Canvas_ resources). Each Canvas may have images and/or other content resources associated with it (_Content_ resources) to allow the view to be rendered. An object may also have parts; for example, a book may have chapters where several pages may be associated with a single chapter (a _Range_ resource) and there may be groups of objects (_Collection_ resources).  These resource types, along with their properties, make up the IIIF Presentation API.
+Collectively the use cases require a model in which one can characterize the object (via the _Manifest_ resource), the order(s) in which individual views are presented (the _Sequence_ resource), and the individual views themselves (_Canvas_ resources). Each view may have images, audio, video and other content resources associated with it (_Content_ resources) to allow the view to be rendered to the user appropriately. An object may also have sections; for example, a book may have chapters of several pages, or a play might be divided into acts and scenes (_Range_ resources) and there may be groups of objects (_Collection_ resources).  These resource types, along with their properties, make up the IIIF Presentation API.
 
 ### 1.3. Terminology
 
@@ -99,17 +99,17 @@ This specification makes use of the following primary resource types:
 ##### Manifest
 {: #overview-manifest}
 
-The overall description of the structure and properties of the digital representation of an object. It carries information needed for the viewer to present the digitized content to the user, such as a title and other descriptive information about the object or the intellectual work that it conveys. Each Manifest describes how to present a single object such as a book, a photograph, or a statue.
+The overall description of the structure and properties of the digital representation of an object. It carries information needed for the viewer to present the content to the user, such as a title and other descriptive information about the object or the intellectual work that it conveys. Each Manifest describes how to present a single object such as a book, a statue or a music album.
 
 ##### Sequence
 {: #overview-sequence}
 
-The order of the views of the object. Multiple Sequences are allowed to cover situations when there are multiple equally valid orders through the content, such as when a manuscript's pages are rebound or archival collections are reordered.
+The order of the views of the object. Multiple Sequences are allowed to cover situations when there are multiple equally valid orders through the content, such as when a manuscript's pages are rebound or archival collections are reordered, or there are several possible orderings of musical content.
 
 ##### Canvas
 {: #overview-canvas}
 
-A virtual container that represents a page or view and has content resources associated with it or with parts of it. The Canvas provides a frame of reference for the layout of the content. The concept of a Canvas is borrowed from standards like PDF and HTML, or applications like Photoshop and Powerpoint, where the display starts from a blank display and images, video, text and other resources are "painted" on to it.
+A virtual container that represents a particular view of the object and has content resources associated with it or with parts of it. The Canvas provides a frame of reference for the layout of the content, both spatially and temporally. The concept of a Canvas is borrowed from standards like PDF and HTML, or applications like Photoshop and Powerpoint, where the display starts from a blank display and images, video, text and other resources are "painted" on to it.
 
 ##### Content
 {: #overview-content}
@@ -123,26 +123,25 @@ Content resources such as images, audio, video or text that are associated with 
 
 An ordered list of Manifests, and/or further Collections.  Collections allow easy navigation among the Manifests in a hierarchical structure, potentially each with its own descriptive information.
 
-##### AnnotationPage
+##### Annotation Page
 {: #overview-annotationpage}
 
-An ordered list of Annotations in a single response, typically associated with a single Canvas, and can be part of an AnnotationCollection.
+An ordered list of Annotations in a single response, typically associated with a single Canvas, and can be part of an Annotation Collection.
 
 ##### Annotation
 {: #overview-annotation}
 
-Content resources and commentary are associated with a Canvas via an Annotation.  This provides a single, coherent method for aligning information, and provides a standards based framework for distinguishing parts of resources and parts of Canvases.  As Annotations can be added later, it promotes a distributed system in which publishers can align their content with the descriptions created by others.
+Content resources, commentary and other references are associated with a Canvas via Annotations.  This provides a single, coherent method for aligning information, and provides a standards based framework for distinguishing parts of resources and parts of Canvases.  As Annotations can be added later, it promotes a distributed system in which publishers can align their content with the descriptions created by others.
 
-##### AnnotationCollection
+##### Annotation Collection
 {: #overview-annotationcollection}
 
-An ordered list of AnnotationPages.  AnnotationCollections allow higher level groupings of Annotations to be recorded. For example, all of the English translation Annotations of a medieval French document could be kept separate from the transcription or an edition in modern French.
+An ordered list of Annotation Pages.  Annotation Collections allow higher level groupings of Annotations to be recorded. For example, all of the English translation Annotations of a medieval French document could be kept separate from the transcription or an edition in modern French, or the director's commentary on a film can be separated from the script.
 
 ##### Range
 {: #overview-range}
 
-An ordered list of Canvases, and/or further Ranges.  Ranges allow Canvases, or parts thereof, to be grouped together in some way. This could be for textual reasons, such as to distinguish books, chapters, verses, sections, non-content-bearing pages, the table of contents or similar. Equally, physical features might be important such as quires or gatherings, sections that have been added later and so forth.
-
+An ordered list of Canvases, and/or further Ranges.  Ranges allow Canvases, or parts thereof, to be grouped together in some way. This could be for content-based reasons, such as might be described in a table of contents or the set of scenes in a play. Equally, physical features might be important such as quires or gatherings, or when recorded music is split across different physical carriers such as two CDs.
 
 ##  3. Resource Properties
 
