@@ -34,4 +34,6 @@ Branches are available at http://preview.iiif.io/api/[branch_name]/api/index.htm
 
 ## Contributions
 
-Contributions are welcome in the form of pull requests. By making such a pull request the contributor asserts that they have the right to license the contribution (of whatever form) such that content may be published under the CC-BY license by the IIIF Consortium, per our license statement on all specifications.
+Participation in the IIIF community is welcome in all forms, from any individual or organization. Please see the [community page](http://iiif.io/community/) for more details about how to join in discussions.
+
+Contributions to the text of the specifications and the content of the website are welcome in the form of pull requests, or by comments with proposed text on issues.   By making such a contribution, the contributor asserts that they have the right to license the contribution such that content may be published under the CC-BY license by the IIIF Consortium, per the license statement on all documents.
