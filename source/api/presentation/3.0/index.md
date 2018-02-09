@@ -401,10 +401,10 @@ The height of this Canvas or external content resource. For content resources, t
 
 The value _MUST_ be a non-negative integer or floating point number.
 
- * A Canvas _SHOULD_ have exactly one `height`, and _MUST NOT_ have more than one. If it has a `height`, it _MUST_ also have a `width`.<br/>
-   Clients _MUST_ process, and _MAY_ render, `height` on a Canvas.
+ * A Canvas _MAY_ have exactly one `height`, and _MUST NOT_ have more than one. If it has a `height`, it _MUST_ also have a `width`.<br/>
+   Clients _MUST_ process, and _MAY_ explicitly display, `height` on a Canvas.
  * Content resources _MAY_ have exactly one `height`, given in pixels, if appropriate.<br/>
-   Clients _SHOULD_ process, and _MAY_ render, `height` on content resources.
+   Clients _SHOULD_ process, and _MAY_ explicitly display, `height` on content resources.
  * Other resource types _MUST NOT_ have a `height`.<br/>
    Clients _SHOULD_ ignore `height` on other resource types.
 
@@ -417,10 +417,10 @@ The width of this Canvas or external content resource. For content resources, th
 
 The value _MUST_ be a non-negative integer or floating point number.
 
- * A Canvas _SHOULD_ have exactly one `width`, and _MUST NOT_ have more than one. If it has a `width`, it _MUST_ also have a `height`.<br/>
-   Clients _MUST_ process, and _MAY_ render, `width` on a Canvas.
+ * A Canvas _MAY_ have exactly one `width`, and _MUST NOT_ have more than one. If it has a `width`, it _MUST_ also have a `height`.<br/>
+   Clients _MUST_ process, and _MAY_ explicitly display, `width` on a Canvas.
  * Content resources _MAY_ have exactly one `width`, given in pixels, if appropriate.<br/>
-   Clients _SHOULD_ process, and _MAY_ render, `width` on content resources.
+   Clients _SHOULD_ process, and _MAY_ explicitly display, `width` on content resources.
  * Other resource types _MUST NOT_ have a `width`.<br/>
    Clients _SHOULD_ ignore `width` on other resource types.
 
@@ -434,16 +434,15 @@ The duration of this Canvas or external content resource, given in seconds.
 The value _MUST_ be a non-negative floating point number.
 
  * A Canvas _MAY_ have exactly one `duration`, and _MUST NOT_ have more than one.<br/>
-   Clients _MUST_ process, and _MAY_ render, `duration` on a Canvas.
+   Clients _MUST_ process, and _MAY_ explicitly display, `duration` on a Canvas.
  * Content resources _MAY_ have exactly one `duration`, and _MUST NOT_ have more than one.<br/>
-   Clients _SHOULD_ process, and _MAY_ render, `duration` on content resources.
+   Clients _SHOULD_ process, and _MAY_ explicitly display, `duration` on content resources.
  * Other resource types _MUST NOT_ have a `duration`.<br/>
    Clients _SHOULD_ ignore `duration` on other resource types.
 
 ``` json-doc
 {"duration": 125.0}
 ```
-
 
 ##### viewingDirection
 The direction that a set of Canvases _SHOULD_ be displayed to the user. This specification defines four direction values in the table below. Others may be defined externally and given as a full URI.
