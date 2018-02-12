@@ -76,7 +76,7 @@ Note that in the following descriptions, "object" is used to refer to the object
 
 ###  1.2. Motivating Use Cases
 
-There are many different types of digitized or digital compound objects, from ancient scrolls to modern newspapers, from operas to pop music, and from the earliest black and white film to to computer generated animations. Many of them bear text, sometimes difficult to read either due to the decay of the physical object or lack of understanding of the script or language.  These use cases are described in a separate [document][prezi-use-case-doc].
+There are many different types of digitized or digital compound objects; ancient scrolls, paintings, letters, books, newspapers, films, operas, albums, field recordings and computer generated animations. Many of them bear the written or spoken word, sometimes difficult to read or hear either due to the decay of the physical object or lack of understanding of the script or language.  These use cases are described in a separate [document][prezi-use-case-doc].
 
 Collectively the use cases require a model in which one can characterize the object (via the _Manifest_ resource), the order(s) in which individual views are presented (the _Sequence_ resource), and the individual views themselves (_Canvas_ resources). Each view may have images, audio, video and other content resources associated with it (_Content_ resources) to allow the view to be rendered to the user appropriately. An object may also have sections; for example, a book may have chapters of several pages, or a play might be divided into acts and scenes (_Range_ resources) and there may be groups of objects (_Collection_ resources).  These resource types, along with their properties, make up the IIIF Presentation API.
 
@@ -109,7 +109,7 @@ The order of the views of the object. Multiple Sequences are allowed to cover si
 ##### Canvas
 {: #overview-canvas}
 
-A virtual container that represents a particular view of the object and has content resources associated with it or with parts of it. The Canvas provides a frame of reference for the layout of the content, both spatially and temporally. The concept of a Canvas is borrowed from standards like PDF and HTML, or applications like Photoshop and Powerpoint, where the display starts from a blank display and images, video, text and other resources are "painted" on to it.
+A virtual container that represents a particular view of the object and has content resources associated with it or with parts of it. The Canvas provides a frame of reference for the layout of the content, both spatially and temporally. The concept of a Canvas is borrowed from standards like PDF and HTML, or applications like Photoshop and Powerpoint, where an initally blank display surface has images, video, text and other content "painted" on to it.
 
 ##### Content
 {: #overview-content}
@@ -131,7 +131,7 @@ An ordered list of Annotations in a single response, typically associated with a
 ##### Annotation
 {: #overview-annotation}
 
-Content resources, commentary and other references are associated with a Canvas via Annotations.  This provides a single, coherent method for aligning information, and provides a standards based framework for distinguishing parts of resources and parts of Canvases.  As Annotations can be added later, it promotes a distributed system in which publishers can align their content with the descriptions created by others.
+All content is linked to a Canvas via Annotations. The same mechanism is used for the visible or audible resources as is used for transcriptions, commentary, tags and other content.  This provides a single, coherent method for aligning information, and provides a standards based framework for distinguishing parts of resources and parts of Canvases.  As Annotations can be added later, it promotes a distributed system in which publishers can align their content with the descriptions created by others.
 
 ##### Annotation Collection
 {: #overview-annotationcollection}
