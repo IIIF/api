@@ -31,3 +31,9 @@ Branches are available at http://preview.iiif.io/api/[branch_name]/api/index.htm
     * link from the API website to the main website (not relative to this repo) `[hyperlink text]({{ page.webprefix }}/end/point)`
     * External link `[anchor-text](http://example.com/end/point)`
     * Reference link `[text][link_name]` where link_name is expanded at the bottom of the page.
+
+## Contributions
+
+Participation in the IIIF community is welcome in all forms, from any individual or organization. Please see the [community page](http://iiif.io/community/) for more details about how to join in discussions.
+
+Contributions to the text of the specifications and the content of the website are welcome in the form of pull requests, or by comments with proposed text on issues.   By making such a contribution, the contributor asserts that they have the right to license the contribution such that content may be published under the CC-BY license by the IIIF Consortium, per the license statement on all documents.
