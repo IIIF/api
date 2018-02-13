@@ -241,10 +241,10 @@ The value _MUST_ be a JSON array, with each item in the array being a JSON objec
 ```
 
 ##### navDate
-A date that the client can use for navigation purposes when presenting this resource to the user in a time-based user interface, such as a calendar or timeline.  The value _MUST_ be an `xsd:dateTime` literal in UTC, expressed in the form "YYYY-MM-DDThh:mm:ssZ".  If the exact time is not known, then "00:00:00" _SHOULD_ be used. Similarly, the month or day _SHOULD_ be "01" if not known.  There _MUST_ be at most one `navDate` associated with any given resource.  More descriptive date ranges, intended for display directly to the user, _SHOULD_ be included in the `metadata` property for human consumption.  
+A date that the client can use for navigation purposes when presenting this resource to the user in a time-based user interface, such as a calendar or timeline.  The value _MUST_ be an `xsd:dateTime` literal. The value _MUST_ have a timezone, and _SHOULD_ be given in UTC with the `Z` timezone indicator but _MAY_ also be given as an offset of the form `+hh:mm`. In the situation where a timezone is not given, clients _SHOULD_ assume it to be UTC. There _MUST_ be at most one `navDate` associated with any given resource.  More descriptive date ranges, intended for display directly to the user, _SHOULD_ be included in the `metadata` property for human consumption.  
 
- * A Collection or Manifest _MAY_ have exactly one navigation date associated with it.<br/>
-   Clients _MAY_ render `navDate` on Collections or Manifests.
+ * A Collection, Manifest or Range _MAY_ have exactly one navigation date associated with it.<br/>
+   Clients _MAY_ render `navDate` on Collections, Manifests and Ranges.
  * Other resource types _MUST NOT_ have navigation dates.<br/>
    Clients _SHOULD_ ignore `navDate` on other resource types.
 
