@@ -385,7 +385,7 @@ Note that this is different to the `formats` property in the [Image API][image-a
 ```
 
 ##### language
-The language or languages used in the content of this external resource. This property is already available from the Web Annotation model for content resources that are the body or target of an Annotation, however it _MAY_ also be used for resources referenced (see the [terminology section][prezi-3-api-terminology] for an explanation of "referenced") from `homepage`, `rendering`, `rights`, and `within`.
+The language or languages used in the content of this external resource. This property is already available from the Web Annotation model for content resources that are the body or target of an Annotation, however it _MAY_ also be used for resources referenced (see the [terminology section][prezi-api-3-terminology] for an explanation of "referenced") from `homepage`, `rendering`, `rights`, and `within`.
 
 The value _MUST_ be an array of strings.
 
