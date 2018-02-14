@@ -47,9 +47,9 @@ This is a work in progress and may change without any notices. Implementers shou
 
 ##  1. Introduction
 
-Access to digital representations of structured resources is a fundamental requirement for many research pursuits, the transmission of cultural knowledge and for the daily pursuits of every web citizen. Digital content is the primary mode of transmission for access to cultural heritage, science and entertainment. Collections of both digitized physical objects and born-digital content can benefit from a standardized description of their structure, layout and presentation mode.
+Access to digital representations of structured resources is a fundamental requirement for many research activities, the transmission of cultural knowledge and for the daily pursuits of every web citizen. Digital content is the primary mode of transmission for access to cultural heritage, science and entertainment. Collections of both digitized physical objects and born-digital content benefit from a standardized description of their structure, layout and presentation mode.
 
-This document describes how the structure and layout of a composite objects can be made available in a standard manner. Many different styles of viewer can be implemented that consume the information to enable a rich and dynamic experience, consuming content from across collections and institutions.
+This document describes how the structure and layout of composite objects can be made available in a standard manner. Many different styles of viewer can be implemented that consume the information to enable a rich and dynamic experience, presenting content from across collections and institutions.
 
 A composite object may comprise a series of pages, surfaces or other views; for example the single view of a painting, the two sides of a photograph, four cardinal views of a statue, or the many pages of an edition of a newspaper or book. The primary requirements for this specification are to provide an order for these views, the resources needed to display a representation of the view, and the descriptive information needed to allow the user to understand what is being seen.
 
@@ -59,7 +59,7 @@ Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss]
 
 ### 1.1. Objectives and Scope
 
-The objective of the IIIF (pronounced "Triple-Eye-Eff") Presentation API is to provide the information necessary to allow a rich, online viewing environment for structured digital objects to be presented to a human user, likely in conjunction with the [IIIF Image API][image-api]. This is the sole purpose of the API and therefore the descriptive information is given in a way that is intended for humans to read, but not semantically available to machines. In particular, it explicitly does __not__ aim to provide metadata that would drive discovery of the objects.
+The objective of the IIIF (pronounced "Triple-Eye-Eff") Presentation API is to provide the information necessary to allow a rich, online viewing environment for structured digital objects to be presented to a human user, often in conjunction with the [IIIF Image API][image-api]. This is the sole purpose of the API and therefore the descriptive information is given in a way that is intended for humans to read, but not semantically available to machines. In particular, it explicitly does __not__ aim to provide metadata that would drive a search engine for discovering unknown objects.
 
 Implementations of this specification will be able to:
 
@@ -109,7 +109,7 @@ The order of the views of the object. Multiple Sequences are allowed to cover si
 ##### Canvas
 {: #overview-canvas}
 
-A virtual container that represents a particular view of the object and has content resources associated with it or with parts of it. The Canvas provides a frame of reference for the layout of the content, both spatially and temporally. The concept of a Canvas is borrowed from standards like PDF and HTML, or applications like Photoshop and Powerpoint, where an initally blank display surface has images, video, text and other content "painted" on to it.
+A virtual container that represents a particular view of the object and has content resources associated with it or with parts of it. The Canvas provides a frame of reference for the layout of the content, both spatially and temporally. The concept of a Canvas is borrowed from standards like PDF and HTML, or applications like Photoshop and PowerPoint, where an initially blank display surface has images, video, text and other content "painted" on to it.
 
 ##### Content
 {: #overview-content}
