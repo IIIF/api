@@ -239,6 +239,25 @@ The value _MUST_ be a JSON array, with each item in the array being a JSON objec
 {"thumbnail": [{"id": "https://example.org/img/thumb.jpg", "type": "Image"}]}
 ```
 
+##### posterCanvas
+One or more Canvases providing content associated with the object represented by this resource but not part of that object. Examples include an image to show while a duration-only Canvas is playing audio; images, text and sound standing in for video content before the user initiates playback; or a film poster to attract user attention. The content provided by `posterCanvas` differs from a thumbnail: a client might use `thumbnail` to summarise and navigate multiple resources, then show content from `posterCanvas` as part of the presentation of a single resource. A poster Canvas can have different dimensions to those of the Canvas(es) of this resource.
+
+Clients _MAY_ display the content of a linked poster Canvas when presenting the resource, and if more than one is available _MAY_ choose the one most suited to the client user interface. When more than one Canvas is available, for example if `posterCanvas` is provided for the currently selected Range and the current Manifest, and the client is able to show a poster Canvas, the client _SHOULD_ pick the Canvas most specific to the content. Publishers _SHOULD NOT_ assume that `posterCanvas` content will be seen in all clients. Clients _SHOULD_ take care to avoid conflicts between time-based media in the `posterCanvas` and the content of the resource it is associated with.
+
+  * A Collection _MAY_ have one or more `posterCanvas` properties.<br/>
+   Clients _MAY_ render `posterCanvas` on a Collection.
+  * A Manifest _MAY_ have one or more `posterCanvas` properties.<br/>
+   Clients _MAY_ render `posterCanvas` on a Manifest.
+  * A Sequence _MAY_ have one or more `posterCanvas` properties.<br/>
+   Clients _MAY_ render `posterCanvas` on a Sequence.
+  * A Canvas _MAY_ have one or more `posterCanvas` properties.<br/>
+   Clients _MAY_ render `posterCanvas` on a Canvas.
+  * A Range _MAY_ have one or more `posterCanvas` properties.<br/>
+   Clients _MAY_ render `posterCanvas` on a Range.
+  * Other resource types _MUST NOT_ have a `posterCanvas`.<br/>
+   Clients _SHOULD_ ignore `posterCanvas` on other resource types.
+
+
 ##### navDate
 A date that the client can use for navigation purposes when presenting this resource to the user in a time-based user interface, such as a calendar or timeline.  The value _MUST_ be an `xsd:dateTime` literal. The value _MUST_ have a timezone, and _SHOULD_ be given in UTC with the `Z` timezone indicator but _MAY_ also be given as an offset of the form `+hh:mm`. In the situation where a timezone is not given, clients _SHOULD_ assume it to be UTC. There _MUST_ be at most one `navDate` associated with any given resource.  More descriptive date ranges, intended for display directly to the user, _SHOULD_ be included in the `metadata` property for human consumption.  
 
@@ -1557,18 +1576,18 @@ It is possible to include Image API service descriptions within the Manifest, an
 
 __Descriptive and Rights Properties__
 
-|                      | label                  | metadata                     | summary                     | thumbnail                   | attribution            | license                 | logo                     |
-| -------------------- | ---------------------- | ---------------------------- | --------------------------- | ----------------------------| ---------------------- | ----------------------- | ------------------------ |
-| Collection           | ![required][icon-req]  | ![recommended][icon-recc]    | ![recommended][icon-recc]   | ![recommended][icon-recc]   | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
-| Manifest             | ![required][icon-req]  | ![recommended][icon-recc]    | ![recommended][icon-recc]   | ![recommended][icon-recc]   | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
-| Sequence             | ![optional][icon-opt]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
-| Canvas               | ![required][icon-req]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![recommended][icon-recc]   | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
-| Annotation           | ![optional][icon-opt]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
-| Annotation Page       | ![optional][icon-opt]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
-| Range                | ![required][icon-req]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
-| Annotation Collection | ![required][icon-req]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
-| Image Content        | ![optional][icon-opt]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
-| Other Content        | ![optional][icon-opt]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
+|                      | label                  | metadata                     | summary                     | thumbnail                   | posterCanvas                | attribution            | license                 | logo                     |
+| -------------------- | ---------------------- | ---------------------------- | --------------------------- | ----------------------------| ----------------------------| ---------------------- | ----------------------- | ------------------------ |
+| Collection           | ![required][icon-req]  | ![recommended][icon-recc]    | ![recommended][icon-recc]   | ![recommended][icon-recc]   | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
+| Manifest             | ![required][icon-req]  | ![recommended][icon-recc]    | ![recommended][icon-recc]   | ![recommended][icon-recc]   | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
+| Sequence             | ![optional][icon-opt]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
+| Canvas               | ![required][icon-req]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![recommended][icon-recc]   | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
+| Annotation           | ![optional][icon-opt]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![optional][icon-opt]       | ![not allowed][icon-na]     | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
+| AnnotationPage       | ![optional][icon-opt]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![optional][icon-opt]       | ![not allowed][icon-na]     | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
+| Range                | ![required][icon-req]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
+| AnnotationCollection | ![required][icon-req]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![optional][icon-opt]       | ![not allowed][icon-na]     | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
+| Image Content        | ![optional][icon-opt]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![optional][icon-opt]       | ![not allowed][icon-na]     | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
+| Other Content        | ![optional][icon-opt]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![optional][icon-opt]       | ![not allowed][icon-na]     | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
 {: .api-table #table-reqs-1}
 
 __Technical Properties__
