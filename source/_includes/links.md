@@ -33,6 +33,7 @@
 [prezi-api]: {{site.url}}{{ site.baseurl }}/api/presentation/
 [prezi-api-21]: {{site.url}}{{ site.baseurl }}/api/presentation/2.1/
 [prezi-api-2]: {{site.url}}{{ site.baseurl }}/api/presentation/2.0/
+[prezi-api-3-terminology]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#terminology
 [prezi-api-3-appendixa]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#a-summary-of-metadata-requirements
 [prezi-api-3-canvas]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#canvas
 [prezi-api-3-languages]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#language-of-property-values

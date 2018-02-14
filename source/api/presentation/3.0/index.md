@@ -84,6 +84,9 @@ Collectively the use cases require a model in which one can characterize the obj
 
 The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _SHOULD NOT_, _RECOMMENDED_, _MAY_, and _OPTIONAL_ in this document are to be interpreted as described in [RFC 2119][rfc-2119].
 
+* __embedded__ When a resource is embedded within another resource, the complete representation of the embedded resource is present within the embedding resource, and dereferencing the URI of the embedded resource will not result in additional important information. Example: A Sequence is embedded in a Manifest.
+* __referenced__ When a resource is referenced from another resource, an incomplete representation of the referenced resource is present within the referencing resource, and dereferencing the URI of the referenced resource will result in additional information.  Typically, the `id`, `type`, and `label` properties will be included in the reference. Example:  A Manifest is referenced in a Collection.
+
 
 ##  2. Resource Type Overview
 
@@ -315,7 +318,7 @@ The value _MUST_ be an array of JSON objects, each of which _MUST_ have an `id` 
 
 ##### id
 
-The URI that identifies this resource. It is _RECOMMENDED_ that an HTTPS URI be used for all resources. If this resource is only available embedded within another resource, such as a Sequence within a Manifest, then the URI _MAY_ be the URI of the encapsulating resource with a unique fragment on the end. This is not true for Canvases, which _MUST_ have their own URI without a fragment.
+The URI that identifies this resource. It is _RECOMMENDED_ that an HTTPS URI be used for all resources. If this resource is only available embedded (see the [terminology section][prezi-api-3-terminology] for an explanation of "embedded") within another resource, such as a Sequence within a Manifest, then the URI _MAY_ be the URI of the encapsulating resource with a unique fragment on the end. This is not true for Canvases, which _MUST_ have their own URI without a fragment.
 
 The value _MUST_ be a string.
 
@@ -382,7 +385,7 @@ Note that this is different to the `formats` property in the [Image API][image-a
 ```
 
 ##### language
-The language or languages used in the content of this external resource. This property is already available from the Web Annotation model for content resources that are the body or target of an Annotation, however it _MAY_ also be used for resources referenced from `homepage`, `rendering`, `rights`, and `within`.
+The language or languages used in the content of this external resource. This property is already available from the Web Annotation model for content resources that are the body or target of an Annotation, however it _MAY_ also be used for resources referenced (see the [terminology section][prezi-3-api-terminology] for an explanation of "referenced") from `homepage`, `rendering`, `rights`, and `within`.
 
 The value _MUST_ be an array of strings.
 
