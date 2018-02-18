@@ -22,6 +22,7 @@
 [json-ld-68]: http://www.w3.org/TR/json-ld/#interpreting-json-as-json-ld "Interpreting JSON as JSON-LD"
 [json-ld-compact]: http://www.w3.org/TR/json-ld-api/#compaction-algorithms "JSON-LD Compaction Algorithms"
 [json-ld]: http://www.w3.org/TR/json-ld/ "JSON-LD"
+[json-ld-scoped-contexts]: https://json-ld.org/spec/latest/json-ld/#scoped-contexts
 [linked-data]: http://linkeddata.org/ "Linked Data"
 [media-frags]: http://www.w3.org/TR/media-frags/#naming-space "Media Fragments"
 [mellon]: http://www.mellon.org/ "The Andrew W. Mellon Foundation"

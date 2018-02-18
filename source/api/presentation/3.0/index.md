@@ -577,7 +577,7 @@ The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id`, 
 ##### service
 A link to an external service that the client might interact with directly and gain additional information or functionality for using this resource, such as from an image to the base URI of an associated [IIIF Image API][image-api] service. The service resource _SHOULD_ have additional information associated with it in order to allow the client to determine how to make appropriate use of it. Please see the [Service Registry][registry-services] document for the details of currently known service types.
 
-The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `label` and `profile` properties.
+The value _MUST_ be an array of JSON objects. Each object will have properties depending on the service's definition, but _MUST_ have either the `id` or `@id` and `type` or `@type` properties. Each object _SHOULD_ have a `profile` property. 
 
  * Any resource type _MAY_ have one or more links to an external service.<br/>
    Clients _MAY_ process `service` on any resource type, and _SHOULD_ process the IIIF Image API service.
@@ -590,7 +590,7 @@ The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id` a
   }]}
 ```
 
-For cross-version consistency, this specification defines the following values for the `type` field for backwards compatibility with other IIIF APIs. Future versions of these APIs will define their own types.
+For cross-version consistency, this specification defines the following values for the `type` or `@type` field for backwards compatibility with other IIIF APIs. Future versions of these APIs will define their own types.  These are treated as (necessary) extensions to the older versions.
 
 | Value                | Specification |
 | -------------------- | ------------- |
@@ -602,15 +602,20 @@ For cross-version consistency, this specification defines the following values f
 | AuthTokenService1    | [Authentication API version 1][auth-api-1-token] |
 | AuthLogoutService1   | [Authentication API version 1][auth-api-1-logout] |
 
-A reference from a version 3 Presentation API document to a version 2 Image API end point would thus follow the pattern in the example below.  Consuming implementations should not expect to encounter the `type` and `profile` parameters in the representation returned from the `id`.
+A reference from a version 3 Presentation API document to both version 2 and version 3 Image API endpoints would thus follow the pattern in the example below.  API versions defined after Presentation API version 3.0 will follow the community best practices of `id` and `type`, but in the interim implementations _MUST_ be prepared to recognize the older property names.  Note that the `@context` key _SHOULD_ not be present within the `service`, but instead included at the beginning of the document.
 
 ``` json-doc
 {
   "service": [
     {
-      "id": "http://https://example.org/iiif/image1/identifier",
-      "type": "ImageService2",
-      "profile": "level1"
+      "@id": "http://https://example.org/iiif2/image1/identifier",
+      "@type": "ImageService2",
+      "profile": "http://iiif.io/api/image/2/level2.json"
+    },
+    {
+      "id": "http://https://example.org/iiif3/image1/identifier",
+      "type": "ImageService3",
+      "profile": "level2"
     }
   ]
 }
@@ -950,11 +955,11 @@ The value of the `@context` property _MUST_ be a list, and the __last__ two valu
 }
 ```
 
-Any additional fields beyond those defined in this specification or the Web Annotation Data Model _SHOULD_ be mapped to RDF predicates using further context documents.   If possible, these extensions _SHOULD_ be added to the top level `@context` field, and _MUST_ be added before the above contexts.  The JSON-LD 1.1 functionality of type and predicate specific context definitions _SHOULD_ be used if possible to try to minimize any cross-extension collisions.
+Any additional fields beyond those defined in this specification or the Web Annotation Data Model _SHOULD_ be mapped to RDF predicates using further context documents.   These extensions _SHOULD_ be added to the top level `@context` field, and _MUST_ be added before the above contexts.  The JSON-LD 1.1 functionality of [type and predicate specific context definitions][json-ld-scoped-contexts] _MUST_ be used to minimize cross-extension collisions.
 
-The JSON representation _MUST NOT_ include the `@graph` key at the top level. This key might be created when serializing directly from RDF data using the JSON-LD compaction algorithm. Instead, JSON-LD framing and/or custom code should be used to ensure the structure of the document is as described by this specification.
+The JSON representation _MUST NOT_ include the `@graph` key at the top level. This key might be created when serializing directly from RDF data using the JSON-LD 1.0 compaction algorithm. Instead, JSON-LD framing and/or custom code should be used to ensure the structure of the document is as described by this specification.
 
-Embedded JSON-LD data that uses a JSON-LD version 1.0 context definition, such as references to older external services or extensions, _MAY_ require the context to be included within the service description, rather than listed in the top resource.  Care should be taken to use the mappings defined by those contexts, especially with regard to `id` versus `@id`, and `type` versus `@type`, to ensure that clients receive the keys that they are expecting to process.
+Embedded JSON-LD data that uses a JSON-LD version 1.0 context definition, such as references to older external services or extensions, _MUST_ be retrofitted to use a scoped context based either on a property or type, as per the examples in the definition of the `service` property. Care should be taken to use the mappings defined by those contexts, especially with regard to `id` versus `@id`, and `type` versus `@type`, to ensure that clients receive the keys that they are expecting to process. 
 
 ##  5. Resource Structure
 
@@ -1390,10 +1395,17 @@ An example Collection document:
   "behavior": ["top"],
   "attribution": {"en": ["Provided by Example Organization"]},
 
-  "items": []
-
+  "items": [
+    {
+      "id": "https://example.org/iiif/1/manifest", 
+      "type": "Manifest"
+      "label": {"en": "Example Manifest 1"}
+    }
+  ]
 }
 ```
+
+Note that while the Collection _MAY_ include Collections or Manifests from previous versions of the API, the information included in this document _MUST_ follow the current version requirements, not the requirements of the target document.  This is in contrast to the requirements of `service`, as there is no way to distinguish a version 2 Manifest from a version 3 Manifest by its `type`.
 
 ### 5.9. Paging
 
