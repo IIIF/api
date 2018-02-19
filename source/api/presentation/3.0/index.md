@@ -1089,6 +1089,8 @@ A Canvas _MUST_ have a rectangular aspect ratio (described with the `height` and
 
 Parts of Canvases are still Canvases and have a `type` of "Canvas". Parts of Canvases can be referenced from Ranges, Annotations or the `start` property. Spatial parts of Canvases, when referenced from outside an Annotation, _MUST_ be rectangular and are described by appending an `xywh=` fragment to the end of the Canvas's URI. Similarly, temporal parts of Canvases _MUST_ be described by appending a `t=` fragment to the end of the Canvas's URI. Spatial and temporal fragments _MAY_ be combined, using an `&` character between them, and the temporal dimension _SHOULD_ come first.  It is an error to select a region using a dimension that is not defined by the Canvas, such as a temporal region of a Canvas that only has height and width dimensions.
 
+Canvases may be treated as content resources for the purposes of annotating on to other Canvases. For example, a Canvas (Canvas A) with a video resource and Annotations representing subtitles or captions may be annotated on to another Canvas (Canvas B). This pattern maintains the correct spatial and temporal alignment of Canvas A's content relative to Canvas B's dimensions.
+
 Renderers _MUST_ scale content into the space represented by the Canvas, and _SHOULD_ follow any `timeMode` value provided for time-based media.  If the Canvas represents a view of a physical object, the spatial dimensions of the Canvas _SHOULD_ be the same scale as that physical object, and images _SHOULD_ depict only the object.
 
 
