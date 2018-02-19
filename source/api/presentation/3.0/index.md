@@ -651,9 +651,7 @@ A link to another resource that contains this resource, such as a Manifest that 
 
 The value _MUST_ be an array of JSON objects.  Each object _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `label` property.
 
- * Collections or Annotation Pages that serve as [pages][prezi-api-3-paging] _MUST_ be within one paged resource.<br/>
-   Clients _SHOULD_ render `within` on a Collection or Annotation Page.
- * Other resource types, including Collections or Annotation Pages not serving as pages, _MAY_ be within one or more containing resources.<br/>
+ * Any resource types _MAY_ be within one or more containing resources.<br/>
    Clients _MAY_ render `within` on other resource types.
 
 ``` json-doc
@@ -688,105 +686,7 @@ The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` propert
 {"includes": {"id": "https://example.org/iiif/1/annos/1", "type": "AnnotationCollection"}}
 ```
 
-###  3.5. Paging Properties
-
-##### first
-A link from this paged resource, such as a Collection or Annotation Collection, to its first page resource, another Collection or an Annotation Page respectively.
-
-The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `label` property.
-
- * A Collection _MAY_ have one Collection as its first page.<br/>
-   Clients _SHOULD_ process, and _MAY_ render, `first` on a Collection.
- * An Annotation Collection _MAY_ have one Annotation Page as its first page.<br/>
-   Clients _SHOULD_ process, and _MAY_ render, `first` on an Annotation Collection.
- * Other resource types _MUST NOT_ have a first page.<br/>
-   Clients _SHOULD_ ignore `first` on other resource types.
-
-``` json-doc
-{"first": {"id": "https://example.org/iiif/1/annos/1", "type": "AnnotationPage"}}
-```
-
-##### last
-A link from this paged resource to its last page resource.
-
-The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `label` property.
-
- * A Collection _MAY_ have one Collection as its last page.<br/>
-   Clients _MAY_ render `last` on a Collection.
- * An Annotation Collection _MAY_ have one Annotation Page as its last page.<br/>
-   Clients _MAY_ render `last` on an Annotation Collection.
- * Other resource types _MUST NOT_ have a last page.<br/>
-   Clients _SHOULD_ ignore `last` on other resource types.
-
-``` json-doc
-{"last": {"id": "https://example.org/iiif/1/annos/23", "type": "AnnotationPage"}}
-```
-
-##### total
-The total number of leaf resources in this paged resource, such as the number of Annotations within an Annotation Collection.
-
-The value _MUST_ be a non-negative integer.
-
- * A Collection _MAY_ have one total, which _MUST_ be the total number of Collections and Manifests in its list of pages.<br/>
-   Clients _MAY_ render `total` on a Collection.
- * An Annotation Collection _MAY_ have one total, which _MUST_ be the total number of Annotations in its list of pages.<br/>
-   Clients _MAY_ render `total` on an Annotation Collection.
- * Other resource types _MUST NOT_ have a total.<br/>
-   Clients _SHOULD_ ignore `total` on other resource types.
-
-``` json-doc
-{"total": 2217}
-```
-
-##### next
-A link from this page resource to the next page resource that follows it in order.
-
-The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `label` property.
-
- * A Collection _MAY_ have one Collection as its next page.<br/>
-   Clients _SHOULD_ process, and _MAY_ render `next` on a Collection.
- * An Annotation Page _MAY_ have one Annotation Page as its next page.<br/>
-   Clients _SHOULD_ process, and _MAY_ render `next` on an Annotation Page.
- * Other resource types _MUST NOT_ have next pages.<br/>
-   Clients _SHOULD_ ignore `next` on other resource types.
-
-``` json-doc
-{"next": {"id": "https://example.org/iiif/1/annos/3", "type": "AnnotationPage"}}
-```
-
-##### prev
-A link from this page resource to the previous page resource that precedes it in order.
-
-The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `label` property.
-
- * A Collection _MAY_ have one Collection as its previous page.<br/>
-   Clients _SHOULD_ process, and _MAY_ render `prev` on a Collection.
- * An Annotation Page _MAY_ have one Annotation Page as its previous page.<br/>
-   Clients _SHOULD_ process, and _MAY_ render `prev` on an Annotation Page.
- * Other resource types _MUST NOT_ have previous pages.<br/>
-   Clients _SHOULD_ ignore `prev` on other resource types.
-
-``` json-doc
-{"prev": {"id": "https://example.org/iiif/1/annos/2", "type": "AnnotationPage"}}
-```
-
-##### startIndex
-The 0 based index of the first included resource in this page resource, relative to the parent paged resource.
-
-The value _MUST_ be a non-negative integer.
-
- * A Collection _MAY_ have one `startIndex`, which _MUST_ be the index of its first Collection or Manifest relative to the order established by its parent paging Collection.<br/>
-   Clients _MAY_ process or render `startIndex` on a Collection.
- * An Annotation Page _MAY_ have one `startIndex`, which _MUST_ be the index of its first Annotation relative to the order established by its parent paging Annotation Collection.<br/>
-   Clients _MAY_ process or render `startIndex` on an Annotation Page.
- * Other resource types _MUST NOT_ have a `startIndex`.<br/>
-   Clients _SHOULD_ ignore `startIndex` on other resource types.
-
-``` json-doc
-{"startIndex": 300}
-```
-
-### 3.6. Structural Properties
+### 3.5. Structural Properties
 
 These properties define the structure of the object being represented in IIIF by allowing the inclusion of child resources within parents, such as a Canvas within a Sequence, or a Manifest within a Collection.  The majority of cases use `items`, however there are two special cases for different sorts of structures.
 
@@ -851,7 +751,7 @@ The value _MUST_ be an array of objects. Each object _MUST_ have at least the `i
 ]}
 ```
 
-### 3.7. Values
+### 3.6. Values
 
 ##### Values for motivation
 
@@ -1414,120 +1314,6 @@ An example Collection document:
 
 Note that while the Collection _MAY_ include Collections or Manifests from previous versions of the API, the information included in this document _MUST_ follow the current version requirements, not the requirements of the target document.  This is in contrast to the requirements of `service`, as there is no way to distinguish a version 2 Manifest from a version 3 Manifest by its `type`.
 
-### 5.9. Paging
-
-In some situations, Annotation Page resources or the list of Manifests in a collection may be very long or expensive to create. The latter case is especially likely to occur when responses are generated dynamically. In these situations the server may break up the response using [paging properties][prezi-api-3-paging]. The length of a response is left to the server's discretion, but the server should take care not to produce overly long responses that would be difficult for clients to process.
-
-When breaking a response into pages, the paged resource _MUST_ link to the `first` page resource, and _MUST NOT_ include the `items` property.
-
-The linked page resource _SHOULD_ refer back to the containing paged resource using `within`. If there is a page resource that follows it (the next page), then it _MUST_ include a `next` link to it.  If there is a preceding page resource, then it _SHOULD_ include a `prev` link to it.
-
-The paged resource _MAY_ use the `total` property to list the total number of leaf resources that are contained within its pages. This would be the total number of annotations in a Annotation Collection, or the total number of Manifests in a Collection. Conversely, the page resources _MAY_ include the `startIndex` property with index of the first resource in the page, counting from zero relative to the containing paged resource.
-
-The linked page resources _MAY_ have different properties from the paged resource, including different rights and descriptive properties.  Clients _MUST_ take into account any requirements derived from these properties, such as displaying `logo` or `attribution`.
-
-##### Example Paged Annotation Collection
-
-An Annotation Collection representing a long transcription with almost half a million annotations, perhaps where each annotation paints a single word on the canvas:
-
-``` json-doc
-{
-  "@context": [
-    "http://www.w3.org/ns/anno.jsonld",
-    "http://iiif.io/api/presentation/{{ page.major }}/context.json"
-  ],
-  "id": "https://example.org/iiif/book1/annocoll/transcription",
-  "type": "AnnotationCollection",
-  "label": {"en": ["Example Long Transcription"]},
-
-  "total": 496923,
-  "first": "https://example.org/iiif/book1/annopage/l1"
-}
-```
-
-And the corresponding first Annotation Page:
-
-``` json-doc
-{
-  "@context": [
-    "http://www.w3.org/ns/anno.jsonld",
-    "http://iiif.io/api/presentation/{{ page.major }}/context.json"
-  ],
-  "id": "https://example.org/iiif/book1/annopage/l1",
-  "type": "AnnotationPage",
-
-  "startIndex": 0,
-  "within": "https://example.org/iiif/book1/annocoll/transcription",
-  "next": "https://example.org/iiif/book1/annopage/l2",
-
-  "resources": [
-    // Annotations live here ...
-  ]
-}
-```
-
-Note that it is still expected that canvases will link directly to the Annotation Page resources. For example, a particular canvas might refer to the first two Annotation Page resources within an Annotation Collection:
-
-``` json-doc
-{
-  "@context": [
-    "http://www.w3.org/ns/anno.jsonld",
-    "http://iiif.io/api/presentation/{{ page.major }}/context.json"
-  ],
-  "id": "https://example.org/iiif/book1/canvas/c1",
-  "type": "Canvas",
-
-  "height": 1000,
-  "width": 1000,
-  "label": {"en": ["Page 1"]},
-
-  "otherContent": [
-    "https://example.org/iiif/book1/annopage/l1",
-    "https://example.org/iiif/book1/annopage/l2"
-  ]
-}
-```
-
-##### Example Paged Collection
-
-An example large collection with some 9.3 million objects in it:
-
-``` json-doc
-{
-  "@context": [
-    "http://www.w3.org/ns/anno.jsonld",
-    "http://iiif.io/api/presentation/{{ page.major }}/context.json"
-  ],
-  "id": "https://example.org/iiif/collection/top",
-  "type": "Collection",
-  "label": {"en": ["Example Big Collection"]},
-
-  "total": 9316290,
-  "first": "https://example.org/iiif/collection/c1"
-}
-```
-
-And the corresponding first page of Manifests:
-
-``` json-doc
-{
-  "@context": [
-    "http://www.w3.org/ns/anno.jsonld",
-    "http://iiif.io/api/presentation/{{ page.major }}/context.json"
-  ],
-  "id": "https://example.org/iiif/collection/c1",
-  "type": "Collection",
-
-  "within": "https://example.org/iiif/collection/top",
-  "startIndex": 0,
-  "next": "https://example.org/iiif/collection/c2",
-
-  "manifests": [
-    // Manifests live here ...
-  ]
-}
-```
-
 ## 6. HTTP Requests and Responses
 
 This section describes the _RECOMMENDED_ request and response interactions for the API. The REST and simple HATEOAS approach is followed where an interaction will retrieve a description of the resource, and additional calls may be made by following links obtained from within the description. All of the requests use the HTTP GET method; creation and update of resources is not covered by this specification.
@@ -1640,22 +1426,6 @@ __Linking Properties__
 | Image Content        | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![not allowed][icon-na] |
 | Other Content        | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![not allowed][icon-na] |
 {: .api-table #table-reqs-3}
-
-__Paging Properties__
-
-|                      | first                   | last                    | total                   | next                    | prev                    | startIndex              |
-| -------------------- | ----------------------- | ----------------------- | ----------------------- | ----------------------- | ----------------------- | ----------------------- |
-| Collection           | ![optional][icon-opt]   | ![optional][icon-opt]   | ![optional][icon-opt]   | ![optional][icon-opt]   | ![optional][icon-opt]   | ![optional][icon-opt]   |
-| Manifest             | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] |
-| Sequence             | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] |
-| Canvas               | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] |
-| Annotation           | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] |
-| Annotation Page       | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![optional][icon-opt]   | ![optional][icon-opt]   | ![optional][icon-opt]   |
-| Range                | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] |
-| Annotation Collection | ![optional][icon-opt]   | ![optional][icon-opt]   | ![optional][icon-opt]   | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] |
-| Image Content        | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] |
-| Other Content        | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] |
-{: .api-table #table-reqs-4}
 
 __Structural Properties__
 
