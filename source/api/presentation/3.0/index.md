@@ -204,6 +204,21 @@ Clients _SHOULD_ display the pairs in the order provided. Clients _SHOULD NOT_ u
 {"metadata": [ {"label": {"en": ["Creator"]}, "value": {"en": ["Anne Artist (1776-1824)"]}} ]}
 ```
 
+##### requiredStatement
+Text that must be displayed when this resource is displayed or used. For example, the `requiredStatement` property could be used to present copyright or ownership statements, an acknowledgement of the owning and/or publishing institution, or any other text that the organization deems critical to display to the user.
+
+Given the wide variation of potential client user interfaces, it will not always be possible to display this statement to the user in the client's initial state. If initially hidden, the method of revealing them _MUST_ be obvious, such as a button or scroll bar.
+
+The value of the property _MUST_ be a JSON object, that has the `label` and `value` properties, in the same way as the `metadata` property items. The values of both `label` and `value` _MUST_ be JSON objects, as described in the [languages][prezi-api-3-languages] section.
+
+ * Any resource type _MAY_ have the `requiredStatement` property.<br/>
+   Clients _MUST_ render `requiredStatement` on every resource type.
+
+``` json-doc
+{"requiredStatement": {"label": {"en": ["Attribution"]}, "value": {"en": ["Provided courtesy of Example Institution"]}}}
+```
+
+
 ##### summary
 A short textual summary of this resource, intended to be conveyed to the user when the `metadata` pairs for the resource are not being displayed.  This could be used as a snippet for item level search results, for limited screen real-estate environments, or as an alternative user interface when the `metadata` fields are not rendered. 
 
@@ -242,6 +257,18 @@ The value _MUST_ be a array of JSON objects, where each item in the array has an
 
 ``` json-doc
 {"thumbnail": [{"id": "https://example.org/img/thumb.jpg", "type": "Image"}]}
+```
+
+##### logo
+A small external image resource that represents an individual or organization associated with this resource.  This could be the logo of the owning or hosting institution. The logo _MUST_ be clearly rendered when the resource is displayed or used, without cropping, rotating or otherwise distorting the image. It is _RECOMMENDED_ that a [IIIF Image API][image-api] service be available for this image for other manipulations such as resizing.
+
+The value _MUST_ be an array of JSON objects, each of which _MUST_ have an `id` and _SHOULD_ have at least one of `type` and `format`.
+
+ * Any resource type _MAY_ have the `logo`property with at least one item.<br/>
+   Clients _MUST_ render `logo` on every resource type.
+
+``` json-doc
+{"logo": [{"id": "https://example.org/img/logo.jpg", "type": "Image"}]}
 ```
 
 ##### posterCanvas
@@ -289,25 +316,9 @@ The value _MUST_ be an [`xsd:dateTime` literal][xsd-datetime]. The value _MUST_ 
 {"navDate": "2010-01-01T00:00:00Z"}
 ```
 
-###  3.2. Rights and Licensing Properties
-
-The following properties ensure that the interests of the owning or publishing institutions are conveyed regardless of the viewing environment. Given the wide variation of potential client user interfaces, it will not always be possible to display all or any of the properties to the user in the client's initial state. If initially hidden, the method of revealing them _MUST_ be obvious, such as a button or scroll bar.
-
-##### attribution
-Text that must be displayed when this resource is displayed or used. For example, the `attribution` property could be used to present copyright or ownership statements, or simply an acknowledgement of the owning and/or publishing institution.
-
-The value of the property _MUST_ be a JSON object, as described in the [languages][prezi-api-3-languages] section.
-
- * Any resource type _MAY_ have the `attribution` property with at least one entry.<br/>
-   Clients _MUST_ render `attribution` on every resource type.
-
-``` json-doc
-{"attribution": {"en": ["Provided courtesy of Example Institution"]}}
-```
-
 ##### rights
 
-A link to an external resource that describes the license or rights statement under which this resource may be used. The rationale for the value being a URI and not a human readable text is that typically there is one license for many resources, and the text is too long to be displayed to the user at the same time as the object. If displaying the text directly to the user is a requirement, then it is _RECOMMENDED_ to include the information using the `attribution` property instead, or in `metadata`.
+A link to an external resource that describes the license or rights statement under which this resource may be used. The rationale for the value being a URI and not a human readable text is that typically there is one license for many resources, and the text is too long to be displayed to the user at the same time as the object. If displaying rights information directly to the user is a requirement, then it is _RECOMMENDED_ to include the information using the `requiredStatement` property.
 
 The value _MUST_ be an array of JSON objects, each of which _MUST_ have an `id` and _SHOULD_ have at least one of `type` and `format`.
 
@@ -322,17 +333,6 @@ The value _MUST_ be an array of JSON objects, each of which _MUST_ have an `id` 
 ]}
 ```
 
-##### logo
-A small external image resource that represents an individual or organization associated with this resource.  This could be the logo of the owning or hosting institution. The logo _MUST_ be clearly rendered when the resource is displayed or used, without cropping, rotating or otherwise distorting the image. It is _RECOMMENDED_ that a [IIIF Image API][image-api] service be available for this image for other manipulations such as resizing.
-
-The value _MUST_ be an array of JSON objects, each of which _MUST_ have an `id` and _SHOULD_ have at least one of `type` and `format`.
-
- * Any resource type _MAY_ have the `logo`property with at least one item.<br/>
-   Clients _MUST_ render `logo` on every resource type.
-
-``` json-doc
-{"logo": [{"id": "https://example.org/img/logo.jpg", "type": "Image"}]}
-```
 
 ###  3.3. Technical Properties
 
@@ -827,7 +827,7 @@ Any of the properties in the API that can have multiple values _MUST_ always be 
 
 ### 4.4. Language of Property Values
 
-Language _MAY_ be associated with strings that are intended to be displayed to the user for the `label`, `summary`, `attribution` fields, plus the `label` and `value` fields of the `metadata` construction.
+Language _MAY_ be associated with strings that are intended to be displayed to the user for the `label` and `summary` fields, plus the `label` and `value` fields of the `metadata` and `requiredStatement` objects.
 
 The values of these fields _MUST_ be JSON objects, with the keys being the [RFC 5646][rfc5646] language code for the language, or if the language is either not known or the string does not have a language, then the key must be `"@none"`. The associated values _MUST_ be arrays of strings, where each string is the content in the given language.
 
@@ -857,7 +857,7 @@ Note that this does not apply to embedded textual bodies in Annotations, which u
 
 ### 4.5. HTML Markup in Property Values
 
-Minimal HTML markup _MAY_ be included in the `summary`, `attribution` properties and the `value` property of a `label`/`value` pair in `metadata`.  It _MUST NOT_ be used in `label` or other properties. This is included to allow Manifest creators to add links and simple formatting instructions to blocks of text. The content _MUST_ be well-formed XML and therefore must be wrapped in an element such as `p` or `span`.  There _MUST NOT_ be whitespace on either side of the HTML string, and thus the first character in the string _MUST_ be a '<' character and the last character _MUST_ be '>', allowing a consuming application to test whether the value is HTML or plain text using these.  To avoid a non-HTML string matching this, it is _RECOMMENDED_ that an additional whitespace character be added to the end of the value in situations where plain text happens to start and end this way.
+Minimal HTML markup _MAY_ be included in the `summary` property and the `value` property in the `metadata` and `requiredStatement` objects.  It _MUST NOT_ be used in `label` or other properties. This is included to allow Manifest creators to add links and simple formatting instructions to blocks of text. The content _MUST_ be well-formed XML and therefore must be wrapped in an element such as `p` or `span`.  There _MUST NOT_ be whitespace on either side of the HTML string, and thus the first character in the string _MUST_ be a '<' character and the last character _MUST_ be '>', allowing a consuming application to test whether the value is HTML or plain text using these.  To avoid a non-HTML string matching this, it is _RECOMMENDED_ that an additional whitespace character be added to the end of the value in situations where plain text happens to start and end this way.
 
 In order to avoid HTML or script injection attacks, clients _MUST_ remove:
 
@@ -959,7 +959,7 @@ The example below includes only the Manifest-level information, however actual i
     "type": "Text",
     "language": "en",
     "format": "text/html"}],
-  "attribution": {"en": ["Provided by Example Organization"]},
+  "requiredStatement": {"label": {"en": ["Attribution"]}, "value": {"en": ["Provided by Example Organization"]}},
   "logo": {
     "id": "https://example.org/logos/institution1.jpg",
     "service": {
@@ -1156,7 +1156,7 @@ Annotations that associate content that is part of the representation of the vie
 
 The content resource is linked in the `body` of the Annotation. The content resource _MUST_ have an `id` field, with the value being the URI at which it can be obtained.
 
-The type of the content resource _MUST_ be included, and _SHOULD_ be taken from the table listed under the definition of `type`. The format of the resource _SHOULD_ be included and, if so, _SHOULD_ be the media type that is returned when the resource is dereferenced. Content resources _MAY_ also have any of the other fields defined in this specification, including commonly `label`, `summary`, `metadata`, `license` and `attribution`.
+The type of the content resource _MUST_ be included, and _SHOULD_ be taken from the table listed under the definition of `type`. The format of the resource _SHOULD_ be included and, if so, _SHOULD_ be the media type that is returned when the resource is dereferenced. Content resources _MAY_ also have any of the other fields defined in this specification, including commonly `label`, `summary`, `metadata`, `rights` and `requiredStatement`.
 
 If the content resource is an Image, and a IIIF Image service is available for it, then the URI _MAY_ be a complete URI to any particular representation made available, such as `https://example.org/image1/full/1000,/0/default.jpg`, but _MUST NOT_ be just the URI of the IIIF Image service. It _MUST_ have a `type` of "Image". Its media type _MAY_ be listed in `format`, and its height and width _MAY_ be given as integer values for `height` and `width` respectively. The image then _SHOULD_ have the service referenced from it.
 
@@ -1327,7 +1327,7 @@ An example Collection document:
   "label": {"en": ["Top Level Collection for Example Organization"]},
   "summary": {"en": ["Short summary of the Collection"]},
   "behavior": ["top"],
-  "attribution": {"en": ["Provided by Example Organization"]},
+  "requiredStatement": {"label": {"en": ["Attribution"]}, "value": {"en": ["Provided by Example Organization"]}},
 
   "items": [
     {
@@ -1408,7 +1408,7 @@ It is possible to include Image API service descriptions within the Manifest, an
 
 __Descriptive and Rights Properties__
 
-|                      | label                  | metadata                     | summary                     | thumbnail                   | posterCanvas                | attribution            | license                 | logo                     |
+|                      | label                  | metadata                     | summary                     | thumbnail                   | posterCanvas                | requiredStatement            | license                 | logo                     |
 | -------------------- | ---------------------- | ---------------------------- | --------------------------- | ----------------------------| ----------------------------| ---------------------- | ----------------------- | ------------------------ |
 | Collection           | ![required][icon-req]  | ![recommended][icon-recc]    | ![recommended][icon-recc]   | ![recommended][icon-recc]   | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
 | Manifest             | ![required][icon-req]  | ![recommended][icon-recc]    | ![recommended][icon-recc]   | ![recommended][icon-recc]   | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
