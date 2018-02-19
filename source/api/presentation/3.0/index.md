@@ -18,7 +18,7 @@ redirect_from:
 {:.no_toc}
 __This Version:__ {{ page.major }}.{{ page.minor }}.{{ page.patch }}{% if page.pre != 'final' %}-{{ page.pre }}{% endif %}
 
-__Latest Stable Version:__ [{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}.{{ site.presentation_api.latest.patch }}][prezi-api-stable]
+__Latest Stable Version:__ [ {{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}.{{ site.presentation_api.latest.patch }} ][prezi-api-stable]
 
 __Previous Version:__ [2.1.1][prezi-api-21]
 
@@ -181,7 +181,7 @@ The value of the property _MUST_ be a JSON object, as described in the [language
    Clients _MAY_ render `label` on other resource types.
 
 ``` json-doc
-{"label": {"en": ["Example Object Title"]}}
+{ "label": { "en": [ "Example Object Title" ] } }
 ```
 
 ##### metadata
@@ -201,7 +201,14 @@ The value of the `metadata` property _MUST_ be an array of JSON objects, where e
 Clients _SHOULD_ display the pairs in the order provided. Clients _SHOULD NOT_ use `metadata` for indexing and discovery purposes, as there are intentionally no consistent semantics. Clients _SHOULD_ expect to encounter long texts in the `value` field, and render them appropriately, such as with an expand button, or in a tabbed interface.
 
 ``` json-doc
-{"metadata": [ {"label": {"en": ["Creator"]}, "value": {"en": ["Anne Artist (1776-1824)"]}} ]}
+{
+  "metadata": [
+    {
+      "label": { "en": [ "Creator" ] }, 
+      "value": { "en": [ "Anne Artist (1776-1824)" ] }
+    }
+  ]
+}
 ```
 
 ##### requiredStatement
@@ -215,9 +222,13 @@ The value of the property _MUST_ be a JSON object, that has the `label` and `val
    Clients _MUST_ render `requiredStatement` on every resource type.
 
 ``` json-doc
-{"requiredStatement": {"label": {"en": ["Attribution"]}, "value": {"en": ["Provided courtesy of Example Institution"]}}}
+{
+  "requiredStatement": { 
+    "label": { "en": [ "Attribution" ] }, 
+    "value": { "en": [ "Provided courtesy of Example Institution" ] }
+  }
+}
 ```
-
 
 ##### summary
 A short textual summary of this resource, intended to be conveyed to the user when the `metadata` pairs for the resource are not being displayed.  This could be used as a snippet for item level search results, for limited screen real-estate environments, or as an alternative user interface when the `metadata` fields are not rendered. 
@@ -234,7 +245,7 @@ The value of the property _MUST_ be a JSON object, as described in the [language
    Clients _MAY_ render `summary` on other resource types.
 
 ``` json-doc
-{"summary": {"en": ["This is a summary of the object."]}}
+{ "summary": { "en": [ "This is a summary of the object." ] } }
 ```
 
 ##### thumbnail
@@ -256,7 +267,7 @@ The value _MUST_ be a array of JSON objects, where each item in the array has an
    Clients _MAY_ render `thumbnail` on other resource types.
 
 ``` json-doc
-{"thumbnail": [{"id": "https://example.org/img/thumb.jpg", "type": "Image"}]}
+{ "thumbnail": [ { "id": "https://example.org/img/thumb.jpg", "type": "Image" } ] }
 ```
 
 ##### logo
@@ -268,7 +279,7 @@ The value _MUST_ be an array of JSON objects, each of which _MUST_ have an `id` 
    Clients _MUST_ render `logo` on every resource type.
 
 ``` json-doc
-{"logo": [{"id": "https://example.org/img/logo.jpg", "type": "Image"}]}
+{ "logo": [ { "id": "https://example.org/img/logo.jpg", "type": "Image" } ] }
 ```
 
 ##### posterCanvas
@@ -292,12 +303,13 @@ The value _MUST_ be a JSON object with the `id` and `type` properties, and _MAY_
    Clients _SHOULD_ ignore `posterCanvas` on other resource types.
 
 ``` json-doc
-{"posterCanvas": {
-  "id": "https://example.org/iiif/1/canvas/poster", 
-  "type": "Canvas",
-  "height": 1400,
-  "width": 1200
-  // ...
+{
+  "posterCanvas": {
+    "id": "https://example.org/iiif/1/canvas/poster", 
+    "type": "Canvas",
+    "height": 1400,
+    "width": 1200
+    // ...
   }
 }
 ```
@@ -313,7 +325,7 @@ The value _MUST_ be an [`xsd:dateTime` literal][xsd-datetime]. The value _MUST_ 
    Clients _SHOULD_ ignore `navDate` on other resource types.
 
 ``` json-doc
-{"navDate": "2010-01-01T00:00:00Z"}
+{ "navDate": "2010-01-01T00:00:00Z" }
 ```
 
 ##### rights
@@ -326,13 +338,16 @@ The value _MUST_ be an array of JSON objects, each of which _MUST_ have an `id` 
    Clients _MUST_ render `rights` on every resource type.
 
 ``` json-doc
-{"rights": [{
-  "id": "https://example.org/rights/copyright.html", 
-  "type": "Text", 
-  "format": "text/html"}
-]}
+{
+  "rights": [ 
+    {
+      "id": "https://example.org/rights/copyright.html", 
+      "type": "Text", 
+      "format": "text/html"
+    }
+  ]
+}
 ```
-
 
 ###  3.3. Technical Properties
 
@@ -362,7 +377,7 @@ The value _MUST_ be a string.
    Clients _MAY_ render `id` on an Annotation.
 
 ``` json-doc
-{"id": "https://example.org/iiif/1/manifest"}
+{ "id": "https://example.org/iiif/1/manifest" }
 ```
 
 ##### type
@@ -385,7 +400,7 @@ The value _MUST_ be a string.
 {: .api-table #table-type}
 
 ``` json-doc
-{"type": "Dataset"}
+{ "type": "Dataset" }
 ```
 
 ##### format
@@ -401,7 +416,7 @@ The value _MUST_ be a string.
 Note that this is different to the `formats` property in the [Image API][image-api], which gives the extension to use within that API.  It would be inappropriate to use in this case, as `format` can be used with any content resource, not just images.
 
 ``` json-doc
-{"type": "Dataset", "format": "application/xml"}
+{ "type": "Dataset", "format": "application/xml" }
 ```
 
 ##### language
@@ -415,7 +430,16 @@ The value _MUST_ be an array of strings.
    Clients _SHOULD_ ignore `language` on other resource types.
 
 ``` json-doc
-{"rendering": [{"id": "https://example.org/docs/doc.pdf", "type": "Text", "format": "application/pdf", "language": ["en"]}]}
+{
+  "rendering": [ 
+    { 
+      "id": "https://example.org/docs/doc.pdf",
+      "type": "Text", 
+      "format": "application/pdf", 
+      "language": [ "en" ]
+    }
+  ]
+}
 ```
 
 ##### profile
@@ -430,7 +454,7 @@ The value _MUST_ be a string, either taken from the table below or a URI.
   Clients _MAY_ process the `profile` of other resource types.
 
 ``` json-doc
-{"profile": "info:srw/schema/1/mods-v3.3"}
+{ "profile": "info:srw/schema/1/mods-v3.3" }
 ```
 
 ##### height
@@ -446,7 +470,7 @@ The value _MUST_ be a positive integer.
    Clients _SHOULD_ ignore `height` on other resource types.
 
 ``` json-doc
-{"height": 1800}
+{ "height": 1800 }
 ```
 
 ##### width
@@ -462,7 +486,7 @@ The value _MUST_ be a positive integer.
    Clients _SHOULD_ ignore `width` on other resource types.
 
 ``` json-doc
-{"width": 1200}
+{ "width": 1200 }
 ```
 
 ##### duration
@@ -478,7 +502,7 @@ The value _MUST_ be a positive floating point number.
    Clients _SHOULD_ ignore `duration` on other resource types.
 
 ``` json-doc
-{"duration": 125.0}
+{ "duration": 125.0 } 
 ```
 
 ##### viewingDirection
@@ -506,7 +530,7 @@ The value _MUST_ be a string, taken from the table below or a full URI.
 {: .api-table #table-direction}
 
 ``` json-doc
-{"viewingDirection": "left-to-right"}
+{ "viewingDirection": "left-to-right" }
 ```
 
 ##### behavior
@@ -534,7 +558,7 @@ The value _MUST_ be an array of strings, taken from the table below or a URI.
 {: .api-table #table-behavior}
 
 ``` json-doc
-{"behavior": ["auto-advance", "individuals"]}
+{ "behavior": [ "auto-advance", "individuals" ] }
 ```
 
 ##### timeMode
@@ -554,7 +578,7 @@ The value _MUST_ be a string, taken from the table below or a full URI.
 {: .api-table #table-timemode}
 
 ``` json-doc
-{"timeMode": "trim"}
+{ "timeMode": "trim" }
 ```
 
 ###  3.4. Linking Properties
@@ -570,11 +594,16 @@ The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id`, `t
    Clients _SHOULD_ render `homepage` on a Collection, Manifest or Canvas, and _MAY_ render `homepage` on other resource types.
 
 ``` json-doc
-{"homepage": [{
-  "id": "https://example.com/info/",
-  "type": "Text",
-  "label": {"en": ["Homepage for Example Object"]},
-  "format": "text/html"}]}
+{
+  "homepage": [
+    {
+      "id": "https://example.com/info/",
+      "type": "Text",
+      "label": { "en": [ "Homepage for Example Object" ] },
+      "format": "text/html"
+    }
+  ]
+}
 ```
 
 ##### rendering
@@ -586,11 +615,16 @@ The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id`, `t
    Clients _SHOULD_ render `rendering` on a Collection, Manifest or Canvas, and _MAY_ render `rendering` on other resource types.
 
 ``` json-doc
-{"rendering": [{
-  "id": "https://example.org/1.pdf",
-  "type": "Text",
-  "label": {"en": ["PDF Rendering of Book"]},
-  "format": "application/pdf"}]}
+{
+  "rendering": [
+    {
+      "id": "https://example.org/1.pdf",
+      "type": "Text",
+      "label": { "en": [ "PDF Rendering of Book" ] },
+      "format": "application/pdf"
+    }
+  ]
+}
 ```
 
 ##### service
@@ -602,11 +636,15 @@ The value _MUST_ be an array of JSON objects. Each object will have properties d
    Clients _MAY_ process `service` on any resource type, and _SHOULD_ process the IIIF Image API service.
 
 ``` json-doc
-{"service": [
-  {"id": "https://example.org/service",
-   "type": "Service",
-   "profile": "https://example.org/docs/service"
-  }]}
+{
+  "service": [
+    {
+      "id": "https://example.org/service",
+      "type": "Service",
+      "profile": "https://example.org/docs/service"
+    }
+  ]
+}
 ```
 
 For cross-version consistency, this specification defines the following values for the `type` or `@type` field for backwards compatibility with other IIIF APIs. Future versions of these APIs will define their own types.  These `type` values are necessary extensions for compatibility of the older versions.
@@ -650,12 +688,16 @@ The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id` and
    Clients _MAY_ process `seeAlso` on any resource type.
 
 ``` json-doc
-{"seeAlso" : [{
-    "id": "https://example.org/library/catalog/book1.xml",
-    "type": "Dataset",
-    "format": "text/xml",
-    "profile": "https://example.org/profiles/bibliographic"
-  }]}
+{
+  "seeAlso": [ 
+    {
+      "id": "https://example.org/library/catalog/book1.xml",
+      "type": "Dataset",
+      "format": "text/xml",
+      "profile": "https://example.org/profiles/bibliographic"
+    }
+  ]
+}
 ```
 
 #### 3.4.2. Internal Links
@@ -669,7 +711,7 @@ The value _MUST_ be an array of JSON objects.  Each item _MUST_ have the `id` an
    Clients _MAY_ render `within` on other resource types.
 
 ``` json-doc
-{"within": [{"id": "https://example.org/iiif/1", "type": "Manifest"}]}
+{ "within": [ { "id": "https://example.org/iiif/1", "type": "Manifest" } ] }
 ```
 
 ##### start
@@ -683,7 +725,7 @@ The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` propert
    Clients _SHOULD_ ignore `start` on other resource types.
 
 ``` json-doc
-{"start": {"id": "https://example.org/iiif/1/canvas/1#t=120", "type": "Canvas"}}
+{ "start": { "id": "https://example.org/iiif/1/canvas/1#t=120", "type": "Canvas" } }
 ```
 
 ##### includes
@@ -697,7 +739,7 @@ The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` propert
    Clients _SHOULD_ ignore `includes` on other resource types.
 
 ``` json-doc
-{"includes": {"id": "https://example.org/iiif/1/annos/1", "type": "AnnotationCollection"}}
+{ "includes": { "id": "https://example.org/iiif/1/annos/1", "type": "AnnotationCollection" } }
 ```
 
 ### 3.5. Structural Properties
@@ -724,17 +766,18 @@ The value _MUST_ be an array of JSON objects. The items will be resources of dif
   Clients _SHOULD_ process `items` on a Range.
 
 ```json-doc
-{"items": [
-  { 
-    "id": "https://example.org/iiif/manifest1",
-    "type": "Manifest"
-  },
-  {
-    "id": "https://example.org/iiif/collection1",
-    "type": "Collection"
-  },
-  // ...
- ]
+{
+  "items": [
+    { 
+      "id": "https://example.org/iiif/manifest1",
+      "type": "Manifest"
+    },
+    {
+      "id": "https://example.org/iiif/collection1",
+      "type": "Collection"
+    },
+    // ...
+  ]
 }
 ```
 
@@ -748,13 +791,15 @@ The value _MUST_ be an array of JSON objects. Each item is a Range.
   Clients _SHOULD_ process `structures` on a Manifest. The first hierarchy _SHOULD_ be presented to the user by default, and further hierarchies _SHOULD_ be able to be selected as alternative structures by the user.
 
 ```json-doc
-{"structures": [
-  {
-    "id": "https://example.org/iiif/range/1",
-    "type": "Range",
-    "items": [{ ... }]
-  }
-]}
+{
+  "structures": [
+    {
+      "id": "https://example.org/iiif/range/1",
+      "type": "Range",
+      "items": [ { ... } ]
+    }
+  ]
+}
 ```
 
 ##### annotations
@@ -769,13 +814,15 @@ The value _MUST_ be an array of JSON objects. Each item _MUST_ have at least the
    Clients _SHOULD_ ignore `annotations` on other resource types.
 
 ```json-doc
-{"annotations": [
-  {
-    "id": "https://example.org/iiif/annotationPage/1",
-    "type": "AnnotationPage",
-    "items": [{ ... }]
-  }
-]}
+{
+  "annotations": [
+    {
+      "id": "https://example.org/iiif/annotationPage/1",
+      "type": "AnnotationPage",
+      "items": [ { ... } ]
+    }
+  ]
+}
 ```
 
 ### 3.6. Values
@@ -807,7 +854,7 @@ Resource descriptions _SHOULD_ be embedded within higher-level descriptions, and
 ``` json-doc
 {
   "thumbnail": [
-    {"id": "https://example.org/images/thumb1.jpg", "type": "Image"}
+    { "id": "https://example.org/images/thumb1.jpg", "type": "Image" }
   ]
 }
 ```
@@ -819,8 +866,8 @@ Any of the properties in the API that can have multiple values _MUST_ always be 
 ``` json-doc
 {
   "seeAlso": [
-    {"id": "https://example.org/images/thumb1.jpg", "type": "Image"},
-    {"id": "https://example.org/videos/thumb1.pmg", "type": "Video"}   
+    { "id": "https://example.org/images/thumb1.jpg", "type": "Image" },
+    { "id": "https://example.org/videos/thumb1.pmg", "type": "Video" }   
   ]
 }
 ```
@@ -832,13 +879,18 @@ Language _MAY_ be associated with strings that are intended to be displayed to t
 The values of these fields _MUST_ be JSON objects, with the keys being the [RFC 5646][rfc5646] language code for the language, or if the language is either not known or the string does not have a language, then the key must be `"@none"`. The associated values _MUST_ be arrays of strings, where each string is the content in the given language.
 
 ``` json-doc
-{"label": {
-    "en": ["Whistler's Mother",
-           "Arrangement in Grey and Black No. 1: The Artist's Mother"],
-    "fr": ["Arrangement en gris et noir no 1",
-           "Portrait de la mère de l'artiste",
-           "La Mère de Whistler"],
-    "@none": ["Whistler (1871)"]
+{
+  "label": {
+    "en": [
+      "Whistler's Mother",
+      "Arrangement in Grey and Black No. 1: The Artist's Mother"
+    ],
+    "fr": [
+      "Arrangement en gris et noir no 1",
+      "Portrait de la mère de l'artiste",
+      "La Mère de Whistler"
+    ],
+    "@none": [ "Whistler (1871)" ]
   }
 }
 ```
@@ -870,7 +922,7 @@ In order to avoid HTML or script injection attacks, clients _MUST_ remove:
 Clients _SHOULD_ allow only `a`, `b`, `br`, `i`, `img`, `p`, `small`, `span`, `sub` and `sup` tags. Clients _MAY_ choose to remove any and all tags, therefore it _SHOULD NOT_ be assumed that the formatting will always be rendered.
 
 ``` json-doc
-{"summary": {"en-latn": ["<p>Short <b>summary</b> of the resource.</p>"]}}
+{ "summary": { "en-latn": [ "<p>Short <b>summary</b> of the resource.</p>" ] } }
 ```
 
 ### 4.6. Linked Data Context and Extensions
@@ -880,7 +932,8 @@ The top level resource in the response _MUST_ have the `@context` property, and 
 The value of the `@context` property _MUST_ be a list, and the __last__ two values _MUST_ be the Web Annotation context and the Presentation API context, in that order.  And further contexts _MUST_ be added at the beginning of the list.
 
 ``` json-doc
-{"@context": [
+{
+  "@context": [
     "http://www.w3.org/ns/anno.jsonld",
     "http://iiif.io/api/presentation/{{ page.major }}/context.json"
   ]
@@ -922,81 +975,112 @@ The example below includes only the Manifest-level information, however actual i
   "type": "Manifest",
 
   // Descriptive metadata about the object/work
-  "label": {"en": ["Book 1"]},
+  "label": { "en": [ "Book 1" ] },
   "metadata": [
-    {"label": {"en": ["Author"]},
-     "value": {"@none": ["Anne Author"]}},
-    {"label": {"en": ["Published"]},
-     "value": {
-        "en": ["Paris, circa 1400"],
-        "fr": ["Paris, environ 1400"]}
+    {
+      "label": { "en": [ "Author" ] },
+      "value": { "@none": [ "Anne Author" ] } 
     },
-    {"label": {"en": ["Notes"]},
-     "value": {"en": ["Text of note 1", "Text of note 2"]}},
-    {"label": {"en": ["Source"]},
-     "value": {"@none": ["<span>From: <a href=\"https://example.org/db/1.html\">Some Collection</a></span>"]}}
-  ],
-  "summary": {"en": ["Book 1, written be Anne Author, published in Paris around 1400."]},
-
-  "thumbnail": [{
-    "id": "https://example.org/images/book1-page1/full/80,100/0/default.jpg",
-    "type": "Image",
-    "service": {
-      "id": "https://example.org/images/book1-page1",
-      "type": "ImageService3",
-      "profile": "level1"
+    {
+      "label": { "en": [ "Published" ] },
+      "value": {
+        "en": [ "Paris, circa 1400" ],
+        "fr": [ "Paris, environ 1400" ]
+      }
+    },
+    { 
+      "label": { "en": [ "Notes" ] },
+      "value": {
+        "en": [ 
+          "Text of note 1", 
+          "Text of note 2"
+        ]
+      }
+    },
+    {
+      "label": { "en": [ "Source" ] },
+      "value": { "@none": [ "<span>From: <a href=\"https://example.org/db/1.html\">Some Collection</a></span>" ] }
     }
-  }],
+  ],
+  "summary": { "en": [ "Book 1, written be Anne Author, published in Paris around 1400." ] },
+
+  "thumbnail": [ 
+    {
+      "id": "https://example.org/images/book1-page1/full/80,100/0/default.jpg",
+      "type": "Image",
+      "service": {
+        "id": "https://example.org/images/book1-page1",
+        "type": "ImageService3",
+        "profile": "level1"
+      }
+    }
+  ],
 
   // Presentation Information
   "viewingDirection": "right-to-left",
-  "behavior": ["paged"],
+  "behavior": [ "paged" ],
   "navDate": "1856-01-01T00:00:00Z",
 
   // Rights Information
-  "rights": [{
-    "id":"https://example.org/license.html",
-    "type": "Text",
-    "language": "en",
-    "format": "text/html"}],
-  "requiredStatement": {"label": {"en": ["Attribution"]}, "value": {"en": ["Provided by Example Organization"]}},
+  "rights": [ 
+    {
+      "id":"https://example.org/license.html",
+      "type": "Text",
+      "language": "en",
+      "format": "text/html"
+    } 
+  ],
+  "requiredStatement": {
+    "label": { "en": [ "Attribution" ] }, 
+    "value": { "en": [ "Provided by Example Organization" ] }
+  },
   "logo": {
     "id": "https://example.org/logos/institution1.jpg",
     "service": {
-        "id": "https://example.org/service/inst1",
-        "type": "ImageService3",
-        "profile": "level2"
+      "id": "https://example.org/service/inst1",
+      "type": "ImageService3",
+      "profile": "level2"
     }
   },
 
   // Links
-  "homepage": [{
-    "id": "https://example.org/info/book1/",
-    "type": "Text",
-    "label": {"en":["Home page for Book 1"]},
-    "format": "text/html"
-  }],
-  "service": [{
-    "id": "https://example.org/service/example",
-    "type": "Service",
-    "profile": "https://example.org/docs/example-service.html"
-  }],
-  "seeAlso": [{
-    "id": "https://example.org/library/catalog/book1.xml",
-    "type": "Dataset",
-    "format": "text/xml",
-    "profile": "https://example.org/profiles/bibliographic"
-  }],
-  "rendering": [{
-    "id": "https://example.org/iiif/book1.pdf",
-    "type": "Text",
-    "label": {"en": ["Download as PDF"]},
-    "format": "application/pdf"
-  }],
-  "within": [{
-    "id": "https://example.org/collections/books/",
-    "type": "Collection"
-  }],
+  "homepage": [
+    {
+      "id": "https://example.org/info/book1/",
+      "type": "Text",
+      "label": { "en": [ "Home page for Book 1" ] },
+      "format": "text/html"
+    }
+  ],
+  "service": [
+    {
+      "id": "https://example.org/service/example",
+      "type": "Service",
+      "profile": "https://example.org/docs/example-service.html"
+    }
+  ],
+  "seeAlso": [
+    {
+      "id": "https://example.org/library/catalog/book1.xml",
+      "type": "Dataset",
+      "format": "text/xml",
+      "profile": "https://example.org/profiles/bibliographic"
+    }
+  ],
+  "rendering": [
+    {
+      "id": "https://example.org/iiif/book1.pdf",
+      "type": "Text",
+      "label": { "en": [ "Download as PDF" ] },
+      "format": "application/pdf"
+    }
+  ],
+  "within": [
+    {
+      "id": "https://example.org/collections/books/",
+      "type": "Collection"
+    }
+  ],
   "start": {
     "id": "https://example.org/iiif/book1/canvas/p2",
     "type": "Canvas"
@@ -1004,13 +1088,13 @@ The example below includes only the Manifest-level information, however actual i
 
   // List of Sequences
   "items": [
-      {
-        "id": "https://example.org/iiif/book1/sequence/normal",
-        "type": "Sequence",
-        "label": {"en": ["Current Page Order"]}
-        // Sequence's page order should be included here
-      }
-      // Any additional Sequences can be included or linked here
+    {
+      "id": "https://example.org/iiif/book1/sequence/normal",
+      "type": "Sequence",
+      "label": { "en": [ "Current Page Order" ] }
+      // Sequence's page order should be included here
+    }
+    // Any additional Sequences can be included or linked here
   ],
 
   // structure of the resource, described with Ranges
@@ -1047,10 +1131,10 @@ Sequences _MAY_ have their own descriptive, rights and linking metadata using th
   // Metadata about this sequence
   "id": "https://example.org/iiif/book1/sequence/normal",
   "type": "Sequence",
-  "label": {"en": ["Current Page Order"]},
+  "label": { "en": [ "Current Page Order" ] },
 
   "viewingDirection": "left-to-right",
-  "behavior": ["paged"],
+  "behavior": [ "paged" ],
   "start": "https://example.org/iiif/book1/canvas/p2",
 
   // The order of the canvases
@@ -1058,19 +1142,19 @@ Sequences _MAY_ have their own descriptive, rights and linking metadata using th
     {
       "id": "https://example.org/iiif/book1/canvas/p1",
       "type": "Canvas",
-      "label": {"@none": ["p. 1"]}
+      "label": { "@none": [ "p. 1" ] }
       // ...
     },
     {
       "id": "https://example.org/iiif/book1/canvas/p2",
       "type": "Canvas",
-      "label": {"@none": ["p. 2"]}
+      "label": { "@none": [ "p. 2" ] }
       // ...
     },
     {
       "id": "https://example.org/iiif/book1/canvas/p3",
       "type": "Canvas",
-      "label": {"@none": ["p. 3"]}
+      "label": { "@none": [ "p. 3" ] }
       // ...
     }
   ]
@@ -1099,7 +1183,7 @@ Renderers _MUST_ scale content into the space represented by the Canvas, and _SH
   // Metadata about this canvas
   "id": "https://example.org/iiif/book1/canvas/p1",
   "type": "Canvas",
-  "label": {"@none": ["p. 1"]},
+  "label": { "@none": [ "p. 1" ] },
   "height": 1000,
   "width": 750,
   "duration": 180.0,
@@ -1185,8 +1269,8 @@ Additional features of the [Web Annotation][webanno] data model _MAY_ also be us
       "type": "ImageService3",
       "profile": "level2"
     },
-    "height":2000,
-    "width":1500
+    "height": 2000,
+    "width": 1500
   },
   "target": "https://example.org/iiif/book1/canvas/p1"
 }
@@ -1225,7 +1309,7 @@ Ranges _MAY_ link to an Annotation Collection that has the content of the Range 
     {
       "id": "https://example.org/iiif/book1/range/r0",
       "type": "Range",
-      "label": {"en": ["Table of Contents"]},
+      "label": { "en": [ "Table of Contents" ] },
       "items": [
         {
           "id": "https://example.org/iiif/book1/canvas/cover",
@@ -1234,7 +1318,7 @@ Ranges _MAY_ link to an Annotation Collection that has the content of the Range 
         {
           "id": "https://example.org/iiif/book1/range/r1",
           "type": "Range",
-          "label": {"en": ["Introduction"]},
+          "label": { "en": [ "Introduction" ] },
           "includes": "https://example.org/iiif/book1/annocoll/introTexts",
           "items": [
             {
@@ -1261,27 +1345,11 @@ Ranges _MAY_ link to an Annotation Collection that has the content of the Range 
 }
 ```
 
-###  5.7. Annotation Collection
+### 5.7. Annotation Collection
 
 Annotation Collections represent groupings of Annotation Pages that should be managed as a single whole, regardless of which Canvas or resource they target. This allows, for example, all of the Annotations that make up a particular translation of the text of a book to be collected together. A client might then present a user interface that allows all of the Annotations in an Annotation Collection to be displayed or hidden according to the user's preference.
 
 Annotation Collections _MUST_ have a URI, and it _SHOULD_ be an HTTP URI.  They _MUST_ have a `label` and _MAY_ have any of the other descriptive, linking or rights properties.
-
-
-``` json-doc
-{
-  "@context": [],
-  "id": "https://example.org/iiif/book1/annopage/l1",
-  "type": "AnnotationPage",
-  "partOf": {
-    "id": "https://example.org/iiif/book1/annocoll/transcription",
-    "type": "AnnotationCollection",
-    "label": {"en": ["Diplomatic Transcription"]}
-  }
-}
-```
-
-// ...
 
 ``` json-doc
 {
@@ -1291,15 +1359,14 @@ Annotation Collections _MUST_ have a URI, and it _SHOULD_ be an HTTP URI.  They 
   ],
   "id": "https://example.org/iiif/book1/annocoll/transcription",
   "type": "AnnotationCollection",
-  "label": {"en": ["Diplomatic Transcription"]},
+  "label": { "en": [ "Diplomatic Transcription" ] },
 
-  "first": {"id": "https://example.org/iiif/book1/annopage/l1", "type": "AnnotationPage"},
-  "last": {"id": "https://example.org/iiif/book1/annopage/l120", "type": "AnnotationPage"}
+  "first": { "id": "https://example.org/iiif/book1/annopage/l1", "type": "AnnotationPage" },
+  "last": { "id": "https://example.org/iiif/book1/annopage/l120", "type": "AnnotationPage" }
 }
 ```
 
-
-###  5.8. Collection
+### 5.8. Collection
 
 Collections are used to list the Manifests available for viewing, and to describe the structures, hierarchies or sets that the resources are part of.  Collections _MAY_ include both other Collections and Manifests, in order to form a tree-structured hierarchy.  Collections might be used to model dynamic result sets from a search, fixed sets of related resources, or other groupings of Manifests for presentation to the user, typically for navigation amongst the member items.
 
@@ -1326,16 +1393,19 @@ An example Collection document:
   ],
   "id": "https://example.org/iiif/collection/top",
   "type": "Collection",
-  "label": {"en": ["Top Level Collection for Example Organization"]},
-  "summary": {"en": ["Short summary of the Collection"]},
-  "behavior": ["top"],
-  "requiredStatement": {"label": {"en": ["Attribution"]}, "value": {"en": ["Provided by Example Organization"]}},
+  "label": { "en": [ "Top Level Collection for Example Organization" ] },
+  "summary": { "en": [ "Short summary of the Collection" ] },
+  "behavior": [ "top" ],
+  "requiredStatement": {
+    "label": { "en": [ "Attribution" ] }, 
+    "value": { "en": [ "Provided by Example Organization" ] }
+  },
 
   "items": [
     {
       "id": "https://example.org/iiif/1/manifest", 
       "type": "Manifest",
-      "label": {"en": "Example Manifest 1"}
+      "label": { "en": "Example Manifest 1" }
     }
   ]
 }
