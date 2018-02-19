@@ -764,7 +764,9 @@ A list of Annotation Pages that contain commentary or other Annotations about th
 The value _MUST_ be an array of JSON objects. Each item _MUST_ have at least the `id` and `type` properties.
 
 * A Collection, Manifest, Sequence, Canvas, Range or content resource _MAY_ have the `annotations` property with at least one item.<br/>
-  Clients _SHOULD_ process `annotations` on any resource.
+  Clients _SHOULD_ process `annotations` on a Collection, Manifest, Sequence, Canvas, Range or content resource.
+ * Other resource types _MUST NOT_ have the `annotations` property.
+   Clients _SHOULD_ ignore `annotations` on other resource types.
 
 ```json-doc
 {"annotations": [
