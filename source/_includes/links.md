@@ -24,7 +24,7 @@
 [json-ld]: http://www.w3.org/TR/json-ld/ "JSON-LD"
 [json-ld-scoped-contexts]: https://json-ld.org/spec/latest/json-ld/#scoped-contexts
 [linked-data]: http://linkeddata.org/ "Linked Data"
-[media-frags]: http://www.w3.org/TR/media-frags/#naming-space "Media Fragments"
+[media-frags]: http://www.w3.org/TR/media-frags/ "Media Fragments"
 [mellon]: http://www.mellon.org/ "The Andrew W. Mellon Foundation"
 [milestone-prezi-3]:  https://github.com/IIIF/iiif.io/milestone/8
 [oa-ext-annex]: {{ site.url }}{{ site.baseurl }}/api/annex/openannotation/ "Open Annotation Extensions"
