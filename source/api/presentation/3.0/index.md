@@ -1156,7 +1156,7 @@ Annotations that associate content that is part of the representation of the vie
 
 The content resource is linked in the `body` of the Annotation. The content resource _MUST_ have an `id` field, with the value being the URI at which it can be obtained.
 
-The type of the content resource _MUST_ be included, and _SHOULD_ be taken from the table listed under the definition of `type`. The format of the resource _SHOULD_ be included and, if so, _SHOULD_ be the media type that is returned when the resource is dereferenced. Content resources _MAY_ also have any of the other fields defined in this specification, including commonly `label`, `summary`, `metadata`, `rights` and `requireStatement`.
+The type of the content resource _MUST_ be included, and _SHOULD_ be taken from the table listed under the definition of `type`. The format of the resource _SHOULD_ be included and, if so, _SHOULD_ be the media type that is returned when the resource is dereferenced. Content resources _MAY_ also have any of the other fields defined in this specification, including commonly `label`, `summary`, `metadata`, `rights` and `requiredStatement`.
 
 If the content resource is an Image, and a IIIF Image service is available for it, then the URI _MAY_ be a complete URI to any particular representation made available, such as `https://example.org/image1/full/1000,/0/default.jpg`, but _MUST NOT_ be just the URI of the IIIF Image service. It _MUST_ have a `type` of "Image". Its media type _MAY_ be listed in `format`, and its height and width _MAY_ be given as integer values for `height` and `width` respectively. The image then _SHOULD_ have the service referenced from it.
 
