@@ -827,7 +827,7 @@ Any of the properties in the API that can have multiple values _MUST_ always be 
 
 ### 4.4. Language of Property Values
 
-Language _MAY_ be associated with strings that are intended to be displayed to the user for the `label` and `summary` fields, plus the `label` and `value` fields of the `metadata` and `requiredStatement` constructions.
+Language _MAY_ be associated with strings that are intended to be displayed to the user for the `label` and `summary` fields, plus the `label` and `value` fields of the `metadata` and `requiredStatement` objects.
 
 The values of these fields _MUST_ be JSON objects, with the keys being the [RFC 5646][rfc5646] language code for the language, or if the language is either not known or the string does not have a language, then the key must be `"@none"`. The associated values _MUST_ be arrays of strings, where each string is the content in the given language.
 
@@ -857,7 +857,7 @@ Note that this does not apply to embedded textual bodies in Annotations, which u
 
 ### 4.5. HTML Markup in Property Values
 
-Minimal HTML markup _MAY_ be included in the `summary` property and the `value` property in the `metadata` and `requiredStatement` construction.  It _MUST NOT_ be used in `label` or other properties. This is included to allow Manifest creators to add links and simple formatting instructions to blocks of text. The content _MUST_ be well-formed XML and therefore must be wrapped in an element such as `p` or `span`.  There _MUST NOT_ be whitespace on either side of the HTML string, and thus the first character in the string _MUST_ be a '<' character and the last character _MUST_ be '>', allowing a consuming application to test whether the value is HTML or plain text using these.  To avoid a non-HTML string matching this, it is _RECOMMENDED_ that an additional whitespace character be added to the end of the value in situations where plain text happens to start and end this way.
+Minimal HTML markup _MAY_ be included in the `summary` property and the `value` property in the `metadata` and `requiredStatement` objects.  It _MUST NOT_ be used in `label` or other properties. This is included to allow Manifest creators to add links and simple formatting instructions to blocks of text. The content _MUST_ be well-formed XML and therefore must be wrapped in an element such as `p` or `span`.  There _MUST NOT_ be whitespace on either side of the HTML string, and thus the first character in the string _MUST_ be a '<' character and the last character _MUST_ be '>', allowing a consuming application to test whether the value is HTML or plain text using these.  To avoid a non-HTML string matching this, it is _RECOMMENDED_ that an additional whitespace character be added to the end of the value in situations where plain text happens to start and end this way.
 
 In order to avoid HTML or script injection attacks, clients _MUST_ remove:
 
@@ -959,7 +959,7 @@ The example below includes only the Manifest-level information, however actual i
     "type": "Text",
     "language": "en",
     "format": "text/html"}],
-  "requiredStatement": {"en": ["Provided by Example Organization"]},
+  "requiredStatement": {"label": {"en": ["Attribution"]}, "value": {"en": ["Provided by Example Organization"]}},
   "logo": {
     "id": "https://example.org/logos/institution1.jpg",
     "service": {
@@ -1327,7 +1327,7 @@ An example Collection document:
   "label": {"en": ["Top Level Collection for Example Organization"]},
   "summary": {"en": ["Short summary of the Collection"]},
   "behavior": ["top"],
-  "requiredStatement": {"en": ["Provided by Example Organization"]},
+  "requiredStatement": {"label": {"en": ["Attribution"]}, "value": {"en": ["Provided by Example Organization"]}},
 
   "items": [
     {
