@@ -70,3 +70,4 @@
 [webanno]: http://w3.org/TR/annotation-model/
 [webannoprotocol]: http://w3.org/TR/annotation-protocol/
 [xpath]: https://en.wikipedia.org/wiki/XPointer "XPath / XPointer"
+[xsd-datetime]: https://www.w3.org/TR/xmlschema11-2/#dateTime "XSD DateTime"
