@@ -1014,7 +1014,7 @@ The example below includes only the Manifest-level information, however actual i
   ],
 
   // structure of the resource, described with Ranges
-  "structure": [
+  "structures": [
     {
       "id": "https://example.org/iiif/book1/range/top",
       "type": "Range"
@@ -1215,7 +1215,7 @@ Ranges _MAY_ link to an Annotation Collection that has the content of the Range 
   "type": "Manifest",
   // Metadata here ...
 
-  "sequences": [
+  "items": [
     // Sequences here ...
   ],
 
