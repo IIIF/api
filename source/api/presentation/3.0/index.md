@@ -269,7 +269,7 @@ The value _MUST_ be a JSON object with the `id` and `type` properties, and _MAY_
   "id": "https://example.org/iiif/1/canvas/poster", 
   "type": "Canvas",
   "height": 1400,
-  "width": 1200,
+  "width": 1200
   // ...
   }
 }
@@ -436,7 +436,7 @@ The value _MUST_ be a string, either taken from the table below or a URI.
 ##### height
 The height of this Canvas or external content resource. For content resources, the value is in pixels. For Canvases, the value does not have a unit. In combination with the width, it conveys an aspect ratio for the space in which content resources are located.
 
-The value _MUST_ be a non-negative integer.
+The value _MUST_ be a positive integer.
 
  * A Canvas _MAY_ have the `height` property. If it has a `height`, it _MUST_ also have a `width`.<br/>
    Clients _MUST_ process `height` on a Canvas.
@@ -452,7 +452,7 @@ The value _MUST_ be a non-negative integer.
 ##### width
 The width of this Canvas or external content resource. For content resources, the value is in pixels. For Canvases, the value does not have a unit. In combination with the height, it conveys an aspect ratio for the space in which content resources are located.
 
-The value _MUST_ be a non-negative integer.
+The value _MUST_ be a positive integer.
 
  * A Canvas _MAY_ have the `width` property. If it has a `width`, it _MUST_ also have a `height`.<br/>
    Clients _MUST_ process `width` on a Canvas.
@@ -468,7 +468,7 @@ The value _MUST_ be a non-negative integer.
 ##### duration
 The duration of this Canvas or external content resource, given in seconds.  
 
-The value _MUST_ be a non-negative floating point number.
+The value _MUST_ be a positive floating point number.
 
  * A Canvas _MAY_ have the `duration` property.<br/>
    Clients _MUST_ process `duration` on a Canvas.
