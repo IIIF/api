@@ -590,7 +590,7 @@ The value _MUST_ be an array of JSON objects. Each object will have properties d
   }]}
 ```
 
-For cross-version consistency, this specification defines the following values for the `type` or `@type` field for backwards compatibility with other IIIF APIs. Future versions of these APIs will define their own types.  These are treated as (necessary) extensions to the older versions.
+For cross-version consistency, this specification defines the following values for the `type` or `@type` field for backwards compatibility with other IIIF APIs. Future versions of these APIs will define their own types.  These `type` values are necessary extensions for compatibility of the older versions.
 
 | Value                | Specification |
 | -------------------- | ------------- |
@@ -955,7 +955,7 @@ The value of the `@context` property _MUST_ be a list, and the __last__ two valu
 }
 ```
 
-Any additional fields beyond those defined in this specification or the Web Annotation Data Model _SHOULD_ be mapped to RDF predicates using further context documents.   These extensions _SHOULD_ be added to the top level `@context` field, and _MUST_ be added before the above contexts.  The JSON-LD 1.1 functionality of [type and predicate specific context definitions][json-ld-scoped-contexts] _MUST_ be used to minimize cross-extension collisions.
+Any additional fields beyond those defined in this specification or the Web Annotation Data Model _SHOULD_ be mapped to RDF predicates using further context documents.   These extensions _SHOULD_ be added to the top level `@context` field, and _MUST_ be added before the above contexts.  The JSON-LD 1.1 functionality of type and predicate specific context definitions, known as [scoped contexts]][json-ld-scoped-contexts], _MUST_ be used to minimize cross-extension collisions.
 
 The JSON representation _MUST NOT_ include the `@graph` key at the top level. This key might be created when serializing directly from RDF data using the JSON-LD 1.0 compaction algorithm. Instead, JSON-LD framing and/or custom code should be used to ensure the structure of the document is as described by this specification.
 
@@ -1398,7 +1398,7 @@ An example Collection document:
   "items": [
     {
       "id": "https://example.org/iiif/1/manifest", 
-      "type": "Manifest"
+      "type": "Manifest",
       "label": {"en": "Example Manifest 1"}
     }
   ]
