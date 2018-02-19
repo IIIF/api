@@ -204,6 +204,21 @@ Clients _SHOULD_ display the pairs in the order provided. Clients _SHOULD NOT_ u
 {"metadata": [ {"label": {"en": ["Creator"]}, "value": {"en": ["Anne Artist (1776-1824)"]}} ]}
 ```
 
+##### requiredStatement
+Text that must be displayed when this resource is displayed or used. For example, the `requiredStatement` property could be used to present copyright or ownership statements, an acknowledgement of the owning and/or publishing institution, or any other text that the organization deems critical to display to the user.
+
+Given the wide variation of potential client user interfaces, it will not always be possible to display this statement to the user in the client's initial state. If initially hidden, the method of revealing them _MUST_ be obvious, such as a button or scroll bar.
+
+The value of the property _MUST_ be a JSON object, that has the `label` and `value` properties, in the same way as the `metadata` property items. The values of both `label` and `value` _MUST_ be JSON objects, as described in the [languages][prezi-api-3-languages] section.
+
+ * Any resource type _MAY_ have the `requiredStatement` property.<br/>
+   Clients _MUST_ render `requiredStatement` on every resource type.
+
+``` json-doc
+{"requiredStatement": {"label": {"en": ["Attribution"]}, "value": {"en": ["Provided courtesy of Example Institution"]}}}
+```
+
+
 ##### summary
 A short textual summary of this resource, intended to be conveyed to the user when the `metadata` pairs for the resource are not being displayed.  This could be used as a snippet for item level search results, for limited screen real-estate environments, or as an alternative user interface when the `metadata` fields are not rendered. 
 
@@ -242,6 +257,18 @@ The value _MUST_ be a array of JSON objects, where each item in the array has an
 
 ``` json-doc
 {"thumbnail": [{"id": "https://example.org/img/thumb.jpg", "type": "Image"}]}
+```
+
+##### logo
+A small external image resource that represents an individual or organization associated with this resource.  This could be the logo of the owning or hosting institution. The logo _MUST_ be clearly rendered when the resource is displayed or used, without cropping, rotating or otherwise distorting the image. It is _RECOMMENDED_ that a [IIIF Image API][image-api] service be available for this image for other manipulations such as resizing.
+
+The value _MUST_ be an array of JSON objects, each of which _MUST_ have an `id` and _SHOULD_ have at least one of `type` and `format`.
+
+ * Any resource type _MAY_ have the `logo`property with at least one item.<br/>
+   Clients _MUST_ render `logo` on every resource type.
+
+``` json-doc
+{"logo": [{"id": "https://example.org/img/logo.jpg", "type": "Image"}]}
 ```
 
 ##### posterCanvas
@@ -289,21 +316,6 @@ The value _MUST_ be an [`xsd:dateTime` literal][xsd-datetime]. The value _MUST_ 
 {"navDate": "2010-01-01T00:00:00Z"}
 ```
 
-
-##### requiredStatement
-Text that must be displayed when this resource is displayed or used. For example, the `requiredStatement` property could be used to present copyright or ownership statements, an acknowledgement of the owning and/or publishing institution, or any other text that the organization deems critical to display to the user.
-
-Given the wide variation of potential client user interfaces, it will not always be possible to display all or any of the properties to the user in the client's initial state. If initially hidden, the method of revealing them _MUST_ be obvious, such as a button or scroll bar.
-
-The value of the property _MUST_ be a JSON object, as described in the [languages][prezi-api-3-languages] section.
-
- * Any resource type _MAY_ have the `requiredStatement` property with at least one entry.<br/>
-   Clients _MUST_ render `requiredStatement` on every resource type.
-
-``` json-doc
-{"requiredStatement": {"en": ["Provided courtesy of Example Institution"]}}
-```
-
 ##### rights
 
 A link to an external resource that describes the license or rights statement under which this resource may be used. The rationale for the value being a URI and not a human readable text is that typically there is one license for many resources, and the text is too long to be displayed to the user at the same time as the object. If displaying the text directly to the user is a requirement, then it is _RECOMMENDED_ to include the information using the `requiredStatement` property instead, or in `metadata`.
@@ -321,17 +333,6 @@ The value _MUST_ be an array of JSON objects, each of which _MUST_ have an `id` 
 ]}
 ```
 
-##### logo
-A small external image resource that represents an individual or organization associated with this resource.  This could be the logo of the owning or hosting institution. The logo _MUST_ be clearly rendered when the resource is displayed or used, without cropping, rotating or otherwise distorting the image. It is _RECOMMENDED_ that a [IIIF Image API][image-api] service be available for this image for other manipulations such as resizing.
-
-The value _MUST_ be an array of JSON objects, each of which _MUST_ have an `id` and _SHOULD_ have at least one of `type` and `format`.
-
- * Any resource type _MAY_ have the `logo`property with at least one item.<br/>
-   Clients _MUST_ render `logo` on every resource type.
-
-``` json-doc
-{"logo": [{"id": "https://example.org/img/logo.jpg", "type": "Image"}]}
-```
 
 ###  3.3. Technical Properties
 
