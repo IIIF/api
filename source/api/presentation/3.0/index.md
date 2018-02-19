@@ -84,6 +84,11 @@ Collectively the use cases require a model in which one can characterize the obj
 
 The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _SHOULD NOT_, _RECOMMENDED_, _MAY_, and _OPTIONAL_ in this document are to be interpreted as described in [RFC 2119][rfc-2119].
 
+This specification also uses the following terms:
+
+* __embedded__: When a resource is embedded within another resource, the complete representation of the embedded resource is present within the embedding resource, and dereferencing the URI of the embedded resource will not result in additional important information. Example: A Sequence is embedded in a Manifest.
+* __referenced__: When a resource is referenced from another resource, an incomplete representation of the referenced resource is present within the referencing resource, and dereferencing the URI of the referenced resource will result in additional information.  Typically, the `id`, `type`, and `label` properties will be included in the reference. Example:  A Manifest is referenced in a Collection.
+
 
 ##  2. Resource Type Overview
 
@@ -222,9 +227,9 @@ An external content resource that represents this resource, such as a small imag
 
 The value _MUST_ be a JSON array, with each item in the array being a JSON object that _MUST_ have an `id` property and _SHOULD_ have at least one of `type` and `format`.
 
- * A Collection _SHOULD_ have exactly one `thumbnail`, and _MAY_ have more than one.<br/>
+ * A Collection _SHOULD_ have  one `thumbnail`, and _MAY_ have more than one.<br/>
    Clients _SHOULD_ render `thumbnail` on a Collection.
- * A Manifest _SHOULD_ have exactly one `thumbnail`, and _MAY_ have more than one.<br/>
+ * A Manifest _SHOULD_ have one `thumbnail`, and _MAY_ have more than one.<br/>
    Clients _SHOULD_ render `thumbnail` on a Manifest.
  * A Sequence _MAY_ have one or more `thumbnail`s.<br/>
    Clients _SHOULD_ render `thumbnail` on a Sequence.
@@ -261,7 +266,7 @@ Clients _MAY_ display the content of a linked poster Canvas when presenting the 
 ##### navDate
 A date that the client can use for navigation purposes when presenting this resource to the user in a time-based user interface, such as a calendar or timeline.  The value _MUST_ be an `xsd:dateTime` literal. The value _MUST_ have a timezone, and _SHOULD_ be given in UTC with the `Z` timezone indicator but _MAY_ also be given as an offset of the form `+hh:mm`. In the situation where a timezone is not given, clients _SHOULD_ assume it to be UTC. There _MUST_ be at most one `navDate` associated with any given resource.  More descriptive date ranges, intended for display directly to the user, _SHOULD_ be included in the `metadata` property for human consumption.  
 
- * A Collection, Manifest or Range _MAY_ have exactly one navigation date associated with it.<br/>
+ * A Collection, Manifest or Range _MAY_ have one navigation date associated with it.<br/>
    Clients _MAY_ render `navDate` on Collections, Manifests and Ranges.
  * Other resource types _MUST NOT_ have navigation dates.<br/>
    Clients _SHOULD_ ignore `navDate` on other resource types.
@@ -315,27 +320,27 @@ The value _MUST_ be an array of JSON objects, each of which _MUST_ have an `id` 
 
 ##### id
 
-The URI that identifies this resource. It is _RECOMMENDED_ that an HTTPS URI be used for all resources. If this resource is only available embedded within another resource, such as a Sequence within a Manifest, then the URI _MAY_ be the URI of the encapsulating resource with a unique fragment on the end. This is not true for Canvases, which _MUST_ have their own URI without a fragment.
+The URI that identifies this resource. It is _RECOMMENDED_ that an HTTPS URI be used for all resources. If this resource is only available embedded (see the [terminology section][prezi-api-3-terminology] for an explanation of "embedded") within another resource, such as a Sequence within a Manifest, then the URI _MAY_ be the URI of the encapsulating resource with a unique fragment on the end. This is not true for Canvases, which _MUST_ have their own URI without a fragment.
 
 The value _MUST_ be a string.
 
- * A Collection _MUST_ have exactly one `id`, and it _MUST_ be the HTTP(S) URI at which it is published. <br/>
+ * A Collection _MUST_ have one `id`, and it _MUST_ be the HTTP(S) URI at which it is published. <br/>
    Clients _SHOULD_ render `id` on a Collection.
- * A Manifest _MUST_ have exactly one `id`, and it _MUST_ be the HTTP(S) URI at which it is published.<br/>
+ * A Manifest _MUST_ have one `id`, and it _MUST_ be the HTTP(S) URI at which it is published.<br/>
    Clients _SHOULD_ render `id` on a Manifest.
  * A Sequence _MAY_ have an `id` and _MUST NOT_ have more than one.<br/>
    Clients _MAY_ render `id` on a Sequence.
- * A Canvas _MUST_ have exactly one `id`, and it _MUST_ be an HTTP(S) URI.  The Canvas's JSON representation _MAY_ be published at that URI.<br/>
+ * A Canvas _MUST_ have one `id`, and it _MUST_ be an HTTP(S) URI.  The Canvas's JSON representation _MAY_ be published at that URI.<br/>
    Clients _SHOULD_ render `id` on a Canvas.
- * A content resource _MUST_ have exactly one `id`, and it _MUST_ be the HTTP(S) URI at which the resource is published.<br/>
+ * A content resource _MUST_ have one `id`, and it _MUST_ be the HTTP(S) URI at which the resource is published.<br/>
    Clients _MAY_ render `id` on content resources.
- * A Range _MUST_ have exactly one `id`, and it _MUST_ be an HTTP(S) URI.<br/>
+ * A Range _MUST_ have one `id`, and it _MUST_ be an HTTP(S) URI.<br/>
    Clients _MAY_ render `id` on a Range.
- * An Annotation Collection _MUST_ have exactly one `id`, and it _MUST_ be an HTTP(S) URI.<br/>
+ * An Annotation Collection _MUST_ have one `id`, and it _MUST_ be an HTTP(S) URI.<br/>
    Clients _MAY_ render `id` on an Annotation Collection.
- * An Annotation Page _MUST_ have exactly one `id`, and it _MUST_ be the HTTP(S) URI at which it is published.<br/>
+ * An Annotation Page _MUST_ have one `id`, and it _MUST_ be the HTTP(S) URI at which it is published.<br/>
    Clients _MAY_ render `id` on an Annotation Page.
- * An Annotation _MUST_ have exactly one `id`, and the Annotation's representation _SHOULD_ be published at that URI.<br/>
+ * An Annotation _MUST_ have one `id`, and the Annotation's representation _SHOULD_ be published at that URI.<br/>
    Clients _MAY_ render `id` on an Annotation.
 
 ``` json-doc
@@ -348,7 +353,7 @@ The type or class of this resource.  For types defined by this specification, th
 
 The value _MUST_ be a string.
 
- * All resource types _MUST_ have exactly one `type`.<br/>
+ * All resource types _MUST_ have one `type`.<br/>
    Clients _MUST_ process, and _MAY_ render, `type` on any resource type.
 
 > | Class         | Description                      |
@@ -370,7 +375,7 @@ The specific media type (often called a MIME type) for this content resource, fo
 
 The value _MUST_ be a string.
 
- * A content resource _SHOULD_ have exactly one `format`, and if so, it _SHOULD_ be the value of the `Content-Type` header returned when the resource is dereferenced.<br/>
+ * A content resource _SHOULD_ have one `format`, and if so, it _SHOULD_ be the value of the `Content-Type` header returned when the resource is dereferenced.<br/>
    Clients _MAY_ render the `format` of any content resource.
  * Other resource types _MUST NOT_ have a `format`.<br/>
    Clients _SHOULD_ ignore `format` on other resource types.
@@ -382,7 +387,7 @@ Note that this is different to the `formats` property in the [Image API][image-a
 ```
 
 ##### language
-The language or languages used in the content of this external resource. This property is already available from the Web Annotation model for content resources that are the body or target of an Annotation, however it _MAY_ also be used for resources referenced from `homepage`, `rendering`, `rights`, and `within`.
+The language or languages used in the content of this external resource. This property is already available from the Web Annotation model for content resources that are the body or target of an Annotation, however it _MAY_ also be used for resources referenced (see the [terminology section][prezi-api-3-terminology] for an explanation of "referenced") from `homepage`, `rendering`, `rights`, and `within`.
 
 The value _MUST_ be an array of strings.
 
@@ -401,9 +406,9 @@ A schema or named set of functionality available from this resource.  The profil
 
 The value _MUST_ be a string, either taken from the table below or a URI.
 
-* Services and resources referenced by `seeAlso` _SHOULD_ have exactly one `profile`.
+* Services and resources referenced by `seeAlso` _SHOULD_ have one `profile`.
   Clients _SHOULD_ process the `profile` of a service or external resource.
-* Other resource types _MAY_ have exactly one `profile`.
+* Other resource types _MAY_ have one `profile`.
   Clients _MAY_ process the `profile` of other resource types.
 
 ``` json-doc
@@ -419,9 +424,9 @@ The height of this Canvas or external content resource. For content resources, t
 
 The value _MUST_ be a non-negative integer or floating point number.
 
- * A Canvas _MAY_ have exactly one `height`, and _MUST NOT_ have more than one. If it has a `height`, it _MUST_ also have a `width`.<br/>
+ * A Canvas _MAY_ have one `height`, and _MUST NOT_ have more than one. If it has a `height`, it _MUST_ also have a `width`.<br/>
    Clients _MUST_ process `height` on a Canvas.
- * Content resources _MAY_ have exactly one `height`, given in pixels, if appropriate.<br/>
+ * Content resources _MAY_ have one `height`, given in pixels, if appropriate.<br/>
    Clients _SHOULD_ process `height` on content resources.
  * Other resource types _MUST NOT_ have a `height`.<br/>
    Clients _SHOULD_ ignore `height` on other resource types.
@@ -435,9 +440,9 @@ The width of this Canvas or external content resource. For content resources, th
 
 The value _MUST_ be a non-negative integer or floating point number.
 
- * A Canvas _MAY_ have exactly one `width`, and _MUST NOT_ have more than one. If it has a `width`, it _MUST_ also have a `height`.<br/>
+ * A Canvas _MAY_ have one `width`, and _MUST NOT_ have more than one. If it has a `width`, it _MUST_ also have a `height`.<br/>
    Clients _MUST_ process `width` on a Canvas.
- * Content resources _MAY_ have exactly one `width`, given in pixels, if appropriate.<br/>
+ * Content resources _MAY_ have one `width`, given in pixels, if appropriate.<br/>
    Clients _SHOULD_ process `width` on content resources.
  * Other resource types _MUST NOT_ have a `width`.<br/>
    Clients _SHOULD_ ignore `width` on other resource types.
@@ -451,9 +456,9 @@ The duration of this Canvas or external content resource, given in seconds.
 
 The value _MUST_ be a non-negative floating point number.
 
- * A Canvas _MAY_ have exactly one `duration`, and _MUST NOT_ have more than one.<br/>
+ * A Canvas _MAY_ have one `duration`, and _MUST NOT_ have more than one.<br/>
    Clients _MUST_ process `duration` on a Canvas.
- * Content resources _MAY_ have exactly one `duration`, and _MUST NOT_ have more than one.<br/>
+ * Content resources _MAY_ have one `duration`, and _MUST NOT_ have more than one.<br/>
    Clients _SHOULD_ process `duration` on content resources.
  * Other resource types _MUST NOT_ have a `duration`.<br/>
    Clients _SHOULD_ ignore `duration` on other resource types.
@@ -467,13 +472,13 @@ The direction that a set of Canvases _SHOULD_ be displayed to the user. This spe
 
 The value _MUST_ be a string, taken from the table below or a full URI.
 
- * A Collection _MAY_ have exactly one `viewingDirection`, and if so, it applies to the order in which its members are rendered.<br/>
+ * A Collection _MAY_ have one `viewingDirection`, and if so, it applies to the order in which its members are rendered.<br/>
    Clients _SHOULD_ process `viewingDirection` on a Collection.
- * A Manifest _MAY_ have exactly one `viewingDirection`, and if so, it applies to all of its sequences unless the sequence specifies its own value.<br/>
+ * A Manifest _MAY_ have one `viewingDirection`, and if so, it applies to all of its sequences unless the sequence specifies its own value.<br/>
    Clients _SHOULD_ process `viewingDirection` on a Manifest.
- * A Sequence _MAY_ have exactly one `viewingDirection`.<br/>
+ * A Sequence _MAY_ have one `viewingDirection`.<br/>
    Clients _SHOULD_ process `viewingDirection` on a Sequence.
- * A Range _MAY_ have exactly one `viewingDirection`.<br/>
+ * A Range _MAY_ have one `viewingDirection`.<br/>
    Clients _MAY_ process `viewingDirection` on a Range.
  * Other resource types _MUST NOT_ have a `viewingDirection`.<br/>
    Clients _SHOULD_ ignore `viewingDirection` on other resource types.
@@ -507,7 +512,7 @@ The value _MUST_ be an array of strings, taken from the table below or a URI.
 | `multi-part` | Valid only on Collections. Collections with this `behavior` consist of multiple Manifests that each form part of a logical whole, such as multi-volume books or a set of journal issues. Clients might render the Collection as a table of contents, rather than with thumbnails. |
 | `no-nav` | Valid only on Ranges. Ranges with this `behavior` _MUST NOT_ be displayed to the user in a navigation hierarchy. This allows for Ranges to be present that capture unnamed regions with no interesting content, such as the set of blank pages at the beginning of a book, or dead air between parts of a performance, that are still part of the Manifest but do not need to be navigated to directly. |
 | `non-paged` | Valid only on Canvases, where the Canvas has at least `height` and `width` dimensions. Canvases with this `behavior` _MUST NOT_ be presented in a page turning interface, and _MUST_ be skipped over when determining the page sequence. This `behavior` _MUST_ be ignored if the current Sequence or Manifest does not have the "paged" `behavior`. |
-| `none` | Valid on Annotation Collections, Annotation Pages, Annotations, Specific Resources and Choices. If this `behavior` is provided, then the client _SHOULD NOT_ render the resource by default, but allow the user to turn it on and off. |
+| `hidden` | Valid on Annotation Collections, Annotation Pages, Annotations, Specific Resources and Choices. If this `behavior` is provided, then the client _SHOULD NOT_ render the resource by default, but allow the user to turn it on and off. |
 | `paged` | Valid on Manifests, Sequences and Ranges, which include Canvases that have at least `height` and `width` dimensions. Canvases included in resources with this `behavior` represent pages in a bound volume, and _SHOULD_ be presented in a page-turning interface if one is available.  The first canvas is a single view (the first recto) and thus the second canvas likely represents the back of the object in the first canvas. If this is not the case, see the "non-paged" `behavior`. |
 | `repeat` | Valid on Collections, Manifests, and Sequences, that include Canvases with at least the `duration` dimension.  When the client reaches the end of the duration of the final Canvas in the resource, and the "auto-advance" `behavior` is also in effect, then the client _SHOULD_ return to the first Canvas in the resource with the "repeat" `behavior` and start playing again. If the "auto-advance" `behavior` is not in effect, then the client _SHOULD_ render a navigation control for the user to manually return to the first Canvas. |
 | `thumbnail-nav` | Valid only on Ranges. Ranges with this `behavior` _MAY_ be used by the client to present an alternative navigation or overview based on thumbnails, such as regular keyframes along a timeline for a video, or sections of a long scroll. Clients _SHOULD NOT_ use them to generate a conventional table of contents. Child Ranges of a Range with this `behavior` _MUST_ have a suitable `thumbnail` property. |
@@ -524,7 +529,7 @@ A mode associated with an Annotation that is to be applied to the rendering of a
 
 The value _MUST_ be a string, taken from the table below or a full URI.
 
-* An Annotation _MAY_ have exactly one `timeMode` property.<br/>
+* An Annotation _MAY_ have one `timeMode` property.<br/>
   Clients _SHOULD_ process `timeMode` on an Annotation.
 
 > | Value | Description |
@@ -547,7 +552,7 @@ A link to an external web page that primarily describes the real world object th
 
 The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id`, `type` and `label` properties, and _SHOULD_ have a `format` property.
 
- * Any resource type _MAY_ have exactly one homepage.<br/>
+ * Any resource type _MAY_ have one homepage.<br/>
    Clients _SHOULD_ render `homepage` on a Collection, Manifest or Canvas, and _MAY_ render `homepage` on other resource types.
 
 ``` json-doc
@@ -577,7 +582,7 @@ The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id`, 
 ##### service
 A link to an external service that the client might interact with directly and gain additional information or functionality for using this resource, such as from an image to the base URI of an associated [IIIF Image API][image-api] service. The service resource _SHOULD_ have additional information associated with it in order to allow the client to determine how to make appropriate use of it. Please see the [Service Registry][registry-services] document for the details of currently known service types.
 
-The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `label` and `profile` properties.
+The value _MUST_ be an array of JSON objects. Each object will have properties depending on the service's definition, but _MUST_ have either the `id` or `@id` and `type` or `@type` properties. Each object _SHOULD_ have a `profile` property. 
 
  * Any resource type _MAY_ have one or more links to an external service.<br/>
    Clients _MAY_ process `service` on any resource type, and _SHOULD_ process the IIIF Image API service.
@@ -590,7 +595,7 @@ The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id` a
   }]}
 ```
 
-For cross-version consistency, this specification defines the following values for the `type` field for backwards compatibility with other IIIF APIs. Future versions of these APIs will define their own types.
+For cross-version consistency, this specification defines the following values for the `type` or `@type` field for backwards compatibility with other IIIF APIs. Future versions of these APIs will define their own types.  These `type` values are necessary extensions for compatibility of the older versions.
 
 | Value                | Specification |
 | -------------------- | ------------- |
@@ -602,15 +607,20 @@ For cross-version consistency, this specification defines the following values f
 | AuthTokenService1    | [Authentication API version 1][auth-api-1-token] |
 | AuthLogoutService1   | [Authentication API version 1][auth-api-1-logout] |
 
-A reference from a version 3 Presentation API document to a version 2 Image API end point would thus follow the pattern in the example below.  Consuming implementations should not expect to encounter the `type` and `profile` parameters in the representation returned from the `id`.
+A reference from a version 3 Presentation API document to both version 2 and version 3 Image API endpoints would thus follow the pattern in the example below.  API versions defined after Presentation API version 3.0 will follow the community best practices of `id` and `type`, but in the interim implementations _MUST_ be prepared to recognize the older property names.  Note that the `@context` key _SHOULD_ not be present within the `service`, but instead included at the beginning of the document.
 
 ``` json-doc
 {
   "service": [
     {
-      "id": "http://https://example.org/iiif/image1/identifier",
-      "type": "ImageService2",
-      "profile": "level1"
+      "@id": "http://https://example.org/iiif2/image1/identifier",
+      "@type": "ImageService2",
+      "profile": "http://iiif.io/api/image/2/level2.json"
+    },
+    {
+      "id": "http://https://example.org/iiif3/image1/identifier",
+      "type": "ImageService3",
+      "profile": "level2"
     }
   ]
 }
@@ -653,7 +663,7 @@ A link from this Manifest, Sequence or Range to a Canvas, or part of a Canvas, t
 
 The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` properties.
 
- * A Manifest, Sequence or Range _MAY_ have exactly one Canvas as its starting Canvas.
+ * A Manifest, Sequence or Range _MAY_ have one Canvas as its starting Canvas.
    Clients _SHOULD_ process `start` on a Manifest, Sequence or Range.
  * Other resource types _MUST NOT_ have a starting Canvas.
    Clients _SHOULD_ ignore `start` on other resource types.
@@ -667,7 +677,7 @@ A link from this Range to an Annotation Collection that includes the Annotations
 
 The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` properties, and the `type` _MUST_ be `Annotation Collection`.
 
- * A Range _MAY_ have exactly one `includes` property.<br/>
+ * A Range _MAY_ have one `includes` property.<br/>
    Clients _MAY_ process `includes` on a Range.
  * Other resource types _MUST NOT_ have the `includes` property.<br/>
    Clients _SHOULD_ ignore `includes` on other resource types.
@@ -675,7 +685,6 @@ The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` propert
 ``` json-doc
 {"includes": {"id": "https://example.org/iiif/1/annos/1", "type": "AnnotationCollection"}}
 ```
-
 
 ### 3.5. Structural Properties
 
@@ -839,7 +848,7 @@ Clients _SHOULD_ allow only `a`, `b`, `br`, `i`, `img`, `p`, `small`, `span`, `s
 
 ### 4.6. Linked Data Context and Extensions
 
-The top level resource in the response _MUST_ have the `@context` property, and it _SHOULD_ appear as the very first key/value pair of the JSON representation. This tells Linked Data processors how to interpret the information. The IIIF Presentation API context, below, _MUST_ occur exactly once per response, and be omitted from any embedded resources. For example, when embedding a sequence without any extensions within a Manifest, the sequence _MUST NOT_ have the `@context` field.
+The top level resource in the response _MUST_ have the `@context` property, and it _SHOULD_ appear as the very first key/value pair of the JSON representation. This tells Linked Data processors how to interpret the information. The IIIF Presentation API context, below, _MUST_ occur once per response, and be omitted from any embedded resources. For example, when embedding a sequence without any extensions within a Manifest, the sequence _MUST NOT_ have the `@context` field.
 
 The value of the `@context` property _MUST_ be a list, and the __last__ two values _MUST_ be the Web Annotation context and the Presentation API context, in that order.  And further contexts _MUST_ be added at the beginning of the list.
 
@@ -851,11 +860,11 @@ The value of the `@context` property _MUST_ be a list, and the __last__ two valu
 }
 ```
 
-Any additional fields beyond those defined in this specification or the Web Annotation Data Model _SHOULD_ be mapped to RDF predicates using further context documents.   If possible, these extensions _SHOULD_ be added to the top level `@context` field, and _MUST_ be added before the above contexts.  The JSON-LD 1.1 functionality of type and predicate specific context definitions _SHOULD_ be used if possible to try to minimize any cross-extension collisions.
+Any additional fields beyond those defined in this specification or the Web Annotation Data Model _SHOULD_ be mapped to RDF predicates using further context documents.   These extensions _SHOULD_ be added to the top level `@context` field, and _MUST_ be added before the above contexts.  The JSON-LD 1.1 functionality of type and predicate specific context definitions, known as [scoped contexts]][json-ld-scoped-contexts], _MUST_ be used to minimize cross-extension collisions.
 
-The JSON representation _MUST NOT_ include the `@graph` key at the top level. This key might be created when serializing directly from RDF data using the JSON-LD compaction algorithm. Instead, JSON-LD framing and/or custom code should be used to ensure the structure of the document is as described by this specification.
+The JSON representation _MUST NOT_ include the `@graph` key at the top level. This key might be created when serializing directly from RDF data using the JSON-LD 1.0 compaction algorithm. Instead, JSON-LD framing and/or custom code should be used to ensure the structure of the document is as described by this specification.
 
-Embedded JSON-LD data that uses a JSON-LD version 1.0 context definition, such as references to older external services or extensions, _MAY_ require the context to be included within the service description, rather than listed in the top resource.  Care should be taken to use the mappings defined by those contexts, especially with regard to `id` versus `@id`, and `type` versus `@type`, to ensure that clients receive the keys that they are expecting to process.
+Embedded JSON-LD data that uses a JSON-LD version 1.0 context definition, such as references to older external services or extensions, _MUST_ be retrofitted to use a scoped context based either on a property or type, as per the examples in the definition of the `service` property. Care should be taken to use the mappings defined by those contexts, especially with regard to `id` versus `@id`, and `type` versus `@type`, to ensure that clients receive the keys that they are expecting to process. 
 
 ##  5. Resource Structure
 
@@ -1118,11 +1127,13 @@ Annotations _MUST_ have their own HTTP(S) URIs, conveyed in the `id` property. T
 
 Annotations that associate content that is part of the representation of the view _MUST_ have the `motivation` field and the value _MUST_ be "painting". This is in order to distinguish it from commentary style Annotations. Text may be thus either be associated with the Canvas via a "painting" annotation, meaning the content is part of the representation, or with another `motivation`, meaning that it is somehow about the view.
 
-The content resource is linked in the `body` of the Annotation. The content resource _MUST_ have an `id` field, with the value being the URI at which it can be obtained. If a IIIF Image service is available for an image, then the URI _MUST_ be the complete URI to a particular size of the image content, such as `https://example.org/image1/full/1000,/0/default.jpg`. It _MUST_ have a `type` of "Image". Its media type _MAY_ be listed in `format`, and its height and width _MAY_ be given as integer values for `height` and `width` respectively. The image then _SHOULD_ have the service referenced from it.
+The content resource is linked in the `body` of the Annotation. The content resource _MUST_ have an `id` field, with the value being the URI at which it can be obtained.
 
-Although it might seem redundant, the URI of the Canvas _MUST_ be repeated in the `target` field of the Annotation. This is to ensure consistency with Annotations that target only part of the resource, described in more detail below, and to remain faithful to the Web Annotation specification, where `target` is mandatory.
+The type of the content resource _MUST_ be included, and _SHOULD_ be taken from the table listed under the definition of `type`. The format of the resource _SHOULD_ be included and, if so, _SHOULD_ be the media type that is returned when the resource is dereferenced. Content resources _MAY_ also have any of the other fields defined in this specification, including commonly `label`, `summary`, `metadata`, `license` and `attribution`.
 
-The type of the content resource _MUST_ be included, and _SHOULD_ be taken from the table listed under the definition of `type`. The format of the resource _SHOULD_ be included and, if so, _SHOULD_ be the media type that is returned when the resource is dereferenced. The content resources _MAY_ also have any of the other fields defined in this specification, including commonly `label`, `summary`, `metadata`, `license` and `attribution`.
+If the content resource is an Image, and a IIIF Image service is available for it, then the URI _MAY_ be a complete URI to any particular representation made available, such as `https://example.org/image1/full/1000,/0/default.jpg`, but _MUST NOT_ be just the URI of the IIIF Image service. It _MUST_ have a `type` of "Image". Its media type _MAY_ be listed in `format`, and its height and width _MAY_ be given as integer values for `height` and `width` respectively. The image then _SHOULD_ have the service referenced from it.
+
+The URI of the Canvas _MUST_ be repeated in the `target` field of the Annotation. This is to ensure consistency with Annotations that target only part of the resource, described in more detail below, and to remain faithful to the Web Annotation specification, where `target` is mandatory.
 
 Additional features of the [Web Annotation][webanno] data model _MAY_ also be used, such as selecting a segment of the Canvas or content resource, or embedding the comment or transcription within the Annotation. The use of these advanced features sometimes results in situations where the `target` is not a content resource, but instead a `SpecificResource`, a `Choice`, or other non-content object. Implementations should check the `type` of the resource and not assume that it is always content to be rendered.
 
@@ -1291,10 +1302,17 @@ An example Collection document:
   "behavior": ["top"],
   "attribution": {"en": ["Provided by Example Organization"]},
 
-  "items": []
-
+  "items": [
+    {
+      "id": "https://example.org/iiif/1/manifest", 
+      "type": "Manifest",
+      "label": {"en": "Example Manifest 1"}
+    }
+  ]
 }
 ```
+
+Note that while the Collection _MAY_ include Collections or Manifests from previous versions of the API, the information included in this document _MUST_ follow the current version requirements, not the requirements of the target document.  This is in contrast to the requirements of `service`, as there is no way to distinguish a version 2 Manifest from a version 3 Manifest by its `type`.
 
 ## 6. HTTP Requests and Responses
 
