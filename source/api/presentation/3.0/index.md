@@ -222,9 +222,9 @@ An external content resource that represents this resource, such as a small imag
 
 The value _MUST_ be a JSON array, with each item in the array being a JSON object that _MUST_ have an `id` property and _SHOULD_ have at least one of `type` and `format`.
 
- * A Collection _SHOULD_ have exactly one `thumbnail`, and _MAY_ have more than one.<br/>
+ * A Collection _SHOULD_ have  one `thumbnail`, and _MAY_ have more than one.<br/>
    Clients _SHOULD_ render `thumbnail` on a Collection.
- * A Manifest _SHOULD_ have exactly one `thumbnail`, and _MAY_ have more than one.<br/>
+ * A Manifest _SHOULD_ have one `thumbnail`, and _MAY_ have more than one.<br/>
    Clients _SHOULD_ render `thumbnail` on a Manifest.
  * A Sequence _MAY_ have one or more `thumbnail`s.<br/>
    Clients _SHOULD_ render `thumbnail` on a Sequence.
@@ -261,7 +261,7 @@ Clients _MAY_ display the content of a linked poster Canvas when presenting the 
 ##### navDate
 A date that the client can use for navigation purposes when presenting this resource to the user in a time-based user interface, such as a calendar or timeline.  The value _MUST_ be an `xsd:dateTime` literal. The value _MUST_ have a timezone, and _SHOULD_ be given in UTC with the `Z` timezone indicator but _MAY_ also be given as an offset of the form `+hh:mm`. In the situation where a timezone is not given, clients _SHOULD_ assume it to be UTC. There _MUST_ be at most one `navDate` associated with any given resource.  More descriptive date ranges, intended for display directly to the user, _SHOULD_ be included in the `metadata` property for human consumption.  
 
- * A Collection, Manifest or Range _MAY_ have exactly one navigation date associated with it.<br/>
+ * A Collection, Manifest or Range _MAY_ have one navigation date associated with it.<br/>
    Clients _MAY_ render `navDate` on Collections, Manifests and Ranges.
  * Other resource types _MUST NOT_ have navigation dates.<br/>
    Clients _SHOULD_ ignore `navDate` on other resource types.
@@ -319,23 +319,23 @@ The URI that identifies this resource. It is _RECOMMENDED_ that an HTTPS URI be 
 
 The value _MUST_ be a string.
 
- * A Collection _MUST_ have exactly one `id`, and it _MUST_ be the HTTP(S) URI at which it is published. <br/>
+ * A Collection _MUST_ have one `id`, and it _MUST_ be the HTTP(S) URI at which it is published. <br/>
    Clients _SHOULD_ render `id` on a Collection.
- * A Manifest _MUST_ have exactly one `id`, and it _MUST_ be the HTTP(S) URI at which it is published.<br/>
+ * A Manifest _MUST_ have one `id`, and it _MUST_ be the HTTP(S) URI at which it is published.<br/>
    Clients _SHOULD_ render `id` on a Manifest.
  * A Sequence _MAY_ have an `id` and _MUST NOT_ have more than one.<br/>
    Clients _MAY_ render `id` on a Sequence.
- * A Canvas _MUST_ have exactly one `id`, and it _MUST_ be an HTTP(S) URI.  The Canvas's JSON representation _MAY_ be published at that URI.<br/>
+ * A Canvas _MUST_ have one `id`, and it _MUST_ be an HTTP(S) URI.  The Canvas's JSON representation _MAY_ be published at that URI.<br/>
    Clients _SHOULD_ render `id` on a Canvas.
- * A content resource _MUST_ have exactly one `id`, and it _MUST_ be the HTTP(S) URI at which the resource is published.<br/>
+ * A content resource _MUST_ have one `id`, and it _MUST_ be the HTTP(S) URI at which the resource is published.<br/>
    Clients _MAY_ render `id` on content resources.
- * A Range _MUST_ have exactly one `id`, and it _MUST_ be an HTTP(S) URI.<br/>
+ * A Range _MUST_ have one `id`, and it _MUST_ be an HTTP(S) URI.<br/>
    Clients _MAY_ render `id` on a Range.
- * An Annotation Collection _MUST_ have exactly one `id`, and it _MUST_ be an HTTP(S) URI.<br/>
+ * An Annotation Collection _MUST_ have one `id`, and it _MUST_ be an HTTP(S) URI.<br/>
    Clients _MAY_ render `id` on an Annotation Collection.
- * An Annotation Page _MUST_ have exactly one `id`, and it _MUST_ be the HTTP(S) URI at which it is published.<br/>
+ * An Annotation Page _MUST_ have one `id`, and it _MUST_ be the HTTP(S) URI at which it is published.<br/>
    Clients _MAY_ render `id` on an Annotation Page.
- * An Annotation _MUST_ have exactly one `id`, and the Annotation's representation _SHOULD_ be published at that URI.<br/>
+ * An Annotation _MUST_ have one `id`, and the Annotation's representation _SHOULD_ be published at that URI.<br/>
    Clients _MAY_ render `id` on an Annotation.
 
 ``` json-doc
@@ -348,7 +348,7 @@ The type or class of this resource.  For types defined by this specification, th
 
 The value _MUST_ be a string.
 
- * All resource types _MUST_ have exactly one `type`.<br/>
+ * All resource types _MUST_ have one `type`.<br/>
    Clients _MUST_ process, and _MAY_ render, `type` on any resource type.
 
 > | Class         | Description                      |
@@ -370,7 +370,7 @@ The specific media type (often called a MIME type) for this content resource, fo
 
 The value _MUST_ be a string.
 
- * A content resource _SHOULD_ have exactly one `format`, and if so, it _SHOULD_ be the value of the `Content-Type` header returned when the resource is dereferenced.<br/>
+ * A content resource _SHOULD_ have one `format`, and if so, it _SHOULD_ be the value of the `Content-Type` header returned when the resource is dereferenced.<br/>
    Clients _MAY_ render the `format` of any content resource.
  * Other resource types _MUST NOT_ have a `format`.<br/>
    Clients _SHOULD_ ignore `format` on other resource types.
@@ -401,9 +401,9 @@ A schema or named set of functionality available from this resource.  The profil
 
 The value _MUST_ be a string, either taken from the table below or a URI.
 
-* Services and resources referenced by `seeAlso` _SHOULD_ have exactly one `profile`.
+* Services and resources referenced by `seeAlso` _SHOULD_ have one `profile`.
   Clients _SHOULD_ process the `profile` of a service or external resource.
-* Other resource types _MAY_ have exactly one `profile`.
+* Other resource types _MAY_ have one `profile`.
   Clients _MAY_ process the `profile` of other resource types.
 
 ``` json-doc
@@ -419,9 +419,9 @@ The height of this Canvas or external content resource. For content resources, t
 
 The value _MUST_ be a non-negative integer or floating point number.
 
- * A Canvas _MAY_ have exactly one `height`, and _MUST NOT_ have more than one. If it has a `height`, it _MUST_ also have a `width`.<br/>
+ * A Canvas _MAY_ have one `height`, and _MUST NOT_ have more than one. If it has a `height`, it _MUST_ also have a `width`.<br/>
    Clients _MUST_ process `height` on a Canvas.
- * Content resources _MAY_ have exactly one `height`, given in pixels, if appropriate.<br/>
+ * Content resources _MAY_ have one `height`, given in pixels, if appropriate.<br/>
    Clients _SHOULD_ process `height` on content resources.
  * Other resource types _MUST NOT_ have a `height`.<br/>
    Clients _SHOULD_ ignore `height` on other resource types.
@@ -435,9 +435,9 @@ The width of this Canvas or external content resource. For content resources, th
 
 The value _MUST_ be a non-negative integer or floating point number.
 
- * A Canvas _MAY_ have exactly one `width`, and _MUST NOT_ have more than one. If it has a `width`, it _MUST_ also have a `height`.<br/>
+ * A Canvas _MAY_ have one `width`, and _MUST NOT_ have more than one. If it has a `width`, it _MUST_ also have a `height`.<br/>
    Clients _MUST_ process `width` on a Canvas.
- * Content resources _MAY_ have exactly one `width`, given in pixels, if appropriate.<br/>
+ * Content resources _MAY_ have one `width`, given in pixels, if appropriate.<br/>
    Clients _SHOULD_ process `width` on content resources.
  * Other resource types _MUST NOT_ have a `width`.<br/>
    Clients _SHOULD_ ignore `width` on other resource types.
@@ -451,9 +451,9 @@ The duration of this Canvas or external content resource, given in seconds.
 
 The value _MUST_ be a non-negative floating point number.
 
- * A Canvas _MAY_ have exactly one `duration`, and _MUST NOT_ have more than one.<br/>
+ * A Canvas _MAY_ have one `duration`, and _MUST NOT_ have more than one.<br/>
    Clients _MUST_ process `duration` on a Canvas.
- * Content resources _MAY_ have exactly one `duration`, and _MUST NOT_ have more than one.<br/>
+ * Content resources _MAY_ have one `duration`, and _MUST NOT_ have more than one.<br/>
    Clients _SHOULD_ process `duration` on content resources.
  * Other resource types _MUST NOT_ have a `duration`.<br/>
    Clients _SHOULD_ ignore `duration` on other resource types.
@@ -467,13 +467,13 @@ The direction that a set of Canvases _SHOULD_ be displayed to the user. This spe
 
 The value _MUST_ be a string, taken from the table below or a full URI.
 
- * A Collection _MAY_ have exactly one `viewingDirection`, and if so, it applies to the order in which its members are rendered.<br/>
+ * A Collection _MAY_ have one `viewingDirection`, and if so, it applies to the order in which its members are rendered.<br/>
    Clients _SHOULD_ process `viewingDirection` on a Collection.
- * A Manifest _MAY_ have exactly one `viewingDirection`, and if so, it applies to all of its sequences unless the sequence specifies its own value.<br/>
+ * A Manifest _MAY_ have one `viewingDirection`, and if so, it applies to all of its sequences unless the sequence specifies its own value.<br/>
    Clients _SHOULD_ process `viewingDirection` on a Manifest.
- * A Sequence _MAY_ have exactly one `viewingDirection`.<br/>
+ * A Sequence _MAY_ have one `viewingDirection`.<br/>
    Clients _SHOULD_ process `viewingDirection` on a Sequence.
- * A Range _MAY_ have exactly one `viewingDirection`.<br/>
+ * A Range _MAY_ have one `viewingDirection`.<br/>
    Clients _MAY_ process `viewingDirection` on a Range.
  * Other resource types _MUST NOT_ have a `viewingDirection`.<br/>
    Clients _SHOULD_ ignore `viewingDirection` on other resource types.
@@ -524,7 +524,7 @@ A mode associated with an Annotation that is to be applied to the rendering of a
 
 The value _MUST_ be a string, taken from the table below or a full URI.
 
-* An Annotation _MAY_ have exactly one `timeMode` property.<br/>
+* An Annotation _MAY_ have one `timeMode` property.<br/>
   Clients _SHOULD_ process `timeMode` on an Annotation.
 
 > | Value | Description |
@@ -547,7 +547,7 @@ A link to an external web page that primarily describes the real world object th
 
 The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id`, `type` and `label` properties, and _SHOULD_ have a `format` property.
 
- * Any resource type _MAY_ have exactly one homepage.<br/>
+ * Any resource type _MAY_ have one homepage.<br/>
    Clients _SHOULD_ render `homepage` on a Collection, Manifest or Canvas, and _MAY_ render `homepage` on other resource types.
 
 ``` json-doc
@@ -641,7 +641,7 @@ A link to another resource that contains this resource, such as a Manifest that 
 
 The value _MUST_ be an array of JSON objects.  Each object _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `label` property.
 
- * Collections or Annotation Pages that serve as [pages][prezi-api-3-paging] _MUST_ be within exactly one paged resource.<br/>
+ * Collections or Annotation Pages that serve as [pages][prezi-api-3-paging] _MUST_ be within one paged resource.<br/>
    Clients _SHOULD_ render `within` on a Collection or Annotation Page.
  * Other resource types, including Collections or Annotation Pages not serving as pages, _MAY_ be within one or more containing resources.<br/>
    Clients _MAY_ render `within` on other resource types.
@@ -655,7 +655,7 @@ A link from this Manifest, Sequence or Range to a Canvas, or part of a Canvas, t
 
 The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` properties.
 
- * A Manifest, Sequence or Range _MAY_ have exactly one Canvas as its starting Canvas.
+ * A Manifest, Sequence or Range _MAY_ have one Canvas as its starting Canvas.
    Clients _SHOULD_ process `start` on a Manifest, Sequence or Range.
  * Other resource types _MUST NOT_ have a starting Canvas.
    Clients _SHOULD_ ignore `start` on other resource types.
@@ -669,7 +669,7 @@ A link from this Range to an Annotation Collection that includes the Annotations
 
 The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` properties, and the `type` _MUST_ be `Annotation Collection`.
 
- * A Range _MAY_ have exactly one `includes` property.<br/>
+ * A Range _MAY_ have one `includes` property.<br/>
    Clients _MAY_ process `includes` on a Range.
  * Other resource types _MUST NOT_ have the `includes` property.<br/>
    Clients _SHOULD_ ignore `includes` on other resource types.
@@ -685,9 +685,9 @@ A link from this paged resource, such as a Collection or Annotation Collection, 
 
 The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `label` property.
 
- * A Collection _MAY_ have exactly one Collection as its first page.<br/>
+ * A Collection _MAY_ have one Collection as its first page.<br/>
    Clients _SHOULD_ process, and _MAY_ render, `first` on a Collection.
- * An Annotation Collection _MAY_ have exactly one Annotation Page as its first page.<br/>
+ * An Annotation Collection _MAY_ have one Annotation Page as its first page.<br/>
    Clients _SHOULD_ process, and _MAY_ render, `first` on an Annotation Collection.
  * Other resource types _MUST NOT_ have a first page.<br/>
    Clients _SHOULD_ ignore `first` on other resource types.
@@ -701,9 +701,9 @@ A link from this paged resource to its last page resource.
 
 The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `label` property.
 
- * A Collection _MAY_ have exactly one Collection as its last page.<br/>
+ * A Collection _MAY_ have one Collection as its last page.<br/>
    Clients _MAY_ render `last` on a Collection.
- * An Annotation Collection _MAY_ have exactly one Annotation Page as its last page.<br/>
+ * An Annotation Collection _MAY_ have one Annotation Page as its last page.<br/>
    Clients _MAY_ render `last` on an Annotation Collection.
  * Other resource types _MUST NOT_ have a last page.<br/>
    Clients _SHOULD_ ignore `last` on other resource types.
@@ -717,9 +717,9 @@ The total number of leaf resources in this paged resource, such as the number of
 
 The value _MUST_ be a non-negative integer.
 
- * A Collection _MAY_ have exactly one total, which _MUST_ be the total number of Collections and Manifests in its list of pages.<br/>
+ * A Collection _MAY_ have one total, which _MUST_ be the total number of Collections and Manifests in its list of pages.<br/>
    Clients _MAY_ render `total` on a Collection.
- * An Annotation Collection _MAY_ have exactly one total, which _MUST_ be the total number of Annotations in its list of pages.<br/>
+ * An Annotation Collection _MAY_ have one total, which _MUST_ be the total number of Annotations in its list of pages.<br/>
    Clients _MAY_ render `total` on an Annotation Collection.
  * Other resource types _MUST NOT_ have a total.<br/>
    Clients _SHOULD_ ignore `total` on other resource types.
@@ -733,9 +733,9 @@ A link from this page resource to the next page resource that follows it in orde
 
 The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `label` property.
 
- * A Collection _MAY_ have exactly one Collection as its next page.<br/>
+ * A Collection _MAY_ have one Collection as its next page.<br/>
    Clients _SHOULD_ process, and _MAY_ render `next` on a Collection.
- * An Annotation Page _MAY_ have exactly one Annotation Page as its next page.<br/>
+ * An Annotation Page _MAY_ have one Annotation Page as its next page.<br/>
    Clients _SHOULD_ process, and _MAY_ render `next` on an Annotation Page.
  * Other resource types _MUST NOT_ have next pages.<br/>
    Clients _SHOULD_ ignore `next` on other resource types.
@@ -749,9 +749,9 @@ A link from this page resource to the previous page resource that precedes it in
 
 The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `label` property.
 
- * A Collection _MAY_ have exactly one Collection as its previous page.<br/>
+ * A Collection _MAY_ have one Collection as its previous page.<br/>
    Clients _SHOULD_ process, and _MAY_ render `prev` on a Collection.
- * An Annotation Page _MAY_ have exactly one Annotation Page as its previous page.<br/>
+ * An Annotation Page _MAY_ have one Annotation Page as its previous page.<br/>
    Clients _SHOULD_ process, and _MAY_ render `prev` on an Annotation Page.
  * Other resource types _MUST NOT_ have previous pages.<br/>
    Clients _SHOULD_ ignore `prev` on other resource types.
@@ -765,9 +765,9 @@ The 0 based index of the first included resource in this page resource, relative
 
 The value _MUST_ be a non-negative integer.
 
- * A Collection _MAY_ have exactly one `startIndex`, which _MUST_ be the index of its first Collection or Manifest relative to the order established by its parent paging Collection.<br/>
+ * A Collection _MAY_ have one `startIndex`, which _MUST_ be the index of its first Collection or Manifest relative to the order established by its parent paging Collection.<br/>
    Clients _MAY_ process or render `startIndex` on a Collection.
- * An Annotation Page _MAY_ have exactly one `startIndex`, which _MUST_ be the index of its first Annotation relative to the order established by its parent paging Annotation Collection.<br/>
+ * An Annotation Page _MAY_ have one `startIndex`, which _MUST_ be the index of its first Annotation relative to the order established by its parent paging Annotation Collection.<br/>
    Clients _MAY_ process or render `startIndex` on an Annotation Page.
  * Other resource types _MUST NOT_ have a `startIndex`.<br/>
    Clients _SHOULD_ ignore `startIndex` on other resource types.
@@ -938,7 +938,7 @@ Clients _SHOULD_ allow only `a`, `b`, `br`, `i`, `img`, `p`, `small`, `span`, `s
 
 ### 4.6. Linked Data Context and Extensions
 
-The top level resource in the response _MUST_ have the `@context` property, and it _SHOULD_ appear as the very first key/value pair of the JSON representation. This tells Linked Data processors how to interpret the information. The IIIF Presentation API context, below, _MUST_ occur exactly once per response, and be omitted from any embedded resources. For example, when embedding a sequence without any extensions within a Manifest, the sequence _MUST NOT_ have the `@context` field.
+The top level resource in the response _MUST_ have the `@context` property, and it _SHOULD_ appear as the very first key/value pair of the JSON representation. This tells Linked Data processors how to interpret the information. The IIIF Presentation API context, below, _MUST_ occur once per response, and be omitted from any embedded resources. For example, when embedding a sequence without any extensions within a Manifest, the sequence _MUST NOT_ have the `@context` field.
 
 The value of the `@context` property _MUST_ be a list, and the __last__ two values _MUST_ be the Web Annotation context and the Presentation API context, in that order.  And further contexts _MUST_ be added at the beginning of the list.
 
