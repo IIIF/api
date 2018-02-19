@@ -318,7 +318,7 @@ The value _MUST_ be an [`xsd:dateTime` literal][xsd-datetime]. The value _MUST_ 
 
 ##### rights
 
-A link to an external resource that describes the license or rights statement under which this resource may be used. The rationale for the value being a URI and not a human readable text is that typically there is one license for many resources, and the text is too long to be displayed to the user at the same time as the object. If displaying the text directly to the user is a requirement, then it is _RECOMMENDED_ to include the information using the `requiredStatement` property instead, or in `metadata`.
+A link to an external resource that describes the license or rights statement under which this resource may be used. The rationale for the value being a URI and not a human readable text is that typically there is one license for many resources, and the text is too long to be displayed to the user at the same time as the object. If displaying rights information directly to the user is a requirement, then it is _RECOMMENDED_ to include the information using the `requiredStatement` property.
 
 The value _MUST_ be an array of JSON objects, each of which _MUST_ have an `id` and _SHOULD_ have at least one of `type` and `format`.
 
