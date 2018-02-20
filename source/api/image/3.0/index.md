@@ -204,7 +204,7 @@ The size parameter determines the dimensions to which the extracted region is to
 
 | Form   | Description |
 |--------|-----------------------|
-| `max`  | The image or region is returned at the maximum size available, as indicated by `maxWidth`, `maxHeight`, `maxArea` in the [profile description][profile-description]. |
+| `max`  | The image or region is returned at the maximum size available. The resulting image will have the pixel dimensions of the requested region, unless it is constrained to a smaller size by `maxWidth`, `maxHeight`, or `maxArea` as defined in the [profile description][profile-description] section. |
 | w,     | The image or region should be scaled so that its width is exactly equal to w, and the height will be a calculated value that maintains the aspect ratio of the extracted region. |
 | ,h     | The image or region should be scaled so that its height is exactly equal to h, and the width will be a calculated value that maintains the aspect ratio of the extracted region. |
 | pct:n  | The width and height of the returned image is scaled to n% of the width and height of the extracted region. The aspect ratio of the returned image is the same as that of the extracted region. |
@@ -212,9 +212,7 @@ The size parameter determines the dimensions to which the extracted region is to
 | !w,h   | The image content is scaled for the best fit such that the resulting width and height are less than or equal to the requested width and height. The exact scaling _MAY_ be determined by the service provider, based on characteristics including image quality and system performance. The dimensions of the returned image content are calculated to maintain the aspect ratio of the extracted region. |
 {: .api-table}
 
-If the resulting height or width is zero, then the server _SHOULD_ return a 400 (bad request) status code.
-
-The image server _MAY_ support scaling above the full size of the extracted region.
+The pixel dimensions of the scaled region _MUST NOT_ be greater than the pixel dimensions of the requested region, or be less than 1 pixel. Requests that would generate images of these sizes are errors that _SHOULD_ result in a 400 (Bad Request) status code.
 
 Examples:
 
@@ -270,7 +268,7 @@ The rotation parameter specifies mirroring and rotation. A leading exclamation m
 | !n   | The image should be mirrored and then rotated as above. |
 {: .api-table}
 
-A rotation value that is out of range or unsupported _SHOULD_ result in a 400 status code.
+A rotation value that is out of range or unsupported _SHOULD_ result in a 400 (Bad Request) status code.
 
 In most cases a rotation will change the width and height dimensions of the returned image. The service _SHOULD_ return an image that contains all of the image contents requested in the region and size parameters, even if the dimensions of the returned image file are different than specified in the size parameter. The image contents _SHOULD NOT_ be scaled as a result of the rotation, and there _SHOULD_ be no additional space between the corners of the rotated image contents and the bounding box of the returned image content.
 
@@ -333,7 +331,7 @@ The quality parameter determines whether the image is delivered in color, graysc
 
 The `default` quality exists to support [level 0 compliant implementations][compliance-quality] that may not know the qualities of individual images in their collections. It also provides a convenience for clients that know the values for all other parameters of a request except the quality (e.g. `.../full/120,/90/{quality}.png` to request a thumbnail) in that a preliminary image information request that would only serve to find out which qualities are available can be avoided.
 
-A quality value that is unsupported _SHOULD_ result in a 400 status code.
+A quality value that is unsupported _SHOULD_ result in a 400 (Bad Request) status code.
 
 Examples:
 
@@ -381,7 +379,7 @@ The format of the returned image is expressed as an extension at the end of the 
 | `webp`    | image/webp |
 {: .api-table}
 
-A format value that is unsupported _SHOULD_ result in a 400 status code.
+A format value that is unsupported _SHOULD_ result in a 400 (Bad Request) status code.
 
 Examples:
 
@@ -577,7 +575,6 @@ The set of features that may be specified in the `supports` property of an Image
 | `regionSquare` |  A square region where the width and height are equal to the shorter dimension of the complete image content. |
 | `rotationArbitrary` |   Rotation of images may be requested by degrees other than multiples of 90. |
 | `rotationBy90s` |   Rotation of images may be requested by degrees in multiples of 90. |
-| `sizeAboveFull` | Size of images may be requested larger than the "full" size. See [warning][max-dos-warning]. |
 | `sizeByConfinedWh` | Size of images may be requested in the form "!w,h". |
 | `sizeByDistortedWh` | Size of images may be requested in the form "w,h", including sizes that would distort the image.   |
 | `sizeByH` | Size of images may be requested in the form ",h".  |
@@ -828,9 +825,6 @@ Servers which are incapable of processing arbitrarily encoded identifiers _SHOUL
 This API defines a URI syntax and the semantics associated with its components. The composition of URIs has few security considerations except possible exposure of sensitive information in URIs or revealing of browse/view behavior of users.
 
 Server applications implementing this API should consider possible denial-of-service attacks, and authentication vulnerabilities based on DNS spoofing. Applications must be careful to parse and sanitize incoming requests (URIs) in ways that avoid overflow, injection, and directory traversal attacks.
-
-It is recommended that servers implementing the `sizeAboveFull` [feature][features] also implement one or more of `maxWith`, `maxHeight`, or `maxArea` in order to prevent arbitrarily large image requests, thus exposing the server to denial-of-service attacks.
-{: #max-dos-warning}
 
 Early sanity checking of URIs (lengths, trailing GET, invalid characters, out-of-range parameters) and rejection with appropriate response codes is recommended.
 
