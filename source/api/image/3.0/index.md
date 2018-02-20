@@ -104,7 +104,7 @@ The IIIF Image API URI for requesting an image _MUST_ conform to the following U
 For example:
 
 ``` none
-http://www.example.org/image-service/abcd1234/full/full/0/default.jpg
+http://www.example.org/image-service/abcd1234/full/max/0/default.jpg
 ```
 {: .urltemplate}
 
@@ -138,7 +138,7 @@ All parameters described below are required for compliant construction of a IIIF
 
 ###  4.1. Region
 
-The region parameter defines the rectangular portion of the full image to be returned. Region can be specified by pixel coordinates, percentage or by the value "full", which specifies that the entire image should be returned.
+The region parameter defines the rectangular portion of the complete image to be returned. Region can be specified by pixel coordinates, percentage or by the value "full", which specifies that the entire image should be returned.
 
 | Form |  Description |
 | ------------------- | ------------ |
@@ -160,37 +160,37 @@ Examples:
       <td>
         <img src="img/full.png" alt="Full Region" class="fullPct" />
         <p><strong>1</strong> region=full</p>
-        <p><code>.../full/full/0/default.jpg</code></p>
+        <p><code>.../full/max/0/default.jpg</code></p>
       </td>
       <td>
         <img src="img/region_square.png" alt="Square Region" class="fullPct" />
         <p><strong>2</strong> region=square</p>
-        <p><code>.../square/full/0/default.jpg</code></p>
+        <p><code>.../square/max/0/default.jpg</code></p>
       </td>
     </tr>
     <tr>
       <td>
         <img src="img/region_px.png" alt="Region by Pixels" class="fullPct" />
         <p><strong>3</strong> region=125,15,120,140</p>
-        <p><code>.../125,15,120,140/full/0/default.jpg</code></p>
+        <p><code>.../125,15,120,140/max/0/default.jpg</code></p>
       </td>
       <td>
         <img src="img/region_pct.png" alt="Region by Percent" class="fullPct" />
         <p><strong>4</strong> region=pct:41.6,7.5,40,70</p>
-        <p><code>.../pct:41.6,7.5,40,70/full/0/default.jpg</code></p>
+        <p><code>.../pct:41.6,7.5,40,70/max/0/default.jpg</code></p>
       </td>
     </tr>
     <tr>
       <td>
         <img src="img/region_px_over.png" alt="Region by Pixels" class="fullPct" />
         <p><strong>5</strong> region=125,15,200,200</p>
-        <p><code>.../125,15,200,200/full/0/default.jpg</code></p>
+        <p><code>.../125,15,200,200/max/0/default.jpg</code></p>
         <p><em>N.B. Returned image is 175,185 px</em></p>
       </td>
       <td>
         <img src="img/region_pct_over.png" alt="Region by Percent" class="fullPct" />
         <p><strong>6</strong> region=pct:41.6,7.5,66.6,100</p>
-        <p><code>.../pct:41.6,7.5,66.6,100/full/0/default.jpg</code></p>
+        <p><code>.../pct:41.6,7.5,66.6,100/max/0/default.jpg</code></p>
         <p><em>N.B. Returned image is 175,185 px</em></p>
       </td>
     </tr>
@@ -204,8 +204,7 @@ The size parameter determines the dimensions to which the extracted region is to
 
 | Form   | Description |
 |--------|-----------------------|
-| `full` | The image or region is not scaled, and is returned at its full size. Note [deprecation warning][full-dep]. |
-| `max`  | The image or region is returned at the maximum size available, as indicated by `maxWidth`, `maxHeight`, `maxArea` in the [profile description][profile-description]. This is the same as `full` if none of these properties are provided. |
+| `max`  | The image or region is returned at the maximum size available, as indicated by `maxWidth`, `maxHeight`, `maxArea` in the [profile description][profile-description]. |
 | w,     | The image or region should be scaled so that its width is exactly equal to w, and the height will be a calculated value that maintains the aspect ratio of the extracted region. |
 | ,h     | The image or region should be scaled so that its height is exactly equal to h, and the width will be a calculated value that maintains the aspect ratio of the extracted region. |
 | pct:n  | The width and height of the returned image is scaled to n% of the width and height of the extracted region. The aspect ratio of the returned image is the same as that of the extracted region. |
@@ -217,20 +216,11 @@ If the resulting height or width is zero, then the server _SHOULD_ return a 400 
 
 The image server _MAY_ support scaling above the full size of the extracted region.
 
-__Deprecation Warning__
-The size keyword `full` will be replaced in favor of `max` in version 3.0. Until that time, the `w,` syntax should be considered the [canonical form][canonical-uri-syntax] of request for the `max` size, unless `max` is equivalent to `full`. Feedback is welcome via [iiif-discuss][iiif-discuss] or on the [Github issue](https://github.com/IIIF/iiif.io/issues/678).
-{: .warning #full-dep}
-
 Examples:
 
 <table class="ex_table">
   <tbody>
     <tr>
-      <td>
-        <img src="img/full.png" alt="Full Size" class="fullPct" />
-        <p><strong>1</strong> size=full</p>
-        <p><code>.../full/full/0/default.jpg</code></p>
-      </td>
       <td>
         <img src="img/size_max.png" alt="Maximum Size" class="fullPct" />
         <p><strong>1</strong> size=full</p>
@@ -254,21 +244,19 @@ Examples:
         <p><strong>4</strong> size=pct:50</p>
         <p><code>.../full/pct:50/0/default.jpg</code></p>
       </td>
+    </tr>
+    <tr>
       <td>
         <img src="img/size_wch.png" alt="Size by Width,Height" class="fullPct" />
         <p><strong>5</strong> size=225,100</p>
         <p><code>.../full/225,100/0/default.jpg</code></p>
       </td>
-    </tr>
-    <tr>
       <td>
         <img src="img/size_bwch.png" alt="Size By Bang Width Height" class="fullPct" />
         <p><strong>6</strong> size=!225,100</p>
         <p><code>.../full/!225,100/0/default.jpg</code></p>
         <p><em>N.B. Returned image is 150,100 px</em></p>
       </td>
-      <td></td>
-      <td></td>
     </tr>
   </tbody>
 </table>
@@ -296,36 +284,36 @@ Examples:
       <td>
         <img src="img/full.png" alt="Rotation 0" class="fullPct" />
         <p><strong>1</strong> rotation=0</p>
-        <p><code>.../full/full/0/default.jpg</code></p>
+        <p><code>.../full/max/0/default.jpg</code></p>
       </td>
       <td>
         <img src="img/rotate_180.png" alt="Rotation 180" class="fullPct" />
         <p><strong>2</strong> rotation=180</p>
-        <p><code>.../full/full/180/default.jpg</code></p>
+        <p><code>.../full/max/180/default.jpg</code></p>
       </td>
     </tr>
     <tr>
       <td>
         <img src="img/rotate_90.png" alt="Rotation 90" class="fullPct" />
         <p><strong>3</strong> rotation=90</p>
-        <p><code>.../full/full/90/default.jpg</code></p>
+        <p><code>.../full/max/90/default.jpg</code></p>
       </td>
       <td>
         <img src="img/rotate_22-5.png" alt="Rotation 22.5" class="fullPct" />
         <p><strong>4</strong> rotation=22.5</p>
-        <p><code>.../full/full/22.5/default.png</code></p>
+        <p><code>.../full/max/22.5/default.png</code></p>
       </td>
     </tr>
     <tr>
       <td>
         <img src="img/mirror.png" alt="Mirroring" class="fullPct" />
         <p><strong>5</strong> rotation=!0</p>
-        <p><code>.../full/full/!0/default.jpg</code></p>
+        <p><code>.../full/max/!0/default.jpg</code></p>
       </td>
       <td>
         <img src="img/mirror_180.png" alt="Mirroring and Rotation" class="fullPct" />
         <p><strong>6</strong> rotation=!180</p>
-        <p><code>.../full/full/!180/default.jpg</code></p>
+        <p><code>.../full/max/!180/default.jpg</code></p>
       </td>
     </tr>
   </tbody>
@@ -355,24 +343,24 @@ Examples:
       <td>
         <img src="img/full.png" alt="Default Quality" class="fullPct" />
         <p><strong>1</strong> quality=default</p>
-        <p><code>.../full/full/0/default.jpg</code></p>
+        <p><code>.../full/max/0/default.jpg</code></p>
       </td>
       <td>
         <img src="img/full.png" alt="Color Quality" class="fullPct" />
         <p><strong>2</strong> quality=color</p>
-        <p><code>.../full/full/0/color.jpg</code></p>
+        <p><code>.../full/max/0/color.jpg</code></p>
       </td>
     </tr>
     <tr>
       <td>
         <img src="img/gray.png" alt="Gray Quality" class="fullPct" />
         <p><strong>3</strong> quality=gray</p>
-        <p><code>.../full/full/0/gray.jpg</code></p>
+        <p><code>.../full/max/0/gray.jpg</code></p>
       </td>
       <td>
         <img src="img/bitonal.png" alt="Bitonal Quality" class="fullPct" />
         <p><strong>4</strong> quality=bitonal</p>
-        <p><code>.../full/full/0/bitonal.jpg</code></p>
+        <p><code>.../full/max/0/bitonal.jpg</code></p>
       </td>
     </tr>
   </tbody>
@@ -397,9 +385,9 @@ A format value that is unsupported _SHOULD_ result in a 400 status code.
 
 Examples:
 
-  1. `.../full/full/0/default.jpg`
-  2. `.../full/full/0/default.png`
-  3. `.../full/full/0/default.tif`
+  1. `.../full/max/0/default.jpg`
+  2. `.../full/max/0/default.png`
+  3. `.../full/max/0/default.tif`
   {: .examplelist}
 
 ### 4.6. Order of Implementation
@@ -437,7 +425,7 @@ In order to support the above requirements, clients _SHOULD_ construct the image
 | Parameter | Canonical value |
 | --------- | --------------- |
 | region    | "full" if the whole image is requested, (including a "square" region of a square image)<br/>otherwise the `x,y,w,h` syntax. |
-| size      | "full" if the default size is requested,<br/>the `w,` syntax for images that should be scaled maintaining the aspect ratio,<br/>and the `w,h` syntax for explicit sizes that change the aspect ratio. <br/>__Note:__ The size keyword "full" will be replaced with "max" in version 3.0. See the [deprecation warning][full-dep] under [size][size] for more information. |
+| size      | "max" if the default size is requested,<br/>the `w,` syntax for images that should be scaled maintaining the aspect ratio,<br/>and the `w,h` syntax for explicit sizes that change the aspect ratio. |
 | rotation  | "!" if the image is mirrored, followed by an integer if possible, and trimming any trailing zeros in a decimal value, and a leading 0 if the value is below 1. |
 | quality   | "default" if the server's default quality is requested,<br/>otherwise the quality string. |
 | format    | The explicit format string is always required. |
@@ -823,14 +811,14 @@ to-encode = "/" / "?" / "#" / "[" / "]" / "@" / "%"
 
 | Parameters | URI path |
 | ---------- | -------- |
-| identifier=id1 region=full size=full rotation=0 quality=default | `id1/full/full/0/default` |
+| identifier=id1 region=full size=max rotation=0 quality=default | `id1/full/max/0/default` |
 | identifier=id1 region=0,10,100,200 size=pct:50 rotation=90 quality=default format=png | `id1/0,10,100,200/pct:50/90/default.png` |
 | identifier=id1 region=pct:10,10,80,80 size=50, rotation=22.5 quality=color format=jpg | `id1/pct:10,10,80,80/50,/22.5/color.jpg` |
-| identifier=bb157hs6068 region=full size=full rotation=270 quality=gray format=jpg | `bb157hs6068/full/full/270/gray.jpg` |
-| identifier=ark:/12025/654xz321 region=full size=full rotation=0 quality=default | `ark:%2F12025%2F654xz321/full/full/0/default` |
-| identifier=urn:foo:a123,456 region=full size=full rotation=0 quality=default | `urn:foo:a123,456/full/full/0/default` |
-| identifier=urn:sici:1046-8188(199501)13:1%3C69:FTTHBI%3E2.0.TX;2-4 region=full size=full rotation=0 quality=default | `urn:sici:1046-8188(199501)13:1%253C69:FTTHBI%253E2.0.TX;2-4/full/full/0/default` |
-| identifier=http://example.com/?54#a region=full size=full rotation=0 quality=default | `http:%2F%2Fexample.com%2F%3F54%23a/full/full/0/default` |
+| identifier=bb157hs6068 region=full size=max rotation=270 quality=gray format=jpg | `bb157hs6068/full/max/270/gray.jpg` |
+| identifier=ark:/12025/654xz321 region=full size=max rotation=0 quality=default | `ark:%2F12025%2F654xz321/full/max/0/default` |
+| identifier=urn:foo:a123,456 region=full size=max rotation=0 quality=default | `urn:foo:a123,456/full/max/0/default` |
+| identifier=urn:sici:1046-8188(199501)13:1%3C69:FTTHBI%3E2.0.TX;2-4 region=full size=max rotation=0 quality=default | `urn:sici:1046-8188(199501)13:1%253C69:FTTHBI%253E2.0.TX;2-4/full/max/0/default` |
+| identifier=http://example.com/?54#a region=full size=max rotation=0 quality=default | `http:%2F%2Fexample.com%2F%3F54%23a/full/max/0/default` |
 {: .api-table}
 
 Servers which are incapable of processing arbitrarily encoded identifiers _SHOULD_ make their best efforts to expose only image identifiers for which clients will not encode any of the characters, and thus it is _RECOMMENDED_ to limit characters in identifiers to letters, numbers and the underscore character.
