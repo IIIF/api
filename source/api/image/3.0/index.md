@@ -424,8 +424,8 @@ In order to support the above requirements, clients _SHOULD_ construct the image
 
 | Parameter | Canonical value |
 | --------- | --------------- |
-| region    | "full" if the whole image is requested, (including a "square" region of a square image)<br/>otherwise the `x,y,w,h` syntax. |
-| size      | "max" if the default size is requested,<br/>the `w,` syntax for images that should be scaled maintaining the aspect ratio,<br/>and the `w,h` syntax for explicit sizes that change the aspect ratio. |
+| region    | "full" if the whole image is requested<br/>otherwise the `x,y,w,h` syntax. |
+| size      | "max" if the default size is requested,<br/>otherwise the `w,h` syntax. |
 | rotation  | "!" if the image is mirrored, followed by an integer if possible, and trimming any trailing zeros in a decimal value, and a leading 0 if the value is below 1. |
 | quality   | "default" if the server's default quality is requested,<br/>otherwise the quality string. |
 | format    | The explicit format string is always required. |
@@ -434,7 +434,7 @@ In order to support the above requirements, clients _SHOULD_ construct the image
 When the client requests an image, the server _MAY_ add a link header to the response that indicates the canonical URI for that request:
 
 ``` none
-Link: <http://iiif.example.com/server/full/400,/0/default.jpg>;rel="canonical"
+Link: <http://iiif.example.com/server/full/400,300/0/default.jpg>;rel="canonical"
 ```
 {: .urltemplate}
 
@@ -493,17 +493,13 @@ A recipe for enabling these behaviors is provided in the [Apache HTTP Server Imp
 | `tiles` | Optional | A set of descriptions of the parameters to use to request regions of the image (tiles) that are efficient for the server to deliver. Each description gives a width, optionally a height for non-square tiles, and a set of scale factors at which tiles of those dimensions are available. |
 {: .api-table}
 
-The objects in the `sizes` list have the properties in the following table. Images requested using these sizes _SHOULD_ have a region parameter of "full" and rotation of "0".  The size _SHOULD_ be requested using the canonical syntax of `w,`. Thus, the full URL for an image with "default" quality in "jpg" format would be: `{scheme}://{server}/{prefix}/{identifier}/full/{width},/0/default.jpg`
+The objects in the `sizes` list have the properties in the following table. Image requests for these sizes _SHOULD_ have a region parameter of "full", size parameter in canonical `w,h` form, and rotation of "0". Thus, the full URL for an image with "default" quality in "jpg" format would be: `{scheme}://{server}/{prefix}/{identifier}/full/{width},{height}/0/default.jpg`
 
 Note that the values in `width` and `height` do not necessarily imply that an image of that size is available. If `sizes`, `maxArea`, `maxWidth`, or `maxHeight` are present, they may indicate constraints on the maximum size of image that can be requested. The `width` and `height` information is still required in order to construct tile requests and know the aspect ratio of the image.
 
-__Warning__
-There is an inconsistency between the specification of the `sizes` list and the canonical URI syntax. Clients _SHOULD_ use the [Canonical URI Syntax](#canonical-uri-syntax) when making image requests based on entries in `sizes`. For maximum compatibility, servers _SHOULD_ support both the `w,` and `w,h` forms of the `size` parameter for values in `sizes` that maintain the aspect ratio. This inconsistency will be addressed in the next major version of this specification.
-{: .warning}
-
 | Size Object Property | Required? | Description |
 | ---------- | -------- | ----------- |
-| `type`    | Optional | The type of the object. If present, the value _MUST_ be the string `Size`. |
+| `type`     | Optional | The type of the object. If present, the value _MUST_ be the string `Size`. |
 | `width`    | Required | The width in pixels of the image to be requested, given as an integer. |
 | `height`   | Required | The height in pixels of the image to be requested, given as an integer. |
 {: .api-table}
