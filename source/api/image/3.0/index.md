@@ -465,9 +465,9 @@ Content-Type: application/ld+json;profile="http://iiif.io/api/image/3/context.js
 ```
 {: .urltemplate}
 
-If the client explicitly wants the JSON-LD content-type, then it _MUST_ specify this in an Accept header, otherwise the server _MUST_ return the regular JSON content-type.
+If the server receives a request with one of the content types above in the Accept header, it _SHOULD_ respond with that content type following the rules of [content negotiation][conneg]. Otherwise, it _MUST_ respond with the "application/json" content type.
 
-Servers _SHOULD_ send the `Access-Control-Allow-Origin` header with the value `*` in response to information requests. The syntax is shown below and is described in the [CORS][cors-spec] specification. This header is required in order to allow the JSON responses to be used by Web applications hosted on different servers.
+Servers _SHOULD_ send the `Access-Control-Allow-Origin` header with the value `*` in response to information requests. The syntax is shown below and is described in the [CORS][cors-spec] specification. This header is required in order to allow the JSON responses to be used by Web applications hosted on different domains.
 
 ``` none
 Access-Control-Allow-Origin: *
