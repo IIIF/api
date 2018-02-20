@@ -54,7 +54,6 @@ See also the note under [Size][size] about combinations of Size and Region that 
 
 | Syntax | Feature Name        | Level 0 | Level 1 | Level 2  |
 |:-------|:--------------------|:-------:|:-------:|:--------:|
-| `full` |                     | ![required][icon-req] | ![required][icon-req] | ![required][icon-req] |
 | `max`  |                     | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] |
 | w,     | `sizeByW`           | ![optional][icon-opt] | ![required][icon-req] | ![required][icon-req] |
 | ,h     | `sizeByH`           | ![optional][icon-opt] | ![required][icon-req] | ![required][icon-req] |
@@ -67,9 +66,8 @@ See also the note under [Size][size] about combinations of Size and Region that 
 
 At any level of compliance, an image service whose Image Information response includes the `sizes` property must support requests for the sizes listed, and a service whose Image Information response includes the `tiles` property must support requests for the sizes implicit in the `width`, `height` and `scaleFactors` values given for tiles.
 
-Note that servers may express limits on the sizes available for an image with the optional `maxWidth`, `maxHeight` and/or `maxArea` [Profile Description properties][profile]. Servers are compliant provided they support the forms of the Size parameter shown above for image sizes up to the limits specified. Clients should not assume that Region and Size parameter combinations such as `/full/full/` will be supported.
+Note that servers may express limits on the sizes available for an image with the optional `maxWidth`, `maxHeight` and/or `maxArea` [Profile Description properties][profile]. Servers are compliant provided they support the forms of the Size parameter shown above for image sizes up to the limits specified. Clients should not assume that Region and Size parameter combinations such as `/full/max/` will be supported.
 
-See also the [deprecation warning about `full`][full-dep].
 
 ### 3.3 Rotation
 
@@ -153,6 +151,5 @@ If a client requests a combination of size and region outside these parameters t
 [size]: #size "3.2 Size"
 [profile]: {{ site.url }}{{ site.baseurl }}/api/image/{{ page.major }}.{{ page.minor }}/#profile-description "5.3 Profile Description"
 [stable-version]: {{ site.url }}{{ site.baseurl }}/api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/compliance/ "Stable Version"
-[full-dep]: {{ site.url }}{{ site.baseurl }}/api/image/2.{{ page.minor }}/#full-dep "Full Size Keyword Deprecation Warning"
 
 {% include acronyms.md %}
