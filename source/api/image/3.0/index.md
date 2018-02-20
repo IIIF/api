@@ -887,7 +887,7 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 [image-request-uri-syntax]: #image-request-uri-syntax "2.1. Image Request URI Syntax"
 [image-information-request-uri-syntax]: #image-information-request-uri-syntax "2.2. Image "Information Request URI"
 [identifier]: #identifier "3. Identifier"
-[image-request-parameters]: #image-request-parameters "4. Image Request Parameters "
+[image-request-parameters]: #image-requests "4. Image Request"
 [region]: #region "4.1. Region"
 [size]: #size "4.2. Size"
 [rotation]: #rotation "4.3. Rotation"
