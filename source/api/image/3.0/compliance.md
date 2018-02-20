@@ -54,7 +54,7 @@ See also the note under [Size][size] about combinations of Size and Region that 
 
 | Syntax | Feature Name        | Level 0 | Level 1 | Level 2  |
 |:-------|:--------------------|:-------:|:-------:|:--------:|
-| `max`  |                     | ![required][icon-req] | ![required][icon-req] | ![optional][icon-opt] |
+| `max`  |                     | ![required][icon-req] | ![required][icon-req] | ![required][icon-req] |
 | w,     | `sizeByW`           | ![optional][icon-opt] | ![required][icon-req] | ![required][icon-req] |
 | ,h     | `sizeByH`           | ![optional][icon-opt] | ![required][icon-req] | ![required][icon-req] |
 | pct:n  | `sizeByPct`         | ![optional][icon-opt] | ![optional][icon-opt] | ![required][icon-req] |
