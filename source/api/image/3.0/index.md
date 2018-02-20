@@ -506,7 +506,7 @@ There is an inconsistency between the specification of the `sizes` list and the 
 | `height`   | Required | The height in pixels of the image to be requested, given as an integer. |
 {: .api-table}
 
-The objects in the `tiles` list have the properties in the following table. The `width` and `height` should be used to fill the region parameter and the `scaleFactors` to complete the size parameter of the image URL. This is described in detail in the [Implementation Notes][a-implementation-notes].
+The objects in the `tiles` list have the properties in the following table. The `width` and `height` should be used to fill the region parameter and the `scaleFactors` to complete the size parameter of the image URL. This is described in detail in the [Implementation Notes][implementation-notes].
 
 The `width` of a tile, or the combination of `width` and `height` if `height` is specified, _MUST_ be unique among the members of the `tiles` list.
 
@@ -821,61 +821,17 @@ Early sanity checking of URIs (lengths, trailing GET, invalid characters, out-of
 
 ## 11. Appendices
 
-### A. Implementation Notes
-
-  * For use cases that enable the saving of the image, it is _RECOMMENDED_ to use the HTTP `Content-Disposition` header ([RFC6266][rfc-6266]) to provide a convenient filename that distinguishes the image, based on the identifier and parameters provided.
-  * Server implementations may rely on components or frameworks that unescape the URI path, such as Python's [WSGI][wsgi]. In such situations, the requested URI may be parsed from the right in order to handle identifiers possibly containing slashes, given the knowledge of the API parameters and the prefix for which the server handles requests.
-  * This specification makes no assertion about the rights status of requested images or any other descriptive metadata, whether or not authentication has been accomplished. Please see the [IIIF Presentation API][prezi-api] for rights and other information.
-  * Additional [Apache HTTP Server implementation notes][apache-notes] are available.
-  * Linked data implementations may construct the info.json response using the frame supplied in the [JSON-LD framing implementation note][annex-frames].
-  * When requesting sizes using the `w,` canonical syntax, if a particular height is desired, the following algorithm can be used:
-
-``` python
-    # Calculate request width for `w,` syntax from desired height
-    request_width = image_width * desired_height / image_height
-```
-
-  * When requesting image tiles, the [Region][region] and [Size][size] parameters must be calculated to take account of partial tiles along the right and lower edges for a full image that is not an exact multiple of the scaled tile size. The algorithm below is shown as Python code and assumes integer inputs and integer arithmetic throughout (ie. remainder discarded on division). Inputs are: size of full image content `(width,height)`, scale factor `s`, tile size `(tw,th)`, and tile coordinate `(n,m)` counting from `(0,0)` in the upper-left corner. Note that the rounding method is implementation dependent.
-
-
-``` python
-    # Calculate region parameters /xr,yr,wr,hr/
-    xr = n * tw * s
-    yr = m * th * s
-    wr = tw * s
-    if (xr + wr > width):
-        wr = width - xr
-    hr = th * s
-    if (yr + hr > height):
-        hr = height - yr
-    # Calculate size parameters /ws,hs/
-    ws = tw
-    if (xr + tw*s > width):
-        ws = (width - xr + s - 1) / s  # +s-1 in numerator to round up
-    hs = th
-    if (yr + th*s > height):
-        hs = (height - yr + s - 1) / s
-```
-
-  * As described in [Rotation][rotation], in order to retain the size of the requested image contents, rotation will change the width and height dimensions of the image returned. A formula for calculating the dimensions of the image returned for a given starting size and rotation is given below. Note that the rounding method is implementation dependent and that some languages require conversion of the angle from degrees to radians.
-
-``` python
-    # (w,h) are size parameters, n is rotation angle
-    w_returned = abs(w*cos(n)) + abs(h*sin(n))
-    h_returned = abs(h*cos(n)) + abs(w*sin(n))
-```
-
-### B. Versioning
+### A. Versioning
 
 Starting with version 2.0, this specification follows [Semantic Versioning][semver]. See the note [Versioning of APIs][versioning] for details regarding how this is implemented.
 
-###  C. Acknowledgments
+###  B. Acknowledgments
 
 The production of this document was generously supported by a grant from the [Andrew W. Mellon Foundation][mellon].
 
 Many thanks to the members of the [IIIF][iiif-community] for their continuous engagement, innovative ideas and feedback.
 
-###  D. Change Log
+###  C. Change Log
 
 | Date       | Description |
 | ---------- | ----------- |
@@ -885,6 +841,8 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 | 2013-09-17 | Version 1.1 (unnamed) [View change log][change-log11] |
 | 2012-08-10 | Version 1.0 (unnamed) |
 {: .api-table}
+
+
 
 [authentication-ext]: {{ site.url }}{{ site.baseurl }}/api/auth/
 [change-log-211]: {{ site.url }}{{ site.baseurl }}/api/image/2.1/change-log-211/ "Image API 2.1.1 Change Log"
@@ -912,8 +870,7 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 [prezi-html]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/#html-markup-in-property-values "Presentation API Section 4.4"
 
 [service-profiles]: {{ site.url }}{{ site.baseurl }}/api/annex/services/ "Services Annex Document"
-[annex-frames]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/jsonld/ "JSON-LD Frames Implementation Notes"
-[apache-notes]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/apache/ "Apache HTTP Server Implementation Notes"
+
 [apache-notes-conditional-content-type]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/apache/#conditional-content-types "Apache HTTP Server Implementation Notes: Conditional Content Types"
 [apache-notes-set-compliance-link-header]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/apache/#set-compliance-link-header "Apache HTTP Server Implementation Notes: Set Compliance Link Header"
 [audience-and-scope]: #audience-and-scope "1. Audience and Scope"
@@ -942,16 +899,13 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 [authentication]: #authentication "8. Authentication"
 [uri-encoding-and-decoding]: #uri-encoding-and-decoding "9. URI Encoding and Decoding"
 [security-considerations]: #security-considerations "10. Security Considerations"
-[max-dos-warning]: #max-dos-warning "Size Above Gull DOS Warning"
 [appendices]: #appendices "11. Appendices"
-[a-implementation-notes]: #a-implementation-notes "A. Implementation Notes"
-[b-versioning]: #b-versioning "B. Versioning"
-[c-acknowledgments]: #c-acknowledgments "C. Acknowledgments"
-[d-change-log]: #d-change-log "D. Change Log"
-[prev-version]: {{ page.webprefix }}/api/image/2.0/ "Previous Version"
+[a-versioning]: #a-versioning "B. Versioning"
+[b-acknowledgments]: #b-acknowledgments "C. Acknowledgments"
+[c-change-log]: #c-change-log "D. Change Log"
+[prev-version]: {{ page.webprefix }}/api/image/2.1/ "Previous Version"
 [stable-version]: {{ page.webprefix }}/api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/ "Stable Version"
-[wsgi]: https://www.python.org/dev/peps/pep-0333/
-[dep-sizes]: #dep-sizes "Deprecated sizes warning"
+[implementation-notes]: {{ page.webprefix }}/api/image/3.0/implementation/ "Implementation Notes"
 
 [client-auth-img]: img/auth-flow-client.png
 [server-auth-img]: img/auth-flow-server.png
