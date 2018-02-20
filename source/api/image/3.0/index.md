@@ -576,20 +576,11 @@ The set of features that may be specified in the `supports` property of an Image
 | `rotationArbitrary` |   Rotation of images may be requested by degrees other than multiples of 90. |
 | `rotationBy90s` |   Rotation of images may be requested by degrees in multiples of 90. |
 | `sizeByConfinedWh` | Size of images may be requested in the form "!w,h". |
-| `sizeByDistortedWh` | Size of images may be requested in the form "w,h", including sizes that would distort the image.   |
 | `sizeByH` | Size of images may be requested in the form ",h".  |
 | `sizeByPct` | Size of images may be requested in the form "pct:n".  |
 | `sizeByW` | Size of images may be requested in the form "w,".  |
-| `sizeByWh` | Size of images may be requested in the form "w,h" where the supplied w and h preserve the aspect ratio.  |
-| `sizeByWhListed` | See [deprecation warning below][dep-sizes]. |
-| `sizeByForcedWh` | See [deprecation warning below][dep-sizes]. |
+| `sizeByWh` | Size of images may be requested in the form "w,h".  |
 {: .api-table #features}
-
-__Deprecation Warning__
-Use of the feature names `sizeByWhListed` and `sizeByForcedWh` is deprecated. These names will be removed in version 3.0. `sizeByForcedWh` was inconsistently defined in version 2.0, and `sizeByWhListed` is implied by listing the sizes in the image information document and is therefore not required as a named feature.
-{: .warning #dep-sizes}
-
-The features `sizeByWh` and `sizeByDistortedWh` share the same "w,h" syntax for the size parameter, but they represent separate features. A server that supports `sizeByWh` but not `sizeByDistortedWh` would serve an image response at any scale (subject to separate `maxWidth`, `maxHeight`, `maxArea` and `sizeAboveFull` constraints if present), but only if the resulting image preserved the original aspect ratio. Requests for distorted images would not be served.
 
 A server that supports neither `sizeByW` or `sizeByWh` is only required to serve the image sizes listed under the `sizes` property or implied by the `tiles` property of the image information document, allowing for a static file implementation.
 
