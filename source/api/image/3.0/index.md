@@ -461,7 +461,7 @@ Content-Type: application/json
 or "application/ld+json" (JSON-LD).
 
 ``` none
-Content-Type: application/ld+json
+Content-Type: application/ld+json;profile="http://iiif.io/api/image/3/context.json"
 ```
 {: .urltemplate}
 
