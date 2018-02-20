@@ -836,12 +836,13 @@ Starting with version 2.0, this specification follows [Semantic Versioning][semv
 
 The production of this document was generously supported by a grant from the [Andrew W. Mellon Foundation][mellon].
 
-Many thanks to the members of the [IIIF][iiif-community] for their continuous engagement, innovative ideas and feedback.
+Many thanks to the members of the [IIIF community][iiif-community] for their continuous engagement, innovative ideas and feedback.
 
 ###  C. Change Log
 
 | Date       | Description |
 | ---------- | ----------- |
+| XXXX-YY-ZZ | Version 3.0 |
 | 2017-06-09 | Version 2.1.1 [View change log][change-log-211] |
 | 2016-05-12 | Version 2.1 (Crowned Eagle) [View change log][change-log21] |
 | 2014-09-11 | Version 2.0 (Voodoo Bunny) [View change log][change-log20] |

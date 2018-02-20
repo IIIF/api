@@ -1571,7 +1571,7 @@ Starting with version 2.0, this specification follows [Semantic Versioning][semv
 
 ### D. Acknowledgements
 
-Many thanks to the members of the [IIIF][iiif-community] for their continuous engagement, innovative ideas and feedback.
+Many thanks to the members of the [IIIF community][iiif-community] for their continuous engagement, innovative ideas and feedback.
 
 ### E. Change Log
 
