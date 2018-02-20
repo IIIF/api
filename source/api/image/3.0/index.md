@@ -863,6 +863,8 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 [rfc-5988]: http://tools.ietf.org/html/rfc5988 "Web Linking"
 [rfc-6266]: http://tools.ietf.org/html/rfc6266 "Use of the Content-Disposition Header Field in the Hypertext Transfer Protocol (HTTP)"
 [rfc-6570]: http://tools.ietf.org/html/rfc6570 "URI Template"
+[conneg]: https://tools.ietf.org/html/rfc7231#section-5.3.2
+
 [semver]: http://semver.org/spec/v2.0.0.html "Semantic Versioning 2.0.0"
 [iiif-community]: {{page.webprefix}}/community/ "IIIF Community"
 [versioning]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/semver/ "Versioning of APIs"
