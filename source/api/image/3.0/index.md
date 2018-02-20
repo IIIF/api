@@ -461,13 +461,13 @@ Content-Type: application/json
 or "application/ld+json" (JSON-LD).
 
 ``` none
-Content-Type: application/ld+json
+Content-Type: application/ld+json;profile="http://iiif.io/api/image/3/context.json"
 ```
 {: .urltemplate}
 
-If the client explicitly wants the JSON-LD content-type, then it _MUST_ specify this in an Accept header, otherwise the server _MUST_ return the regular JSON content-type.
+If the server receives a request with one of the content types above in the Accept header, it _SHOULD_ respond with that content type following the rules of [content negotiation][conneg]. Otherwise, it _MUST_ respond with the "application/json" content type.
 
-Servers _SHOULD_ send the `Access-Control-Allow-Origin` header with the value `*` in response to information requests. The syntax is shown below and is described in the [CORS][cors-spec] specification. This header is required in order to allow the JSON responses to be used by Web applications hosted on different servers.
+Servers _SHOULD_ send the `Access-Control-Allow-Origin` header with the value `*` in response to information requests. The syntax is shown below and is described in the [CORS][cors-spec] specification. This header is required in order to allow the JSON responses to be used by Web applications hosted on different domains.
 
 ``` none
 Access-Control-Allow-Origin: *
@@ -863,6 +863,8 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 [rfc-5988]: http://tools.ietf.org/html/rfc5988 "Web Linking"
 [rfc-6266]: http://tools.ietf.org/html/rfc6266 "Use of the Content-Disposition Header Field in the Hypertext Transfer Protocol (HTTP)"
 [rfc-6570]: http://tools.ietf.org/html/rfc6570 "URI Template"
+[conneg]: https://tools.ietf.org/html/rfc7231#section-5.3.2
+
 [semver]: http://semver.org/spec/v2.0.0.html "Semantic Versioning 2.0.0"
 [iiif-community]: {{page.webprefix}}/community/ "IIIF Community"
 [versioning]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/semver/ "Versioning of APIs"
