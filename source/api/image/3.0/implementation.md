@@ -58,9 +58,9 @@ redirect_from:
 | 2018-02-20 | Extracted from Image API and updated |
 {: .api-table .first-col-normal}
 
-[region]: #region "4.1. Region"
-[size]: #size "4.2. Size"
-[rotation]: #rotation "4.3. Rotation"
+[region]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#region "4.1. Region"
+[size]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#size "4.2. Size"
+[rotation]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#rotation "4.3. Rotation"
 [wsgi]: https://www.python.org/dev/peps/pep-0333/
 [rfc-6266]: http://tools.ietf.org/html/rfc6266 "Use of the Content-Disposition Header Field in the Hypertext Transfer Protocol (HTTP)"
 [apache-notes]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/apache/ "Apache HTTP Server Implementation Notes"
