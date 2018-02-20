@@ -331,7 +331,7 @@ The quality parameter determines whether the image is delivered in color, graysc
 | `default` | The image is returned using the server's default quality (e.g. color, gray or bitonal) for the image. |
 {: .api-table}
 
-The `default` quality exists to support [level 0 compliant implementations][compliance-quality] that may not know the qualities of individual images in their collections. It also provides a convenience for clients that know the values for all other parameters of a request except the quality (e.g. `.../full/120,/90/{quality}.png` to request a thumbnail) in that a preliminary image information request that would only serve to find out which qualities are available can be avoided.
+The `default` quality exists to support [level 0 compliant implementations][compliance-quality] that may not know the qualities of individual images in their collections. It also provides a convenience for clients that know the values for all other parameters of a request except the quality (e.g. `.../full/120,80/90/{quality}.png` to request a thumbnail) in that a preliminary image information request that would only serve to find out which qualities are available can be avoided.
 
 A quality value that is unsupported _SHOULD_ result in a 400 (Bad Request) status code.
 
@@ -425,7 +425,7 @@ In order to support the above requirements, clients _SHOULD_ construct the image
 | Parameter | Canonical value |
 | --------- | --------------- |
 | region    | "full" if the whole image is requested<br/>otherwise the `x,y,w,h` syntax. |
-| size      | "max" if the default size is requested,<br/>otherwise the `w,h` syntax. |
+| size      | "max" if the maximum size is requested,<br/>otherwise the `w,h` syntax. |
 | rotation  | "!" if the image is mirrored, followed by an integer if possible, and trimming any trailing zeros in a decimal value, and a leading 0 if the value is below 1. |
 | quality   | "default" if the server's default quality is requested,<br/>otherwise the quality string. |
 | format    | The explicit format string is always required. |
@@ -719,7 +719,7 @@ The following shows a response including all of the required and optional image 
     }
   ],
   "logo" : {
-      "id" : "http://example.org/image-service/logo/full/200,/0/default.png",
+      "id" : "http://example.org/image-service/logo/full/200,200/0/default.png",
       "service" : {
         "@context" : "http://iiif.io/api/image/2/context.json",
         "id" : "http://example.org/image-service/logo",
