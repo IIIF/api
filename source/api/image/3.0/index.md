@@ -905,7 +905,7 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 [c-change-log]: #c-change-log "D. Change Log"
 [prev-version]: {{ page.webprefix }}/api/image/2.1/ "Previous Version"
 [stable-version]: {{ page.webprefix }}/api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/ "Stable Version"
-[implementation-notes]: {{ page.webprefix }}/api/image/3.0/implementation/ "Implementation Notes"
+[implementation-notes]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/implementation/ "Implementation Notes"
 
 [client-auth-img]: img/auth-flow-client.png
 [server-auth-img]: img/auth-flow-server.png
