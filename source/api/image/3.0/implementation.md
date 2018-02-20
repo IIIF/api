@@ -1,7 +1,6 @@
 ---
 title: "Image API 3.0 Implementation Notes"
 layout: spec
-tags: [image-api]
 cssversion: 2
 redirect_from:
   - /api/image/3/implementation.html
