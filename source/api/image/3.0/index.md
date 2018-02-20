@@ -134,13 +134,15 @@ The scheme, server, prefix and identifier components of the information request 
 
 The API places no restrictions on the form of the identifiers that a server may use or support. All special characters (e.g. ? or #) _MUST_ be URI encoded to avoid unpredictable client behaviors. The URI syntax relies upon slash (/) separators so any slashes in the identifier _MUST_ be URI encoded (also called "percent encoded"). See the additional discussion in [URI Encoding and Decoding][uri-encoding-and-decoding].
 
-##  4. Image Request Parameters
+##  4. Image Requests
 
 All parameters described below are required for compliant construction of a IIIF Image API URI. The sequence of parameters in the URI _MUST_ be in the order described below. The order of the parameters is also intended as a mnemonic for the order of the operations by which the service should manipulate the image content. Thus, the requested image content is first extracted as a region of the complete image, then scaled to the requested size, mirrored and/or rotated, and finally transformed into the color quality and format. This resulting image content is returned as the representation for the URI. 
 
 Size and region parameters in pixels _MUST_ be non-negative integers. Size and region parameters in percentages and the rotation parameter _MUST_ be positive floating point numbers or integers. These should have at most 10 decimal digits and consist only of decimal digits and "." with a leading zero if less than 1.0. Intermediate calculations may use floating point numbers and the rounding method is implementation specific. 
 
-###  4.1. Region
+Servers should support [CORS][cors-response] on Image responses.
+
+### 4.1. Region
 
 The region parameter defines the rectangular portion of the complete image to be returned. Region can be specified by pixel coordinates, percentage or by the value "full", which specifies that the entire image should be returned.
 
@@ -471,14 +473,7 @@ Content-Type: application/ld+json;profile="http://iiif.io/api/image/3/context.js
 
 If the server receives a request with one of the content types above in the Accept header, it _SHOULD_ respond with that content type following the rules of [content negotiation][conneg]. Otherwise, it _MUST_ respond with the "application/json" content type.
 
-Servers _SHOULD_ send the `Access-Control-Allow-Origin` header with the value `*` in response to information requests. The syntax is shown below and is described in the [CORS][cors-spec] specification. This header is required in order to allow the JSON responses to be used by Web applications hosted on different domains.
-
-``` none
-Access-Control-Allow-Origin: *
-```
-{: .urltemplate}
-
-A recipe for enabling these behaviors is provided in the [Apache HTTP Server Implementation Notes][apache-notes-conditional-content-type].
+Servers should also support [CORS][cors-response] on Image Information responses.
 
 ### 5.2. Technical Properties
 
@@ -769,13 +764,17 @@ Link: <http://iiif.io/api/image/{{ page.major }}/level1.json>;rel="profile"
 
 A recipe for setting this header on the Apache HTTP Server is shown in the [Apache HTTP Server Implementation Notes][apache-notes-set-compliance-link-header].
 
-##  7. Server Responses
+## 7. Server Responses
 
-###  7.1. Successful Responses
+### 7.1. CORS
+
+Servers _SHOULD_ support reuse of Image API resources by following the relevant requirements of the [CORS specification][cors-spec], including the `Access-Control-Allow-Origin` header and the preflight request pattern. A recipe for enabling these behaviors is provided in the [Apache HTTP Server Implementation Notes][apache-notes-conditional-content-type].
+
+### 7.2. Successful Responses
 
 Servers may transmit HTTP responses with 200 (Successful) or 3xx (Redirect) status codes when the request has been successfully processed. If the status code is 200, then the entity-body _MUST_ be the requested image or information document. If the status code is 301, 302, 303, or 304, then the entity-body is unrestricted, but it is _RECOMMENDED_ to be empty. If the status code is 301, 302, or 303 then the Location HTTP Header _MUST_ be set containing the URI of the image that fulfills the request. This enables servers to have a single canonical URI to promote caching of responses. Status code 304 is handled exactly as per the HTTP specification. Clients _SHOULD_ expect to encounter all of these situations and _MUST NOT_ assume that the entity-body of the initial response necessarily contains the image data.
 
-###  7.2. Error Conditions
+### 7.3. Error Conditions
 
 The order in which servers parse requests and detect errors is not specified. A request is likely to fail on the first error encountered and return an appropriate HTTP status code, with common codes given in the list below. It is _RECOMMENDED_ that the body of the error response includes a human-readable description of the error in either plain text or html.
 
@@ -920,5 +919,7 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 [client-auth-img]: img/auth-flow-client.png
 [server-auth-img]: img/auth-flow-server.png
 [rfc-2119]: https://www.ietf.org/rfc/rfc2119.txt "RFC 2119"
+
+[cors-response]: #cors
 
 {% include acronyms.md %}
