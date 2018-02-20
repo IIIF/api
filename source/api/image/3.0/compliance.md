@@ -61,7 +61,6 @@ See also the note under [Size][size] about combinations of Size and Region that 
 | !w,h   | `sizeByConfinedWh`  | ![optional][icon-opt] | ![optional][icon-opt] | ![required][icon-req] |
 | w,h    | `sizeByDistortedWh` | ![optional][icon-opt] | ![optional][icon-opt] | ![required][icon-req] |
 | w,h    | `sizeByWh`          | ![optional][icon-opt] | ![optional][icon-opt] | ![required][icon-req] |
-|        | `sizeAboveFull`     | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] |
 {: .api-table}
 
 At any level of compliance, an image service whose Image Information response includes the `sizes` property must support requests for the sizes listed, and a service whose Image Information response includes the `tiles` property must support requests for the sizes implicit in the `width`, `height` and `scaleFactors` values given for tiles.
