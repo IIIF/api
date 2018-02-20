@@ -8,6 +8,7 @@ major: 3
 minor: 0
 patch: 0
 pre: ALPHA
+cssversion: 2
 redirect_from:
   - /api/image/index.html
   - /api/image/3/index.html

@@ -7,6 +7,7 @@ major: 3
 minor: 0
 patch: 0
 pre: ALPHA
+cssversion: 2
 redirect_from:
   - /api/image/compliance.html
   - /api/image/3/compliance.html
