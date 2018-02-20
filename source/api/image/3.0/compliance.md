@@ -45,7 +45,7 @@ In the tables below "![required][icon-req]" indicates that support is _REQUIRED_
 | `full`      |                 | ![required][icon-req] | ![required][icon-req]       | ![required][icon-req]        |
 | x,y,w,h     | `regionByPx`  | ![optional][icon-opt] | ![required][icon-req]       | ![required][icon-req]        |
 | pct:x,y,w,h | `regionByPct` | ![optional][icon-opt] | ![optional][icon-opt]       | ![required][icon-req]        |
-| `square`    | `regionSquare` | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] |
+| `square`    | `regionSquare` | ![optional][icon-opt] | ![required][icon-req] | ![required][icon-req] |
 {: .api-table}
 
 See also the note under [Size][size] about combinations of Size and Region that may not be supported.
