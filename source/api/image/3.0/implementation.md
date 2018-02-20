@@ -6,13 +6,7 @@ redirect_from:
   - /api/image/3/implementation.html
 ---
 
-## Table of Contents
-{:.no_toc}
-
-* Goes Here
-{:toc}
-
-### Implementation Notes
+## Image API Implementation Notes
 
   * For use cases that enable the saving of the image, use the HTTP `Content-Disposition` header ([RFC6266][rfc-6266]) to provide a convenient filename that distinguishes the image, based on the identifier and parameters provided.
   * Server implementations may rely on components or frameworks that unescape the URI path, such as Python's [WSGI][wsgi]. In such situations, the requested URI may be parsed from the right in order to handle identifiers possibly containing slashes, given the knowledge of the API parameters and the prefix for which the server handles requests.
@@ -54,6 +48,15 @@ redirect_from:
     w_returned = abs(w*cos(n)) + abs(h*sin(n))
     h_returned = abs(h*cos(n)) + abs(w*sin(n))
 ```
+
+## Appendices
+
+###  A. Change Log
+
+| Date       | Description |
+| ---------- | ----------- |
+| 2018-02-20 | Extracted from Image API and updated |
+{: .api-table .first-col-normal}
 
 [region]: #region "4.1. Region"
 [size]: #size "4.2. Size"
