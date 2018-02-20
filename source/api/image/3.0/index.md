@@ -663,7 +663,7 @@ More complex examples are given in the [Complete Response Example](#complete-res
 
 | Property   | Required? | Description |
 | ---------- | --------- | ----------- |
-| `service`  | Optional  | The `service` property provides hooks for additional information to be included in the image description, for example a link to an authentication service. The value may be an object or a list of objects. |
+| `service`  | Optional  | The `service` property provides hooks for additional information to be included in the image description, for example a link to an authentication service. The value _MUST_ be a list of objects. |
 {: .api-table}
 
 There _MAY_ be one or more services associated with an image. See the [Service Profiles][service-profiles] annex for more information.
@@ -677,11 +677,14 @@ The following shows a use of `service` to associate the login page of an authent
   "type": "ImageService3",
   "protocol" : "http://iiif.io/api/image",
   // ...
-  "service": {
-    "@context" : "http://iiif.io/api/auth/{{ site.auth_api.latest.major }}/context.json",
-    "id" : "http://www.example.org/auth/login.html",
-    "profile": "http://iiif.io/api/auth/{{ site.auth_api.latest.major }}/login"
-  }
+  "service": [
+    {
+      "@context" : "http://iiif.io/api/auth/{{ site.auth_api.latest.major }}/context.json",
+      "id" : "http://www.example.org/auth/login.html",
+      "type": "AuthCookieService1",
+      "profile": "http://iiif.io/api/auth/{{ site.auth_api.latest.major }}/login"
+    }
+  ]
 }
 ```
 
