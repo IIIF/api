@@ -59,7 +59,6 @@ See also the note under [Size][size] about combinations of Size and Region that 
 | ,h     | `sizeByH`           | ![optional][icon-opt] | ![required][icon-req] | ![required][icon-req] |
 | pct:n  | `sizeByPct`         | ![optional][icon-opt] | ![optional][icon-opt] | ![required][icon-req] |
 | !w,h   | `sizeByConfinedWh`  | ![optional][icon-opt] | ![optional][icon-opt] | ![required][icon-req] |
-| w,h    | `sizeByDistortedWh` | ![optional][icon-opt] | ![optional][icon-opt] | ![required][icon-req] |
 | w,h    | `sizeByWh`          | ![optional][icon-opt] | ![optional][icon-opt] | ![required][icon-req] |
 {: .api-table}
 
