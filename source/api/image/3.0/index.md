@@ -223,7 +223,7 @@ Examples:
     <tr>
       <td>
         <img src="img/size_max.png" alt="Maximum Size" class="fullPct" />
-        <p><strong>1</strong> size=full</p>
+        <p><strong>1</strong> size=max</p>
         <p><code>.../full/max/0/default.jpg</code></p>
         <p><em>N.B. Assuming that the image has a <code>maxWidth</code> of 200px</em></p>
       </td>
