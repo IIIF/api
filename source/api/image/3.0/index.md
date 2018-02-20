@@ -483,8 +483,8 @@ A recipe for enabling these behaviors is provided in the [Apache HTTP Server Imp
 | Technical Property   | Required? | Description |
 | ---------- | --------- | ----------- |
 | `@context` | Required | The context document that describes the semantics of the terms used in the document. This must be the URI: `http://iiif.io/api/image/{{ page.major }}/context.json` for version {{ page.major }}.{{ page.minor }} of the IIIF Image API. This document allows the response to be interpreted as RDF, using the [JSON-LD][json-ld-org] serialization. |
-| `@id` | Required | The base URI of the image as defined in [URI Syntax][uri-syntax], including scheme, server, prefix and identifier without a trailing slash. |
-| `@type` | Optional | The type for the Image. If present, the value _MUST_ be the string `iiif:Image`. |
+| `id` | Required | The base URI of the image as defined in [URI Syntax][uri-syntax], including scheme, server, prefix and identifier without a trailing slash. |
+| `type` | Optional | The type for the Image. If present, the value _MUST_ be the string `iiif:Image`. |
 | `protocol` | Required | The URI `http://iiif.io/api/image` which can be used to determine that the document describes an image service which is a version of the IIIF Image API. |
 | `width` | Required | The width in pixels of the full image content, given as an integer. |
 | `height` | Required | The height in pixels of the full image content, given as an integer. |
@@ -503,7 +503,7 @@ There is an inconsistency between the specification of the `sizes` list and the 
 
 | Size Object Property | Required? | Description |
 | ---------- | -------- | ----------- |
-| `@type`    | Optional | The type of the object. If present, the value _MUST_ be the string `iiif:Size`. |
+| `type`    | Optional | The type of the object. If present, the value _MUST_ be the string `iiif:Size`. |
 | `width`    | Required | The width in pixels of the image to be requested, given as an integer. |
 | `height`   | Required | The height in pixels of the image to be requested, given as an integer. |
 {: .api-table}
@@ -514,7 +514,7 @@ The `width` of a tile, or the combination of `width` and `height` if `height` is
 
 | Tile Object Property | Required? | Description |
 | ---------- | -------- | ----------- |
-| `@type`    | Optional | The type of the Tile. If present, the value _MUST_ be the string `iiif:Tile`. |
+| `type`    | Optional | The type of the Tile. If present, the value _MUST_ be the string `iiif:Tile`. |
 | `scaleFactors` | Required | The set of resolution scaling factors for the image's predefined tiles, expressed as positive integers by which to divide the full size of the image. For example, a scale factor of 4 indicates that the service can efficiently deliver images at 1/4 or 25% of the height and width of the full image. A particular scale factor value _SHOULD_ appear only once in the `tiles` list. |
 | `width` | Required | The width in pixels of the predefined tiles to be requested, given as an integer. |
 | `height` | Optional | The height in pixels of the predefined tiles to be requested, given as an integer. If it is not specified in the JSON, then it defaults to the same as `width`, resulting in square tiles. |
@@ -527,7 +527,7 @@ The following shows a valid image information response, including the optional `
 ``` json-doc
 {
   "@context" : "http://iiif.io/api/image/{{ page.major }}/context.json",
-  "@id" : "http://www.example.org/image-service/abcd1234/1E34750D-38DB-4825-A38A-B60A345E591C",
+  "id" : "http://www.example.org/image-service/abcd1234/1E34750D-38DB-4825-A38A-B60A345E591C",
   "protocol" : "http://iiif.io/api/image",
   "width" : 6000,
   "height" : 4000,
@@ -545,13 +545,13 @@ The following shows a valid image information response, including the optional `
 
 ### 5.3. Profile Description
 
-In order to specify additional features that are supported for the image, a profile object may be added to the `profile` list. Objects in the `profile` list have the properties in the following table. The `@context`, `@id` and `@type` properties are _REQUIRED_ when the profile is dereferenced from a URI, but _SHOULD NOT_ be included in the image information response.
+In order to specify additional features that are supported for the image, a profile object may be added to the `profile` list. Objects in the `profile` list have the properties in the following table. The `@context`, `id` and `type` properties are _REQUIRED_ when the profile is dereferenced from a URI, but _SHOULD NOT_ be included in the image information response.
 
 | Profile Property | Required? | Description |
 | ----------- | --------- | ----------- |
 | `@context`  | Optional  | The string "http://iiif.io/api/image/{{ page.major }}/context.json". This should be included only if the profile's URI is dereferenced. |
-| `@id`       | Optional  | The URI of the profile. |
-| `@type`     | Optional  | The type of the object. If present, the value _MUST_ be the string "iiif:ImageProfile". |
+| `id`       | Optional  | The URI of the profile. |
+| `type`     | Optional  | The type of the object. If present, the value _MUST_ be the string "iiif:ImageProfile". |
 | `formats`   | Optional  | The set of image format parameter values available for the image.  If not specified then clients should assume only formats declared in the compliance level document.|
 | `maxArea`   | Optional  | The maximum area in pixels supported for this image. Requests for images sizes with width*height greater than this may not be supported. |
 | `maxHeight` | Optional  | The maximum height in pixels supported for this image. Requests for images sizes with height greater than this may not be supported. If `maxWidth` is specified and `maxHeight` is not, then clients should infer that `maxHeight = maxWidth`.  |
@@ -607,7 +607,7 @@ The following fragment shows a profile indicating support for additional formats
 ``` json-doc
 {
   "@context" : "http://iiif.io/api/image/{{ page.major }}/context.json",
-  "@id" : "http://www.example.org/image-service/abcd1234/1E34750D-38DB-4825-A38A-B60A345E591C",
+  "id" : "http://www.example.org/image-service/abcd1234/1E34750D-38DB-4825-A38A-B60A345E591C",
   "protocol" : "http://iiif.io/api/image",
   //...
   "profile" : [
@@ -656,7 +656,7 @@ The following shows a simple use of each of these properties:
 ``` json-doc
 {
   "@context" : "http://iiif.io/api/image/{{ page.major }}/context.json",
-  "@id" : "http://www.example.org/image-service/abcd1234/1E34750D-38DB-4825-A38A-B60A345E591C",
+  "id" : "http://www.example.org/image-service/abcd1234/1E34750D-38DB-4825-A38A-B60A345E591C",
   "protocol" : "http://iiif.io/api/image",
   // ...
   "attribution" : "Provided by Example Organization",
@@ -682,12 +682,12 @@ The following shows a use of `service` to associate the login page of an authent
 ``` json-doc
 {
   "@context" : "http://iiif.io/api/image/{{ page.major }}/context.json",
-  "@id" : "http://www.example.org/image-service/abcd1234/1E34750D-38DB-4825-A38A-B60A345E591C",
+  "id" : "http://www.example.org/image-service/abcd1234/1E34750D-38DB-4825-A38A-B60A345E591C",
   "protocol" : "http://iiif.io/api/image",
   // ...
   "service": {
     "@context" : "http://iiif.io/api/auth/{{ site.auth_api.latest.major }}/context.json",
-    "@id" : "http://www.example.org/auth/login.html",
+    "id" : "http://www.example.org/auth/login.html",
     "profile": "http://iiif.io/api/auth/{{ site.auth_api.latest.major }}/login"
   }
 }
@@ -702,7 +702,7 @@ The following shows a response including all of the required and optional image 
 ``` json-doc
 {
   "@context" : "http://iiif.io/api/image/{{ page.major }}/context.json",
-  "@id" : "http://www.example.org/image-service/abcd1234/1E34750D-38DB-4825-A38A-B60A345E591C",
+  "id" : "http://www.example.org/image-service/abcd1234/1E34750D-38DB-4825-A38A-B60A345E591C",
   "protocol" : "http://iiif.io/api/image",
   "width" : 6000,
   "height" : 4000,
@@ -725,10 +725,10 @@ The following shows a response including all of the required and optional image 
     }
   ],
   "logo" : {
-      "@id" : "http://example.org/image-service/logo/full/200,/0/default.png",
+      "id" : "http://example.org/image-service/logo/full/200,/0/default.png",
       "service" : {
         "@context" : "http://iiif.io/api/image/2/context.json",
-        "@id" : "http://example.org/image-service/logo",
+        "id" : "http://example.org/image-service/logo",
         "profile" : "http://iiif.io/api/image/2/level2.json"
       }
   },
@@ -754,7 +754,7 @@ The following shows a response including all of the required and optional image 
       "physicalUnits": "in"
     },{
       "@context" : "http://geojson.org/geojson-ld/geojson-context.jsonld",
-      "@id" : "http://www.example.org/geojson/paris.json"
+      "id" : "http://www.example.org/geojson/paris.json"
     }
   ]
 }
