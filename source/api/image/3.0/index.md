@@ -477,7 +477,7 @@ Servers should also support [CORS][cors-response] on Image Information responses
 
 ### 5.2. Technical Properties
 
-__Intro Here__
+The JSON response has several technical properties described in the table below that describe the available functionality for the image content.
 
 | Property   | Required? | Description |
 | ---------- | --------- | ----------- |
@@ -490,6 +490,7 @@ __Intro Here__
 | `maxWidth`  | Optional  | The maximum width in pixels supported for this image. Requests for images sizes with width greater than this may not be supported. _MUST_ be specified if `maxHeight` is specified. |
 | `maxHeight` | Optional  | The maximum height in pixels supported for this image. Requests for images sizes with height greater than this may not be supported. If `maxWidth` is specified and `maxHeight` is not, then clients should infer that `maxHeight = maxWidth`.  |
 | `maxArea`   | Optional  | The maximum area in pixels supported for this image. Requests for images sizes with width\*height greater than this may not be supported. |
+{: .api-table}
 
 The `maxWidth`, `maxHeight` and `maxArea` parameters provide a way for image servers to express limits on the sizes supported for the image. If `maxWidth` alone, or `maxWidth` and `maxHeight` are specified then clients should expect requests with larger linear dimensions to be rejected. If `maxArea` is specified then clients should expect requests with larger pixel areas to be rejected. The `maxWidth / maxHeight`  and `maxArea` parameters are independent, servers may implement either or both limits. Servers _MUST_ ensure that sizes specified by any `sizes` or `tiles` properties are within any size limits expressed. Clients _SHOULD NOT_ make requests that exceed size limits expressed. The `width` and `height` properties are still required in order to construct tile requests and know the aspect ratio of the image.
 
@@ -509,13 +510,14 @@ The `maxWidth`, `maxHeight` and `maxArea` parameters provide a way for image ser
 
 ### 5.3. Sizes
 
-__Intro Here__
+The JSON response has the `sizes` property, which is used to describe preferred `height` and `width` combinations for representations of the full image. 
 
 | Property   | Required? | Description |
 | ---------- | --------- | ----------- |
 | `sizes` | Optional | A list of JSON objects with the `height` and `width` properties. These sizes specify preferred values to be provided in the `w,h` syntax of the size request parameter for scaled versions of the complete image.  In the case of servers that do not support requests for arbitrary sizes, these may be the only sizes available. A request constructed with the `w,h` syntax using these sizes _MUST_ be supported by the server, even if arbitrary width and height are not. |
+{: .api-table}
 
-The objects in the `sizes` list have the properties in the following table. Image requests for these sizes _SHOULD_ have a region parameter of "full", size parameter in canonical `w,h` form, and rotation of "0". Thus, the full URL for an image with "default" quality in "jpg" format would be: `{scheme}://{server}/{prefix}/{identifier}/full/{width},{height}/0/default.jpg`
+The objects in the `sizes` list have the properties in the following table. Image requests for these sizes _SHOULD_ have a region parameter of "full", size parameter in the canonical `w,h` form, and rotation of "0". Thus, the full URL for an image with "default" quality in "jpg" format would be: `{scheme}://{server}/{prefix}/{identifier}/full/{width},{height}/0/default.jpg`
 
 | Property   | Required? | Description |
 | ---------- | -------- | ----------- |
@@ -523,8 +525,6 @@ The objects in the `sizes` list have the properties in the following table. Imag
 | `width`    | Required | The width in pixels of the image to be requested, given as an integer. |
 | `height`   | Required | The height in pixels of the image to be requested, given as an integer. |
 {: .api-table}
-
-Servers _SHOULD_ support requests for images with parameters specified by the `sizes` and `tiles` fields for all combinations of qualities and formats supported.
 
 ``` json-doc
 {
@@ -542,20 +542,19 @@ Servers _SHOULD_ support requests for images with parameters specified by the `s
 }
 ```
 
-
 ### 5.4. Tiles
 
-__Intro Here__
+The JSON response has the `tiles` property while describes a set of image regions that have a consistent height and width, over a series of resolutions, that can be stitched together visually.
 
 | Property   | Required? | Description |
 | ---------- | --------- | ----------- |
 | `tiles` | Optional | A list of descriptions of the parameters to use to request regions of the image (tiles) that are efficient for the server to deliver. Each description gives a width, optionally a height for non-square tiles, and a set of scale factors at which tiles of those dimensions are available. |
+{: .api-table}
 
 The objects in the `tiles` list have the properties in the following table. The `width` and `height` should be used to fill the region parameter and the `scaleFactors` to complete the size parameter of the image URL. This is described in detail in the [Implementation Notes][implementation-notes].
 
-The `width` of a tile, or the combination of `width` and `height` if `height` is specified, _MUST_ be unique among the members of the `tiles` list.
 
-| Tile Object Property | Required? | Description |
+| Property | Required? | Description |
 | ---------- | -------- | ----------- |
 | `type`    | Optional | The type of the Tile. If present, the value _MUST_ be the string `Tile`. |
 | `scaleFactors` | Required | The set of resolution scaling factors for the image's predefined tiles, expressed as positive integers by which to divide the full size of the image. For example, a scale factor of 4 indicates that the service can efficiently deliver images at 1/4 or 25% of the height and width of the full image. A particular scale factor value _SHOULD_ appear only once in the `tiles` list. |
@@ -563,6 +562,7 @@ The `width` of a tile, or the combination of `width` and `height` if `height` is
 | `height` | Optional | The height in pixels of the predefined tiles to be requested, given as an integer. If it is not specified in the JSON, then it defaults to the same as `width`, resulting in square tiles. |
 {: .api-table}
 
+The `width` of a tile, or the combination of `width` and `height` if `height` is specified, _MUST_ be unique among the members of the `tiles` list.
 
 ``` json-doc
 {
@@ -580,7 +580,7 @@ The `width` of a tile, or the combination of `width` and `height` if `height` is
 
 ### 5.5. Profile
 
-__Intro Here__
+The JSON response also contains four properties that describe the functionality of the service. The `profile` property is required.
 
 | Property   | Required? | Description |
 | ---------- | --------- | ----------- |
@@ -616,9 +616,6 @@ A server that supports neither `sizeByW` or `sizeByWh` is only required to serve
 
 The set of features, formats and qualities supported is the union of those declared in the external profile document and those added by the `extra` properties.  If a feature is not present in either the profile document or the `extraFeatures` property, then a client _MUST_ assume that the feature is not supported.
 
-The following fragment shows a profile indicating support for additional formats, qualities, and features beyond level 2 [compliance][compliance-levels]. It also includes a size limit.
-
-
 ### 5.6. Rights and Licensing Properties
 
 The rights and licensing properties, `attribution`, `license` and `logo`, have the same semantics and requirements as those in the [Presentation API][prezi-api].
@@ -644,7 +641,6 @@ The value of the `logo` property may be a string containing the URL of the image
 
 When both the Image and Presentation APIs express attributions or logos, then clients _MUST_ display both unless they are identical.
 
-The following shows a simple use of each of these properties:
 
 ``` json-doc
 {
@@ -660,20 +656,16 @@ The following shows a simple use of each of these properties:
 }
 ```
 
-More complex examples are given in the [Complete Response Example](#complete-response).
-
 ### 5.7. Related Services
 
-__Intro Here__
+The JSON response can also reference external services that make additional functionality available to a viewer.
 
 | Property   | Required? | Description |
 | ---------- | --------- | ----------- |
-| `service`  | Optional  | The `service` property provides hooks for additional information to be included in the image description, for example a link to an authentication service. The value _MUST_ be a list of objects. |
+| `service`  | Optional  | The `service` references external services that the client might interact with directly to gain additional information or functionality, for example a link to an authentication service. The value _MUST_ be a list of objects. See the [Service Registry][service-profiles] for known service types. |
 {: .api-table}
 
-There _MAY_ be one or more services associated with an image. See the [Service Profiles][service-profiles] annex for more information.
-
-The following shows a use of `service` to associate the login page of an authentication system that users must go through in order to access the image.  For further information, please see [Authentication](#authentication).
+The following shows a use of `service` to associate the login page of an authentication system that users must go through in order to access the image.  For further information, please see the [Authentication API](#authentication).
 
 ``` json-doc
 {
