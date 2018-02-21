@@ -210,7 +210,7 @@ The size parameter specifies the dimensions to which the extracted region is to 
 
 | Form   | Description |
 |--------|-----------------------|
-| `max`  | The image or region is returned at the maximum size available. The resulting image will have the pixel dimensions of the requested region, unless it is constrained to a smaller size by `maxWidth`, `maxHeight`, or `maxArea` as defined in the [profile description][profile-description] section. |
+| `max`  | The image or region is returned at the maximum size available. The resulting image will have the pixel dimensions of the requested region, unless it is constrained to a smaller size by `maxWidth`, `maxHeight`, or `maxArea` as defined in the [profile][profile-description] section. |
 | w,     | The image or region should be scaled so that its width is exactly equal to w. |
 | ,h     | The image or region should be scaled so that its height is exactly equal to h. |
 | pct:n  | The width and height of the returned image is scaled to n% of the width and height of the extracted region. |
@@ -905,7 +905,7 @@ Many thanks to the members of the [IIIF community][iiif-community] for their con
 [features-table]: #features-table
 [image-extensions]: {{ site.url }}{{ site.baseurl }}/api/annex/registry/
 
-[profile-description]: #profile-description "5.3 Profile Description"
+[profile-description]: #profile "5.3 Profile Description"
 [full-dep]: #full-dep "Full Size Keyword Deprecation Warning"
 [order-of-implementation]: #order-of-implementation "4.6. Order of Implementation"
 [canonical-uri-syntax]: #canonical-uri-syntax "4.7. Canonical URI Syntax"
