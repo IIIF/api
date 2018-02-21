@@ -477,7 +477,7 @@ Servers should also support [CORS][cors-response] on Image Information responses
 
 ### 5.2. Technical Properties
 
-The JSON response has several technical properties described in the table below that describe the available functionality for the image content.
+The JSON response has several technical properties that describe the available functionality for the image content.
 
 | Property   | Required? | Description |
 | ---------- | --------- | ----------- |
