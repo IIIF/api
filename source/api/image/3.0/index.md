@@ -210,7 +210,7 @@ The size parameter specifies the dimensions to which the extracted region is to 
 
 | Form   | Description |
 |--------|-----------------------|
-| `max`  | The image or region is returned at the maximum size available. The resulting image will have the pixel dimensions of the requested region, unless it is constrained to a smaller size by `maxWidth`, `maxHeight`, or `maxArea` as defined in the [profile][profile-description] section. |
+| `max`  | The image or region is returned at the maximum size available. The resulting image will have the pixel dimensions of the requested region, unless it is constrained to a smaller size by `maxWidth`, `maxHeight`, or `maxArea` as defined in the [Technical Properties][technical-properties] section. |
 | w,     | The image or region should be scaled so that its width is exactly equal to w. |
 | ,h     | The image or region should be scaled so that its height is exactly equal to h. |
 | pct:n  | The width and height of the returned image is scaled to n% of the width and height of the extracted region. |
@@ -900,7 +900,7 @@ Many thanks to the members of the [IIIF community][iiif-community] for their con
 [canonical-uri-syntax]: #canonical-uri-syntax "4.7. Canonical URI Syntax"
 [information-request]: #information-request "5. Information Request"
 [image-information]: #image-information "5.1. Image Information"
-[extensions]: #extensions "5.2 Extensions"
+[technical-properties]: #technical-properties "5.2 Technical Properties"
 [compliance-levels]: #compliance-levels "6. Compliance Levels"
 [server-responses]: #server-responses "7. Server Responses"
 [successful-responses]: #successful-responses "7.1. Successful Responses"
