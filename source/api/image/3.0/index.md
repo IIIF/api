@@ -106,7 +106,7 @@ The IIIF Image API URI for requesting an image _MUST_ conform to the following U
 For example:
 
 ``` none
-http://www.example.org/image-service/abcd1234/full/max/0/default.jpg
+https://example.org/image-service/abcd1234/full/max/0/default.jpg
 ```
 {: .urltemplate}
 
@@ -124,7 +124,7 @@ The URI for requesting image information _MUST_ conform to the following URI Tem
 For example:
 
 ``` none
-http://www.example.org/image-service/abcd1234/info.json
+https://example.org/image-service/abcd1234/info.json
 ```
 {: .urltemplate}
 
@@ -498,7 +498,7 @@ The `maxWidth`, `maxHeight` and `maxArea` parameters provide a way for image ser
 ``` json-doc
 {
   "@context" : "http://iiif.io/api/image/{{ page.major }}/context.json",
-  "id": "http://www.example.org/image-service/abcd1234/1E34750D-38DB-4825-A38A-B60A345E591C",
+  "id": "https://example.org/image-service/abcd1234/1E34750D-38DB-4825-A38A-B60A345E591C",
   "type": "ImageService3",
   "protocol": "http://iiif.io/api/image",
   "profile": "level2",
@@ -531,7 +531,7 @@ The objects in the `sizes` list have the properties in the following table. Imag
 ``` json-doc
 {
   "@context": "http://iiif.io/api/image/{{ page.major }}/context.json",
-  "id": "http://www.example.org/image-service/abcd1234/1E34750D-38DB-4825-A38A-B60A345E591C",
+  "id": "https://example.org/image-service/abcd1234/1E34750D-38DB-4825-A38A-B60A345E591C",
   "type": "ImageService3",
   "protocol": "http://iiif.io/api/image",
   "profile": "level2",
@@ -570,7 +570,7 @@ Objects in the `tiles` list _MUST_ each have a unique combination of `width` and
 ``` json-doc
 {
   "@context": "http://iiif.io/api/image/{{ page.major }}/context.json",
-  "id": "http://www.example.org/image-service/abcd1234/1E34750D-38DB-4825-A38A-B60A345E591C",
+  "id": "https://example.org/image-service/abcd1234/1E34750D-38DB-4825-A38A-B60A345E591C",
   "type": "ImageService3",
   "protocol": "http://iiif.io/api/image",
   "profile": "level2",
@@ -611,12 +611,12 @@ When both the Image and Presentation APIs express attributions or logos, then cl
 ``` json-doc
 {
   "@context" : "http://iiif.io/api/image/{{ page.major }}/context.json",
-  "id" : "http://www.example.org/image-service/abcd1234/1E34750D-38DB-4825-A38A-B60A345E591C",
+  "id" : "https://example.org/image-service/abcd1234/1E34750D-38DB-4825-A38A-B60A345E591C",
   "type": "ImageService3",
   "protocol" : "http://iiif.io/api/image",
   // ...
   "attribution" : "Provided by Example Organization",
-  "logo" : "http://example.org/images/logo.png",
+  "logo" : "https://example.org/images/logo.png",
   "license" : "http://rightsstatements.org/vocab/InC-EDU/1.0/"
   // ...
 }
@@ -674,7 +674,7 @@ The following shows a use of `service` to associate the login page of an authent
 ``` json-doc
 {
   "@context" : "http://iiif.io/api/image/{{ page.major }}/context.json",
-  "id" : "http://www.example.org/image-service/abcd1234/1E34750D-38DB-4825-A38A-B60A345E591C",
+  "id" : "https://example.org/image-service/abcd1234/1E34750D-38DB-4825-A38A-B60A345E591C",
   "type": "ImageService3",
   "protocol" : "http://iiif.io/api/image",
   "profile": "level2",
@@ -682,7 +682,7 @@ The following shows a use of `service` to associate the login page of an authent
   "height": 4000,
   "service": [
     {
-      "@id" : "http://www.example.org/auth/login.html",
+      "@id" : "https://example.org/auth/login.html",
       "@type": "AuthCookieService1",
       "profile": "http://iiif.io/api/auth/{{ site.auth_api.latest.major }}/login"
     }
@@ -697,7 +697,7 @@ The following shows a response including all of the required and optional image 
 ``` json-doc
 {
   "@context" : "http://iiif.io/api/image/{{ page.major }}/context.json",
-  "id" : "http://www.example.org/image-service/abcd1234/1E34750D-38DB-4825-A38A-B60A345E591C",
+  "id" : "https://example.org/image-service/abcd1234/1E34750D-38DB-4825-A38A-B60A345E591C",
   "type": "ImageService3",
   "protocol" : "http://iiif.io/api/image",
   "profile": "level1",
@@ -722,15 +722,15 @@ The following shows a response including all of the required and optional image 
     }
   ],
   "logo" : {
-      "id" : "http://example.org/image-service/logo/full/200,200/0/default.png",
+      "id" : "https://example.org/image-service/logo/full/200,200/0/default.png",
       "service" : {
         "@context" : "http://iiif.io/api/image/2/context.json",
-        "id" : "http://example.org/image-service/logo",
+        "id" : "https://example.org/image-service/logo",
         "profile" : "http://iiif.io/api/image/2/level2.json"
       }
   },
   "license" : [
-    "http://example.org/rights/license1.html",
+    "https://example.org/rights/license1.html",
     "http://rightsstatements.org/vocab/InC-EDU/1.0/"
   ],
   "extraFormats" : [ "gif", "pdf" ],
@@ -809,7 +809,7 @@ to-encode = "/" / "?" / "#" / "[" / "]" / "@" / "%"
 | identifier=ark:/12025/654xz321 region=full size=max rotation=0 quality=default | `ark:%2F12025%2F654xz321/full/max/0/default` |
 | identifier=urn:foo:a123,456 region=full size=max rotation=0 quality=default | `urn:foo:a123,456/full/max/0/default` |
 | identifier=urn:sici:1046-8188(199501)13:1%3C69:FTTHBI%3E2.0.TX;2-4 region=full size=max rotation=0 quality=default | `urn:sici:1046-8188(199501)13:1%253C69:FTTHBI%253E2.0.TX;2-4/full/max/0/default` |
-| identifier=http://example.com/?54#a region=full size=max rotation=0 quality=default | `http:%2F%2Fexample.com%2F%3F54%23a/full/max/0/default` |
+| identifier=https://example.com/?54#a region=full size=max rotation=0 quality=default | `http:%2F%2Fexample.com%2F%3F54%23a/full/max/0/default` |
 {: .api-table}
 
 Servers which are incapable of processing arbitrarily encoded identifiers _SHOULD_ make their best efforts to expose only image identifiers for which clients will not encode any of the characters, and thus it is _RECOMMENDED_ to limit characters in identifiers to letters, numbers and the underscore character.
