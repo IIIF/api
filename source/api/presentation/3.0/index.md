@@ -665,12 +665,12 @@ A reference from a version 3 Presentation API document to both version 2 and ver
 {
   "service": [
     {
-      "@id": "http://https://example.org/iiif2/image1/identifier",
+      "@id": "https://example.org/iiif2/image1/identifier",
       "@type": "ImageService2",
       "profile": "http://iiif.io/api/image/2/level2.json"
     },
     {
-      "id": "http://https://example.org/iiif3/image1/identifier",
+      "id": "https://example.org/iiif3/image1/identifier",
       "type": "ImageService3",
       "profile": "level2"
     }
