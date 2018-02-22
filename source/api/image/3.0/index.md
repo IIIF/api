@@ -894,7 +894,7 @@ Many thanks to the members of the [IIIF community][iiif-community] for their con
 [features-table]: #features-table
 [image-extensions]: {{ site.url }}{{ site.baseurl }}/api/annex/registry/
 
-[profile-description]: #profile "5.3 Profile Description"
+[profile-description]: #extra-functionality "5.3 Profile Description"
 [full-dep]: #full-dep "Full Size Keyword Deprecation Warning"
 [order-of-implementation]: #order-of-implementation "4.6. Order of Implementation"
 [canonical-uri-syntax]: #canonical-uri-syntax "4.7. Canonical URI Syntax"
