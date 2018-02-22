@@ -210,7 +210,7 @@ The size parameter specifies the dimensions to which the extracted region is to 
 
 | Form   | Description |
 |--------|-----------------------|
-| `max`  | The image or region is returned at the maximum size available. The resulting image will have the pixel dimensions of the requested region, unless it is constrained to a smaller size by `maxWidth`, `maxHeight`, or `maxArea` as defined in the [profile description][profile-description] section. |
+| `max`  | The image or region is returned at the maximum size available. The resulting image will have the pixel dimensions of the requested region, unless it is constrained to a smaller size by `maxWidth`, `maxHeight`, or `maxArea` as defined in the [profile][profile-description] section. |
 | w,     | The image or region should be scaled so that its width is exactly equal to w. |
 | ,h     | The image or region should be scaled so that its height is exactly equal to h. |
 | pct:n  | The width and height of the returned image is scaled to n% of the width and height of the extracted region. |
@@ -477,35 +477,87 @@ Servers should also support [CORS][cors-response] on Image Information responses
 
 ### 5.2. Technical Properties
 
-| Technical Property   | Required? | Description |
+The JSON response has several technical properties that describe the available functionality for the image content.
+
+| Property   | Required? | Description |
 | ---------- | --------- | ----------- |
-| `@context` | Required | The context document that describes the semantics of the terms used in the document. This must be the URI: `http://iiif.io/api/image/{{ page.major }}/context.json` for version {{ page.major }}.{{ page.minor }} of the IIIF Image API. This document allows the response to be interpreted as RDF, using the [JSON-LD][json-ld-org] serialization. |
+| `@context` | Required | The context document that describes the semantics of the terms used in the document. This must be the URI `http://iiif.io/api/image/{{ page.major }}/context.json` |
 | `id` | Required | The base URI of the image as defined in [URI Syntax][uri-syntax], including scheme, server, prefix and identifier without a trailing slash. |
 | `type` | Required | The type for the Image API. The value _MUST_ be the string `ImageService3`. |
 | `protocol` | Required | The URI `http://iiif.io/api/image` which can be used to determine that the document describes an image service which is a version of the IIIF Image API. |
+| `profile` | Required | A string indicating the highest [compliance level][compliance-levels] which is fully supported by the service. The value _MUST_ be one of "level0", "level1", or "level2". |
 | `width` | Required | The width in pixels of the full image content, given as an integer. |
 | `height` | Required | The height in pixels of the full image content, given as an integer. |
-| `profile` | Required | A list of profiles, indicated by either a URI or an object describing the features supported. The first entry in the list _MUST_ be a [compliance level URI][compliance-levels]. |
-| `sizes` | Optional | A set of JSON objects with the `height` and `width` properties. These sizes specify preferred values to be provided in the `w,h` syntax of the size request parameter for scaled versions of the complete image.  In the case of servers that do not support requests for arbitrary sizes, these may be the only sizes available. A request constructed with the `w,h` syntax using these sizes _MUST_ be supported by the server, even if arbitrary width and height are not. |
-| `tiles` | Optional | A set of descriptions of the parameters to use to request regions of the image (tiles) that are efficient for the server to deliver. Each description gives a width, optionally a height for non-square tiles, and a set of scale factors at which tiles of those dimensions are available. |
+| `maxWidth`  | Optional  | The maximum width in pixels supported for this image. Clients _MUST NOT_ expect requests with a width greater than this value to be supported. `maxWidth` _MUST_ be specified if `maxHeight` is specified. |
+| `maxHeight` | Optional  | The maximum height in pixels supported for this image. Clients _MUST NOT_ expect requests with a height greater than this value to be supported. If `maxWidth` is specified and `maxHeight` is not, then clients should infer that `maxHeight = maxWidth`.  |
+| `maxArea`   | Optional  | The maximum area in pixels supported for this image. Clients _MUST NOT_ expect requests with a width\*height greater than this value to be supported. |
 {: .api-table}
 
-The objects in the `sizes` list have the properties in the following table. Image requests for these sizes _SHOULD_ have a region parameter of "full", size parameter in canonical `w,h` form, and rotation of "0". Thus, the full URL for an image with "default" quality in "jpg" format would be: `{scheme}://{server}/{prefix}/{identifier}/full/{width},{height}/0/default.jpg`
+The `maxWidth`, `maxHeight` and `maxArea` parameters provide a way for image servers to express limits on the sizes supported for the image. If `maxWidth` alone, or `maxWidth` and `maxHeight` are specified then clients should expect requests with larger linear dimensions to be rejected. If `maxArea` is specified then clients should expect requests with larger pixel areas to be rejected. The `maxWidth / maxHeight`  and `maxArea` parameters are independent, servers may implement either or both limits. Servers _MUST_ ensure that sizes specified by any `sizes` or `tiles` properties are within any size limits expressed. Clients _SHOULD NOT_ make requests that exceed size limits expressed. The `width` and `height` properties are still required in order to construct tile requests and know the aspect ratio of the image.
 
-Note that the values in `width` and `height` do not necessarily imply that an image of that size is available. If `sizes`, `maxArea`, `maxWidth`, or `maxHeight` are present, they may indicate constraints on the maximum size of image that can be requested. The `width` and `height` information is still required in order to construct tile requests and know the aspect ratio of the image.
+``` json-doc
+{
+  "@context" : "http://iiif.io/api/image/{{ page.major }}/context.json",
+  "id": "http://www.example.org/image-service/abcd1234/1E34750D-38DB-4825-A38A-B60A345E591C",
+  "type": "ImageService3",
+  "protocol": "http://iiif.io/api/image",
+  "profile": "level2",
+  "width": 6000,
+  "height": 4000,
+  "maxHeight": 2000,
+  "maxWidth": 3000,
+  "maxArea": 4000000
+}
+```
 
-| Size Object Property | Required? | Description |
+### 5.3. Sizes
+
+The JSON response has the `sizes` property, which is used to describe preferred `height` and `width` combinations for representations of the full image. 
+
+| Property   | Required? | Description |
+| ---------- | --------- | ----------- |
+| `sizes` | Optional | A list of JSON objects with the `height` and `width` properties. These sizes specify preferred values to be provided in the `w,h` syntax of the size request parameter for scaled versions of the complete image.  In the case of servers that do not support requests for arbitrary sizes, these may be the only sizes available. A request constructed with the `w,h` syntax using these sizes _MUST_ be supported by the server, even if arbitrary width and height are not. |
+{: .api-table}
+
+The objects in the `sizes` list have the properties in the following table. Image requests for these sizes _SHOULD_ have a region parameter of "full", size parameter in the canonical `w,h` form, and rotation of "0". Thus, the full URL for an image with "default" quality in "jpg" format would be: `{scheme}://{server}/{prefix}/{identifier}/full/{width},{height}/0/default.jpg`
+
+| Property   | Required? | Description |
 | ---------- | -------- | ----------- |
 | `type`     | Optional | The type of the object. If present, the value _MUST_ be the string `Size`. |
 | `width`    | Required | The width in pixels of the image to be requested, given as an integer. |
 | `height`   | Required | The height in pixels of the image to be requested, given as an integer. |
 {: .api-table}
 
+``` json-doc
+{
+  "@context": "http://iiif.io/api/image/{{ page.major }}/context.json",
+  "id": "http://www.example.org/image-service/abcd1234/1E34750D-38DB-4825-A38A-B60A345E591C",
+  "type": "ImageService3",
+  "protocol": "http://iiif.io/api/image",
+  "profile": "level2",
+  "width": 6000,
+  "height": 4000,
+  "sizes": [
+    {"width": 150, "height": 100},
+    {"width": 600, "height": 400},
+    {"width": 3000, "height": 2000}
+  ]
+}
+```
+
+### 5.4. Tiles
+
+The JSON response has the `tiles` property while describes a set of image regions that have a consistent height and width, over a series of resolutions, that can be stitched together visually.
+
+| Property   | Required? | Description |
+| ---------- | --------- | ----------- |
+| `tiles` | Optional | A list of descriptions of the parameters to use to request regions of the image (tiles) that are efficient for the server to deliver. Each description gives a width, optionally a height for non-square tiles, and a set of scale factors at which tiles of those dimensions are available. |
+{: .api-table}
+
 The objects in the `tiles` list have the properties in the following table. The `width` and `height` should be used to fill the region parameter and the `scaleFactors` to complete the size parameter of the image URL. This is described in detail in the [Implementation Notes][implementation-notes].
 
-The `width` of a tile, or the combination of `width` and `height` if `height` is specified, _MUST_ be unique among the members of the `tiles` list.
 
-| Tile Object Property | Required? | Description |
+| Property | Required? | Description |
 | ---------- | -------- | ----------- |
 | `type`    | Optional | The type of the Tile. If present, the value _MUST_ be the string `Tile`. |
 | `scaleFactors` | Required | The set of resolution scaling factors for the image's predefined tiles, expressed as positive integers by which to divide the full size of the image. For example, a scale factor of 4 indicates that the service can efficiently deliver images at 1/4 or 25% of the height and width of the full image. A particular scale factor value _SHOULD_ appear only once in the `tiles` list. |
@@ -513,107 +565,28 @@ The `width` of a tile, or the combination of `width` and `height` if `height` is
 | `height` | Optional | The height in pixels of the predefined tiles to be requested, given as an integer. If it is not specified in the JSON, then it defaults to the same as `width`, resulting in square tiles. |
 {: .api-table}
 
-Servers _SHOULD_ support requests for images with parameters specified by the `sizes` and `tiles` fields for all combinations of qualities and formats supported.
-
-The following shows a valid image information response, including the optional `sizes` and `tiles` properties.
+Objects in the `tiles` list _MUST_ each have a unique combination of `width` and `height`, where `height` = `width` if it is not explicitly specified.
 
 ``` json-doc
 {
-  "@context" : "http://iiif.io/api/image/{{ page.major }}/context.json",
-  "id" : "http://www.example.org/image-service/abcd1234/1E34750D-38DB-4825-A38A-B60A345E591C",
+  "@context": "http://iiif.io/api/image/{{ page.major }}/context.json",
+  "id": "http://www.example.org/image-service/abcd1234/1E34750D-38DB-4825-A38A-B60A345E591C",
   "type": "ImageService3",
-  "protocol" : "http://iiif.io/api/image",
-  "width" : 6000,
-  "height" : 4000,
-  "sizes" : [
-    {"width" : 150, "height" : 100},
-    {"width" : 600, "height" : 400},
-    {"width" : 3000, "height": 2000}
-  ],
+  "protocol": "http://iiif.io/api/image",
+  "profile": "level2",
+  "width": 6000,
+  "height": 4000,
   "tiles": [
-    {"width" : 512, "scaleFactors" : [1,2,4,8,16]}
-  ],
-  "profile" : [ "http://iiif.io/api/image/{{ page.major }}/level2.json" ]
-}
-```
-
-### 5.3. Profile Description
-
-In order to specify additional features that are supported for the image, a profile object may be added to the `profile` list. Objects in the `profile` list have the properties in the following table. The `@context`, `id` and `type` properties are _REQUIRED_ when the profile is dereferenced from a URI, but _SHOULD NOT_ be included in the image information response.
-
-| Profile Property | Required? | Description |
-| ----------- | --------- | ----------- |
-| `@context`  | Optional  | The string "http://iiif.io/api/image/{{ page.major }}/context.json". This should be included only if the profile's URI is dereferenced. |
-| `id`       | Optional  | The URI of the profile. |
-| `type`     | Optional  | The type of the object. If present, the value _MUST_ be the string "iiif:ImageProfile". |
-| `formats`   | Optional  | The set of image format parameter values available for the image.  If not specified then clients should assume only formats declared in the compliance level document.|
-| `maxArea`   | Optional  | The maximum area in pixels supported for this image. Requests for images sizes with width*height greater than this may not be supported. |
-| `maxHeight` | Optional  | The maximum height in pixels supported for this image. Requests for images sizes with height greater than this may not be supported. If `maxWidth` is specified and `maxHeight` is not, then clients should infer that `maxHeight = maxWidth`.  |
-| `maxWidth`  | Optional  | The maximum width in pixels supported for this image. Requests for images sizes with width greater than this may not be supported. _MUST_ be specified if `maxHeight` is specified. |
-| `qualities` | Optional  | The set of image quality parameter values available for the image.  If not specified then clients should assume only qualities declared in the compliance level document.|
-| `supports`  | Optional  | The set of features supported for the image.  If not specified then clients should assume only features declared in the compliance level document. |
-{: .api-table}
-
-The `maxWidth`, `maxHeight` and `maxArea` parameters provide a way for image servers to express limits on the sizes supported for the image. If `maxWidth` alone, or `maxWidth` and `maxHeight` are specified then clients should expect requests with larger linear dimensions to be rejected. If `maxArea` is specified then clients should expect requests with larger pixel areas to be rejected. The `maxWidth / maxHeight`  and `maxArea` parameters are independent, servers may implement either or both limits. Servers _MUST_ ensure that sizes specified by any `sizes` or `tiles` properties are within any size limits expressed. Clients _SHOULD NOT_ make requests that exceed size limits expressed.
-
-The set of features that may be specified in the `supports` property of an Image profile are:
-
-| Feature Name | Description |
-| ------------ | ----------- |
-| `baseUriRedirect` | The base URI of the service will redirect to the image information document. |
-| `canonicalLinkHeader` | The canonical image URI HTTP link header is provided on image responses. |
-| `cors` |  The CORS HTTP header is provided on all responses.  |
-| `jsonldMediaType` | The JSON-LD media type is provided when JSON-LD is requested. |
-| `mirroring` | The image may be rotated around the vertical axis, resulting in a left-to-right mirroring of the content. |
-| `profileLinkHeader` | The profile HTTP link header is provided on image responses. |
-| `regionByPct` |  Regions of images may be requested by percentage.  |
-| `regionByPx` |   Regions of images may be requested by pixel dimensions.  |
-| `regionSquare` |  A square region where the width and height are equal to the shorter dimension of the complete image content. |
-| `rotationArbitrary` |   Rotation of images may be requested by degrees other than multiples of 90. |
-| `rotationBy90s` |   Rotation of images may be requested by degrees in multiples of 90. |
-| `sizeByConfinedWh` | Size of images may be requested in the form "!w,h". |
-| `sizeByH` | Size of images may be requested in the form ",h".  |
-| `sizeByPct` | Size of images may be requested in the form "pct:n".  |
-| `sizeByW` | Size of images may be requested in the form "w,".  |
-| `sizeByWh` | Size of images may be requested in the form "w,h".  |
-{: .api-table #features}
-
-A server that supports neither `sizeByW` or `sizeByWh` is only required to serve the image sizes listed under the `sizes` property or implied by the `tiles` property of the image information document, allowing for a static file implementation.
-
-The set of features, formats and qualities supported is the union of those declared in all of the external profile documents and any embedded profile objects.  If a feature is not present in either the profile document or the `supports` property of an embedded profile, then a client _MUST_ assume that the feature is not supported.
-
-If any of `formats`, `qualities`, or `supports` have no additional values beyond those specified in the referenced compliance level, then the property _SHOULD_ be omitted from the response rather than being present with an empty list.
-
-URIs _MAY_ be added to the supports list of a profile to cover features not defined in this specification. Clients _MUST_ ignore URIs that are not recognized.
-
-The following fragment shows a profile indicating support for additional formats, qualities, and features beyond level 2 [compliance][compliance-levels]. It also includes a size limit.
-
-``` json-doc
-{
-  "@context" : "http://iiif.io/api/image/{{ page.major }}/context.json",
-  "id" : "http://www.example.org/image-service/abcd1234/1E34750D-38DB-4825-A38A-B60A345E591C",
-  "type": "ImageService3",
-  "protocol" : "http://iiif.io/api/image",
-  //...
-  "profile" : [
-    "http://iiif.io/api/image/{{ page.major }}/level2.json",
-    {
-      "formats" : [ "gif", "pdf" ],
-      "qualities" : [ "color", "gray" ],
-      "maxWidth" : 2000,
-      "supports" : [
-          "canonicalLinkHeader", "rotationArbitrary", "profileLinkHeader", "http://example.com/feature/"
-      ]
-    }
+    {"width": 512, "scaleFactors": [ 1, 2, 4, 8, 16 ] }
   ]
 }
 ```
 
-### 5.4. Rights and Licensing Properties
+### 5.5. Rights Related Properties
 
 The rights and licensing properties, `attribution`, `license` and `logo`, have the same semantics and requirements as those in the [Presentation API][prezi-api].
 
-| Rights and Licensing Property | Required? | Description |
+| Property | Required? | Description |
 | ------------- | --------- | ----------- |
 | `attribution` | Optional  | Text that _MUST_ be shown when content obtained from the Image API service is displayed or used. It might include copyright or ownership statements, or a simple acknowledgement of the providing institution. The value _MAY_ contain simple HTML as described in the [HTML Markup in Property Values][prezi-html] section of the Presentation API. |
 | `license` | Optional | A link to an external resource that describes the license or rights statement under which content obtained from the Image API service may be used. |
@@ -623,7 +596,6 @@ The rights and licensing properties, `attribution`, `license` and `logo`, have t
 All of the rights and licensing properties _MAY_ have multiple values, expressed as a JSON array, or a single value.
 
 In the case where multiple values are supplied for `attribution`, clients _MUST_ use the following algorithm to determine which values to display to the user.  
-
 
 * If none of the values have a language associated with them, the client _MUST_ display all of the values.
 * Else, the client should try to determine the user's language preferences, or failing that use some default language preferences. Then:
@@ -635,8 +607,6 @@ The value of the `logo` property may be a string containing the URL of the image
 
 When both the Image and Presentation APIs express attributions or logos, then clients _MUST_ display both unless they are identical.
 
-
-The following shows a simple use of each of these properties:
 
 ``` json-doc
 {
@@ -652,18 +622,54 @@ The following shows a simple use of each of these properties:
 }
 ```
 
-More complex examples are given in the [Complete Response Example](#complete-response).
 
-### 5.5. Related Services
+### 5.6. Extra Functionality
+
+The JSON response also contains properties that describe additional functionality available via the Image API service.
 
 | Property   | Required? | Description |
 | ---------- | --------- | ----------- |
-| `service`  | Optional  | The `service` property provides hooks for additional information to be included in the image description, for example a link to an authentication service. The value _MUST_ be a list of objects. |
+| `extraQualities` | Optional | A list of strings that can be used as the quality parameter, in addition to the ones specified in the referenced profile. |
+| `extraFormats` | Optional | A list of strings that can be used as the format parameter, in addition to the ones specified in the referenced profile. |
+| `extraFeatures` | Optional | A list of strings identifying features supported by the service, in addition to the ones specified in the referenced profile. These strings are defined either in the [table][features-table] below or by [registering an extension][image-extensions]. |
 {: .api-table}
 
-There _MAY_ be one or more services associated with an image. See the [Service Profiles][service-profiles] annex for more information.
+The set of features defined by this specification that may be specified in the `extraFeatures` property are:
 
-The following shows a use of `service` to associate the login page of an authentication system that users must go through in order to access the image.  For further information, please see [Authentication](#authentication).
+| Feature Name | Description |
+| ------------ | ----------- |
+| `baseUriRedirect` | The base URI of the service will redirect to the image information document. |
+| `canonicalLinkHeader` | The canonical image URI HTTP link header is provided on image responses. |
+| `cors` |  The CORS HTTP headers are provided on all responses.  |
+| `jsonldMediaType` | The JSON-LD media type is provided when requested. |
+| `mirroring` | The image may be rotated around the vertical axis, resulting in a left-to-right mirroring of the content. |
+| `profileLinkHeader` | The profile HTTP link header is provided on image responses. |
+| `regionByPct` |  Regions of images may be requested by percentage.  |
+| `regionByPx` |   Regions of images may be requested by pixel dimensions.  |
+| `regionSquare` |  A square region where the width and height are equal to the shorter dimension of the complete image content. |
+| `rotationArbitrary` |   Rotation of images may be requested by degrees other than multiples of 90. |
+| `rotationBy90s` |   Rotation of images may be requested by degrees in multiples of 90. |
+| `sizeByConfinedWh` | Size of images may be requested in the form "!w,h". |
+| `sizeByH` | Size of images may be requested in the form ",h".  |
+| `sizeByPct` | Size of images may be requested in the form "pct:n".  |
+| `sizeByW` | Size of images may be requested in the form "w,".  |
+| `sizeByWh` | Size of images may be requested in the form "w,h".  |
+{: .api-table #features-table}
+
+A server that supports neither `sizeByW` or `sizeByWh` is only required to serve the image sizes listed under the `sizes` property or implied by the `tiles` property of the image information document, allowing for a static file implementation.
+
+The set of features, formats and qualities supported is the union of those declared in the external profile document and those added by the `extra` properties.  If a feature is not present in either the profile document or the `extraFeatures` property, then a client _MUST_ assume that the feature is not supported.
+
+### 5.7. Related Services
+
+The JSON response can also reference external services that make additional functionality available to a viewer.
+
+| Property   | Required? | Description |
+| ---------- | --------- | ----------- |
+| `service`  | Optional  | The `service` references external services that the client might interact with directly to gain additional information or functionality, for example a link to an authentication service. The value _MUST_ be a list of objects. See the [Service Registry][service-profiles] for known service types. |
+{: .api-table}
+
+The following shows a use of `service` to associate the login page of an authentication system that users must go through in order to access the image.  For further information, please see the [Authentication API](#authentication).
 
 ``` json-doc
 {
@@ -671,21 +677,20 @@ The following shows a use of `service` to associate the login page of an authent
   "id" : "http://www.example.org/image-service/abcd1234/1E34750D-38DB-4825-A38A-B60A345E591C",
   "type": "ImageService3",
   "protocol" : "http://iiif.io/api/image",
-  // ...
+  "profile": "level2",
+  "width": 6000,
+  "height": 4000,
   "service": [
     {
-      "@context" : "http://iiif.io/api/auth/{{ site.auth_api.latest.major }}/context.json",
-      "id" : "http://www.example.org/auth/login.html",
-      "type": "AuthCookieService1",
+      "@id" : "http://www.example.org/auth/login.html",
+      "@type": "AuthCookieService1",
       "profile": "http://iiif.io/api/auth/{{ site.auth_api.latest.major }}/login"
     }
   ]
 }
 ```
 
-More complex examples are given in the [Complete Response Example](#complete-response).
-
-### 5.6. Complete Response
+### 5.8. Complete Response
 
 The following shows a response including all of the required and optional image information properties.
 
@@ -695,6 +700,7 @@ The following shows a response including all of the required and optional image 
   "id" : "http://www.example.org/image-service/abcd1234/1E34750D-38DB-4825-A38A-B60A345E591C",
   "type": "ImageService3",
   "protocol" : "http://iiif.io/api/image",
+  "profile": "level1",
   "width" : 6000,
   "height" : 4000,
   "sizes" : [
@@ -727,25 +733,15 @@ The following shows a response including all of the required and optional image 
     "http://example.org/rights/license1.html",
     "http://rightsstatements.org/vocab/InC-EDU/1.0/"
   ],
-  "profile" : [
-    "http://iiif.io/api/image/{{ page.major }}/level2.json",
-    {
-      "formats" : [ "gif", "pdf" ],
-      "qualities" : [ "color", "gray" ],
-      "supports" : [
-        "canonicalLinkHeader", "rotationArbitrary", "profileLinkHeader", "http://example.com/feature/"
-      ]
-    }
-  ],
+  "extraFormats" : [ "gif", "pdf" ],
+  "extraQualities" : [ "color", "gray" ],
+  "extraFeatures" : [ "canonicalLinkHeader", "rotationArbitrary", "profileLinkHeader" ],
   "service" : [
     {
-      "@context": "http://iiif.io/api/annex/services/physdim/1/context.json",
-      "profile": "http://iiif.io/api/annex/services/physdim",
-      "physicalScale": 0.0025,
-      "physicalUnits": "in"
-    },{
-      "@context" : "http://geojson.org/geojson-ld/geojson-context.jsonld",
-      "id" : "http://www.example.org/geojson/paris.json"
+      "id": "... fix me ..."
+    },
+    {
+      "id": "... fix me ..."
     }
   ]
 }
@@ -895,7 +891,10 @@ Many thanks to the members of the [IIIF community][iiif-community] for their con
 [quality]: #quality "4.4. Quality"
 [format]: #format "4.5. Format"
 [features]: #features "API Features"
-[profile-description]: #profile-description "5.3 Profile Description"
+[features-table]: #features-table
+[image-extensions]: {{ site.url }}{{ site.baseurl }}/api/annex/registry/
+
+[profile-description]: #extra-functionality "5.3 Profile Description"
 [full-dep]: #full-dep "Full Size Keyword Deprecation Warning"
 [order-of-implementation]: #order-of-implementation "4.6. Order of Implementation"
 [canonical-uri-syntax]: #canonical-uri-syntax "4.7. Canonical URI Syntax"

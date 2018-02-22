@@ -146,7 +146,7 @@ If a client requests a combination of size and region outside these parameters t
 [icon-opt]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/optional.png "Optional"
 [icon-na]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/not_allowed.png "Not allowed"
 [size]: #size "3.2 Size"
-[profile]: {{ site.url }}{{ site.baseurl }}/api/image/{{ page.major }}.{{ page.minor }}/#profile-description "5.3 Profile Description"
+[profile]: {{ site.url }}{{ site.baseurl }}/api/image/{{ page.major }}.{{ page.minor }}/#extra-functionality "5.3 Profile Description"
 [stable-version]: {{ site.url }}{{ site.baseurl }}/api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/compliance/ "Stable Version"
 
 {% include acronyms.md %}

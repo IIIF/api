@@ -13,6 +13,8 @@ The process for having an entry included in one of the IIIF registries is [descr
 
 # Registries
 
+## Presentation API Registries
+
 * [Behaviors](behaviors/)
 * [Extensions](extensions/)
 * [Motivations](motivations/)
@@ -21,6 +23,11 @@ The process for having an entry included in one of the IIIF registries is [descr
 * [TimeModes](timeModes/)
 * [Types](types/)
 * [ViewingDirections](viewingDirections/)
+
+## Image API Registries
+
+* [Extensions](image-extensions/)
+
 
 {% include acronyms.md %}
 {% include links.md %}
