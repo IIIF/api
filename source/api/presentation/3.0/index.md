@@ -63,7 +63,7 @@ The objective of the IIIF (pronounced "Triple-Eye-Eff") Presentation API is to p
 
 Implementations of this specification will be able to:
 
-  * display to the user digitized images, video, audio and other content types associated with a particular physical object, or born-digital compound object ; 
+  * display to the user digitized images, video, audio and other content types associated with a particular physical object, or born-digital compound object ;
   * allow the user to navigate between multiple views of the object, either sequentially or hierarchically ;
   * and display descriptive information about the object, view or navigation structure to provide context to the user.
 
@@ -185,7 +185,7 @@ The value of the property _MUST_ be a JSON object, as described in the [language
 ```
 
 ##### metadata
-A list of descriptive entries to be displayed to the user when they interact with this resource, given as pairs of human readable `label` and `value` entries. There are no semantics conveyed by this information, only strings to present to the user when interacting with this resource.  A pair might be used to convey information about the creation of the object, a physical description, ownership information, and many other use cases. 
+A list of descriptive entries to be displayed to the user when they interact with this resource, given as pairs of human readable `label` and `value` entries. There are no semantics conveyed by this information, only strings to present to the user when interacting with this resource.  A pair might be used to convey information about the creation of the object, a physical description, ownership information, and many other use cases.
 
 The value of the `metadata` property _MUST_ be an array of JSON objects, where each item in the array has both `label` and `value` properties. The values of both `label` and `value` _MUST_ be JSON objects, as described in the [languages][prezi-api-3-languages] section.
 
@@ -204,7 +204,7 @@ Clients _SHOULD_ display the pairs in the order provided. Clients _SHOULD NOT_ u
 {
   "metadata": [
     {
-      "label": { "en": [ "Creator" ] }, 
+      "label": { "en": [ "Creator" ] },
       "value": { "en": [ "Anne Artist (1776-1824)" ] }
     }
   ]
@@ -223,15 +223,15 @@ The value of the property _MUST_ be a JSON object, that has the `label` and `val
 
 ``` json-doc
 {
-  "requiredStatement": { 
-    "label": { "en": [ "Attribution" ] }, 
+  "requiredStatement": {
+    "label": { "en": [ "Attribution" ] },
     "value": { "en": [ "Provided courtesy of Example Institution" ] }
   }
 }
 ```
 
 ##### summary
-A short textual summary of this resource, intended to be conveyed to the user when the `metadata` pairs for the resource are not being displayed.  This could be used as a snippet for item level search results, for limited screen real-estate environments, or as an alternative user interface when the `metadata` fields are not rendered. 
+A short textual summary of this resource, intended to be conveyed to the user when the `metadata` pairs for the resource are not being displayed.  This could be used as a snippet for item level search results, for limited screen real-estate environments, or as an alternative user interface when the `metadata` fields are not rendered.
 
 The value of the property _MUST_ be a JSON object, as described in the [languages][prezi-api-3-languages] section.
 
@@ -305,7 +305,7 @@ The value _MUST_ be a JSON object with the `id` and `type` properties, and _MAY_
 ``` json-doc
 {
   "posterCanvas": {
-    "id": "https://example.org/iiif/1/canvas/poster", 
+    "id": "https://example.org/iiif/1/canvas/poster",
     "type": "Canvas",
     "height": 1400,
     "width": 1200
@@ -317,7 +317,7 @@ The value _MUST_ be a JSON object with the `id` and `type` properties, and _MAY_
 ##### navDate
 A date that the client can use for navigation purposes when presenting this resource to the user in a time-based user interface, such as a calendar or timeline.  More descriptive date ranges, intended for display directly to the user, _SHOULD_ be included in the `metadata` property for human consumption.
 
-The value _MUST_ be an [`xsd:dateTime` literal][xsd-datetime]. The value _MUST_ have a timezone, and _SHOULD_ be given in UTC with the `Z` timezone indicator but _MAY_ also be given as an offset of the form `+hh:mm`. In the situation where a timezone is not given, clients _SHOULD_ assume it to be UTC. 
+The value _MUST_ be an [`xsd:dateTime` literal][xsd-datetime]. The value _MUST_ have a timezone, and _SHOULD_ be given in UTC with the `Z` timezone indicator but _MAY_ also be given as an offset of the form `+hh:mm`. In the situation where a timezone is not given, clients _SHOULD_ assume it to be UTC.
 
  * A Collection, Manifest or Range _MAY_ have the `navDate` property.<br/>
    Clients _MAY_ render `navDate` on Collections, Manifests and Ranges.
@@ -339,10 +339,10 @@ The value _MUST_ be an array of JSON objects, each of which _MUST_ have an `id` 
 
 ``` json-doc
 {
-  "rights": [ 
+  "rights": [
     {
-      "id": "https://example.org/rights/copyright.html", 
-      "type": "Text", 
+      "id": "https://example.org/rights/copyright.html",
+      "type": "Text",
       "format": "text/html"
     }
   ]
@@ -431,11 +431,11 @@ The value _MUST_ be an array of strings.
 
 ``` json-doc
 {
-  "rendering": [ 
-    { 
+  "rendering": [
+    {
       "id": "https://example.org/docs/doc.pdf",
-      "type": "Text", 
-      "format": "application/pdf", 
+      "type": "Text",
+      "format": "application/pdf",
       "language": [ "en" ]
     }
   ]
@@ -502,7 +502,7 @@ The value _MUST_ be a positive floating point number.
    Clients _SHOULD_ ignore `duration` on other resource types.
 
 ``` json-doc
-{ "duration": 125.0 } 
+{ "duration": 125.0 }
 ```
 
 ##### viewingDirection
@@ -630,7 +630,7 @@ The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id`, `t
 ##### service
 A link to an external service that the client might interact with directly and gain additional information or functionality for using this resource, such as from an image to the base URI of an associated [IIIF Image API][image-api] service. The service resource _SHOULD_ have additional information associated with it in order to allow the client to determine how to make appropriate use of it. Please see the [Service Registry][registry-services] document for the details of currently known service types.
 
-The value _MUST_ be an array of JSON objects. Each object will have properties depending on the service's definition, but _MUST_ have either the `id` or `@id` and `type` or `@type` properties. Each object _SHOULD_ have a `profile` property. 
+The value _MUST_ be an array of JSON objects. Each object will have properties depending on the service's definition, but _MUST_ have either the `id` or `@id` and `type` or `@type` properties. Each object _SHOULD_ have a `profile` property.
 
  * Any resource type _MAY_ the `service` property with at least one item.<br/>
    Clients _MAY_ process `service` on any resource type, and _SHOULD_ process the IIIF Image API service.
@@ -689,7 +689,7 @@ The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id` and
 
 ``` json-doc
 {
-  "seeAlso": [ 
+  "seeAlso": [
     {
       "id": "https://example.org/library/catalog/book1.xml",
       "type": "Dataset",
@@ -768,7 +768,7 @@ The value _MUST_ be an array of JSON objects. The items will be resources of dif
 ```json-doc
 {
   "items": [
-    { 
+    {
       "id": "https://example.org/iiif/manifest1",
       "type": "Manifest"
     },
@@ -783,7 +783,7 @@ The value _MUST_ be an array of JSON objects. The items will be resources of dif
 
 ##### structures
 
-The structure of an object represented as a Manifest can be described using a hierarchy of Ranges. Ranges can be used to describe the "table of contents" of the object or other structures that the user can interact with beyond a simple linear progression described in the Sequence. The hierarchy is built by nesting the child Range resources in the `items` array of the higher level Range. The top level Ranges of these hierarchies are given in the `structures` property. 
+The structure of an object represented as a Manifest can be described using a hierarchy of Ranges. Ranges can be used to describe the "table of contents" of the object or other structures that the user can interact with beyond a simple linear progression described in the Sequence. The hierarchy is built by nesting the child Range resources in the `items` array of the higher level Range. The top level Ranges of these hierarchies are given in the `structures` property.
 
 The value _MUST_ be an array of JSON objects. Each item is a Range.
 
@@ -829,7 +829,7 @@ The value _MUST_ be an array of JSON objects. Each item _MUST_ have at least the
 
 ##### Values for motivation
 
-This specification defines two values for the Web Annotation property of `motivation`, or `purpose` when used on a SpecificResource or TextualBody.  Annotations are used to both associate resources that make up the rendering of the Canvas as well as commentary Annotations that are about the Canvas. These motivations allow clients to determine the intent of the Annotation with regards to how it should be rendered to the user, by distinguishing between Annotations that provide the content of the Canvas from ones that are comments about the Canvas. 
+This specification defines two values for the Web Annotation property of `motivation`, or `purpose` when used on a SpecificResource or TextualBody.  Annotations are used to both associate resources that make up the rendering of the Canvas as well as commentary Annotations that are about the Canvas. These motivations allow clients to determine the intent of the Annotation with regards to how it should be rendered to the user, by distinguishing between Annotations that provide the content of the Canvas from ones that are comments about the Canvas.
 
 Additional motivations may be added to the Annotation to further clarify the intent, drawn from extensions.  Known extensions are listed in the [Motivation registry][registry-motivations].  Clients _MUST_ ignore extension motivation values that they do not understand.  Other motivation values given in the Web Annotation specification _SHOULD_ be used where appropriate, and examples are given in the [Presentation API Cookbook][cookbook].
 
@@ -940,11 +940,11 @@ The value of the `@context` property _MUST_ be a list, and the __last__ two valu
 }
 ```
 
-Any additional fields beyond those defined in this specification or the Web Annotation Data Model _SHOULD_ be mapped to RDF predicates using further context documents.   These extensions _SHOULD_ be added to the top level `@context` field, and _MUST_ be added before the above contexts.  The JSON-LD 1.1 functionality of type and predicate specific context definitions, known as [scoped contexts]][json-ld-scoped-contexts], _MUST_ be used to minimize cross-extension collisions.
+Any additional fields beyond those defined in this specification or the Web Annotation Data Model _SHOULD_ be mapped to RDF predicates using further context documents.   These extensions _SHOULD_ be added to the top level `@context` field, and _MUST_ be added before the above contexts.  The JSON-LD 1.1 functionality of type and predicate specific context definitions, known as [scoped contexts][json-ld-scoped-contexts], _MUST_ be used to minimize cross-extension collisions.
 
 The JSON representation _MUST NOT_ include the `@graph` key at the top level. This key might be created when serializing directly from RDF data using the JSON-LD 1.0 compaction algorithm. Instead, JSON-LD framing and/or custom code should be used to ensure the structure of the document is as described by this specification.
 
-Embedded JSON-LD data that uses a JSON-LD version 1.0 context definition, such as references to older external services or extensions, _MUST_ be retrofitted to use a scoped context based either on a property or type, as per the examples in the definition of the `service` property. Care should be taken to use the mappings defined by those contexts, especially with regard to `id` versus `@id`, and `type` versus `@type`, to ensure that clients receive the keys that they are expecting to process. 
+Embedded JSON-LD data that uses a JSON-LD version 1.0 context definition, such as references to older external services or extensions, _MUST_ be retrofitted to use a scoped context based either on a property or type, as per the examples in the definition of the `service` property. Care should be taken to use the mappings defined by those contexts, especially with regard to `id` versus `@id`, and `type` versus `@type`, to ensure that clients receive the keys that they are expecting to process.
 
 ##  5. Resource Structure
 
@@ -979,7 +979,7 @@ The example below includes only the Manifest-level information, however actual i
   "metadata": [
     {
       "label": { "en": [ "Author" ] },
-      "value": { "@none": [ "Anne Author" ] } 
+      "value": { "@none": [ "Anne Author" ] }
     },
     {
       "label": { "en": [ "Published" ] },
@@ -988,11 +988,11 @@ The example below includes only the Manifest-level information, however actual i
         "fr": [ "Paris, environ 1400" ]
       }
     },
-    { 
+    {
       "label": { "en": [ "Notes" ] },
       "value": {
-        "en": [ 
-          "Text of note 1", 
+        "en": [
+          "Text of note 1",
           "Text of note 2"
         ]
       }
@@ -1004,7 +1004,7 @@ The example below includes only the Manifest-level information, however actual i
   ],
   "summary": { "en": [ "Book 1, written be Anne Author, published in Paris around 1400." ] },
 
-  "thumbnail": [ 
+  "thumbnail": [
     {
       "id": "https://example.org/images/book1-page1/full/80,100/0/default.jpg",
       "type": "Image",
@@ -1022,16 +1022,16 @@ The example below includes only the Manifest-level information, however actual i
   "navDate": "1856-01-01T00:00:00Z",
 
   // Rights Information
-  "rights": [ 
+  "rights": [
     {
       "id":"https://example.org/license.html",
       "type": "Text",
       "language": "en",
       "format": "text/html"
-    } 
+    }
   ],
   "requiredStatement": {
-    "label": { "en": [ "Attribution" ] }, 
+    "label": { "en": [ "Attribution" ] },
     "value": { "en": [ "Provided by Example Organization" ] }
   },
   "logo": {
@@ -1284,9 +1284,9 @@ The intent of adding a Range to the Manifest is to allow the client to display a
 
 Ranges _MUST_ have URIs and they _SHOULD_ be HTTP(S) URIs.  Top level Ranges are embedded or externally referenced within the Manifest in a `structures` property. These top level Ranges then embed other Ranges, Canvases or parts of Canvases in the `items` property.  Each entry in the `items` field _MUST_ be a JSON object, and it _MUST_ have the `id` and `type` properties.  If a top level Range needs to be dereferenced by the client, then it _MUST NOT_ have the `items` property, such that clients are able to recognize that it should be retrieved in order to be processed.
 
-All of the Canvases or parts that should be considered as being part of a Range _MUST_ be included within the Range's `items` list, or a descendant Range's `items`. 
+All of the Canvases or parts that should be considered as being part of a Range _MUST_ be included within the Range's `items` list, or a descendant Range's `items`.
 
-The Canvases and parts of Canvases need not be contiguous or in the same order as in any Sequence. Examples include newspaper articles that are continued in different sections, a chapter that starts half way through a page, or time segments of a single canvas that represent different sections of a piece of music. 
+The Canvases and parts of Canvases need not be contiguous or in the same order as in any Sequence. Examples include newspaper articles that are continued in different sections, a chapter that starts half way through a page, or time segments of a single canvas that represent different sections of a piece of music.
 
 Ranges _MAY_ link to an Annotation Collection that has the content of the Range using the `includes` property. The referenced Annotation Collection will contain Annotations that target areas of Canvases within the Range and link content resources to those Canvases.
 
@@ -1397,13 +1397,13 @@ An example Collection document:
   "summary": { "en": [ "Short summary of the Collection" ] },
   "behavior": [ "top" ],
   "requiredStatement": {
-    "label": { "en": [ "Attribution" ] }, 
+    "label": { "en": [ "Attribution" ] },
     "value": { "en": [ "Provided by Example Organization" ] }
   },
 
   "items": [
     {
-      "id": "https://example.org/iiif/1/manifest", 
+      "id": "https://example.org/iiif/1/manifest",
       "type": "Manifest",
       "label": { "en": "Example Manifest 1" }
     }
@@ -1476,7 +1476,7 @@ It is possible to include Image API service descriptions within the Manifest, an
 | ![recommended][icon-recc]  | Recommended |
 | ![optional][icon-opt]      | Optional    |
 | ![not allowed][icon-na]    | Not Allowed |
-{: .api-table #table-reqs-icons} 
+{: .api-table #table-reqs-icons}
 
 __Descriptive and Rights Properties__
 
