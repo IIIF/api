@@ -12,13 +12,13 @@ redirect_from:
 * Table of Discontent (will be replaced by macro)
 {:toc}
 
-## 1. HTTP implementation notes
+## 1. HTTP implementation
 
   * For use cases that enable the saving of the image, use the HTTP `Content-Disposition` header ([RFC6266][rfc-6266]) to provide a convenient filename that distinguishes the image, based on the identifier and parameters provided.
   * Server implementations may rely on components or frameworks that unescape the URI path, such as Python's [WSGI][wsgi]. In such situations, the requested URI may be parsed from the right in order to handle identifiers possibly containing slashes, given the knowledge of the API parameters and the prefix for which the server handles requests.
   * See also [Apache HTTP Server implementation notes][apache-notes] that are relevant to the Image API and other IIIF specifications.
 
-## 2. Linked data implementation notes
+## 2. Linked data implementation
 
   * Linked data implementations may construct the `info.json` response using the frame supplied in the [JSON-LD framing implementation note][annex-frames].
 
