@@ -735,7 +735,7 @@ The following shows a response including all of the required and optional image 
   ],
   "extraFormats" : [ "gif", "pdf" ],
   "extraQualities" : [ "color", "gray" ],
-  "extraFeatures" : [ "canonicalLinkHeader", "rotationArbitrary", "profileLinkHeader" ]
+  "extraFeatures" : [ "canonicalLinkHeader", "rotationArbitrary", "profileLinkHeader" ],
   "service" : [
     {
       "id": "... fix me ..."
