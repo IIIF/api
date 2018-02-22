@@ -146,7 +146,7 @@ Servers should support [CORS][cors-response] on image responses.
 
 ### 4.1. Region
 
-The region parameter defines the rectangular portion of the underlying image content to be returned. Region can be specified by pixel coordinates, percentage or by the value "full", which specifies that the full image, the entire area of the underlying image content, should be returned.
+The region parameter defines the rectangular portion of the underlying image content to be returned. Region can be specified by pixel coordinates, percentage or by the value "full", which specifies that the full image should be returned.
 
 | Form |  Description |
 | ------------------- | ------------ |
