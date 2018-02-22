@@ -900,7 +900,7 @@ Many thanks to the members of the [IIIF community][iiif-community] for their con
 [canonical-uri-syntax]: #canonical-uri-syntax "4.7. Canonical URI Syntax"
 [information-request]: #information-request "5. Information Request"
 [image-information]: #image-information "5.1. Image Information"
-[extensions]: #extensions "5.2 Extensions"
+[technical-properties]: #technical-properties "5.2 Technical Properties"
 [compliance-levels]: #compliance-levels "6. Compliance Levels"
 [server-responses]: #server-responses "7. Server Responses"
 [successful-responses]: #successful-responses "7.1. Successful Responses"
