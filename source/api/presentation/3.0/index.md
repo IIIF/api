@@ -1206,7 +1206,7 @@ Association of images and other content with their respective Canvases is done v
 
 These Annotations are collected together in Annotation Page resources, which are included in the `items` list from the Canvas.  Each Annotation Page can be embedded in its entirety, if the Annotations should be processed as soon as possible when the user navigates to that Canvas, or a reference to an external page. This reference _MUST_ include `id` and `type`, _MUST NOT_ include `items` and _MAY_ include other properties, such as `behavior`. All of the Annotations in the Annotation Page _SHOULD_ have the Canvas as their `target`.  Embedded Annotation Pages _SHOULD_ be processed by the client first, before externally referenced pages.
 
-The Annotation Page _MUST_ have an HTTP(S) URI given in `id`.  They _MAY_ have any of the other fields defined in this specification, or the Web Annotation specification.  The Annotations are listed in the `items` list of the Annotation Page.
+An Annotation Page _MUST_ have an HTTP(S) URI given in `id`, and _MAY_ have any of the other fields defined in this specification or the Web Annotation specification.  The Annotations are listed in the `items` list of the Annotation Page.
 
 ``` json-doc
 {
