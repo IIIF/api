@@ -210,7 +210,7 @@ The size parameter specifies the dimensions to which the extracted region is to 
 
 | Form   | Description |
 |--------|-----------------------|
-| `max`  | The image or region is returned at the maximum size available. The resulting image will have the pixel dimensions of the requested region, unless it is constrained to a smaller size by `maxWidth`, `maxHeight`, or `maxArea` as defined in the [profile][profile-description] section. |
+| `max`  | The image or region is returned at the maximum size available. The resulting image will have the pixel dimensions of the requested region, unless it is constrained to a smaller size by `maxWidth`, `maxHeight`, or `maxArea` as defined in the [Technical Properties][technical-properties] section. |
 | w,     | The image or region should be scaled so that its width is exactly equal to w. |
 | ,h     | The image or region should be scaled so that its height is exactly equal to h. |
 | pct:n  | The width and height of the returned image is scaled to n% of the width and height of the extracted region. |
