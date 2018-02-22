@@ -154,7 +154,7 @@ This specification defines properties in five distinct areas. Most of the proper
 
 The requirements for which classes have which properties are summarized in [Appendix A][prezi-api-3-appendixa].
 
-Other properties are allowed, either via custom extensions or endorsed by IIIF. If a client discovers properties that it does not understand, then it _MUST_ ignore them.  Other properties _SHOULD_ consist of a prefix and a name in the form "`prefix:name`" to ensure it does not collide with a property defined by IIIF specifications.
+Other properties are allowed, either via local extensions or those endorsed by the IIIF community. If a client discovers properties that it does not understand, then it _MUST_ ignore them.  See the [Linked Data Context and Extensions][ldce] section for more information about extensions.
 
 ###  3.1. Descriptive Properties
 
@@ -1583,6 +1583,8 @@ Many thanks to the members of the [IIIF community][iiif-community] for their con
 | 2014-09-11 | Version 2.0 (Triumphant Giraffe) [View change log][prezi-change-log-20] |
 | 2013-08-26 | Version 1.0 (unnamed) |
 | 2013-06-14 | Version 0.9 (unnamed) |
+
+[ldce]: #linked-data-context-and-extensions "Linked Data Context and Extensions"
 
 {% include acronyms.md %}
 {% include links.md %}
