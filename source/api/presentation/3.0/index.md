@@ -1577,6 +1577,7 @@ Many thanks to the members of the [IIIF community][iiif-community] for their con
 | 2013-06-14 | Version 0.9 (unnamed) |
 
 [ldce]: #linked-data-context-and-extensions "Linked Data Context and Extensions"
+[conneg]: https://tools.ietf.org/html/rfc7231#section-5.3.2
 
 {% include acronyms.md %}
 {% include links.md %}
