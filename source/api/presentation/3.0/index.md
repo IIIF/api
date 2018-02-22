@@ -1448,17 +1448,9 @@ Content-Type: application/json
 ```
 {: .urltemplate}
 
-The HTTP server _MUST_ follow the [CORS requirements][w3c-cors] to enable browser-based clients to retrieve the descriptions. In particular, the response _MUST_ include the `Access-Control-Allow-Origin` header, and the value _SHOULD_ be `*`.
-
-``` none
-Access-Control-Allow-Origin: *
-```
-{: .urltemplate}
+The HTTP server _MUST_ follow the [CORS requirements][w3c-cors] to enable browser-based clients to retrieve the descriptions. If the server receives a request with one of the content types above in the Accept header, it _SHOULD_ respond with that content type following the rules of [content negotiation][conneg]. Recipes for enabling CORS and conditional Content-Type headers are provided in the [Apache HTTP Server Implementation Notes][apache-notes].
 
 Responses _SHOULD_ be compressed by the server as there are significant performance gains to be made for very repetitive data structures.
-
-Recipes for enabling CORS, conditional Content-Type headers and other technical details are provided in the [Apache HTTP Server Implementation Notes][apache-notes].
-
 
 ## 7. Authentication
 
