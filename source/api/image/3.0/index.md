@@ -82,7 +82,7 @@ There are four parameters shared by the requests, and other IIIF specifications:
 | Name   | Description |
 | ------ | ----------- |
 | scheme | Indicates the use of the HTTP or HTTPS protocol in calling the service. |
-| server | The host server on which the service resides.  The parameter may also include a port number. |
+| server | The host server on which the service resides. The parameter may also include a port number. |
 | prefix | The path on the host server to the service. This prefix is optional, but may be useful when the host server supports multiple services. The prefix _MAY_ contain multiple path segments, delimited by slashes, but all other special characters _MUST_ be encoded. See [URI Encoding and Decoding][uri-encoding-and-decoding] for more information. |
 | identifier | The identifier of the requested image. This may be an ark, URN, filename, or other identifier. Special characters _MUST_ be URI encoded. |
 {: .api-table}
@@ -94,7 +94,7 @@ The combination of these parameters forms the image service’s base URI and ide
 ```
 {: .urltemplate}
 
-When the base URI is dereferenced, the interaction _SHOULD_ result in the image information document.  It is _RECOMMENDED_ that the response be a 303 status redirection to the image information document's URI.  Implementations _MAY_ also exhibit other behavior for the base URI beyond the scope of this specification in response to HTTP request headers and methods.
+When the base URI is dereferenced, the interaction _SHOULD_ result in the image information document. It is _RECOMMENDED_ that the response be a 303 status redirection to the image information document's URI. Implementations _MAY_ also exhibit other behavior for the base URI beyond the scope of this specification in response to HTTP request headers and methods.
 
 To allow for extensions, this specification does not define the server behavior when it receives requests that do not match either the base URI or one of the described URI syntaxes below.
 
@@ -132,7 +132,7 @@ https://example.org/image-service/abcd1234/info.json
 ```
 {: .urltemplate}
 
-The scheme, server, prefix and identifier components of the information request _MUST_ be identical to those for the image request described above for the image content that the image information document describes.  The image information document is described in detail in the [Image Information][image-information] section.
+The scheme, server, prefix and identifier components of the information request _MUST_ be identical to those for the image request described above for the image content that the image information document describes. The image information document is described in detail in the [Image Information][image-information] section.
 
 ##  3. Identifier
 
@@ -283,7 +283,7 @@ A rotation value that is out of range or unsupported _SHOULD_ result in a 400 (B
 
 In most cases, rotation will change the width and height dimensions of the returned image. The service _SHOULD_ return an image that contains all of the image contents requested in the region and size parameters, even if the dimensions of the returned image file are different than specified in the size parameter. The image contents _SHOULD NOT_ be scaled as a result of the rotation, and there _SHOULD_ be no additional space between the corners of the rotated image contents and the bounding box of the returned image.
 
-For rotations which are not multiples of 90 degrees, it is _RECOMMENDED_ that the client request the image in a format that supports transparency, such as PNG, and that the server return the image with a transparent background.  There is no facility in the API for the client to request a particular background color or other fill pattern.
+For rotations which are not multiples of 90 degrees, it is _RECOMMENDED_ that the client request the image in a format that supports transparency, such as PNG, and that the server return the image with a transparent background. There is no facility in the API for the client to request a particular background color or other fill pattern.
 
 Examples:
 
@@ -429,7 +429,7 @@ It is possible to request the same image using different combinations of paramet
   * Caching becomes significantly more efficient, both client and server side, when the URIs used are the same between systems and sessions.
   * Response times can be improved by avoiding redirects from a requested non-canonical URI syntax to the canonical syntax by using the canonical form directly.
 
-In order to support the above requirements, clients _SHOULD_ construct image request URIs using the following canonical parameter values where possible.  Image servers _MAY_ redirect the client to the canonical URI from a non-canonical equivalent.
+In order to support the above requirements, clients _SHOULD_ construct image request URIs using the following canonical parameter values where possible. Image servers _MAY_ redirect the client to the canonical URI from a non-canonical equivalent.
 
 | Parameter | Canonical value |
 | --------- | --------------- |
@@ -523,7 +523,7 @@ The JSON response _MAY_ have the `sizes` property, which is used to describe pre
 
 | Property   | Required? | Description |
 | ---------- | --------- | ----------- |
-| `sizes` | Optional | A list of JSON objects with the `height` and `width` properties. These sizes specify preferred values to be provided in the `w,h` syntax of the size request parameter for scaled versions of the full image.  In the case of servers that do not support requests for arbitrary sizes, these may be the only sizes available. A request constructed with the `w,h` syntax using these sizes _MUST_ be supported by the server, even if arbitrary width and height are not. |
+| `sizes` | Optional | A list of JSON objects with the `height` and `width` properties. These sizes specify preferred values to be provided in the `w,h` syntax of the size request parameter for scaled versions of the full image. In the case of servers that do not support requests for arbitrary sizes, these may be the only sizes available. A request constructed with the `w,h` syntax using these sizes _MUST_ be supported by the server, even if arbitrary width and height are not. |
 {: .api-table}
 
 The objects in the `sizes` list have the properties in the following table. Image requests for these sizes _SHOULD_ have a region parameter of "full", size parameter in the canonical `w,h` form, and rotation of "0". Thus, the full URL for an image with "default" quality in "jpg" format would be: `{scheme}://{server}/{prefix}/{identifier}/full/{width},{height}/0/default.jpg`
@@ -664,7 +664,7 @@ The set of features defined by this specification that may be specified in the `
 
 A server that supports neither `sizeByW` or `sizeByWh` is only required to serve the image sizes listed under the `sizes` property or implied by the `tiles` property of the image information document, allowing for a static file implementation.
 
-The set of features, formats and qualities supported is the union of those declared in the external profile document and those added by the `extra` properties.  If a feature is not present in either the profile document or the `extraFeatures` property, then a client _MUST_ assume that the feature is not supported.
+The set of features, formats and qualities supported is the union of those declared in the external profile document and those added by the `extra` properties. If a feature is not present in either the profile document or the `extraFeatures` property, then a client _MUST_ assume that the feature is not supported.
 
 ### 5.7. Related Services
 
