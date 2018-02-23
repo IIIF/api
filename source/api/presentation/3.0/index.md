@@ -78,7 +78,7 @@ Note that in the following descriptions, "object" is used to refer to the object
 
 There are many different types of digitized or digital compound objects; ancient scrolls, paintings, letters, books, newspapers, films, operas, albums, field recordings and computer generated animations. Many of them bear the written or spoken word, sometimes difficult to read or hear either due to the decay of the physical object or lack of understanding of the script or language.  These use cases are described in a separate [document][prezi-use-case-doc].
 
-Collectively the use cases require a model in which one can characterize the object (via the _Manifest_ resource), the order(s) in which individual views are presented (the _Sequence_ resource), and the individual views themselves (_Canvas_ resources). Each view may have images, audio, video and other content resources associated with it (_Content_ resources) to allow the view to be rendered to the user appropriately. An object may also have sections; for example, a book may have chapters of several pages, or a play might be divided into acts and scenes (_Range_ resources) and there may be groups of objects (_Collection_ resources).  These resource types, along with their properties, make up the IIIF Presentation API.
+Collectively, the use cases require a model in which one can characterize the object (via the _Manifest_ resource) and the individual views of the object (_Canvas_ resources). Each view may have images, audio, video and other content resources associated with it (_Content_ resources) to allow the view to be rendered to the user appropriately. An object may also have sections; for example, a book may have chapters of several pages, or a play might be divided into acts and scenes (_Range_ resources) and there may be groups of objects (_Collection_ resources).  These resource types, along with their properties, make up the IIIF Presentation API.
 
 ### 1.3. Terminology
 
@@ -86,9 +86,8 @@ The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _S
 
 This specification also uses the following terms:
 
-* __embedded__: When a resource is embedded within another resource, the complete representation of the embedded resource is present within the embedding resource, and dereferencing the URI of the embedded resource will not result in additional important information. Example: A Sequence is embedded in a Manifest.
-* __referenced__: When a resource is referenced from another resource, an incomplete representation of the referenced resource is present within the referencing resource, and dereferencing the URI of the referenced resource will result in additional information.  Typically, the `id`, `type`, and `label` properties will be included in the reference. Example:  A Manifest is referenced in a Collection.
-
+* __embedded__: When a resource (A) is embedded within another resource (B), the complete representation of resource A is present within resource B, and dereferencing the URI of resource A will not result in additional important information. Example: Canvas A is embedded in Manifest B.
+* __referenced__: When a resource (A) is referenced from another resource (B), an incomplete representation of resource A is present within resource B, and dereferencing the URI of resource A will result in additional information.  Typically, the `id`, `type`, and `label` properties of resource A will be included. Example:  Manifest A is referenced from Collection B.
 
 ##  2. Resource Type Overview
 
@@ -105,11 +104,6 @@ This specification makes use of the following primary resource types:
 {: #overview-manifest}
 
 The overall description of the structure and properties of the digital representation of an object. It carries information needed for the viewer to present the content to the user, such as a title and other descriptive information about the object or the intellectual work that it conveys. Each Manifest describes how to present a single object such as a book, a statue or a music album.
-
-##### Sequence
-{: #overview-sequence}
-
-The order of the views of the object. Multiple Sequences are allowed to cover situations when there are multiple equally valid orders through the content, such as when a manuscript's pages are rebound or archival collections are reordered, or there are several possible orderings of musical content.
 
 ##### Canvas
 {: #overview-canvas}
@@ -167,8 +161,6 @@ The value of the property _MUST_ be a JSON object, as described in the [language
    Clients _MUST_ render `label` on a Collection.
  * A Manifest _MUST_ have the `label` property with at least one entry.<br/>
    Clients _MUST_ render `label` on a Manifest.
- * A Sequence _MAY_ have the `label` property with at least one entry, and if there are multiple Sequences in a single Manifest then they _MUST_ each have the `label` property with at least one entry.<br/>
-   Clients _SHOULD_ support multiple Sequences, and if they do, _MUST_ render `label` on a Sequence. Clients _MAY_ render `label` on a single Sequence.
  * A Canvas _SHOULD_ have the `label` property with at least one entry.<br/>
    Clients _MUST_ render `label` on a Canvas, and _MUST_ generate a `label` for Canvases that do not have them.
  * A content resource _MAY_ have the `label` property with at least one entry. If there is a Choice of content resource for the same Canvas, then they _SHOULD_ each have at least the `label` property with at least one entry.<br/>
@@ -257,8 +249,6 @@ The value _MUST_ be a array of JSON objects, where each item in the array has an
    Clients _SHOULD_ render `thumbnail` on a Collection.
  * A Manifest _SHOULD_ have the `thumbnail` property with at least one item.<br/>
    Clients _SHOULD_ render `thumbnail` on a Manifest.
- * A Sequence _MAY_ have the `thumbnail` property with at least one item.<br/>
-   Clients _SHOULD_ render `thumbnail` on a Sequence.
  * A Canvas _MAY_ have the `thumbnail` property with at least one item. A Canvas _SHOULD_ have the `thumbnail` property if there are multiple resources that make up the representation.<br/>
    Clients _SHOULD_ render `thumbnail` on a Canvas.
  * A content resource _MAY_ have the `thumbnail` property with at least one item. Content resources _SHOULD_ have the `thumbnail` property with at least one item if it is an option in a Choice of resources.<br/>
@@ -293,8 +283,6 @@ The value _MUST_ be a JSON object with the `id` and `type` properties, and _MAY_
    Clients _MAY_ render `posterCanvas` on a Collection.
   * A Manifest _MAY_ have the `posterCanvas` property with at least one item.<br/>
    Clients _MAY_ render `posterCanvas` on a Manifest.
-  * A Sequence _MAY_ have the `posterCanvas` property with at least one item.<br/>
-   Clients _MAY_ render `posterCanvas` on a Sequence.
   * A Canvas _MAY_ have the `posterCanvas` property with at least one item.<br/>
    Clients _MAY_ render `posterCanvas` on a Canvas.
   * A Range _MAY_ have the `posterCanvas` property with at least one item.<br/>
@@ -353,7 +341,7 @@ The value _MUST_ be an array of JSON objects, each of which _MUST_ have an `id` 
 
 ##### id
 
-The URI that identifies this resource. It is _RECOMMENDED_ that an HTTPS URI be used for all resources. If this resource is only available embedded (see the [terminology section][prezi-api-3-terminology] for an explanation of "embedded") within another resource, such as a Sequence within a Manifest, then the URI _MAY_ be the URI of the encapsulating resource with a unique fragment on the end. This is not true for Canvases, which _MUST_ have their own URI without a fragment.
+The URI that identifies this resource. It is _RECOMMENDED_ that an HTTPS URI be used for all resources. If this resource is only available embedded (see the [terminology section][prezi-api-3-terminology] for an explanation of "embedded") within another resource, such as a Canvas within a Manifest, then the URI _MAY_ be the URI of the encapsulating resource with a unique fragment on the end. This is not true for Canvases, which _MUST_ have their own URI without a fragment.
 
 The value _MUST_ be a string.
 
@@ -361,8 +349,6 @@ The value _MUST_ be a string.
    Clients _SHOULD_ render `id` on a Collection.
  * A Manifest _MUST_ have the `id` property, and the value _MUST_ be the HTTP(S) URI at which it is published.<br/>
    Clients _SHOULD_ render `id` on a Manifest.
- * A Sequence _MAY_ have the `id` property.<br/>
-   Clients _MAY_ render `id` on a Sequence.
  * A Canvas _MUST_ have the `id` property, and the value _MUST_ be an HTTP(S) URI.  The Canvas's JSON representation _MAY_ be published at that URI.<br/>
    Clients _SHOULD_ render `id` on a Canvas.
  * A content resource _MUST_ have the `id` property, and the value _MUST_ be the HTTP(S) URI at which the resource is published.<br/>
@@ -512,10 +498,8 @@ The value _MUST_ be a string, taken from the table below or a full URI.
 
  * A Collection _MAY_ have the `viewingDirection` property, and if so, its value applies to the order in which its members are rendered.<br/>
    Clients _SHOULD_ process `viewingDirection` on a Collection.
- * A Manifest _MAY_ have the `viewingDirection` property, and if so, its value applies to all of its sequences unless the sequence specifies its own value.<br/>
+ * A Manifest _MAY_ have the `viewingDirection` property.<br/>
    Clients _SHOULD_ process `viewingDirection` on a Manifest.
- * A Sequence _MAY_ have the `viewingDirection` property.<br/>
-   Clients _SHOULD_ process `viewingDirection` on a Sequence.
  * A Range _MAY_ have the `viewingDirection` property.<br/>
    Clients _MAY_ process `viewingDirection` on a Range.
  * Other resource types _MUST NOT_ have the `viewingDirection` property.<br/>
@@ -543,18 +527,20 @@ The value _MUST_ be an array of strings, taken from the table below or a URI.
 
 > | Value | Description |
 | ----- | ----------- |
-| `auto-advance` | Valid on Collections, Manifests, Sequences, Canvases, and Ranges that include or are Canvases with at least the `duration` dimension. When the client reaches the end of a Canvas with a duration dimension that has (or is within a resource that has) this `behavior`, it _SHOULD_ immediately proceed to the next Canvas and render it. If there is no subsequent Canvas in the current context, then this `behavior` should be ignored. When applied to a Collection, the client should treat the first Canvas of the next Manifest as following the last Canvas of the previous Manifest, respecting any `start` property specified. |
-| `continuous` | Valid on Manifests, Sequences and Ranges, which include Canvases that have at least `height` and `width` dimensions.  Canvases included in resources with this `behavior` are partial views and an appropriate rendering might display all of the Canvases virtually stitched together, such as a long scroll split into sections. This `behavior` has no implication for audio resources. The `viewingDirection` of the Sequence or Manifest will determine the appropriate arrangement of the Canvases. |
-| `facing-pages` | Valid only on Canvases, where the Canvas has at least `height` and `width` dimensions. Canvases with this `behavior`, in a Sequence or Manifest with the "paged" `behavior`, _MUST_ be displayed by themselves, as they depict both parts of the opening.  If all of the Canvases are like this, then page turning is not possible, so simply use "individuals" instead. |
-| `individuals` | Valid on Collections, Manifests, Sequences and Ranges. For Collections with this `behavior`, each of the included Manifests are distinct objects. For Manifest, Sequence and Range, the included Canvases are distinct views, and _SHOULD NOT_ be presented in a page-turning interface. This is the default `behavior` if none are specified. |
+| `auto-advance` | Valid on Collections, Manifests, Canvases, and Ranges that include or are Canvases with at least the `duration` dimension. When the client reaches the end of a Canvas with a duration dimension that has (or is within a resource that has) this `behavior`, it _SHOULD_ immediately proceed to the next Canvas and render it. If there is no subsequent Canvas in the current context, then this `behavior` should be ignored. When applied to a Collection, the client should treat the first Canvas of the next Manifest as following the last Canvas of the previous Manifest, respecting any `start` property specified. |
+| `continuous` | Valid on Manifests and Ranges, which include Canvases that have at least `height` and `width` dimensions.  Canvases included in resources with this `behavior` are partial views and an appropriate rendering might display all of the Canvases virtually stitched together, such as a long scroll split into sections. This `behavior` has no implication for audio resources. The `viewingDirection` of the Manifest will determine the appropriate arrangement of the Canvases. |
+| `facing-pages` | Valid only on Canvases, where the Canvas has at least `height` and `width` dimensions. Canvases with this `behavior`, in a Manifest with the "paged" `behavior`, _MUST_ be displayed by themselves, as they depict both parts of the opening.  If all of the Canvases are like this, then page turning is not possible, so simply use "individuals" instead. |
+| `individuals` | Valid on Collections, Manifests, and Ranges. For Collections with this `behavior`, each of the included Manifests are distinct objects. For Manifest, and Range, the included Canvases are distinct views, and _SHOULD NOT_ be presented in a page-turning interface. This is the default `behavior` if none are specified. |
 | `multi-part` | Valid only on Collections. Collections with this `behavior` consist of multiple Manifests that each form part of a logical whole, such as multi-volume books or a set of journal issues. Clients might render the Collection as a table of contents, rather than with thumbnails. |
 | `no-nav` | Valid only on Ranges. Ranges with this `behavior` _MUST NOT_ be displayed to the user in a navigation hierarchy. This allows for Ranges to be present that capture unnamed regions with no interesting content, such as the set of blank pages at the beginning of a book, or dead air between parts of a performance, that are still part of the Manifest but do not need to be navigated to directly. |
-| `non-paged` | Valid only on Canvases, where the Canvas has at least `height` and `width` dimensions. Canvases with this `behavior` _MUST NOT_ be presented in a page turning interface, and _MUST_ be skipped over when determining the page sequence. This `behavior` _MUST_ be ignored if the current Sequence or Manifest does not have the "paged" `behavior`. |
+| `non-paged` | Valid only on Canvases, where the Canvas has at least `height` and `width` dimensions. Canvases with this `behavior` _MUST NOT_ be presented in a page turning interface, and _MUST_ be skipped over when determining the page order. This `behavior` _MUST_ be ignored if the current Manifest does not have the "paged" `behavior`. |
 | `hidden` | Valid on Annotation Collections, Annotation Pages, Annotations, Specific Resources and Choices. If this `behavior` is provided, then the client _SHOULD NOT_ render the resource by default, but allow the user to turn it on and off. |
-| `paged` | Valid on Manifests, Sequences and Ranges, which include Canvases that have at least `height` and `width` dimensions. Canvases included in resources with this `behavior` represent pages in a bound volume, and _SHOULD_ be presented in a page-turning interface if one is available.  The first canvas is a single view (the first recto) and thus the second canvas likely represents the back of the object in the first canvas. If this is not the case, see the "non-paged" `behavior`. |
-| `repeat` | Valid on Collections, Manifests, and Sequences, that include Canvases with at least the `duration` dimension.  When the client reaches the end of the duration of the final Canvas in the resource, and the "auto-advance" `behavior` is also in effect, then the client _SHOULD_ return to the first Canvas in the resource with the "repeat" `behavior` and start playing again. If the "auto-advance" `behavior` is not in effect, then the client _SHOULD_ render a navigation control for the user to manually return to the first Canvas. |
+| `paged` | Valid on Manifests and Ranges, which include Canvases that have at least `height` and `width` dimensions. Canvases included in resources with this `behavior` represent pages in a bound volume, and _SHOULD_ be presented in a page-turning interface if one is available.  The first canvas is a single view (the first recto) and thus the second canvas likely represents the back of the object in the first canvas. If this is not the case, see the "non-paged" `behavior`. |
+| `repeat` | Valid on Collections and Manifests, that include Canvases with at least the `duration` dimension.  When the client reaches the end of the duration of the final Canvas in the resource, and the "auto-advance" `behavior` is also in effect, then the client _SHOULD_ return to the first Canvas in the resource with the "repeat" `behavior` and start playing again. If the "auto-advance" `behavior` is not in effect, then the client _SHOULD_ render a navigation control for the user to manually return to the first Canvas. |
+| `sequence` | Valid only on Ranges, where the Range is referenced in the `structures` property of a Manifest. Ranges with this `behavior` represent different orderings of the Canvases listed in the `items` property of the Manifest, and user interfaces that interact with this order _SHOULD_ use the order within the selected Range, rather than the default order of `items`. |
 | `thumbnail-nav` | Valid only on Ranges. Ranges with this `behavior` _MAY_ be used by the client to present an alternative navigation or overview based on thumbnails, such as regular keyframes along a timeline for a video, or sections of a long scroll. Clients _SHOULD NOT_ use them to generate a conventional table of contents. Child Ranges of a Range with this `behavior` _MUST_ have a suitable `thumbnail` property. |
 | `together` | Valid only on Collections. A client _SHOULD_ present all of the child Manifests to the user at once in a separate viewing area with its own controls. Clients _SHOULD_ catch attempts to create too many viewing areas. The "together" value _SHOULD NOT_ be interpreted as applying to the members any child resources. |
+| `unordered` | Valid on Manifests and Ranges. The order of Canvases within this resource have no inherent order, and user interfaces _SHOULD_ avoid implying to the user that there is such an order. |
 {: .api-table #table-behavior}
 
 ``` json-doc
@@ -703,7 +689,7 @@ The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id` and
 #### 3.4.2. Internal Links
 
 ##### within
-A link to another resource that contains this resource, such as a Manifest that is part of a Collection. When encountering the `within` property and the referenced resource is not included in the current representation, clients might retrieve the referenced resource to contribute to the processing of this resource. For example, if a Canvas is encountered as a stand alone resource, it might be `within` a Manifest that includes the Sequence and other contextual information, or a Manifest might be `within` a Collection, which would aid in navigation.
+A link to another resource that contains this resource, such as a Manifest that is part of a Collection. When encountering the `within` property and the referenced resource is not included in the current representation, clients might retrieve the referenced resource to contribute to the processing of this resource. For example, if a Canvas is encountered as a stand alone resource, it might be `within` a Manifest that includes other contextual information, or a Manifest might be `within` a Collection, which would aid in navigation.
 
 The value _MUST_ be an array of JSON objects.  Each item _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `label` property.
 
@@ -715,12 +701,12 @@ The value _MUST_ be an array of JSON objects.  Each item _MUST_ have the `id` an
 ```
 
 ##### start
-A link from this Manifest, Sequence or Range to a Canvas, or part of a Canvas, that is contained within it. The reference to part of a Canvas is handled in the same way that Ranges reference parts of Canvases, by adding a fragment to the end of the Canvas's URI specifing the spatial and/or temporal segment of interest.  When processing this relationship, a client _SHOULD_ advance to the specified Canvas, or specified segment of the Canvas, when beginning navigation through the Sequence or Range.  This allows the client to begin with the first Canvas that contains interesting content rather than requiring the user to manually skip past uninteresting content.  The Canvas _MUST_ be included in the first Sequence embedded within the Manifest.
+A link from this Manifest or Range, to a Canvas, or part of a Canvas, that is contained within it. The reference to part of a Canvas is handled in the same way that Ranges reference parts of Canvases, by adding a fragment to the end of the Canvas's URI specifing the spatial and/or temporal segment of interest.  When processing this relationship, a client _SHOULD_ advance to the specified Canvas, or specified segment of the Canvas, when beginning navigation through the Range.  This allows the client to begin with the first Canvas that contains interesting content rather than requiring the user to manually skip past uninteresting content.
 
 The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` properties.
 
- * A Manifest, Sequence or Range _MAY_ have the `start` property.
-   Clients _SHOULD_ process `start` on a Manifest, Sequence or Range.
+ * A Manifest or Range _MAY_ have the `start` property.
+   Clients _SHOULD_ process `start` on a Manifest or Range.
  * Other resource types _MUST NOT_ have the `start` property.
    Clients _SHOULD_ ignore `start` on other resource types.
 
@@ -744,20 +730,17 @@ The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` propert
 
 ### 3.5. Structural Properties
 
-These properties define the structure of the object being represented in IIIF by allowing the inclusion of child resources within parents, such as a Canvas within a Sequence, or a Manifest within a Collection.  The majority of cases use `items`, however there are two special cases for different sorts of structures.
+These properties define the structure of the object being represented in IIIF by allowing the inclusion of child resources within parents, such as a Canvas within a Manifest, or a Manifest within a Collection.  The majority of cases use `items`, however there are two special cases for different sorts of structures.
 
 ##### items
 
-Much of the functionality of the IIIF Presentation API is simply recording the order in which child resources occur within a parent resource, such as Collections or Manifests within a parent Collection, Sequences within a Manifest, or Canvases within a Sequence.  All of these situations are covered with a single property, `items`.  
-
+Much of the functionality of the IIIF Presentation API is simply recording the order in which child resources occur within a parent resource, such as Collections or Manifests within a parent Collection, or Canvases within a Manifest.  All of these situations are covered with a single property, `items`.  
 The value _MUST_ be an array of JSON objects. The items will be resources of different types, as described below.
 
 * A Collection _MUST_ have the `items` property. Each item _MUST_ be either a Collection or a Manifest.<br/>
   Clients _MUST_ process `items` on a Collection.
-* A Manifest _MUST_ the `items` property. Each item _MUST_ be a Sequence.<br/>
+* A Manifest _MUST_ the `items` property. Each item _MUST_ be a Canvas.<br/>
   Clients _MUST_ process `items` on a Manifest.
-* A Sequence _MUST_ have the `items` property. Each item _MUST_ be a Canvas.<br/>
-  Clients _MUST_ process `items` on a Sequence.
 * A Canvas _SHOULD_ have the `items` property. Each item _MUST_ be an Annotation Page<br/>
   Clients _MUST_ process `items` on a Canvas.
 * An Annotation Page _SHOULD_ have the `items` property. Each item _MUST_ be an Annotation.<br/>
@@ -783,7 +766,7 @@ The value _MUST_ be an array of JSON objects. The items will be resources of dif
 
 ##### structures
 
-The structure of an object represented as a Manifest can be described using a hierarchy of Ranges. Ranges can be used to describe the "table of contents" of the object or other structures that the user can interact with beyond a simple linear progression described in the Sequence. The hierarchy is built by nesting the child Range resources in the `items` array of the higher level Range. The top level Ranges of these hierarchies are given in the `structures` property.
+The structure of an object represented as a Manifest can be described using a hierarchy of Ranges. Ranges can be used to describe the "table of contents" of the object or other structures that the user can interact with beyond the order given by the `items` property of the Manifest. The hierarchy is built by nesting the child Range resources in the `items` array of the higher level Range. The top level Ranges of these hierarchies are given in the `structures` property.
 
 The value _MUST_ be an array of JSON objects. Each item is a Range.
 
@@ -808,8 +791,8 @@ A list of Annotation Pages that contain commentary or other Annotations about th
 
 The value _MUST_ be an array of JSON objects. Each item _MUST_ have at least the `id` and `type` properties.
 
-* A Collection, Manifest, Sequence, Canvas, Range or content resource _MAY_ have the `annotations` property with at least one item.<br/>
-  Clients _SHOULD_ process `annotations` on a Collection, Manifest, Sequence, Canvas, Range or content resource.
+* A Collection, Manifest, Canvas, Range or content resource _MAY_ have the `annotations` property with at least one item.<br/>
+  Clients _SHOULD_ process `annotations` on a Collection, Manifest, Canvas, Range or content resource.
  * Other resource types _MUST NOT_ have the `annotations` property.
    Clients _SHOULD_ ignore `annotations` on other resource types.
 
@@ -927,7 +910,7 @@ Clients _SHOULD_ allow only `a`, `b`, `br`, `i`, `img`, `p`, `small`, `span`, `s
 
 ### 4.6. Linked Data Context and Extensions
 
-The top level resource in the response _MUST_ have the `@context` property, and it _SHOULD_ appear as the very first key/value pair of the JSON representation. This tells Linked Data processors how to interpret the information. The IIIF Presentation API context, below, _MUST_ occur once per response, and be omitted from any embedded resources. For example, when embedding a sequence without any extensions within a Manifest, the sequence _MUST NOT_ have the `@context` field.
+The top level resource in the response _MUST_ have the `@context` property, and it _SHOULD_ appear as the very first key/value pair of the JSON representation. This tells Linked Data processors how to interpret the information. The IIIF Presentation API context, below, _MUST_ occur once per response, and be omitted from any embedded resources. For example, when embedding a Canvas, the Canvas _MUST NOT_ have the `@context` field.
 
 The value of the `@context` property _MUST_ be a list, and the __last__ two values _MUST_ be the Web Annotation context and the Presentation API context, in that order.  And further contexts _MUST_ be added at the beginning of the list.
 
@@ -952,17 +935,17 @@ This section provides detailed description of the resource types used in this sp
 
 ###  5.1. Manifest
 
-The Manifest resource typically represents a single object and any intellectual work or works embodied within that object. In particular it includes the descriptive, rights and linking information for the object. It then embeds the Sequence(s) of Canvases that should be rendered to the user. The Manifest response contains sufficient information for the client to initialize itself and begin to display something quickly to the user.
+The Manifest resource typically represents a single object and any intellectual work or works embodied within that object. In particular it includes the descriptive, rights and linking information for the object. It then embeds the Canvases that should be rendered to the user. The Manifest response contains sufficient information for the client to initialize itself and begin to display something quickly to the user.
 
 The identifier in `id` _MUST_ be able to be dereferenced to retrieve the JSON description of the Manifest, and thus _MUST_ use the HTTP(S) URI scheme.
 
-Along with the descriptive information, there is an `items` section, which is a list of JSON-LD objects. Each object describes a [Sequence][prezi-api-3-sequence], discussed in the next section, that represents the order of the parts of the work, each represented by a [Canvas][prezi-api-3-canvas].  There _MUST_ be at least one Sequence, and the first Sequence _MUST_ be included within the Manifest as well as optionally being available from its own URI. Subsequent Sequences _MAY_ be embedded within the Manifest, or referenced with their identifier (`id`), class (`type`) and label (`label`).
+Along with the descriptive information, there is an `items` section, which is a list of JSON-LD objects. Each object is a Canvas, described in the next section.
 
 There _MAY_ also be a `structures` section listing one or more [Ranges][prezi-api-3-range] which describe additional structure of the content, such as might be rendered as a table of contents.
 
 Finally, the Manifest _MAY_ have an `annotations` list, which includes Annotation Page resources where the Annotations are have the Manifest as their `target`.  These will typically be comment style annotations, and _MUST NOT_ have `painting` as their `motivation`. The `annotations` property may also be found on any other resource type with these same restrictions.
 
-The example below includes only the Manifest-level information, however actual implementations _MUST_ embed at least the first Sequence, Canvas and content information.
+The example below includes only the Manifest-level information, however actual implementations _MUST_ embed at least the Canvas and content information.
 
 ``` json-doc
 {
@@ -1090,15 +1073,14 @@ The example below includes only the Manifest-level information, however actual i
     "type": "Canvas"
   },
 
-  // List of Sequences
+  // List of Canvases
   "items": [
     {
-      "id": "https://example.org/iiif/book1/sequence/normal",
-      "type": "Sequence",
-      "label": { "en": [ "Current Page Order" ] }
-      // Sequence's page order should be included here
+      "id": "https://example.org/iiif/book1/canvas/p1",
+      "type": "Canvas",
+      "label": { "@none": [ "p. 1" ] }
+      // ...
     }
-    // Any additional Sequences can be included or linked here
   ],
 
   // structure of the resource, described with Ranges
@@ -1124,52 +1106,11 @@ The example below includes only the Manifest-level information, however actual i
 }
 ```
 
-###  5.2. Sequence
+###  5.2. Canvas
 
-The Sequence conveys the ordering of the views of the object. The default Sequence (and typically the only Sequence) _MUST_ be embedded within the Manifest as the first object in the `items` property, and _MAY_ also be available from its own URI.  This Sequence _SHOULD_ have a URI to identify it. Any additional Sequences _MAY_ be included, or referenced externally from the Manifest.  References to external Sequences _MUST_ include an `id` and `type`, _SHOULD_ have a `label`, and _MUST NOT_ have an `items` property. The description of the Sequence _MUST_ be available by dereferencing the HTTP(S) URI in `id`.
+The Canvas represents an individual page or view and acts as a central point for assembling the different content resources that make up the display. Canvases _MUST_ be identified by a URI and it _MUST_ be an HTTP(S) URI. The URI of the canvas _MUST NOT_ contain a fragment (a `#` followed by further characters), as this would make it impossible to refer to a segment of the Canvas's area using the [media fragment syntax][media-frags] of `#xywh=` for spatial regions, and/or `#t=` for temporal segments. Canvases _MAY_ be able to be dereferenced separately from the Manifest via their URIs as well as being embedded.
 
-Sequences _MAY_ have their own descriptive, rights and linking metadata using the same fields as for Manifests. The `label` property _MAY_ be given for Sequences and _MUST_ be given if there is more than one referenced from a Manifest. After the metadata, the set of views of the object, represented by Canvas resources, _MUST_ be listed in order in the `items` property.  There _MUST_ be at least one Canvas given.
-
-``` json-doc
-{
-  // Metadata about this sequence
-  "id": "https://example.org/iiif/book1/sequence/normal",
-  "type": "Sequence",
-  "label": { "en": [ "Current Page Order" ] },
-
-  "viewingDirection": "left-to-right",
-  "behavior": [ "paged" ],
-  "start": "https://example.org/iiif/book1/canvas/p2",
-
-  // The order of the canvases
-  "items": [
-    {
-      "id": "https://example.org/iiif/book1/canvas/p1",
-      "type": "Canvas",
-      "label": { "@none": [ "p. 1" ] }
-      // ...
-    },
-    {
-      "id": "https://example.org/iiif/book1/canvas/p2",
-      "type": "Canvas",
-      "label": { "@none": [ "p. 2" ] }
-      // ...
-    },
-    {
-      "id": "https://example.org/iiif/book1/canvas/p3",
-      "type": "Canvas",
-      "label": { "@none": [ "p. 3" ] }
-      // ...
-    }
-  ]
-}
-```
-
-###  5.3. Canvas
-
-The Canvas represents an individual page or view and acts as a central point for assembling the different content resources that make up the display. Canvases _MUST_ be identified by a URI and it _MUST_ be an HTTP(S) URI. The URI of the canvas _MUST NOT_ contain a fragment (a `#` followed by further characters), as this would make it impossible to refer to a segment of the Canvas's area using the [media fragment syntax][media-frags] of `#xywh=` for spatial regions, and/or `#t=` for temporal segments. Canvases _MAY_ be able to be dereferenced separately from the Manifest via their URIs as well as being embedded within the Sequence.
-
-Every Canvas _SHOULD_ have a `label` to display. If one is not provided, the client _SHOULD_ automatically generate one for use based on the Canvas's position within the current Sequence.
+Every Canvas _SHOULD_ have a `label` to display. If one is not provided, the client _SHOULD_ automatically generate one for use based on the Canvas's position within the `items` list.
 
 Content resources are associated with the Canvas via Web Annotations.  Content that is to be rendered as part of the Canvas _MUST_ be associated by an Annotation with the "painting" `motivation`. These Annotations are recorded in the `items` of one or more Annotation Pages, referred to in the `items` array of the Canvas. Annotations that do not have the "painting" `motivation` MUST NOT be in pages referenced in `items`, but instead in the `annotations` property.
 
@@ -1208,7 +1149,7 @@ Renderers _MUST_ scale content into the space represented by the Canvas, and _SH
 }
 ```
 
-###  5.4. Annotation Pages
+###  5.3. Annotation Pages
 
 Association of images and other content with their respective Canvases is done via Annotations. Traditionally Annotations are used for associating commentary with the resource the Annotation's text or body is about, the [Web Annotation][webanno] model allows any resource to be associated with any other resource, or parts thereof, and it is reused for both commentary and painting resources on the Canvas. Other resources beyond images might include the full text of the object, musical notations, musical performances, diagram transcriptions, commentary annotations, tags, video, data and more.
 
@@ -1240,7 +1181,7 @@ An Annotation Page _MUST_ have an HTTP(S) URI given in `id`, and _MAY_ have any 
 }
 ```
 
-### 5.5. Annotations
+### 5.4. Annotations
 
 Annotations follow the [Web Annotation][webanno] data model.  The description provided here is a summary plus any IIIF specific requirements. It must be noted that the W3C standard is the official documentation.
 
@@ -1286,17 +1227,19 @@ Additional features of the [Web Annotation][webanno] data model _MAY_ also be us
 }
 ```
 
-###  5.6. Range
+###  5.5. Range
 
-Ranges are used to represent structure within an object beyond the overall Sequence, such as newspaper sections or articles, chapters within a book, or movements within a piece of music. Ranges can include Canvases, parts of Canvases, or other Ranges, creating a tree structure like a table of contents.
+Ranges are used to represent structure within an object beyond the default order of the Canvases in the `items` property of the Manifest, such as newspaper sections or articles, chapters within a book, or movements within a piece of music. Ranges can include Canvases, parts of Canvases, or other Ranges, creating a tree structure like a table of contents.
 
-The intent of adding a Range to the Manifest is to allow the client to display a hierarchical navigation interface to enable the user to quickly move through the object's content. Clients _SHOULD_ present only Ranges with the `label` property and without the "no-nav" `behavior` to the user. Clients _SHOULD NOT_ render Canvas labels as part of the navigation, and a Range that wraps the Canvas _MUST_ be created if this is the desired presentation.
+The intent of adding a Range to the Manifest is to allow the client to display a linear or hierarchical navigation interface to enable the user to quickly move through the object's content. Clients _SHOULD_ present only Ranges with the `label` property and without the "no-nav" `behavior` to the user. Clients _SHOULD NOT_ render Canvas labels as part of the navigation, and a Range that wraps the Canvas _MUST_ be created if this is the desired presentation.
+
+If there is no Range that has the `behavior` "sequence", and the Manifest does not have the `behavior` "unordered", then the client _SHOULD_ treat the order of the Canvases in the Manifest's `items` array as the default order. If there is one Range with the `behavior` value "sequence", then the viewer _MUST_ instead use this Range for the ordering. If there is more than one Range with the `behavior` value "sequence", for example a second Range to represent an alternative ordering of the pages of a manuscript, the first Range _SHOULD_ be used as the default and the others _SHOULD_ be able to be selected.  Ranges with the `behavior` value "sequence" _MUST_ be directly within the `structures` property of the Manifest, and _MUST NOT_ be embedded or referenced within other Ranges.
 
 Ranges _MUST_ have URIs and they _SHOULD_ be HTTP(S) URIs.  Top level Ranges are embedded or externally referenced within the Manifest in a `structures` property. These top level Ranges then embed other Ranges, Canvases or parts of Canvases in the `items` property.  Each entry in the `items` field _MUST_ be a JSON object, and it _MUST_ have the `id` and `type` properties.  If a top level Range needs to be dereferenced by the client, then it _MUST NOT_ have the `items` property, such that clients are able to recognize that it should be retrieved in order to be processed.
 
 All of the Canvases or parts that should be considered as being part of a Range _MUST_ be included within the Range's `items` list, or a descendant Range's `items`.
 
-The Canvases and parts of Canvases need not be contiguous or in the same order as in any Sequence. Examples include newspaper articles that are continued in different sections, a chapter that starts half way through a page, or time segments of a single canvas that represent different sections of a piece of music.
+The Canvases and parts of Canvases need not be contiguous or in the same order as in the Manifest's `items` property or any other Range. Examples include newspaper articles that are continued in different sections, a chapter that starts half way through a page, or time segments of a single canvas that represent different sections of a piece of music.
 
 Ranges _MAY_ link to an Annotation Collection that has the content of the Range using the `includes` property. The referenced Annotation Collection will contain Annotations that target areas of Canvases within the Range and link content resources to those Canvases.
 
@@ -1312,7 +1255,7 @@ Ranges _MAY_ link to an Annotation Collection that has the content of the Range 
   // Metadata here ...
 
   "items": [
-    // Sequences here ...
+    // Canvases here ...
   ],
 
   "structures": [
@@ -1355,7 +1298,7 @@ Ranges _MAY_ link to an Annotation Collection that has the content of the Range 
 }
 ```
 
-### 5.7. Annotation Collection
+### 5.6. Annotation Collection
 
 Annotation Collections represent groupings of Annotation Pages that should be managed as a single whole, regardless of which Canvas or resource they target. This allows, for example, all of the Annotations that make up a particular translation of the text of a book to be collected together. A client might then present a user interface that allows all of the Annotations in an Annotation Collection to be displayed or hidden according to the user's preference.
 
@@ -1376,7 +1319,7 @@ Annotation Collections _MUST_ have a URI, and it _SHOULD_ be an HTTP URI.  They 
 }
 ```
 
-### 5.8. Collection
+### 5.7. Collection
 
 Collections are used to list the Manifests available for viewing, and to describe the structures, hierarchies or sets that the resources are part of.  Collections _MAY_ include both other Collections and Manifests, in order to form a tree-structured hierarchy.  Collections might be used to model dynamic result sets from a search, fixed sets of related resources, or other groupings of Manifests for presentation to the user, typically for navigation amongst the member items.
 
@@ -1486,7 +1429,6 @@ __Descriptive and Rights Properties__
 | -------------------- | ---------------------- | ---------------------------- | --------------------------- | ----------------------------| ----------------------------| ---------------------- | ----------------------- | ------------------------ |
 | Collection           | ![required][icon-req]  | ![recommended][icon-recc]    | ![recommended][icon-recc]   | ![recommended][icon-recc]   | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
 | Manifest             | ![required][icon-req]  | ![recommended][icon-recc]    | ![recommended][icon-recc]   | ![recommended][icon-recc]   | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
-| Sequence             | ![optional][icon-opt]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
 | Canvas               | ![required][icon-req]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![recommended][icon-recc]   | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
 | Annotation           | ![optional][icon-opt]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![optional][icon-opt]       | ![not allowed][icon-na]     | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
 | AnnotationPage       | ![optional][icon-opt]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![optional][icon-opt]       | ![not allowed][icon-na]     | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
@@ -1502,7 +1444,6 @@ __Technical Properties__
 | -------------------- | ------------------------- | --------------------- | ----------------------- | ------------------------- | ------------------------- | ----------------------- | ---------------------- | ------------------------ |
 | Collection           | ![required][icon-req]     | ![required][icon-req] | ![not allowed][icon-na] | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![not allowed][icon-na] | ![optional][icon-opt]  | ![optional][icon-opt]    |
 | Manifest             | ![required][icon-req]     | ![required][icon-req] | ![not allowed][icon-na] | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![optional][icon-opt]   | ![optional][icon-opt]  | ![optional][icon-opt]    |
-| Sequence             | ![optional][icon-opt]     | ![required][icon-req] | ![not allowed][icon-na] | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![optional][icon-opt]   | ![optional][icon-opt]  | ![not allowed][icon-na]  |
 | Canvas               | ![required][icon-req]     | ![required][icon-req] | ![not allowed][icon-na] | ![required][icon-req]     | ![required][icon-req]     | ![not allowed][icon-na] | ![optional][icon-opt]  | ![not allowed][icon-na]  |
 | Annotation           | ![recommended][icon-recc] | ![required][icon-req] | ![not allowed][icon-na] | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![not allowed][icon-na] | ![optional][icon-opt]  | ![not allowed][icon-na]  |
 | Annotation Page       | ![required][icon-req]     | ![required][icon-req] | ![not allowed][icon-na] | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![not allowed][icon-na] | ![optional][icon-opt]  | ![not allowed][icon-na]  |
@@ -1518,7 +1459,6 @@ __Linking Properties__
 | -------------------- | ---------------------- | ---------------------- | ---------------------- | ---------------------- | ---------------------- | ----------------------- |
 | Collection           | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![not allowed][icon-na] |
 | Manifest             | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![not allowed][icon-na] |
-| Sequence             | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]   |
 | Canvas               | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![not allowed][icon-na] |
 | Annotation           | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![not allowed][icon-na] |
 | Annotation Page       | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![not allowed][icon-na] |
@@ -1530,20 +1470,8 @@ __Linking Properties__
 
 __Structural Properties__
 
-|                      | collections             | manifests               | members                 | sequences               | structures              | canvases                | resources               | otherContent            | images                  | ranges                  |
-| -------------------- | ----------------------- | ----------------------- | ----------------------- | ----------------------- | ----------------------- | ----------------------- | ----------------------- | ----------------------- | ----------------------- | ----------------------- |
-| Collection           | ![optional][icon-opt]   | ![optional][icon-opt]   | ![optional][icon-opt]   | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] |
-| Manifest             | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![required][icon-req]   | ![optional][icon-opt]   | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] |
-| Sequence             | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![required][icon-req]   | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] |
-| Canvas               | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![optional][icon-opt]   | ![optional][icon-opt]   | ![not allowed][icon-na] |
-| Annotation           | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] |
-| Annotation Page       | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![optional][icon-opt]   | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] |
-| Range                | ![not allowed][icon-na] | ![not allowed][icon-na] | ![optional][icon-opt]   | ![not allowed][icon-na] | ![not allowed][icon-na] | ![optional][icon-opt]   | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![optional][icon-opt]   |
-| Annotation Collection | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![optional][icon-opt]   | ![not allowed][icon-na] | ![not allowed][icon-na] |
-| Image Content        | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] |
-| Other Content        | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] |
-{: .api-table #table-reqs-5}
-
+Re-write this with items, structures, annotations
+{: .warning}
 
 __Protocol Behavior__
 
@@ -1551,7 +1479,6 @@ __Protocol Behavior__
 | -------------------- | ------------------------- |
 | Collection           | ![required][icon-req]     |
 | Manifest             | ![required][icon-req]     |
-| Sequence             | ![optional][icon-opt]     |
 | Canvas               | ![recommended][icon-recc] |
 | Annotation           | ![recommended][icon-recc] |
 | Annotation Page       | ![required][icon-req]     |
