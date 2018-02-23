@@ -56,11 +56,15 @@ This document is intended for architects and developers building applications th
   * Image focused web applications, such as pan/zoom viewers, book-readers, etc.
   * Client applications using image content for analysis or comparison.
 
-This specification concerns image requests by a client, but not management of the images by the server. It covers how to respond to the requests given in a particular URI syntax, but does not cover methods of implementation such as rotation algorithms, transcoding, color management, compression, or how to respond to URIs that do not conform to the specified syntax. This allows flexibility for implementation in domains with particular constraints or specific community practices, while supporting interoperability in the general case. 
+This specification concerns image requests by a client, but not management of the images by the server. It covers how to respond to requests that follow a particular URI syntax, but does not cover methods of implementation such as rotation algorithms, transcoding, color management, compression, or how to respond to URIs that do not conform to the specified syntax. This allows flexibility for implementation in domains with particular constraints or specific community practices, while supporting interoperability in the general case.
 
 Implementations may use a pre-generated set of files served as static web resources and still enable rich user experiences. Dynamic image server implementations may provide additional functionality beyond the base [level of compliance][compliance-levels].
 
 ### 1.2. Terminology
+
+The term **underlying image content** is used to refer to the source image data. No assumptions are made about its format or structure. It might be derived from one or more source images but could also be dynamically generated.
+
+The term **full image** is used to refer to the entire area of the underlying image content, with the pixel dimensions given in the [image information][image-information] document, and which is imagined as the starting point for [image requests][image-requests].
 
 The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _SHOULD NOT_, _RECOMMENDED_, and _OPTIONAL_ in this document are to be interpreted as described in [RFC 2119][rfc-2119].
 
@@ -68,8 +72,8 @@ The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _S
 
 The IIIF Image API can be called in two ways:
 
- * Request an image, which may be part of a larger image.
- * Request information about the image, including characteristics, functionality available, and related services.
+ * Request an image, derived from the underlying image content.
+ * Request information about the image service, including characteristics, functionality available, and related services.
 
 Both convey the request's information in the path segments of the URI, rather than as query parameters. This makes responses easier to cache, either at the server or by standard web-caching infrastructure. It also permits a minimal implementation using pre-computed files in a matching directory structure.
 
@@ -83,7 +87,7 @@ There are four parameters shared by the requests, and other IIIF specifications:
 | identifier | The identifier of the requested image. This may be an ark, URN, filename, or other identifier. Special characters _MUST_ be URI encoded. |
 {: .api-table}
 
-The combination of these parameters forms the image’s base URI and identifies the underlying image content. It is constructed according to the following URI Template ([RFC6570][rfc-6570]):
+The combination of these parameters forms the image service’s base URI and identifies the underlying image content. It is constructed according to the following URI template ([RFC6570][rfc-6570]):
 
 ``` none
 {scheme}://{server}{/prefix}/{identifier}
@@ -96,7 +100,7 @@ To allow for extensions, this specification does not define the server behavior 
 
 ###  2.1. Image Request URI Syntax
 
-The IIIF Image API URI for requesting an image _MUST_ conform to the following URI Template:
+The IIIF Image API URI for requesting an image _MUST_ conform to the following URI template:
 
 ``` none
 {scheme}://{server}{/prefix}/{identifier}/{region}/{size}/{rotation}/{quality}.{format}
@@ -110,11 +114,11 @@ https://example.org/image-service/abcd1234/full/max/0/default.jpg
 ```
 {: .urltemplate}
 
-The parameters of the Image Request URI include region, size, rotation, quality and format, which define the characteristics of the returned image. These are described in detail in [Image Request Parameters][image-request-parameters].
+The parameters of the Image Request URI include region, size, rotation, quality and format, which define the characteristics of the returned image. These are described in detail in [Image Requests][image-requests].
 
 ###  2.2. Image Information Request URI Syntax
 
-The URI for requesting image information _MUST_ conform to the following URI Template:
+The URI for requesting image information _MUST_ conform to the following URI template:
 
 ``` none
 {scheme}://{server}{/prefix}/{identifier}/info.json
@@ -136,25 +140,25 @@ The API places no restrictions on the form of the identifiers that a server may 
 
 ##  4. Image Requests
 
-All parameters described below are required for compliant construction of a IIIF Image API URI. The sequence of parameters in the URI _MUST_ be in the order described below. The order of the parameters is also intended as a mnemonic for the order of the operations by which the service should manipulate the image content. Thus, the requested image content is first extracted as a region of the complete image, then scaled to the requested size, mirrored and/or rotated, and finally transformed into the color quality and format. This resulting image content is returned as the representation for the URI. 
+All parameters described below are required for compliant construction of a IIIF Image API URI. The sequence of parameters in the URI _MUST_ be in the order described below. The order of the parameters is also intended as a mnemonic for the order of the operations by which the service should manipulate the image content. Thus, the requested image content is first extracted as a region of the full image, then scaled to the requested size, mirrored and/or rotated, and finally transformed into the requested color quality and format. This resulting image is returned as the representation for the URI.
 
-Size and region parameters in pixels _MUST_ be non-negative integers. Size and region parameters in percentages and the rotation parameter _MUST_ be positive floating point numbers or integers. These should have at most 10 decimal digits and consist only of decimal digits and "." with a leading zero if less than 1.0. Intermediate calculations may use floating point numbers and the rounding method is implementation specific. 
+Size and region parameters in pixels _MUST_ be non-negative integers. Size and region parameters in percentages and the rotation parameter _MUST_ be positive floating point numbers or integers. These should have at most 10 decimal digits and consist only of decimal digits and "." with a leading zero if less than 1.0. Intermediate calculations may use floating point numbers and the rounding method is implementation specific.
 
-Servers should support [CORS][cors-response] on Image responses.
+Servers _SHOULD_ support [CORS][cors-response] on image responses.
 
 ### 4.1. Region
 
-The region parameter defines the rectangular portion of the complete image to be returned. Region can be specified by pixel coordinates, percentage or by the value "full", which specifies that the entire image should be returned.
+The region parameter defines the rectangular portion of the underlying image content to be returned. Region can be specified by pixel coordinates, percentage or by the value "full", which specifies that the full image should be returned.
 
 | Form |  Description |
 | ------------------- | ------------ |
-| `full`              | The complete image is returned, without any cropping. |
-| `square`            | The region is defined as an area where the width and height are both equal to the length of the shorter dimension of the complete image. The region may be positioned anywhere in the longer dimension of the image content at the server's discretion, and centered is often a reasonable default.|
+| `full`              | The full image is returned, without any cropping. |
+| `square`            | The region is defined as an area where the width and height are both equal to the length of the shorter dimension of the full image. The region may be positioned anywhere in the longer dimension of the full image at the server's discretion, and centered is often a reasonable default.|
 | x,y,w,h             | The region of the full image to be returned is specified in terms of absolute pixel values. The value of x represents the number of pixels from the 0 position on the horizontal axis. The value of y represents the number of pixels from the 0 position on the vertical axis. Thus the x,y position 0,0 is the upper left-most pixel of the image. w represents the width of the region and h represents the height of the region in pixels.  |
 | pct:x,y,w,h         | The region to be returned is specified as a sequence of percentages of the full image's dimensions, as reported in the image information document. Thus, `x` represents the number of pixels from the 0 position on the horizontal axis, calculated as a percentage of the reported width. `w` represents the width of the region, also calculated as a percentage of the reported width. The same applies to y and h respectively. |
 {: .api-table}
 
-If the request specifies a region which extends beyond the dimensions reported in the image information document, then the service _SHOULD_ return an image cropped at the image's edge, rather than adding empty space.
+If the request specifies a region which extends beyond the dimensions of the full image as reported in the image information document, then the service _SHOULD_ return an image cropped at the image's edge, rather than adding empty space.
 
 If the requested region's height or width is zero, or if the region is entirely outside the bounds of the reported dimensions, then the server _SHOULD_ return a 400 status code.
 
@@ -210,7 +214,7 @@ The size parameter specifies the dimensions to which the extracted region is to 
 
 | Form   | Description |
 |--------|-----------------------|
-| `max`  | The image or region is returned at the maximum size available. The resulting image will have the pixel dimensions of the requested region, unless it is constrained to a smaller size by `maxWidth`, `maxHeight`, or `maxArea` as defined in the [Technical Properties][technical-properties] section. |
+| `max`  | The image or region is returned at the maximum size available. The resulting image will have the pixel dimensions of the extracted region, unless it is constrained to a smaller size by `maxWidth`, `maxHeight`, or `maxArea` as defined in the [Technical Properties][technical-properties] section. |
 | w,     | The image or region should be scaled so that its width is exactly equal to w. |
 | ,h     | The image or region should be scaled so that its height is exactly equal to h. |
 | pct:n  | The width and height of the returned image is scaled to n% of the width and height of the extracted region. |
@@ -218,7 +222,7 @@ The size parameter specifies the dimensions to which the extracted region is to 
 | !w,h   | The image is scaled for the best fit such that the resulting width and height are less than or equal to the requested width and height. The exact scaling _MAY_ be determined by the service provider, based on characteristics including image quality and system performance. |
 {: .api-table}
 
-The pixel dimensions of the scaled region _MUST NOT_ be greater than the pixel dimensions of the requested region, or be less than 1 pixel. Requests that would generate images of these sizes are errors that _SHOULD_ result in a 400 (Bad Request) status code.
+The pixel dimensions of the scaled region _MUST NOT_ be greater than the pixel dimensions of the extracted region, or be less than 1 pixel. Requests that would generate images of these sizes are errors that _SHOULD_ result in a 400 (Bad Request) status code.
 
 Examples:
 
@@ -266,6 +270,7 @@ Examples:
 </table>
 
 ###  4.3. Rotation
+
 The rotation parameter specifies mirroring and rotation. A leading exclamation mark ("!") indicates that the image should be mirrored by reflection on the vertical axis before any rotation is applied. The numerical value represents the number of degrees of clockwise rotation, and may be any floating point number from 0 to 360.
 
 | Form | Description |
@@ -276,7 +281,7 @@ The rotation parameter specifies mirroring and rotation. A leading exclamation m
 
 A rotation value that is out of range or unsupported _SHOULD_ result in a 400 (Bad Request) status code.
 
-In most cases a rotation will change the width and height dimensions of the returned image. The service _SHOULD_ return an image that contains all of the image contents requested in the region and size parameters, even if the dimensions of the returned image file are different than specified in the size parameter. The image contents _SHOULD NOT_ be scaled as a result of the rotation, and there _SHOULD_ be no additional space between the corners of the rotated image contents and the bounding box of the returned image content.
+In most cases, rotation will change the width and height dimensions of the returned image. The service _SHOULD_ return an image that contains all of the image contents requested in the region and size parameters, even if the dimensions of the returned image file are different than specified in the size parameter. The image contents _SHOULD NOT_ be scaled as a result of the rotation, and there _SHOULD_ be no additional space between the corners of the rotated image contents and the bounding box of the returned image.
 
 For rotations which are not multiples of 90 degrees, it is _RECOMMENDED_ that the client request the image in a format that supports transparency, such as PNG, and that the server return the image with a transparent background.  There is no facility in the API for the client to request a particular background color or other fill pattern.
 
@@ -372,7 +377,7 @@ Examples:
 
 ###  4.5. Format
 
-The format of the returned image is expressed as an extension at the end of the URI.
+The format of the returned image is expressed as a suffix, mirroring common filename extensions, at the end of the URI.
 
 | Extension | MIME Type |
 | --------- | --------- |
@@ -396,7 +401,7 @@ Examples:
 
 ### 4.6. Order of Implementation
 
-The sequence of parameters in the URI is intended as a mnemonic for the order in which image manipulations are made against the full image content. This is important to consider when implementing the service because applying the same parameters in a different sequence will often result in a different image being delivered. The order is critical so that the application calling the service reliably receives the output it expects.
+The sequence of parameters in the URI is intended as a mnemonic for the order in which image manipulations are made against the underlying image content. This is important to consider when implementing the image service because applying the same parameters in a different sequence will often result in a different image being delivered.
 
 The parameters should be interpreted as if the sequence of image manipulations were:
 
@@ -424,15 +429,15 @@ It is possible to request the same image using different combinations of paramet
   * Caching becomes significantly more efficient, both client and server side, when the URIs used are the same between systems and sessions.
   * Response times can be improved by avoiding redirects from a requested non-canonical URI syntax to the canonical syntax by using the canonical form directly.
 
-In order to support the above requirements, clients _SHOULD_ construct the image request URIs using the following canonical parameter values where possible.  Image servers _MAY_ redirect the client to the canonical URI from a non-canonical equivalent.
+In order to support the above requirements, clients _SHOULD_ construct image request URIs using the following canonical parameter values where possible.  Image servers _MAY_ redirect the client to the canonical URI from a non-canonical equivalent.
 
 | Parameter | Canonical value |
 | --------- | --------------- |
-| region    | "full" if the whole image is requested<br/>otherwise the `x,y,w,h` syntax. |
+| region    | "full" if the full image is requested<br/>otherwise the `x,y,w,h` syntax. |
 | size      | "max" if the maximum size is requested,<br/>otherwise the `w,h` syntax. |
 | rotation  | "!" if the image is mirrored, followed by an integer if possible, and trimming any trailing zeros in a decimal value, and a leading 0 if the value is below 1. |
 | quality   | "default" if the server's default quality is requested,<br/>otherwise the quality string. |
-| format    | The explicit format string is always required. |
+| format    | An explicit format string is always required. |
 {: .api-table}
 
 When the client requests an image, the server _MAY_ add a link header to the response that indicates the canonical URI for that request:
@@ -442,15 +447,15 @@ Link: <http://iiif.example.com/server/full/400,300/0/default.jpg>;rel="canonical
 ```
 {: .urltemplate}
 
-The server _MAY_ include this link header on the image information response, however it is unnecessary as it is included in the JSON representation retrieved.
+The server _MAY_ also include this link header on the image information response, however it is unnecessary as it is included in the JSON representation retrieved.
 
 ##  5. Image Information
 
-Servers _MUST_ support requests for image information. The response includes technical properties about the image and may also contain rights and licensing properties, and services related to it.
+Servers _MUST_ support requests for image information. The response is a JSON document that includes technical properties about the full image and may also contain rights and licensing properties, and services related to it.
 
 ### 5.1. Image Information Request
 
-The request for the information _MUST_ conform to the URI Template:
+The request for the image information _MUST_ conform to the URI template:
 
 ``` none
 {scheme}://{server}{/prefix}/{identifier}/info.json
@@ -473,7 +478,7 @@ Content-Type: application/ld+json;profile="http://iiif.io/api/image/3/context.js
 
 If the server receives a request with one of the content types above in the Accept header, it _SHOULD_ respond with that content type following the rules of [content negotiation][conneg]. Otherwise, it _MUST_ respond with the "application/json" content type.
 
-Servers should also support [CORS][cors-response] on Image Information responses.
+Servers should also support [CORS][cors-response] on image information responses.
 
 ### 5.2. Technical Properties
 
@@ -486,14 +491,16 @@ The JSON response has several technical properties that describe the available f
 | `type` | Required | The type for the Image API. The value _MUST_ be the string `ImageService3`. |
 | `protocol` | Required | The URI `http://iiif.io/api/image` which can be used to determine that the document describes an image service which is a version of the IIIF Image API. |
 | `profile` | Required | A string indicating the highest [compliance level][compliance-levels] which is fully supported by the service. The value _MUST_ be one of "level0", "level1", or "level2". |
-| `width` | Required | The width in pixels of the full image content, given as an integer. |
-| `height` | Required | The height in pixels of the full image content, given as an integer. |
+| `width` | Required | The width in pixels of the full image, given as an integer. |
+| `height` | Required | The height in pixels of the full image, given as an integer. |
 | `maxWidth`  | Optional  | The maximum width in pixels supported for this image. Clients _MUST NOT_ expect requests with a width greater than this value to be supported. `maxWidth` _MUST_ be specified if `maxHeight` is specified. |
 | `maxHeight` | Optional  | The maximum height in pixels supported for this image. Clients _MUST NOT_ expect requests with a height greater than this value to be supported. If `maxWidth` is specified and `maxHeight` is not, then clients should infer that `maxHeight = maxWidth`.  |
 | `maxArea`   | Optional  | The maximum area in pixels supported for this image. Clients _MUST NOT_ expect requests with a width\*height greater than this value to be supported. |
 {: .api-table}
 
-The `maxWidth`, `maxHeight` and `maxArea` parameters provide a way for image servers to express limits on the sizes supported for the image. If `maxWidth` alone, or `maxWidth` and `maxHeight` are specified then clients should expect requests with larger linear dimensions to be rejected. If `maxArea` is specified then clients should expect requests with larger pixel areas to be rejected. The `maxWidth / maxHeight`  and `maxArea` parameters are independent, servers may implement either or both limits. Servers _MUST_ ensure that sizes specified by any `sizes` or `tiles` properties are within any size limits expressed. Clients _SHOULD NOT_ make requests that exceed size limits expressed. The `width` and `height` properties are still required in order to construct tile requests and know the aspect ratio of the image.
+The `width` and `height` properties give the size of the full image and are required in order to construct tile requests.
+
+The `maxWidth`, `maxHeight`, and `maxArea` parameters provide a way for image servers to express limits on the sizes supported for the image. If `maxWidth` alone, or `maxWidth` and `maxHeight` are specified then clients should expect requests with larger linear dimensions to be rejected. If `maxArea` is specified then clients should expect requests with larger pixel areas to be rejected. The `maxWidth / maxHeight`  and `maxArea` parameters are independent, servers may implement either or both limits. Servers _MUST_ ensure that sizes specified by any `sizes` or `tiles` properties are within any size limits expressed. Clients _SHOULD NOT_ make requests that exceed size limits expressed.
 
 ``` json-doc
 {
@@ -512,11 +519,11 @@ The `maxWidth`, `maxHeight` and `maxArea` parameters provide a way for image ser
 
 ### 5.3. Sizes
 
-The JSON response has the `sizes` property, which is used to describe preferred `height` and `width` combinations for representations of the full image. 
+The JSON response _MAY_ have the `sizes` property, which is used to describe preferred `height` and `width` combinations for representations of the full image.
 
 | Property   | Required? | Description |
 | ---------- | --------- | ----------- |
-| `sizes` | Optional | A list of JSON objects with the `height` and `width` properties. These sizes specify preferred values to be provided in the `w,h` syntax of the size request parameter for scaled versions of the complete image.  In the case of servers that do not support requests for arbitrary sizes, these may be the only sizes available. A request constructed with the `w,h` syntax using these sizes _MUST_ be supported by the server, even if arbitrary width and height are not. |
+| `sizes` | Optional | A list of JSON objects with the `height` and `width` properties. These sizes specify preferred values to be provided in the `w,h` syntax of the size request parameter for scaled versions of the full image.  In the case of servers that do not support requests for arbitrary sizes, these may be the only sizes available. A request constructed with the `w,h` syntax using these sizes _MUST_ be supported by the server, even if arbitrary width and height are not. |
 {: .api-table}
 
 The objects in the `sizes` list have the properties in the following table. Image requests for these sizes _SHOULD_ have a region parameter of "full", size parameter in the canonical `w,h` form, and rotation of "0". Thus, the full URL for an image with "default" quality in "jpg" format would be: `{scheme}://{server}/{prefix}/{identifier}/full/{width},{height}/0/default.jpg`
@@ -547,19 +554,19 @@ The objects in the `sizes` list have the properties in the following table. Imag
 
 ### 5.4. Tiles
 
-The JSON response has the `tiles` property while describes a set of image regions that have a consistent height and width, over a series of resolutions, that can be stitched together visually.
+The JSON response _MAY_ have the `tiles` property which describes a set of image regions that have a consistent height and width, over a series of resolutions, that can be stitched together visually.
 
 | Property   | Required? | Description |
 | ---------- | --------- | ----------- |
 | `tiles` | Optional | A list of descriptions of the parameters to use to request regions of the image (tiles) that are efficient for the server to deliver. Each description gives a width, optionally a height for non-square tiles, and a set of scale factors at which tiles of those dimensions are available. |
 {: .api-table}
 
-The objects in the `tiles` list have the properties in the following table. The `width` and `height` should be used to fill the region parameter and the `scaleFactors` to complete the size parameter of the image URL. This is described in detail in the [Implementation Notes][implementation-notes].
+The objects in the `tiles` list have the properties in the following table. The `width` and `height` should be used to fill the size parameter, and be used together with the `scaleFactors` to compute the region parameter of the image requests. This is described in detail in the [Implementation Notes][implementation-notes].
 
 
 | Property | Required? | Description |
 | ---------- | -------- | ----------- |
-| `type`    | Optional | The type of the Tile. If present, the value _MUST_ be the string `Tile`. |
+| `type`    | Optional | The type of the object. If present, the value _MUST_ be the string `Tile`. |
 | `scaleFactors` | Required | The set of resolution scaling factors for the image's predefined tiles, expressed as positive integers by which to divide the full size of the image. For example, a scale factor of 4 indicates that the service can efficiently deliver images at 1/4 or 25% of the height and width of the full image. A particular scale factor value _SHOULD_ appear only once in the `tiles` list. |
 | `width` | Required | The width in pixels of the predefined tiles to be requested, given as an integer. |
 | `height` | Optional | The height in pixels of the predefined tiles to be requested, given as an integer. If it is not specified in the JSON, then it defaults to the same as `width`, resulting in square tiles. |
@@ -595,7 +602,7 @@ The rights and licensing properties, `attribution`, `license` and `logo`, have t
 
 All of the rights and licensing properties _MAY_ have multiple values, expressed as a JSON array, or a single value.
 
-In the case where multiple values are supplied for `attribution`, clients _MUST_ use the following algorithm to determine which values to display to the user.  
+In the case where multiple values are supplied for `attribution`, clients _MUST_ use the following algorithm to determine which values to display to the user.
 
 * If none of the values have a language associated with them, the client _MUST_ display all of the values.
 * Else, the client should try to determine the user's language preferences, or failing that use some default language preferences. Then:
@@ -606,7 +613,6 @@ In the case where multiple values are supplied for `attribution`, clients _MUST_
 The value of the `logo` property may be a string containing the URL of the image, or a JSON object that indicates the URI of both the logo image and a IIIF Image API [service](#related-services) for the logo. While possible, it is _RECOMMENDED_ that logos with IIIF services do not, themselves, have logos. Clients encountering logos with logos are not required to display a potentially infinite set.
 
 When both the Image and Presentation APIs express attributions or logos, then clients _MUST_ display both unless they are identical.
-
 
 ``` json-doc
 {
@@ -625,7 +631,7 @@ When both the Image and Presentation APIs express attributions or logos, then cl
 
 ### 5.6. Extra Functionality
 
-The JSON response also contains properties that describe additional functionality available via the Image API service.
+The JSON response _MAY_ also contain properties that describe additional functionality available via the image service.
 
 | Property   | Required? | Description |
 | ---------- | --------- | ----------- |
@@ -644,16 +650,16 @@ The set of features defined by this specification that may be specified in the `
 | `jsonldMediaType` | The JSON-LD media type is provided when requested. |
 | `mirroring` | The image may be rotated around the vertical axis, resulting in a left-to-right mirroring of the content. |
 | `profileLinkHeader` | The profile HTTP link header is provided on image responses. |
-| `regionByPct` |  Regions of images may be requested by percentage.  |
-| `regionByPx` |   Regions of images may be requested by pixel dimensions.  |
-| `regionSquare` |  A square region where the width and height are equal to the shorter dimension of the complete image content. |
-| `rotationArbitrary` |   Rotation of images may be requested by degrees other than multiples of 90. |
-| `rotationBy90s` |   Rotation of images may be requested by degrees in multiples of 90. |
-| `sizeByConfinedWh` | Size of images may be requested in the form "!w,h". |
-| `sizeByH` | Size of images may be requested in the form ",h".  |
-| `sizeByPct` | Size of images may be requested in the form "pct:n".  |
-| `sizeByW` | Size of images may be requested in the form "w,".  |
-| `sizeByWh` | Size of images may be requested in the form "w,h".  |
+| `regionByPct` | Regions of the full image may be requested by percentage.  |
+| `regionByPx` | Regions of the full image may be requested by pixel dimensions.  |
+| `regionSquare` | A square region may be requested, where the width and height are equal to the shorter dimension of the full image. |
+| `rotationArbitrary` | Image rotation may be requested using values other than multiples of 90 degrees. |
+| `rotationBy90s` | Image rotation may be requested in multiples of 90 degrees. |
+| `sizeByConfinedWh` | Image size may be requested in the form "!w,h". |
+| `sizeByH` | Image size may be requested in the form ",h".  |
+| `sizeByPct` | Images size may be requested in the form "pct:n".  |
+| `sizeByW` | Image size may be requested in the form "w,".  |
+| `sizeByWh` | Image size may be requested in the form "w,h".  |
 {: .api-table #features-table}
 
 A server that supports neither `sizeByW` or `sizeByWh` is only required to serve the image sizes listed under the `sizes` property or implied by the `tiles` property of the image information document, allowing for a static file implementation.
@@ -662,14 +668,14 @@ The set of features, formats and qualities supported is the union of those decla
 
 ### 5.7. Related Services
 
-The JSON response can also reference external services that make additional functionality available to a viewer.
+The JSON response _MAY_ also reference external services that make additional functionality available to a viewer.
 
 | Property   | Required? | Description |
 | ---------- | --------- | ----------- |
 | `service`  | Optional  | The `service` references external services that the client might interact with directly to gain additional information or functionality, for example a link to an authentication service. The value _MUST_ be a list of objects. See the [Service Registry][service-profiles] for known service types. |
 {: .api-table}
 
-The following shows a use of `service` to associate the login page of an authentication system that users must go through in order to access the image.  For further information, please see the [Authentication API](#authentication).
+The following shows a use of `service` to associate the login page of an authentication system that users must go through in order to access the image service. For further information, please see the [Authentication API](#authentication).
 
 ``` json-doc
 {
@@ -692,7 +698,7 @@ The following shows a use of `service` to associate the login page of an authent
 
 ### 5.8. Complete Response
 
-The following shows a response including all of the required and optional image information properties.
+The following shows an image information response including all of the required and optional properties.
 
 ``` json-doc
 {
@@ -781,7 +787,7 @@ The order in which servers parse requests and detect errors is not specified. A 
 | 400 Bad Request | The server cannot fulfill the request, as the syntax of the request issued by the client is incorrect. |
 | 401 Unauthorized | Authentication is required and not provided. See the [Authentication][authentication] section for details. |
 | 403 Forbidden | The user, authenticated or not, is not permitted to perform the requested operation. |
-| 404 Not Found | The image resource specified by [identifier] does not exist, the value of one or more of the parameters is not supported for this image, or the requested size is greater than the limits specified. |
+| 404 Not Found | The image resource specified by [identifier] does not exist, the value of one or more of the parameters is not supported for this image service, or the requested size is greater than the limits specified. |
 | 500 Internal Server Error | The server encountered an unexpected error that prevented it from fulfilling the request. |
 | 501 Not Implemented | The server received a valid IIIF request that is not implemented. |
 | 503 Service Unavailable | The server is busy/temporarily unavailable due to load/maintenance issues. |
@@ -886,7 +892,7 @@ Many thanks to the members of the [IIIF community][iiif-community] for their con
 [image-request-uri-syntax]: #image-request-uri-syntax "2.1. Image Request URI Syntax"
 [image-information-request-uri-syntax]: #image-information-request-uri-syntax "2.2. Image "Information Request URI"
 [identifier]: #identifier "3. Identifier"
-[image-request-parameters]: #image-requests "4. Image Request"
+[image-requests]: #image-requests "4. Image Requests"
 [region]: #region "4.1. Region"
 [size]: #size "4.2. Size"
 [rotation]: #rotation "4.3. Rotation"
@@ -900,8 +906,8 @@ Many thanks to the members of the [IIIF community][iiif-community] for their con
 [full-dep]: #full-dep "Full Size Keyword Deprecation Warning"
 [order-of-implementation]: #order-of-implementation "4.6. Order of Implementation"
 [canonical-uri-syntax]: #canonical-uri-syntax "4.7. Canonical URI Syntax"
-[information-request]: #information-request "5. Information Request"
-[image-information]: #image-information "5.1. Image Information"
+[image-information]: #image-information "5. Image Information"
+[image-information-request]: #image-information-request "5.1. Image Information Request"
 [technical-properties]: #technical-properties "5.2 Technical Properties"
 [compliance-levels]: #compliance-levels "6. Compliance Levels"
 [server-responses]: #server-responses "7. Server Responses"
