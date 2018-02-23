@@ -114,7 +114,7 @@ http://www.example.org/image-service/abcd1234/full/max/0/default.jpg
 ```
 {: .urltemplate}
 
-The parameters of the Image Request URI include region, size, rotation, quality and format, which define the characteristics of the returned image. These are described in detail in [Image Request Parameters][image-request-parameters].
+The parameters of the Image Request URI include region, size, rotation, quality and format, which define the characteristics of the returned image. These are described in detail in [Image Requests][image-requests].
 
 ###  2.2. Image Information Request URI Syntax
 
@@ -890,7 +890,7 @@ Many thanks to the members of the [IIIF community][iiif-community] for their con
 [image-request-uri-syntax]: #image-request-uri-syntax "2.1. Image Request URI Syntax"
 [image-information-request-uri-syntax]: #image-information-request-uri-syntax "2.2. Image "Information Request URI"
 [identifier]: #identifier "3. Identifier"
-[image-request-parameters]: #image-requests "4. Image Requests"
+[image-requests]: #image-requests "4. Image Requests"
 [region]: #region "4.1. Region"
 [size]: #size "4.2. Size"
 [rotation]: #rotation "4.3. Rotation"
@@ -904,8 +904,8 @@ Many thanks to the members of the [IIIF community][iiif-community] for their con
 [full-dep]: #full-dep "Full Size Keyword Deprecation Warning"
 [order-of-implementation]: #order-of-implementation "4.6. Order of Implementation"
 [canonical-uri-syntax]: #canonical-uri-syntax "4.7. Canonical URI Syntax"
-[information-request]: #information-request "5. Information Request"
-[image-information]: #image-information "5.1. Image Information"
+[image-information]: #image-information "5. Image Information"
+[image-information-request]: #image-information-request "5.1. Image Information Request"
 [technical-properties]: #technical-properties "5.2 Technical Properties"
 [compliance-levels]: #compliance-levels "6. Compliance Levels"
 [server-responses]: #server-responses "7. Server Responses"
