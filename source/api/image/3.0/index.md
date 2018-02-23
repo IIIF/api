@@ -136,13 +136,13 @@ The API places no restrictions on the form of the identifiers that a server may 
 
 ##  4. Image Requests
 
-This specification makes no assumptions about the form of the underlying image content. The term **full image** is used to refer to the entire area of the underlying image content, with the pixel dimensions given in the [Image Information][image-information], and which is imagined as the starting point for image requests.
+This specification makes no assumptions about the form of the underlying image content, which might be derived from one or more source images but could also be dynamically generated. The term **full image** is used to refer to the entire area of the underlying image content, with the pixel dimensions given in the [image information][image-information] document, and which is imagined as the starting point for image requests.
 
 All parameters described below are required for compliant construction of a IIIF Image API URI. The sequence of parameters in the URI _MUST_ be in the order described below. The order of the parameters is also intended as a mnemonic for the order of the operations by which the service should manipulate the image content. Thus, the requested image content is first extracted as a region of the full image, then scaled to the requested size, mirrored and/or rotated, and finally transformed into the requested color quality and format. This resulting image is returned as the representation for the URI.
 
 Size and region parameters in pixels _MUST_ be non-negative integers. Size and region parameters in percentages and the rotation parameter _MUST_ be positive floating point numbers or integers. These should have at most 10 decimal digits and consist only of decimal digits and "." with a leading zero if less than 1.0. Intermediate calculations may use floating point numbers and the rounding method is implementation specific.
 
-Servers should support [CORS][cors-response] on image responses.
+Servers _SHOULD_ support [CORS][cors-response] on image responses.
 
 ### 4.1. Region
 
@@ -279,7 +279,7 @@ The rotation parameter specifies mirroring and rotation. A leading exclamation m
 
 A rotation value that is out of range or unsupported _SHOULD_ result in a 400 (Bad Request) status code.
 
-In most cases a rotation will change the width and height dimensions of the returned image. The service _SHOULD_ return an image that contains all of the image contents requested in the region and size parameters, even if the dimensions of the returned image file are different than specified in the size parameter. The image contents _SHOULD NOT_ be scaled as a result of the rotation, and there _SHOULD_ be no additional space between the corners of the rotated image contents and the bounding box of the returned image.
+In most cases, rotation will change the width and height dimensions of the returned image. The service _SHOULD_ return an image that contains all of the image contents requested in the region and size parameters, even if the dimensions of the returned image file are different than specified in the size parameter. The image contents _SHOULD NOT_ be scaled as a result of the rotation, and there _SHOULD_ be no additional space between the corners of the rotated image contents and the bounding box of the returned image.
 
 For rotations which are not multiples of 90 degrees, it is _RECOMMENDED_ that the client request the image in a format that supports transparency, such as PNG, and that the server return the image with a transparent background.  There is no facility in the API for the client to request a particular background color or other fill pattern.
 
@@ -498,7 +498,7 @@ The JSON response has several technical properties that describe the available f
 
 The `width` and `height` properties give the size of the full image and are required in order to construct tile requests.
 
-The `maxWidth`, `maxHeight` and `maxArea` parameters provide a way for image servers to express limits on the sizes supported for the image. If `maxWidth` alone, or `maxWidth` and `maxHeight` are specified then clients should expect requests with larger linear dimensions to be rejected. If `maxArea` is specified then clients should expect requests with larger pixel areas to be rejected. The `maxWidth / maxHeight`  and `maxArea` parameters are independent, servers may implement either or both limits. Servers _MUST_ ensure that sizes specified by any `sizes` or `tiles` properties are within any size limits expressed. Clients _SHOULD NOT_ make requests that exceed size limits expressed.
+The `maxWidth`, `maxHeight`, and `maxArea` parameters provide a way for image servers to express limits on the sizes supported for the image. If `maxWidth` alone, or `maxWidth` and `maxHeight` are specified then clients should expect requests with larger linear dimensions to be rejected. If `maxArea` is specified then clients should expect requests with larger pixel areas to be rejected. The `maxWidth / maxHeight`  and `maxArea` parameters are independent, servers may implement either or both limits. Servers _MUST_ ensure that sizes specified by any `sizes` or `tiles` properties are within any size limits expressed. Clients _SHOULD NOT_ make requests that exceed size limits expressed.
 
 ``` json-doc
 {
