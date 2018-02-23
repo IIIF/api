@@ -55,6 +55,7 @@
 [registry-motivations]: {{site.url}}{{ site.baseurl }}/api/annex/registry/motivations/
 [registry-process]: {{site.url}}{{ site.baseurl }}/api/annex/registry/process/
 [registry-services]: {{site.url}}{{ site.baseurl }}/api/annex/registry/services/
+[registry-extensions]: {{site.url}}{{ site.baseurl }}/api/annex/registry/extensions/
 [rfc-2119]: http://tools.ietf.org/html/rfc2119
 [rfc-4122]: http://tools.ietf.org/html/rfc4122 "URN UUID Scheme"
 [rfc5646]: http://tools.ietf.org/html/rfc5646 "RFC 5646"

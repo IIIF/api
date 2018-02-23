@@ -940,11 +940,11 @@ The value of the `@context` property _MUST_ be a list, and the __last__ two valu
 }
 ```
 
-Any additional fields beyond those defined in this specification or the Web Annotation Data Model _SHOULD_ be mapped to RDF predicates using further context documents.   These extensions _SHOULD_ be added to the top level `@context` field, and _MUST_ be added before the above contexts.  The JSON-LD 1.1 functionality of type and predicate specific context definitions, known as [scoped contexts][json-ld-scoped-contexts], _MUST_ be used to minimize cross-extension collisions.
-
-The JSON representation _MUST NOT_ include the `@graph` key at the top level. This key might be created when serializing directly from RDF data using the JSON-LD 1.0 compaction algorithm. Instead, JSON-LD framing and/or custom code should be used to ensure the structure of the document is as described by this specification.
+Any additional fields beyond those defined in this specification or the Web Annotation Data Model _SHOULD_ be mapped to RDF predicates using further context documents.   These extensions _SHOULD_ be added to the top level `@context` field, and _MUST_ be added before the above contexts.  The JSON-LD 1.1 functionality of predicate specific context definitions, known as [scoped contexts][json-ld-scoped-contexts], _MUST_ be used to minimize cross-extension collisions. Extensions intended for community use _SHOULD_ be registered in the [extensions registry][registry-extensions].
 
 Embedded JSON-LD data that uses a JSON-LD version 1.0 context definition, such as references to older external services or extensions, _MUST_ be retrofitted to use a scoped context based either on a property or type, as per the examples in the definition of the `service` property. Care should be taken to use the mappings defined by those contexts, especially with regard to `id` versus `@id`, and `type` versus `@type`, to ensure that clients receive the keys that they are expecting to process.
+
+The JSON representation _MUST NOT_ include the `@graph` key at the top level. This key might be created when serializing directly from RDF data using the JSON-LD 1.0 compaction algorithm. Instead, JSON-LD framing and/or custom code should be used to ensure the structure of the document is as described by this specification.
 
 ##  5. Resource Structure
 
