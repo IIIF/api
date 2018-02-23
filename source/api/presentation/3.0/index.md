@@ -1448,17 +1448,9 @@ Content-Type: application/json
 ```
 {: .urltemplate}
 
-The HTTP server _MUST_ follow the [CORS requirements][w3c-cors] to enable browser-based clients to retrieve the descriptions. In particular, the response _MUST_ include the `Access-Control-Allow-Origin` header, and the value _SHOULD_ be `*`.
-
-``` none
-Access-Control-Allow-Origin: *
-```
-{: .urltemplate}
+The HTTP server _MUST_ follow the [CORS requirements][w3c-cors] to enable browser-based clients to retrieve the descriptions. If the server receives a request with one of the content types above in the Accept header, it _SHOULD_ respond with that content type following the rules of [content negotiation][conneg]. Recipes for enabling CORS and conditional Content-Type headers are provided in the [Apache HTTP Server Implementation Notes][apache-notes].
 
 Responses _SHOULD_ be compressed by the server as there are significant performance gains to be made for very repetitive data structures.
-
-Recipes for enabling CORS, conditional Content-Type headers and other technical details are provided in the [Apache HTTP Server Implementation Notes][apache-notes].
-
 
 ## 7. Authentication
 
@@ -1585,6 +1577,7 @@ Many thanks to the members of the [IIIF community][iiif-community] for their con
 | 2013-06-14 | Version 0.9 (unnamed) |
 
 [ldce]: #linked-data-context-and-extensions "Linked Data Context and Extensions"
+[conneg]: https://tools.ietf.org/html/rfc7231#section-5.3.2
 
 {% include acronyms.md %}
 {% include links.md %}
