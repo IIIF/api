@@ -1008,11 +1008,13 @@ The example below includes only the Manifest-level information, however actual i
     {
       "id": "https://example.org/images/book1-page1/full/80,100/0/default.jpg",
       "type": "Image",
-      "service": {
-        "id": "https://example.org/images/book1-page1",
-        "type": "ImageService3",
-        "profile": "level1"
-      }
+      "service": [
+        {
+          "id": "https://example.org/images/book1-page1",
+          "type": "ImageService3",
+          "profile": "level1"
+        }
+      ]
     }
   ],
 
@@ -1036,11 +1038,13 @@ The example below includes only the Manifest-level information, however actual i
   },
   "logo": {
     "id": "https://example.org/logos/institution1.jpg",
-    "service": {
-      "id": "https://example.org/service/inst1",
-      "type": "ImageService3",
-      "profile": "level2"
-    }
+    "service": [
+      {
+        "id": "https://example.org/service/inst1",
+        "type": "ImageService3",
+        "profile": "level2"
+      }
+    ]
   },
 
   // Links
@@ -1264,11 +1268,13 @@ Additional features of the [Web Annotation][webanno] data model _MAY_ also be us
     "id": "https://example.org/iiif/book1/res/page1.jpg",
     "type": "Image",
     "format": "image/jpeg",
-    "service": {
-      "id": "https://example.org/images/book1-page1",
-      "type": "ImageService3",
-      "profile": "level2"
-    },
+    "service": [
+      {
+        "id": "https://example.org/images/book1-page1",
+        "type": "ImageService3",
+        "profile": "level2"
+      }
+    ],
     "height": 2000,
     "width": 1500
   },
