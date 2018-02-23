@@ -275,7 +275,7 @@ A small external image resource that represents an individual or organization as
 
 The value _MUST_ be an array of JSON objects, each of which _MUST_ have an `id` and _SHOULD_ have at least one of `type` and `format`.
 
- * Any resource type _MAY_ have the `logo`property with at least one item.<br/>
+ * Any resource type _MAY_ have the `logo` property with at least one item.<br/>
    Clients _MUST_ render `logo` on every resource type.
 
 ``` json-doc
