@@ -1106,7 +1106,7 @@ The example below includes only the Manifest-level information, however actual i
 }
 ```
 
-###  5.3. Canvas
+###  5.2. Canvas
 
 The Canvas represents an individual page or view and acts as a central point for assembling the different content resources that make up the display. Canvases _MUST_ be identified by a URI and it _MUST_ be an HTTP(S) URI. The URI of the canvas _MUST NOT_ contain a fragment (a `#` followed by further characters), as this would make it impossible to refer to a segment of the Canvas's area using the [media fragment syntax][media-frags] of `#xywh=` for spatial regions, and/or `#t=` for temporal segments. Canvases _MAY_ be able to be dereferenced separately from the Manifest via their URIs as well as being embedded.
 
@@ -1149,7 +1149,7 @@ Renderers _MUST_ scale content into the space represented by the Canvas, and _SH
 }
 ```
 
-###  5.4. Annotation Pages
+###  5.3. Annotation Pages
 
 Association of images and other content with their respective Canvases is done via Annotations. Traditionally Annotations are used for associating commentary with the resource the Annotation's text or body is about, the [Web Annotation][webanno] model allows any resource to be associated with any other resource, or parts thereof, and it is reused for both commentary and painting resources on the Canvas. Other resources beyond images might include the full text of the object, musical notations, musical performances, diagram transcriptions, commentary annotations, tags, video, data and more.
 
@@ -1181,7 +1181,7 @@ An Annotation Page _MUST_ have an HTTP(S) URI given in `id`, and _MAY_ have any 
 }
 ```
 
-### 5.5. Annotations
+### 5.4. Annotations
 
 Annotations follow the [Web Annotation][webanno] data model.  The description provided here is a summary plus any IIIF specific requirements. It must be noted that the W3C standard is the official documentation.
 
@@ -1227,7 +1227,7 @@ Additional features of the [Web Annotation][webanno] data model _MAY_ also be us
 }
 ```
 
-###  5.6. Range
+###  5.5. Range
 
 Ranges are used to represent structure within an object beyond the default order of the Canvases in the `items` property of the Manifest, such as newspaper sections or articles, chapters within a book, or movements within a piece of music. Ranges can include Canvases, parts of Canvases, or other Ranges, creating a tree structure like a table of contents.
 
@@ -1298,7 +1298,7 @@ Ranges _MAY_ link to an Annotation Collection that has the content of the Range 
 }
 ```
 
-### 5.7. Annotation Collection
+### 5.6. Annotation Collection
 
 Annotation Collections represent groupings of Annotation Pages that should be managed as a single whole, regardless of which Canvas or resource they target. This allows, for example, all of the Annotations that make up a particular translation of the text of a book to be collected together. A client might then present a user interface that allows all of the Annotations in an Annotation Collection to be displayed or hidden according to the user's preference.
 
@@ -1319,7 +1319,7 @@ Annotation Collections _MUST_ have a URI, and it _SHOULD_ be an HTTP URI.  They 
 }
 ```
 
-### 5.8. Collection
+### 5.7. Collection
 
 Collections are used to list the Manifests available for viewing, and to describe the structures, hierarchies or sets that the resources are part of.  Collections _MAY_ include both other Collections and Manifests, in order to form a tree-structured hierarchy.  Collections might be used to model dynamic result sets from a search, fixed sets of related resources, or other groupings of Manifests for presentation to the user, typically for navigation amongst the member items.
 
