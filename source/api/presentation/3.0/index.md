@@ -78,7 +78,7 @@ Note that in the following descriptions, "object" is used to refer to the object
 
 There are many different types of digitized or digital compound objects; ancient scrolls, paintings, letters, books, newspapers, films, operas, albums, field recordings and computer generated animations. Many of them bear the written or spoken word, sometimes difficult to read or hear either due to the decay of the physical object or lack of understanding of the script or language.  These use cases are described in a separate [document][prezi-use-case-doc].
 
-Collectively the use cases require a model in which one can characterize the object (via the _Manifest_ resource) and the individual views of the object (_Canvas_ resources). Each view may have images, audio, video and other content resources associated with it (_Content_ resources) to allow the view to be rendered to the user appropriately. An object may also have sections; for example, a book may have chapters of several pages, or a play might be divided into acts and scenes (_Range_ resources) and there may be groups of objects (_Collection_ resources).  These resource types, along with their properties, make up the IIIF Presentation API.
+Collectively, the use cases require a model in which one can characterize the object (via the _Manifest_ resource) and the individual views of the object (_Canvas_ resources). Each view may have images, audio, video and other content resources associated with it (_Content_ resources) to allow the view to be rendered to the user appropriately. An object may also have sections; for example, a book may have chapters of several pages, or a play might be divided into acts and scenes (_Range_ resources) and there may be groups of objects (_Collection_ resources).  These resource types, along with their properties, make up the IIIF Presentation API.
 
 ### 1.3. Terminology
 
@@ -86,9 +86,8 @@ The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _S
 
 This specification also uses the following terms:
 
-* __embedded__: When a resource is embedded within another resource, the complete representation of the embedded resource is present within the embedding resource, and dereferencing the URI of the embedded resource will not result in additional important information. Example: A Canvas is embedded in a Manifest.
-* __referenced__: When a resource is referenced from another resource, an incomplete representation of the referenced resource is present within the referencing resource, and dereferencing the URI of the referenced resource will result in additional information.  Typically, the `id`, `type`, and `label` properties will be included in the reference. Example:  A Manifest is referenced in a Collection.
-
+* __embedded__: When a resource (A) is embedded within another resource (B), the complete representation of resource A is present within resource B, and dereferencing the URI of resource A will not result in additional important information. Example: Canvas A is embedded in Manifest B.
+* __referenced__: When a resource (A) is referenced from another resource (B), an incomplete representation of resource A is present within resource B, and dereferencing the URI of resource A will result in additional information.  Typically, the `id`, `type`, and `label` properties of resource A will be included. Example:  Manifest A is referenced from Collection B.
 
 ##  2. Resource Type Overview
 
@@ -740,7 +739,7 @@ The value _MUST_ be an array of JSON objects. The items will be resources of dif
 
 * A Collection _MUST_ have the `items` property. Each item _MUST_ be either a Collection or a Manifest.<br/>
   Clients _MUST_ process `items` on a Collection.
-* A Manifest _MUST_ the `items` property. Each item _MUST_ be a Sequence.<br/>
+* A Manifest _MUST_ the `items` property. Each item _MUST_ be a Canvas.<br/>
   Clients _MUST_ process `items` on a Manifest.
 * A Canvas _SHOULD_ have the `items` property. Each item _MUST_ be an Annotation Page<br/>
   Clients _MUST_ process `items` on a Canvas.
