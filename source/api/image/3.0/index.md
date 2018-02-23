@@ -62,6 +62,10 @@ Implementations may use a pre-generated set of files served as static web resour
 
 ### 1.2. Terminology
 
+The term **underlying image content** is used to refer to the source image data. No assumptions are made about its format or structure. It might be derived from one or more source images but could also be dynamically generated.
+
+The term **full image** is used to refer to the entire area of the underlying image content, with the pixel dimensions given in the [image information][image-information] document, and which is imagined as the starting point for [image requests][image-requests].
+
 The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _SHOULD NOT_, _RECOMMENDED_, and _OPTIONAL_ in this document are to be interpreted as described in [RFC 2119][rfc-2119].
 
 ## 2. URI Syntax
@@ -135,8 +139,6 @@ The scheme, server, prefix and identifier components of the information request 
 The API places no restrictions on the form of the identifiers that a server may use or support. All special characters (e.g. ? or #) _MUST_ be URI encoded to avoid unpredictable client behaviors. The URI syntax relies upon slash (/) separators so any slashes in the identifier _MUST_ be URI encoded (also called "percent encoded"). See the additional discussion in [URI Encoding and Decoding][uri-encoding-and-decoding].
 
 ##  4. Image Requests
-
-This specification makes no assumptions about the form of the underlying image content, which might be derived from one or more source images but could also be dynamically generated. The term **full image** is used to refer to the entire area of the underlying image content, with the pixel dimensions given in the [image information][image-information] document, and which is imagined as the starting point for image requests.
 
 All parameters described below are required for compliant construction of a IIIF Image API URI. The sequence of parameters in the URI _MUST_ be in the order described below. The order of the parameters is also intended as a mnemonic for the order of the operations by which the service should manipulate the image content. Thus, the requested image content is first extracted as a region of the full image, then scaled to the requested size, mirrored and/or rotated, and finally transformed into the requested color quality and format. This resulting image is returned as the representation for the URI.
 
@@ -888,7 +890,7 @@ Many thanks to the members of the [IIIF community][iiif-community] for their con
 [image-request-uri-syntax]: #image-request-uri-syntax "2.1. Image Request URI Syntax"
 [image-information-request-uri-syntax]: #image-information-request-uri-syntax "2.2. Image "Information Request URI"
 [identifier]: #identifier "3. Identifier"
-[image-request-parameters]: #image-requests "4. Image Request"
+[image-request-parameters]: #image-requests "4. Image Requests"
 [region]: #region "4.1. Region"
 [size]: #size "4.2. Size"
 [rotation]: #rotation "4.3. Rotation"
