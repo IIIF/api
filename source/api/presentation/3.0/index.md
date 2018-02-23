@@ -1478,7 +1478,7 @@ It is possible to include Image API service descriptions within the Manifest, an
 
 __Descriptive and Rights Properties__
 
-|                      | label                  | metadata                     | summary                     | thumbnail                   | posterCanvas                | requiredStatement            | license                 | logo                     |
+|                      | label                  | metadata                     | summary                     | thumbnail                   | posterCanvas                | requiredStatement            | rights                 | logo                     |
 | -------------------- | ---------------------- | ---------------------------- | --------------------------- | ----------------------------| ----------------------------| ---------------------- | ----------------------- | ------------------------ |
 | Collection           | ![required][icon-req]  | ![recommended][icon-recc]    | ![recommended][icon-recc]   | ![recommended][icon-recc]   | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
 | Manifest             | ![required][icon-req]  | ![recommended][icon-recc]    | ![recommended][icon-recc]   | ![recommended][icon-recc]   | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
