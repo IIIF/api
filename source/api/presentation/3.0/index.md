@@ -98,8 +98,9 @@ This section provides an overview of the resource types (or classes) that are us
 
 This specification defines the following resource types:
 
-![Primary Resource Types](img/objects.png){: .h400px}
-{: .floatRight}
+<p style="float: right">
+  <img src="img/data-model.png" alt="Data Model" width="400px"><br/>
+</p>
 
 ##### Collection
 {: #overview-collection}
