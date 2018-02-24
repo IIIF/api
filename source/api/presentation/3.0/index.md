@@ -122,31 +122,29 @@ A virtual container that represents a particular view of the object and has cont
 
 An ordered list of Canvases, and/or further Ranges. Ranges allow Canvases, or parts thereof, to be grouped together in some way. This could be for content-based reasons, such as might be described in a table of contents or the set of scenes in a play. Equally, physical features might be important such as quires or gatherings, or when recorded music is split across different physical carriers such as two CDs.
 
-
 ### 2.2. Additional Types
 
 This specification makes use of the following types, defined elsewhere:
-
-##### Content
-{: #overview-content}
-
-Content resources such as images, audio, video or text that are associated with a Canvas, or provide external renderings of resources.
-
-##### Annotation
-{: #overview-annotation}
-
-Content is associated with a Canvas via Annotations. The same mechanism is used for the visible or audible resources as is used for transcriptions, commentary, tags and other content. This provides a single, coherent method for aligning information, and provides a standards based framework for distinguishing parts of resources and parts of Canvases. As Annotations can be added later, it promotes a distributed system in which publishers can align their content with the descriptions created by others.
-
-##### Annotation Page
-{: #overview-annotationpage}
-
-An ordered list of Annotations in a single response, typically associated with a single Canvas, and can be part of an Annotation Collection.
 
 ##### Annotation Collection
 {: #overview-annotationcollection}
 
 An ordered list of Annotation Pages. Annotation Collections allow higher level groupings of Annotations to be recorded. For example, all of the English translation Annotations of a medieval French document could be kept separate from the transcription or an edition in modern French, or the director's commentary on a film can be separated from the script.
 
+##### Annotation Page
+{: #overview-annotationpage}
+
+An ordered list of Annotations, typically associated with a Canvas but may be referenced from other resource types as well.  Annotation Pages are often part of an Annotation Collection.
+
+##### Annotation
+{: #overview-annotation}
+
+Content resources are associated with a Canvas via Annotations. The same mechanism is used for the visible and/or audible resources as is used for transcriptions, commentary, tags and other content. This provides a single, coherent method for aligning information, and provides a standards based framework for distinguishing parts of resources and parts of Canvases. As Annotations can be added later, it promotes a distributed system in which publishers can align their content with the descriptions created by others.
+
+##### Content
+{: #overview-content}
+
+Content resources such as images, audio, video or text that are associated with a Canvas, or provide external renderings of resources.
 
 ##  3. Resource Properties
 
@@ -364,10 +362,10 @@ The value _MUST_ be a string.
 | ------------- | -------------------------------- |
 | `Application` | Software intended to be executed |
 | `Dataset`     | Data not intended to be rendered to humans directly |
-| `Image`       | Two dimensional visual resources primarily intended to be seen, such as might be rendered with an <img> HTML tag |
-| `Sound`       | Auditory resources primarily intended to be heard, such as might be rendered with an <audio> HTML tag |
+| `Image`       | Two dimensional visual resources primarily intended to be seen, such as might be rendered with an &lt;img> HTML tag |
+| `Sound`       | Auditory resources primarily intended to be heard, such as might be rendered with an &lt;audio> HTML tag |
 | `Text`        | Resources primarily intended to be read |
-| `Video`       | Moving images, with or without accompanying audio, such as might be rendered with a <video> HTML tag |
+| `Video`       | Moving images, with or without accompanying audio, such as might be rendered with a &lt;video> HTML tag |
 {: .api-table #table-type}
 
 ``` json-doc
