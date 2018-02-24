@@ -560,7 +560,7 @@ The value _MUST_ be a string.
 
 ###  3.3. Linking Properties
 
-#### 3.3.1 External Links
+#### 3.3.1. External Links
 
 ##### homepage
 
@@ -1396,7 +1396,7 @@ Annotation Collections _MUST_ have a URI, and it _SHOULD_ be an HTTP URI. They _
 
 This section describes the _RECOMMENDED_ request and response interactions for the API. The REST and simple HATEOAS approach is followed where an interaction will retrieve a description of the resource, and additional calls may be made by following links obtained from within the description. All of the requests use the HTTP GET method; creation and update of resources is not covered by this specification.
 
-### 6.1 URI Recommendations
+### 6.1. URI Recommendations
 
 While any HTTP(S) URI is technically acceptable for any of the resources in the API, there are several best practices for designing the URIs for the resources.
 
