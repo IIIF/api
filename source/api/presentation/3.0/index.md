@@ -1185,7 +1185,7 @@ Content that is derived from the Canvas, such as a transcription of text in an i
 
 A Canvas _MUST_ have a rectangular aspect ratio (described with the `height` and `width` properties) and/or a `duration` to provide an extent in time. These dimensions allow resources to be associated with specific regions of the Canvas, within the space and/or time extents provided. Content _MUST NOT_ be associated with space or time outside of the Canvas's dimensions, such as at coordinates below 0,0, greater than the height or width, before 0 seconds, or after the duration. Content resources that have dimensions which are not defined for the Canvas _MUST NOT_ be associated with that Canvas by an Annotation with the "painting" motiviation. For example, it is valid to use a "painting" Annotation to associate an Image (which has only height and width) with a Canvas that has all three dimensions, but it is an error to associate a Video resource (which has height, width and duration) with a Canvas that does not have all three dimensions. Such a resource _SHOULD_ instead be referenced with the `rendering` property, or by Annotations with a `motivation` other than "painting" in the `annotations` property.
 
-Parts of Canvases _MAY_ be described using a Specific Resource.
+Parts of Canvases _MAY_ be described using a Specific Resource...
 {: .warning}
 
 Parts of Canvases identified with a fragment appended to the Canvas's URI are still Canvases and have a `type` of "Canvas". Parts of Canvases can be referenced from Ranges, Annotations or the `start` property. Rectangular spatial parts of Canvases _MAY_ also be described by appending an `xywh=` fragment to the end of the Canvas's URI. Similarly, temporal parts of Canvases _MAY_ be described by appending a `t=` fragment to the end of the Canvas's URI. Spatial and temporal fragments _MAY_ be combined, using an `&` character between them, and the temporal dimension _SHOULD_ come first. It is an error to select a region using a dimension that is not defined by the Canvas, such as a temporal region of a Canvas that only has height and width dimensions.
@@ -1261,7 +1261,10 @@ Ranges _MAY_ link to an Annotation Collection that has the content of the Range 
           "id": "https://example.org/iiif/book1/range/r1",
           "type": "Range",
           "label": { "en": [ "Introduction" ] },
-          "includes": "https://example.org/iiif/book1/annocoll/introTexts",
+          "includes": { 
+            "id": "https://example.org/iiif/book1/annocoll/introTexts",
+            "type": "AnnotationCollection"
+          },
           "items": [
             {
               "id": "https://example.org/iiif/book1/canvas/p1",
