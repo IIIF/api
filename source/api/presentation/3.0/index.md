@@ -771,13 +771,13 @@ The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id` and
 
 * A Collection _MUST_ have the `items` property. Each item _MUST_ be either a Collection or a Manifest.<br/>
   Clients _MUST_ process `items` on a Collection.
-* A Manifest _MUST_ the `items` property. Each item _MUST_ be a Canvas.<br/>
+* A Manifest _MUST_ the `items` property with at least one item. Each item _MUST_ be a Canvas.<br/>
   Clients _MUST_ process `items` on a Manifest.
-* A Canvas _SHOULD_ have the `items` property. Each item _MUST_ be an Annotation Page<br/>
+* A Canvas _SHOULD_ have the `items` property with at least one item. Each item _MUST_ be an Annotation Page<br/>
   Clients _MUST_ process `items` on a Canvas.
-* An Annotation Page _SHOULD_ have the `items` property. Each item _MUST_ be an Annotation.<br/>
+* An Annotation Page _SHOULD_ have the `items` property with at least one item. Each item _MUST_ be an Annotation.<br/>
   Clients _MUST_ process `items` on an Annotation Page.
-* A Range _MUST_ have the `items` property. Each item _MUST_ be either a Range or a Canvas.<br/>
+* A Range _MUST_ have the `items` property with at least one item. Each item _MUST_ be either a Range or a Canvas.<br/>
   Clients _SHOULD_ process `items` on a Range.
 
 ```json-doc
@@ -964,7 +964,7 @@ This section provides detailed description of the resource types used in this sp
 
 ### 5.1. Collection
 
-Collections are used to list the Manifests available for viewing, and to describe the structures, hierarchies or sets that the resources are part of. Collections _MAY_ include both other Collections and Manifests, in order to form a tree-structured hierarchy.
+Collections are used to list the Manifests available for viewing. Collections _MAY_ include both other Collections and Manifests, in order to form a tree-structured hierarchy.
 
 The intended usage of collections is to allow clients to:
 
@@ -975,9 +975,9 @@ The intended usage of collections is to allow clients to:
 
 Collection objects _MAY_ be embedded inline within other Collection objects, such as when the Collection is used primarily to subdivide a larger one into more manageable pieces, however Manifests _MUST NOT_ be embedded within Collections. An embedded Collection _SHOULD_ also have its own URI from which the JSON description is available.
 
-Manifests or Collections _MAY_ appear within more than one Collection. For example, an institution might define four Collections: one for modern works, one for historical works, one for newspapers and one for books. The Manifest for a modern newspaper would then appear in both the modern Collection and the newspaper Collection. Alternatively, the institution may choose to have two separate newspaper Collections, and reference each as a sub-Collection of modern and historical.
+Manifests or Collections _MAY_ be referenced from more than one Collection. For example, an institution might define four Collections: one for modern works, one for historical works, one for newspapers and one for books. The Manifest for a modern newspaper would then appear in both the modern Collection and the newspaper Collection. Alternatively, the institution may choose to have two separate newspaper Collections, and reference each as a sub-Collection of modern and historical.
 
-Empty Collections with no items is allowed but discouraged.
+Collections with an empty `items` property are allowed but discouraged.  For example, if the user performs a search that matches no Manifests, then the server _MAY_ return a Collection response with no Manifests.
 
 An example Collection document:
 
