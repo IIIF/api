@@ -86,6 +86,7 @@ This specification uses the following terms:
 
 * __embedded__: When a resource (A) is embedded within another resource (B), the complete representation of resource A is present within resource B, and dereferencing the URI of resource A will not result in additional important information. Example: Canvas A is embedded in Manifest B.
 * __referenced__: When a resource (A) is referenced from another resource (B), an incomplete representation of resource A is present within resource B, and dereferencing the URI of resource A will result in additional information. Typically, the `id`, `type`, and `label` properties of resource A will be included. Example:  Manifest A is referenced from Collection B.
+* __HTTP(S)__: The HTTP or HTTPS URI scheme and internet protocol.
 
 The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _SHOULD NOT_, _RECOMMENDED_, _MAY_, and _OPTIONAL_ in this document are to be interpreted as described in [RFC 2119][rfc-2119].
 
@@ -858,11 +859,7 @@ Additional motivations may be added to the Annotation to further clarify the int
 
 This section describes features applicable to all of the Presentation API content. For the most part, these are features of the JSON-LD specification that have particular uses within the API and recommendations about URIs to use.
 
-### 4.1. HTTPS URI Scheme
-
-It is strongly _RECOMMENDED_ that all URIs use the HTTPS scheme, and be available via that protocol. All URIs for resources defined by this specification _MUST_ be either HTTPS or HTTP, abbreviated to "HTTP(S)".
-
-### 4.2. URI Representation
+### 4.1. Resource Representations
 
 Resource descriptions _SHOULD_ be embedded within the JSON description of parent resources, and _MAY_ also be available via separate requests from the HTTP(S) URI given in the resource's `id` property. Links to resources _MUST_ be given as a JSON object with the `id` property and at least one other property, typically either `type`, `format` or `profile` to give a hint as to what sort of resource is being referred to.
 
@@ -874,7 +871,7 @@ Resource descriptions _SHOULD_ be embedded within the JSON description of parent
 }
 ```
 
-### 4.3. Repeatable Properties
+### 4.2. Repeatable Properties
 
 Any of the properties in the API that can have multiple values _MUST_ always be given as an array of values, even if there is only a single item in that array.
 
@@ -886,7 +883,7 @@ Any of the properties in the API that can have multiple values _MUST_ always be 
 }
 ```
 
-### 4.4. Language of Property Values
+### 4.3. Language of Property Values
 
 Language _MAY_ be associated with strings that are intended to be displayed to the user for the `label` and `summary` properties, plus the `label` and `value` properties of the `metadata` and `requiredStatement` objects.
 
@@ -921,7 +918,7 @@ In the case where multiple values are supplied, clients _MUST_ use the following
 
 Note that this does not apply to embedded textual bodies in Annotations, which use the Web Annotation pattern of `value` and `language` as separate properties.
 
-### 4.5. HTML Markup in Property Values
+### 4.4. HTML Markup in Property Values
 
 Minimal HTML markup _MAY_ be included in the `summary` property and the `value` property in the `metadata` and `requiredStatement` objects. It _MUST NOT_ be used in `label` or other properties. This is included to allow Manifest creators to add links and simple formatting instructions to blocks of text. The content _MUST_ be well-formed XML and therefore must be wrapped in an element such as `p` or `span`. There _MUST NOT_ be whitespace on either side of the HTML string, and thus the first character in the string _MUST_ be a '<' character and the last character _MUST_ be '>', allowing a consuming application to test whether the value is HTML or plain text using these. To avoid a non-HTML string matching this, it is _RECOMMENDED_ that an additional whitespace character be added to the end of the value in situations where plain text happens to start and end this way.
 
@@ -939,9 +936,9 @@ Clients _SHOULD_ allow only `a`, `b`, `br`, `i`, `img`, `p`, `small`, `span`, `s
 { "summary": { "en-latn": [ "<p>Short <b>summary</b> of the resource.</p>" ] } }
 ```
 
-### 4.6. Linked Data Context and Extensions
+### 4.5. Linked Data Context and Extensions
 
-The top level resource in the response _MUST_ have the `@context` property, and it _SHOULD_ appear as the very first key/value pair of the JSON representation. This tells Linked Data processors how to interpret the document. The IIIF Presentation API context, below, _MUST_ occur once per response, and be omitted from any embedded resources. For example, when embedding a Canvas, the Canvas _MUST NOT_ have the `@context` property.
+The top level resource in the response _MUST_ have the `@context` property, and it _SHOULD_ appear as the very first key/value pair of the JSON representation. This tells Linked Data processors how to interpret the document. The IIIF Presentation API context, below, _MUST_ occur once per response and _MUST_ be omitted from any embedded resources. For example, when embedding a Canvas, the Canvas _MUST NOT_ have the `@context` property.
 
 The value of the `@context` property _MUST_ be an array, and the __last__ two values _MUST_ be the Web Annotation context and the Presentation API context, in that order. Further contexts, such as [registered by extensions][registry-home], _MUST_ be added at the beginning of the array.
 
@@ -964,16 +961,16 @@ This section provides detailed description of the resource types used in this sp
 
 ### 5.1. Collection
 
-Collections are used to list the Manifests available for viewing. Collections _MAY_ include both other Collections and Manifests, in order to form a tree-structured hierarchy.
+Collections are used to list the Manifests available for viewing. Collections _MAY_ include both other Collections and Manifests, in order to form a tree-structured hierarchy.  Collections might align with the curated management of cultural heritage resources in sets, also called "collections", but may have absolutely no such similarity.
 
-The intended usage of collections is to allow clients to:
+The intended usage of Collections is to allow clients to:
 
   * Load a pre-defined set of Manifests at initialization time.
   * Receive a set of Manifests, such as search results, for rendering.
   * Visualize lists or hierarchies of related Manifests.
   * Provide navigation through a list or hierarchy of available Manifests.
 
-Collection objects _MAY_ be embedded inline within other Collection objects, such as when the Collection is used primarily to subdivide a larger one into more manageable pieces, however Manifests _MUST NOT_ be embedded within Collections. An embedded Collection _SHOULD_ also have its own URI from which the JSON description is available.
+Collections _MAY_ be embedded inline within other Collections, such as when the Collection is used primarily to subdivide a larger one into more manageable pieces, however Manifests _MUST NOT_ be embedded within Collections. An embedded Collection _SHOULD_ also have its own URI from which the JSON description is available.
 
 Manifests or Collections _MAY_ be referenced from more than one Collection. For example, an institution might define four Collections: one for modern works, one for historical works, one for newspapers and one for books. The Manifest for a modern newspaper would then appear in both the modern Collection and the newspaper Collection. Alternatively, the institution may choose to have two separate newspaper Collections, and reference each as a sub-Collection of modern and historical.
 
@@ -1010,15 +1007,11 @@ Note that while the Collection _MAY_ reference Collections or Manifests from pre
 
 ###  5.2. Manifest
 
-The Manifest resource typically represents a single object and any intellectual work or works embodied within that object. In particular it includes the descriptive, rights and linking information for the object. It then embeds the Canvases that should be rendered to the user. The Manifest response contains sufficient information for the client to initialize itself and begin to display something quickly to the user.
+The Manifest resource typically represents a single object and any intellectual work or works embodied within that object. In particular it includes descriptive, rights and linking information for the object. It embeds the Canvases that should be rendered to the user as views of the object. The Manifest response contains sufficient information for the client to initialize itself and begin to display something quickly to the user.
 
 The identifier in `id` _MUST_ be able to be dereferenced to retrieve the JSON description of the Manifest, and thus _MUST_ use the HTTP(S) URI scheme.
 
-Along with the descriptive information, there is an `items` section, which is an array of JSON-LD objects. Each object is a Canvas, described in the next section.
-
-There _MAY_ also be a `structures` section listing one or more [Ranges][prezi-api-3-range] which describe additional structure of the content, such as might be rendered as a table of contents.
-
-Finally, the Manifest _MAY_ have an `annotations` property, which includes Annotation Page resources where the Annotations are have the Manifest as their `target`. These will typically be comment style annotations, and _MUST NOT_ have `painting` as their `motivation`. 
+The Manifest _MUST_ have an `items` property, which is an array of JSON-LD objects. Each object is a Canvas, described in the next section. It _MAY_ also have a `structures` property listing one or more [Ranges][prezi-api-3-range] which describe additional structure of the content, such as might be rendered as a table of contents.  The Manifest _MAY_ have an `annotations` property, which includes Annotation Page resources where the Annotations have the Manifest as their `target`. These will typically be comment style annotations, and _MUST NOT_ have `painting` as their `motivation`. 
 
 The example below includes only the Manifest-level information, however actual implementations _MUST_ embed at least the Canvases in `items`.
 
@@ -1189,18 +1182,18 @@ Every Canvas _SHOULD_ have a `label` to display. If one is not provided, the cli
 
 Content resources are associated with the Canvas via Web Annotations. Content that is to be rendered as part of the Canvas _MUST_ be associated by an Annotation with the "painting" `motivation`. These Annotations are recorded in the `items` of one or more Annotation Pages, referred to in the `items` array of the Canvas. Annotations that do not have the "painting" `motivation` MUST NOT be in pages referenced in `items`, but instead in the `annotations` property.
 
-Content that is derived from the Canvas, such as a transcription of text in an image or the words spoken in an audio representation, _MUST_ be associated by an Annotation with the "transcribing" `motivation`. Annotations _MAY_ have any other `motivation` as well.
-
-If, according to the organization providing the Manifest, clients _SHOULD_ render the Annotation quickly then it _SHOULD_ be embedded within the Manifest directly. Clients _SHOULD_ process the Annotation Pages and their items in the order given in the Canvas. Other Annotation Pages can be referenced with just their `id`, `type` and optionally a `label`, and clients _SHOULD_ dereference these pages to discover further content. Content in this case includes media assets such as images, video and audio, textual transcriptions or editions of the Canvas. These different uses _MAY_ be split up across different Annotation Pages. 
+Content that is derived from the Canvas, such as a transcription of text in an image or the words spoken in an audio representation, _MUST_ be associated by an Annotation with the "transcribing" `motivation`. Annotations _MAY_ have any other `motivation` as well. Thus content of any type may be associated with the Canvas via a "painting" annotation meaning the content is __part of__ the Canvas, a "transcribing" annotation meaning the content is __from__ the Canvas but not necessarily part of it, or an Annotation with another `motivation` meaning that it is somehow __about__ the Canvas.
 
 A Canvas _MUST_ have a rectangular aspect ratio (described with the `height` and `width` properties) and/or a `duration` to provide an extent in time. These dimensions allow resources to be associated with specific regions of the Canvas, within the space and/or time extents provided. Content _MUST NOT_ be associated with space or time outside of the Canvas's dimensions, such as at coordinates below 0,0, greater than the height or width, before 0 seconds, or after the duration. Content resources that have dimensions which are not defined for the Canvas _MUST NOT_ be associated with that Canvas by an Annotation with the "painting" motiviation. For example, it is valid to use a "painting" Annotation to associate an Image (which has only height and width) with a Canvas that has all three dimensions, but it is an error to associate a Video resource (which has height, width and duration) with a Canvas that does not have all three dimensions. Such a resource _SHOULD_ instead be referenced with the `rendering` property, or by Annotations with a `motivation` other than "painting" in the `annotations` property.
 
-Parts of Canvases are still Canvases and have a `type` of "Canvas". Parts of Canvases can be referenced from Ranges, Annotations or the `start` property. Spatial parts of Canvases, when referenced from outside an Annotation, _MUST_ be rectangular and are described by appending an `xywh=` fragment to the end of the Canvas's URI. Similarly, temporal parts of Canvases _MUST_ be described by appending a `t=` fragment to the end of the Canvas's URI. Spatial and temporal fragments _MAY_ be combined, using an `&` character between them, and the temporal dimension _SHOULD_ come first. It is an error to select a region using a dimension that is not defined by the Canvas, such as a temporal region of a Canvas that only has height and width dimensions.
+Parts of Canvases _MAY_ be described using a Specific Resource.
+{: .warning}
 
-Canvases may be treated as content resources for the purposes of annotating on to other Canvases. For example, a Canvas (Canvas A) with a video resource and Annotations representing subtitles or captions may be annotated on to another Canvas (Canvas B). This pattern maintains the correct spatial and temporal alignment of Canvas A's content relative to Canvas B's dimensions.
+Parts of Canvases identified with a fragment appended to the Canvas's URI are still Canvases and have a `type` of "Canvas". Parts of Canvases can be referenced from Ranges, Annotations or the `start` property. Rectangular spatial parts of Canvases _MAY_ also be described by appending an `xywh=` fragment to the end of the Canvas's URI. Similarly, temporal parts of Canvases _MAY_ be described by appending a `t=` fragment to the end of the Canvas's URI. Spatial and temporal fragments _MAY_ be combined, using an `&` character between them, and the temporal dimension _SHOULD_ come first. It is an error to select a region using a dimension that is not defined by the Canvas, such as a temporal region of a Canvas that only has height and width dimensions.
 
-Renderers _MUST_ scale content into the space represented by the Canvas, and _SHOULD_ follow any `timeMode` value provided for time-based media. If the Canvas represents a view of a physical object, the spatial dimensions of the Canvas _SHOULD_ be the same scale as that physical object, and images _SHOULD_ depict only the object.
+Canvases _MAY_ be treated as content resources for the purposes of annotating on to other Canvases. For example, a Canvas (Canvas A) with a video resource and Annotations representing subtitles or captions may be annotated on to another Canvas (Canvas B). This pattern maintains the correct spatial and temporal alignment of Canvas A's content relative to Canvas B's dimensions.
 
+Renderers _MUST_ scale content into the space represented by the Canvas, and _SHOULD_ follow any `timeMode` value provided for time-based media. If the Canvas represents a view of a physical object, the spatial dimensions of the Canvas _SHOULD_ be the same scale as that physical object, and content _SHOULD_ represent only the object.
 
 ``` json-doc
 {
@@ -1232,7 +1225,7 @@ The intent of adding a Range to the Manifest is to allow the client to display a
 
 If there is no Range that has the `behavior` "sequence", and the Manifest does not have the `behavior` "unordered", then the client _SHOULD_ treat the order of the Canvases in the Manifest's `items` array as the default order. If there is one Range with the `behavior` value "sequence", then the viewer _MUST_ instead use this Range for the ordering. If there is more than one Range with the `behavior` value "sequence", for example a second Range to represent an alternative ordering of the pages of a manuscript, the first Range _SHOULD_ be used as the default and the others _SHOULD_ be able to be selected. Ranges with the `behavior` value "sequence" _MUST_ be directly within the `structures` property of the Manifest, and _MUST NOT_ be embedded or referenced within other Ranges.
 
-Ranges _MUST_ have URIs and they _SHOULD_ be HTTP(S) URIs. Top level Ranges are embedded or externally referenced within the Manifest in a `structures` property. These top level Ranges then embed other Ranges, Canvases or parts of Canvases in the `items` property. Each entry in the `items` property _MUST_ be a JSON object, and it _MUST_ have the `id` and `type` properties. If a top level Range needs to be dereferenced by the client, then it _MUST NOT_ have the `items` property, such that clients are able to recognize that it should be retrieved in order to be processed.
+Ranges _MUST_ have URIs and they _SHOULD_ be HTTP(S) URIs. Top level Ranges are embedded or externally referenced within the Manifest in a `structures` property. These top level Ranges then embed or reference other Ranges, Canvases or parts of Canvases in the `items` property. Each entry in the `items` property _MUST_ be a JSON object, and it _MUST_ have the `id` and `type` properties. If a top level Range needs to be dereferenced by the client, then it _MUST NOT_ have the `items` property, such that clients are able to recognize that it should be retrieved in order to be processed.
 
 All of the Canvases or parts that should be considered as being part of a Range _MUST_ be included within the Range's `items` property, or a descendant Range's `items`.
 
@@ -1300,6 +1293,7 @@ Ranges _MAY_ link to an Annotation Collection that has the content of the Range 
 Association of images and other content with their respective Canvases is done via Annotations. Traditionally Annotations are used for associating commentary with the resource the Annotation's text or body is about, the [Web Annotation][webanno] model allows any resource to be associated with any other resource, or parts thereof, and it is reused for both commentary and painting resources on the Canvas. Other resources beyond images might include the full text of the object, musical notations, musical performances, diagram transcriptions, commentary annotations, tags, video, data and more.
 
 These Annotations are collected together in Annotation Page resources, which are included in the `items` property from the Canvas. Each Annotation Page can be embedded in its entirety, if the Annotations should be processed as soon as possible when the user navigates to that Canvas, or a reference to an external page. This reference _MUST_ include `id` and `type`, _MUST NOT_ include `items` and _MAY_ include other properties, such as `behavior`. All of the Annotations in the Annotation Page _SHOULD_ have the Canvas as their `target`. Embedded Annotation Pages _SHOULD_ be processed by the client first, before externally referenced pages.
+Clients _SHOULD_ process the Annotation Pages and their items in the order given in the Canvas. 
 
 An Annotation Page _MUST_ have an HTTP(S) URI given in `id`, and _MAY_ have any of the other properties defined in this specification or the Web Annotation specification. The Annotations are listed in the `items` property of the Annotation Page.
 
@@ -1334,8 +1328,6 @@ Annotations follow the [Web Annotation][webanno] data model. The description pro
 Note that the Web Annotation data model defines different patterns for the `value` property, when used within an Annotation. The value of a Textual Body or a Fragment Selector, for example, are strings rather than JSON objects with languages and values. Care _MUST_ be taken to use the correct string form in these cases.
 
 Annotations _MUST_ have their own HTTP(S) URIs, conveyed in the `id` property. The JSON-LD description of the Annotation _SHOULD_ be returned if the URI is dereferenced, according to the [Web Annotation Protocol][webannoprotocol].
-
-Annotations that associate content that is part of the representation of the view _MUST_ have the `motivation` property and the value _MUST_ be "painting". Annotations that associate content that may either be presented as part of the rendering of the Canvas or separated from it _MUST_ have the `motivation` property and the value _MUST_ be "transcribing". Text may be thus either be associated with the Canvas via a "painting" annotation meaning the content is part of the Canvas, a "transcribing" annotation meaning the content is from the Canvas but not necessarily part of it, or an Annotation with another `motivation` meaning that it is somehow about the Canvas.
 
 The content resource is linked in the `body` of the Annotation. The content resource _MUST_ have an `id` property, with the value being the URI at which it can be obtained. A Canvas _MAY_ be treated as a content resource for the purposes of annotating it on to other Canvases. In this situation, the Canvas _MAY_ be embedded within the Annotation, or require dereferencing to obtain its description.
 
@@ -1406,7 +1398,7 @@ This section describes the _RECOMMENDED_ request and response interactions for t
 
 ### 6.1 URI Recommendations
 
-While any URI is technically acceptable for any of the resources in the API, there are several best practices for designing the URIs for the resources.
+While any HTTP(S) URI is technically acceptable for any of the resources in the API, there are several best practices for designing the URIs for the resources.
 
 * The URI _SHOULD_ use the HTTPS scheme, not HTTP.
 * The URI _SHOULD NOT_ include query parameters or fragments.
