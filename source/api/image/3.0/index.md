@@ -486,7 +486,7 @@ The JSON response has several technical properties that describe the available f
 
 | Property   | Required? | Description |
 | ---------- | --------- | ----------- |
-| `@context` | Required | The context document that describes the semantics of the terms used in the document. This must be the URI `http://iiif.io/api/image/{{ page.major }}/context.json` |
+| `@context` | Required | The `@context` property _SHOULD_ appear as the very first key-value pair of the JSON representation. Its value _MUST_ be either the URI `http://iiif.io/api/image/{{ page.major }}/context.json` or a JSON array with the URI `http://iiif.io/api/image/{{ page.major }}/context.json` as the last item. The `@context` tells Linked Data processors how to interpret the image information. If extensions are used then their context definitions _SHOULD_ be included in this top-level `@context` property. |
 | `id` | Required | The base URI of the image as defined in [URI Syntax][uri-syntax], including scheme, server, prefix and identifier without a trailing slash. |
 | `type` | Required | The type for the Image API. The value _MUST_ be the string `ImageService3`. |
 | `protocol` | Required | The URI `http://iiif.io/api/image` which can be used to determine that the document describes an image service which is a version of the IIIF Image API. |
@@ -702,7 +702,10 @@ The following shows an image information response including all of the required 
 
 ``` json-doc
 {
-  "@context": "http://iiif.io/api/image/{{ page.major }}/context.json",
+  "@context": [
+    "http://example.org/extension/context1.json",
+    "http://iiif.io/api/image/{{ page.major }}/context.json"
+  ],
   "id": "https://example.org/image-service/abcd1234/1E34750D-38DB-4825-A38A-B60A345E591C",
   "type": "ImageService3",
   "protocol": "http://iiif.io/api/image",
@@ -728,12 +731,12 @@ The following shows an image information response including all of the required 
     }
   ],
   "logo": {
-      "id": "https://example.org/image-service/logo/full/200,200/0/default.png",
+      "id": "https://example.org/image-service/logo/square/200,200/0/default.png",
       "service": [
         {
-          "@context": "http://iiif.io/api/image/2/context.json",
           "id": "https://example.org/image-service/logo",
-          "profile": "http://iiif.io/api/image/2/level2.json"
+          "type": "ImageService3",
+          "profile": "level2"
         }
       ]
   },
