@@ -99,7 +99,7 @@ This section provides an overview of the resource types (or classes) that are us
 This specification defines the following resource types:
 
 <p style="float: right">
-  <img src="img/data-model.png" alt="Data Model" width="400px"><br/>
+  <img src="img/data-model.png" alt="Data Model" width="400"><br/>
 </p>
 
 ##### Collection
