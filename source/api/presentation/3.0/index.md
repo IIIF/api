@@ -134,7 +134,7 @@ An ordered list of Annotation Pages. Annotation Collections allow higher level g
 ##### Annotation Page
 {: #overview-annotationpage}
 
-An ordered list of Annotations, typically associated with a Canvas but may be referenced from other resource types as well.  Annotation Pages are often part of an Annotation Collection.
+An ordered list of Annotations, typically associated with a Canvas but may be referenced from other resource types as well. Annotation Pages are often part of an Annotation Collection.
 
 ##### Annotation
 {: #overview-annotation}
@@ -158,7 +158,7 @@ This section also defines processing requirements for clients for each of the co
 
 ###  3.1. Descriptive Properties
 
-These properties describe the resource, and are intended for display directly to the user.
+These properties describe or represent the resource they are associated with ("this resource"), and are typically rendered to the user.
 
 ##### label
 
@@ -322,9 +322,11 @@ The value _MUST_ be an [`xsd:dateTime` literal][xsd-datetime]. The value _MUST_ 
 
 ###  3.2. Technical Properties
 
+These properties describe technical features of the resources, and are typically processed by the client to understand how to render the resource.
+
 ##### id
 
-The URI that identifies this resource. It is _RECOMMENDED_ that an HTTPS URI be used for all resources defined by this specification. If this resource is only available embedded (see the [terminology section][prezi-api-3-terminology] for an explanation of "embedded") within another resource, such as a Range within a Manifest, then the URI _MAY_ be the URI of the encapsulating resource with a unique fragment on the end. This is not true for Canvases, which _MUST_ have their own URI without a fragment.
+The URI that identifies this resource. It is _RECOMMENDED_ that an HTTP(S) URI be used for all resources defined by this specification. If this resource is only available embedded (see the [terminology section][prezi-api-3-terminology] for an explanation of "embedded") within another resource, such as a Range within a Manifest, then the URI _MAY_ be the URI of the encapsulating resource with a unique fragment on the end. This is not true for Canvases, which _MUST_ have their own URI without a fragment.
 
 The value _MUST_ be a string, and the value _MUST_ be an HTTP(S) URI for resources defined in this specification. If this resource is retrievable via HTTP(S), then the URI _MUST_ be the URI at which it is published.
 
@@ -559,6 +561,8 @@ The value _MUST_ be a string.
 
 ###  3.3. Linking Properties
 
+These properties are references or links between resources, and split into external references where the linked object is outside of the IIIF space, and internal references where the linked object is a IIIF resource.  Clients typically create a link to the resource that is able to be activated by the user, or interact directly with the linked resource to improve the user's experience.
+
 #### 3.3.1. External Links
 
 ##### homepage
@@ -616,7 +620,6 @@ The value _MUST_ be an array of JSON objects, each of which _MUST_ have an `id` 
 ``` json-doc
 { "logo": [ { "id": "https://example.org/img/logo.jpg", "type": "Image" } ] }
 ```
-
 
 ##### rendering
 
@@ -691,7 +694,6 @@ A reference from a version 3 Presentation API document to both version 2 and ver
   ]
 }
 ```
-
 
 ##### seeAlso
 
@@ -937,9 +939,9 @@ Clients _SHOULD_ allow only `a`, `b`, `br`, `i`, `img`, `p`, `small`, `span`, `s
 
 ### 4.5. Linked Data Context and Extensions
 
-The top level resource in the response _MUST_ have the `@context` property, and it _SHOULD_ appear as the very first key/value pair of the JSON representation. This tells Linked Data processors how to interpret the document. The IIIF Presentation API context, below, _MUST_ occur once per response and _MUST_ be omitted from any embedded resources. For example, when embedding a Canvas, the Canvas _MUST NOT_ have the `@context` property.
+The top level resource in the response _MUST_ have the `@context` property, and it _SHOULD_ appear as the very first key/value pair of the JSON representation. This tells Linked Data processors how to interpret the document. The IIIF Presentation API context, below, _MUST_ occur once per response in the top-most resource, and thus _MUST NOT_ appear within embedded resources. For example, when embedding a Canvas within a Manifest, the Canvas will not have the `@context` property.
 
-The value of the `@context` property _MUST_ be an array, and the __last__ two values _MUST_ be the Web Annotation context and the Presentation API context, in that order. Further contexts, such as [registered by extensions][registry-home], _MUST_ be added at the beginning of the array.
+The value of the `@context` property _MUST_ be an array, and the __last__ two values _MUST_ be the Web Annotation context and the Presentation API context, in that order. Further contexts, such as those for [registered extensions][registry-home], _MUST_ be added at the beginning of the array.
 
 ``` json-doc
 {
