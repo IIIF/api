@@ -620,11 +620,12 @@ When both the Image and Presentation APIs express attributions or logos, then cl
   "id": "https://example.org/image-service/abcd1234/1E34750D-38DB-4825-A38A-B60A345E591C",
   "type": "ImageService3",
   "protocol": "http://iiif.io/api/image",
-  // ...
+  "profile": "level2",
+  "width": 6000,
+  "height": 4000,
   "attribution": "Provided by Example Organization",
   "logo": "https://example.org/images/logo.png",
   "license": "http://rightsstatements.org/vocab/InC-EDU/1.0/"
-  // ...
 }
 ```
 
