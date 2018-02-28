@@ -134,12 +134,12 @@ An ordered list of Annotation Pages. Annotation Collections allow higher level g
 ##### Annotation Page
 {: #overview-annotationpage}
 
-An ordered list of Annotations, typically associated with a Canvas but may be referenced from other resource types as well. Annotation Pages are often part of an Annotation Collection.
+An ordered list of Annotations that is typically associated with a Canvas but may be referenced from other resource types as well. Annotation Pages are often part of an Annotation Collection.
 
 ##### Annotation
 {: #overview-annotation}
 
-Content resources are associated with a Canvas via Annotations. The same mechanism is used for the visible and/or audible resources as is used for transcriptions, commentary, tags and other content. This provides a single, coherent method for aligning information, and provides a standards based framework for distinguishing parts of resources and parts of Canvases. As Annotations can be added later, it promotes a distributed system in which publishers can align their content with the descriptions created by others.
+Content resources are associated with a Canvas via Annotations. The same mechanism is used for the visible and/or audible resources as is used for transcriptions, commentary, tags and other content. This provides a single, coherent method for aligning information, and provides a standards-based framework for distinguishing parts of resources and parts of Canvases. As Annotations can be added later, it promotes a distributed system in which publishers can align their content with the descriptions created by others.
 
 ##### Content
 {: #overview-content}
@@ -773,7 +773,7 @@ The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id` and
 
 * A Collection _MUST_ have the `items` property. Each item _MUST_ be either a Collection or a Manifest.<br/>
   Clients _MUST_ process `items` on a Collection.
-* A Manifest _MUST_ the `items` property with at least one item. Each item _MUST_ be a Canvas.<br/>
+* A Manifest _MUST_ have the `items` property with at least one item. Each item _MUST_ be a Canvas.<br/>
   Clients _MUST_ process `items` on a Manifest.
 * A Canvas _SHOULD_ have the `items` property with at least one item. Each item _MUST_ be an Annotation Page<br/>
   Clients _MUST_ process `items` on a Canvas.
@@ -1014,8 +1014,6 @@ The identifier in `id` _MUST_ be able to be dereferenced to retrieve the JSON de
 
 The Manifest _MUST_ have an `items` property, which is an array of JSON-LD objects. Each object is a Canvas, described in the next section. It _MAY_ also have a `structures` property listing one or more [Ranges][prezi-api-3-range] which describe additional structure of the content, such as might be rendered as a table of contents.  The Manifest _MAY_ have an `annotations` property, which includes Annotation Page resources where the Annotations have the Manifest as their `target`. These will typically be comment style annotations, and _MUST NOT_ have `painting` as their `motivation`. 
 
-The example below includes only the Manifest-level information, however actual implementations _MUST_ embed at least the Canvases in `items`.
-
 ``` json-doc
 {
   // Metadata about this manifest file
@@ -1181,9 +1179,9 @@ The Canvas represents an individual page or view and acts as a central point for
 
 Every Canvas _SHOULD_ have a `label` to display. If one is not provided, the client _SHOULD_ automatically generate one for use based on the Canvas's position within the `items` property.
 
-Content resources are associated with the Canvas via Web Annotations. Content that is to be rendered as part of the Canvas _MUST_ be associated by an Annotation with the "painting" `motivation`. These Annotations are recorded in the `items` of one or more Annotation Pages, referred to in the `items` array of the Canvas. Annotations that do not have the "painting" `motivation` MUST NOT be in pages referenced in `items`, but instead in the `annotations` property.
+Content resources are associated with the Canvas via Web Annotations. Content that is to be rendered as part of the Canvas _MUST_ be associated by an Annotation with the "painting" `motivation`. These Annotations are recorded in the `items` of one or more Annotation Pages, referred to in the `items` array of the Canvas. Annotations that do not have the "painting" `motivation` _MUST NOT_ be in pages referenced in `items`, but instead in the `annotations` property.
 
-Content that is derived from the Canvas, such as a transcription of text in an image or the words spoken in an audio representation, _MUST_ be associated by an Annotation with the "transcribing" `motivation`. Annotations _MAY_ have any other `motivation` as well. Thus content of any type may be associated with the Canvas via a "painting" annotation meaning the content is __part of__ the Canvas, a "transcribing" annotation meaning the content is __from__ the Canvas but not necessarily part of it, or an Annotation with another `motivation` meaning that it is somehow __about__ the Canvas.
+Content that is derived from the Canvas, such as a transcription of text in an image or the words spoken in an audio representation, _MUST_ be associated by an Annotation with the "transcribing" `motivation`. Annotations _MAY_ have any other `motivation` as well. Thus content of any type may be associated with the Canvas via a "painting" annotation meaning the content is part of the Canvas, a "transcribing" annotation meaning the content is from the Canvas but not necessarily part of it, or an Annotation with another `motivation` meaning that it is somehow about the Canvas.
 
 A Canvas _MUST_ have a rectangular aspect ratio (described with the `height` and `width` properties) and/or a `duration` to provide an extent in time. These dimensions allow resources to be associated with specific regions of the Canvas, within the space and/or time extents provided. Content _MUST NOT_ be associated with space or time outside of the Canvas's dimensions, such as at coordinates below 0,0, greater than the height or width, before 0 seconds, or after the duration. Content resources that have dimensions which are not defined for the Canvas _MUST NOT_ be associated with that Canvas by an Annotation with the "painting" motiviation. For example, it is valid to use a "painting" Annotation to associate an Image (which has only height and width) with a Canvas that has all three dimensions, but it is an error to associate a Video resource (which has height, width and duration) with a Canvas that does not have all three dimensions. Such a resource _SHOULD_ instead be referenced with the `rendering` property, or by Annotations with a `motivation` other than "painting" in the `annotations` property.
 
@@ -1329,7 +1327,7 @@ An Annotation Page _MUST_ have an HTTP(S) URI given in `id`, and _MAY_ have any 
 
 Annotations follow the [Web Annotation][webanno] data model. The description provided here is a summary plus any IIIF specific requirements. It must be noted that the W3C standard is the official documentation.
 
-Note that the Web Annotation data model defines different patterns for the `value` property, when used within an Annotation. The value of a Textual Body or a Fragment Selector, for example, are strings rather than JSON objects with languages and values. Care _MUST_ be taken to use the correct string form in these cases.
+Note that the Web Annotation data model defines different patterns for the `value` property, when used within an Annotation. The value of a Textual Body or a Fragment Selector, for example, are strings rather than JSON objects with languages and values. Care must be taken to use the correct string form in these cases.
 
 Annotations _MUST_ have their own HTTP(S) URIs, conveyed in the `id` property. The JSON-LD description of the Annotation _SHOULD_ be returned if the URI is dereferenced, according to the [Web Annotation Protocol][webannoprotocol].
 
