@@ -846,9 +846,11 @@ The value _MUST_ be an array of JSON objects. Each item _MUST_ have at least the
 
 ##### Values for motivation
 
-This specification defines two values for the Web Annotation property of `motivation`, or `purpose` when used on a Specific Resource or Textual Body. Annotations are used to both associate resources that make up the rendering of the Canvas as well as commentary Annotations that are about the Canvas. These motivations allow clients to determine the intent of the Annotation with regards to how it should be rendered to the user, by distinguishing between Annotations that provide the content of the Canvas from ones that are comments about the Canvas.
+This specification defines two values for the Web Annotation property of `motivation`, or `purpose` when used on a Specific Resource or Textual Body. 
 
-Additional motivations may be added to the Annotation to further clarify the intent, drawn from [extensions][ldce]. Clients _MUST_ ignore motivation values that they do not understand. Other motivation values given in the Web Annotation specification _SHOULD_ be used where appropriate, and examples are given in the [Presentation API Cookbook][cookbook].
+While any resource _MAY_ be the `target` of an Annotation, this specification defines only motivations for Annotations that target Canvases. These motivations allow clients to determine the intent of the Annotation with regards to how it should be rendered to the user, by distinguishing between Annotations that provide the content of the Canvas, from ones with externally defined motivations which are typically comments about the Canvas.
+
+Additional motivations may be added to the Annotation to further clarify the intent, drawn from [extensions][ldce] or other sources. Clients _MUST_ ignore motivation values that they do not understand. Other motivation values given in the Web Annotation specification _SHOULD_ be used where appropriate, and examples are given in the [Presentation API Cookbook][cookbook].
 
 > | Value | Description |
 | ----- | ----------- |
