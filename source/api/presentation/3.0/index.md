@@ -866,20 +866,25 @@ Resource descriptions _SHOULD_ be embedded within the JSON description of parent
 
 ``` json-doc
 {
-  "thumbnail": [
-    { "id": "https://example.org/images/thumb1.jpg", "type": "Image" }
+  "rendering": [
+    { 
+      "id": "https://example.org/content/book.pdf", 
+      "type": "Text",
+      "label": "Example Book (pdf)",
+      "format": "application/pdf"
+    }   
   ]
 }
 ```
 
-### 4.2. Repeatable Properties
+### 4.2. Properties with Multiple Values
 
 Any of the properties in the API that can have multiple values _MUST_ always be given as an array of values, even if there is only a single item in that array.
 
 ``` json-doc
 {
   "thumbnail": [
-    { "id": "https://example.org/images/thumb1.jpg", "type": "Image" }   
+    { "id": "https://example.org/images/thumb1.jpg", "type": "Image" }
   ]
 }
 ```
@@ -1376,7 +1381,7 @@ Annotation Collections represent groupings of Annotation Pages that should be ma
 
 Note that the Web Annotation Data Model uses the JSON-LD 1.0 specification and defines the use of `label` on an Annotation Collection to be one or more strings, rather than a JSON object with languages as keys. Clients _SHOULD_ accept both forms.
 
-Annotation Collections _MUST_ have a URI, and it _SHOULD_ be an HTTP URI. They _MUST_ have a `label` and _MAY_ have any of the other descriptive, linking or rights properties.
+Annotation Collections _MUST_ have a URI, and it _SHOULD_ be an HTTP(S) URI. They _MUST_ have a `label` and _MAY_ have any of the other descriptive, linking or rights properties.
 
 ``` json-doc
 {
