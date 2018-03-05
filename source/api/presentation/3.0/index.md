@@ -47,7 +47,7 @@ This is a work in progress and may change without any notices. Implementers shou
 
 ##  1. Introduction
 
-Access to digital representations of structured resources is a fundamental requirement for many research activities, the transmission of cultural knowledge and for the daily pursuits of every web citizen. Digital content is the primary mode of transmission for access to cultural heritage, science and entertainment. Collections of both digitized physical objects and much born-digital content benefit from a standardized description of their structure, layout and presentation mode.
+Access to digital representations of structured resources is a fundamental requirement for many research activities, the transmission of cultural knowledge, and for the daily pursuits of every web citizen. Digital content is the primary mode of transmission for access to cultural heritage, science and entertainment. Collections of both digitized physical objects and much born-digital content benefit from a standardized description of their structure, layout and presentation mode.
 
 This document describes how the structure and layout of composite objects can be made available in a standard manner. Many different styles of viewer can be implemented that consume the information to enable a rich and dynamic experience, presenting content from across collections and institutions.
 
@@ -84,7 +84,7 @@ Collectively, the use cases require a model in which one can characterize the ob
 
 This specification uses the following terms:
 
-* __embedded__: When a resource (A) is embedded within another resource (B), the complete JSON representation of resource A is present within the JSON representation of resource B, and dereferencing the URI of resource A will not result in additional important information. Example: Canvas A is embedded in Manifest B.
+* __embedded__: When a resource (A) is embedded within another resource (B), the complete JSON representation of resource A is present within the JSON representation of resource B, and dereferencing the URI of resource A will not result in additional information. Example: Canvas A is embedded in Manifest B.
 * __referenced__: When a resource (A) is referenced from another resource (B), an incomplete JSON representation of resource A is present within the JSON representation of resource B, and dereferencing the URI of resource A will result in additional information. Typically, the `id`, `type`, and `label` properties of resource A will be included. Example:  Manifest A is referenced from Collection B.
 * __HTTP(S)__: The HTTP or HTTPS URI scheme and internet protocol.
 
@@ -136,7 +136,7 @@ An ordered list of Annotations that is typically associated with a Canvas but ma
 ##### Annotation
 {: #overview-annotation}
 
-Annotations associate Content resources with Canvases. The same mechanism is used for the visible and/or audible resources as is used for transcriptions, commentary, tags and other content. This provides a single, coherent method for aligning information, and provides a standards-based framework for distinguishing parts of resources and parts of Canvases. As Annotations can be added later, it promotes a distributed system in which publishers can align their content with the descriptions created by others.
+Annotations associate Content resources with Canvases. The same mechanism is used for the visible and/or audible resources as is used for transcriptions, commentary, tags and other content. This provides a single, unified method for aligning information, and provides a standards-based framework for distinguishing parts of resources and parts of Canvases. As Annotations can be added later, it promotes a distributed system in which publishers can align their content with the descriptions created by others.
 
 ##### Content
 {: #overview-content}
@@ -220,7 +220,7 @@ Clients _SHOULD_ display the pairs in the order provided. Clients _SHOULD NOT_ u
 
 Text that _MUST_ be displayed when this resource is displayed or used. For example, the `requiredStatement` property could be used to present copyright or ownership statements, an acknowledgement of the owning and/or publishing institution, or any other text that the organization deems critical to display to the user.
 
-Given the wide variation of potential client user interfaces, it will not always be possible to display this statement to the user in the client's initial state. If initially hidden, the method of revealing it _MUST_ be obvious.
+Given the wide variation of potential client user interfaces, it will not always be possible to display this statement to the user in the client's initial state. If initially hidden, clients _MUST_ make the method of revealing it as obvious as possible.
 
 The value of the property _MUST_ be a JSON object, that has the `label` and `value` properties, in the same way as the `metadata` property items. The values of both `label` and `value` _MUST_ be JSON objects, as described in the [languages][prezi-api-3-languages] section.
 
