@@ -67,7 +67,7 @@ Implementations of this specification will be able to:
   * allow the user to navigate between multiple views of the object, either sequentially or hierarchically ;
   * and display descriptive information about the object, view or navigation structure to provide context to the user.
 
-The following are __not__ within scope:
+The following are __not__ in scope:
 
   * The discovery or selection of interesting objects is not directly supported; however hooks to reference further resources are available.
   * Search within the object; which is described by the [IIIF Content Search API][search-api].
@@ -388,7 +388,7 @@ The value _MUST_ be a string, and it _SHOULD_ be the value of the `Content-Type`
  * Other resource types _MUST NOT_ have the `format` property.<br/>
    Clients _SHOULD_ ignore `format` on other resource types.
 
-Note that this is different to the `formats` property in the [Image API][image-api], which gives the extension to use within that API. It would be inappropriate to use in this case, as `format` can be used with any content resource, not just images.
+Note that this is different to the `formats` property in the [Image API][image-api], which gives the extension to use with that API. It would be inappropriate to use in this case, as `format` can be used with any content resource, not just images.
 
 ``` json-doc
 { "type": "Dataset", "format": "application/xml" }
@@ -396,7 +396,7 @@ Note that this is different to the `formats` property in the [Image API][image-a
 
 ##### language
 
-The language or languages used in the content of this external resource. This property is already available from the Web Annotation model for content resources that are the body or target of an Annotation, however it _MAY_ also be used for resources referenced (see the [terminology section][prezi-api-3-terminology] for an explanation of "referenced") from `homepage`, `rendering`, `rights`, and `within`.
+The language or languages used in the content of this external resource. This property is already available from the Web Annotation model for content resources that are the body or target of an Annotation, however it _MAY_ also be used for resources referenced (see the [terminology section][prezi-api-3-terminology] for an explanation of "referenced") from `homepage`, `rendering`, `rights`, and `partOf`.
 
 The value _MUST_ be an array of strings. Each item in the array _MUST_ be a valid language code, as described in the [languages section][prezi-api-3-languages].
 
@@ -722,16 +722,16 @@ The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id` and
 
 #### 3.4.2. Internal Links
 
-##### within
-A link to another resource that contains this resource, such as a Manifest that is part of a Collection. When encountering the `within` property and the referenced resource is not included in the current representation, clients might retrieve the referenced resource to contribute to the processing of this resource. For example, if a Canvas is encountered as a stand alone resource, it might be `within` a Manifest that includes other contextual information, or a Manifest might be `within` a Collection, which would aid in navigation.
+##### partOf
+A link to another resource that contains this resource, such as a Manifest that is part of a Collection. When encountering the `partOf` property and the referenced resource is not included in the current representation, clients might retrieve the referenced resource to contribute to the processing of this resource. For example, if a Canvas is encountered as a stand alone resource, it might be `partOf` a Manifest that includes other contextual information, or a Manifest might be `partOf` a Collection, which would aid in navigation.
 
 The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `label` property.
 
- * Any resource types _MAY_ have the `within` property with at least one item<br/>
-   Clients _MAY_ render `within` on other resource types.
+ * Any resource type _MAY_ have the `partOf` property with at least one item.<br/>
+   Clients _MAY_ render `partOf` on any resource type.
 
 ``` json-doc
-{ "within": [ { "id": "https://example.org/iiif/1", "type": "Manifest" } ] }
+{ "partOf": [ { "id": "https://example.org/iiif/1", "type": "Manifest" } ] }
 ```
 
 ##### start
@@ -1137,7 +1137,7 @@ The Manifest _MUST_ have an `items` property, which is an array of JSON-LD objec
       "format": "application/pdf"
     }
   ],
-  "within": [
+  "partOf": [
     {
       "id": "https://example.org/collections/books/",
       "type": "Collection"
@@ -1491,7 +1491,7 @@ __Technical Properties__
 
 __Linking Properties__
 
-|                      | seeAlso                | service                | homepage                | rendering              | within                 | start                  |
+|                      | seeAlso                | service                | homepage                | rendering              | partOf                 | start                  |
 | -------------------- | ---------------------- | ---------------------- | ---------------------- | ---------------------- | ---------------------- | ----------------------- |
 | Collection           | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![not allowed][icon-na] |
 | Manifest             | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt]  | ![not allowed][icon-na] |
