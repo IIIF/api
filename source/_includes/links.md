@@ -59,6 +59,7 @@
 [rfc-2119]: http://tools.ietf.org/html/rfc2119
 [rfc-4122]: http://tools.ietf.org/html/rfc4122 "URN UUID Scheme"
 [rfc5646]: http://tools.ietf.org/html/rfc5646 "RFC 5646"
+[rfc8259]: https://tools.ietf.org/html/rfc8259 "JSON RFC"
 [search-api-1-autocomplete]: {{ site.url }}{{ site.baseurl }}/api/search/1.0/#autocomplete
 [search-api-1]: {{ site.url }}{{ site.baseurl }}/api/search/1.0/
 [search-api]: {{ site.url }}{{ site.baseurl }}/api/search/{{ site.search_api.latest.major }}.{{ site.search_api.latest.minor }}/ "Content Search API"
