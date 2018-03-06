@@ -724,12 +724,12 @@ The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id` and
 
 ##### partOf
 
-A link to another resource that contains this resource, such as a Manifest that is part of a Collection. When encountering the `partOf` property and the referenced resource is not included in the current representation, clients might retrieve the referenced resource to contribute to the processing of this resource. For example, if a Canvas is encountered as a stand alone resource, it might be part of a Manifest that includes other contextual information, or a Manifest might be part of a Collection, which would aid in navigation.
+A link to another resource that contains this resource, for example a link from a Manifest to a Collection that it is part of. When a client encounters the `partOf` property, it might retrieve the referenced resource, if it is not included in the current representation, in order to contribute to the processing of this resource. For example, if a Canvas is encountered as a stand alone resource, it might be part of a Manifest that includes other contextual information, or a Manifest might be part of a Collection, which would aid in navigation.
 
 The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `label` property.
 
- * Any resource types _MAY_ have the `partOf` property with at least one item<br/>
-   Clients _MAY_ render `partOf` on other resource types.
+ * Any resource type _MAY_ have the `partOf` property with at least one item<br/>
+   Clients _MAY_ render `partOf` on any resource type.
 
 ``` json-doc
 { "partOf": [ { "id": "https://example.org/iiif/1", "type": "Manifest" } ] }
