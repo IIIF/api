@@ -391,7 +391,7 @@ The value _MUST_ be a string, and it _SHOULD_ be the value of the `Content-Type`
 Note that this is different to the `formats` property in the [Image API][image-api], which gives the extension to use within that API. It would be inappropriate to use in this case, as `format` can be used with any content resource, not just images.
 
 ``` json-doc
-{ "type": "Dataset", "format": "application/xml" }
+{ "format": "application/xml" }
 ```
 
 ##### language
@@ -400,22 +400,13 @@ The language or languages used in the content of this external resource. This pr
 
 The value _MUST_ be an array of strings. Each item in the array _MUST_ be a valid language code, as described in the [languages section][prezi-api-3-languages].
 
- * An external resource _MAY_ have the `language` property with at least one item.<br/>
+ * An external resource _SHOULD_ have the `language` property with at least one item.<br/>
    Clients _SHOULD_ process the `language` of external resources.
  * Other resource types _MUST NOT_ have the `language` property.<br/>
    Clients _SHOULD_ ignore `language` on other resource types.
 
 ``` json-doc
-{
-  "rendering": [
-    {
-      "id": "https://example.org/docs/doc.pdf",
-      "type": "Text",
-      "format": "application/pdf",
-      "language": [ "en" ]
-    }
-  ]
-}
+{ "language": [ "en" ] }
 ```
 
 ##### profile
@@ -430,7 +421,7 @@ The value _MUST_ be a string, either taken from the [service registry][registry-
   Clients _MAY_ process the `profile` of other resource types.
 
 ``` json-doc
-{ "profile": "info:srw/schema/1/mods-v3.3" }
+{ "profile": "https://example.org/profile/statuary" }
 ```
 
 ##### height
