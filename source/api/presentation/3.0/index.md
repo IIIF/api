@@ -748,19 +748,19 @@ The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` propert
 { "start": { "id": "https://example.org/iiif/1/canvas/1#t=120", "type": "Canvas" } }
 ```
 
-##### includes
+##### supplementary
 
-A link from this Range to an Annotation Collection that includes the "transcribing" Annotations of content resources for the Range. Clients might use this to present content to the user from a different Canvas when interacting with the Range, or to jump to the next part of the Range within the same Canvas.  For example, the Range might represent a newspaper article that spans non-sequential pages, and then uses the `includes` property to reference an Annotation Collection that consists of the Annotations that record the text, split into Annotation Pages per newspaper page.
+A link from this Range to an Annotation Collection that includes the "supplementing" Annotations of content resources for the Range. Clients might use this to present additional content to the user from a different Canvas when interacting with the Range, or to jump to the next part of the Range within the same Canvas.  For example, the Range might represent a newspaper article that spans non-sequential pages, and then uses the `supplementary` property to reference an Annotation Collection that consists of the Annotations that record the text, split into Annotation Pages per newspaper page.
 
 The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` properties, and the `type` _MUST_ be `AnnotationCollection`.
 
- * A Range _MAY_ have the `includes` property.<br/>
-   Clients _MAY_ process `includes` on a Range.
- * Other resource types _MUST NOT_ have the `includes` property.<br/>
-   Clients _SHOULD_ ignore `includes` on other resource types.
+ * A Range _MAY_ have the `supplementary` property.<br/>
+   Clients _MAY_ process `supplementary` on a Range.
+ * Other resource types _MUST NOT_ have the `supplementary` property.<br/>
+   Clients _SHOULD_ ignore `supplementary` on other resource types.
 
 ``` json-doc
-{ "includes": { "id": "https://example.org/iiif/1/annos/1", "type": "AnnotationCollection" } }
+{ "supplementary": { "id": "https://example.org/iiif/1/annos/1", "type": "AnnotationCollection" } }
 ```
 
 ### 3.4. Structural Properties
@@ -858,7 +858,7 @@ Additional motivations may be added to the Annotation to further clarify the int
 > | Value | Description |
 | ----- | ----------- |
 | painting | Resources associated with a Canvas by an Annotation with the "painting" motivation _MUST_ be presented to the user as the representation of the Canvas. The content can be thought of as being "of" the Canvas. The use of this motivation with target resources other than Canvases is undefined. For example, an Annotation with the "painting" motivation, a body of an Image and the target of the Canvas is an instruction to present that Image as (part of) the visual representation of the Canvas. Similarly, a textual body is to be presented as (part of) the visual representation of the Canvas and not positioned in some other part of the user interface.|
-| transcribing | Resources associated with a Canvas by an Annotation with the "transcribing" motivation _MAY_ be presented to the user as part of the representation of the Canvas, or _MAY_ be presented in a different part of the user interface. The content can be thought of as being "from" the Canvas. The use of this motivation with target resources other than Canvases is undefined. For example, an Annotation with the "transcribing" motivation, a body of an Image and the target of part of the Canvas is an instruction to present that Image to the user either in the Canvas's rendering area or somewhere associated with it, and could be used to present an easier to read representation of a diagram. Similar, a textual body is to be presented either in the targeted region of the Canvas or otherwise associated with it, and might be a transcription of handwritten text or captions for what is being said in a Canvas with audio content. |
+| supplementing | Resources associated with a Canvas by an Annotation with the "supplementing" motivation _MAY_ be presented to the user as part of the representation of the Canvas, or _MAY_ be presented in a different part of the user interface. The content can be thought of as being "from" the Canvas. The use of this motivation with target resources other than Canvases is undefined. For example, an Annotation with the "supplementing" motivation, a body of an Image and the target of part of the Canvas is an instruction to present that Image to the user either in the Canvas's rendering area or somewhere associated with it, and could be used to present an easier to read representation of a diagram. Similar, a textual body is to be presented either in the targeted region of the Canvas or otherwise associated with it, and might be a transcription of handwritten text or captions for what is being said in a Canvas with audio content. |
 {: .api-table #table-motivations}
 
 
@@ -1190,7 +1190,7 @@ Every Canvas _SHOULD_ have a `label` to display. If one is not provided, the cli
 
 Content resources are associated with the Canvas via Web Annotations. Content that is to be rendered as part of the Canvas _MUST_ be associated by an Annotation with the "painting" `motivation`. These Annotations are recorded in the `items` of one or more Annotation Pages, referred to in the `items` array of the Canvas. Annotations that do not have the "painting" `motivation` _MUST NOT_ be in pages referenced in `items`, but instead in the `annotations` property.
 
-Content that is derived from the Canvas, such as a transcription of text in an image or the words spoken in an audio representation, _MUST_ be associated by an Annotation with the "transcribing" `motivation`. Annotations _MAY_ have any other `motivation` as well. Thus content of any type may be associated with the Canvas via a "painting" annotation meaning the content is part of the Canvas, a "transcribing" annotation meaning the content is from the Canvas but not necessarily part of it, or an Annotation with another `motivation` meaning that it is somehow about the Canvas.
+Content that is derived from the Canvas, such as a transcription of text in an image or the words spoken in an audio representation, _MUST_ be associated by an Annotation with the "supplementing" `motivation`. Annotations _MAY_ have any other `motivation` as well. Thus content of any type may be associated with the Canvas via a "painting" annotation meaning the content is part of the Canvas, a "supplementing" annotation meaning the content is from the Canvas but not necessarily part of it, or an Annotation with another `motivation` meaning that it is somehow about the Canvas.
 
 A Canvas _MUST_ have a rectangular aspect ratio (described with the `height` and `width` properties) and/or a `duration` to provide an extent in time. These dimensions allow resources to be associated with specific regions of the Canvas, within the space and/or time extents provided. Content _MUST NOT_ be associated with space or time outside of the Canvas's dimensions, such as at coordinates below 0,0, greater than the height or width, before 0 seconds, or after the duration. Content resources that have dimensions which are not defined for the Canvas _MUST NOT_ be associated with that Canvas by an Annotation with the "painting" motiviation. For example, it is valid to use a "painting" Annotation to associate an Image (which has only height and width) with a Canvas that has all three dimensions, but it is an error to associate a Video resource (which has height, width and duration) with a Canvas that does not have all three dimensions. Such a resource _SHOULD_ instead be referenced with the `rendering` property, or by Annotations with a `motivation` other than "painting" in the `annotations` property.
 
@@ -1239,7 +1239,7 @@ All of the Canvases or parts that should be considered as being part of a Range 
 
 The Canvases and parts of Canvases need not be contiguous or in the same order as in the Manifest's `items` property or any other Range. Examples include newspaper articles that are continued in different sections, a chapter that starts half way through a page, or time segments of a single canvas that represent different sections of a piece of music.
 
-Ranges _MAY_ link to an Annotation Collection that has the content of the Range using the `includes` property. The referenced Annotation Collection will contain Annotations that target areas of Canvases within the Range and link content resources to those Canvases.
+Ranges _MAY_ link to an Annotation Collection that has the content of the Range using the `supplementary` property. The referenced Annotation Collection will contain Annotations that target areas of Canvases within the Range and link content resources to those Canvases.
 
 
 ``` json-doc
@@ -1270,7 +1270,7 @@ Ranges _MAY_ link to an Annotation Collection that has the content of the Range 
           "id": "https://example.org/iiif/book1/range/r1",
           "type": "Range",
           "label": { "en": [ "Introduction" ] },
-          "includes": { 
+          "supplementary": { 
             "id": "https://example.org/iiif/book1/annocoll/introTexts",
             "type": "AnnotationCollection"
           },
