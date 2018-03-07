@@ -845,17 +845,21 @@ The value _MUST_ be an array of JSON objects. Each item _MUST_ have at least the
 
 ### 3.6. Values
 
+
 ##### Values for motivation
 
-This specification defines two values for the Web Annotation property of `motivation`, or `purpose` when used on a Specific Resource or Textual Body. Annotations are used to both associate resources that make up the rendering of the Canvas as well as commentary Annotations that are about the Canvas. These motivations allow clients to determine the intent of the Annotation with regards to how it should be rendered to the user, by distinguishing between Annotations that provide the content of the Canvas from ones that are comments about the Canvas.
+This specification defines two values for the Web Annotation property of `motivation`, or `purpose` when used on a Specific Resource or Textual Body. 
 
-Additional motivations may be added to the Annotation to further clarify the intent, drawn from [extensions][ldce]. Clients _MUST_ ignore motivation values that they do not understand. Other motivation values given in the Web Annotation specification _SHOULD_ be used where appropriate, and examples are given in the [Presentation API Cookbook][cookbook].
+While any resource _MAY_ be the `target` of an Annotation, this specification defines only motivations for Annotations that target Canvases. These motivations allow clients to determine how the Annotation should be rendered, by distinguishing between Annotations that provide the content of the Canvas, from ones with externally defined motivations which are typically comments about the Canvas.
+
+Additional motivations may be added to the Annotation to further clarify the intent, drawn from [extensions][ldce] or other sources. Clients _MUST_ ignore motivation values that they do not understand. Other motivation values given in the Web Annotation specification _SHOULD_ be used where appropriate, and examples are given in the [Presentation API Cookbook][cookbook].
 
 > | Value | Description |
 | ----- | ----------- |
 | painting | Resources associated with a Canvas by an Annotation with the "painting" motivation _MUST_ be presented to the user as the representation of the Canvas. The content can be thought of as being "of" the Canvas. The use of this motivation with target resources other than Canvases is undefined. For example, an Annotation with the "painting" motivation, a body of an Image and the target of the Canvas is an instruction to present that Image as (part of) the visual representation of the Canvas. Similarly, a textual body is to be presented as (part of) the visual representation of the Canvas and not positioned in some other part of the user interface.|
 | transcribing | Resources associated with a Canvas by an Annotation with the "transcribing" motivation _MAY_ be presented to the user as part of the representation of the Canvas, or _MAY_ be presented in a different part of the user interface. The content can be thought of as being "from" the Canvas. The use of this motivation with target resources other than Canvases is undefined. For example, an Annotation with the "transcribing" motivation, a body of an Image and the target of part of the Canvas is an instruction to present that Image to the user either in the Canvas's rendering area or somewhere associated with it, and could be used to present an easier to read representation of a diagram. Similar, a textual body is to be presented either in the targeted region of the Canvas or otherwise associated with it, and might be a transcription of handwritten text or captions for what is being said in a Canvas with audio content. |
 {: .api-table #table-motivations}
+
 
 ##  4. JSON-LD Considerations
 
