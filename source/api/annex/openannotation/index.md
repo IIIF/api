@@ -144,12 +144,4 @@ Thanks to the members of the [IIIF][iiif-community] for their continuous engagem
 {% include acronyms.md %}
 {% include links.md %}
 
-   [semver]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/semver/ "Versioning of APIs"
-   [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
-   [json-ld]: http://www.w3.org/TR/json-ld/ "JSON-LD"
-   [iiif-community]: {{page.webprefix}}/community/ "IIIF Community"
-   [mellon]: http://www.mellon.org/ "The Andrew W. Mellon Foundation"
-   [image-api]: {{ site.url }}{{ site.baseurl }}/api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/ "Image API"
-   [prezi-api]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/ "Presentation API"
-   [openanno]: http://www.openannotation.org/spec/core/ "Open Annotation"
    [prezi-rot]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.0/#rotation "Rotation in Presentation API"
