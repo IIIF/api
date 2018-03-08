@@ -737,7 +737,7 @@ The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id` and
 
 A link from this Manifest or Range, to a Canvas, or part of a Canvas, that is contained within it. The reference to part of a Canvas is handled in the same way that Ranges reference parts of Canvases. When processing this relationship, a client _SHOULD_ advance to the specified Canvas, or specified segment of the Canvas, when beginning navigation through the Range. This allows the client to begin with the first Canvas that contains interesting content rather than requiring the user to manually navigate to find it.
 
-The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` properties.  The object _MUST_ be either a Canvas, or a Specific Resource with a Selector and a `source` property where the value is a Canvas.
+The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` properties.  The object _MUST_ be either a Canvas (example 1), or a Specific Resource with a Selector and a `source` property where the value is a Canvas (example 2).
 
  * A Manifest or Range _MAY_ have the `start` property.
    Clients _SHOULD_ process `start` on a Manifest or Range.
@@ -745,8 +745,22 @@ The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` propert
    Clients _SHOULD_ ignore `start` on other resource types.
 
 ``` json-doc
-{ "start": { "id": "https://example.org/iiif/1/canvas/1#t=120", "type": "Canvas" } }
+{ "start": { "id": "https://example.org/iiif/1/canvas/1", "type": "Canvas" } }
 ```
+
+``` json-doc
+{ 
+  "start": {
+    "type": "SpecificResource",
+    "source": "https://example.org/iif/1/canvas/1",
+    "selector": {
+      "type": "PointSelector",
+      "t": 14.5
+    }
+  }
+}
+```
+
 
 ##### includes
 
@@ -781,7 +795,7 @@ The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id` and
   Clients _MUST_ process `items` on a Canvas.
 * An Annotation Page _SHOULD_ have the `items` property with at least one item. Each item _MUST_ be an Annotation.<br/>
   Clients _MUST_ process `items` on an Annotation Page.
-* A Range _MUST_ have the `items` property with at least one item. Each item _MUST_ be either a Range or a Canvas.<br/>
+* A Range _MUST_ have the `items` property with at least one item. Each item _MUST_ be a Range, a Canvas or a Specific Resource where the source is a Canvas.<br/>
   Clients _SHOULD_ process `items` on a Range.
 
 ```json-doc
@@ -1194,10 +1208,9 @@ Content that is derived from the Canvas, such as a transcription of text in an i
 
 A Canvas _MUST_ have a rectangular aspect ratio (described with the `height` and `width` properties) and/or a `duration` to provide an extent in time. These dimensions allow resources to be associated with specific regions of the Canvas, within the space and/or time extents provided. Content _MUST NOT_ be associated with space or time outside of the Canvas's dimensions, such as at coordinates below 0,0, greater than the height or width, before 0 seconds, or after the duration. Content resources that have dimensions which are not defined for the Canvas _MUST NOT_ be associated with that Canvas by an Annotation with the "painting" motiviation. For example, it is valid to use a "painting" Annotation to associate an Image (which has only height and width) with a Canvas that has all three dimensions, but it is an error to associate a Video resource (which has height, width and duration) with a Canvas that does not have all three dimensions. Such a resource _SHOULD_ instead be referenced with the `rendering` property, or by Annotations with a `motivation` other than "painting" in the `annotations` property.
 
-Parts of Canvases _MAY_ be described using a Specific Resource...
-{: .warning}
+Parts of Canvases _MAY_ be described using a Specific Resource with a Selector, following the patterns defined in the [Web Annotation][webanno] data model. The use of the `FragmentSelector` class is _RECOMMENDED_ by that specification, as it allows for refinement by other Selectors and for consistency with use cases that cannot be represented using a URI fragment directly. Parts of Canvases can be referenced from Ranges, as the `body` or `target` of Annotations, or in the `start` property. 
 
-Parts of Canvases identified with a fragment appended to the Canvas's URI are still Canvases and have a `type` of "Canvas". Parts of Canvases can be referenced from Ranges, Annotations or the `start` property. Rectangular spatial parts of Canvases _MAY_ also be described by appending an `xywh=` fragment to the end of the Canvas's URI. Similarly, temporal parts of Canvases _MAY_ be described by appending a `t=` fragment to the end of the Canvas's URI. Spatial and temporal fragments _MAY_ be combined, using an `&` character between them, and the temporal dimension _SHOULD_ come first. It is an error to select a region using a dimension that is not defined by the Canvas, such as a temporal region of a Canvas that only has height and width dimensions.
+Parts of Canvases _MAY_ also be identified by appending a fragment to the Canvas's URI, and these parts are still considered to be Canvases and have a `type` of "Canvas". Rectangular spatial parts of Canvases _MAY_ also be described by appending an `xywh=` fragment to the end of the Canvas's URI. Similarly, temporal parts of Canvases _MAY_ be described by appending a `t=` fragment to the end of the Canvas's URI. Spatial and temporal fragments _MAY_ be combined, using an `&` character between them, and the temporal dimension _SHOULD_ come first. It is an error to select a region using a dimension that is not defined by the Canvas, such as a temporal region of a Canvas that only has height and width dimensions.
 
 Canvases _MAY_ be treated as content resources for the purposes of annotating on to other Canvases. For example, a Canvas (Canvas A) with a video resource and Annotations representing subtitles or captions may be annotated on to another Canvas (Canvas B). This pattern maintains the correct spatial and temporal alignment of Canvas A's content relative to Canvas B's dimensions.
 
@@ -1284,8 +1297,12 @@ Ranges _MAY_ link to an Annotation Collection that has the content of the Range 
               "type": "Canvas"
             },
             {
-              "id": "https://example.org/iiif/book1/canvas/p3#xywh=0,0,750,300",
-              "type": "Canvas"
+              "type": "SpecificResource",
+              "source": "https://example.org/iiif/book1/canvas/p3",
+              "selector": {
+                "type": "FragmentSelector",
+                "value": "xywh=0,0,750,300"
+              }
             }  
           ]
         },
