@@ -82,7 +82,7 @@ This section is a summary of the properties and types used by this specification
 
 Properties that the consuming application does not understand _MUST_ be ignored.  Other properties defined by Activity Streams _MAY_ be used, such as `origin` or `instrument`, but there are no current use cases that would warrant their inclusion in this specification.
 
-#### id
+##### id
 
 An identifier for the Activity.
 
@@ -92,7 +92,7 @@ Activities _MAY_ have an `id` property. The value _MUST_ be a string and it _MUS
 { "id": "https://example.org/activity/1" }
 ```
 
-#### type
+##### type
 
 The type of Activity. 
 
@@ -111,7 +111,7 @@ Activities _MUST_ have the `type` property. The value _MUST_ be a registered Act
 { "type": "Update" }
 ```
 
-#### object
+##### object
 
 The IIIF resource that was affected by the Activity.
 
@@ -126,7 +126,7 @@ Activities _MUST_ have the `object` property.  The value _MUST_ be a JSON object
 }
 ```
 
-#### endTime
+##### endTime
 
 The time at which the Activity was finished.
 
@@ -136,7 +136,7 @@ Activities _SHOULD_ have the `endTime` property.  The value _MUST_ be a datetime
 { "endTime": "2017-09-21T00:00:00Z" }
 ```
 
-#### startTime
+##### startTime
 
 The time at which the Activity was started.
 
@@ -146,7 +146,7 @@ Activities _MAY_ have the `startTime` property.  The value _MUST_ be a datetime 
 { "startTime": "2017-09-20T23:58:00Z" }
 ```
 
-#### actor
+##### actor
 
 The organization, person, or software agent that carried out the Activity.
 
@@ -161,7 +161,7 @@ Activities _MAY_ have the `actor` property.  The value _MUST_ be a JSON object, 
 }
 ```
 
-#### Complete Example
+##### Complete Example
 
 A complete example Activity would thus look like the following example.
 
@@ -182,7 +182,7 @@ A complete example Activity would thus look like the following example.
 }
 ```
 
-### 2.2. Discovery Usage
+### 2.2. Resource Discovery via Activities
 
 #### 2.2.1. Level 0: Basic Resource List
 
@@ -246,24 +246,28 @@ The top level resource for managing the lists of IIIF resources is an AS2 Collec
 
 Therefore, the Collection does not directly contain any of the activities or resources, instead it refers to the `first` page of such a list.  The pages are ordered both from page to page by following `next` relationships, and internally within the page in the `items` property. The number of entries in each page is up to the implementer, and cannot be requested by the client.
 
-#### totalItems
+#### 3.1.1 Collection Properties
 
-#### first
+##### totalItems
 
-#### last
+##### first
+
+##### last
 
 
 ### 3.2. Collection Page
 
-#### partOf
+#### 3.2.1 Collection Page Properties
 
-#### startIndex
+##### partOf
 
-#### next
+##### startIndex
 
-#### prev
+##### next
 
-#### orderedItems
+##### prev
+
+##### orderedItems
 
 
 
@@ -327,4 +331,12 @@ __Coming next__
 
 ### B. Change Log
 
+
+includes/links is only in prezi3. Links here are placeholders.
+{: .warning}
+
+[iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
+[patterns]: http://iiif.io/api/
+[json-ld]: http://w3.org/
+[rfc-2119]: http://ietf.org/
 
