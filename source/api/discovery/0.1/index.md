@@ -487,29 +487,29 @@ If the objective of the consuming application is to find descriptive information
 
 Given the URI of an ActivityStreams Collection (`collection`) as input, a conforming processor SHOULD:
 
-* 1. Initialization:
-  * 1.1. Let `processedItems` be an empty array
-  * 1.2. Let `lastCrawl` be the timestamp of the previous time the algorithm was executed
-* 2. Retrieve the representation of `collection` via HTTP(S)
-* 3. Minimally validate that it conforms to the specification
-* 4. Find the URI of the last page at `collection.last.id` (`pageN`)
-* 5. Apply the results of the page algorithm to `pageN`
+* (1) Initialization:
+  * (1.1) Let `processedItems` be an empty array
+  * (1.2) Let `lastCrawl` be the timestamp of the previous time the algorithm was executed
+* (2) Retrieve the representation of `collection` via HTTP(S)
+* (3) Minimally validate that it conforms to the specification
+* (4) Find the URI of the last page at `collection.last.id` (`pageN`)
+* (5) Apply the results of the page algorithm to `pageN`
 
 ##### Page Algorithm
 
 Given the URI of an ActivityStreams CollectionPage (`page`) and the date of last crawling (`lastCrawl`) as input, a conforming processor SHOULD:
 
-* 1. Retrieve the representation of `page` via HTTP(S)
-* 2. Minimally validate that it conforms to the specification
-* 3. Find the set of updates of the page at `page.orderedItems` (`items`)
-* 4. In reverse order, iterate through the activities (`activity`) in `items`
-  * 4.1. For each `activity`, if `activity.endTime` is before `lastCrawl`, then terminate ;
-  * 4.2. If the updated resource's uri at `activity.target.id` is in `processedItems`, then continue ;
-  * 4.3. Otherwise, if `activity.type` is `Update` or `Create`, then find the URI of the updated resource at `activity.target.id` (`target`) and process the target resource ;
-  * 4.4. Otherwise, if `activity.type` is `Delete`, then find the URI of the deleted resource at `activity.target.id` and process its removal.
-  * 4.5. Add the processed resource's URI to `processedItems`
-* 5. Finally, find the URI of the previous page at `collection.prev.id` (`pageN1`)
-* 6. If there is a previous page, apply the results of the page algorithm to `pageN1`
+* (1) Retrieve the representation of `page` via HTTP(S)
+* (2) Minimally validate that it conforms to the specification
+* (3) Find the set of updates of the page at `page.orderedItems` (`items`)
+* (4) In reverse order, iterate through the activities (`activity`) in `items`
+  * (4.1) For each `activity`, if `activity.endTime` is before `lastCrawl`, then terminate ;
+  * (4.2) If the updated resource's uri at `activity.target.id` is in `processedItems`, then continue ;
+  * (4.3) Otherwise, if `activity.type` is `Update` or `Create`, then find the URI of the updated resource at `activity.target.id` (`target`) and process the target resource ;
+  * (4.4) Otherwise, if `activity.type` is `Delete`, then find the URI of the deleted resource at `activity.target.id` and process its removal.
+  * (4.5) Add the processed resource's URI to `processedItems`
+* (5) Finally, find the URI of the previous page at `collection.prev.id` (`pageN1`)
+* (6) If there is a previous page, apply the results of the page algorithm to `pageN1`
 
 
 ## 4. Notifications
