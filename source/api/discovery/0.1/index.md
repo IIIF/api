@@ -10,8 +10,8 @@ minor: 1
 patch: 0
 pre: final
 redirect_from:
-  - /api/presentation/index.html
-  - /api/presentation/3/index.html
+  - /api/discovery/index.html
+  - /api/discovery/0/index.html
 ---
 
 ## Status of this Document
@@ -242,40 +242,228 @@ A consuming application at this level would process the `type` property of the A
 
 ### 3.1. Collection
 
-The top level resource for managing the lists of IIIF resources is an AS2 Collection. This model is the same as the Web Annotation model for Annotation Collections and Annotation Pages.  AS2 Collections for lists of this size will always be paged, and the Collection document a pointer to the first and last pages, along with metadata about the entire list.
+The top-most resource for managing the lists of Activities is an Ordered Collection, broken up into Ordered Collection Pages. This is the same pattern that the Web Annotation model uses for Annotation Collections and Annotation Pages. The Collection does not directly contain any of the Activities, instead it refers to the `first` page of the overall list.  The pages are ordered both from page to page by following `next` relationships, and internally within the page in the `orderedItems` property. The number of entries in each page is up to the implementer, and cannot be modified by the client.
 
-Therefore, the Collection does not directly contain any of the activities or resources, instead it refers to the `first` page of such a list.  The pages are ordered both from page to page by following `next` relationships, and internally within the page in the `items` property. The number of entries in each page is up to the implementer, and cannot be requested by the client.
+#### 3.1.1 Ordered Collection Properties
 
-#### 3.1.1 Collection Properties
+##### @context
 
-##### totalItems
+
+##### id
+
+The identifier of the Ordered Collection.
+
+Ordered Collections _MUST_ have an `id` property. The value _MUST_ be a string and it _MUST_ be an HTTP(S) URI. The JSON representation of the Ordered Collection _MUST_ be available at the URI.
+
+```
+{ "id": "https://example.org/activity/collection" }
+```
+
+##### type
+
+The class of the Ordered Collection.
+
+Ordered Collections _MUST_ have a `type` property.  The value _MUST_ be "OrderedCollection".
+
+```
+{ "type": "OrderedCollection" }
+```
 
 ##### first
 
+A link to the first Ordered Collection Page for this Collection.
+
+Ordered Collections _SHOULD_ have a `first` property.  The value _MUST_ be a JSON object, with the `id` and `type` properties.  The value of the `id` property _MUST_ be a string, and it _MUST_ be the HTTP(S) URI of the first page of items in the Collection. The value of the `type` property _MUST_ be a string, and _MUST_ be "OrderedCollectionPage".
+
+```
+{ 
+  "first": {
+    "id": "https://example.org/activity/page-0",
+    "type": "OrderedCollectionPage"
+  }
+}
+```
+
 ##### last
 
+A link to the last Ordered Collection Page for this Collection.  As the client processing algorithm works backwards from the most recent to least recent, the inclusino of `last` is _REQUIRED_, but `first` is only _RECOMMENDED_.  This might seem odd to implementers, without the context of the processing.
 
-### 3.2. Collection Page
+Ordered Collections _SHOULD_ have a `last` property.  The value _MUST_ be a JSON object, with the `id` and `type` properties.  The value of the `id` property _MUST_ be a string, and it _MUST_ be the HTTP(S) URI of the last page of items in the Collection. The value of the `type` property _MUST_ be a string, and _MUST_ be "OrderedCollectionPage".
+
+```
+{ 
+  "last": {
+    "id": "https://example.org/activity/page-1234",
+    "type": "OrderedCollectionPage"
+  }
+}
+```
+
+##### totalItems
+
+The total number of Activities in the Ordered Collection.
+
+OrderedCollections _MAY_ have a `totalItems` property.  The value _MUST_ be a non-negative integer.
+
+```
+{ "totalItems": 21456 }
+```
+
+##### Complete Example
+
+```
+{
+  "@context": "",
+  "id": "https://example.org/activity/collection",
+  "type": "OrderedCollection",
+  "totalItems": 21456,
+  "first": {
+  	"id": "https://example.org/activity/page-0",
+  	"type": "OrderedCollectionPage"
+  },
+  "last": {
+  	"id": "https://example.org/activity/page-1234",
+  	"type": "OrderedCollectionPage"
+  }
+}
+```
+
+### 3.2. Ordered Collection Page
 
 #### 3.2.1 Collection Page Properties
 
+##### id
+
+The identifier of the Collection Page.
+
+Ordered Collection Pages _MUST_ have an `id` property. The value _MUST_ be a string and it _MUST_ be an HTTP(S) URI. The JSON representation of the Ordered Collection Page _MUST_ be available at the URI.
+
+```
+{ "id": "https://example.org/activity/page-0" }
+```
+
+##### type
+
+The class of the Ordered Collection Page.
+
+Ordered Collections _MUST_ have a `type` property.  The value _MUST_ be "OrderedCollectionPage".
+
+```
+{ "type": "OrderedCollectionPage" }
+```
+
 ##### partOf
+
+The Ordered Collection that this Page is part of.
+
+Ordered Collection Pages _SHOULD_ have a `partOf` property. The value _MUST_ be a JSON object, with the `id` and `type` properties.  The value of the `id` property _MUST_ be the a string, and _MUST_ be the HTTP(S) URI of the Ordered Collection that this page is part of.  The value of the `type` property _MUST_ be a string, and _MUST_ be "OrderedCollection".
+
+```
+{
+  "partOf": {
+    "id": "https://example.org/activity/collection",
+    "type": "OrderedCollection"
+  }
+}
+```
+
 
 ##### startIndex
 
+The position of the first item in this page's `orderedItems` list, relative to the overall ordering across all pages within the Collection.  The first entry in the list has a `startIndex` of 0.  If the first page has 20 entries, the first entry on the second page would therefore be 20.
+
+Ordered Collection Pages _MAY_ have a `startIndex` property.  The value _MUST_ be a non-negative integer.
+
+```
+{ "startIndex": 20 }
+```
+
 ##### next
+
+A reference to the next page in the list of pages.
+
+Ordered Collection Pages _SHOULD_ have a `next` property. The value _MUST_ be a JSON object, with the `id` and `type` properties.  The value of the `id` property _MUST_ be the a string, and _MUST_ be the HTTP(S) URI of the following Ordered Collection Page.  The value of the `type` property _MUST_ be a string, and _MUST_ be "OrderedCollectionPage".
+
+```
+{
+  "next": {
+    "id": "https://example.org/activity/page-2",
+    "type": "OrderedCollectionPage"
+  }
+}
+```
+
 
 ##### prev
 
+A reference to the previous page in the list of pages.
+
+Ordered Collection Pages _MUST_ have a `prev` property. The value _MUST_ be a JSON object, with the `id` and `type` properties.  The value of the `id` property _MUST_ be the a string, and _MUST_ be the HTTP(S) URI of the preceding Ordered Collection Page.  The value of the `type` property _MUST_ be a string, and _MUST_ be "OrderedCollectionPage".
+
+```
+{
+  "prev": {
+    "id": "https://example.org/activity/page-1",
+    "type": "OrderedCollectionPage"
+  }
+}
+```
+
 ##### orderedItems
 
+The Activities that are listed as part of this page.
 
+Ordered Collection Pages _MUST_ have a `orderedItems` property.  The value _MUST_ be an array, with at least one item.  Each item _MUST_ be a JSON object, conforming to the requirements of an Activity.
 
+```
+{
+  "orderedItems": [
+     {
+     	"type": "Activity",
+     	"object": {
+     		"id": "https://example.org/iiif/manifest/1",
+     		"type": "Manifest"
+     	},
+     	"endTime": "2018-03-10T10:00:00Z"
+     }
+  ]
+}
+```
 
+##### Complete Ordered Collection Page Example
 
+```
+{
+  "@context": "",
+  "id": "https://example.org/activity/page-1",
+  "type": "OrderedCollectionPage",
+  "startIndex": 20,
+  "partOf": {
+  	"id": "https://example.org/activity/collection",
+  	"type": "OrderedCollection"
+  },
+  "prev": {
+  	"id": "https://example.org/activity/page-0",
+  	"type": "OrderedCollectionPage"
+  },
+  "next": {
+  	"id": "https://example.org/activity/page-2",
+  	"type": "OrderedCollectionPage"
+  },
+  "orderedItems": [
+     {
+     	"type": "Activity",
+     	"object": {
+     		"id": "https://example.org/iiif/manifest/1",
+     		"type": "Manifest"
+     	},
+     	"endTime": "2018-03-10T10:00:00Z"
+     }
+  ]
+}
+```
 
-
-## 3.x. Processing Algorithm
+## 3.3. Activity Streams Processing Algorithm
 
 The aim of the processing algorithm is to inform harvesters how to make best use of the available information, with an aim of finding "indexable content" -- the descriptive information that might be used to build an index of the resources to allow them to be discovered.  For different types of resource, and for different domains, the "indexable content" will have different formats and semantics. At worst, the data in the Manifest and other IIIF resources might be used, despite its presentational intent. 
 
@@ -298,7 +486,7 @@ Given the URI of an ActivityStreams CollectionPage (`page`) and the date of last
 
 1. Retrieve the representation of `page` via HTTP(S)
 2. Minimally validate that it conforms to the specification
-3. Find the set of updates of the page at `page.items` (`items`)
+3. Find the set of updates of the page at `page.orderedItems` (`items`)
 4. In reverse order, iterate through the activities (`activity`) in `items`
   4.1. For each `activity`, if `activity.endTime` is before `lastCrawl`, then terminate ;
   4.2. If the updated resource's uri at `activity.target.id` is in `processedItems`, then continue ;
@@ -306,7 +494,7 @@ Given the URI of an ActivityStreams CollectionPage (`page`) and the date of last
   4.4. Otherwise, if `activity.type` is `Delete`, then find the URI of the deleted resource at `activity.target.id` and remove it from the index.
   4.5. Add the processed resource's URI to `processedItems`
 5. Finally, find the URI of the previous page at `collection.prev.id` (`pageN1`)
-6. Apply the results of the page algorithm to `pageN1`
+6. If there is a previous page, apply the results of the page algorithm to `pageN1`
 
 __Target Resource Algorithm__
 
@@ -323,7 +511,7 @@ Given the URI of a target resource (`target`), a conforming processor SHOULD:
 
 ## 4. Notifications
 
-__Coming next__
+__Coming soon__
 
 ## Appendices
 
