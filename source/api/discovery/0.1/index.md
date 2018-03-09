@@ -63,7 +63,7 @@ Work that is out of scope includes the selection or creation of any descriptive 
 
 ### 1.2. Terminology
 
-The terms "array", "JSON object", "number", "string", "true", "false", "boolean" and "null" in this document are to be interpreted as defined by the [Javascript Object Notation (JSON)][...] specification.
+The terms "array", "JSON object", "number", "string", "true", "false", "boolean" and "null" in this document are to be interpreted as defined by the [Javascript Object Notation (JSON)][json] specification.
 
 The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _SHOULD NOT_, _RECOMMENDED_, _MAY_, and _OPTIONAL_ in this document are to be interpreted as described in [RFC 2119][rfc-2119].
 
@@ -76,9 +76,12 @@ The specification uses the following terms:
 
 The W3C [Activity Streams](https://www.w3.org/TR/activitystreams-core/) (AS2) specification defines a "model for representing potential and completed activities", and is compatible with the [design patterns][patterns] established for IIIF APIs. It is defined in terms of [JSON-LD][json-ld], and can be seamlessly integrated with the existing IIIF APIs. The model can be used to represent activities of creating, updating and deleting (or otherwise de-publishing) IIIF resources, carried out by content publishers.
 
-This section is a summary of the properties and types used by this specification, and defined by Activity Streams.  This is intended to ease implementation efforts by collecting the relevant information together.
+This approach can be used for any type of resource, however the focus is on IIIF Collections and Manifests as the main access points to additional content. 
+
 
 ### 2.1. Activity Properties
+
+This section is a summary of the properties and types used by this specification, and defined by Activity Streams.  This is intended to ease implementation efforts by collecting the relevant information together.
 
 Properties that the consuming application does not understand _MUST_ be ignored.  Other properties defined by Activity Streams _MAY_ be used, such as `origin` or `instrument`, but there are no current use cases that would warrant their inclusion in this specification.
 
@@ -106,14 +109,14 @@ This specification uses the types described in the table below.
 {: .api-table #table-type-dfn}
 
 Activities _MUST_ have the `type` property. The value _MUST_ be a registered Activity class, and _SHOULD_ be one of `Create`, `Update`, or `Delete`.
-
+z
 ```
 { "type": "Update" }
 ```
 
 ##### object
 
-The IIIF resource that was affected by the Activity.
+The IIIF resource that was affected by the Activity.  It is an implementation decision whether there are separate lists of Activities, one per object type, or a single list with all of the object types combined.
 
 Activities _MUST_ have the `object` property.  The value _MUST_ be a JSON object, with the `id` and `type` properties.  The `id` _MUST_ be an HTTP(S) URI. The `type` _MUST_ be a class defined in the IIIF Presentation API, and _SHOULD_ be one of `Collection`, or `Manifest`.
 
@@ -146,6 +149,16 @@ Activities _MAY_ have the `startTime` property.  The value _MUST_ be a datetime 
 { "startTime": "2017-09-20T23:58:00Z" }
 ```
 
+##### summary
+
+A short textual description of the Activity. This is intended primarily to be used for debugging purposes or explanatory messages.
+
+Activities _MAY_ have the `summary` property.  The value _MUST_ be a string.
+
+```
+{ "summary": "admin updated the manifest, fixing reported bug #15." }
+```
+
 ##### actor
 
 The organization, person, or software agent that carried out the Activity.
@@ -169,6 +182,7 @@ A complete example Activity would thus look like the following example.
 { 
   "id": "https://example.org/activity/1",
   "type": "Update",
+  "summary": "admin updated the manifest, fixing reported bug #15.",
   "object": {
   	"id": "https://example.org/iiif/manifest/1"
   	"type": "Manifest"  	
@@ -188,7 +202,7 @@ A complete example Activity would thus look like the following example.
 
 The basic information required, in order to provide a minimally effective set of links to IIIF resources to harvest is just the URIs of those resources. However, with the addition of a little boilerplate in the JSON, we can be on the path towards a robust set of information that clients can use to optimize their harvesting.  
 
-Starting with the Manifest URIs, we add an "Update" Activity wrapper around them.  The order of the Manifests is unimportant, but each should only appear once in the list. In terms of optimization, it provides no additional benefit over any other simpler list format, but is compatible with the following levels.  This is the minimum level for interoperability, but further levels are significant improvements in terms of efficiency.
+Starting with the IIIF resource URIs, we add an "Update" Activity wrapper around them.  The order of the resources in the resulting list is unimportant, but each should only appear once. In terms of optimization, this approach provides no additional benefit over any other simpler list format, but is compatible with the following levels which introduce significant benefits.  This is the minimum level for interoperability on the path towards a complete and homogeneous framework that addresses the breadth of the objectives and scope for this specification.
 
 Example level 0 Activity:
 
@@ -465,48 +479,37 @@ Ordered Collection Pages _MUST_ have a `orderedItems` property.  The value _MUST
 
 ## 3.3. Activity Streams Processing Algorithm
 
-The aim of the processing algorithm is to inform harvesters how to make best use of the available information, with an aim of finding "indexable content" -- the descriptive information that might be used to build an index of the resources to allow them to be discovered.  For different types of resource, and for different domains, the "indexable content" will have different formats and semantics. At worst, the data in the Manifest and other IIIF resources might be used, despite its presentational intent. 
+The aim of the processing algorithm is to inform consuming applications how to make best use of the available information.
 
-__Collection Algorithm__
+If the objective of the consuming application is to find descriptive information that might be used to build an index of the resources to allow them to be discovered, then it _SHOULD_ use the IIIF Presentation API `seeAlso` property to discover an appropriate, machine-readable description of the resource.  For different types of resource, and for different domains, the external resources will have different formats and semantics. If there are no external descriptions, or none that can be processed, the data in the Manifest and in other IIIF resources might be used as a last resort, despite its presentational intent. 
+
+##### Collection Algorithm
 
 Given the URI of an ActivityStreams Collection (`collection`) as input, a conforming processor SHOULD:
 
-1. Initialization:
-  1.1. Let `processedItems` be an empty array
-  1.2. Let `lastCrawl` be the timestamp of the previous time the algorithm was executed
-2. Retrieve the representation of `collection` via HTTP(S)
-3. Minimally validate that it conforms to the specification
-4. Find the URI of the last page at `collection.last.id` (`pageN`)
-5. Apply the results of the page algorithm to `pageN`
+* 1. Initialization:
+  * 1.1. Let `processedItems` be an empty array
+  * 1.2. Let `lastCrawl` be the timestamp of the previous time the algorithm was executed
+* 2. Retrieve the representation of `collection` via HTTP(S)
+* 3. Minimally validate that it conforms to the specification
+* 4. Find the URI of the last page at `collection.last.id` (`pageN`)
+* 5. Apply the results of the page algorithm to `pageN`
 
-
-__Page Algorithm__
+##### Page Algorithm
 
 Given the URI of an ActivityStreams CollectionPage (`page`) and the date of last crawling (`lastCrawl`) as input, a conforming processor SHOULD:
 
-1. Retrieve the representation of `page` via HTTP(S)
-2. Minimally validate that it conforms to the specification
-3. Find the set of updates of the page at `page.orderedItems` (`items`)
-4. In reverse order, iterate through the activities (`activity`) in `items`
-  4.1. For each `activity`, if `activity.endTime` is before `lastCrawl`, then terminate ;
-  4.2. If the updated resource's uri at `activity.target.id` is in `processedItems`, then continue ;
-  4.3. Otherwise, if `activity.type` is `Update` or `Create`, then find the URI of the updated resource at `activity.target.id` (`target`) and apply the target resource algorithm ;
-  4.4. Otherwise, if `activity.type` is `Delete`, then find the URI of the deleted resource at `activity.target.id` and remove it from the index.
-  4.5. Add the processed resource's URI to `processedItems`
-5. Finally, find the URI of the previous page at `collection.prev.id` (`pageN1`)
-6. If there is a previous page, apply the results of the page algorithm to `pageN1`
-
-__Target Resource Algorithm__
-
-Given the URI of a target resource (`target`), a conforming processor SHOULD:
-
-1. Retrieve the representation of `target` via HTTP(S)
-2. Minimally validate that it conforms to the appropriate specification
-3. Find the URI of the resource at `target.id` (`targetId`)
-4. If the resource has the `seeAlso` property, then for each resource referenced ('extref')
-  4.1. If the `format` and/or `profile` of `extref` is understood by the processor, then it should retrieve any representations that it can process to extract Indexable Content.
-5. Otherwise, extract any indexable content from the resource's representation, using resource type specific functionality.
-6. Index the content against `targetId`
+* 1. Retrieve the representation of `page` via HTTP(S)
+* 2. Minimally validate that it conforms to the specification
+* 3. Find the set of updates of the page at `page.orderedItems` (`items`)
+* 4. In reverse order, iterate through the activities (`activity`) in `items`
+  * 4.1. For each `activity`, if `activity.endTime` is before `lastCrawl`, then terminate ;
+  * 4.2. If the updated resource's uri at `activity.target.id` is in `processedItems`, then continue ;
+  * 4.3. Otherwise, if `activity.type` is `Update` or `Create`, then find the URI of the updated resource at `activity.target.id` (`target`) and process the target resource ;
+  * 4.4. Otherwise, if `activity.type` is `Delete`, then find the URI of the deleted resource at `activity.target.id` and process its removal.
+  * 4.5. Add the processed resource's URI to `processedItems`
+* 5. Finally, find the URI of the previous page at `collection.prev.id` (`pageN1`)
+* 6. If there is a previous page, apply the results of the page algorithm to `pageN1`
 
 
 ## 4. Notifications
@@ -527,4 +530,4 @@ includes/links is only in prezi3. Links here are placeholders.
 [patterns]: http://iiif.io/api/
 [json-ld]: http://w3.org/
 [rfc-2119]: http://ietf.org/
-
+[json]: http://ietf.org/
