@@ -184,7 +184,7 @@ A complete example Activity would thus look like the following example.
   "type": "Update",
   "summary": "admin updated the manifest, fixing reported bug #15.",
   "object": {
-  	"id": "https://example.org/iiif/manifest/1"
+  	"id": "https://example.org/iiif/manifest/1",
   	"type": "Manifest"  	
   },
   "endTime": "2017-09-21T00:00:00Z",
@@ -204,7 +204,7 @@ The basic information required, in order to provide a minimally effective set of
 
 Starting with the IIIF resource URIs, we add an "Update" Activity wrapper around them.  The order of the resources in the resulting list is unimportant, but each should only appear once. In terms of optimization, this approach provides no additional benefit over any other simpler list format, but is compatible with the following levels which introduce significant benefits.  This is the minimum level for interoperability on the path towards a complete and homogeneous framework that addresses the breadth of the objectives and scope for this specification.
 
-Example level 0 Activity:
+Example Level 0 Activity:
 
 ```
 { 
@@ -224,6 +224,8 @@ Consumers will then process the list of Activities in reverse order, from last t
 
 Additional information, using the properties described above, can be added without affecting the way consumers would process the list.
 
+Example Level 1 Activity:
+
 ```
 {
   "type": "Update",
@@ -239,7 +241,9 @@ Additional information, using the properties described above, can be added witho
 
 At the most detailed level, a log of all of the Activities that have taken place can be recorded, with the likeihood of multiple Activities per object resource.  This allows the additional types of Create and Delete, enabling a synchronization process to remove resources as well as add them. This would also allow for the complete history of a resource to be reconstructed, if each version has an archived representation.  The list might end up very long if there are many changes to resources, however this is not a typical situation, and the cost is still reasonable as each entry is short and can be compressed both on disk and at the HTTP(S) transport layer.
 
-A consuming application at this level would process the `type` property of the Activity description.
+A consuming application at this level _SHOULD_ process the `type` property of the Activity description in order to understand the type of change that occurred.
+
+Example Level 2 Activity:
 
 ```
 {
@@ -253,6 +257,10 @@ A consuming application at this level would process the `type` property of the A
 ```
 
 ## 3. Activity Streams
+
+In order to gain access to the many Activity descriptions, content publishers make available Ordered Collections which are divided in to pages to make the individual documents a reasonable length. The page documents contain the descriptions of the Activities.
+
+The overall ordering of the Collection is from the oldest Activity as the first entry in the first page, to the most recent as the last entry in the last page. Consuming applications _SHOULD_ therefore start at the end and walk backwards through the list, and stop when they reach a timestamp before the time they last processed the list.
 
 ### 3.1. Collection
 
