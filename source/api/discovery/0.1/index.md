@@ -99,7 +99,7 @@ Example Level 0 Activity:
 }
 ```
 
-#### 2.2. Level 1: Basic Change List
+### 2.2. Level 1: Basic Change List
 
 The most effective information to add beyond the basic resource list is the datestamp at which the resource was last modified (including the initial modification that created it).  If we know these dates, we can add them to the Activities and order the list such that the most recent activities occur last. The timestamp is given in the `endTime` property -- the time at which the document update process finished.  
 
@@ -118,7 +118,7 @@ Example Level 1 Activity:
 }
 ```
 
-#### 2.3. Level 2: Complete Change List
+### 2.3. Level 2: Complete Change List
 
 At the most detailed level, a log of all of the Activities that have taken place can be recorded, with the likelihood of multiple Activities per IIIF resource.  This allows the additional types of "Create" and "Delete", enabling a synchronization process to remove resources as well as add them. This would also allow for the complete history of a resource to be reconstructed, if each version has an archived representation.  The list might end up very long if there are many changes to resources, however this is not a typical situation, and the cost is still reasonable as each entry is short and can be compressed both on disk and at the HTTP(S) transport layer.
 
@@ -135,7 +135,7 @@ Example Level 2 Activity:
 }
 ```
 
-#### 2.4. Pages of Activities
+### 2.4. Pages of Activities
 
 These Activities are collected together into pages that together make up the entire set of changes that the publishing system has made.  Pages reference the previous and next pages in that set, and the overall collection that they are part of.  The Activities are then listed in time order.
 
@@ -176,7 +176,7 @@ These Activities are collected together into pages that together make up the ent
 }
 ```
 
-#### 2.5. Collections of Pages
+### 2.5. Collections of Pages
 
 As the number of Activities is likely too many to usefully be represented in a single Page, they are collected together into a Collection as the initial entry point.  The Collection references the URIs of the first and last pages.
 
@@ -210,8 +210,6 @@ Properties that the consuming application does not understand _MUST_ be ignored.
 The top-most resource for managing the lists of Activities is an Ordered Collection, broken up into Ordered Collection Pages. This is the same pattern that the Web Annotation model uses for Annotation Collections and Annotation Pages. The Collection does not directly contain any of the Activities, instead it refers to the `first` and `last` pages of the list.  
 
 The overall ordering of the Collection is from the oldest Activity as the first entry in the first page, to the most recent as the last entry in the last page. Consuming applications _SHOULD_ therefore start at the end and walk backwards through the list, and stop when they reach a timestamp before the time they last processed the list.
-
-#### 3.1.1 Ordered Collection Properties
 
 ##### id
 
