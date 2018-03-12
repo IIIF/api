@@ -67,7 +67,6 @@ The specification uses the following terms:
 
 * __HTTP(S)__: The HTTP or HTTPS URI scheme and internet protocol.
 
-
 The terms "array", "JSON object", "number", "string", "true", "false", "boolean" and "null" in this document are to be interpreted as defined by the [Javascript Object Notation (JSON)][json] specification.
 
 The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _SHOULD NOT_, _RECOMMENDED_, _MAY_, and _OPTIONAL_ in this document are to be interpreted as described in [RFC 2119][rfc-2119].
@@ -75,7 +74,7 @@ The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _S
 
 ## 2. Overview of IIIF Resource Discovery
 
-In order to discover IIIF resources, the state of the publishing system needs to be communicated succinctly and easily to a consuming system.  The consumer can then use that information to retrieve and process the resources of interest.  This communication takes place via the IIIF Discovery API, which is based on the W3C [Activity Streams][as2] specification. 
+In order to discover IIIF resources, the state of the publishing system needs to be communicated succinctly and easily to a consuming system.  The consumer can then use that information to retrieve and process the resources of interest.  This communication takes place via the IIIF Discovery API, which is based on the W3C [Activity Streams][as2] specification for the JSON-LD details, and the [ResourceSync][rsync] framework for the more abstract communication patterns. 
 
 Activities are used to describe the state of the publisher as every time an activity takes place, the overall state changes. IIIF resources, primarily Collections and Manifests, can be created, updated or deleted.  If the consuming application was aware of all of the changes that took place at the publisher, it would have full knowledge of the set of resources available.  The focus on IIIF Collections and Manifests is because these are the main access points to published content, however Activities describing changes to any resource could be included.
 
@@ -248,7 +247,7 @@ Ordered Collections _SHOULD_ have a `first` property.  The value _MUST_ be a JSO
 
 ##### last
 
-A link to the last Ordered Collection Page for this Collection.  As the client processing algorithm works backwards from the most recent to least recent, the inclusion of `last` is _REQUIRED_, but `first` is only _RECOMMENDED_.  This might seem odd to implementers, without the context of the processing.
+A link to the last Ordered Collection Page for this Collection.  As the client processing algorithm works backwards from the most recent to least recent, the inclusion of `last` is _REQUIRED_, but `first` is only _RECOMMENDED_.  This might seem odd to implementers, without the context of the processing patterns expected.
 
 Ordered Collections _SHOULD_ have a `last` property.  The value _MUST_ be a JSON object, with the `id` and `type` properties.  The value of the `id` property _MUST_ be a string, and it _MUST_ be the HTTP(S) URI of the last page of items in the Collection. The value of the `type` property _MUST_ be a string, and _MUST_ be "OrderedCollectionPage".
 
@@ -263,7 +262,7 @@ Ordered Collections _SHOULD_ have a `last` property.  The value _MUST_ be a JSON
 
 ##### totalItems
 
-The total number of Activities in the Ordered Collection.
+The total number of Activities in the entire Ordered Collection.
 
 OrderedCollections _MAY_ have a `totalItems` property.  The value _MUST_ be a non-negative integer.
 
@@ -284,7 +283,7 @@ OrderedCollections _MAY_ have a `totalItems` property.  The value _MUST_ be a no
   	"type": "OrderedCollectionPage"
   },
   "last": {
-  	"id": "https://example.org/activity/page-1234",
+  	"id": "https://example.org/activity/page-214",
   	"type": "OrderedCollectionPage"
   }
 }
@@ -539,8 +538,7 @@ A complete example Activity would thus look like the following example.
 ```
 
 
-
-## 3.4. Activity Streams Processing Algorithm
+### 3.4. Activity Streams Processing Algorithm
 
 The aim of the processing algorithm is to inform consuming applications how to make best use of the available information.
 
@@ -601,5 +599,4 @@ includes/links is only in prezi3. Links here are placeholders.
 [as2]: https://www.w3.org/TR/activitystreams-core/
 [tsg-discovery]: http://iiif.io/community/groups/discovery/
 [discovery-issues]: https://github.com/IIIF/discovery/issues
-
-
+[rsync]: http://openarchives.org/rs/toc/
