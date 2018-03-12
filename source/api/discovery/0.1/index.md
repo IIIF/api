@@ -378,7 +378,7 @@ Ordered Collection Pages _MUST_ have a `orderedItems` property.  The value _MUST
 {
   "orderedItems": [
      {
-     	"type": "Activity",
+     	"type": "Update",
      	"object": {
      		"id": "https://example.org/iiif/manifest/1",
      		"type": "Manifest"
