@@ -199,7 +199,7 @@ As the number of Activities is likely too many to usefully be represented in a s
 
 ## 3. Activity Streams Details
 
-The W3C [Activity Streams](https://www.w3.org/TR/activitystreams-core/) (AS2) specification defines a "model for representing potential and completed activities", and is compatible with the [design patterns][patterns] established for IIIF APIs. It is defined in terms of [JSON-LD][json-ld], and can be seamlessly integrated with the existing IIIF APIs. The model can be used to represent activities of creating, updating and deleting (or otherwise de-publishing) IIIF resources, carried out by content publishers.
+The W3C [Activity Streams][as2] specification defines a "model for representing potential and completed activities", and is compatible with the [design patterns][patterns] established for IIIF APIs. It is defined in terms of [JSON-LD][json-ld], and can be seamlessly integrated with the existing IIIF APIs. The model can be used to represent activities of creating, updating and deleting (or otherwise de-publishing) IIIF resources, carried out by content publishers.
 
 This section is a summary of the properties and types used by this specification, and defined by Activity Streams.  This is intended to ease implementation efforts by collecting the relevant information together.
 
@@ -600,7 +600,7 @@ includes/links is only in prezi3. Links here are placeholders.
 [json-ld]: http://w3.org/
 [rfc-2119]: http://ietf.org/
 [json]: http://ietf.org/
-
+[as2]: https://www.w3.org/TR/activitystreams-core/
 [tsg-discovery]: http://iiif.io/api/groups/
 [discovery-issues]: https://github.com/IIIF/discovery/issues
 
