@@ -601,7 +601,7 @@ includes/links is only in prezi3. Links here are placeholders.
 [rfc-2119]: http://ietf.org/
 [json]: http://ietf.org/
 [as2]: https://www.w3.org/TR/activitystreams-core/
-[tsg-discovery]: http://iiif.io/api/groups/
+[tsg-discovery]: http://iiif.io/community/groups/discovery/
 [discovery-issues]: https://github.com/IIIF/discovery/issues
 
 
