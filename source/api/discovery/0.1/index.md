@@ -599,4 +599,4 @@ includes/links is only in prezi3. Links here are placeholders.
 [as2]: https://www.w3.org/TR/activitystreams-core/
 [tsg-discovery]: http://iiif.io/community/groups/discovery/
 [discovery-issues]: https://github.com/IIIF/discovery/issues
-[rsync]: http://openarchives.org/rs/toc/
+[rsync]: http://openarchives.org/rs/toc
