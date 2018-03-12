@@ -34,7 +34,7 @@ __Previous Version:__ None
 {% include copyright.md %}
 
 __Status Warning__
-This is a work in progress and may change without any notices. Implementers should be aware that this document is not stable. Implementers are likely to find the specification changing in incompatible ways. Those interested in implementing this document before it reaches beta or release stages should join the [mailing list][iiif-discuss] and take part in the discussions, and follow the [emerging issues][] on Github.
+This is a work in progress and may change without any notices. Implementers should be aware that this document is not stable. Implementers are likely to find the specification changing in incompatible ways. Those interested in implementing this document before it reaches beta or release stages should join the IIIF [mailing list][iiif-discuss] and the [Discovery Specification Group][tsg-discovery] and take part in the discussions, and follow the [emerging issues][discovery-issues] on Github.
 {: .warning}
 
 ----
@@ -63,27 +63,371 @@ Work that is out of scope includes the selection or creation of any descriptive 
 
 ### 1.2. Terminology
 
-The terms "array", "JSON object", "number", "string", "true", "false", "boolean" and "null" in this document are to be interpreted as defined by the [Javascript Object Notation (JSON)][json] specification.
-
-The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _SHOULD NOT_, _RECOMMENDED_, _MAY_, and _OPTIONAL_ in this document are to be interpreted as described in [RFC 2119][rfc-2119].
-
 The specification uses the following terms:
 
 * __HTTP(S)__: The HTTP or HTTPS URI scheme and internet protocol.
 
 
-## 2. Activities
+The terms "array", "JSON object", "number", "string", "true", "false", "boolean" and "null" in this document are to be interpreted as defined by the [Javascript Object Notation (JSON)][json] specification.
+
+The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _SHOULD NOT_, _RECOMMENDED_, _MAY_, and _OPTIONAL_ in this document are to be interpreted as described in [RFC 2119][rfc-2119].
+
+
+## 2. Overview of IIIF Resource Discovery
+
+In order to discover IIIF resources, the state of the publishing system needs to be communicated succinctly and easily to a consuming system.  The consumer can then use that information to retrieve and process the resources of interest.  This communication takes place via the IIIF Discovery API, which is based on the W3C [Activity Streams][as2] specification. 
+
+Activities are used to describe the state of the publisher as every time an activity takes place, the overall state changes. IIIF resources, primarily Collections and Manifests, can be created, updated or deleted.  If the consuming application was aware of all of the changes that took place at the publisher, it would have full knowledge of the set of resources available.  The focus on IIIF Collections and Manifests is because these are the main access points to published content, however Activities describing changes to any resource could be included.
+
+The API is built up over three levels. Level 0 is simply a list of resources to harvest.  Level 1 adds timestamps and ordering, allowing the consumer to stop processing once it detects an activity that it has already seen. Level 2 adds in additional clarity about the types of activities. 
+
+### 2.1. Level 0: Basic Resource List
+
+The basic information required, in order to provide a minimally effective set of links to IIIF resources to harvest is just the URIs of those resources. However, with the addition of a little boilerplate in the JSON, we can be on the path towards a robust set of information that clients can use to optimize their harvesting.  
+
+Starting with the IIIF resource URIs, we add an "Update" Activity wrapper around them.  The order of the resources in the resulting list is unimportant, but each should only appear once. In terms of optimization, this approach provides no additional benefit over any other simpler list format, but is compatible with the following levels which introduce significant benefits.  This is the minimum level for interoperability on the path towards a complete and homogeneous framework that addresses the breadth of the objectives and scope for this specification.
+
+Example Level 0 Activity:
+
+```
+{ 
+  "type": "Update",
+  "object": {
+  	"id": "https://example.org/iiif/manifest/1",
+  	"type": "Manifest"  	
+  }
+}
+```
+
+#### 2.2. Level 1: Basic Change List
+
+The most effective information to add beyond the basic resource list is the datestamp at which the resource was last modified (including the initial modification that created it).  If we know these dates, we can add them to the Activities and order the list such that the most recent activities occur last. The timestamp is given in the `endTime` property -- the time at which the document update process finished.  
+
+Consumers will then process the list of Activities in reverse order, from last to first. The rationale for processing backwards is that the first parts of the list, once finished, can become static resources.  Note that resources might appear multiple times in the list, if it has been modified several times.
+
+Example Level 1 Activity:
+
+```
+{
+  "type": "Update",
+  "object": {
+    "id": "https://example.org/iiif/manifest/1",
+    "type": "Manifest"
+  },
+  "endTime": "2017-09-20T00:00:00Z"
+}
+```
+
+#### 2.3. Level 2: Complete Change List
+
+At the most detailed level, a log of all of the Activities that have taken place can be recorded, with the likelihood of multiple Activities per IIIF resource.  This allows the additional types of "Create" and "Delete", enabling a synchronization process to remove resources as well as add them. This would also allow for the complete history of a resource to be reconstructed, if each version has an archived representation.  The list might end up very long if there are many changes to resources, however this is not a typical situation, and the cost is still reasonable as each entry is short and can be compressed both on disk and at the HTTP(S) transport layer.
+
+Example Level 2 Activity:
+
+```
+{
+  "type": "Create",
+  "object": {
+    "id": "https://example.org/iiif/manifest/1",
+    "type": "Manifest"
+  },
+  "endTime": "2017-09-20T00:00:00Z"
+}
+```
+
+#### 2.4. Pages of Activities
+
+These Activities are collected together into pages that together make up the entire set of changes that the publishing system has made.  Pages reference the previous and next pages in that set, and the overall collection that they are part of.  The Activities are then listed in time order.
+
+```
+{
+  "id": "https://example.org/activity/page-1",
+  "type": "OrderedCollectionPage",
+  "partOf": {
+  	"id": "https://example.org/activity/collection",
+  	"type": "OrderedCollection"
+  },
+  "prev": {
+  	"id": "https://example.org/activity/page-0",
+  	"type": "OrderedCollectionPage"
+  },
+  "next": {
+  	"id": "https://example.org/activity/page-2",
+  	"type": "OrderedCollectionPage"
+  },
+  "orderedItems": [
+     {
+     	"type": "Update",
+     	"object": {
+     		"id": "https://example.org/iiif/manifest/9",
+     		"type": "Manifest"
+     	},
+     	"endTime": "2018-03-10T10:00:00Z"
+     },
+     {
+     	"type": "Update",
+     	"object": {
+     		"id": "https://example.org/iiif/manifest/2",
+     		"type": "Manifest"
+     	},
+     	"endTime": "2018-03-11T16:30:00Z"
+     }
+  ]
+}
+```
+
+#### 2.5. Collections of Pages
+
+As the number of Activities is likely too many to usefully be represented in a single Page, they are collected together into a Collection as the initial entry point.  The Collection references the URIs of the first and last pages.
+
+```
+{
+  "id": "https://example.org/activity/collection",
+  "type": "OrderedCollection",
+  "totalItems": 21456,
+  "first": {
+  	"id": "https://example.org/activity/page-0",
+  	"type": "OrderedCollectionPage"
+  },
+  "last": {
+  	"id": "https://example.org/activity/page-214",
+  	"type": "OrderedCollectionPage"
+  }
+}
+```
+
+
+## 3. Activity Streams Details
 
 The W3C [Activity Streams](https://www.w3.org/TR/activitystreams-core/) (AS2) specification defines a "model for representing potential and completed activities", and is compatible with the [design patterns][patterns] established for IIIF APIs. It is defined in terms of [JSON-LD][json-ld], and can be seamlessly integrated with the existing IIIF APIs. The model can be used to represent activities of creating, updating and deleting (or otherwise de-publishing) IIIF resources, carried out by content publishers.
-
-This approach can be used for any type of resource, however the focus is on IIIF Collections and Manifests as the main access points to additional content. 
-
-
-### 2.1. Activity Properties
 
 This section is a summary of the properties and types used by this specification, and defined by Activity Streams.  This is intended to ease implementation efforts by collecting the relevant information together.
 
 Properties that the consuming application does not understand _MUST_ be ignored.  Other properties defined by Activity Streams _MAY_ be used, such as `origin` or `instrument`, but there are no current use cases that would warrant their inclusion in this specification.
+
+### 3.1. Collection
+
+The top-most resource for managing the lists of Activities is an Ordered Collection, broken up into Ordered Collection Pages. This is the same pattern that the Web Annotation model uses for Annotation Collections and Annotation Pages. The Collection does not directly contain any of the Activities, instead it refers to the `first` and `last` pages of the list.  
+
+The overall ordering of the Collection is from the oldest Activity as the first entry in the first page, to the most recent as the last entry in the last page. Consuming applications _SHOULD_ therefore start at the end and walk backwards through the list, and stop when they reach a timestamp before the time they last processed the list.
+
+#### 3.1.1 Ordered Collection Properties
+
+##### id
+
+The identifier of the Ordered Collection.
+
+Ordered Collections _MUST_ have an `id` property. The value _MUST_ be a string and it _MUST_ be an HTTP(S) URI. The JSON representation of the Ordered Collection _MUST_ be available at the URI.
+
+```
+{ "id": "https://example.org/activity/collection" }
+```
+
+##### type
+
+The class of the Ordered Collection.
+
+Ordered Collections _MUST_ have a `type` property.  The value _MUST_ be "OrderedCollection".
+
+```
+{ "type": "OrderedCollection" }
+```
+
+##### first
+
+A link to the first Ordered Collection Page for this Collection.
+
+Ordered Collections _SHOULD_ have a `first` property.  The value _MUST_ be a JSON object, with the `id` and `type` properties.  The value of the `id` property _MUST_ be a string, and it _MUST_ be the HTTP(S) URI of the first page of items in the Collection. The value of the `type` property _MUST_ be a string, and _MUST_ be "OrderedCollectionPage".
+
+```
+{ 
+  "first": {
+    "id": "https://example.org/activity/page-0",
+    "type": "OrderedCollectionPage"
+  }
+}
+```
+
+##### last
+
+A link to the last Ordered Collection Page for this Collection.  As the client processing algorithm works backwards from the most recent to least recent, the inclusion of `last` is _REQUIRED_, but `first` is only _RECOMMENDED_.  This might seem odd to implementers, without the context of the processing.
+
+Ordered Collections _SHOULD_ have a `last` property.  The value _MUST_ be a JSON object, with the `id` and `type` properties.  The value of the `id` property _MUST_ be a string, and it _MUST_ be the HTTP(S) URI of the last page of items in the Collection. The value of the `type` property _MUST_ be a string, and _MUST_ be "OrderedCollectionPage".
+
+```
+{ 
+  "last": {
+    "id": "https://example.org/activity/page-1234",
+    "type": "OrderedCollectionPage"
+  }
+}
+```
+
+##### totalItems
+
+The total number of Activities in the Ordered Collection.
+
+OrderedCollections _MAY_ have a `totalItems` property.  The value _MUST_ be a non-negative integer.
+
+```
+{ "totalItems": 21456 }
+```
+
+##### Complete Ordered Collection Example
+
+```
+{
+  "@context": "",
+  "id": "https://example.org/activity/collection",
+  "type": "OrderedCollection",
+  "totalItems": 21456,
+  "first": {
+  	"id": "https://example.org/activity/page-0",
+  	"type": "OrderedCollectionPage"
+  },
+  "last": {
+  	"id": "https://example.org/activity/page-1234",
+  	"type": "OrderedCollectionPage"
+  }
+}
+```
+
+### 3.2. Ordered Collection Page
+
+The list of Activities is ordered both from page to page by following `prev` (or `next`) relationships, and internally within the page in the `orderedItems` property. The number of entries in each page is up to the implementer, and cannot be modified by the client.
+
+##### id
+
+The identifier of the Collection Page.
+
+Ordered Collection Pages _MUST_ have an `id` property. The value _MUST_ be a string and it _MUST_ be an HTTP(S) URI. The JSON representation of the Ordered Collection Page _MUST_ be available at the URI.
+
+```
+{ "id": "https://example.org/activity/page-0" }
+```
+
+##### type
+
+The class of the Ordered Collection Page.
+
+Ordered Collections _MUST_ have a `type` property.  The value _MUST_ be "OrderedCollectionPage".
+
+```
+{ "type": "OrderedCollectionPage" }
+```
+
+##### partOf
+
+The Ordered Collection that this Page is part of.
+
+Ordered Collection Pages _SHOULD_ have a `partOf` property. The value _MUST_ be a JSON object, with the `id` and `type` properties.  The value of the `id` property _MUST_ be the a string, and _MUST_ be the HTTP(S) URI of the Ordered Collection that this page is part of.  The value of the `type` property _MUST_ be a string, and _MUST_ be "OrderedCollection".
+
+```
+{
+  "partOf": {
+    "id": "https://example.org/activity/collection",
+    "type": "OrderedCollection"
+  }
+}
+```
+
+##### startIndex
+
+The position of the first item in this page's `orderedItems` list, relative to the overall ordering across all pages within the Collection.  The first entry in the list has a `startIndex` of 0.  If the first page has 20 entries, the first entry on the second page would therefore be 20.
+
+Ordered Collection Pages _MAY_ have a `startIndex` property.  The value _MUST_ be a non-negative integer.
+
+```
+{ "startIndex": 20 }
+```
+
+##### next
+
+A reference to the next page in the list of pages.
+
+Ordered Collection Pages _SHOULD_ have a `next` property, unless they are the last Page in the Collection. The value _MUST_ be a JSON object, with the `id` and `type` properties.  The value of the `id` property _MUST_ be the a string, and _MUST_ be the HTTP(S) URI of the following Ordered Collection Page.  The value of the `type` property _MUST_ be a string, and _MUST_ be "OrderedCollectionPage".
+
+```
+{
+  "next": {
+    "id": "https://example.org/activity/page-2",
+    "type": "OrderedCollectionPage"
+  }
+}
+```
+
+##### prev
+
+A reference to the previous page in the list of pages.
+
+Ordered Collection Pages _MUST_ have a `prev` property, unless they are the first page in the Collection. The value _MUST_ be a JSON object, with the `id` and `type` properties.  The value of the `id` property _MUST_ be the a string, and _MUST_ be the HTTP(S) URI of the preceding Ordered Collection Page.  The value of the `type` property _MUST_ be a string, and _MUST_ be "OrderedCollectionPage".
+
+```
+{
+  "prev": {
+    "id": "https://example.org/activity/page-1",
+    "type": "OrderedCollectionPage"
+  }
+}
+```
+
+##### orderedItems
+
+The Activities that are listed as part of this page.
+
+Ordered Collection Pages _MUST_ have a `orderedItems` property.  The value _MUST_ be an array, with at least one item.  Each item _MUST_ be a JSON object, conforming to the requirements of an Activity.
+
+```
+{
+  "orderedItems": [
+     {
+     	"type": "Activity",
+     	"object": {
+     		"id": "https://example.org/iiif/manifest/1",
+     		"type": "Manifest"
+     	},
+     	"endTime": "2018-03-10T10:00:00Z"
+     }
+  ]
+}
+```
+
+
+##### Complete Ordered Collection Page Example
+
+```
+{
+  "@context": "",
+  "id": "https://example.org/activity/page-1",
+  "type": "OrderedCollectionPage",
+  "startIndex": 20,
+  "partOf": {
+  	"id": "https://example.org/activity/collection",
+  	"type": "OrderedCollection"
+  },
+  "prev": {
+  	"id": "https://example.org/activity/page-0",
+  	"type": "OrderedCollectionPage"
+  },
+  "next": {
+  	"id": "https://example.org/activity/page-2",
+  	"type": "OrderedCollectionPage"
+  },
+  "orderedItems": [
+     {
+     	"type": "Update",
+     	"object": {
+     		"id": "https://example.org/iiif/manifest/1",
+     		"type": "Manifest"
+     	},
+     	"endTime": "2018-03-10T10:00:00Z"
+     }
+  ]
+}
+```
+
+### 3.3. Activities
+
 
 ##### id
 
@@ -131,7 +475,7 @@ Activities _MUST_ have the `object` property.  The value _MUST_ be a JSON object
 
 ##### endTime
 
-The time at which the Activity was finished.
+The time at which the Activity was finished. It is up to the implementer to decide whether the Activity includes the publication of the IIIF resource online, or only the internal data modification, but the decision _MUST_ be consistently applied. 
 
 Activities _SHOULD_ have the `endTime` property.  The value _MUST_ be a datetime expressed in UTC in the ISO8601 format.
 
@@ -174,7 +518,7 @@ Activities _MAY_ have the `actor` property.  The value _MUST_ be a JSON object, 
 }
 ```
 
-##### Complete Example
+##### Complete Activity Example
 
 A complete example Activity would thus look like the following example.
 
@@ -196,296 +540,9 @@ A complete example Activity would thus look like the following example.
 }
 ```
 
-### 2.2. Resource Discovery via Activities
 
-#### 2.2.1. Level 0: Basic Resource List
 
-The basic information required, in order to provide a minimally effective set of links to IIIF resources to harvest is just the URIs of those resources. However, with the addition of a little boilerplate in the JSON, we can be on the path towards a robust set of information that clients can use to optimize their harvesting.  
-
-Starting with the IIIF resource URIs, we add an "Update" Activity wrapper around them.  The order of the resources in the resulting list is unimportant, but each should only appear once. In terms of optimization, this approach provides no additional benefit over any other simpler list format, but is compatible with the following levels which introduce significant benefits.  This is the minimum level for interoperability on the path towards a complete and homogeneous framework that addresses the breadth of the objectives and scope for this specification.
-
-Example Level 0 Activity:
-
-```
-{ 
-  "type": "Update",
-  "object": {
-  	"id": "https://example.org/iiif/manifest/1"
-  	"type": "Manifest"  	
-  }
-}
-```
-
-#### 2.2.2. Level 1: Basic Change List
-
-The most effective information to add beyond the basic resource list is the datestamp at which the resource was last modified (including the initial modification that created it).  If we know these dates, we can add them to the Activities and order the list such that the most recent activities occur last. The timestamp is given in the `endTime` property -- the time at which the document update process finished. It is up to the implementer to decide whether the update process includes the publication online, or only the internal data modification, but the decision _MUST_ be consistently applied.  
-
-Consumers will then process the list of Activities in reverse order, from last to first. The rationale for processing backwards is that the first parts of the list, once finished, can become static resources.  Note that resources _MAY_ appear multiple times in the list, or only the most recent change might be present, depending on the implementation.
-
-Additional information, using the properties described above, can be added without affecting the way consumers would process the list.
-
-Example Level 1 Activity:
-
-```
-{
-  "type": "Update",
-  "object": {
-    "id": "https://example.org/iiif/manifest/1",
-    "type": "Manifest"
-  },
-  "endTime": "2017-09-20T00:00:00Z"
-}
-```
-
-#### 2.2.3. Level 2: Complete Change List
-
-At the most detailed level, a log of all of the Activities that have taken place can be recorded, with the likeihood of multiple Activities per object resource.  This allows the additional types of Create and Delete, enabling a synchronization process to remove resources as well as add them. This would also allow for the complete history of a resource to be reconstructed, if each version has an archived representation.  The list might end up very long if there are many changes to resources, however this is not a typical situation, and the cost is still reasonable as each entry is short and can be compressed both on disk and at the HTTP(S) transport layer.
-
-A consuming application at this level _SHOULD_ process the `type` property of the Activity description in order to understand the type of change that occurred.
-
-Example Level 2 Activity:
-
-```
-{
-  "type": "Create",
-  "object": {
-    "id": "https://example.org/iiif/manifest/1",
-    "type": "Manifest"
-  },
-  "endTime": "2017-09-20T00:00:00Z"
-}
-```
-
-## 3. Activity Streams
-
-In order to gain access to the many Activity descriptions, content publishers make available Ordered Collections which are divided in to pages to make the individual documents a reasonable length. The page documents contain the descriptions of the Activities.
-
-The overall ordering of the Collection is from the oldest Activity as the first entry in the first page, to the most recent as the last entry in the last page. Consuming applications _SHOULD_ therefore start at the end and walk backwards through the list, and stop when they reach a timestamp before the time they last processed the list.
-
-### 3.1. Collection
-
-The top-most resource for managing the lists of Activities is an Ordered Collection, broken up into Ordered Collection Pages. This is the same pattern that the Web Annotation model uses for Annotation Collections and Annotation Pages. The Collection does not directly contain any of the Activities, instead it refers to the `first` page of the overall list.  The pages are ordered both from page to page by following `next` relationships, and internally within the page in the `orderedItems` property. The number of entries in each page is up to the implementer, and cannot be modified by the client.
-
-#### 3.1.1 Ordered Collection Properties
-
-##### @context
-
-
-##### id
-
-The identifier of the Ordered Collection.
-
-Ordered Collections _MUST_ have an `id` property. The value _MUST_ be a string and it _MUST_ be an HTTP(S) URI. The JSON representation of the Ordered Collection _MUST_ be available at the URI.
-
-```
-{ "id": "https://example.org/activity/collection" }
-```
-
-##### type
-
-The class of the Ordered Collection.
-
-Ordered Collections _MUST_ have a `type` property.  The value _MUST_ be "OrderedCollection".
-
-```
-{ "type": "OrderedCollection" }
-```
-
-##### first
-
-A link to the first Ordered Collection Page for this Collection.
-
-Ordered Collections _SHOULD_ have a `first` property.  The value _MUST_ be a JSON object, with the `id` and `type` properties.  The value of the `id` property _MUST_ be a string, and it _MUST_ be the HTTP(S) URI of the first page of items in the Collection. The value of the `type` property _MUST_ be a string, and _MUST_ be "OrderedCollectionPage".
-
-```
-{ 
-  "first": {
-    "id": "https://example.org/activity/page-0",
-    "type": "OrderedCollectionPage"
-  }
-}
-```
-
-##### last
-
-A link to the last Ordered Collection Page for this Collection.  As the client processing algorithm works backwards from the most recent to least recent, the inclusino of `last` is _REQUIRED_, but `first` is only _RECOMMENDED_.  This might seem odd to implementers, without the context of the processing.
-
-Ordered Collections _SHOULD_ have a `last` property.  The value _MUST_ be a JSON object, with the `id` and `type` properties.  The value of the `id` property _MUST_ be a string, and it _MUST_ be the HTTP(S) URI of the last page of items in the Collection. The value of the `type` property _MUST_ be a string, and _MUST_ be "OrderedCollectionPage".
-
-```
-{ 
-  "last": {
-    "id": "https://example.org/activity/page-1234",
-    "type": "OrderedCollectionPage"
-  }
-}
-```
-
-##### totalItems
-
-The total number of Activities in the Ordered Collection.
-
-OrderedCollections _MAY_ have a `totalItems` property.  The value _MUST_ be a non-negative integer.
-
-```
-{ "totalItems": 21456 }
-```
-
-##### Complete Example
-
-```
-{
-  "@context": "",
-  "id": "https://example.org/activity/collection",
-  "type": "OrderedCollection",
-  "totalItems": 21456,
-  "first": {
-  	"id": "https://example.org/activity/page-0",
-  	"type": "OrderedCollectionPage"
-  },
-  "last": {
-  	"id": "https://example.org/activity/page-1234",
-  	"type": "OrderedCollectionPage"
-  }
-}
-```
-
-### 3.2. Ordered Collection Page
-
-#### 3.2.1 Collection Page Properties
-
-##### id
-
-The identifier of the Collection Page.
-
-Ordered Collection Pages _MUST_ have an `id` property. The value _MUST_ be a string and it _MUST_ be an HTTP(S) URI. The JSON representation of the Ordered Collection Page _MUST_ be available at the URI.
-
-```
-{ "id": "https://example.org/activity/page-0" }
-```
-
-##### type
-
-The class of the Ordered Collection Page.
-
-Ordered Collections _MUST_ have a `type` property.  The value _MUST_ be "OrderedCollectionPage".
-
-```
-{ "type": "OrderedCollectionPage" }
-```
-
-##### partOf
-
-The Ordered Collection that this Page is part of.
-
-Ordered Collection Pages _SHOULD_ have a `partOf` property. The value _MUST_ be a JSON object, with the `id` and `type` properties.  The value of the `id` property _MUST_ be the a string, and _MUST_ be the HTTP(S) URI of the Ordered Collection that this page is part of.  The value of the `type` property _MUST_ be a string, and _MUST_ be "OrderedCollection".
-
-```
-{
-  "partOf": {
-    "id": "https://example.org/activity/collection",
-    "type": "OrderedCollection"
-  }
-}
-```
-
-
-##### startIndex
-
-The position of the first item in this page's `orderedItems` list, relative to the overall ordering across all pages within the Collection.  The first entry in the list has a `startIndex` of 0.  If the first page has 20 entries, the first entry on the second page would therefore be 20.
-
-Ordered Collection Pages _MAY_ have a `startIndex` property.  The value _MUST_ be a non-negative integer.
-
-```
-{ "startIndex": 20 }
-```
-
-##### next
-
-A reference to the next page in the list of pages.
-
-Ordered Collection Pages _SHOULD_ have a `next` property. The value _MUST_ be a JSON object, with the `id` and `type` properties.  The value of the `id` property _MUST_ be the a string, and _MUST_ be the HTTP(S) URI of the following Ordered Collection Page.  The value of the `type` property _MUST_ be a string, and _MUST_ be "OrderedCollectionPage".
-
-```
-{
-  "next": {
-    "id": "https://example.org/activity/page-2",
-    "type": "OrderedCollectionPage"
-  }
-}
-```
-
-
-##### prev
-
-A reference to the previous page in the list of pages.
-
-Ordered Collection Pages _MUST_ have a `prev` property. The value _MUST_ be a JSON object, with the `id` and `type` properties.  The value of the `id` property _MUST_ be the a string, and _MUST_ be the HTTP(S) URI of the preceding Ordered Collection Page.  The value of the `type` property _MUST_ be a string, and _MUST_ be "OrderedCollectionPage".
-
-```
-{
-  "prev": {
-    "id": "https://example.org/activity/page-1",
-    "type": "OrderedCollectionPage"
-  }
-}
-```
-
-##### orderedItems
-
-The Activities that are listed as part of this page.
-
-Ordered Collection Pages _MUST_ have a `orderedItems` property.  The value _MUST_ be an array, with at least one item.  Each item _MUST_ be a JSON object, conforming to the requirements of an Activity.
-
-```
-{
-  "orderedItems": [
-     {
-     	"type": "Activity",
-     	"object": {
-     		"id": "https://example.org/iiif/manifest/1",
-     		"type": "Manifest"
-     	},
-     	"endTime": "2018-03-10T10:00:00Z"
-     }
-  ]
-}
-```
-
-##### Complete Ordered Collection Page Example
-
-```
-{
-  "@context": "",
-  "id": "https://example.org/activity/page-1",
-  "type": "OrderedCollectionPage",
-  "startIndex": 20,
-  "partOf": {
-  	"id": "https://example.org/activity/collection",
-  	"type": "OrderedCollection"
-  },
-  "prev": {
-  	"id": "https://example.org/activity/page-0",
-  	"type": "OrderedCollectionPage"
-  },
-  "next": {
-  	"id": "https://example.org/activity/page-2",
-  	"type": "OrderedCollectionPage"
-  },
-  "orderedItems": [
-     {
-     	"type": "Activity",
-     	"object": {
-     		"id": "https://example.org/iiif/manifest/1",
-     		"type": "Manifest"
-     	},
-     	"endTime": "2018-03-10T10:00:00Z"
-     }
-  ]
-}
-```
-
-## 3.3. Activity Streams Processing Algorithm
+## 3.4. Activity Streams Processing Algorithm
 
 The aim of the processing algorithm is to inform consuming applications how to make best use of the available information.
 
@@ -528,7 +585,11 @@ __Coming soon__
 
 ### A. Acknowledgements
 
+Ack to the TSG. Ack to the Community.
+
 ### B. Change Log
+
+
 
 
 includes/links is only in prezi3. Links here are placeholders.
@@ -539,3 +600,8 @@ includes/links is only in prezi3. Links here are placeholders.
 [json-ld]: http://w3.org/
 [rfc-2119]: http://ietf.org/
 [json]: http://ietf.org/
+
+[tsg-discovery]: http://iiif.io/api/groups/
+[discovery-issues]: https://github.com/IIIF/discovery/issues
+
+
