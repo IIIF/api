@@ -737,7 +737,7 @@ The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id` and
 
 A link from this Manifest or Range, to a Canvas, or part of a Canvas, that is contained within it. The reference to part of a Canvas is handled in the same way that Ranges reference parts of Canvases. When processing this relationship, a client _SHOULD_ advance to the specified Canvas, or specified segment of the Canvas, when beginning navigation through the Range. This allows the client to begin with the first Canvas that contains interesting content rather than requiring the user to manually navigate to find it.
 
-The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` properties.  The object _MUST_ be either a Canvas (example 1), or a Specific Resource with a Selector and a `source` property where the value is a Canvas (example 2).
+The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` properties.  The object _MUST_ be either a Canvas (as in the first example below), or a Specific Resource with a Selector and a `source` property where the value is a Canvas (as in the second example below).
 
  * A Manifest or Range _MAY_ have the `start` property.
    Clients _SHOULD_ process `start` on a Manifest or Range.
