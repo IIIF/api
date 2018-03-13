@@ -63,9 +63,10 @@ The objective of the IIIF (pronounced "Triple-Eye-Eff") Presentation API is to p
 
 Implementations of this specification will be able to:
 
-  * display to the user digitized images, video, audio and other content types associated with a particular physical object, or born-digital compound object ;
+  * display to the user digitized images, video, audio and other content types associated with a particular physical or born-digital object ;
   * allow the user to navigate between multiple views of the object, either sequentially or hierarchically ;
-  * and display descriptive information about the object, view or navigation structure to provide context to the user.
+  * display descriptive information about the object, view or navigation structure to provide context to the user ;
+  * and provide a shared environment in which both publishers and users can annotate the object and its content with additional information.
 
 The following are __not__ in scope:
 
