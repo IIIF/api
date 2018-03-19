@@ -283,7 +283,7 @@ The value _MUST_ be an array of strings.
 | RS-InC-RUU | RightsStatements.org - [In Copyright - Rights-holders Unlocatable or Unidentifiable][rs-inc-ruu] |
 | RS-NoC-CR | RightsStatements.org - [No Copyright - Contractual Restrictions][rs-noc-cr]|
 | RS-NoC-NC | RightsStatements.org - [No Copyright - Non-Commercial Use Only][rs-noc-nc] |
-| RS-NoC-OKLR | RightsStatements.org - [No Copyright - Other Known Legal Restrictions] |
+| RS-NoC-OKLR | RightsStatements.org - [No Copyright - Other Known Legal Restrictions][rs-noc-oklr] |
 | RS-NoC-US | RightsStatements.org - [No Copyright - United States][rs-noc-us] |
 | RS-CNE | RightsStatements.org - [Copyright Not Evaluated][rs-cne] |
 | RS-UND | RightsStatements.org - [Copyright Undetermined][rs-und] |
