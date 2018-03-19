@@ -49,7 +49,6 @@
 [prezi-api-3-paging]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#paging-properties
 [prezi-api-3-range]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#range
 [prezi-api-3-resource-structure]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#resource-structure
-[prezi-api-3-sequence]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#sequence
 [prezi-api-3-type-overview]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#resource-type-overview
 [prezi-api-3]: {{site.url}}{{ site.baseurl }}/api/presentation/3.0/
 [prezi-api-stable]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/
@@ -68,8 +67,9 @@
 [rfc-4122]: http://tools.ietf.org/html/rfc4122 "URN UUID Scheme"
 [rfc5646]: http://tools.ietf.org/html/rfc5646 "RFC 5646"
 [rfc8259]: https://tools.ietf.org/html/rfc8259 "JSON RFC"
+[rs-terms]: http://rightsstatements.org/page/1.0/
 [rs-inc]: http://rightsstatements.org/vocab/InC/1.0/
-[rs-inc-eu-ow]: http://rightsstatements.org/vocab/InC-OW-EU/1.0/
+[rs-inc-ow-eu]: http://rightsstatements.org/vocab/InC-OW-EU/1.0/
 [rs-inc-edu]: http://rightsstatements.org/vocab/InC-EDU/1.0/
 [rs-inc-nc]: http://rightsstatements.org/vocab/InC-NC/1.0/
 [rs-inc-ruu]: http://rightsstatements.org/vocab/InC-RUU/1.0/
