@@ -166,7 +166,7 @@ These properties describe or represent the resource they are associated with ("t
 
 ##### label
 
-A human readable label, name or title for this resource. The `label` property is intended to be displayed as a short, textual surrogate for the resource if a human needs to make a distinction between it and similar resources, for example between objects, pages, or options for a choice of images to display.
+A human readable label, name or title for this resource. The `label` property is intended to be displayed as a short, textual surrogate for the resource if a human needs to make a distinction between it and similar resources, for example between objects, pages, or options for a choice of images to display. The `label` property can be fully internationalized, and each language can have multiple values.  This pattern is described in more detail in the [languages][prezi-api-3-languages] section.
 
 The value of the property _MUST_ be a JSON object, as described in the [languages][prezi-api-3-languages] section.
 
@@ -187,6 +187,25 @@ The value of the property _MUST_ be a JSON object, as described in the [language
 
 ``` json-doc
 { "label": { "en": [ "Example Object Title" ] } }
+```
+
+##### summary
+
+A short textual summary of this resource, intended to be conveyed to the user when the `metadata` pairs for the resource are not being displayed. This could be used as a snippet for item level search results, for limited screen real-estate environments, or as an alternative user interface when the `metadata` property is not currently being rendered.  The `summary` property follows the same pattern as the `label` property described above.
+
+The value of the property _MUST_ be a JSON object, as described in the [languages][prezi-api-3-languages] section.
+
+ * A Collection _SHOULD_ have the `summary` property with at least one entry.<br/>
+   Clients _SHOULD_ render `summary` on a Collection.
+ * A Manifest _SHOULD_ have the `summmary` property with at least one entry.<br/>
+   Clients _SHOULD_ render `summary` on a Manifest.
+ * A Canvas _MAY_ have the `summary` property with at least one entry.<br/>
+   Clients _SHOULD_ render `summary` on a Canvas.
+ * Other resource types _MAY_ have the `summary` property with at least one entry.<br/>
+   Clients _MAY_ render `summary` on other resource types.
+
+``` json-doc
+{ "summary": { "en": [ "This is a summary of the object." ] } }
 ```
 
 ##### metadata
@@ -235,25 +254,6 @@ The value of the property _MUST_ be a JSON object, that has the `label` and `val
     "value": { "en": [ "Provided courtesy of Example Institution" ] }
   }
 }
-```
-
-##### summary
-
-A short textual summary of this resource, intended to be conveyed to the user when the `metadata` pairs for the resource are not being displayed. This could be used as a snippet for item level search results, for limited screen real-estate environments, or as an alternative user interface when the `metadata` property is not currently being rendered.
-
-The value of the property _MUST_ be a JSON object, as described in the [languages][prezi-api-3-languages] section.
-
- * A Collection _SHOULD_ have the `summary` property with at least one entry.<br/>
-   Clients _SHOULD_ render `summary` on a Collection.
- * A Manifest _SHOULD_ have the `summmary` property with at least one entry.<br/>
-   Clients _SHOULD_ render `summary` on a Manifest.
- * A Canvas _MAY_ have the `summary` property with at least one entry.<br/>
-   Clients _SHOULD_ render `summary` on a Canvas.
- * Other resource types _MAY_ have the `summary` property with at least one entry.<br/>
-   Clients _MAY_ render `summary` on other resource types.
-
-``` json-doc
-{ "summary": { "en": [ "This is a summary of the object." ] } }
 ```
 
 ##### rights
