@@ -256,6 +256,45 @@ The value of the property _MUST_ be a JSON object, as described in the [language
 { "summary": { "en": [ "This is a summary of the object." ] } }
 ```
 
+##### rights
+
+A license or rights statement that applies to this resource only. This specification refers to the [Creative Commons][cc-licenses] licenses and the [RightsStatements.org][rs-terms] rights statements for use with cultural heritage resources. The information is intended to be both able to be processed by clients and/or displayed to the user as either text or an icon. The values are enumerated in the table below.  New values can be added via the [extension][ldce] mechanism, and these extensions _SHOULD_ be [registered][registry-home].
+
+If displaying rights information directly to the user is a requirement, or a publisher defined label is needed, then it is _RECOMMENDED_ to include the information using the `requiredStatement` property.
+
+The value _MUST_ be an array of strings. 
+
+ * Any resource type _MAY_ have the `rights` property with at least one item.<br/>
+   Clients _MUST_ render `rights` on every resource type.
+
+> | Value | Description |
+| ----- | ----------- |
+| CC0   | Creative Commons - [No Rights Reserved][cc-0] |
+| CC-BY | Creative Commons - [Attribution][cc-by] |
+| CC-BY-SA | Creative Commons - [Attribution, Share-Alike][cc-by-sa] |
+| CC-BY-ND | Creative Commons - [Attribution, No Derivatives][cc-by-nd] |
+| CC-BY-NC | Creative Commons - [Attribution, NonCommercial][cc-by-nc] |
+| CC-BY-NC-SA | Creative Commons - [Attribution, NonCommercial, Share-Alike][cc-by-nc-sa] |
+| CC-BY-NC-ND | Creative Commons - [Attribution, NonCommercial, No Derivatives][cc-by-nc-nd] |
+| RS-InC | RightsStatements.org - [In Copyright][rs-inc] |
+| RS-InC-OW-EU | RightsStatements.org - [In Copyright - European Union Orphan Work][rs-inc-ow-eu] |
+| RS-InC-EDU | RightsStatements.org - [In Copyright - Educational Use Permitted][rs-inc-edu] |
+| RS-InC-NC | RightsStatements.org - [In Copyright - Non Commercial Use Permitted][rs-inc-nc] |
+| RS-InC-RUU | RightsStatements.org - [In Copyright - Rights-holders Unlocatable or Unidentifiable][rs-inc-ruu] |
+| RS-NoC-CR | RightsStatements.org - [No Copyright - Contractual Restrictions][rs-noc-cr]|
+| RS-NoC-NC | RightsStatements.org - [No Copyright - Non-Commercial Use Only][rs-noc-nc] |
+| RS-NoC-OKLR | RightsStatements.org - [No Copyright - Other Known Legal Restrictions] |
+| RS-NoC-US | RightsStatements.org - [No Copyright - United States][rs-noc-us] |
+| RS-CNE | RightsStatements.org - [Copyright Not Evaluated][rs-cne] |
+| RS-UND | RightsStatements.org - [Copyright Undetermined][rs-und] |
+| RS-NKC | RightsStatements.org - [No Known Copyright][rs-nkc] |
+{: .api-table #rights-table}
+
+
+``` json-doc
+{ "rights": [ "CC-BY", "RS-NKC" ] }
+```
+
 ##### thumbnail
 
 An external content resource that represents this resource, such as a small image or short audio clip. It is _RECOMMENDED_ that a [IIIF Image API][image-api] service be available for images to enable manipulations such as resizing. The same resource _MAY_ have multiple thumbnails with the same or different `type` and `format`.
@@ -580,26 +619,6 @@ The value _MUST_ be a JSON object, which _MUST_ have the `id`, `type`, and `labe
 }
 ```
 
-##### rights
-
-A link to an external resource that describes the license or rights statement under which this resource may be used. The rationale for the value being a URI and not a human readable text is that typically there is one statement or license for many resources, and the text is too long to be displayed to the user at the same time as the object. If displaying rights information directly to the user is a requirement, or a publisher defined label is needed, then it is _RECOMMENDED_ to include the information using the `requiredStatement` property.
-
-The value _MUST_ be an array of JSON objects, each of which _MUST_ have an `id` and _SHOULD_ have at least one of `type` and `format`.
-
- * Any resource type _MAY_ have the `rights` property with at least one item.<br/>
-   Clients _MUST_ render `rights` on every resource type.
-
-``` json-doc
-{
-  "rights": [
-    {
-      "id": "https://example.org/rights/copyright.html",
-      "type": "Text",
-      "format": "text/html"
-    }
-  ]
-}
-```
 
 ##### logo
 
