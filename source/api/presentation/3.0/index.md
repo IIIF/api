@@ -943,6 +943,7 @@ In order to avoid HTML or script injection attacks, clients _MUST_ remove:
 
   * Tags such as `script`, `style`, `object`, `form`, `input` and similar.
   * All attributes other than `href` on the `a` tag, `src` and `alt` on the `img` tag.
+  * All `href` attributes that start with the string "javascript:"
   * CData sections.
   * XML Comments.
   * Processing instructions.
