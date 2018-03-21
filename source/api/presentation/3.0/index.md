@@ -268,7 +268,7 @@ The value _MUST_ be a string.
    Clients _MAY_ render `rights` on any resource type.
 
 ``` json-doc
-{ "rights": "https://creativecommons.org/licenses/by/4.0/
+{ "rights": "https://creativecommons.org/licenses/by/4.0/" }
 ```
 
 ##### thumbnail
