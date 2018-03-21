@@ -258,41 +258,17 @@ The value of the property _MUST_ be a JSON object, that has the `label` and `val
 
 ##### rights
 
-A license or rights statement that applies to this resource only. This specification refers to the [Creative Commons][cc-licenses] licenses and the [RightsStatements.org][rs-terms] rights statements for use with cultural heritage resources. The information is intended to be both able to be processed by clients and/or displayed to the user as either text or an icon. The values are enumerated in the table below.  New values can be added via the [extension][ldce] mechanism, and these extensions _SHOULD_ be [registered][registry-home].
+A string that identifies a license or rights statement that applies to the content of this resource, such as the JSON of a Manifest or the pixels of an image. The value _MUST_ be drawn from the set of [Creative Commons][cc-licenses] licenses, the [RightsStatements.org][rs-terms] rights statements, or those added via the [extension][ldce] mechanism. The values drawn from Creative Commons and RightsStatements.org are URIs. The inclusion of this property is informative, and for example could be used to display an icon representing the rights assertions.
 
-If displaying rights information directly to the user is a requirement, or a publisher defined label is needed, then it is _RECOMMENDED_ to include the information using the `requiredStatement` property.
+If displaying rights information directly to the user is the desired interaction, or a publisher-defined label is needed, then it is _RECOMMENDED_ to include the information using the `requiredStatement` property or in the `metadata` property.
 
-The value _MUST_ be an array of strings. 
+The value _MUST_ be a string. 
 
- * Any resource type _MAY_ have the `rights` property with at least one item.<br/>
-   Clients _MUST_ render `rights` on every resource type.
-
-> | Value | Description |
-| ----- | ----------- |
-| CC0   | Creative Commons - [No Rights Reserved][cc-0] |
-| CC-BY | Creative Commons - [Attribution][cc-by] |
-| CC-BY-SA | Creative Commons - [Attribution, Share-Alike][cc-by-sa] |
-| CC-BY-ND | Creative Commons - [Attribution, No Derivatives][cc-by-nd] |
-| CC-BY-NC | Creative Commons - [Attribution, NonCommercial][cc-by-nc] |
-| CC-BY-NC-SA | Creative Commons - [Attribution, NonCommercial, Share-Alike][cc-by-nc-sa] |
-| CC-BY-NC-ND | Creative Commons - [Attribution, NonCommercial, No Derivatives][cc-by-nc-nd] |
-| RS-InC | RightsStatements.org - [In Copyright][rs-inc] |
-| RS-InC-OW-EU | RightsStatements.org - [In Copyright - European Union Orphan Work][rs-inc-ow-eu] |
-| RS-InC-EDU | RightsStatements.org - [In Copyright - Educational Use Permitted][rs-inc-edu] |
-| RS-InC-NC | RightsStatements.org - [In Copyright - Non Commercial Use Permitted][rs-inc-nc] |
-| RS-InC-RUU | RightsStatements.org - [In Copyright - Rights-holders Unlocatable or Unidentifiable][rs-inc-ruu] |
-| RS-NoC-CR | RightsStatements.org - [No Copyright - Contractual Restrictions][rs-noc-cr]|
-| RS-NoC-NC | RightsStatements.org - [No Copyright - Non-Commercial Use Only][rs-noc-nc] |
-| RS-NoC-OKLR | RightsStatements.org - [No Copyright - Other Known Legal Restrictions][rs-noc-oklr] |
-| RS-NoC-US | RightsStatements.org - [No Copyright - United States][rs-noc-us] |
-| RS-CNE | RightsStatements.org - [Copyright Not Evaluated][rs-cne] |
-| RS-UND | RightsStatements.org - [Copyright Undetermined][rs-und] |
-| RS-NKC | RightsStatements.org - [No Known Copyright][rs-nkc] |
-{: .api-table #rights-table}
-
+ * Any resource type _MAY_ have the `rights` property.<br/>
+   Clients _MAY_ render `rights` on any resource type.
 
 ``` json-doc
-{ "rights": [ "CC-BY", "RS-NKC" ] }
+{ "rights": "https://creativecommons.org/licenses/by/4.0/
 ```
 
 ##### thumbnail
@@ -314,6 +290,21 @@ The value _MUST_ be an array of JSON objects, where each item in the array has a
 
 ``` json-doc
 { "thumbnail": [ { "id": "https://example.org/img/thumb.jpg", "type": "Image" } ] }
+```
+
+##### navDate
+
+A date that the client can use for navigation purposes when presenting this resource to the user in a time-based user interface, such as a calendar or timeline. More descriptive date ranges, intended for display directly to the user, _SHOULD_ be included in the `metadata` property for human consumption.
+
+The value _MUST_ be an [`xsd:dateTime` literal][xsd-datetime]. The value _MUST_ have a timezone, and _SHOULD_ be given in UTC with the `Z` timezone indicator but _MAY_ also be given as an offset of the form `+hh:mm`. In the situation where a timezone is not given, clients _SHOULD_ assume it to be UTC.
+
+ * A Collection, Manifest or Range _MAY_ have the `navDate` property.<br/>
+   Clients _MAY_ render `navDate` on Collections, Manifests and Ranges.
+ * Other resource types _MUST NOT_ have the `navDate` property.<br/>
+   Clients _SHOULD_ ignore `navDate` on other resource types.
+
+``` json-doc
+{ "navDate": "2010-01-01T00:00:00Z" }
 ```
 
 ##### posterCanvas
@@ -345,21 +336,6 @@ The value _MUST_ be a JSON object with the `id` and `type` properties, and _MAY_
     // ...
   }
 }
-```
-
-##### navDate
-
-A date that the client can use for navigation purposes when presenting this resource to the user in a time-based user interface, such as a calendar or timeline. More descriptive date ranges, intended for display directly to the user, _SHOULD_ be included in the `metadata` property for human consumption.
-
-The value _MUST_ be an [`xsd:dateTime` literal][xsd-datetime]. The value _MUST_ have a timezone, and _SHOULD_ be given in UTC with the `Z` timezone indicator but _MAY_ also be given as an offset of the form `+hh:mm`. In the situation where a timezone is not given, clients _SHOULD_ assume it to be UTC.
-
- * A Collection, Manifest or Range _MAY_ have the `navDate` property.<br/>
-   Clients _MAY_ render `navDate` on Collections, Manifests and Ranges.
- * Other resource types _MUST NOT_ have the `navDate` property.<br/>
-   Clients _SHOULD_ ignore `navDate` on other resource types.
-
-``` json-doc
-{ "navDate": "2010-01-01T00:00:00Z" }
 ```
 
 
