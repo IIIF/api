@@ -1429,7 +1429,7 @@ For Annotation Collections with many Annotations, there will be many pages. The 
     "id": "https://example.org/iiif/book1/annopage/l2", 
     "type": "AnnotationPage"
   },
-  "items" [
+  "items": [
     {
       "id": "https://example.org/iiif/book1/annopage/p1/a1",
       "type": "Annotation"
