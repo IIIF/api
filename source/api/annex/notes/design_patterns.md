@@ -171,6 +171,7 @@ Flags in the IIIF specifications, such as `timeMode` or `behavior` are actually 
 
  | Date       | Description                                                         |
  | ---------- | ------------------------------------------------------------------- |
+ | 2018-03-22 | Added JSON-LD Design Patterns |
  | 2017-03-15 | First published version after community review |
  | 2017-02-06 | Initial draft version |
 
