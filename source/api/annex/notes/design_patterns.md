@@ -126,7 +126,7 @@ These design patterns have been selected in order to maximize these features in 
 
 ### 3.1. Use Native Data Types
 
-Native data types in JSON are used to ensure that applications do not have to do type coercion. If the value should be an integer in the model, then the JSON representation is as a JSON number.  Similarly, if the value is an ordered list of resources, then a JSON array will be used, mapping to an rdf:List.
+Native data types in JSON are used to ensure that applications do not have to do type coercion. If the value should be an integer in the model, then the JSON representation is as a JSON number.  Similarly, if the value is an ordered list of resources, then a JSON array is used, mapping to an `rdf:List`.  Thus we use `"height": 1400` and not `"height": "1400"`.
 
 ### 3.2. Avoid Special Characters
 
@@ -136,19 +136,19 @@ JSON-LD defines two special keys in the data: `@id` (the URI of the resource) an
 
 ### 3.3. Use Consistent Naming Conventions
 
-Even within the limited range of characters available, there are additional design patterns to make it easier to remember.
+Additional design patterns beyond the restricted range of characters are used to make the names of terms easier to remember and use.
 
 #### 3.3.1. Use CamelCase
 
-All terms defined by IIIF specifications use camelCase (concatenated words with uppercase letters at word boundaries).  Thus we use `seeAlso` not `see_also`.
+All terms defined by IIIF specifications use camelCase (concatenated words with uppercase letters at word boundaries).  Thus we use `seeAlso` and not `see_also`.
 
 #### 3.3.2. Distinguish Classes and Properties
 
-All properties start with a lowercase letter, and all classes start with an uppercase letter. Thus we use `Manifest` and `items`, not `manifest` or `Items`.
+All properties start with a lowercase letter, and all classes start with an uppercase letter. Thus we use `Manifest` and `items`, and not `manifest` or `Items`.
 
 #### 3.3.3. Avoid Explicit Namespaces
 
-While JSON-LD allows for namespaced terms (`oa:Annotation`), this would require the use of a `:` character in the class or property name, which is ruled out by the special characters design pattern.  Thus, we avoid the use of namespaces in the JSON and use `Manifest` not `sc:Manifest`.
+While JSON-LD allows for namespaced terms (`oa:Annotation`), this would require the use of a `:` character in the class or property name, which is ruled out by the special characters design pattern.  Thus use `Manifest` and not `sc:Manifest`.
 
 ### 3.4. Use Consistent Structural Conventions
 
