@@ -52,8 +52,11 @@ The process for having a new entry added to this registry is [described here][re
 
 This table summarizes the known rights statements and licenses available for use with the IIIF APIs.
 
+The URIs defined by [Creative Commons][cc-licenses] and [RightsStatements.org][rs-terms] are not listed here, but should be considered to be included.
+
 | Rights Statement / License     | 
 | ------------------------------ |
+| |
 {: .api-table}
 
 

@@ -7,13 +7,6 @@
 [auth-api-1]: {{ site.url }}{{ site.baseurl }}/api/auth/1.0/
 [auth-api]: {{ site.url }}{{ site.baseurl }}/api/auth/
 [cc-licenses]: https://creativecommons.org/licenses/
-[cc-0]: https://creativecommons.org/share-your-work/public-domain/cc0
-[cc-by]: https://creativecommons.org/licenses/by/4.0/
-[cc-by-sa]: https://creativecommons.org/licenses/by-sa/4.0/
-[cc-by-nd]: https://creativecommons.org/licenses/by-nd/4.0/
-[cc-by-nc]: https://creativecommons.org/licenses/by-nc/4.0/
-[cc-by-nc-sa]: https://creativecommons.org/licenses/by-nc-sa/4.0/
-[cc-by-nc-nd]: https://creativecommons.org/licenses/by-nc-nd/4.0/
 [cookbook]: {{ site.url }}{{ site.baseurl }}/api/annex/cookbook/
 [css]: http://www.w3.org/TR/CSS/ "Cascading Style Sheets"
 [iana-uri-schemes]: http://www.iana.org/assignments/uri-schemes/uri-schemes.xhtml "IANA URI Schemes"
@@ -68,18 +61,6 @@
 [rfc5646]: http://tools.ietf.org/html/rfc5646 "RFC 5646"
 [rfc8259]: https://tools.ietf.org/html/rfc8259 "JSON RFC"
 [rs-terms]: http://rightsstatements.org/page/1.0/
-[rs-inc]: http://rightsstatements.org/vocab/InC/1.0/
-[rs-inc-ow-eu]: http://rightsstatements.org/vocab/InC-OW-EU/1.0/
-[rs-inc-edu]: http://rightsstatements.org/vocab/InC-EDU/1.0/
-[rs-inc-nc]: http://rightsstatements.org/vocab/InC-NC/1.0/
-[rs-inc-ruu]: http://rightsstatements.org/vocab/InC-RUU/1.0/
-[rs-noc-cr]: http://rightsstatements.org/vocab/NoC-CR/1.0/
-[rs-noc-nc]: http://rightsstatements.org/vocab/NoC-NC/1.0/
-[rs-noc-oklr]: http://rightsstatements.org/vocab/NoC-OKLR/1.0/
-[rs-noc-us]: http://rightsstatements.org/vocab/NoC-US/1.0/
-[rs-cne]: http://rightsstatements.org/vocab/CNE/1.0/
-[rs-und]: http://rightsstatements.org/vocab/UND/1.0/
-[rs-nkc]: http://rightsstatements.org/vocab/NKC/1.0/
 [search-api-1-autocomplete]: {{ site.url }}{{ site.baseurl }}/api/search/1.0/#autocomplete
 [search-api-1]: {{ site.url }}{{ site.baseurl }}/api/search/1.0/
 [search-api]: {{ site.url }}{{ site.baseurl }}/api/search/{{ site.search_api.latest.major }}.{{ site.search_api.latest.minor }}/ "Content Search API"
