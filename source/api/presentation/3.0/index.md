@@ -258,11 +258,11 @@ The value of the property _MUST_ be a JSON object, that has the `label` and `val
 
 ##### rights
 
-A string that identifies a license or rights statement that applies to the content of this resource, such as the JSON of a Manifest or the pixels of an image. The value _MUST_ be drawn from the set of [Creative Commons][cc-licenses] licenses, the [RightsStatements.org][rs-terms] rights statements, or those added via the [extension][ldce] mechanism. The values drawn from Creative Commons and RightsStatements.org are URIs. The inclusion of this property is informative, and for example could be used to display an icon representing the rights assertions.
+A string that identifies a license or rights statement that applies to the content of this resource, such as the JSON of a Manifest or the pixels of an image. The value _MUST_ be drawn from the set of [Creative Commons][cc-licenses] licenses, the [RightsStatements.org][rs-terms] rights statements, or those added via the [extension][ldce] mechanism. The inclusion of this property is informative, and for example could be used to display an icon representing the rights assertions.
 
 If displaying rights information directly to the user is the desired interaction, or a publisher-defined label is needed, then it is _RECOMMENDED_ to include the information using the `requiredStatement` property or in the `metadata` property.
 
-The value _MUST_ be a string. 
+The value _MUST_ be a string. If the value is drawn from Creative Commons or RightsStatements.org, then the string _MUST_ be a URI defined by that specification.
 
  * Any resource type _MAY_ have the `rights` property.<br/>
    Clients _MAY_ render `rights` on any resource type.
