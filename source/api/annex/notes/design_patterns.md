@@ -131,7 +131,7 @@ Native data types in JSON are used to ensure that applications do not have to do
 ### 3.2. Avoid Special Characters
 
 Special characters are avoided in the names of classes and properties. Any character other than those in the range 0-9, a-z, A-Z and the underscore character are removed in the mapping to JSON-LD, if present in the name of a class or property. This is to ensure that applications developed in object oriented programming languages can treat these values as class and property names internally.
-s
+
 JSON-LD defines two special keys in the data: `@id` (the URI of the resource) and `@type` (the class of the resource).  These are aliased to `id` and `type` respectively to avoid the use of the `@` symbol.
 
 ### 3.3. Use Consistent Naming Conventions
