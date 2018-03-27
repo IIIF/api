@@ -4,8 +4,8 @@
   "version": "",
   "dependencies": {},
   "devDependencies": {
-    "grunt": "^0.4.5",
-    "grunt-html": "^3.0.0"
+    "grunt": "~0.4.5",
+    "grunt-html": "~3.0.0"
   },
   "scripts": {
     "test": "grunt test"
