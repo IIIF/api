@@ -9,8 +9,7 @@ module.exports = function(grunt) {
             /Attribute “rel” not allowed on element “span”/,
             /Consider using the “h1” element/,
 				/Attribute “integrity” not allowed on element “script”/
-          ],
-          force : true
+          ]
         },
         src : '_site/**/*.html'
       }
