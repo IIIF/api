@@ -17,9 +17,7 @@ end
 desc 'Run the Markdown specs and HTML Proofer'
 task :ci do
   build_site
-  sh 'echo "Running grun test"'
-  sh 'grunt --verbose --debug test'
-  sh 'echo "Running check json"'
+  sh 'grunt test'
   sh 'scripts/check_json.py -v'
   Rake::Task['spec'].invoke
   Rake::Task['check_html'].invoke
