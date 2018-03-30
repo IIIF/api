@@ -15,6 +15,7 @@ install:
 before_script:
   - unset _JAVA_OPTIONS
 
+  # looks like grunt-html use the W3C validator at: https://github.com/validator/validator
 script:
   - rake ci
 
