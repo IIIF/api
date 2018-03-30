@@ -5,6 +5,7 @@ env:
     - ROOT_BRANCHES="master prezi3"
 before_install:
   - export NOKOGIRI_USE_SYSTEM_LIBRARIES=true
+  - npm i -g npm
   - npm install -g grunt-cli
 
 install:
@@ -17,7 +18,7 @@ script:
 # environment
 language: ruby
 rvm:
-  - "2.2.3"
+  - "2.5.1"
 jdk:
   - oraclejdk8
 dist: trusty
