@@ -13,12 +13,13 @@ install:
   - npm install grunt grunt-html --save-dev
 
 script:
+  - set   
   - rake ci
 
 # environment
 language: ruby
 rvm:
-  - "2.5.1"
+  - "2.4.1"
 jdk:
   - oraclejdk8
 dist: trusty
