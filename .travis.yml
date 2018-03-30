@@ -13,8 +13,8 @@ install:
 
 # randomly having java opts set breaks grunt-html
 before_script:
-  - _JAVA_OPTIONS=
-  
+  - unset _JAVA_OPTIONS
+
 script:
   - rake ci
 
