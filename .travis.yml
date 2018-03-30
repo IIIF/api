@@ -5,15 +5,17 @@ env:
     - ROOT_BRANCHES="master prezi3"
 before_install:
   - export NOKOGIRI_USE_SYSTEM_LIBRARIES=true
-  - npm i -g npm
   - npm install -g grunt-cli
 
 install:
   - bundle install
   - npm install grunt grunt-html --save-dev
 
+# randomly having java opts set breaks grunt-html
+before_script:
+  - _JAVA_OPTIONS=
+  
 script:
-  - set   
   - rake ci
 
 # environment
