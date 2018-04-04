@@ -160,7 +160,7 @@ If a property can ever have multiple values, it will always be an array even if 
 
 #### 3.4.2. Use JSON Objects for Referenced Resources
 
-If the set of referenced resources is not unbounded or otherwise impossible to enumerate, then the resource will be described with a JSON object that has at least the `id` and `type` properties. This ensures ease of processing as the resources will always be of the same type, rather than some being just the URI from `id` as a string and others being a JSON object. The inclusion of `type` makes it easier to build object models in code, as the class to instantiate is given by the description rather than needing to be inferred from the property.  Thus we use `"thumbnail": {"id": "https://example.org/images/logo.jpg", "Image"}` and not `"thumbnail": "https://example.org/images/logo.jpg"`.
+If the set of referenced resources is not unbounded or otherwise impossible to enumerate, then the resource will be described with a JSON object that has at least the `id` and `type` properties. This ensures ease of processing as the resources will always be of the same type, rather than some being just the URI from `id` as a string and others being a JSON object. The inclusion of `type` makes it easier to build object models in code, as the class to instantiate is given by the description rather than needing to be inferred from the property.  Thus we use `"thumbnail": {"id": "https://example.org/images/logo.jpg", "type": "Image"}` and not `"thumbnail": "https://example.org/images/logo.jpg"`.
 
 #### 3.4.3. Use Strings for Enumerated Flags
 
