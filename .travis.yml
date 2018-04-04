@@ -1,4 +1,5 @@
 sudo: false
+
 env:
   global:
     - ROOT_BRANCHES="master prezi3"
@@ -10,16 +11,21 @@ install:
   - bundle install
   - npm install grunt grunt-html --save-dev
 
+# randomly having java opts set breaks grunt-html
+before_script:
+  - unset _JAVA_OPTIONS
+
+  # looks like grunt-html use the W3C validator at: https://github.com/validator/validator
 script:
   - rake ci
 
 # environment
 language: ruby
 rvm:
-  - "2.2.3"
+  - "2.4.1"
 jdk:
   - oraclejdk8
-dist: precise
+dist: trusty
 
 before_deploy: if [[ ${ROOT_BRANCHES} =~ .*${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH}.* ]]; then
     echo "Building at root ${ROOT_INSTALL}";
