@@ -1412,6 +1412,33 @@ Annotation Collections _MUST_ have a URI, and it _SHOULD_ be an HTTP(S) URI. The
 }
 ```
 
+For Annotation Collections with many Annotations, there will be many pages. The Annotation Collection refers to the first and last page, and then the pages refer to the previous and next pages in the ordered list.  Each page is part of the Annotation Collection.
+
+``` json-doc
+{
+  "@context": [
+    "http://www.w3.org/ns/anno.jsonld",
+    "http://iiif.io/api/presentation/{{ page.major }}/context.json"
+  ],
+  "id": "https://example.org/iiif/book1/annopage/l1",
+  "type": "AnnotationPage",
+  "partOf": {
+    "id": "https://example.org/iiif/book1/annocoll/transcription",
+    "type": "AnnotationCollection"
+  },
+  "next": { 
+    "id": "https://example.org/iiif/book1/annopage/l2", 
+    "type": "AnnotationPage"
+  },
+  "items": [
+    {
+      "id": "https://example.org/iiif/book1/annopage/p1/a1",
+      "type": "Annotation"
+      // ...
+    }
+  ]
+}
+```
 
 ## 6. HTTP Requests and Responses
 
