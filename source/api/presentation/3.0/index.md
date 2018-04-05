@@ -1105,6 +1105,7 @@ The Manifest _MUST_ have an `items` property, which is an array of JSON-LD objec
   },
   "logo": {
     "id": "https://example.org/logos/institution1.jpg",
+    "type": "Image",
     "service": [
       {
         "id": "https://example.org/service/inst1",
