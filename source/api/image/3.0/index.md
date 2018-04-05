@@ -142,7 +142,7 @@ The API places no restrictions on the form of the identifiers that a server may 
 
 All parameters described below are required for compliant construction of a IIIF Image API URI. The sequence of parameters in the URI _MUST_ be in the order described below. The order of the parameters is also intended as a mnemonic for the order of the operations by which the service should manipulate the image content. Thus, the requested image content is first extracted as a region of the full image, then scaled to the requested size, mirrored and/or rotated, and finally transformed into the requested color quality and format. This resulting image is returned as the representation for the URI.
 
-Size and region parameters in pixels _MUST_ be non-negative integers. Size and region parameters in percentages and the rotation parameter _MUST_ be positive floating point numbers or integers. See also [Canonical URI Syntax][canonical-uri-syntax].
+Size and region parameters in pixels _MUST_ be non-negative integers. Size and region parameters in percentages and the rotation parameter _MUST_ be positive floating point numbers or integers. For details of the representation of floating point numbers in IIIF URIs, see the [Canonical URI Syntax][canonical-uri-syntax] section.
 
 Servers _SHOULD_ support [CORS][cors-response] on image responses.
 
