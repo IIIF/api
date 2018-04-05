@@ -6,6 +6,7 @@
 [auth-api-1-token]: {{ site.url }}{{ site.baseurl }}/api/auth/1.0/#access-token-service
 [auth-api-1]: {{ site.url }}{{ site.baseurl }}/api/auth/1.0/
 [auth-api]: {{ site.url }}{{ site.baseurl }}/api/auth/
+[cc-licenses]: https://creativecommons.org/licenses/
 [cookbook]: {{ site.url }}{{ site.baseurl }}/api/annex/cookbook/
 [css]: http://www.w3.org/TR/CSS/ "Cascading Style Sheets"
 [iana-uri-schemes]: http://www.iana.org/assignments/uri-schemes/uri-schemes.xhtml "IANA URI Schemes"
@@ -41,7 +42,6 @@
 [prezi-api-3-paging]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#paging-properties
 [prezi-api-3-range]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#range
 [prezi-api-3-resource-structure]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#resource-structure
-[prezi-api-3-sequence]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#sequence
 [prezi-api-3-type-overview]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#resource-type-overview
 [prezi-api-3]: {{site.url}}{{ site.baseurl }}/api/presentation/3.0/
 [prezi-api-stable]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/
@@ -60,6 +60,7 @@
 [rfc-4122]: http://tools.ietf.org/html/rfc4122 "URN UUID Scheme"
 [rfc5646]: http://tools.ietf.org/html/rfc5646 "RFC 5646"
 [rfc8259]: https://tools.ietf.org/html/rfc8259 "JSON RFC"
+[rs-terms]: http://rightsstatements.org/page/1.0/
 [search-api-1-autocomplete]: {{ site.url }}{{ site.baseurl }}/api/search/1.0/#autocomplete
 [search-api-1]: {{ site.url }}{{ site.baseurl }}/api/search/1.0/
 [search-api]: {{ site.url }}{{ site.baseurl }}/api/search/{{ site.search_api.latest.major }}.{{ site.search_api.latest.minor }}/ "Content Search API"

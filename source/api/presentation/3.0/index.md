@@ -166,7 +166,7 @@ These properties describe or represent the resource they are associated with ("t
 
 ##### label
 
-A human readable label, name or title for this resource. The `label` property is intended to be displayed as a short, textual surrogate for the resource if a human needs to make a distinction between it and similar resources, for example between objects, pages, or options for a choice of images to display.
+A human readable label, name or title for this resource. The `label` property is intended to be displayed as a short, textual surrogate for the resource if a human needs to make a distinction between it and similar resources, for example between objects, pages, or options for a choice of images to display. The `label` property can be fully internationalized, and each language can have multiple values.  This pattern is described in more detail in the [languages][prezi-api-3-languages] section.
 
 The value of the property _MUST_ be a JSON object, as described in the [languages][prezi-api-3-languages] section.
 
@@ -187,6 +187,25 @@ The value of the property _MUST_ be a JSON object, as described in the [language
 
 ``` json-doc
 { "label": { "en": [ "Example Object Title" ] } }
+```
+
+##### summary
+
+A short textual summary of this resource, intended to be conveyed to the user when the `metadata` pairs for the resource are not being displayed. This could be used as a snippet for item level search results, for limited screen real-estate environments, or as an alternative user interface when the `metadata` property is not currently being rendered.  The `summary` property follows the same pattern as the `label` property described above.
+
+The value of the property _MUST_ be a JSON object, as described in the [languages][prezi-api-3-languages] section.
+
+ * A Collection _SHOULD_ have the `summary` property with at least one entry.<br/>
+   Clients _SHOULD_ render `summary` on a Collection.
+ * A Manifest _SHOULD_ have the `summmary` property with at least one entry.<br/>
+   Clients _SHOULD_ render `summary` on a Manifest.
+ * A Canvas _MAY_ have the `summary` property with at least one entry.<br/>
+   Clients _SHOULD_ render `summary` on a Canvas.
+ * Other resource types _MAY_ have the `summary` property with at least one entry.<br/>
+   Clients _MAY_ render `summary` on other resource types.
+
+``` json-doc
+{ "summary": { "en": [ "This is a summary of the object." ] } }
 ```
 
 ##### metadata
@@ -237,23 +256,19 @@ The value of the property _MUST_ be a JSON object, that has the `label` and `val
 }
 ```
 
-##### summary
+##### rights
 
-A short textual summary of this resource, intended to be conveyed to the user when the `metadata` pairs for the resource are not being displayed. This could be used as a snippet for item level search results, for limited screen real-estate environments, or as an alternative user interface when the `metadata` property is not currently being rendered.
+A string that identifies a license or rights statement that applies to the content of this resource, such as the JSON of a Manifest or the pixels of an image. The value _MUST_ be drawn from the set of [Creative Commons][cc-licenses] licenses, the [RightsStatements.org][rs-terms] rights statements, or those added via the [extension][ldce] mechanism. The inclusion of this property is informative, and for example could be used to display an icon representing the rights assertions.
 
-The value of the property _MUST_ be a JSON object, as described in the [languages][prezi-api-3-languages] section.
+If displaying rights information directly to the user is the desired interaction, or a publisher-defined label is needed, then it is _RECOMMENDED_ to include the information using the `requiredStatement` property or in the `metadata` property.
 
- * A Collection _SHOULD_ have the `summary` property with at least one entry.<br/>
-   Clients _SHOULD_ render `summary` on a Collection.
- * A Manifest _SHOULD_ have the `summmary` property with at least one entry.<br/>
-   Clients _SHOULD_ render `summary` on a Manifest.
- * A Canvas _MAY_ have the `summary` property with at least one entry.<br/>
-   Clients _SHOULD_ render `summary` on a Canvas.
- * Other resource types _MAY_ have the `summary` property with at least one entry.<br/>
-   Clients _MAY_ render `summary` on other resource types.
+The value _MUST_ be a string. If the value is drawn from Creative Commons or RightsStatements.org, then the string _MUST_ be a URI defined by that specification.
+
+ * Any resource type _MAY_ have the `rights` property.<br/>
+   Clients _MAY_ render `rights` on any resource type.
 
 ``` json-doc
-{ "summary": { "en": [ "This is a summary of the object." ] } }
+{ "rights": "https://creativecommons.org/licenses/by/4.0/" }
 ```
 
 ##### thumbnail
@@ -275,6 +290,21 @@ The value _MUST_ be an array of JSON objects, where each item in the array has a
 
 ``` json-doc
 { "thumbnail": [ { "id": "https://example.org/img/thumb.jpg", "type": "Image" } ] }
+```
+
+##### navDate
+
+A date that the client can use for navigation purposes when presenting this resource to the user in a time-based user interface, such as a calendar or timeline. More descriptive date ranges, intended for display directly to the user, _SHOULD_ be included in the `metadata` property for human consumption.
+
+The value _MUST_ be an [`xsd:dateTime` literal][xsd-datetime]. The value _MUST_ have a timezone, and _SHOULD_ be given in UTC with the `Z` timezone indicator but _MAY_ also be given as an offset of the form `+hh:mm`. In the situation where a timezone is not given, clients _SHOULD_ assume it to be UTC.
+
+ * A Collection, Manifest or Range _MAY_ have the `navDate` property.<br/>
+   Clients _MAY_ render `navDate` on Collections, Manifests and Ranges.
+ * Other resource types _MUST NOT_ have the `navDate` property.<br/>
+   Clients _SHOULD_ ignore `navDate` on other resource types.
+
+``` json-doc
+{ "navDate": "2010-01-01T00:00:00Z" }
 ```
 
 ##### posterCanvas
@@ -306,21 +336,6 @@ The value _MUST_ be a JSON object with the `id` and `type` properties, and _MAY_
     // ...
   }
 }
-```
-
-##### navDate
-
-A date that the client can use for navigation purposes when presenting this resource to the user in a time-based user interface, such as a calendar or timeline. More descriptive date ranges, intended for display directly to the user, _SHOULD_ be included in the `metadata` property for human consumption.
-
-The value _MUST_ be an [`xsd:dateTime` literal][xsd-datetime]. The value _MUST_ have a timezone, and _SHOULD_ be given in UTC with the `Z` timezone indicator but _MAY_ also be given as an offset of the form `+hh:mm`. In the situation where a timezone is not given, clients _SHOULD_ assume it to be UTC.
-
- * A Collection, Manifest or Range _MAY_ have the `navDate` property.<br/>
-   Clients _MAY_ render `navDate` on Collections, Manifests and Ranges.
- * Other resource types _MUST NOT_ have the `navDate` property.<br/>
-   Clients _SHOULD_ ignore `navDate` on other resource types.
-
-``` json-doc
-{ "navDate": "2010-01-01T00:00:00Z" }
 ```
 
 
@@ -580,26 +595,6 @@ The value _MUST_ be a JSON object, which _MUST_ have the `id`, `type`, and `labe
 }
 ```
 
-##### rights
-
-A link to an external resource that describes the license or rights statement under which this resource may be used. The rationale for the value being a URI and not a human readable text is that typically there is one statement or license for many resources, and the text is too long to be displayed to the user at the same time as the object. If displaying rights information directly to the user is a requirement, or a publisher defined label is needed, then it is _RECOMMENDED_ to include the information using the `requiredStatement` property.
-
-The value _MUST_ be an array of JSON objects, each of which _MUST_ have an `id` and _SHOULD_ have at least one of `type` and `format`.
-
- * Any resource type _MAY_ have the `rights` property with at least one item.<br/>
-   Clients _MUST_ render `rights` on every resource type.
-
-``` json-doc
-{
-  "rights": [
-    {
-      "id": "https://example.org/rights/copyright.html",
-      "type": "Text",
-      "format": "text/html"
-    }
-  ]
-}
-```
 
 ##### logo
 
