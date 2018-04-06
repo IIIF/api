@@ -591,28 +591,18 @@ Objects in the `tiles` list _MUST_ each have a unique combination of `width` and
 
 ### 5.5. Rights Related Properties
 
-The rights and licensing properties, `attribution`, `license` and `logo`, have the same semantics and requirements as those in the [Presentation API][prezi-api].
+The rights and licensing properties, `requiredStatement`, `rights` and `logo`, have the same semantics and requirements as those in the [Presentation API][prezi-api].
 
 | Property | Required? | Description |
 | ------------- | --------- | ----------- |
-| `attribution` | Optional  | Text that _MUST_ be shown when content obtained from the Image API service is displayed or used. It might include copyright or ownership statements, or a simple acknowledgement of the providing institution. The value _MAY_ contain simple HTML as described in the [HTML Markup in Property Values][prezi-html] section of the Presentation API. |
-| `license` | Optional | A link to an external resource that describes the license or rights statement under which content obtained from the Image API service may be used. |
-| `logo` | Optional | A small image that represents an individual or organization associated with the content. Logo images _MUST_ be clearly rendered when content obtained from the Image API service is displayed or used. Clients _MUST NOT_ crop, rotate, or otherwise distort the image.   |
+| `requiredStatement` | Optional  | Text that _MUST_ be shown when content obtained from the Image API service is displayed or used. It might include copyright or ownership statements, or a simple acknowledgement of the providing institution. The value of this property _MUST_ be a JSON object, that has the `label` and `value` properties. The values of both `label` and `value` must be JSON objects, as described in the [Language of Property Values][prezi-languages] section of the Presentation API. The `value` property _MAY_ contain simple HTML as described in the [HTML Markup in Property Values][prezi-html] section of the Presentation API. Given the wide variation of potential client user interfaces, it will not always be possible to display this statement to the user in the client’s initial state. If initially hidden, clients _MUST_ make the method of revealing it as obvious as possible. |
+| `rights` | Optional | A string that identifies a license or rights statement that applies to the content of this image. The value of this property _MUST_ be drawn from the set of [Creative Commons][cc-licenses] licenses, the [RightsStatements.org][rs-terms] rights statements, or those added via the [Registry of Known Extensions][extension-registry] mechanism. The inclusion of this property is informative, and for example could be used to display an icon representing the rights assertions. If displaying rights information directly to the user is the desired interaction, or a publisher-defined label is needed, then it is _RECOMMENDED_ to include the information using the `requiredStatement` property. |
+| `logo` | Optional | A small external image resource that represents an individual or organization associated with this image. This could be the logo of the owning or hosting institution. The value of this property _MUST_ be an array of JSON objects, each of which _MUST_ have an `id` and should have at least one of `type` and `format`. The logo _MUST_ be clearly rendered when the resource is displayed or used, without cropping, rotating or otherwise distorting the image. It is _RECOMMENDED_ that a IIIF Image API [service](#related-services) be available for this image for other manipulations such as resizing.  |
 {: .api-table}
 
-All of the rights and licensing properties _MAY_ have multiple values, expressed as a JSON array, or a single value.
+It is _RECOMMENDED_ that logos with IIIF Image API services do not, themselves, have `logo` properties. When clients render logos specified with an IIIF Image API service, they _MAY_ ignore any `logo` property on in the included logo.
 
-In the case where multiple values are supplied for `attribution`, clients _MUST_ use the following algorithm to determine which values to display to the user.
-
-* If none of the values have a language associated with them, the client _MUST_ display all of the values.
-* Else, the client should try to determine the user's language preferences, or failing that use some default language preferences. Then:
-  * If any of the values have a language associated with them, the client _MUST_ display all of the values associated with the language that best matches the language preference.
-  * If all of the values have a language associated with them, and none match the language preference, the client _MUST_ select a language and display all of the values associated with that language.
-  * If some of the values have a language associated with them, but none match the language preference, the client _MUST_ display all of the values that do not have a language associated with them.
-
-The value of the `logo` property may be a string containing the URL of the image, or a JSON object that indicates the URI of both the logo image and a IIIF Image API [service](#related-services) for the logo. While possible, it is _RECOMMENDED_ that logos with IIIF services do not, themselves, have logos. Clients encountering logos with logos are not required to display a potentially infinite set.
-
-When both the Image and Presentation APIs express attributions or logos, then clients _MUST_ display both unless they are identical.
+When both the Image and Presentation APIs express `requiredStatement` or `logo` properties, then clients _MUST_ display both unless they are identical.
 
 ``` json-doc
 {
@@ -623,9 +613,17 @@ When both the Image and Presentation APIs express attributions or logos, then cl
   "profile": "level2",
   "width": 6000,
   "height": 4000,
-  "attribution": "Provided by Example Organization",
-  "logo": "https://example.org/images/logo.png",
-  "license": "http://rightsstatements.org/vocab/InC-EDU/1.0/"
+  "requiredStatement": {
+    "label": { "en": "Attribution" },
+    "value": { "en": "Provided by Example Organization" }
+  },
+  "logo": [
+    {
+      "id": "https://example.org/logos/institution1.jpg",
+      "type": "Image"
+    }
+  ],
+  "rights": "http://rightsstatements.org/vocab/InC-EDU/1.0/"
 }
 ```
 
@@ -722,17 +720,20 @@ The following shows an image information response including all of the required 
     { "width": 512, "scaleFactors": [ 1, 2, 4 ] },
     { "width": 1024, "height": 2048, "scaleFactors": [ 8, 16 ] }
   ],
-  "attribution": [
-    {
-      "@value": "<span>Provided by Example Organization</span>",
-      "@language": "en"
-    },{
-      "@value": "<span>Darparwyd gan Enghraifft Sefydliad</span>",
-      "@language": "cy"
+  "requiredStatement": {
+    "label": {
+      "en": "Attribution",
+      "cy": "Priodoliad"
+    },
+    "value": {
+      "en": "<span>Provided by <b>Example Organization</b></span>",
+      "cy": "<span>Darparwyd gan <b>Enghraifft Sefydliad</b></span>"
     }
-  ],
-  "logo": {
+  },
+  "logo": [
+    {
       "id": "https://example.org/image-service/logo/square/200,200/0/default.png",
+      "type": "Image",
       "service": [
         {
           "id": "https://example.org/image-service/logo",
@@ -740,11 +741,9 @@ The following shows an image information response including all of the required 
           "profile": "level2"
         }
       ]
-  },
-  "license": [
-    "https://example.org/rights/license1.html",
-    "http://rightsstatements.org/vocab/InC-EDU/1.0/"
+    }
   ],
+  "rights": "http://rightsstatements.org/vocab/InC-EDU/1.0/",
   "extraFormats": [ "gif", "pdf" ],
   "extraQualities": [ "color", "gray" ],
   "extraFeatures": [ "canonicalLinkHeader", "rotationArbitrary", "profileLinkHeader" ],
@@ -886,7 +885,11 @@ Many thanks to the members of the [IIIF community][iiif-community] for their con
 [versioning]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/semver/ "Versioning of APIs"
 [prezi-api]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/ "Presentation API"
 [prezi-html]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/#html-markup-in-property-values "Presentation API Section 4.4"
+[extension-registry]: {{ site.url }}{{ site.baseurl }}/api/annex/registry/ "IIIF Registry of Known Extensions"
+[prezi-languages]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/#language-of-property-values "Language of Property Values"
 
+[cc-licenses]: https://creativecommons.org/licenses/ "Create Commons Licenses"
+[rs-terms]: http://rightsstatements.org/page/1.0/ "Rights Statements"
 [service-profiles]: {{ site.url }}{{ site.baseurl }}/api/annex/services/ "Services Annex Document"
 
 [apache-notes-conditional-content-type]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/apache/#conditional-content-types "Apache HTTP Server Implementation Notes: Conditional Content Types"
