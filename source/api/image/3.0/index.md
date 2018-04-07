@@ -440,7 +440,7 @@ In order to support the above requirements, clients _SHOULD_ construct image req
 | format    | An explicit format string is always required. |
 {: .api-table}
 
-Size and region parameters given as percentages and the rotation parameter allow positive floating point number values. Integer values _SHOULD_ be use where possible. When floating point values are used, they _SHOULD_ consist only of decimal digits and "." (e.g. 0.9 not +0.9), be represented with a leading 0 if less than 1 (e.g. 0.9 not .9), and not include trailing zeros (e.g. 0.9 not 0.90). Intermediate calculations may use floating point numbers and the rounding method is implementation specific.
+Size and region parameters given as percentages and the rotation parameter allow positive floating point number values. Integer values _SHOULD_ be used where possible. When floating point values are used, they _MUST_ consist only of decimal digits and "." (e.g. 0.9 not +0.9), _SHOULD_ be represented with a leading 0 if less than 1 (e.g. 0.9 not .9), and _SHOULD NOT_ include trailing zeros (e.g. 0.9 not 0.90). Intermediate calculations may use floating point numbers and the rounding method is implementation specific.
 
 When the client requests an image, the server _MAY_ add a link header to the response that indicates the canonical URI for that request:
 
