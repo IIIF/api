@@ -142,7 +142,7 @@ The API places no restrictions on the form of the identifiers that a server may 
 
 All parameters described below are required for compliant construction of a IIIF Image API URI. The sequence of parameters in the URI _MUST_ be in the order described below. The order of the parameters is also intended as a mnemonic for the order of the operations by which the service should manipulate the image content. Thus, the requested image content is first extracted as a region of the full image, then scaled to the requested size, mirrored and/or rotated, and finally transformed into the requested color quality and format. This resulting image is returned as the representation for the URI.
 
-Size and region parameters in pixels _MUST_ be non-negative integers. Size and region parameters in percentages and the rotation parameter _MUST_ be positive floating point numbers or integers. These should have at most 10 decimal digits and consist only of decimal digits and "." with a leading zero if less than 1.0. Intermediate calculations may use floating point numbers and the rounding method is implementation specific.
+Size and region parameters in pixels _MUST_ be non-negative integers. Size and region parameters in percentages and the rotation parameter _MUST_ be positive floating point numbers or integers. For details of the representation of floating point numbers in IIIF URIs, see the [Canonical URI Syntax][canonical-uri-syntax] section.
 
 Servers _SHOULD_ support [CORS][cors-response] on image responses.
 
@@ -435,10 +435,12 @@ In order to support the above requirements, clients _SHOULD_ construct image req
 | --------- | --------------- |
 | region    | "full" if the full image is requested<br/>otherwise the `x,y,w,h` syntax. |
 | size      | "max" if the maximum size is requested,<br/>otherwise the `w,h` syntax. |
-| rotation  | "!" if the image is mirrored, followed by an integer if possible, and trimming any trailing zeros in a decimal value, and a leading 0 if the value is below 1. |
+| rotation  | "!" if the image is mirrored, followed by an integer if possible, otherwise a floating point value. |
 | quality   | "default" if the server's default quality is requested,<br/>otherwise the quality string. |
 | format    | An explicit format string is always required. |
 {: .api-table}
+
+Size and region parameters given as percentages and the rotation parameter allow positive floating point number values. Integer values _SHOULD_ be used where possible. When floating point values are used, they _MUST_ consist only of decimal digits and "." (e.g. 0.9 not +0.9), _SHOULD_ be represented with a leading 0 if less than 1 (e.g. 0.9 not .9), and _SHOULD NOT_ include trailing zeros (e.g. 0.9 not 0.90). Intermediate calculations may use floating point numbers and the rounding method is implementation specific.
 
 When the client requests an image, the server _MAY_ add a link header to the response that indicates the canonical URI for that request:
 
