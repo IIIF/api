@@ -334,7 +334,7 @@ The quality parameter determines whether the image is delivered in color, graysc
 
 | Quality   | Parameter Returned |
 | --------- | ------------------ |
-| `color`   | The image is returned in full color. |
+| `color`   | The image is returned with all of its color information. |
 | `gray`    | The image is returned in grayscale, where each pixel is black, white or any shade of gray in between. |
 | `bitonal` | The image returned is bitonal, where each pixel is either black or white. |
 | `default` | The image is returned using the server's default quality (e.g. color, gray or bitonal) for the image. |
