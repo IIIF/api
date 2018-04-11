@@ -122,7 +122,7 @@ The representation of the information in JSON must be:
   * Understandable by developers without special training or documentation ;
   * Usable in a variety of application environments to ensure the widest adoption.
 
-These design patterns have been selected in order to maximize these features in the resulting APIs.
+These design patterns have been selected in order to maximize these features in the resulting APIs. Note that these patterns are not enforced for externally defined JSON-LD based systems which are then imported for use within the IIIF context.  For example, the use of `motivation` for Annotations exactly follows the requirements of the Web Annotation Data Model which allows for both a JSON array or a single string, and does not follow the pattern recommended by 3.4.1 below.
 
 ### 3.1. Use Native Data Types
 
