@@ -219,7 +219,7 @@ The size parameter specifies the dimensions to which the extracted region is to 
 | ,h     | The image or region should be scaled so that its height is exactly equal to h. |
 | pct:n  | The width and height of the returned image is scaled to n% of the width and height of the extracted region. |
 | w,h    | The width and height of the returned image are exactly w and h. The aspect ratio of the returned image _MAY_ be significantly different than the extracted region, resulting in a distorted image. |
-| !w,h   | The image is scaled for the best fit such that the resulting width and height are less than or equal to the requested width and height. The exact scaling _MAY_ be determined by the service provider, based on characteristics including image quality and system performance. |
+| !w,h   | The width and height of the returned image are the greatest allowed width and height, such that the aspect ratio of the returned image is that of the extracted region. The returned image _MAY_ have both height and width less than the requested height and width. The exact scaling _MAY_ be determined by the service provider, based on characteristics including image quality and system performance. |
 {: .api-table}
 
 The pixel dimensions of the scaled region _MUST NOT_ be greater than the pixel dimensions of the extracted region, or be less than 1 pixel. Requests that would generate images of these sizes are errors that _SHOULD_ result in a 400 (Bad Request) status code.
