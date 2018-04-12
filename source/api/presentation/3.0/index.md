@@ -1569,7 +1569,10 @@ Starting with version 2.0, this specification follows [Semantic Versioning][semv
 
 ### D. Acknowledgements
 
-Many thanks to the members of the [IIIF community][iiif-community] for their continuous engagement, innovative ideas and feedback.
+Many thanks to the members of the [IIIF community][iiif-community] for their continuous engagement, innovative ideas and feedback. 
+
+Many of the changes in this version are due to the work of the [IIIF AV Technical Specification Group][av-tsg], chaired by Jason Ronallo (North Carolina State University), Jon Dunn (Indiana University) and Tom Crane (Digirati). The IIIF Community thanks them for their leadership, and the members of the group for their tireless work.
+
 
 ### E. Change Log
 
