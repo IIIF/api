@@ -1028,7 +1028,7 @@ Note that while the Collection _MAY_ reference Collections or Manifests from pre
 
 ###  5.2. Manifest
 
-The Manifest resource typically represents a single object and any intellectual work or works embodied within that object. In particular it includes descriptive, rights and linking information for the object. It embeds the Canvases that should be rendered to the user as views of the object. The Manifest response contains sufficient information for the client to initialize itself and begin to display something quickly to the user.
+The Manifest resource typically represents a single object and any intellectual work or works embodied within that object. In particular it includes descriptive, rights and linking information for the object. The Manifest embeds the Canvases that should be rendered as views of the object and contains sufficient information for the client to initialize itself and begin to display something quickly to the user.
 
 The identifier in `id` _MUST_ be able to be dereferenced to retrieve the JSON description of the Manifest, and thus _MUST_ use the HTTP(S) URI scheme.
 
