@@ -89,12 +89,13 @@ And put other previously related resources in `metadata`
 #### 1.2.11. Require JSON Object for all non-enumerable resources
 
 
-
 ### 1.3. Property Requirements Changes
 
-#### 1.3.1. Canvas should have `label`
+#### 1.3.1. Establish client requirements per property
 
-#### 1.3.2. ...
+#### 1.3.2. Canvas should have `label`
+
+#### 1.3.3. ...
 
 
 ### 1.4. Classes Changes
@@ -184,15 +185,21 @@ And put other previously related resources in `metadata`
 
 #### 3.2.3. Use https for all examples
 
+#### 3.2.4. Consistency of Language
+
+
 
 ## 4. Related Document Changes
 
 ### 4.1. Establish Registries for Extensions
 
-### 4.2. Update Design Patterns
+### 4.2. Establish Cookbook of Implementation Patterns
 
-### 4.3. Establish new Annotation Selectors
+### 4.3. Update Design Patterns
 
+### 4.4. Establish new Annotation Selectors
+
+### 4.5. Update JSON-LD Contexts and Frames
 
 
 [prezi-api]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/ "Presentation API 3.0"
