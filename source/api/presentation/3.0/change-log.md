@@ -3,11 +3,13 @@ title: "Presentation API 3.0 Change Log"
 title_override: "Changes for IIIF Presentation API Version 3.0"
 id: presentation-api-30-change-log
 layout: spec
+cssversion: 2
 tags: [specifications, presentation-api, change-log]
 major: 3
 minor: 0
 patch: 0
 pre: final
+
 redirect_from:
   - /api/presentation/3.0/change-log-30.html
 ---
