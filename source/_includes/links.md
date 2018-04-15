@@ -6,6 +6,7 @@
 [auth-api-1-token]: {{ site.url }}{{ site.baseurl }}/api/auth/1.0/#access-token-service
 [auth-api-1]: {{ site.url }}{{ site.baseurl }}/api/auth/1.0/
 [auth-api]: {{ site.url }}{{ site.baseurl }}/api/auth/
+[cc-licenses]: https://creativecommons.org/licenses/
 [cookbook]: {{ site.url }}{{ site.baseurl }}/api/annex/cookbook/
 [css]: http://www.w3.org/TR/CSS/ "Cascading Style Sheets"
 [iana-uri-schemes]: http://www.iana.org/assignments/uri-schemes/uri-schemes.xhtml "IANA URI Schemes"
@@ -22,8 +23,9 @@
 [json-ld-68]: http://www.w3.org/TR/json-ld/#interpreting-json-as-json-ld "Interpreting JSON as JSON-LD"
 [json-ld-compact]: http://www.w3.org/TR/json-ld-api/#compaction-algorithms "JSON-LD Compaction Algorithms"
 [json-ld]: http://www.w3.org/TR/json-ld/ "JSON-LD"
+[json-ld-scoped-contexts]: https://json-ld.org/spec/latest/json-ld/#scoped-contexts
 [linked-data]: http://linkeddata.org/ "Linked Data"
-[media-frags]: http://www.w3.org/TR/media-frags/#naming-space "Media Fragments"
+[media-frags]: http://www.w3.org/TR/media-frags/ "Media Fragments"
 [mellon]: http://www.mellon.org/ "The Andrew W. Mellon Foundation"
 [milestone-prezi-3]:  https://github.com/IIIF/iiif.io/milestone/8
 [oa-ext-annex]: {{ site.url }}{{ site.baseurl }}/api/annex/openannotation/ "Open Annotation Extensions"
@@ -33,13 +35,13 @@
 [prezi-api]: {{site.url}}{{ site.baseurl }}/api/presentation/
 [prezi-api-21]: {{site.url}}{{ site.baseurl }}/api/presentation/2.1/
 [prezi-api-2]: {{site.url}}{{ site.baseurl }}/api/presentation/2.0/
+[prezi-api-3-terminology]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#terminology
 [prezi-api-3-appendixa]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#a-summary-of-metadata-requirements
 [prezi-api-3-canvas]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#canvas
 [prezi-api-3-languages]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#language-of-property-values
 [prezi-api-3-paging]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#paging-properties
 [prezi-api-3-range]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#range
 [prezi-api-3-resource-structure]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#resource-structure
-[prezi-api-3-sequence]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#sequence
 [prezi-api-3-type-overview]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#resource-type-overview
 [prezi-api-3]: {{site.url}}{{ site.baseurl }}/api/presentation/3.0/
 [prezi-api-stable]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/
@@ -53,9 +55,12 @@
 [registry-motivations]: {{site.url}}{{ site.baseurl }}/api/annex/registry/motivations/
 [registry-process]: {{site.url}}{{ site.baseurl }}/api/annex/registry/process/
 [registry-services]: {{site.url}}{{ site.baseurl }}/api/annex/registry/services/
+[registry-extensions]: {{site.url}}{{ site.baseurl }}/api/annex/registry/extensions/
 [rfc-2119]: http://tools.ietf.org/html/rfc2119
 [rfc-4122]: http://tools.ietf.org/html/rfc4122 "URN UUID Scheme"
 [rfc5646]: http://tools.ietf.org/html/rfc5646 "RFC 5646"
+[rfc8259]: https://tools.ietf.org/html/rfc8259 "JSON RFC"
+[rs-terms]: http://rightsstatements.org/page/1.0/
 [search-api-1-autocomplete]: {{ site.url }}{{ site.baseurl }}/api/search/1.0/#autocomplete
 [search-api-1]: {{ site.url }}{{ site.baseurl }}/api/search/1.0/
 [search-api]: {{ site.url }}{{ site.baseurl }}/api/search/{{ site.search_api.latest.major }}.{{ site.search_api.latest.minor }}/ "Content Search API"
@@ -68,3 +73,4 @@
 [webanno]: http://w3.org/TR/annotation-model/
 [webannoprotocol]: http://w3.org/TR/annotation-protocol/
 [xpath]: https://en.wikipedia.org/wiki/XPointer "XPath / XPointer"
+[xsd-datetime]: https://www.w3.org/TR/xmlschema11-2/#dateTime "XSD DateTime"

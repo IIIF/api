@@ -1,5 +1,5 @@
 ---
-title: Registry of Time Modes
+title: Registry of Rights Statements and Licenses
 layout: spec
 tags: [annex, service, services, specifications]
 cssversion: 2
@@ -24,7 +24,7 @@ Changes will be tracked within the document.
 
 ## Abstract
 {:.no_toc}
-This is one of a number of [IIIF registries][registry-home]. It lists a set of time modes that have been identified as useful for implementations of the Presentation API.  They may be defined by the IIIF community, or outside of it.
+This document lists a set of rights statements and licenses for use across the IIIF APIs that have been identified as useful for implementations.  They may be defined by the IIIF community, or outside of it.
 
 Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss]
 
@@ -36,7 +36,7 @@ Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss]
 
 ## 1. Introduction
 
-This is one of a number of [IIIF registries][registry-home]. It lists a set of time modes that have been identified as useful for implementations of the Presentation API.  They may be defined by the IIIF community, or outside of it.
+This is one of a number of [IIIF registries][registry-home]. It lists a set of rights statements and licenses for use across the IIIF APIs that have been identified as useful for implementations.  They may be defined by the IIIF community, or outside of it.
 
 ### 1.1. Disclaimer
 
@@ -50,10 +50,13 @@ The process for having a new entry added to this registry is [described here][re
 
 ## 3. Registry
 
-This table summarizes the known behaviors available, for use with the [Presentation API][prezi-api].
+This table summarizes the known rights statements and licenses available for use with the IIIF APIs.
 
-| Behavior                       | 
+The URIs defined by [Creative Commons][cc-licenses] and [RightsStatements.org][rs-terms] are not listed here, but should be considered to be included.
+
+| Rights Statement / License     | 
 | ------------------------------ |
+| |
 {: .api-table}
 
 

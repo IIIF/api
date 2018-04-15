@@ -41,7 +41,7 @@ See issue [#960](https://github.com/IIIF/iiif.io/issues/960)
 
 ### 1.4. Clarify use of non-rectangular region annotations
 
-The description of non-rectangular regions confusingly talked about rectangular regions at the same time.  The description was improved, including better links.
+The description of non-rectangular regions confusingly talked about rectangular regions at the same time. The description was improved, including better links.
 See issue [#941](https://github.com/IIIF/iiif.io/issues/941)
 
 ### 1.5. Update references to other specifications
@@ -56,12 +56,12 @@ See issue [#1016](https://github.com/IIIF/iiif.io/issues/1016)
 
 ### 1.7. Expand thumbnail examples to promote good practice
 
-The examples that included thumbnails did not include information about the thumbnail representation, which would be valuable to viewing applications.  The examples were updated to promote better practice.
+The examples that included thumbnails did not include information about the thumbnail representation, which would be valuable to viewing applications. The examples were updated to promote better practice.
 See issue [#1098](https://github.com/IIIF/iiif.io/issues/1098)
 
 ### 1.8. Update deprecation warning for Ranges
 
-The discussions about Ranges in the Audio-Visual work has led to a proposal for a significantly more consistent and functional representation in a future version of the Presentation API.  The deprecation warning for `canvases` and `ranges` was made less specific to not assume any particular conclusion from those discussions.
+The discussions about Ranges in the Audio-Visual work has led to a proposal for a significantly more consistent and functional representation in a future version of the Presentation API. The deprecation warning for `canvases` and `ranges` was made less specific to not assume any particular conclusion from those discussions.
 See issue [#1118](https://github.com/IIIF/iiif.io/issues/1118)
 
 ### 1.9. Typos for `ContentAsText`
@@ -71,7 +71,7 @@ See issue [#1139](https://github.com/IIIF/iiif.io/issues/1139)
 
 ### 1.10. Typos for Image Profile URI
 
-There were two typos for the Image Profile URI that included an extra `profiles` path component. These were corrected.  See issue [#1170](https://github.com/IIIF/iiif.io/issues/1170)
+There were two typos for the Image Profile URI that included an extra `profiles` path component. These were corrected. See issue [#1170](https://github.com/IIIF/iiif.io/issues/1170)
 
 
 ## 2. Changes to Non-Semantically-Versioned Documents
@@ -97,14 +97,14 @@ See issue [#1120](https://github.com/IIIF/iiif.io/issues/946)
 
 ### 2.2. Frames should use `@explicit` to ensure correct summaries
 
-The frame documents used `@embed: false` for referenced resources such as an external AnnotationList.  This meant that only the URI was included, but not `@type` or `label`. The solution was to use `@explicit` to list the set of terms that should be included.
+The frame documents used `@embed: false` for referenced resources such as an external AnnotationList. This meant that only the URI was included, but not `@type` or `label`. The solution was to use `@explicit` to list the set of terms that should be included.
 See issue [#959](https://github.com/IIIF/iiif.io/issues/959)
 
 ### 2.3. Fixtures
 
 #### 2.3.1. Fixture 6 did not have multiple descriptions
 
-The fixture example for multiple descriptions did not actually have multiple descriptions.  The bug in the generation software was fixed that was stripping the second description.
+The fixture example for multiple descriptions did not actually have multiple descriptions. The bug in the generation software was fixed that was stripping the second description.
 See issue [#1122](https://github.com/IIIF/iiif.io/issues/1122)
 
 #### 2.3.2. Fixture 64 had unnecessary array
@@ -114,7 +114,7 @@ See issue [#1123](https://github.com/IIIF/iiif.io/issues/1123)
 
 #### 2.3.3. Fixture 65 had typo for startCanvas
 
-The fixture for `startCanvas` instead had the pre-2.0 use of `start_canvas` before snake and camel case were reconciled.  This was corrected.
+The fixture for `startCanvas` instead had the pre-2.0 use of `start_canvas` before snake and camel case were reconciled. This was corrected.
 See issue [#1125](https://github.com/IIIF/iiif.io/issues/1125)
  
 [prezi-api]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.1/ "Presentation API 2.1"
