@@ -44,25 +44,19 @@
     "navDate": {
       "@id": "prezi:presentationDate"
     },
-
-
-    "_xxx_mustDisplay": {
-      "@id": "sc:attributionLabel",
-      "@container": ["@language", "@set"]        
+    "requiredStatement": {
+      "@id": "prezi:requiredStatement",
+      "@type": "@id"
     },
-
     "rights": {
       "@type": "@id",
-      "@id": "dcterms:rights",
-      "@container": "@set"
+      "@id": "dcterms:rights"
     },
     "logo": {
       "@type": "@id",
       "@id": "foaf:logo",
       "@container": "@set"
     },
-
-
     "id": "@id",
     "type": "@type",
     "format": {
@@ -95,11 +89,10 @@
       "@type": "@vocab",
       "@container": "@set"      
     },
-    "behavior": {
+    "timeMode": {
       "@id": "prezi:timeMode",
       "@type": "@vocab"     
     },
-
     "homepage": {
       "@type": "@id",
       "@id": "foaf:homepage"
@@ -119,18 +112,18 @@
       "@id": "rdfs:seeAlso",
       "@container": "@set"   
     },
-    "within": {
+    "partOf": {
       "@type": "@id",
-      "@id": "dcterms:isPartOf",
+      "@id": "as:partOf",
       "@container": "@set"         
     },
     "start": {
       "@type": "@id",
-      "@id": "prezi:hasStartCanvas"
+      "@id": "prezi:hasStartResource"
     },
-    "includes": {
+    "supplementary": {
       "@type": "@id",
-      "@id": "prezi:includes"
+      "@id": "prezi:supplementary"
     },
 
     "items": {
@@ -145,36 +138,12 @@
     },
     "annotations": {
       "@type": "@id",
-      "@id": "prezi:hasAnnotationLists",
+      "@id": "prezi:hasAnnotationPages",
       "@container": "@list"
-    },
-
-    "first": {
-      "@type": "@id",
-      "@id": "as:first"
-    },
-    "last": {
-      "@type": "@id",
-      "@id": "as:last"
-    },
-    "next": {
-      "@type": "@id",
-      "@id": "as:next"
-    },
-    "prev": {
-      "@type": "@id",
-      "@id": "as:prev"
-    },
-    "total": {
-      "@id": "as:totalItems"
-    },
-    "startIndex": {
-      "@id": "as:startIndex"
     },
 
     "Collection": "prezi:Collection",
     "Manifest": "prezi:Manifest",
-    "Sequence": "prezi:Sequence",
     "Canvas": "prezi:Canvas",
     "Range": "prezi:Range",
 
@@ -289,19 +258,21 @@
     "top": "prezi:topHint",
     "multi-part": "prezi:multiPartHint",
     "facing-pages": "prezi:facingPagesHint",
-    "none": "prezi:noneHint",
+    "hidden": "prezi:noneHint",
     "no-nav": "prezi:noNavHint",
     "thumbnail-nav": "prezi:thumbnailNavHint",
     "auto-advance": "prezi:autoAdvanceHint",
     "together": "prezi:togetherHint",
     "repeat": "prezi:repeatHint",
+    "sequence": "prezi:sequenceHint",
+    "unordered": "prezi:unordered",
 
     "trim": "prezi:trimMode",
     "scale": "prezi:scaleMode",
     "loop": "prezi:loopMode",
 
     "painting": "prezi:painting",
-    "transcribing": "prezi:transcribing"
+    "supplementing": "prezi:supplementing"
 
   }
 }
