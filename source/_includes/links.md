@@ -45,6 +45,7 @@
 [prezi-api-3-resource-structure]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#resource-structure
 [prezi-api-3-type-overview]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#resource-type-overview
 [prezi-api-3]: {{site.url}}{{ site.baseurl }}/api/presentation/3.0/
+[prezi-api-3-resource-properties]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#resource-properties
 [prezi-api-stable]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/
 [prezi-change-log-20]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.0/change-log/ "Presentation API 2.0 Change Log"
 [prezi-change-log-211]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.1/change-log-211/ "Presentation API 2.1.1 Change Log"
@@ -75,5 +76,7 @@
 [web-arch]: http://www.w3.org/TR/webarch/ "Architecture of the World Wide Web"
 [webanno]: http://w3.org/TR/annotation-model/
 [webannoprotocol]: http://w3.org/TR/annotation-protocol/
+[webanno-label-issue]: https://github.com/w3c/web-annotation/issues/437
 [xpath]: https://en.wikipedia.org/wiki/XPointer "XPath / XPointer"
 [xsd-datetime]: https://www.w3.org/TR/xmlschema11-2/#dateTime "XSD DateTime"
+
