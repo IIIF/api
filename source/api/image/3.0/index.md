@@ -217,7 +217,7 @@ The size parameter specifies the dimensions to which the extracted region, which
 | `max`     | The extracted region is returned at the maximum size available. The resulting image will have the pixel dimensions of the extracted region, unless it is constrained to a smaller size by `maxWidth`, `maxHeight`, or `maxArea` as defined in the [Technical Properties][technical-properties] section. |
 | _`w,`_    | The extracted region should be scaled so that the width of the returned image is exactly equal to _`w`_. |
 | _`,h`_    | The extracted region should be scaled so that the height of the returned image is exactly equal to _`h`_. |
-| _`pct:n`_ | The width and height of the returned image is scaled to _`n`_% of the width and height of the extracted region. |
+| _`pct:n`_ | The width and height of the returned image is scaled to _`n`_ percent of the width and height of the extracted region. |
 | _`w,h`_   | The width and height of the returned image are exactly _`w`_ and _`h`_. The aspect ratio of the returned image _MAY_ be significantly different than the extracted region, resulting in a distorted image. |
 | _`!w,h`_  | The extracted region is scaled so that the width and height of the returned image are not greater than _`w`_ and _`h`_, while maintaining the aspect ratio. The returned image _MUST_ be as large as possible but not larger than the extracted region, _`w`_ or _`h`_, or server-imposed limits. |
 {: .api-table}
