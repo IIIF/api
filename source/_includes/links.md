@@ -61,6 +61,8 @@
 [rfc-4122]: http://tools.ietf.org/html/rfc4122 "URN UUID Scheme"
 [rfc5646]: http://tools.ietf.org/html/rfc5646 "RFC 5646"
 [rfc8259]: https://tools.ietf.org/html/rfc8259 "JSON RFC"
+[rfc-7540]: http://tools.ietf.org/html/rfc7540 "HTTP/2"
+[rfc-7230]: http://tools.ietf.org/html/rfc7230 "HTTP 1.1"
 [rs-terms]: http://rightsstatements.org/page/1.0/
 [search-api-1-autocomplete]: {{ site.url }}{{ site.baseurl }}/api/search/1.0/#autocomplete
 [search-api-1]: {{ site.url }}{{ site.baseurl }}/api/search/1.0/

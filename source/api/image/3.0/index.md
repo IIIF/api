@@ -798,6 +798,10 @@ The order in which servers parse requests and detect errors is not specified. A 
 | 503 Service Unavailable | The server is busy/temporarily unavailable due to load/maintenance issues. |
 {: .api-table}
 
+### 7.4. HTTP Versions
+
+Implementations that anticipate the need to respond to many concurrent requests from the same client _SHOULD_ make the API available via [HTTP/2][rfc-7540] in order to avoid repeatedly opening and closing connections. This also avoids the browser-imposed limit on the number of concurrent connections per site via [HTTP 1.1][rfc-7230].
+
 ##  8. Authentication
 
 Images are generally secondary resources in a web page or application. In the case of web pages, images are embedded in the HTML `img` tag, and are retrieved via additional HTTP requests. When a user cannot load a web page, it is possible — and a generally accepted behavior — to redirect the user to another page and offer the opportunity to authenticate. This is not an option for secondary resources such as images, and the user is instead simply presented with a broken image icon.
@@ -860,6 +864,8 @@ Many thanks to the members of the [IIIF community][iiif-community] for their con
 {: .api-table}
 
 
+[rfc-7540]: http://tools.ietf.org/html/rfc7540 "HTTP/2"
+[rfc-7230]: http://tools.ietf.org/html/rfc7230 "HTTP 1.1"
 
 [authentication-ext]: {{ site.url }}{{ site.baseurl }}/api/auth/
 [change-log-211]: {{ site.url }}{{ site.baseurl }}/api/image/2.1/change-log-211/ "Image API 2.1.1 Change Log"
