@@ -14,11 +14,17 @@
 .sub-pages-container {
   font-family: sans-serif;
   color: #222;
-  line-height: 1.2;
+  line-height: 1.3;
 
   code, kbd, pre, samp {
     font-family: 'Ubuntu Mono', monospace;
     font-size: 1em;
+  }
+
+  code {
+    background-color: #eee;
+    padding: 1px 4px;
+    border-radius: 3px;
   }
 
   p {
@@ -171,6 +177,10 @@
     .api-table {
       tr {
         font-size: 15px;
+      }
+      td:first-child code {
+        padding:0;
+        background: none;
       }
       td {
         font-family: sans-serif;
