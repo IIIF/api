@@ -783,6 +783,8 @@ The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id` and
   Clients _MUST_ process `items` on an Annotation Page.
 * A Range _MUST_ have the `items` property with at least one item. Each item _MUST_ be a Range, a Canvas or a Specific Resource where the source is a Canvas.<br/>
   Clients _SHOULD_ process `items` on a Range.
+* Other resource types _MUST NOT_ have the `items` property.<br/>
+  Clients _SHOULD_ ignore `items` on other resource types.
 
 ```json-doc
 {
@@ -808,6 +810,8 @@ The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id` and
 
 * A Manifest _MAY_ have the `structures` property.<br/>
   Clients _SHOULD_ process `structures` on a Manifest. The first hierarchy _SHOULD_ be presented to the user by default, and further hierarchies _SHOULD_ be able to be selected as alternative structures by the user.
+* Other resource types _MUST NOT_ have the `structures` property.<br/>
+  Clients _SHOULD_ ignore `structures` on other resource types.
 
 ```json-doc
 {
@@ -827,10 +831,10 @@ An ordered list of Annotation Pages that contain commentary or other Annotations
 
 The value _MUST_ be an array of JSON objects. Each item _MUST_ have at least the `id` and `type` properties.
 
- * A Collection, Manifest, Canvas, Range or content resource _MAY_ have the `annotations` property with at least one item.<br/>
+* A Collection, Manifest, Canvas, Range or content resource _MAY_ have the `annotations` property with at least one item.<br/>
   Clients _SHOULD_ process `annotations` on a Collection, Manifest, Canvas, Range or content resource.
- * Other resource types _MUST NOT_ have the `annotations` property.
-   Clients _SHOULD_ ignore `annotations` on other resource types.
+* Other resource types _MUST NOT_ have the `annotations` property.<br/>
+  Clients _SHOULD_ ignore `annotations` on other resource types.
 
 ```json-doc
 {
@@ -1547,8 +1551,18 @@ __Linking Properties__
 
 __Structural Properties__
 
-Re-write this with items, structures, annotations
-{: .warning}
+|                       | items                     | structures                | annotations               |
+| --------------------- | ------------------------- | ------------------------- | ------------------------- |
+| Collection            | ![required][icon-req]     | ![not allowed][icon-na]   | ![optional][icon-opt]     |
+| Manifest              | ![required][icon-req]     | ![optional][icon-opt]     | ![optional][icon-opt]     |
+| Canvas                | ![recommended][icon-recc] | ![not allowed][icon-na]   | ![optional][icon-opt]     |
+| Annotation            | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![not allowed][icon-na]   |
+| Annotation Page       | ![recommended][icon-recc] | ![not allowed][icon-na]   | ![not allowed][icon-na]   |
+| Range                 | ![required][icon-req]     | ![not allowed][icon-na]   | ![optional][icon-opt]     |
+| Annotation Collection | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![not allowed][icon-na]   |
+| Image Content         | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![optional][icon-opt]     |
+| Other Content         | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![optional][icon-opt]     |
+{: .api-table #table-reqs-4}
 
 __Protocol Behavior__
 
