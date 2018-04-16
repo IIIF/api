@@ -864,6 +864,8 @@ Many thanks to the members of the [IIIF community][iiif-community] for their con
 {: .api-table}
 
 
+[rfc-7540]: http://tools.ietf.org/html/rfc7540 "HTTP/2"
+[rfc-7230]: http://tools.ietf.org/html/rfc7230 "HTTP 1.1"
 
 [authentication-ext]: {{ site.url }}{{ site.baseurl }}/api/auth/
 [change-log-211]: {{ site.url }}{{ site.baseurl }}/api/image/2.1/change-log-211/ "Image API 2.1.1 Change Log"
