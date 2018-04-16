@@ -751,10 +751,9 @@ The following shows an image information response including all of the required 
   "extraFeatures": [ "canonicalLinkHeader", "rotationArbitrary", "profileLinkHeader" ],
   "service": [
     {
-      "id": "... fix me ..."
-    },
-    {
-      "id": "... fix me ..."
+      "id": "https://example.org/service/example",
+      "type": "Service",
+      "profile": "https://example.org/docs/example-service.html"
     }
   ]
 }
