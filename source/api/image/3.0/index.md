@@ -8,7 +8,7 @@ major: 3
 minor: 0
 patch: 0
 pre: ALPHA
-cssversion: 2
+cssversion: 3
 redirect_from:
   - /api/image/index.html
   - /api/image/3/index.html
@@ -136,7 +136,7 @@ The scheme, server, prefix and identifier components of the information request 
 
 ##  3. Identifier
 
-The API places no restrictions on the form of the identifiers that a server may use or support. All special characters (e.g. ? or #) _MUST_ be URI encoded to avoid unpredictable client behaviors. The URI syntax relies upon slash (/) separators so any slashes in the identifier _MUST_ be URI encoded (also called "percent encoded"). See the additional discussion in [URI Encoding and Decoding][uri-encoding-and-decoding].
+The API places no restrictions on the form of the identifiers that a server may use or support. All special characters (e.g. `?` or `#`) _MUST_ be URI encoded to avoid unpredictable client behaviors. The URI syntax relies upon slash (`/`) separators so any slashes in the identifier _MUST_ be URI encoded (also called "percent encoded"). See the additional discussion in [URI Encoding and Decoding][uri-encoding-and-decoding].
 
 ##  4. Image Requests
 
@@ -148,19 +148,19 @@ Servers _SHOULD_ support [CORS][cors-response] on image responses.
 
 ### 4.1. Region
 
-The region parameter defines the rectangular portion of the underlying image content to be returned. Region can be specified by pixel coordinates, percentage or by the value "full", which specifies that the full image should be returned.
+The region parameter defines the rectangular portion of the underlying image content to be returned. Region can be specified by pixel coordinates, percentage or by the value `full`, which specifies that the full image should be returned.
 
 | Form |  Description |
 | ------------------- | ------------ |
 | `full`              | The full image is returned, without any cropping. |
 | `square`            | The region is defined as an area where the width and height are both equal to the length of the shorter dimension of the full image. The region may be positioned anywhere in the longer dimension of the full image at the server's discretion, and centered is often a reasonable default.|
-| x,y,w,h             | The region of the full image to be returned is specified in terms of absolute pixel values. The value of x represents the number of pixels from the 0 position on the horizontal axis. The value of y represents the number of pixels from the 0 position on the vertical axis. Thus the x,y position 0,0 is the upper left-most pixel of the image. w represents the width of the region and h represents the height of the region in pixels.  |
-| pct:x,y,w,h         | The region to be returned is specified as a sequence of percentages of the full image's dimensions, as reported in the image information document. Thus, `x` represents the number of pixels from the 0 position on the horizontal axis, calculated as a percentage of the reported width. `w` represents the width of the region, also calculated as a percentage of the reported width. The same applies to y and h respectively. |
+| _`x,y,w,h`_         | The region of the full image to be returned is specified in terms of absolute pixel values. The value of _`x`_ represents the number of pixels from the 0 position on the horizontal axis. The value of _`y`_ represents the number of pixels from the 0 position on the vertical axis. Thus the _`x,y`_ position 0,0 is the upper left-most pixel of the image. _`w`_ represents the width of the region and _`h`_ represents the height of the region in pixels.  |
+| _`pct:x,y,w,h`_     | The region to be returned is specified as a sequence of percentages of the full image's dimensions, as reported in the image information document. Thus, _`x`_ represents the number of pixels from the 0 position on the horizontal axis, calculated as a percentage of the reported width. _`w`_ represents the width of the region, also calculated as a percentage of the reported width. The same applies to _`y`_ and _`h`_ respectively. |
 {: .api-table}
 
 If the request specifies a region which extends beyond the dimensions of the full image as reported in the image information document, then the service _SHOULD_ return an image cropped at the image's edge, rather than adding empty space.
 
-If the requested region's height or width is zero, or if the region is entirely outside the bounds of the reported dimensions, then the server _SHOULD_ return a 400 status code.
+If the requested region's height or width is zero, or if the region is entirely outside the bounds of the reported dimensions, then the server _SHOULD_ return a 400 (Bad Request) status code.
 
 Examples:
 
@@ -210,16 +210,16 @@ Examples:
 
 ###  4.2. Size
 
-The size parameter specifies the dimensions to which the extracted region, which might be the complete image, is to be scaled. With the exception of the `w,h` form, the returned image maintains the aspect ratio of the extracted region as closely as possible.
+The size parameter specifies the dimensions to which the extracted region, which might be the complete image, is to be scaled. With the exception of the _`w,h`_ form, the returned image maintains the aspect ratio of the extracted region as closely as possible.
 
-| Form   | Description |
-|--------|-----------------------|
-| `max`  | The extracted region is returned at the maximum size available. The resulting image will have the pixel dimensions of the extracted region, unless it is constrained to a smaller size by `maxWidth`, `maxHeight`, or `maxArea` as defined in the [Technical Properties][technical-properties] section. |
-| w,     | The extracted region should be scaled so that the width of the returned image is exactly equal to w. |
-| ,h     | The extracted region should be scaled so that the height of the returned image is exactly equal to h. |
-| pct:n  | The width and height of the returned image is scaled to n% of the width and height of the extracted region. |
-| w,h    | The width and height of the returned image are exactly w and h. The aspect ratio of the returned image _MAY_ be significantly different than the extracted region, resulting in a distorted image. |
-| !w,h   | The extracted region is scaled so that the width and height of the returned image are not greater than w and h, while maintaining the aspect ratio. The returned image _MUST_ be as large as possible but not larger than the extracted region, w or h, or server-imposed limits. |
+| Form      | Description |
+| --------- | ----------- |
+| `max`     | The extracted region is returned at the maximum size available. The resulting image will have the pixel dimensions of the extracted region, unless it is constrained to a smaller size by `maxWidth`, `maxHeight`, or `maxArea` as defined in the [Technical Properties][technical-properties] section. |
+| _`w,`_    | The extracted region should be scaled so that the width of the returned image is exactly equal to _`w`_. |
+| _`,h`_    | The extracted region should be scaled so that the height of the returned image is exactly equal to _`h`_. |
+| _`pct:n`_ | The width and height of the returned image is scaled to _`n`_% of the width and height of the extracted region. |
+| _`w,h`_   | The width and height of the returned image are exactly _`w`_ and _`h`_. The aspect ratio of the returned image _MAY_ be significantly different than the extracted region, resulting in a distorted image. |
+| _`!w,h`_  | The extracted region is scaled so that the width and height of the returned image are not greater than _`w`_ and _`h`_, while maintaining the aspect ratio. The returned image _MUST_ be as large as possible but not larger than the extracted region, _`w`_ or _`h`_, or server-imposed limits. |
 {: .api-table}
 
 The pixel dimensions of the scaled region _MUST NOT_ be greater than the pixel dimensions of the extracted region, or be less than 1 pixel. Requests that would generate images of these sizes are errors that _SHOULD_ result in a 400 (Bad Request) status code.
@@ -273,13 +273,13 @@ Examples:
 
 The rotation parameter specifies mirroring and rotation. A leading exclamation mark ("!") indicates that the image should be mirrored by reflection on the vertical axis before any rotation is applied. The numerical value represents the number of degrees of clockwise rotation, and may be any floating point number from 0 to 360.
 
-| Form | Description |
-| ---- | ----------- |
-| n    | The degrees of clockwise rotation from 0 up to 360.     |
-| !n   | The image should be mirrored and then rotated as above. |
+| Form   | Description |
+| ------ | ----------- |
+| _`n`_  | The degrees of clockwise rotation from 0 up to 360.     |
+| _`!n`_ | The image should be mirrored and then rotated as above. |
 {: .api-table}
 
-A rotation value that is out of range or unsupported _SHOULD_ result in a 400 (Bad Request) status code.
+A rotatio%n value that is out of range or unsupported _SHOULD_ result in a 400 (Bad Request) status code.
 
 In most cases, rotation will change the width and height dimensions of the returned image. The service _SHOULD_ return an image that contains all of the image contents requested in the region and size parameters, even if the dimensions of the returned image file are different than specified in the size parameter. The image contents _SHOULD NOT_ be scaled as a result of the rotation, and there _SHOULD_ be no additional space between the corners of the rotated image contents and the bounding box of the returned image.
 
