@@ -3,7 +3,7 @@ title: "Presentation API 3.0 ALPHA DRAFT"
 title_override: "IIIF Presentation API 3.0 ALPHA DRAFT"
 id: presentation-api
 layout: spec
-cssversion: 2
+cssversion: 3
 tags: [specifications, presentation-api]
 major: 3
 minor: 0
@@ -89,7 +89,7 @@ This specification uses the following terms:
 * __referenced__: When a resource (A) is referenced from another resource (B), an incomplete JSON representation of resource A is present within the JSON representation of resource B, and dereferencing the URI of resource A will result in additional information. Example:  Manifest A is referenced from Collection B.
 * __HTTP(S)__: The HTTP or HTTPS URI scheme and internet protocol.
 
-The terms `array`, `JSON object`, `number`, `string`, `true`, `false`, `boolean` and `null` in this document are to be interpreted as defined by the [Javascript Object Notation (JSON)][rfc8259] specification.
+The terms _array_, _JSON object_, _number_, _string_, and _boolean_ in this document are to be interpreted as defined by the [Javascript Object Notation (JSON)][rfc8259] specification.
 
 The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _SHOULD NOT_, _RECOMMENDED_, _MAY_, and _OPTIONAL_ in this document are to be interpreted as described in [RFC 2119][rfc-2119].
 
@@ -296,7 +296,7 @@ The value _MUST_ be an array of JSON objects, where each item in the array has a
 
 A date that the client can use for navigation purposes when presenting this resource to the user in a time-based user interface, such as a calendar or timeline. More descriptive date ranges, intended for display directly to the user, _SHOULD_ be included in the `metadata` property for human consumption. If this resource contains Canvases with the `duration` property, the datetime given corresponds to the navigation datetime of the start of this resource. For example, a Range that includes a Canvas that represents a set of video content recording a historical event, the `navDate` is datetime of the first moment of the recorded event.
 
-The value _MUST_ be an [`xsd:dateTime` literal][xsd-datetime]. The value _MUST_ have a timezone, and _SHOULD_ be given in UTC with the `Z` timezone indicator but _MAY_ also be given as an offset of the form `+hh:mm`. In the situation where a timezone is not given, clients _SHOULD_ assume it to be UTC.
+The value _MUST_ be an [_xsd:dateTime_ literal][xsd-datetime]. The value _MUST_ have a timezone, and _SHOULD_ be given in UTC with the `Z` timezone indicator but _MAY_ also be given as an offset of the form `+hh:mm`. In the situation where a timezone is not given, clients _SHOULD_ assume it to be UTC.
 
  * A Collection, Manifest, Range or Canvas _MAY_ have the `navDate` property.<br/>
    Clients _MAY_ render `navDate` on Collections, Manifests, Ranges, and Canvases.
@@ -663,6 +663,7 @@ For cross-version consistency, this specification defines the following values f
 | AuthCookieService1   | [Authentication API version 1][auth-api-1-cookie] |
 | AuthTokenService1    | [Authentication API version 1][auth-api-1-token] |
 | AuthLogoutService1   | [Authentication API version 1][auth-api-1-logout] |
+{: .api-table #table-service-types}
 
 A reference from a version 3 Presentation API document to both version 2 and version 3 Image API endpoints would thus follow the pattern in the example below. API versions defined after Presentation API version 3.0 will follow the community best practices of `id` and `type`, but in the interim implementations _MUST_ be prepared to recognize the older property names. Note that the `@context` key _SHOULD_ not be present within the `service`, but instead included at the beginning of the document.
 
@@ -750,7 +751,7 @@ The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` propert
 
 ##### supplementary
 
-A link from this Range to an Annotation Collection that includes the "supplementing" Annotations of content resources for the Range. Clients might use this to present additional content to the user from a different Canvas when interacting with the Range, or to jump to the next part of the Range within the same Canvas.  For example, the Range might represent a newspaper article that spans non-sequential pages, and then uses the `supplementary` property to reference an Annotation Collection that consists of the Annotations that record the text, split into Annotation Pages per newspaper page.
+A link from this Range to an Annotation Collection that includes the `supplementing` Annotations of content resources for the Range. Clients might use this to present additional content to the user from a different Canvas when interacting with the Range, or to jump to the next part of the Range within the same Canvas.  For example, the Range might represent a newspaper article that spans non-sequential pages, and then uses the `supplementary` property to reference an Annotation Collection that consists of the Annotations that record the text, split into Annotation Pages per newspaper page.
 
 The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` properties, and the `type` _MUST_ be `AnnotationCollection`.
 
@@ -823,7 +824,7 @@ The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id` and
 
 ##### annotations
 
-An ordered list of Annotation Pages that contain commentary or other Annotations about this resource, separate from the annotations that are used to paint content on to a Canvas. The `motivation` of the Annotations _MUST NOT_ be "painting", and the target of the Annotations _MUST_ include this resource or part of it.
+An ordered list of Annotation Pages that contain commentary or other Annotations about this resource, separate from the annotations that are used to paint content on to a Canvas. The `motivation` of the Annotations _MUST NOT_ be "`painting`, and the target of the Annotations _MUST_ include this resource or part of it.
 
 The value _MUST_ be an array of JSON objects. Each item _MUST_ have at least the `id` and `type` properties.
 
@@ -857,8 +858,8 @@ Additional motivations may be added to the Annotation to further clarify the int
 
 > | Value | Description |
 | ----- | ----------- |
-| painting | Resources associated with a Canvas by an Annotation with the "painting" motivation _MUST_ be presented to the user as the representation of the Canvas. The content can be thought of as being "of" the Canvas. The use of this motivation with target resources other than Canvases is undefined. For example, an Annotation with the "painting" motivation, a body of an Image and the target of the Canvas is an instruction to present that Image as (part of) the visual representation of the Canvas. Similarly, a textual body is to be presented as (part of) the visual representation of the Canvas and not positioned in some other part of the user interface.|
-| supplementing | Resources associated with a Canvas by an Annotation with the "supplementing" motivation _MAY_ be presented to the user as part of the representation of the Canvas, or _MAY_ be presented in a different part of the user interface. The content can be thought of as being "from" the Canvas. The use of this motivation with target resources other than Canvases is undefined. For example, an Annotation with the "supplementing" motivation, a body of an Image and the target of part of the Canvas is an instruction to present that Image to the user either in the Canvas's rendering area or somewhere associated with it, and could be used to present an easier to read representation of a diagram. Similar, a textual body is to be presented either in the targeted region of the Canvas or otherwise associated with it, and might be a transcription of handwritten text or captions for what is being said in a Canvas with audio content. |
+| `painting` | Resources associated with a Canvas by an Annotation with the `motivation` value `painting`  _MUST_ be presented to the user as the representation of the Canvas. The content can be thought of as being _of_ the Canvas. The use of this motivation with target resources other than Canvases is undefined. For example, an Annotation with the `motivation` value `painting`, a body of an Image and the target of the Canvas is an instruction to present that Image as (part of) the visual representation of the Canvas. Similarly, a textual body is to be presented as (part of) the visual representation of the Canvas and not positioned in some other part of the user interface.|
+| `supplementing` | Resources associated with a Canvas by an Annotation with the `motivation` value `supplementing`  _MAY_ be presented to the user as part of the representation of the Canvas, or _MAY_ be presented in a different part of the user interface. The content can be thought of as being _from_ the Canvas. The use of this motivation with target resources other than Canvases is undefined. For example, an Annotation with the `motivation` value `supplementing`, a body of an Image and the target of part of the Canvas is an instruction to present that Image to the user either in the Canvas's rendering area or somewhere associated with it, and could be used to present an easier to read representation of a diagram. Similar, a textual body is to be presented either in the targeted region of the Canvas or otherwise associated with it, and might be a transcription of handwritten text or captions for what is being said in a Canvas with audio content. |
 {: .api-table #table-motivations}
 
 
