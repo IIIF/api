@@ -920,7 +920,6 @@ Many thanks to the members of the [IIIF community][iiif-community] for their con
 [rotation]: #rotation "4.3. Rotation"
 [quality]: #quality "4.4. Quality"
 [format]: #format "4.5. Format"
-[technical-properties]: #technical-properties "5.2. Technical Properties"
 [features]: #features "API Features"
 [features-table]: #features-table
 
