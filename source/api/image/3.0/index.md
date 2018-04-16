@@ -210,16 +210,16 @@ Examples:
 
 ###  4.2. Size
 
-The size parameter specifies the dimensions to which the extracted region is to be scaled. With the exception of the `w,h` form, the returned image maintains the aspect ratio of the extracted region as closely as possible.
+The size parameter specifies the dimensions to which the extracted region, which might be the complete image, is to be scaled. With the exception of the `w,h` form, the returned image maintains the aspect ratio of the extracted region as closely as possible.
 
 | Form   | Description |
 |--------|-----------------------|
-| `max`  | The image or region is returned at the maximum size available. The resulting image will have the pixel dimensions of the extracted region, unless it is constrained to a smaller size by `maxWidth`, `maxHeight`, or `maxArea` as defined in the [Technical Properties][technical-properties] section. |
-| w,     | The image or region should be scaled so that its width is exactly equal to w. |
-| ,h     | The image or region should be scaled so that its height is exactly equal to h. |
+| `max`  | The extracted region is returned at the maximum size available. The resulting image will have the pixel dimensions of the extracted region, unless it is constrained to a smaller size by `maxWidth`, `maxHeight`, or `maxArea` as defined in the [Technical Properties][technical-properties] section. |
+| w,     | The extracted region should be scaled so that the width of the returned image is exactly equal to w. |
+| ,h     | The extracted region should be scaled so that the height of the returned image is exactly equal to h. |
 | pct:n  | The width and height of the returned image is scaled to n% of the width and height of the extracted region. |
 | w,h    | The width and height of the returned image are exactly w and h. The aspect ratio of the returned image _MAY_ be significantly different than the extracted region, resulting in a distorted image. |
-| !w,h   | The image is scaled for the best fit such that the resulting width and height are less than or equal to the requested width and height. The exact scaling _MAY_ be determined by the service provider, based on characteristics including image quality and system performance. |
+| !w,h   | The extracted region is scaled so that the width and height of the returned image are not greater than w and h, while maintaining the aspect ratio. The returned image _MUST_ be as large as possible but not larger than the extracted region, w or h, or server-imposed limits. |
 {: .api-table}
 
 The pixel dimensions of the scaled region _MUST NOT_ be greater than the pixel dimensions of the extracted region, or be less than 1 pixel. Requests that would generate images of these sizes are errors that _SHOULD_ result in a 400 (Bad Request) status code.
