@@ -764,7 +764,7 @@ The following shows an image information response including all of the required 
 
 The image information document _MUST_ specify the extent to which the API is supported by including a compliance level URI as the first entry in the `profile` property. This URI links to a description of the highest compliance level for which all requirements are met. The URI _MUST_ be one of those listed in the [Image API Compliance][compliance] document. This description contains the set of features required by the profile, as discussed in the [Image Information][image-information] section. A server _MAY_ declare different compliance levels for images with different identifiers.
 
-The compliance level URI _MAY_ also be given in the HTTP Link header ([RFC5988][rfc-5988]) with the parameter `rel="profile"`, and thus a complete header might look like:
+The compliance level URI _MAY_ also be given in the HTTP Link header ([RFC5988][rfc-5988]) with the parameter `rel="profile"`, on both Image and Image Information responses. A complete header might look like:
 
 ``` none
 Link: <http://iiif.io/api/image/{{ page.major }}/level1.json>;rel="profile"
