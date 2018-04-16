@@ -6,6 +6,7 @@
 [auth-api-1-token]: {{ site.url }}{{ site.baseurl }}/api/auth/1.0/#access-token-service
 [auth-api-1]: {{ site.url }}{{ site.baseurl }}/api/auth/1.0/
 [auth-api]: {{ site.url }}{{ site.baseurl }}/api/auth/
+[av-tsg]: {{ site.url }}{{ site.baseurl }}/community/groups/av/
 [cc-licenses]: https://creativecommons.org/licenses/
 [cookbook]: {{ site.url }}{{ site.baseurl }}/api/annex/cookbook/
 [css]: http://www.w3.org/TR/CSS/ "Cascading Style Sheets"

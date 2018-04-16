@@ -210,16 +210,16 @@ Examples:
 
 ###  4.2. Size
 
-The size parameter specifies the dimensions to which the extracted region is to be scaled. With the exception of the `w,h` form, the returned image maintains the aspect ratio of the extracted region as closely as possible.
+The size parameter specifies the dimensions to which the extracted region, which might be the complete image, is to be scaled. With the exception of the `w,h` form, the returned image maintains the aspect ratio of the extracted region as closely as possible.
 
 | Form   | Description |
 |--------|-----------------------|
-| `max`  | The image or region is returned at the maximum size available. The resulting image will have the pixel dimensions of the extracted region, unless it is constrained to a smaller size by `maxWidth`, `maxHeight`, or `maxArea` as defined in the [Technical Properties][technical-properties] section. |
-| w,     | The image or region should be scaled so that its width is exactly equal to w. |
-| ,h     | The image or region should be scaled so that its height is exactly equal to h. |
+| `max`  | The extracted region is returned at the maximum size available. The resulting image will have the pixel dimensions of the extracted region, unless it is constrained to a smaller size by `maxWidth`, `maxHeight`, or `maxArea` as defined in the [Technical Properties][technical-properties] section. |
+| w,     | The extracted region should be scaled so that the width of the returned image is exactly equal to w. |
+| ,h     | The extracted region should be scaled so that the height of the returned image is exactly equal to h. |
 | pct:n  | The width and height of the returned image is scaled to n% of the width and height of the extracted region. |
 | w,h    | The width and height of the returned image are exactly w and h. The aspect ratio of the returned image _MAY_ be significantly different than the extracted region, resulting in a distorted image. |
-| !w,h   | The image is scaled for the best fit such that the resulting width and height are less than or equal to the requested width and height. The exact scaling _MAY_ be determined by the service provider, based on characteristics including image quality and system performance. |
+| !w,h   | The extracted region is scaled so that the width and height of the returned image are not greater than w and h, while maintaining the aspect ratio. The returned image _MUST_ be as large as possible but not larger than the extracted region, w or h, or server-imposed limits. |
 {: .api-table}
 
 The pixel dimensions of the scaled region _MUST NOT_ be greater than the pixel dimensions of the extracted region, or be less than 1 pixel. Requests that would generate images of these sizes are errors that _SHOULD_ result in a 400 (Bad Request) status code.
@@ -334,7 +334,7 @@ The quality parameter determines whether the image is delivered in color, graysc
 
 | Quality   | Parameter Returned |
 | --------- | ------------------ |
-| `color`   | The image is returned in full color. |
+| `color`   | The image is returned with all of its color information. |
 | `gray`    | The image is returned in grayscale, where each pixel is black, white or any shade of gray in between. |
 | `bitonal` | The image returned is bitonal, where each pixel is either black or white. |
 | `default` | The image is returned using the server's default quality (e.g. color, gray or bitonal) for the image. |
@@ -764,7 +764,7 @@ The following shows an image information response including all of the required 
 
 The image information document _MUST_ specify the extent to which the API is supported by including a compliance level URI as the first entry in the `profile` property. This URI links to a description of the highest compliance level for which all requirements are met. The URI _MUST_ be one of those listed in the [Image API Compliance][compliance] document. This description contains the set of features required by the profile, as discussed in the [Image Information][image-information] section. A server _MAY_ declare different compliance levels for images with different identifiers.
 
-The compliance level URI _MAY_ also be given in the HTTP Link header ([RFC5988][rfc-5988]) with the parameter `rel="profile"`, and thus a complete header might look like:
+The compliance level URI _MAY_ also be given in the HTTP Link header ([RFC5988][rfc-5988]) with the parameter `rel="profile"`, on both Image and Image Information responses. A complete header might look like:
 
 ``` none
 Link: <http://iiif.io/api/image/{{ page.major }}/level1.json>;rel="profile"
