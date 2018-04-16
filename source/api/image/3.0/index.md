@@ -451,6 +451,11 @@ Link: <http://iiif.example.com/server/full/400,300/0/default.jpg>;rel="canonical
 
 The server _MAY_ also include this link header on the image information response, however it is unnecessary as it is included in the JSON representation retrieved.
 
+### 4.8. Extensions
+
+The IIIF Image API is extensible within the [Image Request URI Syntax][image-request-uri-syntax] through the addition of new parameter patterns for the [region][region], [size][size] and [rotation][rotation] parameters, or new values for the [quality][quality] and [format][format] parameters. Request information beyond the scope of the existing parameters could be passed to an image server as query parameters. Extension features _SHOULD_ be described in the image information document following the guidelines in the [Extra Functionality][extra-functionality] section.
+
+
 ##  5. Image Information
 
 Servers _MUST_ support requests for image information. The response is a JSON document that includes technical properties about the full image and may also contain rights and licensing properties, and services related to it.
@@ -638,10 +643,10 @@ The JSON response _MAY_ also contain properties that describe additional functio
 | ---------- | --------- | ----------- |
 | `extraQualities` | Optional | A list of strings that can be used as the quality parameter, in addition to the ones specified in the referenced profile. |
 | `extraFormats` | Optional | A list of strings that can be used as the format parameter, in addition to the ones specified in the referenced profile. |
-| `extraFeatures` | Optional | A list of strings identifying features supported by the service, in addition to the ones specified in the referenced profile. These strings are defined either in the [table][features-table] below or by [registering an extension][image-extensions]. |
+| `extraFeatures` | Optional | A list of strings identifying features supported by the service, in addition to the ones specified in the referenced profile. These strings are defined either in the [table][features-table] below or by [registering an extension][registry-home]. |
 {: .api-table}
 
-The set of features defined by this specification that may be specified in the `extraFeatures` property are:
+The following features are defined for use in the `extraFeatures` property:
 
 | Feature Name | Description |
 | ------------ | ----------- |
@@ -665,7 +670,9 @@ The set of features defined by this specification that may be specified in the `
 
 A server that supports neither `sizeByW` or `sizeByWh` is only required to serve the image sizes listed under the `sizes` property or implied by the `tiles` property of the image information document, allowing for a static file implementation.
 
-The set of features, formats and qualities supported is the union of those declared in the external profile document and those added by the `extra` properties. If a feature is not present in either the profile document or the `extraFeatures` property, then a client _MUST_ assume that the feature is not supported.
+The set of features, formats and qualities supported is the union of those declared in the external profile document and those added by the `extraQualities`, `extraFormats`, and `extraFeatures` properties. If a feature is not present in either the profile document or the `extraFeatures` property, then a client _MUST_ assume that the feature is not supported.
+
+Additional strings used in the `extraQualities`, `extraFormats`, and `extraFeatures` properties, or additional properties used in the image information, that are not defined in this specification _SHOULD_ be mapped to RDF predicates using further context documents. These extensions _SHOULD_ be added to the top level `@context` property (see [Technical Properties][technical-properties]). The JSON-LD 1.1 functionality of predicate specific context definitions, known as [scoped contexts][json-ld-scoped-contexts], _MUST_ be used to minimize cross-extension collisions. Extensions intended for community use _SHOULD_ be [registered in the extensions registry][registry-home], but registration is not mandatory.
 
 ### 5.7. Related Services
 
@@ -913,17 +920,16 @@ Many thanks to the members of the [IIIF community][iiif-community] for their con
 [rotation]: #rotation "4.3. Rotation"
 [quality]: #quality "4.4. Quality"
 [format]: #format "4.5. Format"
+[technical-properties]: #technical-properties "5.2. Technical Properties"
 [features]: #features "API Features"
 [features-table]: #features-table
-[image-extensions]: {{ site.url }}{{ site.baseurl }}/api/annex/registry/
 
-[profile-description]: #extra-functionality "5.3 Profile Description"
-[full-dep]: #full-dep "Full Size Keyword Deprecation Warning"
 [order-of-implementation]: #order-of-implementation "4.6. Order of Implementation"
 [canonical-uri-syntax]: #canonical-uri-syntax "4.7. Canonical URI Syntax"
 [image-information]: #image-information "5. Image Information"
 [image-information-request]: #image-information-request "5.1. Image Information Request"
 [technical-properties]: #technical-properties "5.2 Technical Properties"
+[extra-functionality]: #extra-functionality "5.6. Extra Functionality"
 [compliance-levels]: #compliance-levels "6. Compliance Levels"
 [server-responses]: #server-responses "7. Server Responses"
 [successful-responses]: #successful-responses "7.1. Successful Responses"
@@ -944,5 +950,7 @@ Many thanks to the members of the [IIIF community][iiif-community] for their con
 [rfc-2119]: https://www.ietf.org/rfc/rfc2119.txt "RFC 2119"
 
 [cors-response]: #cors
+[json-ld-scoped-contexts]: https://json-ld.org/spec/latest/json-ld/#scoped-contexts
+[registry-home]: {{ site.url }}{{ site.baseurl }}/api/annex/registry/
 
 {% include acronyms.md %}
