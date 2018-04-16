@@ -294,7 +294,7 @@ The value _MUST_ be an array of JSON objects, where each item in the array has a
 
 ##### navDate
 
-A date that the client can use for navigation purposes when presenting this resource to the user in a time-based user interface, such as a calendar or timeline. More descriptive date ranges, intended for display directly to the user, _SHOULD_ be included in the `metadata` property for human consumption. If this resource contains Canvases with the `duration` property, the datetime given _SHOULD_ be the datetime at the start of this resource. For example, a Range that includes a Canvas that represents a set of video content recording a historical event, the `navDate` is datetime of the first moment of the recorded event.
+A date that the client can use for navigation purposes when presenting this resource to the user in a time-based user interface, such as a calendar or timeline. More descriptive date ranges, intended for display directly to the user, _SHOULD_ be included in the `metadata` property for human consumption. If this resource contains Canvases with the `duration` property that represent real world events, the datetime given _SHOULD_ be the datetime at the start of this resource. For example, a Range that includes a Canvas that represents a set of video content recording a historical event, the `navDate` is datetime of the first moment of the recorded event.
 
 The value _MUST_ be an [`xsd:dateTime` literal][xsd-datetime]. The value _MUST_ have a timezone, and _SHOULD_ be given in UTC with the `Z` timezone indicator but _MAY_ also be given as an offset of the form `+hh:mm`. In the situation where a timezone is not given, clients _SHOULD_ assume it to be UTC.
 
