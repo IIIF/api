@@ -1094,14 +1094,7 @@ The Manifest _MUST_ have an `items` property, which is an array of JSON-LD objec
   "navDate": "1856-01-01T00:00:00Z",
 
   // Rights Information
-  "rights": [
-    {
-      "id":"https://example.org/license.html",
-      "type": "Text",
-      "language": "en",
-      "format": "text/html"
-    }
-  ],
+  "rights": "https://creativecommons.org/licenses/by/4.0/",
   "requiredStatement": {
     "label": { "en": [ "Attribution" ] },
     "value": { "en": [ "Provided by Example Organization" ] }
@@ -1621,14 +1614,7 @@ __Protocol Behavior__
   "behavior": [ "paged" ],
   "navDate": "1856-01-01T00:00:00Z",
 
-  "rights": [
-    {
-      "id":"https://example.org/license.html",
-      "type": "Text",
-      "language": "en",
-      "format": "text/html"
-    }
-  ],
+  "rights": "https://creativecommons.org/licenses/by/4.0/",
   "requiredStatement": {
     "label": { "en": [ "Attribution" ] },
     "value": { "en": [ "Provided by Example Organization" ] }
