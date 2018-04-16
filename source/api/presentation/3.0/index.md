@@ -298,8 +298,8 @@ A date that the client can use for navigation purposes when presenting this reso
 
 The value _MUST_ be an [`xsd:dateTime` literal][xsd-datetime]. The value _MUST_ have a timezone, and _SHOULD_ be given in UTC with the `Z` timezone indicator but _MAY_ also be given as an offset of the form `+hh:mm`. In the situation where a timezone is not given, clients _SHOULD_ assume it to be UTC.
 
- * A Collection, Manifest or Range _MAY_ have the `navDate` property.<br/>
-   Clients _MAY_ render `navDate` on Collections, Manifests and Ranges.
+ * A Collection, Manifest, Range or Canvas _MAY_ have the `navDate` property.<br/>
+   Clients _MAY_ render `navDate` on Collections, Manifests, Ranges, and Canvases.
  * Other resource types _MUST NOT_ have the `navDate` property.<br/>
    Clients _SHOULD_ ignore `navDate` on other resource types.
 
