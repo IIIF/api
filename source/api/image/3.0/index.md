@@ -8,7 +8,7 @@ major: 3
 minor: 0
 patch: 0
 pre: ALPHA
-cssversion: 2
+cssversion: 3
 redirect_from:
   - /api/image/index.html
   - /api/image/3/index.html
@@ -136,7 +136,7 @@ The scheme, server, prefix and identifier components of the information request 
 
 ##  3. Identifier
 
-The API places no restrictions on the form of the identifiers that a server may use or support. All special characters (e.g. ? or #) _MUST_ be URI encoded to avoid unpredictable client behaviors. The URI syntax relies upon slash (/) separators so any slashes in the identifier _MUST_ be URI encoded (also called "percent encoded"). See the additional discussion in [URI Encoding and Decoding][uri-encoding-and-decoding].
+The API places no restrictions on the form of the identifiers that a server may use or support. All special characters (e.g. `?` or `#`) _MUST_ be URI encoded to avoid unpredictable client behaviors. The URI syntax relies upon slash (`/`) separators so any slashes in the identifier _MUST_ be URI encoded (also called "percent encoded"). See the additional discussion in [URI Encoding and Decoding][uri-encoding-and-decoding].
 
 ##  4. Image Requests
 
@@ -148,19 +148,19 @@ Servers _SHOULD_ support [CORS][cors-response] on image responses.
 
 ### 4.1. Region
 
-The region parameter defines the rectangular portion of the underlying image content to be returned. Region can be specified by pixel coordinates, percentage or by the value "full", which specifies that the full image should be returned.
+The region parameter defines the rectangular portion of the underlying image content to be returned. Region can be specified by pixel coordinates, percentage or by the value `full`, which specifies that the full image should be returned.
 
 | Form |  Description |
 | ------------------- | ------------ |
 | `full`              | The full image is returned, without any cropping. |
 | `square`            | The region is defined as an area where the width and height are both equal to the length of the shorter dimension of the full image. The region may be positioned anywhere in the longer dimension of the full image at the server's discretion, and centered is often a reasonable default.|
-| x,y,w,h             | The region of the full image to be returned is specified in terms of absolute pixel values. The value of x represents the number of pixels from the 0 position on the horizontal axis. The value of y represents the number of pixels from the 0 position on the vertical axis. Thus the x,y position 0,0 is the upper left-most pixel of the image. w represents the width of the region and h represents the height of the region in pixels.  |
-| pct:x,y,w,h         | The region to be returned is specified as a sequence of percentages of the full image's dimensions, as reported in the image information document. Thus, `x` represents the number of pixels from the 0 position on the horizontal axis, calculated as a percentage of the reported width. `w` represents the width of the region, also calculated as a percentage of the reported width. The same applies to y and h respectively. |
+| _`x,y,w,h`_         | The region of the full image to be returned is specified in terms of absolute pixel values. The value of _`x`_ represents the number of pixels from the 0 position on the horizontal axis. The value of _`y`_ represents the number of pixels from the 0 position on the vertical axis. Thus the _`x,y`_ position 0,0 is the upper left-most pixel of the image. _`w`_ represents the width of the region and _`h`_ represents the height of the region in pixels.  |
+| _`pct:x,y,w,h`_     | The region to be returned is specified as a sequence of percentages of the full image's dimensions, as reported in the image information document. Thus, _`x`_ represents the number of pixels from the 0 position on the horizontal axis, calculated as a percentage of the reported width. _`w`_ represents the width of the region, also calculated as a percentage of the reported width. The same applies to _`y`_ and _`h`_ respectively. |
 {: .api-table}
 
 If the request specifies a region which extends beyond the dimensions of the full image as reported in the image information document, then the service _SHOULD_ return an image cropped at the image's edge, rather than adding empty space.
 
-If the requested region's height or width is zero, or if the region is entirely outside the bounds of the reported dimensions, then the server _SHOULD_ return a 400 status code.
+If the requested region's height or width is zero, or if the region is entirely outside the bounds of the reported dimensions, then the server _SHOULD_ return a 400 (Bad Request) status code.
 
 Examples:
 
@@ -210,16 +210,16 @@ Examples:
 
 ###  4.2. Size
 
-The size parameter specifies the dimensions to which the extracted region, which might be the complete image, is to be scaled. With the exception of the `w,h` form, the returned image maintains the aspect ratio of the extracted region as closely as possible.
+The size parameter specifies the dimensions to which the extracted region, which might be the complete image, is to be scaled. With the exception of the _`w,h`_ form, the returned image maintains the aspect ratio of the extracted region as closely as possible.
 
-| Form   | Description |
-|--------|-----------------------|
-| `max`  | The extracted region is returned at the maximum size available. The resulting image will have the pixel dimensions of the extracted region, unless it is constrained to a smaller size by `maxWidth`, `maxHeight`, or `maxArea` as defined in the [Technical Properties][technical-properties] section. |
-| w,     | The extracted region should be scaled so that the width of the returned image is exactly equal to w. |
-| ,h     | The extracted region should be scaled so that the height of the returned image is exactly equal to h. |
-| pct:n  | The width and height of the returned image is scaled to n% of the width and height of the extracted region. |
-| w,h    | The width and height of the returned image are exactly w and h. The aspect ratio of the returned image _MAY_ be significantly different than the extracted region, resulting in a distorted image. |
-| !w,h   | The extracted region is scaled so that the width and height of the returned image are not greater than w and h, while maintaining the aspect ratio. The returned image _MUST_ be as large as possible but not larger than the extracted region, w or h, or server-imposed limits. |
+| Form      | Description |
+| --------- | ----------- |
+| `max`     | The extracted region is returned at the maximum size available. The resulting image will have the pixel dimensions of the extracted region, unless it is constrained to a smaller size by `maxWidth`, `maxHeight`, or `maxArea` as defined in the [Technical Properties][technical-properties] section. |
+| _`w,`_    | The extracted region should be scaled so that the width of the returned image is exactly equal to _`w`_. |
+| _`,h`_    | The extracted region should be scaled so that the height of the returned image is exactly equal to _`h`_. |
+| _`pct:n`_ | The width and height of the returned image is scaled to _`n`_ percent of the width and height of the extracted region. |
+| _`w,h`_   | The width and height of the returned image are exactly _`w`_ and _`h`_. The aspect ratio of the returned image _MAY_ be significantly different than the extracted region, resulting in a distorted image. |
+| _`!w,h`_  | The extracted region is scaled so that the width and height of the returned image are not greater than _`w`_ and _`h`_, while maintaining the aspect ratio. The returned image _MUST_ be as large as possible but not larger than the extracted region, _`w`_ or _`h`_, or server-imposed limits. |
 {: .api-table}
 
 The pixel dimensions of the scaled region _MUST NOT_ be greater than the pixel dimensions of the extracted region, or be less than 1 pixel. Requests that would generate images of these sizes are errors that _SHOULD_ result in a 400 (Bad Request) status code.
@@ -273,17 +273,17 @@ Examples:
 
 The rotation parameter specifies mirroring and rotation. A leading exclamation mark ("!") indicates that the image should be mirrored by reflection on the vertical axis before any rotation is applied. The numerical value represents the number of degrees of clockwise rotation, and may be any floating point number from 0 to 360.
 
-| Form | Description |
-| ---- | ----------- |
-| n    | The degrees of clockwise rotation from 0 up to 360.     |
-| !n   | The image should be mirrored and then rotated as above. |
+| Form   | Description |
+| ------ | ----------- |
+| _`n`_  | The degrees of clockwise rotation from 0 up to 360.     |
+| _`!n`_ | The image should be mirrored and then rotated as above. |
 {: .api-table}
 
 A rotation value that is out of range or unsupported _SHOULD_ result in a 400 (Bad Request) status code.
 
 In most cases, rotation will change the width and height dimensions of the returned image. The service _SHOULD_ return an image that contains all of the image contents requested in the region and size parameters, even if the dimensions of the returned image file are different than specified in the size parameter. The image contents _SHOULD NOT_ be scaled as a result of the rotation, and there _SHOULD_ be no additional space between the corners of the rotated image contents and the bounding box of the returned image.
 
-For rotations which are not multiples of 90 degrees, it is _RECOMMENDED_ that the client request the image in a format that supports transparency, such as PNG, and that the server return the image with a transparent background. There is no facility in the API for the client to request a particular background color or other fill pattern.
+For rotations which are not multiples of 90 degrees, it is _RECOMMENDED_ that the client request the image in a format that supports transparency, such as `png`, and that the server return the image with a transparent background. There is no facility in the API for the client to request a particular background color or other fill pattern.
 
 Examples:
 
@@ -337,7 +337,7 @@ The quality parameter determines whether the image is delivered in color, graysc
 | `color`   | The image is returned with all of its color information. |
 | `gray`    | The image is returned in grayscale, where each pixel is black, white or any shade of gray in between. |
 | `bitonal` | The image returned is bitonal, where each pixel is either black or white. |
-| `default` | The image is returned using the server's default quality (e.g. color, gray or bitonal) for the image. |
+| `default` | The image is returned using the server's default quality (e.g. `color`, `gray` or `bitonal`) for the image. |
 {: .api-table}
 
 The `default` quality exists to support [level 0 compliant implementations][compliance-quality] that may not know the qualities of individual images in their collections. It also provides a convenience for clients that know the values for all other parameters of a request except the quality (e.g. `.../full/120,80/90/{quality}.png` to request a thumbnail) in that a preliminary image information request that would only serve to find out which qualities are available can be avoided.
@@ -407,7 +407,7 @@ The parameters should be interpreted as if the sequence of image manipulations w
 
 `Region THEN Size THEN Rotation THEN Quality THEN Format`
 
-If the rotation parameter includes mirroring ("!"), the mirroring is applied before the rotation.
+If the rotation parameter includes mirroring (`!`), the mirroring is applied before the rotation.
 
 <table class="ex_table">
   <tbody>
@@ -433,10 +433,10 @@ In order to support the above requirements, clients _SHOULD_ construct image req
 
 | Parameter | Canonical value |
 | --------- | --------------- |
-| region    | "full" if the full image is requested<br/>otherwise the `x,y,w,h` syntax. |
-| size      | "max" if the maximum size is requested,<br/>otherwise the `w,h` syntax. |
-| rotation  | "!" if the image is mirrored, followed by an integer if possible, otherwise a floating point value. |
-| quality   | "default" if the server's default quality is requested,<br/>otherwise the quality string. |
+| region    | `full` if the full image is requested<br/>otherwise the _`x,y,w,h`_ syntax. |
+| size      | `max` if the maximum size is requested,<br/>otherwise the _`w,h`_ syntax. |
+| rotation  | `!` if the image is mirrored, followed by an integer if possible, otherwise a floating point value. |
+| quality   | `default` if the server's default quality is requested,<br/>otherwise the quality string. |
 | format    | An explicit format string is always required. |
 {: .api-table}
 
@@ -464,21 +464,21 @@ The request for the image information _MUST_ conform to the URI template:
 ```
 {: .urltemplate}
 
-The syntax for the response is [JSON-LD][json-ld-w3c]. The content-type of the response _MUST_ be either "application/json" (regular JSON),
+The syntax for the response is [JSON-LD][json-ld-w3c]. The content-type of the response _MUST_ be either `application/json` (regular JSON),
 
 ``` none
 Content-Type: application/json
 ```
 {: .urltemplate}
 
-or "application/ld+json" (JSON-LD).
+or `application/ld+json` (JSON-LD).
 
 ``` none
 Content-Type: application/ld+json;profile="http://iiif.io/api/image/3/context.json"
 ```
 {: .urltemplate}
 
-If the server receives a request with one of the content types above in the Accept header, it _SHOULD_ respond with that content type following the rules of [content negotiation][conneg]. Otherwise, it _MUST_ respond with the "application/json" content type.
+If the server receives a request with one of the content types above in the Accept header, it _SHOULD_ respond with that content type following the rules of [content negotiation][conneg]. Otherwise, it _MUST_ respond with the `application/json` content type.
 
 Servers should also support [CORS][cors-response] on image information responses.
 
@@ -492,10 +492,10 @@ The JSON response has several technical properties that describe the available f
 | `id` | Required | The base URI of the image as defined in [URI Syntax][uri-syntax], including scheme, server, prefix and identifier without a trailing slash. |
 | `type` | Required | The type for the Image API. The value _MUST_ be the string `ImageService3`. |
 | `protocol` | Required | The URI `http://iiif.io/api/image` which can be used to determine that the document describes an image service which is a version of the IIIF Image API. |
-| `profile` | Required | A string indicating the highest [compliance level][compliance-levels] which is fully supported by the service. The value _MUST_ be one of "level0", "level1", or "level2". |
+| `profile` | Required | A string indicating the highest [compliance level][compliance-levels] which is fully supported by the service. The value _MUST_ be one of `level0`, `level1`, or `level2`. |
 | `width` | Required | The width in pixels of the full image, given as an integer. |
 | `height` | Required | The height in pixels of the full image, given as an integer. |
-| `maxWidth`  | Optional  | The maximum width in pixels supported for this image. Clients _MUST NOT_ expect requests with a width greater than this value to be supported. `maxWidth` _MUST_ be specified if `maxHeight` is specified. |
+| `maxWidth`  | Optional | The maximum width in pixels supported for this image. Clients _MUST NOT_ expect requests with a width greater than this value to be supported. `maxWidth` _MUST_ be specified if `maxHeight` is specified. |
 | `maxHeight` | Optional  | The maximum height in pixels supported for this image. Clients _MUST NOT_ expect requests with a height greater than this value to be supported. If `maxWidth` is specified and `maxHeight` is not, then clients should infer that `maxHeight = maxWidth`.  |
 | `maxArea`   | Optional  | The maximum area in pixels supported for this image. Clients _MUST NOT_ expect requests with a width\*height greater than this value to be supported. |
 {: .api-table}
@@ -525,10 +525,10 @@ The JSON response _MAY_ have the `sizes` property, which is used to describe pre
 
 | Property   | Required? | Description |
 | ---------- | --------- | ----------- |
-| `sizes` | Optional | A list of JSON objects with the `height` and `width` properties. These sizes specify preferred values to be provided in the `w,h` syntax of the size request parameter for scaled versions of the full image. In the case of servers that do not support requests for arbitrary sizes, these may be the only sizes available. A request constructed with the `w,h` syntax using these sizes _MUST_ be supported by the server, even if arbitrary width and height are not. |
+| `sizes` | Optional | A list of JSON objects with the `height` and `width` properties. These sizes specify preferred values to be provided in the _`w,h`_ syntax of the size request parameter for scaled versions of the full image. In the case of servers that do not support requests for arbitrary sizes, these may be the only sizes available. A request constructed with the _`w,h`_ syntax using these sizes _MUST_ be supported by the server, even if arbitrary width and height are not. |
 {: .api-table}
 
-The objects in the `sizes` list have the properties in the following table. Image requests for these sizes _SHOULD_ have a region parameter of "full", size parameter in the canonical `w,h` form, and rotation of "0". Thus, the full URL for an image with "default" quality in "jpg" format would be: `{scheme}://{server}/{prefix}/{identifier}/full/{width},{height}/0/default.jpg`
+The objects in the `sizes` list have the properties in the following table. Image requests for these sizes _SHOULD_ have a region parameter of `full`, size parameter in the canonical _`w,h`_ form, and rotation of `0`. Thus, the full URL for an image with `default` quality in `jpg` format would be: `{scheme}://{server}/{prefix}/{identifier}/full/{width},{height}/0/default.jpg`
 
 | Property   | Required? | Description |
 | ---------- | -------- | ----------- |
@@ -656,11 +656,11 @@ The set of features defined by this specification that may be specified in the `
 | `regionSquare` | A square region may be requested, where the width and height are equal to the shorter dimension of the full image. |
 | `rotationArbitrary` | Image rotation may be requested using values other than multiples of 90 degrees. |
 | `rotationBy90s` | Image rotation may be requested in multiples of 90 degrees. |
-| `sizeByConfinedWh` | Image size may be requested in the form "!w,h". |
-| `sizeByH` | Image size may be requested in the form ",h".  |
-| `sizeByPct` | Images size may be requested in the form "pct:n".  |
-| `sizeByW` | Image size may be requested in the form "w,".  |
-| `sizeByWh` | Image size may be requested in the form "w,h".  |
+| `sizeByConfinedWh` | Image size may be requested in the form _`!w,h`_. |
+| `sizeByH` | Image size may be requested in the form _`,h`_.  |
+| `sizeByPct` | Images size may be requested in the form _`pct:n`_.  |
+| `sizeByW` | Image size may be requested in the form _`w,`_.  |
+| `sizeByWh` | Image size may be requested in the form _`w,h`_.  |
 {: .api-table #features-table}
 
 A server that supports neither `sizeByW` or `sizeByWh` is only required to serve the image sizes listed under the `sizes` property or implied by the `tiles` property of the image information document, allowing for a static file implementation.
@@ -810,7 +810,7 @@ No new authentication mechanisms are proposed, nor roles for authorization busin
 
 ##  9. URI Encoding and Decoding
 
-The URI syntax of this API relies upon slash (/) separators which _MUST NOT_ be encoded. Clients _MUST_ percent-encode special characters (the to-encode set below: percent and gen-delims of [RFC3986][rfc-3986] except the colon) plus any characters outside the US-ASCII set within the components of requests. For example, any slashes within the identifier part of the URI _MUST_ be percent-encoded. Encoding is necessary only for the identifier because other components will not include special characters. Percent-encoding other characters introduces no ambiguity but is unnecessary.
+The URI syntax of this API relies upon slash (`/`) separators which _MUST NOT_ be encoded. Clients _MUST_ percent-encode special characters (the to-encode set below: percent and gen-delims of [RFC3986][rfc-3986] except the colon) plus any characters outside the US-ASCII set within the components of requests. For example, any slashes within the identifier part of the URI _MUST_ be percent-encoded. Encoding is necessary only for the identifier because other components will not include special characters. Percent-encoding other characters introduces no ambiguity but is unnecessary.
 
 ``` none
 to-encode = "/" / "?" / "#" / "[" / "]" / "@" / "%"
