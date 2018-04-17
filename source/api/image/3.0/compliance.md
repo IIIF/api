@@ -110,27 +110,9 @@ Note that servers may express limits on the sizes available for an image with th
 | canonical link header | `canonicalLinkHeader` | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] |
 {: .api-table}
 
-## 5. Indicating Compliance
+### 5. Level 0 Compliance
 
-Servers _MAY_ indicate compliance with by including a header in IIIF responses for images:
-
-``` none
-Link: <http://iiif.io/api/image/{{ page.major }}/level1.json>;rel="profile"
-```
-{: .urltemplate}
-
-The URIs for the the compliance levels are as follows:
-
-| Compliance level | Profile document URI                                    |
-| ---------------- | ------------------------------------------------------- |
-| `level0`         | `http://iiif.io/api/image/{{ page.major }}/level0.json` |
-| `level1`         | `http://iiif.io/api/image/{{ page.major }}/level1.json` |
-| `level2`         | `http://iiif.io/api/image/{{ page.major }}/level2.json` |
-{: .api-table}
-
-### 5.1 Level 0 Compliance
-
-A level 0 compliant image server _MAY_ specify `scaleFactors` and/or `width` and `height` values for `tiles` in the Image Information response. At Level 0 compliance, a service is only required to deliver images of sizes computed using the scaling factors declared in the Image Information response. If specified they should be interpreted with the following special meanings:
+A level 0 compliant image server _MAY_ specify `scaleFactors` and/or `width` and `height` values for `tiles` in the Image Information response. At level 0 compliance, a service is only required to deliver images of sizes computed using the scaling factors declared in the Image Information response. If specified they should be interpreted with the following special meanings:
 
  * `scaleFactors` - only the specified scaling factors are supported
  * `width`, `height` within `tiles` - clients should request only regions that correspond to output tiles of the specified dimensions

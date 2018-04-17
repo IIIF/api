@@ -789,11 +789,9 @@ The following shows an image information response including all of the required 
 }
 ```
 
-##  6. Compliance Levels and Profile Document
+##  6. Compliance Level and Profile Document
 
-The image information document _MUST_ specify the extent to which the API is supported by including the compliance level string as the value of the `profile` property. The compliance level _MUST_ be one of those listed in the [Image API Compliance][image30-compliance] document and _SHOULD_ be the highest compliance level for which all requirements are met. The compliance levels each correspond with a profile documnet that describes the set of features required by that level, as discussed in the [Image Information][image30-information] section. A server _MAY_ declare different compliance levels for images with different identifiers.
-
-The following table shows the correspondence between compliance levels and profile document URIs:
+The image information document _MUST_ specify the extent to which the API is supported by including the compliance level as the value of the `profile` property. The compliance level _MUST_ be one of those listed in the [Image API Compliance][image30-compliance] document and shown in the table below. The compliance level _SHOULD_ be the highest compliance level for which all requirements are met. The compliance levels each correspond with a profile documet that describes the set of features required by that level, as discussed in the [Image Information][image30-information] section. A server _MAY_ declare different compliance levels for images with different identifiers.
 
 | Compliance level | Profile document URI                                    |
 | ---------------- | ------------------------------------------------------- |
