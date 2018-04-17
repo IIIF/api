@@ -1310,7 +1310,7 @@ Ranges _MAY_ link to an Annotation Collection that has the content of the Range 
 }
 ```
 
-###  5.5. Annotation Pages
+###  5.5. Annotation Page
 
 Association of Images and other content with their respective Canvases is done via Annotations. Traditionally Annotations are used for associating commentary with the resource the Annotation's text or body is about, the [Web Annotation][org-w3c-webanno] model allows any resource to be associated with any other resource, or parts thereof, and it is reused for both commentary and painting resources on the Canvas. Other resources beyond images might include the full text of the object, musical notations, musical performances, diagram transcriptions, commentary Annotations, tags, video, data and more.
 
@@ -1348,7 +1348,7 @@ In part due to the timing of the release of the JSON-LD and Web Annotation speci
 }
 ```
 
-### 5.6. Annotations
+### 5.6. Annotation
 
 Annotations follow the [Web Annotation][org-w3c-webanno] data model. The description provided here is a summary plus any IIIF specific requirements. The W3C standard is the official documentation.
 
@@ -1377,7 +1377,7 @@ Additional features of the Web Annotation data model _MAY_ also be used, such as
 }
 ```
 
-### 5.7. Content Resource
+### 5.7. Content Resources
 
 Content resources are external web resources that are referenced from within the Manifest or Collection. This includes images, video, audio, data, web pages or any other format. They can be referenced from `thumbnail`, `homepage`, `logo`, `rendering`, and `seeAlso` properties, as well as the `body` property of Annotations.
 
