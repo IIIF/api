@@ -1100,14 +1100,7 @@ The Manifest _MUST_ have an `items` property, which is an array of JSON-LD objec
   "navDate": "1856-01-01T00:00:00Z",
 
   // Rights Information
-  "rights": [
-    {
-      "id":"https://example.org/license.html",
-      "type": "Text",
-      "language": "en",
-      "format": "text/html"
-    }
-  ],
+  "rights": "https://creativecommons.org/licenses/by/4.0/",
   "requiredStatement": {
     "label": { "en": [ "Attribution" ] },
     "value": { "en": [ "Provided by Example Organization" ] }
@@ -1226,7 +1219,6 @@ Renderers _MUST_ scale content into the space represented by the Canvas, and _SH
   "label": { "@none": [ "p. 1" ] },
   "height": 1000,
   "width": 750,
-  "duration": 180.0,
 
   "items": [
     {
@@ -1583,9 +1575,245 @@ __Protocol Behavior__
 
 ### B. Example Manifest Response
 
-Rebuild the example
-{: .warning}
+```
+{
+  "@context": [
+    "http://www.w3.org/ns/anno.jsonld",
+    "http://iiif.io/api/presentation/{{ page.major }}/context.json"
+  ],
+  "id": "https://example.org/iiif/book1/manifest",
+  "type": "Manifest",
+  "label": { "en": [ "Book 1" ] },
+  "metadata": [
+    {
+      "label": { "en": [ "Author" ] },
+      "value": { "@none": [ "Anne Author" ] }
+    },
+    {
+      "label": { "en": [ "Published" ] },
+      "value": {
+        "en": [ "Paris, circa 1400" ],
+        "fr": [ "Paris, environ 1400" ]
+      }
+    },
+    {
+      "label": { "en": [ "Notes" ] },
+      "value": {
+        "en": [
+          "Text of note 1",
+          "Text of note 2"
+        ]
+      }
+    },
+    {
+      "label": { "en": [ "Source" ] },
+      "value": { "@none": [ "<span>From: <a href=\"https://example.org/db/1.html\">Some Collection</a></span>" ] }
+    }
+  ],
+  "summary": { "en": [ "Book 1, written be Anne Author, published in Paris around 1400." ] },
 
+  "thumbnail": [
+    {
+      "id": "https://example.org/images/book1-page1/full/80,100/0/default.jpg",
+      "type": "Image",
+      "service": [
+        {
+          "id": "https://example.org/images/book1-page1",
+          "type": "ImageService3",
+          "profile": "level1"
+        }
+      ]
+    }
+  ],
+
+  "viewingDirection": "right-to-left",
+  "behavior": [ "paged" ],
+  "navDate": "1856-01-01T00:00:00Z",
+
+  "rights": "https://creativecommons.org/licenses/by/4.0/",
+  "requiredStatement": {
+    "label": { "en": [ "Attribution" ] },
+    "value": { "en": [ "Provided by Example Organization" ] }
+  },
+  "logo": {
+    "id": "https://example.org/logos/institution1.jpg",
+    "type": "Image",
+    "service": [
+      {
+        "id": "https://example.org/service/inst1",
+        "type": "ImageService3",
+        "profile": "level2"
+      }
+    ]
+  },
+
+  "homepage": {
+    "id": "https://example.org/info/book1/",
+    "type": "Text",
+    "label": { "en": [ "Home page for Book 1" ] },
+    "format": "text/html"
+  },
+  "service": [
+    {
+      "id": "https://example.org/service/example",
+      "type": "Service",
+      "profile": "https://example.org/docs/example-service.html"
+    }
+  ],
+  "seeAlso": [
+    {
+      "id": "https://example.org/library/catalog/book1.xml",
+      "type": "Dataset",
+      "format": "text/xml",
+      "profile": "https://example.org/profiles/bibliographic"
+    }
+  ],
+  "rendering": [
+    {
+      "id": "https://example.org/iiif/book1.pdf",
+      "type": "Text",
+      "label": { "en": [ "Download as PDF" ] },
+      "format": "application/pdf"
+    }
+  ],
+  "partOf": [
+    {
+      "id": "https://example.org/collections/books/",
+      "type": "Collection"
+    }
+  ],
+  "start": {
+    "id": "https://example.org/iiif/book1/canvas/p2",
+    "type": "Canvas"
+  },
+
+  "items": [
+    {
+      "id": "https://example.org/iiif/book1/canvas/p1",
+      "type": "Canvas",
+      "label": { "@none": [ "p. 1" ] },
+      "height": 1000,
+      "width": 750,
+      "items": [
+        {
+          "id": "https://example.org/iiif/book1/page/p1/1",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://example.org/iiif/book1/annotation/p0001-image",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://example.org/iiif/book1/res/page1.jpg",
+                "type": "Image",
+                "format": "image/jpeg",
+                "service": [
+                  {
+                    "id": "https://example.org/images/book1-page1",
+                    "type": "ImageService3",
+                    "profile": "level2"
+                  }
+                ],
+                "height": 2000,
+                "width": 1500
+              },
+              "target": "https://example.org/iiif/book1/canvas/p1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "https://example.org/iiif/book1/canvas/p2",
+      "type": "Canvas",
+      "label": { "@none": [ "p. 2" ] },
+      "height": 1000,
+      "width": 750,
+      "items": [
+        {
+          "id": "https://example.org/iiif/book1/page/p2/1",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://example.org/iiif/book1/annotation/p0002-image",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://example.org/iiif/book1/res/page2.jpg",
+                "type": "Image",
+                "format": "image/jpeg",
+                "service": [
+                  {
+                    "id": "https://example.org/images/book1-page2",
+                    "type": "ImageService3",
+                    "profile": "level2"
+                  }
+                ],
+                "height": 2000,
+                "width": 1500
+              },
+              "target": "https://example.org/iiif/book1/canvas/p2"
+            }
+          ]
+        }
+      ]
+    }    
+  ],
+
+  "structures": [
+    {
+      "id": "https://example.org/iiif/book1/range/r0",
+      "type": "Range",
+      "label": { "en": [ "Table of Contents" ] },
+      "items": [
+        {
+          "id": "https://example.org/iiif/book1/range/r1",
+          "type": "Range",
+          "label": { "en": [ "Introduction" ] },
+          "supplementary": { 
+            "id": "https://example.org/iiif/book1/annocoll/introTexts",
+            "type": "AnnotationCollection"
+          },
+          "items": [
+            {
+              "id": "https://example.org/iiif/book1/canvas/p1",
+              "type": "Canvas"
+            },
+            {
+              "type": "SpecificResource",
+              "source": "https://example.org/iiif/book1/canvas/p2",
+              "selector": {
+                "type": "FragmentSelector",
+                "value": "xywh=0,0,750,300"
+              }
+            }  
+          ]
+        }
+      ]
+    }
+  ],
+
+  "annotations": [
+    {
+      "id": "https://example.org/iiif/book1/page/manifest/1",
+      "type": "AnnotationPage",
+      "items": [
+        {
+          "id": "https://example.org/iiif/book1/page/manifest/a1",
+          "type": "Annotation",
+          "motivation": "commenting",
+          "body": {
+            "type": "TextualBody",
+            "language": "en",
+            "value": "I love this manifest!"
+          },
+          "target": "https://example.org/iiif/book1/manifest"
+        }
+      ]
+    }
+  ]
+}
+```
 
 ### C. Versioning
 
