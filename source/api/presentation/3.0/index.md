@@ -142,7 +142,7 @@ Annotations associate content resources with Canvases. The same mechanism is use
 ##### Content
 {: #overview-content}
 
-Content resources such as images, audio, video or text that are associated with a Canvas via Annotations, or provide a rendering of any resource.
+Web resources such as images, audio, video, or text which are associated with a Canvas via an Annotation, or provide a representation of any resource.
 
 ##### Annotation Collection
 {: #overview-annotationcollection}
