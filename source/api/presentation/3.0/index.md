@@ -237,11 +237,9 @@ Clients _SHOULD_ display the entries in the order provided. Clients _SHOULD_ exp
 
 ##### requiredStatement
 
-Text that _MUST_ be displayed when this resource is displayed or used. For example, the `requiredStatement` property could be used to present copyright or ownership statements, an acknowledgement of the owning and/or publishing institution, or any other text that the organization deems critical to display to the user.
+Text that _MUST_ be displayed when this resource is displayed or used. For example, the `requiredStatement` property could be used to present copyright or ownership statements, an acknowledgement of the owning and/or publishing institution, or any other text that the organization deems critical to display to the user. Given the wide variation of potential client user interfaces, it will not always be possible to display this statement to the user in the client's initial state. If initially hidden, clients _MUST_ make the method of revealing it as obvious as possible.
 
-Given the wide variation of potential client user interfaces, it will not always be possible to display this statement to the user in the client's initial state. If initially hidden, clients _MUST_ make the method of revealing it as obvious as possible.
-
-The value of the property _MUST_ be a JSON object, that has the `label` and `value` properties, in the same way as the `metadata` property items. The values of both `label` and `value` _MUST_ be JSON objects, as described in the [languages][prezi30-languages] section.
+The value of the property _MUST_ be a JSON object, that has the `label` and `value` properties, in the same way as a `metadata` property entry. The values of both `label` and `value` _MUST_ be JSON objects, as described in the [languages][prezi30-languages] section.
 
  * Any resource type _MAY_ have the `requiredStatement` property.<br/>
    Clients _MUST_ render `requiredStatement` on every resource type.
