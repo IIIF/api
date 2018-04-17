@@ -1,0 +1,314 @@
+{
+  "@context": [
+    {
+      "@version": 1.1
+    },
+    "http://iiif.io/api/services-context.json",
+    {
+      "presentation": "http://iiif.io/api/presentation/3#",
+      "image": "http://iiif.io/api/image/3#",
+      "exif": "http://www.w3.org/2003/12/exif/ns#",
+      "oa": "http://www.w3.org/ns/oa#",
+      "dc": "http://purl.org/dc/elements/1.1/",
+      "dcterms": "http://purl.org/dc/terms/",
+      "dctypes": "http://purl.org/dc/dcmitype/",
+      "doap": "http://usefulinc.com/ns/doap#",
+      "foaf": "http://xmlns.com/foaf/0.1/",
+      "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+      "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+      "xsd": "http://www.w3.org/2001/XMLSchema#",
+      "svcs": "http://rdfs.org/sioc/services#",
+      "as": "http://www.w3.org/ns/activitystreams#",
+      "ebu": "http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#",
+
+      "Collection": "presentation:Collection",
+      "Manifest": "presentation:Manifest",
+      "Canvas": "presentation:Canvas",
+      "Range": "presentation:Range",
+
+      "AnnotationCollection": {
+        "@id": "as:OrderedCollection",
+        "@context": "http://www.w3.org/ns/anno.jsonld"
+      },
+      "AnnotationPage": {
+        "@id": "as:OrderedCollectionPage",
+        "@context": "http://www.w3.org/ns/anno.jsonld"
+      },
+      "Annotation": {
+        "@id": "oa:Annotation",
+        "@context": "http://www.w3.org/ns/anno.jsonld"
+      },
+      "Application": "as:Application",
+      "Dataset": "dctypes:Dataset",
+      "Image": "dctypes:StillImage",
+      "Video": "dctypes:MovingImage",
+      "Audio": "dctypes:Sound",
+      "Text": "dctypes:Text",
+      "Service": "svcs:Service",
+
+      "label": {
+        "@id": "rdfs:label",
+        "@container": ["@language", "@set"]
+      },
+      "value": {
+        "@id": "rdf:value",
+        "@container": ["@language", "@set"]
+      },
+      "metadata": {
+        "@type": "@id",
+        "@id": "presentation:metadataEntries",
+        "@container": "@list"
+      },
+      "summary": {
+        "@id": "as:summary",
+        "@container": ["@language", "@set"]      
+      },
+      "thumbnail": {
+        "@type": "@id",
+        "@id": "presentation:thumbnail",
+        "@container": "@set"
+      },
+      "navDate": {
+        "@id": "presentation:navigationDate"
+      },
+      "requiredStatement": {
+        "@id": "presentation:requiredStatement",
+        "@type": "@id"
+      },
+      "rights": {
+        "@type": "@id",
+        "@id": "dcterms:rights"
+      },
+      "logo": {
+        "@type": "@id",
+        "@id": "foaf:logo",
+        "@container": "@set"
+      },
+      "id": "@id",
+      "type": "@type",
+      "format": {
+        "@id": "dc:format"
+      },
+      "language": {
+        "@id": "dc:language",
+        "@container": "@set"
+      },
+      "profile": {
+        "@type": "@vocab",
+        "@id": "doap:implements"
+      },
+      "height": {
+        "@id": "exif:height"
+      },
+      "width": {
+        "@id": "exif:width"
+      },
+      "duration": {
+        "@id": "ebu:duration"
+      },
+      "viewingDirection": {
+        "@id": "presentation:viewingDirection",
+        "@type": "@vocab",
+        "@container": "@set"      
+      },
+      "behavior": {
+        "@id": "presentation:behavior",
+        "@type": "@vocab",
+        "@container": "@set"      
+      },
+      "timeMode": {
+        "@id": "presentation:timeMode",
+        "@type": "@vocab"     
+      },
+      "homepage": {
+        "@type": "@id",
+        "@id": "foaf:homepage"
+      },
+      "rendering": {
+        "@id": "dcterms:hasFormat",
+        "@type": "@id",
+        "@container": "@set"
+      },
+      "service": {
+        "@type": "@id",
+        "@id": "svcs:has_service",
+        "@container": "@set"   
+      },
+      "seeAlso": {
+        "@type": "@id",
+        "@id": "rdfs:seeAlso",
+        "@container": "@set"   
+      },
+      "partOf": {
+        "@type": "@id",
+        "@id": "as:partOf",
+        "@container": "@set"         
+      },
+      "start": {
+        "@type": "@id",
+        "@id": "presentation:start"
+      },
+      "supplementary": {
+        "@type": "@id",
+        "@id": "presentation:supplementary"
+      },
+
+      "items": {
+        "@type": "@id",
+        "@id": "as:items",
+        "@container": "@list"
+      },
+      "structures": {
+        "@type": "@id",
+        "@id": "presentation:structures",
+        "@container": "@list"
+      },
+      "annotations": {
+        "@type": "@id",
+        "@id": "presentation:annotations",
+        "@container": "@list"
+      },
+
+      "left-to-right": "presentation:leftToRightDirection",
+      "right-to-left": "presentation:rightToLeftDirection",
+      "top-to-bottom": "presentation:topToBottomDirection",
+      "bottom-to-top": "presentation:bottomToTopDirection",
+
+      "paged": "presentation:pagedHint",
+      "non-paged": "presentation:nonPagedHint",
+      "continuous": "presentation:continuousHint",
+      "individuals": "presentation:individualsHint",
+      "top": "presentation:topHint",
+      "multi-part": "presentation:multiPartHint",
+      "facing-pages": "presentation:facingPagesHint",
+      "hidden": "presentation:noneHint",
+      "no-nav": "presentation:noNavHint",
+      "thumbnail-nav": "presentation:thumbnailNavHint",
+      "auto-advance": "presentation:autoAdvanceHint",
+      "together": "presentation:togetherHint",
+      "repeat": "presentation:repeatHint",
+      "sequence": "presentation:sequenceHint",
+      "unordered": "presentation:unordered",
+
+      "trim": "presentation:trimMode",
+      "scale": "presentation:scaleMode",
+      "loop": "presentation:loopMode",
+
+      "painting": "presentation:painting",
+      "supplementing": "presentation:supplementing",
+
+      "baseUriRedirect": {
+        "@id": "image:baseUriRedirectFeature",
+        "@type": "image:Feature"
+      },
+      "cors": {
+        "@id": "image:corsFeature",
+        "@type": "image:Feature"
+      },
+      "regionByPct": {
+        "@id": "image:regionByPctFeature",
+        "@type": "image:Feature"
+      },
+      "regionByPx": {
+        "@id": "image:regionByPxFeature",
+        "@type": "image:Feature"
+      },
+      "regionSquare": {
+        "@id": "image:regionSquareFeature",
+        "@type": "image:Feature"
+      },
+      "rotationArbitrary": {
+        "@id": "image:arbitraryRotationFeature",
+        "@type": "image:Feature"
+      },
+      "rotationBy90s": {
+        "@id": "image:rotationBy90sFeature",
+        "@type": "image:Feature"
+      },
+      "mirroring": {
+        "@id": "image:mirroringFeature",
+        "@type": "image:Feature"
+      },
+      "sizeAboveFull": {
+        "@id": "image:sizeAboveFullFeature",
+        "@type": "image:Feature"
+      },
+      "sizeByForcedWh": {
+        "@id": "image:sizeByForcedWHFeature",
+        "@type": "image:Feature"
+      },
+      "sizeByH": {
+        "@id": "image:sizeByHFeature",
+        "@type": "image:Feature"
+      },
+      "sizeByPct": {
+        "@id": "image:sizeByPctFeature",
+        "@type": "image:Feature"
+      },
+      "sizeByW": {
+        "@id": "image:sizeByWFeature",
+        "@type": "image:Feature"
+      },
+      "sizeByWh": {
+        "@id": "image:sizeByWHFeature",
+        "@type": "image:Feature"
+      },
+      "sizeByWhListed": {
+        "@id": "image:sizeByWHListedFeature",
+        "@type": "image:Feature"
+      },
+      "sizeByConfinedWh": {
+        "@id": "image:sizeByConfinedWHFeature",
+        "@type": "image:Feature"
+      },
+      "sizeByDistortedWh": {
+        "@id": "image:sizeByDistortedWHFeature",
+        "@type": "image:Feature"
+      },
+      "profileLinkHeader": {
+        "@id": "image:profileLinkHeaderFeature",
+        "@type": "image:Feature"
+      },
+      "canonicalLinkHeader": {
+        "@id": "image:canonicalLinkHeaderFeature",
+        "@type": "image:Feature"
+      },
+      "jsonldMediaType": {
+        "@id": "image:jsonLdMediaTypeFeature",
+        "@type": "image:Feature"
+      },
+      "height": {
+        "@id": "exif:height",
+        "@type": "xsd:integer"
+      },
+      "width": {
+        "@id": "exif:width",
+        "@type": "xsd:integer"
+      },
+      "scaleFactors": {
+        "@id": "image:scaleFactor",
+        "@type": "xsd:integer"
+      },
+      "formats": {
+        "@id": "image:format",
+        "@type": "xsd:string"
+      },
+      "qualities": {
+        "@id": "image:quality",
+        "@type": "xsd:string"
+      },
+      "sizes": {
+        "@id": "image:hasSize",
+        "@type": "@id"
+      },
+      "tiles": {
+        "@id": "image:hasTile",
+        "@type": "@id"
+      },
+      "protocol": {
+        "@id": "dcterms:conformsTo",
+        "@type": "@id"
+      }
+    }
+  ]
+}
