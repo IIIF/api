@@ -1,4 +1,4 @@
-.stable.---
+---
 title: "Presentation API 3.0 ALPHA DRAFT"
 title_override: "IIIF Presentation API 3.0 ALPHA DRAFT"
 id: presentation-api
