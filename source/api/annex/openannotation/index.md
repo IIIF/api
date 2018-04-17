@@ -25,7 +25,7 @@ Changes will be tracked within the document.
 
 ## Abstract
 {:.no_toc}
-This document describes extensions to the [Web Annotation][webanno] Data Model required within the IIIF context.
+This document describes extensions to the [Web Annotation][org-w3c-webanno] Data Model required within the IIIF context.
 
 Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss]
 
@@ -37,7 +37,7 @@ Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss]
 
 ## 1. Introduction
 
-As with the detailed use of any general framework within another, there are some extensions necessary to make the best use of the [Web Annotation][webanno] model within the IIIF APIs.  This document covers those extension points.  It was previously applied to the predecessor of the Web Annotation model, called Open Annotation.  The extensions defined can be used with either framework.
+As with the detailed use of any general framework within another, there are some extensions necessary to make the best use of the [Web Annotation][org-w3c-webanno] model within the IIIF APIs.  This document covers those extension points.  It was previously applied to the predecessor of the Web Annotation model, called Open Annotation.  The extensions defined can be used with either framework.
 
 ## 2.  Selectors
 
@@ -130,7 +130,7 @@ This specification defines two Selectors, `AudioContentSelector` that selects th
 
 ### A. Acknowledgements
 
-The production of this document was generously supported by a grant from the [Andrew W. Mellon Foundation][mellon].
+The production of this document was generously supported by a grant from the [Andrew W. Mellon Foundation][org-mellon].
 
 Thanks to the members of the [IIIF][iiif-community] for their continuous engagement, innovative ideas and feedback.
 
@@ -143,5 +143,4 @@ Thanks to the members of the [IIIF][iiif-community] for their continuous engagem
 
 {% include acronyms.md %}
 {% include links.md %}
-
-   [prezi-rot]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.0/#rotation "Rotation in Presentation API"
+[prezi-rot]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.0/#rotation "Rotation in Presentation API"

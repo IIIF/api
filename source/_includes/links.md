@@ -1,3 +1,5 @@
+
+<!-- Keep two spaces at the top of this file -->
 [annex-json-ld]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/jsonld/ "JSON-LD Frames Implementation Notes"
 [annex-oa]: {{ site.url }}{{ site.baseurl }}/api/annex/openannotation/ "Open Annotation Extensions"
 [annex-services]: {{ site.url }}{{ site.baseurl }}/api/annex/services/ "Services Annex Document"
@@ -7,13 +9,13 @@
 [auth1]: {{ site.url }}{{ site.baseurl }}/api/auth/1.0/ "IIIF Authentication API 1.0"
 [cookbook]: {{ site.url }}{{ site.baseurl }}/api/annex/cookbook/ "IIIF Cookbook"
 [github-milestone-prezi-3]: https://github.com/IIIF/iiif.io/milestone/8
-[groups-av]: {{ site.url }}{{ site.baseurl }}/community/groups/av/ "IIIF A/V Working Group?
+[groups-av]: {{ site.url }}{{ site.baseurl }}/community/groups/av/ "IIIF A/V Working Group"
 [icon-na]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/not_allowed.png "Not allowed"
 [icon-opt]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/optional.png "Optional"
 [icon-recc]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/recommended.png "Recommended"
 [icon-req]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/required.png "Required"
 [iiif-auth]: {{ site.url }}{{ site.baseurl }}/api/auth/ "IIIF Authentication API"
-[iiif-community]: {{page.webprefix}}/community/ "IIIF Community"
+[iiif-community]: {{ site.url }}/community/ "IIIF Community"
 [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
 [image-api]: {{ site.url }}{{ site.baseurl }}/api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/ "Image API"
 [image-stable-version]: {{ site.url }}{{ site.baseurl }}/api/image/3.{{ site.image_api.latest.minor }}/ "Latest Image API Stable Version"
@@ -98,17 +100,18 @@
 [org-w3c-webarch]: http://www.w3.org/TR/webarch/ "Architecture of the World Wide Web"
 [org-w3c-xsd-datetime]: https://www.w3.org/TR/xmlschema11-2/#dateTime "XSD DateTime"
 [orgs-w3c-json-ld]: http://www.w3.org/TR/json-ld/ "JSON-LD"
-[prezi-api]: {{site.url}}{{ site.baseurl }}/api/presentation/ "IIIF Presentation API"
+[prezi-api]: {{ site.url }}{{ site.baseurl }}/api/presentation/ "IIIF Presentation API"
 [prezi-use-cases]: {{ site.url }}{{ site.baseurl }}/api/presentation/usecases/ "Presentation API Use Cases"
 [prezi20-change-log]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.0/change-log/ "Presentation API 2.0 Change Log"
-[prezi20]: {{site.url}}{{ site.baseurl }}/api/presentation/2.0/ "IIIF Presentation API 2.0"
+[prezi20]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.0/ "IIIF Presentation API 2.0"
 [prezi21-change-log]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.1/change-log/ "Presentation API 2.1 Change Log"
-[prezi21]: {{site.url}}{{ site.baseurl }}/api/presentation/2.1/ "IIIF Presentation API 2.1"
+[prezi21]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.1/ "IIIF Presentation API 2.1"
 [prezi211-change-log]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.1/change-log-211/ "Presentation API 2.1.1 Change Log"
 [prezi3-appendixa]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#a-summary-of-metadata-requirements
 [prezi3-canvas]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#canvas
 [prezi3-html]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.latest.minor }}/#html-markup-in-property-values "Presentation API Section 4.4"
 [prezi3-languages]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.latest.minor }}/#language-of-property-values "Language of Property Values"
+[prezi3-ldce]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.latest.minor }}/#linked-data-context-and-extensions "Linked Data Context and Extensions"
 [prezi3-paging]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#paging-properties
 [prezi3-range]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#range
 [prezi3-resource-structure]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#resource-structure
@@ -116,12 +119,12 @@
 [prezi3-type-overview]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#resource-type-overview
 [prezi3]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.latest.minor }}/ "Presentation API"
 [prezi30-change-log]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/change-log/ "Presentation API 3.0 Change Log"
-[registry-extensions]: {{site.url}}{{ site.baseurl }}/api/annex/registry/extensions/
+[registry-extensions]: {{ site.url }}{{ site.baseurl }}/api/annex/registry/extensions/
 [registry-image-extensions]: {{ site.url }}{{ site.baseurl }}/api/annex/registry/image-extensions/ "IIIF Image Extension Registry"
-[registry-motivations]: {{site.url}}{{ site.baseurl }}/api/annex/registry/motivations/
-[registry-process]: {{site.url}}{{ site.baseurl }}/api/annex/registry/process/
-[registry-services]: {{site.url}}{{ site.baseurl }}/api/annex/registry/services/
-[registry]: {{site.url}}{{ site.baseurl }}/api/annex/registry/
+[registry-motivations]: {{ site.url }}{{ site.baseurl }}/api/annex/registry/motivations/
+[registry-process]: {{ site.url }}{{ site.baseurl }}/api/annex/registry/process/
+[registry-services]: {{ site.url }}{{ site.baseurl }}/api/annex/registry/services/
+[registry]: {{ site.url }}{{ site.baseurl }}/api/annex/registry/
 [search-api]: {{ site.url }}{{ site.baseurl }}/api/search/{{ site.search_api.latest.major }}.{{ site.search_api.latest.minor }}/ "Content Search API"
 [search1-autocomplete]: {{ site.url }}{{ site.baseurl }}/api/search/1.0/#autocomplete
 [search1]: {{ site.url }}{{ site.baseurl }}/api/search/1.0/
