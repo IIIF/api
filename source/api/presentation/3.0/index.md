@@ -1865,6 +1865,7 @@ Many of the changes in this version are due to the work of the [IIIF AV Technica
 | 2014-09-11 | Version 2.0 (Triumphant Giraffe) [View change log][prezi20-change-log] |
 | 2013-08-26 | Version 1.0 (unnamed) |
 | 2013-06-14 | Version 0.9 (unnamed) |
+{: .api-table #table-changelog}
 
 {% include acronyms.md %}
 {% include links.md %}
