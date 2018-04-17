@@ -766,11 +766,20 @@ The following shows an image information response including all of the required 
 }
 ```
 
-##  6. Compliance Levels
+##  6. Compliance Levels and Profile Document
 
-The image information document _MUST_ specify the extent to which the API is supported by including a compliance level URI as the first entry in the `profile` property. This URI links to a description of the highest compliance level for which all requirements are met. The URI _MUST_ be one of those listed in the [Image API Compliance][image30-compliance] document. This description contains the set of features required by the profile, as discussed in the [Image Information][image30-information] section. A server _MAY_ declare different compliance levels for images with different identifiers.
+The image information document _MUST_ specify the extent to which the API is supported by including the compliance level string as the value of the `profile` property. The compliance level _MUST_ be one of those listed in the [Image API Compliance][image30-compliance] document and _SHOULD_ be the highest compliance level for which all requirements are met. The compliance levels each correspond with a profile documnet that describes the set of features required by that level, as discussed in the [Image Information][image30-information] section. A server _MAY_ declare different compliance levels for images with different identifiers.
 
-The compliance level URI _MAY_ also be given in the HTTP Link header ([RFC5988][org-rfc-5988]) with the parameter `rel="profile"`, on both Image and Image Information responses. A complete header might look like:
+The following table shows the correspondence between compliance levels and profile document URIs:
+
+| Compliance level | Profile document URI                                    |
+| ---------------- | ------------------------------------------------------- |
+| `level0`         | `http://iiif.io/api/image/{{ page.major }}/level0.json` |
+| `level1`         | `http://iiif.io/api/image/{{ page.major }}/level1.json` |
+| `level2`         | `http://iiif.io/api/image/{{ page.major }}/level2.json` |
+{: .api-table}
+
+The compliance level _MAY_ also be given in a HTTP `Link` header ([RFC5988][org-rfc-5988]), using the profile document URI with the parameter `rel="profile"`, on both Image and Image Information responses. A complete header might look like:
 
 ``` none
 Link: <http://iiif.io/api/image/{{ page.major }}/level1.json>;rel="profile"

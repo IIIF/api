@@ -7,7 +7,7 @@ major: 3
 minor: 0
 patch: 0
 pre: ALPHA
-cssversion: 2
+cssversion: 3
 redirect_from:
   - /api/image/compliance.html
   - /api/image/3/compliance.html
@@ -18,7 +18,7 @@ redirect_from:
 
 __This version:__ {{ page.major }}.{{ page.minor }}.{{ page.patch }}{% if page.pre != 'final' %}-{{ page.pre }}{% endif %}
 
-__Latest stable version:__ [{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}.{{ site.image_api.latest.patch }}][stable-version]
+__Latest stable version:__ [{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}.{{ site.image_api.latest.patch }}][image-compliance-stable-version]
 
 ## Table of Contents
 {:.no_toc}
@@ -28,7 +28,7 @@ __Latest stable version:__ [{{ site.image_api.latest.major }}.{{ site.image_api.
 
 ## 1. Introduction
 
-This document is a companion to the [IIIF Image API Specification][image-api]. It defines the set of supported parameters that correspond to different levels of compliance to the API.
+This document is a companion to the [IIIF Image API 3.0 Specification][image30]. It defines the set of supported parameters that correspond to different levels of compliance to the API.
 
 ## 2. Compliance
 
@@ -40,50 +40,50 @@ In the tables below "![required][icon-req]" indicates that support is _REQUIRED_
 
 ### 3.1 Region
 
-| Syntax      | Feature Name    | Level 0 | Level 1 | Level 2  |
-|:------------|:--------------- |:-------:|:-------:|:--------:|
-| `full`      |                 | ![required][icon-req] | ![required][icon-req]       | ![required][icon-req]        |
-| x,y,w,h     | `regionByPx`  | ![optional][icon-opt] | ![required][icon-req]       | ![required][icon-req]        |
-| pct:x,y,w,h | `regionByPct` | ![optional][icon-opt] | ![optional][icon-opt]       | ![required][icon-req]        |
-| `square`    | `regionSquare` | ![optional][icon-opt] | ![required][icon-req] | ![required][icon-req] |
+| Syntax          | Feature Name   | Level 0 | Level 1 | Level 2  |
+|:----------------|:-------------- |:-------:|:-------:|:--------:|
+| `full`          |                | ![required][icon-req] | ![required][icon-req] | ![required][icon-req] |
+| _`x,y,w,h`_     | `regionByPx`   | ![optional][icon-opt] | ![required][icon-req] | ![required][icon-req] |
+| _`pct:x,y,w,h`_ | `regionByPct`  | ![optional][icon-opt] | ![optional][icon-opt] | ![required][icon-req] |
+| `square`        | `regionSquare` | ![optional][icon-opt] | ![required][icon-req] | ![required][icon-req] |
 {: .api-table}
 
 See also the note under [Size][size] about combinations of Size and Region that may not be supported.
 
 ### 3.2 Size
 
-| Syntax | Feature Name        | Level 0 | Level 1 | Level 2  |
-|:-------|:--------------------|:-------:|:-------:|:--------:|
-| `max`  |                     | ![required][icon-req] | ![required][icon-req] | ![required][icon-req] |
-| w,     | `sizeByW`           | ![optional][icon-opt] | ![required][icon-req] | ![required][icon-req] |
-| ,h     | `sizeByH`           | ![optional][icon-opt] | ![required][icon-req] | ![required][icon-req] |
-| pct:n  | `sizeByPct`         | ![optional][icon-opt] | ![optional][icon-opt] | ![required][icon-req] |
-| !w,h   | `sizeByConfinedWh`  | ![optional][icon-opt] | ![optional][icon-opt] | ![required][icon-req] |
-| w,h    | `sizeByWh`          | ![optional][icon-opt] | ![optional][icon-opt] | ![required][icon-req] |
+| Syntax    | Feature Name        | Level 0 | Level 1 | Level 2  |
+|:----------|:--------------------|:-------:|:-------:|:--------:|
+| `max`     |                     | ![required][icon-req] | ![required][icon-req] | ![required][icon-req] |
+| _`w,`_    | `sizeByW`           | ![optional][icon-opt] | ![required][icon-req] | ![required][icon-req] |
+| _`,h`_    | `sizeByH`           | ![optional][icon-opt] | ![required][icon-req] | ![required][icon-req] |
+| _`pct:n`_ | `sizeByPct`         | ![optional][icon-opt] | ![optional][icon-opt] | ![required][icon-req] |
+| _`!w,h`_  | `sizeByConfinedWh`  | ![optional][icon-opt] | ![optional][icon-opt] | ![required][icon-req] |
+| _`w,h`_   | `sizeByWh`          | ![optional][icon-opt] | ![optional][icon-opt] | ![required][icon-req] |
 {: .api-table}
 
 At any level of compliance, an image service whose Image Information response includes the `sizes` property must support requests for the sizes listed, and a service whose Image Information response includes the `tiles` property must support requests for the sizes implicit in the `width`, `height` and `scaleFactors` values given for tiles.
 
-Note that servers may express limits on the sizes available for an image with the optional `maxWidth`, `maxHeight` and/or `maxArea` [Profile Description properties][profile]. Servers are compliant provided they support the forms of the Size parameter shown above for image sizes up to the limits specified. Clients should not assume that the full image at the `width` and `height` specified in the Image Information response will be available. The full image will be available at the `max` size, which might be less than the `width` and `height`.
+Note that servers may express limits on the sizes available for an image with the optional `maxWidth`, `maxHeight` and/or `maxArea` [Profile Description properties][image30-profile]. Servers are compliant provided they support the forms of the Size parameter shown above for image sizes up to the limits specified. Clients should not assume that the full image at the `width` and `height` specified in the Image Information response will be available. The full image will be available at the `max` size, which might be less than the `width` and `height`.
 
 ### 3.3 Rotation
 
-| Syntax | Feature Name | Level 0 | Level 1 | Level 2  |
-|:-------|:-------------|:-------:|:-------:|:--------:|
-| `0`    |              | ![required][icon-req] | ![required][icon-req] | ![required][icon-req] |
-| `90`,`180`,`270` | `rotationBy90s` | ![optional][icon-opt] | ![optional][icon-opt] | ![required][icon-req]       |
-| _arbitrary_ | `rotationArbitrary` | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] |
-| !_n_ | `mirroring` | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] |
+| Syntax           | Feature Name        | Level 0 | Level 1 | Level 2  |
+|:-----------------|:--------------------|:-------:|:-------:|:--------:|
+| `0`              |                     | ![required][icon-req] | ![required][icon-req] | ![required][icon-req] |
+| `90`,`180`,`270` | `rotationBy90s`     | ![optional][icon-opt] | ![optional][icon-opt] | ![required][icon-req] |
+| _arbitrary_      | `rotationArbitrary` | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] |
+| _`!n`_           | `mirroring`         | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] |
 {: .api-table}
 
 ### 3.4 Quality
 
 | Syntax        | Level 0 | Level 1 | Level 2  |
 |:--------------|:-------:|:-------:|:--------:|
-| `default`     | ![required][icon-req]      | ![required][icon-req]      | ![required][icon-req]       |
-| `color`       | ![optional][icon-opt]      | ![optional][icon-opt]      | ![required][icon-req] (if applicable) |
-| `gray`        | ![optional][icon-opt]      | ![optional][icon-opt]      | ![required][icon-req] (if applicable) |
-| `bitonal`     | ![optional][icon-opt]      | ![optional][icon-opt]      | ![required][icon-req]       |
+| `default`     | ![required][icon-req] | ![required][icon-req] | ![required][icon-req] |
+| `color`       | ![optional][icon-opt] | ![optional][icon-opt] | ![required][icon-req] (if applicable) |
+| `gray`        | ![optional][icon-opt] | ![optional][icon-opt] | ![required][icon-req] (if applicable) |
+| `bitonal`     | ![optional][icon-opt] | ![optional][icon-opt] | ![required][icon-req] |
 {: .api-table}
 
 ### 3.5 Format
@@ -114,19 +114,19 @@ Note that servers may express limits on the sizes available for an image with th
 
 Servers _MAY_ indicate compliance with by including a header in IIIF responses for images:
 
-```
+``` none
 Link: <http://iiif.io/api/image/{{ page.major }}/level1.json>;rel="profile"
 ```
 {: .urltemplate}
 
 The URIs for the the compliance levels are as follows:
 
-| Level | URI                                                   |
-|:-----:|:------------------------------------------------------|
-| 0     | http://iiif.io/api/image/{{ page.major }}/level0.json |
-| 1     | http://iiif.io/api/image/{{ page.major }}/level1.json |
-| 2     | http://iiif.io/api/image/{{ page.major }}/level2.json |
-{: .urltemplate .api-table}
+| Compliance level | Profile document URI                                    |
+| ---------------- | ------------------------------------------------------- |
+| `level0`         | `http://iiif.io/api/image/{{ page.major }}/level0.json` |
+| `level1`         | `http://iiif.io/api/image/{{ page.major }}/level1.json` |
+| `level2`         | `http://iiif.io/api/image/{{ page.major }}/level2.json` |
+{: .api-table}
 
 ### 5.1 Level 0 Compliance
 
@@ -139,14 +139,5 @@ A level 0 compliant image server _MAY_ also specify `sizes` to indicate specific
 
 If a client requests a combination of size and region outside these parameters then the image server _MAY_ reject the request with an error.
 
-[iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
-[image-api]: {{ site.url }}{{ site.baseurl }}/api/image/{{ page.major }}.{{ page.minor }}/ "Image API {{ page.major }}.{{ page.minor }}"
-[icon-req]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/required.png "Required"
-[icon-recc]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/recommended.png "Recommended"
-[icon-opt]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/optional.png "Optional"
-[icon-na]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/not_allowed.png "Not allowed"
-[size]: #size "3.2 Size"
-[profile]: {{ site.url }}{{ site.baseurl }}/api/image/{{ page.major }}.{{ page.minor }}/#extra-functionality "5.3 Profile Description"
-[stable-version]: {{ site.url }}{{ site.baseurl }}/api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/compliance/ "Stable Version"
-
+{% include links.md %}
 {% include acronyms.md %}
