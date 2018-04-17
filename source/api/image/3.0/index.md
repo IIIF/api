@@ -604,7 +604,7 @@ The rights and licensing properties, `requiredStatement`, `rights` and `logo`, h
 | ------------- | --------- | ----------- |
 | `requiredStatement` | Optional  | Text that _MUST_ be shown when content obtained from the Image API service is displayed or used. It might include copyright or ownership statements, or a simple acknowledgement of the providing institution. The value of this property _MUST_ be a JSON object, that has the `label` and `value` properties. The values of both `label` and `value` must be JSON objects, as described in the [Language of Property Values][prezi3-languages] section of the Presentation API. The `value` property _MAY_ contain simple HTML as described in the [HTML Markup in Property Values][prezi3-html] section of the Presentation API. Given the wide variation of potential client user interfaces, it will not always be possible to display this statement to the user in the client’s initial state. If initially hidden, clients _MUST_ make the method of revealing it as obvious as possible. |
 | `rights` | Optional | A string that identifies a license or rights statement that applies to the content of this image. The value of this property _MUST_ be drawn from the set of [Creative Commons][org-cc-licenses] licenses, the [RightsStatements.org][org-rs-terms] rights statements, or those added via the [Registry of Known Extensions][annex-registry] mechanism. The inclusion of this property is informative, and for example could be used to display an icon representing the rights assertions. If displaying rights information directly to the user is the desired interaction, or a publisher-defined label is needed, then it is _RECOMMENDED_ to include the information using the `requiredStatement` property. |
-| `logo` | Optional | A small external image resource that represents an individual or organization associated with this image. This could be the logo of the owning or hosting institution. The value of this property _MUST_ be an array of JSON objects, each of which _MUST_ have an `id` and should have at least one of `type` and `format`. The logo _MUST_ be clearly rendered when the resource is displayed or used, without cropping, rotating or otherwise distorting the image. It is _RECOMMENDED_ that a IIIF Image API [service](#related-services) be available for this image for other manipulations such as resizing.  |
+| `logo` | Optional | A small external image resource that represents an individual or organization associated with this image. This could be the logo of the owning or hosting institution. The value of this property _MUST_ be an array of JSON objects, each of which _MUST_ have an `id` and _SHOULD_ have at least one of `type` and `format`. The logo _MUST_ be clearly rendered when the resource is displayed or used, without cropping, rotating or otherwise distorting the image. It is _RECOMMENDED_ that a IIIF Image API service be available for this image for other manipulations such as resizing. |
 {: .api-table}
 
 It is _RECOMMENDED_ that logos with IIIF Image API services do not, themselves, have `logo` properties. When clients render logos specified with an IIIF Image API service, they _MAY_ ignore any `logo` property on in the included logo.
@@ -674,31 +674,54 @@ The set of features, formats and qualities supported is the union of those decla
 
 Additional strings used in the `extraQualities`, `extraFormats`, and `extraFeatures` properties, or additional properties used in the image information, that are not defined in this specification _SHOULD_ be mapped to RDF predicates using further context documents. These extensions _SHOULD_ be added to the top level `@context` property (see [Technical Properties][image30-technical-properties]). The JSON-LD 1.1 functionality of predicate specific context definitions, known as [scoped contexts][org-w3c-json-ld-scoped-contexts], _MUST_ be used to minimize cross-extension collisions. Extensions intended for community use _SHOULD_ be [registered in the extensions registry][annex-registry], but registration is not mandatory.
 
-### 5.7. Related Services
+### 5.7. Linking Properties
 
-The JSON response _MAY_ also reference external services that make additional functionality available to a viewer.
+The JSON response _MAY_ contain linking properties that reference external resources, including services that make additional functionality available to a viewer. The linking properties have the same semantics and requirements as those in the [Presentation API][prezi3].
 
 | Property   | Required? | Description |
 | ---------- | --------- | ----------- |
-| `service`  | Optional  | The `service` references external services that the client might interact with directly to gain additional information or functionality, for example a link to an authentication service. The value _MUST_ be a list of objects. See the [Service Registry][annex-services] for known service types. |
+| `partOf`   | Optional  | A link to another resource that references this image service, for example a link to a Canvas or Manifest. The value _MUST_ be a list of objects. Each item _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `label` property. |
+| `seeAlso`  | Optional  | A link to an external, machine-readable resource that is related to this resource, such as an XML or RDF description. Properties of the external resource should be given to help the client select between multiple descriptions (if provided), and to make appropriate use of the document. The URI of the document _MUST_ identify a single representation of the data in a particular format. The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `label`, `format` and `profile` properties. |
+| `service`  | Optional  | A reference to an external service that the client might interact with directly to gain additional information or functionality, for example a link to an authentication service. The value _MUST_ be a list of objects.  Each object will have properties depending on the service’s definition, but _MUST_ have either the `id` or `@id` and `type` or `@type` properties. Each object _SHOULD_ have a `profile` property. See the [Service Registry][annex-services] for known service types. |
 {: .api-table}
 
-The following shows a use of `service` to associate the login page of an authentication system that users must go through in order to access the image service. For further information, please see the [Authentication API](#authentication).
+The objects in `partOf`, `seeAlso`, and `service` have the properties indicated in the following table.
+
+| Property   | Required?                 | Description |
+| ---------- | ------------------------- | ----------- |
+| `id`       | Required | The URI of the external resource. |
+| `type`     | Required | The type or class of this resource.  Recommendations for basic types such as image, text or audio are [given in the Presentation API][prezi3-type]. |
+| `label`    | Recommended | A human-readable label for this resource. The `label` property can be fully internationalized, and each language can have multiple values. This pattern is described in more detail in [the languages section of the Presentation API][prezi3-languages]. |
+| `format`   | Recommended for `seeAlso` | The specific media type (often called a MIME type) for this content resource, for example “image/jpeg”. This is important for distinguishing different formats of the same overall type of resource, such as distinguishing text in XML from plain text. The value must be a string, and it should be the value of the Content-Type header returned when this resource is dereferenced. |
+| `profile`  | Recommended for `seeAlso`, `service` | A schema or named set of functionality available from this resource. The profile can further clarify the `type` and/or `format` of an external resource. The value must be a string, either taken from the [Registry of Profiles][annex-registry] or a URI. |
+{: .api-table}
 
 ``` json-doc
 {
-  "@context": "http://iiif.io/api/image/{{ page.major }}/context.json",
-  "id": "https://example.org/image-service/abcd1234/1E34750D-38DB-4825-A38A-B60A345E591C",
+  "@context": [
+    "http://iiif.io/api/presentation/{{ page.major }}/context.json",
+    "http://iiif.io/api/image/{{ page.major }}/context.json"
+  ],
+  "id": "https://example.org/image-service/abcd12345/1E34750D-38DB-4825-A38A-B60A345E591C",
   "type": "ImageService3",
   "protocol": "http://iiif.io/api/image",
   "profile": "level2",
   "width": 6000,
   "height": 4000,
-  "service": [
+  "seeAlso": [
     {
-      "@id": "https://example.org/auth/login.html",
-      "@type": "AuthCookieService1",
-      "profile": "http://iiif.io/api/auth/{{ site.auth_api.latest.major }}/login"
+      "id": "https://example.org/image1.xml",
+      "label": { "en": [ "Technical image metadata" ] },
+      "type": "Dataset",
+      "format": "text/xml",
+      "profile": "https://example.org/profiles/imagedata"
+    }
+  ],
+  "partOf": [
+    {
+      "id": "https://example.org/manifest/1",
+      "type": "Manifest",
+      "label": { "en": [ "A Book" ] }
     }
   ]
 }
