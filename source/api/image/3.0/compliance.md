@@ -117,7 +117,7 @@ A level 0 compliant image server _MAY_ specify `scaleFactors` and/or `width` and
  * `scaleFactors` - only the specified scaling factors are supported
  * `width`, `height` within `tiles` - clients should request only regions that correspond to output tiles of the specified dimensions
 
-A level 0 compliant image server _MAY_ also specify `sizes` to indicate specific `width` and `height` values for sizes available for the `full` region.
+A level 0 compliant image server _MAY_ specify `sizes` to indicate specific `width` and `height` values for sizes available for the `full` region.
 
 If a client requests a combination of size and region outside these parameters then the image server _MAY_ reject the request with an error.
 
