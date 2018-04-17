@@ -1,4 +1,4 @@
----
+.stable.---
 title: "Presentation API 3.0 ALPHA DRAFT"
 title_override: "IIIF Presentation API 3.0 ALPHA DRAFT"
 id: presentation-api
@@ -18,7 +18,7 @@ redirect_from:
 {:.no_toc}
 __This Version:__ {{ page.major }}.{{ page.minor }}.{{ page.patch }}{% if page.pre != 'final' %}-{{ page.pre }}{% endif %}
 
-__Latest Stable Version:__ [{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}.{{ site.presentation_api.latest.patch }}][prezi3]
+__Latest Stable Version:__ [{{ site.presentation_api.stable.major }}.{{ site.presentation_api.stable.minor }}.{{ site.presentation_api.stable.patch }}][prezi3]
 
 __Previous Version:__ [2.1.1][prezi21]
 
@@ -158,7 +158,7 @@ The requirements for which classes have which properties are summarized in [Appe
 
 Other properties are allowed, either via local extensions or those endorsed by the IIIF community. If a client discovers properties that it does not understand, then it _MUST_ ignore them. See the [Linked Data Context and Extensions][ldce] section for more information about extensions.
 
-This section also defines processing requirements for clients for each of the combinations of class and property.  These requirements are for general purpose client implementations that are intended to be used to render the entire resource to the user, and not necessarily for consuming applications with specialized use or individual component implementations that might be used to construct a client. The inclusion of these requirements gives publishers a baseline expectation for how they can expect implmentations advertised as compliant with this specification to behave when processing their content. 
+This section also defines processing requirements for clients for each of the combinations of class and property.  These requirements are for general purpose client implementations that are intended to be used to render the entire resource to the user, and not necessarily for consuming applications with specialized use or individual component implementations that might be used to construct a client. The inclusion of these requirements gives publishers a baseline expectation for how they can expect implmentations advertised as compliant with this specification to behave when processing their content.
 
 ###  3.1. Descriptive Properties
 
@@ -736,7 +736,7 @@ The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` propert
 ```
 
 ``` json-doc
-{ 
+{
   "start": {
     "type": "SpecificResource",
     "source": "https://example.org/iif/1/canvas/1",
@@ -769,7 +769,7 @@ These properties define the structure of the object being represented in IIIF by
 
 ##### items
 
-Much of the functionality of the IIIF Presentation API is simply recording the order in which child resources occur within a parent resource, such as Collections or Manifests within a parent Collection, or Canvases within a Manifest. All of these situations are covered with a single property, `items`. 
+Much of the functionality of the IIIF Presentation API is simply recording the order in which child resources occur within a parent resource, such as Collections or Manifests within a parent Collection, or Canvases within a Manifest. All of these situations are covered with a single property, `items`.
 
 The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id` and `type` properties. The items will be resources of different types, as described below.
 
@@ -853,7 +853,7 @@ The value _MUST_ be an array of JSON objects. Each item _MUST_ have at least the
 
 ##### Values for motivation
 
-This specification defines two values for the Web Annotation property of `motivation`, or `purpose` when used on a Specific Resource or Textual Body. 
+This specification defines two values for the Web Annotation property of `motivation`, or `purpose` when used on a Specific Resource or Textual Body.
 
 While any resource _MAY_ be the `target` of an Annotation, this specification defines only motivations for Annotations that target Canvases. These motivations allow clients to determine how the Annotation should be rendered, by distinguishing between Annotations that provide the content of the Canvas, from ones with externally defined motivations which are typically comments about the Canvas.
 
@@ -877,8 +877,8 @@ Resource descriptions _SHOULD_ be embedded within the JSON description of parent
 ``` json-doc
 {
   "rendering": [
-    { 
-      "id": "https://example.org/content/book.pdf", 
+    {
+      "id": "https://example.org/content/book.pdf",
       "type": "Text",
       "label": "Example Book (pdf)",
       "format": "application/pdf"
@@ -1036,7 +1036,7 @@ The Manifest resource typically represents a single object and any intellectual 
 
 The identifier in `id` _MUST_ be able to be dereferenced to retrieve the JSON description of the Manifest, and thus _MUST_ use the HTTP(S) URI scheme.
 
-The Manifest _MUST_ have an `items` property, which is an array of JSON-LD objects. Each object is a Canvas, with requirements as described in the next section. The Manifest _MAY_ also have a `structures` property listing one or more [Ranges][prezi3-range] which describe additional structure of the content, such as might be rendered as a table of contents. The Manifest _MAY_ have an `annotations` property, which includes Annotation Page resources where the Annotations have the Manifest as their `target`. These will typically be comment style annotations, and _MUST NOT_ have `painting` as their `motivation`. 
+The Manifest _MUST_ have an `items` property, which is an array of JSON-LD objects. Each object is a Canvas, with requirements as described in the next section. The Manifest _MAY_ also have a `structures` property listing one or more [Ranges][prezi3-range] which describe additional structure of the content, such as might be rendered as a table of contents. The Manifest _MAY_ have an `annotations` property, which includes Annotation Page resources where the Annotations have the Manifest as their `target`. These will typically be comment style annotations, and _MUST NOT_ have `painting` as their `motivation`.
 
 ``` json-doc
 {
@@ -1208,7 +1208,7 @@ Content that is derived from the Canvas, such as a transcription of text in an i
 
 A Canvas _MUST_ have a rectangular aspect ratio (described with the `height` and `width` properties) and/or a `duration` to provide an extent in time. These dimensions allow resources to be associated with specific regions of the Canvas, within the space and/or time extents provided. Content _MUST NOT_ be associated with space or time outside of the Canvas's dimensions, such as at coordinates below 0,0, greater than the height or width, before 0 seconds, or after the duration. Content resources that have dimensions which are not defined for the Canvas _MUST NOT_ be associated with that Canvas by an Annotation with the "painting" motiviation. For example, it is valid to use a "painting" Annotation to associate an Image (which has only height and width) with a Canvas that has all three dimensions, but it is an error to associate a Video resource (which has height, width and duration) with a Canvas that does not have all three dimensions. Such a resource _SHOULD_ instead be referenced with the `rendering` property, or by Annotations with a `motivation` other than "painting" in the `annotations` property.
 
-Parts of Canvases _MAY_ be described using a Specific Resource with a Selector, following the patterns defined in the [Web Annotation][org-w3c-webanno] data model. The use of the `FragmentSelector` class is _RECOMMENDED_ by that specification, as it allows for refinement by other Selectors and for consistency with use cases that cannot be represented using a URI fragment directly. Parts of Canvases can be referenced from Ranges, as the `body` or `target` of Annotations, or in the `start` property. 
+Parts of Canvases _MAY_ be described using a Specific Resource with a Selector, following the patterns defined in the [Web Annotation][org-w3c-webanno] data model. The use of the `FragmentSelector` class is _RECOMMENDED_ by that specification, as it allows for refinement by other Selectors and for consistency with use cases that cannot be represented using a URI fragment directly. Parts of Canvases can be referenced from Ranges, as the `body` or `target` of Annotations, or in the `start` property.
 
 Parts of Canvases _MAY_ also be identified by appending a fragment to the Canvas's URI, and these parts are still considered to be Canvases and have a `type` of "Canvas". Rectangular spatial parts of Canvases _MAY_ also be described by appending an `xywh=` fragment to the end of the Canvas's URI. Similarly, temporal parts of Canvases _MAY_ be described by appending a `t=` fragment to the end of the Canvas's URI. Spatial and temporal fragments _MAY_ be combined, using an `&` character between them, and the temporal dimension _SHOULD_ come first. It is an error to select a region using a dimension that is not defined by the Canvas, such as a temporal region of a Canvas that only has height and width dimensions.
 
@@ -1283,7 +1283,7 @@ Ranges _MAY_ link to an Annotation Collection that has the content of the Range 
           "id": "https://example.org/iiif/book1/range/r1",
           "type": "Range",
           "label": { "en": [ "Introduction" ] },
-          "supplementary": { 
+          "supplementary": {
             "id": "https://example.org/iiif/book1/annocoll/introTexts",
             "type": "AnnotationCollection"
           },
@@ -1321,7 +1321,7 @@ Ranges _MAY_ link to an Annotation Collection that has the content of the Range 
 Association of images and other content with their respective Canvases is done via Annotations. Traditionally Annotations are used for associating commentary with the resource the Annotation's text or body is about, the [Web Annotation][org-w3c-webanno] model allows any resource to be associated with any other resource, or parts thereof, and it is reused for both commentary and painting resources on the Canvas. Other resources beyond images might include the full text of the object, musical notations, musical performances, diagram transcriptions, commentary annotations, tags, video, data and more.
 
 These Annotations are collected together in Annotation Page resources, which are included in the `items` property from the Canvas. Each Annotation Page can be embedded in its entirety, if the Annotations should be processed as soon as possible when the user navigates to that Canvas, or a reference to an external page. This reference _MUST_ include `id` and `type`, _MUST NOT_ include `items` and _MAY_ include other properties, such as `behavior`. All of the Annotations in the Annotation Page _SHOULD_ have the Canvas as their `target`. Embedded Annotation Pages _SHOULD_ be processed by the client first, before externally referenced pages.
-Clients _SHOULD_ process the Annotation Pages and their items in the order given in the Canvas. 
+Clients _SHOULD_ process the Annotation Pages and their items in the order given in the Canvas.
 
 An Annotation Page _MUST_ have an HTTP(S) URI given in `id`, and _MAY_ have any of the other properties defined in this specification or the Web Annotation specification. The Annotations are listed in the `items` property of the Annotation Page.
 
@@ -1363,7 +1363,7 @@ The type of the content resource _MUST_ be included, and _SHOULD_ be taken from 
 
 If the content resource is an Image, and a IIIF Image service is available for it, then the URI _MAY_ be a complete URI to any particular representation made available, such as `https://example.org/image1/full/1000,/0/default.jpg`, but _MUST NOT_ be just the URI of the IIIF Image service. It _MUST_ have a `type` of "Image". Its media type _MAY_ be listed in `format`, and its height and width _MAY_ be given as integer values for `height` and `width` respectively. The image then _SHOULD_ have the service referenced from it.
 
-The URI of the Canvas _MUST_ be repeated in the `target` property of the Annotation, or the `source` property of a Specific Resource used in the `target` property. 
+The URI of the Canvas _MUST_ be repeated in the `target` property of the Annotation, or the `source` property of a Specific Resource used in the `target` property.
 
 Additional features of the [Web Annotation][org-w3c-webanno] data model _MAY_ also be used, such as selecting a segment of the Canvas or content resource, or embedding the comment or transcription within the Annotation. The use of these advanced features sometimes results in situations where the `target` is not a content resource, but instead a `SpecificResource`, a `Choice`, or other non-content object. Implementations should check the `type` of the resource and not assume that it is always content to be rendered.
 
@@ -1433,8 +1433,8 @@ For Annotation Collections with many Annotations, there will be many pages. The 
     "id": "https://example.org/iiif/book1/annocoll/transcription",
     "type": "AnnotationCollection"
   },
-  "next": { 
-    "id": "https://example.org/iiif/book1/annopage/l2", 
+  "next": {
+    "id": "https://example.org/iiif/book1/annopage/l2",
     "type": "AnnotationPage"
   },
   "items": [
@@ -1591,7 +1591,7 @@ Starting with version 2.0, this specification follows [Semantic Versioning][org-
 
 ### D. Acknowledgements
 
-Many thanks to the members of the [IIIF community][iiif-community] for their continuous engagement, innovative ideas, and feedback. 
+Many thanks to the members of the [IIIF community][iiif-community] for their continuous engagement, innovative ideas, and feedback.
 
 Many of the changes in this version are due to the work of the [IIIF AV Technical Specification Group][groups-av], chaired by Jason Ronallo (North Carolina State University), Jon Dunn (Indiana University) and Tom Crane (Digirati). The IIIF Community thanks them for their leadership, and the members of the group for their tireless work.
 
