@@ -1,13 +1,14 @@
 
 <!-- Keep two spaces at the top of this file -->
+[annex-cookbook]: {{ site.url }}{{ site.baseurl }}/api/annex/cookbook/ "IIIF Cookbook"
 [annex-json-ld]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/jsonld/ "JSON-LD Frames Implementation Notes"
 [annex-oa]: {{ site.url }}{{ site.baseurl }}/api/annex/openannotation/ "Open Annotation Extensions"
+[annex-registry]: {{ site.url }}{{ site.baseurl }}/api/annex/registry/
 [annex-services]: {{ site.url }}{{ site.baseurl }}/api/annex/services/ "Services Annex Document"
 [auth1-cookie-service]: {{ site.url }}{{ site.baseurl }}/api/auth/1.0/#access-cookie-service "IIIF Authentication Cookie Service"
 [auth1-logout-service]: {{ site.url }}{{ site.baseurl }}/api/auth/1.0/#logout-service "IIIF Authentication Logout Service"
 [auth1-token-service]: {{ site.url }}{{ site.baseurl }}/api/auth/1.0/#access-token-service "IIIF Authentication Access Token Service"
 [auth1]: {{ site.url }}{{ site.baseurl }}/api/auth/1.0/ "IIIF Authentication API 1.0"
-[cookbook]: {{ site.url }}{{ site.baseurl }}/api/annex/cookbook/ "IIIF Cookbook"
 [github-milestone-prezi-3]: https://github.com/IIIF/iiif.io/milestone/8
 [groups-av]: {{ site.url }}{{ site.baseurl }}/community/groups/av/ "IIIF A/V Working Group"
 [icon-na]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/not_allowed.png "Not allowed"
@@ -124,7 +125,6 @@
 [registry-motivations]: {{ site.url }}{{ site.baseurl }}/api/annex/registry/motivations/
 [registry-process]: {{ site.url }}{{ site.baseurl }}/api/annex/registry/process/
 [registry-services]: {{ site.url }}{{ site.baseurl }}/api/annex/registry/services/
-[registry]: {{ site.url }}{{ site.baseurl }}/api/annex/registry/
 [search-api]: {{ site.url }}{{ site.baseurl }}/api/search/{{ site.search_api.latest.major }}.{{ site.search_api.latest.minor }}/ "Content Search API"
 [search1-autocomplete]: {{ site.url }}{{ site.baseurl }}/api/search/1.0/#autocomplete
 [search1]: {{ site.url }}{{ site.baseurl }}/api/search/1.0/

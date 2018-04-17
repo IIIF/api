@@ -24,7 +24,7 @@ Changes will be tracked within the document.
 
 ## Abstract
 {:.no_toc}
-This document describes the process by which additions to the [IIIF registries][registry] occur.
+This document describes the process by which additions to the [IIIF registries][annex-registry] occur.
 
 Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss]
 
