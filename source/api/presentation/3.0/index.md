@@ -18,7 +18,7 @@ redirect_from:
 {:.no_toc}
 __This Version:__ {{ page.major }}.{{ page.minor }}.{{ page.patch }}{% if page.pre != 'final' %}-{{ page.pre }}{% endif %}
 
-__Latest Stable Version:__ [{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}.{{ site.presentation_api.latest.patch }}][prezi3]
+__Latest Stable Version:__ [{{ site.presentation_api.stable.major }}.{{ site.presentation_api.stable.minor }}.{{ site.presentation_api.stable.patch }}][prezi3]
 
 __Previous Version:__ [2.1.1][prezi21]
 
@@ -79,7 +79,7 @@ Note that in the following descriptions, "object" is used to refer to the object
 
 There are many different types of digitized or digital compound objects; ancient scrolls, paintings, letters, books, newspapers, films, operas, albums, field recordings and computer generated animations. Many of them bear the written or spoken word, sometimes difficult to read or hear either due to the decay of the physical object or lack of understanding of the script or language. These use cases are described in a separate [document][prezi-use-cases].
 
-Collectively, the use cases require a model in which one can characterize the object (via the _Manifest_ resource) and the individual views of the object (_Canvas_ resources). Each view may have images, audio, video and other content resources associated with it (_Content_ resources) to allow the view to be rendered to the user appropriately. An object may also have sections; for example, a book may have chapters of several pages, or a play might be divided into acts and scenes (_Range_ resources) and there may be groups of objects (_Collection_ resources).  These resource types, along with their properties, make up the IIIF Presentation API.
+Collectively, the use cases require a model in which one can characterize the object (via the _Manifest_ resource) and the individual views of the object (_Canvas_ resources). Each view may have images, audio, video and other content resources associated with it (content resources) to allow the view to be rendered to the user appropriately. An object may also have sections; for example, a book may have chapters of several pages, or a play might be divided into acts and scenes (_Range_ resources) and there may be groups of objects (_Collection_ resources).  These resource types, along with their properties, make up the IIIF Presentation API.
 
 ### 1.3. Terminology
 
@@ -137,7 +137,7 @@ An ordered list of Annotations that is typically associated with a Canvas but ma
 ##### Annotation
 {: #overview-annotation}
 
-Annotations associate Content resources with Canvases. The same mechanism is used for the visible and/or audible resources as is used for transcriptions, commentary, tags and other content. This provides a single, unified method for aligning information, and provides a standards-based framework for distinguishing parts of resources and parts of Canvases. As Annotations can be added later, it promotes a distributed system in which publishers can align their content with the descriptions created by others.
+Annotations associate content resources with Canvases. The same mechanism is used for the visible and/or audible resources as is used for transcriptions, commentary, tags and other content. This provides a single, unified method for aligning information, and provides a standards-based framework for distinguishing parts of resources and parts of Canvases. As Annotations can be added later, it promotes a distributed system in which publishers can align their content with the descriptions created by others.
 
 ##### Content
 {: #overview-content}
@@ -156,9 +156,9 @@ Most of the properties defined by this specification may be associated with any 
 
 The requirements for which classes have which properties are summarized in [Appendix A][prezi3-appendixa].
 
-Other properties are allowed, either via local extensions or those endorsed by the IIIF community. If a client discovers properties that it does not understand, then it _MUST_ ignore them. See the [Linked Data Context and Extensions][ldce] section for more information about extensions.
+Other properties are allowed, either via local extensions or those endorsed by the IIIF community. If a client discovers properties that it does not understand, then it _MUST_ ignore them. See the [Linked Data Context and Extensions][prezi3-ldce] section for more information about extensions.
 
-This section also defines processing requirements for clients for each of the combinations of class and property.  These requirements are for general purpose client implementations that are intended to be used to render the entire resource to the user, and not necessarily for consuming applications with specialized use or individual component implementations that might be used to construct a client. The inclusion of these requirements gives publishers a baseline expectation for how they can expect implmentations advertised as compliant with this specification to behave when processing their content. 
+This section also defines processing requirements for clients for each of the combinations of class and property.  These requirements are for general purpose client implementations that are intended to be used to render the entire resource to the user, and not necessarily for consuming applications with specialized use or individual component implementations that might be used to construct a client. The inclusion of these requirements gives publishers a baseline expectation for how they can expect implmentations advertised as compliant with this specification to behave when processing their content.
 
 ###  3.1. Descriptive Properties
 
@@ -258,7 +258,7 @@ The value of the property _MUST_ be a JSON object, that has the `label` and `val
 
 ##### rights
 
-A string that identifies a license or rights statement that applies to the content of this resource, such as the JSON of a Manifest or the pixels of an image. The value _MUST_ be drawn from the set of [Creative Commons][org-cc-licenses] licenses, the [RightsStatements.org][org-rs-terms] rights statements, or those added via the [extension][ldce] mechanism. The inclusion of this property is informative, and for example could be used to display an icon representing the rights assertions.
+A string that identifies a license or rights statement that applies to the content of this resource, such as the JSON of a Manifest or the pixels of an image. The value _MUST_ be drawn from the set of [Creative Commons][org-cc-licenses] licenses, the [RightsStatements.org][org-rs-terms] rights statements, or those added via the [extension][prezi3-ldce] mechanism. The inclusion of this property is informative, and for example could be used to display an icon representing the rights assertions.
 
 If displaying rights information directly to the user is the desired interaction, or a publisher-defined label is needed, then it is _RECOMMENDED_ to include the information using the `requiredStatement` property or in the `metadata` property.
 
@@ -493,7 +493,7 @@ The value _MUST_ be a positive floating point number.
 
 ##### viewingDirection
 
-The direction that a set of Canvases _SHOULD_ be displayed to the user. This specification defines four direction values in the table below. Others may be defined externally [as an extension][ldce].
+The direction that a set of Canvases _SHOULD_ be displayed to the user. This specification defines four direction values in the table below. Others may be defined externally [as an extension][prezi3-ldce].
 
 The value _MUST_ be a string.
 
@@ -520,7 +520,7 @@ The value _MUST_ be a string.
 
 ##### behavior
 
-A set of user experience features that the publisher of the content would prefer the client to use when presenting this resource. This specification defines the values specified in the table below. Others may be defined externally as an [extension][ldce].
+A set of user experience features that the publisher of the content would prefer the client to use when presenting this resource. This specification defines the values specified in the table below. Others may be defined externally as an [extension][prezi3-ldce].
 
 The value _MUST_ be an array of strings.
 
@@ -551,7 +551,7 @@ The value _MUST_ be an array of strings.
 
 ##### timeMode
 
-A mode associated with an Annotation that is to be applied to the rendering of any time-based media, or otherwise could be considered to have a duration, used as a body resource of that Annotation. Note that the association of `timeMode` with the Annotation means that different resources in the body cannot have different values. This specification defines the values specified in the table below. Others may be defined externally as an [extension][ldce].
+A mode associated with an Annotation that is to be applied to the rendering of any time-based media, or otherwise could be considered to have a duration, used as a body resource of that Annotation. Note that the association of `timeMode` with the Annotation means that different resources in the body cannot have different values. This specification defines the values specified in the table below. Others may be defined externally as an [extension][prezi3-ldce].
 
 The value _MUST_ be a string.
 
@@ -737,7 +737,7 @@ The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` propert
 ```
 
 ``` json-doc
-{ 
+{
   "start": {
     "type": "SpecificResource",
     "source": "https://example.org/iif/1/canvas/1",
@@ -770,7 +770,7 @@ These properties define the structure of the object being represented in IIIF by
 
 ##### items
 
-Much of the functionality of the IIIF Presentation API is simply recording the order in which child resources occur within a parent resource, such as Collections or Manifests within a parent Collection, or Canvases within a Manifest. All of these situations are covered with a single property, `items`. 
+Much of the functionality of the IIIF Presentation API is simply recording the order in which child resources occur within a parent resource, such as Collections or Manifests within a parent Collection, or Canvases within a Manifest. All of these situations are covered with a single property, `items`.
 
 The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id` and `type` properties. The items will be resources of different types, as described below.
 
@@ -784,6 +784,8 @@ The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id` and
   Clients _MUST_ process `items` on an Annotation Page.
 * A Range _MUST_ have the `items` property with at least one item. Each item _MUST_ be a Range, a Canvas or a Specific Resource where the source is a Canvas.<br/>
   Clients _SHOULD_ process `items` on a Range.
+* Other resource types _MUST NOT_ have the `items` property.<br/>
+  Clients _SHOULD_ ignore `items` on other resource types.
 
 ```json-doc
 {
@@ -809,6 +811,8 @@ The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id` and
 
 * A Manifest _MAY_ have the `structures` property.<br/>
   Clients _SHOULD_ process `structures` on a Manifest. The first hierarchy _SHOULD_ be presented to the user by default, and further hierarchies _SHOULD_ be able to be selected as alternative structures by the user.
+* Other resource types _MUST NOT_ have the `structures` property.<br/>
+  Clients _SHOULD_ ignore `structures` on other resource types.
 
 ```json-doc
 {
@@ -828,10 +832,10 @@ An ordered list of Annotation Pages that contain commentary or other Annotations
 
 The value _MUST_ be an array of JSON objects. Each item _MUST_ have at least the `id` and `type` properties.
 
- * A Collection, Manifest, Canvas, Range or content resource _MAY_ have the `annotations` property with at least one item.<br/>
+* A Collection, Manifest, Canvas, Range or content resource _MAY_ have the `annotations` property with at least one item.<br/>
   Clients _SHOULD_ process `annotations` on a Collection, Manifest, Canvas, Range or content resource.
- * Other resource types _MUST NOT_ have the `annotations` property.
-   Clients _SHOULD_ ignore `annotations` on other resource types.
+* Other resource types _MUST NOT_ have the `annotations` property.<br/>
+  Clients _SHOULD_ ignore `annotations` on other resource types.
 
 ```json-doc
 {
@@ -850,11 +854,11 @@ The value _MUST_ be an array of JSON objects. Each item _MUST_ have at least the
 
 ##### Values for motivation
 
-This specification defines two values for the Web Annotation property of `motivation`, or `purpose` when used on a Specific Resource or Textual Body. 
+This specification defines two values for the Web Annotation property of `motivation`, or `purpose` when used on a Specific Resource or Textual Body.
 
 While any resource _MAY_ be the `target` of an Annotation, this specification defines only motivations for Annotations that target Canvases. These motivations allow clients to determine how the Annotation should be rendered, by distinguishing between Annotations that provide the content of the Canvas, from ones with externally defined motivations which are typically comments about the Canvas.
 
-Additional motivations may be added to the Annotation to further clarify the intent, drawn from [extensions][ldce] or other sources. Clients _MUST_ ignore motivation values that they do not understand. Other motivation values given in the Web Annotation specification _SHOULD_ be used where appropriate, and examples are given in the [Presentation API Cookbook][cookbook].
+Additional motivations may be added to the Annotation to further clarify the intent, drawn from [extensions][prezi3-ldce] or other sources. Clients _MUST_ ignore motivation values that they do not understand. Other motivation values given in the Web Annotation specification _SHOULD_ be used where appropriate, and examples are given in the [Presentation API Cookbook][annex-cookbook].
 
 > | Value | Description |
 | ----- | ----------- |
@@ -874,8 +878,8 @@ Resource descriptions _SHOULD_ be embedded within the JSON description of parent
 ``` json-doc
 {
   "rendering": [
-    { 
-      "id": "https://example.org/content/book.pdf", 
+    {
+      "id": "https://example.org/content/book.pdf",
       "type": "Text",
       "label": "Example Book (pdf)",
       "format": "application/pdf"
@@ -954,7 +958,8 @@ Clients _SHOULD_ allow only `a`, `b`, `br`, `i`, `img`, `p`, `small`, `span`, `s
 
 The top level resource in the response _MUST_ have the `@context` property, and it _SHOULD_ appear as the very first key/value pair of the JSON representation. This tells Linked Data processors how to interpret the document. The IIIF Presentation API context, below, _MUST_ occur once per response in the top-most resource, and thus _MUST NOT_ appear within embedded resources. For example, when embedding a Canvas within a Manifest, the Canvas will not have the `@context` property.
 
-The value of the `@context` property _MUST_ be an array, and the __last__ two values _MUST_ be the Web Annotation context and the Presentation API context, in that order. Further contexts, such as those for local or [registered extensions][registry], _MUST_ be added at the beginning of the array.
+The value of the `@context` property _MUST_ be an array, and the __last__ two values _MUST_ be the Web Annotation context and the Presentation API context, in that order. Further contexts, such as those for local or [registered extensions][annex-registry], _MUST_ be added at the beginning of the array.
+
 
 ``` json-doc
 {
@@ -965,7 +970,7 @@ The value of the `@context` property _MUST_ be an array, and the __last__ two va
 }
 ```
 
-Any additional properties beyond those defined in this specification or the Web Annotation Data Model _SHOULD_ be mapped to RDF predicates using further context documents. These extensions _SHOULD_ be added to the top level `@context` property, and _MUST_ be added before the above contexts. The JSON-LD 1.1 functionality of predicate specific context definitions, known as [scoped contexts][org-w3c-json-ld-scoped-contexts], _MUST_ be used to minimize cross-extension collisions. Extensions intended for community use _SHOULD_ be [registered in the extensions registry][registry], but registration is not mandatory.
+Any additional properties beyond those defined in this specification or the Web Annotation Data Model _SHOULD_ be mapped to RDF predicates using further context documents. These extensions _SHOULD_ be added to the top level `@context` property, and _MUST_ be added before the above contexts. The JSON-LD 1.1 functionality of predicate specific context definitions, known as [scoped contexts][org-w3c-json-ld-scoped-contexts], _MUST_ be used to minimize cross-extension collisions. Extensions intended for community use _SHOULD_ be [registered in the extensions registry][annex-registry], but registration is not mandatory.
 
 The JSON representation _MUST NOT_ include the `@graph` key at the top level. This key might be created when serializing directly from RDF data using the JSON-LD 1.0 compaction algorithm. Instead, JSON-LD framing and/or custom code should be used to ensure the structure of the document is as defined by this specification.
 
@@ -1280,7 +1285,7 @@ Ranges _MAY_ link to an Annotation Collection that has the content of the Range 
           "id": "https://example.org/iiif/book1/range/r1",
           "type": "Range",
           "label": { "en": [ "Introduction" ] },
-          "supplementary": { 
+          "supplementary": {
             "id": "https://example.org/iiif/book1/annocoll/introTexts",
             "type": "AnnotationCollection"
           },
@@ -1361,10 +1366,9 @@ The type of the content resource _MUST_ be included, and _SHOULD_ be taken from 
 
 If the content resource is an Image, and a IIIF Image service is available for it, then the URI _MAY_ be a complete URI to any particular representation made available, such as `https://example.org/image1/full/1000,/0/default.jpg`, but _MUST NOT_ be just the URI of the IIIF Image service. Its `type` value _MUST_ be the string `Image`. Its media type _MAY_ be listed in `format`, and its height and width _MAY_ be given as integer values for `height` and `width` respectively. The image then _SHOULD_ have the service referenced from it.
 
-The URI of the Canvas _MUST_ be repeated in the `target` property of the Annotation, or the `source` property of a Specific Resource used in the `target` property. 
+The URI of the Canvas _MUST_ be repeated in the `target` property of the Annotation, or the `source` property of a Specific Resource used in the `target` property.
 
 Additional features of the [Web Annotation][org-w3c-webanno] data model _MAY_ also be used, such as selecting a segment of the Canvas or content resource, or embedding the comment or transcription within the Annotation. The use of these advanced features sometimes results in situations where the `target` is not a content resource, but instead a SpecificResource, a Choice, or other non-content object. Implementations should check the `type` of the resource and not assume that it is always content to be rendered.
-
 
 ``` json-doc
 {
@@ -1431,8 +1435,8 @@ For Annotation Collections with many Annotations, there will be many pages. The 
     "id": "https://example.org/iiif/book1/annocoll/transcription",
     "type": "AnnotationCollection"
   },
-  "next": { 
-    "id": "https://example.org/iiif/book1/annopage/l2", 
+  "next": {
+    "id": "https://example.org/iiif/book1/annopage/l2",
     "type": "AnnotationPage"
   },
   "items": [
@@ -1549,8 +1553,18 @@ __Linking Properties__
 
 __Structural Properties__
 
-Re-write this with items, structures, annotations
-{: .warning}
+|                       | items                     | structures                | annotations               |
+| --------------------- | ------------------------- | ------------------------- | ------------------------- |
+| Collection            | ![required][icon-req]     | ![not allowed][icon-na]   | ![optional][icon-opt]     |
+| Manifest              | ![required][icon-req]     | ![optional][icon-opt]     | ![optional][icon-opt]     |
+| Canvas                | ![recommended][icon-recc] | ![not allowed][icon-na]   | ![optional][icon-opt]     |
+| Annotation            | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![not allowed][icon-na]   |
+| Annotation Page       | ![recommended][icon-recc] | ![not allowed][icon-na]   | ![not allowed][icon-na]   |
+| Range                 | ![required][icon-req]     | ![not allowed][icon-na]   | ![optional][icon-opt]     |
+| Annotation Collection | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![not allowed][icon-na]   |
+| Image Content         | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![optional][icon-opt]     |
+| Other Content         | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![optional][icon-opt]     |
+{: .api-table #table-reqs-4}
 
 __Protocol Behavior__
 
@@ -1579,7 +1593,7 @@ Starting with version 2.0, this specification follows [Semantic Versioning][org-
 
 ### D. Acknowledgements
 
-Many thanks to the members of the [IIIF community][iiif-community] for their continuous engagement, innovative ideas, and feedback. 
+Many thanks to the members of the [IIIF community][iiif-community] for their continuous engagement, innovative ideas, and feedback.
 
 Many of the changes in this version are due to the work of the [IIIF AV Technical Specification Group][groups-av], chaired by Jason Ronallo (North Carolina State University), Jon Dunn (Indiana University) and Tom Crane (Digirati). The IIIF Community thanks them for their leadership, and the members of the group for their tireless work.
 
@@ -1594,9 +1608,6 @@ Many of the changes in this version are due to the work of the [IIIF AV Technica
 | 2014-09-11 | Version 2.0 (Triumphant Giraffe) [View change log][prezi20-change-log] |
 | 2013-08-26 | Version 1.0 (unnamed) |
 | 2013-06-14 | Version 0.9 (unnamed) |
-
-[ldce]: #linked-data-context-and-extensions "Linked Data Context and Extensions"
-[org-rfc-7231-conneg]: https://tools.ietf.org/html/rfc7231#section-5.3.2
 
 {% include acronyms.md %}
 {% include links.md %}

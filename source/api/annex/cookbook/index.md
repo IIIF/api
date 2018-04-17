@@ -14,7 +14,7 @@ Introduction describing the point of the cookbook
 # Recipes
 
 * We need some good categories
-* Otherwise there'll be 
+* Otherwise there'll be
 * A huge pile of random stuff
 * And we won't be able to find
 * Anything
