@@ -157,7 +157,7 @@ The requirements for which classes have which properties are summarized in [Appe
 
 Other properties are allowed, either via local extensions or those endorsed by the IIIF community. If a client discovers properties that it does not understand, then it _MUST_ ignore them. See the [Linked Data Context and Extensions][prezi30-ldce] section for more information about extensions.
 
-This section also defines processing requirements for clients for each of the combinations of class and property.  These requirements are for general purpose client implementations that are intended to be used to render the entire resource to the user, and not necessarily for consuming applications with specialized use or individual component implementations that might be used to construct a client. The inclusion of these requirements gives publishers a baseline expectation for how they can expect implmentations advertised as compliant with this specification to behave when processing their content.
+This section also defines processing requirements for clients for each of the combinations of class and property.  These requirements are for general purpose client implementations that are intended to be used to render the entire resource to the user, and not necessarily for consuming applications with specialized use or individual component implementations that might be used to construct a client. The inclusion of these requirements gives publishers a baseline expectation for how they can expect implementations advertised as compliant with this specification to behave when processing their content.
 
 ###  3.1. Descriptive Properties
 
@@ -190,7 +190,7 @@ The value of the property _MUST_ be a JSON object, as described in the [language
 
 ##### summary
 
-A short textual summary of this resource, intended to be conveyed to the user when the `metadata` pairs for the resource are not being displayed. This could be used as a snippet for item level search results, for limited screen real-estate environments, or as an alternative user interface when the `metadata` property is not currently being rendered.  The `summary` property follows the same pattern as the `label` property described above.
+A short textual summary of this resource, intended to be conveyed to the user when the `metadata` pairs for the resource are not being displayed. This could be used as a brief description for item level search results, for small-screen environments, or as an alternative user interface when the `metadata` property is not currently being rendered. The `summary` property follows the same pattern as the `label` property described above.
 
 The value of the property _MUST_ be a JSON object, as described in the [languages][prezi30-languages] section.
 
@@ -209,7 +209,7 @@ The value of the property _MUST_ be a JSON object, as described in the [language
 
 ##### metadata
 
-An ordered list of descriptive entries to be displayed to the user when they interact with this resource, given as pairs of human readable `label` and `value` entries. There are no semantics conveyed by this information, only strings to present to the user when interacting with this resource. A pair might be used to convey information about the creation of the object, a physical description, ownership information, and for many other use cases.
+An ordered list of descriptions to be displayed to the user when they interact with this resource, given as pairs of human readable `label` and `value` entries. The content of these entries is intended for presentation only; descriptive semantics _SHOULD NOT_ be inferred. An entry might be used to convey information about the creation of the object, a physical description, ownership information, or other purposes.
 
 The value of the `metadata` property _MUST_ be an array of JSON objects, where each item in the array has both `label` and `value` properties. The values of both `label` and `value` _MUST_ be JSON objects, as described in the [languages][prezi30-languages] section.
 
@@ -222,7 +222,7 @@ The value of the `metadata` property _MUST_ be an array of JSON objects, where e
  * Other resource types _MAY_ have the `metadata` property with at least one item.<br/>
    Clients _MAY_ render `metadata` on other resource types.
 
-Clients _SHOULD_ display the pairs in the order provided. Clients _SHOULD NOT_ use `metadata` for indexing and discovery purposes, as there are intentionally no consistent semantics. Clients _SHOULD_ expect to encounter long texts in the `value` property, and render them appropriately, such as with an expand button, or in a tabbed interface.
+Clients _SHOULD_ display the entries in the order provided. Clients _SHOULD_ expect to encounter long texts in the `value` property, and render them appropriately, such as with an expand button, or in a tabbed interface.
 
 ``` json-doc
 {
@@ -336,7 +336,6 @@ The value _MUST_ be a JSON object with the `id` and `type` properties, and _MAY_
   }
 }
 ```
-
 
 ###  3.2. Technical Properties
 
