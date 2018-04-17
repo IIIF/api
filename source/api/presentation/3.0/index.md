@@ -79,7 +79,7 @@ Note that in the following descriptions, "object" is used to refer to the object
 
 There are many different types of digitized or digital compound objects; ancient scrolls, paintings, letters, books, newspapers, films, operas, albums, field recordings and computer generated animations. These resources often bear the written or spoken word, and access to this linguistic content is often as important as access to the visual or audible representation. These and several other use cases are described in a separate [document][prezi-use-cases].
 
-Collectively, the use cases require a model in which one can characterize the object (via the _Manifest_ resource) and the individual views of the object (_Canvas_ resources). Each view may have images, audio, video and other content resources associated with it (content resources) to allow the view to be rendered to the user appropriately. An object may also have sections; for example, a book may have chapters of several pages, or a play might be divided into acts and scenes (_Range_ resources) and there may be groups of objects (_Collection_ resources). These resource types, along with their properties, make up the IIIF Presentation API.
+Collectively, these use cases require a model in which one can characterize the object (via the _Manifest_ resource) and the individual views of the object (_Canvas_ resources). Each view may have images, audio, video and other content resources associated with it (content resources) to allow the view to be rendered to the user appropriately. An object may also have sections; for example, a book may have chapters of several pages, or a play might be divided into acts and scenes (_Range_ resources) and there may be groups of objects (_Collection_ resources). These resource types, along with their properties, make up the IIIF Presentation API.
 
 ### 1.3. Terminology
 
@@ -118,7 +118,7 @@ The overall description of the structure and properties of the digital represent
 ##### Canvas
 {: #overview-canvas}
 
-A virtual container that represents a particular view of the object and has content resources associated with it or with parts of it. The Canvas provides a frame of reference for the layout of the content, both spatially and temporally. The concept of a Canvas is borrowed from standards like PDF and HTML, or applications like Photoshop and PowerPoint, where an initially blank display surface has images, video, text and other content "painted" on to it by [Annotations][prezi30-anno], collected in [Annotation Pages][prezi30-annopage].
+A virtual container that represents a particular view of the object and has content resources associated with it or with parts of it. The Canvas provides a frame of reference for the layout of the content, both spatially and temporally. The concept of a Canvas is borrowed from standards like PDF and HTML, or applications like Photoshop and PowerPoint, where an initially blank display surface has images, video, text and other content "painted" on to it by Annotations, collected in Annotation Pages.
 
 ##### Range
 {: #overview-range}
