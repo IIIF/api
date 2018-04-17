@@ -676,7 +676,7 @@ Additional strings used in the `extraQualities`, `extraFormats`, and `extraFeatu
 
 ### 5.7. Linking Properties
 
-The JSON response _MAY_ contain linking properties that reference external resources, including services that make additional functionality available to a viewer.  The linking properties have the same semantics and requirements as those in the [Presentation API][prezi3-api].
+The JSON response _MAY_ contain linking properties that reference external resources, including services that make additional functionality available to a viewer. The linking properties have the same semantics and requirements as those in the [Presentation API][prezi3].
 
 | Property   | Required? | Description |
 | ---------- | --------- | ----------- |
@@ -692,8 +692,8 @@ The objects in `partOf`, `seeAlso`, and `service` have the properties indicated 
 | `id`       | Required | The URI of the external resource. |
 | `type`     | Required | The type or class of this resource.  Recommendations for basic types such as image, text or audio are [given in the Presentation API][prezi3-type]. |
 | `label`    | Recommended | A human-readable label for this resource. The `label` property can be fully internationalized, and each language can have multiple values. This pattern is described in more detail in [the languages section of the Presentation API][prezi3-languages]. |
-| `format`   | Recommended for `seeAlso` | The specific media type (often called a MIME type) for this content resource, for example “image/jpeg”. This is important for distinguishing different formats of the same overall type of resource, such as distinguishing text in XML from plain text.  The value must be a string, and it should be the value of the Content-Type header returned when this resource is dereferenced. |
-| `profile`  | Recommended for `seeAlso`, `service` | A schema or named set of functionality available from this resource. The profile can further clarify the `type` and/or `format` of an external resource. The value must be a string, either taken from the [Registry of Profiles][annex-registry] or a URI.|
+| `format`   | Recommended for `seeAlso` | The specific media type (often called a MIME type) for this content resource, for example “image/jpeg”. This is important for distinguishing different formats of the same overall type of resource, such as distinguishing text in XML from plain text. The value must be a string, and it should be the value of the Content-Type header returned when this resource is dereferenced. |
+| `profile`  | Recommended for `seeAlso`, `service` | A schema or named set of functionality available from this resource. The profile can further clarify the `type` and/or `format` of an external resource. The value must be a string, either taken from the [Registry of Profiles][annex-registry] or a URI. |
 {: .api-table}
 
 ``` json-doc
