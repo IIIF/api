@@ -1522,7 +1522,7 @@ It is possible to include Image API service descriptions within the Manifest, an
 | Icon                       | Meaning     |
 | -------------------------- | ----------- |
 | ![required][icon-req]      | Required    |
-| ![recommended][icon-recc]  | Recommended |
+| ![recommended][icon-rec]  | Recommended |
 | ![optional][icon-opt]      | Optional    |
 | ![not allowed][icon-na]    | Not Allowed |
 {: .api-table #table-reqs-icons}
@@ -1531,9 +1531,9 @@ __Descriptive and Rights Properties__
 
 |                      | label                  | metadata                     | summary                     | thumbnail                   | posterCanvas                | requiredStatement            | rights                 | logo                     |
 | -------------------- | ---------------------- | ---------------------------- | --------------------------- | ----------------------------| ----------------------------| ---------------------- | ----------------------- | ------------------------ |
-| Collection           | ![required][icon-req]  | ![recommended][icon-recc]    | ![recommended][icon-recc]   | ![recommended][icon-recc]   | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
-| Manifest             | ![required][icon-req]  | ![recommended][icon-recc]    | ![recommended][icon-recc]   | ![recommended][icon-recc]   | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
-| Canvas               | ![required][icon-req]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![recommended][icon-recc]   | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
+| Collection           | ![required][icon-req]  | ![recommended][icon-rec]    | ![recommended][icon-rec]   | ![recommended][icon-rec]   | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
+| Manifest             | ![required][icon-req]  | ![recommended][icon-rec]    | ![recommended][icon-rec]   | ![recommended][icon-rec]   | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
+| Canvas               | ![required][icon-req]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![recommended][icon-rec]   | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
 | Annotation           | ![optional][icon-opt]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![optional][icon-opt]       | ![not allowed][icon-na]     | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
 | AnnotationPage       | ![optional][icon-opt]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![optional][icon-opt]       | ![not allowed][icon-na]     | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
 | Range                | ![required][icon-req]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
@@ -1549,7 +1549,7 @@ __Technical Properties__
 | Collection           | ![required][icon-req]     | ![required][icon-req] | ![not allowed][icon-na] | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![not allowed][icon-na] | ![optional][icon-opt]  | ![optional][icon-opt]    |
 | Manifest             | ![required][icon-req]     | ![required][icon-req] | ![not allowed][icon-na] | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![optional][icon-opt]   | ![optional][icon-opt]  | ![optional][icon-opt]    |
 | Canvas               | ![required][icon-req]     | ![required][icon-req] | ![not allowed][icon-na] | ![required][icon-req]     | ![required][icon-req]     | ![not allowed][icon-na] | ![optional][icon-opt]  | ![not allowed][icon-na]  |
-| Annotation           | ![recommended][icon-recc] | ![required][icon-req] | ![not allowed][icon-na] | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![not allowed][icon-na] | ![optional][icon-opt]  | ![not allowed][icon-na]  |
+| Annotation           | ![recommended][icon-rec] | ![required][icon-req] | ![not allowed][icon-na] | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![not allowed][icon-na] | ![optional][icon-opt]  | ![not allowed][icon-na]  |
 | Annotation Page       | ![required][icon-req]     | ![required][icon-req] | ![not allowed][icon-na] | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![not allowed][icon-na] | ![optional][icon-opt]  | ![not allowed][icon-na]  |
 | Range                | ![required][icon-req]     | ![required][icon-req] | ![not allowed][icon-na] | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![optional][icon-opt]   | ![optional][icon-opt]  | ![not allowed][icon-na]  |
 | Annotation Collection | ![required][icon-req]     | ![required][icon-req] | ![not allowed][icon-na] | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![optional][icon-opt]   | ![optional][icon-opt]  | ![not allowed][icon-na]  |
@@ -1578,9 +1578,9 @@ __Structural Properties__
 | --------------------- | ------------------------- | ------------------------- | ------------------------- |
 | Collection            | ![required][icon-req]     | ![not allowed][icon-na]   | ![optional][icon-opt]     |
 | Manifest              | ![required][icon-req]     | ![optional][icon-opt]     | ![optional][icon-opt]     |
-| Canvas                | ![recommended][icon-recc] | ![not allowed][icon-na]   | ![optional][icon-opt]     |
+| Canvas                | ![recommended][icon-rec] | ![not allowed][icon-na]   | ![optional][icon-opt]     |
 | Annotation            | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![not allowed][icon-na]   |
-| Annotation Page       | ![recommended][icon-recc] | ![not allowed][icon-na]   | ![not allowed][icon-na]   |
+| Annotation Page       | ![recommended][icon-rec] | ![not allowed][icon-na]   | ![not allowed][icon-na]   |
 | Range                 | ![required][icon-req]     | ![not allowed][icon-na]   | ![optional][icon-opt]     |
 | Annotation Collection | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![not allowed][icon-na]   |
 | Image Content         | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![optional][icon-opt]     |
@@ -1593,8 +1593,8 @@ __Protocol Behavior__
 | -------------------- | ------------------------- |
 | Collection           | ![required][icon-req]     |
 | Manifest             | ![required][icon-req]     |
-| Canvas               | ![recommended][icon-recc] |
-| Annotation           | ![recommended][icon-recc] |
+| Canvas               | ![recommended][icon-rec] |
+| Annotation           | ![recommended][icon-rec] |
 | Annotation Page       | ![required][icon-req]     |
 | Range                | ![optional][icon-opt]     |
 | Annotation Collection | ![optional][icon-opt]     |

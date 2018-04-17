@@ -88,7 +88,7 @@ Thanks to the members of the [IIIF][iiif-community] for their continuous engagem
    [iiif-community]: {{page.webprefix}}/community/ "IIIF Community"
    [mellon]: http://www.mellon.org/ "The Andrew W. Mellon Foundation"
 [icon-req]: /img/metadata-api/required.png "Required"
-[icon-recc]: /img/metadata-api/recommended.png "Recommended"
+[icon-rec]: /img/metadata-api/recommended.png "Recommended"
 [icon-opt]: /img/metadata-api/optional.png "Optional"
 [icon-na]: /img/metadata-api/not_allowed.png "Not allowed"
 

@@ -62,13 +62,13 @@ Services _MAY_ be included either by reference or embedded within the response. 
 
 ## 3. Services
 
-This table summarizes the services available and which APIs they may be used in.  The '![not allowed][icon-na]' icon means that the service is not to be used in the API. The '![recommended][icon-recc]' icon means that the service can be used in the API.
+This table summarizes the services available and which APIs they may be used in.  The '![not allowed][icon-na]' icon means that the service is not to be used in the API. The '![recommended][icon-rec]' icon means that the service can be used in the API.
 
 | Service                        | Image API                 | Presentation API          |
 | ------------------------------ |:-------------------------:|:-------------------------:|
-| [Image Information][imageinfo] | ![optional][icon-opt]     | ![recommended][icon-recc] |  
-| [GeoJSON][lgeojson]            | ![not allowed][icon-na]   | ![recommended][icon-recc] |
-| [Physical Dimensions][physdim] | ![recommended][icon-recc] | ![recommended][icon-recc] |
+| [Image Information][imageinfo] | ![optional][icon-opt]     | ![recommended][icon-rec] |  
+| [GeoJSON][lgeojson]            | ![not allowed][icon-na]   | ![recommended][icon-rec] |
+| [Physical Dimensions][physdim] | ![recommended][icon-rec] | ![recommended][icon-rec] |
 {: .api-table}
 
 ### 3.1 Image Information
@@ -250,7 +250,7 @@ Thanks to the members of the [IIIF][iiif-community] for their continuous engagem
 [physdim]: #physical-dimensions
 
 [icon-req]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/required.png "Required"
-[icon-recc]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/recommended.png "Recommended"
+[icon-rec]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/recommended.png "Recommended"
 [icon-opt]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/optional.png "Optional"
 [icon-na]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/not_allowed.png "Not allowed"
 

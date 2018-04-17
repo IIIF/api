@@ -50,11 +50,11 @@ The process for having a new entry added to this registry is [described here][re
 
 ## 3. Registry
 
-This table summarizes the services available and which APIs they may be used in.  The '![not allowed][icon-na]' icon means that the service is not to be used in the API. The '![recommended][icon-recc]' icon means that the service can be used in the API.
+This table summarizes the services available and which APIs they may be used in.  The '![not allowed][icon-na]' icon means that the service is not to be used in the API. The '![recommended][icon-rec]' icon means that the service can be used in the API.
 
 | Service                        | Image API                 | Presentation API          |
 | ------------------------------ |:-------------------------:|:-------------------------:|
-| [Image Information][image-api] | ![optional][icon-opt]     | ![recommended][icon-recc] |  
+| [Image Information][image-api] | ![optional][icon-opt]     | ![recommended][icon-rec] |  
 {: .api-table}
 
 
