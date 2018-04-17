@@ -1,13 +1,12 @@
 [annex-json-ld]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/jsonld/ "JSON-LD Frames Implementation Notes"
 [annex-oa]: {{ site.url }}{{ site.baseurl }}/api/annex/openannotation/ "Open Annotation Extensions"
 [annex-services]: {{ site.url }}{{ site.baseurl }}/api/annex/services/ "Services Annex Document"
-[annex-services]: {{ site.url }}{{ site.baseurl }}/api/annex/services/ "Services Annex Document"
 [auth1-cookie-service]: {{ site.url }}{{ site.baseurl }}/api/auth/1.0/#access-cookie-service "IIIF Authentication Cookie Service"
 [auth1-logout-service]: {{ site.url }}{{ site.baseurl }}/api/auth/1.0/#logout-service "IIIF Authentication Logout Service"
 [auth1-token-service]: {{ site.url }}{{ site.baseurl }}/api/auth/1.0/#access-token-service "IIIF Authentication Access Token Service"
 [auth1]: {{ site.url }}{{ site.baseurl }}/api/auth/1.0/ "IIIF Authentication API 1.0"
 [cookbook]: {{ site.url }}{{ site.baseurl }}/api/annex/cookbook/ "IIIF Cookbook"
-[github-milestone-prezi-3]: https://github.com/IIIF/iiif.io/milestone/8 ""
+[github-milestone-prezi-3]: https://github.com/IIIF/iiif.io/milestone/8
 [groups-av]: {{ site.url }}{{ site.baseurl }}/community/groups/av/ "IIIF A/V Working Group?
 [icon-na]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/not_allowed.png "Not allowed"
 [icon-opt]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/optional.png "Optional"
@@ -106,26 +105,24 @@
 [prezi21-change-log]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.1/change-log/ "Presentation API 2.1 Change Log"
 [prezi21]: {{site.url}}{{ site.baseurl }}/api/presentation/2.1/ "IIIF Presentation API 2.1"
 [prezi211-change-log]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.1/change-log-211/ "Presentation API 2.1.1 Change Log"
-[prezi3-appendixa]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#a-summary-of-metadata-requirements ""
-[prezi3-canvas]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#canvas ""
+[prezi3-appendixa]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#a-summary-of-metadata-requirements
+[prezi3-canvas]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#canvas
 [prezi3-html]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.latest.minor }}/#html-markup-in-property-values "Presentation API Section 4.4"
-[prezi3-languages]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.latest.minor }}/#language-of-property-values
 [prezi3-languages]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.latest.minor }}/#language-of-property-values "Language of Property Values"
-[prezi3-paging]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#paging-properties ""
-[prezi3-range]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#range ""
-[prezi3-resource-structure]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#resource-structure ""
-[prezi3-terminology]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#terminology ""
-[prezi3-type-overview]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#resource-type-overview ""
-[prezi3]: {{site.url}}{{ site.baseurl }}/api/presentation/3.0/ ""
+[prezi3-paging]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#paging-properties
+[prezi3-range]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#range
+[prezi3-resource-structure]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#resource-structure
+[prezi3-terminology]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#terminology
+[prezi3-type-overview]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#resource-type-overview
 [prezi3]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.latest.minor }}/ "Presentation API"
 [prezi30-change-log]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/change-log/ "Presentation API 3.0 Change Log"
-[registry-extensions]: {{site.url}}{{ site.baseurl }}/api/annex/registry/extensions/ ""
+[registry-extensions]: {{site.url}}{{ site.baseurl }}/api/annex/registry/extensions/
 [registry-image-extensions]: {{ site.url }}{{ site.baseurl }}/api/annex/registry/image-extensions/ "IIIF Image Extension Registry"
-[registry-motivations]: {{site.url}}{{ site.baseurl }}/api/annex/registry/motivations/ ""
-[registry-process]: {{site.url}}{{ site.baseurl }}/api/annex/registry/process/ ""
-[registry-services]: {{site.url}}{{ site.baseurl }}/api/annex/registry/services/ ""
-[registry]: {{site.url}}{{ site.baseurl }}/api/annex/registry/ ""
+[registry-motivations]: {{site.url}}{{ site.baseurl }}/api/annex/registry/motivations/
+[registry-process]: {{site.url}}{{ site.baseurl }}/api/annex/registry/process/
+[registry-services]: {{site.url}}{{ site.baseurl }}/api/annex/registry/services/
+[registry]: {{site.url}}{{ site.baseurl }}/api/annex/registry/
 [search-api]: {{ site.url }}{{ site.baseurl }}/api/search/{{ site.search_api.latest.major }}.{{ site.search_api.latest.minor }}/ "Content Search API"
-[search1-autocomplete]: {{ site.url }}{{ site.baseurl }}/api/search/1.0/#autocomplete ""
-[search1]: {{ site.url }}{{ site.baseurl }}/api/search/1.0/ ""
+[search1-autocomplete]: {{ site.url }}{{ site.baseurl }}/api/search/1.0/#autocomplete
+[search1]: {{ site.url }}{{ site.baseurl }}/api/search/1.0/
 [shared-canvas]: {{ site.url }}{{ site.baseurl }}/model/shared-canvas/{{ site.shared_canvas.latest.major}}.{{ site.shared_canvas.latest.minor }} "Shared Canvas Data Model"

@@ -10,7 +10,7 @@ cssversion: 2
 ## Status of this Document
 {:.no_toc}
 
-This document is not subject to [semantic versioning][semver].
+This document is not subject to [semantic versioning][notes-versioning].
 Changes will be tracked within the document.
 
 **Editors**
@@ -51,7 +51,7 @@ In order to make this as easy as possible for the situations when a IIIF Image A
 
 One use of this is within the [IIIF Presentation API][prezi-api], when a Canvas is being painted by part of an image, or an image that requires rotation before display.  
 
-| Property | Default   | Description                                            | 
+| Property | Default   | Description                                            |
 | -------- | --------- | -----------------------------------------------------  |
 | type     |           | Required.  Must be the value "ImageApiSelector".       |
 | region   | "full"    | The string to put in the region parameter of the URI.  |
@@ -93,7 +93,7 @@ There are common use cases in which a point, rather than a range or area, is the
 
 It is not possible to select a point using URI Fragments with the Media Fragment specification, as zero-sized fragments are not allowed. In order to fulfill the use cases, this specification defines a new Selector class called `PointSelector`.  
 
-| Property | Description                                            | 
+| Property | Description                                            |
 | -------- | -----------------------------------------------------  |
 | type     | Required.  Must be the value "PointSelector".          |
 | x        | Optional. An integer giving the x coordinate of the point, relative to the dimensions of the target resource.  |
@@ -114,7 +114,7 @@ For example, to select a point in a video that is 10 pixels in from the top left
 
 ## 2.3. Content Selectors
 
-Video content resources consist of both visual and audio content within the same bit-level representation.  There are situations when it is useful to refer to only one aspect of the content -- either the visual or the audio, but not both.  For example, an Annotation might associate only the visual content of a video that has spoken English in the audio, and an audio file that has the translation of that content in Spanish. 
+Video content resources consist of both visual and audio content within the same bit-level representation.  There are situations when it is useful to refer to only one aspect of the content -- either the visual or the audio, but not both.  For example, an Annotation might associate only the visual content of a video that has spoken English in the audio, and an audio file that has the translation of that content in Spanish.
 
 This specification defines two Selectors, `AudioContentSelector` that selects the audio content and a second `VisualContentSelector` for the visual content.  Neither selector has any additional properties.
 
