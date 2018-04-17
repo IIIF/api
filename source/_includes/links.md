@@ -10,6 +10,7 @@
 [auth1-token-service]: {{ site.url }}{{ site.baseurl }}/api/auth/1.0/#access-token-service "IIIF Authentication Access Token Service"
 [auth1]: {{ site.url }}{{ site.baseurl }}/api/auth/1.0/ "IIIF Authentication API 1.0"
 [github-milestone-prezi-3]: https://github.com/IIIF/iiif.io/milestone/8
+[github-webanno-437]: https://github.com/w3c/web-annotation/issues/437
 [groups-av]: {{ site.url }}{{ site.baseurl }}/community/groups/av/ "IIIF A/V Working Group"
 [icon-na]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/not_allowed.png "Not allowed"
 [icon-opt]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/optional.png "Optional"
@@ -60,7 +61,42 @@
 [image3-technical-properties]: {{ site.url }}{{ site.baseurl }}/api/image/3.{{ site.image_api.latest.minor }}/#technical-properties "5.2 Technical Properties"
 [image3-uri-encoding-and-decoding]: {{ site.url }}{{ site.baseurl }}/api/image/3.{{ site.image_api.latest.minor }}/#uri-encoding-and-decoding "9. URI Encoding and Decoding"
 [image3-uri-syntax]: {{ site.url }}{{ site.baseurl }}/api/image/3.{{ site.image_api.latest.minor }}/#uri-syntax "2. URI Syntax"
-[image3]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/ "Image API 3.0"
+[image3]: {{ site.url }}{{ site.baseurl }}/api/image/3.{{ site.image_api.latest.minor }}/ "Image API 3.{{ site.image_api.latest.minor }}"
+[image30-a-versioning]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#a-versioning "B. Versioning"
+[image30-appendices]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#appendices "11. Appendices"
+[image30-audience-and-scope]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#audience-and-scope "1. Audience and Scope"
+[image30-authentication]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#authentication "8. Authentication"
+[image30-b-acknowledgments]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#b-acknowledgments "C. Acknowledgments"
+[image30-c-change-log]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#c-change-log "D. Change Log"
+[image30-canonical-uri-syntax]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#canonical-uri-syntax "4.7. Canonical URI Syntax"
+[image30-compliance-levels]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#compliance-levels "6. Compliance Levels"
+[image30-compliance-quality]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/compliance/#quality "Image API Compliance: Quality"
+[image30-compliance]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/compliance/ "Image API Compliance"
+[image30-cors-response]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#cors "7.1. CORS"
+[image30-error-conditions]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#error-conditions "7.2. Error Conditions"
+[image30-extra-functionality]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#extra-functionality "5.6. Extra Functionality"
+[image30-features-table]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#features-table "5.6. Extra Functionality List"
+[image30-format]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#format "4.5. Format"
+[image30-identifier]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#identifier "3. Identifier"
+[image30-implementation-notes]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/implementation/ "Implementation Notes"
+[image30-information-request-uri-syntax]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#image-information-request-uri-syntax "2.2. Image Information Request URI"
+[image30-information-request]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#image-information-request "5.1. Image Information Request"
+[image30-information]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#image-information "5. Image Information"
+[image30-order-of-implementation]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#order-of-implementation "4.6. Order of Implementation"
+[image30-profile-description]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#extra-functionality "5.3 Profile Description"
+[image30-quality]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#quality "4.4. Quality"
+[image30-region]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#region "4.1. Region"
+[image30-request-uri-syntax]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#image-request-uri-syntax "2.1. Image Request URI Syntax"
+[image30-requests]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#image-requests "4. Image Requests"
+[image30-rotation]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#rotation "4.3. Rotation"
+[image30-security-considerations]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#security-considerations "10. Security Considerations"
+[image30-server-responses]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#server-responses "7. Server Responses"
+[image30-size]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#size "4.2. Size"
+[image30-successful-responses]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#successful-responses "7.1. Successful Responses"
+[image30-technical-properties]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#technical-properties "5.2 Technical Properties"
+[image30-uri-encoding-and-decoding]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#uri-encoding-and-decoding "9. URI Encoding and Decoding"
+[image30-uri-syntax]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#uri-syntax "2. URI Syntax"
+[image30]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/ "Image API 3.0"
 [notes-apache-conditional-content-type]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/apache/#conditional-content-types "Apache HTTP Server Implementation Notes: Conditional Content Types"
 [notes-apache-set-compliance-link-header]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/apache/#set-compliance-link-header "Apache HTTP Server Implementation Notes: Set Compliance Link Header"
 [notes-apache]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/apache/ "Apache HTTP Server Implementation Notes"
@@ -107,18 +143,20 @@
 [prezi21-change-log]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.1/change-log/ "Presentation API 2.1 Change Log"
 [prezi21]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.1/ "IIIF Presentation API 2.1"
 [prezi211-change-log]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.1/change-log-211/ "Presentation API 2.1.1 Change Log"
-[prezi3-api]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.latest.minor }}/
-[prezi3-appendixa]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#a-summary-of-metadata-requirements
-[prezi3-canvas]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#canvas
+[prezi30-appendixa]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#a-summary-of-metadata-requirements
+[prezi30-canvas]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#canvas
 [prezi3-html]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.latest.minor }}/#html-markup-in-property-values "Presentation API Section 4.4"
+[prezi30-html]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.latest.minor }}/#html-markup-in-property-values "Presentation API Section 4.4"
 [prezi3-languages]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.latest.minor }}/#language-of-property-values "Language of Property Values"
+[prezi30-languages]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.latest.minor }}/#language-of-property-values "Language of Property Values"
 [prezi3-ldce]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.latest.minor }}/#linked-data-context-and-extensions "Linked Data Context and Extensions"
-[prezi3-paging]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#paging-properties
-[prezi3-range]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#range
-[prezi3-resource-structure]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#resource-structure
-[prezi3-terminology]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#terminology
+[prezi30-ldce]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.latest.minor }}/#linked-data-context-and-extensions "Linked Data Context and Extensions"
+[prezi30-range]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#range
+[prezi30-resource-structure]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#resource-structure
+[prezi30-resource-properties]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#resource-properties
+[prezi30-terminology]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#terminology
 [prezi3-type]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.latest.minor }}/#type
-[prezi3-type-overview]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#resource-type-overview
+[prezi30-type-overview]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#resource-type-overview
 [prezi3]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.latest.minor }}/ "Presentation API"
 [prezi30-change-log]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/change-log/ "Presentation API 3.0 Change Log"
 [registry-extensions]: {{ site.url }}{{ site.baseurl }}/api/annex/registry/extensions/

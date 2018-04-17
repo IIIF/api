@@ -58,13 +58,13 @@ This document is intended for architects and developers building applications th
 
 This specification concerns image requests by a client, but not management of the images by the server. It covers how to respond to requests that follow a particular URI syntax, but does not cover methods of implementation such as rotation algorithms, transcoding, color management, compression, or how to respond to URIs that do not conform to the specified syntax. This allows flexibility for implementation in domains with particular constraints or specific community practices, while supporting interoperability in the general case.
 
-Implementations may use a pre-generated set of files served as static web resources and still enable rich user experiences. Dynamic image server implementations may provide additional functionality beyond the base [level of compliance][image3-compliance-levels].
+Implementations may use a pre-generated set of files served as static web resources and still enable rich user experiences. Dynamic image server implementations may provide additional functionality beyond the base [level of compliance][image30-compliance-levels].
 
 ### 1.2. Terminology
 
 The term **underlying image content** is used to refer to the source image data. No assumptions are made about its format or structure. It might be derived from one or more source images but could also be dynamically generated.
 
-The term **full image** is used to refer to the entire area of the underlying image content, with the pixel dimensions given in the [image information][image3-information] document, and which is imagined as the starting point for [image requests][image3-requests].
+The term **full image** is used to refer to the entire area of the underlying image content, with the pixel dimensions given in the [image information][image30-information] document, and which is imagined as the starting point for [image requests][image30-requests].
 
 The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _SHOULD NOT_, _RECOMMENDED_, and _OPTIONAL_ in this document are to be interpreted as described in [RFC 2119][org-rfc-2119].
 
@@ -83,7 +83,7 @@ There are four parameters shared by the requests, and other IIIF specifications:
 | ------ | ----------- |
 | scheme | Indicates the use of the HTTP or HTTPS protocol in calling the service. |
 | server | The host server on which the service resides. The parameter may also include a port number. |
-| prefix | The path on the host server to the service. This prefix is optional, but may be useful when the host server supports multiple services. The prefix _MAY_ contain multiple path segments, delimited by slashes, but all other special characters _MUST_ be encoded. See [URI Encoding and Decoding][image3-uri-encoding-and-decoding] for more information. |
+| prefix | The path on the host server to the service. This prefix is optional, but may be useful when the host server supports multiple services. The prefix _MAY_ contain multiple path segments, delimited by slashes, but all other special characters _MUST_ be encoded. See [URI Encoding and Decoding][image30-uri-encoding-and-decoding] for more information. |
 | identifier | The identifier of the requested image. This may be an ark, URN, filename, or other identifier. Special characters _MUST_ be URI encoded. |
 {: .api-table}
 
@@ -114,7 +114,7 @@ https://example.org/image-service/abcd1234/full/max/0/default.jpg
 ```
 {: .urltemplate}
 
-The parameters of the Image Request URI include region, size, rotation, quality and format, which define the characteristics of the returned image. These are described in detail in [Image Requests][image3-requests].
+The parameters of the Image Request URI include region, size, rotation, quality and format, which define the characteristics of the returned image. These are described in detail in [Image Requests][image30-requests].
 
 ###  2.2. Image Information Request URI Syntax
 
@@ -132,19 +132,19 @@ https://example.org/image-service/abcd1234/info.json
 ```
 {: .urltemplate}
 
-The scheme, server, prefix and identifier components of the information request _MUST_ be identical to those for the image request described above for the image content that the image information document describes. The image information document is described in detail in the [Image Information][image3-information] section.
+The scheme, server, prefix and identifier components of the information request _MUST_ be identical to those for the image request described above for the image content that the image information document describes. The image information document is described in detail in the [Image Information][image30-information] section.
 
 ##  3. Identifier
 
-The API places no restrictions on the form of the identifiers that a server may use or support. All special characters (e.g. `?` or `#`) _MUST_ be URI encoded to avoid unpredictable client behaviors. The URI syntax relies upon slash (`/`) separators so any slashes in the identifier _MUST_ be URI encoded (also called "percent encoded"). See the additional discussion in [URI Encoding and Decoding][image3-uri-encoding-and-decoding].
+The API places no restrictions on the form of the identifiers that a server may use or support. All special characters (e.g. `?` or `#`) _MUST_ be URI encoded to avoid unpredictable client behaviors. The URI syntax relies upon slash (`/`) separators so any slashes in the identifier _MUST_ be URI encoded (also called "percent encoded"). See the additional discussion in [URI Encoding and Decoding][image30-uri-encoding-and-decoding].
 
 ##  4. Image Requests
 
 All parameters described below are required for compliant construction of a IIIF Image API URI. The sequence of parameters in the URI _MUST_ be in the order described below. The order of the parameters is also intended as a mnemonic for the order of the operations by which the service should manipulate the image content. Thus, the requested image content is first extracted as a region of the full image, then scaled to the requested size, mirrored and/or rotated, and finally transformed into the requested color quality and format. This resulting image is returned as the representation for the URI.
 
-Size and region parameters in pixels _MUST_ be non-negative integers. Size and region parameters in percentages and the rotation parameter _MUST_ be positive floating point numbers or integers. For details of the representation of floating point numbers in IIIF URIs, see the [Canonical URI Syntax][image3-canonical-uri-syntax] section.
+Size and region parameters in pixels _MUST_ be non-negative integers. Size and region parameters in percentages and the rotation parameter _MUST_ be positive floating point numbers or integers. For details of the representation of floating point numbers in IIIF URIs, see the [Canonical URI Syntax][image30-canonical-uri-syntax] section.
 
-Servers _SHOULD_ support [CORS][image3-cors-response] on image responses.
+Servers _SHOULD_ support [CORS][image30-cors-response] on image responses.
 
 ### 4.1. Region
 
@@ -214,7 +214,7 @@ The size parameter specifies the dimensions to which the extracted region, which
 
 | Form      | Description |
 | --------- | ----------- |
-| `max`     | The extracted region is returned at the maximum size available. The resulting image will have the pixel dimensions of the extracted region, unless it is constrained to a smaller size by `maxWidth`, `maxHeight`, or `maxArea` as defined in the [Technical Properties][image3-technical-properties] section. |
+| `max`     | The extracted region is returned at the maximum size available. The resulting image will have the pixel dimensions of the extracted region, unless it is constrained to a smaller size by `maxWidth`, `maxHeight`, or `maxArea` as defined in the [Technical Properties][image30-technical-properties] section. |
 | _`w,`_    | The extracted region should be scaled so that the width of the returned image is exactly equal to _`w`_. |
 | _`,h`_    | The extracted region should be scaled so that the height of the returned image is exactly equal to _`h`_. |
 | _`pct:n`_ | The width and height of the returned image is scaled to _`n`_ percent of the width and height of the extracted region. |
@@ -340,7 +340,7 @@ The quality parameter determines whether the image is delivered in color, graysc
 | `default` | The image is returned using the server's default quality (e.g. `color`, `gray` or `bitonal`) for the image. |
 {: .api-table}
 
-The `default` quality exists to support [level 0 compliant implementations][image3-compliance-quality] that may not know the qualities of individual images in their collections. It also provides a convenience for clients that know the values for all other parameters of a request except the quality (e.g. `.../full/120,80/90/{quality}.png` to request a thumbnail) in that a preliminary image information request that would only serve to find out which qualities are available can be avoided.
+The `default` quality exists to support [level 0 compliant implementations][image30-compliance-quality] that may not know the qualities of individual images in their collections. It also provides a convenience for clients that know the values for all other parameters of a request except the quality (e.g. `.../full/120,80/90/{quality}.png` to request a thumbnail) in that a preliminary image information request that would only serve to find out which qualities are available can be avoided.
 
 A quality value that is unsupported _SHOULD_ result in a 400 (Bad Request) status code.
 
@@ -451,6 +451,11 @@ Link: <http://iiif.example.com/server/full/400,300/0/default.jpg>;rel="canonical
 
 The server _MAY_ also include this link header on the image information response, however it is unnecessary as it is included in the JSON representation retrieved.
 
+### 4.8. Extensions
+
+The IIIF Image API is extensible within the [Image Request URI Syntax][image30-information-request-uri-syntax] through the addition of new parameter patterns for the [region][image30-region], [size][image30-size] and [rotation][image30-rotation] parameters, or new values for the [quality][image30-quality] and [format][image30-format] parameters. Request information beyond the scope of the existing parameters could be passed to an image server as query parameters. Extension features _SHOULD_ be described in the image information document following the guidelines in the [Extra Functionality][image30-extra-functionality] section.
+
+
 ##  5. Image Information
 
 Servers _MUST_ support requests for image information. The response is a JSON document that includes technical properties about the full image and may also contain rights and licensing properties, and services related to it.
@@ -480,7 +485,7 @@ Content-Type: application/ld+json;profile="http://iiif.io/api/image/3/context.js
 
 If the server receives a request with one of the content types above in the Accept header, it _SHOULD_ respond with that content type following the rules of [content negotiation][org-rfc-7231-conneg]. Otherwise, it _MUST_ respond with the `application/json` content type.
 
-Servers should also support [CORS][image3-cors-response] on image information responses.
+Servers should also support [CORS][image30-cors-response] on image information responses.
 
 ### 5.2. Technical Properties
 
@@ -489,10 +494,10 @@ The JSON response has several technical properties that describe the available f
 | Property   | Required? | Description |
 | ---------- | --------- | ----------- |
 | `@context` | Required | The `@context` property _SHOULD_ appear as the very first key-value pair of the JSON representation. Its value _MUST_ be either the URI `http://iiif.io/api/image/{{ page.major }}/context.json` or a JSON array with the URI `http://iiif.io/api/image/{{ page.major }}/context.json` as the last item. The `@context` tells Linked Data processors how to interpret the image information. If extensions are used then their context definitions _SHOULD_ be included in this top-level `@context` property. |
-| `id` | Required | The base URI of the image as defined in [URI Syntax][image3-uri-syntax], including scheme, server, prefix and identifier without a trailing slash. |
+| `id` | Required | The base URI of the image as defined in [URI Syntax][image30-uri-syntax], including scheme, server, prefix and identifier without a trailing slash. |
 | `type` | Required | The type for the Image API. The value _MUST_ be the string `ImageService3`. |
 | `protocol` | Required | The URI `http://iiif.io/api/image` which can be used to determine that the document describes an image service which is a version of the IIIF Image API. |
-| `profile` | Required | A string indicating the highest [compliance level][image3-compliance-levels] which is fully supported by the service. The value _MUST_ be one of `level0`, `level1`, or `level2`. |
+| `profile` | Required | A string indicating the highest [compliance level][image30-compliance-levels] which is fully supported by the service. The value _MUST_ be one of `level0`, `level1`, or `level2`. |
 | `width` | Required | The width in pixels of the full image, given as an integer. |
 | `height` | Required | The height in pixels of the full image, given as an integer. |
 | `maxWidth`  | Optional | The maximum width in pixels supported for this image. Clients _MUST NOT_ expect requests with a width greater than this value to be supported. `maxWidth` _MUST_ be specified if `maxHeight` is specified. |
@@ -563,7 +568,7 @@ The JSON response _MAY_ have the `tiles` property which describes a set of image
 | `tiles` | Optional | A list of descriptions of the parameters to use to request regions of the image (tiles) that are efficient for the server to deliver. Each description gives a width, optionally a height for non-square tiles, and a set of scale factors at which tiles of those dimensions are available. |
 {: .api-table}
 
-The objects in the `tiles` list have the properties in the following table. The `width` and `height` should be used to fill the size parameter, and be used together with the `scaleFactors` to compute the region parameter of the image requests. This is described in detail in the [Implementation Notes][image3-implementation-notes].
+The objects in the `tiles` list have the properties in the following table. The `width` and `height` should be used to fill the size parameter, and be used together with the `scaleFactors` to compute the region parameter of the image requests. This is described in detail in the [Implementation Notes][image30-implementation-notes].
 
 
 | Property | Required? | Description |
@@ -638,10 +643,10 @@ The JSON response _MAY_ also contain properties that describe additional functio
 | ---------- | --------- | ----------- |
 | `extraQualities` | Optional | A list of strings that can be used as the quality parameter, in addition to the ones specified in the referenced profile. |
 | `extraFormats` | Optional | A list of strings that can be used as the format parameter, in addition to the ones specified in the referenced profile. |
-| `extraFeatures` | Optional | A list of strings identifying features supported by the service, in addition to the ones specified in the referenced profile. These strings are defined either in the [table][image3-features-table] below or by [registering an extension][registry-image-extensions]. |
+| `extraFeatures` | Optional | A list of strings identifying features supported by the service, in addition to the ones specified in the referenced profile. These strings are defined either in the [table][image30-features-table] below or by [registering an extension][registry-image-extensions]. |
 {: .api-table}
 
-The set of features defined by this specification that may be specified in the `extraFeatures` property are:
+The following features are defined for use in the `extraFeatures` property:
 
 | Feature Name | Description |
 | ------------ | ----------- |
@@ -665,7 +670,9 @@ The set of features defined by this specification that may be specified in the `
 
 A server that supports neither `sizeByW` or `sizeByWh` is only required to serve the image sizes listed under the `sizes` property or implied by the `tiles` property of the image information document, allowing for a static file implementation.
 
-The set of features, formats and qualities supported is the union of those declared in the external profile document and those added by the `extra` properties. If a feature is not present in either the profile document or the `extraFeatures` property, then a client _MUST_ assume that the feature is not supported.
+The set of features, formats and qualities supported is the union of those declared in the external profile document and those added by the `extraQualities`, `extraFormats`, and `extraFeatures` properties. If a feature is not present in either the profile document or the `extraFeatures` property, then a client _MUST_ assume that the feature is not supported.
+
+Additional strings used in the `extraQualities`, `extraFormats`, and `extraFeatures` properties, or additional properties used in the image information, that are not defined in this specification _SHOULD_ be mapped to RDF predicates using further context documents. These extensions _SHOULD_ be added to the top level `@context` property (see [Technical Properties][image30-technical-properties]). The JSON-LD 1.1 functionality of predicate specific context definitions, known as [scoped contexts][org-w3c-json-ld-scoped-contexts], _MUST_ be used to minimize cross-extension collisions. Extensions intended for community use _SHOULD_ be [registered in the extensions registry][annex-registry], but registration is not mandatory.
 
 ### 5.7. Linking Properties
 
@@ -784,7 +791,7 @@ The following shows an image information response including all of the required 
 
 ##  6. Compliance Levels
 
-The image information document _MUST_ specify the extent to which the API is supported by including a compliance level URI as the first entry in the `profile` property. This URI links to a description of the highest compliance level for which all requirements are met. The URI _MUST_ be one of those listed in the [Image API Compliance][image3-compliance] document. This description contains the set of features required by the profile, as discussed in the [Image Information][image3-information] section. A server _MAY_ declare different compliance levels for images with different identifiers.
+The image information document _MUST_ specify the extent to which the API is supported by including a compliance level URI as the first entry in the `profile` property. This URI links to a description of the highest compliance level for which all requirements are met. The URI _MUST_ be one of those listed in the [Image API Compliance][image30-compliance] document. This description contains the set of features required by the profile, as discussed in the [Image Information][image30-information] section. A server _MAY_ declare different compliance levels for images with different identifiers.
 
 The compliance level URI _MAY_ also be given in the HTTP Link header ([RFC5988][org-rfc-5988]) with the parameter `rel="profile"`, on both Image and Image Information responses. A complete header might look like:
 
@@ -812,9 +819,9 @@ The order in which servers parse requests and detect errors is not specified. A 
 | Status Code | Description |
 | ---------- | ----------- |
 | 400 Bad Request | The server cannot fulfill the request, as the syntax of the request issued by the client is incorrect. |
-| 401 Unauthorized | Authentication is required and not provided. See the [Authentication][image3-authentication] section for details. |
+| 401 Unauthorized | Authentication is required and not provided. See the [Authentication][image30-authentication] section for details. |
 | 403 Forbidden | The user, authenticated or not, is not permitted to perform the requested operation. |
-| 404 Not Found | The image resource specified by [image3-identifier] does not exist, the value of one or more of the parameters is not supported for this image service, or the requested size is greater than the limits specified. |
+| 404 Not Found | The image resource specified by [identifier][image30-identifier] does not exist, the value of one or more of the parameters is not supported for this image service, or the requested size is greater than the limits specified. |
 | 500 Internal Server Error | The server encountered an unexpected error that prevented it from fulfilling the request. |
 | 501 Not Implemented | The server received a valid IIIF request that is not implemented. |
 | 503 Service Unavailable | The server is busy/temporarily unavailable due to load/maintenance issues. |
