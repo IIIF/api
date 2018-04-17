@@ -155,6 +155,7 @@
 [prezi30-resource-structure]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#resource-structure
 [prezi30-resource-properties]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#resource-properties
 [prezi30-terminology]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#terminology
+[prezi3-type]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.latest.minor }}/#type
 [prezi30-type-overview]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#resource-type-overview
 [prezi3]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.latest.minor }}/ "Presentation API"
 [prezi30-change-log]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/change-log/ "Presentation API 3.0 Change Log"
