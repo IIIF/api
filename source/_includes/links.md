@@ -100,7 +100,7 @@
 [org-w3c-webanno]: http://w3.org/TR/annotation-model/ "Web Annotaiton Model"
 [org-w3c-webarch]: http://www.w3.org/TR/webarch/ "Architecture of the World Wide Web"
 [org-w3c-xsd-datetime]: https://www.w3.org/TR/xmlschema11-2/#dateTime "XSD DateTime"
-[orgs-w3c-json-ld]: http://www.w3.org/TR/json-ld/ "JSON-LD"
+[org-w3c-json-ld]: http://www.w3.org/TR/json-ld/ "JSON-LD"
 [prezi-api]: {{ site.url }}{{ site.baseurl }}/api/presentation/ "IIIF Presentation API"
 [prezi-use-cases]: {{ site.url }}{{ site.baseurl }}/api/presentation/usecases/ "Presentation API Use Cases"
 [prezi20-change-log]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.0/change-log/ "Presentation API 2.0 Change Log"
