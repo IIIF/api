@@ -10,7 +10,7 @@
 [groups-av]: {{ site.url }}{{ site.baseurl }}/community/groups/av/ "IIIF A/V Working Group?
 [icon-na]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/not_allowed.png "Not allowed"
 [icon-opt]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/optional.png "Optional"
-[icon-recc: {{ site.url }}{{ site.baseurl }}/img/metadata-api/recommended.png "Recommended"
+[icon-recc]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/recommended.png "Recommended"
 [icon-req]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/required.png "Required"
 [iiif-auth]: {{ site.url }}{{ site.baseurl }}/api/auth/ "IIIF Authentication API"
 [iiif-community]: {{page.webprefix}}/community/ "IIIF Community"
