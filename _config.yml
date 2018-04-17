@@ -20,11 +20,19 @@ kramdown:
 
 image_api:
   latest:
+    major: 3
+    minor: 0
+    patch: 0
+  stable:
     major: 2
     minor: 1
     patch: 1
 presentation_api:
   latest:
+    major: 3
+    minor: 0
+    patch: 0
+  stable:
     major: 2
     minor: 1
     patch: 1

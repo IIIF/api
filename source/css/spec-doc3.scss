@@ -14,11 +14,17 @@
 .sub-pages-container {
   font-family: sans-serif;
   color: #222;
-  line-height: 1.2;
+  line-height: 1.3;
 
   code, kbd, pre, samp {
     font-family: 'Ubuntu Mono', monospace;
     font-size: 1em;
+  }
+
+  code {
+    background-color: #f2f2f2;
+    padding: 1px 4px;
+    border-radius: 3px;
   }
 
   p {
@@ -172,6 +178,10 @@
       tr {
         font-size: 15px;
       }
+      td:first-child code {
+        padding:0;
+        background: none;
+      }
       td {
         font-family: sans-serif;
       }
@@ -225,7 +235,7 @@ dt {
 }
 
 .highlight {
-  background: #eee;
+  background: #f2f2f2;
   border: 1px dashed #bbb;
   padding: 5px;
   margin-left: 30px
