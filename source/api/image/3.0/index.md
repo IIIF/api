@@ -530,10 +530,10 @@ The JSON response _MAY_ have the `sizes` property, which is used to describe pre
 
 | Property   | Required? | Description |
 | ---------- | --------- | ----------- |
-| `sizes` | Optional | A list of JSON objects with the `height` and `width` properties. These sizes specify preferred values to be provided in the _`w,h`_ syntax of the size request parameter for scaled versions of the full image. In the case of servers that do not support requests for arbitrary sizes, these may be the only sizes available. A request constructed with the _`w,h`_ syntax using these sizes _MUST_ be supported by the server, even if arbitrary width and height are not. |
+| `sizes` | Optional | An array of JSON objects with the `height` and `width` properties. These sizes specify preferred values to be provided in the _`w,h`_ syntax of the size request parameter for scaled versions of the full image. In the case of servers that do not support requests for arbitrary sizes, these may be the only sizes available. A request constructed with the _`w,h`_ syntax using these sizes _MUST_ be supported by the server, even if arbitrary width and height are not. |
 {: .api-table}
 
-The objects in the `sizes` list have the properties in the following table. Image requests for these sizes _SHOULD_ have a region parameter of `full`, size parameter in the canonical _`w,h`_ form, and rotation of `0`. Thus, the full URL for an image with `default` quality in `jpg` format would be: `{scheme}://{server}/{prefix}/{identifier}/full/{width},{height}/0/default.jpg`
+The JSON objects in the `sizes` array have the properties in the following table. Image requests for these sizes _SHOULD_ have a region parameter of `full`, size parameter in the canonical _`w,h`_ form, and rotation of `0`. Thus, the full URL for an image with `default` quality in `jpg` format would be: `{scheme}://{server}/{prefix}/{identifier}/full/{width},{height}/0/default.jpg`
 
 | Property   | Required? | Description |
 | ---------- | -------- | ----------- |
@@ -565,21 +565,21 @@ The JSON response _MAY_ have the `tiles` property which describes a set of image
 
 | Property   | Required? | Description |
 | ---------- | --------- | ----------- |
-| `tiles` | Optional | A list of descriptions of the parameters to use to request regions of the image (tiles) that are efficient for the server to deliver. Each description gives a width, optionally a height for non-square tiles, and a set of scale factors at which tiles of those dimensions are available. |
+| `tiles` | Optional | An array of JSON objects describing the parameters to use to request regions of the image (tiles) that are efficient for the server to deliver. Each description gives a width, optionally a height for non-square tiles, and a set of scale factors at which tiles of those dimensions are available. |
 {: .api-table}
 
-The objects in the `tiles` list have the properties in the following table. The `width` and `height` should be used to fill the size parameter, and be used together with the `scaleFactors` to compute the region parameter of the image requests. This is described in detail in the [Implementation Notes][image30-implementation-notes].
+The JSON objects in the `tiles` array have the properties in the following table. The `width` and `height` should be used to fill the size parameter, and be used together with the `scaleFactors` to compute the region parameter of the image requests. This is described in detail in the [Implementation Notes][image30-implementation-notes].
 
 
 | Property | Required? | Description |
 | ---------- | -------- | ----------- |
 | `type`    | Optional | The type of the object. If present, the value _MUST_ be the string `Tile`. |
-| `scaleFactors` | Required | The set of resolution scaling factors for the image's predefined tiles, expressed as positive integers by which to divide the full size of the image. For example, a scale factor of 4 indicates that the service can efficiently deliver images at 1/4 or 25% of the height and width of the full image. A particular scale factor value _SHOULD_ appear only once in the `tiles` list. |
+| `scaleFactors` | Required | The set of resolution scaling factors for the image's predefined tiles, expressed as positive integers by which to divide the full size of the image. For example, a scale factor of 4 indicates that the service can efficiently deliver images at 1/4 or 25% of the height and width of the full image. A particular scale factor value _SHOULD_ appear only once in the `tiles` array. |
 | `width` | Required | The width in pixels of the predefined tiles to be requested, given as an integer. |
 | `height` | Optional | The height in pixels of the predefined tiles to be requested, given as an integer. If it is not specified in the JSON, then it defaults to the same as `width`, resulting in square tiles. |
 {: .api-table}
 
-Objects in the `tiles` list _MUST_ each have a unique combination of `width` and `height`, where `height` = `width` if it is not explicitly specified.
+Objects in the `tiles` array _MUST_ each have a unique combination of `width` and `height`, where `height` = `width` if it is not explicitly specified.
 
 ``` json-doc
 {
@@ -641,9 +641,9 @@ The JSON response _MAY_ also contain properties that describe additional functio
 
 | Property   | Required? | Description |
 | ---------- | --------- | ----------- |
-| `extraQualities` | Optional | A list of strings that can be used as the quality parameter, in addition to the ones specified in the referenced profile. |
-| `extraFormats` | Optional | A list of strings that can be used as the format parameter, in addition to the ones specified in the referenced profile. |
-| `extraFeatures` | Optional | A list of strings identifying features supported by the service, in addition to the ones specified in the referenced profile. These strings are defined either in the [table][image30-features-table] below or by [registering an extension][registry-image-extensions]. |
+| `extraQualities` | Optional | An array of strings that can be used as the quality parameter, in addition to the ones specified in the referenced profile. |
+| `extraFormats` | Optional | An array of strings that can be used as the format parameter, in addition to the ones specified in the referenced profile. |
+| `extraFeatures` | Optional | An array of strings identifying features supported by the service, in addition to the ones specified in the referenced profile. These strings are defined either in the [table][image30-features-table] below or by [registering an extension][registry-image-extensions]. |
 {: .api-table}
 
 The following features are defined for use in the `extraFeatures` property:
@@ -680,12 +680,12 @@ The JSON response _MAY_ contain linking properties that reference external resou
 
 | Property   | Required? | Description |
 | ---------- | --------- | ----------- |
-| `partOf`   | Optional  | A link to another resource that references this image service, for example a link to a Canvas or Manifest. The value _MUST_ be a list of objects. Each item _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `label` property. |
+| `partOf`   | Optional  | A link to another resource that references this image service, for example a link to a Canvas or Manifest. The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `label` property. |
 | `seeAlso`  | Optional  | A link to an external, machine-readable resource that is related to this resource, such as an XML or RDF description. Properties of the external resource should be given to help the client select between multiple descriptions (if provided), and to make appropriate use of the document. The URI of the document _MUST_ identify a single representation of the data in a particular format. The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `label`, `format` and `profile` properties. |
-| `service`  | Optional  | A reference to an external service that the client might interact with directly to gain additional information or functionality, for example a link to an authentication service. The value _MUST_ be a list of objects.  Each object will have properties depending on the service’s definition, but _MUST_ have either the `id` or `@id` and `type` or `@type` properties. Each object _SHOULD_ have a `profile` property. See the [Service Registry][annex-services] for known service types. |
+| `service`  | Optional  | A reference to an external service that the client might interact with directly to gain additional information or functionality, for example a link to an authentication service. The value _MUST_ be an array of JSON objects. Each object will have properties depending on the service’s definition, but _MUST_ have either the `id` or `@id` and `type` or `@type` properties. Each object _SHOULD_ have a `profile` property. See the [Service Registry][annex-services] for known service types. |
 {: .api-table}
 
-The objects in `partOf`, `seeAlso`, and `service` have the properties indicated in the following table.
+The JSON objects in `partOf`, `seeAlso`, and `service` have the properties indicated in the following table.
 
 | Property   | Required?                 | Description |
 | ---------- | ------------------------- | ----------- |
