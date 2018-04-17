@@ -156,7 +156,7 @@ Clients wishing to know the total number of annotations that match may count the
 
 ``` json-doc
 {
-  "@context":"http://iiif.io/api/presentation/{{ site.presentation_api.latest.major }}/context.json",
+  "@context":"http://iiif.io/api/presentation/{{ site.presentation_api.stable.major }}/context.json",
   "@id":"http://example.org/service/manifest/search?q=bird&motivation=painting",
   "@type":"sc:AnnotationList",
 
@@ -197,7 +197,7 @@ And the response for the first page of annotations from a total of 125 matches:
 
 ``` json-doc
 {
-  "@context":"http://iiif.io/api/presentation/{{ site.presentation_api.latest.major }}/context.json",
+  "@context":"http://iiif.io/api/presentation/{{ site.presentation_api.stable.major }}/context.json",
   "@id":"http://example.org/service/manifest/search?q=bird&page=1",
   "@type":"sc:AnnotationList",
 
@@ -276,7 +276,7 @@ The basic structure is:
 ``` json-doc
 {
   "@context":[
-      "http://iiif.io/api/presentation/{{ site.presentation_api.latest.major }}/context.json",
+      "http://iiif.io/api/presentation/{{ site.presentation_api.stable.major }}/context.json",
       "http://iiif.io/api/search/{{ page.major }}/context.json"
   ],
   "@id":"http://example.org/service/manifest/search?q=bird&page=1",
@@ -325,7 +325,7 @@ And the user parameter was ignored when processing the request, the response wou
 ``` json-doc
 {
   "@context":[
-      "http://iiif.io/api/presentation/{{ site.presentation_api.latest.major }}/context.json",
+      "http://iiif.io/api/presentation/{{ site.presentation_api.stable.major }}/context.json",
       "http://iiif.io/api/search/{{ page.major }}/context.json"
   ],
   "@id":"http://example.org/service/manifest/search?q=bird&page=1",
@@ -364,7 +364,7 @@ That the server matches against the plural "birds":
 ``` json-doc
 {
   "@context":[
-      "http://iiif.io/api/presentation/{{ site.presentation_api.latest.major }}/context.json",
+      "http://iiif.io/api/presentation/{{ site.presentation_api.stable.major }}/context.json",
       "http://iiif.io/api/search/{{ page.major }}/context.json"
   ],
   "@id":"http://example.org/service/manifest/search?q=bird",
@@ -427,7 +427,7 @@ The result might be:
 ``` json-doc
 {
   "@context":[
-      "http://iiif.io/api/presentation/{{ site.presentation_api.latest.major }}/context.json",
+      "http://iiif.io/api/presentation/{{ site.presentation_api.stable.major }}/context.json",
       "http://iiif.io/api/search/{{ page.major }}/context.json"
   ],
   "@id":"http://example.org/service/manifest/search?q=b*&page=1",
@@ -485,7 +485,7 @@ In cases like this there are more annotations than hits as two or more annotatio
 ``` json-doc
 {
   "@context":[
-      "http://iiif.io/api/presentation/{{ site.presentation_api.latest.major }}/context.json",
+      "http://iiif.io/api/presentation/{{ site.presentation_api.stable.major }}/context.json",
       "http://iiif.io/api/search/{{ page.major }}/context.json"
   ],
   "@id":"http://example.org/service/manifest/search?q=hand+is",
@@ -725,15 +725,15 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 [semver]: http://semver.org/spec/v2.0.0.html "Semantic Versioning 2.0.0"
 [iiif-community]: {{page.webprefix}}/community/ "IIIF Community"
 [stable-version]: {{ site.url }}{{ site.baseurl }}/api/search/{{ site.search_api.latest.major }}.{{ site.search_api.latest.minor }}/ "Stable Version"
-[paging]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.latest.major }}.{{ site.image_api.latest.minor }}/
+[paging]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.1/
 
 [image-api]: {{ site.url }}{{ site.baseurl }}/api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/ "Image API"
 [openanno]: http://www.openannotation.org/spec/core/ "Open Annotation"
-[prezi-api]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/ "Presentation API"
+[prezi-api]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.stable.major }}.{{ site.presentation_api.stable.minor }}/ "Presentation API"
 [rfc-2119]: http://tools.ietf.org/html/rfc2119
 [service-annex]: {{ site.url }}{{ site.baseurl }}/api/annex/services/
-[prezi-annolist]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/#annotation-list
-[prezi-layer]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/#layer
+[prezi-annolist]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.stable.major }}.{{ site.presentation_api.stable.minor }}/#annotation-list
+[prezi-layer]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.stable.major }}.{{ site.presentation_api.stable.minor }}/#layer
 [ignored-parameters]: #ignored-parameters
 [oa-textquotesel]: http://www.openannotation.org/spec/core/
 
