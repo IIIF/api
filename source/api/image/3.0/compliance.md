@@ -48,7 +48,7 @@ In the tables below "![required][icon-req]" indicates that support is _REQUIRED_
 | `square`        | `regionSquare` | ![optional][icon-opt] | ![required][icon-req] | ![required][icon-req] |
 {: .api-table}
 
-See also the note under [Size][size] about combinations of Size and Region that may not be supported.
+See also the note under [Size][image30-size] about combinations of Size and Region that may not be supported.
 
 ### 3.2 Size
 
@@ -64,7 +64,7 @@ See also the note under [Size][size] about combinations of Size and Region that 
 
 At any level of compliance, an image service whose Image Information response includes the `sizes` property must support requests for the sizes listed, and a service whose Image Information response includes the `tiles` property must support requests for the sizes implicit in the `width`, `height` and `scaleFactors` values given for tiles.
 
-Note that servers may express limits on the sizes available for an image with the optional `maxWidth`, `maxHeight` and/or `maxArea` [Profile Description properties][image30-profile]. Servers are compliant provided they support the forms of the Size parameter shown above for image sizes up to the limits specified. Clients should not assume that the full image at the `width` and `height` specified in the Image Information response will be available. The full image will be available at the `max` size, which might be less than the `width` and `height`.
+Note that servers may express limits on the sizes available for an image with the optional `maxWidth`, `maxHeight` and/or `maxArea` [Profile Description properties][image30-profile-description]. Servers are compliant provided they support the forms of the Size parameter shown above for image sizes up to the limits specified. Clients should not assume that the full image at the `width` and `height` specified in the Image Information response will be available. The full image will be available at the `max` size, which might be less than the `width` and `height`.
 
 ### 3.3 Rotation
 
