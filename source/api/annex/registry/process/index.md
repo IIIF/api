@@ -8,7 +8,7 @@ cssversion: 2
 ## Status of this Document
 {:.no_toc}
 
-This document is not subject to [semantic versioning][semver].
+This document is not subject to [semantic versioning][notes-versioning].
 Changes will be tracked within the document.
 
 **Editors**
@@ -24,7 +24,7 @@ Changes will be tracked within the document.
 
 ## Abstract
 {:.no_toc}
-This document describes the process by which additions to the [IIIF registries][registry-home] occur.
+This document describes the process by which additions to the [IIIF registries][annex-registry] occur.
 
 Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss]
 
