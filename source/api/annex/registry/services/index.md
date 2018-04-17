@@ -8,7 +8,7 @@ cssversion: 2
 ## Status of this Document
 {:.no_toc}
 
-This document is not subject to [semantic versioning][semver].
+This document is not subject to [semantic versioning][notes-versioning].
 Changes will be tracked within the document.
 
 **Editors**
@@ -24,7 +24,7 @@ Changes will be tracked within the document.
 
 ## Abstract
 {:.no_toc}
-This is one of a number of [IIIF registries][registry-home]. It lists a set of services that have been identified as useful for implementations, across the APIs.  They may be defined by the IIIF community, or outside of it.
+This is one of a number of [IIIF registries][annex-registry]. It lists a set of services that have been identified as useful for implementations, across the APIs.  They may be defined by the IIIF community, or outside of it.
 
 Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss]
 
@@ -36,7 +36,7 @@ Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss]
 
 ## 1. Introduction
 
-This is one of a number of [IIIF registries][registry-home]. It lists a set of services that have been identified as useful for implementations, across the APIs.  They may be defined by the IIIF community, or outside of it.
+This is one of a number of [IIIF registries][annex-registry]. It lists a set of services that have been identified as useful for implementations, across the APIs.  They may be defined by the IIIF community, or outside of it.
 
 ### 1.1. Disclaimer
 
@@ -61,7 +61,7 @@ This table summarizes the services available and which APIs they may be used in.
 ### 3.1 Image Information
 _Added: 2014-05-20_
 
-The Image Information service allows the [Presentation API][prezi-api], and potentially other APIs, to reference content to be displayed via the [Image API][image-api].  The JSON-LD content to be referenced or embedded is the Image Information document, also known as `info.json`.  The service _MUST_ have the `@context`, `@id` and `profile` keys, pointing to the context document, service base URI and compliance level profile respectively.
+The Image Information service allows the [Presentation API][prezi3], and potentially other APIs, to reference content to be displayed via the [Image API][image-api].  The JSON-LD content to be referenced or embedded is the Image Information document, also known as `info.json`.  The service _MUST_ have the `@context`, `@id` and `profile` keys, pointing to the context document, service base URI and compliance level profile respectively.
 
 ``` json-doc
 {
@@ -129,7 +129,7 @@ With the `logo` property added to the Image Information description in version 2
 
 ### A. Acknowledgements
 
-The production of this document was generously supported by a grant from the [Andrew W. Mellon Foundation][mellon].
+The production of this document was generously supported by a grant from the [Andrew W. Mellon Foundation][org-mellon].
 
 Thanks to the members of the [IIIF][iiif-community] for their continuous engagement, innovative ideas and feedback.
 

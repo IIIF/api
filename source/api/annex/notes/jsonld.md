@@ -85,36 +85,36 @@ The following code uses the Python [PyLD implementation][pyld] of JSON-LD to rea
 from pyld.jsonld import compact, frame
 import urllib, json, pprint
 
-manifest = json.load(urllib.urlopen("http://iiif.io/api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/example/fixtures/1/manifest.json"))
+manifest = json.load(urllib.urlopen("http://iiif.io/api/presentation/{{ site.presentation_api.stable.major }}.{{ site.presentation_api.stable.minor }}/example/fixtures/1/manifest.json"))
 pprint.pprint(
   compact(
-    frame(manifest, "http://iiif.io/api/presentation/{{ site.presentation_api.latest.major }}/manifest_frame.json"),
-    "http://iiif.io/api/presentation/{{ site.presentation_api.latest.major }}/context.json")
+    frame(manifest, "http://iiif.io/api/presentation/{{ site.presentation_api.stable.major }}/manifest_frame.json"),
+    "http://iiif.io/api/presentation/{{ site.presentation_api.stable.major }}/context.json")
 )
 
 ```
 
 <br/>
 
-[prezi-api]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/
+[prezi-api]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.stable.major }}.{{ site.presentation_api.stable.minor }}/
 [jsonld-framing]: http://json-ld.org/spec/latest/json-ld-framing/
 [pyld]: https://pypi.python.org/pypi/PyLD
 
-[image-api-frame]: {{ site.url }}{{ site.baseurl }}/api/image/{{ site.image_api.latest.major }}/info_frame.json
-[manifest-frame]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.latest.major }}/manifest_frame.json
-[annolist-frame]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.latest.major }}/annotationList_frame.json
-[collection-frame]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.latest.major }}/collection_frame.json
-[sequence-frame]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.latest.major }}/sequence_frame.json
-[canvas-frame]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.latest.major }}/canvas_frame.json
-[anno-frame]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.latest.major }}/annotation_frame.json
-[range-frame]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.latest.major }}/range_frame.json
+[image-api-frame]: {{ site.url }}{{ site.baseurl }}/api/image/{{ site.image_api.stable.major }}/info_frame.json
+[manifest-frame]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.stable.major }}/manifest_frame.json
+[annolist-frame]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.stable.major }}/annotationList_frame.json
+[collection-frame]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.stable.major }}/collection_frame.json
+[sequence-frame]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.stable.major }}/sequence_frame.json
+[canvas-frame]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.stable.major }}/canvas_frame.json
+[anno-frame]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.stable.major }}/annotation_frame.json
+[range-frame]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.stable.major }}/range_frame.json
 
 [service-uri]: http://tools.ietf.org/html/rfc2609
 [service-wiki]: https://en.wikipedia.org/wiki/Service_Location_Protocol#Adoption
 [resource-uri]: http://www.iana.org/assignments/uri-schemes/prov/resource
 [context-checker]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/check_context.py
 [int-semver]: #semantic-versioning
-[prezi-language]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/#language-of-property-values
+[prezi-language]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.stable.major }}.{{ site.presentation_api.stable.minor }}/#language-of-property-values
 [iiif-discuss]: mailto:iiif-discuss@googlegroups.com
 
 {% include acronyms.md %}
