@@ -675,7 +675,7 @@ The JSON response _MAY_ contain linking properties that reference external resou
 | ---------- | --------- | ----------- |
 | `partOf`   | Optional  | A link to another resource that references this image service, for example a link to a Canvas or Manifest. The value _MUST_ be a list of objects. Each item _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `label` property. |
 | `seeAlso`  | Optional  | A link to an external, machine-readable resource that is related to this resource, such as an XML or RDF description. Properties of the external resource should be given to help the client select between multiple descriptions (if provided), and to make appropriate use of the document. The URI of the document _MUST_ identify a single representation of the data in a particular format. The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `label`, `format` and `profile` properties. |
-| `service`  | Optional  | A reference to an external service that the client might interact with directly to gain additional information or functionality, for example a link to an authentication service. The value _MUST_ be a list of objects.  Each object will have properties depending on the service’s definition, but _MUST_ have either the `id` or `@id` and `type` or `@type` properties. Each object _SHOULD_ have a `profile` property. See the [Service Registry][service-services] for known service types. |
+| `service`  | Optional  | A reference to an external service that the client might interact with directly to gain additional information or functionality, for example a link to an authentication service. The value _MUST_ be a list of objects.  Each object will have properties depending on the service’s definition, but _MUST_ have either the `id` or `@id` and `type` or `@type` properties. Each object _SHOULD_ have a `profile` property. See the [Service Registry][annex-services] for known service types. |
 {: .api-table}
 
 The objects in `partOf`, `seeAlso`, and `service` have the properties indicated in the following table.
@@ -683,10 +683,10 @@ The objects in `partOf`, `seeAlso`, and `service` have the properties indicated 
 | Property   | Required?                 | Description |
 | ---------- | ------------------------- | ----------- |
 | `id`       | Required | The URI of the external resource. |
-| `type`     | Required | The type or class of this resource.  Recommendations for basic types such as image, text or audio are [given in the Presentation API][prezi-types]. |
-| `label`    | Recommended | A human-readable label for this resource. The `label` property can be fully internationalized, and each language can have multiple values. This pattern is described in more detail in [the languages section of the Presentation API][prezi-languages]. |
+| `type`     | Required | The type or class of this resource.  Recommendations for basic types such as image, text or audio are [given in the Presentation API][prezi3-type]. |
+| `label`    | Recommended | A human-readable label for this resource. The `label` property can be fully internationalized, and each language can have multiple values. This pattern is described in more detail in [the languages section of the Presentation API][prezi3-languages]. |
 | `format`   | Recommended for `seeAlso` | The specific media type (often called a MIME type) for this content resource, for example “image/jpeg”. This is important for distinguishing different formats of the same overall type of resource, such as distinguishing text in XML from plain text.  The value must be a string, and it should be the value of the Content-Type header returned when this resource is dereferenced. |
-| `profile`  | Recommended for `seeAlso`, `service` | A schema or named set of functionality available from this resource. The profile can further clarify the `type` and/or `format` of an external resource. The value must be a string, either taken from the [Registry of Profiles][profile-registry] or a URI.|
+| `profile`  | Recommended for `seeAlso`, `service` | A schema or named set of functionality available from this resource. The profile can further clarify the `type` and/or `format` of an external resource. The value must be a string, either taken from the [Registry of Profiles][annex-registry] or a URI.|
 {: .api-table}
 
 ``` json-doc

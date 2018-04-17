@@ -116,6 +116,7 @@
 [prezi3-range]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#range
 [prezi3-resource-structure]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#resource-structure
 [prezi3-terminology]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#terminology
+[prezi3-type]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#type
 [prezi3-type-overview]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#resource-type-overview
 [prezi3]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.latest.minor }}/ "Presentation API"
 [prezi30-change-log]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/change-log/ "Presentation API 3.0 Change Log"
