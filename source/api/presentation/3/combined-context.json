@@ -61,7 +61,7 @@
       },
       "summary": {
         "@id": "as:summary",
-        "@container": ["@language", "@set"]      
+        "@container": ["@language", "@set"]
       },
       "thumbnail": {
         "@type": "@id",
@@ -109,16 +109,16 @@
       "viewingDirection": {
         "@id": "presentation:viewingDirection",
         "@type": "@vocab",
-        "@container": "@set"      
+        "@container": "@set"
       },
       "behavior": {
         "@id": "presentation:behavior",
         "@type": "@vocab",
-        "@container": "@set"      
+        "@container": "@set"
       },
       "timeMode": {
         "@id": "presentation:timeMode",
-        "@type": "@vocab"     
+        "@type": "@vocab"
       },
       "homepage": {
         "@type": "@id",
@@ -132,17 +132,17 @@
       "service": {
         "@type": "@id",
         "@id": "svcs:has_service",
-        "@container": "@set"   
+        "@container": "@set"
       },
       "seeAlso": {
         "@type": "@id",
         "@id": "rdfs:seeAlso",
-        "@container": "@set"   
+        "@container": "@set"
       },
       "partOf": {
         "@type": "@id",
         "@id": "as:partOf",
-        "@container": "@set"         
+        "@container": "@set"
       },
       "start": {
         "@type": "@id",
@@ -197,85 +197,9 @@
       "painting": "presentation:painting",
       "supplementing": "presentation:supplementing",
 
-      "baseUriRedirect": {
-        "@id": "image:baseUriRedirectFeature",
-        "@type": "image:Feature"
-      },
-      "cors": {
-        "@id": "image:corsFeature",
-        "@type": "image:Feature"
-      },
-      "regionByPct": {
-        "@id": "image:regionByPctFeature",
-        "@type": "image:Feature"
-      },
-      "regionByPx": {
-        "@id": "image:regionByPxFeature",
-        "@type": "image:Feature"
-      },
-      "regionSquare": {
-        "@id": "image:regionSquareFeature",
-        "@type": "image:Feature"
-      },
-      "rotationArbitrary": {
-        "@id": "image:arbitraryRotationFeature",
-        "@type": "image:Feature"
-      },
-      "rotationBy90s": {
-        "@id": "image:rotationBy90sFeature",
-        "@type": "image:Feature"
-      },
-      "mirroring": {
-        "@id": "image:mirroringFeature",
-        "@type": "image:Feature"
-      },
-      "sizeAboveFull": {
-        "@id": "image:sizeAboveFullFeature",
-        "@type": "image:Feature"
-      },
-      "sizeByForcedWh": {
-        "@id": "image:sizeByForcedWHFeature",
-        "@type": "image:Feature"
-      },
-      "sizeByH": {
-        "@id": "image:sizeByHFeature",
-        "@type": "image:Feature"
-      },
-      "sizeByPct": {
-        "@id": "image:sizeByPctFeature",
-        "@type": "image:Feature"
-      },
-      "sizeByW": {
-        "@id": "image:sizeByWFeature",
-        "@type": "image:Feature"
-      },
-      "sizeByWh": {
-        "@id": "image:sizeByWHFeature",
-        "@type": "image:Feature"
-      },
-      "sizeByWhListed": {
-        "@id": "image:sizeByWHListedFeature",
-        "@type": "image:Feature"
-      },
-      "sizeByConfinedWh": {
-        "@id": "image:sizeByConfinedWHFeature",
-        "@type": "image:Feature"
-      },
-      "sizeByDistortedWh": {
-        "@id": "image:sizeByDistortedWHFeature",
-        "@type": "image:Feature"
-      },
-      "profileLinkHeader": {
-        "@id": "image:profileLinkHeaderFeature",
-        "@type": "image:Feature"
-      },
-      "canonicalLinkHeader": {
-        "@id": "image:canonicalLinkHeaderFeature",
-        "@type": "image:Feature"
-      },
-      "jsonldMediaType": {
-        "@id": "image:jsonLdMediaTypeFeature",
-        "@type": "image:Feature"
+      "protocol": {
+        "@id": "dcterms:conformsTo",
+        "@type": "@id"
       },
       "height": {
         "@id": "exif:height",
@@ -285,30 +209,65 @@
         "@id": "exif:width",
         "@type": "xsd:integer"
       },
-      "scaleFactors": {
-        "@id": "image:scaleFactor",
+      "maxWidth": {
+        "@id": "image:maxWidth",
         "@type": "xsd:integer"
       },
-      "formats": {
-        "@id": "image:format",
-        "@type": "xsd:string"
+      "maxHeight": {
+        "@id": "image:maxHeight",
+        "@type": "xsd:integer"
       },
-      "qualities": {
-        "@id": "image:quality",
-        "@type": "xsd:string"
+      "maxArea": {
+        "@id": "image:maxArea",
+        "@type": "xsd:integer"
       },
+
       "sizes": {
         "@id": "image:hasSize",
-        "@type": "@id"
+        "@type": "@id",
+        "@container": "@set"
       },
       "tiles": {
         "@id": "image:hasTile",
-        "@type": "@id"
+        "@type": "@id",
+        "@container": "@set"
       },
-      "protocol": {
-        "@id": "dcterms:conformsTo",
-        "@type": "@id"
-      }
+      "scaleFactors": {
+        "@id": "image:scaleFactor",
+        "@type": "xsd:integer",
+        "@container": "@set"
+      },
+
+      "extraQualities": {
+        "@id": "image:quality",
+        "@container": "@set"
+      },
+      "extraFormats": {
+        "@id": "image:quality",
+        "@container": "@set"
+      },
+      "extraFeatures": {
+        "@id": "image:quality",
+        "@type": "@vocab",
+        "@container": "@set"
+      },
+
+      "baseUriRedirect": "image:baseUriRedirectFeature",
+      "canonicalLinkHeader": "image:canonicalLinkHeaderFeature",
+      "cors": "image:corsFeature",
+      "jsonldMediaType": "image:jsonLdMediaTypeFeature",
+      "mirroring": "image:mirroringFeature",
+      "profileLinkHeader": "image:profileLinkHeaderFeature",
+      "regionByPct": "image:regionByPctFeature",
+      "regionByPx": "image:regionByPxFeature",
+      "regionSquare": "image:regionSquareFeature",
+      "rotationArbitrary": "image:arbitraryRotationFeature",
+      "rotationBy90s": "image:rotationBy90sFeature",
+      "sizeByConfinedWh": "image:sizeByConfinedWHFeature",
+      "sizeByH": "image:sizeByHFeature",
+      "sizeByPct": "image:sizeByPctFeature",
+      "sizeByW": "image:sizeByWFeature",
+      "sizeByWh": "image:sizeByWHFeature"
     }
   ]
 }
