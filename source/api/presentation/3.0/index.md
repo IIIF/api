@@ -95,7 +95,7 @@ The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _S
 
 ##  2. Resource Type Overview
 
-This section provides an overview of the resource types (or classes) that are used in the specification. They are each presented in more detail in [Section 5][prezi3-resource-structure].
+This section provides an overview of the resource types (or classes) that are used in the specification. They are each presented in more detail in [Section 5][prezi30-resource-structure].
 
 ### 2.1. Defined Types
 
@@ -154,9 +154,9 @@ An ordered list of Annotation Pages. Annotation Collections allow higher level g
 
 Most of the properties defined by this specification may be associated with any of the resource types described above, and may have more than one value. The property relates to the resource that it is associated with, so the `label` property on a Manifest is the human readable label of the Manifest, whereas the same `label` property on a Canvas is the human readable label for that particular view. In the descriptions of the properties, the resource that the property is associated with is called "this resource".
 
-The requirements for which classes have which properties are summarized in [Appendix A][prezi3-appendixa].
+The requirements for which classes have which properties are summarized in [Appendix A][prezi30-appendixa].
 
-Other properties are allowed, either via local extensions or those endorsed by the IIIF community. If a client discovers properties that it does not understand, then it _MUST_ ignore them. See the [Linked Data Context and Extensions][prezi3-ldce] section for more information about extensions.
+Other properties are allowed, either via local extensions or those endorsed by the IIIF community. If a client discovers properties that it does not understand, then it _MUST_ ignore them. See the [Linked Data Context and Extensions][prezi30-ldce] section for more information about extensions.
 
 This section also defines processing requirements for clients for each of the combinations of class and property.  These requirements are for general purpose client implementations that are intended to be used to render the entire resource to the user, and not necessarily for consuming applications with specialized use or individual component implementations that might be used to construct a client. The inclusion of these requirements gives publishers a baseline expectation for how they can expect implmentations advertised as compliant with this specification to behave when processing their content.
 
@@ -166,9 +166,9 @@ These properties describe or represent the resource they are associated with ("t
 
 ##### label
 
-A human readable label, name or title for this resource. The `label` property is intended to be displayed as a short, textual surrogate for the resource if a human needs to make a distinction between it and similar resources, for example between objects, pages, or options for a choice of images to display. The `label` property can be fully internationalized, and each language can have multiple values.  This pattern is described in more detail in the [languages][prezi3-languages] section.
+A human readable label, name or title for this resource. The `label` property is intended to be displayed as a short, textual surrogate for the resource if a human needs to make a distinction between it and similar resources, for example between objects, pages, or options for a choice of images to display. The `label` property can be fully internationalized, and each language can have multiple values.  This pattern is described in more detail in the [languages][prezi30-languages] section.
 
-The value of the property _MUST_ be a JSON object, as described in the [languages][prezi3-languages] section.
+The value of the property _MUST_ be a JSON object, as described in the [languages][prezi30-languages] section.
 
  * A Collection _MUST_ have the `label` property with at least one entry.<br/>
    Clients _MUST_ render `label` on a Collection.
@@ -193,7 +193,7 @@ The value of the property _MUST_ be a JSON object, as described in the [language
 
 A short textual summary of this resource, intended to be conveyed to the user when the `metadata` pairs for the resource are not being displayed. This could be used as a snippet for item level search results, for limited screen real-estate environments, or as an alternative user interface when the `metadata` property is not currently being rendered.  The `summary` property follows the same pattern as the `label` property described above.
 
-The value of the property _MUST_ be a JSON object, as described in the [languages][prezi3-languages] section.
+The value of the property _MUST_ be a JSON object, as described in the [languages][prezi30-languages] section.
 
  * A Collection _SHOULD_ have the `summary` property with at least one entry.<br/>
    Clients _SHOULD_ render `summary` on a Collection.
@@ -212,7 +212,7 @@ The value of the property _MUST_ be a JSON object, as described in the [language
 
 An ordered list of descriptive entries to be displayed to the user when they interact with this resource, given as pairs of human readable `label` and `value` entries. There are no semantics conveyed by this information, only strings to present to the user when interacting with this resource. A pair might be used to convey information about the creation of the object, a physical description, ownership information, and for many other use cases.
 
-The value of the `metadata` property _MUST_ be an array of JSON objects, where each item in the array has both `label` and `value` properties. The values of both `label` and `value` _MUST_ be JSON objects, as described in the [languages][prezi3-languages] section.
+The value of the `metadata` property _MUST_ be an array of JSON objects, where each item in the array has both `label` and `value` properties. The values of both `label` and `value` _MUST_ be JSON objects, as described in the [languages][prezi30-languages] section.
 
  * A Collection _SHOULD_ have the `metadata` property with at least one item. <br/>
    Clients _MUST_ render `metadata` on a Collection.
@@ -242,7 +242,7 @@ Text that _MUST_ be displayed when this resource is displayed or used. For examp
 
 Given the wide variation of potential client user interfaces, it will not always be possible to display this statement to the user in the client's initial state. If initially hidden, clients _MUST_ make the method of revealing it as obvious as possible.
 
-The value of the property _MUST_ be a JSON object, that has the `label` and `value` properties, in the same way as the `metadata` property items. The values of both `label` and `value` _MUST_ be JSON objects, as described in the [languages][prezi3-languages] section.
+The value of the property _MUST_ be a JSON object, that has the `label` and `value` properties, in the same way as the `metadata` property items. The values of both `label` and `value` _MUST_ be JSON objects, as described in the [languages][prezi30-languages] section.
 
  * Any resource type _MAY_ have the `requiredStatement` property.<br/>
    Clients _MUST_ render `requiredStatement` on every resource type.
@@ -258,7 +258,7 @@ The value of the property _MUST_ be a JSON object, that has the `label` and `val
 
 ##### rights
 
-A string that identifies a license or rights statement that applies to the content of this resource, such as the JSON of a Manifest or the pixels of an image. The value _MUST_ be drawn from the set of [Creative Commons][org-cc-licenses] licenses, the [RightsStatements.org][org-rs-terms] rights statements, or those added via the [extension][prezi3-ldce] mechanism. The inclusion of this property is informative, and for example could be used to display an icon representing the rights assertions.
+A string that identifies a license or rights statement that applies to the content of this resource, such as the JSON of a Manifest or the pixels of an image. The value _MUST_ be drawn from the set of [Creative Commons][org-cc-licenses] licenses, the [RightsStatements.org][org-rs-terms] rights statements, or those added via the [extension][prezi30-ldce] mechanism. The inclusion of this property is informative, and for example could be used to display an icon representing the rights assertions.
 
 If displaying rights information directly to the user is the desired interaction, or a publisher-defined label is needed, then it is _RECOMMENDED_ to include the information using the `requiredStatement` property or in the `metadata` property.
 
@@ -345,7 +345,7 @@ These properties describe technical features of the resources, and are typically
 
 ##### id
 
-The URI that identifies this resource. If this resource is only available embedded (see the [terminology section][prezi3-terminology] for an explanation of "embedded") within another resource, such as a Range within a Manifest, then the URI _MAY_ be the URI of the encapsulating resource with a unique fragment on the end. This is not true for Canvases, which _MUST_ have their own URI without a fragment.
+The URI that identifies this resource. If this resource is only available embedded (see the [terminology section][prezi30-terminology] for an explanation of "embedded") within another resource, such as a Range within a Manifest, then the URI _MAY_ be the URI of the encapsulating resource with a unique fragment on the end. This is not true for Canvases, which _MUST_ have their own URI without a fragment.
 
 The value _MUST_ be a string, and the value _MUST_ be an HTTP(S) URI for resources defined in this specification. If this resource is retrievable via HTTP(S), then the URI _MUST_ be the URI at which it is published. External resources, such as profiles, _MAY_ have non-HTTP(S) URIs defined by other communities.
 
@@ -412,9 +412,9 @@ Note that this is different to the `formats` property in the [Image API][image-a
 
 ##### language
 
-The language or languages used in the content of this external resource. This property is already available from the Web Annotation model for content resources that are the body or target of an Annotation, however it _MAY_ also be used for resources referenced (see the [terminology section][prezi3-terminology] for an explanation of "referenced") from `homepage`, `rendering`, `rights`, and `partOf`.
+The language or languages used in the content of this external resource. This property is already available from the Web Annotation model for content resources that are the body or target of an Annotation, however it _MAY_ also be used for resources referenced (see the [terminology section][prezi30-terminology] for an explanation of "referenced") from `homepage`, `rendering`, `rights`, and `partOf`.
 
-The value _MUST_ be an array of strings. Each item in the array _MUST_ be a valid language code, as described in the [languages section][prezi3-languages].
+The value _MUST_ be an array of strings. Each item in the array _MUST_ be a valid language code, as described in the [languages section][prezi30-languages].
 
  * An external resource _SHOULD_ have the `language` property with at least one item.<br/>
    Clients _SHOULD_ process the `language` of external resources.
@@ -493,7 +493,7 @@ The value _MUST_ be a positive floating point number.
 
 ##### viewingDirection
 
-The direction that a set of Canvases _SHOULD_ be displayed to the user. This specification defines four direction values in the table below. Others may be defined externally [as an extension][prezi3-ldce].
+The direction that a set of Canvases _SHOULD_ be displayed to the user. This specification defines four direction values in the table below. Others may be defined externally [as an extension][prezi30-ldce].
 
 The value _MUST_ be a string.
 
@@ -520,7 +520,7 @@ The value _MUST_ be a string.
 
 ##### behavior
 
-A set of user experience features that the publisher of the content would prefer the client to use when presenting this resource. This specification defines the values specified in the table below. Others may be defined externally as an [extension][prezi3-ldce].
+A set of user experience features that the publisher of the content would prefer the client to use when presenting this resource. This specification defines the values specified in the table below. Others may be defined externally as an [extension][prezi30-ldce].
 
 The value _MUST_ be an array of strings.
 
@@ -551,7 +551,7 @@ The value _MUST_ be an array of strings.
 
 ##### timeMode
 
-A mode associated with an Annotation that is to be applied to the rendering of any time-based media, or otherwise could be considered to have a duration, used as a body resource of that Annotation. Note that the association of `timeMode` with the Annotation means that different resources in the body cannot have different values. This specification defines the values specified in the table below. Others may be defined externally as an [extension][prezi3-ldce].
+A mode associated with an Annotation that is to be applied to the rendering of any time-based media, or otherwise could be considered to have a duration, used as a body resource of that Annotation. Note that the association of `timeMode` with the Annotation means that different resources in the body cannot have different values. This specification defines the values specified in the table below. Others may be defined externally as an [extension][prezi30-ldce].
 
 The value _MUST_ be a string.
 
@@ -858,7 +858,7 @@ This specification defines two values for the Web Annotation property of `motiva
 
 While any resource _MAY_ be the `target` of an Annotation, this specification defines only motivations for Annotations that target Canvases. These motivations allow clients to determine how the Annotation should be rendered, by distinguishing between Annotations that provide the content of the Canvas, from ones with externally defined motivations which are typically comments about the Canvas.
 
-Additional motivations may be added to the Annotation to further clarify the intent, drawn from [extensions][prezi3-ldce] or other sources. Clients _MUST_ ignore motivation values that they do not understand. Other motivation values given in the Web Annotation specification _SHOULD_ be used where appropriate, and examples are given in the [Presentation API Cookbook][annex-cookbook].
+Additional motivations may be added to the Annotation to further clarify the intent, drawn from [extensions][prezi30-ldce] or other sources. Clients _MUST_ ignore motivation values that they do not understand. Other motivation values given in the Web Annotation specification _SHOULD_ be used where appropriate, and examples are given in the [Presentation API Cookbook][annex-cookbook].
 
 > | Value | Description |
 | ----- | ----------- |
@@ -976,7 +976,7 @@ The JSON representation _MUST NOT_ include the `@graph` key at the top level. Th
 
 ##  5. Resource Structure
 
-This section provides detailed description of the resource types used in this specification. [Section 2][prezi3-type-overview] provides an overview of the resource types and figures illustrating allowed relationships between them, and [Appendix A][prezi3-appendixa] provides summary tables of the property requirements.
+This section provides detailed description of the resource types used in this specification. [Section 2][prezi30-type-overview] provides an overview of the resource types and figures illustrating allowed relationships between them, and [Appendix A][prezi30-appendixa] provides summary tables of the property requirements.
 
 ### 5.1. Collection
 
@@ -1038,7 +1038,7 @@ The Manifest resource typically represents a single object and any intellectual 
 
 The identifier in `id` _MUST_ be able to be dereferenced to retrieve the JSON description of the Manifest, and thus _MUST_ use the HTTP(S) URI scheme.
 
-The Manifest _MUST_ have an `items` property, which is an array of JSON-LD objects. Each object is a Canvas, with requirements as described in the next section. The Manifest _MAY_ also have a `structures` property listing one or more [Ranges][prezi3-range] which describe additional structure of the content, such as might be rendered as a table of contents. The Manifest _MAY_ have an `annotations` property, which includes Annotation Page resources where the Annotations have the Manifest as their `target`. These will typically be comment style Annotations, and _MUST NOT_ have `painting` as their `motivation`. 
+The Manifest _MUST_ have an `items` property, which is an array of JSON-LD objects. Each object is a Canvas, with requirements as described in the next section. The Manifest _MAY_ also have a `structures` property listing one or more [Ranges][prezi30-range] which describe additional structure of the content, such as might be rendered as a table of contents. The Manifest _MAY_ have an `annotations` property, which includes Annotation Page resources where the Annotations have the Manifest as their `target`. These will typically be comment style Annotations, and _MUST NOT_ have `painting` as their `motivation`. 
 
 ``` json-doc
 {
@@ -1329,7 +1329,7 @@ Clients _SHOULD_ process the Annotation Pages and their items in the order given
 An Annotation Page _MUST_ have an HTTP(S) URI given in `id`, and _MAY_ have any of the other properties defined in this specification or the Web Annotation specification. The Annotations are listed in the `items` property of the Annotation Page.
 
 __Incompatibility Warning__
-In part due to the timing of the release of the JSON-LD and Web Annotation specifications, the definition of `label` in the Web Annotation specification does not produce JSON conformant with the structure defined in this specification. Given the absolute requirement for internationalized labels and the strong desire for consistently handling properties, the `label` property on Annotation Pages, Annotations, content resources referenced from Annotations, and Annotation Collections does not conform to the string requirement of the Web Annotation Data Model.  This [issue has been filed with the W3C][webanno-label-issue] and will hopefully be addressed in a future version of the standard.
+In part due to the timing of the release of the JSON-LD and Web Annotation specifications, the definition of `label` in the Web Annotation specification does not produce JSON conformant with the structure defined in this specification. Given the absolute requirement for internationalized labels and the strong desire for consistently handling properties, the `label` property on Annotation Pages, Annotations, content resources referenced from Annotations, and Annotation Collections does not conform to the string requirement of the Web Annotation Data Model.  This [issue has been filed with the W3C][github-webanno-437] and will hopefully be addressed in a future version of the standard.
 {: .warning}
 
 ``` json-doc
@@ -1391,7 +1391,7 @@ Content resources are external web resources that are referenced from within the
 
 Content resources _MUST_ have an `id` property, with the value being the URI at which it can be obtained. A Canvas _MAY_ be treated as a content resource for the purposes of annotating it on to other Canvases. In this situation, the Canvas _MAY_ be embedded within the Annotation, or require dereferencing to obtain its description.
 
-The type of the content resource _MUST_ be included, and _SHOULD_ be taken from the table listed under the definition of `type`. The `format` of the resource _SHOULD_ be included and, if so, _SHOULD_ be the media type that is returned when the resource is dereferenced. The `profile` of the resource, if it has one, _SHOULD_ also be included. Content resources in appropriate formats _MAY_ also have the `language`, `height`, `width`, and `duration` properties. Content resources _MAY_ also have descriptive and linking properties, as defined in [section 3][prezi-api-3-resource-properties].
+The type of the content resource _MUST_ be included, and _SHOULD_ be taken from the table listed under the definition of `type`. The `format` of the resource _SHOULD_ be included and, if so, _SHOULD_ be the media type that is returned when the resource is dereferenced. The `profile` of the resource, if it has one, _SHOULD_ also be included. Content resources in appropriate formats _MAY_ also have the `language`, `height`, `width`, and `duration` properties. Content resources _MAY_ also have descriptive and linking properties, as defined in [section 3][prezi30-resource-properties].
 
 If the content resource is an Image, and a IIIF Image service is available for it, then the URI _MAY_ be a complete URI to any particular representation made available, such as `https://example.org/image1/full/1000,/0/default.jpg`, but _MUST NOT_ be just the URI of the IIIF Image service. Its `type` value _MUST_ be the string `Image`. Its media type _MAY_ be listed in `format`, and its height and width _MAY_ be given as integer values for `height` and `width` respectively. The Image _SHOULD_ have the service referenced from it using the `service` property.
 
@@ -1497,7 +1497,7 @@ Clients _MUST NOT_ attempt to construct resource URIs by themselves, instead the
 
 ###  6.3. Responses
 
-The format for all responses is JSON, as described above. The different requirements for which resources _MUST_ provide a response is summarized in [Appendix A][prezi3-appendixa]. While some resources do not require their URI to provide the description, it is good practice if possible.
+The format for all responses is JSON, as described above. The different requirements for which resources _MUST_ provide a response is summarized in [Appendix A][prezi30-appendixa]. While some resources do not require their URI to provide the description, it is good practice if possible.
 
 The HTTP `Content-Type` header of the response _SHOULD_ have the value `application/ld+json` (JSON-LD) with the `profile` parameter given as the context document: `http://iiif.io/api/presentation/3/context.json`.
 

@@ -108,16 +108,19 @@
 [prezi21-change-log]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.1/change-log/ "Presentation API 2.1 Change Log"
 [prezi21]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.1/ "IIIF Presentation API 2.1"
 [prezi211-change-log]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.1/change-log-211/ "Presentation API 2.1.1 Change Log"
-[prezi3-appendixa]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#a-summary-of-metadata-requirements
-[prezi3-canvas]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#canvas
+[prezi30-appendixa]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#a-summary-of-metadata-requirements
+[prezi30-canvas]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#canvas
 [prezi3-html]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.latest.minor }}/#html-markup-in-property-values "Presentation API Section 4.4"
+[prezi30-html]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.latest.minor }}/#html-markup-in-property-values "Presentation API Section 4.4"
 [prezi3-languages]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.latest.minor }}/#language-of-property-values "Language of Property Values"
+[prezi30-languages]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.latest.minor }}/#language-of-property-values "Language of Property Values"
 [prezi3-ldce]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.latest.minor }}/#linked-data-context-and-extensions "Linked Data Context and Extensions"
-[prezi3-paging]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#paging-properties
-[prezi3-range]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#range
-[prezi3-resource-structure]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#resource-structure
-[prezi3-terminology]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#terminology
-[prezi3-type-overview]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#resource-type-overview
+[prezi30-ldce]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.latest.minor }}/#linked-data-context-and-extensions "Linked Data Context and Extensions"
+[prezi30-range]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#range
+[prezi30-resource-structure]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#resource-structure
+[prezi30-resource-properties]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#resource-properties
+[prezi30-terminology]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#terminology
+[prezi30-type-overview]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#resource-type-overview
 [prezi3]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.latest.minor }}/ "Presentation API"
 [prezi30-change-log]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/change-log/ "Presentation API 3.0 Change Log"
 [registry-extensions]: {{ site.url }}{{ site.baseurl }}/api/annex/registry/extensions/
