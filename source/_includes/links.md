@@ -107,6 +107,7 @@
 [prezi21-change-log]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.1/change-log/ "Presentation API 2.1 Change Log"
 [prezi21]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.1/ "IIIF Presentation API 2.1"
 [prezi211-change-log]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.1/change-log-211/ "Presentation API 2.1.1 Change Log"
+[prezi3-api]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.latest.minor }}/
 [prezi3-appendixa]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#a-summary-of-metadata-requirements
 [prezi3-canvas]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#canvas
 [prezi3-html]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.latest.minor }}/#html-markup-in-property-values "Presentation API Section 4.4"
