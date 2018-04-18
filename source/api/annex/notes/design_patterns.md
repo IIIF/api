@@ -192,7 +192,7 @@ If the set of referenced resources is not unbounded or otherwise impossible to e
 Flags in the IIIF specifications, such as `timeMode` or `behavior` are actually resources with URIs. If a URI could be treated as a value in an enumerated list such as these flags, then the URI is given as a string. All enumerations defined by IIIF specifications will be encoded in the respective JSON-LD context as easy-to-remember-and-use strings.  Thus we use `"timeMode": "trim"` and not `"timeMode": "http://iiif.io/api/presentation/3#trim"`, nor `"timeMode": {"id": "http://iiif.io/api/presentation/3#trim"}`.
 
 
-## 3. Change Log
+## 4. Change Log
 {: #change-log}
 
  | Date       | Description                                                         |
