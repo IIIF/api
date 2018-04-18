@@ -1557,10 +1557,8 @@ It may be necessary to restrict access to the descriptions made available via th
 It is possible to include Image API service descriptions within the manifest, and within those it is also possible to include links to the Authentication API's services that are needed to interact with the image content. The first time an Authentication API service is included within a manifest, it _MUST_ be the complete description. Subsequent references _SHOULD_ be just the URL of the service, and clients are expected to look up the details from the full description by matching the URL.  Clients _MUST_ anticipate situations where the Authentication service description in the manifest is out of date: the source of truth is the Image Information document, or other system that references the Authentication API services.
 
 ## Appendices
-{: #appendices}
 
 ###  A. Summary of Recommended URI Patterns
-{: #summary-of-recommended-uri-patterns}
 
 | Resource       | URI Pattern                                                 |
 | -------------- | ----------------------------------------------------------- |
@@ -1576,7 +1574,6 @@ It is possible to include Image API service descriptions within the manifest, an
 {: .api-table}
 
 ### B. Summary of Metadata Requirements
-{: #summary-of-metadata-requirements}
 
 | Field                      | Meaning     |
 | -------------------------- | ----------- |
@@ -1685,7 +1682,6 @@ __Protocol Behavior__
 {: .api-table}
 
 ### C. Example Manifest Response
-{: #example-manifest-response}
 
 URL: _http://example.org/iiif/book1/manifest_
 
@@ -1861,7 +1857,6 @@ URL: _http://example.org/iiif/book1/manifest_
 
 
 ### D. Implementation Notes
-{: #implementation-notes}
 
  * Clients _SHOULD_ be aware that some implementations may add an `@graph` property at the top level, which contains the object. This is a side effect of JSON-LD serialization, and servers _SHOULD_ remove it before sending to the client. If this is seen in practice, the client can use the [JSON-LD compaction algorithm][json-ld-compact] and JSON-LD Framing with the [supplied frames][annex-frames] to remove it and generate the correct representation.
 
@@ -1869,19 +1864,16 @@ URL: _http://example.org/iiif/book1/manifest_
 
 
 ### E. Versioning
-{: #versioning}
 
 Starting with version 2.0, this specification follows [Semantic Versioning][semver]. See the note [Versioning of APIs][versioning] for details regarding how this is implemented.
 
 ### F. Acknowledgements
-{: #acknowledgements}
 
 The production of this document was generously supported by a grant from the [Andrew W. Mellon Foundation][mellon].
 
 Many thanks to the members of the [IIIF][iiif-community] for their continuous engagement, innovative ideas and feedback.
 
 ### G. Change Log
-{: #change-log}
 
 | Date       | Description           |
 | ---------- | --------------------- |
