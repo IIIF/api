@@ -9,6 +9,7 @@
 [auth1-logout-service]: {{ site.url }}{{ site.baseurl }}/api/auth/1.0/#logout-service "IIIF Authentication Logout Service"
 [auth1-token-service]: {{ site.url }}{{ site.baseurl }}/api/auth/1.0/#access-token-service "IIIF Authentication Access Token Service"
 [auth1]: {{ site.url }}{{ site.baseurl }}/api/auth/1.0/ "IIIF Authentication API 1.0"
+[github-milestone-image-3]: https://github.com/IIIF/iiif.io/milestone/7
 [github-milestone-prezi-3]: https://github.com/IIIF/iiif.io/milestone/8
 [github-webanno-437]: https://github.com/w3c/web-annotation/issues/437
 [groups-av]: {{ site.url }}{{ site.baseurl }}/community/groups/av/ "IIIF A/V Working Group"
