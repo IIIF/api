@@ -129,6 +129,7 @@ IIIF specifications define the functionality that can be expected to work and ho
 The intent of adopting this pattern is to enable experimentation by implementers, thereby encouraging the early adoption and validation of new (minor) versions.
 
 ## 3. JSON-LD Design Patterns
+{: #json-ld-design-patterns}
 
 The representation of the information in JSON must be:
 
@@ -139,44 +140,54 @@ The representation of the information in JSON must be:
 These design patterns have been selected in order to maximize these features in the resulting APIs. Note that these patterns are not enforced for externally defined JSON-LD based systems which are then imported for use within the IIIF context. For example, the use of `motivation` for Annotations exactly follows the requirements of the Web Annotation Data Model which allows for both a JSON array or a single string, and does not follow the pattern recommended by [3.4.1][sec341] below.
 
 ### 3.1. Use Native Data Types
+{: #use-native-data-types}
 
 Native data types in JSON are used to ensure that applications do not have to do type coercion. If the value should be an integer in the model, then the JSON representation is as a JSON number.  Similarly, if the value is an ordered list of resources, then a JSON array is used, mapping to an `rdf:List`.  Thus we use `"height": 1400` and not `"height": "1400"`.
 
 ### 3.2. Avoid Special Characters
+{: #avoid-special-characters}
 
 Special characters are avoided in the names of classes and properties. Any character other than those in the range 0-9, a-z, A-Z and the underscore character are removed in the mapping to JSON-LD, if present in the name of a class or property. This is to ensure that applications developed in object oriented programming languages can treat these values as class and property names internally.
 
 JSON-LD defines two special keys in the data: `@id` (the URI of the resource) and `@type` (the class of the resource).  These are aliased to `id` and `type` respectively to avoid the use of the `@` symbol.
 
 ### 3.3. Use Consistent Naming Conventions
+{: #use-consistent-naming-conventions}
 
 Additional design patterns beyond the restricted range of characters are used to make the names of terms easier to remember and use.
 
 #### 3.3.1. Use CamelCase
+{: #use-camelcase}
 
 All terms defined by IIIF specifications use camelCase (concatenated words with uppercase letters at word boundaries).  Thus we use `seeAlso` and not `see_also`.
 
 #### 3.3.2. Distinguish Classes and Properties
+{: #distinguish-classes-and-properties}
 
 All properties start with a lowercase letter, and all classes start with an uppercase letter. Thus we use `Manifest` and `items`, and not `manifest` or `Items`.
 
 #### 3.3.3. Avoid Explicit Namespaces
+{: #avoid-explicit-namespaces}
 
 While JSON-LD allows for namespaced terms (`oa:Annotation`), this would require the use of a `:` character in the class or property name, which is ruled out by the special characters design pattern.  Thus use `Manifest` and not `sc:Manifest`.
 
 ### 3.4. Use Consistent Structural Conventions
+{: #use-consistent-structural-conventions}
 
 Consistent data structures make code that consumes those structures easier to write. The code does not need to check for different variants, it's either present in a single form, not present at all, or an error condition.
 
 #### 3.4.1. Always Use Arrays for Multiple Value Properties
+{: #always-use-arrays-for-multiple-value-properties}
 
 If a property can ever have multiple values, it will always be an array even if it has only one value. This means that code can always iterate over the values without checking first to see if it's an array.  Thus we use `"language": [ "en" ]` and not `"language": "en"`.
 
 #### 3.4.2. Use JSON Objects for Referenced Resources
+{: #use-json-objects-for-referenced-resources}
 
 If the set of referenced resources is not unbounded or otherwise impossible to enumerate, then the resource will be described with a JSON object that has at least the `id` and `type` properties. This ensures ease of processing as the resources will always be of the same type, rather than some being just the URI from `id` as a string and others being a JSON object. The inclusion of `type` makes it easier to build object models in code, as the class to instantiate is given by the description rather than needing to be inferred from the property.  Thus we use `"thumbnail": {"id": "https://example.org/images/logo.jpg", "type": "Image"}` and not `"thumbnail": "https://example.org/images/logo.jpg"`.
 
 #### 3.4.3. Use Strings for Enumerated Flags
+{: #use-strings-for-enumerated-flags}
 
 Flags in the IIIF specifications, such as `timeMode` or `behavior` are actually resources with URIs. If a URI could be treated as a value in an enumerated list such as these flags, then the URI is given as a string. All enumerations defined by IIIF specifications will be encoded in the respective JSON-LD context as easy-to-remember-and-use strings.  Thus we use `"timeMode": "trim"` and not `"timeMode": "http://iiif.io/api/presentation/3#trim"`, nor `"timeMode": {"id": "http://iiif.io/api/presentation/3#trim"}`.
 
