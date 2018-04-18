@@ -19,7 +19,7 @@ redirect_from:
 
 __This Version:__ {{ page.major }}.{{ page.minor }}.{{ page.patch }}{% if page.pre != 'final' %}-{{ page.pre }}{% endif %}
 
-__Latest Stable Version:__ [{{ site.auth_api.latest.major }}.{{ site.auth_api.latest.minor }}.{{ site.auth_api.latest.patch }}][stable-version]
+__Latest Stable Version:__ [{{ site.auth_api.stable.major }}.{{ site.auth_api.stable.minor }}.{{ site.auth_api.stable.patch }}][stable-version]
 
 __Previous Version:__ [0.9.4][prev-version]
 
@@ -644,7 +644,7 @@ Many thanks to the members of the [IIIF Community][iiif-community] for their con
 [bearer-token]: https://tools.ietf.org/html/rfc6750#section-1.2 "OAuth2 Bearer Tokens"
 [rfc-2818]: https://tools.ietf.org/html/rfc2818 "HTTP Over TLS"
 [implementation-notes]: implementation/ "IIIF Authentication: Implementation Notes"
-[stable-version]: {{ site.url }}{{ site.baseurl }}/api/auth/{{ site.auth_api.latest.major }}.{{ site.auth_api.latest.minor }}/ "Stable Version"
+[stable-version]: {{ site.url }}{{ site.baseurl }}/api/auth/{{ site.auth_api.stable.major }}.{{ site.auth_api.stable.minor }}/ "Stable Version"
 [prev-version]: {{ site.url }}{{ site.baseurl }}/api/auth/0.9/ "Previous Version"
 
 {% include acronyms.md %}

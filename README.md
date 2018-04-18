@@ -31,6 +31,7 @@ Branches are available at http://preview.iiif.io/api/[branch_name]/api/index.htm
     * link from the API website to the main website (not relative to this repo) `[hyperlink text]({{ page.webprefix }}/end/point)`
     * External link `[anchor-text](http://example.com/end/point)`
     * Reference link `[text][link_name]` where link_name is expanded at the bottom of the page.
+ * If this branch has a domain name associated with it e.g. prezi3.iiif.io then add the name of the branch to the `ROOT_BRANCHES` variable in the `.travis.yml`. Note branch names are sperated by a space.    
 
 ## Contributions
 

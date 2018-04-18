@@ -62,13 +62,13 @@ Services _MAY_ be included either by reference or embedded within the response. 
 
 ## 3. Services
 
-This table summarizes the services available and which APIs they may be used in.  The '![not allowed][icon-na]' icon means that the service is not to be used in the API. The '![recommended][icon-recc]' icon means that the service can be used in the API.
+This table summarizes the services available and which APIs they may be used in.  The '![not allowed][icon-na]' icon means that the service is not to be used in the API. The '![recommended][icon-rec]' icon means that the service can be used in the API.
 
 | Service                        | Image API                 | Presentation API          |
 | ------------------------------ |:-------------------------:|:-------------------------:|
-| [Image Information][imageinfo] | ![optional][icon-opt]     | ![recommended][icon-recc] |  
-| [GeoJSON][lgeojson]            | ![not allowed][icon-na]   | ![recommended][icon-recc] |
-| [Physical Dimensions][physdim] | ![recommended][icon-recc] | ![recommended][icon-recc] |
+| [Image Information][imageinfo] | ![optional][icon-opt]     | ![recommended][icon-rec] |  
+| [GeoJSON][lgeojson]            | ![not allowed][icon-na]   | ![recommended][icon-rec] |
+| [Physical Dimensions][physdim] | ![recommended][icon-rec] | ![recommended][icon-rec] |
 {: .api-table}
 
 ### 3.1 Image Information
@@ -79,9 +79,9 @@ The Image Information service allows the [Presentation API][prezi-api], and pote
 ``` json-doc
 {
   "service": {
-    "@context" : "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
+    "@context" : "http://iiif.io/api/image/2/context.json",
     "@id" : "http://www.example.org/image-service/abcd1234",
-    "profile": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/level2.json"
+    "profile": "http://iiif.io/api/image/2/level2.json"
   }
 }
 ```
@@ -91,7 +91,7 @@ The service _MAY_ have additional information embedded from the Image Informatio
 ``` json-doc
 {
   "service": {
-    "@context" : "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
+    "@context" : "http://iiif.io/api/image/2/context.json",
     "@id" : "http://www.example.org/image-service/abcd1234",
     "protocol": "http://iiif.io/api/image",
     "width" : 6000,
@@ -105,7 +105,7 @@ The service _MAY_ have additional information embedded from the Image Informatio
       {"width" : 512, "scaleFactors" : [1,2,4,8,16]}
     ],
     "profile" : [
-      "http://iiif.io/api/image/{{ site.image_api.latest.major }}/level2.json",
+      "http://iiif.io/api/image/2/level2.json",
       {
         "formats" : [ "gif", "pdf" ],
         "qualities" : [ "color", "gray" ],
@@ -118,11 +118,11 @@ The service _MAY_ have additional information embedded from the Image Informatio
 }
 ```
 
-With the `logo` property added to the Image Information description in version 2.1 of the Image API{% unless site.image_api.latest.major >= 2 and site.image_api.latest.minor >= 1 %} (forthcoming){% endunless %}, it is possible and reasonable for one `info.json` response to embed another using this pattern.  In this case, the second service is related to the icon that should be displayed when a client renders the image described by the main response.
+With the `logo` property added to the Image Information description in version 2.1 of the Image API, it is possible and reasonable for one `info.json` response to embed another using this pattern.  In this case, the second service is related to the icon that should be displayed when a client renders the image described by the main response.
 
 ``` json-doc
 {
-  "@context" : "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
+  "@context" : "http://iiif.io/api/image/2/context.json",
   "@id" : "http://www.example.org/image-service/baseImage",
   "protocol" : "http://iiif.io/api/image",
 
@@ -132,7 +132,7 @@ With the `logo` property added to the Image Information description in version 2
     "service": {
       "@id": "http://example.org/image-service/logo",
       "protocol": "http://iiif.io/api/image",
-      "profile": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/level2.json"
+      "profile": "http://iiif.io/api/image/2/level2.json"
     }
   }
 }
@@ -237,8 +237,8 @@ Thanks to the members of the [IIIF][iiif-community] for their continuous engagem
 
    [semver]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/semver/ "Versioning of APIs"
    [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
-   [image-api]: {{ site.url }}{{ site.baseurl }}/api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/ "Image API"
-   [prezi-api]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/ "Presentation API"
+   [image-api]: {{ site.url }}{{ site.baseurl }}/api/image/{{ site.image_api.stable.major }}.{{ site.image_api.stable.minor }}/ "Image API"
+   [prezi-api]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.stable.major }}.{{ site.presentation_api.stable.minor }}/ "Presentation API"
    [json-ld]: http://www.w3.org/TR/json-ld/ "JSON-LD"
    [iiif-community]: {{page.webprefix}}/community/ "IIIF Community"
    [mellon]: http://www.mellon.org/ "The Andrew W. Mellon Foundation"
@@ -250,7 +250,7 @@ Thanks to the members of the [IIIF][iiif-community] for their continuous engagem
 [physdim]: #physical-dimensions
 
 [icon-req]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/required.png "Required"
-[icon-recc]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/recommended.png "Recommended"
+[icon-rec]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/recommended.png "Recommended"
 [icon-opt]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/optional.png "Optional"
 [icon-na]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/not_allowed.png "Not allowed"
 

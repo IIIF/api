@@ -1,0 +1,45 @@
+{
+	"id": "https://example.org/manifest-uri",
+	"type": "Manifest",
+	"label": "Example Painting",
+	"stuff": [
+		{
+			"type": "AnnotationPage",
+			"items": [
+				{
+					"type": "Annotation",
+					"motivation": "commenting",
+					"creator": {"name": "Rob"},
+					"body": {
+						"value": "I like the Example Painting!"
+					},
+					"target": "https://example.org/manifest-uri"
+				}
+			]			
+		}
+	],
+	"items": [
+		{
+			"type": "Sequence",
+			"items": [
+				{
+					"id": "https://example.org/canvas-uri",
+					"type": "Canvas",
+					"stuff": [
+						{
+							"type": "AnnotationPage",
+							"items": [
+								{
+									"type": "Annotation",
+									"motivation": "painting",
+									"body": "https://example.com/image-uri",
+									"target": "https://example.org/canvas-uri"
+								}
+							]						
+						}
+					]
+				}
+			]
+		}
+	]
+}
