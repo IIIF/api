@@ -13,8 +13,6 @@ redirect_from:
   - /api/presentation/3/index.html
 ---
 
-<meta http-equiv="refresh" content="0;url=http://iiif.io/api/presentation/3.0/">
-
 ## Status of this Document
 {:.no_toc}
 __This Version:__ {{ page.major }}.{{ page.minor }}.{{ page.patch }}{% if page.pre != 'final' %}-{{ page.pre }}{% endif %}
