@@ -1,6 +1,6 @@
 ---
-title: "Image API 3.0.0"
-title_override: "IIIF Image API 3.0.0"
+title: "Image API 3.0 ALPHA DRAFT"
+title_override: "IIIF Image API 3.0 ALPHA DRAFT"
 id: image-api
 layout: spec
 tags: [specifications, image-api]

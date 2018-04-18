@@ -21,7 +21,7 @@ __Latest Stable Version:__ [{{ site.presentation_api.stable.major }}.{{ site.pre
 
 __Previous Version:__ [2.1.1][prezi21]
 
-**Editors**
+**Editors:**
 
   * **[Michael Appleby](https://orcid.org/0000-0002-1266-298X)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0002-1266-298X), [_Yale University_](http://www.yale.edu/)
   * **[Tom Crane](https://orcid.org/0000-0003-1881-243X)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0003-1881-243X), [_Digirati_](http://digirati.com/)
