@@ -1,0 +1,8 @@
+{
+  "@context": [
+    {
+      "@version": 1.1
+    },
+    "http://iiif.io/api/presentation/3/combined-context.json"
+  ]
+}

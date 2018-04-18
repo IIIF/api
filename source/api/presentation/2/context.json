@@ -121,11 +121,9 @@
       "@type": "@id"
     },
     "height": {
-      "@type": "xsd:integer",
       "@id": "exif:height"
     },
     "width": {
-      "@type": "xsd:integer",
       "@id": "exif:width"
     },
     "attribution": {

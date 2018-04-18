@@ -203,7 +203,7 @@ As of this writing authorization and authentication are topics of heavy dicussio
 [http-location]: http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.30
 [http-options]: http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.2
 [iiif-discuss]: mailto:iiif-discuss@googlegroups.com
-[image-api]: {{ site.url }}{{ site.baseurl }}/api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}
+[image-api]: {{ site.url }}{{ site.baseurl }}/api/image/{{ site.image_api.stable.major }}.{{ site.image_api.stable.minor }}
 [5]: #authorization-authentication-and-security
 [2]: #requests
 [4]: #extension-context

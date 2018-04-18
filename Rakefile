@@ -28,7 +28,10 @@ task :check_html do
   HTMLProofer.check_directory(SITE_DIR, {
     cache: { timeframe: '1w' },
 	 check_html: true,
-	 http_status_ignore: [0, 301, 302]
+	 http_status_ignore: [0, 301, 302],
+   url_ignore: [
+     /.*\/(about|technical-details|apps|demos|event|news|community)/,
+   ]
   }).run
 end
 

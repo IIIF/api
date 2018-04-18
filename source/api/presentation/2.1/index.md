@@ -17,7 +17,7 @@ redirect_from:
 {:.no_toc}
 __This Version:__ {{ page.major }}.{{ page.minor }}.{{ page.patch }}{% if page.pre != 'final' %}-{{ page.pre }}{% endif %}
 
-__Latest Stable Version:__ [{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}.{{ site.presentation_api.latest.patch }}][stable-version]
+__Latest Stable Version:__ [{{ site.presentation_api.stable.major }}.{{ site.presentation_api.stable.minor }}.{{ site.presentation_api.stable.patch }}][stable-version]
 
 __Previous Version:__ [2.0][prev-version]
 
@@ -519,9 +519,9 @@ The example below includes only the manifest-level information, however actual i
   "thumbnail": {
     "@id": "http://example.org/images/book1-page1/full/80,100/0/default.jpg",
     "service": {
-      "@context": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
+      "@context": "http://iiif.io/api/image/2/context.json",
       "@id": "http://example.org/images/book1-page1",
-      "profile": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/level1.json"
+      "profile": "http://iiif.io/api/image/2/level1.json"
     }
   },
 
@@ -722,9 +722,9 @@ Only the annotations that associate images or parts of images are included in th
     "@type": "dctypes:Image",
     "format": "image/jpeg",
     "service": {
-      "@context": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
+      "@context": "http://iiif.io/api/image/2/context.json",
       "@id": "http://example.org/images/book1-page1",
-      "profile": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/level2.json"
+      "profile": "http://iiif.io/api/image/2/level2.json"
     },
     "height":2000,
     "width":1500
@@ -1541,7 +1541,7 @@ It is possible to include Image API service descriptions within the manifest, an
 | Field                      | Meaning     |
 | -------------------------- | ----------- |
 | ![required][icon-req]      | Required    |
-| ![recommended][icon-recc]  | Recommended |
+| ![recommended][icon-rec]  | Recommended |
 | ![optional][icon-opt]      | Optional    |
 | ![not allowed][icon-na]    | Not Allowed |
 {: .api-table}
@@ -1550,10 +1550,10 @@ __Descriptive and Rights Properties__
 
 |                | label                  | metadata                     | description                 | thumbnail                   | attribution            | license                 | logo                     |
 | -------------- | ---------------------- | ---------------------------- | --------------------------- | ----------------------------| ---------------------- | ----------------------- | ------------------------ |
-| Collection     | ![required][icon-req]  | ![recommended][icon-recc]    | ![recommended][icon-recc]   | ![recommended][icon-recc]   | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
-| Manifest       | ![required][icon-req]  | ![recommended][icon-recc]    | ![recommended][icon-recc]   | ![recommended][icon-recc]   | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
+| Collection     | ![required][icon-req]  | ![recommended][icon-rec]    | ![recommended][icon-rec]   | ![recommended][icon-rec]   | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
+| Manifest       | ![required][icon-req]  | ![recommended][icon-rec]    | ![recommended][icon-rec]   | ![recommended][icon-rec]   | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
 | Sequence       | ![optional][icon-opt]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
-| Canvas         | ![required][icon-req]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![recommended][icon-recc]   | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
+| Canvas         | ![required][icon-req]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![recommended][icon-rec]   | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
 | Annotation     | ![optional][icon-opt]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
 | AnnotationList | ![optional][icon-opt]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
 | Range          | ![required][icon-req]  | ![optional][icon-opt]        | ![optional][icon-opt]       | ![optional][icon-opt]       | ![optional][icon-opt]  | ![optional][icon-opt]   | ![optional][icon-opt]    |
@@ -1570,7 +1570,7 @@ __Technical Properties__
 | Manifest       | ![required][icon-req]     | ![required][icon-req] | ![not allowed][icon-na] | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![optional][icon-opt]   | ![optional][icon-opt]  | ![optional][icon-opt]    |
 | Sequence       | ![optional][icon-opt]     | ![required][icon-req] | ![not allowed][icon-na] | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![optional][icon-opt]   | ![optional][icon-opt]  | ![not allowed][icon-na]  |
 | Canvas         | ![required][icon-req]     | ![required][icon-req] | ![not allowed][icon-na] | ![required][icon-req]     | ![required][icon-req]     | ![not allowed][icon-na] | ![optional][icon-opt]  | ![not allowed][icon-na]  |
-| Annotation     | ![recommended][icon-recc] | ![required][icon-req] | ![not allowed][icon-na] | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![not allowed][icon-na] | ![optional][icon-opt]  | ![not allowed][icon-na]  |
+| Annotation     | ![recommended][icon-rec] | ![required][icon-req] | ![not allowed][icon-na] | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![not allowed][icon-na] | ![optional][icon-opt]  | ![not allowed][icon-na]  |
 | AnnotationList | ![required][icon-req]     | ![required][icon-req] | ![not allowed][icon-na] | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![not allowed][icon-na] | ![optional][icon-opt]  | ![not allowed][icon-na]  |
 | Range          | ![required][icon-req]     | ![required][icon-req] | ![not allowed][icon-na] | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![optional][icon-opt]   | ![optional][icon-opt]  | ![not allowed][icon-na]  |
 | Layer          | ![required][icon-req]     | ![required][icon-req] | ![not allowed][icon-na] | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![optional][icon-opt]   | ![optional][icon-opt]  | ![not allowed][icon-na]  |
@@ -1636,7 +1636,7 @@ __Protocol Behavior__
 | Sequence (first)   | ![optional][icon-opt]  |
 | Sequence (second+) | ![required][icon-req]  |
 | Canvas         | ![optional][icon-opt]  |
-| Annotation     | ![recommended][icon-recc]  |
+| Annotation     | ![recommended][icon-rec]  |
 | AnnotationList | ![required][icon-req]  |
 | Range          | ![optional][icon-opt]  |
 | Layer          | ![optional][icon-opt]  |
@@ -1709,9 +1709,9 @@ URL: _http://example.org/iiif/book1/manifest_
                     "@type": "dctypes:Image",
                     "format": "image/jpeg",
                     "service": {
-                        "@context": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
+                        "@context": "http://iiif.io/api/image/2/context.json",
                         "@id": "http://example.org/images/book1-page1",
-                        "profile": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/level1.json"
+                        "profile": "http://iiif.io/api/image/2/level1.json"
                     },
                     "height":2000,
                     "width":1500
@@ -1748,9 +1748,9 @@ URL: _http://example.org/iiif/book1/manifest_
                     "height":2000,
                     "width":1500,
                     "service": {
-                        "@context": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
+                        "@context": "http://iiif.io/api/image/2/context.json",
                         "@id": "http://example.org/images/book1-page2",
-                        "profile": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/level1.json",
+                        "profile": "http://iiif.io/api/image/2/level1.json",
                         "height":8000,
                         "width":6000,
                         "tiles": [{"width": 512, "scaleFactors": [1,2,4,8,16]}]
@@ -1782,9 +1782,9 @@ URL: _http://example.org/iiif/book1/manifest_
                     "@type": "dctypes:Image",
                     "format": "image/jpeg",
                     "service": {
-                        "@context": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
+                        "@context": "http://iiif.io/api/image/2/context.json",
                         "@id": "http://example.org/images/book1-page3",
-                        "profile": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/level1.json"
+                        "profile": "http://iiif.io/api/image/2/level1.json"
           },
                     "height":2000,
                     "width":1500
@@ -1847,9 +1847,9 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 | 2013-06-14 | Version 0.9 (unnamed) |
 
 [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
-[shared-canvas]: {{ site.url }}{{ site.baseurl }}/model/shared-canvas/{{ site.shared_canvas.latest.major}}.{{ site.shared_canvas.latest.minor }} "Shared Canvas Data Model"
-[image-api]: {{ site.url }}{{ site.baseurl }}/api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/ "Image API"
-[search-api]: {{ site.url }}{{ site.baseurl }}/api/search/{{ site.search_api.latest.major }}.{{ site.search_api.latest.minor }}/ "Content Search API"
+[shared-canvas]: {{ site.url }}{{ site.baseurl }}/model/shared-canvas/{{ site.shared_canvas.stable.major}}.{{ site.shared_canvas.stable.minor }} "Shared Canvas Data Model"
+[image-api]: {{ site.url }}{{ site.baseurl }}/api/image/{{ site.image_api.stable.major }}.{{ site.image_api.stable.minor }}/ "Image API"
+[search-api]: {{ site.url }}{{ site.baseurl }}/api/search/{{ site.search_api.stable.major }}.{{ site.search_api.stable.minor }}/ "Content Search API"
 [annex]: {{ site.url }}{{ site.baseurl }}/api/annex/services/ "Services Annex Document"
 [change-log-211]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.1/change-log-211/ "Presentation API 2.1.1 Change Log"
 [change-log-21]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.1/change-log/ "Presentation API 2.1 Change Log"
@@ -1881,7 +1881,7 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 [oa-ext-annex]: {{ site.url }}{{ site.baseurl }}/api/annex/openannotation/ "Open Annotation Extensions"
 [auth]: {{ site.url }}{{ site.baseurl }}/api/auth/
 
-[stable-version]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}/
+[stable-version]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.stable.major }}.{{ site.presentation_api.stable.minor }}/
 [appendixa]: #a-summary-of-recommended-uri-patterns "Appendix A"
 [appendixb]: #b-summary-of-metadata-requirements "Appendix B"
 [prev-version]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.0/
@@ -1898,7 +1898,7 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 [resource-structure]: #resource-structure
 
 [icon-req]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/required.png "Required"
-[icon-recc]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/recommended.png "Recommended"
+[icon-rec]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/recommended.png "Recommended"
 [icon-opt]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/optional.png "Optional"
 [icon-na]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/not_allowed.png "Not allowed"
 
