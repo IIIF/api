@@ -20,11 +20,11 @@ cssversion: 2
 
 | API                | Draft Version (Status)       |
 | ------------------ | ---------------------------- |
-| none               | none                         |
+| Presentation API   | [3.0.0 ALPHA][prezi3-draft] |
 {: .api-table}
 
 __Feedback Requested__<br/>
-We welcome feedback on all IIIF Specifications. In particular, we are actively seeking implementations and feedback on the Authentication API draft specification. Please send any feedback to [iiif-discuss@googlegroups.com][iiif-discuss].
+We welcome feedback on all IIIF Specifications. In particular, we are actively seeking feedback on the Presentation API version 3.0 draft specification. Please send any feedback to [iiif-discuss@googlegroups.com][iiif-discuss].
 {: .alert}
 
 ## Community Translations
@@ -34,6 +34,7 @@ We welcome feedback on all IIIF Specifications. In particular, we are actively s
 | Image API        | 2.1     | [Japanese][image-jp]  |
 | Presentation API | 2.1     | [Japanese][prezi-jp]  |
 | Search API       | 1.0     | [Japanese][search-jp] |
+| Authentication API | 1.0      | [Japanese][auth-jp] |
 {: .api-table}
 
 __Translation Note__<br/>
@@ -42,7 +43,7 @@ Please note that the IIIF community does not guarantee the accuracy of any trans
 
 ## Older Versions
 
-Current IIIF specifications _SHOULD_ be used for all new work. Old versions are retained for reference and are listed below.
+Current IIIF specifications _SHOULD_ be used for all new work. Old versions are retained for reference and are listed below. Technical resources and reference implementations of older versions are _NOT_ guaranteed to be maintained across new major versions.
 
 | Old API Version            | Notes |
 | -------------------------- | ----- |
@@ -67,6 +68,7 @@ IIIF Specifications are created and published following the [IIIF Editorial Proc
 [image-jp]: http://www.asahi-net.or.jp/~ax2s-kmtn/ref/iiif/apiimage2.1.html
 [prezi-jp]: http://www.asahi-net.or.jp/~ax2s-kmtn/ref/iiif/apipresentation2.1.html
 [search-jp]: http://www.asahi-net.or.jp/~ax2s-kmtn/ref/iiif/searchapi1.0.html
+[auth-jp]: http://www.asahi-net.or.jp/~ax2s-kmtn/ref/iiif/apiauthentication1.0.html
 
 [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
 [image21]: {{ site.url }}{{ site.baseurl }}/api/image/2.1/ "Image API v2.1"
@@ -83,5 +85,6 @@ IIIF Specifications are created and published following the [IIIF Editorial Proc
 [search09]: {{ site.url }}{{ site.baseurl }}/api/search/0.9/ "Search API v0.9"
 [notes]: {{ site.url }}{{ site.baseurl }}/api/annex/ "Implementation Notes"
 [editors]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/editors/ "IIIF Editorial Process"
+[prezi3-draft]: http://prezi3.iiif.io/api/presentation/3.0/ "Presentation API v3.0 DRAFT"
 
 {% include acronyms.md %}
