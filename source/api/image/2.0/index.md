@@ -690,7 +690,6 @@ Early sanity checking of URIs (lengths, trailing GET, invalid characters, out-of
 {: #appendices}
 
 ### A. Implementation Notes
-{: #implementation-notes}
 
   * For use cases that enable the saving of the image, it is _RECOMMENDED_ to use the HTTP `Content-Disposition` header ([RFC6266][rfc-6266]) to provide a convenient filename that distinguishes the image, based on the identifier and parameters provided.
   * This specification makes no assertion about the rights status of requested images or any other descriptive metadata, whether or not authentication has been accomplished. Please see the [IIIF Presentation API][prezi-api] for rights and other information.
@@ -733,19 +732,16 @@ Early sanity checking of URIs (lengths, trailing GET, invalid characters, out-of
 ```
 
 ### B. Versioning
-{: #versioning}
 
 Starting with version 2.0, this specification follows [Semantic Versioning][semver]. See the note [Versioning of APIs][versioning] for details regarding how this is implemented.
 
 ###  C. Acknowledgments
-{: #acknowledgments}
 
 The production of this document was generously supported by a grant from the [Andrew W. Mellon Foundation][mellon].
 
 Many thanks to  Ben Albritton, Matthieu Bonicel, Anatol Broder, Kevin Clarke, Tom Cramer, Ian Davis, Neil Jefferies, Scotty Logan, Sean Martin, Roger Mathisen, Lynn McRae, Willy Mene, Mark Patton, Petter Rønningsen, and Brian Tingle for your thoughtful contributions to the effort and written feedback.  Thanks also to the members of the [IIIF Community][iiif-community] for their continuous engagement, innovative ideas and feedback.
 
 ###  D. Change Log
-{: #change-log}
 
 | Date       | Description |
 | ---------- | ----------- |
