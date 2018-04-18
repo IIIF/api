@@ -85,8 +85,8 @@ Collectively, these use cases require a model in which one can characterize the 
 
 This specification uses the following terms:
 
-* __embedded__: When a resource (A) is embedded within another resource (B), the complete JSON representation of resource A is present within the JSON representation of resource B, and dereferencing the URI of resource A will not result in additional information. Example: Canvas A is embedded in Manifest B.
-* __referenced__: When a resource (A) is referenced from another resource (B), an incomplete JSON representation of resource A is present within the JSON representation of resource B, and dereferencing the URI of resource A will result in additional information. Example:  Manifest A is referenced from Collection B.
+* __embedded__: When a resource (A) is embedded within an embedding resource (B), the complete JSON representation of resource A is present within the JSON representation of resource B, and dereferencing the URI of resource A will not result in additional information. Example: Canvas A is embedded in Manifest B.
+* __referenced__: When a resource (A) is referenced from a referencing resource (B), an incomplete JSON representation of resource A is present within the JSON representation of resource B, and dereferencing the URI of resource A will result in additional information. Example:  Manifest A is referenced from Collection B.
 * __HTTP(S)__: The HTTP or HTTPS URI scheme and internet protocol.
 
 The terms _array_, _JSON object_, _number_, _string_, and _boolean_ in this document are to be interpreted as defined by the [Javascript Object Notation (JSON)][org-rfc-8259] specification.
@@ -151,7 +151,7 @@ An ordered list of Annotation Pages. Annotation Collections allow higher level g
 
 ##  3. Resource Properties
 
-Most of the properties defined by this specification may be associated with any of the resource types described above, and may have more than one value. Properties relate to the resource with which they are associated, so the `label` property on a Manifest is the human readable label of the Manifest, whereas the same `label` property on a Canvas is the human readable label for that particular view. In the descriptions of the properties, the resource that the property is associated with is called "this resource".
+Most of the properties defined by this specification may be associated with any of the resource types described above, and may have more than one value. Properties relate to the resource with which they are associated, so the `label` property on a Manifest is the human readable label of the Manifest, whereas the same `label` property on a Canvas is the human readable label for that particular view.
 
 The requirements for which classes have which properties are summarized in [Appendix A][prezi30-appendixa].
 
@@ -161,11 +161,11 @@ This section also defines processing requirements for clients for each of the co
 
 ###  3.1. Descriptive Properties
 
-These properties describe or represent the resource they are associated with ("this resource"), and are typically rendered to the user.
+These properties describe or represent the resource they are associated with, and are typically rendered to the user.
 
 ##### label
 
-A human readable label, name or title for this resource. The `label` property is intended to be displayed as a short, textual surrogate for the resource if a human needs to make a distinction between it and similar resources, for example between objects, pages, or options for a choice of images to display. The `label` property can be fully internationalized, and each language can have multiple values.  This pattern is described in more detail in the [languages][prezi30-languages] section.
+A human readable label, name or title. The `label` property is intended to be displayed as a short, textual surrogate for the resource if a human needs to make a distinction between it and similar resources, for example between objects, pages, or options for a choice of images to display. The `label` property can be fully internationalized, and each language can have multiple values.  This pattern is described in more detail in the [languages][prezi30-languages] section.
 
 The value of the property _MUST_ be a JSON object, as described in the [languages][prezi30-languages] section.
 
@@ -188,28 +188,9 @@ The value of the property _MUST_ be a JSON object, as described in the [language
 { "label": { "en": [ "Example Object Title" ] } }
 ```
 
-##### summary
-
-A short textual summary of this resource, intended to be conveyed to the user when the `metadata` pairs for the resource are not being displayed. This could be used as a brief description for item level search results, for small-screen environments, or as an alternative user interface when the `metadata` property is not currently being rendered. The `summary` property follows the same pattern as the `label` property described above.
-
-The value of the property _MUST_ be a JSON object, as described in the [languages][prezi30-languages] section.
-
- * A Collection _SHOULD_ have the `summary` property with at least one entry.<br/>
-   Clients _SHOULD_ render `summary` on a Collection.
- * A Manifest _SHOULD_ have the `summmary` property with at least one entry.<br/>
-   Clients _SHOULD_ render `summary` on a Manifest.
- * A Canvas _MAY_ have the `summary` property with at least one entry.<br/>
-   Clients _SHOULD_ render `summary` on a Canvas.
- * Other resource types _MAY_ have the `summary` property with at least one entry.<br/>
-   Clients _MAY_ render `summary` on other resource types.
-
-``` json-doc
-{ "summary": { "en": [ "This is a summary of the object." ] } }
-```
-
 ##### metadata
 
-An ordered list of descriptions to be displayed to the user when they interact with this resource, given as pairs of human readable `label` and `value` entries. The content of these entries is intended for presentation only; descriptive semantics _SHOULD NOT_ be inferred. An entry might be used to convey information about the creation of the object, a physical description, ownership information, or other purposes.
+An ordered list of descriptions to be displayed to the user when they interact with the resource, given as pairs of human readable `label` and `value` entries. The content of these entries is intended for presentation only; descriptive semantics _SHOULD NOT_ be inferred. An entry might be used to convey information about the creation of the object, a physical description, ownership information, or other purposes.
 
 The value of the `metadata` property _MUST_ be an array of JSON objects, where each item in the array has both `label` and `value` properties. The values of both `label` and `value` _MUST_ be JSON objects, as described in the [languages][prezi30-languages] section.
 
@@ -235,9 +216,28 @@ Clients _SHOULD_ display the entries in the order provided. Clients _SHOULD_ exp
 }
 ```
 
+##### summary
+
+A short textual summary intended to be conveyed to the user when the `metadata` entries for the resource are not being displayed. This could be used as a brief description for item level search results, for small-screen environments, or as an alternative user interface when the `metadata` property is not currently being rendered. The `summary` property follows the same pattern as the `label` property described above.
+
+The value of the property _MUST_ be a JSON object, as described in the [languages][prezi30-languages] section.
+
+ * A Collection _SHOULD_ have the `summary` property with at least one entry.<br/>
+   Clients _SHOULD_ render `summary` on a Collection.
+ * A Manifest _SHOULD_ have the `summmary` property with at least one entry.<br/>
+   Clients _SHOULD_ render `summary` on a Manifest.
+ * A Canvas _MAY_ have the `summary` property with at least one entry.<br/>
+   Clients _SHOULD_ render `summary` on a Canvas.
+ * Other resource types _MAY_ have the `summary` property with at least one entry.<br/>
+   Clients _MAY_ render `summary` on other resource types.
+
+``` json-doc
+{ "summary": { "en": [ "This is a summary of the object." ] } }
+```
+
 ##### requiredStatement
 
-Text that _MUST_ be displayed when this resource is displayed or used. For example, the `requiredStatement` property could be used to present copyright or ownership statements, an acknowledgement of the owning and/or publishing institution, or any other text that the organization deems critical to display to the user. Given the wide variation of potential client user interfaces, it will not always be possible to display this statement to the user in the client's initial state. If initially hidden, clients _MUST_ make the method of revealing it as obvious as possible.
+Text that _MUST_ be displayed when the resource is displayed or used. For example, the `requiredStatement` property could be used to present copyright or ownership statements, an acknowledgement of the owning and/or publishing institution, or any other text that the organization deems critical to display to the user. Given the wide variation of potential client user interfaces, it will not always be possible to display this statement to the user in the client's initial state. If initially hidden, clients _MUST_ make the method of revealing it as obvious as possible.
 
 The value of the property _MUST_ be a JSON object, that has the `label` and `value` properties, in the same way as a `metadata` property entry. The values of both `label` and `value` _MUST_ be JSON objects, as described in the [languages][prezi30-languages] section.
 
@@ -255,7 +255,7 @@ The value of the property _MUST_ be a JSON object, that has the `label` and `val
 
 ##### rights
 
-A string that identifies a license or rights statement that applies to the content of this resource, such as the JSON of a Manifest or the pixels of an image. The value _MUST_ be drawn from the set of [Creative Commons][org-cc-licenses] licenses, the [RightsStatements.org][org-rs-terms] rights statements, or those added via the [extension][prezi30-ldce] mechanism. The inclusion of this property is informative, and for example could be used to display an icon representing the rights assertions.
+A string that identifies a license or rights statement that applies to the content of the resource, such as the JSON of a Manifest or the pixels of an image. The value _MUST_ be drawn from the set of [Creative Commons][org-cc-licenses] licenses, the [RightsStatements.org][org-rs-terms] rights statements, or those added via the [extension][prezi30-ldce] mechanism. The inclusion of this property is informative, and for example could be used to display an icon representing the rights assertions.
 
 If displaying rights information directly to the user is the desired interaction, or a publisher-defined label is needed, then it is _RECOMMENDED_ to include the information using the `requiredStatement` property or in the `metadata` property.
 
@@ -270,7 +270,7 @@ The value _MUST_ be a string. If the value is drawn from Creative Commons or Rig
 
 ##### thumbnail
 
-An external content resource that represents this resource, such as a small image or short audio clip. It is _RECOMMENDED_ that a [IIIF Image API][image-api] service be available for images to enable manipulations such as resizing. The same resource _MAY_ have multiple thumbnails with the same or different `type` and `format`.
+An external content resource, such as a small image or short audio clip, that represents the resource that has the `thumbnail` property. It is _RECOMMENDED_ that a [IIIF Image API][image-api] service be available for images to enable manipulations such as resizing. A resource _MAY_ have multiple thumbnail resources that have the same or different `type` and `format`.
 
 The value _MUST_ be an array of JSON objects, where each item in the array has an `id` property and _SHOULD_ have at least one of the `type` and `format` properties.
 
@@ -291,7 +291,7 @@ The value _MUST_ be an array of JSON objects, where each item in the array has a
 
 ##### navDate
 
-A date that clients may use for navigation purposes when presenting this resource to the user in a time-based user interface, such as a calendar or timeline. More descriptive date ranges, intended for display directly to the user, _SHOULD_ be included in the `metadata` property for human consumption. If this resource contains Canvases with the `duration` property, the datetime given corresponds to the navigation datetime of the start of this resource. For example, a Range that includes a Canvas that represents a set of video content recording a historical event, the `navDate` is the  datetime of the first moment of the recorded event.
+A date that clients may use for navigation purposes when presenting the resource to the user in a time-based user interface, such as a calendar or timeline. More descriptive date ranges, intended for display directly to the user, _SHOULD_ be included in the `metadata` property for human consumption. If the resource contains Canvases that have the `duration` property, the datetime given corresponds to the navigation datetime of the start of the resource. For example, a Range that includes a Canvas that represents a set of video content recording a historical event, the `navDate` is the datetime of the first moment of the recorded event.
 
 The value _MUST_ be an [XSD dateTime literal][org-w3c-xsd-datetime]. The value _MUST_ have a timezone, and _SHOULD_ be given in UTC with the `Z` timezone indicator, but _MAY_ instead be given as an offset of the form `+hh:mm`.
 
@@ -306,9 +306,9 @@ The value _MUST_ be an [XSD dateTime literal][org-w3c-xsd-datetime]. The value _
 
 ##### posterCanvas
 
-One or more Canvases providing additional content associated with this resource. Examples include an image to show while a duration-only Canvas is playing audio; images, text and sound standing in for video content before the user initiates playback; or a film poster to attract user attention. The content provided by `posterCanvas` differs from a thumbnail: a client might use `thumbnail` to summarize and navigate multiple resources, then show content from `posterCanvas` as part of the presentation of a single resource. A poster Canvas is likely to have different dimensions to those of the Canvas(es) of this resource.
+One or more Canvases providing additional content for use when rendering the resource that has the `posterCanvas` property. Examples include an image to show while a duration-only Canvas is playing audio; images, text and sound standing in for video content before the user initiates playback; or a film poster to attract user attention. The content provided by `posterCanvas` differs from a thumbnail: a client might use `thumbnail` to summarize and navigate multiple resources, then show content from `posterCanvas` as part of the presentation of a single resource. A poster Canvas is likely to have different dimensions to those of the Canvas(es) of the resource that has the `posterCanvas` property.
 
-Clients _MAY_ display the content of a linked poster Canvas when presenting the resource, and if more than one is available _MAY_ choose the one most suited to the user interface. When more than one poster Canvas is available, for example if `posterCanvas` is provided for the currently selected Range and the current Manifest, the client _SHOULD_ pick the one most specific to the content. Publishers _SHOULD NOT_ assume that poster Canvas content will be rendered by all clients. Clients _SHOULD_ take care to avoid conflicts between time-based media in the rendered poster Canvas and the content of this resource.
+Clients _MAY_ display the content of a linked poster Canvas when presenting the resource, and if more than one is available _MAY_ choose the one most suited to the user interface. When more than one poster Canvas is available, for example if `posterCanvas` is provided for the currently selected Range and the current Manifest, the client _SHOULD_ pick the one most specific to the content. Publishers _SHOULD NOT_ assume that the poster Canvas will be processed by all clients. Clients _SHOULD_ take care to avoid conflicts between time-based media in the rendered poster Canvas and the content of the resource that has the `posterCanvas` property.
 
 The value _MUST_ be a JSON object with the `id` and `type` properties, and _MAY_ have other properties of Canvases.
 
@@ -341,9 +341,9 @@ These properties describe technical features of the resources, and are typically
 
 ##### id
 
-The URI that identifies this resource. If this resource is only available embedded (see the [terminology section][prezi30-terminology] for an explanation of "embedded") within another resource, such as a Range within a Manifest, then the URI _MAY_ be the URI of the encapsulating resource with a unique fragment on the end. This is not true for Canvases, which _MUST_ have their own URI without a fragment.
+The URI that identifies the resource. If the resource is only available embedded  within another resource (see the [terminology section][prezi30-terminology] for an explanation of "embedded"), such as a Range within a Manifest, then the URI _MAY_ be the URI of the embedding resource with a unique fragment on the end. This is not true for Canvases, which _MUST_ have their own URI without a fragment.
 
-The value _MUST_ be a string, and the value _MUST_ be an HTTP(S) URI for resources defined in this specification. If this resource is retrievable via HTTP(S), then the URI _MUST_ be the URI at which it is published. External resources, such as profiles, _MAY_ have non-HTTP(S) URIs defined by other communities.
+The value _MUST_ be a string, and the value _MUST_ be an HTTP(S) URI for resources defined in this specification. If the resource is retrievable via HTTP(S), then the URI _MUST_ be the URI at which it is published. External resources, such as profiles, _MAY_ have non-HTTP(S) URIs defined by other communities.
 
  * A Collection _MUST_ have the `id` property. <br/>
    Clients _SHOULD_ render `id` on a Collection.
@@ -368,7 +368,7 @@ The value _MUST_ be a string, and the value _MUST_ be an HTTP(S) URI for resourc
 
 ##### type
 
-The type or class of this resource. For types defined by this specification, the value of `type` will be described in the sections below describing the individual classes. For external resources, the type is drawn from other specifications. Recommendations for basic types such as image, text or audio are given in the table below.
+The type or class of the resource. For types defined by this specification, the value of `type` will be described in the sections below describing the individual classes. For external resources, the type is drawn from other specifications. Recommendations for basic types such as image, text or audio are given in the table below.
 
 The value _MUST_ be a string.
 
@@ -391,9 +391,9 @@ The value _MUST_ be a string.
 
 ##### format
 
-The specific media type (often called a MIME type) for this content resource, for example `image/jpeg`. This is important for distinguishing different formats of the same overall type of resource, such as distinguishing text in XML from plain text.
+The specific media type (often called a MIME type) for a content resource, for example `image/jpeg`. This is important for distinguishing different formats of the same overall type of resource, such as distinguishing text in XML from plain text.
 
-The value _MUST_ be a string, and it _SHOULD_ be the value of the `Content-Type` header returned when this resource is dereferenced.
+The value _MUST_ be a string, and it _SHOULD_ be the value of the `Content-Type` header returned when the resource is dereferenced.
 
  * A content resource _SHOULD_ have the `format` propety.<br/>
    Clients _MAY_ render the `format` of any content resource.
@@ -423,7 +423,7 @@ The value _MUST_ be an array of strings. Each item in the array _MUST_ be a vali
 
 ##### profile
 
-A schema or named set of functionality available from this resource. The profile can further clarify the `type` and/or `format` of an external resource or service, allowing clients to customize their handling of this resource.
+A schema or named set of functionality available from the resource. The profile can further clarify the `type` and/or `format` of an external resource or service, allowing clients to customize their handling of the resource that has the `profile` property.
 
 The value _MUST_ be a string, either taken from the [service registry][registry-services] or a URI.
 
@@ -438,7 +438,7 @@ The value _MUST_ be a string, either taken from the [service registry][registry-
 
 ##### height
 
-The height of this Canvas or external content resource. For content resources, the value is in pixels. For Canvases, the value does not have a unit. In combination with the width, it conveys an aspect ratio for the space in which content resources are located.
+The height of the Canvas or external content resource. For content resources, the value is in pixels. For Canvases, the value does not have a unit. In combination with the width, it conveys an aspect ratio for the space in which content resources are located.
 
 The value _MUST_ be a positive integer.
 
@@ -455,7 +455,7 @@ The value _MUST_ be a positive integer.
 
 ##### width
 
-The width of this Canvas or external content resource. For content resources, the value is in pixels. For Canvases, the value does not have a unit. In combination with the height, it conveys an aspect ratio for the space in which content resources are located.
+The width of the Canvas or external content resource. For content resources, the value is in pixels. For Canvases, the value does not have a unit. In combination with the height, it conveys an aspect ratio for the space in which content resources are located.
 
 The value _MUST_ be a positive integer.
 
@@ -472,7 +472,7 @@ The value _MUST_ be a positive integer.
 
 ##### duration
 
-The duration of this Canvas or external content resource, given in seconds.  
+The duration of the Canvas or external content resource, given in seconds.  
 
 The value _MUST_ be a positive floating point number.
 
@@ -489,7 +489,7 @@ The value _MUST_ be a positive floating point number.
 
 ##### viewingDirection
 
-The direction that a set of Canvases _SHOULD_ be displayed to the user. This specification defines four direction values in the table below. Others may be defined externally [as an extension][prezi30-ldce].
+The direction in which a set of Canvases _SHOULD_ be displayed to the user. This specification defines four direction values in the table below. Others may be defined externally [as an extension][prezi30-ldce].
 
 The value _MUST_ be a string.
 
@@ -516,7 +516,7 @@ The value _MUST_ be a string.
 
 ##### behavior
 
-A set of user experience features that the publisher of the content would prefer the client to use when presenting this resource. This specification defines the values specified in the table below. Others may be defined externally as an [extension][prezi30-ldce].
+A set of user experience features that the publisher of the content would prefer the client to use when presenting the resource. This specification defines the values in the table below. Others may be defined externally as an [extension][prezi30-ldce].
 
 The value _MUST_ be an array of strings.
 
@@ -525,20 +525,20 @@ The value _MUST_ be an array of strings.
 
 > | Value | Description |
 | ----- | ----------- |
-| `auto-advance` | Valid on Collections, Manifests, Canvases, and Ranges that include or are Canvases with at least the `duration` dimension. When the client reaches the end of a Canvas with a duration dimension that has (or is within a resource that has) this `behavior`, it _SHOULD_ immediately proceed to the next Canvas and render it. If there is no subsequent Canvas in the current context, then this `behavior` should be ignored. When applied to a Collection, the client should treat the first Canvas of the next Manifest as following the last Canvas of the previous Manifest, respecting any `start` property specified. |
-| `continuous` | Valid on Manifests and Ranges, which include Canvases that have at least `height` and `width` dimensions. Canvases included in resources with this `behavior` are partial views and an appropriate rendering might display all of the Canvases virtually stitched together, such as a long scroll split into sections. This `behavior` has no implication for audio resources. The `viewingDirection` of the Manifest will determine the appropriate arrangement of the Canvases. |
-| `facing-pages` | Valid only on Canvases, where the Canvas has at least `height` and `width` dimensions. Canvases with this `behavior`, in a Manifest with the `behavior` value `paged`, _MUST_ be displayed by themselves, as they depict both parts of the opening. If all of the Canvases are like this, then page turning is not possible, so simply use `individuals` instead. |
-| `individuals` | Valid on Collections, Manifests, and Ranges. For Collections with this `behavior`, each of the included Manifests are distinct objects. For Manifest, and Range, the included Canvases are distinct views, and _SHOULD NOT_ be presented in a page-turning interface. This is the default `behavior` if none are specified. |
-| `multi-part` | Valid only on Collections. Collections with this `behavior` consist of multiple Manifests that each form part of a logical whole, such as multi-volume books or a set of journal issues. Clients might render the Collection as a table of contents, rather than with thumbnails. |
-| `no-nav` | Valid only on Ranges. Ranges with this `behavior` _MUST NOT_ be displayed to the user in a navigation hierarchy. This allows for Ranges to be present that capture unnamed regions with no interesting content, such as the set of blank pages at the beginning of a book, or dead air between parts of a performance, that are still part of the Manifest but do not need to be navigated to directly. |
-| `non-paged` | Valid only on Canvases, where the Canvas has at least `height` and `width` dimensions. Canvases with this `behavior` _MUST NOT_ be presented in a page turning interface, and _MUST_ be skipped over when determining the page order. This `behavior` _MUST_ be ignored if the current Manifest does not have the `behavior` value `paged`. |
-| `hidden` | Valid on Annotation Collections, Annotation Pages, Annotations, Specific Resources and Choices. If this `behavior` is provided, then the client _SHOULD NOT_ render the resource by default, but allow the user to turn it on and off. |
-| `paged` | Valid on Manifests and Ranges, which include Canvases that have at least `height` and `width` dimensions. Canvases included in resources with this `behavior` represent pages in a bound volume, and _SHOULD_ be presented in a page-turning interface if one is available. The first canvas is a single view (the first recto) and thus the second canvas likely represents the back of the object in the first canvas. If this is not the case, see the `behavior` value `non-paged`. |
-| `repeat` | Valid on Collections and Manifests, that include Canvases with at least the `duration` dimension. When the client reaches the end of the duration of the final Canvas in the resource, and the `auto-advance` `behavior` is also in effect, then the client _SHOULD_ return to the first Canvas in the resource with the `behavior` value `repeat` and start playing again. If the `auto-advance` `behavior` is not in effect, then the client _SHOULD_ render a navigation control for the user to manually return to the first Canvas. |
-| `sequence` | Valid only on Ranges, where the Range is referenced in the `structures` property of a Manifest. Ranges with this `behavior` represent different orderings of the Canvases listed in the `items` property of the Manifest, and user interfaces that interact with this order _SHOULD_ use the order within the selected Range, rather than the default order of `items`. |
-| `thumbnail-nav` | Valid only on Ranges. Ranges with this `behavior` _MAY_ be used by the client to present an alternative navigation or overview based on thumbnails, such as regular keyframes along a timeline for a video, or sections of a long scroll. Clients _SHOULD NOT_ use them to generate a conventional table of contents. Child Ranges of a Range with this `behavior` _MUST_ have a suitable `thumbnail` property. |
-| `together` | Valid only on Collections. A client _SHOULD_ present all of the child Manifests to the user at once in a separate viewing area with its own controls. Clients _SHOULD_ catch attempts to create too many viewing areas. The value `together` value _SHOULD NOT_ be interpreted as applying to the members any child resources. |
-| `unordered` | Valid on Manifests and Ranges. The order of Canvases within this resource have no inherent order, and user interfaces _SHOULD_ avoid implying to the user that there is such an order. |
+| `auto-advance` | Valid on Collections, Manifests, Canvases, and Ranges that include or are Canvases with at least the `duration` dimension. When the client reaches the end of a Canvas with a duration dimension that has (or is within a resource that has) this behavior, it _SHOULD_ immediately proceed to the next Canvas and render it. If there is no subsequent Canvas in the current context, then this behavior should be ignored. When applied to a Collection, the client should treat the first Canvas of the next Manifest as following the last Canvas of the previous Manifest, respecting any `start` property specified. |
+| `continuous` | Valid on Manifests and Ranges, which include Canvases that have at least `height` and `width` dimensions. Canvases included in resources that have this behavior are partial views and an appropriate rendering might display all of the Canvases virtually stitched together, such as a long scroll split into sections. This behavior has no implication for audio resources. The `viewingDirection` of the Manifest will determine the appropriate arrangement of the Canvases. |
+| `facing-pages` | Valid only on Canvases, where the Canvas has at least `height` and `width` dimensions. Canvases that have this behavior, in a Manifest that has the `behavior` value `paged`, _MUST_ be displayed by themselves, as they depict both parts of the opening. If all of the Canvases are like this, then page turning is not possible, so simply use `individuals` instead. |
+| `individuals` | Valid on Collections, Manifests, and Ranges. For Collections that have this behavior, each of the included Manifests are distinct objects. For Manifest, and Range, the included Canvases are distinct views, and _SHOULD NOT_ be presented in a page-turning interface. This is the default behavior if none are specified. |
+| `multi-part` | Valid only on Collections. Collections that have this behavior consist of multiple Manifests that each form part of a logical whole, such as multi-volume books or a set of journal issues. Clients might render the Collection as a table of contents, rather than with thumbnails. |
+| `no-nav` | Valid only on Ranges. Ranges that have this behavior _MUST NOT_ be displayed to the user in a navigation hierarchy. This allows for Ranges to be present that capture unnamed regions with no interesting content, such as the set of blank pages at the beginning of a book, or dead air between parts of a performance, that are still part of the Manifest but do not need to be navigated to directly. |
+| `non-paged` | Valid only on Canvases, where the Canvas has at least `height` and `width` dimensions. Canvases that have this behavior _MUST NOT_ be presented in a page turning interface, and _MUST_ be skipped over when determining the page order. This behavior _MUST_ be ignored if the current Manifest does not have the `behavior` value `paged`. |
+| `hidden` | Valid on Annotation Collections, Annotation Pages, Annotations, Specific Resources and Choices. If this behavior is provided, then the client _SHOULD NOT_ render the resource by default, but allow the user to turn it on and off. |
+| `paged` | Valid on Manifests and Ranges, which include Canvases that have at least `height` and `width` dimensions. Canvases included in resources that have this behavior represent views that _SHOULD_ be presented in a page-turning interface if one is available. The first canvas is a single view (the first recto) and thus the second canvas likely represents the back of the object in the first canvas. If this is not the case, see the `behavior` value `non-paged`. |
+| `repeat` | Valid on Collections and Manifests, that include Canvases that have at least the `duration` dimension. When the client reaches the end of the duration of the final Canvas in the resource, and the `behavior` value `auto-advance` is also in effect, then the client _SHOULD_ return to the first Canvas in the resource that has the `behavior` value `repeat` and start playing again. If the `behavior` value `auto-advance` is not in effect, then the client _SHOULD_ render a navigation control for the user to manually return to the first Canvas. |
+| `sequence` | Valid only on Ranges, where the Range is referenced in the `structures` property of a Manifest. Ranges that have this behavior represent different orderings of the Canvases listed in the `items` property of the Manifest, and user interfaces that interact with this order _SHOULD_ use the order within the selected Range, rather than the default order of `items`. |
+| `thumbnail-nav` | Valid only on Ranges. Ranges that have this behavior _MAY_ be used by the client to present an alternative navigation or overview based on thumbnails, such as regular keyframes along a timeline for a video, or sections of a long scroll. Clients _SHOULD NOT_ use them to generate a conventional table of contents. Child Ranges of a Range with this behavior _MUST_ have a suitable `thumbnail` property. |
+| `together` | Valid only on Collections. A client _SHOULD_ present all of the child Manifests to the user at once in a separate viewing area with its own controls. Clients _SHOULD_ catch attempts to create too many viewing areas. This behavior _SHOULD NOT_ be interpreted as applying to the members of any child resources. |
+| `unordered` | Valid on Manifests and Ranges. The Canvases included in resources that have this behavior have no inherent order, and user interfaces _SHOULD_ avoid implying an order to the user. |
 {: .api-table #table-behavior}
 
 ``` json-doc
@@ -858,8 +858,8 @@ Additional motivations may be added to the Annotation to further clarify the int
 
 > | Value | Description |
 | ----- | ----------- |
-| `painting` | Resources associated with a Canvas by an Annotation with the `motivation` value `painting`  _MUST_ be presented to the user as the representation of the Canvas. The content can be thought of as being _of_ the Canvas. The use of this motivation with target resources other than Canvases is undefined. For example, an Annotation with the `motivation` value `painting`, a body of an Image and the target of the Canvas is an instruction to present that Image as (part of) the visual representation of the Canvas. Similarly, a textual body is to be presented as (part of) the visual representation of the Canvas and not positioned in some other part of the user interface.|
-| `supplementing` | Resources associated with a Canvas by an Annotation with the `motivation` value `supplementing`  _MAY_ be presented to the user as part of the representation of the Canvas, or _MAY_ be presented in a different part of the user interface. The content can be thought of as being _from_ the Canvas. The use of this motivation with target resources other than Canvases is undefined. For example, an Annotation with the `motivation` value `supplementing`, a body of an Image and the target of part of the Canvas is an instruction to present that Image to the user either in the Canvas's rendering area or somewhere associated with it, and could be used to present an easier to read representation of a diagram. Similar, a textual body is to be presented either in the targeted region of the Canvas or otherwise associated with it, and might be a transcription of handwritten text or captions for what is being said in a Canvas with audio content. |
+| `painting` | Resources associated with a Canvas by an Annotation that has the `motivation` value `painting`  _MUST_ be presented to the user as the representation of the Canvas. The content can be thought of as being _of_ the Canvas. The use of this motivation with target resources other than Canvases is undefined. For example, an Annotation that has the `motivation` value `painting`, a body of an Image and the target of the Canvas is an instruction to present that Image as (part of) the visual representation of the Canvas. Similarly, a textual body is to be presented as (part of) the visual representation of the Canvas and not positioned in some other part of the user interface.|
+| `supplementing` | Resources associated with a Canvas by an Annotation that has the `motivation` value `supplementing`  _MAY_ be presented to the user as part of the representation of the Canvas, or _MAY_ be presented in a different part of the user interface. The content can be thought of as being _from_ the Canvas. The use of this motivation with target resources other than Canvases is undefined. For example, an Annotation that has the `motivation` value `supplementing`, a body of an Image and the target of part of the Canvas is an instruction to present that Image to the user either in the Canvas's rendering area or somewhere associated with it, and could be used to present an easier to read representation of a diagram. Similar, a textual body is to be presented either in the targeted region of the Canvas or otherwise associated with it, and might be a transcription of handwritten text or captions for what is being said in a Canvas with audio content. |
 {: .api-table #table-motivations}
 
 
@@ -1193,11 +1193,11 @@ The Canvas represents an individual page or view and acts as a central point for
 
 Every Canvas _SHOULD_ have a `label` to display. If one is not provided, the client _SHOULD_ automatically generate one for use based on the Canvas's position within the `items` property.
 
-Content resources are associated with the Canvas via Web Annotations. Content that is to be rendered as part of the Canvas _MUST_ be associated by an Annotation with the `motivation` value `painting`. These Annotations are recorded in the `items` of one or more Annotation Pages, referred to in the `items` array of the Canvas. Annotations that do not have the `motivation` value `painting` _MUST NOT_ be in pages referenced in `items`, but instead in the `annotations` property. Referenced, external Annotation Pages _MUST_ have the `id` and `type` properties.
+Content resources are associated with the Canvas via Web Annotations. Content that is to be rendered as part of the Canvas _MUST_ be associated by an Annotation that has the `motivation` value `painting`. These Annotations are recorded in the `items` of one or more Annotation Pages, referred to in the `items` array of the Canvas. Annotations that do not have the `motivation` value `painting` _MUST NOT_ be in pages referenced in `items`, but instead in the `annotations` property. Referenced, external Annotation Pages _MUST_ have the `id` and `type` properties.
 
-Content that is derived from the Canvas, such as a transcription of text in an image or the words spoken in an audio representation, _MUST_ be associated by an Annotation with the `motivation` value `supplementing`. Annotations _MAY_ have any other `motivation` values as well. Thus content of any type may be associated with the Canvas via an Annotation with the `motivation` value `painting`, meaning the content is part of the Canvas; an Annotation with the `motivation` value `supplementing`, meaning the content is from the Canvas but not necessarily part of it; or an Annotation with another `motivation` meaning that it is somehow about the Canvas.
+Content that is derived from the Canvas, such as a transcription of text in an image or the words spoken in an audio representation, _MUST_ be associated by an Annotation that has the `motivation` value `supplementing`. Annotations _MAY_ have any other `motivation` values as well. Thus content of any type may be associated with the Canvas via an Annotation that has the `motivation` value `painting`, meaning the content is part of the Canvas; an Annotation that has the `motivation` value `supplementing`, meaning the content is from the Canvas but not necessarily part of it; or an Annotation with another `motivation` meaning that it is somehow about the Canvas.
 
-A Canvas _MUST_ have a rectangular aspect ratio (described with the `height` and `width` properties) and/or a `duration` to provide an extent in time. These dimensions allow resources to be associated with specific regions of the Canvas, within the space and/or time extents provided. Content _MUST NOT_ be associated with space or time outside of the Canvas's dimensions, such as at coordinates below 0,0, greater than the height or width, before 0 seconds, or after the duration. Content resources that have dimensions which are not defined for the Canvas _MUST NOT_ be associated with that Canvas by an Annotation with the `motivation` value `painting`. For example, it is valid to use an Annotation with the `motivation` value `painting` to associate an Image (which has only height and width) with a Canvas that has all three dimensions, but it is an error to associate a Video resource (which has height, width and duration) with a Canvas that does not have all three dimensions. Such a resource _SHOULD_ instead be referenced with the `rendering` property, or by Annotations with a `motivation` value other than `painting` in the `annotations` property.
+A Canvas _MUST_ have a rectangular aspect ratio (described with the `height` and `width` properties) and/or a `duration` to provide an extent in time. These dimensions allow resources to be associated with specific regions of the Canvas, within the space and/or time extents provided. Content _MUST NOT_ be associated with space or time outside of the Canvas's dimensions, such as at coordinates below 0,0, greater than the height or width, before 0 seconds, or after the duration. Content resources that have dimensions which are not defined for the Canvas _MUST NOT_ be associated with that Canvas by an Annotation that has the `motivation` value `painting`. For example, it is valid to use an Annotation that has the `motivation` value `painting` to associate an Image (which has only height and width) with a Canvas that has all three dimensions, but it is an error to associate a Video resource (which has height, width and duration) with a Canvas that does not have all three dimensions. Such a resource _SHOULD_ instead be referenced using the `rendering` property, or by Annotations that have a `motivation` value other than `painting` in the `annotations` property.
 
 Parts of Canvases _MAY_ be described using a Specific Resource with a Selector, following the patterns defined in the [Web Annotation][org-w3c-webanno] data model. The use of the FragmentSelector class is _RECOMMENDED_ by that specification, as it allows for refinement by other Selectors and for consistency with use cases that cannot be represented using a URI fragment directly. Parts of Canvases can be referenced from Ranges, as the `body` or `target` of Annotations, or in the `start` property.
 
@@ -1232,9 +1232,9 @@ Renderers _MUST_ scale content into the space represented by the Canvas, and _SH
 
 Ranges are used to represent structure within an object beyond the default order of the Canvases in the `items` property of the Manifest, such as newspaper sections or articles, chapters within a book, or movements within a piece of music. Ranges can include Canvases, parts of Canvases, or other Ranges, creating a tree structure like a table of contents.
 
-The intent of adding a Range to the Manifest is to allow the client to display a linear or hierarchical navigation interface to enable the user to quickly move through the object's content. Clients _SHOULD_ present only Ranges with the `label` property and without a `behavior` value `no-nav` to the user. Clients _SHOULD NOT_ render Canvas labels as part of the navigation, and a Range that wraps the Canvas _MUST_ be created if this is the desired presentation.
+The intent of adding a Range to the Manifest is to allow the client to display a linear or hierarchical navigation interface to enable the user to quickly move through the object's content. Clients _SHOULD_ present only Ranges that have the `label` property and do not have a `behavior` value `no-nav` to the user. Clients _SHOULD NOT_ render Canvas labels as part of the navigation, and a Range that wraps the Canvas _MUST_ be created if this is the desired presentation.
 
-If there is no Range that has the `behavior` value `sequence`, and the Manifest does not have the `behavior` value `unordered`, then the client _SHOULD_ treat the order of the Canvases in the Manifest's `items` array as the default order. If there is one Range with the `behavior` value `sequence`, then the viewer _MUST_ instead use this Range for the ordering. If there is more than one Range with the `behavior` value `sequence`, for example a second Range to represent an alternative ordering of the pages of a manuscript, the first Range _SHOULD_ be used as the default and the others _SHOULD_ be able to be selected. Ranges with the `behavior` value `sequence` _MUST_ be directly within the `structures` property of the Manifest, and _MUST NOT_ be embedded or referenced within other Ranges. These Ranges may have limited hierarchical nesting, but clients are not expected to traverse very deep structures in determining the default order. If this Range includes parts of Canvases, then these parts are the content to render by default and would generate separate entries in a navigation display. This allows for the Canvas to include content outside of the default view, such as a color bar or ruler.
+If there is no Range that has the `behavior` value `sequence`, and the Manifest does not have the `behavior` value `unordered`, then the client _SHOULD_ treat the order of the Canvases in the Manifest's `items` array as the default order. If there is one Range that has the `behavior` value `sequence`, then the viewer _MUST_ instead use this Range for the ordering. If there is more than one Range that has the `behavior` value `sequence`, for example a second Range to represent an alternative ordering of the pages of a manuscript, the first Range _SHOULD_ be used as the default and the others _SHOULD_ be able to be selected. Ranges that have the `behavior` value `sequence` _MUST_ be directly within the `structures` property of the Manifest, and _MUST NOT_ be embedded or referenced within other Ranges. These Ranges may have limited hierarchical nesting, but clients are not expected to traverse very deep structures in determining the default order. If this Range includes parts of Canvases, then these parts are the content to render by default and would generate separate entries in a navigation display. This allows for the Canvas to include content outside of the default view, such as a color bar or ruler.
 
 Ranges _MUST_ have URIs and they _SHOULD_ be HTTP(S) URIs. Top level Ranges are embedded or externally referenced within the Manifest in a `structures` property. These top level Ranges then embed or reference other Ranges, Canvases or parts of Canvases in the `items` property. Each entry in the `items` property _MUST_ be a JSON object, and it _MUST_ have the `id` and `type` properties. If a top level Range needs to be dereferenced by the client, then it _MUST NOT_ have the `items` property, such that clients are able to recognize that it should be retrieved in order to be processed.
 
