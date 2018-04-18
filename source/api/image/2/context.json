@@ -77,7 +77,8 @@
       "@id": "exif:width"
     },
     "scaleFactors": {
-      "@id": "iiif:scaleFactor"
+      "@id": "iiif:scaleFactor",
+      "@container": "@set"
     },
     "formats": {
       "@id": "iiif:format"
@@ -92,6 +93,15 @@
     "tiles": {
       "@id": "iiif:hasTile",
       "@type": "@id"
+    },
+    "maxWidth": {
+      "@id": "iiif:maxWidth"
+    },
+    "maxHeight": {
+      "@id": "iiif:maxHeight"
+    },
+    "maxArea": {
+      "@id": "iiif:maxArea"
     },
     "profile": {
       "@id": "doap:implements",
