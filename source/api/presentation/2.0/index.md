@@ -1462,7 +1462,7 @@ Many thanks to Matthieu Bonicel, Tom Cramer, Ian Davis, Markus Enders, Renhart G
 
 [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
 [shared-canvas]: {{ site.url }}{{ site.baseurl }}/model/shared-canvas/{{ site.shared_canvas.latest.major}}.{{ site.shared_canvas.latest.minor }} "Shared Canvas Data Model"
-[image-api]: {{ site.url }}{{ site.baseurl }}/api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/ "Image API"
+[image-api]: {{ site.url }}{{ site.baseurl }}/api/image/{{ site.image_api.stable.major }}.{{ site.image_api.stable.minor }}/ "Image API"
 [annex]: {{ site.url }}{{ site.baseurl }}/api/annex/services/ "Services Annex Document"
 [change-log]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.0/change-log/ "Presentation API 2.0 Change Log"
 [iiif-community]: {{page.webprefix}}/community/ "IIIF Community"
