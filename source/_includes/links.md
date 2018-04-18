@@ -148,11 +148,11 @@
 [prezi30-appendixa]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#a-summary-of-metadata-requirements
 [prezi30-canvas]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#canvas
 [prezi3-html]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.latest.minor }}/#html-markup-in-property-values "Presentation API Section 4.4"
-[prezi30-html]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.latest.minor }}/#html-markup-in-property-values "Presentation API Section 4.4"
+[prezi30-html]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#html-markup-in-property-values "Presentation API Section 4.4"
 [prezi3-languages]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.latest.minor }}/#language-of-property-values "Language of Property Values"
-[prezi30-languages]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.latest.minor }}/#language-of-property-values "Language of Property Values"
+[prezi30-languages]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#language-of-property-values "Language of Property Values"
 [prezi3-ldce]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.latest.minor }}/#linked-data-context-and-extensions "Linked Data Context and Extensions"
-[prezi30-ldce]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.latest.minor }}/#linked-data-context-and-extensions "Linked Data Context and Extensions"
+[prezi30-ldce]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#linked-data-context-and-extensions "Linked Data Context and Extensions"
 [prezi30-range]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#range
 [prezi30-resource-structure]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#resource-structure
 [prezi30-resource-properties]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#resource-properties
@@ -166,7 +166,7 @@
 [registry-motivations]: {{ site.url }}{{ site.baseurl }}/api/annex/registry/motivations/
 [registry-process]: {{ site.url }}{{ site.baseurl }}/api/annex/registry/process/
 [registry-services]: {{ site.url }}{{ site.baseurl }}/api/annex/registry/services/
-[search-api]: {{ site.url }}{{ site.baseurl }}/api/search/{{ site.search_api.latest.major }}.{{ site.search_api.latest.minor }}/ "Content Search API"
+[search-api]: {{ site.url }}{{ site.baseurl }}/api/search/{{ site.search_api.stable.major }}.{{ site.search_api.stable.minor }}/ "Content Search API"
 [search1-autocomplete]: {{ site.url }}{{ site.baseurl }}/api/search/1.0/#autocomplete
 [search1]: {{ site.url }}{{ site.baseurl }}/api/search/1.0/
-[shared-canvas]: {{ site.url }}{{ site.baseurl }}/model/shared-canvas/{{ site.shared_canvas.latest.major}}.{{ site.shared_canvas.latest.minor }} "Shared Canvas Data Model"
+[shared-canvas]: {{ site.url }}{{ site.baseurl }}/model/shared-canvas/{{ site.shared_canvas.stable.major}}.{{ site.shared_canvas.stable.minor }} "Shared Canvas Data Model"

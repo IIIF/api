@@ -478,9 +478,9 @@ The example below includes only the manifest-level information, however it _MUST
   "thumbnail": {
     "@id": "http://www.example.org/images/book1-page1/full/80,100/0/default.jpg",
     "service": {
-      "@context":"http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
+      "@context":"http://iiif.io/api/image/2/context.json",
       "@id":"http://www.example.org/images/book1-page1",
-      "profile":"http://iiif.io/api/image/{{ site.image_api.latest.major }}/level1.json"
+      "profile":"http://iiif.io/api/image/2/level1.json"
     }
   },
 
@@ -656,9 +656,9 @@ Additional features of the [Open Annotation][openanno] data model _MAY_ also be 
     "@type":"dctypes:Image",
     "format":"image/jpeg",
     "service": {
-      "@context": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
+      "@context": "http://iiif.io/api/image/2/context.json",
       "@id":"http://www.example.org/images/book1-page1",
-      "profile":"http://iiif.io/api/image/{{ site.image_api.latest.major }}/profiles/level2.json"
+      "profile":"http://iiif.io/api/image/2/profiles/level2.json"
     },
     "height":2000,
     "width":1500
@@ -1269,9 +1269,9 @@ URL: _http://www.example.org/iiif/book1/manifest_
                     "@type":"dctypes:Image",
                     "format":"image/jpeg",
                     "service": {
-                        "@context": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
+                        "@context": "http://iiif.io/api/image/2/context.json",
                         "@id": "http://www.example.org/images/book1-page1",
-                        "profile":"http://iiif.io/api/image/{{ site.image_api.latest.major }}/level1.json"
+                        "profile":"http://iiif.io/api/image/2/level1.json"
                     },
                     "height":2000,
                     "width":1500
@@ -1303,9 +1303,9 @@ URL: _http://www.example.org/iiif/book1/manifest_
                     "height":2000,
                     "width":1500,
                     "service": {
-                        "@context": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
+                        "@context": "http://iiif.io/api/image/2/context.json",
                         "@id": "http://www.example.org/images/book1-page2",
-                        "profile":"http://iiif.io/api/image/{{ site.image_api.latest.major }}/level1.json",
+                        "profile":"http://iiif.io/api/image/2/level1.json",
                         "height":8000,
                         "width":6000,
                         "tiles" : [{"width": 512, "scaleFactors": [1,2,4,8,16]}]
@@ -1336,9 +1336,9 @@ URL: _http://www.example.org/iiif/book1/manifest_
                     "@type":"dctypes:Image",
                     "format":"image/jpeg",
                     "service": {
-                        "@context": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
+                        "@context": "http://iiif.io/api/image/2/context.json",
                         "@id": "http://www.example.org/images/book1-page3",
-                        "profile":"http://iiif.io/api/image/{{ site.image_api.latest.major }}/level1.json"
+                        "profile":"http://iiif.io/api/image/2/level1.json"
           },
                     "height":2000,
                     "width":1500
@@ -1461,7 +1461,7 @@ Many thanks to Matthieu Bonicel, Tom Cramer, Ian Davis, Markus Enders, Renhart G
 | 2013-06-14 | Version 0.9 (unnamed) released.                    |
 
 [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
-[shared-canvas]: {{ site.url }}{{ site.baseurl }}/model/shared-canvas/{{ site.shared_canvas.latest.major}}.{{ site.shared_canvas.latest.minor }} "Shared Canvas Data Model"
+[shared-canvas]: {{ site.url }}{{ site.baseurl }}/model/shared-canvas/{{ site.shared_canvas.stable.major}}.{{ site.shared_canvas.stable.minor }} "Shared Canvas Data Model"
 [image-api]: {{ site.url }}{{ site.baseurl }}/api/image/{{ site.image_api.stable.major }}.{{ site.image_api.stable.minor }}/ "Image API"
 [annex]: {{ site.url }}{{ site.baseurl }}/api/annex/services/ "Services Annex Document"
 [change-log]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.0/change-log/ "Presentation API 2.0 Change Log"
