@@ -19,7 +19,7 @@ kramdown:
     css: class
 
 image_api:
-  latest:
+  draft:
     major: 3
     minor: 0
     patch: 0
@@ -28,7 +28,7 @@ image_api:
     minor: 1
     patch: 1
 presentation_api:
-  latest:
+  draft:
     major: 3
     minor: 0
     patch: 0
@@ -37,7 +37,7 @@ presentation_api:
     minor: 1
     patch: 1
 shared_canvas:
-  latest:
+  draft:
     major: 1
     minor: 0
     patch: 0
@@ -46,7 +46,7 @@ shared_canvas:
     minor: 0
     patch: 0
 search_api:
-  latest:
+  draft:
     major: 1
     minor: 0
     patch: 0
@@ -55,7 +55,7 @@ search_api:
     minor: 0
     patch: 0
 auth_api:
-  latest:
+  draft:
     major: 1
     minor: 0
     patch: 0
