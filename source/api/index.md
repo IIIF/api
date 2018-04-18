@@ -11,8 +11,8 @@ cssversion: 2
 | API                | Current Version |
 | ------------------ | --------------- |
 | Authentication API | [{{ site.auth_api.latest.major }}.{{ site.auth_api.latest.minor }}.{{ site.auth_api.latest.patch}}][auth{{ site.auth_api.latest.major }}{{ site.auth_api.latest.minor }}] |
-| Image API          | [{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}.{{ site.image_api.latest.patch}}][image{{ site.image_api.latest.major }}{{ site.image_api.latest.minor }}] |
-| Presentation API   | [{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}.{{ site.presentation_api.latest.patch }}][prezi{{ site.presentation_api.latest.major }}{{ site.presentation_api.latest.minor }}] |
+| Image API          | [{{ site.image_api.stable.major }}.{{ site.image_api.stable.minor }}.{{ site.image_api.stable.patch}}][image{{ site.image_api.stable.major }}{{ site.image_api.stable.minor }}] |
+| Presentation API   | [{{ site.presentation_api.stable.major }}.{{ site.presentation_api.stable.minor }}.{{ site.presentation_api.stable.patch }}][prezi{{ site.presentation_api.stable.major }}{{ site.presentation_api.stable.minor }}] |
 | Search API   | [{{ site.search_api.latest.major }}.{{ site.search_api.latest.minor }}.{{ site.search_api.latest.patch }}][search{{ site.search_api.latest.major }}{{ site.search_api.latest.minor }}] |
 {: .api-table}
 
@@ -20,7 +20,8 @@ cssversion: 2
 
 | API                | Draft Version (Status)       |
 | ------------------ | ---------------------------- |
-| none               | none                         |
+| Image API          | [3.0][prezi30] (alpha)       |
+| Presentation API   | [3.0][prezi30] (alpha)       |
 {: .api-table}
 
 __Feedback Requested__<br/>
@@ -69,10 +70,12 @@ IIIF Specifications are created and published following the [IIIF Editorial Proc
 [search-jp]: http://www.asahi-net.or.jp/~ax2s-kmtn/ref/iiif/searchapi1.0.html
 
 [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
+[image30]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/ "Image API v3.0"
 [image21]: {{ site.url }}{{ site.baseurl }}/api/image/2.1/ "Image API v2.1"
 [image20]: {{ site.url }}{{ site.baseurl }}/api/image/2.0/ "Image API v2.0"
 [image11]: {{ site.url }}{{ site.baseurl }}/api/image/1.1/ "Image API v1.1"
 [image10]: {{ site.url }}{{ site.baseurl }}/api/image/1.0/ "Image API v1.0"
+[prezi30]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/ "Presentation API v3.0"
 [prezi21]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.1/ "Presentation API v2.1"
 [prezi20]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.0/ "Presentation API v2.0"
 [meta10]: {{ site.url }}{{ site.baseurl }}/api/metadata/1.0/ "Metadata API v1.0"
