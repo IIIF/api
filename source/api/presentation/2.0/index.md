@@ -1246,7 +1246,7 @@ An example collection document:
 
 
 ##  9. Complete Example Response
-Complete Example Response
+{: #complete-example-response}
 
 Note that 7.3 above contains a complete response for a Collection document.
 
