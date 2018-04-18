@@ -3,7 +3,7 @@ source: source
 safe: false
 permalink: /news/:year/:month/:day/:title/
 
-gems:
+plugins:
   - jekyll-sitemap
   - jekyll-redirect-from
 
