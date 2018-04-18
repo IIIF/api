@@ -11,5 +11,8 @@
   name: Community
   url: /community/
 -
+  name: Events
+  url: /event/
+-
   name: News
   url: /news/

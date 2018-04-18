@@ -6,19 +6,15 @@
     "dcterms": "http://purl.org/dc/terms/",
 
     "height": {
-      "@type": "xsd:integer",
       "@id": "exif:height"
     },
     "width": {
-      "@type": "xsd:integer",
       "@id": "exif:width"
     },
     "tile_height": {
-      "@type": "xsd:integer",
       "@id": "iiif:tileHeight"
     },
     "tile_width": {
-      "@type": "xsd:integer",
       "@id": "iiif:tileWidth"
     },
     "scale_factors": {

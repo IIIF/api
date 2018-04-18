@@ -2,7 +2,7 @@
   "@context": {
     "search": "http://iiif.io/api/search/0#",
 
-    "ignored": {"@id": "search:ignored", "@container": "@set", "@type": "xsd:string"},
+    "ignored": {"@id": "search:ignored", "@container": "@set"},
     "match": {"@id": "search:match"},
     "before": {"@id": "search:before"},
     "after": {"@id": "search:after"},
