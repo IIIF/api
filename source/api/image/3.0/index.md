@@ -894,7 +894,7 @@ Many thanks to the members of the [IIIF community][iiif-community] for their con
 
 | Date       | Description |
 | ---------- | ----------- |
-| XXXX-YY-ZZ | Version 3.0 |
+| 2018-04-18 | Version 3.0 ALPHA |
 | 2017-06-09 | Version 2.1.1 [View change log][image211-change-log] |
 | 2016-05-12 | Version 2.1 (Crowned Eagle) [View change log][image21-change-log] |
 | 2014-09-11 | Version 2.0 (Voodoo Bunny) [View change log][image20-change-log] |
