@@ -10,7 +10,6 @@ patch: 0
 pre: ALPHA
 cssversion: 3
 redirect_from:
-  - /api/image/index.html
   - /api/image/3/index.html
 ---
 
