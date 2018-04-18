@@ -457,7 +457,7 @@ Any additional fields beyond those defined in this specification _SHOULD_ be map
 Clients _SHOULD_ be aware that some implementations will add an `@graph` property at the top level, which contains the object. This is a side effect of JSON-LD serialization, and servers _SHOULD_ remove it before sending to the client. The client can use the [JSON-LD compaction algorithm][json-ld-compact] to remove it, if present.  Using compaction and the JSON-LD Framing algorithm with the [supplied frames][annex-frames] will generate the correct structure.
 
 ##  6. Primary Resource Types
-{: #primary-resource-types}
+{: #primary-resource-types-1}
 
 ###  6.1. Manifest
 {: #manifest}

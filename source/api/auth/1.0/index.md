@@ -300,7 +300,7 @@ An example service description for the External interaction pattern:
 The client uses this service to obtain an access token which it then uses when requesting Description Resources. A request to the access token service must include any cookies for the content domain acquired from the user's interaction with the corresponding access cookie service, so that the server can issue the access token.
 
 #### 2.2.1. Service Description
-{: #service-description}
+{: #service-description-1}
 
 The access cookie service description _MUST_ include an access token service description following the template below:
 
@@ -486,7 +486,7 @@ When returning JSON directly, the service _MUST_ use the appropriate HTTP status
 In the case of the Login interaction pattern, the client will need to know if and where the user can go to log out. For example, the user may wish to close their session on a public terminal, or to log in again with a different account.
 
 #### 2.3.1. Service Description
-{: #service-description}
+{: #service-description-2}
 
 If the authentication system supports users intentionally logging out, there _SHOULD_ be a logout service associated with the access cookie service following the template below:
 

@@ -106,7 +106,7 @@ An example service description block:
 ```
 
 ### 3.2. Request
-{: #request}
+{: #request-1}
 
 The search request is made to a service that is related to a particular Presentation API resource.  The URIs for services associated with different resources must be different to allow the client to use the correct one for the desired scope of the search.  To perform a search, the client _MUST_ use HTTP GET (rather than POST) to make the request to the service, with query parameters to specify the search terms.
 
@@ -556,7 +556,7 @@ In cases like this there are more annotations than hits as two or more annotatio
 The autocomplete service returns terms that can be added into the `q` parameter of the related search service, given the first characters of the term.
 
 ### 4.1. Service Description
-{: #service-description}
+{: #service-description-1}
 
 The autocomplete service is nested within the search service that it provides term completion for.  This is to allow multiple search services, each with their own autocomplete service.
 
@@ -588,7 +588,7 @@ The other parameters (`motivation`, `date` and `user`), if supported, refine the
 
 
 #### 4.2.1. Query Parameters
-{: #query-parameters}
+{: #query-parameters-1}
 
 | Parameter | Definition |
 | --------- | ---------- |
@@ -596,7 +596,7 @@ The other parameters (`motivation`, `date` and `user`), if supported, refine the
 {: .api-table}
 
 #### 4.2.2. Example Request
-{: #example-request}
+{: #example-request-1}
 
 An example request
 
