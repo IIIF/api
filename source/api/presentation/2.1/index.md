@@ -519,9 +519,9 @@ The example below includes only the manifest-level information, however actual i
   "thumbnail": {
     "@id": "http://example.org/images/book1-page1/full/80,100/0/default.jpg",
     "service": {
-      "@context": "http://iiif.io/api/image/{{ site.image_api.stable.major }}/context.json",
+      "@context": "http://iiif.io/api/image/2/context.json",
       "@id": "http://example.org/images/book1-page1",
-      "profile": "http://iiif.io/api/image/{{ site.image_api.stable.major }}/level1.json"
+      "profile": "http://iiif.io/api/image/2/level1.json"
     }
   },
 
@@ -722,9 +722,9 @@ Only the annotations that associate images or parts of images are included in th
     "@type": "dctypes:Image",
     "format": "image/jpeg",
     "service": {
-      "@context": "http://iiif.io/api/image/{{ site.image_api.stable.major }}/context.json",
+      "@context": "http://iiif.io/api/image/2/context.json",
       "@id": "http://example.org/images/book1-page1",
-      "profile": "http://iiif.io/api/image/{{ site.image_api.stable.major }}/level2.json"
+      "profile": "http://iiif.io/api/image/2/level2.json"
     },
     "height":2000,
     "width":1500
@@ -1709,9 +1709,9 @@ URL: _http://example.org/iiif/book1/manifest_
                     "@type": "dctypes:Image",
                     "format": "image/jpeg",
                     "service": {
-                        "@context": "http://iiif.io/api/image/{{ site.image_api.stable.major }}/context.json",
+                        "@context": "http://iiif.io/api/image/2/context.json",
                         "@id": "http://example.org/images/book1-page1",
-                        "profile": "http://iiif.io/api/image/{{ site.image_api.stable.major }}/level1.json"
+                        "profile": "http://iiif.io/api/image/2/level1.json"
                     },
                     "height":2000,
                     "width":1500
@@ -1748,9 +1748,9 @@ URL: _http://example.org/iiif/book1/manifest_
                     "height":2000,
                     "width":1500,
                     "service": {
-                        "@context": "http://iiif.io/api/image/{{ site.image_api.stable.major }}/context.json",
+                        "@context": "http://iiif.io/api/image/2/context.json",
                         "@id": "http://example.org/images/book1-page2",
-                        "profile": "http://iiif.io/api/image/{{ site.image_api.stable.major }}/level1.json",
+                        "profile": "http://iiif.io/api/image/2/level1.json",
                         "height":8000,
                         "width":6000,
                         "tiles": [{"width": 512, "scaleFactors": [1,2,4,8,16]}]
@@ -1782,9 +1782,9 @@ URL: _http://example.org/iiif/book1/manifest_
                     "@type": "dctypes:Image",
                     "format": "image/jpeg",
                     "service": {
-                        "@context": "http://iiif.io/api/image/{{ site.image_api.stable.major }}/context.json",
+                        "@context": "http://iiif.io/api/image/2/context.json",
                         "@id": "http://example.org/images/book1-page3",
-                        "profile": "http://iiif.io/api/image/{{ site.image_api.stable.major }}/level1.json"
+                        "profile": "http://iiif.io/api/image/2/level1.json"
           },
                     "height":2000,
                     "width":1500
@@ -1847,7 +1847,7 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 | 2013-06-14 | Version 0.9 (unnamed) |
 
 [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
-[shared-canvas]: {{ site.url }}{{ site.baseurl }}/model/shared-canvas/{{ site.shared_canvas.latest.major}}.{{ site.shared_canvas.latest.minor }} "Shared Canvas Data Model"
+[shared-canvas]: {{ site.url }}{{ site.baseurl }}/model/shared-canvas/{{ site.shared_canvas.stable.major}}.{{ site.shared_canvas.stable.minor }} "Shared Canvas Data Model"
 [image-api]: {{ site.url }}{{ site.baseurl }}/api/image/{{ site.image_api.stable.major }}.{{ site.image_api.stable.minor }}/ "Image API"
 [search-api]: {{ site.url }}{{ site.baseurl }}/api/search/{{ site.search_api.stable.major }}.{{ site.search_api.stable.minor }}/ "Content Search API"
 [annex]: {{ site.url }}{{ site.baseurl }}/api/annex/services/ "Services Annex Document"

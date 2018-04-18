@@ -10,7 +10,6 @@ minor: 0
 patch: 0
 pre: ALPHA
 redirect_from:
-  - /api/presentation/index.html
   - /api/presentation/3/index.html
 ---
 
@@ -18,7 +17,7 @@ redirect_from:
 {:.no_toc}
 __This Version:__ {{ page.major }}.{{ page.minor }}.{{ page.patch }}{% if page.pre != 'final' %}-{{ page.pre }}{% endif %}
 
-__Latest Stable Version:__ [{{ site.presentation_api.stable.major }}.{{ site.presentation_api.stable.minor }}.{{ site.presentation_api.stable.patch }}][prezi3]
+__Latest Stable Version:__ [{{ site.presentation_api.stable.major }}.{{ site.presentation_api.stable.minor }}.{{ site.presentation_api.stable.patch }}][prezi-stable-version]
 
 __Previous Version:__ [2.1.1][prezi21]
 
@@ -1859,7 +1858,7 @@ Many of the changes in this version are due to the work of the [IIIF AV Technica
 
 | Date       | Description           |
 | ---------- | --------------------- |
-| XXXX-YY-ZZ | Version 3.0 |
+| 2018-04-18 | Version 3.0 ALPHA |
 | 2017-06-09 | Version 2.1.1 [View change log][prezi30-change-log] |
 | 2016-05-12 | Version 2.1 (Hinty McHintface) [View change log][prezi21-change-log] |
 | 2014-09-11 | Version 2.0 (Triumphant Giraffe) [View change log][prezi20-change-log] |

@@ -180,9 +180,9 @@ If a server could convey this information in the manifest the client would have 
     "@type": "dctypes:Image",
     "format": "image/jpeg",
     "service": {
-      "@context": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
+      "@context": "http://iiif.io/api/image/2/context.json",
       "@id": "http://example.org/images/book1-page1",
-      "profile": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/profiles/level2.json",
+      "profile": "http://iiif.io/api/image/2/profiles/level2.json",
       "service": {
         "@context": "http://iiif.io/api/auth/{{ page.major }}/context.json",
         "@id": "http://example.org/iiif/loginservice",
@@ -225,9 +225,9 @@ However, this would result in a very large manifest if there are a large number 
     "@type": "dctypes:Image",
     "format": "image/jpeg",
     "service": {
-      "@context": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
+      "@context": "http://iiif.io/api/image/2/context.json",
       "@id": "http://example.org/images/book1-page2",
-      "profile": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/profiles/level2.json",
+      "profile": "http://iiif.io/api/image/2/profiles/level2.json",
       "service": "http://example.org/iiif/loginservice"
     },
     "height":2000,

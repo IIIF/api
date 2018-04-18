@@ -17,7 +17,7 @@ redirect_from:
 
 __This version:__ {{ page.major }}.{{ page.minor }}.{{ page.patch }}{% if page.pre != 'final' %}-{{ page.pre }}{% endif %}
 
-__Latest stable version:__ [{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}.{{ site.image_api.latest.patch }}][stable-version]
+__Latest stable version:__ [{{ site.image_api.stable.major }}.{{ site.image_api.stable.minor }}.{{ site.image_api.stable.patch }}][stable-version]
 
 ## Table of Contents
 {:.no_toc}
@@ -151,7 +151,7 @@ If a client requests a combination of size and region outside these parameters t
 [icon-na]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/not_allowed.png "Not allowed"
 [size]: #size "3.2 Size"
 [profile]: {{ site.url }}{{ site.baseurl }}/api/image/{{ page.major }}.{{ page.minor }}/#profile-description "5.3 Profile Description"
-[stable-version]: {{ site.url }}{{ site.baseurl }}/api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}/compliance/ "Stable Version"
+[stable-version]: {{ site.url }}{{ site.baseurl }}/api/image/{{ site.image_api.stable.major }}.{{ site.image_api.stable.minor }}/compliance/ "Stable Version"
 [full-dep]: {{ site.url }}{{ site.baseurl }}/api/image/2.{{ page.minor }}/#full-dep "Full Size Keyword Deprecation Warning"
 
 {% include acronyms.md %}

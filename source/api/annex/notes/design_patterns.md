@@ -2,7 +2,7 @@
 title: "IIIF Design Patterns"
 layout: spec
 tags: [annex, presentation-api, image-api]
-cssversion: 2
+cssversion: 3
 ---
 
 ## Status of this Document
@@ -174,6 +174,7 @@ Flags in the IIIF specifications, such as `timeMode` or `behavior` are actually 
  | 2018-03-22 | Added JSON-LD Design Patterns |
  | 2017-03-15 | First published version after community review |
  | 2017-02-06 | Initial draft version |
+{: .api-table}
 
 [change-log]: #change-log "Change Log"
 [iiif-announce]: https://groups.google.com/forum/#!forum/iiif-announce "IIIF Email Announcement List"

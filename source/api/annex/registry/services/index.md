@@ -66,9 +66,9 @@ The Image Information service allows the [Presentation API][prezi3], and potenti
 ``` json-doc
 {
   "service": {
-    "@context" : "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
+    "@context" : "http://iiif.io/api/image/2/context.json",
     "@id" : "http://www.example.org/image-service/abcd1234",
-    "profile": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/level2.json"
+    "profile": "http://iiif.io/api/image/2/level2.json"
   }
 }
 ```
@@ -78,7 +78,7 @@ The service _MAY_ have additional information embedded from the Image Informatio
 ``` json-doc
 {
   "service": {
-    "@context" : "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
+    "@context" : "http://iiif.io/api/image/2/context.json",
     "@id" : "http://www.example.org/image-service/abcd1234",
     "protocol": "http://iiif.io/api/image",
     "width" : 6000,
@@ -92,7 +92,7 @@ The service _MAY_ have additional information embedded from the Image Informatio
       {"width" : 512, "scaleFactors" : [1,2,4,8,16]}
     ],
     "profile" : [
-      "http://iiif.io/api/image/{{ site.image_api.latest.major }}/level2.json",
+      "http://iiif.io/api/image/2/level2.json",
       {
         "formats" : [ "gif", "pdf" ],
         "qualities" : [ "color", "gray" ],
@@ -105,11 +105,11 @@ The service _MAY_ have additional information embedded from the Image Informatio
 }
 ```
 
-With the `logo` property added to the Image Information description in version 2.1 of the Image API{% unless site.image_api.latest.major >= 2 and site.image_api.latest.minor >= 1 %} (forthcoming){% endunless %}, it is possible and reasonable for one `info.json` response to embed another using this pattern.  In this case, the second service is related to the icon that should be displayed when a client renders the image described by the main response.
+With the `logo` property added to the Image Information description in version 2.1 of the Image API, it is possible and reasonable for one `info.json` response to embed another using this pattern.  In this case, the second service is related to the icon that should be displayed when a client renders the image described by the main response.
 
 ``` json-doc
 {
-  "@context" : "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
+  "@context" : "http://iiif.io/api/image/2/context.json",
   "@id" : "http://www.example.org/image-service/baseImage",
   "protocol" : "http://iiif.io/api/image",
 
@@ -119,7 +119,7 @@ With the `logo` property added to the Image Information description in version 2
     "service": {
       "@id": "http://example.org/image-service/logo",
       "protocol": "http://iiif.io/api/image",
-      "profile": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/level2.json"
+      "profile": "http://iiif.io/api/image/2/level2.json"
     }
   }
 }
