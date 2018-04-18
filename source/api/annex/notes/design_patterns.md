@@ -78,7 +78,7 @@ The intent of adopting this pattern is ensure performance and simplicity of impl
 
 ### 2.7. Follow Linked Data Principles
 
-IIIF specifications conform to [Linked Data][lod], and relevant [web architecture][webarch] standards as defined by the W3C and IETF. They should not require an RDF based development stack to implement, but it must be possible to implement using one.  It should be possible to transform representations back and forth between triples and the [JSON-LD][json-ld] serialization without loss, but not necessarily without the use of custom code.
+IIIF specifications conform to [Linked Data][lod], and relevant [web architecture][webarch] standards as defined by the W3C and IETF. They should not require an RDF based development stack to implement, but it must be possible to implement using one.  It should be possible to transform the data present in a single document back and forth between triples and the [JSON-LD][json-ld] serialization without loss, but not necessarily without the use of custom code. 
 
 The intent of adopting this pattern is to ensure that the data published via IIIF specifications can be part of the Web, not just on the Web. The semantics of the properties and classes used in the APIs are therefore self-documenting and able to be shared.
 
@@ -87,6 +87,8 @@ The intent of adopting this pattern is to ensure that the data published via III
 IIIF specifications that involve the description of resources, rather than the transfer of bitstreams, are designed for [JSON-LD][json-ld] as the primary serialization. This is comprised of publishing and maintaining a JSON-LD context document, and providing JSON-LD Frames.
 
 The intent of adopting this pattern is to ensure that the representation of the Linked Data is as easy to use as possible without the need for a full RDF development suite.  Developers must be able to treat the representation as plain JSON, with a predictable structure.  This ease of understanding increases the likelihood of wide spread adoption.
+
+The design patterns for this JSON representation are detailed in the next section.
 
 ### 2.9. Use Existing Standards Where Possible
 
@@ -112,11 +114,64 @@ IIIF specifications define the functionality that can be expected to work and ho
 
 The intent of adopting this pattern is to enable experimentation by implementers, thereby encouraging the early adoption and validation of new (minor) versions.
 
+## 3. JSON-LD Design Patterns
 
-## 3. Change Log
+The representation of the information in JSON must be:
+
+  * Valid JSON and JSON-LD, following the restrictions of both specifications ;
+  * Understandable by developers without special training or documentation ;
+  * Usable in a variety of application environments to ensure the widest adoption.
+
+These design patterns have been selected in order to maximize these features in the resulting APIs.
+
+### 3.1. Use Native Data Types
+
+Native data types in JSON are used to ensure that applications do not have to do type coercion. If the value should be an integer in the model, then the JSON representation is as a JSON number.  Similarly, if the value is an ordered list of resources, then a JSON array is used, mapping to an `rdf:List`.  Thus we use `"height": 1400` and not `"height": "1400"`.
+
+### 3.2. Avoid Special Characters
+
+Special characters are avoided in the names of classes and properties. Any character other than those in the range 0-9, a-z, A-Z and the underscore character are removed in the mapping to JSON-LD, if present in the name of a class or property. This is to ensure that applications developed in object oriented programming languages can treat these values as class and property names internally.
+
+JSON-LD defines two special keys in the data: `@id` (the URI of the resource) and `@type` (the class of the resource).  These are aliased to `id` and `type` respectively to avoid the use of the `@` symbol.
+
+### 3.3. Use Consistent Naming Conventions
+
+Additional design patterns beyond the restricted range of characters are used to make the names of terms easier to remember and use.
+
+#### 3.3.1. Use CamelCase
+
+All terms defined by IIIF specifications use camelCase (concatenated words with uppercase letters at word boundaries).  Thus we use `seeAlso` and not `see_also`.
+
+#### 3.3.2. Distinguish Classes and Properties
+
+All properties start with a lowercase letter, and all classes start with an uppercase letter. Thus we use `Manifest` and `items`, and not `manifest` or `Items`.
+
+#### 3.3.3. Avoid Explicit Namespaces
+
+While JSON-LD allows for namespaced terms (`oa:Annotation`), this would require the use of a `:` character in the class or property name, which is ruled out by the special characters design pattern.  Thus use `Manifest` and not `sc:Manifest`.
+
+### 3.4. Use Consistent Structural Conventions
+
+Consistent data structures make code that consumes those structures easier to write. The code does not need to check for different variants, it's either present in a single form, not present at all, or an error condition.
+
+#### 3.4.1. Always Use Arrays for Multiple Value Properties 
+
+If a property can ever have multiple values, it will always be an array even if it has only one value. This means that code can always iterate over the values without checking first to see if it's an array.  Thus we use `"language": [ "en" ]` and not `"language": "en"`.
+
+#### 3.4.2. Use JSON Objects for Referenced Resources
+
+If the set of referenced resources is not unbounded or otherwise impossible to enumerate, then the resource will be described with a JSON object that has at least the `id` and `type` properties. This ensures ease of processing as the resources will always be of the same type, rather than some being just the URI from `id` as a string and others being a JSON object. The inclusion of `type` makes it easier to build object models in code, as the class to instantiate is given by the description rather than needing to be inferred from the property.  Thus we use `"thumbnail": {"id": "https://example.org/images/logo.jpg", "type": "Image"}` and not `"thumbnail": "https://example.org/images/logo.jpg"`.
+
+#### 3.4.3. Use Strings for Enumerated Flags
+
+Flags in the IIIF specifications, such as `timeMode` or `behavior` are actually resources with URIs. If a URI could be treated as a value in an enumerated list such as these flags, then the URI is given as a string. All enumerations defined by IIIF specifications will be encoded in the respective JSON-LD context as easy-to-remember-and-use strings.  Thus we use `"timeMode": "trim"` and not `"timeMode": "http://iiif.io/api/presentation/3#trim"`, nor `"timeMode": {"id": "http://iiif.io/api/presentation/3#trim"}`.
+
+
+## 4. Change Log
 
  | Date       | Description                                                         |
  | ---------- | ------------------------------------------------------------------- |
+ | 2018-03-22 | Added JSON-LD Design Patterns |
  | 2017-03-15 | First published version after community review |
  | 2017-02-06 | Initial draft version |
 
