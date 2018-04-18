@@ -10,7 +10,6 @@ patch: 0
 pre: ALPHA
 cssversion: 3
 redirect_from:
-  - /api/image/index.html
   - /api/image/3/index.html
 ---
 
@@ -19,7 +18,7 @@ redirect_from:
 
 __This Version:__ {{ page.major }}.{{ page.minor }}.{{ page.patch }}{% if page.pre != 'final' %}-{{ page.pre }}{% endif %}
 
-__Latest Stable Version:__ [{{ site.image_api.stable.major }}.{{ site.image_api.stable.minor }}.{{ site.image_api.stable.patch }}][image-stable-version]
+__Latest Stable Version:__ [{{ site.image_api.stable.major }}.{{ site.image_api.stable.minor }}.{{ site.image_api.stable.patch }}][image-api]
 
 __Previous Version:__ [2.1.1][image21]
 
@@ -33,6 +32,10 @@ __Previous Version:__ [2.1.1][image21]
   {: .names}
 
 {% include copyright.md %}
+
+__Status Warning__
+This is a work in progress and may change without any notices. Implementers should be aware that this document is not stable. Implementers are likely to find the specification changing in incompatible ways. Those interested in implementing this document before it reaches beta or release stages should join the [mailing list][iiif-discuss] and take part in the discussions, and follow the [emerging issues][github-milestone-image-3] on Github.
+{: .warning}
 
 ----
 
@@ -891,7 +894,7 @@ Many thanks to the members of the [IIIF community][iiif-community] for their con
 
 | Date       | Description |
 | ---------- | ----------- |
-| XXXX-YY-ZZ | Version 3.0 |
+| 2018-04-18 | Version 3.0 ALPHA |
 | 2017-06-09 | Version 2.1.1 [View change log][image211-change-log] |
 | 2016-05-12 | Version 2.1 (Crowned Eagle) [View change log][image21-change-log] |
 | 2014-09-11 | Version 2.0 (Voodoo Bunny) [View change log][image20-change-log] |

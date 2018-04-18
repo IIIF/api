@@ -697,9 +697,9 @@ The following shows a use of `service` to associate the login page of an authent
   "protocol" : "http://iiif.io/api/image",
   // ...
   "service": {
-    "@context" : "http://iiif.io/api/auth/{{ site.auth_api.latest.major }}/context.json",
+    "@context" : "http://iiif.io/api/auth/{{ site.auth_api.stable.major }}/context.json",
     "@id" : "http://www.example.org/auth/login.html",
-    "profile": "http://iiif.io/api/auth/{{ site.auth_api.latest.major }}/login"
+    "profile": "http://iiif.io/api/auth/{{ site.auth_api.stable.major }}/login"
   }
 }
 ```

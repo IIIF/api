@@ -10,31 +10,32 @@ cssversion: 2
 
 | API                | Current Version |
 | ------------------ | --------------- |
-| Authentication API | [{{ site.auth_api.latest.major }}.{{ site.auth_api.latest.minor }}.{{ site.auth_api.latest.patch}}][auth{{ site.auth_api.latest.major }}{{ site.auth_api.latest.minor }}] |
-| Image API          | [{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}.{{ site.image_api.latest.patch}}][image{{ site.image_api.latest.major }}{{ site.image_api.latest.minor }}] |
-| Presentation API   | [{{ site.presentation_api.latest.major }}.{{ site.presentation_api.latest.minor }}.{{ site.presentation_api.latest.patch }}][prezi{{ site.presentation_api.latest.major }}{{ site.presentation_api.latest.minor }}] |
-| Search API   | [{{ site.search_api.latest.major }}.{{ site.search_api.latest.minor }}.{{ site.search_api.latest.patch }}][search{{ site.search_api.latest.major }}{{ site.search_api.latest.minor }}] |
+| Authentication API | [{{ site.auth_api.stable.major }}.{{ site.auth_api.stable.minor }}.{{ site.auth_api.stable.patch}}][auth{{ site.auth_api.stable.major }}{{ site.auth_api.stable.minor }}] |
+| Image API          | [{{ site.image_api.stable.major }}.{{ site.image_api.stable.minor }}.{{ site.image_api.stable.patch}}][image{{ site.image_api.stable.major }}{{ site.image_api.stable.minor }}] |
+| Presentation API   | [{{ site.presentation_api.stable.major }}.{{ site.presentation_api.stable.minor }}.{{ site.presentation_api.stable.patch }}][prezi{{ site.presentation_api.stable.major }}{{ site.presentation_api.stable.minor }}] |
+| Search API   | [{{ site.search_api.stable.major }}.{{ site.search_api.stable.minor }}.{{ site.search_api.stable.patch }}][search{{ site.search_api.stable.major }}{{ site.search_api.stable.minor }}] |
 {: .api-table}
 
 ## Draft Specifications
 
-| API                | Draft Version (Status)       |
-| ------------------ | ---------------------------- |
-| Presentation API   | [3.0.0 ALPHA][prezi3-draft] |
+| API                | Draft Version (Status) |
+| ------------------ | ---------------------- |
+| Image API          | [3.0.0 ALPHA][image30] |
+| Presentation API   | [3.0.0 ALPHA][prezi30] |
 {: .api-table}
 
 __Feedback Requested__<br/>
-We welcome feedback on all IIIF Specifications. In particular, we are actively seeking feedback on the Presentation API version 3.0 draft specification. Please send any feedback to [iiif-discuss@googlegroups.com][iiif-discuss].
+We welcome feedback on all IIIF Specifications. In particular, we are actively seeking feedback on the Image API and Presentation API version 3.0 draft specifications. Please send any feedback to [iiif-discuss@googlegroups.com][iiif-discuss].
 {: .alert}
 
 ## Community Translations
 
-| API              | Version | Translation           |
-| ---------------- | ------- | --------------------- |
-| Image API        | 2.1     | [Japanese][image-jp]  |
-| Presentation API | 2.1     | [Japanese][prezi-jp]  |
-| Search API       | 1.0     | [Japanese][search-jp] |
-| Authentication API | 1.0      | [Japanese][auth-jp] |
+| API                | Version | Translation           |
+| ------------------ | ------- | --------------------- |
+| Image API          | 2.1     | [Japanese][image-jp]  |
+| Presentation API   | 2.1     | [Japanese][prezi-jp]  |
+| Search API         | 1.0     | [Japanese][search-jp] |
+| Authentication API | 1.0     | [Japanese][auth-jp]   |
 {: .api-table}
 
 __Translation Note__<br/>
@@ -71,10 +72,12 @@ IIIF Specifications are created and published following the [IIIF Editorial Proc
 [auth-jp]: http://www.asahi-net.or.jp/~ax2s-kmtn/ref/iiif/apiauthentication1.0.html
 
 [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
+[image30]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/ "Image API v3.0 ALPHA"
 [image21]: {{ site.url }}{{ site.baseurl }}/api/image/2.1/ "Image API v2.1"
 [image20]: {{ site.url }}{{ site.baseurl }}/api/image/2.0/ "Image API v2.0"
 [image11]: {{ site.url }}{{ site.baseurl }}/api/image/1.1/ "Image API v1.1"
 [image10]: {{ site.url }}{{ site.baseurl }}/api/image/1.0/ "Image API v1.0"
+[prezi30]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/ "Presentation API v3.0 ALPHA" 
 [prezi21]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.1/ "Presentation API v2.1"
 [prezi20]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.0/ "Presentation API v2.0"
 [meta10]: {{ site.url }}{{ site.baseurl }}/api/metadata/1.0/ "Metadata API v1.0"
@@ -85,6 +88,5 @@ IIIF Specifications are created and published following the [IIIF Editorial Proc
 [search09]: {{ site.url }}{{ site.baseurl }}/api/search/0.9/ "Search API v0.9"
 [notes]: {{ site.url }}{{ site.baseurl }}/api/annex/ "Implementation Notes"
 [editors]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/editors/ "IIIF Editorial Process"
-[prezi3-draft]: http://prezi3.iiif.io/api/presentation/3.0/ "Presentation API v3.0 DRAFT"
 
 {% include acronyms.md %}

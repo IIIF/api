@@ -18,7 +18,7 @@ redirect_from:
 
 __This version:__ {{ page.major }}.{{ page.minor }}.{{ page.patch }}{% if page.pre != 'final' %}-{{ page.pre }}{% endif %}
 
-__Latest stable version:__ [{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}.{{ site.image_api.latest.patch }}][image-compliance-stable-version]
+__Latest stable version:__ [{{ site.image_api.stable.major }}.{{ site.image_api.stable.minor }}.{{ site.image_api.stable.patch }}][image-compliance-stable-version]
 
 ## Table of Contents
 {:.no_toc}
