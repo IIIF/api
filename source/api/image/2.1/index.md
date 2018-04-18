@@ -879,7 +879,6 @@ Early sanity checking of URIs (lengths, trailing GET, invalid characters, out-of
 {: #appendices}
 
 ### A. Implementation Notes
-{: #implementation-notes}
 
   * For use cases that enable the saving of the image, it is _RECOMMENDED_ to use the HTTP `Content-Disposition` header ([RFC6266][rfc-6266]) to provide a convenient filename that distinguishes the image, based on the identifier and parameters provided.
   * Server implementations may rely on components or frameworks that unescape the URI path, such as Python's [WSGI][wsgi]. In such situations, the requested URI may be parsed from the right in order to handle identifiers possibly containing slashes, given the knowledge of the API parameters and the prefix for which the server handles requests.
@@ -924,19 +923,16 @@ Early sanity checking of URIs (lengths, trailing GET, invalid characters, out-of
 ```
 
 ### B. Versioning
-{: #versioning}
 
 Starting with version 2.0, this specification follows [Semantic Versioning][semver]. See the note [Versioning of APIs][versioning] for details regarding how this is implemented.
 
 ###  C. Acknowledgments
-{: #acknowledgments}
 
 The production of this document was generously supported by a grant from the [Andrew W. Mellon Foundation][mellon].
 
 Many thanks to the members of the [IIIF][iiif-community] for their continuous engagement, innovative ideas and feedback.
 
 ###  D. Change Log
-{: #change-log}
 
 | Date       | Description |
 | ---------- | ----------- |
