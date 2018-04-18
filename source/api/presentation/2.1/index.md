@@ -88,6 +88,7 @@ This section provides an overview of the resource types (or classes) that are us
 
 
 ### 2.1. Basic Types
+{: #basic-types}
 
 This specification makes use of the following primary resource types:
 
@@ -147,6 +148,7 @@ An ordered list of canvases, and/or further ranges.  Ranges allow canvases, or p
 
 
 ##  3. Resource Properties
+{: #resource-properties}
 
 This specification defines properties in five distinct areas. Most of the properties may be associated with any of the resource types described above, and may have more than one value.  The property relates to the resource that it is associated with, so a `description` property on a manifest is a description of the object, whereas a `description` property on a canvas is a description of that particular page or view of the object.
 
@@ -155,6 +157,7 @@ The requirements for the use of the properties are summarized in [Appendix B][ap
 Other properties are allowed, either via custom extensions or endorsed by the IIIF. If a client discovers properties that it does not understand, then it _MUST_ ignore them.  Other properties _SHOULD_ consist of a prefix and a name in the form "`prefix:name`" to ensure it does not collide with a property defined by IIIF specifications.  [Services][annex] _SHOULD_ be used for extensions if at all possible, and a [JSON-LD context document][ld-exts] should be added that defines the semantics of the new properties.
 
 ####  3.1. Descriptive Properties
+{: #descriptive-properties}
 
 ##### label
 A human readable label, name or title for the resource. This property is intended to be displayed as a short, textual surrogate for the resource if a human needs to make a distinction between it and similar resources, for example between pages or between a choice of images to display.
@@ -195,6 +198,7 @@ A small image that depicts or pictorially represents the resource that the prope
  * Other resource types _MAY_ have one or more thumbnails.
 
 ####  3.2. Rights and Licensing Properties
+{: #rights-and-licensing-properties}
 
 The following properties ensure that the interests of the owning or publishing institutions are conveyed regardless of the viewing environment, and a client _MUST_ make these properties clearly available to the user. Given the wide variation of potential client user interfaces, it will not always be possible to display all or any of the properties to the user in the client's initial state. If initially hidden, the method of revealing them _MUST_ be obvious, such as a button or scroll bars.
 
@@ -214,6 +218,7 @@ A small image that represents an individual or organization associated with the 
  * Any resource type _MAY_ have one or more logos associated with it.
 
 ####  3.3. Technical Properties
+{: #technical-properties}
 
 ##### @id
 The URI that identifies the resource. It is _RECOMMENDED_ that an HTTP URI be used for all resources. Recommended HTTP URI patterns for the different classes of resource are given below.  URIs from any [registered scheme][iana-uri-schemes] _MAY_ be used, and implementers may find it convenient to use a [UUID URN][rfc-4122] of the form: `"urn:uuid:uuid-goes-here-1234"`.  Resources that do not require URIs _MAY_ be assigned [blank node identifiers][rdf11-blank-nodes]; this is the same as omitting `@id`.
@@ -227,7 +232,6 @@ The URI that identifies the resource. It is _RECOMMENDED_ that an HTTP URI be us
  * A layer _MUST_ have exactly one id, and it _MUST_ be an http(s) URI.
  * An annotation list _MUST_ have exactly one id, and it _MUST_ be the http(s) URI at which it is published.
  * An annotation _SHOULD_ have exactly one id, _MUST NOT_ have more than one, and the annotation's representation _SHOULD_ be published at that URI.
-
 
 ##### @type
 The type of the resource.  For the resource types defined by this specification, the value of `@type` will be described in the sections below.  For content resources, the type may be drawn from other vocabularies. Recommendations for basic types such as image, text or audio are also given in the sections below.
@@ -298,6 +302,7 @@ A date that the client can use for navigation purposes when presenting the resou
  * Other resource types _MUST NOT_ have navigation dates.
 
 ####  3.4. Linking Properties
+{: #linking-properties}
 
 ##### related
 A link to an external resource intended to be displayed directly to the user, and is related to the resource that has the `related` property. Examples might include a video or academic paper about the resource, a website, an HTML description, and so forth. A label and the format of the related resource _SHOULD_ be given to assist clients in rendering the resource to the user.
@@ -339,6 +344,7 @@ A link from a range to a layer that includes the annotations of content resource
  * Other resource types _MUST NOT_ have a content layer.
 
 ####  3.5. Paging Properties
+{: #paging-properties}
 
 ##### first
 A link from a resource with pages, such as a collection or layer, to its first page resource, another collection or an annotation list respectively. The page resource _SHOULD_ be referenced by just its URI (from `@id`) but _MAY_ also have more information associated with it as an object.
@@ -383,10 +389,12 @@ The 0 based index of the first included resource in the current page, relative t
  * Other resource types _MUST NOT_ have a startIndex.
 
 ##  4. JSON-LD Considerations
+{: #json-ld-considerations}
 
 This section describes features applicable to all of the Presentation API content.  For the most part, these are features of the JSON-LD specification that have particular uses within the API.
 
 ### 4.1. URI Representation
+{: #uri-representation}
 
 Resource descriptions _SHOULD_ be embedded within higher-level descriptions, and _MAY_ also be available via separate requests from http(s) URIs linked in the responses. These URIs are in the `@id` property for the resource. Links to resources _MAY_ be either given as just the URI if there is no additional information associated with them, or as a JSON object with the `@id` property. Other URI schemes _MAY_ be used if the resource is not able to be retrieved via HTTP. Both options provide the same URI, however the second pattern associates additional information with the resource:
 
@@ -401,6 +409,7 @@ Resource descriptions _SHOULD_ be embedded within higher-level descriptions, and
 ```
 
 ### 4.2. Repeated Properties
+{: #repeated-properties}
 
 Many of the properties in the API _MAY_ be repeated. This is done by giving a list of values, using either of the representations described above, rather than a single string.
 
@@ -415,6 +424,7 @@ Many of the properties in the API _MAY_ be repeated. This is done by giving a li
 ```
 
 ### 4.3. Language of Property Values
+{: #language-of-property-values}
 
 Language _MAY_ be associated with strings that are intended to be displayed to the user with the following pattern of `@value` plus the [RFC 5646][rfc5646] code in `@language`, instead of a plain string.  For example:
 
@@ -436,6 +446,7 @@ In the case where multiple values are supplied, clients _MUST_ use the following
 
 
 ### 4.4. HTML Markup in Property Values
+{: #html-markup-in-property-values}
 
 Minimal HTML markup _MAY_ be included in the `description`, `attribution` and `metadata` properties.  It _MUST NOT_ be used in `label` or other properties. This is included to allow manifest creators to add links and simple formatting instructions to blocks of text. The content _MUST_ be well-formed XML and therefore must be wrapped in an element such as `p` or `span`.  There _MUST NOT_ be whitespace on either side of the HTML string, and thus the first character in the string _MUST_ be a '<' character and the last character _MUST_ be '>', allowing a consuming application to test whether the value is HTML or plain text using these.  To avoid a non-HTML string matching this, it is _RECOMMENDED_ that an additional whitespace character be added to the end of the value.
 
@@ -454,6 +465,7 @@ Clients _SHOULD_ allow only `a`, `b`, `br`, `i`, `img`, `p`, and `span` tags. Cl
 ```
 
 ### 4.5. Linked Data Context and Extensions
+{: #linked-data-context-and-extensions}
 
 The top level resource in the response _MUST_ have the `@context` property, and it _SHOULD_ appear as the very first key/value pair of the JSON representation. This tells Linked Data processors how to interpret the information. The IIIF Presentation API context, below, _MUST_ occur exactly once per response, and be omitted from any embedded resources. For example, when embedding a sequence within a manifest, the sequence _MUST NOT_ have the `@context` field.
 
@@ -473,10 +485,12 @@ Any additional fields beyond those defined in this specification _SHOULD_ be map
 ```
 
 ##  5. Resource Structure
+{: #resource-structure}
 
 This section provides detailed description of the resource types used in this specification. [Section 2][type-overview] provides an overview of the resource types and figures illustrating allowed relationships between them, and [Appendix B][appendixb] provides summary tables of the property requirements.
 
 ###  5.1. Manifest
+{: #manifest}
 
 Recommended URI pattern:
 
@@ -579,6 +593,7 @@ The example below includes only the manifest-level information, however actual i
 ```
 
 ###  5.2. Sequence
+{: #sequence}
 
 Recommended URI pattern:
 
@@ -634,6 +649,7 @@ In the manifest example above, the sequence is referenced by its URI and contain
 ```
 
 ###  5.3. Canvas
+{: #canvas}
 
 Recommended URI pattern:
 
@@ -687,6 +703,7 @@ Canvases _MAY_ be dereferenced separately from the manifest via their URIs, and 
 ```
 
 ###  5.4. Image Resources
+{: #image-resources}
 
 Recommended URI pattern:
 
@@ -734,6 +751,7 @@ Only the annotations that associate images or parts of images are included in th
 ```
 
 ###  5.5. Annotation List
+{: #annotation-list}
 
 Recommended URI pattern:
 
@@ -789,6 +807,7 @@ Note well that Annotation Lists _MUST NOT_ be embedded within the manifest.
 ```
 
 ###  5.6. Range
+{: #range}
 
 Recommended URI pattern:
 
@@ -881,6 +900,7 @@ Several issues have arisen with respect to the current specification for ranges,
 {: .warning}
 
 ###  5.7. Layer
+{: #layer}
 
 Recommended URI pattern:
 
@@ -932,6 +952,7 @@ The annotation lists are referenced from the layer in an `otherContent` array, i
 
 
 ###  5.8. Collection
+{: #collection}
 
 Recommended URI pattern:
 
@@ -1028,6 +1049,7 @@ The `collections` and `manifests` properties are likely to be removed in version
 {: .warning}
 
 ### 5.9. Paging
+{: #paging}
 
 In some situations, annotation lists or the list of manifests in a collection may be very long or expensive to create. The latter case is especially likely to occur when responses are generated dynamically. In these situations the server may break up the response using [paging properties][paging]. The length of a response is left to the server's discretion, but the server should take care not to produce overly long responses that would be difficult for clients to process.
 
@@ -1040,6 +1062,7 @@ The paged resource _MAY_ use the `total` property to list the total number of le
 The linked page resources _MAY_ have different properties from the paged resource, including different rights and descriptive properties.  Clients _MUST_ take into account any requirements derived from these properties, such as displaying `logo` or `attribution`.
 
 ##### Example Paged Layer
+{: #example-paged-layer}
 
 A layer representing a long transcription with almost half a million annotations, perhaps where each annotation paints a single word on the canvas:
 
@@ -1093,6 +1116,7 @@ Note that it is still expected that canvases will link directly to the annotatio
 ```
 
 ##### Example Paged Collection
+{: #example-paged-collection}
 
 An example large collection with some 9.3 million objects in it:
 
@@ -1128,10 +1152,12 @@ And the corresponding first page of manifests:
 
 
 ##  6. Advanced Association Features
+{: #advanced-association-features}
 
 The following sections describe known use cases for building representations of objects using the IIIF Presentation API, and clients _SHOULD_ expect to encounter them. Other use cases are likely to exist, and _MUST_ be encoded using the [Open Annotation's][openanno] context document mapping for any additional fields required.
 
 ###  6.1. Segments
+{: #segments}
 
 It is important to be able to extract parts, or segments, of resources. In particular a very common requirement is to associate a resource with part of a canvas, or part of an image with either the entire canvas or part thereof. Secondly, as transcriptions are often made available in XML files, extracting the correct page to associate with the canvas, or line to associate with part of the canvas, is equally useful for reusing existing material. These can be accomplished using URI fragments for simple cases.
 
@@ -1211,6 +1237,7 @@ Segments of XML files may be extracted with [XPaths][xpath]. The fragment _MUST_
 ```
 
 ###  6.2. Embedded Content
+{: #embedded-content}
 
 Instead of referencing transcription text externally, it is often easier to record it within the annotation itself. Equally, text based comments could also benefit from being included in the annotation that associates the comment with the canvas.
 
@@ -1243,6 +1270,7 @@ An example of this feature:
 ```
 
 ###  6.3. Choice of Alternative Resources
+{: #choice-of-alternative-resources}
 
 A common requirement is to have a choice between multiple images that depict the page, such as being photographed under different lights or at different times. This can be accomplished by having a "oa:Choice" object as the resource, which then refers to the options to select from. It _MUST_ have one `default` and at least one further `item` to choose from. The images _SHOULD_ have a `label` for the viewer to display to the user so they can make their selection from among the options.
 
@@ -1278,6 +1306,7 @@ This can be used to model foldouts and other dynamic features of a page, by asso
 ```
 
 ###  6.4. Non Rectangular Segments
+{: #non-rectangular-segments}
 
 The [Scalable Vector Graphics][svg] standard (SVG) is used to describe non-rectangular, and rotated rectangular, areas of canvas or image resources. In this pattern, the resource of the annotation is a "oa:SpecificResource" which has the complete image referenced in a `full` field and the SVG embedded in a `selector` field (as the SVG selects the part of the image needed). The SVG document is embedded using the same `ContentAsText` approach as for embedding comments or transcriptions.
 
@@ -1307,6 +1336,7 @@ SVG _SHOULD NOT_ be used to describe non-rotated rectangular regions. The [IIIF 
 ```
 
 ###  6.5. Style
+{: #style}
 
 The [Cascading Style Sheets][css] standard (CSS) is used to describe how the client should render a given resource to the user. The CSS information is embedded within the annotation using the same `ContentAsText` approach above. As a stylesheet may contain more than one style, and be reused between annotations, it is attached to the annotation directly in the same manner as a stylesheet being linked to an HTML document. Then the name of the style class is attached to the resource that should be styled, again in the same manner as the class attribute in html, although we use `style` to avoid confusion with object classes.
 
@@ -1336,6 +1366,7 @@ In the example below, the text should be colored red.
 
 
 ###  6.6. Rotation
+{: #rotation}
 
 CSS may also be used for rotation of images which are not correctly aligned with the canvas. In the example below, after the image is located within the 500 wide by 30 high space within the canvas, it is then rotated by the rendering client application around the top left corner by 45 degrees anti-clockwise.
 
@@ -1392,6 +1423,7 @@ Alternatively, if the image is available via the IIIF Image API, it may be more 
 ```
 
 ###  6.7. Comment Annotations
+{: #comment-annotations}
 
 For annotations which are comments about the canvas, as opposed to painting content resources onto the canvas, there are different types of motivation to make the distinction clear. For annotations about the content (such as comments, notes, descriptions etc.) the `motivation` _SHOULD_ be "oa:commenting", but _MAY_ be any from the list given in the [Open Annotation][openanno] specification.
 
@@ -1432,6 +1464,7 @@ Other resources may also have comments made about them, including manifests (com
 
 
 ###  6.8. Hotspot Linking
+{: #hotspot-linking}
 
 It is also possible to use annotations to create links between resources, both within the manifest or to external content.  This can be used to link to the continuation of an article in a digitized newspaper in a different canvas, or to link to an external web page that describes the diagram in the canvas.
 
@@ -1453,10 +1486,12 @@ Hotspot linking is accomplished using an annotation with a `motivation` of "oa:l
 ```
 
 ## 7. HTTP Requests and Responses
+{: #http-requests-and-responses}
 
 This section describes the _RECOMMENDED_ request and response interactions for the API. The REST and simple HATEOAS approach is followed where an interaction will retrieve a description of the resource, and additional calls may be made by following links obtained from within the description. All of the requests use the HTTP GET method; creation and update of resources is not covered by this specification.
 
 ###  7.1. Requests
+{: #requests}
 
 Each of the entries in section 4 recommends a URI pattern to follow for the different resources. Following these patterns is _NOT REQUIRED_ and clients _MUST NOT_ construct the URIs by themselves, instead they _MUST_ follow links from within retrieved descriptions.
 
@@ -1482,6 +1517,7 @@ The individual resources _SHOULD_ have URIs below this top-level pattern, formed
 In the situation where the JSON documents are maintained in a filesystem with no access to the web server's configuration, then including ".json" on the end of the URI is suggested to ensure that the correct content-type response header is sent to the client.  While this does not follow the recommended URI patterns below, it is not prevented by the specification either.
 
 ###  7.2. Responses
+{: #responses}
 
 The format for all responses is JSON, and the following sections describe the structure to be returned.
 
@@ -1514,14 +1550,17 @@ Recipes for enabling CORS and the conditional Content-type header are provided i
 
 
 ## 8. Authentication
+{: #authentication}
 
 It may be necessary to restrict access to the descriptions made available via the Presentation API.  As the primary means of interaction with the descriptions is by web browsers using XmlHttpRequests across domains, there are some considerations regarding the most appropriate methods for authenticating users and authorizing their access.  The approach taken is described in the [Authentication][auth] specification, and requires requesting a token to add to the requests to identify the user.  This token might also be used for other requests defined by other APIs.
 
 It is possible to include Image API service descriptions within the manifest, and within those it is also possible to include links to the Authentication API's services that are needed to interact with the image content. The first time an Authentication API service is included within a manifest, it _MUST_ be the complete description. Subsequent references _SHOULD_ be just the URL of the service, and clients are expected to look up the details from the full description by matching the URL.  Clients _MUST_ anticipate situations where the Authentication service description in the manifest is out of date: the source of truth is the Image Information document, or other system that references the Authentication API services.
 
 ## Appendices
+{: #appendices}
 
 ###  A. Summary of Recommended URI Patterns
+{: #summary-of-recommended-uri-patterns}
 
 | Resource       | URI Pattern                                                 |
 | -------------- | ----------------------------------------------------------- |
@@ -1537,6 +1576,7 @@ It is possible to include Image API service descriptions within the manifest, an
 {: .api-table}
 
 ### B. Summary of Metadata Requirements
+{: #summary-of-metadata-requirements}
 
 | Field                      | Meaning     |
 | -------------------------- | ----------- |
@@ -1645,6 +1685,7 @@ __Protocol Behavior__
 {: .api-table}
 
 ### C. Example Manifest Response
+{: #example-manifest-response}
 
 URL: _http://example.org/iiif/book1/manifest_
 
@@ -1820,6 +1861,7 @@ URL: _http://example.org/iiif/book1/manifest_
 
 
 ### D. Implementation Notes
+{: #implementation-notes}
 
  * Clients _SHOULD_ be aware that some implementations may add an `@graph` property at the top level, which contains the object. This is a side effect of JSON-LD serialization, and servers _SHOULD_ remove it before sending to the client. If this is seen in practice, the client can use the [JSON-LD compaction algorithm][json-ld-compact] and JSON-LD Framing with the [supplied frames][annex-frames] to remove it and generate the correct representation.
 
@@ -1827,16 +1869,19 @@ URL: _http://example.org/iiif/book1/manifest_
 
 
 ### E. Versioning
+{: #versioning}
 
 Starting with version 2.0, this specification follows [Semantic Versioning][semver]. See the note [Versioning of APIs][versioning] for details regarding how this is implemented.
 
 ### F. Acknowledgements
+{: #acknowledgements}
 
 The production of this document was generously supported by a grant from the [Andrew W. Mellon Foundation][mellon].
 
 Many thanks to the members of the [IIIF][iiif-community] for their continuous engagement, innovative ideas and feedback.
 
 ### G. Change Log
+{: #change-log}
 
 | Date       | Description           |
 | ---------- | --------------------- |
