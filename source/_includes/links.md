@@ -160,6 +160,7 @@
 [prezi3-type]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.draft.minor }}/#type
 [prezi30-type-overview]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#resource-type-overview
 [prezi3]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.draft.minor }}/ "Presentation API"
+[prezi30]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/
 [prezi30-change-log]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/change-log/ "Presentation API 3.0 Change Log"
 [registry-extensions]: {{ site.url }}{{ site.baseurl }}/api/annex/registry/extensions/
 [registry-image-extensions]: {{ site.url }}{{ site.baseurl }}/api/annex/registry/image-extensions/ "IIIF Image Extension Registry"

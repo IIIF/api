@@ -13,8 +13,7 @@ redirect_from:
   - /api/presentation/3.0/change-log-30.html
 ---
 
-This document is a companion to the [IIIF Presentation API Specification, Version 3.0][prezi-api]. It describes the changes to the API specification made in this major release, including ones that are backwards incompatible with version 2.1.1, the previous version.
-
+This document is a companion to the [IIIF Presentation API Specification, Version 3.0][prezi30]. It describes the changes to the API specification made in this major release, including ones that are backwards incompatible with [version 2.1.1][prezi21], the previous version.
 
 ## Table of Contents
 {:.no_toc}
@@ -119,14 +118,20 @@ There has been a long outstanding question of how the order of Canvases in the `
 
 #### 1.4.2. Ranges 
 
-[#1070]()
+In previous versions, it was unclear whether Ranges were intended to capture the extent of the content or simply the hierarchy. This is particularly important with time-based media, as the intent is not to skip between the navigation entry points when rendering the Range, but instead to play continuously. However a Range that captures the discrete sections of newspaper pages that make up an article does not include all of the intervening content.  This difference was reconciled by requiring Ranges to include all and only Canvases or segments of Canvases that are strictly part of the Range. At the same time, the structure was made easier to process by embedding child ranges within the parent, rather than referencing within a flat list.
+See issue [#1070](https://github.com/IIIF/api/issues/1070) and the referenced documentation.
 
 #### 1.4.3. Remove Layer, AnnotationList in favor of AnnotationCollection, AnnotationPage
 
+With the adoption of the Web Annotation Data Model, we remove the IIIF specific Layer in favor of the standard AnnotationCollection and AnnotationList in favor of the equivalent AnnotationPage. See issue [#496](https://github.com/IIIF/api/issues/496).
+
 #### 1.4.4. Remove paging functionality
+
+As the Web Annotation Data Model defines the paging model, and Collection paging was neither implemented nor especially different from simply having a hierarchy of Collections, paging functionality was removed from the API. This simplifies the model at no cost. See issue [#1343](https://github.com/IIIF/api/issues/1343).
 
 #### 1.4.5. Move "advanced" Annotation features to cookbook
 
+The number of possible uses of the Web Annotation Data Model within the context of the Presentation API is extremely high.  The previous section 6 of version 2.0 and 2.1 was removed in favor of entries in a "cookbook" that could be expanded and adapted over time, rather than as a specification process. This separation makes new use cases easier to accomodate and describe solutions for, without producing new minor versions of the specification.
 
 ### 1.5. Requirements Changes
 
@@ -153,7 +158,6 @@ Changes
 Like
 
 This?
-
 
 
 ## 2. Non-Breaking Changes
