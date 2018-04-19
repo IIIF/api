@@ -143,7 +143,15 @@ It was previously unclear which properties clients were required to process, and
 
 Not every view of an object has a defined label, or can have one automatically generated. As such, in order to conform with the previous requirement that Canvases _MUST_ have labels, implementers were adding empty or invisible labels as a workaround. In version 3.0, `label` on Canvas is only _RECOMMENDED_ rather than _REQUIRED_. See issue [#964](https://github.com/IIIF/api/issues/964)
 
-#### 1.5.3. ...
+#### 1.5.3. Resources referenced from Collections should have `thumbnail`
+
+[#1502](https://github.com/IIIF/api/issues/1502)
+
+#### 1.5.4. Requirements of `id` and `type`
+
+
+
+#### 1.5.5. ...
 
 There
 
@@ -171,6 +179,7 @@ This?
 #### 2.1.2. Add `duration` on Canvas
 
 [#1069](https://github.com/IIIF/api/issues/1069)
+[#1190]() 
 
 #### 2.1.3. Add `timeMode` on Annotation
 
@@ -236,22 +245,39 @@ This?
 
 ### 3.1. Clarifications
 
-#### 2.1.5. Add explicit definition of `profile`
+#### 3.1.1 Add explicit definition of `profile`
 
 [#1276](https://github.com/IIIF/api/issues/1276)
 
-#### 3.1.1. Clarify "referenced" and "embedded"
+#### 3.1.2. Clarify "referenced" and "embedded"
 
 [#1396](https://github.com/IIIF/api/issues/1396)
 
+#### 3.1.3. Clarify patterns for cross-version references
+
+[#1064](https://github.com/IIIF/api/issues/1064)
+
+#### 3.1.4. Clarify `@graph` is just not allowed
+
+[#920](https://github.com/IIIF/api/issues/920)
+
+#### 3.1.5. Clarify no interstitial pages for `rendering`
+
+[#1155](https://github.com/IIIF/api/issues/1155)
+
+
 ### 3.2. Style
 
-#### 3.2.1. Improve icons in requirements tables
+#### 3.2.1. Restructure document
 
-#### 3.2.2. Restructure document
+#### 3.2.2. Consistency
 
-#### 3.2.4. Consistency
+backticks, class/property names, values,
 
+#### 3.2.3. Visual Appearance
+
+Improve icons in requirements tables
+CSS
 
 
 ## 4. Related Document Changes
