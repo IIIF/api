@@ -3,13 +3,12 @@ title: "Presentation API 3.0 Change Log"
 title_override: "Changes for IIIF Presentation API Version 3.0"
 id: presentation-api-30-change-log
 layout: spec
-cssversion: 2
+cssversion: 3
 tags: [specifications, presentation-api, change-log]
 major: 3
 minor: 0
 patch: 0
 pre: final
-
 redirect_from:
   - /api/presentation/3.0/change-log-30.html
 ---
@@ -26,94 +25,134 @@ This document is a companion to the [IIIF Presentation API Specification, Versio
 
 ## 1. Breaking Changes
 
-### 1.1. Property Name Changes
+### 1.1. External Specifications
 
-#### 1.1.1. Rename `@id` to `id`
+#### 1.1.1. Use JSON-LD 1.1
 
-#### 1.1.2. Rename `@type` to `type`
+JSON-LD remains the core serialization of the Presentation API. For version 3.0, some features of the JSON-LD Community Group specification make a significant improvement to the API's structure and consistency. While this specification is not a W3C Technical Recommendation at the time of release, the likelihood of the standardization process being successful is extremely high and the rewards have been judged to be worth the minimal risk of unintended incompatibility. Scoped contexts, language sets, and the ability to use `@none` in language maps make implementation significantly easier. See issue [#1192](https://github.com/IIIF/api/issues/1192).
 
-#### 1.1.3. Rename `viewingHint` to `behavior`
+#### 1.1.2. Use Web Annotation Data Model
 
-#### 1.1.4. Rename `within` to `partOf`
-
-#### 1.1.5. Rename `startCanvas` to `start`
-
-#### 1.1.6. Rename `contentLayer` to `supplementary`
-
-#### 1.1.7. Rename structural properties to `items`
-
-And remove class specific structural properties
-
-#### 1.1.8. Rename `attribution` to `requiredStatement`
-
-And see 1.2.1
-
-#### 1.1.9. Rename `license` to `rights`
-
-And see 1.2.2.
-
-#### 1.1.10. Rename `description` to `summary`
-
-And see 1.2.3.
-
-#### 1.1.11. Rename `related` to `homepage`
-
-And see 1.2.4.
-
-### 1.2. Property Value Changes
-
-#### 1.2.1. Allow label and value for `requiredStatement`
-
-#### 1.2.2. Require controlled values for `rights`
-
-#### 1.2.3. Short snippet text for `summary`
-
-And see 1.2.5.
-
-#### 1.2.4. Use `homepage` for only preferred homepage
-
-And put other previously related resources in `metadata`
-
-#### 1.2.5. Allow long texts in `metadata`
-
-#### 1.2.6. Allow non-images in `thumbnail`
-
-#### 1.2.7. Use language map feature for `label`, `value`, `summary`
-
-#### 1.2.8. Always require arrays if property can have multiple values
-
-#### 1.2.9. Canvases always include AnnotationPages, not Annotations directly
-
-#### 1.2.10. Change requirements for `navDate` value
-
-#### 1.2.11. Require JSON Object for all non-enumerable resources
+Annotations remain a core feature of the Presentation API. Instead of the community specified Open Annotation model, version 3.0 adopts the W3C standard Web Annotation Data Model. The practical effects are limited but real, including changes to property names and classes. See issue [#496](https://github.com/IIIF/api/issues/496).
 
 
-### 1.3. Property Requirements Changes
+### 1.2. Property Naming and Semantics Changes
 
-#### 1.3.1. Establish client requirements per property
+Several existing properties were renamed for consistency, developer convenience, or to better reflect the intended semantics. Some of the semantics were also clarified based on implementation experience during previous versions.
 
-#### 1.3.2. Canvas should have `label`
+#### 1.2.1. Rename `@id` to `id`, `@type` to `type`
 
-#### 1.3.3. ...
+These properties were renamed to enable javascript developers to use the "dot notation" (`manifest.id`) instead of the square brackets based equivalent needed with the `@` character (`manifest['@id']`). This follows JSON-LD community best practices established by schema.org, the JSON-LD, Web Annotation and Social Web working groups. See issue [#590](https://github.com/IIIF/api/issues/590).
 
+#### 1.2.2. Rename `viewingHint` to `behavior`
+
+The `viewingHint` property was renamed to `behavior` as it was felt this more accurately reflected the intent, and avoids the image specific "viewing" which would be inappropriate for audio only content. As `viewingDirection` is inherently spatial, it was not renamed. The "hint" part was removed as some behaviors are very important to respect. See issue [#1073](https://github.com/IIIF/api/issues/1073).
+
+#### 1.2.3. Rename `attribution` to `requiredStatement`, allow `label`+`value`
+
+The `attribution` property could not specify the label to render with the value, and thus clients typically used "Attribution". This was not able to be internationalized, nor changed in contexts where "Attribution" has specific meaning (such as for artworks, where the attribution is assignment of the creator). The structure was changed to allow both `label` and `value`, following `metadata` entries, to solve this and the property renamed to remove the rights-specific semantics. See issue [#1287](https://github.com/IIIF/api/issues/1287).
+
+#### 1.2.4. Consolidate structural properties to `items` where possible
+
+The Presentation API classes in version 2.1.1 had both `members` to allow for mixed class lists (e.g. a Range can include both Canvases and other Ranges) and properties that were class specific. The `members` properties were renamed to `items` to follow the pattern established in the Web Annotation Data Model and ActivityStreams. The class specific properties were removed completely as insufficient to cover important use cases, and no longer necessary. See issue [#1145](https://github.com/IIIF/api/issues/1145).
+
+#### 1.2.5. Rename `license` to `rights`
+
+The `license` property was renamed to the more general `rights` to accomodate both rights statements and usage licenses. The value was further constrained to allow only Creative Commons URIs, RightsStatements.org URIs and URIs registered as extensions. This additional constraint is to allow clients to treat the property as an enumeration rather than free text, and implement URI specific behavior.  See issues [#644](https://github.com/IIIF/api/issues/644) and [#1479](https://github.com/IIIF/api/issues/1479)
+
+#### 1.2.6. Rename `description` to `summary`
+
+The `description` property was renamed to `summary` and the semantics changed to be a short descriptive text. The new property is a replacement for the content in `metadata`, for situations when a a table of label/value pairs is too much to render. Descriptions that are not short descriptive text are now recorded in `metadata` to allow for appropriate labeling. See issue [#1242](https://github.com/IIIF/api/issues/1242) and entry [1.3.1][prezi30-changelog-long-texts] below.
+
+#### 1.2.7. Rename `related` to `homepage`
+
+Similar to the above changes where non-actionable links and content are put into `metadata`, the `related` property was renamed to `homepage` with more specific semantics of being the home page of the resource. Links to other resources instead go in to `metadata` as HTML. As the intent is to be able to allow `homepage` specific UI affordances, such as an icon, the cardinality was reduced to zero or one. See issues [#1286](https://github.com/IIIF/api/issues/1286) and [#1484](https://github.com/IIIF/api/issues/1484).
+
+#### 1.2.8. Rename `contentLayer` to `supplementary`
+
+With the removal of the `Layer` class in favor of the standard `AnnotationCollection`, and the introduction of the `motivation` value `supplementing`, the `contentLayer` property was renamed to `supplementary`. This conveys that the Annotations in the Annot ation Collection are those with the `motivation` value `supplementing` while avoiding the use of the defunct class name. See issues [#1480](https://github.com/IIIF/api/issues/1480) and [#1174](https://github.com/IIIF/api/issues/1174). 
+
+#### 1.2.9. Rename `startCanvas` to `start`, allow reference to part of a Canvas
+
+Following the pattern of removing class names from property names when unnecessary, combined with the change that the referenced resource might be part of a Canvas rather than the entire Canvas, the property was renamed. The increased scope for parts of Canvases is to allow jumping to a specific time point within a Canvas with a `duration` property. See [#1320](https://github.com/IIIF/api/issues/1320).
+
+#### 1.2.10. Rename `within` to `partOf`
+
+While renaming properties, `within` was renamed to `partOf` to follow the same naming convention in ActivityStreams and the Web Annotation Data Model. See issue [#1482](https://github.com/IIIF/api/issues/1482).
+
+### 1.3. Property Value Changes
+
+#### 1.3.1. Allow long texts in `metadata` values
+{: #long-texts}
+
+Several use cases were raised for long texts that were not descriptions, such as bibliography citation lists or provenance histories for artworks. These texts did not have a home in the previous versions, as `metadata` only allowed short values and `description` was a description of the object not information about it. The adopted solution was to allow long texts within `metadata` values, also allowing `description` to be made more specifically a short textual summary. See issue [#1270](https://github.com/IIIF/api/issues/1270)
+
+#### 1.3.2. Allow non-images in `thumbnail`
+
+The semantics of `thumbnail` were changed to allow for non-image content resources such as short audio or video files. This is important with the addition of time-based media being painted into Canvases. See issue [#1176](https://github.com/IIIF/api/issues/1176).
+
+#### 1.3.3. Use language map pattern for `label`, `value`, `summary`
+
+A new pattern has been adopted for all textual values of a JSON object with the language code as the key (or `@none` if the language is not known) and the content as a string within an array as the value.  This pattern is much easier to implement and use than the previous `@value` / `@language` tuples pattern. The pattern relies on features that have been introduced by the JSON-LD Community Group, and are not yet standardized. See issue [#755](https://github.com/IIIF/api/issues/755).
+
+#### 1.3.4. Always require arrays if property can have multiple values
+
+Previous versions allowed a property that allowed multiple values to express a single value without an array. From version 3.0, if a property can ever have multiple values, then the value of the property is always an array. This reduces the type checking needed on values by clients as they can always iterate over the array, improving the developer experience. See issue [#1131](https://github.com/IIIF/api/issues/1131).
+
+#### 1.3.5. Require JSON object for all non-enumerable resources
+
+Similarly, to reduce type checking, all resources where the URIs cannot be enumerated (such as behaviors, viewing directions, rights statements and so forth) must be expressed as a JSON object with at least the `id` and `type` properties. This further reduces the type checking needed, as previously it could have been just the URI as a string.  See issue [#1284](https://github.com/IIIF/api/issues/1284).
+
+#### 1.3.6. Canvases always include AnnotationPages, not Annotations directly
+
+For consistency, and to allow all content to be external to the Manifest, all Annotations are now only included via `AnnotationPage` resources. This is a change from previous versions, where image Annotations were included directly to Canvases using `images`. See issue [#1068](https://github.com/IIIF/api/issues/1068).
+
+#### 1.3.7. Change requirements for `navDate` value
+
+Previous, the value of `navDate` was required to be in the UTC timezone. However this meant that the navigation date text generated was sometimes not the same date as the resource due to when midnight occurs in the local timezone versus in UTC. The solution adopted was to allow any timezone to be given in the value. See issue [#1296](https://github.com/IIIF/api/issues/1296). 
 
 ### 1.4. Classes Changes
 
 #### 1.4.1. Remove Sequence in favor of Ranges and `items`
 
-#### 1.4.2. Remove Layer in favor of AnnotationCollection
+There has been a long outstanding question of how the order of Canvases in the `items` of Ranges and the order in the current Sequence interact. With further implementations from outside of the initial library-oriented domain, the need for an explicit order for views is also greatly decreased. The initial use case of multiple orderings for the content remains valid, but an edge case that can be supported using other patterns rather than requiring every Manifest to have an explicitly named Sequence. The model is simplified and clarified by this removal. See issues [#1471](https://github.com/IIIF/api/issues/1471), [#1489](https://github.com/IIIF/api/issues/1489) and further issues referenced from those.
 
-#### 1.4.3. Remove AnnotationList in favor of AnnotationPage
+#### 1.4.2. Ranges 
+
+[#1070]()
+
+#### 1.4.3. Remove Layer, AnnotationList in favor of AnnotationCollection, AnnotationPage
 
 #### 1.4.4. Remove paging functionality
 
+#### 1.4.5. Move "advanced" Annotation features to cookbook
 
-### 1.5. External Specification Changes
 
-#### 1.5.1. Use Web Annotation Data Model
+### 1.5. Requirements Changes
 
-#### 1.5.2. Move "advanced" Annotation features to cookbook
+#### 1.5.1. Establish client requirements per property
+
+It was previously unclear which properties clients were required to process, and which could be left unimplemented without severely affecting the user experience of resources that made use of the properties. Requirements have been added per class/property combination. See issues [#1243](https://github.com/IIIF/api/issues/1243) and [#1271](https://github.com/IIIF/api/issues/1271)
+
+#### 1.5.2. Canvas should have `label`
+
+Not every view of an object has a defined label, or can have one automatically generated. As such, in order to conform with the previous requirement that Canvases _MUST_ have labels, implementers were adding empty or invisible labels as a workaround. In version 3.0, `label` on Canvas is only _RECOMMENDED_ rather than _REQUIRED_. See issue [#964](https://github.com/IIIF/api/issues/964)
+
+#### 1.5.3. ...
+
+There
+
+Must 
+
+Be
+
+More 
+
+Changes
+
+Like
+
+This?
 
 
 
@@ -202,7 +241,7 @@ And put other previously related resources in `metadata`
 ### 4.5. Update JSON-LD Contexts and Frames
 
 
-[prezi-api]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/ "Presentation API 3.0"
-[semver]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/semver/ "Note on Semantic Versioning"
+
+[prezi30-changelog-long-texts]: #long-texts
 
 {% include acronyms.md %}
