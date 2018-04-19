@@ -249,3 +249,4 @@ This?
 [prezi30-changelog-long-texts]: #long-texts
 
 {% include acronyms.md %}
+{% include links.md %}
