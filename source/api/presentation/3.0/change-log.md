@@ -112,11 +112,11 @@ Previous, the value of `navDate` was required to be in the UTC timezone. However
 
 ### 1.4. Classes Changes
 
-#### 1.4.1. Remove Sequence in favor of Ranges and `items`
+#### 1.4.1. Remove Sequence in favor of Ranges, `items` and `behavior` value `sequence`
 
-There has been a long outstanding question of how the order of Canvases in the `items` of Ranges and the order in the current Sequence interact. With further implementations from outside of the initial library-oriented domain, the need for an explicit order for views is also greatly decreased. The initial use case of multiple orderings for the content remains valid, but an edge case that can be supported using other patterns rather than requiring every Manifest to have an explicitly named Sequence. The model is simplified and clarified by this removal. See issues [#1471](https://github.com/IIIF/api/issues/1471), [#1489](https://github.com/IIIF/api/issues/1489) and further issues referenced from those.
+There has been a long outstanding question of how the order of Canvases in the `items` of Ranges and the order in the current Sequence interact. With further implementations from outside of the initial library-oriented domain, the need for an explicit order for views is also greatly decreased. The initial use case of multiple orderings for the content remains valid, but an edge case that can be supported using other patterns rather than requiring every Manifest to have an explicitly named Sequence. The replacement is a new `behavior` value or `sequence`. The model is simplified and clarified by this removal. See issues [#1471](https://github.com/IIIF/api/issues/1471), [#1489](https://github.com/IIIF/api/issues/1489) and further issues referenced from those.
 
-#### 1.4.2. Ranges 
+#### 1.4.2. Ranges express full extent
 
 In previous versions, it was unclear whether Ranges were intended to capture the extent of the content or simply the hierarchy. This is particularly important with time-based media, as the intent is not to skip between the navigation entry points when rendering the Range, but instead to play continuously. However a Range that captures the discrete sections of newspaper pages that make up an article does not include all of the intervening content.  This difference was reconciled by requiring Ranges to include all and only Canvases or segments of Canvases that are strictly part of the Range. At the same time, the structure was made easier to process by embedding child ranges within the parent, rather than referencing within a flat list.
 See issue [#1070](https://github.com/IIIF/api/issues/1070) and the referenced documentation.
@@ -162,54 +162,73 @@ This?
 
 ## 2. Non-Breaking Changes
 
-### 2.1. New Properties
+### 2.1. Enable Audio and Video Content
 
 #### 2.1.1. Add `posterCanvas` for associated content
 
-#### 2.1.2. Add `language` on external resources
+[#1263](https://github.com/IIIF/api/issues/1263)
 
-#### 2.1.3. Add `duration` on Canvas
+#### 2.1.2. Add `duration` on Canvas
 
-#### 2.1.4. Add `timeMode` on Annotation
+[#1069](https://github.com/IIIF/api/issues/1069)
 
-#### 2.1.5. Add explicit definition of `profile`
+#### 2.1.3. Add `timeMode` on Annotation
 
-
-### 2.2. New Values
+[#1075](https://github.com/IIIF/api/issues/1075)
 
 #### 2.2.1 Add "auto-advance" for `behavior`
 
-#### 2.2.2. Add "no-nav" for `behavior`
-
-#### 2.2.3. Add "hidden" for `behavior`
-
-#### 2.2.4. Add "repeat" for `behavior`
-
-#### 2.2.5. Add "sequence" for `behavior`
+[#1583](https://github.com/IIIF/api/issues/1583)
 
 #### 2.2.6. Add "thumbnail-nav" for `behavior`
 
-#### 2.2.7. Add "together" for `behavior`
+[#1259](https://github.com/IIIF/api/issues/1259)
 
-#### 2.2.8. Add "unordered" for `behavior`
+#### 2.2.4. Add "repeat" for `behavior`
 
-#### 2.2.9. Add "transcribing" for `motivation`
-
-
-### 2.3. Additional Modeling Features
+[#1328](https://github.com/IIIF/api/issues/1328)
 
 #### 2.3.1. Allow Canvases to be treated as Content Resources
 
+[#1191](https://github.com/IIIF/api/issues/1191), previously [#42](https://github.com/IIIF/api/issues/42)
 
-### 2.4. Protocol Features
+### 2.2. Additional Features
 
-#### 2.4.1. Define json-ld profile for media type
+#### 2.1.2. Add `language` on external resources
+
+[#1065](https://github.com/IIIF/api/issues/1065)
+
+#### 2.2.2. Add "no-nav", "unordered", "hidden" for `behavior`
+
+[#1070](https://github.com/IIIF/api/issues/1070) and [#1417](https://github.com/IIIF/api/issues/1417)
+
+
+#### 2.2.7. Add "together" for `behavior`
+
+???
+
+#### 2.2.9. Add "supplementing" for `motivation`
+
+[#1258](https://github.com/IIIF/api/issues/1258), [#1480](https://github.com/IIIF/api/issues/1480)
+
+ 
+### 2.3. Protocol Features
+
+#### 2.3.1. Define json-ld profile for media type
+
+[#1066](https://github.com/IIIF/api/issues/1066)
 
 #### 2.4.2. Recommend HTTPS
 
+???
+
 #### 2.4.3. Remove URI pattern recommendations
 
+[#1214](https://github.com/IIIF/api/issues/1214)
+
 #### 2.4.4. Allow external Ranges
+
+[#1218](https://github.com/IIIF/api/issues/1218)
 
 
 ## 3. Editorial Changes
@@ -217,18 +236,21 @@ This?
 
 ### 3.1. Clarifications
 
+#### 2.1.5. Add explicit definition of `profile`
+
+[#1276](https://github.com/IIIF/api/issues/1276)
+
 #### 3.1.1. Clarify "referenced" and "embedded"
 
+[#1396](https://github.com/IIIF/api/issues/1396)
 
 ### 3.2. Style
 
 #### 3.2.1. Improve icons in requirements tables
 
-#### 3.2.2. Restructure document sections
+#### 3.2.2. Restructure document
 
-#### 3.2.3. Use https for all examples
-
-#### 3.2.4. Consistency of Language
+#### 3.2.4. Consistency
 
 
 
