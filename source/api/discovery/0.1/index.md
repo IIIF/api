@@ -1,6 +1,6 @@
 ---
-title: "IIIF Discovery API 0.1"
-title_override: "IIIF Discovery API 0.1"
+title: "IIIF Change Discovery API 0.1"
+title_override: "IIIF Change Discovery API 0.1"
 id: discovery-api
 layout: spec
 cssversion: 3
@@ -47,13 +47,13 @@ This is a work in progress and may change without notice. Implementers should be
 
 ## 1. Introduction
 
-The resources made available via the IIIF Image and Presentation APIs are only useful if they can be found by an end user. Users cannot interact directly with a distributed, decentralized ecosystem but instead must rely on services that harvest and process the content, and then provide a user interface enabling navigation to that content via searching, browsing or other paradigms. Once the user has discovered the content, they can then display it in their viewing application of choice. Machine to machine interfaces are also enabled by this pattern, where software agents could interact via APIs to discover the same content and retrieve it for further analysis or processing.
+The resources made available via the IIIF (pronounced "Triple-Eye-Eff") [Image](image-api) and [Presentation](prezi-api) APIs are only useful if they can be found by an end user. Users cannot interact directly with a distributed, decentralized ecosystem but instead must rely on services that harvest and process the content, and then provide a user interface enabling navigation to that content via searching, browsing or other paradigms. Once the user has discovered the content, they can then display it in their viewing application of choice. Machine to machine interfaces are also enabled by this pattern, where software agents could interact via APIs to discover the same content and retrieve it for further analysis or processing.
 
 This specification leverages existing techniques, specifications, and tools in order to promote widespread adoption. It enables the collaborative development of global or thematic search engines and portal applications that allow users to easily find and engage with content available via existing IIIF APIs.
 
 ### 1.1. Objectives and Scope
 
-The objective of the IIIF Discovery API is to provide the information needed to discover and subsequently make use of existing IIIF resources.  The intended audience is other IIIF aware systems that can proactively work with the content and APIs. While this work may benefit others outside of the IIIF community directly or indirectly, the objective of the API is to specify an interoperable solution that best and most easily fulfills the discovery needs within the community of participating organizations.
+The objective of the IIIF Change Discovery API is to provide the information needed to discover and subsequently make use of existing IIIF resources.  The intended audience is other IIIF aware systems that can proactively work with the content and APIs. While this work may benefit others outside of the IIIF community directly or indirectly, the objective of the API is to specify an interoperable solution that best and most easily fulfills the discovery needs within the community of participating organizations.
 
 The discovery of IIIF resources requires a consistent and well understood pattern for content providers to publish lists of links to their available content. This does not include the transmission of the content itself, for example transferring any source media or data between systems, only for the discovery of that content.  This allows a baseline implementation of discovery systems that process the list, looking for resources that have been added or changed.
 
@@ -589,6 +589,7 @@ Many of the changes in this version are due to the work of the [IIIF AV Technica
 
 ### B. Change Log
 
+{% include links.md %}
 
 [iiif-community]: http://iiif.io/community/
 [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
