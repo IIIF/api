@@ -34,7 +34,7 @@ __Previous Version:__ None
 {% include copyright.md %}
 
 __Status Warning__
-This is a work in progress and may change without notice. Implementers should be aware that this document is not stable. Implementers are likely to find the specification changing in incompatible ways. Those interested in implementing this document before it reaches beta or release stages should join the IIIF [mailing list][iiif-discuss] and the [Discovery Specification Group][tsg-discovery], take part in the discussions, and follow the [emerging issues][discovery-issues] on Github.
+This is a work in progress and may change without notice. Implementers should be aware that this document is not stable. Implementers are likely to find the specification changing in incompatible ways. Those interested in implementing this document before it reaches beta or release stages should join the IIIF [mailing list][iiif-discuss] and the [Discovery Specification Group][groups-discovery], take part in the discussions, and follow the [emerging issues][discovery-issues] on Github.
 {: .warning}
 
 ----
@@ -581,7 +581,9 @@ __Coming soon__
 
 ### A. Acknowledgements
 
-Ack to the TSG. Ack to the Community.
+Many thanks to the members of the [IIIF community][iiif-community] for their continuous engagement, innovative ideas, and feedback.
+
+Many of the changes in this version are due to the work of the [IIIF AV Technical Specification Group][groups-discovery], chaired by Antoine Isaac (Europeana), Matthew McGrattan (Digirati) and Rob Sanderson (J. Paul Getty Trust). The IIIF Community thanks them for their leadership, and the members of the group for their tireless work.
 
 ### B. Change Log
 
@@ -597,6 +599,6 @@ includes/links is only in prezi3. Links here are placeholders.
 [rfc-2119]: http://ietf.org/
 [json]: http://ietf.org/
 [as2]: https://www.w3.org/TR/activitystreams-core/
-[tsg-discovery]: http://iiif.io/community/groups/discovery/
+[groups-discovery]: http://iiif.io/community/groups/discovery/
 [discovery-issues]: https://github.com/IIIF/discovery/issues
 [rsync]: http://openarchives.org/rs/toc
