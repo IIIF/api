@@ -34,7 +34,7 @@ __Previous Version:__ None
 {% include copyright.md %}
 
 __Status Warning__
-This is a work in progress and may change without notice. Implementers should be aware that this document is not stable. Implementers are likely to find the specification changing in incompatible ways. Those interested in implementing this document before it reaches beta or release stages should join the IIIF [mailing list][iiif-discuss] and the [Discovery Specification Group][groups-discovery], take part in the discussions, and follow the [emerging issues][discovery-issues] on Github.
+This is a work in progress and may change without notice. Implementers should be aware that this document is not stable. Implementers are likely to find the specification changing in incompatible ways. Those interested in implementing this document before it reaches beta or release stages should join the IIIF [mailing list][iiif-discuss] and the [Discovery Specification Group][groups-discovery], take part in the discussions, and follow the [emerging issues][github-discovery-issues] on Github.
 {: .warning}
 
 ----
@@ -70,9 +70,9 @@ The specification uses the following terms:
 
 * __HTTP(S)__: The HTTP or HTTPS URI scheme and internet protocol.
 
-The terms _array_, _JSON object_, _number_, and _string_ in this document are to be interpreted as defined by the [Javascript Object Notation (JSON)][json] specification.
+The terms _array_, _JSON object_, _number_, and _string_ in this document are to be interpreted as defined by the [Javascript Object Notation (JSON)][org-rfc-8259] specification.
 
-The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _SHOULD NOT_, _RECOMMENDED_, _MAY_, and _OPTIONAL_ in this document are to be interpreted as described in [RFC 2119][rfc-2119].
+The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _SHOULD NOT_, _RECOMMENDED_, _MAY_, and _OPTIONAL_ in this document are to be interpreted as described in [RFC 2119][org-rfc-2119].
 
 
 ## 2. Overview of IIIF Resource Discovery
@@ -203,7 +203,7 @@ As the number of Activities is likely too many to usefully be represented in a s
 
 ## 3. Activity Streams Details
 
-The W3C [Activity Streams][as2] specification defines a "model for representing potential and completed activities", and is compatible with the [design patterns][patterns] established for IIIF APIs. It is defined in terms of [JSON-LD][json-ld], and can be seamlessly integrated with the existing IIIF APIs. The model can be used to represent activities of creating, updating and deleting (or otherwise de-publishing) IIIF resources, carried out by content publishers.
+The W3C [Activity Streams][as2] specification defines a "model for representing potential and completed activities", and is compatible with the [design patterns][annex-patterns] established for IIIF APIs. It is defined in terms of [JSON-LD][org-w3c-json-ld], and can be seamlessly integrated with the existing IIIF APIs. The model can be used to represent activities of creating, updating and deleting (or otherwise de-publishing) IIIF resources, carried out by content publishers.
 
 This section is a summary of the properties and types used by this specification, and defined by Activity Streams.  This is intended to ease implementation efforts by collecting the relevant information together.
 
@@ -590,14 +590,4 @@ Many of the changes in this version are due to the work of the [IIIF AV Technica
 ### B. Change Log
 
 {% include links.md %}
-
-[iiif-community]: http://iiif.io/community/
-[iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
-[patterns]: http://iiif.io/api/
-[json-ld]: http://w3.org/
-[rfc-2119]: http://ietf.org/
-[json]: http://ietf.org/
-[as2]: https://www.w3.org/TR/activitystreams-core/
-[groups-discovery]: http://iiif.io/community/groups/discovery/
-[discovery-issues]: https://github.com/IIIF/discovery/issues
-[rsync]: http://openarchives.org/rs/toc
+ 

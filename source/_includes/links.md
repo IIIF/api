@@ -5,6 +5,7 @@
 [annex-oa]: {{ site.url }}{{ site.baseurl }}/api/annex/openannotation/ "Open Annotation Extensions"
 [annex-registry]: {{ site.url }}{{ site.baseurl }}/api/annex/registry/
 [annex-services]: {{ site.url }}{{ site.baseurl }}/api/annex/services/ "Services Annex Document"
+[annex-patterns]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/design_patterns/
 [auth1-cookie-service]: {{ site.url }}{{ site.baseurl }}/api/auth/1.0/#access-cookie-service "IIIF Authentication Cookie Service"
 [auth1-logout-service]: {{ site.url }}{{ site.baseurl }}/api/auth/1.0/#logout-service "IIIF Authentication Logout Service"
 [auth1-token-service]: {{ site.url }}{{ site.baseurl }}/api/auth/1.0/#access-token-service "IIIF Authentication Access Token Service"
@@ -12,7 +13,9 @@
 [github-milestone-image-3]: https://github.com/IIIF/iiif.io/milestone/7
 [github-milestone-prezi-3]: https://github.com/IIIF/iiif.io/milestone/8
 [github-webanno-437]: https://github.com/w3c/web-annotation/issues/437
+[github-discovery-issues]: https://github.com/IIIF/discovery/issues
 [groups-av]: {{ site.url }}{{ site.baseurl }}/community/groups/av/ "IIIF A/V Working Group"
+[groups-discovery]: http://iiif.io/community/groups/discovery/
 [icon-na]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/not_allowed.png "Not allowed"
 [icon-opt]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/optional.png "Optional"
 [icon-rec]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/recommended.png "Recommended"
@@ -137,6 +140,8 @@
 [org-w3c-webanno]: http://w3.org/TR/annotation-model/ "Web Annotaiton Model"
 [org-w3c-webarch]: http://www.w3.org/TR/webarch/ "Architecture of the World Wide Web"
 [org-w3c-xsd-datetime]: https://www.w3.org/TR/xmlschema11-2/#dateTime "XSD DateTime"
+[org-w3c-activitystreams]: https://www.w3.org/TR/activitystreams-core/
+[org-openarchives-rsync]: http://openarchives.org/rs/toc
 [prezi-api]: {{ site.url }}{{ site.baseurl }}/api/presentation/ "IIIF Presentation API"
 [prezi-stable-version]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.stable.major }}.{{ site.presentation_api.stable.minor }}/ "Latest Presentation API Stable Version"
 [prezi-use-cases]: {{ site.url }}{{ site.baseurl }}/api/presentation/usecases/ "Presentation API Use Cases"
