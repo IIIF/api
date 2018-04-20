@@ -55,11 +55,14 @@ This specification leverages existing techniques, specifications, and tools in o
 
 The objective of the IIIF Discovery API is to provide the information needed to discover and subsequently make use of existing IIIF resources.  The intended audience is other IIIF aware systems that can proactively work with the content and APIs. While this work may benefit others outside of the IIIF community directly or indirectly, the objective of the API is to specify an interoperable solution that best and most easily fulfills the discovery needs within the community of participating organizations.
 
-The first step towards enabling the discovery of IIIF resources is to have a consistent and well understood pattern for content providers to publish lists of links to their available content. This does not include the transmission of the content itself, for example transferring any source media or data between systems, only for the discovery of that content.  This allows a baseline implementation of discovery systems that process and reprocess the list of links, looking for resources that have changed.
+The discovery of IIIF resources requires a consistent and well understood pattern for content providers to publish lists of links to their available content. This does not include the transmission of the content itself, for example transferring any source media or data between systems, only for the discovery of that content.  This allows a baseline implementation of discovery systems that process the list, looking for resources that have been added or changed.
 
 This process can be optimized by allowing the content providers to publish descriptions of when their content has changed, enabling consuming systems to only retrieve the resources that have been modified since they were last retrieved. These changes might include when content is deleted or otherwise becomes no longer available. Finally, for rapid synchronization, a system of notifications pushed from the publisher to a set of subscribers can reduce the amount of effort required to constantly poll all of the systems to see if anything has changed. 
 
 Work that is out of scope of this API includes the recommendation or creation of any descriptive metadata formats, and the recommendation or creation of metadata search APIs or protocols. These are out of scope as the diverse domains represented within the IIIF community already have different standards in these spaces, and previous attempts to reconcile these specifications across domains have not been successful.
+
+__Notification of Changes__<br>This draft version of the specification does not include the subscription mechanism for enabling notifications to be pushed to remote systems about changes.  The current specification only enables the polling pattern where the set of changes must be periodically reprocessed. Notifications are likely to be added in a future version before 1.0.
+{: .warning}
 
 ### 1.2. Terminology
 
@@ -78,6 +81,8 @@ In order to discover IIIF resources, the state of the publishing system needs to
 
 Activities are used to describe the state of the publisher by recording each individual change in order. The changes described are the creation, modification and deletion of IIIF Presentation API resources, primarily Collections and Manifests.  If the consuming application is aware of all of the changes that took place at the publisher, it would have full knowledge of the set of resources available.  The focus on IIIF Collections and Manifests is because these are the main access points to published content and references to descriptive metadata about that content, however Activities describing changes to any resource could be included.
 
+The resources available via the Presentation API do not have descriptive metadata fields suitable for indexing beyond a full text search. Instead, they link to external documents using the `seeAlso` property that can have richer and domain-specific information about the content being presented. For example, a museum object might have a `seeAlso` reference to a CIDOC-CRM or LIDO description, while a bibliographic resource might reference a BibFrame or MODS description. These external descriptions should be used when possible to provide interfaces giving access to more precise matching algorithms.
+
 The API is built up over three levels. Level 0 is simply a list of resources to harvest.  Level 1 adds timestamps and ordering, allowing the consumer to stop processing once it detects an activity that it has already seen. Level 2 adds in additional clarity about the types of activities. 
 
 ### 2.1. Level 0: Basic Resource List
@@ -92,7 +97,7 @@ Example Level 0 Activity:
 { 
   "type": "Update",
   "object": {
-  	"id": "https://example.org/iiif/manifest/1",
+  	"id": "https://example.org/iiif/1/manifest",
   	"type": "Manifest"  	
   }
 }
@@ -110,7 +115,7 @@ Example Level 1 Activity:
 {
   "type": "Update",
   "object": {
-    "id": "https://example.org/iiif/manifest/1",
+    "id": "https://example.org/iiif/1/manifest",
     "type": "Manifest"
   },
   "endTime": "2017-09-20T00:00:00Z"
@@ -127,7 +132,7 @@ Example Level 2 Activity:
 {
   "type": "Create",
   "object": {
-    "id": "https://example.org/iiif/manifest/1",
+    "id": "https://example.org/iiif/1/manifest",
     "type": "Manifest"
   },
   "endTime": "2017-09-20T00:00:00Z"
@@ -143,7 +148,7 @@ These Activities are collected together into pages that together make up the ent
   "id": "https://example.org/activity/page-1",
   "type": "OrderedCollectionPage",
   "partOf": {
-  	"id": "https://example.org/activity/collection",
+  	"id": "https://example.org/activity/top-collection",
   	"type": "OrderedCollection"
   },
   "prev": {
@@ -158,7 +163,7 @@ These Activities are collected together into pages that together make up the ent
      {
      	"type": "Update",
      	"object": {
-     		"id": "https://example.org/iiif/manifest/9",
+     		"id": "https://example.org/iiif/9/manifest",
      		"type": "Manifest"
      	},
      	"endTime": "2018-03-10T10:00:00Z"
@@ -166,7 +171,7 @@ These Activities are collected together into pages that together make up the ent
      {
      	"type": "Update",
      	"object": {
-     		"id": "https://example.org/iiif/manifest/2",
+     		"id": "https://example.org/iiif/2/manifest",
      		"type": "Manifest"
      	},
      	"endTime": "2018-03-11T16:30:00Z"
@@ -181,7 +186,7 @@ As the number of Activities is likely too many to usefully be represented in a s
 
 ```
 {
-  "id": "https://example.org/activity/collection",
+  "id": "https://example.org/activity/top-collection",
   "type": "OrderedCollection",
   "totalItems": 21456,
   "first": {
@@ -217,7 +222,7 @@ The identifier of the Ordered Collection.
 Ordered Collections _MUST_ have an `id` property. The value _MUST_ be a string and it _MUST_ be an HTTP(S) URI. The JSON representation of the Ordered Collection _MUST_ be available at the URI.
 
 ```
-{ "id": "https://example.org/activity/collection" }
+{ "id": "https://example.org/activity/top-collection" }
 ```
 
 ##### type
@@ -275,7 +280,7 @@ OrderedCollections _MAY_ have a `totalItems` property.  The value _MUST_ be a no
 ```
 {
   "@context": "",
-  "id": "https://example.org/activity/collection",
+  "id": "https://example.org/activity/top-collection",
   "type": "OrderedCollection",
   "totalItems": 21456,
   "first": {
@@ -322,7 +327,7 @@ Ordered Collection Pages _SHOULD_ have a `partOf` property. The value _MUST_ be 
 ```
 {
   "partOf": {
-    "id": "https://example.org/activity/collection",
+    "id": "https://example.org/activity/top-collection",
     "type": "OrderedCollection"
   }
 }
@@ -380,7 +385,7 @@ Ordered Collection Pages _MUST_ have a `orderedItems` property.  The value _MUST
      {
      	"type": "Update",
      	"object": {
-     		"id": "https://example.org/iiif/manifest/1",
+     		"id": "https://example.org/iiif/1/manifest",
      		"type": "Manifest"
      	},
      	"endTime": "2018-03-10T10:00:00Z"
@@ -399,7 +404,7 @@ Ordered Collection Pages _MUST_ have a `orderedItems` property.  The value _MUST
   "type": "OrderedCollectionPage",
   "startIndex": 20,
   "partOf": {
-  	"id": "https://example.org/activity/collection",
+  	"id": "https://example.org/activity/top-collection",
   	"type": "OrderedCollection"
   },
   "prev": {
@@ -414,7 +419,7 @@ Ordered Collection Pages _MUST_ have a `orderedItems` property.  The value _MUST
      {
      	"type": "Update",
      	"object": {
-     		"id": "https://example.org/iiif/manifest/1",
+     		"id": "https://example.org/iiif/1/manifest",
      		"type": "Manifest"
      	},
      	"endTime": "2018-03-10T10:00:00Z"
@@ -464,7 +469,7 @@ Activities _MUST_ have the `object` property.  The value _MUST_ be a JSON object
 ```
 {
   "object": {
-  	"id": "http://example.org/iiif/manifest/1",
+  	"id": "http://example.org/iiif/1/manifest",
   	"type": "Manifest"
   }
 }
@@ -509,7 +514,7 @@ Activities _MAY_ have the `actor` property.  The value _MUST_ be a JSON object, 
 ```
 { 
   "actor": {
-    "id": "https://example.org/person/admin",
+    "id": "https://example.org/person/admin1",
     "type": "Person"
   }
 }
@@ -525,13 +530,13 @@ A complete example Activity would thus look like the following example.
   "type": "Update",
   "summary": "admin updated the manifest, fixing reported bug #15.",
   "object": {
-  	"id": "https://example.org/iiif/manifest/1",
+  	"id": "https://example.org/iiif/1/manifest",
   	"type": "Manifest"  	
   },
   "endTime": "2017-09-21T00:00:00Z",
   "startTime": "2017-09-20T23:58:00Z",
   "actor": {
-    "id": "https://example.org/person/admin",
+    "id": "https://example.org/person/admin1",
     "type": "Person"
   }
 }
@@ -573,9 +578,6 @@ Given the URI of an ActivityStreams CollectionPage (`page`) and the date of last
 * (6) If there is a previous page, apply the results of the page algorithm to `pageN1`
 
 
-## 4. Notifications
-
-__Coming soon__
 
 ## Appendices
 
@@ -588,11 +590,7 @@ Many of the changes in this version are due to the work of the [IIIF AV Technica
 ### B. Change Log
 
 
-
-
-includes/links is only in prezi3. Links here are placeholders.
-{: .warning}
-
+[iiif-community]: http://iiif.io/community/
 [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
 [patterns]: http://iiif.io/api/
 [json-ld]: http://w3.org/
