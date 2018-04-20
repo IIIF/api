@@ -3,7 +3,7 @@ title: "IIIF Discovery API 0.1"
 title_override: "IIIF Discovery API 0.1"
 id: discovery-api
 layout: spec
-cssversion: 2
+cssversion: 3
 tags: [specifications, presentation-api]
 major: 0
 minor: 1
@@ -34,7 +34,7 @@ __Previous Version:__ None
 {% include copyright.md %}
 
 __Status Warning__
-This is a work in progress and may change without any notices. Implementers should be aware that this document is not stable. Implementers are likely to find the specification changing in incompatible ways. Those interested in implementing this document before it reaches beta or release stages should join the IIIF [mailing list][iiif-discuss] and the [Discovery Specification Group][tsg-discovery] and take part in the discussions, and follow the [emerging issues][discovery-issues] on Github.
+This is a work in progress and may change without notice. Implementers should be aware that this document is not stable. Implementers are likely to find the specification changing in incompatible ways. Those interested in implementing this document before it reaches beta or release stages should join the IIIF [mailing list][iiif-discuss] and the [Discovery Specification Group][tsg-discovery], take part in the discussions, and follow the [emerging issues][discovery-issues] on Github.
 {: .warning}
 
 ----
@@ -47,19 +47,19 @@ This is a work in progress and may change without any notices. Implementers shou
 
 ## 1. Introduction
 
-The resources made available via the IIIF Image and Presentation APIs are only useful if they can be found by an end user. Users cannot interact directly with a distributed, decentralized system but instead must rely on services that harvest and process the content, and then provide a user interface enabling navigation to that content via searching, browsing or other paradigms. Once the user has discovered the content, they can then display it in their viewing application of choice. Machine to machine interfaces are also enabled by this pattern, where software agents could interact via APIs to discovery the same content and retrieve it for further analysis or processing.
+The resources made available via the IIIF Image and Presentation APIs are only useful if they can be found by an end user. Users cannot interact directly with a distributed, decentralized ecosystem but instead must rely on services that harvest and process the content, and then provide a user interface enabling navigation to that content via searching, browsing or other paradigms. Once the user has discovered the content, they can then display it in their viewing application of choice. Machine to machine interfaces are also enabled by this pattern, where software agents could interact via APIs to discover the same content and retrieve it for further analysis or processing.
 
-This specification leverages existing techniques, specifications, and tools, in order to promote widespread adoption. It enables the collaborative development of global or thematic search engines and portal applications that allow users to easily find and engage with content available via existing IIIF APIs.
+This specification leverages existing techniques, specifications, and tools in order to promote widespread adoption. It enables the collaborative development of global or thematic search engines and portal applications that allow users to easily find and engage with content available via existing IIIF APIs.
 
 ### 1.1. Objectives and Scope
 
 The objective of the IIIF Discovery API is to provide the information needed to discover and subsequently make use of existing IIIF resources.  The intended audience is other IIIF aware systems that can proactively work with the content and APIs. While this work may benefit others outside of the IIIF community directly or indirectly, the objective of the API is to specify an interoperable solution that best and most easily fulfills the discovery needs within the community of participating organizations.
 
-The first step towards enabling the discovery of IIIF resources is to have a consistent and well understood pattern for content providers to publish lists of links to their available content. This does not include transmission optimization for the content itself, for example transferring any source image content between systems, only for the discovery of the content.  This allows a baseline implementation of discovery systems that process and reprocess the list, looking for resources that have changed.
+The first step towards enabling the discovery of IIIF resources is to have a consistent and well understood pattern for content providers to publish lists of links to their available content. This does not include the transmission of the content itself, for example transferring any source media or data between systems, only for the discovery of that content.  This allows a baseline implementation of discovery systems that process and reprocess the list of links, looking for resources that have changed.
 
-This process can be optimized by allowing the content providers to publish descriptions of when their content has changed, enabling consuming systems to only retrieve the resources that have changed. These changes might include when content is deleted or otherwise becomes no longer available. Finally, for rapid synchronization, a system of notifications between systems can reduce the amount of effort required to constantly poll all of the systems to see if anything has changed. 
+This process can be optimized by allowing the content providers to publish descriptions of when their content has changed, enabling consuming systems to only retrieve the resources that have been modified since they were last retrieved. These changes might include when content is deleted or otherwise becomes no longer available. Finally, for rapid synchronization, a system of notifications pushed from the publisher to a set of subscribers can reduce the amount of effort required to constantly poll all of the systems to see if anything has changed. 
 
-Work that is out of scope includes the selection or creation of any descriptive metadata formats, and the selection or creation of metadata search APIs or protocols. These are out of scope as the diverse domains represented within the IIIF community already have different standards in these spaces, and previous attempts to reconcile these specifications across domains have not been successful.
+Work that is out of scope of this API includes the recommendation or creation of any descriptive metadata formats, and the recommendation or creation of metadata search APIs or protocols. These are out of scope as the diverse domains represented within the IIIF community already have different standards in these spaces, and previous attempts to reconcile these specifications across domains have not been successful.
 
 ### 1.2. Terminology
 
@@ -67,16 +67,16 @@ The specification uses the following terms:
 
 * __HTTP(S)__: The HTTP or HTTPS URI scheme and internet protocol.
 
-The terms "array", "JSON object", "number", "string", "true", "false", "boolean" and "null" in this document are to be interpreted as defined by the [Javascript Object Notation (JSON)][json] specification.
+The terms _array_, _JSON object_, _number_, and _string_ in this document are to be interpreted as defined by the [Javascript Object Notation (JSON)][json] specification.
 
 The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _SHOULD NOT_, _RECOMMENDED_, _MAY_, and _OPTIONAL_ in this document are to be interpreted as described in [RFC 2119][rfc-2119].
 
 
 ## 2. Overview of IIIF Resource Discovery
 
-In order to discover IIIF resources, the state of the publishing system needs to be communicated succinctly and easily to a consuming system.  The consumer can then use that information to retrieve and process the resources of interest.  This communication takes place via the IIIF Discovery API, which is based on the W3C [Activity Streams][as2] specification for the JSON-LD details, and the [ResourceSync][rsync] framework for the more abstract communication patterns. 
+In order to discover IIIF resources, the state of the publishing system needs to be communicated succinctly and easily to a consuming system.  The consumer can then use that information to retrieve and process the resources of interest.  This communication takes place via the IIIF Discovery API, which uses the W3C [Activity Streams][as2] specification to describe and serialize changes to resources, where the semantics of those changes and the interactions between publishers and consumers are based on those identified by the [ResourceSync][rsync] framework. 
 
-Activities are used to describe the state of the publisher as every time an activity takes place, the overall state changes. IIIF resources, primarily Collections and Manifests, can be created, updated or deleted.  If the consuming application was aware of all of the changes that took place at the publisher, it would have full knowledge of the set of resources available.  The focus on IIIF Collections and Manifests is because these are the main access points to published content, however Activities describing changes to any resource could be included.
+Activities are used to describe the state of the publisher by recording each individual change in order. The changes described are the creation, modification and deletion of IIIF Presentation API resources, primarily Collections and Manifests.  If the consuming application is aware of all of the changes that took place at the publisher, it would have full knowledge of the set of resources available.  The focus on IIIF Collections and Manifests is because these are the main access points to published content and references to descriptive metadata about that content, however Activities describing changes to any resource could be included.
 
 The API is built up over three levels. Level 0 is simply a list of resources to harvest.  Level 1 adds timestamps and ordering, allowing the consumer to stop processing once it detects an activity that it has already seen. Level 2 adds in additional clarity about the types of activities. 
 
@@ -204,7 +204,7 @@ This section is a summary of the properties and types used by this specification
 
 Properties that the consuming application does not understand _MUST_ be ignored.  Other properties defined by Activity Streams _MAY_ be used, such as `origin` or `instrument`, but there are no current use cases that would warrant their inclusion in this specification.
 
-### 3.1. Collection
+### 3.1. OrderedCollection
 
 The top-most resource for managing the lists of Activities is an Ordered Collection, broken up into Ordered Collection Pages. This is the same pattern that the Web Annotation model uses for Annotation Collections and Annotation Pages. The Collection does not directly contain any of the Activities, instead it refers to the `first` and `last` pages of the list.  
 
