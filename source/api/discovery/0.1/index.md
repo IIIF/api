@@ -77,7 +77,7 @@ The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _S
 
 ## 2. Overview of IIIF Resource Discovery
 
-In order to discover IIIF resources, the state of the publishing system needs to be communicated succinctly and easily to a consuming system.  The consumer can then use that information to retrieve and process the resources of interest.  This communication takes place via the IIIF Discovery API, which uses the W3C [Activity Streams][as2] specification to describe and serialize changes to resources, where the semantics of those changes and the interactions between publishers and consumers are based on those identified by the [ResourceSync][rsync] framework. 
+In order to discover IIIF resources, the state of the publishing system needs to be communicated succinctly and easily to a consuming system.  The consumer can then use that information to retrieve and process the resources of interest.  This communication takes place via the IIIF Discovery API, which uses the W3C [Activity Streams][org-w3c-activitystreams] specification to describe and serialize changes to resources, where the semantics of those changes and the interactions between publishers and consumers are based on those identified by the [ResourceSync][org-openarchives-rsync] framework. 
 
 Activities are used to describe the state of the publisher by recording each individual change in order. The changes described are the creation, modification and deletion of IIIF Presentation API resources, primarily Collections and Manifests.  If the consuming application is aware of all of the changes that took place at the publisher, it would have full knowledge of the set of resources available.  The focus on IIIF Collections and Manifests is because these are the main access points to published content and references to descriptive metadata about that content, however Activities describing changes to any resource could be included.
 
@@ -203,7 +203,7 @@ As the number of Activities is likely too many to usefully be represented in a s
 
 ## 3. Activity Streams Details
 
-The W3C [Activity Streams][as2] specification defines a "model for representing potential and completed activities", and is compatible with the [design patterns][annex-patterns] established for IIIF APIs. It is defined in terms of [JSON-LD][org-w3c-json-ld], and can be seamlessly integrated with the existing IIIF APIs. The model can be used to represent activities of creating, updating and deleting (or otherwise de-publishing) IIIF resources, carried out by content publishers.
+The W3C [Activity Streams][org-w3c-activitystreams] specification defines a "model for representing potential and completed activities", and is compatible with the [design patterns][annex-patterns] established for IIIF APIs. It is defined in terms of [JSON-LD][org-w3c-json-ld], and can be seamlessly integrated with the existing IIIF APIs. The model can be used to represent activities of creating, updating and deleting (or otherwise de-publishing) IIIF resources, carried out by content publishers.
 
 This section is a summary of the properties and types used by this specification, and defined by Activity Streams.  This is intended to ease implementation efforts by collecting the relevant information together.
 
