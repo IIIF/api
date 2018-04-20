@@ -16,7 +16,7 @@ sitemap: false
 {:.no_toc}
 __This Version:__ {{ page.major }}.{{ page.minor }}.{{ page.patch }}{% if page.pre != 'final' %}-{{ page.pre }}{% endif %}
 
-__Latest Stable Version:__ [{{ site.search_api.latest.major }}.{{ site.search_api.latest.minor }}.{{ site.search_api.latest.patch }}][stable-version]
+__Latest Stable Version:__ [{{ site.search_api.stable.major }}.{{ site.search_api.stable.minor }}.{{ site.search_api.stable.patch }}][stable-version]
 
 {% include beta.md %}
 
@@ -724,7 +724,7 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 [mellon]: http://www.mellon.org/ "The Andrew W. Mellon Foundation"
 [semver]: http://semver.org/spec/v2.0.0.html "Semantic Versioning 2.0.0"
 [iiif-community]: {{page.webprefix}}/community/ "IIIF Community"
-[stable-version]: {{ site.url }}{{ site.baseurl }}/api/search/{{ site.search_api.latest.major }}.{{ site.search_api.latest.minor }}/ "Stable Version"
+[stable-version]: {{ site.url }}{{ site.baseurl }}/api/search/{{ site.search_api.stable.major }}.{{ site.search_api.stable.minor }}/ "Stable Version"
 [paging]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.0/
 
 [image-api]: {{ site.url }}{{ site.baseurl }}/api/image/2.0/ "Image API"
@@ -738,7 +738,7 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 [oa-textquotesel]: http://www.openannotation.org/spec/core/
 
 [icon-req]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/required.png "Required"
-[icon-recc]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/recommended.png "Recommended"
+[icon-rec]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/recommended.png "Recommended"
 [icon-opt]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/optional.png "Optional"
 [icon-na]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/not_allowed.png "Not allowed"
 

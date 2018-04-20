@@ -16,7 +16,7 @@ Changes will be tracked within the document.
 
 **Editors**
 
-  * **[Robert Sanderson](https://orcid.org/0000-0003-4441-6852)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0003-4441-6852), [_Stanford University_](http://www.stanford.edu/)
+  * **[Robert Sanderson](https://orcid.org/0000-0003-4441-6852)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0003-4441-6852), [_J. Paul Getty Trust_](http://www.getty.edu/)
   * **[Jon Stroop](https://orcid.org/0000-0002-0367-1243)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0002-0367-1243), [_Princeton University Library_](https://library.princeton.edu/)
   * **[Simeon Warner](https://orcid.org/0000-0002-7970-7855)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0002-7970-7855), [_Cornell University_](https://www.cornell.edu/)
   {: .names}
@@ -203,7 +203,7 @@ As of this writing authorization and authentication are topics of heavy dicussio
 [http-location]: http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.30
 [http-options]: http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.2
 [iiif-discuss]: mailto:iiif-discuss@googlegroups.com
-[image-api]: {{ site.url }}{{ site.baseurl }}/api/image/{{ site.image_api.latest.major }}.{{ site.image_api.latest.minor }}
+[image-api]: {{ site.url }}{{ site.baseurl }}/api/image/{{ site.image_api.stable.major }}.{{ site.image_api.stable.minor }}
 [5]: #authorization-authentication-and-security
 [2]: #requests
 [4]: #extension-context

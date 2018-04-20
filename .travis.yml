@@ -1,6 +1,9 @@
 sudo: required
 dist: trusty
 
+env:
+  global:
+    - ROOT_BRANCHES="master prezi3"
 before_install:
   - export NOKOGIRI_USE_SYSTEM_LIBRARIES=true
   - npm install -g grunt-cli
@@ -9,6 +12,11 @@ install:
   - bundle install
   - npm install grunt grunt-html --save-dev
 
+# randomly having java opts set breaks grunt-html
+before_script:
+  - unset _JAVA_OPTIONS
+
+  # looks like grunt-html use the W3C validator at: https://github.com/validator/validator
 script:
   - rake ci
 
@@ -19,10 +27,12 @@ rvm:
 jdk:
   - oraclejdk8
 
-before_deploy: if [[ ${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH} != master ]]; then
-    bundle exec jekyll clean && bundle exec jekyll build --baseurl /api/${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH};
-  else
+before_deploy: if [[ ${ROOT_BRANCHES} =~ .*${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH}.* ]]; then
+    echo "Building at root ${ROOT_INSTALL}";
     bundle exec jekyll clean && bundle exec jekyll build;
+  else
+    echo "Building relative ${ROOT_INSTALL}";
+    bundle exec jekyll clean && bundle exec jekyll build --baseurl /api/${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH};
   fi
 
 deploy:
@@ -64,3 +74,6 @@ notifications:
       - "glen.robson@gmail.com"
     on_success: "change"
     on_failure: "change"
+
+notifications:
+  slack: iiif:gf5bcug4sVJsPHdRibCEDi2F

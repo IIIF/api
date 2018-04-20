@@ -182,9 +182,9 @@ If a server could convey this information in the manifest the client would have 
     "@type": "dctypes:Image",
     "format": "image/jpeg",
     "service": {
-      "@context": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
+      "@context": "http://iiif.io/api/image/2/context.json",
       "@id": "http://example.org/images/book1-page1",
-      "profile": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/profiles/level2.json",
+      "profile": "http://iiif.io/api/image/2/profiles/level2.json",
       "service": {
         "@context": "http://iiif.io/api/auth/0/context.json",
         "@id": "http://example.org/iiif/loginservice",
@@ -227,9 +227,9 @@ However, this would result in a very large manifest if there are a large number 
     "@type": "dctypes:Image",
     "format": "image/jpeg",
     "service": {
-      "@context": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/context.json",
+      "@context": "http://iiif.io/api/image/2/context.json",
       "@id": "http://example.org/images/book1-page2",
-      "profile": "http://iiif.io/api/image/{{ site.image_api.latest.major }}/profiles/level2.json",
+      "profile": "http://iiif.io/api/image/2/profiles/level2.json",
       "service": "http://example.org/iiif/loginservice"
     },
     "height":2000,
@@ -292,7 +292,7 @@ If, for example, the client domain and resource domain are in the *Internet* zon
 
 
 [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
-[image-api]: {{ site.url }}{{ site.baseurl }}/api/image/{{ page.major }}.{{ page.minor }}/ "Image API {{ page.major }}.{{ page.minor }}"
+[image-api]: {{ site.url }}{{ site.baseurl }}/api/image/2/ "Image API 2"
 [auth-api]: {{ site.url }}{{ site.baseurl }}/api/auth/{{ page.major }}.{{ page.minor }}/ "Authentication API {{ page.major }}.{{ page.minor }}"
 [service-description]: {{ site.url }}{{ site.baseurl }}/api/auth/{{ page.major }}.{{ page.minor }}/#service-description "Authentication API Service Description"
 [workflow-from-the-browser-client-perspective]: {{ site.url }}{{ site.baseurl }}/api/auth/{{ page.major }}.{{ page.minor }}/#workflow-from-the-browser-client-perspective "Authentication API Workflow from the Browser Client Perspective"
