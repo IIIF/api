@@ -209,7 +209,7 @@ External resources referenced by `related`, `rendering`, `rights`, and `within` 
 
 #### 2.2.2. Add `no-nav`, `unordered`, `hidden` for `behavior`
 
-A number of behaviors are introduced to accommodate new user interaction requirements.  The `no-nav` `behavior` can be used to suppress the display of a Range that is not intended for user navigation.   The `hidden` `behavior` is valid on Annotation Collections, Annotation Pages, Annotations, Specific Resources and Choices and  indicates that the resource should by default not be rendered.   The `unordered` `behavior` on Ranges and Manifests indicates that the resource’s Canvases do not have an inherent order. See issues [#1070](https://github.com/IIIF/api/issues/1070) and   [#1417](https://github.com/IIIF/api/issues/1417).
+A number of behaviors are introduced to accommodate new user interaction requirements.  The `no-nav` `behavior` can be used to suppress the display of a Range that is not intended for user navigation.   The `hidden` `behavior` is valid on Annotation Collections, Annotation Pages, Annotations, Specific Resources and Choices and  indicates that the resource should by default not be rendered.   The `unordered` `behavior` on Ranges and Manifests indicates that the resource’s Canvases do not have an inherent order. See issues [#1070](https://github.com/IIIF/api/issues/1070) and [#1417](https://github.com/IIIF/api/issues/1417).
 
 #### 2.2.3. Add `together` for `behavior`
 
