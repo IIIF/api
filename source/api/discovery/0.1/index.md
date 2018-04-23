@@ -77,19 +77,25 @@ The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _S
 
 ## 2. Overview of IIIF Resource Discovery
 
-In order to discover IIIF resources, the state of the publishing system needs to be communicated succinctly and easily to a consuming system.  The consumer can then use that information to retrieve and process the resources of interest.  This communication takes place via the IIIF Discovery API, which uses the W3C [Activity Streams][org-w3c-activitystreams] specification to describe and serialize changes to resources, where the semantics of those changes and the interactions between publishers and consumers are based on those identified by the [ResourceSync][org-openarchives-rsync] framework. 
+In order to discover IIIF resources, the state of the publishing system needs to be communicated succinctly and easily to a consuming system.  The consumer can then use that information to retrieve and process the resources of interest.  This communication takes place via the IIIF Change Discovery API, which uses the W3C [Activity Streams][org-w3c-activitystreams] specification to describe and serialize changes to resources, where the semantics of those changes and the interactions between publishers and consumers are based on those identified by the [ResourceSync][org-openarchives-rsync] framework. 
 
-Activities are used to describe the state of the publisher by recording each individual change in order. The changes described are the creation, modification and deletion of IIIF Presentation API resources, primarily Collections and Manifests.  If the consuming application is aware of all of the changes that took place at the publisher, it would have full knowledge of the set of resources available.  The focus on IIIF Collections and Manifests is because these are the main access points to published content and references to descriptive metadata about that content, however Activities describing changes to any resource could be included.
+Activities are used to describe the state of the publisher by recording each individual change, in the order that they occur. The changes described are the creation, modification and deletion of IIIF Presentation API resources, primarily Collections and Manifests.  If the consuming application is aware of all of the changes that took place at the publisher, it would have full knowledge of the set of resources available.  The focus on IIIF Collections and Manifests is because these are the main access points to published content and references to descriptive metadata about that content, however Activities describing changes to other resources could also be published in this way.
 
 The resources available via the Presentation API do not have descriptive metadata fields suitable for indexing beyond a full text search. Instead, they link to external documents using the `seeAlso` property that can have richer and domain-specific information about the content being presented. For example, a museum object might have a `seeAlso` reference to a CIDOC-CRM or LIDO description, while a bibliographic resource might reference a BibFrame or MODS description. These external descriptions should be used when possible to provide interfaces giving access to more precise matching algorithms.
 
-The API is built up over three levels. Level 0 is simply a list of resources to harvest.  Level 1 adds timestamps and ordering, allowing the consumer to stop processing once it detects an activity that it has already seen. Level 2 adds in additional clarity about the types of activities. 
+There are three levels of detail that can be implemented by a conforming system. The levels build upon each other in terms of functionality enabled and precision of the information published. Sets of these changes are published in [pages](#pages-of-changes), which are then collected together in a [collection](#collections-of-pages) per publisher. Care has been take to allow the implementation of all levels to be done in as static a way as possible, rather than requiring dynamic access to a database.
 
-### 2.1. Level 0: Basic Resource List
+### 2.1. Changes
 
-The basic information required, in order to provide a minimally effective set of links to IIIF resources to harvest is just the URIs of those resources. However, with the addition of a little boilerplate in the JSON, we can be on the path towards a robust set of information that clients can use to optimize their harvesting.  
+There are three levels of completeness at which changes can be described. Level 0 is simply a list of the resources available.  Level 1 adds timestamps and ordering from earliest change to most recent, allowing the consumer to stop processing once it encounters a change that it has already processed. Level 2 adds in additional clarity about the types of activities, enabling the explicit creation and deletion of resources.
 
-Starting with the IIIF resource URIs, we add an "Update" Activity wrapper around them.  The order of the resources in the resulting list is unimportant, but each should only appear once. In terms of optimization, this approach provides no additional benefit over any other simpler list format, but is compatible with the following levels which introduce significant benefits.  This is the minimum level for interoperability on the path towards a complete and homogeneous framework that addresses the breadth of the objectives and scope for this specification.
+#### 2.1.1. Level 0: Basic Resource List
+
+The basic information required to provide a minimally effective set of links to IIIF resources is just the URIs of those resources. However, with the addition of a little JSON template around those URIs, we can be on the path towards a robust set of information that clients can use to optimize their processing.  
+
+Starting with the IIIF resource URIs, we add an "Update" Activity wrapper around them.  The order of the resources in the resulting list is unimportant, but each should only appear once. In terms of optimization, this approach provides no additional benefit over any other simpler list format, but is compatible with the following levels which introduce significant benefits.  This is the minimum level for interoperability, while being compatible with the more detailed patterns described below.
+
+If resources are deleted after being refered to in the resource list, the entire list should be republished without the reference to the deleted resource. Clients should also expect to encounter links that are out of date and no longer resolve to a IIIF Manifest or Collection.
 
 Example Level 0 Activity:
 
@@ -103,11 +109,9 @@ Example Level 0 Activity:
 }
 ```
 
-### 2.2. Level 1: Basic Change List
+#### 2.1.2. Level 1: Basic Change List
 
-The most effective information to add beyond the basic resource list is the datestamp at which the resource was last modified (including the initial modification that created it).  If we know these dates, we can add them to the Activities and order the list such that the most recent activities occur last. The timestamp is given in the `endTime` property -- the time at which the document update process finished.  
-
-Consumers will then process the list of Activities in reverse order, from last to first. The rationale for processing backwards is that the first parts of the list, once finished, can become static resources.  Note that resources might appear multiple times in the list, if it has been modified several times.
+The most effective information to add beyond the basic resource list is the datestamp at which the resource was last modified (including the initial modification that created it).  If we know these dates, we can add them to the Activities and order the list such that the most recent activities occur last. The timestamp is given in the `endTime` property -- the time at which the document update process finished. Consumers will then process the list of Activities in reverse order, from last to first, stopping when they encounter an Activity they have already processed in a previous run. 
 
 Example Level 1 Activity:
 
@@ -122,9 +126,9 @@ Example Level 1 Activity:
 }
 ```
 
-### 2.3. Level 2: Complete Change List
+#### 2.1.3. Level 2: Complete Change List
 
-At the most detailed level, a log of all of the Activities that have taken place can be recorded, with the likelihood of multiple Activities per IIIF resource.  This allows the additional types of "Create" and "Delete", enabling a synchronization process to remove resources as well as add them. This would also allow for the complete history of a resource to be reconstructed, if each version has an archived representation.  The list might end up very long if there are many changes to resources, however this is not a typical situation, and the cost is still reasonable as each entry is short and can be compressed both on disk and at the HTTP(S) transport layer.
+At the most detailed level, a log of all of the Activities that have taken place can be recorded, with the likelihood of multiple Activities per IIIF resource.  This allows the additional types of "Create" and "Delete", enabling a synchronization process to remove resources as well as add or update them. The list might end up very long if there are many changes to resources, however this is not a typical situation, and the cost is still reasonable as each entry is short and can be compressed both on disk and at the HTTP(S) transport layer.
 
 Example Level 2 Activity:
 
@@ -139,9 +143,10 @@ Example Level 2 Activity:
 }
 ```
 
-### 2.4. Pages of Activities
+### 2.2. Pages of Changes
 
 These Activities are collected together into pages that together make up the entire set of changes that the publishing system has made.  Pages reference the previous and next pages in that set, and the overall collection that they are part of.  The Activities are then listed in time order.
+
 
 ```
 {
@@ -207,13 +212,15 @@ The W3C [Activity Streams][org-w3c-activitystreams] specification defines a "mod
 
 This section is a summary of the properties and types used by this specification, and defined by Activity Streams.  This is intended to ease implementation efforts by collecting the relevant information together.
 
-Properties that the consuming application does not understand _MUST_ be ignored.  Other properties defined by Activity Streams _MAY_ be used, such as `origin` or `instrument`, but there are no current use cases that would warrant their inclusion in this specification.
+Properties, beyond those described in this specification, that the consuming application does not have code to process _MUST_ be ignored.  Other properties defined by Activity Streams _MAY_ be used, such as `origin` or `instrument`, but there are no current use cases that would warrant their inclusion in this specification.
 
 ### 3.1. OrderedCollection
 
 The top-most resource for managing the lists of Activities is an Ordered Collection, broken up into Ordered Collection Pages. This is the same pattern that the Web Annotation model uses for Annotation Collections and Annotation Pages. The Collection does not directly contain any of the Activities, instead it refers to the `first` and `last` pages of the list.  
 
 The overall ordering of the Collection is from the oldest Activity as the first entry in the first page, to the most recent as the last entry in the last page. Consuming applications _SHOULD_ therefore start at the end and walk backwards through the list, and stop when they reach a timestamp before the time they last processed the list.
+
+Content providers _MUST_ publish an Ordered Collection at the HTTP(S) URI listed in the `id` property of the Collection.
 
 ##### id
 
@@ -252,9 +259,9 @@ Ordered Collections _SHOULD_ have a `first` property.  The value _MUST_ be a JSO
 
 ##### last
 
-A link to the last Ordered Collection Page for this Collection.  As the client processing algorithm works backwards from the most recent to least recent, the inclusion of `last` is _REQUIRED_, but `first` is only _RECOMMENDED_.  This might seem odd to implementers, without the context of the processing patterns expected.
+A link to the last Ordered Collection Page for this Collection.  As the client processing algorithm works backwards from the most recent to least recent, the inclusion of `last` is _REQUIRED_, but `first` is only _RECOMMENDED_.
 
-Ordered Collections _SHOULD_ have a `last` property.  The value _MUST_ be a JSON object, with the `id` and `type` properties.  The value of the `id` property _MUST_ be a string, and it _MUST_ be the HTTP(S) URI of the last page of items in the Collection. The value of the `type` property _MUST_ be a string, and _MUST_ be "OrderedCollectionPage".
+Ordered Collections _MUST_ have a `last` property.  The value _MUST_ be a JSON object, with the `id` and `type` properties.  The value of the `id` property _MUST_ be a string, and it _MUST_ be the HTTP(S) URI of the last page of items in the Collection. The value of the `type` property _MUST_ be a string, and _MUST_ be "OrderedCollectionPage".
 
 ```
 { 
@@ -296,7 +303,9 @@ OrderedCollections _MAY_ have a `totalItems` property.  The value _MUST_ be a no
 
 ### 3.2. Ordered Collection Page
 
-The list of Activities is ordered both from page to page by following `prev` (or `next`) relationships, and internally within the page in the `orderedItems` property. The number of entries in each page is up to the implementer, and cannot be modified by the client.
+The list of Activities is ordered both from page to page by following `prev` (or `next`) relationships, and internally within the page in the `orderedItems` property. The number of entries in each page is up to the implementer, and cannot be modified at request time by the client.
+
+Content providers _MUST_ publish at least one Ordered Collection Page at the HTTP(S) URI given in the `id` property of the Page.
 
 ##### id
 
@@ -335,7 +344,7 @@ Ordered Collection Pages _SHOULD_ have a `partOf` property. The value _MUST_ be 
 
 ##### startIndex
 
-The position of the first item in this page's `orderedItems` list, relative to the overall ordering across all pages within the Collection.  The first entry in the list has a `startIndex` of 0.  If the first page has 20 entries, the first entry on the second page would therefore be 20.
+The position of the first item in this page's `orderedItems` list, relative to the overall ordering across all pages within the Collection.  The first entry in the overall list has a `startIndex` of 0.  If the first page has 20 entries, the first entry on the second page would therefore be 20.
 
 Ordered Collection Pages _MAY_ have a `startIndex` property.  The value _MUST_ be a non-negative integer.
 
@@ -430,12 +439,15 @@ Ordered Collection Pages _MUST_ have a `orderedItems` property.  The value _MUST
 
 ### 3.3. Activities
 
+The Activities are the means of describing the changes that have occured in the content provider's system.
+
+Content providers _MAY_ publish Activities separately from Ordered Collection Pages, and if so they _MUST_ be at the HTTP(S) URI given in the `id` property of the Activity.
 
 ##### id
 
 An identifier for the Activity.
 
-Activities _MAY_ have an `id` property. The value _MUST_ be a string and it _MUST_ be an HTTP(S) URI. 
+Activities _MAY_ have an `id` property. The value _MUST_ be a string and it _MUST_ be an HTTP(S) URI. The JSON representation of the Activity _MAY_ be available at the URI.
 
 ```
 { "id": "https://example.org/activity/1" }
@@ -455,7 +467,7 @@ This specification uses the types described in the table below.
 {: .api-table #table-type-dfn}
 
 Activities _MUST_ have the `type` property. The value _MUST_ be a registered Activity class, and _SHOULD_ be one of `Create`, `Update`, or `Delete`.
-z
+
 ```
 { "type": "Update" }
 ```
@@ -588,6 +600,8 @@ Many thanks to the members of the [IIIF community][iiif-community] for their con
 Many of the changes in this version are due to the work of the [IIIF AV Technical Specification Group][groups-discovery], chaired by Antoine Isaac (Europeana), Matthew McGrattan (Digirati) and Rob Sanderson (J. Paul Getty Trust). The IIIF Community thanks them for their leadership, and the members of the group for their tireless work.
 
 ### B. Change Log
+
+...
 
 {% include links.md %}
  
