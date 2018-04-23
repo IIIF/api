@@ -217,7 +217,7 @@ The `together` `behavior`, valid on Collections, was introduced to indicate to c
 
 #### 2.2.4. Add `supplementing` for `motivation`
 
-The `painting` motivation value does not permit sufficient flexibility in the display of annotation content derived from the Canvas, such as a transcription of text in an image or the words spoken in an audio representation.   Annotations with the motivation value `supplementing` may be displayed as part of the Canvas representation or in a separate area of the user interface.  See issues [#1258](https://github.com/IIIF/api/issues/1258) and [#1480](https://github.com/IIIF/api/issues/1480).
+The `painting` `motivation` does not permit sufficient flexibility in the display of annotation content derived from the Canvas, such as a transcription of text in an image or the words spoken in an audio representation.   Annotations with the `motivation` value `supplementing` may be displayed as part of the Canvas representation or in a separate area of the user interface.  See issues [#1258](https://github.com/IIIF/api/issues/1258) and [#1480](https://github.com/IIIF/api/issues/1480).
 
 
 ### 2.3. Protocol Features
