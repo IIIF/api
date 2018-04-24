@@ -40,6 +40,7 @@ __Latest Stable Version:__ [{{ site.search_api.stable.major }}.{{ site.search_ap
 {:toc}
 
 ## 1. Introduction
+{: #introduction}
 
 In the IIIF (pronounced "Triple-Eye-Eff") [Presentation API][prezi-api], content is brought together from distributed systems via annotations.  That content might include images, often with a IIIF [Image API][image-api] service to access them, audio, video, rich or plain text, or anything else.  In a vibrant and dynamic system, that content can come from many sources and be rich, varied and abundant.  Of that list of content types, textual resources lend themselves to being searched, either as the transcription, translation or edition of the intellectual content, or commentary, description, tagging or other annotations about the object.  
 
@@ -50,6 +51,7 @@ In order to make searches easier against unknown content, a related service for 
 Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss]
 
 ### 1.1. Use Cases
+{: #use-cases}
 
 Use cases for being able to search the annotations within the Presentation API include:
 
@@ -63,10 +65,12 @@ Use cases for being able to search the annotations within the Presentation API i
 User interfaces that could be built using the search response include highlighting matching words in the display, providing a heatmap of where the matches occur within the object, and providing a mechanism to jump between points within the object.  The auto-complete service assists users in identifying terms that exist within the selected scope.
 
 ### 1.2. Terminology
+{: #terminology}
 
 The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _SHOULD NOT_, _RECOMMENDED_, _MAY_, and _OPTIONAL_ in this document are to be interpreted as described in [RFC 2119][rfc-2119].
 
 ## 2. Overview
+{: #overview}
 
 The IIIF [Presentation API][prezi-api] provides just enough information to a viewer so that it can present the images and other content to the user in a rich and understandable way.  Those content resources may have textual annotations associated with them.  Annotations may also be associated with the structural components of the Presentation API, such as the manifest itself, sequences, ranges, and layers.  Further, annotations can be replied to by annotating them to form a threaded discussion about the commentary, transcription, edition or translation.
 
@@ -77,10 +81,12 @@ However this is less useful for comment-style annotations, crowd-sourced or dist
 Beyond the ability to search for words or phrases, users find it helpful to have suggestions for what terms they should be searching for.  This facility is often called auto-complete or type-ahead, and within the context of a single object can provide insight into the language and content.  The auto-complete service is associated with a search service into which the terms can be fed as part of a query.
 
 ## 3. Search
+{: #search}
 
 The search service takes a query, including typically a search term or URI, and potentially filtering further by other properties including the date the annotation was created or last modified, the motivation for the annotation, or the user that created the annotation.
 
 ### 3.1. Service Description
+{: #service-description}
 
 Any resource in the Presentation API may have a search service associated with it.  The resource determines the scope of the content that will be searched.  A service associated with a manifest will search all of the annotations on canvases or other objects below the manifest, a service associated with a particular range will only search the canvases within the range, or a service on a canvas will search only annotations on that particular canvas.  
 
@@ -100,10 +106,12 @@ An example service description block:
 ```
 
 ### 3.2. Request
+{: #request-1}
 
 The search request is made to a service that is related to a particular Presentation API resource.  The URIs for services associated with different resources must be different to allow the client to use the correct one for the desired scope of the search.  To perform a search, the client _MUST_ use HTTP GET (rather than POST) to make the request to the service, with query parameters to specify the search terms.
 
 #### 3.2.1. Query Parameters
+{: #query-parameters}
 
 Other than `q`, which is _RECOMMENDED_, all other parameters are _OPTIONAL_ in the request.  The default, if a parameter is empty or not supplied, is to not restrict the annotations that match the search by that parameter.  If the value is supplied but the field is not present in an annotation, then the search does not match that annotation. For example if an annotation does not have a creator, and the query specifies a `user` parameter, then the annotation does not match the query.
 
@@ -132,6 +140,7 @@ Common values for the motivation parameter are:
 Other motivations are possible, and the full list from the [Open Annotation][openanno] specification _SHOULD_ be available by dropping the "oa:" prefix.  Other, community specific motivations _SHOULD_ include a prefix or use their full URI.
 
 #### 3.2.2. Example Request
+{: #example-request}
 
 This example request:
 
@@ -143,12 +152,14 @@ http://example.org/services/manifest/search?q=bird&motivation=painting
 Would search for annotations with the word "bird" in their textual content, and have the motivation of `painting`.  It would search annotations within the resource the service was associated with.
 
 ### 3.3. Presentation API Compatible Responses
+{: #presentation-api-compatible-responses}
 
 The response from the server is an [annotation list][prezi-annolist], following the format from the Presentation API with a few additional features.  This allows clients that already implement the AnnotationList format to avoid further implementation work to support search results.
 
 The search results are returned as annotations in the regular IIIF syntax. Note that the annotations can come from multiple canvases, rather than the default situation from the Presentation API where all of the annotations target a single canvas.
 
 #### 3.3.1. Simple Lists
+{: #simple-lists}
 
 The simplest response looks exactly like a regular annotation list, where all of the matching annotations are returned in a single response. The value of `@id` will be the same as the URI used in the query, however servers _MAY_ drop query parameters that are ignored so long as they are reported in the `ignored` property.
 
@@ -177,6 +188,7 @@ Clients wishing to know the total number of annotations that match may count the
 ```
 
 #### 3.3.2. Paging Results
+{: #paging-results}
 
 For long lists of annotations, the server may choose to divide the response into multiple sections, often called pages.  Each page is an annotation list and can refer to other pages to allow the client to traverse the entire set.  This uses the [paging features][paging] introduced in version 2.1 of the Presentation API, but is backwards compatible with version 2.0.  The next page of results that follows the current response _MUST_ be referenced in a `next` property of the annotation list, and the previous page _SHOULD_ be referenced in a `prev` property.  
 
@@ -227,6 +239,7 @@ And the response for the first page of annotations from a total of 125 matches:
 ```
 
 #### 3.3.3. Target Resource Structure
+{: #target-resource-structure}
 
 The annotations may also include references to the structure or structures that the target (the resource in the `on` property) is found within.  The URI and type of the including resource _MUST_ be given, and a `label` _SHOULD_ be included.
 
@@ -262,6 +275,7 @@ This structure is called out explicitly as although it uses only properties from
 ```
 
 ### 3.4 Search API Specific Responses
+{: #search-api-specific-responses}
 
 There may be properties that are specific to the search result, and not features of the annotation in general, that are valuable to return to the client.  Examples of such properties include the text before and after the matched content (to allow a result snippet to be presented), the matched text itself (when case normalization, stemming or wildcards have been applied), and a reference to the set of annotations that together fulfill the search query (when a phrase spans across multiple annotations).
 
@@ -310,6 +324,7 @@ The basic structure is:
 ```
 
 #### 3.4.1. Ignored Parameters
+{: #ignored-parameters}
 
 If the server has ignored any of the parameters in the request, then the layer _MUST_ be present and _MUST_ have an `ignored` property where the value is a list of the ignored parameters.
 
@@ -347,6 +362,7 @@ And the user parameter was ignored when processing the request, the response wou
 
 
 #### 3.4.2. Search Term Snippets
+{: #search-term-snippets}
 
 The simplest addition to the hit object is to add text that appears before and after the matching text in the annotation.  This allows the client to construct a snippet where the matching text is provided in the context of surrounding content, rather than simply by itself.  This is most useful when the service has word-level boundaries of the text on the canvas, such as are available when Optical Character Recognition (OCR) has been used to generate the text positions.
 
@@ -399,6 +415,7 @@ That the server matches against the plural "birds":
 ```
 
 #### 3.4.3. Search Term Highlighting
+{: #search-term-highlighting}
 
 Many systems do not have full word-level coordinate information, and are restricted to line or paragraph level boundaries.  In this case the most useful thing that the client can do is to display the entire annotation and highlight the hits within it.  This is similar, but different, to the previous use case.  Here the word will appear somewhere within the `chars` property of the annotation, and the client needs to make it more prominent.  In the previous situation, the word was the entire content of the annotation, and the information was convenient for presenting it in a list.
 
@@ -474,6 +491,7 @@ The result might be:
 ```
 
 #### 3.4.4. Multi-Annotations Hits
+{: #multi-annotations-hits}
 
 Given the flexibility of alignment between the sections of the text (such as word, line, paragraph, page, or arbitrary sections) and the annotations that expose that text to the client, there may be multiple annotations that match a single multi-term search. These differences will depend primarily on the method by which the text and annotations were generated and will likely be very different for manually transcribed texts and text that it is generated by OCR.
 
@@ -533,10 +551,12 @@ In cases like this there are more annotations than hits as two or more annotatio
 
 
 ## 4. Autocomplete
+{: #autocomplete}
 
 The autocomplete service returns terms that can be added into the `q` parameter of the related search service, given the first characters of the term.
 
 ### 4.1. Service Description
+{: #service-description-1}
 
 The autocomplete service is nested within the search service that it provides term completion for.  This is to allow multiple search services, each with their own autocomplete service.
 
@@ -558,6 +578,7 @@ The autocomplete service _MUST_ have an `@id` property with the value of the URI
 ```
 
 ### 4.2. Request
+{: #request}
 
 The request is very similar to the search request, with one additional parameter to allow the number of occurrences of the term within the object to be constrained.  The value of the `q` parameter, which is _REQUIRED_ for the autocomplete service, is the beginning characters from the term to be completed by the service.  For example, the query term of 'bir' might complete to 'bird', 'biro', 'birth', and 'birthday'.
 
@@ -567,6 +588,7 @@ The other parameters (`motivation`, `date` and `user`), if supported, refine the
 
 
 #### 4.2.1. Query Parameters
+{: #query-parameters-1}
 
 | Parameter | Definition |
 | --------- | ---------- |
@@ -574,6 +596,7 @@ The other parameters (`motivation`, `date` and `user`), if supported, refine the
 {: .api-table}
 
 #### 4.2.2. Example Request
+{: #example-request-1}
 
 An example request
 
@@ -583,6 +606,7 @@ http://example.org/service/identifier/autocomplete?q=bir&motivation=painting&use
 {: .urltemplate}
 
 ### 4.3. Response
+{: #response}
 
 The response is a list (a "search:TermList") of simple objects that include the term, a link to the search for that term, and the number of matches that search will have.  The number of terms provided in the list is determined by the server.  
 
@@ -657,6 +681,7 @@ It is also possible to associate one or more `label`s to display to the user wit
 
 
 ## 5. Property Definitions
+{: #property-definitions}
 
 after
 :   The segment of text that occurs after the text that triggered the search to match the particular annotation.  The value _MUST_ be a single string.
