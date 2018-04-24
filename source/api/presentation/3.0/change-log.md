@@ -183,7 +183,7 @@ This?
 
 #### 2.1.3. Add `timeMode` on Annotation
 
-The `timeMode` indicates whether the client should `trim`, `scale`, or `loop` playback of content resources with a time component when they are not identical in length to the duration of the portion of the Canvas onto which they are annotated.  See issue [#1075](https://github.com/IIIF/api/issues/1075).
+The `timeMode` indicates whether the client should `trim`, `scale`, or `loop` playback of content resources with a time component when those resources are not identical in length to the duration of the portion of the Canvas onto which they are annotated.  See issue [#1075](https://github.com/IIIF/api/issues/1075).
 
 #### 2.1.4 Add `auto-advance` for `behavior`
 
