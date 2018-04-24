@@ -85,7 +85,7 @@ The resources available via the Presentation API do not have descriptive metadat
 
 There are three levels of detail that can be implemented by a conforming system. The levels build upon each other in terms of functionality enabled and precision of the information published. Sets of these changes are published in [pages](#pages-of-changes), which are then collected together in a [collection](#collections-of-pages) per publisher. Care has been take to allow the implementation of all levels to be done in as static a way as possible, rather than requiring dynamic access to a database.
 
-### 2.1. Changes
+### 2.1. Listing Resources and their Changes
 
 There are three levels of completeness at which changes can be described. Level 0 is simply a list of the resources available.  Level 1 adds timestamps and ordering from earliest change to most recent, allowing the consumer to stop processing once it encounters a change that it has already processed. Level 2 adds in additional clarity about the types of activities, enabling the explicit creation and deletion of resources.
 
@@ -559,9 +559,7 @@ A complete example Activity would thus look like the following example.
 
 The aim of the processing algorithm is to inform consuming applications how to make best use of the available information.
 
-If the objective of the consuming application is to find descriptive information that might be used to build an index of the resources to allow them to be discovered, then it _SHOULD_ use the IIIF Presentation API `seeAlso` property to discover an appropriate, machine-readable description of the resource.  For different types of resource, and for different domains, the external resources will have different formats and semantics. If there are no external descriptions, or none that can be processed, the data in the Manifest and in other IIIF resources might be used as a last resort, despite its presentational intent. 
-
-##### Collection Algorithm
+#### 3.4.1. Collection Algorithm
 
 Given the URI of an ActivityStreams Collection (`collection`) as input, a conforming processor SHOULD:
 
@@ -573,7 +571,7 @@ Given the URI of an ActivityStreams Collection (`collection`) as input, a confor
 * (4) Find the URI of the last page at `collection.last.id` (`pageN`)
 * (5) Apply the results of the page algorithm to `pageN`
 
-##### Page Algorithm
+#### 3.4.2. Page Algorithm
 
 Given the URI of an ActivityStreams CollectionPage (`page`) and the date of last crawling (`lastCrawl`) as input, a conforming processor SHOULD:
 
@@ -589,6 +587,9 @@ Given the URI of an ActivityStreams CollectionPage (`page`) and the date of last
 * (5) Finally, find the URI of the previous page at `collection.prev.id` (`pageN1`)
 * (6) If there is a previous page, apply the results of the page algorithm to `pageN1`
 
+#### 3.4.3. Indexing
+
+If the objective of the consuming application is to find descriptive information that might be used to build an index allowing the resources to be discovered, then the application _SHOULD_ use the IIIF Presentation API `seeAlso` property to discover an appropriate, machine-readable description of the resource.  For different types of resource, and for different domains, the external resources will have different formats and semantics. If there are no external descriptions, or none that can be processed, the data in the Manifest and in other IIIF resources might be used as a last resort, despite its presentational intent. 
 
 
 ## Appendices
