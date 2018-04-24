@@ -36,14 +36,17 @@ Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss]
 {:toc}
 
 ## 1. Introduction
+{: #introduction}
 
 As with the detailed use of any general framework within another, there are some extensions necessary to make the best use of the [Web Annotation][org-w3c-webanno] model within the IIIF APIs.  This document covers those extension points.  It was previously applied to the predecessor of the Web Annotation model, called Open Annotation.  The extensions defined can be used with either framework.
 
-## 2.  Selectors
+## 2. Selectors
+{: #selectors}
 
 Selectors in Annotations are used to describe how to retrieve a given part of a resource. They are then associated with an instance of `SpecificResource` that also references the resource of which the Specific Resource is part.
 
 ### 2.1. IIIF Image API Selector
+{: #iiif-image-api-selector}
 
 The Image API Selector is used to describe the operations available via the Image API in order to retrieve a particular image representation.  In this case the resource is the abstract image as identified by the [IIIF Image API][image-api] base URI plus identifier, and the retrieval process involves adding the correct parameters after that base URI.  For example, the top left hand quadrant of an image has the region parameter of `pct:0,0,50,50` which must be put into the requested URI to obtain the appropriate representation.
 
@@ -88,6 +91,7 @@ And would result in this SpecificResource, when applied to an image service at `
 It can be used in the Presentation API as demonstrated in the section on [Rotation][prezi-rot].
 
 ## 2.2. Point Selector
+{: #point-selector}
 
 There are common use cases in which a point, rather than a range or area, is the target of the Annotation. For example, putting a pin in a map should result in an exact point, not a very small rectangle. Points in time are not very short durations, and user interfaces should also treat these differently.  This is particularly important when zooming in (either spatially or temporally) beyond the scale of the frame of reference. Even if the point takes up a 10 by 10 pixel square at the user's current resolution, it is not a rectangle bounding an area.
 
@@ -113,6 +117,7 @@ For example, to select a point in a video that is 10 pixels in from the top left
 ```
 
 ## 2.3. Content Selectors
+{: #content-selectors}
 
 Video content resources consist of both visual and audio content within the same bit-level representation.  There are situations when it is useful to refer to only one aspect of the content -- either the visual or the audio, but not both.  For example, an Annotation might associate only the visual content of a video that has spoken English in the audio, and an audio file that has the translation of that content in Spanish.
 
