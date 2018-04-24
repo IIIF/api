@@ -203,22 +203,21 @@ Canvases may be treated as content resources for the purposes of annotating on
 
 ### 2.2. Additional Features
 
-#### 2.1.2. Add `language` on external resources
+#### 2.2.1. Add `language` on external resources
 
-[#1065](https://github.com/IIIF/api/issues/1065)
+External resources referenced by `related`, `rendering`, `rights`, and `within` may be associated with a language code, as described under the [languages section][prezi30-languages].  See issue [#1065](https://github.com/IIIF/api/issues/1065).
 
-#### 2.2.2. Add "no-nav", "unordered", "hidden" for `behavior`
+#### 2.2.2. Add `no-nav`, `unordered`, `hidden` for `behavior`
 
-[#1070](https://github.com/IIIF/api/issues/1070) and [#1417](https://github.com/IIIF/api/issues/1417)
+A number of behaviors are introduced to accommodate new user interaction requirements.  The `no-nav` `behavior` can be used to suppress the display of a Range that is not intended for user navigation.   The `hidden` `behavior` is valid on Annotation Collections, Annotation Pages, Annotations, Specific Resources and Choices and  indicates that the resource should by default not be rendered.   The `unordered` `behavior` on Ranges and Manifests indicates that the resource’s Canvases do not have an inherent order. See issues [#1070](https://github.com/IIIF/api/issues/1070) and [#1417](https://github.com/IIIF/api/issues/1417).
 
+#### 2.2.3. Add `together` for `behavior`
 
-#### 2.2.7. Add "together" for `behavior`
+The `together` `behavior`, valid on Collections, was introduced to indicate to clients that child Manifests, for example those containing a musical score and a related recording, should be presented simultaneously.
 
-???
+#### 2.2.4. Add `supplementing` for `motivation`
 
-#### 2.2.9. Add "supplementing" for `motivation`
-
-[#1258](https://github.com/IIIF/api/issues/1258), [#1480](https://github.com/IIIF/api/issues/1480)
+The `painting` `motivation` does not permit sufficient flexibility in the display of annotation content derived from the Canvas, such as a transcription of text in an image or the words spoken in an audio representation.   Annotations with the `motivation` value `supplementing` may be displayed as part of the Canvas representation or in a separate area of the user interface.  See issues [#1258](https://github.com/IIIF/api/issues/1258) and [#1480](https://github.com/IIIF/api/issues/1480).
 
 
 ### 2.3. Protocol Features
