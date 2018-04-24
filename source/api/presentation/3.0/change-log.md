@@ -183,7 +183,7 @@ This?
 
 #### 2.1.3. Add `timeMode` on Annotation
 
-[#1075](https://github.com/IIIF/api/issues/1075)
+The `timeMode` indicates whether the client should `trim`, `scale`, or `loop` playback of content resources with a time component when they are not identical in length to the duration of the portion of the Canvas onto which they are annotated.  See issue [#1075](https://github.com/IIIF/api/issues/1075).
 
 #### 2.1.4 Add `auto-advance` for `behavior`
 
@@ -191,11 +191,11 @@ In some cases it may be desirable to have playback advance automatically from on
 
 #### 2.1.5. Add `thumbnail-nav` for `behavior`
 
-Ranges may be used to present navigation based on thumbnails, such as video keyframes displayed in a timeline.  The`thumbnail-nav` `behavior` indicates that the Range is not to be displayed in a conventional table of contents. See issue [#1259](https://github.com/IIIF/api/issues/1259).
+Ranges may be used to present navigation based on thumbnails, such as video keyframes displayed in a timeline.  The`thumbnail-nav` `behavior` on a Range indicates it is not to be displayed in a conventional table of contents. See issue [#1259](https://github.com/IIIF/api/issues/1259).
 
 #### 2.1.6. Add `repeat` for `behavior`
 
-The `repeat` `behavior` indicates that the playback order of a Collection or Manifest containing temporal Canvases should  return to the first Canvas after reaching the end of the final Canvas of the resource.  See issue [#1328](https://github.com/IIIF/api/issues/1328).
+The `repeat` `behavior` indicates that the playback order of a Collection or Manifest containing temporal Canvases should return to the first Canvas after reaching the end of the final Canvas of the resource.  See issue [#1328](https://github.com/IIIF/api/issues/1328).
 
 #### 2.1.7. Allow Canvases to be treated as Content Resources
 
