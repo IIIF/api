@@ -225,8 +225,13 @@ dt {
   padding: 3px
 }
 
-.highlight {
-  background: #eee;
+div.highlight {
+  margin: 0;
+  padding: 0;
+}
+
+pre.highlight {
+  background: #f2f2f2;
   border: 1px dashed #bbb;
   padding: 5px;
   margin-left: 30px
