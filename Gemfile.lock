@@ -45,7 +45,7 @@ GEM
     http_parser.rb (0.6.0)
     i18n (0.9.5)
       concurrent-ruby (~> 1.0)
-    jekyll (3.7.3)
+    jekyll (3.8.0)
       addressable (~> 2.4)
       colorator (~> 1.0)
       em-websocket (~> 0.5)
@@ -88,7 +88,7 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
-    rouge (3.1.1)
+    rouge (2.0.5)
     rspec (3.7.0)
       rspec-core (~> 3.7.0)
       rspec-expectations (~> 3.7.0)
@@ -131,7 +131,7 @@ DEPENDENCIES
   jekyll-redirect-from (> 0.10.0)
   jekyll-sitemap (> 0.10.0)
   kramdown (> 1.16)
-  rouge (> 1.10)
+  rouge (= 2.0.5)
   rspec
 
 BUNDLED WITH
