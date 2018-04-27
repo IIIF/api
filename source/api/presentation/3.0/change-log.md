@@ -176,12 +176,11 @@ This?
 
 #### 2.1.1. Add `posterCanvas` for associated content
 
-[#1263](https://github.com/IIIF/api/issues/1263)
+Many time-based media presentations have additional content associated with the object, such as either a poster that is rendered while video is buffering or on a selection user interface, or images that might be displayed while an audio-only object is being rendered.  The addition of `posterCanvas` allows this content to be associated with the resource while not being part of the object directly. The rendering requirements for `posterCanvas` are different from Canvases that represent the object. See issue [#1263](https://github.com/IIIF/api/issues/1263).
 
 #### 2.1.2. Add `duration` on Canvas
 
-[#1069](https://github.com/IIIF/api/issues/1069)
-[#1190]()
+In order to have time-based media associated with a Canvas, the Canvas needs to have a duration dimension.  This was added to allow multiple video and/or audio files to be synchronized in time in the same way that Image (and Video) files can be aligned in the spatial dimensions. See issues [#1069](https://github.com/IIIF/api/issues/1069) and [#1190](https://github.com/IIIF/api/issues/1190).
 
 #### 2.1.3. Add `timeMode` on Annotation
 
@@ -226,23 +225,18 @@ The `painting` `motivation` does not permit sufficient flexibility in the displa
 
 #### 2.3.1. Define json-ld profile for media type
 
-[#1066](https://github.com/IIIF/api/issues/1066)
+A specific media-type, to be used with the HTTP headers `Accept` and `Content-Type` was defined. This media type is the JSON-LD media type, with the context in the `profile` parameter, following established conventions. See issue [#1066](https://github.com/IIIF/api/issues/1066).
 
-#### 2.4.2. Recommend HTTPS
+#### 2.3.2. Remove per-class URI patterns, instead make general recommendations
 
-???
+The URI patterns given in earlier versions were removed as unhelpful. They were replaced with section 6.1. that makes general best practice recommendations about the form of URIs, including the use of the HTTPS scheme and protocol. See issue [#1214](https://github.com/IIIF/api/issues/1214).
 
-#### 2.4.3. Remove URI pattern recommendations
+#### 2.3.3. Allow external Ranges
 
-[#1214](https://github.com/IIIF/api/issues/1214)
-
-#### 2.4.4. Allow external Ranges
-
-[#1218](https://github.com/IIIF/api/issues/1218)
+In previous versions, Ranges were required to be embedded within the Manifest.  With the removal of Sequences, this means that Ranges must be allowed to be referenced resources from the Manifest and thus seperately requested.  An additional use case comes from the AV work, where a Range could give a large set of thumbnails for every keyframe of a video to be presented on a scrubbing bar (see the `thumbnail-nav` value for `behavior`). It would be overwhelming to include this in the Manifest directly. See issue [#1218](https://github.com/IIIF/api/issues/1218).
 
 
 ## 3. Editorial Changes
-
 
 ### 3.1. Clarifications
 
