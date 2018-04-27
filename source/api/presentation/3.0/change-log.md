@@ -183,23 +183,23 @@ This?
 
 #### 2.1.3. Add `timeMode` on Annotation
 
-[#1075](https://github.com/IIIF/api/issues/1075)
+The `timeMode` indicates whether the client should `trim`, `scale`, or `loop` playback of content resources with a time component when those resources are not identical in length to the duration of the portion of the Canvas onto which they are annotated.  See issue [#1075](https://github.com/IIIF/api/issues/1075).
 
-#### 2.2.1 Add "auto-advance" for `behavior`
+#### 2.1.4 Add `auto-advance` for `behavior`
 
-[#1583](https://github.com/IIIF/api/issues/1583)
+In some cases it may be desirable to have playback advance automatically from one Canvas to the next, such as when Canvases represent tracks of an album; the `auto-advance` `behavior` enables this. See issue [#1583](https://github.com/IIIF/api/issues/1583).
 
-#### 2.2.6. Add "thumbnail-nav" for `behavior`
+#### 2.1.5. Add `thumbnail-nav` for `behavior`
 
-[#1259](https://github.com/IIIF/api/issues/1259)
+Ranges may be used to present navigation based on thumbnails, such as video keyframes displayed in a timeline.  The`thumbnail-nav` `behavior` on a Range indicates it is not to be displayed in a conventional table of contents. See issue [#1259](https://github.com/IIIF/api/issues/1259).
 
-#### 2.2.4. Add "repeat" for `behavior`
+#### 2.1.6. Add `repeat` for `behavior`
 
-[#1328](https://github.com/IIIF/api/issues/1328)
+The `repeat` `behavior` indicates that the playback order of a Collection or Manifest containing temporal Canvases should return to the first Canvas after reaching the end of the final Canvas of the resource.  See issue [#1328](https://github.com/IIIF/api/issues/1328).
 
-#### 2.3.1. Allow Canvases to be treated as Content Resources
+#### 2.1.7. Allow Canvases to be treated as Content Resources
 
-[#1191](https://github.com/IIIF/api/issues/1191), previously [#42](https://github.com/IIIF/api/issues/42)
+Canvases may be treated as content resources for the purposes of annotating on to other Canvases.  For example, an excerpt of a Canvas that contains a video resource and annotations representing subtitles may be annotated on to another Canvas; the relative spatial and temporal alignment of the video and subtitles will be maintained. See issue [#1191](https://github.com/IIIF/api/issues/1191), previously [#42](https://github.com/IIIF/api/issues/42).
 
 ### 2.2. Additional Features
 
