@@ -149,7 +149,9 @@ Not every view of an object has a defined label, or can have one automatically g
 
 #### 1.5.4. Requirements of `id` and `type`
 
+The `type` property with a single value is now required on all resources, including content resources and services. This serves several purposes, including facilitating object mapping code libraries, clarity about the rendering needs for the resource given the new inclusion of audio and video as core content, and forcing the serialization to generate a JSON object for the resource, not just a string with the resource's URI.
 
+The `id` property is now also required for every class other than embedded Annotation Pages.  This brings the specification into alignment with the `id` requirements from the Web Annotation model. 
 
 #### 1.5.5. ...
 
