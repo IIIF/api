@@ -242,38 +242,37 @@ In previous versions, Ranges were required to be embedded within the Manifest.  
 
 #### 3.1.1 Add explicit definition of `profile`
 
-[#1276](https://github.com/IIIF/api/issues/1276)
+In previous versions, `profile` was mentioned but never formally defined. This has now been defined explicitly. See issue [#1276](https://github.com/IIIF/api/issues/1276).
 
 #### 3.1.2. Clarify "referenced" and "embedded"
 
-[#1396](https://github.com/IIIF/api/issues/1396)
+The terms "referenced" and "embedded" were never defined, but used in dozens of places.  These are now defined explicitly. See issue [#1396](https://github.com/IIIF/api/issues/1396).
 
 #### 3.1.3. Clarify patterns for cross-version references
 
-[#1064](https://github.com/IIIF/api/issues/1064)
+With significant breaking changes, it was necessary to clarify that the representations of resources that are in divergent versions retain the features of the version they were defined in, even when referenced from the diverging version's resources. See issue [#1064](https://github.com/IIIF/api/issues/1064).
 
 #### 3.1.4. Clarify `@graph` is just not allowed
 
-[#920](https://github.com/IIIF/api/issues/920)
+Previously it had been noted in an implementation note that clients might encounter the `@graph` key in the JSON-LD, but that publishers had to strip it out.  This has been clarified that `@graph` is simply not allowed in the IIIF Presentation API. See issue [#920](https://github.com/IIIF/api/issues/920).
 
 #### 3.1.5. Clarify no interstitial pages for `rendering`
 
-[#1155](https://github.com/IIIF/api/issues/1155)
-
+Some organizations had a desire to include a web page between the manifest and the `rendering` resource, such as a terms and conditions for download agreement. It was clarified that this is not allowed, and instead the IIIF Authentication API would serve this use case. See issue [#1155](https://github.com/IIIF/api/issues/1155).
 
 ### 3.2. Style
 
 #### 3.2.1. Restructure document
 
+The document was again fundamentally restructured for clarity, and to remove non-core content that simply described how to make use of external specifications to a cookbook.
+
 #### 3.2.2. Consistency
 
-backticks, class/property names, values,
+The use of `code` font and capitalization was made consistent for class names, property names and values when used in prose.
 
 #### 3.2.3. Visual Appearance
 
-Improve icons in requirements tables
-CSS
-
+The CSS and icons used in the requirements tables were improved.
 
 ## 4. Related Document Changes
 
