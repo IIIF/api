@@ -145,30 +145,13 @@ Not every view of an object has a defined label, or can have one automatically g
 
 #### 1.5.3. Resources referenced from Collections should have `thumbnail`
 
-[#1502](https://github.com/IIIF/api/issues/1502)
+With the clarification that Collections are exclusively for navigation and not discovery, their use in user interfaces was improved by recommending the inclusion of `thumbnail` on referenced resources. See issue [#1502](https://github.com/IIIF/api/issues/1502).
 
 #### 1.5.4. Requirements of `id` and `type`
 
 The `type` property with a single value is now required on all resources, including content resources and services. This serves several purposes, including facilitating object mapping code libraries, clarity about the rendering needs for the resource given the new inclusion of audio and video as core content, and forcing the serialization to generate a JSON object for the resource, not just a string with the resource's URI.
 
 The `id` property is now also required for every class other than embedded Annotation Pages.  This brings the specification into alignment with the `id` requirements from the Web Annotation model. 
-
-#### 1.5.5. ...
-
-There
-
-Must
-
-Be
-
-More
-
-Changes
-
-Like
-
-This?
-
 
 ## 2. Non-Breaking Changes
 
@@ -273,6 +256,7 @@ The use of `code` font and capitalization was made consistent for class names, p
 #### 3.2.3. Visual Appearance
 
 The CSS and icons used in the requirements tables were improved.
+
 
 ## 4. Related Document Changes
 
