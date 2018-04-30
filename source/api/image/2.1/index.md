@@ -528,7 +528,7 @@ Note that the values in `width` and `height` do not necessarily imply that an im
 
 __Warning__
 There is an inconsistency between the specification of the `sizes` list and the canonical URI syntax. Clients _SHOULD_ use the [Canonical URI Syntax](#canonical-uri-syntax) when making image requests based on entries in `sizes`. For maximum compatibility, servers _SHOULD_ support both the `w,` and `w,h` forms of the `size` parameter for values in `sizes` that maintain the aspect ratio. This inconsistency will be addressed in the next major version of this specification.
-{: .warning}
+{: .warning #size-inconsistency}
 
 | Size Object Property | Required? | Description |
 | ---------- | -------- | ----------- |
