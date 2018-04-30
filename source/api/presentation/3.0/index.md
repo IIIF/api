@@ -46,11 +46,13 @@ This is a work in progress and may change without any notices. Implementers shou
 
 ##  1. Introduction
 
-Access to digital representations of structured resources is a fundamental requirement for many research activities, the transmission of cultural knowledge, and for the daily pursuits of every web citizen. Digital content is the primary mode of transmission for access to cultural heritage, science and entertainment. Collections of both digitized physical objects and much born-digital content benefit from a standardized description of their structure, layout and presentation mode.
+There are many different types of digitized or digital compound objects: ancient scrolls, paintings, letters, books, newspapers, films, operas, albums, field recordings and computer generated animations. These resources often bear the written or spoken word, and this linguistic content is often as important as the visual or audible representation. 
 
-This document describes how the structure and layout of composite objects can be made available in a standard manner. Many different styles of viewer can be implemented that consume the information to enable a rich and dynamic experience, presenting content from across collections and institutions.
+Access to these representations is a fundamental requirement for many research activities, the transmission of cultural knowledge, and for the daily pursuits of every web citizen. Digital content is the primary mode of transmission for access to cultural heritage, science and entertainment. Collections of both digitized physical objects and much born-digital content benefit from a standardized description of their structure, layout and presentation mode.
 
-A composite object may comprise a series of pages, surfaces or other views; for example the single view of a painting, the two sides of a photograph, four cardinal views of a statue, or the many pages of an edition of a newspaper or book. The primary requirements for this specification are to provide an order for these views, the resources needed to display a representation of the view, and the descriptive information needed to allow the user to understand what is being seen.
+This document specifies this standardized description. Many different rich and dynamic user experiences can be implemented, presenting content from across collections and institutions.
+
+A composite object may comprise a series of pages, surfaces, or extents of time; for example the single view of a painting, the two sides of a photograph, four cardinal views of a statue, the many pages of an edition of a newspaper or book, or the duration of an act of an opera. The primary requirements of this specification are to provide an order for these views or extents, the resources needed to present them, and the descriptive information needed to allow the user to understand what is being seen or heard.
 
 The principles of [Linked Data][org-linked-data] and the [Architecture of the Web][org-w3c-webarch] are adopted in order to provide a distributed and interoperable framework. The [Shared Canvas data model][shared-canvas] and [JSON-LD][org-w3c-json-ld] are leveraged to create an easy-to-implement, JSON-based format.
 
@@ -58,29 +60,24 @@ Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss]
 
 ### 1.1. Objectives and Scope
 
-The objective of the IIIF (pronounced "Triple-Eye-Eff") Presentation API is to provide the information necessary to allow a rich, online viewing environment for structured digital objects to be presented to a human user, often in conjunction with the [IIIF Image API][image-api]. This is the sole purpose of the API and therefore descriptive information is given in a way that is intended for humans to read, but not semantically available to machines. In particular, it explicitly does __not__ aim to provide metadata that would drive a search engine for discovering unknown objects.
+The objective of the IIIF (pronounced "Triple-Eye-Eff") Presentation API is to provide the information necessary to allow a rich, online viewing environment for structured digital objects to be presented to a human user, often in conjunction with the [IIIF Image API][image-api]. This is the sole purpose of the API and therefore descriptive information is given in a way that is intended for humans to read, but not semantically available to machines. In particular, it explicitly does __not__ aim to provide metadata that would allow a search engine to index digital objects.
 
 Implementations of this specification will be able to:
 
-  * display to the user digitized images, video, audio and other content types associated with a particular physical or born-digital object ;
-  * allow the user to navigate between multiple views of the object, either sequentially or hierarchically ;
-  * display descriptive information about the object, view or navigation structure to provide context to the user ;
+  * display to the user digitized images, video, audio and other content types associated with a particular physical or born-digital object;
+  * allow the user to navigate between multiple views or time extents of the object, either sequentially or hierarchically;
+  * display descriptive information about the object, view or navigation structure to provide context to the user;
   * and provide a shared environment in which both publishers and users can annotate the object and its content with additional information.
 
 The following are __not__ in scope:
 
-  * The discovery or selection of interesting objects is not directly supported; however properties to reference further resources are available.
+  * Provision of metadata for harvesting and discovery is not directly supported; however properties to reference further descriptive resources are available and their use is encouraged.
   * Search within the object; which is described by the [IIIF Content Search API][search-api].
 
 Note that in the following descriptions, "object" is used to refer to the object that has been digitized or a born-digital compound object, and "resources" refer to the digital resources and content that are the result of that digitization or digital creation process.
 
-###  1.2. Motivating Use Cases
 
-There are many different types of digitized or digital compound objects; ancient scrolls, paintings, letters, books, newspapers, films, operas, albums, field recordings and computer generated animations. These resources often bear the written or spoken word, and access to this linguistic content is often as important as access to the visual or audible representation. These and several other use cases are described in a separate [document][prezi-use-cases].
-
-Collectively, these use cases require a model in which one can characterize the object (via the _Manifest_ resource) and the individual views of the object (_Canvas_ resources). Each view may have images, audio, video and other content resources associated with it (content resources) to allow the view to be rendered to the user appropriately. An object may also have sections; for example, a book may have chapters of several pages, or a play might be divided into acts and scenes (_Range_ resources) and there may be groups of objects (_Collection_ resources). These resource types, along with their properties, make up the IIIF Presentation API.
-
-### 1.3. Terminology
+### 1.2. Terminology
 
 This specification uses the following terms:
 
@@ -93,6 +90,8 @@ The terms _array_, _JSON object_, _number_, _string_, and _boolean_ in this docu
 The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _SHOULD NOT_, _RECOMMENDED_, _MAY_, and _OPTIONAL_ in this document are to be interpreted as described in [RFC 2119][org-rfc-2119].
 
 ##  2. Resource Type Overview
+
+The objectives require a model in which one can characterize the object (via the _Manifest_ resource) and the individual views of the object (_Canvas_ resources). Each view may have images, audio, video and other content resources associated with it (content resources) to allow the view to be rendered to the user appropriately. An object may also have sections; for example, a book may have chapters of several pages, or a play might be divided into acts and scenes (_Range_ resources) and there may be groups of objects (_Collection_ resources). These resource types, along with their properties, make up the IIIF Presentation API.
 
 This section provides an overview of the resource types (or classes) that are used in the specification. They are each presented in more detail in [Section 5][prezi30-resource-structure].
 
@@ -112,7 +111,7 @@ An ordered list of Manifests, and/or further Collections. Collections allow easy
 ##### Manifest
 {: #overview-manifest}
 
-The overall description of the structure and properties of the digital representation of an object. It carries information needed for the viewer to present the content to the user, such as a title and other descriptive information about the object or the intellectual work that it conveys. Each Manifest describes how to present a single object such as a book, a statue or a music album.
+The overall description of the structure and properties of the digital representation of an object. It carries information needed for the client to present the content to the user, such as a title and other descriptive information about the object or the intellectual work that it conveys. Each Manifest describes how to present a single object such as a book, a statue or a music album.
 
 ##### Canvas
 {: #overview-canvas}
@@ -1233,7 +1232,7 @@ Ranges are used to represent structure within an object beyond the default order
 
 The intent of adding a Range to the Manifest is to allow the client to display a linear or hierarchical navigation interface to enable the user to quickly move through the object's content. Clients _SHOULD_ present only Ranges that have the `label` property and do not have a `behavior` value `no-nav` to the user. Clients _SHOULD NOT_ render Canvas labels as part of the navigation, and a Range that wraps the Canvas _MUST_ be created if this is the desired presentation.
 
-If there is no Range that has the `behavior` value `sequence`, and the Manifest does not have the `behavior` value `unordered`, then the client _SHOULD_ treat the order of the Canvases in the Manifest's `items` array as the default order. If there is one Range that has the `behavior` value `sequence`, then the viewer _MUST_ instead use this Range for the ordering. If there is more than one Range that has the `behavior` value `sequence`, for example a second Range to represent an alternative ordering of the pages of a manuscript, the first Range _SHOULD_ be used as the default and the others _SHOULD_ be able to be selected. Ranges that have the `behavior` value `sequence` _MUST_ be directly within the `structures` property of the Manifest, and _MUST NOT_ be embedded or referenced within other Ranges. These Ranges may have limited hierarchical nesting, but clients are not expected to traverse very deep structures in determining the default order. If this Range includes parts of Canvases, then these parts are the content to render by default and would generate separate entries in a navigation display. This allows for the Canvas to include content outside of the default view, such as a color bar or ruler.
+If there is no Range that has the `behavior` value `sequence`, and the Manifest does not have the `behavior` value `unordered`, then the client _SHOULD_ treat the order of the Canvases in the Manifest's `items` array as the default order. If there is one Range that has the `behavior` value `sequence`, then the client _MUST_ instead use this Range for the ordering. If there is more than one Range that has the `behavior` value `sequence`, for example a second Range to represent an alternative ordering of the pages of a manuscript, the first Range _SHOULD_ be used as the default and the others _SHOULD_ be able to be selected. Ranges that have the `behavior` value `sequence` _MUST_ be directly within the `structures` property of the Manifest, and _MUST NOT_ be embedded or referenced within other Ranges. These Ranges may have limited hierarchical nesting, but clients are not expected to traverse very deep structures in determining the default order. If this Range includes parts of Canvases, then these parts are the content to render by default and would generate separate entries in a navigation display. This allows for the Canvas to include content outside of the default view, such as a color bar or ruler.
 
 Ranges _MUST_ have URIs and they _SHOULD_ be HTTP(S) URIs. Top level Ranges are embedded or externally referenced within the Manifest in a `structures` property. These top level Ranges then embed or reference other Ranges, Canvases or parts of Canvases in the `items` property. Each entry in the `items` property _MUST_ be a JSON object, and it _MUST_ have the `id` and `type` properties. If a top level Range needs to be dereferenced by the client, then it _MUST NOT_ have the `items` property, such that clients are able to recognize that it should be retrieved in order to be processed.
 
