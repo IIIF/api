@@ -18,7 +18,7 @@ redirect_from:
 
 __This Version:__ {{ page.major }}.{{ page.minor }}.{{ page.patch }}{% if page.pre != 'final' %}-{{ page.pre }}{% endif %}
 
-__Latest Stable Version:__ [{{ site.auth_api.latest.major }}.{{ site.auth_api.latest.minor }}.{{ site.auth_api.latest.patch }}][stable-version]
+__Latest Stable Version:__ [{{ site.auth_api.stable.major }}.{{ site.auth_api.stable.minor }}.{{ site.auth_api.stable.patch }}][stable-version]
 
 __Beta Specification for Trial Use__
 This is a work in progress. We are actively seeking implementations and feedback.  No section should be considered final, and the absence of any content does not imply that such content is out of scope, or may not appear in the future.  Please send any feedback to [iiif-discuss@googlegroups.com][iiif-discuss].
@@ -646,6 +646,6 @@ Many thanks to the members of the [IIIF Community][iiif-community] for their con
 [bearer-token]: https://tools.ietf.org/html/rfc6750#section-1.2 "OAuth2 Bearer Tokens"
 [rfc-2818]: https://tools.ietf.org/html/rfc2818 "HTTP Over TLS"
 [implementation-notes]: implementation/ "IIIF Authentication: Implementation Notes"
-[stable-version]: {{ site.url }}{{ site.baseurl }}/api/auth/{{ site.auth_api.latest.major }}.{{ site.auth_api.latest.minor }}/ "Stable Version"
+[stable-version]: {{ site.url }}{{ site.baseurl }}/api/auth/{{ site.auth_api.stable.major }}.{{ site.auth_api.stable.minor }}/ "Stable Version"
 
 {% include acronyms.md %}

@@ -11,104 +11,80 @@
     "sc": "http://iiif.io/api/presentation/2#",
 
     "baseUriRedirect": {
-      "@id": "iiif:baseUriRedirectFeature",
-      "@type": "iiif:Feature"
+      "@id": "iiif:baseUriRedirectFeature"
     },
     "cors": {
-      "@id": "iiif:corsFeature",
-      "@type": "iiif:Feature"
+      "@id": "iiif:corsFeature"
     },
     "regionByPct": {
-      "@id": "iiif:regionByPctFeature",
-      "@type": "iiif:Feature"
+      "@id": "iiif:regionByPctFeature"
     },
     "regionByPx": {
-      "@id": "iiif:regionByPxFeature",
-      "@type": "iiif:Feature"
+      "@id": "iiif:regionByPxFeature"
     },
     "regionSquare": {
-      "@id": "iiif:regionSquareFeature",
-      "@type": "iiif:Feature"
+      "@id": "iiif:regionSquareFeature"
     },
     "rotationArbitrary": {
-      "@id": "iiif:arbitraryRotationFeature",
-      "@type": "iiif:Feature"
+      "@id": "iiif:arbitraryRotationFeature"
     },
     "rotationBy90s": {
-      "@id": "iiif:rotationBy90sFeature",
-      "@type": "iiif:Feature"
+      "@id": "iiif:rotationBy90sFeature"
     },
     "mirroring": {
-      "@id": "iiif:mirroringFeature",
-      "@type": "iiif:Feature"
+      "@id": "iiif:mirroringFeature"
     },
     "sizeAboveFull": {
-      "@id": "iiif:sizeAboveFullFeature",
-      "@type": "iiif:Feature"
+      "@id": "iiif:sizeAboveFullFeature"
     },
     "sizeByForcedWh": {
-      "@id": "iiif:sizeByForcedWHFeature",
-      "@type": "iiif:Feature"
+      "@id": "iiif:sizeByForcedWHFeature"
     },
     "sizeByH": {
-      "@id": "iiif:sizeByHFeature",
-      "@type": "iiif:Feature"
+      "@id": "iiif:sizeByHFeature"
     },
     "sizeByPct": {
-      "@id": "iiif:sizeByPctFeature",
-      "@type": "iiif:Feature"
+      "@id": "iiif:sizeByPctFeature"
     },
     "sizeByW": {
-      "@id": "iiif:sizeByWFeature",
-      "@type": "iiif:Feature"
+      "@id": "iiif:sizeByWFeature"
     },
     "sizeByWh": {
-      "@id": "iiif:sizeByWHFeature",
-      "@type": "iiif:Feature"
+      "@id": "iiif:sizeByWHFeature"
     },
     "sizeByWhListed": {
-      "@id": "iiif:sizeByWHListedFeature",
-      "@type": "iiif:Feature"
+      "@id": "iiif:sizeByWHListedFeature"
     },
     "sizeByConfinedWh": {
-      "@id": "iiif:sizeByConfinedWHFeature",
-      "@type": "iiif:Feature"
+      "@id": "iiif:sizeByConfinedWHFeature"
     },
     "sizeByDistortedWh": {
-      "@id": "iiif:sizeByDistortedWHFeature",
-      "@type": "iiif:Feature"
+      "@id": "iiif:sizeByDistortedWHFeature"
     },
     "profileLinkHeader": {
-      "@id": "iiif:profileLinkHeaderFeature",
-      "@type": "iiif:Feature"
+      "@id": "iiif:profileLinkHeaderFeature"
     },
     "canonicalLinkHeader": {
-      "@id": "iiif:canonicalLinkHeaderFeature",
-      "@type": "iiif:Feature"
+      "@id": "iiif:canonicalLinkHeaderFeature"
     },
     "jsonldMediaType": {
-      "@id": "iiif:jsonLdMediaTypeFeature",
-      "@type": "iiif:Feature"
+      "@id": "iiif:jsonLdMediaTypeFeature"
     },
     "height": {
-      "@id": "exif:height",
-      "@type": "xsd:integer"
+      "@id": "exif:height"
     },
     "width": {
-      "@id": "exif:width",
-      "@type": "xsd:integer"
+      "@id": "exif:width"
     },
     "scaleFactors": {
       "@id": "iiif:scaleFactor",
-      "@type": "xsd:integer"
+      "@container": "@set"
     },
     "formats": {
-      "@id": "iiif:format",
-      "@type": "xsd:string"
+      "@id": "iiif:format"
     },
     "qualities": {
-      "@id": "iiif:quality",
-      "@type": "xsd:string"
+      "@id": "iiif:quality"
     },
     "sizes": {
       "@id": "iiif:hasSize",
@@ -117,6 +93,15 @@
     "tiles": {
       "@id": "iiif:hasTile",
       "@type": "@id"
+    },
+    "maxWidth": {
+      "@id": "iiif:maxWidth"
+    },
+    "maxHeight": {
+      "@id": "iiif:maxHeight"
+    },
+    "maxArea": {
+      "@id": "iiif:maxArea"
     },
     "profile": {
       "@id": "doap:implements",

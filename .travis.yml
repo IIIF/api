@@ -1,4 +1,5 @@
-sudo: false
+sudo: required
+dist: trusty
 
 env:
   global:
@@ -22,10 +23,9 @@ script:
 # environment
 language: ruby
 rvm:
-  - "2.4.1"
+  - 2.4.2
 jdk:
   - oraclejdk8
-dist: trusty
 
 before_deploy: if [[ ${ROOT_BRANCHES} =~ .*${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH}.* ]]; then
     echo "Building at root ${ROOT_INSTALL}";

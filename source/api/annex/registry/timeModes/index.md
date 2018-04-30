@@ -8,7 +8,7 @@ cssversion: 2
 ## Status of this Document
 {:.no_toc}
 
-This document is not subject to [semantic versioning][semver].
+This document is not subject to [semantic versioning][notes-versioning].
 Changes will be tracked within the document.
 
 **Editors**
@@ -24,7 +24,7 @@ Changes will be tracked within the document.
 
 ## Abstract
 {:.no_toc}
-This is one of a number of [IIIF registries][registry-home]. It lists a set of time modes that have been identified as useful for implementations of the Presentation API.  They may be defined by the IIIF community, or outside of it.
+This is one of a number of [IIIF registries][annex-registry]. It lists a set of time modes that have been identified as useful for implementations of the Presentation API.  They may be defined by the IIIF community, or outside of it.
 
 Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss]
 
@@ -36,7 +36,7 @@ Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss]
 
 ## 1. Introduction
 
-This is one of a number of [IIIF registries][registry-home]. It lists a set of time modes that have been identified as useful for implementations of the Presentation API.  They may be defined by the IIIF community, or outside of it.
+This is one of a number of [IIIF registries][annex-registry]. It lists a set of time modes that have been identified as useful for implementations of the Presentation API.  They may be defined by the IIIF community, or outside of it.
 
 ### 1.1. Disclaimer
 
