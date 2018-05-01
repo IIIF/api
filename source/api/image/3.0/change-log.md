@@ -133,7 +133,7 @@ Discussion of floating point representation has been moved from the image reques
 
 #### 3.6. Clarify support for CORS
 
-Discussion of CORS has be moved to a new [CORS][image30-cors] section and the wording clarified to make it clear that not only the `Access-Control-Allow-Origin` header but also the preflight request pattern (ie. including the `OPTIONS` header) should be supported. See issue [#1274](https://github.com/IIIF/api/issues/1274).
+Discussion of CORS has be moved to a new [CORS][image30-cors-response] section and the wording clarified to make it clear that not only the `Access-Control-Allow-Origin` header but also the preflight request pattern (ie. including the `OPTIONS` header) should be supported. See issue [#1274](https://github.com/IIIF/api/issues/1274).
 
 #### 3.7. Implementation with static web resources
 
