@@ -3,7 +3,7 @@ source: source
 safe: false
 permalink: /news/:year/:month/:day/:title/
 
-gems:
+plugins:
   - jekyll-sitemap
   - jekyll-redirect-from
 
@@ -11,12 +11,6 @@ kramdown:
   input: GFM
   parse_block_html: true
   toc_levels: 2..4
-  enable_coderay: true
-  syntax_highlighter: rouge
-
-  syntax_highlighter_opts:
-    wrap: div
-    css: class
 
 image_api:
   draft:

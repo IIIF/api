@@ -438,7 +438,7 @@ If the rotation parameter includes mirroring ("!"), the mirroring is applied bef
 </table>
 
 ### 4.7. Canonical URI Syntax
-{: canonical-uri-syntax}
+{: #canonical-uri-syntax}
 
 It is possible to request the same image using different combinations of parameters. While it is useful for clients to be able to express their requests in a convenient form, there are several reasons why a canonical URI syntax is desirable:
 
