@@ -21,8 +21,10 @@ This document is a companion to the [IIIF Image API Specification, Version 2.1][
 {:toc}
 
 ## 1. Non-breaking Changes
+{: #non-breaking-changes}
 
 ### 1.1. Added `square` Region
+{: #added-square-region}
 
 The `square` [region keyword][region] selects a region where the width and height are both equal to the length of the shorter dimension of the complete image. The region may be positioned anywhere in the longer dimension of the image content at the server’s discretion, and centered is often a reasonable default. The corresponding feature name `regionSquare` has also been added to the [profile description][profile-description]. It is an open question whether support for `square` will become mandatory at levels 1 and 2 in the next major version of the Image API. See [issue 425](https://github.com/IIIF/iiif.io/issues/425), [issue 560](https://github.com/IIIF/iiif.io/issues/560), and [issue 501](https://github.com/IIIF/iiif.io/issues/501).
 
@@ -35,8 +37,9 @@ The `square` [region keyword][region] selects a region where the width and heigh
 Version 2.0 incorrectly recommended the inclusion of a HTTP link header for the JSON-LD context, which was unnecessary as the `@context` key in the JSON document would override it. Therefore, the description of the [Image Information Request][image-information-request] no longer includes this. See [issue 556](https://github.com/IIIF/iiif.io/issues/556).
 
 ### 1.4. Added `sizeByConfinedWh` and `sizeByDistortedWh` Feature Names
+{: #added-sizebyconfinedwh-and-sizebydistortedwh-feature-names}
 
-New feature names `sizeByConfinedWh` and `sizeByDistortedWh` in the [profile description][profile-description] provide clear indications of support for `!w,h` and distorting `w,h` size requests respectively. As a result the related feature names `sizeByWhListed` and `sizeByForcedWh` have been [deprecated][deprecated-sizebywhlisted-and-sizebyforcedwh]. See [issue 720](https://github.com/IIIF/iiif.io/issues/720) and additional discussion on [pull pequest 727](https://github.com/IIIF/iiif.io/pull/727). 
+New feature names `sizeByConfinedWh` and `sizeByDistortedWh` in the [profile description][profile-description] provide clear indications of support for `!w,h` and distorting `w,h` size requests respectively. As a result the related feature names `sizeByWhListed` and `sizeByForcedWh` have been [deprecated][deprecated-sizebywhlisted-and-sizebyforcedwh]. See [issue 720](https://github.com/IIIF/iiif.io/issues/720) and additional discussion on [pull pequest 727](https://github.com/IIIF/iiif.io/pull/727).
 
 ### 1.5. Added `maxWidth`, `maxHeight` and `maxArea` Properties
 
@@ -47,16 +50,20 @@ The `maxWidth`, `maxHeight` and `maxArea` properties in the [profile description
 The [size keyword][size] `max` may be used to request that the image or region is returned at the maximum size available, as indicated by `maxWidth`, `maxHeight` and `maxArea` properties. See [issue 663](https://github.com/IIIF/iiif.io/issues/663) and the related [deprecation of the size keyword `full`][deprecated-size-full].
 
 ## 2. Deprecations
+{: #deprecations}
 
 ### 2.1. Deprecated Size Keyword `full`
+{: #deprecated-size-keyword-full}
 
 The [size keyword][size] `full` will be replaced by `max` in version 3.0. It is impractical to deliver the full size of very large images, and thus the keyword is not helpful when the Image Information has not been read. When the Image Information has been read, clients can request the explicit `w,h` size. See [issue 678](https://github.com/IIIF/iiif.io/issues/678).
 
-### 2.2. Deprecated `sizeByWhListed` and `sizeByForcedWh` Feature Names 
+### 2.2. Deprecated `sizeByWhListed` and `sizeByForcedWh` Feature Names
+{: #deprecated-sizebywhlisted-and-sizebyforcedwh-feature-names}
 
 The feature names `sizeByWhListed` and `sizeByForcedWh` will be removed from the [profile description][profile-description] in version 3.0. The feature `sizeByForcedWh` was inconsistently defined in version 2.0. The feature `sizeByWhListed` is implied by including `sizes` in the image information document and is therefore not required as a named feature. See [issue 720](https://github.com/IIIF/iiif.io/issues/720) and related [addition of `sizeByConfinedWh` and `sizeByDistortedWh`][added-sizebyconfinedwh-and-sizebydistortedwh].
 
 ## 3. Deferred Changes
+{: #deferred-changes}
 
 ### 3.1. Change Canonical Syntax
 
