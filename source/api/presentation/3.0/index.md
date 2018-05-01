@@ -48,7 +48,7 @@ This is a work in progress and may change without any notices. Implementers shou
 
 There are many different types of digitized or digital compound objects: ancient scrolls, paintings, letters, books, newspapers, films, operas, albums, field recordings, and computer generated animations. These resources often bear the written or spoken word, and this linguistic content is often as important as the visual or audible representation.
 
-Access to these representations is a fundamental requirement for many research activities, the transmission of cultural knowledge, and for the daily pursuits of every web citizen. Digital content is the primary mode of transmission for access to cultural heritage, science and entertainment. Collections of both digitized physical objects and much born-digital content benefit from a standardized description of their structure, layout, and presentation mode.
+Access to these representations is a fundamental requirement for many research activities, the transmission of cultural knowledge, and for the daily pursuits of every web citizen. Digital content is the primary mode of transmission for access to cultural heritage, science, and entertainment. Collections of both digitized physical objects and much born-digital content benefit from a standardized description of their structure, layout, and presentation mode.
 
 This document specifies this standardized description. Many different rich and dynamic user experiences can be implemented, presenting content from across collections and institutions.
 
