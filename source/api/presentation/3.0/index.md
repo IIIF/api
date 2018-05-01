@@ -46,9 +46,9 @@ This is a work in progress and may change without any notices. Implementers shou
 
 ##  1. Introduction
 
-There are many different types of digitized or digital compound objects: ancient scrolls, paintings, letters, books, newspapers, films, operas, albums, field recordings and computer generated animations. These resources often bear the written or spoken word, and this linguistic content is often as important as the visual or audible representation. 
+There are many different types of digitized or digital compound objects: ancient scrolls, paintings, letters, books, newspapers, films, operas, albums, field recordings, and computer generated animations. These resources often bear the written or spoken word, and this linguistic content is often as important as the visual or audible representation.
 
-Access to these representations is a fundamental requirement for many research activities, the transmission of cultural knowledge, and for the daily pursuits of every web citizen. Digital content is the primary mode of transmission for access to cultural heritage, science and entertainment. Collections of both digitized physical objects and much born-digital content benefit from a standardized description of their structure, layout and presentation mode.
+Access to these representations is a fundamental requirement for many research activities, the transmission of cultural knowledge, and for the daily pursuits of every web citizen. Digital content is the primary mode of transmission for access to cultural heritage, science and entertainment. Collections of both digitized physical objects and much born-digital content benefit from a standardized description of their structure, layout, and presentation mode.
 
 This document specifies this standardized description. Many different rich and dynamic user experiences can be implemented, presenting content from across collections and institutions.
 
@@ -64,15 +64,15 @@ The objective of the IIIF (pronounced "Triple-Eye-Eff") Presentation API is to p
 
 Implementations of this specification will be able to:
 
-  * display to the user digitized images, video, audio and other content types associated with a particular physical or born-digital object;
+  * display to the user digitized images, video, audio, and other content types associated with a particular physical or born-digital object;
   * allow the user to navigate between multiple views or time extents of the object, either sequentially or hierarchically;
   * display descriptive information about the object, view or navigation structure to provide context to the user;
   * and provide a shared environment in which both publishers and users can annotate the object and its content with additional information.
 
 The following are __not__ in scope:
 
-  * Provision of metadata for harvesting and discovery is not directly supported; however properties to reference further descriptive resources are available and their use is encouraged.
-  * Search within the object; which is described by the [IIIF Content Search API][search-api].
+  * Provision of metadata for harvesting and discovery is not directly supported. Properties to reference further descriptive resources are available, and their use is encouraged.
+  * Search within the object, which is described by the [IIIF Content Search API][search-api].
 
 Note that in the following descriptions, "object" is used to refer to the object that has been digitized or a born-digital compound object, and "resources" refer to the digital resources and content that are the result of that digitization or digital creation process.
 
