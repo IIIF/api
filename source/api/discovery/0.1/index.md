@@ -84,7 +84,7 @@ Activities are used to describe the state of the publisher by recording each ind
 
 The resources available via the Presentation API do not have descriptive metadata fields suitable for indexing beyond a full text search. Instead, they link to external documents using the `seeAlso` property that can have richer and domain-specific information about the content being presented. For example, a museum object might have a `seeAlso` reference to a CIDOC-CRM or LIDO description, while a bibliographic resource might reference a Dublin Core or MODS description. These external descriptions should be used when possible to provide interfaces giving access to more precise matching algorithms.
 
-This specification describes three levels of conformance that build upon each other in terms of functionality enabled and precision of the information published. Sets of changes are published in [pages](#pages-of-changes), which are then collected together in a [collection](#collections-of-pages) per publisher. Care has been take to allow the implementation of all levels to be done in as static a way as possible, rather than requiring dynamic access to a database.
+This specification describes three levels of conformance that build upon each other in terms of functionality enabled and precision of the information published. Sets of changes are published in pages, which are then collected together in a collection per publisher. Care has been take to allow the implementation of all levels to be done in as static a way as possible, rather than requiring dynamic access to a database.
 
 ### 2.1. Listing Resources and their Changes
 
