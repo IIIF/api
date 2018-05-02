@@ -74,8 +74,7 @@ The following are __not__ in scope:
   * Provision of metadata for harvesting and discovery is not directly supported. Properties to reference further descriptive resources are available, and their use is encouraged.
   * Search within the object, which is described by the [IIIF Content Search API][search-api].
 
-Note that in the following descriptions, "object" is used to refer to the object that has been digitized or a born-digital compound object, and "resources" refer to the digital resources and content that are the result of that digitization or digital creation process.
-
+This document is accompanied by the [Presentation API Cookbook][annex-cookbook], which demonstrates motivating use cases for IIIF and contains examples showing how the objectives may be achieved.
 
 ### 1.2. Terminology
 
