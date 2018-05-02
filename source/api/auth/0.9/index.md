@@ -45,6 +45,7 @@ This is a work in progress. We are actively seeking implementations and feedback
 
 
 ## 1. Introduction
+{: #introduction}
 
 The IIIF (pronounced "Triple-Eye-Eff") specifications are designed to support uniform and rich access to resources hosted around the world. Open access to content is desirable, but internal policies, legal regulations, business models, and other constraints can require users to authenticate and be authorized to interact with some resources. The authentication process could range from a simple restriction by IP address or a click-through agreement, to a multi-factor scheme with a secure identity provider.
 
@@ -77,6 +78,7 @@ In summary, the specification describes how to:
 Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss].
 
 ### 1.1. Terminology
+{: #terminology}
 
 This specification distinguishes between __Content Resources__, such as images or videos, and __Description Resources__ which conform to IIIF specifications, such as [Image API][image-api] image information (info.json) and [Presentation API][prezi-api] collection or manifest resources.  From the point of view of a browser-based application, Content Resources are loaded indirectly via browser interpretation of HTML elements, whereas Description Resources are typically loaded directly by JavaScript using the `XMLHttpRequest` interface. The [Cross Origin Resource Sharing][cors-spec] (CORS) specification implemented in modern browsers describes the different security rules that apply to the interactions with these two types of resource.
 
@@ -85,10 +87,12 @@ Two additional concepts, the __access cookie__ and __access token__, are describ
 The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _SHOULD NOT_, _RECOMMENDED_, _MAY_, and _OPTIONAL_ in this document are to be interpreted as described in [RFC 2119][rfc-2119].
 
 ### 1.2. Authentication for Content Resources
+{: #authentication-for-content-resources}
 
 Content Resources, such as images, are generally secondary resources embedded in a web page or application. In the case of web pages, images might be included via the HTML `img` tag, and retrieved via additional HTTP requests by the browser. When a user is not authorized to load a web page, the server can redirect the user to another page and offer the opportunity to authenticate. This redirection is not possible for embedded Content Resources, and the user is simply presented with a broken image icon. If the image is access controlled, the browser must avoid broken images by sending a cookie that the server can accept as a credential that grants access to the image. This specification describes the process by which the user acquires this __access cookie__.
 
 ### 1.3. Authentication for Description Resources
+{: #authentication-for-description-resources}
 
 Description Resources, such as a Presentation API manifest or an Image API information document (info.json), give the client application the information it needs to have the browser request the Content Resources. A Description Resource must be on the same domain as the Content Resource it describes, but there is no requirement that the executing client code is also hosted on this domain.
 
@@ -97,24 +101,28 @@ A browser running JavaScript retrieved from one domain cannot use `XMLHttpReques
 The server on the Resource Domain treats the access token as a representation of, or proxy for, the cookie that gains access to the Content Resources. When the client makes requests for the Description Resources and presents the access token, the responses tell the client what will happen when the browser requests the corresponding content resources with the access cookie the access token represents. These responses let the client decide what user interface and/or Content Resources to show to the user.
 
 ### 1.4. Security
+{: #security}
 
-The purpose of this specification to support access-control for IIIF resources and hence security is a core concern. To prevent misuse, cookies and bearer tokens described in this specification need to be protected from disclosure in storage and in transport. Implementations _SHOULD_ use [HTTP over TLS][rfc-2818], commonly known as HTTPS, for all communication. Furthermore, all IIIF clients that interact with access-controlled resources _SHOULD_ also be run from pages served via HTTPS. All references to HTTP in this specification should be read assuming the use of HTTPS. 
+The purpose of this specification to support access-control for IIIF resources and hence security is a core concern. To prevent misuse, cookies and bearer tokens described in this specification need to be protected from disclosure in storage and in transport. Implementations _SHOULD_ use [HTTP over TLS][rfc-2818], commonly known as HTTPS, for all communication. Furthermore, all IIIF clients that interact with access-controlled resources _SHOULD_ also be run from pages served via HTTPS. All references to HTTP in this specification should be read assuming the use of HTTPS.
 
 This specification protects Content Resources such as images by making the access token value available to the script of the client application, for use in requesting Description Resources. Knowledge of the access token is of no value to a malicious client, because the access _cookie_ (which the client cannot see) is the only credential accepted for Content Resources, and a Description Resource is of no value on its own. However, the interaction patterns introduced in this specification will in future versions be extended to write operations on IIIF resources, for example creating annotations in an annotation server, or modifying the `structures` element in a manifest. For these kinds of operations, the access token _is_ the credential, and the flow introduced below may require one or more additional steps to establish trust between client and server. However, it is anticipated that these changes will be backwards compatible with version {{ page.major }}.{{ page.minor }}.
 
 Further discussion of security considerations can be found in the [Implementation Notes][implementation-notes].
 
 ## 2. Authentication Services
+{: #authentication-services}
 
 Authentication services follow the pattern described in the IIIF [Linking to External Services][ext-services] note, and are referenced in one or more `service` blocks from the descriptions of the resources that are protected. There is a primary login service profile for authenticating users, and it has related services nested within its description.  The related services include a mandatory access token service, and an optional logout service.
 
 ### 2.1. Access Cookie Service
+{: #access-cookie-service}
 
 The client uses this service to obtain a cookie that will be used when interacting with content such as images, and with the access token service. There are several different interaction patterns in which the client will use this service, based on the user interface that must be rendered for the user, indicated by a profile URI. The client obtains the link to the access cookie service from a service block in a description of the protected resource.
 
 The purpose of the access cookie service is to set a cookie during the user's interaction with the content server, so that when the client then makes image requests to the content server, the requests will succeed. The client has no knowledge of what happens at the login service, and it cannot see any cookies set for the content domain during the user's interaction with the login service. The browser may be redirected one or more times but this is invisible to the client application. The final response in the opened tab _SHOULD_ contain JavaScript that will attempt to close the tab, in order to trigger the next step in the workflow.
 
 #### 2.1.1. Service Description
+{: #service-description}
 
 There are four interaction patterns by which the client can obtain an access cookie, each identified by a profile URI. These patterns are described in more detail in the following sections.
 
@@ -143,6 +151,7 @@ The service description is included in the Description Resource and has the foll
 {: .api-table}
 
 #### 2.1.2. Interaction with the Access Cookie Service
+{: #interaction-with-the-access-cookie-service}
 
 The client _MUST_ append the following query parameter to all requests to an access cookie service URI, regardless of the interaction pattern, and open this URI in a new window or tab.
 
@@ -160,6 +169,7 @@ https://authentication.example.org/login?origin=https://client.example.com/
 The server _MAY_ use this information to validate the origin supplied in subsequent requests to the access token service, for example by encoding it in the cookie returned.
 
 #### 2.1.3. Login Interaction Pattern
+{: #login-interaction-pattern}
 
 In order to have the client prompt the user to log in, it must display part of the content provider's user interface. For the Login interaction pattern, the value of the `@id` property is the URI of that user interface.
 
@@ -194,6 +204,7 @@ An example service description for the Login interaction pattern:
 ```
 
 #### 2.1.4. Clickthrough Interaction Pattern
+{: #clickthrough-interaction-pattern}
 
 For the Clickthrough interaction pattern, the value of the `@id` property is the URI of a service that _MUST_ set an access cookie and then immediately close its window or tab without user interaction.  The interaction has the following steps:
 
@@ -226,6 +237,7 @@ An example service description for the Clickthrough interaction pattern:
 ```
 
 #### 2.1.5. Kiosk Interaction Pattern
+{: #kiosk-interaction-pattern}
 
 For the Kiosk interaction pattern, the value of the `@id` property is the URI of a service that _MUST_ set an access cookie and then immediately close its window or tab without user interaction.  The interaction has the following steps:
 
@@ -255,6 +267,7 @@ An example service description for the Kiosk interaction pattern:
 ```
 
 #### 2.1.6. External Interaction Pattern
+{: #external-interaction-pattern}
 
 For the External interaction pattern, the user is required to have acquired the access cookie by out of band means. If the access cookie is not present, the user will receive the failure messages. The interaction has the following steps:
 
@@ -283,10 +296,12 @@ An example service description for the External interaction pattern:
 ```
 
 ### 2.2. Access Token Service
+{: #access-token-service}
 
 The client uses this service to obtain an access token which it then uses when requesting Description Resources. A request to the access token service must include any cookies for the content domain acquired from the user's interaction with the corresponding access cookie service, so that the server can issue the access token.
 
 #### 2.2.1. Service Description
+{: #service-description-1}
 
 The access cookie service description _MUST_ include an access token service description following the template below:
 
@@ -313,6 +328,7 @@ The access cookie service description _MUST_ include an access token service des
 The `@id` property of the access token service _MUST_ be present, and its value _MUST_ be the URI from which the client can obtain the access token. The `profile` property _MUST_ be present and its value _MUST_ be `http://iiif.io/api/auth/{{ page.major }}/token` to distinguish it from other services. There is no requirement to repeat the `@context` property included in the enclosing access cookie service description, and there are no other properties for this service.
 
 #### 2.2.2. The JSON Access Token Response
+{: #the-json-access-token-response}
 
 If the request has a valid cookie that the server recognises as having been issued by the access cookie service, the access token service response _MUST_ include a JSON (not JSON-LD) object with the following structure:
 
@@ -334,6 +350,7 @@ Authorization: Bearer TOKEN_HERE
 This authorization header _SHOULD_ be added to all requests for resources from the same domain and subdomains that have a reference to the service, regardless of which API is being interacted with. It _MUST NOT_ be sent to other domains.
 
 #### 2.2.3. Interaction for Non-Browser Client Applications
+{: #interaction-for-non-browser-client-applications}
 
 The simplest access token request comes from a non-browser client that can send cookies across domains, where the CORS restrictions do not apply. An example URL:
 
@@ -360,6 +377,7 @@ The response is the JSON access token object with the media type `application/js
 ```
 
 #### 2.2.4. Interaction for Browser-Based Client Applications
+{: #interaction-for-browser-based-client-applications}
 
 If the client is a JavaScript application running in a web browser, it needs to make a direct request for the access token and store the result. The client can't use `XMLHttpRequest` because it can't include the access cookie in a cross-domain request. Instead, the client _MUST_ open the access token service in a frame using an `iframe` element and be ready to receive a message posted by script in that frame using the [postMessage API][postmessage]. To trigger this behavior, the client _MUST_ append the following query parameters to the access token service URI, and open this new URI in the frame.
 
@@ -426,6 +444,7 @@ The server response will then be a web page with a media type of `text/html` tha
 ```
 
 #### 2.2.5. Using the Access Token
+{: #using-the-access-token}
 
 The access token is sent on all subsequent requests for Description Resources. For example, a request for the image information in the Image API would look like:
 
@@ -436,6 +455,7 @@ Authorization: Bearer TOKEN_HERE
 {: .urltemplate}
 
 #### 2.2.6. Access Token Error Conditions
+{: #access-token-error-conditions}
 
 The response from the access token service may be an error. The error _MUST_ be supplied as JSON with the following template. For browser-based clients using the postMessage API, the error object must be sent to the client via JavaScript, in the same way the access token is sent. For direct requests the response body is the raw JSON.
 
@@ -462,10 +482,12 @@ The `description` property is _OPTIONAL_ and may give additional human-readable 
 When returning JSON directly, the service _MUST_ use the appropriate HTTP status code for the response to describe the error (for example 400, 401 or 503).  The postMessage web page response _MUST_ use the 200 HTTP status code to ensure that the body is received by the client correctly.
 
 ### 2.3. Logout Service
+{: #logout-service}
 
 In the case of the Login interaction pattern, the client will need to know if and where the user can go to log out. For example, the user may wish to close their session on a public terminal, or to log in again with a different account.
 
 #### 2.3.1. Service Description
+{: #service-description-2}
 
 If the authentication system supports users intentionally logging out, there _SHOULD_ be a logout service associated with the access cookie service following the template below:
 
@@ -495,10 +517,12 @@ If the authentication system supports users intentionally logging out, there _SH
 The value of the `profile` property _MUST_ be `http://iiif.io/api/auth/{{ page.major }}/logout`.
 
 #### 2.3.2. Interaction
+{: #interaction}
 
 The client _SHOULD_ present the results of an HTTP `GET` request on the service's URI in a separate tab or window with a URL bar.  At the same time, the client _SHOULD_ discard any access token that it has received from the corresponding service. The server _SHOULD_ reset the user's logged in status when this request is made and delete the access cookie.
 
 ### 2.4. Example Description Resource with Authentication Services
+{: #example-description-resource-with-authentication-services}
 
 The example below is a complete image information response for an example image with all of the authentication services.
 
@@ -545,18 +569,21 @@ The example below is a complete image information response for an example image 
 
 
 ## 3. Interaction with Access-Controlled Resources
+{: #interaction-with-access-controlled-resources}
 
 This section describes how clients use the services above when interacting with Content Resources and Description Resources.
 
 These interactions rely on requests for Description Resources returning HTTP status codes `200`, `302`, and `401` in different circumstances. In cases other than `302`, the body of the response _MUST_ be a valid Description Resource because the client needs to see the Authentication service descriptions in order to follow the appropriate workflow. Any response with a `302` status code will never be seen by browser-based client script interacting via the `XMLHttpRequest` API. The reported response will be the final one in the chain, and therefore the body of redirection responses is not required to be the Description Resource's representation.
 
 ### 3.1. All or Nothing Access
+{: #all-or-nothing-access}
 
 If the server does not support multiple tiers of access to a Content Resource, and the user is not authorized to access it, then the server _MUST_ return a response with a `401` (Unauthorized) HTTP status code for the corresponding Description Resource.
 
 If the user is authorized for a Description Resource, the client can assume that requests for the described Content Resources will also be authorized. Requests for the Content Resources rely on the access cookie to convey the authorization state.
 
 ### 3.2. Tiered Access
+{: #tiered-access}
 
 If a server supports multiple tiers of access, then it _MUST_ use a different identifier for each Description Resource and its corresponding Content Resource(s). For example, there _MUST_ be different Image Information documents (`/info.json`) at different URIs for each tier. When refering to Description Resources that have multiple tiers of access, systems _SHOULD_ use the identifier of the version that an appropriated authorized user should see. For example, when refering to an Image service from a Manifest, the reference would normally be to the highest quality image version rather than a degraded version.
 
@@ -565,6 +592,7 @@ When a Description Resource is requested and the user is not authorized to acces
 When there are no lower tiers and the user is not authorized to access the current Description Resource, the server _MUST_ issue a `401` (Unauthorized) response. The client _SHOULD_ present information about the Login and/or Clickthrough services included in the Description Resource to allow the user to attempt to authenticate.
 
 ## 4. Workflow from the Browser Client Perspective
+{: #workflow-from-the-browser-client-perspective}
 
 <table class="ex_table">
   <tbody>
