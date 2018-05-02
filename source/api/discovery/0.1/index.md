@@ -53,15 +53,16 @@ This specification leverages existing techniques, specifications, and tools in o
 
 ### 1.1. Objectives and Scope
 
-The objective of the IIIF Change Discovery API is to provide the information needed to discover and subsequently make use of existing IIIF resources.  The intended audience is other IIIF aware systems that can proactively work with the content and APIs. While this work may benefit others outside of the IIIF community directly or indirectly, the objective of the API is to specify an interoperable solution that best and most easily fulfills the discovery needs within the community of participating organizations.
+The objective of the IIIF Change Discovery API is to provide the information needed to discover and subsequently make use of IIIF resources.  The intended audience is other IIIF aware systems that can leverage the content and APIs. While this work may benefit others outside of the IIIF community directly or indirectly, the objective of the API is to specify an interoperable solution that best and most easily fulfills the discovery needs within the community of participating organizations.
 
-The discovery of IIIF resources requires a consistent and well understood pattern for content providers to publish lists of links to their available content. This does not include the transmission of the content itself, for example transferring any source media or data between systems, only for the discovery of that content.  This allows a baseline implementation of discovery systems that process the list, looking for resources that have been added or changed.
+The discovery of IIIF resources requires a consistent and well understood pattern for content providers to publish lists of links to their available content. This allows a baseline implementation of discovery systems that process the list, looking for resources that have been added or changed.
 
-This process can be optimized by allowing the content providers to publish descriptions of when their content has changed, enabling consuming systems to only retrieve the resources that have been modified since they were last retrieved. These changes might include when content is deleted or otherwise becomes no longer available. Finally, for rapid synchronization, a system of notifications pushed from the publisher to a set of subscribers can reduce the amount of effort required to constantly poll all of the systems to see if anything has changed. 
+This process can be optimized by allowing the content providers to publish descriptions of when their content has changed, enabling consuming systems to only retrieve the resources that have been modified since they were last retrieved. These changes might include when content is deleted or otherwise becomes unavailable. Finally, for rapid synchronization, a system of notifications pushed from the publisher to a set of subscribers can reduce the amount of effort required to constantly poll all of the systems to see if anything has changed. 
 
-Work that is out of scope of this API includes the recommendation or creation of any descriptive metadata formats, and the recommendation or creation of metadata search APIs or protocols. These are out of scope as the diverse domains represented within the IIIF community already have different standards in these spaces, and previous attempts to reconcile these specifications across domains have not been successful.
+Work that is out of scope of this API includes the recommendation or creation of any descriptive metadata formats, and the recommendation or creation of metadata search APIs or protocols. The diverse domains represented within the IIIF community already have different standards in these spaces, and previous attempts to reconcile these specifications across domains have not been successful. Also out of scope is optimization of the transmission of content, for example recommendations about transferring any source media or data between systems.
 
-__Notification of Changes__<br>This draft version of the specification does not include the subscription mechanism for enabling notifications to be pushed to remote systems about changes.  The current specification only enables the polling pattern where the set of changes must be periodically reprocessed. Notifications are likely to be added in a future version before 1.0.
+
+__Notification of Changes__<br>This draft version of the specification does not include the subscription mechanism for enabling change notifications to be pushed to remote systems.  The current specification only enables the polling pattern where the set of changes must be periodically reprocessed. Notifications are likely to be added in a future version before 1.0.
 {: .warning}
 
 ### 1.2. Terminology
@@ -77,25 +78,25 @@ The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _S
 
 ## 2. Overview of IIIF Resource Discovery
 
-In order to discover IIIF resources, the state of the publishing system needs to be communicated succinctly and easily to a consuming system.  The consumer can then use that information to retrieve and process the resources of interest.  This communication takes place via the IIIF Change Discovery API, which uses the W3C [Activity Streams][org-w3c-activitystreams] specification to describe and serialize changes to resources, where the semantics of those changes and the interactions between publishers and consumers are based on those identified by the [ResourceSync][org-openarchives-rsync] framework. 
+In order to discover IIIF resources, the state of those resources in the systems that publish them needs to be communicated succinctly and easily to a consuming system.  The consumer can then use that information to retrieve and process the resources of interest and provide machine or user interfaces that enable discovery.  This communication takes place via the IIIF Change Discovery API, which uses the W3C [Activity Streams][org-w3c-activitystreams] specification to describe and serialize changes to resources, where the semantics of those changes and the interactions between publishers and consumers are based on those identified by the [ResourceSync][org-openarchives-rsync] framework. 
 
 Activities are used to describe the state of the publisher by recording each individual change, in the order that they occur. The changes described are the creation, modification and deletion of IIIF Presentation API resources, primarily Collections and Manifests.  If the consuming application is aware of all of the changes that took place at the publisher, it would have full knowledge of the set of resources available.  The focus on IIIF Collections and Manifests is because these are the main access points to published content and references to descriptive metadata about that content, however Activities describing changes to other resources could also be published in this way.
 
 The resources available via the Presentation API do not have descriptive metadata fields suitable for indexing beyond a full text search. Instead, they link to external documents using the `seeAlso` property that can have richer and domain-specific information about the content being presented. For example, a museum object might have a `seeAlso` reference to a CIDOC-CRM or LIDO description, while a bibliographic resource might reference a BibFrame or MODS description. These external descriptions should be used when possible to provide interfaces giving access to more precise matching algorithms.
 
-There are three levels of detail that can be implemented by a conforming system. The levels build upon each other in terms of functionality enabled and precision of the information published. Sets of these changes are published in [pages](#pages-of-changes), which are then collected together in a [collection](#collections-of-pages) per publisher. Care has been take to allow the implementation of all levels to be done in as static a way as possible, rather than requiring dynamic access to a database.
+This specification describes three levels of conformance that build upon each other in terms of functionality enabled and precision of the information published. Sets of changes are published in [pages](#pages-of-changes), which are then collected together in a [collection](#collections-of-pages) per publisher. Care has been take to allow the implementation of all levels to be done in as static a way as possible, rather than requiring dynamic access to a database.
 
 ### 2.1. Listing Resources and their Changes
 
-There are three levels of completeness at which changes can be described. Level 0 is simply a list of the resources available.  Level 1 adds timestamps and ordering from earliest change to most recent, allowing the consumer to stop processing once it encounters a change that it has already processed. Level 2 adds in additional clarity about the types of activities, enabling the explicit creation and deletion of resources.
+There are three levels of conformance at which changes can be described. Level 0 is simply a list of the resources available.  Level 1 adds timestamps and ordering from earliest change to most recent, allowing the consumer to stop processing once it encounters a change that it has already processed. Level 2 adds in additional clarity about the types of activities, enabling the explicit creation and deletion of resources.
 
 #### 2.1.1. Level 0: Basic Resource List
 
-The basic information required to provide a minimally effective set of links to IIIF resources is just the URIs of those resources. However, with the addition of a little JSON template around those URIs, we can be on the path towards a robust set of information that clients can use to optimize their processing.  
+The core information required to provide a minimally effective set of links to IIIF resources is just the URIs of those resources. However, with the addition of a little JSON template around those URIs, we can be on the path towards a robust set of information that clients can use to optimize their processing.  
 
 Starting with the IIIF resource URIs, we add an "Update" Activity wrapper around them.  The order of the resources in the resulting list is unimportant, but each should only appear once. In terms of optimization, this approach provides no additional benefit over any other simpler list format, but is compatible with the following levels which introduce significant benefits.  This is the minimum level for interoperability, while being compatible with the more detailed patterns described below.
 
-If resources are deleted after being refered to in the resource list, the entire list should be republished without the reference to the deleted resource. Clients should also expect to encounter links that are out of date and no longer resolve to a IIIF Manifest or Collection.
+If resources are deleted after being refered to in the resource list, the entire list should be republished without the reference to the deleted resource. Clients should also expect to encounter resource URIs that are out of date and no longer resolve to a IIIF Manifest or Collection.
 
 Example Level 0 Activity:
 
@@ -103,15 +104,15 @@ Example Level 0 Activity:
 { 
   "type": "Update",
   "object": {
-  	"id": "https://example.org/iiif/1/manifest",
-  	"type": "Manifest"  	
+    "id": "https://example.org/iiif/1/manifest",
+    "type": "Manifest"  	
   }
 }
 ```
 
 #### 2.1.2. Level 1: Basic Change List
 
-The most effective information to add beyond the basic resource list is the datestamp at which the resource was last modified (including the initial modification that created it).  If we know these dates, we can add them to the Activities and order the list such that the most recent activities occur last. The timestamp is given in the `endTime` property -- the time at which the document update process finished. Consumers will then process the list of Activities in reverse order, from last to first, stopping when they encounter an Activity they have already processed in a previous run. 
+The most effective information to add beyond the basic resource list is the timestamp at which the resource was last modified (including the initial modification that created it). If we know these dates, we can add them to the Activities and order the list such that the most recent activities occur last. The time at which the document update process finished is given in the `endTime` property. Consumers will then process the list of Activities in reverse order, from last to first, stopping when they encounter an Activity they have already processed in a previous run. 
 
 Example Level 1 Activity:
 
@@ -145,7 +146,7 @@ Example Level 2 Activity:
 
 ### 2.2. Pages of Changes
 
-These Activities are collected together into pages that together make up the entire set of changes that the publishing system has made.  Pages reference the previous and next pages in that set, and the overall collection that they are part of.  The Activities are then listed in time order.
+Activities are collected together into pages that together make up the entire set of changes that the publishing system has made.  Pages reference the previous and next pages in that set, and the overall collection that they are part of.  The Activities are then listed in time order.
 
 
 ```
@@ -153,45 +154,45 @@ These Activities are collected together into pages that together make up the ent
   "id": "https://example.org/activity/page-1",
   "type": "OrderedCollectionPage",
   "partOf": {
-  	"id": "https://example.org/activity/top-collection",
-  	"type": "OrderedCollection"
+    "id": "https://example.org/activity/top-collection",
+    "type": "OrderedCollection"
   },
   "prev": {
-  	"id": "https://example.org/activity/page-0",
-  	"type": "OrderedCollectionPage"
+    "id": "https://example.org/activity/page-0",
+    "type": "OrderedCollectionPage"
   },
   "next": {
-  	"id": "https://example.org/activity/page-2",
-  	"type": "OrderedCollectionPage"
+    "id": "https://example.org/activity/page-2",
+    "type": "OrderedCollectionPage"
   },
   "orderedItems": [
-     {
-     	"type": "Update",
-     	"object": {
-     		"id": "https://example.org/iiif/9/manifest",
-     		"type": "Manifest"
-     	},
-     	"endTime": "2018-03-10T10:00:00Z"
-     },
-     {
-     	"type": "Update",
-     	"object": {
-     		"id": "https://example.org/iiif/2/manifest",
-     		"type": "Manifest"
-     	},
-     	"endTime": "2018-03-11T16:30:00Z"
-     }
+    {
+      "type": "Update",
+      "object": {
+        "id": "https://example.org/iiif/9/manifest",
+        "type": "Manifest"
+      },
+      "endTime": "2018-03-10T10:00:00Z"
+    },
+    {
+      "type": "Update",
+      "object": {
+        "id": "https://example.org/iiif/2/manifest",
+        "type": "Manifest"
+      },
+      "endTime": "2018-03-11T16:30:00Z"
+    }
   ]
 }
 ```
 
 ### 2.5. Collections of Pages
 
-As the number of Activities is likely too many to usefully be represented in a single Page, they are collected together into a Collection as the initial entry point.  The Collection references the URIs of the first and last pages.
+As the number of Activities is likely too many to usefully be represented in a single Page, they are collected together into a Collection as the initial entry point. The Collection references the URIs of the first and last pages.
 
 ```
 {
-  "id": "https://example.org/activity/top-collection",
+  "id": "https://example.org/activity/all-changes",
   "type": "OrderedCollection",
   "totalItems": 21456,
   "first": {
@@ -229,7 +230,7 @@ The identifier of the Ordered Collection.
 Ordered Collections _MUST_ have an `id` property. The value _MUST_ be a string and it _MUST_ be an HTTP(S) URI. The JSON representation of the Ordered Collection _MUST_ be available at the URI.
 
 ```
-{ "id": "https://example.org/activity/top-collection" }
+{ "id": "https://example.org/activity/all-changes" }
 ```
 
 ##### type
