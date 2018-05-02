@@ -59,7 +59,7 @@ The discovery of IIIF resources requires a consistent and well understood patter
 
 This process can be optimized by allowing the content providers to publish descriptions of when their content has changed, enabling consuming systems to only retrieve the resources that have been modified since they were last retrieved. These changes might include when content is deleted or otherwise becomes unavailable. Finally, for rapid synchronization, a system of notifications pushed from the publisher to a set of subscribers can reduce the amount of effort required to constantly poll all of the systems to see if anything has changed. 
 
-Work that is out of scope of this API includes the recommendation or creation of any descriptive metadata formats, and the recommendation or creation of metadata search APIs or protocols. The diverse domains represented within the IIIF community already have different standards in these spaces, and previous attempts to reconcile these specifications across domains have not been successful. Also out of scope is optimization of the transmission of content, for example recommendations about transferring any source media or data between systems.
+Work that is out of scope of this API includes the recommendation or creation of any descriptive metadata formats, and the recommendation or creation of metadata search APIs or protocols. The diverse domains represented within the IIIF community already have already have successful standards fulfilling these use cases, and the results of previous attempts to reconcile these standards across domains have not seen widespread adoption. Also out of scope is optimization of the transmission of content, for example recommendations about transferring any source media or data between systems.
 
 
 __Notification of Changes__<br>This draft version of the specification does not include the subscription mechanism for enabling change notifications to be pushed to remote systems.  The current specification only enables the polling pattern where the set of changes must be periodically reprocessed. Notifications are likely to be added in a future version before 1.0.
@@ -82,9 +82,9 @@ In order to discover IIIF resources, the state of those resources in the systems
 
 Activities are used to describe the state of the publisher by recording each individual change, in the order that they occur. The changes described are the creation, modification and deletion of IIIF Presentation API resources, primarily Collections and Manifests.  If the consuming application is aware of all of the changes that took place at the publisher, it would have full knowledge of the set of resources available.  The focus on IIIF Collections and Manifests is because these are the main access points to published content and references to descriptive metadata about that content, however Activities describing changes to other resources could also be published in this way.
 
-The resources available via the Presentation API do not have descriptive metadata fields suitable for indexing beyond a full text search. Instead, they link to external documents using the `seeAlso` property that can have richer and domain-specific information about the content being presented. For example, a museum object might have a `seeAlso` reference to a CIDOC-CRM or LIDO description, while a bibliographic resource might reference a Dublin Core or MODS description. These external descriptions should be used when possible to provide interfaces giving access to more precise matching algorithms.
+The Presentation API does not directly include descriptive metadata fields suitable for indexing beyond a full text search. The data intentionally lacks the semantics needed to construct indexes needed to enable advanced or fielded search. Instead, they link to external documents using the `seeAlso` property that can have richer and domain-specific information about the content being presented. For example, a museum object might have a `seeAlso` reference to a CIDOC-CRM or LIDO description, while a bibliographic resource might reference a Dublin Core or MODS description. These external descriptions should be used when possible to provide interfaces giving access to more precise matching algorithms.
 
-This specification describes three levels of conformance that build upon each other in terms of functionality enabled and precision of the information published. Sets of changes are published in pages, which are then collected together in a collection per publisher. Care has been take to allow the implementation of all levels to be done in as static a way as possible, rather than requiring dynamic access to a database.
+This specification describes three levels of conformance that build upon each other in terms of functionality enabled and precision of the information published. Sets of changes are published in pages, which are then collected together in a collection per publisher. To reduce barriers to implementation, care has been take to allow the implementation of all levels using only static files on a web server, rather than requiring dynamic access to a database.
 
 ### 2.1. Listing Resources and their Changes
 
@@ -92,7 +92,7 @@ There are three levels of conformance at which changes can be described. Level 0
 
 #### 2.1.1. Level 0: Basic Resource List
 
-The core information required to provide a minimally effective set of links to IIIF resources is just the URIs of those resources. However, with the addition of a little JSON template around those URIs, we can be on the path towards a robust set of information that clients can use to optimize their processing.  
+The core information required to provide a minimally effective set of links to IIIF resources is just the URIs of those resources. However, with the addition of some additional JSON structure wrapped around those URIs, we can be on the path towards a robust set of information that clients can use to optimize their processing.  
 
 Starting with the IIIF resource URIs, we add an "Update" Activity wrapper around them.  The order of the resources in the resulting list is unimportant, but each should only appear once. In terms of optimization, this approach provides no additional benefit over any other simpler list format, but is compatible with the following levels which introduce significant benefits.  This is the minimum level for interoperability, while being compatible with the more detailed patterns described below.
 
@@ -112,7 +112,7 @@ Example Level 0 Activity:
 
 #### 2.1.2. Level 1: Basic Change List
 
-The most effective information to add beyond the basic resource list is the timestamp at which the resource was last modified (including the initial modification that created it). If we know these dates, we can add them to the Activities and order the list such that the most recent activities occur last. The time at which the document update process finished is given in the `endTime` property. Consumers will then process the list of Activities in reverse order, from last to first, stopping when they encounter an Activity they have already processed in a previous run. 
+When dealing with large sets of resources, it can be useful to work with only those resources that have changed since the last time the list was processed. This can be facilitated by the addition of a time stamp that indicates when a resource was last modified or initially created. This is included using the `endTime` property, representing the time at which the activity of publishing the resource was finished. Lists with multiple activities are then ordered such that the most recent activities occur last. Consumers will then process the list of Activities in reverse order, from last to first, stopping when they encounter an Activity they have already processed in a previous run.
 
 Example Level 1 Activity:
 
@@ -129,7 +129,7 @@ Example Level 1 Activity:
 
 #### 2.1.3. Level 2: Complete Change List
 
-At the most detailed level, a log of all of the Activities that have taken place can be recorded, with the likelihood of multiple Activities per IIIF resource.  This allows the additional types of "Create" and "Delete", enabling a synchronization process to remove resources as well as add or update them. The list might end up very long if there are many changes to resources, however this is not a typical situation, and the cost is still reasonable as each entry is short and can be compressed both on disk and at the HTTP(S) transport layer.
+At the most detailed level, a log of all of the Activities that have taken place can be recorded, with the likelihood of multiple Activities per IIIF resource.  This allows the additional types of "Create" and "Delete", enabling a synchronization process to remove resources as well as add or update them. 
 
 Example Level 2 Activity:
 
@@ -146,11 +146,14 @@ Example Level 2 Activity:
 
 ### 2.2. Pages of Changes
 
-Activities are collected together into pages that together make up the entire set of changes that the publishing system has made.  Pages reference the previous and next pages in that set, and the overall collection that they are part of.  The Activities are then listed in time order.
-
+Activities are collected together into pages that together make up the entire set of changes that the publishing system has made. Pages reference the previous and next pages in that set, and the overall collection of which they are part. The Activities are listed such that the most recent activities occur last.
 
 ```
 {
+  "@context": [
+    "http://iiif.io/api/discovery/0/context.json",
+    "https://www.w3.org/ns/activitystreams"
+  ],
   "id": "https://example.org/activity/page-1",
   "type": "OrderedCollectionPage",
   "partOf": {
@@ -186,12 +189,16 @@ Activities are collected together into pages that together make up the entire se
 }
 ```
 
-### 2.5. Collections of Pages
+### 2.3. Collections of Pages
 
 As the number of Activities is likely too many to usefully be represented in a single Page, they are collected together into a Collection as the initial entry point. The Collection references the URIs of the first and last pages.
 
 ```
 {
+  "@context": [
+    "http://iiif.io/api/discovery/0/context.json",
+    "https://www.w3.org/ns/activitystreams"
+  ],
   "id": "https://example.org/activity/all-changes",
   "type": "OrderedCollection",
   "totalItems": 21456,
@@ -237,7 +244,7 @@ Ordered Collections _MUST_ have an `id` property. The value _MUST_ be a string a
 
 The class of the Ordered Collection.
 
-Ordered Collections _MUST_ have a `type` property.  The value _MUST_ be "OrderedCollection".
+Ordered Collections _MUST_ have a `type` property.  The value _MUST_ be `OrderedCollection`.
 
 ```
 { "type": "OrderedCollection" }
@@ -247,7 +254,7 @@ Ordered Collections _MUST_ have a `type` property.  The value _MUST_ be "Ordered
 
 A link to the first Ordered Collection Page for this Collection.
 
-Ordered Collections _SHOULD_ have a `first` property.  The value _MUST_ be a JSON object, with the `id` and `type` properties.  The value of the `id` property _MUST_ be a string, and it _MUST_ be the HTTP(S) URI of the first page of items in the Collection. The value of the `type` property _MUST_ be a string, and _MUST_ be "OrderedCollectionPage".
+Ordered Collections _SHOULD_ have a `first` property.  The value _MUST_ be a JSON object, with the `id` and `type` properties.  The value of the `id` property _MUST_ be a string, and it _MUST_ be the HTTP(S) URI of the first page of items in the Collection. The value of the `type` property _MUST_ be a string, and _MUST_ be `OrderedCollectionPage`.
 
 ```
 { 
@@ -262,7 +269,7 @@ Ordered Collections _SHOULD_ have a `first` property.  The value _MUST_ be a JSO
 
 A link to the last Ordered Collection Page for this Collection.  As the client processing algorithm works backwards from the most recent to least recent, the inclusion of `last` is _REQUIRED_, but `first` is only _RECOMMENDED_.
 
-Ordered Collections _MUST_ have a `last` property.  The value _MUST_ be a JSON object, with the `id` and `type` properties.  The value of the `id` property _MUST_ be a string, and it _MUST_ be the HTTP(S) URI of the last page of items in the Collection. The value of the `type` property _MUST_ be a string, and _MUST_ be "OrderedCollectionPage".
+Ordered Collections _MUST_ have a `last` property.  The value _MUST_ be a JSON object, with the `id` and `type` properties.  The value of the `id` property _MUST_ be a string, and it _MUST_ be the HTTP(S) URI of the last page of items in the Collection. The value of the `type` property _MUST_ be a string, and _MUST_ be `OrderedCollectionPage`.
 
 ```
 { 
@@ -287,7 +294,10 @@ OrderedCollections _MAY_ have a `totalItems` property.  The value _MUST_ be a no
 
 ```
 {
-  "@context": "",
+  "@context": [
+    "http://iiif.io/api/discovery/0/context.json",
+    "https://www.w3.org/ns/activitystreams"
+  ],
   "id": "https://example.org/activity/top-collection",
   "type": "OrderedCollection",
   "totalItems": 21456,
@@ -322,7 +332,7 @@ Ordered Collection Pages _MUST_ have an `id` property. The value _MUST_ be a str
 
 The class of the Ordered Collection Page.
 
-Ordered Collections _MUST_ have a `type` property.  The value _MUST_ be "OrderedCollectionPage".
+Ordered Collections _MUST_ have a `type` property.  The value _MUST_ be `OrderedCollectionPage`.
 
 ```
 { "type": "OrderedCollectionPage" }
@@ -332,7 +342,7 @@ Ordered Collections _MUST_ have a `type` property.  The value _MUST_ be "Ordered
 
 The Ordered Collection that this Page is part of.
 
-Ordered Collection Pages _SHOULD_ have a `partOf` property. The value _MUST_ be a JSON object, with the `id` and `type` properties.  The value of the `id` property _MUST_ be the a string, and _MUST_ be the HTTP(S) URI of the Ordered Collection that this page is part of.  The value of the `type` property _MUST_ be a string, and _MUST_ be "OrderedCollection".
+Ordered Collection Pages _SHOULD_ have a `partOf` property. The value _MUST_ be a JSON object, with the `id` and `type` properties.  The value of the `id` property _MUST_ be the a string, and _MUST_ be the HTTP(S) URI of the Ordered Collection that this page is part of.  The value of the `type` property _MUST_ be a string, and _MUST_ be `OrderedCollection`.
 
 ```
 {
@@ -357,7 +367,7 @@ Ordered Collection Pages _MAY_ have a `startIndex` property.  The value _MUST_ b
 
 A reference to the next page in the list of pages.
 
-Ordered Collection Pages _SHOULD_ have a `next` property, unless they are the last Page in the Collection. The value _MUST_ be a JSON object, with the `id` and `type` properties.  The value of the `id` property _MUST_ be the a string, and _MUST_ be the HTTP(S) URI of the following Ordered Collection Page.  The value of the `type` property _MUST_ be a string, and _MUST_ be "OrderedCollectionPage".
+Ordered Collection Pages _SHOULD_ have a `next` property, unless they are the last Page in the Collection. The value _MUST_ be a JSON object, with the `id` and `type` properties.  The value of the `id` property _MUST_ be the a string, and _MUST_ be the HTTP(S) URI of the following Ordered Collection Page.  The value of the `type` property _MUST_ be a string, and _MUST_ be `OrderedCollectionPage`.
 
 ```
 {
@@ -372,7 +382,7 @@ Ordered Collection Pages _SHOULD_ have a `next` property, unless they are the la
 
 A reference to the previous page in the list of pages.
 
-Ordered Collection Pages _MUST_ have a `prev` property, unless they are the first page in the Collection. The value _MUST_ be a JSON object, with the `id` and `type` properties.  The value of the `id` property _MUST_ be the a string, and _MUST_ be the HTTP(S) URI of the preceding Ordered Collection Page.  The value of the `type` property _MUST_ be a string, and _MUST_ be "OrderedCollectionPage".
+Ordered Collection Pages _MUST_ have a `prev` property, unless they are the first page in the Collection. The value _MUST_ be a JSON object, with the `id` and `type` properties.  The value of the `id` property _MUST_ be the a string, and _MUST_ be the HTTP(S) URI of the preceding Ordered Collection Page.  The value of the `type` property _MUST_ be a string, and _MUST_ be `OrderedCollectionPage`.
 
 ```
 {
@@ -409,7 +419,10 @@ Ordered Collection Pages _MUST_ have a `orderedItems` property.  The value _MUST
 
 ```
 {
-  "@context": "",
+  "@context": [
+    "http://iiif.io/api/discovery/0/context.json",
+    "https://www.w3.org/ns/activitystreams"
+  ],
   "id": "https://example.org/activity/page-1",
   "type": "OrderedCollectionPage",
   "startIndex": 20,
@@ -462,9 +475,9 @@ This specification uses the types described in the table below.
 
 | Type   | Definition |
 | ------ | ---------- |
-| Create | The initial creation of the resource.  Each resource _MUST_ have at most one `Create` Activity in which it is the `object`. |
-| Update | Any change to the resource.  In a system that does not distinguish creation from modification, then all changes _MAY_ have the `Update` type. |
-| Delete | The deletion of the resource, or its de-publication from the web. Each resource _MUST_ have at most one Activity in which it is the `object`. |
+| `Create` | The initial creation of the resource.  Each resource _MUST_ have at most one `Create` Activity in which it is the `object`. |
+| `Update` | Any change to the resource.  In a system that does not distinguish creation from modification, then all changes _MAY_ have the `Update` type. |
+| `Delete` | The deletion of the resource, or its de-publication from the web. Each resource _MUST_ have at most one Activity in which it is the `object`. |
 {: .api-table #table-type-dfn}
 
 Activities _MUST_ have the `type` property. The value _MUST_ be a registered Activity class, and _SHOULD_ be one of `Create`, `Update`, or `Delete`.
@@ -492,7 +505,7 @@ Activities _MUST_ have the `object` property.  The value _MUST_ be a JSON object
 
 The time at which the Activity was finished. It is up to the implementer to decide whether the Activity includes the publication of the IIIF resource online, or only the internal data modification, but the decision _MUST_ be consistently applied. 
 
-Activities _SHOULD_ have the `endTime` property.  The value _MUST_ be a datetime expressed in UTC in the ISO8601 format.
+Activities _SHOULD_ have the `endTime` property.  The value _MUST_ be a datetime expressed in UTC in the [xsd:dateTime][org-w3c-xsd-datetime] format.
 
 ```
 { "endTime": "2017-09-21T00:00:00Z" }
@@ -502,7 +515,7 @@ Activities _SHOULD_ have the `endTime` property.  The value _MUST_ be a datetime
 
 The time at which the Activity was started.
 
-Activities _MAY_ have the `startTime` property.  The value _MUST_ be a datetime expressed in UTC in the ISO8601 format.
+Activities _MAY_ have the `startTime` property.  The value _MUST_ be a datetime expressed in UTC in the [xsd:dateTime][org-w3c-xsd-datetime] format.
 
 ```
 { "startTime": "2017-09-20T23:58:00Z" }
