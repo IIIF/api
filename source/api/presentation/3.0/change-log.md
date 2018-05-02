@@ -247,7 +247,7 @@ Some organizations had a desire to include a web page between the manifest and t
 
 #### 3.2.1. Restructure document
 
-The document was again fundamentally restructured for clarity, and to remove non-core content that simply described how to make use of external specifications to a cookbook.
+The document was again fundamentally restructured for clarity, and to remove non-core content that simply described how to make use of external specifications, and especially Web Annotations, to a [cookbook][annex-cookbook]. This enables additional use cases and patterns to be documented without requiring a new version of the specification to describe something that is already possible. It can be managed by the community, rather than via the more rigorous specification process.  
 
 #### 3.2.2. Consistency
 
@@ -256,21 +256,6 @@ The use of `code` font and capitalization was made consistent for class names, p
 #### 3.2.3. Visual Appearance
 
 The CSS and icons used in the requirements tables were improved.
-
-
-## 4. Related Document Changes
-
-### 4.1. Establish Registries for Extensions
-
-### 4.2. Establish Cookbook of Implementation Patterns
-
-### 4.3. Update Design Patterns
-
-### 4.4. Establish new Annotation Selectors
-
-### 4.5. Update JSON-LD Contexts and Frames
-
-
 
 [prezi30-changelog-long-texts]: #long-texts
 
