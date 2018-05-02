@@ -577,34 +577,45 @@ The aim of the processing algorithm is to inform consuming applications how to m
 
 Given the URI of an ActivityStreams Collection (`collection`) as input, a conforming processor SHOULD:
 
-* (1) Initialization:
-  * (1.1) Let `processedItems` be an empty array
-  * (1.2) Let `lastCrawl` be the timestamp of the previous time the algorithm was executed
-* (2) Retrieve the representation of `collection` via HTTP(S)
-* (3) Minimally validate that it conforms to the specification
-* (4) Find the URI of the last page at `collection.last.id` (`pageN`)
-* (5) Apply the results of the page algorithm to `pageN`
+<!-- This should be nested * markdown... but can't figure it -->
+
+<ol>
+  <li>Initialization:
+    <ol>
+      <li>Let `processedItems` be an empty array</li>
+      <li>Let `lastCrawl` be the timestamp of the previous time the algorithm was executed</li>
+    </ol>
+  </li>
+  <li>Retrieve the representation of `collection` via HTTP(S)</li>
+  <li>Minimally validate that it conforms to the specification</li>
+  <li>Find the URI of the last page at `collection.last.id` (`pageN`)</li>
+<li>Apply the results of the page algorithm to `pageN`</li>
+</ol>
 
 #### 3.4.2. Page Algorithm
 
 Given the URI of an ActivityStreams CollectionPage (`page`) and the date of last crawling (`lastCrawl`) as input, a conforming processor SHOULD:
 
-* (1) Retrieve the representation of `page` via HTTP(S)
-* (2) Minimally validate that it conforms to the specification
-* (3) Find the set of updates of the page at `page.orderedItems` (`items`)
-* (4) In reverse order, iterate through the activities (`activity`) in `items`
-  * (4.1) For each `activity`, if `activity.endTime` is before `lastCrawl`, then terminate ;
-  * (4.2) If the updated resource's uri at `activity.target.id` is in `processedItems`, then continue ;
-  * (4.3) Otherwise, if `activity.type` is `Update` or `Create`, then find the URI of the updated resource at `activity.target.id` (`target`) and process the target resource ;
-  * (4.4) Otherwise, if `activity.type` is `Delete`, then find the URI of the deleted resource at `activity.target.id` and process its removal.
-  * (4.5) Add the processed resource's URI to `processedItems`
-* (5) Finally, find the URI of the previous page at `collection.prev.id` (`pageN1`)
-* (6) If there is a previous page, apply the results of the page algorithm to `pageN1`
+<ol>
+  <li>Retrieve the representation of `page` via HTTP(S)</li>
+  <li>Minimally validate that it conforms to the specification</li>
+  <li>Find the set of updates of the page at `page.orderedItems` (`items`)</li>
+  <li>In reverse order, iterate through the activities (`activity`) in `items`:
+    <ol>
+      <li>For each `activity`, if `activity.endTime` is before `lastCrawl`, then terminate ;</li>
+      <li>If the updated resource's uri at `activity.target.id` is in `processedItems`, then continue ;</li>
+      <li>Otherwise, if `activity.type` is `Update` or `Create`, then find the URI of the updated resource at `activity.target.id` (`target`) and process the target resource ;</li>
+      <li>Otherwise, if `activity.type` is `Delete`, then find the URI of the deleted resource at `activity.target.id` and process its removal.</li>
+      <li>Add the processed resource's URI to `processedItems`</li>
+    </ol>
+  </li>
+  <li>Finally, find the URI of the previous page at `collection.prev.id` (`pageN1`)</li>
+ <li>If there is a previous page, apply the results of the page algorithm to `pageN1`</li>
+</ol>
 
 #### 3.4.3. Indexing
 
 If the objective of the consuming application is to find descriptive information that might be used to build an index allowing the resources to be discovered, then the application _SHOULD_ use the IIIF Presentation API `seeAlso` property to discover an appropriate, machine-readable description of the resource.  For different types of resource, and for different domains, the external resources will have different formats and semantics. If there are no external descriptions, or none that can be processed, the data in the Manifest and in other IIIF resources might be used as a last resort, despite its presentational intent. 
-
 
 ## Appendices
 
