@@ -592,21 +592,21 @@ The aim of the processing algorithm is to inform consuming applications how to m
 #### 3.4.1. Collection Algorithm
 {: #collection-algorithm}
 
-Given the URI of an ActivityStreams Collection (`collection`) as input, a conforming processor SHOULD:
+Given the URI of an ActivityStreams Collection (`collection`) as input, a conforming processor _SHOULD_:
 
 <!-- This should be nested * markdown... but can't figure it -->
 
 <ol>
   <li>Initialization:
     <ol>
-      <li>Let `processedItems` be an empty array</li>
-      <li>Let `lastCrawl` be the timestamp of the previous time the algorithm was executed</li>
+      <li>Let <code class="highlighter-rouge">processedItems</code> be an empty array</li>
+      <li>Let <code class="highlighter-rouge">lastCrawl</code> be the timestamp of the previous time the algorithm was executed</li>
     </ol>
   </li>
-  <li>Retrieve the representation of `collection` via HTTP(S)</li>
+  <li>Retrieve the representation of <code class="highlighter-rouge">collection</code> via HTTP(S)</li>
   <li>Minimally validate that it conforms to the specification</li>
-  <li>Find the URI of the last page at `collection.last.id` (`pageN`)</li>
-<li>Apply the results of the page algorithm to `pageN`</li>
+  <li>Find the URI of the last page at <code class="highlighter-rouge">collection.last.id</code> (<code class="highlighter-rouge">pageN</code>)</li>
+<li>Apply the results of the page algorithm to <code class="highlighter-rouge">pageN</code></li>
 </ol>
 
 #### 3.4.2. Page Algorithm
