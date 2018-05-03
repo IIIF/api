@@ -14,6 +14,25 @@ redirect_from:
   - /api/discovery/0/index.html
 ---
 
+<!-- Until we can find a solution in markdown ... -->
+
+<style>
+ol {
+  counter-reset: item;
+  margin-top: 3px;
+  margin-bottom: 3px;
+}
+ol > li {
+  display: block
+}
+ol > li:before {
+  content: counters(item, ".") ". ";
+  counter-increment: item
+}
+</style>
+
+<!-- ... include style to fix algorithm -->
+
 ## Status of this Document
 {:.no_toc}
 __This Version:__ {{ page.major }}.{{ page.minor }}.{{ page.patch }}{% if page.pre != 'final' %}-{{ page.pre }}{% endif %}
@@ -46,12 +65,14 @@ This is a work in progress and may change without notice. Implementers should be
 {:toc}
 
 ## 1. Introduction
+{: #introduction}
 
 The resources made available via the IIIF (pronounced "Triple-Eye-Eff") [Image][image-api] and [Presentation][prezi-api] APIs are only useful if they can be found. Users cannot interact directly with a distributed, decentralized ecosystem but instead must rely on services that harvest and process the available content, and then provide a user interface enabling navigation to that content via searching, browsing or other paradigms. Once the user has discovered the content, they can then display it in their viewing application of choice. Machine to machine interfaces are also enabled by this pattern, where software agents could interact via APIs to discover the same content and retrieve it for further analysis or processing.
 
 This specification leverages existing techniques, specifications, and tools in order to promote widespread adoption. It enables the collaborative development of global or thematic search engines and portal applications that allow users to easily find and engage with content available via existing IIIF APIs.
 
 ### 1.1. Objectives and Scope
+{: #objectives-and-scope}
 
 The objective of the IIIF Change Discovery API is to provide the information needed to discover and subsequently make use of IIIF resources.  The intended audience is other IIIF aware systems that can leverage the content and APIs. While this work may benefit others outside of the IIIF community directly or indirectly, the objective of the API is to specify an interoperable solution that best and most easily fulfills the discovery needs within the community of participating organizations.
 
@@ -66,6 +87,7 @@ __Notification of Changes__<br>This draft version of the specification does not 
 {: .warning}
 
 ### 1.2. Terminology
+{: #terminology}
 
 The specification uses the following terms:
 
@@ -77,20 +99,23 @@ The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _S
 
 
 ## 2. Overview of IIIF Resource Discovery
+{: #overview-of-iiif-resource-discovery}
 
 In order to discover IIIF resources, the state of those resources in the systems that publish them needs to be communicated succinctly and easily to a consuming system.  The consumer can then use that information to retrieve and process the resources of interest and provide machine or user interfaces that enable discovery.  This communication takes place via the IIIF Change Discovery API, which uses the W3C [Activity Streams][org-w3c-activitystreams] specification to describe and serialize changes to resources, where the semantics of those changes and the interactions between publishers and consumers are based on those identified by the [ResourceSync][org-openarchives-rsync] framework. 
 
 Activities are used to describe the state of the publisher by recording each individual change, in the order that they occur. The changes described are the creation, modification and deletion of IIIF Presentation API resources, primarily Collections and Manifests.  If the consuming application is aware of all of the changes that took place at the publisher, it would have full knowledge of the set of resources available.  The focus on IIIF Collections and Manifests is because these are the main access points to published content and references to descriptive metadata about that content, however Activities describing changes to other resources could also be published in this way.
 
-The Presentation API does not directly include descriptive metadata fields suitable for indexing beyond a full text search. The data intentionally lacks the semantics needed to construct indexes needed to enable advanced or fielded search. Instead, they use the `seeAlso` property to link to external documents that can have richer and domain-specific information about the content being presented. For example, a museum object might have a `seeAlso` reference to a CIDOC-CRM or LIDO description, while a bibliographic resource might reference a Dublin Core or MODS description. These external descriptions should be used when possible to provide interfaces giving access to more precise matching algorithms.
+The Presentation API does not directly include descriptive metadata fields suitable for indexing beyond a full text search. The data intentionally lacks the semantics needed to construct indexes that enable advanced or fielded search. Instead, they use the `seeAlso` property to link to external documents that can have richer and domain-specific information about the content being presented. For example, a museum object might have a `seeAlso` reference to a CIDOC-CRM or LIDO description, while a bibliographic resource might reference a Dublin Core or MODS description. These external descriptions should be used when possible to provide interfaces giving access to more precise matching algorithms.
 
 This specification describes three levels of conformance that build upon each other in terms of functionality enabled and precision of the information published. Sets of changes are published in pages, which are then collected together in a collection per publisher. To reduce barriers to implementation, care has been take to allow the implementation of all levels using only static files on a web server, rather than requiring dynamic access to a database.
 
 ### 2.1. Listing Resources and their Changes
+{: #listing-resources-and-their-changes}
 
 There are three levels of conformance at which changes can be described. Level 0 is simply a list of the resources available.  Level 1 adds timestamps and ordering from earliest change to most recent, allowing the consumer to stop processing once it encounters a change that it has already processed. Level 2 adds in additional clarity about the types of activities, enabling the explicit creation and deletion of resources.
 
 #### 2.1.1. Level 0: Basic Resource List
+{: #level-0-basic-resource-list}
 
 The core information required to provide a minimally effective set of links to IIIF resources is just the URIs of those resources. However, with the addition of some additional JSON structure wrapped around those URIs, we can be on the path towards a robust set of information that clients can use to optimize their processing.  
 
@@ -111,6 +136,7 @@ Example Level 0 Activity:
 ```
 
 #### 2.1.2. Level 1: Basic Change List
+{: #level-1-basic-change-list}
 
 When dealing with large sets of resources, it can be useful to work with only those resources that have changed since the last time the list was processed. This can be facilitated by the addition of a time stamp that indicates when a resource was last modified or initially created. This is included using the `endTime` property, representing the time at which the activity of publishing the resource was finished. Lists with multiple activities are then ordered such that the most recent activities occur last. Consumers will then process the list of Activities in reverse order, from last to first, stopping when they encounter an Activity they have already processed in a previous run.
 
@@ -128,6 +154,7 @@ Example Level 1 Activity:
 ```
 
 #### 2.1.3. Level 2: Complete Change List
+{: #level-2-complete-change-list}
 
 At the most detailed level, a log of all of the Activities that have taken place can be recorded, with the likelihood of multiple Activities per IIIF resource.  This allows the additional types of "Create" and "Delete", enabling a synchronization process to remove resources as well as add or update them. 
 
@@ -145,6 +172,7 @@ Example Level 2 Activity:
 ```
 
 ### 2.2. Pages of Changes
+{: #pages-of-changes}
 
 Activities are collected together into pages that together make up the entire set of changes that the publishing system has made. Pages reference the previous and next pages in that set, and the overall collection of which they are part. The Activities are listed such that the most recent activities occur last.
 
@@ -190,6 +218,7 @@ Activities are collected together into pages that together make up the entire se
 ```
 
 ### 2.3. Collections of Pages
+{: #collections-of-pages}
 
 As the number of Activities is likely too many to usefully be represented in a single Page, they are collected together into a Collection as the initial entry point. The Collection references the URIs of the first and last pages.
 
@@ -215,6 +244,7 @@ As the number of Activities is likely too many to usefully be represented in a s
 
 
 ## 3. Activity Streams Details
+{: #activity-streams-details}
 
 The W3C [Activity Streams][org-w3c-activitystreams] specification defines a "model for representing potential and completed activities", and is compatible with the [design patterns][annex-patterns] established for IIIF APIs. It is defined in terms of [JSON-LD][org-w3c-json-ld] and can be seamlessly integrated with the existing IIIF APIs. The model can be used to represent activities carried out by content publishers of creating, updating, and deleting (or otherwise de-publishing) IIIF resources.
 
@@ -222,7 +252,8 @@ This section is a summary of the properties and types used by this specification
 
 Properties, beyond those described in this specification, that the consuming application does not have code to process _MUST_ be ignored.  Other properties defined by Activity Streams _MAY_ be used, such as `origin` or `instrument`, but there are no current use cases that would warrant their inclusion in this specification.
 
-### 3.1. OrderedCollection
+### 3.1. Ordered Collection
+{: #orderedcollection}
 
 The top-most resource for managing the lists of Activities is an Ordered Collection, broken up into Ordered Collection Pages. This is the same pattern that the Web Annotation model uses for Annotation Collections and Annotation Pages. The Collection does not directly contain any of the Activities, instead it refers to the `first` and `last` pages of the list.  
 
@@ -313,6 +344,7 @@ OrderedCollections _MAY_ have a `totalItems` property.  The value _MUST_ be a no
 ```
 
 ### 3.2. Ordered Collection Page
+{: #ordered-collection-page}
 
 The list of Activities is ordered both from page to page by following `prev` (or `next`) relationships, and internally within the page in the `orderedItems` property. The number of entries in each page is up to the implementer, and cannot be modified at request time by the client.
 
@@ -452,6 +484,7 @@ Ordered Collection Pages _MUST_ have a `orderedItems` property.  The value _MUST
 ```
 
 ### 3.3. Activities
+{: #activities}
 
 The Activities are the means of describing the changes that have occured in the content provider's system.
 
@@ -570,10 +603,12 @@ A complete example Activity would thus look like the following example.
 
 
 ### 3.4. Activity Streams Processing Algorithm
+{: #activity-streams-processing-algorithm}
 
 The aim of the processing algorithm is to inform consuming applications how to make best use of the available information.
 
 #### 3.4.1. Collection Algorithm
+{: #collection-algorithm}
 
 Given the URI of an ActivityStreams Collection (`collection`) as input, a conforming processor SHOULD:
 
@@ -593,10 +628,11 @@ Given the URI of an ActivityStreams Collection (`collection`) as input, a confor
 </ol>
 
 #### 3.4.2. Page Algorithm
+{: #page-algorithm}
 
 Given the URI of an ActivityStreams CollectionPage (`page`) and the date of last crawling (`lastCrawl`) as input, a conforming processor SHOULD:
 
-<ol>
+<ol class="ordered-list">
   <li>Retrieve the representation of `page` via HTTP(S)</li>
   <li>Minimally validate that it conforms to the specification</li>
   <li>Find the set of updates of the page at `page.orderedItems` (`items`)</li>
@@ -614,20 +650,25 @@ Given the URI of an ActivityStreams CollectionPage (`page`) and the date of last
 </ol>
 
 #### 3.4.3. Indexing
+{: #indexing}
 
 If the objective of the consuming application is to find descriptive information that might be used to build an index allowing the resources to be discovered, then the application _SHOULD_ use the IIIF Presentation API `seeAlso` property to discover an appropriate, machine-readable description of the resource.  For different types of resource, and for different domains, the external resources will have different formats and semantics. If there are no external descriptions, or none that can be processed, the data in the Manifest and in other IIIF resources might be used as a last resort, despite its presentational intent. 
 
 ## Appendices
 
 ### A. Acknowledgements
+{: #acknowledgements}
 
 Many thanks to the members of the [IIIF community][iiif-community] for their continuous engagement, innovative ideas, and feedback.
 
 Many of the changes in this version are due to the work of the [IIIF Discovery Technical Specification Group][groups-discovery], chaired by Antoine Isaac (Europeana), Matthew McGrattan (Digirati) and Rob Sanderson (J. Paul Getty Trust). The IIIF Community thanks them for their leadership, and the members of the group for their tireless work.
 
 ### B. Change Log
+{: #change-log}
 
-...
+| Date       | Description           |
+| ---------- | --------------------- |
+| 2018-05-04 | Version 0.1 (unnamed) |
 
 {% include links.md %}
  
