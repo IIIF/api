@@ -14,24 +14,6 @@ redirect_from:
   - /api/discovery/0/index.html
 ---
 
-<!-- Until we can find a solution in markdown ... -->
-
-<style>
-ol {
-  counter-reset: item;
-  margin-top: 3px;
-  margin-bottom: 3px;
-}
-ol > li {
-  display: block
-}
-ol > li:before {
-  content: counters(item, ".") ". ";
-  counter-increment: item
-}
-</style>
-
-<!-- ... include style to fix algorithm -->
 
 ## Status of this Document
 {:.no_toc}
