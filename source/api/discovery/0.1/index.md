@@ -612,7 +612,7 @@ Given the URI of an ActivityStreams Collection (`collection`) as input, a confor
 #### 3.4.2. Page Algorithm
 {: #page-algorithm}
 
-Given the URI of an ActivityStreams CollectionPage (`page`) and the date of last crawling (`lastCrawl`) as input, a conforming processor SHOULD:
+Given the URI of an ActivityStreams CollectionPage (`page`) and the date of last crawling (`lastCrawl`) as input, a conforming processor _SHOULD_:
 
 <ol class="ordered-list">
   <li>Retrieve the representation of <code class="highlighter-rouge">page</code> via HTTP(S)</li>
