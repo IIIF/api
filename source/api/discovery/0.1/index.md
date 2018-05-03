@@ -518,7 +518,7 @@ Activities _MUST_ have the `object` property.  The value _MUST_ be a JSON object
 
 ##### endTime
 
-The time at which the Activity was finished. It is up to the implementer to decide whether the Activity includes the publication of the IIIF resource online, or only the internal data modification, but the decision _MUST_ be consistently applied. 
+The time at which the Activity was finished. It is up to the implementer to decide whether the Activity includes the publication of the IIIF resource online, or only the internal data modification, but the decision _MUST_ be consistently applied. The changed resource given in `object` _MUST_ be available at its URI at or before the timestamp given in `endTime`. The value of `endTime` _SHOULD_ be before the time that the Activity is published as part of its Ordered Collection.
 
 Activities _SHOULD_ have the `endTime` property.  The value _MUST_ be a datetime expressed in UTC in the [xsd:dateTime][org-w3c-xsd-datetime] format.
 
