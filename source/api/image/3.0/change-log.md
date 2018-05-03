@@ -65,15 +65,15 @@ Previous versions of the specification allowed the `logo` property have a single
 
 #### 1.2.5. The `type` property is required on all resources, with new values
 
-The `type` property with a single value is now required on all resources, including content resources and services. This serves several purposes, including facilitating object mapping code libraries, and forcing the serialization to generate a JSON object for the resource, not just a string with the resource's URI. The values for `type` have been changed version-specific strings that avoid the namespace structure, for example from `iiif:Image` in 2.1 to `ImageService3` in 3.0. Note that the `@type` property is used only when referring to object from older specifications such as the Authentication API 1.0. See issue []().
+The `type` property with a single value is now required on all resources, including content resources and services. This serves several purposes, including facilitating object mapping code libraries, and forcing the serialization to generate a JSON object for the resource, not just a string with the resource's URI. The values for `type` have been changed to version-specific strings that avoid the namespace structure, for example from `iiif:Image` in 2.1 to `ImageService3` in 3.0. Note that the `@type` property is used only when referring to object from older specifications such as the Authentication API 1.0.
 
 #### 1.2.6. The `profile` property takes one compliance level
 
-The `profile` property must have a single value that is a compliance level string. The value must not be an array as in previous versions, and features supported beyond those specified are instead described in the new `extraFeatures` property. See issues [#1373](https://github.com/IIIF/api/issues/1373) and [#1554](https://github.com/IIIF/api/issues/1554).
+The `profile` property must have a single value that is a compliance level string. The property value must not be an array as in previous versions, and features supported beyond those specified are instead described in the new `extraFeatures` property. See issues [#1373](https://github.com/IIIF/api/issues/1373) and [#1554](https://github.com/IIIF/api/issues/1554).
 
-#### 1.2.7. The `service` property now an array of objects
+#### 1.2.7. The `service` property value is now an array of objects
 
-In 2.1 was a single value or an array of objects, now the value must be an array of objects
+In version 2.1 the value of the `service` property could be a single value or an array of objects, the value must now be an array of objects. See issue [#1131](https://github.com/IIIF/api/issues/1131).
 
 #### 1.2.8. Feature names `sizeByWhListed` and `sizeByForcedWh` removed
 
@@ -87,7 +87,7 @@ The features `sizeByWhDistorted` hasd no useful meaning separate from `sizeByWh`
 
 #### 1.3.1. Use JSON-LD 1.1
 
-JSON-LD remains the serialization format of the Image API, as it is for the Presentation API. Some features of the JSON-LD Community Group specification make a significant improvements to the Presentation API's structure and consistency and are also adopted by the Image API although the impact is much less. While this specification is not a W3C Technical Recommendation at the time of release, the likelihood of the standardization process for JSON-LD 1.1 being successful is extremely high and the rewards have been judged to be worth the risk of unintended incompatibility. See issue [#1192](https://github.com/IIIF/api/issues/1192).
+JSON-LD remains the serialization format of the Image API, as it is for the Presentation API. Some features of the JSON-LD Community Group specification make significant improvements to the Presentation API's structure and consistency and are also adopted by the Image API although the impact is much less. While this specification is not a W3C Technical Recommendation at the time of release, the likelihood of the standardization process for JSON-LD 1.1 being successful is extremely high and the rewards have been judged to be worth the risk of unintended incompatibility. See issue [#1192](https://github.com/IIIF/api/issues/1192).
 
 
 ## 2. Non-Breaking Changes
@@ -96,7 +96,9 @@ The following changes are backwards compatible with version 2.1.1 of the Image A
 
 ### 2.1. Added notes on extension mechanisms and registry
 
-A new [Extensions][image30-extensions] section describes mechanisms for extension or image requests and the new [Extra Functionality][image30-extra-functionality] section describes how extensions are described in the image information response. The `extraQualities` and `extraFormats` have been added to allow description of additional functionality. See issues [#1374](https://github.com/IIIF/api/issues/1374), [#1373](https://github.com/IIIF/api/issues/1373), and [#1435](https://github.com/IIIF/api/issues/1435).
+A new [Extensions][image30-extensions] section describes mechanisms for extension of image requests and the new [Extra Functionality][image30-extra-functionality] section describes how extensions are described in the image information response. The `extraQualities` and `extraFormats` properties have been added to allow description of additional functionality. See issues [#1374](https://github.com/IIIF/api/issues/1374), [#1373](https://github.com/IIIF/api/issues/1373), and [#1435](https://github.com/IIIF/api/issues/1435).
+
+There is now a [registry of known extensions][registry-extensions] to the IIIF specifications, which includes a [registry of Image API extensions][registry-image-extensions]. Extensions intended for community use should be registered in the extensions registry, but registration is not mandatory.
 
 ### 2.2. Added `partOf` and `seeAlso` linking properties
 
@@ -121,11 +123,11 @@ Description of the _`!w,h`_ form for the size parameter has been clarified to po
 
 #### 3.3. Clarify that the `color` format value might still yield a non-color image
 
-Description of the `color` value of the format parameter has been clarified to make it clear that it is a request fro the image with all of its color information. If the underlying image content has no color information then the resulting image will not have any either, even with the `color` format value. See issue [#1375](https://github.com/IIIF/api/issues/1375) and [#1435](https://github.com/IIIF/api/issues/1435).
+Description of the `color` value of the format parameter has been clarified to make it clear that it is a request for the image with all of its color information. If the underlying image content has no color information then the resulting image will not have any either, even with the `color` format value. See issue [#1375](https://github.com/IIIF/api/issues/1375) and [#1435](https://github.com/IIIF/api/issues/1435).
 
 #### 3.4. Changed examples to use `https` URIs
 
-All examples now use `https` URIs in order reflect best practices for interoperable implementations. See issue [#1421](https://github.com/IIIF/api/issues/1421).
+All examples now use `https` URIs in order to reflect best practices for interoperable implementations. See issue [#1421](https://github.com/IIIF/api/issues/1421).
 
 #### 3.5. Clarify and move discussion of floating point representation
 
@@ -142,16 +144,6 @@ Add explicit mention of support for implementation with pre-generated static fil
 #### 3.8. Font consistency
 
 The use of `code` font and capitalization was made consistent for class names, property names and values when used in prose.
-
-## 4. Related Document Changes
-
-### 4.1. Establish Registries for Extensions
-
-There is now a [registry of known extensions][registry-extensions] to the IIIF specifications, which includes a [registry of Image API extensions][registry-image-extensions]. Extensions intended for community use should be registered in the extensions registry, but registration is not mandatory.
-
-### 4.2. Update JSON-LD Contexts and Frames
-
-There are new [JSON-LD context][image3-context] and [JSON-LD framing][image3-frame] documents associated with the Image API version 3 specification.
 
 
 {% include links.md %}
