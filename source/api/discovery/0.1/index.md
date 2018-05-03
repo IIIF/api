@@ -615,20 +615,20 @@ Given the URI of an ActivityStreams Collection (`collection`) as input, a confor
 Given the URI of an ActivityStreams CollectionPage (`page`) and the date of last crawling (`lastCrawl`) as input, a conforming processor SHOULD:
 
 <ol class="ordered-list">
-  <li>Retrieve the representation of `page` via HTTP(S)</li>
+  <li>Retrieve the representation of <code class="highlighter-rouge">page</code> via HTTP(S)</li>
   <li>Minimally validate that it conforms to the specification</li>
-  <li>Find the set of updates of the page at `page.orderedItems` (`items`)</li>
-  <li>In reverse order, iterate through the activities (`activity`) in `items`:
+  <li>Find the set of updates of the page at <code class="highlighter-rouge">page.orderedItems</code> (<code class="highlighter-rouge">items</code>)</li>
+  <li>In reverse order, iterate through the activities (<code class="highlighter-rouge">activity</code>) in <code class="highlighter-rouge">items</code>:
     <ol>
-      <li>For each `activity`, if `activity.endTime` is before `lastCrawl`, then terminate ;</li>
-      <li>If the updated resource's uri at `activity.target.id` is in `processedItems`, then continue ;</li>
-      <li>Otherwise, if `activity.type` is `Update` or `Create`, then find the URI of the updated resource at `activity.target.id` (`target`) and process the target resource ;</li>
-      <li>Otherwise, if `activity.type` is `Delete`, then find the URI of the deleted resource at `activity.target.id` and process its removal.</li>
-      <li>Add the processed resource's URI to `processedItems`</li>
+      <li>For each <code class="highlighter-rouge">activity</code>, if <code class="highlighter-rouge">activity.endTime</code> is before <code class="highlighter-rouge">lastCrawl</code>, then terminate ;</li>
+      <li>If the updated resource's uri at <code class="highlighter-rouge">activity.target.id</code> is in <code class="highlighter-rouge">processedItems</code>, then continue ;</li>
+      <li>Otherwise, if <code class="highlighter-rouge">activity.type</code> is <code class="highlighter-rouge">Update</code> or <code class="highlighter-rouge">Create</code>, then find the URI of the updated resource at <code class="highlighter-rouge">activity.target.id</code> (<code class="highlighter-rouge">target</code>) and process the target resource ;</li>
+      <li>Otherwise, if <code class="highlighter-rouge">activity.type</code> is <code class="highlighter-rouge">Delete</code>, then find the URI of the deleted resource at <code class="highlighter-rouge">activity.target.id</code> and process its removal.</li>
+      <li>Add the processed resource's URI to <code class="highlighter-rouge">processedItems</code></li>
     </ol>
   </li>
-  <li>Finally, find the URI of the previous page at `collection.prev.id` (`pageN1`)</li>
- <li>If there is a previous page, apply the results of the page algorithm to `pageN1`</li>
+  <li>Finally, find the URI of the previous page at <code class="highlighter-rouge">collection.prev.id</code> (<code class="highlighter-rouge">pageN1</code>)</li>
+ <li>If there is a previous page, apply the results of the page algorithm to <code class="highlighter-rouge">pageN1</code></li>
 </ol>
 
 #### 3.4.3. Indexing
