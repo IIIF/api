@@ -94,7 +94,7 @@ This specification describes three levels of conformance that build upon each ot
 ### 2.1. Listing Resources and their Changes
 {: #listing-resources-and-their-changes}
 
-There are three levels of conformance at which changes can be described. Level 0 is simply a list of the resources available.  Level 1 adds timestamps and ordering from earliest change to most recent, allowing the consumer to stop processing once it encounters a change that it has already processed. Level 2 adds in additional clarity about the types of activities, enabling the explicit creation and deletion of resources.
+There are three levels of conformance at which changes can be described. Level 0 is simply a list of the resources available.  Level 1 adds timestamps and ordering from earliest change to most recent, allowing the consumer to stop processing once it encounters a change that it has already processed. Level 2 adds information about the types of activities, enabling the explicit creation and deletion of resources.
 
 #### 2.1.1. Level 0: Basic Resource List
 {: #level-0-basic-resource-list}
@@ -167,7 +167,7 @@ Activities are collected together into pages that together make up the entire se
   "id": "https://example.org/activity/page-1",
   "type": "OrderedCollectionPage",
   "partOf": {
-    "id": "https://example.org/activity/top-collection",
+    "id": "https://example.org/activity/all-changes",
     "type": "OrderedCollection"
   },
   "prev": {
@@ -311,7 +311,7 @@ OrderedCollections _MAY_ have a `totalItems` property.  The value _MUST_ be a no
     "http://iiif.io/api/discovery/0/context.json",
     "https://www.w3.org/ns/activitystreams"
   ],
-  "id": "https://example.org/activity/top-collection",
+  "id": "https://example.org/activity/all-changes",
   "type": "OrderedCollection",
   "totalItems": 21456,
   "first": {
@@ -361,7 +361,7 @@ Ordered Collection Pages _SHOULD_ have a `partOf` property. The value _MUST_ be 
 ```
 {
   "partOf": {
-    "id": "https://example.org/activity/top-collection",
+    "id": "https://example.org/activity/all-changes",
     "type": "OrderedCollection"
   }
 }
@@ -441,7 +441,7 @@ Ordered Collection Pages _MUST_ have a `orderedItems` property.  The value _MUST
   "type": "OrderedCollectionPage",
   "startIndex": 20,
   "partOf": {
-  	"id": "https://example.org/activity/top-collection",
+  	"id": "https://example.org/activity/all-changes",
   	"type": "OrderedCollection"
   },
   "prev": {
