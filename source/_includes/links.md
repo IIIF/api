@@ -77,6 +77,7 @@
 [image30-c-change-log]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#c-change-log "C. Change Log"
 [image30-canonical-uri-syntax]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#47-canonical-uri-syntax "4.7. Canonical URI Syntax"
 [image30-change-log]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/change-log/ "Image API 3.0 Change Log"
+[image30-compliance-level0]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/compliance/#5-level-0-compliance "5. Level 0 Compliance"
 [image30-compliance-levels]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#6-compliance-level-and-profile-document "6. Compliance Level and Profile Document"
 [image30-compliance-quality]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/compliance/#quality "Image API Compliance: Quality"
 [image30-compliance]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/compliance/ "Image API Compliance"
@@ -86,6 +87,7 @@
 [image30-extra-functionality]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#56-extra-functionality "5.6. Extra Functionality"
 [image30-features-table]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#features-table
 [image30-format]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#45-format "4.5. Format"
+[image30-http-versions]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#74-http-versions "7.4. HTTP Versions"
 [image30-identifier]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#3-identifier "3. Identifier"
 [image30-implementation-notes]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/implementation/ "Implementation Notes"
 [image30-information-request-uri-syntax]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#22-image-information-request-uri-syntax "2.2. Image Information Request URI"
