@@ -34,7 +34,7 @@ Per the [deprecation warning][image21-full-dep] in the previous version, the val
 
 #### 1.1.2. Canonical form of size parameter changed to _`w,h`_
 
-Per the [deprecation warning][image21-full-dep] and the [inconsistency warning][image21-size-inconsistency] about the size parameter in the previous version, the canonical form of the size parameter is now _`w,h`_ unless `max` is requested. This resolves the inconsistency between the server-preferred values in the `sizes` object, and the canonical form of the size parameter. In order to request preferred sizes, a client simply uses `width` and `height` values from `sizes` to build the _`w,h`_ size to request. See issues [#544](https://github.com/IIIF/api/issues/544) and [#678](https://github.com/IIIF/api/issues/678).
+Per the [deprecation warning][image21-full-dep] and the [inconsistency warning][image21-size-inconsistency] about the size parameter in the previous version, the canonical form of the size parameter is now _`w,h`_ unless `max` is requested. This resolves the inconsistency between the server-preferred values in the `sizes` object, and the canonical form of the size parameter. In order to request preferred sizes, a client should use the `width` and `height` values from `sizes` unmodified to build the _`w,h`_ size to request. See issues [#544](https://github.com/IIIF/api/issues/544) and [#678](https://github.com/IIIF/api/issues/678).
 
 #### 1.1.3. Size parameter value must not scale image to larger than the extracted region
 
@@ -46,18 +46,18 @@ Several existing properties were renamed for consistency with the Presentation A
 
 #### 1.2.1. Rename `@id` to `id`, `@type` to `type`
 
-These properties were renamed to enable javascript developers to use the "dot notation" (`manifest.id`) instead of the square brackets based equivalent needed with the `@` character (`manifest['@id']`). This follows JSON-LD community best practices established by schema.org, the JSON-LD, Web Annotation and Social Web working groups. See issue [#590](https://github.com/IIIF/api/issues/590).
+These properties were renamed to enable Javascript developers to use the "dot notation" (`image.id`) instead of the square-brackets based equivalent needed with the `@` character (`image['@id']`). This follows JSON-LD community best practices established by schema.org, the JSON-LD, Web Annotation and Social Web working groups. See issue [#590](https://github.com/IIIF/api/issues/590).
 
 #### 1.2.2. Rename `attribution` to `requiredStatement`, allow `label`+`value`
 {: requiredStatement}
 
-The `attribution` property could not specify the label to render with the value, and thus clients typically used "Attribution". This was not able to be internationalized, nor changed in contexts where "Attribution" has specific meaning (such as for artworks, where the attribution is assignment of the creator). The property was renamed to `requiredStatement` to remove the rights-specific semantics, and the structure was changed to allow both `label` and `value` to allow for appropriate labeling with internationlization. See issue [#1287](https://github.com/IIIF/api/issues/1287).
+The `attribution` property could not specify the label to render with the value, and thus clients typically used "Attribution". This was not able to be internationalized, nor changed in contexts where "Attribution" has specific meaning (such as for artworks, where the attribution is assignment of the creator). The property was renamed to `requiredStatement` to remove the rights-specific semantics, and the structure was changed to allow both `label` and `value` to allow for appropriate labeling with internationalization. See issue [#1287](https://github.com/IIIF/api/issues/1287).
 
-Additionally, in the [Presentation API][prezi3] and here, a new pattern has been adopted for all textual values of a JSON object with the language code as the key (or `@none` if the language is not known) and the content as a string within an array as the value. This applies only to the `requiredStatement` propery in the Image API. The pattern relies on features that have been introduced by the JSON-LD Community Group, and are not yet standardized. See issue [#755](https://github.com/IIIF/api/issues/755).
+Additionally, in the [Presentation API][prezi3] and here, a new pattern has been adopted for all textual values of a JSON object with the language code as the key (or `@none` if the language is not known) and the content as a string within an array as the value. This applies only to the `requiredStatement` property in the Image API. The pattern relies on features that have been introduced by the JSON-LD Community Group, and are not yet standardized. See issue [#755](https://github.com/IIIF/api/issues/755).
 
 #### 1.2.3. Rename `license` to `rights`, allow only a single value
 
-The `license` property was renamed to `rights` to accomodate both rights statements and usage licenses. The value is constrained to be a single URI, an array is no longer permitterd. The value is further constrained to allow only Creative Commons URIs, RightsStatements.org URIs and URIs registered as extensions. This additional constraint is to allow clients to treat the property as an enumeration rather than free text, and implement URI specific behavior. See issues [#644](https://github.com/IIIF/api/issues/644) and [#1479](https://github.com/IIIF/api/issues/1479).
+The `license` property was renamed to `rights` to accommodate both rights statements and usage licenses. The value is constrained to be a single URI, an array is no longer permitted. The value is further constrained to allow only Creative Commons URIs, RightsStatements.org URIs and URIs registered as extensions. This additional constraint is to allow clients to treat the property as an enumeration rather than free text, and implement URI specific behavior. See issues [#644](https://github.com/IIIF/api/issues/644) and [#1479](https://github.com/IIIF/api/issues/1479).
 
 #### 1.2.4. Require an array of JSON objects for the `logo` property
 
@@ -81,13 +81,13 @@ Per the [deprecation warning][image21-full-dep] in the previous version, the fea
 
 #### 1.2.9. Feature name `sizeByDistortedWh` removed
 
-The features `sizeByWhDistorted` hasd no useful meaning separate from `sizeByWh` and was thus removed. See issue [#879](https://github.com/IIIF/api/issues/879).
+The feature `sizeByWhDistorted` has no useful meaning separate from `sizeByWh` and was thus removed. See issue [#879](https://github.com/IIIF/api/issues/879).
 
 ### 1.3. External Specifications
 
 #### 1.3.1. Use JSON-LD 1.1
 
-JSON-LD remains the serialization format of the Image API, as it is for the Presentation API. Some features of the JSON-LD Community Group specification make significant improvements to the Presentation API's structure and consistency and are also adopted by the Image API although the impact is much less. While this specification is not a W3C Technical Recommendation at the time of release, the likelihood of the standardization process for JSON-LD 1.1 being successful is extremely high and the rewards have been judged to be worth the risk of unintended incompatibility. See issue [#1192](https://github.com/IIIF/api/issues/1192).
+JSON-LD remains the serialization format of the Image API, as it is for the Presentation API. Some features of the JSON-LD Community Group specification make significant improvements to the Presentation API's structure and consistency and are also adopted by the Image API although the impact is much less. While this specification is not a W3C Technical Recommendation at the time of release, the likelihood of the standardization process for JSON-LD 1.1 being successful is extremely high and the advantages have been judged to be worth the risk of unintended incompatibility. See issue [#1192](https://github.com/IIIF/api/issues/1192).
 
 
 ## 2. Non-Breaking Changes
@@ -115,7 +115,7 @@ The following changes do not change the Image API behavior from version 2.1.1.
 
 #### 3.1. Clarify distinctions between underlying image content, full image, extracted region, and image returned
 
-The [Terminology][image30-terminology] section now explicitly defines **underlying image content** and **full image**. These terms, along with extracted region and image returned are used to describe the image manipulations more consistently than in previous versions. See issue [#1425](https://github.com/IIIF/api/issues/1425).
+The [Terminology][image30-terminology] section now explicitly defines **underlying image content** and **full image**. These terms, along with "extracted region" and "image returned" are used to describe the image manipulations more consistently than in previous versions. See issue [#1425](https://github.com/IIIF/api/issues/1425).
 
 #### 3.2. Clarify description of the _`!w,h`_ form for the size parameter
 
@@ -139,7 +139,7 @@ Discussion of CORS has be moved to a new [CORS][image30-cors-response] section a
 
 #### 3.7. Implementation with static web resources
 
-Add explicit mention of support for implementation with pre-generated static files.
+Explicit mention of support for implementation with pre-generated files was added.
 
 #### 3.8. Font consistency
 
