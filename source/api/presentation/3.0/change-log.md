@@ -41,7 +41,7 @@ Several existing properties were renamed for consistency, developer convenience,
 
 #### 1.2.1. Rename `@id` to `id`, `@type` to `type`
 
-These properties were renamed to enable javascript developers to use the "dot notation" (`manifest.id`) instead of the square brackets based equivalent needed with the `@` character (`manifest['@id']`). This follows JSON-LD community best practices established by schema.org, the JSON-LD, Web Annotation and Social Web working groups. See issue [#590](https://github.com/IIIF/api/issues/590).
+These properties were renamed to enable Javascript developers to use the "dot notation" (`manifest.id`) instead of the square-brackets-based equivalent needed with the `@` character (`manifest['@id']`). This follows JSON-LD community best practices established by schema.org, the JSON-LD, Web Annotation and Social Web working groups. See issue [#590](https://github.com/IIIF/api/issues/590).
 
 #### 1.2.2. Rename `viewingHint` to `behavior`
 
@@ -57,7 +57,7 @@ The Presentation API classes in version 2.1.1 had both `members` to allow for mi
 
 #### 1.2.5. Rename `license` to `rights`
 
-The `license` property was renamed to the more general `rights` to accomodate both rights statements and usage licenses. The value was further constrained to allow only Creative Commons URIs, RightsStatements.org URIs and URIs registered as extensions. This additional constraint is to allow clients to treat the property as an enumeration rather than free text, and implement URI specific behavior.  See issues [#644](https://github.com/IIIF/api/issues/644) and [#1479](https://github.com/IIIF/api/issues/1479)
+The `license` property was renamed to the more general `rights` to accommodate both rights statements and usage licenses. The value was further constrained to allow only Creative Commons URIs, RightsStatements.org URIs and URIs registered as extensions. This additional constraint is to allow clients to treat the property as an enumeration rather than free text, and implement URI specific behavior.  See issues [#644](https://github.com/IIIF/api/issues/644) and [#1479](https://github.com/IIIF/api/issues/1479)
 
 #### 1.2.6. Rename `description` to `summary`
 
@@ -131,7 +131,7 @@ As the Web Annotation Data Model defines the paging model, and Collection paging
 
 #### 1.4.5. Move "advanced" Annotation features to cookbook
 
-The number of possible uses of the Web Annotation Data Model within the context of the Presentation API is extremely high.  The previous section 6 of version 2.0 and 2.1 was removed in favor of entries in a "cookbook" that could be expanded and adapted over time, rather than as a specification process. This separation makes new use cases easier to accomodate and describe solutions for, without producing new minor versions of the specification.
+The number of possible uses of the Web Annotation Data Model within the context of the Presentation API is extremely high.  The previous section 6 of version 2.0 and 2.1 was removed in favor of entries in a "cookbook" that could be expanded and adapted over time, rather than as a specification process. This separation makes new use cases easier to accommodate and describe solutions for, without producing new minor versions of the specification.
 
 ### 1.5. Requirements Changes
 
@@ -206,7 +206,7 @@ The `painting` `motivation` does not permit sufficient flexibility in the displa
 
 ### 2.3. Protocol Features
 
-#### 2.3.1. Define json-ld profile for media type
+#### 2.3.1. Define JSON-LD profile for media type
 
 A specific media-type, to be used with the HTTP headers `Accept` and `Content-Type` was defined. This media type is the JSON-LD media type, with the context in the `profile` parameter, following established conventions. See issue [#1066](https://github.com/IIIF/api/issues/1066).
 
@@ -216,7 +216,7 @@ The URI patterns given in earlier versions were removed as unhelpful. They were 
 
 #### 2.3.3. Allow external Ranges
 
-In previous versions, Ranges were required to be embedded within the Manifest.  With the removal of Sequences, this means that Ranges must be allowed to be referenced resources from the Manifest and thus seperately requested.  An additional use case comes from the AV work, where a Range could give a large set of thumbnails for every keyframe of a video to be presented on a scrubbing bar (see the `thumbnail-nav` value for `behavior`). It would be overwhelming to include this in the Manifest directly. See issue [#1218](https://github.com/IIIF/api/issues/1218).
+In previous versions, Ranges were required to be embedded within the Manifest.  With the removal of Sequences, this means that Ranges must be allowed to be referenced resources from the Manifest and thus separately requested.  An additional use case comes from the AV work, where a Range could give a large set of thumbnails for every keyframe of a video to be presented on a scrubbing bar (see the `thumbnail-nav` value for `behavior`). It would be overwhelming to include this in the Manifest directly. See issue [#1218](https://github.com/IIIF/api/issues/1218).
 
 
 ## 3. Editorial Changes
