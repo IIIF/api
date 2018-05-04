@@ -169,7 +169,7 @@ In order to have time-based media associated with a Canvas, the Canvas needs to 
 
 The `timeMode` indicates whether the client should `trim`, `scale`, or `loop` playback of content resources with a time component when those resources are not identical in length to the duration of the portion of the Canvas onto which they are annotated.  See issue [#1075](https://github.com/IIIF/api/issues/1075).
 
-#### 2.1.4 Add `auto-advance` for `behavior`
+#### 2.1.4. Add `auto-advance` for `behavior`
 
 In some cases it may be desirable to have playback advance automatically from one Canvas to the next, such as when Canvases represent tracks of an album; the `auto-advance` `behavior` enables this. See issue [#1583](https://github.com/IIIF/api/issues/1583).
 
@@ -223,7 +223,7 @@ In previous versions, Ranges were required to be embedded within the Manifest.  
 
 ### 3.1. Clarifications
 
-#### 3.1.1 Add explicit definition of `profile`
+#### 3.1.1. Add explicit definition of `profile`
 
 In previous versions, `profile` was mentioned but never formally defined. This has now been defined explicitly. See issue [#1276](https://github.com/IIIF/api/issues/1276).
 
