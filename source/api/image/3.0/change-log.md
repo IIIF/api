@@ -147,9 +147,9 @@ Discussion of floating point representation has been moved from the image reques
 
 Discussion of CORS has be moved to a new [CORS][image30-cors-response] section and the wording clarified to make it clear that not only the `Access-Control-Allow-Origin` header but also the preflight request pattern (ie. including the `OPTIONS` header) should be supported. See issue [#1274](https://github.com/IIIF/api/issues/1274).
 
-### 3.7. Clarify that the `@context` value ay be a single URI or an array or URIs
+### 3.7. Clarify that the `@context` value may be a single URI or an array of URIs
 
-The previous version mentioned only the Image API JSON-LD context. The description has been changed to make it clear that the value of `@context` may be either a single URI, or an array with extension context URIs following the Image API context URI. See issue [#1472](https://github.com/IIIF/api/issues/1472).
+The previous version mentioned only the Image API JSON-LD context. The description has been changed to make it clear that the value of `@context` may be either a single URI, or an array with extension context URIs followed by the Image API context URI. See issue [#1472](https://github.com/IIIF/api/issues/1472).
 
 ### 3.8. Clarify that a compliance `Link` header may be returned with both Image and Image Information responses
 
