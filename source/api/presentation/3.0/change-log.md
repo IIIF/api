@@ -37,7 +37,7 @@ Annotations remain a core feature of the Presentation API. Instead of the commun
 
 ### 1.2. Property Naming and Semantics Changes
 
-Several existing properties were renamed for consistency, developer convenience, or to better reflect the intended semantics. Some of the semantics were also clarified based on implementation experience during previous versions.
+Several existing properties were renamed for consistency, developer convenience, or to better reflect the intended semantics. Some of the semantics were also clarified based on implementation experience from previous versions.
 
 #### 1.2.1. Rename `@id` to `id`, `@type` to `type`
 
@@ -69,7 +69,7 @@ Similar to the above changes where non-actionable links and content are put into
 
 #### 1.2.8. Rename `contentLayer` to `supplementary`
 
-With the removal of the `Layer` class in favor of the standard `AnnotationCollection`, and the introduction of the `motivation` value `supplementing`, the `contentLayer` property was renamed to `supplementary`. This conveys that the Annotations in the Annot ation Collection are those with the `motivation` value `supplementing` while avoiding the use of the defunct class name. See issues [#1480](https://github.com/IIIF/api/issues/1480) and [#1174](https://github.com/IIIF/api/issues/1174).
+With the removal of the `Layer` class in favor of the standard `AnnotationCollection`, and the introduction of the `motivation` value `supplementing`, the `contentLayer` property was renamed to `supplementary`. This conveys that the Annotations in the Annotation Collection are those with the `motivation` value `supplementing` while avoiding the use of the defunct class name. See issues [#1480](https://github.com/IIIF/api/issues/1480) and [#1174](https://github.com/IIIF/api/issues/1174).
 
 #### 1.2.9. Rename `startCanvas` to `start`, allow reference to part of a Canvas
 
@@ -84,7 +84,7 @@ While renaming properties, `within` was renamed to `partOf` to follow the same n
 #### 1.3.1. Allow long texts in `metadata` values
 {: #long-texts}
 
-Several use cases were raised for long texts that were not descriptions, such as bibliography citation lists or provenance histories for artworks. These texts did not have a home in the previous versions, as `metadata` only allowed short values and `description` was a description of the object not information about it. The adopted solution was to allow long texts within `metadata` values, also allowing `description` to be made more specifically a short textual summary. See issue [#1270](https://github.com/IIIF/api/issues/1270)
+Several use cases were raised for long texts that were not descriptions, such as bibliography citation lists or provenance histories for artworks. These texts did not have a home in the previous versions, as `metadata` only allowed short values and `description` was a description of the object not information about it. The adopted solution was to allow long texts within `metadata` values, and to replace `description` with `summary`, now more specifically a short textual summary. See issue [#1270](https://github.com/IIIF/api/issues/1270)
 
 #### 1.3.2. Allow non-images in `thumbnail`
 
@@ -98,7 +98,7 @@ A new pattern has been adopted for all textual values of a JSON object with the 
 
 Previous versions allowed a property that allowed multiple values to express a single value without an array. From version 3.0, if a property can ever have multiple values, then the value of the property is always an array. This reduces the type checking needed on values by clients as they can always iterate over the array, improving the developer experience. See issue [#1131](https://github.com/IIIF/api/issues/1131).
 
-#### 1.3.5. Require JSON object for all non-enumerable resources
+#### 1.3.5. Require a JSON object for all non-enumerable resources
 
 Similarly, to reduce type checking, all resources where the URIs cannot be enumerated (such as behaviors, viewing directions, rights statements and so forth) must be expressed as a JSON object with at least the `id` and `type` properties. This further reduces the type checking needed, as previously it could have been just the URI as a string.  See issue [#1284](https://github.com/IIIF/api/issues/1284).
 
@@ -108,7 +108,7 @@ For consistency, and to allow all content to be external to the Manifest, all An
 
 #### 1.3.7. Change requirements for `navDate` value
 
-Previous, the value of `navDate` was required to be in the UTC timezone. However this meant that the navigation date text generated was sometimes not the same date as the resource due to when midnight occurs in the local timezone versus in UTC. The solution adopted was to allow any timezone to be given in the value. See issue [#1296](https://github.com/IIIF/api/issues/1296).
+Previously the value of `navDate` was required to be in the UTC timezone. However this meant that the navigation date text generated was sometimes not the same date as the resource due to when midnight occurs in the local timezone versus in UTC. The solution adopted was to allow any timezone to be given in the value. See issue [#1296](https://github.com/IIIF/api/issues/1296).
 
 ### 1.4. Classes Changes
 
@@ -123,7 +123,7 @@ See issue [#1070](https://github.com/IIIF/api/issues/1070) and the referenced do
 
 #### 1.4.3. Remove Layer, AnnotationList in favor of AnnotationCollection, AnnotationPage
 
-With the adoption of the Web Annotation Data Model, we remove the IIIF specific Layer in favor of the standard AnnotationCollection and AnnotationList in favor of the equivalent AnnotationPage. See issue [#496](https://github.com/IIIF/api/issues/496).
+With the adoption of the Web Annotation Data Model, we remove the IIIF specific Layer in favor of the standard AnnotationCollection, and AnnotationList in favor of the equivalent AnnotationPage. See issue [#496](https://github.com/IIIF/api/issues/496).
 
 #### 1.4.4. Remove paging functionality
 
