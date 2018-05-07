@@ -1,10 +1,11 @@
 source 'https://rubygems.org'
 
-gem 'jekyll', '3.4.3'
-gem 'kramdown', '1.12.0' # Pinned because 1.13.0 breaks anchor links. See https://github.com/gettalong/kramdown/issues/424
+gem 'jekyll', '> 3.7'
+gem 'kramdown', '> 1.16'
 gem 'jekyll-sitemap', '> 0.10.0'
 gem 'jekyll-redirect-from', '> 0.10.0'
-gem 'rouge', '> 1.10'
+# gem 'rouge', '2.0.0' # pinned to keep keys a different color.
+gem 'rouge', '2.0.5' # pinned to keep keys a different color. 
 gem 'capistrano', '> 3.4'
 gem 'capistrano-bundler', '> 1.1.4'
 gem 'capistrano-rvm'
