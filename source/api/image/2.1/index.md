@@ -48,6 +48,7 @@ This document describes an image delivery API defined by the International Image
 Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss].
 
 ### 1.1. Audience and Scope
+{: #audience-and-scope}
 
 This document is intended for architects and developers building applications that share and consume digital images, particularly from cultural heritage institutions, museums, libraries and archives. Target applications include:
 
@@ -58,10 +59,12 @@ This document is intended for architects and developers building applications th
 This specification concerns image requests by a client, but not management of the images by the server. It covers how to respond to the requests given in a particular URI syntax, but does not cover methods of implementation such as rotation algorithms, transcoding, color management, compression, or how to respond to URIs that do not conform to the specified syntax. This allows flexibility for implementation in domains with particular constraints or specific community practices, while supporting interoperability in the general case.
 
 ### 1.2. Terminology
+{: #terminology}
 
 The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _SHOULD NOT_, _RECOMMENDED_, and _OPTIONAL_ in this document are to be interpreted as described in [RFC 2119][rfc-2119].
 
 ## 2. URI Syntax
+{: #uri-syntax}
 
 The IIIF Image API can be called in two ways:
 
@@ -92,6 +95,7 @@ When the base URI is dereferenced, the interaction _SHOULD_ result in the image 
 To allow for extensions, this specification does not define the server behavior when it receives requests that do not match either the base URI or one of the described URI syntaxes below.
 
 ###  2.1. Image Request URI Syntax
+{: #image-request-uri-syntax}
 
 The IIIF Image API URI for requesting an image _MUST_ conform to the following URI Template:
 
@@ -110,6 +114,7 @@ http://www.example.org/image-service/abcd1234/full/full/0/default.jpg
 The parameters of the Image Request URI include region, size, rotation, quality and format, which define the characteristics of the returned image. These are described in detail in [Image Request Parameters][image-request-parameters].
 
 ###  2.2. Image Information Request URI Syntax
+{: #image-information-request-uri-syntax}
 
 The URI for requesting image information _MUST_ conform to the following URI Template:
 
@@ -128,14 +133,17 @@ http://www.example.org/image-service/abcd1234/info.json
 The scheme, server, prefix and identifier components of the information request _MUST_ be identical to those for the image request described above for the image content that the image information document describes.  The image information document is described in detail in the [Image Information][image-information] section.
 
 ##  3. Identifier
+{: #identifier}
 
 The API places no restrictions on the form of the identifiers that a server may use or support. All special characters (e.g. ? or #) _MUST_ be URI encoded to avoid unpredictable client behaviors. The URI syntax relies upon slash (/) separators so any slashes in the identifier _MUST_ be URI encoded (also called "percent encoded"). See the additional discussion in [URI Encoding and Decoding][uri-encoding-and-decoding].
 
 ##  4. Image Request Parameters
+{: #image-request-parameters}
 
 All parameters described below are required for compliant construction of a IIIF Image API URI. The sequence of parameters in the URI _MUST_ be in the order described below. The order of the parameters is also intended as a mnemonic for the order of the operations by which the service should manipulate the image content. Thus, the requested image content is first extracted as a region of the complete image, then scaled to the requested size, mirrored and/or rotated, and finally transformed into the color quality and format. This resulting image content is returned as the representation for the URI. Image and region dimensions in pixels are always given as an integer numbers. Intermediate calculations may use floating point numbers and the rounding method is implementation specific. Some parameters, notably percentages, may be specified with floating point numbers. These should have at most 10 decimal digits and consist only of decimal digits and "." with a leading zero if less than 1.0.
 
 ###  4.1. Region
+{: #region}
 
 The region parameter defines the rectangular portion of the full image to be returned. Region can be specified by pixel coordinates, percentage or by the value "full", which specifies that the entire image should be returned.
 
@@ -198,6 +206,7 @@ Examples:
 
 
 ###  4.2. Size
+{: #size}
 
 The size parameter determines the dimensions to which the extracted region is to be scaled.
 
@@ -273,6 +282,8 @@ Examples:
 </table>
 
 ###  4.3. Rotation
+{: #rotation}
+
 The rotation parameter specifies mirroring and rotation. A leading exclamation mark ("!") indicates that the image should be mirrored by reflection on the vertical axis before any rotation is applied. The numerical value represents the number of degrees of clockwise rotation, and may be any floating point number from 0 to 360.
 
 | Form | Description |
@@ -331,6 +342,7 @@ Examples:
 </table>
 
 ###  4.4. Quality
+{: #quality}
 
 The quality parameter determines whether the image is delivered in color, grayscale or black and white.
 
@@ -378,6 +390,7 @@ Examples:
 </table>
 
 ###  4.5. Format
+{: #format}
 
 The format of the returned image is expressed as an extension at the end of the URI.
 
@@ -402,6 +415,7 @@ Examples:
   {: .examplelist}
 
 ### 4.6. Order of Implementation
+{: #order-of-implementation}
 
 The sequence of parameters in the URI is intended as a mnemonic for the order in which image manipulations are made against the full image content. This is important to consider when implementing the service because applying the same parameters in a different sequence will often result in a different image being delivered. The order is critical so that the application calling the service reliably receives the output it expects.
 
@@ -424,6 +438,7 @@ If the rotation parameter includes mirroring ("!"), the mirroring is applied bef
 </table>
 
 ### 4.7. Canonical URI Syntax
+{: #canonical-uri-syntax}
 
 It is possible to request the same image using different combinations of parameters. While it is useful for clients to be able to express their requests in a convenient form, there are several reasons why a canonical URI syntax is desirable:
 
@@ -452,10 +467,12 @@ Link: <http://iiif.example.com/server/full/400,/0/default.jpg>;rel="canonical"
 The server _MAY_ include this link header on the image information response, however it is unnecessary as it is included in the JSON representation retrieved.
 
 ##  5. Image Information
+{: #image-information}
 
 Servers _MUST_ support requests for image information. The response includes technical properties about the image and may also contain rights and licensing properties, and services related to it.
 
 ### 5.1. Image Information Request
+{: #image-information-request}
 
 The request for the information _MUST_ conform to the URI Template:
 
@@ -490,6 +507,7 @@ Access-Control-Allow-Origin: *
 A recipe for enabling these behaviors is provided in the [Apache HTTP Server Implementation Notes][apache-notes-conditional-content-type].
 
 ### 5.2. Technical Properties
+{: #technical-properties}
 
 | Technical Property   | Required? | Description |
 | ---------- | --------- | ----------- |
@@ -555,6 +573,7 @@ The following shows a valid image information response, including the optional `
 ```
 
 ### 5.3. Profile Description
+{: #profile-description}
 
 In order to specify additional features that are supported for the image, a profile object may be added to the `profile` list. Objects in the `profile` list have the properties in the following table. The `@context`, `@id` and `@type` properties are _REQUIRED_ when the profile is dereferenced from a URI, but _SHOULD NOT_ be included in the image information response.
 
@@ -636,6 +655,7 @@ The following fragment shows a profile indicating support for additional formats
 ```
 
 ### 5.4. Rights and Licensing Properties
+{: #rights-and-licensing-properties}
 
 The rights and licensing properties, `attribution`, `license` and `logo`, have the same semantics and requirements as those in the [Presentation API][prezi-api].
 
@@ -680,6 +700,7 @@ The following shows a simple use of each of these properties:
 More complex examples are given in the [Complete Response Example](#complete-response).
 
 ### 5.5. Related Services
+{: #related-services}
 
 | Property   | Required? | Description |
 | ---------- | --------- | ----------- |
@@ -707,6 +728,8 @@ The following shows a use of `service` to associate the login page of an authent
 More complex examples are given in the [Complete Response Example](#complete-response).
 
 ### 5.6. Complete Response
+{: #complete-response}
+
 
 The following shows a response including all of the required and optional image information properties.
 
@@ -772,6 +795,7 @@ The following shows a response including all of the required and optional image 
 ```
 
 ##  6. Compliance Levels
+{: #compliance-levels}
 
 The image information document _MUST_ specify the extent to which the API is supported by including a compliance level URI as the first entry in the `profile` property. This URI links to a description of the highest compliance level for which all requirements are met. The URI _MUST_ be one of those listed in the [Image API Compliance][compliance] document. This description contains the set of features required by the profile, as discussed in the [Image Information][image-information] section. A server _MAY_ declare different compliance levels for images with different identifiers.
 
@@ -785,12 +809,15 @@ Link: <http://iiif.io/api/image/{{ page.major }}/level1.json>;rel="profile"
 A recipe for setting this header on the Apache HTTP Server is shown in the [Apache HTTP Server Implementation Notes][apache-notes-set-compliance-link-header].
 
 ##  7. Server Responses
+{: #server-responses}
 
 ###  7.1. Successful Responses
+{: #successful-responses}
 
 Servers may transmit HTTP responses with 200 (Successful) or 3xx (Redirect) status codes when the request has been successfully processed. If the status code is 200, then the entity-body _MUST_ be the requested image or information document. If the status code is 301, 302, 303, or 304, then the entity-body is unrestricted, but it is _RECOMMENDED_ to be empty. If the status code is 301, 302, or 303 then the Location HTTP Header _MUST_ be set containing the URI of the image that fulfills the request. This enables servers to have a single canonical URI to promote caching of responses. Status code 304 is handled exactly as per the HTTP specification. Clients _SHOULD_ expect to encounter all of these situations and _MUST NOT_ assume that the entity-body of the initial response necessarily contains the image data.
 
 ###  7.2. Error Conditions
+{: #error-conditions}
 
 The order in which servers parse requests and detect errors is not specified. A request is likely to fail on the first error encountered and return an appropriate HTTP status code, with common codes given in the list below. It is _RECOMMENDED_ that the body of the error response includes a human-readable description of the error in either plain text or html.
 
@@ -806,12 +833,14 @@ The order in which servers parse requests and detect errors is not specified. A 
 {: .api-table}
 
 ##  8. Authentication
+{: #authentication}
 
 Images are generally secondary resources in a web page or application. In the case of web pages, images are embedded in the HTML `img` tag, and are retrieved via additional HTTP requests. When a user cannot load a web page, it is possible — and a generally accepted behavior — to redirect the user to another page and offer the opportunity to authenticate. This is not an option for secondary resources such as images, and the user is instead simply presented with a broken image icon.
 
 No new authentication mechanisms are proposed, nor roles for authorization business logic. Instead, it is expected that authentication requirements and processes are handled outside of any IIIF-specific context, but within a IIIF-aware access control workflow. Please see the draft [authentication][authentication-ext] specification.
 
 ##  9. URI Encoding and Decoding
+{: #uri-encoding-and-decoding}
 
 The URI syntax of this API relies upon slash (/) separators which _MUST NOT_ be encoded. Clients _MUST_ percent-encode special characters (the to-encode set below: percent and gen-delims of [RFC3986][rfc-3986] except the colon) plus any characters outside the US-ASCII set within the components of requests. For example, any slashes within the identifier part of the URI _MUST_ be percent-encoded. Encoding is necessary only for the identifier because other components will not include special characters. Percent-encoding other characters introduces no ambiguity but is unnecessary.
 
@@ -835,6 +864,7 @@ to-encode = "/" / "?" / "#" / "[" / "]" / "@" / "%"
 Servers which are incapable of processing arbitrarily encoded identifiers _SHOULD_ make their best efforts to expose only image identifiers for which clients will not encode any of the characters, and thus it is _RECOMMENDED_ to limit characters in identifiers to letters, numbers and the underscore character.
 
 ##  10. Security Considerations
+{: #security-considerations}
 
 This API defines a URI syntax and the semantics associated with its components. The composition of URIs has few security considerations except possible exposure of sensitive information in URIs or revealing of browse/view behavior of users.
 
@@ -846,6 +876,7 @@ It is recommended that servers implementing the `sizeAboveFull` [feature][featur
 Early sanity checking of URIs (lengths, trailing GET, invalid characters, out-of-range parameters) and rejection with appropriate response codes is recommended.
 
 ## 11. Appendices
+{: #appendices}
 
 ### A. Implementation Notes
 

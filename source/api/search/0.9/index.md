@@ -308,6 +308,7 @@ The basic structure is:
 ```
 
 #### 3.4.1. Ignored Parameters
+{: #ignored-parameters}
 
 If the server has ignored any of the parameters in the request, then the layer _MUST_ be present and _MUST_ have an `ignored` property where the value is a list of the ignored parameters.
 

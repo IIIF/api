@@ -26,18 +26,22 @@ __Latest stable version:__ [{{ site.image_api.stable.major }}.{{ site.image_api.
 {:toc}
 
 ## 1. Introduction
+{: #introduction}
 
 This document is a companion to the [IIIF Image API Specification][image-api]. It defines the set of supported parameters that correspond to different levels of compliance to the API.
 
 ## 2. Compliance
+{: #compliance}
 
 Three levels of compliance are defined. Level 0 is the minimum set of parameters and features that _MUST_ be implemented to qualify the service as compliant with the IIIF Image API Specification. Level 1 is the _RECOMMENDED_ set of parameters and features to be implemented. Note that servers may not support all combinations of all supported parameters and features, as noted in the appropriate sections below.
 
 In the tables below "![required][icon-req]" indicates that support is _REQUIRED_, and "![optional][icon-opt]" indicates that support is _OPTIONAL_.
 
 ## 3. Image Parameters
+{: #image-parameters}
 
 ### 3.1 Region
+{: #region}
 
 | Syntax      | Feature Name    | Level 0 | Level 1 | Level 2  |
 |:------------|:--------------- |:-------:|:-------:|:--------:|
@@ -50,6 +54,7 @@ In the tables below "![required][icon-req]" indicates that support is _REQUIRED_
 See also the note under [Size][size] about combinations of Size and Region that may not be supported.
 
 ### 3.2 Size
+{: #size}
 
 | Syntax | Feature Name        | Level 0 | Level 1 | Level 2  |
 |:-------|:--------------------|:-------:|:-------:|:--------:|
@@ -71,6 +76,7 @@ Note that servers may express limits on the sizes available for an image with th
 See also the [deprecation warning about `full`][full-dep].
 
 ### 3.3 Rotation
+{: #rotation}
 
 | Syntax | Feature Name | Level 0 | Level 1 | Level 2  |
 |:-------|:-------------|:-------:|:-------:|:--------:|
@@ -81,6 +87,7 @@ See also the [deprecation warning about `full`][full-dep].
 {: .api-table}
 
 ### 3.4 Quality
+{: #quality}
 
 | Syntax        | Level 0 | Level 1 | Level 2  |
 |:--------------|:-------:|:-------:|:--------:|
@@ -91,6 +98,7 @@ See also the [deprecation warning about `full`][full-dep].
 {: .api-table}
 
 ### 3.5 Format
+{: #format}
 
 | Syntax      | Level 0 | Level 1 | Level 2  |
 |:------------|:-------:|:-------:|:--------:|
@@ -104,6 +112,7 @@ See also the [deprecation warning about `full`][full-dep].
 {: .api-table}
 
 ## 4. HTTP Features
+{: #http-features}
 
 | HTTP Feature          | Feature Name          | Level 0 | Level 1 | Level 2  |
 |:----------------------|:----------------------|:-------:|:-------:|:--------:|
@@ -115,6 +124,7 @@ See also the [deprecation warning about `full`][full-dep].
 {: .api-table}
 
 ## 5. Indicating Compliance
+{: #indicating-compliance}
 
 Servers _MAY_ indicate compliance with by including a header in IIIF responses for images:
 
@@ -133,6 +143,7 @@ The URIs for the the compliance levels are as follows:
 {: .urltemplate .api-table}
 
 ### 5.1 Level 0 Compliance
+{: #level-0-compliance}
 
 A level 0 compliant image server _MAY_ specify `scaleFactors` and/or `width` and `height` values for `tiles` in the Image Information response. At Level 0 compliance, a service is only required to deliver images of sizes computed using the scaling factors declared in the Image Information response. If specified they should be interpreted with the following special meanings:
 
