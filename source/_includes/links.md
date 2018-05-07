@@ -167,6 +167,7 @@
 [prezi3-ldce]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.draft.minor }}/45#linked-data-context-and-extensions "Linked Data Context and Extensions"
 [prezi3-type]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.draft.minor }}/#type
 [prezi3]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.draft.minor }}/ "Presentation API"
+[prezi30]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/
 [prezi30-appendixa]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#a-summary-of-metadata-requirements
 [prezi30-canvas]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#53-canvas
 [prezi30-change-log]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/change-log/ "Presentation API 3.0 Change Log"
