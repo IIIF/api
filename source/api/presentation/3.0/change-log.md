@@ -57,7 +57,7 @@ The Presentation API classes in version 2.1.1 had both `members` to allow for mi
 
 #### 1.2.5. Rename `license` to `rights`
 
-The `license` property was renamed to the more general `rights` to accommodate both rights statements and usage licenses. The value was further constrained to allow only Creative Commons URIs, RightsStatements.org URIs and URIs registered as extensions. This additional constraint is to allow clients to treat the property as an enumeration rather than free text, and implement URI specific behavior.  See issues [#644](https://github.com/IIIF/api/issues/644) and [#1479](https://github.com/IIIF/api/issues/1479)
+The `license` property was renamed to the more general `rights` to accommodate both rights statements and usage licenses. The value was further constrained to allow only Creative Commons URIs, RightsStatements.org URIs, and URIs registered as extensions. This additional constraint is to allow clients to treat the property as an enumeration rather than free text, and implement URI specific behavior.  See issues [#644](https://github.com/IIIF/api/issues/644) and [#1479](https://github.com/IIIF/api/issues/1479)
 
 #### 1.2.6. Rename `description` to `summary`
 
@@ -100,7 +100,7 @@ Previous versions allowed a property that allowed multiple values to express a s
 
 #### 1.3.5. Require a JSON object for all non-enumerable resources
 
-Similarly, to reduce type checking, all resources where the URIs cannot be enumerated (such as behaviors, viewing directions, rights statements and so forth) must be expressed as a JSON object with at least the `id` and `type` properties. This further reduces the type checking needed, as previously it could have been just the URI as a string.  See issue [#1284](https://github.com/IIIF/api/issues/1284).
+Similarly, to reduce type checking, all resources where the URIs cannot be enumerated (such as behaviors, viewing directions, rights statements, and so forth) must be expressed as a JSON object with at least the `id` and `type` properties. This further reduces the type checking needed, as previously it could have been just the URI as a string.  See issue [#1284](https://github.com/IIIF/api/issues/1284).
 
 #### 1.3.6. Canvases always include AnnotationPages, not Annotations directly
 
@@ -112,7 +112,7 @@ Previously the value of `navDate` was required to be in the UTC timezone. Howeve
 
 ### 1.4. Classes Changes
 
-#### 1.4.1. Remove Sequence in favor of Ranges, `items` and `behavior` value `sequence`
+#### 1.4.1. Remove Sequence in favor of Ranges, `items`, and `behavior` value `sequence`
 
 There has been a long outstanding question of how the order of Canvases in the `items` of Ranges and the order in the current Sequence interact. With further implementations from outside of the initial library-oriented domain, the need for an explicit order for views is also greatly decreased. The initial use case of multiple orderings for the content remains valid, but an edge case that can be supported using other patterns rather than requiring every Manifest to have an explicitly named Sequence. The replacement is a new `behavior` value or `sequence`. The model is simplified and clarified by this removal. See issues [#1471](https://github.com/IIIF/api/issues/1471), [#1489](https://github.com/IIIF/api/issues/1489) and further issues referenced from those.
 
