@@ -1562,8 +1562,7 @@ __Linking Properties__
 | Annotation Page       | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] | ![not allowed][icon-na] | ![not allowed][icon-na] |
 | Range                 | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt]   | ![optional][icon-opt]   |
 | Annotation Collection | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] | ![not allowed][icon-na] | ![not allowed][icon-na] |
-| Image Content         | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] | ![not allowed][icon-na] | ![not allowed][icon-na] |
-| Other Content         | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] | ![not allowed][icon-na] | ![not allowed][icon-na] |
+| Content Resources     | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] | ![not allowed][icon-na] | ![not allowed][icon-na] |
 {: .api-table #table-reqs-3}
 
 
@@ -1578,8 +1577,7 @@ __Structural Properties__
 | Annotation Page       | ![recommended][icon-rec]  | ![not allowed][icon-na]   | ![not allowed][icon-na]   |
 | Range                 | ![required][icon-req]     | ![not allowed][icon-na]   | ![optional][icon-opt]     |
 | Annotation Collection | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![not allowed][icon-na]   |
-| Image Content         | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![optional][icon-opt]     |
-| Other Content         | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![optional][icon-opt]     |
+| Content Resources     | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![optional][icon-opt]     |
 {: .api-table #table-reqs-4}
 
 
@@ -1594,8 +1592,7 @@ __Protocol Behavior__
 | Annotation Page       | ![required][icon-req]     |
 | Range                 | ![optional][icon-opt]     |
 | Annotation Collection | ![optional][icon-opt]     |
-| Image Content         | ![required][icon-req]     |
-| Other Content         | ![required][icon-req]     |
+| Content Resources     | ![required][icon-req]     |
 {: .api-table #table-reqs-deref}
 
 
