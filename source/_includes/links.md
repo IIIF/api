@@ -29,6 +29,7 @@
 [image11]: {{ site.url }}{{ site.baseurl }}/api/image/1.1/ "Image API 1.1"
 [image20-change-log]: {{ site.url }}{{ site.baseurl }}/api/image/2.0/change-log/ "Change Log for Version 2.0"
 [image21-change-log]: {{ site.url }}{{ site.baseurl }}/api/image/2.1/change-log/ "Change Log for Version 2.1"
+[image21-dep-sizes]: {{ site.url }}{{ site.baseurl }}/api/image/2.1/#dep-sizes "Deprecation Warning"
 [image21-full-dep]: {{ site.url }}{{ site.baseurl }}/api/image/2.1/#full-dep "Deprecation Warning"
 [image21-size]: {{ site.url }}{{ site.baseurl }}/api/image/2.1/#size "4.2. Size"
 [image21-size-dep]: {{ site.url }}{{ site.baseurl }}/api/image/2.1/#size-dep "Deprecation Warning"

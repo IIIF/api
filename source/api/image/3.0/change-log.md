@@ -77,7 +77,7 @@ In version 2.1 the value of the `service` property could be a single value or an
 
 #### 1.2.8. Remove feature names `sizeByWhListed` and `sizeByForcedWh`
 
-Per the [deprecation warning][image21-full-dep] in the previous version, the feature names `sizeByWhListed` and `sizeByForcedWh` have been removed. See PR [#727](https://github.com/IIIF/api/pull/727).
+Per the [deprecation warning][image21-dep-sizes] in the previous version, the feature names `sizeByWhListed` and `sizeByForcedWh` have been removed. See PR [#727](https://github.com/IIIF/api/pull/727).
 
 #### 1.2.9. Remove feature name `sizeByDistortedWh`
 
