@@ -621,9 +621,9 @@ Given the URI of an ActivityStreams CollectionPage (`page`) and the date of last
   <li>In reverse order, iterate through the activities (<code class="highlighter-rouge">activity</code>) in <code class="highlighter-rouge">items</code>:
     <ol>
       <li>For each <code class="highlighter-rouge">activity</code>, if <code class="highlighter-rouge">activity.endTime</code> is before <code class="highlighter-rouge">lastCrawl</code>, then terminate ;</li>
-      <li>If the updated resource's uri at <code class="highlighter-rouge">activity.target.id</code> is in <code class="highlighter-rouge">processedItems</code>, then continue ;</li>
-      <li>Otherwise, if <code class="highlighter-rouge">activity.type</code> is <code class="highlighter-rouge">Update</code> or <code class="highlighter-rouge">Create</code>, then find the URI of the updated resource at <code class="highlighter-rouge">activity.target.id</code> (<code class="highlighter-rouge">target</code>) and process the target resource ;</li>
-      <li>Otherwise, if <code class="highlighter-rouge">activity.type</code> is <code class="highlighter-rouge">Delete</code>, then find the URI of the deleted resource at <code class="highlighter-rouge">activity.target.id</code> and process its removal.</li>
+      <li>If the updated resource's uri at <code class="highlighter-rouge">activity.object.id</code> is in <code class="highlighter-rouge">processedItems</code>, then continue ;</li>
+      <li>Otherwise, if <code class="highlighter-rouge">activity.type</code> is <code class="highlighter-rouge">Update</code> or <code class="highlighter-rouge">Create</code>, then find the URI of the updated resource at <code class="highlighter-rouge">activity.object.id</code> (<code class="highlighter-rouge">object</code>) and process the resource ;</li>
+      <li>Otherwise, if <code class="highlighter-rouge">activity.type</code> is <code class="highlighter-rouge">Delete</code>, then find the URI of the deleted resource at <code class="highlighter-rouge">activity.object.id</code> and process its removal.</li>
       <li>Add the processed resource's URI to <code class="highlighter-rouge">processedItems</code></li>
     </ol>
   </li>
