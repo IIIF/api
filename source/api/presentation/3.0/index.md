@@ -291,7 +291,7 @@ The value _MUST_ be an array of JSON objects, where each item in the array has a
             "width": 300,
             "height": 200 
         }
-   ]
+    ]
 }
 ```
 
