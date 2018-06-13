@@ -283,7 +283,7 @@ The value _MUST_ be an array of JSON objects, where each item in the array has a
    Clients _MAY_ render `thumbnail` on other resource types.
 
 ``` json-doc
-{ "thumbnail": [ { "id": "https://example.org/img/thumb.jpg", "type": "Image", "width": 300; "height": 200 } ] }
+{ "thumbnail": [ { "id": "https://example.org/img/thumb.jpg", "type": "Image", "width": 300, "height": 200 } ] }
 ```
 
 ##### navDate
