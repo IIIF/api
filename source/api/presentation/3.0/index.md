@@ -1514,10 +1514,10 @@ It is possible to include Image API service descriptions within the Manifest, an
 
 | Icon                       | Meaning     |
 | -------------------------- | ----------- |
-| ![required][icon-req]      | Required    |
-| ![recommended][icon-rec]   | Recommended |
-| ![optional][icon-opt]      | Optional    |
-| ![not allowed][icon-na]    | Not Allowed |
+| ![required][icon3-req]      | Required    |
+| ![recommended][icon3-rec]   | Recommended |
+| ![optional][icon3-opt]      | Optional    |
+| ![not allowed][icon3-na]    | Not Allowed |
 {: .api-table #table-reqs-icons}
 
 
@@ -1525,14 +1525,14 @@ __Descriptive and Rights Properties__
 
 |                      | label                    | metadata                 | summary                  | thumbnail                | posterCanvas            | requiredStatement     | rights                | navDate                  | language                 |
 | -------------------- | ----------------------   | ------------------------ | ------------------------ | ------------------------ | ----------------------- | --------------------- | --------------------- | ------------------------ | ------------------------ | 
-| Collection           | ![required][icon-req]    | ![recommended][icon-rec] | ![recommended][icon-rec] | ![recommended][icon-rec] | ![optional][icon-opt]   | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt]    | ![not allowed][icon-na]  |
-| Manifest             | ![required][icon-req]    | ![recommended][icon-rec] | ![recommended][icon-rec] | ![recommended][icon-rec] | ![optional][icon-opt]   | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt]    | ![not allowed][icon-na]  |
-| Canvas               | ![recommended][icon-rec] | ![optional][icon-opt]    | ![optional][icon-opt]    | ![optional][icon-opt]    | ![optional][icon-opt]   | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt]    | ![not allowed][icon-na]  |
-| Annotation           | ![optional][icon-opt]    | ![optional][icon-opt]    | ![optional][icon-opt]    | ![optional][icon-opt]    | ![not allowed][icon-na] | ![optional][icon-opt] | ![optional][icon-opt] | ![not allowed][icon-na]  | ![not allowed][icon-na]  |
-| AnnotationPage       | ![optional][icon-opt]    | ![optional][icon-opt]    | ![optional][icon-opt]    | ![optional][icon-opt]    | ![not allowed][icon-na] | ![optional][icon-opt] | ![optional][icon-opt] | ![not allowed][icon-na]  | ![not allowed][icon-na]  |
-| Range                | ![recommended][icon-rec] | ![optional][icon-opt]    | ![optional][icon-opt]    | ![optional][icon-opt]    | ![optional][icon-opt]   | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt]    | ![not allowed][icon-na]  |
-| AnnotationCollection | ![recommended][icon-rec] | ![optional][icon-opt]    | ![optional][icon-opt]    | ![optional][icon-opt]    | ![not allowed][icon-na] | ![optional][icon-opt] | ![optional][icon-opt] | ![not allowed][icon-na]  | ![not allowed][icon-na]  |
-| Content Resources    | ![optional][icon-opt]    | ![optional][icon-opt]    | ![optional][icon-opt]    | ![optional][icon-opt]    | ![not allowed][icon-na] | ![optional][icon-opt] | ![optional][icon-opt] | ![not allowed][icon-na]  | ![recommended][icon-rec] |
+| Collection           | ![required][icon3-req]    | ![recommended][icon3-rec] | ![recommended][icon3-rec] | ![recommended][icon3-rec] | ![optional][icon3-opt]   | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt]    | ![not allowed][icon3-na]  |
+| Manifest             | ![required][icon3-req]    | ![recommended][icon3-rec] | ![recommended][icon3-rec] | ![recommended][icon3-rec] | ![optional][icon3-opt]   | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt]    | ![not allowed][icon3-na]  |
+| Canvas               | ![recommended][icon3-rec] | ![optional][icon3-opt]    | ![optional][icon3-opt]    | ![optional][icon3-opt]    | ![optional][icon3-opt]   | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt]    | ![not allowed][icon3-na]  |
+| Annotation           | ![optional][icon3-opt]    | ![optional][icon3-opt]    | ![optional][icon3-opt]    | ![optional][icon3-opt]    | ![not allowed][icon3-na] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![not allowed][icon3-na]  | ![not allowed][icon3-na]  |
+| AnnotationPage       | ![optional][icon3-opt]    | ![optional][icon3-opt]    | ![optional][icon3-opt]    | ![optional][icon3-opt]    | ![not allowed][icon3-na] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![not allowed][icon3-na]  | ![not allowed][icon3-na]  |
+| Range                | ![recommended][icon3-rec] | ![optional][icon3-opt]    | ![optional][icon3-opt]    | ![optional][icon3-opt]    | ![optional][icon3-opt]   | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt]    | ![not allowed][icon3-na]  |
+| AnnotationCollection | ![recommended][icon3-rec] | ![optional][icon3-opt]    | ![optional][icon3-opt]    | ![optional][icon3-opt]    | ![not allowed][icon3-na] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![not allowed][icon3-na]  | ![not allowed][icon3-na]  |
+| Content Resources    | ![optional][icon3-opt]    | ![optional][icon3-opt]    | ![optional][icon3-opt]    | ![optional][icon3-opt]    | ![not allowed][icon3-na] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![not allowed][icon3-na]  | ![recommended][icon3-rec] |
 {: .api-table #table-reqs-1}
 
 
@@ -1540,14 +1540,14 @@ __Technical Properties__
 
 |                       | id                       | type                  | format                  | profile                 | height                  | width                   | duration                 | viewingDirection        | behavior              | timeMode                |
 | --------------------  | ------------------------ | --------------------- | ----------------------- | ----------------------- | ----------------------- | ----------------------- | ------------------------ | ----------------------- | --------------------- | ----------------------- |
-| Collection            | ![required][icon-req]    | ![required][icon-req] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na]  | ![optional][icon-opt]   | ![optional][icon-opt] | ![not allowed][icon-na] |
-| Manifest              | ![required][icon-req]    | ![required][icon-req] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na]  | ![optional][icon-opt]   | ![optional][icon-opt] | ![not allowed][icon-na] |
-| Canvas                | ![required][icon-req]    | ![required][icon-req] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![optional][icon-opt]   | ![optional][icon-opt]   | ![optional][icon-opt]    | ![not allowed][icon-na] | ![optional][icon-opt] | ![not allowed][icon-na] |
-| Annotation            | ![required][icon-req]    | ![required][icon-req] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na]  | ![not allowed][icon-na] | ![optional][icon-opt] | ![optional][icon-opt]   |
-| Annotation Page       | ![recommended][icon-rec] | ![required][icon-req] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na]  | ![not allowed][icon-na] | ![optional][icon-opt] | ![not allowed][icon-na] |
-| Range                 | ![required][icon-req]    | ![required][icon-req] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na]  | ![optional][icon-opt]   | ![optional][icon-opt] | ![not allowed][icon-na] |
-| Annotation Collection | ![required][icon-req]    | ![required][icon-req] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na] | ![not allowed][icon-na]  | ![not allowed][icon-na] | ![optional][icon-opt] | ![not allowed][icon-na] |
-| Content Resources     | ![required][icon-req]    | ![required][icon-req] | ![optional][icon-opt]   | ![optional][icon-opt]   | ![optional][icon-opt]   | ![optional][icon-opt]   | ![optional][icon-opt]    | ![not allowed][icon-na] | ![optional][icon-opt] | ![not allowed][icon-na] |
+| Collection            | ![required][icon3-req]    | ![required][icon3-req] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na]  | ![optional][icon3-opt]   | ![optional][icon3-opt] | ![not allowed][icon3-na] |
+| Manifest              | ![required][icon3-req]    | ![required][icon3-req] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na]  | ![optional][icon3-opt]   | ![optional][icon3-opt] | ![not allowed][icon3-na] |
+| Canvas                | ![required][icon3-req]    | ![required][icon3-req] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![optional][icon3-opt]   | ![optional][icon3-opt]   | ![optional][icon3-opt]    | ![not allowed][icon3-na] | ![optional][icon3-opt] | ![not allowed][icon3-na] |
+| Annotation            | ![required][icon3-req]    | ![required][icon3-req] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na]  | ![not allowed][icon3-na] | ![optional][icon3-opt] | ![optional][icon3-opt]   |
+| Annotation Page       | ![recommended][icon3-rec] | ![required][icon3-req] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na]  | ![not allowed][icon3-na] | ![optional][icon3-opt] | ![not allowed][icon3-na] |
+| Range                 | ![required][icon3-req]    | ![required][icon3-req] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na]  | ![optional][icon3-opt]   | ![optional][icon3-opt] | ![not allowed][icon3-na] |
+| Annotation Collection | ![required][icon3-req]    | ![required][icon3-req] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na]  | ![not allowed][icon3-na] | ![optional][icon3-opt] | ![not allowed][icon3-na] |
+| Content Resources     | ![required][icon3-req]    | ![required][icon3-req] | ![optional][icon3-opt]   | ![optional][icon3-opt]   | ![optional][icon3-opt]   | ![optional][icon3-opt]   | ![optional][icon3-opt]    | ![not allowed][icon3-na] | ![optional][icon3-opt] | ![not allowed][icon3-na] |
 {: .api-table #table-reqs-2}
 
 
@@ -1555,14 +1555,14 @@ __Linking Properties__
 
 |                       | seeAlso                | service                | logo                  | homepage              | rendering             | partOf                | start                   | supplementary           |
 | --------------------  | ---------------------- | ---------------------- | --------------------- | --------------------- | --------------------- | --------------------- | ----------------------- | ----------------------- |
-| Collection            | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] | ![not allowed][icon-na] | ![not allowed][icon-na] |
-| Manifest              | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt]   | ![not allowed][icon-na] |
-| Canvas                | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] | ![not allowed][icon-na] | ![not allowed][icon-na] |
-| Annotation            | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] | ![not allowed][icon-na] | ![not allowed][icon-na] |
-| Annotation Page       | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] | ![not allowed][icon-na] | ![not allowed][icon-na] |
-| Range                 | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt]   | ![optional][icon-opt]   |
-| Annotation Collection | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] | ![not allowed][icon-na] | ![not allowed][icon-na] |
-| Content Resources     | ![optional][icon-opt]  | ![optional][icon-opt]  | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] | ![not allowed][icon-na] | ![not allowed][icon-na] |
+| Collection            | ![optional][icon3-opt]  | ![optional][icon3-opt]  | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![not allowed][icon3-na] | ![not allowed][icon3-na] |
+| Manifest              | ![optional][icon3-opt]  | ![optional][icon3-opt]  | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt]   | ![not allowed][icon3-na] |
+| Canvas                | ![optional][icon3-opt]  | ![optional][icon3-opt]  | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![not allowed][icon3-na] | ![not allowed][icon3-na] |
+| Annotation            | ![optional][icon3-opt]  | ![optional][icon3-opt]  | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![not allowed][icon3-na] | ![not allowed][icon3-na] |
+| Annotation Page       | ![optional][icon3-opt]  | ![optional][icon3-opt]  | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![not allowed][icon3-na] | ![not allowed][icon3-na] |
+| Range                 | ![optional][icon3-opt]  | ![optional][icon3-opt]  | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt]   | ![optional][icon3-opt]   |
+| Annotation Collection | ![optional][icon3-opt]  | ![optional][icon3-opt]  | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![not allowed][icon3-na] | ![not allowed][icon3-na] |
+| Content Resources     | ![optional][icon3-opt]  | ![optional][icon3-opt]  | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![not allowed][icon3-na] | ![not allowed][icon3-na] |
 {: .api-table #table-reqs-3}
 
 
@@ -1570,14 +1570,14 @@ __Structural Properties__
 
 |                       | items                     | structures                | annotations               |
 | --------------------- | ------------------------- | ------------------------- | ------------------------- |
-| Collection            | ![required][icon-req]     | ![not allowed][icon-na]   | ![optional][icon-opt]     |
-| Manifest              | ![required][icon-req]     | ![optional][icon-opt]     | ![optional][icon-opt]     |
-| Canvas                | ![recommended][icon-rec]  | ![not allowed][icon-na]   | ![optional][icon-opt]     |
-| Annotation            | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![not allowed][icon-na]   |
-| Annotation Page       | ![recommended][icon-rec]  | ![not allowed][icon-na]   | ![not allowed][icon-na]   |
-| Range                 | ![required][icon-req]     | ![not allowed][icon-na]   | ![optional][icon-opt]     |
-| Annotation Collection | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![not allowed][icon-na]   |
-| Content Resources     | ![not allowed][icon-na]   | ![not allowed][icon-na]   | ![optional][icon-opt]     |
+| Collection            | ![required][icon3-req]     | ![not allowed][icon3-na]   | ![optional][icon3-opt]     |
+| Manifest              | ![required][icon3-req]     | ![optional][icon3-opt]     | ![optional][icon3-opt]     |
+| Canvas                | ![recommended][icon3-rec]  | ![not allowed][icon3-na]   | ![optional][icon3-opt]     |
+| Annotation            | ![not allowed][icon3-na]   | ![not allowed][icon3-na]   | ![not allowed][icon3-na]   |
+| Annotation Page       | ![recommended][icon3-rec]  | ![not allowed][icon3-na]   | ![not allowed][icon3-na]   |
+| Range                 | ![required][icon3-req]     | ![not allowed][icon3-na]   | ![optional][icon3-opt]     |
+| Annotation Collection | ![not allowed][icon3-na]   | ![not allowed][icon3-na]   | ![not allowed][icon3-na]   |
+| Content Resources     | ![not allowed][icon3-na]   | ![not allowed][icon3-na]   | ![optional][icon3-opt]     |
 {: .api-table #table-reqs-4}
 
 
@@ -1585,14 +1585,14 @@ __Protocol Behavior__
 
 |                       | id is dereferenceable     |
 | --------------------  | ------------------------- |
-| Collection            | ![required][icon-req]     |
-| Manifest              | ![required][icon-req]     |
-| Canvas                | ![recommended][icon-rec]  |
-| Annotation            | ![recommended][icon-rec]  |
-| Annotation Page       | ![required][icon-req]     |
-| Range                 | ![optional][icon-opt]     |
-| Annotation Collection | ![optional][icon-opt]     |
-| Content Resources     | ![required][icon-req]     |
+| Collection            | ![required][icon3-req]     |
+| Manifest              | ![required][icon3-req]     |
+| Canvas                | ![recommended][icon3-rec]  |
+| Annotation            | ![recommended][icon3-rec]  |
+| Annotation Page       | ![required][icon3-req]     |
+| Range                 | ![optional][icon3-opt]     |
+| Annotation Collection | ![optional][icon3-opt]     |
+| Content Resources     | ![required][icon3-req]     |
 {: .api-table #table-reqs-deref}
 
 
