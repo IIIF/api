@@ -122,6 +122,7 @@
     .names {
       padding-top: 0;
       margin-top: 0;
+      padding-left: 16px;
       li {
         line-height: 1.1;
         list-style: none
@@ -199,6 +200,19 @@
       }
     }
 
+    ol {
+      counter-reset: item;
+      margin-top: 3px;
+      margin-bottom: 3px;
+
+      li {
+        display: block
+      }
+      li:before {
+        content: counters(item, ".") ". ";
+        counter-increment: item
+      }
+    }
   } // x .specbody
 } // x .sub-pages-container
 
@@ -234,7 +248,12 @@ dt {
   padding: 3px
 }
 
-.highlight {
+div.highlight {
+  margin: 0;
+  padding: 0;
+}
+
+pre.highlight {
   background: #f2f2f2;
   border: 1px dashed #bbb;
   padding: 5px;

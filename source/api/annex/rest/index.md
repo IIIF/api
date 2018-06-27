@@ -37,6 +37,7 @@ Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss].
 {:toc}
 
 ## 1. Overview
+{: #overview}
 
 There are cases where it is useful for a client to store, update or delete images on a IIIF compliant image server without having access to that server's file system. For example:
 
@@ -53,6 +54,7 @@ There are cases where it is useful for a client to store, update or delete image
     but the format can not be known, and furthermore the source image may not be in a format that the server can derive through regular requests.
 
 ## 2. Requests
+{: #requests}
 
 This document aims to follow the [REST style of architecture][fielding-rest], as commonly implemented in HTTP. There is one deviation from this approach, which is that rather than using the [OPTIONS][http-options] method or the [Access-Control-Allow-Methods][http-access-control-allow-methods] header to describe which methods the server supports, the a client should request the server's capabilities document, as described in the [Image API][image-api].
 
@@ -61,6 +63,7 @@ The predicates that should be used to indicate which methods are supported are d
 The headers required by each request and response should follow [Section 14 of the HTTP Specification][http-headers]. Additional requirements and options are described below.
 
 ### 2.1 GET
+{: #get}
 
 The server should return the image that it uses make derivative images in response to regular API calls. Note that there is no guarantee that this is identical to the image that was originally PUT or POSTed to the server. The server MAY return 304 (Not Modified) if the server supports caching and the appropriate request headers were supplied.
 
@@ -79,6 +82,7 @@ Relevant Headers:
 The server MUST return the image in a single format from this URI. It MAY either ignore any Accept header included in request, or return a 406 (Not Acceptable) status in response to an attempt to content-negotiate.
 
 ### 2.2 HEAD
+{: #head}
 
 The request should behave exactly the same as GET, except that only the appropriate response code and headers should be returned. There MUST NOT be a response body. This is useful to a client that needs to know, for example, whether an image with the supplied URI exists on the server, the format of that image, or when it was last modified.
 
@@ -89,6 +93,7 @@ URI Pattern:
 ```
 
 ### 2.3 PUT
+{: #put}
 
 > TODO: what happens if the identifier uses chars the API doesn't allow? This is why we return a Location header, but is it OK to change it? Functionally, it should be OK as long as the resolver implementation changes the identifier in the exact same way.
 
@@ -112,6 +117,7 @@ Relevant Headers:
 The response body MAY contain the info.json that was extracted from the image, but it MUST NOT redirect to the info URI as the Location header the MUST contain the Base URI of the of the newly stored image.
 
 ### 2.4 POST
+{: #post}
 
 Similar to PUT, except that the server will supply the identifier, and return it as part of the Location header.
 
@@ -130,6 +136,7 @@ Relevant Headers:
 | [Content-Type][http-content-type] | Request | yes | The Media Type for the image. |
 
 ### 2.5 DELETE
+{: #delete}
 
 Delete the image specified by {identifier} on the server.
 
@@ -142,10 +149,12 @@ URI Pattern:
 There are no special requirements for the HTTP headers associated with a DELETE request.
 
 ## 3. Response Codes
+{: #response-codes}
 
 In addition to the error conditions discussed in the API documents, the following codes are likely to be relevant. Implementations may find additional codes useful to their applications.
 
 ### 3.1 Successful Requests
+{: #successful-requests}
 
 | Response Code  | Description |
 | -------------- | ----------- |
@@ -154,6 +163,7 @@ In addition to the error conditions discussed in the API documents, the followin
 | 204 No Content | For DELETE requests. 204 MUST be used. Do NOT use 200. |
 
 ### 3.2 Error Conditions
+{: #error-conditions}
 
 | Error Code                   | Description                                   |
 | ---------------------------- | --------------------------------------------- |
@@ -167,6 +177,7 @@ In addition to the error conditions discussed in the API documents, the followin
 | 503 Service Unavailable      | The server can not handle the request for some other reason. For example, it may be out of storge space |
 
 ## 4. Extension Context
+{: #extension-context}
 
 This extension defines five predicates in a separate context, one for each of the HTTP methods described in [Section 2][2]. A server that supports any of the HTTP methods as described by this document should modify its capabilities document to include this context, e.g., as follows:
 
@@ -191,6 +202,7 @@ This extension defines five predicates in a separate context, one for each of th
 If one or more of the predicates is missing, a client MUST assume the method is not supported.
 
 ## 5. Authorization, Authentication and Security
+{: #authorization-authentication-and-security}
 
 As of this writing authorization and authentication are topics of heavy dicussion within the IIIF community. This document will be revised as necessary, as the Image API specification evolves in this area.
 

@@ -21,7 +21,7 @@ __Latest Stable Version:__ [{{ site.presentation_api.stable.major }}.{{ site.pre
 
 __Previous Version:__ [2.1.1][prezi21]
 
-**Editors**
+**Editors:**
 
   * **[Michael Appleby](https://orcid.org/0000-0002-1266-298X)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0002-1266-298X), [_Yale University_](http://www.yale.edu/)
   * **[Tom Crane](https://orcid.org/0000-0003-1881-243X)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0003-1881-243X), [_Digirati_](http://digirati.com/)
@@ -1862,8 +1862,8 @@ Many of the changes in this version are due to the work of the [IIIF AV Technica
 
 | Date       | Description           |
 | ---------- | --------------------- |
-| 2018-04-18 | Version 3.0 ALPHA |
-| 2017-06-09 | Version 2.1.1 [View change log][prezi30-change-log] |
+| 2018-04-18 | Version 3.0 ALPHA [View change log][prezi30-change-log] |
+| 2017-06-09 | Version 2.1.1 [View change log][prezi211-change-log] |
 | 2016-05-12 | Version 2.1 (Hinty McHintface) [View change log][prezi21-change-log] |
 | 2014-09-11 | Version 2.0 (Triumphant Giraffe) [View change log][prezi20-change-log] |
 | 2013-08-26 | Version 1.0 (unnamed) |
