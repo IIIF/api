@@ -22,6 +22,7 @@ cssversion: 2
 | ------------------ | ---------------------- |
 | Image API          | [3.0.0 ALPHA][image30] |
 | Presentation API   | [3.0.0 ALPHA][prezi30] |
+| Change Discovery API | [0.1.0][discovery01] |
 {: .api-table}
 
 __Feedback Requested__<br/>
@@ -71,6 +72,7 @@ IIIF Specifications are created and published following the [IIIF Editorial Proc
 [search-jp]: http://www.asahi-net.or.jp/~ax2s-kmtn/ref/iiif/searchapi1.0.html
 [auth-jp]: http://www.asahi-net.or.jp/~ax2s-kmtn/ref/iiif/apiauthentication1.0.html
 
+
 [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
 [image30]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/ "Image API v3.0 ALPHA"
 [image21]: {{ site.url }}{{ site.baseurl }}/api/image/2.1/ "Image API v2.1"
@@ -86,6 +88,7 @@ IIIF Specifications are created and published following the [IIIF Editorial Proc
 [auth094]: {{ site.url }}{{ site.baseurl }}/api/auth/0.9/ "Authentication API v0.9.4"
 [search10]: {{ site.url }}{{ site.baseurl }}/api/search/1.0/ "Search API v1.0"
 [search09]: {{ site.url }}{{ site.baseurl }}/api/search/0.9/ "Search API v0.9"
+[discovery01]: {{ site.url }}{{ site.baseurl }}/api/discovery/0.1/ "IIIF Change Discovery API"
 [notes]: {{ site.url }}{{ site.baseurl }}/api/annex/ "Implementation Notes"
 [editors]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/editors/ "IIIF Editorial Process"
 
