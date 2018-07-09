@@ -2,8 +2,8 @@
 
 
 function Tester() {
-	this.baseUrl = 'http://iiif.io/api/image/validator/service/';
-	
+	this.baseUrl = 'https://iiif.io/api/image/validator/service/';
+
 	this.categories = {
 		1: 'Info/Identifier',
 		2: 'Region',
@@ -12,8 +12,8 @@ function Tester() {
 		5: 'Quality',
 		6: 'Format'
 	};
-	
-	this.tests = {};	
+
+	this.tests = {};
 	this.currentTests = [];
 	this.cancelled = false;
 }
@@ -37,12 +37,12 @@ Tester.prototype.runTests = function(uri, prefix, imageId, version) {
 	this.cancelled = false;
 	var totalTests = this.currentTests.length;
 	var testsPassed = 0;
-	
+
 	$('#results h1').html('Results');
-	
+
 	var resultsContainer = $('#results');
 	resultsContainer.empty();
-	
+
 	for (var i = 0; i < this.currentTests.length; i++) {
 		var t = this.currentTests[i];
 		//var test = this.tests[t];
@@ -51,7 +51,7 @@ Tester.prototype.runTests = function(uri, prefix, imageId, version) {
 			'<span class="resultLabel">'+ t +'</span><span class="elapsed"></span><span class="message"></span>'+
 		'</div>');
 	}
-	
+
 	function doTest(test) {
 		if (test) {
 			var testStart = new Date().getTime();
@@ -71,7 +71,7 @@ Tester.prototype.runTests = function(uri, prefix, imageId, version) {
 					var elapsed = testFinish - testStart;
 					result.find('.elapsed').html('Elapsed time (ms): '+elapsed);
 					result.find('.resultLabel').html(data.label);
-					
+
 					var message = '<ul>';
 					if (data.status) {
 						if (data.status == 'success') {
@@ -91,19 +91,19 @@ Tester.prototype.runTests = function(uri, prefix, imageId, version) {
 					}
 					message += '</ul>';
 					result.find('.message').html(message);
-					
+
 					$.proxy(doTest, this)(this.currentTests.shift());
 				}, this),
 				error: $.proxy(function(xhr, status, error) {
 					var testFinish = new Date().getTime();
 					var result = $('#r_'+test);
 					var elapsed = testFinish - testStart;
-					
+
 					result.find('.elapsed').html('Elapsed time (ms): '+elapsed);
 					result.addClass('fail');
 					var message = '<ul><li>Message: '+status+'</li></ul>';
 					result.find('.message').html(message);
-					
+
 					$.proxy(doTest, this)(this.currentTests.shift());
 				}, this)
 			});
@@ -125,7 +125,7 @@ Tester.prototype.runTests = function(uri, prefix, imageId, version) {
 			}
 		}
 	}
-	
+
 	$.proxy(doTest, this)(this.currentTests.shift());
 };
 
