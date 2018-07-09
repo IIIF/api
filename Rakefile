@@ -19,6 +19,7 @@ task :ci do
   build_site
   sh 'grunt test'
   sh 'scripts/check_json.py -v'
+  sh 'scripts/check_mixedcontent.sh'
   Rake::Task['spec'].invoke
   Rake::Task['check_html'].invoke
 end

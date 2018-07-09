@@ -1,5 +1,5 @@
 function Tester() {
-	this.baseUrl = 'http://iiif.io/api/image/validator/service/';
+	this.baseUrl = 'https://iiif.io/api/image/validator/service/';
 	
 	this.categories = {
 		1: 'Info/Identifier',
@@ -10,8 +10,8 @@ function Tester() {
 		6: 'Format',
 		7: 'HTTP'
 	};
-	
-	this.tests = {};	
+
+	this.tests = {};
 	this.currentTests = [];
 	this.cancelled = false;
 }
@@ -66,7 +66,7 @@ Tester.prototype.fetchTestList = function() {
 				$('#c_'+test.category).append('<div class="input">'+
 					'<input id="'+test.id+'" type="checkbox" name="'+test.id+'"/><label for="'+test.id+'">'+label+'</label>'+
 				'</div>');
-			}					
+			}
 			$('#tests input').click(function(ev) {
 				$('#level').val('-1');
 			});
@@ -79,7 +79,7 @@ Tester.prototype.fetchTestList = function() {
 Tester.prototype.init = function() {
 
 	this.fetchTestList();
-	
+
 	$('#dialog').dialog({
 		autoOpen: false,
 		modal: true,
@@ -91,7 +91,7 @@ Tester.prototype.init = function() {
 			}
 		}
 	});
-		
+
 	$('#inputs ins').each(function(index, el) {
 		var msg = '';
 		switch (index) {
@@ -108,12 +108,12 @@ Tester.prototype.init = function() {
 	}).click($.proxy(function(ev) {
 		this.showMessage('Help', $(ev.target).data('msg'));
 	}, this));
-	
+
 	$('#level').change($.proxy(function(ev) {
 		var level = parseInt($(ev.target).val());
 		this.doLevelCheck(level);
 	}, this));
-	
+
 	$('#version').change($.proxy(function(ev) {
 		// regenerate test options
 		this.fetchTestList();
@@ -121,18 +121,18 @@ Tester.prototype.init = function() {
 
 	$('#run_tests').click($.proxy(function(ev) {
 		var errors = '';
-		
+
 		var uri = $('#server').val();
 		if (uri == '') {
 			errors += 'The Server field is empty.\n';
 		}
-		
+
 		var prefix = $('#prefix').val();
 		if (prefix == '') {
 			errors += 'The Prefix field is empty.\n';
 		}
-		
-		var id = $('#identifier').val();		
+
+		var id = $('#identifier').val();
 		if (errors == '') {
 			$('#tabs').hide();
 			$('#results').show();
@@ -140,7 +140,7 @@ Tester.prototype.init = function() {
 		} else {
 			this.showMessage('Error', errors);
 		}
-		
+
 	}, this));
 
 };
