@@ -16,7 +16,7 @@
 [github-webanno-437]: https://github.com/w3c/web-annotation/issues/437
 [github-discovery-issues]: https://github.com/IIIF/discovery/issues
 [groups-av]: {{ site.url }}{{ site.baseurl }}/community/groups/av/ "IIIF A/V Working Group"
-[groups-discovery]: http://iiif.io/community/groups/discovery/
+[groups-discovery]: {{ site.url }}{{ site.baseurl }}/community/groups/discovery/
 [icon-na]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/not_allowed.png "Not allowed"
 [icon-opt]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/optional.png "Optional"
 [icon-rec]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/recommended.png "Recommended"
