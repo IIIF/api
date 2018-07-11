@@ -16,7 +16,6 @@
 [github-milestone-image-3]: https://github.com/IIIF/iiif.io/milestone/7
 [github-milestone-prezi-3]: https://github.com/IIIF/iiif.io/milestone/8
 [github-webanno-437]: https://github.com/w3c/web-annotation/issues/437
-[github-discovery-issues]: https://github.com/IIIF/discovery/issues
 [groups-av]: {{ site.url }}{{ site.baseurl }}/community/groups/av/ "IIIF A/V Working Group"
 [groups-discovery]: {{ site.url }}{{ site.baseurl }}/community/groups/discovery/
 [icon-na]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/not_allowed.png "Not allowed"
