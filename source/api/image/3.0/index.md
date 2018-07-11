@@ -624,8 +624,8 @@ When both the Image and Presentation APIs express `requiredStatement` or `logo` 
   "width": 6000,
   "height": 4000,
   "requiredStatement": {
-    "label": { "en": "Attribution" },
-    "value": { "en": "Provided by Example Organization" }
+    "label": { "en": [ "Attribution" ] },
+    "value": { "en": [ "Provided by Example Organization" ] }
   },
   "logo": [
     {
@@ -757,12 +757,12 @@ The following shows an image information response including all of the required 
   ],
   "requiredStatement": {
     "label": {
-      "en": "Attribution",
-      "cy": "Priodoliad"
+      "en": [ "Attribution" ],
+      "cy": [ "Priodoliad" ]
     },
     "value": {
-      "en": "<span>Provided by <b>Example Organization</b></span>",
-      "cy": "<span>Darparwyd gan <b>Enghraifft Sefydliad</b></span>"
+      "en": [ "<span>Provided by <b>Example Organization</b></span>" ],
+      "cy": [ "<span>Darparwyd gan <b>Enghraifft Sefydliad</b></span>" ]
     }
   },
   "logo": [

@@ -2,7 +2,7 @@
   "@context": "http://iiif.io/api/presentation/2/context.json", 
   "@id": "http://iiif.io/api/presentation/2.0/example/fixtures/65/manifest.json", 
   "@type": "sc:Manifest", 
-  "label": "Test 65 Manifest: Sequence with start_canvas", 
+  "label": "Test 65 Manifest: Sequence with startCanvas", 
   "within": "http://iiif.io/api/presentation/2.0/example/fixtures/collection.json", 
   "sequences": [
     {
@@ -30,7 +30,7 @@
           ]
         }
       ], 
-      "start_canvas": "http://iiif.io/api/presentation/2.0/example/fixtures/canvas/65/c1.json"
+      "startCanvas": "http://iiif.io/api/presentation/2.0/example/fixtures/canvas/65/c1.json"
     }
   ]
 }

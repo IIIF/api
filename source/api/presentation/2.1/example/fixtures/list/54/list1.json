@@ -2,5 +2,17 @@
   "@context": "http://iiif.io/api/presentation/2/context.json", 
   "@id": "http://iiif.io/api/presentation/2.1/example/fixtures/list/54/list1.json", 
   "@type": "sc:AnnotationList", 
-  "label": "Test 54 List 1"
+  "label": "Test 54 List 1", 
+  "resources": [
+    {
+      "@type": "oa:Annotation", 
+      "motivation": "oa:commenting", 
+      "resource": {
+        "@type": "cnt:ContentAsText", 
+        "format": "text/html", 
+        "chars": "<b>Comment</b>"
+      }, 
+      "on": "http://iiif.io/api/presentation/2.1/example/fixtures/canvas/54/c1.json"
+    }
+  ]
 }

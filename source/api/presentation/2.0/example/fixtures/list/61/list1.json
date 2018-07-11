@@ -11,7 +11,18 @@
         "@type": "cnt:ContentAsText", 
         "chars": "Top of First Page to Display"
       }, 
-      "on": "http://iiif.io/api/presentation/2.0/example/fixtures/canvas/61/c1.json"
+      "on": {
+        "@type": "oa:SpecificResource", 
+        "full": {
+          "@id": "http://iiif.io/api/presentation/2.0/example/fixtures/canvas/61/c1.json", 
+          "@type": "sc:Canvas", 
+          "label": "Test 61 Canvas: 1"
+        }, 
+        "selector": {
+          "@type": "oa:FragmentSelector", 
+          "value": "xywh=225,70,750,150"
+        }
+      }
     }
   ]
 }
