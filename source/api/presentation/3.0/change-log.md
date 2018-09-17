@@ -157,33 +157,34 @@ The `id` property is now also required for every class other than embedded Annot
 
 ### 2.1. Enable Audio and Video Content
 
-#### 2.1.1. Add `posterCanvas` for associated content
+#### 2.1.1. Allow Canvases to be treated as Content Resources
+
+Canvases may be treated as content resources for the purposes of annotating on to other Canvases.  For example, an excerpt of a Canvas that contains a video resource and annotations representing subtitles may be annotated on to another Canvas; the relative spatial and temporal alignment of the video and subtitles will be maintained. See issue [#1191](https://github.com/IIIF/api/issues/1191), previously [#42](https://github.com/IIIF/api/issues/42).
+
+#### 2.1.2. Add `posterCanvas` for associated content
 
 Many time-based media presentations have additional content associated with the object, such as either a poster that is rendered while video is buffering or on a selection user interface, or images that might be displayed while an audio-only object is being rendered.  The addition of `posterCanvas` allows this content to be associated with the resource while not being part of the object directly. The rendering requirements for `posterCanvas` are different from Canvases that represent the object. See issue [#1263](https://github.com/IIIF/api/issues/1263).
 
-#### 2.1.2. Add `duration` on Canvas
+#### 2.1.3. Add `duration` on Canvas
 
 In order to have time-based media associated with a Canvas, the Canvas needs to have a duration dimension.  This was added to allow multiple video and/or audio files to be synchronized in time in the same way that Image (and Video) files can be aligned in the spatial dimensions. See issues [#1069](https://github.com/IIIF/api/issues/1069) and [#1190](https://github.com/IIIF/api/issues/1190).
 
-#### 2.1.3. Add `timeMode` on Annotation
+#### 2.1.4. Add `timeMode` on Annotation
 
 The `timeMode` indicates whether the client should `trim`, `scale`, or `loop` playback of content resources with a time component when those resources are not identical in length to the duration of the portion of the Canvas onto which they are annotated.  See issue [#1075](https://github.com/IIIF/api/issues/1075).
 
-#### 2.1.4. Add `auto-advance` for `behavior`
+#### 2.1.5. Add `auto-advance` for `behavior`
 
 In some cases it may be desirable to have playback advance automatically from one Canvas to the next, such as when Canvases represent tracks of an album; the `auto-advance` `behavior` enables this. See issue [#1583](https://github.com/IIIF/api/issues/1583).
 
-#### 2.1.5. Add `thumbnail-nav` for `behavior`
+#### 2.1.6. Add `thumbnail-nav` for `behavior`
 
 Ranges may be used to present navigation based on thumbnails, such as video keyframes displayed in a timeline.  The`thumbnail-nav` `behavior` on a Range indicates it is not to be displayed in a conventional table of contents. See issue [#1259](https://github.com/IIIF/api/issues/1259).
 
-#### 2.1.6. Add `repeat` for `behavior`
+#### 2.1.7. Add `repeat` for `behavior`
 
 The `repeat` `behavior` indicates that the playback order of a Collection or Manifest containing temporal Canvases should return to the first Canvas after reaching the end of the final Canvas of the resource.  See issue [#1328](https://github.com/IIIF/api/issues/1328).
 
-#### 2.1.7. Allow Canvases to be treated as Content Resources
-
-Canvases may be treated as content resources for the purposes of annotating on to other Canvases.  For example, an excerpt of a Canvas that contains a video resource and annotations representing subtitles may be annotated on to another Canvas; the relative spatial and temporal alignment of the video and subtitles will be maintained. See issue [#1191](https://github.com/IIIF/api/issues/1191), previously [#42](https://github.com/IIIF/api/issues/42).
 
 ### 2.2. Additional Features
 
