@@ -342,7 +342,7 @@ The URI that identifies the resource. If the resource is only available embedded
 
 The value _MUST_ be a string, and the value _MUST_ be an HTTP(S) URI for resources defined in this specification. If the resource is retrievable via HTTP(S), then the URI _MUST_ be the URI at which it is published. External resources, such as profiles, _MAY_ have non-HTTP(S) URIs defined by other communities.
 
-The existence of an HTTP(S) URI in the `id` property does not mean that the URI _MUST_ be dereferencable. The [definitions of the Resources][prezi30-resource-structure] give guidance as to this, as does the [table in Appendix A][prezi30-appendixa]. 
+The existence of an HTTP(S) URI in the `id` property does not mean that the URI will always be dereferencable. The [definitions of the Resources][prezi30-resource-structure] give guidance as to this, as does the [table in Appendix A][prezi30-appendixa]. 
 
  * All resource types _MUST_ have the `id` property.<br/>
    Clients _MAY_ render `id` on any resource type, and _SHOULD_ render `id` on Collections, Manifests and Canvases.
