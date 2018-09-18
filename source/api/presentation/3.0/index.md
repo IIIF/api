@@ -1353,6 +1353,8 @@ Note that the Web Annotation data model defines different patterns for the `valu
 
 Additional features of the Web Annotation data model _MAY_ also be used, such as selecting a segment of the Canvas or content resource, or embedding the comment or transcription within the Annotation. The use of these advanced features sometimes results in situations where the `target` is not a content resource, but instead a SpecificResource, a Choice, or other non-content object. Implementations should check the `type` of the resource and not assume that it is always content to be rendered.
 
+The IIIF community has defined [additional Selector classes][annex-oa] for use with SpecificResources, especially for cases when it is not possible to use the official FragmentSelector. See the additional documentation for details.
+
 ``` json-doc
 {
   "@context": [
