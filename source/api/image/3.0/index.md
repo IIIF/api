@@ -814,8 +814,6 @@ A recipe for setting this header on the Apache HTTP Server is shown in the [Apac
 
 ## 7. Server Responses
 
-Servers _MUST_ support the HTTP GET method for retrieval of Image API resources. Servers _SHOULD_ support the HTTP OPTIONS method as part of the [CORS][image30-cors-response] preflight request pattern, and it is _RECOMMENDED_ that implementations also support the HTTP HEAD method.
-
 ### 7.1. CORS
 
 Servers _SHOULD_ support reuse of Image API resources by following the relevant requirements of the [CORS specification][org-w3c-cors], including the `Access-Control-Allow-Origin` header and the preflight request pattern. A recipe for enabling these behaviors is provided in the [Apache HTTP Server Implementation Notes][notes-apache-conditional-content-type].
