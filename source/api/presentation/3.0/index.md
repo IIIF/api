@@ -1531,7 +1531,7 @@ __Descriptive and Rights Properties__
 | -------------------- | ------------------------- | ------------------------ | ------------------------ | 
 | Collection           | ![recommended][icon3-rec] | ![optional][icon3-opt]   | ![optional][icon3-opt]   |
 | Manifest             | ![recommended][icon3-rec] | ![optional][icon3-opt]   | ![optional][icon3-opt]   |
-| Canvas*               | ![optional][icon3-opt]    | ![optional][icon3-opt]   | ![optional][icon3-opt]   |
+| Canvas               | ![optional][icon3-opt]    | ![optional][icon3-opt]*  | ![optional][icon3-opt]*  |
 | Annotation           | ![optional][icon3-opt]    | ![not allowed][icon3-na] | ![not allowed][icon3-na] |
 | AnnotationPage       | ![optional][icon3-opt]    | ![not allowed][icon3-na] | ![not allowed][icon3-na] |
 | Range                | ![optional][icon3-opt]    | ![optional][icon3-opt]   | ![optional][icon3-opt]   |
@@ -1547,7 +1547,7 @@ __Technical Properties__
 | --------------------  | ----------------------- | ---------------------- | ------------------------ | ------------------------ | ------------------------ | ------------------------ | ------------------------- | ------------------------ | ---------------------- | ------------------------ |
 | Collection            | ![required][icon3-req]  | ![required][icon3-req] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na]  | ![optional][icon3-opt]   | ![optional][icon3-opt] | ![not allowed][icon3-na] |
 | Manifest              | ![required][icon3-req]  | ![required][icon3-req] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na]  | ![optional][icon3-opt]   | ![optional][icon3-opt] | ![not allowed][icon3-na] |
-| Canvas*               | ![required][icon3-req]  | ![required][icon3-req] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![optional][icon3-opt]   | ![optional][icon3-opt]   | ![optional][icon3-opt]    | ![not allowed][icon3-na] | ![optional][icon3-opt] | ![not allowed][icon3-na] |
+| Canvas                | ![required][icon3-req]  | ![required][icon3-req] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![optional][icon3-opt]*  | ![optional][icon3-opt]*  | ![optional][icon3-opt]    | ![not allowed][icon3-na] | ![optional][icon3-opt] | ![not allowed][icon3-na] |
 | Annotation            | ![required][icon3-req]  | ![required][icon3-req] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na]  | ![not allowed][icon3-na] | ![optional][icon3-opt] | ![optional][icon3-opt]   |
 | Annotation Page       | ![required][icon3-req]  | ![required][icon3-req] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na]  | ![not allowed][icon3-na] | ![optional][icon3-opt] | ![not allowed][icon3-na] |
 | Range                 | ![required][icon3-req]  | ![required][icon3-req] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na]  | ![optional][icon3-opt]   | ![optional][icon3-opt] | ![not allowed][icon3-na] |
