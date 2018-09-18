@@ -486,7 +486,7 @@ Content-Type: application/ld+json;profile="http://iiif.io/api/image/3/context.js
 ```
 {: .urltemplate}
 
-If the server receives a request with one of the content types above in the Accept header, it _SHOULD_ respond with that content type following the rules of [content negotiation][org-rfc-7231-conneg]. Otherwise, it _MUST_ respond with the `application/json` content type.
+If the server receives a request with one of the content types above in the Accept header, it _SHOULD_ respond with that content type following the rules of [content negotiation][org-rfc-7231-conneg]. Otherwise, it _MUST_ respond with the `application/json` content type. Note that clients _MAY_ send parameters other than `profile` with either content-type.
 
 Servers should also support [CORS][image30-cors-response] on image information responses.
 
