@@ -488,7 +488,7 @@ Content-Type: application/json
 
 If the server receives a request with one of the content types above in the Accept header, it _SHOULD_ respond with that content type following the rules of [content negotiation][org-rfc-7231-conneg]. Otherwise, it _MUST_ respond with the `application/json` content type. Note that clients _MAY_ send parameters other than `profile` with either content-type.
 
-Servers should also support [CORS][image30-cors-response] on image information responses.
+Servers _SHOULD_ support [CORS][image30-cors-response] on image information responses.
 
 ### 5.2. Technical Properties
 
