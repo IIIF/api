@@ -94,12 +94,6 @@
       "@type": "@vocab",
       "@id": "doap:implements"
     },
-    "height": {
-      "@id": "exif:height"
-    },
-    "width": {
-      "@id": "exif:width"
-    },
     "duration": {
       "@id": "ebu:duration"
     },
