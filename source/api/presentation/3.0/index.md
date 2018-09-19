@@ -327,7 +327,6 @@ The value _MUST_ be a JSON object with the `id` and `type` properties, and _MAY_
     "type": "Canvas",
     "height": 1400,
     "width": 1200
-    // ...
   }
 }
 ```
@@ -356,8 +355,7 @@ The value _MUST_ be a JSON object with the `id` and `type` properties, and _MAY_
   "accompanyingCanvas": {
     "id": "https://example.org/iiif/1/canvas/accompany",
     "type": "Canvas",
-    "duration": 180.0,
-    // ...
+    "duration": 180.0
   }
 }
 ```
