@@ -372,7 +372,7 @@ The URI that identifies the resource. If the resource is only available embedded
 
 The value _MUST_ be a string, and the value _MUST_ be an HTTP(S) URI for resources defined in this specification. If the resource is retrievable via HTTP(S), then the URI _MUST_ be the URI at which it is published. External resources, such as profiles, _MAY_ have non-HTTP(S) URIs defined by other communities.
 
-The existence of an HTTP(S) URI in the `id` property does not mean that the URI will always be dereferencable. The [definitions of the Resources][prezi30-resource-structure] give guidance as to this, as does the [table in Appendix A][prezi30-appendixa]. 
+The existence of an HTTP(S) URI in the `id` property does not mean that the URI will always be dereferencable.  If the resource with the `id` property is __embedded__, it _MAY_ also be dereferenceable. If the resource is __referenced__, it _MUST_ be dereferenceable. The [definitions of the Resources][prezi30-resource-structure] give further guidance.
 
  * All resource types _MUST_ have the `id` property.<br/>
    Clients _MAY_ render `id` on any resource type, and _SHOULD_ render `id` on Collections, Manifests and Canvases.
@@ -1545,38 +1545,53 @@ It is possible to include Image API service descriptions within the Manifest, an
 
 __Descriptive and Rights Properties__
 
-|                      | label                    | metadata                 | summary                  | thumbnail                | posterCanvas            | requiredStatement     | rights                | navDate                  | language                 |
-| -------------------- | ----------------------   | ------------------------ | ------------------------ | ------------------------ | ----------------------- | --------------------- | --------------------- | ------------------------ | ------------------------ | 
-| Collection           | ![required][icon3-req]    | ![recommended][icon3-rec] | ![recommended][icon3-rec] | ![recommended][icon3-rec] | ![optional][icon3-opt]   | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt]    | ![not allowed][icon3-na]  |
-| Manifest             | ![required][icon3-req]    | ![recommended][icon3-rec] | ![recommended][icon3-rec] | ![recommended][icon3-rec] | ![optional][icon3-opt]   | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt]    | ![not allowed][icon3-na]  |
-| Canvas               | ![recommended][icon3-rec] | ![optional][icon3-opt]    | ![optional][icon3-opt]    | ![optional][icon3-opt]    | ![optional][icon3-opt]   | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt]    | ![not allowed][icon3-na]  |
-| Annotation           | ![optional][icon3-opt]    | ![optional][icon3-opt]    | ![optional][icon3-opt]    | ![optional][icon3-opt]    | ![not allowed][icon3-na] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![not allowed][icon3-na]  | ![not allowed][icon3-na]  |
-| AnnotationPage       | ![optional][icon3-opt]    | ![optional][icon3-opt]    | ![optional][icon3-opt]    | ![optional][icon3-opt]    | ![not allowed][icon3-na] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![not allowed][icon3-na]  | ![not allowed][icon3-na]  |
-| Range                | ![recommended][icon3-rec] | ![optional][icon3-opt]    | ![optional][icon3-opt]    | ![optional][icon3-opt]    | ![optional][icon3-opt]   | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt]    | ![not allowed][icon3-na]  |
-| AnnotationCollection | ![recommended][icon3-rec] | ![optional][icon3-opt]    | ![optional][icon3-opt]    | ![optional][icon3-opt]    | ![not allowed][icon3-na] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![not allowed][icon3-na]  | ![not allowed][icon3-na]  |
-| Content Resources    | ![optional][icon3-opt]    | ![optional][icon3-opt]    | ![optional][icon3-opt]    | ![optional][icon3-opt]    | ![not allowed][icon3-na] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![not allowed][icon3-na]  | ![recommended][icon3-rec] |
+|                      | label                     | metadata                  | summary                   | requiredStatement      | rights                 | navDate                   | language                  |
+| -------------------- | -----------------------   | ------------------------- | ------------------------- | ---------------------- | ---------------------- | ------------------------- | ------------------------- | 
+| Collection           | ![required][icon3-req]    | ![recommended][icon3-rec] | ![recommended][icon3-rec] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt]    | ![not allowed][icon3-na]  |
+| Manifest             | ![required][icon3-req]    | ![recommended][icon3-rec] | ![recommended][icon3-rec] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt]    | ![not allowed][icon3-na]  |
+| Canvas               | ![recommended][icon3-rec] | ![optional][icon3-opt]    | ![optional][icon3-opt]    | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt]    | ![not allowed][icon3-na]  |
+| Annotation           | ![optional][icon3-opt]    | ![optional][icon3-opt]    | ![optional][icon3-opt]    | ![optional][icon3-opt] | ![optional][icon3-opt] | ![not allowed][icon3-na]  | ![not allowed][icon3-na]  |
+| AnnotationPage       | ![optional][icon3-opt]    | ![optional][icon3-opt]    | ![optional][icon3-opt]    | ![optional][icon3-opt] | ![optional][icon3-opt] | ![not allowed][icon3-na]  | ![not allowed][icon3-na]  |
+| Range                | ![recommended][icon3-rec] | ![optional][icon3-opt]    | ![optional][icon3-opt]    | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt]    | ![not allowed][icon3-na]  |
+| AnnotationCollection | ![recommended][icon3-rec] | ![optional][icon3-opt]    | ![optional][icon3-opt]    | ![optional][icon3-opt] | ![optional][icon3-opt] | ![not allowed][icon3-na]  | ![not allowed][icon3-na]  |
+| Content Resources    | ![optional][icon3-opt]    | ![optional][icon3-opt]    | ![optional][icon3-opt]    | ![optional][icon3-opt] | ![optional][icon3-opt] | ![not allowed][icon3-na]  | ![recommended][icon3-rec] |
 {: .api-table #table-reqs-1}
 
+|                      | thumbnail                 | placeholderCanvas        | accompanyingCanvas       |
+| -------------------- | ------------------------- | ------------------------ | ------------------------ | 
+| Collection           | ![recommended][icon3-rec] | ![optional][icon3-opt]   | ![optional][icon3-opt]   |
+| Manifest             | ![recommended][icon3-rec] | ![optional][icon3-opt]   | ![optional][icon3-opt]   |
+| Canvas               | ![optional][icon3-opt]    | ![optional][icon3-opt]*  | ![optional][icon3-opt]*  |
+| Annotation           | ![optional][icon3-opt]    | ![not allowed][icon3-na] | ![not allowed][icon3-na] |
+| AnnotationPage       | ![optional][icon3-opt]    | ![not allowed][icon3-na] | ![not allowed][icon3-na] |
+| Range                | ![optional][icon3-opt]    | ![optional][icon3-opt]   | ![optional][icon3-opt]   |
+| AnnotationCollection | ![optional][icon3-opt]    | ![not allowed][icon3-na] | ![not allowed][icon3-na] |
+| Content Resources    | ![optional][icon3-opt]    | ![not allowed][icon3-na] | ![not allowed][icon3-na] |
+{: .api-table #table-reqs-1a}
+
+*A Canvas that is the value of a `placeholderCanvas` or `accompanyingCanvas` property may not have either of those properties itself.<br/>
 
 __Technical Properties__
 
-|                       | id                       | type                  | format                  | profile                 | height                  | width                   | duration                 | viewingDirection        | behavior              | timeMode                |
-| --------------------  | ------------------------ | --------------------- | ----------------------- | ----------------------- | ----------------------- | ----------------------- | ------------------------ | ----------------------- | --------------------- | ----------------------- |
-| Collection            | ![required][icon3-req]    | ![required][icon3-req] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na]  | ![optional][icon3-opt]   | ![optional][icon3-opt] | ![not allowed][icon3-na] |
-| Manifest              | ![required][icon3-req]    | ![required][icon3-req] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na]  | ![optional][icon3-opt]   | ![optional][icon3-opt] | ![not allowed][icon3-na] |
-| Canvas                | ![required][icon3-req]    | ![required][icon3-req] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![optional][icon3-opt]   | ![optional][icon3-opt]   | ![optional][icon3-opt]    | ![not allowed][icon3-na] | ![optional][icon3-opt] | ![not allowed][icon3-na] |
-| Annotation            | ![required][icon3-req]    | ![required][icon3-req] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na]  | ![not allowed][icon3-na] | ![optional][icon3-opt] | ![optional][icon3-opt]   |
-| Annotation Page       | ![recommended][icon3-rec] | ![required][icon3-req] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na]  | ![not allowed][icon3-na] | ![optional][icon3-opt] | ![not allowed][icon3-na] |
-| Range                 | ![required][icon3-req]    | ![required][icon3-req] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na]  | ![optional][icon3-opt]   | ![optional][icon3-opt] | ![not allowed][icon3-na] |
-| Annotation Collection | ![required][icon3-req]    | ![required][icon3-req] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na]  | ![not allowed][icon3-na] | ![optional][icon3-opt] | ![not allowed][icon3-na] |
-| Content Resources     | ![required][icon3-req]    | ![required][icon3-req] | ![optional][icon3-opt]   | ![optional][icon3-opt]   | ![optional][icon3-opt]   | ![optional][icon3-opt]   | ![optional][icon3-opt]    | ![not allowed][icon3-na] | ![optional][icon3-opt] | ![not allowed][icon3-na] |
+|                       | id                      | type                   | format                   | profile                  | height                   | width                    | duration                  | viewingDirection         | behavior               | timeMode                 |
+| --------------------  | ----------------------- | ---------------------- | ------------------------ | ------------------------ | ------------------------ | ------------------------ | ------------------------- | ------------------------ | ---------------------- | ------------------------ |
+| Collection            | ![required][icon3-req]  | ![required][icon3-req] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na]  | ![optional][icon3-opt]   | ![optional][icon3-opt] | ![not allowed][icon3-na] |
+| Manifest              | ![required][icon3-req]  | ![required][icon3-req] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na]  | ![optional][icon3-opt]   | ![optional][icon3-opt] | ![not allowed][icon3-na] |
+| Canvas                | ![required][icon3-req]  | ![required][icon3-req] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![optional][icon3-opt]*  | ![optional][icon3-opt]*  | ![optional][icon3-opt]    | ![not allowed][icon3-na] | ![optional][icon3-opt] | ![not allowed][icon3-na] |
+| Annotation            | ![required][icon3-req]  | ![required][icon3-req] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na]  | ![not allowed][icon3-na] | ![optional][icon3-opt] | ![optional][icon3-opt]   |
+| Annotation Page       | ![required][icon3-req]  | ![required][icon3-req] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na]  | ![not allowed][icon3-na] | ![optional][icon3-opt] | ![not allowed][icon3-na] |
+| Range                 | ![required][icon3-req]  | ![required][icon3-req] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na]  | ![optional][icon3-opt]   | ![optional][icon3-opt] | ![not allowed][icon3-na] |
+| Annotation Collection | ![required][icon3-req]  | ![required][icon3-req] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na]  | ![not allowed][icon3-na] | ![optional][icon3-opt] | ![not allowed][icon3-na] |
+| Content Resources     | ![required][icon3-req]  | ![required][icon3-req] | ![optional][icon3-opt]   | ![optional][icon3-opt]   | ![optional][icon3-opt]   | ![optional][icon3-opt]   | ![optional][icon3-opt]    | ![not allowed][icon3-na] | ![optional][icon3-opt] | ![not allowed][icon3-na] |
 {: .api-table #table-reqs-2}
+
+*If a Canvas has either of `height` and `width`, it _MUST_ have the other, as described in the [definitions][prezi30-height] of those properties.<br/>
 
 
 __Linking Properties__
 
-|                       | seeAlso                | service                | logo                  | homepage              | rendering             | partOf                | start                   | supplementary           |
-| --------------------  | ---------------------- | ---------------------- | --------------------- | --------------------- | --------------------- | --------------------- | ----------------------- | ----------------------- |
+|                       | seeAlso                 | service                 | logo                   | homepage               | rendering              | partOf                 | start                    | supplementary            |
+| --------------------  | ----------------------- | ----------------------- | ---------------------- | ---------------------- | ---------------------- | ---------------------- | ------------------------ | ------------------------ |
 | Collection            | ![optional][icon3-opt]  | ![optional][icon3-opt]  | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![not allowed][icon3-na] | ![not allowed][icon3-na] |
 | Manifest              | ![optional][icon3-opt]  | ![optional][icon3-opt]  | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt]   | ![not allowed][icon3-na] |
 | Canvas                | ![optional][icon3-opt]  | ![optional][icon3-opt]  | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![not allowed][icon3-na] | ![not allowed][icon3-na] |
@@ -1590,8 +1605,8 @@ __Linking Properties__
 
 __Structural Properties__
 
-|                       | items                     | structures                | annotations               |
-| --------------------- | ------------------------- | ------------------------- | ------------------------- |
+|                       | items                      | structures                 | annotations                |
+| --------------------- | -------------------------- | -------------------------- | -------------------------- |
 | Collection            | ![required][icon3-req]     | ![not allowed][icon3-na]   | ![optional][icon3-opt]     |
 | Manifest              | ![required][icon3-req]     | ![optional][icon3-opt]     | ![optional][icon3-opt]     |
 | Canvas                | ![recommended][icon3-rec]  | ![not allowed][icon3-na]   | ![optional][icon3-opt]     |
@@ -1601,21 +1616,6 @@ __Structural Properties__
 | Annotation Collection | ![not allowed][icon3-na]   | ![not allowed][icon3-na]   | ![not allowed][icon3-na]   |
 | Content Resources     | ![not allowed][icon3-na]   | ![not allowed][icon3-na]   | ![optional][icon3-opt]     |
 {: .api-table #table-reqs-4}
-
-
-__Protocol Behavior__
-
-|                       | id is dereferenceable     |
-| --------------------  | ------------------------- |
-| Collection            | ![required][icon3-req]     |
-| Manifest              | ![required][icon3-req]     |
-| Canvas                | ![recommended][icon3-rec]  |
-| Annotation            | ![recommended][icon3-rec]  |
-| Annotation Page       | ![required][icon3-req]     |
-| Range                 | ![optional][icon3-opt]     |
-| Annotation Collection | ![optional][icon3-opt]     |
-| Content Resources     | ![required][icon3-req]     |
-{: .api-table #table-reqs-deref}
 
 
 ### B. Example Manifest Response
