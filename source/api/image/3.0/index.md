@@ -225,7 +225,7 @@ The size parameter specifies the dimensions to which the extracted region, which
 | _`!w,h`_  | The extracted region is scaled so that the width and height of the returned image are not greater than _`w`_ and _`h`_, while maintaining the aspect ratio. The returned image _MUST_ be as large as possible but not larger than the extracted region, _`w`_ or _`h`_, or server-imposed limits. |
 {: .api-table}
 
-Sizes listed above _MUST NOT_ result in a returned image with pixel dimensions that are larger than the extracted image.  Such a request _SHOULD_ result in a 400 (Bad Request) status code.
+For sizes listed above the pixel dimensions of the scaled region _MUST NOT_ be greater than the pixel dimensions of the extracted region. Requests for sizes that violate this constraint _SHOULD_ result in a 400 (Bad Request) status code.
 
 The above sizes may be prefixed with a `^` (caret) to permit upscaling by the image service, if supported. Such requests _MAY_ result in a returned image with pixel dimensions that are larger than the extracted image. Image services that support the `sizeUpscaling` feature _MUST_ upscale the extracted region when its pixel dimensions are smaller than size specified by these forms. Image services that do not support the `sizeUpscaling` feature _MUST_ disregard the `^` prefix when parsing the size parameter.
 
