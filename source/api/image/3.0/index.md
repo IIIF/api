@@ -227,7 +227,7 @@ The size parameter specifies the dimensions to which the extracted region, which
 
 Sizes listed above _MUST NOT_ result in a returned image with pixel dimensions that are larger than the extracted image.  Such a request _SHOULD_ result in a 400 (Bad Request) status code.
 
-The above sizes may be prefixed with a `^` (caret) to permit upscaling by the image service, if supported. Such requests _MAY_ result in a returned image with pixel dimensions that are larger than the extracted image.  Returned images for these sizes, including `^max` and `^!w,h`, _MUST NOT_ be constrained by the pixel dimensions of the extracted region. Image services that support the `sizeUpscaling` feature _MUST_ upscale the extracted region when its pixel dimensions are smaller than size specified by these forms. Image services that do not support the `sizeUpscaling` feature _MUST_ disregard the `^` prefix when parsing the size parameter. 
+The above sizes may be prefixed with a `^` (caret) to permit upscaling by the image service, if supported. Such requests _MAY_ result in a returned image with pixel dimensions that are larger than the extracted image. Image services that support the `sizeUpscaling` feature _MUST_ upscale the extracted region when its pixel dimensions are smaller than size specified by these forms. Image services that do not support the `sizeUpscaling` feature _MUST_ disregard the `^` prefix when parsing the size parameter. 
 
 For all requests the pixel dimensions of the scaled region _MUST NOT_ be less than 1 pixel or greater than the server-imposed limits. Requests that would generate images of these sizes are errors that _SHOULD_ result in a 400 (Bad Request) status code.
 
