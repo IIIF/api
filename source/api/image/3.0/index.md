@@ -227,17 +227,7 @@ The size parameter specifies the dimensions to which the extracted region, which
 
 Sizes listed above _MUST NOT_ result in a returned image with pixel dimensions that are larger than the extracted image.  Such a request _SHOULD_ result in a 400 (Bad Request) status code.
 
-Requests for the sizes below, which are prefixed with a `^` (caret), _MAY_ result in a returned image with pixel dimensions that are larger than the extracted image.   Image services that support the `sizeUpscaling` feature _MUST_ upscale the extracted region when its pixel dimensions are smaller than size specified by these forms.  Image services that do not support the `sizeUpscaling` feature _MUST_ disregard the `^` prefix when parsing the size parameter.
-
-| Form      | Description |
-| --------- | ----------- |
-| `^max`     | The extracted region is returned at the maximum size permitted by the server-imposed limits, and upscaled by the server if necessary. |
-| _`^w,`_    | The extracted region should be scaled so that the width of the returned image is exactly equal to _`w`_. The extracted region should be upscaled if necessary. |
-| _`^,h`_    | The extracted region should be scaled so that the height of the returned image is exactly equal to _`h`_. The extracted region should be upscaled if necessary. |
-| _`^pct:n`_ | The width and height of the returned image is scaled to _`n`_ percent of the width and height of the extracted region. The extracted region should be upscaled if the value of _`n`_ is greater than 100. |
-| _`^w,h`_   | The width and height of the returned image are exactly _`w`_ and _`h`_. The aspect ratio of the returned image _MAY_ be significantly different than the extracted region, resulting in a distorted image.   The extracted region should be upscaled if necessary. |
-| _`^!w,h`_  | The extracted region is scaled so that the width and height of the returned image are not greater than _`w`_ and _`h`_, while maintaining the aspect ratio. The extracted region should be upscaled if necessary. The returned image _MUST_ be as large as possible but not larger than the server-imposed limits. |
-{: .api-table}
+The above sizes may be prefixed with a `^` (caret) to permit upscaling by the image service, if supported. Such requests _MAY_ result in a returned image with pixel dimensions that are larger than the extracted image.  Returned images for these sizes, including `^max` and `^!w,h`, _MUST NOT_ be constrained by the pixel dimensions of the extracted region. Image services that support the `sizeUpscaling` feature _MUST_ upscale the extracted region when its pixel dimensions are smaller than size specified by these forms. Image services that do not support the `sizeUpscaling` feature _MUST_ disregard the `^` prefix when parsing the size parameter. 
 
 For all requests the pixel dimensions of the scaled region _MUST NOT_ be less than 1 pixel or greater than the server-imposed limits. Requests that would generate images of these sizes are errors that _SHOULD_ result in a 400 (Bad Request) status code.
 
