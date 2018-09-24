@@ -40,9 +40,9 @@ A recipe must have the following features:
 
 _The corresponding 2.1 test fixture(s) is given like this, where appropriate: ..(3,5)_
 
-* Minimum Viable Manifest (1) (use static image as content resource, w.h)
-* Minimum Viable Manifest (1) (use single audio as content resource, d)
-* Minimum Viable Manifest (1) (use single video as content resource, w,h,d)
+* [Simplest Manifest - Image][recipe-mvm-image] (1) (use static image as content resource, w.h)
+* Simplest Manifest - Audio (1) (use single audio as content resource, d)
+* Simplest Manifest - Video (1) (use single video as content resource, w,h,d)
 * Image different size to canvas (26)
 * Image Service for single image (24,25)
 * metadata and summary (2,5)
@@ -110,6 +110,7 @@ _(leading on to segmentation examples later)_
 ## Linking
 
 * alternative representations (rendering (?))
+* Homepage
 * Linking from Image API to Presentation API (via partOf as per #600, #1507)
 * Linking from Image API to external metadata
 * Linking from external metadata to Image API
@@ -154,3 +155,4 @@ _this might be in a separate auth cookbook_
 
 {% include acronyms.md %}
 {% include links.md %}
+{% include links_cookbook.md %}
