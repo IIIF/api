@@ -198,3 +198,4 @@
 [search1-autocomplete]: {{ site.url }}{{ site.baseurl }}/api/search/1.0/#autocomplete
 [search1]: {{ site.url }}{{ site.baseurl }}/api/search/1.0/
 [shared-canvas]: {{ site.url }}{{ site.baseurl }}/model/shared-canvas/{{ site.shared_canvas.stable.major}}.{{ site.shared_canvas.stable.minor }} "Shared Canvas Data Model"
+[recipe-mvm-image]: {{ site.url }}{{ site.baseurl }}/api/annex/cookbook/mvm-image/ "Simplest Manifest - Image"

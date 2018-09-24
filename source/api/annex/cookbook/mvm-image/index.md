@@ -75,5 +75,4 @@ The `items` property of the Canvas is a list of annotation pages, in this case t
 
 {% include acronyms.md %}
 {% include links.md %}
-{% include links_cookbook.md %}
 

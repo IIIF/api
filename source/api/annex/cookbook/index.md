@@ -155,4 +155,3 @@ _this might be in a separate auth cookbook_
 
 {% include acronyms.md %}
 {% include links.md %}
-{% include links_cookbook.md %}
