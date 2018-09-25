@@ -213,7 +213,7 @@ Examples:
 
 ###  4.2. Size
 
-The size parameter specifies the dimensions to which the extracted region, which might be the complete image, is to be scaled. With the exception of the _`w,h`_ form, the returned image maintains the aspect ratio of the extracted region as closely as possible.
+The size parameter specifies the dimensions to which the extracted region, which might be the complete image, is to be scaled. With the exception of the _`w,h`_ and _`^w,h`_ forms, the returned image maintains the aspect ratio of the extracted region as closely as possible.
 
 | Form      | Description |
 | --------- | ----------- |
@@ -225,7 +225,11 @@ The size parameter specifies the dimensions to which the extracted region, which
 | _`!w,h`_  | The extracted region is scaled so that the width and height of the returned image are not greater than _`w`_ and _`h`_, while maintaining the aspect ratio. The returned image _MUST_ be as large as possible but not larger than the extracted region, _`w`_ or _`h`_, or server-imposed limits. |
 {: .api-table}
 
-The pixel dimensions of the scaled region _MUST NOT_ be greater than the pixel dimensions of the extracted region, or be less than 1 pixel. Requests that would generate images of these sizes are errors that _SHOULD_ result in a 400 (Bad Request) status code.
+For sizes listed above the pixel dimensions of the scaled region _MUST NOT_ be greater than the pixel dimensions of the extracted region. Requests for sizes that violate this constraint _SHOULD_ result in a 400 (Bad Request) status code.
+
+The above sizes may be prefixed with a `^` (caret) to permit upscaling by the image service, if supported. Such requests _MAY_ result in a returned image with pixel dimensions that are larger than the extracted image. Image services that support the `sizeUpscaling` feature _MUST_ upscale the extracted region when its pixel dimensions are smaller than size specified by these forms. Image services that do not support the `sizeUpscaling` feature _MUST_ disregard the `^` prefix when parsing the size parameter.
+
+For all requests the pixel dimensions of the scaled region _MUST NOT_ be less than 1 pixel or greater than the server-imposed limits. Requests that would generate images of these sizes are errors that _SHOULD_ result in a 400 (Bad Request) status code.
 
 Examples:
 
@@ -510,7 +514,7 @@ The JSON response has several technical properties that describe the available f
 
 The `width` and `height` properties give the size of the full image and are required in order to construct tile requests.
 
-The `maxWidth`, `maxHeight`, and `maxArea` parameters provide a way for image servers to express limits on the sizes supported for the image. If `maxWidth` alone, or `maxWidth` and `maxHeight` are specified then clients should expect requests with larger linear dimensions to be rejected. If `maxArea` is specified then clients should expect requests with larger pixel areas to be rejected. The `maxWidth / maxHeight`  and `maxArea` parameters are independent, servers may implement either or both limits. Servers _MUST_ ensure that sizes specified by any `sizes` or `tiles` properties are within any size limits expressed. Clients _SHOULD NOT_ make requests that exceed size limits expressed.
+The `maxWidth`, `maxHeight`, and `maxArea` parameters provide a way for image servers to express limits on the sizes supported for the image. If `maxWidth` alone, or `maxWidth` and `maxHeight` are specified then clients should expect requests with larger linear dimensions to be rejected. If `maxArea` is specified then clients should expect requests with larger pixel areas to be rejected. The `maxWidth / maxHeight`  and `maxArea` parameters are independent, servers may implement either or both limits. Servers _MUST_ ensure that sizes specified by any `sizes` or `tiles` properties are within any size limits expressed. Clients _SHOULD NOT_ make requests that exceed size limits expressed.  Image services that support the `sizeUpscaling` feature _MUST_ specify `maxWidth` or `maxArea`.
 
 ``` json-doc
 {
@@ -669,6 +673,7 @@ The following features are defined for use in the `extraFeatures` property:
 | `sizeByPct` | Images size may be requested in the form _`pct:n`_.  |
 | `sizeByW` | Image size may be requested in the form _`w,`_.  |
 | `sizeByWh` | Image size may be requested in the form _`w,h`_.  |
+| `sizeUpscaling` | Image size may be requested in the form _`^`size_. |
 {: .api-table #features-table}
 
 A server that supports neither `sizeByW` or `sizeByWh` is only required to serve the image sizes listed under the `sizes` property or implied by the `tiles` property of the image information document, allowing for a static file implementation.
