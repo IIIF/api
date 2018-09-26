@@ -97,7 +97,7 @@ _(leading on to segmentation examples later)_
 * foldouts, etc (Choice or non-paged interlude (flaps vs maps))? 
 * Multiple images (master/detail) (30,31)
 * Multiple images and multiple choices (32,33,34)
-* basic segmentation (crop out scanner) (35,36,37,38)
+* [Annotating part of an image to a Canvas][recipe-segment-image-part] (e.g., crop out scanner) (35,36,37,38)
 * Image with CSS Rotation (39)
 * Reusing an image service (ImageApiSelector) (41)
 * non-rectangular segmentation
