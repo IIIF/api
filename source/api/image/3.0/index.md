@@ -213,7 +213,7 @@ Examples:
 
 ###  4.2. Size
 
-The size parameter specifies the dimensions to which the extracted region, which might be the complete image, is to be scaled. With the exception of the _`w,h`_ form, the returned image maintains the aspect ratio of the extracted region as closely as possible.
+The size parameter specifies the dimensions to which the extracted region, which might be the complete image, is to be scaled. With the exception of the _`w,h`_ and _`^w,h`_ forms, the returned image maintains the aspect ratio of the extracted region as closely as possible.
 
 | Form      | Description |
 | --------- | ----------- |
@@ -225,7 +225,21 @@ The size parameter specifies the dimensions to which the extracted region, which
 | _`!w,h`_  | The extracted region is scaled so that the width and height of the returned image are not greater than _`w`_ and _`h`_, while maintaining the aspect ratio. The returned image _MUST_ be as large as possible but not larger than the extracted region, _`w`_ or _`h`_, or server-imposed limits. |
 {: .api-table}
 
-The pixel dimensions of the scaled region _MUST NOT_ be greater than the pixel dimensions of the extracted region, or be less than 1 pixel. Requests that would generate images of these sizes are errors that _SHOULD_ result in a 400 (Bad Request) status code.
+Requests for sizes listed above that result in a scaled region with pixel dimensions greater than the pixel dimensions of the extracted region are errors that _SHOULD_ result in a 400 (Bad Request) status code.  
+
+The sizes below allow upscaling of the extracted region by the image service. Services that do not support the `sizeUpscaling` feature _SHOULD_ respond to requests for these sizes with a 400 (Bad Request) status code.
+
+| Form      | Description |
+| --------- | ----------- |
+| `^max`     | The extracted region is scaled to the maximum size permitted by `maxWidth`, `maxHeight`, or `maxArea` as defined in the [Technical Properties][image30-technical-properties] section. |
+| _^`w,`_    | The extracted region should be scaled so that the width of the returned image is exactly equal to _`w`_. |
+| _^`,h`_    | The extracted region should be scaled so that the height of the returned image is exactly equal to _`h`_. |
+| _^`pct:n`_ | The width and height of the returned image is scaled to _`n`_ percent of the width and height of the extracted region. Values of _`n`_ greater than 100 are permitted. |
+| _^`w,h`_   | The width and height of the returned image are exactly _`w`_ and _`h`_. The aspect ratio of the returned image _MAY_ be significantly different than the extracted region, resulting in a distorted image. |
+| _^`!w,h`_  | The extracted region is scaled so that the width and height of the returned image are not greater than _`w`_ and _`h`_, while maintaining the aspect ratio. The returned image _MUST_ be as large as possible but not larger than  _`w`_, _`h`_, or server-imposed limits. |
+{: .api-table}
+
+For all requests the pixel dimensions of the scaled region _MUST NOT_ be less than 1 pixel or greater than the server-imposed limits. Requests that would generate images of these sizes are errors that _SHOULD_ result in a 400 (Bad Request) status code.
 
 Examples:
 
@@ -669,9 +683,12 @@ The following features are defined for use in the `extraFeatures` property:
 | `sizeByPct` | Images size may be requested in the form _`pct:n`_.  |
 | `sizeByW` | Image size may be requested in the form _`w,`_.  |
 | `sizeByWh` | Image size may be requested in the form _`w,h`_.  |
+| `sizeUpscaling` | Image sizes prefixed with _`^`_ may be requested. |
 {: .api-table #features-table}
 
 A server that supports neither `sizeByW` or `sizeByWh` is only required to serve the image sizes listed under the `sizes` property or implied by the `tiles` property of the image information document, allowing for a static file implementation.
+
+Services that support the `sizeUpscaling` feature _MUST_ specify the `maxWidth` or `maxArea` [technical properties][image30-technical-properties].
 
 The set of features, formats and qualities supported is the union of those declared in the external profile document and those added by the `extraQualities`, `extraFormats`, and `extraFeatures` properties. If a feature is not present in either the profile document or the `extraFeatures` property, then a client _MUST_ assume that the feature is not supported.
 
