@@ -227,7 +227,7 @@ The size parameter specifies the dimensions to which the extracted region, which
 
 Requests for sizes listed above that result in a scaled region with pixel dimensions greater than the pixel dimensions of the extracted region are errors that _SHOULD_ result in a 400 (Bad Request) status code.  
 
-The sizes below allow upscaling of the extracted region by the image service. Services that do not support the `sizeUpscaling` feature _SHOULD_ respond to requests for these sizes with a 501 (Not Implemented) status code.
+The sizes below allow upscaling of the extracted region by the image service. Services that do not support the `sizeUpscaling` feature _SHOULD_ respond to requests for these sizes with a 400 (Bad Request) status code.
 
 | Form      | Description |
 | --------- | ----------- |
