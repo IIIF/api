@@ -550,11 +550,6 @@ The value _MUST_ be an array of strings.
  * Any resource type _MAY_ have the `behavior` property with at least one item.<br/>
    Clients _SHOULD_ process `behavior` on any resource type.
 
-<style>
-.borderless { border-right: 0px ; }
-</style>
-
-
 > | Value | Description |
 | ----- | ----------- |
 |{: .borderless} | **Temporal Behaviors** |
