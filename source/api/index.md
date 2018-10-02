@@ -22,7 +22,7 @@ cssversion: 2
 | ------------------ | ---------------------- |
 | Image API          | [3.0.0 ALPHA][image30] |
 | Presentation API   | [3.0.0 ALPHA][prezi30] |
-| Change Discovery API | [0.1.0][discovery01] |
+| Change Discovery API | [0.2.0][discovery02] |
 {: .api-table}
 
 __Feedback Requested__<br/>

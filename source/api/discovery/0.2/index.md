@@ -1,6 +1,6 @@
 ---
-title: "IIIF Change Discovery API 0.1"
-title_override: "IIIF Change Discovery API 0.1"
+title: "IIIF Change Discovery API 0.2"
+title_override: "IIIF Change Discovery API 0.2"
 id: discovery-api
 layout: spec
 cssversion: 3
