@@ -149,6 +149,7 @@
 [org-w3c-activitystreams]: https://www.w3.org/TR/activitystreams-core/
 [org-w3c-cors]: https://www.w3.org/TR/cors/ "Cross-Origin Resource Sharing"
 [org-w3c-css]: http://www.w3.org/TR/CSS/ "Cascading Style Sheets"
+[org-w3c-dcat]: https://www.w3.org/TR/vocab-dcat/ "Data Catalog Vocabulary"
 [org-w3c-json-as-json-ld]: http://www.w3.org/TR/json-ld/#interpreting-json-as-json-ld "Interpreting JSON as JSON-LD"
 [org-w3c-json-ld-compaction]: http://www.w3.org/TR/json-ld-api/#compaction-algorithms "JSON-LD Compaction Algorithms"
 [org-w3c-json-ld-scoped-contexts]: https://json-ld.org/spec/latest/json-ld/#scoped-contexts "JSON-LD Scoped Contexts"
