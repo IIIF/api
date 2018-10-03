@@ -321,7 +321,7 @@ OrderedCollections _MAY_ have a `describedBy` property.  The value _MUST_ be an 
 }
 ```
 
-__JSON-LD Magic__
+__JSON-LD Magic__<br/>
 Note that the ActivityStreams vocabulary does not define `describedBy` as a property. Instead it only defines `describes`, from the `Profile` to some other `Object`. We use the JSON-LD functionality of `@reverse` properties to change the structure of the serialization, without introducing a new predicate.
 {: .note}
 
