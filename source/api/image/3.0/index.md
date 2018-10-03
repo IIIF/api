@@ -213,22 +213,22 @@ Examples:
 
 ###  4.2. Size
 
-The size parameter specifies the dimensions to which the extracted region, which might be the complete image, is to be scaled. With the exception of the _`w,h`_ and _`^w,h`_ forms, the returned image maintains the aspect ratio of the extracted region as closely as possible.  Sizes prefixed with `^` allow upscaling of the extracted region when its pixel dimensions are less than the pixel dimensions of the scaled region.
+The size parameter specifies the dimensions to which the extracted region, which might be the complete image, is to be scaled. With the exception of the _`w,h`_ and _`^w,h`_ forms, the returned image maintains the aspect ratio of the extracted region as closely as possible. Sizes prefixed with `^` allow upscaling of the extracted region when its pixel dimensions are less than the pixel dimensions of the scaled region.
 
 | Form      | Description |
 | --------- | ----------- |
 | `max`     | The extracted region is returned at the maximum size available. The resulting image will have the pixel dimensions of the extracted region, unless it is constrained to a smaller size by `maxWidth`, `maxHeight`, or `maxArea` as defined in the [Technical Properties][image30-technical-properties] section. |
-| `^max`     | The extracted region is scaled to the maximum size permitted by `maxWidth`, `maxHeight`, or `maxArea` as defined in the [Technical Properties][image30-technical-properties] section. |
-| _`w,`_    | The extracted region should be scaled so that the width of the returned image is exactly equal to _`w`_.  The value of _`w`_ _MUST NOT_ be greater than the width of the extracted region. |
-| _`^w,`_    | The extracted region should be scaled so that the width of the returned image is exactly equal to _`w`_.  If _`w`_ is greater than the pixel width of the extracted region, the extracted region is upscaled.  |
+| `^max`    | The extracted region is scaled to the maximum size permitted by `maxWidth`, `maxHeight`, or `maxArea` as defined in the [Technical Properties][image30-technical-properties] section. |
+| _`w,`_    | The extracted region should be scaled so that the width of the returned image is exactly equal to _`w`_. The value of _`w`_ _MUST NOT_ be greater than the width of the extracted region. |
+| _`^w,`_   | The extracted region should be scaled so that the width of the returned image is exactly equal to _`w`_. If _`w`_ is greater than the pixel width of the extracted region, the extracted region is upscaled.  |
 | _`,h`_    | The extracted region should be scaled so that the height of the returned image is exactly equal to _`h`_. The value of _`h`_ _MUST NOT_ be greater than the height of the extracted region. |
-| _`^,h`_    | The extracted region should be scaled so that the height of the returned image is exactly equal to _`h`_. If _`h`_ is greater than the pixel height of the extracted region, the extracted region is upscaled. |
+| _`^,h`_   | The extracted region should be scaled so that the height of the returned image is exactly equal to _`h`_. If _`h`_ is greater than the pixel height of the extracted region, the extracted region is upscaled. |
 | _`pct:n`_ | The width and height of the returned image is scaled to _`n`_ percent of the width and height of the extracted region. The value of _`n`_ _MUST NOT_ be greater than 100. |
-| _`^pct:n`_ | The width and height of the returned image is scaled to _`n`_ percent of the width and height of the extracted region.  For values of _`n`_ greater than 100, the extracted region is upscaled. |
-| _`w,h`_   | The width and height of the returned image are exactly _`w`_ and _`h`_. The aspect ratio of the returned image _MAY_ be significantly different than the extracted region, resulting in a distorted image.  The values of _`w`_ and _`h`_ _MUST NOT_ be greater than the corresponding pixel dimensions of the extracted region.|
-|  _`^w,h`_   | The width and height of the returned image are exactly _`w`_ and _`h`_. The aspect ratio of the returned image _MAY_ be significantly different than the extracted region, resulting in a distorted image. If _`w`_ and/or _`h`_ are greater than the corresponding pixel dimensions of the extracted region, the extracted region is upscaled. |
-| _`!w,h`_  | The extracted region is scaled so that the width and height of the returned image are not greater than _`w`_ and _`h`_, while maintaining the aspect ratio. The returned image _MUST_ be as large as possible but not larger than the extracted region, _`w`_ or _`h`_, or server-imposed limits. |
-| _`^!w,h`_  | The extracted region is scaled so that the width and height of the returned image are not greater than _`w`_ and _`h`_, while maintaining the aspect ratio. The returned image _MUST_ be as large as possible but not larger than  _`w`_, _`h`_, or server-imposed limits. |
+| _`^pct:n`_ | The width and height of the returned image is scaled to _`n`_ percent of the width and height of the extracted region. For values of _`n`_ greater than 100, the extracted region is upscaled. |
+| _`w,h`_   | The width and height of the returned image are exactly _`w`_ and _`h`_. The aspect ratio of the returned image _MAY_ be significantly different than the extracted region, resulting in a distorted image. The values of _`w`_ and _`h`_ _MUST NOT_ be greater than the corresponding pixel dimensions of the extracted region. |
+|  _`^w,h`_ | The width and height of the returned image are exactly _`w`_ and _`h`_. The aspect ratio of the returned image _MAY_ be significantly different than the extracted region, resulting in a distorted image. If _`w`_ and/or _`h`_ are greater than the corresponding pixel dimensions of the extracted region, the extracted region is upscaled. |
+| _`!w,h`_ | The extracted region is scaled so that the width and height of the returned image are not greater than _`w`_ and _`h`_, while maintaining the aspect ratio. The returned image _MUST_ be as large as possible but not larger than the extracted region, _`w`_ or _`h`_, or server-imposed limits. |
+| _`^!w,h`_ | The extracted region is scaled so that the width and height of the returned image are not greater than _`w`_ and _`h`_, while maintaining the aspect ratio. The returned image _MUST_ be as large as possible but not larger than  _`w`_, _`h`_, or server-imposed limits. |
 {: .api-table}
 
 Requests for sizes not prefixed with `^` that result in a scaled region with pixel dimensions greater than the pixel dimensions of the extracted region are errors that _SHOULD_ result in a 400 (Bad Request) status code.
