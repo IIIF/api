@@ -60,7 +60,7 @@ See also the note under [Size][image30-size] about combinations of Size and Regi
 | _`pct:n`_ | `sizeByPct`         | ![optional][icon-opt] | ![optional][icon-opt] | ![required][icon-req] |
 | _`!w,h`_  | `sizeByConfinedWh`  | ![optional][icon-opt] | ![optional][icon-opt] | ![required][icon-req] |
 | _`w,h`_   | `sizeByWh`          | ![optional][icon-opt] | ![optional][icon-opt] | ![required][icon-req] |
-| `^_size_` | `sizeUpscaling`     | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] |
+| _`^size`_ | `sizeUpscaling`     | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] |
 {: .api-table}
 
 At any level of compliance, an image service whose Image Information response includes the `sizes` property must support requests for the sizes listed, and a service whose Image Information response includes the `tiles` property must support requests for the sizes implicit in the `width`, `height` and `scaleFactors` values given for tiles.
