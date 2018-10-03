@@ -32,7 +32,7 @@ __Previous Version:__ [2.1.1][prezi21]
 
 {% include copyright.md %}
 
-__Status Warning__
+__Status Warning__<br/>
 This is a work in progress and may change without any notices. Implementers should be aware that this document is not stable. Implementers are likely to find the specification changing in incompatible ways. Those interested in implementing this document before it reaches beta or release stages should join the [mailing list][iiif-discuss] and take part in the discussions, and follow the [emerging issues][github-milestone-prezi-3] on Github.
 {: .warning}
 
@@ -541,7 +541,7 @@ When interpreting the Layout Behaviors and `auto-advance` for Ranges, they gover
 
 The descriptions of the behavior values have a set of which other values they are disjoint with, meaning that the same resource _MUST NOT_ have both of two or more from that set. In order to determine which is in effect, the client _SHOULD_ follow the inheritance rules above, taking the value from the closest resource. The user interface effects of the possible permutations of non-disjoint behavior values are client dependent, and implementers are advised to look for [relevant recipes][annex-cookbook] in the IIIF cookbook. 
 
-__Future Clarification Anticipated__
+__Future Clarification Anticipated__<br/>
 Further clarifications about the implications of interactions between behavior values should be expected in subsequent minor releases.
 {: .warning}
 
@@ -552,7 +552,7 @@ The value _MUST_ be an array of strings.
 
 > | Value | Description |
 | ----- | ----------- |
-| | **Temporal Behaviors** |{: .borderless}
+| **Temporal Behaviors** |
 | `auto-advance` | Valid on Collections, Manifests, Canvases, and Ranges that include or are Canvases with at least the `duration` dimension. When the client reaches the end of a Canvas, or segment there-of as specified in a Range, with a duration dimension that has this behavior, it _SHOULD_ immediately proceed to the next Canvas or segment and render it. If there is no subsequent Canvas in the current context, then this behavior should be ignored. When applied to a Collection, the client should treat the first Canvas of the next Manifest as following the last Canvas of the previous Manifest, respecting any `start` property specified. Disjoint with `no-auto-advance`. |
 | `no-auto-advance` | Valid on Collections, Manifests, Canvases, and Ranges that include or are Canvases with at least the `duration` dimension. When the client reaches the end of a Canvas or segment with a duration dimension that has this behavior, it _MUST NOT_ proceed to the next Canvas, if any. This is a default temporal behavior if not specified. Disjoint with `auto-advance`.|
 | `repeat` | Valid on Collections and Manifests, that include Canvases that have at least the `duration` dimension. When the client reaches the end of the duration of the final Canvas in the resource, and the `behavior` value `auto-advance` is also in effect, then the client _SHOULD_ return to the first Canvas, or segment of Canvas, in the resource that has the `behavior` value `repeat` and start playing again. If the `behavior` value `auto-advance` is not in effect, then the client _SHOULD_ render a navigation control for the user to manually return to the first Canvas or segment. Disjoint with `no-repeat`.|
@@ -1352,7 +1352,7 @@ Clients _SHOULD_ process the Annotation Pages and their items in the order given
 
 An Annotation Page _MUST_ have an HTTP(S) URI given in `id`, and _MAY_ have any of the other properties defined in this specification or the Web Annotation specification. The Annotations are listed in the `items` property of the Annotation Page.
 
-__Incompatibility Warning__
+__Incompatibility Warning__<br/>
 In part due to the timing of the release of the JSON-LD and Web Annotation specifications, the definition of `label` in the Web Annotation specification does not produce JSON conformant with the structure defined in this specification. Given the absolute requirement for internationalized labels and the strong desire for consistently handling properties, the `label` property on Annotation Pages, Annotations, content resources referenced from Annotations, and Annotation Collections does not conform to the string requirement of the Web Annotation Data Model.  This [issue has been filed with the W3C][github-webanno-437] and will hopefully be addressed in a future version of the standard.
 {: .warning}
 
