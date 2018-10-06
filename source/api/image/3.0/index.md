@@ -682,7 +682,7 @@ The following features are defined for use in the `extraFeatures` property:
 
 A server that supports neither `sizeByW` or `sizeByWh` is only required to serve the image sizes listed under the `sizes` property or implied by the `tiles` property of the image information document, allowing for a static file implementation.
 
-Services that support the `sizeUpscaling` feature _MUST_ specify `maxWidth` or `maxArea` (see [Technical Properties][image30-technical-properties]).
+A server that supports `sizeUpscaling` _MUST_ specify `maxWidth` or `maxArea` (see [Technical Properties][image30-technical-properties]).
 
 The set of features, formats and qualities supported is the union of those declared in the external profile document and those added by the `extraQualities`, `extraFormats`, and `extraFeatures` properties. If a feature is not present in either the profile document or the `extraFeatures` property, then a client _MUST_ assume that the feature is not supported.
 
