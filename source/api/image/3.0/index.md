@@ -677,7 +677,7 @@ The following features are defined for use in the `extraFeatures` property:
 | `sizeByPct` | Images size may be requested in the form _`pct:n`_.  |
 | `sizeByW` | Image size may be requested in the form _`w,`_.  |
 | `sizeByWh` | Image size may be requested in the form _`w,h`_.  |
-| `sizeUpscaling` | Image sizes prefixed with _`^`_ may be requested. |
+| `sizeUpscaling` | Image sizes prefixed with `^` may be requested. |
 {: .api-table #features-table}
 
 A server that supports neither `sizeByW` or `sizeByWh` is only required to serve the image sizes listed under the `sizes` property or implied by the `tiles` property of the image information document, allowing for a static file implementation.
