@@ -120,7 +120,7 @@ switch(myXhr.statusCode){
 }
 ```
 
-However, the 302 status code will never be seen by client script interacting with the XmlHttpRequest API. By design, this is transparent to the XHR object in browsers for security reasons, and the response will report only the final HTTP 200 status code of the degraded image. Whether this is signficant for a client depends on the approach it takes to the user interface.
+However, the 302 status code will never be seen by client script interacting with the XmlHttpRequest API. By design, this is transparent to the XHR object in browsers for security reasons, and the response will report only the final HTTP 200 status code of the degraded image. Whether this is significant for a client depends on the approach it takes to the user interface.
 
 ### 5.1 User Interface Patterns
 {: #user-interface-patterns}
@@ -283,7 +283,7 @@ This means that the IIIF Authentication Specification cannot be implemented in I
 
 Internet Explorer versions prior to the current "Edge" specification (including IE11) implement [P3P], which in the context of the IIIF Authentication specification will prevent a browser sending cookies across domain even for a content resource like an image or for an indirect load of the token via the frame used for postMessage, if those cookies have an explicit expiry and could therefore be used for tracking purposes across browser sessions.
 
-This can lead to hard-to-diagnose problems - one implementation of the specification might work in IE and another might fail, simply because they have dfferent cookie expiry settings.
+This can lead to hard-to-diagnose problems - one implementation of the specification might work in IE and another might fail, simply because they have different cookie expiry settings.
 
 Internet Explorer *will* send the cookie if the resource domain [publishes a P3P policy][p3p-summary] in the form of a P3P HTTP header that summarizes the privacy policy of the site.
 
@@ -292,7 +292,7 @@ Internet Explorer *will* send the cookie if the resource domain [publishes a P3P
 
 Internet Explorer (all versions) assigns all websites to one of four security zones: Internet, Local intranet, Trusted sites, or Restricted sites. The zone to which a website is assigned specifies the security settings that are used for that site. Corporate IT policies can assign sites to zones for all users on a domain.
 
-This can affect an implementation of the Authentication API. If the new tab opened by the client to navigate to the login service URL on the resource domain involves a transition from a less trusted to a more trusted zone, the client script will no longer be able interact with the window - specifically its reference to the opened window is set to `null` and it therefore cannot tell when the window is closed. This zone transition includes any subsequent redirects that happen in the opened login window, including a redirect from the resource domain to a separate authentication server such as a CAS or OAuth2 implmentation.
+This can affect an implementation of the Authentication API. If the new tab opened by the client to navigate to the login service URL on the resource domain involves a transition from a less trusted to a more trusted zone, the client script will no longer be able interact with the window - specifically its reference to the opened window is set to `null` and it therefore cannot tell when the window is closed. This zone transition includes any subsequent redirects that happen in the opened login window, including a redirect from the resource domain to a separate authentication server such as a CAS or OAuth2 implementation.
 
 If, for example, the client domain and resource domain are in the *Internet* zone, but the login service on the resource domain involves a redirect to an authentication system which to internal network users is in the *Intranet* zone, the login flow will not work.
 
