@@ -221,7 +221,7 @@ The value of the property _MUST_ be a JSON object, as described in the [language
 
  * A Collection _SHOULD_ have the `summary` property with at least one entry.<br/>
    Clients _SHOULD_ render `summary` on a Collection.
- * A Manifest _SHOULD_ have the `summmary` property with at least one entry.<br/>
+ * A Manifest _SHOULD_ have the `summary` property with at least one entry.<br/>
    Clients _SHOULD_ render `summary` on a Manifest.
  * A Canvas _MAY_ have the `summary` property with at least one entry.<br/>
    Clients _SHOULD_ render `summary` on a Canvas.
