@@ -62,7 +62,7 @@ The discovery of IIIF resources requires a consistent and well understood patter
 
 This process can be optimized by allowing the content providers to publish descriptions of when their content has changed, enabling consuming systems to only retrieve the resources that have been modified since they were last retrieved. These changes might include when content is deleted or otherwise becomes unavailable. Finally, for rapid synchronization, a system of notifications pushed from the publisher to a set of subscribers can reduce the amount of effort required to constantly poll all of the systems to see if anything has changed. 
 
-Work that is out of scope of this API includes the recommendation or creation of any descriptive metadata formats, and the recommendation or creation of metadata search APIs or protocols. The diverse domains represented within the IIIF community already have already have successful standards fulfilling these use cases, and the results of previous attempts to reconcile these standards across domains have not seen widespread adoption. Also out of scope is optimization of the transmission of content, for example recommendations about transferring any source media or data between systems.
+Work that is out of scope of this API includes the recommendation or creation of any descriptive metadata formats, and the recommendation or creation of metadata search APIs or protocols. The diverse domains represented within the IIIF community already have successful standards fulfilling these use cases, and the results of previous attempts to reconcile these standards across domains have not seen widespread adoption. Also out of scope is optimization of the transmission of content, for example recommendations about transferring any source media or data between systems.
 
 
 __Notification of Changes__<br>This draft version of the specification does not include the subscription mechanism for enabling change notifications to be pushed to remote systems.  The current specification only enables the polling pattern where the set of changes must be periodically reprocessed. Notifications are likely to be added in a future version before 1.0.
@@ -103,7 +103,7 @@ The core information required to provide a minimally effective set of links to I
 
 Starting with the IIIF resource URIs, we add an "Update" Activity wrapper around them.  The order of the resources in the resulting list is unimportant, but each should only appear once. In terms of optimization, this approach provides no additional benefit over any other simpler list format, but is compatible with the following levels which introduce significant benefits.  This is the minimum level for interoperability, while being compatible with the more detailed patterns described below.
 
-If resources are deleted after being refered to in the resource list, the entire list should be republished without the reference to the deleted resource. Clients should also expect to encounter resource URIs that are out of date and no longer resolve to a IIIF Manifest or Collection.
+If resources are deleted after being referred to in the resource list, the entire list should be republished without the reference to the deleted resource. Clients should also expect to encounter resource URIs that are out of date and no longer resolve to a IIIF Manifest or Collection.
 
 Example Level 0 Activity:
 
@@ -536,8 +536,8 @@ Activities _MUST_ have the `object` property.  The value _MUST_ be a JSON object
 ```
 {
   "object": {
-  	"id": "http://example.org/iiif/1/manifest",
-  	"type": "Manifest",
+    "id": "http://example.org/iiif/1/manifest",
+    "type": "Manifest",
     "context": [
       {
         "id": "https://example.org/dataset/single-item.jsonld",
