@@ -1,6 +1,6 @@
 ---
-title: "Presentation API 3.0 ALPHA DRAFT"
-title_override: "IIIF Presentation API 3.0 ALPHA DRAFT"
+title: "Presentation API 3.0 BETA DRAFT"
+title_override: "IIIF Presentation API 3.0 BETA DRAFT"
 id: presentation-api
 layout: spec
 cssversion: 3
@@ -8,7 +8,7 @@ tags: [specifications, presentation-api]
 major: 3
 minor: 0
 patch: 0
-pre: ALPHA
+pre: BETA
 redirect_from:
   - /api/presentation/3/index.html
 ---

@@ -1,13 +1,13 @@
 ---
-title: "Image API 3.0 ALPHA DRAFT"
-title_override: "IIIF Image API 3.0 ALPHA DRAFT"
+title: "Image API 3.0 BETA DRAFT"
+title_override: "IIIF Image API 3.0 BETA DRAFT"
 id: image-api
 layout: spec
 tags: [specifications, image-api]
 major: 3
 minor: 0
 patch: 0
-pre: ALPHA
+pre: BETA
 cssversion: 3
 redirect_from:
   - /api/image/3/index.html
