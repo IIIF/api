@@ -120,7 +120,7 @@ switch(myXhr.statusCode){
 }
 ```
 
-However, the 302 status code will never be seen by client script interacting with the XmlHttpRequest API. By design, this is transparent to the XHR object in browsers for security reasons, and the response will report only the final HTTP 200 status code of the degraded image. Whether this is signficant for a client depends on the approach it takes to the user interface.
+However, the 302 status code will never be seen by client script interacting with the XmlHttpRequest API. By design, this is transparent to the XHR object in browsers for security reasons, and the response will report only the final HTTP 200 status code of the degraded image. Whether this is significant for a client depends on the approach it takes to the user interface.
 
 ### 5.1 User Interface Patterns
 {: #user-interface-patterns}
@@ -136,14 +136,14 @@ A user interface that relies on the "challenge" approach therefore has a problem
 
 Evidence that a redirect has happened is available. If the `@id` of the service returned is not the URI the client asked for (allowing for the presence or absence of `/info.json` on the end), that SHOULD mean that a redirect has happened - but the redirect may not have been for access control reasons. The `@id` of an image service asserted in a manifest may be different because the service has moved since the manifest was published, or for other unknown reasons.
 
-A client could make a decision about what is happening based on a redirect having occurred, an authentication service being present, and perhaps a probe of a token service. The client can’t be completely sure that the user is seeing a degraded image. Implementations where login and logout buttons are always present and enabled for the current visible image if it has a login service don’t need to worry too much about this, as the user can decide from the image's appearance and the labelling of the service whether they are looking at the best possible image.
+A client could make a decision about what is happening based on a redirect having occurred, an authentication service being present, and perhaps a probe of a token service. The client can’t be completely sure that the user is seeing a degraded image. Implementations where login and logout buttons are always present and enabled for the current visible image if it has a login service don’t need to worry too much about this, as the user can decide from the image's appearance and the labeling of the service whether they are looking at the best possible image.
 
 ## 6. Token Storage Strategies
 {: #token-storage-strategies}
 
 Clients should keep track of the access tokens they acquire for the user and use them to improve the user experience. Careful use of access tokens can avoid unnecessary authentication interactions for the user, and unnecessary HTTP requests for the client.
 
-An implementation could store a dictionary of acquired access tokens where the key is the `@id` of the token service, and try the most recently used "pre-emptively" for new requests to the same domain. This dictionary could be saved to browser local storage. The client should not use an expired token, so it needs to keep track of when the token was acquired for comparison with the token's time-to-live.
+An implementation could store a dictionary of acquired access tokens where the key is the `@id` of the token service, and try the most recently used "preemptively" for new requests to the same domain. This dictionary could be saved to browser local storage. The client should not use an expired token, so it needs to keep track of when the token was acquired for comparison with the token's time-to-live.
 
 A client should always be prepared to discard a stored token and should never trust its stored token as a true representation of the user's current authentication status on the Resource Domain. Any point at which the client receives a status code other than 200 could trigger a re-run of the authentication flow, but it could first trigger a call to the token service for the resource to check the user's state.
 
@@ -160,13 +160,13 @@ Therefore servers should follow these principles:
 
 * Don't accept the access token as a credential for anything other than Description Resources whose token service is the service the token was acquired from. That is, do not accept the token as a credential on a request made for the full Content Resources, or anything else sensitive such as user account settings. The cookie granted by a content-hosting institution to access the content might often grant access to other areas of the web site as well.
 * Don't use the same value for the access token as the access cookie, or use a value for the access cookie that could be deduced or calculated from the access token value.
-* Don't include secrets in the Description Resources. Usually the metadata in a Description Resource such as an info.json is not itself secret, even if the Content Resources (e.g. in the case of images, the pixels) requires authorisation. However, there may be some Description Resources for which the metadata is sensitive. In these cases the response body for an unauthorized request should omit the secrets. The Description response cannot be empty - it needs to describe the authentication services to the client as well as convey enough information to let the client decide whether it's worth authenticating to view the material. It still needs to describe what it is, but it isn't required to go into the same detail as the fully authorized response.
+* Don't include secrets in the Description Resources. Usually the metadata in a Description Resource such as an info.json is not itself secret, even if the Content Resources (e.g. in the case of images, the pixels) requires authorization. However, there may be some Description Resources for which the metadata is sensitive. In these cases the response body for an unauthorized request should omit the secrets. The Description response cannot be empty - it needs to describe the authentication services to the client as well as convey enough information to let the client decide whether it's worth authenticating to view the material. It still needs to describe what it is, but it isn't required to go into the same detail as the fully authorized response.
 * Ensure that the web server isn't configured to serve custom error pages - the client needs to see the info.json, even when the HTTP response status is not 200.
 * Access cookies should be relatively short-lived - minutes rather than months. Any client can trigger an interaction with the token service. The browser will send the access cookie to the token service and so any client can acquire the token later on. Limiting the access cookie lifetime helps mitigate threats.
 
 If these guidelines are followed, then a malicious script that obtains an access token cannot do anything useful with it. The malicious script can't send the access token somewhere where it can be used to construct a request to gain access to the content resources or other resources protected by the same cookie on the content domain. The access token remains just a token - a symbol of the real credential (the access cookie) that the user has for the resources.
 
-The specification is modelled after elements of the OAuth2 workflow and the [OAuth2 Security Considerations][oauth2-considerations] section provides useful additional guidance regarding threats, mitigations and recommended practices.
+The specification is modeled after elements of the OAuth2 workflow and the [OAuth2 Security Considerations][oauth2-considerations] section provides useful additional guidance regarding threats, mitigations and recommended practices.
 
 __Future extension__
 The authentication interaction patterns will need to accommodate future functionality where the client is POSTing annotations or IIIF resources, where the token accompanying an XHR request is not just a proxy for the cookie the user has for the images, but is the "real" credential for writing a resource. The specification already requires that "origin" is appended to both the access cookie request and the token request, for the server to use in white-listing decisions if it wants to e.g., granting tokens that give access to image resources for any origin but only issuing tokens that authorize a state-changing operation to permitted origins. The server could use any additional (currently undefined) information obtained during the access cookie step (as well as the origin) to help it decide whether to then issue a token in the access token step (i.e., respond with a web page that makes a postMessage call to the origin supplied).
@@ -200,8 +200,8 @@ If a server could convey this information in the manifest the client would have 
         "@context": "http://iiif.io/api/auth/{{ page.major }}/context.json",
         "@id": "http://example.org/iiif/loginservice",
         "profile": "http://iiif.io/api/auth/{{ page.major }}/login",
-        "label": "This material requires authorisation",
-        "header": "This material requires authorisation",
+        "label": "This material requires authorization",
+        "header": "This material requires authorization",
         "description": "...",
         "service": [
             {
@@ -250,7 +250,7 @@ However, this would result in a very large manifest if there are a large number 
 }
 ```
 
-This approach represents an optimisation only, and clients should never depend on it alone. The server must ensure that the full service is asserted at least once (e.g., on the first occurrence) and the client must be able to deal with the URI-only and expanded forms and treat them the same - it must be able to find the expanded version elsewhere in the document if it encounters the URL on its own.
+This approach represents an optimization only, and clients should never depend on it alone. The server must ensure that the full service is asserted at least once (e.g., on the first occurrence) and the client must be able to deal with the URI-only and expanded forms and treat them the same - it must be able to find the expanded version elsewhere in the document if it encounters the URL on its own.
 
 A client should not assume that a manifest will contain any hints of this nature, and should always assume the information in the Image Service Description Resource is correct if it disagrees with something asserted in the manifest. The above is a suggested approach for clients and servers to follow to convey the authentication information for the images at the manifest level in a concise manner, particularly when all the image services referenced in the manifest are provided by the manifest publisher.
 
@@ -283,7 +283,7 @@ This means that the IIIF Authentication Specification cannot be implemented in I
 
 Internet Explorer versions prior to the current "Edge" specification (including IE11) implement [P3P], which in the context of the IIIF Authentication specification will prevent a browser sending cookies across domain even for a content resource like an image or for an indirect load of the token via the frame used for postMessage, if those cookies have an explicit expiry and could therefore be used for tracking purposes across browser sessions.
 
-This can lead to hard-to-diagnose problems - one implementation of the specification might work in IE and another might fail, simply because they have dfferent cookie expiry settings.
+This can lead to hard-to-diagnose problems - one implementation of the specification might work in IE and another might fail, simply because they have different cookie expiry settings.
 
 Internet Explorer *will* send the cookie if the resource domain [publishes a P3P policy][p3p-summary] in the form of a P3P HTTP header that summarizes the privacy policy of the site.
 
@@ -292,7 +292,7 @@ Internet Explorer *will* send the cookie if the resource domain [publishes a P3P
 
 Internet Explorer (all versions) assigns all websites to one of four security zones: Internet, Local intranet, Trusted sites, or Restricted sites. The zone to which a website is assigned specifies the security settings that are used for that site. Corporate IT policies can assign sites to zones for all users on a domain.
 
-This can affect an implementation of the Authentication API. If the new tab opened by the client to navigate to the login service URL on the resource domain involves a transition from a less trusted to a more trusted zone, the client script will no longer be able interact with the window - specifically its reference to the opened window is set to `null` and it therefore cannot tell when the window is closed. This zone transition includes any subsequent redirects that happen in the opened login window, including a redirect from the resource domain to a separate authentication server such as a CAS or OAuth2 implmentation.
+This can affect an implementation of the Authentication API. If the new tab opened by the client to navigate to the login service URL on the resource domain involves a transition from a less trusted to a more trusted zone, the client script will no longer be able interact with the window - specifically its reference to the opened window is set to `null` and it therefore cannot tell when the window is closed. This zone transition includes any subsequent redirects that happen in the opened login window, including a redirect from the resource domain to a separate authentication server such as a CAS or OAuth2 implementation.
 
 If, for example, the client domain and resource domain are in the *Internet* zone, but the login service on the resource domain involves a redirect to an authentication system which to internal network users is in the *Intranet* zone, the login flow will not work.
 
@@ -302,6 +302,7 @@ If, for example, the client domain and resource domain are in the *Internet* zon
 
 | Date       | Description |
 | ---------- | ----------- |
+| 2018-10-13 | Fix typos |
 | 2017-01-19 | Updated to apply to version 1.0.0 |
 | 2016-10-05 | Clarifications to text, applies to version 0.9.4 |
 | 2016-09-25 | Update implementation notes to apply to version 0.9.3 |
