@@ -305,7 +305,7 @@ OrderedCollections _MAY_ have a `totalItems` property.  The value _MUST_ be a no
 
 ##### context
 
-This property is used to refer to a richer or more semantic description document of the set of resources that are being acted upon in the Activities within the OrderedCollection. This would allow the OrderedCollection to refer to, for example, a [DCAT][org-w3c-dcat] description of the dataset. 
+This property is used to refer to one or more documents that semantically describe the set of resources that are being acted upon in the Activities within the OrderedCollection. This would allow the OrderedCollection to refer to, for example, a [DCAT][org-w3c-dcat] description of the dataset. For OrderedCollections that aggregate activities and/or objects from multiple sources, the referenced description should describe the complete aggregation rather than an individual source.
 
 OrderedCollections _MAY_ have a `context` property (distinct from the `@context` property).  The value _MUST_ be an array of one or more JSON objects, with the `id` and `type` properties.  The value of the `id` property _MUST_ be a string, and it _MUST_ be the HTTP(S) URI of the description of the dataset. The value of the `type` property _MUST_ be a string, and _MUST_ be `Document`. The JSON object _MAY_ have the `mediaType` property, the value of which _MUST_ be a string, and it _MUST_ be the MIME media type of the referenced description document.
 
@@ -531,7 +531,10 @@ Activities _MUST_ have the `type` property. The value _MUST_ be a registered Act
 
 The IIIF resource that was affected by the Activity.  It is an implementation decision whether there are separate lists of Activities, one per object type, or a single list with all of the object types combined.
 
-Activities _MUST_ have the `object` property.  The value _MUST_ be a JSON object, with the `id` and `type` properties.  The `id` _MUST_ be an HTTP(S) URI. The `type` _SHOULD_ be a class defined in the IIIF Presentation API, and _SHOULD_ be one of `Collection`, or `Manifest`. The object _MAY_ have a `context` property, as defined for `OrderedCollection` above, to reference a description document of the object resource.
+Activities _MUST_ have the `object` property.  The value _MUST_ be a JSON object, with the `id` and `type` properties.  The `id` _MUST_ be an HTTP(S) URI. The `type` _SHOULD_ be a class defined in the IIIF Presentation API, and _SHOULD_ be one of `Collection`, or `Manifest`. The object _MAY_ have a `context` property, as defined for `OrderedCollection` above, to reference a description document of the object resource. The document referenced in the `context` property _MAY_ also be referenced with the `seeAlso` property via the IIIF Presentation API.
+
+<!-- This can't be on the Activity, as some activities reference more than one resource e.g. Add X to Y, Move X from Y to Z, etc. -->
+
 
 ```
 {
@@ -605,7 +608,14 @@ A complete example Activity would thus look like the following example.
   "summary": "admin updated the manifest, fixing reported bug #15.",
   "object": {
   	"id": "https://example.org/iiif/1/manifest",
-  	"type": "Manifest"  	
+  	"type": "Manifest",  	
+    "context": [
+      {
+        "id": "https://example.org/dataset/single-item.jsonld",
+        "type": "Document",
+        "mediaType": "application/ld+json"
+      }
+    ]
   },
   "endTime": "2017-09-21T00:00:00Z",
   "startTime": "2017-09-20T23:58:00Z",
