@@ -214,12 +214,12 @@ As the number of Activities is likely too many to usefully be represented in a s
   "type": "OrderedCollection",
   "totalItems": 21456,
   "first": {
-  	"id": "https://example.org/activity/page-0",
-  	"type": "OrderedCollectionPage"
+    "id": "https://example.org/activity/page-0",
+    "type": "OrderedCollectionPage"
   },
   "last": {
-  	"id": "https://example.org/activity/page-214",
-  	"type": "OrderedCollectionPage"
+    "id": "https://example.org/activity/page-214",
+    "type": "OrderedCollectionPage"
   }
 }
 ```
@@ -341,12 +341,12 @@ OrderedCollections _MAY_ have a `context` property (distinct from the `@context`
     }
   ],
   "first": {
-  	"id": "https://example.org/activity/page-0",
-  	"type": "OrderedCollectionPage"
+    "id": "https://example.org/activity/page-0",
+    "type": "OrderedCollectionPage"
   },
   "last": {
-  	"id": "https://example.org/activity/page-214",
-  	"type": "OrderedCollectionPage"
+    "id": "https://example.org/activity/page-214",
+    "type": "OrderedCollectionPage"
   }
 }
 ```
@@ -467,26 +467,26 @@ Ordered Collection Pages _MUST_ have a `orderedItems` property.  The value _MUST
   "type": "OrderedCollectionPage",
   "startIndex": 20,
   "partOf": {
-  	"id": "https://example.org/activity/all-changes",
-  	"type": "OrderedCollection"
+    "id": "https://example.org/activity/all-changes",
+    "type": "OrderedCollection"
   },
   "prev": {
-  	"id": "https://example.org/activity/page-0",
-  	"type": "OrderedCollectionPage"
+    "id": "https://example.org/activity/page-0",
+    "type": "OrderedCollectionPage"
   },
   "next": {
-  	"id": "https://example.org/activity/page-2",
-  	"type": "OrderedCollectionPage"
+    "id": "https://example.org/activity/page-2",
+    "type": "OrderedCollectionPage"
   },
   "orderedItems": [
-     {
-     	"type": "Update",
-     	"object": {
-     		"id": "https://example.org/iiif/1/manifest",
-     		"type": "Manifest"
-     	},
-     	"endTime": "2018-03-10T10:00:00Z"
-     }
+    {
+      "type": "Update",
+      "object": {
+        "id": "https://example.org/iiif/1/manifest",
+        "type": "Manifest"
+      },
+      "endTime": "2018-03-10T10:00:00Z"
+    }
   ]
 }
 ```
@@ -607,8 +607,8 @@ A complete example Activity would thus look like the following example.
   "type": "Update",
   "summary": "admin updated the manifest, fixing reported bug #15.",
   "object": {
-  	"id": "https://example.org/iiif/1/manifest",
-  	"type": "Manifest",  	
+    "id": "https://example.org/iiif/1/manifest",
+    "type": "Manifest",  	
     "context": [
       {
         "id": "https://example.org/dataset/single-item.jsonld",
@@ -693,6 +693,7 @@ Many of the changes in this version are due to the work of the [IIIF Discovery T
 
 | Date       | Description           |
 | ---------- | --------------------- |
+| 2018-10-17 | Version 0.2 (unnamed) |
 | 2018-05-04 | Version 0.1 (unnamed) |
 
 {% include links.md %}
