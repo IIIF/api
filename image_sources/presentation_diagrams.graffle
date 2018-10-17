@@ -349,7 +349,7 @@
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{309.57999357879163, 308.21667544033187}, {55, 24}}</string>
+					<string>{{292.57999357879163, 308.21667544033187}, {89, 24}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -396,7 +396,7 @@
 {\*\expandedcolortbl;;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
 
-\f0\fs24 \cf0 includes}</string>
+\f0\fs24 \cf0 supplementary}</string>
 					</dict>
 					<key>Wrap</key>
 					<string>NO</string>
@@ -941,7 +941,7 @@
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{400.96276801487573, 361.52449098577699}, {41, 24}}</string>
+					<string>{{399.46276801487573, 361.52449098577699}, {44, 24}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -988,7 +988,7 @@
 {\*\expandedcolortbl;;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
 
-\f0\fs24 \cf0 within}</string>
+\f0\fs24 \cf0 partOf}</string>
 					</dict>
 					<key>Wrap</key>
 					<string>NO</string>
@@ -15534,7 +15534,7 @@ Manifest}</string>
 		<key>CurrentSheet</key>
 		<integer>0</integer>
 		<key>Frame</key>
-		<string>{{394, 535}, {1440, 813}}</string>
+		<string>{{391, 531}, {1440, 813}}</string>
 		<key>ShowInfo</key>
 		<true/>
 		<key>ShowRuler</key>
