@@ -381,7 +381,11 @@ The existence of an HTTP(S) URI in the `id` property does not mean that the URI 
 
 ##### type
 
-The type or class of the resource. For types defined by this specification, the value of `type` will be described in the sections below describing the individual classes. For external resources, the type is drawn from other specifications. Recommendations for basic types such as image, text or audio are given in the table below.
+The type or class of the resource. For classes defined for this specification, the value of `type` will be described in the sections below describing each individual class. 
+
+For content resources, the value of `type` is drawn from other specifications. Recommendations for common content types such as image, text or audio are given in the table below.
+
+The JSON objects that appear in the value of the `service` property will have many different classes, and can be used to distinguish the sort of service, with specific properties defined in a [registered context document][ldce].
 
 The value _MUST_ be a string.
 
@@ -390,16 +394,16 @@ The value _MUST_ be a string.
 
 > | Class         | Description                      |
 | ------------- | -------------------------------- |
-| `Application` | Software intended to be executed |
 | `Dataset`     | Data not intended to be rendered to humans directly |
 | `Image`       | Two dimensional visual resources primarily intended to be seen, such as might be rendered with an &lt;img> HTML tag |
+| `Model`       | A three (or more) dimensional model intended to be interacted with by humans |
 | `Sound`       | Auditory resources primarily intended to be heard, such as might be rendered with an &lt;audio> HTML tag |
 | `Text`        | Resources primarily intended to be read |
 | `Video`       | Moving images, with or without accompanying audio, such as might be rendered with a &lt;video> HTML tag |
 {: .api-table #table-type}
 
 ``` json-doc
-{ "type": "Dataset" }
+{ "type": "Image" }
 ```
 
 ##### format
@@ -654,7 +658,7 @@ The value _MUST_ be an array of JSON objects. Each object will have properties d
   "service": [
     {
       "id": "https://example.org/service",
-      "type": "Service",
+      "type": "ExampleExtensionService",
       "profile": "https://example.org/docs/service"
     }
   ]
@@ -1138,7 +1142,7 @@ The Manifest _MUST_ have an `items` property, which is an array of JSON-LD objec
   "service": [
     {
       "id": "https://example.org/service/example",
-      "type": "Service",
+      "type": "ExampleExtensionService",
       "profile": "https://example.org/docs/example-service.html"
     }
   ],
@@ -1699,7 +1703,7 @@ __Structural Properties__
   "service": [
     {
       "id": "https://example.org/service/example",
-      "type": "Service",
+      "type": "ExampleExtensionService",
       "profile": "https://example.org/docs/example-service.html"
     }
   ],
