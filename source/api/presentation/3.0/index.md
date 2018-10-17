@@ -265,6 +265,57 @@ The value _MUST_ be a string. If the value is drawn from Creative Commons or Rig
 { "rights": "https://creativecommons.org/licenses/by/4.0/" }
 ```
 
+##### provider
+
+An organization or person that contributed to providing the content of the resource. Clients can then display this information to the user to acknowledge the provider's contributions.  This differs from the `requiredStatement` property, in that the data is structured, allowing the client to do more than just present text but instead have richer information about the people and organizations to use in different interfaces.
+
+The organization or person is represented as an `Agent` resource.  
+
+* Agents _MUST_ have the `id` property, and its value _MUST_ be a string that contains a URI that identifies the agent.
+* Agents _MUST_ have the `type` property, and its value _MUST_ be the string "Agent".
+* Agents _MUST_ have the `label` property, and its value _MUST_ be a JSON object as described in the [languages][prezi30-languages] section.
+* Agents _SHOULD_ have the `homepage` property, and its value _MUST_ be a JSON object as described in the [homepage][prezi30-homepage] section.
+* Agents _SHOULD_ have the `logo` property, and its value _MUST_ be an array of JSON objects as described in the [logo][prezi30-logo] section.
+* Agents _MAY_ have the `seeAlso` property, and its value _MUST_ be an array of JSON object as described in the [seeAlso][prezi30-seealso] section.
+
+The value _MUST_ be an array of JSON objects, where each item in the array conforms to the structure of an Agent, as described above.
+
+* A Collection _SHOULD_ have the `provider` property with at least one item. <br/> Clients _MUST_ render `provider` on a Collection.
+* A Manifest _SHOULD_ have the `provider` property with at least one item. <br/> Clients _MUST_ render `provider` on a Manifest.
+* Other resource types _MAY_ have the `provider` property with at least one item. <br/> Clients _SHOULD_ render `provider` on other resource types.
+
+```json-doc
+{
+  "provider": [
+    {
+      "id": "https://example.org/about",
+      "type": "Agent",
+      "label": {"en": ["Example Organization"]},
+      "homepage": {
+        "id": "https://example.org/",
+        "type": "Text",
+        "label": {"en": ["Example Organization Homepage"]},
+        "format": "text/html"
+      },
+      "logo": {
+        "id": "https://example.org/images/logo.png",
+        "type": "Image",
+        "height": 100,
+        "width": 120
+      },
+      "seeAlso": [
+        {
+          "id": "https://data.example.org/about/us.jsonld",
+          "type": "Dataset",
+          "format": "application/ld+json",
+          "profile": "https://schema.org/"
+        }
+      ]
+    }
+  ]
+}
+```
+
 ##### thumbnail
 
 An external content resource, such as a small image or short audio clip, that represents the resource that has the `thumbnail` property. It is _RECOMMENDED_ that a [IIIF Image API][image-api] service be available for images to enable manipulations such as resizing. A resource _MAY_ have multiple thumbnail resources that have the same or different `type` and `format`.
@@ -607,15 +658,22 @@ The value _MUST_ be a JSON object, which _MUST_ have the `id`, `type`, and `labe
 
 ##### logo
 
-A small external image resource that represents an individual or organization associated with the resource that has the `logo` property. This could be the logo of the owning or hosting institution. The logo _MUST_ be clearly rendered when the resource is displayed or used, without cropping, rotating or otherwise distorting the image. It is _RECOMMENDED_ that a [IIIF Image API][image-api] service be available for this image for other manipulations such as resizing.
+A small external image resource that represents the Agent resource it is associated with. The logo _MUST_ be clearly rendered when the resource is displayed or used, without cropping, rotating or otherwise distorting the image. It is _RECOMMENDED_ that a [IIIF Image API][image-api] service be available for this image for other manipulations such as resizing.
 
-The value _MUST_ be an array of JSON objects, each of which _MUST_ have an `id` and _SHOULD_ have at least one of `type` and `format`.
+The value _MUST_ be a JSON objects, which _MUST_ have an `id` and _SHOULD_ have at least one of `type` and `format`.
 
- * Any resource type _MAY_ have the `logo` property with at least one item.<br/>
-   Clients _MUST_ render `logo` on every resource type.
+ * Agent resources _SHOULD_ have the `logo` property.<br/>
+   Clients _MUST_ render `logo` on Agent resources.
 
 ``` json-doc
-{ "logo": [ { "id": "https://example.org/img/logo.jpg", "type": "Image" } ] }
+{ 
+  "logo": { 
+    "id": "https://example.org/img/logo.jpg", 
+    "type": "Image",
+    "height": 100,
+    "width": 120
+  }
+}
 ```
 
 ##### rendering
@@ -1114,17 +1172,36 @@ The Manifest _MUST_ have an `items` property, which is an array of JSON-LD objec
     "label": { "en": [ "Attribution" ] },
     "value": { "en": [ "Provided by Example Organization" ] }
   },
-  "logo": [
+  "provider": [
     {
-      "id": "https://example.org/logos/institution1.jpg",
-      "type": "Image",
-      "service": [
+      "id": "https://example.org/about",
+      "type": "Agent",
+      "label": {"en": ["Example Organization"]},
+      "homepage": {
+        "id": "https://example.org/",
+        "type": "Text",
+        "label": {"en": ["Example Organization Homepage"]},
+        "format": "text/html"
+      },
+      "logo": {
+        "id": "https://example.org/logos/institution1.jpg",
+        "type": "Image",
+        "service": [
+          {
+            "id": "https://example.org/service/inst1",
+            "type": "ImageService3",
+            "profile": "level2"
+          }
+        ]
+      },
+      "seeAlso": [
         {
-          "id": "https://example.org/service/inst1",
-          "type": "ImageService3",
-          "profile": "level2"
+          "id": "https://data.example.org/about/us.jsonld",
+          "type": "Dataset",
+          "format": "application/ld+json",
+          "profile": "https://schema.org/"
         }
-      ]
+      ]      
     }
   ],
 
