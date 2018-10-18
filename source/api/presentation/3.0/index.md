@@ -267,9 +267,9 @@ The value _MUST_ be a string. If the value is drawn from Creative Commons or Rig
 
 ##### thumbnail
 
-An external content resource, such as a small image or short audio clip, that represents the resource that has the `thumbnail` property. It is _RECOMMENDED_ that a [IIIF Image API][image-api] service be available for images to enable manipulations such as resizing. A resource _MAY_ have multiple thumbnail resources that have the same or different `type` and `format`.
+An external content resource, such as a small image or short audio clip, that represents the resource that has the `thumbnail` property. A resource _MAY_ have multiple thumbnail resources that have the same or different `type` and `format`.
 
-The value _MUST_ be an array of JSON objects, where each item in the array has an `id` property and _SHOULD_ have at least one of the `type` and `format` properties.
+The value _MUST_ be an array of JSON objects, where each item in the array has an `id` property and _SHOULD_ have at least one of the `type` and `format` properties. Images and video _SHOULD_ have the `width` and `height` properties, and time-based media _SHOULD_ have the `duration` property. It is _RECOMMENDED_ that a [IIIF Image API][image-api] service be available for images to enable manipulations such as resizing.	
 
  * A Collection _SHOULD_ have the `thumbnail` property with at least one item.<br/>
    Clients _SHOULD_ render `thumbnail` on a Collection.
@@ -283,7 +283,16 @@ The value _MUST_ be an array of JSON objects, where each item in the array has a
    Clients _MAY_ render `thumbnail` on other resource types.
 
 ``` json-doc
-{ "thumbnail": [ { "id": "https://example.org/img/thumb.jpg", "type": "Image" } ] }
+{
+  "thumbnail": [	
+    { 	
+      "id": "https://example.org/img/thumb.jpg",	
+      "type": "Image",	
+      "width": 300,	
+      "height": 200 	
+    }	
+  ]	
+}
 ```
 
 ##### navDate
@@ -457,7 +466,7 @@ The value _MUST_ be a positive integer.
 
  * A Canvas _MAY_ have the `height` property. If it has a `height`, it _MUST_ also have a `width`.<br/>
    Clients _MUST_ process `height` on a Canvas.
- * Content resources _MAY_ have the `height` property, with the value given in pixels, if appropriate.<br/>
+ * Content resources _SHOULD_ have the `height` property, with the value given in pixels, if appropriate to the resource type.<br/>
    Clients _SHOULD_ process `height` on content resources.
  * Other resource types _MUST NOT_ have the `height` property.<br/>
    Clients _SHOULD_ ignore `height` on other resource types.
@@ -474,7 +483,7 @@ The value _MUST_ be a positive integer.
 
  * A Canvas _MAY_ have the `width` property. If it has a `width`, it _MUST_ also have a `height`.<br/>
    Clients _MUST_ process `width` on a Canvas.
- * Content resources _MAY_ have the `width` property, with the value given in pixels, if appropriate.<br/>
+ * Content resources _SHOULD_ have the `width` property, with the value given in pixels, if appropriate to the resource type.<br/>
    Clients _SHOULD_ process `width` on content resources.
  * Other resource types _MUST NOT_ have the `width` property.<br/>
    Clients _SHOULD_ ignore `width` on other resource types.
@@ -491,7 +500,7 @@ The value _MUST_ be a positive floating point number.
 
  * A Canvas _MAY_ have the `duration` property.<br/>
    Clients _MUST_ process `duration` on a Canvas.
- * Content resources _MAY_ have the `duration` property.<br/>
+ * Content resources _SHOULD_ have the `duration` property, if appropriate to the resource type.<br/>
    Clients _SHOULD_ process `duration` on content resources.
  * Other resource types _MUST NOT_ have a `duration`.<br/>
    Clients _SHOULD_ ignore `duration` on other resource types.
