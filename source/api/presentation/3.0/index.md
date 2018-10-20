@@ -1246,12 +1246,23 @@ Renderers _MUST_ scale content into the space represented by the Canvas, and _SH
 
   "items": [
     {
-      "id": "https://example.org/iiif/book1/page/p1/1",
+      "id": "https://example.org/iiif/book1/content/p1/1",
       "type": "AnnotationPage",
       "items": [
-        // Content Annotations on the Canvas are included here
+        // Painting Annotations on the Canvas are included here
       ]
     }
+  ],
+
+  "annotations": [
+    {
+      "id": "https://example.org/iiif/book1/comments/p1/1",
+      "type": "AnnotationPage",
+      "items": [
+        // Non-Painting Annotations on the Canvas are included here
+      ]
+    }
+
   ]
 }
 ```
@@ -1776,6 +1787,12 @@ __Structural Properties__
               "target": "https://example.org/iiif/book1/canvas/p1"
             }
           ]
+        }
+      ],
+      "annotations": [
+        {
+          "id": "https://example.org/iiif/book1/comments/p1/1",
+          "type": "AnnotationPage"
         }
       ]
     },
