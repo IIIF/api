@@ -250,6 +250,7 @@ Examples:
         <img src="img/size_up_max.png" alt="Above Maximum Size" class="fullPct" />
         <p><strong>1</strong> size=^max</p>
         <p><code>.../full/^max/0/default.jpg</code></p>
+        <p><em>N.B. Assuming that the image has a <code>maxWidth</code> of 360px</em></p>
       </td>
     </tr>
     <tr>
