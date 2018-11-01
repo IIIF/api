@@ -247,11 +247,24 @@ Examples:
         <p><em>N.B. Assuming that the image has a <code>maxWidth</code> of 200px</em></p>
       </td>
       <td>
+        <img src="img/size_up_max.png" alt="Above Maximum Size" class="fullPct" />
+        <p><strong>1</strong> size=^max</p>
+        <p><code>.../full/^max/0/default.jpg</code></p>
+      </td>
+    </tr>
+    <tr>
+      <td>
         <img src="img/size_wc.png" alt="Size by Width" class="fullPct" />
         <p><strong>2</strong> size=150,</p>
         <p><code>.../full/150,/0/default.jpg</code></p>
       </td>
+      <td>
+        <img src="img/size_up_max.png" alt="Size by Width Above Maximum" class="fullPct" />
+        <p><strong>2</strong> size=^150,</p>
+        <p><code>.../full/^360,/0/default.jpg</code></p>
+      </td>
     </tr>
+
     <tr>
       <td>
         <img src="img/size_ch.png" alt="Size by Height" class="fullPct" />

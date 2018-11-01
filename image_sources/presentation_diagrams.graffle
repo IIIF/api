@@ -222,7 +222,7 @@
 			<array>
 				<dict>
 					<key>Bounds</key>
-					<string>{{401.47113735296335, 419.47813795754678}, {39, 24}}</string>
+					<string>{{405.97113735296335, 412.47813795754678}, {30, 38}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -269,7 +269,8 @@
 {\*\expandedcolortbl;;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
 
-\f0\fs24 \cf0 items}</string>
+\f0\fs24 \cf0 first\
+last}</string>
 					</dict>
 					<key>Wrap</key>
 					<string>NO</string>
@@ -15534,7 +15535,7 @@ Manifest}</string>
 		<key>CurrentSheet</key>
 		<integer>0</integer>
 		<key>Frame</key>
-		<string>{{391, 531}, {1440, 813}}</string>
+		<string>{{0, 64}, {1440, 813}}</string>
 		<key>ShowInfo</key>
 		<true/>
 		<key>ShowRuler</key>
