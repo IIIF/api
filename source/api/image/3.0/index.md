@@ -260,11 +260,10 @@ Examples:
       </td>
       <td>
         <img src="img/size_up_max.png" alt="Size by Width Above Maximum" class="fullPct" />
-        <p><strong>2</strong> size=^150,</p>
+        <p><strong>2</strong> size=^360,</p>
         <p><code>.../full/^360,/0/default.jpg</code></p>
       </td>
     </tr>
-
     <tr>
       <td>
         <img src="img/size_ch.png" alt="Size by Height" class="fullPct" />
@@ -272,9 +271,21 @@ Examples:
         <p><code>.../full/,150/0/default.jpg</code></p>
       </td>
       <td>
+        <img src="img/size_up_max.png" alt="Size by Height Above Maximum" class="fullPct" />
+        <p><strong>3</strong> size=,^240</p>
+        <p><code>.../full/,^240/0/default.jpg</code></p>
+      </td>
+    </tr>
+    <tr>
+      <td>
         <img src="img/size_pct.png" alt="Size by Percent" class="fullPct" />
         <p><strong>4</strong> size=pct:50</p>
         <p><code>.../full/pct:50/0/default.jpg</code></p>
+      </td>
+      <td>
+        <img src="img/size_up_max.png" alt="Size by Percent Above Maximum" class="fullPct" />
+        <p><strong>4</strong> size=pct:120</p>
+        <p><code>.../full/pct:120/0/default.jpg</code></p>
       </td>
     </tr>
     <tr>
@@ -284,10 +295,23 @@ Examples:
         <p><code>.../full/225,100/0/default.jpg</code></p>
       </td>
       <td>
+        <img src="img/size_up_wch.png" alt="Size by Width,Height Above Maximum" class="fullPct" />
+        <p><strong>5</strong> size=^360,360</p>
+        <p><code>.../full/^360,360/0/default.jpg</code></p>
+      </td>
+    </tr>
+    <tr>
+      <td>
         <img src="img/size_bwch.png" alt="Size By Bang Width Height" class="fullPct" />
         <p><strong>6</strong> size=!225,100</p>
         <p><code>.../full/!225,100/0/default.jpg</code></p>
         <p><em>N.B. Returned image is 150,100 px</em></p>
+      </td>
+      <td>
+        <img src="img/size_up_bwch.png" alt="Size By Bang Width Height Above Maximum" class="fullPct" />
+        <p><strong>6</strong> size=^!360,360</p>
+        <p><code>.../full/^!360,360/0/default.jpg</code></p>
+        <p><em>N.B. Returned image is 360,240 px</em></p>
       </td>
     </tr>
   </tbody>
