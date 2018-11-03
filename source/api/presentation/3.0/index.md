@@ -318,9 +318,9 @@ The value _MUST_ be an array of JSON objects, where each item in the array confo
 
 ##### thumbnail
 
-An external content resource, such as a small image or short audio clip, that represents the resource that has the `thumbnail` property. It is _RECOMMENDED_ that a [IIIF Image API][image-api] service be available for images to enable manipulations such as resizing. A resource _MAY_ have multiple thumbnail resources that have the same or different `type` and `format`.
+An external content resource, such as a small image or short audio clip, that represents the resource that has the `thumbnail` property. A resource _MAY_ have multiple thumbnail resources that have the same or different `type` and `format`.
 
-The value _MUST_ be an array of JSON objects, where each item in the array has an `id` property and _SHOULD_ have at least one of the `type` and `format` properties.
+The value _MUST_ be an array of JSON objects, where each item in the array has an `id` property and _SHOULD_ have at least one of the `type` and `format` properties. Images and video _SHOULD_ have the `width` and `height` properties, and time-based media _SHOULD_ have the `duration` property. It is _RECOMMENDED_ that a [IIIF Image API][image-api] service be available for images to enable manipulations such as resizing.	
 
  * A Collection _SHOULD_ have the `thumbnail` property with at least one item.<br/>
    Clients _SHOULD_ render `thumbnail` on a Collection.
@@ -334,7 +334,16 @@ The value _MUST_ be an array of JSON objects, where each item in the array has a
    Clients _MAY_ render `thumbnail` on other resource types.
 
 ``` json-doc
-{ "thumbnail": [ { "id": "https://example.org/img/thumb.jpg", "type": "Image" } ] }
+{
+  "thumbnail": [	
+    { 	
+      "id": "https://example.org/img/thumb.jpg",	
+      "type": "Image",	
+      "width": 300,	
+      "height": 200 	
+    }	
+  ]	
+}
 ```
 
 ##### navDate
@@ -432,7 +441,11 @@ The existence of an HTTP(S) URI in the `id` property does not mean that the URI 
 
 ##### type
 
-The type or class of the resource. For types defined by this specification, the value of `type` will be described in the sections below describing the individual classes. For external resources, the type is drawn from other specifications. Recommendations for basic types such as image, text or audio are given in the table below.
+The type or class of the resource. For classes defined for this specification, the value of `type` will be described in the sections below describing each individual class. 
+
+For content resources, the value of `type` is drawn from other specifications. Recommendations for common content types such as image, text or audio are given in the table below.
+
+The JSON objects that appear in the value of the `service` property will have many different classes, and can be used to distinguish the sort of service, with specific properties defined in a [registered context document][prezi30-ldce].
 
 The value _MUST_ be a string.
 
@@ -441,16 +454,16 @@ The value _MUST_ be a string.
 
 > | Class         | Description                      |
 | ------------- | -------------------------------- |
-| `Application` | Software intended to be executed |
 | `Dataset`     | Data not intended to be rendered to humans directly |
 | `Image`       | Two dimensional visual resources primarily intended to be seen, such as might be rendered with an &lt;img> HTML tag |
+| `Model`       | A three (or more) dimensional model intended to be interacted with by humans |
 | `Sound`       | Auditory resources primarily intended to be heard, such as might be rendered with an &lt;audio> HTML tag |
 | `Text`        | Resources primarily intended to be read |
 | `Video`       | Moving images, with or without accompanying audio, such as might be rendered with a &lt;video> HTML tag |
 {: .api-table #table-type}
 
 ``` json-doc
-{ "type": "Dataset" }
+{ "type": "Image" }
 ```
 
 ##### format
@@ -508,7 +521,7 @@ The value _MUST_ be a positive integer.
 
  * A Canvas _MAY_ have the `height` property. If it has a `height`, it _MUST_ also have a `width`.<br/>
    Clients _MUST_ process `height` on a Canvas.
- * Content resources _MAY_ have the `height` property, with the value given in pixels, if appropriate.<br/>
+ * Content resources _SHOULD_ have the `height` property, with the value given in pixels, if appropriate to the resource type.<br/>
    Clients _SHOULD_ process `height` on content resources.
  * Other resource types _MUST NOT_ have the `height` property.<br/>
    Clients _SHOULD_ ignore `height` on other resource types.
@@ -525,7 +538,7 @@ The value _MUST_ be a positive integer.
 
  * A Canvas _MAY_ have the `width` property. If it has a `width`, it _MUST_ also have a `height`.<br/>
    Clients _MUST_ process `width` on a Canvas.
- * Content resources _MAY_ have the `width` property, with the value given in pixels, if appropriate.<br/>
+ * Content resources _SHOULD_ have the `width` property, with the value given in pixels, if appropriate to the resource type.<br/>
    Clients _SHOULD_ process `width` on content resources.
  * Other resource types _MUST NOT_ have the `width` property.<br/>
    Clients _SHOULD_ ignore `width` on other resource types.
@@ -542,7 +555,7 @@ The value _MUST_ be a positive floating point number.
 
  * A Canvas _MAY_ have the `duration` property.<br/>
    Clients _MUST_ process `duration` on a Canvas.
- * Content resources _MAY_ have the `duration` property.<br/>
+ * Content resources _SHOULD_ have the `duration` property, if appropriate to the resource type.<br/>
    Clients _SHOULD_ process `duration` on content resources.
  * Other resource types _MUST NOT_ have a `duration`.<br/>
    Clients _SHOULD_ ignore `duration` on other resource types.
@@ -712,7 +725,7 @@ The value _MUST_ be an array of JSON objects. Each object will have properties d
   "service": [
     {
       "id": "https://example.org/service",
-      "type": "Service",
+      "type": "ExampleExtensionService",
       "profile": "https://example.org/docs/service"
     }
   ]
@@ -1215,7 +1228,7 @@ The Manifest _MUST_ have an `items` property, which is an array of JSON-LD objec
   "service": [
     {
       "id": "https://example.org/service/example",
-      "type": "Service",
+      "type": "ExampleExtensionService",
       "profile": "https://example.org/docs/example-service.html"
     }
   ],
@@ -1310,12 +1323,23 @@ Renderers _MUST_ scale content into the space represented by the Canvas, and _SH
 
   "items": [
     {
-      "id": "https://example.org/iiif/book1/page/p1/1",
+      "id": "https://example.org/iiif/book1/content/p1/1",
       "type": "AnnotationPage",
       "items": [
-        // Content Annotations on the Canvas are included here
+        // Painting Annotations on the Canvas are included here
       ]
     }
+  ],
+
+  "annotations": [
+    {
+      "id": "https://example.org/iiif/book1/comments/p1/1",
+      "type": "AnnotationPage",
+      "items": [
+        // Non-Painting Annotations on the Canvas are included here
+      ]
+    }
+
   ]
 }
 ```
@@ -1636,7 +1660,7 @@ __Descriptive and Rights Properties__
 | -------------------- | ------------------------- | ------------------------ | ------------------------ | 
 | Collection           | ![recommended][icon3-rec] | ![optional][icon3-opt]   | ![optional][icon3-opt]   |
 | Manifest             | ![recommended][icon3-rec] | ![optional][icon3-opt]   | ![optional][icon3-opt]   |
-| Canvas               | ![optional][icon3-opt]    | ![optional][icon3-opt]*  | ![optional][icon3-opt]*  |
+| Canvas               | ![optional][icon3-opt]    | ![optional][icon3-opt]\* | ![optional][icon3-opt]\* |
 | Annotation           | ![optional][icon3-opt]    | ![not allowed][icon3-na] | ![not allowed][icon3-na] |
 | AnnotationPage       | ![optional][icon3-opt]    | ![not allowed][icon3-na] | ![not allowed][icon3-na] |
 | Range                | ![optional][icon3-opt]    | ![optional][icon3-opt]   | ![optional][icon3-opt]   |
@@ -1644,7 +1668,7 @@ __Descriptive and Rights Properties__
 | Content Resources    | ![optional][icon3-opt]    | ![not allowed][icon3-na] | ![not allowed][icon3-na] |
 {: .api-table #table-reqs-1a}
 
-*A Canvas that is the value of a `placeholderCanvas` or `accompanyingCanvas` property may not have either of those properties itself.<br/>
+\*A Canvas that is the value of a `placeholderCanvas` or `accompanyingCanvas` property may not have either of those properties itself.<br/>
 
 __Technical Properties__
 
@@ -1652,7 +1676,7 @@ __Technical Properties__
 | --------------------  | ----------------------- | ---------------------- | ------------------------ | ------------------------ | ------------------------ | ------------------------ | ------------------------- | ------------------------ | ---------------------- | ------------------------ |
 | Collection            | ![required][icon3-req]  | ![required][icon3-req] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na]  | ![optional][icon3-opt]   | ![optional][icon3-opt] | ![not allowed][icon3-na] |
 | Manifest              | ![required][icon3-req]  | ![required][icon3-req] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na]  | ![optional][icon3-opt]   | ![optional][icon3-opt] | ![not allowed][icon3-na] |
-| Canvas                | ![required][icon3-req]  | ![required][icon3-req] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![optional][icon3-opt]*  | ![optional][icon3-opt]*  | ![optional][icon3-opt]    | ![not allowed][icon3-na] | ![optional][icon3-opt] | ![not allowed][icon3-na] |
+| Canvas                | ![required][icon3-req]  | ![required][icon3-req] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![optional][icon3-opt]\* | ![optional][icon3-opt]\* | ![optional][icon3-opt]    | ![not allowed][icon3-na] | ![optional][icon3-opt] | ![not allowed][icon3-na] |
 | Annotation            | ![required][icon3-req]  | ![required][icon3-req] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na]  | ![not allowed][icon3-na] | ![optional][icon3-opt] | ![optional][icon3-opt]   |
 | Annotation Page       | ![required][icon3-req]  | ![required][icon3-req] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na]  | ![not allowed][icon3-na] | ![optional][icon3-opt] | ![not allowed][icon3-na] |
 | Range                 | ![required][icon3-req]  | ![required][icon3-req] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na]  | ![optional][icon3-opt]   | ![optional][icon3-opt] | ![not allowed][icon3-na] |
@@ -1660,7 +1684,7 @@ __Technical Properties__
 | Content Resources     | ![required][icon3-req]  | ![required][icon3-req] | ![optional][icon3-opt]   | ![optional][icon3-opt]   | ![optional][icon3-opt]   | ![optional][icon3-opt]   | ![optional][icon3-opt]    | ![not allowed][icon3-na] | ![optional][icon3-opt] | ![not allowed][icon3-na] |
 {: .api-table #table-reqs-2}
 
-*If a Canvas has either of `height` and `width`, it _MUST_ have the other, as described in the [definitions][prezi30-height] of those properties.<br/>
+\*If a Canvas has either of `height` and `width`, it _MUST_ have the other, as described in the [definitions][prezi30-height] of those properties.<br/>
 
 
 __Linking Properties__
@@ -1776,7 +1800,7 @@ __Structural Properties__
   "service": [
     {
       "id": "https://example.org/service/example",
-      "type": "Service",
+      "type": "ExampleExtensionService",
       "profile": "https://example.org/docs/example-service.html"
     }
   ],
@@ -1840,6 +1864,12 @@ __Structural Properties__
               "target": "https://example.org/iiif/book1/canvas/p1"
             }
           ]
+        }
+      ],
+      "annotations": [
+        {
+          "id": "https://example.org/iiif/book1/comments/p1/1",
+          "type": "AnnotationPage"
         }
       ]
     },

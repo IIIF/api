@@ -213,7 +213,7 @@ Examples:
 
 ###  4.2. Size
 
-The size parameter specifies the dimensions to which the extracted region, which might be the complete image, is to be scaled. With the exception of the _`w,h`_ and _`^w,h`_ forms, the returned image maintains the aspect ratio of the extracted region as closely as possible. Sizes prefixed with `^` allow upscaling of the extracted region when its pixel dimensions are less than the pixel dimensions of the scaled region.
+The size parameter specifies the dimensions to which the extracted region, which might be the full image, is to be scaled. With the exception of the _`w,h`_ and _`^w,h`_ forms, the returned image maintains the aspect ratio of the extracted region as closely as possible. Sizes prefixed with `^` allow upscaling of the extracted region when its pixel dimensions are less than the pixel dimensions of the scaled region.
 
 | Form      | Description |
 | --------- | ----------- |
