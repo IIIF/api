@@ -673,7 +673,7 @@ The value _MUST_ be a JSON object, which _MUST_ have the `id`, `type`, and `labe
 
 A small external image resource that represents the Agent resource it is associated with. The logo _MUST_ be clearly rendered when the resource is displayed or used, without cropping, rotating or otherwise distorting the image. It is _RECOMMENDED_ that a [IIIF Image API][image-api] service be available for this image for other manipulations such as resizing.
 
-The value _MUST_ be a JSON objects, which _MUST_ have an `id` and _SHOULD_ have at least one of `type` and `format`.
+The value _MUST_ be a JSON object, which _MUST_ have an `id` and _SHOULD_ have at least one of `type` and `format`.
 
  * Agent resources _SHOULD_ have the `logo` property.<br/>
    Clients _MUST_ render `logo` on Agent resources.
@@ -1656,16 +1656,16 @@ __Descriptive and Rights Properties__
 | Content Resources    | ![optional][icon3-opt]    | ![optional][icon3-opt]    | ![optional][icon3-opt]    | ![optional][icon3-opt] | ![optional][icon3-opt] | ![not allowed][icon3-na]  | ![recommended][icon3-rec] |
 {: .api-table #table-reqs-1}
 
-|                      | thumbnail                 | placeholderCanvas        | accompanyingCanvas       |
-| -------------------- | ------------------------- | ------------------------ | ------------------------ | 
-| Collection           | ![recommended][icon3-rec] | ![optional][icon3-opt]   | ![optional][icon3-opt]   |
-| Manifest             | ![recommended][icon3-rec] | ![optional][icon3-opt]   | ![optional][icon3-opt]   |
-| Canvas               | ![optional][icon3-opt]    | ![optional][icon3-opt]\* | ![optional][icon3-opt]\* |
-| Annotation           | ![optional][icon3-opt]    | ![not allowed][icon3-na] | ![not allowed][icon3-na] |
-| AnnotationPage       | ![optional][icon3-opt]    | ![not allowed][icon3-na] | ![not allowed][icon3-na] |
-| Range                | ![optional][icon3-opt]    | ![optional][icon3-opt]   | ![optional][icon3-opt]   |
-| AnnotationCollection | ![optional][icon3-opt]    | ![not allowed][icon3-na] | ![not allowed][icon3-na] |
-| Content Resources    | ![optional][icon3-opt]    | ![not allowed][icon3-na] | ![not allowed][icon3-na] |
+|                      | provider                  | thumbnail                 | placeholderCanvas        | accompanyingCanvas       |
+| -------------------- | ------------------------- | ------------------------- | ------------------------ | ------------------------ | 
+| Collection           | ![recommended][icon3-rec] | ![recommended][icon3-rec] | ![optional][icon3-opt]   | ![optional][icon3-opt]   |
+| Manifest             | ![recommended][icon3-rec] | ![recommended][icon3-rec] | ![optional][icon3-opt]   | ![optional][icon3-opt]   |
+| Canvas               | ![optional][icon3-opt]    | ![optional][icon3-opt]    | ![optional][icon3-opt]\* | ![optional][icon3-opt]\* |
+| Annotation           | ![optional][icon3-opt]    | ![optional][icon3-opt]    | ![not allowed][icon3-na] | ![not allowed][icon3-na] |
+| AnnotationPage       | ![optional][icon3-opt]    | ![optional][icon3-opt]    | ![not allowed][icon3-na] | ![not allowed][icon3-na] |
+| Range                | ![optional][icon3-opt]    | ![optional][icon3-opt]    | ![optional][icon3-opt]   | ![optional][icon3-opt]   |
+| AnnotationCollection | ![optional][icon3-opt]    | ![optional][icon3-opt]    | ![not allowed][icon3-na] | ![not allowed][icon3-na] |
+| Content Resources    | ![optional][icon3-opt]    | ![optional][icon3-opt]    | ![not allowed][icon3-na] | ![not allowed][icon3-na] |
 {: .api-table #table-reqs-1a}
 
 \*A Canvas that is the value of a `placeholderCanvas` or `accompanyingCanvas` property may not have either of those properties itself.<br/>
@@ -1689,16 +1689,16 @@ __Technical Properties__
 
 __Linking Properties__
 
-|                       | seeAlso                 | service                 | logo                   | homepage               | rendering              | partOf                 | start                    | supplementary            |
+|                       | seeAlso                 | service                 | homepage               | rendering              | partOf                 | start                    | supplementary            |
 | --------------------  | ----------------------- | ----------------------- | ---------------------- | ---------------------- | ---------------------- | ---------------------- | ------------------------ | ------------------------ |
-| Collection            | ![optional][icon3-opt]  | ![optional][icon3-opt]  | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![not allowed][icon3-na] | ![not allowed][icon3-na] |
-| Manifest              | ![optional][icon3-opt]  | ![optional][icon3-opt]  | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt]   | ![not allowed][icon3-na] |
-| Canvas                | ![optional][icon3-opt]  | ![optional][icon3-opt]  | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![not allowed][icon3-na] | ![not allowed][icon3-na] |
-| Annotation            | ![optional][icon3-opt]  | ![optional][icon3-opt]  | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![not allowed][icon3-na] | ![not allowed][icon3-na] |
-| Annotation Page       | ![optional][icon3-opt]  | ![optional][icon3-opt]  | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![not allowed][icon3-na] | ![not allowed][icon3-na] |
-| Range                 | ![optional][icon3-opt]  | ![optional][icon3-opt]  | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt]   | ![optional][icon3-opt]   |
-| Annotation Collection | ![optional][icon3-opt]  | ![optional][icon3-opt]  | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![not allowed][icon3-na] | ![not allowed][icon3-na] |
-| Content Resources     | ![optional][icon3-opt]  | ![optional][icon3-opt]  | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![not allowed][icon3-na] | ![not allowed][icon3-na] |
+| Collection            | ![optional][icon3-opt]  | ![optional][icon3-opt]  | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![not allowed][icon3-na] | ![not allowed][icon3-na] |
+| Manifest              | ![optional][icon3-opt]  | ![optional][icon3-opt]  | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt]   | ![not allowed][icon3-na] |
+| Canvas                | ![optional][icon3-opt]  | ![optional][icon3-opt]  | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![not allowed][icon3-na] | ![not allowed][icon3-na] |
+| Annotation            | ![optional][icon3-opt]  | ![optional][icon3-opt]  | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![not allowed][icon3-na] | ![not allowed][icon3-na] |
+| Annotation Page       | ![optional][icon3-opt]  | ![optional][icon3-opt]  | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![not allowed][icon3-na] | ![not allowed][icon3-na] |
+| Range                 | ![optional][icon3-opt]  | ![optional][icon3-opt]  | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt]   | ![optional][icon3-opt]   |
+| Annotation Collection | ![optional][icon3-opt]  | ![optional][icon3-opt]  | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![not allowed][icon3-na] | ![not allowed][icon3-na] |
+| Content Resources     | ![optional][icon3-opt]  | ![optional][icon3-opt]  | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![not allowed][icon3-na] | ![not allowed][icon3-na] |
 {: .api-table #table-reqs-3}
 
 
