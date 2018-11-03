@@ -1645,7 +1645,7 @@ __Behavior Values__
 |                 | Collection               | Manifest                 | Canvas                   | Range                    |
 | --------------- | ------------------------ | ------------------------ | ------------------------ | ------------------------ |
 | auto-advance    | ![optional][icon3-opt]   | ![optional][icon3-opt]   | ![optional][icon3-opt]   | ![optional][icon3-opt]   |
-| continuous      | ![optional][icon3-opt]   | ![optional][icon3-opt]   | ![not allowed][icon3-na] | ![not allowed][icon3-na] |
+| continuous      | ![optional][icon3-opt]   | ![optional][icon3-opt]   | ![not allowed][icon3-na] | ![optional][icon3-opt]   |
 | facing-pages    | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![optional][icon3-opt]   | ![not allowed][icon3-na] |
 | individuals     | ![optional][icon3-opt]   | ![optional][icon3-opt]   | ![not allowed][icon3-na] | ![optional][icon3-opt]   |
 | multi-part      | ![optional][icon3-opt]   | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] |
