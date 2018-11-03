@@ -152,6 +152,7 @@
 [org-w3c-json-as-json-ld]: http://www.w3.org/TR/json-ld/#interpreting-json-as-json-ld "Interpreting JSON as JSON-LD"
 [org-w3c-json-ld-compaction]: http://www.w3.org/TR/json-ld-api/#compaction-algorithms "JSON-LD Compaction Algorithms"
 [org-w3c-json-ld-scoped-contexts]: https://json-ld.org/spec/latest/json-ld/#scoped-contexts "JSON-LD Scoped Contexts"
+[org-w3c-json-ld-case]: https://www.w3.org/TR/json-ld11/#the-context "JSON-LD Context"
 [org-w3c-json-ld]: http://www.w3.org/TR/json-ld/ "JSON-LD 1.0"
 [org-w3c-media-frags]: http://www.w3.org/TR/media-frags/ "Media Fragments"
 [org-w3c-rdf11-blank-nodes]: http://www.w3.org/TR/rdf11-concepts/#section-blank-nodes "RDF 1.1 Concepts"
