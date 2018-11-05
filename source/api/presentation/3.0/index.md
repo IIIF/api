@@ -895,7 +895,7 @@ This section describes features applicable to all of the Presentation API conten
 
 ### 4.1. Case Sensitivity
 
-Terms in JSON-LD are [case sensitive][org-w3c-json-ld-case].  IIIF Presentation API responses _MUST_ match the case of properties and enumerated values used in this specification. For example to specify that a resource is a Manifest, the property must be given as `type` and not `Type` or `tYpE`, and the value must be given as `Manifest` and not `manifest` or `manIfEsT`.
+Terms in JSON-LD are [case sensitive][org-w3c-json-ld-case].  The cases of properties and enumerated values in IIIF Presentation API responses MUST match those used in this specification. For example to specify that a resource is a Manifest, the property must be given as `type` and not `Type` or `tYpE`, and the value must be given as `Manifest` and not `manifest` or `manIfEsT`.
 
 ### 4.2. Resource Representations
 
