@@ -5,7 +5,6 @@
 [annex-json-ld]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/jsonld/ "JSON-LD Frames Implementation Notes"
 [annex-oa]: {{ site.url }}{{ site.baseurl }}/api/annex/openannotation/ "Open Annotation Extensions"
 [annex-patterns]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/design_patterns/
-[annex-registry]: {{ site.url }}{{ site.baseurl }}/api/annex/registry/
 [annex-services]: {{ site.url }}{{ site.baseurl }}/api/annex/services/ "Services Annex Document"
 [auth1-cookie-service]: {{ site.url }}{{ site.baseurl }}/api/auth/1.0/#access-cookie-service "IIIF Authentication Cookie Service"
 [auth1-logout-service]: {{ site.url }}{{ site.baseurl }}/api/auth/1.0/#logout-service "IIIF Authentication Logout Service"
@@ -193,11 +192,12 @@
 [prezi30-type-overview]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#2-resource-type-overview
 [prezi30]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/
 [prezi3]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.draft.minor }}/ "Presentation API"
-[registry-extensions]: {{ site.url }}{{ site.baseurl }}/api/annex/registry/extensions/
-[registry-image-extensions]: {{ site.url }}{{ site.baseurl }}/api/annex/registry/image-extensions/ "IIIF Image Extension Registry"
-[registry-motivations]: {{ site.url }}{{ site.baseurl }}/api/annex/registry/motivations/
-[registry-process]: {{ site.url }}{{ site.baseurl }}/api/annex/registry/process/
-[registry-services]: {{ site.url }}{{ site.baseurl }}/api/annex/registry/services/
+[extensions]: {{ site.url }}{{ site.baseurl }}/api/registry/extensions/
+[registry]: {{ site.url }}{{ site.baseurl }}/api/registry/ "IIIF Extension Registry"
+[registry-image-extensions]: {{ site.url }}{{ site.baseurl }}/api/registry/image-extensions/ "IIIF Image Extension Registry"
+[registry-motivations]: {{ site.url }}{{ site.baseurl }}/api/registry/motivations/
+[registry-process]: {{ site.url }}{{ site.baseurl }}/api/registry/process/
+[registry-services]: {{ site.url }}{{ site.baseurl }}/api/registry/services/
 [search-api]: {{ site.url }}{{ site.baseurl }}/api/search/{{ site.search_api.stable.major }}.{{ site.search_api.stable.minor }}/ "Content Search API"
 [search1-autocomplete]: {{ site.url }}{{ site.baseurl }}/api/search/1.0/#autocomplete
 [search1]: {{ site.url }}{{ site.baseurl }}/api/search/1.0/
