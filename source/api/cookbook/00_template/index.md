@@ -18,10 +18,6 @@ This is a recipe from the [Presentation API Cookbook][annex-cookbook].
 
 (how to implement the pattern) -- style on links to spec references to make them easy to find and back-ref automagically
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit velit, malesuada in ornare ut, commodo a nunc. Interdum et malesuada fames ac ante ipsum primis in faucibus. Ut egestas metus tortor, ut pellentesque libero interdum quis. Integer blandit convallis varius. Sed sed odio pharetra, commodo nibh eget, rutrum ligula. Praesent sit amet tortor id risus malesuada hendrerit. Maecenas vel varius urna. Curabitur nec enim ligula. Fusce turpis mauris, semper ut pellentesque at, iaculis vel quam. Nam dapibus elit tortor, at tempor lorem iaculis eget.
-
-Suspendisse potenti. Vestibulum turpis velit, lacinia ut sodales non, tempor ut tortor. Nulla tincidunt facilisis mi. Aliquam ornare augue vitae tellus ultricies, non tincidunt odio molestie. Ut lacinia leo ac mi consectetur imperdiet. Vestibulum posuere, tellus sit amet tincidunt posuere, nunc lorem scelerisque justo, vitae viverra est risus lobortis augue. Fusce vulputate consectetur eros, vitae suscipit eros hendrerit et. Aenean ullamcorper fringilla ultrices. Nulla convallis tortor sed lorem ultrices, non posuere nunc condimentum.
-
 ## Restrictions: (when this pattern is usable / not usable)
 
 If it's deprecated. If it uses multiple specifications, which versions are needed, etc.
