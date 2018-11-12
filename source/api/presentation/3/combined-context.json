@@ -9,14 +9,13 @@
     "dc": "http://purl.org/dc/elements/1.1/",
     "dcterms": "http://purl.org/dc/terms/",
     "dctypes": "http://purl.org/dc/dcmitype/",
-    "doap": "http://usefulinc.com/ns/doap#",
     "foaf": "http://xmlns.com/foaf/0.1/",
     "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
     "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
     "xsd": "http://www.w3.org/2001/XMLSchema#",
-    "svcs": "http://rdfs.org/sioc/services#",
     "as": "http://www.w3.org/ns/activitystreams#",
     "ebu": "http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#",
+    "schema": "https://schema.org/",
 
     "Collection": "iiif_prezi:Collection",
     "Manifest": "iiif_prezi:Manifest",
@@ -41,7 +40,7 @@
     "Video": "dctypes:MovingImage",
     "Audio": "dctypes:Sound",
     "Text": "dctypes:Text",
-    "Service": "svcs:Service",
+    "Service": "schema:WebAPI",
 
     "label": {
       "@id": "rdfs:label",
@@ -92,7 +91,7 @@
     },
     "profile": {
       "@type": "@vocab",
-      "@id": "doap:implements"
+      "@id": "dcterms:conformsTo"
     },
     "duration": {
       "@id": "ebu:duration"
@@ -122,7 +121,7 @@
     },
     "service": {
       "@type": "@id",
-      "@id": "svcs:has_service",
+      "@id": "schema:potentialAction",
       "@container": "@set"
     },
     "seeAlso": {
@@ -189,7 +188,7 @@
     "supplementing": "iiif_prezi:supplementing",
 
     "protocol": {
-      "@id": "dcterms:conformsTo",
+      "@id": "dcterms:type",
       "@type": "@id"
     },
     "height": {
