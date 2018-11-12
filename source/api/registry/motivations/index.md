@@ -1,5 +1,5 @@
 ---
-title: Registry of Types
+title: Registry of Motivations
 layout: spec
 tags: [annex, service, services, specifications]
 cssversion: 2
@@ -24,7 +24,7 @@ Changes will be tracked within the document.
 
 ## Abstract
 {:.no_toc}
-This is one of a number of [IIIF registries][annex-registry]. It lists a set of types for external resources that have been identified as useful for implementations, across the APIs.  They may be defined by the IIIF community, or outside of it.
+This is one of a number of [IIIF registries][registry]. It lists a set of Web Annotation motivations that have been identified as useful for implementations, for the Presentation and Search APIs.  They may be defined by the IIIF community, or outside of it.
 
 Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss]
 
@@ -36,7 +36,7 @@ Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss]
 
 ## 1. Introduction
 
-This is one of a number of [IIIF registries][annex-registry]. It lists a set of types for external resources that have been identified as useful for implementations, across the APIs.  They may be defined by the IIIF community, or outside of it.
+This is one of a number of [IIIF registries][registry]. It lists a set of Web Annotation motivations that have been identified as useful for implementations, for the Presentation and Search APIs.  They may be defined by the IIIF community, or outside of it.
 
 ### 1.1. Disclaimer
 
