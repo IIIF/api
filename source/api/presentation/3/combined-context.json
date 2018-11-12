@@ -2,8 +2,8 @@
   "@context": {
     "@version": 1.1,
 
-    "presentation": "http://iiif.io/api/presentation/3#",
-    "image": "http://iiif.io/api/image/3#",
+    "iiif_prezi": "http://iiif.io/api/presentation/3#",
+    "iiif_image": "http://iiif.io/api/image/3#",
     "exif": "http://www.w3.org/2003/12/exif/ns#",
     "oa": "http://www.w3.org/ns/oa#",
     "dc": "http://purl.org/dc/elements/1.1/",
@@ -18,10 +18,10 @@
     "as": "http://www.w3.org/ns/activitystreams#",
     "ebu": "http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#",
 
-    "Collection": "presentation:Collection",
-    "Manifest": "presentation:Manifest",
-    "Canvas": "presentation:Canvas",
-    "Range": "presentation:Range",
+    "Collection": "iiif_prezi:Collection",
+    "Manifest": "iiif_prezi:Manifest",
+    "Canvas": "iiif_prezi:Canvas",
+    "Range": "iiif_prezi:Range",
 
     "AnnotationCollection": {
       "@id": "as:OrderedCollection",
@@ -53,7 +53,7 @@
     },
     "metadata": {
       "@type": "@id",
-      "@id": "presentation:metadataEntries",
+      "@id": "iiif_prezi:metadataEntries",
       "@container": "@list"
     },
     "summary": {
@@ -62,14 +62,14 @@
     },
     "thumbnail": {
       "@type": "@id",
-      "@id": "presentation:thumbnail",
+      "@id": "iiif_prezi:thumbnail",
       "@container": "@set"
     },
     "navDate": {
-      "@id": "presentation:navigationDate"
+      "@id": "iiif_prezi:navigationDate"
     },
     "requiredStatement": {
-      "@id": "presentation:requiredStatement",
+      "@id": "iiif_prezi:requiredStatement",
       "@type": "@id"
     },
     "rights": {
@@ -98,17 +98,17 @@
       "@id": "ebu:duration"
     },
     "viewingDirection": {
-      "@id": "presentation:viewingDirection",
+      "@id": "iiif_prezi:viewingDirection",
       "@type": "@vocab",
       "@container": "@set"
     },
     "behavior": {
-      "@id": "presentation:behavior",
+      "@id": "iiif_prezi:behavior",
       "@type": "@vocab",
       "@container": "@set"
     },
     "timeMode": {
-      "@id": "presentation:timeMode",
+      "@id": "iiif_prezi:timeMode",
       "@type": "@vocab"
     },
     "homepage": {
@@ -137,11 +137,11 @@
     },
     "start": {
       "@type": "@id",
-      "@id": "presentation:start"
+      "@id": "iiif_prezi:start"
     },
     "supplementary": {
       "@type": "@id",
-      "@id": "presentation:supplementary"
+      "@id": "iiif_prezi:supplementary"
     },
 
     "items": {
@@ -151,42 +151,42 @@
     },
     "structures": {
       "@type": "@id",
-      "@id": "presentation:structures",
+      "@id": "iiif_prezi:structures",
       "@container": "@list"
     },
     "annotations": {
       "@type": "@id",
-      "@id": "presentation:annotations",
+      "@id": "iiif_prezi:annotations",
       "@container": "@list"
     },
 
-    "left-to-right": "presentation:leftToRightDirection",
-    "right-to-left": "presentation:rightToLeftDirection",
-    "top-to-bottom": "presentation:topToBottomDirection",
-    "bottom-to-top": "presentation:bottomToTopDirection",
+    "left-to-right": "iiif_prezi:leftToRightDirection",
+    "right-to-left": "iiif_prezi:rightToLeftDirection",
+    "top-to-bottom": "iiif_prezi:topToBottomDirection",
+    "bottom-to-top": "iiif_prezi:bottomToTopDirection",
 
-    "paged": "presentation:pagedHint",
-    "non-paged": "presentation:nonPagedHint",
-    "continuous": "presentation:continuousHint",
-    "individuals": "presentation:individualsHint",
-    "top": "presentation:topHint",
-    "multi-part": "presentation:multiPartHint",
-    "facing-pages": "presentation:facingPagesHint",
-    "hidden": "presentation:noneHint",
-    "no-nav": "presentation:noNavHint",
-    "thumbnail-nav": "presentation:thumbnailNavHint",
-    "auto-advance": "presentation:autoAdvanceHint",
-    "together": "presentation:togetherHint",
-    "repeat": "presentation:repeatHint",
-    "sequence": "presentation:sequenceHint",
-    "unordered": "presentation:unordered",
+    "paged": "iiif_prezi:pagedHint",
+    "non-paged": "iiif_prezi:nonPagedHint",
+    "continuous": "iiif_prezi:continuousHint",
+    "individuals": "iiif_prezi:individualsHint",
+    "top": "iiif_prezi:topHint",
+    "multi-part": "iiif_prezi:multiPartHint",
+    "facing-pages": "iiif_prezi:facingPagesHint",
+    "hidden": "iiif_prezi:noneHint",
+    "no-nav": "iiif_prezi:noNavHint",
+    "thumbnail-nav": "iiif_prezi:thumbnailNavHint",
+    "auto-advance": "iiif_prezi:autoAdvanceHint",
+    "together": "iiif_prezi:togetherHint",
+    "repeat": "iiif_prezi:repeatHint",
+    "sequence": "iiif_prezi:sequenceHint",
+    "unordered": "iiif_prezi:unordered",
 
-    "trim": "presentation:trimMode",
-    "scale": "presentation:scaleMode",
-    "loop": "presentation:loopMode",
+    "trim": "iiif_prezi:trimMode",
+    "scale": "iiif_prezi:scaleMode",
+    "loop": "iiif_prezi:loopMode",
 
-    "painting": "presentation:painting",
-    "supplementing": "presentation:supplementing",
+    "painting": "iiif_prezi:painting",
+    "supplementing": "iiif_prezi:supplementing",
 
     "protocol": {
       "@id": "dcterms:conformsTo",
@@ -201,64 +201,64 @@
       "@type": "xsd:integer"
     },
     "maxWidth": {
-      "@id": "image:maxWidth",
+      "@id": "iiif_image:maxWidth",
       "@type": "xsd:integer"
     },
     "maxHeight": {
-      "@id": "image:maxHeight",
+      "@id": "iiif_image:maxHeight",
       "@type": "xsd:integer"
     },
     "maxArea": {
-      "@id": "image:maxArea",
+      "@id": "iiif_image:maxArea",
       "@type": "xsd:integer"
     },
 
     "sizes": {
-      "@id": "image:hasSize",
+      "@id": "iiif_image:hasSize",
       "@type": "@id",
       "@container": "@set"
     },
     "tiles": {
-      "@id": "image:hasTile",
+      "@id": "iiif_image:hasTile",
       "@type": "@id",
       "@container": "@set"
     },
     "scaleFactors": {
-      "@id": "image:scaleFactor",
+      "@id": "iiif_image:scaleFactor",
       "@type": "xsd:integer",
       "@container": "@set"
     },
 
     "extraQualities": {
-      "@id": "image:quality",
+      "@id": "iiif_image:quality",
       "@container": "@set"
     },
     "extraFormats": {
-      "@id": "image:quality",
+      "@id": "iiif_image:quality",
       "@container": "@set"
     },
     "extraFeatures": {
-      "@id": "image:quality",
+      "@id": "iiif_image:quality",
       "@type": "@vocab",
       "@container": "@set"
     },
 
-    "baseUriRedirect": "image:baseUriRedirectFeature",
-    "canonicalLinkHeader": "image:canonicalLinkHeaderFeature",
-    "cors": "image:corsFeature",
-    "jsonldMediaType": "image:jsonLdMediaTypeFeature",
-    "mirroring": "image:mirroringFeature",
-    "profileLinkHeader": "image:profileLinkHeaderFeature",
-    "regionByPct": "image:regionByPctFeature",
-    "regionByPx": "image:regionByPxFeature",
-    "regionSquare": "image:regionSquareFeature",
-    "rotationArbitrary": "image:arbitraryRotationFeature",
-    "rotationBy90s": "image:rotationBy90sFeature",
-    "sizeByConfinedWh": "image:sizeByConfinedWHFeature",
-    "sizeByH": "image:sizeByHFeature",
-    "sizeByPct": "image:sizeByPctFeature",
-    "sizeByW": "image:sizeByWFeature",
-    "sizeByWh": "image:sizeByWHFeature",
+    "baseUriRedirect": "iiif_image:baseUriRedirectFeature",
+    "canonicalLinkHeader": "iiif_image:canonicalLinkHeaderFeature",
+    "cors": "iiif_image:corsFeature",
+    "jsonldMediaType": "iiif_image:jsonLdMediaTypeFeature",
+    "mirroring": "iiif_image:mirroringFeature",
+    "profileLinkHeader": "iiif_image:profileLinkHeaderFeature",
+    "regionByPct": "iiif_image:regionByPctFeature",
+    "regionByPx": "iiif_image:regionByPxFeature",
+    "regionSquare": "iiif_image:regionSquareFeature",
+    "rotationArbitrary": "iiif_image:arbitraryRotationFeature",
+    "rotationBy90s": "iiif_image:rotationBy90sFeature",
+    "sizeByConfinedWh": "iiif_image:sizeByConfinedWHFeature",
+    "sizeByH": "iiif_image:sizeByHFeature",
+    "sizeByPct": "iiif_image:sizeByPctFeature",
+    "sizeByW": "iiif_image:sizeByWFeature",
+    "sizeByWh": "iiif_image:sizeByWHFeature",
 
     "ImageService1": {
       "@id": "http://iiif.io/api/image/1#ImageService",
