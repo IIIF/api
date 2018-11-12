@@ -160,10 +160,7 @@ Activities are collected together into pages that together make up the entire se
 
 ```
 {
-  "@context": [
-    "http://iiif.io/api/discovery/0/context.json",
-    "https://www.w3.org/ns/activitystreams"
-  ],
+  "@context": "http://iiif.io/api/discovery/0/context.json",
   "id": "https://example.org/activity/page-1",
   "type": "OrderedCollectionPage",
   "partOf": {
@@ -206,10 +203,7 @@ As the number of Activities is likely too many to usefully be represented in a s
 
 ```
 {
-  "@context": [
-    "http://iiif.io/api/discovery/0/context.json",
-    "https://www.w3.org/ns/activitystreams"
-  ],
+  "@context": "http://iiif.io/api/discovery/0/context.json",
   "id": "https://example.org/activity/all-changes",
   "type": "OrderedCollection",
   "totalItems": 21456,
@@ -307,14 +301,14 @@ OrderedCollections _MAY_ have a `totalItems` property.  The value _MUST_ be a no
 
 This property is used to refer to one or more documents that semantically describe the set of resources that are being acted upon in the Activities within the OrderedCollection. This would allow the OrderedCollection to refer to, for example, a [DCAT][org-w3c-dcat] description of the dataset. For OrderedCollections that aggregate activities and/or objects from multiple sources, the referenced description should describe the complete aggregation rather than an individual source.
 
-OrderedCollections _MAY_ have a `context` property (distinct from the `@context` property).  The value _MUST_ be an array of one or more JSON objects, with the `id` and `type` properties.  The value of the `id` property _MUST_ be a string, and it _MUST_ be the HTTP(S) URI of the description of the dataset. The value of the `type` property _MUST_ be a string, and _MUST_ be `Document`. The JSON object _MAY_ have the `mediaType` property, the value of which _MUST_ be a string, and it _MUST_ be the MIME media type of the referenced description document.
+OrderedCollections _MAY_ have a `context` property (distinct from the `@context` property).  The value _MUST_ be an array of one or more JSON objects, with the `id` and `type` properties.  The value of the `id` property _MUST_ be a string, and it _MUST_ be the HTTP(S) URI of the description of the dataset. The value of the `type` property _MUST_ be a string, and _MUST_ be `Dataset`. The JSON object _MAY_ have the `mediaType` property, the value of which _MUST_ be a string, and it _MUST_ be the MIME media type of the referenced description document.
 
 ```
 {
   "context": [
     {
       "id": "https://example.org/dataset/all-dcat.jsonld",
-      "type": "Document",
+      "type": "Dataset",
       "mediaType": "application/ld+json"
     }
   ]
@@ -326,17 +320,14 @@ OrderedCollections _MAY_ have a `context` property (distinct from the `@context`
 
 ```
 {
-  "@context": [
-    "http://iiif.io/api/discovery/0/context.json",
-    "https://www.w3.org/ns/activitystreams"
-  ],
+  "@context": "http://iiif.io/api/discovery/0/context.json",
   "id": "https://example.org/activity/all-changes",
   "type": "OrderedCollection",
   "totalItems": 21456,
   "context": [
     {
       "id": "https://example.org/dataset/all-dcat.jsonld",
-      "type": "Document",
+      "type": "Dataset",
       "mediaType": "application/ld+json"
     }
   ],
@@ -459,10 +450,7 @@ Ordered Collection Pages _MUST_ have a `orderedItems` property.  The value _MUST
 
 ```
 {
-  "@context": [
-    "http://iiif.io/api/discovery/0/context.json",
-    "https://www.w3.org/ns/activitystreams"
-  ],
+  "@context": "http://iiif.io/api/discovery/0/context.json",
   "id": "https://example.org/activity/page-1",
   "type": "OrderedCollectionPage",
   "startIndex": 20,
@@ -544,7 +532,7 @@ Activities _MUST_ have the `object` property.  The value _MUST_ be a JSON object
     "context": [
       {
         "id": "https://example.org/dataset/single-item.jsonld",
-        "type": "Document",
+        "type": "Dataset",
         "mediaType": "application/ld+json"
       }
     ] 
@@ -599,7 +587,7 @@ Activities _MAY_ have the `actor` property.  The value _MUST_ be a JSON object, 
 
 ##### Complete Activity Example
 
-A complete example Activity would thus look like the following example.
+A complete example Activity would thus look like the following example. Note that it does not have a `@context` property, as it is always embedded within a `CollectionPage`.
 
 ```
 { 
@@ -612,7 +600,7 @@ A complete example Activity would thus look like the following example.
     "context": [
       {
         "id": "https://example.org/dataset/single-item.jsonld",
-        "type": "Document",
+        "type": "Dataset",
         "mediaType": "application/ld+json"
       }
     ]
