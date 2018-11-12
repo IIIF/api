@@ -5,7 +5,6 @@
 [annex-json-ld]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/jsonld/ "JSON-LD Frames Implementation Notes"
 [annex-oa]: {{ site.url }}{{ site.baseurl }}/api/annex/openannotation/ "Open Annotation Extensions"
 [annex-patterns]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/design_patterns/
-[annex-registry]: {{ site.url }}{{ site.baseurl }}/api/annex/registry/
 [annex-services]: {{ site.url }}{{ site.baseurl }}/api/annex/services/ "Services Annex Document"
 [auth1-cookie-service]: {{ site.url }}{{ site.baseurl }}/api/auth/1.0/#access-cookie-service "IIIF Authentication Cookie Service"
 [auth1-logout-service]: {{ site.url }}{{ site.baseurl }}/api/auth/1.0/#logout-service "IIIF Authentication Logout Service"
@@ -152,6 +151,7 @@
 [org-w3c-json-as-json-ld]: http://www.w3.org/TR/json-ld/#interpreting-json-as-json-ld "Interpreting JSON as JSON-LD"
 [org-w3c-json-ld-compaction]: http://www.w3.org/TR/json-ld-api/#compaction-algorithms "JSON-LD Compaction Algorithms"
 [org-w3c-json-ld-scoped-contexts]: https://json-ld.org/spec/latest/json-ld/#scoped-contexts "JSON-LD Scoped Contexts"
+[org-w3c-json-ld-case]: https://www.w3.org/TR/json-ld11/#the-context "JSON-LD Context"
 [org-w3c-json-ld]: http://www.w3.org/TR/json-ld/ "JSON-LD 1.0"
 [org-w3c-media-frags]: http://www.w3.org/TR/media-frags/ "Media Fragments"
 [org-w3c-rdf11-blank-nodes]: http://www.w3.org/TR/rdf11-concepts/#section-blank-nodes "RDF 1.1 Concepts"
@@ -175,25 +175,29 @@
 [prezi3-type]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.draft.minor }}/#type
 [prezi30-anno]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#annotation
 [prezi30-annopage]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#annotation-page
-[prezi30-appendixa]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#a-summary-of-metadata-requirements
+[prezi30-appendixa]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#a-summary-of-property-requirements
 [prezi30-canvas]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#53-canvas
 [prezi30-change-log]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/change-log/ "Presentation API 3.0 Change Log"
 [prezi30-height]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#height "height property"
+[prezi30-homepage]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#homepage "homepage property"
 [prezi30-html]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#44-html-markup-in-property-values "Presentation API Section 4.4"
 [prezi30-languages]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#43-language-of-property-values "Language of Property Values"
 [prezi30-ldce]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#45-linked-data-context-and-extensions "Linked Data Context and Extensions"
+[prezi30-logo]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#logo "logo property"
 [prezi30-range]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#54-range
 [prezi30-resource-properties]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#3-resource-properties
 [prezi30-resource-structure]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#5-resource-structure
+[prezi30-seealso]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#seealso "seeAlso property"
 [prezi30-terminology]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#13-terminology
 [prezi30-type-overview]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#2-resource-type-overview
 [prezi30]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/
 [prezi3]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.draft.minor }}/ "Presentation API"
-[registry-extensions]: {{ site.url }}{{ site.baseurl }}/api/annex/registry/extensions/
-[registry-image-extensions]: {{ site.url }}{{ site.baseurl }}/api/annex/registry/image-extensions/ "IIIF Image Extension Registry"
-[registry-motivations]: {{ site.url }}{{ site.baseurl }}/api/annex/registry/motivations/
-[registry-process]: {{ site.url }}{{ site.baseurl }}/api/annex/registry/process/
-[registry-services]: {{ site.url }}{{ site.baseurl }}/api/annex/registry/services/
+[extensions]: {{ site.url }}{{ site.baseurl }}/api/registry/extensions/
+[registry]: {{ site.url }}{{ site.baseurl }}/api/registry/ "IIIF Extension Registry"
+[registry-image-extensions]: {{ site.url }}{{ site.baseurl }}/api/registry/image-extensions/ "IIIF Image Extension Registry"
+[registry-motivations]: {{ site.url }}{{ site.baseurl }}/api/registry/motivations/
+[registry-process]: {{ site.url }}{{ site.baseurl }}/api/registry/process/
+[registry-services]: {{ site.url }}{{ site.baseurl }}/api/registry/services/
 [search-api]: {{ site.url }}{{ site.baseurl }}/api/search/{{ site.search_api.stable.major }}.{{ site.search_api.stable.minor }}/ "Content Search API"
 [search1-autocomplete]: {{ site.url }}{{ site.baseurl }}/api/search/1.0/#autocomplete
 [search1]: {{ site.url }}{{ site.baseurl }}/api/search/1.0/

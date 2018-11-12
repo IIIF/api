@@ -5,6 +5,7 @@ tags: [annex, service, services, specifications]
 cssversion: 2
 ---
 
+
 # Cookbook of IIIF Recipes
 
 The [IIIF Presentation API][prezi3] specifies a standardised way to describe complex digital objects. The resource types and properties of the specification are the building blocks of interoperable representations, for rendering by viewers and other software clients. This cookbook gathers together many examples of these representations (usually IIIF Manifests), in order to:
@@ -151,6 +152,7 @@ _this might be in a separate auth cookbook_
 * probe service for simple resource
 * auth for adaptive bit rate media (MPEG-DASH)
 * [Anyone can deep zoom, auth reqd for hi-res download](https://digirati-co-uk.github.io/iiif-auth-client/?image=https://iiifauth.digtest.co.uk/img/11_kitty_joyner.jpg/info.json)
+
 
 {% include acronyms.md %}
 {% include links.md %}
