@@ -1,7 +1,7 @@
 
 
 <!-- Keep two spaces at the top of this file -->
-[annex-cookbook]: {{ site.url }}{{ site.baseurl }}/api/annex/cookbook/ "IIIF Cookbook"
+[annex-cookbook]: {{ site.url }}{{ site.baseurl }}/api/cookbook/ "IIIF Cookbook"
 [annex-json-ld]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/jsonld/ "JSON-LD Frames Implementation Notes"
 [annex-oa]: {{ site.url }}{{ site.baseurl }}/api/annex/openannotation/ "Open Annotation Extensions"
 [annex-patterns]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/design_patterns/
@@ -198,5 +198,5 @@
 [search1-autocomplete]: {{ site.url }}{{ site.baseurl }}/api/search/1.0/#autocomplete
 [search1]: {{ site.url }}{{ site.baseurl }}/api/search/1.0/
 [shared-canvas]: {{ site.url }}{{ site.baseurl }}/model/shared-canvas/{{ site.shared_canvas.stable.major}}.{{ site.shared_canvas.stable.minor }} "Shared Canvas Data Model"
-[recipe-mvm-image]: {{ site.url }}{{ site.baseurl }}/api/annex/cookbook/mvm-image/ "Simplest Manifest - Image"
-[recipe-segment-image-part]: {{ site.url }}{{ site.baseurl }}/api/annex/cookbook/segment-image-part/ "Annotating part of an image to a canvas"
+[recipe-mvm-image]: {{ site.url }}{{ site.baseurl }}/api/cookbook/mvm-image/ "Simplest Manifest - Image"
+[recipe-segment-image-part]: {{ site.url }}{{ site.baseurl }}/api/cookbook/segment-image-part/ "Annotating part of an image to a canvas"

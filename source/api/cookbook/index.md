@@ -1,13 +1,13 @@
 ---
-title: Presentation API Cookbook
+title: IIIF Cookbook
 layout: spec
 tags: [annex, service, services, specifications]
 cssversion: 2
 ---
 
-# Cookbook of Presentation API Recipes
+# Cookbook of IIIF Recipes
 
-The [IIIF Presentation API][prezi3] specifies a standardised way to describe complex digitial objects. The resource types and properties of the specification are the building blocks of interoperable representations, for rendering by viewers and other software clients. This cookbook gathers together many examples of these representations (usually IIIF Manifests), in order to:
+The [IIIF Presentation API][prezi3] specifies a standardised way to describe complex digital objects. The resource types and properties of the specification are the building blocks of interoperable representations, for rendering by viewers and other software clients. This cookbook gathers together many examples of these representations (usually IIIF Manifests), in order to:
 
 * provide many more examples than the specification alone can do, for reference and learning;
 * encourage publishers to adopt common patterns in modelling classes of complex objects;
@@ -24,12 +24,11 @@ A recipe must have the following features:
 
 * A short and clear name
 * A use case (why the pattern is important to include)
-* Implementation notes
-    * with references to the specifcation and other recipes
-* All referended content resources, external annotations and other links should resolve: they must exist on the web or be included in the submitted recipe. Any client that implements support for a recipe should expect the published recipe to work
+* Implementation notes, with references to the specifcation and other recipes
+* All referended content resources, external annotations and other links should resolve: they must exist on the web or be included in the submitted recipe. Any client that implements support for a recipe should expect the published recipe to work.
 * Restrictions (optional): where this pattern is usable or not usable, with explanation
 * A full example, comprising:
-    * A prose description;
+    * a prose description;
     * code samples (JSON-LD representation, following the formatting instructions (todo)
 * See also: similar or otherwise related recipes
 
