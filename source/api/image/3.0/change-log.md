@@ -108,7 +108,7 @@ The following changes are backwards compatible with version 2.1.1 of the Image A
 
 A new [Extensions][image30-extensions] section describes mechanisms for extension of image requests and the new [Extra Functionality][image30-extra-functionality] section describes how extensions are described in the image information response. The `extraQualities` and `extraFormats` properties have been added to allow description of additional functionality. See issues [#1374](https://github.com/IIIF/api/issues/1374), [#1373](https://github.com/IIIF/api/issues/1373), and [#1435](https://github.com/IIIF/api/issues/1435).
 
-There is now a [registry of known extensions][registry-extensions] to the IIIF specifications, which includes a [registry of Image API extensions][registry-image-extensions]. Extensions intended for community use should be registered in the extensions registry, but registration is not mandatory.
+There is now a [registry of known extensions][extensions] to the IIIF specifications, which includes a [registry of Image API extensions][registry-image-extensions]. Extensions intended for community use should be registered in the extensions registry, but registration is not mandatory.
 
 ### 2.2. Add `partOf` and `seeAlso` linking properties
 
