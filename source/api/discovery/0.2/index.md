@@ -693,7 +693,7 @@ Many of the changes in this version are due to the work of the [IIIF Discovery T
 
 | Date       | Description           |
 | ---------- | --------------------- |
-| 2018-10-17 | Version 0.2 (unnamed) |
+| 2018-11-12 | Version 0.2 (unnamed) |
 | 2018-05-04 | Version 0.1 (unnamed) |
 
 {% include links.md %}
