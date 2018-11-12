@@ -972,7 +972,11 @@ Additional motivations may be added to the Annotation to further clarify the int
 
 This section describes features applicable to all of the Presentation API content. For the most part, these are features of the JSON-LD specification that have particular uses within the API and recommendations about URIs to use.
 
-### 4.1. Resource Representations
+### 4.1. Case Sensitivity
+
+Terms in JSON-LD are [case sensitive][org-w3c-json-ld-case].  The cases of properties and enumerated values in IIIF Presentation API responses MUST match those used in this specification. For example to specify that a resource is a Manifest, the property must be given as `type` and not `Type` or `tYpE`, and the value must be given as `Manifest` and not `manifest` or `manIfEsT`.
+
+### 4.2. Resource Representations
 
 Resource descriptions _SHOULD_ be embedded within the JSON description of parent resources, and _MAY_ also be available via separate requests from the HTTP(S) URI given in the resource's `id` property. Links to resources _MUST_ be given as a JSON object with the `id` property and at least one other property, typically either `type`, `format` or `profile` to give a hint as to what sort of resource is being referred to.
 
@@ -989,7 +993,7 @@ Resource descriptions _SHOULD_ be embedded within the JSON description of parent
 }
 ```
 
-### 4.2. Properties with Multiple Values
+### 4.3. Properties with Multiple Values
 
 Any of the properties in the API that can have multiple values _MUST_ always be given as an array of values, even if there is only a single item in that array.
 
@@ -1001,7 +1005,7 @@ Any of the properties in the API that can have multiple values _MUST_ always be 
 }
 ```
 
-### 4.3. Language of Property Values
+### 4.4. Language of Property Values
 
 Language _MAY_ be associated with strings that are intended to be displayed to the user for the `label` and `summary` properties, plus the `label` and `value` properties of the `metadata` and `requiredStatement` objects.
 
@@ -1036,7 +1040,7 @@ In the case where multiple values are supplied, clients _MUST_ use the following
 
 Note that this does not apply to embedded textual bodies in Annotations, which use the Web Annotation pattern of `value` and `language` as separate properties.
 
-### 4.4. HTML Markup in Property Values
+### 4.5. HTML Markup in Property Values
 
 Minimal HTML markup _MAY_ be included for processing in the `summary` property and the `value` property in the `metadata` and `requiredStatement` objects. It _MUST NOT_ be used in `label` or other properties. This is included to allow content publishers to add links and simple formatting instructions to blocks of text. The content _MUST_ be well-formed XML and therefore must be wrapped in an element such as `p` or `span`. There _MUST NOT_ be whitespace on either side of the HTML string, and thus the first character in the string _MUST_ be a '<' character and the last character _MUST_ be '>', allowing a consuming application to test whether the value is HTML or plain text using these. To avoid a non-HTML string matching this, it is _RECOMMENDED_ that an additional whitespace character be added to the end of the value in situations where plain text happens to start and end this way.
 
@@ -1055,7 +1059,7 @@ Clients _SHOULD_ allow only `a`, `b`, `br`, `i`, `img`, `p`, `small`, `span`, `s
 { "summary": { "en-latn": [ "<p>Short <b>summary</b> of the resource.</p>" ] } }
 ```
 
-### 4.5. Linked Data Context and Extensions
+### 4.6. Linked Data Context and Extensions
 
 The top level resource in the response _MUST_ have the `@context` property, and it _SHOULD_ appear as the very first key/value pair of the JSON representation. This tells Linked Data processors how to interpret the document. The IIIF Presentation API context, below, _MUST_ occur once per response in the top-most resource, and thus _MUST NOT_ appear within embedded resources. For example, when embedding a Canvas within a Manifest, the Canvas will not have the `@context` property.
 
