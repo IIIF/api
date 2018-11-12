@@ -36,7 +36,7 @@ Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss]
 
 ## 1. Introduction
 
-This is one of a number of [IIIF registries][annex-registry]. It lists a set of rights statements and licenses for use across the IIIF APIs that have been identified as useful for implementations.  They may be defined by the IIIF community, or outside of it.
+This is one of a number of [IIIF registries][registry]. It lists a set of rights statements and licenses for use across the IIIF APIs that have been identified as useful for implementations.  They may be defined by the IIIF community, or outside of it.
 
 ### 1.1. Disclaimer
 
