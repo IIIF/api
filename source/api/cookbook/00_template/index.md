@@ -12,24 +12,19 @@ This is a recipe from the [Presentation API Cookbook][annex-cookbook].
 
 ## Use Case
 
-(why this pattern is important) Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit velit, malesuada in ornare ut, commodo a nunc. Interdum et malesuada fames ac ante ipsum primis in faucibus. 
+Why this pattern is important?
 
 ## Implementation notes
 
-(how to implement the pattern) -- style on links to spec references to make them easy to find and back-ref automagically
+How does one implement the pattern?
 
-## Restrictions: (when this pattern is usable / not usable)
+## Restrictions
 
-If it's deprecated. If it uses multiple specifications, which versions are needed, etc.
-Not present if not needed.
+When this pattern is usable / not usable? Is it deprecated? If it uses multiple specifications, which versions are needed, etc.? (Not present if not needed.)
 
 ## Example
 
-(initial prose description)
-
-(investigate further how best to do line numbers, and whether they're beneficial overall -- maybe hard code to have anchors to lines?)
-
-[eg CSS vs hard coded, preventing selection for copy/paste of examples]
+Describe in prose and provide examples, e.g.: 
 
 
 ``` json-doc
@@ -45,9 +40,7 @@ Not present if not needed.
 
 # Related recipes
 
-* Link to a recip[e with a reason why it is related to this one, or should be looked at.
-* Link to a recip[e with a reason why it is related to this one, or should be looked at.
-* Link to a recip[e with a reason why it is related to this one, or should be looked at.
+(List of related recipes)
 
 
 {% include acronyms.md %}
