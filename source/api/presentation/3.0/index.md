@@ -1063,19 +1063,24 @@ Clients _SHOULD_ allow only `a`, `b`, `br`, `i`, `img`, `p`, `small`, `span`, `s
 
 The top level resource in the response _MUST_ have the `@context` property, and it _SHOULD_ appear as the very first key/value pair of the JSON representation. This tells Linked Data processors how to interpret the document. The IIIF Presentation API context, below, _MUST_ occur once per response in the top-most resource, and thus _MUST NOT_ appear within embedded resources. For example, when embedding a Canvas within a Manifest, the Canvas will not have the `@context` property.
 
-The value of the `@context` property _MUST_ be an array, and the __last__ two values _MUST_ be the Web Annotation context and the Presentation API context, in that order. Further contexts, such as those for local or [registered extensions][registry], _MUST_ be added at the beginning of the array.
+The value of the `@context` property _MUST_ be either the URI `http://iiif.io/api/presentation/{{ page.major }}/context.json` or a JSON array with the URI `http://iiif.io/api/presentation/{{ page.major }}/context.json` as the last item. Further contexts, such as those for local or [registered extensions][registry], _MUST_ be added at the beginning of the array.
 
+``` json-doc
+{
+  "@context": "http://iiif.io/api/presentation/{{ page.major }}/context.json"
+}
+```
+
+Any additional properties beyond those defined in this specification or the Web Annotation Data Model _SHOULD_ be mapped to RDF predicates using further context documents. These extensions _SHOULD_ be added to the top level `@context` property, and _MUST_ be added before the above context. The JSON-LD 1.1 functionality of predicate specific context definitions, known as [scoped contexts][org-w3c-json-ld-scoped-contexts], _MUST_ be used to minimize cross-extension collisions. Extensions intended for community use _SHOULD_ be [registered in the extensions registry][registry], but registration is not mandatory.
 
 ``` json-doc
 {
   "@context": [
-    "http://www.w3.org/ns/anno.jsonld",
+    "http://example.org/extension/context.json",
     "http://iiif.io/api/presentation/{{ page.major }}/context.json"
   ]
 }
 ```
-
-Any additional properties beyond those defined in this specification or the Web Annotation Data Model _SHOULD_ be mapped to RDF predicates using further context documents. These extensions _SHOULD_ be added to the top level `@context` property, and _MUST_ be added before the above contexts. The JSON-LD 1.1 functionality of predicate specific context definitions, known as [scoped contexts][org-w3c-json-ld-scoped-contexts], _MUST_ be used to minimize cross-extension collisions. Extensions intended for community use _SHOULD_ be [registered in the extensions registry][registry], but registration is not mandatory.
 
 The JSON representation _MUST NOT_ include the `@graph` key at the top level. This key might be created when serializing directly from RDF data using the JSON-LD 1.0 compaction algorithm. Instead, JSON-LD framing and/or custom code should be used to ensure the structure of the document is as defined by this specification.
 
@@ -1106,10 +1111,7 @@ An example Collection document:
 
 ``` json-doc
 {
-  "@context": [
-    "http://www.w3.org/ns/anno.jsonld",
-    "http://iiif.io/api/presentation/{{ page.major }}/context.json"
-  ],
+  "@context": "http://iiif.io/api/presentation/{{ page.major }}/context.json",
   "id": "https://example.org/iiif/collection/top",
   "type": "Collection",
   "label": { "en": [ "Collection for Example Organization" ] },
@@ -1148,10 +1150,7 @@ The Manifest _MUST_ have an `items` property, which is an array of JSON-LD objec
 ``` json-doc
 {
   // Metadata about this manifest file
-  "@context": [
-    "http://www.w3.org/ns/anno.jsonld",
-    "http://iiif.io/api/presentation/{{ page.major }}/context.json"
-  ],
+  "@context": "http://iiif.io/api/presentation/{{ page.major }}/context.json",
   "id": "https://example.org/iiif/book1/manifest",
   "type": "Manifest",
 
@@ -1388,10 +1387,7 @@ Ranges _MAY_ link to an Annotation Collection that has the content of the Range 
 
 ``` json-doc
 {
-  "@context": [
-    "http://www.w3.org/ns/anno.jsonld",
-    "http://iiif.io/api/presentation/{{ page.major }}/context.json"
-  ],
+  "@context": "http://iiif.io/api/presentation/{{ page.major }}/context.json",
   "id": "https://example.org/iiif/book1/manifest",
   "type": "Manifest",
   // Metadata here ...
@@ -1463,10 +1459,7 @@ In part due to the timing of the release of the JSON-LD and Web Annotation speci
 
 ``` json-doc
 {
-  "@context": [
-    "http://www.w3.org/ns/anno.jsonld",
-    "http://iiif.io/api/presentation/{{ page.major }}/context.json"
-  ],
+  "@context": "http://iiif.io/api/presentation/{{ page.major }}/context.json",
   "id": "https://example.org/iiif/book1/annopage/p1",
   "type": "AnnotationPage",
 
@@ -1501,10 +1494,7 @@ The IIIF community has defined [additional Selector classes][annex-oa] for use w
 
 ``` json-doc
 {
-  "@context": [
-    "http://www.w3.org/ns/anno.jsonld",
-    "http://iiif.io/api/presentation/{{ page.major }}/context.json"
-  ],
+  "@context": "http://iiif.io/api/presentation/{{ page.major }}/context.json",
   "id": "https://example.org/iiif/book1/annotation/p0001-image",
   "type": "Annotation",
   "motivation": "painting",
@@ -1530,10 +1520,7 @@ If there is a need to distinguish between content resources, then the resource _
 
 ``` json-doc
 {
-  "@context": [
-    "http://www.w3.org/ns/anno.jsonld",
-    "http://iiif.io/api/presentation/{{ page.major }}/context.json"
-  ],
+  "@context": "http://iiif.io/api/presentation/{{ page.major }}/context.json",
   "id": "https://example.org/iiif/book1/annotation/p0001-image",
   "type": "Annotation",
   "motivation": "painting",
@@ -1567,10 +1554,7 @@ Annotation Collections _MUST_ have a URI, and it _SHOULD_ be an HTTP(S) URI. The
 
 ``` json-doc
 {
-  "@context": [
-    "http://www.w3.org/ns/anno.jsonld",
-    "http://iiif.io/api/presentation/{{ page.major }}/context.json"
-  ],
+  "@context": "http://iiif.io/api/presentation/{{ page.major }}/context.json",
   "id": "https://example.org/iiif/book1/annocoll/transcription",
   "type": "AnnotationCollection",
   "label": [ "Diplomatic Transcription" ],
@@ -1584,10 +1568,7 @@ For Annotation Collections with many Annotations, there will be many pages. The 
 
 ``` json-doc
 {
-  "@context": [
-    "http://www.w3.org/ns/anno.jsonld",
-    "http://iiif.io/api/presentation/{{ page.major }}/context.json"
-  ],
+  "@context": "http://iiif.io/api/presentation/{{ page.major }}/context.json",
   "id": "https://example.org/iiif/book1/annopage/l1",
   "type": "AnnotationPage",
   "partOf": {
@@ -1773,10 +1754,7 @@ __Behavior Values__
 
 ```
 {
-  "@context": [
-    "http://www.w3.org/ns/anno.jsonld",
-    "http://iiif.io/api/presentation/{{ page.major }}/context.json"
-  ],
+  "@context": "http://iiif.io/api/presentation/{{ page.major }}/context.json",
   "id": "https://example.org/iiif/book1/manifest",
   "type": "Manifest",
   "label": { "en": [ "Book 1" ] },
