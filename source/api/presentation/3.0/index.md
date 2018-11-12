@@ -1652,7 +1652,7 @@ It is possible to include Image API service descriptions within the Manifest, an
 
 ## Appendices
 
-### A. Summary of Metadata Requirements
+### A. Summary of Property Requirements
 
 | Icon                       | Meaning     |
 | -------------------------- | ----------- |
@@ -1736,6 +1736,31 @@ __Structural Properties__
 | Annotation Collection | ![not allowed][icon3-na]   | ![not allowed][icon3-na]   | ![not allowed][icon3-na]   |
 | Content Resources     | ![not allowed][icon3-na]   | ![not allowed][icon3-na]   | ![optional][icon3-opt]     |
 {: .api-table #table-reqs-4}
+
+
+__Behavior Values__
+
+|                 | Collection               | Manifest                 | Canvas                   | Range                    |
+| --------------- | ------------------------ | ------------------------ | ------------------------ | ------------------------ |
+| auto-advance    | ![optional][icon3-opt]   | ![optional][icon3-opt]   | ![optional][icon3-opt]   | ![optional][icon3-opt]   |
+| continuous      | ![optional][icon3-opt]   | ![optional][icon3-opt]   | ![not allowed][icon3-na] | ![optional][icon3-opt]   |
+| facing-pages    | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![optional][icon3-opt]   | ![not allowed][icon3-na] |
+| individuals     | ![optional][icon3-opt]   | ![optional][icon3-opt]   | ![not allowed][icon3-na] | ![optional][icon3-opt]   |
+| multi-part      | ![optional][icon3-opt]   | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] |
+| no-auto-advance | ![optional][icon3-opt]   | ![optional][icon3-opt]   | ![optional][icon3-opt]   | ![optional][icon3-opt]   |
+| no-nav          | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![optional][icon3-opt]   |
+| no-repeat       | ![optional][icon3-opt]   | ![optional][icon3-opt]   | ![not allowed][icon3-na] | ![not allowed][icon3-na] |
+| non-paged       | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![optional][icon3-opt]   | ![not allowed][icon3-na] |
+| hidden \*       | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] |
+| paged           | ![optional][icon3-opt]   | ![optional][icon3-opt]   | ![not allowed][icon3-na] | ![optional][icon3-opt]   |
+| repeat          | ![optional][icon3-opt]   | ![optional][icon3-opt]   | ![not allowed][icon3-na] | ![not allowed][icon3-na] |
+| sequence        | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![optional][icon3-opt]   |
+| thumbnail-nav   | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![optional][icon3-opt]   |
+| together        | ![optional][icon3-opt]   | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] |
+| unordered       | ![optional][icon3-opt]   | ![optional][icon3-opt]   | ![not allowed][icon3-na] | ![optional][icon3-opt] |
+{: .api-table #table-reqs-5}
+
+\* `hidden` is allowed on Annotation Collections, Annotation Pages, Annotations, Specific Resources and Choices, as these are the classes that result in rendering content to the user.
 
 
 ### B. Example Manifest Response
