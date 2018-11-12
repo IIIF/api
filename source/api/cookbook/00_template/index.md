@@ -26,7 +26,6 @@ When is this pattern is usable / not usable? Is it deprecated? If it uses multip
 
 Describe in prose and provide examples, e.g.: 
 
-
 ``` json-doc
 {
   "@context": [
@@ -40,7 +39,7 @@ Describe in prose and provide examples, e.g.:
 
 # Related recipes
 
-(List of related recipes)
+Provide a bulleted list of related recipes and why they are relevant.
 
 
 {% include acronyms.md %}
