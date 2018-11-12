@@ -1630,14 +1630,16 @@ Clients _MUST NOT_ attempt to construct resource URIs by themselves, instead the
 
 The format for all responses is JSON, as described above. The different requirements for which resources _MUST_ provide a response is summarized in [Appendix A][prezi30-appendixa]. While some resources do not require their URI to provide the description, it is good practice if possible.
 
-The HTTP `Content-Type` header of the response _SHOULD_ have the value `application/ld+json` (JSON-LD) with the `profile` parameter given as the context document: `http://iiif.io/api/presentation/3/context.json`.
+If the server receives a request with an `Accept` header, it _SHOULD_ respond following the rules of [content negotiation][org-rfc-7231-conneg]. Note that content types provided in the `Accept` header of the request _MAY_ include parameters, for example `profile` or `charset`.
+
+If the request does not include an `Accept` header, the HTTP `Content-Type` header of the response _SHOULD_ have the value `application/ld+json` (JSON-LD) with the `profile` parameter given as the context document: `http://iiif.io/api/presentation/3/context.json`.
 
 ``` none
 Content-Type: application/ld+json;profile="http://iiif.io/api/presentation/3/context.json"
 ```
 {: .urltemplate}
 
-If this cannot be generated due to server configuration details, then the content-type _MUST_ instead be `application/json` (regular JSON), without a `profile` parameter.
+If the `Content-Type` header `application/ld+json` cannot be generated due to server configuration details, then the `Content-Type` header _SHOULD_ instead be `application/json` (regular JSON), without a `profile` parameter.
 
 ``` none
 Content-Type: application/json
