@@ -17,14 +17,58 @@
     "ebu": "http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#",
     "schema": "https://schema.org/",
 
-    "Collection": "iiif_prezi:Collection",
-    "Manifest": "iiif_prezi:Manifest",
-    "Canvas": "iiif_prezi:Canvas",
-    "Range": "iiif_prezi:Range",
-
+    "Collection": {
+      "@id": "iiif_prezi:Collection",
+      "@context": {
+        "partOf": {
+          "@id": "dcterms:partOf",
+          "@type": "@id",
+          "@container": "@set"
+        }
+      }
+    },
+    "Manifest": {
+      "@id": "iiif_prezi:Manifest",
+      "@context": {
+        "partOf": {
+          "@id": "dcterms:partOf",
+          "@type": "@id",
+          "@container": "@set"
+        }
+      }
+    },
+    "Canvas": {
+      "@id": "iiif_prezi:Canvas",
+      "@context": {
+        "partOf": {
+          "@id": "dcterms:partOf",
+          "@type": "@id",
+          "@container": "@set"
+        }
+      }
+    },
+    "Range": {
+      "@id": "iiif_prezi:Range",
+      "@context": {
+        "partOf": {
+          "@id": "dcterms:partOf",
+          "@type": "@id",
+          "@container": "@set"
+        }
+      }
+    },
     "AnnotationCollection": {
       "@id": "as:OrderedCollection",
-      "@context": "http://www.w3.org/ns/anno.jsonld"
+      "@context": [
+        "http://www.w3.org/ns/anno.jsonld",
+        {
+          "partOf": {
+            "@id": "dcterms:partOf",
+            "@type": "@id",
+            "@container": "@set"
+          }
+        }
+      ]
     },
     "AnnotationPage": {
       "@id": "as:OrderedCollectionPage",
@@ -129,11 +173,7 @@
       "@id": "rdfs:seeAlso",
       "@container": "@set"
     },
-    "partOf": {
-      "@type": "@id",
-      "@id": "as:partOf",
-      "@container": "@set"
-    },
+
     "start": {
       "@type": "@id",
       "@id": "iiif_prezi:start"
