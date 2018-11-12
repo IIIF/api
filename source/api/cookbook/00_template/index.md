@@ -12,7 +12,7 @@ This is a recipe from the [Presentation API Cookbook][annex-cookbook].
 
 ## Use Case
 
-Why this pattern is important?
+Why is this pattern is important?
 
 ## Implementation notes
 
@@ -20,7 +20,7 @@ How does one implement the pattern?
 
 ## Restrictions
 
-When this pattern is usable / not usable? Is it deprecated? If it uses multiple specifications, which versions are needed, etc.? (Not present if not needed.)
+When is this pattern is usable / not usable? Is it deprecated? If it uses multiple specifications, which versions are needed, etc.? (Not present if not needed.)
 
 ## Example
 
