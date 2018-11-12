@@ -518,21 +518,22 @@ The request for the image information _MUST_ conform to the URI template:
 ```
 {: .urltemplate}
 
-The syntax for the response is [JSON-LD][org-w3c-json-ld]. The HTTP `Content-Type` header of the response _SHOULD_ have the value `application/ld+json` with the `profile` parameter given as the context document: `http://iiif.io/api/image/3/context.json`.
+The syntax for the response is [JSON-LD][org-w3c-json-ld]. If the server receives a request with an `Accept` header, it _SHOULD_ respond following the rules of [content negotiation][org-rfc-7231-conneg]. Note that content negotiation requests _MAY_ include `profile` and other parameters with any content type. 
+
+If the request does not include an `Accept` header, or that header does not include supported content types, the HTTP `Content-Type` header of the response _SHOULD_ have the value `application/ld+json` with the `profile` parameter given as the context document: `http://iiif.io/api/image/3/context.json`.
 
 ``` none
 Content-Type: application/ld+json;profile="http://iiif.io/api/image/3/context.json"
 ```
 {: .urltemplate}
 
-If this cannot be generated due to server configuration details, then the `Content-Type` header _MUST_ instead be `application/json` (regular JSON), without a `profile` parameter.
+If content type `application/ld+json` cannot be generated due to server configuration details, then the `Content-Type` header _SHOULD_ instead be `application/json` (regular JSON), without a `profile` parameter.
 
 ``` none
 Content-Type: application/json
 ```
 {: .urltemplate}
 
-If the server receives a request with one of the content types above in the Accept header, it _SHOULD_ respond with that content type following the rules of [content negotiation][org-rfc-7231-conneg]. Otherwise, it _MUST_ respond with the `application/json` content type. Note that clients _MAY_ send parameters other than `profile` with either content-type.
 
 Servers _SHOULD_ support [CORS][image30-cors-response] on image information responses.
 
