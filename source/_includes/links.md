@@ -176,16 +176,19 @@
 [prezi3-type]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.draft.minor }}/#type
 [prezi30-anno]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#annotation
 [prezi30-annopage]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#annotation-page
-[prezi30-appendixa]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#a-summary-of-metadata-requirements
+[prezi30-appendixa]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#a-summary-of-property-requirements
 [prezi30-canvas]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#53-canvas
 [prezi30-change-log]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/change-log/ "Presentation API 3.0 Change Log"
 [prezi30-height]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#height "height property"
-[prezi30-html]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#45-html-markup-in-property-values "Presentation API Section 4.4"
-[prezi30-languages]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#44-language-of-property-values "Language of Property Values"
-[prezi30-ldce]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#46-linked-data-context-and-extensions "Linked Data Context and Extensions"
+[prezi30-homepage]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#homepage "homepage property"
+[prezi30-html]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#44-html-markup-in-property-values "Presentation API Section 4.4"
+[prezi30-languages]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#43-language-of-property-values "Language of Property Values"
+[prezi30-ldce]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#45-linked-data-context-and-extensions "Linked Data Context and Extensions"
+[prezi30-logo]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#logo "logo property"
 [prezi30-range]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#54-range
 [prezi30-resource-properties]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#3-resource-properties
 [prezi30-resource-structure]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#5-resource-structure
+[prezi30-seealso]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#seealso "seeAlso property"
 [prezi30-terminology]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#13-terminology
 [prezi30-type-overview]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#2-resource-type-overview
 [prezi30]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/
