@@ -520,7 +520,7 @@ The request for the image information _MUST_ conform to the URI template:
 
 The syntax for the response is [JSON-LD][org-w3c-json-ld]. If the server receives a request with an `Accept` header, it _SHOULD_ respond following the rules of [content negotiation][org-rfc-7231-conneg]. Note that content types provided in the `Accept` header of the request _MAY_ include parameters, for example `profile` or `charset`.
 
-If the request does not include an `Accept` header, the HTTP `Content-Type` header of the response _SHOULD_ have the value `application/ld+json` with the `profile` parameter given as the context document: `http://iiif.io/api/image/3/context.json`.
+If the request does not include an `Accept` header, the HTTP `Content-Type` header of the response _SHOULD_ have the value `application/ld+json` (JSON-LD) with the `profile` parameter given as the context document: `http://iiif.io/api/image/3/context.json`.
 
 ``` none
 Content-Type: application/ld+json;profile="http://iiif.io/api/image/3/context.json"
@@ -533,7 +533,6 @@ If the `Content-Type` header `application/ld+json` cannot be generated due to se
 Content-Type: application/json
 ```
 {: .urltemplate}
-
 
 Servers _SHOULD_ support [CORS][image30-cors-response] on image information responses.
 
