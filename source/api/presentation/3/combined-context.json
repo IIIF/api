@@ -261,7 +261,7 @@
     "sizeByWh": "image:sizeByWHFeature",
 
     "ImageService1": {
-      "@id": "http://iiif.io/api/image/1/ImageService",
+      "@id": "http://iiif.io/api/image/1#ImageService",
       "@context": [
         "http://iiif.io/api/image/1/context.json",
         {
@@ -271,7 +271,7 @@
       ]
     },
     "ImageService2": {
-      "@id": "http://iiif.io/api/image/2/ImageService",
+      "@id": "http://iiif.io/api/image/2#ImageService",
       "@context": [
         "http://iiif.io/api/image/2/context.json",
         {
@@ -281,11 +281,11 @@
       ]
     },
     "ImageService3": {
-      "@id": "http://iiif.io/api/image/3/ImageService"
+      "@id": "http://iiif.io/api/image/3#ImageService"
     },
 
     "SearchService1": {
-      "@id": "http://iiif.io/api/search/1/SearchService",
+      "@id": "http://iiif.io/api/search/1#SearchService",
       "@context": [
         "http://iiif.io/api/search/1/context.json",
         {
@@ -296,7 +296,7 @@
     },
 
     "AutoCompleteService1": {
-      "@id": "http://iiif.io/api/search/1/AutoCompleteService",
+      "@id": "http://iiif.io/api/search/1#AutoCompleteService",
       "@context": [
         "http://iiif.io/api/search/1/context.json",
         {
@@ -307,7 +307,7 @@
     },
  
     "AuthCookieService1": {
-      "@id": "http://iiif.io/api/auth/1/CookieService",
+      "@id": "http://iiif.io/api/auth/1#CookieService",
       "@context": [
         "http://iiif.io/api/auth/1/context.json",
         {
@@ -317,7 +317,7 @@
       ]
     },
     "AuthTokenService1": {
-      "@id": "http://iiif.io/api/auth/1/TokenService",
+      "@id": "http://iiif.io/api/auth/1#TokenService",
       "@context": [
         "http://iiif.io/api/auth/1/context.json",
         {
@@ -327,7 +327,7 @@
       ]
     },
     "AuthLogoutService1": {
-      "@id": "http://iiif.io/api/auth/1/LogoutService",
+      "@id": "http://iiif.io/api/auth/1#LogoutService",
       "@context": [
         "http://iiif.io/api/auth/1/context.json",
         {
