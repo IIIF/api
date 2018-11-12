@@ -18,11 +18,12 @@ cssversion: 2
 
 ## Draft Specifications
 
-| API                | Draft Version (Status) |
-| ------------------ | ---------------------- |
-| Image API          | [3.0.0 ALPHA][image30] |
-| Presentation API   | [3.0.0 ALPHA][prezi30] |
-| Change Discovery API | [0.1.0][discovery01] |
+| API                  | Draft Version (Status) |
+| -------------------- | ---------------------- |
+| Image API            | [3.0.0 ALPHA][image30] |
+| Presentation API     | [3.0.0 ALPHA][prezi30] |
+| Change Discovery API | [0.1.0][discovery01]   |
+| Import API           | [0.1.0][import01]   |
 {: .api-table}
 
 __Feedback Requested__<br/>
@@ -89,6 +90,7 @@ IIIF Specifications are created and published following the [IIIF Editorial Proc
 [search10]: {{ site.url }}{{ site.baseurl }}/api/search/1.0/ "Search API v1.0"
 [search09]: {{ site.url }}{{ site.baseurl }}/api/search/0.9/ "Search API v0.9"
 [discovery01]: {{ site.url }}{{ site.baseurl }}/api/discovery/0.1/ "IIIF Change Discovery API"
+[import01]: {{ site.url }}{{ site.baseurl }}/api/import/0.1/ "IIIF Import API"
 [notes]: {{ site.url }}{{ site.baseurl }}/api/annex/ "Implementation Notes"
 [editors]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/editors/ "IIIF Editorial Process"
 
