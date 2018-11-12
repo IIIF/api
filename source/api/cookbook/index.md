@@ -17,21 +17,27 @@ The [IIIF Presentation API][prezi3] specifies a standardised way to describe com
 
 # Process
 
-Anyone can submit a recipe to the cookbook. (TRC role...)
+Anyone can submit a recipe to the cookbook. The community process is as follows:
 
-Recipes should not be substantially the same as an existing recipe (though may well demonstrate an extension of an existing recipe and therefore reproduce it).
+* The proposer creates an issue for the recipe on GitHub.
+* The initial discussion of the recipe is conducted in comments on the issue. This may result in the recipe being modified, or abandoned.
+* If there is broad agreement that the recipe is valuable, the proposer, or another community member, creates a pull request containing the recipe.
+* The pull request is reviewed by the Technical Review Committee as part of its regular work.
+* If approved, the pull request is merged, and the recipe becomes part of the published cookbook.
+
+Recipes should not be substantially the same as an existing recipe (though may demonstrate an extension of an existing recipe, and therefore reproduce it).
 
 A recipe must have the following features:
 
-* A short and clear name
-* A use case (why the pattern is important to include)
-* Implementation notes, with references to the specifcation and other recipes
-* All referended content resources, external annotations and other links should resolve: they must exist on the web or be included in the submitted recipe. Any client that implements support for a recipe should expect the published recipe to work.
-* Restrictions (optional): where this pattern is usable or not usable, with explanation
+* A short and clear name.
+* A use case (why the pattern is important to include).
+* Implementation notes, with references to the specifcation and other recipes;
+* All referenced content resources, external annotations and other links should resolve: they must exist on the web or be included in the submitted recipe. Any client that implements support for a recipe should expect the published recipe to work. Where possible the content resources should be hosted on the iiif.io web site, rather than at third party locations. 
+* Restrictions (optional): where this pattern is usable or not usable, with explanation of why
 * A full example, comprising:
     * a prose description;
-    * code samples (JSON-LD representation, following the formatting instructions (todo)
-* See also: similar or otherwise related recipes
+    * code samples (JSON-LD representation, following the formatting instructions below)
+* See also: similar or otherwise related recipes. This recipe may build on other recipes, or may be a building block in subsequent recipes.
 
 
 # The Recipes
