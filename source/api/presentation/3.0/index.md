@@ -502,7 +502,7 @@ The value _MUST_ be an array of strings. Each item in the array _MUST_ be a vali
 
 A schema or named set of functionality available from the resource. The profile can further clarify the `type` and/or `format` of an external resource or service, allowing clients to customize their handling of the resource that has the `profile` property.
 
-The value _MUST_ be a string, either taken from the [service registry][registry-services] or a URI.
+The value _MUST_ be a string, either taken from the [profiles registry][registry-profiles] or a URI.
 
 * Resources referenced by the `seeAlso` or `service` properties _SHOULD_ have the `profile` property.
   Clients _SHOULD_ process the `profile` of a service or external resource.
