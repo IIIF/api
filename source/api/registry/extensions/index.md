@@ -1,5 +1,5 @@
 ---
-title: Registry of Behaviors
+title: Registry of Extensions
 layout: spec
 tags: [annex, service, services, specifications]
 cssversion: 2
@@ -24,7 +24,7 @@ Changes will be tracked within the document.
 
 ## Abstract
 {:.no_toc}
-This document lists a set of behaviors, previously called viewing hints, in the Presentation API that have been identified as useful for implementations.  They may be defined by the IIIF community, or outside of it.
+This is one of a number of [IIIF registries][registry]. It lists a set of extension properties and classes that have been identified as useful for implementations, across the APIs.  They may be defined by the IIIF community, or outside of it.
 
 Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss]
 
@@ -36,13 +36,13 @@ Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss]
 
 ## 1. Introduction
 
-This is one of a number of [IIIF registries][annex-registry]. It lists a set of behaviors, previously called viewing hints, in the Presentation API that have been identified as useful for implementations.  They may be defined by the IIIF community, or outside of it.
+This is one of a number of [IIIF registries][registry]. It lists a set of extension properties and classes that have been identified as useful for implementations, across the APIs.  They may be defined by the IIIF community, or outside of it.
 
 ### 1.1. Disclaimer
 
 The inclusion of entries in this document that are outside of the IIIF domain _MUST NOT_ be interpreted as endorsement, support, or approval from the editors, the IIIF community or any individual. This annex is provided as a registry to advertise the existence of these extensions and attempt to ensure some consistency between implementations for common but not universal requirements.
 
-### 1.2. Inclusion Process
+### 1.2. Inclusion Process 
 
 The process for having a new entry added to this registry is [described here][registry-process].
 
@@ -50,9 +50,9 @@ The process for having a new entry added to this registry is [described here][re
 
 ## 3. Registry
 
-This table summarizes the known behaviors available for use with the [Presentation API][prezi-api].
+This table summarizes the known behaviors available, for use with the [Presentation API][prezi-api].
 
-| Behavior                       |
+| Behavior                       | 
 | ------------------------------ |
 {: .api-table}
 

@@ -19,11 +19,31 @@ The IIIF specifications are implemented using JSON-LD, a JSON serialization patt
 
 There are, however, some side effects of working with JSON-LD, that implementers should be aware of.  Some of the issues are due to the RDF model, and others are specific to JSON-LD.
 
+## JSON-LD 1.1
+
+As of 2018, new specifications and updates to existing specifications will adopt JSON-LD 1.1 rather than JSON-LD 1.0. This brings many benefits including the ability to more precisely scope the effect of context definitions, and to have additional control over the exact JSON serialization.
+
+## Semantic Versioning
+
+The IIIF process does not consider the mappings from the JSON to the selected RDF ontology terms to be governed by semantic versioning.  They are provided as a convenience for Linked Data implementers, rather than being a requirement for all adopters of IIIF.  The JSON structure and the names of the keys are governed by semantic versioning, as changing them would break compatibility with the typical JSON based client.
+
+This decision may change in the future, if there are significant Linked Data based clients built around IIIF.  Any such development should be announced on [iiif-discuss][iiif-discuss] so that the community becomes aware of it.
+
+The JSON-LD frames described below are also not considered as governed by semantic versioning, and are provided as a convenience for implementers.
+
+## Formats and Languages
+
+It is possible to associate a language with a literal in JSON-LD using an object with two keys, `@language` and `@value`, described in the [Presentation API][prezi-language]. It is also possible to describe the format of a literal using `@type`.  However, due to restrictions in RDF 1.1, it is not possible to use both of these features together to have a literal with both format and language declared.
+
+During the design of the Presentation API version 2.0, it was determined that the correct solution was to be explicit about language as it cannot be determined heuristicly, and provide requirements to make the detection of HTML as easy as possible.  In the future, if RDF provides a method to have both format and language associated with the same literal, these restrictions will be lifted.  Other options were evaluated, including having a resource with `value`, `language` and `format` keys which was determined to be too intrusive compared to what regular JSON would look like, and using HTML with an `xml:lang` attribute and the `rdf:HTML` datatype, however this makes the choice of language much more complex as the values need to be parsed with an HTML parser, rather than using the JSON structure.  As internationalization of the values is a primary use case, the current method was the solution chosen.
+
+In version 3.0 of the Presentation API, a pattern called "language maps" has been adopted. This allows the code for the language to be used as a key in a JSON object, with a list of strings in that language as the value for that key. This reduces the complexity of the language structure, and further cements the decision to promote language over format.
+
 ## Term Expansion/Compaction Issues
 
 ### Unintended Expansion of URI Schemes
 
-The JSON-LD 1.0 term expansion algorithm, as implemented by most JSON-LD libraries, cannot distinguish between a term with a namespace defined in the context and a real URI scheme.  For example, if a context document defined a mapping from `http` to `http://www.tracker.com/`, most JSON-LD libraries will expand `http://iiif.io/` to `http://www.tracker.com///iiif.io/` by simply replacing `http:` in the value.  This issue only occurs if the URI scheme name is defined in the context.
+The JSON-LD term expansion algorithm, as implemented by most JSON-LD libraries, cannot distinguish between a term with a namespace defined in the context and a real URI scheme.  For example, if a context document defined a mapping from `http` to `http://www.tracker.com/`, most JSON-LD libraries will expand `http://iiif.io/` to `http://www.tracker.com///iiif.io/` by simply replacing `http:` in the value.  This issue only occurs if the URI scheme name is defined in the context.
 
 All IIIF APIs are subject to this issue for `service` entries, which conflicts with the [Service URI scheme][service-uri] used [mostly by printers][service-wiki].  The Presentation and Search APIs are also subject to this issue for `resource` entries in Annotations, which conflict with the provisional [Resource URI scheme][resource-uri].  The recommendation for implementers is to not use URIs with these schemes when describing IIIF resources.
 
@@ -35,20 +55,6 @@ Term compaction in JSON-LD is the process of taking a full URI and a context, an
 
 The IIIF Image API was subject to this issue for the size features until version 2.1 was released.  In particular, there was a definition of `sizes` to `iiif:size`, and the size related features were named according to the pattern: `iiif:sizeByX`, and thus `sizes:ByX` was the shortest legal, if unintended, compaction. For version 2.1, `iiif:size` was renamed to `iiif:hasSize` to avoid this issue.  See also the note on [Semantic Versioning and JSON-LD][int-semver] below.
 
-## Formats and Languages
-
-It is possible to associate a language with a literal in JSON-LD using an object with two keys, `@language` and `@value`, described in the [Presentation API][prezi-language]. It is also possible to describe the format of a literal using `@type`.  However, due to restrictions in RDF 1.1, it is not possible to use both of these features together to have a literal with both format and language declared.
-
-During the design of the Presentation API, it was determined that the correct solution was to be explicit about language as it cannot be determined heuristicly, and provide requirements to make the detection of HTML as easy as possible.  In the future, if RDF provides a method to have both format and language associated with the same literal, these restrictions will be lifted.  Other options were evaluated, including having a resource with `value`, `language` and `format` keys which was determined to be too intrusive compared to what regular JSON would look like, and using HTML with an `xml:lang` attribute and the `rdf:HTML` datatype, however this makes the choice of language much more complex as the values need to be parsed with an HTML parser, rather than using the JSON structure.  As internationalization of the values is a primary use case, the current method was the solution chosen.
-
-
-## Semantic Versioning
-
-The IIIF editors do not consider the mappings from the JSON to the selected RDF ontology terms to be governed by semantic versioning.  They are provided as a convenience for Linked Data implementers, rather than being a requirement for all adopters of IIIF.  The JSON structure and the names of the keys are governed by semantic versioning, as changing them would break compatibility with the typical JSON based client.
-
-This decision may change in the future, if there are significant Linked Data based clients built around IIIF.  Any such development should be announced on [iiif-discuss][iiif-discuss] so that the community becomes aware of it.
-
-The JSON-LD frames described in the next section are also not considered as governed by semantic versioning, and are provided as a convenience for implementers.
 
 ## Frames
 
@@ -60,20 +66,21 @@ More information about JSON-LD frames can be found at the [JSON-LD site][jsonld-
 
 A minimal frame for the IIIF Image API information response.
 
-* [Image API Frame][image-api-frame]
+* [Image API 2.x Frame][image-api-frame]
 
 
 ## Presentation API Frames
 
 Frames for the main resources defined by the IIIF Presentation API.
 
-* [Manifest Frame][manifest-frame]
-* [AnnotationList Frame][annolist-frame]
-* [Collection Frame][collection-frame]
-* [Sequence Frame][sequence-frame]
-* [Canvas Frame][canvas-frame]
-* [Annotation Frame][anno-frame]
-* [Range Frame][range-frame]
+* Presentation 2.x Frames:
+  * [Manifest Frame][manifest-frame]
+  * [AnnotationList Frame][annolist-frame]
+  * [Collection Frame][collection-frame]
+  * [Sequence Frame][sequence-frame]
+  * [Canvas Frame][canvas-frame]
+  * [Annotation Frame][anno-frame]
+  * [Range Frame][range-frame]
 
 
 ## Sample Usage

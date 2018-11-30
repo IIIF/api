@@ -34,7 +34,7 @@ Per the [deprecation warning][image21-full-dep] in the previous version, the val
 
 #### 1.1.2. Change canonical form of size parameter to _`w,h`_
 
-Per the [deprecation warning][image21-full-dep] and the [inconsistency warning][image21-size-inconsistency] about the size parameter in the previous version, the canonical form of the size parameter is now _`w,h`_ unless `max` is requested. This resolves the inconsistency between the server-preferred values in the `sizes` object, and the canonical form of the size parameter. In order to request preferred sizes, a client should use the `width` and `height` values from `sizes` unmodified to build the _`w,h`_ size to request. See issues [#544](https://github.com/IIIF/api/issues/544) and [#678](https://github.com/IIIF/api/issues/678).
+Per the [deprecation warning][image21-full-dep] and the [inconsistency warning][image21-size-inconsistency] about the size parameter in the previous version, the canonical form of the size parameter is now _`w,h`_ unless `max` is requested. This resolves the inconsistency between the server-preferred values in the `sizes` object, and the canonical form of the size parameter. In order to request preferred sizes, a client should use the `width` and `height` values from `sizes` unmodified to build the _`w,h`_ size to request. Clients should also use canonical form of the size parameter _`w,h`_ when constructing tile requests. See issues [#544](https://github.com/IIIF/api/issues/544) and [#678](https://github.com/IIIF/api/issues/678).
 
 #### 1.1.3. Size parameter value must not scale image to larger than the extracted region
 
@@ -108,7 +108,7 @@ The following changes are backwards compatible with version 2.1.1 of the Image A
 
 A new [Extensions][image30-extensions] section describes mechanisms for extension of image requests and the new [Extra Functionality][image30-extra-functionality] section describes how extensions are described in the image information response. The `extraQualities` and `extraFormats` properties have been added to allow description of additional functionality. See issues [#1374](https://github.com/IIIF/api/issues/1374), [#1373](https://github.com/IIIF/api/issues/1373), and [#1435](https://github.com/IIIF/api/issues/1435).
 
-There is now a [registry of known extensions][registry-extensions] to the IIIF specifications, which includes a [registry of Image API extensions][registry-image-extensions]. Extensions intended for community use should be registered in the extensions registry, but registration is not mandatory.
+There is now a [registry of known extensions][extensions] to the IIIF specifications, which includes a [registry of Image API extensions][registry-image-extensions]. Extensions intended for community use should be registered in the extensions registry, but registration is not mandatory.
 
 ### 2.2. Add `partOf` and `seeAlso` linking properties
 

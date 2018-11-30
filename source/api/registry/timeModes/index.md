@@ -1,5 +1,5 @@
 ---
-title: Process for Adding Entries to Registries
+title: Registry of Time Modes
 layout: spec
 tags: [annex, service, services, specifications]
 cssversion: 2
@@ -24,7 +24,7 @@ Changes will be tracked within the document.
 
 ## Abstract
 {:.no_toc}
-This document describes the process by which additions to the [IIIF registries][annex-registry] occur.
+This is one of a number of [IIIF registries][registry]. It lists a set of time modes that have been identified as useful for implementations of the Presentation API.  They may be defined by the IIIF community, or outside of it.
 
 Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss]
 
@@ -36,8 +36,25 @@ Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss]
 
 ## 1. Introduction
 
+This is one of a number of [IIIF registries][registry]. It lists a set of time modes that have been identified as useful for implementations of the Presentation API.  They may be defined by the IIIF community, or outside of it.
 
-## 2. Registration Process
+### 1.1. Disclaimer
+
+The inclusion of entries in this document that are outside of the IIIF domain _MUST NOT_ be interpreted as endorsement, support, or approval from the editors, the IIIF community or any individual. This annex is provided as a registry to advertise the existence of these extensions and attempt to ensure some consistency between implementations for common but not universal requirements.
+
+### 1.2. Inclusion Process 
+
+The process for having a new entry added to this registry is [described here][registry-process].
+
+## 2. Requirements for Inclusion
+
+## 3. Registry
+
+This table summarizes the known behaviors available, for use with the [Presentation API][prezi-api].
+
+| Behavior                       | 
+| ------------------------------ |
+{: .api-table}
 
 
 ## Appendices
@@ -51,8 +68,6 @@ Thanks to the members of the [IIIF][iiif-community] for their continuous engagem
 | Date       | Description                                        |
 | ---------- | -------------------------------------------------- |
 | 2018-XX-YY | New Version 3 Registries                           |
-
-
 
 {% include acronyms.md %}
 {% include links.md %}
