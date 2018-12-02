@@ -261,7 +261,7 @@ The following example uses the compact, query string form of the content state t
 <h2>Results for "cats"</h2>
 <ol>
   <li>
-    <h3><a href='viewer.html?iiif-content={"id":"https://example.org/alice/canvas77#xywh=1000,2000,1000,2000","type":"Canvas","partOf":[{"id":"https://example.org/alice/manifest","type": "Manifest"}]}'>Alice in Wonderland</a></h3>
+    <h3><a href='viewer.html?iiif-content={"id":"https://example.org/alice/canvas77#xywh=1000,2000,1000,2000","type":"Canvas","partOf":[{"id":"https://example.org/alice/manifest","type":"Manifest"}]}'>Alice in Wonderland</a></h3>
     <p>...she has often seen a <b>cat</b> without a grin but never a grin without a <b>cat</b></p>
   </li>
   <!-- ... more results -->
