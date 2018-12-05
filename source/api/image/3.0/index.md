@@ -795,6 +795,9 @@ The following shows an image information response including all of the required 
   "profile": "level1",
   "width": 6000,
   "height": 4000,
+  "maxWidth": 3000,
+  "maxHeight": 2000,
+  "maxArea": 4000000,
   "sizes": [
     { "width": 150, "height": 100 },
     { "width": 600, "height": 400 },
