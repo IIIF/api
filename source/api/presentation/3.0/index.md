@@ -685,7 +685,7 @@ The value _MUST_ be a JSON object, which _MUST_ have the `id`, `type`, and `labe
     "type": "Text",
     "label": { "en": [ "Homepage for Example Object" ] },
     "format": "text/html",
-    "language": "en"
+    "language": [ "en" ]
   }
 }
 ```
