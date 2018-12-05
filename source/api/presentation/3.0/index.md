@@ -504,9 +504,9 @@ A schema or named set of functionality available from the resource. The profile 
 
 The value _MUST_ be a string, either taken from the [service registry][registry-services] or a URI.
 
-* Resources referenced by the `seeAlso` or `service` properties _SHOULD_ have the `profile` property.
+* Resources referenced by the `seeAlso` or `service` properties _SHOULD_ have the `profile` property.<br/>
   Clients _SHOULD_ process the `profile` of a service or external resource.
-* Other resource types _MAY_ have the `profile` property.
+* Other resource types _MAY_ have the `profile` property.<br/>
   Clients _MAY_ process the `profile` of other resource types.
 
 ``` json-doc
@@ -828,9 +828,9 @@ A Canvas, or part of a Canvas, which the client _SHOULD_ show on initialization 
 
 The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` properties.  The object _MUST_ be either a Canvas (as in the first example below), or a Specific Resource with a Selector and a `source` property where the value is a Canvas (as in the second example below).
 
- * A Manifest or Range _MAY_ have the `start` property.
+ * A Manifest or Range _MAY_ have the `start` property.<br/>
    Clients _SHOULD_ process `start` on a Manifest or Range.
- * Other resource types _MUST NOT_ have the `start` property.
+ * Other resource types _MUST NOT_ have the `start` property.<br/>
    Clients _SHOULD_ ignore `start` on other resource types.
 
 ``` json-doc
