@@ -198,6 +198,7 @@
 [registry-motivations]: {{ site.url }}{{ site.baseurl }}/api/registry/motivations/
 [registry-process]: {{ site.url }}{{ site.baseurl }}/api/registry/process/
 [registry-services]: {{ site.url }}{{ site.baseurl }}/api/registry/services/
+[registry-profiles]: {{ site.url }}{{ site.baseurl }}/api/registry/profiles/
 [search-api]: {{ site.url }}{{ site.baseurl }}/api/search/{{ site.search_api.stable.major }}.{{ site.search_api.stable.minor }}/ "Content Search API"
 [search1-autocomplete]: {{ site.url }}{{ site.baseurl }}/api/search/1.0/#autocomplete
 [search1]: {{ site.url }}{{ site.baseurl }}/api/search/1.0/
