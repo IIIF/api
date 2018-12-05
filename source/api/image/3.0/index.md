@@ -737,7 +737,7 @@ Additional strings used in the `extraQualities`, `extraFormats`, and `extraFeatu
   "height": 4000,
   "extraFormats": [ "gif", "pdf" ],
   "extraQualities": [ "color", "gray" ],
-  "extraFeatures": [ "canonicalLinkHeader", "rotationArbitrary", "profileLinkHeader" ],
+  "extraFeatures": [ "canonicalLinkHeader", "rotationArbitrary", "profileLinkHeader" ]
 }
 ```
 
