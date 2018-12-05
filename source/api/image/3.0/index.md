@@ -726,6 +726,21 @@ The set of features, formats and qualities supported is the union of those decla
 
 Additional strings used in the `extraQualities`, `extraFormats`, and `extraFeatures` properties, or additional properties used in the image information, that are not defined in this specification _SHOULD_ be mapped to RDF predicates using further context documents. These extensions _SHOULD_ be added to the top level `@context` property (see [Technical Properties][image30-technical-properties]). The JSON-LD 1.1 functionality of predicate specific context definitions, known as [scoped contexts][org-w3c-json-ld-scoped-contexts], _MUST_ be used to minimize cross-extension collisions. Extensions intended for community use _SHOULD_ be [registered in the extensions registry][registry], but registration is not mandatory.
 
+``` json-doc
+{
+  "@context": "http://iiif.io/api/image/{{ page.major }}/context.json",
+  "id": "https://example.org/image-service/abcd1234/1E34750D-38DB-4825-A38A-B60A345E591C",
+  "type": "ImageService3",
+  "protocol": "http://iiif.io/api/image",
+  "profile": "level2",
+  "width": 6000,
+  "height": 4000,
+  "extraFormats": [ "gif", "pdf" ],
+  "extraQualities": [ "color", "gray" ],
+  "extraFeatures": [ "canonicalLinkHeader", "rotationArbitrary", "profileLinkHeader" ]
+}
+```
+
 ### 5.7. Linking Properties
 
 The JSON response _MAY_ contain linking properties that reference external resources, including services that make additional functionality available to a viewer. The linking properties have the same semantics and requirements as those in the [Presentation API][prezi3].
