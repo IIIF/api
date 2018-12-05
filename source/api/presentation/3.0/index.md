@@ -1182,7 +1182,7 @@ The Manifest _MUST_ have an `items` property, which is an array of JSON-LD objec
       "value": { "@none": [ "<span>From: <a href=\"https://example.org/db/1.html\">Some Collection</a></span>" ] }
     }
   ],
-  "summary": { "en": [ "Book 1, written be Anne Author, published in Paris around 1400." ] },
+  "summary": { "en": [ "Book 1, written by Anne Author, published in Paris around 1400." ] },
 
   "thumbnail": [
     {
