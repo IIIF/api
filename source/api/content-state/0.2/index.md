@@ -185,19 +185,25 @@ In the following examples, the same annotation is used each time. As JSON:
 The client looks for the content state URL or data as the value of an HTTP GET request parameter `iiif-content` on its containing page (subject to the 2 KB limit):
 
 ```html
+{% raw %}
 <a href='https://example.org/viewer?iiif-content={"type":"Annotation","motivation":"highlighting","target":{"id":"http://dams.llgc.org.uk/iiif/2.0/4389767/canvas/4389772.json","type":"Canvas","partOf":[{"id":"http://dams.llgc.org.uk/iiif/2.0/4389767/manifest.json","type":"Manifest"}]}}'>Link to Viewer</a>
+{% endraw %}
 ```
 
 This may be URL-encoded:
 
 ```html
+{% raw %}
 <a href='https://example.org/viewer?iiif-content={%22type%22:%22Annotation%22,%22motivation%22:%22highlighting%22,%22target%22:{%22id%22:%22http://dams.llgc.org.uk/iiif/2.0/4389767/canvas/4389772.json%22,%22type%22:%22Canvas%22,%22partOf%22:[{%22id%22:%22http://dams.llgc.org.uk/iiif/2.0/4389767/manifest.json%22,%22type%22:%22Manifest%22}]}}'>Link to Viewer</a>
+{% endraw %}
 ```
 
 Or, as _RECOMMENDED_, Base-64 encoded:
 
 ```html
+{% raw %}
 <a href='https://example.org/viewer?iiif-content=eyJ0eXBlIjoiQW5ub3RhdGlvbiIsIm1vdGl2YXRpb24iOiJoaWdobGlnaHRpbmciLCJ0YXJnZXQiOnsiaWQiOiJodHRwOi8vZGFtcy5sbGdjLm9yZy51ay9paWlmLzIuMC80Mzg5NzY3L2NhbnZhcy80Mzg5NzcyLmpzb24iLCJ0eXBlIjoiQ2FudmFzIiwicGFydE9mIjpbeyJpZCI6Imh0dHA6Ly9kYW1zLmxsZ2Mub3JnLnVrL2lpaWYvMi4wLzQzODk3NjcvbWFuaWZlc3QuanNvbiIsInR5cGUiOiJNYW5pZmVzdCJ9XX0sImdlbmVyYXRvciI6eyJpZC'>Link to Viewer</a>
+{% endraw %}
 ```
 
 The content state may be passed as just the `target` property of an implied annotation with motivation highlighting, that is:
@@ -218,7 +224,9 @@ The content state may be passed as just the `target` property of an implied anno
 This results in a more compact form: the first plain HTML version is shown for comparison:
 
 ```html
+{% raw %}
 <a href='https://example.org/viewer?iiif-content={"id":"http://dams.llgc.org.uk/iiif/2.0/4389767/canvas/4389772.json","type":"Canvas","partOf":[{"id":"http://dams.llgc.org.uk/iiif/2.0/4389767/manifest.json","type":"Manifest"}]}'>Link to Viewer</a>
+{% endraw %}
 ```
 
 
