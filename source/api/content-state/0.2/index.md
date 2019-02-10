@@ -56,12 +56,11 @@ This specification makes use of existing techniques and specifications in order 
 ### 1.1. Objectives and Scope
 {: #objectives-and-scope}
 
-The objective of the IIIF Content State API is to enable the sharing of a standardized description of a view of one or more IIIF Presentation API resources, typically Manifests or Collections, or parts thereof. The intended audience is developers of other IIIF-aware systems that can display the resources. While this work may benefit others outside of the IIIF community directly or indirectly, the objective of the API is to specify an interoperable solution that best and most easily fulfills these needs within the community of participating organizations.
+The objective of the IIIF Content State API is describe a format which enables the sharing of a particular view of one or more IIIF Presentation API resources--typically Manifests or Collections, or parts thereof. The intended audience is developers of IIIF-aware systems who also wish to support a widespread IIIF ecosystem on the web, though other communities may benefit as well.
 
 The standardized view is a JSON-LD data structure that uses the models described by the [IIIF Presentation API][prezi-api] and [W3C Web Annotation Data Model][org-w3c-webanno] specifications. Viewers built to those specifications will already understand at least some of the model. This specification allows a content state to be passed to the viewer from outside, so that a viewer can show the intended part of the resource (or resources) to the user. The same model can be used by a viewer to _export_ a state, for example to enable a user to share a particular view with another user or publish it as a reference or citation.
 
-The specification describes the model for a content state in terms of the [IIIF Presentation API][prezi-api], and provides a common set of mechanisms for exchanging this state. Specification of a set of common mechanisms (that is, protocols) for the import and export of content states allows client and server software to implement interoperable solutions. Different IIIF clients have different user interfaces and audiences, and may choose which of the patterns to support. Further detailed examples may be found in the [IIIF Cookbook][annex-cookbook].
-
+This specification also describes a common set of mechanisms for the import and export of content states, thus enabling client and server software to implement interoperable solutions. Different IIIF clients will have different user interfaces and audiences, and may choose which of the patterns to support. Further detailed examples may be found in the [IIIF Cookbook][annex-cookbook].
 
 ### 1.2. Terminology
 {: #terminology}
