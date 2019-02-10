@@ -87,7 +87,7 @@ There are four parameters shared by the requests, and other IIIF specifications:
 | scheme | Indicates the use of the HTTP or HTTPS protocol in calling the service. |
 | server | The host server on which the service resides. The parameter may also include a port number. |
 | prefix | The path on the host server to the service. This prefix is optional, but may be useful when the host server supports multiple services. The prefix _MAY_ contain multiple path segments, delimited by slashes, but all other special characters _MUST_ be encoded. See [URI Encoding and Decoding][image30-uri-encoding-and-decoding] for more information. |
-| identifier | The identifier of the requested image. This may be an ark, URN, filename, or other identifier. Special characters _MUST_ be URI encoded. |
+| identifier | The identifier of the requested image. This may be an ARK, URN, filename, or other identifier. Special characters _MUST_ be URI encoded. |
 {: .api-table}
 
 The combination of these parameters forms the image service’s base URI and identifies the underlying image content. It is constructed according to the following URI template ([RFC6570][org-rfc-6570]):
