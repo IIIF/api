@@ -299,6 +299,9 @@
     "sizeByW": "iiif_image:sizeByWFeature",
     "sizeByWh": "iiif_image:sizeByWHFeature",
 
+    "Size": "iiif_image:Size",
+    "Tile": "iiif_image:Tile",
+
     "ImageService1": {
       "@id": "http://iiif.io/api/image/1#ImageService",
       "@context": [
