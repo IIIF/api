@@ -1010,7 +1010,7 @@ Any of the properties in the API that can have multiple values _MUST_ always be 
 
 Language _MAY_ be associated with strings that are intended to be displayed to the user for the `label` and `summary` properties, plus the `label` and `value` properties of the `metadata` and `requiredStatement` objects.
 
-The values of these properties _MUST_ be JSON objects, with the keys being the [RFC 5646][org-rfc-5646] language code for the language, or if the language is either not known or the string does not have a language, then the key must be the string `@none`. The associated values _MUST_ be arrays of strings, where each item is the content in the given language.
+The values of these properties _MUST_ be JSON objects, with the keys being the [BCP 47][org-bcp-47] language code for the language, or if the language is either not known or the string does not have a language, then the key must be the string `@none`. The associated values _MUST_ be arrays of strings, where each item is the content in the given language.
 
 ``` json-doc
 {
@@ -1029,7 +1029,7 @@ The values of these properties _MUST_ be JSON objects, with the keys being the [
 }
 ```
 
-Note that [RFC 5646][org-rfc-5646] allows the script of the text to be included after a hyphen, such as `ar-latn`, and clients should be aware of this possibility.
+Note that [BCP 47][org-bcp-47] allows the script of the text to be included after a hyphen, such as `ar-latn`, and clients should be aware of this possibility.
 
 In the case where multiple values are supplied, clients _MUST_ use the following algorithm to determine which values to display to the user.  
 
