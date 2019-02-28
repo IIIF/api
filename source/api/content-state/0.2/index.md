@@ -6,7 +6,7 @@ layout: spec
 cssversion: 3
 tags: [specifications, presentation-api]
 major: 0
-minor: 1
+minor: 2
 patch: 0
 pre: final
 redirect_from:
@@ -51,17 +51,16 @@ This is a work in progress and may change without notice. Implementers should be
 
 The resources made available via the [IIIF Presentation API][prezi-api] are only useful if they can be found. While the [Change Discovery API][discovery01] specifies systems that allow these resources to be found, this document specifies a mechanism that allows a user to then open the found resource in a compatible environment, such as a viewer, annotation tool or other IIIF-compatible software.
 
-This specification makes use of existing techniques and specifications in order to promote widespread adoption. It provides a way of describing a resource, or a part of a resource, in a compact format that can be used to initialise the view of that resource in any client that implements this specification. Linking from a search result to a viewer showing the relevant part of a found resource is one application of this specification. More generally, it provides a description of a _content state_, allowing such states to be shared between applications regardless of their different user interfaces and capabilities.
+This specification makes use of existing techniques and specifications in order to promote widespread adoption. It provides a way of describing a resource, or a part of a resource, in a compact format that can be used to initialize the view of that resource in any client that implements this specification. Linking from a search result to a viewer showing the relevant part of a found resource is one application of this specification. More generally, it provides a description of a _content state_, allowing such states to be shared between applications regardless of their different user interfaces and capabilities.
 
 ### 1.1. Objectives and Scope
 {: #objectives-and-scope}
 
-The objective of the IIIF Content State API is to enable the sharing of a standardised description of a view of one or more IIIF Presentation API resources, typically Manifests or Collections, or parts thereof. The intended audience is developers of other IIIF-aware systems that can display the resources. While this work may benefit others outside of the IIIF community directly or indirectly, the objective of the API is to specify an interoperable solution that best and most easily fulfills these needs within the community of participating organizations.
+The objective of the IIIF Content State API is to describe a standardized format which enables the sharing of a particular view of one or more IIIF Presentation API resources--typically Manifests or Collections, or parts thereof. The intended audience is developers of IIIF-aware systems who also wish to support a widespread IIIF ecosystem on the web, though other communities may benefit as well.
 
-The standardised view is a JSON-LD data structure that uses the models described by the [IIIF Presentation API][prezi-api] and [W3C Web Annotation Data Model][org-w3c-webanno] specifications. Viewers built to those specifications will already understand at least some of the model. This specification allows a content state to be passed to the viewer from outside, so that a viewer can show the intended part of the resource (or resources) to the user. The same model can be used by a viewer to _export_ a state, for example to enable a user to share a particular view with another user or publish it as a reference or citation.
+The standardized format is a JSON-LD data structure that uses the models described by the [IIIF Presentation API][prezi-api] and [W3C Web Annotation Data Model][org-w3c-webanno] specifications. Viewers built to those specifications will already understand at least some of the model. This specification allows a content state to be passed to the viewer from outside, so that a viewer can show the intended part of the resource (or resources) to the user. The same model can be used by a viewer to _export_ a state, for example to enable a user to share a particular view with another user or publish it as a reference or citation.
 
-The specification describes the model for a content state in terms of the [IIIF Presentation API][prezi-api], and provides a common set of mechanisms for exchanging this state. Specification of a set of common mechanisms (that is, protocols) for the import and export of content states allows client and server software to implement interoperable solutions. Different IIIF clients have different user interfaces and audiences, and may choose which of the patterns to support. Further detailed examples may be found in the [IIIF Cookbook][annex-cookbook].
-
+This specification also describes a common set of mechanisms for the import and export of content states, thus enabling client and server software to implement interoperable solutions. Different IIIF clients will have different user interfaces and audiences, and may choose which of the patterns to support. Further detailed examples may be found in the [IIIF Cookbook][annex-cookbook].
 
 ### 1.2. Terminology
 {: #terminology}
@@ -100,7 +99,7 @@ The annotation must contain enough information about dereferenceable resources t
 
 ### 2.2 Form of annotation
 
-The content state data may be passed to a client in one of several forms, and a client _SHOULD_ be able to accept and process it in all of these forms. 
+The content state data may be passed to a client in one of several forms, and a client _SHOULD_ be able to accept and process it in all of these forms.
 
 * As the URL of an annotation, that the client must de-reference
 * As JSON-LD, in the form of a full annotation
@@ -112,7 +111,7 @@ If a client is capable of reading the content state from an HTML attribute, the 
 
 The content state _MAY_ be Base64-encoded, and a client _SHOULD_ accept it in that form. It is _RECOMMENDED_ that when passing the content state as a query string parameter, Base64-Encoding is used, as unencoded JSON is vulnerable to corruption when passed as a link parameter.
 
-The content state _MAY_ be URL-encoded, and a client _SHOULD_ accept it in that form. 
+The content state _MAY_ be URL-encoded, and a client _SHOULD_ accept it in that form.
 
 Clients _MAY_ implement other mechanisms of accepting content state data beyond the named protocols inclulded in this specification.
 
@@ -131,7 +130,7 @@ A client _MUST_ be able to read and process the value in any of the three forms 
 }
 ```
 
-If the string `https://example.org/annotation-server/bookmarks/b1` is passed as the value of `iiif-content` or `data-iiif-content`, the client _MUST_ load the resource at that URL and process it. The resource at that URL _MUST_ be the full annotation as in the example above. 
+If the string `https://example.org/annotation-server/bookmarks/b1` is passed as the value of `iiif-content` or `data-iiif-content`, the client _MUST_ load the resource at that URL and process it. The resource at that URL _MUST_ be the full annotation as in the example above.
 
 The JSON-LD body given above may be passed directly in a request parameter, HTML attribute or other supported mechanism, for immediate processing. In this scenario the annotation does not require the `id` property. The client should inspect the value to determine whether it needs to be base64-decoded, or Url-decoded. [How?]
 
@@ -233,7 +232,7 @@ This results in a more compact form: the first plain HTML version is shown for c
 #### 3.1.2 Linking: HTTP POST (form) parameter
 {: #initialisation-mechanisms-post}
 
-The same data structure, in the same forms, may instead be passed in a POST parameter. This is suited to server-side web applications, such as a web page rendering citations or a view initialised on the server. It is not suited to a standlone JavaScript application, as the POST data is typically unavailable.
+The same data structure, in the same forms, may instead be passed in a POST parameter. This is suited to server-side web applications, such as a web page rendering citations or a view initialized on the server. It is not suited to a standalone JavaScript application, as the POST data is typically unavailable.
 
 ```
 curl -d 'iiif-content={"id":"http://dams.llgc.org.uk/iiif/2.0/4389767/canvas/4389772.json","type":"Canvas","partOf":[{"id":"http://dams.llgc.org.uk/iiif/2.0/4389767/manifest.json","type":"Manifest"}]}' -X POST https://example.org/citation-renderer
@@ -281,7 +280,7 @@ In this scenario, one client provides a _draggable_ element:
     function drag(ev) {
         var json = getContentState();
         ev.dataTransfer.setData("annotation", json);
-    } 
+    }
 </script>
 ```
 
@@ -300,7 +299,7 @@ And another client provides an element capable of receiving a `drop` event:
             var json = ev.dataTransfer.getData("annotation");
             // process the annotation
         }
-        
+
         function allowDrop(ev) {
             ev.preventDefault();
             // indicate visually that the drop area is ready to receive a drop
@@ -333,7 +332,7 @@ A JavaScript client can accept content state from the client machine via the `Fi
     function loadAnnotation() {
         var files = document.getElementById('selectFiles').files;
         var fr = new FileReader();
-        fr.onload = function(e) { 
+        fr.onload = function(e) {
             loadJson(e.target.result);
         }
         fr.readAsText(files.item(0));
@@ -341,7 +340,7 @@ A JavaScript client can accept content state from the client machine via the `Fi
     }
 
     function loadJson(json) {
-        var contentState = JSON.parse(json); 
+        var contentState = JSON.parse(json);
         // process contentState
     }
 </script>
@@ -509,4 +508,3 @@ Many of the changes in this version are due to the work of the [IIIF Discovery T
 | 2019-02-04 | Version 0.2 (unnamed) |
 
 {% include links.md %}
- 
