@@ -334,8 +334,6 @@ OrderedCollections _MAY_ have a `partOf` property. The value _MUST_ be an array 
 
 ```
 
-
-
 ##### Complete Ordered Collection Example
 
 ```
@@ -655,7 +653,7 @@ The top level resource in the response _MUST_ have the `@context` property, and 
 
 #### Extensions
 
-If any additional classes or properties are desired beyond the ones defined in this specification or the ActivityStreams specification, then those classes or properties _SHOULD_ be mapped to RDF terms in one or more additional context documents. These extension contexts _SHOULD_ be added to the top level `@context` property, and _MUST_ be before the discovery context. The JSON-LD 1.1 functionality of defining terms only within a specific property, known as scoped contexts, _MUST_ be used to minimize cross-extension collisions.  Extensions intended for broad use _SHOULD_ be registered in the extensions registry.  
+If any additional classes or properties are desired beyond the ones defined in this specification or the ActivityStreams specification, then those classes or properties _SHOULD_ be mapped to RDF terms in one or more additional context documents. These extension contexts _SHOULD_ be added to the top level `@context` property, and _MUST_ be before the discovery context. The JSON-LD 1.1 functionality of defining terms only within a specific property, known as [scoped contexts][org-w3c-json-ld-scoped-contexts], _MUST_ be used to minimize cross-extension collisions.  Extensions intended for broad use _SHOULD_ be registered in the [extensions registry][annex-registry].  
 
 ```
 {
@@ -774,6 +772,7 @@ Many of the changes in this version are due to the work of the [IIIF Discovery T
 
 | Date       | Description           |
 | ---------- | --------------------- |
+| 2019-03-20 | Version 0.3 (unnamed) |
 | 2018-11-12 | Version 0.2 (unnamed) |
 | 2018-05-04 | Version 0.1 (unnamed) |
 
