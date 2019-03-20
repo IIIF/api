@@ -651,7 +651,7 @@ The top level resource in the response _MUST_ have the `@context` property, and 
 }
 ```
 
-#### Extensions
+#### 3.4.2. Extensions
 
 If any additional classes or properties are desired beyond the ones defined in this specification or the ActivityStreams specification, then those classes or properties _SHOULD_ be mapped to RDF terms in one or more additional context documents. These extension contexts _SHOULD_ be added to the top level `@context` property, and _MUST_ be before the discovery context. The JSON-LD 1.1 functionality of defining terms only within a specific property, known as [scoped contexts][org-w3c-json-ld-scoped-contexts], _MUST_ be used to minimize cross-extension collisions.  Extensions intended for broad use _SHOULD_ be registered in the [extensions registry][annex-registry].  
 
@@ -717,15 +717,15 @@ Given the URI of an ActivityStreams CollectionPage (`page`) and the date of last
 
 If the objective of the consuming application is to find descriptive information that might be used to build an index allowing the resources to be discovered, then the application _SHOULD_ use the IIIF Presentation API `seeAlso` property to discover an appropriate, machine-readable description of the resource.  For different types of resource, and for different domains, the external resources will have different formats and semantics. If there are no external descriptions, or none that can be processed, the data in the Manifest and in other IIIF resources might be used as a last resort, despite its presentational intent. 
 
-### 4. Network Considerations
+## 4. Network Considerations
 
-#### 4.1. Activities for Access-Restricted Content
+### 4.1. Activities for Access-Restricted Content
 
 Activities _MAY_ be published about content that has access restrictions. Clients _MUST NOT_ assume that they will be able to access every resource that is the object of an Activity, and _MUST NOT_ assume that if they cannot access it, then it has been permanently deleted.  The content might be protected by some authentication system, or there might simply be a temporary network outage. 
 
 Content may also change state from being available to being protected by access restrictions, or become available having previously been protected. There are no new activity classes for these situations, and the publisher _SHOULD_ issue the regular `Update` or `Delete` activities, if that is the behavior desired for harvesters.
 
-#### 4.2. Negotiable Resources
+### 4.2. Negotiable Resources
 
 Some HTTP(S) URIs are able to respond with different representations of the same content in response to requests with different headers, such as the same URI being able to return both version 2 and version 3 of the IIIF Presentation API based on the Accept header. This is known as "content negotiation", and such resources are known as "negotiable resources". The representations that can be negotiated for are known as "variants".
 
@@ -735,24 +735,28 @@ Two variants of the same negotiable resource can be represented as follows.
 
 ```
 {
-  "type": "Update",
-  "object": {
-    "id": "https://example.org/iiif/1/manifest/v2",
-    "type": "Manifest",
-    "seeAlso": "https://example.org/iiif/1/metadata.xml",
-    "format": "application/ld+json;profile=\"https://iiif.io/api/presentation/2/context.json\""
-  },
-  "endTime": "2018-03-10T10:00:00Z"
-},
-{
-  "type": "Update",
-  "object": {
-    "id": "https://example.org/iiif/1/manifest/v3",
-    "type": "Manifest",
-    "seeAlso": "https://example.org/iiif/1/metadata.xml",
-    "format": "application/ld+json;profile=\"https://iiif.io/api/presentation/3/context.json\""
-  },
-  "endTime": "2018-03-10T10:00:00Z"
+  "orderedItems": [
+    {
+      "type": "Update",
+      "object": {
+        "id": "https://example.org/iiif/1/manifest/v2",
+        "type": "Manifest",
+        "seeAlso": "https://example.org/iiif/1/metadata.xml",
+        "format": "application/ld+json;profile=\"https://iiif.io/api/presentation/2/context.json\""
+      },
+      "endTime": "2018-03-10T10:00:00Z"
+    },
+    {
+      "type": "Update",
+      "object": {
+        "id": "https://example.org/iiif/1/manifest/v3",
+        "type": "Manifest",
+        "seeAlso": "https://example.org/iiif/1/metadata.xml",
+        "format": "application/ld+json;profile=\"https://iiif.io/api/presentation/3/context.json\""
+      },
+      "endTime": "2018-03-10T10:00:00Z"
+    }
+  ]
 }
 ```
 
