@@ -49,7 +49,7 @@ This is a work in progress and may change without notice. Implementers should be
 ## 1. Introduction
 {: #introduction}
 
-The resources made available via the IIIF (pronounced "Triple-Eye-Eff") [Image][image-api] and [Presentation][prezi-api] APIs are only useful if they can be found. Users cannot interact directly with a distributed, decentralized ecosystem but instead must rely on services that harvest and process the available content, and then provide a user interface enabling navigation to that content via searching, browsing or other paradigms. Once the user has discovered the content, they can then display it in their viewing application of choice. Machine to machine interfaces are also enabled by this pattern, where software agents could interact via APIs to discover the same content and retrieve it for further analysis or processing.
+The resources made available via the IIIF (pronounced "Triple-Eye-Eff") [Image][image-api] and [Presentation][prezi-api] APIs are useful only if they can be found. Users cannot interact directly with a distributed, decentralized ecosystem but instead must rely on services that harvest and process the available content, and then provide a user interface enabling navigation to that content via searching, browsing or other paradigms. Once the user has discovered the content, they can then display it in their viewing application of choice. Machine to machine interfaces are also enabled by this pattern, where software agents can interact via APIs to discover the same content and retrieve it for further analysis or processing.
 
 This specification leverages existing techniques, specifications, and tools in order to promote widespread adoption. It enables the collaborative development of global or thematic search engines and portal applications that allow users to easily find and engage with content available via existing IIIF APIs.
 
@@ -94,7 +94,7 @@ This specification describes three levels of conformance that build upon each ot
 ### 2.1. Listing Resources and their Changes
 {: #listing-resources-and-their-changes}
 
-There are three levels of conformance at which changes can be described. Level 0 is simply a list of the resources available.  Level 1 adds timestamps and ordering from earliest change to most recent, allowing the consumer to stop processing once it encounters a change that it has already processed. Level 2 adds information about the types of activities, enabling the explicit creation and deletion of resources.
+There are three levels of conformance at which changes can be described. Level 0 is simply a list of the resources available.  Level 1 adds timestamps and ordering from earliest change to most recent, allowing the consumer to stop processing once it encounters a change that it has already processed. Level 2 adds information about the types of activities, enabling the explicit description of the creation and deletion of resources.
 
 #### 2.1.1. Level 0: Basic Resource List
 {: #level-0-basic-resource-list}
@@ -138,7 +138,7 @@ Example Level 1 Activity:
 #### 2.1.3. Level 2: Complete Change List
 {: #level-2-complete-change-list}
 
-At the most detailed level, a log of all of the Activities that have taken place can be recorded, with the likelihood of multiple Activities per IIIF resource.  This allows the additional types of "Create" and "Delete", enabling a synchronization process to remove resources as well as add or update them. 
+At the most detailed level, a log of all of the Activities that have taken place can be recorded, with the likelihood of multiple Activities per IIIF resource.  Use of the additional types of "Create" and "Delete" allows explicit description of creations and deletions, enabling a synchronization process to remove resources as well as add or update them.
 
 Example Level 2 Activity:
 
@@ -262,7 +262,7 @@ Ordered Collections _MUST_ have a `type` property.  The value _MUST_ be `Ordered
 
 A link to the first Ordered Collection Page for this Collection.
 
-Ordered Collections _SHOULD_ have a `first` property.  The value _MUST_ be a JSON object, with the `id` and `type` properties.  The value of the `id` property _MUST_ be a string, and it _MUST_ be the HTTP(S) URI of the first page of items in the Collection. The value of the `type` property _MUST_ be a string, and _MUST_ be `OrderedCollectionPage`.
+Ordered Collections _SHOULD_ have a `first` property.  The value _MUST_ be a JSON object, with the `id` and `type` properties.  The value of the `id` property _MUST_ be a string, and it _MUST_ be the HTTP(S) URI of the first page of items in the Collection. The value of the `type` property _MUST_ be the string `OrderedCollectionPage`.
 
 ```
 { 
@@ -277,7 +277,7 @@ Ordered Collections _SHOULD_ have a `first` property.  The value _MUST_ be a JSO
 
 A link to the last Ordered Collection Page for this Collection.  As the client processing algorithm works backwards from the most recent to least recent, the inclusion of `last` is _REQUIRED_, but `first` is only _RECOMMENDED_.
 
-Ordered Collections _MUST_ have a `last` property.  The value _MUST_ be a JSON object, with the `id` and `type` properties.  The value of the `id` property _MUST_ be a string, and it _MUST_ be the HTTP(S) URI of the last page of items in the Collection. The value of the `type` property _MUST_ be a string, and _MUST_ be `OrderedCollectionPage`.
+Ordered Collections _MUST_ have a `last` property.  The value _MUST_ be a JSON object, with the `id` and `type` properties.  The value of the `id` property _MUST_ be a string, and it _MUST_ be the HTTP(S) URI of the last page of items in the Collection. The value of the `type` property _MUST_ be the string `OrderedCollectionPage`.
 
 ```
 { 
@@ -302,7 +302,7 @@ Ordered Collections _MAY_ have a `totalItems` property.  The value _MUST_ be a n
 
 This property is used to refer to one or more documents that semantically describe the set of resources that are being acted upon in the Activities within the Ordered Collection. This would allow the Ordered Collection to refer to, for example, a [DCAT][org-w3c-dcat] description of the dataset. For Ordered Collections that aggregate activities and/or objects from multiple sources, the referenced description should describe the complete aggregation rather than an individual source.
 
-Ordered Collections _MAY_ have a `seeAlso` property.  The value _MUST_ be an array of one or more JSON objects, with the `id` and `type` properties.  The value of the `id` property _MUST_ be a string, and it _MUST_ be the HTTP(S) URI of the description of the dataset. The value of the `type` property _MUST_ be a string, and _MUST_ be `Dataset`. The JSON object _MAY_ have the `format` property, the value of which _MUST_ be a string, and it _MUST_ be the MIME media type of the referenced description document.
+Ordered Collections _MAY_ have a `seeAlso` property.  The value _MUST_ be an array of one or more JSON objects, with the `id` and `type` properties.  The value of the `id` property _MUST_ be a string, and it _MUST_ be the HTTP(S) URI of the description of the dataset. The value of the `type` property _MUST_ be the string `Dataset`. The JSON object _MAY_ have the `format` property, the value of which _MUST_ be a string, and it _MUST_ be the MIME media type of the referenced description document.
 
 ```
 {
@@ -320,7 +320,7 @@ Ordered Collections _MAY_ have a `seeAlso` property.  The value _MUST_ be an arr
 
 This property is used to refer to a parent Ordered Collection, of which this Ordered Collection is part. This would allow a publisher to have thematic or temporal sets of activities, for example to have different collections of activities for their paintings from their sculptures, or their modern content from their archival.
 
-Ordered Collections _MAY_ have a `partOf` property. The value _MUST_ be an array of one or more JSON objects, with the `id` and `type` properties.  The value of the `id` property _MUST_ be a string, and it _MUST_ be the HTTP(S) URI of the parent collection.  The value of the `type` property _MUST_ be a string, and it _MUST_ be `OrderedCollection`. 
+Ordered Collections _MAY_ have a `partOf` property. The value _MUST_ be an array of one or more JSON objects, with the `id` and `type` properties.  The value of the `id` property _MUST_ be a string, and it _MUST_ be the HTTP(S) URI of the parent collection.  The value of the `type` property _MUST_ be the string `OrderedCollection`. 
 
 ```
 {
@@ -397,7 +397,7 @@ Ordered Collections _MUST_ have a `type` property.  The value _MUST_ be `Ordered
 
 The Ordered Collection that this Page is part of.
 
-Ordered Collection Pages _SHOULD_ have a `partOf` property. The value _MUST_ be a JSON object, with the `id` and `type` properties.  The value of the `id` property _MUST_ be the a string, and _MUST_ be the HTTP(S) URI of the Ordered Collection that this page is part of.  The value of the `type` property _MUST_ be a string, and _MUST_ be `OrderedCollection`.
+Ordered Collection Pages _SHOULD_ have a `partOf` property. The value _MUST_ be a JSON object, with the `id` and `type` properties.  The value of the `id` property _MUST_ be the a string, and _MUST_ be the HTTP(S) URI of the Ordered Collection that this page is part of.  The value of the `type` property _MUST_ be the string `OrderedCollection`.
 
 ```
 {
@@ -422,7 +422,7 @@ Ordered Collection Pages _MAY_ have a `startIndex` property.  The value _MUST_ b
 
 A reference to the next page in the list of pages.
 
-Ordered Collection Pages _SHOULD_ have a `next` property, unless they are the last Page in the Collection. The value _MUST_ be a JSON object, with the `id` and `type` properties.  The value of the `id` property _MUST_ be the a string, and _MUST_ be the HTTP(S) URI of the following Ordered Collection Page.  The value of the `type` property _MUST_ be a string, and _MUST_ be `OrderedCollectionPage`.
+Ordered Collection Pages _SHOULD_ have a `next` property, unless they are the last Page in the Collection. The value _MUST_ be a JSON object, with the `id` and `type` properties.  The value of the `id` property _MUST_ be the a string, and _MUST_ be the HTTP(S) URI of the following Ordered Collection Page.  The value of the `type` property _MUST_ be the string `OrderedCollectionPage`.
 
 ```
 {
@@ -437,7 +437,7 @@ Ordered Collection Pages _SHOULD_ have a `next` property, unless they are the la
 
 A reference to the previous page in the list of pages.
 
-Ordered Collection Pages _MUST_ have a `prev` property, unless they are the first page in the Collection. The value _MUST_ be a JSON object, with the `id` and `type` properties.  The value of the `id` property _MUST_ be the a string, and _MUST_ be the HTTP(S) URI of the preceding Ordered Collection Page.  The value of the `type` property _MUST_ be a string, and _MUST_ be `OrderedCollectionPage`.
+Ordered Collection Pages _MUST_ have a `prev` property, unless they are the first page in the Collection. The value _MUST_ be a JSON object, with the `id` and `type` properties.  The value of the `id` property _MUST_ be the a string, and _MUST_ be the HTTP(S) URI of the preceding Ordered Collection Page.  The value of the `type` property _MUST_ be the string `OrderedCollectionPage`.
 
 ```
 {
@@ -566,7 +566,7 @@ Activities _MUST_ have the `object` property.  The value _MUST_ be a JSON object
 
 ##### endTime
 
-The time at which the Activity was finished. It is up to the implementer to decide whether the Activity includes the publication of the IIIF resource online, or only the internal data modification, but the decision _MUST_ be consistently applied. The changed resource given in `object` _MUST_ be available at its URI at or before the timestamp given in `endTime`. The value of `endTime` _SHOULD_ be before the time that the Activity is published as part of its Ordered Collection.
+The time at which the Activity was finished. It is up to the implementer to decide whether the value of `endTime` is the timestamp for the publication of the IIIF resource online or is the timestamp of the modification to the data in the managing system if these are different, but the decision _MUST_ be consistently applied. The changed resource given in `object` _MUST_ be available at its URI at or before the timestamp given in `endTime`. The value of `endTime` _SHOULD_ be before the time that the Activity is published as part of its Ordered Collection.
 
 Activities _SHOULD_ have the `endTime` property.  The value _MUST_ be a datetime expressed in UTC in the [xsd:dateTime][org-w3c-xsd-datetime] format.
 
@@ -643,7 +643,7 @@ A complete example Activity would thus look like the following example. Note tha
 
 #### 3.4.1. @context
 
-The top level resource in the response _MUST_ have the `@context` property, and it _SHOULD_ appear as the very first key/value pair of the JSON representation.  This property lets Linked Data processors interpret the document as a graph.  The value of the property _MUST_ be either the URI of the IIIF Discovery context document, `http://iiif.io/api/discovery/0/context.json`, or it _MUST_ be an array of strings, where the URI of the IIIF Discovery context document is the last item in the array.  
+The top level resource in the response _MUST_ have the `@context` property, and it _SHOULD_ appear as the very first key/value pair of the JSON representation.  This property lets Linked Data processors interpret the document as a graph.  The value of the property _MUST_ be either the URI of the IIIF Discovery context document, `http://iiif.io/api/discovery/0/context.json`, or an array of strings, where the URI of the IIIF Discovery context document is the last item in the array.  
 
 ```
 {
@@ -653,7 +653,7 @@ The top level resource in the response _MUST_ have the `@context` property, and 
 
 #### 3.4.2. Extensions
 
-If any additional classes or properties are desired beyond the ones defined in this specification or the ActivityStreams specification, then those classes or properties _SHOULD_ be mapped to RDF terms in one or more additional context documents. These extension contexts _SHOULD_ be added to the top level `@context` property, and _MUST_ be before the discovery context. The JSON-LD 1.1 functionality of defining terms only within a specific property, known as [scoped contexts][org-w3c-json-ld-scoped-contexts], _MUST_ be used to minimize cross-extension collisions.  Extensions intended for broad use _SHOULD_ be registered in the [extensions registry][annex-registry].  
+If any additional classes or properties are desired beyond the ones defined in this specification or the ActivityStreams specification, then those classes or properties _SHOULD_ be mapped to RDF terms in one or more additional context documents. These extension contexts _SHOULD_ be added to the top level `@context` property, and _MUST_ be before the URI of the Discovery context. The JSON-LD 1.1 functionality of defining terms only within a specific property, known as [scoped contexts][org-w3c-json-ld-scoped-contexts], _MUST_ be used to minimize cross-extension collisions.  Extensions intended for broad use _SHOULD_ be registered in the [extensions registry][annex-registry].  
 
 ```
 {
@@ -685,7 +685,7 @@ Given the URI of an ActivityStreams Collection (`collection`) as input, a confor
     </ol>
   </li>
   <li>Retrieve the representation of <code class="highlighter-rouge">collection</code> via HTTP(S)</li>
-  <li>Minimally validate that it conforms to the specification</li>
+  <li>Validate that the retrieved representation contains at least the features required for processing</li>
   <li>Find the URI of the last page at <code class="highlighter-rouge">collection.last.id</code> (<code class="highlighter-rouge">pageN</code>)</li>
 <li>Apply the results of the page algorithm to <code class="highlighter-rouge">pageN</code></li>
 </ol>
@@ -697,7 +697,7 @@ Given the URI of an ActivityStreams CollectionPage (`page`) and the date of last
 
 <ol class="ordered-list">
   <li>Retrieve the representation of <code class="highlighter-rouge">page</code> via HTTP(S)</li>
-  <li>Minimally validate that it conforms to the specification</li>
+  <li>Validate that the retrieved representation contains at least the features required for processing</li>
   <li>Find the set of updates of the page at <code class="highlighter-rouge">page.orderedItems</code> (<code class="highlighter-rouge">items</code>)</li>
   <li>In reverse order, iterate through the activities (<code class="highlighter-rouge">activity</code>) in <code class="highlighter-rouge">items</code>:
     <ol>
@@ -721,7 +721,7 @@ If the objective of the consuming application is to find descriptive information
 
 ### 4.1. Activities for Access-Restricted Content
 
-Activities _MAY_ be published about content that has access restrictions. Clients _MUST NOT_ assume that they will be able to access every resource that is the object of an Activity, and _MUST NOT_ assume that if they cannot access it, then it has been permanently deleted.  The content might be protected by some authentication system, or there might simply be a temporary network outage. 
+Activities _MAY_ be published about content that has access restrictions. Clients _MUST NOT_ assume that they will be able to access every resource that is the object of an Activity, and _MUST NOT_ assume that if they cannot access it, then it has been permanently deleted and therefore remove it from its index.  For example, the content might be protected by an authentication system that is denying access, or there might simply be a temporary network outage preventing the content from being retrieved. An end user might be able to provide the right credentials to gain access.
 
 Content may also change state from being available to being protected by access restrictions, or become available having previously been protected. There are no new activity classes for these situations, and the publisher _SHOULD_ issue the regular `Update` or `Delete` activities, if that is the behavior desired for harvesters.
 
