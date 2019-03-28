@@ -506,7 +506,7 @@ Ordered Collection Pages _MUST_ have a `orderedItems` property.  The value _MUST
 ### 3.3. Activities
 {: #activities}
 
-The Activities are the means of describing the changes that have occured in the content provider's system.
+The Activities are the means of describing the changes that have occurred in the content provider's system.
 
 Content providers _MAY_ publish Activities separately from Ordered Collection Pages, and if so they _MUST_ be at the HTTP(S) URI given in the `id` property of the Activity.
 
