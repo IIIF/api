@@ -292,7 +292,7 @@ Ordered Collections _MUST_ have a `last` property.  The value _MUST_ be a JSON o
 
 The total number of Activities in the entire Ordered Collection.
 
-OrderedCollections _MAY_ have a `totalItems` property.  The value _MUST_ be a non-negative integer.
+Ordered Collections _MAY_ have a `totalItems` property.  The value _MUST_ be a non-negative integer.
 
 ```
 { "totalItems": 21456 }
@@ -300,9 +300,9 @@ OrderedCollections _MAY_ have a `totalItems` property.  The value _MUST_ be a no
 
 ##### seeAlso
 
-This property is used to refer to one or more documents that semantically describe the set of resources that are being acted upon in the Activities within the OrderedCollection. This would allow the OrderedCollection to refer to, for example, a [DCAT][org-w3c-dcat] description of the dataset. For OrderedCollections that aggregate activities and/or objects from multiple sources, the referenced description should describe the complete aggregation rather than an individual source.
+This property is used to refer to one or more documents that semantically describe the set of resources that are being acted upon in the Activities within the Ordered Collection. This would allow the Ordered Collection to refer to, for example, a [DCAT][org-w3c-dcat] description of the dataset. For Ordered Collections that aggregate activities and/or objects from multiple sources, the referenced description should describe the complete aggregation rather than an individual source.
 
-OrderedCollections _MAY_ have a `seeAlso` property.  The value _MUST_ be an array of one or more JSON objects, with the `id` and `type` properties.  The value of the `id` property _MUST_ be a string, and it _MUST_ be the HTTP(S) URI of the description of the dataset. The value of the `type` property _MUST_ be a string, and _MUST_ be `Dataset`. The JSON object _MAY_ have the `format` property, the value of which _MUST_ be a string, and it _MUST_ be the MIME media type of the referenced description document.
+Ordered Collections _MAY_ have a `seeAlso` property.  The value _MUST_ be an array of one or more JSON objects, with the `id` and `type` properties.  The value of the `id` property _MUST_ be a string, and it _MUST_ be the HTTP(S) URI of the description of the dataset. The value of the `type` property _MUST_ be a string, and _MUST_ be `Dataset`. The JSON object _MAY_ have the `format` property, the value of which _MUST_ be a string, and it _MUST_ be the MIME media type of the referenced description document.
 
 ```
 {
@@ -320,7 +320,7 @@ OrderedCollections _MAY_ have a `seeAlso` property.  The value _MUST_ be an arra
 
 This property is used to refer to a parent Ordered Collection, of which this Ordered Collection is part. This would allow a publisher to have thematic or temporal sets of activities, for example to have different collections of activities for their paintings from their sculptures, or their modern content from their archival.
 
-OrderedCollections _MAY_ have a `partOf` property. The value _MUST_ be an array of one or more JSON objects, with the `id` and `type` properties.  The value of the `id` property _MUST_ be a string, and it _MUST_ be the HTTP(S) URI of the parent collection.  The value of the `type` property _MUST_ be a string, and it _MUST_ be `OrderedCollection`. 
+Ordered Collections _MAY_ have a `partOf` property. The value _MUST_ be an array of one or more JSON objects, with the `id` and `type` properties.  The value of the `id` property _MUST_ be a string, and it _MUST_ be the HTTP(S) URI of the parent collection.  The value of the `type` property _MUST_ be a string, and it _MUST_ be `OrderedCollection`. 
 
 ```
 {
