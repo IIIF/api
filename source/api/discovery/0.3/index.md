@@ -721,7 +721,7 @@ If the objective of the consuming application is to find descriptive information
 
 ### 4.1. Activities for Access-Restricted Content
 
-Activities _MAY_ be published about content that has access restrictions. Clients _MUST NOT_ assume that they will be able to access every resource that is the object of an Activity, and _MUST NOT_ assume that if they cannot access it, then it has been permanently deleted and therefore remove it from its index.  For example, the content might be protected by an authentication system that is denying access, or there might simply be a temporary network outage preventing the content from being retrieved. An end user might be able to provide the right credentials to gain access.
+Activities _MAY_ be published about content that has access restrictions. Clients _MUST NOT_ assume that they will be able to access every resource that is the object of an Activity, and _MUST NOT_ assume that if they cannot access it, then it has been deleted and therefore remove it from its index.  For example, the content might be protected by an authentication system that is denying access, or there might simply be a temporary network outage preventing the content from being retrieved. An end user might be able to provide the right credentials to gain access.
 
 Content may also change state from being available to being protected by access restrictions, or become available having previously been protected. There are no new activity classes for these situations, and the publisher _SHOULD_ issue the regular `Update` or `Delete` activities, if that is the behavior desired for harvesters.
 
