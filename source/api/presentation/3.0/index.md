@@ -1523,15 +1523,20 @@ The IIIF community has defined [additional Selector classes][annex-oa] for use w
 
 ### 5.7. Content Resources
 
-Content resources are external web resources that are referenced from within the Manifest or Collection. This includes images, video, audio, data, web pages or any other format. They can be referenced from `thumbnail`, `homepage`, `logo`, `rendering`, and `seeAlso` properties, as well as the `body` property of Annotations.
+Content resources are external web resources that are referenced from within the Manifest or Collection. This includes images, video, audio, data, web pages or any other format. 
 
-Content resources _MUST_ have an `id` property, with the value being the URI at which it can be obtained. A Canvas _MAY_ be treated as a content resource for the purposes of annotating it on to other Canvases. In this situation, the Canvas _MAY_ be embedded within the Annotation, or require dereferencing to obtain its description.
+As described in Section 5.3, the content of Canvases (and therefore the content of a Manifest) is provided by the `body` property of Annotations with the `painting` motivation. Content resources can also be referenced from `thumbnail`, `homepage`, `logo`, `rendering`, and `seeAlso` properties. 
+
+Content resources _MUST_ have an `id` property, with the value being the URI at which the resource can be obtained. 
 
 The type of the content resource _MUST_ be included, and _SHOULD_ be taken from the table listed under the definition of `type`. The `format` of the resource _SHOULD_ be included and, if so, _SHOULD_ be the media type that is returned when the resource is dereferenced. The `profile` of the resource, if it has one, _SHOULD_ also be included. Content resources in appropriate formats _MAY_ also have the `language`, `height`, `width`, and `duration` properties. Content resources _MAY_ also have descriptive and linking properties, as defined in [section 3][prezi30-resource-properties].
 
-If the content resource is an Image, and a IIIF Image service is available for it, then the URI _MAY_ be a complete URI to any particular representation made available, such as `https://example.org/image1/full/1000,/0/default.jpg`, but _MUST NOT_ be just the URI of the IIIF Image service. Its `type` value _MUST_ be the string `Image`. Its media type _MAY_ be listed in `format`, and its height and width _MAY_ be given as integer values for `height` and `width` respectively. The Image _SHOULD_ have the service referenced from it using the `service` property.
+If the content resource is an Image, and a IIIF Image service is available for it, then the `id` property of the content resource _MAY_ be a complete URI to any particular representation supported by the Image Service, such as `https://example.org/image1/full/1000,/0/default.jpg`, but _MUST NOT_ be just the URI of the IIIF Image service. Its `type` value _MUST_ be the string `Image`. Its media type _MAY_ be listed in `format`, and its height and width _MAY_ be given as integer values for `height` and `width` respectively. The Image _SHOULD_ have the service referenced from it using the `service` property.
 
 If there is a need to distinguish between content resources, then the resource _SHOULD_ have the `label` property. As noted above, this produces a slight inconsistency with the Web Annotation specification.
+
+A Canvas _MAY_ be treated as a content resource for the purposes of annotating it on to other Canvases. In this situation, the Canvas _MAY_ be embedded within the Annotation, or require dereferencing to obtain its description.
+
 
 ``` json-doc
 {
