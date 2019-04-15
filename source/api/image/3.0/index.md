@@ -651,7 +651,8 @@ The `rights` property identifies a license or rights statement that applies to t
 
 The `rights` property has the same semantics and requirements as it does in the [Presentation API][prezi3].
 
-The `rights` property is optional.
+The `rights` property is optional. If the publisher of this image requires that additional information is shown when it is viewed, the information should be provided by a [Presentation API][prezi3] Manifest, using the the linking properties described in section 5.7.
+
 
 ``` json-doc
 {
@@ -665,6 +666,10 @@ The `rights` property is optional.
   "rights": "http://rightsstatements.org/vocab/InC-EDU/1.0/"
 }
 ```
+
+
+
+
 
 ### 5.6. Extra Functionality
 
