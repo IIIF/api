@@ -682,6 +682,10 @@ The value of this property _MUST_ be an array of JSON objects, each of which _MU
  * Any resource type _MAY_ have the `homepage` property.<br/>
    Clients _SHOULD_ render `homepage` on a Collection, Manifest or Canvas, and _MAY_ render `homepage` on other resource types.
 
+__Model Alignment__<br/>
+Please note that the [Web Annotation Data Model][org-w3c-webanno] has less stringent requirements about the model to be used for the `homepage` property. The IIIF requirements are compatible, but the home page of an Agent found might have only a URI, or might be a JSON object with other properties.
+{: .note}
+
 ``` json-doc
 {
   "homepage": [
@@ -1092,6 +1096,25 @@ Any additional properties beyond those defined in this specification or the Web 
 ```
 
 The JSON representation _MUST NOT_ include the `@graph` key at the top level. This key might be created when serializing directly from RDF data using the JSON-LD 1.0 compaction algorithm. Instead, JSON-LD framing and/or custom code should be used to ensure the structure of the document is as defined by this specification.
+
+### 4.7. Term Collisions between Contexts
+
+It must be noted that there are some common terms that are used in more than one JSON-LD context document. Every attempt has been made to minimize these collisions, but some are inevitable. In order to know which specification is in effect at any given point, the class of the resource that has the property is the governing factor. Thus properties on Annotation based resources use the context from the [Web Annotation Data Model][org-w3c-webanno], whereas properties on classes defined by this specification use the IIIF Presentation API context's definition.  
+
+The label property is defined by both and is in direct conflict:
+
+* `label`: The use of `label` in IIIF follows modern best practices for internationalization by allowing the language to be associated with the value using the language map construction [described above][prezi30-languages]. The Web Annotation Data Model uses it only for [Annotation Collections][prezi30-annocoll], and mandates that it must be a string.
+
+The following properties are defined by both, and the IIIF representation is more specific than the Web Annotation Data Model but are not in conflict, or are never used on the same resource:
+
+* `homepage`: In IIIF the home page of a resource must be represented as a JSON object, whereas in the Web Annotation Data Model it may also be a string.
+* `type`: In IIIF the type must be singular, whereas in the Web Annotation Data Model there may be more than one type.
+* `format`: In IIIF the format of a resource must also be singular, whereas in the Web Annotation Data Model there may be more than one format.
+* `language`: In IIIF the `language` property always takes an array, whereas in the Web Annotation Data Model it may be a single string.
+* `start`: The `start` property is used on a Manifest to refer to the start Canvas or part of a Canvas and is thus a JSON object, whereas in the Web Annotation Data Model it is used on a TextPositionSelector to give the start offset into the textual content and is thus an integer.
+
+The `rights`, `partOf`, and `items` properties are defined by both in the same way.
+
 
 ##  5. Resource Structure
 
