@@ -507,7 +507,7 @@ The IIIF Image API is extensible within the [Image Request URI Syntax][image30-i
 
 ##  5. Image Information
 
-Servers _MUST_ support requests for image information. The response is a JSON document that includes technical properties about the full image and may also contain rights and licensing properties, and services related to it.
+Servers _MUST_ support requests for image information. The response is a JSON document that includes technical properties about the full image. It may also contain rights information, and services related to the image.
 
 ### 5.1. Image Information Request
 
@@ -645,20 +645,13 @@ Objects in the `tiles` array _MUST_ each have a unique combination of `width` an
 }
 ```
 
-### 5.5. Rights Related Properties
+### 5.5. Rights
 
-The rights and licensing properties, `requiredStatement`, `rights` and `logo`, have the same semantics and requirements as those in the [Presentation API][prezi3].
+The `rights` property identifies a license or rights statement that applies to the content of this image. The value of this property _MUST_ be a string drawn from the set of [Creative Commons][org-cc-licenses] license URIs, the [RightsStatements.org][org-rs-terms] rights statement URIs, or those added via the [Registry of Known Extensions][registry] mechanism. The inclusion of this property is informative, and for example could be used to display an icon representing the rights assertions. 
 
-| Property | Required? | Description |
-| ------------- | --------- | ----------- |
-| `requiredStatement` | Optional  | Text that _MUST_ be shown when content obtained from the Image API service is displayed or used. It might include copyright or ownership statements, or a simple acknowledgement of the providing institution. The value of this property _MUST_ be a JSON object, that has the `label` and `value` properties. The values of both `label` and `value` must be JSON objects, as described in the [Language of Property Values][prezi3-languages] section of the Presentation API. The `value` property _MAY_ contain simple HTML as described in the [HTML Markup in Property Values][prezi3-html] section of the Presentation API. Given the wide variation of potential client user interfaces, it will not always be possible to display this statement to the user in the client’s initial state. If initially hidden, clients _MUST_ make the method of revealing it as obvious as possible. |
-| `rights` | Optional | A string that identifies a license or rights statement that applies to the content of this image. The value of this property _MUST_ be drawn from the set of [Creative Commons][org-cc-licenses] license URIs, the [RightsStatements.org][org-rs-terms] rights statement URIs, or those added via the [Registry of Known Extensions][registry] mechanism. The inclusion of this property is informative, and for example could be used to display an icon representing the rights assertions. If displaying rights information directly to the user is the desired interaction, or a publisher-defined label is needed, then it is _RECOMMENDED_ to include the information using the `requiredStatement` property. |
-| `logo` | Optional | A small external image resource that represents an individual or organization associated with this image. This could be the logo of the owning or hosting institution. The value of this property _MUST_ be an array of JSON objects, each of which _MUST_ have an `id` and _SHOULD_ have at least one of `type` and `format`. The logo _MUST_ be clearly rendered when the resource is displayed or used, without cropping, rotating or otherwise distorting the image. It is _RECOMMENDED_ that a IIIF Image API service be available for this image for other manipulations such as resizing. |
-{: .api-table}
+The `rights` property has the same semantics and requirements as it does in the [Presentation API][prezi3].
 
-It is _RECOMMENDED_ that logos with IIIF Image API services do not, themselves, have `logo` properties. When clients render logos specified with an IIIF Image API service, they _MAY_ ignore any `logo` property on in the included logo.
-
-When both the Image and Presentation APIs express `requiredStatement` or `logo` properties, then clients _MUST_ display both unless they are identical.
+The `rights` property is optional.
 
 ``` json-doc
 {
@@ -669,20 +662,9 @@ When both the Image and Presentation APIs express `requiredStatement` or `logo` 
   "profile": "level2",
   "width": 6000,
   "height": 4000,
-  "requiredStatement": {
-    "label": { "en": [ "Attribution" ] },
-    "value": { "en": [ "Provided by Example Organization" ] }
-  },
-  "logo": [
-    {
-      "id": "https://example.org/logos/institution1.jpg",
-      "type": "Image"
-    }
-  ],
   "rights": "http://rightsstatements.org/vocab/InC-EDU/1.0/"
 }
 ```
-
 
 ### 5.6. Extra Functionality
 
@@ -821,29 +803,6 @@ The following shows an image information response including all of the required 
   "tiles": [
     { "width": 512, "scaleFactors": [ 1, 2, 4 ] },
     { "width": 1024, "height": 2048, "scaleFactors": [ 8, 16 ] }
-  ],
-  "requiredStatement": {
-    "label": {
-      "en": [ "Attribution" ],
-      "cy": [ "Priodoliad" ]
-    },
-    "value": {
-      "en": [ "<span>Provided by <b>Example Organization</b></span>" ],
-      "cy": [ "<span>Darparwyd gan <b>Enghraifft Sefydliad</b></span>" ]
-    }
-  },
-  "logo": [
-    {
-      "id": "https://example.org/image-service/logo/square/200,200/0/default.png",
-      "type": "Image",
-      "service": [
-        {
-          "id": "https://example.org/image-service/logo",
-          "type": "ImageService3",
-          "profile": "level2"
-        }
-      ]
-    }
   ],
   "rights": "http://rightsstatements.org/vocab/InC-EDU/1.0/",
   "extraFormats": [ "gif", "pdf" ],
