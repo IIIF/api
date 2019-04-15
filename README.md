@@ -1,4 +1,3 @@
-[![Stories in Ready](https://badge.waffle.io/IIIF/api.png?label=ready&title=Ready)](https://waffle.io/IIIF/api)
 [![Build Status](https://travis-ci.org/IIIF/api.svg?branch=master)](https://travis-ci.org/IIIF/api)
 
 # Specifications
