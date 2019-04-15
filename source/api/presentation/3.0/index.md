@@ -683,7 +683,7 @@ The value of this property _MUST_ be an array of JSON objects, each of which _MU
    Clients _SHOULD_ render `homepage` on a Collection, Manifest or Canvas, and _MAY_ render `homepage` on other resource types.
 
 __Model Alignment__<br/>
-Please note that the [Web Annotation Data Model][org-w3c-webanno] has less stringent requirements about the model to be used for the `homepage` property. The IIIF requirements are compatible, but the home page of an Agent found might have only a URI, or might be a JSON object with other properties.
+Please note that this specification has stricter requirements about the JSON pattern used for the `homepage` property than the [Web Annotation Data Model][org-w3c-webanno]. The IIIF requirements are compatible, but the home page of an Agent found might have only a URI, or might be a JSON object with other properties. See the section on [collisions between contexts][prezi30-context-collisions] for more information.
 {: .note}
 
 ``` json-doc
@@ -1099,7 +1099,7 @@ The JSON representation _MUST NOT_ include the `@graph` key at the top level. Th
 
 ### 4.7. Term Collisions between Contexts
 
-It must be noted that there are some common terms that are used in more than one JSON-LD context document. Every attempt has been made to minimize these collisions, but some are inevitable. In order to know which specification is in effect at any given point, the class of the resource that has the property is the governing factor. Thus properties on Annotation based resources use the context from the [Web Annotation Data Model][org-w3c-webanno], whereas properties on classes defined by this specification use the IIIF Presentation API context's definition.  
+There are some common terms used in more than one JSON-LD context document. Every attempt has been made to minimize these collisions, but some are inevitable. In order to know which specification is in effect at any given point, the class of the resource that has the property is the governing factor. Thus properties on Annotation based resources use the context from the [Web Annotation Data Model][org-w3c-webanno], whereas properties on classes defined by this specification use the IIIF Presentation API context's definition.  
 
 The label property is defined by both and is in direct conflict:
 
