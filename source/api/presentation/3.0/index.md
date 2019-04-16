@@ -1198,11 +1198,11 @@ The Manifest _MUST_ have an `items` property, which is an array of JSON-LD objec
 
   "thumbnail": [
     {
-      "id": "https://example.org/images/book1-page1/full/80,100/0/default.jpg",
+      "id": "https://example.org/iiif/book1/page1/full/80,100/0/default.jpg",
       "type": "Image",
       "service": [
         {
-          "id": "https://example.org/images/book1-page1",
+          "id": "https://example.org/iiif/book1/page1",
           "type": "ImageService3",
           "profile": "level1"
         }
@@ -1236,7 +1236,7 @@ The Manifest _MUST_ have an `items` property, which is an array of JSON-LD objec
       ],
       "logo": [
         {
-          "id": "https://example.org/logos/institution1.jpg",
+          "id": "https://example.org/service/inst1/full/max/0/default.png",
           "type": "Image",
           "service": [
             {
@@ -1517,7 +1517,7 @@ The IIIF community has defined [additional Selector classes][annex-oa] for use w
   "type": "Annotation",
   "motivation": "painting",
   "body": {
-    "id": "https://example.org/iiif/book1/res/page1.jpg",
+    "id": "https://example.org/images/page1.jpg",
     "type": "Image"
   },
   "target": "https://example.org/iiif/book1/canvas/p1"
@@ -1543,13 +1543,13 @@ If there is a need to distinguish between content resources, then the resource _
   "type": "Annotation",
   "motivation": "painting",
   "body": {
-    "id": "https://example.org/iiif/book1/res/page1.jpg",
+    "id": "https://example.org/iiif/book1/page1/full/max/0/default.jpg",
     "type": "Image",
     "label": {"en": ["Page 1"], "es": ["Página 1"]},
     "format": "image/jpeg",
     "service": [
       {
-        "id": "https://example.org/images/book1-page1",
+        "id": "https://example.org/iiif/book1/page1",
         "type": "ImageService3",
         "profile": "level2"
       }
@@ -1806,11 +1806,11 @@ __Behavior Values__
 
   "thumbnail": [
     {
-      "id": "https://example.org/images/book1-page1/full/80,100/0/default.jpg",
+      "id": "https://example.org/iiif/book1/page1/full/80,100/0/default.jpg",
       "type": "Image",
       "service": [
         {
-          "id": "https://example.org/images/book1-page1",
+          "id": "https://example.org/iiif/book1/page1",
           "type": "ImageService3",
           "profile": "level1"
         }
@@ -1829,7 +1829,7 @@ __Behavior Values__
   },
   "logo": [
     {
-      "id": "https://example.org/logos/institution1.jpg",
+      "id": "https://example.org/service/inst1/full/max/0/default.png",
       "type": "Image",
       "service": [
         {
@@ -1899,12 +1899,12 @@ __Behavior Values__
               "type": "Annotation",
               "motivation": "painting",
               "body": {
-                "id": "https://example.org/iiif/book1/res/page1.jpg",
+                "id": "https://example.org/iiif/book1/page1/full/max/0/default.jpg",
                 "type": "Image",
                 "format": "image/jpeg",
                 "service": [
                   {
-                    "id": "https://example.org/images/book1-page1",
+                    "id": "https://example.org/iiif/book1/page1",
                     "type": "ImageService3",
                     "profile": "level2"
                   }
@@ -1940,12 +1940,12 @@ __Behavior Values__
               "type": "Annotation",
               "motivation": "painting",
               "body": {
-                "id": "https://example.org/iiif/book1/res/page2.jpg",
+                "id": "https://example.org/iiif/book1/page2/full/max/0/default.jpg",
                 "type": "Image",
                 "format": "image/jpeg",
                 "service": [
                   {
-                    "id": "https://example.org/images/book1-page2",
+                    "id": "https://example.org/iiif/book1/page2",
                     "type": "ImageService3",
                     "profile": "level2"
                   }
