@@ -63,7 +63,6 @@
 [image3-information-request-uri-syntax]: {{ site.url }}{{ site.baseurl }}/api/image/3.{{ site.image_api.draft.minor }}/#22-image-information-request-uri-syntax "2.2. Image Information Request URI"
 [image3-information-request]: {{ site.url }}{{ site.baseurl }}/api/image/3.{{ site.image_api.draft.minor }}/#51-image-information-request "5.1. Image Information Request"
 [image3-information]: {{ site.url }}{{ site.baseurl }}/api/image/3.{{ site.image_api.draft.minor }}/#5-image-information "5. Image Information"
-[image3-linking-properties]: {{ site.url }}{{ site.baseurl }}/api/image/3.{{ site.image_api.draft.minor }}/#57-linking-properties "5.7 Linking Properties"
 [image3-order-of-implementation]: {{ site.url }}{{ site.baseurl }}/api/image/3.{{ site.image_api.draft.minor }}/#46-order-of-implementation "4.6. Order of Implementation"
 [image3-profile-description]: {{ site.url }}{{ site.baseurl }}/api/image/3.{{ site.image_api.draft.minor }}/#56-extra-functionality "5.3 Profile Description"
 [image3-quality]: {{ site.url }}{{ site.baseurl }}/api/image/3.{{ site.image_api.draft.minor }}/#44-quality "4.4. Quality"
