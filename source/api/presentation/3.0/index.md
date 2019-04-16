@@ -987,7 +987,7 @@ This section describes features applicable to all of the Presentation API conten
 
 ### 4.1. Case Sensitivity
 
-Terms in JSON-LD are [case sensitive][org-w3c-json-ld-case].  The cases of properties and enumerated values in IIIF Presentation API responses MUST match those used in this specification. For example to specify that a resource is a Manifest, the property must be given as `type` and not `Type` or `tYpE`, and the value must be given as `Manifest` and not `manifest` or `manIfEsT`.
+Terms in JSON-LD are [case sensitive][org-w3c-json-ld-case].  The cases of properties and enumerated values in IIIF Presentation API responses _MUST_ match those used in this specification. For example to specify that a resource is a Manifest, the property _MUST_ be given as `type` and not `Type` or `tYpE`, and the value _MUST_ be given as `Manifest` and not `manifest` or `manIfEsT`.
 
 ### 4.2. Resource Representations
 
@@ -1022,7 +1022,7 @@ Any of the properties in the API that can have multiple values _MUST_ always be 
 
 Language _MAY_ be associated with strings that are intended to be displayed to the user for the `label` and `summary` properties, plus the `label` and `value` properties of the `metadata` and `requiredStatement` objects.
 
-The values of these properties _MUST_ be JSON objects, with the keys being the [BCP 47][org-bcp-47] language code for the language, or if the language is either not known or the string does not have a language, then the key must be the string `@none`. The associated values _MUST_ be arrays of strings, where each item is the content in the given language.
+The values of these properties _MUST_ be JSON objects, with the keys being the [BCP 47][org-bcp-47] language code for the language, or if the language is either not known or the string does not have a language, then the key _MUST_ be the string `@none`. The associated values _MUST_ be arrays of strings, where each item is the content in the given language.
 
 ``` json-doc
 {
@@ -1055,7 +1055,7 @@ Note that this does not apply to embedded textual bodies in Annotations, which u
 
 ### 4.5. HTML Markup in Property Values
 
-Minimal HTML markup _MAY_ be included for processing in the `summary` property and the `value` property in the `metadata` and `requiredStatement` objects. It _MUST NOT_ be used in `label` or other properties. This is included to allow content publishers to add links and simple formatting instructions to blocks of text. The content _MUST_ be well-formed XML and therefore must be wrapped in an element such as `p` or `span`. There _MUST NOT_ be whitespace on either side of the HTML string, and thus the first character in the string _MUST_ be a '<' character and the last character _MUST_ be '>', allowing a consuming application to test whether the value is HTML or plain text using these. To avoid a non-HTML string matching this, it is _RECOMMENDED_ that an additional whitespace character be added to the end of the value in situations where plain text happens to start and end this way.
+Minimal HTML markup _MAY_ be included for processing in the `summary` property and the `value` property in the `metadata` and `requiredStatement` objects. It _MUST NOT_ be used in `label` or other properties. This is included to allow content publishers to add links and simple formatting instructions to blocks of text. The content _MUST_ be well-formed XML and therefore _MUST_ be wrapped in an element such as `p` or `span`. There _MUST NOT_ be whitespace on either side of the HTML string, and thus the first character in the string _MUST_ be a '<' character and the last character _MUST_ be '>', allowing a consuming application to test whether the value is HTML or plain text using these. To avoid a non-HTML string matching this, it is _RECOMMENDED_ that an additional whitespace character be added to the end of the value in situations where plain text happens to start and end this way.
 
 In order to avoid HTML or script injection attacks, clients _MUST_ remove:
 
@@ -1103,15 +1103,15 @@ There are some common terms used in more than one JSON-LD context document. Ever
 
 The label property is defined by both and is in direct conflict:
 
-* `label`: The use of `label` in IIIF follows modern best practices for internationalization by allowing the language to be associated with the value using the language map construction [described above][prezi30-languages]. The Web Annotation Data Model uses it only for [Annotation Collections][prezi30-annocoll], and mandates that it must be a string.
+* `label`: The use of `label` in IIIF follows modern best practices for internationalization by allowing the language to be associated with the value using the language map construction [described above][prezi30-languages]. The Web Annotation Data Model uses it only for [Annotation Collections][prezi30-annocoll], and mandates the format is a string.
 
 The following properties are defined by both, and the IIIF representation is more specific than the Web Annotation Data Model but are not in conflict, or are never used on the same resource:
 
-* `homepage`: In IIIF the home page of a resource must be represented as a JSON object, whereas in the Web Annotation Data Model it may also be a string.
-* `type`: In IIIF the type must be singular, whereas in the Web Annotation Data Model there may be more than one type.
-* `format`: In IIIF the format of a resource must also be singular, whereas in the Web Annotation Data Model there may be more than one format.
-* `language`: In IIIF the `language` property always takes an array, whereas in the Web Annotation Data Model it may be a single string.
-* `start`: The `start` property is used on a Manifest to refer to the start Canvas or part of a Canvas and is thus a JSON object, whereas in the Web Annotation Data Model it is used on a TextPositionSelector to give the start offset into the textual content and is thus an integer.
+* `homepage`: In IIIF the home page of a resource is represented as a JSON object, whereas in the Web Annotation Data Model it can also be a string.
+* `type`: In IIIF the type is singular, whereas in the Web Annotation Data Model there can be more than one type.
+* `format`: In IIIF the format of a resource is also singular, whereas in the Web Annotation Data Model there can be more than one format.
+* `language`: In IIIF the `language` property always takes an array, whereas in the Web Annotation Data Model it can be a single string.
+* `start`: The `start` property is used on a Manifest to refer to the start Canvas or part of a Canvas and thus is a JSON object, whereas in the Web Annotation Data Model it is used on a TextPositionSelector to give the start offset into the textual content and is thus an integer.
 
 The `rights`, `partOf`, and `items` properties are defined by both in the same way.
 
