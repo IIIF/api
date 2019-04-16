@@ -485,15 +485,13 @@ In order to support the above requirements, clients _SHOULD_ construct image req
 | Parameter | Canonical value |
 | --------- | --------------- |
 | region    | `full` if the full image is requested<br/>otherwise the _`x,y,w,h`_ syntax. |
-| size      | `max` if the maximum size is requested,<br/>otherwise the _`w,h`_ syntax. |
+| size      | `max` if the maximum size is requested,<br/>`^max` if the maximum upscaled size is requested, otherwise<br/>_`w,h`_ if the size requested does not necessitate upscaling,<br/>and _`^w,h`_ if the requested size would result in upscaling of the extracted region. |
 | rotation  | `!` if the image is mirrored, followed by an integer if possible, otherwise a floating point value. |
 | quality   | `default` if the server's default quality is requested,<br/>otherwise the quality string. |
 | format    | An explicit format string is always required. |
 {: .api-table}
 
-Size and region parameters given as percentages and the rotation parameter allow positive floating point number values. Integer values _SHOULD_ be used where possible. When floating point values are used, they _MUST_ consist only of decimal digits and "." (e.g. 0.9 not +0.9), _SHOULD_ be represented with a leading 0 if less than 1 (e.g. 0.9 not .9), and _SHOULD NOT_ include trailing zeros (e.g. 0.9 not 0.90). Intermediate calculations may use floating point numbers and the rounding method is implementation specific.  
-
-Clients _SHOULD_ construct the percentage form of the size parameter using the _`pct:n`_ rather than _`^pct:n`_ syntax when the value of _`n`_ is less than or equal to 100.
+Size and region parameters given as percentages and the rotation parameter allow positive floating point number values. Integer values _SHOULD_ be used where possible. When floating point values are used, they _MUST_ consist only of decimal digits and "." (e.g. 0.9 not +0.9), _SHOULD_ be represented with a leading 0 if less than 1 (e.g. 0.9 not .9), and _SHOULD NOT_ include trailing zeros (e.g. 0.9 not 0.90). Intermediate calculations may use floating point numbers and the rounding method is implementation specific.
 
 When the client requests an image, the server _MAY_ add a link header to the response that indicates the canonical URI for that request:
 
