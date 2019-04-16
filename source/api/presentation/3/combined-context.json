@@ -267,7 +267,10 @@
       "@type": "xsd:integer",
       "@container": "@set"
     },
-
+    "preferredFormats": {
+     "@id": "iiif_image:preferredFormats",
+     "@container": "@list"
+    },
     "extraQualities": {
       "@id": "iiif_image:quality",
       "@container": "@set"
@@ -347,7 +350,7 @@
         }
       ]
     },
- 
+
     "AuthCookieService1": {
       "@id": "http://iiif.io/api/auth/1#CookieService",
       "@context": [

@@ -645,7 +645,16 @@ Objects in the `tiles` array _MUST_ each have a unique combination of `width` an
 }
 ```
 
-### 5.5. Rights Related Properties
+### 5.5. Preferred Formats
+
+The JSON response _MAY_ have the `preferredFormats` property, which is used to list the preferred format parameter values for this image service.
+
+| Property | Required? | Description |
+| ------------- | --------- | ----------- |
+| `preferredFormats` | Optional | An array of strings that are the preferred format parameter values, arranged in order of preference.  The format parameter values listed must be among those specified in the referenced profile or listed in the `extraFormats` property (see [Extra Functionality][image3-extra-functionality]). |
+{: .api-table}
+
+### 5.6. Rights Related Properties
 
 The rights and licensing properties, `requiredStatement`, `rights` and `logo`, have the same semantics and requirements as those in the [Presentation API][prezi3].
 
@@ -684,7 +693,7 @@ When both the Image and Presentation APIs express `requiredStatement` or `logo` 
 ```
 
 
-### 5.6. Extra Functionality
+### 5.7. Extra Functionality
 
 The JSON response _MAY_ also contain properties that describe additional functionality available via the image service.
 
@@ -741,7 +750,7 @@ Additional strings used in the `extraQualities`, `extraFormats`, and `extraFeatu
 }
 ```
 
-### 5.7. Linking Properties
+### 5.8. Linking Properties
 
 The JSON response _MAY_ contain linking properties that reference external resources, including services that make additional functionality available to a viewer. The linking properties have the same semantics and requirements as those in the [Presentation API][prezi3].
 
@@ -794,7 +803,7 @@ The JSON objects in `partOf`, `seeAlso`, and `service` have the properties indic
 }
 ```
 
-### 5.8. Complete Response
+### 5.9. Complete Response
 
 The following shows an image information response including all of the required and optional properties.
 
@@ -846,6 +855,7 @@ The following shows an image information response including all of the required 
     }
   ],
   "rights": "http://rightsstatements.org/vocab/InC-EDU/1.0/",
+  "preferredFormats": [ "png", "gif"],
   "extraFormats": [ "gif", "pdf" ],
   "extraQualities": [ "color", "gray" ],
   "extraFeatures": [ "canonicalLinkHeader", "rotationArbitrary", "profileLinkHeader" ],
