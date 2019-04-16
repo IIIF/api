@@ -129,7 +129,7 @@ This specification makes use of the following types, defined in the [Web Annotat
 ##### Annotation Page
 {: #overview-annotationpage}
 
-An ordered list of Annotations that is typically associated with a Canvas but may be referenced from other resource types as well. Annotation Pages collect and order lists of Annotations, which in turn provide commentary about a resource or content that is part of a Canvas.
+An ordered list of Annotations that is typically associated with a Canvas but may be referenced from other types of resource as well. Annotation Pages collect and order lists of Annotations, which in turn provide commentary about a resource or content that is part of a Canvas.
 
 ##### Annotation
 {: #overview-annotation}
@@ -178,8 +178,8 @@ The value of the property _MUST_ be a JSON object, as described in the [language
    Clients _MUST_ render `label` on a Range.
  * An Annotation Collection _SHOULD_ have the `label` property with at least one entry.<br/>
    Clients _SHOULD_ render `label` on an Annotation Collection.
- * Other resource types _MAY_ have the `label` property with at least one entry.<br/>
-   Clients _MAY_ render `label` on other resource types.
+ * Other types of resource _MAY_ have the `label` property with at least one entry.<br/>
+   Clients _MAY_ render `label` on other types of resource.
 
 ``` json-doc
 { "label": { "en": [ "Example Object Title" ] } }
@@ -197,8 +197,8 @@ The value of the `metadata` property _MUST_ be an array of JSON objects, where e
    Clients _MUST_ render `metadata` on a Manifest.
  * A Canvas _MAY_ have the `metadata` property with at least one item.<br/>
    Clients _SHOULD_ render `metadata` on a Canvas.
- * Other resource types _MAY_ have the `metadata` property with at least one item.<br/>
-   Clients _MAY_ render `metadata` on other resource types.
+ * Other types of resource _MAY_ have the `metadata` property with at least one item.<br/>
+   Clients _MAY_ render `metadata` on other types of resource.
 
 Clients _SHOULD_ display the entries in the order provided. Clients _SHOULD_ expect to encounter long texts in the `value` property, and render them appropriately, such as with an expand button, or in a tabbed interface.
 
@@ -225,8 +225,8 @@ The value of the property _MUST_ be a JSON object, as described in the [language
    Clients _SHOULD_ render `summary` on a Manifest.
  * A Canvas _MAY_ have the `summary` property with at least one entry.<br/>
    Clients _SHOULD_ render `summary` on a Canvas.
- * Other resource types _MAY_ have the `summary` property with at least one entry.<br/>
-   Clients _MAY_ render `summary` on other resource types.
+ * Other types of resource _MAY_ have the `summary` property with at least one entry.<br/>
+   Clients _MAY_ render `summary` on other types of resource.
 
 ``` json-doc
 { "summary": { "en": [ "This is a summary of the object." ] } }
@@ -284,8 +284,8 @@ The value _MUST_ be an array of JSON objects, where each item in the array confo
    Clients _MUST_ render `provider` on a Collection.
  * A Manifest _SHOULD_ have the `provider` property with at least one item. <br/>
    Clients _MUST_ render `provider` on a Manifest.
- * Other resource types _MAY_ have the `provider` property with at least one item. <br/>
-   Clients _SHOULD_ render `provider` on other resource types.
+ * Other types of resource _MAY_ have the `provider` property with at least one item. <br/>
+   Clients _SHOULD_ render `provider` on other types of resource.
 
 ```json-doc
 {
@@ -337,8 +337,8 @@ The value _MUST_ be an array of JSON objects, where each item in the array has a
    Clients _SHOULD_ render `thumbnail` on a Canvas.
  * A content resource _MAY_ have the `thumbnail` property with at least one item. Content resources _SHOULD_ have the `thumbnail` property with at least one item if it is an option in a Choice of resources.<br/>
    Clients _SHOULD_ render `thumbnail` on a content resource.
- * Other resource types _MAY_ have the `thumbnail` property with at least one item.<br/>
-   Clients _MAY_ render `thumbnail` on other resource types.
+ * Other types of resource _MAY_ have the `thumbnail` property with at least one item.<br/>
+   Clients _MAY_ render `thumbnail` on other types of resource.
 
 ``` json-doc
 {
@@ -367,8 +367,8 @@ The value _MUST_ be an [XSD dateTime literal][org-w3c-xsd-datetime]. The value _
    Clients _MAY_ render `navDate` on a Range.
  * A Canvas _MAY_ have the `navDate` property.<br/>
    Clients _MAY_ render `navDate` on a Canvas.
- * Other resource types _MUST NOT_ have the `navDate` property.<br/>
-   Clients _SHOULD_ ignore `navDate` on other resource types.
+ * Other types of resource _MUST NOT_ have the `navDate` property.<br/>
+   Clients _SHOULD_ ignore `navDate` on other types of resource.
 
 ``` json-doc
 { "navDate": "2010-01-01T00:00:00Z" }
@@ -390,8 +390,8 @@ The value _MUST_ be a JSON object with the `id` and `type` properties, and _MAY_
     Clients _MAY_ render `placeholderCanvas` on a Canvas.
   * A Range _MAY_ have the `placeholderCanvas` property.<br/>
     Clients _MAY_ render `placeholderCanvas` on a Range.
-  * Other resource types _MUST NOT_ have the `placeholderCanvas` property.<br/>
-    Clients _SHOULD_ ignore `placeholderCanvas` on other resource types.
+  * Other types of resource _MUST NOT_ have the `placeholderCanvas` property.<br/>
+    Clients _SHOULD_ ignore `placeholderCanvas` on other types of resource.
 
 ``` json-doc
 {
@@ -420,8 +420,8 @@ The value _MUST_ be a JSON object with the `id` and `type` properties, and _MAY_
    Clients _MAY_ render `accompanyingCanvas` on a Canvas.
  * A Range _MAY_ have the `accompanyingCanvas` property.<br/>
    Clients _MAY_ render `accompanyingCanvas` on a Range.
- * Other resource types _MUST NOT_ have the `accompanyingCanvas` property.<br/>
-   Clients _SHOULD_ ignore `accompanyingCanvas` on other resource types.
+ * Other types of resource _MUST NOT_ have the `accompanyingCanvas` property.<br/>
+   Clients _SHOULD_ ignore `accompanyingCanvas` on other types of resource.
 
 ``` json-doc
 {
@@ -487,8 +487,8 @@ The value _MUST_ be a string, and it _SHOULD_ be the value of the `Content-Type`
 
  * A content resource _SHOULD_ have the `format` property.<br/>
    Clients _MAY_ render the `format` of any content resource.
- * Other resource types _MUST NOT_ have the `format` property.<br/>
-   Clients _SHOULD_ ignore `format` on other resource types.
+ * Other types of resource _MUST NOT_ have the `format` property.<br/>
+   Clients _SHOULD_ ignore `format` on other types of resource.
 
 Note that this is different to the `formats` property in the [Image API][image-api], which gives the extension to use within that API. It would be inappropriate to use in this case, as `format` can be used with any content resource, not just images.
 
@@ -504,8 +504,8 @@ The value _MUST_ be an array of strings. Each item in the array _MUST_ be a vali
 
  * An external resource _SHOULD_ have the `language` property with at least one item.<br/>
    Clients _SHOULD_ process the `language` of external resources.
- * Other resource types _MUST NOT_ have the `language` property.<br/>
-   Clients _SHOULD_ ignore `language` on other resource types.
+ * Other types of resource _MUST NOT_ have the `language` property.<br/>
+   Clients _SHOULD_ ignore `language` on other types of resource.
 
 ``` json-doc
 { "language": [ "en" ] }
@@ -519,8 +519,8 @@ The value _MUST_ be a string, either taken from the [profiles registry][registry
 
 * Resources referenced by the `seeAlso` or `service` properties _SHOULD_ have the `profile` property.<br/>
   Clients _SHOULD_ process the `profile` of a service or external resource.
-* Other resource types _MAY_ have the `profile` property.<br/>
-  Clients _MAY_ process the `profile` of other resource types.
+* Other types of resource _MAY_ have the `profile` property.<br/>
+  Clients _MAY_ process the `profile` of other types of resource.
 
 ``` json-doc
 { "profile": "https://example.org/profile/statuary" }
@@ -536,8 +536,8 @@ The value _MUST_ be a positive integer.
    Clients _MUST_ process `height` on a Canvas.
  * Content resources _SHOULD_ have the `height` property, with the value given in pixels, if appropriate to the resource type.<br/>
    Clients _SHOULD_ process `height` on content resources.
- * Other resource types _MUST NOT_ have the `height` property.<br/>
-   Clients _SHOULD_ ignore `height` on other resource types.
+ * Other types of resource _MUST NOT_ have the `height` property.<br/>
+   Clients _SHOULD_ ignore `height` on other types of resource.
 
 ``` json-doc
 { "height": 1800 }
@@ -553,8 +553,8 @@ The value _MUST_ be a positive integer.
    Clients _MUST_ process `width` on a Canvas.
  * Content resources _SHOULD_ have the `width` property, with the value given in pixels, if appropriate to the resource type.<br/>
    Clients _SHOULD_ process `width` on content resources.
- * Other resource types _MUST NOT_ have the `width` property.<br/>
-   Clients _SHOULD_ ignore `width` on other resource types.
+ * Other types of resource _MUST NOT_ have the `width` property.<br/>
+   Clients _SHOULD_ ignore `width` on other types of resource.
 
 ``` json-doc
 { "width": 1200 }
@@ -570,8 +570,8 @@ The value _MUST_ be a positive floating point number.
    Clients _MUST_ process `duration` on a Canvas.
  * Content resources _SHOULD_ have the `duration` property, if appropriate to the resource type.<br/>
    Clients _SHOULD_ process `duration` on content resources.
- * Other resource types _MUST NOT_ have a `duration`.<br/>
-   Clients _SHOULD_ ignore `duration` on other resource types.
+ * Other types of resource _MUST NOT_ have a `duration`.<br/>
+   Clients _SHOULD_ ignore `duration` on other types of resource.
 
 ``` json-doc
 { "duration": 125.0 }
@@ -589,8 +589,8 @@ The value _MUST_ be a string.
    Clients _SHOULD_ process `viewingDirection` on a Manifest.
  * A Range _MAY_ have the `viewingDirection` property.<br/>
    Clients _MAY_ process `viewingDirection` on a Range.
- * Other resource types _MUST NOT_ have the `viewingDirection` property.<br/>
-   Clients _SHOULD_ ignore `viewingDirection` on other resource types.
+ * Other types of resource _MUST NOT_ have the `viewingDirection` property.<br/>
+   Clients _SHOULD_ ignore `viewingDirection` on other types of resource.
 
 > | Value | Description |
 | ----- | ----------- |
@@ -689,7 +689,7 @@ An external web page that is about the object represented by the resource that h
 The value of this property _MUST_ be an array of JSON objects, each of which _MUST_ have the `id`, `type`, and `label` properties, _SHOULD_ have a `format` property, and _MAY_ have the `language` property.
 
  * Any resource type _MAY_ have the `homepage` property.<br/>
-   Clients _SHOULD_ render `homepage` on a Collection, Manifest or Canvas, and _MAY_ render `homepage` on other resource types.
+   Clients _SHOULD_ render `homepage` on a Collection, Manifest or Canvas, and _MAY_ render `homepage` on other types of resource.
 
 ``` json-doc
 {
@@ -735,7 +735,7 @@ An external resource that is an alternative, non-IIIF representation of the reso
 The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id`, `type` and `label` properties, and _SHOULD_ have a `format` property.
 
  * Any resource type _MAY_ have the `rendering` property with at least one item.<br/>
-   Clients _SHOULD_ render `rendering` on a Collection, Manifest or Canvas, and _MAY_ render `rendering` on other resource types.
+   Clients _SHOULD_ render `rendering` on a Collection, Manifest or Canvas, and _MAY_ render `rendering` on other types of resource.
 
 ``` json-doc
 {
@@ -850,8 +850,8 @@ The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` propert
    Clients _SHOULD_ process `start` on a Manifest.
  * A Range _MAY_ have the `start` property.<br/>
    Clients _SHOULD_ process `start` on a Range.
- * Other resource types _MUST NOT_ have the `start` property.<br/>
-   Clients _SHOULD_ ignore `start` on other resource types.
+ * Other types of resource _MUST NOT_ have the `start` property.<br/>
+   Clients _SHOULD_ ignore `start` on other types of resource.
 
 ``` json-doc
 { "start": { "id": "https://example.org/iiif/1/canvas/1", "type": "Canvas" } }
@@ -878,8 +878,8 @@ The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` propert
 
  * A Range _MAY_ have the `supplementary` property.<br/>
    Clients _MAY_ process `supplementary` on a Range.
- * Other resource types _MUST NOT_ have the `supplementary` property.<br/>
-   Clients _SHOULD_ ignore `supplementary` on other resource types.
+ * Other types of resource _MUST NOT_ have the `supplementary` property.<br/>
+   Clients _SHOULD_ ignore `supplementary` on other types of resource.
 
 ``` json-doc
 { "supplementary": { "id": "https://example.org/iiif/1/annos/1", "type": "AnnotationCollection" } }
@@ -905,8 +905,8 @@ The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id` and
    Clients _MUST_ process `items` on an Annotation Page.
  * A Range _MUST_ have the `items` property with at least one item. Each item _MUST_ be a Range, a Canvas or a Specific Resource where the source is a Canvas.<br/>
    Clients _SHOULD_ process `items` on a Range.
- * Other resource types _MUST NOT_ have the `items` property.<br/>
-   Clients _SHOULD_ ignore `items` on other resource types.
+ * Other types of resource _MUST NOT_ have the `items` property.<br/>
+   Clients _SHOULD_ ignore `items` on other types of resource.
 
 ```json-doc
 {
@@ -932,8 +932,8 @@ The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id` and
 
  * A Manifest _MAY_ have the `structures` property.<br/>
    Clients _SHOULD_ process `structures` on a Manifest. The first hierarchy _SHOULD_ be presented to the user by default, and further hierarchies _SHOULD_ be able to be selected as alternative structures by the user.
- * Other resource types _MUST NOT_ have the `structures` property.<br/>
-   Clients _SHOULD_ ignore `structures` on other resource types.
+ * Other types of resource _MUST NOT_ have the `structures` property.<br/>
+   Clients _SHOULD_ ignore `structures` on other types of resource.
 
 ```json-doc
 {
@@ -963,8 +963,8 @@ The value _MUST_ be an array of JSON objects. Each item _MUST_ have at least the
    Clients _SHOULD_ process `annotations` on a Range.
  * A content resource _MAY_ have the `annotations` property with at least one item.<br/>
    Clients _SHOULD_ process `annotations` on a content resource.
- * Other resource types _MUST NOT_ have the `annotations` property.<br/>
-   Clients _SHOULD_ ignore `annotations` on other resource types.
+ * Other types of resource _MUST NOT_ have the `annotations` property.<br/>
+   Clients _SHOULD_ ignore `annotations` on other types of resource.
 
 ```json-doc
 {
