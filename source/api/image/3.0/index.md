@@ -647,12 +647,14 @@ Objects in the `tiles` array _MUST_ each have a unique combination of `width` an
 
 ### 5.5. Rights
 
-The `rights` property identifies a license or rights statement that applies to the content of this image. The value of this property _MUST_ be a string drawn from the set of [Creative Commons][org-cc-licenses] license URIs, the [RightsStatements.org][org-rs-terms] rights statement URIs, or those added via the [Registry of Known Extensions][registry] mechanism. The inclusion of this property is informative, and for example could be used to display an icon representing the rights assertions. 
-
 The `rights` property has the same semantics and requirements as it does in the [Presentation API][prezi3].
+ 
+| Property | Required? | Description |
+| -------- | --------- | ----------- |
+| `rights` | Optional  | A string that identifies a license or rights statement that applies to the content of this image. The value of this property _MUST_ be a string drawn from the set of [Creative Commons][org-cc-licenses] license URIs, the [RightsStatements.org][org-rs-terms] rights statement URIs, or those added via the [Registry of Known Extensions][registry] mechanism. The inclusion of this property is informative, and for example could be used to display an icon representing the rights assertions. |
+{: .api-table}
 
-The `rights` property is optional. If the publisher of this image requires that additional information is shown when it is viewed, the information should be provided by a [Presentation API][prezi3] Manifest, using the the linking properties described in section 5.7.
-
+If the publisher of this image requires that additional information is shown when it is viewed, the information should be provided by a [Presentation API][prezi3] Manifest, using the the linking properties described in section 5.7.
 
 ``` json-doc
 {
@@ -666,10 +668,6 @@ The `rights` property is optional. If the publisher of this image requires that 
   "rights": "http://rightsstatements.org/vocab/InC-EDU/1.0/"
 }
 ```
-
-
-
-
 
 ### 5.6. Extra Functionality
 
