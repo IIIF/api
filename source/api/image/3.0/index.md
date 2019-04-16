@@ -233,7 +233,7 @@ The size parameter specifies the dimensions to which the extracted region, which
 
 Requests for sizes not prefixed with `^` that result in a scaled region with pixel dimensions greater than the pixel dimensions of the extracted region are errors that _SHOULD_ result in a 400 (Bad Request) status code.
 
-Requests for sizes prefixed with `^` that result in upscaling _SHOULD_ result in a 501 (Not Implemented) status code if the server does not support upscaling, while a 400 (Bad Request) status code _SHOULD_ be returned in response other client request syntax errors.  For example, a request for the size `^pct:120` should result in a 501 status code if the server does not support upscaling.
+Requests for sizes prefixed with `^` that result in upscaling _SHOULD_ result in a 501 (Not Implemented) status code if the server does not support upscaling, while a 400 (Bad Request) status code _SHOULD_ be returned in response to other client request syntax errors.  For example, a request for the size `^pct:120` should result in a 501 status code if the server does not support upscaling.
 
 For all requests the pixel dimensions of the scaled region _MUST NOT_ be less than 1 pixel or greater than the server-imposed limits. Requests that would generate images of these sizes are errors that _SHOULD_ result in a 400 (Bad Request) status code.
 
