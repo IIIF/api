@@ -1525,7 +1525,7 @@ The IIIF community has defined [additional Selector classes][annex-oa] for use w
 
 Content resources are external web resources that are referenced from within the Manifest or Collection. This includes images, video, audio, data, web pages or any other format. 
 
-As described in Section 5.3, the content of Canvases (and therefore the content of a Manifest) is provided by the `body` property of Annotations with the `painting` motivation. Content resources can also be referenced from `thumbnail`, `homepage`, `logo`, `rendering`, and `seeAlso` properties. 
+As described in the [Canvas][prezi30-canvas], the content associated with a Canvas (and therefore the content of a Manifest) is provided by the `body` property of Annotations with the `painting` motivation. Content resources can also be referenced from `thumbnail`, `homepage`, `logo`, `rendering`, and `seeAlso` properties. 
 
 Content resources _MUST_ have an `id` property, with the value being the URI at which the resource can be obtained. 
 
