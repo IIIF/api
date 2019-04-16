@@ -1021,7 +1021,7 @@ Any of the properties in the API that can have multiple values _MUST_ always be 
 
 Language _MAY_ be associated with strings that are intended to be displayed to the user for the `label` and `summary` properties, plus the `label` and `value` properties of the `metadata` and `requiredStatement` objects.
 
-The values of these properties _MUST_ be JSON objects, with the keys being the [BCP 47][org-bcp-47] language code for the language, or if the language is either not known or the string does not have a language, then the key must be the string `@none`. The associated values _MUST_ be arrays of strings, where each item is the content in the given language.
+The values of these properties _MUST_ be JSON objects, with the keys being the [BCP 47][org-bcp-47] language code for the language, or if the language is either not known or the string does not have a language, then the key must be the string `none`. The associated values _MUST_ be arrays of strings, where each item is the content in the given language.
 
 ``` json-doc
 {
@@ -1035,7 +1035,7 @@ The values of these properties _MUST_ be JSON objects, with the keys being the [
       "Portrait de la mère de l'artiste",
       "La Mère de Whistler"
     ],
-    "@none": [ "Whistler (1871)" ]
+    "none": [ "Whistler (1871)" ]
   }
 }
 ```
@@ -1044,7 +1044,7 @@ Note that [BCP 47][org-bcp-47] allows the script of the text to be included afte
 
 In the case where multiple values are supplied, clients _MUST_ use the following algorithm to determine which values to display to the user.  
 
-* If all of the values are associated with the `@none` key, the client _MUST_ display all of those values.
+* If all of the values are associated with the `none` key, the client _MUST_ display all of those values.
 * Else, the client should try to determine the user's language preferences, or failing that use some default language preferences. Then:
   * If any of the values have a language associated with them, the client _MUST_ display all of the values associated with the language that best matches the language preference.
   * If all of the values have a language associated with them, and none match the language preference, the client _MUST_ select a language and display all of the values associated with that language.
@@ -1171,7 +1171,7 @@ The Manifest _MUST_ have an `items` property, which is an array of JSON-LD objec
   "metadata": [
     {
       "label": { "en": [ "Author" ] },
-      "value": { "@none": [ "Anne Author" ] }
+      "value": { "none": [ "Anne Author" ] }
     },
     {
       "label": { "en": [ "Published" ] },
@@ -1191,7 +1191,7 @@ The Manifest _MUST_ have an `items` property, which is an array of JSON-LD objec
     },
     {
       "label": { "en": [ "Source" ] },
-      "value": { "@none": [ "<span>From: <a href=\"https://example.org/db/1.html\">Some Collection</a></span>" ] }
+      "value": { "none": [ "<span>From: <a href=\"https://example.org/db/1.html\">Some Collection</a></span>" ] }
     }
   ],
   "summary": { "en": [ "Book 1, written by Anne Author, published in Paris around 1400." ] },
@@ -1306,7 +1306,7 @@ The Manifest _MUST_ have an `items` property, which is an array of JSON-LD objec
     {
       "id": "https://example.org/iiif/book1/canvas/p1",
       "type": "Canvas",
-      "label": { "@none": [ "p. 1" ] }
+      "label": { "none": [ "p. 1" ] }
       // ...
     }
   ],
@@ -1359,7 +1359,7 @@ Renderers _MUST_ scale content into the space represented by the Canvas, and _SH
   // Metadata about this canvas
   "id": "https://example.org/iiif/book1/canvas/p1",
   "type": "Canvas",
-  "label": { "@none": [ "p. 1" ] },
+  "label": { "none": [ "p. 1" ] },
   "height": 1000,
   "width": 750,
 
@@ -1779,7 +1779,7 @@ __Behavior Values__
   "metadata": [
     {
       "label": { "en": [ "Author" ] },
-      "value": { "@none": [ "Anne Author" ] }
+      "value": { "none": [ "Anne Author" ] }
     },
     {
       "label": { "en": [ "Published" ] },
@@ -1799,7 +1799,7 @@ __Behavior Values__
     },
     {
       "label": { "en": [ "Source" ] },
-      "value": { "@none": [ "<span>From: <a href=\"https://example.org/db/1.html\">Some Collection</a></span>" ] }
+      "value": { "none": [ "<span>From: <a href=\"https://example.org/db/1.html\">Some Collection</a></span>" ] }
     }
   ],
   "summary": { "en": [ "Book 1, written be Anne Author, published in Paris around 1400." ] },
@@ -1886,7 +1886,7 @@ __Behavior Values__
     {
       "id": "https://example.org/iiif/book1/canvas/p1",
       "type": "Canvas",
-      "label": { "@none": [ "p. 1" ] },
+      "label": { "none": [ "p. 1" ] },
       "height": 1000,
       "width": 750,
       "items": [
@@ -1927,7 +1927,7 @@ __Behavior Values__
     {
       "id": "https://example.org/iiif/book1/canvas/p2",
       "type": "Canvas",
-      "label": { "@none": [ "p. 2" ] },
+      "label": { "none": [ "p. 2" ] },
       "height": 1000,
       "width": 750,
       "items": [
