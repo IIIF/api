@@ -84,7 +84,7 @@ Note that servers may express limits on the sizes available for an image with th
 | `default`     | ![required][icon-req] | ![required][icon-req] | ![required][icon-req] |
 | `color`       | ![optional][icon-opt] | ![optional][icon-opt] | ![required][icon-req] (if applicable) |
 | `gray`        | ![optional][icon-opt] | ![optional][icon-opt] | ![required][icon-req] (if applicable) |
-| `bitonal`     | ![optional][icon-opt] | ![optional][icon-opt] | ![required][icon-req] |
+| `bitonal`     | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] |
 {: .api-table}
 
 ### 3.5 Format
