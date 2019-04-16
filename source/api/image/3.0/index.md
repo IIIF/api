@@ -233,6 +233,8 @@ The size parameter specifies the dimensions to which the extracted region, which
 
 Requests for sizes not prefixed with `^` that result in a scaled region with pixel dimensions greater than the pixel dimensions of the extracted region are errors that _SHOULD_ result in a 400 (Bad Request) status code.
 
+Requests for sizes prefixed with `^` that result in upscaling _SHOULD_ result in a 501 (Not Implemented) status code if the server does not support upscaling, while a 400 (Bad Request) status code _SHOULD_ be returned in response other client request syntax errors.  For example, a request for the size `^pct:120` should result in a 501 status code if the server does not support upscaling.
+
 For all requests the pixel dimensions of the scaled region _MUST NOT_ be less than 1 pixel or greater than the server-imposed limits. Requests that would generate images of these sizes are errors that _SHOULD_ result in a 400 (Bad Request) status code.
 
 Examples:
@@ -489,7 +491,10 @@ In order to support the above requirements, clients _SHOULD_ construct image req
 | format    | An explicit format string is always required. |
 {: .api-table}
 
-Size and region parameters given as percentages and the rotation parameter allow positive floating point number values. Integer values _SHOULD_ be used where possible. When floating point values are used, they _MUST_ consist only of decimal digits and "." (e.g. 0.9 not +0.9), _SHOULD_ be represented with a leading 0 if less than 1 (e.g. 0.9 not .9), and _SHOULD NOT_ include trailing zeros (e.g. 0.9 not 0.90). Intermediate calculations may use floating point numbers and the rounding method is implementation specific.
+
+Size and region parameters given as percentages and the rotation parameter allow positive floating point number values. Integer values _SHOULD_ be used where possible. When floating point values are used, they _MUST_ consist only of decimal digits and "." (e.g. 0.9 not +0.9), _SHOULD_ be represented with a leading 0 if less than 1 (e.g. 0.9 not .9), and _SHOULD NOT_ include trailing zeros (e.g. 0.9 not 0.90). Intermediate calculations may use floating point numbers and the rounding method is implementation specific.  
+
+Clients _SHOULD_ construct the percentage form of the size parameter using the _`pct:n`_ rather than _`^pct:n`_ syntax when the value of _`n`_ is less than or equal to 100.
 
 When the client requests an image, the server _MAY_ add a link header to the response that indicates the canonical URI for that request:
 
