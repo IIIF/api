@@ -16,7 +16,9 @@
     "Audio": "dctypes:Sound",
     "Text": "dctypes:Text",
     "Service": "schema:WebAPI",
-    "ImageService3": "http://iiif.io/api/image/3#ImageService",
+
+    "ImageService3": "iiif_image:ImageService",
+    "ImageProfile": "iiif_image:ImageProfile",
 
     "id": "@id",
     "type": "@type",
@@ -29,7 +31,7 @@
       "@type": "@vocab",
       "@id": "dcterms:conformsTo",
       "@context": {
-	    "level0": "http://iiif.io/api/image/3/level0.json",
+      "level0": "http://iiif.io/api/image/3/level0.json",
     	"level1": "http://iiif.io/api/image/3/level1.json",
     	"level2": "http://iiif.io/api/image/3/level2.json"
       }
