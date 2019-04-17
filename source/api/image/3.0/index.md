@@ -217,8 +217,8 @@ The size parameter specifies the dimensions to which the extracted region, which
 
 | Form      | Description |
 | --------- | ----------- |
-| `max`     | The extracted region is returned at the maximum size available. The resulting image will have the pixel dimensions of the extracted region, unless it is constrained to a smaller size by `maxWidth`, `maxHeight`, or `maxArea` as defined in the [Technical Properties][image30-technical-properties] section. |
-| `^max`    | The extracted region is scaled to the maximum size permitted by `maxWidth`, `maxHeight`, or `maxArea` as defined in the [Technical Properties][image30-technical-properties] section. |
+| `max`     | The extracted region is returned at the maximum size available, but will not be upscaled. The resulting image will have the pixel dimensions of the extracted region, unless it is constrained to a smaller size by `maxWidth`, `maxHeight`, or `maxArea` as defined in the [Technical Properties][image30-technical-properties] section. |
+| `^max`    | The extracted region is scaled to the maximum size permitted by `maxWidth`, `maxHeight`, or `maxArea` as defined in the [Technical Properties][image30-technical-properties] section. If none of these constraints is present, the extracted region is returned without scaling. |
 | _`w,`_    | The extracted region should be scaled so that the width of the returned image is exactly equal to _`w`_. The value of _`w`_ _MUST NOT_ be greater than the width of the extracted region. |
 | _`^w,`_   | The extracted region should be scaled so that the width of the returned image is exactly equal to _`w`_. If _`w`_ is greater than the pixel width of the extracted region, the extracted region is upscaled.  |
 | _`,h`_    | The extracted region should be scaled so that the height of the returned image is exactly equal to _`h`_. The value of _`h`_ _MUST NOT_ be greater than the height of the extracted region. |
@@ -648,7 +648,7 @@ Objects in the `tiles` array _MUST_ each have a unique combination of `width` an
 ### 5.5. Rights
 
 The `rights` property has the same semantics and requirements as it does in the [Presentation API][prezi3].
- 
+
 | Property | Required? | Description |
 | -------- | --------- | ----------- |
 | `rights` | Optional  | A string that identifies a license or rights statement that applies to the content of this image. The value of this property _MUST_ be a string drawn from the set of [Creative Commons][org-cc-licenses] license URIs, the [RightsStatements.org][org-rs-terms] rights statement URIs, or those added via the [Registry of Known Extensions][registry] mechanism. The inclusion of this property is informative, and for example could be used to display an icon representing the rights assertions. |
