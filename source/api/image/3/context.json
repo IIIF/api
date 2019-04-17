@@ -31,9 +31,9 @@
       "@type": "@vocab",
       "@id": "dcterms:conformsTo",
       "@context": {
-      "level0": "http://iiif.io/api/image/3/level0.json",
-    	"level1": "http://iiif.io/api/image/3/level1.json",
-    	"level2": "http://iiif.io/api/image/3/level2.json"
+        "level0": "http://iiif.io/api/image/3/level0.json",
+        "level1": "http://iiif.io/api/image/3/level1.json",
+        "level2": "http://iiif.io/api/image/3/level2.json"
       }
     },
     "height": {
