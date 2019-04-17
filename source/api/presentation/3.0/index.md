@@ -707,8 +707,11 @@ A small external image resource that represents the Agent resource it is associa
 
 The value of this property _MUST_ be an array of JSON objects, each of which _MUST_ have an `id` and _SHOULD_ have at least one of `type` and `format`.
 
+When more than one logo is present, the client _SHOULD_ pick only one of them, based on the information in the logo properties. For example, the client could select a logo of appropriate aspect ratio based on the `height` and `width` properties of the available logos. The client _MAY_ decide on the logo by inspecting properties defined as [extensions][prezi30-ldce].
+
  * Agent resources _SHOULD_ have the `logo` property.<br/>
    Clients _MUST_ render `logo` on Agent resources.
+
 
 ``` json-doc
 { 
@@ -865,7 +868,7 @@ The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` propert
 
 ##### supplementary
 
-A link from this Range to an Annotation Collection that includes the `supplementing` Annotations of content resources for the Range. Clients might use this to present additional content to the user from a different Canvas when interacting with the Range, or to jump to the next part of the Range within the same Canvas.  For example, the Range might represent a newspaper article that spans non-sequential pages, and then uses the `supplementary` property to reference an Annotation Collection that consists of the Annotations that record the text, split into Annotation Pages per newspaper page.
+A link from this Range to an Annotation Collection that includes the `supplementing` Annotations of content resources for the Range. Clients might use this to present additional content to the user from a different Canvas when interacting with the Range, or to jump to the next part of the Range within the same Canvas.  For example, the Range might represent a newspaper article that spans non-sequential pages, and then uses the `supplementary` property to reference an Annotation Collection that consists of the Annotations that record the text, split into Annotation Pages per newspaper page. Alternatively, the Range might represent the parts of a manuscript that have been transcribed or translated, when there are other parts that have yet to be worked on. The Annotation Collection would be the Annotations that transcribe or translate, respectively.
 
 The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` properties, and the `type` _MUST_ be `AnnotationCollection`.
 
@@ -977,7 +980,7 @@ Additional motivations may be added to the Annotation to further clarify the int
 > | Value | Description |
 | ----- | ----------- |
 | `painting` | Resources associated with a Canvas by an Annotation that has the `motivation` value `painting`  _MUST_ be presented to the user as the representation of the Canvas. The content can be thought of as being _of_ the Canvas. The use of this motivation with target resources other than Canvases is undefined. For example, an Annotation that has the `motivation` value `painting`, a body of an Image and the target of the Canvas is an instruction to present that Image as (part of) the visual representation of the Canvas. Similarly, a textual body is to be presented as (part of) the visual representation of the Canvas and not positioned in some other part of the user interface.|
-| `supplementing` | Resources associated with a Canvas by an Annotation that has the `motivation` value `supplementing`  _MAY_ be presented to the user as part of the representation of the Canvas, or _MAY_ be presented in a different part of the user interface. The content can be thought of as being _from_ the Canvas. The use of this motivation with target resources other than Canvases is undefined. For example, an Annotation that has the `motivation` value `supplementing`, a body of an Image and the target of part of the Canvas is an instruction to present that Image to the user either in the Canvas's rendering area or somewhere associated with it, and could be used to present an easier to read representation of a diagram. Similar, a textual body is to be presented either in the targeted region of the Canvas or otherwise associated with it, and might be a transcription of handwritten text or captions for what is being said in a Canvas with audio content. |
+| `supplementing` | Resources associated with a Canvas by an Annotation that has the `motivation` value `supplementing`  _MAY_ be presented to the user as part of the representation of the Canvas, or _MAY_ be presented in a different part of the user interface. The content can be thought of as being _from_ the Canvas. The use of this motivation with target resources other than Canvases is undefined. For example, an Annotation that has the `motivation` value `supplementing`, a body of an Image and the target of part of the Canvas is an instruction to present that Image to the user either in the Canvas's rendering area or somewhere associated with it, and could be used to present an easier to read representation of a diagram. Similarly, a textual body is to be presented either in the targeted region of the Canvas or otherwise associated with it, and might be a transcription or translation of handwritten text or captions for what is being said in a Canvas with audio content. |
 {: .api-table #table-motivations}
 
 
@@ -1036,7 +1039,7 @@ The values of these properties _MUST_ be JSON objects, with the keys being the [
       "Portrait de la mère de l'artiste",
       "La Mère de Whistler"
     ],
-    "@none": [ "Whistler (1871)" ]
+    "none": [ "Whistler (1871)" ]
   }
 }
 ```
@@ -1045,7 +1048,7 @@ Note that [BCP 47][org-bcp-47] allows the script of the text to be included afte
 
 In the case where multiple values are supplied, clients _MUST_ use the following algorithm to determine which values to display to the user.  
 
-* If all of the values are associated with the `@none` key, the client _MUST_ display all of those values.
+* If all of the values are associated with the `none` key, the client _MUST_ display all of those values.
 * Else, the client should try to determine the user's language preferences, or failing that use some default language preferences. Then:
   * If any of the values have a language associated with them, the client _MUST_ display all of the values associated with the language that best matches the language preference.
   * If all of the values have a language associated with them, and none match the language preference, the client _MUST_ select a language and display all of the values associated with that language.
@@ -1191,7 +1194,7 @@ The Manifest _MUST_ have an `items` property, which is an array of JSON-LD objec
   "metadata": [
     {
       "label": { "en": [ "Author" ] },
-      "value": { "@none": [ "Anne Author" ] }
+      "value": { "none": [ "Anne Author" ] }
     },
     {
       "label": { "en": [ "Published" ] },
@@ -1211,18 +1214,18 @@ The Manifest _MUST_ have an `items` property, which is an array of JSON-LD objec
     },
     {
       "label": { "en": [ "Source" ] },
-      "value": { "@none": [ "<span>From: <a href=\"https://example.org/db/1.html\">Some Collection</a></span>" ] }
+      "value": { "none": [ "<span>From: <a href=\"https://example.org/db/1.html\">Some Collection</a></span>" ] }
     }
   ],
   "summary": { "en": [ "Book 1, written by Anne Author, published in Paris around 1400." ] },
 
   "thumbnail": [
     {
-      "id": "https://example.org/images/book1-page1/full/80,100/0/default.jpg",
+      "id": "https://example.org/iiif/book1/page1/full/80,100/0/default.jpg",
       "type": "Image",
       "service": [
         {
-          "id": "https://example.org/images/book1-page1",
+          "id": "https://example.org/iiif/book1/page1",
           "type": "ImageService3",
           "profile": "level1"
         }
@@ -1256,7 +1259,7 @@ The Manifest _MUST_ have an `items` property, which is an array of JSON-LD objec
       ],
       "logo": [
         {
-          "id": "https://example.org/logos/institution1.jpg",
+          "id": "https://example.org/service/inst1/full/max/0/default.png",
           "type": "Image",
           "service": [
             {
@@ -1326,7 +1329,7 @@ The Manifest _MUST_ have an `items` property, which is an array of JSON-LD objec
     {
       "id": "https://example.org/iiif/book1/canvas/p1",
       "type": "Canvas",
-      "label": { "@none": [ "p. 1" ] }
+      "label": { "none": [ "p. 1" ] }
       // ...
     }
   ],
@@ -1379,7 +1382,7 @@ Renderers _MUST_ scale content into the space represented by the Canvas, and _SH
   // Metadata about this canvas
   "id": "https://example.org/iiif/book1/canvas/p1",
   "type": "Canvas",
-  "label": { "@none": [ "p. 1" ] },
+  "label": { "none": [ "p. 1" ] },
   "height": 1000,
   "width": 750,
 
@@ -1537,7 +1540,7 @@ The IIIF community has defined [additional Selector classes][annex-oa] for use w
   "type": "Annotation",
   "motivation": "painting",
   "body": {
-    "id": "https://example.org/iiif/book1/res/page1.jpg",
+    "id": "https://example.org/images/page1.jpg",
     "type": "Image"
   },
   "target": "https://example.org/iiif/book1/canvas/p1"
@@ -1546,15 +1549,20 @@ The IIIF community has defined [additional Selector classes][annex-oa] for use w
 
 ### 5.7. Content Resources
 
-Content resources are external web resources that are referenced from within the Manifest or Collection. This includes images, video, audio, data, web pages or any other format. They can be referenced from `thumbnail`, `homepage`, `logo`, `rendering`, and `seeAlso` properties, as well as the `body` property of Annotations.
+Content resources are external web resources that are referenced from within the Manifest or Collection. This includes images, video, audio, data, web pages or any other format. 
 
-Content resources _MUST_ have an `id` property, with the value being the URI at which it can be obtained. A Canvas _MAY_ be treated as a content resource for the purposes of annotating it on to other Canvases. In this situation, the Canvas _MAY_ be embedded within the Annotation, or require dereferencing to obtain its description.
+As described in the [Canvas][prezi30-canvas] section, the content associated with a Canvas (and therefore the content of a Manifest) is provided by the `body` property of Annotations with the `painting` motivation. Content resources can also be referenced from `thumbnail`, `homepage`, `logo`, `rendering`, and `seeAlso` properties. 
+
+Content resources _MUST_ have an `id` property, with the value being the URI at which the resource can be obtained. 
 
 The type of the content resource _MUST_ be included, and _SHOULD_ be taken from the table listed under the definition of `type`. The `format` of the resource _SHOULD_ be included and, if so, _SHOULD_ be the media type that is returned when the resource is dereferenced. The `profile` of the resource, if it has one, _SHOULD_ also be included. Content resources in appropriate formats _MAY_ also have the `language`, `height`, `width`, and `duration` properties. Content resources _MAY_ also have descriptive and linking properties, as defined in [section 3][prezi30-resource-properties].
 
-If the content resource is an Image, and a IIIF Image service is available for it, then the URI _MAY_ be a complete URI to any particular representation made available, such as `https://example.org/image1/full/1000,/0/default.jpg`, but _MUST NOT_ be just the URI of the IIIF Image service. Its `type` value _MUST_ be the string `Image`. Its media type _MAY_ be listed in `format`, and its height and width _MAY_ be given as integer values for `height` and `width` respectively. The Image _SHOULD_ have the service referenced from it using the `service` property.
+If the content resource is an Image, and a IIIF Image service is available for it, then the `id` property of the content resource _MAY_ be a complete URI to any particular representation supported by the Image Service, such as `https://example.org/image1/full/1000,/0/default.jpg`, but _MUST NOT_ be just the URI of the IIIF Image service. Its `type` value _MUST_ be the string `Image`. Its media type _MAY_ be listed in `format`, and its height and width _MAY_ be given as integer values for `height` and `width` respectively. The Image _SHOULD_ have the service referenced from it using the `service` property.
 
 If there is a need to distinguish between content resources, then the resource _SHOULD_ have the `label` property. As noted above, this produces a slight inconsistency with the Web Annotation specification.
+
+A Canvas _MAY_ be treated as a content resource for the purposes of annotating it on to other Canvases. In this situation, the Canvas _MAY_ be embedded within the Annotation, or require dereferencing to obtain its description.
+
 
 ``` json-doc
 {
@@ -1563,13 +1571,13 @@ If there is a need to distinguish between content resources, then the resource _
   "type": "Annotation",
   "motivation": "painting",
   "body": {
-    "id": "https://example.org/iiif/book1/res/page1.jpg",
+    "id": "https://example.org/iiif/book1/page1/full/max/0/default.jpg",
     "type": "Image",
     "label": {"en": ["Page 1"], "es": ["Página 1"]},
     "format": "image/jpeg",
     "service": [
       {
-        "id": "https://example.org/images/book1-page1",
+        "id": "https://example.org/iiif/book1/page1",
         "type": "ImageService3",
         "profile": "level2"
       }
@@ -1799,7 +1807,7 @@ __Behavior Values__
   "metadata": [
     {
       "label": { "en": [ "Author" ] },
-      "value": { "@none": [ "Anne Author" ] }
+      "value": { "none": [ "Anne Author" ] }
     },
     {
       "label": { "en": [ "Published" ] },
@@ -1819,18 +1827,18 @@ __Behavior Values__
     },
     {
       "label": { "en": [ "Source" ] },
-      "value": { "@none": [ "<span>From: <a href=\"https://example.org/db/1.html\">Some Collection</a></span>" ] }
+      "value": { "none": [ "<span>From: <a href=\"https://example.org/db/1.html\">Some Collection</a></span>" ] }
     }
   ],
   "summary": { "en": [ "Book 1, written be Anne Author, published in Paris around 1400." ] },
 
   "thumbnail": [
     {
-      "id": "https://example.org/images/book1-page1/full/80,100/0/default.jpg",
+      "id": "https://example.org/iiif/book1/page1/full/80,100/0/default.jpg",
       "type": "Image",
       "service": [
         {
-          "id": "https://example.org/images/book1-page1",
+          "id": "https://example.org/iiif/book1/page1",
           "type": "ImageService3",
           "profile": "level1"
         }
@@ -1849,7 +1857,7 @@ __Behavior Values__
   },
   "logo": [
     {
-      "id": "https://example.org/logos/institution1.jpg",
+      "id": "https://example.org/service/inst1/full/max/0/default.png",
       "type": "Image",
       "service": [
         {
@@ -1906,7 +1914,7 @@ __Behavior Values__
     {
       "id": "https://example.org/iiif/book1/canvas/p1",
       "type": "Canvas",
-      "label": { "@none": [ "p. 1" ] },
+      "label": { "none": [ "p. 1" ] },
       "height": 1000,
       "width": 750,
       "items": [
@@ -1919,12 +1927,12 @@ __Behavior Values__
               "type": "Annotation",
               "motivation": "painting",
               "body": {
-                "id": "https://example.org/iiif/book1/res/page1.jpg",
+                "id": "https://example.org/iiif/book1/page1/full/max/0/default.jpg",
                 "type": "Image",
                 "format": "image/jpeg",
                 "service": [
                   {
-                    "id": "https://example.org/images/book1-page1",
+                    "id": "https://example.org/iiif/book1/page1",
                     "type": "ImageService3",
                     "profile": "level2"
                   }
@@ -1947,7 +1955,7 @@ __Behavior Values__
     {
       "id": "https://example.org/iiif/book1/canvas/p2",
       "type": "Canvas",
-      "label": { "@none": [ "p. 2" ] },
+      "label": { "none": [ "p. 2" ] },
       "height": 1000,
       "width": 750,
       "items": [
@@ -1960,12 +1968,12 @@ __Behavior Values__
               "type": "Annotation",
               "motivation": "painting",
               "body": {
-                "id": "https://example.org/iiif/book1/res/page2.jpg",
+                "id": "https://example.org/iiif/book1/page2/full/max/0/default.jpg",
                 "type": "Image",
                 "format": "image/jpeg",
                 "service": [
                   {
-                    "id": "https://example.org/images/book1-page2",
+                    "id": "https://example.org/iiif/book1/page2",
                     "type": "ImageService3",
                     "profile": "level2"
                   }
