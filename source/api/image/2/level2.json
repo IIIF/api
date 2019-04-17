@@ -9,7 +9,6 @@
     "baseUriRedirect",
     "cors",
     "jsonldMediaType",
-    "profileLinkHeader",
     "regionByPct",
     "regionByPx",
     "rotationBy90s",
