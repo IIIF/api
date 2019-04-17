@@ -175,10 +175,12 @@
 [prezi3-ldce]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.draft.minor }}/#linked-data-context-and-extensions "Linked Data Context and Extensions"
 [prezi3-type]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.draft.minor }}/#type
 [prezi30-anno]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#annotation
-[prezi30-annopage]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#annotation-page
+[prezi30-annopage]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#55-annotation-page
+[prezi30-annocoll]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#58-annotation-collection
 [prezi30-appendixa]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#a-summary-of-property-requirements
 [prezi30-canvas]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#53-canvas
 [prezi30-change-log]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/change-log/ "Presentation API 3.0 Change Log"
+[prezi30-context-collisions]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#47-term-collisions-between-contexts 
 [prezi30-height]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#height "height property"
 [prezi30-homepage]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#homepage "homepage property"
 [prezi30-html]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#45-html-markup-in-property-values "Presentation API Section 4.4"
