@@ -485,7 +485,7 @@ In order to support the above requirements, clients _SHOULD_ construct image req
 | Parameter | Canonical value |
 | --------- | --------------- |
 | region    | `full` if the full image is requested<br/>otherwise the _`x,y,w,h`_ syntax. |
-| size      | `max` if the maximum size is requested,<br/>`^max` if the maximum upscaled size is requested and results in upscaling, otherwise<br/>_`w,h`_ if the size requested does not result in upscaling,<br/>and _`^w,h`_ if the requested size does result in upscaling of the extracted region. |
+| size      | `max` if the maximum size without upscaling is requested,<br/>`^max` if upscaling is supported and the maximum upscaled size is requested,<br/>_`w,h`_ if the size requested does not require upscaling,<br/>and _`^w,h`_ if upscaling is supported and the request requires upscaling of the extracted region. |
 | rotation  | `!` if the image is mirrored, followed by an integer if possible, otherwise a floating point value. |
 | quality   | `default` if the server's default quality is requested,<br/>otherwise the quality string. |
 | format    | An explicit format string is always required. |
