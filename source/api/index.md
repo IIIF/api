@@ -65,7 +65,7 @@ IIIF also has a series of [Implementation Notes][notes] which are not subject to
 
 ## Process
 
-IIIF Specifications are created and published following the [IIIF Editorial Process][editors].
+IIIF Specifications are created and published following the [IIIF Editorial Process][editorial-process].
 
 [image-jp]: http://www.asahi-net.or.jp/~ax2s-kmtn/ref/iiif/apiimage2.1.html
 [prezi-jp]: http://www.asahi-net.or.jp/~ax2s-kmtn/ref/iiif/apipresentation2.1.html
@@ -90,6 +90,6 @@ IIIF Specifications are created and published following the [IIIF Editorial Proc
 [search09]: {{ site.url }}{{ site.baseurl }}/api/search/0.9/ "Search API v0.9"
 [discovery02]: {{ site.url }}{{ site.baseurl }}/api/discovery/0.2/ "IIIF Change Discovery API"
 [notes]: {{ site.url }}{{ site.baseurl }}/api/annex/ "Implementation Notes"
-[editors]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/editors/ "IIIF Editorial Process"
+[editorial-process]: {{ page.webprefix }}/community/policy/editorial/ "IIIF Editorial Process"
 
 {% include acronyms.md %}
