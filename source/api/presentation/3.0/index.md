@@ -129,7 +129,7 @@ This specification makes use of the following types, defined in the [Web Annotat
 ##### Annotation Page
 {: #overview-annotationpage}
 
-An ordered list of Annotations that is typically associated with a Canvas but may be referenced from other resource types as well. Annotation Pages collect and order lists of Annotations, which in turn provide commentary about a resource or content that is part of a Canvas.
+An ordered list of Annotations that is typically associated with a Canvas but may be referenced from other types of resource as well. Annotation Pages collect and order lists of Annotations, which in turn provide commentary about a resource or content that is part of a Canvas.
 
 ##### Annotation
 {: #overview-annotation}
@@ -178,8 +178,8 @@ The value of the property _MUST_ be a JSON object, as described in the [language
    Clients _MUST_ render `label` on a Range.
  * An Annotation Collection _SHOULD_ have the `label` property with at least one entry.<br/>
    Clients _SHOULD_ render `label` on an Annotation Collection.
- * Other resource types _MAY_ have the `label` property with at least one entry.<br/>
-   Clients _MAY_ render `label` on other resource types.
+ * Other types of resource _MAY_ have the `label` property with at least one entry.<br/>
+   Clients _MAY_ render `label` on other types of resource.
 
 ``` json-doc
 { "label": { "en": [ "Example Object Title" ] } }
@@ -197,8 +197,8 @@ The value of the `metadata` property _MUST_ be an array of JSON objects, where e
    Clients _MUST_ render `metadata` on a Manifest.
  * A Canvas _MAY_ have the `metadata` property with at least one item.<br/>
    Clients _SHOULD_ render `metadata` on a Canvas.
- * Other resource types _MAY_ have the `metadata` property with at least one item.<br/>
-   Clients _MAY_ render `metadata` on other resource types.
+ * Other types of resource _MAY_ have the `metadata` property with at least one item.<br/>
+   Clients _MAY_ render `metadata` on other types of resource.
 
 Clients _SHOULD_ display the entries in the order provided. Clients _SHOULD_ expect to encounter long texts in the `value` property, and render them appropriately, such as with an expand button, or in a tabbed interface.
 
@@ -225,8 +225,8 @@ The value of the property _MUST_ be a JSON object, as described in the [language
    Clients _SHOULD_ render `summary` on a Manifest.
  * A Canvas _MAY_ have the `summary` property with at least one entry.<br/>
    Clients _SHOULD_ render `summary` on a Canvas.
- * Other resource types _MAY_ have the `summary` property with at least one entry.<br/>
-   Clients _MAY_ render `summary` on other resource types.
+ * Other types of resource _MAY_ have the `summary` property with at least one entry.<br/>
+   Clients _MAY_ render `summary` on other types of resource.
 
 ``` json-doc
 { "summary": { "en": [ "This is a summary of the object." ] } }
@@ -269,7 +269,7 @@ The value _MUST_ be a string. If the value is drawn from Creative Commons or Rig
 
 An organization or person that contributed to providing the content of the resource. Clients can then display this information to the user to acknowledge the provider's contributions.  This differs from the `requiredStatement` property, in that the data is structured, allowing the client to do more than just present text but instead have richer information about the people and organizations to use in different interfaces.
 
-The organization or person is represented as an `Agent` resource.  
+The organization or person is represented as an `Agent` resource.
 
 * Agents _MUST_ have the `id` property, and its value _MUST_ be a string that contains a URI that identifies the agent.
 * Agents _MUST_ have the `type` property, and its value _MUST_ be the string "Agent".
@@ -280,9 +280,12 @@ The organization or person is represented as an `Agent` resource.
 
 The value _MUST_ be an array of JSON objects, where each item in the array conforms to the structure of an Agent, as described above.
 
-* A Collection _SHOULD_ have the `provider` property with at least one item. <br/> Clients _MUST_ render `provider` on a Collection.
-* A Manifest _SHOULD_ have the `provider` property with at least one item. <br/> Clients _MUST_ render `provider` on a Manifest.
-* Other resource types _MAY_ have the `provider` property with at least one item. <br/> Clients _SHOULD_ render `provider` on other resource types.
+ * A Collection _SHOULD_ have the `provider` property with at least one item. <br/>
+   Clients _MUST_ render `provider` on a Collection.
+ * A Manifest _SHOULD_ have the `provider` property with at least one item. <br/>
+   Clients _MUST_ render `provider` on a Manifest.
+ * Other types of resource _MAY_ have the `provider` property with at least one item. <br/>
+   Clients _SHOULD_ render `provider` on other types of resource.
 
 ```json-doc
 {
@@ -324,7 +327,7 @@ The value _MUST_ be an array of JSON objects, where each item in the array confo
 
 An external content resource, such as a small image or short audio clip, that represents the resource that has the `thumbnail` property. A resource _MAY_ have multiple thumbnail resources that have the same or different `type` and `format`.
 
-The value _MUST_ be an array of JSON objects, where each item in the array has an `id` property and _SHOULD_ have at least one of the `type` and `format` properties. Images and video _SHOULD_ have the `width` and `height` properties, and time-based media _SHOULD_ have the `duration` property. It is _RECOMMENDED_ that a [IIIF Image API][image-api] service be available for images to enable manipulations such as resizing.	
+The value _MUST_ be an array of JSON objects, where each item in the array has an `id` property and _SHOULD_ have at least one of the `type` and `format` properties. Images and video _SHOULD_ have the `width` and `height` properties, and time-based media _SHOULD_ have the `duration` property. It is _RECOMMENDED_ that a [IIIF Image API][image-api] service be available for images to enable manipulations such as resizing.
 
  * A Collection _SHOULD_ have the `thumbnail` property with at least one item.<br/>
    Clients _SHOULD_ render `thumbnail` on a Collection.
@@ -334,19 +337,19 @@ The value _MUST_ be an array of JSON objects, where each item in the array has a
    Clients _SHOULD_ render `thumbnail` on a Canvas.
  * A content resource _MAY_ have the `thumbnail` property with at least one item. Content resources _SHOULD_ have the `thumbnail` property with at least one item if it is an option in a Choice of resources.<br/>
    Clients _SHOULD_ render `thumbnail` on a content resource.
- * Other resource types _MAY_ have the `thumbnail` property with at least one item.<br/>
-   Clients _MAY_ render `thumbnail` on other resource types.
+ * Other types of resource _MAY_ have the `thumbnail` property with at least one item.<br/>
+   Clients _MAY_ render `thumbnail` on other types of resource.
 
 ``` json-doc
 {
-  "thumbnail": [	
-    { 	
-      "id": "https://example.org/img/thumb.jpg",	
-      "type": "Image",	
-      "width": 300,	
-      "height": 200 	
-    }	
-  ]	
+  "thumbnail": [
+    {
+      "id": "https://example.org/img/thumb.jpg",
+      "type": "Image",
+      "width": 300,
+      "height": 200
+    }
+  ]
 }
 ```
 
@@ -356,10 +359,16 @@ A date that clients may use for navigation purposes when presenting the resource
 
 The value _MUST_ be an [XSD dateTime literal][org-w3c-xsd-datetime]. The value _MUST_ have a timezone, and _SHOULD_ be given in UTC with the `Z` timezone indicator, but _MAY_ instead be given as an offset of the form `+hh:mm`.
 
- * A Collection, Manifest, Range or Canvas _MAY_ have the `navDate` property.<br/>
-   Clients _MAY_ render `navDate` on Collections, Manifests, Ranges, and Canvases.
- * Other resource types _MUST NOT_ have the `navDate` property.<br/>
-   Clients _SHOULD_ ignore `navDate` on other resource types.
+ * A Collection _MAY_ have the `navDate` property.<br/>
+   Clients _MAY_ render `navDate` on a Collection.
+ * A Manifest _MAY_ have the `navDate` property.<br/>
+   Clients _MAY_ render `navDate` on a Manifest.
+ * A Range _MAY_ have the `navDate` property.<br/>
+   Clients _MAY_ render `navDate` on a Range.
+ * A Canvas _MAY_ have the `navDate` property.<br/>
+   Clients _MAY_ render `navDate` on a Canvas.
+ * Other types of resource _MUST NOT_ have the `navDate` property.<br/>
+   Clients _SHOULD_ ignore `navDate` on other types of resource.
 
 ``` json-doc
 { "navDate": "2010-01-01T00:00:00Z" }
@@ -374,15 +383,15 @@ Clients _MAY_ display the content of a linked placeholder Canvas when presenting
 The value _MUST_ be a JSON object with the `id` and `type` properties, and _MAY_ have other properties of Canvases. The object _MUST NOT_ have the `placeholderCanvas` property, nor the `accompanyingCanvas` property.
 
   * A Collection _MAY_ have the `placeholderCanvas` property.<br/>
-   Clients _MAY_ render `placeholderCanvas` on a Collection.
+    Clients _MAY_ render `placeholderCanvas` on a Collection.
   * A Manifest _MAY_ have the `placeholderCanvas` property.<br/>
-   Clients _MAY_ render `placeholderCanvas` on a Manifest.
+    Clients _MAY_ render `placeholderCanvas` on a Manifest.
   * A Canvas _MAY_ have the `placeholderCanvas` property.<br/>
-   Clients _MAY_ render `placeholderCanvas` on a Canvas.
+    Clients _MAY_ render `placeholderCanvas` on a Canvas.
   * A Range _MAY_ have the `placeholderCanvas` property.<br/>
-   Clients _MAY_ render `placeholderCanvas` on a Range.
-  * Other resource types _MUST NOT_ have the `placeholderCanvas` property.<br/>
-   Clients _SHOULD_ ignore `placeholderCanvas` on other resource types.
+    Clients _MAY_ render `placeholderCanvas` on a Range.
+  * Other types of resource _MUST NOT_ have the `placeholderCanvas` property.<br/>
+    Clients _SHOULD_ ignore `placeholderCanvas` on other types of resource.
 
 ``` json-doc
 {
@@ -403,16 +412,16 @@ Clients _MAY_ display the content of an accompanying Canvas when presenting the 
 
 The value _MUST_ be a JSON object with the `id` and `type` properties, and _MAY_ have other properties of Canvases. The object _MUST NOT_ have the `placeholderCanvas` property, nor the `accompanyingCanvas` property.
 
-  * A Collection _MAY_ have the `accompanyingCanvas` property.<br/>
+ * A Collection _MAY_ have the `accompanyingCanvas` property.<br/>
    Clients _MAY_ render `accompanyingCanvas` on a Collection.
-  * A Manifest _MAY_ have the `accompanyingCanvas` property.<br/>
+ * A Manifest _MAY_ have the `accompanyingCanvas` property.<br/>
    Clients _MAY_ render `accompanyingCanvas` on a Manifest.
-  * A Canvas _MAY_ have the `accompanyingCanvas` property.<br/>
+ * A Canvas _MAY_ have the `accompanyingCanvas` property.<br/>
    Clients _MAY_ render `accompanyingCanvas` on a Canvas.
-  * A Range _MAY_ have the `accompanyingCanvas` property.<br/>
+ * A Range _MAY_ have the `accompanyingCanvas` property.<br/>
    Clients _MAY_ render `accompanyingCanvas` on a Range.
-  * Other resource types _MUST NOT_ have the `accompanyingCanvas` property.<br/>
-   Clients _SHOULD_ ignore `accompanyingCanvas` on other resource types.
+ * Other types of resource _MUST NOT_ have the `accompanyingCanvas` property.<br/>
+   Clients _SHOULD_ ignore `accompanyingCanvas` on other types of resource.
 
 ``` json-doc
 {
@@ -445,7 +454,7 @@ The existence of an HTTP(S) URI in the `id` property does not mean that the URI 
 
 ##### type
 
-The type or class of the resource. For classes defined for this specification, the value of `type` will be described in the sections below describing each individual class. 
+The type or class of the resource. For classes defined for this specification, the value of `type` will be described in the sections below describing each individual class.
 
 For content resources, the value of `type` is drawn from other specifications. Recommendations for common content types such as image, text or audio are given in the table below.
 
@@ -476,10 +485,10 @@ The specific media type (often called a MIME type) for a content resource, for e
 
 The value _MUST_ be a string, and it _SHOULD_ be the value of the `Content-Type` header returned when the resource is dereferenced.
 
- * A content resource _SHOULD_ have the `format` propety.<br/>
+ * A content resource _SHOULD_ have the `format` property.<br/>
    Clients _MAY_ render the `format` of any content resource.
- * Other resource types _MUST NOT_ have the `format` property.<br/>
-   Clients _SHOULD_ ignore `format` on other resource types.
+ * Other types of resource _MUST NOT_ have the `format` property.<br/>
+   Clients _SHOULD_ ignore `format` on other types of resource.
 
 Note that this is different to the `formats` property in the [Image API][image-api], which gives the extension to use within that API. It would be inappropriate to use in this case, as `format` can be used with any content resource, not just images.
 
@@ -495,8 +504,8 @@ The value _MUST_ be an array of strings. Each item in the array _MUST_ be a vali
 
  * An external resource _SHOULD_ have the `language` property with at least one item.<br/>
    Clients _SHOULD_ process the `language` of external resources.
- * Other resource types _MUST NOT_ have the `language` property.<br/>
-   Clients _SHOULD_ ignore `language` on other resource types.
+ * Other types of resource _MUST NOT_ have the `language` property.<br/>
+   Clients _SHOULD_ ignore `language` on other types of resource.
 
 ``` json-doc
 { "language": [ "en" ] }
@@ -510,8 +519,8 @@ The value _MUST_ be a string, either taken from the [profiles registry][registry
 
 * Resources referenced by the `seeAlso` or `service` properties _SHOULD_ have the `profile` property.<br/>
   Clients _SHOULD_ process the `profile` of a service or external resource.
-* Other resource types _MAY_ have the `profile` property.<br/>
-  Clients _MAY_ process the `profile` of other resource types.
+* Other types of resource _MAY_ have the `profile` property.<br/>
+  Clients _MAY_ process the `profile` of other types of resource.
 
 ``` json-doc
 { "profile": "https://example.org/profile/statuary" }
@@ -527,8 +536,8 @@ The value _MUST_ be a positive integer.
    Clients _MUST_ process `height` on a Canvas.
  * Content resources _SHOULD_ have the `height` property, with the value given in pixels, if appropriate to the resource type.<br/>
    Clients _SHOULD_ process `height` on content resources.
- * Other resource types _MUST NOT_ have the `height` property.<br/>
-   Clients _SHOULD_ ignore `height` on other resource types.
+ * Other types of resource _MUST NOT_ have the `height` property.<br/>
+   Clients _SHOULD_ ignore `height` on other types of resource.
 
 ``` json-doc
 { "height": 1800 }
@@ -544,8 +553,8 @@ The value _MUST_ be a positive integer.
    Clients _MUST_ process `width` on a Canvas.
  * Content resources _SHOULD_ have the `width` property, with the value given in pixels, if appropriate to the resource type.<br/>
    Clients _SHOULD_ process `width` on content resources.
- * Other resource types _MUST NOT_ have the `width` property.<br/>
-   Clients _SHOULD_ ignore `width` on other resource types.
+ * Other types of resource _MUST NOT_ have the `width` property.<br/>
+   Clients _SHOULD_ ignore `width` on other types of resource.
 
 ``` json-doc
 { "width": 1200 }
@@ -553,7 +562,7 @@ The value _MUST_ be a positive integer.
 
 ##### duration
 
-The duration of the Canvas or external content resource, given in seconds.  
+The duration of the Canvas or external content resource, given in seconds.
 
 The value _MUST_ be a positive floating point number.
 
@@ -561,8 +570,8 @@ The value _MUST_ be a positive floating point number.
    Clients _MUST_ process `duration` on a Canvas.
  * Content resources _SHOULD_ have the `duration` property, if appropriate to the resource type.<br/>
    Clients _SHOULD_ process `duration` on content resources.
- * Other resource types _MUST NOT_ have a `duration`.<br/>
-   Clients _SHOULD_ ignore `duration` on other resource types.
+ * Other types of resource _MUST NOT_ have a `duration`.<br/>
+   Clients _SHOULD_ ignore `duration` on other types of resource.
 
 ``` json-doc
 { "duration": 125.0 }
@@ -580,8 +589,8 @@ The value _MUST_ be a string.
    Clients _SHOULD_ process `viewingDirection` on a Manifest.
  * A Range _MAY_ have the `viewingDirection` property.<br/>
    Clients _MAY_ process `viewingDirection` on a Range.
- * Other resource types _MUST NOT_ have the `viewingDirection` property.<br/>
-   Clients _SHOULD_ ignore `viewingDirection` on other resource types.
+ * Other types of resource _MUST NOT_ have the `viewingDirection` property.<br/>
+   Clients _SHOULD_ ignore `viewingDirection` on other types of resource.
 
 > | Value | Description |
 | ----- | ----------- |
@@ -607,7 +616,7 @@ In order to determine the behaviors that are governing a particular resource, th
 
 Clients should interpret behaviors on a Range only when that Range is selected or is in some other way the context for the user's current interaction with the resources. A Range with the `behavior` value `continuous`, in a Manifest with the `behavior` value `paged`, would mean that the Manifest's Canvases should be rendered in a paged fashion, unless the range is selected to be viewed, and its included Canvases would be rendered in that context only as being virtually stitched together. This might occur, for example, when a physical scroll is cut into pages and bound into a codex with other pages, and the publisher would like to provide the user the experience of the scroll in its original form.
 
-The descriptions of the behavior values have a set of which other values they are disjoint with, meaning that the same resource _MUST NOT_ have both of two or more from that set. In order to determine which is in effect, the client _SHOULD_ follow the inheritance rules above, taking the value from the closest resource. The user interface effects of the possible permutations of non-disjoint behavior values are client dependent, and implementers are advised to look for relevant recipes in the [IIIF cookbook][annex-cookbook]. 
+The descriptions of the behavior values have a set of which other values they are disjoint with, meaning that the same resource _MUST NOT_ have both of two or more from that set. In order to determine which is in effect, the client _SHOULD_ follow the inheritance rules above, taking the value from the closest resource. The user interface effects of the possible permutations of non-disjoint behavior values are client dependent, and implementers are advised to look for relevant recipes in the [IIIF cookbook][annex-cookbook].
 
 __Future Clarification Anticipated__<br/>
 Further clarifications about the implications of interactions between behavior values should be expected in subsequent minor releases.
@@ -653,8 +662,8 @@ A mode associated with an Annotation that is to be applied to the rendering of a
 
 The value _MUST_ be a string.
 
-* An Annotation _MAY_ have the `timeMode` property.<br/>
-  Clients _SHOULD_ process `timeMode` on an Annotation.
+ * An Annotation _MAY_ have the `timeMode` property.<br/>
+   Clients _SHOULD_ process `timeMode` on an Annotation.
 
 > | Value | Description |
 | ----- | ----------- |
@@ -680,7 +689,11 @@ An external web page that is about the object represented by the resource that h
 The value of this property _MUST_ be an array of JSON objects, each of which _MUST_ have the `id`, `type`, and `label` properties, _SHOULD_ have a `format` property, and _MAY_ have the `language` property.
 
  * Any resource type _MAY_ have the `homepage` property.<br/>
-   Clients _SHOULD_ render `homepage` on a Collection, Manifest or Canvas, and _MAY_ render `homepage` on other resource types.
+   Clients _SHOULD_ render `homepage` on a Collection, Manifest or Canvas, and _MAY_ render `homepage` on other types of resource.
+
+__Model Alignment__<br/>
+Please note that this specification has stricter requirements about the JSON pattern used for the `homepage` property than the [Web Annotation Data Model][org-w3c-webanno]. The IIIF requirements are compatible, but the home page of an Agent found might have only a URI, or might be a JSON object with other properties. See the section on [collisions between contexts][prezi30-context-collisions] for more information.
+{: .note}
 
 ``` json-doc
 {
@@ -703,14 +716,17 @@ A small external image resource that represents the Agent resource it is associa
 
 The value of this property _MUST_ be an array of JSON objects, each of which _MUST_ have an `id` and _SHOULD_ have at least one of `type` and `format`.
 
+When more than one logo is present, the client _SHOULD_ pick only one of them, based on the information in the logo properties. For example, the client could select a logo of appropriate aspect ratio based on the `height` and `width` properties of the available logos. The client _MAY_ decide on the logo by inspecting properties defined as [extensions][prezi30-ldce].
+
  * Agent resources _SHOULD_ have the `logo` property.<br/>
    Clients _MUST_ render `logo` on Agent resources.
 
+
 ``` json-doc
-{ 
+{
   "logo": [
-    { 
-      "id": "https://example.org/img/logo.jpg", 
+    {
+      "id": "https://example.org/img/logo.jpg",
       "type": "Image",
       "height": 100,
       "width": 120
@@ -726,7 +742,7 @@ An external resource that is an alternative, non-IIIF representation of the reso
 The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id`, `type` and `label` properties, and _SHOULD_ have a `format` property.
 
  * Any resource type _MAY_ have the `rendering` property with at least one item.<br/>
-   Clients _SHOULD_ render `rendering` on a Collection, Manifest or Canvas, and _MAY_ render `rendering` on other resource types.
+   Clients _SHOULD_ render `rendering` on a Collection, Manifest or Canvas, and _MAY_ render `rendering` on other types of resource.
 
 ``` json-doc
 {
@@ -837,10 +853,12 @@ A Canvas, or part of a Canvas, which the client _SHOULD_ show on initialization 
 
 The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` properties.  The object _MUST_ be either a Canvas (as in the first example below), or a Specific Resource with a Selector and a `source` property where the value is a Canvas (as in the second example below).
 
- * A Manifest or Range _MAY_ have the `start` property.<br/>
-   Clients _SHOULD_ process `start` on a Manifest or Range.
- * Other resource types _MUST NOT_ have the `start` property.<br/>
-   Clients _SHOULD_ ignore `start` on other resource types.
+ * A Manifest _MAY_ have the `start` property.<br/>
+   Clients _SHOULD_ process `start` on a Manifest.
+ * A Range _MAY_ have the `start` property.<br/>
+   Clients _SHOULD_ process `start` on a Range.
+ * Other types of resource _MUST NOT_ have the `start` property.<br/>
+   Clients _SHOULD_ ignore `start` on other types of resource.
 
 ``` json-doc
 { "start": { "id": "https://example.org/iiif/1/canvas/1", "type": "Canvas" } }
@@ -861,14 +879,14 @@ The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` propert
 
 ##### supplementary
 
-A link from this Range to an Annotation Collection that includes the `supplementing` Annotations of content resources for the Range. Clients might use this to present additional content to the user from a different Canvas when interacting with the Range, or to jump to the next part of the Range within the same Canvas.  For example, the Range might represent a newspaper article that spans non-sequential pages, and then uses the `supplementary` property to reference an Annotation Collection that consists of the Annotations that record the text, split into Annotation Pages per newspaper page.
+A link from this Range to an Annotation Collection that includes the `supplementing` Annotations of content resources for the Range. Clients might use this to present additional content to the user from a different Canvas when interacting with the Range, or to jump to the next part of the Range within the same Canvas.  For example, the Range might represent a newspaper article that spans non-sequential pages, and then uses the `supplementary` property to reference an Annotation Collection that consists of the Annotations that record the text, split into Annotation Pages per newspaper page. Alternatively, the Range might represent the parts of a manuscript that have been transcribed or translated, when there are other parts that have yet to be worked on. The Annotation Collection would be the Annotations that transcribe or translate, respectively.
 
 The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` properties, and the `type` _MUST_ be `AnnotationCollection`.
 
  * A Range _MAY_ have the `supplementary` property.<br/>
    Clients _MAY_ process `supplementary` on a Range.
- * Other resource types _MUST NOT_ have the `supplementary` property.<br/>
-   Clients _SHOULD_ ignore `supplementary` on other resource types.
+ * Other types of resource _MUST NOT_ have the `supplementary` property.<br/>
+   Clients _SHOULD_ ignore `supplementary` on other types of resource.
 
 ``` json-doc
 { "supplementary": { "id": "https://example.org/iiif/1/annos/1", "type": "AnnotationCollection" } }
@@ -884,18 +902,18 @@ Much of the functionality of the IIIF Presentation API is simply recording the o
 
 The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id` and `type` properties. The items will be resources of different types, as described below.
 
-* A Collection _MUST_ have the `items` property. Each item _MUST_ be either a Collection or a Manifest.<br/>
-  Clients _MUST_ process `items` on a Collection.
-* A Manifest _MUST_ have the `items` property with at least one item. Each item _MUST_ be a Canvas.<br/>
-  Clients _MUST_ process `items` on a Manifest.
-* A Canvas _SHOULD_ have the `items` property with at least one item. Each item _MUST_ be an Annotation Page.<br/>
-  Clients _MUST_ process `items` on a Canvas.
-* An Annotation Page _SHOULD_ have the `items` property with at least one item. Each item _MUST_ be an Annotation.<br/>
-  Clients _MUST_ process `items` on an Annotation Page.
-* A Range _MUST_ have the `items` property with at least one item. Each item _MUST_ be a Range, a Canvas or a Specific Resource where the source is a Canvas.<br/>
-  Clients _SHOULD_ process `items` on a Range.
-* Other resource types _MUST NOT_ have the `items` property.<br/>
-  Clients _SHOULD_ ignore `items` on other resource types.
+ * A Collection _MUST_ have the `items` property. Each item _MUST_ be either a Collection or a Manifest.<br/>
+   Clients _MUST_ process `items` on a Collection.
+ * A Manifest _MUST_ have the `items` property with at least one item. Each item _MUST_ be a Canvas.<br/>
+   Clients _MUST_ process `items` on a Manifest.
+ * A Canvas _SHOULD_ have the `items` property with at least one item. Each item _MUST_ be an Annotation Page.<br/>
+   Clients _MUST_ process `items` on a Canvas.
+ * An Annotation Page _SHOULD_ have the `items` property with at least one item. Each item _MUST_ be an Annotation.<br/>
+   Clients _MUST_ process `items` on an Annotation Page.
+ * A Range _MUST_ have the `items` property with at least one item. Each item _MUST_ be a Range, a Canvas or a Specific Resource where the source is a Canvas.<br/>
+   Clients _SHOULD_ process `items` on a Range.
+ * Other types of resource _MUST NOT_ have the `items` property.<br/>
+   Clients _SHOULD_ ignore `items` on other types of resource.
 
 ```json-doc
 {
@@ -919,10 +937,10 @@ The structure of an object represented as a Manifest can be described using a hi
 
 The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id` and `type` properties, and the `type` _MUST_ be `Range`.
 
-* A Manifest _MAY_ have the `structures` property.<br/>
-  Clients _SHOULD_ process `structures` on a Manifest. The first hierarchy _SHOULD_ be presented to the user by default, and further hierarchies _SHOULD_ be able to be selected as alternative structures by the user.
-* Other resource types _MUST NOT_ have the `structures` property.<br/>
-  Clients _SHOULD_ ignore `structures` on other resource types.
+ * A Manifest _MAY_ have the `structures` property.<br/>
+   Clients _SHOULD_ process `structures` on a Manifest. The first hierarchy _SHOULD_ be presented to the user by default, and further hierarchies _SHOULD_ be able to be selected as alternative structures by the user.
+ * Other types of resource _MUST NOT_ have the `structures` property.<br/>
+   Clients _SHOULD_ ignore `structures` on other types of resource.
 
 ```json-doc
 {
@@ -942,10 +960,18 @@ An ordered list of Annotation Pages that contain commentary or other Annotations
 
 The value _MUST_ be an array of JSON objects. Each item _MUST_ have at least the `id` and `type` properties.
 
-* A Collection, Manifest, Canvas, Range or content resource _MAY_ have the `annotations` property with at least one item.<br/>
-  Clients _SHOULD_ process `annotations` on a Collection, Manifest, Canvas, Range or content resource.
-* Other resource types _MUST NOT_ have the `annotations` property.<br/>
-  Clients _SHOULD_ ignore `annotations` on other resource types.
+ * A Collection _MAY_ have the `annotations` property with at least one item.<br/>
+   Clients _SHOULD_ process `annotations` on a Collection.
+ * A Manifest _MAY_ have the `annotations` property with at least one item.<br/>
+   Clients _SHOULD_ process `annotations` on a Manifest,.
+ * A Canvas _MAY_ have the `annotations` property with at least one item.<br/>
+   Clients _SHOULD_ process `annotations` on a Canvas.
+ * A Range _MAY_ have the `annotations` property with at least one item.<br/>
+   Clients _SHOULD_ process `annotations` on a Range.
+ * A content resource _MAY_ have the `annotations` property with at least one item.<br/>
+   Clients _SHOULD_ process `annotations` on a content resource.
+ * Other types of resource _MUST NOT_ have the `annotations` property.<br/>
+   Clients _SHOULD_ ignore `annotations` on other types of resource.
 
 ```json-doc
 {
@@ -961,7 +987,6 @@ The value _MUST_ be an array of JSON objects. Each item _MUST_ have at least the
 
 ### 3.6. Values
 
-
 ##### Values for motivation
 
 This specification defines two values for the Web Annotation property of `motivation`, or `purpose` when used on a Specific Resource or Textual Body.
@@ -973,7 +998,7 @@ Additional motivations may be added to the Annotation to further clarify the int
 > | Value | Description |
 | ----- | ----------- |
 | `painting` | Resources associated with a Canvas by an Annotation that has the `motivation` value `painting`  _MUST_ be presented to the user as the representation of the Canvas. The content can be thought of as being _of_ the Canvas. The use of this motivation with target resources other than Canvases is undefined. For example, an Annotation that has the `motivation` value `painting`, a body of an Image and the target of the Canvas is an instruction to present that Image as (part of) the visual representation of the Canvas. Similarly, a textual body is to be presented as (part of) the visual representation of the Canvas and not positioned in some other part of the user interface.|
-| `supplementing` | Resources associated with a Canvas by an Annotation that has the `motivation` value `supplementing`  _MAY_ be presented to the user as part of the representation of the Canvas, or _MAY_ be presented in a different part of the user interface. The content can be thought of as being _from_ the Canvas. The use of this motivation with target resources other than Canvases is undefined. For example, an Annotation that has the `motivation` value `supplementing`, a body of an Image and the target of part of the Canvas is an instruction to present that Image to the user either in the Canvas's rendering area or somewhere associated with it, and could be used to present an easier to read representation of a diagram. Similar, a textual body is to be presented either in the targeted region of the Canvas or otherwise associated with it, and might be a transcription of handwritten text or captions for what is being said in a Canvas with audio content. |
+| `supplementing` | Resources associated with a Canvas by an Annotation that has the `motivation` value `supplementing`  _MAY_ be presented to the user as part of the representation of the Canvas, or _MAY_ be presented in a different part of the user interface. The content can be thought of as being _from_ the Canvas. The use of this motivation with target resources other than Canvases is undefined. For example, an Annotation that has the `motivation` value `supplementing`, a body of an Image and the target of part of the Canvas is an instruction to present that Image to the user either in the Canvas's rendering area or somewhere associated with it, and could be used to present an easier to read representation of a diagram. Similarly, a textual body is to be presented either in the targeted region of the Canvas or otherwise associated with it, and might be a transcription or translation of handwritten text or captions for what is being said in a Canvas with audio content. |
 {: .api-table #table-motivations}
 
 
@@ -983,7 +1008,7 @@ This section describes features applicable to all of the Presentation API conten
 
 ### 4.1. Case Sensitivity
 
-Terms in JSON-LD are [case sensitive][org-w3c-json-ld-case].  The cases of properties and enumerated values in IIIF Presentation API responses MUST match those used in this specification. For example to specify that a resource is a Manifest, the property must be given as `type` and not `Type` or `tYpE`, and the value must be given as `Manifest` and not `manifest` or `manIfEsT`.
+Terms in JSON-LD are [case sensitive][org-w3c-json-ld-case].  The cases of properties and enumerated values in IIIF Presentation API responses _MUST_ match those used in this specification. For example to specify that a resource is a Manifest, the property _MUST_ be given as `type` and not `Type` or `tYpE`, and the value _MUST_ be given as `Manifest` and not `manifest` or `manIfEsT`.
 
 ### 4.2. Resource Representations
 
@@ -997,7 +1022,7 @@ Resource descriptions _SHOULD_ be embedded within the JSON description of parent
       "type": "Text",
       "label": "Example Book (pdf)",
       "format": "application/pdf"
-    }   
+    }
   ]
 }
 ```
@@ -1018,7 +1043,7 @@ Any of the properties in the API that can have multiple values _MUST_ always be 
 
 Language _MAY_ be associated with strings that are intended to be displayed to the user for the `label` and `summary` properties, plus the `label` and `value` properties of the `metadata` and `requiredStatement` objects.
 
-The values of these properties _MUST_ be JSON objects, with the keys being the [BCP 47][org-bcp-47] language code for the language, or if the language is either not known or the string does not have a language, then the key must be the string `@none`. The associated values _MUST_ be arrays of strings, where each item is the content in the given language.
+The values of these properties _MUST_ be JSON objects, with the keys being the [BCP 47][org-bcp-47] language code for the language, or if the language is either not known or the string does not have a language, then the key _MUST_ be the string `none`. The associated values _MUST_ be arrays of strings, where each item is the content in the given language.
 
 ``` json-doc
 {
@@ -1032,16 +1057,16 @@ The values of these properties _MUST_ be JSON objects, with the keys being the [
       "Portrait de la mère de l'artiste",
       "La Mère de Whistler"
     ],
-    "@none": [ "Whistler (1871)" ]
+    "none": [ "Whistler (1871)" ]
   }
 }
 ```
 
 Note that [BCP 47][org-bcp-47] allows the script of the text to be included after a hyphen, such as `ar-latn`, and clients should be aware of this possibility.
 
-In the case where multiple values are supplied, clients _MUST_ use the following algorithm to determine which values to display to the user.  
+In the case where multiple values are supplied, clients _MUST_ use the following algorithm to determine which values to display to the user.
 
-* If all of the values are associated with the `@none` key, the client _MUST_ display all of those values.
+* If all of the values are associated with the `none` key, the client _MUST_ display all of those values.
 * Else, the client should try to determine the user's language preferences, or failing that use some default language preferences. Then:
   * If any of the values have a language associated with them, the client _MUST_ display all of the values associated with the language that best matches the language preference.
   * If all of the values have a language associated with them, and none match the language preference, the client _MUST_ select a language and display all of the values associated with that language.
@@ -1051,7 +1076,7 @@ Note that this does not apply to embedded textual bodies in Annotations, which u
 
 ### 4.5. HTML Markup in Property Values
 
-Minimal HTML markup _MAY_ be included for processing in the `summary` property and the `value` property in the `metadata` and `requiredStatement` objects. It _MUST NOT_ be used in `label` or other properties. This is included to allow content publishers to add links and simple formatting instructions to blocks of text. The content _MUST_ be well-formed XML and therefore must be wrapped in an element such as `p` or `span`. There _MUST NOT_ be whitespace on either side of the HTML string, and thus the first character in the string _MUST_ be a '<' character and the last character _MUST_ be '>', allowing a consuming application to test whether the value is HTML or plain text using these. To avoid a non-HTML string matching this, it is _RECOMMENDED_ that an additional whitespace character be added to the end of the value in situations where plain text happens to start and end this way.
+Minimal HTML markup _MAY_ be included for processing in the `summary` property and the `value` property in the `metadata` and `requiredStatement` objects. It _MUST NOT_ be used in `label` or other properties. This is included to allow content publishers to add links and simple formatting instructions to blocks of text. The content _MUST_ be well-formed XML and therefore _MUST_ be wrapped in an element such as `p` or `span`. There _MUST NOT_ be whitespace on either side of the HTML string, and thus the first character in the string _MUST_ be a '<' character and the last character _MUST_ be '>', allowing a consuming application to test whether the value is HTML or plain text using these. To avoid a non-HTML string matching this, it is _RECOMMENDED_ that an additional whitespace character be added to the end of the value in situations where plain text happens to start and end this way.
 
 In order to avoid HTML or script injection attacks, clients _MUST_ remove:
 
@@ -1092,6 +1117,25 @@ Any additional properties beyond those defined in this specification or the Web 
 ```
 
 The JSON representation _MUST NOT_ include the `@graph` key at the top level. This key might be created when serializing directly from RDF data using the JSON-LD 1.0 compaction algorithm. Instead, JSON-LD framing and/or custom code should be used to ensure the structure of the document is as defined by this specification.
+
+### 4.7. Term Collisions between Contexts
+
+There are some common terms used in more than one JSON-LD context document. Every attempt has been made to minimize these collisions, but some are inevitable. In order to know which specification is in effect at any given point, the class of the resource that has the property is the governing factor. Thus properties on Annotation based resources use the context from the [Web Annotation Data Model][org-w3c-webanno], whereas properties on classes defined by this specification use the IIIF Presentation API context's definition.  
+
+The label property is defined by both and is in direct conflict:
+
+* `label`: The use of `label` in IIIF follows modern best practices for internationalization by allowing the language to be associated with the value using the language map construction [described above][prezi30-languages]. The Web Annotation Data Model uses it only for [Annotation Collections][prezi30-annocoll], and mandates the format is a string.
+
+The following properties are defined by both, and the IIIF representation is more specific than the Web Annotation Data Model but are not in conflict, or are never used on the same resource:
+
+* `homepage`: In IIIF the home page of a resource is represented as a JSON object, whereas in the Web Annotation Data Model it can also be a string.
+* `type`: In IIIF the type is singular, whereas in the Web Annotation Data Model there can be more than one type.
+* `format`: In IIIF the format of a resource is also singular, whereas in the Web Annotation Data Model there can be more than one format.
+* `language`: In IIIF the `language` property always takes an array, whereas in the Web Annotation Data Model it can be a single string.
+* `start`: The `start` property is used on a Manifest to refer to the start Canvas or part of a Canvas and thus is a JSON object, whereas in the Web Annotation Data Model it is used on a TextPositionSelector to give the start offset into the textual content and is thus an integer.
+
+The `rights`, `partOf`, and `items` properties are defined by both in the same way.
+
 
 ##  5. Resource Structure
 
@@ -1168,7 +1212,7 @@ The Manifest _MUST_ have an `items` property, which is an array of JSON-LD objec
   "metadata": [
     {
       "label": { "en": [ "Author" ] },
-      "value": { "@none": [ "Anne Author" ] }
+      "value": { "none": [ "Anne Author" ] }
     },
     {
       "label": { "en": [ "Published" ] },
@@ -1188,18 +1232,18 @@ The Manifest _MUST_ have an `items` property, which is an array of JSON-LD objec
     },
     {
       "label": { "en": [ "Source" ] },
-      "value": { "@none": [ "<span>From: <a href=\"https://example.org/db/1.html\">Some Collection</a></span>" ] }
+      "value": { "none": [ "<span>From: <a href=\"https://example.org/db/1.html\">Some Collection</a></span>" ] }
     }
   ],
   "summary": { "en": [ "Book 1, written by Anne Author, published in Paris around 1400." ] },
 
   "thumbnail": [
     {
-      "id": "https://example.org/images/book1-page1/full/80,100/0/default.jpg",
+      "id": "https://example.org/iiif/book1/page1/full/80,100/0/default.jpg",
       "type": "Image",
       "service": [
         {
-          "id": "https://example.org/images/book1-page1",
+          "id": "https://example.org/iiif/book1/page1",
           "type": "ImageService3",
           "profile": "level1"
         }
@@ -1233,7 +1277,7 @@ The Manifest _MUST_ have an `items` property, which is an array of JSON-LD objec
       ],
       "logo": [
         {
-          "id": "https://example.org/logos/institution1.jpg",
+          "id": "https://example.org/service/inst1/full/max/0/default.png",
           "type": "Image",
           "service": [
             {
@@ -1251,7 +1295,7 @@ The Manifest _MUST_ have an `items` property, which is an array of JSON-LD objec
           "format": "application/ld+json",
           "profile": "https://schema.org/"
         }
-      ]      
+      ]
     }
   ],
 
@@ -1303,7 +1347,7 @@ The Manifest _MUST_ have an `items` property, which is an array of JSON-LD objec
     {
       "id": "https://example.org/iiif/book1/canvas/p1",
       "type": "Canvas",
-      "label": { "@none": [ "p. 1" ] }
+      "label": { "none": [ "p. 1" ] }
       // ...
     }
   ],
@@ -1356,7 +1400,7 @@ Renderers _MUST_ scale content into the space represented by the Canvas, and _SH
   // Metadata about this canvas
   "id": "https://example.org/iiif/book1/canvas/p1",
   "type": "Canvas",
-  "label": { "@none": [ "p. 1" ] },
+  "label": { "none": [ "p. 1" ] },
   "height": 1000,
   "width": 750,
 
@@ -1445,7 +1489,7 @@ Ranges _MAY_ link to an Annotation Collection that has the content of the Range 
                 "type": "FragmentSelector",
                 "value": "xywh=0,0,750,300"
               }
-            }  
+            }
           ]
         },
         {
@@ -1514,7 +1558,7 @@ The IIIF community has defined [additional Selector classes][annex-oa] for use w
   "type": "Annotation",
   "motivation": "painting",
   "body": {
-    "id": "https://example.org/iiif/book1/res/page1.jpg",
+    "id": "https://example.org/images/page1.jpg",
     "type": "Image"
   },
   "target": "https://example.org/iiif/book1/canvas/p1"
@@ -1523,15 +1567,20 @@ The IIIF community has defined [additional Selector classes][annex-oa] for use w
 
 ### 5.7. Content Resources
 
-Content resources are external web resources that are referenced from within the Manifest or Collection. This includes images, video, audio, data, web pages or any other format. They can be referenced from `thumbnail`, `homepage`, `logo`, `rendering`, and `seeAlso` properties, as well as the `body` property of Annotations.
+Content resources are external web resources that are referenced from within the Manifest or Collection. This includes images, video, audio, data, web pages or any other format. 
 
-Content resources _MUST_ have an `id` property, with the value being the URI at which it can be obtained. A Canvas _MAY_ be treated as a content resource for the purposes of annotating it on to other Canvases. In this situation, the Canvas _MAY_ be embedded within the Annotation, or require dereferencing to obtain its description.
+As described in the [Canvas][prezi30-canvas] section, the content associated with a Canvas (and therefore the content of a Manifest) is provided by the `body` property of Annotations with the `painting` motivation. Content resources can also be referenced from `thumbnail`, `homepage`, `logo`, `rendering`, and `seeAlso` properties. 
+
+Content resources _MUST_ have an `id` property, with the value being the URI at which the resource can be obtained. 
 
 The type of the content resource _MUST_ be included, and _SHOULD_ be taken from the table listed under the definition of `type`. The `format` of the resource _SHOULD_ be included and, if so, _SHOULD_ be the media type that is returned when the resource is dereferenced. The `profile` of the resource, if it has one, _SHOULD_ also be included. Content resources in appropriate formats _MAY_ also have the `language`, `height`, `width`, and `duration` properties. Content resources _MAY_ also have descriptive and linking properties, as defined in [section 3][prezi30-resource-properties].
 
-If the content resource is an Image, and a IIIF Image service is available for it, then the URI _MAY_ be a complete URI to any particular representation made available, such as `https://example.org/image1/full/1000,/0/default.jpg`, but _MUST NOT_ be just the URI of the IIIF Image service. Its `type` value _MUST_ be the string `Image`. Its media type _MAY_ be listed in `format`, and its height and width _MAY_ be given as integer values for `height` and `width` respectively. The Image _SHOULD_ have the service referenced from it using the `service` property.
+If the content resource is an Image, and a IIIF Image service is available for it, then the `id` property of the content resource _MAY_ be a complete URI to any particular representation supported by the Image Service, such as `https://example.org/image1/full/1000,/0/default.jpg`, but _MUST NOT_ be just the URI of the IIIF Image service. Its `type` value _MUST_ be the string `Image`. Its media type _MAY_ be listed in `format`, and its height and width _MAY_ be given as integer values for `height` and `width` respectively. The Image _SHOULD_ have the service referenced from it using the `service` property.
 
 If there is a need to distinguish between content resources, then the resource _SHOULD_ have the `label` property. As noted above, this produces a slight inconsistency with the Web Annotation specification.
+
+A Canvas _MAY_ be treated as a content resource for the purposes of annotating it on to other Canvases. In this situation, the Canvas _MAY_ be embedded within the Annotation, or require dereferencing to obtain its description.
+
 
 ``` json-doc
 {
@@ -1540,13 +1589,13 @@ If there is a need to distinguish between content resources, then the resource _
   "type": "Annotation",
   "motivation": "painting",
   "body": {
-    "id": "https://example.org/iiif/book1/res/page1.jpg",
+    "id": "https://example.org/iiif/book1/page1/full/max/0/default.jpg",
     "type": "Image",
     "label": {"en": ["Page 1"], "es": ["Página 1"]},
     "format": "image/jpeg",
     "service": [
       {
-        "id": "https://example.org/images/book1-page1",
+        "id": "https://example.org/iiif/book1/page1",
         "type": "ImageService3",
         "profile": "level2"
       }
@@ -1668,7 +1717,7 @@ It is possible to include Image API service descriptions within the Manifest, an
 __Descriptive and Rights Properties__
 
 |                      | label                     | metadata                  | summary                   | requiredStatement      | rights                 | navDate                   | language                  |
-| -------------------- | -----------------------   | ------------------------- | ------------------------- | ---------------------- | ---------------------- | ------------------------- | ------------------------- | 
+| -------------------- | -----------------------   | ------------------------- | ------------------------- | ---------------------- | ---------------------- | ------------------------- | ------------------------- |
 | Collection           | ![required][icon3-req]    | ![recommended][icon3-rec] | ![recommended][icon3-rec] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt]    | ![not allowed][icon3-na]  |
 | Manifest             | ![required][icon3-req]    | ![recommended][icon3-rec] | ![recommended][icon3-rec] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt]    | ![not allowed][icon3-na]  |
 | Canvas               | ![recommended][icon3-rec] | ![optional][icon3-opt]    | ![optional][icon3-opt]    | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt]    | ![not allowed][icon3-na]  |
@@ -1680,7 +1729,7 @@ __Descriptive and Rights Properties__
 {: .api-table #table-reqs-1}
 
 |                      | provider                  | thumbnail                 | placeholderCanvas        | accompanyingCanvas       |
-| -------------------- | ------------------------- | ------------------------- | ------------------------ | ------------------------ | 
+| -------------------- | ------------------------- | ------------------------- | ------------------------ | ------------------------ |
 | Collection           | ![recommended][icon3-rec] | ![recommended][icon3-rec] | ![optional][icon3-opt]   | ![optional][icon3-opt]   |
 | Manifest             | ![recommended][icon3-rec] | ![recommended][icon3-rec] | ![optional][icon3-opt]   | ![optional][icon3-opt]   |
 | Canvas               | ![optional][icon3-opt]    | ![optional][icon3-opt]    | ![optional][icon3-opt]\* | ![optional][icon3-opt]\* |
@@ -1776,7 +1825,7 @@ __Behavior Values__
   "metadata": [
     {
       "label": { "en": [ "Author" ] },
-      "value": { "@none": [ "Anne Author" ] }
+      "value": { "none": [ "Anne Author" ] }
     },
     {
       "label": { "en": [ "Published" ] },
@@ -1796,18 +1845,18 @@ __Behavior Values__
     },
     {
       "label": { "en": [ "Source" ] },
-      "value": { "@none": [ "<span>From: <a href=\"https://example.org/db/1.html\">Some Collection</a></span>" ] }
+      "value": { "none": [ "<span>From: <a href=\"https://example.org/db/1.html\">Some Collection</a></span>" ] }
     }
   ],
   "summary": { "en": [ "Book 1, written be Anne Author, published in Paris around 1400." ] },
 
   "thumbnail": [
     {
-      "id": "https://example.org/images/book1-page1/full/80,100/0/default.jpg",
+      "id": "https://example.org/iiif/book1/page1/full/80,100/0/default.jpg",
       "type": "Image",
       "service": [
         {
-          "id": "https://example.org/images/book1-page1",
+          "id": "https://example.org/iiif/book1/page1",
           "type": "ImageService3",
           "profile": "level1"
         }
@@ -1826,7 +1875,7 @@ __Behavior Values__
   },
   "logo": [
     {
-      "id": "https://example.org/logos/institution1.jpg",
+      "id": "https://example.org/service/inst1/full/max/0/default.png",
       "type": "Image",
       "service": [
         {
@@ -1883,7 +1932,7 @@ __Behavior Values__
     {
       "id": "https://example.org/iiif/book1/canvas/p1",
       "type": "Canvas",
-      "label": { "@none": [ "p. 1" ] },
+      "label": { "none": [ "p. 1" ] },
       "height": 1000,
       "width": 750,
       "items": [
@@ -1896,12 +1945,12 @@ __Behavior Values__
               "type": "Annotation",
               "motivation": "painting",
               "body": {
-                "id": "https://example.org/iiif/book1/res/page1.jpg",
+                "id": "https://example.org/iiif/book1/page1/full/max/0/default.jpg",
                 "type": "Image",
                 "format": "image/jpeg",
                 "service": [
                   {
-                    "id": "https://example.org/images/book1-page1",
+                    "id": "https://example.org/iiif/book1/page1",
                     "type": "ImageService3",
                     "profile": "level2"
                   }
@@ -1924,7 +1973,7 @@ __Behavior Values__
     {
       "id": "https://example.org/iiif/book1/canvas/p2",
       "type": "Canvas",
-      "label": { "@none": [ "p. 2" ] },
+      "label": { "none": [ "p. 2" ] },
       "height": 1000,
       "width": 750,
       "items": [
@@ -1937,12 +1986,12 @@ __Behavior Values__
               "type": "Annotation",
               "motivation": "painting",
               "body": {
-                "id": "https://example.org/iiif/book1/res/page2.jpg",
+                "id": "https://example.org/iiif/book1/page2/full/max/0/default.jpg",
                 "type": "Image",
                 "format": "image/jpeg",
                 "service": [
                   {
-                    "id": "https://example.org/images/book1-page2",
+                    "id": "https://example.org/iiif/book1/page2",
                     "type": "ImageService3",
                     "profile": "level2"
                   }
@@ -1955,7 +2004,7 @@ __Behavior Values__
           ]
         }
       ]
-    }    
+    }
   ],
 
   "structures": [
@@ -1984,7 +2033,7 @@ __Behavior Values__
                 "type": "FragmentSelector",
                 "value": "xywh=0,0,750,300"
               }
-            }  
+            }
           ]
         }
       ]

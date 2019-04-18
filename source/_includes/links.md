@@ -63,6 +63,7 @@
 [image3-information-request-uri-syntax]: {{ site.url }}{{ site.baseurl }}/api/image/3.{{ site.image_api.draft.minor }}/#22-image-information-request-uri-syntax "2.2. Image Information Request URI"
 [image3-information-request]: {{ site.url }}{{ site.baseurl }}/api/image/3.{{ site.image_api.draft.minor }}/#51-image-information-request "5.1. Image Information Request"
 [image3-information]: {{ site.url }}{{ site.baseurl }}/api/image/3.{{ site.image_api.draft.minor }}/#5-image-information "5. Image Information"
+[image3-linking-properties]: {{ site.url }}{{ site.baseurl }}/api/image/3.{{ site.image_api.draft.minor }}/#57-linking-properties "5.7 Linking Properties"
 [image3-order-of-implementation]: {{ site.url }}{{ site.baseurl }}/api/image/3.{{ site.image_api.draft.minor }}/#46-order-of-implementation "4.6. Order of Implementation"
 [image3-profile-description]: {{ site.url }}{{ site.baseurl }}/api/image/3.{{ site.image_api.draft.minor }}/#56-extra-functionality "5.3 Profile Description"
 [image3-quality]: {{ site.url }}{{ site.baseurl }}/api/image/3.{{ site.image_api.draft.minor }}/#44-quality "4.4. Quality"
@@ -174,10 +175,12 @@
 [prezi3-ldce]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.draft.minor }}/#linked-data-context-and-extensions "Linked Data Context and Extensions"
 [prezi3-type]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.draft.minor }}/#type
 [prezi30-anno]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#annotation
-[prezi30-annopage]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#annotation-page
+[prezi30-annopage]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#55-annotation-page
+[prezi30-annocoll]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#58-annotation-collection
 [prezi30-appendixa]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#a-summary-of-property-requirements
 [prezi30-canvas]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#53-canvas
 [prezi30-change-log]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/change-log/ "Presentation API 3.0 Change Log"
+[prezi30-context-collisions]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#47-term-collisions-between-contexts 
 [prezi30-height]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#height "height property"
 [prezi30-homepage]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#homepage "homepage property"
 [prezi30-html]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#45-html-markup-in-property-values "Presentation API Section 4.4"

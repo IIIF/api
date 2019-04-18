@@ -1,8 +1,239 @@
 {
-  "@context": [
-    {
-      "@version": 1.1
+  "@context": {
+    "@version": 1.1,
+
+    "iiif_image": "http://iiif.io/api/image/3#",
+    "exif": "http://www.w3.org/2003/12/exif/ns#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "schema": "https://schema.org/",
+    "dctypes": "http://purl.org/dc/dcmitype/",
+    "iiif_prezi": "http://iiif.io/api/presentation/3#",
+
+    "Dataset": "dctypes:Dataset",
+    "Image": "dctypes:StillImage",
+    "Video": "dctypes:MovingImage",
+    "Audio": "dctypes:Sound",
+    "Text": "dctypes:Text",
+    "Service": "schema:WebAPI",
+    "ImageService3": "http://iiif.io/api/image/3#ImageService",
+
+    "id": "@id",
+    "type": "@type",
+
+    "protocol": {
+      "@id": "dcterms:type",
+      "@type": "@id"
     },
-    "http://iiif.io/api/presentation/3/combined-context.json"
-  ]
+    "profile": {
+      "@type": "@vocab",
+      "@id": "dcterms:conformsTo",
+      "@context": {
+	    "level0": "http://iiif.io/api/image/3/level0.json",
+    	"level1": "http://iiif.io/api/image/3/level1.json",
+    	"level2": "http://iiif.io/api/image/3/level2.json"
+      }
+    },
+    "height": {
+      "@id": "exif:height",
+      "@type": "xsd:integer"
+    },
+    "width": {
+      "@id": "exif:width",
+      "@type": "xsd:integer"
+    },
+    "maxWidth": {
+      "@id": "iiif_image:maxWidth",
+      "@type": "xsd:integer"
+    },
+    "maxHeight": {
+      "@id": "iiif_image:maxHeight",
+      "@type": "xsd:integer"
+    },
+    "maxArea": {
+      "@id": "iiif_image:maxArea",
+      "@type": "xsd:integer"
+    },
+
+    "sizes": {
+      "@id": "iiif_image:hasSize",
+      "@type": "@id",
+      "@container": "@set",
+      "@context": {
+	    "Size": "iiif_image:Size"
+      }
+    },
+    "tiles": {
+      "@id": "iiif_image:hasTile",
+      "@type": "@id",
+      "@container": "@set",
+      "@context": {	
+	    "Tile": "iiif_image:Tile"     	
+      }
+    },
+    "scaleFactors": {
+      "@id": "iiif_image:scaleFactor",
+      "@type": "xsd:integer",
+      "@container": "@set"
+    },
+    "preferredFormats": {
+        "@id": "iiif_image:preferredFormats",
+        "@container": "@list"
+    },
+    "extraQualities": {
+      "@id": "iiif_image:quality",
+      "@container": "@set"
+    },
+    "extraFormats": {
+      "@id": "iiif_image:format",
+      "@container": "@set"
+    },
+    "extraFeatures": {
+      "@id": "iiif_image:feature",
+      "@type": "@vocab",
+      "@container": "@set",
+      "@context": {
+	    "baseUriRedirect": "iiif_image:baseUriRedirectFeature",
+	    "canonicalLinkHeader": "iiif_image:canonicalLinkHeaderFeature",
+	    "cors": "iiif_image:corsFeature",
+	    "jsonldMediaType": "iiif_image:jsonLdMediaTypeFeature",
+	    "mirroring": "iiif_image:mirroringFeature",
+	    "profileLinkHeader": "iiif_image:profileLinkHeaderFeature",
+	    "regionByPct": "iiif_image:regionByPctFeature",
+	    "regionByPx": "iiif_image:regionByPxFeature",
+	    "regionSquare": "iiif_image:regionSquareFeature",
+	    "rotationArbitrary": "iiif_image:arbitraryRotationFeature",
+	    "rotationBy90s": "iiif_image:rotationBy90sFeature",
+	    "sizeByConfinedWh": "iiif_image:sizeByConfinedWHFeature",
+	    "sizeByH": "iiif_image:sizeByHFeature",
+	    "sizeByPct": "iiif_image:sizeByPctFeature",
+	    "sizeByW": "iiif_image:sizeByWFeature",
+	    "sizeByWh": "iiif_image:sizeByWHFeature",
+	    "sizeUpscaling": "iiif_image:sizeUpscalingFeature"	
+      }
+    },
+
+    "rights": {
+      "@type": "@id",
+      "@id": "dcterms:rights"
+    },
+
+    "label": {
+      "@id": "rdfs:label",
+      "@container": ["@language", "@set"],
+      "@context": {
+  	    "none": "@none"
+      }      
+    },
+    "format": {
+      "@id": "dc:format"
+    },
+    "seeAlso": {
+      "@type": "@id",
+      "@id": "rdfs:seeAlso",
+      "@container": "@set"
+    },
+
+    "partOf": {
+      "@id": "dcterms:partOf",
+      "@type": "@id",
+      "@container": "@set",
+      "@context": {
+      	"Collection": {
+      		"@id": "iiif_prezi:Collection",
+      		"@context": "http://iiif.io/api/presentation/3/context.json"
+      	},
+      	"Manifest": {
+      		"@id": "iiif_prezi:Manifest",
+      		"@context": "http://iiif.io/api/presentation/3/context.json"      		
+      	},
+      	"Canvas": {
+      		"@id": "iiif_prezi:Canvas",
+      		"@context": "http://iiif.io/api/presentation/3/context.json"      		
+      	},
+      	"Range": {
+      		"@id": "iiif_prezi:Range",
+      		"@context": "http://iiif.io/api/presentation/3/context.json"      		
+      	}
+      }
+    },
+
+    "service": {
+      "@type": "@id",
+      "@id": "schema:potentialAction",
+      "@container": "@set",
+      "@context": {
+	    "ImageService1": {
+	      "@id": "http://iiif.io/api/image/1#ImageService",
+	      "@context": [
+	        "http://iiif.io/api/image/1/context.json",
+	        {
+	          "id": null,
+	          "type": null
+	        }
+	      ]
+	    },
+	    "ImageService2": {
+	      "@id": "http://iiif.io/api/image/2#ImageService",
+	      "@context": [
+	        "http://iiif.io/api/image/2/context.json",
+	        {
+	          "id": null,
+	          "type": null
+	        }
+	      ]
+	    },
+	    "SearchService1": {
+	      "@id": "http://iiif.io/api/search/1#SearchService",
+	      "@context": [
+	        "http://iiif.io/api/search/1/context.json",
+	        {
+	          "id": null,
+	          "type": null
+	        }
+	      ]
+	    },
+	    "AutoCompleteService1": {
+	      "@id": "http://iiif.io/api/search/1#AutoCompleteService",
+	      "@context": [
+	        "http://iiif.io/api/search/1/context.json",
+	        {
+	          "id": null,
+	          "type": null
+	        }
+	      ]
+	    },
+	    "AuthCookieService1": {
+	      "@id": "http://iiif.io/api/auth/1#CookieService",
+	      "@context": [
+	        "http://iiif.io/api/auth/1/context.json",
+	        {
+	          "id": null,
+	          "type": null
+	        }
+	      ]
+	    },
+	    "AuthTokenService1": {
+	      "@id": "http://iiif.io/api/auth/1#TokenService",
+	      "@context": [
+	        "http://iiif.io/api/auth/1/context.json",
+	        {
+	          "id": null,
+	          "type": null
+	        }
+	      ]
+	    },
+	    "AuthLogoutService1": {
+	      "@id": "http://iiif.io/api/auth/1#LogoutService",
+	      "@context": [
+	        "http://iiif.io/api/auth/1/context.json",
+	        {
+	          "id": null,
+	          "type": null
+	        }
+	      ]
+	    }
+      }
+    }
+  }
 }
