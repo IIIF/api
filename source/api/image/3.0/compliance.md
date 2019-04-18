@@ -59,7 +59,7 @@ See also the note under [Size][image30-size] about combinations of Size and Regi
 | _`,h`_    | `sizeByH`           | ![optional][icon-opt] | ![required][icon-req] | ![required][icon-req] |
 | _`pct:n`_ | `sizeByPct`         | ![optional][icon-opt] | ![optional][icon-opt] | ![required][icon-req] |
 | _`!w,h`_  | `sizeByConfinedWh`  | ![optional][icon-opt] | ![optional][icon-opt] | ![required][icon-req] |
-| _`w,h`_   | `sizeByWh`          | ![optional][icon-opt] | ![optional][icon-opt] | ![required][icon-req] |
+| _`w,h`_   | `sizeByWh`          | ![optional][icon-opt] | ![optional][icon-req] | ![required][icon-req] |
 | _`^size`_ | `sizeUpscaling`     | ![optional][icon-opt] | ![optional][icon-opt] | ![optional][icon-opt] |
 {: .api-table}
 
