@@ -32,8 +32,7 @@ JSON-LD remains the core serialization of the Presentation API. For version 3.0,
 
 #### 1.1.2. Use Web Annotation Data Model
 
-Annotations remain a core feature of the Presentation API. Instead of the community specified Open Annotation model, version 3.0 adopts the W3C standard Web Annotation Data Model. The practical effects are limited but real, including changes to property names and classes. See issue [#496](https://github.com/IIIF/api/issues/496).
-
+Annotations remain a core feature of the Presentation API. Instead of the community specified Open Annotation model, version 3.0 adopts the W3C standard Web Annotation Data Model. The practical effects are limited but real, including changes to property names and classes, and introducing some slight inconsistencies between IIIF properties and Web Annotation Data Model properties. See issue [#496](https://github.com/IIIF/api/issues/496), [#1764](https://github.com/IIIF/api/issues/1764).
 
 ### 1.2. Property Naming and Semantics Changes
 
@@ -65,7 +64,7 @@ The `description` property was renamed to `summary` and the semantics changed to
 
 #### 1.2.7. Rename `related` to `homepage`
 
-Similar to the above changes where non-actionable links and content are put into `metadata`, the `related` property was renamed to `homepage` with more specific semantics of being the home page of the resource. Links to other resources instead go in to `metadata` as HTML. As the intent is to be able to allow `homepage` specific UI affordances, such as an icon, the cardinality was reduced to zero or one. See issues [#1286](https://github.com/IIIF/api/issues/1286) and [#1484](https://github.com/IIIF/api/issues/1484).
+Similar to the above changes where non-actionable links and content are put into `metadata`, the `related` property was renamed to `homepage` with more specific semantics of being the home page of the resource. Links to other resources instead go in to `metadata` as HTML. Multiple homepages are allowed per resource, but they should represent different language or format representations of the same content. See issues [#1286](https://github.com/IIIF/api/issues/1286), [#1484](https://github.com/IIIF/api/issues/1484), [#1760](https://github.com/IIIF/api/issues/1760).
 
 #### 1.2.8. Rename `contentLayer` to `supplementary`
 
@@ -78,6 +77,15 @@ Following the pattern of removing class names from property names when unnecessa
 #### 1.2.10. Rename `within` to `partOf`
 
 While renaming properties, `within` was renamed to `partOf` to follow the same naming convention in ActivityStreams and the Web Annotation Data Model. See issue [#1482](https://github.com/IIIF/api/issues/1482).
+
+#### 1.2.11. Specify interaction and inheritance model for `behavior` values
+
+The specification now mandates an inheritance model for behaviors across classes, and is clear about which behaviors can be asserted on the same resource. This clarifies the implementation expectations for clients and publishers alike, and prevents different implementers from making very different choices about how to present the same information. See issues [#1612](https://github.com/IIIF/api/issues/1612) and [#1643](https://github.com/IIIF/api/issues/1643).
+
+#### 1.2.12. Wrap `logo` in a structure with more information, introduce `provider` property
+
+Previously, the APIs allowed for a `logo` property for referencing the logos of institutions that somehow contributed or needed acknowledgement.  There was no way, however, to associate a label with the logo and this was magnified by the change from `attribution` to `requiredStatement`. The solution adopted is to introduce a `provider` property that has a full structure to represent information about providing people or organizations, including `logo`, `label`, `seeAlso`, `homepage` and others. See issues [#1639](https://github.com/IIIF/api/issues/1639), [#1698](https://github.com/IIIF/api/issues/1698), [#1759](https://github.com/IIIF/api/issues/1759), [#1777](https://github.com/IIIF/api/issues/1777).
+
 
 ### 1.3. Property Value Changes
 
@@ -92,7 +100,7 @@ The semantics of `thumbnail` were changed to allow for non-image content resourc
 
 #### 1.3.3. Use language map pattern for `label`, `value`, `summary`
 
-A new pattern has been adopted for all textual values of a JSON object with the language code as the key (or `@none` if the language is not known) and the content as a string within an array as the value.  This pattern is much easier to implement and use than the previous `@value` / `@language` tuples pattern. The pattern relies on features that have been introduced by the JSON-LD Community Group, and are not yet standardized. See issue [#755](https://github.com/IIIF/api/issues/755).
+A new pattern has been adopted for all textual values of a JSON object with the language code as the key (or `none` if the language is not known) and the content as a string within an array as the value.  This pattern is much easier to implement and use than the previous `@value` / `@language` tuples pattern. See issues [#755](https://github.com/IIIF/api/issues/755), [#1739](https://github.com/IIIF/api/issues/1739).
 
 #### 1.3.4. Always require arrays if property can have multiple values
 
@@ -109,6 +117,8 @@ For consistency, and to allow all content to be external to the Manifest, all An
 #### 1.3.7. Change requirements for `navDate` value
 
 Previously the value of `navDate` was required to be in the UTC timezone. However this meant that the navigation date text generated was sometimes not the same date as the resource due to when midnight occurs in the local timezone versus in UTC. The solution adopted was to allow any timezone to be given in the value. See issue [#1296](https://github.com/IIIF/api/issues/1296).
+
+
 
 ### 1.4. Classes Changes
 
@@ -149,9 +159,11 @@ With the clarification that Collections are exclusively for navigation and not d
 
 #### 1.5.4. Requirements of `id` and `type`
 
-The `type` property with a single value is now required on all resources, including content resources and services. This serves several purposes, including facilitating object mapping code libraries, clarity about the rendering needs for the resource given the new inclusion of audio and video as core content, and forcing the serialization to generate a JSON object for the resource, not just a string with the resource's URI.
+The `type` property with a single value is now required on all resources, including content resources and services. This serves several purposes, including facilitating object mapping code libraries, clarity about the rendering needs for the resource given the new inclusion of audio and video as core content, and forcing the serialization to generate a JSON object for the resource, not just a string with the resource's URI. The values of `type` were enumerated for content resources. See issues [#1676](https://github.com/IIIF/api/issues/1676), [#1677](https://github.com/IIIF/api/issues/1677), [#1147](https://github.com/IIIF/api/issues/1147).
 
-The `id` property is now also required for every class other than embedded Annotation Pages.  This brings the specification into alignment with the `id` requirements from the Web Annotation model. 
+The `id` property is now also required for every class.  This brings the specification into alignment with the `id` requirements from the Web Annotation model.  See issue [#1607](https://github.com/IIIF/api/issues/1607)
+
+
 
 ## 2. Non-Breaking Changes
 
@@ -161,9 +173,9 @@ The `id` property is now also required for every class other than embedded Annot
 
 Canvases may be treated as content resources for the purposes of annotating on to other Canvases.  For example, an excerpt of a Canvas that contains a video resource and annotations representing subtitles may be annotated on to another Canvas; the relative spatial and temporal alignment of the video and subtitles will be maintained. See issue [#1191](https://github.com/IIIF/api/issues/1191), previously [#42](https://github.com/IIIF/api/issues/42).
 
-#### 2.1.2. Add `posterCanvas` for associated content
+#### 2.1.2. Add `accompanyingCanvas`, `placeholderCanvas` for associated content
 
-Many time-based media presentations have additional content associated with the object, such as either a poster that is rendered while video is buffering or on a selection user interface, or images that might be displayed while an audio-only object is being rendered.  The addition of `posterCanvas` allows this content to be associated with the resource while not being part of the object directly. The rendering requirements for `posterCanvas` are different from Canvases that represent the object. See issue [#1263](https://github.com/IIIF/api/issues/1263).
+Many time-based media presentations have additional content associated with the object, such as either a poster that is rendered while video is buffering or on a selection user interface (`placeholderCanvas`) , or images that might be displayed while an audio-only object is being rendered (`accompanyingCanvas`).  The addition of these properties allows the content to be associated with the resource while not being part of the object directly. The rendering requirements for these Canvases are different from Canvases that represent the object, including that they cannot have their own accompanying or placeholder Canvases in a recursive structure. See issues [#1263](https://github.com/IIIF/api/issues/1263), [#1605](https://github.com/IIIF/api/issues/1605), [#1615](https://github.com/IIIF/api/issues/1615).
 
 #### 2.1.3. Add `duration` on Canvas
 
@@ -173,17 +185,22 @@ In order to have time-based media associated with a Canvas, the Canvas needs to 
 
 The `timeMode` indicates whether the client should `trim`, `scale`, or `loop` playback of content resources with a time component when those resources are not identical in length to the duration of the portion of the Canvas onto which they are annotated.  See issue [#1075](https://github.com/IIIF/api/issues/1075).
 
-#### 2.1.5. Add `auto-advance` for `behavior`
+#### 2.1.5. Add `auto-advance`, `no-auto-advance` for `behavior`
 
-In some cases it may be desirable to have playback advance automatically from one Canvas to the next, such as when Canvases represent tracks of an album; the `auto-advance` `behavior` enables this. See issue [#1583](https://github.com/IIIF/api/issues/1583).
+In some cases it may be desirable to have playback advance automatically from one Canvas, or part thereof, to the next, such as when Canvases represent tracks of an album; the `auto-advance` `behavior` enables this. The `no-auto-advance` behavior would then turn it off, if `auto-advance` has been inherited. See issues [#1583](https://github.com/IIIF/api/issues/1583), [#1632](https://github.com/IIIF/api/issues/1632).
 
 #### 2.1.6. Add `thumbnail-nav` for `behavior`
 
 Ranges may be used to present navigation based on thumbnails, such as video keyframes displayed in a timeline.  The`thumbnail-nav` `behavior` on a Range indicates it is not to be displayed in a conventional table of contents. See issue [#1259](https://github.com/IIIF/api/issues/1259).
 
-#### 2.1.7. Add `repeat` for `behavior`
+#### 2.1.7. Add `repeat`, `no-repeat` for `behavior`
 
-The `repeat` `behavior` indicates that the playback order of a Collection or Manifest containing temporal Canvases should return to the first Canvas after reaching the end of the final Canvas of the resource.  See issue [#1328](https://github.com/IIIF/api/issues/1328).
+The `repeat` `behavior` indicates that the playback order of a Collection or Manifest containing temporal Canvases should return to the first Canvas after reaching the end of the final Canvas of the resource.  The `no-repeat` behavior would then turn it off, if `repeat` has been inherited. See issue [#1328](https://github.com/IIIF/api/issues/1328).
+
+
+#### 2.1.8. Reference external Selectors
+
+New content type specific Selectors for the Web Annotation Data Model are needed in order to refer to points (rather than ranges) within image, audio and video content. Similarly, there is a need to select all Audio or Visual content from within a multi-media resource. These Selectors are defined in an [annex](https://iiif.io/api/annex/openannotation/), and referenced from the specification. See issue [#1593](https://github.com/IIIF/api/issues/1593).
 
 
 ### 2.2. Additional Features
@@ -194,7 +211,7 @@ External resources referenced by `homepage`, `rendering`, `rights`, and `partOf`
 
 #### 2.2.2. Add `no-nav`, `unordered`, `hidden` for `behavior`
 
-A number of behaviors are introduced to accommodate new user interaction requirements.  The `no-nav` `behavior` can be used to suppress the display of a Range that is not intended for user navigation.   The `hidden` `behavior` is valid on Annotation Collections, Annotation Pages, Annotations, Specific Resources and Choices and  indicates that the resource should by default not be rendered.   The `unordered` `behavior` on Ranges and Manifests indicates that the resource’s Canvases do not have an inherent order. See issues [#1070](https://github.com/IIIF/api/issues/1070) and [#1417](https://github.com/IIIF/api/issues/1417).
+A number of behaviors are introduced to accommodate new user interaction requirements.  The `no-nav` `behavior` can be used to suppress the display of a Range that is not intended for user navigation.   The `hidden` `behavior` is valid on Annotation Collections, Annotation Pages, Annotations, Specific Resources and Choices and  indicates that the resource should by default not be rendered.   The `unordered` `behavior` indicates that the resource’s Canvases do not have an inherent order. See issues [#1070](https://github.com/IIIF/api/issues/1070), [#1417](https://github.com/IIIF/api/issues/1417), [#1679](https://github.com/IIIF/api/issues/1679).
 
 #### 2.2.3. Add `together` for `behavior`
 
@@ -202,7 +219,11 @@ The `together` `behavior`, valid on Collections, was introduced to indicate to c
 
 #### 2.2.4. Add `supplementing` for `motivation`
 
-The `painting` `motivation` does not permit sufficient flexibility in the display of annotation content derived from the Canvas, such as a transcription of text in an image or the words spoken in an audio representation.   Annotations with the `motivation` value `supplementing` may be displayed as part of the Canvas representation or in a separate area of the user interface.  See issues [#1258](https://github.com/IIIF/api/issues/1258) and [#1480](https://github.com/IIIF/api/issues/1480).
+The `painting` `motivation` does not permit sufficient flexibility in the display of annotation content derived from the Canvas, such as a transcription of text in an image or the words spoken in an audio representation.   Annotations with the `motivation` value `supplementing` may be displayed as part of the Canvas representation or in a separate area of the user interface.  See issues [#1258](https://github.com/IIIF/api/issues/1258), [#1480](https://github.com/IIIF/api/issues/1480), [#1738](https://github.com/IIIF/api/issues/1738).
+
+#### 2.2.5. Allow `paged` behavior on Collections with `multi-part` behavior
+
+Collections with the `multi-part` behavior often represent bound volumes, and thus are now allowed to have the `paged` behavior. See issue [#1680](https://github.com/IIIF/api/issues/1680).
 
 
 ### 2.3. Protocol Features
@@ -218,6 +239,14 @@ The URI patterns given in earlier versions were removed as unhelpful. They were 
 #### 2.3.3. Allow external Ranges
 
 In previous versions, Ranges were required to be embedded within the Manifest.  With the removal of Sequences, this means that Ranges must be allowed to be referenced resources from the Manifest and thus separately requested.  An additional use case comes from the AV work, where a Range could give a large set of thumbnails for every keyframe of a video to be presented on a scrubbing bar (see the `thumbnail-nav` value for `behavior`). It would be overwhelming to include this in the Manifest directly. See issue [#1218](https://github.com/IIIF/api/issues/1218).
+
+#### 2.3.4. Recommend HEAD functionality
+
+Implementation of the HTTP HEAD method is now recommended for Presentation API resources. See issue [#1609](https://github.com/IIIF/api/issues/1609).
+
+#### 2.3.5. Clarify content negotiation expectations
+
+Expectations around the implementation of content negotiation were added. See issue [#1685](https://github.com/IIIF/api/issues/1685).
 
 
 ## 3. Editorial Changes
@@ -244,6 +273,15 @@ Previously it had been noted in an implementation note that clients might encoun
 
 Some organizations had a desire to include a web page between the manifest and the `rendering` resource, such as a terms and conditions for download agreement. It was clarified that this is not allowed, and instead the IIIF Authentication API would serve this use case. See issue [#1155](https://github.com/IIIF/api/issues/1155).
 
+#### 3.1.6. Clarify `multi-part` collections can have sub-collections
+
+The text was not clear as to whether Collections can be members of a Collection that has the behavior value `multi-part`, or if only Manifests are valid.  It was clarified that both Manifests and Collections can be present. See issue [#1633](https://github.com/IIIF/api/issues/1633)
+
+#### 3.1.7. Clarify case-sensitivity of terms
+
+It was clarified that all terms in the JSON are case sensitive, and must be represented exactly as given in the specification. See issue [#1703](https://github.com/IIIF/api/issues/1703)
+
+
 ### 3.2. Style
 
 #### 3.2.1. Restructure document
@@ -252,11 +290,17 @@ The document was again fundamentally restructured for clarity, and to remove non
 
 #### 3.2.2. Consistency
 
-The use of `code` font and capitalization was made consistent for class names, property names and values when used in prose.
+The use of `code` font and capitalization was made consistent for class names, property names and values when used in prose. References to them in lists, especially for implementation requirements, were made consistent.
 
 #### 3.2.3. Visual Appearance
 
-The CSS and icons used in the requirements tables were improved.
+The CSS and icons used in the requirements tables were improved, and the information updated.
+
+#### 3.2.4. Examples Improved
+
+The examples were improved to be more intuitive, and cover more of the features available.
+
+
 
 [prezi30-changelog-long-texts]: #long-texts
 
