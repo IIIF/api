@@ -391,7 +391,7 @@ The quality parameter determines whether the image is delivered in color, graysc
 
 The `default` quality exists to support [level 0 compliant implementations][image30-compliance-quality] that may not know the qualities of individual images in their collections. It also provides a convenience for clients that know the values for all other parameters of a request except the quality (e.g. `.../full/120,80/90/{quality}.png` to request a thumbnail) in that a preliminary image information request that would only serve to find out which qualities are available can be avoided.
 
-A quality value that is unsupported _SHOULD_ result in a 400 (Bad Request) status code.
+Regardless of level of compliance, services that make additional qualities beyond `default` available _MUST_ list those qualities in the [`extraQualities` property][image3-extra-functionality] of the response to the [Image Information Request][image3-information]. A request for an image with an unsupported quality value _SHOULD_ return a 400 (Bad Request) status code.
 
 Examples:
 
@@ -675,7 +675,7 @@ The JSON response _MAY_ also contain properties that describe additional functio
 
 | Property   | Required? | Description |
 | ---------- | --------- | ----------- |
-| `extraQualities` | Optional | An array of strings that can be used as the quality parameter, in addition to the ones specified in the referenced profile. |
+| `extraQualities` | Optional | An array of strings that can be used as the quality parameter, in addition to `default`. |
 | `extraFormats` | Optional | An array of strings that can be used as the format parameter, in addition to the ones specified in the referenced profile. |
 | `extraFeatures` | Optional | An array of strings identifying features supported by the service, in addition to the ones specified in the referenced profile. These strings are defined either in the [table][image30-features-table] below or by [registering an extension][extensions]. |
 {: .api-table}
