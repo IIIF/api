@@ -35,7 +35,7 @@ This document aims to describe, rationalize, and document the design patterns th
 
 The patterns do not speak to the process by which the specifications are written and managed over time.  For notes on the adopted approaches for these, please see:
 
-  * [Editorial Process][process]: The community process of discussion, and the editorial process of writing, the specifications.
+  * [Editorial Process][editorial-process]: The community process of discussion, and the editorial process of writing, the specifications.
   * [Semantic Versioning][iiif-semver]: The interpretation of the semantic versioning pattern for managing change of APIs in a responsible and responsive manner.
 
 
@@ -214,7 +214,7 @@ Flags in the IIIF specifications, such as `timeMode` or `behavior` are actually 
 [rfc-2119]: https://www.ietf.org/rfc/rfc2119.txt "RFC 2119"
 [spec-disclaimer]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/disclaimer/ "Specification Disclaimer"
 
-[process]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/editors/#community-process
+[editorial-process]: {{ page.webprefix }}/community/policy/editorial/#community-process
 [services]: {{ site.url }}{{ site.baseurl }}/api/annex/services/
 [image-api]: {{ site.url }}{{ site.baseurl }}/api/image
 [presentation-api]: {{ site.url }}{{ site.baseurl }}/api/presentation

@@ -1,0 +1,79 @@
+{
+  "@context": [
+  	{
+      "@version": 1.1
+  	},
+  	"https://www.w3.org/ns/activitystreams",
+  	{
+	    "@version": 1.1,
+      "as": "https://www.w3.org/ns/activitystreams#",
+
+      "OrderedCollection": {
+        "@id": "as:OrderedCollection",
+        "@context": {
+          "partOf": {
+            "@id": "dcterms:partOf",
+            "@type": "@id"
+          }
+        }
+      },
+
+      "Create": {
+        "@id": "as:Create",
+        "@context": {
+          "partOf": {
+            "@id": "dcterms:partOf",
+            "@type": "@id"
+          }
+        }
+      },
+
+      "Update": {
+        "@id": "as:Update",
+        "@context": {
+          "partOf": {
+            "@id": "dcterms:partOf",
+            "@type": "@id"
+          }
+        }
+      },
+
+      "Delete": {
+        "@id": "as:Delete",
+        "@context": {
+          "partOf": {
+            "@id": "dcterms:partOf",
+            "@type": "@id"
+          }
+        }
+      },
+
+	    "object": {
+  		  "@id": "as:object",
+  		  "@type": "@id",
+  		  "@context": {
+	        "prezi": "http://iiif.io/api/presentation/3#",
+	        "img": "http://iiif.io/api/image/3#",
+  		    "oa": "http://www.w3.org/ns/oa#",
+		      "dctypes": "http://purl.org/dc/dcmitype/",
+
+	  	    "Collection": "prezi:Collection",
+	  	    "Manifest": "prezi:Manifest",
+	  	    "Range": "prezi:Range",
+	  	    "Canvas": "prezi:Canvas",
+	  	    "Annotation": "oa:Annotation",
+	  	    "AnnotationPage": "as:OrderedCollectionPage",
+	  	    "AnnotationCollection": "as:OrderedCollection",
+
+          "Dataset": "dctypes:Dataset",
+          "Image": "dctypes:StillImage",
+          "Video": "dctypes:MovingImage",
+          "Audio": "dctypes:Sound",
+          "Text": "dctypes:Text",
+          "ImageService3": "img:ImageService",
+          "ImageService2": "http://iiif.io/api/image/2#ImageService"
+		    }
+	    }
+  	}
+  ]
+}
