@@ -64,7 +64,7 @@ The `description` property was renamed to `summary` and the semantics changed to
 
 #### 1.2.7. Rename `related` to `homepage`
 
-Similar to the above changes where non-actionable links and content are put into `metadata`, the `related` property was renamed to `homepage` with more specific semantics of being the home page of the resource. Links to other resources instead go in to `metadata` as HTML. Multiple homepages are allowed per resource, but they should represent different language or format representations of the same content. See issues [#1286](https://github.com/IIIF/api/issues/1286), [#1484](https://github.com/IIIF/api/issues/1484), [#1760](https://github.com/IIIF/api/issues/1760).
+Similar to the above changes where non-actionable links and content are put into `metadata`, the `related` property was renamed to `homepage` with more specific semantics of being the home page of the resource. Links to other resources instead go in to `metadata` as HTML. Multiple homepages are allowed per resource, but they should represent different language or format representations of the same content. See issues [#1286](https://github.com/IIIF/api/issues/1286), [#1484](https://github.com/IIIF/api/issues/1484), [#1760](https://github.com/IIIF/api/issues/1760). Approved by [trc#4](https://github.com/IIIF/trc/issues/4).
 
 #### 1.2.8. Rename `contentLayer` to `supplementary`
 
@@ -80,11 +80,11 @@ While renaming properties, `within` was renamed to `partOf` to follow the same n
 
 #### 1.2.11. Specify interaction and inheritance model for `behavior` values
 
-The specification now mandates an inheritance model for behaviors across classes, and is clear about which behaviors can be asserted on the same resource. This clarifies the implementation expectations for clients and publishers alike, and prevents different implementers from making very different choices about how to present the same information. See issues [#1612](https://github.com/IIIF/api/issues/1612) and [#1643](https://github.com/IIIF/api/issues/1643).
+The specification now mandates an inheritance model for behaviors across classes, and is clear about which behaviors can be asserted on the same resource. This clarifies the implementation expectations for clients and publishers alike, and prevents different implementers from making very different choices about how to present the same information. See issues [#1612](https://github.com/IIIF/api/issues/1612) and [#1643](https://github.com/IIIF/api/issues/1643). Approved by [trc#13](https://github.com/IIIF/trc/issues/13) and [trc#16](https://github.com/IIIF/trc/issues/16).
 
 #### 1.2.12. Wrap `logo` in a structure with more information, introduce `provider` property
 
-Previously, the APIs allowed for a `logo` property for referencing the logos of institutions that somehow contributed or needed acknowledgement.  There was no way, however, to associate a label with the logo and this was magnified by the change from `attribution` to `requiredStatement`. The solution adopted is to introduce a `provider` property that has a full structure to represent information about providing people or organizations, including `logo`, `label`, `seeAlso`, `homepage` and others. See issues [#1639](https://github.com/IIIF/api/issues/1639), [#1698](https://github.com/IIIF/api/issues/1698), [#1759](https://github.com/IIIF/api/issues/1759), [#1777](https://github.com/IIIF/api/issues/1777).
+Previously, the APIs allowed for a `logo` property for referencing the logos of institutions that somehow contributed or needed acknowledgement.  There was no way, however, to associate a label with the logo and this was magnified by the change from `attribution` to `requiredStatement`. The solution adopted is to introduce a `provider` property that has a full structure to represent information about providing people or organizations, including `logo`, `label`, `seeAlso`, `homepage` and others. See issues [#1639](https://github.com/IIIF/api/issues/1639), [#1698](https://github.com/IIIF/api/issues/1698), [#1759](https://github.com/IIIF/api/issues/1759), [#1777](https://github.com/IIIF/api/issues/1777). Approved by [trc#3](https://github.com/IIIF/trc/issues/3) and [trc#7](https://github.com/IIIF/trc/issues/7).
 
 
 ### 1.3. Property Value Changes
@@ -100,7 +100,7 @@ The semantics of `thumbnail` were changed to allow for non-image content resourc
 
 #### 1.3.3. Use language map pattern for `label`, `value`, `summary`
 
-A new pattern has been adopted for all textual values of a JSON object with the language code as the key (or `none` if the language is not known) and the content as a string within an array as the value.  This pattern is much easier to implement and use than the previous `@value` / `@language` tuples pattern. See issues [#755](https://github.com/IIIF/api/issues/755), [#1739](https://github.com/IIIF/api/issues/1739).
+A new pattern has been adopted for all textual values of a JSON object with the language code as the key (or `none` if the language is not known) and the content as a string within an array as the value.  This pattern is much easier to implement and use than the previous `@value` / `@language` tuples pattern. See issues [#755](https://github.com/IIIF/api/issues/755), [#1739](https://github.com/IIIF/api/issues/1739). Approved by [trc#2](https://github.com/IIIF/trc/issues/2) and [trc#5](https://github.com/IIIF/trc/issues/5).
 
 #### 1.3.4. Always require arrays if property can have multiple values
 
@@ -117,7 +117,6 @@ For consistency, and to allow all content to be external to the Manifest, all An
 #### 1.3.7. Change requirements for `navDate` value
 
 Previously the value of `navDate` was required to be in the UTC timezone. However this meant that the navigation date text generated was sometimes not the same date as the resource due to when midnight occurs in the local timezone versus in UTC. The solution adopted was to allow any timezone to be given in the value. See issue [#1296](https://github.com/IIIF/api/issues/1296).
-
 
 
 ### 1.4. Classes Changes
@@ -161,8 +160,7 @@ With the clarification that Collections are exclusively for navigation and not d
 
 The `type` property with a single value is now required on all resources, including content resources and services. This serves several purposes, including facilitating object mapping code libraries, clarity about the rendering needs for the resource given the new inclusion of audio and video as core content, and forcing the serialization to generate a JSON object for the resource, not just a string with the resource's URI. The values of `type` were enumerated for content resources. See issues [#1676](https://github.com/IIIF/api/issues/1676), [#1677](https://github.com/IIIF/api/issues/1677), [#1147](https://github.com/IIIF/api/issues/1147).
 
-The `id` property is now also required for every class.  This brings the specification into alignment with the `id` requirements from the Web Annotation model.  See issue [#1607](https://github.com/IIIF/api/issues/1607)
-
+The `id` property is now also required for every class.  This brings the specification into alignment with the `id` requirements from the Web Annotation model.  See issue [#1607](https://github.com/IIIF/api/issues/1607). Approved by [trc#9](https://github.com/IIIF/trc/issues/9).
 
 
 ## 2. Non-Breaking Changes
@@ -175,7 +173,7 @@ Canvases may be treated as content resources for the purposes of annotating on
 
 #### 2.1.2. Add `accompanyingCanvas`, `placeholderCanvas` for associated content
 
-Many time-based media presentations have additional content associated with the object, such as either a poster that is rendered while video is buffering or on a selection user interface (`placeholderCanvas`) , or images that might be displayed while an audio-only object is being rendered (`accompanyingCanvas`).  The addition of these properties allows the content to be associated with the resource while not being part of the object directly. The rendering requirements for these Canvases are different from Canvases that represent the object, including that they cannot have their own accompanying or placeholder Canvases in a recursive structure. See issues [#1263](https://github.com/IIIF/api/issues/1263), [#1605](https://github.com/IIIF/api/issues/1605), [#1615](https://github.com/IIIF/api/issues/1615).
+Many time-based media presentations have additional content associated with the object, such as either a poster that is rendered while video is buffering or on a selection user interface (`placeholderCanvas`), or images that might be displayed while an audio-only object is being rendered (`accompanyingCanvas`).  The addition of these properties allows the content to be associated with the resource while not being part of the object directly. The rendering requirements for these Canvases are different from Canvases that represent the object, including that they cannot have their own accompanying or placeholder Canvases in a recursive structure. See issues [#1263](https://github.com/IIIF/api/issues/1263), [#1605](https://github.com/IIIF/api/issues/1605), [#1615](https://github.com/IIIF/api/issues/1615). Approved by [trc#8](https://github.com/IIIF/trc/issues/8).
 
 #### 2.1.3. Add `duration` on Canvas
 
@@ -187,7 +185,7 @@ The `timeMode` indicates whether the client should `trim`, `scale`, or `loop` pl
 
 #### 2.1.5. Add `auto-advance`, `no-auto-advance` for `behavior`
 
-In some cases it may be desirable to have playback advance automatically from one Canvas, or part thereof, to the next, such as when Canvases represent tracks of an album; the `auto-advance` `behavior` enables this. The `no-auto-advance` behavior would then turn it off, if `auto-advance` has been inherited. See issues [#1583](https://github.com/IIIF/api/issues/1583), [#1632](https://github.com/IIIF/api/issues/1632).
+In some cases it may be desirable to have playback advance automatically from one Canvas, or part thereof, to the next, such as when Canvases represent tracks of an album; the `auto-advance` `behavior` enables this. The `no-auto-advance` behavior would then turn it off, if `auto-advance` has been inherited. See issues [#1583](https://github.com/IIIF/api/issues/1583), [#1632](https://github.com/IIIF/api/issues/1632). Approved by [trc#17](https://github.com/IIIF/trc/issues/17).
 
 #### 2.1.6. Add `thumbnail-nav` for `behavior`
 
@@ -200,7 +198,7 @@ The `repeat` `behavior` indicates that the playback order of a Collection or Man
 
 #### 2.1.8. Reference external Selectors
 
-New content type specific Selectors for the Web Annotation Data Model are needed in order to refer to points (rather than ranges) within image, audio and video content. Similarly, there is a need to select all Audio or Visual content from within a multi-media resource. These Selectors are defined in an [annex](https://iiif.io/api/annex/openannotation/), and referenced from the specification. See issue [#1593](https://github.com/IIIF/api/issues/1593).
+New content type specific Selectors for the Web Annotation Data Model are needed in order to refer to points (rather than ranges) within image, audio and video content. Similarly, there is a need to select all Audio or Visual content from within a multi-media resource. These Selectors (`PointSelector`, `AudioContentSelector`, `VideoContentSelector`) are defined in an [annex](https://iiif.io/api/annex/openannotation/), and referenced from the specification. See issue [#1593](https://github.com/IIIF/api/issues/1593).
 
 
 ### 2.2. Additional Features
@@ -211,7 +209,7 @@ External resources referenced by `homepage`, `rendering`, `rights`, and `partOf`
 
 #### 2.2.2. Add `no-nav`, `unordered`, `hidden` for `behavior`
 
-A number of behaviors are introduced to accommodate new user interaction requirements.  The `no-nav` `behavior` can be used to suppress the display of a Range that is not intended for user navigation.   The `hidden` `behavior` is valid on Annotation Collections, Annotation Pages, Annotations, Specific Resources and Choices and  indicates that the resource should by default not be rendered.   The `unordered` `behavior` indicates that the resource’s Canvases do not have an inherent order. See issues [#1070](https://github.com/IIIF/api/issues/1070), [#1417](https://github.com/IIIF/api/issues/1417), [#1679](https://github.com/IIIF/api/issues/1679).
+A number of behaviors are introduced to accommodate new user interaction requirements.  The `no-nav` `behavior` can be used to suppress the display of a Range that is not intended for user navigation.   The `hidden` `behavior` is valid on Annotation Collections, Annotation Pages, Annotations, Specific Resources and Choices and  indicates that the resource should by default not be rendered.   The `unordered` `behavior` indicates that the resource’s Canvases do not have an inherent order. See issues [#1070](https://github.com/IIIF/api/issues/1070), [#1417](https://github.com/IIIF/api/issues/1417), [#1679](https://github.com/IIIF/api/issues/1679). Approved by [trc#14](https://github.com/IIIF/trc/issues/14).
 
 #### 2.2.3. Add `together` for `behavior`
 
@@ -223,7 +221,7 @@ The `painting` `motivation` does not permit sufficient flexibility in the displa
 
 #### 2.2.5. Allow `paged` behavior on Collections with `multi-part` behavior
 
-Collections with the `multi-part` behavior often represent bound volumes, and thus are now allowed to have the `paged` behavior. See issue [#1680](https://github.com/IIIF/api/issues/1680).
+Collections with the `multi-part` behavior often represent bound volumes, and thus are now allowed to have the `paged` behavior. See issue [#1680](https://github.com/IIIF/api/issues/1680). Approved by [trc#15](https://github.com/IIIF/trc/issues/15).
 
 
 ### 2.3. Protocol Features
@@ -242,7 +240,7 @@ In previous versions, Ranges were required to be embedded within the Manifest.  
 
 #### 2.3.4. Recommend HEAD functionality
 
-Implementation of the HTTP HEAD method is now recommended for Presentation API resources. See issue [#1609](https://github.com/IIIF/api/issues/1609).
+Implementation of the HTTP HEAD method is now recommended for Presentation API resources. See issue [#1609](https://github.com/IIIF/api/issues/1609). Approved by [trc#11](https://github.com/IIIF/trc/issues/11).
 
 #### 2.3.5. Clarify content negotiation expectations
 
@@ -275,7 +273,7 @@ Some organizations had a desire to include a web page between the manifest and t
 
 #### 3.1.6. Clarify `multi-part` collections can have sub-collections
 
-The text was not clear as to whether Collections can be members of a Collection that has the behavior value `multi-part`, or if only Manifests are valid.  It was clarified that both Manifests and Collections can be present. See issue [#1633](https://github.com/IIIF/api/issues/1633)
+The text was not clear as to whether Collections can be members of a Collection that has the behavior value `multi-part`, or if only Manifests are valid.  It was clarified that both Manifests and Collections can be present. See issue [#1633](https://github.com/IIIF/api/issues/1633). Approved by [trc#10](https://github.com/IIIF/trc/issues/10).
 
 #### 3.1.7. Clarify case-sensitivity of terms
 
