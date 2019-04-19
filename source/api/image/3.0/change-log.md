@@ -118,7 +118,7 @@ See issue [#879](https://github.com/IIIF/api/issues/879).
 
 The `logo` property in both the [Presentation API version 2.1][prezi21] and [Image API version 2.1][image21] lacked sufficient properties for distinguishing between the label for the organization that has the logo, and the label for logo itself. There were additional use cases for having more metadata about the source/provider of the image, and internationalized versions of that metadata. The `provider` property was introduced to solve these use cases.
 
-See issues [#1639](https://github.com/IIIF/api/issues/1639), [#1735](https://github.com/IIIF/api/issues/1735), and [#1760](https://github.com/IIIF/api/issues/1760).
+See issues [#1639](https://github.com/IIIF/api/issues/1639), [#1735](https://github.com/IIIF/api/issues/1735), [#1760](https://github.com/IIIF/api/issues/1760), and [#1787](https://github.com/IIIF/api/issues/1787).
 
 ### 1.3. Compliance Requirements
 
