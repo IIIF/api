@@ -65,16 +65,11 @@ These properties were renamed to enable Javascript developers to use the "dot no
 
 See issue [#590](https://github.com/IIIF/api/issues/590).
 
-#### 1.2.2. Rename `attribution` to `requiredStatement`, allow `label`+`value`
-{: requiredStatement}
+#### 1.2.2. Remove `attribution` and `logo`
 
-The `attribution` property could not specify the label to render with the value, and thus clients typically used "Attribution". This was not able to be internationalized, nor changed in contexts where "Attribution" has specific meaning (such as for artworks, where the attribution is assignment of the creator). The property was renamed to `requiredStatement` to remove the rights-specific semantics, and the structure was changed to allow both `label` and `value` to allow for appropriate labeling with internationalization.
+The `attribution` and `logo` properties have been removed to better separate concerns between the Image and Presentation APIs, and to reduce the complexity of client applications. Both properties continue to be available in the [Presentation API][prezi30].
 
-See issues [#1287](https://github.com/IIIF/api/issues/1287) and [#1415](https://github.com/IIIF/api/issues/1415).
-
-Additionally, in the [Presentation API][prezi3] and here, a new pattern has been adopted for all textual values of a JSON object with the language code as the key (or `@none` if the language is not known) and the content as a string within an array as the value. This applies only to the `requiredStatement` property in the Image API. The pattern relies on features that have been introduced by the JSON-LD Community Group, and are not yet standardized.
-
-See issue [#755](https://github.com/IIIF/api/issues/755).
+See issue [#1787](https://github.com/IIIF/api/issues/1787). Approved by [trc#12](https://github.com/IIIF/trc/issues/12).
 
 #### 1.2.3. Rename `license` to `rights`, allow only a single value
 
@@ -82,43 +77,37 @@ The `license` property was renamed to `rights` to accommodate both rights statem
 
 See issues [#644](https://github.com/IIIF/api/issues/644) and [#1479](https://github.com/IIIF/api/issues/1479).
 
-#### 1.2.4. Require an array of JSON objects for the `logo` property
-
-Previous versions of the specification allowed the `logo` property have a single value or an array value, each with either string or JSON object contents. The value of the `logo` property must now always be an array of JSON objects, even if there is only one object. This reduces the type checking needed on values by clients as they can always iterate over the array, improving the developer experience.
-
-See issue [#1131](https://github.com/IIIF/api/issues/1131).
-
-#### 1.2.5. Require the `type` property on all resources, with new values
+#### 1.2.4. Require the `type` property on all resources, with new values
 
 The `type` property with a single value is now required on all resources, including content resources and services. This serves several purposes, including facilitating object mapping code libraries, and forcing the serialization to generate a JSON object for the resource, not just a string with the resource's URI. The values for `type` have been changed to version-specific strings that avoid the namespace structure, for example from `iiif:Image` in 2.1 to `ImageService3` in 3.0. Note that the `@type` property is used only when referring to object from older specifications such as the Authentication API 1.0.
 
-#### 1.2.6. Change the `profile` property to take one compliance level
+#### 1.2.5. Change the `profile` property to take one compliance level
 
 The `profile` property must have a single value that is a compliance level string. The property value must not be an array as in previous versions, and features supported beyond those specified are instead described in the new `extraFeatures` property.
 
 See issues [#1275](https://github.com/IIIF/api/issues/1275), [#1373](https://github.com/IIIF/api/issues/1373), [#1554](https://github.com/IIIF/api/issues/1554), and [#1013](https://github.com/IIIF/api/issues/1013).
 
-#### 1.2.7. Change the `service` property value to an array of objects
+#### 1.2.6. Change the `service` property value to an array of objects
 
 In version 2.1 the value of the `service` property could be a single value or an array of objects, the value must now be an array of objects.
 
 See issue [#1131](https://github.com/IIIF/api/issues/1131).
 
-#### 1.2.8. Remove feature names `sizeByWhListed` and `sizeByForcedWh`
+#### 1.2.7. Remove feature names `sizeByWhListed` and `sizeByForcedWh`
 
 Per the [deprecation warning][image21-dep-sizes] in the previous version, the feature names `sizeByWhListed` and `sizeByForcedWh` have been removed. See PR [#727](https://github.com/IIIF/api/pull/727).
 
-#### 1.2.9. Remove feature name `sizeByDistortedWh`
+#### 1.2.8. Remove feature name `sizeByDistortedWh`
 
 The feature `sizeByWhDistorted` has no useful meaning separate from `sizeByWh` and was thus removed.
 
 See issue [#879](https://github.com/IIIF/api/issues/879).
 
-#### 1.2.10 Wrap `logo` property with `provider`
+#### 1.2.9. Clarify content negotiation expectations
 
-The `logo` property in both the [Presentation API version 2.1][prezi21] and [Image API version 2.1][image21] lacked sufficient properties for distinguishing between the label for the organization that has the logo, and the label for logo itself. There were additional use cases for having more metadata about the source/provider of the image, and internationalized versions of that metadata. The `provider` property was introduced to solve these use cases.
+Expectations around the implementation of content negotiation were added.
 
-See issues [#1639](https://github.com/IIIF/api/issues/1639), [#1735](https://github.com/IIIF/api/issues/1735), [#1760](https://github.com/IIIF/api/issues/1760), and [#1787](https://github.com/IIIF/api/issues/1787).
+See issue [#1685](https://github.com/IIIF/api/issues/1685).
 
 ### 1.3. Compliance Requirements
 
