@@ -103,7 +103,13 @@ The feature `sizeByWhDistorted` has no useful meaning separate from `sizeByWh` a
 
 See issue [#879](https://github.com/IIIF/api/issues/879).
 
-#### 1.2.9. Clarify content negotiation expectations
+#### 1.2.9. Language map pattern for `label`
+
+In the [Presentation API][prezi3] and here, a new pattern has been adopted for all textual values of a JSON object with the language code as the key (or `@none` if the language is not known) and the content as a string within an array as the value. This applies only to the `label` property in the Image API. The pattern relies on features that have been introduced by the JSON-LD Community Group, and are not yet standardized.
+
+See issue [#755](https://github.com/IIIF/api/issues/755).
+
+#### 1.2.10. Clarify content negotiation expectations
 
 Expectations around the implementation of content negotiation were added.
 
