@@ -13,15 +13,6 @@ redirect_from:
   - /api/image/3.0/change-log-30.html
 ---
 
-<!--
-#### Everything closed since this file was last touched
-https://github.com/IIIF/api/issues?utf8=%E2%9C%93&q=is%3Aclosed+is%3Aissue+label%3Aimage+-label%3Awontfix+closed%3A%3E2018-09-19+
-
-#### Everything normative that was closed since this file was last touched
-https://github.com/IIIF/api/issues?utf8=%E2%9C%93&q=is%3Aclosed+is%3Aissue+label%3Aimage+-label%3Awontfix+label%3Anormative+closed%3A%3E2018-09-19+label%3Anormative
--->
-
-
 This document is a companion to the [IIIF Image API Specification, Version 3.0][image30]. It describes the changes to the API specification made in this major release, including ones that are backwards incompatible with version 2.1.1, the previous version.
 
 ## Table of Contents
@@ -65,9 +56,9 @@ These properties were renamed to enable Javascript developers to use the "dot no
 
 See issue [#590](https://github.com/IIIF/api/issues/590).
 
-#### 1.2.2. Remove `attribution` and `logo`
+#### 1.2.2. Remove the `attribution` and `logo` properties
 
-The `attribution` and `logo` properties have been removed to better separate concerns between the Image and Presentation APIs, and to reduce the complexity of client applications. Both properties continue to be available in the [Presentation API][prezi30].
+The `attribution` and `logo` properties have been removed to better separate concerns between the Image and Presentation APIs. Both properties continue to be available in the [Presentation API][prezi30].
 
 See issue [#1787](https://github.com/IIIF/api/issues/1787). Approved by [trc#12](https://github.com/IIIF/trc/issues/12).
 
