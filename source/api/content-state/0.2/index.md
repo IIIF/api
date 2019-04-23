@@ -49,7 +49,7 @@ This is a work in progress and may change without notice. Implementers should be
 ## 1. Introduction
 {: #introduction}
 
-The resources made available via the [IIIF Presentation API][prezi-api] are useful only if they can be found. While the [Change Discovery API][discovery-api] specifies systems that allow these resources to be found, this document specifies a mechanism that allows a user to then open the found resource in a compatible environment, such as a viewer, annotation tool or other IIIF-compatible software.
+The resources made available via the [IIIF Presentation API][prezi-api] are useful only if they can be found. While the [Change Discovery API][discovery-api] specifies systems that allow these resources to be found, this document specifies a mechanism that allows a user to then open the found resource in a compatible environment, such as a viewer, annotation tool or other IIIF-compatible software. This is one example of sharing a resource, or a particular view of a resource. Other examples include bookmarks, citations and deep links.
 
 This specification makes use of existing specifications in order to promote widespread adoption. It describes a way of describing a resource, or a part of a resource, in a compact format that can be used to initialize the view of that resource in any client that implements this specification. One application is linking from a search result to a viewer showing the relevant part of a found resource. More generally, it provides a description of _content state_, for sharing between applications regardless of their different user interfaces and capabilities.
 
@@ -80,10 +80,10 @@ A content state is a JSON-LD data structure that uses the models described by th
 
 The content state data structure must allow the client to load the resources required, and present a particular part of the resource to the user. While _load Manifest M_ is the simplest case, a more specific state would provide more detail, for example:
 
-* _load Manifest M, navigate to Canvas C, and zoom in to xywh=X,Y,W,H_
-* _load manifest M, navigate such that Range R is selected, and start playing the time-based canvas C within Range R at time t=T_
+* _load Manifest M, navigate to Canvas C, and zoom in to the region defined by xywh=X,Y,W,H_
+* _load Manifest M, navigate such that Range R is selected, and start playing the time-based canvas C within Range R at time t=T_
 
-Such a description can be expressed in purely IIIF terms, as an Annotation that targets the intended part of the resource. 
+Such a description can be expressed as an Annotation that targets the intended part of the resource. 
 
 ### 2.1. Annotation Model for Content State
 
@@ -101,7 +101,7 @@ The Annotation must contain enough information about dereferenceable resources t
 
 ### 2.2 Form of Annotation
 
-A content state Annotation has the motivation `highlighting`:
+A content state Annotation has the motivation `highlighting`. This section shows four possible forms the content state may take, all of which are equivalent to this example:
 
 ```json
 {
@@ -116,12 +116,33 @@ A content state Annotation has the motivation `highlighting`:
 }
 ```
 
-The content state data can take several forms, and a client _SHOULD_ be able to accept and process it in all of these forms.
+The target of the annotation is in this case a complete IIIF resource (here, a Manifest) but in more complex cases, the target is a part of a IIIF resource. A client _SHOULD_ be able to accept and process the content state value in all of these forms. 
 
-* As the URL of an Annotation with the motivation `highlighting`, that the client must de-reference (the `id` property of the annotation above).
-* As JSON-LD, in the form of a full Annotation with the motivation `highlighting`, as above.
-* As JSON-LD, as the value of the `target` property of an implied Annotation with the motivation `highlighting`.
-* As the URL of the `target` property only (the `id` property of the `target` resource in the annotation above).
+#### 2.2.1 Full Annotation
+
+The content state may be supplied as JSON-LD, as a full Annotation with the motivation `highlighting`, as in the example above.
+
+#### 2.2.2 Annotation URL
+
+The content state may be supplied as a string whose value is the URL of an Annotation with the motivation `highlighting`, that the client must de-reference and process. For the example above, this would be the URL `https://example.org/Annotation-server/bookmarks/b1`.
+
+#### 2.2.3 Target body
+
+The content state may be supplied as JSON-LD, as the value of the `target` property of an implied Annotation with the motivation `highlighting`. For the example above, this would be:
+
+```json
+{
+    "id": "https://example.org/iiif/item1/manifest",
+    "type": "Manifest"
+}
+```
+
+This form is better suited to scenarios where compactness is important, for example a query string parameter, where it is also more likely to be combined with Base64-encoding.
+
+#### 2.2.4 Target URL
+
+The content state may be supplied as a string whose value is the URL of the `target` property only. For the example above, this would be the URL `https://example.org/iiif/item1/manifest`. The client would load this manifest and display it. While supporting many requirements for sharing resources and initialising a client application, this form is not capable of expressing content states that are part of a IIIF resource, such as a Canvas within a Manifest, or a region of a Canvas. One of the other forms must be used for these purposes.
+
 
 ### 2.3 Protocol
 
@@ -129,30 +150,20 @@ If a client is capable of reading the content state from the value of an HTTP GE
 
 If a client is capable of reading the content state from an HTML attribute, the client _SHOULD_ look for the content state in an attribute called `data-iiif-content`.
 
-The content state _MAY_ be Base64-encoded, and a client _SHOULD_ accept it in that form. It is _RECOMMENDED_ that when passing the content state as a query string parameter, Base64-Encoding is used, as unencoded JSON is vulnerable to corruption when passed as a link parameter.
+The content state _MAY_ be Base64-encoded, and a client _SHOULD_ accept it in that form. It is _RECOMMENDED_ that when passing the content state as JSON-LD in a query string parameter, Base64-Encoding is used, as unencoded JSON is vulnerable to corruption.
 
 The content state _MAY_ be URL-encoded, and a client _SHOULD_ accept it in that form.
 
-A client _MUST_ be able to read and process the value in any of the four forms listed above. 
+A client _MUST_ be able to read and process the value in any of the four forms listed above. URL forms _SHOULD_ be plain strings, and JSON-LD forms _SHOULD_ be encoded.
 
-If the string `https://example.org/Annotation-server/bookmarks/b1` is passed as the value of `iiif-content` or `data-iiif-content`, the client _MUST_ load the resource at that URL and process it. The resource at that URL _MUST_ be the full Annotation as in the example above.
+If the content state is a URL, the client _MUST_ load the resource at that URL and process it. The resource at that URL _MUST_ be the full Annotation as in 2.2.2. above, or a IIIF Resource as in 2.2.4. That is, the de-referenced response _MUST_ be JSON-LD, and _SHOULD_ have a value of `type` taken from `Annotation`, `Collection` and `Manifest`.
 
-The JSON-LD body given above may be passed directly in a request parameter, HTML attribute or other supported mechanism, for immediate processing. In this scenario the Annotation does not require the `id` property. The client should inspect the value to determine whether it needs to be base64-decoded, or Url-decoded. [How?]
+(TODO - _MAY_ be `Canvas`, `Range`, but prefer to do that as an annotation target not as a raw resource.)
 
-The value passed to a client via this parameter (or other supported mechanisms) may be the `target` property of an implied Annotation:
+If the content state is JSON-LD the client _MUST_ inspect the `type` property to decide whether the value is the full Annotation, or the value of the `target` property of an implied Annotation. TODO: I think that if you are not targeting a IIIF resource you MUST use the full form 2.2.1, so if the dereferenced object is of `type` Annotation a client knows this isn't the `target`.
 
-```json
-{"id":"https://example.org/iiif/item1/manifest","type":"Manifest"}
-```
-
-This form is better suited to scenarios where compactness is important, for example a query string parameter, where it is also more likely to be combined with Base64-encoding.
-
-In the most compact form, the string `https://example.org/iiif/item1/manifest`, the URI of the IIIF Manifest, would be the only information passed to a client: the client would load the manifest and display it.
-
-The client _MUST_ examine the form of the string value, or the decoded string value, of the property to determine whether it is JSON-LD or a URL. If it is JSON-LD the client _MUST_ check the `type` property to determine whether it is a full Annotation or just the target content state. If it is a URL the client must dereference it and determine whether the returned resource is a content state (with type `Annotation`) or a IIIF resource (typically a Manifest or a Collection).
-
-__Queries__<br/><br/>
-In this updated version, the string `https://example.org/my-manifest` is a valid content state. Which aligns the most simple content state mechanism with what any viewer must do already - load a resource from a URL.<br/><br/>Does the inline full Annotation version require `id`?<br/>Does it require `@context`?<br/>Should we require a different parameter name when the value is just the target of the Annotation, rather than the full Annotation, or should we stick to one parameter and require the client to check its `type` and process accordingly?<br/>For nicer query string parameters, should we permit a syntax that is invalid JSON-LD but valid JSON in the same form (i.e., no quotes, and/or single quotes), or even not valid JSON?:<br/><br/>`viewer.html?iiif-content={"id":"https://example.org/iiif/item1/manifest","type":"Manifest"}`<br/><br/><a href="http://tify.sub.uni-goettingen.de/demo.html?manifest=https://manifests.sub.uni-goettingen.de/iiif/presentation/PPN857449303/manifest">See TIFY to get an idea of what this feels like</a> (observe the `tify` parameter as you change the content state).<br/><br/>Should the client be required to accept the JSON-LD in base64-encoded form? [Yes!]
+__Notes and Questions__<br/><br/>
+In this updated version, the string `https://example.org/my-manifest` is a valid content state. Which aligns the most simple content state mechanism with what any viewer must do already - load a resource from a URL.<br/><br/>Does the inline full Annotation version require `id`?<br/>Does it require `@context`?<br/>Should we require a different parameter name when the value is just the target of the Annotation, rather than the full Annotation, or should we stick to one parameter and require the client to check its `type` and process accordingly?<br/>For nicer query string parameters, should we permit a syntax that is invalid JSON-LD but valid JSON in the same form (i.e., no quotes, and/or single quotes), or even not valid JSON?:<br/><br/>`viewer.html?iiif-content={"id":"https://example.org/iiif/item1/manifest","type":"Manifest"}`<br/><br/><a href="http://tify.sub.uni-goettingen.de/demo.html?manifest=https://manifests.sub.uni-goettingen.de/iiif/presentation/PPN857449303/manifest">See TIFY to get an idea of what this feels like</a> (observe the `tify` parameter as you change the content state).
 {: .warning}
 
 ## 3. Initialisation
