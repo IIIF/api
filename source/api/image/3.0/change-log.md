@@ -42,7 +42,7 @@ See issues [#544](https://github.com/IIIF/api/issues/544) and [#678](https://git
 
 #### 1.1.3. Changes to upscaling of images to larger than the extracted region
 
-The value of the size parameter must not result in an image larger than the extracted region, and attempts to do so must generate an error response. Previous versions allowed implementations to [optionally and implicitly support scaling up][image21-size]. The `sizeAboveFull` feature name was also removed. Servers may still support upscaling by indicating that they support the `sizeUpscaling` feature, which requires the size parameter to be prefixed with a caret (`^`).
+Unless prefixed with a caret (`^`), the value of the size parameter, the value of the size parameter must not result in an image larger than the extracted region, and attempts to do so must generate an error response. Previous versions allowed implementations to [optionally and implicitly support scaling up][image21-size]. The `sizeAboveFull` feature name was also removed. Servers may still support upscaling by indicating that they support the `sizeUpscaling` feature.
 
 See issues [#693](https://github.com/IIIF/api/issues/693),[#1370](https://github.com/IIIF/api/issues/1370), and [#1627](https://github.com/IIIF/api/issues/1627).
 
@@ -96,7 +96,7 @@ See issue [#879](https://github.com/IIIF/api/issues/879).
 
 #### 1.2.9. Language map pattern for `label`
 
-In the [Presentation API][prezi3] and here, a new pattern has been adopted for all textual values of a JSON object with the language code as the key (or `@none` if the language is not known) and the content as a string within an array as the value. This applies only to the `label` property in the Image API. The pattern relies on features that have been introduced by the JSON-LD Community Group, and are not yet standardized.
+In the [Presentation API][prezi30] and here, a new pattern has been adopted for all textual values of a JSON object with the language code as the key (or `none` if the language is not known) and the content as a string within an array as the value. This applies only to the `label` property in the Image API. The pattern relies on features that have been introduced by the JSON-LD Community Group, and are not yet standardized.
 
 See issue [#755](https://github.com/IIIF/api/issues/755).
 
