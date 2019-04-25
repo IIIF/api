@@ -42,7 +42,7 @@ See issues [#544](https://github.com/IIIF/api/issues/544) and [#678](https://git
 
 #### 1.1.3. Changes to upscaling of images to larger than the extracted region
 
-Unless prefixed with a caret (`^`), the value of the size parameter, the value of the size parameter must not result in an image larger than the extracted region, and attempts to do so must generate an error response. Previous versions allowed implementations to [optionally and implicitly support scaling up][image21-size]. The `sizeAboveFull` feature name was also removed. Servers may still support upscaling by indicating that they support the `sizeUpscaling` feature.
+Unless prefixed with a caret (`^`), the value of the size parameter must not result in an image larger than the extracted region, and attempts to do so must generate an error response. Previous versions allowed implementations to [optionally and implicitly support scaling up][image21-size]. The `sizeAboveFull` feature name was also removed. Servers may still support upscaling by indicating that they support the `sizeUpscaling` feature.
 
 See issues [#693](https://github.com/IIIF/api/issues/693),[#1370](https://github.com/IIIF/api/issues/1370), and [#1627](https://github.com/IIIF/api/issues/1627).
 
