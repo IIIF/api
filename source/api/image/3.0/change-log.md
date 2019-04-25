@@ -94,11 +94,11 @@ The feature `sizeByWhDistorted` has no useful meaning separate from `sizeByWh` a
 
 See issue [#879](https://github.com/IIIF/api/issues/879).
 
-#### 1.2.9. Language map pattern for `label`
+#### 1.2.9. Use language map pattern for `label`
 
-In the [Presentation API][prezi30] and here, a new pattern has been adopted for all textual values of a JSON object with the language code as the key (or `none` if the language is not known) and the content as a string within an array as the value. This applies only to the `label` property in the Image API. The pattern relies on features that have been introduced by the JSON-LD Community Group, and are not yet standardized.
+In the [Presentation API][prezi30] and here, a new pattern has been adopted for all textual values of a JSON object with the language code as the key (or `none` if the language is not known) and the content as a string within an array as the value. This pattern is much easier to implement and use than the previous `@value` / `@language` tuples pattern.  This applies only to the `label` property in the Image API.
 
-See issue [#755](https://github.com/IIIF/api/issues/755).
+See issues [#755](https://github.com/IIIF/api/issues/755) and [#1739](https://github.com/IIIF/api/issues/1739). Approved by [trc#2](https://github.com/IIIF/trc/issues/2) and [trc#5](https://github.com/IIIF/trc/issues/5).
 
 #### 1.2.10. Clarify content negotiation expectations
 
@@ -145,7 +145,7 @@ There is now a [registry of known extensions][extensions] to the IIIF specificat
 
 Two linking properties also present in the Presentation API were added to the image information. The `seeAlso` property addresses the use case of providing a link to technical metadata, and the `partOf` property supports discovery of a containing Manifest.
 
-See issue [#1507](https://github.com/IIIF/api/issues/1507) and [#600](https://github.com/IIIF/api/issues/600).
+See issues [#1507](https://github.com/IIIF/api/issues/1507) and [#600](https://github.com/IIIF/api/issues/600).
 
 ### 2.3. Define JSON-LD profile for media type
 
