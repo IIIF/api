@@ -78,7 +78,10 @@
       "@type": "xsd:integer",
       "@container": "@set"
     },
-
+    "preferredFormats": {
+        "@id": "iiif_image:preferredFormats",
+        "@container": "@list"
+    },
     "extraQualities": {
       "@id": "iiif_image:quality",
       "@container": "@set"

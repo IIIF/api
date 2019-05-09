@@ -54,7 +54,7 @@
 [image3-context]: {{ site.url }}{{ site.baseurl }}/api/image/3/context.json "Image API Version 3 JSON-LD Context"
 [image3-cors-response]: {{ site.url }}{{ site.baseurl }}/api/image/3.{{ site.image_api.draft.minor }}/#71-cors "7.1. CORS"
 [image3-error-conditions]: {{ site.url }}{{ site.baseurl }}/api/image/3.{{ site.image_api.draft.minor }}/#72-error-conditions "7.2. Error Conditions"
-[image3-extra-functionality]: {{ site.url }}{{ site.baseurl }}/api/image/3.{{ site.image_api.draft.minor }}/#56-extra-functionality "5.6. Extra Functionality"
+[image3-extra-functionality]: {{ site.url }}{{ site.baseurl }}/api/image/3.{{ site.image_api.draft.minor }}/#57-extra-functionality "5.7. Extra Functionality"
 [image3-features-table]: {{ site.url }}{{ site.baseurl }}/api/image/3.{{ site.image_api.draft.minor }}/#features-table
 [image3-format]: {{ site.url }}{{ site.baseurl }}/api/image/3.{{ site.image_api.draft.minor }}/#45-format "4.5. Format"
 [image3-frame]: {{ site.url }}{{ site.baseurl }}/api/image/3/info_frame.json "Image API Version 3 JSON-LD Frame"
@@ -93,7 +93,7 @@
 [image30-cors-response]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#71-cors "7.1. CORS"
 [image30-error-conditions]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#72-error-conditions "7.2. Error Conditions"
 [image30-extensions]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#48-extensions "4.8. Extensions"
-[image30-extra-functionality]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#56-extra-functionality "5.6. Extra Functionality"
+[image30-extra-functionality]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#57-extra-functionality "5.7. Extra Functionality"
 [image30-features-table]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#features-table
 [image30-format]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#45-format "4.5. Format"
 [image30-http-versions]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#74-http-versions "7.4. HTTP Versions"
