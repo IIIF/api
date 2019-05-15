@@ -40,6 +40,13 @@ Per the [deprecation warning][image21-full-dep] and the [inconsistency warning][
 
 The value of the size parameter must not result in an image larger than the extracted region. Attempts to do so must generate an error response. Previous versions allowed implementations to [optionally support scaling up][image21-size]. The `sizeAboveFull` feature name was also removed. See issues [#693](https://github.com/IIIF/api/issues/693) and [#1370](https://github.com/IIIF/api/issues/1370).
 
+
+#### 1.1.4. Remove quality `color` in favor of `full`.
+
+The term `color` is ambiguous when the server may not have any non-gray pixels available for the image. It can be read as requiring that the returned image contains at least some non-gray pixels. Using `full` simplifies the definition of the quality parameter.
+
+See issue [#1839](https://github.com/IIIF/api/issues/1839).
+
 ### 1.2. Image Information Changes
 
 Several existing properties were renamed for consistency with the Presentation API, developer convenience, or to better reflect the intended semantics. Some of the semantics were also clarified based on implementation experience during previous versions.

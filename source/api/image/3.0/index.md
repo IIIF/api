@@ -381,17 +381,19 @@ Examples:
 
 ###  4.4. Quality
 
-The quality parameter determines whether the image is delivered in color, grayscale or black and white.
+The quality parameter determines whether the image is delivered in black and white, grayscale or with all available color information.
 
 | Quality   | Parameter Returned |
 | --------- | ------------------ |
-| `color`   | The image is returned with all of its color information. |
-| `gray`    | The image is returned in grayscale, where each pixel is black, white or any shade of gray in between. |
 | `bitonal` | The image returned is bitonal, where each pixel is either black or white. |
-| `default` | The image is returned using the server's default quality (e.g. `color`, `gray` or `bitonal`) for the image. |
+| `gray`    | The image is returned in grayscale, where each pixel is black, white or any shade of gray in between. |
+| `full`    | The image is returned with as much color information as available. |
+| `default` | The image is returned using the server's default quality (e.g. `full`, `gray` or `bitonal`) for the image. |
 {: .api-table}
 
 The `default` quality exists to support [level 0 compliant implementations][image30-compliance-quality] that may not know the qualities of individual images in their collections. It also provides a convenience for clients that know the values for all other parameters of a request except the quality (e.g. `.../full/120,80/90/{quality}.png` to request a thumbnail) in that a preliminary image information request that would only serve to find out which qualities are available can be avoided.
+
+The quality parameter does not determine the color space or impose other technical constraints on the returned image, other than the color values of the pixels it contains. It is valid for a server to return an image with gray or only black and white pixels in response to a `full` quality request, if that is all that is available.
 
 Regardless of level of compliance, services that make additional qualities beyond `default` available _MUST_ list those qualities in the [`extraQualities` property][image3-extra-functionality] of the response to the [Image Information Request][image3-information]. A request for an image with an unsupported quality value _SHOULD_ return a 400 (Bad Request) status code.
 
