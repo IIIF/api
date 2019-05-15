@@ -293,12 +293,12 @@ The value _MUST_ be an array of JSON objects, where each item in the array confo
     {
       "id": "https://example.org/about",
       "type": "Agent",
-      "label": {"en": ["Example Organization"]},
+      "label": { "en": [ "Example Organization" ] },
       "homepage": [
         {
           "id": "https://example.org/",
           "type": "Text",
-          "label": {"en": ["Example Organization Homepage"]},
+          "label": { "en": [ "Example Organization Homepage" ] },
           "format": "text/html"
         }
       ],
@@ -1020,7 +1020,7 @@ Resource descriptions _SHOULD_ be embedded within the JSON description of parent
     {
       "id": "https://example.org/content/book.pdf",
       "type": "Text",
-      "label": "Example Book (pdf)",
+      "label": { "en": [ "Example Book (pdf)" ] },
       "format": "application/pdf"
     }
   ]
@@ -1182,7 +1182,7 @@ An example Collection document:
     {
       "id": "https://example.org/iiif/1/manifest",
       "type": "Manifest",
-      "label": { "en": "Example Manifest 1" },
+      "label": { "en": [ "Example Manifest 1" ] },
       "thumbnail": [
         {
           "id": "https://example.org/manifest1/thumbnail.jpg",
@@ -1270,12 +1270,12 @@ The Manifest _MUST_ have an `items` property, which is an array of JSON-LD objec
     {
       "id": "https://example.org/about",
       "type": "Agent",
-      "label": {"en": ["Example Organization"]},
+      "label": { "en": [ "Example Organization" ] },
       "homepage": [
         {
           "id": "https://example.org/",
           "type": "Text",
-          "label": {"en": ["Example Organization Homepage"]},
+          "label": { "en": [ "Example Organization Homepage" ] },
           "format": "text/html"
         }
       ],
@@ -1593,7 +1593,7 @@ A Canvas _MAY_ be treated as a content resource for the purposes of annotating i
   "body": {
     "id": "https://example.org/iiif/book1/page1/full/max/0/default.jpg",
     "type": "Image",
-    "label": {"en": ["Page 1"], "es": ["Página 1"]},
+    "label": { "en": [ "Page 1" ], "es": [ "Página 1" ] },
     "format": "image/jpeg",
     "service": [
       {
