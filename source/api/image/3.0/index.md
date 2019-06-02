@@ -665,7 +665,7 @@ The JSON response _MAY_ have the `preferredFormats` property, which lists one or
   "protocol": "http://iiif.io/api/image",
   "profile": "level2",
   "width": 6000,
-  "height": 4000,,
+  "height": 4000,
   "extraFormats": [ "webp" ],
   "preferredFormats": [ "webp", "png" ]
 }
