@@ -42,7 +42,7 @@ See issues [#693](https://github.com/IIIF/api/issues/693),[#1370](https://github
 
 #### 1.1.3. Change canonical form of size parameter to _`w,h`_
 
-Per the [deprecation warning][image21-full-dep] and the [inconsistency warning][image21-size-inconsistency] about the size parameter in the previous version, the canonical form of the size parameter is now _`w,h`_  (_`^w,h`_ for upscaled requests) unless the maximum size is requested, in which case the canonical form is now `max` (or `^max` for upscaled requests).  This resolves the inconsistency between the server-preferred values in the `sizes` object, and the canonical form of the size parameter. In order to request preferred sizes, a client should use the `width` and `height` values from `sizes` unmodified to build the _`w,h`_ size to request. Clients should also use canonical form of the size parameter _`w,h`_ when constructing tile requests.
+Per the [deprecation warning][image21-full-dep] and the [inconsistency warning][image21-size-inconsistency] about the size parameter in the previous version, the canonical form of the size parameter is now _`w,h`_  (_`^w,h`_ for upscaled requests) unless the maximum size is requested, in which case the canonical form is now `max` (`^max` for upscaled requests).  This resolves the inconsistency between the server-preferred values in the `sizes` object, and the canonical form of the size parameter. In order to request preferred sizes, a client should use the `width` and `height` values from `sizes` unmodified to build the _`w,h`_ size to request. Clients should also use canonical form of the size parameter _`w,h`_ when constructing tile requests.
 
 See issues [#544](https://github.com/IIIF/api/issues/544) and [#678](https://github.com/IIIF/api/issues/678).
 
