@@ -34,17 +34,17 @@ Per the [deprecation warning][image21-full-dep] in the previous version, the val
 
 See issues [#678](https://github.com/IIIF/api/issues/678) and [#1369](https://github.com/IIIF/api/issues/1369).
 
-#### 1.1.2. Change canonical form of size parameter to _`w,h`_
-
-Per the [deprecation warning][image21-full-dep] and the [inconsistency warning][image21-size-inconsistency] about the size parameter in the previous version, the canonical form of the size parameter is now _`w,h`_ unless `max` is requested. This resolves the inconsistency between the server-preferred values in the `sizes` object, and the canonical form of the size parameter. In order to request preferred sizes, a client should use the `width` and `height` values from `sizes` unmodified to build the _`w,h`_ size to request. Clients should also use canonical form of the size parameter _`w,h`_ when constructing tile requests.
-
-See issues [#544](https://github.com/IIIF/api/issues/544) and [#678](https://github.com/IIIF/api/issues/678).
-
-#### 1.1.3. Changes to upscaling of images to larger than the extracted region
+#### 1.1.2. Changes to upscaling of images to larger than the extracted region
 
 Unless prefixed with a caret (`^`), the value of the size parameter must not result in an image larger than the extracted region, and attempts to do so must generate an error response. Previous versions allowed implementations to [optionally and implicitly support scaling up][image21-size]. The `sizeAboveFull` feature name was also removed. Servers may still support upscaling by indicating that they support the `sizeUpscaling` feature.
 
 See issues [#693](https://github.com/IIIF/api/issues/693),[#1370](https://github.com/IIIF/api/issues/1370), and [#1627](https://github.com/IIIF/api/issues/1627).
+
+#### 1.1.3. Change canonical form of size parameter to _`w,h`_
+
+Per the [deprecation warning][image21-full-dep] and the [inconsistency warning][image21-size-inconsistency] about the size parameter in the previous version, the canonical form of the size parameter is now _`w,h`_  (_`^w,h`_ for upscaled requests) unless the maximum size is requested, in which case the canonical form is now `max` (or `^max` for upscaled requests).  This resolves the inconsistency between the server-preferred values in the `sizes` object, and the canonical form of the size parameter. In order to request preferred sizes, a client should use the `width` and `height` values from `sizes` unmodified to build the _`w,h`_ size to request. Clients should also use canonical form of the size parameter _`w,h`_ when constructing tile requests.
+
+See issues [#544](https://github.com/IIIF/api/issues/544) and [#678](https://github.com/IIIF/api/issues/678).
 
 ### 1.2. Image Information Changes
 
@@ -96,7 +96,7 @@ See issue [#879](https://github.com/IIIF/api/issues/879).
 
 #### 1.2.9. Use language map pattern for `label`
 
-In the [Presentation API][prezi30] and here, a new pattern has been adopted for all textual values of a JSON object with the language code as the key (or `none` if the language is not known) and the content as a string within an array as the value. This pattern is much easier to implement and use than the previous `@value` / `@language` tuples pattern.  This applies only to the `label` property in the Image API.
+In the [Presentation API][prezi30] and here, a new pattern has been adopted for all textual values of a JSON object with the language code as the key (or `none` if the language is not known) and the content as a string within an array as the value. This pattern is much easier to implement and use than the previous `@value` / `@language` tuples pattern.
 
 See issues [#755](https://github.com/IIIF/api/issues/755) and [#1739](https://github.com/IIIF/api/issues/1739). Approved by [trc#2](https://github.com/IIIF/trc/issues/2) and [trc#5](https://github.com/IIIF/trc/issues/5).
 
