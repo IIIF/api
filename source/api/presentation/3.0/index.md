@@ -481,16 +481,14 @@ The value _MUST_ be a string.
 
 The specific media type (often called a MIME type) for a content resource, for example `image/jpeg`. This is important for distinguishing different formats of the same overall type of resource, such as distinguishing text in XML from plain text.
 
+Please note that this is different to the `formats` property in the [Image API][image-api], which gives the extension to use within that API. It would be inappropriate to use in this case, as `format` can be used with any content resource, not just images.
+
 The value _MUST_ be a string, and it _SHOULD_ be the value of the `Content-Type` header returned when the resource is dereferenced.
 
  * A content resource _SHOULD_ have the `format` property.<br/>
    Clients _MAY_ render the `format` of any content resource.
  * Other types of resource _MUST NOT_ have the `format` property.<br/>
    Clients _SHOULD_ ignore `format` on other types of resource.
-
-__`format` or `formats`?__<br/>
-This is different to the `formats` property in the [Image API][image-api], which gives the extension to use within that API. It would be inappropriate to use in this case, as `format` can be used with any content resource, not just images.
-{: .note}
 
 ``` json-doc
 { "format": "application/xml" }
