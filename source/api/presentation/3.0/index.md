@@ -306,7 +306,7 @@ The value _MUST_ be an array of JSON objects, where each item in the array confo
         {
           "id": "https://example.org/images/logo.png",
           "type": "Image",
-	  "format": "image/png",
+          "format": "image/png",
           "height": 100,
           "width": 120
         }
@@ -1288,7 +1288,7 @@ The Manifest _MUST_ have an `items` property, which is an array of JSON-LD objec
         {
           "id": "https://example.org/service/inst1/full/max/0/default.png",
           "type": "Image",
-	  "format": "image/png",
+          "format": "image/png",
           "service": [
             {
               "id": "https://example.org/service/inst1",
