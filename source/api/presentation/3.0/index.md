@@ -306,6 +306,7 @@ The value _MUST_ be an array of JSON objects, where each item in the array confo
         {
           "id": "https://example.org/images/logo.png",
           "type": "Image",
+	  "format": "image/png",
           "height": 100,
           "width": 120
         }
@@ -728,6 +729,7 @@ When more than one logo is present, the client _SHOULD_ pick only one of them, b
     {
       "id": "https://example.org/img/logo.jpg",
       "type": "Image",
+      "format": "image/png",
       "height": 100,
       "width": 120
     }
