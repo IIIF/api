@@ -729,7 +729,7 @@ When more than one logo is present, the client _SHOULD_ pick only one of them, b
     {
       "id": "https://example.org/img/logo.jpg",
       "type": "Image",
-      "format": "image/png",
+      "format": "image/jpeg",
       "height": 100,
       "width": 120
     }
