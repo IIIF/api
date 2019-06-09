@@ -46,7 +46,7 @@ This is a work in progress and may change without any notices. Implementers shou
 
 ##  1. Introduction
 
-Access to digital representations of objects is a fundamental requirement for many research activities, the transmission of cultural knowledge, and for the daily pursuits of every web citizen. Ancient scrolls, paintings, letters, books, newspapers, films, operas, albums, field recordings, and computer generated animations are compound objects: they can have many parts, and complex structures. These resources may also bear the written or spoken word, and this linguistic content is often as important as the visual or audible representation.
+Access to digital representations of objects is a fundamental requirement for many research activities, for the transmission of cultural knowledge, and for the daily pursuits of every web citizen. Ancient scrolls, paintings, letters, books, newspapers, films, operas, albums, field recordings, and computer generated animations are compound objects: they can have many parts, and complex structures. These resources may also bear the written or spoken word, and this linguistic content is often as important as the visual or audible representation.
 
 Collections of both digitized physical objects and much born-digital content benefit from a standardized description of their structure, layout, and presentation mode. This document specifies this standardized description of the collection or compound object, using a JSON format. Many different rich and dynamic user experiences can be implemented, presenting content from across collections and institutions.
 
@@ -378,7 +378,7 @@ A single Canvas that provides additional content for use before the main content
 
 Clients _MAY_ display the content of a linked placeholder Canvas when presenting the resource. When more than one such Canvas is available, for example if `placeholderCanvas` is provided for the currently selected Range and the current Manifest, the client _SHOULD_ pick the one most specific to the content. Publishers _SHOULD NOT_ assume that the placeholder Canvas will be processed by all clients. Clients _SHOULD_ take care to avoid conflicts between time-based media in the rendered placeholder Canvas and the content of the resource that has the `placeholderCanvas` property.
 
-The value _MUST_ be a JSON object with the `id` and `type` properties, and _MAY_ have other properties of Canvases. The value of `type` _MUST_ be "Canvas". The object _MUST NOT_ have the `placeholderCanvas` property, nor the `accompanyingCanvas` property.
+The value _MUST_ be a JSON object with the `id` and `type` properties, and _MAY_ have other properties of Canvases. The value of `type` _MUST_ be the string `Canvas`. The object _MUST NOT_ have the `placeholderCanvas` property, nor the `accompanyingCanvas` property.
 
   * A Collection _MAY_ have the `placeholderCanvas` property.<br/>
     Clients _MAY_ render `placeholderCanvas` on a Collection.
@@ -408,7 +408,7 @@ A single Canvas that provides additional content for use while rendering the res
 
 Clients _MAY_ display the content of an accompanying Canvas when presenting the resource. As with `placeholderCanvas` above, when more than one accompanying Canvas is available, the client _SHOULD_ pick the one most specific to the content. Publishers _SHOULD NOT_ assume that the accompanying Canvas will be processed by all clients. Clients _SHOULD_ take care to avoid conflicts between time-based media in the accompanying Canvas and the content of the resource that has the `accompanyingCanvas` property.
 
-The value _MUST_ be a JSON object with the `id` and `type` properties, and _MAY_ have other properties of Canvases. The value of `type` _MUST_ be "Canvas". The object _MUST NOT_ have the `placeholderCanvas` property, nor the `accompanyingCanvas` property.
+The value _MUST_ be a JSON object with the `id` and `type` properties, and _MAY_ have other properties of Canvases. The value of `type` _MUST_ be the string `Canvas`. The object _MUST NOT_ have the `placeholderCanvas` property, nor the `accompanyingCanvas` property.
 
  * A Collection _MAY_ have the `accompanyingCanvas` property.<br/>
    Clients _MAY_ render `accompanyingCanvas` on a Collection.
@@ -481,7 +481,7 @@ The value _MUST_ be a string.
 
 The specific media type (often called a MIME type) for a content resource, for example `image/jpeg`. This is important for distinguishing different formats of the same overall type of resource, such as distinguishing text in XML from plain text.
 
-Please note that this is different to the `formats` property in the [Image API][image-api], which gives the extension to use within that API. It would be inappropriate to use in this case, as `format` can be used with any content resource, not just images.
+Note that this is different to the `formats` property in the [Image API][image-api], which gives the extension to use within that API. It would be inappropriate to use in this case, as `format` can be used with any content resource, not just images.
 
 The value _MUST_ be a string, and it _SHOULD_ be the value of the `Content-Type` header returned when the resource is dereferenced.
 
