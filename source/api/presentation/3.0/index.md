@@ -1037,7 +1037,11 @@ Any of the properties in the API that can have multiple values _MUST_ always be 
 ``` json-doc
 {
   "thumbnail": [
-    { "id": "https://example.org/images/thumb1.jpg", "type": "Image", "format": "image/jpeg" }
+    {
+      "id": "https://example.org/images/thumb1.jpg",
+      "type": "Image",
+      "format": "image/jpeg"
+    }
   ]
 }
 ```
