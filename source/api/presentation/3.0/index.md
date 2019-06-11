@@ -103,7 +103,7 @@ This specification defines the following resource types:
 ##### Collection
 {: #overview-collection}
 
-An ordered list of Manifests, and/or further Collections. Collections allow Manifests and child Collections to be grouped in a hierarchical structure for presentation, which can be for of generating navigation, showing dynamic results from a search, or providing fixed sets of related resources for any other purpose.
+An ordered list of Manifests, and/or further Collections. Collections allow Manifests and child Collections to be grouped in a hierarchical structure for presentation, which can be for generating navigation, showing dynamic results from a search, or providing fixed sets of related resources for any other purpose.
 
 ##### Manifest
 {: #overview-manifest}
