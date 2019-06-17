@@ -304,6 +304,7 @@ The value _MUST_ be an array of JSON objects, where each item in the array confo
         {
           "id": "https://example.org/images/logo.png",
           "type": "Image",
+          "format": "image/png",
           "height": 100,
           "width": 120
         }
@@ -344,6 +345,7 @@ The value _MUST_ be an array of JSON objects, where each item in the array has a
     {
       "id": "https://example.org/img/thumb.jpg",
       "type": "Image",
+      "format": "image/jpeg",
       "width": 300,
       "height": 200
     }
@@ -726,6 +728,7 @@ The value of this property _MUST_ be an array of JSON objects, each of which _MU
     {
       "id": "https://example.org/img/logo.jpg",
       "type": "Image",
+      "format": "image/jpeg",
       "height": 100,
       "width": 120
     }
@@ -1032,7 +1035,11 @@ Any of the properties in the API that can have multiple values _MUST_ always be 
 ``` json-doc
 {
   "thumbnail": [
-    { "id": "https://example.org/images/thumb1.jpg", "type": "Image" }
+    {
+      "id": "https://example.org/images/thumb1.jpg",
+      "type": "Image",
+      "format": "image/jpeg"
+    }
   ]
 }
 ```
@@ -1184,7 +1191,8 @@ An example Collection document:
       "thumbnail": [
         {
           "id": "https://example.org/manifest1/thumbnail.jpg",
-          "type": "Image"
+          "type": "Image",
+          "format": "image/jpeg"
         }
       ]
     }
@@ -1243,6 +1251,7 @@ The Manifest _MUST_ have an `items` property, which is an array of JSON-LD objec
     {
       "id": "https://example.org/iiif/book1/page1/full/80,100/0/default.jpg",
       "type": "Image",
+      "format": "image/jpeg",
       "service": [
         {
           "id": "https://example.org/iiif/book1/page1",
@@ -1281,6 +1290,7 @@ The Manifest _MUST_ have an `items` property, which is an array of JSON-LD objec
         {
           "id": "https://example.org/service/inst1/full/max/0/default.png",
           "type": "Image",
+          "format": "image/png",
           "service": [
             {
               "id": "https://example.org/service/inst1",
@@ -1854,6 +1864,7 @@ __Behavior Values__
     {
       "id": "https://example.org/iiif/book1/page1/full/80,100/0/default.jpg",
       "type": "Image",
+      "format": "image/jpeg",
       "service": [
         {
           "id": "https://example.org/iiif/book1/page1",
@@ -1877,6 +1888,7 @@ __Behavior Values__
     {
       "id": "https://example.org/service/inst1/full/max/0/default.png",
       "type": "Image",
+      "format": "image/png",
       "service": [
         {
           "id": "https://example.org/service/inst1",
