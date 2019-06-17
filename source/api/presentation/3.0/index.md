@@ -326,7 +326,7 @@ The value _MUST_ be an array of JSON objects, where each item in the array confo
 
 A content resource, such as a small image or short audio clip, that represents the resource that has the `thumbnail` property. A resource _MAY_ have multiple thumbnail resources that have the same or different `type` and `format`.
 
-The value _MUST_ be an array of JSON objects, where each item in the array has an `id` property and _SHOULD_ have at least one of the `type` and `format` properties. Images and videos _SHOULD_ have the `width` and `height` properties, and time-based media _SHOULD_ have the `duration` property. It is _RECOMMENDED_ that a [IIIF Image API][image-api] service be available for images to enable manipulations such as resizing.
+The value _MUST_ be an array of JSON objects, each of which _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `format` property. Images and videos _SHOULD_ have the `width` and `height` properties, and time-based media _SHOULD_ have the `duration` property. It is _RECOMMENDED_ that a [IIIF Image API][image-api] service be available for images to enable manipulations such as resizing.
 
  * A Collection _SHOULD_ have the `thumbnail` property with at least one item.<br/>
    Clients _SHOULD_ render `thumbnail` on a Collection.
