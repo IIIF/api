@@ -649,12 +649,27 @@ Objects in the `tiles` array _MUST_ each have a unique combination of `width` an
 
 ### 5.5. Preferred Formats
 
-The JSON response _MAY_ have the `preferredFormats` property, which is used to list the preferred format parameter values for this image service.
+The JSON response _MAY_ have the `preferredFormats` property, which lists one or more format parameter values for this image service. This allows the publisher to express a preference for the format a client requests, for example to encourage use of a more efficient format such as webp, or to suggest a format that will give better results for the image content, such as lossless webp or png for line art or graphics.
 
 | Property | Required? | Description |
 | ------------- | --------- | ----------- |
 | `preferredFormats` | Optional | An array of strings that are the preferred format parameter values, arranged in order of preference.  The format parameter values listed must be among those specified in the referenced profile or listed in the `extraFormats` property (see [Extra Functionality][image3-extra-functionality]). |
 {: .api-table}
+
+
+``` json-doc
+{
+  "@context": "http://iiif.io/api/image/{{ page.major }}/context.json",
+  "id": "https://example.org/image-service/",
+  "type": "ImageService3",
+  "protocol": "http://iiif.io/api/image",
+  "profile": "level2",
+  "width": 6000,
+  "height": 4000,
+  "extraFormats": [ "webp" ],
+  "preferredFormats": [ "webp", "png" ]
+}
+```
 
 ### 5.6. Rights
 
