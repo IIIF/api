@@ -70,17 +70,46 @@
             "@id": "dcterms:partOf",
             "@type": "@id",
             "@container": "@set"
-          }
+          },
+          "label": {
+            "@id": "rdfs:label",
+            "@container": ["@language", "@set"],
+            "@context": {
+              "none": "@none"
+            }
+          }          
         }
       ]
     },
     "AnnotationPage": {
       "@id": "as:OrderedCollectionPage",
-      "@context": "http://www.w3.org/ns/anno.jsonld"
+      "@context": [
+        "http://www.w3.org/ns/anno.jsonld",
+        {
+          "label": {
+            "@id": "rdfs:label",
+            "@container": ["@language", "@set"],
+            "@context": {
+              "none": "@none"
+            }
+          }          
+        }
+      ]
     },
     "Annotation": {
       "@id": "oa:Annotation",
-      "@context": "http://www.w3.org/ns/anno.jsonld"
+      "@context": [
+        "http://www.w3.org/ns/anno.jsonld",
+        {
+          "label": {
+            "@id": "rdfs:label",
+            "@container": ["@language", "@set"],
+            "@context": {
+              "none": "@none"
+            }
+          }          
+        }
+      ]
     },
 
     "Dataset": "dctypes:Dataset",
