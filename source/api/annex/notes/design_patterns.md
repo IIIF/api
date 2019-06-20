@@ -128,6 +128,11 @@ IIIF specifications define the functionality that can be expected to work and ho
 
 The intent of adopting this pattern is to enable experimentation by implementers, thereby encouraging the early adoption and validation of new (minor) versions.
 
+### 2.13. Design for Worldwide Use
+{: #design-for-worldwide-use}
+
+IIIF specifications encourage internationalization efforts by requiring that text values of properties indicate their language, to support and encourage use around the world. IIIF assumes that text values of properties may have multiple values in multiple languages, rather than this being a special case.
+
 ## 3. JSON-LD Design Patterns
 {: #json-ld-design-patterns}
 
