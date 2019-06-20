@@ -22,7 +22,7 @@ cssversion: 2
 | ------------------ | ---------------------- |
 | Image API          | [3.0.0 BETA][image30] |
 | Presentation API   | [3.0.0 BETA][prezi30] |
-| Change Discovery API | [0.2.0][discovery02] |
+| Change Discovery API | [0.3.0][discovery03] |
 {: .api-table}
 
 __Feedback Requested__<br/>
@@ -88,7 +88,7 @@ IIIF Specifications are created and published following the [IIIF Editorial Proc
 [auth094]: {{ site.url }}{{ site.baseurl }}/api/auth/0.9/ "Authentication API v0.9.4"
 [search10]: {{ site.url }}{{ site.baseurl }}/api/search/1.0/ "Search API v1.0"
 [search09]: {{ site.url }}{{ site.baseurl }}/api/search/0.9/ "Search API v0.9"
-[discovery02]: {{ site.url }}{{ site.baseurl }}/api/discovery/0.2/ "IIIF Change Discovery API"
+[discovery03]: {{ site.url }}{{ site.baseurl }}/api/discovery/0.3/ "IIIF Change Discovery API"
 [notes]: {{ site.url }}{{ site.baseurl }}/api/annex/ "Implementation Notes"
 [editorial-process]: {{ page.webprefix }}/community/policy/editorial/ "IIIF Editorial Process"
 
