@@ -13,6 +13,8 @@ Specifications published by the IIIF Consortium and Community are made available
 
 Please note that this license forbids the assertion, implied or explicit, that IIIF, the Consortium, the Community or any of its members endorses or is any way associated with uses of the specifications or implementations thereof.
 
+Supporting JSON files such as JSON-LD context documents, examples, and test fixtures are placed in the public domain using the [CC0 Public Domain Dedication][cc0].
+
 ## Disclaimers
 
 Specifications published by the IIIF Consortium and Community are made available with the following disclaimer of liability:
@@ -24,6 +26,7 @@ Specifications published by the IIIF Consortium and Community are made available
 This disclaimer is the same as used by the [W3C][w3c] for its specifications.
 
 [cc-by]: http://creativecommons.org/licenses/by/4.0/ "Creative Commons &mdash; Attribution 4.0 International"
+[cc0]: https://creativecommons.org/publicdomain/zero/1.0/ "CC0 Public Domain Dedication"
 [w3c]: http://www.w3.org/Consortium/Legal/2015/doc-license
 
 {% include acronyms.md %}

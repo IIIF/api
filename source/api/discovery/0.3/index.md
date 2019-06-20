@@ -60,7 +60,7 @@ The objective of the IIIF Change Discovery API is to provide the information nee
 
 The discovery of IIIF resources requires a consistent and well understood pattern for content providers to publish lists of links to their available content. This allows a baseline implementation of discovery systems that process the list, looking for resources that have been added or changed.
 
-This process can be optimized by allowing the content providers to publish descriptions of when their content has changed, enabling consuming systems to only retrieve the resources that have been modified since they were last retrieved. These changes might include when content is deleted or otherwise becomes unavailable. Finally, for rapid synchronization, a system of notifications pushed from the publisher to a set of subscribers can reduce the amount of effort required to constantly poll all of the systems to see if anything has changed. 
+This process can be optimized by allowing the content providers to publish descriptions of when their content has changed, enabling consuming systems to only retrieve the resources that have been modified since they were last retrieved. These changes might include when content is deleted or otherwise becomes unavailable. Finally, for rapid synchronization, a system of notifications pushed from the publisher to a set of subscribers can reduce the amount of effort required to constantly poll all of the systems to see if anything has changed.
 
 Work that is out of scope of this API includes the recommendation or creation of any descriptive metadata formats, and the recommendation or creation of metadata search APIs or protocols. The diverse domains represented within the IIIF community already have successful standards fulfilling these use cases, and the results of previous attempts to reconcile these standards across domains have not seen widespread adoption. Also out of scope is optimization of the transmission of content, for example recommendations about transferring any source media or data between systems.
 
@@ -83,7 +83,7 @@ The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _S
 ## 2. Overview of IIIF Resource Discovery
 {: #overview-of-iiif-resource-discovery}
 
-In order to discover IIIF resources, the state of those resources in the systems that publish them needs to be communicated succinctly and easily to a consuming system.  The consumer can then use that information to retrieve and process the resources of interest and provide machine or user interfaces that enable discovery.  This communication takes place via the IIIF Change Discovery API, which uses the W3C [Activity Streams][org-w3c-activitystreams] specification to describe and serialize changes to resources, where the semantics of those changes and the interactions between publishers and consumers are based on those identified by the [ResourceSync][org-openarchives-rsync] framework. 
+In order to discover IIIF resources, the state of those resources in the systems that publish them needs to be communicated succinctly and easily to a consuming system.  The consumer can then use that information to retrieve and process the resources of interest and provide machine or user interfaces that enable discovery.  This communication takes place via the IIIF Change Discovery API, which uses the W3C [Activity Streams][org-w3c-activitystreams] specification to describe and serialize changes to resources, where the semantics of those changes and the interactions between publishers and consumers are based on those identified by the [ResourceSync][org-openarchives-rsync] framework.
 
 Activities are used to describe the state of the publishing system by recording each individual change, in the order that they occur. The changes described are the creation, modification and deletion of IIIF Presentation API resources, primarily Collections and Manifests.  If the consuming application is aware of all of the changes that took place in the publishing system, it would have full knowledge of the set of resources available.  The focus on IIIF Collections and Manifests is because these are the main access points to published content and references to descriptive metadata about that content, however Activities describing changes to other resources could also be published in this way.
 
@@ -99,7 +99,7 @@ There are three levels of conformance at which changes can be described. Level 0
 #### 2.1.1. Level 0: Basic Resource List
 {: #level-0-basic-resource-list}
 
-The core information required to provide a minimally effective set of links to IIIF resources is just the URIs of those resources. However, with the addition of some additional JSON structure wrapped around those URIs, we can be on the path towards a robust set of information that clients can use to optimize their processing.  
+The core information required to provide a minimally effective set of links to IIIF resources is just the URIs of those resources. However, with the addition of some additional JSON structure wrapped around those URIs, we can be on the path towards a robust set of information that clients can use to optimize their processing.
 
 Starting with the IIIF resource URIs, we add an "Update" Activity wrapper around them.  The order of the resources in the resulting list is unimportant, but each should only appear once. In terms of optimization, this approach provides no additional benefit over any other simpler list format, but is compatible with the following levels which introduce significant benefits.  This is the minimum level for interoperability, while being compatible with the more detailed patterns described below.
 
@@ -108,11 +108,11 @@ If resources are deleted after being referred to in the resource list, the entir
 Example Level 0 Activity:
 
 ```
-{ 
+{
   "type": "Update",
   "object": {
     "id": "https://example.org/iiif/1/manifest",
-    "type": "Manifest"  	
+    "type": "Manifest"
   }
 }
 ```
@@ -232,7 +232,7 @@ Properties, beyond those described in this specification, that the consuming app
 ### 3.1. Ordered Collection
 {: #orderedcollection}
 
-The top-most resource for managing the lists of Activities is an Ordered Collection, broken up into Ordered Collection Pages. This is the same pattern that the Web Annotation model uses for Annotation Collections and Annotation Pages. The Collection does not directly contain any of the Activities, instead it refers to the `first` and `last` pages of the list.  
+The top-most resource for managing the lists of Activities is an Ordered Collection, broken up into Ordered Collection Pages. This is the same pattern that the Web Annotation model uses for Annotation Collections and Annotation Pages. The Collection does not directly contain any of the Activities, instead it refers to the `first` and `last` pages of the list.
 
 The overall ordering of the Collection is from the oldest Activity as the first entry in the first page, to the most recent as the last entry in the last page. Consuming applications _SHOULD_ therefore start at the end and walk **backwards** through the list, and stop when they reach a timestamp before the time they last processed the list.
 
@@ -265,7 +265,7 @@ A link to the first Ordered Collection Page for this Collection.
 Ordered Collections _SHOULD_ have a `first` property.  The value _MUST_ be a JSON object, with the `id` and `type` properties.  The value of the `id` property _MUST_ be a string, and it _MUST_ be the HTTP(S) URI of the first page of items in the Collection. The value of the `type` property _MUST_ be the string `OrderedCollectionPage`.
 
 ```
-{ 
+{
   "first": {
     "id": "https://example.org/activity/page-0",
     "type": "OrderedCollectionPage"
@@ -280,7 +280,7 @@ A link to the last Ordered Collection Page for this Collection.  As the client p
 Ordered Collections _MUST_ have a `last` property.  The value _MUST_ be a JSON object, with the `id` and `type` properties.  The value of the `id` property _MUST_ be a string, and it _MUST_ be the HTTP(S) URI of the last page of items in the Collection. The value of the `type` property _MUST_ be the string `OrderedCollectionPage`.
 
 ```
-{ 
+{
   "last": {
     "id": "https://example.org/activity/page-1234",
     "type": "OrderedCollectionPage"
@@ -320,7 +320,7 @@ Ordered Collections _MAY_ have a `seeAlso` property.  The value _MUST_ be an arr
 
 This property is used to refer to a parent Ordered Collection, of which this Ordered Collection is part. This would allow a publisher to have thematic or temporal sets of activities, for example to have different collections of activities for their paintings from their sculptures, or their modern content from their archival.
 
-Ordered Collections _MAY_ have a `partOf` property. The value _MUST_ be an array of one or more JSON objects, with the `id` and `type` properties.  The value of the `id` property _MUST_ be a string, and it _MUST_ be the HTTP(S) URI of the parent collection.  The value of the `type` property _MUST_ be the string `OrderedCollection`. 
+Ordered Collections _MAY_ have a `partOf` property. The value _MUST_ be an array of one or more JSON objects, with the `id` and `type` properties.  The value of the `id` property _MUST_ be a string, and it _MUST_ be the HTTP(S) URI of the parent collection.  The value of the `type` property _MUST_ be the string `OrderedCollection`.
 
 ```
 {
@@ -522,7 +522,7 @@ Activities _MAY_ have an `id` property. The value _MUST_ be a string and it _MUS
 
 ##### type
 
-The type of Activity. 
+The type of Activity.
 
 This specification uses the types described in the table below.
 
@@ -559,7 +559,7 @@ Activities _MUST_ have the `object` property.  The value _MUST_ be a JSON object
         "type": "Dataset",
         "format": "application/ld+json"
       }
-    ] 
+    ]
   }
 }
 ```
@@ -601,7 +601,7 @@ The organization, person, or software agent that carried out the Activity.
 Activities _MAY_ have the `actor` property.  The value _MUST_ be a JSON object, with the `id` and `type` properties. The `id` _SHOULD_ be an HTTP(S) URI. The `type` _MUST_ be one of `Application`, `Organization`, or `Person`.
 
 ```
-{ 
+{
   "actor": {
     "id": "https://example.org/person/admin1",
     "type": "Person"
@@ -614,13 +614,13 @@ Activities _MAY_ have the `actor` property.  The value _MUST_ be a JSON object, 
 A complete example Activity would thus look like the following example. Note that it does not have a `@context` property, as it is always embedded within a `CollectionPage`.
 
 ```
-{ 
+{
   "id": "https://example.org/activity/1",
   "type": "Update",
   "summary": "admin updated the manifest, fixing reported bug #15.",
   "object": {
     "id": "https://example.org/iiif/1/manifest",
-    "type": "Manifest",  	
+    "type": "Manifest",
     "seeAlso": [
       {
         "id": "https://example.org/dataset/single-item.jsonld",
@@ -643,7 +643,7 @@ A complete example Activity would thus look like the following example. Note tha
 
 #### 3.4.1. @context
 
-The top level resource in the response _MUST_ have the `@context` property, and it _SHOULD_ appear as the very first key/value pair of the JSON representation.  This property lets Linked Data processors interpret the document as a graph.  The value of the property _MUST_ be either the URI of the IIIF Discovery context document, `http://iiif.io/api/discovery/0/context.json`, or an array of strings, where the URI of the IIIF Discovery context document is the last item in the array.  
+The top level resource in the response _MUST_ have the `@context` property, and it _SHOULD_ appear as the very first key/value pair of the JSON representation.  This property lets Linked Data processors interpret the document as a graph.  The value of the property _MUST_ be either the URI of the IIIF Discovery context document, `http://iiif.io/api/discovery/0/context.json`, or an array of strings, where the URI of the IIIF Discovery context document is the last item in the array.
 
 ```
 {
@@ -653,7 +653,7 @@ The top level resource in the response _MUST_ have the `@context` property, and 
 
 #### 3.4.2. Extensions
 
-If any additional classes or properties are desired beyond the ones defined in this specification or the ActivityStreams specification, then those classes or properties _SHOULD_ be mapped to RDF terms in one or more additional context documents. These extension contexts _SHOULD_ be added to the top level `@context` property, and _MUST_ be before the URI of the Discovery context. The JSON-LD 1.1 functionality of defining terms only within a specific property, known as [scoped contexts][org-w3c-json-ld-scoped-contexts], _MUST_ be used to minimize cross-extension collisions.  Extensions intended for broad use _SHOULD_ be registered in the [extensions registry][annex-registry].  
+If any additional classes or properties are desired beyond the ones defined in this specification or the ActivityStreams specification, then those classes or properties _SHOULD_ be mapped to RDF terms in one or more additional context documents. These extension contexts _SHOULD_ be added to the top level `@context` property, and _MUST_ be before the URI of the Discovery context. The JSON-LD 1.1 functionality of defining terms only within a specific property, known as [scoped contexts][org-w3c-json-ld-scoped-contexts], _MUST_ be used to minimize cross-extension collisions.  Extensions intended for broad use _SHOULD_ be registered in the [extensions registry][registry].
 
 ```
 {
@@ -715,7 +715,7 @@ Given the URI of an ActivityStreams CollectionPage (`page`) and the date of last
 #### 3.5.3. Indexing
 {: #indexing}
 
-If the objective of the consuming application is to find descriptive information that might be used to build an index allowing the resources to be discovered, then the application _SHOULD_ use the IIIF Presentation API `seeAlso` property to discover an appropriate, machine-readable description of the resource.  For different types of resource, and for different domains, the external resources will have different formats and semantics. If there are no external descriptions, or none that can be processed, the data in the Manifest and in other IIIF resources might be used as a last resort, despite its presentational intent. 
+If the objective of the consuming application is to find descriptive information that might be used to build an index allowing the resources to be discovered, then the application _SHOULD_ use the IIIF Presentation API `seeAlso` property to discover an appropriate, machine-readable description of the resource.  For different types of resource, and for different domains, the external resources will have different formats and semantics. If there are no external descriptions, or none that can be processed, the data in the Manifest and in other IIIF resources might be used as a last resort, despite its presentational intent.
 
 ## 4. Network Considerations
 
@@ -781,4 +781,3 @@ Many of the changes in this version are due to the work of the [IIIF Discovery T
 | 2018-05-04 | Version 0.1 (unnamed) |
 
 {% include links.md %}
- 

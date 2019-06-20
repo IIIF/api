@@ -1,13 +1,13 @@
 ---
-title: "Image API 3.0 ALPHA DRAFT"
-title_override: "IIIF Image API 3.0 ALPHA DRAFT"
+title: "Image API 3.0 BETA DRAFT"
+title_override: "IIIF Image API 3.0 BETA DRAFT"
 id: image-api
 layout: spec
 tags: [specifications, image-api]
 major: 3
 minor: 0
 patch: 0
-pre: ALPHA
+pre: BETA
 cssversion: 3
 redirect_from:
   - /api/image/3/index.html
@@ -87,7 +87,7 @@ There are four parameters shared by the requests, and other IIIF specifications:
 | scheme | Indicates the use of the HTTP or HTTPS protocol in calling the service. |
 | server | The host server on which the service resides. The parameter may also include a port number. |
 | prefix | The path on the host server to the service. This prefix is optional, but may be useful when the host server supports multiple services. The prefix _MAY_ contain multiple path segments, delimited by slashes, but all other special characters _MUST_ be encoded. See [URI Encoding and Decoding][image30-uri-encoding-and-decoding] for more information. |
-| identifier | The identifier of the requested image. This may be an ark, URN, filename, or other identifier. Special characters _MUST_ be URI encoded. |
+| identifier | The identifier of the requested image. This may be an ARK, URN, filename, or other identifier. Special characters _MUST_ be URI encoded. |
 {: .api-table}
 
 The combination of these parameters forms the image service’s base URI and identifies the underlying image content. It is constructed according to the following URI template ([RFC6570][org-rfc-6570]):
@@ -213,19 +213,29 @@ Examples:
 
 ###  4.2. Size
 
-The size parameter specifies the dimensions to which the extracted region, which might be the complete image, is to be scaled. With the exception of the _`w,h`_ form, the returned image maintains the aspect ratio of the extracted region as closely as possible.
+The size parameter specifies the dimensions to which the extracted region, which might be the full image, is to be scaled. With the exception of the _`w,h`_ and _`^w,h`_ forms, the returned image maintains the aspect ratio of the extracted region as closely as possible. Sizes prefixed with `^` allow upscaling of the extracted region when its pixel dimensions are less than the pixel dimensions of the scaled region.
 
 | Form      | Description |
 | --------- | ----------- |
-| `max`     | The extracted region is returned at the maximum size available. The resulting image will have the pixel dimensions of the extracted region, unless it is constrained to a smaller size by `maxWidth`, `maxHeight`, or `maxArea` as defined in the [Technical Properties][image30-technical-properties] section. |
-| _`w,`_    | The extracted region should be scaled so that the width of the returned image is exactly equal to _`w`_. |
-| _`,h`_    | The extracted region should be scaled so that the height of the returned image is exactly equal to _`h`_. |
-| _`pct:n`_ | The width and height of the returned image is scaled to _`n`_ percent of the width and height of the extracted region. |
-| _`w,h`_   | The width and height of the returned image are exactly _`w`_ and _`h`_. The aspect ratio of the returned image _MAY_ be significantly different than the extracted region, resulting in a distorted image. |
-| _`!w,h`_  | The extracted region is scaled so that the width and height of the returned image are not greater than _`w`_ and _`h`_, while maintaining the aspect ratio. The returned image _MUST_ be as large as possible but not larger than the extracted region, _`w`_ or _`h`_, or server-imposed limits. |
+| `max`     | The extracted region is returned at the maximum size available, but will not be upscaled. The resulting image will have the pixel dimensions of the extracted region, unless it is constrained to a smaller size by `maxWidth`, `maxHeight`, or `maxArea` as defined in the [Technical Properties][image30-technical-properties] section. |
+| `^max`    | The extracted region is scaled to the maximum size permitted by `maxWidth`, `maxHeight`, or `maxArea` as defined in the [Technical Properties][image30-technical-properties] section. If the resulting dimensions are greater than the pixel width and height of the extracted region, the extracted region is upscaled.|
+| _`w,`_    | The extracted region should be scaled so that the width of the returned image is exactly equal to _`w`_. The value of _`w`_ _MUST NOT_ be greater than the width of the extracted region. |
+| _`^w,`_   | The extracted region should be scaled so that the width of the returned image is exactly equal to _`w`_. If _`w`_ is greater than the pixel width of the extracted region, the extracted region is upscaled.  |
+| _`,h`_    | The extracted region should be scaled so that the height of the returned image is exactly equal to _`h`_. The value of _`h`_ _MUST NOT_ be greater than the height of the extracted region. |
+| _`^,h`_   | The extracted region should be scaled so that the height of the returned image is exactly equal to _`h`_. If _`h`_ is greater than the pixel height of the extracted region, the extracted region is upscaled. |
+| _`pct:n`_ | The width and height of the returned image is scaled to _`n`_ percent of the width and height of the extracted region. The value of _`n`_ _MUST NOT_ be greater than 100. |
+| _`^pct:n`_ | The width and height of the returned image is scaled to _`n`_ percent of the width and height of the extracted region. For values of _`n`_ greater than 100, the extracted region is upscaled. |
+| _`w,h`_   | The width and height of the returned image are exactly _`w`_ and _`h`_. The aspect ratio of the returned image _MAY_ be significantly different than the extracted region, resulting in a distorted image. The values of _`w`_ and _`h`_ _MUST NOT_ be greater than the corresponding pixel dimensions of the extracted region. |
+|  _`^w,h`_ | The width and height of the returned image are exactly _`w`_ and _`h`_. The aspect ratio of the returned image _MAY_ be significantly different than the extracted region, resulting in a distorted image. If _`w`_ and/or _`h`_ are greater than the corresponding pixel dimensions of the extracted region, the extracted region is upscaled. |
+| _`!w,h`_ | The extracted region is scaled so that the width and height of the returned image are not greater than _`w`_ and _`h`_, while maintaining the aspect ratio. The returned image _MUST_ be as large as possible but not larger than the extracted region, _`w`_ or _`h`_, or server-imposed limits. |
+| _`^!w,h`_ | The extracted region is scaled so that the width and height of the returned image are not greater than _`w`_ and _`h`_, while maintaining the aspect ratio. The returned image _MUST_ be as large as possible but not larger than  _`w`_, _`h`_, or server-imposed limits. |
 {: .api-table}
 
-The pixel dimensions of the scaled region _MUST NOT_ be greater than the pixel dimensions of the extracted region, or be less than 1 pixel. Requests that would generate images of these sizes are errors that _SHOULD_ result in a 400 (Bad Request) status code.
+Requests for sizes not prefixed with `^` that result in a scaled region with pixel dimensions greater than the pixel dimensions of the extracted region are errors that _SHOULD_ result in a 400 (Bad Request) status code.
+
+Requests for sizes prefixed with `^` that require upscaling _SHOULD_ result in a 501 (Not Implemented) status code if the server does not support upscaling, while a 400 (Bad Request) status code _SHOULD_ be returned in response to other client request syntax errors.  For example, a request for the size `^pct:120` should result in a 501 status code if the server does not support upscaling.
+
+For all requests the pixel dimensions of the scaled region _MUST NOT_ be less than 1 pixel or greater than the server-imposed limits. Requests that would generate images of these sizes are errors that _SHOULD_ result in a 400 (Bad Request) status code.
 
 Examples:
 
@@ -239,9 +249,22 @@ Examples:
         <p><em>N.B. Assuming that the image has a <code>maxWidth</code> of 200px</em></p>
       </td>
       <td>
+        <img src="img/size_up_max.png" alt="Above Maximum Size" class="fullPct" />
+        <p><strong>1</strong> size=^max</p>
+        <p><code>.../full/^max/0/default.jpg</code></p>
+        <p><em>N.B. Assuming that the image has a <code>maxWidth</code> of 360px</em></p>
+      </td>
+    </tr>
+    <tr>
+      <td>
         <img src="img/size_wc.png" alt="Size by Width" class="fullPct" />
         <p><strong>2</strong> size=150,</p>
         <p><code>.../full/150,/0/default.jpg</code></p>
+      </td>
+      <td>
+        <img src="img/size_up_max.png" alt="Size by Width Above Maximum" class="fullPct" />
+        <p><strong>2</strong> size=^360,</p>
+        <p><code>.../full/^360,/0/default.jpg</code></p>
       </td>
     </tr>
     <tr>
@@ -251,9 +274,21 @@ Examples:
         <p><code>.../full/,150/0/default.jpg</code></p>
       </td>
       <td>
+        <img src="img/size_up_max.png" alt="Size by Height Above Maximum" class="fullPct" />
+        <p><strong>3</strong> size=,^240</p>
+        <p><code>.../full/,^240/0/default.jpg</code></p>
+      </td>
+    </tr>
+    <tr>
+      <td>
         <img src="img/size_pct.png" alt="Size by Percent" class="fullPct" />
         <p><strong>4</strong> size=pct:50</p>
         <p><code>.../full/pct:50/0/default.jpg</code></p>
+      </td>
+      <td>
+        <img src="img/size_up_max.png" alt="Size by Percent Above Maximum" class="fullPct" />
+        <p><strong>4</strong> size=pct:120</p>
+        <p><code>.../full/pct:120/0/default.jpg</code></p>
       </td>
     </tr>
     <tr>
@@ -263,10 +298,23 @@ Examples:
         <p><code>.../full/225,100/0/default.jpg</code></p>
       </td>
       <td>
+        <img src="img/size_up_wch.png" alt="Size by Width,Height Above Maximum" class="fullPct" />
+        <p><strong>5</strong> size=^360,360</p>
+        <p><code>.../full/^360,360/0/default.jpg</code></p>
+      </td>
+    </tr>
+    <tr>
+      <td>
         <img src="img/size_bwch.png" alt="Size By Bang Width Height" class="fullPct" />
         <p><strong>6</strong> size=!225,100</p>
         <p><code>.../full/!225,100/0/default.jpg</code></p>
         <p><em>N.B. Returned image is 150,100 px</em></p>
+      </td>
+      <td>
+        <img src="img/size_up_bwch.png" alt="Size By Bang Width Height Above Maximum" class="fullPct" />
+        <p><strong>6</strong> size=^!360,360</p>
+        <p><code>.../full/^!360,360/0/default.jpg</code></p>
+        <p><em>N.B. Returned image is 360,240 px</em></p>
       </td>
     </tr>
   </tbody>
@@ -345,7 +393,7 @@ The quality parameter determines whether the image is delivered in color, graysc
 
 The `default` quality exists to support [level 0 compliant implementations][image30-compliance-quality] that may not know the qualities of individual images in their collections. It also provides a convenience for clients that know the values for all other parameters of a request except the quality (e.g. `.../full/120,80/90/{quality}.png` to request a thumbnail) in that a preliminary image information request that would only serve to find out which qualities are available can be avoided.
 
-A quality value that is unsupported _SHOULD_ result in a 400 (Bad Request) status code.
+Regardless of level of compliance, services that make additional qualities beyond `default` available _MUST_ list those qualities in the [`extraQualities` property][image3-extra-functionality] of the response to the [Image Information Request][image3-information]. A request for an image with an unsupported quality value _SHOULD_ return a 400 (Bad Request) status code.
 
 Examples:
 
@@ -437,7 +485,7 @@ In order to support the above requirements, clients _SHOULD_ construct image req
 | Parameter | Canonical value |
 | --------- | --------------- |
 | region    | `full` if the full image is requested<br/>otherwise the _`x,y,w,h`_ syntax. |
-| size      | `max` if the maximum size is requested,<br/>otherwise the _`w,h`_ syntax. |
+| size      | `max` if the maximum size without upscaling is requested,<br/>`^max` if the maximum upscaled size is requested, otherwise<br/>_`w,h`_ if the size requested does not require upscaling, or<br/>_`^w,h`_ if the request requires upscaling of the extracted region. |
 | rotation  | `!` if the image is mirrored, followed by an integer if possible, otherwise a floating point value. |
 | quality   | `default` if the server's default quality is requested,<br/>otherwise the quality string. |
 | format    | An explicit format string is always required. |
@@ -461,7 +509,7 @@ The IIIF Image API is extensible within the [Image Request URI Syntax][image30-i
 
 ##  5. Image Information
 
-Servers _MUST_ support requests for image information. The response is a JSON document that includes technical properties about the full image and may also contain rights and licensing properties, and services related to it.
+Servers _MUST_ support requests for image information. The response is a JSON document that includes technical properties about the full image. It may also contain rights information, and services related to the image.
 
 ### 5.1. Image Information Request
 
@@ -472,23 +520,23 @@ The request for the image information _MUST_ conform to the URI template:
 ```
 {: .urltemplate}
 
-The syntax for the response is [JSON-LD][org-w3c-json-ld]. The content-type of the response _MUST_ be either `application/json` (regular JSON),
+The syntax for the response is [JSON-LD][org-w3c-json-ld]. If the server receives a request with an `Accept` header, it _SHOULD_ respond following the rules of [content negotiation][org-rfc-7231-conneg]. Note that content types provided in the `Accept` header of the request _MAY_ include parameters, for example `profile` or `charset`.
 
-``` none
-Content-Type: application/json
-```
-{: .urltemplate}
-
-or `application/ld+json` (JSON-LD).
+If the request does not include an `Accept` header, the HTTP `Content-Type` header of the response _SHOULD_ have the value `application/ld+json` (JSON-LD) with the `profile` parameter given as the context document: `http://iiif.io/api/image/3/context.json`.
 
 ``` none
 Content-Type: application/ld+json;profile="http://iiif.io/api/image/3/context.json"
 ```
 {: .urltemplate}
 
-If the server receives a request with one of the content types above in the Accept header, it _SHOULD_ respond with that content type following the rules of [content negotiation][org-rfc-7231-conneg]. Otherwise, it _MUST_ respond with the `application/json` content type.
+If the `Content-Type` header `application/ld+json` cannot be generated due to server configuration details, then the `Content-Type` header _SHOULD_ instead be `application/json` (regular JSON), without a `profile` parameter.
 
-Servers should also support [CORS][image30-cors-response] on image information responses.
+``` none
+Content-Type: application/json
+```
+{: .urltemplate}
+
+Servers _SHOULD_ support [CORS][image30-cors-response] on image information responses.
 
 ### 5.2. Technical Properties
 
@@ -599,20 +647,40 @@ Objects in the `tiles` array _MUST_ each have a unique combination of `width` an
 }
 ```
 
-### 5.5. Rights Related Properties
+### 5.5. Preferred Formats
 
-The rights and licensing properties, `requiredStatement`, `rights` and `logo`, have the same semantics and requirements as those in the [Presentation API][prezi3].
+The JSON response _MAY_ have the `preferredFormats` property, which lists one or more format parameter values for this image service. This allows the publisher to express a preference for the format a client requests, for example to encourage use of a more efficient format such as webp, or to suggest a format that will give better results for the image content, such as lossless webp or png for line art or graphics.
 
 | Property | Required? | Description |
 | ------------- | --------- | ----------- |
-| `requiredStatement` | Optional  | Text that _MUST_ be shown when content obtained from the Image API service is displayed or used. It might include copyright or ownership statements, or a simple acknowledgement of the providing institution. The value of this property _MUST_ be a JSON object, that has the `label` and `value` properties. The values of both `label` and `value` must be JSON objects, as described in the [Language of Property Values][prezi3-languages] section of the Presentation API. The `value` property _MAY_ contain simple HTML as described in the [HTML Markup in Property Values][prezi3-html] section of the Presentation API. Given the wide variation of potential client user interfaces, it will not always be possible to display this statement to the user in the client’s initial state. If initially hidden, clients _MUST_ make the method of revealing it as obvious as possible. |
-| `rights` | Optional | A string that identifies a license or rights statement that applies to the content of this image. The value of this property _MUST_ be drawn from the set of [Creative Commons][org-cc-licenses] licenses, the [RightsStatements.org][org-rs-terms] rights statements, or those added via the [Registry of Known Extensions][annex-registry] mechanism. The inclusion of this property is informative, and for example could be used to display an icon representing the rights assertions. If displaying rights information directly to the user is the desired interaction, or a publisher-defined label is needed, then it is _RECOMMENDED_ to include the information using the `requiredStatement` property. |
-| `logo` | Optional | A small external image resource that represents an individual or organization associated with this image. This could be the logo of the owning or hosting institution. The value of this property _MUST_ be an array of JSON objects, each of which _MUST_ have an `id` and _SHOULD_ have at least one of `type` and `format`. The logo _MUST_ be clearly rendered when the resource is displayed or used, without cropping, rotating or otherwise distorting the image. It is _RECOMMENDED_ that a IIIF Image API service be available for this image for other manipulations such as resizing. |
+| `preferredFormats` | Optional | An array of strings that are the preferred format parameter values, arranged in order of preference.  The format parameter values listed must be among those specified in the referenced profile or listed in the `extraFormats` property (see [Extra Functionality][image3-extra-functionality]). |
 {: .api-table}
 
-It is _RECOMMENDED_ that logos with IIIF Image API services do not, themselves, have `logo` properties. When clients render logos specified with an IIIF Image API service, they _MAY_ ignore any `logo` property on in the included logo.
 
-When both the Image and Presentation APIs express `requiredStatement` or `logo` properties, then clients _MUST_ display both unless they are identical.
+``` json-doc
+{
+  "@context": "http://iiif.io/api/image/{{ page.major }}/context.json",
+  "id": "https://example.org/image-service/",
+  "type": "ImageService3",
+  "protocol": "http://iiif.io/api/image",
+  "profile": "level2",
+  "width": 6000,
+  "height": 4000,
+  "extraFormats": [ "webp" ],
+  "preferredFormats": [ "webp", "png" ]
+}
+```
+
+### 5.6. Rights
+
+The `rights` property has the same semantics and requirements as it does in the [Presentation API][prezi3].
+ 
+| Property | Required? | Description |
+| -------- | --------- | ----------- |
+| `rights` | Optional  | A string that identifies a license or rights statement that applies to the content of this image. The value of this property _MUST_ be a string drawn from the set of [Creative Commons][org-cc-licenses] license URIs, the [RightsStatements.org][org-rs-terms] rights statement URIs, or those added via the [Registry of Known Extensions][registry] mechanism. The inclusion of this property is informative, and for example could be used to display an icon representing the rights assertions. |
+{: .api-table}
+
+If the publisher of this image requires additional information to be shown when it is viewed, the information should be provided by a [Presentation API][prezi3] Manifest, as described in the [Linking Properties][image3-linking-properties] section.
 
 ``` json-doc
 {
@@ -623,30 +691,19 @@ When both the Image and Presentation APIs express `requiredStatement` or `logo` 
   "profile": "level2",
   "width": 6000,
   "height": 4000,
-  "requiredStatement": {
-    "label": { "en": [ "Attribution" ] },
-    "value": { "en": [ "Provided by Example Organization" ] }
-  },
-  "logo": [
-    {
-      "id": "https://example.org/logos/institution1.jpg",
-      "type": "Image"
-    }
-  ],
   "rights": "http://rightsstatements.org/vocab/InC-EDU/1.0/"
 }
 ```
 
-
-### 5.6. Extra Functionality
+### 5.7. Extra Functionality
 
 The JSON response _MAY_ also contain properties that describe additional functionality available via the image service.
 
 | Property   | Required? | Description |
 | ---------- | --------- | ----------- |
-| `extraQualities` | Optional | An array of strings that can be used as the quality parameter, in addition to the ones specified in the referenced profile. |
+| `extraQualities` | Optional | An array of strings that can be used as the quality parameter, in addition to `default`. |
 | `extraFormats` | Optional | An array of strings that can be used as the format parameter, in addition to the ones specified in the referenced profile. |
-| `extraFeatures` | Optional | An array of strings identifying features supported by the service, in addition to the ones specified in the referenced profile. These strings are defined either in the [table][image30-features-table] below or by [registering an extension][registry-image-extensions]. |
+| `extraFeatures` | Optional | An array of strings identifying features supported by the service, in addition to the ones specified in the referenced profile. These strings are defined either in the [table][image30-features-table] below or by [registering an extension][extensions]. |
 {: .api-table}
 
 The following features are defined for use in the `extraFeatures` property:
@@ -669,15 +726,33 @@ The following features are defined for use in the `extraFeatures` property:
 | `sizeByPct` | Images size may be requested in the form _`pct:n`_.  |
 | `sizeByW` | Image size may be requested in the form _`w,`_.  |
 | `sizeByWh` | Image size may be requested in the form _`w,h`_.  |
+| `sizeUpscaling` | Image sizes prefixed with `^` may be requested. |
 {: .api-table #features-table}
 
 A server that supports neither `sizeByW` or `sizeByWh` is only required to serve the image sizes listed under the `sizes` property or implied by the `tiles` property of the image information document, allowing for a static file implementation.
 
+A server that supports `sizeUpscaling` _MUST_ specify `maxWidth` or `maxArea` (see [Technical Properties][image30-technical-properties]).
+
 The set of features, formats and qualities supported is the union of those declared in the external profile document and those added by the `extraQualities`, `extraFormats`, and `extraFeatures` properties. If a feature is not present in either the profile document or the `extraFeatures` property, then a client _MUST_ assume that the feature is not supported.
 
-Additional strings used in the `extraQualities`, `extraFormats`, and `extraFeatures` properties, or additional properties used in the image information, that are not defined in this specification _SHOULD_ be mapped to RDF predicates using further context documents. These extensions _SHOULD_ be added to the top level `@context` property (see [Technical Properties][image30-technical-properties]). The JSON-LD 1.1 functionality of predicate specific context definitions, known as [scoped contexts][org-w3c-json-ld-scoped-contexts], _MUST_ be used to minimize cross-extension collisions. Extensions intended for community use _SHOULD_ be [registered in the extensions registry][annex-registry], but registration is not mandatory.
+Additional strings used in the `extraQualities`, `extraFormats`, and `extraFeatures` properties, or additional properties used in the image information, that are not defined in this specification _SHOULD_ be mapped to RDF predicates using further context documents. These extensions _SHOULD_ be added to the top level `@context` property (see [Technical Properties][image30-technical-properties]). The JSON-LD 1.1 functionality of predicate specific context definitions, known as [scoped contexts][org-w3c-json-ld-scoped-contexts], _MUST_ be used to minimize cross-extension collisions. Extensions intended for community use _SHOULD_ be [registered in the extensions registry][registry], but registration is not mandatory.
 
-### 5.7. Linking Properties
+``` json-doc
+{
+  "@context": "http://iiif.io/api/image/{{ page.major }}/context.json",
+  "id": "https://example.org/image-service/abcd1234/1E34750D-38DB-4825-A38A-B60A345E591C",
+  "type": "ImageService3",
+  "protocol": "http://iiif.io/api/image",
+  "profile": "level2",
+  "width": 6000,
+  "height": 4000,
+  "extraFormats": [ "gif", "pdf" ],
+  "extraQualities": [ "color", "gray" ],
+  "extraFeatures": [ "canonicalLinkHeader", "rotationArbitrary", "profileLinkHeader" ]
+}
+```
+
+### 5.8. Linking Properties
 
 The JSON response _MAY_ contain linking properties that reference external resources, including services that make additional functionality available to a viewer. The linking properties have the same semantics and requirements as those in the [Presentation API][prezi3].
 
@@ -696,7 +771,7 @@ The JSON objects in `partOf`, `seeAlso`, and `service` have the properties indic
 | `type`     | Required | The type or class of this resource.  Recommendations for basic types such as image, text or audio are [given in the Presentation API][prezi3-type]. |
 | `label`    | Recommended | A human-readable label for this resource. The `label` property can be fully internationalized, and each language can have multiple values. This pattern is described in more detail in [the languages section of the Presentation API][prezi3-languages]. |
 | `format`   | Recommended for `seeAlso` | The specific media type (often called a MIME type) for this content resource, for example “image/jpeg”. This is important for distinguishing different formats of the same overall type of resource, such as distinguishing text in XML from plain text. The value must be a string, and it should be the value of the Content-Type header returned when this resource is dereferenced. |
-| `profile`  | Recommended for `seeAlso`, `service` | A schema or named set of functionality available from this resource. The profile can further clarify the `type` and/or `format` of an external resource. The value must be a string, either taken from the [Registry of Profiles][annex-registry] or a URI. |
+| `profile`  | Recommended for `seeAlso`, `service` | A schema or named set of functionality available from this resource. The profile can further clarify the `type` and/or `format` of an external resource. The value must be a string, either taken from the [Registry of Profiles][registry] or a URI. |
 {: .api-table}
 
 ``` json-doc
@@ -730,7 +805,7 @@ The JSON objects in `partOf`, `seeAlso`, and `service` have the properties indic
 }
 ```
 
-### 5.8. Complete Response
+### 5.9. Complete Response
 
 The following shows an image information response including all of the required and optional properties.
 
@@ -746,6 +821,9 @@ The following shows an image information response including all of the required 
   "profile": "level1",
   "width": 6000,
   "height": 4000,
+  "maxWidth": 3000,
+  "maxHeight": 2000,
+  "maxArea": 4000000,
   "sizes": [
     { "width": 150, "height": 100 },
     { "width": 600, "height": 400 },
@@ -755,30 +833,8 @@ The following shows an image information response including all of the required 
     { "width": 512, "scaleFactors": [ 1, 2, 4 ] },
     { "width": 1024, "height": 2048, "scaleFactors": [ 8, 16 ] }
   ],
-  "requiredStatement": {
-    "label": {
-      "en": [ "Attribution" ],
-      "cy": [ "Priodoliad" ]
-    },
-    "value": {
-      "en": [ "<span>Provided by <b>Example Organization</b></span>" ],
-      "cy": [ "<span>Darparwyd gan <b>Enghraifft Sefydliad</b></span>" ]
-    }
-  },
-  "logo": [
-    {
-      "id": "https://example.org/image-service/logo/square/200,200/0/default.png",
-      "type": "Image",
-      "service": [
-        {
-          "id": "https://example.org/image-service/logo",
-          "type": "ImageService3",
-          "profile": "level2"
-        }
-      ]
-    }
-  ],
   "rights": "http://rightsstatements.org/vocab/InC-EDU/1.0/",
+  "preferredFormats": [ "png", "gif"],
   "extraFormats": [ "gif", "pdf" ],
   "extraQualities": [ "color", "gray" ],
   "extraFeatures": [ "canonicalLinkHeader", "rotationArbitrary", "profileLinkHeader" ],
@@ -813,6 +869,8 @@ Link: <http://iiif.io/api/image/{{ page.major }}/level1.json>;rel="profile"
 A recipe for setting this header on the Apache HTTP Server is shown in the [Apache HTTP Server Implementation Notes][notes-apache-set-compliance-link-header].
 
 ## 7. Server Responses
+
+Servers _MUST_ support the HTTP GET method for retrieval of Image API resources. Servers _SHOULD_ support the HTTP OPTIONS method as part of the [CORS][image30-cors-response] preflight request pattern, and it is _RECOMMENDED_ that implementations also support the HTTP HEAD method.
 
 ### 7.1. CORS
 
@@ -894,7 +952,8 @@ Many thanks to the members of the [IIIF community][iiif-community] for their con
 
 | Date       | Description |
 | ---------- | ----------- |
-| 2018-04-18 | Version 3.0 ALPHA [View change log][image30-change-log] |
+| 2019-06-20 | Version 3.0 BETA [View change log][prezi30-change-log] |
+| 2018-04-18 | Version 3.0 ALPHA |
 | 2017-06-09 | Version 2.1.1 [View change log][image211-change-log] |
 | 2016-05-12 | Version 2.1 (Crowned Eagle) [View change log][image21-change-log] |
 | 2014-09-11 | Version 2.0 (Voodoo Bunny) [View change log][image20-change-log] |

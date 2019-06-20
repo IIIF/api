@@ -20,9 +20,9 @@ cssversion: 2
 
 | API                | Draft Version (Status) |
 | ------------------ | ---------------------- |
-| Image API          | [3.0.0 ALPHA][image30] |
-| Presentation API   | [3.0.0 ALPHA][prezi30] |
-| Change Discovery API | [0.2.0][discovery02] |
+| Image API          | [3.0.0 BETA][image30] |
+| Presentation API   | [3.0.0 BETA][prezi30] |
+| Change Discovery API | [0.3.0][discovery03] |
 {: .api-table}
 
 __Feedback Requested__<br/>
@@ -74,12 +74,12 @@ IIIF Specifications are created and published following the [IIIF Editorial Proc
 
 
 [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
-[image30]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/ "Image API v3.0 ALPHA"
+[image30]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/ "Image API v3.0 BETA"
 [image21]: {{ site.url }}{{ site.baseurl }}/api/image/2.1/ "Image API v2.1"
 [image20]: {{ site.url }}{{ site.baseurl }}/api/image/2.0/ "Image API v2.0"
 [image11]: {{ site.url }}{{ site.baseurl }}/api/image/1.1/ "Image API v1.1"
 [image10]: {{ site.url }}{{ site.baseurl }}/api/image/1.0/ "Image API v1.0"
-[prezi30]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/ "Presentation API v3.0 ALPHA" 
+[prezi30]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/ "Presentation API v3.0 BETA"
 [prezi21]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.1/ "Presentation API v2.1"
 [prezi20]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.0/ "Presentation API v2.0"
 [meta10]: {{ site.url }}{{ site.baseurl }}/api/metadata/1.0/ "Metadata API v1.0"
@@ -88,7 +88,7 @@ IIIF Specifications are created and published following the [IIIF Editorial Proc
 [auth094]: {{ site.url }}{{ site.baseurl }}/api/auth/0.9/ "Authentication API v0.9.4"
 [search10]: {{ site.url }}{{ site.baseurl }}/api/search/1.0/ "Search API v1.0"
 [search09]: {{ site.url }}{{ site.baseurl }}/api/search/0.9/ "Search API v0.9"
-[discovery02]: {{ site.url }}{{ site.baseurl }}/api/discovery/0.2/ "IIIF Change Discovery API"
+[discovery03]: {{ site.url }}{{ site.baseurl }}/api/discovery/0.3/ "IIIF Change Discovery API"
 [notes]: {{ site.url }}{{ site.baseurl }}/api/annex/ "Implementation Notes"
 [editorial-process]: {{ page.webprefix }}/community/policy/editorial/ "IIIF Editorial Process"
 
