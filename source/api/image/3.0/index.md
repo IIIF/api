@@ -674,7 +674,7 @@ The JSON response _MAY_ have the `preferredFormats` property, which lists one or
 ### 5.6. Rights
 
 The `rights` property has the same semantics and requirements as it does in the [Presentation API][prezi3].
- 
+
 | Property | Required? | Description |
 | -------- | --------- | ----------- |
 | `rights` | Optional  | A string that identifies a license or rights statement that applies to the content of this image. The value of this property _MUST_ be a string drawn from the set of [Creative Commons][org-cc-licenses] license URIs, the [RightsStatements.org][org-rs-terms] rights statement URIs, or those added via the [Registry of Known Extensions][registry] mechanism. The inclusion of this property is informative, and for example could be used to display an icon representing the rights assertions. |
@@ -952,7 +952,7 @@ Many thanks to the members of the [IIIF community][iiif-community] for their con
 
 | Date       | Description |
 | ---------- | ----------- |
-| 2019-06-20 | Version 3.0 BETA [View change log][prezi30-change-log] |
+| 2019-06-20 | Version 3.0 BETA [View change log][image30-change-log] |
 | 2018-04-18 | Version 3.0 ALPHA |
 | 2017-06-09 | Version 2.1.1 [View change log][image211-change-log] |
 | 2016-05-12 | Version 2.1 (Crowned Eagle) [View change log][image21-change-log] |
