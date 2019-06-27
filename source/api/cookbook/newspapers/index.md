@@ -122,13 +122,15 @@ ALTO:
     "http://iiif.io/api/presentation/3/context.json"
   ],
   ...
-  "seeAlso": {
-     "id": "http://wellcomelibrary.org/service/alto/b19956435/0?image=0",
-     "type": "Text",
-     "format": "application/xml",
-     "profile": "http://www.loc.gov/standards/alto/",
-     "label": { "en": [ "ALTO XML" ] }
-  }
+  "seeAlso": [
+    {
+      "id": "http://wellcomelibrary.org/service/alto/b19956435/0?image=0",
+      "type": "Text",
+      "format": "application/xml",
+      "profile": "http://www.loc.gov/standards/alto/",
+      "label": { "en": [ "ALTO XML" ] }
+    }
+  ]
 }
 ```
 
@@ -141,13 +143,15 @@ hOCR:
     "http://iiif.io/api/presentation/3/context.json"
   ],
   ...
-  "seeAlso": [ {
-    "id": "https://ocr.lib.ncsu.edu/ocr/nu/nubian-message-2003-04-01_0002/nubian-message-2003-04-01_0002.hocr",
-    "type": "Text",
-    "format": "text/vnd.hocr+html",
-    "profile": "https://github.com/kba/hocr-spec/blob/master/hocr-spec.md",
-    "label": { "en": [ "hOCR" ] }
-  }
+  "seeAlso": [
+    {
+      "id": "https://ocr.lib.ncsu.edu/ocr/nu/nubian-message-2003-04-01_0002/nubian-message-2003-04-01_0002.hocr",
+      "type": "Text",
+      "format": "text/vnd.hocr+html",
+      "profile": "https://github.com/kba/hocr-spec/blob/master/hocr-spec.md",
+      "label": { "en": [ "hOCR" ] }
+    }
+  ]
 }
 ```
 
@@ -160,12 +164,14 @@ Plain text:
     "http://iiif.io/api/presentation/3/context.json"
   ],
   ...
-  "seeAlso": [ {
-    "id": "https://ocr.lib.ncsu.edu/ocr/nu/nubian-message-2003-04-01_0002/nubian-message-2003-04-01_0002.txt",
-    "type": "Text",
-    "format": "text/plain",
-    "label": { "en": [ "plain text OCR" ] }
-  }
+  "seeAlso": [
+    {
+      "id": "https://ocr.lib.ncsu.edu/ocr/nu/nubian-message-2003-04-01_0002/nubian-message-2003-04-01_0002.txt",
+      "type": "Text",
+      "format": "text/plain",
+      "label": { "en": [ "plain text OCR" ] }
+    }
+  ]
 }
 ```
 
@@ -210,7 +216,9 @@ Plain text:
           "value": "xywh=588,2844,9951,10412"
         }
       }
-    },
+    }
+  ]
+}
 ```
 
 ### Giving access to OCR text as paragraphs, lines and words
@@ -357,4 +365,3 @@ FIXME - Need to make a complete working example demonstrating features above.
 
 {% include acronyms.md %}
 {% include links.md %}
-
