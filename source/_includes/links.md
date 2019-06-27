@@ -19,6 +19,7 @@
 [github-webanno-437]: https://github.com/w3c/web-annotation/issues/437
 [groups-av]: {{ site.url }}{{ site.baseurl }}/community/groups/av/ "IIIF A/V Working Group"
 [groups-discovery]: {{ site.url }}{{ site.baseurl }}/community/groups/discovery/
+[groups-newspapers]: {{ site.url }}{{ site.baseurl }}/community/groups/newspapers/ "Newspapers Community Group"
 [icon-na]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/not_allowed.png "Not allowed"
 [icon-opt]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/optional.png "Optional"
 [icon-rec]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/recommended.png "Recommended"
@@ -177,7 +178,7 @@
 [prezi3-languages]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.draft.minor }}/#language-of-property-values "Language of Property Values"
 [prezi3-ldce]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.draft.minor }}/#linked-data-context-and-extensions "Linked Data Context and Extensions"
 [prezi3-type]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.draft.minor }}/#type
-[prezi30-anno]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#annotation
+[prezi30-anno]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#56-annotation
 [prezi30-annopage]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#55-annotation-page
 [prezi30-annocoll]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#58-annotation-collection
 [prezi30-appendixa]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#a-summary-of-property-requirements
@@ -190,6 +191,7 @@
 [prezi30-languages]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#44-language-of-property-values "Language of Property Values"
 [prezi30-ldce]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#46-linked-data-context-and-extensions "Linked Data Context and Extensions"
 [prezi30-logo]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#logo "logo property"
+[prezi30-navdate]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#navDate "navDate property"
 [prezi30-range]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#54-range
 [prezi30-resource-properties]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#3-resource-properties
 [prezi30-resource-structure]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#5-resource-structure
@@ -210,4 +212,5 @@
 [search1]: {{ site.url }}{{ site.baseurl }}/api/search/1.0/
 [shared-canvas]: {{ site.url }}{{ site.baseurl }}/model/shared-canvas/{{ site.shared_canvas.stable.major}}.{{ site.shared_canvas.stable.minor }} "Shared Canvas Data Model"
 [recipe-mvm-image]: {{ site.url }}{{ site.baseurl }}/api/cookbook/mvm-image/ "Simplest Manifest - Image"
+[recipe-newspapers]: {{ site.url }}{{ site.baseurl }}/api/cookbook/newspapers/ "Newspapers"
 [recipe-segment-image-part]: {{ site.url }}{{ site.baseurl }}/api/cookbook/segment-image-part/ "Annotating part of an image to a canvas"
