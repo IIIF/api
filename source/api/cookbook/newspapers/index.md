@@ -69,7 +69,7 @@ The guidance below provides an on-ramp for IIIF compatibility for newspapers, hi
 
 *Use case:* I want to browse newspapers published between certain dates. I want to browse through issues of a newspaper in chronological order.
 
-*Recommendation:* Newspapers should provide a `navDate` property in the issue level Manifest. See [`navDate`][prezi30-navdate] and the example below:
+*Recommendation:* Newspapers should provide a [`navDate`][prezi30-navdate] property in the issue level [Manifest][prezi30-manifest], as shown in the example below:
 
 ```
 {
@@ -87,7 +87,7 @@ The guidance below provides an on-ramp for IIIF compatibility for newspapers, hi
 }
 ```
 
-IIIF Collections for newspaper titles may also have a `navDate` in the Manifest section, for example:
+IIIF Collections for newspaper titles may also have a `navDate` for the title as a whole, for example:
 
 ``` json-doc
 {
@@ -105,7 +105,7 @@ IIIF Collections for newspaper titles may also have a `navDate` in the Manifest 
 }
 ```
 
-For Editions, a temporal value can be inserted to enforce navigation order. `navDate` is, by definition, not an assertion of when an issue was published, therefore, you can use a 06:00 timestamp for a morning edition and a 17:00 for an evening edition to provide browse order.
+For Editions, a temporal value can be inserted to enforce navigation order. `navDate` is not an assertion of when an issue was published but instead a datetime useful for navigation. Therefore, you can use a 06:00 timestamp for a morning edition and a 17:00 for an evening edition to provide browse order.
 
 ### Linking to Text
 
@@ -179,7 +179,7 @@ Plain text:
 
 *Use case:* I want text associated with areas of an image, including OCR and transcription.
 
-*Recommendation:* Use Annotation Pages of Annotations. The following example is a page of word-level annotation:
+*Recommendation:* Use [Annotation Pages][prezi30-annopage] of [Annotations][prezi30-anno] with the [`supplementing` motivation][prezi30-motivations]. The following example is an Annotation Page containing two word-level annotations on the same Canvas:
 
 ``` json-doc
 {
@@ -193,17 +193,24 @@ Plain text:
     {
       "id": "http://dams.llgc.org.uk/iiif/4342443/annotation/2003468828629",
       "type": "Annotation",
-      "motivation": "painting",
+      "motivation": "supplementing",
       "body": {
          "type": "TextualBody",
          "value": "SIEraOROLlOIO,At"
       },
-      "target": "http://dams.llgc.org.uk/iiif/4342439/canvas/4342443#xywh=2003,4688,286,29"
+      "target": {
+        "type": "SpecificResource",
+        "source": "http://dams.llgc.org.uk/iiif/4342439/canvas/4342443",
+        "selector": {
+          "type": "FragmentSelector",
+          "value": "xywh=2003,4688,286,29"
+        }
+      }
     },
     {
-      "id":"http://dams.llgc.org.uk/iiif/4342443/annotation/2308468424928",
-      "type":"Annotation",
-      "motivation":"painting",
+      "id": "http://dams.llgc.org.uk/iiif/4342443/annotation/2308468424928",
+      "type": "Annotation",
+      "motivation": "supplementing",
       "body": {
         "type": "TextualBody",
         "value": "OBSERVATIONS"
@@ -224,10 +231,12 @@ Plain text:
 ### Giving access to OCR text as paragraphs, lines and words
 
 *Use case:* I would like to share multiple versions of the same annotation list with different specificities so for example I might have:
+
   * a word level annotation list for harvesting by Europeana
   * a line level annotation list for use in Mirador
   * a paragraph annotation list for OCR correction.
-I would like to be able to link to these options to allow the client to decide which ones they want to use.
+
+I would like to be able to link to these options to allow the user or machine client to decide which ones they want to use.
 
 *Recommendation:* FIXME -- need extension to implement outputs of Text Granularity Working Group, see <https://github.com/IIIF/api/issues/758>.
 
@@ -235,7 +244,7 @@ I would like to be able to link to these options to allow the client to decide w
 
 *Use case:* I would like to display the articles contained in a newspaper page including any OCR text associated with that article.
 
-*Recommendation:* Articles should be modeled by adding a Range to the issue Manifest. The `items` list  of the range should include all SpecificResources representing areas of the Canvas that are part of this article. The `supplementing` property is used to link to the Annotation Collection for the article's OCR annotations.
+*Recommendation:* Articles should be modeled by adding a Range to the issue Manifest. The `items` list of the [Range][prezi30-range] should include all Specific Resources (described in the [Web Annotation Model][org-w3c-webanno]) representing areas of the [Canvas][prezi30-canvas] that are part of the article. The [`supplementary`][prezi30-supplementary] property is used to link to the Annotation Collection for the article's OCR annotations.
 
 ``` json-doc
 {
@@ -279,7 +288,7 @@ I would like to be able to link to these options to allow the client to decide w
 }
 ```
 
-Canvases can link to the annotations that are contained in page by:
+Canvases can link to OCR annotations for the page by adding an [Annotation Page][prezi30-annopage] with the [`annotations`][prezi30-annotations] property:
 
 ``` json-doc
 {
@@ -287,19 +296,15 @@ Canvases can link to the annotations that are contained in page by:
     "http://www.w3.org/ns/anno.jsonld",
     "http://iiif.io/api/presentation/3/context.json"
   ],
+  "id": "http://dams.llgc.org.uk/iiif/3100021/canvas/3100022",
+  "type": "Canvas",
   ...
-  "otherContent": [  FIXME -- UPDATE FOR 3.0
+  "annotations": [
     {
-       "id": "http://dams.llgc.org.uk/iiif/3100022/annotation/list/ART1.json",
-       "type": "AnnotationList",
-       "label": { "en": [ "Rousing the Bees" ] },
-       "within": {
-          "id": "http://dams.llgc.org.uk/iiif/3100021/annotation/layer/ART1.json",
-          "type": "sc:Layer",
-          "label": { "en": [ "OCR Article Text" ] }
-       }
-    },
-    ...
+       "id": "http://dams.llgc.org.uk/iiif/3100022/annotation/page/ART1.json",
+       "type": "AnnotationPage",
+       "label": { "en": [ "Rousing the Bees OCR Article Text" ] }
+    }
   ]
 }
 ```
@@ -308,7 +313,7 @@ Canvases can link to the annotations that are contained in page by:
 
 *Use case:* Some of my newspaper articles span across pages and I would like to reflect this using IIIF.
 
-*Recommendation:* Use a Range within your structures to represent the aritcle. In the `items` property list out each of the canvas fragments as a SpecificResource that belong to the article. The following is an example if the article split across two pages, with an associated AnnotationCollection for the article's OCR:
+*Recommendation:* Use a [Range][prezi30-range] within `structures` to represent the aritcle. In the `items` property list out each of the Canvas fragments that belong to the article as a Specific Resource. The following is an example of the article split across two pages, with an associated [`supplementary`][prezi30-supplementary] [Annotation Collection][prezi30-annocoll] for the article's OCR:
 
 ``` json-doc
 {

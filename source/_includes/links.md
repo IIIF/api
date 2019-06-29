@@ -181,6 +181,7 @@
 [prezi30-anno]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#56-annotation
 [prezi30-annopage]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#55-annotation-page
 [prezi30-annocoll]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#58-annotation-collection
+[prezi30-annotations]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#annotations "annotations property"
 [prezi30-appendixa]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#a-summary-of-property-requirements
 [prezi30-canvas]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#53-canvas
 [prezi30-change-log]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/change-log/ "Presentation API 3.0 Change Log"
@@ -191,11 +192,14 @@
 [prezi30-languages]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#44-language-of-property-values "Language of Property Values"
 [prezi30-ldce]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#46-linked-data-context-and-extensions "Linked Data Context and Extensions"
 [prezi30-logo]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#logo "logo property"
-[prezi30-navdate]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#navDate "navDate property"
+[prezi30-manifest]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#52-manifest "Manifest"
+[prezi30-motivations]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#values-for-motivation "Values for motivation"
+[prezi30-navdate]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#navdate "navDate property"
 [prezi30-range]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#54-range
 [prezi30-resource-properties]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#3-resource-properties
 [prezi30-resource-structure]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#5-resource-structure
 [prezi30-seealso]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#seealso "seeAlso property"
+[prezi30-supplementary]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#supplementary "supplementary property"
 [prezi30-terminology]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#13-terminology
 [prezi30-type-overview]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#2-resource-type-overview
 [prezi30]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/
