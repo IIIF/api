@@ -48,7 +48,7 @@ The `textGranularity` property identifies the Text Granularity Level of a resour
 | `line`                       |  A topographic line             |
 | `word`                       |  A single word                  |
 | `glyph`                      |  A single glyph or symbol       |
-{: .api-table #table-type-dfn}
+{: .api-table #table-granularity-level-dfn}
 
 ```json-doc
 { "textGranularity": "line" }
@@ -131,7 +131,7 @@ The Text Granularity Levels defined above were derived from a survey of commonly
 | `line`      | `ocr_line`<br/>`ocrx_line` | `TextLine` | `line` | - |
 | `word`      | `ocrx_word`    | `String`      | `charParams[@wordStart=”1”]` | `Word` |
 | `glyph`     | `ocrx_word[@cuts]` | `Glyph`   | `charParams`        | `Symbol` |
-{: .api-table #table-type-dfn}
+{: .api-table #table-ocr-granularity-map}
 
 ## Appendices
 
