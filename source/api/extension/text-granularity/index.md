@@ -69,7 +69,7 @@ The Annotation Body’s textual content _SHOULD_ be equivalent to the textual co
   "id": "https://example.org/iiif/aeneid/book1/transcription-line1",
   "type": "Annotation",
   "textGranularity": "line",
-  "motivation": "supplementing",
+  "motivation": ["supplementing"],
   "body": {
     "type": "TextualBody",
     "language": "la",
@@ -89,7 +89,7 @@ Alternatively, the body might be an [external web resource](https://www.w3.org/T
   "id": "https://example.org/iiif/aeneid/book1/transcription-line2",
   "type": "Annotation",
   "textGranularity": "line",
-  "motivation": "supplementing",
+  "motivation": ["supplementing"],
   "body": {
     "type": "SpecificResource",
     "source": "http://example.org/aeneid-tei.xml",
