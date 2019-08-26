@@ -62,10 +62,6 @@ The Annotation Body’s textual content _SHOULD_ be equivalent to the textual co
 
 ```json-doc
 {
-  "@context": [
-    "http://iiif.io/api/extension/text-granularity/context.json",
-    "http://iiif.io/api/presentation/3/context.json"
-  ],
   "id": "https://example.org/iiif/aeneid/book1/transcription-line1",
   "type": "Annotation",
   "textGranularity": "line",
@@ -75,17 +71,19 @@ The Annotation Body’s textual content _SHOULD_ be equivalent to the textual co
     "language": "la",
     "value": "arma virumque cano, Troiae qui primus ab oris"
    },
-   "target": "https://example.org/aeneid/canvas/1r#wywh=500,1000,3500,100"
-}
+   "target": {
+     "type": "SpecificResource",
+     "source": "https://example.org/aeneid/canvas/1r",
+     "selector": {
+        "type": "FragmentSelector",
+        "value": "xywh=500,1100,3500,100"
+     }
+   }
 ```
 Alternatively, the body might be an [external web resource](https://www.w3.org/TR/annotation-model/#external-web-resources).  For example, the Body could use an XPath selector to identify the transcription of a paragraph of text within an XML document.
 
 ```json-doc
 {
-  "@context": [
-    "http://iiif.io/api/extension/text-granularity/context.json",
-    "http://iiif.io/api/presentation/3/context.json"
-  ],
   "id": "https://example.org/iiif/aeneid/book1/transcription-line2",
   "type": "Annotation",
   "textGranularity": "line",
@@ -98,7 +96,14 @@ Alternatively, the body might be an [external web resource](https://www.w3.org/T
       "value": "/TEI.2/text/body/div1/l[2]"
     }
    },
-   "target": "https://example.org/aeneid/canvas/1r#wywh=500,1100,3500,100"
+   "target": {
+     "type": "SpecificResource",
+     "source": "https://example.org/aeneid/canvas/1r",
+     "selector": {
+        "type": "FragmentSelector",
+        "value": "xywh=500,1100,3500,100"
+     }
+   }
 }
 ```
 
