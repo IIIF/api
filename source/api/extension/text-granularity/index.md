@@ -113,7 +113,7 @@ The `motivation` value of the associated Annotation _MUST_ have the value `suppl
 
 ## 4. Linked Data Context
 
-The URI of the JSON-LD context for this extension is `http://iiif.io/api/extension/text-granularity/context.json`.  This extension's context URI _MUST_ appear before the IIIF Presentation API context URI in the `@context` array of the top-level resource.
+The URI of the JSON-LD context for this extension is `http://iiif.io/api/extension/text-granularity/context.json`.  Consult the [Linked Data Context and Extensions][prezi30-ldce] section of the Presentation API for further guidance on its use within the `@context` property.
 
 ```json-doc
 {
