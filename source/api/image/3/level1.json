@@ -12,6 +12,7 @@
     "regionByPx",
     "regionSquare",
     "sizeByH",
-    "sizeByW"
+    "sizeByW",
+    "sizeByWh"
   ]
 }
