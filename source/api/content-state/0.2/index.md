@@ -101,14 +101,14 @@ The Annotation must contain enough information about dereferenceable resources t
 
 ### 2.2 Form of Annotation
 
-A content state Annotation has the motivation `selecting`. This motivation is not defined by either the [W3C Web Annotation Data Model][org-w3c-webanno] or the Presentation API, and is chosen to avoid potential ambiguity when the target of the content state Annotation is itself an Annotation. This section shows four possible forms the content state may take, all of which are equivalent to the following example:
+A content state Annotation has the motivation `contentState`. This motivation is not defined by either the [W3C Web Annotation Data Model][org-w3c-webanno] or the Presentation API, and is chosen to avoid potential ambiguity when the target of the content state Annotation is itself an Annotation. This section shows four possible forms the content state may take, all of which are equivalent to the following example:
 
 ```json
 {
   "@context": "http://iiif.io/api/presentation/3/context.json",
   "id": "https://example.org/Annotation-server/bookmarks/b1",
   "type": "Annotation",
-  "motivation": ["selecting"],
+  "motivation": ["contentState"],
   "target": {
      "id": "https://example.org/iiif/item1/manifest",
      "type": "Manifest"
@@ -118,17 +118,17 @@ A content state Annotation has the motivation `selecting`. This motivation is no
 
 #### 2.2.1 Full Annotation
 
-The content state may be supplied as JSON-LD, as a full Annotation with the motivation `selecting`, as in the example above.
+The content state may be supplied as JSON-LD, as a full Annotation with the motivation `contentState`, as in the example above.
 
 The target of the annotation is in this case a complete IIIF resource (here, a Manifest) but in more complex cases, the target could be a part of a IIIF resource. A client _SHOULD_ be able to accept and process the content state value in all of these forms. 
 
 #### 2.2.2 Annotation URL
 
-The content state may be supplied as a string whose value is the URL of an Annotation with the motivation `selecting`, that the client must de-reference and process. For the example above, this would be the URL `https://example.org/Annotation-server/bookmarks/b1`.
+The content state may be supplied as a string whose value is the URL of an Annotation with the motivation `contentState`, that the client must de-reference and process. For the example above, this would be the URL `https://example.org/Annotation-server/bookmarks/b1`.
 
 #### 2.2.3 Target body
 
-The content state may be supplied as JSON-LD, as the value of the `target` property of an implied Annotation with the motivation `selecting`. For the example above, this would be:
+The content state may be supplied as JSON-LD, as the value of the `target` property of an implied Annotation with the motivation `contentState`. For the example above, this would be:
 
 ```json
 {
@@ -165,7 +165,7 @@ If the content state is a simple URL, the client _MUST_ load the resource at tha
 
 (TODO - _MAY_ be `Canvas`, `Range`, but prefer to do that as an annotation target not as a raw resource.)
 
-If the content state is JSON-LD the client _MUST_ inspect the `type` property to decide whether the value is the full content state Annotation (indicated by the additional presence of the `selecting` motivation), or the value of the `target` property of an implied content state Annotation. 
+If the content state is JSON-LD the client _MUST_ inspect the `type` property to decide whether the value is the full content state Annotation (indicated by the additional presence of the `contentState` motivation), or the value of the `target` property of an implied content state Annotation. 
 
 
 ## 3. Initialisation
@@ -200,7 +200,7 @@ In the following examples, the same Annotation is used each time. As JSON:
 ```json
 {
   "type": "Annotation",
-  "motivation": ["selecting"],
+  "motivation": ["contentState"],
   "target": {
     "id": "http://dams.llgc.org.uk/iiif/2.0/4389767/canvas/4389772.json",
     "type": "Canvas",
@@ -220,7 +220,7 @@ Without encoding, the link to the viewer would look like this:
 
 ```html
 {% raw %}
-<a href='https://example.org/viewer?iiif-content={"type":"Annotation","motivation":"selecting","target":{"id":"http://dams.llgc.org.uk/iiif/2.0/4389767/canvas/4389772.json","type":"Canvas","partOf":[{"id":"http://dams.llgc.org.uk/iiif/2.0/4389767/manifest.json","type":"Manifest"}]}}'>Link to Viewer</a>
+<a href='https://example.org/viewer?iiif-content={"type":"Annotation","motivation":"contentState","target":{"id":"http://dams.llgc.org.uk/iiif/2.0/4389767/canvas/4389772.json","type":"Canvas","partOf":[{"id":"http://dams.llgc.org.uk/iiif/2.0/4389767/manifest.json","type":"Manifest"}]}}'>Link to Viewer</a>
 {% endraw %}
 ```
 
@@ -232,7 +232,7 @@ However, as JSON-LD, this _MUST_ be Base-64 encoded UTF-8:
 {% endraw %}
 ```
 
-The content state may be passed as just the `target` property of an implied Annotation with motivation selecting, that is:
+The content state may be passed as just the `target` property of an implied Annotation with motivation `contentState`, that is:
 
 ```json
 {
@@ -445,7 +445,7 @@ The following examples demonstrate the use of the existing IIIF Presentation API
   "@context": "http://iiif.io/api/presentation/{{ page.major }}/context.json",
   "id": "https://example.org/import/1",
   "type": "Annotation",
-  "motivation": ["selecting"],
+  "motivation": ["contentState"],
   "target": {
      "id": "https://example.org/object1/canvas7#xywh=1000,2000,1000,2000",
      "type": "Canvas",
@@ -467,7 +467,7 @@ When processed by a viewer, the user should see the rectangle `1000,2000,1000,20
   "@context": "http://iiif.io/api/presentation/{{ page.major }}/context.json",
   "id": "https://example.org/import/2",
   "type": "Annotation",
-  "motivation": ["selecting"],
+  "motivation": ["contentState"],
   "target": {
     "type": "SpecificResource",
     "source": {
@@ -496,7 +496,7 @@ This example should cause a viewer to open Manifest https://example.org/iiif/id1
   "@context": "http://iiif.io/api/presentation/{{ page.major }}/context.json",
   "id": "https://example.org/import/3",
   "type": "Annotation",
-  "motivation": "selecting",
+  "motivation": "contentState",
   "target": [
       {
           "id": "https://example.org/iiif/item1/canvas37",
