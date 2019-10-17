@@ -21,7 +21,8 @@ This service will validate a IIIF Presentation API resource against the specific
 
                 Select Presentation API Version:
                 <select name="version">
-                  <option value="2.1">2.1</option>
+                  <option value="3.0">3.0</option>
+                  <option value="2.1" selected>2.1</option>
                   <option value="2.0">2.0</option>
                   <option value="1.0">1.0</option>
                 </select>
@@ -72,9 +73,25 @@ If you would like to use the validator programatically, there are two options:
         str += '<div>URL Tested: '+ data.url + '</div><br/>'
         if (data.okay) {
           str += '<div><h2 style="color:green">Validated successfully</h2></div>'
-        }
-        else {
-          str += '<div><h2 style="color:red">Validation Error: '+data.error+'</h2></div>'
+        }  else {
+            if (data.errorList) {
+                for (var i = 0; i < data.errorList.length; i++) {
+                    var error = data.errorList[i];
+                    str+='<div>';
+                    str+='<h2 style="color:red">' + error.title + '</h2>';
+                    str+='<p><ul>';
+                    str+='<li><b>Detail: </b> ' + error.detail + '</li>';
+                    str+='<li><b>Path: </b>' + error.path + '</li>';
+                    str+='<li><b>Description: </b>' + error.description + '</li>';
+                    str+='</li></p>';
+                    str+='<pre>';
+                    str+= JSON.stringify(error.context);
+                    str+='</pre>';
+                    str+='</div>';
+                }
+            } else {
+                str += '<div><h2 style="color:red">Validation Error: '+data.error+'</h2></div>'
+            }    
         }
         if (data.warnings.length){
           str += '<div style="margin-top: 20px">Warnings:<ul>';
