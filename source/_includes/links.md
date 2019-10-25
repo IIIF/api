@@ -1,11 +1,10 @@
 
 
 <!-- Keep two spaces at the top of this file -->
-[annex-cookbook]: {{ site.url }}{{ site.baseurl }}/api/annex/cookbook/ "IIIF Cookbook"
+[annex-cookbook]: {{ site.url }}{{ site.baseurl }}/api/cookbook/ "IIIF Cookbook"
 [annex-json-ld]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/jsonld/ "JSON-LD Frames Implementation Notes"
 [annex-oa]: {{ site.url }}{{ site.baseurl }}/api/annex/openannotation/ "Open Annotation Extensions"
 [annex-patterns]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/design_patterns/
-[annex-registry]: {{ site.url }}{{ site.baseurl }}/api/annex/registry/
 [annex-services]: {{ site.url }}{{ site.baseurl }}/api/annex/services/ "Services Annex Document"
 [auth1-cookie-service]: {{ site.url }}{{ site.baseurl }}/api/auth/1.0/#access-cookie-service "IIIF Authentication Cookie Service"
 [auth1-logout-service]: {{ site.url }}{{ site.baseurl }}/api/auth/1.0/#logout-service "IIIF Authentication Logout Service"
@@ -14,6 +13,7 @@
 [discovery-api]: {{ site.url }}{{ site.baseurl }}/api/discovery/ "IIIF Change Discovery API"
 [discovery01]: {{ site.url }}{{ site.baseurl }}/api/discovery/0.1/ "IIIF Change Discovery API"
 [discovery02]: {{ site.url }}{{ site.baseurl }}/api/discovery/0.2/ "IIIF Change Discovery API"
+[discovery03]: {{ site.url }}{{ site.baseurl }}/api/discovery/0.3/ "IIIF Change Discovery API"
 [github-discovery-issues]: https://github.com/IIIF/discovery/issues
 [github-milestone-image-3]: https://github.com/IIIF/iiif.io/milestone/7
 [github-milestone-prezi-3]: https://github.com/IIIF/iiif.io/milestone/8
@@ -57,7 +57,7 @@
 [image3-context]: {{ site.url }}{{ site.baseurl }}/api/image/3/context.json "Image API Version 3 JSON-LD Context"
 [image3-cors-response]: {{ site.url }}{{ site.baseurl }}/api/image/3.{{ site.image_api.draft.minor }}/#71-cors "7.1. CORS"
 [image3-error-conditions]: {{ site.url }}{{ site.baseurl }}/api/image/3.{{ site.image_api.draft.minor }}/#72-error-conditions "7.2. Error Conditions"
-[image3-extra-functionality]: {{ site.url }}{{ site.baseurl }}/api/image/3.{{ site.image_api.draft.minor }}/#56-extra-functionality "5.6. Extra Functionality"
+[image3-extra-functionality]: {{ site.url }}{{ site.baseurl }}/api/image/3.{{ site.image_api.draft.minor }}/#57-extra-functionality "5.7. Extra Functionality"
 [image3-features-table]: {{ site.url }}{{ site.baseurl }}/api/image/3.{{ site.image_api.draft.minor }}/#features-table
 [image3-format]: {{ site.url }}{{ site.baseurl }}/api/image/3.{{ site.image_api.draft.minor }}/#45-format "4.5. Format"
 [image3-frame]: {{ site.url }}{{ site.baseurl }}/api/image/3/info_frame.json "Image API Version 3 JSON-LD Frame"
@@ -66,6 +66,7 @@
 [image3-information-request-uri-syntax]: {{ site.url }}{{ site.baseurl }}/api/image/3.{{ site.image_api.draft.minor }}/#22-image-information-request-uri-syntax "2.2. Image Information Request URI"
 [image3-information-request]: {{ site.url }}{{ site.baseurl }}/api/image/3.{{ site.image_api.draft.minor }}/#51-image-information-request "5.1. Image Information Request"
 [image3-information]: {{ site.url }}{{ site.baseurl }}/api/image/3.{{ site.image_api.draft.minor }}/#5-image-information "5. Image Information"
+[image3-linking-properties]: {{ site.url }}{{ site.baseurl }}/api/image/3.{{ site.image_api.draft.minor }}/#57-linking-properties "5.7 Linking Properties"
 [image3-order-of-implementation]: {{ site.url }}{{ site.baseurl }}/api/image/3.{{ site.image_api.draft.minor }}/#46-order-of-implementation "4.6. Order of Implementation"
 [image3-profile-description]: {{ site.url }}{{ site.baseurl }}/api/image/3.{{ site.image_api.draft.minor }}/#56-extra-functionality "5.3 Profile Description"
 [image3-quality]: {{ site.url }}{{ site.baseurl }}/api/image/3.{{ site.image_api.draft.minor }}/#44-quality "4.4. Quality"
@@ -95,7 +96,7 @@
 [image30-cors-response]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#71-cors "7.1. CORS"
 [image30-error-conditions]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#72-error-conditions "7.2. Error Conditions"
 [image30-extensions]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#48-extensions "4.8. Extensions"
-[image30-extra-functionality]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#56-extra-functionality "5.6. Extra Functionality"
+[image30-extra-functionality]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#57-extra-functionality "5.7. Extra Functionality"
 [image30-features-table]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#features-table
 [image30-format]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#45-format "4.5. Format"
 [image30-http-versions]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#74-http-versions "7.4. HTTP Versions"
@@ -125,6 +126,7 @@
 [notes-apache-set-compliance-link-header]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/apache/#set-compliance-link-header "Apache HTTP Server Implementation Notes: Set Compliance Link Header"
 [notes-apache]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/apache/ "Apache HTTP Server Implementation Notes"
 [notes-versioning]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/semver/ "Versioning of APIs"
+[org-bcp-47]: https://tools.ietf.org/html/bcp47 "Tags for Identifying Languages"
 [org-cc-licenses]: https://creativecommons.org/licenses/ "Create Commons Licenses"
 [org-iana-uri-schemes]: http://www.iana.org/assignments/uri-schemes/uri-schemes.xhtml "IANA URI Schemes"
 [org-json-ld]: http://www.json-ld.org/ "JSON for Linking Data"
@@ -138,7 +140,6 @@
 [org-rfc-2617]: https://tools.ietf.org/html/rfc2617 "HTTP Authentication: Basic and Digest Access Authentication"
 [org-rfc-3986]: https://tools.ietf.org/html/rfc3986 "Uniform Resource Identifier (URI): Generic Syntax"
 [org-rfc-4122]: https://tools.ietf.org/html/rfc4122 "URN UUID Scheme"
-[org-rfc-5646]: https://tools.ietf.org/html/rfc5646 "Tags for Identifying Languages"
 [org-rfc-5988]: https://tools.ietf.org/html/rfc5988 "Web Linking"
 [org-rfc-6266]: https://tools.ietf.org/html/rfc6266 "Use of the Content-Disposition Header Field in the Hypertext Transfer Protocol (HTTP)"
 [org-rfc-6570]: https://tools.ietf.org/html/rfc6570 "URI Template"
@@ -155,6 +156,7 @@
 [org-w3c-json-as-json-ld]: http://www.w3.org/TR/json-ld/#interpreting-json-as-json-ld "Interpreting JSON as JSON-LD"
 [org-w3c-json-ld-compaction]: http://www.w3.org/TR/json-ld-api/#compaction-algorithms "JSON-LD Compaction Algorithms"
 [org-w3c-json-ld-scoped-contexts]: https://json-ld.org/spec/latest/json-ld/#scoped-contexts "JSON-LD Scoped Contexts"
+[org-w3c-json-ld-case]: https://www.w3.org/TR/json-ld11/#the-context "JSON-LD Context"
 [org-w3c-json-ld]: http://www.w3.org/TR/json-ld/ "JSON-LD 1.0"
 [org-w3c-media-frags]: http://www.w3.org/TR/media-frags/ "Media Fragments"
 [org-w3c-rdf11-blank-nodes]: http://www.w3.org/TR/rdf11-concepts/#section-blank-nodes "RDF 1.1 Concepts"
@@ -177,26 +179,36 @@
 [prezi3-ldce]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.draft.minor }}/#linked-data-context-and-extensions "Linked Data Context and Extensions"
 [prezi3-type]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.draft.minor }}/#type
 [prezi30-anno]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#annotation
-[prezi30-annopage]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#annotation-page
-[prezi30-appendixa]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#a-summary-of-metadata-requirements
+[prezi30-annopage]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#55-annotation-page
+[prezi30-annocoll]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#58-annotation-collection
+[prezi30-appendixa]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#a-summary-of-property-requirements
 [prezi30-canvas]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#53-canvas
 [prezi30-change-log]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/change-log/ "Presentation API 3.0 Change Log"
-[prezi30-html]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#44-html-markup-in-property-values "Presentation API Section 4.4"
-[prezi30-languages]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#43-language-of-property-values "Language of Property Values"
-[prezi30-ldce]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#45-linked-data-context-and-extensions "Linked Data Context and Extensions"
+[prezi30-context-collisions]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#47-term-collisions-between-contexts
+[prezi30-height]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#height "height property"
+[prezi30-homepage]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#homepage "homepage property"
+[prezi30-html]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#45-html-markup-in-property-values "Presentation API Section 4.4"
+[prezi30-languages]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#44-language-of-property-values "Language of Property Values"
+[prezi30-ldce]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#46-linked-data-context-and-extensions "Linked Data Context and Extensions"
+[prezi30-logo]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#logo "logo property"
 [prezi30-range]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#54-range
 [prezi30-resource-properties]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#3-resource-properties
 [prezi30-resource-structure]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#5-resource-structure
+[prezi30-seealso]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#seealso "seeAlso property"
 [prezi30-terminology]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#13-terminology
 [prezi30-type-overview]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#2-resource-type-overview
 [prezi30]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/
 [prezi3]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.draft.minor }}/ "Presentation API"
-[registry-extensions]: {{ site.url }}{{ site.baseurl }}/api/annex/registry/extensions/
-[registry-image-extensions]: {{ site.url }}{{ site.baseurl }}/api/annex/registry/image-extensions/ "IIIF Image Extension Registry"
-[registry-motivations]: {{ site.url }}{{ site.baseurl }}/api/annex/registry/motivations/
-[registry-process]: {{ site.url }}{{ site.baseurl }}/api/annex/registry/process/
-[registry-services]: {{ site.url }}{{ site.baseurl }}/api/annex/registry/services/
+[extensions]: {{ site.url }}{{ site.baseurl }}/api/registry/extensions/
+[registry]: {{ site.url }}{{ site.baseurl }}/api/registry/ "IIIF Extension Registry"
+[registry-image-extensions]: {{ site.url }}{{ site.baseurl }}/api/registry/image-extensions/ "IIIF Image Extension Registry"
+[registry-motivations]: {{ site.url }}{{ site.baseurl }}/api/registry/motivations/
+[registry-process]: {{ site.url }}{{ site.baseurl }}/api/registry/process/
+[registry-services]: {{ site.url }}{{ site.baseurl }}/api/registry/services/
+[registry-profiles]: {{ site.url }}{{ site.baseurl }}/api/registry/profiles/
 [search-api]: {{ site.url }}{{ site.baseurl }}/api/search/{{ site.search_api.stable.major }}.{{ site.search_api.stable.minor }}/ "Content Search API"
 [search1-autocomplete]: {{ site.url }}{{ site.baseurl }}/api/search/1.0/#autocomplete
 [search1]: {{ site.url }}{{ site.baseurl }}/api/search/1.0/
 [shared-canvas]: {{ site.url }}{{ site.baseurl }}/model/shared-canvas/{{ site.shared_canvas.stable.major}}.{{ site.shared_canvas.stable.minor }} "Shared Canvas Data Model"
+[recipe-mvm-image]: {{ site.url }}{{ site.baseurl }}/api/cookbook/mvm-image/ "Simplest Manifest - Image"
+[recipe-segment-image-part]: {{ site.url }}{{ site.baseurl }}/api/cookbook/segment-image-part/ "Annotating part of an image to a canvas"

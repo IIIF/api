@@ -1,0 +1,18 @@
+{
+  "@context": "http://iiif.io/api/image/3/context.json",
+  "id": "http://iiif.io/api/image/3/level1.json",
+  "type": "ImageProfile",
+
+  "extraFormats": ["jpg"],
+  "extraQualities": ["default"],
+  "extraFeatures": [
+    "baseUriRedirect",
+    "cors",
+    "jsonldMediaType",
+    "regionByPx",
+    "regionSquare",
+    "sizeByH",
+    "sizeByW",
+    "sizeByWh"
+  ]
+}
