@@ -822,6 +822,7 @@ Many of the changes in this version are due to the work of the [IIIF Discovery T
 
 | Date       | Description           |
 | ---------- | --------------------- |
+| 2019-11-01 | Version 0.4 (unnamed) |
 | 2019-03-20 | Version 0.3 (unnamed) |
 | 2018-11-12 | Version 0.2 (unnamed) |
 | 2018-05-04 | Version 0.1 (unnamed) |
