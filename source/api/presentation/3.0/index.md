@@ -1,6 +1,6 @@
 ---
-title: "Presentation API 3.0 BETA DRAFT"
-title_override: "IIIF Presentation API 3.0 BETA DRAFT"
+title: "Presentation API 3.0 BETA-2 DRAFT"
+title_override: "IIIF Presentation API 3.0 BETA-2 DRAFT"
 id: presentation-api
 layout: spec
 cssversion: 3
@@ -8,7 +8,7 @@ tags: [specifications, presentation-api]
 major: 3
 minor: 0
 patch: 0
-pre: BETA
+pre: BETA-2
 redirect_from:
   - /api/presentation/3/index.html
 ---
@@ -811,6 +811,41 @@ Implementations _SHOULD_ be prepared to recognize the `@id` and `@type` property
 }
 ```
 
+
+##### services
+
+A list of one or more service definitions on the top-most resource of the document, that are typically shared by more than one subsequent resource. This allows for these shared services to be collected together in a single place, rather than either having their information duplicated potentially many times throughout the document, or requiring a consuming client to traverse the entire document structure to find the information. The resource that the service applies to _MUST_ still have the `service` property, as described above, where the service resources have at least the `id` and `type` or `@id` and `@type` properties. This allows the client to know that the service applies to that resource. Usage of the `services` property is at the discretion of the publishing system.
+
+A client encountering a `service` property where the definition consists only of an `id` and `type` _SHOULD_ then check the `services` property on the top-most resource for an expanded definition.  If the service is not present in the `services` list, and the client requires more information in order to use the service, then it _SHOULD_ dereference the `id` (or `@id`) of the service in order to retrieve a service description. 
+
+The value _MUST_ be an array of JSON objects. Each object _MUST_ a service resource, as described above. 
+
+* A Collection _MAY_ have the `services` property, if it is the topmost Collection in a response document.<br/>
+  Clients _SHOULD_ process `services` on a Collection.
+* A Manifest _MAY_ have the `services` property.<br/>
+  Clients _SHOULD_ process `services` on a Manifest.
+
+``` json-doc
+{
+  "services": [
+    {
+      "@id": "https://example.org/iiif/auth/login",
+      "@type": "AuthCookieService1",
+      "profile": "http://iiif.io/api/auth/1/login",
+      "label": "Login to Example Institution",
+      "service": [
+        {
+          "@id": "https://example.org/iiif/auth/token",
+          "@type": "AuthTokenService1",
+          "profile": "http://iiif.io/api/auth/1/token"          
+        }
+      ]
+    }
+  ]
+}
+```
+
+
 ##### seeAlso
 
 A machine-readable resource such as an XML or RDF description that is related to the current resource that has the `seeAlso` property. Properties of the resource should be given to help the client select between multiple descriptions (if provided), and to make appropriate use of the document. If the relationship between the resource and the document needs to be more specific, then the document should include that relationship rather than the IIIF resource. Other IIIF resources are also valid targets for `seeAlso`, for example to link to a Manifest that describes a related object. The URI of the document _MUST_ identify a single representation of the data in a particular format. For example, if the same data exists in JSON and XML, then separate resources should be added for each representation, with distinct `id` and `format` properties.
@@ -1352,6 +1387,23 @@ The Manifest _MUST_ have an `items` property, which is an array of JSON-LD objec
     "type": "Canvas"
   },
 
+  // List of Services, referenced from within items, structures or annotations
+  "services": [
+    {
+      "@id": "https://example.org/iiif/auth/login",
+      "@type": "AuthCookieService1",
+      "profile": "http://iiif.io/api/auth/1/login",
+      "label": "Login to Example Institution",
+      "service": [
+        {
+          "@id": "https://example.org/iiif/auth/token",
+          "@type": "AuthTokenService1",
+          "profile": "http://iiif.io/api/auth/1/token"          
+        }
+      ]
+    }
+  ],
+
   // List of Canvases
   "items": [
     {
@@ -1605,7 +1657,13 @@ A Canvas _MAY_ be treated as a content resource for the purposes of annotating i
       {
         "id": "https://example.org/iiif/book1/page1",
         "type": "ImageService3",
-        "profile": "level2"
+        "profile": "level2",
+        "service": [
+          {
+            "@id": "https://example.org/iiif/auth/login",
+            "@type": "AuthCookieService1"
+          }
+        ]
       }
     ],
     "height": 2000,
@@ -1767,16 +1825,16 @@ __Technical Properties__
 
 __Linking Properties__
 
-|                       | seeAlso                 | service                 | homepage               | rendering              | partOf                 | start                    | supplementary            |
-| --------------------  | ----------------------- | ----------------------- | ---------------------- | ---------------------- | ---------------------- | ---------------------- | ------------------------ | ------------------------ |
-| Collection            | ![optional][icon3-opt]  | ![optional][icon3-opt]  | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![not allowed][icon3-na] | ![not allowed][icon3-na] |
-| Manifest              | ![optional][icon3-opt]  | ![optional][icon3-opt]  | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt]   | ![not allowed][icon3-na] |
-| Canvas                | ![optional][icon3-opt]  | ![optional][icon3-opt]  | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![not allowed][icon3-na] | ![not allowed][icon3-na] |
-| Annotation            | ![optional][icon3-opt]  | ![optional][icon3-opt]  | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![not allowed][icon3-na] | ![not allowed][icon3-na] |
-| Annotation Page       | ![optional][icon3-opt]  | ![optional][icon3-opt]  | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![not allowed][icon3-na] | ![not allowed][icon3-na] |
-| Range                 | ![optional][icon3-opt]  | ![optional][icon3-opt]  | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt]   | ![optional][icon3-opt]   |
-| Annotation Collection | ![optional][icon3-opt]  | ![optional][icon3-opt]  | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![not allowed][icon3-na] | ![not allowed][icon3-na] |
-| Content Resources     | ![optional][icon3-opt]  | ![optional][icon3-opt]  | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![not allowed][icon3-na] | ![not allowed][icon3-na] |
+|                       | seeAlso                 | service                 | homepage               | rendering              | partOf                 | start                    | supplementary            | services                 |
+| --------------------  | ----------------------- | ----------------------- | ---------------------- | ---------------------- | ---------------------- | ----------------------   | ------------------------ | ------------------------ |
+| Collection            | ![optional][icon3-opt]  | ![optional][icon3-opt]  | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![optional][icon3-opt]   |
+| Manifest              | ![optional][icon3-opt]  | ![optional][icon3-opt]  | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt]   | ![not allowed][icon3-na] | ![optional][icon3-opt]   |
+| Canvas                | ![optional][icon3-opt]  | ![optional][icon3-opt]  | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] |
+| Annotation            | ![optional][icon3-opt]  | ![optional][icon3-opt]  | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] |
+| Annotation Page       | ![optional][icon3-opt]  | ![optional][icon3-opt]  | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] |
+| Range                 | ![optional][icon3-opt]  | ![optional][icon3-opt]  | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt]   | ![optional][icon3-opt]   | ![not allowed][icon3-na] |
+| Annotation Collection | ![optional][icon3-opt]  | ![optional][icon3-opt]  | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] |
+| Content Resources     | ![optional][icon3-opt]  | ![optional][icon3-opt]  | ![optional][icon3-opt] | ![optional][icon3-opt] | ![optional][icon3-opt] | ![not allowed][icon3-na] | ![not allowed][icon3-na] | ![not allowed][icon3-na] |
 {: .api-table #table-reqs-3}
 
 
@@ -1936,6 +1994,22 @@ __Behavior Values__
     "type": "Canvas"
   },
 
+  "services": [
+    {
+      "@id": "https://example.org/iiif/auth/login",
+      "@type": "AuthCookieService1",
+      "profile": "http://iiif.io/api/auth/1/login",
+      "label": "Login to Example Institution",
+      "service": [
+        {
+          "@id": "https://example.org/iiif/auth/token",
+          "@type": "AuthTokenService1",
+          "profile": "http://iiif.io/api/auth/1/token"          
+        }
+      ]
+    }
+  ],
+
   "items": [
     {
       "id": "https://example.org/iiif/book1/canvas/p1",
@@ -1960,7 +2034,13 @@ __Behavior Values__
                   {
                     "id": "https://example.org/iiif/book1/page1",
                     "type": "ImageService3",
-                    "profile": "level2"
+                    "profile": "level2",
+                    "service": [
+                      {
+                        "@id": "https://example.org/iiif/auth/login",
+                        "@type": "AuthCookieService1"
+                      }
+                    ]
                   }
                 ],
                 "height": 2000,
