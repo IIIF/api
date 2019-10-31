@@ -826,6 +826,7 @@ The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id` and
     {
       "id": "https://example.org/library/catalog/book1.xml",
       "type": "Dataset",
+      "label": { "en": [ "Bibliographic Description in XML" ] },
       "format": "text/xml",
       "profile": "https://example.org/profiles/bibliographic"
     }
