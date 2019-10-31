@@ -1679,7 +1679,7 @@ Clients _MUST NOT_ attempt to construct resource URIs by themselves, instead the
 
 ###  6.3. Responses
 
-The format for all responses is JSON, as described above. The different requirements for which resources _MUST_ provide a response is summarized in [Appendix A][prezi30-appendixa]. While some resources do not require their URI to provide the description, it is good practice if possible.
+The format for all responses is JSON, as described above. It is good practice for all resources with an HTTP(S) URI to provide their description when the URI is dereferenced. If the resource is referenced, rather than being embedded in its entirety, then it _MUST_ be able to be dereferenced.
 
 If the server receives a request with an `Accept` header, it _SHOULD_ respond following the rules of [content negotiation][org-rfc-7231-conneg]. Note that content types provided in the `Accept` header of the request _MAY_ include parameters, for example `profile` or `charset`.
 
