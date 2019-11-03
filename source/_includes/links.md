@@ -195,7 +195,7 @@
 [prezi30-resource-properties]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#3-resource-properties
 [prezi30-resource-structure]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#5-resource-structure
 [prezi30-seealso]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#seealso "seeAlso property"
-[prezi30-terminology]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#13-terminology
+[prezi30-terminology]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#12-terminology
 [prezi30-type-overview]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#2-resource-type-overview
 [prezi30]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/
 [prezi3]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.draft.minor }}/ "Presentation API"
