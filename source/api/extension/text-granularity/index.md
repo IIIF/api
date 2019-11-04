@@ -23,7 +23,7 @@ Changes will be tracked within the document.
 
 ### 1.1 Objectives and Scope
 
-One use of annotation in IIIF is to associate text with IIIF resources, with the text originating from optical character recognition (OCR) software, manual transcription, existing digitized text, or other sources. Furthermore, it is a common practice to produce sets of annotations at a particular level of ‘text granularity’; that is to say that each annotation in the set references the same unit of text, such as a character, line, or page. This extension recommends a pattern for indicating the level of text granularity of an annotation.
+One use of annotations in IIIF is to associate text with IIIF resources, with the text originating from many potential sources, including optical character recognition (OCR) software, manual transcription, and existing digitized text. Furthermore, it is a common practice to produce sets of annotations at a particular level of ‘text granularity’, where each annotation in the set references the same unit of text, such as a character, line, or page. This extension recommends a pattern for indicating the level of text granularity for an annotation.
 
 ### 1.2 Motivating Use Cases
 
@@ -34,11 +34,11 @@ A number of common workflows can result in annotation sets with discrete levels 
 block, or page.
 - Transcriptions may be produced without coordinate data and thus have a very coarse level of granularity, such as page- or block-level.
 
-Identification of the level of text granularity in published annotations can facilitate the reuse of their textual content and target regions in other applications. Search is a primary use case, with the word-level annotations allowing for the accurate highlighting of search result terms in the user interface. Software designed for user interaction and input, such as an application designed to allow users to correct OCR text, might suppress finer-grained levels and make use of paragraph- or block-level text to simplify editing.
+Identification of the level of text granularity in published annotations can facilitate the use of their textual content and target regions in other applications.  A primary use case is search: clients can use word-level transcription annotations to provide a search function capable of accurate hit highlighting.  Other common use cases derive from crowdsourced text input, such as the correction of OCR transcription, which may require the user to work with a text at a specific level of granularity.
 
 ## 2. Text Granularity Levels and the `textGranularity` Property
 
-The `textGranularity` property identifies the Text Granularity Level of a resource. The value _MUST_ be a single string. This extension defines the Text Granularity Levels found in the table below. The string _SHOULD_ be one of those defined in the table below or in the extensions registry.
+The `textGranularity` property identifies the Text Granularity Level of a resource. The value _MUST_ be a single string. This extension defines the Text Granularity Levels found in the table below. The string _SHOULD_ be one of those defined in the table below or in the [Registry of Extensions][extensions].
 
 | Text Granularity Level       |  Description   |
 |------------------------------|-----------------
@@ -56,7 +56,7 @@ The `textGranularity` property identifies the Text Granularity Level of a resour
 
 ## 3. Use of the `textGranularity` Property with Annotations
 
-An Annotation _MAY_ have the `textGranularity` property. An Annotation that has the property _SHOULD_ target an IIIF Presentation API Canvas or segment and the identified Text Granularity Level _SHOULD_ describe that of the textual content represented by the content resources painted on the Target.
+An Annotation _MAY_ have the `textGranularity` property. An Annotation that has the property _SHOULD_ reference a IIIF Presentation API Canvas or segment in the `target` property and the identified Text Granularity Level _SHOULD_ describe that of the textual content represented by the content resources painted on the Target.
 
 The Annotation Body’s textual content _SHOULD_ be equivalent to the textual content represented by the content resources painted on the Target. For example, the Body of the Annotation might be a [TextualBody](https://www.w3.org/TR/annotation-model/#embedded-textual-body) that contains the transcription of the Target, which is painted with the image of a page of a medieval manuscript.
 
@@ -126,7 +126,7 @@ The URI of the JSON-LD context for this extension is `http://iiif.io/api/extensi
 
 ## 5. Implementation Note
 
-The Text Granularity Levels defined above were derived from a survey of commonly used formats for OCR output such as hOCR, ALTO, and ABBYY, as well the output produced by the Google Cloud Vision API. The findings are available in the [Granularities in Different OCR Formats document](https://docs.google.com/document/d/13R7Dk-AA-ALZ5i3fzAS3g66umWjiYaD7NVr8QiYb19E/edit#heading=h.q6phhnqlv5sf). The following table maps Text Granularity Levels to structures found in these output formats and is intended as an aid to implementers.
+The Text Granularity Levels defined above were derived from a survey of commonly used formats for OCR output such as hOCR, ALTO, and ABBYY, as well the output produced by the Google Cloud Vision API. The following table maps Text Granularity Levels to structures found in these output formats and is intended as an aid to implementers.
 
 | Level       | hOCR           | ALTO          | ABBYY               | Google |
 |-------------|----------------|---------------|---------------------|--------|
@@ -151,6 +151,7 @@ Many thanks to the members of the [IIIF community][iiif-community] for their con
 | Date       | Description           |
 | ---------- | --------------------- |
 | 2018-09-20 | Initial commit        |
+| 2019-11-03 | Minor pre-publication revisions      |
 {: .api-table #table-changelog}
 
 {% include acronyms.md %}
