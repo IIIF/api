@@ -33,7 +33,7 @@ __Previous Version:__ [2.1.1][prezi21]
 {% include copyright.md %}
 
 __Status Warning__<br/>
-This is a work in progress and may change without any notices. Implementers should be aware that this document is not stable. Implementers are likely to find the specification changing in incompatible ways. Those interested in implementing this document before it reaches beta or release stages should join the [mailing list][iiif-discuss] and take part in the discussions, and follow the [emerging issues][github-milestone-prezi-3] on Github.
+This is a BETA DRAFT. Implementation is encouraged but implementers should be aware that there may be additional changes to this document before final release. See [remaining issues][github-milestone-image-prezi-3] on Github.
 {: .warning}
 
 ----

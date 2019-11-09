@@ -15,8 +15,7 @@
 [discovery02]: {{ site.url }}{{ site.baseurl }}/api/discovery/0.2/ "IIIF Change Discovery API"
 [discovery03]: {{ site.url }}{{ site.baseurl }}/api/discovery/0.3/ "IIIF Change Discovery API"
 [github-discovery-issues]: https://github.com/IIIF/discovery/issues
-[github-milestone-image-3]: https://github.com/IIIF/iiif.io/milestone/7
-[github-milestone-prezi-3]: https://github.com/IIIF/iiif.io/milestone/8
+[github-milestone-image-prezi-3]: https://github.com/IIIF/api/milestone/22
 [github-webanno-437]: https://github.com/w3c/web-annotation/issues/437
 [groups-av]: {{ site.url }}{{ site.baseurl }}/community/groups/av/ "IIIF A/V Working Group"
 [groups-discovery]: {{ site.url }}{{ site.baseurl }}/community/groups/discovery/
