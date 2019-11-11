@@ -33,7 +33,7 @@ __Previous Version:__ [2.1.1][prezi21]
 {% include copyright.md %}
 
 __Status Warning__<br/>
-This is a BETA DRAFT. Implementation is encouraged but implementers should be aware that there may be additional changes to this document before final release. See [remaining issues][github-milestone-image-prezi-3] on Github.
+This is a BETA DRAFT. Implementation is encouraged but implementers should be aware that there may be additional changes to this document before the final release. See [remaining issues][github-milestone-image-prezi-3] on Github.
 {: .warning}
 
 ----
