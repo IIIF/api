@@ -94,7 +94,7 @@
 [image30-compliance-levels]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#6-compliance-level-and-profile-document "6. Compliance Level and Profile Document"
 [image30-compliance-quality]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/compliance/#quality "Image API Compliance: Quality"
 [image30-compliance]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/compliance/ "Image API Compliance"
-[image30-cors-response]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/4.9#71-cors "7.1. CORS"
+[image30-cors-response]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#71-cors "7.1. CORS"
 [image30-error-conditions]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#72-error-conditions "7.2. Error Conditions"
 [image30-extensions]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#49-extensions "4.9. Extensions"
 [image30-extra-functionality]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#57-extra-functionality "5.7. Extra Functionality"
