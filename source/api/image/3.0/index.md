@@ -491,7 +491,7 @@ In order to support the above requirements, clients _SHOULD_ construct image req
 | --------- | --------------- |
 | region    | `full` if the full image is requested<br/>otherwise the _`x,y,w,h`_ syntax. |
 | size      | `max` if the maximum size without upscaling is requested,<br/>`^max` if the maximum upscaled size is requested, otherwise<br/>_`w,h`_ if the size requested does not require upscaling, or<br/>_`^w,h`_ if the request requires upscaling of the extracted region. |
-| rotation  | `!` if the image is mirrored, followed by an integer if possible, otherwise a floating point value following the recommendations described in the [Floating Point Values][image30-floating-point-values] section. |
+| rotation  | `!` if the image is mirrored, followed by an integer if possible, otherwise a floating point value represented according to the recommendations of the [Floating Point Values][image30-floating-point-values] section. |
 | quality   | `default` if the server's default quality is requested,<br/>otherwise the quality string. |
 | format    | An explicit format string is always required. |
 {: .api-table}
