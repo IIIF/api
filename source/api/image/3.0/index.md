@@ -656,7 +656,7 @@ The JSON response _MAY_ have the `preferredFormats` property, which lists one or
 
 | Property | Required? | Description |
 | ------------- | --------- | ----------- |
-| `preferredFormats` | Optional | An array of strings that are the preferred format parameter values, arranged in order of preference.  The format parameter values listed must be among those specified in the referenced profile or listed in the `extraFormats` property (see [Extra Functionality][image3-extra-functionality]). |
+| `preferredFormats` | Optional | An array of strings that are the preferred format parameter values, arranged in order of preference.  The format parameter values listed _MUST_ be among those specified in the referenced profile or listed in the `extraFormats` property (see [Extra Functionality][image3-extra-functionality]). |
 {: .api-table}
 
 
@@ -838,7 +838,7 @@ The following shows an image information response including all of the required 
   ],
   "rights": "http://rightsstatements.org/vocab/InC-EDU/1.0/",
   "preferredFormats": [ "png", "gif"],
-  "extraFormats": [ "gif", "pdf" ],
+  "extraFormats": [ "png", "gif", "pdf" ],
   "extraQualities": [ "color", "gray" ],
   "extraFeatures": [ "canonicalLinkHeader", "rotationArbitrary", "profileLinkHeader" ],
   "service": [
