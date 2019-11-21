@@ -86,6 +86,10 @@ The specification now mandates an inheritance model for behaviors across classes
 
 Previously, the APIs allowed for a `logo` property for referencing the logos of institutions that somehow contributed or needed acknowledgement. There was no way, however, to associate a label with the logo and this was magnified by the change from `attribution` to `requiredStatement`. The solution adopted is to introduce a `provider` property that has a full structure to represent information about providing people or organizations, including `logo`, `label`, `seeAlso`, `homepage` and others. See issues [#1639](https://github.com/IIIF/api/issues/1639), [#1698](https://github.com/IIIF/api/issues/1698), [#1759](https://github.com/IIIF/api/issues/1759), [#1777](https://github.com/IIIF/api/issues/1777). Approved by [trc#3](https://github.com/IIIF/trc/issues/3) and [trc#7](https://github.com/IIIF/trc/issues/7).
 
+#### 1.2.13. Remove `otherContent` property, use `annotations` and `items` instead
+
+Previously, the `otherContent` property was used to link from Canvas and Layer resources to Annotation Lists containing transcriptions, video, audio or commentary. Such annotations are now included in Annotation Pages linked via the `annotations` property from Canvas resources, and via `items` from Annotation Collection resources respectively. These annotations may have various non-`painting` motivations, including the `supplementing` motivation for transcriptions. See issue [#1262](https://github.com/IIIF/api/issues/1262).
+
 
 ### 1.3. Property Value Changes
 
@@ -100,7 +104,7 @@ The semantics of `thumbnail` were changed to allow for non-image content resourc
 
 #### 1.3.3. Use language map pattern for `label`, `value`, `summary`
 
-A new pattern has been adopted for all textual values of a JSON object with the language code as the key (or `none` if the language is not known) and the content as a string within an array as the value. This pattern is much easier to implement and use than the previous `@value` / `@language` tuples pattern. See issues [#755](https://github.com/IIIF/api/issues/755), [#1739](https://github.com/IIIF/api/issues/1739). Approved by [trc#2](https://github.com/IIIF/trc/issues/2) and [trc#5](https://github.com/IIIF/trc/issues/5).
+A new pattern has been adopted for all textual values of a JSON object with the language code as the key (or `none` if the language is not known) and the content as a string within an array as the value. This pattern is much easier to implement and use than the previous `@value` / `@language` tuples pattern. See issues [#755](https://github.com/IIIF/api/issues/755) and [#1739](https://github.com/IIIF/api/issues/1739). Approved by [trc#2](https://github.com/IIIF/trc/issues/2) and [trc#5](https://github.com/IIIF/trc/issues/5).
 
 #### 1.3.4. Always require arrays if property can have multiple values
 
@@ -158,7 +162,7 @@ With the clarification that Collections are exclusively for navigation and not d
 
 #### 1.5.4. Requirements of `id` and `type`
 
-The `type` property with a single value is now required on all resources, including content resources and services. This serves several purposes, including facilitating object mapping code libraries, clarity about the rendering needs for the resource given the new inclusion of audio and video as core content, and forcing the serialization to generate a JSON object for the resource, not just a string with the resource's URI. The values of `type` were enumerated for content resources. See issues [#1676](https://github.com/IIIF/api/issues/1676), [#1677](https://github.com/IIIF/api/issues/1677), [#1147](https://github.com/IIIF/api/issues/1147).
+The `type` property with a single value is now required on all resources, including content resources and services. This serves several purposes, including facilitating object mapping code libraries, clarity about the rendering needs for the resource given the new inclusion of audio and video as core content, and forcing the serialization to generate a JSON object for the resource, not just a string with the resource's URI. The values of `type` were enumerated for content resources. See issues [#1676](https://github.com/IIIF/api/issues/1676), [#1677](https://github.com/IIIF/api/issues/1677) and [#1147](https://github.com/IIIF/api/issues/1147).
 
 The `id` property is now also required for every class. This brings the specification into alignment with the `id` requirements from the Web Annotation model. See issue [#1607](https://github.com/IIIF/api/issues/1607). Approved by [trc#9](https://github.com/IIIF/trc/issues/9).
 
@@ -173,7 +177,7 @@ Canvases may be treated as content resources for the purposes of annotating on
 
 #### 2.1.2. Add `accompanyingCanvas`, `placeholderCanvas` for associated content
 
-Many time-based media presentations have additional content associated with the object, such as either a poster that is rendered while video is buffering or on a selection user interface (`placeholderCanvas`), or images that might be displayed while an audio-only object is being rendered (`accompanyingCanvas`). The addition of these properties allows the content to be associated with the resource while not being part of the object directly. The rendering requirements for these Canvases are different from Canvases that represent the object, including that they cannot have their own accompanying or placeholder Canvases in a recursive structure. See issues [#1263](https://github.com/IIIF/api/issues/1263), [#1605](https://github.com/IIIF/api/issues/1605), [#1615](https://github.com/IIIF/api/issues/1615). Approved by [trc#8](https://github.com/IIIF/trc/issues/8).
+Many time-based media presentations have additional content associated with the object, such as either a poster that is rendered while video is buffering or on a selection user interface (`placeholderCanvas`), or images that might be displayed while an audio-only object is being rendered (`accompanyingCanvas`). The addition of these properties allows the content to be associated with the resource while not being part of the object directly. The rendering requirements for these Canvases are different from Canvases that represent the object, including that they cannot have their own accompanying or placeholder Canvases in a recursive structure. See issues [#1263](https://github.com/IIIF/api/issues/1263), [#1605](https://github.com/IIIF/api/issues/1605) and [#1615](https://github.com/IIIF/api/issues/1615). Approved by [trc#8](https://github.com/IIIF/trc/issues/8).
 
 #### 2.1.3. Add `duration` on Canvas
 
@@ -185,7 +189,7 @@ The `timeMode` indicates whether the client should `trim`, `scale`, or `loop` pl
 
 #### 2.1.5. Add `auto-advance`, `no-auto-advance` for `behavior`
 
-In some cases it may be desirable to have playback advance automatically from one Canvas, or part thereof, to the next, such as when Canvases represent tracks of an album; the `auto-advance` `behavior` enables this. The `no-auto-advance` behavior would then turn it off, if `auto-advance` has been inherited. See issues [#1583](https://github.com/IIIF/api/issues/1583), [#1632](https://github.com/IIIF/api/issues/1632). Approved by [trc#17](https://github.com/IIIF/trc/issues/17).
+In some cases it may be desirable to have playback advance automatically from one Canvas, or part thereof, to the next, such as when Canvases represent tracks of an album; the `auto-advance` `behavior` enables this. The `no-auto-advance` behavior would then turn it off, if `auto-advance` has been inherited. See issues [#1583](https://github.com/IIIF/api/issues/1583) and [#1632](https://github.com/IIIF/api/issues/1632). Approved by [trc#17](https://github.com/IIIF/trc/issues/17).
 
 #### 2.1.6. Add `thumbnail-nav` for `behavior`
 
@@ -208,7 +212,7 @@ External resources referenced by `homepage`, `rendering`, `rights`, and `partOf`
 
 #### 2.2.2. Add `no-nav`, `unordered`, `hidden` for `behavior`
 
-A number of behaviors are introduced to accommodate new user interaction requirements. The `no-nav` `behavior` can be used to suppress the display of a Range that is not intended for user navigation. The `hidden` `behavior` is valid on Annotation Collections, Annotation Pages, Annotations, Specific Resources and Choices and indicates that the resource should by default not be rendered. The `unordered` `behavior` indicates that the resource’s Canvases do not have an inherent order. See issues [#1070](https://github.com/IIIF/api/issues/1070), [#1417](https://github.com/IIIF/api/issues/1417), [#1679](https://github.com/IIIF/api/issues/1679). Approved by [trc#14](https://github.com/IIIF/trc/issues/14).
+A number of behaviors are introduced to accommodate new user interaction requirements. The `no-nav` `behavior` can be used to suppress the display of a Range that is not intended for user navigation. The `hidden` `behavior` is valid on Annotation Collections, Annotation Pages, Annotations, Specific Resources and Choices and indicates that the resource should by default not be rendered. The `unordered` `behavior` indicates that the resource’s Canvases do not have an inherent order. See issues [#1070](https://github.com/IIIF/api/issues/1070), [#1417](https://github.com/IIIF/api/issues/1417) and [#1679](https://github.com/IIIF/api/issues/1679). Approved by [trc#14](https://github.com/IIIF/trc/issues/14).
 
 #### 2.2.3. Add `together` for `behavior`
 
@@ -216,7 +220,7 @@ The `together` `behavior`, valid on Collections, was introduced to indicate to c
 
 #### 2.2.4. Add `supplementing` for `motivation`
 
-The `painting` `motivation` does not permit sufficient flexibility in the display of annotation content derived from the Canvas, such as a transcription of text in an image or the words spoken in an audio representation. Annotations with the `motivation` value `supplementing` may be displayed as part of the Canvas representation or in a separate area of the user interface. See issues [#1258](https://github.com/IIIF/api/issues/1258), [#1480](https://github.com/IIIF/api/issues/1480), [#1738](https://github.com/IIIF/api/issues/1738).
+The `painting` `motivation` does not permit sufficient flexibility in the display of annotation content derived from the Canvas, such as a transcription of text in an image or the words spoken in an audio representation. Annotations with the `motivation` value `supplementing` may be displayed as part of the Canvas representation or in a separate area of the user interface. See issues [#1258](https://github.com/IIIF/api/issues/1258), [#1480](https://github.com/IIIF/api/issues/1480) and [#1738](https://github.com/IIIF/api/issues/1738).
 
 #### 2.2.5. Allow `paged` behavior on Collections with `multi-part` behavior
 
