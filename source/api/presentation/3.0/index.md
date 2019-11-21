@@ -792,7 +792,7 @@ For cross-version consistency, this specification defines the following values f
 | AuthLogoutService1   | [Authentication API version 1][auth1-logout-service] |
 {: .api-table #table-service-types}
 
-Implementations _SHOULD_ be prepared to recognize the `@id` and `@type` property names used by older specifications, as well as `id` and `type`. Note that the `@context` key _SHOULD_ not be present within the `service`, but instead included at the beginning of the document. The example below includes both version 2 and version 3 IIIF Image API services.
+Implementations _SHOULD_ be prepared to recognize the `@id` and `@type` property names used by older specifications, as well as `id` and `type`. Note that the `@context` key _SHOULD NOT_ be present within the `service`, but instead included at the beginning of the document. The example below includes both version 2 and version 3 IIIF Image API services.
 
 ``` json-doc
 {
