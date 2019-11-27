@@ -74,6 +74,19 @@ This table summarizes the services available and which APIs they may be used in.
 | [Physical Dimensions][physdim] | ![recommended][icon-rec] | ![recommended][icon-rec] |
 {: .api-table}
 
+The following names have been added as of version 3.0 of the Image and Presentation APIs in order to facilitate cross-version compatibility.  These names are used in the `type` or `@type` field for the service.
+
+| Value                | Specification |
+| -------------------- | ------------- |
+| ImageService1        | [Image API version 1][image11]  |
+| ImageService2        | [Image API version 2][image21]  |
+| SearchService1       | [Search API version 1][search1] |
+| AutoCompleteService1 | [Search API version 1][search1-autocomplete] |
+| AuthCookieService1   | [Authentication API version 1][auth1-cookie-service] |
+| AuthTokenService1    | [Authentication API version 1][auth1-token-service] |
+| AuthLogoutService1   | [Authentication API version 1][auth1-logout-service] |
+{: .api-table #table-service-types}
+
 ### 3.1 Image Information
 {: #image-information}
 _Added: 2014-05-20_
