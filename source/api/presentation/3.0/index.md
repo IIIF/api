@@ -264,7 +264,7 @@ The value _MUST_ be a string. If the value is drawn from Creative Commons or Rig
 ```
 
 __Machine actionable URIs and links for users__<br/>
-The machine actionable URIs for both Creative Commons licenses and RightsStatements.org right statements are `http` URIs. In both cases, human readable descriptions are available from equivalent `https` URIs. Clients may wish to rewrite links presented to users to use these eqivalent `https` URIs.
+The machine actionable URIs for both Creative Commons licenses and RightsStatements.org right statements are `http` URIs. In both cases, human readable descriptions are available from equivalent `https` URIs. Clients may wish to rewrite links presented to users to use these equivalent `https` URIs.
 {: .note}
 
 ##### provider
