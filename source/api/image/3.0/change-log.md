@@ -68,9 +68,11 @@ The `license` property was renamed to `rights` to accommodate both rights statem
 
 See issues [#644](https://github.com/IIIF/api/issues/644) and [#1479](https://github.com/IIIF/api/issues/1479).
 
-#### 1.2.4. Require the `type` property on all resources, with new values
+#### 1.2.4. Require the `type` property on info.json and external references, with new values
 
-The `type` property with a single value is now required on all resources, including content resources and services. This serves several purposes, including facilitating object mapping code libraries, and forcing the serialization to generate a JSON object for the resource, not just a string with the resource's URI. The values for `type` have been changed to version-specific strings that avoid the namespace structure, for example from `iiif:Image` in 2.1 to `ImageService3` in 3.0. Note that the `@type` property is used only when referring to object from older specifications such as the Authentication API 1.0.
+The `type` property with a single value is now required at the top level of the info.json document, and any externally referenced resources including content resources such as further images and services. This serves several purposes, including facilitating object mapping code libraries, and forcing the serialization to generate a JSON object for the resource, not just a string with the resource's URI. The values for `type` have been changed to version-specific strings that avoid the namespace structure, for example from `iiif:Image` in 2.1 to `ImageService3` in 3.0. Note that the `@type` property is used only when referring to object from older specifications such as the Authentication API 1.0. The `type` property is optional for entries in the tiles (`Tile`) and sizes (`Size`) arrays.
+
+See issue [#1185](https://github.com/IIIF/api/issues/1185) and [#1867](https://github.com/IIIF/api/issues/1867)
 
 #### 1.2.5. Change the `profile` property to take one compliance level
 
