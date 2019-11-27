@@ -106,6 +106,11 @@ Expectations around the implementation of content negotiation were added.
 
 See issue [#1685](https://github.com/IIIF/api/issues/1685).
 
+#### 1.2.11. Update context for new major version
+
+The URI of the context document was updated for the new major version, and thus the value of the `@context` field uses the new value of `"http://iiif.io/api/image/3/context.json"`.
+
+
 ### 1.3. Compliance Requirements
 
 #### 1.3.1. Require support for region `square` at `level1` and `level2` compliance
