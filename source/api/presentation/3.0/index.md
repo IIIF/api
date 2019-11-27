@@ -263,6 +263,10 @@ The value _MUST_ be a string. If the value is drawn from Creative Commons or Rig
 { "rights": "http://creativecommons.org/licenses/by/4.0/" }
 ```
 
+__Machine actionable URIs and links for users__<br/>
+The machine actionable URIs for both Creative Commons licenses and RightsStatements.org right statements are `http` URIs. In both cases, human readable descriptions are available from equivalent `https` URIs. Clients may wish to rewrite links presented to users to use these eqivalent `https` URIs.
+{: .note}
+
 ##### provider
 
 An organization or person that contributed to providing the content of the resource. Clients can then display this information to the user to acknowledge the provider's contributions.  This differs from the `requiredStatement` property, in that the data is structured, allowing the client to do more than just present text but instead have richer information about the people and organizations to use in different interfaces.
