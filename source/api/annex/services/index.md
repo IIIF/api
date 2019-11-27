@@ -257,13 +257,11 @@ Thanks to the members of the [IIIF][iiif-community] for their continuous engagem
 
 {% include links.md %}
 
-   [image-api]: {{ site.url }}{{ site.baseurl }}/api/image/{{ site.image_api.stable.major }}.{{ site.image_api.stable.minor }}/ "Image API"
-   [prezi-api]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.stable.major }}.{{ site.presentation_api.stable.minor }}/ "Presentation API"
-   [geojson]: http://geojson.org/ "GeoJSON"
-   [geojson-ld]: http://geojson.org/geojson-ld/ "GeoJSON-LD"
-[imageinfo]: #image-information
-[lgeojson]: #geojson
-[physdim]: #physical-dimensions
+  [geojson]: http://geojson.org/ "GeoJSON"
+  [geojson-ld]: http://geojson.org/geojson-ld/ "GeoJSON-LD"
+  [imageinfo]: #image-information
+  [lgeojson]: #geojson
+  [physdim]: #physical-dimensions
 
 
 
