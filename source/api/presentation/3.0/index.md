@@ -260,8 +260,12 @@ The value _MUST_ be a string. If the value is drawn from Creative Commons or Rig
    Clients _MAY_ render `rights` on any resource type.
 
 ``` json-doc
-{ "rights": "https://creativecommons.org/licenses/by/4.0/" }
+{ "rights": "http://creativecommons.org/licenses/by/4.0/" }
 ```
+
+__Machine actionable URIs and links for users__<br/>
+The machine actionable URIs for both Creative Commons licenses and RightsStatements.org right statements are `http` URIs. In both cases, human readable descriptions are available from equivalent `https` URIs. Clients may wish to rewrite links presented to users to use these equivalent `https` URIs.
+{: .note}
 
 ##### provider
 
@@ -1302,7 +1306,7 @@ The Manifest _MUST_ have an `items` property, which is an array of JSON-LD objec
   "navDate": "1856-01-01T00:00:00Z",
 
   // Rights Information
-  "rights": "https://creativecommons.org/licenses/by/4.0/",
+  "rights": "http://creativecommons.org/licenses/by/4.0/",
   "requiredStatement": {
     "label": { "en": [ "Attribution" ] },
     "value": { "en": [ "Provided by Example Organization" ] }
