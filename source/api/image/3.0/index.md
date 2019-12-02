@@ -780,7 +780,6 @@ The JSON objects in `partOf`, `seeAlso`, and `service` have the properties indic
 ``` json-doc
 {
   "@context": [
-    "http://iiif.io/api/presentation/{{ page.major }}/context.json",
     "http://iiif.io/api/image/{{ page.major }}/context.json"
   ],
   "id": "https://example.org/image-service/abcd12345/1E34750D-38DB-4825-A38A-B60A345E591C",
