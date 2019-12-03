@@ -803,6 +803,14 @@ The JSON objects in `partOf`, `seeAlso`, and `service` have the properties indic
       "type": "Manifest",
       "label": { "en": [ "A Book" ] }
     }
+  ],
+  "service": [
+    {
+      "@id": "https://example.org/auth/login",
+      "@type": "AuthCookieService1",
+      "profile": "http://iiif.io/api/auth/1/login",
+      "label": "Login to Example Institution"
+    }
   ]
 }
 ```
