@@ -90,6 +90,10 @@ Previously, the APIs allowed for a `logo` property for referencing the logos of 
 
 Previously, the `otherContent` property was used to link from Canvas and Layer resources to Annotation Lists containing transcriptions, video, audio or commentary. Such annotations are now included in Annotation Pages linked via the `annotations` property from Canvas resources, and via `items` from Annotation Collection resources respectively. These annotations may have various non-`painting` motivations, including the `supplementing` motivation for transcriptions. See issue [#1262](https://github.com/IIIF/api/issues/1262).
 
+#### 1.2.14. Update context for new major version
+
+The URI of the context document was updated for the new major version, and thus the value of the `@context` is either the new value `http://iiif.io/api/presentation/3/context.json`, or includes this as the last item in an array value.
+
 
 ### 1.3. Property Value Changes
 
