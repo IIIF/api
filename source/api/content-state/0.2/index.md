@@ -97,7 +97,7 @@ The target could be any resource described by the Presentation API, for example,
 * spatial or temporal fragment of a Canvas
 * spatial or temporal point on a Canvas
 
-The Annotation must contain enough information about dereferenceable resources to show the content in context. For example, a Canvas is often not enough information for a viewer to show the intended view; the Manifest the Canvas is part of needs to be declared so that the client can load that Manifest first, and then find the Canvas within it.
+The Annotation must contain enough information about de-referenceable resources to show the content in context. For example, a Canvas is often not enough information for a viewer to show the intended view; the Manifest the Canvas is part of needs to be declared so that the client can load that Manifest first, and then find the Canvas within it.
 
 ### 2.2 Form of Annotation
 
@@ -143,7 +143,7 @@ This form is better suited to scenarios where compactness is important, for exam
 
 This is the simplest form and is just the URL of a resource. The content state may be supplied as a string whose value is the `id` (the URL) of the `target` property only. For the example above, this would be the URL `https://example.org/iiif/item1/manifest`. The client would simply load this Manifest and display it. 
 
-While supporting many requirements for sharing resources and initialising a client application, this form is not capable of expressing content states that are part of a IIIF resource, such as a Canvas within a Manifest, or a region of a Canvas. One of the other forms must be used for these purposes.
+While supporting many requirements for sharing resources and initializing a client application, this form is not capable of expressing content states that are part of a IIIF resource, such as a Canvas within a Manifest, or a region of a Canvas. One of the other forms must be used for these purposes.
 
 
 ### 2.3 Protocol
@@ -168,20 +168,20 @@ If the content state is a simple URL, the client _MUST_ load the resource at tha
 If the content state is JSON-LD the client _MUST_ inspect the `type` property to decide whether the value is the full content state Annotation (indicated by the additional presence of the `contentState` motivation), or the value of the `target` property of an implied content state Annotation. 
 
 
-## 3. Initialisation
-{: #initialisation}
+## 3. Initialization
+{: #initialization}
 
 This specification provides mechanisms that IIIF compatible software can use to expose, share and transfer content state descriptions, but does not specify what form IIIF compatible software itself may take (e.g., a web page, a JavaScript web application, a native mobile application, a desktop application, or display kiosk hardware). Please see the [IIIF Cookbook][annex-cookbook] for further examples of the patterns listed below.
 
 TODO - provide cookbook links to fully working examples for all of these
 
-### 3.1. Initialisation mechanisms (protocol)
-{: #initialisation-mechanisms}
+### 3.1. Initialization mechanisms (protocol)
+{: #initialization-mechanisms}
 
 The data structure _MAY_ be made available to the client using the following mechanisms. Other mechanisms are possible, but outside the scope of the specification.
 
 #### 3.1.1 Linking: HTTP GET (query string) parameter
-{: #initialisation-mechanisms-link}
+{: #initialization-mechanisms-link}
 
 If the intention is that the linked-to client loads an entire IIIF resource without focusing on any particular part, the simplest form of the content state _SHOULD_ be used:
 
@@ -193,7 +193,7 @@ If the intention is that the linked-to client loads an entire IIIF resource with
 
 In this case the client at `https://example.org/viewer` would load the resource provided, determine that it is a Manifest (rather than, say, a Collection), and process accordingly.
 
-When the intention is to initialise the viewer at a particular part of the resource, more options are available.
+When the intention is to initialize the viewer at a particular part of the resource, more options are available.
 
 In the following examples, the same Annotation is used each time. As JSON:
 
@@ -214,7 +214,7 @@ In the following examples, the same Annotation is used each time. As JSON:
 }
 ```
 
-An example of this usage would be a link from search results to a particular page of a digitised book, or a stored bookmark of a particular page (i.e., Canvas).
+An example of this usage would be a link from search results to a particular page of a digitized book, or a stored bookmark of a particular page (i.e., Canvas).
 
 Without encoding, the link to the viewer would look like this:
 
@@ -264,7 +264,7 @@ However, as JSON-LD again, this _MUST_ be Base-64 encoded UTF-8:
 ```
 
 #### 3.1.2 Linking: HTTP POST (form) parameter
-{: #initialisation-mechanisms-post}
+{: #initialization-mechanisms-post}
 
 The same data structure, in the same forms, may instead be passed in a POST parameter. This is suited to server-side web applications, such as a web page rendering citations or a view initialized on the server. It is not suited to a standalone JavaScript application, as the POST data is typically unavailable.
 
@@ -278,7 +278,7 @@ _Outstanding Question:_ Should POST be in the body, or as www-form-encoded? ...c
 
 
 #### 3.1.3 Accepting the content state as a paste operation
-{: #initialisation-mechanisms-paste}
+{: #initialization-mechanisms-paste}
 
 The client allows the content state URL or data to be pasted into part of its UI (e.g., from a "Load..." option exposing a `textarea` element for the user to manually paste into). A client can also accept a paste operation transparently, by reading from the clipboard:
 
@@ -302,7 +302,7 @@ This same mechanism may also accept a Manifest or Collection resource URL direct
 
 
 #### 3.1.4 Drag and Drop
-{: #initialisation-mechanisms-dragdrop}
+{: #initialization-mechanisms-dragdrop}
 
 In this scenario, one client provides a _draggable_ element:
 
@@ -386,7 +386,7 @@ A JavaScript client can accept content state from the client machine via the `Fi
 (see cookbook recipe)
 
 * The client exposes the current content state in its UI (e.g., "Share this")
-* The client looks for the content state URL or data in an initialisation parameter `data-iiif-content`
+* The client looks for the content state URL or data in an initialization parameter `data-iiif-content`
 * The data is a parameter in an HTML5 Drag and Drop operation (LINK TO COOKBOOK RECIPE...)
 
 ### 3.1.6 Load by reference
@@ -399,13 +399,13 @@ This is a variant of 3.1.1, with the parameter value a URI rather than the conte
 
 The same rules apply; the viewer _MUST_ dereference and process the Annotation at that URL.
 
-### 3.1.7 Common initialisation parameter
+### 3.1.7 Common initialization parameter
 
 TODO - how should this read as spec? Makes too many assumptions about how a viewer bootstraps. The idea is that Mirador, UV, etc use the same name by convention if they support acceptance of content state data.
 
 This is probably not spec. It's a recipe.
 
-Viewers should standardise on the attribute `data-iiif-content` for supplying content state via HTML attribute. A viewer that accepts content state _SHOULD_ process an Annotation in any of the forms described in the GET parameter section.
+Viewers should standardize on the attribute `data-iiif-content` for supplying content state via HTML attribute. A viewer that accepts content state _SHOULD_ process an Annotation in any of the forms described in the GET parameter section.
 
 ```html
 
