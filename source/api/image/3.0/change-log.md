@@ -68,9 +68,11 @@ The `license` property was renamed to `rights` to accommodate both rights statem
 
 See issues [#644](https://github.com/IIIF/api/issues/644) and [#1479](https://github.com/IIIF/api/issues/1479).
 
-#### 1.2.4. Require the `type` property on all resources, with new values
+#### 1.2.4. Require the `type` property on image information document and external references, with new values
 
-The `type` property with a single value is now required on all resources, including content resources and services. This serves several purposes, including facilitating object mapping code libraries, and forcing the serialization to generate a JSON object for the resource, not just a string with the resource's URI. The values for `type` have been changed to version-specific strings that avoid the namespace structure, for example from `iiif:Image` in 2.1 to `ImageService3` in 3.0. Note that the `@type` property is used only when referring to object from older specifications such as the Authentication API 1.0.
+The `type` property with a single value is now required at the top level of the image information document (`info.json`), and any externally referenced resources including content resources such as further images and services. This serves several purposes, including facilitating object mapping code libraries, and forcing the serialization to generate a JSON object for the resource, not just a string with the resource's URI. The values for `type` have been changed to version-specific strings that avoid the namespace structure, for example from `iiif:Image` in 2.1 to `ImageService3` in 3.0. Note that the `@type` property is used only when referring to an object from older specifications such as the Authentication API 1.0. The `type` property is optional for entries in the tiles (`Tile`) and sizes (`Size`) arrays.
+
+See issues [#1185](https://github.com/IIIF/api/issues/1185) and [#1867](https://github.com/IIIF/api/issues/1867)
 
 A list of allowed values for `@type` when referring to services from older IIIF specifications is given in the [services annex][annex-services] document.
 
