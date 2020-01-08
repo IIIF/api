@@ -56,7 +56,7 @@ The Presentation API classes in version 2.1.1 had both `members` to allow for mi
 
 #### 1.2.5. Rename `license` to `rights`
 
-The `license` property was renamed to the more general `rights` to accommodate both rights statements and usage licenses. The value was further constrained to allow only Creative Commons URIs, RightsStatements.org URIs, and URIs registered as extensions. This additional constraint is to allow clients to treat the property as an enumeration rather than free text, and implement URI specific behavior. See issues [#644](https://github.com/IIIF/api/issues/644) and [#1479](https://github.com/IIIF/api/issues/1479)
+The `license` property was renamed to the more general `rights` to accommodate both rights statements and usage licenses. The value was further constrained to allow only http Creative Commons URIs, https RightsStatements.org URIs, and any URI registered as an extension. This additional constraint is to allow clients to treat the property as an enumeration rather than free text, and implement URI specific behavior. See issues [#644](https://github.com/IIIF/api/issues/644), [#1479](https://github.com/IIIF/api/issues/1479), and [#1874](https://github.com/IIIF/api/issues/1874) which was approved by [trc#32](https://github.com/IIIF/trc/issues/32). 
 
 #### 1.2.6. Rename `description` to `summary`
 
@@ -230,6 +230,10 @@ The `painting` `motivation` does not permit sufficient flexibility in the displa
 
 Collections with the `multi-part` behavior often represent bound volumes, and thus are now allowed to have the `paged` behavior. See issue [#1680](https://github.com/IIIF/api/issues/1680). Approved by [trc#15](https://github.com/IIIF/trc/issues/15).
 
+
+#### 2.2.6. Add `services` property for Collections and Manifests
+
+Some services are used multiple times within a single Collection or Manifest, such as [IIIF Authentication][iiif-auth] services. These were difficult to find or overly verbose to repeat for every usage. The `services` property was added to the top level resources that can collect these multiply referenced services in a single, easy-to-find location. See issue [#1873](https://github.com/IIIF/api/issues/1873). Approved by [trc#31](https://github.com/IIIF/trc/issues/31).
 
 ### 2.3. Protocol Features
 
