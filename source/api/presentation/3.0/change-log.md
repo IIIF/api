@@ -56,7 +56,7 @@ The Presentation API classes in version 2.1.1 had both `members` to allow for mi
 
 #### 1.2.5. Rename `license` to `rights`
 
-The `license` property was renamed to the more general `rights` to accommodate both rights statements and usage licenses. The value was further constrained to allow only http Creative Commons URIs, https RightsStatements.org URIs, and any URI registered as an extension. This additional constraint is to allow clients to treat the property as an enumeration rather than free text, and implement URI specific behavior. See issues [#644](https://github.com/IIIF/api/issues/644), [#1479](https://github.com/IIIF/api/issues/1479), and [#1874](https://github.com/IIIF/api/issues/1874) which was approved by [trc#32](https://github.com/IIIF/trc/issues/32). 
+The `license` property was renamed to the more general `rights` to accommodate both rights statements and usage licenses. The value was further constrained to allow only `http` Creative Commons URIs, `https` RightsStatements.org URIs, and any URI registered as an extension. This additional constraint is to allow clients to treat the property as an enumeration rather than free text, and implement URI specific behavior. See issues [#644](https://github.com/IIIF/api/issues/644), [#1479](https://github.com/IIIF/api/issues/1479), and [#1874](https://github.com/IIIF/api/issues/1874) which was approved by [trc#32](https://github.com/IIIF/trc/issues/32).
 
 #### 1.2.6. Rename `description` to `summary`
 
