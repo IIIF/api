@@ -56,7 +56,7 @@ The Presentation API classes in version 2.1.1 had both `members` to allow for mi
 
 #### 1.2.5. Rename `license` to `rights`
 
-The `license` property was renamed to the more general `rights` to accommodate both rights statements and usage licenses. The value was further constrained to allow only Creative Commons URIs, RightsStatements.org URIs, and URIs registered as extensions. This additional constraint is to allow clients to treat the property as an enumeration rather than free text, and implement URI specific behavior. See issues [#644](https://github.com/IIIF/api/issues/644) and [#1479](https://github.com/IIIF/api/issues/1479)
+The `license` property was renamed to the more general `rights` to accommodate both rights statements and usage licenses. The value was further constrained to allow only `http` Creative Commons URIs, `https` RightsStatements.org URIs, and any URI registered as an extension. This additional constraint is to allow clients to treat the property as an enumeration rather than free text, and implement URI specific behavior. See issues [#644](https://github.com/IIIF/api/issues/644), [#1479](https://github.com/IIIF/api/issues/1479), and [#1874](https://github.com/IIIF/api/issues/1874) which was approved by [trc#32](https://github.com/IIIF/trc/issues/32).
 
 #### 1.2.6. Rename `description` to `summary`
 
@@ -90,6 +90,8 @@ Previously, the APIs allowed for a `logo` property for referencing the logos of 
 
 Previously, the `otherContent` property was used to link from Canvas and Layer resources to Annotation Lists containing transcriptions, video, audio or commentary. Such annotations are now included in Annotation Pages linked via the `annotations` property from Canvas resources, and via `items` from Annotation Collection resources respectively. These annotations may have various non-`painting` motivations, including the `supplementing` motivation for transcriptions. See issue [#1262](https://github.com/IIIF/api/issues/1262).
 
+Guidance is added regarding the order in which Annotation Pages and their items should be processed. See issue [#1763](https://github.com/IIIF/api/issues/1763). Approved by [trc#22](https://github.com/IIIF/trc/issues/22).
+
 #### 1.2.14. Update context for new major version
 
 The URI of the context document was updated for the new major version, and thus the value of the `@context` is either the new value `http://iiif.io/api/presentation/3/context.json`, or includes this as the last item in an array value.
@@ -108,7 +110,7 @@ The semantics of `thumbnail` were changed to allow for non-image content resourc
 
 #### 1.3.3. Use language map pattern for `label`, `value`, `summary`
 
-A new pattern has been adopted for all textual values of a JSON object with the language code as the key (or `none` if the language is not known) and the content as a string within an array as the value. This pattern is much easier to implement and use than the previous `@value` / `@language` tuples pattern. See issues [#755](https://github.com/IIIF/api/issues/755) and [#1739](https://github.com/IIIF/api/issues/1739). Approved by [trc#2](https://github.com/IIIF/trc/issues/2) and [trc#5](https://github.com/IIIF/trc/issues/5).
+A new pattern has been adopted for all textual values of a JSON object with the language code as the key (or `none` if the language is not known) and the content as a string within an array as the value. This pattern is much easier to implement and use than the previous `@value` / `@language` tuples pattern. See issues [#755](https://github.com/IIIF/api/issues/755) and [#1739](https://github.com/IIIF/api/issues/1739). Approved by [trc#2](https://github.com/IIIF/trc/issues/2), [trc#5](https://github.com/IIIF/trc/issues/5) and [trc#26](https://github.com/IIIF/trc/issues/26).
 
 #### 1.3.4. Always require arrays if property can have multiple values
 
@@ -166,7 +168,7 @@ With the clarification that Collections are exclusively for navigation and not d
 
 #### 1.5.4. Requirements of `id` and `type`
 
-The `type` property with a single value is now required on all resources, including content resources and services. This serves several purposes, including facilitating object mapping code libraries, clarity about the rendering needs for the resource given the new inclusion of audio and video as core content, and forcing the serialization to generate a JSON object for the resource, not just a string with the resource's URI. The values of `type` were enumerated for content resources. See issues [#1676](https://github.com/IIIF/api/issues/1676), [#1677](https://github.com/IIIF/api/issues/1677) and [#1147](https://github.com/IIIF/api/issues/1147).
+The `type` property with a single value is now required on all resources, including content resources and services. This serves several purposes, including facilitating object mapping code libraries, clarity about the rendering needs for the resource given the new inclusion of audio and video as core content, and forcing the serialization to generate a JSON object for the resource, not just a string with the resource's URI. The values of `type` were enumerated for content resources. See issues [#1676](https://github.com/IIIF/api/issues/1676), [#1677](https://github.com/IIIF/api/issues/1677) and [#1147](https://github.com/IIIF/api/issues/1147). Approved in part by [trc#27](https://github.com/IIIF/trc/issues/27).
 
 The `id` property is now also required for every class. This brings the specification into alignment with the `id` requirements from the Web Annotation model. See issue [#1607](https://github.com/IIIF/api/issues/1607). Approved by [trc#9](https://github.com/IIIF/trc/issues/9).
 
@@ -230,6 +232,10 @@ The `painting` `motivation` does not permit sufficient flexibility in the displa
 
 Collections with the `multi-part` behavior often represent bound volumes, and thus are now allowed to have the `paged` behavior. See issue [#1680](https://github.com/IIIF/api/issues/1680). Approved by [trc#15](https://github.com/IIIF/trc/issues/15).
 
+
+#### 2.2.6. Add `services` property for Collections and Manifests
+
+Some services are used multiple times within a single Collection or Manifest, such as [IIIF Authentication][iiif-auth] services. These were difficult to find or overly verbose to repeat for every usage. The `services` property was added to the top level resources that can collect these multiply referenced services in a single, easy-to-find location. See issue [#1873](https://github.com/IIIF/api/issues/1873). Approved by [trc#31](https://github.com/IIIF/trc/issues/31).
 
 ### 2.3. Protocol Features
 
