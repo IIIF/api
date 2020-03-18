@@ -156,19 +156,18 @@ Example Level 2 Activity:
 }
 ```
 
-#### 2.1.4. Aggregated Activities
+#### 2.1.4. Aggregating Activities
 {: #aggregated-activity-streams}
 
-Activities can be added to or removed from streams at times other than when they are created, modified, deleted or moved. 
-There are several use cases for this pattern, however they are all outside of the normal publication of a stream by the content owners and thus are unlikely to affect most publishing implementations. They do affect consuming applications, and the implications are documented in the section on processing streams.
+Activities can be added to or removed from streams at times other than when the resources they refer to are created, modified, deleted or moved. There are several use cases for this pattern, however they are all outside of the normal publication of a stream by the content owners and thus are unlikely to affect most publishing implementations. They do affect consuming applications, and the implications are documented in the section on processing streams.
 
 The first use case is when third-party aggregators add activities harvested from different institutions, and likely filtered according to some criteria, into a composite stream. For example, a dinosaur aggregator might filter several natural history museum streams for only those manifests that are about dinosaurs.
 
-Secondly, resources might become available or unavailable without being created or deleted. This could happend because of change of permissions, such as an embargo period after creation, or when the resource is temporarily removed in order to be edited as part of some data cleaning or migration process. 
+Secondly, resources might become available or unavailable without being created or deleted. This could happen because of changes to their permissions, such as an embargo period after creation, or when resources are temporarily removed in order to be edited as part of some data cleaning or migration process. 
 
+Whenever an "Add" Activity is encountered, it is similar in nature to a "Create" Activity in that it is the first time that resource is mentioned in the stream. Similarly, there will be no more references to the resource after a "Remove" activity, in the same way as for "Delete". It is, therefore, expected that if there is an "Add", then there may not be a "Create" for the same resource occuring before it.
 
 Example Add Activity:
-
 
 ```
 {
@@ -821,11 +820,11 @@ In this case, the objective of the consuming application is to find accurate, ma
 #### 3.5.4. Processing Multiple Streams
 {: #processing-multiple}
 
-In order to process multiple streams simultaneously, the steps for processing a page should be followed, but applied to the set of changes across all of the streams, sorted by the timestamp of the activity.
+In order to process multiple streams simultaneously, the steps for processing a page should be followed, but applied to the set of changes across all of the streams, sorted by the timestamp of the activity. One motivating factor for this is that the same activity might appear in multiple streams, when the activities have been broadly aggregated. For example, the same update might occur in three streams out of ten that are being processed together, and should only be processed once.
 
-Implementations that process activities beyond the most recent per resource should consider two activities with the same `type`, `object.id` and `endTime` to be the same activity regardless of any other properties.
+Implementations that process activities beyond the most recent per resource should consider two activities with the same `type`, `object.id` and `endTime` to be the same activity regardless of any other properties. In this way, duplicate activities can be detected even if different streams maintain different degrees of description and information, or some implementations have activities available at their URIs and some do not.
 
-The algorithm below does not take into account any optimizations or constraints around memory or processing. A more sophisticated algorithm might process pages, relying on each being sorted, to keep an interleaved buffer of activities full, rather than retrieving and processing everything before starting to process the activities.
+The algorithm below does not take into account any optimizations or constraints around memory or processing. A more sophisticated algorithm might process pages, relying on each being sorted, to keep an interleaved buffer of activities full, rather than retrieving and processing everything before starting to process the activities. It is not described in as much details as the processing algorithms above for this reason.
 
 Given an array (`collections`) of collection URIs as input, 
 
@@ -836,13 +835,13 @@ Given an array (`collections`) of collection URIs as input,
     <ol>
       <li>Retrieve and validate the representation of <code class="highlighter-rouge">collection</code>.</li>
       <li>While there are pages with activities that have a timestamp after <code class="highlighter-rouge">lastCrawl</code>:
-        <ul>
+        <ol>
           <li>Retrieve and validate the representation of the page, and add the matching activities to <code class="highlighter-rouge">allActivities</code></li>
-        </ul>
+        </ol>
       </li>
     </ol>
   </li>
-  <li>Sort <code class="highlighter-rouge">allActivities</code> by <code class="highlighter-rouge">activity.endTime</code>, descending.</li>
+  <li>Sort <code class="highlighter-rouge">allActivities</code> by <code class="highlighter-rouge">activity.endTime</code>, descending, removing any duplicates as described above.</li>
   <li>For each activity in <code class="highlighter-rouge">allActivities</code>, apply the page algorithm's handling of an activity.</li>
 </ol>
 
