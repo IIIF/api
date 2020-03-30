@@ -89,7 +89,7 @@ IIIF Specifications are created and published following the [IIIF Editorial Proc
 [auth094]: {{ site.url }}{{ site.baseurl }}/api/auth/0.9/ "Authentication API v0.9.4"
 [search10]: {{ site.url }}{{ site.baseurl }}/api/search/1.0/ "Search API v1.0"
 [search09]: {{ site.url }}{{ site.baseurl }}/api/search/0.9/ "Search API v0.9"
-[discovery03]: {{ site.url }}{{ site.baseurl }}/api/discovery/0.3/ "IIIF Change Discovery API"
+[discovery05]: {{ site.url }}{{ site.baseurl }}/api/discovery/0.5/ "IIIF Change Discovery API"
 [contentstate02]: {{ site.url }}{{ site.baseurl }}/api/content-state/0.2/ "IIIF Content State API"
 [notes]: {{ site.url }}{{ site.baseurl }}/api/annex/ "Implementation Notes"
 [editorial-process]: {{ page.webprefix }}/community/policy/editorial/ "IIIF Editorial Process"
