@@ -165,7 +165,7 @@ The first use case is when third-party aggregators add activities harvested from
 
 Secondly, resources might become available or unavailable without being created or deleted. This could happen because of changes to their permissions, such as an embargo period after creation, or when resources are temporarily removed in order to be edited as part of some data cleaning or migration process. 
 
-Whenever an "Add" Activity is encountered, it is similar in nature to a "Create" Activity in that it is the first time that resource is mentioned in the stream. Similarly, there will be no more references to the resource after a "Remove" activity, in the same way as for "Delete". It is, therefore, expected that if there is an "Add", then there may not be a "Create" for the same resource occuring before it.
+Whenever an "Add" Activity is encountered, it is similar in nature to a "Create" Activity in that it is the first time that resource is mentioned in the stream. It is, therefore, expected that if there is an "Add", then there may not be a "Create" for the same resource occurring before it. Similarly, there will be no more references to the resource after a "Remove" activity, in the same way as for "Delete". 
 
 Example Add Activity:
 
