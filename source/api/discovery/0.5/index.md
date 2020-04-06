@@ -88,7 +88,7 @@ Activities are used to describe the state of the publishing system by recording 
 
 The Presentation API does not directly include descriptive metadata fields suitable for indexing beyond a simple full text search. The data intentionally lacks the semantics needed to construct indexes that enable advanced or fielded search. Instead, the Presentation API uses the `seeAlso` property to link to external documents that can have richer and domain-specific information about the content being presented. For example, a museum object might have a `seeAlso` reference to a CIDOC-CRM or LIDO description, while a bibliographic resource might reference a Dublin Core or MODS description. These external descriptions should be used when possible to provide interfaces giving access to more precise matching algorithms.
 
-This specification describes three levels of conformance that build upon each other in terms of functionality enabled and precision of the information published. Sets of changes are published in pages, which are then collected together in a collection per publisher. To reduce barriers to implementation, care has been take to allow the implementation of all levels using only static files on a web server, rather than requiring dynamic access to a database.
+This specification describes three levels of conformance that build upon each other in terms of functionality enabled and precision of the information published. Sets of changes are published in pages, which are then collected together in a collection per publisher. To reduce barriers to entry, care has been taken to allow the implementation of all levels using only static files on a web server, rather than requiring dynamic access to a database.
 
 ### 2.1. Listing Resources and their Changes
 {: #listing-resources-and-their-changes}
@@ -464,7 +464,7 @@ Ordered Collections _MUST_ have a `type` property.  The value _MUST_ be `Ordered
 
 The Ordered Collection that this Page is part of.
 
-Ordered Collection Pages _SHOULD_ have a `partOf` property. The value _MUST_ be a JSON object, with the `id` and `type` properties.  The value of the `id` property _MUST_ be the a string, and _MUST_ be the HTTP(S) URI of the Ordered Collection that this page is part of.  The value of the `type` property _MUST_ be the string `OrderedCollection`.
+Ordered Collection Pages _SHOULD_ have a `partOf` property. The value _MUST_ be a JSON object, with the `id` and `type` properties.  The value of the `id` property _MUST_ be a string, and _MUST_ be the HTTP(S) URI of the Ordered Collection that this page is part of.  The value of the `type` property _MUST_ be the string `OrderedCollection`.
 
 ```
 {
@@ -489,7 +489,7 @@ Ordered Collection Pages _MAY_ have a `startIndex` property.  The value _MUST_ b
 
 A reference to the next page in the list of pages.
 
-Ordered Collection Pages _SHOULD_ have a `next` property, unless they are the last Page in the Collection. The value _MUST_ be a JSON object, with the `id` and `type` properties.  The value of the `id` property _MUST_ be the a string, and _MUST_ be the HTTP(S) URI of the following Ordered Collection Page.  The value of the `type` property _MUST_ be the string `OrderedCollectionPage`.
+Ordered Collection Pages _SHOULD_ have a `next` property, unless they are the last Page in the Collection. The value _MUST_ be a JSON object, with the `id` and `type` properties.  The value of the `id` property _MUST_ be a string, and _MUST_ be the HTTP(S) URI of the following Ordered Collection Page.  The value of the `type` property _MUST_ be the string `OrderedCollectionPage`.
 
 ```
 {
@@ -504,7 +504,7 @@ Ordered Collection Pages _SHOULD_ have a `next` property, unless they are the la
 
 A reference to the previous page in the list of pages.
 
-Ordered Collection Pages _MUST_ have a `prev` property, unless they are the first page in the Collection. The value _MUST_ be a JSON object, with the `id` and `type` properties.  The value of the `id` property _MUST_ be the a string, and _MUST_ be the HTTP(S) URI of the preceding Ordered Collection Page.  The value of the `type` property _MUST_ be the string `OrderedCollectionPage`.
+Ordered Collection Pages _MUST_ have a `prev` property, unless they are the first page in the Collection. The value _MUST_ be a JSON object, with the `id` and `type` properties.  The value of the `id` property _MUST_ be a string, and _MUST_ be the HTTP(S) URI of the preceding Ordered Collection Page.  The value of the `type` property _MUST_ be the string `OrderedCollectionPage`.
 
 ```
 {
@@ -799,7 +799,7 @@ Given the URI of an ActivityStreams CollectionPage (`page`), a list of processed
   <li>In reverse order, iterate through the activities (<code class="highlighter-rouge">activity</code>) in <code class="highlighter-rouge">items</code>:
     <ol>
       <li>For each <code class="highlighter-rouge">activity</code>, if <code class="highlighter-rouge">activity.endTime</code> is before <code class="highlighter-rouge">lastCrawl</code>, then terminate ;</li>
-      <li>If the updated resource's uri at <code class="highlighter-rouge">activity.object.id</code> is in <code class="highlighter-rouge">processedItems</code>, then continue ;</li>
+      <li>If the updated resource's URI at <code class="highlighter-rouge">activity.object.id</code> is in <code class="highlighter-rouge">processedItems</code>, then continue ;</li>
       <li>Otherwise, if <code class="highlighter-rouge">activity.type</code> is <code class="highlighter-rouge">Update</code> or <code class="highlighter-rouge">Create</code>, or it is <code class="highlighter-rouge">Add</code> and <code class="highlighter-rouge">activity.target.id</code> is the URI of the current stream, then find the URI of the resource at <code class="highlighter-rouge">activity.object.id</code> (<code class="highlighter-rouge">object</code>) and process its inclusion ;</li>
       <li>Otherwise, if <code class="highlighter-rouge">activity.type</code> is <code class="highlighter-rouge">Delete</code>, or it is <code class="highlighter-rouge">Remove</code> and <code class="highlighter-rouge">activity.origin.id</code> is the URI of the current stream, then find the URI of the resource at <code class="highlighter-rouge">activity.object.id</code> and process its removal ;</li>
       <li>Otherwise, if <code class="highlighter-rouge">activity.type</code> is <code class="highlighter-rouge">Move</code>, then find the original URI of the moved resource at <code class="highlighter-rouge">activity.object</code> and process its removal, and find the new URI of the moved resource at <code class="highlighter-rouge">activity.target</code> and process its inclusion.</li>
