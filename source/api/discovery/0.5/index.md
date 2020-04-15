@@ -762,7 +762,9 @@ If any additional classes or properties are desired beyond the ones defined in t
 ### 3.5. Activity Streams Processing Algorithm
 {: #activity-streams-processing-algorithm}
 
-The aim of the processing algorithm is to inform consuming applications how to make best use of the available information. The specification does not require any particular processing of the information by the consuming application, but considers indexing of the resource as a common use case in [section 3.5.3](#indexing).
+The aim of the processing algorithm is to inform developers implementing consuming applications how to make best use of the available information. The specification does not require any particular processing of the information by the consuming application, but considers indexing of the resource as a common use case in [section 3.5.3](#indexing).
+
+Any other algorithm that arrives at the same results as an implementation of the algorithms specified below would also be considered to be conforming. The algorithms are provided as recommendations (_SHOULD_) rather than strict requirements in order to not overly constrain the usage or inhibit novel ideas and experimentation.
 
 For processing multiple streams concurrently, there is additional processing work to be done to ensure the correct results, as the same activity might be represented in multiple streams. This is described in [section 3.5.4](#processing-multiple).
 
