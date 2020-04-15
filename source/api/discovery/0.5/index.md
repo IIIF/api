@@ -64,7 +64,7 @@ This process can be optimized by allowing the content providers to publish descr
 
 Work that is out of scope of this API includes the recommendation or creation of any descriptive metadata formats, and the recommendation or creation of metadata search APIs or protocols. The diverse domains represented within the IIIF community already have successful standards fulfilling these use cases, and the results of previous attempts to reconcile these standards across domains have not seen widespread adoption. Also out of scope is optimization of the transmission of content, for example recommendations about transferring any source media or data between systems.
 
-__Notification of Changes__<br>This draft version of the specification does not include the subscription mechanism for enabling change notifications to be pushed to remote systems.  The current specification only enables the polling pattern where the set of changes must be periodically reprocessed. Notifications are likely to be added in a future version before 1.0.
+__Notification of Changes__<br>This draft version of the specification does not include a subscription mechanism for enabling change notifications to be pushed to remote systems.  The current specification only enables the polling pattern where the set of changes must be periodically reprocessed. A subscription/notification pattern might be added in a future version after implementation experience with the polling pattern has demonstrated that it would be valuable.
 {: .warning}
 
 ### 1.2. Terminology
