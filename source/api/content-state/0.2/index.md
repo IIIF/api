@@ -49,18 +49,22 @@ This is a work in progress and may change without notice. Implementers should be
 ## 1. Introduction
 {: #introduction}
 
-The resources made available via the [IIIF Presentation API][prezi-api] are useful only if they can be found. While the [Change Discovery API][discovery-api] is for implementing systems that allow these resources to be found, this document specifies a mechanism that allows a user to then open the found resource in a compatible environment, such as a viewer, annotation tool or other IIIF-compatible software. This is one example of sharing a resource, or a particular view of a resource. Other examples include bookmarks, citations and deep linking into digital objects.
+This specification provides a way of describing a [IIIF Presentation API][prezi-api] resource, or a part of a resource, in a compact format that can be used to initialize the view of that resource in any client that implements this specification. One application is linking from a search result to a viewer showing the relevant part of a found resource. More generally, it provides a description of _content state_, for sharing between applications regardless of their different user interfaces and capabilities.
 
-This specification makes use of existing specifications in order to promote widespread adoption. It describes a way of describing a resource, or a part of a resource, in a compact format that can be used to initialize the view of that resource in any client that implements this specification. One application is linking from a search result to a viewer showing the relevant part of a found resource. More generally, it provides a description of _content state_, for sharing between applications regardless of their different user interfaces and capabilities.
+The resources made available via the [IIIF Presentation API][prezi-api] are useful only if they can be found. While the [Change Discovery API][discovery-api] is for implementing systems that allow these resources to be found, the Content State API specifies a mechanism that allows a user to then open the found resource in a compatible environment, such as a viewer, annotation tool or other IIIF-compatible software. This is one example of sharing a resource, or a particular view of a resource. Other examples include bookmarks, citations and deep linking into digital objects.
 
 This _content state_ is distinct from the state of any particular viewer's user interface. A viewer state is likely to be client-specific and would concern which panels are open, which options are selected and similar user interface details.  
 
 ### 1.1. Objectives and Scope
 {: #objectives-and-scope}
 
-The objective of the IIIF Content State API is to describe a standardized format which enables the sharing of a particular view of one or more [IIIF Presentation API][prezi-api] resources, typically Manifests or Collections, or parts thereof. The intended audience of this document is developers of applications that implement the Presentation API, although other communities may benefit as well.
+The objective of the IIIF Content State API is to describe a standardized format which enables the sharing of a particular view of one or more [IIIF Presentation API][prezi-api] resources, such as a Collection, a Manifest, or a particular part of a Manifest. 
 
-This specification also describes a number of mechanisms for the import and export of content states, thus enabling client and server software to implement interoperable solutions. Different IIIF clients will have different user interfaces and audiences, and may choose which of these mechanisms to support. Further detailed examples may be found in the [IIIF Cookbook][annex-cookbook].
+This specification also describes how a content state is passed into a viewer or other client application from another system or application, so that the viewer can show the intended part of the resource (or resources) to the user. A simple example would be a content state that tells a viewer to load a IIIF Manifest. 
+
+A viewer can also _export_ a content state, for example to enable a user to share a particular view with another user, or publish it as a reference or citation. Different IIIF clients will have different user interfaces and audiences, and may choose which of these mechanisms to support. Further detailed examples may be found in the [IIIF Cookbook][annex-cookbook].
+
+The intended audience of this document is developers of applications that implement the Presentation API, although other communities may benefit as well.
 
 ### 1.2. Terminology
 {: #terminology}
@@ -76,14 +80,12 @@ The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _S
 ## 2. Content State
 {: #content-state}
 
-A content state is a JSON-LD data structure that uses the models described by the [IIIF Presentation API][prezi-api] and [W3C Web Annotation Data Model][org-w3c-webanno] specifications. Viewers built to those specifications will already understand at least some of these models. This specification shows how a content state is passed to the viewer from another system or application, so that the viewer can show the intended part of the resource (or resources) to the user. A viewer can also _export_ a state, for example to enable a user to share a particular view with another user or publish it as a reference or citation.
-
-The content state data structure must allow the client to load the resources required, and present a particular part of the resource to the user. While _load Manifest M_ is the simplest case, a more complex content state would provide more detail about the intended target, for example:
+A content state is a JSON-LD data structure that uses the models described by the [IIIF Presentation API][prezi-api] and [W3C Web Annotation Data Model][org-w3c-webanno] specifications. The data structure is a description of a resource, or part of a resource. This data structure must allow the client to load the resources required, and present a particular part of the resource to the user. While _load Manifest M_ is the simplest case, a more complex content state would provide more detail about the intended target, for example:
 
 * _load Manifest M, navigate to Canvas C, and zoom in to the region defined by xywh=X,Y,W,H_
 * _load Manifest M, navigate such that Range R is selected, and start playing the time-based canvas C within Range R at time t=T_
 
-Such a description can be expressed as an Annotation that targets the intended resource, or part of the resource. 
+Such a description can be expressed as an Annotation that targets the intended resource, or part of the resource. This content state must be easily _passed_ to web applications, for example, as a query string parameter, or an HTML `data-` attribute.
 
 ### 2.1. Annotation Model for Content State
 
@@ -101,7 +103,7 @@ The Annotation must contain enough information about de-referenceable resources 
 
 ### 2.2 Form of Annotation
 
-A content state Annotation has the motivation `contentState`. This motivation is not defined by either the [W3C Web Annotation Data Model][org-w3c-webanno] or the Presentation API, and is chosen to avoid potential ambiguity when the target of the content state Annotation is itself an Annotation. This section shows four possible forms the content state may take, all of which are equivalent to the following example:
+A content state Annotation has the motivation `contentState`. This motivation is not defined by either the [W3C Web Annotation Data Model][org-w3c-webanno] or the Presentation API, and is chosen to avoid potential ambiguity when the target of the content state Annotation is itself an Annotation. This section shows four possible forms the content state may take, all of which are equivalent to the following example, which is simply a IIIF Manifest.
 
 ```json
 {
@@ -115,12 +117,13 @@ A content state Annotation has the motivation `contentState`. This motivation is
   }
 }
 ```
+A client _SHOULD_ be able to accept and process the content state value in all of these forms.
 
 #### 2.2.1 Full Annotation
 
 The content state may be supplied as JSON-LD, as a full Annotation with the motivation `contentState`, as in the example above.
 
-The target of the annotation is in this case a complete IIIF resource (here, a Manifest) but in more complex cases, the target could be a part of a IIIF resource. A client _SHOULD_ be able to accept and process the content state value in all of these forms. 
+The target of the annotation is in this case a complete IIIF resource (here, a Manifest) but in more complex cases, the target could be a part of a IIIF resource.  
 
 #### 2.2.2 Annotation URL
 
@@ -137,27 +140,34 @@ The content state may be supplied as JSON-LD, as the value of the `target` prope
 }
 ```
 
-This form is better suited to scenarios where compactness is important, for example a query string parameter, where it is will be combined with Base64-encoding as described in Section 2.3.
+This form is better suited to scenarios where compactness is important, for example a query string parameter, where it is will be combined with base64url encoding as described in Section 2.3.
 
 #### 2.2.4 Target URL
 
 This is the simplest form and is just the URL of a resource. The content state may be supplied as a string whose value is the `id` (the URL) of the `target` property only. For the example above, this would be the URL `https://example.org/iiif/item1/manifest`. The client would simply load this Manifest and display it. 
 
-While supporting many requirements for sharing resources and initializing a client application, this form is not capable of expressing content states that are part of a IIIF resource, such as a Canvas within a Manifest, or a region of a Canvas. One of the other forms must be used for these purposes.
+While supporting many requirements for sharing resources and initializing a client application, this form is not capable of expressing content states that are part of a IIIF resource, such as a region of a Canvas, or a Canvas URI that is not itself de-referenceable. One of the other forms must be used for these purposes.
 
 
-### 2.3 Protocol
+### 2.3 Protocol and encoding requirements
 
 There are many ways in which the content state data shown in Section 2.2 could be passed to, or exported from, IIIF compatible software such as a viewer. This section defines a Protocol for the transfer of this data, so that implementing software can receive or pass a content state without specific knowledge of other participating software.
+
+#### 2.3.1 Base 64 Encoding with URL and Filename Safe Alphabet
+
+Any content state that is in JSON-LD form, rather than a simple URL string, _MUST_ be encoded as [Base 64 Encoding with URL and Filename Safe Alphabet][org-rfc-4648-5] ("base64url") when declared inline in an HTML document, and a client _MUST_ accept it in that form. Note that "base64url" is not the same encoding as "base64", and is used to ensure the integrity of content states passed between web applications.
+
+The destination character set when encoding _MUST_ be UTF-8. For example, when passing the content state as JSON-LD in a query string parameter, base64url is used, as unencoded JSON is vulnerable to corruption. Simple URL forms _SHOULD_ be plain strings.
+
+When published as inline, base64url-encoded JSON-LD in the full form given in 2.2, the content state Annotation _MAY_ omit the `id` and `@context` properties.
+
+#### 2.3.4 Protocol
 
 If a client is capable of reading the content state from the value of an HTTP GET or POST request parameter, it _MUST_ look for the content state in a request parameter called `iiif-content`.
 
 If a client is capable of reading the content state from the value of an attribute on an HTML element that instantiates the client, it _SHOULD_ look for the content state in an attribute called `data-iiif-content`.
 
 A content state annotation may be published inline as part of an HTML document, as in the preceding `data-iiif-content` example, or as a query string parameter forming part of the `href` property of an HTML anchor tag. 
-Any content state that is in JSON-LD form, rather than a simple URL string, _MUST_ be Base64-encoded when declared inline in an HTML document, and a client _MUST_ accept it in that form. The destination character set when encoding _MUST_ be UTF-8. For example, when passing the content state as JSON-LD in a query string parameter, Base64-Encoding is used, as unencoded JSON is vulnerable to corruption. Simple URL forms _SHOULD_ be plain strings.
-
-When published as inline, Base-64-encoded JSON-LD in the full form given in 2.2, the content state Annotation _MAY_ omit the `id` and `@context` properties.
 
 If the content state is a simple URL, it _MAY_ be URL-encoded, and a client _SHOULD_ accept it in that form.
 
@@ -224,7 +234,7 @@ Without encoding, the link to the viewer would look like this:
 {% endraw %}
 ```
 
-However, as JSON-LD, this _MUST_ be Base-64 encoded UTF-8:
+However, as JSON-LD, this _MUST_ be base64url encoded UTF-8:
 
 ```html
 {% raw %}
@@ -255,7 +265,7 @@ This results in a more compact form, unencoded, this would be:
 {% endraw %}
 ```
 
-However, as JSON-LD again, this _MUST_ be Base-64 encoded UTF-8:
+However, as JSON-LD again, this _MUST_ be base64url encoded UTF-8:
 
 ```html
 {% raw %}
