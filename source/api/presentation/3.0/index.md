@@ -1943,20 +1943,44 @@ __Behavior Values__
     "label": { "en": [ "Attribution" ] },
     "value": { "en": [ "Provided by Example Organization" ] }
   },
-  "logo": [
-    {
-      "id": "https://example.org/service/inst1/full/max/0/default.png",
-      "type": "Image",
-      "format": "image/png",
-      "service": [
-        {
-          "id": "https://example.org/service/inst1",
-          "type": "ImageService3",
-          "profile": "level2"
-        }
-      ]
-    }
-  ],
+
+  "provider": [
+      {
+        "id": "https://example.org/about",
+        "type": "Agent",
+        "label": { "en": [ "Example Organization" ] },
+        "homepage": [
+          {
+            "id": "https://example.org/",
+            "type": "Text",
+            "label": { "en": [ "Example Organization Homepage" ] },
+            "format": "text/html"
+          }
+        ],
+        "logo": [
+          {
+            "id": "https://example.org/service/inst1/full/max/0/default.png",
+            "type": "Image",
+            "format": "image/png",
+            "service": [
+              {
+                "id": "https://example.org/service/inst1",
+                "type": "ImageService3",
+                "profile": "level2"
+              }
+            ]
+          }
+        ],
+        "seeAlso": [
+          {
+            "id": "https://data.example.org/about/us.jsonld",
+            "type": "Dataset",
+            "format": "application/ld+json",
+            "profile": "https://schema.org/"
+          }
+        ]
+      }
+    ],
   "homepage": [
     {
       "id": "https://example.org/info/book1/",
