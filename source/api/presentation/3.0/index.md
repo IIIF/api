@@ -1738,7 +1738,7 @@ While any HTTP(S) URI is technically acceptable for any of the resources in the 
 
 ###  6.2. Requests
 
-Clients _MUST NOT_ attempt to construct resource URIs by themselves, instead they _MUST_ follow links from within retrieved descriptions or elsewhere.
+Clients _MUST NOT_ attempt to construct URIs for Presentation API resources by themselves, instead they _MUST_ follow links from within retrieved descriptions or elsewhere. Other services _MAY_ require constructing URIs according to their specifications.
 
 ###  6.3. Responses
 
