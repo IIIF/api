@@ -72,7 +72,7 @@ With the removal of the `Layer` class in favor of the standard `AnnotationCollec
 
 #### 1.2.9. Rename `startCanvas` to `start`, allow reference to part of a Canvas
 
-Following the pattern of removing class names from property names when unnecessary, combined with the change that the referenced resource might be part of a Canvas rather than the entire Canvas, the property was renamed. The increased scope for parts of Canvases is to allow jumping to a specific time point within a Canvas with a `duration` property. See [#1320](https://github.com/IIIF/api/issues/1320).
+Following the pattern of removing class names from property names when unnecessary, combined with the change that the referenced resource might be part of a Canvas rather than the entire Canvas, the property was renamed. The increased scope for parts of Canvases is to allow jumping to a specific time point within a Canvas with a `duration` property. See issues [#1320](https://github.com/IIIF/api/issues/1320) and [#1930](https://github.com/IIIF/api/issues/1930).
 
 #### 1.2.10. Rename `within` to `partOf`
 

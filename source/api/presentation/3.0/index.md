@@ -1,6 +1,6 @@
 ---
-title: "Presentation API 3.0 BETA-2 DRAFT"
-title_override: "IIIF Presentation API 3.0 BETA-2 DRAFT"
+title: "Presentation API 3.0 BETA-3 DRAFT"
+title_override: "IIIF Presentation API 3.0 BETA-3 DRAFT"
 id: presentation-api
 layout: spec
 cssversion: 3
@@ -8,7 +8,7 @@ tags: [specifications, presentation-api]
 major: 3
 minor: 0
 patch: 0
-pre: BETA-2
+pre: BETA-3
 redirect_from:
   - /api/presentation/3/index.html
 ---
@@ -908,8 +908,9 @@ The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` propert
 ``` json-doc
 {
   "start": {
+    "id": "https://example.org/iiif/1/canvas-segment/1",
     "type": "SpecificResource",
-    "source": "https://example.org/iif/1/canvas/1",
+    "source": "https://example.org/iiif/1/canvas/1",
     "selector": {
       "type": "PointSelector",
       "t": 14.5
