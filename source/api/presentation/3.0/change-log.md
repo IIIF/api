@@ -214,7 +214,7 @@ New content type specific Selectors for the Web Annotation Data Model are needed
 
 #### 2.2.1. Add `language` on external resources
 
-External resources referenced by `homepage`, `rendering`, and `partOf` may be associated with a language code, as described under the [languages section][prezi30-languages]. See issues [#1065](https://github.com/IIIF/api/issues/1065) and [#1933](https://github.com/IIIF/api/issues/1065).
+External resources referenced by `homepage`, `rendering`, and `partOf` may be associated with a language code, as described under the [languages section][prezi30-languages]. See issues [#1065](https://github.com/IIIF/api/issues/1065) and [#1933](https://github.com/IIIF/api/issues/1933).
 
 #### 2.2.2. Add `no-nav`, `unordered`, `hidden` for `behavior`
 
