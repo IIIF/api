@@ -60,7 +60,7 @@ The objective of the IIIF Change Discovery API is to provide a machine to machin
 
 The discovery of IIIF resources requires a consistent and well understood pattern for content providers to publish lists of links to their available content. This allows a baseline implementation of discovery systems that process the list, looking for resources that have been added or changed.
 
-This process can be optimized by allowing the content providers to publish descriptions of how their content has changed, enabling consuming systems to only retrieve the resources that have been modified since they were last retrieved. These changes might include when content is deleted or otherwise becomes unavailable. Finally, for rapid synchronization, a system of notifications pushed from the publisher to a set of subscribers can reduce the amount of effort required to constantly poll multiple sources to see if anything has changed.
+This process can be optimized by allowing the content providers to publish descriptions of how their content has changed, enabling consuming systems to retrieve only the resources that have been modified since they were last retrieved. These changes might include when content is deleted or otherwise becomes unavailable. Finally, for rapid synchronization, a system of notifications pushed from the publisher to a set of subscribers can reduce the amount of effort required to constantly poll multiple sources to see if anything has changed.
 
 Work that is out of scope of this API includes the recommendation or creation of any descriptive metadata formats, and the recommendation or creation of metadata search APIs or protocols. The diverse domains represented within the IIIF community already have successful standards fulfilling these use cases. Also out of scope is optimization of the transmission of content, for example recommendations about transferring any source media or data between systems.
 
@@ -532,7 +532,7 @@ Ordered Collection Pages _MUST_ have a `prev` property, unless they are the firs
 
 The Activities that are listed as part of this page.
 
-Ordered Collection Pages _MUST_ have a `orderedItems` property. The value _MUST_ be an array, with at least one item. Each item _MUST_ be a JSON object, conforming to the requirements of an Activity.
+Ordered Collection Pages _MUST_ have an `orderedItems` property. The value _MUST_ be an array, with at least one item. Each item _MUST_ be a JSON object, conforming to the requirements of an Activity.
 
 ```json-doc
 {
@@ -617,7 +617,7 @@ This specification uses the types described in the table below.
 | `Remove` | The removal of an object from a stream, outside of any of the above types of activity, such as a third party aggregator removing resources from a stream that are no longer considered to be in scope. Each resource _SHOULD_ have at most one `Remove` activity, but if the resource is re-added and then re-removed, then there _MAY_ be more than one. The `Remove` Activity _SHOULD NOT_ be present if a `Delete` Activity is present at the same time.|
 {: .api-table #table-type-dfn}
 
-Activities _MUST_ have the `type` property. The value _MUST_ be a registered Activity class, and _SHOULD_ be one of `Create`, `Update`, or `Delete`.
+Activities _MUST_ have the `type` property. The value _MUST_ be a registered Activity type, and _SHOULD_ be one of `Create`, `Update`, or `Delete`.
 
 ```json-doc
 { "type": "Update" }
@@ -761,7 +761,7 @@ The top level resource in the response _MUST_ have the `@context` property, and 
 
 #### 3.4.2. Extensions
 
-If any additional classes or properties are desired beyond the ones defined in this specification or the ActivityStreams specification, then those classes or properties _SHOULD_ be mapped to RDF terms in one or more additional context documents. These extension contexts _SHOULD_ be added to the top level `@context` property, and _MUST_ be before the URI of the Discovery context. The JSON-LD 1.1 functionality of defining terms only within a specific property, known as [scoped contexts][org-w3c-json-ld-scoped-contexts], _MUST_ be used to minimize cross-extension collisions. Extensions intended for broad use _SHOULD_ be registered in the [extensions registry][registry].
+If any additional types or properties are desired beyond the ones defined in this specification or the ActivityStreams specification, then those types or properties _SHOULD_ be mapped to RDF terms in one or more additional context documents. These extension contexts _SHOULD_ be added to the top level `@context` property, and _MUST_ be before the URI of the Discovery context. The JSON-LD 1.1 functionality of defining terms only within a specific property, known as [scoped contexts][org-w3c-json-ld-scoped-contexts], _MUST_ be used to minimize cross-extension collisions. Extensions intended for broad use _SHOULD_ be registered in the [extensions registry][registry].
 
 ```json-doc
 {
@@ -867,13 +867,13 @@ Given an array (`collections`) of collection URIs as input,
 
 Activities _MAY_ be published about content that has access restrictions. Clients _MUST NOT_ assume that they will be able to access every resource that is the object of an Activity, and _MUST NOT_ assume that it has been deleted if it is inaccessible. For example, the content might be protected by an authentication system that is denying access (an end user might be able to provide the right credentials to gain access) or there may be a temporary network outage preventing the content from being retrieved (the network will eventually be restored).
 
-Content may also change from being available to being protected by access restrictions, or become available having previously been protected. There are no more specific activity classes for these situations, and the publisher _SHOULD_ issue the regular `Update` or `Delete` activities accordingly.
+Content may also change from being available to being protected by access restrictions, or become available having previously been protected. There are no more specific activity types for these situations, and the publisher _SHOULD_ issue the regular `Update` or `Delete` activities accordingly.
 
 ### 4.2. Negotiable Resources
 
 Some HTTP(S) URIs are able to respond with different representations of the same content in response to requests with different headers, such as the same URI being able to return both version 2 and version 3 of the IIIF Presentation API based on the Accept header. This is known as "content negotiation", and such resources are known as "negotiable resources". The representations that can be negotiated for are known as "variants".
 
-Negotiable resources are not supported by the Discovery API, only variants. This means that there would be one Activity entry for each of the representations that are available, and that each representation _MUST_ have its own URI, even if it can also be reached via the negotiable resource. In the case of negotiating for different versions of the IIIF Presentation API, the `format` property can be used to include the full media type of the resource, where the version specific context document is given in the `profile` parameter. If there is additional descriptive resources available, each such resource would describe all of the variants, and thus the `seeAlso` property of each Activity would refer to the same descriptions, allowing the variants to be connected together.
+Negotiable resources are not supported by the Discovery API, only variants. This means that there would be one Activity entry for each of the representations that are available, and that each representation _MUST_ have its own URI, even if it can also be reached via the negotiable resource. In the case of negotiating for different versions of the IIIF Presentation API, the `format` property can be used to include the full media type of the resource, where the version-specific context document is given in the `profile` parameter. If there are additional descriptive resources available, each such resource would describe all of the variants, and thus the `seeAlso` property of each Activity would refer to the same descriptions, allowing the variants to be connected together.
 
 Two variants of the same negotiable resource can be represented as follows.
 
