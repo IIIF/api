@@ -102,21 +102,20 @@ The subsections below describe first how to construct the description of the cha
 
 The core information required to provide a minimally effective set of links to IIIF resources is the URIs of those resources. The order of the resources in the resulting list is unimportant, but each _SHOULD_ only appear once. This is the minimum level for any effective interoperability.
 
+This minimal level 0 API approach is compatible with the levels 1 and 2 which introduce significant benefits that allow clients to better optimize their interactions.
+
 If resources are deleted after being referred to in the resource list, the entire list should be republished without the reference to the deleted resource. Clients should also expect to encounter resource URIs that are out of date and no longer resolve to a IIIF Manifest or Collection.
 
 Example Level 0 Activity:
 
 ```json-doc
-[
-  {
-    "type": "Update",
-    "object": {
-      "id": "https://example.org/iiif/1/manifest",
-      "type": "Manifest"
-    }
-  },
-  // ...
-]
+{
+  "type": "Update",
+  "object": {
+    "id": "https://example.org/iiif/1/manifest",
+    "type": "Manifest"
+  }
+}
 ```
 
 #### 2.1.2. Level 1: Resource Changes
@@ -127,17 +126,14 @@ When dealing with large sets of resources, it can be useful to work with only th
 Example Level 1 Activity:
 
 ```json-doc
-[
-  {
-    "type": "Update",
-    "object": {
-      "id": "https://example.org/iiif/1/manifest",
-      "type": "Manifest"
-    },
-    "endTime": "2017-09-20T00:00:00Z"
+{
+  "type": "Update",
+  "object": {
+    "id": "https://example.org/iiif/1/manifest",
+    "type": "Manifest"
   },
-  // ...
-]
+  "endTime": "2017-09-20T00:00:00Z"
+}
 ```
 
 #### 2.1.3. Level 2: Resource Creation, Change and Deletion
@@ -150,17 +146,14 @@ A complete change history is not required, and sometimes not even desirable. If 
 Example Level 2 Activity:
 
 ```json-doc
-[
-  {
-    "type": "Create",
-    "object": {
-      "id": "https://example.org/iiif/1/manifest",
-      "type": "Manifest"
-    },
-    "endTime": "2017-09-20T00:00:00Z"
+{
+  "type": "Create",
+  "object": {
+    "id": "https://example.org/iiif/1/manifest",
+    "type": "Manifest"
   },
-  // ...
-]
+  "endTime": "2017-09-20T00:00:00Z"
+}
 ```
 
 #### 2.1.4. Aggregating Activities
@@ -177,43 +170,37 @@ Whenever an "Add" Activity is encountered, it is semantically similar to a "Crea
 Example Add Activity:
 
 ```json-doc
-[
-  {
-    "type": "Add",
-    "summary": "Added newly discovered manifest to stream",
-    "object": {
-      "id": "https://example.org/iiif/1/manifest",
-      "type": "Manifest"
-    },
-    "target": {
-      "id": "https://example.org/activity/aggregated-changes",
-      "type": "OrderedCollection"
-    },
-    "endTime": "2019-11-22T00:00:00Z"
+{
+  "type": "Add",
+  "summary": "Added newly discovered manifest to stream",
+  "object": {
+    "id": "https://example.org/iiif/1/manifest",
+    "type": "Manifest"
   },
-  // ...
-]
+  "target": {
+    "id": "https://example.org/activity/aggregated-changes",
+    "type": "OrderedCollection"
+  },
+  "endTime": "2019-11-22T00:00:00Z"
+}
 ```
 
 Example Remove Activity:
 
 ```json-doc
-[
-  {
-    "type": "Remove",
-    "summary": "Removed manifest from stream due to being out of scope",
-    "object": {
-      "id": "https://example.org/iiif/1/manifest",
-      "type": "Manifest"
-    },
-    "origin": {
-      "id": "https://example.org/activity/aggregated-changes",
-      "type": "OrderedCollection"
-    },
-    "endTime": "2017-11-23T00:00:00Z"
+{
+  "type": "Remove",
+  "summary": "Removed manifest from stream due to being out of scope",
+  "object": {
+    "id": "https://example.org/iiif/1/manifest",
+    "type": "Manifest"
   },
-  // ...
-]
+  "origin": {
+    "id": "https://example.org/activity/aggregated-changes",
+    "type": "OrderedCollection"
+  },
+  "endTime": "2017-11-23T00:00:00Z"
+}
 ```
 
 
