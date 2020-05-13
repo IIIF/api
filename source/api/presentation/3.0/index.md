@@ -122,7 +122,7 @@ An ordered list of Canvases, and/or further Ranges. Ranges allow Canvases, or pa
 
 ### 2.2. Additional Types
 
-This specification makes use of types defined in the [Web Annotation Data Model][org-w3c-webanno] specification, including especially the following:
+This specification makes use of types defined in the [Web Annotation Data Model][org-w3c-webanno] specification, in particular the following:
 
 ##### Annotation Page
 {: #overview-annotationpage}
