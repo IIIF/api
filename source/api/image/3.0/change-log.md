@@ -183,7 +183,7 @@ See issue [#1372](https://github.com/IIIF/api/issues/1372).
 
 Description of the `color` value of the format parameter has been clarified to make it clear that it is a request for the image with all of its color information. If the underlying image content has no color information then the resulting image will not have any either, even with the `color` format value.
 
-See issue [#1375](https://github.com/IIIF/api/issues/1375) and [#1435](https://github.com/IIIF/api/issues/1435).
+See issues [#1375](https://github.com/IIIF/api/issues/1375), [#1435](https://github.com/IIIF/api/issues/1435) and [#1922](https://github.com/IIIF/api/issues/1922).
 
 ### 3.4. Change examples to use `https` URIs
 
