@@ -395,9 +395,7 @@ The `default` quality exists to support [level 0 compliant implementations][imag
 
 Regardless of level of compliance, services that make additional qualities beyond `default` available _MUST_ list those qualities in the [`extraQualities` property][image3-extra-functionality] of the response to the [Image Information Request][image3-information]. A request for an image with an unsupported quality value _SHOULD_ return a 400 (Bad Request) status code.
 
-__Qualities and Color Information__<br />
 A request for the `color` quality of an image _MUST_ return an image. This image may be comprised solely of grayscale or bitonal pixels if this is all of the color information the server has available. The server _SHOULD NOT_ include `color` in the `extraQualities` list in such cases, but a request for the `color` quality _MUST NOT_ result in an error. Similarly, a request for the grayscale quality may return an image comprised solely of bitonal pixels.
-{: .note}
 
 Examples:
 
