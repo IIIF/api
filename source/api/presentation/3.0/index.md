@@ -1,6 +1,6 @@
 ---
-title: "Presentation API 3.0 BETA-3 DRAFT"
-title_override: "IIIF Presentation API 3.0 BETA-3 DRAFT"
+title: "Presentation API 3.0"
+title_override: "IIIF Presentation API 3.0"
 id: presentation-api
 layout: spec
 cssversion: 3
@@ -8,7 +8,7 @@ tags: [specifications, presentation-api]
 major: 3
 minor: 0
 patch: 0
-pre: BETA-3
+pre: final
 redirect_from:
   - /api/presentation/3/index.html
 ---
@@ -31,10 +31,6 @@ __Previous Version:__ [2.1.1][prezi21]
   {: .names}
 
 {% include copyright.md %}
-
-__Status Warning__<br/>
-This is a BETA DRAFT. Implementation is encouraged but implementers should be aware that there may be additional changes to this document before the final release. See [remaining issues][github-milestone-image-prezi-3] on Github.
-{: .warning}
 
 ----
 
@@ -2196,7 +2192,8 @@ Many of the changes in this version are due to the work of the [IIIF AV Technica
 
 | Date       | Description           |
 | ---------- | --------------------- |
-| 2020-04-29 | Version 3.0 BETA2 [View change log][prezi30-change-log] |
+| 2020-06-XX | Version 3.0 () [View change log][prezi30-change-log] |
+| 2020-04-29 | Version 3.0 BETA2     |
 | 2019-06-20 | Version 3.0 BETA      |
 | 2018-04-18 | Version 3.0 ALPHA     |
 | 2017-06-09 | Version 2.1.1 [View change log][prezi211-change-log] |

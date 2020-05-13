@@ -1,13 +1,13 @@
 ---
-title: "Image API 3.0 BETA DRAFT"
-title_override: "IIIF Image API 3.0 BETA DRAFT"
+title: "Image API 3.0"
+title_override: "IIIF Image API 3.0"
 id: image-api
 layout: spec
 tags: [specifications, image-api]
 major: 3
 minor: 0
 patch: 0
-pre: BETA
+pre: final
 cssversion: 3
 redirect_from:
   - /api/image/3/index.html
@@ -32,10 +32,6 @@ __Previous Version:__ [2.1.1][image21]
   {: .names}
 
 {% include copyright.md %}
-
-__Status Warning__
-This is a BETA DRAFT. Implementation is encouraged but implementers should be aware that there may be additional changes to this document before the final release. See [remaining issues][github-milestone-image-prezi-3] on Github.
-{: .warning}
 
 ----
 
@@ -956,15 +952,14 @@ Starting with version 2.0, this specification follows [Semantic Versioning][org-
 
 ###  B. Acknowledgments
 
-The production of this document was generously supported by a grant from the [Andrew W. Mellon Foundation][org-mellon].
-
 Many thanks to the members of the [IIIF community][iiif-community] for their continuous engagement, innovative ideas and feedback.
 
 ###  C. Change Log
 
 | Date       | Description |
 | ---------- | ----------- |
-| 2019-06-20 | Version 3.0 BETA [View change log][image30-change-log] |
+| 2020-06-XX | Version 3.0 () [View change log][image30-change-log] |
+| 2019-06-20 | Version 3.0 BETA |
 | 2018-04-18 | Version 3.0 ALPHA |
 | 2017-06-09 | Version 2.1.1 [View change log][image211-change-log] |
 | 2016-05-12 | Version 2.1 (Crowned Eagle) [View change log][image21-change-log] |
