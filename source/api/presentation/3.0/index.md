@@ -122,7 +122,7 @@ An ordered list of Canvases, and/or further Ranges. Ranges allow Canvases, or pa
 
 ### 2.2. Additional Types
 
-This specification makes use of the following types, defined in the [Web Annotation Data Model][org-w3c-webanno] specification:
+This specification makes use of types defined in the [Web Annotation Data Model][org-w3c-webanno] specification, including especially the following:
 
 ##### Annotation Page
 {: #overview-annotationpage}
@@ -132,7 +132,7 @@ An ordered list of Annotations that is typically associated with a Canvas but ma
 ##### Annotation
 {: #overview-annotation}
 
-Annotations associate content resources with Canvases. The same mechanism is used for the visible and/or audible resources as is used for transcriptions, commentary, tags and other content. This provides a single, unified method for aligning information, and provides a standards-based framework for distinguishing parts of resources and parts of Canvases. As Annotations can be added later, it promotes a distributed system in which publishers can align their content with the descriptions created by others.
+Annotations associate content resources with Canvases. The same mechanism is used for the visible and/or audible resources as is used for transcriptions, commentary, tags and other content. This provides a single, unified method for aligning information, and provides a standards-based framework for distinguishing parts of resources and parts of Canvases. As Annotations can be added later, it promotes a distributed system in which publishers can align their content with the descriptions created by others. Annotation related functionality may also rely on further classes such as SpecificResource, Choice or Selectors. 
 
 ##### Content
 {: #overview-content}
@@ -143,6 +143,7 @@ Web resources such as images, audio, video, or text which are associated with a 
 {: #overview-annotationcollection}
 
 An ordered list of Annotation Pages. Annotation Collections allow higher level groupings of Annotations to be recorded. For example, all of the English translation Annotations of a medieval French document could be kept separate from the transcription or an edition in modern French, or the director's commentary on a film can be separated from the script.
+
 
 ##  3. Resource Properties
 
