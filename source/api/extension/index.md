@@ -50,10 +50,11 @@ The process for having a new entry added to this registry is [described here][re
 
 ## 3. Registry
 
-This table summarizes the known behaviors available, for use with the [Presentation API][prezi-api].
+This table summarizes the known extensions available, for use with the [Presentation API][prezi-api].
 
-| Behavior                       | 
+| Extension                       | 
 | ------------------------------ |
+| [Text Granularity Extension][text-granularity] |
 {: .api-table}
 
 
@@ -61,13 +62,13 @@ This table summarizes the known behaviors available, for use with the [Presentat
 
 ### A. Acknowledgements
 
-Thanks to the members of the [IIIF][iiif-community] for their continuous engagement, innovative ideas and feedback.
+Thanks to the members of the [IIIF community][iiif-community] for their continuous engagement, innovative ideas and feedback.
 
 ### B. Change Log
 
 | Date       | Description                                        |
 | ---------- | -------------------------------------------------- |
-| 2018-XX-YY | New Version 3 Registries                           |
+| 2020-05-20 | Adding the Text Granularity Extension |
 
 {% include acronyms.md %}
 {% include links.md %}

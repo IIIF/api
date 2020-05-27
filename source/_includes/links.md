@@ -201,13 +201,18 @@
 [prezi30-type-overview]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#2-resource-type-overview
 [prezi30]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/
 [prezi3]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.draft.minor }}/ "Presentation API"
-[extensions]: {{ site.url }}{{ site.baseurl }}/api/registry/extensions/
+[extensions]: {{ site.url }}{{ site.baseurl }}/api/extension/
+[text-granularity]: {{ site.url }}{{ site.baseurl }}/api/extension/text-granularity/
 [registry]: {{ site.url }}{{ site.baseurl }}/api/registry/ "IIIF Extension Registry"
 [registry-image-extensions]: {{ site.url }}{{ site.baseurl }}/api/registry/image-extensions/ "IIIF Image Extension Registry"
 [registry-motivations]: {{ site.url }}{{ site.baseurl }}/api/registry/motivations/
+[registry-behaviors]: {{ site.url }}{{ site.baseurl }}/api/registry/behaviors/
 [registry-process]: {{ site.url }}{{ site.baseurl }}/api/registry/process/
 [registry-services]: {{ site.url }}{{ site.baseurl }}/api/registry/services/
 [registry-profiles]: {{ site.url }}{{ site.baseurl }}/api/registry/profiles/
+[registry-timeModes]: {{ site.url }}{{ site.baseurl }}/api/registry/timeModes/
+[registry-types]: {{ site.url }}{{ site.baseurl }}/api/registry/types/
+[registry-viewingDirections]: {{ site.url }}{{ site.baseurl }}/api/registry/viewingDirections/
 [search-api]: {{ site.url }}{{ site.baseurl }}/api/search/{{ site.search_api.stable.major }}.{{ site.search_api.stable.minor }}/ "Content Search API"
 [search1-autocomplete]: {{ site.url }}{{ site.baseurl }}/api/search/1.0/#autocomplete
 [search1]: {{ site.url }}{{ site.baseurl }}/api/search/1.0/
