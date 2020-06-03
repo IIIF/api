@@ -958,7 +958,7 @@ Many thanks to the members of the [IIIF community][iiif-community] for their con
 
 | Date       | Description |
 | ---------- | ----------- |
-| 2020-06-XX | Version 3.0 () [View change log][image30-change-log] |
+| 2020-06-03 | Version 3.0 (Orange Blooms) [View change log][image30-change-log] |
 | 2019-06-20 | Version 3.0 BETA |
 | 2018-04-18 | Version 3.0 ALPHA |
 | 2017-06-09 | Version 2.1.1 [View change log][image211-change-log] |
