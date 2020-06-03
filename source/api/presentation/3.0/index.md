@@ -2193,9 +2193,6 @@ Many of the changes in this version are due to the work of the [IIIF AV Technica
 | Date       | Description           |
 | ---------- | --------------------- |
 | 2020-06-03 | Version 3.0 (Surfing Raven) [View change log][prezi30-change-log] |
-| 2020-04-29 | Version 3.0 BETA2     |
-| 2019-06-20 | Version 3.0 BETA      |
-| 2018-04-18 | Version 3.0 ALPHA     |
 | 2017-06-09 | Version 2.1.1 [View change log][prezi211-change-log] |
 | 2016-05-12 | Version 2.1 (Hinty McHintface) [View change log][prezi21-change-log] |
 | 2014-09-11 | Version 2.0 (Triumphant Giraffe) [View change log][prezi20-change-log] |
