@@ -9,7 +9,6 @@ minor: 1
 patch: 1
 pre: final
 redirect_from:
-  - /api/presentation/index.html
   - /api/presentation/2/index.html
 ---
 
