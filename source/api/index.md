@@ -20,14 +20,12 @@ cssversion: 2
 
 | API                  | Draft Version (Status) |
 | -------------------- | ---------------------- |
-| Image API            | [3.0.0 BETA][image30]  |
-| Presentation API     | [3.0.0 BETA][prezi30]  |
 | Change Discovery API | [0.9.0 BETA][discovery09] |
 | Content State API    | [0.2.0][contentstate02]|
 {: .api-table}
 
 __Feedback Requested__<br/>
-We welcome feedback on all IIIF Specifications. In particular, we are actively seeking feedback on the Image API and Presentation API version 3.0 draft specifications. Please send any feedback to [iiif-discuss@googlegroups.com][iiif-discuss].
+We welcome feedback on all IIIF Specifications. Please send any feedback to [iiif-discuss@googlegroups.com][iiif-discuss].
 {: .alert}
 
 ## Community Translations

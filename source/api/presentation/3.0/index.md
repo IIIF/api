@@ -1,6 +1,6 @@
 ---
-title: "Presentation API 3.0 BETA-2 DRAFT"
-title_override: "IIIF Presentation API 3.0 BETA-2 DRAFT"
+title: "Presentation API 3.0"
+title_override: "IIIF Presentation API 3.0"
 id: presentation-api
 layout: spec
 cssversion: 3
@@ -8,8 +8,9 @@ tags: [specifications, presentation-api]
 major: 3
 minor: 0
 patch: 0
-pre: BETA-2
+pre: final
 redirect_from:
+  - /api/presentation/index.html
   - /api/presentation/3/index.html
 ---
 
@@ -31,10 +32,6 @@ __Previous Version:__ [2.1.1][prezi21]
   {: .names}
 
 {% include copyright.md %}
-
-__Status Warning__<br/>
-This is a BETA DRAFT. Implementation is encouraged but implementers should be aware that there may be additional changes to this document before the final release. See [remaining issues][github-milestone-image-prezi-3] on Github.
-{: .warning}
 
 ----
 
@@ -122,7 +119,7 @@ An ordered list of Canvases, and/or further Ranges. Ranges allow Canvases, or pa
 
 ### 2.2. Additional Types
 
-This specification makes use of the following types, defined in the [Web Annotation Data Model][org-w3c-webanno] specification:
+This specification makes use of types defined in the [Web Annotation Data Model][org-w3c-webanno] specification, in particular the following:
 
 ##### Annotation Page
 {: #overview-annotationpage}
@@ -132,7 +129,7 @@ An ordered list of Annotations that is typically associated with a Canvas but ma
 ##### Annotation
 {: #overview-annotation}
 
-Annotations associate content resources with Canvases. The same mechanism is used for the visible and/or audible resources as is used for transcriptions, commentary, tags and other content. This provides a single, unified method for aligning information, and provides a standards-based framework for distinguishing parts of resources and parts of Canvases. As Annotations can be added later, it promotes a distributed system in which publishers can align their content with the descriptions created by others.
+Annotations associate content resources with Canvases. The same mechanism is used for the visible and/or audible resources as is used for transcriptions, commentary, tags and other content. This provides a single, unified method for aligning information, and provides a standards-based framework for distinguishing parts of resources and parts of Canvases. As Annotations can be added later, it promotes a distributed system in which publishers can align their content with the descriptions created by others. Annotation related functionality may also rely on further classes such as SpecificResource, Choice or Selectors. 
 
 ##### Content
 {: #overview-content}
@@ -143,6 +140,7 @@ Web resources such as images, audio, video, or text which are associated with a 
 {: #overview-annotationcollection}
 
 An ordered list of Annotation Pages. Annotation Collections allow higher level groupings of Annotations to be recorded. For example, all of the English translation Annotations of a medieval French document could be kept separate from the transcription or an edition in modern French, or the director's commentary on a film can be separated from the script.
+
 
 ##  3. Resource Properties
 
@@ -502,7 +500,7 @@ The value _MUST_ be a string, and it _SHOULD_ be the value of the `Content-Type`
 
 ##### language
 
-The language or languages used in the content of this external resource. This property is already available from the Web Annotation model for content resources that are the body or target of an Annotation, however it _MAY_ also be used for resources [referenced][prezi30-terminology] from `homepage`, `rendering`, `rights`, and `partOf`.
+The language or languages used in the content of this external resource. This property is already available from the Web Annotation model for content resources that are the body or target of an Annotation, however it _MAY_ also be used for resources [referenced][prezi30-terminology] from `homepage`, `rendering`, and `partOf`.
 
 The value _MUST_ be an array of strings. Each item in the array _MUST_ be a valid language code, as described in the [languages section][prezi30-languages].
 
@@ -908,8 +906,9 @@ The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` propert
 ``` json-doc
 {
   "start": {
+    "id": "https://example.org/iiif/1/canvas-segment/1",
     "type": "SpecificResource",
-    "source": "https://example.org/iif/1/canvas/1",
+    "source": "https://example.org/iiif/1/canvas/1",
     "selector": {
       "type": "PointSelector",
       "t": 14.5
@@ -1738,7 +1737,7 @@ While any HTTP(S) URI is technically acceptable for any of the resources in the 
 
 ###  6.2. Requests
 
-Clients _MUST NOT_ attempt to construct resource URIs by themselves, instead they _MUST_ follow links from within retrieved descriptions or elsewhere.
+Clients are only expected to follow links to Presentation API resources. Unlike [IIIF Image API][image-api] requests, or other parameterized services, the URIs for Presentation API resources cannot be assumed to follow any particular pattern. 
 
 ###  6.3. Responses
 
@@ -1943,20 +1942,44 @@ __Behavior Values__
     "label": { "en": [ "Attribution" ] },
     "value": { "en": [ "Provided by Example Organization" ] }
   },
-  "logo": [
-    {
-      "id": "https://example.org/service/inst1/full/max/0/default.png",
-      "type": "Image",
-      "format": "image/png",
-      "service": [
-        {
-          "id": "https://example.org/service/inst1",
-          "type": "ImageService3",
-          "profile": "level2"
-        }
-      ]
-    }
-  ],
+
+  "provider": [
+      {
+        "id": "https://example.org/about",
+        "type": "Agent",
+        "label": { "en": [ "Example Organization" ] },
+        "homepage": [
+          {
+            "id": "https://example.org/",
+            "type": "Text",
+            "label": { "en": [ "Example Organization Homepage" ] },
+            "format": "text/html"
+          }
+        ],
+        "logo": [
+          {
+            "id": "https://example.org/service/inst1/full/max/0/default.png",
+            "type": "Image",
+            "format": "image/png",
+            "service": [
+              {
+                "id": "https://example.org/service/inst1",
+                "type": "ImageService3",
+                "profile": "level2"
+              }
+            ]
+          }
+        ],
+        "seeAlso": [
+          {
+            "id": "https://data.example.org/about/us.jsonld",
+            "type": "Dataset",
+            "format": "application/ld+json",
+            "profile": "https://schema.org/"
+          }
+        ]
+      }
+    ],
   "homepage": [
     {
       "id": "https://example.org/info/book1/",
@@ -2170,9 +2193,7 @@ Many of the changes in this version are due to the work of the [IIIF AV Technica
 
 | Date       | Description           |
 | ---------- | --------------------- |
-| 2020-04-29 | Version 3.0 BETA2 [View change log][prezi30-change-log] |
-| 2019-06-20 | Version 3.0 BETA      |
-| 2018-04-18 | Version 3.0 ALPHA     |
+| 2020-06-03 | Version 3.0 (Surfing Raven) [View change log][prezi30-change-log] |
 | 2017-06-09 | Version 2.1.1 [View change log][prezi211-change-log] |
 | 2016-05-12 | Version 2.1 (Hinty McHintface) [View change log][prezi21-change-log] |
 | 2014-09-11 | Version 2.0 (Triumphant Giraffe) [View change log][prezi20-change-log] |

@@ -72,7 +72,7 @@ With the removal of the `Layer` class in favor of the standard `AnnotationCollec
 
 #### 1.2.9. Rename `startCanvas` to `start`, allow reference to part of a Canvas
 
-Following the pattern of removing class names from property names when unnecessary, combined with the change that the referenced resource might be part of a Canvas rather than the entire Canvas, the property was renamed. The increased scope for parts of Canvases is to allow jumping to a specific time point within a Canvas with a `duration` property. See [#1320](https://github.com/IIIF/api/issues/1320).
+Following the pattern of removing class names from property names when unnecessary, combined with the change that the referenced resource might be part of a Canvas rather than the entire Canvas, the property was renamed. The increased scope for parts of Canvases is to allow jumping to a specific time point within a Canvas with a `duration` property. See issues [#1320](https://github.com/IIIF/api/issues/1320) and [#1930](https://github.com/IIIF/api/issues/1930).
 
 #### 1.2.10. Rename `within` to `partOf`
 
@@ -84,7 +84,7 @@ The specification now mandates an inheritance model for behaviors across classes
 
 #### 1.2.12. Wrap `logo` in a structure with more information, introduce `provider` property
 
-Previously, the APIs allowed for a `logo` property for referencing the logos of institutions that somehow contributed or needed acknowledgement. There was no way, however, to associate a label with the logo and this was magnified by the change from `attribution` to `requiredStatement`. The solution adopted is to introduce a `provider` property that has a full structure to represent information about providing people or organizations, including `logo`, `label`, `seeAlso`, `homepage` and others. See issues [#1639](https://github.com/IIIF/api/issues/1639), [#1698](https://github.com/IIIF/api/issues/1698), [#1759](https://github.com/IIIF/api/issues/1759), [#1777](https://github.com/IIIF/api/issues/1777). Approved by [trc#3](https://github.com/IIIF/trc/issues/3) and [trc#7](https://github.com/IIIF/trc/issues/7).
+Previously, the APIs allowed for a `logo` property for referencing the logos of institutions that somehow contributed or needed acknowledgement. There was no way, however, to associate a label with the logo and this was magnified by the change from `attribution` to `requiredStatement`. The solution adopted is to introduce a `provider` property that has a full structure to represent information about providing people or organizations, including `logo`, `label`, `seeAlso`, `homepage` and others. See issues [#1639](https://github.com/IIIF/api/issues/1639), [#1698](https://github.com/IIIF/api/issues/1698), [#1759](https://github.com/IIIF/api/issues/1759), [#1777](https://github.com/IIIF/api/issues/1777), [#1924](https://github.com/IIIF/api/issues/1924). Approved by [trc#3](https://github.com/IIIF/trc/issues/3) and [trc#7](https://github.com/IIIF/trc/issues/7).
 
 #### 1.2.13. Remove `otherContent` property, use `annotations` and `items` instead
 
@@ -214,7 +214,7 @@ New content type specific Selectors for the Web Annotation Data Model are needed
 
 #### 2.2.1. Add `language` on external resources
 
-External resources referenced by `homepage`, `rendering`, `rights`, and `partOf` may be associated with a language code, as described under the [languages section][prezi30-languages]. See issue [#1065](https://github.com/IIIF/api/issues/1065).
+External resources referenced by `homepage`, `rendering`, and `partOf` may be associated with a language code, as described under the [languages section][prezi30-languages]. See issues [#1065](https://github.com/IIIF/api/issues/1065) and [#1933](https://github.com/IIIF/api/issues/1933).
 
 #### 2.2.2. Add `no-nav`, `unordered`, `hidden` for `behavior`
 
