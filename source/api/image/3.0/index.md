@@ -1,15 +1,16 @@
 ---
-title: "Image API 3.0 BETA DRAFT"
-title_override: "IIIF Image API 3.0 BETA DRAFT"
+title: "Image API 3.0"
+title_override: "IIIF Image API 3.0"
 id: image-api
 layout: spec
 tags: [specifications, image-api]
 major: 3
 minor: 0
 patch: 0
-pre: BETA
+pre: final
 cssversion: 3
 redirect_from:
+  - /api/image/index.html
   - /api/image/3/index.html
 ---
 
@@ -32,10 +33,6 @@ __Previous Version:__ [2.1.1][image21]
   {: .names}
 
 {% include copyright.md %}
-
-__Status Warning__
-This is a BETA DRAFT. Implementation is encouraged but implementers should be aware that there may be additional changes to this document before the final release. See [remaining issues][github-milestone-image-prezi-3] on Github.
-{: .warning}
 
 ----
 
@@ -394,6 +391,8 @@ The quality parameter determines whether the image is delivered in color, graysc
 The `default` quality exists to support [level 0 compliant implementations][image30-compliance-quality] that may not know the qualities of individual images in their collections. It also provides a convenience for clients that know the values for all other parameters of a request except the quality (e.g. `.../full/120,80/90/{quality}.png` to request a thumbnail) in that a preliminary image information request that would only serve to find out which qualities are available can be avoided.
 
 Regardless of level of compliance, services that make additional qualities beyond `default` available _MUST_ list those qualities in the [`extraQualities` property][image3-extra-functionality] of the response to the [Image Information Request][image3-information]. A request for an image with an unsupported quality value _SHOULD_ return a 400 (Bad Request) status code.
+
+A request for the `color` quality of an image _MUST_ return an image. This image may be comprised solely of grayscale or bitonal pixels if this is all of the color information the server has available. The server _SHOULD NOT_ include `color` in the `extraQualities` list in such cases, but a request for the `color` quality _MUST NOT_ result in an error. Similarly, a request for the grayscale quality may return an image comprised solely of bitonal pixels.
 
 Examples:
 
@@ -954,16 +953,13 @@ Starting with version 2.0, this specification follows [Semantic Versioning][org-
 
 ###  B. Acknowledgments
 
-The production of this document was generously supported by a grant from the [Andrew W. Mellon Foundation][org-mellon].
-
 Many thanks to the members of the [IIIF community][iiif-community] for their continuous engagement, innovative ideas and feedback.
 
 ###  C. Change Log
 
 | Date       | Description |
 | ---------- | ----------- |
-| 2019-06-20 | Version 3.0 BETA [View change log][image30-change-log] |
-| 2018-04-18 | Version 3.0 ALPHA |
+| 2020-06-03 | Version 3.0 (Orange Blooms) [View change log][image30-change-log] |
 | 2017-06-09 | Version 2.1.1 [View change log][image211-change-log] |
 | 2016-05-12 | Version 2.1 (Crowned Eagle) [View change log][image21-change-log] |
 | 2014-09-11 | Version 2.0 (Voodoo Bunny) [View change log][image20-change-log] |

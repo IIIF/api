@@ -18,18 +18,18 @@ image_api:
     minor: 0
     patch: 0
   stable:
-    major: 2
-    minor: 1
-    patch: 1
+    major: 3
+    minor: 0
+    patch: 0
 presentation_api:
   draft:
     major: 3
     minor: 0
     patch: 0
   stable:
-    major: 2
-    minor: 1
-    patch: 1
+    major: 3
+    minor: 0
+    patch: 0
 shared_canvas:
   draft:
     major: 1
