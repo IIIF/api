@@ -8,7 +8,7 @@ cssversion: 2
 ## Status of this Document
 {:.no_toc}
 
-This document is not subject to [semantic versioning][semver].
+This document is not subject to [semantic versioning][notes-versioning].
 Changes will be tracked within the document.
 
 **Editors**
@@ -37,7 +37,7 @@ Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss]
 ## 1. Introduction
 {: #introduction}
 
-There are many additional features that could be included in descriptions beyond those already defined in the [Presentation API][prezi-api] or the information request in the [Image API][image-api]. In order to keep the current APIs manageable and lean enough to be understood, implemented, and validated, any feature which is not able to be justified as universally applicable will be imported as a service from an external resource. The adoption of [JSON-LD][json-ld] is paramount in this respect, as it provides a basis for interoperability and disambiguation between systems.
+There are many additional features that could be included in descriptions beyond those already defined in the [Presentation API][prezi-api] or the information request in the [Image API][image-api]. In order to keep the current APIs manageable and lean enough to be understood, implemented, and validated, any feature which is not able to be justified as universally applicable will be imported as a service from an external resource. The adoption of [JSON-LD][org-w3c-json-ld] is paramount in this respect, as it provides a basis for interoperability and disambiguation between systems.
 
 The inclusion of services in this document that are outside of the IIIF domain _MUST NOT_ be interpreted as endorsement, support, or approval from the editors, the IIIF community or any individual. This annex is provided as a registry of services to advertise their existence and attempt to ensure some consistency between implementations for common but not universal requirements.
 
@@ -65,14 +65,27 @@ Services _MAY_ be included either by reference or embedded within the response. 
 ## 3. Services
 {: #services}
 
-This table summarizes the services available and which APIs they may be used in.  The '![not allowed][icon-na]' icon means that the service is not to be used in the API. The '![recommended][icon-rec]' icon means that the service can be used in the API.
+This table summarizes the services available and which APIs they may be used in.  The '![not allowed][icon3-na]' icon means that the service is not to be used in the API. The '![recommended][icon3-rec]' icon means that the service can be used in the API.
 
 | Service                        | Image API                 | Presentation API          |
 | ------------------------------ |:-------------------------:|:-------------------------:|
-| [Image Information][imageinfo] | ![optional][icon-opt]     | ![recommended][icon-rec] |  
-| [GeoJSON][lgeojson]            | ![not allowed][icon-na]   | ![recommended][icon-rec] |
-| [Physical Dimensions][physdim] | ![recommended][icon-rec] | ![recommended][icon-rec] |
+| [Image Information][imageinfo] | ![optional][icon3-opt]     | ![recommended][icon3-rec] |  
+| [GeoJSON][lgeojson]            | ![not allowed][icon3-na]   | ![recommended][icon3-rec] |
+| [Physical Dimensions][physdim] | ![recommended][icon3-rec] | ![recommended][icon3-rec] |
 {: .api-table}
+
+The following names have been added as of version 3.0 of the Image and Presentation APIs in order to facilitate cross-version compatibility.  These names are used in the `type` or `@type` field for the service.
+
+| Value                | Specification |
+| -------------------- | ------------- |
+| ImageService1        | [Image API version 1][image11]  |
+| ImageService2        | [Image API version 2][image21]  |
+| SearchService1       | [Search API version 1][search1] |
+| AutoCompleteService1 | [Search API version 1][search1-autocomplete] |
+| AuthCookieService1   | [Authentication API version 1][auth1-cookie-service] |
+| AuthTokenService1    | [Authentication API version 1][auth1-token-service] |
+| AuthLogoutService1   | [Authentication API version 1][auth1-logout-service] |
+{: .api-table #table-service-types}
 
 ### 3.1 Image Information
 {: #image-information}
@@ -229,7 +242,7 @@ There is a proposal to add a confidence label or value to this service to allow 
 
 ### A. Acknowledgements
 
-The production of this document was generously supported by a grant from the [Andrew W. Mellon Foundation][mellon].
+The production of this document was generously supported by a grant from the [Andrew W. Mellon Foundation][org-mellon].
 
 Thanks to the members of the [IIIF][iiif-community] for their continuous engagement, innovative ideas and feedback.
 
@@ -237,28 +250,19 @@ Thanks to the members of the [IIIF][iiif-community] for their continuous engagem
 
 | Date       | Description                                        |
 | ---------- | -------------------------------------------------- |
+| 2019-11-27 | Add 3.0 table of services, use links includes      |
 | 2017-03-29 | Fix externally changed context URI for GeoJSON     |
 | 2015-12-04 | Fix link for physical dimensions context           |
 | 2014-06-01 | Version 1.0                                        |
 
-   [semver]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/semver/ "Versioning of APIs"
-   [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
-   [image-api]: {{ site.url }}{{ site.baseurl }}/api/image/{{ site.image_api.stable.major }}.{{ site.image_api.stable.minor }}/ "Image API"
-   [prezi-api]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.stable.major }}.{{ site.presentation_api.stable.minor }}/ "Presentation API"
-   [json-ld]: http://www.w3.org/TR/json-ld/ "JSON-LD"
-   [iiif-community]: {{page.webprefix}}/community/ "IIIF Community"
-   [mellon]: http://www.mellon.org/ "The Andrew W. Mellon Foundation"
-   [geojson]: http://geojson.org/ "GeoJSON"
-   [geojson-ld]: http://geojson.org/geojson-ld/ "GeoJSON-LD"
+{% include links.md %}
 
-[imageinfo]: #image-information
-[lgeojson]: #geojson
-[physdim]: #physical-dimensions
+  [geojson]: http://geojson.org/ "GeoJSON"
+  [geojson-ld]: http://geojson.org/geojson-ld/ "GeoJSON-LD"
+  [imageinfo]: #image-information
+  [lgeojson]: #geojson
+  [physdim]: #physical-dimensions
 
-[icon-req]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/required.png "Required"
-[icon-rec]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/recommended.png "Recommended"
-[icon-opt]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/optional.png "Optional"
-[icon-na]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/not_allowed.png "Not allowed"
 
 
 {% include acronyms.md %}

@@ -54,7 +54,7 @@ Several existing properties were renamed for consistency with the Presentation A
 
 These properties were renamed to enable Javascript developers to use the "dot notation" (`image.id`) instead of the square-brackets based equivalent needed with the `@` character (`image['@id']`). This follows JSON-LD community best practices established by schema.org, the JSON-LD, Web Annotation and Social Web working groups.
 
-See issue [#590](https://github.com/IIIF/api/issues/590).
+See issues [#590](https://github.com/IIIF/api/issues/590) and [#1901](https://github.com/IIIF/api/issues/1901).
 
 #### 1.2.2. Remove the `attribution` and `logo` properties
 
@@ -68,9 +68,13 @@ The `license` property was renamed to `rights` to accommodate both rights statem
 
 See issues [#644](https://github.com/IIIF/api/issues/644) and [#1479](https://github.com/IIIF/api/issues/1479).
 
-#### 1.2.4. Require the `type` property on all resources, with new values
+#### 1.2.4. Require the `type` property on image information document and external references, with new values
 
-The `type` property with a single value is now required on all resources, including content resources and services. This serves several purposes, including facilitating object mapping code libraries, and forcing the serialization to generate a JSON object for the resource, not just a string with the resource's URI. The values for `type` have been changed to version-specific strings that avoid the namespace structure, for example from `iiif:Image` in 2.1 to `ImageService3` in 3.0. Note that the `@type` property is used only when referring to object from older specifications such as the Authentication API 1.0.
+The `type` property with a single value is now required at the top level of the image information document (`info.json`), and any externally referenced resources including content resources such as further images and services. This serves several purposes, including facilitating object mapping code libraries, and forcing the serialization to generate a JSON object for the resource, not just a string with the resource's URI. The values for `type` have been changed to version-specific strings that avoid the namespace structure, for example from `iiif:Image` in 2.1 to `ImageService3` in 3.0. Note that the `@type` property is used only when referring to an object from older specifications such as the Authentication API 1.0. The `type` property is optional for entries in the tiles (`Tile`) and sizes (`Size`) arrays.
+
+See issues [#1185](https://github.com/IIIF/api/issues/1185) and [#1867](https://github.com/IIIF/api/issues/1867)
+
+A list of allowed values for `@type` when referring to services from older IIIF specifications is given in the [services annex][annex-services] document.
 
 #### 1.2.5. Change the `profile` property to take one compliance level
 
@@ -105,6 +109,11 @@ See issues [#755](https://github.com/IIIF/api/issues/755) and [#1739](https://gi
 Expectations around the implementation of content negotiation were added.
 
 See issue [#1685](https://github.com/IIIF/api/issues/1685).
+
+#### 1.2.11. Update context for new major version
+
+The URI of the context document was updated for the new major version, and thus the value of the `@context` property uses the new value of `http://iiif.io/api/image/3/context.json`, or includes it as the last item in an array.
+
 
 ### 1.3. Compliance Requirements
 
@@ -184,9 +193,9 @@ See issue [#1421](https://github.com/IIIF/api/issues/1421).
 
 ### 3.5. Clarify and move discussion of floating point representation
 
-Discussion of floating point representation has been moved from the image requests introduction to the [Canonical URI Syntax][image30-canonical-uri-syntax] section, and has been expanded for clarity. The advice on using at most 10 decimal digits has been removed. Description of `pct` values clarifies these may be either floating point or integer.
+Discussion of floating point representation has been moved from the image requests introduction to its own section, [Floating Point Values][image30-floating-point-values], and has been expanded for clarity. The advice on using at most 10 decimal digits has been removed. Description of `pct` values clarifies these may be either floating point or integer.
 
-See issues [#1468](https://github.com/IIIF/api/issues/1468) and [#1240](https://github.com/IIIF/api/issues/1240).
+See issues [#1468](https://github.com/IIIF/api/issues/1468), [#1240](https://github.com/IIIF/api/issues/1240) and [#1875](https://github.com/IIIF/api/issues/1875)
 
 ### 3.6. Clarify support for CORS
 

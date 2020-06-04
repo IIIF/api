@@ -23,6 +23,7 @@
 [github-webanno-437]: https://github.com/w3c/web-annotation/issues/437
 [groups-av]: {{ site.url }}{{ site.baseurl }}/community/groups/av/ "IIIF A/V Working Group"
 [groups-discovery]: {{ site.url }}{{ site.baseurl }}/community/groups/discovery/
+[groups-text-granularity]: {{ site.url }}{{site.baseurl }}/community/groups/text-granularity/
 [icon-na]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/not_allowed.png "Not allowed"
 [icon-opt]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/optional.png "Optional"
 [icon-rec]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/recommended.png "Recommended"
@@ -53,7 +54,7 @@
 [image3-authentication]: {{ site.url }}{{ site.baseurl }}/api/image/3.{{ site.image_api.draft.minor }}/#8-authentication "8. Authentication"
 [image3-b-acknowledgments]: {{ site.url }}{{ site.baseurl }}/api/image/3.{{ site.image_api.draft.minor }}/#b-acknowledgments "C. Acknowledgments"
 [image3-c-change-log]: {{ site.url }}{{ site.baseurl }}/api/image/3.{{ site.image_api.draft.minor }}/#c-change-log "D. Change Log"
-[image3-canonical-uri-syntax]: {{ site.url }}{{ site.baseurl }}/api/image/3.{{ site.image_api.draft.minor }}/#47-canonical-uri-syntax "4.7. Canonical URI Syntax"
+[image3-canonical-uri-syntax]: {{ site.url }}{{ site.baseurl }}/api/image/3.{{ site.image_api.draft.minor }}/#48-canonical-uri-syntax "4.8. Canonical URI Syntax"
 [image3-compliance-levels]: {{ site.url }}{{ site.baseurl }}/api/image/3.{{ site.image_api.draft.minor }}/#6-compliance-level-and-profile-document "6. Compliance Level and Profile Document"
 [image3-compliance-quality]: {{ site.url }}{{ site.baseurl }}/api/image/3.{{ site.image_api.draft.minor }}/compliance/#34-quality "Image API Compliance: Quality"
 [image3-compliance]: {{ site.url }}{{ site.baseurl }}/api/image/3.{{ site.image_api.draft.minor }}/compliance/ "Image API Compliance"
@@ -62,6 +63,7 @@
 [image3-error-conditions]: {{ site.url }}{{ site.baseurl }}/api/image/3.{{ site.image_api.draft.minor }}/#72-error-conditions "7.2. Error Conditions"
 [image3-extra-functionality]: {{ site.url }}{{ site.baseurl }}/api/image/3.{{ site.image_api.draft.minor }}/#57-extra-functionality "5.7. Extra Functionality"
 [image3-features-table]: {{ site.url }}{{ site.baseurl }}/api/image/3.{{ site.image_api.draft.minor }}/#features-table
+[image3-floating-point-values]: {{ site.url }}{{ site.baseurl }}/api/image/3.{{ site.image_api.draft.minor }}/#47-floating-point-values "4.7. Floating Point Values"
 [image3-format]: {{ site.url }}{{ site.baseurl }}/api/image/3.{{ site.image_api.draft.minor }}/#45-format "4.5. Format"
 [image3-frame]: {{ site.url }}{{ site.baseurl }}/api/image/3/info_frame.json "Image API Version 3 JSON-LD Frame"
 [image3-identifier]: {{ site.url }}{{ site.baseurl }}/api/image/3.{{ site.image_api.draft.minor }}/#3-identifier "3. Identifier"
@@ -90,7 +92,7 @@
 [image30-authentication]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#8-authentication "8. Authentication"
 [image30-b-acknowledgments]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#b-acknowledgments "B. Acknowledgments"
 [image30-c-change-log]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#c-change-log "C. Change Log"
-[image30-canonical-uri-syntax]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#47-canonical-uri-syntax "4.7. Canonical URI Syntax"
+[image30-canonical-uri-syntax]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#48-canonical-uri-syntax "4.8. Canonical URI Syntax"
 [image30-change-log]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/change-log/ "Image API 3.0 Change Log"
 [image30-compliance-level0]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/compliance/#5-level-0-compliance "5. Level 0 Compliance"
 [image30-compliance-levels]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#6-compliance-level-and-profile-document "6. Compliance Level and Profile Document"
@@ -98,9 +100,10 @@
 [image30-compliance]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/compliance/ "Image API Compliance"
 [image30-cors-response]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#71-cors "7.1. CORS"
 [image30-error-conditions]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#72-error-conditions "7.2. Error Conditions"
-[image30-extensions]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#48-extensions "4.8. Extensions"
+[image30-extensions]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#49-extensions "4.9. Extensions"
 [image30-extra-functionality]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#57-extra-functionality "5.7. Extra Functionality"
 [image30-features-table]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#features-table
+[image30-floating-point-values]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#47-floating-point-values "4.7. Floating Point Values"
 [image30-format]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#45-format "4.5. Format"
 [image30-http-versions]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#74-http-versions "7.4. HTTP Versions"
 [image30-identifier]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#3-identifier "3. Identifier"
@@ -201,17 +204,22 @@
 [prezi30-resource-properties]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#3-resource-properties
 [prezi30-resource-structure]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#5-resource-structure
 [prezi30-seealso]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#seealso "seeAlso property"
-[prezi30-terminology]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#13-terminology
+[prezi30-terminology]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#12-terminology
 [prezi30-type-overview]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#2-resource-type-overview
 [prezi30]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/
 [prezi3]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.draft.minor }}/ "Presentation API"
-[extensions]: {{ site.url }}{{ site.baseurl }}/api/registry/extensions/
+[extensions]: {{ site.url }}{{ site.baseurl }}/api/extension/
+[text-granularity]: {{ site.url }}{{ site.baseurl }}/api/extension/text-granularity/
 [registry]: {{ site.url }}{{ site.baseurl }}/api/registry/ "IIIF Extension Registry"
 [registry-image-extensions]: {{ site.url }}{{ site.baseurl }}/api/registry/image-extensions/ "IIIF Image Extension Registry"
 [registry-motivations]: {{ site.url }}{{ site.baseurl }}/api/registry/motivations/
+[registry-behaviors]: {{ site.url }}{{ site.baseurl }}/api/registry/behaviors/
 [registry-process]: {{ site.url }}{{ site.baseurl }}/api/registry/process/
 [registry-services]: {{ site.url }}{{ site.baseurl }}/api/registry/services/
 [registry-profiles]: {{ site.url }}{{ site.baseurl }}/api/registry/profiles/
+[registry-timeModes]: {{ site.url }}{{ site.baseurl }}/api/registry/timeModes/
+[registry-types]: {{ site.url }}{{ site.baseurl }}/api/registry/types/
+[registry-viewingDirections]: {{ site.url }}{{ site.baseurl }}/api/registry/viewingDirections/
 [search-api]: {{ site.url }}{{ site.baseurl }}/api/search/{{ site.search_api.stable.major }}.{{ site.search_api.stable.minor }}/ "Content Search API"
 [search1-autocomplete]: {{ site.url }}{{ site.baseurl }}/api/search/1.0/#autocomplete
 [search1]: {{ site.url }}{{ site.baseurl }}/api/search/1.0/

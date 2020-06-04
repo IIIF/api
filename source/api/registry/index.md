@@ -15,18 +15,18 @@ The process for having an entry included in one of the IIIF registries is [descr
 
 ## Presentation API Registries
 
-* [Behaviors](behaviors/)
-* [Extensions](extensions/)
-* [Motivations](motivations/)
-* [Profiles](profiles/)
-* [Services](services/)
-* [TimeModes](timeModes/)
-* [Types](types/)
-* [ViewingDirections](viewingDirections/)
+* [Behaviors][registry-behaviors]
+* [Extensions][extensions]
+* [Motivations][registry-motivations]
+* [Profiles][registry-profiles]
+* [Services][registry-services]
+* [TimeModes][registry-timeModes]
+* [Types][registry-types]
+* [ViewingDirections][registry-viewingDirections]
 
 ## Image API Registries
 
-* [Extensions](image-extensions/)
+* [Extensions][registry-image-extensions]
 
 
 {% include acronyms.md %}
