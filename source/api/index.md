@@ -49,9 +49,11 @@ Current IIIF specifications _SHOULD_ be used for all new work. Old versions are 
 | Old API Version            | Notes |
 | -------------------------- | ----- |
 | [Authentication API 0.9.4][auth094] | Published 2016-10-05 |
+| [Image API 2.1][image21]   | Published 2016-05-12, updated 2017-06-09 |
 | [Image API 2.0][image20]   | Published 2014-09-11 |
 | [Image API 1.1][image11]   | Published 2013-09-17 |
 | [Image API 1.0][image10]   | Published 2012-08-10 |
+| [Presentation API 2.1][prezi21] | Published 2016-05-12, updated 2017-06-09 |
 | [Presentation API 2.0][prezi20] | Published 2014-08-12 |
 | [Metadata API 1.0][meta10] | "Metadata API" was replaced with the Presentation API, published 2013-09-16 |
 | [Metadata API 0.9][meta09] | Draft of the "Metadata API", published 2013-06-11 |
