@@ -10,6 +10,7 @@ patch: 0
 pre: final
 cssversion: 3
 redirect_from:
+  - /api/image/index.html
   - /api/image/3/index.html
 ---
 
