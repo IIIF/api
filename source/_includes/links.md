@@ -15,7 +15,7 @@
 [discovery02]: {{ site.url }}{{ site.baseurl }}/api/discovery/0.2/ "IIIF Change Discovery API"
 [discovery03]: {{ site.url }}{{ site.baseurl }}/api/discovery/0.3/ "IIIF Change Discovery API"
 [discovery04]: {{ site.url }}{{ site.baseurl }}/api/discovery/0.4/ "IIIF Change Discovery API"
-[discovery05]: {{ site.url }}{{ site.baseurl }}/api/discovery/0.5/ "IIIF Change Discovery API"
+[discovery09]: {{ site.url }}{{ site.baseurl }}/api/discovery/0.9/ "IIIF Change Discovery API"
 [discovery-processing-streams]: {{ site.url }}{{ site.baseurl }}/api/discovery#activity-streams-processing-algorithm "Activity Streams Processing Algorithm"
 [discovery-activity-types]: {{ site.url }}{{ site.baseurl }}/api/discovery#type-ordered-collection-activity "Activity Types"
 [github-discovery-issues]: https://github.com/IIIF/discovery/issues
@@ -199,7 +199,6 @@
 [prezi30-ldce]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#46-linked-data-context-and-extensions "Linked Data Context and Extensions"
 [prezi30-logo]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#logo "logo property"
 [prezi30-manifest]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.1/#overview-manifest "Presentation API 3.0 Manifest Type"
-[prezi30-context-colli
 [prezi30-range]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#54-range
 [prezi30-resource-properties]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#3-resource-properties
 [prezi30-resource-structure]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#5-resource-structure

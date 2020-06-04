@@ -1,6 +1,6 @@
 ---
-title: "IIIF Change Discovery API 0.9 Beta"
-title_override: "IIIF Change Discovery API 0.9 Beta"
+title: "IIIF Change Discovery API 0.9 BETA"
+title_override: "IIIF Change Discovery API 0.9 BETA"
 id: discovery-api
 layout: spec
 cssversion: 3
@@ -907,7 +907,7 @@ This specification is due primarily to the work of the [IIIF Discovery Technical
 
 | Date       | Description           |
 | ---------- | --------------------- |
-| 2020-05-13 | Version 0.9 (unnamed) |
+| 2020-06-04 | Version 0.9 (unnamed) |
 | 2019-11-01 | Version 0.4 (unnamed) |
 | 2019-03-20 | Version 0.3 (unnamed) |
 | 2018-11-12 | Version 0.2 (unnamed) |
