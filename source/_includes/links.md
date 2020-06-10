@@ -139,6 +139,7 @@
 [org-rfc-2617]: https://tools.ietf.org/html/rfc2617 "HTTP Authentication: Basic and Digest Access Authentication"
 [org-rfc-3986]: https://tools.ietf.org/html/rfc3986 "Uniform Resource Identifier (URI): Generic Syntax"
 [org-rfc-4122]: https://tools.ietf.org/html/rfc4122 "URN UUID Scheme"
+[org-rfc-4648-5]: https://tools.ietf.org/html/rfc4648#section-5 "Base 64 Encoding with URL and Filename Safe Alphabet"
 [org-rfc-5988]: https://tools.ietf.org/html/rfc5988 "Web Linking"
 [org-rfc-6266]: https://tools.ietf.org/html/rfc6266 "Use of the Content-Disposition Header Field in the Hypertext Transfer Protocol (HTTP)"
 [org-rfc-6570]: https://tools.ietf.org/html/rfc6570 "URI Template"
