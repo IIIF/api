@@ -75,4 +75,4 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN }}
         status: ${{ job.status }}
         deployment_id: ${{ steps.deployment.outputs.deployment_id }}
-        env_url: "https://preview.iiif.io/api/${{ env.BRANCH_NAME}}/index.html"
+        env_url: "https://preview.iiif.io/api/${{ env.BRANCH_NAME}}/api/index.html"
