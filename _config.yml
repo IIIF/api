@@ -1,10 +1,8 @@
 markdown: kramdown
 source: source
-safe: false
 permalink: /news/:year/:month/:day/:title/
 
 plugins:
-  - jekyll-sitemap
   - jekyll-redirect-from
 
 kramdown:

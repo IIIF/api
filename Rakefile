@@ -17,23 +17,19 @@ end
 desc 'Run the Markdown specs and HTML Proofer'
 task :ci do
   build_site
-  sh 'grunt test'
   sh 'scripts/check_json.py -v'
-  sh 'scripts/check_mixedcontent.sh'
   Rake::Task['spec'].invoke
   Rake::Task['check_html'].invoke
 end
 
 desc 'Check all links and cache the results'
 task :check_html do
-  HTMLProofer.check_directory(SITE_DIR, {
-    cache: { timeframe: '1w' },
-	 check_html: true,
-	 http_status_ignore: [0, 301, 302],
-   url_ignore: [
-     /.*\/(about|technical-details|apps|demos|event|news|community|stanford\.edu|)/,
-   ]
-  }).run
+  HTMLProofer.check_directory(SITE_DIR, check_html: true, 
+                                         validation: {report_mismatched_tags:true, report_invalid_tags: true },
+                                         check_img_http:true, 
+                                         disable_external: true,
+                                         checks_to_ignore: ['LinkCheck']
+                                         ).run
 end
 
 desc 'Run the site locally on localhost:4000'

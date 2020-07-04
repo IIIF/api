@@ -6,3 +6,4 @@ scripts/factory.pyc
 package-lock.json
 .DS_Store
 *.swp
+.jekyll-cache
