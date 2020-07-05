@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem "rake"
 gem 'jekyll', '~> 4.1.1'
 gem 'rouge' 
+gem "minima", "~> 2.5"
 group :jekyll_plugins do
     gem 'jekyll-redirect-from'
 end

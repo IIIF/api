@@ -2,6 +2,26 @@ markdown: kramdown
 source: source
 permalink: /news/:year/:month/:day/:title/
 
+theme: minima  
+
+title: IIIF
+email: admin@iiif.io
+description: >- # this means to ignore newlines until "baseurl:"
+  IIIF is a software system delivering high quality, attributed digital objects 
+  online at large scale. IIIF is also the growing international community of 
+  people who improve it.
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "" # the base hostname & protocol for your site, e.g. http://example.com
+twitter_username: iiif_io
+github_username:  IIIF
+
+# Will need some magic to get these to appear as they aren't in the repo..
+header_pages:
+  - technical-details.md
+  - community/index.html
+  - apps-demos.html
+  - event/index.md
+
 plugins:
   - jekyll-redirect-from
 
