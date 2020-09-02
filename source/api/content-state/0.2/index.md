@@ -452,7 +452,7 @@ And another client provides an element capable of receiving a `drop` event:
 
 This technique can also be used within the same client, to drag a content state from one part to another. 
 
-The first parameter to `setData` and `getData` is the content type, and for maximum interoperability within the scope of this specification this _MUST_ be "text/plain". Applications can assert multiple additional content types for their own custom behaviour, such as dragging from the application to the desktop and saving as a file, but this is outside the scope of the current Content State API. In the above example, the content of the drag and drop operation could be a plain URI, or JSON-LD. If JSON-LD, clients receiving the data (by calling `getData`) _SHOULD_ accept the data in both unencoded and base64url encoded forms.
+The first parameter to `setData` and `getData` is the content type, and for maximum interoperability within the scope of this specification this _MUST_ be "text/plain". Applications can assert multiple additional content types for their own custom behavior, such as dragging from the application to the desktop and saving as a file, but this is outside the scope of the current Content State API. In the above example, the content of the drag and drop operation could be a plain URI, or JSON-LD. If JSON-LD, clients receiving the data (by calling `getData`) _SHOULD_ accept the data in both unencoded and base64url encoded forms.
 
 
 #### 3.1.5  "Upload" file
