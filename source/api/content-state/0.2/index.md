@@ -496,11 +496,7 @@ The same rules apply; the viewer _MUST_ dereference and process the Annotation a
 
 ### 3.1.7 Common initialization parameter
 
-__Data Atrributes__
-This is a _SHOULD_ rather than a _MUST_. Typically, the owner of the process that is generating the HTML knows what viewer they are embedding and how it is configured. In some scenarios, the content state will have arrived at the page as a GET parameter (_MUST_), e.g., ?iiif-content=blah, then supplied to a viewer's data-iiif-content attribute in dynamically created HTML. Also - is this even in the spec at all? Is it a cookbook recipe only?
-{: .warning}
-
-Viewers and other clients _SHOULD_ standardize on the attribute `data-iiif-content` for supplying content state via HTML attribute. A viewer that accepts content state _SHOULD_ process an Annotation in any of the forms described in the GET parameter section.
+If a IIIF client can accept a content state via a custom HTML attribute, then it _SHOULD_ use the attribute `data-iiif-content` for this purpose, to assist page developers using that client in understanding what the attribute is for. A viewer that accepts content state _SHOULD_ process an Annotation in any of the forms described in the GET parameter section. 
 
 ```html
 
