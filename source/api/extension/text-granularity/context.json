@@ -1,0 +1,20 @@
+{
+  "@context": {
+      "@version": 1.1,
+    
+      "iiif_text_granularity":"http://iiif.io/api/extension/text-granularity#",
+
+      "textGranularity": {
+        "@id":"iiif_text_granularity:textGranularity",
+        "@type":"@vocab",
+        "@context": {
+          "page":"iiif_text_granularity:page",
+          "block":"iiif_text_granularity:block",
+          "paragraph":"iiif_text_granularity:paragraph",
+          "line":"iiif_text_granularity:line",
+          "word":"iiif_text_granularity:word",
+          "glyph":"iiif_text_granularity:glyph"
+        }
+      }
+  }
+}

@@ -20,14 +20,12 @@ cssversion: 2
 
 | API                  | Draft Version (Status) |
 | -------------------- | ---------------------- |
-| Image API            | [3.0.0 BETA][image30]  |
-| Presentation API     | [3.0.0 BETA][prezi30]  |
-| Change Discovery API | [0.3.0][discovery03]   |
+| Change Discovery API | [0.9.0 BETA][discovery09] |
 | Content State API    | [0.2.0][contentstate02]|
 {: .api-table}
 
 __Feedback Requested__<br/>
-We welcome feedback on all IIIF Specifications. In particular, we are actively seeking feedback on the Image API and Presentation API version 3.0 draft specifications. Please send any feedback to [iiif-discuss@googlegroups.com][iiif-discuss].
+We welcome feedback on all IIIF Specifications. Please send any feedback to [iiif-discuss@googlegroups.com][iiif-discuss].
 {: .alert}
 
 ## Community Translations
@@ -51,9 +49,11 @@ Current IIIF specifications _SHOULD_ be used for all new work. Old versions are 
 | Old API Version            | Notes |
 | -------------------------- | ----- |
 | [Authentication API 0.9.4][auth094] | Published 2016-10-05 |
+| [Image API 2.1][image21]   | Published 2016-05-12, updated 2017-06-09 |
 | [Image API 2.0][image20]   | Published 2014-09-11 |
 | [Image API 1.1][image11]   | Published 2013-09-17 |
 | [Image API 1.0][image10]   | Published 2012-08-10 |
+| [Presentation API 2.1][prezi21] | Published 2016-05-12, updated 2017-06-09 |
 | [Presentation API 2.0][prezi20] | Published 2014-08-12 |
 | [Metadata API 1.0][meta10] | "Metadata API" was replaced with the Presentation API, published 2013-09-16 |
 | [Metadata API 0.9][meta09] | Draft of the "Metadata API", published 2013-06-11 |
@@ -89,7 +89,7 @@ IIIF Specifications are created and published following the [IIIF Editorial Proc
 [auth094]: {{ site.url }}{{ site.baseurl }}/api/auth/0.9/ "Authentication API v0.9.4"
 [search10]: {{ site.url }}{{ site.baseurl }}/api/search/1.0/ "Search API v1.0"
 [search09]: {{ site.url }}{{ site.baseurl }}/api/search/0.9/ "Search API v0.9"
-[discovery03]: {{ site.url }}{{ site.baseurl }}/api/discovery/0.3/ "IIIF Change Discovery API"
+[discovery09]: {{ site.url }}{{ site.baseurl }}/api/discovery/0.9/ "IIIF Change Discovery API"
 [contentstate02]: {{ site.url }}{{ site.baseurl }}/api/content-state/0.2/ "IIIF Content State API"
 [notes]: {{ site.url }}{{ site.baseurl }}/api/annex/ "Implementation Notes"
 [editorial-process]: {{ page.webprefix }}/community/policy/editorial/ "IIIF Editorial Process"

@@ -1,15 +1,16 @@
 ---
-title: "Image API 3.0 BETA DRAFT"
-title_override: "IIIF Image API 3.0 BETA DRAFT"
+title: "Image API 3.0"
+title_override: "IIIF Image API 3.0"
 id: image-api
 layout: spec
 tags: [specifications, image-api]
 major: 3
 minor: 0
 patch: 0
-pre: BETA
+pre: final
 cssversion: 3
 redirect_from:
+  - /api/image/index.html
   - /api/image/3/index.html
 ---
 
@@ -32,10 +33,6 @@ __Previous Version:__ [2.1.1][image21]
   {: .names}
 
 {% include copyright.md %}
-
-__Status Warning__
-This is a BETA DRAFT. Implementation is encouraged but implementers should be aware that there may be additional changes to this document before the final release. See [remaining issues][github-milestone-image-prezi-3] on Github.
-{: .warning}
 
 ----
 
@@ -145,7 +142,7 @@ The API places no restrictions on the form of the identifiers that a server may 
 
 All parameters described below are required for compliant construction of a IIIF Image API URI. The sequence of parameters in the URI _MUST_ be in the order described below. The order of the parameters is also intended as a mnemonic for the order of the operations by which the service should manipulate the image content. Thus, the requested image content is first extracted as a region of the full image, then scaled to the requested size, mirrored and/or rotated, and finally transformed into the requested color quality and format. This resulting image is returned as the representation for the URI.
 
-Size and region parameters in pixels _MUST_ be non-negative integers. Size and region parameters in percentages and the rotation parameter _MUST_ be positive floating point numbers or integers. For details of the representation of floating point numbers in IIIF URIs, see the [Canonical URI Syntax][image30-canonical-uri-syntax] section.
+Size and region parameters in pixels _MUST_ be non-negative integers. Size and region parameters in percentages and the rotation parameter _MUST_ be positive floating point numbers or integers. For details of the representation of floating point numbers in IIIF URIs, see the [Floating Point Values][image30-floating-point-values] section.
 
 Servers _SHOULD_ support [CORS][image30-cors-response] on image responses.
 
@@ -395,6 +392,8 @@ The `default` quality exists to support [level 0 compliant implementations][imag
 
 Regardless of level of compliance, services that make additional qualities beyond `default` available _MUST_ list those qualities in the [`extraQualities` property][image3-extra-functionality] of the response to the [Image Information Request][image3-information]. A request for an image with an unsupported quality value _SHOULD_ return a 400 (Bad Request) status code.
 
+A request for the `color` quality of an image _MUST_ return an image. This image may be comprised solely of grayscale or bitonal pixels if this is all of the color information the server has available. The server _SHOULD NOT_ include `color` in the `extraQualities` list in such cases, but a request for the `color` quality _MUST NOT_ result in an error. Similarly, a request for the grayscale quality may return an image comprised solely of bitonal pixels.
+
 Examples:
 
 <table class="ex_table">
@@ -472,7 +471,12 @@ If the rotation parameter includes mirroring (`!`), the mirroring is applied bef
   </tbody>
 </table>
 
-### 4.7. Canonical URI Syntax
+### 4.7. Floating Point Values
+
+Size and region parameters given as percentages and the rotation parameter allow positive floating point number values. Integer values _SHOULD_ be used where possible.
+When floating point values are used, they _MUST_ consist only of decimal digits and "." (e.g. 0.9 not +0.9), _SHOULD_ be represented with a leading 0 if less than 1 (e.g. 0.9 not .9), and _SHOULD NOT_ include trailing zeros (e.g. 0.9 not 0.90). Intermediate calculations may use floating point numbers and the rounding method is implementation specific.
+
+### 4.8. Canonical URI Syntax
 
 It is possible to request the same image using different combinations of parameters. While it is useful for clients to be able to express their requests in a convenient form, there are several reasons why a canonical URI syntax is desirable:
 
@@ -486,12 +490,10 @@ In order to support the above requirements, clients _SHOULD_ construct image req
 | --------- | --------------- |
 | region    | `full` if the full image is requested<br/>otherwise the _`x,y,w,h`_ syntax. |
 | size      | `max` if the maximum size without upscaling is requested,<br/>`^max` if the maximum upscaled size is requested, otherwise<br/>_`w,h`_ if the size requested does not require upscaling, or<br/>_`^w,h`_ if the request requires upscaling of the extracted region. |
-| rotation  | `!` if the image is mirrored, followed by an integer if possible, otherwise a floating point value. |
+| rotation  | `!` if the image is mirrored, followed by an integer if possible, otherwise a floating point value represented according to the recommendations of the [Floating Point Values][image30-floating-point-values] section. |
 | quality   | `default` if the server's default quality is requested,<br/>otherwise the quality string. |
 | format    | An explicit format string is always required. |
 {: .api-table}
-
-Size and region parameters given as percentages and the rotation parameter allow positive floating point number values. Integer values _SHOULD_ be used where possible. When floating point values are used, they _MUST_ consist only of decimal digits and "." (e.g. 0.9 not +0.9), _SHOULD_ be represented with a leading 0 if less than 1 (e.g. 0.9 not .9), and _SHOULD NOT_ include trailing zeros (e.g. 0.9 not 0.90). Intermediate calculations may use floating point numbers and the rounding method is implementation specific.
 
 When the client requests an image, the server _MAY_ add a link header to the response that indicates the canonical URI for that request:
 
@@ -502,7 +504,7 @@ Link: <http://iiif.example.com/server/full/400,300/0/default.jpg>;rel="canonical
 
 The server _MAY_ also include this link header on the image information response, however it is unnecessary as it is included in the JSON representation retrieved.
 
-### 4.8. Extensions
+### 4.9. Extensions
 
 The IIIF Image API is extensible within the [Image Request URI Syntax][image30-information-request-uri-syntax] through the addition of new parameter patterns for the [region][image30-region], [size][image30-size] and [rotation][image30-rotation] parameters, or new values for the [quality][image30-quality] and [format][image30-format] parameters. Request information beyond the scope of the existing parameters could be passed to an image server as query parameters. Extension features _SHOULD_ be described in the image information document following the guidelines in the [Extra Functionality][image30-extra-functionality] section.
 
@@ -653,7 +655,7 @@ The JSON response _MAY_ have the `preferredFormats` property, which lists one or
 
 | Property | Required? | Description |
 | ------------- | --------- | ----------- |
-| `preferredFormats` | Optional | An array of strings that are the preferred format parameter values, arranged in order of preference.  The format parameter values listed must be among those specified in the referenced profile or listed in the `extraFormats` property (see [Extra Functionality][image3-extra-functionality]). |
+| `preferredFormats` | Optional | An array of strings that are the preferred format parameter values, arranged in order of preference.  The format parameter values listed _MUST_ be among those specified in the referenced profile or listed in the `extraFormats` property (see [Extra Functionality][image3-extra-functionality]). |
 {: .api-table}
 
 
@@ -760,15 +762,15 @@ The JSON response _MAY_ contain linking properties that reference external resou
 | ---------- | --------- | ----------- |
 | `partOf`   | Optional  | A link to another resource that references this image service, for example a link to a Canvas or Manifest. The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `label` property. |
 | `seeAlso`  | Optional  | A link to an external, machine-readable resource that is related to this resource, such as an XML or RDF description. Properties of the external resource should be given to help the client select between multiple descriptions (if provided), and to make appropriate use of the document. The URI of the document _MUST_ identify a single representation of the data in a particular format. The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `label`, `format` and `profile` properties. |
-| `service`  | Optional  | A reference to an external service that the client might interact with directly to gain additional information or functionality, for example a link to an authentication service. The value _MUST_ be an array of JSON objects. Each object will have properties depending on the service’s definition, but _MUST_ have either the `id` or `@id` and `type` or `@type` properties. Each object _SHOULD_ have a `profile` property. See the [Service Registry][annex-services] for known service types. |
+| `service`  | Optional  | A reference to an external service that the client might interact with directly to gain additional information or functionality, for example a link to an authentication service. The value _MUST_ be an array of JSON objects. Each object will have properties depending on the service’s definition, but _MUST_ have either the `id` and `type` properties, or the `@id` and `@type` properties for backwards compatibility with other IIIF APIs. Each object _SHOULD_ have a `profile` property. See the [Service Registry][annex-services] for known service types. |
 {: .api-table}
 
 The JSON objects in `partOf`, `seeAlso`, and `service` have the properties indicated in the following table.
 
 | Property   | Required?                 | Description |
 | ---------- | ------------------------- | ----------- |
-| `id`       | Required | The URI of the external resource. |
-| `type`     | Required | The type or class of this resource.  Recommendations for basic types such as image, text or audio are [given in the Presentation API][prezi3-type]. |
+| `id`       | Required | The URI of the external resource. (The `@id` property _MAY_ be used in `service` objects for backwards compatibility as described above.) |
+| `type`     | Required | The type or class of this resource.  Recommendations for basic types such as image, text or audio are [given in the Presentation API][prezi3-type]. (The `@type` property _MAY_ be used in `service` objects for backwards compatibility as described above.) |
 | `label`    | Recommended | A human-readable label for this resource. The `label` property can be fully internationalized, and each language can have multiple values. This pattern is described in more detail in [the languages section of the Presentation API][prezi3-languages]. |
 | `format`   | Recommended for `seeAlso` | The specific media type (often called a MIME type) for this content resource, for example “image/jpeg”. This is important for distinguishing different formats of the same overall type of resource, such as distinguishing text in XML from plain text. The value must be a string, and it should be the value of the Content-Type header returned when this resource is dereferenced. |
 | `profile`  | Recommended for `seeAlso`, `service` | A schema or named set of functionality available from this resource. The profile can further clarify the `type` and/or `format` of an external resource. The value must be a string, either taken from the [Registry of Profiles][registry] or a URI. |
@@ -777,7 +779,6 @@ The JSON objects in `partOf`, `seeAlso`, and `service` have the properties indic
 ``` json-doc
 {
   "@context": [
-    "http://iiif.io/api/presentation/{{ page.major }}/context.json",
     "http://iiif.io/api/image/{{ page.major }}/context.json"
   ],
   "id": "https://example.org/image-service/abcd12345/1E34750D-38DB-4825-A38A-B60A345E591C",
@@ -800,6 +801,14 @@ The JSON objects in `partOf`, `seeAlso`, and `service` have the properties indic
       "id": "https://example.org/manifest/1",
       "type": "Manifest",
       "label": { "en": [ "A Book" ] }
+    }
+  ],
+  "service": [
+    {
+      "@id": "https://example.org/auth/login",
+      "@type": "AuthCookieService1",
+      "profile": "http://iiif.io/api/auth/1/login",
+      "label": "Login to Example Institution"
     }
   ]
 }
@@ -835,7 +844,7 @@ The following shows an image information response including all of the required 
   ],
   "rights": "http://rightsstatements.org/vocab/InC-EDU/1.0/",
   "preferredFormats": [ "png", "gif"],
-  "extraFormats": [ "gif", "pdf" ],
+  "extraFormats": [ "png", "gif", "pdf" ],
   "extraQualities": [ "color", "gray" ],
   "extraFeatures": [ "canonicalLinkHeader", "rotationArbitrary", "profileLinkHeader" ],
   "service": [
@@ -944,16 +953,13 @@ Starting with version 2.0, this specification follows [Semantic Versioning][org-
 
 ###  B. Acknowledgments
 
-The production of this document was generously supported by a grant from the [Andrew W. Mellon Foundation][org-mellon].
-
 Many thanks to the members of the [IIIF community][iiif-community] for their continuous engagement, innovative ideas and feedback.
 
 ###  C. Change Log
 
 | Date       | Description |
 | ---------- | ----------- |
-| 2019-06-20 | Version 3.0 BETA [View change log][image30-change-log] |
-| 2018-04-18 | Version 3.0 ALPHA |
+| 2020-06-03 | Version 3.0 (Orange Blooms) [View change log][image30-change-log] |
 | 2017-06-09 | Version 2.1.1 [View change log][image211-change-log] |
 | 2016-05-12 | Version 2.1 (Crowned Eagle) [View change log][image21-change-log] |
 | 2014-09-11 | Version 2.0 (Voodoo Bunny) [View change log][image20-change-log] |
