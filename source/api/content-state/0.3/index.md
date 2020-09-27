@@ -388,8 +388,6 @@ curl -d 'iiif-content=aHR0cHM6Ly9leGFtcGxlLm9yZy92aWV3ZXI_aWlpZi1jb250ZW50PXsiaW
 
 In this example, the server at `https://example.org/citation-renderer` should expect to process the content state in the same forms and variants as above.
 
-_Outstanding Question:_ Should POST be in the body, or as www-form-encoded? ...citation search engine exchanging state to another page that then generates a view.
-
 
 #### 3.1.3 Accepting the content state as a paste operation
 {: #initialization-mechanisms-paste}
