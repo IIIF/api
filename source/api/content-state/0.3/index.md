@@ -1,12 +1,12 @@
 ---
-title: "IIIF Content State API 0.2"
-title_override: "IIIF Content State API 0.2"
+title: "IIIF Content State API 0.3"
+title_override: "IIIF Content State API 0.3"
 id: discovery-api-content-state
 layout: spec
 cssversion: 3
 tags: [specifications, presentation-api]
 major: 0
-minor: 2
+minor: 3
 patch: 0
 pre: final
 redirect_from:
@@ -202,7 +202,19 @@ This description not be conveyed by just a Canvas URL or a Manifest URL; it need
 
 ### 2.3 Protocol and encoding requirements
 
-There are many ways in which the content state data shown in Section 2.2 could be passed to, or exported from, IIIF compatible software such as a viewer. For interoperability, agreeing on the model is not enough. This section defines a _Protocol_ for the transfer of this data, so that implementing software can receive or pass a content state without specific knowledge of other participating software.
+There are many ways in which the content state data shown in Section 2.2 could be passed to, or exported from, IIIF compatible software such as a viewer. For interoperability, agreeing on the model is not enough. This section defines _Protocols_ for the transfer of this data, so that implementing software can receive or pass a content state without specific knowledge of other participating software. These protocols make use of widely supported features of modern browsers:
+
+* Passing a content state as a query string parameter in an HTTP GET request
+* Passing a content state as a parameter in an HTTP POST request
+* Reacting to the [Paste][org-mozilla-paste] event, where the pasted data is the URL of a content state
+* Reacting to the [Paste][org-mozilla-paste] event, where the pasted data is a full content state
+* Using the [Drag and Drop API][org-mozilla-drag-drop] to expose and accept content states
+* Uploading content state from the client machine via the [FileReader][org-mozilla-filereader] interface
+* Initialising a client via an HTML5 `data-*` attribute
+
+Examples of these protocols are given in Section 3, [Initialization mechanisms][contentstate-initialization].
+
+
 
 #### 2.3.1 Base 64 Encoding with URL and Filename Safe Alphabet
 
@@ -378,10 +390,6 @@ In this example, the server at `https://example.org/citation-renderer` should ex
 
 _Outstanding Question:_ Should POST be in the body, or as www-form-encoded? ...citation search engine exchanging state to another page that then generates a view.
 
-
-__Question__
-In the following examples, a client could quite easily accept a full Manifest as a drop/paste/upload action. Not just a URL, or a JSON annotation _pointing_ at a Manifest, but the full thing. Should this API discuss that? In other words, can a full Manifest be a content state target, as well as the id-and-type-only version in 2.2.3?
-{: .warning}
 
 #### 3.1.3 Accepting the content state as a paste operation
 {: #initialization-mechanisms-paste}
