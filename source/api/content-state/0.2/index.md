@@ -237,7 +237,8 @@ The following example:
 ...and then encoded (this example in Python)
 
 ```python
->>> base64.urlsafe_b64encode(b'{"id": "https://example.org/object1/canvas7#xywh=1000,2000,1000,2000","type":"Canvas","partOf":[{"id":"https://example.org/object1/manifest","type":"Manifest"}]}')
+>>> import base64
+>>> base64.urlsafe_b64encode(b'{"id":"https://example.org/object1/canvas7#xywh=1000,2000,1000,2000","type":"Canvas","partOf":[{"id":"https://example.org/object1/manifest","type":"Manifest"}]}')
 
 b'eyJpZCI6ICJodHRwczovL2V4YW1wbGUub3JnL29iamVjdDEvY2FudmFzNyN4eXdoPTEwMDAsMjAwMCwxMDAwLDIwMDAiLCJ0eXBlIjoiQ2FudmFzIiwicGFydE9mIjpbeyJpZCI6Imh0dHBzOi8vZXhhbXBsZS5vcmcvb2JqZWN0MS9tYW5pZmVzdCIsInR5cGUiOiJNYW5pZmVzdCJ9XX0='
 ```
