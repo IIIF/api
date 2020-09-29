@@ -4,7 +4,7 @@ title_override: "IIIF Change Discovery API 0.9.1 BETA"
 id: discovery-api
 layout: spec
 cssversion: 3
-tags: [specifications]
+tags: [specifications, discovery-api]
 major: 0
 minor: 9
 patch: 1
