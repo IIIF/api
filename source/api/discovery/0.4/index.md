@@ -9,9 +9,6 @@ major: 0
 minor: 4
 patch: 0
 pre: final
-redirect_from:
-  - /api/discovery/index.html
-  - /api/discovery/0/index.html
 ---
 
 

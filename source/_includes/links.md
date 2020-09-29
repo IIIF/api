@@ -190,7 +190,7 @@
 [prezi30-appendixa]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#a-summary-of-property-requirements
 [prezi30-canvas]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#53-canvas
 [prezi30-change-log]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/change-log/ "Presentation API 3.0 Change Log"
-[prezi30-collection]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.1/#overview-collection "Presentation API 3.0 Collection Type"
+[prezi30-collection]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#overview-collection "Presentation API 3.0 Collection Type"
 [prezi30-context-collisions]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#47-term-collisions-between-contexts
 [prezi30-height]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#height "height property"
 [prezi30-homepage]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#homepage "homepage property"
@@ -198,7 +198,7 @@
 [prezi30-languages]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#44-language-of-property-values "Language of Property Values"
 [prezi30-ldce]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#46-linked-data-context-and-extensions "Linked Data Context and Extensions"
 [prezi30-logo]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#logo "logo property"
-[prezi30-manifest]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.1/#overview-manifest "Presentation API 3.0 Manifest Type"
+[prezi30-manifest]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#overview-manifest "Presentation API 3.0 Manifest Type"
 [prezi30-range]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#54-range
 [prezi30-resource-properties]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#3-resource-properties
 [prezi30-resource-structure]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#5-resource-structure
