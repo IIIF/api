@@ -1,14 +1,14 @@
 ---
-title: "IIIF Change Discovery API 0.9 BETA"
-title_override: "IIIF Change Discovery API 0.9 BETA"
+title: "IIIF Change Discovery API 0.9.1 BETA"
+title_override: "IIIF Change Discovery API 0.9.1 BETA"
 id: discovery-api
 layout: spec
 cssversion: 3
-tags: [specifications, presentation-api]
+tags: [specifications]
 major: 0
 minor: 9
-patch: 0
-pre: final
+patch: 1
+pre: BETA
 redirect_from:
   - /api/discovery/index.html
   - /api/discovery/0/index.html
@@ -395,7 +395,7 @@ A string that identifies a license or rights statement that applies to the usage
 The value _MUST_ be a string. If the value is drawn from Creative Commons or RightsStatements.org, then the string _MUST_ be a URI defined by that specification.
 
 ``` json-doc
-{ "rights": "https://creativecommons.org/licenses/by/4.0/" }
+{ "rights": "http://creativecommons.org/licenses/by/4.0/" }
 ```
 
 
@@ -407,7 +407,7 @@ The value _MUST_ be a string. If the value is drawn from Creative Commons or Rig
   "id": "https://example.org/activity/all-changes",
   "type": "OrderedCollection",
   "totalItems": 21456,
-  "rights": "https://creativecommons.org/licenses/by/4.0/",
+  "rights": "http://creativecommons.org/licenses/by/4.0/",
   "seeAlso": [
     {
       "id": "https://example.org/dataset/all-dcat.jsonld",
@@ -616,16 +616,18 @@ The IIIF resource that was affected by the Activity. It is an implementation dec
 
 In the case of the `Move` activity, the `object` property contains the `id` and `type` of the source from whence it was moved. The new location will be in the `target` property, described below.
 
-Activities _MUST_ have the `object` property. The value _MUST_ be a JSON object, with the `id` and `type` properties. The `id` _MUST_ be an HTTP(S) URI. The `type` _SHOULD_ be a class defined in the IIIF Presentation API, and _SHOULD_ be one of `Collection`, or `Manifest`. The object _MAY_ have a `seeAlso` property, as defined for `OrderedCollection` above, to reference a description document of the object resource. The document referenced in the `seeAlso` property _MAY_ also be referenced with the `seeAlso` property in an instance of the IIIF Presentation API. The `type` of the document referenced in the `seeAlso` property should be given as `Dataset`, meaning that it is data rather than a human-readable document.
+Activities _MUST_ have the `object` property. The value _MUST_ be a JSON object, with the `id` and `type` properties. The `id` _MUST_ be an HTTP(S) URI. The `type` _SHOULD_ be a class defined in the IIIF Presentation API, and _SHOULD_ be one of `Collection`, or `Manifest`.  
 
-<!-- This can't be on the Activity, as some activities reference more than one resource e.g. Add X to Y, Move X from Y to Z, etc. -->
+The object _MAY_ have a `seeAlso` property, as defined for `OrderedCollection` above, to reference a document that describes the object resource. The document referenced in the `seeAlso` property _MAY_ also be referenced with the `seeAlso` property in an instance of the IIIF Presentation API. The `type` of the document referenced in the `seeAlso` property should be given as `Dataset`, meaning that it is data rather than a human-readable document.
 
+The object _MAY_ have a `canonical` property, the value of which _MUST_ be a string that contains a URI.  This URI identifies the resource, regardless of the URI given in the `id` property of the object, which might be specific to a format, API version or publishing platform. The use of this property allows changes to be aligned across representations without relying on `seeAlso` links or only having a single representation.
 
 ```json-doc
 {
   "object": {
-    "id": "http://example.org/iiif/1/manifest",
+    "id": "http://example.org/iiif/v3/1/manifest",
     "type": "Manifest",
+    "canonical": "https://example.org/iiif/1",
     "seeAlso": [
       {
         "id": "https://example.org/dataset/single-item.jsonld",
@@ -641,7 +643,7 @@ Activities _MUST_ have the `object` property. The value _MUST_ be a JSON object,
 
 The new location of the IIIF resource, after it was affected by a `Move` activity.
 
-`Move` activities _MUST_ have the `target` property. The value _MUST_ be a JSON object, with the `id` and `type` properties. The `id` _MUST_ be an HTTP(S) URI, and _MUST_ be different from the URI given in the `object` property's `id`. The `type` _SHOULD_ be a class defined in the IIIF Presentation API, and _SHOULD_ be the same as the `object` property's `type`.
+`Move` activities _MUST_ have the `target` property. The value _MUST_ be a JSON object, with the `id` and `type` properties. The `id` _MUST_ be an HTTP(S) URI, and _MUST_ be different from the URI given in the `object` property's `id`. The `type` _SHOULD_ be a class defined in the IIIF Presentation API, and _SHOULD_ be the same as the `object` property's `type`. Other properties that are usable for the description of `object`, such as `seeAlso` and `canonical` are also available for use in describing the `target`.
 
 ```json-doc
 {
@@ -716,6 +718,7 @@ A complete example Activity would thus look like the following example. Note tha
   "object": {
     "id": "https://example.org/iiif/1/manifest",
     "type": "Manifest",
+    "canonical": "https://example.org/iiif/1",
     "seeAlso": [
       {
         "id": "https://example.org/dataset/single-item.jsonld",
@@ -907,6 +910,7 @@ This specification is due primarily to the work of the [IIIF Discovery Technical
 
 | Date       | Description           |
 | ---------- | --------------------- |
+| 2020-09-29 | Version 0.9.1 (unnamed) |
 | 2020-06-04 | Version 0.9 (unnamed) |
 | 2019-11-01 | Version 0.4 (unnamed) |
 | 2019-03-20 | Version 0.3 (unnamed) |
