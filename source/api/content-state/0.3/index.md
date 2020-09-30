@@ -185,7 +185,7 @@ While supporting many requirements for sharing resources and initializing a clie
 }
 ```
 
-This description not be conveyed by just a Canvas URL or a Manifest URL; it needs the structure provided by a content state Annotation. It can be reduced to _Target body_ form, but no further:
+This description cannot be conveyed by just a Canvas URL or a Manifest URL; it needs the structure provided by a content state Annotation. It can be reduced to _Target body_ form, but no further:
 
 
 ```json
