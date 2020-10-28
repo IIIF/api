@@ -27,7 +27,7 @@ __Previous Version:__ [0.4][discovery04]
 
   * **[Michael Appleby](https://orcid.org/0000-0002-1266-298X)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0002-1266-298X), [_Yale University_](http://www.yale.edu/)
   * **[Tom Crane](https://orcid.org/0000-0003-1881-243X)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0003-1881-243X), [_Digirati_](http://digirati.com/)
-  * **[Robert Sanderson](https://orcid.org/0000-0003-4441-6852)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0003-4441-6852), [_J. Paul Getty Trust_](http://www.getty.edu/)
+  * **[Robert Sanderson](https://orcid.org/0000-0003-4441-6852)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0003-4441-6852), [_Yale University_](http://www.getty.edu/)
   * **[Jon Stroop](https://orcid.org/0000-0002-0367-1243)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0002-0367-1243), [_Princeton University Library_](https://library.princeton.edu/)
   * **[Simeon Warner](https://orcid.org/0000-0002-7970-7855)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0002-7970-7855), [_Cornell University_](https://www.cornell.edu/)
   {: .names}
@@ -121,7 +121,7 @@ Example Level 0 Activity:
 #### 2.1.2. Level 1: Resource Changes
 {: #level-1-basic-change-list}
 
-When dealing with large sets of resources, it can be useful to work with only those resources that have changed since the last time the list was processed. This is managed by the addition of a time stamp in the `endTime` property, that indicates the time at which the resource was last modified or initially created. Lists with multiple activities _MUST_ be ordered such that the most recent activities occur last. Consumers will then process the list of Activities in reverse order, from last to first, stopping when they encounter an Activity they have already processed.
+When dealing with large lists of resources, it can be useful to work with only those resources that have changed since the last time the list was processed. This is managed by the addition of a time stamp in the `endTime` property, that indicates the time at which the resource was last modified or initially created. Lists _MUST_ be ordered such that the most recent activities occur last. Consumers will then process the list of Activities in reverse order, from last to first, stopping when they encounter an Activity they have already processed.
 
 Example Level 1 Activity:
 
@@ -207,7 +207,7 @@ Example Remove Activity:
 ### 2.2. Pages of Changes
 {: #pages-of-changes}
 
-The Activities are collected together into pages that together make up the entire set of changes that the publishing system is aware of. Pages reference the previous and next pages in that set, and the overall collection of which they are part. The Activities are listed such that the most recent activities occur last.
+The Activities are collected together into pages that together make up the entire set of changes that the publishing system is aware of. Pages reference the previous and next pages in that set, and the overall collection of which they are part. The Activities within the page are listed such that the most recent activities occur last.
 
 Pages are subsequently collected together in ordered collections, described in the following section.
 
@@ -252,7 +252,7 @@ Pages are subsequently collected together in ordered collections, described in t
 ### 2.3. Collections of Pages
 {: #collections-of-pages}
 
-As the number of Activities is likely too many to usefully be represented in a single Page, they are collected together into a Collection as the initial entry point. The Collection references the URIs of the first and last pages.
+As the number of Activities is likely too many to usefully be represented in a single Page, they are collected together into a Collection as the initial entry point. The Collection references the URIs of the first and last pages, where the first page contains the earliest activities and the last page contains the most recent.
 
 ```json-doc
 {
@@ -354,7 +354,7 @@ Ordered Collections _MAY_ have a `totalItems` property. The value _MUST_ be a no
 
 ##### seeAlso
 
-This property is used to refer to one or more documents that semantically describe the set of resources that are being acted upon in the Activities within the Ordered Collection. This would allow the Ordered Collection to refer to, for example, a [DCAT][org-w3c-dcat] description of the dataset. For Ordered Collections that aggregate activities and/or objects from multiple sources, the referenced description should describe the complete aggregation rather than an individual source.
+This property is used to refer to one or more documents that semantically describe **the set of resources** that are being acted upon in the Activities within the Ordered Collection, rather than any particular resource referenced from within the collection. This would allow the Ordered Collection to refer to, for example, a [DCAT][org-w3c-dcat] description of the dataset. For Ordered Collections that aggregate activities and/or objects from multiple sources, the referenced description should describe the complete aggregation rather than an individual source.
 
 Ordered Collections _MAY_ have a `seeAlso` property. The value _MUST_ be an array of one or more JSON objects, with the `id` and `type` properties. The value of the `id` property _MUST_ be a string, and it _MUST_ be the HTTP(S) URI of the description of the dataset. The value of the `type` property _MUST_ be the string `Dataset`. The JSON object _MAY_ have the `format` property, the value of which _MUST_ be a string, and it _MUST_ be the MIME media type of the referenced description document.
 
@@ -517,7 +517,7 @@ Ordered Collection Pages _MUST_ have a `prev` property, unless they are the firs
 
 ##### orderedItems
 
-The Activities that are listed as part of this page.
+The Activities that are listed as part of this page. If the Activities have an `endTime` property, then they _MUST_ be ordered within the array from the earliest datetime to the most recent datetime, in the same way as the pages are ordered within the Ordered Collection. 
 
 Ordered Collection Pages _MUST_ have an `orderedItems` property. The value _MUST_ be an array, with at least one item. Each item _MUST_ be a JSON object, conforming to the requirements of an Activity.
 
@@ -622,6 +622,8 @@ The object _MAY_ have a `seeAlso` property, as defined for `OrderedCollection` a
 
 The object _MAY_ have a `canonical` property, the value of which _MUST_ be a string that contains a URI.  This URI identifies the resource, regardless of the URI given in the `id` property of the object, which might be specific to a format, API version or publishing platform. The use of this property allows changes to be aligned across representations without relying on `seeAlso` links or only having a single representation.
 
+The object _MAY_ have a `provider` property, as defined by the [IIIF Presentation API](https://iiif.io/api/presentation/3.0/#provider). In particular, the value of the property _MUST_ be an array of JSON objects, each of which _MUST_ have the `id`, `type` and `label` attributes, carrying the URI of the provider, the string "Agent", and the name of the provider in a language map object, respectively. 
+
 ```json-doc
 {
   "object": {
@@ -633,6 +635,13 @@ The object _MAY_ have a `canonical` property, the value of which _MUST_ be a str
         "id": "https://example.org/dataset/single-item.jsonld",
         "type": "Dataset",
         "format": "application/ld+json"
+      }
+    ],
+    "provider": [
+      {
+        "id": "https://example.org/about",
+        "type": "Agent",
+        "label": { "en": [ "Example Organization" ] }
       }
     ]
   }
