@@ -18,6 +18,7 @@
 [discovery09]: {{ site.url }}{{ site.baseurl }}/api/discovery/0.9/ "IIIF Change Discovery API"
 [discovery-processing-streams]: {{ site.url }}{{ site.baseurl }}/api/discovery#activity-streams-processing-algorithm "Activity Streams Processing Algorithm"
 [discovery-activity-types]: {{ site.url }}{{ site.baseurl }}/api/discovery#type-ordered-collection-activity "Activity Types"
+[discovery-registry]: https://registry.iiif.io/ "IIIF Change Discovery Registry"
 [github-discovery-issues]: https://github.com/IIIF/discovery/issues
 [github-milestone-image-prezi-3]: https://github.com/IIIF/api/milestone/22
 [github-webanno-437]: https://github.com/w3c/web-annotation/issues/437
