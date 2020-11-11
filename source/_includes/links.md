@@ -210,6 +210,7 @@
 [extensions]: {{ site.url }}{{ site.baseurl }}/api/extension/
 [text-granularity]: {{ site.url }}{{ site.baseurl }}/api/extension/text-granularity/
 [registry]: {{ site.url }}{{ site.baseurl }}/api/registry/ "IIIF Extension Registry"
+[registry-activity-streams]: https://registry.iiif.io/ "IIIF Registry of Activity Streams"
 [registry-image-extensions]: {{ site.url }}{{ site.baseurl }}/api/registry/image-extensions/ "IIIF Image Extension Registry"
 [registry-motivations]: {{ site.url }}{{ site.baseurl }}/api/registry/motivations/
 [registry-behaviors]: {{ site.url }}{{ site.baseurl }}/api/registry/behaviors/

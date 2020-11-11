@@ -1,22 +1,20 @@
 ---
-title: IIIF Registry
+title: IIIF Registry of Known Extensions
 layout: spec
 tags: [annex, service, services, specifications]
 cssversion: 2
 ---
 
-# IIIF Registry of Known Extensions
-
 # Process
 
-The process for having an entry included in one of the IIIF registries is [described here][registry-process].
+The process for having an entry included in one of the IIIF extension registries is described in the [Process for Adding Entries to Registries][registry-process].
 
 # Registries
 
 ## Presentation API Registries
 
 * [Behaviors][registry-behaviors]
-* [Extensions][extensions]
+* [Presentation API Extensions][extensions]
 * [Motivations][registry-motivations]
 * [Profiles][registry-profiles]
 * [Services][registry-services]
@@ -26,8 +24,11 @@ The process for having an entry included in one of the IIIF registries is [descr
 
 ## Image API Registries
 
-* [Extensions][registry-image-extensions]
+* [Image API Extensions][registry-image-extensions]
 
+## Other Registries
+
+The [IIIF Registry of Activity Streams][registry-activity-streams] supports keeping up to date with IIIF resource changes according to the [IIIF Change Discovery API][discovery-api].
 
 {% include acronyms.md %}
 {% include links.md %}
