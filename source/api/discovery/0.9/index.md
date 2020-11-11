@@ -88,12 +88,12 @@ Activities are used to describe the state of the publishing system by recording 
 
 The Presentation API does not include descriptive metadata fields, and intentionally lacks the semantics needed to implement advanced or fielded search. Instead, the Presentation API uses the [`seeAlso`][prezi30-seealso] property to link to external documents that can have richer and domain-specific information about the content being presented. For example, a museum object might have a `seeAlso` reference to a CIDOC-CRM or LIDO description, while a bibliographic resource might reference a Dublin Core or MODS description. These external descriptions should be used when possible to provide interfaces giving access to more precise matching algorithms.
 
-This specification describes three levels of conformance that build upon each other in terms of functionality and precision of the information published. Sets of changes are published in pages, which are then aggregated into a collection per publisher. To reduce barriers to entry, care has been taken to allow for the possibility of implementing all levels using only static files on a web server, rather than requiring dynamic access to a database.
+This specification describes three levels of conformance that build upon each other in terms of functionality and precision of the information published. Sets of changes are published in pages, which are then aggregated into a collection per publisher. To reduce barriers to entry, care has been taken to allow for the possibility of implementing all levels using only static files on a web server, rather than requiring dynamic access to a database. 
 
-### 2.1. Listing Resources and their Changes
-{: #listing-resources-and-their-changes}
+### 2.1. IIIF Resources and their Changes
+{: #resources-and-their-changes}
 
-There are three levels of conformance at which changes can be described. Level 0 is simply a list of the resources available. Level 1 adds timestamps and ordering from earliest change to most recent, allowing a consuming application to work backwards through the list and stop processing once it encounters a change that it has already seen from a previous run. Level 2 adds information about the types of activities, enabling the explicit description of the creation and deletion of resources.
+There are three levels of conformance at which changes to IIIF resources can be described. Level 0 is simply a list of the resources available. Level 1 adds timestamps and ordering from earliest change to most recent, allowing a consuming application to work backwards through the list and stop processing once it encounters a change that it has already seen from a previous run. Level 2 adds information about the types of activities, enabling the explicit description of the creation and deletion of resources.
 
 The subsections below describe first how to construct the description of the changes for each level, and then in the next section how to embed them into ordered lists.
 
@@ -270,6 +270,11 @@ As the number of Activities is likely too many to usefully be represented in a s
   }
 }
 ```
+
+### 2.4. Registries of Collections
+{: # registries-of-collections}
+
+In order to discover the URIs for Collections, and through them the URIs of the IIIF resources, the IIIF Consortium manages a [Registry of Collections][discovery-registry]. This registry is itself an implementation of the Change Discovery API, however the IIIF resources are not Presentation API resources, but other Change Discovery API resources. This might include both Collections of Manifests, or other registries of Collections. The registry describes how it is managed and how to retrieve or submit content. The registry may also reference other methods of discovering IIIF content.
 
 
 ## 3. Activity Streams Details
@@ -912,7 +917,7 @@ Two variants of the same negotiable resource can be represented as follows.
 
 Many thanks to the members of the [IIIF community][iiif-community] for their continuous engagement, innovative ideas, and feedback.
 
-This specification is due primarily to the work of the [IIIF Discovery Technical Specification Group][groups-discovery], chaired by Antoine Isaac (Europeana), Matthew McGrattan (Digirati) and Rob Sanderson (J. Paul Getty Trust). The IIIF Community thanks them for their leadership, and the members of the group for their tireless work.
+This specification is due primarily to the work of the [IIIF Discovery Technical Specification Group][groups-discovery], chaired by Antoine Isaac (Europeana), Matthew McGrattan (Digirati) and Rob Sanderson (Yale University). The IIIF Community thanks them for their leadership, and the members of the group for their tireless work.
 
 ### B. Change Log
 {: #change-log}
