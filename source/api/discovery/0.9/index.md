@@ -93,7 +93,7 @@ This specification describes three levels of conformance that build upon each ot
 ### 2.1. IIIF Resources and their Changes
 {: #resources-and-their-changes}
 
-There are three levels of conformance at which changes to IIIF resoruces can be described. Level 0 is simply a list of the resources available. Level 1 adds timestamps and ordering from earliest change to most recent, allowing a consuming application to work backwards through the list and stop processing once it encounters a change that it has already seen from a previous run. Level 2 adds information about the types of activities, enabling the explicit description of the creation and deletion of resources.
+There are three levels of conformance at which changes to IIIF resources can be described. Level 0 is simply a list of the resources available. Level 1 adds timestamps and ordering from earliest change to most recent, allowing a consuming application to work backwards through the list and stop processing once it encounters a change that it has already seen from a previous run. Level 2 adds information about the types of activities, enabling the explicit description of the creation and deletion of resources.
 
 The subsections below describe first how to construct the description of the changes for each level, and then in the next section how to embed them into ordered lists.
 
