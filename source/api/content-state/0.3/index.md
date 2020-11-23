@@ -55,7 +55,7 @@ This specification provides a way of describing a [IIIF Presentation API][prezi-
 ### 1.1. Objectives and Scope
 {: #objectives-and-scope}
 
-* A link from a search result opens a IIIF viewer and focuses on the relevant part of the object, such as a particular line of text. 
+* A user follows a link from a search result, which opens a IIIF viewer. The viewer focuses on the relevant part of the object, such as a particular line of text that contains the searched-for term. 
 * A user opens several IIIF Manifests to compare paintings, then wishes to share this set of views with a colleague.
 
 These are examples of sharing a resource, or a particular view of a resource. Other examples include bookmarks, citations, playlists and deep linking into digital objects.
@@ -82,9 +82,9 @@ The specification uses the following terms:
 
 * __HTTP(S)__: The HTTP or HTTPS URI scheme and internet protocol.
 
-The terms _array_, _JSON object_, _number_, and _string_ in this document are to be interpreted as defined by the [Javascript Object Notation (JSON)][org-rfc-8259] specification.
+* __array__, __JSON object__, __number__, and __string__ in this document are to be interpreted as defined by the [Javascript Object Notation (JSON)][org-rfc-8259] specification.
 
-The term _Annotation_ in this document is to be interpreted as defined in the [W3C Web Annotation Data Model][org-w3c-webanno] specification.
+* __Annotation__ is to be interpreted as defined in the [W3C Web Annotation Data Model][org-w3c-webanno] specification.
 
 The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _SHOULD NOT_, _RECOMMENDED_, _MAY_, and _OPTIONAL_ in this document are to be interpreted as described in [RFC 2119][org-rfc-2119].
 
@@ -119,7 +119,7 @@ Any Annotation may have one or more [motivations][org-w3c-webanno-motivation], t
 
 A content state Annotation always has the motivation `contentState`. This motivation is not defined by either the [W3C Web Annotation Data Model][org-w3c-webanno] or the IIIF Presentation API, and is chosen to avoid potential ambiguity when the target of the content state Annotation is itself an Annotation. The content state annotation may also have additional motivations such as `bookmarking`, `identifying` and so on, as defined by the W3C Web Annotation Model, but it is its particular `contentState` motivation that produces the required behavior in compatible software.
 
-This section shows four possible forms the content state may take, all of which are equivalent to the following example, which is the simplest content state - a reference to a IIIF Manifest.
+A content state annotation can take several formats. All of the four examples below are equivalent to the following annotation, which is the simplest content state: a reference to a IIIF Manifest.
 
 ```json
 {
@@ -133,21 +133,23 @@ This section shows four possible forms the content state may take, all of which 
   }
 }
 ```
-A client _SHOULD_ be able to accept and process the content state value in all of these forms.
+
+Publishers _SHOULD_ provide the content state annotation in one of the following forms.
+A client _SHOULD_ be able to accept and process the content state in all of these forms. 
 
 #### 2.2.1 Full Annotation
 
-The content state may be supplied as JSON-LD, as a full Annotation with the motivation `contentState`, as in the example above.
+The content state _MAY_ be supplied as JSON-LD, as a full Annotation with the motivation `contentState`, as in the example above.
 
 The target of the annotation is in this case a complete IIIF resource (here, a Manifest) but in more complex cases, the target could be a part of a IIIF resource.  
 
-#### 2.2.2 Annotation URL
+#### 2.2.2 Annotation URI
 
-The content state may be supplied as a string whose value is the URL of an Annotation with the motivation `contentState`, that the client must de-reference and process. For the example above, this would be the URL `https://example.org/Annotation-server/bookmarks/b1`. The response from that URL would be the JSON above.
+The content state _MAY_ be supplied as a string whose value is the URI of an Annotation with the motivation `contentState`, that the client must de-reference and process. For the example above, this would be the URI `https://example.org/Annotation-server/bookmarks/b1`. The response from that URI would be the JSON above.
 
 #### 2.2.3 Target body
 
-The content state may be supplied as JSON-LD, as the value of the `target` property of an implied Annotation with the motivation `contentState`. For the example above, this would be:
+The content state _MAY_ be supplied as JSON-LD, as the value of the `target` property of an implied Annotation with the motivation `contentState`. For the example above, this would be:
 
 ```json
 {
@@ -158,13 +160,13 @@ The content state may be supplied as JSON-LD, as the value of the `target` prope
 
 This form is better suited to scenarios where compactness is important, for example a query string parameter, where it is will be combined with base64url encoding as described in Section 2.3.
 
-#### 2.2.4 Target URL
+#### 2.2.4 Target URI
 
-This is the simplest form and is just the URL of a resource. The content state may be supplied as a string whose value is the `id` (the URL) of the `target` property only. For the example above, this would be the URL `https://example.org/iiif/item1/manifest`. The client would simply load this Manifest and display it. 
+ The content state _MAY_ be supplied as a string whose value is the `id` (the dereferenceable URI) of the `target` property only. This is the simplest form and is just the URI of a resource. For the example above, this would be the URI `https://example.org/iiif/item1/manifest`. The client would simply load this Manifest and display it. 
 
-Examples 2.2.2 and 2.2.4 are both URLs. It is up to the client to recognise that 2.2.4 is a Manifest, whereas 2.2.2 is an Annotation that points to a Manifest. The client inspects the `type` property to determine what the de-referenced resource is.
+Examples 2.2.2 and 2.2.4 are both URIs. It is up to the client to recognise that 2.2.4 is a Manifest, whereas 2.2.2 is an Annotation that points to a Manifest. The client inspects the `type` property to determine what the de-referenced resource is.
 
-#### 2.2.5 Limitations of simple URLs
+#### 2.2.5 Limitations of simple URIs
 
 While supporting many requirements for sharing resources and initializing a client application, the 2.2.4 form is not capable of expressing content states that are part of a IIIF resource, such as a region of a Canvas, or a Canvas URI that is not itself de-referenceable. One of the other forms must be used for these purposes. 
 
@@ -185,7 +187,7 @@ While supporting many requirements for sharing resources and initializing a clie
 }
 ```
 
-This description cannot be conveyed by just a Canvas URL or a Manifest URL; it needs the structure provided by a content state Annotation. It can be reduced to _Target body_ form, but no further:
+This description cannot be conveyed by just a Canvas URI or a Manifest URI; it needs the structure provided by a content state Annotation. It can be reduced to _Target body_ form, but no further:
 
 
 ```json
@@ -206,7 +208,7 @@ There are many ways in which the content state data shown in Section 2.2 could b
 
 * Passing a content state as a query string parameter in an HTTP GET request
 * Passing a content state as a parameter in an HTTP POST request
-* Reacting to the [Paste][org-mozilla-paste] event, where the pasted data is the URL of a content state
+* Reacting to the [Paste][org-mozilla-paste] event, where the pasted data is the URI of a content state
 * Reacting to the [Paste][org-mozilla-paste] event, where the pasted data is a full content state
 * Using the [Drag and Drop API][org-mozilla-drag-drop] to expose and accept content states
 * Uploading content state from the client machine via the [FileReader][org-mozilla-filereader] interface
@@ -218,15 +220,13 @@ Examples of these protocols are given in Section 3, [Initialization mechanisms][
 
 #### 2.3.1 Base 64 Encoding with URL and Filename Safe Alphabet
 
-Any content state that is in JSON-LD form, rather than a simple URL string, _MUST_ be encoded as [Base 64 Encoding with URL and Filename Safe Alphabet][org-rfc-4648-5] ("base64url") when declared inline in an HTML document or passed as an HTTP request parameter (e.g., GET or POST), and a client _MUST_ accept it in that form. Note that "base64url" is not the same encoding as "base64", and is used to ensure the integrity of content states passed between web applications.
+Any content state that is in JSON-LD form, rather than a simple URI string, _MUST_ be encoded as [Base 64 Encoding with URL and Filename Safe Alphabet][org-rfc-4648-5] ("base64url") when declared inline in an HTML document or passed as an HTTP request parameter (e.g., GET or POST), and a client _MUST_ accept it in that form. Note that "base64url" is not the same encoding as "base64", and is used to ensure the integrity of content states passed between web applications.
 
-The destination character set when encoding _MUST_ be UTF-8. For example, when passing the content state as JSON-LD in a query string parameter, base64url is used, as unencoded JSON is vulnerable to corruption. Simple URL forms _SHOULD_ be plain strings.
+The destination character set when encoding _MUST_ be UTF-8. For example, when passing the content state as JSON-LD in a query string parameter, base64url is used, as unencoded JSON is vulnerable to corruption. Simple URI forms _SHOULD_ be plain strings.
 
 When published as inline, base64url-encoded JSON-LD in the full form given in 2.2, the content state Annotation _MAY_ omit the `id` and `@context` properties.
 
 ##### 2.3.2 Example of base64url encoding
-
-The following example:
 
 ```json
 {
@@ -239,14 +239,14 @@ The following example:
 }
 ```
 
-...can be condensed to remove unecessary whitespace:
+The above annotation JSON can be condensed to remove unecessary whitespace:
 
 
 ```
-{"id": "https://example.org/object1/canvas7#xywh=1000,2000,1000,2000","type":"Canvas","partOf":[{"id":"https://example.org/object1/manifest","type":"Manifest"}]}
+{"id":"https://example.org/object1/canvas7#xywh=1000,2000,1000,2000","type":"Canvas","partOf":[{"id":"https://example.org/object1/manifest","type":"Manifest"}]}
 ```
 
-...and then encoded (this example in Python)
+The condensed form is then encoded (this example in Python):
 
 ```python
 >>> import base64
@@ -255,14 +255,14 @@ The following example:
 b'eyJpZCI6ICJodHRwczovL2V4YW1wbGUub3JnL29iamVjdDEvY2FudmFzNyN4eXdoPTEwMDAsMjAwMCwxMDAwLDIwMDAiLCJ0eXBlIjoiQ2FudmFzIiwicGFydE9mIjpbeyJpZCI6Imh0dHBzOi8vZXhhbXBsZS5vcmcvb2JqZWN0MS9tYW5pZmVzdCIsInR5cGUiOiJNYW5pZmVzdCJ9XX0='
 ```
 
-The string "eyJp...XX0=" is the now URL-safe, encoded form of the content state, suitable for passing to and from web applications.
+The string "eyJp...XX0=" is the now URI-safe, encoded form of the content state, suitable for passing to and from web applications.
 
 Not all use cases for providing a content state to a client require base64url encoding, because not all of them are susceptible to HTTP transmission issues. For example, a user interface could allow the user to paste or even type content state JSON-LD directly. Examples are given in section 3. In these scenarios, the client should accept unencoded JSON, too.
 
 
-#### 2.3.4 Url-Encoding
+#### 2.3.4 URI-Encoding
 
-If the content state is a simple URL, it _MUST NOT_ be base64url encoded. It _MAY_ be url-encoded (percent encoding, as defined by [org-rfc-3986][Generic URI Syntax, RFC 3986]), and a client _MUST_ accept it in that form. 
+If the content state is a simple URI, it _MUST NOT_ be base64url encoded. It _MAY_ be uri-encoded (percent encoding, as defined by [org-rfc-3986][Generic URI Syntax, RFC 3986]), and a client _MUST_ accept it in that form. 
 
 
 #### 2.3.4 Protocol
@@ -275,7 +275,7 @@ If a client is capable of reading the content state from the value of an attribu
 
 A content state Annotation may be published inline as part of an HTML document, as in the preceding `data-iiif-content` example, or as a query string parameter forming part of the `href` property of an HTML anchor tag. 
 
-If the content state is a simple URL, the client _MUST_ load the resource at that URL and process it. The resource at that URL _MUST_ be the full Annotation as in 2.2.2. above, or a IIIF Resource as in 2.2.4. That is, the de-referenced response _MUST_ be JSON-LD, and _SHOULD_ have a value of `type` taken from `Annotation`, `Collection`, `Manifest`, `Canvas` and `Range`. The response _MUST_ use UTF-8 encoding.
+If the content state is a simple URI, the client _MUST_ load the resource at that URI and process it. The resource at that URI _MUST_ be the full Annotation as in 2.2.2. above, or a IIIF Resource as in 2.2.4. That is, the de-referenced response _MUST_ be JSON-LD, and _SHOULD_ have a value of `type` taken from `Annotation`, `Collection`, `Manifest`, `Canvas` and `Range`. The response _MUST_ use UTF-8 encoding.
 
 If the `type` property of the dereferenced resource is `Canvas` or `Range`, the resource _MUST_ include the Manifest URI that the Canvas or Range is to be found in, using the `partOf` property, as in example 2.3.2 above.
 
@@ -301,7 +301,7 @@ If the intention is that the linked-to client loads an entire IIIF resource with
 
 ```html
 {% raw %}
-<a href='https://example.org/viewer?iiif-content=http://dams.llgc.org.uk/iiif/2.0/4389767/manifest.json'>Link to Viewer</a>
+<a href="https://example.org/viewer?iiif-content=http://dams.llgc.org.uk/iiif/2.0/4389767/manifest.json">Link to Viewer</a>
 {% endraw %}
 ```
 
@@ -377,10 +377,12 @@ However, as JSON-LD again, this _MUST_ be base64url encoded UTF-8:
 {% endraw %}
 ```
 
-#### 3.1.2 Linking: HTTP POST (form) parameter
+#### 3.1.2 HTTP POST (form) parameter
 {: #initialization-mechanisms-post}
 
-The same data structure, in the same forms, may instead be passed in a POST parameter. This is suited to server-side web applications, such as a web page rendering citations or a view initialized on the server. It is not suitable for initialising a standalone JavaScript application, as the POST data is typically unavailable.
+The same data structure, in the same formats, may instead be passed to a server in an HTTP POST. This is suited to server-side web applications, such as a web page rendering citations or a view initialized on the server. It is not suitable for initialising a standalone JavaScript application, as the POST data is typically unavailable.
+
+The data should be sent with the `Content-Type` header value `application/x-www-form-urlencoded`, with the parameter name `iiif-content`, as in the following example. This allows content states to be submitted from simple HTML forms (for example, pasting a citation). Curl uses form-urlencoded by default for POST:
 
 ```
 curl -d 'iiif-content=aHR0cHM6Ly9leGFtcGxlLm9yZy92aWV3ZXI_aWlpZi1jb250ZW50PXsiaWQiOiJodHRwOi8vZGFtcy5sbGdjLm9yZy51ay9paWlmLzIuMC80Mzg5NzY3L2NhbnZhcy80Mzg5NzcyLmpzb24iLCJ0eXBlIjoiQ2FudmFzIiwicGFydE9mIjpbeyJpZCI6Imh0dHA6Ly9kYW1zLmxsZ2Mub3JnLnVrL2lpaWYvMi4wLzQzODk3NjcvbWFuaWZlc3QuanNvbiIsInR5cGUiOiJNYW5pZmVzdCJ9XX0=' -X POST https://example.org/citation-renderer
@@ -392,7 +394,7 @@ In this example, the server at `https://example.org/citation-renderer` should ex
 #### 3.1.3 Accepting the content state as a paste operation
 {: #initialization-mechanisms-paste}
 
-The client allows the content state URL or data to be pasted into part of its UI (e.g., from a "Load..." option exposing a `textarea` element for the user to manually paste into). A client can also accept a paste operation transparently, by reading from the clipboard:
+The client allows the content state URI or data to be pasted into part of its UI (e.g., from a "Load..." option exposing a `textarea` element for the user to manually paste into). A client can also accept a paste operation transparently, by reading from the clipboard:
 
 ```html
 <script>
@@ -404,7 +406,7 @@ The client allows the content state URL or data to be pasted into part of its UI
 </script>
 ```
 
-In that scenario the user can paste the content state directly into the view. If supporting this scenario, the client _SHOULD_ accept unencoded JSON as well as base64url encoded JSON, and _SHOULD_ accept resource URLs directly, such as a manifest URL.
+In that scenario the user can paste the content state directly into the view. If supporting this scenario, the client _SHOULD_ accept unencoded JSON as well as base64url encoded JSON, and _SHOULD_ accept resource URIs directly, such as a manifest URI.
 
 Refer to Section 3.2 below for methods of exporting data, including the _Copy to clipboard_ pattern, a natural pairing with a paste operation, from one viewer to another.
 
@@ -496,10 +498,10 @@ A JavaScript client can accept content state from the client machine via the `Fi
 This is a variant of 3.1.1, with the parameter value a URI rather than the content itself.
 
 ```html
-<a href='https://example.org/viewer?iiif-content=https://publisher.org/fragment123.json'>Link to Viewer</a>
+<a href="https://example.org/viewer?iiif-content=https://publisher.org/fragment123.json">Link to Viewer</a>
 ```
 
-The same rules apply; the viewer _MUST_ dereference and process the Annotation at that URL.
+The same rules apply; the viewer _MUST_ dereference and process the Annotation at that URI.
 
 ### 3.1.7 Common initialization parameter
 
@@ -533,7 +535,7 @@ There are further ways in which a client can _export_ state, beyond populating a
 
 ## 4. Examples of content states
 
-The following examples demonstrate the use of the existing IIIF Presentation API and W3C Web Annotation Data Model to describe parts of resources. Any IIIF resource that can be expressed in the Presentation model can be used in a content state. The full form of the Annotation (as if it were available at the URL given in the `id` property) has been used in each case.  Further examples can be found in the [IIIF Cookbook][annex-cookbook].
+The following examples demonstrate the use of the existing IIIF Presentation API and W3C Web Annotation Data Model to describe parts of resources. Any IIIF resource that can be expressed in the Presentation model can be used in a content state. The full form of the Annotation (as if it were available at the URI given in the `id` property) has been used in each case.  Further examples can be found in the [IIIF Cookbook][annex-cookbook].
 
 Publishers should strive to provide the simplest JSON-LD representation, and not assume that any client can handle arbitrarily complex content states.
 
@@ -647,7 +649,7 @@ Firstly, in non-valid, unencoded form to show the annotation:
 <h2>Results for "cats"</h2>
 <ol>
   <li>
-    <h3><a href='viewer.html?iiif-content=eyJpZCI6Imh0dHBzOi8vZXhhbXBsZS5vcmcvYWxpY2UvY2FudmFzNzcjeHl3aD0xMDAwLDIwMDAsMTAwMCwyMDAwIiwidHlwZSI6IkNhbnZhcyIsInBhcnRPZiI6W3siaWQiOiJodHRwczovL2V4YW1wbGUub3JnL2FsaWNlL21hbmlmZXN0IiwidHlwZSI6Ik1hbmlmZXN0In1dfQ=='>Alice in Wonderland</a></h3>
+    <h3><a href="viewer.html?iiif-content=eyJpZCI6Imh0dHBzOi8vZXhhbXBsZS5vcmcvYWxpY2UvY2FudmFzNzcjeHl3aD0xMDAwLDIwMDAsMTAwMCwyMDAwIiwidHlwZSI6IkNhbnZhcyIsInBhcnRPZiI6W3siaWQiOiJodHRwczovL2V4YW1wbGUub3JnL2FsaWNlL21hbmlmZXN0IiwidHlwZSI6Ik1hbmlmZXN0In1dfQ==">Alice in Wonderland</a></h3>
     <p>...she has often seen a <b>cat</b> without a grin but never a grin without a <b>cat</b></p>
   </li>
   <!-- ... more results -->
@@ -669,7 +671,8 @@ Many of the changes in this version are due to the work of the [IIIF Discovery T
 
 | Date       | Description           |
 | ---------- | --------------------- |
-| 2018-10-31 | Version 0.1 (unnamed) |
+| 2020-11-22 | Version 0.3 (unnamed) |
 | 2019-02-04 | Version 0.2 (unnamed) |
+| 2018-10-31 | Version 0.1 (unnamed) |
 
 {% include links.md %}
