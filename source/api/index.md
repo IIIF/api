@@ -21,7 +21,7 @@ cssversion: 2
 | API                  | Draft Version (Status) |
 | -------------------- | ---------------------- |
 | Change Discovery API | [0.9.0 BETA][discovery09] |
-| Content State API    | [0.2.0][contentstate02]|
+| Content State API    | [0.3.0][contentstate03]|
 {: .api-table}
 
 __Feedback Requested__<br/>
@@ -90,7 +90,7 @@ IIIF Specifications are created and published following the [IIIF Editorial Proc
 [search10]: {{ site.url }}{{ site.baseurl }}/api/search/1.0/ "Search API v1.0"
 [search09]: {{ site.url }}{{ site.baseurl }}/api/search/0.9/ "Search API v0.9"
 [discovery09]: {{ site.url }}{{ site.baseurl }}/api/discovery/0.9/ "IIIF Change Discovery API"
-[contentstate02]: {{ site.url }}{{ site.baseurl }}/api/content-state/0.2/ "IIIF Content State API"
+[contentstate03]: {{ site.url }}{{ site.baseurl }}/api/content-state/0.3/ "IIIF Content State API"
 [notes]: {{ site.url }}{{ site.baseurl }}/api/annex/ "Implementation Notes"
 [editorial-process]: {{ page.webprefix }}/community/policy/editorial/ "IIIF Editorial Process"
 
