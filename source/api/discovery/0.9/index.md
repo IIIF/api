@@ -361,7 +361,12 @@ Ordered Collections _MAY_ have a `totalItems` property. The value _MUST_ be a no
 
 This property is used to refer to one or more documents that semantically describe **the set of resources** that are being acted upon in the Activities within the Ordered Collection, rather than any particular resource referenced from within the collection. This would allow the Ordered Collection to refer to, for example, a [DCAT][org-w3c-dcat] description of the dataset. For Ordered Collections that aggregate activities and/or objects from multiple sources, the referenced description should describe the complete aggregation rather than an individual source.
 
-Ordered Collections _MAY_ have a `seeAlso` property. The value _MUST_ be an array of one or more JSON objects, with the `id` and `type` properties. The value of the `id` property _MUST_ be a string, and it _MUST_ be the HTTP(S) URI of the description of the dataset. The value of the `type` property _MUST_ be the string `Dataset`. The JSON object _MAY_ have the `format` property, the value of which _MUST_ be a string, and it _MUST_ be the MIME media type of the referenced description document.
+Ordered Collections _MAY_ have a `seeAlso` property. The value _MUST_ be an array of one or more JSON objects, with the `id` and `type` properties. The value of the `id` property _MUST_ be a string, and it _MUST_ be the HTTP(S) URI of the description of the dataset. The value of the `type` property _MUST_ be the string `Dataset`. The JSON object has the same structure as in the Presentation API, and thus _SHOULD_ have the following properties:
+
+* `format`, the value of which _MUST_ be a string, and it _MUST_ be the MIME media type of the referenced description document
+* `label`, the value of which _MUST_ be a JSON object, following the pattern for language maps described in the [Presentation API][prezi30-languages]
+* `profile`, the value of which _MUST_ be a string containing either a value from the [profiles registry][registry-profiles] or a URI
+
 
 ```json-doc
 {
@@ -369,7 +374,9 @@ Ordered Collections _MAY_ have a `seeAlso` property. The value _MUST_ be an arra
     {
       "id": "https://example.org/dataset/all-dcat.jsonld",
       "type": "Dataset",
-      "format": "application/ld+json"
+      "label": { "en": [ "DCAT description of Collection" ] },
+      "format": "application/ld+json",
+      "profile": "http://www.w3.org/ns/dcat#"
     }
   ]
 }
@@ -417,7 +424,9 @@ The value _MUST_ be a string. If the value is drawn from Creative Commons or Rig
     {
       "id": "https://example.org/dataset/all-dcat.jsonld",
       "type": "Dataset",
-      "format": "application/ld+json"
+      "label": { "en": [ "DCAT description of Collection" ] },
+      "format": "application/ld+json",
+      "profile": "http://www.w3.org/ns/dcat#"
     }
   ],
   "partOf": [
@@ -639,7 +648,9 @@ The object _MAY_ have a `provider` property, as defined by the [IIIF Presentatio
       {
         "id": "https://example.org/dataset/single-item.jsonld",
         "type": "Dataset",
-        "format": "application/ld+json"
+        "label": { "en": [ "Object Description in Schema.Org" ] }
+        "format": "application/ld+json",
+        "profile": "https://schema.org/"
       }
     ],
     "provider": [
