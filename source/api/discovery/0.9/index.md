@@ -662,7 +662,7 @@ The object _MAY_ have a `provider` property, as defined by the [IIIF Presentatio
       {
         "id": "https://example.org/dataset/single-item.jsonld",
         "type": "Dataset",
-        "label": { "en": [ "Object Description in Schema.Org" ] }
+        "label": { "en": [ "Object Description in Schema.Org" ] },
         "format": "application/ld+json",
         "profile": "https://schema.org/"
       }
