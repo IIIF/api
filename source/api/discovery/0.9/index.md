@@ -104,7 +104,7 @@ The core information required to provide a minimally effective set of links to I
 
 This minimal level 0 API approach is compatible with the levels 1 and 2 which introduce significant benefits that allow clients to better optimize their interactions.
 
-If resources are deleted after being referred to in the resource list, the entire list should be republished without the reference to the deleted resource. Clients should also expect to encounter resource URIs that are out of date and no longer resolve to a IIIF Manifest or Collection.
+If resources are deleted after being referred to in the resource list, the entire list should be republished without the reference to the deleted resource. Clients should also expect to encounter resource URIs that are out of date and no longer resolve to a IIIF Manifest or Collection, as well as activities which do not refer to IIIF resource types at all.
 
 Example Level 0 Activity:
 
@@ -203,6 +203,20 @@ Example Remove Activity:
 }
 ```
 
+#### 2.1.5. State Refresh Activities
+{: #state-refresh-activities}
+
+Sometimes a publishing system will do a complete refresh of its records and re-issue an activity for every resource.  When this happens, it is a good practice to include a `Refresh` activity immediately before the `Update` activities for the resources. This allows a consuming application to stop looking for new resources beyond this point, as all of the available ones will already have been encountered. Note that the `Refresh` uses `startTime` rather than `endTime` as the datetime when it occurs, in order to ensure that it is positioned before the resource activities in the sorted stream. 
+
+Consuming applications that have processed the stream previously should continue to read backwards beyond this point, in order to process any Delete activities, but do not need to process other activity types.  Applications that have not processed the stream previously can simply stop when the `Refresh` activity is encountered. 
+
+```json-doc
+{
+  "type": "Refresh",
+  "summary": "System refresh initiated",
+  "startTime": "2020-06-21T00:00:00Z"
+}
+```
 
 ### 2.2. Pages of Changes
 {: #pages-of-changes}
@@ -361,7 +375,7 @@ Ordered Collections _MAY_ have a `totalItems` property. The value _MUST_ be a no
 
 This property is used to refer to one or more documents that semantically describe **the set of resources** that are being acted upon in the Activities within the Ordered Collection, rather than any particular resource referenced from within the collection. This would allow the Ordered Collection to refer to, for example, a [DCAT][org-w3c-dcat] description of the dataset. For Ordered Collections that aggregate activities and/or objects from multiple sources, the referenced description should describe the complete aggregation rather than an individual source.
 
-Ordered Collections _MAY_ have a `seeAlso` property. The value _MUST_ be an array of one or more JSON objects, with the `id` and `type` properties. The value of the `id` property _MUST_ be a string, and it _MUST_ be the HTTP(S) URI of the description of the dataset. The value of the `type` property _MUST_ be the string `Dataset`. The JSON object has the same structure as in the Presentation API, and thus _SHOULD_ have the following properties:
+Ordered Collections _MAY_ have a `seeAlso` property. The value _MUST_ be an array of one or more JSON objects, with the `id` and `type` properties. The value of the `id` property _MUST_ be a string, and it _MUST_ be the HTTP(S) URI of the description of the dataset. The value of the `type` property _MUST_ be the string `Dataset`. Please note that any resource that is intended to be used by software is tagged as `Dataset`, including single files. The JSON object has the same structure as in the Presentation API, and thus _SHOULD_ have the following properties:
 
 * `format`, the value of which _MUST_ be a string, and it _MUST_ be the MIME media type of the referenced description document
 * `label`, the value of which _MUST_ be a JSON object, following the pattern for language maps described in the [Presentation API][prezi30-languages]
@@ -630,7 +644,7 @@ The IIIF resource that was affected by the Activity. It is an implementation dec
 
 In the case of the `Move` activity, the `object` property contains the `id` and `type` of the source from whence it was moved. The new location will be in the `target` property, described below.
 
-Activities _MUST_ have the `object` property. The value _MUST_ be a JSON object, with the `id` and `type` properties. The `id` _MUST_ be an HTTP(S) URI. The `type` _SHOULD_ be a class defined in the IIIF Presentation API, and _SHOULD_ be one of `Collection`, or `Manifest`.  
+Activities _MUST_ have the `object` property. The value _MUST_ be a JSON object, with the `id` and `type` properties. The `id` _MUST_ be an HTTP(S) URI. The `type` _SHOULD_ be a class defined in the IIIF Presentation API, and _SHOULD_ be one of `Collection`, or `Manifest`.  The `type`, therefore, _MAY_ be any class, including those not defined by the IIIF Presentation API, and consuming applications _SHOULD_ validate the `type` as being one that is appropriate for their usage.
 
 The object _MAY_ have a `seeAlso` property, as defined for `OrderedCollection` above, to reference a document that describes the object resource. The document referenced in the `seeAlso` property _MAY_ also be referenced with the `seeAlso` property in an instance of the IIIF Presentation API. The `type` of the document referenced in the `seeAlso` property should be given as `Dataset`, meaning that it is data rather than a human-readable document.
 
@@ -809,7 +823,8 @@ Given the URI of an ActivityStreams Collection (`collection`) as input, a confor
   <li>Initialization:
     <ol>
       <li>Let <code class="highlighter-rouge">processedItems</code> be an empty array</li>
-      <li>Let <code class="highlighter-rouge">lastCrawl</code> be the timestamp of the previous time the algorithm was executed</li>
+      <li>Let <code class="highlighter-rouge">lastCrawl</code> be the timestamp of the previous time the algorithm was executed or null if this is the first time the stream has been processed</li>
+      <li>Let <code class="highlighter-rouge">onlyDelete</code> be <code class="highlighter-route">False</code></li>
     </ol>
   </li>
   <li>Retrieve the representation of <code class="highlighter-rouge">collection</code> via HTTP(S)</li>
@@ -827,12 +842,15 @@ Given the URI of an ActivityStreams CollectionPage (`page`), a list of processed
   <li>Retrieve the representation of <code class="highlighter-rouge">page</code> via HTTP(S)</li>
   <li>Validate that the retrieved representation contains at least the features required for processing</li>
   <li>Find the set of updates of the page at <code class="highlighter-rouge">page.orderedItems</code> (<code class="highlighter-rouge">items</code>)</li>
-  <li>In reverse order, iterate through the activities (<code class="highlighter-rouge">activity</code>) in <code class="highlighter-rouge">items</code>:
+  <li>In <b>reverse order</b>, iterate through the activities (<code class="highlighter-rouge">activity</code>) in <code class="highlighter-rouge">items</code>:
     <ol>
-      <li>For each <code class="highlighter-rouge">activity</code>, if <code class="highlighter-rouge">activity.endTime</code> is before <code class="highlighter-rouge">lastCrawl</code>, then terminate ;</li>
+      <li>If <code class="highlighter-rouge">activity.endTime</code> is before <code class="highlighter-rouge">lastCrawl</code>, then terminate ;</li>
+      <li>If <code class="highlighter-rouge">activity.type</code> is <code class="highlighter-rouge">Refresh</code>, then if <code class="highlighter-rouge">lastCrawl</code> is not null, then set <code class="highlighter-rouge">onlyDelete</code> to <code class="highlighter-rouge">True</code>, else if <code class="highlighter-rouge">lastCrawl</code> is null, then terminate;</li> 
       <li>If the updated resource's URI at <code class="highlighter-rouge">activity.object.id</code> is in <code class="highlighter-rouge">processedItems</code>, then continue ;</li>
-      <li>Otherwise, if <code class="highlighter-rouge">activity.type</code> is <code class="highlighter-rouge">Update</code> or <code class="highlighter-rouge">Create</code>, or it is <code class="highlighter-rouge">Add</code> and <code class="highlighter-rouge">activity.target.id</code> is the URI of the current stream, then find the URI of the resource at <code class="highlighter-rouge">activity.object.id</code> (<code class="highlighter-rouge">object</code>) and process its inclusion ;</li>
+      <li>If the updated resource's class at <code class="highlighter-rouge">activity.object.type</code> is not one that is known to the processor, then continue ;</li>
       <li>Otherwise, if <code class="highlighter-rouge">activity.type</code> is <code class="highlighter-rouge">Delete</code>, or it is <code class="highlighter-rouge">Remove</code> and <code class="highlighter-rouge">activity.origin.id</code> is the URI of the current stream, then find the URI of the resource at <code class="highlighter-rouge">activity.object.id</code> and process its removal ;</li>
+      <li>Otherwise, if <code class="highligher-rouge">onlyDelete</code> is <code class="highlighter-rouge">True</code>, then continue ;</li>
+      <li>Otherwise, if <code class="highlighter-rouge">activity.type</code> is <code class="highlighter-rouge">Update</code> or <code class="highlighter-rouge">Create</code>, or it is <code class="highlighter-rouge">Add</code> and <code class="highlighter-rouge">activity.target.id</code> is the URI of the current stream, then find the URI of the resource at <code class="highlighter-rouge">activity.object.id</code> (<code class="highlighter-rouge">object</code>) and process its inclusion ;</li>
       <li>Otherwise, if <code class="highlighter-rouge">activity.type</code> is <code class="highlighter-rouge">Move</code>, then find the original URI of the moved resource at <code class="highlighter-rouge">activity.object</code> and process its removal, and find the new URI of the moved resource at <code class="highlighter-rouge">activity.target</code> and process its inclusion.</li>
       <li>Add the processed resource's URI to <code class="highlighter-rouge">processedItems</code></li>
     </ol>
