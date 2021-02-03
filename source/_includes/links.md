@@ -10,6 +10,7 @@
 [auth1-logout-service]: {{ site.url }}{{ site.baseurl }}/api/auth/1.0/#logout-service "IIIF Authentication Logout Service"
 [auth1-token-service]: {{ site.url }}{{ site.baseurl }}/api/auth/1.0/#access-token-service "IIIF Authentication Access Token Service"
 [auth1]: {{ site.url }}{{ site.baseurl }}/api/auth/1.0/ "IIIF Authentication API 1.0"
+[contentstate-initialization]: {{ site.url }}{{ site.baseurl }}/api/content-state/0.3/#initialization "Initialization mechanisms (protocol)"
 [discovery-api]: {{ site.url }}{{ site.baseurl }}/api/discovery/ "IIIF Change Discovery API"
 [discovery01]: {{ site.url }}{{ site.baseurl }}/api/discovery/0.1/ "IIIF Change Discovery API"
 [discovery02]: {{ site.url }}{{ site.baseurl }}/api/discovery/0.2/ "IIIF Change Discovery API"
@@ -139,6 +140,9 @@
 [org-json-ld]: http://www.json-ld.org/ "JSON for Linking Data"
 [org-linked-data]: http://linkeddata.org/ "Linked Data"
 [org-mellon]: http://www.mellon.org/ "The Andrew W. Mellon Foundation"
+[org-mozilla-drag-drop]: https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API "HTML Drag and Drop API"
+[org-mozilla-paste]: https://developer.mozilla.org/en-US/docs/Web/API/Element/paste_event "Element: paste event"
+[org-mozilla-filereader]: https://developer.mozilla.org/en-US/docs/Web/API/FileReader "FileReader"
 [org-open-annotation-multi]: http://www.openannotation.org/spec/core/multiplicity.html#Choice "Open Annotation: Multiplicity"
 [org-open-annotation-types]: http://www.openannotation.org/spec/core/core.html#BodyTargetType "Open Annotation: Body Target"
 [org-open-annotation]: http://www.openannotation.org/spec/core/ "Open Annotation"
@@ -147,6 +151,7 @@
 [org-rfc-2617]: https://tools.ietf.org/html/rfc2617 "HTTP Authentication: Basic and Digest Access Authentication"
 [org-rfc-3986]: https://tools.ietf.org/html/rfc3986 "Uniform Resource Identifier (URI): Generic Syntax"
 [org-rfc-4122]: https://tools.ietf.org/html/rfc4122 "URN UUID Scheme"
+[org-rfc-4648-5]: https://tools.ietf.org/html/rfc4648#section-5 "Base 64 Encoding with URL and Filename Safe Alphabet"
 [org-rfc-5988]: https://tools.ietf.org/html/rfc5988 "Web Linking"
 [org-rfc-6266]: https://tools.ietf.org/html/rfc6266 "Use of the Content-Disposition Header Field in the Hypertext Transfer Protocol (HTTP)"
 [org-rfc-6570]: https://tools.ietf.org/html/rfc6570 "URI Template"
@@ -169,7 +174,8 @@
 [org-w3c-rdf11-blank-nodes]: http://www.w3.org/TR/rdf11-concepts/#section-blank-nodes "RDF 1.1 Concepts"
 [org-w3c-svg]: http://www.w3.org/TR/SVG/ "Scalabe Vector Graphics"
 [org-w3c-webanno-protocol]: http://w3.org/TR/annotation-protocol/ "Web Annotation Protocol"
-[org-w3c-webanno]: http://w3.org/TR/annotation-model/ "Web Annotaiton Model"
+[org-w3c-webanno]: http://w3.org/TR/annotation-model/ "Web Annotation Model"
+[org-w3c-webanno-motivation]: https://www.w3.org/TR/annotation-model/#motivation-and-purpose "Web Annotation Model - Motivation"
 [org-w3c-webarch]: http://www.w3.org/TR/webarch/ "Architecture of the World Wide Web"
 [org-w3c-xsd-datetime]: https://www.w3.org/TR/xmlschema11-2/#dateTime "XSD DateTime"
 [org-wsgi-pep333]: https://www.python.org/dev/peps/pep-0333/ "PEP 0333"
@@ -211,6 +217,7 @@
 [extensions]: {{ site.url }}{{ site.baseurl }}/api/extension/
 [text-granularity]: {{ site.url }}{{ site.baseurl }}/api/extension/text-granularity/
 [registry]: {{ site.url }}{{ site.baseurl }}/api/registry/ "IIIF Extension Registry"
+[registry-activity-streams]: https://registry.iiif.io/ "IIIF Registry of Activity Streams"
 [registry-image-extensions]: {{ site.url }}{{ site.baseurl }}/api/registry/image-extensions/ "IIIF Image Extension Registry"
 [registry-motivations]: {{ site.url }}{{ site.baseurl }}/api/registry/motivations/
 [registry-behaviors]: {{ site.url }}{{ site.baseurl }}/api/registry/behaviors/
