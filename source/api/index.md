@@ -20,7 +20,7 @@ cssversion: 2
 
 | API                  | Draft Version (Status) |
 | -------------------- | ---------------------- |
-| Change Discovery API | [0.9.0 BETA][discovery09] |
+| Change Discovery API | [0.9.1 BETA][discovery09] |
 | Content State API    | [0.3.0][contentstate03]|
 {: .api-table}
 
