@@ -13,7 +13,7 @@ cssversion: 2
 | Authentication API | [{{ site.auth_api.stable.major }}.{{ site.auth_api.stable.minor }}.{{ site.auth_api.stable.patch}}][auth{{ site.auth_api.stable.major }}{{ site.auth_api.stable.minor }}] |
 | Image API          | [{{ site.image_api.stable.major }}.{{ site.image_api.stable.minor }}.{{ site.image_api.stable.patch}}][image{{ site.image_api.stable.major }}{{ site.image_api.stable.minor }}] |
 | Presentation API   | [{{ site.presentation_api.stable.major }}.{{ site.presentation_api.stable.minor }}.{{ site.presentation_api.stable.patch }}][prezi{{ site.presentation_api.stable.major }}{{ site.presentation_api.stable.minor }}] |
-| Search API   | [{{ site.search_api.stable.major }}.{{ site.search_api.stable.minor }}.{{ site.search_api.stable.patch }}][search{{ site.search_api.stable.major }}{{ site.search_api.stable.minor }}] |
+| Content Search API | [{{ site.search_api.stable.major }}.{{ site.search_api.stable.minor }}.{{ site.search_api.stable.patch }}][search{{ site.search_api.stable.major }}{{ site.search_api.stable.minor }}] |
 {: .api-table}
 
 ## Draft Specifications
@@ -34,7 +34,7 @@ We welcome feedback on all IIIF Specifications. Please send any feedback to [iii
 | ------------------ | ------- | --------------------- |
 | Image API          | 2.1     | [Japanese][image-jp]  |
 | Presentation API   | 2.1     | [Japanese][prezi-jp]  |
-| Search API         | 1.0     | [Japanese][search-jp] |
+| Content Search API | 1.0     | [Japanese][search-jp] |
 | Authentication API | 1.0     | [Japanese][auth-jp]   |
 {: .api-table}
 
