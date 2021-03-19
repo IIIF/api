@@ -283,7 +283,7 @@ As these responses include Search specific information, the value of `@context` 
 
 To incrementally build upon existing solutions and provide graceful degradation for clients that do not support these features and retain compatibility with the Presentation API, the search API specific information is included in a second list within the annotation list called `hits`, other than the `ignored` property on the layer.  Annotation lists _MAY_ have this property, and servers _MAY_ support these features.
 
-If supported, each entry in the `hits` list is a `search:Hit` object.  This type must be included as the value of the `@type` property. Hit objects reference one or more annotations that they provide additional information for, in a list as the value of the hit's `annotations` property.  The reference is made to the value of the `@id` property of the annotation, and thus annotations _MUST_ have a URI to enable this further information.
+If supported, each entry in the `hits` list is a `search:Hit` object.  This type _MUST_ must be included as the value of the `@type` property. Hit objects reference one or more annotations that they provide additional information for, in a list as the value of the hit's `annotations` property.  The reference is made to the value of the `@id` property of the annotation, and thus annotations _MUST_ have a URI to enable this further information.
 
 The basic structure is:
 
