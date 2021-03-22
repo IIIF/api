@@ -172,7 +172,7 @@ While supporting many requirements for sharing resources and initializing a clie
 
 ```json
 {
-  "@context": "http://iiif.io/api/presentation/{{ page.major }}/context.json",
+  "@context": "http://iiif.io/api/presentation/3/context.json",
   "id": "https://example.org/import/1",
   "type": "Annotation",
   "motivation": ["contentState"],
@@ -543,7 +543,7 @@ Publishers should strive to provide the simplest JSON-LD representation, and not
 
 ```json
 {
-  "@context": "http://iiif.io/api/presentation/{{ page.major }}/context.json",
+  "@context": "http://iiif.io/api/presentation/3/context.json",
   "id": "https://example.org/import/1",
   "type": "Annotation",
   "motivation": ["contentState"],
@@ -565,7 +565,7 @@ When processed by a viewer, the user should see the rectangle `1000,2000,1000,20
 
 ```json
 {
-  "@context": "http://iiif.io/api/presentation/{{ page.major }}/context.json",
+  "@context": "http://iiif.io/api/presentation/3/context.json",
   "id": "https://example.org/import/2",
   "type": "Annotation",
   "motivation": ["contentState"],
@@ -594,7 +594,7 @@ This example should cause a viewer to open Manifest https://example.org/iiif/id1
 
 ```json
 {
-  "@context": "http://iiif.io/api/presentation/{{ page.major }}/context.json",
+  "@context": "http://iiif.io/api/presentation/3/context.json",
   "id": "https://example.org/import/3",
   "type": "Annotation",
   "motivation": "contentState",
