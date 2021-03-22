@@ -115,7 +115,7 @@ The Annotation must contain enough information about de-referenceable resources 
 
 ### 2.2 Form of Annotation
 
-Any Annotation may have one or more [motivations][org-w3c-webanno-motivation], that provide the reason(s) why is was created. For example, `bookmarking`. 
+Any Annotation may have one or more [motivations][org-w3c-webanno-motivation], that provide the reason(s) why it was created. For example, `bookmarking`. 
 
 A content state Annotation always has the motivation `contentState`. This motivation is not defined by either the [W3C Web Annotation Data Model][org-w3c-webanno] or the IIIF Presentation API, and is chosen to avoid potential ambiguity when the target of the content state Annotation is itself an Annotation. The content state annotation may also have additional motivations such as `bookmarking`, `identifying` and so on, as defined by the W3C Web Annotation Model, but it is its particular `contentState` motivation that produces the required behavior in compatible software.
 
@@ -158,7 +158,7 @@ The content state _MAY_ be supplied as JSON-LD, as the value of the `target` pro
 }
 ```
 
-This form is better suited to scenarios where compactness is important, for example a query string parameter, where it is will be combined with base64url encoding as described in Section 2.3.
+This form is better suited to scenarios where compactness is important, for example a query string parameter, where it will be combined with base64url encoding as described in Section 2.3.
 
 #### 2.2.4 Target URI
 
@@ -361,7 +361,7 @@ The content state may be passed as just the `target` property of an implied Anno
 }
 ```
 
-This results in a more compact form, unencoded, this would be:
+This results in a more compact form. If unencoded, this would be:
 
 ```html
 {% raw %}
