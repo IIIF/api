@@ -905,7 +905,7 @@ Content-Type: application/ld+json;profile="http://iiif.io/api/discovery/1/contex
 ```
 {: .urltemplate}
 
-If the `Content-Type` header `application/ld+json` cannot be generated, then the `Content-Type` header _SHOULD_ instead be `application/json` (regular JSON), without a `profile` parameter.
+If the above `Content-Type` header value cannot be generated, then the value _SHOULD_ instead be `application/json` (regular JSON), without a `profile` parameter.
 
 ``` none
 Content-Type: application/json
