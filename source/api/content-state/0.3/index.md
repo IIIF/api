@@ -115,7 +115,7 @@ The Annotation must contain enough information about de-referenceable resources 
 
 ### 2.2 Form of Annotation
 
-Any Annotation may have one or more [motivations][org-w3c-webanno-motivation], that provide the reason(s) why is was created. For example, `bookmarking`. 
+Any Annotation may have one or more [motivations][org-w3c-webanno-motivation], that provide the reason(s) why it was created. For example, `bookmarking`. 
 
 A content state Annotation always has the motivation `contentState`. This motivation is not defined by either the [W3C Web Annotation Data Model][org-w3c-webanno] or the IIIF Presentation API, and is chosen to avoid potential ambiguity when the target of the content state Annotation is itself an Annotation. The content state annotation may also have additional motivations such as `bookmarking`, `identifying` and so on, as defined by the W3C Web Annotation Model, but it is its particular `contentState` motivation that produces the required behavior in compatible software.
 
@@ -158,7 +158,7 @@ The content state _MAY_ be supplied as JSON-LD, as the value of the `target` pro
 }
 ```
 
-This form is better suited to scenarios where compactness is important, for example a query string parameter, where it is will be combined with base64url encoding as described in Section 2.3.
+This form is better suited to scenarios where compactness is important, for example a query string parameter, where it will be combined with base64url encoding as described in Section 2.3.
 
 #### 2.2.4 Target URI
 
@@ -172,7 +172,7 @@ While supporting many requirements for sharing resources and initializing a clie
 
 ```json
 {
-  "@context": "http://iiif.io/api/presentation/{{ page.major }}/context.json",
+  "@context": "http://iiif.io/api/presentation/3/context.json",
   "id": "https://example.org/import/1",
   "type": "Annotation",
   "motivation": ["contentState"],
@@ -225,9 +225,6 @@ Any content state that is in JSON-LD form, rather than a simple URI string, _MUS
 The destination character set when encoding _MUST_ be UTF-8. For example, when passing the content state as JSON-LD in a query string parameter, base64url is used, as unencoded JSON is vulnerable to corruption. Simple URI forms _SHOULD_ be plain strings.
 
 When published as inline, base64url-encoded JSON-LD in the full form given in 2.2, the content state Annotation _MAY_ omit the `id` and `@context` properties.
-
-When published on a server for clients to fetch over HTTP, content states _MUST_ be valid JSON-LD documents conforming to the [IIIF Presentation API][prezi-api] and served as described in [Section 5][contentstate-http] below, and _MUST NOT_ be encoded as base64url or any other encoding.
-
 
 ##### 2.3.2 Example of base64url encoding
 
@@ -364,7 +361,7 @@ The content state may be passed as just the `target` property of an implied Anno
 }
 ```
 
-This results in a more compact form, unencoded, this would be:
+This results in a more compact form. If unencoded, this would be:
 
 ```html
 {% raw %}
@@ -546,7 +543,7 @@ Publishers should strive to provide the simplest JSON-LD representation, and not
 
 ```json
 {
-  "@context": "http://iiif.io/api/presentation/{{ page.major }}/context.json",
+  "@context": "http://iiif.io/api/presentation/3/context.json",
   "id": "https://example.org/import/1",
   "type": "Annotation",
   "motivation": ["contentState"],
@@ -568,7 +565,7 @@ When processed by a viewer, the user should see the rectangle `1000,2000,1000,20
 
 ```json
 {
-  "@context": "http://iiif.io/api/presentation/{{ page.major }}/context.json",
+  "@context": "http://iiif.io/api/presentation/3/context.json",
   "id": "https://example.org/import/2",
   "type": "Annotation",
   "motivation": ["contentState"],
@@ -597,7 +594,7 @@ This example should cause a viewer to open Manifest https://example.org/iiif/id1
 
 ```json
 {
-  "@context": "http://iiif.io/api/presentation/{{ page.major }}/context.json",
+  "@context": "http://iiif.io/api/presentation/3/context.json",
   "id": "https://example.org/import/3",
   "type": "Annotation",
   "motivation": "contentState",
@@ -658,38 +655,6 @@ Firstly, in non-valid, unencoded form to show the annotation:
   <!-- ... more results -->
 </ol>
 ```
-
-
-
-## 5. HTTP Requests and Responses
-
-This section describes the _RECOMMENDED_ request and response interactions for the API, when served as JSON-LD bodies of HTTP responses. It does not apply to _inline_ content states, which are base64url-encoded and transfered by the other mechanisms described above. This section follows the specification given in [Section 6][prezi30-http] of the Presentation API.
-
-###  5.1. Requests
-
-An HTTP request for a content state is the same as an HTTP request for a Presentation API resource. Unlike [IIIF Image API][image-api] requests, or other parameterized services, the URIs for Presentation API resources cannot be assumed to follow any particular pattern. A client that fetches URIs for content states and URIs for Presentation API resources (such as Manifests and Collections) by the same mechanism _MUST_ inspect the response to determine whether it is a Presentation API resource, or a content state that references part of a Presentation API resource.
-
-###  5.2. Responses
-
-The format for content states as HTTP responses is JSON, as described above. It is good practice for all resources with an HTTP(S) URI to provide their description when the URI is dereferenced. If a resource is [referenced][prezi30-terminology] within a response, rather than being [embedded][prezi30-terminology], then it _MUST_ be able to be dereferenced.
-
-If the server receives a request with an `Accept` header, it _SHOULD_ respond following the rules of [content negotiation][org-rfc-7231-conneg]. Note that content types provided in the `Accept` header of the request _MAY_ include parameters, for example `profile` or `charset`.
-
-If the request does not include an `Accept` header, the HTTP `Content-Type` header of the response _SHOULD_ have the value `application/ld+json` (JSON-LD) with the `profile` parameter given as the context document: `http://iiif.io/api/presentation/3/context.json`.
-
-``` none
-Content-Type: application/ld+json;profile="http://iiif.io/api/presentation/3/context.json"
-```
-{: .urltemplate}
-
-If the `Content-Type` header `application/ld+json` cannot be generated due to server configuration details, then the `Content-Type` header _SHOULD_ instead be `application/json` (regular JSON), without a `profile` parameter.
-
-``` none
-Content-Type: application/json
-```
-{: .urltemplate}
-
-The HTTP server _MUST_ follow the [CORS requirements][org-w3c-cors] to enable browser-based clients to retrieve the descriptions. If the server receives a request with one of the content types above in the Accept header, it _SHOULD_ respond with that content type following the rules of [content negotiation][org-rfc-7231-conneg]. Recipes for enabling CORS and conditional Content-Type headers are provided in the [Apache HTTP Server Implementation Notes][notes-apache].
 
 
 ## Appendices
