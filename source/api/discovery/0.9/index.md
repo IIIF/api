@@ -1,19 +1,18 @@
 ---
-title: "IIIF Change Discovery API 0.9.1 BETA"
-title_override: "IIIF Change Discovery API 0.9.1 BETA"
+title: "IIIF Change Discovery API 0.9.2 BETA"
+title_override: "IIIF Change Discovery API 0.9.2 BETA"
 id: discovery-api
 layout: spec
 cssversion: 3
 tags: [specifications, discovery-api]
 major: 0
 minor: 9
-patch: 1
+patch: 2
 pre: BETA
 redirect_from:
   - /api/discovery/index.html
   - /api/discovery/0/index.html
 ---
-
 
 ## Status of this Document
 {:.no_toc}
@@ -33,10 +32,6 @@ __Previous Version:__ [0.4][discovery04]
   {: .names}
 
 {% include copyright.md %}
-
-__Status Warning__
-This is a work in progress and may change without notice. Implementers should be aware that this document is not stable. Implementers are likely to find the specification changing in incompatible ways. Those interested in implementing this document before it reaches beta or release stages should join the IIIF [mailing list][iiif-discuss] and the [Discovery Specification Group][groups-discovery], take part in the discussions, and follow the [emerging issues][github-discovery-issues] on Github.
-{: .warning}
 
 ----
 
@@ -136,12 +131,12 @@ Example Level 1 Activity:
 }
 ```
 
-#### 2.1.3. Level 2: Resource Creation, Change and Deletion
+#### 2.1.3. Level 2: Resource Creation, Change, Deletion and Renaming
 {: #level-2-complete-change-list}
 
-At the most detailed level, a log of all Activities that have taken place can be recorded, with the likelihood of multiple Activities per IIIF resource. Use of the additional types of "Create" and "Delete" allows explicit description of creations and deletions, enabling a synchronization process to remove resources as well as add or update them.
+At the most detailed level, a log of all Activities that have taken place can be recorded, with the likelihood of multiple Activities per IIIF resource. Use of the additional types of "Create", "Delete" and "Move" allows explicit description of creations, deletions and moves, enabling a synchronization process to remove resources as well as add or update them.
 
-A complete change history is not required, and sometimes not even desirable. If there are many or frequent changes to a resource, an implementation _MAY_ omit any number of individual changes, but _SHOULD_ always  have the most recent change included in the list. Changes that are deemed to be insignificant to the publisher of the list _MAY_ also be omitted, such as changes that affect only the syntax of the document but not the content.
+A complete change history is not required, and sometimes not even desirable. If there are many or frequent changes to a resource, an implementation _MAY_ omit any number of individual changes, but _SHOULD_ always  have the most recent change included in the list. Changes that are deemed to be insignificant to the publisher of the list _MAY_ also be omitted, such as changes that do not affect the content visible to users.
 
 Example Level 2 Activity:
 
@@ -630,6 +625,7 @@ This specification uses the types described in the table below.
 | `Move`   | The re-publishing of the resource at a new URI, with the same content. Each resource _MAY_ have zero or more `Move` activities in which it is the `object` or `target`.|
 | `Add`    | The addition of an object to a stream, outside of any of the above types of activity, such as a third party aggregator adding resources from a newly discovered stream. Each resource _SHOULD_ have at most one `Add` Activity in which it is the object, but if the resource is re-added after a `Remove` activity, then there _MAY_ be more than one. The `Add` Activity _SHOULD NOT_ be present if a `Create` or `Update` Activity is present at the same time. |
 | `Remove` | The removal of an object from a stream, outside of any of the above types of activity, such as a third party aggregator removing resources from a stream that are no longer considered to be in scope. Each resource _SHOULD_ have at most one `Remove` activity, but if the resource is re-added and then re-removed, then there _MAY_ be more than one. The `Remove` Activity _SHOULD NOT_ be present if a `Delete` Activity is present at the same time.|
+| `Refresh` | The beginning of an activity to refresh the stream with the state of all of the resources. It does not have an `object` or `target`. |
 {: .api-table #table-type-dfn}
 
 Activities _MUST_ have the `type` property. The value _MUST_ be a registered Activity type, and _SHOULD_ be one of `Create`, `Update`, or `Delete`.
@@ -896,13 +892,35 @@ Given an array (`collections`) of collection URIs as input,
 
 ## 4. Network Considerations
 
-### 4.1. Activities for Access-Restricted Content
+### 4.1. Media Type
+
+The base format for all responses of this API is JSON, as described above. 
+
+If the server receives a request with an `Accept` header, it _SHOULD_ respond following the rules of [content negotiation][org-rfc-7231-conneg]. Note that content types provided in the `Accept` header of the request _MAY_ include parameters, for example `profile` or `charset`.
+
+If the request does not include an `Accept` header, the HTTP `Content-Type` header of the response _SHOULD_ have the value `application/ld+json` (JSON-LD) with the `profile` parameter given as the context document: `http://iiif.io/api/discovery/1/context.json`.
+
+``` none
+Content-Type: application/ld+json;profile="http://iiif.io/api/discovery/1/context.json"
+```
+{: .urltemplate}
+
+If the above `Content-Type` header value cannot be generated, then the value _SHOULD_ instead be `application/json` (regular JSON), without a `profile` parameter.
+
+``` none
+Content-Type: application/json
+```
+{: .urltemplate}
+
+The HTTP server _SHOULD_ follow the [CORS requirements][org-w3c-cors] to enable browser-based clients to retrieve the responses. Recipes for enabling CORS and conditional Content-Type headers are provided in the [Apache HTTP Server Implementation Notes][notes-apache]. Responses _SHOULD_ be compressed by the server as there are significant performance gains to be made for very repetitive data structures.
+
+### 4.2. Activities for Access-Restricted Content
 
 Activities _MAY_ be published about content that has access restrictions. Clients _MUST NOT_ assume that they will be able to access every resource that is the object of an Activity, and _MUST NOT_ assume that it has been deleted if it is inaccessible. For example, the content might be protected by an authentication system that is denying access (an end user might be able to provide the right credentials to gain access) or there may be a temporary network outage preventing the content from being retrieved (the network will eventually be restored).
 
 Content may also change from being available to being protected by access restrictions, or become available having previously been protected. There are no more specific activity types for these situations, and the publisher _SHOULD_ issue the regular `Update` or `Delete` activities accordingly.
 
-### 4.2. Negotiable Resources
+### 4.3. Negotiable Resources
 
 Some HTTP(S) URIs are able to respond with different representations of the same content in response to requests with different headers, such as the same URI being able to return both version 2 and version 3 of the IIIF Presentation API based on the Accept header. This is known as "content negotiation", and such resources are known as "negotiable resources". The representations that can be negotiated for are known as "variants".
 
@@ -938,7 +956,6 @@ Two variants of the same negotiable resource can be represented as follows.
 ```
 
 
-
 ## Appendices
 
 ### A. Acknowledgements
@@ -946,13 +963,14 @@ Two variants of the same negotiable resource can be represented as follows.
 
 Many thanks to the members of the [IIIF community][iiif-community] for their continuous engagement, innovative ideas, and feedback.
 
-This specification is due primarily to the work of the [IIIF Discovery Technical Specification Group][groups-discovery], chaired by Antoine Isaac (Europeana), Matthew McGrattan (Digirati) and Rob Sanderson (Yale University). The IIIF Community thanks them for their leadership, and the members of the group for their tireless work.
+This specification is due primarily to the work of the [IIIF Discovery Technical Specification Group][groups-discovery], chaired by Antoine Isaac (Europeana), Matthew McGrattan (Digirati) and Robert Sanderson (Yale University). The IIIF Community thanks them for their leadership, and the members of the group for their tireless work.
 
 ### B. Change Log
 {: #change-log}
 
 | Date       | Description           |
 | ---------- | --------------------- |
+| 2021-04-28 | Version 0.9.2 (unnamed) |
 | 2020-09-29 | Version 0.9.1 (unnamed) |
 | 2020-06-04 | Version 0.9 (unnamed) |
 | 2019-11-01 | Version 0.4 (unnamed) |
