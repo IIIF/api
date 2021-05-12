@@ -1,12 +1,12 @@
 ---
-title: "IIIF Content State API 0.3"
-title_override: "IIIF Content State API 0.3"
+title: "IIIF Content State API 0.9"
+title_override: "IIIF Content State API 0.9"
 id: discovery-api-content-state
 layout: spec
 cssversion: 3
 tags: [specifications, presentation-api]
 major: 0
-minor: 3
+minor: 9
 patch: 0
 pre: final
 redirect_from:
