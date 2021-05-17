@@ -44,14 +44,14 @@ Please note that the IIIF community does not guarantee the accuracy of any trans
 
 ## Community Cookbook
 
-The [cookbook][cookbook] gathers together examples of how to create IIIF Presentation API assets, in order to:
+The [Cookbook][annex-cookbook] gathers together examples of how to create IIIF Presentation API assets, in order to:
 
  * Provide many more examples than the specification alone can do, for reference and learning;
  * Encourage publishers to adopt common patterns in modeling classes of complex objects;
- * Enable client software developers to support these patterns, for consistency of user experience (when desirable);
+ * Enable client software developers to support these patterns, for consistency of user experience (when desirable); and
  * Demonstrate the applicability of IIIF to a broad range of use cases.
 
-The community welcomes additions to the [cookbook][cookbook] and to get started have a look at the cookbook process and say hello on the cookbook [slack][slack] channel.
+The [Cookbook][annex-cookbook] webpages are under constant development and the list of recipes include links to completed recipes and place holders for future recipes. The community welcomes additions to the [Cookbook][annex-cookbook]. To get started, review the [Cookbook process][recipe-process] and say hello on the Cookbook [Slack][slack] channel. 
 
 ## Older Versions
 
@@ -104,7 +104,7 @@ IIIF Specifications are created and published following the [IIIF Editorial Proc
 [contentstate03]: {{ site.url }}{{ site.baseurl }}/api/content-state/0.3/ "IIIF Content State API"
 [notes]: {{ site.url }}{{ site.baseurl }}/api/annex/ "Implementation Notes"
 [editorial-process]: {{ page.webprefix }}/community/policy/editorial/ "IIIF Editorial Process"
-[cookbook]: https://iiif.io/api/cookbook/index.html
-[slack]: http://bit.ly/iiif-slack
 
 {% include acronyms.md %}
+
+{% include links.md %}
