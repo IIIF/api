@@ -1,16 +1,19 @@
 
 
 <!-- Keep two spaces at the top of this file -->
+[annex-notes]: {{ site.url }}{{ site.baseurl }}/api/annex/ "Implementation Notes"
 [annex-cookbook]: {{ page.webprefix }}/api/cookbook/ "IIIF Cookbook"
 [annex-json-ld]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/jsonld/ "JSON-LD Frames Implementation Notes"
 [annex-oa]: {{ site.url }}{{ site.baseurl }}/api/annex/openannotation/ "Open Annotation Extensions"
 [annex-patterns]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/design_patterns/
 [annex-services]: {{ site.url }}{{ site.baseurl }}/api/annex/services/ "Services Annex Document"
+[auth094]: {{ site.url }}{{ site.baseurl }}/api/auth/0.9/ "Authentication API v0.9.4"
 [auth1-cookie-service]: {{ site.url }}{{ site.baseurl }}/api/auth/1.0/#access-cookie-service "IIIF Authentication Cookie Service"
 [auth1-logout-service]: {{ site.url }}{{ site.baseurl }}/api/auth/1.0/#logout-service "IIIF Authentication Logout Service"
 [auth1-token-service]: {{ site.url }}{{ site.baseurl }}/api/auth/1.0/#access-token-service "IIIF Authentication Access Token Service"
 [auth1]: {{ site.url }}{{ site.baseurl }}/api/auth/1.0/ "IIIF Authentication API 1.0"
 [contentstate-initialization]: {{ site.url }}{{ site.baseurl }}/api/content-state/0.3/#initialization "Initialization mechanisms (protocol)"
+[contentstate03]: {{ site.url }}{{ site.baseurl }}/api/content-state/0.3/ "IIIF Content State API"
 [discovery-api]: {{ site.url }}{{ site.baseurl }}/api/discovery/ "IIIF Change Discovery API"
 [discovery01]: {{ site.url }}{{ site.baseurl }}/api/discovery/0.1/ "IIIF Change Discovery API"
 [discovery02]: {{ site.url }}{{ site.baseurl }}/api/discovery/0.2/ "IIIF Change Discovery API"
@@ -20,6 +23,7 @@
 [discovery-processing-streams]: {{ site.url }}{{ site.baseurl }}/api/discovery#activity-streams-processing-algorithm "Activity Streams Processing Algorithm"
 [discovery-activity-types]: {{ site.url }}{{ site.baseurl }}/api/discovery#type-ordered-collection-activity "Activity Types"
 [discovery-registry]: https://registry.iiif.io/ "IIIF Change Discovery Registry"
+[editorial-process]: {{ page.webprefix }}/community/policy/editorial/ "IIIF Editorial Process"
 [github-discovery-issues]: https://github.com/IIIF/discovery/issues
 [github-milestone-image-prezi-3]: https://github.com/IIIF/api/milestone/22
 [github-webanno-437]: https://github.com/w3c/web-annotation/issues/437
@@ -39,8 +43,10 @@
 [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
 [image-api]: {{ site.url }}{{ site.baseurl }}/api/image/{{ site.image_api.stable.major }}.{{ site.image_api.stable.minor }}/ "Image API"
 [image-compliance-stable-version]: {{ site.url }}{{ site.baseurl }}/api/image/{{ site.image_api.stable.major }}.{{ site.image_api.stable.minor }}/ "Latest Image API Compliance Stable Version"
+[image10]: {{ site.url }}{{ site.baseurl }}/api/image/1.0/ "Image API v1.0"
 [image11-change-log]: {{ site.url }}{{ site.baseurl }}/api/image/1.1/change-log/ "Change Log for Version 1.1"
 [image11]: {{ site.url }}{{ site.baseurl }}/api/image/1.1/ "Image API 1.1"
+[image20]: {{ site.url }}{{ site.baseurl }}/api/image/2.0/ "Image API v2.0"
 [image20-change-log]: {{ site.url }}{{ site.baseurl }}/api/image/2.0/change-log/ "Change Log for Version 2.0"
 [image21-change-log]: {{ site.url }}{{ site.baseurl }}/api/image/2.1/change-log/ "Change Log for Version 2.1"
 [image21-dep-sizes]: {{ site.url }}{{ site.baseurl }}/api/image/2.1/#dep-sizes "Deprecation Warning"
@@ -182,6 +188,8 @@
 [prezi-api]: {{ site.url }}{{ site.baseurl }}/api/presentation/ "IIIF Presentation API"
 [prezi-stable-version]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.stable.major }}.{{ site.presentation_api.stable.minor }}/ "Latest Presentation API Stable Version"
 [prezi-use-cases]: {{ site.url }}{{ site.baseurl }}/api/presentation/usecases/ "Presentation API Use Cases"
+[meta09]: {{ site.url }}{{ site.baseurl }}/api/metadata/0.9/ "Metadata API v0.9"
+[meta10]: {{ site.url }}{{ site.baseurl }}/api/metadata/1.0/ "Metadata API v1.0"
 [prezi20-change-log]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.0/change-log/ "Presentation API 2.0 Change Log"
 [prezi20]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.0/ "IIIF Presentation API 2.0"
 [prezi21-change-log]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.1/change-log/ "Presentation API 2.1 Change Log"
@@ -228,6 +236,7 @@
 [registry-types]: {{ site.url }}{{ site.baseurl }}/api/registry/types/
 [registry-viewingDirections]: {{ site.url }}{{ site.baseurl }}/api/registry/viewingDirections/
 [search-api]: {{ site.url }}{{ site.baseurl }}/api/search/{{ site.search_api.stable.major }}.{{ site.search_api.stable.minor }}/ "Content Search API"
+[search09]: {{ site.url }}{{ site.baseurl }}/api/search/0.9/ "Search API v0.9"
 [search1-autocomplete]: {{ site.url }}{{ site.baseurl }}/api/search/1.0/#autocomplete
 [search1]: {{ site.url }}{{ site.baseurl }}/api/search/1.0/
 [shared-canvas]: {{ site.url }}{{ site.baseurl }}/model/shared-canvas/{{ site.shared_canvas.stable.major}}.{{ site.shared_canvas.stable.minor }} "Shared Canvas Data Model"

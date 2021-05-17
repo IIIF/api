@@ -73,7 +73,7 @@ Current IIIF specifications _SHOULD_ be used for all new work. Old versions are 
 
 ## Notes
 
-IIIF also has a series of [Implementation Notes][notes] which are not subject to the same process as formal APIs but may be useful to implementers.
+IIIF also has a series of [Implementation Notes][annex-notes] which are not subject to the same process as formal APIs but may be useful to implementers.
 
 ## Process
 
@@ -83,27 +83,6 @@ IIIF Specifications are created and published following the [IIIF Editorial Proc
 [prezi-jp]: http://www.asahi-net.or.jp/~ax2s-kmtn/ref/iiif/apipresentation2.1.html
 [search-jp]: http://www.asahi-net.or.jp/~ax2s-kmtn/ref/iiif/searchapi1.0.html
 [auth-jp]: http://www.asahi-net.or.jp/~ax2s-kmtn/ref/iiif/apiauthentication1.0.html
-
-
-[iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
-[image30]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/ "Image API v3.0"
-[image21]: {{ site.url }}{{ site.baseurl }}/api/image/2.1/ "Image API v2.1"
-[image20]: {{ site.url }}{{ site.baseurl }}/api/image/2.0/ "Image API v2.0"
-[image11]: {{ site.url }}{{ site.baseurl }}/api/image/1.1/ "Image API v1.1"
-[image10]: {{ site.url }}{{ site.baseurl }}/api/image/1.0/ "Image API v1.0"
-[prezi30]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/ "Presentation API v3.0"
-[prezi21]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.1/ "Presentation API v2.1"
-[prezi20]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.0/ "Presentation API v2.0"
-[meta10]: {{ site.url }}{{ site.baseurl }}/api/metadata/1.0/ "Metadata API v1.0"
-[meta09]: {{ site.url }}{{ site.baseurl }}/api/metadata/0.9/ "Metadata API v0.9"
-[auth10]: {{ site.url }}{{ site.baseurl }}/api/auth/1.0/ "Authentication API v1.0"
-[auth094]: {{ site.url }}{{ site.baseurl }}/api/auth/0.9/ "Authentication API v0.9.4"
-[search10]: {{ site.url }}{{ site.baseurl }}/api/search/1.0/ "Search API v1.0"
-[search09]: {{ site.url }}{{ site.baseurl }}/api/search/0.9/ "Search API v0.9"
-[discovery09]: {{ site.url }}{{ site.baseurl }}/api/discovery/0.9/ "IIIF Change Discovery API"
-[contentstate03]: {{ site.url }}{{ site.baseurl }}/api/content-state/0.3/ "IIIF Content State API"
-[notes]: {{ site.url }}{{ site.baseurl }}/api/annex/ "Implementation Notes"
-[editorial-process]: {{ page.webprefix }}/community/policy/editorial/ "IIIF Editorial Process"
 
 {% include acronyms.md %}
 
