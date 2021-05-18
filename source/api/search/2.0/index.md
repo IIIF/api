@@ -1,17 +1,16 @@
 ---
-title: "IIIF Content Search API 1.0"
-title_override: "IIIF Content Search API 1.0"
+title: "IIIF Content Search API 2.0"
+title_override: "IIIF Content Search API 2.0"
 id: content-search-api
 layout: spec
 tags: [specifications, content-search-api]
-major: 1
+major: 2
 minor: 0
 patch: 0
-pre: final
+pre: alpha
 cssversion: 2
 redirect_from:
-  - /api/search/index.html
-  - /api/search/1/index.html
+  - /api/search/2/index.html
 ---
 
 ## Status of this Document
@@ -90,7 +89,7 @@ The search service takes a query, including typically a search term or URI, and 
 
 Any resource in the Presentation API may have a search service associated with it.  The resource determines the scope of the content that will be searched.  A service associated with a manifest will search all of the annotations on canvases or other objects below the manifest, a service associated with a particular range will only search the canvases within the range, or a service on a canvas will search only annotations on that particular canvas.  
 
-The description of the service follows the pattern established in the [Linking to Services][service-annex] specification.  The description block _MUST_ have the `@context` property with the value "http://iiif.io/api/search/{{ page.major }}/context.json", the  `profile` property with the value "http://iiif.io/api/search/{{ page.major }}/search", and the `@id` property that contains the URI where the search can be performed.  
+The description of the service follows the pattern established in the [Linking to Services][service-annex] specification.  The description block _MUST_ have the `@context` property with the value "http://iiif.io/api/search/{{ page.major }}/context.json", the  `profile` property with the value "http://iiif.io/api/search/{{ page.major }}/search", and the `id` property that contains the URI where the search can be performed.  
 
 An example service description block:
 
@@ -98,8 +97,8 @@ An example service description block:
 {
   // ... the resource that the search service is associated with ...
   "service": {
-    "@context": "http://iiif.io/api/search/{{ page.major }}/context.json",
-    "@id": "http://example.org/services/identifier/search",
+    "id": "http://example.org/services/identifier/search",
+    "type": "SearchService2",
     "profile": "http://iiif.io/api/search/{{ page.major }}/search"
   }
 }
@@ -137,7 +136,7 @@ Common values for the motivation parameter are:
 | `linking`      | Annotations with the `oa:linking` motivation |
 {: .api-table}
 
-Other motivations are possible, and the full list from the [Open Annotation][openanno] specification _SHOULD_ be available by dropping the "oa:" prefix.  Other, community specific motivations _SHOULD_ include a prefix or use their full URI.
+Other motivations are possible, and the full list from the [Web Annotation][webanno] specification _SHOULD_ be available by dropping the "oa:" prefix.  Other, community specific motivations _SHOULD_ include a prefix or use their full URI.
 
 #### 3.2.2. Example Request
 {: #example-request}
@@ -154,33 +153,34 @@ Would search for annotations with the word "bird" in their textual content, and 
 ### 3.3. Presentation API Compatible Responses
 {: #presentation-api-compatible-responses}
 
-The response from the server is an [annotation list][prezi-annolist], following the format from the Presentation API with a few additional features.  This allows clients that already implement the AnnotationList format to avoid further implementation work to support search results.
+The response from the server is an [annotation page][prezi-annopage], following the format from the Presentation API with a few additional features.  This allows clients that already implement the AnnotationPage format to avoid further implementation work to support search results.
 
 The search results are returned as annotations in the regular IIIF syntax. Note that the annotations can come from multiple canvases, rather than the default situation from the Presentation API where all of the annotations target a single canvas.
 
 #### 3.3.1. Simple Lists
 {: #simple-lists}
 
-The simplest response looks exactly like a regular annotation list, where all of the matching annotations are returned in a single response. The value of `@id` will be the same as the URI used in the query, however servers _MAY_ drop query parameters that are ignored so long as they are reported in the `ignored` property.
+The simplest response looks exactly like a regular annotation page, where all of the matching annotations are returned in a single response. The value of `id` will be the same as the URI used in the query, however servers _MAY_ drop query parameters that are ignored so long as they are reported in the `ignored` property.
 
-Clients wishing to know the total number of annotations that match may count the number of annotations in the `resources` property, as all matches have been returned.  The full annotation description _MUST_ be included in the response, even if the annotations are separately dereferenceable via their URIs.
+Clients wishing to know the total number of annotations that match may count the number of annotations in the `items` property, as all matches have been returned.  The full annotation description _MUST_ be included in the response, even if the annotations are separately dereferenceable via their URIs.
 
 ``` json-doc
 {
   "@context":"http://iiif.io/api/presentation/{{ site.presentation_api.stable.major }}/context.json",
-  "@id":"http://example.org/service/manifest/search?q=bird&motivation=painting",
-  "@type":"sc:AnnotationList",
+  "id":"http://example.org/service/manifest/search?q=bird&motivation=painting",
+  "type":"AnnotationPage",
 
-  "resources": [
+  "items": [
     {
-      "@id": "http://example.org/identifier/annotation/anno-line",
-      "@type": "oa:Annotation",
-      "motivation": "sc:painting",
-      "resource": {
-        "@type": "cnt:ContentAsText",
-        "chars": "A bird in the hand is worth two in the bush"
+      "id": "http://example.org/identifier/annotation/anno-line",
+      "type": "Annotation",
+      "motivation": "painting",
+      "body": {
+        "type": "TextualBody",
+        "value": "A bird in the hand is worth two in the bush",
+        "format": "text/plain"
       },
-      "on": "http://example.org/identifier/canvas1#xywh=100,100,250,20"
+      "target": "http://example.org/identifier/canvas1#xywh=100,100,250,20"
     }
     // Further matching annotations here ...
   ]
@@ -190,13 +190,11 @@ Clients wishing to know the total number of annotations that match may count the
 #### 3.3.2. Paging Results
 {: #paging-results}
 
-For long lists of annotations, the server may choose to divide the response into multiple sections, often called pages.  Each page is an annotation list and can refer to other pages to allow the client to traverse the entire set.  This uses the [paging features][paging] introduced in version 2.1 of the Presentation API, but is backwards compatible with version 2.0.  The next page of results that follows the current response _MUST_ be referenced in a `next` property of the annotation list, and the previous page _SHOULD_ be referenced in a `prev` property.  
+For long lists of annotations, the server may choose to divide the response into multiple sections using an Annotation Collection. Each section is an Annotation Page and links to adjacent pages to allow the client to traverse the entire set. The Annotation Collection _MUST_ link to the first Annotation Page using the `first` property and _SHOULD_ link to the last Annotation Page using the `last` property.
 
-The URI of the first annotation list reported in the `@id` property _MAY_ be different from the one used by the client to request the search.  Each page _SHOULD_ also have a `startIndex` property with an integer value that reports the position of the first result within the entire result set, where the first annotation has an index of 0.  For example, if the client has requested the first page which has 10 hits, then the `startIndex` will be 0, and the `startIndex` of second page will be 10, being the 11th hit.
+The URI of the first Annotation Page reported in the `id` property _MAY_ be different from the one used by the client to request the search.  
 
-All of the pages are within a [layer][prezi-layer] that represents the entire resultset of matched annotations.  The layer is the value of a `within` property on each of the page annotation lists, and is recorded as an object with properties.
-
-The layer _MUST_ have the `@type` property, with the value of "sc:Layer".  It _SHOULD_ refer to the URIs of the first and last annotation list pages with `first` and `last` properties, respectively. The layer _SHOULD_ have a `total` property which is the total number of hits generated by the query, and it _MAY_ have a URI given as the value of the `@id` property.
+Each Annotation Page _MUST_ have the `type` property, with the value of "AnnotationPage".  The next page of results that follows the current response _MUST_ be referenced in a `next` property, and the previous page _SHOULD_ be referenced in a `prev` property.  Each Annotation Page _SHOULD_ also have a `partOf` property with the value being the URI of the Annotation Collection.
 
 An example request:
 
@@ -205,66 +203,74 @@ http://example.org/service/manifest/search?q=bird
 ```
 {: .urltemplate}
 
-And the response for the first page of annotations from a total of 125 matches:
+And the responses for the Annotation Collection and the first page of annotations from a total of 125 matches:
 
 ``` json-doc
 {
   "@context":"http://iiif.io/api/presentation/{{ site.presentation_api.stable.major }}/context.json",
-  "@id":"http://example.org/service/manifest/search?q=bird&page=1",
-  "@type":"sc:AnnotationList",
+  "id":"http://example.org/service/manifest/search?q=bird",
+  "type":"AnnotationCollection",
 
-  "within": {
-    "@type": "sc:Layer",
-    "total": 125,
-    "first": "http://example.org/service/manifest/search?q=bird&page=1",
-    "last": "http://example.org/service/identifier/search?q=bird&page=13"
-  },
+  "total": 125,
+  "first": "http://example.org/service/manifest/search?q=bird&page=1",
+  "last": "http://example.org/service/manifest/search?q=bird&page=13"
+}
+```
+
+``` json-doc
+{
+  "@context":"http://iiif.io/api/presentation/{{ site.presentation_api.stable.major }}/context.json",
+  "id":"http://example.org/service/manifest/search?q=bird&page=1",
+  "type":"AnnotationPage",
+  
+  "partOf": "http://example.org/service/manifest/search?q=bird",
   "next": "http://example.org/service/identifier/search?q=bird&page=2",
-  "startIndex": 0,
-
-  "resources": [
+  
+  "items": [
     {
-      "@id": "http://example.org/identifier/annotation/anno-line",
-      "@type": "oa:Annotation",
-      "motivation": "sc:painting",
-      "resource": {
-        "@type": "cnt:ContentAsText",
-        "chars": "A bird in the hand is worth two in the bush"
+      "id": "http://example.org/identifier/annotation/anno-line",
+      "type": "Annotation",
+      "motivation": "painting",
+      "body": {
+        "type": "TextualBody",
+        "value": "A bird in the hand is worth two in the bush",
+        "format": "text/plain"
       },
-      "on": "http://example.org/identifier/canvas1#xywh=100,100,250,20"
+      "target": "http://example.org/identifier/canvas1#xywh=100,100,250,20"
     }
     // Further annotations from the first page here ...
   ]
-}
+}  
 ```
 
 #### 3.3.3. Target Resource Structure
 {: #target-resource-structure}
 
-The annotations may also include references to the structure or structures that the target (the resource in the `on` property) is found within.  The URI and type of the including resource _MUST_ be given, and a `label` _SHOULD_ be included.
+The annotations may also include references to the structure or structures that the target (the resource in the `target` property) is found within.  The URI and type of the including resource _MUST_ be given, and a `label` _SHOULD_ be included.
 
 This structure is called out explicitly as although it uses only properties from the Presentation API, it is not a common pattern and thus clients may not be expecting it.
 
 ``` json-doc
 {
   "@context":"http://iiif.io/api/search/{{ page.major }}/context.json",
-  "@id":"http://example.org/service/manifest/search?q=bird&motivation=painting",
-  "@type":"sc:AnnotationList",
+  "id":"http://example.org/service/manifest/search?q=bird&motivation=painting",
+  "type":"AnnotationPage",
 
-  "resources": [
+  "items": [
     {
-      "@id": "http://example.org/identifier/annotation/anno-line",
-      "@type": "oa:Annotation",
-      "motivation": "sc:painting",
-      "resource": {
-        "@type": "cnt:ContentAsText",
-        "chars": "A bird in the hand is worth two in the bush"
+      "id": "http://example.org/identifier/annotation/anno-line",
+      "type": "Annotation",
+      "motivation": "painting",
+      "body": {
+        "type": "TextualBody",
+        "value": "A bird in the hand is worth two in the bush",
+        "format": "text/plain"
       },
-      "on": {
-        "@id": "http://example.org/identifier/canvas1#xywh=100,100,250,20",
-        "within": {
-          "@id": "http://example.org/identifier/manifest",
-          "type": "sc:Manifest",
+      "target": {
+        "id": "http://example.org/identifier/canvas1#xywh=100,100,250,20",
+        "partOf": {
+          "id": "http://example.org/identifier/manifest",
+          "type": "Manifest",
           "label": "Example Manifest"
         }
       }
@@ -283,7 +289,7 @@ As these responses include Search specific information, the value of `@context` 
 
 To incrementally build upon existing solutions and provide graceful degradation for clients that do not support these features and retain compatibility with the Presentation API, the search API specific information is included in a second list within the annotation list called `hits`, other than the `ignored` property on the layer.  Annotation lists _MAY_ have this property, and servers _MAY_ support these features.
 
-If supported, each entry in the `hits` list is a `search:Hit` object.  This type must be included as the value of the `@type` property. Hit objects reference one or more annotations that they provide additional information for, in a list as the value of the hit's `annotations` property.  The reference is made to the value of the `@id` property of the annotation, and thus annotations _MUST_ have a URI to enable this further information.
+If supported, each entry in the `hits` list is a `search:Hit` object.  This type must be included as the value of the `type` property. Hit objects reference one or more annotations that they provide additional information for, in a list as the value of the hit's `items` property.  The reference is made to the value of the `id` property of the annotation, and thus annotations _MUST_ have a URI to enable this further information.
 
 The basic structure is:
 
@@ -293,18 +299,16 @@ The basic structure is:
       "http://iiif.io/api/presentation/{{ site.presentation_api.stable.major }}/context.json",
       "http://iiif.io/api/search/{{ page.major }}/context.json"
   ],
-  "@id":"http://example.org/service/manifest/search?q=bird&page=1",
-  "@type":"sc:AnnotationList",
+  "id":"http://example.org/service/manifest/search?q=bird&page=1",
+  "type":"AnnotationPage",
 
-  "within": {
-    "@type": "sc:Layer"
-    // Result set information here ...
-  },
+  "partOf": "http://example.org/service/manifest/search?q=bird",
+  "next": "http://example.org/service/identifier/search?q=bird&page=2,
 
-  "resources": [
+  "items": [
     {
-      "@id": "http://example.org/identifier/annotation/anno1",
-      "@type": "oa:Annotation"
+      "id": "http://example.org/identifier/annotation/anno1",
+      "type": "Annotation",
       // More regular annotation information here ...
     }
     // Further annotations from the first page here ...
@@ -312,8 +316,8 @@ The basic structure is:
 
   "hits": [
     {
-      "@type": "search:Hit",
-      "annotations": [
+      "type": "search:Hit",
+      "items": [
         "http://example.org/identifier/annotation/anno1"
       ]
       // More search specific information for anno1 here ...
@@ -326,12 +330,12 @@ The basic structure is:
 #### 3.4.1. Ignored Parameters
 {: #ignored-parameters}
 
-If the server has ignored any of the parameters in the request, then the layer _MUST_ be present and _MUST_ have an `ignored` property where the value is a list of the ignored parameters.
+If the server has ignored any of the parameters in the request, then an `ignored` property _MUST_ be present _MUST_ contain a list of the ignored parameters.
 
 If the request from previous examples had been:
 
 ``` none
-http://example.org/service/manifest/search?q=bird&user=http%3A%2F%2Fexample.com%2Fusers%2Fazaroth42
+http://example.org/service/manifest/search?q=bird&user=myusername
 ```
 {: .urltemplate}
 
@@ -343,18 +347,15 @@ And the user parameter was ignored when processing the request, the response wou
       "http://iiif.io/api/presentation/{{ site.presentation_api.stable.major }}/context.json",
       "http://iiif.io/api/search/{{ page.major }}/context.json"
   ],
-  "@id":"http://example.org/service/manifest/search?q=bird&page=1",
-  "@type":"sc:AnnotationList",
+  "id":"http://example.org/service/manifest/search?q=bird&page=1",
+  "type":"AnnotationPage",
 
-  "within": {
-    "@type": "sc:Layer",
-    "total": 125,
-    "ignored": ["user"]
-  },
-  "next": "http://example.org/service/identifier/search?q=bird&page=2",
-  "startIndex": 0,
-
-  "resources": [
+  "partOf": "http://example.org/service/manifest/search?q=bird",
+  "next": "http://example.org/service/identifier/search?q=bird&page=2,
+ 
+  "ignored": ["user"]
+  
+  "items": [
     // Annotations ...
   ]
 }
@@ -383,27 +384,28 @@ That the server matches against the plural "birds":
       "http://iiif.io/api/presentation/{{ site.presentation_api.stable.major }}/context.json",
       "http://iiif.io/api/search/{{ page.major }}/context.json"
   ],
-  "@id":"http://example.org/service/manifest/search?q=bird",
-  "@type":"sc:AnnotationList",
+  "id":"http://example.org/service/manifest/search?q=bird",
+  "type":"sc:AnnotationPage",
 
   "resources": [
     {
-      "@id": "http://example.org/identifier/annotation/anno-bird",
-      "@type": "oa:Annotation",
+      "id": "http://example.org/identifier/annotation/anno-bird",
+      "type": "Annotation",
       "motivation": "sc:painting",
-      "resource": {
-        "@type": "cnt:ContentAsText",
-        "chars": "birds"
+      "body": {
+        "type": "TextualBody",
+        "value": "birds",
+        "format": "text/plain"
       },
-      "on": "http://example.org/identifier/canvas1#xywh=200,100,40,20"
+      "target": "http://example.org/identifier/canvas1#xywh=200,100,40,20"
     }
     // Further annotations here ...
   ],
 
   "hits": [
     {
-      "@type": "search:Hit",
-      "annotations": [
+      "type": "search:Hit",
+      "items": [
         "http://example.org/identifier/annotation/anno-bird"
       ],
       "before": "There are two ",
@@ -417,15 +419,15 @@ That the server matches against the plural "birds":
 #### 3.4.3. Search Term Highlighting
 {: #search-term-highlighting}
 
-Many systems do not have full word-level coordinate information, and are restricted to line or paragraph level boundaries.  In this case the most useful thing that the client can do is to display the entire annotation and highlight the hits within it.  This is similar, but different, to the previous use case.  Here the word will appear somewhere within the `chars` property of the annotation, and the client needs to make it more prominent.  In the previous situation, the word was the entire content of the annotation, and the information was convenient for presenting it in a list.
+Many systems do not have full word-level coordinate information, and are restricted to line or paragraph level boundaries.  In this case the most useful thing that the client can do is to display the entire annotation and highlight the hits within it.  This is similar, but different, to the previous use case.  Here the word will appear somewhere within the `body` property of the annotation, and the client needs to make it more prominent.  In the previous situation, the word was the entire content of the annotation, and the information was convenient for presenting it in a list.
 
 The client in this case needs to know the text that caused the service to create the hit, and enough information about where it occurs in the content to reliably highlight it and not highlight non-matches.  To do this, the service can supply text before and after the matching term within the content of the annotation, via an [Open Annotation][oa-textquotesel] `TextQuoteSelector` object.  TextQuoteSelectors have three properties: `exact` to record the exact text to look for, `prefix` with some text before the match, and `suffix` with some text after the match.
 
 This would look like:
 
 ``` json-doc
-{
-  "@type": "oa:TextQuoteSelector",
+"selector": {
+  "type": "TextQuoteSelector",
   "exact": "birds",
   "prefix": "There are two ",
   "suffix": " in the bush"
@@ -447,38 +449,39 @@ The result might be:
       "http://iiif.io/api/presentation/{{ site.presentation_api.stable.major }}/context.json",
       "http://iiif.io/api/search/{{ page.major }}/context.json"
   ],
-  "@id":"http://example.org/service/manifest/search?q=b*&page=1",
-  "@type":"sc:AnnotationList",
+  "id":"http://example.org/service/manifest/search?q=b*",
+  "type":"AnnotationPage",
 
-  "resources": [
+  "items": [
     {
-      "@id": "http://example.org/identifier/annotation/anno-line",
-      "@type": "oa:Annotation",
+      "id": "http://example.org/identifier/annotation/anno-line",
+      "type": "Annotation",
       "motivation": "sc:painting",
-      "resource": {
-        "@type": "cnt:ContentAsText",
-        "chars": "There are two birds in the bush."
+      "body": {
+        "type": "TextualBody",
+        "value": "birds",
+        "format": "text/plain"
       },
-      "on": "http://example.org/identifier/canvas1#xywh=200,100,40,20"
+      "target": "http://example.org/identifier/canvas1#xywh=200,100,40,20",
     }
     // Further annotations here ...
   ],
 
   "hits": [
     {
-      "@type": "search:Hit",
-      "annotations": [
+      "type": "search:Hit",
+      "items": [
         "http://example.org/identifier/annotation/anno-line"
       ],
       "selectors": [
         {
-          "@type": "oa:TextQuoteSelector",
+          "type": "TextQuoteSelector",
           "exact": "birds",
           "prefix": "There are two ",
           "suffix": " in the bush"
         },
         {
-          "@type": "oa:TextQuoteSelector",
+          "type": "TextQuoteSelector",
           "exact": "bush",
           "prefix": "two birds in the ",
           "suffix": "."
@@ -506,37 +509,39 @@ In cases like this there are more annotations than hits as two or more annotatio
       "http://iiif.io/api/presentation/{{ site.presentation_api.stable.major }}/context.json",
       "http://iiif.io/api/search/{{ page.major }}/context.json"
   ],
-  "@id":"http://example.org/service/manifest/search?q=hand+is",
-  "@type":"sc:AnnotationList",
+  "id":"http://example.org/service/manifest/search?q=hand+is",
+  "type":"AnnotationPage",
 
-  "resources": [
+  "items": [
     {
-      "@id": "http://example.org/identifier/annotation/anno-bird",
-      "@type": "oa:Annotation",
+      "id": "http://example.org/identifier/annotation/anno-bird",
+      "type": "Annotation",
       "motivation": "sc:painting",
-      "resource": {
-        "@type": "cnt:ContentAsText",
-        "chars": "A bird in the hand"
+      "body": {
+        "type": "TextualBody",
+        "value": "A bird in the hand",
+        "format": "text/plain"
       },
-      "on": "http://example.org/identifier/canvas1#xywh=200,100,150,30"
+      "target": "http://example.org/identifier/canvas1#xywh=200,100,150,30"
     },
     {
-      "@id": "http://example.org/identifier/annotation/anno-are",
-      "@type": "oa:Annotation",
+      "id": "http://example.org/identifier/annotation/anno-are",
+      "type": "Annotation",
       "motivation": "sc:painting",
-      "resource": {
-        "@type": "cnt:ContentAsText",
-        "chars": "is worth two in the bush"
+      "body": {
+        "type": "TextualBody",
+        "value": "is worth two in the bush.",
+        "format": "text/plain"
       },
-      "on": "http://example.org/identifier/canvas1#xywh=200,140,170,30"
+      "target": "http://example.org/identifier/canvas1#xywh=200,140,170,30"
     }
     // Further annotations here ...
   ],
 
   "hits": [
     {
-      "@type": "search:Hit",
-      "annotations": [
+      "type": "search:Hit",
+      "items": [
         "http://example.org/identifier/annotation/anno-bush",
         "http://example.org/identifier/annotation/anno-are"
       ],
@@ -612,7 +617,7 @@ The response is a list (a "search:TermList") of simple objects that include the 
 
 Parameters that were not processed by the service _MUST_ be returned in the `ignored` property of the main "TermList" object.  The value _MUST_ be an array of strings.
 
-The objects in the list of terms are all of `@type` "search:Term", and this _MAY_ be included explicitly but is not necessary.  The Term object has a number of possible properties:
+The objects in the list of terms are all of `type` "search:Term", and this _MAY_ be included explicitly but is not necessary.  The Term object has a number of possible properties:
 
   * The matching term is given as the value of the `match` property, and _MUST_ be present.
   * The link to the search to perform is the value of the `url` property, and this _MUST_ be present.
@@ -757,10 +762,12 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 [prezi-api]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.stable.major }}.{{ site.presentation_api.stable.minor }}/ "Presentation API"
 [rfc-2119]: http://tools.ietf.org/html/rfc2119
 [service-annex]: {{ site.url }}{{ site.baseurl }}/api/annex/services/
-[prezi-annolist]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.stable.major }}.{{ site.presentation_api.stable.minor }}/#annotation-list
+[prezi-annopage]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.stable.major }}.{{ site.presentation_api.stable.minor }}/#55-annotation-page
+[prezi-annocollection]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.stable.major }}.{{ site.presentation_api.stable.minor }}/#58-annotation-collection
 [prezi-layer]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.stable.major }}.{{ site.presentation_api.stable.minor }}/#layer
 [ignored-parameters]: #ignored-parameters
 [oa-textquotesel]: http://www.openannotation.org/spec/core/
+[webanno]: https://www.w3.org/TR/annotation-model/ "Web Annotation"
 
 [icon-req]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/required.png "Required"
 [icon-rec]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/recommended.png "Recommended"

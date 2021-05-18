@@ -1,6 +1,6 @@
 {
   "@context": {
-    "search": "http://iiif.io/api/search/1#",
+    "search": "http://iiif.io/api/search/2#",
 
     "ignored": {"@id": "search:ignored", "@container": "@set"},
     "match": {"@id": "search:match"},
