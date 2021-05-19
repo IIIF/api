@@ -54,7 +54,7 @@ This table summarizes the known profiles available, for use with the [Presentati
 
 | Profile  | Description        | 
 | ------------------------------ |
-| http://www.loc.gov/mods/v3  | The URI for identifying [MODS (Metadata Object Description Schema)](http://www.loc.gov/standards/mods/index.html) metadata records.  |
+| http://www.loc.gov/mods/v3  | The URI for identifying [MODS (Metadata Object Description Schema)](https://www.loc.gov/standards/mods/) metadata records.  |
 {: .api-table}
 
 
