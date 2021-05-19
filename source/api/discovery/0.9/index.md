@@ -1,19 +1,18 @@
 ---
-title: "IIIF Change Discovery API 0.9 BETA"
-title_override: "IIIF Change Discovery API 0.9 BETA"
+title: "IIIF Change Discovery API 0.9.2 BETA"
+title_override: "IIIF Change Discovery API 0.9.2 BETA"
 id: discovery-api
 layout: spec
 cssversion: 3
-tags: [specifications, presentation-api]
+tags: [specifications, discovery-api]
 major: 0
 minor: 9
-patch: 0
-pre: final
+patch: 2
+pre: BETA
 redirect_from:
   - /api/discovery/index.html
   - /api/discovery/0/index.html
 ---
-
 
 ## Status of this Document
 {:.no_toc}
@@ -27,16 +26,12 @@ __Previous Version:__ [0.4][discovery04]
 
   * **[Michael Appleby](https://orcid.org/0000-0002-1266-298X)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0002-1266-298X), [_Yale University_](http://www.yale.edu/)
   * **[Tom Crane](https://orcid.org/0000-0003-1881-243X)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0003-1881-243X), [_Digirati_](http://digirati.com/)
-  * **[Robert Sanderson](https://orcid.org/0000-0003-4441-6852)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0003-4441-6852), [_J. Paul Getty Trust_](http://www.getty.edu/)
+  * **[Robert Sanderson](https://orcid.org/0000-0003-4441-6852)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0003-4441-6852), [_Yale University_](http://www.getty.edu/)
   * **[Jon Stroop](https://orcid.org/0000-0002-0367-1243)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0002-0367-1243), [_Princeton University Library_](https://library.princeton.edu/)
   * **[Simeon Warner](https://orcid.org/0000-0002-7970-7855)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0002-7970-7855), [_Cornell University_](https://www.cornell.edu/)
   {: .names}
 
 {% include copyright.md %}
-
-__Status Warning__
-This is a work in progress and may change without notice. Implementers should be aware that this document is not stable. Implementers are likely to find the specification changing in incompatible ways. Those interested in implementing this document before it reaches beta or release stages should join the IIIF [mailing list][iiif-discuss] and the [Discovery Specification Group][groups-discovery], take part in the discussions, and follow the [emerging issues][github-discovery-issues] on Github.
-{: .warning}
 
 ----
 
@@ -84,16 +79,16 @@ The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _S
 
 In order to discover IIIF resources, the state of those resources in the systems that publish them needs to be communicated succinctly and easily to a consuming system. The consuming system can then use that information to retrieve and process the resources of interest and provide platforms that enable discovery and use. This communication takes place via the IIIF Change Discovery API, which uses the W3C [Activity Streams][org-w3c-activitystreams] specification to describe and serialize changes to resources. The conceptual model for those changes and the interactions between publishers and consumers are based on those identified by the [ResourceSync][org-openarchives-rsync] framework. It is not necessary to understand either of these standards in order to use or implement the IIIF Change Discovery API, which is fully specified in this document.
 
-Activities are used to describe the state of the publishing system by recording each individual change, in the order that they occur. The changes described are the creation, modification and deletion of IIIF Presentation API resources. A consuming application that is aware of all of the changes that took place in the publishing system has full knowledge of the set of resources available. IIIF [Collection][prezi30-collection]s and [Manifest][prezi30-manifest] are the main access points to published content and references to descriptive metadata about that content, however, Activities describing changes to other resources, such as the IIIF Image API endpoints or the descriptive metadata about the object represented, could also be published in this way. As the intended use is to inform a consuming system, rather than to display information, the Change Discovery API does not include any content intended to be rendered to end users.
+Activities are used to describe the state of the publishing system by recording each individual change, in the order that they occur. The changes described are the creation, modification and deletion of IIIF Presentation API resources. A consuming application that is aware of all of the changes that took place in the publishing system has full knowledge of the set of resources available. IIIF [Collections][prezi30-collection] and [Manifests][prezi30-manifest] are the main access points to published content and references to descriptive metadata about that content, however, Activities describing changes to other resources, such as the IIIF Image API endpoints or the descriptive metadata about the object represented, could also be published in this way. As the intended use is to inform a consuming system, rather than to display information, the Change Discovery API does not include any content intended to be rendered to end users.
 
 The Presentation API does not include descriptive metadata fields, and intentionally lacks the semantics needed to implement advanced or fielded search. Instead, the Presentation API uses the [`seeAlso`][prezi30-seealso] property to link to external documents that can have richer and domain-specific information about the content being presented. For example, a museum object might have a `seeAlso` reference to a CIDOC-CRM or LIDO description, while a bibliographic resource might reference a Dublin Core or MODS description. These external descriptions should be used when possible to provide interfaces giving access to more precise matching algorithms.
 
-This specification describes three levels of conformance that build upon each other in terms of functionality and precision of the information published. Sets of changes are published in pages, which are then aggregated into a collection per publisher. To reduce barriers to entry, care has been taken to allow for the possibility of implementing all levels using only static files on a web server, rather than requiring dynamic access to a database.
+This specification describes three levels of conformance that build upon each other in terms of functionality and precision of the information published. Sets of changes are published in pages, which are then aggregated into a collection per publisher. To reduce barriers to entry, care has been taken to allow for the possibility of implementing all levels using only static files on a web server, rather than requiring dynamic access to a database. 
 
-### 2.1. Listing Resources and their Changes
-{: #listing-resources-and-their-changes}
+### 2.1. IIIF Resources and their Changes
+{: #resources-and-their-changes}
 
-There are three levels of conformance at which changes can be described. Level 0 is simply a list of the resources available. Level 1 adds timestamps and ordering from earliest change to most recent, allowing a consuming application to work backwards through the list and stop processing once it encounters a change that it has already seen from a previous run. Level 2 adds information about the types of activities, enabling the explicit description of the creation and deletion of resources.
+There are three levels of conformance at which changes to IIIF resources can be described. Level 0 is simply a list of the resources available. Level 1 adds timestamps and ordering from earliest change to most recent, allowing a consuming application to work backwards through the list and stop processing once it encounters a change that it has already seen from a previous run. Level 2 adds information about the types of activities, enabling the explicit description of the creation and deletion of resources.
 
 The subsections below describe first how to construct the description of the changes for each level, and then in the next section how to embed them into ordered lists.
 
@@ -104,7 +99,7 @@ The core information required to provide a minimally effective set of links to I
 
 This minimal level 0 API approach is compatible with the levels 1 and 2 which introduce significant benefits that allow clients to better optimize their interactions.
 
-If resources are deleted after being referred to in the resource list, the entire list should be republished without the reference to the deleted resource. Clients should also expect to encounter resource URIs that are out of date and no longer resolve to a IIIF Manifest or Collection.
+If resources are deleted after being referred to in the resource list, the entire list should be republished without the reference to the deleted resource. Clients should also expect to encounter resource URIs that are out of date and no longer resolve to a IIIF Manifest or Collection, as well as activities which do not refer to IIIF resource types at all.
 
 Example Level 0 Activity:
 
@@ -121,7 +116,7 @@ Example Level 0 Activity:
 #### 2.1.2. Level 1: Resource Changes
 {: #level-1-basic-change-list}
 
-When dealing with large sets of resources, it can be useful to work with only those resources that have changed since the last time the list was processed. This can be facilitated by the addition of a time stamp that indicates when a resource was last modified or initially created. This is included using the `endTime` property, representing the time at which the activity of publishing the resource was finished. Lists with multiple activities are then ordered such that the most recent activities occur last. Consumers will then process the list of Activities in reverse order, from last to first, stopping when they encounter an Activity they have already processed.
+When dealing with large lists of resources, it can be useful to work with only those resources that have changed since the last time the list was processed. This is managed by the addition of a time stamp in the `endTime` property, that indicates the time at which the resource was last modified or initially created. Lists _MUST_ be ordered such that the most recent activities occur last. Consumers will then process the list of Activities in reverse order, from last to first, stopping when they encounter an Activity they have already processed.
 
 Example Level 1 Activity:
 
@@ -136,12 +131,12 @@ Example Level 1 Activity:
 }
 ```
 
-#### 2.1.3. Level 2: Resource Creation, Change and Deletion
+#### 2.1.3. Level 2: Resource Creation, Change, Deletion and Renaming
 {: #level-2-complete-change-list}
 
-At the most detailed level, a log of all Activities that have taken place can be recorded, with the likelihood of multiple Activities per IIIF resource. Use of the additional types of "Create" and "Delete" allows explicit description of creations and deletions, enabling a synchronization process to remove resources as well as add or update them.
+At the most detailed level, a log of all Activities that have taken place can be recorded, with the likelihood of multiple Activities per IIIF resource. Use of the additional types of "Create", "Delete" and "Move" allows explicit description of creations, deletions and moves, enabling a synchronization process to remove resources as well as add or update them.
 
-A complete change history is not required, and sometimes not even desirable. If there are many or frequent changes to a resource, an implementation _MAY_ omit any number of individual changes, but _SHOULD_ always  have the most recent change included in the list. Changes that are deemed to be insignificant to the publisher of the list _MAY_ also be omitted, such as changes that affect only the syntax of the document but not the content.
+A complete change history is not required, and sometimes not even desirable. If there are many or frequent changes to a resource, an implementation _MAY_ omit any number of individual changes, but _SHOULD_ always  have the most recent change included in the list. Changes that are deemed to be insignificant to the publisher of the list _MAY_ also be omitted, such as changes that do not affect the content visible to users.
 
 Example Level 2 Activity:
 
@@ -203,11 +198,25 @@ Example Remove Activity:
 }
 ```
 
+#### 2.1.5. State Refresh Activities
+{: #state-refresh-activities}
+
+Sometimes a publishing system will do a complete refresh of its records and re-issue an activity for every resource.  When this happens, it is a good practice to include a `Refresh` activity immediately before the `Update` activities for the resources. This allows a consuming application to stop looking for new resources beyond this point, as all of the available ones will already have been encountered. Note that the `Refresh` uses `startTime` rather than `endTime` as the datetime when it occurs, in order to ensure that it is positioned before the resource activities in the sorted stream. 
+
+Consuming applications that have processed the stream previously should continue to read backwards beyond this point, in order to process any Delete activities, but do not need to process other activity types.  Applications that have not processed the stream previously can simply stop when the `Refresh` activity is encountered. 
+
+```json-doc
+{
+  "type": "Refresh",
+  "summary": "System refresh initiated",
+  "startTime": "2020-06-21T00:00:00Z"
+}
+```
 
 ### 2.2. Pages of Changes
 {: #pages-of-changes}
 
-The Activities are collected together into pages that together make up the entire set of changes that the publishing system is aware of. Pages reference the previous and next pages in that set, and the overall collection of which they are part. The Activities are listed such that the most recent activities occur last.
+The Activities are collected together into pages that together make up the entire set of changes that the publishing system is aware of. Pages reference the previous and next pages in that set, and the overall collection of which they are part. The Activities within the page are listed such that the most recent activities occur last.
 
 Pages are subsequently collected together in ordered collections, described in the following section.
 
@@ -252,7 +261,7 @@ Pages are subsequently collected together in ordered collections, described in t
 ### 2.3. Collections of Pages
 {: #collections-of-pages}
 
-As the number of Activities is likely too many to usefully be represented in a single Page, they are collected together into a Collection as the initial entry point. The Collection references the URIs of the first and last pages.
+As the number of Activities is likely too many to usefully be represented in a single Page, they are collected together into a Collection as the initial entry point. The Collection references the URIs of the first and last pages, where the first page contains the earliest activities and the last page contains the most recent.
 
 ```json-doc
 {
@@ -270,6 +279,11 @@ As the number of Activities is likely too many to usefully be represented in a s
   }
 }
 ```
+
+### 2.4. Registries of Collections
+{: # registries-of-collections}
+
+In order to discover the URIs for Collections, and through them the URIs of the IIIF resources, the IIIF Consortium manages a [Registry of Collections][discovery-registry]. This registry is itself an implementation of the Change Discovery API, however the IIIF resources are not Presentation API resources, but other Change Discovery API resources. This might include both Collections of Manifests, or other registries of Collections. The registry describes how it is managed and how to retrieve or submit content. The registry may also reference other methods of discovering IIIF content.
 
 
 ## 3. Activity Streams Details
@@ -354,9 +368,14 @@ Ordered Collections _MAY_ have a `totalItems` property. The value _MUST_ be a no
 
 ##### seeAlso
 
-This property is used to refer to one or more documents that semantically describe the set of resources that are being acted upon in the Activities within the Ordered Collection. This would allow the Ordered Collection to refer to, for example, a [DCAT][org-w3c-dcat] description of the dataset. For Ordered Collections that aggregate activities and/or objects from multiple sources, the referenced description should describe the complete aggregation rather than an individual source.
+This property is used to refer to one or more documents that semantically describe **the set of resources** that are being acted upon in the Activities within the Ordered Collection, rather than any particular resource referenced from within the collection. This would allow the Ordered Collection to refer to, for example, a [DCAT][org-w3c-dcat] description of the dataset. For Ordered Collections that aggregate activities and/or objects from multiple sources, the referenced description should describe the complete aggregation rather than an individual source.
 
-Ordered Collections _MAY_ have a `seeAlso` property. The value _MUST_ be an array of one or more JSON objects, with the `id` and `type` properties. The value of the `id` property _MUST_ be a string, and it _MUST_ be the HTTP(S) URI of the description of the dataset. The value of the `type` property _MUST_ be the string `Dataset`. The JSON object _MAY_ have the `format` property, the value of which _MUST_ be a string, and it _MUST_ be the MIME media type of the referenced description document.
+Ordered Collections _MAY_ have a `seeAlso` property. The value _MUST_ be an array of one or more JSON objects, with the `id` and `type` properties. The value of the `id` property _MUST_ be a string, and it _MUST_ be the HTTP(S) URI of the description of the dataset. The value of the `type` property _MUST_ be the string `Dataset`. Please note that any resource that is intended to be used by software is tagged as `Dataset`, including single files. The JSON object has the same structure as in the Presentation API, and thus _SHOULD_ have the following properties:
+
+* `format`, the value of which _MUST_ be a string, and it _MUST_ be the MIME media type of the referenced description document
+* `label`, the value of which _MUST_ be a JSON object, following the pattern for language maps described in the [Presentation API][prezi30-languages]
+* `profile`, the value of which _MUST_ be a string containing either a value from the [profiles registry][registry-profiles] or a URI
+
 
 ```json-doc
 {
@@ -364,7 +383,9 @@ Ordered Collections _MAY_ have a `seeAlso` property. The value _MUST_ be an arra
     {
       "id": "https://example.org/dataset/all-dcat.jsonld",
       "type": "Dataset",
-      "format": "application/ld+json"
+      "label": { "en": [ "DCAT description of Collection" ] },
+      "format": "application/ld+json",
+      "profile": "http://www.w3.org/ns/dcat#"
     }
   ]
 }
@@ -395,7 +416,7 @@ A string that identifies a license or rights statement that applies to the usage
 The value _MUST_ be a string. If the value is drawn from Creative Commons or RightsStatements.org, then the string _MUST_ be a URI defined by that specification.
 
 ``` json-doc
-{ "rights": "https://creativecommons.org/licenses/by/4.0/" }
+{ "rights": "http://creativecommons.org/licenses/by/4.0/" }
 ```
 
 
@@ -407,12 +428,14 @@ The value _MUST_ be a string. If the value is drawn from Creative Commons or Rig
   "id": "https://example.org/activity/all-changes",
   "type": "OrderedCollection",
   "totalItems": 21456,
-  "rights": "https://creativecommons.org/licenses/by/4.0/",
+  "rights": "http://creativecommons.org/licenses/by/4.0/",
   "seeAlso": [
     {
       "id": "https://example.org/dataset/all-dcat.jsonld",
       "type": "Dataset",
-      "format": "application/ld+json"
+      "label": { "en": [ "DCAT description of Collection" ] },
+      "format": "application/ld+json",
+      "profile": "http://www.w3.org/ns/dcat#"
     }
   ],
   "partOf": [
@@ -489,7 +512,7 @@ Ordered Collection Pages _MAY_ have a `startIndex` property. The value _MUST_ be
 
 A reference to the next page in the list of pages.
 
-Ordered Collection Pages _SHOULD_ have a `next` property, unless they are the last Page in the Collection. The value _MUST_ be a JSON object, with the `id` and `type` properties. The value of the `id` property _MUST_ be a string, and _MUST_ be the HTTP(S) URI of the following Ordered Collection Page. The value of the `type` property _MUST_ be the string `OrderedCollectionPage`.
+Ordered Collection Pages _SHOULD_ have a `next` property, unless they are the last page in the Collection. The value _MUST_ be a JSON object, with the `id` and `type` properties. The value of the `id` property _MUST_ be a string, and _MUST_ be the HTTP(S) URI of the following Ordered Collection Page. The value of the `type` property _MUST_ be the string `OrderedCollectionPage`.
 
 ```json-doc
 {
@@ -517,7 +540,7 @@ Ordered Collection Pages _MUST_ have a `prev` property, unless they are the firs
 
 ##### orderedItems
 
-The Activities that are listed as part of this page.
+The Activities that are listed as part of this page. If the Activities have an `endTime` property, then they _MUST_ be ordered within the array from the earliest datetime to the most recent datetime, in the same way as the pages are ordered within the Ordered Collection. 
 
 Ordered Collection Pages _MUST_ have an `orderedItems` property. The value _MUST_ be an array, with at least one item. Each item _MUST_ be a JSON object, conforming to the requirements of an Activity.
 
@@ -602,6 +625,7 @@ This specification uses the types described in the table below.
 | `Move`   | The re-publishing of the resource at a new URI, with the same content. Each resource _MAY_ have zero or more `Move` activities in which it is the `object` or `target`.|
 | `Add`    | The addition of an object to a stream, outside of any of the above types of activity, such as a third party aggregator adding resources from a newly discovered stream. Each resource _SHOULD_ have at most one `Add` Activity in which it is the object, but if the resource is re-added after a `Remove` activity, then there _MAY_ be more than one. The `Add` Activity _SHOULD NOT_ be present if a `Create` or `Update` Activity is present at the same time. |
 | `Remove` | The removal of an object from a stream, outside of any of the above types of activity, such as a third party aggregator removing resources from a stream that are no longer considered to be in scope. Each resource _SHOULD_ have at most one `Remove` activity, but if the resource is re-added and then re-removed, then there _MAY_ be more than one. The `Remove` Activity _SHOULD NOT_ be present if a `Delete` Activity is present at the same time.|
+| `Refresh` | The beginning of an activity to refresh the stream with the state of all of the resources. It does not have an `object` or `target`. |
 {: .api-table #table-type-dfn}
 
 Activities _MUST_ have the `type` property. The value _MUST_ be a registered Activity type, and _SHOULD_ be one of `Create`, `Update`, or `Delete`.
@@ -616,21 +640,34 @@ The IIIF resource that was affected by the Activity. It is an implementation dec
 
 In the case of the `Move` activity, the `object` property contains the `id` and `type` of the source from whence it was moved. The new location will be in the `target` property, described below.
 
-Activities _MUST_ have the `object` property. The value _MUST_ be a JSON object, with the `id` and `type` properties. The `id` _MUST_ be an HTTP(S) URI. The `type` _SHOULD_ be a class defined in the IIIF Presentation API, and _SHOULD_ be one of `Collection`, or `Manifest`. The object _MAY_ have a `seeAlso` property, as defined for `OrderedCollection` above, to reference a description document of the object resource. The document referenced in the `seeAlso` property _MAY_ also be referenced with the `seeAlso` property in an instance of the IIIF Presentation API. The `type` of the document referenced in the `seeAlso` property should be given as `Dataset`, meaning that it is data rather than a human-readable document.
+Activities _MUST_ have the `object` property. The value _MUST_ be a JSON object, with the `id` and `type` properties. The `id` _MUST_ be an HTTP(S) URI. The `type` _SHOULD_ be a class defined in the IIIF Presentation API, and _SHOULD_ be one of `Collection`, or `Manifest`.  The `type`, therefore, _MAY_ be any class, including those not defined by the IIIF Presentation API, and consuming applications _SHOULD_ validate the `type` as being one that is appropriate for their usage.
 
-<!-- This can't be on the Activity, as some activities reference more than one resource e.g. Add X to Y, Move X from Y to Z, etc. -->
+The object _MAY_ have a `seeAlso` property, as defined for `OrderedCollection` above, to reference a document that describes the object resource. The document referenced in the `seeAlso` property _MAY_ also be referenced with the `seeAlso` property in an instance of the IIIF Presentation API. The `type` of the document referenced in the `seeAlso` property should be given as `Dataset`, meaning that it is data rather than a human-readable document.
 
+The object _MAY_ have a `canonical` property, the value of which _MUST_ be a string that contains a URI.  This URI identifies the resource, regardless of the URI given in the `id` property of the object, which might be specific to a format, API version or publishing platform. The use of this property allows changes to be aligned across representations without relying on `seeAlso` links or only having a single representation.
+
+The object _MAY_ have a `provider` property, as defined by the [IIIF Presentation API](https://iiif.io/api/presentation/3.0/#provider). In particular, the value of the property _MUST_ be an array of JSON objects, each of which _MUST_ have the `id`, `type` and `label` attributes, carrying the URI of the provider, the string "Agent", and the name of the provider in a language map object, respectively. 
 
 ```json-doc
 {
   "object": {
-    "id": "http://example.org/iiif/1/manifest",
+    "id": "http://example.org/iiif/v3/1/manifest",
     "type": "Manifest",
+    "canonical": "https://example.org/iiif/1",
     "seeAlso": [
       {
         "id": "https://example.org/dataset/single-item.jsonld",
         "type": "Dataset",
-        "format": "application/ld+json"
+        "label": { "en": [ "Object Description in Schema.Org" ] },
+        "format": "application/ld+json",
+        "profile": "https://schema.org/"
+      }
+    ],
+    "provider": [
+      {
+        "id": "https://example.org/about",
+        "type": "Agent",
+        "label": { "en": [ "Example Organization" ] }
       }
     ]
   }
@@ -641,7 +678,7 @@ Activities _MUST_ have the `object` property. The value _MUST_ be a JSON object,
 
 The new location of the IIIF resource, after it was affected by a `Move` activity.
 
-`Move` activities _MUST_ have the `target` property. The value _MUST_ be a JSON object, with the `id` and `type` properties. The `id` _MUST_ be an HTTP(S) URI, and _MUST_ be different from the URI given in the `object` property's `id`. The `type` _SHOULD_ be a class defined in the IIIF Presentation API, and _SHOULD_ be the same as the `object` property's `type`.
+`Move` activities _MUST_ have the `target` property. The value _MUST_ be a JSON object, with the `id` and `type` properties. The `id` _MUST_ be an HTTP(S) URI, and _MUST_ be different from the URI given in the `object` property's `id`. The `type` _SHOULD_ be a class defined in the IIIF Presentation API, and _SHOULD_ be the same as the `object` property's `type`. Other properties that are usable for the description of `object`, such as `seeAlso` and `canonical` are also available for use in describing the `target`.
 
 ```json-doc
 {
@@ -716,6 +753,7 @@ A complete example Activity would thus look like the following example. Note tha
   "object": {
     "id": "https://example.org/iiif/1/manifest",
     "type": "Manifest",
+    "canonical": "https://example.org/iiif/1",
     "seeAlso": [
       {
         "id": "https://example.org/dataset/single-item.jsonld",
@@ -781,7 +819,8 @@ Given the URI of an ActivityStreams Collection (`collection`) as input, a confor
   <li>Initialization:
     <ol>
       <li>Let <code class="highlighter-rouge">processedItems</code> be an empty array</li>
-      <li>Let <code class="highlighter-rouge">lastCrawl</code> be the timestamp of the previous time the algorithm was executed</li>
+      <li>Let <code class="highlighter-rouge">lastCrawl</code> be the timestamp of the previous time the algorithm was executed or null if this is the first time the stream has been processed</li>
+      <li>Let <code class="highlighter-rouge">onlyDelete</code> be <code class="highlighter-route">False</code></li>
     </ol>
   </li>
   <li>Retrieve the representation of <code class="highlighter-rouge">collection</code> via HTTP(S)</li>
@@ -799,12 +838,15 @@ Given the URI of an ActivityStreams CollectionPage (`page`), a list of processed
   <li>Retrieve the representation of <code class="highlighter-rouge">page</code> via HTTP(S)</li>
   <li>Validate that the retrieved representation contains at least the features required for processing</li>
   <li>Find the set of updates of the page at <code class="highlighter-rouge">page.orderedItems</code> (<code class="highlighter-rouge">items</code>)</li>
-  <li>In reverse order, iterate through the activities (<code class="highlighter-rouge">activity</code>) in <code class="highlighter-rouge">items</code>:
+  <li>In <b>reverse order</b>, iterate through the activities (<code class="highlighter-rouge">activity</code>) in <code class="highlighter-rouge">items</code>:
     <ol>
-      <li>For each <code class="highlighter-rouge">activity</code>, if <code class="highlighter-rouge">activity.endTime</code> is before <code class="highlighter-rouge">lastCrawl</code>, then terminate ;</li>
+      <li>If <code class="highlighter-rouge">activity.endTime</code> is before <code class="highlighter-rouge">lastCrawl</code>, then terminate ;</li>
+      <li>If <code class="highlighter-rouge">activity.type</code> is <code class="highlighter-rouge">Refresh</code>, then if <code class="highlighter-rouge">lastCrawl</code> is not null, then set <code class="highlighter-rouge">onlyDelete</code> to <code class="highlighter-rouge">True</code>, else if <code class="highlighter-rouge">lastCrawl</code> is null, then terminate;</li> 
       <li>If the updated resource's URI at <code class="highlighter-rouge">activity.object.id</code> is in <code class="highlighter-rouge">processedItems</code>, then continue ;</li>
-      <li>Otherwise, if <code class="highlighter-rouge">activity.type</code> is <code class="highlighter-rouge">Update</code> or <code class="highlighter-rouge">Create</code>, or it is <code class="highlighter-rouge">Add</code> and <code class="highlighter-rouge">activity.target.id</code> is the URI of the current stream, then find the URI of the resource at <code class="highlighter-rouge">activity.object.id</code> (<code class="highlighter-rouge">object</code>) and process its inclusion ;</li>
+      <li>If the updated resource's class at <code class="highlighter-rouge">activity.object.type</code> is not one that is known to the processor, then continue ;</li>
       <li>Otherwise, if <code class="highlighter-rouge">activity.type</code> is <code class="highlighter-rouge">Delete</code>, or it is <code class="highlighter-rouge">Remove</code> and <code class="highlighter-rouge">activity.origin.id</code> is the URI of the current stream, then find the URI of the resource at <code class="highlighter-rouge">activity.object.id</code> and process its removal ;</li>
+      <li>Otherwise, if <code class="highligher-rouge">onlyDelete</code> is <code class="highlighter-rouge">True</code>, then continue ;</li>
+      <li>Otherwise, if <code class="highlighter-rouge">activity.type</code> is <code class="highlighter-rouge">Update</code> or <code class="highlighter-rouge">Create</code>, or it is <code class="highlighter-rouge">Add</code> and <code class="highlighter-rouge">activity.target.id</code> is the URI of the current stream, then find the URI of the resource at <code class="highlighter-rouge">activity.object.id</code> (<code class="highlighter-rouge">object</code>) and process its inclusion ;</li>
       <li>Otherwise, if <code class="highlighter-rouge">activity.type</code> is <code class="highlighter-rouge">Move</code>, then find the original URI of the moved resource at <code class="highlighter-rouge">activity.object</code> and process its removal, and find the new URI of the moved resource at <code class="highlighter-rouge">activity.target</code> and process its inclusion.</li>
       <li>Add the processed resource's URI to <code class="highlighter-rouge">processedItems</code></li>
     </ol>
@@ -850,13 +892,35 @@ Given an array (`collections`) of collection URIs as input,
 
 ## 4. Network Considerations
 
-### 4.1. Activities for Access-Restricted Content
+### 4.1. Media Type
+
+The base format for all responses of this API is JSON, as described above. 
+
+If the server receives a request with an `Accept` header, it _SHOULD_ respond following the rules of [content negotiation][org-rfc-7231-conneg]. Note that content types provided in the `Accept` header of the request _MAY_ include parameters, for example `profile` or `charset`.
+
+If the request does not include an `Accept` header, the HTTP `Content-Type` header of the response _SHOULD_ have the value `application/ld+json` (JSON-LD) with the `profile` parameter given as the context document: `http://iiif.io/api/discovery/1/context.json`.
+
+``` none
+Content-Type: application/ld+json;profile="http://iiif.io/api/discovery/1/context.json"
+```
+{: .urltemplate}
+
+If the above `Content-Type` header value cannot be generated, then the value _SHOULD_ instead be `application/json` (regular JSON), without a `profile` parameter.
+
+``` none
+Content-Type: application/json
+```
+{: .urltemplate}
+
+The HTTP server _SHOULD_ follow the [CORS requirements][org-w3c-cors] to enable browser-based clients to retrieve the responses. Recipes for enabling CORS and conditional Content-Type headers are provided in the [Apache HTTP Server Implementation Notes][notes-apache]. Responses _SHOULD_ be compressed by the server as there are significant performance gains to be made for very repetitive data structures.
+
+### 4.2. Activities for Access-Restricted Content
 
 Activities _MAY_ be published about content that has access restrictions. Clients _MUST NOT_ assume that they will be able to access every resource that is the object of an Activity, and _MUST NOT_ assume that it has been deleted if it is inaccessible. For example, the content might be protected by an authentication system that is denying access (an end user might be able to provide the right credentials to gain access) or there may be a temporary network outage preventing the content from being retrieved (the network will eventually be restored).
 
 Content may also change from being available to being protected by access restrictions, or become available having previously been protected. There are no more specific activity types for these situations, and the publisher _SHOULD_ issue the regular `Update` or `Delete` activities accordingly.
 
-### 4.2. Negotiable Resources
+### 4.3. Negotiable Resources
 
 Some HTTP(S) URIs are able to respond with different representations of the same content in response to requests with different headers, such as the same URI being able to return both version 2 and version 3 of the IIIF Presentation API based on the Accept header. This is known as "content negotiation", and such resources are known as "negotiable resources". The representations that can be negotiated for are known as "variants".
 
@@ -892,7 +956,6 @@ Two variants of the same negotiable resource can be represented as follows.
 ```
 
 
-
 ## Appendices
 
 ### A. Acknowledgements
@@ -900,13 +963,15 @@ Two variants of the same negotiable resource can be represented as follows.
 
 Many thanks to the members of the [IIIF community][iiif-community] for their continuous engagement, innovative ideas, and feedback.
 
-This specification is due primarily to the work of the [IIIF Discovery Technical Specification Group][groups-discovery], chaired by Antoine Isaac (Europeana), Matthew McGrattan (Digirati) and Rob Sanderson (J. Paul Getty Trust). The IIIF Community thanks them for their leadership, and the members of the group for their tireless work.
+This specification is due primarily to the work of the [IIIF Discovery Technical Specification Group][groups-discovery], chaired by Antoine Isaac (Europeana), Matthew McGrattan (Digirati) and Robert Sanderson (Yale University). The IIIF Community thanks them for their leadership, and the members of the group for their tireless work.
 
 ### B. Change Log
 {: #change-log}
 
 | Date       | Description           |
 | ---------- | --------------------- |
+| 2021-04-28 | Version 0.9.2 (unnamed) |
+| 2020-09-29 | Version 0.9.1 (unnamed) |
 | 2020-06-04 | Version 0.9 (unnamed) |
 | 2019-11-01 | Version 0.4 (unnamed) |
 | 2019-03-20 | Version 0.3 (unnamed) |

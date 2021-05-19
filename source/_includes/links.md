@@ -10,6 +10,7 @@
 [auth1-logout-service]: {{ site.url }}{{ site.baseurl }}/api/auth/1.0/#logout-service "IIIF Authentication Logout Service"
 [auth1-token-service]: {{ site.url }}{{ site.baseurl }}/api/auth/1.0/#access-token-service "IIIF Authentication Access Token Service"
 [auth1]: {{ site.url }}{{ site.baseurl }}/api/auth/1.0/ "IIIF Authentication API 1.0"
+[contentstate-initialization]: {{ site.url }}{{ site.baseurl }}/api/content-state/0.3/#initialization "Initialization mechanisms (protocol)"
 [discovery-api]: {{ site.url }}{{ site.baseurl }}/api/discovery/ "IIIF Change Discovery API"
 [discovery01]: {{ site.url }}{{ site.baseurl }}/api/discovery/0.1/ "IIIF Change Discovery API"
 [discovery02]: {{ site.url }}{{ site.baseurl }}/api/discovery/0.2/ "IIIF Change Discovery API"
@@ -18,6 +19,7 @@
 [discovery09]: {{ site.url }}{{ site.baseurl }}/api/discovery/0.9/ "IIIF Change Discovery API"
 [discovery-processing-streams]: {{ site.url }}{{ site.baseurl }}/api/discovery#activity-streams-processing-algorithm "Activity Streams Processing Algorithm"
 [discovery-activity-types]: {{ site.url }}{{ site.baseurl }}/api/discovery#type-ordered-collection-activity "Activity Types"
+[discovery-registry]: https://registry.iiif.io/ "IIIF Change Discovery Registry"
 [github-discovery-issues]: https://github.com/IIIF/discovery/issues
 [github-milestone-image-prezi-3]: https://github.com/IIIF/api/milestone/22
 [github-webanno-437]: https://github.com/w3c/web-annotation/issues/437
@@ -138,6 +140,9 @@
 [org-json-ld]: http://www.json-ld.org/ "JSON for Linking Data"
 [org-linked-data]: http://linkeddata.org/ "Linked Data"
 [org-mellon]: http://www.mellon.org/ "The Andrew W. Mellon Foundation"
+[org-mozilla-drag-drop]: https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API "HTML Drag and Drop API"
+[org-mozilla-paste]: https://developer.mozilla.org/en-US/docs/Web/API/Element/paste_event "Element: paste event"
+[org-mozilla-filereader]: https://developer.mozilla.org/en-US/docs/Web/API/FileReader "FileReader"
 [org-open-annotation-multi]: http://www.openannotation.org/spec/core/multiplicity.html#Choice "Open Annotation: Multiplicity"
 [org-open-annotation-types]: http://www.openannotation.org/spec/core/core.html#BodyTargetType "Open Annotation: Body Target"
 [org-open-annotation]: http://www.openannotation.org/spec/core/ "Open Annotation"
@@ -146,6 +151,7 @@
 [org-rfc-2617]: https://tools.ietf.org/html/rfc2617 "HTTP Authentication: Basic and Digest Access Authentication"
 [org-rfc-3986]: https://tools.ietf.org/html/rfc3986 "Uniform Resource Identifier (URI): Generic Syntax"
 [org-rfc-4122]: https://tools.ietf.org/html/rfc4122 "URN UUID Scheme"
+[org-rfc-4648-5]: https://tools.ietf.org/html/rfc4648#section-5 "Base 64 Encoding with URL and Filename Safe Alphabet"
 [org-rfc-5988]: https://tools.ietf.org/html/rfc5988 "Web Linking"
 [org-rfc-6266]: https://tools.ietf.org/html/rfc6266 "Use of the Content-Disposition Header Field in the Hypertext Transfer Protocol (HTTP)"
 [org-rfc-6570]: https://tools.ietf.org/html/rfc6570 "URI Template"
@@ -168,7 +174,8 @@
 [org-w3c-rdf11-blank-nodes]: http://www.w3.org/TR/rdf11-concepts/#section-blank-nodes "RDF 1.1 Concepts"
 [org-w3c-svg]: http://www.w3.org/TR/SVG/ "Scalabe Vector Graphics"
 [org-w3c-webanno-protocol]: http://w3.org/TR/annotation-protocol/ "Web Annotation Protocol"
-[org-w3c-webanno]: http://w3.org/TR/annotation-model/ "Web Annotaiton Model"
+[org-w3c-webanno]: http://w3.org/TR/annotation-model/ "Web Annotation Model"
+[org-w3c-webanno-motivation]: https://www.w3.org/TR/annotation-model/#motivation-and-purpose "Web Annotation Model - Motivation"
 [org-w3c-webarch]: http://www.w3.org/TR/webarch/ "Architecture of the World Wide Web"
 [org-w3c-xsd-datetime]: https://www.w3.org/TR/xmlschema11-2/#dateTime "XSD DateTime"
 [org-wsgi-pep333]: https://www.python.org/dev/peps/pep-0333/ "PEP 0333"
@@ -190,7 +197,7 @@
 [prezi30-appendixa]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#a-summary-of-property-requirements
 [prezi30-canvas]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#53-canvas
 [prezi30-change-log]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/change-log/ "Presentation API 3.0 Change Log"
-[prezi30-collection]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.1/#overview-collection "Presentation API 3.0 Collection Type"
+[prezi30-collection]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#overview-collection "Presentation API 3.0 Collection Type"
 [prezi30-context-collisions]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#47-term-collisions-between-contexts
 [prezi30-height]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#height "height property"
 [prezi30-homepage]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#homepage "homepage property"
@@ -198,7 +205,7 @@
 [prezi30-languages]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#44-language-of-property-values "Language of Property Values"
 [prezi30-ldce]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#46-linked-data-context-and-extensions "Linked Data Context and Extensions"
 [prezi30-logo]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#logo "logo property"
-[prezi30-manifest]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.1/#overview-manifest "Presentation API 3.0 Manifest Type"
+[prezi30-manifest]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#overview-manifest "Presentation API 3.0 Manifest Type"
 [prezi30-range]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#54-range
 [prezi30-resource-properties]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#3-resource-properties
 [prezi30-resource-structure]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#5-resource-structure
@@ -210,6 +217,7 @@
 [extensions]: {{ site.url }}{{ site.baseurl }}/api/extension/
 [text-granularity]: {{ site.url }}{{ site.baseurl }}/api/extension/text-granularity/
 [registry]: {{ site.url }}{{ site.baseurl }}/api/registry/ "IIIF Extension Registry"
+[registry-activity-streams]: https://registry.iiif.io/ "IIIF Registry of Activity Streams"
 [registry-image-extensions]: {{ site.url }}{{ site.baseurl }}/api/registry/image-extensions/ "IIIF Image Extension Registry"
 [registry-motivations]: {{ site.url }}{{ site.baseurl }}/api/registry/motivations/
 [registry-behaviors]: {{ site.url }}{{ site.baseurl }}/api/registry/behaviors/

@@ -3,7 +3,7 @@ dist: trusty
 
 env:
   global:
-    - ROOT_BRANCHES="master prezi3"
+    - ROOT_BRANCHES="main prezi3"
 before_install:
   - export NOKOGIRI_USE_SYSTEM_LIBRARIES=true
   - npm install -g grunt-cli
@@ -47,7 +47,7 @@ deploy:
     region: us-east-1
     local_dir: _site
     on:
-      branch: master
+      branch: main
   - provider: s3
     access_key_id:
       secure: "WJBKJiYRQkOO5nveEVFVOADt34U3K4vK6PZ8gIATfRdqyD9cPkiEtajmB7yPw7Hs4NHxyfELJ32TYLLr4jhr6krf/a0O/1ji76rlOC7Rfcio7kXqxjF5P/wuVK34evN+PGNVb4kkoMAOocW/02yxP6Xfyx1VhofEpZcrdtjUibo="
@@ -61,7 +61,7 @@ deploy:
     upload-dir: "api/$TRAVIS_BRANCH"
     on:
       all_branches: true
-      condition: "$TRAVIS_BRANCH != master"
+      condition: "$TRAVIS_BRANCH != main"
 
 notifications:
   email:

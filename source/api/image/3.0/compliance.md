@@ -6,7 +6,7 @@ tags: [compliance, image-api]
 major: 3
 minor: 0
 patch: 0
-pre: ALPHA
+pre: final
 cssversion: 3
 redirect_from:
   - /api/image/compliance.html
