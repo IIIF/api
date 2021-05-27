@@ -131,7 +131,7 @@ Example Level 1 Activity:
 }
 ```
 
-#### 2.1.3. Level 2: Resource Creation, Change, Deletion and Renaming
+#### 2.1.3. Level 2: Resource Creation, Change, Deletion and Moving
 {: #level-2-complete-change-list}
 
 At the most detailed level, a log of all Activities that have taken place can be recorded, with the likelihood of multiple Activities per IIIF resource. Use of the additional types of "Create", "Delete" and "Move" allows explicit description of creations, deletions and moves, enabling a synchronization process to remove resources as well as add or update them.
