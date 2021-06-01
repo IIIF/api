@@ -158,7 +158,7 @@ The content state _MAY_ be supplied as JSON-LD, as the value of the `target` pro
 }
 ```
 
-This form is better suited to scenarios where compactness is important, for example a query string parameter, where it is will be combined with the encoding described in Section 2.3.
+This form is better suited to scenarios where compactness is important, for example a query string parameter, where it will be combined with the encoding described in Section 2.3.
 
 #### 2.2.4 Target URI
 
