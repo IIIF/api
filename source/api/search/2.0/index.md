@@ -287,9 +287,9 @@ There may be properties that are specific to the search result, and not features
 
 As these responses include Search specific information, the value of `@context` _MUST_ be an array with both the Presentation API and the Search API context URIs included, in that order.  This allows the two APIs to develop separately and yet remain as synchronized as possible.
 
-To incrementally build upon existing solutions and provide graceful degradation for clients that do not support these features and retain compatibility with the Presentation API, the search API specific information is included in a second list within the annotation list called `hits`, other than the `ignored` property on the layer.  Annotation lists _MAY_ have this property, and servers _MAY_ support these features.
+To incrementally build upon existing solutions and provide graceful degradation for clients that do not support these features and retain compatibility with the Presentation API, the search API specific information is included in a second list within the annotation list called `hits`, other than the `ignored` property.  Annotation lists _MAY_ have this property, and servers _MAY_ support these features.
 
-If supported, each entry in the `hits` list is a `search:Hit` object.  This type must be included as the value of the `type` property. Hit objects reference one or more annotations that they provide additional information for, in a list as the value of the hit's `items` property.  The reference is made to the value of the `id` property of the annotation, and thus annotations _MUST_ have a URI to enable this further information.
+If supported, each entry in the `hits` list is a `search:Hit` object.  This type _MUST_ be included as the value of the `type` property. Hit objects reference one or more annotations that they provide additional information for, in a list as the value of the hit's `items` property.  The reference is made to the value of the `id` property of the annotation, and thus annotations _MUST_ have a URI to enable this further information.
 
 The basic structure is:
 
@@ -303,12 +303,12 @@ The basic structure is:
   "type":"AnnotationPage",
 
   "partOf": "http://example.org/service/manifest/search?q=bird",
-  "next": "http://example.org/service/identifier/search?q=bird&page=2,
+  "next": "http://example.org/service/identifier/search?q=bird&page=2",
 
   "items": [
     {
       "id": "http://example.org/identifier/annotation/anno1",
-      "type": "Annotation",
+      "type": "Annotation"
       // More regular annotation information here ...
     }
     // Further annotations from the first page here ...
@@ -351,9 +351,9 @@ And the user parameter was ignored when processing the request, the response wou
   "type":"AnnotationPage",
 
   "partOf": "http://example.org/service/manifest/search?q=bird",
-  "next": "http://example.org/service/identifier/search?q=bird&page=2,
+  "next": "http://example.org/service/identifier/search?q=bird&page=2",
  
-  "ignored": ["user"]
+  "ignored": ["user"],
   
   "items": [
     // Annotations ...
@@ -426,11 +426,13 @@ The client in this case needs to know the text that caused the service to create
 This would look like:
 
 ``` json-doc
-"selector": {
-  "type": "TextQuoteSelector",
-  "exact": "birds",
-  "prefix": "There are two ",
-  "suffix": " in the bush"
+{
+  "selector": {
+    "type": "TextQuoteSelector",
+    "exact": "birds",
+    "prefix": "There are two ",
+    "suffix": " in the bush"
+  }
 }
 ```
 
@@ -462,7 +464,7 @@ The result might be:
         "value": "birds",
         "format": "text/plain"
       },
-      "target": "http://example.org/identifier/canvas1#xywh=200,100,40,20",
+      "target": "http://example.org/identifier/canvas1#xywh=200,100,40,20"
     }
     // Further annotations here ...
   ],
