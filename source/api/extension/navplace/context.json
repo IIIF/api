@@ -4,7 +4,7 @@
       "iiif_navPlace":"http://iiif.io/api/extension/navPlace#",
       "navPlace":{
          "@id":"iiif_navPlace:navPlace",
-         "@context": {"@vocab" : "https://purl.org/geojson/vocab#"}
+         "@context":"https://geojson.org/geojson-ld/geojson-context.jsonld"
       }
    }
 }
