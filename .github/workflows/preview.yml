@@ -30,7 +30,7 @@ jobs:
         bundler-cache: true
 
     - name: install
-        run: gem install bundler && bundle
+      run: gem install bundler && bundle
 
     - name: Test site
       run: bundle exec rake ci
