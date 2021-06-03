@@ -48,11 +48,6 @@ This is a work in progress and may change without notice. Implementers should be
 
 ----
 
-## Table of Contents
-{:.no_toc}
-
-* Table of Discontent (will be replaced by macro)
-{:toc}
 
 ## 1. Introduction
 {: #introduction}

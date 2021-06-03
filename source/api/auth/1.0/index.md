@@ -51,12 +51,6 @@ __Warning__<br/>
 Recent developments in the browser community to discontinue support for third-party cookies have meant that IIIF Authentication API 1.0 workflows that rely on third-party cookies are now, or will soon be, obsolete in most browsers. The [IIIF Authentication TSG](https://iiif.io/community/groups/auth-tsg/) is currently working on the next iteration of the Auth specification, which should address the third-party cookies issue. Workflows relying on first-party cookies remain unaffected by these developments. For a more detailed discussion of the issues, see [What happens if there are no third-party cookies?](https://tom-crane.medium.com/what-happens-if-there-are-no-third-party-cookies-5ee5edb84d75).
 {: .alert}
 
-## Table of Contents
-{:.no_toc}
-
-* Table of Discontent (will be replaced by macro)
-{:toc}
-
 
 ## 1. Introduction
 {: #introduction}

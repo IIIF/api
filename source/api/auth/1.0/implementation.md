@@ -18,11 +18,6 @@ redirect_from:
 
 This document applies to version {{ page.major }}.{{ page.minor }}.{{ page.patch }}{% if page.pre != 'final' %}-{{ page.pre }}{% endif %} of the [IIIF Authentication API][auth-api] specification.
 
-## Table of Contents
-{:.no_toc}
-
-* Goes Here
-{:toc}
 
 ## 1. Introduction
 {: #introduction}

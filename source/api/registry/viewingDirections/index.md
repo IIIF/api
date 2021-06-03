@@ -39,12 +39,6 @@ This is one of a number of [IIIF registries][registry]. It lists a set of viewin
 
 Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss]
 
-## Table of Contents
-{:.no_toc}
-
-* Table of Discontent (will be replaced by macro)
-{:toc}
-
 ## 1. Introduction
 
 This is one of a number of [IIIF registries][registry]. It lists a set of viewing directions for external resources that have been identified as useful for implementations of the Presenation API.  They may be defined by the IIIF community, or outside of it.

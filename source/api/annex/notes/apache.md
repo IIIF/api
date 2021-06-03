@@ -7,13 +7,6 @@ redirect_from:
   - /api/annex/notes/apache.html
 ---
 
-## Table of Contents
-{:.no_toc}
-
-* Goes Here
-{:toc}
-
-
 ## Allow Encoded Slashes
 
 As [specified in the Image API][uri-encoding-and-decoding], slashes ("`/`", "`\`") in the identifer portion of the base uri MUST be encoded. This may cause problems with some HTTP servers. Apache servers from version 2.2.18 support the `AllowEncodedSlashes NoDecode` [configuration directive][apache-aesnd] which will correctly pass these characters to client applications without rejecting or decoding them.

@@ -44,12 +44,6 @@ __Previous Version:__ [2.0][prev-version]
 
 ----
 
-## Table of Contents
-{:.no_toc}
-
-* Table of Discontent (will be replaced by macro)
-{:toc}
-
 ##  1. Introduction
 {: #introduction}
 
@@ -516,7 +510,7 @@ This section provides detailed description of the resource types used in this sp
 Recommended URI pattern:
 
 {% include code_header.html %}
-``` 
+```
 {scheme}://{host}/{prefix}/{identifier}/manifest
 ```
 {: .urltemplate}
@@ -621,7 +615,7 @@ The example below includes only the manifest-level information, however actual i
 Recommended URI pattern:
 
 {% include code_header.html %}
-``` 
+```
 {scheme}://{host}/{prefix}/{identifier}/sequence/{name}
 ```
 {: .urltemplate}
@@ -679,7 +673,7 @@ In the manifest example above, the sequence is referenced by its URI and contain
 Recommended URI pattern:
 
 {% include code_header.html %}
-``` 
+```
 {scheme}://{host}/{prefix}/{identifier}/canvas/{name}
 ```
 {: .urltemplate}
@@ -735,7 +729,7 @@ Canvases _MAY_ be dereferenced separately from the manifest via their URIs, and 
 Recommended URI pattern:
 
 {% include code_header.html %}
-``` 
+```
 {scheme}://{host}/{prefix}/{identifier}/annotation/{name}
 ```
 {: .urltemplate}
@@ -785,7 +779,7 @@ Only the annotations that associate images or parts of images are included in th
 Recommended URI pattern:
 
 {% include code_header.html %}
-``` 
+```
 {scheme}://{host}/{prefix}/{identifier}/list/{name}
 ```
 {: .urltemplate}
@@ -843,7 +837,7 @@ Note well that Annotation Lists _MUST NOT_ be embedded within the manifest.
 Recommended URI pattern:
 
 {% include code_header.html %}
-``` 
+```
 {scheme}://{host}/{prefix}/{identifier}/range/{name}
 ```
 {: .urltemplate}
@@ -938,7 +932,7 @@ Several issues have arisen with respect to the current specification for ranges,
 Recommended URI pattern:
 
 {% include code_header.html %}
-``` 
+```
 {scheme}://{host}/{prefix}/{identifier}/layer/{name}
 ```
 {: .urltemplate}
@@ -993,7 +987,7 @@ The annotation lists are referenced from the layer in an `otherContent` array, i
 Recommended URI pattern:
 
 {% include code_header.html %}
-``` 
+```
 {scheme}://{host}/{prefix}/collection/{name}
 ```
 {: .urltemplate}
@@ -1554,7 +1548,7 @@ Each of the entries in section 4 recommends a URI pattern to follow for the diff
 The Base URI, to which additional information is appended, that is _RECOMMENDED_ for resources made available by the API is:
 
 {% include code_header.html %}
-``` 
+```
 {scheme}://{host}{/prefix}/{identifier}
 ```
 {: .urltemplate}
@@ -1581,7 +1575,7 @@ The format for all responses is JSON, and the following sections describe the st
 The content-type of the response _MUST_ be either `application/json` (regular JSON),
 
 {% include code_header.html %}
-``` 
+```
 Content-Type: application/json
 ```
 {: .urltemplate}
@@ -1589,7 +1583,7 @@ Content-Type: application/json
 or "application/ld+json" (JSON-LD).
 
 {% include code_header.html %}
-``` 
+```
 Content-Type: application/ld+json
 ```
 {: .urltemplate}
@@ -1599,7 +1593,7 @@ If the client explicitly wants the JSON-LD content-type, then it _MUST_ specify 
 The HTTP server _SHOULD_, if at all possible, send the Cross Origin Access Control header (often called "CORS") to allow clients to download the manifests via AJAX from remote sites. The header name is `Access-Control-Allow-Origin` and the value of the header _SHOULD_ be `*`.
 
 {% include code_header.html %}
-``` 
+```
 Access-Control-Allow-Origin: *
 ```
 {: .urltemplate}

@@ -39,11 +39,6 @@ This document lists a set of rights statements and licenses for use across the I
 
 Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss]
 
-## Table of Contents
-{:.no_toc}
-
-* Table of Discontent (will be replaced by macro)
-{:toc}
 
 ## 1. Introduction
 

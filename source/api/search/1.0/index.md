@@ -44,12 +44,6 @@ __Latest Stable Version:__ [{{ site.search_api.stable.major }}.{{ site.search_ap
 
 ----
 
-## Table of Contents
-{:.no_toc}
-
-* Table of Discontent (will be replaced by macro)
-{:toc}
-
 ## 1. Introduction
 {: #introduction}
 
@@ -157,7 +151,7 @@ Other motivations are possible, and the full list from the [Open Annotation][ope
 This example request:
 
 {% include code_header.html %}
-``` 
+```
 http://example.org/services/manifest/search?q=bird&motivation=painting
 ```
 {: .urltemplate}
@@ -215,7 +209,7 @@ The layer _MUST_ have the `@type` property, with the value of "sc:Layer".  It _S
 An example request:
 
 {% include code_header.html %}
-``` 
+```
 http://example.org/service/manifest/search?q=bird
 ```
 {: .urltemplate}
@@ -349,7 +343,7 @@ If the server has ignored any of the parameters in the request, then the layer _
 If the request from previous examples had been:
 
 {% include code_header.html %}
-``` 
+```
 http://example.org/service/manifest/search?q=bird&user=http%3A%2F%2Fexample.com%2Fusers%2Fazaroth42
 ```
 {: .urltemplate}
@@ -391,7 +385,7 @@ The service _MAY_ add a `before` property to the hit with some amount of text th
 For example, in a search for the query term "bird" in our example sentence, when the server has full word level coordinates:
 
 {% include code_header.html %}
-``` 
+```
 http://example.org/service/manifest/search?q=bird
 ```
 {: .urltemplate}
@@ -458,7 +452,7 @@ This would look like:
 As multiple words might match the query within the same annotation, multiple selectors may be given in the hit as objects within a `selectors` property.  For example, if the search used a wildcard to search for all words starting with "b" it would match the same annotation twice:
 
 {% include code_header.html %}
-``` 
+```
 http://example.org/service/manifest/search?q=b*
 ```
 {: .urltemplate}
@@ -628,7 +622,7 @@ The other parameters (`motivation`, `date` and `user`), if supported, refine the
 An example request
 
 {% include code_header.html %}
-``` 
+```
 http://example.org/service/identifier/autocomplete?q=bir&motivation=painting&user=http%3A%2F%2Fexample.com%2Fusers%2Fazaroth42
 ```
 {: .urltemplate}

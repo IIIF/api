@@ -28,11 +28,11 @@ This document describes the set of related services that have been identified as
 
 Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss]
 
-## Table of Contents
+
 {:.no_toc}
 
-* Table of Discontent (will be replaced by macro)
-{:toc}
+
+
 
 ## 1. Introduction
 {: #introduction}

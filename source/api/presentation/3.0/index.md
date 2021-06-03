@@ -46,12 +46,6 @@ __Previous Version:__ [2.1.1][prezi21]
 
 ----
 
-## Table of Contents
-{:.no_toc}
-
-* Table of Discontent (will be replaced by macro)
-{:toc}
-
 ##  1. Introduction
 
 Access to digital representations of objects is a fundamental requirement for many research activities, for the transmission of cultural knowledge, and for the daily pursuits of every web citizen. Ancient scrolls, paintings, letters, books, newspapers, films, operas, albums, field recordings, and computer generated animations are compound objects: they can have many parts, and complex structures. These resources may also bear the written or spoken word, and this linguistic content is often as important as the visual or audible representation.
@@ -1809,7 +1803,7 @@ If the server receives a request with an `Accept` header, it _SHOULD_ respond fo
 If the request does not include an `Accept` header, the HTTP `Content-Type` header of the response _SHOULD_ have the value `application/ld+json` (JSON-LD) with the `profile` parameter given as the context document: `http://iiif.io/api/presentation/3/context.json`.
 
 {% include code_header.html %}
-``` 
+```
 Content-Type: application/ld+json;profile="http://iiif.io/api/presentation/3/context.json"
 ```
 {: .urltemplate}
@@ -1817,7 +1811,7 @@ Content-Type: application/ld+json;profile="http://iiif.io/api/presentation/3/con
 If the `Content-Type` header `application/ld+json` cannot be generated due to server configuration details, then the `Content-Type` header _SHOULD_ instead be `application/json` (regular JSON), without a `profile` parameter.
 
 {% include code_header.html %}
-``` 
+```
 Content-Type: application/json
 ```
 {: .urltemplate}

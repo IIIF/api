@@ -45,11 +45,6 @@ __Previous Version:__ [2.0][prev-version]
 
 ----
 
-## Table of Contents
-{:.no_toc}
-
-* Table of Discontent (will be replaced by macro)
-{:toc}
 
 ## 1. Introduction
 
@@ -96,7 +91,7 @@ There are four parameters shared by the requests, and other IIIF specifications:
 The combination of these parameters forms the image’s base URI and identifies the underlying image content. It is constructed according to the following URI Template ([RFC6570][rfc-6570]):
 
 {% include code_header.html %}
-``` 
+```
 {scheme}://{server}{/prefix}/{identifier}
 ```
 {: .urltemplate}
@@ -111,7 +106,7 @@ To allow for extensions, this specification does not define the server behavior 
 The IIIF Image API URI for requesting an image _MUST_ conform to the following URI Template:
 
 {% include code_header.html %}
-``` 
+```
 {scheme}://{server}{/prefix}/{identifier}/{region}/{size}/{rotation}/{quality}.{format}
 ```
 {: .urltemplate}
@@ -119,7 +114,7 @@ The IIIF Image API URI for requesting an image _MUST_ conform to the following U
 For example:
 
 {% include code_header.html %}
-``` 
+```
 http://www.example.org/image-service/abcd1234/full/full/0/default.jpg
 ```
 {: .urltemplate}
@@ -132,7 +127,7 @@ The parameters of the Image Request URI include region, size, rotation, quality 
 The URI for requesting image information _MUST_ conform to the following URI Template:
 
 {% include code_header.html %}
-``` 
+```
 {scheme}://{server}{/prefix}/{identifier}/info.json
 ```
 {: .urltemplate}
@@ -140,7 +135,7 @@ The URI for requesting image information _MUST_ conform to the following URI Tem
 For example:
 
 {% include code_header.html %}
-``` 
+```
 http://www.example.org/image-service/abcd1234/info.json
 ```
 {: .urltemplate}
@@ -475,7 +470,7 @@ In order to support the above requirements, clients _SHOULD_ construct the image
 When the client requests an image, the server _MAY_ add a link header to the response that indicates the canonical URI for that request:
 
 {% include code_header.html %}
-``` 
+```
 Link: <http://iiif.example.com/server/full/400,/0/default.jpg>;rel="canonical"
 ```
 {: .urltemplate}
@@ -493,7 +488,7 @@ Servers _MUST_ support requests for image information. The response includes tec
 The request for the information _MUST_ conform to the URI Template:
 
 {% include code_header.html %}
-``` 
+```
 {scheme}://{server}{/prefix}/{identifier}/info.json
 ```
 {: .urltemplate}
@@ -501,7 +496,7 @@ The request for the information _MUST_ conform to the URI Template:
 The syntax for the response is [JSON-LD][json-ld-w3c]. The content-type of the response _MUST_ be either "application/json" (regular JSON),
 
 {% include code_header.html %}
-``` 
+```
 Content-Type: application/json
 ```
 {: .urltemplate}
@@ -509,7 +504,7 @@ Content-Type: application/json
 or "application/ld+json" (JSON-LD).
 
 {% include code_header.html %}
-``` 
+```
 Content-Type: application/ld+json
 ```
 {: .urltemplate}
@@ -519,7 +514,7 @@ If the client explicitly wants the JSON-LD content-type, then it _MUST_ specify 
 Servers _SHOULD_ send the `Access-Control-Allow-Origin` header with the value `*` in response to information requests. The syntax is shown below and is described in the [CORS][cors-spec] specification. This header is required in order to allow the JSON responses to be used by Web applications hosted on different servers.
 
 {% include code_header.html %}
-``` 
+```
 Access-Control-Allow-Origin: *
 ```
 {: .urltemplate}
@@ -827,7 +822,7 @@ The image information document _MUST_ specify the extent to which the API is sup
 The compliance level URI _MAY_ also be given in the HTTP Link header ([RFC5988][rfc-5988]) with the parameter `rel="profile"`, and thus a complete header might look like:
 
 {% include code_header.html %}
-``` 
+```
 Link: <http://iiif.io/api/image/{{ page.major }}/level1.json>;rel="profile"
 ```
 {: .urltemplate}
@@ -871,7 +866,7 @@ No new authentication mechanisms are proposed, nor roles for authorization busin
 The URI syntax of this API relies upon slash (/) separators which _MUST NOT_ be encoded. Clients _MUST_ percent-encode special characters (the to-encode set below: percent and gen-delims of [RFC3986][rfc-3986] except the colon) plus any characters outside the US-ASCII set within the components of requests. For example, any slashes within the identifier part of the URI _MUST_ be percent-encoded. Encoding is necessary only for the identifier because other components will not include special characters. Percent-encoding other characters introduces no ambiguity but is unnecessary.
 
 {% include code_header.html %}
-``` 
+```
 to-encode = "/" / "?" / "#" / "[" / "]" / "@" / "%"
 ```
 {: .urltemplate}

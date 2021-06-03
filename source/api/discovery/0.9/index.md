@@ -46,11 +46,6 @@ __Previous Version:__ [0.4][discovery04]
 
 ----
 
-## Table of Contents
-{:.no_toc}
-
-* Table of Discontent (will be replaced by macro)
-{:toc}
 
 ## 1. Introduction
 {: #introduction}
@@ -948,7 +943,7 @@ If the server receives a request with an `Accept` header, it _SHOULD_ respond fo
 If the request does not include an `Accept` header, the HTTP `Content-Type` header of the response _SHOULD_ have the value `application/ld+json` (JSON-LD) with the `profile` parameter given as the context document: `http://iiif.io/api/discovery/1/context.json`.
 
 {% include code_header.html %}
-``` 
+```
 Content-Type: application/ld+json;profile="http://iiif.io/api/discovery/1/context.json"
 ```
 {: .urltemplate}
@@ -956,7 +951,7 @@ Content-Type: application/ld+json;profile="http://iiif.io/api/discovery/1/contex
 If the above `Content-Type` header value cannot be generated, then the value _SHOULD_ instead be `application/json` (regular JSON), without a `profile` parameter.
 
 {% include code_header.html %}
-``` 
+```
 Content-Type: application/json
 ```
 {: .urltemplate}

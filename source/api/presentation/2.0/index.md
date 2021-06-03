@@ -37,11 +37,6 @@ This document describes an API to deliver structural and presentation informatio
 
 Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss]
 
-## Table of Contents
-{:.no_toc}
-
-* Table of Discontent (will be replaced by macro)
-{:toc}
 
 ##  1. Introduction
 {: #introduction}
@@ -311,7 +306,7 @@ Each of the sections below recommends a URI pattern to follow for the different 
 The Base URI, to which additional information is appended, that is _RECOMMENDED_ for resources made available by the API is:
 
 {% include code_header.html %}
-``` 
+```
 {scheme}://{host}{/prefix}/{identifier}
 ```
 {: .urltemplate}
@@ -338,7 +333,7 @@ The format for all responses is JSON, and the following sections describe the st
 The content-type of the response _MUST_ be either `application/json` (regular JSON),
 
 {% include code_header.html %}
-``` 
+```
 Content-Type: application/json
 ```
 {: .urltemplate}
@@ -346,7 +341,7 @@ Content-Type: application/json
 or "application/ld+json" (JSON-LD).
 
 {% include code_header.html %}
-``` 
+```
 Content-Type: application/ld+json
 ```
 {: .urltemplate}
@@ -354,7 +349,7 @@ Content-Type: application/ld+json
 If the client explicitly wants the JSON-LD content-type, then it _MUST_ specify this in an Accept header, otherwise the server _MUST_ return the regular JSON content-type. If the regular JSON content-type is returned, then it is _RECOMMENDED_ that the server provide a link header to the context document. The syntax for the link header is below, and further described in [section 6.8 of the JSON-LD specification][json-ld-68]. The context _MUST NOT_ be given in the link header if the client requests `application/ld+json`.
 
 {% include code_header.html %}
-``` 
+```
 Content-Type: application/json
 Link: <http://iiif.io/api/presentation/{{ page.major }}/context.json>
             ;rel="http://www.w3.org/ns/json-ld#context"
@@ -365,7 +360,7 @@ Link: <http://iiif.io/api/presentation/{{ page.major }}/context.json>
 The HTTP server _SHOULD_, if at all possible, send the Cross Origin Access Control header (often called "CORS") to allow clients to download the manifests via AJAX from remote sites. The header name is `Access-Control-Allow-Origin` and the value of the header _SHOULD_ be `*`.
 
 {% include code_header.html %}
-``` 
+```
 Access-Control-Allow-Origin: *
 ```
 {: .urltemplate}
@@ -476,7 +471,7 @@ Clients _SHOULD_ be aware that some implementations will add an `@graph` propert
 Recommended URI pattern:
 
 {% include code_header.html %}
-``` 
+```
 {scheme}://{host}/{prefix}/{identifier}/manifest
 ```
 {: .urltemplate}
@@ -558,7 +553,7 @@ The example below includes only the manifest-level information, however it _MUST
 Recommended URI pattern:
 
 {% include code_header.html %}
-``` 
+```
 {scheme}://{host}/{prefix}/{identifier}/sequence/{name}
 ```
 {: .urltemplate}
@@ -616,7 +611,7 @@ In the manifest example above, the sequence is referenced by its URI and contain
 Recommended URI pattern:
 
 {% include code_header.html %}
-``` 
+```
 {scheme}://{host}/{prefix}/{identifier}/canvas/{name}
 ```
 {: .urltemplate}
@@ -667,7 +662,7 @@ Canvases _MAY_ be dereferenced separately from the manifest via their URIs, and 
 Recommended URI pattern:
 
 {% include code_header.html %}
-``` 
+```
 {scheme}://{host}/{prefix}/{identifier}/annotation/{name}
 ```
 {: .urltemplate}
@@ -715,7 +710,7 @@ Additional features of the [Open Annotation][openanno] data model _MAY_ also be 
 Recommended URI pattern:
 
 {% include code_header.html %}
-``` 
+```
 {scheme}://{host}/{prefix}/{identifier}/list/{name}
 ```
 {: .urltemplate}
@@ -1082,7 +1077,7 @@ _Figure 3. All Resource Types_
 Recommended URI pattern:
 
 {% include code_header.html %}
-``` 
+```
 {scheme}://{host}/{prefix}/{identifier}/range/{name}
 ```
 {: .urltemplate}
@@ -1147,7 +1142,7 @@ Ranges are linked or embedded within the manifest in a `structures` field.  It i
 Recommended URI pattern:
 
 {% include code_header.html %}
-``` 
+```
 {scheme}://{host}/{prefix}/{identifier}/layer/{name}
 ```
 {: .urltemplate}
@@ -1200,7 +1195,7 @@ If the layer's URI is dereferenced, the annotation list resources are given in a
 Recommended URI pattern:
 
 {% include code_header.html %}
-``` 
+```
 {scheme}://{host}/{prefix}/collection/{name}
 ```
 {: .urltemplate}

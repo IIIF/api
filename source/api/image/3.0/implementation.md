@@ -6,12 +6,6 @@ redirect_from:
   - /api/image/3/implementation.html
 ---
 
-## Table of Contents
-{:.no_toc}
-
-* Table of Discontent (will be replaced by macro)
-{:toc}
-
 ## 1. HTTP implementation
 
   * For use cases that enable the saving of the image, use the HTTP `Content-Disposition` header ([RFC6266][org-rfc-6266]) to provide a convenient filename that distinguishes the image, based on the identifier and parameters provided.

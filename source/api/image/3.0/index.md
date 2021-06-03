@@ -47,12 +47,6 @@ __Previous Version:__ [2.1.1][image21]
 
 ----
 
-## Table of Contents
-{:.no_toc}
-
-* Table of Discontent (will be replaced by macro)
-{:toc}
-
 ## 1. Introduction
 
 This document describes an image delivery API defined by the International Image Interoperability Framework (IIIF, pronounced "Triple-Eye-Eff") Consortium. The IIIF Image API specifies a web service that returns an image in response to a standard HTTP or HTTPS request. The URI can specify the region, size, rotation, quality characteristics and format of the requested image. A URI can also be constructed to request basic technical information about the image to support client applications. This API was conceived of to facilitate systematic reuse of image resources in digital image repositories maintained by cultural heritage organizations. It could be adopted by any image repository or service, and can be used to retrieve static images in response to a properly constructed URI.
@@ -101,7 +95,7 @@ There are four parameters shared by the requests, and other IIIF specifications:
 The combination of these parameters forms the image service’s base URI and identifies the underlying image content. It is constructed according to the following URI template ([RFC6570][org-rfc-6570]):
 
 {% include code_header.html %}
-``` 
+```
 {scheme}://{server}{/prefix}/{identifier}
 ```
 {: .urltemplate}
@@ -115,7 +109,7 @@ To allow for extensions, this specification does not define the server behavior 
 The IIIF Image API URI for requesting an image _MUST_ conform to the following URI template:
 
 {% include code_header.html %}
-``` 
+```
 {scheme}://{server}{/prefix}/{identifier}/{region}/{size}/{rotation}/{quality}.{format}
 ```
 {: .urltemplate}
@@ -123,7 +117,7 @@ The IIIF Image API URI for requesting an image _MUST_ conform to the following U
 For example:
 
 {% include code_header.html %}
-``` 
+```
 https://example.org/image-service/abcd1234/full/max/0/default.jpg
 ```
 {: .urltemplate}
@@ -135,7 +129,7 @@ The parameters of the Image Request URI include region, size, rotation, quality 
 The URI for requesting image information _MUST_ conform to the following URI template:
 
 {% include code_header.html %}
-``` 
+```
 {scheme}://{server}{/prefix}/{identifier}/info.json
 ```
 {: .urltemplate}
@@ -143,7 +137,7 @@ The URI for requesting image information _MUST_ conform to the following URI tem
 For example:
 
 {% include code_header.html %}
-``` 
+```
 https://example.org/image-service/abcd1234/info.json
 ```
 {: .urltemplate}
@@ -514,7 +508,7 @@ In order to support the above requirements, clients _SHOULD_ construct image req
 When the client requests an image, the server _MAY_ add a link header to the response that indicates the canonical URI for that request:
 
 {% include code_header.html %}
-``` 
+```
 Link: <http://iiif.example.com/server/full/400,300/0/default.jpg>;rel="canonical"
 ```
 {: .urltemplate}
@@ -535,7 +529,7 @@ Servers _MUST_ support requests for image information. The response is a JSON do
 The request for the image information _MUST_ conform to the URI template:
 
 {% include code_header.html %}
-``` 
+```
 {scheme}://{server}{/prefix}/{identifier}/info.json
 ```
 {: .urltemplate}
@@ -545,7 +539,7 @@ The syntax for the response is [JSON-LD][org-w3c-json-ld]. If the server receive
 If the request does not include an `Accept` header, the HTTP `Content-Type` header of the response _SHOULD_ have the value `application/ld+json` (JSON-LD) with the `profile` parameter given as the context document: `http://iiif.io/api/image/3/context.json`.
 
 {% include code_header.html %}
-``` 
+```
 Content-Type: application/ld+json;profile="http://iiif.io/api/image/3/context.json"
 ```
 {: .urltemplate}
@@ -553,7 +547,7 @@ Content-Type: application/ld+json;profile="http://iiif.io/api/image/3/context.js
 If the `Content-Type` header `application/ld+json` cannot be generated due to server configuration details, then the `Content-Type` header _SHOULD_ instead be `application/json` (regular JSON), without a `profile` parameter.
 
 {% include code_header.html %}
-``` 
+```
 Content-Type: application/json
 ```
 {: .urltemplate}
@@ -899,7 +893,7 @@ The image information document _MUST_ specify the extent to which the API is sup
 The compliance level _MAY_ also be given in a HTTP `Link` header ([RFC5988][org-rfc-5988]), using the profile document URI with the parameter `rel="profile"`, on both Image and Image Information responses. A complete header might look like:
 
 {% include code_header.html %}
-``` 
+```
 Link: <http://iiif.io/api/image/{{ page.major }}/level1.json>;rel="profile"
 ```
 {: .urltemplate}
@@ -948,7 +942,7 @@ No new authentication mechanisms are proposed, nor roles for authorization busin
 The URI syntax of this API relies upon slash (`/`) separators which _MUST NOT_ be encoded. Clients _MUST_ percent-encode special characters (the to-encode set below: percent and gen-delims of [RFC3986][org-rfc-3986] except the colon) plus any characters outside the US-ASCII set within the components of requests. For example, any slashes within the identifier part of the URI _MUST_ be percent-encoded. Encoding is necessary only for the identifier because other components will not include special characters. Percent-encoding other characters introduces no ambiguity but is unnecessary.
 
 {% include code_header.html %}
-``` 
+```
 to-encode = "/" / "?" / "#" / "[" / "]" / "@" / "%"
 ```
 {: .urltemplate}

@@ -30,11 +30,6 @@ This document describes an extension to the [IIIF Image API][image-api] which co
 
 Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss].
 
-## Table of Contents
-{:.no_toc}
-
-* goes here
-{:toc}
 
 ## 1. Overview
 {: #overview}
@@ -48,7 +43,7 @@ There are cases where it is useful for a client to store, update or delete image
  3. The IIIF Image API does not define a mechanism for getting the source image that the API calls are using to derive images according to the request. In some cases this may be available as:
 
     {% include code_header.html %}
-``` 
+```
     {scheme}://{server}{/prefix}/{identifier}/full/full/0/native
     ```
 
@@ -71,7 +66,7 @@ The server should return the image that it uses make derivative images in respon
 URI Pattern:
 
 {% include code_header.html %}
-``` 
+```
 {scheme}://{server}{/prefix}/{identifier}
 ```
 
@@ -91,7 +86,7 @@ The request should behave exactly the same as GET, except that only the appropri
 URI Pattern:
 
 {% include code_header.html %}
-``` 
+```
 {scheme}://{server}{/prefix}/{identifier}
 ```
 
@@ -105,7 +100,7 @@ Update an existing image or create a new image with {identifier}.
 URI Pattern:
 
 {% include code_header.html %}
-``` 
+```
 {scheme}://{server}{/prefix}/{identifier}
 ```
 
@@ -128,7 +123,7 @@ Similar to PUT, except that the server will supply the identifier, and return it
 URI Pattern:
 
 {% include code_header.html %}
-``` 
+```
 {scheme}://{server}{/prefix}
 ```
 
@@ -148,7 +143,7 @@ Delete the image specified by {identifier} on the server.
 URI Pattern:
 
 {% include code_header.html %}
-``` 
+```
 {scheme}://{server}{/prefix}/{identifier}
 ```
 

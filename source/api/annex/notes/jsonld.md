@@ -7,11 +7,6 @@ redirect_from:
   - /api/annex/notes/jsonld.html
 ---
 
-## Table of Contents
-{:.no_toc}
-
-* Goes Here
-{:toc}
 
 ## Introduction
 

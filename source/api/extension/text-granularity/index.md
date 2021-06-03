@@ -13,11 +13,6 @@ Changes will be tracked within the document.
 
 {% include copyright.md %}
 
-## Table of Contents
-{:.no_toc}
-
-* Table of Discontent (will be replaced by macro)
-{:toc}
 
 ## 1. Introduction
 

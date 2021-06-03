@@ -16,11 +16,6 @@ This document is a companion to the [IIIF Image API Specification, Version 2.1.1
 
 For the significant changes between 2.0 and 2.1, please see the [2.1 Change Log][changelog-21].
 
-## Table of Contents
-{:.no_toc}
-
-* Goes Here
-{:toc}
 
 ## 1. Editorial Changes
 
@@ -41,7 +36,7 @@ See issue [#935](https://github.com/IIIF/iiif.io/issues/935)
 
 ### 1.4 Update `@context` for GeoJSON example
 
-The URI of the `@context` for GeoJSON services has changed and the example use from the Image API has been updated. 
+The URI of the `@context` for GeoJSON services has changed and the example use from the Image API has been updated.
 See issue [#1001](https://github.com/IIIF/iiif.io/issues/1001)
 
 ### 1.5 Use better URIs for example rights/licenses
@@ -60,10 +55,10 @@ These changes were scheduled to coincide with the release of 2.1.1 to benefit fr
 
 #### 2.1.1 Change in location of `@context` for GeoJSON example
 
-The URI of the `@context` to be used for GeoJSON services has changed and the [Services Annex Document][service-profiles] has been updated. 
+The URI of the `@context` to be used for GeoJSON services has changed and the [Services Annex Document][service-profiles] has been updated.
 See issue [#1001](https://github.com/IIIF/iiif.io/issues/1001)
 
- 
+
 [image-api]: {{ site.url }}{{ site.baseurl }}/api/image/2.1/ "Image API 2.1"
 [changelog-21]: {{ site.url }}{{ site.baseurl }}/api/image/2.1/change-log.html "Image API 2.1 Change Log"
 [semver]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/semver/ "Note on Semantic Versioning"

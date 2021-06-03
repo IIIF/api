@@ -39,11 +39,6 @@ This is one of a number of [IIIF registries][registry]. It lists a set of servic
 
 Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss]
 
-## Table of Contents
-{:.no_toc}
-
-* Table of Discontent (will be replaced by macro)
-{:toc}
 
 ## 1. Introduction
 
