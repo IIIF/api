@@ -1,15 +1,20 @@
 source 'https://rubygems.org'
 
-gem "rake"
 gem 'jekyll', '~> 4.1.1'
-gem 'rouge' 
+
+# for local development, clone theme + use path loader
+# gem 'iiifc-theme', path: 'iiifc-theme'
+gem 'iiifc-theme', github: 'mnyrop/iiifc-theme', branch: 'main'
+
 group :jekyll_plugins do
-    gem 'jekyll-redirect-from'
+  gem 'jekyll-redirect-from'
+  gem 'jekyll-sitemap'
+  gem 'jekyll-gzip'
 end
 
-group :test do
-  gem 'rspec'
+group :development, :test do
   gem 'html-proofer'
+  gem 'rake'
 end
 
 # Windows and JRuby does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -21,5 +26,3 @@ end
 
 # Performance-booster for watching directories on Windows
 gem "wdm", "~> 0.1.1", :platforms => [:mingw, :x64_mingw, :mswin]
-
-

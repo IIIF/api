@@ -14,7 +14,7 @@ blocks starting with "``` json" and ending with "```", e.g.:
 ```
 
 Removes both comment lines that have \\ as the first non-whitespace
-and comments that have end with \\ followed by chars not including a double 
+and comments that have end with \\ followed by chars not including a double
 quote. Also removes lines that contain only an ellipsis and whitespace.''')
 
 p.add_option('--basedir', '-b', action='store', default='source',
@@ -54,7 +54,7 @@ def check_json_in_file(file):
         elif (line.startswith('``` json')):
             in_json = n
     return(errors)
-    
+
 errors = 0
 for dir, dirs, files in os.walk(opts.basedir):
     for file in files:

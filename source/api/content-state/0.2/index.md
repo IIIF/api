@@ -12,6 +12,22 @@ pre: final
 redirect_from:
   - /api/content-state/index.html
   - /api/0/content-state/index.html
+editors:
+  - name: Michael Appleby
+    orchid: https://orcid.org/0000-0002-1266-298X
+    institution: Yale University
+  - name: Tom Crane
+    orchid: https://orcid.org/0000-0003-1881-243X
+    institution: Digirati
+  - name: Robert Sanderson
+    orchid: https://orcid.org/0000-0003-4441-6852
+    institution: J. Paul Getty Trust
+  - name: Jon Stroop
+    orchid: https://orcid.org/0000-0002-0367-1243
+    institution: Princeton University Library
+  - name: Simeon Warner
+    orchid: https://orcid.org/0000-0002-7970-7855
+    institution: Cornell University
 ---
 
 
@@ -23,14 +39,9 @@ __Latest Stable Version:__ None
 
 __Previous Version:__ None
 
-**Editors**
+**Editors:**
 
-  * **[Michael Appleby](https://orcid.org/0000-0002-1266-298X)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0002-1266-298X), [_Yale University_](http://www.yale.edu/)
-  * **[Tom Crane](https://orcid.org/0000-0003-1881-243X)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0003-1881-243X), [_Digirati_](http://digirati.com/)
-  * **[Robert Sanderson](https://orcid.org/0000-0003-4441-6852)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0003-4441-6852), [_J. Paul Getty Trust_](http://www.getty.edu/)
-  * **[Jon Stroop](https://orcid.org/0000-0002-0367-1243)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0002-0367-1243), [_Princeton University Library_](https://library.princeton.edu/)
-  * **[Simeon Warner](https://orcid.org/0000-0002-7970-7855)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0002-7970-7855), [_Cornell University_](https://www.cornell.edu/)
-  {: .names}
+{% include editors.md editors=page.editors %}
 
 {% include copyright.md %}
 
@@ -40,11 +51,7 @@ This is a work in progress and may change without notice. Implementers should be
 
 ----
 
-## Table of Contents
-{:.no_toc}
 
-* Table of Discontent (will be replaced by macro)
-{:toc}
 
 ## 1. Introduction
 {: #introduction}
@@ -83,7 +90,7 @@ The content state data structure must allow the client to load the resources req
 * _load Manifest M, navigate to Canvas C, and zoom in to the region defined by xywh=X,Y,W,H_
 * _load Manifest M, navigate such that Range R is selected, and start playing the time-based canvas C within Range R at time t=T_
 
-Such a description can be expressed as an Annotation that targets the intended resource, or part of the resource. 
+Such a description can be expressed as an Annotation that targets the intended resource, or part of the resource.
 
 ### 2.1. Annotation Model for Content State
 
@@ -103,7 +110,8 @@ The Annotation must contain enough information about de-referenceable resources 
 
 A content state Annotation has the motivation `contentState`. This motivation is not defined by either the [W3C Web Annotation Data Model][org-w3c-webanno] or the Presentation API, and is chosen to avoid potential ambiguity when the target of the content state Annotation is itself an Annotation. This section shows four possible forms the content state may take, all of which are equivalent to the following example:
 
-```json
+{% include code_header.html %}
+``` json
 {
   "@context": "http://iiif.io/api/presentation/3/context.json",
   "id": "https://example.org/Annotation-server/bookmarks/b1",
@@ -120,7 +128,7 @@ A content state Annotation has the motivation `contentState`. This motivation is
 
 The content state may be supplied as JSON-LD, as a full Annotation with the motivation `contentState`, as in the example above.
 
-The target of the annotation is in this case a complete IIIF resource (here, a Manifest) but in more complex cases, the target could be a part of a IIIF resource. A client _SHOULD_ be able to accept and process the content state value in all of these forms. 
+The target of the annotation is in this case a complete IIIF resource (here, a Manifest) but in more complex cases, the target could be a part of a IIIF resource. A client _SHOULD_ be able to accept and process the content state value in all of these forms.
 
 #### 2.2.2 Annotation URL
 
@@ -130,7 +138,8 @@ The content state may be supplied as a string whose value is the URL of an Annot
 
 The content state may be supplied as JSON-LD, as the value of the `target` property of an implied Annotation with the motivation `contentState`. For the example above, this would be:
 
-```json
+{% include code_header.html %}
+``` json
 {
     "id": "https://example.org/iiif/item1/manifest",
     "type": "Manifest"
@@ -141,7 +150,7 @@ This form is better suited to scenarios where compactness is important, for exam
 
 #### 2.2.4 Target URL
 
-This is the simplest form and is just the URL of a resource. The content state may be supplied as a string whose value is the `id` (the URL) of the `target` property only. For the example above, this would be the URL `https://example.org/iiif/item1/manifest`. The client would simply load this Manifest and display it. 
+This is the simplest form and is just the URL of a resource. The content state may be supplied as a string whose value is the `id` (the URL) of the `target` property only. For the example above, this would be the URL `https://example.org/iiif/item1/manifest`. The client would simply load this Manifest and display it.
 
 While supporting many requirements for sharing resources and initializing a client application, this form is not capable of expressing content states that are part of a IIIF resource, such as a Canvas within a Manifest, or a region of a Canvas. One of the other forms must be used for these purposes.
 
@@ -154,7 +163,7 @@ If a client is capable of reading the content state from the value of an HTTP GE
 
 If a client is capable of reading the content state from the value of an attribute on an HTML element that instantiates the client, it _SHOULD_ look for the content state in an attribute called `data-iiif-content`.
 
-A content state annotation may be published inline as part of an HTML document, as in the preceding `data-iiif-content` example, or as a query string parameter forming part of the `href` property of an HTML anchor tag. 
+A content state annotation may be published inline as part of an HTML document, as in the preceding `data-iiif-content` example, or as a query string parameter forming part of the `href` property of an HTML anchor tag.
 Any content state that is in JSON-LD form, rather than a simple URL string, _MUST_ be Base64-encoded when declared inline in an HTML document, and a client _MUST_ accept it in that form. The destination character set when encoding _MUST_ be UTF-8. For example, when passing the content state as JSON-LD in a query string parameter, Base64-Encoding is used, as unencoded JSON is vulnerable to corruption. Simple URL forms _SHOULD_ be plain strings.
 
 When published as inline, Base-64-encoded JSON-LD in the full form given in 2.2, the content state Annotation _MAY_ omit the `id` and `@context` properties.
@@ -165,7 +174,7 @@ If the content state is a simple URL, the client _MUST_ load the resource at tha
 
 (TODO - _MAY_ be `Canvas`, `Range`, but prefer to do that as an annotation target not as a raw resource.)
 
-If the content state is JSON-LD the client _MUST_ inspect the `type` property to decide whether the value is the full content state Annotation (indicated by the additional presence of the `contentState` motivation), or the value of the `target` property of an implied content state Annotation. 
+If the content state is JSON-LD the client _MUST_ inspect the `type` property to decide whether the value is the full content state Annotation (indicated by the additional presence of the `contentState` motivation), or the value of the `target` property of an implied content state Annotation.
 
 
 ## 3. Initialization
@@ -185,7 +194,8 @@ The data structure _MAY_ be made available to the client using the following mec
 
 If the intention is that the linked-to client loads an entire IIIF resource without focusing on any particular part, the simplest form of the content state _SHOULD_ be used:
 
-```html
+{% include code_header.html %}
+``` html
 {% raw %}
 <a href='https://example.org/viewer?iiif-content=http://dams.llgc.org.uk/iiif/2.0/4389767/manifest.json'>Link to Viewer</a>
 {% endraw %}
@@ -197,7 +207,8 @@ When the intention is to initialize the viewer at a particular part of the resou
 
 In the following examples, the same Annotation is used each time. As JSON:
 
-```json
+{% include code_header.html %}
+``` json
 {
   "type": "Annotation",
   "motivation": ["contentState"],
@@ -218,7 +229,8 @@ An example of this usage would be a link from search results to a particular pag
 
 Without encoding, the link to the viewer would look like this:
 
-```html
+{% include code_header.html %}
+``` html
 {% raw %}
 <a href='https://example.org/viewer?iiif-content={"type":"Annotation","motivation":"contentState","target":{"id":"http://dams.llgc.org.uk/iiif/2.0/4389767/canvas/4389772.json","type":"Canvas","partOf":[{"id":"http://dams.llgc.org.uk/iiif/2.0/4389767/manifest.json","type":"Manifest"}]}}'>Link to Viewer</a>
 {% endraw %}
@@ -226,7 +238,8 @@ Without encoding, the link to the viewer would look like this:
 
 However, as JSON-LD, this _MUST_ be Base-64 encoded UTF-8:
 
-```html
+{% include code_header.html %}
+``` html
 {% raw %}
 <a href="https://example.org/viewer?iiif-content=eyJ0eXBlIjoiQW5ub3RhdGlvbiIsIm1vdGl2YXRpb24iOiJzZWxlY3RpbmciLCJ0YXJnZXQiOnsiaWQiOiJodHRwOi8vZGFtcy5sbGdjLm9yZy51ay9paWlmLzIuMC80Mzg5NzY3L2NhbnZhcy80Mzg5NzcyLmpzb24iLCJ0eXBlIjoiQ2FudmFzIiwicGFydE9mIjpbeyJpZCI6Imh0dHA6Ly9kYW1zLmxsZ2Mub3JnLnVrL2lpaWYvMi4wLzQzODk3NjcvbWFuaWZlc3QuanNvbiIsInR5cGUiOiJNYW5pZmVzdCJ9XX19">Link to Viewer</a>
 {% endraw %}
@@ -234,7 +247,8 @@ However, as JSON-LD, this _MUST_ be Base-64 encoded UTF-8:
 
 The content state may be passed as just the `target` property of an implied Annotation with motivation `contentState`, that is:
 
-```json
+{% include code_header.html %}
+``` json
 {
   "id": "http://dams.llgc.org.uk/iiif/2.0/4389767/canvas/4389772.json",
   "type": "Canvas",
@@ -249,7 +263,8 @@ The content state may be passed as just the `target` property of an implied Anno
 
 This results in a more compact form, unencoded, this would be:
 
-```html
+{% include code_header.html %}
+``` html
 {% raw %}
 <a href='https://example.org/viewer?iiif-content={"id":"http://dams.llgc.org.uk/iiif/2.0/4389767/canvas/4389772.json","type":"Canvas","partOf":[{"id":"http://dams.llgc.org.uk/iiif/2.0/4389767/manifest.json","type":"Manifest"}]}'>Link to Viewer</a>
 {% endraw %}
@@ -257,7 +272,8 @@ This results in a more compact form, unencoded, this would be:
 
 However, as JSON-LD again, this _MUST_ be Base-64 encoded UTF-8:
 
-```html
+{% include code_header.html %}
+``` html
 {% raw %}
 <a href="https://example.org/viewer?iiif-content=eyJpZCI6Imh0dHA6Ly9kYW1zLmxsZ2Mub3JnLnVrL2lpaWYvMi4wLzQzODk3NjcvY2FudmFzLzQzODk3NzIuanNvbiIsInR5cGUiOiJDYW52YXMiLCJwYXJ0T2YiOlt7ImlkIjoiaHR0cDovL2RhbXMubGxnYy5vcmcudWsvaWlpZi8yLjAvNDM4OTc2Ny9tYW5pZmVzdC5qc29uIiwidHlwZSI6Ik1hbmlmZXN0In1dfQ==">Link to Viewer</a>
 {% endraw %}
@@ -282,7 +298,8 @@ _Outstanding Question:_ Should POST be in the body, or as www-form-encoded? ...c
 
 The client allows the content state URL or data to be pasted into part of its UI (e.g., from a "Load..." option exposing a `textarea` element for the user to manually paste into). A client can also accept a paste operation transparently, by reading from the clipboard:
 
-```html
+{% include code_header.html %}
+``` html
 <script>
     document.addEventListener('paste', event => {
         const text = event.clipboardData.getData('text/plain');
@@ -306,7 +323,8 @@ This same mechanism may also accept a Manifest or Collection resource URL direct
 
 In this scenario, one client provides a _draggable_ element:
 
-```html
+{% include code_header.html %}
+``` html
 <img src="http://iiif.io/img/logo-iiif-34x30.png" draggable="true" ondragstart="drag(event)" />
 
 <script>
@@ -323,7 +341,8 @@ In this scenario, one client provides a _draggable_ element:
 
 And another client provides an element capable of receiving a `drop` event:
 
-```html
+{% include code_header.html %}
+``` html
     <div id="dropbox" ondrop="drop(event)" ondragover="allowDrop(event)" ondragexit="deselect(event)">
         <!-- this could be the viewport -->
     </div>
@@ -358,7 +377,8 @@ _Question_ again, is a whole manifest itself a content state?
 
 A JavaScript client can accept content state from the client machine via the `FileReader` interface:
 
-```html
+{% include code_header.html %}
+``` html
 <form>
     <input type="file" id="selectFiles" value="Import" /><br />
     <button id="import" onclick="return loadAnnotation()">Import</button>
@@ -393,7 +413,8 @@ A JavaScript client can accept content state from the client machine via the `Fi
 
 This is a variant of 3.1.1, with the parameter value a URI rather than the content itself.
 
-```html
+{% include code_header.html %}
+``` html
 <a href='https://example.org/viewer?iiif-content=https://publisher.org/fragment123.json'>Link to Viewer</a>
 ```
 
@@ -407,16 +428,17 @@ This is probably not spec. It's a recipe.
 
 Viewers should standardize on the attribute `data-iiif-content` for supplying content state via HTML attribute. A viewer that accepts content state _SHOULD_ process an Annotation in any of the forms described in the GET parameter section.
 
-```html
+{% include code_header.html %}
+``` html
 
 <p>Loading a whole manifest</p>
-<div 
+<div
     id="iiif-viewer"
     data-iiif-content="http://dams.llgc.org.uk/iiif/2.0/4389767/manifest.json">
 </div>
 
 <p>Loading a manifest to show a particular Canvas</p>
-<div 
+<div
     id="iiif-viewer"
     data-iiif-content="eyJpZCI6Imh0dHA6Ly9kYW1zLmxsZ2Mub3JnLnVrL2lpaWYvMi4wLzQzODk3NjcvY2FudmFzLzQzODk3NzIuanNvbiIsInR5cGUiOiJDYW52YXMiLCJwYXJ0T2YiOlt7ImlkIjoiaHR0cDovL2RhbXMubGxnYy5vcmcudWsvaWlpZi8yLjAvNDM4OTc2Ny9tYW5pZmVzdC5qc29uIiwidHlwZSI6Ik1hbmlmZXN0In1dfQ==">
 </div>
@@ -440,7 +462,8 @@ The following examples demonstrate the use of the existing IIIF Presentation API
 
 ### 4.1. A region of a canvas in a manifest
 
-```json
+{% include code_header.html %}
+``` json
 {
   "@context": "http://iiif.io/api/presentation/{{ page.major }}/context.json",
   "id": "https://example.org/import/1",
@@ -462,7 +485,8 @@ When processed by a viewer, the user should see the rectangle `1000,2000,1000,20
 
 ### 4.2. Start playing at a point in a recording
 
-```json
+{% include code_header.html %}
+``` json
 {
   "@context": "http://iiif.io/api/presentation/{{ page.major }}/context.json",
   "id": "https://example.org/import/2",
@@ -491,7 +515,8 @@ This example should cause a viewer to open Manifest https://example.org/iiif/id1
 
 ### 4.3. Multiple targets for a comparison view
 
-```json
+{% include code_header.html %}
+``` json
 {
   "@context": "http://iiif.io/api/presentation/{{ page.major }}/context.json",
   "id": "https://example.org/import/3",
@@ -529,7 +554,8 @@ Here the viewer should open two manifests at once (if it is capable of such a vi
 
 The following example uses the compact, query string form of the content state to demonstrate what HTML search results linking to a particular viewer might look like.
 
-```html
+{% include code_header.html %}
+``` html
 <h2>Results for "cats"</h2>
 <ol>
   <li>

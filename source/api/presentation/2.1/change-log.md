@@ -15,12 +15,6 @@ redirect_from:
 This document is a companion to the [IIIF Presentation API Specification, Version 2.1][prezi-api]. It describes the significant changes to the API since [Version 2.0][prezi-api-20] as well as editorial changes. The changes are all backwards compatible. A third section, [Deferred Proposals][deferred-proposals], lists proposals that have been discussed but did not make it into this version of the specification.
 
 
-## Table of Contents
-{:.no_toc}
-
-* Goes Here
-{:toc}
-
 ## 1. Non-Breaking Changes
 
 ### 1.1. Specify language selection algorithm

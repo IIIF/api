@@ -14,11 +14,6 @@ redirect_from:
 
 This document is a companion to the [IIIF Image API Specification, Version 2.1][api-21]. It describes the significant changes to the API since [Version 2.0][api-20]. The changes are broken into three groups: [Non-breaking Changes][non-breaking-changes], i.e. those that are backwards compatible from client or server perspectives; [Deprecations][deprecations] and [Deferred Changes][deferred-changes], i.e. those that will be made in a future iteration of the Image API.
 
-## Table of Contents
-{:.no_toc}
-
-* Goes Here
-{:toc}
 
 ## 1. Non-breaking Changes
 {: #non-breaking-changes}

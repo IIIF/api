@@ -16,11 +16,6 @@ This document is a companion to the [IIIF Presentation API Specification, Versio
 
 For the significant changes between 2.0 and 2.1, please see the [2.1 Change Log][changelog-21].
 
-## Table of Contents
-{:.no_toc}
-
-* Goes Here
-{:toc}
 
 ## 1. Editorial Changes
 
@@ -51,7 +46,7 @@ See issue [#1003](https://github.com/IIIF/iiif.io/issues/1003)
 
 ### 1.6. Clarify ranges without children are permitted
 
-The specification was clear that empty Collections are possible but was not obvious whether the same was true of Ranges (a Range with no child Ranges or Canvases).  This was clarified as possible, with the same proviso that this is discouraged without careful thought. 
+The specification was clear that empty Collections are possible but was not obvious whether the same was true of Ranges (a Range with no child Ranges or Canvases).  This was clarified as possible, with the same proviso that this is discouraged without careful thought.
 See issue [#1016](https://github.com/IIIF/iiif.io/issues/1016)
 
 ### 1.7. Expand thumbnail examples to promote good practice
@@ -109,14 +104,14 @@ See issue [#1122](https://github.com/IIIF/iiif.io/issues/1122)
 
 #### 2.3.2. Fixture 64 had unnecessary array
 
-The fixture object had an array around a single description, which made it incompatible with the JSON-LD framing algorithm. 
+The fixture object had an array around a single description, which made it incompatible with the JSON-LD framing algorithm.
 See issue [#1123](https://github.com/IIIF/iiif.io/issues/1123)
 
 #### 2.3.3. Fixture 65 had typo for startCanvas
 
 The fixture for `startCanvas` instead had the pre-2.0 use of `start_canvas` before snake and camel case were reconciled.  This was corrected.
 See issue [#1125](https://github.com/IIIF/iiif.io/issues/1125)
- 
+
 [prezi-api]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.1/ "Presentation API 2.1"
 [prezi-api-20]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.0/ "Presentation API 2.0"
 [changelog-21]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.1/change-log.html "Presentation API 2.1 Change Log"

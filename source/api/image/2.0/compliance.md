@@ -24,11 +24,6 @@ __Latest stable version:__ {{ site.image_api.stable.major }}.{{ site.image_api.s
 
 This document is a companion to the [IIIF Image API Specification][image-api]. It defines the set of supported parameters that correspond to different levels of compliance to the API.
 
-## Table of Contents
-{:.no_toc}
-
-* Goes Here
-{:toc}
 
 
 ## Compliance
@@ -111,7 +106,8 @@ In the tables below "![required][icon-req]" indicates that support is _REQUIRED_
 
 Servers _MAY_ indicate compliance with by including a header in IIIF responses for images:
 
-``` none
+{% include code_header.html %}
+```
 Link: <http://iiif.io/api/image/{{ page.major }}/level1.json>;rel="profile"
 ```
 

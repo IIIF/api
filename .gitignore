@@ -2,8 +2,9 @@ _site
 node_modules/
 scripts/factory.py
 scripts/factory.pyc
-.ruby-version
 package-lock.json
 .DS_Store
 *.swp
+
 .jekyll-cache
+tmp/

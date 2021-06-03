@@ -23,11 +23,6 @@ In addition to changes in the API, the specification documents have been changed
 
 With the [2.0 Release of the IIIF Image API][api], [Semantic Versioning][semver] is used to enumerate releases. As the API relies on predictable URI patterns in several areas, careful choices have been made about which details of the version will be expressed and where. This is explained in [Appendix B][versioning].
 
-## Table of Contents
-{:.no_toc}
-
-* Goes Here
-{:toc}
 
 ## Breaking Changes
 

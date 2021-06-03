@@ -12,6 +12,22 @@ cssversion: 2
 redirect_from:
   - /api/auth/index.html
   - /api/auth/1/index.html
+editors:
+  - name: Michael Appleby
+    orchid: https://orcid.org/0000-0002-1266-298X
+    institution: Yale University
+  - name: Tom Crane
+    orchid: https://orcid.org/0000-0003-1881-243X
+    institution: Digirati
+  - name: Robert Sanderson
+    orchid: https://orcid.org/0000-0003-4441-6852
+    institution: J. Paul Getty Trust
+  - name: Jon Stroop
+    orchid: https://orcid.org/0000-0002-0367-1243
+    institution: Princeton University Library
+  - name: Simeon Warner
+    orchid: https://orcid.org/0000-0002-7970-7855
+    institution: Cornell University
 ---
 
 ## Status of this Document
@@ -25,12 +41,7 @@ __Previous Version:__ [0.9.4][prev-version]
 
 **Editors:**
 
-  * **[Michael Appleby](https://orcid.org/0000-0002-1266-298X)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0002-1266-298X), [_Yale University_](http://www.yale.edu/)
-  * **[Tom Crane](https://orcid.org/0000-0003-1881-243X)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0003-1881-243X), [_Digirati_](http://digirati.com/)
-  * **[Robert Sanderson](https://orcid.org/0000-0003-4441-6852)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0003-4441-6852), [_J. Paul Getty Trust_](http://www.getty.edu/)
-  * **[Jon Stroop](https://orcid.org/0000-0002-0367-1243)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0002-0367-1243), [_Princeton University Library_](https://library.princeton.edu/)
-  * **[Simeon Warner](https://orcid.org/0000-0002-7970-7855)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0002-7970-7855), [_Cornell University_](https://www.cornell.edu/)
-  {: .names}
+{% include editors.md editors=page.editors %}
 
 {% include copyright2015.md %}
 
@@ -39,12 +50,6 @@ __Previous Version:__ [0.9.4][prev-version]
 __Warning__<br/>
 Recent developments in the browser community to discontinue support for third-party cookies have meant that IIIF Authentication API 1.0 workflows that rely on third-party cookies are now, or will soon be, obsolete in most browsers. The [IIIF Authentication TSG](https://iiif.io/community/groups/auth-tsg/) is currently working on the next iteration of the Auth specification, which should address the third-party cookies issue. Workflows relying on first-party cookies remain unaffected by these developments. For a more detailed discussion of the issues, see [What happens if there are no third-party cookies?](https://tom-crane.medium.com/what-happens-if-there-are-no-third-party-cookies-5ee5edb84d75).
 {: .alert}
-
-## Table of Contents
-{:.no_toc}
-
-* Table of Discontent (will be replaced by macro)
-{:toc}
 
 
 ## 1. Introduction
@@ -186,6 +191,7 @@ With out-of-band knowledge, authorized non-user-driven clients _MAY_ use POST to
 
 An example service description for the Login interaction pattern:
 
+{% include code_header.html %}
 ``` json-doc
 {
   // ...
@@ -219,6 +225,7 @@ Non-user-driven clients _MUST_ not use access cookie services with the Clickthro
 
 An example service description for the Clickthrough interaction pattern:
 
+{% include code_header.html %}
 ``` json-doc
 {
   // ...
@@ -252,6 +259,7 @@ Non-user-driven clients simply access the URI from `@id` to obtain the access co
 
 An example service description for the Kiosk interaction pattern:
 
+{% include code_header.html %}
 ``` json-doc
 {
   // ...
@@ -282,6 +290,7 @@ Non-user-driven clients simply use the related access token service with a previ
 
 An example service description for the External interaction pattern:
 
+{% include code_header.html %}
 ``` json-doc
 {
   // ...
@@ -308,6 +317,7 @@ The client uses this service to obtain an access token which it then uses when r
 
 The access cookie service description _MUST_ include an access token service description following the template below:
 
+{% include code_header.html %}
 ``` json-doc
 {
   // Access Cookie Service
@@ -335,6 +345,7 @@ The `@id` property of the access token service _MUST_ be present, and its value 
 
 If the request has a valid cookie that the server recognises as having been issued by the access cookie service, the access token service response _MUST_ include a JSON (not JSON-LD) object with the following structure:
 
+{% include code_header.html %}
 ``` json-doc
 {
   "accessToken": "TOKEN_HERE",
@@ -357,14 +368,16 @@ This authorization header _SHOULD_ be added to all requests for resources from t
 
 The simplest access token request comes from a non-browser client that can send cookies across domains, where the CORS restrictions do not apply. An example URL:
 
-``` none
+{% include code_header.html %}
+```
 https://authentication.example.org/token
 ```
 {: .urltemplate}
 
 Would result in the HTTP Request:
 
-``` none
+{% include code_header.html %}
+```
 GET /token HTTP/1.1
 Cookie: <cookie-acquired-during-login>
 ```
@@ -372,6 +385,7 @@ Cookie: <cookie-acquired-during-login>
 
 The response is the JSON access token object with the media type `application/json`:
 
+{% include code_header.html %}
 ``` json-doc
 {
   "accessToken": "TOKEN_HERE",
@@ -406,7 +420,8 @@ The exact implementation will vary but _MUST_ include features equivalent to the
 
 The client must first register an event listener to receive a cross domain message:
 
-```javascript
+{% include code_header.html %}
+``` javascript
 window.addEventListener("message", receive_message);
 
 function receive_message(event) {
@@ -422,14 +437,16 @@ function receive_message(event) {
 ```
 It can then open the access token service in a frame:
 
-```javascript
+{% include code_header.html %}
+``` javascript
 document.getElementById('messageFrame').src =
   'https://authentication.example.org/token?messageId=1234&origin=https://client.example.com/';
 ```
 
 The server response will then be a web page with a media type of `text/html` that can post a message to the registered listener:
 
-```html
+{% include code_header.html %}
+``` html
 <html>
 <body>
 <script>    
@@ -451,7 +468,8 @@ The server response will then be a web page with a media type of `text/html` tha
 
 The access token is sent on all subsequent requests for Description Resources. For example, a request for the image information in the Image API would look like:
 
-``` none
+{% include code_header.html %}
+```
 GET /iiif/identifier/info.json HTTP/1.1
 Authorization: Bearer TOKEN_HERE
 ```
@@ -462,6 +480,7 @@ Authorization: Bearer TOKEN_HERE
 
 The response from the access token service may be an error. The error _MUST_ be supplied as JSON with the following template. For browser-based clients using the postMessage API, the error object must be sent to the client via JavaScript, in the same way the access token is sent. For direct requests the response body is the raw JSON.
 
+{% include code_header.html %}
 ``` json-doc
 {
   "error": "ERROR_TYPE_HERE",
@@ -494,6 +513,7 @@ In the case of the Login interaction pattern, the client will need to know if an
 
 If the authentication system supports users intentionally logging out, there _SHOULD_ be a logout service associated with the access cookie service following the template below:
 
+{% include code_header.html %}
 ``` json-doc
 {
   // ...
@@ -529,6 +549,7 @@ The client _SHOULD_ present the results of an HTTP `GET` request on the service'
 
 The example below is a complete image information response for an example image with all of the authentication services.
 
+{% include code_header.html %}
 ``` json-doc
 {
   "@context" : "http://iiif.io/api/image/2/context.json",
