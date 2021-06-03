@@ -24,22 +24,14 @@ jobs:
     - uses: nelonoel/branch-name@v1.0.1
 
     - name: Setup ruby
-      uses: actions/setup-ruby@v1
+      uses: ruby/setup-ruby@v1
       with:
         ruby-version: '2.7.1'
-    - run: gem install bundler  
+        bundler-cache: true
 
-    - uses: actions/cache@v1
-      with:
-        path: vendor/bundle
-        key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-gems-
+    - name: install
+        run: gem install bundler && bundle
 
-    - name: Install dependencies
-      run: |
-        bundle config path vendor/bundle
-        bundle install --jobs 4 --retry 3
     - name: Test site
       run: bundle exec rake ci
 
@@ -49,11 +41,12 @@ jobs:
 
     # Deploy to Preview site
     - name: Create GitHub deployment
-      uses: glenrobson/deployments@v0.4.1
+      uses: glenrobson/deployments@v0.4.2
       id: deployment
       with:
         step: start
         token: ${{ secrets.GITHUB_TOKEN }}
+        auto_inactive: 'false'
         env: staging
 
     - name: Deploy to S3
@@ -68,10 +61,11 @@ jobs:
         SOURCE_DIR: "_site"
         DEST_DIR: "api/${BRANCH_NAME}"
     - name: Update deployment status
-      uses: glenrobson/deployments@v0.4.1
+      uses: glenrobson/deployments@v0.4.2
       if: always()
       with:
         step: finish
+        auto_inactive: 'false'
         token: ${{ secrets.GITHUB_TOKEN }}
         status: ${{ job.status }}
         deployment_id: ${{ steps.deployment.outputs.deployment_id }}
