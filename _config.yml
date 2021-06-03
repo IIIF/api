@@ -1,5 +1,5 @@
-url:            'iiif.marii.info'
-baseurl:        '/api'
+url:            ''
+baseurl:        '/iiif-website/api'
 permalink:      pretty
 title:          "IIIF | International Image Interoperability Framework"
 theme:          iiifc-theme
