@@ -14,6 +14,7 @@ end
 
 group :development, :test do
   gem 'html-proofer'
+  gem 'rspec'
   gem 'rake'
 end
 
