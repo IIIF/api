@@ -21,11 +21,6 @@ In addition to changes in the API, the specification documents have been changed
   * Language has been adjusted to make the document less focused on paged, digitized objects.
   * [Semantic Versioning][semver] will be used to enumerate releases.
 
-## Table of Contents
-{:.no_toc}
-
-* Goes Here
-{:toc}
 
 ## Breaking Changes
 

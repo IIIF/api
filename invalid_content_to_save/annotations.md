@@ -12,6 +12,22 @@ pre: alpha
 redirect_from:
   - /api/presentation/index.html
   - /api/presentation/3/index.html
+editors:
+  - name: Michael Appleby
+    orchid: https://orcid.org/0000-0002-1266-298X
+    institution: Yale University
+  - name: Tom Crane
+    orchid: https://orcid.org/0000-0003-1881-243X
+    institution: Digirati
+  - name: Robert Sanderson
+    orchid: https://orcid.org/0000-0003-4441-6852
+    institution: J. Paul Getty Trust
+  - name: Jon Stroop
+    orchid: https://orcid.org/0000-0002-0367-1243
+    institution: Princeton University Library
+  - name: Simeon Warner
+    orchid: https://orcid.org/0000-0002-7970-7855
+    institution: Cornell University
 ---
 
 ## Status of this Document
@@ -22,24 +38,13 @@ __Latest Stable Version:__ [{{ site.presentation_api.latest.major }}.{{ site.pre
 
 __Previous Version:__ [2.1.1][prev-version]
 
-**Editors**
+**Editors:**
 
-  * **[Michael Appleby](https://orcid.org/0000-0002-1266-298X)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0002-1266-298X), [_Yale University_](http://www.yale.edu/)
-  * **[Tom Crane](https://orcid.org/0000-0003-1881-243X)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0003-1881-243X), [_Digirati_](http://digirati.com/)
-  * **[Robert Sanderson](https://orcid.org/0000-0003-4441-6852)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0003-4441-6852), [_J. Paul Getty Trust_](http://www.getty.edu/)
-  * **[Jon Stroop](https://orcid.org/0000-0002-0367-1243)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0002-0367-1243), [_Princeton University Library_](https://library.princeton.edu/)
-  * **[Simeon Warner](https://orcid.org/0000-0002-7970-7855)** [![ORCID iD](/img/orcid_16x16.png)](https://orcid.org/0000-0002-7970-7855), [_Cornell University_](https://www.cornell.edu/)
-  {: .names}
+{% include editors.md editors=page.editors %}
 
 {% include copyright.md %}
 
 ----
-
-## Table of Contents
-{:.no_toc}
-
-* Table of Discontent (will be replaced by macro)
-{:toc}
 
 ##  1. Introduction
 
@@ -58,6 +63,7 @@ Segments of both static images and canvases may be selected by adding a [rectang
 `http://www.example.com/iiif/book1/canvas/p1#xywh=100,100,300,50`
 {: .urltemplate}
 
+{% include code_header.html %}
 ``` json-doc
 {
   "@context": "http://iiif.io/api/presentation/2/context.json",
@@ -77,6 +83,7 @@ Segments of both static images and canvases may be selected by adding a [rectang
 
 For image resources with a [IIIF Image API][image-api] service, it is _RECOMMENDED_ to instead use the Image API parameters rather than a fragment as above.  The following structure allows simple clients to use the image directly (the URL with the segment), and allows clients that implement the IIIF Image API to have sufficient information to construct appropriate URIs using the API.
 
+{% include code_header.html %}
 ``` json-doc
 {
   "@context": "http://iiif.io/api/presentation/2/context.json",
@@ -110,6 +117,7 @@ Segments of XML files may be extracted with [XPaths][xpath]. The fragment _MUST_
 `http://www.example.com/iiif/book1/res/tei.xml#xpointer(/xpath/to/element)`
 {: .urltemplate}
 
+{% include code_header.html %}
 ``` json-doc
 {
   "@context": "http://iiif.io/api/presentation/2/context.json",
@@ -131,6 +139,7 @@ Instead of referencing transcription text externally, it is often easier to reco
 
 Content _MAY_ be embedded instead of referenced by using the following pattern within the annotation block:
 
+{% include code_header.html %}
 ``` json-doc
 {"resource": {"type": "cnt:ContextAsText", "chars": "text here"}}
 ```
@@ -141,6 +150,7 @@ If it is desirable to describe the language of the content, then it _MUST_ be gi
 
 An example of this feature:
 
+{% include code_header.html %}
 ``` json-doc
 {
   "@context": "http://iiif.io/api/presentation/2/context.json",
@@ -167,6 +177,7 @@ Either the `default` or `item` _MAY_ have a value of "rdf:nil". This means that 
 
 This can be used to model foldouts and other dynamic features of a page, by associating images of the different states with the canvas. Depending on the nature of the images, this can be done such that either the entire image is switched to change state, or only the section of the image that has to change is switched, if the appropriate segment information is known.
 
+{% include code_header.html %}
 ``` json-doc
 {
   "@context": "http://iiif.io/api/presentation/2/context.json",
@@ -200,6 +211,7 @@ In this pattern, the resource of the annotation is a "oa:SpecificResource" which
 
 If the section of an image is mapped to part of a canvas, as in the example below, then the target in `on` _MUST_ be the rectangular bounding box in which the SVG viewport should be placed. If the entire canvas is the target, then the SVG viewport is assumed to cover the entire canvas. If the dimensions of the viewport and the bounding box or canvas are not the same, then the SVG _MUST_ be scaled such that it covers the region. This may result in different scaling ratios for the X and Y dimensions.
 
+{% include code_header.html %}
 ``` json-doc
 {
   "@context": "http://iiif.io/api/presentation/2/context.json",
@@ -227,6 +239,7 @@ The [Cascading Style Sheets][css] standard (CSS) is used to describe how the cli
 
 In the example below, the text should be colored red.
 
+{% include code_header.html %}
 ``` json-doc
 {
   "@context": "http://iiif.io/api/presentation/2/context.json",
@@ -254,6 +267,7 @@ In the example below, the text should be colored red.
 
 CSS may also be used for rotation of images which are not correctly aligned with the canvas. In the example below, after the image is located within the 500 wide by 30 high space within the canvas, it is then rotated by the rendering client application around the top left corner by 45 degrees anti-clockwise.
 
+{% include code_header.html %}
 ``` json-doc
 {
   "@context": "http://iiif.io/api/presentation/2/context.json",
@@ -278,6 +292,7 @@ CSS may also be used for rotation of images which are not correctly aligned with
 
 Alternatively, if the image is available via the IIIF Image API, it may be more convenient to have the server do the rotation of the image.  This uses a custom Selector for the Image API, further described in the [Open Annotation extensions][oa-ext-annex] annex.  For the purposes of rotation, the example below demonstrates the pattern.
 
+{% include code_header.html %}
 ``` json-doc
 {
   "@context": "http://iiif.io/api/presentation/2/context.json",
@@ -312,6 +327,7 @@ For annotations which are comments about the canvas, as opposed to painting cont
 
 Unlike painting annotations, comments or annotations with other motivations _SHOULD_ have a URI assigned as their identity and provided in the `id` property.  When dereferencing that URI, the representation of the annotation _SHOULD_ be returned.  This is to allow further annotations to annotate the comment, for example in order to reply to it, or to tag it for organizational or discovery purposes.
 
+{% include code_header.html %}
 ``` json-doc
 {
   "@context": "http://iiif.io/api/presentation/2/context.json",
@@ -329,6 +345,7 @@ Unlike painting annotations, comments or annotations with other motivations _SHO
 
 Other resources may also have comments made about them, including manifests (comments about the object), sequences (comments about that particular ordering), ranges (comments about the section), annotations (replies to the targeted annotation), and so forth.  In order for the client to discover these annotations, they can be included in an AnnotationList referenced from the target resource.  This is accomplished by reusing the `otherContent` pattern.  Any resource may have a list of annotations associated with it in this way.
 
+{% include code_header.html %}
 ``` json-doc
 {
   "@context": "http://iiif.io/api/presentation/2/context.json",
@@ -351,6 +368,7 @@ It is also possible to use annotations to create links between resources, both w
 
 Hotspot linking is accomplished using an annotation with a `motivation` of "oa:linking". The region of the canvas that should trigger the link when clicked is specified in the `on` field in the same way as other annotations. The linked resource is given in the `resource` field.  The linked resource _MAY_ also be another canvas or region of a canvas.  The user experience of whether the linked resource is opened in a new tab, new window or by replacing the current view is up to the implementation.
 
+{% include code_header.html %}
 ``` json-doc
 {
   "@context": "http://iiif.io/api/presentation/2/context.json",

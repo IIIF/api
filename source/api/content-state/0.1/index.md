@@ -12,6 +12,22 @@ pre: final
 redirect_from:
   - /api/import/index.html
   - /api/0/import/index.html
+editors:
+  - name: Michael Appleby
+    orchid: https://orcid.org/0000-0002-1266-298X
+    institution: Yale University
+  - name: Tom Crane
+    orchid: https://orcid.org/0000-0003-1881-243X
+    institution: Digirati
+  - name: Robert Sanderson
+    orchid: https://orcid.org/0000-0003-4441-6852
+    institution: J. Paul Getty Trust
+  - name: Jon Stroop
+    orchid: https://orcid.org/0000-0002-0367-1243
+    institution: Princeton University Library
+  - name: Simeon Warner
+    orchid: https://orcid.org/0000-0002-7970-7855
+    institution: Cornell University
 ---
 
 
@@ -23,14 +39,9 @@ __Latest Stable Version:__ None
 
 __Previous Version:__ None
 
-**Editors**
+**Editors:**
 
-  * **[Michael Appleby](https://orcid.org/0000-0002-1266-298X)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0002-1266-298X), [_Yale University_](http://www.yale.edu/)
-  * **[Tom Crane](https://orcid.org/0000-0003-1881-243X)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0003-1881-243X), [_Digirati_](http://digirati.com/)
-  * **[Robert Sanderson](https://orcid.org/0000-0003-4441-6852)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0003-4441-6852), [_J. Paul Getty Trust_](http://www.getty.edu/)
-  * **[Jon Stroop](https://orcid.org/0000-0002-0367-1243)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0002-0367-1243), [_Princeton University Library_](https://library.princeton.edu/)
-  * **[Simeon Warner](https://orcid.org/0000-0002-7970-7855)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0002-7970-7855), [_Cornell University_](https://www.cornell.edu/)
-  {: .names}
+{% include editors.md editors=page.editors %}
 
 {% include copyright.md %}
 
@@ -40,11 +51,6 @@ This is a work in progress and may change without notice. Implementers should be
 
 ----
 
-## Table of Contents
-{:.no_toc}
-
-* Table of Discontent (will be replaced by macro)
-{:toc}
 
 ## 1. Introduction
 {: #introduction}
@@ -100,7 +106,7 @@ The annotation must contain enough information about dereferenceable resources t
 
 ### 2.2 Form of annotation
 
-The content state data may be passed to a client in one of several forms, and a client _SHOULD_ be able to accept and process it in all of these forms. 
+The content state data may be passed to a client in one of several forms, and a client _SHOULD_ be able to accept and process it in all of these forms.
 
 * As the URL of an annotation, that the client must de-reference
 * As JSON-LD, in the form of a full annotation
@@ -114,7 +120,8 @@ Clients _MAY_ implement other mechanisms of accepting content state data; some s
 
 A client _MUST_ be able to read and process the value in any of the three forms listed above. Consider the following, simplest possible content state annotation:
 
-```json
+{% include code_header.html %}
+``` json
 {
   "@context": "http://iiif.io/api/presentation/{{ page.major }}/context.json",
   "id": "https://example.org/annotation-server/bookmarks/b1",
@@ -127,13 +134,14 @@ A client _MUST_ be able to read and process the value in any of the three forms 
 }
 ```
 
-If the string `https://example.org/annotation-server/bookmarks/b1` is passed as the value of `iiif-content` or `data-iiif-content`, the client _MUST_ load the resource at that URL and process it. The resource at that URL _MUST_ be the full annotation as in the example above. 
+If the string `https://example.org/annotation-server/bookmarks/b1` is passed as the value of `iiif-content` or `data-iiif-content`, the client _MUST_ load the resource at that URL and process it. The resource at that URL _MUST_ be the full annotation as in the example above.
 
 The JSON-LD body given above may be passed directly in a request parameter, HTML attribute or other supported mechanism, for immediate processing. In this scenario the annotation does not require the `id` property.
 
 The value passed to a client via this parameter (or other supported mechanisms) may be the `target` property of an implied annotation:
 
-```json
+{% include code_header.html %}
+``` json
 {"id":"https://example.org/iiif/item1/manifest","type":"Manifest"}
 ```
 
@@ -168,7 +176,8 @@ The following examples demonstrate the use of the existing IIIF Presentation API
 
 ### 4.1. A region of a canvas in a manifest
 
-```json
+{% include code_header.html %}
+``` json
 {
   "@context": "http://iiif.io/api/presentation/{{ page.major }}/context.json",
   "id": "https://example.org/import/1",
@@ -190,7 +199,8 @@ When processed by a viewer, the user should see the rectangle `1000,2000,1000,20
 
 ### 4.2. Start playing at a point in a recording
 
-```json
+{% include code_header.html %}
+``` json
 {
   "@context": "http://iiif.io/api/presentation/{{ page.major }}/context.json",
   "id": "https://example.org/import/2",
@@ -219,7 +229,8 @@ This example should cause a viewer to open Manifest https://example.org/iiif/id1
 
 ### 4.3. Multiple targets for a comparison view
 
-```json
+{% include code_header.html %}
+``` json
 {
   "@context": "http://iiif.io/api/presentation/{{ page.major }}/context.json",
   "id": "https://example.org/import/3",
@@ -257,7 +268,8 @@ Here the viewer should open two manifests at once (if it is capable of such a vi
 
 The following example uses the compact, query string form of the content state to demonstrate what HTML search results linking to a particular viewer might look like.
 
-```html
+{% include code_header.html %}
+``` html
 <h2>Results for "cats"</h2>
 <ol>
   <li>
@@ -286,4 +298,3 @@ Many of the changes in this version are due to the work of the [IIIF Discovery T
 | 2018-10-31 | Version 0.1 (unnamed) |
 
 {% include links.md %}
- 

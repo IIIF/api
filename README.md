@@ -15,7 +15,7 @@ Markdown Source of specifications documents
  1. `bundle install`
  2. Install grunt `npm install -g grunt-cli`
  3. Install grunt dependencies `npm install`
- 4. Run ```rake ci```
+ 4. Run `rake ci`
 
 ## To Publish the Site to iiif.io
 

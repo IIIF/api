@@ -7,11 +7,6 @@ redirect_from:
   - /api/annex/notes/jsonld.html
 ---
 
-## Table of Contents
-{:.no_toc}
-
-* Goes Here
-{:toc}
 
 ## Introduction
 
@@ -87,6 +82,7 @@ Frames for the main resources defined by the IIIF Presentation API.
 
 The following code uses the Python [PyLD implementation][pyld] of JSON-LD to read in example manifest data, parse it and then re-serialize using the manifest frame.
 
+{% include code_header.html %}
 ``` python
 
 from pyld.jsonld import compact, frame

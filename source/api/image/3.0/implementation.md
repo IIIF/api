@@ -6,12 +6,6 @@ redirect_from:
   - /api/image/3/implementation.html
 ---
 
-## Table of Contents
-{:.no_toc}
-
-* Table of Discontent (will be replaced by macro)
-{:toc}
-
 ## 1. HTTP implementation
 
   * For use cases that enable the saving of the image, use the HTTP `Content-Disposition` header ([RFC6266][org-rfc-6266]) to provide a convenient filename that distinguishes the image, based on the identifier and parameters provided.
@@ -26,6 +20,7 @@ redirect_from:
 
 When requesting image tiles, the [Region][image3-region] and [Size][image3-size] parameters must be calculated to take account of partial tiles along the right and lower edges for a full image that is not an exact multiple of the scaled tile size. The algorithm below is shown as Python code and assumes integer inputs and integer arithmetic throughout (ie. remainder discarded on division). Inputs are: size of full image content `(width,height)`, scale factor `s`, tile size `(tw,th)`, and tile coordinate `(n,m)` counting from `(0,0)` in the upper-left corner. Note that the rounding method is implementation dependent.
 
+{% include code_header.html %}
 ``` python
     # Calculate region parameters /xr,yr,wr,hr/
     xr = n * tw * s
@@ -56,6 +51,7 @@ The [specification][image3-technical-properties] does not define the algorithm b
 
 The following Python code takes image content dimensions `width,height` and optional constraints `maxWidth`, `maxWidth`, `maxHeight`. It returns a image content size `w,h` that is within, but close to the constraints.
 
+{% include code_header.html %}
 ``` python
     # default without constraints
     (w, h) = (width, height)
@@ -83,6 +79,7 @@ The following Python code takes image content dimensions `width,height` and opti
 
 As described in [Rotation][image3-rotation], in order to retain the size of the requested image contents, rotation will change the width and height dimensions of the image returned. A formula for calculating the dimensions of the image returned for a given starting size and rotation is given below. Note that the rounding method is implementation dependent and that some languages require conversion of the angle from degrees to radians.
 
+{% include code_header.html %}
 ``` python
     # (w,h) are size parameters, n is rotation angle
     w_returned = abs(w*cos(n)) + abs(h*sin(n))

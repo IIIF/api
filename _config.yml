@@ -1,14 +1,29 @@
-markdown: kramdown
-source: source
-permalink: /news/:year/:month/:day/:title/
+url:            ''
+baseurl:        ''
+permalink:      pretty
+title:          "IIIF | International Image Interoperability Framework"
+theme:          iiifc-theme
+source:         source
+
+markdown:       kramdown
+sass:
+  style:        compressed
+  sass_dir:     _sass
+
+exclude:        [node_modules]
 
 plugins:
   - jekyll-redirect-from
+  - jekyll-gzip
+  - jekyll-sitemap
 
-kramdown:
-  input: GFM
-  parse_block_html: true
-  toc_levels: 2..4
+organization:
+  acronym:      IIIF
+  title:        International Image Interoperability Framework
+  tagline:      "International Image Interoperability Framework: A community driven image framework with well defined APIs for making the world’s image repositories interoperable and accessible"
+  email:        iiif-discuss@googlegroups.com
+  url:          //iiif.io
+  logo:         assets/images/logo-sm.png
 
 image_api:
   draft:
@@ -55,9 +70,54 @@ auth_api:
     major: 1
     minor: 0
     patch: 0
-defaults:
-  -
-    scope:
-      path: ""
-    values:
-      webprefix: "https://iiif.io"
+
+navbar_menu:
+  - label: 'Home'
+    link: '/'
+  - label: 'Demos'
+    link: '/demos'
+  - label: 'News & Events'
+    link: '/news-and-events'
+  - label: 'Get Involved'
+    link: '/get-involved'
+    sub:
+      - label: 'Community Groups'
+        link: ''
+      - label: 'Consortium'
+        link: ''
+      - label: 'Join Newsletter'
+        link: ''
+      - label: 'Contact Us'
+        link: ''
+  - label: 'Get Started'
+    link: '/get-started'
+    sub:
+      - label: 'How It Works'
+        link: ''
+      - label: 'APIs & Documentation'
+        link: '/api'
+      - label: 'Cookbooks'
+        link: ''
+      - label: 'Training'
+        link: ''
+footer_menu:
+  - heading: About
+    sub:
+      - label: 'How It Works'
+        link:  ''
+      - label: 'Documentation'
+        link:  '/api'
+      - label: 'Demos'
+        link:  ''
+      - label: 'Tutorials'
+        link:  ''
+  - heading: Stay Connected
+    sub:
+      - label: 'Events & News'
+        link:  ''
+      - label: 'Join Newsletter'
+        link:  ''
+      - label: 'Community Groups'
+        link:  ''
+      - label: 'Consortium'
+        link:  ''

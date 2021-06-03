@@ -29,12 +29,6 @@ This document describes use cases that were motivating with respect to the defin
 
 Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss]
 
-## Table of Contents
-{:.no_toc}
-
-* Table of Discontent (will be replaced by macro)
-{:toc}
-
 ## 1. Introduction
 
 In order to ensure that the IIIF APIs solved real issues, rather than hypothetical ones that never actually come up in reality, there has been a great deal of discussion focusing on use cases and examples.  This document lists the use cases, and provides a reference document for additional information about them.
