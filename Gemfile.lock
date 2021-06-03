@@ -65,6 +65,7 @@ GEM
       forwardable-extended (~> 2.6)
     public_suffix (4.0.5)
     rainbow (3.0.0)
+    rake (13.0.3)
     rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
@@ -100,6 +101,7 @@ DEPENDENCIES
   html-proofer
   jekyll (~> 4.1.1)
   jekyll-redirect-from
+  rake
   rouge
   rspec
   tzinfo (~> 1.2)
