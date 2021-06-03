@@ -21,7 +21,7 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
     # store branch name in ${BRANCH_NAME}
-    - uses: nelonoel/branch-name@v1
+    - uses: nelonoel/branch-name@v1.0.1
 
     - name: Setup ruby
       uses: actions/setup-ruby@v1
