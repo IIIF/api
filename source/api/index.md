@@ -13,15 +13,15 @@ cssversion: 2
 | Authentication API | [{{ site.auth_api.stable.major }}.{{ site.auth_api.stable.minor }}.{{ site.auth_api.stable.patch}}][auth{{ site.auth_api.stable.major }}{{ site.auth_api.stable.minor }}] |
 | Image API          | [{{ site.image_api.stable.major }}.{{ site.image_api.stable.minor }}.{{ site.image_api.stable.patch}}][image{{ site.image_api.stable.major }}{{ site.image_api.stable.minor }}] |
 | Presentation API   | [{{ site.presentation_api.stable.major }}.{{ site.presentation_api.stable.minor }}.{{ site.presentation_api.stable.patch }}][prezi{{ site.presentation_api.stable.major }}{{ site.presentation_api.stable.minor }}] |
-| Search API   | [{{ site.search_api.stable.major }}.{{ site.search_api.stable.minor }}.{{ site.search_api.stable.patch }}][search{{ site.search_api.stable.major }}{{ site.search_api.stable.minor }}] |
+| Content Search API | [{{ site.search_api.stable.major }}.{{ site.search_api.stable.minor }}.{{ site.search_api.stable.patch }}][search{{ site.search_api.stable.major }}{{ site.search_api.stable.minor }}] |
 {: .api-table}
 
 ## Draft Specifications
 
 | API                  | Draft Version (Status) |
 | -------------------- | ---------------------- |
-| Change Discovery API | [0.9.0 BETA][discovery09] |
-| Content State API    | [0.2.0][contentstate02]|
+| Change Discovery API | [0.9.1 BETA][discovery09] |
+| Content State API    | [0.3.0][contentstate03]|
 {: .api-table}
 
 __Feedback Requested__<br/>
@@ -34,7 +34,7 @@ We welcome feedback on all IIIF Specifications. Please send any feedback to [iii
 | ------------------ | ------- | --------------------- |
 | Image API          | 2.1     | [Japanese][image-jp]  |
 | Presentation API   | 2.1     | [Japanese][prezi-jp]  |
-| Search API         | 1.0     | [Japanese][search-jp] |
+| Content Search API | 1.0     | [Japanese][search-jp] |
 | Authentication API | 1.0     | [Japanese][auth-jp]   |
 {: .api-table}
 
@@ -75,12 +75,12 @@ IIIF Specifications are created and published following the [IIIF Editorial Proc
 
 
 [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
-[image30]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/ "Image API v3.0 BETA"
+[image30]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/ "Image API v3.0"
 [image21]: {{ site.url }}{{ site.baseurl }}/api/image/2.1/ "Image API v2.1"
 [image20]: {{ site.url }}{{ site.baseurl }}/api/image/2.0/ "Image API v2.0"
 [image11]: {{ site.url }}{{ site.baseurl }}/api/image/1.1/ "Image API v1.1"
 [image10]: {{ site.url }}{{ site.baseurl }}/api/image/1.0/ "Image API v1.0"
-[prezi30]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/ "Presentation API v3.0 BETA"
+[prezi30]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/ "Presentation API v3.0"
 [prezi21]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.1/ "Presentation API v2.1"
 [prezi20]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.0/ "Presentation API v2.0"
 [meta10]: {{ site.url }}{{ site.baseurl }}/api/metadata/1.0/ "Metadata API v1.0"
@@ -90,7 +90,7 @@ IIIF Specifications are created and published following the [IIIF Editorial Proc
 [search10]: {{ site.url }}{{ site.baseurl }}/api/search/1.0/ "Search API v1.0"
 [search09]: {{ site.url }}{{ site.baseurl }}/api/search/0.9/ "Search API v0.9"
 [discovery09]: {{ site.url }}{{ site.baseurl }}/api/discovery/0.9/ "IIIF Change Discovery API"
-[contentstate02]: {{ site.url }}{{ site.baseurl }}/api/content-state/0.2/ "IIIF Content State API"
+[contentstate03]: {{ site.url }}{{ site.baseurl }}/api/content-state/0.3/ "IIIF Content State API"
 [notes]: {{ site.url }}{{ site.baseurl }}/api/annex/ "Implementation Notes"
 [editorial-process]: {{ page.webprefix }}/community/policy/editorial/ "IIIF Editorial Process"
 

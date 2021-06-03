@@ -8,7 +8,7 @@ tags: [specifications, image-api, change-log]
 major: 3
 minor: 0
 patch: 0
-pre: beta
+pre: final
 redirect_from:
   - /api/image/3.0/change-log-30.html
 ---
