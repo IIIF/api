@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'kramdown/document'
 
-DO_NOT_CHECK = %w{acronyms.md links.md}
+DO_NOT_CHECK = %w{acronyms.md links.md links_cookbook.md}
 
 def check_doc(src_str)
   # returns a hash of errors we care about

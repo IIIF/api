@@ -7,16 +7,14 @@ p = optparse.OptionParser(usage='''usage: %prog [options]
 
 Check to JSON examples included in IIIF specifications. Looks for
 all *.md files under --basedir and line-parses them looking for code
-blocks starting with "{% include code_header.html %}
-``` json" and ending with "```", e.g.:
+blocks starting with "``` json" and ending with "```", e.g.:
 
-{% include code_header.html %}
 ``` json-doc
 { "JSON": "here" }
 ```
 
 Removes both comment lines that have \\ as the first non-whitespace
-and comments that have end with \\ followed by chars not including a double 
+and comments that have end with \\ followed by chars not including a double
 quote. Also removes lines that contain only an ellipsis and whitespace.''')
 
 p.add_option('--basedir', '-b', action='store', default='source',
@@ -53,11 +51,10 @@ def check_json_in_file(file):
                   not re.search(r'''^\s+\.\.\.\s*$''',line)): # line with only ellipsis
                 # comments are illegal in JSON :-( but be have them in examples
                 json_str += re.sub( r'''\[\s+...\s+\]''','[ "dummy" ]', line)
-        elif (line.startswith('{% include code_header.html %}
-``` json')):
+        elif (line.startswith('``` json')):
             in_json = n
     return(errors)
-    
+
 errors = 0
 for dir, dirs, files in os.walk(opts.basedir):
     for file in files:
