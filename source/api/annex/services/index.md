@@ -50,6 +50,7 @@ Services _SHOULD_ have a `profile` URI which can be used to determine the type o
 
 Services _MAY_ be included either by reference or embedded within the response.  The decision as to whether to embed or reference is left up to the implementer, however embedded descriptions should be kept as short as possible.  If the only properties of the object are `@context`, `@id`, `profile` and/or `label`, then the client _SHOULD_ retrieve the resource from the URI given in `@id`.
 
+{% include code_header.html %}
 ``` json-doc
 {
   "service": {
@@ -93,6 +94,7 @@ _Added: 2014-05-20_
 
 The Image Information service allows the [Presentation API][prezi-api], and potentially other APIs, to reference content to be displayed via the [Image API][image-api].  The JSON-LD content to be referenced or embedded is the Image Information document, also known as `info.json`.  The service _MUST_ have the `@context`, `@id` and `profile` keys, pointing to the context document, service base URI and compliance level profile respectively.
 
+{% include code_header.html %}
 ``` json-doc
 {
   "service": {
@@ -105,6 +107,7 @@ The Image Information service allows the [Presentation API][prezi-api], and pote
 
 The service _MAY_ have additional information embedded from the Image Information document to avoid the need to retrieve and parse it separately.  In this case, the profile _MAY_ also point to the profile of what functionality is supported, as described in the Image API.
 
+{% include code_header.html %}
 ``` json-doc
 {
   "service": {
@@ -137,6 +140,7 @@ The service _MAY_ have additional information embedded from the Image Informatio
 
 With the `logo` property added to the Image Information description in version 2.1 of the Image API, it is possible and reasonable for one `info.json` response to embed another using this pattern.  In this case, the second service is related to the icon that should be displayed when a client renders the image described by the main response.
 
+{% include code_header.html %}
 ``` json-doc
 {
   "@context" : "http://iiif.io/api/image/2/context.json",
@@ -166,6 +170,7 @@ The [JSON-LD representation][geojson-ld] of GeoJSON, with `@context` `http://geo
 
 An external reference example for tagging a place, where the URI would return a GeoJSON description of the city of Paris, France:
 
+{% include code_header.html %}
 ``` json-doc
 {
   "service": {
@@ -177,6 +182,7 @@ An external reference example for tagging a place, where the URI would return a 
 
 Or embedding the content:
 
+{% include code_header.html %}
 ``` json-doc
 {
   "service": {
@@ -220,6 +226,7 @@ The physical dimensions description includes the following properties:
 
 The following example demonstrates the resulting structure, as embedded within the [Presentation API][prezi-api] response:
 
+{% include code_header.html %}
 ``` json-doc
 {
   "service": {

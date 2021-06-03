@@ -353,6 +353,7 @@ A string that identifies a license or rights statement that applies to the usage
 
 The value _MUST_ be a string. If the value is drawn from Creative Commons or RightsStatements.org, then the string _MUST_ be a URI defined by that specification.
 
+{% include code_header.html %}
 ``` json-doc
 { "rights": "https://creativecommons.org/licenses/by/4.0/" }
 ```

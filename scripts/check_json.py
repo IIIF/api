@@ -7,8 +7,10 @@ p = optparse.OptionParser(usage='''usage: %prog [options]
 
 Check to JSON examples included in IIIF specifications. Looks for
 all *.md files under --basedir and line-parses them looking for code
-blocks starting with "``` json" and ending with "```", e.g.:
+blocks starting with "{% include code_header.html %}
+``` json" and ending with "```", e.g.:
 
+{% include code_header.html %}
 ``` json-doc
 { "JSON": "here" }
 ```
@@ -51,7 +53,8 @@ def check_json_in_file(file):
                   not re.search(r'''^\s+\.\.\.\s*$''',line)): # line with only ellipsis
                 # comments are illegal in JSON :-( but be have them in examples
                 json_str += re.sub( r'''\[\s+...\s+\]''','[ "dummy" ]', line)
-        elif (line.startswith('``` json')):
+        elif (line.startswith('{% include code_header.html %}
+``` json')):
             in_json = n
     return(errors)
     

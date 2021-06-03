@@ -111,7 +111,8 @@ In the tables below "![required][icon-req]" indicates that support is _REQUIRED_
 
 Servers _MAY_ indicate compliance with by including a header in IIIF responses for images:
 
-``` none
+{% include code_header.html %}
+``` 
 Link: <http://iiif.io/api/image/{{ page.major }}/level1.json>;rel="profile"
 ```
 

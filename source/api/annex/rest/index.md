@@ -47,7 +47,8 @@ There are cases where it is useful for a client to store, update or delete image
 
  3. The IIIF Image API does not define a mechanism for getting the source image that the API calls are using to derive images according to the request. In some cases this may be available as:
 
-    ``` none
+    {% include code_header.html %}
+``` 
     {scheme}://{server}{/prefix}/{identifier}/full/full/0/native
     ```
 
@@ -69,7 +70,8 @@ The server should return the image that it uses make derivative images in respon
 
 URI Pattern:
 
-``` none
+{% include code_header.html %}
+``` 
 {scheme}://{server}{/prefix}/{identifier}
 ```
 
@@ -88,7 +90,8 @@ The request should behave exactly the same as GET, except that only the appropri
 
 URI Pattern:
 
-``` none
+{% include code_header.html %}
+``` 
 {scheme}://{server}{/prefix}/{identifier}
 ```
 
@@ -101,7 +104,8 @@ Update an existing image or create a new image with {identifier}.
 
 URI Pattern:
 
-``` none
+{% include code_header.html %}
+``` 
 {scheme}://{server}{/prefix}/{identifier}
 ```
 
@@ -123,7 +127,8 @@ Similar to PUT, except that the server will supply the identifier, and return it
 
 URI Pattern:
 
-``` none
+{% include code_header.html %}
+``` 
 {scheme}://{server}{/prefix}
 ```
 
@@ -142,7 +147,8 @@ Delete the image specified by {identifier} on the server.
 
 URI Pattern:
 
-``` none
+{% include code_header.html %}
+``` 
 {scheme}://{server}{/prefix}/{identifier}
 ```
 
@@ -181,6 +187,7 @@ In addition to the error conditions discussed in the API documents, the followin
 
 This extension defines five predicates in a separate context, one for each of the HTTP methods described in [Section 2][2]. A server that supports any of the HTTP methods as described by this document should modify its capabilities document to include this context, e.g., as follows:
 
+{% include code_header.html %}
 ``` json-doc
 {
   "@context" : [

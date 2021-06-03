@@ -114,7 +114,8 @@ The Annotation must contain enough information about de-referenceable resources 
 
 A content state Annotation has the motivation `contentState`. This motivation is not defined by either the [W3C Web Annotation Data Model][org-w3c-webanno] or the Presentation API, and is chosen to avoid potential ambiguity when the target of the content state Annotation is itself an Annotation. This section shows four possible forms the content state may take, all of which are equivalent to the following example:
 
-```json
+{% include code_header.html %}
+``` json
 {
   "@context": "http://iiif.io/api/presentation/3/context.json",
   "id": "https://example.org/Annotation-server/bookmarks/b1",
@@ -141,7 +142,8 @@ The content state may be supplied as a string whose value is the URL of an Annot
 
 The content state may be supplied as JSON-LD, as the value of the `target` property of an implied Annotation with the motivation `contentState`. For the example above, this would be:
 
-```json
+{% include code_header.html %}
+``` json
 {
     "id": "https://example.org/iiif/item1/manifest",
     "type": "Manifest"
@@ -196,7 +198,8 @@ The data structure _MAY_ be made available to the client using the following mec
 
 If the intention is that the linked-to client loads an entire IIIF resource without focusing on any particular part, the simplest form of the content state _SHOULD_ be used:
 
-```html
+{% include code_header.html %}
+``` html
 {% raw %}
 <a href='https://example.org/viewer?iiif-content=http://dams.llgc.org.uk/iiif/2.0/4389767/manifest.json'>Link to Viewer</a>
 {% endraw %}
@@ -208,7 +211,8 @@ When the intention is to initialize the viewer at a particular part of the resou
 
 In the following examples, the same Annotation is used each time. As JSON:
 
-```json
+{% include code_header.html %}
+``` json
 {
   "type": "Annotation",
   "motivation": ["contentState"],
@@ -229,7 +233,8 @@ An example of this usage would be a link from search results to a particular pag
 
 Without encoding, the link to the viewer would look like this:
 
-```html
+{% include code_header.html %}
+``` html
 {% raw %}
 <a href='https://example.org/viewer?iiif-content={"type":"Annotation","motivation":"contentState","target":{"id":"http://dams.llgc.org.uk/iiif/2.0/4389767/canvas/4389772.json","type":"Canvas","partOf":[{"id":"http://dams.llgc.org.uk/iiif/2.0/4389767/manifest.json","type":"Manifest"}]}}'>Link to Viewer</a>
 {% endraw %}
@@ -237,7 +242,8 @@ Without encoding, the link to the viewer would look like this:
 
 However, as JSON-LD, this _MUST_ be Base-64 encoded UTF-8:
 
-```html
+{% include code_header.html %}
+``` html
 {% raw %}
 <a href="https://example.org/viewer?iiif-content=eyJ0eXBlIjoiQW5ub3RhdGlvbiIsIm1vdGl2YXRpb24iOiJzZWxlY3RpbmciLCJ0YXJnZXQiOnsiaWQiOiJodHRwOi8vZGFtcy5sbGdjLm9yZy51ay9paWlmLzIuMC80Mzg5NzY3L2NhbnZhcy80Mzg5NzcyLmpzb24iLCJ0eXBlIjoiQ2FudmFzIiwicGFydE9mIjpbeyJpZCI6Imh0dHA6Ly9kYW1zLmxsZ2Mub3JnLnVrL2lpaWYvMi4wLzQzODk3NjcvbWFuaWZlc3QuanNvbiIsInR5cGUiOiJNYW5pZmVzdCJ9XX19">Link to Viewer</a>
 {% endraw %}
@@ -245,7 +251,8 @@ However, as JSON-LD, this _MUST_ be Base-64 encoded UTF-8:
 
 The content state may be passed as just the `target` property of an implied Annotation with motivation `contentState`, that is:
 
-```json
+{% include code_header.html %}
+``` json
 {
   "id": "http://dams.llgc.org.uk/iiif/2.0/4389767/canvas/4389772.json",
   "type": "Canvas",
@@ -260,7 +267,8 @@ The content state may be passed as just the `target` property of an implied Anno
 
 This results in a more compact form, unencoded, this would be:
 
-```html
+{% include code_header.html %}
+``` html
 {% raw %}
 <a href='https://example.org/viewer?iiif-content={"id":"http://dams.llgc.org.uk/iiif/2.0/4389767/canvas/4389772.json","type":"Canvas","partOf":[{"id":"http://dams.llgc.org.uk/iiif/2.0/4389767/manifest.json","type":"Manifest"}]}'>Link to Viewer</a>
 {% endraw %}
@@ -268,7 +276,8 @@ This results in a more compact form, unencoded, this would be:
 
 However, as JSON-LD again, this _MUST_ be Base-64 encoded UTF-8:
 
-```html
+{% include code_header.html %}
+``` html
 {% raw %}
 <a href="https://example.org/viewer?iiif-content=eyJpZCI6Imh0dHA6Ly9kYW1zLmxsZ2Mub3JnLnVrL2lpaWYvMi4wLzQzODk3NjcvY2FudmFzLzQzODk3NzIuanNvbiIsInR5cGUiOiJDYW52YXMiLCJwYXJ0T2YiOlt7ImlkIjoiaHR0cDovL2RhbXMubGxnYy5vcmcudWsvaWlpZi8yLjAvNDM4OTc2Ny9tYW5pZmVzdC5qc29uIiwidHlwZSI6Ik1hbmlmZXN0In1dfQ==">Link to Viewer</a>
 {% endraw %}
@@ -293,7 +302,8 @@ _Outstanding Question:_ Should POST be in the body, or as www-form-encoded? ...c
 
 The client allows the content state URL or data to be pasted into part of its UI (e.g., from a "Load..." option exposing a `textarea` element for the user to manually paste into). A client can also accept a paste operation transparently, by reading from the clipboard:
 
-```html
+{% include code_header.html %}
+``` html
 <script>
     document.addEventListener('paste', event => {
         const text = event.clipboardData.getData('text/plain');
@@ -317,7 +327,8 @@ This same mechanism may also accept a Manifest or Collection resource URL direct
 
 In this scenario, one client provides a _draggable_ element:
 
-```html
+{% include code_header.html %}
+``` html
 <img src="http://iiif.io/img/logo-iiif-34x30.png" draggable="true" ondragstart="drag(event)" />
 
 <script>
@@ -334,7 +345,8 @@ In this scenario, one client provides a _draggable_ element:
 
 And another client provides an element capable of receiving a `drop` event:
 
-```html
+{% include code_header.html %}
+``` html
     <div id="dropbox" ondrop="drop(event)" ondragover="allowDrop(event)" ondragexit="deselect(event)">
         <!-- this could be the viewport -->
     </div>
@@ -369,7 +381,8 @@ _Question_ again, is a whole manifest itself a content state?
 
 A JavaScript client can accept content state from the client machine via the `FileReader` interface:
 
-```html
+{% include code_header.html %}
+``` html
 <form>
     <input type="file" id="selectFiles" value="Import" /><br />
     <button id="import" onclick="return loadAnnotation()">Import</button>
@@ -404,7 +417,8 @@ A JavaScript client can accept content state from the client machine via the `Fi
 
 This is a variant of 3.1.1, with the parameter value a URI rather than the content itself.
 
-```html
+{% include code_header.html %}
+``` html
 <a href='https://example.org/viewer?iiif-content=https://publisher.org/fragment123.json'>Link to Viewer</a>
 ```
 
@@ -418,7 +432,8 @@ This is probably not spec. It's a recipe.
 
 Viewers should standardize on the attribute `data-iiif-content` for supplying content state via HTML attribute. A viewer that accepts content state _SHOULD_ process an Annotation in any of the forms described in the GET parameter section.
 
-```html
+{% include code_header.html %}
+``` html
 
 <p>Loading a whole manifest</p>
 <div
@@ -451,7 +466,8 @@ The following examples demonstrate the use of the existing IIIF Presentation API
 
 ### 4.1. A region of a canvas in a manifest
 
-```json
+{% include code_header.html %}
+``` json
 {
   "@context": "http://iiif.io/api/presentation/{{ page.major }}/context.json",
   "id": "https://example.org/import/1",
@@ -473,7 +489,8 @@ When processed by a viewer, the user should see the rectangle `1000,2000,1000,20
 
 ### 4.2. Start playing at a point in a recording
 
-```json
+{% include code_header.html %}
+``` json
 {
   "@context": "http://iiif.io/api/presentation/{{ page.major }}/context.json",
   "id": "https://example.org/import/2",
@@ -502,7 +519,8 @@ This example should cause a viewer to open Manifest https://example.org/iiif/id1
 
 ### 4.3. Multiple targets for a comparison view
 
-```json
+{% include code_header.html %}
+``` json
 {
   "@context": "http://iiif.io/api/presentation/{{ page.major }}/context.json",
   "id": "https://example.org/import/3",
@@ -540,7 +558,8 @@ Here the viewer should open two manifests at once (if it is capable of such a vi
 
 The following example uses the compact, query string form of the content state to demonstrate what HTML search results linking to a particular viewer might look like.
 
-```html
+{% include code_header.html %}
+``` html
 <h2>Results for "cats"</h2>
 <ol>
   <li>
