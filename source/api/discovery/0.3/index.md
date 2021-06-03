@@ -9,6 +9,22 @@ major: 0
 minor: 3
 patch: 0
 pre: final
+editors:
+  - name: Michael Appleby
+    orchid: https://orcid.org/0000-0002-1266-298X
+    institution: Yale University
+  - name: Tom Crane
+    orchid: https://orcid.org/0000-0003-1881-243X
+    institution: Digirati
+  - name: Robert Sanderson
+    orchid: https://orcid.org/0000-0003-4441-6852
+    institution: J. Paul Getty Trust
+  - name: Jon Stroop
+    orchid: https://orcid.org/0000-0002-0367-1243
+    institution: Princeton University Library
+  - name: Simeon Warner
+    orchid: https://orcid.org/0000-0002-7970-7855
+    institution: Cornell University
 ---
 
 
@@ -20,14 +36,9 @@ __Latest Stable Version:__ None
 
 __Previous Version:__ [0.2][discovery02]
 
-**Editors**
+**Editors:**
 
-  * **[Michael Appleby](https://orcid.org/0000-0002-1266-298X)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0002-1266-298X), [_Yale University_](http://www.yale.edu/)
-  * **[Tom Crane](https://orcid.org/0000-0003-1881-243X)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0003-1881-243X), [_Digirati_](http://digirati.com/)
-  * **[Robert Sanderson](https://orcid.org/0000-0003-4441-6852)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0003-4441-6852), [_J. Paul Getty Trust_](http://www.getty.edu/)
-  * **[Jon Stroop](https://orcid.org/0000-0002-0367-1243)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0002-0367-1243), [_Princeton University Library_](https://library.princeton.edu/)
-  * **[Simeon Warner](https://orcid.org/0000-0002-7970-7855)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0002-7970-7855), [_Cornell University_](https://www.cornell.edu/)
-  {: .names}
+{% include editors.md editors=page.editors %}
 
 {% include copyright.md %}
 

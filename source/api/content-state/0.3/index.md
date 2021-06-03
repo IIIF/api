@@ -12,6 +12,22 @@ pre: final
 redirect_from:
   - /api/content-state/index.html
   - /api/0/content-state/index.html
+editors:
+  - name: Michael Appleby
+    orchid: https://orcid.org/0000-0002-1266-298X
+    institution: Yale University
+  - name: Tom Crane
+    orchid: https://orcid.org/0000-0003-1881-243X
+    institution: Digirati
+  - name: Robert Sanderson
+    orchid: https://orcid.org/0000-0003-4441-6852
+    institution: J. Paul Getty Trust
+  - name: Jon Stroop
+    orchid: https://orcid.org/0000-0002-0367-1243
+    institution: Princeton University Library
+  - name: Simeon Warner
+    orchid: https://orcid.org/0000-0002-7970-7855
+    institution: Cornell University
 ---
 
 
@@ -23,14 +39,9 @@ __Latest Stable Version:__ None
 
 __Previous Version:__ None
 
-**Editors**
+**Editors:**
 
-  * **[Michael Appleby](https://orcid.org/0000-0002-1266-298X)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0002-1266-298X), [_Yale University_](http://www.yale.edu/)
-  * **[Tom Crane](https://orcid.org/0000-0003-1881-243X)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0003-1881-243X), [_Digirati_](http://digirati.com/)
-  * **[Robert Sanderson](https://orcid.org/0000-0003-4441-6852)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0003-4441-6852), [_J. Paul Getty Trust_](http://www.getty.edu/)
-  * **[Jon Stroop](https://orcid.org/0000-0002-0367-1243)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0002-0367-1243), [_Princeton University Library_](https://library.princeton.edu/)
-  * **[Simeon Warner](https://orcid.org/0000-0002-7970-7855)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0002-7970-7855), [_Cornell University_](https://www.cornell.edu/)
-  {: .names}
+{% include editors.md editors=page.editors %}
 
 {% include copyright.md %}
 
@@ -55,14 +66,14 @@ This specification provides a way of describing a [IIIF Presentation API][prezi-
 ### 1.1. Objectives and Scope
 {: #objectives-and-scope}
 
-* A user follows a link from a search result, which opens a IIIF viewer. The viewer focuses on the relevant part of the object, such as a particular line of text that contains the searched-for term. 
+* A user follows a link from a search result, which opens a IIIF viewer. The viewer focuses on the relevant part of the object, such as a particular line of text that contains the searched-for term.
 * A user opens several IIIF Manifests to compare paintings, then wishes to share this set of views with a colleague.
 
 These are examples of sharing a resource, or a particular view of a resource. Other examples include bookmarks, citations, playlists and deep linking into digital objects.
 
-The objective of the IIIF Content State API is to provide a standardized format for sharing of a particular view of one or more [IIIF Presentation API][prezi-api] resources, such as a Collection, a Manifest, or a particular part of a Manifest. 
+The objective of the IIIF Content State API is to provide a standardized format for sharing of a particular view of one or more [IIIF Presentation API][prezi-api] resources, such as a Collection, a Manifest, or a particular part of a Manifest.
 
-This specification also describes how a content state is passed into a viewer or other client application from another system or application, so that the viewer can show the intended part of the resource (or resources) to the user. A simple example would be a content state that tells a viewer to load a IIIF Manifest. 
+This specification also describes how a content state is passed into a viewer or other client application from another system or application, so that the viewer can show the intended part of the resource (or resources) to the user. A simple example would be a content state that tells a viewer to load a IIIF Manifest.
 
 A viewer can also _export_ a content state, for example to enable a user to share a particular view with another user, or publish it as a reference or citation. Different IIIF clients will have different user interfaces and audiences, and may choose which of these mechanisms to support. Further detailed examples may be found in the [IIIF Cookbook][annex-cookbook].
 
@@ -72,7 +83,7 @@ The intended audience of this document is developers of applications that implem
 
 #### 1.1.1. Relationship with Change Discovery API
 
-The resources made available via the [IIIF Presentation API][prezi-api] are useful only if they can be found. While the [Change Discovery API][discovery-api] is for implementing systems that allow these resources to be found, the Content State API is for opening the found resource in a compatible environment, such as a viewer, annotation tool or other IIIF-compatible software. 
+The resources made available via the [IIIF Presentation API][prezi-api] are useful only if they can be found. While the [Change Discovery API][discovery-api] is for implementing systems that allow these resources to be found, the Content State API is for opening the found resource in a compatible environment, such as a viewer, annotation tool or other IIIF-compatible software.
 
 
 ### 1.2. Terminology
@@ -91,7 +102,7 @@ The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _S
 ## 2. Content State
 {: #content-state}
 
-A content state is a JSON-LD data structure that uses the models described by the [IIIF Presentation API][prezi-api] and [W3C Web Annotation Data Model][org-w3c-webanno] specifications. The data structure is a description of a resource, or part of a resource. This data structure must allow the client to load the resource required, and present a particular part of the resource to the user. The state might be very simple: for example, a link to a Manifest. A more complex content state would provide more detail about the intended target. The following are all behaviors a passed-in content state might produce in a compatible client: 
+A content state is a JSON-LD data structure that uses the models described by the [IIIF Presentation API][prezi-api] and [W3C Web Annotation Data Model][org-w3c-webanno] specifications. The data structure is a description of a resource, or part of a resource. This data structure must allow the client to load the resource required, and present a particular part of the resource to the user. The state might be very simple: for example, a link to a Manifest. A more complex content state would provide more detail about the intended target. The following are all behaviors a passed-in content state might produce in a compatible client:
 
 * _load Manifest M_
 * _load Manifest M, navigate to Canvas C, and zoom in to the region defined by xywh=X,Y,W,H_
@@ -115,7 +126,7 @@ The Annotation must contain enough information about de-referenceable resources 
 
 ### 2.2 Form of Annotation
 
-Any Annotation may have one or more [motivations][org-w3c-webanno-motivation], that provide the reason(s) why it was created. For example, `bookmarking`. 
+Any Annotation may have one or more [motivations][org-w3c-webanno-motivation], that provide the reason(s) why it was created. For example, `bookmarking`.
 
 A content state Annotation always has the motivation `contentState`. This motivation is not defined by either the [W3C Web Annotation Data Model][org-w3c-webanno] or the IIIF Presentation API, and is chosen to avoid potential ambiguity when the target of the content state Annotation is itself an Annotation. The content state annotation may also have additional motivations such as `bookmarking`, `identifying` and so on, as defined by the W3C Web Annotation Model, but it is its particular `contentState` motivation that produces the required behavior in compatible software.
 
@@ -135,7 +146,7 @@ A content state annotation can take several formats. All of the four examples be
 ```
 
 Publishers _SHOULD_ provide the content state annotation in one of the following forms.
-A client _SHOULD_ be able to accept and process the content state in all of these forms. 
+A client _SHOULD_ be able to accept and process the content state in all of these forms.
 
 #### 2.2.1 Full Annotation
 
@@ -162,13 +173,13 @@ This form is better suited to scenarios where compactness is important, for exam
 
 #### 2.2.4 Target URI
 
- The content state _MAY_ be supplied as a string whose value is the `id` (the dereferenceable URI) of the `target` property only. This is the simplest form and is just the URI of a resource. For the example above, this would be the URI `https://example.org/iiif/item1/manifest`. The client would simply load this Manifest and display it. 
+ The content state _MAY_ be supplied as a string whose value is the `id` (the dereferenceable URI) of the `target` property only. This is the simplest form and is just the URI of a resource. For the example above, this would be the URI `https://example.org/iiif/item1/manifest`. The client would simply load this Manifest and display it.
 
 Examples 2.2.2 and 2.2.4 are both URIs. It is up to the client to recognise that 2.2.4 is a Manifest, whereas 2.2.2 is an Annotation that points to a Manifest. The client inspects the `type` property to determine what the de-referenced resource is.
 
 #### 2.2.5 Limitations of simple URIs
 
-While supporting many requirements for sharing resources and initializing a client application, the 2.2.4 form is not capable of expressing content states that are part of a IIIF resource, such as a region of a Canvas, or a Canvas URI that is not itself de-referenceable. One of the other forms must be used for these purposes. 
+While supporting many requirements for sharing resources and initializing a client application, the 2.2.4 form is not capable of expressing content states that are part of a IIIF resource, such as a region of a Canvas, or a Canvas URI that is not itself de-referenceable. One of the other forms must be used for these purposes.
 
 ```json
 {
@@ -262,7 +273,7 @@ Not all use cases for providing a content state to a client require base64url en
 
 #### 2.3.4 URI-Encoding
 
-If the content state is a simple URI, it _MUST NOT_ be base64url encoded. It _MAY_ be uri-encoded (percent encoding, as defined by [org-rfc-3986][Generic URI Syntax, RFC 3986]), and a client _MUST_ accept it in that form. 
+If the content state is a simple URI, it _MUST NOT_ be base64url encoded. It _MAY_ be uri-encoded (percent encoding, as defined by [org-rfc-3986][Generic URI Syntax, RFC 3986]), and a client _MUST_ accept it in that form.
 
 
 #### 2.3.4 Protocol
@@ -273,13 +284,13 @@ If a client is capable of reading the content state from the value of an HTTP GE
 
 If a client is capable of reading the content state from the value of an attribute on an HTML element that instantiates the client, it _SHOULD_ look for the content state in an attribute called `data-iiif-content`.
 
-A content state Annotation may be published inline as part of an HTML document, as in the preceding `data-iiif-content` example, or as a query string parameter forming part of the `href` property of an HTML anchor tag. 
+A content state Annotation may be published inline as part of an HTML document, as in the preceding `data-iiif-content` example, or as a query string parameter forming part of the `href` property of an HTML anchor tag.
 
 If the content state is a simple URI, the client _MUST_ load the resource at that URI and process it. The resource at that URI _MUST_ be the full Annotation as in 2.2.2. above, or a IIIF Resource as in 2.2.4. That is, the de-referenced response _MUST_ be JSON-LD, and _SHOULD_ have a value of `type` taken from `Annotation`, `Collection`, `Manifest`, `Canvas` and `Range`. The response _MUST_ use UTF-8 encoding.
 
 If the `type` property of the dereferenced resource is `Canvas` or `Range`, the resource _MUST_ include the Manifest URI that the Canvas or Range is to be found in, using the `partOf` property, as in example 2.3.2 above.
 
-If the content state is JSON-LD the client _MUST_ inspect the `type` property to decide whether the value is the full content state Annotation (indicated by the additional presence of the `contentState` motivation) (as in example 2.2.1), or the value of the `target` property of an implied content state Annotation (example 2.2.3). 
+If the content state is JSON-LD the client _MUST_ inspect the `type` property to decide whether the value is the full content state Annotation (indicated by the additional presence of the `contentState` motivation) (as in example 2.2.1), or the value of the `target` property of an implied content state Annotation (example 2.2.3).
 
 
 
@@ -459,7 +470,7 @@ And another client provides an element capable of receiving a `drop` event:
     </script>
 ```
 
-This technique can also be used within the same client, to drag a content state from one part to another. 
+This technique can also be used within the same client, to drag a content state from one part to another.
 
 The first parameter to `setData` and `getData` is the content type, and for maximum interoperability within the scope of this specification this _MUST_ be "text/plain". Applications can assert multiple additional content types for their own custom behavior, such as dragging from the application to the desktop and saving as a file, but this is outside the scope of the current Content State API. In the above example, the content of the drag and drop operation could be a plain URI, or JSON-LD. If JSON-LD, clients receiving the data (by calling `getData`) _SHOULD_ accept the data in both unencoded and base64url encoded forms.
 
@@ -505,18 +516,18 @@ The same rules apply; the viewer _MUST_ dereference and process the Annotation a
 
 ### 3.1.7 Common initialization parameter
 
-If a IIIF client can accept a content state via a custom HTML attribute, then it _SHOULD_ use the attribute `data-iiif-content` for this purpose, to assist page developers using that client in understanding what the attribute is for. A viewer that accepts content state _SHOULD_ process an Annotation in any of the forms described in the GET parameter section. 
+If a IIIF client can accept a content state via a custom HTML attribute, then it _SHOULD_ use the attribute `data-iiif-content` for this purpose, to assist page developers using that client in understanding what the attribute is for. A viewer that accepts content state _SHOULD_ process an Annotation in any of the forms described in the GET parameter section.
 
 ```html
 
 <p>Loading a whole manifest</p>
-<div 
+<div
     id="iiif-viewer"
     data-iiif-content="http://dams.llgc.org.uk/iiif/2.0/4389767/manifest.json">
 </div>
 
 <p>Loading a manifest to show a particular Canvas</p>
-<div 
+<div
     id="iiif-viewer"
     data-iiif-content="aHR0cHM6Ly9leGFtcGxlLm9yZy92aWV3ZXI_aWlpZi1jb250ZW50PXsiaWQiOiJodHRwOi8vZGFtcy5sbGdjLm9yZy51ay9paWlmLzIuMC80Mzg5NzY3L2NhbnZhcy80Mzg5NzcyLmpzb24iLCJ0eXBlIjoiQ2FudmFzIiwicGFydE9mIjpbeyJpZCI6Imh0dHA6Ly9kYW1zLmxsZ2Mub3JnLnVrL2lpaWYvMi4wLzQzODk3NjcvbWFuaWZlc3QuanNvbiIsInR5cGUiOiJNYW5pZmVzdCJ9XX0=">
 </div>

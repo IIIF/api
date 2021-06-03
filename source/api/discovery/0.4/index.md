@@ -9,6 +9,22 @@ major: 0
 minor: 4
 patch: 0
 pre: final
+editors:
+  - name: Michael Appleby
+    orchid: https://orcid.org/0000-0002-1266-298X
+    institution: Yale University
+  - name: Tom Crane
+    orchid: https://orcid.org/0000-0003-1881-243X
+    institution: Digirati
+  - name: Robert Sanderson
+    orchid: https://orcid.org/0000-0003-4441-6852
+    institution: J. Paul Getty Trust
+  - name: Jon Stroop
+    orchid: https://orcid.org/0000-0002-0367-1243
+    institution: Princeton University Library
+  - name: Simeon Warner
+    orchid: https://orcid.org/0000-0002-7970-7855
+    institution: Cornell University
 ---
 
 
@@ -20,14 +36,9 @@ __Latest Stable Version:__ None
 
 __Previous Version:__ [0.3][discovery03]
 
-**Editors**
+**Editors:**
 
-  * **[Michael Appleby](https://orcid.org/0000-0002-1266-298X)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0002-1266-298X), [_Yale University_](http://www.yale.edu/)
-  * **[Tom Crane](https://orcid.org/0000-0003-1881-243X)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0003-1881-243X), [_Digirati_](http://digirati.com/)
-  * **[Robert Sanderson](https://orcid.org/0000-0003-4441-6852)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0003-4441-6852), [_J. Paul Getty Trust_](http://www.getty.edu/)
-  * **[Jon Stroop](https://orcid.org/0000-0002-0367-1243)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0002-0367-1243), [_Princeton University Library_](https://library.princeton.edu/)
-  * **[Simeon Warner](https://orcid.org/0000-0002-7970-7855)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0002-7970-7855), [_Cornell University_](https://www.cornell.edu/)
-  {: .names}
+{% include editors.md editors=page.editors %}
 
 {% include copyright.md %}
 
@@ -583,7 +594,7 @@ Activities _MUST_ have the `object` property.  The value _MUST_ be a JSON object
 
 ##### target
 
-The new location of the IIIF resource, after it was affected by a `Move` activity. 
+The new location of the IIIF resource, after it was affected by a `Move` activity.
 
 `Move` activities _MUST_ have the `target` property. The value _MUST_ be a JSON object, with the `id` and `type` properties. The `id` _MUST_ be an HTTP(S) URI, and _MUST_ be different from the URI given in the `object` property's `id`. The `type` _SHOULD_ be a class defined in the IIIF Presentation API, and _SHOULD_ be the same as the `object` property's `type`.  
 
@@ -756,7 +767,7 @@ Given the URI of an ActivityStreams CollectionPage (`page`), a list of processed
 #### 3.5.3. Resource Processing: Indexing
 {: #indexing}
 
-While there are many possible algorithms to process the discovered resources and activities, a core use case for the Change Discovery API is to maintain an up-to-date index of the resources. 
+While there are many possible algorithms to process the discovered resources and activities, a core use case for the Change Discovery API is to maintain an up-to-date index of the resources.
 
 In this case, the objective of the consuming application is to find accurate, machine-readable descriptive information that might be used to build an index, and thus the application _SHOULD_ use the IIIF Presentation API `seeAlso` property to retrieve such a description if available.  For different types of resource, and for different domains, the referenced descriptive resources will have different formats and semantics. If there are no such descriptions, or none that can be processed, the data in the Manifest and in other IIIF resources might be used as a last resort, despite its presentational intent.
 

@@ -12,6 +12,22 @@ pre: final
 redirect_from:
   - /api/content-state/index.html
   - /api/0/content-state/index.html
+editors:
+  - name: Michael Appleby
+    orchid: https://orcid.org/0000-0002-1266-298X
+    institution: Yale University
+  - name: Tom Crane
+    orchid: https://orcid.org/0000-0003-1881-243X
+    institution: Digirati
+  - name: Robert Sanderson
+    orchid: https://orcid.org/0000-0003-4441-6852
+    institution: J. Paul Getty Trust
+  - name: Jon Stroop
+    orchid: https://orcid.org/0000-0002-0367-1243
+    institution: Princeton University Library
+  - name: Simeon Warner
+    orchid: https://orcid.org/0000-0002-7970-7855
+    institution: Cornell University
 ---
 
 
@@ -23,14 +39,9 @@ __Latest Stable Version:__ None
 
 __Previous Version:__ None
 
-**Editors**
+**Editors:**
 
-  * **[Michael Appleby](https://orcid.org/0000-0002-1266-298X)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0002-1266-298X), [_Yale University_](http://www.yale.edu/)
-  * **[Tom Crane](https://orcid.org/0000-0003-1881-243X)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0003-1881-243X), [_Digirati_](http://digirati.com/)
-  * **[Robert Sanderson](https://orcid.org/0000-0003-4441-6852)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0003-4441-6852), [_J. Paul Getty Trust_](http://www.getty.edu/)
-  * **[Jon Stroop](https://orcid.org/0000-0002-0367-1243)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0002-0367-1243), [_Princeton University Library_](https://library.princeton.edu/)
-  * **[Simeon Warner](https://orcid.org/0000-0002-7970-7855)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0002-7970-7855), [_Cornell University_](https://www.cornell.edu/)
-  {: .names}
+{% include editors.md editors=page.editors %}
 
 {% include copyright.md %}
 
@@ -83,7 +94,7 @@ The content state data structure must allow the client to load the resources req
 * _load Manifest M, navigate to Canvas C, and zoom in to the region defined by xywh=X,Y,W,H_
 * _load Manifest M, navigate such that Range R is selected, and start playing the time-based canvas C within Range R at time t=T_
 
-Such a description can be expressed as an Annotation that targets the intended resource, or part of the resource. 
+Such a description can be expressed as an Annotation that targets the intended resource, or part of the resource.
 
 ### 2.1. Annotation Model for Content State
 
@@ -120,7 +131,7 @@ A content state Annotation has the motivation `contentState`. This motivation is
 
 The content state may be supplied as JSON-LD, as a full Annotation with the motivation `contentState`, as in the example above.
 
-The target of the annotation is in this case a complete IIIF resource (here, a Manifest) but in more complex cases, the target could be a part of a IIIF resource. A client _SHOULD_ be able to accept and process the content state value in all of these forms. 
+The target of the annotation is in this case a complete IIIF resource (here, a Manifest) but in more complex cases, the target could be a part of a IIIF resource. A client _SHOULD_ be able to accept and process the content state value in all of these forms.
 
 #### 2.2.2 Annotation URL
 
@@ -141,7 +152,7 @@ This form is better suited to scenarios where compactness is important, for exam
 
 #### 2.2.4 Target URL
 
-This is the simplest form and is just the URL of a resource. The content state may be supplied as a string whose value is the `id` (the URL) of the `target` property only. For the example above, this would be the URL `https://example.org/iiif/item1/manifest`. The client would simply load this Manifest and display it. 
+This is the simplest form and is just the URL of a resource. The content state may be supplied as a string whose value is the `id` (the URL) of the `target` property only. For the example above, this would be the URL `https://example.org/iiif/item1/manifest`. The client would simply load this Manifest and display it.
 
 While supporting many requirements for sharing resources and initializing a client application, this form is not capable of expressing content states that are part of a IIIF resource, such as a Canvas within a Manifest, or a region of a Canvas. One of the other forms must be used for these purposes.
 
@@ -154,7 +165,7 @@ If a client is capable of reading the content state from the value of an HTTP GE
 
 If a client is capable of reading the content state from the value of an attribute on an HTML element that instantiates the client, it _SHOULD_ look for the content state in an attribute called `data-iiif-content`.
 
-A content state annotation may be published inline as part of an HTML document, as in the preceding `data-iiif-content` example, or as a query string parameter forming part of the `href` property of an HTML anchor tag. 
+A content state annotation may be published inline as part of an HTML document, as in the preceding `data-iiif-content` example, or as a query string parameter forming part of the `href` property of an HTML anchor tag.
 Any content state that is in JSON-LD form, rather than a simple URL string, _MUST_ be Base64-encoded when declared inline in an HTML document, and a client _MUST_ accept it in that form. The destination character set when encoding _MUST_ be UTF-8. For example, when passing the content state as JSON-LD in a query string parameter, Base64-Encoding is used, as unencoded JSON is vulnerable to corruption. Simple URL forms _SHOULD_ be plain strings.
 
 When published as inline, Base-64-encoded JSON-LD in the full form given in 2.2, the content state Annotation _MAY_ omit the `id` and `@context` properties.
@@ -165,7 +176,7 @@ If the content state is a simple URL, the client _MUST_ load the resource at tha
 
 (TODO - _MAY_ be `Canvas`, `Range`, but prefer to do that as an annotation target not as a raw resource.)
 
-If the content state is JSON-LD the client _MUST_ inspect the `type` property to decide whether the value is the full content state Annotation (indicated by the additional presence of the `contentState` motivation), or the value of the `target` property of an implied content state Annotation. 
+If the content state is JSON-LD the client _MUST_ inspect the `type` property to decide whether the value is the full content state Annotation (indicated by the additional presence of the `contentState` motivation), or the value of the `target` property of an implied content state Annotation.
 
 
 ## 3. Initialization
@@ -410,13 +421,13 @@ Viewers should standardize on the attribute `data-iiif-content` for supplying co
 ```html
 
 <p>Loading a whole manifest</p>
-<div 
+<div
     id="iiif-viewer"
     data-iiif-content="http://dams.llgc.org.uk/iiif/2.0/4389767/manifest.json">
 </div>
 
 <p>Loading a manifest to show a particular Canvas</p>
-<div 
+<div
     id="iiif-viewer"
     data-iiif-content="eyJpZCI6Imh0dHA6Ly9kYW1zLmxsZ2Mub3JnLnVrL2lpaWYvMi4wLzQzODk3NjcvY2FudmFzLzQzODk3NzIuanNvbiIsInR5cGUiOiJDYW52YXMiLCJwYXJ0T2YiOlt7ImlkIjoiaHR0cDovL2RhbXMubGxnYy5vcmcudWsvaWlpZi8yLjAvNDM4OTc2Ny9tYW5pZmVzdC5qc29uIiwidHlwZSI6Ik1hbmlmZXN0In1dfQ==">
 </div>

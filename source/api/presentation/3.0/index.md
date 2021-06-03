@@ -12,6 +12,22 @@ pre: final
 redirect_from:
   - /api/presentation/index.html
   - /api/presentation/3/index.html
+editors:
+  - name: Michael Appleby
+    orchid: https://orcid.org/0000-0002-1266-298X
+    institution: Yale University
+  - name: Tom Crane
+    orchid: https://orcid.org/0000-0003-1881-243X
+    institution: Digirati
+  - name: Robert Sanderson
+    orchid: https://orcid.org/0000-0003-4441-6852
+    institution: J. Paul Getty Trust
+  - name: Jon Stroop
+    orchid: https://orcid.org/0000-0002-0367-1243
+    institution: Princeton University Library
+  - name: Simeon Warner
+    orchid: https://orcid.org/0000-0002-7970-7855
+    institution: Cornell University
 ---
 
 ## Status of this Document
@@ -24,12 +40,7 @@ __Previous Version:__ [2.1.1][prezi21]
 
 **Editors:**
 
-  * **[Michael Appleby](https://orcid.org/0000-0002-1266-298X)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0002-1266-298X), [_Yale University_](http://www.yale.edu/)
-  * **[Tom Crane](https://orcid.org/0000-0003-1881-243X)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0003-1881-243X), [_Digirati_](http://digirati.com/)
-  * **[Robert Sanderson](https://orcid.org/0000-0003-4441-6852)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0003-4441-6852), [_J. Paul Getty Trust_](http://www.getty.edu/)
-  * **[Jon Stroop](https://orcid.org/0000-0002-0367-1243)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0002-0367-1243), [_Princeton University Library_](https://library.princeton.edu/)
-  * **[Simeon Warner](https://orcid.org/0000-0002-7970-7855)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0002-7970-7855), [_Cornell University_](https://www.cornell.edu/)
-  {: .names}
+{% include editors.md editors=page.editors %}
 
 {% include copyright.md %}
 
@@ -129,7 +140,7 @@ An ordered list of Annotations that is typically associated with a Canvas but ma
 ##### Annotation
 {: #overview-annotation}
 
-Annotations associate content resources with Canvases. The same mechanism is used for the visible and/or audible resources as is used for transcriptions, commentary, tags and other content. This provides a single, unified method for aligning information, and provides a standards-based framework for distinguishing parts of resources and parts of Canvases. As Annotations can be added later, it promotes a distributed system in which publishers can align their content with the descriptions created by others. Annotation related functionality may also rely on further classes such as SpecificResource, Choice or Selectors. 
+Annotations associate content resources with Canvases. The same mechanism is used for the visible and/or audible resources as is used for transcriptions, commentary, tags and other content. This provides a single, unified method for aligning information, and provides a standards-based framework for distinguishing parts of resources and parts of Canvases. As Annotations can be added later, it promotes a distributed system in which publishers can align their content with the descriptions created by others. Annotation related functionality may also rely on further classes such as SpecificResource, Choice or Selectors.
 
 ##### Content
 {: #overview-content}
@@ -818,9 +829,9 @@ Implementations _SHOULD_ be prepared to recognize the `@id` and `@type` property
 
 A list of one or more service definitions on the top-most resource of the document, that are typically shared by more than one subsequent resource. This allows for these shared services to be collected together in a single place, rather than either having their information duplicated potentially many times throughout the document, or requiring a consuming client to traverse the entire document structure to find the information. The resource that the service applies to _MUST_ still have the `service` property, as described above, where the service resources have at least the `id` and `type` or `@id` and `@type` properties. This allows the client to know that the service applies to that resource. Usage of the `services` property is at the discretion of the publishing system.
 
-A client encountering a `service` property where the definition consists only of an `id` and `type` _SHOULD_ then check the `services` property on the top-most resource for an expanded definition.  If the service is not present in the `services` list, and the client requires more information in order to use the service, then it _SHOULD_ dereference the `id` (or `@id`) of the service in order to retrieve a service description. 
+A client encountering a `service` property where the definition consists only of an `id` and `type` _SHOULD_ then check the `services` property on the top-most resource for an expanded definition.  If the service is not present in the `services` list, and the client requires more information in order to use the service, then it _SHOULD_ dereference the `id` (or `@id`) of the service in order to retrieve a service description.
 
-The value _MUST_ be an array of JSON objects. Each object _MUST_ a service resource, as described above. 
+The value _MUST_ be an array of JSON objects. Each object _MUST_ a service resource, as described above.
 
 * A Collection _MAY_ have the `services` property, if it is the topmost Collection in a response document.<br/>
   Clients _SHOULD_ process `services` on a Collection.
@@ -1164,7 +1175,7 @@ The JSON representation _MUST NOT_ include the `@graph` key at the top level. Th
 
 ### 4.7. Term Collisions between Contexts
 
-There are some common terms used in more than one JSON-LD context document. Every attempt has been made to minimize these collisions, but some are inevitable. In order to know which specification is in effect at any given point, the class of the resource that has the property is the primary governing factor. Thus properties on Annotation based resources use the context from the [Web Annotation Data Model][org-w3c-webanno], whereas properties on classes defined by this specification use the IIIF Presentation API context's definition. 
+There are some common terms used in more than one JSON-LD context document. Every attempt has been made to minimize these collisions, but some are inevitable. In order to know which specification is in effect at any given point, the class of the resource that has the property is the primary governing factor. Thus properties on Annotation based resources use the context from the [Web Annotation Data Model][org-w3c-webanno], whereas properties on classes defined by this specification use the IIIF Presentation API context's definition.
 
 There is one property that is in direct conflict - the `label` property is defined by both and is available for every resource. The use of `label` in IIIF follows modern best practices for internationalization by allowing the language to be associated with the value using the language map construction [described above][prezi30-languages]. The Web Annotation Data Model uses it only for [Annotation Collections][prezi30-annocoll], and mandates the format is a string. For this property, the API overrides the definition from the Annotation model to ensure that labels can consistently be represented in multiple languages.
 
@@ -1631,11 +1642,11 @@ The IIIF community has defined [additional Selector classes][annex-oa] for use w
 
 ### 5.7. Content Resources
 
-Content resources are external web resources that are [referenced][prezi30-terminology] from within the Manifest or Collection. This includes images, video, audio, data, web pages or any other format. 
+Content resources are external web resources that are [referenced][prezi30-terminology] from within the Manifest or Collection. This includes images, video, audio, data, web pages or any other format.
 
-As described in the [Canvas][prezi30-canvas] section, the content associated with a Canvas (and therefore the content of a Manifest) is provided by the `body` property of Annotations with the `painting` motivation. Content resources can also be [referenced][prezi30-terminology] from `thumbnail`, `homepage`, `logo`, `rendering`, and `seeAlso` properties. 
+As described in the [Canvas][prezi30-canvas] section, the content associated with a Canvas (and therefore the content of a Manifest) is provided by the `body` property of Annotations with the `painting` motivation. Content resources can also be [referenced][prezi30-terminology] from `thumbnail`, `homepage`, `logo`, `rendering`, and `seeAlso` properties.
 
-Content resources _MUST_ have an `id` property, with the value being the URI at which the resource can be obtained. 
+Content resources _MUST_ have an `id` property, with the value being the URI at which the resource can be obtained.
 
 The type of the content resource _MUST_ be included, and _SHOULD_ be taken from the table listed under the definition of `type`. The `format` of the resource _SHOULD_ be included and, if so, _SHOULD_ be the media type that is returned when the resource is dereferenced. The `profile` of the resource, if it has one, _SHOULD_ also be included. Content resources in appropriate formats _MAY_ also have the `language`, `height`, `width`, and `duration` properties. Content resources _MAY_ also have descriptive and linking properties, as defined in [section 3][prezi30-resource-properties].
 
@@ -1737,7 +1748,7 @@ While any HTTP(S) URI is technically acceptable for any of the resources in the 
 
 ###  6.2. Requests
 
-Clients are only expected to follow links to Presentation API resources. Unlike [IIIF Image API][image-api] requests, or other parameterized services, the URIs for Presentation API resources cannot be assumed to follow any particular pattern. 
+Clients are only expected to follow links to Presentation API resources. Unlike [IIIF Image API][image-api] requests, or other parameterized services, the URIs for Presentation API resources cannot be assumed to follow any particular pattern.
 
 ###  6.3. Responses
 
