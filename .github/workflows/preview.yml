@@ -33,7 +33,7 @@ jobs:
     #- name: install
     #  run: gem install bundler && bundle
 
-    - name: Test site
+   # - name: Test site
 #      run: bundle exec rake ci
 
     # Build jekyll site
