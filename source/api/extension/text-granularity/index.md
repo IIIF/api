@@ -76,6 +76,7 @@ The Annotation Body’s textual content _SHOULD_ be equivalent to the textual co
         "value": "xywh=500,1100,3500,100"
      }
    }
+}
 ```
 Alternatively, the body might be an [external web resource](https://www.w3.org/TR/annotation-model/#external-web-resources).  For example, the Body could use an XPath selector to identify the transcription of a paragraph of text within an XML document.
 

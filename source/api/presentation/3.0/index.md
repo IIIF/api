@@ -1003,7 +1003,7 @@ The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id` and
     {
       "id": "https://example.org/iiif/collection1",
       "type": "Collection"
-    },
+    }
     // ...
   ]
 }

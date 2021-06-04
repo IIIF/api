@@ -792,7 +792,7 @@ It is important to be able to extract parts, or segments, of resources. In parti
       // canvas size is 1200x1800
       "on":"http://www.example.org/iiif/book1/canvas/p1"
     }
-    ```
+```
 
   * For image resources with a [IIIF Image API][image-api] service, it is _RECOMMENDED_ to instead use the Image API parameters rather than a fragment as above.  The following structure allows simple clients to use the image directly (the URL with the segment), and allows clients that implement the IIIF Image API to have sufficient information to construct appropriate URIs using the API.
 
@@ -823,7 +823,7 @@ It is important to be able to extract parts, or segments, of resources. In parti
   },
   "on":"http://www.example.org/iiif/book1/canvas/p1#xywh=50,50,320,240"
 }
-    ```
+```
 
 
   * Segments of XML files may be extracted with [XPaths][xpath]. The fragment _MUST_ be structured as follows:
@@ -843,7 +843,7 @@ It is important to be able to extract parts, or segments, of resources. In parti
       },
       "on":"http://www.example.org/iiif/book1/canvas/p1#xywh=100,100,500,300"
     }
-    ```
+```
 
 ###  7.2. Embedded Content
 {: #embedded-content}
