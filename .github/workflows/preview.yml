@@ -34,7 +34,7 @@ jobs:
     #  run: gem install bundler && bundle
 
     - name: Test site
-      run: bundle exec rake ci
+#      run: bundle exec rake ci
 
     # Build jekyll site
     - name: Build Jekyll
