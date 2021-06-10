@@ -57,6 +57,15 @@ auth_api:
     major: 1
     minor: 0
     patch: 0
+discovery_api:
+  draft:
+    major: 1
+    minor: 0
+    patch: 0
+  stable:
+    major: 1
+    minor: 0
+    patch: 0
 defaults:
   -
     scope:

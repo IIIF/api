@@ -17,6 +17,8 @@
 [discovery03]: {{ site.url }}{{ site.baseurl }}/api/discovery/0.3/ "IIIF Change Discovery API"
 [discovery04]: {{ site.url }}{{ site.baseurl }}/api/discovery/0.4/ "IIIF Change Discovery API"
 [discovery09]: {{ site.url }}{{ site.baseurl }}/api/discovery/0.9/ "IIIF Change Discovery API"
+[discovery10]: {{ site.url }}{{ site.baseurl }}/api/discovery/1.0/ "IIIF Change Discovery API"
+[discovery-stable-version]: {{ site.url }}{{ site.baseurl }}/api/discovery/1.0/ "IIIF Change Discovery API"
 [discovery-processing-streams]: {{ site.url }}{{ site.baseurl }}/api/discovery#activity-streams-processing-algorithm "Activity Streams Processing Algorithm"
 [discovery-activity-types]: {{ site.url }}{{ site.baseurl }}/api/discovery#type-ordered-collection-activity "Activity Types"
 [discovery-registry]: https://registry.iiif.io/ "IIIF Change Discovery Registry"
@@ -191,6 +193,7 @@
 [prezi3-languages]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.draft.minor }}/#language-of-property-values "Language of Property Values"
 [prezi3-ldce]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.draft.minor }}/#linked-data-context-and-extensions "Linked Data Context and Extensions"
 [prezi3-type]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.draft.minor }}/#type
+[prezi3-provider]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.draft.minor }}/#provider
 [prezi30-anno]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#annotation
 [prezi30-annopage]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#55-annotation-page
 [prezi30-annocoll]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#58-annotation-collection
