@@ -18,7 +18,7 @@ Neil Jefferies, Oxford University\
 Christopher Jesudurai, Stanford University\
 Sean Martin, British Library\
 Roger Mathisen, National Library of Norway\
-Petter Rønningsen, National Library of Norway\
+Petter Rønningsen, National Library of Norway
 
 
 ## Abstract
@@ -30,7 +30,7 @@ an image in response to a standard http or https request. The URL can
 specify the region, size, rotation, quality characteristics and format
 of the requested image. A URL can also be constructed to request basic
 technical information about the image to support client applications.
- The IIIF API was conceived of to facilitate systematic reuse of image
+ The IIIF API was conceived of to facilitate systematic reuse of image
 resources in digital image repositories maintained by cultural heritage
 organizations. The API could be adopted by any image repository or
 service, and can be used to retrieve static images in response to a
@@ -79,7 +79,7 @@ following format:
 
 {% include code_header.html %}
 ```
-http\[s\]://server/\[prefix/\]identifier/region/size/rotation/quality\[.format\]
+http[s]://server/[prefix/]identifier/region/size/rotation/quality[.format]
 ```
 
 where \[\] delimits components which are optional.
@@ -117,9 +117,8 @@ See [Section 4 - Image Request Parameters](#parameters).
 The IIIF Image API URL for requesting image information MUST conform to
 the following format:
 
-{% include code_header.html %}
 ```
-http\[s\]://server/\[prefix/\]identifier/info.ext
+http[s]://server/[prefix/]identifier/info.ext
 ```
 
 where \[ \] delimits the optional prefix component, \"info\" is a
@@ -128,14 +127,12 @@ literal string, and ext is one of \"json\" or \"xml\".
 The URI Template ([RFC6750](http://tools.ietf.org/html/rfc6750)) form
 is:
 
-{% include code_header.html %}
 ```
 http://{server}{/prefix}/{identifier}/info.{ext}
 ```
 
 For example:
 
-{% include code_header.html %}
 ```
 http://www.example.org/image-service/abcd1234/info.json
 ```
@@ -164,7 +161,7 @@ as a region of the source image, then scaled to the requested size,
 rotated and transformed into the color depth and format. This resulting
 image content is returned as the representation for the URL. All
 transformations are performed within the bounds of integer arithmatic.
- The rounding method is not specified.  Floating point numbers should be
+ The rounding method is not specified.  Floating point numbers should be
 have at most 10 decimal digits and consist only of decimal digits and
 "." with a leading zero if less than 1.
 
@@ -195,13 +192,13 @@ http://www.example.org/image-service/abcd1234/<span style="color: red;">full</sp
 ### 4.2 Size
 
 The size parameter determines the dimensions to which the extracted
-region is to be scaled.\
+region is to be scaled.
 
 | Form of Size Parameter | Description |
 |----|----|
   | `full`  |                   The extracted region is not scaled, and is returned at its full size. | 
   | `w,`    |                   The extracted region should be scaled so that its width is exactly equal to w, and the height will be a calculated value that maintains the aspect ratio of the requested region. | 
-  | `,h`    |                   The extracted region should be scaled so that its height is exactly equal to h, and the width will be a calculated value that maintains the aspect ratio of the requested region. | 
+  | `,h`    |                   The extracted region should be scaled so that its height is exactly equal to h, and the width will be a calculated value that maintains the aspect ratio of the requested region. | 
   | `pct:n` |                   The width and height of the returned image is scaled to n% of the width and height of the extracted region. The aspect ratio of the returned image is the same as that of the extracted region. | 
   | `w,h `  |                   The width and height of the returned image are exactly w and h. The aspect ratio of the returned image MAY be different than the extracted region, resulting in a distorted image. | 
   | `!w,h ` |                   The image content is scaled for the best fit such that the resulting width and height are less than or equal to the requested width and height. The exact scaling MAY be determined by the service provider, based on characteristics including image quality and system performance. The dimensions of the returned image content are calculated to maintain the aspect ratio of the extracted region. | 
@@ -240,12 +237,12 @@ http://www.example.org/image-service/abcd1234/full<span style="color: red;">22.5
 ![Illustrated examples of the rotation parameter](images/iiif-rotation.png)
 
 In most cases a rotation will change the width and height dimensions of
-the returned image file.  The service SHOULD return an image file that
+the returned image file.  The service SHOULD return an image file that
 contains all of the image contents requested in the
 [region]{style="font-style: italic;"} and [size
 ]{style="font-style: italic;"}parameters, even if the dimensions of the
-returned image file are different than specified in the size parameter. 
-The image contents SHOULD NOT be scaled  as a result of the rotation,
+returned image file are different than specified in the size parameter. 
+The image contents SHOULD NOT be scaled  as a result of the rotation,
 and there SHOULD be no additional space between the corners of the
 rotated image contents and the bounding box of the returned image file.
 
@@ -271,8 +268,8 @@ of the bit-depth of the source image.
 http://www.example.org/image-service/abcd1234/full/600,/0/<span style="color: red;">native</span>.jpg\
 http://www.example.org/image-service/abcd1234/full/600,/0/<span style="color: red;">color</span>.jpg\
 http://www.example.org/image-service/abcd1234/full/600,/0/<span style="color: red;">grey</span>.jpg\
-http://www.example.org/image-service/abcd1234/full/600,/0/<span style="color: red;">bitonal</span>.jpg\
-\
+http://www.example.org/image-service/abcd1234/full/600,/0/<span style="color: red;">bitonal</span>.jpg
+
 
 ![Illustrated examples of the quality
 parameter](images/iiif-quality.png "Illustrated examples of the quality parameter")
@@ -331,11 +328,11 @@ The service MUST return technical information about the requested image
 in JSON and XML formats. The request for technical information MUST
 conform to the format:
 
-`http\[s\]://server/\[prefix/\]identifier/info.xml`
+`http[s]://server/[prefix/]identifier/info.xml`
 
 or
 
-`http\[s\]://server/\[prefix/\]identifier/info.json`
+`http[s]://server/[prefix/]identifier/info.json `
 
 All IIIF compliant services must support both the XML and JSON response.
 
@@ -347,11 +344,11 @@ The response will return the following information
 |  `width`                   |Required                |The width of the source image.|
 |  `height`                  |Required                |The height of the source image.|
 |  `scale_factors`          |Optional                |Some image servers support the creation of multiple resolution levels for a single image in order to optimize the efficiency in delivering images of different sizes. The scale_factors element expresses a list of resolution scaling factors.|
-| `tile_width`             |Optional               |Some image servers support the use of predefined tiles to efficiently deliver assembled images.  The tile_width element expresses the width of the predefined tiles.|
+| `tile_width`             |Optional               |Some image servers support the use of predefined tiles to efficiently deliver assembled images.  The tile_width element expresses the width of the predefined tiles.|
 | `tile_height `           |Optional                |The tile_height element expresses the height of the predefined tiles.|
 |  `formats`                 |Optional               | The list of image format parameter values available for the image.|
 |  `qualities`               |Optional               | The list of image quality parameter values available for the image.|
-|  `profile`                 |Optional                |URI indicating the compliance level supported. Values as described in [Section 8. Compliance Levels](#compliance)|
+|  `profile`                 |Optional                |URI indicating the compliance level supported. Values as described in [Section 8. Compliance Levels](#compliance)|
 
 
 The XML response should conform to the format shown in the following
@@ -360,14 +357,14 @@ schemas are available for validation.
 
 {% include code_header.html %}
 ```xml
-<?xml version="1.0" encoding="UTF-8"?><info xmlns="http://library.stanford.edu/iiif/image-api/ns/"><identifier>1E34750D-38DB-4825-A38A-B60A345E591C</identifier>   <width>6000</width>   <height>4000</height>   <scale_factors>     <scale_factor>1</scale_factor>     <scale_factor>2</scale_factor>     <scale_factor>4</scale_factor>   </scale_factors>   <tile_width>1024</tile_width>   <tile_height>1024</tile_height>   <formats>     <format>jpg</format>     <format>png</format>   </formats>   <qualities>     <quality>native</quality>     <quality>grey</quality>   </qualities>   <profile>http://library.stanford.edu/iiif/image-api/compliance.html#level1</profile>  </info>
+<?xml version="1.0" encoding="UTF-8"?><info xmlns="http://library.stanford.edu/iiif/image-api/ns/"><identifier>1E34750D-38DB-4825-A38A-B60A345E591C</identifier>   <width>6000</width>   <height>4000</height>   <scale_factors>     <scale_factor>1</scale_factor>     <scale_factor>2</scale_factor>     <scale_factor>4</scale_factor>   </scale_factors>   <tile_width>1024</tile_width>   <tile_height>1024</tile_height>   <formats>     <format>jpg</format>     <format>png</format>   </formats>   <qualities>     <quality>native</quality>     <quality>grey</quality>   </qualities>   <profile>http://library.stanford.edu/iiif/image-api/compliance.html#level1</profile>  </info>
 ```
 
 The JSON response should conform to the format shown in the following
 example:
 {% include code_header.html %}
 ```json-doc
-{   "identifier" : "``1E34750D-38DB-4825-A38A-B60A345E591C``",   "width" : 6000,   "height" : 4000,   "scale_factors" : [ 1, 2, 4 ],   "tile_width" : 1024,   "tile_height" : 1024,   "formats" : [ "jpg", "png" ],   "qualities" : [ "native", "grey" ],   "profile" : "http://library.stanford.edu/iiif/image-api/compliance.html#level0"  }
+{   "identifier" : "``1E34750D-38DB-4825-A38A-B60A345E591C``",   "width" : 6000,   "height" : 4000,   "scale_factors" : [ 1, 2, 4 ],   "tile_width" : 1024,   "tile_height" : 1024,   "formats" : [ "jpg", "png" ],   "qualities" : [ "native", "grey" ],   "profile" : "http://library.stanford.edu/iiif/image-api/compliance.html#level0"  }
 ```
 
 ## 6. Server Responses
@@ -376,13 +373,13 @@ example:
 ### 6.1 Successful Responses
 
 Servers may transmit HTTP responses with status codes 200, 302 and 304
-when the request has been successfully processed.  If the status code is
+when the request has been successfully processed.  If the status code is
 200, then the entity-body MUST be the requested image or information
-response.  If the status code is 302 or 304, then the entity-body is
-unrestricted, but it is RECOMMENDED to be empty.  If the status code is
+response.  If the status code is 302 or 304, then the entity-body is
+unrestricted, but it is RECOMMENDED to be empty.  If the status code is
 302, then the Location HTTP Header MUST be set containing the URL of the
-image that fulfills the request.  This enables servers to have a single
-canonical URL to promote caching of responses.  Status code 304 is
+image that fulfills the request.  This enables servers to have a single
+canonical URL to promote caching of responses.  Status code 304 is
 handled exactly as per the HTTP specification. Clients should therefore
 expect to encounter all of these situations and not assume that the
 entity-body of the initial response necessarily contains the image data.
@@ -417,7 +414,7 @@ The Content-Type must be "text/xml".
 {% include code_header.html %}
 
 ```xml
-<?xml version="1.0" encoding="UTF-8" ?> <error ``xmlns="http://library.stanford.edu/iiif/image-api/ns/"``>   <parameter>size</parameter>   <text>Invalid size specified</text> </error>
+<?xml version="1.0" encoding="UTF-8" ?> <error ``xmlns="http://library.stanford.edu/iiif/image-api/ns/"``>   <parameter>size</parameter>   <text>Invalid size specified</text> </error>
 ```
 
 The text element is optional and can explain the failure on more detail - for example to distinguish not implemented vs out-of-bounds in the
@@ -426,28 +423,23 @@ case of a 403.
 ## 7. Authentication
 
 This API does not specify whether the image server will support
-authentication or what mechanism it might use. In the case of  \"401
+authentication or what mechanism it might use. In the case of  \"401
 Unauthorized\" HTTP error response, the content of the WWW-Authenticate
 header will depend on the authentication mechanism supported by the
 server. If the server supports HTTP Basic or Digest authentication then
 the header should follow [RFC2617](http://www.ietf.org/rfc/rfc2617), for
-example:\
+example:
 
-
-{% include code_header.html %}
 ```
-WWW-Authenticate: Basic realm=\"Images\"\
+WWW-Authenticate: Basic realm="Images"
 ```
 
 If the server supports cookie-based authentication then the response
 should include the location of the page that will allow the user to
-login:\
+login:
 
-
-{% include code_header.html %}
 ```
-WWW-Authenticate: Cookie
-location=\"https://example.com/login&redirect={URI}\"\
+WWW-Authenticate: Cookie location="https://example.com/login&redirect={URI}"
 ```
 
 
@@ -474,7 +466,7 @@ complete header might look like:
 An image server MAY declare different compliance levels for different
 images. If the compliance level is not indicated, then a client should
 assume level 0 compliance only. For detailed compliance definitions see
-<http://library.stanford.edu/iiif/image-api/compliance.html>. 
+<http://library.stanford.edu/iiif/image-api/compliance.html>. 
 
 The compliance profile URI given in the Link header (between \< and \>)
 may also be returned in the profile element of responses to Image
@@ -547,8 +539,8 @@ response codes is recommended.
     identifier and parameters provided.
 2.  This specification makes no assertion about the rights status of
     requested images or metadata, whether or not authentication has been
-    accomplished.  Please see the IIIF Metadata API for rights
-    information.  
+    accomplished.  Please see the IIIF Metadata API for rights
+    information.  
 3.  This API does not specify how image servers fulfill requests, what
     quality the returned images will have for different parameters, or
     how parameters may affect performance. See the compliance document
@@ -565,35 +557,35 @@ response codes is recommended.
     translating or escaping slash and backslash to safe value (perhaps
     by double URL-encoding them).
 5.  As described in [Section 4.2 (Rotation)](#rotation), in order to
-    retain the size of the requested image contents, rotation will
+    retain the size of the requested image contents, rotation will
     change the width and height dimensions of the returned image file. A
-    formula for calculating the dimensions of the returned image file
+    formula for calculating the dimensions of the returned image file
     for a given rotation can be found [here](rotation_calc/).
 
 ## B. Acknowledgments
 
 The production of this document was generously supported by a grant from
-the [Andrew W. Mellon Foundation.](http://www.mellon.org/)  \
+the [Andrew W. Mellon Foundation.](http://www.mellon.org/)  \
 \
-The full IIIF Working Group deserves thanks and recognition for their
+The full IIIF Working Group deserves thanks and recognition for their
 continuous engagement, innovative ideas and feedback. Members of the
 group not listed as authors or editors above include Aquiles Alencar
 Brayner, Richard Boulderstone, Svein Arne Brygfjeld, Tom Cramer, Markus
 Enders, Renhart Gittens, David Golding, Tim Gollins, Peter James, Dean
 Krafft, Matt McGrattan, Stephane Pillorget, Johan van der Knijff, Romain
-Vassilieff, and William Ying.  \
+Vassilieff, and William Ying.  \
 \
 The inspiration, use cases and initial outline for this API originated
 from the work of the Digital Medieval Manuscript Interoperabiltiy
-Technical Council.  \
+Technical Council.  \
 \
-Attendees of the third annual LibDevConX workshop gave an early draft of
+Attendees of the third annual LibDevConX workshop gave an early draft of
 this API a thoughtful hearing and provided essential feedback to ensure
-that the API fit with diverse use cases and technical environments.  \
+that the API fit with diverse use cases and technical environments.  \
 \
 Many thanks to Matthieu Bonicel, Kevin Clarke, Mark Patton, Lynn McRae,
 Willy Mene, Brian Tingle, Ian Davis and Scotty Logan for your thoughtful
-contributions to the effort and written feedback.\
+contributions to the effort and written feedback.
 
 ## C. Change Log
 
