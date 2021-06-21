@@ -10,17 +10,18 @@ cssversion: 2
 
 | API                | Current Version |
 | ------------------ | --------------- |
-| Authentication API | [{{ site.auth_api.stable.major }}.{{ site.auth_api.stable.minor }}.{{ site.auth_api.stable.patch}}][auth{{ site.auth_api.stable.major }}{{ site.auth_api.stable.minor }}] |
-| Image API          | [{{ site.image_api.stable.major }}.{{ site.image_api.stable.minor }}.{{ site.image_api.stable.patch}}][image{{ site.image_api.stable.major }}{{ site.image_api.stable.minor }}] |
-| Presentation API   | [{{ site.presentation_api.stable.major }}.{{ site.presentation_api.stable.minor }}.{{ site.presentation_api.stable.patch }}][prezi{{ site.presentation_api.stable.major }}{{ site.presentation_api.stable.minor }}] |
-| Content Search API | [{{ site.search_api.stable.major }}.{{ site.search_api.stable.minor }}.{{ site.search_api.stable.patch }}][search{{ site.search_api.stable.major }}{{ site.search_api.stable.minor }}] |
+| Image API          | [{{ site.image_api.stable.major }}.{{ site.image_api.stable.minor }}.{{ site.image_api.stable.patch}}][image{{ site.image_api.stable.major }}{{ site.image_api.stable.minor }}] (2020-06-03)|
+| Presentation API   | [{{ site.presentation_api.stable.major }}.{{ site.presentation_api.stable.minor }}.{{ site.presentation_api.stable.patch }}][prezi{{ site.presentation_api.stable.major }}{{ site.presentation_api.stable.minor }}] (2020-06-03)|
+| Authentication API | [{{ site.auth_api.stable.major }}.{{ site.auth_api.stable.minor }}.{{ site.auth_api.stable.patch}}][auth{{ site.auth_api.stable.major }}{{ site.auth_api.stable.minor }}] (2017-01-19)|
+| Change Discovery API | [{{ site.discovery_api.stable.major }}.{{ site.discovery_api.stable.minor }}.{{ site.discovery_api.stable.patch }}][discovery{{ site.discovery_api.stable.major }}{{ site.discovery_api.stable.minor }}] (2021-06-22)|
+| Content Search API | [{{ site.search_api.stable.major }}.{{ site.search_api.stable.minor }}.{{ site.search_api.stable.patch }}][search{{ site.search_api.stable.major }}{{ site.search_api.stable.minor }}] (2016-05-12)|
 {: .api-table}
+
 
 ## Draft Specifications
 
 | API                  | Draft Version (Status) |
 | -------------------- | ---------------------- |
-| Change Discovery API | [0.9.1 BETA][discovery09] |
 | Content State API    | [0.3.0][contentstate03]|
 {: .api-table}
 
@@ -60,6 +61,7 @@ Current IIIF specifications _SHOULD_ be used for all new work. Old versions are 
 | Old API Version            | Notes |
 | -------------------------- | ----- |
 | [Authentication API 0.9.4][auth094] | Published 2016-10-05 |
+| [Change Discovery API 0.9.2][discovery09] | Published 2021-04-28 |
 | [Image API 2.1][image21]   | Published 2016-05-12, updated 2017-06-09 |
 | [Image API 2.0][image20]   | Published 2014-09-11 |
 | [Image API 1.1][image11]   | Published 2013-09-17 |
@@ -85,5 +87,4 @@ IIIF Specifications are created and published following the [IIIF Editorial Proc
 [auth-jp]: http://www.asahi-net.or.jp/~ax2s-kmtn/ref/iiif/apiauthentication1.0.html
 
 {% include acronyms.md %}
-
 {% include links.md %}
