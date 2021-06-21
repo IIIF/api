@@ -67,7 +67,7 @@
       },
 
       "Add": {
-        "@id": "as:Delete",
+        "@id": "as:Add",
         "@context": {
           "partOf": {
             "@id": "dcterms:partOf",
@@ -77,7 +77,7 @@
       },
 
       "Remove": {
-        "@id": "as:Delete",
+        "@id": "as:Remove",
         "@context": {
           "partOf": {
             "@id": "dcterms:partOf",
@@ -86,7 +86,7 @@
         }
       },
       "Move": {
-        "@id": "as:Delete",
+        "@id": "as:Move",
         "@context": {
           "partOf": {
             "@id": "dcterms:partOf",
