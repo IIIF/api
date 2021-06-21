@@ -12,6 +12,7 @@
 [auth1-logout-service]: {{ site.url }}{{ site.baseurl }}/api/auth/1.0/#logout-service "IIIF Authentication Logout Service"
 [auth1-token-service]: {{ site.url }}{{ site.baseurl }}/api/auth/1.0/#access-token-service "IIIF Authentication Access Token Service"
 [auth1]: {{ site.url }}{{ site.baseurl }}/api/auth/1.0/ "IIIF Authentication API 1.0"
+[auth10]: {{ site.url }}{{ site.baseurl }}/api/auth/1.0/ "IIIF Authentication API 1.0"
 [contentstate03]:  {{ site.url }}{{ site.baseurl }}/api/content-state/0.3/
 [contentstate09]: {{ site.url }}{{ site.baseurl }}/api/content-state/0.9/
 [contentstate-http]: {{ site.url }}{{ site.baseurl }}/api/content-state/0.3/#5-http-requests-and-responses "HTTP Request and Responses"
@@ -249,6 +250,7 @@
 [search09]: {{ site.url }}{{ site.baseurl }}/api/search/0.9/ "Search API v0.9"
 [search1-autocomplete]: {{ site.url }}{{ site.baseurl }}/api/search/1.0/#autocomplete
 [search1]: {{ site.url }}{{ site.baseurl }}/api/search/1.0/
+[search10]: {{ site.url }}{{ site.baseurl }}/api/search/1.0/
 [shared-canvas]: {{ site.url }}{{ site.baseurl }}/model/shared-canvas/{{ site.shared_canvas.stable.major}}.{{ site.shared_canvas.stable.minor }} "Shared Canvas Data Model"
 [recipe-process]: {{  page.webprefix }}/api/cookbook/recipe/ "Cookbook process"
 [recipe-mvm-image]: {{ page.webprefix }}/api/cookbook/mvm-image/ "Simplest Manifest - Image"
