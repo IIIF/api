@@ -13,7 +13,6 @@
 [auth1-token-service]: {{ site.url }}{{ site.baseurl }}/api/auth/1.0/#access-token-service "IIIF Authentication Access Token Service"
 [auth1]: {{ site.url }}{{ site.baseurl }}/api/auth/1.0/ "IIIF Authentication API 1.0"
 [auth10]: {{ site.url }}{{ site.baseurl }}/api/auth/1.0/ "IIIF Authentication API 1.0"
-[contentstate03]:  {{ site.url }}{{ site.baseurl }}/api/content-state/0.3/
 [contentstate09]: {{ site.url }}{{ site.baseurl }}/api/content-state/0.9/
 [contentstate-http]: {{ site.url }}{{ site.baseurl }}/api/content-state/0.3/#5-http-requests-and-responses "HTTP Request and Responses"
 [contentstate-initialization]: {{ site.url }}{{ site.baseurl }}/api/content-state/0.3/#initialization "Initialization mechanisms (protocol)"
