@@ -22,7 +22,7 @@ cssversion: 2
 
 | API                  | Draft Version (Status) |
 | -------------------- | ---------------------- |
-| Content State API    | [0.3.0][contentstate03]|
+| Content State API    | [0.9.0][contentstate09]|
 {: .api-table}
 
 __Feedback Requested__<br/>

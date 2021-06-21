@@ -12,6 +12,10 @@
 [auth1-logout-service]: {{ site.url }}{{ site.baseurl }}/api/auth/1.0/#logout-service "IIIF Authentication Logout Service"
 [auth1-token-service]: {{ site.url }}{{ site.baseurl }}/api/auth/1.0/#access-token-service "IIIF Authentication Access Token Service"
 [auth1]: {{ site.url }}{{ site.baseurl }}/api/auth/1.0/ "IIIF Authentication API 1.0"
+[auth10]: {{ site.url }}{{ site.baseurl }}/api/auth/1.0/ "IIIF Authentication API 1.0"
+[contentstate03]:  {{ site.url }}{{ site.baseurl }}/api/content-state/0.3/
+[contentstate09]: {{ site.url }}{{ site.baseurl }}/api/content-state/0.9/
+[contentstate-http]: {{ site.url }}{{ site.baseurl }}/api/content-state/0.3/#5-http-requests-and-responses "HTTP Request and Responses"
 [contentstate-initialization]: {{ site.url }}{{ site.baseurl }}/api/content-state/0.3/#initialization "Initialization mechanisms (protocol)"
 [contentstate03]: {{ site.url }}{{ site.baseurl }}/api/content-state/0.3/ "IIIF Content State API"
 [discovery-api]: {{ site.url }}{{ site.baseurl }}/api/discovery/ "IIIF Change Discovery API"
@@ -144,6 +148,8 @@
 [notes-versioning]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/semver/ "Versioning of APIs"
 [org-bcp-47]: https://tools.ietf.org/html/bcp47 "Tags for Identifying Languages"
 [org-cc-licenses]: https://creativecommons.org/licenses/ "Create Commons Licenses"
+[org-ecma-encodeuri]: https://tc39.es/ecma262/#sec-encodeuri-uri "encodeURI"
+[org-ecma-decodeuri]: https://tc39.es/ecma262/#sec-decodeuri-encodeduri "decodeURI"
 [org-iana-uri-schemes]: http://www.iana.org/assignments/uri-schemes/uri-schemes.xhtml "IANA URI Schemes"
 [org-json-ld]: http://www.json-ld.org/ "JSON for Linking Data"
 [org-linked-data]: http://linkeddata.org/ "Linked Data"
@@ -158,6 +164,7 @@
 [org-rfc-2119]: https://tools.ietf.org/html/rfc2119 "RFC Keywords"
 [org-rfc-2617]: https://tools.ietf.org/html/rfc2617 "HTTP Authentication: Basic and Digest Access Authentication"
 [org-rfc-3986]: https://tools.ietf.org/html/rfc3986 "Uniform Resource Identifier (URI): Generic Syntax"
+[org-rfc-3987]: https://tools.ietf.org/html/rfc3987 "Internationalized Resource Identifiers (IRIs)"
 [org-rfc-4122]: https://tools.ietf.org/html/rfc4122 "URN UUID Scheme"
 [org-rfc-4648-5]: https://tools.ietf.org/html/rfc4648#section-5 "Base 64 Encoding with URL and Filename Safe Alphabet"
 [org-rfc-5988]: https://tools.ietf.org/html/rfc5988 "Web Linking"
@@ -213,6 +220,7 @@
 [prezi30-height]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#height "height property"
 [prezi30-homepage]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#homepage "homepage property"
 [prezi30-html]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#45-html-markup-in-property-values "Presentation API Section 4.4"
+[prezi30-http]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#6-http-requests-and-responses "Presentation API Section 6"
 [prezi30-languages]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#44-language-of-property-values "Language of Property Values"
 [prezi30-ldce]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#46-linked-data-context-and-extensions "Linked Data Context and Extensions"
 [prezi30-logo]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#logo "logo property"
@@ -242,6 +250,7 @@
 [search09]: {{ site.url }}{{ site.baseurl }}/api/search/0.9/ "Search API v0.9"
 [search1-autocomplete]: {{ site.url }}{{ site.baseurl }}/api/search/1.0/#autocomplete
 [search1]: {{ site.url }}{{ site.baseurl }}/api/search/1.0/
+[search10]: {{ site.url }}{{ site.baseurl }}/api/search/1.0/
 [shared-canvas]: {{ site.url }}{{ site.baseurl }}/model/shared-canvas/{{ site.shared_canvas.stable.major}}.{{ site.shared_canvas.stable.minor }} "Shared Canvas Data Model"
 [recipe-process]: {{  page.webprefix }}/api/cookbook/recipe/ "Cookbook process"
 [recipe-mvm-image]: {{ page.webprefix }}/api/cookbook/mvm-image/ "Simplest Manifest - Image"
