@@ -21,7 +21,7 @@ __This Version:__ {{ page.major }}.{{ page.minor }}.{{ page.patch }}{% if page.p
 
 __Latest Stable Version:__ None
 
-__Previous Version:__ None
+__Previous Version:__ [0.3][contentstate03]
 
 **Editors**
 
@@ -172,7 +172,7 @@ While supporting many requirements for sharing resources and initializing a clie
 
 ```json
 {
-  "@context": "http://iiif.io/api/presentation/{{ page.major }}/context.json",
+  "@context": "http://iiif.io/api/presentation/3/context.json",
   "id": "https://example.org/import/1",
   "type": "Annotation",
   "motivation": ["contentState"],
@@ -635,7 +635,7 @@ Publishers should strive to provide the simplest JSON-LD representation, and not
 
 ```json
 {
-  "@context": "http://iiif.io/api/presentation/{{ page.major }}/context.json",
+  "@context": "http://iiif.io/api/presentation/3/context.json",
   "id": "https://example.org/import/1",
   "type": "Annotation",
   "motivation": ["contentState"],
@@ -657,7 +657,7 @@ When processed by a viewer, the user should see the rectangle `1000,2000,1000,20
 
 ```json
 {
-  "@context": "http://iiif.io/api/presentation/{{ page.major }}/context.json",
+  "@context": "http://iiif.io/api/presentation/3/context.json",
   "id": "https://example.org/import/2",
   "type": "Annotation",
   "motivation": ["contentState"],
@@ -686,7 +686,7 @@ This example should cause a viewer to open Manifest `https://example.org/iiif/id
 
 ```json
 {
-  "@context": "http://iiif.io/api/presentation/{{ page.major }}/context.json",
+  "@context": "http://iiif.io/api/presentation/3/context.json",
   "id": "https://example.org/import/3",
   "type": "Annotation",
   "motivation": "contentState",
@@ -788,13 +788,14 @@ The HTTP server _MUST_ follow the [CORS requirements][org-w3c-cors] to enable br
 
 Many thanks to the members of the [IIIF community][iiif-community] for their continuous engagement, innovative ideas, and feedback.
 
-Many of the changes in this version are due to the work of the [IIIF Discovery Technical Specification Group][groups-discovery], chaired by Antoine Isaac (Europeana), Matthew McGrattan (Digirati) and Rob Sanderson (Yale University). The IIIF Community thanks them for their leadership, and the members of the group for their tireless work.
+This version is due to the work of the [IIIF Discovery Technical Specification Group][groups-discovery], chaired by Antoine Isaac (Europeana), Matthew McGrattan (Digirati) and Rob Sanderson (Yale University). The IIIF Community thanks them for their leadership, and the members of the group for their tireless work.
 
 ### B. Change Log
 {: #change-log}
 
 | Date       | Description           |
 | ---------- | --------------------- |
+| 2021-06-21 | Version 0.9 (unnamed) |
 | 2020-11-22 | Version 0.3 (unnamed) |
 | 2019-02-04 | Version 0.2 (unnamed) |
 | 2018-10-31 | Version 0.1 (unnamed) |
