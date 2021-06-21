@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF
+  xmlns:owl="http://www.w3.org/2002/07/owl#"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+  xmlns:as="https://www.w3.org/ns/activitystreams#"
+>
+  <owl:Ontology rdf:about="http://iiif.io/api/discovery/1#">
+    <owl:versionInfo>2021-06-22T00:00:00Z</owl:versionInfo>
+  </owl:Ontology>
+  
+  <rdfs:Class rdf:about="http://iiif.io/api/discovery/1#Refresh">
+    <rdfs:label>Refresh Activity</rdfs:label>
+    <rdfs:isDefinedBy rdf:resource="http://iiif.io/api/discovery/1#"/>
+    <rdfs:comment>The activity of refreshing a set of records or entries from a canonical source, such as occurs when repopulating an activity stream from a data management system.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="https://www.w3.org/ns/activitystreams#Activity"/>
+  </rdfs:Class>
+
+</rdf:RDF>
+
