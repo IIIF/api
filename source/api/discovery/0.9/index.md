@@ -10,7 +10,6 @@ minor: 9
 patch: 2
 pre: BETA
 redirect_from:
-  - /api/discovery/index.html
   - /api/discovery/0/index.html
 ---
 
