@@ -83,7 +83,7 @@ A Feature object represents a spatially bounded thing.  Every Feature object is 
 
 
 *   A Feature object has a "type" member with the value "Feature".
-*   A Feature object has a member with the name "geometry".  The value of the geometry member SHALL be either a Geometry object as defined above or, in the case that the Feature is unlocated, a JSON null value.
+*   A Feature object has a member with the name "geometry".  The value of the geometry member_SHALL_ be either a Geometry object as defined above or, in the case that the Feature is unlocated, a JSON null value.
 *   A Feature object has a member with the name "properties".  The value of the properties member is an object (any JSON object or a JSON null value).
 *   If a Feature has a commonly used identifier, that identifier _SHOULD_ be included as a member of the Feature object with the name "id", and the value of this member is either a JSON string or number.
 
@@ -95,7 +95,7 @@ A FeatureCollection object has a member with the name `features`.  The value of 
 
 #### 2.1.4 Position
 
-A position is the fundamental geometry construct and contains a `coordinates` member.  A position is an array of numbers.  There MUST be two or more elements.  The first two elements are longitude and latitude, or easting and northing, precisely in that order and using decimal numbers.  Altitude or elevation MAY be included as an optional third element.
+A position is the fundamental geometry construct and contains a `coordinates` member.  A position is an array of numbers.  There _MUST_ be two or more elements.  The first two elements are longitude and latitude, or easting and northing, precisely in that order and using decimal numbers.  Altitude or elevation _MAY_ be included as an optional third element.
 
 
 #### 2.1.5 Table of Geometric Shapes
@@ -106,7 +106,7 @@ A position is the fundamental geometry construct and contains a `coordinates` me
 | MultiPoint |  The "coordinates" member is an array of positions| 
 | LineString |  The "coordinates" member is an array of two or more positions| 
 | MultiLineString   |   The "coordinates" member is an array of LineString coordinate arrays| 
-| Polygon   |   The "coordinates" member MUST be an array of linear ring coordinate arrays. For Polygons with more than one of these rings, the first MUST be the exterior ring, and any others MUST be interior rings. The exterior ring bounds the surface, and the interior rings (if present) bound holes within the surface.| 
+| Polygon   |   The "coordinates" member _MUST_ be an array of linear ring coordinate arrays. For Polygons with more than one of these rings, the first _MUST_ be the exterior ring, and any others _MUST_ be interior rings. The exterior ring bounds the surface, and the interior rings (if present) bound holes within the surface.| 
 | MultiPolygon  |   The "coordinates" member is an array of Polygon coordinate arrays| 
 | GeometryCollection  | Has a member with the name "geometries". The value of "geometries" is an array. Each element of this array is a GeoJSON Geometry object. It is possible for this array to be empty. | 
 {: .api-table}
@@ -281,7 +281,7 @@ Here you can see an example of a IIIF Manifest with the navPlace property.  It i
 
 
 
-### **3.4** **Context Considerations for GeoJSON-LD <code>properties</code></strong>
+### 3.4 Context Considerations for GeoJSON-LD `properties`
 
 The GeoJSON `properties` object is generic and can be nearly anything. It is used to pass metadata along with the geographic coordinates.  Web maps know to look to `properties` for metadata to render along with the shape made by the geographic coordinates.  IIIF encourages interoperability, which is made possible in large part due to Linked Data.  Any metadata used in `properties` _SHOULD_ be described by a Linked Data context.  Note that common metadata terms like `label` and `summary` are already described by the IIIF Presentation API 3 context.  The use of IIIF formatted metadata in `properties` is encouraged since it is well described by the IIIF Presentation API 3 context already.  Note that if a client discovers properties that it does not understand, then it _MUST_ ignore them.  You can see this functionality by including your own metadata in the `properties` member of the example Manifest and taking it to the LD 1.1 playground.
 
