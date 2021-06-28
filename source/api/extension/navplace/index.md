@@ -66,7 +66,7 @@ The GeoJSON terms, the navPlace term and the IIIF Presentation API 3 terms are a
 
 ```json-doc
 {
-    "@context": 
+    "@context":[ 
        "http://iiif.io/api/extension/navPlace-context.jsonld",
        "https://iiif.io/api/presentation/3/context.json"
     ]
