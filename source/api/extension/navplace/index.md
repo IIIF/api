@@ -61,7 +61,7 @@ This extension implements the GeoJSON-LD specification and so its values follow 
 
 #### 2.1.1 GeoJSON as Linked Data
 
-The GeoJSON terms, the navPlace term and the IIIF Presentation API 3 terms are all required for `navPlace` to be linked data compatible.  Any IIIF resource using the navPlace property _MUST_ have the navPlace extension context and the IIIF Presentation API 3 context as part of the top level object.  This is elaborated upon in section 3.
+The GeoJSON terms, the `navPlace` term and the IIIF Presentation API 3 terms are all required for `navPlace` to be linked data compatible.  Any IIIF resource using the `navPlace` property _MUST_ have the navPlace extension context and the IIIF Presentation API 3 context as part of the top level object.  This is elaborated upon in section 3.
 
 
 ```json-doc
@@ -90,7 +90,7 @@ A Feature object represents a spatially bounded thing.  Every Feature object is 
 
 #### 2.1.3 Feature Collection
 
-A FeatureCollection object has a member with the name `features`.  The value of `features` is a JSON array. Each element of the array is a Feature object as defined above.  It is possible for this array to be empty, but when used in the context of this extension _SHOULD NOT_ be empty.  It is also possible for this array to be extremely complex.  `navPlace` is intended to connect resources with geographic areas.  These areas should be bounded discrete regions of the map akin to extents.  navPlace is not meant for geographic layouts at the township, city, country or continental level.  Such descriptive datasets are meant for processing algorithms to determine complicated geospatial outcomes or overlays.  This goes beyond what navPlace and software consuming navPlace intend to support.  
+A FeatureCollection object has a member with the name `features`.  The value of `features` is a JSON array. Each element of the array is a Feature object as defined above.  It is possible for this array to be empty, but when used in the context of this extension _SHOULD NOT_ be empty.  It is also possible for this array to be extremely complex.  `navPlace` is intended to connect resources with geographic areas.  These areas should be bounded discrete regions of the map akin to extents.  navPlace is not meant for geographic layouts at the township, city, country or continental level.  Such descriptive datasets are meant for processing algorithms to determine complicated geospatial outcomes or overlays.  This goes beyond what `navPlace` and software consuming `navPlace` intend to support.  
 
 
 #### 2.1.4 Position
@@ -166,17 +166,15 @@ Clients may use this property for navigational purposes on open web map systems.
 
 ### 3.1 Linked Data Context
 
-The GeoJSON-LD context and navPlace extension context  _MUST_ be included before the IIIF Presentation API 3 context on the top-level object.
-
-
 
 *   The URI of the GeoJSON-LD linked data context is [`http://geojson.org/geojson-ld/geojson-context.jsonld`](http://geojson.org/geojson-ld/geojson-context.jsonld)
 *   The URI of the navPlace linked data context extension is [`http://iiif.io/api/extension/navPlace-context/context.json`](http://iiif.io/api/extension/navPlace-context/context.json)
-*   The URI of the IIIF Presentation API 3 linked data context extension is
- [`http://iiif.io/api/extension/navPlace-context/context.json`](http://iiif.io/api/extension/navPlace-context/context.json)
+*   The URI of the IIIF Presentation API 3 linked data context
+ [`https://iiif.io/api/presentation/3/context.json`](https://iiif.io/api/presentation/3/context.json)
 
+The navPlace extension context  _MUST_ be included before the IIIF Presentation API 3 context on the top-level object.  It is worth noting that the navPlace extension context file includes the GeoJSON-LD context through context scoping and so the GeoJSON-LD context does not have to be explicitly included on the top level object, unless GeoJSON is used in other properties besides navPlace.  
 
-Consult the Linked Data Context and Extensions section of IIIF Presentation API 3 for further guidance on use of the `@context` property.  It is important to note that since the IIIF Presentation API 3 context has the JSON-LD `@version` set to 1.1, all contexts are processed as JSON-LD 1.1.  It is also worth noting that the navPlace extension context includes GeoJSON-LD context through context scoping.
+Consult the Linked Data Context and Extensions section of IIIF Presentation API 3 for further guidance on use of the `@context` property.  It is important to note that since the IIIF Presentation API 3 context has the JSON-LD `@version` set to 1.1, all contexts are processed as JSON-LD 1.1.  
 
 
 ### 3.2  Full Manifest Example
