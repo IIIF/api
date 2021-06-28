@@ -83,7 +83,7 @@ A Feature object represents a spatially bounded thing.  Every Feature object is 
 
 
 *   A Feature object has a "type" member with the value "Feature".
-*   A Feature object has a member with the name "geometry".  The value of the geometry member_SHALL_ be either a Geometry object as defined above or, in the case that the Feature is unlocated, a JSON null value.
+*   A Feature object has a member with the name "geometry".  The value of the geometry member _SHALL_ be either a Geometry object as defined above or, in the case that the Feature is unlocated, a JSON null value.
 *   A Feature object has a member with the name "properties".  The value of the properties member is an object (any JSON object or a JSON null value).
 *   If a Feature has a commonly used identifier, that identifier _SHOULD_ be included as a member of the Feature object with the name "id", and the value of this member is either a JSON string or number.
 
