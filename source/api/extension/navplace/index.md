@@ -120,7 +120,7 @@ The `navPlace` property identifies a single or multiple geographic areas pertine
 
 
 
-*   The value _MUST_ be a single GeoJSON-LD FeatureCollection and _MUST_ contain at least one Feature.  
+*   The value _MUST_ be a single GeoJSON-LD FeatureCollection and _SHOULD_ contain at least one Feature.  
 *   The Feature Collection that is the value of `navPlace` _MAY_ have an id.  
 *   The Features within the Feature Collection _MAY_ have an id, and the id _MAY_  be the URI of the Feature Collection with a unique fragment on the end.  
 *   A Feature or Feature Collection that has the id property _MAY_ be accessible by the URI. 
