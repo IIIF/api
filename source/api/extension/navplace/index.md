@@ -272,7 +272,7 @@ Here you can see an example of a IIIF Manifest with the navPlace property.  It i
 
 
 
-### 3.4 Context Considerations for GeoJSON-LD `properties`
+### 3.3 Context Considerations for GeoJSON-LD `properties`
 
 The GeoJSON `properties` object is generic and can be nearly anything. It is used to pass metadata along with the geographic coordinates.  Web maps know to look to `properties` for metadata to render along with the shape made by the geographic coordinates.  IIIF encourages interoperability, which is made possible in large part due to Linked Data.  Any metadata used in `properties` _SHOULD_ be described by a Linked Data context.  Note that common metadata terms like `label` and `summary` are already described by the IIIF Presentation API 3 context.  The use of IIIF formatted metadata in `properties` is encouraged since it is well described by the IIIF Presentation API 3 context already.  Note that if a client discovers properties that it does not understand, then it _MUST_ ignore them.  You can see this functionality by including your own metadata in the `properties` member of the example Manifest and taking it to the LD 1.1 playground.
 
