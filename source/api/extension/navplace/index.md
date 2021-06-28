@@ -170,19 +170,10 @@ The GeoJSON-LD context and navPlace extension context  _MUST_ be included before
 
 
 
-*   The URI of the GeoJSON-LD linked data context is <code>[http://geojson.org/geojson-ld/geojson-context.jsonld](http://geojson.org/geojson-ld/geojson-context.jsonld)</code>
-*   The URI of the navPlace linked data context extension is
-
-    ```
-    http://iiif.io/api/extension/navPlace-context/context.json
-    ```
-
-
+*   The URI of the GeoJSON-LD linked data context is [`http://geojson.org/geojson-ld/geojson-context.jsonld`](http://geojson.org/geojson-ld/geojson-context.jsonld)
+*   The URI of the navPlace linked data context extension is [`http://iiif.io/api/extension/navPlace-context/context.json`](http://iiif.io/api/extension/navPlace-context/context.json)
 *   The URI of the IIIF Presentation API 3 linked data context extension is
-
-    ```
-    http://iiif.io/api/extension/navPlace-context/context.json
-    ```
+ [`http://iiif.io/api/extension/navPlace-context/context.json`](http://iiif.io/api/extension/navPlace-context/context.json)
 
 
 Consult the Linked Data Context and Extensions section of IIIF Presentation API 3 for further guidance on use of the `@context` property.  It is important to note that since the IIIF Presentation API 3 context has the JSON-LD `@version` set to 1.1, all contexts are processed as JSON-LD 1.1.  It is also worth noting that the navPlace extension context includes GeoJSON-LD context through context scoping.
@@ -298,17 +289,11 @@ The choice to use GeoJSON-LD is not arbitrary.  It is the primary geocoordinate 
 
 The IIIF Cookbook serves as a place to exemplify complex digital objects under IIIF Presentation API 3.  You can see an implementation of the `navPlace` property there at [https://preview.iiif.io/cookbook/0154-geo-extension/recipe/0154-geo-extension/](https://preview.iiif.io/cookbook/0154-geo-extension/recipe/0154-geo-extension/).
 
-
-## 5. Acknowledgements
-
-An enormous amount of gratitude is owed to the IIIF community for their continuous engagement, innovative ideas, and feedback.  Thanks to Sean Gilles and MapBox for the GeoJSON Linked Data context and its promotion of standardized geospatial web data. We would also like to recognize IETF for the semantics produced through the GeoJSON specification. An extra special thank you goes out to the IIIF Maps and IIIF Cookbook communities as implementers of this developing technology. The initial version of this document was the work of the IIIF Maps Technical Specification Group.
-
-
-
-
 ## Appendices
 
 ### A. Acknowledgements
+
+An enormous amount of gratitude is owed to the IIIF community for their continuous engagement, innovative ideas, and feedback.  Thanks to Sean Gilles and MapBox for the GeoJSON Linked Data context and its promotion of standardized geospatial web data. We would also like to recognize IETF for the semantics produced through the GeoJSON specification. An extra special thank you goes out to the IIIF Maps and IIIF Cookbook communities as implementers of this developing technology. The initial version of this document was the work of the IIIF Maps Technical Specification Group.
 {: #acknowledgements}
 
 
@@ -318,6 +303,7 @@ An enormous amount of gratitude is owed to the IIIF community for their continuo
 | Date       | Description           |
 | ---------- | --------------------- |
 | 2021-06-01 | Initial commit        |
+| 2021-06-28 | Updated copy over from Google Doc draft|
 {: .api-table #table-changelog}
 
 {% include acronyms.md %}
