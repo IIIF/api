@@ -105,7 +105,7 @@ A Feature Collection object represents an aggregation of spatial boundings.
 
 *   A Feature Collection object has a `type` property with the value "FeatureCollection".
 *   A Feature Collection object has a property with the name `features`. The value of `features` is a JSON array. Each element of the array is a Feature object as defined above. It is possible for this array to be empty, but when used in the context of this extension it _SHOULD NOT_ be empty.
-*   If a Feature Collection has a commonly used identifier, that identifier _SHOULD_ be included as a property of the Feature object with the name `id`, and the value of this property is either a string or number.
+*   If a Feature Collection has a commonly used identifier, that identifier _SHOULD_ be included as a property of the Feature Collection object with the name `id`, and the value of this property is either a string or number.
 
 #### 2.1.4 Position
 
