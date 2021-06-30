@@ -54,9 +54,9 @@ Use cases outside the scope include
 ### 1.3 Terminology
 This specification uses the following terms as described by the IIIF Presentation API 3. See the [IIIF Presentation API 3 Terminology section](https://iiif.io/api/presentation/3.0/#12-terminology) for details on their meaning.
 
-* __embedded__
-* __referenced__
-* __array__, __JSON object__, __number__, __string__, and __boolean__
+* embedded
+* referenced
+* array, JSON object, number, string, and boolean
 * _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _SHOULD NOT_, _RECOMMENDED_, _MAY_, and _OPTIONAL_
 
 
@@ -73,6 +73,7 @@ This extension implements the [GeoJSON-LD specification](https://geojson.org/geo
 The GeoJSON terms, the `navPlace` term and the IIIF Presentation API 3 terms are all required for `navPlace` to be linked data compatible. Any IIIF resource using the `navPlace` property _MUST_ have the navPlace extension linked data context and the IIIF Presentation API 3 linked data context as part of the top level object. This is elaborated upon in section 3.
 
 
+
 ```json-doc
 {
     "@context":[ 
@@ -82,7 +83,6 @@ The GeoJSON terms, the `navPlace` term and the IIIF Presentation API 3 terms are
 
 }
 ```
-
 
 
 #### 2.1.2 Feature
@@ -182,13 +182,14 @@ These resources will ultimately be represented as geometric shapes on the interf
 *   The URI of the navPlace linked data context is [`http://iiif.io/api/extension/navplace/context.json`](http://iiif.io/api/extension/navplace/context.json)
 *   The URI of the IIIF Presentation API 3 linked data context is [`http://iiif.io/api/presentation/3/context.json`](http://iiif.io/api/presentation/3/context.json)
 
-The navPlace extension linked data context _MUST_ be included before the IIIF Presentation API 3 linked data context on the top-level object. The navPlace extension context file includes the [GeoJSON-LD context](https://geojson.org/geojson-ld/geojson-context.jsonld) through context scoping. This means the GeoJSON-LD context URI does not have to be explicitly included on the top level object, unless GeoJSON is used in other properties besides `navPlace`. It is important to note that since the IIIF Presentation API 3 context has the JSON-LD `@version` set to 1.1, all contexts are processed as JSON-LD 1.1.  
+The navPlace extension linked data context _MUST_ be included before the IIIF Presentation API 3 linked data context on the top-level object. The navPlace extension context file includes the [GeoJSON-LD context](https://geojson.org/geojson-ld/geojson-context.jsonld) through context scoping. This means the GeoJSON-LD context URI does not have to be explicitly included on the top level object, unless GeoJSON is used in other properties besides `navPlace`. It is important to note that since the IIIF Presentation API 3 context has the JSON-LD `@version` set to 1.1, all contexts are processed as JSON-LD 1.1.   
 
 Consult the [Linked Data Context and Extensions section of IIIF Presentation API 3](https://iiif.io/api/presentation/3.0/#46-linked-data-context-and-extensions) for further guidance on use of the `@context` property.
 
 ### 3.2 Full Manifest Example
 
 Here you can see an example of a IIIF Manifest with the `navPlace` property. It is made JSON-LD 1.1 compatible by including multiple contexts. Review the Manifest below in the Linked Data 1.1 playground for an example of Linked Data processing. 
+
 
 
 ```json-doc
