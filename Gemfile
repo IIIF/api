@@ -4,7 +4,7 @@ gem 'jekyll', '~> 4.1.1'
 
 # for local development, clone theme + use path loader
 # gem 'iiifc-theme', path: 'iiifc-theme'
-gem 'iiifc-theme', github: 'mnyrop/iiifc-theme', branch: 'main'
+gem 'iiifc-theme', github: 'mnyrop/iiifc-theme', branch: 'feature/block-handling'
 
 group :jekyll_plugins do
   gem 'jekyll-redirect-from'

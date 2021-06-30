@@ -1,10 +1,14 @@
 GIT
   remote: https://github.com/mnyrop/iiifc-theme.git
-  revision: 0afce0194aabfefd1ed72010c0398f5811afb3ee
-  branch: main
+  revision: 7956ff38aae6256c1c52951b18c47f9517d4fce1
+  branch: feature/block-handling
   specs:
     iiifc-theme (0.1.0)
       jekyll (>= 4.0, < 5.0)
+      jekyll-data
+      jekyll-gzip
+      jekyll-redirect-from
+      jekyll-sitemap
 
 GEM
   remote: https://rubygems.org/
@@ -48,6 +52,8 @@ GEM
       rouge (~> 3.0)
       safe_yaml (~> 1.0)
       terminal-table (~> 1.8)
+    jekyll-data (1.1.1)
+      jekyll (>= 3.3, < 5.0.0)
     jekyll-gzip (2.5.1)
       jekyll (>= 3.0, < 5.0)
     jekyll-redirect-from (0.16.0)
