@@ -22,7 +22,7 @@ Changes will be tracked within the document.
 ## 1. Introduction
 
 
-### 1.1. Objectives and Scope
+### 1.1 Objectives and Scope
 
 IIIF provides the information necessary to allow a rich, online viewing environment for compound digital objects to be presented to a human user.  The types of resources and their specific needs continue to enhance the IIIF specifications to greater resource coverage.  The ability to assert ancillary information is a universal need in this expanse.  This is achieved using Annotation, or Web Annotation, and extensions across the IIIF specification versions.  
 
@@ -31,9 +31,9 @@ The ideas of Time and Place are a foundation of human communication and understa
 This extension describes a property called `navPlace` which contains geographic coordinates in the form of GeoJSON-LD.  GeoJSON-LD uses the WGS84 coordinate system, and so coordinates follow the rules of that geodetic system. Note the importance of the order of coordinates within Feature `coordinates` objects. Clients may use this property to leverage the navigational functionality of web maps such as Google Earth, Leaflet, OpenLayers, etc. giving them the opportunity to enrich data presentation through common web map platforms.  
 
 
-### 1.2. Motivating Use Cases
+### 1.2 Motivating Use Cases
 
-The reason for applying geographic coordinates to a resource varies greatly.  This extension does not intend to meet the data requirements for all geospatial practices.  Use cases within the scope include
+The reasons for associating geographic coordinates to a resource vary greatly.  This extension does not intend to meet the data requirements for all geospatial practices.  Use cases within the scope include
 
 
 
@@ -49,6 +49,9 @@ Use cases outside the scope include
 *   Georeferencing to overlay maps or warp maps into coordinate space.
 *   3D spatial representation
 *   Geospatial data for resource fragments
+
+### 1.3 Terminology
+TODO
 
 
 ## 2. GeoJSON-LD and the `navPlace` Property
@@ -67,8 +70,8 @@ The GeoJSON terms, the `navPlace` term and the IIIF Presentation API 3 terms are
 ```json-doc
 {
     "@context":[ 
-       "http://iiif.io/api/extension/navPlace-context.jsonld",
-       "https://iiif.io/api/presentation/3/context.json"
+       "http://iiif.io/api/extension/navPlace/context.json",
+       "http://iiif.io/api/presentation/3/context.json"
     ]
 
 }
@@ -90,7 +93,7 @@ A Feature object represents a spatially bounded thing.  Every Feature object is 
 
 #### 2.1.3 Feature Collection
 
-A FeatureCollection object has a member with the name `features`.  The value of `features` is a JSON array. Each element of the array is a Feature object as defined above.  It is possible for this array to be empty, but when used in the context of this extension _SHOULD NOT_ be empty.  It is also possible for this array to be extremely complex.  `navPlace` is intended to connect resources with geographic areas.  These areas should be bounded discrete regions of the map akin to extents.  navPlace is not meant for geographic layouts at the township, city, country or continental level.  Such descriptive datasets are meant for processing algorithms to determine complicated geospatial outcomes or overlays.  This goes beyond what `navPlace` and software consuming `navPlace` intend to support.  
+A FeatureCollection object has a member with the name `features`.  The value of `features` is a JSON array. Each element of the array is a Feature object as defined above.  It is possible for this array to be empty, but when used in the context of this extension it _SHOULD NOT_ be empty.  It is also possible for this array to be extremely complex.  `navPlace` is intended to connect resources with geographic areas.  These areas should be bounded discrete regions of the map akin to extents.  navPlace is not meant for geographic layouts at the township, city, country or continental level.  Such descriptive datasets are meant for processing algorithms to determine complicated geospatial outcomes or overlays.  This goes beyond what `navPlace` and software consuming `navPlace` intend to support.  
 
 
 #### 2.1.4 Position
@@ -116,7 +119,7 @@ For examples of these shapes, see the “Examples” section of the GeoJSON spec
 
 ### 2.2 navPlace Property
 
-The `navPlace` property identifies a single or multiple geographic areas pertinent to a Collection, Manifest, Range or Canvas.  The JSON value of navPlace _MUST_ be a supported GeoJSON Feature Collection and _SHOULD_ contain at least one Feature.  The Feature represents a shape using geographic coordinates for the geometry and described terms for metadata from the resource such as a label.
+The `navPlace` property identifies a single or multiple geographic areas pertinent to a Collection, Manifest, Range or Canvas. The Feature represents a shape using geographic coordinates for the geometry and described terms for metadata from the resource such as a label.
 
 
 
@@ -168,9 +171,9 @@ Clients may use this property for navigational purposes on open web map systems.
 
 
 *   The URI of the GeoJSON-LD linked data context is [`http://geojson.org/geojson-ld/geojson-context.jsonld`](http://geojson.org/geojson-ld/geojson-context.jsonld)
-*   The URI of the navPlace linked data context extension is [`http://iiif.io/api/extension/navPlace-context/context.json`](http://iiif.io/api/extension/navPlace-context/context.json)
+*   The URI of the navPlace linked data context extension is [`http://iiif.io/api/extension/navPlace/context.json`](http://iiif.io/api/extension/navPlace/context.json)
 *   The URI of the IIIF Presentation API 3 linked data context
- [`https://iiif.io/api/presentation/3/context.json`](https://iiif.io/api/presentation/3/context.json)
+ [`http://iiif.io/api/presentation/3/context.json`](http://iiif.io/api/presentation/3/context.json)
 
 The navPlace extension context  _MUST_ be included before the IIIF Presentation API 3 context on the top-level object.  It is worth noting that the navPlace extension context file includes the GeoJSON-LD context through context scoping and so the GeoJSON-LD context does not have to be explicitly included on the top level object, unless GeoJSON is used in other properties besides navPlace.  
 
@@ -185,7 +188,7 @@ Here you can see an example of a IIIF Manifest with the navPlace property.  It i
 ```json-doc
 {
    "@context":[
-      "http://iiif.io/api/extension/navPlace-context/context.json",
+      "http://iiif.io/api/extension/navPlace/context.json",
       "http://iiif.io/api/presentation/3/context.json"
    ],
    "id":"https://example.org/iiif/manifest/1",
