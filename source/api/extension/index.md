@@ -54,6 +54,7 @@ This table summarizes the known extensions available, for use with the [Presenta
 
 | Extension                       | 
 | ------------------------------ |
+| [navPlace Extension][navPlace] |
 | [Text Granularity Extension][text-granularity] |
 {: .api-table}
 
@@ -68,6 +69,7 @@ Thanks to the members of the [IIIF community][iiif-community] for their continuo
 
 | Date       | Description                                        |
 | ---------- | -------------------------------------------------- |
+| 2021-07-01 | Adding the navPlace Extension |
 | 2020-05-20 | Adding the Text Granularity Extension |
 
 {% include acronyms.md %}
