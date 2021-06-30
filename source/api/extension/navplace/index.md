@@ -52,7 +52,7 @@ Use cases outside the scope include
 
 
 ### 1.3 Terminology
-This specification uses the following terms as described by the IIIF Presentation API 3.  See the [IIIF Presentation API 3 Terminology section](https://iiif.io/api/presentation/3.0/#12-terminology) for details on their meaning.
+This specification uses the following terms as described by the IIIF Presentation API 3. See the [IIIF Presentation API 3 Terminology section](https://iiif.io/api/presentation/3.0/#12-terminology) for details on their meaning.
 
 * __embedded__
 * __referenced__
@@ -87,20 +87,25 @@ The GeoJSON terms, the `navPlace` term and the IIIF Presentation API 3 terms are
 
 #### 2.1.2 Feature
 
-A Feature object represents a spatially bounded thing. Every Feature object is a GeoJSON object.
+A Feature object represents a spatial bounding. Every Feature object is a GeoJSON object.
 
 
 
-*   A Feature object has a "type" property with the value "Feature".
-*   A Feature object has a property with the name "geometry". The value of the geometry property _SHALL_ be either a Geometry object as defined above or, in the case that the Feature is unlocated, a JSON null value.
-*   A Feature object has a property with the name "properties". The value of the properties property is an object (any JSON object or a JSON null value).
-*   If a Feature has a commonly used identifier, that identifier _SHOULD_ be included as a property of the Feature object with the name "id", and the value of this property is either a JSON string or number.
+*   A Feature object has a `type` property with the value "Feature".
+*   A Feature object has a property with the name `geometry`. The value of the `geometry` property _SHALL_ be either a Geometry object as defined above or, in the case that the Feature is unlocated, a JSON null value.
+*   A Feature object has a property with the name `properties`. The value of the `properties` property is an object (any JSON object or a JSON null value).
+*   If a Feature has a commonly used identifier, that identifier _SHOULD_ be included as a property of the Feature object with the name `id`, and the value of this property is either a string or number.
 
 
 #### 2.1.3 Feature Collection
 
-A FeatureCollection object has a property with the name `features`. The value of `features` is a JSON array. Each element of the array is a Feature object as defined above. It is possible for this array to be empty, but when used in the context of this extension it _SHOULD NOT_ be empty. It is also possible for this array to be extremely complex. 
+A Feature Collection object represents an aggregation of spatial boundings.
 
+
+
+*   A Feature Collection object has a `type` property with the value "FeatureCollection".
+*   A Feature Collection object has a property with the name `features`. The value of `features` is a JSON array. Each element of the array is a Feature object as defined above. It is possible for this array to be empty, but when used in the context of this extension it _SHOULD NOT_ be empty.
+*   If a Feature Collection has a commonly used identifier, that identifier _SHOULD_ be included as a property of the Feature object with the name `id`, and the value of this property is either a string or number.
 
 #### 2.1.4 Position
 
@@ -125,17 +130,16 @@ For examples of these shapes, see the “Examples” section of the GeoJSON spec
 
 ### 2.2 `navPlace` Property
 
-The `navPlace` property identifies a single or multiple geographic areas pertinent to a Collection, Manifest, Range or Canvas. The Feature represents a shape using geographic coordinates for the geometry and described terms for metadata from the resource such as a label. The shape contained in the `navPlace` property does not imply any level of precision, fuzziness, temporality or state of existence. `navPlace` is intended to connect IIIF web resources with geographic areas. These areas should be bounded discrete regions of the map akin to extents. `navPlace` is not meant for geographic layouts at the township, city, country or continental level. Such descriptive datasets are meant for processing algorithms to determine geospatial analytical results or widespread overlays. This goes beyond what `navPlace` property and software consuming `navPlace` intend to support.
+The `navPlace` property identifies a single or multiple geographic areas pertinent to a Collection, Manifest, Range or Canvas. The Feature represents a shape using geographic coordinates for the geometry and described terms from the resource for metadata, such as a label. The shape contained in the `navPlace` property does not imply any level of precision, fuzziness, temporality or state of existence. `navPlace` is intended to connect IIIF web resources with geographic areas. These areas should be bounded discrete regions of the map akin to extents. `navPlace` is not meant for geographic layouts at the township, city, country or continental level. Such descriptive datasets are meant for processing algorithms to perform geospatial analytics or computational overlays. This goes beyond what the `navPlace` property and software consuming `navPlace` intend to support.
 
 
-*   The value _MUST_ be a single GeoJSON-LD FeatureCollection and _SHOULD_ contain at least one Feature.
+*   The value _MUST_ be a single GeoJSON-LD Feature Collection and _SHOULD_ contain at least one Feature.
 *   The Feature Collection that is the value of `navPlace` _MAY_ have an id.
-*   The Features within the Feature Collection _MAY_ have an id, and the id _MAY_ be the URI of the Feature Collection with a unique fragment on the end.  
-*   A Feature or Feature Collection that has the id property _MAY_ be accessible by the URI. 
+*   The Features within the Feature Collection _MAY_ have an `id`, and the `id` _MAY_ be the URI of the Feature Collection with a unique fragment on the end.
+*   A Feature or Feature Collection that has the `id` property _MAY_ be accessible by the URI. 
 *   Feature Collections and Feature objects inside of Feature Collections _MUST NOT_ be NULL. 
 *   The `navPlace` property _MUST NOT_ be used on other IIIF resource types
-*   The value for `navPlace` _SHOULD_ be an embedded GeoJSON Feature Collection object. However, the value _MAY_ be referenced and in these cases _MUST_ be dereferencable.  See the [terminology section](https://iiif.io/api/presentation/3.0/#12-terminology) of the IIIF Presentation API 3 for an explanation of “referenced”.
-
+*   The value for `navPlace` _SHOULD_ be an embedded GeoJSON Feature Collection object. However, the value _MAY_ be referenced and in these cases _MUST_ be dereferencable. 
 
 ```json-doc
 "navPlace":
@@ -166,7 +170,7 @@ The `navPlace` property identifies a single or multiple geographic areas pertine
 ```
 
 
-These resources will ultimately be represented as geometric shapes on the interface of the chosen web map system.
+These resources will ultimately be represented as geometric shapes on the interface of the chosen mapping system.
 
 
 ## 3. Linked Data
@@ -180,7 +184,7 @@ These resources will ultimately be represented as geometric shapes on the interf
 
 The navPlace extension linked data context _MUST_ be included before the IIIF Presentation API 3 linked data context on the top-level object. The navPlace extension context file includes the [GeoJSON-LD context](https://geojson.org/geojson-ld/geojson-context.jsonld) through context scoping. This means the GeoJSON-LD context URI does not have to be explicitly included on the top level object, unless GeoJSON is used in other properties besides `navPlace`. It is important to note that since the IIIF Presentation API 3 context has the JSON-LD `@version` set to 1.1, all contexts are processed as JSON-LD 1.1.  
 
-Consult the [Linked Data Context and Extensions section of IIIF Presentation API 3](https://iiif.io/api/presentation/3.0/#46-linked-data-context-and-extensions) for further guidance on use of the `@context` property. 
+Consult the [Linked Data Context and Extensions section of IIIF Presentation API 3](https://iiif.io/api/presentation/3.0/#46-linked-data-context-and-extensions) for further guidance on use of the `@context` property.
 
 ### 3.2 Full Manifest Example
 
@@ -272,7 +276,6 @@ Here you can see an example of a IIIF Manifest with the `navPlace` property. It 
    }
 }
 ```
-
 
 
 ### 3.3 Context Considerations for GeoJSON-LD `properties`
