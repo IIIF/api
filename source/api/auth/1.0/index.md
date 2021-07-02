@@ -170,6 +170,7 @@ The client _MUST_ append the following query parameter to all requests to an acc
 
 For example, given an access cookie service URI of `https://authentication.example.org/login`, a client instantiated by the page `https://client.example.com/viewer/index.html` would make its request to:
 
+{% include code_header.html %}
 ```
 https://authentication.example.org/login?origin=https://client.example.com/
 ```
@@ -406,6 +407,7 @@ If the client is a JavaScript application running in a web browser, it needs to 
 
 For example, a client instantiated by the page at `https://client.example.com/viewer/index.html` would request:
 
+{% include code_header.html %}
 ```
 https://authentication.example.org/token?messageId=1&origin=https://client.example.com/
 ```
