@@ -1,123 +1,19 @@
-url:            ''
-baseurl:        ''
-permalink:      pretty
-title:          "IIIF | International Image Interoperability Framework"
 theme:          iiifc-theme
 source:         source
+permalink:      pretty
 
-markdown:       kramdown
-sass:
-  style:        compressed
-  sass_dir:     _sass
-
-exclude:        [node_modules]
+root_url:       'https://preview.iiif.io/root/wireframe'
+api_url:        '/api'
 
 plugins:
-  - jekyll-redirect-from
+  - jekyll-data
   - jekyll-gzip
-  - jekyll-sitemap
+  - jekyll-redirect-from
+  - jekyll-liquify
 
-organization:
-  acronym:      IIIF
-  title:        International Image Interoperability Framework
-  tagline:      "International Image Interoperability Framework: A community driven image framework with well defined APIs for making the world’s image repositories interoperable and accessible"
-  email:        iiif-discuss@googlegroups.com
-  url:          //iiif.io
-  logo:         assets/images/logo-sm.png
-
-image_api:
-  draft:
-    major: 3
-    minor: 0
-    patch: 0
-  stable:
-    major: 3
-    minor: 0
-    patch: 0
-presentation_api:
-  draft:
-    major: 3
-    minor: 0
-    patch: 0
-  stable:
-    major: 3
-    minor: 0
-    patch: 0
-shared_canvas:
-  draft:
-    major: 1
-    minor: 0
-    patch: 0
-  stable:
-    major: 1
-    minor: 0
-    patch: 0
-search_api:
-  draft:
-    major: 1
-    minor: 0
-    patch: 0
-  stable:
-    major: 1
-    minor: 0
-    patch: 0
-auth_api:
-  draft:
-    major: 1
-    minor: 0
-    patch: 0
-  stable:
-    major: 1
-    minor: 0
-    patch: 0
-
-navbar_menu:
-  - label: 'Home'
-    link: 'https://preview.iiif.io/root/wireframe/'
-  - label: 'Demos'
-    link: 'https://preview.iiif.io/root/wireframe/demos'
-  - label: 'News & Events'
-    link: 'https://preview.iiif.io/root/wireframe/news-and-events'
-  - label: 'Get Involved'
-    link: 'https://preview.iiif.io/root/wireframe/get-involved'
-    sub:
-      - label: 'Community Groups'
-        link: ''
-      - label: 'Consortium'
-        link: ''
-      - label: 'Join Newsletter'
-        link: ''
-      - label: 'Contact Us'
-        link: ''
-  - label: 'Get Started'
-    link: 'https://preview.iiif.io/root/wireframe/get-started'
-    sub:
-      - label: 'How It Works'
-        link: ''
-      - label: 'APIs & Documentation'
-        link: 'https://preview.iiif.io/api/wireframe/api'
-      - label: 'Cookbooks'
-        link: ''
-      - label: 'Training'
-        link: ''
-footer_menu:
-  - heading: About
-    sub:
-      - label: 'How It Works'
-        link:  ''
-      - label: 'Documentation'
-        link:  'https://preview.iiif.io/api/wireframe/api'
-      - label: 'Demos'
-        link:  ''
-      - label: 'Tutorials'
-        link:  ''
-  - heading: Stay Connected
-    sub:
-      - label: 'Events & News'
-        link:  ''
-      - label: 'Join Newsletter'
-        link:  ''
-      - label: 'Community Groups'
-        link:  ''
-      - label: 'Consortium'
-        link:  ''
+notification:
+  enabled: true
+  title: This website design is in pre-beta.
+  subtitle: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  link: '#'
+  link_label: This is a test link

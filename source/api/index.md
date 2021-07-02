@@ -10,10 +10,10 @@ cssversion: 2
 
 | API                | Current Version |
 | ------------------ | --------------- |
-| Authentication API | [{{ site.auth_api.stable.major }}.{{ site.auth_api.stable.minor }}.{{ site.auth_api.stable.patch}}][auth{{ site.auth_api.stable.major }}{{ site.auth_api.stable.minor }}] |
-| Image API          | [{{ site.image_api.stable.major }}.{{ site.image_api.stable.minor }}.{{ site.image_api.stable.patch}}][image{{ site.image_api.stable.major }}{{ site.image_api.stable.minor }}] |
-| Presentation API   | [{{ site.presentation_api.stable.major }}.{{ site.presentation_api.stable.minor }}.{{ site.presentation_api.stable.patch }}][prezi{{ site.presentation_api.stable.major }}{{ site.presentation_api.stable.minor }}] |
-| Content Search API | [{{ site.search_api.stable.major }}.{{ site.search_api.stable.minor }}.{{ site.search_api.stable.patch }}][search{{ site.search_api.stable.major }}{{ site.search_api.stable.minor }}] |
+| Authentication API | [{{ site.data.apis.auth.stable.major }}.{{ site.data.apis.auth.stable.minor }}.{{ site.data.apis.auth.stable.patch}}][auth{{ site.data.apis.auth.stable.major }}{{ site.data.apis.auth.stable.minor }}] |
+| Image API          | [{{ site.data.apis.image.stable.major }}.{{ site.data.apis.image.stable.minor }}.{{ site.data.apis.image.stable.patch}}][image{{ site.data.apis.image.stable.major }}{{ site.data.apis.image.stable.minor }}] |
+| Presentation API   | [{{ site.data.apis.presentation.stable.major }}.{{ site.data.apis.presentation.stable.minor }}.{{ site.data.apis.presentation.stable.patch }}][prezi{{ site.data.apis.presentation.stable.major }}{{ site.data.apis.presentation.stable.minor }}] |
+| Content Search API | [{{ site.data.apis.search.stable.major }}.{{ site.data.apis.search.stable.minor }}.{{ site.data.apis.search.stable.patch }}][search{{ site.data.apis.search.stable.major }}{{ site.data.apis.search.stable.minor }}] |
 {: .api-table}
 
 ## Draft Specifications

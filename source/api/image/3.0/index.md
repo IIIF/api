@@ -41,7 +41,7 @@ __Previous Version:__ [2.1.1][image21]
 
 **Editors:**
 
-{% include editors.md editors=page.editors %}
+{% include api/editors.md editors=page.editors %}
 
 {% include copyright.md %}
 
@@ -94,7 +94,7 @@ There are four parameters shared by the requests, and other IIIF specifications:
 
 The combination of these parameters forms the image service’s base URI and identifies the underlying image content. It is constructed according to the following URI template ([RFC6570][org-rfc-6570]):
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ```
 {scheme}://{server}{/prefix}/{identifier}
 ```
@@ -108,7 +108,7 @@ To allow for extensions, this specification does not define the server behavior 
 
 The IIIF Image API URI for requesting an image _MUST_ conform to the following URI template:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ```
 {scheme}://{server}{/prefix}/{identifier}/{region}/{size}/{rotation}/{quality}.{format}
 ```
@@ -116,7 +116,7 @@ The IIIF Image API URI for requesting an image _MUST_ conform to the following U
 
 For example:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ```
 https://example.org/image-service/abcd1234/full/max/0/default.jpg
 ```
@@ -128,7 +128,7 @@ The parameters of the Image Request URI include region, size, rotation, quality 
 
 The URI for requesting image information _MUST_ conform to the following URI template:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ```
 {scheme}://{server}{/prefix}/{identifier}/info.json
 ```
@@ -136,7 +136,7 @@ The URI for requesting image information _MUST_ conform to the following URI tem
 
 For example:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ```
 https://example.org/image-service/abcd1234/info.json
 ```
@@ -507,7 +507,7 @@ In order to support the above requirements, clients _SHOULD_ construct image req
 
 When the client requests an image, the server _MAY_ add a link header to the response that indicates the canonical URI for that request:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ```
 Link: <http://iiif.example.com/server/full/400,300/0/default.jpg>;rel="canonical"
 ```
@@ -528,7 +528,7 @@ Servers _MUST_ support requests for image information. The response is a JSON do
 
 The request for the image information _MUST_ conform to the URI template:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ```
 {scheme}://{server}{/prefix}/{identifier}/info.json
 ```
@@ -538,7 +538,7 @@ The syntax for the response is [JSON-LD][org-w3c-json-ld]. If the server receive
 
 If the request does not include an `Accept` header, the HTTP `Content-Type` header of the response _SHOULD_ have the value `application/ld+json` (JSON-LD) with the `profile` parameter given as the context document: `http://iiif.io/api/image/3/context.json`.
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ```
 Content-Type: application/ld+json;profile="http://iiif.io/api/image/3/context.json"
 ```
@@ -546,7 +546,7 @@ Content-Type: application/ld+json;profile="http://iiif.io/api/image/3/context.js
 
 If the `Content-Type` header `application/ld+json` cannot be generated due to server configuration details, then the `Content-Type` header _SHOULD_ instead be `application/json` (regular JSON), without a `profile` parameter.
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ```
 Content-Type: application/json
 ```
@@ -576,7 +576,7 @@ The `width` and `height` properties give the size of the full image and are requ
 
 The `maxWidth`, `maxHeight`, and `maxArea` parameters provide a way for image servers to express limits on the sizes supported for the image. If `maxWidth` alone, or `maxWidth` and `maxHeight` are specified then clients should expect requests with larger linear dimensions to be rejected. If `maxArea` is specified then clients should expect requests with larger pixel areas to be rejected. The `maxWidth / maxHeight`  and `maxArea` parameters are independent, servers may implement either or both limits. Servers _MUST_ ensure that sizes specified by any `sizes` or `tiles` properties are within any size limits expressed. Clients _SHOULD NOT_ make requests that exceed size limits expressed.
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   "@context": "http://iiif.io/api/image/{{ page.major }}/context.json",
@@ -610,7 +610,7 @@ The JSON objects in the `sizes` array have the properties in the following table
 | `height`   | Required | The height in pixels of the image to be requested, given as an integer. |
 {: .api-table}
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   "@context": "http://iiif.io/api/image/{{ page.major }}/context.json",
@@ -650,7 +650,7 @@ The JSON objects in the `tiles` array have the properties in the following table
 
 Objects in the `tiles` array _MUST_ each have a unique combination of `width` and `height`, where `height` = `width` if it is not explicitly specified.
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   "@context": "http://iiif.io/api/image/{{ page.major }}/context.json",
@@ -676,7 +676,7 @@ The JSON response _MAY_ have the `preferredFormats` property, which lists one or
 {: .api-table}
 
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   "@context": "http://iiif.io/api/image/{{ page.major }}/context.json",
@@ -702,7 +702,7 @@ The `rights` property has the same semantics and requirements as it does in the 
 
 If the publisher of this image requires additional information to be shown when it is viewed, the information should be provided by a [Presentation API][prezi3] Manifest, as described in the [Linking Properties][image3-linking-properties] section.
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   "@context": "http://iiif.io/api/image/{{ page.major }}/context.json",
@@ -758,7 +758,7 @@ The set of features, formats and qualities supported is the union of those decla
 
 Additional strings used in the `extraQualities`, `extraFormats`, and `extraFeatures` properties, or additional properties used in the image information, that are not defined in this specification _SHOULD_ be mapped to RDF predicates using further context documents. These extensions _SHOULD_ be added to the top level `@context` property (see [Technical Properties][image30-technical-properties]). The JSON-LD 1.1 functionality of predicate specific context definitions, known as [scoped contexts][org-w3c-json-ld-scoped-contexts], _MUST_ be used to minimize cross-extension collisions. Extensions intended for community use _SHOULD_ be [registered in the extensions registry][registry], but registration is not mandatory.
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   "@context": "http://iiif.io/api/image/{{ page.major }}/context.json",
@@ -796,7 +796,7 @@ The JSON objects in `partOf`, `seeAlso`, and `service` have the properties indic
 | `profile`  | Recommended for `seeAlso`, `service` | A schema or named set of functionality available from this resource. The profile can further clarify the `type` and/or `format` of an external resource. The value must be a string, either taken from the [Registry of Profiles][registry] or a URI. |
 {: .api-table}
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   "@context": [
@@ -839,7 +839,7 @@ The JSON objects in `partOf`, `seeAlso`, and `service` have the properties indic
 
 The following shows an image information response including all of the required and optional properties.
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   "@context": [
@@ -892,7 +892,7 @@ The image information document _MUST_ specify the extent to which the API is sup
 
 The compliance level _MAY_ also be given in a HTTP `Link` header ([RFC5988][org-rfc-5988]), using the profile document URI with the parameter `rel="profile"`, on both Image and Image Information responses. A complete header might look like:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ```
 Link: <http://iiif.io/api/image/{{ page.major }}/level1.json>;rel="profile"
 ```
@@ -941,7 +941,7 @@ No new authentication mechanisms are proposed, nor roles for authorization busin
 
 The URI syntax of this API relies upon slash (`/`) separators which _MUST NOT_ be encoded. Clients _MUST_ percent-encode special characters (the to-encode set below: percent and gen-delims of [RFC3986][org-rfc-3986] except the colon) plus any characters outside the US-ASCII set within the components of requests. For example, any slashes within the identifier part of the URI _MUST_ be percent-encoded. Encoding is necessary only for the identifier because other components will not include special characters. Percent-encoding other characters introduces no ambiguity but is unnecessary.
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ```
 to-encode = "/" / "?" / "#" / "[" / "]" / "@" / "%"
 ```
