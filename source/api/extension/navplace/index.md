@@ -20,13 +20,12 @@ Changes will be tracked within the document.
 {:toc}
 
 ## 1. Introduction
+The ideas of Time and Place are a foundation of human communication and understanding. In IIIF Presentation API 3 the property `navDate` allows for a calendar date to be associated with a resource in a client friendly format. However, places are extents in space, independent of time or what may or may not be present in that space. Time and Place are first class descriptors and the ability to capture both independently is often required to properly describe a resource.
 
 
 ### 1.1 Objectives and Scope
 
 IIIF provides the information necessary to allow a rich, online viewing environment for compound digital objects to be presented to a human user. The types of resources and their specific needs continue to enhance the IIIF specifications to greater resource coverage. The ability to assert ancillary information is a universal need in this expanse. This is achieved using Annotation, or Web Annotation, and extensions across the IIIF specification versions.
-
-The ideas of Time and Place are a foundation of human communication and understanding. In IIIF Presentation API 3 the property `navDate` allows for a calendar date to be associated with a resource in a client friendly format. However, places are extents in space, independent of time or what may or may not be present in that space. Time and Place are first class descriptors and the ability to capture both independently is often required to properly describe a resource.
 
 This extension describes a property called `navPlace` which contains geographic coordinates in the form of [GeoJSON-LD](https://geojson.org/geojson-ld/). Clients may use this property to leverage the navigational functionality of web maps such as Google Earth, Leaflet, OpenLayers, etc. giving them the opportunity to enrich data presentation through common web map platforms.
 
