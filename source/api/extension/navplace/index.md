@@ -70,7 +70,7 @@ This extension implements the [GeoJSON-LD specification](https://geojson.org/geo
 
 #### 2.1.1 GeoJSON as Linked Data
 
-The GeoJSON terms, the `navPlace` term and the IIIF Presentation API 3 terms are all required for `navPlace` to be linked data compatible. Any IIIF resource using the `navPlace` property _MUST_ have the navPlace extension linked data context and the IIIF Presentation API 3 linked data context as part of the top level object. This is elaborated upon in section 3.
+The GeoJSON terms, the IIIF Presentation API 3 terms, and the `navPlace` term all require linked data context for `navPlace` to be IIIF compatible. Any IIIF resource using the `navPlace` property _MUST_ have the navPlace extension linked data context and the IIIF Presentation API 3 linked data context as part of the top level object. This is elaborated upon in section 3.
 
 
 
@@ -80,7 +80,6 @@ The GeoJSON terms, the `navPlace` term and the IIIF Presentation API 3 terms are
        "http://iiif.io/api/extension/navplace/context.json",
        "http://iiif.io/api/presentation/3/context.json"
     ]
-
 }
 ```
 
@@ -130,7 +129,7 @@ For examples of these shapes, see the “Examples” section of the GeoJSON spec
 
 ### 2.2 `navPlace` Property
 
-The `navPlace` property identifies a single or multiple geographic areas pertinent to a Collection, Manifest, Range or Canvas. The Feature represents a shape using geographic coordinates for the geometry and described terms from the resource for metadata, such as a label. The shape contained in the `navPlace` property does not imply any level of precision, fuzziness, temporality or state of existence. `navPlace` is intended to connect IIIF web resources with geographic areas. These areas should be bounded discrete regions of the map akin to extents. `navPlace` is not meant for geographic layouts at the township, city, country or continental level. Such descriptive datasets are meant for processing algorithms to perform geospatial analytics or computational overlays. This goes beyond what the `navPlace` property and software consuming `navPlace` intend to support.
+The `navPlace` property identifies a single or multiple geographic areas pertinent to a Collection, Manifest, Range or Canvas. The Feature represents a shape using geographic coordinates for the geometry and described terms from the resource for metadata, such as a label. The shape contained in the `navPlace` property does not imply any level of precision, fuzziness, temporality or state of existence. `navPlace` is intended to connect IIIF web resources with geographic areas. These areas _SHOULD_ be bounded discrete regions of the map akin to extents. `navPlace` is not meant for geographic layouts at the township, city, country or continental level. Such descriptive datasets are meant for processing algorithms to perform geospatial analytics or computational overlays. This goes beyond what the `navPlace` property and software consuming `navPlace` intend to support.
 
 
 *   The value _MUST_ be a single GeoJSON-LD Feature Collection and _SHOULD_ contain at least one Feature.
@@ -289,7 +288,7 @@ The GeoJSON `properties` object is generic and can be nearly anything. It is use
 
 ### 4.1 GeoJSON-LD on the Web
 
-The choice to use GeoJSON-LD is not arbitrary.  It is the primary geocoordinate data format supported by web maps. Too often, poorly formatted datasets are programmatically transformed into GeoJSON as a shim into web maps in order to preserve the original data format. This specification drives implementers to have geocoordinate data saved as GeoJSON-LD when it is intended for use on the web. This practice removes barriers for interoperable geocoordinate data and standardized web map software as well as promotes the robust functionality of prior, current, and upcoming web map developments.
+The choice to use GeoJSON-LD is not arbitrary. It is the primary geocoordinate data format supported by web maps. Too often, poorly formatted datasets are programmatically transformed into GeoJSON as a shim into web maps in order to preserve the original data format. This specification drives implementers to have geocoordinate data saved as GeoJSON-LD when it is intended for use on the web. This practice removes barriers for interoperable geocoordinate data and standardized web map software as well as promotes the robust functionality of prior, current, and upcoming web map developments.
 
 
 ### 4.2 IIIF Cookbook
