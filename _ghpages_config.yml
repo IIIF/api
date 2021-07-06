@@ -5,7 +5,7 @@ source:         source
 permalink:      pretty
 
 root_url:       'https://marii.info/iiif-website'
-api_url:        '/iiif-api/api'
+api_url:        'https://marii.info/iiif-api/api/'
 
 plugins:
   - jekyll-data
