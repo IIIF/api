@@ -17,10 +17,12 @@ jobs:
           bundler-cache: true
       - name: install
         run: gem install bundler && bundle
+      - name: test
+        run: bundle exec jekyll build && bundle exec rake check_html
+      - name: clean
+        run: bundle exec jekyll clean
       - name: build
         run: bundle exec jekyll build --config _ghpages_config.yml
-      - name: test
-        run: bundle exec rake check_html
       - name: deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
