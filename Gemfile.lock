@@ -1,7 +1,7 @@
 GIT
   remote: https://github.com/mnyrop/iiifc-theme.git
-  revision: 1ef2ba737570765662bf027ff37cc6e1db60be86
-  branch: feature/liquid-var-links
+  revision: e6f7e7dbc36c84ca3a606785f9069b3f47b6d012
+  branch: main
   specs:
     iiifc-theme (0.1.0)
       jekyll (>= 4.0, < 5.0)
