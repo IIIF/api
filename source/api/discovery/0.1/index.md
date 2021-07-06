@@ -38,7 +38,7 @@ __Previous Version:__ None
 
 **Editors:**
 
-{% include editors.md editors=page.editors %}
+{% include api/editors.md editors=page.editors %}
 
 {% include copyright.md %}
 

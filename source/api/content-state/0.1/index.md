@@ -41,7 +41,7 @@ __Previous Version:__ None
 
 **Editors:**
 
-{% include editors.md editors=page.editors %}
+{% include api/editors.md editors=page.editors %}
 
 {% include copyright.md %}
 
@@ -120,7 +120,7 @@ Clients _MAY_ implement other mechanisms of accepting content state data; some s
 
 A client _MUST_ be able to read and process the value in any of the three forms listed above. Consider the following, simplest possible content state annotation:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json
 {
   "@context": "http://iiif.io/api/presentation/{{ page.major }}/context.json",
@@ -140,7 +140,7 @@ The JSON-LD body given above may be passed directly in a request parameter, HTML
 
 The value passed to a client via this parameter (or other supported mechanisms) may be the `target` property of an implied annotation:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json
 {"id":"https://example.org/iiif/item1/manifest","type":"Manifest"}
 ```
@@ -176,7 +176,7 @@ The following examples demonstrate the use of the existing IIIF Presentation API
 
 ### 4.1. A region of a canvas in a manifest
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json
 {
   "@context": "http://iiif.io/api/presentation/{{ page.major }}/context.json",
@@ -199,7 +199,7 @@ When processed by a viewer, the user should see the rectangle `1000,2000,1000,20
 
 ### 4.2. Start playing at a point in a recording
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json
 {
   "@context": "http://iiif.io/api/presentation/{{ page.major }}/context.json",
@@ -229,7 +229,7 @@ This example should cause a viewer to open Manifest https://example.org/iiif/id1
 
 ### 4.3. Multiple targets for a comparison view
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json
 {
   "@context": "http://iiif.io/api/presentation/{{ page.major }}/context.json",
@@ -268,7 +268,7 @@ Here the viewer should open two manifests at once (if it is capable of such a vi
 
 The following example uses the compact, query string form of the content state to demonstrate what HTML search results linking to a particular viewer might look like.
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` html
 <h2>Results for "cats"</h2>
 <ol>

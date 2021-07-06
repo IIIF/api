@@ -1,12 +1,13 @@
 GIT
   remote: https://github.com/mnyrop/iiifc-theme.git
-  revision: 8589045a270c1694a2b521751ebaaef1a1d50b77
+  revision: e6f7e7dbc36c84ca3a606785f9069b3f47b6d012
   branch: main
   specs:
     iiifc-theme (0.1.0)
       jekyll (>= 4.0, < 5.0)
       jekyll-data
       jekyll-gzip
+      jekyll-liquify
       jekyll-redirect-from
       jekyll-sitemap
 
@@ -56,6 +57,9 @@ GEM
       jekyll (>= 3.3, < 5.0.0)
     jekyll-gzip (2.5.1)
       jekyll (>= 3.0, < 5.0)
+    jekyll-liquify (0.0.2)
+      liquid (>= 2.5, < 5.0)
+      redcarpet (~> 3.1)
     jekyll-redirect-from (0.16.0)
       jekyll (>= 3.3, < 5.0)
     jekyll-sass-converter (2.1.0)
@@ -89,6 +93,7 @@ GEM
     rb-fsevent (0.11.0)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
+    redcarpet (3.5.1)
     rexml (3.2.5)
     rouge (3.26.0)
     rspec (3.10.0)
@@ -121,9 +126,6 @@ DEPENDENCIES
   html-proofer
   iiifc-theme!
   jekyll (~> 4.1.1)
-  jekyll-gzip
-  jekyll-redirect-from
-  jekyll-sitemap
   rake
   rspec
 

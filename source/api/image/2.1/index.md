@@ -39,7 +39,7 @@ __Previous Version:__ [2.0][prev-version]
 
 **Editors:**
 
-{% include editors.md editors=page.editors %}
+{% include api/editors.md editors=page.editors %}
 
 {% include copyright.md %}
 
@@ -90,7 +90,7 @@ There are four parameters shared by the requests, and other IIIF specifications:
 
 The combination of these parameters forms the image’s base URI and identifies the underlying image content. It is constructed according to the following URI Template ([RFC6570][rfc-6570]):
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ```
 {scheme}://{server}{/prefix}/{identifier}
 ```
@@ -105,7 +105,7 @@ To allow for extensions, this specification does not define the server behavior 
 
 The IIIF Image API URI for requesting an image _MUST_ conform to the following URI Template:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ```
 {scheme}://{server}{/prefix}/{identifier}/{region}/{size}/{rotation}/{quality}.{format}
 ```
@@ -113,7 +113,7 @@ The IIIF Image API URI for requesting an image _MUST_ conform to the following U
 
 For example:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ```
 http://www.example.org/image-service/abcd1234/full/full/0/default.jpg
 ```
@@ -126,7 +126,7 @@ The parameters of the Image Request URI include region, size, rotation, quality 
 
 The URI for requesting image information _MUST_ conform to the following URI Template:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ```
 {scheme}://{server}{/prefix}/{identifier}/info.json
 ```
@@ -134,7 +134,7 @@ The URI for requesting image information _MUST_ conform to the following URI Tem
 
 For example:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ```
 http://www.example.org/image-service/abcd1234/info.json
 ```
@@ -469,7 +469,7 @@ In order to support the above requirements, clients _SHOULD_ construct the image
 
 When the client requests an image, the server _MAY_ add a link header to the response that indicates the canonical URI for that request:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ```
 Link: <http://iiif.example.com/server/full/400,/0/default.jpg>;rel="canonical"
 ```
@@ -487,7 +487,7 @@ Servers _MUST_ support requests for image information. The response includes tec
 
 The request for the information _MUST_ conform to the URI Template:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ```
 {scheme}://{server}{/prefix}/{identifier}/info.json
 ```
@@ -495,7 +495,7 @@ The request for the information _MUST_ conform to the URI Template:
 
 The syntax for the response is [JSON-LD][json-ld-w3c]. The content-type of the response _MUST_ be either "application/json" (regular JSON),
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ```
 Content-Type: application/json
 ```
@@ -503,7 +503,7 @@ Content-Type: application/json
 
 or "application/ld+json" (JSON-LD).
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ```
 Content-Type: application/ld+json
 ```
@@ -513,7 +513,7 @@ If the client explicitly wants the JSON-LD content-type, then it _MUST_ specify 
 
 Servers _SHOULD_ send the `Access-Control-Allow-Origin` header with the value `*` in response to information requests. The syntax is shown below and is described in the [CORS][cors-spec] specification. This header is required in order to allow the JSON responses to be used by Web applications hosted on different servers.
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ```
 Access-Control-Allow-Origin: *
 ```
@@ -568,7 +568,7 @@ Servers _SHOULD_ support requests for images with parameters specified by the `s
 
 The following shows a valid image information response, including the optional `sizes` and `tiles` properties.
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   "@context" : "http://iiif.io/api/image/{{ page.major }}/context.json",
@@ -650,7 +650,7 @@ URIs _MAY_ be added to the supports list of a profile to cover features not defi
 
 The following fragment shows a profile indicating support for additional formats, qualities, and features beyond level 2 [compliance][compliance-levels]. It also includes a size limit.
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   "@context" : "http://iiif.io/api/image/{{ page.major }}/context.json",
@@ -701,7 +701,7 @@ When both the Image and Presentation APIs express attributions or logos, then cl
 
 The following shows a simple use of each of these properties:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   "@context" : "http://iiif.io/api/image/{{ page.major }}/context.json",
@@ -729,7 +729,7 @@ There _MAY_ be one or more services associated with an image. See the [Service P
 
 The following shows a use of `service` to associate the login page of an authentication system that users must go through in order to access the image.  For further information, please see [Authentication](#authentication).
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   "@context" : "http://iiif.io/api/image/{{ page.major }}/context.json",
@@ -752,7 +752,7 @@ More complex examples are given in the [Complete Response Example](#complete-res
 
 The following shows a response including all of the required and optional image information properties.
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   "@context" : "http://iiif.io/api/image/{{ page.major }}/context.json",
@@ -821,7 +821,7 @@ The image information document _MUST_ specify the extent to which the API is sup
 
 The compliance level URI _MAY_ also be given in the HTTP Link header ([RFC5988][rfc-5988]) with the parameter `rel="profile"`, and thus a complete header might look like:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ```
 Link: <http://iiif.io/api/image/{{ page.major }}/level1.json>;rel="profile"
 ```
@@ -865,7 +865,7 @@ No new authentication mechanisms are proposed, nor roles for authorization busin
 
 The URI syntax of this API relies upon slash (/) separators which _MUST NOT_ be encoded. Clients _MUST_ percent-encode special characters (the to-encode set below: percent and gen-delims of [RFC3986][rfc-3986] except the colon) plus any characters outside the US-ASCII set within the components of requests. For example, any slashes within the identifier part of the URI _MUST_ be percent-encoded. Encoding is necessary only for the identifier because other components will not include special characters. Percent-encoding other characters introduces no ambiguity but is unnecessary.
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ```
 to-encode = "/" / "?" / "#" / "[" / "]" / "@" / "%"
 ```
@@ -909,7 +909,7 @@ Early sanity checking of URIs (lengths, trailing GET, invalid characters, out-of
   * Linked data implementations may construct the info.json response using the frame supplied in the [JSON-LD framing implementation note][annex-frames].
   * When requesting sizes using the `w,` canonical syntax, if a particular height is desired, the following algorithm can be used:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` python
     # Calculate request width for `w,` syntax from desired height
     request_width = image_width * desired_height / image_height
@@ -918,7 +918,7 @@ Early sanity checking of URIs (lengths, trailing GET, invalid characters, out-of
   * When requesting image tiles, the [Region][region] and [Size][size] parameters must be calculated to take account of partial tiles along the right and lower edges for a full image that is not an exact multiple of the scaled tile size. The algorithm below is shown as Python code and assumes integer inputs and integer arithmetic throughout (ie. remainder discarded on division). Inputs are: size of full image content `(width,height)`, scale factor `s`, tile size `(tw,th)`, and tile coordinate `(n,m)` counting from `(0,0)` in the upper-left corner. Note that the rounding method is implementation dependent.
 
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` python
     # Calculate region parameters /xr,yr,wr,hr/
     xr = n * tw * s
@@ -940,7 +940,7 @@ Early sanity checking of URIs (lengths, trailing GET, invalid characters, out-of
 
   * As described in [Rotation][rotation], in order to retain the size of the requested image contents, rotation will change the width and height dimensions of the image returned. A formula for calculating the dimensions of the image returned for a given starting size and rotation is given below. Note that the rounding method is implementation dependent and that some languages require conversion of the angle from degrees to radians.
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` python
     # (w,h) are size parameters, n is rotation angle
     w_returned = abs(w*cos(n)) + abs(h*sin(n))

@@ -45,7 +45,7 @@ The `textGranularity` property identifies the Text Granularity Level of a resour
 | `glyph`                      |  A single glyph or symbol       |
 {: .api-table #table-granularity-level-dfn}
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 { "textGranularity": "line" }
 ```
@@ -56,7 +56,7 @@ An Annotation _MAY_ have the `textGranularity` property. An Annotation that has 
 
 The Annotation Body’s textual content _SHOULD_ be equivalent to the textual content represented by the content resources painted on the Target. For example, the Body of the Annotation might be a [TextualBody](https://www.w3.org/TR/annotation-model/#embedded-textual-body) that contains the transcription of the Target, which is painted with the image of a page of a medieval manuscript.
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   "id": "https://example.org/iiif/aeneid/book1/transcription-line1",
@@ -80,7 +80,7 @@ The Annotation Body’s textual content _SHOULD_ be equivalent to the textual co
 ```
 Alternatively, the body might be an [external web resource](https://www.w3.org/TR/annotation-model/#external-web-resources).  For example, the Body could use an XPath selector to identify the transcription of a paragraph of text within an XML document.
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   "id": "https://example.org/iiif/aeneid/book1/transcription-line2",
@@ -114,7 +114,7 @@ The `motivation` value of the associated Annotation _MUST_ have the value `suppl
 
 The URI of the JSON-LD context for this extension is `http://iiif.io/api/extension/text-granularity/context.json`.  Consult the [Linked Data Context and Extensions][prezi30-ldce] section of the Presentation API for further guidance on its use within the `@context` property.
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   "@context": [

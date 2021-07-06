@@ -6,12 +6,6 @@ gem 'jekyll', '~> 4.1.1'
 # gem 'iiifc-theme', path: 'iiifc-theme'
 gem 'iiifc-theme', github: 'mnyrop/iiifc-theme', branch: 'main'
 
-group :jekyll_plugins do
-  gem 'jekyll-redirect-from'
-  gem 'jekyll-sitemap'
-  gem 'jekyll-gzip'
-end
-
 group :development, :test do
   gem 'html-proofer'
   gem 'rspec'

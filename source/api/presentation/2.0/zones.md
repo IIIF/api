@@ -14,13 +14,13 @@ redirect_from:
 
 ## Zones Notes
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` 
 URI pattern:  {scheme}://{host}{/prefix}/{identifier}/zone/{name}.json
 ```
 {: .uriTemplate}
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   "@id": "mandatory-uri",
