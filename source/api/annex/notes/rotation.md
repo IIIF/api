@@ -1,6 +1,6 @@
 ---
 title: "Note: Calculating the Size of a Rotated Image"
-layout: spec
+layout: page
 tags: [annex, rotation, image-api]
 cssversion: 2
 redirect_from:
