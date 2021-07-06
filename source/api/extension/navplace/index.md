@@ -20,6 +20,7 @@ Changes will be tracked within the document.
 {:toc}
 
 ## 1. Introduction
+
 The ideas of Time and Place are a foundation of human communication and understanding. These concepts are first class descriptors for earthbound resources and the ability to capture both independently is often required for data presentation and preservation. In IIIF Presentation API 3 the property `navDate` allows for a calendar date to be associated with a resource in a client friendly format. However, places are extents in space, independent of time and what may or may not be present in that space. 
 
 
