@@ -21,12 +21,12 @@ Changes will be tracked within the document.
 
 ## 1. Introduction
 
+The ideas of Time and Place are a foundation of human communication and understanding. These concepts are first class descriptors for earthbound resources and the ability to capture both independently is often required for data presentation and preservation. In IIIF Presentation API 3 the property `navDate` allows for a calendar date to be associated with a resource in a client friendly format. However, places are extents in space, independent of time and what may or may not be present in that space. 
+
 
 ### 1.1 Objectives and Scope
 
 IIIF provides the information necessary to allow a rich, online viewing environment for compound digital objects to be presented to a human user. The types of resources and their specific needs continue to enhance the IIIF specifications to greater resource coverage. The ability to assert ancillary information is a universal need in this expanse. This is achieved using Annotation, or Web Annotation, and extensions across the IIIF specification versions.
-
-The ideas of Time and Place are a foundation of human communication and understanding. In IIIF Presentation API 3 the property `navDate` allows for a calendar date to be associated with a resource in a client friendly format. However, places are extents in space, independent of time or what may or may not be present in that space. Time and Place are first class descriptors and the ability to capture both independently is often required to properly describe a resource.
 
 This extension describes a property called `navPlace` which contains geographic coordinates in the form of [GeoJSON-LD](https://geojson.org/geojson-ld/). Clients may use this property to leverage the navigational functionality of web maps such as Google Earth, Leaflet, OpenLayers, etc. giving them the opportunity to enrich data presentation through common web map platforms.
 
@@ -41,8 +41,7 @@ The reasons for associating geographic coordinates with web resources vary great
 *   Supply a single geographic bounding box for an image of a map
 *   Track locations listed in an itinerary or travel journal
 
-Use cases outside the scope include
-
+Situations which are not in scope include
 
 
 *   Spatiotemporal alignment with the place, as in a timeline or specific placement because of time
@@ -93,7 +92,7 @@ A Feature object represents a spatial bounding. Every Feature object is a GeoJSO
 *   A Feature object has a `type` property with the value "Feature".
 *   A Feature object has a property with the name `geometry`. The value of the `geometry` property _SHALL_ be either a Geometry object as defined above or, in the case that the Feature is unlocated, a JSON null value.
 *   A Feature object has a property with the name `properties`. The value of the `properties` property is an object (any JSON object or a JSON null value).
-*   If a Feature has a commonly used identifier, that identifier _SHOULD_ be included as a property of the Feature object with the name `id`. The value _MUST_ be a string, and the value _MUST_ be an HTTP(S) URI for resources defined by the IIIF Presentation API 3
+*   If a Feature has a commonly used identifier, that identifier _SHOULD_ be included as a property of the Feature object with the name `id`. The value _MUST_ be a string, and the value _MUST_ be an HTTP(S) URI [as defined by the IIIF Presentation API 3](https://iiif.io/api/presentation/3.0/#61-uri-recommendations).
 
 
 #### 2.1.3 Feature Collection
@@ -104,7 +103,7 @@ A Feature Collection object represents an aggregation of spatial boundings.
 
 *   A Feature Collection object has a `type` property with the value "FeatureCollection".
 *   A Feature Collection object has a property with the name `features`. The value of `features` is a JSON array. Each element of the array is a Feature object as defined above. It is possible for this array to be empty, but when used in the context of this extension it _SHOULD NOT_ be empty.
-*   If a Feature Collection has a commonly used identifier, that identifier _SHOULD_ be included as a property of the Feature Collection object with the name `id`. The value _MUST_ be a string, and the value _MUST_ be an HTTP(S) URI for resources defined by the IIIF Presentation API 3
+*   If a Feature Collection has a commonly used identifier, that identifier _SHOULD_ be included as a property of the Feature Collection object with the name `id`. The value _MUST_ be a string, and the value _MUST_ be an HTTP(S) URI [as defined by the IIIF Presentation API 3](https://iiif.io/api/presentation/3.0/#61-uri-recommendations).
 
 #### 2.1.4 Position
 
@@ -137,34 +136,35 @@ The `navPlace` property identifies a single or multiple geographic areas pertine
 *   The Features within the Feature Collection _MAY_ have an `id`, and the `id` _MAY_ be the URI of the Feature Collection with a unique fragment on the end.
 *   A Feature or Feature Collection that has the `id` property _MAY_ be accessible by the URI. 
 *   Feature Collections and Feature objects inside of Feature Collections _MUST NOT_ be NULL. 
-*   The `navPlace` property _MUST NOT_ be used on other IIIF resource types
+*   The `navPlace` property _MUST NOT_ be used on other IIIF resource types.
 *   The value for `navPlace` _SHOULD_ be an embedded GeoJSON Feature Collection object. However, the value _MAY_ be referenced and in these cases _MUST_ be dereferencable. 
 
 ```json-doc
-"navPlace":
 {
-   "id": "http://example.com/featurecollection/1",
-   "type": "FeatureCollection",
-   "features":[
-      {
-       "id": "http://example.com/feature/1",
-         "type": "Feature",
-         "properties":{
-            "label":{
-               "en":[
-                  "IIIF compatible label"
+   "navPlace":{
+      "id": "http://example.com/feature-collection/1",
+      "type": "FeatureCollection",
+      "features":[
+         {
+            "id": "http://example.com/feature/1",
+            "type": "Feature",
+            "properties":{
+               "label":{
+                  "en":[
+                     "IIIF compatible label"
+                  ]
+               }
+            },
+            "geometry":{
+               "type": "Point",
+               "coordinates":[
+                  9.94,
+                  51.53
                ]
             }
-         },
-         "geometry":{
-            "type": "Point",
-            "coordinates":[
-               9.94,
-               51.53
-            ]
          }
-      }
-   ]
+      ]
+   }
 }
 ```
 
@@ -187,7 +187,7 @@ Consult the [Linked Data Context and Extensions section of IIIF Presentation API
 
 ### 3.2 Full Manifest Example
 
-Here you can see an example of a IIIF Manifest with the `navPlace` property. It is made JSON-LD 1.1 compatible by including multiple contexts. Review the Manifest below in the Linked Data 1.1 playground for an example of Linked Data processing. 
+Here you can see an example of a IIIF Manifest with the `navPlace` property. It is made JSON-LD 1.1 compatible by including multiple contexts. Review the Manifest below in the [JSON-LD playground](https://json-ld.org/playground/) for an example of Linked Data processing. 
 
 
 
@@ -252,10 +252,11 @@ Here you can see an example of a IIIF Manifest with the `navPlace` property. It 
       }
    ],
    "navPlace":{
+      "id" : "https://example.org/iiif/feature-collection/2",
       "type":"FeatureCollection",
       "features":[
          {
-            "id":"https://example.org/iiif/geo.json",
+            "id":"https://example.org/iiif/feature/2",
             "type":"Feature",
             "properties":{
                "label":{
@@ -280,7 +281,7 @@ Here you can see an example of a IIIF Manifest with the `navPlace` property. It 
 
 ### 3.3 Context Considerations for GeoJSON-LD `properties`
 
-The GeoJSON `properties` object is generic and can be nearly anything. It is used to pass metadata along with the geographic coordinates. Web maps know to look to `properties` for metadata to render along with the shape made by the geographic coordinates. IIIF encourages interoperability, which is made possible in large part due to Linked Data. Any metadata used in `properties` _SHOULD_ be described by a Linked Data context. Note that common metadata terms like `label` and `summary` are already described by the IIIF Presentation API 3 context. The use of IIIF formatted metadata in `properties` is encouraged since it is well described by the IIIF Presentation API 3 context already. Note that if a client discovers properties that it does not understand, then it _MUST_ ignore them. You can see this functionality by including your own metadata in the `properties` property of the example Manifest and taking it to the [JSON-LD playground](https://json-ld.org/playground/).
+The GeoJSON `properties` object is generic and can be nearly anything. It is used to pass metadata along with the geographic coordinates. Web maps know to look to `properties` for metadata to render along with the shape made by the geographic coordinates. IIIF encourages interoperability, which is made possible in large part due to Linked Data. Any metadata used in `properties` _SHOULD_ be described by a linked data context. Note that common metadata terms like `label` and `summary` are already described by the IIIF Presentation API 3 context. The use of IIIF formatted metadata in `properties` is encouraged since it is well described by the IIIF Presentation API 3 context already. Note that if a client discovers properties that it does not understand, then it _MUST_ ignore them. You can see this functionality by including your own metadata in the `properties` property of the example Manifest and taking it to the [JSON-LD playground](https://json-ld.org/playground/).
 
 
 ## 4. Implementation Notes
@@ -293,13 +294,13 @@ The choice to use GeoJSON-LD is not arbitrary. It is the primary geocoordinate d
 
 ### 4.2 IIIF Cookbook
 
-The IIIF Cookbook serves as a place to exemplify complex digital objects under IIIF Presentation API 3. At the release of this specification, recipes were already underway. You can see an implementation of the `navPlace` property as a "for demonstration only" preview at [https://preview.iiif.io/cookbook/0154-geo-extension/recipe/0154-geo-extension/](https://preview.iiif.io/cookbook/0154-geo-extension/recipe/0154-geo-extension/). This specification will update with links to recipes as they are published.
+The [IIIF Cookbook](https://iiif.io/api/cookbook/) serves as a place to exemplify implementations of digital objects under IIIF Presentation API 3. At the release of this specification, recipes were already underway. You can see an implementation of the `navPlace` property as a "for demonstration only" preview at [https://preview.iiif.io/cookbook/0154-geo-extension/recipe/0154-geo-extension/](https://preview.iiif.io/cookbook/0154-geo-extension/recipe/0154-geo-extension/). This specification will update with links to recipes as they are published.
 
 ## Appendices
 
 ### A. Acknowledgements
 
-An enormous amount of gratitude is owed to the IIIF community for their continuous engagement, innovative ideas, and feedback. Thanks to Sean Gilles and MapBox for the GeoJSON Linked Data context and its promotion of standardized geospatial web data. We would also like to recognize IETF for the semantics produced through the GeoJSON specification. An extra special thank you goes out to the IIIF Maps and IIIF Cookbook communities as implementers of this developing technology. The initial version of this document was the work of the IIIF Maps Technical Specification Group.
+An enormous amount of gratitude is owed to the IIIF community for their continuous engagement, innovative ideas, and feedback. Thanks to Sean Gilles and MapBox for the GeoJSON linked data context and its promotion of standardized geospatial web data. We would also like to recognize IETF for the semantics produced through the GeoJSON specification. An extra special thank you goes out to the IIIF Maps and IIIF Cookbook communities as implementers of this developing technology. The initial version of this document was the work of the IIIF Maps Technical Specification Group.
 {: #acknowledgements}
 
 
