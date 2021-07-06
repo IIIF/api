@@ -19,6 +19,8 @@ jobs:
         run: gem install bundler && bundle
       - name: build
         run: bundle exec jekyll build --config _ghpages_config.yml
+      - name: test
+        run: bundle exec rake check_html
       - name: deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
