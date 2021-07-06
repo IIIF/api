@@ -30,24 +30,20 @@ This document describes an extension to the [IIIF Image API][image-api] which co
 
 Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss].
 
-
 ## 1. Overview
 {: #overview}
 
 There are cases where it is useful for a client to store, update or delete images on a IIIF compliant image server without having access to that server's file system. For example:
 
- 1. A scholar who wants to drag and drop one of their own images into a web application for analysis along side other images already in that environment.
+1. A scholar who wants to drag and drop one of their own images into a web application for analysis along side other images already in that environment.
 
- 2. A digital repository that ingests images into its storage environment, but creates an access copy or derivative on a IIIF server as part of an automated workflow to support IIIF client access.
+2. A digital repository that ingests images into its storage environment, but creates an access copy or derivative on a IIIF server as part of an automated workflow to support IIIF client access.
 
- 3. The IIIF Image API does not define a mechanism for getting the source image that the API calls are using to derive images according to the request. In some cases this may be available as:
+3. The IIIF Image API does not define a mechanism for getting the source image that the API calls are using to derive images according to the request. In some cases this may be available as:
 
-    {% include code_header.html %}
-```
-    {scheme}://{server}{/prefix}/{identifier}/full/full/0/native
-    ```
+`{scheme}://{server}{/prefix}/{identifier}/full/full/0/native`
 
-    but the format can not be known, and furthermore the source image may not be in a format that the server can derive through regular requests.
+but the format can not be known, and furthermore the source image may not be in a format that the server can derive through regular requests.
 
 ## 2. Requests
 {: #requests}
@@ -65,16 +61,14 @@ The server should return the image that it uses make derivative images in respon
 
 URI Pattern:
 
-{% include code_header.html %}
-```
-{scheme}://{server}{/prefix}/{identifier}
-```
+`{scheme}://{server}{/prefix}/{identifier}`
 
 Relevant Headers:
 
 | Header                    | Request/Response | Required | Description |
 | ------------------------- | -----------------| -------- | ----------- |
 | [Content-Type][http-content-type] | Request  | yes | The Media Type for the image. |
+{:.api-table}
 
 The server MUST return the image in a single format from this URI. It MAY either ignore any Accept header included in request, or return a 406 (Not Acceptable) status in response to an attempt to content-negotiate.
 
@@ -85,10 +79,8 @@ The request should behave exactly the same as GET, except that only the appropri
 
 URI Pattern:
 
-{% include code_header.html %}
-```
-{scheme}://{server}{/prefix}/{identifier}
-```
+`{scheme}://{server}{/prefix}/{identifier}`
+
 
 ### 2.3 PUT
 {: #put}
@@ -99,10 +91,8 @@ Update an existing image or create a new image with {identifier}.
 
 URI Pattern:
 
-{% include code_header.html %}
-```
-{scheme}://{server}{/prefix}/{identifier}
-```
+`{scheme}://{server}{/prefix}/{identifier}`
+
 
 Relevant Headers:
 
@@ -112,6 +102,7 @@ Relevant Headers:
 | [Content-MD5][http-content-md5] | Response   | yes      | As a verification that the image was received intact. |
 | [Content-Type][http-content-type] | Request  | yes      | The Media Type for the image. |
 | [If-None-Match][http-if-none-match] | Request | no | Makes the PUT conditional. |
+{:.api-table}
 
 The response body MAY contain the info.json that was extracted from the image, but it MUST NOT redirect to the info URI as the Location header the MUST contain the Base URI of the of the newly stored image.
 
@@ -122,10 +113,7 @@ Similar to PUT, except that the server will supply the identifier, and return it
 
 URI Pattern:
 
-{% include code_header.html %}
-```
-{scheme}://{server}{/prefix}
-```
+`{scheme}://{server}{/prefix}`
 
 Relevant Headers:
 
@@ -134,6 +122,7 @@ Relevant Headers:
 | [Location][http-location] | Response | yes | The new Base URI for the image. |
 | [Content-MD5][http-content-md5] | Response | yes | As a verification that the image was received intact. |
 | [Content-Type][http-content-type] | Request | yes | The Media Type for the image. |
+{:.api-table}
 
 ### 2.5 DELETE
 {: #delete}
@@ -142,10 +131,8 @@ Delete the image specified by {identifier} on the server.
 
 URI Pattern:
 
-{% include code_header.html %}
-```
-{scheme}://{server}{/prefix}/{identifier}
-```
+`{scheme}://{server}{/prefix}/{identifier}`
+
 
 There are no special requirements for the HTTP headers associated with a DELETE request.
 
@@ -162,6 +149,7 @@ In addition to the error conditions discussed in the API documents, the followin
 | 200 OK         | For GET, HEAD requests when the resource exists. |
 | 201 Created    | For PUT or POST requests, when the image was successfully stored on the server. |
 | 204 No Content | For DELETE requests. 204 MUST be used. Do NOT use 200. |
+{:.api-table}
 
 ### 3.2 Error Conditions
 {: #error-conditions}
@@ -176,6 +164,7 @@ In addition to the error conditions discussed in the API documents, the followin
 | 415 Unsupported Media Type   | The declared Content-Type is not one that the server supports, or the server can not extract technical metadata from the entity of the request based on the declared Content-Type |
 | 501 Not Implemented          | The server does not support the request method |
 | 503 Service Unavailable      | The server can not handle the request for some other reason. For example, it may be out of storge space |
+{:.api-table}
 
 ## 4. Extension Context
 {: #extension-context}
@@ -183,7 +172,7 @@ In addition to the error conditions discussed in the API documents, the followin
 This extension defines five predicates in a separate context, one for each of the HTTP methods described in [Section 2][2]. A server that supports any of the HTTP methods as described by this document should modify its capabilities document to include this context, e.g., as follows:
 
 {% include code_header.html %}
-``` json-doc
+```json-doc
 {
   "@context" : [
     "http://iiif.io/api/image-api/context.json",
