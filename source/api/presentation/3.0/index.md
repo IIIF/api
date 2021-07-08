@@ -483,7 +483,7 @@ The value _MUST_ be a string.
  * All resource types _MUST_ have the `type` property.<br/>
    Clients _MUST_ process, and _MAY_ render, `type` on any resource type.
 
-> | Class         | Description                      |
+| Class         | Description                      |
 | ------------- | -------------------------------- |
 | `Dataset`     | Data not intended to be rendered to humans directly |
 | `Image`       | Two dimensional visual resources primarily intended to be seen, such as might be rendered with an &lt;img> HTML tag |
@@ -617,7 +617,7 @@ The value _MUST_ be a string.
  * Other types of resource _MUST NOT_ have the `viewingDirection` property.<br/>
    Clients _SHOULD_ ignore `viewingDirection` on other types of resource.
 
-> | Value | Description |
+| Value | Description |
 | ----- | ----------- |
 | `left-to-right` | The object is displayed from left to right. The default if not specified. |
 | `right-to-left` | The object is displayed from right to left. |
@@ -653,7 +653,7 @@ The value _MUST_ be an array of strings.
  * Any resource type _MAY_ have the `behavior` property with at least one item.<br/>
    Clients _SHOULD_ process `behavior` on any resource type.
 
-> | Value | Description |
+| Value | Description |
 | ----- | ----------- |
 || **Temporal Behaviors** |
 | `auto-advance` | Valid on Collections, Manifests, Canvases, and Ranges that include or are Canvases with at least the `duration` dimension. When the client reaches the end of a Canvas, or segment thereof as specified in a Range, with a duration dimension that has this behavior, it _SHOULD_ immediately proceed to the next Canvas or segment and render it. If there is no subsequent Canvas in the current context, then this behavior should be ignored. When applied to a Collection, the client should treat the first Canvas of the next Manifest as following the last Canvas of the previous Manifest, respecting any `start` property specified. Disjoint with `no-auto-advance`. |
@@ -692,7 +692,7 @@ The value _MUST_ be a string.
  * An Annotation _MAY_ have the `timeMode` property.<br/>
    Clients _SHOULD_ process `timeMode` on an Annotation.
 
-> | Value | Description |
+| Value | Description |
 | ----- | ----------- |
 | `trim` | (default, if not supplied) If the content resource has a longer duration than the duration of portion of the Canvas it is associated with, then at the end of the Canvas's duration, the playback of the content resource _MUST_ also end. If the content resource has a shorter duration than the duration of the portion of the Canvas it is associated with, then, for video resources, the last frame _SHOULD_ persist on-screen until the end of the Canvas portion's duration. For example, a video of 120 seconds annotated to a Canvas with a duration of 100 seconds would play only the first 100 seconds and drop the last 20 second. |
 | `scale` | Fit the duration of content resource to the duration of the portion of the Canvas it is associated with by scaling. For example, a video of 120 seconds annotated to a Canvas with a duration of 60 seconds would be played at double-speed. |
@@ -1075,7 +1075,7 @@ While any resource _MAY_ be the `target` of an Annotation, this specification de
 
 Additional motivations may be added to the Annotation to further clarify the intent, drawn from [extensions][prezi30-ldce] or other sources. Clients _MUST_ ignore motivation values that they do not understand. Other motivation values given in the Web Annotation specification _SHOULD_ be used where appropriate, and examples are given in the [Presentation API Cookbook][annex-cookbook].
 
-> | Value | Description |
+| Value | Description |
 | ----- | ----------- |
 | `painting` | Resources associated with a Canvas by an Annotation that has the `motivation` value `painting`  _MUST_ be presented to the user as the representation of the Canvas. The content can be thought of as being _of_ the Canvas. The use of this motivation with target resources other than Canvases is undefined. For example, an Annotation that has the `motivation` value `painting`, a body of an Image and the target of the Canvas is an instruction to present that Image as (part of) the visual representation of the Canvas. Similarly, a textual body is to be presented as (part of) the visual representation of the Canvas and not positioned in some other part of the user interface.|
 | `supplementing` | Resources associated with a Canvas by an Annotation that has the `motivation` value `supplementing`  _MAY_ be presented to the user as part of the representation of the Canvas, or _MAY_ be presented in a different part of the user interface. The content can be thought of as being _from_ the Canvas. The use of this motivation with target resources other than Canvases is undefined. For example, an Annotation that has the `motivation` value `supplementing`, a body of an Image and the target of part of the Canvas is an instruction to present that Image to the user either in the Canvas's rendering area or somewhere associated with it, and could be used to present an easier to read representation of a diagram. Similarly, a textual body is to be presented either in the targeted region of the Canvas or otherwise associated with it, and might be OCR, a manual transcription or a translation of handwritten text, or captions for what is being said in a Canvas with audio content. |
