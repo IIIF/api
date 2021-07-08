@@ -1,6 +1,6 @@
 ---
 title: IIIF API Annex Documents
-layout: spec
+layout: page
 
 ---
 
@@ -18,5 +18,4 @@ layout: spec
 - [Note on Image Rotation Algorithm]({{ site.url }}{{ site.baseurl }}/api/annex/notes/rotation/)
 - [Note on Semantic Versioning]({{ site.url }}{{ site.baseurl }}/api/annex/notes/semver/)
 - [Disclaimer of Liability]({{ site.url }}{{ site.baseurl }}/api/annex/notes/disclaimer/)
-- [Note on Proposed Changes for Future API Versions]({{ site.url }}{{ site.baseurl }}/api/annex/notes/proposed-changes/)
 - [IIIF Design Patterns]({{ site.url }}{{ site.baseurl }}/api/annex/notes/design_patterns/)
