@@ -41,7 +41,10 @@ There are cases where it is useful for a client to store, update or delete image
 
 3. The IIIF Image API does not define a mechanism for getting the source image that the API calls are using to derive images according to the request. In some cases this may be available as:
 
-`{scheme}://{server}{/prefix}/{identifier}/full/full/0/native`
+{% include api/code_header.html %}
+```
+{scheme}://{server}{/prefix}/{identifier}/full/full/0/native
+```
 
 but the format can not be known, and furthermore the source image may not be in a format that the server can derive through regular requests.
 
@@ -61,7 +64,10 @@ The server should return the image that it uses make derivative images in respon
 
 URI Pattern:
 
-`{scheme}://{server}{/prefix}/{identifier}`
+{% include api/code_header.html %}
+```
+{scheme}://{server}{/prefix}/{identifier}
+```
 
 Relevant Headers:
 
@@ -79,8 +85,10 @@ The request should behave exactly the same as GET, except that only the appropri
 
 URI Pattern:
 
-`{scheme}://{server}{/prefix}/{identifier}`
-
+{% include api/code_header.html %}
+```
+{scheme}://{server}{/prefix}/{identifier}
+```
 
 ### 2.3 PUT
 {: #put}
@@ -91,8 +99,10 @@ Update an existing image or create a new image with {identifier}.
 
 URI Pattern:
 
-`{scheme}://{server}{/prefix}/{identifier}`
-
+{% include api/code_header.html %}
+```
+{scheme}://{server}{/prefix}/{identifier}
+```
 
 Relevant Headers:
 
@@ -113,7 +123,10 @@ Similar to PUT, except that the server will supply the identifier, and return it
 
 URI Pattern:
 
-`{scheme}://{server}{/prefix}`
+{% include api/code_header.html %}
+```
+{scheme}://{server}{/prefix}
+```
 
 Relevant Headers:
 
@@ -131,8 +144,10 @@ Delete the image specified by {identifier} on the server.
 
 URI Pattern:
 
-`{scheme}://{server}{/prefix}/{identifier}`
-
+{% include api/code_header.html %}
+```
+{scheme}://{server}{/prefix}/{identifier}
+```
 
 There are no special requirements for the HTTP headers associated with a DELETE request.
 
@@ -171,8 +186,8 @@ In addition to the error conditions discussed in the API documents, the followin
 
 This extension defines five predicates in a separate context, one for each of the HTTP methods described in [Section 2][2]. A server that supports any of the HTTP methods as described by this document should modify its capabilities document to include this context, e.g., as follows:
 
-{% include code_header.html %}
-```json-doc
+{% include api/code_header.html %}
+``` json-doc
 {
   "@context" : [
     "http://iiif.io/api/image-api/context.json",

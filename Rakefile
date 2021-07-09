@@ -24,9 +24,8 @@ end
 
 desc 'Check all links and cache the results'
 task :check_html do
-  HTMLProofer.check_directory(SITE_DIR, check_html: true, 
+  HTMLProofer.check_directory(SITE_DIR, check_html: true,
                                          validation: {report_mismatched_tags:true, report_invalid_tags: true },
-                                         check_img_http:true, 
                                          disable_external: true,
                                          checks_to_ignore: ['LinkCheck']
                                          ).run

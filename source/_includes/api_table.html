@@ -1,0 +1,22 @@
+<table class="api-table">
+  <thead>
+    <tr>
+      {% for header in include.data.headers %}
+      <th>{{ header}}</th>
+      {% endfor %}
+    </tr>
+  </thead>
+  <tbody>
+    {% for key in include.data.apis %}
+    {% assign api = site.data.apis[key] %}
+    {% assign v = api[include.type] %}
+    {% capture link %}{{ site.api_url }}/{{ key }}/{{ v.major }}.{{ v.minor }}{% endcapture %}
+    <tr>
+      <td>{{ api.label }}</td>
+      <td>
+        <a href="{{ link | absolute_url }}">{{ v.major }}.{{ v.minor }}</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>

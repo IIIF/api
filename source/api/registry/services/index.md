@@ -29,7 +29,7 @@ Changes will be tracked within the document.
 
 **Editors:**
 
-{% include editors.md editors=page.editors %}
+{% include api/editors.md editors=page.editors %}
 
 {% include copyright.md %}
 
@@ -69,7 +69,7 @@ _Added: 2014-05-20_
 
 The Image Information service allows the [Presentation API][prezi3], and potentially other APIs, to reference content to be displayed via the [Image API][image-api].  The JSON-LD content to be referenced or embedded is the Image Information document, also known as `info.json`.  The service _MUST_ have the `@context`, `@id` and `profile` keys, pointing to the context document, service base URI and compliance level profile respectively.
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   "service": {
@@ -82,7 +82,7 @@ The Image Information service allows the [Presentation API][prezi3], and potenti
 
 The service _MAY_ have additional information embedded from the Image Information document to avoid the need to retrieve and parse it separately.  In this case, the profile _MAY_ also point to the profile of what functionality is supported, as described in the Image API.
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   "service": {
@@ -115,7 +115,7 @@ The service _MAY_ have additional information embedded from the Image Informatio
 
 With the `logo` property added to the Image Information description in version 2.1 of the Image API, it is possible and reasonable for one `info.json` response to embed another using this pattern.  In this case, the second service is related to the icon that should be displayed when a client renders the image described by the main response.
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   "@context" : "http://iiif.io/api/image/2/context.json",

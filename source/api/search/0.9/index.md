@@ -38,7 +38,7 @@ __Latest Stable Version:__ [{{ site.search_api.stable.major }}.{{ site.search_ap
 
 **Editors:**
 
-{% include editors.md editors=page.editors %}
+{% include api/editors.md editors=page.editors %}
 
 {% include copyright2015.md %}
 
@@ -92,7 +92,7 @@ The description of the service follows the pattern established in the [Linking t
 
 An example service description block:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   // ... the resource that the search service is associated with ...
@@ -140,7 +140,7 @@ Other motivations are possible, and the full list from the [Open Annotation][ope
 
 This example request:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ```
 http://example.org/services/manifest/search?q=bird&motivation=painting
 ```
@@ -160,7 +160,7 @@ The simplest response looks exactly like a regular annotation list, where all of
 
 Clients wishing to know the total number of annotations that match may count the number of annotations in the `resources` property, as all matches have been returned.  The full annotation description _MUST_ be included in the response, even if the annotations are separately dereferencable via their URIs.
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   "@context":"http://iiif.io/api/presentation/2/context.json",
@@ -195,7 +195,7 @@ The layer _MUST_ have the `@type` property, with the value of "sc:Layer".  It _S
 
 An example request:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ```
 http://example.org/service/manifest/search?q=bird
 ```
@@ -203,7 +203,7 @@ http://example.org/service/manifest/search?q=bird
 
 And the response for the first page of annotations from a total of 125 matches:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   "@context":"http://iiif.io/api/presentation/2/context.json",
@@ -241,7 +241,7 @@ The annotations may also include references to the structure or structures that 
 
 This structure is called out explicitly as although it uses only properties from the Presentation API, it is not a common pattern and thus clients may not be expecting it.
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   "@context":"http://iiif.io/api/search/{{ page.major }}/context.json",
@@ -283,7 +283,7 @@ If supported, each entry in the `hits` list is a `search:Hit` object.  This type
 
 The basic structure is:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   "@context":[
@@ -327,7 +327,7 @@ If the server has ignored any of the parameters in the request, then the layer _
 
 If the request from previous examples had been:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ```
 http://example.org/service/manifest/search?q=bird&user=azaroth42
 ```
@@ -335,7 +335,7 @@ http://example.org/service/manifest/search?q=bird&user=azaroth42
 
 And the user parameter was ignored when processing the request, the response would be:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   "@context":[
@@ -368,7 +368,7 @@ The service _MAY_ add a `before` property to the hit with some amount of text th
 
 For example, in a search for the query term "bird" in our example sentence, when the server has full word level coordinates:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ```
 http://example.org/service/manifest/search?q=bird
 ```
@@ -376,7 +376,7 @@ http://example.org/service/manifest/search?q=bird
 
 That the server matches against the plural "birds":
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   "@context":[
@@ -422,7 +422,7 @@ The client in this case needs to know the text that caused the service to create
 
 This would look like:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   "@type": "oa:TextQuoteSelector",
@@ -434,7 +434,7 @@ This would look like:
 
 As multiple words might match the query within the same annotation, multiple selectors may be given in the hit as objects within a `selectors` property.  For example, if the search used a wildcard to search for all words starting with "b" it would match the same annotation twice:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ```
 http://example.org/service/manifest/search?q=b*
 ```
@@ -442,7 +442,7 @@ http://example.org/service/manifest/search?q=b*
 
 The result might be:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   "@context":[
@@ -501,7 +501,7 @@ For example, imagine that the annotations are divided up line by line as they we
 In cases like this there are more annotations than hits as two or more annotations are needed to make up one hit.  The `match` property of the hit captures the text across the annotations.
 
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   "@context":[
@@ -562,7 +562,7 @@ The autocomplete service is nested within the search service that it provides te
 
 The autocomplete service _MUST_ have an `@id` property with the value of the URI where the service can be interacted with, and _MUST_ have a `profile` property with the value "http://iiif.io/api/search/{{ page.major }}/autocomplete" to distinguish it from other types of service.
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   // Resource that the services are associated with ...
@@ -598,7 +598,7 @@ The other parameters (`motivation`, `date` and `user`), if supported, refine the
 
 An example request
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ```
 http://example.org/service/identifier/autocomplete?q=bir&motivation=painting&user=azaroth42
 ```
@@ -622,7 +622,7 @@ The terms _SHOULD_ be provided in ascending alphabetically sorted order, but oth
 
 The example request above might generate the following response:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   "@context": "http://iiif.io/api/search/{{ page.major }}/context.json",
@@ -656,7 +656,7 @@ The example request above might generate the following response:
 
 It is also possible to associate one or more `label`s to display to the user with URIs or other data that are searchable via the `q` parameter, rather than using the exact string that matched.  This can also be useful if stemming or other term normalization has occured, in order to display the original rather than the processed term.
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   "@context": "http://iiif.io/api/search/{{ page.major }}/context.json",

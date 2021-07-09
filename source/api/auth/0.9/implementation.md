@@ -179,7 +179,7 @@ A IIIF client application that loads a manifest would need to load each referenc
 
 If a server could convey this information in the manifest the client would have what it needs in the initial load. There's nothing stopping a manifest publisher of the manifest including the full authentication services:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   "@context": "http://iiif.io/api/presentation/2/context.json",
@@ -225,7 +225,7 @@ If a server could convey this information in the manifest the client would have 
 
 However, this would result in a very large manifest if there are a large number of images, and there is a lot of repetition of information. As a JSON-LD document, the login service does not have to be stated in full every time - if the above example provided the full service on the first canvas, then the next canvas could state the same information using the service URL alone:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   "@context": "http://iiif.io/api/presentation/2/context.json",

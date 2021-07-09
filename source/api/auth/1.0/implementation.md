@@ -87,8 +87,8 @@ A client can still prevent sending the user on unnecessary authentication flows 
 ### 4.2 Windows and Tabs
 {: #windows-and-tabs}
 
-The {% include code_header.html %}
-``` Window.open(){% include code_header.html %}
+The {% include api/code_header.html %}
+``` Window.open(){% include api/code_header.html %}
 ``` API includes an optional parameter that allows the caller to specify various position, size, toolbar and "chrome" features of the opened window. A client confined to desktop browsers could use this to make the presentation of the login service URL feel more like a dialog box rather than a sudden visit to a different site.
 
 However, window features like this are not generally available on mobile devices and clients on those platforms might find the window blocked if it is opened with specific features.
@@ -105,7 +105,7 @@ Clients should expect to deal with image services that offer nothing at all to u
 
 A client might attempt to deal with the response like this:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` javascript
 switch(myXhr.statusCode){
     case 200:
@@ -180,7 +180,7 @@ A IIIF client application that loads a manifest would need to load each referenc
 
 If a server could convey this information in the manifest the client would have what it needs in the initial load. There's nothing stopping a manifest publisher of the manifest including the full authentication services:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   "@context": "http://iiif.io/api/presentation/2/context.json",
@@ -226,7 +226,7 @@ If a server could convey this information in the manifest the client would have 
 
 However, this would result in a very large manifest if there are a large number of images, and there is a lot of repetition of information. As a JSON-LD document, the login service does not have to be stated in full every time - if the above example provided the full service on the first canvas, then the next canvas could state the same information using the service URL alone:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   "@context": "http://iiif.io/api/presentation/2/context.json",

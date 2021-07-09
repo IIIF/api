@@ -28,7 +28,7 @@ This document is not subject to [IIIF's versioning semantics][iiif-semver]. Chan
 
 **Authors:**
 
-{% include editors.md editors=page.editors %}
+{% include api/editors.md editors=page.editors %}
 
 {% include copyright2017.md %}
 

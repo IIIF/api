@@ -40,7 +40,7 @@ __Previous Version:__ [0.4][discovery04]
 
 **Editors:**
 
-{% include editors.md editors=page.editors %}
+{% include api/editors.md editors=page.editors %}
 
 {% include copyright.md %}
 
@@ -109,7 +109,7 @@ If resources are deleted after being referred to in the resource list, the entir
 
 Example Level 0 Activity:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   "type": "Update",
@@ -127,7 +127,7 @@ When dealing with large lists of resources, it can be useful to work with only t
 
 Example Level 1 Activity:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   "type": "Update",
@@ -148,7 +148,7 @@ A complete change history is not required, and sometimes not even desirable. If 
 
 Example Level 2 Activity:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   "type": "Create",
@@ -173,7 +173,7 @@ Whenever an "Add" Activity is encountered, it is semantically similar to a "Crea
 
 Example Add Activity:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   "type": "Add",
@@ -192,7 +192,7 @@ Example Add Activity:
 
 Example Remove Activity:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   "type": "Remove",
@@ -216,7 +216,7 @@ Sometimes a publishing system will do a complete refresh of its records and re-i
 
 Consuming applications that have processed the stream previously should continue to read backwards beyond this point, in order to process any Delete activities, but do not need to process other activity types.  Applications that have not processed the stream previously can simply stop when the `Refresh` activity is encountered.
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   "type": "Refresh",
@@ -232,7 +232,7 @@ The Activities are collected together into pages that together make up the entir
 
 Pages are subsequently collected together in ordered collections, described in the following section.
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   "@context": "http://iiif.io/api/discovery/1/context.json",
@@ -276,7 +276,7 @@ Pages are subsequently collected together in ordered collections, described in t
 
 As the number of Activities is likely too many to usefully be represented in a single Page, they are collected together into a Collection as the initial entry point. The Collection references the URIs of the first and last pages, where the first page contains the earliest activities and the last page contains the most recent.
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   "@context": "http://iiif.io/api/discovery/1/context.json",
@@ -325,7 +325,7 @@ The identifier of the Ordered Collection.
 
 Ordered Collections _MUST_ have an `id` property. The value _MUST_ be a string and it _MUST_ be an HTTP(S) URI. The JSON representation of the Ordered Collection _MUST_ be available at the URI.
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 { "id": "https://example.org/activity/all-changes" }
 ```
@@ -337,7 +337,7 @@ The class of the Ordered Collection.
 
 Ordered Collections _MUST_ have a `type` property. The value _MUST_ be `OrderedCollection`.
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 { "type": "OrderedCollection" }
 ```
@@ -348,7 +348,7 @@ A link to the first Ordered Collection Page for this Collection.
 
 Ordered Collections _SHOULD_ have a `first` property. The value _MUST_ be a JSON object, with the `id` and `type` properties. The value of the `id` property _MUST_ be a string, and it _MUST_ be the HTTP(S) URI of the first page of items in the Collection. The value of the `type` property _MUST_ be the string `OrderedCollectionPage`.
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   "first": {
@@ -364,7 +364,7 @@ A link to the last Ordered Collection Page for this Collection. As the client pr
 
 Ordered Collections _MUST_ have a `last` property. The value _MUST_ be a JSON object, with the `id` and `type` properties. The value of the `id` property _MUST_ be a string, and it _MUST_ be the HTTP(S) URI of the last page of items in the Collection. The value of the `type` property _MUST_ be the string `OrderedCollectionPage`.
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   "last": {
@@ -380,7 +380,7 @@ The total number of Activities in the entire Ordered Collection.
 
 Ordered Collections _MAY_ have a `totalItems` property. The value _MUST_ be a non-negative integer.
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 { "totalItems": 21456 }
 ```
@@ -396,7 +396,7 @@ Ordered Collections _MAY_ have a `seeAlso` property. The value _MUST_ be an arra
 * `profile`, the value of which _MUST_ be a string containing either a value from the [profiles registry][registry-profiles] or a URI
 
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   "seeAlso": [
@@ -417,7 +417,7 @@ This property is used to refer to a larger Ordered Collection, of which this Ord
 
 Ordered Collections _MAY_ have a `partOf` property. The value _MUST_ be an array of one or more JSON objects, with the `id` and `type` properties. The value of the `id` property _MUST_ be a string, and it _MUST_ be the HTTP(S) URI of the larger collection. The value of the `type` property _MUST_ be the string `OrderedCollection`.
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   "partOf": [
@@ -436,7 +436,7 @@ A string that identifies a license or rights statement that applies to the usage
 
 The value _MUST_ be a string. If the value is drawn from Creative Commons or RightsStatements.org, then the string _MUST_ be a URI defined by that specification.
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 { "rights": "http://creativecommons.org/licenses/by/4.0/" }
 ```
@@ -444,7 +444,7 @@ The value _MUST_ be a string. If the value is drawn from Creative Commons or Rig
 
 ##### Complete Ordered Collection Example
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   "@context": "http://iiif.io/api/discovery/1/context.json",
@@ -491,7 +491,7 @@ The identifier of the Collection Page.
 
 Ordered Collection Pages _MUST_ have an `id` property. The value _MUST_ be a string and it _MUST_ be an HTTP(S) URI. The JSON representation of the Ordered Collection Page _MUST_ be available at the URI.
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 { "id": "https://example.org/activity/page-0" }
 ```
@@ -503,7 +503,7 @@ The class of the Ordered Collection Page.
 
 Ordered Collections _MUST_ have a `type` property. The value _MUST_ be `OrderedCollectionPage`.
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 { "type": "OrderedCollectionPage" }
 ```
@@ -514,7 +514,7 @@ The Ordered Collection of which this Page is a part.
 
 Ordered Collection Pages _SHOULD_ have a `partOf` property. The value _MUST_ be a JSON object, with the `id` and `type` properties. The value of the `id` property _MUST_ be a string, and _MUST_ be the HTTP(S) URI of the Ordered Collection that this page is part of. The value of the `type` property _MUST_ be the string `OrderedCollection`.
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   "partOf": {
@@ -530,7 +530,7 @@ The position of the first item in this page's `orderedItems` list, relative to t
 
 Ordered Collection Pages _MAY_ have a `startIndex` property. The value _MUST_ be a non-negative integer.
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 { "startIndex": 20 }
 ```
@@ -541,7 +541,7 @@ A reference to the next page in the list of pages.
 
 Ordered Collection Pages _SHOULD_ have a `next` property, unless they are the last page in the Collection. The value _MUST_ be a JSON object, with the `id` and `type` properties. The value of the `id` property _MUST_ be a string, and _MUST_ be the HTTP(S) URI of the following Ordered Collection Page. The value of the `type` property _MUST_ be the string `OrderedCollectionPage`.
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   "next": {
@@ -557,7 +557,7 @@ A reference to the previous page in the list of pages.
 
 Ordered Collection Pages _MUST_ have a `prev` property, unless they are the first page in the Collection. The value _MUST_ be a JSON object, with the `id` and `type` properties. The value of the `id` property _MUST_ be a string, and _MUST_ be the HTTP(S) URI of the preceding Ordered Collection Page. The value of the `type` property _MUST_ be the string `OrderedCollectionPage`.
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   "prev": {
@@ -573,7 +573,7 @@ The Activities that are listed as part of this page. If the Activities have an `
 
 Ordered Collection Pages _MUST_ have an `orderedItems` property. The value _MUST_ be an array, with at least one item. Each item _MUST_ be a JSON object, conforming to the requirements of an Activity.
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   "orderedItems": [
@@ -592,7 +592,7 @@ Ordered Collection Pages _MUST_ have an `orderedItems` property. The value _MUST
 
 ##### Complete Ordered Collection Page Example
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   "@context": "http://iiif.io/api/discovery/1/context.json",
@@ -637,7 +637,7 @@ An identifier for the Activity.
 
 Activities _MAY_ have an `id` property. The value _MUST_ be a string and it _MUST_ be an HTTP(S) URI. The JSON representation of the Activity _MAY_ be available at the URI.
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 { "id": "https://example.org/activity/1" }
 ```
@@ -662,7 +662,7 @@ This specification uses the types described in the table below.
 
 Activities _MUST_ have the `type` property. The value _MUST_ be a registered Activity type, and _SHOULD_ be one of `Create`, `Update`, or `Delete`.
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 { "type": "Update" }
 ```
@@ -681,7 +681,7 @@ The object _MAY_ have a `canonical` property, the value of which _MUST_ be a str
 
 The object _MAY_ have a `provider` property, as defined by the [IIIF Presentation API](https://iiif.io/api/presentation/3.0/#provider). In particular, the value of the property _MUST_ be an array of JSON objects, each of which _MUST_ have the `id`, `type` and `label` attributes, carrying the URI of the provider, the string "Agent", and the name of the provider in a language map object, respectively.
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   "object": {
@@ -714,7 +714,7 @@ The new location of the IIIF resource, after it was affected by a `Move` activit
 
 `Move` activities _MUST_ have the `target` property. The value _MUST_ be a JSON object, with the `id` and `type` properties. The `id` _MUST_ be an HTTP(S) URI, and _MUST_ be different from the URI given in the `object` property's `id`. The `type` _SHOULD_ be a class defined in the IIIF Presentation API, and _SHOULD_ be the same as the `object` property's `type`. Other properties that are usable for the description of `object`, such as `seeAlso` and `canonical` are also available for use in describing the `target`.
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   "target": {
@@ -737,7 +737,7 @@ The time at which the Activity was finished. It is up to the implementer to deci
 
 Activities _SHOULD_ have the `endTime` property. The value _MUST_ be a datetime expressed in UTC in the [xsd:dateTime][org-w3c-xsd-datetime] format.
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 { "endTime": "2017-09-21T00:00:00Z" }
 ```
@@ -748,7 +748,7 @@ The time at which the Activity was started.
 
 Activities _MAY_ have the `startTime` property. The value _MUST_ be a datetime expressed in UTC in the [xsd:dateTime][org-w3c-xsd-datetime] format.
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 { "startTime": "2017-09-20T23:58:00Z" }
 ```
@@ -759,7 +759,7 @@ A short textual description of the Activity. This is intended primarily to be us
 
 Activities _MAY_ have the `summary` property. The value _MUST_ be a string.
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 { "summary": "admin updated the manifest, fixing reported bug #15." }
 ```
@@ -770,7 +770,7 @@ The organization, person, or software agent that carried out the Activity.
 
 Activities _MAY_ have the `actor` property. The value _MUST_ be a JSON object, with the `id` and `type` properties. The `id` _SHOULD_ be an HTTP(S) URI. The `type` _MUST_ be one of `Application`, `Organization`, or `Person`.
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   "actor": {
@@ -784,7 +784,7 @@ Activities _MAY_ have the `actor` property. The value _MUST_ be a JSON object, w
 
 A complete example Activity would thus look like the following example. Note that it does not have a `@context` property, as it is always embedded within a `CollectionPage`. Please note also that this is a complete example with all possible fields; most implementations will not need nor expose this level of data.
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   "id": "https://example.org/activity/1",
@@ -818,7 +818,7 @@ A complete example Activity would thus look like the following example. Note tha
 
 The top level resource in the response _MUST_ have the `@context` property, and it _SHOULD_ appear as the very first key/value pair of the JSON representation. This property lets Linked Data processors interpret the document as a graph. The value of the property _MUST_ be either the URI of the IIIF Discovery context document, `http://iiif.io/api/discovery/1/context.json`, or an array of strings, where the URI of the IIIF Discovery context document is the last item in the array.
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   "@context": "http://iiif.io/api/discovery/1/context.json"
@@ -829,7 +829,7 @@ The top level resource in the response _MUST_ have the `@context` property, and 
 
 If any additional types or properties are desired beyond the ones defined in this specification or the ActivityStreams specification, then those types or properties _SHOULD_ be mapped to RDF terms in one or more additional context documents. These extension contexts _SHOULD_ be added to the top level `@context` property, and _MUST_ be before the URI of the Discovery context. The JSON-LD 1.1 functionality of defining terms only within a specific property, known as [scoped contexts][org-w3c-json-ld-scoped-contexts], _MUST_ be used to minimize cross-extension collisions. Extensions intended for broad use _SHOULD_ be registered in the [extensions registry][registry].
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   "@context": [
@@ -942,7 +942,7 @@ If the server receives a request with an `Accept` header, it _SHOULD_ respond fo
 
 If the request does not include an `Accept` header, the HTTP `Content-Type` header of the response _SHOULD_ have the value `application/ld+json` (JSON-LD) with the `profile` parameter given as the context document: `http://iiif.io/api/discovery/1/context.json`.
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ```
 Content-Type: application/ld+json;profile="http://iiif.io/api/discovery/1/context.json"
 ```
@@ -950,7 +950,7 @@ Content-Type: application/ld+json;profile="http://iiif.io/api/discovery/1/contex
 
 If the above `Content-Type` header value cannot be generated, then the value _SHOULD_ instead be `application/json` (regular JSON), without a `profile` parameter.
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ```
 Content-Type: application/json
 ```
@@ -972,7 +972,7 @@ Negotiable resources are not supported by the Discovery API, only variants. This
 
 Two variants of the same negotiable resource can be represented as follows.
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   "orderedItems": [

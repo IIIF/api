@@ -41,7 +41,7 @@ __Previous Version:__ [0.9.4][prev-version]
 
 **Editors:**
 
-{% include editors.md editors=page.editors %}
+{% include api/editors.md editors=page.editors %}
 
 {% include copyright2015.md %}
 
@@ -170,6 +170,7 @@ The client _MUST_ append the following query parameter to all requests to an acc
 
 For example, given an access cookie service URI of `https://authentication.example.org/login`, a client instantiated by the page `https://client.example.com/viewer/index.html` would make its request to:
 
+{% include api/code_header.html %}
 ```
 https://authentication.example.org/login?origin=https://client.example.com/
 ```
@@ -191,7 +192,7 @@ With out-of-band knowledge, authorized non-user-driven clients _MAY_ use POST to
 
 An example service description for the Login interaction pattern:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   // ...
@@ -225,7 +226,7 @@ Non-user-driven clients _MUST_ not use access cookie services with the Clickthro
 
 An example service description for the Clickthrough interaction pattern:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   // ...
@@ -259,7 +260,7 @@ Non-user-driven clients simply access the URI from `@id` to obtain the access co
 
 An example service description for the Kiosk interaction pattern:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   // ...
@@ -290,7 +291,7 @@ Non-user-driven clients simply use the related access token service with a previ
 
 An example service description for the External interaction pattern:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   // ...
@@ -317,7 +318,7 @@ The client uses this service to obtain an access token which it then uses when r
 
 The access cookie service description _MUST_ include an access token service description following the template below:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   // Access Cookie Service
@@ -345,7 +346,7 @@ The `@id` property of the access token service _MUST_ be present, and its value 
 
 If the request has a valid cookie that the server recognises as having been issued by the access cookie service, the access token service response _MUST_ include a JSON (not JSON-LD) object with the following structure:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   "accessToken": "TOKEN_HERE",
@@ -368,7 +369,7 @@ This authorization header _SHOULD_ be added to all requests for resources from t
 
 The simplest access token request comes from a non-browser client that can send cookies across domains, where the CORS restrictions do not apply. An example URL:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ```
 https://authentication.example.org/token
 ```
@@ -376,7 +377,7 @@ https://authentication.example.org/token
 
 Would result in the HTTP Request:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ```
 GET /token HTTP/1.1
 Cookie: <cookie-acquired-during-login>
@@ -385,7 +386,7 @@ Cookie: <cookie-acquired-during-login>
 
 The response is the JSON access token object with the media type `application/json`:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   "accessToken": "TOKEN_HERE",
@@ -406,6 +407,7 @@ If the client is a JavaScript application running in a web browser, it needs to 
 
 For example, a client instantiated by the page at `https://client.example.com/viewer/index.html` would request:
 
+{% include api/code_header.html %}
 ```
 https://authentication.example.org/token?messageId=1&origin=https://client.example.com/
 ```
@@ -420,7 +422,7 @@ The exact implementation will vary but _MUST_ include features equivalent to the
 
 The client must first register an event listener to receive a cross domain message:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` javascript
 window.addEventListener("message", receive_message);
 
@@ -437,7 +439,7 @@ function receive_message(event) {
 ```
 It can then open the access token service in a frame:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` javascript
 document.getElementById('messageFrame').src =
   'https://authentication.example.org/token?messageId=1234&origin=https://client.example.com/';
@@ -445,7 +447,7 @@ document.getElementById('messageFrame').src =
 
 The server response will then be a web page with a media type of `text/html` that can post a message to the registered listener:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` html
 <html>
 <body>
@@ -468,7 +470,7 @@ The server response will then be a web page with a media type of `text/html` tha
 
 The access token is sent on all subsequent requests for Description Resources. For example, a request for the image information in the Image API would look like:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ```
 GET /iiif/identifier/info.json HTTP/1.1
 Authorization: Bearer TOKEN_HERE
@@ -480,7 +482,7 @@ Authorization: Bearer TOKEN_HERE
 
 The response from the access token service may be an error. The error _MUST_ be supplied as JSON with the following template. For browser-based clients using the postMessage API, the error object must be sent to the client via JavaScript, in the same way the access token is sent. For direct requests the response body is the raw JSON.
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   "error": "ERROR_TYPE_HERE",
@@ -513,7 +515,7 @@ In the case of the Login interaction pattern, the client will need to know if an
 
 If the authentication system supports users intentionally logging out, there _SHOULD_ be a logout service associated with the access cookie service following the template below:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   // ...
@@ -549,7 +551,7 @@ The client _SHOULD_ present the results of an HTTP `GET` request on the service'
 
 The example below is a complete image information response for an example image with all of the authentication services.
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json-doc
 {
   "@context" : "http://iiif.io/api/image/2/context.json",

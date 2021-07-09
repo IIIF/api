@@ -1,7 +1,6 @@
 ---
 title: IIIF API Annex Documents
 layout: page
-
 ---
 
 

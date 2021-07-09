@@ -41,7 +41,7 @@ __Previous Version:__ None
 
 **Editors:**
 
-{% include editors.md editors=page.editors %}
+{% include api/editors.md editors=page.editors %}
 
 {% include copyright.md %}
 
@@ -127,7 +127,7 @@ A content state Annotation always has the motivation `contentState`. This motiva
 
 A content state annotation can take several formats. All of the four examples below are equivalent to the following annotation, which is the simplest content state: a reference to a IIIF Manifest.
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json
 {
   "@context": "http://iiif.io/api/presentation/3/context.json",
@@ -158,7 +158,7 @@ The content state _MAY_ be supplied as a string whose value is the URI of an Ann
 
 The content state _MAY_ be supplied as JSON-LD, as the value of the `target` property of an implied Annotation with the motivation `contentState`. For the example above, this would be:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json
 {
     "id": "https://example.org/iiif/item1/manifest",
@@ -178,7 +178,7 @@ Examples 2.2.2 and 2.2.4 are both URIs. It is up to the client to recognise that
 
 While supporting many requirements for sharing resources and initializing a client application, the 2.2.4 form is not capable of expressing content states that are part of a IIIF resource, such as a region of a Canvas, or a Canvas URI that is not itself de-referenceable. One of the other forms must be used for these purposes.
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json
 {
   "@context": "http://iiif.io/api/presentation/3/context.json",
@@ -199,7 +199,7 @@ While supporting many requirements for sharing resources and initializing a clie
 This description cannot be conveyed by just a Canvas URI or a Manifest URI; it needs the structure provided by a content state Annotation. It can be reduced to _Target body_ form, but no further:
 
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json
 {
   "id": "https://example.org/object1/canvas7#xywh=1000,2000,1000,2000",
@@ -238,7 +238,7 @@ When published as inline, base64url-encoded JSON-LD in the full form given in 2.
 
 ##### 2.3.2 Example of base64url encoding
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json
 {
   "id": "https://example.org/object1/canvas7#xywh=1000,2000,1000,2000",
@@ -259,7 +259,7 @@ The above annotation JSON can be condensed to remove unecessary whitespace:
 
 The condensed form is then encoded (this example in Python):
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` python
 >>> import base64
 >>> base64.urlsafe_b64encode(b'{"id":"https://example.org/object1/canvas7#xywh=1000,2000,1000,2000","type":"Canvas","partOf":[{"id":"https://example.org/object1/manifest","type":"Manifest"}]}')
@@ -311,7 +311,7 @@ The data structure _MAY_ be made available to the client using the following mec
 
 If the intention is that the linked-to client loads an entire IIIF resource without focusing on any particular part, the simplest form of the content state _SHOULD_ be used:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` html
 {% raw %}
 <a href="https://example.org/viewer?iiif-content=http://dams.llgc.org.uk/iiif/2.0/4389767/manifest.json">Link to Viewer</a>
@@ -324,7 +324,7 @@ When the intention is to initialize the viewer at a particular part of the resou
 
 In the following examples, the same Annotation is used each time. As JSON:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json
 {
   "type": "Annotation",
@@ -346,7 +346,7 @@ An example of this usage would be a link from search results to a particular pag
 
 Without encoding, the link to the viewer would look like this:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` html
 {% raw %}
 <a href='https://example.org/viewer?iiif-content={"type":"Annotation","motivation":"contentState","target":{"id":"http://dams.llgc.org.uk/iiif/2.0/4389767/canvas/4389772.json","type":"Canvas","partOf":[{"id":"http://dams.llgc.org.uk/iiif/2.0/4389767/manifest.json","type":"Manifest"}]}}'>Link to Viewer</a>
@@ -355,7 +355,7 @@ Without encoding, the link to the viewer would look like this:
 
 However, as JSON-LD, this _MUST_ be base64url encoded UTF-8:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` html
 {% raw %}
 <a href="https://example.org/viewer?iiif-content=aHR0cHM6Ly9leGFtcGxlLm9yZy92aWV3ZXI_aWlpZi1jb250ZW50PXsidHlwZSI6IkFubm90YXRpb24iLCJtb3RpdmF0aW9uIjoiY29udGVudFN0YXRlIiwidGFyZ2V0Ijp7ImlkIjoiaHR0cDovL2RhbXMubGxnYy5vcmcudWsvaWlpZi8yLjAvNDM4OTc2Ny9jYW52YXMvNDM4OTc3Mi5qc29uIiwidHlwZSI6IkNhbnZhcyIsInBhcnRPZiI6W3siaWQiOiJodHRwOi8vZGFtcy5sbGdjLm9yZy51ay9paWlmLzIuMC80Mzg5NzY3L21hbmlmZXN0Lmpzb24iLCJ0eXBlIjoiTWFuaWZlc3QifV19fQ==">Link to Viewer</a>
@@ -364,7 +364,7 @@ However, as JSON-LD, this _MUST_ be base64url encoded UTF-8:
 
 The content state may be passed as just the `target` property of an implied Annotation with motivation `contentState`, that is:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json
 {
   "id": "http://dams.llgc.org.uk/iiif/2.0/4389767/canvas/4389772.json",
@@ -380,7 +380,7 @@ The content state may be passed as just the `target` property of an implied Anno
 
 This results in a more compact form. If unencoded, this would be:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` html
 {% raw %}
 <a href='https://example.org/viewer?iiif-content={"id":"http://dams.llgc.org.uk/iiif/2.0/4389767/canvas/4389772.json","type":"Canvas","partOf":[{"id":"http://dams.llgc.org.uk/iiif/2.0/4389767/manifest.json","type":"Manifest"}]}'>Link to Viewer</a>
@@ -389,7 +389,7 @@ This results in a more compact form. If unencoded, this would be:
 
 However, as JSON-LD again, this _MUST_ be base64url encoded UTF-8:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` html
 {% raw %}
 <a href="https://example.org/viewer?iiif-content=aHR0cHM6Ly9leGFtcGxlLm9yZy92aWV3ZXI_aWlpZi1jb250ZW50PXsiaWQiOiJodHRwOi8vZGFtcy5sbGdjLm9yZy51ay9paWlmLzIuMC80Mzg5NzY3L2NhbnZhcy80Mzg5NzcyLmpzb24iLCJ0eXBlIjoiQ2FudmFzIiwicGFydE9mIjpbeyJpZCI6Imh0dHA6Ly9kYW1zLmxsZ2Mub3JnLnVrL2lpaWYvMi4wLzQzODk3NjcvbWFuaWZlc3QuanNvbiIsInR5cGUiOiJNYW5pZmVzdCJ9XX0=">Link to Viewer</a>
@@ -415,7 +415,7 @@ In this example, the server at `https://example.org/citation-renderer` should ex
 
 The client allows the content state URI or data to be pasted into part of its UI (e.g., from a "Load..." option exposing a `textarea` element for the user to manually paste into). A client can also accept a paste operation transparently, by reading from the clipboard:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` html
 <script>
     document.addEventListener('paste', event => {
@@ -436,7 +436,7 @@ Refer to Section 3.2 below for methods of exporting data, including the _Copy to
 
 In this scenario, one client provides a _draggable_ element:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` html
 <img src="http://iiif.io/img/logo-iiif-34x30.png" draggable="true" ondragstart="drag(event)" />
 
@@ -454,7 +454,7 @@ In this scenario, one client provides a _draggable_ element:
 
 And another client provides an element capable of receiving a `drop` event:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` html
     <div id="dropbox" ondrop="drop(event)" ondragover="allowDrop(event)" ondragexit="deselect(event)">
         <!-- this could be the viewport -->
@@ -490,7 +490,7 @@ The first parameter to `setData` and `getData` is the content type, and for maxi
 
 A JavaScript client can accept content state from the client machine via the `FileReader` interface:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` html
 <form>
     <input type="file" id="selectFiles" value="Import" /><br />
@@ -520,7 +520,7 @@ A JavaScript client can accept content state from the client machine via the `Fi
 
 This is a variant of 3.1.1, with the parameter value a URI rather than the content itself.
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` html
 <a href="https://example.org/viewer?iiif-content=https://publisher.org/fragment123.json">Link to Viewer</a>
 ```
@@ -531,7 +531,7 @@ The same rules apply; the viewer _MUST_ dereference and process the Annotation a
 
 If a IIIF client can accept a content state via a custom HTML attribute, then it _SHOULD_ use the attribute `data-iiif-content` for this purpose, to assist page developers using that client in understanding what the attribute is for. A viewer that accepts content state _SHOULD_ process an Annotation in any of the forms described in the GET parameter section.
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` html
 
 <p>Loading a whole manifest</p>
@@ -566,7 +566,7 @@ Publishers should strive to provide the simplest JSON-LD representation, and not
 
 ### 4.1. A region of a canvas in a manifest
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json
 {
   "@context": "http://iiif.io/api/presentation/3/context.json",
@@ -589,7 +589,7 @@ When processed by a viewer, the user should see the rectangle `1000,2000,1000,20
 
 ### 4.2. Start playing at a point in a recording
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json
 {
   "@context": "http://iiif.io/api/presentation/3/context.json",
@@ -619,7 +619,7 @@ This example should cause a viewer to open Manifest https://example.org/iiif/id1
 
 ### 4.3. Multiple targets for a comparison view
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` json
 {
   "@context": "http://iiif.io/api/presentation/3/context.json",
@@ -660,7 +660,7 @@ The following example uses the compact, query string form of the content state t
 
 Firstly, in non-valid, unencoded form to show the annotation:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` html
 <h2>Results for "cats"</h2>
 <ol>
@@ -674,7 +674,7 @@ Firstly, in non-valid, unencoded form to show the annotation:
 
 ...and then in encoded form:
 
-{% include code_header.html %}
+{% include api/code_header.html %}
 ``` html
 <h2>Results for "cats"</h2>
 <ol>
