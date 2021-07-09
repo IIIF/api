@@ -102,8 +102,9 @@ This section provides an overview of the resource types (or classes) that are us
 
 This specification makes use of the following primary resource types:
 
-![Primary Resource Types](img/objects.png){: .h400px}
-{: .floatRight}
+
+{% include content/inline-image.html image="api/presentation/2.1/img/objects.png" alt_text="Primary Resource Types" caption="Primary Resource Types" float="right"%}
+
 
 ##### Manifest
 {: #overview-manifest}
@@ -127,8 +128,7 @@ Content resources such as images or texts that are associated with a canvas.
 
 ### 2.2. Additional Types
 
-![All Resource Types](img/objects-all.png)
-{: .floatRight .clearRight}
+{% include content/inline-image.html image="api/presentation/2.1/img/objects-all.png" alt_text="All Resource Types" caption="All Resource Types" float="right"%}
 
 ##### Collection
 {: #overview-collection}
