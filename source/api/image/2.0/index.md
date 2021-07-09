@@ -9,6 +9,8 @@ minor: 0
 patch: 0
 pre: final
 sitemap: false
+hero:
+  image: ''
 ---
 
 ## Status of this Document

@@ -9,6 +9,8 @@ minor: 0
 patch: 0
 pre: final
 sitemap: false
+hero:
+  image: ''
 ---
 
 ## Status of this Document
@@ -77,8 +79,7 @@ Collectively the use cases require a model in which one can characterize the obj
 ##  3. Primary Resource Types
 {: #primary-resource-types}
 
-![Primary Resource Types](img/objects.png){: .h400px}
-{: .floatRight}
+{% include content/inline-image.html image="api/presentation/2.0/img/objects.png" alt_text="Primary Resource Types" caption="Primary Resource Types" float="right"%}
 
 This specification makes use of the following primary resource types:
 

@@ -4,6 +4,8 @@ id: apis
 layout: spec
 tags: [specifications ]
 cssversion: 2
+hero:
+  image: ''
 ---
 
 ## Current Specifications

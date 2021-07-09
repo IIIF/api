@@ -1,7 +1,8 @@
 ---
 title: IIIF Image API 1.0
 layout: spec
-
+hero:
+  image: ''
 ---
 
 Editors:   

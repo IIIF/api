@@ -28,6 +28,8 @@ editors:
   - name: Simeon Warner
     orchid: https://orcid.org/0000-0002-7970-7855
     institution: Cornell University
+hero:
+  image: ''
 ---
 
 ## Status of this Document
