@@ -1,10 +1,7 @@
 ---
 title: "IIIF Open/Web Annotation Extensions"
 title_override: "IIIF Open/Web Annotation Extensions"
-id: index
 layout: spec
-tags: [specifications, annex]
-cssversion: 2
 ---
 
 ## Status of this Document
@@ -151,6 +148,7 @@ Thanks to the members of the [IIIF][iiif-community] for their continuous engagem
 | ---------- | -------------------------------------------------- |
 | 2018-03-14 | Version 1.1 (Update ImageApi, add Point Selectors) |
 | 2014-07-01 | Version 1.0 (RFC)                                  |
+{:.api-table}
 
 {% include acronyms.md %}
 {% include links.md %}

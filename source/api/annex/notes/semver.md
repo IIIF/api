@@ -1,6 +1,6 @@
 ---
 title: "Versioning of APIs"
-layout: spec
+layout: page
 tags: [annex, presentation-api, image-api]
 cssversion: 2
 redirect_from:

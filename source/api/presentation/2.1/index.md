@@ -278,7 +278,7 @@ The direction that a sequence of canvases _SHOULD_ be displayed to the user. Pos
  * A range or layer _MAY_ have exactly one viewing direction.
  * Other resource types _MUST NOT_ have a viewing direction.
 
-> | Value | Description |
+| Value | Description |
 | ----- | ----------- |
 | `left-to-right` | The object is displayed from left to right. The default if not specified. |
 | `right-to-left` | The object is displayed from right to left. |
@@ -291,7 +291,7 @@ A hint to the client as to the most appropriate method of displaying the resourc
 
  * Any resource type _MAY_ have one or more viewing hints.
 
-> | Value | Description |
+| Value | Description |
 | ----- | ----------- |
 | `individuals` | Valid on collection, manifest, sequence and range. When used as the viewingHint of a collection, the client should treat each of the manifests as distinct individual objects. For manifest, sequence and range, the canvases referenced are all distinct individual views, and _SHOULD NOT_ be presented in a page-turning interface. Examples include a gallery of paintings, a set of views of a 3 dimensional object, or a set of the front sides of photographs in a collection. |
 | `paged` | Valid on manifest, sequence and range. Canvases with this `viewingHint` represent pages in a bound volume, and _SHOULD_ be presented in a page-turning interface if one is available.  The first canvas is a single view (the first recto) and thus the second canvas represents the back of the object in the first canvas. |

@@ -1,8 +1,6 @@
 ---
 title: "Apache HTTP Server Implementation Notes"
 layout: spec
-tags: [annex, presentation-api, image-api]
-cssversion: 2
 redirect_from:
   - /api/annex/notes/apache.html
 ---
