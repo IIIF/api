@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/mnyrop/iiifc-theme.git
-  revision: 4cbc2e044be679d628c5818d55734b402929f3fd
+  revision: 9b1459e132fcbcd79ad47a90d21859cf4d2c7375
   branch: main
   specs:
     iiifc-theme (0.1.0)
@@ -89,7 +89,7 @@ GEM
     public_suffix (4.0.6)
     racc (1.5.2)
     rainbow (3.0.0)
-    rake (13.0.5)
+    rake (13.0.6)
     rb-fsevent (0.11.0)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
