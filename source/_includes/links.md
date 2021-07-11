@@ -2,7 +2,7 @@
 
 <!-- Keep two spaces at the top of this file -->
 [annex-notes]: {{ site.url }}{{ site.baseurl }}/api/annex/ "Implementation Notes"
-[annex-cookbook]: {{ site.url }}{{ site.baseurl }}/api/cookbook/ "IIIF Cookbook"
+[annex-cookbook]: {{ site.cookbook_url }} "IIIF Cookbook"
 [annex-json-ld]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/jsonld/ "JSON-LD Frames Implementation Notes"
 [annex-oa]: {{ site.url }}{{ site.baseurl }}/api/annex/openannotation/ "Open Annotation Extensions"
 [annex-patterns]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/design_patterns/
