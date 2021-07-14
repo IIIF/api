@@ -26,10 +26,10 @@ As compliance documents specify required functionality and only have major versi
 While the APIs should always be consistent and compatible, it is not intended that version numbers will necessarily remain synchronized across the IIIF suite of APIs. A change in one API will not advance the version number of another.
 
 
-[proposed-changes]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/proposed-changes/ "Proposed Changes"
+[proposed-changes]: https://iiif.io/api/annex/notes/proposed-changes/ "Proposed Changes"
 [semver]: http://semver.org/spec/v2.0.0.html "Semantic Versioning 2.0.0"
-[image-api]: {{ site.url }}{{ site.baseurl }}/api/image/{{ site.image_api.stable.major }}.{{ site.image_api.stable.minor }}/ "Image API"
-[prezi-api]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.stable.major }}.{{ site.presentation_api.stable.minor }}/ "Presentation API"
-[image-compliance]: {{ site.url }}{{ site.baseurl }}/api/image/{{ site.image_api.stable.major }}.{{ site.image_api.stable.minor }}/compliance/ "Image API Compliance"
+[image-api]: {{ site.api_url }}/image/{{ site.data.apis.image.latest.major }}.{{ site.data.apis.image.latest.minor }}/ "Image API"
+[prezi-api]: {{ site.api_url }}/presentation/{{ site.data.apis.presentation.latest.major }}.{{ site.data.apis.presentation.latest.minor }}/ "Presentation API"
+[image-compliance]: {{ site.api_url }}/image/{{ site.data.apis.image.latest.major }}.{{ site.data.apis.image.latest.minor }}/compliance/ "Image API Compliance"
 
 {% include acronyms.md %}
