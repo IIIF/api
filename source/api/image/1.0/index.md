@@ -175,9 +175,9 @@ source image should be returned.
 
 | Form of Region Parameter | Description |
 |----|----|
-  | `full`     |                  The complete image is returned, without any cropping. |
-  | `x,y,w,h `  |                 The region of the source image to be returned is defined in terms of absolute pixel values. The value of x represents the number of pixels from the 0 position on the horizontal axis. The value of y represents the number of pixels from the 0 position on the vertical axis. Thus the x,y position 0,0 is the upper left-most pixel of the image. w represents the width of the region and h represents the height of the region in pixels. |
-  | `pct:x,y,w,h` |                The region to be returned is specified as a sequence of percentages of the source image's dimensions. Thus, x represents the number of pixels from the 0 position on the horizontal axis, calculated as a percentage of the source image's width. w represents the width of the region calculated as a percentage of the [source image's width]{style="font-style: italic;"}. The same applies to y and h respectively. These may be floating point numbers (see [Section 5 - Image Information Request](#info)). |
+| `full`     |                  The complete image is returned, without any cropping. |
+| `x,y,w,h `  |                 The region of the source image to be returned is defined in terms of absolute pixel values. The value of x represents the number of pixels from the 0 position on the horizontal axis. The value of y represents the number of pixels from the 0 position on the vertical axis. Thus the x,y position 0,0 is the upper left-most pixel of the image. w represents the width of the region and h represents the height of the region in pixels. |
+| `pct:x,y,w,h` |                The region to be returned is specified as a sequence of percentages of the source image's dimensions. Thus, x represents the number of pixels from the 0 position on the horizontal axis, calculated as a percentage of the source image's width. w represents the width of the region calculated as a percentage of the [source image's width]{style="font-style: italic;"}. The same applies to y and h respectively. These may be floating point numbers (see [Section 5 - Image Information Request](#info)). |
 
 If the request specifies a region which extends beyond the dimensions of the source image, then the service should return an image cropped at the boundary of the source image.
 
@@ -197,12 +197,12 @@ region is to be scaled.
 
 | Form of Size Parameter | Description |
 |----|----|
-  | `full`  |                   The extracted region is not scaled, and is returned at its full size. | 
-  | `w,`    |                   The extracted region should be scaled so that its width is exactly equal to w, and the height will be a calculated value that maintains the aspect ratio of the requested region. | 
-  | `,h`    |                   The extracted region should be scaled so that its height is exactly equal to h, and the width will be a calculated value that maintains the aspect ratio of the requested region. | 
-  | `pct:n` |                   The width and height of the returned image is scaled to n% of the width and height of the extracted region. The aspect ratio of the returned image is the same as that of the extracted region. | 
-  | `w,h `  |                   The width and height of the returned image are exactly w and h. The aspect ratio of the returned image MAY be different than the extracted region, resulting in a distorted image. | 
-  | `!w,h ` |                   The image content is scaled for the best fit such that the resulting width and height are less than or equal to the requested width and height. The exact scaling MAY be determined by the service provider, based on characteristics including image quality and system performance. The dimensions of the returned image content are calculated to maintain the aspect ratio of the extracted region. | 
+| `full`  |                   The extracted region is not scaled, and is returned at its full size. | 
+| `w,`    |                   The extracted region should be scaled so that its width is exactly equal to w, and the height will be a calculated value that maintains the aspect ratio of the requested region. | 
+| `,h`    |                   The extracted region should be scaled so that its height is exactly equal to h, and the width will be a calculated value that maintains the aspect ratio of the requested region. | 
+| `pct:n` |                   The width and height of the returned image is scaled to n% of the width and height of the extracted region. The aspect ratio of the returned image is the same as that of the extracted region. | 
+| `w,h `  |                   The width and height of the returned image are exactly w and h. The aspect ratio of the returned image MAY be different than the extracted region, resulting in a distorted image. | 
+| `!w,h ` |                   The image content is scaled for the best fit such that the resulting width and height are less than or equal to the requested width and height. The exact scaling MAY be determined by the service provider, based on characteristics including image quality and system performance. The dimensions of the returned image content are calculated to maintain the aspect ratio of the extracted region. | 
 
 
 If the resulting height or width is zero, then the server MUST return a
@@ -322,6 +322,7 @@ manipulations were:
 ![Illustrated example of order of
 implementation](images/iiif-order.png)
 
+<a name="info"></a>
 ## 5. Image Information Request
 
 
@@ -473,6 +474,7 @@ The compliance profile URI given in the Link header (between \< and \>)
 may also be returned in the profile element of responses to Image
 Information Requests.
 
+<a name="url_encoding"></a>
 ## 9. URL Encoding and Decoding
 
 The URL syntax of this API relies upon slash (/) separators which MUST
