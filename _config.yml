@@ -4,6 +4,7 @@ permalink:      pretty
 
 root_url:       'https://preview.iiif.io/root/wireframe'
 api_url:        '/api'
+cookbook_url:   'https://iiif.io/api/cookbook/'
 
 plugins:
   - jekyll-data
