@@ -68,13 +68,13 @@ The above configuration snippet may also be used for Presentation API implementa
 
 Note that for version 3.0 of the [Presentation][prezi30] and [Image][image30] APIs, these media types should also have the appropriate `profile` parameter as part of the `Content-Type` value.
 
-[uri-encoding-and-decoding]: {{ site.api_url }}/image/2.0#uri-encoding-and-decoding "Image API: URI Encoding and Decoding"
-[image-compliance-levels]: {{ site.api_url }}/image/2.0#compliance-levels "Image API: Compliance Levels"
+[uri-encoding-and-decoding]: {{ site.url }}{{ site.baseurl }}/api/image/2.0#uri-encoding-and-decoding "Image API: URI Encoding and Decoding"
+[image-compliance-levels]: {{ site.url }}{{ site.baseurl }}/api/image/2.0#compliance-levels "Image API: Compliance Levels"
 [apache-aesnd]: http://httpd.apache.org/docs/2.2/mod/core.html#allowencodedslashes "Allow Encoded Slashes directive"
 [set-compliance-link-header]: #set-compliance-link-header
-[image-api]: {{ site.api_url }}/image/2.0/
-[prezi-api]: {{ site.api_url }}/presentation/2.0/
-[image30]: {{ site.api_url }}/image/3.0/ "Image API 3.0"
-[prezi30]: {{ site.api_url }}/presentation/3.0/ "Image API 3.0"
+[image-api]: {{ site.url }}{{ site.baseurl }}/api/image/2.0/
+[prezi-api]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.0/
+[image30]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/ "Image API 3.0"
+[prezi30]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/ "Image API 3.0"
 
 {% include acronyms.md %}

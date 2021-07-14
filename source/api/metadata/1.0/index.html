@@ -18,10 +18,10 @@ redirect_from:
     <meta name="description" content="Interoperability Interoperability Image Framework : A community driven image framework with well defined APIs for making the world's image repositories interoperable and accessible">
     <meta name="viewport" content="width=device-width">
 
-    <link rel="stylesheet" href="{{ site.root_url }}/css/normalize.min.css">
+    <link rel="stylesheet" href="{{ site.url }}{{ site.baseurl }}/css/normalize.min.css">
     <link href='https://fonts.googleapis.com/css?family=Raleway:100,300,500' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="{{ site.root_url }}/css/main.css">
+    <link rel="stylesheet" href="{{ site.url }}{{ site.baseurl }}/css/main.css">
 
 <style>
     .warning {
@@ -48,13 +48,13 @@ redirect_from:
 
     <div class="header-container">
       <header class="wrapper clearfix">
-        <a class="title" title="IIIF : International Image Interoperability Framework" href="{{ site.root_url }}/">Home</a>
+        <a class="title" title="IIIF : International Image Interoperability Framework" href="{{page.webprefix}}/">Home</a>
         <nav>
           <ul>
-            <li><a href="{{ site.root_url }}/about/">About</a></li>
-            <li><a href="{{ site.root_url }}/technical-details/">Technical Details</a></li>
-            <li><a href="{{ site.root_url }}/apps-demos/">Apps &amp; Demos</a></li>
-            <li><a href="{{ site.root_url }}/community/">Community</a></li>
+            <li><a href="{{page.webprefix}}/about/">About</a></li>
+            <li><a href="{{page.webprefix}}/technical-details/">Technical Details</a></li>
+            <li><a href="{{page.webprefix}}/apps-demos/">Apps &amp; Demos</a></li>
+            <li><a href="{{page.webprefix}}/community/">Community</a></li>
           </ul>
         </nav>
       </header>
@@ -71,7 +71,7 @@ redirect_from:
 
 <blockquote>
 <div class="warning">
-This API has been replaced by the <a href="{{ site.api_url }}/presentation/"><strong>IIIF Presentation API</strong></a> and should not be used.
+This API has been replaced by the <a href="{{ site.url }}{{ site.baseurl }}/api/presentation/"><strong>IIIF Presentation API</strong></a> and should not be used.
 </div>
 </blockquote>
 
@@ -532,7 +532,7 @@ This API has been replaced by the <a href="{{ site.api_url }}/presentation/"><st
                 </ul>
               </li>
               <li>
-                Additional image information may be provided, as described in the <a href="{{ site.api_url }}/image/1.1/">IIIF Image API</a>.
+                Additional image information may be provided, as described in the <a href="{{ site.url }}{{ site.baseurl }}/api/image/1.1/">IIIF Image API</a>.
               </li>
             </ul>
 
@@ -554,7 +554,7 @@ This API has been replaced by the <a href="{{ site.api_url }}/presentation/"><st
               </li>
               <li>
                 <span class="font-weight-600">service</span>: A link to a service that makes more functionality available for the resource, such as from
-                an image to the base URI of an <a href="{{ site.api_url }}/image/1.1/">IIIF Image API service</a>. The
+                an image to the base URI of an <a href="{{ site.url }}{{ site.baseurl }}/api/image/1.1/">IIIF Image API service</a>. The
                 service resource should have additional information associated with it in order to allow the client to determine how to make appropriate
                 use of it, such as a "profile" link to a service description or information duplicated from the IIIF Image API Information Request
               </li>
@@ -998,11 +998,11 @@ This API has been replaced by the <a href="{{ site.api_url }}/presentation/"><st
               detail below.
             </p>
             <p>
-              If the <a href="{{ site.api_url }}/image/1.1/">IIIF Image API</a> is available for
+              If the <a href="{{ site.url }}{{ site.baseurl }}/api/image/1.1/">IIIF Image API</a> is available for
               the image, then a link to the service's endpoint should be included. The endpoint is the URI up to the identifier, but not
               including the trailing slash character or any of the subsequent parameters. The profile of the service should be the
               supported conformance level, and the additional fields from the
-              <a href="{{ site.api_url }}/image/1.1/#image-info-request">Image API info document</a> may be
+              <a href="{{ site.url }}{{ site.baseurl }}/api/image/1.1/#image-info-request">Image API info document</a> may be
               included in this JSON object to avoid requiring it to be downloaded separately.
             </p>
             <p>

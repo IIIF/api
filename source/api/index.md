@@ -12,11 +12,11 @@ hero:
 
 | API                | Current Version |
 | ------------------ | --------------- |
-| Image API          | [{{ site.data.apis.image.latest.major }}.{{ site.data.apis.image.latest.minor }}.{{ site.data.apis.image.latest.patch}}][image{{ site.data.apis.image.latest.major }}{{ site.data.apis.image.latest.minor }}] |
-| Presentation API   | [{{ site.data.apis.presentation.latest.major }}.{{ site.data.apis.presentation.latest.minor }}.{{ site.data.apis.presentation.latest.patch }}][prezi{{ site.data.apis.presentation.latest.major }}{{ site.data.apis.presentation.latest.minor }}] |
-| Authentication API | [{{ site.data.apis.auth.latest.major }}.{{ site.data.apis.auth.latest.minor }}.{{ site.data.apis.auth.latest.patch}}][auth{{ site.data.apis.auth.latest.major }}{{ site.data.apis.auth.latest.minor }}] |
+| Image API          | [{{ site.data.apis.image.stable.major }}.{{ site.data.apis.image.stable.minor }}.{{ site.data.apis.image.stable.patch}}][image{{ site.data.apis.image.stable.major }}{{ site.data.apis.image.stable.minor }}] |
+| Presentation API   | [{{ site.data.apis.presentation.stable.major }}.{{ site.data.apis.presentation.stable.minor }}.{{ site.data.apis.presentation.stable.patch }}][prezi{{ site.data.apis.presentation.stable.major }}{{ site.data.apis.presentation.stable.minor }}] |
+| Authentication API | [{{ site.data.apis.auth.stable.major }}.{{ site.data.apis.auth.stable.minor }}.{{ site.data.apis.auth.stable.patch}}][auth{{ site.data.apis.auth.stable.major }}{{ site.data.apis.auth.stable.minor }}] |
 | Change Discovery API | [{{ site.data.apis.discovery.latest.major }}.{{ site.data.apis.discovery.latest.minor }}.{{ site.data.apis.discovery.latest.patch}}][discovery{{ site.data.apis.discovery.latest.major }}{{ site.data.apis.discovery.latest.minor }}] |
-| Content Search API | [{{ site.data.apis.search.latest.major }}.{{ site.data.apis.search.latest.minor }}.{{ site.data.apis.search.latest.patch }}][search{{ site.data.apis.search.latest.major }}{{ site.data.apis.search.latest.minor }}] |
+| Content Search API | [{{ site.data.apis.search.stable.major }}.{{ site.data.apis.search.stable.minor }}.{{ site.data.apis.search.stable.patch }}][search{{ site.data.apis.search.stable.major }}{{ site.data.apis.search.stable.minor }}] |
 {: .api-table}
 
 ## Draft Specifications
@@ -76,7 +76,7 @@ Current IIIF specifications _SHOULD_ be used for all new work. Old versions are 
 
 ## Notes
 
-IIIF also has a series of [Implementation Notes][annex-notes] which are not subject to the same process as formal APIs but may be useful to implementers.
+IIIF also has a series of [Implementation Notes][notes] which are not subject to the same process as formal APIs but may be useful to implementers.
 
 ## Process
 

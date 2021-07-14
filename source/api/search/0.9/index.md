@@ -34,7 +34,7 @@ hero:
 {:.no_toc}
 __This Version:__ {{ page.major }}.{{ page.minor }}.{{ page.patch }}{% if page.pre != 'final' %}-{{ page.pre }}{% endif %}
 
-__Latest Stable Version:__ [{{ site.data.apis.search.latest.major }}.{{ site.data.apis.search.latest.minor }}.{{ site.data.apis.search.latest.patch }}][stable-version]
+__Latest Stable Version:__ [{{ site.search_api.stable.major }}.{{ site.search_api.stable.minor }}.{{ site.search_api.stable.patch }}][stable-version]
 
 {% include beta.md %}
 
@@ -748,20 +748,20 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 
 [cc-by]: http://creativecommons.org/licenses/by/4.0/ "Creative Commons &mdash; Attribution 4.0 International"
 [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
-[versioning]: {{ site.api_url }}/annex/notes/semver/ "Versioning of APIs"
+[versioning]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/semver/ "Versioning of APIs"
 [mellon]: http://www.mellon.org/ "The Andrew W. Mellon Foundation"
 [semver]: http://semver.org/spec/v2.0.0.html "Semantic Versioning 2.0.0"
-[iiif-community]: {{ site.root_url }}/community/ "IIIF Community"
-[stable-version]: {{ site.api_url }}/search/{{ site.data.apis.search.latest.major }}.{{ site.data.apis.search.latest.minor }}/ "Stable Version"
-[paging]: {{ site.api_url }}/presentation/2.0/
+[iiif-community]: {{page.webprefix}}/community/ "IIIF Community"
+[stable-version]: {{ site.url }}{{ site.baseurl }}/api/search/{{ site.search_api.stable.major }}.{{ site.search_api.stable.minor }}/ "Stable Version"
+[paging]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.0/
 
-[image-api]: {{ site.api_url }}/image/2.0/ "Image API"
+[image-api]: {{ site.url }}{{ site.baseurl }}/api/image/2.0/ "Image API"
 [openanno]: http://www.openannotation.org/spec/core/ "Open Annotation"
-[prezi-api]: {{ site.api_url }}/presentation/2.0/ "Presentation API"
+[prezi-api]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.0/ "Presentation API"
 [rfc-2119]: http://tools.ietf.org/html/rfc2119
-[service-annex]: {{ site.api_url }}/annex/services/
-[prezi-annolist]: {{ site.api_url }}/presentation/2.0/#other-content-resources
-[prezi-layer]: {{ site.api_url }}/presentation/2.0/#layers
+[service-annex]: {{ site.url }}{{ site.baseurl }}/api/annex/services/
+[prezi-annolist]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.0/#other-content-resources
+[prezi-layer]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.0/#Layers
 [ignored-parameters]: #ignored-parameters
 [oa-textquotesel]: http://www.openannotation.org/spec/core/
 

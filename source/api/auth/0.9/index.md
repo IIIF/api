@@ -36,7 +36,7 @@ hero:
 
 __This Version:__ {{ page.major }}.{{ page.minor }}.{{ page.patch }}{% if page.pre != 'final' %}-{{ page.pre }}{% endif %}
 
-__Latest Stable Version:__ [{{ site.data.apis.auth.latest.major }}.{{ site.data.apis.auth.latest.minor }}.{{ site.data.apis.auth.latest.patch }}][stable-version]
+__Latest Stable Version:__ [{{ site.auth_api.stable.major }}.{{ site.auth_api.stable.minor }}.{{ site.auth_api.stable.patch }}][stable-version]
 
 __Beta Specification for Trial Use__
 This is a work in progress. We are actively seeking implementations and feedback.  No section should be considered final, and the absence of any content does not imply that such content is out of scope, or may not appear in the future.  Please send any feedback to [iiif-discuss@googlegroups.com][iiif-discuss].
@@ -683,16 +683,16 @@ Many thanks to the members of the [IIIF Community][iiif-community] for their con
 [client-auth-img]: img/auth-flow-client.png
 [server-auth-img]: img/auth-flow-server.png
 [semver]: http://semver.org/spec/v2.0.0.html "Semantic Versioning 2.0.0"
-[iiif-community]: {{ site.root_url }}/community/ "IIIF Community"
-[versioning]: {{ site.api_url }}/annex/notes/semver/ "Versioning of APIs"
+[iiif-community]: {{page.webprefix}}/community/ "IIIF Community"
+[versioning]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/semver/ "Versioning of APIs"
 [mellon]: http://www.mellon.org/ "The Andrew W. Mellon Foundation"
 [rfc-2119]: http://tools.ietf.org/html/rfc2119 "Key words for use in RFCs to Indicate Requirement Levels"
-[prezi-api]: {{ site.api_url }}/presentation/
-[image-api]: {{ site.api_url }}/image/
-[ext-services]: {{ site.api_url }}/annex/services/
+[prezi-api]: {{ site.url }}{{ site.baseurl }}/api/presentation/
+[image-api]: {{ site.url }}{{ site.baseurl }}/api/image/
+[ext-services]: {{ site.url }}{{ site.baseurl }}/api/annex/services/
 [bearer-token]: https://tools.ietf.org/html/rfc6750#section-1.2 "OAuth2 Bearer Tokens"
 [rfc-2818]: https://tools.ietf.org/html/rfc2818 "HTTP Over TLS"
 [implementation-notes]: implementation/ "IIIF Authentication: Implementation Notes"
-[stable-version]: {{ site.api_url }}/auth/{{ site.data.apis.auth.latest.major }}.{{ site.data.apis.auth.latest.minor }}/ "Stable Version"
+[stable-version]: {{ site.url }}{{ site.baseurl }}/api/auth/{{ site.auth_api.stable.major }}.{{ site.auth_api.stable.minor }}/ "Stable Version"
 
 {% include acronyms.md %}

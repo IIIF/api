@@ -11,12 +11,12 @@ redirect_from:
 <section class="wrapper">
 	<div id="gen">
 		<p>The IIIF Image API validator runs a set of tests against your implementation.
-		<p>You must first download the test image (by clicking the button below) then save and import the test image into your repository, to be served through your IIIF Image service.  Once the image is accessible through your IIIF service, you may then run the tests in the <a href="{{ site.api_url }}/image/validator/">validator</a>.  Fill out <code>server</code> with the hostname of your server, <code>prefix</code> with everything in the URI path up to the identifier, and your <code>identifier</code> for the test image.
+		<p>You must first download the test image (by clicking the button below) then save and import the test image into your repository, to be served through your IIIF Image service.  Once the image is accessible through your IIIF service, you may then run the tests in the <a href="{{ site.url }}{{ site.baseurl }}/api/image/validator/">validator</a>.  Fill out <code>server</code> with the hostname of your server, <code>prefix</code> with everything in the URI path up to the identifier, and your <code>identifier</code> for the test image.
 		</p>
 		<p>Click to download a test image below.</p>
 		<ul>
-			<li><a href="{{ site.api_url }}/image/validator/67352ccc-d1b0-11e1-89ae-279075081939.png" target="new">Download PNG Image</a></li>
-			<li><a href="{{ site.api_url }}/image/validator/67352ccc-d1b0-11e1-89ae-279075081939.jp2" target="new">Download JP2 Image</a></li>
+			<li><a href="{{ site.url }}{{ site.baseurl }}/api/image/validator/67352ccc-d1b0-11e1-89ae-279075081939.png" target="new">Download PNG Image</a></li>
+			<li><a href="{{ site.url }}{{ site.baseurl }}/api/image/validator/67352ccc-d1b0-11e1-89ae-279075081939.jp2" target="new">Download JP2 Image</a></li>
 		</ul>
 		<p>The test images may be freely reused under <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
 	</div>
@@ -31,9 +31,9 @@ redirect_from:
 		<ul>
 			<li><a href="http://github.com/IIIF/image-api/">Download</a> the code from github and run it locally.</li>
 			<li>Use it online with JSON based output, by an HTTP GET endpoints following this pattern:<br/>
-				{{ site.api_url }}/image/validator/service/<i>test-name</i>?server=<i>server-here</i>&amp;prefix=<i>prefix-here</i>&amp;identifier=<i>identifier-here</i>&amp;version=2.0<br/>
+				https://iiif.io/api/image/validator/service/<i>test-name</i>?server=<i>server-here</i>&amp;prefix=<i>prefix-here</i>&amp;identifier=<i>identifier-here</i>&amp;version=2.0<br/>
 			The list of tests is available at:<br/>
-				<a href="https://iiif.io/api/image/validator/service/list_tests">https://iiif.io/api/image/validator/service/list_tests</a>
+				<a href="{{ page.webprefix }}/api/image/validator/service/list_tests">https://iiif.io/api/image/validator/service/list_tests</a>
 			</li>
 		</ul>
 	</div>

@@ -17,7 +17,7 @@ redirect_from:
 
 __This version:__ {{ page.major }}.{{ page.minor }}.{{ page.patch }}{% if page.pre != 'final' %}-{{ page.pre }}{% endif %}
 
-__Latest stable version:__ {{ site.data.apis.image.latest.major }}.{{ site.data.apis.image.latest.minor }}.{{ site.data.apis.image.latest.patch }}
+__Latest stable version:__ {{ site.image_api.stable.major }}.{{ site.image_api.stable.minor }}.{{ site.image_api.stable.patch }}
 
 ## Introduction
 {:.no_toc}
@@ -128,7 +128,7 @@ A level 0 compliant image server _MAY_ specify `scaleFactors` and/or `width` and
 
 If a client requests a size or region outside these parameters then the image server _MAY_ reject the request with an error.
 
-[image-api]: {{ site.api_url }}/image/2.0/ "Image API 2.0"
+[image-api]: {{ site.url }}{{ site.baseurl }}/api/image/2.0/ "Image API 2.0"
 [icon-req]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/required.png "Required"
 [icon-rec]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/recommended.png "Recommended"
 [icon-opt]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/optional.png "Optional"

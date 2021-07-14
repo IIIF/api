@@ -8,15 +8,15 @@ hero:
 
 ## API Annex Documents
 
-- [Open Annotation ImageApiSelector]({{ site.api_url }}/annex/openannotation/)
-- [Description of REST usage with IIIF APIs]({{ site.api_url }}/annex/rest/)
-- [Known External Services]({{ site.api_url }}/annex/services/)
+- [Open Annotation ImageApiSelector]({{ site.url }}{{ site.baseurl }}/api/annex/openannotation/)
+- [Description of REST usage with IIIF APIs]({{ site.url }}{{ site.baseurl }}/api/annex/rest/)
+- [Known External Services]({{ site.url }}{{ site.baseurl }}/api/annex/services/)
 
 ## API Implementation Notes
 
-- [Apache HTTP Server Implementation Notes]({{ site.api_url }}/annex/notes/apache)
-- [JSON-LD Implementation Notes]({{ site.api_url }}/annex/notes/jsonld/)
-- [Note on Image Rotation Algorithm]({{ site.api_url }}/annex/notes/rotation/)
-- [Note on Semantic Versioning]({{ site.api_url }}/annex/notes/semver/)
-- [Disclaimer of Liability]({{ site.api_url }}/annex/notes/disclaimer/)
-- [IIIF Design Patterns]({{ site.api_url }}/annex/notes/design_patterns/)
+- [Apache HTTP Server Implementation Notes]({{ site.url }}{{ site.baseurl }}/api/annex/notes/apache)
+- [JSON-LD Implementation Notes]({{ site.url }}{{ site.baseurl }}/api/annex/notes/jsonld/)
+- [Note on Image Rotation Algorithm]({{ site.url }}{{ site.baseurl }}/api/annex/notes/rotation/)
+- [Note on Semantic Versioning]({{ site.url }}{{ site.baseurl }}/api/annex/notes/semver/)
+- [Disclaimer of Liability]({{ site.url }}{{ site.baseurl }}/api/annex/notes/disclaimer/)
+- [IIIF Design Patterns]({{ site.url }}{{ site.baseurl }}/api/annex/notes/design_patterns/)

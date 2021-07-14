@@ -35,7 +35,7 @@ hero:
 
 __This Version:__ {{ page.major }}.{{ page.minor }}.{{ page.patch }}{% if page.pre != 'final' %}-{{ page.pre }}{% endif %}
 
-__Latest Stable Version:__ [{{ site.data.apis.image.latest.major }}.{{ site.data.apis.image.latest.minor }}.{{ site.data.apis.image.latest.patch }}][stable-version]
+__Latest Stable Version:__ [{{ site.image_api.stable.major }}.{{ site.image_api.stable.minor }}.{{ site.image_api.stable.patch }}][stable-version]
 
 __Previous Version:__ [2.0][prev-version]
 
@@ -739,9 +739,9 @@ The following shows a use of `service` to associate the login page of an authent
   "protocol" : "http://iiif.io/api/image",
   // ...
   "service": {
-    "@context" : "http://iiif.io/api/auth/{{ site.data.apis.auth.latest.major }}/context.json",
+    "@context" : "http://iiif.io/api/auth/{{ site.auth_api.stable.major }}/context.json",
     "@id" : "http://www.example.org/auth/login.html",
-    "profile": "http://iiif.io/api/auth/{{ site.data.apis.auth.latest.major }}/login"
+    "profile": "http://iiif.io/api/auth/{{ site.auth_api.stable.major }}/login"
   }
 }
 ```
@@ -970,13 +970,13 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 | 2012-08-10 | Version 1.0 (unnamed) |
 {: .api-table}
 
-[authentication-ext]: {{ site.api_url }}/auth/
-[change-log-211]: {{ site.api_url }}/image/2.1/change-log-211/ "Image API 2.1.1 Change Log"
-[change-log11]: {{ site.api_url }}/image/1.1/change-log/ "Change Log for Version 1.1"
-[change-log20]: {{ site.api_url }}/image/2.0/change-log/ "Change Log for Version 2.0"
-[change-log21]: {{ site.api_url }}/image/2.1/change-log/ "Change Log for Version 2.1"
-[compliance]: {{ site.api_url }}/image/{{ page.major }}.{{ page.minor }}/compliance/ "Image API Compliance"
-[compliance-quality]: {{ site.api_url }}/image/{{ page.major }}.{{ page.minor }}/compliance/#quality "Image API Compliance: Quality"
+[authentication-ext]: {{ site.url }}{{ site.baseurl }}/api/auth/
+[change-log-211]: {{ site.url }}{{ site.baseurl }}/api/image/2.1/change-log-211/ "Image API 2.1.1 Change Log"
+[change-log11]: {{ site.url }}{{ site.baseurl }}/api/image/1.1/change-log/ "Change Log for Version 1.1"
+[change-log20]: {{ site.url }}{{ site.baseurl }}/api/image/2.0/change-log/ "Change Log for Version 2.0"
+[change-log21]: {{ site.url }}{{ site.baseurl }}/api/image/2.1/change-log/ "Change Log for Version 2.1"
+[compliance]: {{ site.url }}{{ site.baseurl }}/api/image/{{ page.major }}.{{ page.minor }}/compliance/ "Image API Compliance"
+[compliance-quality]: {{ site.url }}{{ site.baseurl }}/api/image/{{ page.major }}.{{ page.minor }}/compliance/#quality "Image API Compliance: Quality"
 
 [cors-spec]: http://www.w3.org/TR/cors/ "Cross-Origin Resource Sharing"
 [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
@@ -990,16 +990,16 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 [rfc-6266]: http://tools.ietf.org/html/rfc6266 "Use of the Content-Disposition Header Field in the Hypertext Transfer Protocol (HTTP)"
 [rfc-6570]: http://tools.ietf.org/html/rfc6570 "URI Template"
 [semver]: http://semver.org/spec/v2.0.0.html "Semantic Versioning 2.0.0"
-[iiif-community]: {{  site.root_url }}/community/ "IIIF Community"
-[versioning]: {{ site.api_url }}/annex/notes/semver/ "Versioning of APIs"
-[prezi-api]: {{ site.api_url }}/presentation/{{ site.data.apis.presentation.latest.major }}.{{ site.data.apis.presentation.latest.minor }}/ "Presentation API"
-[prezi-html]: {{ site.api_url }}/presentation/{{ site.data.apis.presentation.latest.major }}.{{ site.data.apis.presentation.latest.minor }}/#45-html-markup-in-property-values "Presentation API Section 4.4"
+[iiif-community]: {{page.webprefix}}/community/ "IIIF Community"
+[versioning]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/semver/ "Versioning of APIs"
+[prezi-api]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.stable.major }}.{{ site.presentation_api.stable.minor }}/ "Presentation API"
+[prezi-html]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.stable.major }}.{{ site.presentation_api.stable.minor }}/#html-markup-in-property-values "Presentation API Section 4.4"
 
-[service-profiles]: {{ site.api_url }}/annex/services/ "Services Annex Document"
-[annex-frames]: {{ site.api_url }}/annex/notes/jsonld/ "JSON-LD Frames Implementation Notes"
-[apache-notes]: {{ site.api_url }}/annex/notes/apache/ "Apache HTTP Server Implementation Notes"
-[apache-notes-conditional-content-type]: {{ site.api_url }}/annex/notes/apache/#conditional-content-types "Apache HTTP Server Implementation Notes: Conditional Content Types"
-[apache-notes-set-compliance-link-header]: {{ site.api_url }}/annex/notes/apache/#set-compliance-link-header "Apache HTTP Server Implementation Notes: Set Compliance Link Header"
+[service-profiles]: {{ site.url }}{{ site.baseurl }}/api/annex/services/ "Services Annex Document"
+[annex-frames]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/jsonld/ "JSON-LD Frames Implementation Notes"
+[apache-notes]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/apache/ "Apache HTTP Server Implementation Notes"
+[apache-notes-conditional-content-type]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/apache/#conditional-content-types "Apache HTTP Server Implementation Notes: Conditional Content Types"
+[apache-notes-set-compliance-link-header]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/apache/#set-compliance-link-header "Apache HTTP Server Implementation Notes: Set Compliance Link Header"
 [audience-and-scope]: #audience-and-scope "1. Audience and Scope"
 [uri-syntax]: #uri-syntax "2. URI Syntax"
 [image-request-uri-syntax]: #image-request-uri-syntax "2.1. Image Request URI Syntax"
@@ -1032,8 +1032,8 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 [b-versioning]: #b-versioning "B. Versioning"
 [c-acknowledgments]: #c-acknowledgments "C. Acknowledgments"
 [d-change-log]: #d-change-log "D. Change Log"
-[prev-version]: {{ site.api_url }}/image/2.0/ "Previous Version"
-[stable-version]: {{ site.api_url }}/image/{{ site.data.apis.image.latest.major }}.{{ site.data.apis.image.latest.minor }}/ "Stable Version"
+[prev-version]: {{ page.webprefix }}/api/image/2.0/ "Previous Version"
+[stable-version]: {{ page.webprefix }}/api/image/{{ site.image_api.stable.major }}.{{ site.image_api.stable.minor }}/ "Stable Version"
 [wsgi]: https://www.python.org/dev/peps/pep-0333/
 [dep-sizes]: #dep-sizes "Deprecated sizes warning"
 

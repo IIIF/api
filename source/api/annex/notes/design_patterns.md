@@ -221,16 +221,16 @@ Flags in the IIIF specifications, such as `timeMode` or `behavior` are actually 
 [change-log]: #change-log "Change Log"
 [iiif-announce]: https://groups.google.com/forum/#!forum/iiif-announce "IIIF Email Announcement List"
 [iiif-discuss]: https://groups.google.com/forum/#!forum/iiif-discuss "IIIF Email Discussion List"
-[iiif-semver]: {{ site.api_url }}/annex/notes/semver/ "Versioning of APIs"
+[iiif-semver]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/semver/ "Versioning of APIs"
 [rfc-2119]: https://www.ietf.org/rfc/rfc2119.txt "RFC 2119"
-[spec-disclaimer]: {{ site.api_url }}/annex/notes/disclaimer/ "Specification Disclaimer"
+[spec-disclaimer]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/disclaimer/ "Specification Disclaimer"
 
-[editorial-process]: {{ site.root_url }}/community/policy/editorial/#community-process
-[services]: {{ site.api_url }}/annex/services/
-[image-api]: {{ site.api_url }}/image
-[presentation-api]: {{ site.api_url }}/presentation
-[search-api]: {{ site.api_url }}/search
-[auth-api]: {{ site.api_url }}/auth
+[editorial-process]: {{ page.webprefix }}/community/policy/editorial/#community-process
+[services]: {{ site.url }}{{ site.baseurl }}/api/annex/services/
+[image-api]: {{ site.url }}{{ site.baseurl }}/api/image
+[presentation-api]: {{ site.url }}{{ site.baseurl }}/api/presentation
+[search-api]: {{ site.url }}{{ site.baseurl }}/api/search
+[auth-api]: {{ site.url }}{{ site.baseurl }}/api/auth
 
 [rest]: https://en.wikipedia.org/wiki/Representational_state_transfer
 [lod]: https://en.wikipedia.org/wiki/Linked_data
