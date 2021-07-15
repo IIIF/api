@@ -37,7 +37,7 @@ hero:
 
 __This Version:__ {{ page.major }}.{{ page.minor }}.{{ page.patch }}{% if page.pre != 'final' %}-{{ page.pre }}{% endif %}
 
-__Latest Stable Version:__ [{{ site.image_api.stable.major }}.{{ site.image_api.stable.minor }}.{{ site.image_api.stable.patch }}][image-api]
+__Latest Stable Version:__ [{{ site.data.apis.image.latest.major }}.{{ site.data.apis.image.latest.minor }}.{{ site.data.apis.image.latest.patch }}][image-api]
 
 __Previous Version:__ [2.1.1][image21]
 
@@ -389,6 +389,7 @@ Examples:
 </table>
 
 ###  4.4. Quality
+{: #quality}
 
 The quality parameter determines whether the image is delivered in color, grayscale or black and white.
 

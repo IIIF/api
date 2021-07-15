@@ -37,7 +37,7 @@ hero:
 
 __This Version:__ {{ page.major }}.{{ page.minor }}.{{ page.patch }}{% if page.pre != 'final' %}-{{ page.pre }}{% endif %}
 
-__Latest Stable Version:__ [{{ site.auth_api.stable.major }}.{{ site.auth_api.stable.minor }}.{{ site.auth_api.stable.patch }}][stable-version]
+__Latest Stable Version:__ [{{ site.data.apis.auth.latest.major }}.{{ site.data.apis.auth.latest.minor }}.{{ site.data.apis.auth.latest.patch }}][stable-version]
 
 __Previous Version:__ [0.9.4][prev-version]
 
@@ -50,7 +50,7 @@ __Previous Version:__ [0.9.4][prev-version]
 ----
 
 __Warning__<br/>
-Recent developments in the browser community to discontinue support for third-party cookies have meant that IIIF Authentication API 1.0 workflows that rely on third-party cookies are now, or will soon be, obsolete in most browsers. The [IIIF Authentication TSG](https://iiif.io/community/groups/auth-tsg/) is currently working on the next iteration of the Auth specification, which should address the third-party cookies issue. Workflows relying on first-party cookies remain unaffected by these developments. For a more detailed discussion of the issues, see [What happens if there are no third-party cookies?](https://tom-crane.medium.com/what-happens-if-there-are-no-third-party-cookies-5ee5edb84d75).
+Recent developments in the browser community to discontinue support for third-party cookies have meant that IIIF Authentication API 1.0 workflows that rely on third-party cookies are now, or will soon be, obsolete in most browsers. The [IIIF Authentication TSG]({{ site.root_url }}/community/groups/auth-tsg/) is currently working on the next iteration of the Auth specification, which should address the third-party cookies issue. Workflows relying on first-party cookies remain unaffected by these developments. For a more detailed discussion of the issues, see [What happens if there are no third-party cookies?](https://tom-crane.medium.com/what-happens-if-there-are-no-third-party-cookies-5ee5edb84d75).
 {: .alert}
 
 
@@ -691,17 +691,17 @@ Many thanks to the members of the [IIIF Community][iiif-community] for their con
 [cors-spec]: http://www.w3.org/TR/cors/ "Cross-Origin Resource Sharing"
 [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
 [semver]: http://semver.org/spec/v2.0.0.html "Semantic Versioning 2.0.0"
-[iiif-community]: {{page.webprefix}}/community/ "IIIF Community"
-[versioning]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/semver/ "Versioning of APIs"
+[iiif-community]: {{ site.root_url }}/community/ "IIIF Community"
+[versioning]: {{ site.api_url }}/annex/notes/semver/ "Versioning of APIs"
 [mellon]: http://www.mellon.org/ "The Andrew W. Mellon Foundation"
 [rfc-2119]: http://tools.ietf.org/html/rfc2119 "Key words for use in RFCs to Indicate Requirement Levels"
-[prezi-api]: {{ site.url }}{{ site.baseurl }}/api/presentation/
-[image-api]: {{ site.url }}{{ site.baseurl }}/api/image/
-[ext-services]: {{ site.url }}{{ site.baseurl }}/api/annex/services/
+[prezi-api]: {{ site.api_url }}/presentation/
+[image-api]: {{ site.api_url }}/image/
+[ext-services]: {{ site.api_url }}/annex/services/
 [bearer-token]: https://tools.ietf.org/html/rfc6750#section-1.2 "OAuth2 Bearer Tokens"
 [rfc-2818]: https://tools.ietf.org/html/rfc2818 "HTTP Over TLS"
 [implementation-notes]: implementation/ "IIIF Authentication: Implementation Notes"
-[stable-version]: {{ site.url }}{{ site.baseurl }}/api/auth/{{ site.auth_api.stable.major }}.{{ site.auth_api.stable.minor }}/ "Stable Version"
-[prev-version]: {{ site.url }}{{ site.baseurl }}/api/auth/0.9/ "Previous Version"
+[stable-version]: {{ site.api_url }}/auth/{{ site.data.apis.auth.latest.major }}.{{ site.data.apis.auth.latest.minor }}/ "Stable Version"
+[prev-version]: {{ site.api_url }}/auth/0.9/ "Previous Version"
 
 {% include acronyms.md %}

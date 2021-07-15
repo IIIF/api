@@ -17,7 +17,7 @@ redirect_from:
 
 __This version:__ {{ page.major }}.{{ page.minor }}.{{ page.patch }}{% if page.pre != 'final' %}-{{ page.pre }}{% endif %}
 
-__Latest stable version:__ [{{ site.image_api.stable.major }}.{{ site.image_api.stable.minor }}.{{ site.image_api.stable.patch }}][stable-version]
+__Latest stable version:__ [{{ site.data.apis.image.latest.major }}.{{ site.data.apis.image.latest.minor }}.{{ site.data.apis.image.latest.patch }}][stable-version]
 
 ## 1. Introduction
 {: #introduction}
@@ -149,14 +149,14 @@ A level 0 compliant image server _MAY_ also specify `sizes` to indicate specific
 If a client requests a combination of size and region outside these parameters then the image server _MAY_ reject the request with an error.
 
 [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
-[image-api]: {{ site.url }}{{ site.baseurl }}/api/image/{{ page.major }}.{{ page.minor }}/ "Image API {{ page.major }}.{{ page.minor }}"
+[image-api]: {{ site.api_url }}/image/{{ page.major }}.{{ page.minor }}/ "Image API {{ page.major }}.{{ page.minor }}"
 [icon-req]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/required.png "Required"
 [icon-rec]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/recommended.png "Recommended"
 [icon-opt]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/optional.png "Optional"
 [icon-na]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/not_allowed.png "Not allowed"
 [size]: #size "3.2 Size"
-[profile]: {{ site.url }}{{ site.baseurl }}/api/image/{{ page.major }}.{{ page.minor }}/#profile-description "5.3 Profile Description"
-[stable-version]: {{ site.url }}{{ site.baseurl }}/api/image/{{ site.image_api.stable.major }}.{{ site.image_api.stable.minor }}/compliance/ "Stable Version"
-[full-dep]: {{ site.url }}{{ site.baseurl }}/api/image/2.{{ page.minor }}/#full-dep "Full Size Keyword Deprecation Warning"
+[profile]: {{ site.api_url }}/image/{{ page.major }}.{{ page.minor }}/#profile-description "5.3 Profile Description"
+[stable-version]: {{ site.api_url }}/image/{{ site.data.apis.image.latest.major }}.{{ site.data.apis.image.latest.minor }}/compliance/ "Stable Version"
+[full-dep]: {{ site.api_url }}/image/2.{{ page.minor }}/#full-dep "Full Size Keyword Deprecation Warning"
 
 {% include acronyms.md %}

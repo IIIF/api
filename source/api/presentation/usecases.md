@@ -74,11 +74,11 @@ Thanks to the members of the [IIIF][iiif-community] for their continuous engagem
 | ---------- | -------------------------------------------------- |
 | 2014-06-01 | Version 1.0 RFC                                    |
 
-   [semver]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/semver/ "Versioning of APIs"
+   [semver]: {{ site.api_url }}/annex/notes/semver/ "Versioning of APIs"
    [cc-by]: http://creativecommons.org/licenses/by/4.0/ "Creative Commons &mdash; Attribution 4.0 International"
    [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
-   [prezi-api]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.stable.major }}.{{ site.presentation_api.stable.minor }}/ "Presentation API"
-   [iiif-community]: {{page.webprefix}}/community/ "IIIF Community"
+   [prezi-api]: {{ site.api_url }}/presentation/{{ site.data.apis.presentation.latest.major }}.{{ site.data.apis.presentation.latest.minor }}/ "Presentation API"
+   [iiif-community]: {{  site.root_url }}/community/ "IIIF Community"
    [mellon]: http://www.mellon.org/ "The Andrew W. Mellon Foundation"
 [icon-req]: /img/metadata-api/required.png "Required"
 [icon-rec]: /img/metadata-api/recommended.png "Recommended"

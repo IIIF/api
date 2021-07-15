@@ -18,7 +18,7 @@ redirect_from:
 
 __This version:__ {{ page.major }}.{{ page.minor }}.{{ page.patch }}{% if page.pre != 'final' %}-{{ page.pre }}{% endif %}
 
-__Latest stable version:__ [{{ site.image_api.stable.major }}.{{ site.image_api.stable.minor }}.{{ site.image_api.stable.patch }}][image-compliance-stable-version]
+__Latest stable version:__ [{{ site.data.apis.image.latest.major }}.{{ site.data.apis.image.latest.minor }}.{{ site.data.apis.image.latest.patch }}][image-compliance-stable-version]
 
 
 ## 1. Introduction
@@ -73,6 +73,7 @@ Note that servers may express limits on the sizes available for an image with th
 {: .api-table}
 
 ### 3.4 Quality
+{: #quality}
 
 | Syntax        | Level 0 | Level 1 | Level 2  |
 |:--------------|:-------:|:-------:|:--------:|
