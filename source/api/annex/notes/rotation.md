@@ -12,5 +12,5 @@ As described in the IIIF Image API, [Section 4.3. Rotation][image-api-rotation],
 
 ![Formula for calculating image size of rotated image][rotation-ill]
 
-[rotation-ill]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/iiif-rotated-img-size.png "Formula for calculating image size of rotated image"
-[image-api-rotation]: {{ site.url }}{{ site.baseurl }}/api/image/2.0#rotation "Image API Section 4.3. Rotation"
+[rotation-ill]: {{ site.api_url }}/annex/notes/iiif-rotated-img-size.png "Formula for calculating image size of rotated image"
+[image-api-rotation]: {{ site.api_url }}/image/2.0#rotation "Image API Section 4.3. Rotation"
