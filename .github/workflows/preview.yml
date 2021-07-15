@@ -36,7 +36,7 @@ jobs:
    # - name: Test site
 #      run: bundle exec rake ci
     - name: Set api Root
-      run:  sed -i "s/^api_url:.*$/api_url:        '\\/api\\/build_fix\\/api'/g" _config.yml
+      run:  sed -i \"s/^api_url:.*$/api_url:        '\\/api\\/build_fix\\/api'/g\" _config.yml
 
     - name: test config update
       run: cat _config.yml
