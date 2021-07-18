@@ -1,0 +1,378 @@
+---
+sitemap: false
+redirect_from:
+  - /image/1.1/compliance.html
+---
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html lang="en" class="no-js"> <!<![endif]-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Image API Compliance, 1.1</title>
+    <meta name="description" content="Interoperability Interoperability Image Framework : A community driven image framework with well defined APIs for making the world's image repositories interoperable and accessible">
+    <meta name="viewport" content="width=device-width">
+
+    <link rel="stylesheet" href="{{ site.api_url | absolute_url }}/image/1.1/css/normalize.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Raleway:100,300,500' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{{ site.api_url | absolute_url }}/image/1.1/css/main.css">
+
+
+  </head>
+  <body>
+    <!--[if lt IE 7]>
+      <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+    <![endif]-->
+
+    <div class="header-container">
+      <header class="wrapper clearfix">
+        <a class="title" title="IIIF : International Image Interoperability Framework" href="{{ site.root_url | absolute_url }}/">Home</a>
+        <nav>
+          <ul>
+            <li><a href="{{ site.root_url | absolute_url }}/about/">About</a></li>
+            <li><a href="{{ site.root_url | absolute_url }}/technical-details/">Technical Details</a></li>
+            <li><a href="{{ site.root_url | absolute_url }}/apps-demos/">Apps &amp; Demos</a></li>
+            <li><a href="{{ site.root_url | absolute_url }}/community/">Community</a></li>
+          </ul>
+        </nav>
+      </header>
+    </div>
+
+    <div class="sub-pages-container">
+      <div class="image-api clearfix">
+        <article>
+
+          <header>
+            <div class="wrapper">
+              <h1>Image API Compliance, 1.1</h1>
+            </div>
+          </header>
+
+          <!-- Table of Contents -->
+          <section class="wrapper toc" id="toc">
+            <h2>Table of Contents</h2>
+
+            <ol>
+              <li><a href="#introduction">Introduction</a></li>
+              <li><a href="#compliance-level-summary">Compliance Level Summary</a></li>
+              <li><a href="#level0">Level 0 Compliance</a></li>
+              <li><a href="#level1">Level 1 Compliance</a></li>
+              <li><a href="#level2">Level 2 Compliance</a></li>
+            </ol>
+          </section>
+
+
+          <!-- 1. Audience -->
+          <section class="wrapper introduction" id="introduction">
+            <h2>
+              1. Introduction
+              <a href="#toc" title="Back to Table of Contents"><img class="to-toc" src="{{ site.api_url | absolute_url }}/assets/images/icon-toc.png" alt="To TOC"></a>
+            </h2>
+
+            <p>
+              This document is a companion to the <a href="{{ site.api_url | absolute_url }}/image/1.1/">International Image Interoperability Framework Image API Specification</a>.
+              It defines the set of supported parameters that correspond to different levels of compliance to the IIIF Image API.
+            </p>
+          </section>
+
+
+          <!-- 2. Compliance Level Summary -->
+          <section class="wrapper compliance-level-summary" id="compliance-level-summary">
+            <h2>
+              2. Compliance Level Summary
+              <a href="#toc" title="Back to Table of Contents"><img class="to-toc" src="{{ site.api_url | absolute_url }}/assets/images/icon-toc.png" alt="To TOC"></a>
+            </h2>
+
+            <p>
+              Three levels of compliance are defined. Level 0 is defined as the minimum set of supported parameters and features to qualify
+              an implementation of the service as compliant to the IIIF standard. Level 1 is defined as the RECOMMENDED set of parameters and
+              features to be implemented.
+            </p>
+
+            <table class="image-api-table">
+              <tr>
+                <th class="visibility-hidden"></th>
+                <th>Level 0</th>
+                <th>Level 1</th>
+                <th>Level 2</th>
+                <th>Optional</th>
+              </tr>
+              <tr>
+                <td colspan="5" class="sub-rh">Region</td>
+              </tr>
+              <tr>
+                <td>full</td>
+                <td><div class="compliance-tick">&#x2713;</div></td>
+                <td><div class="compliance-tick">&#x2713;</div></td>
+                <td><div class="compliance-tick">&#x2713;</div></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>x,y,w,h</td>
+                <td></td>
+                <td><div class="compliance-tick">&#x2713;</div></td>
+                <td><div class="compliance-tick">&#x2713;</div></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>pct:x,y,w,h</td>
+                <td></td>
+                <td></td>
+                <td><div class="compliance-tick">&#x2713;</div></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td colspan="5" class="sub-rh">Size</td>
+              </tr>
+              <tr>
+                <td>full</td>
+                <td><div class="compliance-tick">&#x2713;</div></td>
+                <td><div class="compliance-tick">&#x2713;</div></td>
+                <td><div class="compliance-tick">&#x2713;</div></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>w,</td>
+                <td></td>
+                <td><div class="compliance-tick">&#x2713;</div></td>
+                <td><div class="compliance-tick">&#x2713;</div></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>,h</td>
+                <td></td>
+                <td><div class="compliance-tick">&#x2713;</div></td>
+                <td><div class="compliance-tick">&#x2713;</div></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>pct:x</td>
+                <td></td>
+                <td><div class="compliance-tick">&#x2713;</div></td>
+                <td><div class="compliance-tick">&#x2713;</div></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>w,h</td>
+                <td></td>
+                <td></td>
+                <td><div class="compliance-tick">&#x2713;</div></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>!w,h</td>
+                <td></td>
+                <td></td>
+                <td><div class="compliance-tick">&#x2713;</div></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td colspan="5" class="sub-rh">Rotation</td>
+              </tr>
+              <tr>
+                <td>0</td>
+                <td><div class="compliance-tick">&#x2713;</div></td>
+                <td><div class="compliance-tick">&#x2713;</div></td>
+                <td><div class="compliance-tick">&#x2713;</div></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>90,180,270</td>
+                <td></td>
+                <td><div class="compliance-tick">&#x2713;</div></td>
+                <td><div class="compliance-tick">&#x2713;</div></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>arbitary</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><div class="compliance-tick">&#x2713;</div></td>
+              </tr>
+              <tr>
+                <td colspan="5" class="sub-rh">Quality</td>
+              </tr>
+              <tr>
+                <td>native</td>
+                <td><div class="compliance-tick">&#x2713;</div></td>
+                <td><div class="compliance-tick">&#x2713;</div></td>
+                <td><div class="compliance-tick">&#x2713;</div></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>color</td>
+                <td></td>
+                <td></td>
+                <td><div class="compliance-tick">&#x2713;</div></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>grey</td>
+                <td></td>
+                <td></td>
+                <td><div class="compliance-tick">&#x2713;</div></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>bitonal</td>
+                <td></td>
+                <td></td>
+                <td><div class="compliance-tick">&#x2713;</div></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td colspan="5" class="sub-rh">Format</td>
+              </tr>
+              <tr>
+                <td>jpg</td>
+                <td></td>
+                <td><div class="compliance-tick">&#x2713;</div></td>
+                <td><div class="compliance-tick">&#x2713;</div></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>png</td>
+                <td></td>
+                <td></td>
+                <td><div class="compliance-tick">&#x2713;</div></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>tif</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><div class="compliance-tick">&#x2713;</div></td>
+              </tr>
+              <tr>
+                <td>gif</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><div class="compliance-tick">&#x2713;</div></td>
+              </tr>
+              <tr>
+                <td>pdf</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><div class="compliance-tick">&#x2713;</div></td>
+              </tr>
+              <tr>
+                <td>jp2</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><div class="compliance-tick">&#x2713;</div></td>
+              </tr>
+              <tr>
+                <td colspan="5" class="sub-rh">Image Information Request</td>
+              </tr>
+              <tr>
+                <td>JSON response</td>
+                <td><div class="compliance-tick">&#x2713;</div></td>
+                <td><div class="compliance-tick">&#x2713;</div></td>
+                <td><div class="compliance-tick">&#x2713;</div></td>
+                <td></td>
+              </tr>
+              <tr>
+                <th class="visibility-hidden"></th>
+                <th>Level 0</th>
+                <th>Level 1</th>
+                <th>Level 2</th>
+                <th>Optional</th>
+              </tr>
+            </table>
+
+          </section>
+
+
+          <!-- 3. Level 0 Compliance -->
+          <section class="wrapper level0" id="level0">
+            <h2>
+              3. Level 0 Compliance
+              <a href="#toc" title="Back to Table of Contents"><img class="to-toc" src="{{ site.api_url | absolute_url }}/assets/images/icon-toc.png" alt="To TOC"></a>
+            </h2>
+
+            <p>
+              Servers indicate compliance with level 0 by including the following header in IIIF responses:
+            </p>
+            <p class="code-block">
+              Link: &lt;http://library.stanford.edu/iiif/image-api/1.1/compliance.html#level0&gt;;rel="profile"
+            </p>
+            <p>
+              A level 0 compliant image server MAY specify scaling_factors and/or tile_width and tile_height values in the Image information
+              response. At Level 0 compliance, a server is only required to deliver images of sizes computed using the scaling factors declared
+              in the Image Information response. If specified they should be interpreted with the following special meanings:
+            </p>
+            <ul>
+              <li>
+                <span class="monospace">scaling_factors</span> - only the specified scaling factors are supported
+              </li>
+              <li>
+                <span class="monospace">tile_width, tile_height</span> - clients should request only regions that correspond to
+                output tiles of the specified dimensions
+              </li>
+            </ul>
+            <p>
+              If a client requests an scaling or region outside these parameters then the image server MAY reject the request with a 400
+              Bad Request error.
+            </p>
+          </section>
+
+
+          <!-- 4. Level 1 Compliance -->
+          <section class="wrapper level1" id="level1">
+            <h2>
+              4. Level 1 Compliance
+              <a href="#toc" title="Back to Table of Contents"><img class="to-toc" src="{{ site.api_url | absolute_url }}/assets/images/icon-toc.png" alt="To TOC"></a>
+            </h2>
+
+            <p>
+              Servers indicate compliance with level 1 by including the following header in IIIF responses:
+            </p>
+            <p class="code-block">
+              Link: &lt;http://library.stanford.edu/iiif/image-api/1.1/compliance.html#level1&gt;;rel="profile"
+            </p>
+          </section>
+
+          <!-- 5. Level 2 Compliance -->
+          <section class="wrapper level2" id="level2">
+            <h2>
+              5. Level 2 Compliance
+              <a href="#toc" title="Back to Table of Contents"><img class="to-toc" src="{{ site.api_url | absolute_url }}/assets/images/icon-toc.png" alt="To TOC"></a>
+            </h2>
+
+            <p>
+              Servers indicate compliance with level 2 by including the following header in IIIF responses:
+            </p>
+            <p class="code-block">
+              Link: &lt;http://library.stanford.edu/iiif/image-api/1.1/compliance.html#level2&gt;;rel="profile"
+            </p>
+          </section>
+
+        </article>
+      </div>
+    </div>
+
+    <div class="footer-container">
+      <footer class="wrapper">
+        Please send feedback to <a href="mailto:iiif-discuss@googlegroups.com">iiif-discuss@googlegroups.com</a>
+      </footer>
+    </div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-7219229-22', 'iiif.io');
+      ga('send', 'pageview');
+    </script>
+  </body>
+</html>
