@@ -15,10 +15,11 @@ jobs: # A workflow run is made up of one or more jobs that can run sequentially 
     runs-on: ubuntu-latest # The type of runner that the job will run on
     env:
       BUNDLE_WITH: test jekyll_plugins
+      SITE_ID:  'api' # which iiif site this is
     steps: # Steps represent a sequence of tasks that will be executed as part of the job
     - name: Checkout # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       uses: actions/checkout@v2 # store branch name in ${BRANCH_NAME}
-    - name: export BRANCH_NAME
+    - name: Export BRANCH_NAME
       uses: nelonoel/branch-name@v1.0.1
     - name: Setup ruby
       uses: ruby/setup-ruby@v1
@@ -30,8 +31,12 @@ jobs: # A workflow run is made up of one or more jobs that can run sequentially 
       run: bundle exec rake build:preview
     - name: Test html
       run: bundle exec rake test:html
-    # - name: Test links
-      # run: bundle exec rake test:links
+    # - name: Test internal links
+    #   run: bundle exec rake test:links:internal
+    # - name: Test *iiif.io* links
+    #   run: bundle exec rake test:links:iiif
+    # - name: Test external links
+    #   run: bundle exec rake test:links:external
     # - name: Spec tests
       # run: bundle exec rake test:spec
     - name: Create GitHub deployment # Deploy to Preview site
@@ -52,7 +57,7 @@ jobs: # A workflow run is made up of one or more jobs that can run sequentially 
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         AWS_REGION: ${{ secrets.AWS_REGION }}
         SOURCE_DIR: "_site"
-        # DEST_DIR: "api/${BRANCH_NAME}"
+        # DEST_DIR: "${{ env.SITE_ID }}/${{ env.BRANCH_NAME }}"
     - name: Update deployment status
       uses: glenrobson/deployments@v0.4.2
       if: always()
@@ -62,4 +67,4 @@ jobs: # A workflow run is made up of one or more jobs that can run sequentially 
         token: ${{ secrets.GITHUB_TOKEN }}
         status: ${{ job.status }}
         deployment_id: ${{ steps.deployment.outputs.deployment_id }}
-        env_url: "https://preview.iiif.io/api/${{ env.BRANCH_NAME }}/index.html"
+        env_url: "https://preview.iiif.io/${{ env.SITE_ID }}/${{ env.BRANCH_NAME }}/index.html"

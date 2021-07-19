@@ -1,9 +1,11 @@
 require 'fileutils'
 require 'html-proofer'
 require 'rspec/core/rake_task'
+require 'yaml'
 
-SITE_DIR           = './_site'
-SITE_ID           = ENV['SITE_ID'] || 'api'
+SITE_DIR = './_site'
+CONFIG   = YAML.load_file '_config.yml'
+SITE_ID  = ENV['SITE_ID'] || CONFIG.fetch('site_id', 'root')
 
 # configure default task
 task default: :ci
@@ -52,7 +54,9 @@ namespace :test do
 
   task :all do
     Rake::Task['test:html'].invoke
-    Rake::Task['test:links'].invoke
+    Rake::Task['test:links:internal'].invoke
+    Rake::Task['test:links:iiif'].invoke
+    # Rake::Task['test:links:external'].invoke
     Rake::Task['test:spec'].invoke
   end
 
@@ -65,28 +69,43 @@ namespace :test do
         report_mismatched_tags: true,
         report_invalid_tags: true
       },
-      disable_external: true,
       checks_to_ignore: ['LinkCheck']
     }
     HTMLProofer.check_directory(SITE_DIR, opts).run
   end
 
-  desc 'Check for internal + *iiif.io* link errors'
-  task :links do
-    opts = {
-      checks_to_ignore: ['ImageCheck', 'HtmlCheck', 'ScriptCheck'],
-      url_ignore: [/^((?!iiif.io).)*$/, 'github']
-    }
-    HTMLProofer.check_directory(SITE_DIR, opts).run
-  end
+  namespace :links do
+    desc 'Check for internal link errors'
+    task :internal do
+      puts 'Checking for internal link errors'
+      opts = {
+        checks_to_ignore: ['ImageCheck', 'HtmlCheck', 'ScriptCheck'],
+        disable_external: true,
+        internal_domains: ['localhost:4000']
+      }
+      HTMLProofer.check_directory(SITE_DIR, opts).run
+    end
 
-  desc 'Check for external link rot'
-  task :linkrot do
-    opts = {
-      external_only: true,
-      enforce_https: true,
-      checks_to_ignore: ['ImageCheck', 'HtmlCheck', 'ScriptCheck']
-    }
-    HTMLProofer.check_directory(SITE_DIR, opts).run
+    desc 'Check for *iiif.io* link errors'
+    task :iiif do
+      puts 'Checking for link errors in *iiif.io* sites'
+      opts = {
+        checks_to_ignore: ['ImageCheck', 'HtmlCheck', 'ScriptCheck'],
+        url_ignore: [/^((?!iiif\.io).)*$/, 'github'] # temporarily ignore iiif.io github repo errors
+      }
+      HTMLProofer.check_directory(SITE_DIR, opts).run
+    end
+
+    desc 'Check for external link rot'
+    task :external do
+      puts 'Checking for external link errors'
+      opts = {
+        external_only: true,
+        enforce_https: true,
+        checks_to_ignore: ['ImageCheck', 'HtmlCheck', 'ScriptCheck'],
+        url_ignore: [/.*iiif\.io.*/]
+      }
+      HTMLProofer.check_directory(SITE_DIR, opts).run
+    end
   end
 end
