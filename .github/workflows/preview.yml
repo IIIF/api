@@ -8,7 +8,7 @@ on:
   push:
     branches:
       - '**'
-      - '!master'
+      - '!main'
 
 jobs: # A workflow run is made up of one or more jobs that can run sequentially or in parallel
   build: # This workflow contains a single job called "build"
@@ -30,10 +30,10 @@ jobs: # A workflow run is made up of one or more jobs that can run sequentially 
       run: bundle exec rake build:preview
     - name: Test html
       run: bundle exec rake test:html
-    - name: Test links
-      run: bundle exec rake test:links
-    - name: Spec tests
-      run: bundle exec rake test:spec
+    # - name: Test links
+      # run: bundle exec rake test:links
+    # - name: Spec tests
+      # run: bundle exec rake test:spec
     - name: Create GitHub deployment # Deploy to Preview site
       uses: glenrobson/deployments@v0.4.2
       id: deployment

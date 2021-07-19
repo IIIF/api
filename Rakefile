@@ -34,7 +34,6 @@ namespace :build do
     branch = `git rev-parse --abbrev-ref HEAD`.strip
     baseurl = "/#{SITE_ID}/#{branch}"
     dest    = SITE_DIR + baseurl
-    ``
 
     build dest=dest, baseurl=baseurl
   end
