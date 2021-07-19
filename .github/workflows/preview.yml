@@ -31,14 +31,14 @@ jobs: # A workflow run is made up of one or more jobs that can run sequentially 
       run: bundle exec rake build:preview
     - name: Test html
       run: bundle exec rake test:html
-    # - name: Test internal links
-    #   run: bundle exec rake test:links:internal
-    # - name: Test *iiif.io* links
-    #   run: bundle exec rake test:links:iiif
-    # - name: Test external links
-    #   run: bundle exec rake test:links:external
-    # - name: Spec tests
-      # run: bundle exec rake test:spec
+    - name: Test internal links
+      run: bundle exec rake test:links:internal
+    - name: Test *iiif.io* links
+      run: bundle exec rake test:links:iiif
+    - name: Test external links
+      run: bundle exec rake test:links:external
+    - name: Spec tests
+      run: bundle exec rake test:spec
     - name: Create GitHub deployment # Deploy to Preview site
       uses: glenrobson/deployments@v0.4.2
       id: deployment
@@ -57,7 +57,6 @@ jobs: # A workflow run is made up of one or more jobs that can run sequentially 
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         AWS_REGION: ${{ secrets.AWS_REGION }}
         SOURCE_DIR: "_site"
-        # DEST_DIR: "${{ env.SITE_ID }}/${{ env.BRANCH_NAME }}"
     - name: Update deployment status
       uses: glenrobson/deployments@v0.4.2
       if: always()
