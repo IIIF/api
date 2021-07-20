@@ -681,7 +681,7 @@ The object _MAY_ have a `seeAlso` property, as defined for `OrderedCollection` a
 
 The object _MAY_ have a `canonical` property, the value of which _MUST_ be a string that contains a URI.  This URI identifies the resource, regardless of the URI given in the `id` property of the object, which might be specific to a format, API version or publishing platform. The use of this property allows changes to be aligned across representations without relying on `seeAlso` links or only having a single representation.
 
-The object _MAY_ have a `provider` property, as defined by the [IIIF Presentation API](https://iiif.io/api/presentation/3.0/#provider). In particular, the value of the property _MUST_ be an array of JSON objects, each of which _MUST_ have the `id`, `type` and `label` attributes, carrying the URI of the provider, the string "Agent", and the name of the provider in a language map object, respectively.
+The object _MAY_ have a `provider` property, as defined by the [IIIF Presentation API]({{ site.api_url }}/presentation/3.0/#provider). In particular, the value of the property _MUST_ be an array of JSON objects, each of which _MUST_ have the `id`, `type` and `label` attributes, carrying the URI of the provider, the string "Agent", and the name of the provider in a language map object, respectively.
 
 {% include api/code_header.html %}
 ``` json-doc

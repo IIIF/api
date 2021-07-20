@@ -34,7 +34,7 @@ hero:
 {:.no_toc}
 __This Version:__ {{ page.major }}.{{ page.minor }}.{{ page.patch }}{% if page.pre != 'final' %}-{{ page.pre }}{% endif %}
 
-__Latest Stable Version:__ [{{ site.presentation_api.stable.major }}.{{ site.presentation_api.stable.minor }}.{{ site.presentation_api.stable.patch }}][stable-version]
+__Latest Stable Version:__ [{{ site.data.apis.presentation.latest.major }}.{{ site.data.apis.presentation.latest.minor }}.{{ site.data.apis.presentation.latest.patch }}][stable-version]
 
 __Previous Version:__ [2.0][prev-version]
 
@@ -1941,15 +1941,15 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 | 2013-06-14 | Version 0.9 (unnamed) |
 
 [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
-[shared-canvas]: {{ site.url }}{{ site.baseurl }}/model/shared-canvas/{{ site.shared_canvas.stable.major}}.{{ site.shared_canvas.stable.minor }} "Shared Canvas Data Model"
-[image-api]: {{ site.url }}{{ site.baseurl }}/api/image/{{ site.image_api.stable.major }}.{{ site.image_api.stable.minor }}/ "Image API"
-[search-api]: {{ site.url }}{{ site.baseurl }}/api/search/{{ site.search_api.stable.major }}.{{ site.search_api.stable.minor }}/ "Content Search API"
-[annex]: {{ site.url }}{{ site.baseurl }}/api/annex/services/ "Services Annex Document"
-[change-log-211]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.1/change-log-211/ "Presentation API 2.1.1 Change Log"
-[change-log-21]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.1/change-log/ "Presentation API 2.1 Change Log"
-[change-log-20]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.0/change-log/ "Presentation API 2.0 Change Log"
-[iiif-community]: {{page.webprefix}}/community/ "IIIF Community"
-[apache-notes]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/apache/ "Apache HTTP Server Implementation Notes"
+[shared-canvas]: {{ site.root_url }}/model/shared-canvas/1.0 "Shared Canvas Data Model"
+[image-api]: {{ site.api_url }}/image/{{ site.data.apis.image.latest.major }}.{{ site.data.apis.image.latest.minor }}/ "Image API"
+[search-api]: {{ site.api_url }}/search/{{ site.data.apis.search.latest.major }}.{{ site.data.apis.search.latest.minor }}/ "Content Search API"
+[annex]: {{ site.api_url }}/annex/services/ "Services Annex Document"
+[change-log-211]: {{ site.api_url }}/presentation/2.1/change-log-211/ "Presentation API 2.1.1 Change Log"
+[change-log-21]: {{ site.api_url }}/presentation/2.1/change-log/ "Presentation API 2.1 Change Log"
+[change-log-20]: {{ site.api_url }}/presentation/2.0/change-log/ "Presentation API 2.0 Change Log"
+[iiif-community]: {{ site.root_url }}/community/ "IIIF Community"
+[apache-notes]: {{ site.api_url }}/annex/notes/apache/ "Apache HTTP Server Implementation Notes"
 [openanno]: http://www.openannotation.org/spec/core/ "Open Annotation"
 [openannotypes]: http://www.openannotation.org/spec/core/core.html#BodyTargetType
 [openannomulti]: http://www.openannotation.org/spec/core/multiplicity.html#Choice
@@ -1965,20 +1965,20 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 [semver]: http://semver.org/spec/v2.0.0.html "Semantic Versioning 2.0.0"
 [mellon]: http://www.mellon.org/ "The Andrew W. Mellon Foundation"
 [json-ld-compact]: http://www.w3.org/TR/json-ld-api/#compaction-algorithms "JSON-LD Compaction Algorithms"
-[versioning]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/semver/ "Versioning of APIs"
-[use-case-doc]: {{ site.url }}{{ site.baseurl }}/api/presentation/usecases/ "Presentation API Use Cases"
-[annex-frames]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/jsonld/ "JSON-LD Frames Implementation Notes"
+[versioning]: {{ site.api_url }}/annex/notes/semver/ "Versioning of APIs"
+[use-case-doc]: {{ site.api_url }}/presentation/usecases/ "Presentation API Use Cases"
+[annex-frames]: {{ site.api_url }}/annex/notes/jsonld/ "JSON-LD Frames Implementation Notes"
 [iana-uri-schemes]: http://www.iana.org/assignments/uri-schemes/uri-schemes.xhtml "IANA URI Schemes"
 [rdf11-blank-nodes]: http://www.w3.org/TR/rdf11-concepts/#section-blank-nodes "RDF 1.1 Concepts"
 [rfc-4122]: http://tools.ietf.org/html/rfc4122 "URN UUID Scheme"
 [rfc-2119]: http://tools.ietf.org/html/rfc2119
-[oa-ext-annex]: {{ site.url }}{{ site.baseurl }}/api/annex/openannotation/ "Open Annotation Extensions"
-[auth]: {{ site.url }}{{ site.baseurl }}/api/auth/
+[oa-ext-annex]: {{ site.api_url }}/annex/openannotation/ "Open Annotation Extensions"
+[auth]: {{ site.api_url }}/auth/
 
-[stable-version]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.stable.major }}.{{ site.presentation_api.stable.minor }}/
+[stable-version]: {{ site.api_url }}/presentation/{{ site.data.apis.presentation.latest.major }}.{{ site.data.apis.presentation.latest.minor }}/
 [appendixa]: #a-summary-of-recommended-uri-patterns "Appendix A"
 [appendixb]: #b-summary-of-metadata-requirements "Appendix B"
-[prev-version]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.0/
+[prev-version]: {{ site.api_url }}/presentation/2.0/
 [sequence]: #sequence
 [canvas]: #canvas
 [range]: #range

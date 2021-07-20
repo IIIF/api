@@ -35,6 +35,8 @@ jobs:
 
    # - name: Test site
 #      run: bundle exec rake ci
+    - name: Set api Root
+      run:  sed -i "s/^api_url:.*$/api_url:\t'\/api\/${{ env.BRANCH_NAME}}\/api'/g" _config.yml
 
     # Build jekyll site
     - name: Build Jekyll
