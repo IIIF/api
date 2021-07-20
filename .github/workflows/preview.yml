@@ -18,8 +18,8 @@ jobs: # A workflow run is made up of one or more jobs that can run sequentially 
       SITE_ID:  'api' # which iiif site this is
     steps: # Steps represent a sequence of tasks that will be executed as part of the job
     - name: Checkout # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      uses: actions/checkout@v2 # store branch name in ${BRANCH_NAME}
-    - name: Export BRANCH_NAME
+      uses: actions/checkout@v2 
+    - name: Export BRANCH_NAME # store branch name in ${BRANCH_NAME}
       uses: nelonoel/branch-name@v1.0.1
     - name: Setup ruby
       uses: ruby/setup-ruby@v1
