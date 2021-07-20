@@ -5,45 +5,41 @@ name: Deploy-preview
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
 on:
-    push:
-        branches:
-          - '*'
-          - '!master'
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
-jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+  push:
+    branches:
+      - '**'
+      - '!main'
+
+jobs: # A workflow run is made up of one or more jobs that can run sequentially or in parallel
+  build: # This workflow contains a single job called "build"
+    runs-on: ubuntu-latest # The type of runner that the job will run on
     env:
-        BUNDLE_WITH: test jekyll_plugins
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v2
-    # store branch name in ${BRANCH_NAME}
-    - uses: nelonoel/branch-name@v1.0.1
-
+      BUNDLE_WITH: test jekyll_plugins
+      SITE_ID:  'api' # which iiif site this is
+    steps: # Steps represent a sequence of tasks that will be executed as part of the job
+    - name: Checkout # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      uses: actions/checkout@v2 
+    - name: Export BRANCH_NAME # store branch name in ${BRANCH_NAME}
+      uses: nelonoel/branch-name@v1.0.1
     - name: Setup ruby
       uses: ruby/setup-ruby@v1
       with:
         bundler-cache: true
-
-    #- name: install
-    #  run: gem install bundler && bundle
-
-   # - name: Test site
-#      run: bundle exec rake ci
-    - name: Set api Root
-      run:  sed -i "s/^api_url:.*$/api_url:\t'\/api\/${{ env.BRANCH_NAME}}\/api'/g" _config.yml
-
-    # Build jekyll site
-    - name: Build Jekyll
-      run: bundle exec jekyll clean && bundle exec jekyll build --baseurl /api/${{ env.BRANCH_NAME}}
-
-    # Deploy to Preview site
-    - name: Create GitHub deployment
+    - name: Install
+      run: gem install bundler && bundle
+    - name: Build preview site
+      run: bundle exec rake build:preview
+    - name: Test html
+      run: bundle exec rake test:html
+    - name: Test internal links
+      run: bundle exec rake test:links:internal
+    - name: Test *iiif.io* links
+      run: bundle exec rake test:links:iiif
+    - name: Test external links
+      run: bundle exec rake test:links:external
+    - name: Spec tests
+      run: bundle exec rake test:spec
+    - name: Create GitHub deployment # Deploy to Preview site
       uses: glenrobson/deployments@v0.4.2
       id: deployment
       with:
@@ -51,18 +47,16 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN }}
         auto_inactive: 'false'
         env: staging
-
     - name: Deploy to S3
       uses: glenrobson/s3-sync-action@v0.5.1
       with:
-        args: --acl public-read 
+        args: --acl public-read
       env:
         AWS_S3_BUCKET: "preview.iiif.io"
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         AWS_REGION: ${{ secrets.AWS_REGION }}
         SOURCE_DIR: "_site"
-        DEST_DIR: "api/${BRANCH_NAME}"
     - name: Update deployment status
       uses: glenrobson/deployments@v0.4.2
       if: always()
@@ -72,4 +66,4 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN }}
         status: ${{ job.status }}
         deployment_id: ${{ steps.deployment.outputs.deployment_id }}
-        env_url: "https://preview.iiif.io/api/${{ env.BRANCH_NAME}}/api/index.html"
+        env_url: "https://preview.iiif.io/${{ env.SITE_ID }}/${{ env.BRANCH_NAME }}/index.html"

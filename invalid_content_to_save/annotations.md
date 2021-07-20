@@ -450,9 +450,9 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 [paging]: #paging-properties
 [resource-structure]: #resource-structure
 
-[icon-req]: /img/metadata-api/required.png "Required"
-[icon-recc]: /img/metadata-api/recommended.png "Recommended"
+[icon-req]: {{ site.api_url }}/assets/images/icons/required.png "Required"
+[icon-recc]: {{ site.api_url }}/assets/images/icons/recommended.png "Recommended"
 [icon-opt]: /img/metadata-api/optional.png "Optional"
-[icon-na]: /img/metadata-api/not_allowed.png "Not allowed"
+[icon-na]: {{ site.api_url }}/assets/images/icons/not_allowed.png "Not allowed"
 
 {% include acronyms.md %}
