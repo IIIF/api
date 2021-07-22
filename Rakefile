@@ -57,7 +57,7 @@ namespace :test do
     Rake::Task['test:links:internal'].invoke
     Rake::Task['test:links:iiif'].invoke
     # Rake::Task['test:links:external'].invoke
-    Rake::Task['test:spec'].invoke
+    # Rake::Task['test:spec'].invoke
   end
 
   desc 'Check html'
