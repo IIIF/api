@@ -783,8 +783,8 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 [prezi-api]: {{ site.api_url | absolute_url }}/presentation/{{ site.data.apis.presentation.latest.major }}.{{ site.data.apis.presentation.latest.minor }}/ "Presentation API"
 [rfc-2119]: http://tools.ietf.org/html/rfc2119
 [service-annex]: {{ site.api_url | absolute_url }}/annex/services/
-[prezi-annolist]: {{ site.api_url | absolute_url }}/presentation/{{ site.data.apis.presentation.latest.major }}.{{ site.data.apis.presentation.latest.minor }}/#annotation-list
-[prezi-layer]: {{ site.api_url | absolute_url }}/presentation/{{ site.data.apis.presentation.latest.major }}.{{ site.data.apis.presentation.latest.minor }}/#layer
+[prezi-annolist]: {{ site.api_url | absolute_url }}/presentation/2.1/#annotation-list
+[prezi-layer]: {{ site.api_url | absolute_url }}/presentation/2.1/#layer
 [ignored-parameters]: #ignored-parameters
 [oa-textquotesel]: http://www.openannotation.org/spec/core/
 

@@ -1941,7 +1941,7 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 | 2013-06-14 | Version 0.9 (unnamed) |
 
 [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
-[shared-canvas]: {{ site.root_url | absolute_url }}/model/shared-canvas/1.0 "Shared Canvas Data Model"
+[shared-canvas]: {{ '/model/shared-canvas/1.0/' | absolute_url }} "Shared Canvas Data Model"
 [image-api]: {{ site.api_url | absolute_url }}/image/{{ site.data.apis.image.latest.major }}.{{ site.data.apis.image.latest.minor }}/ "Image API"
 [search-api]: {{ site.api_url | absolute_url }}/search/{{ site.data.apis.search.latest.major }}.{{ site.data.apis.search.latest.minor }}/ "Content Search API"
 [annex]: {{ site.api_url | absolute_url }}/annex/services/ "Services Annex Document"

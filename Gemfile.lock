@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/mnyrop/iiifc-theme.git
-  revision: 39512fb2bf0217df3ce18404879b940fb89511ee
+  revision: db2ba05c0bc54e45502029e7eb445bf4371d57fc
   branch: main
   specs:
     iiifc-theme (0.1.0)
@@ -73,7 +73,7 @@ GEM
     kramdown-parser-gfm (1.1.0)
       kramdown (~> 2.0)
     liquid (4.0.3)
-    listen (3.5.1)
+    listen (3.6.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
     mercenary (0.4.0)

@@ -250,8 +250,8 @@
 [search1-autocomplete]: {{ site.api_url | absolute_url }}/search/1.0/#autocomplete
 [search1]: {{ site.api_url | absolute_url }}/search/1.0/
 [search10]: {{ site.api_url | absolute_url }}/search/1.0/
-[shared-canvas]: {{ site.root_url | absolute_url }}/model/shared-canvas/1.0 "Shared Canvas Data Model"
-[recipe-process]: {{  site.cookbook_url }}/recipe/ "Cookbook process"
+[shared-canvas]: {{ '/model/shared-canvas/1.0/' | absolute_url }} "Shared Canvas Data Model"
+[recipe-process]: {{  site.cookbook_url | absolute_url }}/recipe/ "Cookbook process"
 [recipe-mvm-image]: {{ site.cookbook_url | absolute_url }}/recipe/0001-mvm-image/ "Simplest Manifest - Image"
 [recipe-segment-image-part]: {{ site.api_url | absolute_url }}/cookbook/segment-image-part/ "Annotating part of an image to a canvas"
 [slack]: http://bit.ly/iiif-slack

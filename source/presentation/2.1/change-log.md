@@ -127,6 +127,6 @@ Until there is more experience with the Search API, several additions for Annota
 [hints]: {{ site.api_url | absolute_url }}/presentation/2.1/#viewinghint
 [auth]: {{ site.api_url | absolute_url }}/presentation/2.1/#authentication
 [auth-spec]: {{ site.api_url | absolute_url }}/auth/
-[zones]: {{ site.root_url | absolute_url }}/model/shared-canvas/1.0/#Zone
+[zones]: {{ '/model/shared-canvas/1.0/#Zone' | absolute_url }}
 
 {% include acronyms.md %}
