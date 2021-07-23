@@ -47,6 +47,11 @@ namespace :build do
 
     build dest=dest, baseurl=baseurl
   end
+
+  desc 'Clean and build with no overrrides'
+  task :default do
+    build
+  end
 end
 
 namespace :test do
@@ -101,7 +106,9 @@ namespace :test do
       puts 'Checking for external link errors'
       opts = {
         external_only: true,
+        http_status_ignore: [429],
         enforce_https: true,
+        only_4xx: true,
         checks_to_ignore: ['ImageCheck', 'HtmlCheck', 'ScriptCheck'],
         url_ignore: [/.*iiif\.io.*/]
       }
