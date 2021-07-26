@@ -1,8 +1,5 @@
 name: Check-linkrot
 on:
-  pull_request:
-    paths-ignore:
-      - '**/README.md'
   push:
     paths-ignore:
       - '**/README.md'
