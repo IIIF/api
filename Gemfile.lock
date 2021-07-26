@@ -1,15 +1,17 @@
 GIT
   remote: https://github.com/mnyrop/iiifc-theme.git
-  revision: db2ba05c0bc54e45502029e7eb445bf4371d57fc
-  branch: main
+  revision: 6f644682cd6d76ba94c72165315f951eedaac715
+  branch: chore/rake-from-theme-20
   specs:
     iiifc-theme (0.1.0)
-      jekyll (>= 4.0, < 5.0)
+      html-proofer
+      jekyll (>= 4.0, < 4.2)
       jekyll-data
       jekyll-gzip
       jekyll-liquify
       jekyll-redirect-from
       jekyll-sitemap
+      rake
 
 GEM
   remote: https://rubygems.org/
@@ -123,10 +125,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  html-proofer
   iiifc-theme!
   jekyll (~> 4.1.1)
-  rake
   rspec
 
 BUNDLED WITH
