@@ -1,7 +1,7 @@
 GIT
   remote: https://github.com/mnyrop/iiifc-theme.git
-  revision: 6f644682cd6d76ba94c72165315f951eedaac715
-  branch: chore/rake-from-theme-20
+  revision: 3c8d4940969b1665956ed94ad2f6ec9981195f3c
+  branch: main
   specs:
     iiifc-theme (0.1.0)
       html-proofer
