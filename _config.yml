@@ -1,17 +1,18 @@
+site_id:        api
 theme:          iiifc-theme
 source:         source
 permalink:      pretty
+baseurl:        '/api'
 
+api_url:        ''
 root_url:       'https://preview.iiif.io/root/wireframe'
-cookbook_url:   'https://preview.iiif.io/cookbook/wireframe/'
-api_url:        '/api'
-cookbook_url:   'https://iiif.io/api/cookbook/'
+cookbook_url:   'https://preview.iiif.io/cookbook/wireframe'
 
 plugins:
   - jekyll-data
   - jekyll-gzip
-  - jekyll-redirect-from
   - jekyll-liquify
+  - jekyll-redirect-from
 
 notification:
   enabled: true

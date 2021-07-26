@@ -1,0 +1,2000 @@
+---
+sitemap: false
+redirect_from:
+  /metadata/1/index.html
+  /metadata/index.html
+  /presentation/1/index.html
+  /presentation/1.0/index.html
+---
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html lang="en" class="no-js"> <![endif]-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>IIIF | International Image Interoperability Framework &rsaquo; Metadata API 1.0</title>
+    <meta name="description" content="Interoperability Interoperability Image Framework : A community driven image framework with well defined APIs for making the world's image repositories interoperable and accessible">
+    <meta name="viewport" content="width=device-width">
+
+    <link rel="stylesheet" href="{{ site.root_url | absolute_url }}/css/normalize.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Raleway:100,300,500' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{{ site.root_url | absolute_url }}/css/main.css">
+
+<style>
+    .warning {
+      border-left: 4px solid #E05252;
+      background: #fbe9e9;
+      padding-top: 20px;
+      padding-bottom: 20px;
+      padding-left: 20px;
+      padding-right: 24px;
+    }
+
+    .warning strong {
+        font-weight: bold;
+        color: #E05252;
+      }
+</style>
+
+
+  </head>
+  <body>
+    <!--[if lt IE 7]>
+      <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+    <![endif]-->
+
+    <div class="header-container">
+      <header class="wrapper clearfix">
+        <a class="title" title="IIIF : International Image Interoperability Framework" href="{{ site.root_url | absolute_url }}/">Home</a>
+        <nav>
+          <ul>
+            <li><a href="{{ site.root_url | absolute_url }}/about/">About</a></li>
+            <li><a href="{{ site.root_url | absolute_url }}/technical-details/">Technical Details</a></li>
+            <li><a href="{{ site.root_url | absolute_url }}/demos/">Apps &amp; Demos</a></li>
+            <li><a href="{{ site.root_url | absolute_url }}/community/">Community</a></li>
+          </ul>
+        </nav>
+      </header>
+    </div>
+
+    <div class="sub-pages-container">
+      <div class="metadata-api clearfix">
+        <article>
+          <header>
+            <div class="wrapper">
+              <h1>IIIF Metadata API 1.0</h1>
+            </div>
+          </header>
+
+<blockquote>
+<div class="warning">
+This API has been replaced by the <a href="{{ site.api_url | absolute_url }}/presentation/"><strong>IIIF Presentation API</strong></a> and should not be used.
+</div>
+</blockquote>
+
+          <section class="editors-authors wrapper">
+            <div>
+              <strong>Editors</strong>
+              <ul class="names">
+                <li>Robert Sanderson,<em> Los Alamos National Laboratory</em></li>
+                <li>Ben Albritton,<em> Stanford University</em></li>
+                <li>Markus Enders,<em> British Library</em></li>
+              </ul>
+            </div>
+            <div>
+              <strong>Contributors</strong> <br>
+              <ul class="names">
+                <li>Michael Appleby, <em>Yale University</em></li>
+                <li>Tom Cramer,<em> Stanford University</em></li>
+                <li>Mark Patton, <em>John Hopkins University</em></li>
+                <li>Neil Jeffries, <em>University of Oxford</em></li>
+                <li>Tim Gollins, <em>UK National Archives</em></li>
+                <li>Simeon Warner, <em>Cornell University</em></li>
+                <li>Jon Stroop, <em>Princeton University</em></li>
+              </ul>
+            </div>
+          </section>
+
+          <!-- Abstract -->
+          <section class="wrapper document-status">
+            <h2>Status of this Document</h2>
+
+            <p>
+              <em>This section describes the status of this document at the time of its publication. Other documents may supersede this
+              document.</em>
+            </p>
+            <p>
+              Copyright &copy; 2012-2013 the Contributors to the IIIF, DMS Council, and other Contributors, published by the IIIF under the
+              CC-BY license.
+            </p>
+          </section>
+
+
+          <!-- Table of Contents -->
+          <section class="wrapper toc" id="toc">
+            <h2>Table of Contents</h2>
+
+            <ol>
+              <li>
+                <a href="#introduction">Introduction</a>
+                <ol>
+                  <li><a href="#objectives">Objectives and Scope</a></li>
+                </ol>
+              </li>
+              <li><a href="#use-cases">Motivating Use Cases</a></li>
+              <li><a href="#objects">Primary Resource Types</a></li>
+              <li><a href="#fields">Metadata Fields</a></li>
+              <li><a href="#api">Requests and Responses</a>
+                <ol>
+                  <li><a href="#api-manifest">Manifest</a></li>
+                  <li><a href="#api-sequence">Sequence</a></li>
+                  <li><a href="#api-canvas">Canvas</a></li>
+                  <li><a href="#api-annotation">Association of Image Resources</a></li>
+                  <li><a href="#api-list">Other Content Resources</a></li>
+                  <li><a href="#api-advanced">Advanced Association Features</a>
+                    <ol>
+                      <li><a href="#api-advanced-segments">Segments</a></li>
+                      <li><a href="#api-advanced-embedded">Embedded Content</a></li>
+                      <li><a href="#api-advanced-choice">Choice of Alternative Resources</a></li>
+                      <li><a href="#api-advanced-non-rectangular">Non Rectangular Segments</a></li>
+                      <li><a href="#api-advanced-style">Style</a></li>
+                      <li><a href="#api-advanced-comments">Comments</a></li>
+                    </ol>
+                  </li>
+                </ol>
+              </li>
+              <li><a href="#structure">Additional Resource Types</a>
+                <ol>
+                  <li><a href="#structure-range">Range</a></li>
+                  <li><a href="#structure-layer">Layer</a></li>
+                </ol>
+              </li>
+              <li><a href="#examples">Examples</a></li>
+            </ol>
+          </section>
+
+
+          <!-- 1. Introduction  -->
+          <section class="wrapper introduction" id="introduction">
+            <h2>
+              1. Introduction
+              <a href="#toc" title="Back to Table of Contents"><img class="to-toc" src="{{ site.api_url | absolute_url }}/assets/images/icon-toc.png" alt="To TOC"></a>
+            </h2>
+
+            <p>
+              Access to image-based resources is fundamental to many research disciplines, scholarship and the transmission of
+              cultural knowledge. Digital images are a container for much of the information content in the Web-based delivery of
+              images, books, newspapers, manuscripts, maps, scrolls, single sheet collections, and even digital surrogates of
+              textiles, realia and ephemera.
+            </p>
+            <p>
+              This document describes how the structural and descriptive metadata about a digitized object can be made available in a
+              standard manner. Many different styles of viewer can be implemented that consume the information to enable a rich and
+              dynamic experience for their users across collections and hosting institutions.
+            </p>
+            <p>
+              A digitized object may comprise a series of pages or surfaces; for example the pages of an edition of a newspaper, or
+              the pages of a book together with its covers and spine. As such the primary requirements for the metadata API is to
+              provide an order for the pages, and the essential metadata to allow the user to understand what they're seeing.
+            </p>
+            <p>
+              The principles of Linked Data and the architecture of the Web are adopted in order to provide a distributed and
+              interoperable system. The <a href="http://www.shared-canvas.org/" target="_blank">Shared Canvas data model</a> is
+              leveraged in a specific, JSON based format that is easy to implement without understanding RDF, but is still compatible
+              with it. As such it can be seen as a recommended serialization profile for Shared Canvas.
+            </p>
+          </section>
+
+
+          <!-- 1.1. Objectives and Scope -->
+          <section class="wrapper objectives" id="objectives">
+            <h3>1.1. Objectives and Scope <a href="#toc"><img class="to-toc" src="{{ site.api_url | absolute_url }}/assets/images/icon-toc.png" alt="To TOC"></a></h3>
+
+            <p>
+              The objective of the IIIF Metadata API is to provide the information necessary to allow a rich, online viewing
+              environment for digitized physical objects to be presented to a user, in conjunction with the IIIF Image API. This is
+              the sole purpose of the API; to provide easy access to the information necessary for a viewer to render an appropriate
+              user experience for the digitized content. Therefore the descriptive information is given in a way that is human
+              readable, but not necessarily semantically available to machines. In particular, it specifically does not aim to provide
+              metadata that would drive discovery or user selection of the digitized objects, or machine actionable rights
+              information. This specification is not concerned with in-document search, however that will be covered by a further
+              document. Domain specific features, such as geo-referencing of maps to real world locations, are also not covered but
+              may be addressed in additional documents in the future.
+            </p>
+            <p>
+              The following are within the scope of the current document:
+            </p>
+
+            <ul>
+              <li>
+                The display of digitized images associated with a particular physical object.
+              </li>
+              <li>
+                Navigation between the pages or surfaces of the object.
+              </li>
+              <li>
+                The display of text, and resources of other media types, associated with the object or its pages – this includes
+                descriptive information about the object, labels that can aid navigation such as numbers associated with individual
+                pages, and copyright and attribution information, etc.
+              </li>
+            </ul>
+
+            <p>
+              The following are not within scope:
+            </p>
+
+            <ul>
+              <li>
+                The discovery or selection of interesting digitized objects is not supported – this falls within the scope of discovery.
+              </li>
+              <li>
+                Search within the object is not supported by the Metadata API; however this will be covered by a further related
+                specification.
+              </li>
+            </ul>
+
+            <p>
+              Note that in the following descriptions, "[physical] object" is used to refer to the physical object that has been
+              digitized, and "resources" refer to the digital resources that are the result of that digitization process.
+            </p>
+          </section>
+
+          <!-- 2. Motivating Use Cases -->
+          <section class="wrapper use-cases" id="use-cases">
+            <h2>
+              2. Motivating Use Cases
+              <a href="#toc" title="Back to Table of Contents"><img class="to-toc" src="{{ site.api_url | absolute_url }}/assets/images/icon-toc.png" alt="To TOC"></a>
+            </h2>
+
+            <p>
+              There are many different types of digitized resources, from ancient scrolls to modern newspapers, from medieval
+              manuscripts to printed books, and from large maps to small photographs. Many of them bear texts, sometimes difficult to
+              read either due to the decay of the physical object or lack of understanding of the script or language. The following
+              use cases are motivations for this specification.
+            </p>
+
+            <ul>
+              <li>
+                  A medieval manuscript that has had each page digitized, and the user should be able to step from the first page through
+                  to the end to view the images
+                </li>
+                <li>
+                  An early printed book that has had each page digitized and the transcribed text associated with each page.
+                </li>
+                <li>
+                  A digitized newspaper with the text extracted automatically by Optical Character Recognition and linked to the
+                  individual line in its depiction
+                </li>
+                <li>
+                  A photograph, digitized front and back.
+                </li>
+                <li>
+                  A large map where the image depicting it can be zoomed and panned for ease of inspection
+                </li>
+                <li>
+                  A manuscript that has been disbound and is now separated across different institutions, some of which have digitized
+                  their leaves.
+                </li>
+                <li>
+                  An important manuscript that has had multiple digitizations over time as technology improves, any of which should be
+                  available to the user to compare
+                </li>
+                <li>
+                  A manuscript that has been re-used by erasing the original text and writing over top of it, where the original text can
+                  be recovered using modern techniques of multi-spectral imaging.
+                </li>
+                <li>
+                  That same manuscript (a palimpsest) where all of the different images of a single page, taken for the text
+                  reconstruction, are available to be displayed.
+                </li>
+                <li>
+                  A book where pages are known to have existed, but have been lost or still exist but are too fragile to digitize without
+                  destroying them.
+                </li>
+                <li>
+                  Non rectangular pages, such as heart shaped renaissance manuscripts.
+                </li>
+                <li>
+                  A page where only fragments of it remain, and they are not rectangular. These fragments are often digitized together,
+                  regardless of the page that they originally came from, and must be able to be associated with the correct pages
+                  separately.
+                </li>
+                <li>
+                  The same fragment, where the text is known from other witnesses, or can be otherwise inferred, which should be
+                  associated in the display of the object even though the physical content no longer exists.
+                </li>
+                <li>
+                  Older projects which only digitized the "interesting" sections of an object, such as the illuminations or famous parts.
+                  Equivalently, they may have digitized those sections in more detail, and the rest to a lower quality.
+                </li>
+                <li>
+                  Disagreement between scholars as to the correct reconstruction of fragments, or how a text should be read.
+                </li>
+                <li>
+                  A score where the music has been transcribed into modern notation, which should be associated with the page in the same
+                  way as transcribed text.
+                </li>
+                <li>
+                  The same score, where the music has been performed and recorded, which should be associated with the page so that the
+                  performance can be played to the user.
+                </li>
+                <li>
+                  Transcription of diagrams, formulae, charts or tables into individual images, or other digitally accessible resources.
+                </li>
+                <li>
+                  Structured texts, including chapters, sections, verses, books, articles, texts, where the structure is important for
+                  navigation around the document.
+                </li>
+                <li>
+                  Manuscripts that have been re-ordered, intentionally or otherwise, over time and the different sequences of pages are
+                  known.
+                </li>
+                <li>
+                  Books that have had additional fly-leaves or other artifacts added to them over time which are now historically
+                  important, but the user should be able to display the object as it was before they were added.
+                </li>
+                <li>
+                  Pages with foldouts, curtains or other additions that can be dynamically interacted with by the user to experience the
+                  different states that the object can be in.
+                </li>
+                <li>
+                  Multiple transcriptions, editions, translations or other sets of information that should be associated with the
+                  digitized pages in a coherent and consistent fashion.
+              </li>
+            </ul>
+
+            <p>
+              Collectively these use cases require a model in which one can characterise the digitised resource (the Manifest), the
+              order in which individual pages or surfaces are viewed (the Sequence), and the individual pages or surfaces (a Canvas).
+              Each Canvas may images and/or texts associated with it (the Content) to allow the page to be viewed. A resource may also
+              have parts; for example, a book may have chapters where several pages may be associated with a single chapter (a Range)
+              or there may be groups of content resource above the page level, such as all of the texts that make up a single
+              transcription of a manuscript. (a Layer).
+            </p>
+            <p>
+              The need for these conceptual components, shown in italics, was recognised in earlier work concerned with viewing
+              complex digitised manuscripts. The IIIF metadata model is thus derived from this earlier work but has been extended to
+              meet the additional practical needs when viewing and navigating of other types of digitised content. The components and
+              their use are described in the following sections.
+            </p>
+
+          </section>
+
+
+          <!-- 3. Primary Resource Types -->
+          <section class="wrapper objects" id="objects">
+            <h2>
+              3. Primary Resource Types
+              <a href="#toc"><img class="to-toc" src="{{ site.api_url | absolute_url }}/assets/images/icon-toc.png" alt="To TOC"></a>
+            </h2>
+
+            <p>
+              This specification makes use of the following primary resource types:
+            </p>
+
+            <ul>
+              <li>
+                <span class="font-weight-600">Manifest</span>: The overall description of the structure of the digital facsimile and
+                the content resources needed to render it. It represents the intellectual work and physical object itself, and thus
+                carries information needed for the viewer to present the entire facsimile to the user, such as a title, people involved
+                with its creation, and the location where it is currently held.
+              </li>
+              <li>
+                <span class="font-weight-600">Sequence</span>: The order of the pages within the physical object. As books may be
+                rebound over time or the page order otherwise change, multiple Sequences are allowed.
+              </li>
+              <li>
+                <span class="font-weight-600">Canvas</span>: A container that represents a page and has content resources associated
+                with it, or with parts of it. The Canvas provides a frame of reference for the layout of the page. The notion of a
+                Canvas is drawn from standards like PDF and HTML, or applications like Photoshop, where the display starts from a
+                blank canvas and images, text and other resources are "painted" on to it.
+              </li>
+              <li>
+                <span class="font-weight-600">Content</span>: Content resources such as images or texts that are associated with a Canvas.
+              </li>
+            </ul>
+
+            <p>
+              Each Manifest must, and is very likely to, have one Sequence, but may have more than one. Each Sequence must have one
+              Canvas and is likely to have more than one. Each Canvas may have zero or more Content resources associated with it. Zero
+              is unlikely, but represents the case where the page exists (or existed) but has not been digitized. This heirarchy is
+              depicted below.
+            </p>
+
+            <p class="container-figure">
+              <img height="450" class="figure-metadata-api-objects" src="{{ site.api_url | absolute_url }}/assets/images/iiif-objects.png" alt="Primary Resource Types"> <br/>
+              <span class="figure-label">Figure 1. Primary Resource Types</span>
+            </p>
+
+            <p>
+             There are other types of resource including Annotation Lists, Annotations, Ranges and Layers, which are discussed
+             later.
+            </p>
+          </section>
+
+
+          <!-- 4. Metadata Fields -->
+          <section class="wrapper fields" id="fields">
+            <h2>
+              4. Metadata Fields
+              <a href="#toc"><img class="to-toc" src="{{ site.api_url | absolute_url }}/assets/images/icon-toc.png" alt="To TOC"></a>
+            </h2>
+
+            <p>
+              The following metadata fields are suggested by this specification, broken in to four sections. Each metadata field is
+              repeatable, and most may be associated with any of the resource types:
+            </p>
+
+            <h4>Descriptive Metadata</h4>
+
+            <ul>
+              <li>
+                <span class="font-weight-600">label</span>: A human readable label, name or title for the object. This field is intended
+                to be displayed as a short surrogate for the resource if a human needs to make a distinction between it and similar
+                resources, for example between pages or between a choice of images to display. When associated with the Manifest it should
+                be the name of the physical object or title of the intellectual work that it embodies. When associated with a Sequence it
+                should briefly convey the nature of sequence, such as "Current Page Order". When associated with a Canvas, it should be the
+                page label such as "p. 1" or "folio 1 recto". Finally, when associated with an image or other content resource, it should
+                be a brief description of the resource, such as "black and white" versus "color photograph"
+              </li>
+              <li>
+                <span class="font-weight-600">metadata</span>: A list of metadata fields given as pairs of human readable label and value
+                to be displayed by the client to the user. There are no semantics conveyed by this information, and clients should not use
+                it for discovery or other purposes. This pool of metadata fields should be able to be displayed in a tabular form in the
+                user interface. Metadata pairs might be used to convey the author of the work, information about its creation, a brief
+                physical description, or ownership information amongst other use cases. The client is not expected to take any action on
+                this information beyond displaying the label and value. An example pair of label and value might be: {"label": "Author",
+                "value": "Froissart"}. The client should display the pairs in the order provided by the description.
+              </li>
+              <li>
+                <span class="font-weight-600">description</span>: A longer form prose description of the object, intended to be conveyed
+                to the user as a full text description, rather than a simple label. It can duplicate any of the above information, along
+                with additional information required for the understanding of the digitized object, description of the physical object,
+                bibliographic information and so forth.
+              </li>
+            </ul>
+
+            <p>
+              The Manifest and Canvas resources must have at least one Label, even if only the position of the Canvas within the
+              Sequence to be displayed for navigation. Metadata and description are optional for the different types of resource.
+            </p>
+
+            <h4>Rights Metadata</h4>
+
+            <ul>
+              <li>
+                <span class="font-weight-600">attribution</span>: A human readable label that must be displayed when the resource it is
+                associated with is displayed or used. For example this could be used to present copyright or ownership, or simply an
+                acknowledgement of the owning and/or publishing institutions.
+              </li>
+              <li>
+                <span class="font-weight-600">license</span>: A link to a resource that describes the license or rights statement under
+                which the resource is being used. The rationale for this being a URI not a human readable label is that typically there
+                is one license for many resources, and the text is too long to be displayed to the user along with the object. If this is
+                a requirement, then it is recommended to include the information in an attribution field instead.
+              </li>
+            </ul>
+
+            <p>
+              Rights metadata is optional for all resources.
+            </p>
+
+            <h4>Technical Metadata</h4>
+
+            <ul>
+              <li>
+                <span class="font-weight-600">id</span>: The URI that identifies the resource. Recommended, but not mandatory, URI patterns
+                are presented below.
+              </li>
+              <li>
+                <span class="font-weight-600">type</span>: The type of the resource, either Manifest/Sequence/Canvas or drawn from a list of
+                igh level content types such as Image, Text or Audio.
+              </li>
+              <li>
+                <span class="font-weight-600">format</span>: The more specific media type (often called a MIME type) of a Content resource,
+                for example "image/jpeg". This is important for distinguishing, for example, text in XML from plain text.
+              </li>
+              <li>
+                <span class="font-weight-600">height</span>: The height of a Canvas or Image resource. For images, this is in pixels. No
+                particular units are required for Canvases, as the dimensions provide an aspect ratio for the resources to be located
+                within rather than measuring any physical property of the object.
+              </li>
+              <li>
+                <span class="font-weight-600">width</span>: The width of a Canvas or Image resource. For images, this is in pixels. No
+                particular units are required for Canvases.
+              </li>
+              <li>
+                <span class="font-weight-600">viewingDirection</span>: The direction that Canvases should be presented in a viewer for the
+                object. This field is valid for a Manifest (and would apply to all Sequences and Ranges), a Sequence or a Range, and must be
+                ne of the following, case-sensitive strings: "left-to-right", "right-to-left", "top-to-bottom", "bottom-to-top"
+              </li>
+              <li>
+                <span class="font-weight-600">viewingHint</span>: A hint to the viewer as to the most appropriate method of displaying the
+                object. It is valid on the Manifest, Sequence of Range as per viewingDirection. This field can be any string, however the
+                following are defined:
+
+                <ul>
+                  <li>
+                    <span class="font-weight-600">"individuals"</span>: The canvases are all individual sheets, and should not be presented
+                    in a specifically page turning interface. For example a sequence of letters or photographs.
+                  </li>
+                  <li>
+                    <span class="font-weight-600">"paged"</span>: The canvases represent pages in a bound volume, and should be presented
+                    in a page turning interface.
+                  </li>
+                  <li>
+                    <span class="font-weight-600">"continuous"</span>: The canvases each represent a complete side of a long scroll or roll
+                    and an appropriate rendering might only display part of the canvas at any given time rather than the entire object.
+                  </li>
+                </ul>
+              </li>
+              <li>
+                Additional image information may be provided, as described in the <a href="{{ site.api_url | absolute_url }}/image/1.1/">IIIF Image API</a>.
+              </li>
+            </ul>
+
+            <p>
+              The id and type are required for all primary resources. Height and width are required for Canvases and strongly
+              recommended for image based content resources. Format is strongly recommended for all content resources.
+              ViewingDirection and ViewingHint are only applicable to Sequences, and if not present then "Left-to-Right" and "paged"
+              should be assumed.
+            </p>
+
+            <h4>Links to Other Resources</h4>
+
+            <ul>
+              <li>
+                <span class="font-weight-600">related</span>: A link to an external resource that is related to the current resource and intended for
+                rendering to the user, such as a video or academic paper about a manuscript, a link to the website of the newspaper, a description of
+                the photograph, and so forth. A label and the format of the target resource should be given if possible to assist clients in
+                rendering the resource.
+              </li>
+              <li>
+                <span class="font-weight-600">service</span>: A link to a service that makes more functionality available for the resource, such as from
+                an image to the base URI of an <a href="{{ site.api_url | absolute_url }}/image/1.1/">IIIF Image API service</a>. The
+                service resource should have additional information associated with it in order to allow the client to determine how to make appropriate
+                use of it, such as a "profile" link to a service description or information duplicated from the IIIF Image API Information Request
+              </li>
+              <li>
+                <span class="font-weight-600">seeAlso</span>: A link to a document that describes the resource in a machine readable way. This could be an
+                XML or RDF record, such as in EAD, Dublin Core or Bibo schemas. The "profile" and "format" information should be given if possible.
+              </li>
+              <li>
+                <span class="font-weight-600">within</span>: A link to a resource that contains the current resource, such as a collection of Manifests.
+                This would allow linking upwards to collections that allow browsing of the digitized objects available, but is not within the scope of
+                the current document.
+              </li>
+            </ul>
+
+            <p>
+              Links are optional for all resources. They may also have type and format associated with them.
+            </p>
+
+            <p>
+              These metadata fields and requirements are depicted in the diagram below.
+            </p>
+
+
+            <p class="container-figure">
+              <img height="450" class="figure-metadata-api-objects-md" src="{{ site.api_url | absolute_url }}/assets/images/iiif-objects-metadata.png" alt="Metadata Fields"> <br/>
+              <span class="figure-label">Figure 2. Metadata Fields</span>
+            </p>
+
+             <p>
+               Other metadata fields are possible, either custom extensions or endorsed by the IIIF. If a client discovers fields that
+               it does not understand, then it must ignore them.
+             </p>
+
+          </section>
+
+
+          <!-- 5. Requests and Responses -->
+          <section class="wrapper api" id="api">
+            <h2>
+              5. Requests and Responses
+              <a href="#toc"><img class="to-toc" src="{{ site.api_url | absolute_url }}/assets/images/icon-toc.png" alt="To TOC"></a>
+            </h2>
+
+            <p>
+              This section describes the recommended request and response patterns for the API that makes the metadata available. The
+              REST approach is followed where a call will retrieve a description of a resource, and additional calls may be made by
+              following links obtained from within the description. All of the requests use the HTTP GET method; creation and update
+              of resources is not covered by this specification.
+            </p>
+
+            <h4>Requests</h4>
+
+            <p>
+              Each of the sections below recommends a URI pattern to follow for the different resources. This is not required and
+              clients should not construct the URIs by themselves, instead they should follow links from within retrieved
+              descriptions.
+            </p>
+            <p>
+              The Base URI recommended for resources made available by the API is:
+            </p>
+            <p class="code-block">
+              {scheme}://{host}/{prefix}/{identifier}
+            </p>
+            <p>
+              Where the parameters are:
+            </p>
+
+            <ul>
+              <li>
+                <span class="font-weight-600">{scheme}</span>: Either "http" or "https"
+              </li>
+              <li>
+                <span class="font-weight-600">{host}</span>: The hostname (and optional port) of the server that provides the information. For example,
+                "www.example.org"
+              </li>
+              <li>
+                <span class="font-weight-600">{prefix}</span>: A static prefix such as "iiif" or "metadata". It must be the same for all of the resources
+                that make up a facsimile. The prefix may contain multiple path elements such as "iiif/manuscripts/french/m804" but no semantics are
+                associated with these additional steps by this specification.
+              </li>
+              <li>
+                <span class="font-weight-600">{identifier}</span>: An identifier string for the object itself. For example "m804" or "issue3"
+              </li>
+            </ul>
+
+            <p>
+              The individual resources will have URIs below this top level pattern in the same way as the IIIF Image API, by appending
+              a "/" and the additional information to identify the resource required. If a client requests a URI without a trailing
+              ".json", then the server should attempt to do content-negotiation if other serializations are available, otherwise
+              return the json representation.
+            </p>
+
+            <h4>Responses</h4>
+
+            <p class="font-weight-600">
+              HTTP Details
+            </p>
+            <p>
+              The format for all responses is JSON, and the sections below describe the structure to be returned in more detail. The
+              primary response is when the Manifest is requested and for optimization reasons this must return the Manifest, with the
+              default Sequence, Canvases and Associations for image Content resources embedded within it. Additional Sequences and
+              Associations are made available via additional calls.
+            </p>
+            <p>
+              The media type for the responses (returned in the HTTP Content-Type header value) should be "application/ld+json", but
+              may be "application/json" and clients should process both in the same manner.
+            </p>
+            <p class="code-block">
+               Content-Type: application/ld+json
+            </p>
+            <p>
+              The HTTP server should also send the Cross Origin Access control header to allow clients to download the manifests via
+              AJAX from remote sites. The header name is "Access-Control-Allow-Origin" and the value of the header should be "*". In
+              the Apache web server this may be enabled with the following configuration snippet:
+            </p>
+<p class="code-block multi-line-code">LoadModule headers_module modules/mod_headers.so
+&lt;LocationMatch "/prefix/*json"&gt;
+  Header set Access-Control-Allow-Origin "*"
+&lt;/LocationMatch&gt;
+</p>
+            <p>
+              Responses should be compressed by the server as there are significant performance gains to be made for
+              very repetitive data.
+            </p>
+
+            <p class="font-weight-600">
+              Response Content Details
+            </p>
+            <p>
+              Resource descriptions should be embedded within higher level resources, and may also be available via separate requests
+              from URIs linked in the responses. These URIs are in the "@id" metadata field for the resource. Links to resources may
+              either be given just as the URI if there is no additional information associated with them, or they may be a JSON object
+              with the "@id" field. Thus the following two lines are equivalent, however the second should not be used without
+              additional associated information:
+            </p>
+<p class="code-block multi-line-code">{"seeAlso" : "http://www.example.org/descriptions/book1.xml"}
+{"seeAlso" : {"@id":"http://www.example.org/descriptions/book1.xml"}}
+</p>
+            <p>
+              Each response must have a single "@context" property, preferably as the very first key/value pair in the top most
+              object. This tells Linked Data processors how to interpret the information. It must occur exactly once per response, and
+              be omitted from any embedded resources. For example, when embedding a Sequence within a Manifest, the Sequence must not
+              have the @context line.
+            </p>
+            <p>
+              Any additional fields beyond those defined in this specification must be mapped to RDF predicates using a Context
+              document. In this case, the value of "@context" is an array with the first element being the IIIF context document, and
+              the second (and subsequent) being extension Context documents. Extension contexts must not change the semantics of any
+              of the fields defined in the IIIF context. The @context line would thus look like:
+            </p>
+            <p class="code-block">
+              "@context": ["http://www.shared-canvas.org/ns/context.json", "http://www.example.org/sc/contexts/extension1.json"]
+            </p>
+            <p>
+              Any of the metadata fields may be repeated. In JSON this is done by giving a list, rather than a single string. Language
+              may also be associated with descriptive metadata strings using the following pattern of value plus the
+              <a href="http://tools.ietf.org/html/rfc5646" target="_blank">RFC 5646</a> code, instead of a plain string:
+            </p>
+            <p class="code-block">
+              {"@value":"Information", "@language":"en"}
+            </p>
+            <p>
+              Note that <a href="http://tools.ietf.org/html/rfc5646" target="_blank">RFC 5646</a> allows the script of the text to
+              be included after a hyphen, such as "ar-latn", and clients should be
+              aware of this possibility. This allows for full internationalization of the user interface components described in the
+              response, as the metadata labels as well as values may be translated in this manner; examples are given below.
+              Client developers should be aware that some implementations may add an "@graph" property at the top level, which
+              contains the object. This is a side effect of JSON-LD serialization. This pattern is NOT recommended for implementation,
+              and either the client or server can use the JSON-LD compaction algorithm to remove it.
+
+<!--
+              Using JSON-LD Framing with the
+              <a href="http://www.shared-canvas.org/datamodel/iiif/implementation.html#frames" target="_blank">supplied Frames</a>
+              will avoid the generation of the "@graph" pattern.
+-->
+            </p>
+            <p>
+              In the examples given below, comments in the JSON are given in blue italics and must be omitted. Example information
+              that needs to be filled out is given in green italics. The order in which the examples are presented is to allow the
+              example to build up from the top most resource, the Manifest, down to the association of Content resources with the
+              Canvases.
+            </p>
+          </section>
+
+
+          <!-- 5.1. Manifest -->
+          <section class="wrapper api-manifest" id="api-manifest">
+            <h3>
+              5.1. Manifest
+              <a href="#toc"><img class="to-toc" src="{{ site.api_url | absolute_url }}/assets/images/icon-toc.png" alt="To TOC"></a>
+            </h3>
+
+            <p>
+              Recommended URI pattern:
+            </p>
+            <p class="code-block">
+              {scheme}://{host}/{prefix}/{identifier}/manifest.json
+            </p>
+            <p>
+              The Manifest contains sufficient information for the client to initialize itself and begin to display something quickly
+              to the user. It represents a single physical object and the intellectual work or works embodied within that object. In
+              particular it includes the descriptive, rights and linking metadata for this physical object. It then references or
+              embeds the Sequence(s) of Canvases that should be rendered to the user viewing the facsimile.
+            </p>
+            <p>
+              The metadata fields are included directly within the JSON object. Identifier is given the special name of "@id" and may
+              always be dereferenced to retrieve the description of the object. After the metadata, there is then a "sequences"
+              section, which is a list of objects. Each object is a Sequence, described in then next section, that represents the
+              order of the pages and the first such Sequence should be included within the Manifest as well as optionally being
+              available from its own URI. Subsequent Sequences should only be referenced with their identifier ("@id") and class
+              ("@type").
+            </p>
+            <p>
+              The example below includes only the Manifest level information, however it should embed the Sequence, Canvas and content
+              information as described in the following sections. It includes examples in the descriptive metadata for how to
+              associate multiple entries with a single field and how to be explicit about the language of a particular entry.
+            </p>
+
+<p class="code-block multi-line-code">{
+  // Metadata about this Manifest file
+  "@context":"http://www.shared-canvas.org/ns/context.json",
+  "@id":"http://www.example.org/iiif/book1/manifest.json",
+  "@type":"sc:Manifest",
+
+  // Metadata about the physical object/intellectual work
+  "label":"Book 1",
+  "metadata": [
+    {"label":"Author", "value":"Anne Author"},
+    {"label":"Published", "value": [
+        {"@value": "Paris, circa 1400", "@language":"en"},
+        {"@value": "Paris, environ 1400", "@language":"fr"}
+      ]
+    }
+  ],
+  "description":"A longer description of this example book. It should give some real information.",
+
+  // Rights Metadata
+  "license":"http://www.example.org/license.html",
+  "attribution":"Provided by Example Organization",
+
+  // Linking Metadata
+  "service":"http://www.example.org/iiif/book1/search.html",
+  "seeAlso":"http://www.example.org/library/catalog/book1.xml",
+  "within":"http://www.example.org/collections/books/",
+
+  // List of Sequences
+  "sequences" : [
+      {
+        "@id":"http://www.example.org/iiif/book1/sequence/normal.json",
+        "@type":"sc:Sequence",
+        "label":"Current Page Order"
+        // Sequence's page order should be included here, see below...
+      }
+      // Any additional sequences can be referenced here...
+  ]
+}</p>
+          </section>
+
+
+          <!-- 5.2. Sequence -->
+          <section class="wrapper api-sequence" id="api-sequence">
+            <h3>
+              5.2. Sequence
+              <a href="#toc"><img class="to-toc" src="{{ site.api_url | absolute_url }}/assets/images/icon-toc.png" alt="To TOC"></a>
+            </h3>
+
+            <p>
+              Recommended URI pattern:
+            </p>
+            <p class="code-block">
+              {scheme}://{host}/{prefix}/{identifier}/sequence/{name}.json
+            </p>
+            <p>
+              The Sequence conveys the ordering of the pages. The default sequence (and typically the only sequence) should be
+              embedded within the Manifest, but may also be available from its own URI. Any additional sequences should be referred to
+              from the Manifest but not embedded within it.
+            </p>
+            <p>
+              The new {name} parameter in the URI structure is to distinguish it from any other sequences that may be available for
+              the physical object. Typical default names are "normal" or "basic". Names should not begin with a number, as it cannot
+              be the first character of an XML tag making RDF/XML serialization impossible.
+            </p>
+            <p>
+              Sequences may have their own descriptive, rights and linking metadata using the same fields as for Manifests. The Label
+              field should be given for all sequences and must be given if there is more than one referenced from a Manifest. After
+              the metadata, the set of pages in the object, represented by Canvas resources, are listed in order in the "canvases"
+              property.
+            </p>
+            <p>
+              In the Manifest example above, the sequence is referenced by its URI and contains only the basic information of label,
+              type and id. The default sequence should be written out in full within the Manifest file, as below.
+            </p>
+
+<p class="code-block multi-line-code">{
+  // Metadata about this Sequence
+  "@context":"http://www.shared-canvas.org/ns/context.json",
+  "@id":"http://www.example.org/iiif/book1/sequence/normal.json",
+  "@type":"sc:Sequence",
+  "label":"Current Page Order",
+
+  "viewingDirection":"left-to-right",
+  "viewingHint":"paged",
+
+  // The order of the Canvases
+  "canvases": [
+    {
+      "@id":"http://www.example.org/iiif/book1/canvas/p1.json",
+      "@type":"sc:Canvas",
+      "label":"p. 1",
+      "height":1000,
+      "width":750,
+      "images": [
+           // Links to the Content resources go here ...
+      ]
+    },
+    {
+      "@id":"http://www.example.org/iiif/book1/canvas/p2.json",
+      "@type":"sc:Canvas",
+      "label":"p. 2",
+      "height":1000,
+      "width":750
+    },
+    {
+      "@id":"http://www.example.org/iiif/book1/canvas/p3.json",
+      "@type":"sc:Canvas",
+      "label":"p. 3",
+      "height":1000,
+      "width":750
+    }
+  ]
+}</p>
+          </section>
+
+
+          <!-- 5.3. Canvas -->
+          <section class="wrapper api-canvas" id="api-canvas">
+            <h3>
+              5.3. Canvas
+              <a href="#toc"><img class="to-toc" src="{{ site.api_url | absolute_url }}/assets/images/icon-toc.png" alt="To TOC"></a>
+            </h3>
+
+            <p>
+              Recommended URI pattern:
+            </p>
+            <p class="code-block">
+              {scheme}://{host}/{prefix}/{identifier}/canvas/{name}.json
+            </p>
+            <p>
+              The Canvas represents an individual page and acts as a central point for different content resources to be associated
+              with it, or with part of it as appropriate. The {name} parameter must uniquely distinguish the canvas from all other
+              canvases in the object. As with Sequences, the name should not begin with a number. Suggested patterns are "f1r" or
+              "p1".
+            </p>
+            <p>
+              Every Canvas must have a label to display, such as "page 1", a height and a width as integers. A Canvas is a two
+              dimensional rectangular space with an aspect ratio that represents a single logical view of some part of the physical
+              item, and the aspect ratio is given with the height and width properties. This allows resources to be associated with
+              specific parts of the Canvas, rather than the entire space. It is recommended that if there is (at the time of
+              implementation) a single image that depicts the page, then the dimensions of the image are used as the dimensions of the
+              Canvas for simplicity. If there are multiple full images, then the dimensions of the largest image should be used. If
+              the largest image's dimensions are less than 1200 pixels on either edge, then the Canvas's dimensions should be double
+              that of the image. Developers must be aware that this is not always the case, such as in the examples presented, and
+              instead scale images into the space represented by the Canvas.
+            </p>
+            <p>
+              Image resources, and only image resources, are included in the "images" section of the Canvas. These are linked via
+              Annotations, used to associate the image Content resource with the Canvas. Other content, such as transcriptions, video,
+              audio or commentary, is provided via external Annotation Lists referenced in the "otherContent" section. The value of
+              both of these must be a list, even if there is only one entry. Both are optional, in the situation that there is no
+              additional information associated with the Canvas. Note well that the items in the "otherContent" list may be either an
+              object with an "@id" property or a string. In the case of a string, this is the URI of the annotation list and the type
+              of "sc:AnnotationList" can be inferred.
+            </p>
+            <p>
+              Canvases may be dereferenced separately from the Manifest via their URIs, and the following representation information
+              should be returned. This information should be embedded within the Sequence file, as per the previous section.
+            </p>
+
+<p class="code-block multi-line-code">{
+  // Metadata about this Canvas
+  "@context":"http://www.shared-canvas.org/ns/context.json",
+  "@id":"http://www.example.org/iiif/book1/canvas/p1.json",
+  "@type":"sc:Canvas",
+  "label":"p. 1",
+  "height":1000,
+  "width":750,
+
+  "images": [
+    {
+      "@type":"oa:Annotation"
+      // Link from Image to Canvas should be included here, as below
+    }
+  ],
+  "otherContent": [
+    {
+      // Reference to list of other Content resources, not included directly
+      "@id":"http://www.example.org/iiif/book1/list/p1.json",
+      "@type":"sc:AnnotationList"
+    }
+  ]
+}</p>
+          </section>
+
+
+
+          <!-- 5.4. Association of Image Resources -->
+          <section class="wrapper api-annotation" id="api-annotation">
+            <h3>
+              5.4. Association of Image Resources
+              <a href="#toc"><img class="to-toc" src="{{ site.api_url | absolute_url }}/assets/images/icon-toc.png" alt="To TOC"></a>
+            </h3>
+
+            <p>
+              Recommended URI pattern:
+            </p>
+            <p class="code-block">
+              {scheme}://{host}/{prefix}/{identifier}/annotation/{name}.json
+            </p>
+            <p>
+              Association of images with their respective Canvases is done via Annotations. Although normally Annotations are used for
+              associating commentary with the thing the annotation's text is about, the Open Annotation model allows any resource to
+              be associated with any other resource, or parts thereof, and it is reused for both commentary and painting resources on
+              the Canvas.
+            </p>
+            <p>
+              Annotations may also have their own URIs, conveyed by adding an "@id" property to the JSON object. The content of the
+              Annotation should be returned if the URI is requested. Annotations are not intended in this specification to be
+              dereferenced separately from their Annotation Lists, Sequences and Manifests, but some systems may like to do this and
+              identifiers should be given using the recommended pattern if possible.
+            </p>
+            <p>
+              Each Association of a Content Resource must have the "motivation" field and the value must be "sc:painting". This is in
+              order to distinguish it from comment annotations about the Canvas, described in further detail in
+              <a href="#api-advanced-comments">Section 5.6.6</a>.
+            </p>
+            <p>
+              The image itself is linked in the "resource" property of the Annotation. It must have an "@id" field, and it should have
+              an "@type" of "dcterms:Image". Its media type may be listed in "format", and its height and width given as integer
+              values for "height" and "width" respectively. Although it seems redundant, URI of the canvas must be repeated in the
+              "on" field. This is to ensure consistency with annotations that target only part of the resource, described in more
+              detail below.
+            </p>
+            <p>
+              If the <a href="{{ site.api_url | absolute_url }}/image/1.1/">IIIF Image API</a> is available for
+              the image, then a link to the service's endpoint should be included. The endpoint is the URI up to the identifier, but not
+              including the trailing slash character or any of the subsequent parameters. The profile of the service should be the
+              supported conformance level, and the additional fields from the
+              <a href="{{ site.api_url | absolute_url }}/image/1.1/#image-info-request">Image API info document</a> may be
+              included in this JSON object to avoid requiring it to be downloaded separately.
+            </p>
+            <p>
+              Additional features of the Open Annotation data model may also be used, such as selecting a segment of the Canvas or
+              content resource, or embedding the comment or transcription within the Annotation. These additional advanced features
+              are described below.
+            </p>
+
+            <p class="code-block multi-line-code">{
+  "@context":"http://www.shared-canvas.org/ns/context.json",
+  "@id":"http://www.example.org/iiif/book1/annotation/p0001-image.json",
+  "@type":"oa:Annotation",
+  "motivation":"sc:painting",
+  "resource": {
+    "@id":"http://www.example.org/iiif/book1/res/page1.jpg",
+    "@type":"dctypes:Image",
+    "format":"image/jpeg",
+    "service": {
+      "@id":http://www.example.org/images/book1-page1",
+      "profile":"http://library.stanford.edu/iiif/image-api/1.1/compliance.html#level1",
+      "scale_factors" : [ 1, 2, 4 ],
+      "tile_width" : 1024,
+      "tile_height" : 1024
+    },
+    "height":2000,
+    "width":1500
+  },
+  "on":"http://www.example.org/iiif/book1/canvas/p1.json"
+}</p>
+          </section>
+
+
+          <!-- 5.5. Other Content Resources -->
+          <section class="wrapper api-list" id="api-list">
+            <h3>
+              5.5. Other Content Resources
+              <a href="#toc"><img class="to-toc" src="{{ site.api_url | absolute_url }}/assets/images/icon-toc.png" alt="To TOC"></a>
+            </h3>
+
+            <p>
+              Recommended URI pattern:
+            </p>
+            <p class="code-block">
+              {scheme}://{host}/{prefix}/{identifier}/list/{name}.json
+            </p>
+            <p>
+              For some digital facsimiles, there may be more than a single image available to represent the page. Other resources
+              include the full text of the object, musical notations, musical performances, diagram transcriptions, higher resolution
+              segments of part of the page, commentary annotations, tags, video, data and more. These additional resources are
+              included in Annotation Lists, referenced from the Canvas.
+            </p>
+            <p>
+              The {name} parameter in the URI pattern must uniquely distinguish it from all other lists, and is typically the same
+              name as the Canvas. As a single Canvas may have multiple lists of additional resources, perhaps divided by type, this
+              must not be assumed however, and the URIs must be followed rather than constructed a priori. As with other uses of the
+              {name} parameter, it should not begin with a number.
+            </p>
+            <p>
+              The list of resource associations are given, after any metadata, in a "resources" list. The items in the list are
+              Annotations, as described above, however the resource of the annotation is something other than an image. The Canvas URI
+              must be repeated in the "on" field, as above.
+            </p>
+            <p>
+              Please note the different types and formats for the Content resources. The format should be the media type that is
+              returned when the resource is deferenced. For resources that are displayed as part of the facsimile (such as images,
+              text transcriptions, performances of music from the manuscript and so forth) the motivation must be "sc:painting". The
+              type should be taken from this
+              <a href="http://www.openannotation.org/spec/core/core.html#BodyTargetType" target="_blank">list in the Open Annotation specification</a>,
+              or a similar well-known resource type ontology.
+            </p>
+
+<p class="code-block multi-line-code">{
+  "@context":"http://www.shared-canvas.org/ns/context.json",
+  "@id":"http://www.example.org/iiif/book1/list/p1.json",
+  "@type":"sc:AnnotationList",
+
+  "resources": [
+    {
+      "@type":"oa:Annotation",
+      "motivation":"sc:painting",
+      "resource":{
+        "@id":"http://www.example.org/iiif/book1/res/music.mp3",
+        "@type":"dctypes:Sound",
+        "format":"audio/mpeg"
+      }
+      "on":"http://www.example.org/iiif/book1/canvas/p1.json"
+    },
+    {
+      "@type":"oa:Annotation",
+      "motivation":"sc:painting",
+      "resource":{
+        "@id":"http://www.example.org/iiif/book1/res/tei-text-p1.xml",
+        "@type":"dctypes:Text",
+        "format":"text/xml"
+      }
+      "on":"http://www.example.org/iiif/book1/canvas/p1.json"
+    },
+    // ... and so on
+  ]
+}</p>
+          </section>
+
+
+          <!-- 5.6. Advanced Association Features -->
+          <section class="wrapper api-advanced" id="api-advanced">
+            <h3>
+              5.6. Advanced Association Features
+              <a href="#toc"><img class="to-toc" src="{{ site.api_url | absolute_url }}/assets/images/icon-toc.png" alt="To TOC"></a>
+            </h3>
+
+            <p>
+              The following sections describe known use cases for building representations of physical objects using the IIIF Metadata
+              API, and clients should expect to encounter them. Other use cases are likely to exist, and must be encoded using the
+              Open Annotation's context document mapping for any additional fields required.
+            </p>
+          </section>
+
+
+          <!-- 5.6.1. Segments -->
+          <section class="wrapper api-advanced-segments" id="api-advanced-segments">
+            <h4>
+              5.6.1. Segments
+              <a href="#toc"><img class="to-toc" src="{{ site.api_url | absolute_url }}/assets/images/icon-toc.png" alt="To TOC"></a>
+            </h4>
+
+            <p>
+              It is important to be able to extract parts, or segments, of resources. In particular a very common requirement is to
+              associate a resource with part of a Canvas, or part of an image with either the entire Canvas or part thereof. Secondly,
+              as transcriptions are often made available in XML files, extracting the correct page to associate with the Canvas, or
+              line to associate with part of the Canvas, is equally useful for reusing existing material. These can be accomplished
+              using URI Fragments for simple cases. Two examples are given below:
+            </p>
+
+            <ul>
+              <li>
+                <p>
+                  Segments of both Images and Canvases may be easily selected by adding a
+                  <a href="http://www.w3.org/TR/media-frags/#naming-space" target="_blank">rectangular bounding box </a>after the
+                  URI. The fragment must be structured:
+                </p>
+                <p class="code-block">
+                  http://www.example.com/iiif/book1/canvas/p1.json#xywh=100,100,300,50
+                </p>
+                <p>
+                  Where the four numbers are the x and y coordinates in the image or canvas, followed by the width and height.
+                  Thus this segment is 300px wide, 50px high and starts at position 100,100. Note that only integers are allowed, and
+                  this may limit accuracy of assignment to canvases with small dimensions.
+                </p>
+              </li>
+              <li>
+                <p>
+                  Segments of XML files may be extracted with <a href="http://en.wikipedia.org/wiki/XPointer" target="_blank">XPaths</a>.
+                  The fragment must be structured:
+                </p>
+                <p class="code-block">
+                  http://www.example.com/iiif/book1/res/tei.xml#xpointer(/path/to/element)
+                </p>
+              </li>
+            </ul>
+
+<p class="code-block multi-line-code">{
+  "@context":"http://www.shared-canvas.org/ns/context.json",
+  "@id":"http://www.example.org/iiif/book1/annotation/anno1".json,
+  "@type":"oa:Annotation",
+  "motivation":"sc:painting",
+  "resource":{
+    "@id":"http://www.example.org/iiif/book1/res/tei.xml#xpointer(//line[1])"
+    "@type":"dctypes:Text",
+    "format":"text/xml"
+  }
+  "on":"http://www.example.org/iiif/book1/canvas/p1.json#xywh=100,100,500,300"
+}</p>
+          </section>
+
+
+          <!-- 5.6.2. Embedded Content -->
+          <section class="wrapper api-advanced-embedded" id="api-advanced-embedded">
+            <h4>
+              5.6.2. Embedded Content
+              <a href="#toc"><img class="to-toc" src="{{ site.api_url | absolute_url }}/assets/images/icon-toc.png" alt="To TOC"></a>
+            </h4>
+
+            <p>
+              Instead of referencing transcription text externally, it is often easier to record it in the Annotation itself. Equally,
+              text based comments could also benefit from being included in the Annotation that associates the comment with the
+              Canvas.
+            </p>
+            <p>
+              Content may be embedded instead of referenced by using the following pattern within the Annotation block:
+            </p>
+            <p class="code-block">
+              "resource" : { "@type" : "cnt:ContextAsText", "chars" : "text here" }
+            </p>
+            <p>
+              If it is desirable to associate the language with the content, then it must be "language" not "@language" (otherwise
+              the "chars" field would need to be an array with "@value"). The media type may be given using a "format" field.
+            </p>
+            <p>
+              An example of this feature:
+            </p>
+
+<p class="code-block multi-line-code">{
+  "@context":"http://www.shared-canvas.org/ns/context.json",
+  "@id":"http://www.example.org/iiif/book1/annotation/p1.json",
+  "@type":"oa:Annotation",
+  "motivation":"sc:painting",
+  "resource":{
+    "@type":"cnt:ContentAsText",
+    "chars":"Here starts book one...",
+    "format":"text/plain",
+    "language":"en"
+  }
+  "on":"http://www.example.org/iiif/book1/canvas/p1.json#xywh=100,150,500,25"
+}</p>
+          </section>
+
+
+          <!-- 5.6.3. Choice of Alternative Resources -->
+          <section class="wrapper api-advanced-choice" id="api-advanced-choice">
+            <h4>
+              5.6.3. Choice of Alternative Resources
+              <a href="#toc"><img class="to-toc" src="{{ site.api_url | absolute_url }}/assets/images/icon-toc.png" alt="To TOC"></a>
+            </h4>
+
+            <p>
+              A common requirement is to have a choice between multiple images that depict the page, such as different under different
+              lights, or taken at different times. This can be accomplished by having a "oa:Choice" object as the resource, which then
+              refers to the options to select from. It must have one "default" and at least one further "item" to choose from. The
+              images should have a label for the viewer to display to the user so they can make their selection from among the
+              options.
+            </p>
+            <p>
+              The same construction can be applied to a choice between other types of resources as well. This is described in the
+              <a href="http://www.openannotation.org/spec/core/multiplicity.html#Choice" target="_blank">Multiplicity section</a> of
+              the Open Annotation specification.
+            </p>
+            <p>
+              The item's identifier may be "rdf:nil". This means that a valid option is not to display anything. This must NOT have a
+              label associated with it, viewers should either use "Nothing" or an appropriate label of their choice. It may be the
+              default option.
+            </p>
+            <p>
+              This may be used to model foldouts and other dynamic features of a page, by associating images of the different states
+              with the Canvas. Depending on the nature of the images, this can be either done such that the entire image is switched
+              to change state, or only the section of the image that has to change if the segment information is known.
+            </p>
+
+<p class="code-block multi-line-code">{
+  "@context":"http://www.shared-canvas.org/ns/context.json",
+  "@id":"http://www.example.org/iiif/book1/annotation/anno1.json",
+  "@type":"oa:Annotation",
+  "motivation":"sc:painting",
+  "resource":{
+    "@type":"oa:Choice",
+    "default":{
+      "@id":"http://www.example.org/iiif/book1/res/page1.jpg",
+      "@type":"dctypes:Image",
+      "label":"Color"
+    },
+    "item": [
+      {
+        "@id":"http://www.example.org/iiif/book1/res/page1-blackandwhite.jpg",
+        "@type":"dctypes:Image",
+        "label":"Black and White"
+      }
+    ]
+  }
+  "on":"http://www.example.org/iiif/book1/canvas/p1.json"
+}</p>
+          </section>
+
+
+          <!-- 5.6.4. Non Rectangular Segments -->
+          <section class="wrapper api-advanced-non-rectangular" id="api-advanced-non-rectangular">
+            <h4>
+              5.6.4. Non Rectangular Segments
+              <a href="#toc"><img class="to-toc" src="{{ site.api_url | absolute_url }}/assets/images/icon-toc.png" alt="To TOC"></a>
+            </h4>
+
+            <p>
+              The Scalable Vector Graphics standard (SVG) is used to describe non rectangular areas of Canvas or Image resources.
+              While SVG can, of course, describe rectangles this is not recommended, and the xywh bounding box described above should
+              be used.
+            </p>
+            <p>
+              In this pattern, the resource of the annotation is a "oa:SpecificResource" which has the complete image referenced in a
+              "full" field and the SVG embedded in a "selector" field (as the SVG selects the part of the image needed). The SVG
+              document is embedded using the same ContentAsText approach as for embedding comments or transcriptions.
+            </p>
+            <p>
+              If the section of an image is mapped to part of a Canvas, as in the example below, then the target in "on" must be the
+              rectangular bounding box in which the SVG viewport should be placed. If the entire canvas is the target, then the SVG
+              viewport is assumed to cover the entire Canvas. If the dimensions of the viewport and the bounding box or canvas are not
+              the same, then the SVG should be scaled such that it covers the region. This may result in different scaling ratios for
+              the X and Y dimensions.
+            </p>
+
+<p class="code-block multi-line-code">{
+  "@context":"http://www.shared-canvas.org/ns/context.json",
+  "@id":"http://www.example.org/iiif/book1/annotation/anno1.json",
+  "@type":"oa:Annotation",
+  "motivation":"sc:painting",
+  "resource":{
+    "@type":"oa:SpecificResource",
+    "full": {
+      "@id":"http://www.example.org/iiif/book1/res/page1.jpg",
+      "@type":"dctypes:Image"
+    },
+    "selector": {
+      "@type":["oa:SvgSelector","cnt:ContentAsText"],
+      "chars":"&lt;svg xmlns="..."&gt;&lt;path d="..."/&gt;&lt;/svg&gt;"
+    }
+  }
+  "on":"http://www.example.org/iiif/book1/canvas/p1.json#xywh=100,100,300,300"
+}</p>
+
+          </section>
+
+
+          <!-- 5.6.5. Style -->
+          <section class="wrapper api-advanced-style" id="api-advanced-style">
+            <h4>
+              5.6.5. Style
+              <a href="#toc"><img class="to-toc" src="{{ site.api_url | absolute_url }}/assets/images/icon-toc.png" alt="To TOC"></a>
+            </h4>
+
+            <p>
+              The Cascading Style Sheets standard (CSS) is used to describe how the client should render a given resource to the user.
+              The CSS information is embedded within the Annotation using the same ContentAsText approach above. As a stylesheet may
+              contain more than one style, and be reused between annotations, it is attached to the annotation directly in the same
+              manner as a stylesheet being linked to an HTML document. Then the name of the style class is attached to the resource
+              that should be styled, again in the same manner as the class attribute in html, although we use "style" to avoid
+              confusion with object classes.
+            </p>
+            <p>
+              In the example below, the text should be colored red.
+            </p>
+
+<p class="code-block multi-line-code">{
+  "@context":"http://www.shared-canvas.org/ns/context.json",
+  "@id":"http://www.example.org/iiif/book1/annotation/anno1.json",
+  "@type":"oa:Annotation",
+  "motivation":"sc:painting",
+  "stylesheet":{
+    "@type": ["oa:CssStyle", "cnt:ContextAsText"],
+    "chars": ".red {color: red;}"
+  },
+  "resource":{
+    "@type":"oa:SpecificResource",
+    "style":"red",
+    "full": {
+      "@type":"cnt:ContentAsText",
+      "chars":"Rubrics are Red, ..."
+    }
+  }
+  "on":"http://www.example.org/iiif/book1/canvas/p1.json#xywh=100,150,500,30"
+}</p>
+
+            <p>
+              CSS may also be used for rotation of images which are not correctly aligned with the Canvas. In the example below, after
+              the image is located within the 500 wide by 30 high space within the Canvas, it is then rotated by the rendering client
+              application around the top left corner by 45 degrees anti-clockwise.
+            </p>
+
+<p class="code-block multi-line-code">{
+  "@context":"http://www.shared-canvas.org/ns/context.json",
+  "@id":"http://www.example.org/iiif/book1/annotation/anno1.json",
+  "@type":"oa:Annotation",
+  "motivation":"sc:painting",
+  "stylesheet":{
+    "@type": ["oa:CssStyle", "cnt:ContextAsText"],
+    "chars": ".rotated {transform-origin: top left; transform: rotate(-45deg);}"
+  },
+  "resource":{
+    "@type":"oa:SpecificResource",
+    "style":"rotated",
+    "full": {
+      "@id":"http://www.example.org/iiif/book1/res/page1-detail.jpg",
+      "@type":"dctypes:Image",
+    }
+  }
+  "on":"http://www.example.org/iiif/book1/canvas/p1.json#xywh=100,150,500,30"
+}</p>
+          </section>
+
+
+          <!-- 5.6.6. Comment Annotations -->
+          <section class="wrapper api-advanced-comments" id="api-advanced-comments">
+            <h4>
+              5.6.6. Comment Annotations
+              <a href="#toc"><img class="to-toc" src="{{ site.api_url | absolute_url }}/assets/images/icon-toc.png" alt="To TOC"></a>
+            </h4>
+
+            <p>
+              For annotations which are comments about the Canvas, as opposed to painting content resources on to the Canvas, there
+              are different types of motivation to make the distinction clear. For Annotations about the content (such as comments,
+              notes, descriptions etc.) the motivation should be "oa:commenting", but may be any from the list given in the
+              <a href="http://www.openannotation.org/spec/core/core.html#Motivations" target="_blank">Open Annotation specification</a>.
+            </p>
+
+<p class="code-block multi-line-code">{
+  "@type":"oa:Annotation",
+  "motivation":"oa:commenting",
+  "resource":{
+    "@id":"http://www.example.org/iiif/book1/res/comment1.html",
+    "@type":"dctypes:Text",
+    "format":"text/html"
+  }
+  "on":"http://www.example.org/iiif/book1/canvas/p1.json"
+}</p>
+          </section>
+
+
+          <!-- 6. Additional Resource Types -->
+          <section class="wrapper structure" id="structure">
+            <h2>
+              6. Additional Resource Types
+              <a href="#toc"><img class="to-toc" src="{{ site.api_url | absolute_url }}/assets/images/icon-toc.png" alt="To TOC"></a>
+            </h2>
+
+            <p>
+              There are cases where additional information is needed to fully represent an institution's information about the
+              structure of a work.
+            </p>
+            <p>
+              First, additional section information may be available as to which Canvases, or parts thereof, should be grouped
+              together in some way. This could be for textual reasons, such as to distinguish books, chapters, verses, sections, non
+              content bearing pages, the table of contents or similar. Equally, physical reasons might be important such as quires or
+              gatherings, sections that have been added later and so forth. These cases are solved with Ranges.
+            </p>
+            <p>
+              Secondly, as the information is primarily divided by Canvas (and thus page), there may be higher level groupings of
+              annotations that need to be recorded. For example, all of the English translation annotations of a medieval French
+              document could be kept separate from the direct transcription, or an edition into modern French. These cases are solved
+              by assigning an AnnotationList to be within a Layer.
+            </p>
+
+            <p class="container-figure">
+              <img height="500" class="figure-metadata-api-objects-all" src="{{ site.api_url | absolute_url }}/assets/images/iiif-objects-all.png" alt="All Resource Types"> <br/>
+              <span class="figure-label">Figure 3. All Resource Types</span>
+            </p>
+
+          </section>
+
+
+          <!-- 6.1. Ranges -->
+          <section class="wrapper structure-range" id="structure-range">
+            <h3>
+              6.1. Ranges
+              <a href="#toc"><img class="to-toc" src="{{ site.api_url | absolute_url }}/assets/images/icon-toc.png" alt="To TOC"></a>
+            </h3>
+
+            <p>
+              Recommended URI pattern:
+            </p>
+            <p class="code-block">
+              {scheme}://{host}/{prefix}/{identifier}/range/{name}.json
+            </p>
+            <p>
+              It may be important to describe additional structure within the text, such as newspaper articles that span pages, the
+              range of non-content bearing pages at the beginning of a work, or chapters within a book. These are described using
+              Ranges in a similar manner to Sequences.
+            </p>
+            <p>
+              A range includes one or more Canvases, or parts of Canvases. The part must be rectangular, and is given using the xywh
+              fragment approach. This allows for selecting, for example, the areas within two newspaper pages where an article is
+              located. As the information about the Canvas is already in the Sequence, it should not be repeated. In order to present
+              a table of the different ranges to allow a user to select one, every Range must have a label. It may also have any of
+              the other metadata fields, including especially "within" to point to another Range of which the current one is part. For
+              example, a subsection Range could point to the section Range that it is part of.
+            </p>
+            <p>
+              Ranges are linked or embedded within the Manifest in a "structures" field, and have the same properties as Sequences:
+            </p>
+
+<p class="code-block multi-line-code">{
+  "@context":"http://www.shared-canvas.org/ns/context.json",
+  "@id":"http://www.example.org/iiif/book1/manifest.json",
+  "@type":"sc:Manifest",
+  // Metadata ...
+
+  "sequences": [
+      // Sequence etc. ...
+  ],
+
+  "structures": [
+    {
+        "@id":"http://www.example.org/iiif/book1/range/r1.json",
+        "@type":"sc:Range",
+        "label":"Introduction",
+        "canvases": [
+          "http://www.example.org/iiif/book1/canvas/p1.json",
+          "http://www.example.org/iiif/book1/canvas/p2.json",
+          "http://www.example.org/iiif/book1/canvas/p3.json#xywh=0,0,750,300"
+        ]
+    },
+    {
+        "@id":"http://www.example.org/iiif/book1/range/r1-1.json",
+        "@type":"sc:Range",
+        "label":"Objectives and Scope",
+        "within":"http://www.example.org/iiif/book1/range/r1.json",
+        "canvases": ["http://www.example.org/iiif/book1/canvas/2.json#xywh=0,0,500,500"]
+    }
+    // And any additional ranges here
+  ]
+}</p>
+
+          </section>
+
+
+          <!-- 6.2. Layers -->
+          <section class="wrapper structure-layer" id="structure-layer">
+            <h3>
+              6.2. Layers
+              <a href="#toc"><img class="to-toc" src="{{ site.api_url | absolute_url }}/assets/images/icon-toc.png" alt="To TOC"></a>
+            </h3>
+
+            <p>
+              Recommended URI pattern:
+            </p>
+            <p class="code-block">
+              {scheme}://{host}/{prefix}/{identifier}/layer/{name}.json
+            </p>
+            <p>
+              There may be groupings of annotations, such as all of the annotations that, regardless of which Canvas they target,
+              represent a particular transcription or translation of the text in the object. In order to allow clients to maintain a
+              coherent interface, the lists of these annotations are grouped together in Layers. Without the Layer construction, it
+              would be impossible to determine which annotations belonged together. The client may then present a user interface that
+              allows all of the annotations in a layer to be displayed or hidden according to the user's preference.
+            </p>
+            <p>
+              Each Annotation List may be part of one or more Layers, and this is recorded using the "within" relationship in the
+              Manifest and Annotation List responses. The Layer must have a Label so that it can be presented to a user to select
+              whether or not to view it. Note that the "within" field may be only present in the Annotation List resource, and not in
+              the Manifest.
+            </p>
+
+<p class="code-block multi-line-code">{
+  "@context":"http://www.shared-canvas.org/ns/context.json",
+  "@id":"http://www.example.org/iiif/book1/list/l1.json"
+  "@type":"sc:AnnotationList",
+  "within": {
+    "@id": "http://www.example.org/iiif/book1/layer/transcription.json",
+    "@type": "sc:Layer",
+    "label": "Diplomatic Transcription"
+  }
+}</p>
+          </section>
+
+
+          <!-- 7. Complete Example Response -->
+          <section class="wrapper examples" id="examples">
+            <h2>
+              7. Complete Example Response
+              <a href="#toc"><img class="to-toc" src="{{ site.api_url | absolute_url }}/assets/images/icon-toc.png" alt="To TOC"></a>
+            </h2>
+
+            <p>
+              URL: <em>http://www.example.org/iiif/book1/manifest.json</em>
+            </p>
+<p class="code-block multi-line-code">
+
+{
+  "@context":"http://www.shared-canvas.org/ns/context.json",
+  "@type":"sc:Manifest",
+  "@id":"http://www.example.org/iiif/book1/manifest.json",
+
+  "label":"Book 1",
+  "metadata": [
+    {"label":"Author", "value":"Anne Author"},
+    {"label":"Published", "value": [
+        {"@value": "Paris, circa 1400", "@language":"en"},
+        {"@value": "Paris, environ 14eme siecle", "@language":"fr"}
+        ]
+    }
+  ],
+  "description":"A longer description of this example book. It should give some real information.",
+  "license":"http://www.example.org/license.html",
+  "attribution":"Provided by Example Organization",
+  "service":"http://www.example.org/iiif/book1/search.html",
+  "seeAlso":
+    {
+      "@id": "http://www.example.org/library/catalog/book1.marc",
+      "format": "application/marc"
+    },
+  "within":"http://www.example.org/collections/books/",
+
+  "sequences" : [
+      {
+        "@id":"http://www.example.org/iiif/book1/sequence/normal.json",
+        "@type":"sc:Sequence",
+        "label":"Current Page Order",
+    "viewingDirection":"left-to-right",
+        "viewingHint":"paged",
+        "canvases": [
+          {
+            "@id":"http://www.example.org/iiif/book1/canvas/p1.json",
+            "@type":"sc:Canvas",
+            "label":"p. 1",
+            "height":1000,
+            "width":750,
+            "images": [
+              {
+                "@type":"oa:Annotation",
+                "motivation":"sc:painting",
+                "resource":{
+                    "@id":"http://www.example.org/iiif/book1/res/page1.jpg",
+                    "@type":"dctypes:Image",
+                    "format":"image/jpeg",
+                    "service": {
+                        "@id": "http://www.example.org/images/book1-page1",
+                        "profile":"http://library.stanford.edu/iiif/image-api/compliance.html#level0"
+                    },
+                    "height":2000,
+                    "width":1500
+                },
+                "on":"http://www.example.org/iiif/book1/canvas/p1.json"
+              }
+            ],
+            "otherContent": [
+              {
+                "@id":"http://www.example.org/iiif/book1/list/p1.json",
+                "@type":"sc:AnnotationList"
+              }
+            ]
+        },
+          {
+            "@id":"http://www.example.org/iiif/book1/canvas/p2.json",
+            "@type":"sc:Canvas",
+            "label":"p. 2",
+            "height":1000,
+            "width":750,
+            "images": [
+              {
+                "@type":"oa:Annotation",
+                "motivation":"sc:painting",
+                "resource":{
+                    "@id":"http://www.example.org/images/book1-page2/full/1500,2000/0/native.jpg",
+                    "@type":"dctypes:Image",
+                    "format":"image/jpeg",
+                    "height":2000,
+                    "width":1500,
+                    "service": {
+                        "@id":"http://www.example.org/images/book1-page2",
+                        "profile":"http://library.stanford.edu/iiif/image-api/compliance.html#level0",
+                        "scale_factors": [1, 2, 4],
+                        "height":8000,
+                        "width":6000,
+                        "tile_width":1024,
+                        "tile_height":1024
+                    }
+                },
+                "on":"http://www.example.org/iiif/book1/canvas/p2.json"
+              }
+            ],
+            "otherContent": [
+              {
+                "@id":"http://www.example.org/iiif/book1/list/p2.json",
+                "@type":"sc:AnnotationList"
+              }
+            ]
+          },
+          {
+            "@id":"http://www.example.org/iiif/book1/canvas/p3.json",
+            "@type":"sc:Canvas",
+            "label":"p. 3",
+            "height":1000,
+            "width":750,
+            "images": [
+              {
+                "@type":"oa:Annotation",
+                "motivation":"sc:painting",
+                "resource":{
+                    "@id":"http://www.example.org/iiif/book1/res/page3.jpg",
+                    "@type":"dctypes:Image",
+                    "format":"image/jpeg",
+                    "service": {
+                        "@id":"http://www.example.org/images/book1-page3",
+                        "profile":"http://library.stanford.edu/iiif/image-api/compliance.html#level0"
+          },
+                    "height":2000,
+                    "width":1500
+                },
+                "on":"http://www.example.org/iiif/book1/canvas/p3.json"
+              }
+            ],
+            "otherContent": [
+              {
+                "@id":"http://www.example.org/iiif/book1/list/p3.json",
+                "@type":"sc:AnnotationList"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+  "structures": [
+    {
+      "@id": "http://www.example.org/iiif/book1/range/r1.json",
+        "@type":"sc:Range",
+        "label":"Introduction",
+        "canvases": [
+          "http://www.example.org/iiif/book1/canvas/p1.json",
+          "http://www.example.org/iiif/book1/canvas/p2.json",
+          "http://www.example.org/iiif/book1/canvas/p3.json#xywh=0,0,750,300"
+        ]
+    }
+  ]
+}
+   </p>       </section>
+
+
+          <section class="wrapper" id="uri-patterns">
+            <h2>
+              Summary of URI Patterns
+              <a href="#toc"><img class="to-toc" src="{{ site.api_url | absolute_url }}/assets/images/icon-toc.png" alt="To TOC"></a>
+            </h2>
+
+            <table class="image-api-table">
+              <tr>
+                <th>Resource</th>
+                <th>URI Pattern</th>
+              </tr>
+              <tr>
+                <td>Manifest</td>
+                <td class="monospace">{scheme}://{host}/{prefix}/{identifier}/manifest.json</td>
+              </tr>
+              <tr>
+                <td>Sequence</td>
+                <td class="monospace">{scheme}://{host}/{prefix}/{identifier}/sequence/{name}.json</td>
+              </tr>
+              <tr>
+                <td>Canvas</td>
+                <td class="monospace">{scheme}://{host}/{prefix}/{identifier}/canvas/{name}.json</td>
+              </tr>
+              <tr>
+                <td>Content</td>
+                <td class="monospace">{scheme}://{host}/{prefix}/{identifier}/res/{name}.{format}</td>
+              </tr>
+              <tr>
+                <td>Annotation</td>
+                <td class="monospace">{scheme}://{host}/{prefix}/{identifier}/annotation/{name}.json</td>
+              </tr>
+              <tr>
+                <td>AnnotationList</td>
+                <td class="monospace">{scheme}://{host}/{prefix}/{identifier}/list/{name}.json</td>
+              </tr>
+              <tr>
+                <td>Range</td>
+                <td class="monospace">{scheme}://{host}/{prefix}/{identifier}/range/{name}.json</td>
+              </tr>
+              <tr>
+                <td>Layer</td>
+                <td class="monospace">{scheme}://{host}/{prefix}/{identifier}/layer/{name}.json</td>
+              </tr>
+            </table>
+
+          </section>
+
+
+          <!-- Summary of Metadata Requirements -->
+          <section class="wrapper md-requirements" id="md-requirements">
+            <h2>
+              Summary of Metadata Requirements
+              <a href="#toc"><img class="to-toc" src="{{ site.api_url | absolute_url }}/assets/images/icon-toc.png" alt="To TOC"></a>
+            </h2>
+
+            <ul class="legend">
+              <li>
+                <div class="req mandatory"></div> Mandatory/Required
+              </li>
+              <li>
+                <div class="req recommended"></div> Recommended
+              </li>
+              <li>
+                <div class="req optional"></div> Optional
+              </li>
+              <li>
+                <div class="req not-applicable"></div> Not Applicable
+
+              </li>
+            </ul>
+
+            <table class="image-api-table">
+              <tr>
+                <th class="visibility-hidden"></th>
+                <th colspan="3">Descriptive</th>
+                <th colspan="2">Rights</th>
+                <th colspan="7">Technical</th>
+                <th colspan="3">Linking</th>
+              </tr>
+              <tr>
+                <td class="visibility-hidden"></td>
+                <td>label</td>
+                <td>metadata</td>
+                <td>description</td>
+                <td>attributes</td>
+                <td>license</td>
+                <td>@id</td>
+                <td>@type</td>
+                <td>format</td>
+                <td>height</td>
+                <td>width</td>
+                <td>viewDir.</td>
+                <td>viewHint.</td>
+                <td>service</td>
+                <td>seeAlso</td>
+                <td>within</td>
+              </tr>
+              <tr>
+                <td>Manifest</td>
+                <td><div class="req mandatory"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req recommended"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req mandatory"></div></td>
+                <td><div class="req mandatory"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+              </tr>
+              <tr>
+                <td>Sequence</td>
+                <td><div class="req recommended"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req recommended"></div></td>
+                <td><div class="req mandatory"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+              </tr>
+              <tr>
+                <td>Canvas</td>
+                <td><div class="req mandatory"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req mandatory"></div></td>
+                <td><div class="req mandatory"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req mandatory"></div></td>
+                <td><div class="req mandatory"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+              </tr>
+              <tr>
+                <td>Annotation</td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req recommended"></div></td>
+                <td><div class="req mandatory"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+              </tr>
+              <tr>
+                <td>AnnotationList</td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req mandatory"></div></td>
+                <td><div class="req mandatory"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+              </tr>
+              <tr>
+                <td>Range</td>
+                <td><div class="req mandatory"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req mandatory"></div></td>
+                <td><div class="req mandatory"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+              </tr>              <tr>
+                <td>Layer</td>
+                <td><div class="req mandatory"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req mandatory"></div></td>
+                <td><div class="req mandatory"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+              </tr>              <tr>
+                <td>Image Content</td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req mandatory"></div></td>
+                <td><div class="req mandatory"></div></td>
+                <td><div class="req recommended"></div></td>
+                <td><div class="req recommended"></div></td>
+                <td><div class="req recommended"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+              </tr>              <tr>
+                <td>Other Content</td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req mandatory"></div></td>
+                <td><div class="req mandatory"></div></td>
+                <td><div class="req recommended"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req not-applicable"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+                <td><div class="req optional"></div></td>
+              </tr>
+            </table>
+
+          </section>
+
+        </article>
+      </div>
+    </div>
+
+
+    <div class="footer-container">
+      <footer class="wrapper">
+        Please send feedback to <a href="mailto:iiif-discuss@googlegroups.com">iiif-discuss@googlegroups.com</a>
+      </footer>
+    </div>
+
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-7219229-22', 'iiif.io');
+      ga('send', 'pageview');
+    </script>
+  </body>
+</html>

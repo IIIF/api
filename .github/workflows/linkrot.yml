@@ -1,0 +1,25 @@
+name: Check-linkrot
+on:
+  pull_request:
+    paths-ignore:
+      - '**/README.md'
+  push:
+    paths-ignore:
+      - '**/README.md'
+
+jobs:
+  test_linkrot:
+    runs-on: ubuntu-latest # The type of runner that the job will run on
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+      - name: Install
+        run: gem install bundler && bundle
+      - name: Build site
+        run: bundle exec rake build:default
+      - name: Test external links
+        run: bundle exec rake test:links:external
