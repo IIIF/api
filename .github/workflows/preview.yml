@@ -18,9 +18,9 @@ jobs: # A workflow run is made up of one or more jobs that can run sequentially 
       SITE_ID:  'api' # which iiif site this is
     steps: # Steps represent a sequence of tasks that will be executed as part of the job
     - name: Checkout # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      uses: actions/checkout@v2 
-    - name: Export BRANCH_NAME # store branch name in ${BRANCH_NAME}
-      uses: nelonoel/branch-name@v1.0.1
+      uses: actions/checkout@v2
+    - name: Export BRANCH_NAME # store branch name in $BRANCH_NAME
+      run: echo BRANCH_NAME=`git rev-parse --abbrev-ref HEAD` >> $GITHUB_ENV
     - name: Setup ruby
       uses: ruby/setup-ruby@v1
       with:
@@ -35,8 +35,8 @@ jobs: # A workflow run is made up of one or more jobs that can run sequentially 
       run: bundle exec rake test:links:internal
     - name: Test *iiif.io* links
       run: bundle exec rake test:links:iiif
-#     - name: Spec tests
-#       run: bundle exec rake test:spec
+    - name: Spec tests
+      run: bundle exec rake api:spec
     - name: Create GitHub deployment # Deploy to Preview site
       uses: glenrobson/deployments@v0.4.2
       id: deployment

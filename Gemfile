@@ -7,7 +7,5 @@ gem 'jekyll', '~> 4.1.1'
 gem 'iiifc-theme', github: 'mnyrop/iiifc-theme', branch: 'main'
 
 group :development, :test do
-  gem 'html-proofer'
   gem 'rspec'
-  gem 'rake'
 end
