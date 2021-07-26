@@ -64,4 +64,4 @@ jobs: # A workflow run is made up of one or more jobs that can run sequentially 
         token: ${{ secrets.GITHUB_TOKEN }}
         status: ${{ job.status }}
         deployment_id: ${{ steps.deployment.outputs.deployment_id }}
-        env_url: "https://preview.iiif.io/${{ env.SITE_ID }}/${{ env.BRANCH_NAME }}/index.html"
+        env_url: "https://preview.iiif.io/${{ env.SITE_ID }}/${{ BRANCH_NAME }}/index.html"
