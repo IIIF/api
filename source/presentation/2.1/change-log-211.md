@@ -12,9 +12,9 @@ redirect_from:
   /presentation/2.1/change-log-211.html
 ---
 
-This document is a companion to the [IIIF Presentation API Specification, Version 2.1.1][prezi-api]. It describes the editorial changes to the API specification made in this patch release, such as clarifications and typo corrections. It also describes corrections to related documents that are not [semantically versioned][semver], such as example resources and resources to manage transformation to and from the JSON-LD serialization.
+This document is a companion to the [IIIF Presentation API Specification, Version 2.1.1][prezi21]. It describes the editorial changes to the API specification made in this patch release, such as clarifications and typo corrections. It also describes corrections to related documents that are not [semantically versioned][notes-versioning], such as example resources and resources to manage transformation to and from the JSON-LD serialization.
 
-For the significant changes between 2.0 and 2.1, please see the [2.1 Change Log][changelog-21].
+For the significant changes between 2.0 and 2.1, please see the [2.1 Change Log][prezi21-change-log].
 
 
 ## 1. Editorial Changes
@@ -112,9 +112,6 @@ See issue [#1123](https://github.com/IIIF/iiif.io/issues/1123)
 The fixture for `startCanvas` instead had the pre-2.0 use of `start_canvas` before snake and camel case were reconciled.  This was corrected.
 See issue [#1125](https://github.com/IIIF/iiif.io/issues/1125)
 
-[prezi-api]: {{ site.api_url | absolute_url }}/presentation/2.1/ "Presentation API 2.1"
-[prezi-api-20]: {{ site.api_url | absolute_url }}/presentation/2.0/ "Presentation API 2.0"
-[changelog-21]: {{ site.api_url | absolute_url }}/presentation/2.1/change-log.html "Presentation API 2.1 Change Log"
-[semver]: {{ site.api_url | absolute_url }}/annex/notes/semver/ "Note on Semantic Versioning"
-
 {% include acronyms.md %}
+
+{% include links.md %}
