@@ -1533,7 +1533,6 @@ Many thanks to Matthieu Bonicel, Tom Cramer, Ian Davis, Markus Enders, Renhart G
 | 2013-06-14 | Version 0.9 (unnamed) released.                    |
 
 [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
-[shared-canvas]: {{ '/model/shared-canvas/1.0/' | absolute_url }} "Shared Canvas Data Model"
 [image-api]: {{ site.api_url | absolute_url }}/image/{{ site.data.apis.image.latest.major }}.{{ site.data.apis.image.latest.minor }}/ "Image API"
 [annex]: {{ site.api_url | absolute_url }}/annex/services/ "Services Annex Document"
 [change-log]: {{ site.api_url | absolute_url }}/presentation/2.0/change-log/ "Presentation API 2.0 Change Log"
@@ -1571,3 +1570,4 @@ Many thanks to Matthieu Bonicel, Tom Cramer, Ian Davis, Markus Enders, Renhart G
 [icon-na]: {{ site.api_url | absolute_url }}/assets/images/icons/not_allowed.png "Not allowed"
 
 {% include acronyms.md %}
+{% include links.md %}
