@@ -73,7 +73,7 @@ This extension implements the [GeoJSON-LD specification](https://geojson.org/geo
 
 #### 2.1.1 GeoJSON as Linked Data
 
-The GeoJSON terms, the IIIF Presentation API 3 terms, and the `navPlace` term all require linked data context for `navPlace` to be IIIF compatible.  This is elaborated upon in [section 3](#3-linked-data).
+The GeoJSON terms, the IIIF Presentation API 3 terms, and the `navPlace` term all require linked data context for `navPlace` to be IIIF compatible. This is elaborated upon in [section 3](#3-linked-data).
 
 
 
@@ -151,7 +151,7 @@ The `navPlace` property identifies a single or multiple geographic areas pertine
 * Other types of resource _MUST NOT_ have the `navPlace` property.<br/>
    Clients _SHOULD_ ignore `navPlace` on other types of resource.
 
-`navPlace` is intended to connect IIIF web resources with geographic areas. These areas _SHOULD_ be bounded discrete regions of the map akin to extents. `navPlace` is not meant for geographic layouts at the township, city, country or continental level. Such descriptive datasets rely heavily on the client map viewer API for displaying connected metadata directly to the user. It is up to the implementer to determine how their chosen web map viewer interacts with GeoJSON data nodes and whether or not their metadata belongs in `properties` to be displayed as desired. For more on using metadata with this pattern see section [3.3 ](#33-context-considerations-for-geojson-ld-properties)
+`navPlace` is intended to connect IIIF web resources with geographic areas. These areas _SHOULD_ be bounded discrete regions of the map akin to extents. `navPlace` is not meant for geographic layouts at the township, city, country or continental level. Such descriptive datasets rely heavily on the client map viewer API for displaying connected metadata directly to the user. It is up to the implementer to determine how their chosen web map viewer interacts with GeoJSON data nodes and whether or not their metadata belongs in `properties` to be displayed as desired. For more on using metadata with this pattern see section [3.3](#33-context-considerations-for-geojson-ld-properties).
 
 ```json-doc
 {
@@ -186,7 +186,7 @@ The `navPlace` property identifies a single or multiple geographic areas pertine
 *   The URI of the `navPlace` linked data context is [`http://iiif.io/api/extension/navplace/context.json`](http://iiif.io/api/extension/navplace/context.json)
 *   The URI of the IIIF Presentation API 3 linked data context is [`http://iiif.io/api/presentation/3/context.json`](http://iiif.io/api/presentation/3/context.json)
 
-The navPlace extension linked data context _MUST_ be included before the IIIF Presentation API 3 linked data context on the top-level object. The navPlace extension context file includes the [GeoJSON-LD context](https://geojson.org/geojson-ld/geojson-context.jsonld) through context scoping. This means the GeoJSON-LD context URI does not have to be explicitly included on the top level object, unless GeoJSON is used in other properties besides `navPlace`. It is important to note that since the IIIF Presentation API 3 context has the JSON-LD `@version` set to 1.1, all contexts are processed as JSON-LD 1.1.   
+The navPlace extension linked data context _MUST_ be included before the IIIF Presentation API 3 linked data context on the top-level object. The navPlace extension context file includes the [GeoJSON-LD context](https://geojson.org/geojson-ld/geojson-context.jsonld) through context scoping. This means the GeoJSON-LD context URI does not have to be explicitly included on the top level object, unless GeoJSON is used in other properties besides `navPlace`. It is important to note that since the IIIF Presentation API 3 context has the JSON-LD `@version` set to 1.1, all contexts are processed as JSON-LD 1.1.  
 
 Consult the [Linked Data Context and Extensions section of IIIF Presentation API 3](https://iiif.io/api/presentation/3.0/#46-linked-data-context-and-extensions) for further guidance on use of the `@context` property.
 
