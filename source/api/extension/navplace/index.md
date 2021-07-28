@@ -134,22 +134,24 @@ For examples of these shapes, see the “Examples” section of the GeoJSON spec
 
 The `navPlace` property identifies a single or multiple geographic areas pertinent to a resource using a GeoJSON Feature Collection containing one or more Features. A Feature represents a shape by using the geographic coordinates supplied in the `geometry` property. The shape does not imply any level of precision, fuzziness, temporality or state of existence. 
 
+*   A Collection _MAY_ have the `navPlace` property.<br/>
+   Clients _MAY_ render `navPlace` on a Collection.
+*   A Manifest _MAY_ have the `navPlace` property.<br/>
+   Clients _MAY_ render `navPlace` on a Manifest.
+*   A Range _MAY_ have the `navPlace` property.<br/>
+   Clients _MAY_ render `navPlace` on a Range.
+*   A Canvas _MAY_ have the `navPlace` property.<br/>
+   Clients _MAY_ render `navPlace` on a Canvas.
+*   Other types of resource _MUST NOT_ have the `navPlace` property.<br/>
+   Clients _SHOULD_ ignore `navPlace` on other types of resource.
 *   The value _MUST_ be a single GeoJSON-LD Feature Collection and _SHOULD_ contain at least one Feature.
-*   The Feature Collection that is the value of `navPlace` _MAY_ have an id.
+*   The Feature Collection that is the value of `navPlace` _MAY_ have an `id`.
 *   The Features within the Feature Collection _MAY_ have an `id`, and the `id` _MAY_ be the URI of the Feature Collection with a unique fragment on the end.
 *   A Feature or Feature Collection that has the `id` property _MAY_ be accessible by the URI. 
 *   Feature Collections and Feature objects inside of Feature Collections _MUST NOT_ be NULL. 
 *   The value for `navPlace` _SHOULD_ be an embedded GeoJSON Feature Collection object. However, the value _MAY_ be referenced and in these cases _MUST_ be dereferencable. 
-* A Collection _MAY_ have the `navPlace` property.<br/>
-   Clients _MAY_ render `navPlace` on a Collection.
-* A Manifest _MAY_ have the `navPlace` property.<br/>
-   Clients _MAY_ render `navPlace` on a Manifest.
-* A Range _MAY_ have the `navPlace` property.<br/>
-   Clients _MAY_ render `navPlace` on a Range.
-* A Canvas _MAY_ have the `navPlace` property.<br/>
-   Clients _MAY_ render `navPlace` on a Canvas.
-* Other types of resource _MUST NOT_ have the `navPlace` property.<br/>
-   Clients _SHOULD_ ignore `navPlace` on other types of resource.
+*   If the value for `navPlace` needs to be dereferenced by the client, then the reference object _MUST NOT_ have the `features` property, such that clients are able to recognize that it should be retrieved in order to be processed.
+
 
 `navPlace` is intended to connect IIIF web resources with geographic areas. These areas _SHOULD_ be bounded discrete regions of the map akin to extents. `navPlace` is not meant for geographic layouts at the township, city, country or continental level. Such descriptive datasets rely heavily on the client map viewer API for displaying connected metadata directly to the user. It is up to the implementer to determine how their chosen web map viewer interacts with GeoJSON data nodes and whether or not their metadata belongs in `properties` to be displayed as desired. For more on using metadata with this pattern see section [3.3](#33-context-considerations-for-geojson-ld-properties).
 
