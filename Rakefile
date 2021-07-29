@@ -13,7 +13,7 @@ namespace :api do
     else
       puts "Skipping rspec tests (no `./.rspec` file found)"
     end
-    `sh scripts/check_json.py -v`
+    `python scripts/check_json.py -v`
   end
 
   desc 'Run the site locally on localhost:4000'
