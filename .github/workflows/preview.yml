@@ -35,8 +35,8 @@ jobs: # A workflow run is made up of one or more jobs that can run sequentially 
       run: bundle exec rake test:links:internal
     - name: Test *iiif.io* links
       run: bundle exec rake test:links:iiif
-    #- name: Spec tests
-    #  run: bundle exec rake api:spec
+    - name: Spec tests
+      run: bundle exec rake api:spec
     - name: Create GitHub deployment # Deploy to Preview site
       uses: glenrobson/deployments@v0.4.2
       id: deployment
