@@ -133,5 +133,4 @@ If a client requests a size or region outside these parameters then the image se
 [icon-rec]: {{ site.api_url | absolute_url }}/assets/images/icons/recommended.png "Recommended"
 [icon-opt]: {{ site.api_url | absolute_url }}/assets/images/icons/optional.png "Optional"
 [icon-na]: {{ site.api_url | absolute_url }}/assets/images/icons/not_allowed.png "Not allowed"
-
 {% include acronyms.md %}

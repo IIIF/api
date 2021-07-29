@@ -1,7 +1,6 @@
 ---
 title: Image API Compliance, 1.0
 id: index
-categories: [pages]
 layout: spec
 sitemap: false
 redirect_from:

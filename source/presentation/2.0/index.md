@@ -49,7 +49,7 @@ This document describes how the structure and layout of a complex image-based ob
 
 An object may comprise a series of pages, surfaces or other views; for example the single view of a painting, the two sides of a photograph, four cardinal views of a statue, or the many pages of an edition of a newspaper or book. The primary requirements for the Presentation API are to provide an order for these views, the resources needed to display a representation of the view, and the descriptive information needed to allow the user to understand what is being seen.
 
-The principles of [Linked Data][linked-data] and the [Architecture of the Web][web-arch] are adopted in order to provide a distributed and interoperable system. The [Shared Canvas data model][shared-canvas] is leveraged in a specific, JSON-based format that is easy to implement without understanding RDF, while still being completely compatible with it.
+The principles of [Linked Data][linked-data] and the [Architecture of the Web][org-w3c-webarch] are adopted in order to provide a distributed and interoperable system. The [Shared Canvas data model][shared-canvas] is leveraged in a specific, JSON-based format that is easy to implement without understanding RDF, while still being completely compatible with it.
 
 ### 1.1. Objectives and Scope
 {: #objectives-and-scope}
@@ -1532,17 +1532,13 @@ Many thanks to Matthieu Bonicel, Tom Cramer, Ian Davis, Markus Enders, Renhart G
 | 2013-08-26 | Version 1.0 (unnamed) released.                    |
 | 2013-06-14 | Version 0.9 (unnamed) released.                    |
 
-[iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
-[image-api]: {{ site.api_url | absolute_url }}/image/{{ site.data.apis.image.latest.major }}.{{ site.data.apis.image.latest.minor }}/ "Image API"
 [annex]: {{ site.api_url | absolute_url }}/annex/services/ "Services Annex Document"
 [change-log]: {{ site.api_url | absolute_url }}/presentation/2.0/change-log/ "Presentation API 2.0 Change Log"
-[iiif-community]: {{  site.root_url }}/community/ "IIIF Community"
 [apache-notes]: {{ site.api_url | absolute_url }}/annex/notes/apache/ "Apache HTTP Server Implementation Notes"
 [openanno]: http://www.openannotation.org/spec/core/ "Open Annotation"
 [openannotypes]: http://www.openannotation.org/spec/core/core.html#BodyTargetType
 [openannomulti]: http://www.openannotation.org/spec/core/multiplicity.html#Choice
 [linked-data]: http://linkeddata.org/ "Linked Data"
-[web-arch]: http://www.w3.org/TR/webarch/ "Architecture of the World Wide Web"
 [json-ld-68]: http://www.w3.org/TR/json-ld/#interpreting-json-as-json-ld "Interpreting JSON as JSON-LD"
 [rfc5646]: http://tools.ietf.org/html/rfc5646 "RFC 5646"
 [media-frags]: http://www.w3.org/TR/media-frags/#naming-space "Media Fragments"
@@ -1563,11 +1559,5 @@ Many thanks to Matthieu Bonicel, Tom Cramer, Ian Davis, Markus Enders, Renhart G
 [appendixb]: #b-summary-of-metadata-requirements "Appendix B"
 [prev-version]: {{ site.api_url | absolute_url }}/metadata/1.0/
 [stable-version]: {{ site.api_url | absolute_url }}/presentation/{{ site.data.apis.presentation.latest.major }}.{{ site.data.apis.presentation.latest.minor }}/
-
-[icon-req]: {{ site.api_url | absolute_url }}/assets/images/icons/required.png "Required"
-[icon-rec]: {{ site.api_url | absolute_url }}/assets/images/icons/recommended.png "Recommended"
-[icon-opt]: {{ site.api_url | absolute_url }}/assets/images/icons/optional.png "Optional"
-[icon-na]: {{ site.api_url | absolute_url }}/assets/images/icons/not_allowed.png "Not allowed"
-
 {% include acronyms.md %}
 {% include links.md %}

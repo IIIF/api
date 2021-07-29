@@ -224,14 +224,12 @@ Flags in the IIIF specifications, such as `timeMode` or `behavior` are actually 
 [iiif-semver]: {{ site.api_url | absolute_url }}/annex/notes/semver/ "Versioning of APIs"
 [rfc-2119]: https://www.ietf.org/rfc/rfc2119.txt "RFC 2119"
 [spec-disclaimer]: {{ site.api_url | absolute_url }}/annex/notes/disclaimer/ "Specification Disclaimer"
-
 [editorial-process]: {{ site.root_url | absolute_url }}/community/policy/editorial/#community-process
 [services]: {{ site.api_url | absolute_url }}/annex/services/
 [image-api]: {{ site.api_url | absolute_url }}/image/
 [presentation-api]: {{ site.api_url | absolute_url }}/presentation/
 [search-api]: {{ site.api_url | absolute_url }}/search/
 [auth-api]: {{ site.api_url | absolute_url }}/auth/
-
 [rest]: https://en.wikipedia.org/wiki/Representational_state_transfer
 [lod]: https://en.wikipedia.org/wiki/Linked_data
 [webarch]: https://www.w3.org/TR/webarch/
@@ -240,5 +238,4 @@ Flags in the IIIF specifications, such as `timeMode` or `behavior` are actually 
 [lodbp]: https://www.w3.org/TR/ld-bp/
 [dwbp]: https://www.w3.org/TR/dwbp/
 [sec341]: #json-ld-design-patterns
-
 {% include acronyms.md %}

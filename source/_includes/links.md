@@ -166,6 +166,7 @@
 [org-rfc-3987]: https://tools.ietf.org/html/rfc3987 "Internationalized Resource Identifiers (IRIs)"
 [org-rfc-4122]: https://tools.ietf.org/html/rfc4122 "URN UUID Scheme"
 [org-rfc-4648-5]: https://tools.ietf.org/html/rfc4648#section-5 "Base 64 Encoding with URL and Filename Safe Alphabet"
+[org-rfc-5646]: http://tools.ietf.org/html/rfc5646 "RFC 5646"
 [org-rfc-5988]: https://tools.ietf.org/html/rfc5988 "Web Linking"
 [org-rfc-6266]: https://tools.ietf.org/html/rfc6266 "Use of the Content-Disposition Header Field in the Hypertext Transfer Protocol (HTTP)"
 [org-rfc-6570]: https://tools.ietf.org/html/rfc6570 "URI Template"
@@ -255,3 +256,4 @@
 [recipe-mvm-image]: {{ site.cookbook_url | absolute_url }}/recipe/0001-mvm-image/ "Simplest Manifest - Image"
 [recipe-segment-image-part]: {{ site.api_url | absolute_url }}/cookbook/segment-image-part/ "Annotating part of an image to a canvas"
 [slack]: http://bit.ly/iiif-slack
+[web-arch]: http://www.w3.org/TR/webarch/ "Architecture of the World Wide Web"

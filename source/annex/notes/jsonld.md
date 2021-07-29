@@ -102,7 +102,6 @@ pprint.pprint(
 [prezi-api]: {{ site.api_url | absolute_url }}/presentation/{{ site.data.apis.presentation.latest.major }}.{{ site.data.apis.presentation.latest.minor }}/
 [jsonld-framing]: http://json-ld.org/spec/latest/json-ld-framing/
 [pyld]: https://pypi.python.org/pypi/PyLD
-
 [image-api-frame]: {{ site.api_url | absolute_url }}/image/2/info_frame.json
 [manifest-frame]: {{ site.api_url | absolute_url }}/presentation/2/manifest_frame.json
 [annolist-frame]: {{ site.api_url | absolute_url }}/presentation/2/annotationList_frame.json
@@ -111,7 +110,6 @@ pprint.pprint(
 [canvas-frame]: {{ site.api_url | absolute_url }}/presentation/2/canvas_frame.json
 [anno-frame]: {{ site.api_url | absolute_url }}/presentation/2/annotation_frame.json
 [range-frame]: {{ site.api_url | absolute_url }}/presentation/2/range_frame.json
-
 [service-uri]: http://tools.ietf.org/html/rfc2609
 [service-wiki]: https://en.wikipedia.org/wiki/Service_Location_Protocol#Adoption
 [resource-uri]: http://www.iana.org/assignments/uri-schemes/prov/resource
@@ -119,5 +117,4 @@ pprint.pprint(
 [int-semver]: #semantic-versioning
 [prezi-language]: {{ site.api_url | absolute_url }}/presentation/{{ site.data.apis.presentation.latest.major }}.{{ site.data.apis.presentation.latest.minor }}/#language-of-property-values
 [iiif-discuss]: mailto:iiif-discuss@googlegroups.com
-
 {% include acronyms.md %}

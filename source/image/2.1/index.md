@@ -977,7 +977,6 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 [change-log21]: {{ site.api_url | absolute_url }}/image/2.1/change-log/ "Change Log for Version 2.1"
 [compliance]: {{ site.api_url | absolute_url }}/image/{{ page.major }}.{{ page.minor }}/compliance/ "Image API Compliance"
 [compliance-quality]: {{ site.api_url | absolute_url }}/image/{{ page.major }}.{{ page.minor }}/compliance/#quality "Image API Compliance: Quality"
-
 [cors-spec]: http://www.w3.org/TR/cors/ "Cross-Origin Resource Sharing"
 [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
 [json-as-json-ld]: http://www.w3.org/TR/json-ld/#interpreting-json-as-json-ld "JSON-LD 1.0: 6.8 Interpreting JSON as JSON-LD"
@@ -994,7 +993,6 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 [versioning]: {{ site.api_url | absolute_url }}/annex/notes/semver/ "Versioning of APIs"
 [prezi-api]: {{ site.api_url | absolute_url }}/presentation/{{ site.data.apis.presentation.latest.major }}.{{ site.data.apis.presentation.latest.minor }}/ "Presentation API"
 [prezi-html]: {{ site.api_url | absolute_url }}/presentation/{{ site.data.apis.presentation.latest.major }}.{{ site.data.apis.presentation.latest.minor }}/#45-html-markup-in-property-values "Presentation API Section 4.4"
-
 [service-profiles]: {{ site.api_url | absolute_url }}/annex/services/ "Services Annex Document"
 [annex-frames]: {{ site.api_url | absolute_url }}/annex/notes/jsonld/ "JSON-LD Frames Implementation Notes"
 [apache-notes]: {{ site.api_url | absolute_url }}/annex/notes/apache/ "Apache HTTP Server Implementation Notes"
@@ -1036,7 +1034,6 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 [stable-version]: {{ site.api_url | absolute_url }}/image/{{ site.data.apis.image.latest.major }}.{{ site.data.apis.image.latest.minor }}/ "Stable Version"
 [wsgi]: https://www.python.org/dev/peps/pep-0333/
 [dep-sizes]: #dep-sizes "Deprecated sizes warning"
-
 [client-auth-img]: img/auth-flow-client.png
 [server-auth-img]: img/auth-flow-server.png
 [rfc-2119]: https://www.ietf.org/rfc/rfc2119.txt "RFC 2119"

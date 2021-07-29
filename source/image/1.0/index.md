@@ -177,7 +177,7 @@ source image should be returned.
 |----|----|
 | `full`     |                  The complete image is returned, without any cropping. |
 | `x,y,w,h `  |                 The region of the source image to be returned is defined in terms of absolute pixel values. The value of x represents the number of pixels from the 0 position on the horizontal axis. The value of y represents the number of pixels from the 0 position on the vertical axis. Thus the x,y position 0,0 is the upper left-most pixel of the image. w represents the width of the region and h represents the height of the region in pixels. |
-| `pct:x,y,w,h` |                The region to be returned is specified as a sequence of percentages of the source image's dimensions. Thus, x represents the number of pixels from the 0 position on the horizontal axis, calculated as a percentage of the source image's width. w represents the width of the region calculated as a percentage of the [source image's width]{style="font-style: italic;"}. The same applies to y and h respectively. These may be floating point numbers (see [Section 5 - Image Information Request](#info)). |
+| `pct:x,y,w,h` |                The region to be returned is specified as a sequence of percentages of the source image's dimensions. Thus, x represents the number of pixels from the 0 position on the horizontal axis, calculated as a percentage of the source image's width. w represents the width of the region calculated as a percentage of the _source image's width_. The same applies to y and h respectively. These may be floating point numbers (see [Section 5 - Image Information Request](#info)). |
 
 If the request specifies a region which extends beyond the dimensions of the source image, then the service should return an image cropped at the boundary of the source image.
 
@@ -240,8 +240,7 @@ http://www.example.org/image-service/abcd1234/full<span style="color: red;">22.5
 In most cases a rotation will change the width and height dimensions of
 the returned image file.  The service SHOULD return an image file that
 contains all of the image contents requested in the
-[region]{style="font-style: italic;"} and [size
-]{style="font-style: italic;"}parameters, even if the dimensions of the
+_region_ and _size_ parameters, even if the dimensions of the
 returned image file are different than specified in the size parameter.
 The image contents SHOULD NOT be scaled  as a result of the rotation,
 and there SHOULD be no additional space between the corners of the

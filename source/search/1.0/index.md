@@ -777,7 +777,6 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 [iiif-community]: {{ site.root_url | absolute_url }}/community/ "IIIF Community"
 [stable-version]: {{ site.api_url | absolute_url }}/search/{{ site.data.apis.search.latest.major }}.{{ site.data.apis.search.latest.minor }}/ "Stable Version"
 [paging]: {{ site.api_url | absolute_url }}/presentation/2.1/
-
 [image-api]: {{ site.api_url | absolute_url }}/image/{{ site.data.apis.image.latest.major }}.{{ site.data.apis.image.latest.minor }}/ "Image API"
 [openanno]: http://www.openannotation.org/spec/core/ "Open Annotation"
 [prezi-api]: {{ site.api_url | absolute_url }}/presentation/{{ site.data.apis.presentation.latest.major }}.{{ site.data.apis.presentation.latest.minor }}/ "Presentation API"
@@ -787,7 +786,6 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 [prezi-layer]: {{ site.api_url | absolute_url }}/presentation/2.1/#layer
 [ignored-parameters]: #ignored-parameters
 [oa-textquotesel]: http://www.openannotation.org/spec/core/
-
 [icon-req]: {{ site.api_url | absolute_url }}/assets/images/icons/required.png "Required"
 [icon-rec]: {{ site.api_url | absolute_url }}/assets/images/icons/recommended.png "Recommended"
 [icon-opt]: {{ site.api_url | absolute_url }}/assets/images/icons/optional.png "Optional"

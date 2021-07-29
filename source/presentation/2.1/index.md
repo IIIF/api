@@ -1,9 +1,7 @@
 ---
 title: "Presentation API 2.1.1"
 title_override: "IIIF Presentation API 2.1.1"
-id: presentation-api
 layout: spec
-tags: [specifications, presentation-api]
 major: 2
 minor: 1
 patch: 1
@@ -34,9 +32,9 @@ hero:
 {:.no_toc}
 __This Version:__ {{ page.major }}.{{ page.minor }}.{{ page.patch }}{% if page.pre != 'final' %}-{{ page.pre }}{% endif %}
 
-__Latest Stable Version:__ [{{ site.data.apis.presentation.latest.major }}.{{ site.data.apis.presentation.latest.minor }}.{{ site.data.apis.presentation.latest.patch }}][stable-version]
+__Latest Stable Version:__ [{{ site.data.apis.presentation.latest.major }}.{{ site.data.apis.presentation.latest.minor }}.{{ site.data.apis.presentation.latest.patch }}][prezi-stable-version]
 
-__Previous Version:__ [2.0][prev-version]
+__Previous Version:__ [2.0][prezi20]
 
 **Editors:**
 
@@ -55,7 +53,7 @@ This document describes how the structure and layout of a complex image-based ob
 
 An object may comprise a series of pages, surfaces or other views; for example the single view of a painting, the two sides of a photograph, four cardinal views of a statue, or the many pages of an edition of a newspaper or book. The primary requirements for the Presentation API are to provide an order for these views, the resources needed to display a representation of the view, and the descriptive information needed to allow the user to understand what is being seen.
 
-The principles of [Linked Data][linked-data] and the [Architecture of the Web][web-arch] are adopted in order to provide a distributed and interoperable system. The [Shared Canvas data model][shared-canvas] and [JSON-LD][json-ld] are leveraged to create an easy-to-implement, JSON-based format.
+The principles of [Linked Data][org-linked-data] and the [Architecture of the Web][web-arch] are adopted in order to provide a distributed and interoperable system. The [Shared Canvas data model][shared-canvas] and [JSON-LD][org-w3c-json-ld] are leveraged to create an easy-to-implement, JSON-based format.
 
 Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss]
 
@@ -81,14 +79,14 @@ Note that in the following descriptions, "object" (or "physical object") is used
 ###  1.2. Motivating Use Cases
 {: #motivating-use-cases}
 
-There are many different types of digitized or digital compound objects, from ancient scrolls to modern newspapers, from medieval manuscripts to online comics, and from large maps to small photographs. Many of them bear texts, sometimes difficult to read either due to the decay of the physical object or lack of understanding of the script or language.  These use cases are described in a separate [document][use-case-doc].
+There are many different types of digitized or digital compound objects, from ancient scrolls to modern newspapers, from medieval manuscripts to online comics, and from large maps to small photographs. Many of them bear texts, sometimes difficult to read either due to the decay of the physical object or lack of understanding of the script or language.  These use cases are described in a separate [document][prezi-use-cases].
 
 Collectively the use cases require a model in which one can characterize the object (via the _manifest_ resource), the order in which individual surfaces or views are presented (the _sequence_ resource), and the individual surfaces or views (_canvas_ resources). Each canvas may have images and/or other content resources associated with it (_content_ resources) to allow the view to be rendered. An object may also have parts; for example, a book may have chapters where several pages may be associated with a single chapter (a _range_ resource) or there may be groups of content resource above the page level, such as all of the texts that make up a single edition of a book (a _layer_ resource).  These resource types, along with their properties, make up the IIIF Presentation API.
 
 ### 1.3. Terminology
 {: #terminology}
 
-The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _SHOULD NOT_, _RECOMMENDED_, _MAY_, and _OPTIONAL_ in this document are to be interpreted as described in [RFC 2119][rfc-2119].
+The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _SHOULD NOT_, _RECOMMENDED_, _MAY_, and _OPTIONAL_ in this document are to be interpreted as described in [RFC 2119][org-rfc-2119].
 
 
 ##  2. Resource Type Overview
@@ -231,7 +229,7 @@ A small image that represents an individual or organization associated with the 
 {: #technical-properties}
 
 ##### @id
-The URI that identifies the resource. It is _RECOMMENDED_ that an HTTP URI be used for all resources. Recommended HTTP URI patterns for the different classes of resource are given below.  URIs from any [registered scheme][iana-uri-schemes] _MAY_ be used, and implementers may find it convenient to use a [UUID URN][rfc-4122] of the form: `"urn:uuid:uuid-goes-here-1234"`.  Resources that do not require URIs _MAY_ be assigned [blank node identifiers][rdf11-blank-nodes]; this is the same as omitting `@id`.
+The URI that identifies the resource. It is _RECOMMENDED_ that an HTTP URI be used for all resources. Recommended HTTP URI patterns for the different classes of resource are given below.  URIs from any [registered scheme][iana-uri-schemes] _MAY_ be used, and implementers may find it convenient to use a [UUID URN][org-rfc-4122] of the form: `"urn:uuid:uuid-goes-here-1234"`.  Resources that do not require URIs _MAY_ be assigned [blank node identifiers][rdf11-blank-nodes]; this is the same as omitting `@id`.
 
  * A collection _MUST_ have exactly one id, and it _MUST_ be the http(s) URI at which it is published.
  * A manifest _MUST_ have exactly one id, and it _MUST_ be the http(s) URI at which it is published.
@@ -439,7 +437,7 @@ Many of the properties in the API _MAY_ be repeated. This is done by giving a li
 ### 4.3. Language of Property Values
 {: #language-of-property-values}
 
-Language _MAY_ be associated with strings that are intended to be displayed to the user with the following pattern of `@value` plus the [RFC 5646][rfc5646] code in `@language`, instead of a plain string.  For example:
+Language _MAY_ be associated with strings that are intended to be displayed to the user with the following pattern of `@value` plus the [RFC 5646][org-rfc-5646] code in `@language`, instead of a plain string.  For example:
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -448,7 +446,7 @@ Language _MAY_ be associated with strings that are intended to be displayed to t
 
 This pattern may be used in `label`, `description`, `attribution` and the `label` and `value` fields of the `metadata` construction.
 
-Note that [RFC 5646][rfc5646] allows the script of the text to be included after a hyphen, such as `ar-latn`, and clients should be aware of this possibility. This allows for full internationalization of the user interface components described in the response, as the labels as well as values may be translated in this manner; examples are given below.
+Note that [RFC 5646][org-rfc-5646] allows the script of the text to be included after a hyphen, such as `ar-latn`, and clients should be aware of this possibility. This allows for full internationalization of the user interface components described in the response, as the labels as well as values may be translated in this manner; examples are given below.
 
 In the case where multiple values are supplied, clients _MUST_ use the following algorithm to determine which values to display to the user.  
 
@@ -1919,14 +1917,13 @@ URL: _http://example.org/iiif/book1/manifest_
 
  * If a {name} parameter in the recommended URI structure begins with a number, such as `.../canvas/1`, then developers using certain technology stacks may be inconvenienced.  In particular, an RDF based stack that uses RDF/XML internally will not be able to derive a shared `.../canvas/` prefix and then use the `1` as a CURIE, as `<canvas:1>` is not a valid element in XML.  Producers might consider adding an alphabetical character as the initial character.
 
-
 ### E. Versioning
 
-Starting with version 2.0, this specification follows [Semantic Versioning][semver]. See the note [Versioning of APIs][versioning] for details regarding how this is implemented.
+Starting with version 2.0, this specification follows [Semantic Versioning][org-semver]. See the note [Versioning of APIs][notes-versioning] for details regarding how this is implemented.
 
 ### F. Acknowledgements
 
-The production of this document was generously supported by a grant from the [Andrew W. Mellon Foundation][mellon].
+The production of this document was generously supported by a grant from the [Andrew W. Mellon Foundation][org-mellon].
 
 Many thanks to the members of the [IIIF][iiif-community] for their continuous engagement, innovative ideas and feedback.
 
@@ -1940,60 +1937,41 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 | 2013-08-26 | Version 1.0 (unnamed) |
 | 2013-06-14 | Version 0.9 (unnamed) |
 
-[iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
-[shared-canvas]: {{ '/model/shared-canvas/1.0/' | absolute_url }} "Shared Canvas Data Model"
-[image-api]: {{ site.api_url | absolute_url }}/image/{{ site.data.apis.image.latest.major }}.{{ site.data.apis.image.latest.minor }}/ "Image API"
-[search-api]: {{ site.api_url | absolute_url }}/search/{{ site.data.apis.search.latest.major }}.{{ site.data.apis.search.latest.minor }}/ "Content Search API"
+[resource-structure]: {{ page.url | absolute_url }}#resource-structure
 [annex]: {{ site.api_url | absolute_url }}/annex/services/ "Services Annex Document"
+[appendixa]: #a-summary-of-recommended-uri-patterns "Appendix A"
+[appendixb]: #b-summary-of-metadata-requirements "Appendix B"
+[prev-version]: {{ site.api_url | absolute_url }}/presentation/2.0/
+[sequence]: {{ page.url | absolute_url }}#sequence
+[canvas]: {{ page.url | absolute_url }}#canvas
+[range]: {{ page.url | absolute_url }}#range
+[image-resources]: {{ page.url | absolute_url }}#image-resources
+[annotation-lists]: {{ page.url | absolute_url }}#annotation-list
+[type-overview]: {{ page.url | absolute_url }}#resource-type-overview
+[segments]: {{ page.url | absolute_url }}#segments
+[ld-exts]: {{ page.url | absolute_url }}#linked-data-context-and-extensions
+[paging]: {{ page.url | absolute_url }}#paging-properties
+[openanno]: http://www.openannotation.org/spec/core/ "Open Annotation"
 [change-log-211]: {{ site.api_url | absolute_url }}/presentation/2.1/change-log-211/ "Presentation API 2.1.1 Change Log"
 [change-log-21]: {{ site.api_url | absolute_url }}/presentation/2.1/change-log/ "Presentation API 2.1 Change Log"
 [change-log-20]: {{ site.api_url | absolute_url }}/presentation/2.0/change-log/ "Presentation API 2.0 Change Log"
-[iiif-community]: {{ site.root_url | absolute_url }}/community/ "IIIF Community"
 [apache-notes]: {{ site.api_url | absolute_url }}/annex/notes/apache/ "Apache HTTP Server Implementation Notes"
-[openanno]: http://www.openannotation.org/spec/core/ "Open Annotation"
 [openannotypes]: http://www.openannotation.org/spec/core/core.html#BodyTargetType
 [openannomulti]: http://www.openannotation.org/spec/core/multiplicity.html#Choice
 [linked-data]: http://linkeddata.org/ "Linked Data"
-[web-arch]: http://www.w3.org/TR/webarch/ "Architecture of the World Wide Web"
-[json-ld]: http://www.w3.org/TR/json-ld/ "JSON-LD"
 [json-ld-68]: http://www.w3.org/TR/json-ld/#interpreting-json-as-json-ld "Interpreting JSON as JSON-LD"
-[rfc5646]: http://tools.ietf.org/html/rfc5646 "RFC 5646"
 [media-frags]: http://www.w3.org/TR/media-frags/#naming-space "Media Fragments"
 [xpath]: https://en.wikipedia.org/wiki/XPointer "XPath / XPointer"
 [svg]: http://www.w3.org/TR/SVG/ "Scalabe Vector Graphics"
 [css]: http://www.w3.org/TR/CSS/ "Cascading Style Sheets"
-[semver]: http://semver.org/spec/v2.0.0.html "Semantic Versioning 2.0.0"
-[mellon]: http://www.mellon.org/ "The Andrew W. Mellon Foundation"
 [json-ld-compact]: http://www.w3.org/TR/json-ld-api/#compaction-algorithms "JSON-LD Compaction Algorithms"
-[versioning]: {{ site.api_url | absolute_url }}/annex/notes/semver/ "Versioning of APIs"
 [use-case-doc]: {{ site.api_url | absolute_url }}/presentation/usecases/ "Presentation API Use Cases"
 [annex-frames]: {{ site.api_url | absolute_url }}/annex/notes/jsonld/ "JSON-LD Frames Implementation Notes"
 [iana-uri-schemes]: http://www.iana.org/assignments/uri-schemes/uri-schemes.xhtml "IANA URI Schemes"
 [rdf11-blank-nodes]: http://www.w3.org/TR/rdf11-concepts/#section-blank-nodes "RDF 1.1 Concepts"
-[rfc-4122]: http://tools.ietf.org/html/rfc4122 "URN UUID Scheme"
-[rfc-2119]: http://tools.ietf.org/html/rfc2119
 [oa-ext-annex]: {{ site.api_url | absolute_url }}/annex/openannotation/ "Open Annotation Extensions"
 [auth]: {{ site.api_url | absolute_url }}/auth/
-
-[stable-version]: {{ site.api_url | absolute_url }}/presentation/{{ site.data.apis.presentation.latest.major }}.{{ site.data.apis.presentation.latest.minor }}/
-[appendixa]: #a-summary-of-recommended-uri-patterns "Appendix A"
-[appendixb]: #b-summary-of-metadata-requirements "Appendix B"
-[prev-version]: {{ site.api_url | absolute_url }}/presentation/2.0/
-[sequence]: #sequence
-[canvas]: #canvas
-[range]: #range
-[image-resources]: #image-resources
-[annotation-lists]: #annotation-list
-[type-overview]: #resource-type-overview
-[segments]: #segments
-
-[ld-exts]: #linked-data-context-and-extensions
-[paging]: #paging-properties
-[resource-structure]: #resource-structure
-
-[icon-req]: {{ site.api_url | absolute_url }}/assets/images/icons/required.png "Required"
-[icon-rec]: {{ site.api_url | absolute_url }}/assets/images/icons/recommended.png "Recommended"
-[icon-opt]: {{ site.api_url | absolute_url }}/assets/images/icons/optional.png "Optional"
-[icon-na]: {{ site.api_url | absolute_url }}/assets/images/icons/not_allowed.png "Not allowed"
-
+[stable-version]: {{ site.api_url | absolute_url }}/presentation/{{ site.data.apis.presentation.latest.major }}.{{ site.data.apis.presentation.latest.minor }}/ "Prezi stable 2.0"
+[shared-canvas]: {{ '/model/shared-canvas/1.0/' | absolute_url }} "Shared Canvas Data Model"
+{% include links.md %}
 {% include acronyms.md %}

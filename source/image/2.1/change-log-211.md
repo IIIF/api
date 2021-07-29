@@ -3,7 +3,6 @@ title: "Image API 2.1.1 Change Log"
 title_override: "Changes for IIIF Image API Version 2.1.1"
 id: image-api-211-change-log
 layout: spec
-tags: [specifications, image-api, change-log]
 major: 2
 minor: 1
 patch: 1
@@ -44,9 +43,6 @@ See issue [#1001](https://github.com/IIIF/iiif.io/issues/1001)
 The URIs were not helpful in giving realistic examples. The examples were updated to use Creative Commons and Rights Statements URIs to promote the use of shared agreements.
 See issue [#1094](https://github.com/IIIF/iiif.io/issues/1094)
 
-
-
-
 ## 2. Changes to Non-Semantically-Versioned Documents
 
 These changes were scheduled to coincide with the release of 2.1.1 to benefit from a shared deadline, but are not managed in the same way as the main specification documents with respect to versioning.
@@ -58,11 +54,8 @@ These changes were scheduled to coincide with the release of 2.1.1 to benefit fr
 The URI of the `@context` to be used for GeoJSON services has changed and the [Services Annex Document][service-profiles] has been updated.
 See issue [#1001](https://github.com/IIIF/iiif.io/issues/1001)
 
-
 [image-api]: {{ site.api_url | absolute_url }}/image/2.1/ "Image API 2.1"
 [changelog-21]: {{ site.api_url | absolute_url }}/image/2.1/change-log.html "Image API 2.1 Change Log"
 [semver]: {{ site.api_url | absolute_url }}/annex/notes/semver/ "Note on Semantic Versioning"
 [service-profiles]: {{ site.api_url | absolute_url }}/annex/services/ "Services Annex Document"
-
-
 {% include acronyms.md %}

@@ -1,8 +1,5 @@
 ---
 title: Calculating the Size of a Rotated Image (1.0)
-id: index
-categories: [pages]
-layout: sub-page
 layout: page
 redirect_from:
   - /image/1.0/rotation_calc.html

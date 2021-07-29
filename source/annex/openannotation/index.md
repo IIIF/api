@@ -150,6 +150,7 @@ Thanks to the members of the [IIIF][iiif-community] for their continuous engagem
 | 2014-07-01 | Version 1.0 (RFC)                                  |
 {:.api-table}
 
+[prezi-rot]: {{ site.api_url | absolute_url }}/presentation/2.0/#rotation "Rotation in Presentation API"
 {% include acronyms.md %}
 {% include links.md %}
-[prezi-rot]: {{ site.api_url | absolute_url }}/presentation/2.0/#rotation "Rotation in Presentation API"
+
