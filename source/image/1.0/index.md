@@ -221,6 +221,7 @@ http://www.example.org/image-service/abcd1234<span style="color: red;">!150,75</
 ![Illustrated examples of the size parameter](images/iiif-size.png)
 
 ### 4.3 Rotation
+{: #rotation}
 
 The rotation value represents the number of degrees of clockwise
 rotation from the original, and may be any floating point number from 0
@@ -454,6 +455,7 @@ redirection to a login screen, or convey a URI template to insert a
 return URI.
 
 ## 8. Compliance Levels
+{: #compliance}
 
 A service SHOULD specify on all responses the extent to which the API is
 supported. This is done by including an HTTP Link header
