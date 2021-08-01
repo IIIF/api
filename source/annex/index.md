@@ -1,6 +1,7 @@
 ---
 title: IIIF API Annex Documents
-layout: page
+layout: spec
+toc: false
 hero:
   image: ''
 ---
