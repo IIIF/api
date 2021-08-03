@@ -10,18 +10,19 @@ cssversion: 2
 
 | API                | Current Version |
 | ------------------ | --------------- |
-| Authentication API | [{{ site.auth_api.stable.major }}.{{ site.auth_api.stable.minor }}.{{ site.auth_api.stable.patch}}][auth{{ site.auth_api.stable.major }}{{ site.auth_api.stable.minor }}] |
-| Image API          | [{{ site.image_api.stable.major }}.{{ site.image_api.stable.minor }}.{{ site.image_api.stable.patch}}][image{{ site.image_api.stable.major }}{{ site.image_api.stable.minor }}] |
-| Presentation API   | [{{ site.presentation_api.stable.major }}.{{ site.presentation_api.stable.minor }}.{{ site.presentation_api.stable.patch }}][prezi{{ site.presentation_api.stable.major }}{{ site.presentation_api.stable.minor }}] |
-| Content Search API | [{{ site.search_api.stable.major }}.{{ site.search_api.stable.minor }}.{{ site.search_api.stable.patch }}][search{{ site.search_api.stable.major }}{{ site.search_api.stable.minor }}] |
+| Image API          | [{{ site.image_api.stable.major }}.{{ site.image_api.stable.minor }}.{{ site.image_api.stable.patch}}][image{{ site.image_api.stable.major }}{{ site.image_api.stable.minor }}] (2020-06-03)|
+| Presentation API   | [{{ site.presentation_api.stable.major }}.{{ site.presentation_api.stable.minor }}.{{ site.presentation_api.stable.patch }}][prezi{{ site.presentation_api.stable.major }}{{ site.presentation_api.stable.minor }}] (2020-06-03)|
+| Authentication API | [{{ site.auth_api.stable.major }}.{{ site.auth_api.stable.minor }}.{{ site.auth_api.stable.patch}}][auth{{ site.auth_api.stable.major }}{{ site.auth_api.stable.minor }}] (2017-01-19)|
+| Change Discovery API | [{{ site.discovery_api.stable.major }}.{{ site.discovery_api.stable.minor }}.{{ site.discovery_api.stable.patch }}][discovery{{ site.discovery_api.stable.major }}{{ site.discovery_api.stable.minor }}] (2021-06-22)|
+| Content Search API | [{{ site.search_api.stable.major }}.{{ site.search_api.stable.minor }}.{{ site.search_api.stable.patch }}][search{{ site.search_api.stable.major }}{{ site.search_api.stable.minor }}] (2016-05-12)|
 {: .api-table}
+
 
 ## Draft Specifications
 
 | API                  | Draft Version (Status) |
 | -------------------- | ---------------------- |
-| Change Discovery API | [0.9.1 BETA][discovery09] |
-| Content State API    | [0.3.0][contentstate03]|
+| Content State API    | [0.9.0][contentstate09]|
 {: .api-table}
 
 __Feedback Requested__<br/>
@@ -32,15 +33,26 @@ We welcome feedback on all IIIF Specifications. Please send any feedback to [iii
 
 | API                | Version | Translation           |
 | ------------------ | ------- | --------------------- |
-| Image API          | 2.1     | [Japanese][image-jp]  |
-| Presentation API   | 2.1     | [Japanese][prezi-jp]  |
-| Content Search API | 1.0     | [Japanese][search-jp] |
-| Authentication API | 1.0     | [Japanese][auth-jp]   |
+| Image API          | [3.0][image3-jp], [2.1][image-jp] | Japanese |
+| Presentation API   | [2.1][prezi-jp] | Japanese |
+| Search API         | [1.0][search-jp] | Japanese |
+| Authentication API | [1.0][auth-jp] | Japanese |
 {: .api-table}
 
 __Translation Note__<br/>
 Please note that the IIIF community does not guarantee the accuracy of any translation. They are linked to for information purposes only, and any discrepancies with the specifications are unintentional. The English versions of the specifications linked above are the definitive versions.
 {: .alert}
+
+## Community Cookbook
+
+The [Cookbook][annex-cookbook] gathers together examples of how to create IIIF Presentation API assets, in order to:
+
+ * Provide many more examples than the specification alone can do, for reference and learning;
+ * Encourage publishers to adopt common patterns in modeling classes of complex objects;
+ * Enable client software developers to support these patterns, for consistency of user experience (when desirable); and
+ * Demonstrate the applicability of IIIF to a broad range of use cases.
+
+The [Cookbook][annex-cookbook] webpages are under constant development and the list of recipes include links to completed recipes and place holders for future recipes. The community welcomes additions to the [Cookbook][annex-cookbook]. To get started, review the [Cookbook process][recipe-process] and say hello on the Cookbook [Slack][slack] channel. 
 
 ## Older Versions
 
@@ -49,6 +61,7 @@ Current IIIF specifications _SHOULD_ be used for all new work. Old versions are 
 | Old API Version            | Notes |
 | -------------------------- | ----- |
 | [Authentication API 0.9.4][auth094] | Published 2016-10-05 |
+| [Change Discovery API 0.9.2][discovery09] | Published 2021-04-28 |
 | [Image API 2.1][image21]   | Published 2016-05-12, updated 2017-06-09 |
 | [Image API 2.0][image20]   | Published 2014-09-11 |
 | [Image API 1.1][image11]   | Published 2013-09-17 |
@@ -62,36 +75,17 @@ Current IIIF specifications _SHOULD_ be used for all new work. Old versions are 
 
 ## Notes
 
-IIIF also has a series of [Implementation Notes][notes] which are not subject to the same process as formal APIs but may be useful to implementers.
+IIIF also has a series of [Implementation Notes][annex-notes] which are not subject to the same process as formal APIs but may be useful to implementers.
 
 ## Process
 
 IIIF Specifications are created and published following the [IIIF Editorial Process][editorial-process].
 
+[image3-jp]: http://www.asahi-net.or.jp/~ax2s-kmtn/ref/iiif/apiimage3.0.html
 [image-jp]: http://www.asahi-net.or.jp/~ax2s-kmtn/ref/iiif/apiimage2.1.html
 [prezi-jp]: http://www.asahi-net.or.jp/~ax2s-kmtn/ref/iiif/apipresentation2.1.html
 [search-jp]: http://www.asahi-net.or.jp/~ax2s-kmtn/ref/iiif/searchapi1.0.html
 [auth-jp]: http://www.asahi-net.or.jp/~ax2s-kmtn/ref/iiif/apiauthentication1.0.html
 
-
-[iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
-[image30]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/ "Image API v3.0"
-[image21]: {{ site.url }}{{ site.baseurl }}/api/image/2.1/ "Image API v2.1"
-[image20]: {{ site.url }}{{ site.baseurl }}/api/image/2.0/ "Image API v2.0"
-[image11]: {{ site.url }}{{ site.baseurl }}/api/image/1.1/ "Image API v1.1"
-[image10]: {{ site.url }}{{ site.baseurl }}/api/image/1.0/ "Image API v1.0"
-[prezi30]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/ "Presentation API v3.0"
-[prezi21]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.1/ "Presentation API v2.1"
-[prezi20]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.0/ "Presentation API v2.0"
-[meta10]: {{ site.url }}{{ site.baseurl }}/api/metadata/1.0/ "Metadata API v1.0"
-[meta09]: {{ site.url }}{{ site.baseurl }}/api/metadata/0.9/ "Metadata API v0.9"
-[auth10]: {{ site.url }}{{ site.baseurl }}/api/auth/1.0/ "Authentication API v1.0"
-[auth094]: {{ site.url }}{{ site.baseurl }}/api/auth/0.9/ "Authentication API v0.9.4"
-[search10]: {{ site.url }}{{ site.baseurl }}/api/search/1.0/ "Search API v1.0"
-[search09]: {{ site.url }}{{ site.baseurl }}/api/search/0.9/ "Search API v0.9"
-[discovery09]: {{ site.url }}{{ site.baseurl }}/api/discovery/0.9/ "IIIF Change Discovery API"
-[contentstate03]: {{ site.url }}{{ site.baseurl }}/api/content-state/0.3/ "IIIF Content State API"
-[notes]: {{ site.url }}{{ site.baseurl }}/api/annex/ "Implementation Notes"
-[editorial-process]: {{ page.webprefix }}/community/policy/editorial/ "IIIF Editorial Process"
-
 {% include acronyms.md %}
+{% include links.md %}

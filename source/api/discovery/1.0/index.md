@@ -1,25 +1,26 @@
 ---
-title: "IIIF Change Discovery API 0.9.2 BETA"
-title_override: "IIIF Change Discovery API 0.9.2 BETA"
+title: "IIIF Change Discovery API 1.0"
+title_override: "IIIF Change Discovery API 1.0"
 id: discovery-api
 layout: spec
 cssversion: 3
 tags: [specifications, discovery-api]
-major: 0
-minor: 9
-patch: 2
-pre: BETA
+major: 1
+minor: 0
+patch: 0
+pre: final
 redirect_from:
-  - /api/discovery/0/index.html
+  - /api/discovery/index.html
+  - /api/discovery/1/index.html
 ---
 
 ## Status of this Document
 {:.no_toc}
 __This Version:__ {{ page.major }}.{{ page.minor }}.{{ page.patch }}{% if page.pre != 'final' %}-{{ page.pre }}{% endif %}
 
-__Latest Stable Version:__ None
+__Latest Stable Version:__ [{{ site.discovery_api.stable.major }}.{{ site.discovery_api.stable.minor }}.{{ site.discovery_api.stable.patch }}][discovery-stable-version]
 
-__Previous Version:__ [0.4][discovery04]
+__Previous Version:__ [0.9.2][discovery09]
 
 **Editors**
 
@@ -746,6 +747,7 @@ A complete example Activity would thus look like the following example. Note tha
 
 ```json-doc
 {
+  "@context": "http://iiif.io/api/discovery/1/context.json",
   "id": "https://example.org/activity/1",
   "type": "Update",
   "summary": "admin updated the manifest, fixing reported bug #15.",
@@ -969,6 +971,7 @@ This specification is due primarily to the work of the [IIIF Discovery Technical
 
 | Date       | Description           |
 | ---------- | --------------------- |
+| 2021-06-22 | Version 1.0 (Zooming Heatwave) |
 | 2021-04-28 | Version 0.9.2 (unnamed) |
 | 2020-09-29 | Version 0.9.1 (unnamed) |
 | 2020-06-04 | Version 0.9 (unnamed) |
