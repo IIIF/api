@@ -28,7 +28,9 @@ The ideas of Time and Place are a foundation of human communication and understa
 
 IIIF provides the information necessary to allow a rich, online viewing environment for compound digital objects to be presented to a human user. The types of resources and their specific needs continue to enhance the IIIF specifications to greater resource coverage. The ability to assert ancillary information is a universal need in this expanse. This is achieved using Annotation, or Web Annotation, and extensions across the IIIF specification versions.
 
-This extension describes a property called `navPlace` which contains geographic coordinates in the form of [GeoJSON-LD](https://geojson.org/geojson-ld/). Clients may use this property to leverage the navigational functionality of web maps such as Google Earth, Leaflet, OpenLayers, etc. giving them the opportunity to enrich data presentation through common web map platform projections of the surface of the Earth.
+This extension describes a property called `navPlace` which contains earthbound geographic coordinates in the form of [GeoJSON-LD](https://geojson.org/geojson-ld/). Clients may use this property to leverage the navigational functionality of web maps such as Google Earth, Leaflet, OpenLayers, etc. giving them the opportunity to enrich data presentation through common web map platforms.
+
+Spatial coordinates for resources on other celestial bodies or contrived worlds can be expressed using the semantic pattern of GeoJSON. However, `navPlace` makes use of the existing GeoJSON specification to promote interoperability with industry standard mapping libraries and methods using [WGS84](http://www.w3.org/2003/01/geo/wgs84_pos) as the coordinate reference system for projections of the surface of Earth. As such, expressing the location of entities alienated from the bounds of Earth is not supported by the `navPlace` property. Future IIIF Communities and extensions can pursue this use case.
 
 
 ### 1.2 Motivating Use Cases
@@ -68,7 +70,7 @@ The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _S
 
 ### 2.1 GeoJSON
 
-This extension implements the [GeoJSON-LD specification](https://geojson.org/geojson-ld/) and so its values follow the [GeoJSON](https://tools.ietf.org/html/rfc7946) conventions for Feature Collections. The possible geometric shapes are those defined by GeoJSON Feature `geometry` values. All geographic coordinates are in [WGS84](http://www.w3.org/2003/01/geo/wgs84_pos) format.
+This extension implements the [GeoJSON-LD specification](https://geojson.org/geojson-ld/) and so its values follow the [GeoJSON](https://tools.ietf.org/html/rfc7946) conventions for Feature Collections. The possible geometric shapes are those defined by GeoJSON Feature `geometry` values.
 
 
 #### 2.1.1 GeoJSON as Linked Data
