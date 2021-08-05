@@ -30,7 +30,7 @@ IIIF provides the information necessary to allow a rich, online viewing environm
 
 This extension describes a property called `navPlace` which contains earthbound geographic coordinates in the form of [GeoJSON-LD](https://geojson.org/geojson-ld/). Clients may use this property to leverage the navigational functionality of web maps such as Google Earth, Leaflet, OpenLayers, etc. giving them the opportunity to enrich data presentation through common web map platforms.
 
-Spatial coordinates for resources on other celestial bodies or contrived worlds can be expressed using the semantic pattern of GeoJSON. However, `navPlace` makes use of the existing GeoJSON specification to promote interoperability with industry standard mapping libraries and methods using [WGS84](http://www.w3.org/2003/01/geo/wgs84_pos) as the coordinate reference system for projections of the surface of Earth. As such, expressing the location of entities alienated from the bounds of Earth is not supported by the `navPlace` property. Future IIIF Communities and extensions can pursue this use case.
+Spatial coordinates for resources on other celestial bodies or contrived worlds can be expressed using the semantic pattern of GeoJSON. However, `navPlace` makes use of the existing GeoJSON specification to promote interoperability with industry standard mapping libraries and methods using [WGS84](http://www.w3.org/2003/01/geo/wgs84_pos) as the coordinate reference system for projections of the surface of Earth. As such, expressing the location of extraterrestrial entities is not supported by the `navPlace` property. This extension does not preclude the development of future extensions to address this use case.
 
 
 ### 1.2 Motivating Use Cases
@@ -75,7 +75,7 @@ This extension implements the [GeoJSON-LD specification](https://geojson.org/geo
 
 #### 2.1.1 GeoJSON as Linked Data
 
-The GeoJSON terms, the IIIF Presentation API 3 terms, and the `navPlace` term all require linked data context for `navPlace` to be IIIF compatible. This is elaborated upon in [section 3](#3-linked-data).
+The GeoJSON terms, the IIIF Presentation API 3 terms, and the `navPlace` term are all require linked data context for `navPlace` to be IIIF compatible. This is elaborated upon in [section 3](#3-linked-data).
 
 
 
@@ -166,7 +166,7 @@ The `navPlace` property's value follows a specific pattern.
 `{"navPlace":{"id": "https://example.org/iiif/1/feature-collection", "type": "FeatureCollection"}}`
 
 
-`navPlace` is intended to connect IIIF web resources with geographic areas. These areas _SHOULD_ be bounded discrete regions of the map akin to extents. `navPlace` is not meant for geographic layouts at the township, city, country or continental level. Such descriptive datasets rely heavily on the client map viewer API for displaying connected metadata directly to the user. It is up to the implementer to determine how their chosen web map viewer interacts with GeoJSON data nodes and whether or not their metadata belongs in `properties` to be displayed as desired. For more on using metadata with this pattern see section [3.3](#33-context-considerations-for-geojson-ld-properties).
+`navPlace` is intended to connect IIIF web resources with geographic areas. These areas _SHOULD_ be bounded discrete regions of the map akin to extents. For information on using the GeoJSON `properties` property to provide information associated with the geographic coordinates, see [Section 3.3](#33-context-considerations-for-geojson-ld-properties).
 
 ```json-doc
 {
@@ -301,10 +301,7 @@ Here you can see an example of a IIIF Manifest with the `navPlace` property. It 
 
 ### 3.3 Context Considerations for GeoJSON-LD `properties`
 
-The GeoJSON `properties` object is generic and can be nearly anything. It is used to pass metadata along with the geographic coordinates. Web maps offer common ways for implementers to generate UI(s) for displaying values in `properties` along with the shape made by the geographic coordinates. IIIF encourages interoperability, which is made possible in large part due to Linked Data. Any metadata used in `properties` _SHOULD_ be described by a linked data context. Desired metadata already noted by a property on a IIIF resource _SHOULD_ be gathered by consuming that property for the web map UI and _MAY_ be repeated in GeoJSON `properties` to leverage automated functionality. The [full Manifest](https://preview.iiif.io/api/navplace_extension/api/extension/navplace/#32-full-manifest-example) below exemplifies this.
-
-Note that if a client discovers a property that it does not understand, then it _MUST_ ignore that property. You can see this functionality by including your own metadata in the `properties` property of the example Manifest and taking it to the [JSON-LD playground](https://json-ld.org/playground/).
-
+The value of `properties` can be any JSON object and is used to supply additional information associated with the geographic coordinates. Properties _SHOULD_ be defined either by local extensions or those endorsed by the IIIF community. If a client discovers properties that it does not understand, then it _MUST_ ignore them. 
 
 ## 4. Implementation Notes
 
