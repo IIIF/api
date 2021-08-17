@@ -264,9 +264,9 @@ A client should not assume that a manifest will contain any hints of this nature
 
 IE8 and IE9 have the [HttpXmlRequest][xhr] object, but unlike the implementation in IE10+ and current versions of Safari, Chrome and Firefox it does not support CORS, so will not allow clients to attempt any kind of cross domain request.
 
-In IE8 and IE9, Microsoft separated out cross domain activity into the [XDomainRequest][xdr] interface. This sits alongside XmlHttpRequest in IE8 and IE9 (and was dropped in IE10 when XHR became fully CORS compliant). Clients must use XDomainRequest instead of XmlHttpRequest when they need to go cross-domain. This works fine for many Ajax scenarios, and it can be shimmed it into jQuery via libraries such as [jQuery-ajaxTransport-XDomainRequest][moonscript] which hide the distinction between the two interfaces when doing CORS from jQuery.
+In IE8 and IE9, Microsoft separated out cross domain activity into the [XDomainRequest][xdr]{:data-proofer-ignore=''} interface. This sits alongside XmlHttpRequest in IE8 and IE9 (and was dropped in IE10 when XHR became fully CORS compliant). Clients must use XDomainRequest instead of XmlHttpRequest when they need to go cross-domain. This works fine for many Ajax scenarios, and it can be shimmed it into jQuery via libraries such as [jQuery-ajaxTransport-XDomainRequest][moonscript] which hide the distinction between the two interfaces when doing CORS from jQuery.
 
-However, XDomainRequest handles HTTP status codes differently from XmlHttpRequest. Although a client can perform many AJAX operations with it, it treats HTTP status codes in the 4xx range as error conditions, and raises an error. The [XDomainRequest.onerror][xdr-error] does not let the client see the status code or the response body, which makes it impossible to implement the IIIF Authentication API.
+However, XDomainRequest handles HTTP status codes differently from XmlHttpRequest. Although a client can perform many AJAX operations with it, it treats HTTP status codes in the 4xx range as error conditions, and raises an error. The [XDomainRequest.onerror][xdr-error]{:data-proofer-ignore=''} does not let the client see the status code or the response body, which makes it impossible to implement the IIIF Authentication API.
 
 This means two things:
 

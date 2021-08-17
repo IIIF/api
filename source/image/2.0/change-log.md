@@ -143,7 +143,7 @@ A recommendation was made to allow compression to be specified in the image URL 
 [context]: {{ site.api_url | absolute_url }}/image/2/context.json  "Image API 2.0 JSON-LD Context"
 [http-features]: {{ site.api_url | absolute_url }}/image/2.0/compliance/#http-features "Image API Compliance: HTTP Features"
 [imagemagick-output]: http://www.imagemagick.org/script/command-line-processing.php#output "ImageMagick: Command-line Processing: Output Filename"
-[kdu-usage]: http://kakadusoftware.com/wp-content/uploads/2014/06/Usage_Examples.txt "Usage Examples for the Demonstration Applications Supplied with Kakadu V7.4"
+[kdu-usage]: https://kakadusoftware.com/wp-content/uploads/Usage_Examples.txt "Usage Examples for the Demonstration Applications Supplied with Kakadu V7.4"
 [pillow]: http://pillow.readthedocs.org/en/latest/handbook/image-file-formats.html#image-file-formats "Pillow: Image file formats"
 [other-changes]: #other-changes "Image API 2.0 Other Changes"
 [rfc-2119]: http://tools.ietf.org/html/rfc2119 "Key words for use in RFCs to Indicate Requirement Levels"
