@@ -180,37 +180,37 @@ Examples:
   <tbody>
     <tr>
       <td>
-        <img src="img/full.png" alt="Full Region" class="fullPct" />
+        <img src="img/full.png" alt="Full Region" style="max-width: 350px;" />
         <p><strong>1</strong> region=full</p>
         <p><code>.../full/max/0/default.jpg</code></p>
       </td>
       <td>
-        <img src="img/region_square.png" alt="Square Region" class="fullPct" />
+        <img src="img/region_square.png" alt="Square Region" style="max-width: 350px;" />
         <p><strong>2</strong> region=square</p>
         <p><code>.../square/max/0/default.jpg</code></p>
       </td>
     </tr>
     <tr>
       <td>
-        <img src="img/region_px.png" alt="Region by Pixels" class="fullPct" />
+        <img src="img/region_px.png" alt="Region by Pixels" style="max-width: 350px;" />
         <p><strong>3</strong> region=125,15,120,140</p>
         <p><code>.../125,15,120,140/max/0/default.jpg</code></p>
       </td>
       <td>
-        <img src="img/region_pct.png" alt="Region by Percent" class="fullPct" />
+        <img src="img/region_pct.png" alt="Region by Percent" style="max-width: 350px;" />
         <p><strong>4</strong> region=pct:41.6,7.5,40,70</p>
         <p><code>.../pct:41.6,7.5,40,70/max/0/default.jpg</code></p>
       </td>
     </tr>
     <tr>
       <td>
-        <img src="img/region_px_over.png" alt="Region by Pixels" class="fullPct" />
+        <img src="img/region_px_over.png" alt="Region by Pixels" style="max-width: 350px;" />
         <p><strong>5</strong> region=125,15,200,200</p>
         <p><code>.../125,15,200,200/max/0/default.jpg</code></p>
         <p><em>N.B. Returned image is 175,185 px</em></p>
       </td>
       <td>
-        <img src="img/region_pct_over.png" alt="Region by Percent" class="fullPct" />
+        <img src="img/region_pct_over.png" alt="Region by Percent" style="max-width: 350px;" />
         <p><strong>6</strong> region=pct:41.6,7.5,66.6,100</p>
         <p><code>.../pct:41.6,7.5,66.6,100/max/0/default.jpg</code></p>
         <p><em>N.B. Returned image is 175,185 px</em></p>
@@ -252,13 +252,13 @@ Examples:
   <tbody>
     <tr>
       <td>
-        <img src="img/size_max.png" alt="Maximum Size" class="fullPct" />
+        <img src="img/size_max.png" alt="Maximum Size" style="max-width: 350px;" />
         <p><strong>1</strong> size=max</p>
         <p><code>.../full/max/0/default.jpg</code></p>
         <p><em>N.B. Assuming that the image has a <code>maxWidth</code> of 200px</em></p>
       </td>
       <td>
-        <img src="img/size_up_max.png" alt="Above Maximum Size" class="fullPct" />
+        <img src="img/size_up_max.png" alt="Above Maximum Size" style="max-width: 350px;" />
         <p><strong>1</strong> size=^max</p>
         <p><code>.../full/^max/0/default.jpg</code></p>
         <p><em>N.B. Assuming that the image has a <code>maxWidth</code> of 360px</em></p>
@@ -266,61 +266,61 @@ Examples:
     </tr>
     <tr>
       <td>
-        <img src="img/size_wc.png" alt="Size by Width" class="fullPct" />
+        <img src="img/size_wc.png" alt="Size by Width" style="max-width: 350px;" />
         <p><strong>2</strong> size=150,</p>
         <p><code>.../full/150,/0/default.jpg</code></p>
       </td>
       <td>
-        <img src="img/size_up_max.png" alt="Size by Width Above Maximum" class="fullPct" />
+        <img src="img/size_up_max.png" alt="Size by Width Above Maximum" style="max-width: 350px;" />
         <p><strong>2</strong> size=^360,</p>
         <p><code>.../full/^360,/0/default.jpg</code></p>
       </td>
     </tr>
     <tr>
       <td>
-        <img src="img/size_ch.png" alt="Size by Height" class="fullPct" />
+        <img src="img/size_ch.png" alt="Size by Height" style="max-width: 350px;" />
         <p><strong>3</strong> size=,150</p>
         <p><code>.../full/,150/0/default.jpg</code></p>
       </td>
       <td>
-        <img src="img/size_up_max.png" alt="Size by Height Above Maximum" class="fullPct" />
+        <img src="img/size_up_max.png" alt="Size by Height Above Maximum" style="max-width: 350px;" />
         <p><strong>3</strong> size=,^240</p>
         <p><code>.../full/,^240/0/default.jpg</code></p>
       </td>
     </tr>
     <tr>
       <td>
-        <img src="img/size_pct.png" alt="Size by Percent" class="fullPct" />
+        <img src="img/size_pct.png" alt="Size by Percent" style="max-width: 350px;" />
         <p><strong>4</strong> size=pct:50</p>
         <p><code>.../full/pct:50/0/default.jpg</code></p>
       </td>
       <td>
-        <img src="img/size_up_max.png" alt="Size by Percent Above Maximum" class="fullPct" />
+        <img src="img/size_up_max.png" alt="Size by Percent Above Maximum" style="max-width: 350px;" />
         <p><strong>4</strong> size=pct:120</p>
         <p><code>.../full/pct:120/0/default.jpg</code></p>
       </td>
     </tr>
     <tr>
       <td>
-        <img src="img/size_wch.png" alt="Size by Width,Height" class="fullPct" />
+        <img src="img/size_wch.png" alt="Size by Width,Height" style="max-width: 350px;" />
         <p><strong>5</strong> size=225,100</p>
         <p><code>.../full/225,100/0/default.jpg</code></p>
       </td>
       <td>
-        <img src="img/size_up_wch.png" alt="Size by Width,Height Above Maximum" class="fullPct" />
+        <img src="img/size_up_wch.png" alt="Size by Width,Height Above Maximum" style="max-width: 350px;" />
         <p><strong>5</strong> size=^360,360</p>
         <p><code>.../full/^360,360/0/default.jpg</code></p>
       </td>
     </tr>
     <tr>
       <td>
-        <img src="img/size_bwch.png" alt="Size By Bang Width Height" class="fullPct" />
+        <img src="img/size_bwch.png" alt="Size By Bang Width Height" style="max-width: 350px;" />
         <p><strong>6</strong> size=!225,100</p>
         <p><code>.../full/!225,100/0/default.jpg</code></p>
         <p><em>N.B. Returned image is 150,100 px</em></p>
       </td>
       <td>
-        <img src="img/size_up_bwch.png" alt="Size By Bang Width Height Above Maximum" class="fullPct" />
+        <img src="img/size_up_bwch.png" alt="Size By Bang Width Height Above Maximum" style="max-width: 350px;" />
         <p><strong>6</strong> size=^!360,360</p>
         <p><code>.../full/^!360,360/0/default.jpg</code></p>
         <p><em>N.B. Returned image is 360,240 px</em></p>
@@ -351,36 +351,36 @@ Examples:
   <tbody>
     <tr>
       <td>
-        <img src="img/full.png" alt="Rotation 0" class="fullPct" />
+        <img src="img/full.png" alt="Rotation 0" style="max-width: 350px;" />
         <p><strong>1</strong> rotation=0</p>
         <p><code>.../full/max/0/default.jpg</code></p>
       </td>
       <td>
-        <img src="img/rotate_180.png" alt="Rotation 180" class="fullPct" />
+        <img src="img/rotate_180.png" alt="Rotation 180" style="max-width: 350px;" />
         <p><strong>2</strong> rotation=180</p>
         <p><code>.../full/max/180/default.jpg</code></p>
       </td>
     </tr>
     <tr>
       <td>
-        <img src="img/rotate_90.png" alt="Rotation 90" class="fullPct" />
+        <img src="img/rotate_90.png" alt="Rotation 90" style="max-width: 350px;" />
         <p><strong>3</strong> rotation=90</p>
         <p><code>.../full/max/90/default.jpg</code></p>
       </td>
       <td>
-        <img src="img/rotate_22-5.png" alt="Rotation 22.5" class="fullPct" />
+        <img src="img/rotate_22-5.png" alt="Rotation 22.5" style="max-width: 350px;" />
         <p><strong>4</strong> rotation=22.5</p>
         <p><code>.../full/max/22.5/default.png</code></p>
       </td>
     </tr>
     <tr>
       <td>
-        <img src="img/mirror.png" alt="Mirroring" class="fullPct" />
+        <img src="img/mirror.png" alt="Mirroring" style="max-width: 350px;" />
         <p><strong>5</strong> rotation=!0</p>
         <p><code>.../full/max/!0/default.jpg</code></p>
       </td>
       <td>
-        <img src="img/mirror_180.png" alt="Mirroring and Rotation" class="fullPct" />
+        <img src="img/mirror_180.png" alt="Mirroring and Rotation" style="max-width: 350px;" />
         <p><strong>6</strong> rotation=!180</p>
         <p><code>.../full/max/!180/default.jpg</code></p>
       </td>
@@ -413,24 +413,24 @@ Examples:
   <tbody>
     <tr>
       <td>
-        <img src="img/full.png" alt="Default Quality" class="fullPct" />
+        <img src="img/full.png" alt="Default Quality" style="max-width: 350px;" />
         <p><strong>1</strong> quality=default</p>
         <p><code>.../full/max/0/default.jpg</code></p>
       </td>
       <td>
-        <img src="img/full.png" alt="Color Quality" class="fullPct" />
+        <img src="img/full.png" alt="Color Quality" style="max-width: 350px;" />
         <p><strong>2</strong> quality=color</p>
         <p><code>.../full/max/0/color.jpg</code></p>
       </td>
     </tr>
     <tr>
       <td>
-        <img src="img/gray.png" alt="Gray Quality" class="fullPct" />
+        <img src="img/gray.png" alt="Gray Quality" style="max-width: 350px;" />
         <p><strong>3</strong> quality=gray</p>
         <p><code>.../full/max/0/gray.jpg</code></p>
       </td>
       <td>
-        <img src="img/bitonal.png" alt="Bitonal Quality" class="fullPct" />
+        <img src="img/bitonal.png" alt="Bitonal Quality" style="max-width: 350px;" />
         <p><strong>4</strong> quality=bitonal</p>
         <p><code>.../full/max/0/bitonal.jpg</code></p>
       </td>
@@ -476,7 +476,7 @@ If the rotation parameter includes mirroring (`!`), the mirroring is applied bef
   <tbody>
     <tr>
       <td>
-        <img style="max-width: 650px" src="img/transformation.png" alt="Order of Implementation" class="fullPct" />
+        <img style="max-width: 650px" src="img/transformation.png" alt="Order of Implementation" />
         <p><strong>1</strong> region=125,15,120,140 size=90, rotation=!345 quality=gray</p>
         <p><code>.../125,15,120,140/90,/!345/gray.jpg</code></p>
       </td>
