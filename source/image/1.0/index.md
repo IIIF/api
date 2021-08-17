@@ -359,14 +359,45 @@ schemas are available for validation.
 
 {% include api/code_header.html %}
 ```xml
-<?xml version="1.0" encoding="UTF-8"?><info xmlns="http://library.stanford.edu/iiif/image-api/ns/"><identifier>1E34750D-38DB-4825-A38A-B60A345E591C</identifier>   <width>6000</width>   <height>4000</height>   <scale_factors>     <scale_factor>1</scale_factor>     <scale_factor>2</scale_factor>     <scale_factor>4</scale_factor>   </scale_factors>   <tile_width>1024</tile_width>   <tile_height>1024</tile_height>   <formats>     <format>jpg</format>     <format>png</format>   </formats>   <qualities>     <quality>native</quality>     <quality>grey</quality>   </qualities>   <profile>http://library.stanford.edu/iiif/image-api/compliance.html#level1</profile>  </info>
+<?xml version="1.0" encoding="UTF-8"?>
+<info xmlns="http://library.stanford.edu/iiif/image-api/ns/">
+  <identifier>1E34750D-38DB-4825-A38A-B60A345E591C</identifier>
+  <width>6000</width>
+  <height>4000</height>
+  <scale_factors>
+    <scale_factor>1</scale_factor>
+    <scale_factor>2</scale_factor>
+    <scale_factor>4</scale_factor>
+  </scale_factors>
+  <tile_width>1024</tile_width>
+  <tile_height>1024</tile_height>
+  <formats>
+    <format>jpg</format>
+    <format>png</format>
+  </formats>
+  <qualities>
+    <quality>native</quality>
+    <quality>grey</quality>
+  </qualities>
+  <profile>http://library.stanford.edu/iiif/image-api/compliance.html#level1</profile> 
+</info>
 ```
 
 The JSON response should conform to the format shown in the following
 example:
 {% include api/code_header.html %}
-```json-doc
-{   "identifier" : "``1E34750D-38DB-4825-A38A-B60A345E591C``",   "width" : 6000,   "height" : 4000,   "scale_factors" : [ 1, 2, 4 ],   "tile_width" : 1024,   "tile_height" : 1024,   "formats" : [ "jpg", "png" ],   "qualities" : [ "native", "grey" ],   "profile" : "http://library.stanford.edu/iiif/image-api/compliance.html#level0"  }
+```json
+{
+  "identifier" : "1E34750D-38DB-4825-A38A-B60A345E591C",
+  "width" : 6000,
+  "height" : 4000,
+  "scale_factors" : [ 1, 2, 4 ],
+  "tile_width" : 1024,
+  "tile_height" : 1024,
+  "formats" : [ "jpg", "png" ],
+  "qualities" : [ "native", "grey" ],
+  "profile" : "http://library.stanford.edu/iiif/image-api/compliance.html#level0" 
+} 
 ```
 
 ## 6. Server Responses
