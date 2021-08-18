@@ -75,7 +75,7 @@ This extension implements the [GeoJSON-LD specification](https://geojson.org/geo
 
 #### 2.1.1 GeoJSON as Linked Data
 
-The GeoJSON terms, the IIIF Presentation API 3 terms, and the `navPlace` term are all require linked data context for `navPlace` to be IIIF compatible. This is elaborated upon in [section 3](#3-linked-data).
+The GeoJSON terms, the IIIF Presentation API 3 terms, and the `navPlace` term are all required linked data contexts for `navPlace` to be linked data compatible. This is elaborated upon in [section 3](#3-linked-data).
 
 
 
