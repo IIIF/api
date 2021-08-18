@@ -57,7 +57,7 @@ Situations which are not in scope include
 This specification uses the following terms:
 
 * __embedded__: When a resource (A) is embedded within an embedding resource (B), the complete JSON representation of resource A is present within the JSON representation of resource B, and dereferencing the URI of resource A will not result in additional information. Example: Canvas A is embedded in Manifest B.
-* __referenced__: When a resource (A) is referenced from a referencing resource (B), an incomplete JSON representation of resource A is present within the JSON representation of resource B, and dereferencing the URI of resource A will result in additional information. Example:  Manifest A is referenced from Collection B.
+* __referenced__: When a resource (A) is referenced from a referencing resource (B), an incomplete JSON representation of resource A is present within the JSON representation of resource B, and dereferencing the URI of resource A will result in additional information. Example: Manifest A is referenced from Collection B.
 * __HTTP(S)__: The HTTP or HTTPS URI scheme and internet protocol.
 
 The terms _array_, _JSON object_, _number_, _string_, and _boolean_ in this document are to be interpreted as defined by the [Javascript Object Notation (JSON)][org-rfc-8259] specification.
@@ -98,7 +98,7 @@ A Feature object represents a spatial bounding. Every Feature object is a GeoJSO
 *   A Feature object has a `type` property with the value "Feature".
 *   A Feature object has a property with the name `geometry`. The value of the `geometry` property _SHALL_ be either a Geometry object as defined above or, in the case that the Feature is unlocated, a JSON null value.
 *   A Feature object has a property with the name `properties`. The value of the `properties` property is an object (any JSON object or a JSON null value).
-*   If a Feature has a commonly used identifier, that identifier _SHOULD_ be included as a property of the Feature object with the name `id`. The value _MUST_ be a string, and the value _MUST_ be an HTTP(S) URI [as defined by the IIIF Presentation API 3](https://iiif.io/api/presentation/3.0/#61-uri-recommendations).
+*   If a Feature has a commonly used identifier, that identifier _SHOULD_ be included as a property of the Feature object with the name `id`. The value _MUST_ be a string, and the value _MUST_ be an HTTP(S) URI [as defined by the IIIF Presentation API 3](https://iiif.io/api/presentation/3.0/#61-uri-recommendations). The `id` _MAY_ be the URI of a Feature Collection that contains the Feature with a unique fragment on the end.
 
 
 #### 2.1.3 Feature Collection
@@ -156,8 +156,6 @@ The `navPlace` property's value follows a specific pattern.
 
 
 *   The value _MUST_ be a single GeoJSON-LD Feature Collection and _SHOULD_ contain at least one Feature.
-*   The Feature Collection that is the value of `navPlace` _MAY_ have an `id`.
-*   The Features within the Feature Collection _MAY_ have an `id`, and the `id` _MAY_ be the URI of the Feature Collection with a unique fragment on the end.
 *   A Feature or Feature Collection that has the `id` property _MAY_ be accessible by the URI. 
 *   Feature Collections and Feature objects inside of Feature Collections _MUST NOT_ be NULL. 
 *   The value for `navPlace` _SHOULD_ be an embedded GeoJSON Feature Collection object. However, the value _MAY_ be a referenced GeoJSON Feature Collection. 
@@ -301,7 +299,7 @@ Here you can see an example of a IIIF Manifest with the `navPlace` property. It 
 
 ### 3.3 Context Considerations for GeoJSON-LD `properties`
 
-The value of `properties` can be any JSON object and is used to supply additional information associated with the geographic coordinates. Properties _SHOULD_ be defined either by local extensions or those endorsed by the IIIF community. If a client discovers properties that it does not understand, then it _MUST_ ignore them. 
+The value of `properties` can be any JSON object and is used to supply additional information associated with the geographic coordinates. Properties _SHOULD_ be defined either by local extensions or public extensions endorsed by the IIIF community. Clients _SHOULD NOT_ assume synchronized contexts or vocabulary for terms found here. If a client discovers properties that it does not understand, then it _MUST_ ignore them.
 
 ## 4. Implementation Notes
 
