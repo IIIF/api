@@ -21,7 +21,7 @@ Changes will be tracked within the document.
 
 ## 1. Introduction
 
-The ideas of Time and Place are a foundation of human communication and understanding. These concepts are first class descriptors for resources. The ability to capture both concepts independently is often required for data presentation and preservation. In IIIF Presentation API 3 the property `navDate` allows for a calendar date to be associated with a resource in a client friendly format but there is no property designed for a geographic location. Locations are extents in space, independent of time and what may or may not be present in that space, and so need a unique property.
+The idea of Place is a foundation of human communication and understanding. This concept is a first class descriptor for resources. Locations are extents in space, independent of time and what may or may not be present in that space, and so need a unique property. In IIIF Presentation API 3 there is no property designed for a geographic location. 
 
 
 ### 1.1 Objectives and Scope
