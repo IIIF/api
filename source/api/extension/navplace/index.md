@@ -299,7 +299,7 @@ Here you can see an example of a IIIF Manifest with the `navPlace` property. It 
 
 ### 3.3 Context Considerations for GeoJSON-LD `properties`
 
-The value of `properties` can be any JSON object and is used to supply additional information associated with the geographic coordinates. Properties _SHOULD_ be defined either by local extensions or public extensions endorsed by the IIIF community. Clients _SHOULD NOT_ assume synchronized contexts or vocabulary for terms found here. If a client discovers properties that it does not understand, then it _MUST_ ignore them.
+The value of `properties` can be any JSON object and is used to supply additional information associated with the geographic coordinates. Terms used in `properties` _SHOULD_ be described either by [local linked data contexts](https://www.w3.org/TR/json-ld11/#dfn-local-context) or public [contexts endorsed by the IIIF community](https://iiif.io/api/extension/#abstract). Clients _SHOULD NOT_ assume synchronized contexts or vocabulary for terms found here. If a client discovers properties that it does not understand, then it _MUST_ ignore them.
 
 ## 4. Implementation Notes
 
