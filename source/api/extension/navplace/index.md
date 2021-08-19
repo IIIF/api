@@ -21,7 +21,7 @@ Changes will be tracked within the document.
 
 ## 1. Introduction
 
-The ideas of Time and Place are a foundation of human communication and understanding. These concepts are first class descriptors for resources and the ability to capture both independently is often required for data presentation and preservation. In IIIF Presentation API 3 the property `navDate` allows for a calendar date to be associated with a resource in a client friendly format. However, locations are extents in space, independent of time and what may or may not be present in that space. 
+The idea of Place is a foundation of human communication and understanding. This concept is a first class descriptor for resources. Locations are extents in space, independent of time and what may or may not be present in that space, and so need a unique property. In IIIF Presentation API 3 there is no property designed for a geographic location. 
 
 
 ### 1.1 Objectives and Scope
@@ -57,7 +57,7 @@ Situations which are not in scope include
 This specification uses the following terms:
 
 * __embedded__: When a resource (A) is embedded within an embedding resource (B), the complete JSON representation of resource A is present within the JSON representation of resource B, and dereferencing the URI of resource A will not result in additional information. Example: Canvas A is embedded in Manifest B.
-* __referenced__: When a resource (A) is referenced from a referencing resource (B), an incomplete JSON representation of resource A is present within the JSON representation of resource B, and dereferencing the URI of resource A will result in additional information. Example:  Manifest A is referenced from Collection B.
+* __referenced__: When a resource (A) is referenced from a referencing resource (B), an incomplete JSON representation of resource A is present within the JSON representation of resource B, and dereferencing the URI of resource A will result in additional information. Example: Manifest A is referenced from Collection B.
 * __HTTP(S)__: The HTTP or HTTPS URI scheme and internet protocol.
 
 The terms _array_, _JSON object_, _number_, _string_, and _boolean_ in this document are to be interpreted as defined by the [Javascript Object Notation (JSON)][org-rfc-8259] specification.
@@ -75,7 +75,7 @@ This extension implements the [GeoJSON-LD specification](https://geojson.org/geo
 
 #### 2.1.1 GeoJSON as Linked Data
 
-The GeoJSON terms, the IIIF Presentation API 3 terms, and the `navPlace` term are all require linked data context for `navPlace` to be IIIF compatible. This is elaborated upon in [section 3](#3-linked-data).
+The GeoJSON terms, the IIIF Presentation API 3 terms, and the `navPlace` term are all required linked data contexts for `navPlace` to be linked data compatible and IIIF compliant. This is elaborated upon in [section 3](#3-linked-data).
 
 
 
@@ -98,7 +98,7 @@ A Feature object represents a spatial bounding. Every Feature object is a GeoJSO
 *   A Feature object has a `type` property with the value "Feature".
 *   A Feature object has a property with the name `geometry`. The value of the `geometry` property _SHALL_ be either a Geometry object as defined above or, in the case that the Feature is unlocated, a JSON null value.
 *   A Feature object has a property with the name `properties`. The value of the `properties` property is an object (any JSON object or a JSON null value).
-*   If a Feature has a commonly used identifier, that identifier _SHOULD_ be included as a property of the Feature object with the name `id`. The value _MUST_ be a string, and the value _MUST_ be an HTTP(S) URI [as defined by the IIIF Presentation API 3](https://iiif.io/api/presentation/3.0/#61-uri-recommendations).
+*   If a Feature has a commonly used identifier, that identifier _SHOULD_ be included as a property of the Feature object with the name `id`. The value _MUST_ be a string, and the value _MUST_ be an HTTP(S) URI [as defined by the IIIF Presentation API 3](https://iiif.io/api/presentation/3.0/#61-uri-recommendations). The `id` _MAY_ be the URI of a Feature Collection that contains the Feature with a unique fragment on the end.
 
 
 #### 2.1.3 Feature Collection
@@ -156,8 +156,6 @@ The `navPlace` property's value follows a specific pattern.
 
 
 *   The value _MUST_ be a single GeoJSON-LD Feature Collection and _SHOULD_ contain at least one Feature.
-*   The Feature Collection that is the value of `navPlace` _MAY_ have an `id`.
-*   The Features within the Feature Collection _MAY_ have an `id`, and the `id` _MAY_ be the URI of the Feature Collection with a unique fragment on the end.
 *   A Feature or Feature Collection that has the `id` property _MAY_ be accessible by the URI. 
 *   Feature Collections and Feature objects inside of Feature Collections _MUST NOT_ be NULL. 
 *   The value for `navPlace` _SHOULD_ be an embedded GeoJSON Feature Collection object. However, the value _MAY_ be a referenced GeoJSON Feature Collection. 
@@ -201,13 +199,13 @@ The `navPlace` property's value follows a specific pattern.
 *   The URI of the `navPlace` linked data context is [`http://iiif.io/api/extension/navplace/context.json`](http://iiif.io/api/extension/navplace/context.json)
 *   The URI of the IIIF Presentation API 3 linked data context is [`http://iiif.io/api/presentation/3/context.json`](http://iiif.io/api/presentation/3/context.json)
 
-The navPlace extension linked data context _MUST_ be included before the IIIF Presentation API 3 linked data context on the top-level object. The navPlace extension context file includes the [GeoJSON-LD context](https://geojson.org/geojson-ld/geojson-context.jsonld) through context scoping. This means the GeoJSON-LD context URI does not have to be explicitly included on the top level object, unless GeoJSON is used in other properties besides `navPlace`. It is important to note that since the IIIF Presentation API 3 context has the JSON-LD `@version` set to 1.1, all contexts are processed as JSON-LD 1.1.  
+The navPlace extension linked data context _MUST_ be included before the IIIF Presentation API 3 linked data context on the top-level object. The navPlace extension linked data context file includes the [GeoJSON-LD context](https://geojson.org/geojson-ld/geojson-context.jsonld) through context scoping. This means the GeoJSON-LD context URI does not have to be explicitly included on the top level object, unless GeoJSON is used in other properties besides `navPlace`. It is important to note that since the IIIF Presentation API 3 linked data context has the JSON-LD `@version` set to 1.1, all linked data contexts are processed as JSON-LD 1.1.  
 
 Consult the [Linked Data Context and Extensions section of IIIF Presentation API 3](https://iiif.io/api/presentation/3.0/#46-linked-data-context-and-extensions) for further guidance on use of the `@context` property.
 
 ### 3.2 Full Manifest Example
 
-Here you can see an example of a IIIF Manifest with the `navPlace` property. It is made JSON-LD 1.1 compatible by including multiple contexts. Review the Manifest below in the [JSON-LD playground](https://json-ld.org/playground/) for an example of Linked Data processing. 
+Here you can see an example of a IIIF Manifest with the `navPlace` property. It is made JSON-LD 1.1 compatible by including multiple linked data contexts to cover all the terms used within the web resource. Review the Manifest below in the [JSON-LD playground](https://json-ld.org/playground/) for an example of Linked Data processing. 
 
 
 
@@ -301,7 +299,7 @@ Here you can see an example of a IIIF Manifest with the `navPlace` property. It 
 
 ### 3.3 Context Considerations for GeoJSON-LD `properties`
 
-The value of `properties` can be any JSON object and is used to supply additional information associated with the geographic coordinates. Properties _SHOULD_ be defined either by local extensions or those endorsed by the IIIF community. If a client discovers properties that it does not understand, then it _MUST_ ignore them. 
+The value of `properties` can be any JSON object and is used to supply additional information associated with the geographic coordinates. Terms used in `properties` _SHOULD_ be described either by [local linked data contexts](https://www.w3.org/TR/json-ld11/#dfn-local-context) or [registered IIIF API extensions](https://iiif.io/api/extension/#abstract). Clients _SHOULD NOT_ assume synchronized linked data contexts or vocabulary for terms found here. If a client discovers properties that it does not understand, then it _MUST_ ignore them.
 
 ## 4. Implementation Notes
 
@@ -314,6 +312,7 @@ The choice to use GeoJSON-LD is not arbitrary. It is the primary geocoordinate d
 ### 4.2 IIIF Cookbook
 
 The [IIIF Cookbook](https://iiif.io/api/cookbook/) serves as a place to exemplify implementations of digital objects under IIIF Presentation API 3. At the release of this specification, recipes were already underway. You can see an implementation of the `navPlace` property as a "for demonstration only" preview at [https://preview.iiif.io/cookbook/0154-geo-extension/recipe/0154-geo-extension/](https://preview.iiif.io/cookbook/0154-geo-extension/recipe/0154-geo-extension/). This specification will update with links to recipes as they are published.
+
 
 ## Appendices
 

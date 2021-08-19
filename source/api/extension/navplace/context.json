@@ -3,8 +3,8 @@
       "@version":1.1,
       "iiif_navPlace":"http://iiif.io/api/extension/navplace#",
       "navPlace":{
-         "@id":"iiif_navPlace:navPlace",
-         "@context":"https://geojson.org/geojson-ld/geojson-context.jsonld"
+         "@context":"https://geojson.org/geojson-ld/geojson-context.jsonld",
+         "@id":"iiif_navPlace:navPlace"
       }
    }
 }
