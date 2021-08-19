@@ -199,13 +199,13 @@ The `navPlace` property's value follows a specific pattern.
 *   The URI of the `navPlace` linked data context is [`http://iiif.io/api/extension/navplace/context.json`](http://iiif.io/api/extension/navplace/context.json)
 *   The URI of the IIIF Presentation API 3 linked data context is [`http://iiif.io/api/presentation/3/context.json`](http://iiif.io/api/presentation/3/context.json)
 
-The navPlace extension linked data context _MUST_ be included before the IIIF Presentation API 3 linked data context on the top-level object. The navPlace extension context file includes the [GeoJSON-LD context](https://geojson.org/geojson-ld/geojson-context.jsonld) through context scoping. This means the GeoJSON-LD context URI does not have to be explicitly included on the top level object, unless GeoJSON is used in other properties besides `navPlace`. It is important to note that since the IIIF Presentation API 3 context has the JSON-LD `@version` set to 1.1, all contexts are processed as JSON-LD 1.1.  
+The navPlace extension linked data context _MUST_ be included before the IIIF Presentation API 3 linked data context on the top-level object. The navPlace extension linked data context file includes the [GeoJSON-LD context](https://geojson.org/geojson-ld/geojson-context.jsonld) through context scoping. This means the GeoJSON-LD context URI does not have to be explicitly included on the top level object, unless GeoJSON is used in other properties besides `navPlace`. It is important to note that since the IIIF Presentation API 3 linked data context has the JSON-LD `@version` set to 1.1, all linked data contexts are processed as JSON-LD 1.1.  
 
 Consult the [Linked Data Context and Extensions section of IIIF Presentation API 3](https://iiif.io/api/presentation/3.0/#46-linked-data-context-and-extensions) for further guidance on use of the `@context` property.
 
 ### 3.2 Full Manifest Example
 
-Here you can see an example of a IIIF Manifest with the `navPlace` property. It is made JSON-LD 1.1 compatible by including multiple contexts to cover all the terms used within the web resource. Review the Manifest below in the [JSON-LD playground](https://json-ld.org/playground/) for an example of Linked Data processing. 
+Here you can see an example of a IIIF Manifest with the `navPlace` property. It is made JSON-LD 1.1 compatible by including multiple linked data contexts to cover all the terms used within the web resource. Review the Manifest below in the [JSON-LD playground](https://json-ld.org/playground/) for an example of Linked Data processing. 
 
 
 
@@ -299,7 +299,7 @@ Here you can see an example of a IIIF Manifest with the `navPlace` property. It 
 
 ### 3.3 Context Considerations for GeoJSON-LD `properties`
 
-The value of `properties` can be any JSON object and is used to supply additional information associated with the geographic coordinates. Terms used in `properties` _SHOULD_ be described either by [local linked data contexts](https://www.w3.org/TR/json-ld11/#dfn-local-context) or public [contexts endorsed by the IIIF community](https://iiif.io/api/extension/#abstract). Clients _SHOULD NOT_ assume synchronized contexts or vocabulary for terms found here. If a client discovers properties that it does not understand, then it _MUST_ ignore them.
+The value of `properties` can be any JSON object and is used to supply additional information associated with the geographic coordinates. Terms used in `properties` _SHOULD_ be described either by [local linked data contexts](https://www.w3.org/TR/json-ld11/#dfn-local-context) or [registered IIIF API extensions](https://iiif.io/api/extension/#abstract). Clients _SHOULD NOT_ assume synchronized linked data contexts or vocabulary for terms found here. If a client discovers properties that it does not understand, then it _MUST_ ignore them.
 
 ## 4. Implementation Notes
 
