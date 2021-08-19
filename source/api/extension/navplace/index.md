@@ -205,7 +205,7 @@ Consult the [Linked Data Context and Extensions section of IIIF Presentation API
 
 ### 3.2 Full Manifest Example
 
-Here you can see an example of a IIIF Manifest with the `navPlace` property. It is made JSON-LD 1.1 compatible by including multiple contexts. Review the Manifest below in the [JSON-LD playground](https://json-ld.org/playground/) for an example of Linked Data processing. 
+Here you can see an example of a IIIF Manifest with the `navPlace` property. It is made JSON-LD 1.1 compatible by including multiple contexts to cover all the terms used within the web resource. Review the Manifest below in the [JSON-LD playground](https://json-ld.org/playground/) for an example of Linked Data processing. 
 
 
 
