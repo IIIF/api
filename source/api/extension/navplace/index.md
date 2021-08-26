@@ -311,7 +311,7 @@ The choice to use GeoJSON-LD is not arbitrary. It is the primary geocoordinate d
 
 ### 4.2 IIIF Cookbook
 
-The [IIIF Cookbook](https://iiif.io/api/cookbook/) serves as a place to exemplify implementations of digital objects under IIIF Presentation API 3. IIIF Cookbook recipes exemplifying use of the `navPlace` property under development. This specification will update to include links to those recipes as they are published.
+The [IIIF Cookbook](https://iiif.io/api/cookbook/) serves as a place to exemplify implementations of digital objects under IIIF Presentation API 3. IIIF Cookbook recipes exemplifying use of the `navPlace` property are under development. This specification will update to include links to those recipes as they are published.
 
 
 ## Appendices
