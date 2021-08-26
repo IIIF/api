@@ -59,7 +59,7 @@ This specification uses the following terms:
 * __location__:
 * __place/space__:
 * __GeoJSON__: "The GeoJSON Format" specification published at https://datatracker.ietf.org/doc/html/rfc7946.
-* __GeoJSON-LD__: The Linked Data implementation of the GeoJSON specification.
+* __GeoJSON-LD__: The Linked Data implementation of the GeoJSON specification published at https://geojson.org/geojson-ld/.
 
 The terms _array_, _JSON object_, _number_, _string_, and _boolean_ in this document are to be interpreted as defined by the [Javascript Object Notation (JSON)][org-rfc-8259] specification.
 
