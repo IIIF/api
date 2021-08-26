@@ -306,7 +306,7 @@ The value of `properties` can be any JSON object and is used to supply additiona
 
 ### 4.1 GeoJSON-LD on the Web
 
-The choice to use GeoJSON-LD is not arbitrary. It is the primary geocoordinate data format supported by web based maps. Too often, poorly formatted datasets are programmatically transformed into GeoJSON as a shim into web-based map platform in order to preserve the original data format. This specification drives implementers to have geocoordinate data saved as GeoJSON-LD when it is intended for use on the web. This practice removes barriers for interoperable geocoordinate data as well as promotes the robust functionality of prior, current, and upcoming web-based map platform developments.
+The choice to use GeoJSON-LD is not arbitrary. It is the primary geocoordinate data format supported by web-based maps. Too often, poorly formatted datasets are programmatically transformed into GeoJSON as a shim into web-based map platform in order to preserve the original data format. This specification drives implementers to have geocoordinate data saved as GeoJSON-LD when it is intended for use on the web. This practice removes barriers for interoperable geocoordinate data as well as promotes the robust functionality of prior, current, and upcoming web-based map platform developments.
 
 
 ### 4.2 IIIF Cookbook
