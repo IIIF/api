@@ -39,7 +39,7 @@ The reasons for associating geographic coordinates with web resources vary great
 
 *   Link a IIIF resource to a single or multiple geographic areas
 *   Supply a single geographic bounding box for an image of a map
-*   Represent locations that appear in digital objects, such as itineraries or travel journals
+*   Represent locations that appear in digital resources, such as itineraries or travel journals
 
 Situations which are not in scope include
 
@@ -312,7 +312,7 @@ The choice to use GeoJSON-LD is not arbitrary. It is the primary geocoordinate d
 
 ### 4.2 IIIF Cookbook
 
-The [IIIF Cookbook](https://iiif.io/api/cookbook/) serves as a place to exemplify implementations of digital objects under IIIF Presentation API 3. IIIF Cookbook recipes exemplifying use of the `navPlace` property are under development. This specification will update to include links to those recipes as they are published.
+The [IIIF Cookbook](https://iiif.io/api/cookbook/) serves as a place to exemplify implementations of digital resources under IIIF Presentation API 3. IIIF Cookbook recipes exemplifying use of the `navPlace` property are under development. This specification will update to include links to those recipes as they are published.
 
 
 ## Appendices
