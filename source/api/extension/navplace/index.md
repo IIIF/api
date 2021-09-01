@@ -166,7 +166,7 @@ The `navPlace` property's value follows a specific pattern.
 `{"navPlace":{"id": "https://example.org/iiif/1/feature-collection", "type": "FeatureCollection"}}`
 
 
-`navPlace` is intended to connect IIIF web resources with geographic areas. These areas _SHOULD_ be bounded discrete regions of the map akin to extents. For information on using the GeoJSON `properties` property to provide information associated with the geographic coordinates, see [Section 3.3](#33-context-considerations-for-geojson-ld-properties).
+`navPlace` is intended to connect IIIF resources with geographic areas. These areas _SHOULD_ be bounded discrete regions of the map akin to extents. For information on using the GeoJSON `properties` property to provide information associated with the geographic coordinates, see [Section 3.3](#33-context-considerations-for-geojson-ld-properties).
 
 ```json-doc
 {
