@@ -162,7 +162,7 @@ The `navPlace` property's value follows a specific pattern.
 *   Feature Collections and Feature objects inside of Feature Collections _MUST NOT_ be NULL. 
 *   The value for `navPlace` _SHOULD_ be an embedded GeoJSON Feature Collection object. However, the value _MAY_ be a referenced GeoJSON Feature Collection. 
 *   Feature Collections referenced in the `navPlace` property _MUST_ have the `id` and `type` properties.
-*   The reference object _MUST NOT_ have the `features` property, such that clients are able to recognize that it should be retrieved in order to be processed. </br>
+*   The reference object _MUST NOT_ have the `features` property, such that clients are able to recognize that it should be retrieved in order to be processed. <br/>
 `{"navPlace":{"id": "https://example.org/iiif/1/feature-collection", "type": "FeatureCollection"}}`
 
 
