@@ -71,12 +71,13 @@ The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _S
 
 ### 2.1 GeoJSON
 
-This extension implements the [GeoJSON-LD specification](https://geojson.org/geojson-ld/) and so its values follow the [GeoJSON](https://tools.ietf.org/html/rfc7946) conventions for Feature Collections. The possible geometric shapes are those defined by GeoJSON Feature `geometry` values.
+This extension implements the [GeoJSON specification](https://tools.ietf.org/html/rfc7946). Values for the `navPlace` property follow the conventions for [GeoJSON Feature Collections](https://datatracker.ietf.org/doc/html/rfc7946#section-3.3).
 
 
 #### 2.1.1 GeoJSON as Linked Data
 
-The GeoJSON terms, the IIIF Presentation API 3 terms, and the `navPlace` term are all required linked data contexts for `navPlace` to be linked data compatible and IIIF compliant. This is elaborated upon in [section 3](#3-linked-data).
+
+The GeoJSON terms, the IIIF Presentation API 3 terms, and the `navPlace` term all require linked data context for `navPlace` to be linked data compatible and IIIF compliant. [GeoJSON-LD](https://geojson.org/geojson-ld/) is a publicly available vocabulary and linked data context for the GeoJSON specification. The `navPlace` extension context file contains this vocabulary which ensures the geographic data values are well described. This is elaborated upon in [section 3](#3-linked-data). The example below shows how to set the `@context` for IIIF resources that make use of the `navPlace` property.
 
 
 
@@ -135,7 +136,7 @@ For examples of these shapes, see the “Examples” section of the GeoJSON spec
 
 ### 2.2 `navPlace` Property
 
-The `navPlace` property identifies a single or multiple geographic areas pertinent to a resource using a GeoJSON Feature Collection containing one or more Features. A Feature represents a shape by using the geographic coordinates supplied in the `geometry` property. The shape does not imply any level of accuracy, temporality or state of existence. 
+The `navPlace` property identifies a single or multiple geographic areas pertinent to a resource using a GeoJSON Feature Collection containing one or more Features. A Feature represents a shape by using the geographic coordinates supplied in the `geometry` property. The shape does not imply any level of accuracy, temporality, or state of existence. 
 
 The `navPlace` property can be used with the [IIIF Presentation 3 API Defined Types](https://iiif.io/api/presentation/3.0/#21-defined-types)
 
@@ -300,7 +301,7 @@ Here you can see an example of a IIIF Manifest with the `navPlace` property. It 
 
 ### 3.3 Context Considerations for GeoJSON-LD `properties`
 
-The value of `properties` can be any JSON object and is used to supply additional information associated with the geographic coordinates. Terms used in `properties` _SHOULD_ be described either by [local linked data contexts](https://www.w3.org/TR/json-ld11/#dfn-local-context) or [registered IIIF API extensions](https://iiif.io/api/extension/#abstract). Clients _SHOULD NOT_ assume synchronized linked data contexts or vocabulary for terms found here. If a client discovers properties that it does not understand, then it _MUST_ ignore them.
+The value of `properties` can be any JSON object and is used to supply additional information associated with the geographic coordinates. Terms used in `properties` _SHOULD_ be described either by [local linked data contexts](https://www.w3.org/TR/json-ld11/#dfn-local-context) or [registered IIIF API extensions](https://iiif.io/api/extension/#abstract). Clients _SHOULD NOT_ assume that defined vocabulary or linked data contexts exist for terms found here. If a client discovers properties that it does not understand, then it _MUST_ ignore them.
 
 ## 4. Implementation Notes
 
