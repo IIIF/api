@@ -77,7 +77,7 @@ This extension implements the [GeoJSON specification](https://tools.ietf.org/htm
 #### 2.1.1 GeoJSON as Linked Data
 
 
-The GeoJSON terms, the IIIF Presentation API 3 terms, and the `navPlace` term all require linked data context for `navPlace` to be linked data compatible and IIIF compliant. [GeoJSON-LD](https://geojson.org/geojson-ld/) is a publicly available vocabulary and linked data context for the GeoJSON specification. The `navPlace` extension context file contains this vocabulary which ensures the geographic data values are well described. This is elaborated upon in [section 3](#3-linked-data). The example below shows how to set the `@context` property for IIIF resources that make use of the `navPlace` property.
+The GeoJSON terms, the IIIF Presentation API 3 terms, and the `navPlace` term all require linked data context for `navPlace` to be linked data compatible and IIIF compliant. [GeoJSON-LD](https://geojson.org/geojson-ld/) is a publicly available vocabulary and linked data context for the GeoJSON specification. The `navPlace` extension context file contains this context and reference to the vocabulary which ensures the geographic data values are well described. This is elaborated upon in [section 3](#3-linked-data). The example below shows how to set the `@context` property for IIIF resources that make use of the `navPlace` property.
 
 
 
