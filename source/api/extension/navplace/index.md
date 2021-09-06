@@ -21,7 +21,7 @@ Changes will be tracked within the document.
 
 ## 1. Introduction
 
-The concept of Place is foundational to human communication and understanding. Locations are quantitative descriptions of the position of a place, independent of time and other human or physical characteristics of the place. The concept of location is a first class descriptor for resources, and so needs a unique property. In IIIF Presentation API 3 there is no property designed for a geographic location.
+The concept of Place is foundational to human communication and understanding. Locations are quantitative descriptions of the position of a place, independent of time and other human or physical characteristics of such place. The concept of location is a first class descriptor for resources, and so needs a unique property. In IIIF Presentation API 3 there is no property designed for a geographic location.
 
 
 ### 1.1 Objectives and Scope
@@ -64,12 +64,12 @@ The terms _array_, _JSON object_, _number_, _string_, and _boolean_ in this docu
 The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _SHOULD NOT_, _RECOMMENDED_, _MAY_, and _OPTIONAL_ in this document are to be interpreted as described in [RFC 2119][org-rfc-2119].
 
 
-## 2. GeoJSON-LD and the `navPlace` Property
+## 2. The `navPlace` Property and GeoJSON-LD
 
 
 ### 2.1 `navPlace` Property
 
-The `navPlace` property identifies a single or multiple geographic areas pertinent to a resource using a GeoJSON Feature Collection containing one or more Features. The property intends to connect IIIF resources with geographic areas. These areas _SHOULD_ be bounded discrete regions of the map akin to extents. These regions do not imply any level of accuracy, temporality, or state of existence. 
+The `navPlace` property identifies a single or multiple geographic areas pertinent to a resource using a GeoJSON Feature Collection containing one or more Features. The property intends to connect IIIF resources with geographic areas. These areas _SHOULD_ be bounded discrete areas of the map akin to extents. These areas do not imply any level of accuracy, temporality, or state of existence. 
 
 
 ```json-doc
@@ -199,10 +199,13 @@ The navPlace extension linked data context _MUST_ be included before the IIIF Pr
 
 Consult the [Linked Data Context and Extensions section of IIIF Presentation API 3](https://iiif.io/api/presentation/3.0/#46-linked-data-context-and-extensions) for further guidance on use of the `@context` property.
 
-### 3.2 Full Manifest Example
+### 3.2 Context Considerations for GeoJSON-LD `properties`
+
+The value of `properties` can be any JSON object and is used to supply additional information associated with the geographic coordinates. Terms used in `properties` _SHOULD_ be described either by [local linked data contexts](https://www.w3.org/TR/json-ld11/#dfn-local-context) or [registered IIIF API extensions](https://iiif.io/api/extension/#abstract). If a client discovers properties that it does not understand, then it _MUST_ ignore them.
+
+## 4. Full Manifest Example
 
 Here you can see an example of a IIIF Manifest with the `navPlace` property. It is made JSON-LD 1.1 compatible by including multiple linked data contexts to cover all the terms used within the web resource. Review the Manifest below in the [JSON-LD playground](https://json-ld.org/playground/) for an example of Linked Data processing. 
-
 
 
 ```json-doc
@@ -292,20 +295,15 @@ Here you can see an example of a IIIF Manifest with the `navPlace` property. It 
 }
 ```
 
-
-### 3.3 Context Considerations for GeoJSON-LD `properties`
-
-The value of `properties` can be any JSON object and is used to supply additional information associated with the geographic coordinates. Terms used in `properties` _SHOULD_ be described either by [local linked data contexts](https://www.w3.org/TR/json-ld11/#dfn-local-context) or [registered IIIF API extensions](https://iiif.io/api/extension/#abstract). If a client discovers properties that it does not understand, then it _MUST_ ignore them.
-
-## 4. Implementation Notes
+## 5. Implementation Notes
 
 
-### 4.1 GeoJSON-LD on the Web
+### 5.1 GeoJSON-LD on the Web
 
-The choice to use GeoJSON-LD is not arbitrary. It is the primary geocoordinate data format supported by web-based maps. Too often, poorly formatted datasets are programmatically transformed into GeoJSON as a shim into web-based map platforms in order to preserve the original data format. This extension drives implementers to have geocoordinate data saved as GeoJSON-LD when it is intended for use on the web. This practice removes barriers for interoperable geocoordinate data as well as promotes the robust functionality of prior, current, and upcoming web-based map platform developments.
+The choice to use GeoJSON-LD is not arbitrary. It is the primary geographic coordinate data format supported by web-based map platforms. Too often, poorly formatted datasets are programmatically transformed into GeoJSON as a shim into web-based map platforms in order to preserve the original data format. This extension drives implementers to have geographic coordinate data saved as GeoJSON-LD when it is intended for use on the web. This practice removes barriers for interoperable geocoordinate data as well as promotes the robust functionality of prior, current, and upcoming web-based map platform developments.
 
 
-### 4.2 IIIF Cookbook
+### 5.2 IIIF Cookbook
 
 The [IIIF Cookbook](https://iiif.io/api/cookbook/) exemplifies implementations of digital objects under IIIF Presentation API 3. IIIF Cookbook recipes exemplifying use of the `navPlace` property are under development. This specification will update to include links to those recipes as they are published.
 
