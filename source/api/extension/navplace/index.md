@@ -45,7 +45,7 @@ Situations which are not in scope include
 
 *   Georeferencing and map warping
 *   3D spatial representation
-*   [Application of geospatial information to resource fragments](https://iiif.io/api/cookbook/recipe/0139-geolocate-canvas-fragment/)
+*   [Application of geographic information to resource fragments](https://iiif.io/api/cookbook/recipe/0139-geolocate-canvas-fragment/)
 
 
 ### 1.3 Terminology
@@ -314,7 +314,7 @@ The [IIIF Cookbook](https://iiif.io/api/cookbook/) exemplifies implementations o
 
 ### A. Acknowledgements
 
-An enormous amount of gratitude is owed to the IIIF community for their continuous engagement, innovative ideas, and feedback. Thanks to Sean Gilles and MapBox for the GeoJSON linked data context and its promotion of standardized geospatial web data. We would also like to recognize IETF for the semantics produced through the GeoJSON specification. An extra special thank you goes out to the IIIF Maps and IIIF Cookbook communities as implementers of this developing technology. The initial version of this document was the work of the IIIF Maps Technical Specification Group.
+An enormous amount of gratitude is owed to the IIIF community for their continuous engagement, innovative ideas, and feedback. Thanks to Sean Gilles and MapBox for the GeoJSON linked data context and its promotion of standardized geographic web data. We would also like to recognize IETF for the semantics produced through the GeoJSON specification. An extra special thank you goes out to the IIIF Maps and IIIF Cookbook communities as implementers of this developing technology. The initial version of this document was the work of the IIIF Maps Technical Specification Group.
 {: #acknowledgements}
 
 
