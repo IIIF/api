@@ -146,7 +146,7 @@ This extension utilizes the [GeoJSON specification](https://tools.ietf.org/html/
 
 #### 2.2.2 Feature
 
-A Feature represents a spatial bounding. Every Feature is a GeoJSON object. [Go to the GeoJSON specification for a visual example](https://datatracker.ietf.org/doc/html/rfc7946#section-1.5). Note that for `id` the IIIF Presentation API 3 property rules are in effect over the GeoJSON specification `id` property recommendations. In this document, the term "Feature" relates to "Feature Object" from the GeoJSON specification.
+A Feature represents a spatial bounding. Every Feature is a GeoJSON object. [Go to the GeoJSON specification for a visual example](https://datatracker.ietf.org/doc/html/rfc7946#section-1.5). Note that the IIIF Presentation API 3 value requirements for the `id` property are in effect over the GeoJSON specification `id` property value recommendations. In this document, the term "Feature" relates to "Feature Object" from the GeoJSON specification.
 
 
 *   A Feature _MUST NOT_ be NULL.
@@ -158,7 +158,7 @@ A Feature represents a spatial bounding. Every Feature is a GeoJSON object. [Go 
 
 #### 2.2.3 Feature Collection
 
-A Feature Collection represents an aggregation of spatial boundings. [Go to the GeoJSON specification for a visual example](https://datatracker.ietf.org/doc/html/rfc7946#section-1.5). Note that for `id` the IIIF Presentation API 3 property rules are in effect over the GeoJSON specification `id` property recommendations. In this document, the term "Feature Collection" relates to "Feature Collection Object" from the GeoJSON specification.
+A Feature Collection represents an aggregation of spatial boundings. [Go to the GeoJSON specification for a visual example](https://datatracker.ietf.org/doc/html/rfc7946#section-1.5). Note that the IIIF Presentation API 3 value requirements for the `id` property are in effect over the GeoJSON specification `id` property value recommendations. In this document, the term "Feature Collection" relates to "Feature Collection Object" from the GeoJSON specification.
 
 
 *   A Feature Collection _MUST NOT_ be NULL.
