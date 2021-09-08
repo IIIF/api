@@ -153,7 +153,7 @@ A Feature represents a spatial bounding. Every Feature is a GeoJSON object. [Go 
 *   A Feature has a `type` property with the value "Feature".
 *   A Feature has a property with the name `geometry`. The value of the `geometry` property _SHALL_ be either a Geometry object as defined in the [Table of Geometric Shapes](#225-table-of-geometric-shapes) or, in the case that the Feature is unlocated, a JSON null value.
 *   A Feature has a property with the name `properties`. The value of the `properties` property is an object (any JSON object or a JSON null value). For information on using this property to provide information associated with the geographic coordinates, see [Section 3.2](#32-context-considerations-for-geojson-ld-properties).
-*   If a Feature has a commonly used identifier, that identifier _SHOULD_ be included as a property of the Feature, and that property _MUST_ be named `id`. The value _MUST_ be a string, and the value _MUST_ be an HTTP(S) URI [as defined by the IIIF Presentation API 3](https://iiif.io/api/presentation/3.0/#61-uri-recommendations). The `id` _MAY_ be the URI of a Feature Collection that contains the Feature with a unique fragment on the end. The Feature _MAY_ be accessible by the URI. 
+*   A Feature _MAY_ have an `id` property. The value of this property _MUST_ be a JSON string or number. If the Feature has a [commonly used HTTP(S) URI identifier](https://iiif.io/api/presentation/3.0/#61-uri-recommendations), it _SHOULD_ be provided as the value of the `id` property. The `id` _MAY_ be the URI of a Feature Collection that contains the Feature with a unique fragment on the end. The Feature _MAY_ be accessible by the URI. 
 
 
 #### 2.2.3 Feature Collection
@@ -164,7 +164,7 @@ A Feature Collection represents an aggregation of spatial boundings. [Go to the 
 *   A Feature Collection _MUST NOT_ be NULL.
 *   A Feature Collection has a `type` property with the value "FeatureCollection".
 *   A Feature Collection has a property with the name `features`. The value of `features` is a JSON array. Each element of the array is a Feature as defined above. It is possible for this array to be empty, but when used in the context of this extension it _SHOULD NOT_ be empty.
-*   If a Feature Collection has a commonly used identifier, that identifier _SHOULD_ be included as a property of the Feature Collection, and that property _MUST_ be named `id`. The value _MUST_ be a string, and the value _MUST_ be an HTTP(S) URI [as defined by the IIIF Presentation API 3](https://iiif.io/api/presentation/3.0/#61-uri-recommendations). The Feature Collection _MAY_ be accessible by the URI. 
+*   A Feature Collection _MAY_ have an `id` property. The value of this property _MUST_ be a JSON string or number. If the Feature has a [commonly used HTTP(S) URI identifier](https://iiif.io/api/presentation/3.0/#61-uri-recommendations), it _SHOULD_ be provided as the value of the `id` property. The Feature Collection _MAY_ be accessible by the URI.
 
 #### 2.2.4 Position
 
