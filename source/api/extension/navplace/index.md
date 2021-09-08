@@ -69,7 +69,7 @@ The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _S
 
 ### 2.1 `navPlace` Property
 
-The `navPlace` property identifies a single or multiple geographic areas pertinent to a resource using a GeoJSON Feature Collection containing one or more Features. The property intends to connect IIIF resources with geographic areas. These areas _SHOULD_ be bounded discrete areas of the map akin to extents. These areas do not imply any level of accuracy, temporality, or state of existence. 
+The `navPlace` property identifies a single or multiple geographic areas pertinent to a resource using a GeoJSON Feature Collection containing one or more Features. These areas _SHOULD_ be bounded discrete areas of the map akin to extents. These areas do not imply any level of accuracy, temporality, or state of existence. 
 
 
 ```json-doc
