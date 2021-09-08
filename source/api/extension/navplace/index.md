@@ -56,8 +56,8 @@ This extension uses the following terms:
 * __referenced__: When a resource (A) is referenced from a referencing resource (B), an incomplete JSON representation of resource A is present within the JSON representation of resource B, and dereferencing the URI of resource A will result in additional information. Example: Manifest A is referenced from Collection B.
 * __HTTP(S)__: The HTTP or HTTPS URI scheme and internet protocol.
 * __location__: the quantitative description of the position of a place, in this case, using coordinates.
-* __GeoJSON__: "The GeoJSON Format" specification published at https://datatracker.ietf.org/doc/html/rfc7946.
-* __GeoJSON-LD__: The Linked Data implementation of the GeoJSON specification published at https://geojson.org/geojson-ld/.
+* __GeoJSON__: "The GeoJSON Format" specification published at [https://datatracker.ietf.org/doc/html/rfc7946](https://datatracker.ietf.org/doc/html/rfc7946).
+* __GeoJSON-LD__: The Linked Data implementation of the GeoJSON specification published at [https://geojson.org/geojson-ld/](https://geojson.org/geojson-ld/).
 * __linked data context__: A reference to a [JSON-LD context file](https://www.w3.org/TR/json-ld11/#the-context) as described by JSON-LD 1.1
 
 The terms _array_, _JSON object_, _number_, _string_, and _boolean_ in this document are to be interpreted as defined by the [Javascript Object Notation (JSON)][org-rfc-8259] specification.
