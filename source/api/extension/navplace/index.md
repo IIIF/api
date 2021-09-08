@@ -153,7 +153,7 @@ A Feature represents a spatial bounding. Every Feature is a GeoJSON object. [Go 
 *   A Feature _MUST NOT_ be NULL.
 *   A Feature has a `type` property with the value "Feature".
 *   A Feature has a property with the name `geometry`. The value of the `geometry` property _SHALL_ be either a Geometry object as defined above or, in the case that the Feature is unlocated, a JSON null value.
-*   A Feature has a property with the name `properties`. The value of the `properties` property is an object (any JSON object or a JSON null value). For information on using this property to provide information associated with the geographic coordinates, see [Section 3.2](#33-context-considerations-for-geojson-ld-properties).
+*   A Feature has a property with the name `properties`. The value of the `properties` property is an object (any JSON object or a JSON null value). For information on using this property to provide information associated with the geographic coordinates, see [Section 3.2](#32-context-considerations-for-geojson-ld-properties).
 *   If a Feature has a commonly used identifier, that identifier _SHOULD_ be included as a property of the Feature with the name `id`. The value _MUST_ be a string, and the value _MUST_ be an HTTP(S) URI [as defined by the IIIF Presentation API 3](https://iiif.io/api/presentation/3.0/#61-uri-recommendations). The `id` _MAY_ be the URI of a Feature Collection that contains the Feature with a unique fragment on the end. The Feature _MAY_ be accessible by the URI. 
 
 
