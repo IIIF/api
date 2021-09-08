@@ -164,7 +164,7 @@ A Feature Collection represents an aggregation of spatial boundings. [Go to the 
 *   A Feature Collection _MUST NOT_ be NULL.
 *   A Feature Collection has a `type` property with the value "FeatureCollection".
 *   A Feature Collection has a property with the name `features`. The value of `features` is a JSON array. Each element of the array is a Feature as defined above. It is possible for this array to be empty, but when used in the context of this extension it _SHOULD NOT_ be empty.
-*   A Feature Collection _MAY_ have an `id` property. The value of this property _MUST_ be a JSON string or number. If the Feature has a [commonly used HTTP(S) URI identifier](https://iiif.io/api/presentation/3.0/#61-uri-recommendations), it _SHOULD_ be provided as the value of the `id` property. The Feature Collection _MAY_ be accessible by the URI.
+*   A Feature Collection _MAY_ have an `id` property. The value of this property _MUST_ be a JSON string or number. If the Feature Collection has a [commonly used HTTP(S) URI identifier](https://iiif.io/api/presentation/3.0/#61-uri-recommendations), it _SHOULD_ be provided as the value of the `id` property. The Feature Collection _MAY_ be accessible by the URI.
 
 #### 2.2.4 Position
 
