@@ -85,8 +85,8 @@ The `navPlace` property identifies a single or multiple geographic areas pertine
             "geometry":{
                "type": "Point",
                "coordinates":[
-                  9.94,
-                  51.53
+                  9.938,
+                  51.533
                ]
             }
          }
@@ -119,7 +119,9 @@ The `navPlace` property's value follows a specific pattern.
 *   The value _SHOULD_ be an embedded Feature Collection. However, the value _MAY_ be a referenced GeoJSON Feature Collection. 
 *   Feature Collections referenced in the `navPlace` property _MUST_ have the `id` and `type` properties.
 *   The reference object _MUST NOT_ have the `features` property, such that clients are able to recognize that it should be retrieved in order to be processed. <br/>
-`{"navPlace":{"id": "https://example.org/iiif/1/feature-collection", "type": "FeatureCollection"}}`
+```json-doc
+{"navPlace":{"id": "https://example.org/iiif/1/feature-collection", "type": "FeatureCollection"}}
+```
 
 
 ### 2.2 GeoJSON
@@ -285,8 +287,8 @@ Here you can see an example of a IIIF Manifest with the `navPlace` property. It 
             "geometry":{
                "type":"Point",
                "coordinates":[
-                  9.94,
-                  51.53
+                  9.938,
+                  51.533
                ]
             }
          }
