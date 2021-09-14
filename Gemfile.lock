@@ -1,6 +1,6 @@
 GIT
-  remote: https://github.com/mnyrop/iiifc-theme.git
-  revision: 2d1de84472be22b99710644931a53a44460bd899
+  remote: https://github.com/iiif/iiifc-theme.git
+  revision: b8c0140c93cc64ed001d5e51225c184c5b5683e4
   branch: main
   specs:
     iiifc-theme (0.1.0)
@@ -80,12 +80,12 @@ GEM
       rb-inotify (~> 0.9, >= 0.9.10)
     mercenary (0.4.0)
     mini_portile2 (2.6.1)
-    nokogiri (1.12.2)
+    nokogiri (1.12.4)
       mini_portile2 (~> 2.6.1)
       racc (~> 1.4)
     nokogumbo (2.0.5)
       nokogiri (~> 1.8, >= 1.8.4)
-    parallel (1.20.1)
+    parallel (1.21.0)
     pathutil (0.16.2)
       forwardable-extended (~> 2.6)
     public_suffix (4.0.6)
