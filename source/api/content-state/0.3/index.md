@@ -9,9 +9,6 @@ major: 0
 minor: 3
 patch: 0
 pre: final
-redirect_from:
-  - /api/content-state/index.html
-  - /api/0/content-state/index.html
 ---
 
 
