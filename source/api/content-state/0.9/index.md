@@ -244,7 +244,7 @@ Simple URI forms _MAY_ be either plain strings, URI-encoded plain strings, or co
 
 When published as inline, encoded JSON-LD in the full form given in 2.2, the content state Annotation _MAY_ omit the `id` and `@context` properties.
 
-When published on a server for clients to fetch over HTTP, in the same way a client would fetch a Manifest or Collection, content states _MUST_ be valid JSON-LD documents conforming to the [IIIF Presentation API][prezi-api] and served as described in [Section 5][contentstate-http] below. They _SHOULD NOT_ be encoded, but _MAY_ have other encodings appropriate for JSON content, such as `Content-Encoding: gzip` to reduce the response size.
+When published on a server for clients to fetch over HTTP, in the same way a client would fetch a Manifest or Collection, content states _MUST_ be valid JSON-LD documents conforming to the [IIIF Presentation API][prezi-api] and served as described in [Section 6][contentstate-http] below. They _SHOULD NOT_ be encoded, but _MAY_ have other encodings appropriate for JSON content, such as `Content-Encoding: gzip` to reduce the response size.
 
 
 #### 2.3.2. Examples of Content State Encoding
@@ -491,7 +491,7 @@ The client allows the content state URI or data to be pasted into part of its UI
 
 In that scenario the user can paste the content state directly into the application. If this scenario is supported, the client _SHOULD_ accept unencoded JSON as well as content state encoded JSON, and _SHOULD_ accept resource URIs directly, such as the URI of a Manifest.
 
-Refer to [Section 3.7][_______] below for methods of exporting data, including the _Copy to Clipboard_ pattern, a natural pairing with a paste operation, from one viewer to another.
+Refer to [Section 3.7][contentstate-export] below for methods of exporting data, including the _Copy to Clipboard_ pattern, a natural pairing with a paste operation, from one viewer to another.
 
 
 #### 3.4. Drag and Drop
@@ -598,6 +598,7 @@ If a IIIF client can accept a content state via a custom HTML attribute, then it
 ```
 
 ### 3.7. Exporting Current Content State from Viewer
+{: #export}
 
 There are further ways in which a client can _export_ its current content state, beyond populating a drag and drop operation as in example 3.4. While interoperability concerns require this specification to describe the ways in which a client can _accept_ state, the ways in which a content state might have arrived on a user's clipboard are out of scope here, and are covered in the [Cookbook][annex-cookbook]. These include:
 
