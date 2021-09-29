@@ -14,8 +14,9 @@
 [auth1]: {{ site.url }}{{ site.baseurl }}/api/auth/1.0/ "IIIF Authentication API 1.0"
 [auth10]: {{ site.url }}{{ site.baseurl }}/api/auth/1.0/ "IIIF Authentication API 1.0"
 [contentstate09]: {{ site.url }}{{ site.baseurl }}/api/content-state/0.9/
-[contentstate-http]: {{ site.url }}{{ site.baseurl }}/api/content-state/0.3/#5-http-requests-and-responses "HTTP Request and Responses"
-[contentstate-initialization]: {{ site.url }}{{ site.baseurl }}/api/content-state/0.3/#initialization "Initialization mechanisms (protocol)"
+[contentstate-http]: {{ site.url }}{{ site.baseurl }}/api/content-state/0.9/#6-http-requests-and-responses "HTTP Request and Responses"
+[contentstate-initialization]: {{ site.url }}{{ site.baseurl }}/api/content-state/0.9/#initialization "Initialization mechanisms (protocol)"
+[contentstate-export]: {{ site.url }}{{ site.baseurl }}/api/content-state/0.9/#export
 [contentstate03]: {{ site.url }}{{ site.baseurl }}/api/content-state/0.3/ "IIIF Content State API"
 [discovery-api]: {{ site.url }}{{ site.baseurl }}/api/discovery/ "IIIF Change Discovery API"
 [discovery01]: {{ site.url }}{{ site.baseurl }}/api/discovery/0.1/ "IIIF Change Discovery API"
