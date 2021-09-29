@@ -366,7 +366,7 @@ This section defines _Protocols_ for the transfer of this data, so that implemen
 The data structure _MAY_ be made available to the client using these protocols. Other mechanisms are possible, but outside the scope of the specification.
 
 
-#### 3.1. Linking: HTTP GET (Query String) Parameter
+### 3.1. Linking: HTTP GET (Query String) Parameter
 {: #initialization-mechanisms-link}
 
 If a client is capable of reading the content state from the value of an HTTP GET request parameter, it _MUST_ look for the content state in a request parameter called `iiif-content`.
@@ -451,7 +451,7 @@ However, as JSON-LD again, this _MUST_ be encoded as in section 2.3:
 {% endraw %}
 ```
 
-### 3.1.1. Load by Reference
+#### 3.1.1. Load by Reference
 
 This is a variant of the above, with the parameter value being a URI rather than the content itself.
 
@@ -459,7 +459,7 @@ This is a variant of the above, with the parameter value being a URI rather than
 <a href="https://example.org/viewer?iiif-content=https://publisher.org/fragment123.json">Link to Viewer</a>
 ```
 
-#### 3.2. HTTP POST (Form) Parameter
+### 3.2. HTTP POST (Form) Parameter
 {: #initialization-mechanisms-post}
 
 
@@ -474,7 +474,7 @@ curl -d 'iiif-content=aHR0cHM6Ly9leGFtcGxlLm9yZy92aWV3ZXI_aWlpZi1jb250ZW50PSU3Qi
 In this example, the server at `https://example.org/citation-renderer` should expect to process the content state in the same forms and variants as above.
 
 
-#### 3.3. Accepting the Content State as a Paste Operation
+### 3.3. Accepting the Content State as a Paste Operation
 {: #initialization-mechanisms-paste}
 
 The client allows the content state URI or data to be pasted into part of its UI (e.g., from a "Load..." option exposing a `textarea` element for the user to manually paste into). A client can also accept a paste operation transparently, by reading from the clipboard:
@@ -494,7 +494,7 @@ In that scenario the user can paste the content state directly into the applicat
 Refer to [Section 3.7][contentstate-export] below for methods of exporting data, including the _Copy to Clipboard_ pattern, a natural pairing with a paste operation, from one viewer to another.
 
 
-#### 3.4. Drag and Drop
+### 3.4. Drag and Drop
 {: #initialization-mechanisms-dragdrop}
 
 In this scenario, one system provides a _draggable_ element:
@@ -547,7 +547,7 @@ This technique can also be used within the same client, to drag a content state 
 The first parameter to `setData` and `getData` is the content type, and for maximum interoperability within the scope of this specification this _MUST_ be "text/plain". Applications can assert multiple additional content types for their own custom behavior, such as dragging from the application to the desktop and saving as a file, but this is outside the scope of the specification. In the above example, the content of the drag and drop operation could be a plain URI, or JSON-LD. If JSON-LD, clients receiving the data (by calling `getData`) _SHOULD_ accept the data in both encoded and unencoded forms.
 
 
-#### 3.5. Upload File
+### 3.5. Upload File
 
 A JavaScript client can accept content state from the local machine via the `FileReader` interface:
 
