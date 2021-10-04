@@ -49,7 +49,7 @@ This is a work in progress and may change without notice. Implementers should be
 ## 1. Introduction
 {: #introduction}
 
-This specification provides a method to reference a [IIIF Presentation API][prezi-api] resource, or a part of a resource, in a compact format that can be used to initialize the view of that resource in any client. This description is called the _content state_. This specification provides the format of the _content state_, and mechanisms for passing it between applications regardless of their different user interfaces and capabilities.
+This specification provides a way to refer to a [IIIF Presentation API][prezi-api] resource, or a part of a resource, in a compact format that can be used to initialize the view of that resource in any client. This description is called the _content state_. This specification provides the format of the _content state_, and mechanisms for passing it between applications regardless of their different user interfaces and capabilities.
 
 
 ### 1.1. Objectives and Scope
@@ -232,7 +232,7 @@ The process to encode a content state is:
 
 Conversely to decode a content state:
 
-* restore any missing "=" padding characters to the end of the string
+* restore any removed "=" padding characters to the end of the string to make it a multiple of 4 characters long.
 * decode the resulting string from base64url to a UTF-8 string
 * decode the resulting UTF-8 string as described by [decodeURI][org-ecma-decodeuri]
 
@@ -272,12 +272,13 @@ function decodeContentState(encodedContentState) {
 
 
 function restorePadding(s) {
+    // string length must be a multiple of 4
     let pad = s.length % 4;
     if (pad) {
         if (pad === 1) {
             throw new Error('InvalidLengthError: Input base64url string is the wrong length to determine padding');
         }
-        s += new Array(5 - pad).join('=');
+        s += new Array(4 - pad).join('=');
     }
     return s;
 }
@@ -308,12 +309,13 @@ def decode_content_state(encoded_content_state):
 
 
 def restore_padding(s):
+    # string length must be a multiple of 4
     pad = len(s) % 4
     padding = ""
     if pad:
         if pad == 1:
             raise Exception("InvalidLengthError: Input base64url string is the wrong length to determine padding")
-        padding = "=" * (5 - pad)
+        padding = "=" * (4 - pad)
     return s + padding
 
 ```
