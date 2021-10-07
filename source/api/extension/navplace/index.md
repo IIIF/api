@@ -26,21 +26,21 @@ The concept of place is foundational to human communication and understanding. L
 
 ### 1.1 Objectives and Scope
 
-This IIIF Presentation API 3 extension describes a new property, `navPlace`, which is defined by earthbound geographic coordinates in the form of [GeoJSON-LD](https://geojson.org/geojson-ld/). Clients may use this property to leverage the functionality of web-based map platforms such as Google Earth, Leaflet, OpenLayers, etc., providing a means to enrich data presentation through map-based interfaces.
+This IIIF Presentation API 3 extension defines a new property, `navPlace`, which is defined by earthbound geographic coordinates in the form of [GeoJSON-LD](https://geojson.org/geojson-ld/). Clients may use this property to leverage the functionality of web-based map platforms such as Google Earth, Leaflet, OpenLayers, to provide a means to enrich data presentation through map-based interfaces.
 
 Spatial coordinates for resources on other celestial bodies or contrived worlds can be expressed using the semantic pattern of GeoJSON. However, `navPlace` adopts the [existing GeoJSON specification](https://datatracker.ietf.org/doc/html/rfc7946) to promote interoperability with industry standard mapping libraries and methods using [WGS84](http://www.w3.org/2003/01/geo/wgs84_pos) as the coordinate reference system for projections of the surface of Earth. As such, expressing the location of extraterrestrial entities is not supported by the `navPlace` property. This extension does not preclude the development of future extensions to address this use case.
 
 
 ### 1.2 Motivating Use Cases
 
-The reasons for associating geographic coordinates with web resources vary greatly. This extension does not intend to meet the data requirements for all geospatial practices. Use cases within the scope include
+The reasons for associating geographic coordinates with web resources vary greatly. This extension does not intend to meet the data requirements for all geospatial practices. Use cases within the scope include:
 
 
-*   Link a IIIF resource to a single or multiple geographic areas
-*   Supply a single geographic bounding box for an image of a map
-*   Represent locations that appear in digital objects, such as itineraries or travel journals
+*   Linking a IIIF resource to a single or multiple geographic areas
+*   Supplying a single geographic bounding box for an image of a map
+*   Representing locations that appear in digital objects, such as itineraries or travel journals
 
-Situations which are not in scope include
+Situations which are not in scope include:
 
 
 *   Georeferencing and map warping
@@ -58,7 +58,6 @@ This extension uses the following terms:
 * __location__: the quantitative description of the position of a place, in this case, using coordinates.
 * __GeoJSON__: "The GeoJSON Format" specification published at [https://datatracker.ietf.org/doc/html/rfc7946](https://datatracker.ietf.org/doc/html/rfc7946).
 * __GeoJSON-LD__: The Linked Data implementation of the GeoJSON specification published at [https://geojson.org/geojson-ld/](https://geojson.org/geojson-ld/).
-* __linked data context__: A reference to a [JSON-LD context file](https://www.w3.org/TR/json-ld11/#the-context) as described by JSON-LD 1.1
 
 The terms _array_, _JSON object_, _number_, _string_, and _boolean_ in this document are to be interpreted as defined by the [Javascript Object Notation (JSON)][org-rfc-8259] specification.
 
@@ -143,8 +142,18 @@ This extension utilizes the [GeoJSON specification](https://tools.ietf.org/html/
 }
 ```
 
+#### 2.2.2 Feature Collection
 
-#### 2.2.2 Feature
+A Feature Collection represents an aggregation of spatial boundings. [Go to the GeoJSON specification for a visual example](https://datatracker.ietf.org/doc/html/rfc7946#section-1.5). In this document, the term "Feature Collection" relates to "Feature Collection Object" from the GeoJSON specification.
+
+
+*   A Feature Collection _MUST NOT_ be NULL.
+*   A Feature Collection has a `type` property with the value "FeatureCollection".
+*   A Feature Collection has a property with the name `features`. The value of `features` is a JSON array. Each element of the array is a Feature as defined above. It is possible for this array to be empty, but when used in the context of this extension it _SHOULD NOT_ be empty.
+*   A Feature Collection _MAY_ have an `id` property. The value of this property _MUST_ be a JSON string or number. If the Feature Collection has a [commonly used HTTP(S) URI identifier](https://iiif.io/api/presentation/3.0/#61-uri-recommendations), it _SHOULD_ be provided as the value of the `id` property. The Feature Collection _MAY_ be accessible by the URI.
+
+
+#### 2.2.3 Feature
 
 A Feature represents a spatial bounding. Every Feature is a GeoJSON object. [Go to the GeoJSON specification for a visual example](https://datatracker.ietf.org/doc/html/rfc7946#section-1.5). In this document, the term "Feature" relates to "Feature Object" from the GeoJSON specification.
 
@@ -155,21 +164,9 @@ A Feature represents a spatial bounding. Every Feature is a GeoJSON object. [Go 
 *   A Feature has a property with the name `properties`. The value of the `properties` property is an object (any JSON object or a JSON null value). For information on using this property to provide information associated with the geographic coordinates, see [Section 3.2](#32-context-considerations-for-geojson-ld-properties).
 *   A Feature _MAY_ have an `id` property. The value of this property _MUST_ be a JSON string or number. If the Feature has a [commonly used HTTP(S) URI identifier](https://iiif.io/api/presentation/3.0/#61-uri-recommendations), it _SHOULD_ be provided as the value of the `id` property. The `id` _MAY_ be the URI of a Feature Collection that contains the Feature with a unique fragment on the end. The Feature _MAY_ be accessible by the URI. 
 
-
-#### 2.2.3 Feature Collection
-
-A Feature Collection represents an aggregation of spatial boundings. [Go to the GeoJSON specification for a visual example](https://datatracker.ietf.org/doc/html/rfc7946#section-1.5). In this document, the term "Feature Collection" relates to "Feature Collection Object" from the GeoJSON specification.
-
-
-*   A Feature Collection _MUST NOT_ be NULL.
-*   A Feature Collection has a `type` property with the value "FeatureCollection".
-*   A Feature Collection has a property with the name `features`. The value of `features` is a JSON array. Each element of the array is a Feature as defined above. It is possible for this array to be empty, but when used in the context of this extension it _SHOULD NOT_ be empty.
-*   A Feature Collection _MAY_ have an `id` property. The value of this property _MUST_ be a JSON string or number. If the Feature Collection has a [commonly used HTTP(S) URI identifier](https://iiif.io/api/presentation/3.0/#61-uri-recommendations), it _SHOULD_ be provided as the value of the `id` property. The Feature Collection _MAY_ be accessible by the URI.
-
 #### 2.2.4 Position
 
 A position is the fundamental geometry construct and contains a `coordinates` property. A position is an array of numbers. There _MUST_ be two or more elements. The first two elements are longitude and latitude, or easting and northing, precisely in that order and using decimal numbers. Altitude or elevation _MAY_ be included as an optional third element.
-
 
 #### 2.2.5 Table of Geometric Shapes
 
@@ -322,8 +319,7 @@ An enormous amount of gratitude is owed to the IIIF community for their continuo
 
 | Date       | Description           |
 | ---------- | --------------------- |
-| 2021-06-01 | Initial commit        |
-| 2021-06-28 | Updated copy over from Google Doc draft|
+| TBD        | Initial publication   |
 {: .api-table #table-changelog}
 
 {% include acronyms.md %}
