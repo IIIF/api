@@ -128,12 +128,12 @@ Common values for the motivation parameter are:
 
 | Motivation | Definition |
 | ---------- | ---------- |
-| `painting`     | Only annotations with the `sc:painting` motivation |
-| `non-painting` | Annotations with any motivation other than `sc:painting` |
-| `commenting`   | Annotations with the `oa:commenting` motivation |
-| `describing`   | Annotations with the `oa:describing` motivation |
-| `tagging`      | Annotations with the `oa:tagging` motivation |
-| `linking`      | Annotations with the `oa:linking` motivation |
+| `painting`     | Only annotations with the `painting` motivation |
+| `non-painting` | Annotations with any motivation other than `painting` |
+| `commenting`   | Annotations with the `commenting` motivation |
+| `describing`   | Annotations with the `describing` motivation |
+| `tagging`      | Annotations with the `tagging` motivation |
+| `linking`      | Annotations with the `linking` motivation |
 {: .api-table}
 
 Other motivations are possible, and the full list from the [Web Annotation][webanno] specification _SHOULD_ be available by dropping the "oa:" prefix.  Other, community specific motivations _SHOULD_ include a prefix or use their full URI.
@@ -222,10 +222,10 @@ And the responses for the Annotation Collection and the first page of annotation
   "@context":"http://iiif.io/api/presentation/{{ site.presentation_api.stable.major }}/context.json",
   "id":"http://example.org/service/manifest/search?q=bird&page=1",
   "type":"AnnotationPage",
-  
+
   "partOf": "http://example.org/service/manifest/search?q=bird",
   "next": "http://example.org/service/identifier/search?q=bird&page=2",
-  
+
   "items": [
     {
       "id": "http://example.org/identifier/annotation/anno-line",
@@ -252,7 +252,7 @@ This structure is called out explicitly as although it uses only properties from
 
 ``` json-doc
 {
-  "@context":"http://iiif.io/api/search/{{ page.major }}/context.json",
+  "@context":"http://iiif.io/api/presentation/{{ site.presentation_api.stable.major }}/context.json",
   "id":"http://example.org/service/manifest/search?q=bird&motivation=painting",
   "type":"AnnotationPage",
 
@@ -271,7 +271,9 @@ This structure is called out explicitly as although it uses only properties from
         "partOf": {
           "id": "http://example.org/identifier/manifest",
           "type": "Manifest",
-          "label": "Example Manifest"
+          "label": {
+            "en": "Example Manifest"
+          }
         }
       }
     }
@@ -289,7 +291,7 @@ As these responses include Search specific information, the value of `@context` 
 
 To incrementally build upon existing solutions and provide graceful degradation for clients that do not support these features and retain compatibility with the Presentation API, the search API specific information is included in a second list within the annotation list called `hits`, other than the `ignored` property.  Annotation lists _MAY_ have this property, and servers _MAY_ support these features.
 
-If supported, each entry in the `hits` list is a `search:Hit` object.  This type _MUST_ be included as the value of the `type` property. Hit objects reference one or more annotations that they provide additional information for, in a list as the value of the hit's `items` property.  The reference is made to the value of the `id` property of the annotation, and thus annotations _MUST_ have a URI to enable this further information.
+If supported, each entry in the `hits` list is a `Hit` object.  This type _MUST_ be included as the value of the `type` property. Hit objects reference one or more annotations that they provide additional information for, in a list as the value of the hit's `items` property.  The reference is made to the value of the `id` property of the annotation, and thus annotations _MUST_ have a URI to enable this further information.
 
 The basic structure is:
 
@@ -316,7 +318,7 @@ The basic structure is:
 
   "hits": [
     {
-      "type": "search:Hit",
+      "type": "Hit",
       "items": [
         "http://example.org/identifier/annotation/anno1"
       ]
@@ -352,9 +354,9 @@ And the user parameter was ignored when processing the request, the response wou
 
   "partOf": "http://example.org/service/manifest/search?q=bird",
   "next": "http://example.org/service/identifier/search?q=bird&page=2",
- 
+
   "ignored": ["user"],
-  
+
   "items": [
     // Annotations ...
   ]
@@ -385,13 +387,13 @@ That the server matches against the plural "birds":
       "http://iiif.io/api/search/{{ page.major }}/context.json"
   ],
   "id":"http://example.org/service/manifest/search?q=bird",
-  "type":"sc:AnnotationPage",
+  "type":"AnnotationPage",
 
   "resources": [
     {
       "id": "http://example.org/identifier/annotation/anno-bird",
       "type": "Annotation",
-      "motivation": "sc:painting",
+      "motivation": "painting",
       "body": {
         "type": "TextualBody",
         "value": "birds",
@@ -404,7 +406,7 @@ That the server matches against the plural "birds":
 
   "hits": [
     {
-      "type": "search:Hit",
+      "type": "Hit",
       "items": [
         "http://example.org/identifier/annotation/anno-bird"
       ],
@@ -421,13 +423,13 @@ That the server matches against the plural "birds":
 
 Many systems do not have full word-level coordinate information, and are restricted to line or paragraph level boundaries.  In this case the most useful thing that the client can do is to display the entire annotation and highlight the hits within it.  This is similar, but different, to the previous use case.  Here the word will appear somewhere within the `body` property of the annotation, and the client needs to make it more prominent.  In the previous situation, the word was the entire content of the annotation, and the information was convenient for presenting it in a list.
 
-The client in this case needs to know the text that caused the service to create the hit, and enough information about where it occurs in the content to reliably highlight it and not highlight non-matches.  To do this, the service can supply text before and after the matching term within the content of the annotation, via an [Open Annotation][oa-textquotesel] `TextQuoteSelector` object.  TextQuoteSelectors have three properties: `exact` to record the exact text to look for, `prefix` with some text before the match, and `suffix` with some text after the match.
+The client in this case needs to know the text that caused the service to create the hit, and enough information about where it occurs in the content to reliably highlight it and not highlight non-matches.  To do this, the service can supply text before and after the matching term within the content of the annotation, via an [Web Annotation Data Model][webanno] `TextQuoteSelector` object.  TextQuoteSelectors have three properties: `exact` to record the exact text to look for, `prefix` with some text before the match, and `suffix` with some text after the match.
 
 This would look like:
 
 ``` json-doc
 {
-  "selector": {
+  "selectors": {
     "type": "TextQuoteSelector",
     "exact": "birds",
     "prefix": "There are two ",
@@ -471,7 +473,7 @@ The result might be:
 
   "hits": [
     {
-      "type": "search:Hit",
+      "type": "Hit",
       "items": [
         "http://example.org/identifier/annotation/anno-line"
       ],
@@ -542,7 +544,7 @@ In cases like this there are more annotations than hits as two or more annotatio
 
   "hits": [
     {
-      "type": "search:Hit",
+      "type": "Hit",
       "items": [
         "http://example.org/identifier/annotation/anno-bush",
         "http://example.org/identifier/annotation/anno-are"
@@ -567,17 +569,17 @@ The autocomplete service returns terms that can be added into the `q` parameter 
 
 The autocomplete service is nested within the search service that it provides term completion for.  This is to allow multiple search services, each with their own autocomplete service.
 
-The autocomplete service _MUST_ have an `@id` property with the value of the URI where the service can be interacted with, and _MUST_ have a `profile` property with the value "http://iiif.io/api/search/{{ page.major }}/autocomplete" to distinguish it from other types of service.
+The autocomplete service _MUST_ have an `id` property with the value of the URI where the service can be interacted with, and _MUST_ have a `profile` property with the value "http://iiif.io/api/search/{{ page.major }}/autocomplete" to distinguish it from other types of service.
 
 ``` json-doc
 {
   // Resource that the services are associated with ...
   "service": {
     "@context": "http://iiif.io/api/search/{{ page.major}}/context.json",
-    "@id": "http://example.org/services/identifier/search",
+    "id": "http://example.org/services/identifier/search",
     "profile": "http://iiif.io/api/search/{{ page.major }}/search",
     "service": {
-      "@id": "http://example.org/services/identifier/autocomplete",
+      "id": "http://example.org/services/identifier/autocomplete",
       "profile": "http://iiif.io/api/search/{{ page.major }}/autocomplete"
     }
   }
@@ -615,11 +617,11 @@ http://example.org/service/identifier/autocomplete?q=bir&motivation=painting&use
 ### 4.3. Response
 {: #response}
 
-The response is a list (a "search:TermList") of simple objects that include the term, a link to the search for that term, and the number of matches that search will have.  The number of terms provided in the list is determined by the server.  
+The response is a list (a "TermList") of simple objects that include the term, a link to the search for that term, and the number of matches that search will have.  The number of terms provided in the list is determined by the server.  
 
 Parameters that were not processed by the service _MUST_ be returned in the `ignored` property of the main "TermList" object.  The value _MUST_ be an array of strings.
 
-The objects in the list of terms are all of `type` "search:Term", and this _MAY_ be included explicitly but is not necessary.  The Term object has a number of possible properties:
+The objects in the list of terms are all of `type` "Term", and this _MAY_ be included explicitly but is not necessary.  The Term object has a number of possible properties:
 
   * The matching term is given as the value of the `match` property, and _MUST_ be present.
   * The link to the search to perform is the value of the `url` property, and this _MUST_ be present.
@@ -634,8 +636,8 @@ The example request above might generate the following response:
 ``` json-doc
 {
   "@context": "http://iiif.io/api/search/{{ page.major }}/context.json",
-  "@id": "http://example.org/service/identifier/autocomplete?q=bir&motivation=painting",
-  "@type": "search:TermList",
+  "id": "http://example.org/service/identifier/autocomplete?q=bir&motivation=painting",
+  "type": "TermList",
   "ignored": ["user"],
   "terms": [
     {
@@ -667,7 +669,7 @@ It is also possible to associate one or more `label`s to display to the user wit
 ``` json-doc
 {
   "@context": "http://iiif.io/api/search/{{ page.major }}/context.json",
-  "@id": "http://example.org/service/identifier/autocomplete?q=http%3A%2F%2Fsemtag.example.org%2Ftag%2Fb&motivation=tagging",
+  "id": "http://example.org/service/identifier/autocomplete?q=http%3A%2F%2Fsemtag.example.org%2Ftag%2Fb&motivation=tagging",
   "ignored": ["user"],
   "terms": [
     {
@@ -768,7 +770,6 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 [prezi-annocollection]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.stable.major }}.{{ site.presentation_api.stable.minor }}/#58-annotation-collection
 [prezi-layer]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.stable.major }}.{{ site.presentation_api.stable.minor }}/#layer
 [ignored-parameters]: #ignored-parameters
-[oa-textquotesel]: http://www.openannotation.org/spec/core/
 [webanno]: https://www.w3.org/TR/annotation-model/ "Web Annotation"
 
 [icon-req]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/required.png "Required"
