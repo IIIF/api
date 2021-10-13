@@ -14,7 +14,7 @@
 [auth1]: {{ site.api_url | absolute_url }}/auth/1.0/ "IIIF Authentication API 1.0"
 [auth10]: {{ site.api_url | absolute_url }}/auth/1.0/ "IIIF Authentication API 1.0"
 [contentstate09]: {{ site.api_url | absolute_url }}/content-state/0.9/
-[contentstate-http]: {{ site.api_url | absolute_url }}/content-state/0.9/#5-http-requests-and-responses "HTTP Request and Responses"
+[contentstate-http]: {{ site.api_url | absolute_url }}/content-state/0.9/#6-http-requests-and-responses "HTTP Request and Responses"
 [contentstate-initialization]: {{ site.api_url | absolute_url }}/content-state/0.3/#initialization "Initialization mechanisms (protocol)"
 [contentstate03]: {{ site.api_url | absolute_url }}/content-state/0.3/ "IIIF Content State API"
 [discovery-api]: {{ site.api_url | absolute_url }}/discovery/ "IIIF Change Discovery API"
