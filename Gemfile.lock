@@ -127,6 +127,7 @@ PLATFORMS
 DEPENDENCIES
   iiifc-theme!
   jekyll (~> 4.1.1)
+  jekyll-redirect-from
   rspec
 
 BUNDLED WITH

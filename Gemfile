@@ -6,6 +6,8 @@ gem 'jekyll', '~> 4.1.1'
 # gem 'iiifc-theme', path: 'iiifc-theme'
 gem 'iiifc-theme', github: 'iiif/iiifc-theme', branch: 'main'
 
+gem 'jekyll-redirect-from'
+
 group :development, :test do
   gem 'rspec'
 end
