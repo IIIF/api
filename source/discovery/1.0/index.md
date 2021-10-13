@@ -10,8 +10,9 @@ minor: 0
 patch: 0
 pre: final
 redirect_from:
-  - /api/discovery/index.html
-  - /api/discovery/1/index.html
+  - /discovery/
+  - /discovery/index.html
+  - /discovery/1/index.html
 editors:
   - name: Michael Appleby
     orchid: https://orcid.org/0000-0002-1266-298X
