@@ -14,6 +14,7 @@
 [auth1]: {{ site.api_url | absolute_url }}/auth/1.0/ "IIIF Authentication API 1.0"
 [auth10]: {{ site.api_url | absolute_url }}/auth/1.0/ "IIIF Authentication API 1.0"
 [contentstate09]: {{ site.api_url | absolute_url }}/content-state/0.9/
+[contentstate-export]: {{ site.api_url | absolute_url }}/content-state/0.9/#export "3.7. Exporting Current Content State from Viewer" 
 [contentstate-http]: {{ site.api_url | absolute_url }}/content-state/0.9/#6-http-requests-and-responses "HTTP Request and Responses"
 [contentstate-initialization]: {{ site.api_url | absolute_url }}/content-state/0.3/#initialization "Initialization mechanisms (protocol)"
 [contentstate03]: {{ site.api_url | absolute_url }}/content-state/0.3/ "IIIF Content State API"
@@ -194,7 +195,6 @@
 [org-w3c-webarch]: http://www.w3.org/TR/webarch/ "Architecture of the World Wide Web"
 [org-w3c-xsd-datetime]: https://www.w3.org/TR/xmlschema11-2/#dateTime "XSD DateTime"
 [org-wsgi-pep333]: https://www.python.org/dev/peps/pep-0333/ "PEP 0333"
-<<<<<<< HEAD
 [prezi-api]: {{ site.api_url | absolute_url }}/presentation/ "IIIF Presentation API"
 [prezi-stable-version]: {{ site.api_url | absolute_url }}/presentation/{{ site.data.apis.presentation.latest.major }}.{{ site.data.apis.presentation.latest.minor }}/ "Latest Presentation API Stable Version"
 [prezi-use-cases]: {{ site.api_url | absolute_url }}/presentation/usecases/ "Presentation API Use Cases"
@@ -258,67 +258,3 @@
 [recipe-segment-image-part]: {{ site.api_url | absolute_url }}/cookbook/segment-image-part/ "Annotating part of an image to a canvas"
 [slack]: http://bit.ly/iiif-slack
 [web-arch]: http://www.w3.org/TR/webarch/ "Architecture of the World Wide Web"
-=======
-[prezi-api]: {{ site.url }}{{ site.baseurl }}/api/presentation/ "IIIF Presentation API"
-[prezi-stable-version]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.stable.major }}.{{ site.presentation_api.stable.minor }}/ "Latest Presentation API Stable Version"
-[prezi-use-cases]: {{ site.url }}{{ site.baseurl }}/api/presentation/usecases/ "Presentation API Use Cases"
-[meta09]: {{ site.url }}{{ site.baseurl }}/api/metadata/0.9/ "Metadata API v0.9"
-[meta10]: {{ site.url }}{{ site.baseurl }}/api/metadata/1.0/ "Metadata API v1.0"
-[prezi20-change-log]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.0/change-log/ "Presentation API 2.0 Change Log"
-[prezi20]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.0/ "IIIF Presentation API 2.0"
-[prezi21-change-log]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.1/change-log/ "Presentation API 2.1 Change Log"
-[prezi211-change-log]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.1/change-log-211/ "Presentation API 2.1.1 Change Log"
-[prezi21]: {{ site.url }}{{ site.baseurl }}/api/presentation/2.1/ "IIIF Presentation API 2.1"
-[prezi3-html]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.draft.minor }}/#html-markup-in-property-values "Presentation API Section 4.4"
-[prezi3-languages]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.draft.minor }}/#language-of-property-values "Language of Property Values"
-[prezi3-ldce]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.draft.minor }}/#linked-data-context-and-extensions "Linked Data Context and Extensions"
-[prezi3-type]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.draft.minor }}/#type
-[prezi3-provider]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.draft.minor }}/#provider
-[prezi30-anno]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#annotation
-[prezi30-annopage]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#55-annotation-page
-[prezi30-annocoll]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#58-annotation-collection
-[prezi30-appendixa]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#a-summary-of-property-requirements
-[prezi30-canvas]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#53-canvas
-[prezi30-change-log]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/change-log/ "Presentation API 3.0 Change Log"
-[prezi30-collection]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#overview-collection "Presentation API 3.0 Collection Type"
-[prezi30-context-collisions]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#47-term-collisions-between-contexts
-[prezi30-height]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#height "height property"
-[prezi30-homepage]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#homepage "homepage property"
-[prezi30-html]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#45-html-markup-in-property-values "Presentation API Section 4.4"
-[prezi30-http]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#6-http-requests-and-responses "Presentation API Section 6"
-[prezi30-languages]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#44-language-of-property-values "Language of Property Values"
-[prezi30-ldce]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#46-linked-data-context-and-extensions "Linked Data Context and Extensions"
-[prezi30-logo]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#logo "logo property"
-[prezi30-manifest]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#overview-manifest "Presentation API 3.0 Manifest Type"
-[prezi30-range]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#54-range
-[prezi30-resource-properties]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#3-resource-properties
-[prezi30-resource-structure]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#5-resource-structure
-[prezi30-seealso]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#seealso "seeAlso property"
-[prezi30-terminology]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#12-terminology
-[prezi30-type-overview]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/#2-resource-type-overview
-[prezi30]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.0/
-[prezi3]: {{ site.url }}{{ site.baseurl }}/api/presentation/3.{{ site.presentation_api.draft.minor }}/ "Presentation API"
-[extensions]: {{ site.url }}{{ site.baseurl }}/api/extension/
-[text-granularity]: {{ site.url }}{{ site.baseurl }}/api/extension/text-granularity/
-[registry]: {{ site.url }}{{ site.baseurl }}/api/registry/ "IIIF Extension Registry"
-[registry-activity-streams]: https://registry.iiif.io/ "IIIF Registry of Activity Streams"
-[registry-image-extensions]: {{ site.url }}{{ site.baseurl }}/api/registry/image-extensions/ "IIIF Image Extension Registry"
-[registry-motivations]: {{ site.url }}{{ site.baseurl }}/api/registry/motivations/
-[registry-behaviors]: {{ site.url }}{{ site.baseurl }}/api/registry/behaviors/
-[registry-process]: {{ site.url }}{{ site.baseurl }}/api/registry/process/
-[registry-services]: {{ site.url }}{{ site.baseurl }}/api/registry/services/
-[registry-profiles]: {{ site.url }}{{ site.baseurl }}/api/registry/profiles/
-[registry-timeModes]: {{ site.url }}{{ site.baseurl }}/api/registry/timeModes/
-[registry-types]: {{ site.url }}{{ site.baseurl }}/api/registry/types/
-[registry-viewingDirections]: {{ site.url }}{{ site.baseurl }}/api/registry/viewingDirections/
-[search-api]: {{ site.url }}{{ site.baseurl }}/api/search/{{ site.search_api.stable.major }}.{{ site.search_api.stable.minor }}/ "Content Search API"
-[search09]: {{ site.url }}{{ site.baseurl }}/api/search/0.9/ "Search API v0.9"
-[search1-autocomplete]: {{ site.url }}{{ site.baseurl }}/api/search/1.0/#autocomplete
-[search1]: {{ site.url }}{{ site.baseurl }}/api/search/1.0/
-[search10]: {{ site.url }}{{ site.baseurl }}/api/search/1.0/
-[shared-canvas]: {{ site.url }}{{ site.baseurl }}/model/shared-canvas/{{ site.shared_canvas.stable.major}}.{{ site.shared_canvas.stable.minor }} "Shared Canvas Data Model"
-[recipe-process]: {{  page.webprefix }}/api/cookbook/recipe/ "Cookbook process"
-[recipe-mvm-image]: {{ page.webprefix }}/api/cookbook/mvm-image/ "Simplest Manifest - Image"
-[recipe-segment-image-part]: {{ page.webprefix }}/api/cookbook/segment-image-part/ "Annotating part of an image to a canvas"
-[slack]: http://bit.ly/iiif-slack
->>>>>>> main
