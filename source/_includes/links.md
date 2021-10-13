@@ -35,10 +35,10 @@
 [groups-av]: {{ site.root_url | absolute_url }}/community/groups/av/ "IIIF A/V Working Group"
 [groups-discovery]: {{ site.root_url | absolute_url }}/community/groups/discovery/
 [groups-text-granularity]: {{ site.root_url | absolute_url }}/community/groups/text-granularity/
-[icon-na]: {{ site.api_url | absolute_url }}/assets/images/icons/not_allowed.png "Not allowed"
-[icon-opt]: {{ site.root_url | absolute_url }}/img/metadata-api/optional.png "Optional"
-[icon-rec]: {{ site.api_url | absolute_url }}/assets/images/icons/recommended.png "Recommended"
-[icon-req]: {{ site.api_url | absolute_url }}/assets/images/icons/required.png "Required"
+[icon-na]: {{ site.api_url | absolute_url }}/assets/images/icons/metadata-api/not_allowed.png "Not allowed"
+[icon-opt]: {{ site.api_url | absolute_url }}/assets/images/icons/metadata-api/optional.png "Optional"
+[icon-rec]: {{ site.api_url | absolute_url }}/assets/images/icons/metadata-api/recommended.png "Recommended"
+[icon-req]: {{ site.api_url | absolute_url }}/assets/images/icons/metadata-api/required.png "Required"
 [icon3-na]: {{ site.api_url | absolute_url }}/assets/images/icons/not_allowed.png "Not allowed"
 [icon3-opt]: {{ site.api_url | absolute_url }}/assets/images/icons/optional.png "Optional"
 [icon3-rec]: {{ site.api_url | absolute_url }}/assets/images/icons/recommended.png "Recommended"
