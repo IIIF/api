@@ -10,7 +10,6 @@ minor: 3
 patch: 0
 pre: final
 redirect_from:
-  - /content-state/index.html
   - /0/content-state/index.html
 editors:
   - name: Michael Appleby

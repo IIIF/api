@@ -9,9 +9,6 @@ major: 0
 minor: 2
 patch: 0
 pre: final
-redirect_from:
-  - /content-state/index.html
-  - /0/content-state/index.html
 editors:
   - name: Michael Appleby
     orchid: https://orcid.org/0000-0002-1266-298X

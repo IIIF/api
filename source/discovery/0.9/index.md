@@ -10,7 +10,6 @@ minor: 9
 patch: 2
 pre: BETA
 redirect_from:
-  - /discovery/index.html
   - /discovery/0/index.html
 editors:
   - name: Michael Appleby
