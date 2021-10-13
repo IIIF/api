@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/iiif/iiifc-theme.git
-  revision: b8c0140c93cc64ed001d5e51225c184c5b5683e4
+  revision: b77c6dc6a85a3da596b1b8aaefc756df9f7753f7
   branch: main
   specs:
     iiifc-theme (0.1.0)
@@ -24,10 +24,10 @@ GEM
     em-websocket (0.5.2)
       eventmachine (>= 0.12.9)
       http_parser.rb (~> 0.6.0)
-    ethon (0.14.0)
+    ethon (0.15.0)
       ffi (>= 1.15.0)
     eventmachine (1.2.7)
-    ffi (1.15.3)
+    ffi (1.15.4)
     forwardable-extended (2.6.0)
     html-proofer (3.19.2)
       addressable (~> 2.3)
@@ -75,12 +75,12 @@ GEM
     kramdown-parser-gfm (1.1.0)
       kramdown (~> 2.0)
     liquid (4.0.3)
-    listen (3.6.0)
+    listen (3.7.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
     mercenary (0.4.0)
     mini_portile2 (2.6.1)
-    nokogiri (1.12.4)
+    nokogiri (1.12.5)
       mini_portile2 (~> 2.6.1)
       racc (~> 1.4)
     nokogumbo (2.0.5)
@@ -97,7 +97,7 @@ GEM
       ffi (~> 1.0)
     redcarpet (3.5.1)
     rexml (3.2.5)
-    rouge (3.26.0)
+    rouge (3.26.1)
     rspec (3.10.0)
       rspec-core (~> 3.10.0)
       rspec-expectations (~> 3.10.0)
@@ -118,7 +118,7 @@ GEM
       unicode-display_width (~> 1.1, >= 1.1.1)
     typhoeus (1.4.0)
       ethon (>= 0.9.0)
-    unicode-display_width (1.7.0)
+    unicode-display_width (1.8.0)
     yell (2.2.2)
 
 PLATFORMS
