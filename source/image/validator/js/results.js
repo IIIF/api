@@ -2,7 +2,7 @@
 
 
 function Tester() {
-	this.baseUrl = 'https://iiif.io/api/image/validator/service/';
+	this.baseUrl = 'https://image-validator.iiif.io/';
 
 	this.categories = {
 		1: 'Info/Identifier',
