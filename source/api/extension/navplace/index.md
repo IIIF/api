@@ -21,7 +21,7 @@ Changes will be tracked within the document.
 
 ## 1. Introduction
 
-The concept of place is foundational to human communication and understanding. Locations are quantitative descriptions of the position of a place, independent of time and other human or physical characteristics of such place. The concept of location is a first class descriptor for resources, and so needs a unique property. In [IIIF Presentation API 3](https://iiif.io/api/presentation/3.0/) there is no property designed for a geographic location.
+In [IIIF Presentation API 3](https://iiif.io/api/presentation/3.0/) there is no property designed for a geographic location. The concept of location is a first class descriptor for resources, and especially so for those resources connected to the humanities. It is important these resources have the ability to express this concept in a unique property.
 
 
 ### 1.1 Objectives and Scope
@@ -113,7 +113,7 @@ The `navPlace` property's value follows a specific pattern.
 
 
 *   The value of the property MUST be a JSON object that follows the requirements for a GeoJSON Feature Collection as described in [Section 2.2.2](#222-feature-collection).
-*   The Feature Collection _SHOULD_ be embedded. However, the Feature Collection _MAY_ be referenced. Feature Collections referenced in the `navPlace` property _MUST_ have the `id` and `type` properties. The reference object _MUST NOT_ have the `features` property, such that clients are able to recognize that it should be retrieved in order to be processed. <br/>
+*   The value _SHOULD_ be an embedded Feature Collection . However, the value _MAY_ be a referenced Feature Collection. Feature Collections referenced in the `navPlace` property _MUST_ have the `id` and `type` properties.  Referenced Feature Collections _MUST NOT_ have the `features` property, such that clients are able to recognize that it should be retrieved in order to be processed. <br/>
 ```json-doc
 {"navPlace":{"id": "https://example.org/iiif/1/feature-collection", "type": "FeatureCollection"}}
 ```
