@@ -144,6 +144,9 @@ Tester.prototype.init = function() {
 	    version = params['version'],
 	    tests = [];
 
+    let imageLink = params['server'] + params['prefix'] + params['identifier'];
+    let li = document.getElementById('image_uri');
+    li.innerHTML = "<a href='" + imageLink + "'>" + imageLink + "</a>";
 	for (var key in params) {
 		if (params.hasOwnProperty(key) && params[key] == "on") {
 			tests.push(key);
