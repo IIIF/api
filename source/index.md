@@ -62,8 +62,8 @@ The [Cookbook][annex-cookbook] webpages are under constant development and the l
 ## Validators
 
 
-- [Image API validator](https://iiif.io/api/image/validator/) - A service to validate a IIIF Image API resource against the specification.
-- [Presentation API validator](https://iiif.io/api/presentation/validator/service/) - A service to validate a IIIF Presentation API resource against the specification.
+- [Image API validator]({{ site.api_url | absolute_url }}/image/validator/) - A service to validate a IIIF Image API resource against the specification.
+- [Presentation API validator]({{ site.api_url | absolute_url }}/presentation/validator/service/) - A service to validate a IIIF Presentation API resource against the specification.
 
 ## Older Versions
 

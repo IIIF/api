@@ -1,5 +1,5 @@
 function Tester() {
-	this.baseUrl = 'https://iiif.io/api/image/validator/service/';
+	this.baseUrl = 'https://image-validator.iiif.io/';
 	
 	this.categories = {
 		1: 'Info/Identifier',
@@ -80,11 +80,11 @@ Tester.prototype.init = function() {
 
 	this.fetchTestList();
 
-	$('#dialog').dialog({
+	$("#dialog").dialog({
 		autoOpen: false,
 		modal: true,
-		height: 250,
-		width: 270,
+		height: 400,
+		width: "50%",
 		buttons: {
 			Ok: function() {
 				$(this).dialog('close');
@@ -96,13 +96,13 @@ Tester.prototype.init = function() {
 		var msg = '';
 		switch (index) {
 			case 0:
-				msg = 'The base URI for your IIIF implementation, e.g. <span class="code">http://shared-canvas.org</span>.';
+				msg = "The base URI for your IIIF implementation. For example if the path to your info.json was: <br/><br/>https://iiif.io/api/image/3.0/example/reference/f8c6e480-f75d-11e1-b397-0011259ed879/info.json <br/><br/> the Server would be <span class=\"code\">https://iiif.io</span>.";
 				break;
 			case 1:
-				msg = 'The prefix for your IIIF implementation, e.g. <span class="code">iiif</span>.';
+				msg = "The prefix for your IIIF implementation. For example if the path to your info.json was <br/><br/>https://iiif.io/api/image/3.0/example/reference/f8c6e480-f75d-11e1-b397-0011259ed879/info.json<br/><br/> the Prefix would be <span class=\"code\">/api/image/3.0/example/reference/</span>.";
 				break;
 			case 2:
-				msg = 'The filename for a test image you generated from the "Generate Test Image" tab and saved to your server. Leave off the <span class="code">.png</span> extension. The ID should look something like: <span class="code">f8c6e480-f75d-11e1-b397-0011259ed879</span>';
+				msg = "The filename for a test image you generated from the \"Generate Test Image\" tab and saved to your server. Leave off the <span class=\"code\">.png</span> extension. For example if the path to your info.json was <br/><br/>https://iiif.io/api/image/3.0/example/reference/f8c6e480-f75d-11e1-b397-0011259ed879/info.json<br/><br/> the Image ID would be: <span class=\"code\">f8c6e480-f75d-11e1-b397-0011259ed879</span>";
 		}
 		$(el).data('msg', msg);
 	}).click($.proxy(function(ev) {
@@ -124,12 +124,12 @@ Tester.prototype.init = function() {
 
 		var uri = $('#server').val();
 		if (uri == '') {
-			errors += 'The Server field is empty.\n';
+			errors += '<li>The Server field is empty.</li>\n';
 		}
 
 		var prefix = $('#prefix').val();
 		if (prefix == '') {
-			errors += 'The Prefix field is empty.\n';
+			errors += '<li>The Prefix field is empty.</li>\n';
 		}
 
 		var id = $('#identifier').val();
@@ -138,14 +138,17 @@ Tester.prototype.init = function() {
 			$('#results').show();
 			this.runTests(uri, prefix, id);
 		} else {
-			this.showMessage('Error', errors);
+            ev.preventDefault();
+			this.showMessage('Missing required fields',"<ul>" + errors + "</ul>");
 		}
 
 	}, this));
 
 };
 
-$(document).ready(function() {
-	tester = new Tester();
-	tester.init();
+document.addEventListener("DOMContentLoaded", function(event) {
+    $.getScript("https://code.jquery.com/ui/1.12.1/jquery-ui.min.js", function(data, textStatus, jqxhr) {
+      tester = new Tester();
+      tester.init();
+    });
 });
