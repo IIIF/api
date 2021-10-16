@@ -21,8 +21,7 @@ Changes will be tracked within the document.
 
 ## 1. Introduction
 
-In [IIIF Presentation API 3](https://iiif.io/api/presentation/3.0/) there is no property designed for a geographic location. The concept of location is a first class descriptor for resources, and especially so for those resources connected to the humanities. It is important these resources have the ability to express this concept in a unique property.
-
+The [IIIF Presentation API 3](https://iiif.io/api/presentation/3.0/) does not provide a property designed specifically for geographic location. However, the concept of location is a first class descriptor for many resources and thus calls for its own property to express the concept of "place".
 
 ### 1.1 Objectives and Scope
 
@@ -30,11 +29,9 @@ This IIIF Presentation API 3 extension defines a new property, `navPlace`, which
 
 Spatial coordinates for resources on other celestial bodies or contrived worlds can be expressed using the semantic pattern of GeoJSON. However, `navPlace` adopts the [existing GeoJSON specification](https://datatracker.ietf.org/doc/html/rfc7946) to promote interoperability with industry standard mapping libraries and methods using [WGS84](http://www.w3.org/2003/01/geo/wgs84_pos) as the coordinate reference system for projections of the surface of Earth. As such, expressing the location of extraterrestrial entities is not supported by the `navPlace` property. This extension does not preclude the development of future extensions to address this use case.
 
-
 ### 1.2 Motivating Use Cases
 
 The reasons for associating geographic coordinates with web resources vary greatly. This extension does not intend to meet the data requirements for all geospatial practices. Use cases within the scope include:
-
 
 *   Linking a IIIF resource to a single or multiple geographic areas
 *   Supplying a single geographic bounding box for an image of a map
@@ -42,11 +39,9 @@ The reasons for associating geographic coordinates with web resources vary great
 
 Situations which are not in scope include:
 
-
 *   Georeferencing and map warping
 *   3D spatial representation
 *   [Application of geographic information to resource fragments](https://iiif.io/api/cookbook/recipe/0139-geolocate-canvas-fragment/)
-
 
 ### 1.3 Terminology
 
@@ -64,10 +59,9 @@ The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _S
 
 ## 2. The `navPlace` Property and GeoJSON-LD
 
-
 ### 2.1 `navPlace` Property
 
-The `navPlace` property identifies a single or multiple geographic areas pertinent to a resource using a GeoJSON Feature Collection containing one or more Features. These areas _SHOULD_ be bounded discrete areas of the map akin to extents. These areas do not imply any level of accuracy, temporality, or state of existence. 
+The `navPlace` property identifies a single or multiple geographic areas pertinent to a resource using a GeoJSON Feature Collection containing one or more Features. These areas _SHOULD_ be bounded discrete areas of the map akin to extents. These areas do not imply any level of accuracy, temporality, or state of existence.
 
 
 ```json-doc
@@ -111,13 +105,12 @@ The `navPlace` property can be used with the [IIIF Presentation 3 API Defined Ty
 
 The `navPlace` property's value follows a specific pattern.
 
+*   The value of the property _MUST_ be a JSON object that follows the requirements for a GeoJSON Feature Collection as described in [Section 2.2.2](#222-feature-collection).
+*   The value _SHOULD_ be an embedded Feature Collection. However, the value _MAY_ be a referenced Feature Collection. Feature Collections referenced in the `navPlace` property _MUST_ have the `id` and `type` properties. Referenced Feature Collections _MUST NOT_ have the `features` property, such that clients are able to recognize that it should be retrieved in order to be processed.<br/>
 
-*   The value of the property MUST be a JSON object that follows the requirements for a GeoJSON Feature Collection as described in [Section 2.2.2](#222-feature-collection).
-*   The value _SHOULD_ be an embedded Feature Collection . However, the value _MAY_ be a referenced Feature Collection. Feature Collections referenced in the `navPlace` property _MUST_ have the `id` and `type` properties.  Referenced Feature Collections _MUST NOT_ have the `features` property, such that clients are able to recognize that it should be retrieved in order to be processed. <br/>
 ```json-doc
 {"navPlace":{"id": "https://example.org/iiif/1/feature-collection", "type": "FeatureCollection"}}
 ```
-
 
 ### 2.2 GeoJSON
 
@@ -127,11 +120,9 @@ This extension utilizes the technical terms described in the published [GeoJSON 
 
 [GeoJSON-LD](https://geojson.org/geojson-ld/) is a publicly available vocabulary and linked data context for the GeoJSON specification. The `navPlace` extension context file refers to this context which ensures the geographic data values are well described. The example below shows how to set the `@context` property for IIIF resources with the `navPlace` property. [Section 3](#3-linked-data) has more detail on linked data compatibility.
 
-
-
 ```json-doc
 {
-    "@context":[ 
+    "@context":[
        "http://iiif.io/api/extension/navplace/context.json",
        "http://iiif.io/api/presentation/3/context.json"
     ]
@@ -144,7 +135,7 @@ A Feature Collection represents an aggregation of spatially bounded areas. [Go t
 
 
 *   A Feature Collection has a `type` property with the value "FeatureCollection".
-*   A Feature Collection has a property with the name `features`. The value of `features` is a JSON array. Each element of the array is a Feature as defined above. It is possible for this array to be empty, but when used in the context of this extension it _SHOULD NOT_ be empty.
+*   A Feature Collection has a `features` property where the value is a JSON array. Each element of the array is a Feature as defined below. While it is possible for this array to be empty, when used in the context of this extension it _SHOULD NOT_ be empty.
 *   A Feature Collection _MAY_ have an `id` property. For the purposes of this extension, the value of the `id` property _MUST_ be a [commonly used HTTP(S) URI identifier](https://iiif.io/api/presentation/3.0/#61-uri-recommendations). The Feature Collection _MAY_ be accessible by the URI.
 
 
@@ -154,25 +145,25 @@ A Feature represents a spatially bounded area. Every Feature is a GeoJSON object
 
 
 *   A Feature has a `type` property with the value "Feature".
-*   A Feature has a property with the name `geometry`. The value of the `geometry` property _MUST_ be either a Geometry object as defined in the [Table of Geometric Shapes](#225-table-of-geometric-shapes) or, in the case that the Feature is unlocated, a JSON null value.
-*   A Feature has a property with the name `properties`. The value of the `properties` property is a JSON Object with 0 or more properties. For information on using this property to provide information associated with the geographic coordinates, see [Section 3.2](#32-context-considerations-for-geojson-ld-properties).
-*   A Feature _MAY_ have an `id` property. For the purposes of this extension, the value of the `id` property _MUST_ be a [commonly used HTTP(S) URI identifier](https://iiif.io/api/presentation/3.0/#61-uri-recommendations). The `id` _MAY_ be the URI of a Feature Collection that contains the Feature with a unique fragment on the end. The Feature _MAY_ be accessible by the URI. 
+*   A Feature has a `geometry` property where the value of the property _MUST_ be either a Geometry object as defined in the [Table of Geometric Shapes](#225-table-of-geometric-shapes) or, in the case that the Feature is unlocated, a JSON null value.
+*   A Feature has a `properties` property where the value of the property is a JSON Object with 0 or more properties. For information on using this property to provide information associated with the geographic coordinates, see [Section 3.2](#32-context-considerations-for-geojson-ld-properties).
+*   A Feature _MAY_ have an `id` property. For the purposes of this extension, the value of the `id` property _MUST_ be a [commonly used HTTP(S) URI identifier](https://iiif.io/api/presentation/3.0/#61-uri-recommendations). The `id` _MAY_ be the URI of a Feature Collection that contains the Feature with a unique fragment on the end. The Feature _MAY_ be accessible by the URI.
 
 #### 2.2.4 Position
 
-A position is the fundamental geometry construct and contains a `coordinates` property. A position is an array of numbers. There _MUST_ be two or more elements. The first two elements are longitude and latitude, or easting and northing, precisely in that order and using decimal numbers. Altitude or elevation _MAY_ be included as an optional third element.
+A position is the fundamental geometry construct and contains a `coordinates` property. A position is an array of numbers and _MUST_ have two or more elements. The first two elements are longitude and latitude, or easting and northing, precisely in that order and using decimal numbers. Altitude or elevation _MAY_ be included as an optional third element.
 
 #### 2.2.5 Table of Geometric Shapes
 
-| Geometry Object  |    Description| 
+| Geometry Object  |    Description|
 |----|----|
-| Point  |  The "coordinates" property is a single position| 
-| MultiPoint |  The "coordinates" property is an array of positions| 
-| LineString |  The "coordinates" property is an array of two or more positions| 
-| MultiLineString   |   The "coordinates" property is an array of LineString coordinate arrays| 
-| Polygon   |   The "coordinates" property _MUST_ be an array of linear ring coordinate arrays. For Polygons with more than one of these rings, the first _MUST_ be the exterior ring, and any others _MUST_ be interior rings. The exterior ring bounds the surface, and the interior rings (if present) bound holes within the surface.| 
-| MultiPolygon  |   The "coordinates" property is an array of Polygon coordinate arrays| 
-| GeometryCollection  | Has a property with the name "geometries". The value of "geometries" is an array. Each element of this array is a GeoJSON Geometry object. It is possible for this array to be empty. | 
+| Point  |  The "coordinates" property is a single position|
+| MultiPoint |  The "coordinates" property is an array of positions|
+| LineString |  The "coordinates" property is an array of two or more positions|
+| MultiLineString   |   The "coordinates" property is an array of LineString coordinate arrays|
+| Polygon   |   The "coordinates" property _MUST_ be an array of linear ring coordinate arrays. For Polygons with more than one of these rings, the first _MUST_ be the exterior ring, and any others _MUST_ be interior rings. The exterior ring bounds the surface, and the interior rings (if present) bound holes within the surface.|
+| MultiPolygon  |   The "coordinates" property is an array of Polygon coordinate arrays|
+| GeometryCollection  | Has a property with the name "geometries". The value of "geometries" is an array. Each element of this array is a GeoJSON Geometry object. It is possible for this array to be empty. |
 {: .api-table}
 
 For examples of these shapes, see the “Examples” section of the GeoJSON specification at [https://datatracker.ietf.org/doc/html/rfc7946#appendix-A](https://datatracker.ietf.org/doc/html/rfc7946#appendix-A)
@@ -197,7 +188,7 @@ The value of `properties` can be any JSON object and is used to supply additiona
 
 ## 4. Full Manifest Example
 
-Here you can see an example of a IIIF Manifest with the `navPlace` property. It is made JSON-LD 1.1 compatible by including multiple linked data contexts to cover all the terms used within the web resource. Review the Manifest below in the [JSON-LD playground](https://json-ld.org/playground/) for an example of Linked Data processing. 
+Here you can see an example of a IIIF Manifest with the `navPlace` property. It is made JSON-LD 1.1 compatible by including multiple linked data contexts to cover all the terms used within the web resource. Review the Manifest below in the [JSON-LD playground](https://json-ld.org/playground/) for an example of Linked Data processing.
 
 
 ```json-doc
