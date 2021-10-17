@@ -21,7 +21,7 @@ Changes will be tracked within the document.
 
 ## 1. Introduction
 
-The [IIIF Presentation API 3](https://iiif.io/api/presentation/3.0/) does not provide a property designed specifically for geographic location. However, the concept of location is a first class descriptor for many resources and thus calls for its own property to express the concept of "place".
+The [IIIF Presentation API 3](https://iiif.io/api/presentation/3.0/) does not provide a resource property designed specifically for geographic location. However, the concept of location is a first class descriptor for many resources and thus calls for its own property by which it can be expressed.
 
 ### 1.1 Objectives and Scope
 
@@ -146,7 +146,7 @@ A Feature represents a spatially bounded area. Every Feature is a GeoJSON object
 
 *   A Feature has a `type` property with the value "Feature".
 *   A Feature has a `geometry` property where the value of the property _MUST_ be either a Geometry object as defined in the [Table of Geometric Shapes](#225-table-of-geometric-shapes) or, in the case that the Feature is unlocated, a JSON null value.
-*   A Feature has a `properties` property where the value of the property is a JSON Object with 0 or more properties. For information on using this property to provide information associated with the geographic coordinates, see [Section 3.2](#32-context-considerations-for-geojson-ld-properties).
+*   A Feature has a `properties` property where the value of the property is a JSON Object with zero or more properties. For information on using this property to provide information associated with the geographic coordinates, see [Section 3.2](#32-context-considerations-for-geojson-ld-properties).
 *   A Feature _MAY_ have an `id` property. For the purposes of this extension, the value of the `id` property _MUST_ be a [commonly used HTTP(S) URI identifier](https://iiif.io/api/presentation/3.0/#61-uri-recommendations). The `id` _MAY_ be the URI of a Feature Collection that contains the Feature with a unique fragment on the end. The Feature _MAY_ be accessible by the URI.
 
 #### 2.2.4 Position
