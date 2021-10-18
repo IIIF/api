@@ -142,6 +142,7 @@
 [image30-uri-syntax]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/#2-uri-syntax "2. URI Syntax"
 [image30]: {{ site.url }}{{ site.baseurl }}/api/image/3.0/ "Image API 3.0"
 [image3]: {{ site.url }}{{ site.baseurl }}/api/image/3.{{ site.image_api.draft.minor }}/ "Image API 3.{{ site.image_api.draft.minor }}"
+[navPlace]: {{ site.url }}{{ site.baseurl }}/api/extension/navplace/
 [notes-apache-conditional-content-type]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/apache/#conditional-content-types "Apache HTTP Server Implementation Notes: Conditional Content Types"
 [notes-apache-set-compliance-link-header]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/apache/#set-compliance-link-header "Apache HTTP Server Implementation Notes: Set Compliance Link Header"
 [notes-apache]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/apache/ "Apache HTTP Server Implementation Notes"
