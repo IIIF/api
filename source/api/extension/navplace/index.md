@@ -153,11 +153,11 @@ A Feature represents a spatially bounded area. Every Feature is a GeoJSON object
 
 A Geometry object, referred to from the Feature object by the `geometry` property, is a GeoJSON object. [Go to the GeoJSON specification for a visual example](https://datatracker.ietf.org/doc/html/rfc7946#section-3.1).
 
-* A Geometry object has a `type` property with a value from the [Table of Geometry Types](#225-table-of-geometry-types) below.
+* A Geometry object has a `type` property with a value from the [Table of Geometry Types](#table-of-geometry-types) in this section.
 * A Geometry object has the `coordinates` property where the value is an array of positions, the structure of which is determined by the type of geometry.
 * A position is an array of numbers and _MUST_ have two or more elements. The first two elements are longitude and latitude, or easting and northing, precisely in that order and using decimal numbers. Altitude or elevation _MAY_ be included as an optional third element.
 
-#### 2.2.5 Table of Geometry Types
+##### Table of Geometry Types
 
 | Geometry Object Type  |    Description|
 |----|----|
