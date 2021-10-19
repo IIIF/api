@@ -306,7 +306,7 @@ An enormous amount of gratitude is owed to the IIIF community for their continuo
 
 | Date       | Description           |
 | ---------- | --------------------- |
-| TBD        | Initial publication   |
+| 2021-10-18   | Initial publication   |
 {: .api-table #table-changelog}
 
 {% include acronyms.md %}
