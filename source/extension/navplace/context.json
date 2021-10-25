@@ -1,0 +1,10 @@
+{
+   "@context":{
+      "@version":1.1,
+      "iiif_navPlace":"http://iiif.io/api/extension/navplace#",
+      "navPlace":{
+         "@context":"https://geojson.org/geojson-ld/geojson-context.jsonld",
+         "@id":"iiif_navPlace:navPlace"
+      }
+   }
+}
