@@ -13,12 +13,6 @@ Changes will be tracked within the document.
 
 {% include copyright.md %}
 
-## Table of Contents
-{:.no_toc}
-
-* Table of Discontent (will be replaced by macro)
-{:toc}
-
 ## 1. Introduction
 
 The [IIIF Presentation API 3](https://iiif.io/api/presentation/3.0/) does not provide a resource property designed specifically for geographic location. However, the concept of location is a first class descriptor for many resources and thus calls for its own property by which it can be expressed.
@@ -63,7 +57,7 @@ The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _S
 
 The `navPlace` property identifies a single or multiple geographic areas pertinent to a resource using a GeoJSON Feature Collection containing one or more Features. These areas _SHOULD_ be bounded discrete areas of the map akin to extents. These areas do not imply any level of accuracy, temporality, or state of existence.
 
-
+{% include api/code_header.html %}
 ```json-doc
 {
    "navPlace":{
@@ -108,6 +102,7 @@ The `navPlace` property's value follows a specific pattern.
 *   The value of the property _MUST_ be a JSON object that follows the requirements for a GeoJSON Feature Collection as described in [Section 2.2.2](#222-feature-collection).
 *   The value _SHOULD_ be an embedded Feature Collection. However, the value _MAY_ be a referenced Feature Collection. Feature Collections referenced in the `navPlace` property _MUST_ have the `id` and `type` properties. Referenced Feature Collections _MUST NOT_ have the `features` property, such that clients are able to recognize that it should be retrieved in order to be processed.<br/>
 
+{% include api/code_header.html %}
 ```json-doc
 {"navPlace":{"id": "https://example.org/iiif/1/feature-collection", "type": "FeatureCollection"}}
 ```
@@ -120,6 +115,7 @@ This extension utilizes the technical terms described in the published [GeoJSON 
 
 [GeoJSON-LD](https://geojson.org/geojson-ld/) is a publicly available vocabulary and linked data context for the GeoJSON specification. The `navPlace` extension context file refers to this context which ensures the geographic data values are well described. The example below shows how to set the `@context` property for IIIF resources with the `navPlace` property. [Section 3](#3-linked-data) has more detail on linked data compatibility.
 
+{% include api/code_header.html %}
 ```json-doc
 {
     "@context":[
@@ -192,7 +188,7 @@ The value of `properties` can be any JSON object and is used to supply additiona
 
 Here you can see an example of a IIIF Manifest with the `navPlace` property. It is made JSON-LD 1.1 compatible by including multiple linked data contexts to cover all the terms used within the web resource. Review the Manifest below in the [JSON-LD playground](https://json-ld.org/playground/) for an example of Linked Data processing.
 
-
+{% include api/code_header.html %}
 ```json-doc
 {
    "@context":[
