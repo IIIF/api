@@ -16,10 +16,10 @@ plugins:
   - jekyll-liquify
   - jekyll-redirect-from
 
-#notification:
-#  enabled: true
-#  title: This website design is in pre-beta.
-#  subtitle: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-#  link: '#'
-#  link_label: This is a test link
+# notification:
+#   enabled: true
+#   title: This website design is in pre-beta.
+#   subtitle: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+#   link: '#'
+#   link_label: This is a test link
 
