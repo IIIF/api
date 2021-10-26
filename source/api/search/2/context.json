@@ -1,13 +1,14 @@
 {
   "@context": {
     "search": "http://iiif.io/api/search/2#",
-
     "ignored": {"@id": "search:ignored", "@container": "@set"},
     "match": {"@id": "search:match"},
     "before": {"@id": "search:before"},
     "after": {"@id": "search:after"},
     "count": {"@id": "search:count"},
-
+    "Hit": {"@id": "search:Hit"},
+    "TermList": {"@id": "search:TermList"},
+    "Term": {"@id": "search:Term"},
     "hits": {"@id": "search:hasHitList", "@container": "@list", "@type": "@id"},
     "terms": {"@id": "search:hasTermList", "@container": "@list", "@type": "@id"},
     "annotations": {"@id": "search:refines", "@container": "@set", "@type": "@id"},
