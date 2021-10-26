@@ -5,8 +5,10 @@ permalink:      pretty
 baseurl:        '/api'
 
 api_url:        ''
-root_url:       'https://beta.iiif.io'
-cookbook_url:   'https://beta.iiif.io/api/cookbook'
+root_url:       https://beta.iiif.io
+cookbook_url:   https://beta.iiif.io/api/cookbook
+guides_url:     https://beta.iiif.io/guides
+training_url:   https://training.iiif.io
 
 plugins:
   - jekyll-data

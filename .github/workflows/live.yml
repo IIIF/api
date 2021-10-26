@@ -17,6 +17,7 @@ jobs: # A workflow run is made up of one or more jobs that can run sequentially 
       BUNDLE_WITH: test jekyll_plugins
       SITE_ID:  'api' # which iiif site this is
       LIVE_PATH: '/api'
+      JEKYLL_ENV: 'production'
     steps: # Steps represent a sequence of tasks that will be executed as part of the job
     - name: Checkout # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       uses: actions/checkout@v2

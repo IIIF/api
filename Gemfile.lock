@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/iiif/iiifc-theme.git
-  revision: b77c6dc6a85a3da596b1b8aaefc756df9f7753f7
+  revision: ee05c80a8f869b3b9daf6a43d732f99c26603e6b
   branch: main
   specs:
     iiifc-theme (0.1.0)
@@ -89,7 +89,7 @@ GEM
     pathutil (0.16.2)
       forwardable-extended (~> 2.6)
     public_suffix (4.0.6)
-    racc (1.5.2)
+    racc (1.6.0)
     rainbow (3.0.0)
     rake (13.0.6)
     rb-fsevent (0.11.0)
