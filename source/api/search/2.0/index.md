@@ -134,6 +134,7 @@ Common values for the motivation parameter are:
 | `describing`   | Annotations with the `describing` motivation |
 | `tagging`      | Annotations with the `tagging` motivation |
 | `linking`      | Annotations with the `linking` motivation |
+| `supplementing`| Annotations with the `supplementing` motivation |
 {: .api-table}
 
 Other motivations are possible, and the full list from the [Web Annotation][webanno] specification _SHOULD_ be available by dropping the "oa:" prefix.  Other, community specific motivations _SHOULD_ include a prefix or use their full URI.
@@ -676,13 +677,17 @@ It is also possible to associate one or more `label`s to display to the user wit
       "match": "http://semtag.example.org/tag/bird",
       "url": "http://example.org/service/identifier/autocomplete?motivation=tagging&q=http%3A%2F%2Fsemtag.example.org%2Ftag%2Fbird",
       "count": 15,
-      "label": "bird"
+      "label": {
+        "none": "bird"
+        }
     },
     {
       "match": "http://semtag.example.org/tag/biro",
       "url": "http://example.org/service/identifier/autocomplete?motivation=tagging&q=http%3A%2F%2Fsemtag.example.org%2Ftag%2Fbiro",
       "count": 3,
-      "label": "biro"
+      "label": {
+        "none": "biro"
+        }
     }
   ]
 }
@@ -771,7 +776,7 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 [prezi-layer]: {{ site.url }}{{ site.baseurl }}/api/presentation/{{ site.presentation_api.stable.major }}.{{ site.presentation_api.stable.minor }}/#layer
 [ignored-parameters]: #ignored-parameters
 [webanno]: https://www.w3.org/TR/annotation-model/ "Web Annotation"
-
+[org-w3c-webanno-TextQuoteSelector]: https://www.w3.org/TR/annotation-model/#text-quote-selector "Web Annotation Model - Text Quote Selector"
 [icon-req]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/required.png "Required"
 [icon-rec]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/recommended.png "Recommended"
 [icon-opt]: {{ site.url }}{{ site.baseurl }}/img/metadata-api/optional.png "Optional"
