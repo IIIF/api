@@ -80,7 +80,7 @@ dirs = os.listdir(fixturedir)
 dirs.remove('18')
 
 # Remove 24,25,29,31,36 as embedded @contexts will disappear
-# This would be fixed in 3.0 by https://github.com/IIIF/iiif.io/issues/1121
+# This would be fixed in 3.0 by https://github.com/IIIF/api/issues/1121
 dirs.remove('24')
 dirs.remove('25')
 dirs.remove('29')

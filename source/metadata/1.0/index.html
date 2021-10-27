@@ -711,13 +711,13 @@ This API has been replaced by the <a href="{{ site.api_url | absolute_url }}/pre
             <p>
               Any of the metadata fields may be repeated. In JSON this is done by giving a list, rather than a single string. Language
               may also be associated with descriptive metadata strings using the following pattern of value plus the
-              <a href="http://tools.ietf.org/html/rfc5646" target="_blank">RFC 5646</a> code, instead of a plain string:
+              <a href="https://datatracker.ietf.org/doc/html/rfc5646" target="_blank">RFC 5646</a> code, instead of a plain string:
             </p>
             <p class="code-block">
               {"@value":"Information", "@language":"en"}
             </p>
             <p>
-              Note that <a href="http://tools.ietf.org/html/rfc5646" target="_blank">RFC 5646</a> allows the script of the text to
+              Note that <a href="https://datatracker.ietf.org/doc/html/rfc5646" target="_blank">RFC 5646</a> allows the script of the text to
               be included after a hyphen, such as "ar-latn", and clients should be
               aware of this possibility. This allows for full internationalization of the user interface components described in the
               response, as the metadata labels as well as values may be translated in this manner; examples are given below.

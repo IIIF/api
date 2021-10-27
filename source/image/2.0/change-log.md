@@ -146,7 +146,7 @@ A recommendation was made to allow compression to be specified in the image URL 
 [kdu-usage]: https://kakadusoftware.com/wp-content/uploads/Usage_Examples.txt "Usage Examples for the Demonstration Applications Supplied with Kakadu V7.4"
 [pillow]: http://pillow.readthedocs.org/en/latest/handbook/image-file-formats.html#image-file-formats "Pillow: Image file formats"
 [other-changes]: #other-changes "Image API 2.0 Other Changes"
-[rfc-2119]: http://tools.ietf.org/html/rfc2119 "Key words for use in RFCs to Indicate Requirement Levels"
+[rfc-2119]: https://datatracker.ietf.org/doc/html/rfc2119 "Key words for use in RFCs to Indicate Requirement Levels"
 [semver]: http://semver.org/ "Semantic Versioning Specification"
 [versioning]: {{ site.api_url | absolute_url }}/image/2.0/#b-versioning "Image API Appendix B: Versioning"
 [prezi-api]: {{ site.api_url | absolute_url }}/presentation/2.0/

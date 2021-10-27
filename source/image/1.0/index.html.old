@@ -139,7 +139,7 @@ format:
 </div>
 <p>where []
 delimits components which are optional.</p>
-<p>The URI Template (<a href="http://tools.ietf.org/html/rfc6750">RFC6750</a>)
+<p>The URI Template (<a href="https://datatracker.ietf.org/doc/html/rfc6750">RFC6750</a>)
 form is:
 </p>
 <div class="code-block" style="margin-left: 40px;">http://{server}{/prefix}/{identifier}/{region}/{size}/{rotation}/{quality}{.format}
@@ -211,7 +211,7 @@ following format:
 ]
 delimits the optional prefix component, "info" is a literal string, and
 ext is one of "json" or "xml".</p>
-<p>The URI Template (<a href="http://tools.ietf.org/html/rfc6750">RFC6750</a>)
+<p>The URI Template (<a href="https://datatracker.ietf.org/doc/html/rfc6750">RFC6750</a>)
 form is:
 </p>
 <div class="code-block" style="margin-left: 40px;">http://{server}{/prefix}/{identifier}/info.{ext}
@@ -887,7 +887,7 @@ Levels</a></h2>
 SHOULD specify
 on all responses the extent to which the API is supported. This is
 done by including an HTTP Link header
-(<a href="http://tools.ietf.org/html/rfc5988">RFC5988</a>)
+(<a href="https://datatracker.ietf.org/doc/html/rfc5988">RFC5988</a>)
 entry pointing to the
 description of the highest level of conformance of which ALL of the
 requirements are met. The &ldquo;rel&rdquo; type to be used is
@@ -1023,7 +1023,7 @@ use cases that
 enable the
 saving of the image, it is RECOMMENDED to use the HTTP
 Content-Disposition header (<a
- href="http://tools.ietf.org/html/rfc6266">RFC6266</a>)
+ href="https://datatracker.ietf.org/doc/html/rfc6266">RFC6266</a>)
 to provide a convenient filename
 that distinguishes the image, based on the identifier and parameters
 provided.</li>

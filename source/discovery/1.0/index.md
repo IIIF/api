@@ -50,12 +50,6 @@ __Previous Version:__ [0.9.2][discovery09]
 
 ----
 
-## Table of Contents
-{:.no_toc}
-
-* Table of Discontent (will be replaced by macro)
-{:toc}
-
 ## 1. Introduction
 {: #introduction}
 

@@ -85,7 +85,7 @@ http[s]://server/[prefix/]identifier/region/size/rotation/quality[.format]
 
 where \[\] delimits components which are optional.
 
-The URI Template ([RFC6750](http://tools.ietf.org/html/rfc6750)) form
+The URI Template ([RFC6750](https://datatracker.ietf.org/doc/html/rfc6750)) form
 is:
 
 {% include api/code_header.html %}
@@ -125,7 +125,7 @@ http[s]://server/[prefix/]identifier/info.ext
 where \[ \] delimits the optional prefix component, \"info\" is a
 literal string, and ext is one of \"json\" or \"xml\".
 
-The URI Template ([RFC6750](http://tools.ietf.org/html/rfc6750)) form
+The URI Template ([RFC6750](https://datatracker.ietf.org/doc/html/rfc6750)) form
 is:
 
 ```
@@ -490,7 +490,7 @@ return URI.
 
 A service SHOULD specify on all responses the extent to which the API is
 supported. This is done by including an HTTP Link header
-([RFC5988](http://tools.ietf.org/html/rfc5988)) entry pointing to the
+([RFC5988](https://datatracker.ietf.org/doc/html/rfc5988)) entry pointing to the
 description of the highest level of conformance of which ALL of the
 requirements are met. The "rel" type to be used is "profile", and thus a
 complete header might look like:
@@ -569,7 +569,7 @@ response codes is recommended.
 
 1.  For use cases that enable the saving of the image, it is RECOMMENDED
     to use the HTTP Content-Disposition header
-    ([RFC6266](http://tools.ietf.org/html/rfc6266)) to provide a
+    ([RFC6266](https://datatracker.ietf.org/doc/html/rfc6266)) to provide a
     convenient filename that distinguishes the image, based on the
     identifier and parameters provided.
 2.  This specification makes no assertion about the rights status of

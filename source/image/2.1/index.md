@@ -238,7 +238,7 @@ If the resulting height or width is zero, then the server _SHOULD_ return a 400 
 The image server _MAY_ support scaling above the full size of the extracted region.
 
 __Deprecation Warning__
-The size keyword `full` will be replaced in favor of `max` in version 3.0. Until that time, the `w,` syntax should be considered the [canonical form][canonical-uri-syntax] of request for the `max` size, unless `max` is equivalent to `full`. Feedback is welcome via [iiif-discuss][iiif-discuss] or on the [Github issue](https://github.com/IIIF/iiif.io/issues/678).
+The size keyword `full` will be replaced in favor of `max` in version 3.0. Until that time, the `w,` syntax should be considered the [canonical form][canonical-uri-syntax] of request for the `max` size, unless `max` is equivalent to `full`. Feedback is welcome via [iiif-discuss][iiif-discuss] or on the [Github issue](https://github.com/IIIF/api/issues/678).
 {: .warning #full-dep}
 
 Examples:
@@ -983,11 +983,11 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 [json-ld-org]: http://www.json-ld.org/ "JSON for Linking Data"
 [json-ld-w3c]: http://www.w3.org/TR/json-ld/ "JSON-LD 1.0"
 [mellon]: http://www.mellon.org/ "The Andrew W. Mellon Foundation"
-[rfc-2617]: http://tools.ietf.org/html/rfc2617 "HTTP Authentication: Basic and Digest Access Authentication"
-[rfc-3986]: http://tools.ietf.org/html/rfc3986 "Uniform Resource Identifier (URI): Generic Syntax"
-[rfc-5988]: http://tools.ietf.org/html/rfc5988 "Web Linking"
-[rfc-6266]: http://tools.ietf.org/html/rfc6266 "Use of the Content-Disposition Header Field in the Hypertext Transfer Protocol (HTTP)"
-[rfc-6570]: http://tools.ietf.org/html/rfc6570 "URI Template"
+[rfc-2617]: https://datatracker.ietf.org/doc/html/rfc2617 "HTTP Authentication: Basic and Digest Access Authentication"
+[rfc-3986]: https://datatracker.ietf.org/doc/html/rfc3986 "Uniform Resource Identifier (URI): Generic Syntax"
+[rfc-5988]: https://datatracker.ietf.org/doc/html/rfc5988 "Web Linking"
+[rfc-6266]: https://datatracker.ietf.org/doc/html/rfc6266 "Use of the Content-Disposition Header Field in the Hypertext Transfer Protocol (HTTP)"
+[rfc-6570]: https://datatracker.ietf.org/doc/html/rfc6570 "URI Template"
 [semver]: http://semver.org/spec/v2.0.0.html "Semantic Versioning 2.0.0"
 [iiif-community]: {{  site.root_url }}/community/ "IIIF Community"
 [versioning]: {{ site.api_url | absolute_url }}/annex/notes/semver/ "Versioning of APIs"

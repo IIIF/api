@@ -417,7 +417,7 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 [web-arch]: http://www.w3.org/TR/webarch/ "Architecture of the World Wide Web"
 [json-ld]: http://www.w3.org/TR/json-ld/ "JSON-LD"
 [json-ld-68]: http://www.w3.org/TR/json-ld/#interpreting-json-as-json-ld "Interpreting JSON as JSON-LD"
-[rfc5646]: http://tools.ietf.org/html/rfc5646 "RFC 5646"
+[rfc5646]: https://datatracker.ietf.org/doc/html/rfc5646 "RFC 5646"
 [media-frags]: http://www.w3.org/TR/media-frags/#naming-space "Media Fragments"
 [xpath]: http://en.wikipedia.org/wiki/XPointer "XPath / XPointer"
 [svg]: http://www.w3.org/TR/SVG/ "Scalabe Vector Graphics"
@@ -430,8 +430,8 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 [annex-frames]: /api/annex/notes/jsonld/ "JSON-LD Frames Implementation Notes"
 [iana-uri-schemes]: http://www.iana.org/assignments/uri-schemes/uri-schemes.xhtml "IANA URI Schemes"
 [rdf11-blank-nodes]: http://www.w3.org/TR/rdf11-concepts/#section-blank-nodes "RDF 1.1 Concepts"
-[rfc-4122]: http://tools.ietf.org/html/rfc4122 "URN UUID Scheme"
-[rfc-2119]: http://tools.ietf.org/html/rfc2119
+[rfc-4122]: https://datatracker.ietf.org/doc/html/rfc4122 "URN UUID Scheme"
+[rfc-2119]: https://datatracker.ietf.org/doc/html/rfc2119
 [oa-ext-annex]: /api/annex/openannotation/ "Open Annotation Extensions"
 [auth]: /api/auth/
 
