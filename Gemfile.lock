@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/iiif/iiifc-theme.git
-  revision: 300361d9cb601b08db9dc920c24f2b429e209c58
+  revision: acfdea6f77caf81b41d3ee35109ad85bd640d3c1
   branch: main
   specs:
     iiifc-theme (0.1.0)
