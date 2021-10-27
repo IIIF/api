@@ -1540,7 +1540,7 @@ Many thanks to Matthieu Bonicel, Tom Cramer, Ian Davis, Markus Enders, Renhart G
 [openannomulti]: http://www.openannotation.org/spec/core/multiplicity.html#Choice
 [linked-data]: http://linkeddata.org/ "Linked Data"
 [json-ld-68]: http://www.w3.org/TR/json-ld/#interpreting-json-as-json-ld "Interpreting JSON as JSON-LD"
-[rfc5646]: http://tools.ietf.org/html/rfc5646 "RFC 5646"
+[rfc5646]: https://datatracker.ietf.org/doc/html/rfc5646 "RFC 5646"
 [media-frags]: http://www.w3.org/TR/media-frags/#naming-space "Media Fragments"
 [xpath]: http://en.wikipedia.org/wiki/XPointer "XPath / XPointer"
 [svg]: http://www.w3.org/TR/SVG/ "Scalabe Vector Graphics"
@@ -1553,7 +1553,7 @@ Many thanks to Matthieu Bonicel, Tom Cramer, Ian Davis, Markus Enders, Renhart G
 [annex-frames]: {{ site.api_url | absolute_url }}/annex/notes/jsonld/ "JSON-LD Frames Implementation Notes"
 [iana-uri-schemes]: http://www.iana.org/assignments/uri-schemes/uri-schemes.xhtml "IANA URI Schemes"
 [rdf11-blank-nodes]: http://www.w3.org/TR/rdf11-concepts/#section-blank-nodes "RDF 1.1 Concepts"
-[rfc-4122]: http://tools.ietf.org/html/rfc4122 "URN UUID Scheme"
+[rfc-4122]: https://datatracker.ietf.org/doc/html/rfc4122 "URN UUID Scheme"
 [oa-ext-annex]: {{ site.api_url | absolute_url }}/annex/openannotation/ "Open Annotation Extensions"
 [appendixa]: #a-summary-of-recommended-uri-patterns "Appendix A"
 [appendixb]: #b-summary-of-metadata-requirements "Appendix B"

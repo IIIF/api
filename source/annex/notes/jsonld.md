@@ -110,7 +110,7 @@ pprint.pprint(
 [canvas-frame]: {{ site.api_url | absolute_url }}/presentation/2/canvas_frame.json
 [anno-frame]: {{ site.api_url | absolute_url }}/presentation/2/annotation_frame.json
 [range-frame]: {{ site.api_url | absolute_url }}/presentation/2/range_frame.json
-[service-uri]: http://tools.ietf.org/html/rfc2609
+[service-uri]: https://datatracker.ietf.org/doc/html/rfc2609
 [service-wiki]: https://en.wikipedia.org/wiki/Service_Location_Protocol#Adoption
 [resource-uri]: http://www.iana.org/assignments/uri-schemes/prov/resource
 [context-checker]: {{ site.api_url | absolute_url }}/annex/notes/check_context.py

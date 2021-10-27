@@ -686,7 +686,7 @@ Many thanks to the members of the [IIIF Community][iiif-community] for their con
 [iiif-community]: {{ site.root_url | absolute_url }}/community/ "IIIF Community"
 [versioning]: {{ site.api_url | absolute_url }}/annex/notes/semver/ "Versioning of APIs"
 [mellon]: http://www.mellon.org/ "The Andrew W. Mellon Foundation"
-[rfc-2119]: http://tools.ietf.org/html/rfc2119 "Key words for use in RFCs to Indicate Requirement Levels"
+[rfc-2119]: https://datatracker.ietf.org/doc/html/rfc2119 "Key words for use in RFCs to Indicate Requirement Levels"
 [prezi-api]: {{ site.api_url | absolute_url }}/presentation/
 [image-api]: {{ site.api_url | absolute_url }}/image/
 [ext-services]: {{ site.api_url | absolute_url }}/annex/services/

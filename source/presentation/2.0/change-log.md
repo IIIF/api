@@ -143,7 +143,7 @@ The content or commentary resources linked via annotations to a Canvas may be on
 [other-changes]: #other-changes "Presentation API 2.0 Other Changes"
 [prezi-api]: {{ site.api_url | absolute_url }}/presentation/2.0/ "Presentation API 2.0"
 [prezi-api-10]: {{ site.api_url | absolute_url }}/metadata/1.0/ "Metadata API 1.0"
-[rfc-2119]: http://tools.ietf.org/html/rfc2119 "Key words for use in RFCs to Indicate Requirement Levels"
+[rfc-2119]: https://datatracker.ietf.org/doc/html/rfc2119 "Key words for use in RFCs to Indicate Requirement Levels"
 [semver]: http://semver.org/ "Semantic Versioning Specification"
 [versioning]: {{ site.api_url | absolute_url }}/image/2.0/#b-versioning "Image API Appendix B: Versioning"
 [cool-uris]: http://www.w3.org/Provider/Style/URI.html "Cool URIs"
