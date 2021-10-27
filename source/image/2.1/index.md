@@ -238,7 +238,7 @@ If the resulting height or width is zero, then the server _SHOULD_ return a 400 
 The image server _MAY_ support scaling above the full size of the extracted region.
 
 __Deprecation Warning__
-The size keyword `full` will be replaced in favor of `max` in version 3.0. Until that time, the `w,` syntax should be considered the [canonical form][canonical-uri-syntax] of request for the `max` size, unless `max` is equivalent to `full`. Feedback is welcome via [iiif-discuss][iiif-discuss] or on the [Github issue](https://github.com/IIIF/iiif.io/issues/678).
+The size keyword `full` will be replaced in favor of `max` in version 3.0. Until that time, the `w,` syntax should be considered the [canonical form][canonical-uri-syntax] of request for the `max` size, unless `max` is equivalent to `full`. Feedback is welcome via [iiif-discuss][iiif-discuss] or on the [Github issue](https://github.com/IIIF/api/issues/678).
 {: .warning #full-dep}
 
 Examples:
