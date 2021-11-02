@@ -38,10 +38,10 @@ auth:
     minor: 0
     patch: 0
 search:
-  label: Search API
+  label: Content Search API
   description: Access high-quality images, examine them closely, and share your work with collaborators to aid research and presentation.
   image: assets/images/icons/search-group@2x.webp
-  alt_text: Search API icon
+  alt_text: Content Search API icon
   draft:
     major: 1
     minor: 0
