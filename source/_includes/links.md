@@ -13,6 +13,7 @@
 [auth1-token-service]: {{ site.url }}{{ site.baseurl }}/api/auth/1.0/#access-token-service "IIIF Authentication Access Token Service"
 [auth1]: {{ site.url }}{{ site.baseurl }}/api/auth/1.0/ "IIIF Authentication API 1.0"
 [auth10]: {{ site.url }}{{ site.baseurl }}/api/auth/1.0/ "IIIF Authentication API 1.0"
+[btoa-unicode-problem]: https://developer.mozilla.org/en-US/docs/Glossary/Base64#the_unicode_problem "The Unicode Problem"
 [contentstate09]: {{ site.url }}{{ site.baseurl }}/api/content-state/0.9/
 [contentstate-http]: {{ site.url }}{{ site.baseurl }}/api/content-state/0.9/#6-http-requests-and-responses "HTTP Request and Responses"
 [contentstate-initialization]: {{ site.url }}{{ site.baseurl }}/api/content-state/0.9/#initialization "Initialization mechanisms (protocol)"
@@ -149,8 +150,8 @@
 [notes-versioning]: {{ site.url }}{{ site.baseurl }}/api/annex/notes/semver/ "Versioning of APIs"
 [org-bcp-47]: https://tools.ietf.org/html/bcp47 "Tags for Identifying Languages"
 [org-cc-licenses]: https://creativecommons.org/licenses/ "Create Commons Licenses"
-[org-ecma-encodeuri]: https://tc39.es/ecma262/#sec-encodeuri-uri "encodeURI"
-[org-ecma-decodeuri]: https://tc39.es/ecma262/#sec-decodeuri-encodeduri "decodeURI"
+[org-ecma-encodeuricomponent]: https://tc39.es/ecma262/#sec-encodeuricomponent-uricomponent "encodeURIComponent"
+[org-ecma-decodeuricomponent]: https://tc39.es/ecma262/#sec-decodeuricomponent-encodeduricomponent "decodeURIComponent"
 [org-iana-uri-schemes]: http://www.iana.org/assignments/uri-schemes/uri-schemes.xhtml "IANA URI Schemes"
 [org-json-ld]: http://www.json-ld.org/ "JSON for Linking Data"
 [org-linked-data]: http://linkeddata.org/ "Linked Data"

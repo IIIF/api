@@ -79,7 +79,7 @@ The intended audience of this document is developers of applications that implem
 
 #### 1.1.1. Relationship with Change Discovery API
 
-The resources made available via the [IIIF Presentation API][prezi-api] are useful only if they can be found. While the [Change Discovery API][discovery-api] is for implementing systems that allow these resources to be found, the Content State API is for opening the found resource in a compatible environment, such as a viewer, annotation tool or other IIIF-compatible software.
+The resources made available via the [IIIF Presentation API][prezi-api] are useful only if they can be found. While the [Change Discovery API][discovery-api] is for implementing systems that allow these resources to be found, the Content State API is used to open the found resource in a compatible environment, such as a viewer, annotation tool or other IIIF-compatible software. However, the Content State API has general  applications beyond the passing of search results to software. 
 
 
 ### 1.2. Terminology
@@ -89,7 +89,7 @@ The specification uses the following terms:
 
 * __HTTP(S)__: The HTTP or HTTPS URI scheme and internet protocol.
 
-* __array__, __JSON object__, __number__, and __string__ in this document are to be interpreted as defined by the [Javascript Object Notation (JSON)][org-rfc-8259] specification.
+* __array__, __JSON object__, __number__, and __string__ in this document are to be interpreted as defined by the [JavaScript Object Notation (JSON)][org-rfc-8259] specification.
 
 * __Annotation__ is to be interpreted as defined in the [W3C Web Annotation Data Model][org-w3c-webanno] specification.
 
@@ -211,150 +211,6 @@ This description cannot be conveyed by just a Canvas URI or a Manifest URI; it n
 
 The requirement to dereference the URI before being able to process the content state might also have usability or performance implications around network latency. For example, if a client is processing a lot of content state Annotations, or the environment is untrusted and dereferencing unrecognized URIs to determine what they are might introduce the possibility of malicious URIs being constructed to adversely affect either the client or the publisher of the URI, then the other forms are likely to be preferred.
 
-### 2.3. Encoding Requirements
-
-There are many ways in which the content state data shown in the previous sections could be exchanged between IIIF-compatible systems. For interoperability, agreeing on the model is not enough, there are also encoding requirements for the format such that it is safe to be passed between environments. This section defines the requirements for safely encoding content states, and section 3 defines the methods for passing them between implementations.
-
-#### 2.3.1. Content State Encoding
-
-A content state will contain characters from JSON syntax, and may contain strings from any language. The identifiers of IIIF and other resources within the content state _MAY_ be Internationalized Resource Identifiers (IRIs), as defined in [RFC 3987][org-rfc-3987]. For these reasons the content state _MUST_ be _encoded_ using an encoding that:
-
-* Is simple to implement, for both decoding and encoding, in a web browser and on the server
-* Will safely encode any UTF-16 string from JavaScript
-* Is impervious to _double encoding_ - that is, once encoded, any further likely encodings of any request or response parts will not change the already-encoded content state.
-
-For these reasons, this specification defines a two-step encoding that uses both the [encodeURI][org-ecma-encodeuri] function available in web browsers, followed by [Base 64 Encoding with URL and Filename Safe Alphabet][org-rfc-4648-5] ("base64url") encoding, with padding characters removed. The initial encodeURI step allows any UTF-16 string in JavaScript to then be safely encoded to base64url in a web browser. The final step of removing padding removes the "=" character which might be subject to percent-encoding as part of a URL.
-
-**Note that "base64url" is not the same encoding as "base64".**
-
-The process to encode a content state is:
-
-* encode to a UTF-8 string described by [encodeURI][org-ecma-encodeuri]
-* encode the resulting UTF-8 string as [base64url][org-rfc-4648-5]
-* remove any "=" padding characters from the end
-
-Conversely to decode a content state:
-
-* restore any removed "=" padding characters to the end of the string to make it a multiple of 4 characters long.
-* decode the resulting string from base64url to a UTF-8 string
-* decode the resulting UTF-8 string as described by [decodeURI][org-ecma-decodeuri]
-
-Code samples for these operations are given in the next section.
-
-Any content state that is in JSON-LD form, rather than a simple URI string, _MUST_ be encoded in this way when declared inline in an HTML document or passed as an HTTP request parameter (e.g., GET or POST), and a client _MUST_ accept it in this form.
-
-Simple URI forms _MAY_ be either plain strings, URI-encoded plain strings, or content-state encoded strings as above, and a client _MUST_ accept these forms and distinguish between them.
-
-When published as inline, encoded JSON-LD in the full form given in 2.2, the content state Annotation _MAY_ omit the `id` and `@context` properties.
-
-When published on a server for clients to fetch over HTTP, in the same way a client would fetch a Manifest or Collection, content states _MUST_ be valid JSON-LD documents conforming to the [IIIF Presentation API][prezi-api] and served as described in [Section 6][contentstate-http] below. They _SHOULD NOT_ be encoded, but _MAY_ have other encodings appropriate for JSON content, such as `Content-Encoding: gzip` to reduce the response size.
-
-
-#### 2.3.2. Examples of Content State Encoding
-
-```javascript
-
-// JavaScript
-
-function encodeContentState(plainContentState) {
-    let uriEncoded = encodeURI(plainContentState);  // using built in function
-    let base64 = btoa(uriEncoded);                  // using built in function
-    let base64url = base64.replace(/\+/g, "-").replace(/\//g, "_");
-    let base64urlNoPadding = base64url.replace(/=/g, "");
-    return base64urlNoPadding;
-}
-
-
-function decodeContentState(encodedContentState) {
-    let base64url = restorePadding(encodedContentState);
-    let base64 = base64url.replace(/-/g, '+').replace(/_/g, '/');
-    let base64Decoded = atob(base64);               // using built in function
-    let uriDecoded = decodeURI(base64Decoded);      // using built in function
-    return uriDecoded;
-}
-
-
-function restorePadding(s) {
-    // string length must be a multiple of 4
-    let pad = s.length % 4;
-    if (pad) {
-        if (pad === 1) {
-            throw new Error('InvalidLengthError: Input base64url string is the wrong length to determine padding');
-        }
-        s += new Array(4 - pad).join('=');
-    }
-    return s;
-}
-```
-
-```python
-
-# Python
-
-import base64
-import urllib
-
-def encode_content_state(plain_content_state):
-    uri_encoded = urllib.parse.quote(plain_content_state, safe=',/?:@&=+$#')  # equivalent of encodeURI
-    utf8_encoded = uri_encoded.encode("UTF-8")
-    base64url = base64.urlsafe_b64encode(utf8_encoded)
-    utf8_decoded = base64url.decode("UTF-8")
-    base64url_no_padding = utf8_decoded.replace("=", "")
-    return base64url_no_padding
-
-
-def decode_content_state(encoded_content_state):
-    padded_content_state = restore_padding(encoded_content_state)
-    base64url_decoded = base64.urlsafe_b64decode(padded_content_state)
-    utf8_decoded = base64url_decoded.decode("UTF-8")
-    uri_decoded = urllib.parse.unquote(utf8_decoded)
-    return uri_decoded
-
-
-def restore_padding(s):
-    # string length must be a multiple of 4
-    pad = len(s) % 4
-    padding = ""
-    if pad:
-        if pad == 1:
-            raise Exception("InvalidLengthError: Input base64url string is the wrong length to determine padding")
-        padding = "=" * (4 - pad)
-    return s + padding
-
-```
-
-Given the following content state annotation:
-
-```json
-{
-  "id": "https://example.org/object1/canvas7#xywh=1000,2000,1000,2000",
-  "type": "Canvas",
-  "partOf": [{
-    "id": "https://example.org/object1/manifest",
-    "type": "Manifest"
-  }]
-}
-```
-
-The JSON can be condensed to remove unnecessary whitespace:
-
-
-```
-{"id":"https://example.org/object1/canvas7#xywh=1000,2000,1000,2000","type":"Canvas","partOf":[{"id":"https://example.org/object1/manifest","type":"Manifest"}]}
-```
-
-The condensed form is then encoded (this example in Python):
-
-```python
->>> encode_content_state(condensed)
-
-'JTdCJTIyaWQlMjI6JTIyaHR0cHM6Ly9leGFtcGxlLm9yZy9vYmplY3QxL2NhbnZhczcjeHl3aD0xMDAwLDIwMDAsMTAwMCwyMDAwJTIyLCUyMnR5cGUlMjI6JTIyQ2FudmFzJTIyLCUyMnBhcnRPZiUyMjolNUIlN0IlMjJpZCUyMjolMjJodHRwczovL2V4YW1wbGUub3JnL29iamVjdDEvbWFuaWZlc3QlMjIsJTIydHlwZSUyMjolMjJNYW5pZmVzdCUyMiU3RCU1RCU3RA'
-```
-
-The string "JTdC..." is the now URI-safe, encoded form of the content state, suitable for passing to and from web applications.
-
-Not all use cases for providing a content state to a client require encoding, because not all of them are susceptible to HTTP transmission issues. For example, a user interface could allow the user to paste, or even type, content state JSON-LD directly. Examples are given in section 3. In these scenarios, the client _SHOULD_ accept unencoded JSON, too.
-
 
 ## 3. Protocols
 {: #initialization}
@@ -384,11 +240,13 @@ If the intention is that the linked-to client loads an entire IIIF resource with
 {% endraw %}
 ```
 
-In this case the client at `https://example.org/viewer` would load the resource provided, determine that it is a Manifest (rather than, say, a Collection), and process accordingly.
+In this case the client at `https://example.org/viewer` would load the resource `http://dams.llgc.org.uk/iiif/2.0/4389767/manifest.json` provided, determine that it is a Manifest (rather than, say, a Collection), and process accordingly.
 
-When the intention is to initialize the viewer at a particular part of the resource, more options are available.
+When the intention is to initialize the viewer at a particular part of the resource, the client provides more than just a URI; it must provide either the full annotation as in 2.2.1., or, preferably (for brevity) the body of the annotation, as in 2.2.3.
 
-In the following examples, the same Annotation is used each time. As JSON:
+In both of these scenarios, the GET request parameter _MUST_ be content-state-encoded as described in Section 6 below. This is required to avoid potential corruption of the content state, as explained in Section 6.
+
+In the following examples, the same Annotation is used each time. As JSON-LD this annotation is:
 
 ```json
 {
@@ -409,19 +267,20 @@ In the following examples, the same Annotation is used each time. As JSON:
 
 An example of this usage would be a link from search results to a particular page of a digitized book, or a stored bookmark of a particular page (i.e., Canvas).
 
-Without the required encoding, the (invalid) link to the viewer would look like this:
+Without the required content-state-encoding, the (invalid) link to the viewer would look like this:
 
 ```html
 {% raw %}
+<!-- INVALID, unencoded form -->
 <a href='https://example.org/viewer?iiif-content={"type":"Annotation","motivation":"contentState","target":{"id":"http://dams.llgc.org.uk/iiif/2.0/4389767/canvas/4389772.json","type":"Canvas","partOf":[{"id":"http://dams.llgc.org.uk/iiif/2.0/4389767/manifest.json","type":"Manifest"}]}}'>INVALID, unencoded link to Viewer</a>
 {% endraw %}
 ```
 
-However, as JSON-LD, this _MUST_ be encoded as described in section 2.3:
+However, as JSON-LD, this _MUST_ be content-state-encoded as described in section 2.3:
 
 ```html
 {% raw %}
-<a href="https://example.org/viewer?iiif-content=JTdCJTIydHlwZSUyMjolMjJBbm5vdGF0aW9uJTIyLCUyMm1vdGl2YXRpb24lMjI6JTIyY29udGVudFN0YXRlJTIyLCUyMnRhcmdldCUyMjolN0IlMjJpZCUyMjolMjJodHRwOi8vZGFtcy5sbGdjLm9yZy51ay9paWlmLzIuMC80Mzg5NzY3L2NhbnZhcy80Mzg5NzcyLmpzb24lMjIsJTIydHlwZSUyMjolMjJDYW52YXMlMjIsJTIycGFydE9mJTIyOiU1QiU3QiUyMmlkJTIyOiUyMmh0dHA6Ly9kYW1zLmxsZ2Mub3JnLnVrL2lpaWYvMi4wLzQzODk3NjcvbWFuaWZlc3QuanNvbiUyMiwlMjJ0eXBlJTIyOiUyMk1hbmlmZXN0JTIyJTdEJTVEJTdEJTdE">Link to Viewer</a>
+<a href="https://example.org/viewer?iiif-content=JTdCJTIydHlwZSUyMiUzQSUyMkFubm90YXRpb24lMjIlMkMlMjJtb3RpdmF0aW9uJTIyJTNBJTIyY29udGVudFN0YXRlJTIyJTJDJTIydGFyZ2V0JTIyJTNBJTdCJTIyaWQlMjIlM0ElMjJodHRwJTNBJTJGJTJGZGFtcy5sbGdjLm9yZy51ayUyRmlpaWYlMkYyLjAlMkY0Mzg5NzY3JTJGY2FudmFzJTJGNDM4OTc3Mi5qc29uJTIyJTJDJTIydHlwZSUyMiUzQSUyMkNhbnZhcyUyMiUyQyUyMnBhcnRPZiUyMiUzQSU1QiU3QiUyMmlkJTIyJTNBJTIyaHR0cCUzQSUyRiUyRmRhbXMubGxnYy5vcmcudWslMkZpaWlmJTJGMi4wJTJGNDM4OTc2NyUyRm1hbmlmZXN0Lmpzb24lMjIlMkMlMjJ0eXBlJTIyJTNBJTIyTWFuaWZlc3QlMjIlN0QlNUQlN0QlN0Q">Link to Viewer</a>
 {% endraw %}
 ```
 
@@ -440,19 +299,20 @@ The content state may be passed as just the `target` property of an implied Anno
 }
 ```
 
-This results in a more compact form, unencoded, this would be:
+This results in a more compact form, unencoded (and invalid), this would be:
 
 ```html
 {% raw %}
+<!-- INVALID, unencoded form -->
 <a href='https://example.org/viewer?iiif-content={"id":"http://dams.llgc.org.uk/iiif/2.0/4389767/canvas/4389772.json","type":"Canvas","partOf":[{"id":"http://dams.llgc.org.uk/iiif/2.0/4389767/manifest.json","type":"Manifest"}]}'>Link to Viewer</a>
 {% endraw %}
 ```
 
-However, as JSON-LD again, this _MUST_ be encoded as in section 2.3:
+However, as JSON-LD again, this _MUST_ be content-state-encoded as in section 6 below:
 
 ```html
 {% raw %}
-<a href="https://example.org/viewer?iiif-content=aHR0cHM6Ly9leGFtcGxlLm9yZy92aWV3ZXI_aWlpZi1jb250ZW50PSU3QiUyMmlkJTIyOiUyMmh0dHA6Ly9kYW1zLmxsZ2Mub3JnLnVrL2lpaWYvMi4wLzQzODk3NjcvY2FudmFzLzQzODk3NzIuanNvbiUyMiwlMjJ0eXBlJTIyOiUyMkNhbnZhcyUyMiwlMjJwYXJ0T2YlMjI6JTVCJTdCJTIyaWQlMjI6JTIyaHR0cDovL2RhbXMubGxnYy5vcmcudWsvaWlpZi8yLjAvNDM4OTc2Ny9tYW5pZmVzdC5qc29uJTIyLCUyMnR5cGUlMjI6JTIyTWFuaWZlc3QlMjIlN0QlNUQlN0Q">Link to Viewer</a>
+<a href="https://example.org/viewer?iiif-content=JTdCJTIyaWQlMjIlM0ElMjJodHRwJTNBJTJGJTJGZGFtcy5sbGdjLm9yZy51ayUyRmlpaWYlMkYyLjAlMkY0Mzg5NzY3JTJGY2FudmFzJTJGNDM4OTc3Mi5qc29uJTIyJTJDJTIydHlwZSUyMiUzQSUyMkNhbnZhcyUyMiUyQyUyMnBhcnRPZiUyMiUzQSU1QiU3QiUyMmlkJTIyJTNBJTIyaHR0cCUzQSUyRiUyRmRhbXMubGxnYy5vcmcudWslMkZpaWlmJTJGMi4wJTJGNDM4OTc2NyUyRm1hbmlmZXN0Lmpzb24lMjIlMkMlMjJ0eXBlJTIyJTNBJTIyTWFuaWZlc3QlMjIlN0QlNUQlN0Q">Link to Viewer</a>
 {% endraw %}
 ```
 
@@ -468,15 +328,32 @@ This is a variant of the above, with the parameter value being a URI rather than
 {: #initialization-mechanisms-post}
 
 
-The same data structure, in the same formats, may instead be passed to a server in an HTTP POST. This is suited to server-side web applications, such as a web page rendering citations or a view initialized on the server. It is not suitable for initialising a standalone JavaScript application, as the POST data is typically unavailable.
+The same data structure, in the same formats, may instead be passed to a server in an HTTP POST, for example by a JavaScript client. This is also suited to server-side web applications, such as a web page rendering citations or a view initialized on the server. It is not suitable for initialising a standalone JavaScript application, as the POST data is typically unavailable.
 
-The data _SHOULD_ be sent with the `Content-Type` header value `application/x-www-form-urlencoded`, and _MUST_ be sent using the parameter name `iiif-content`. This allows content states to be submitted from simple HTML forms (for example, pasting a citation). Curl uses form-urlencoded by default for POST:
+The data _SHOULD_ be sent with the `Content-Type` header value `application/json`, and the body _MUST NOT_ be content-state-encoded. 
 
+```javascript
+
+async function postContentState(url, contentState) {
+  // Default options are marked with *
+  const response = await fetch(url, {
+    method: 'POST',
+    mode: 'cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(contentState) // body data type must match "Content-Type" header
+  });
+  return response.json(); // parses JSON response into native JavaScript objects
+}
+
+let target = 'https://example.com/bookmarking-service';
+let myBookmark = captureContentState(); // implementation not specified!
+
+postContentState(target, myBookmark)
+  .then(reply => {
+    console.log(reply); 
+  });
 ```
-curl -d 'iiif-content=aHR0cHM6Ly9leGFtcGxlLm9yZy92aWV3ZXI_aWlpZi1jb250ZW50PSU3QiUyMmlkJTIyOiUyMmh0dHA6Ly9kYW1zLmxsZ2Mub3JnLnVrL2lpaWYvMi4wLzQzODk3NjcvY2FudmFzLzQzODk3NzIuanNvbiUyMiwlMjJ0eXBlJTIyOiUyMkNhbnZhcyUyMiwlMjJwYXJ0T2YlMjI6JTVCJTdCJTIyaWQlMjI6JTIyaHR0cDovL2RhbXMubGxnYy5vcmcudWsvaWlpZi8yLjAvNDM4OTc2Ny9tYW5pZmVzdC5qc29uJTIyLCUyMnR5cGUlMjI6JTIyTWFuaWZlc3QlMjIlN0QlNUQlN0Q' -X POST https://example.org/citation-renderer
-```
-
-In this example, the server at `https://example.org/citation-renderer` should expect to process the content state in the same forms and variants as above.
+In this example, the server at `https://example.com/bookmarking-service` should expect to process the _unencoded_ content state in the same forms and variants as above.
 
 
 ### 3.3. Accepting the Content State as a Paste Operation
@@ -494,7 +371,7 @@ The client allows the content state URI or data to be pasted into part of its UI
 </script>
 ```
 
-In that scenario the user can paste the content state directly into the application. If this scenario is supported, the client _SHOULD_ accept unencoded JSON as well as content state encoded JSON, and _SHOULD_ accept resource URIs directly, such as the URI of a Manifest.
+In that scenario the user can paste the content state directly into the application. If this scenario is supported, the client _SHOULD_ accept resource URIs directly, such as the URI of a Manifest. The content state _MUST NOT_ be content-state-encoded.
 
 Refer to [Section 3.7][contentstate-export] below for methods of exporting data, including the _Copy to Clipboard_ pattern, a natural pairing with a paste operation, from one viewer to another.
 
@@ -549,7 +426,7 @@ And another system provides an element capable of receiving a `drop` event:
 
 This technique can also be used within the same client, to drag a content state from one part to another.
 
-The first parameter to `setData` and `getData` is the content type, and for maximum interoperability within the scope of this specification this _MUST_ be "text/plain". Applications can assert multiple additional content types for their own custom behavior, such as dragging from the application to the desktop and saving as a file, but this is outside the scope of the specification. In the above example, the content of the drag and drop operation could be a plain URI, or JSON-LD. If JSON-LD, clients receiving the data (by calling `getData`) _SHOULD_ accept the data in both encoded and unencoded forms.
+The first parameter to `setData` and `getData` is the content type, and for maximum interoperability within the scope of this specification this _MUST_ be `"text/plain"`. Applications can assert multiple additional content types for their own custom behavior, such as dragging from the application to the desktop and saving as a file, but this is outside the scope of the specification. In the above example, the content of the drag and drop operation could be a plain URI, or unencoded JSON-LD.
 
 
 ### 3.5. Upload File
@@ -598,14 +475,14 @@ If a IIIF client can accept a content state via a custom HTML attribute, then it
 <p>Loading a manifest to show a particular Canvas</p>
 <div
     id="iiif-viewer"
-    data-iiif-content="aHR0cHM6Ly9leGFtcGxlLm9yZy92aWV3ZXI_aWlpZi1jb250ZW50PSU3QiUyMmlkJTIyOiUyMmh0dHA6Ly9kYW1zLmxsZ2Mub3JnLnVrL2lpaWYvMi4wLzQzODk3NjcvY2FudmFzLzQzODk3NzIuanNvbiUyMiwlMjJ0eXBlJTIyOiUyMkNhbnZhcyUyMiwlMjJwYXJ0T2YlMjI6JTVCJTdCJTIyaWQlMjI6JTIyaHR0cDovL2RhbXMubGxnYy5vcmcudWsvaWlpZi8yLjAvNDM4OTc2Ny9tYW5pZmVzdC5qc29uJTIyLCUyMnR5cGUlMjI6JTIyTWFuaWZlc3QlMjIlN0QlNUQlN0Q">
+    data-iiif-content='https://example.org/viewer?iiif-content={"id":"http://dams.llgc.org.uk/iiif/2.0/4389767/canvas/4389772.json","type":"Canvas","partOf":[{"id":"http://dams.llgc.org.uk/iiif/2.0/4389767/manifest.json","type":"Manifest"}]}'>
 </div>
 ```
 
 ### 3.7. Exporting Current Content State from Viewer
 {: #export}
 
-There are further ways in which a client can _export_ its current content state, beyond populating a drag and drop operation as in example 3.4. While interoperability concerns require this specification to describe the ways in which a client can _accept_ state, the ways in which a content state might have arrived on a user's clipboard are out of scope here, and are covered in the [Cookbook][annex-cookbook]. These include:
+There are further ways in which a client can _export_ its current content state, beyond populating a drag and drop operation as in example 3.4. While interoperability concerns require this specification to describe the ways in which a client can _accept_ state, the ways in which a content state might have arrived on a user's clipboard are out of scope here, and are covered in the [IIIF Cookbook][annex-cookbook]. These include:
 
 * Copy to Clipboard
 * Download File
@@ -626,7 +503,7 @@ If the content state is JSON-LD the client _MUST_ inspect the `type` property to
 
 The following examples demonstrate the use of the existing IIIF Presentation API and W3C Web Annotation Data Model to describe parts of resources. Any IIIF resource that can be expressed in the Presentation model can be used in a content state. The full form of the Annotation (as if it were available at the URI given in the `id` property) has been used in each case.  Further examples can be found in the [IIIF Cookbook][annex-cookbook].
 
-Publishers should strive to provide the simplest JSON-LD representation, and not assume that any client can handle arbitrarily complex content states.
+Publishers _SHOULD_ provide the simplest JSON-LD representation, and not assume that any client can handle arbitrarily complex content states.
 
 ### 5.1. A Region of a Canvas in a Manifest
 
@@ -725,6 +602,7 @@ Firstly, in non-valid, unencoded form to show the annotation:
 <h2>Results for "cats"</h2>
 <ol>
   <li>
+    <!-- INVALID, unencoded form -->
     <h3><a href='viewer.html?iiif-content={"id":"https://example.org/alice/canvas77#xywh=1000,2000,1000,2000","type":"Canvas","partOf":[{"id":"https://example.org/alice/manifest","type":"Manifest"}]}'>Alice in Wonderland</a></h3>
     <p>...she has often seen a <b>cat</b> without a grin but never a grin without a <b>cat</b></p>
   </li>
@@ -732,30 +610,177 @@ Firstly, in non-valid, unencoded form to show the annotation:
 </ol>
 ```
 
-...and then in encoded form:
+...and then in valid, content-state-encoded form:
 
 ```html
 <h2>Results for "cats"</h2>
 <ol>
   <li>
-    <h3><a href="viewer.html?iiif-content=JTdCJTIyaWQlMjI6JTIyaHR0cHM6Ly9leGFtcGxlLm9yZy9hbGljZS9jYW52YXM3NyN4eXdoPTEwMDAsMjAwMCwxMDAwLDIwMDAlMjIsJTIydHlwZSUyMjolMjJDYW52YXMlMjIsJTIycGFydE9mJTIyOiU1QiU3QiUyMmlkJTIyOiUyMmh0dHBzOi8vZXhhbXBsZS5vcmcvYWxpY2UvbWFuaWZlc3QlMjIsJTIydHlwZSUyMjolMjJNYW5pZmVzdCUyMiU3RCU1RCU3RA">Alice in Wonderland</a></h3>
+    <h3><a href="viewer.html?iiif-content=JTdCJTIyaWQlMjIlM0ElMjJodHRwcyUzQSUyRiUyRmV4YW1wbGUub3JnJTJGYWxpY2UlMkZjYW52YXM3NyUyM3h5d2glM0QxMDAwJTJDMjAwMCUyQzEwMDAlMkMyMDAwJTIyJTJDJTIydHlwZSUyMiUzQSUyMkNhbnZhcyUyMiUyQyUyMnBhcnRPZiUyMiUzQSU1QiU3QiUyMmlkJTIyJTNBJTIyaHR0cHMlM0ElMkYlMkZleGFtcGxlLm9yZyUyRmFsaWNlJTJGbWFuaWZlc3QlMjIlMkMlMjJ0eXBlJTIyJTNBJTIyTWFuaWZlc3QlMjIlN0QlNUQlN0Q">Alice in Wonderland</a></h3>
     <p>...she has often seen a <b>cat</b> without a grin but never a grin without a <b>cat</b></p>
   </li>
   <!-- ... more results -->
 </ol>
 ```
 
+## 6. Content State Encoding
+
+When a Content State is sent in an HTTP GET operation such as a query string parameter on a link in a search result or even an email, it is vulnerable to corruption - it might get encoded and re-encoded before it arrives at a viewer or other IIIF software. This section defines the requirements for safely encoding content states, to provide the string representation seen in the above examples.
+
+### 6.1. Choice of encoding mechanism
+
+A content state will contain characters from JSON syntax, and may contain strings from any language. The identifiers of IIIF and other resources within the content state _MAY_ be Internationalized Resource Identifiers (IRIs), as defined in [RFC 3987][org-rfc-3987]. For these reasons the content state _MUST_ be _encoded_ using an encoding that:
+
+* Is simple to implement, for both decoding and encoding, in a web browser and on the server
+* Will safely encode any UTF-16 string from JavaScript, avoiding known browser issues such as the ["Unicode Problem"][btoa-unicode-problem]
+* Is impervious to _double encoding_ - that is, once encoded, any further likely encodings of any request or response parts will not change the already-encoded content state.
+
+For these reasons, this specification defines a two-step encoding that uses both the [encodeURIComponent][org-ecma-encodeuricomponent] function available in web browsers, followed by [Base 64 Encoding with URL and Filename Safe Alphabet][org-rfc-4648-5] ("base64url") encoding, with padding characters removed. The initial encodeURIComponent step allows any UTF-16 string in JavaScript to then be safely encoded to base64url in a web browser. The final step of removing padding removes the "=" character which might be subject to further percent-encoding as part of a URL.
+
+This process is described by the term _content-state-encoding_ throughout this specification.
+
+**Note that "base64url" is not the same encoding as "base64".**
+
+The process to encode a content state is:
+
+* encode to a UTF-8 string described by [encodeURIComponent][org-ecma-encodeuricomponent]
+* encode the resulting UTF-8 string as [base64url][org-rfc-4648-5]
+* remove any "=" padding characters from the end
+
+Conversely to decode a content state:
+
+* restore any removed "=" padding characters to the end of the string to make it a multiple of 4 characters long.
+* decode the resulting string from base64url to a UTF-8 string
+* decode the resulting UTF-8 string as described by [decodeURIComponent][org-ecma-decodeuricomponent]
+
+Code samples for these operations are given in the next section.
+
+Any content state that is in JSON-LD form, rather than a simple URI string, _MUST_ be _content-state-encoded_ in this way when passed as a GET parameter on a query string, and a client _MUST_ accept it in this form.
+
+Simple URI forms _MAY_ be either plain strings, URI-encoded plain strings, or content-state-encoded strings as above, and a client _MUST_ accept these forms and distinguish between them.
+
+Any content state passed by mechanisms other than a HTTP GET request parameter _MUST NOT_ be content-state-encoded.
+
+When published as inline, encoded JSON-LD in the full form given in section 2.2. above, the content state Annotation _MAY_ omit the `id` and `@context` properties.
+
+When published on a server for clients to fetch over HTTP, in the same way a client would fetch a Manifest or Collection, content states _MUST_ be valid JSON-LD documents conforming to the [IIIF Presentation API][prezi-api] and served as described in [Section 6][contentstate-http] below. They _MUST NOT_ be content-state-encoded, but _MAY_ have other encodings appropriate for JSON content, such as `Content-Encoding: gzip` to reduce the response size.
 
 
-## 6. HTTP Requests and Responses
+### 6.2. Examples of Content State Encoding
+
+JavaScript and Python examples are given below. Examples for other languages and frameworks can be found in the [IIIF Cookbook][annex-cookbook].
+
+#### 6.2.1. JavaScript
+
+```javascript
+function encodeContentState(plainContentState) {
+    let uriEncoded = encodeURIComponent(plainContentState);  // using built in function
+    let base64 = btoa(uriEncoded);                           // using built in function
+    let base64url = base64.replace(/\+/g, "-").replace(/\//g, "_");
+    let base64urlNoPadding = base64url.replace(/=/g, "");
+    return base64urlNoPadding;
+}
+
+
+function decodeContentState(encodedContentState) {
+    let base64url = restorePadding(encodedContentState);
+    let base64 = base64url.replace(/-/g, '+').replace(/_/g, '/');
+    let base64Decoded = atob(base64);                        // using built in function
+    let uriDecoded = decodeURIComponent(base64Decoded);      // using built in function
+    return uriDecoded;
+}
+
+
+function restorePadding(s) {
+    // string length must be a multiple of 4
+    let pad = s.length % 4;
+    if (pad) {
+        if (pad === 1) {
+            throw new Error('InvalidLengthError: Input base64url string is the wrong length to determine padding');
+        }
+        s += new Array(5 - pad).join('=');
+    }
+    return s;
+}
+```
+
+#### 6.2.2. Python
+
+```python
+import base64
+import urllib
+
+def encode_content_state(plain_content_state):
+    # The safe='' is required below, as the default is '/'
+    # We want to match the behavour of encodeURIComponent and encode '/' as '%2F'
+    uri_encoded = urllib.parse.quote(plain_content_state, safe='')  # equivalent of encodeURIComponent
+    utf8_encoded = uri_encoded.encode("UTF-8")
+    base64url = base64.urlsafe_b64encode(utf8_encoded)
+    utf8_decoded = base64url.decode("UTF-8")
+    base64url_no_padding = utf8_decoded.replace("=", "")
+    return base64url_no_padding
+
+
+def decode_content_state(encoded_content_state):
+    padded_content_state = restore_padding(encoded_content_state)
+    base64url_decoded = base64.urlsafe_b64decode(padded_content_state)
+    utf8_decoded = base64url_decoded.decode("UTF-8")
+    uri_decoded = urllib.parse.unquote(utf8_decoded)
+    return uri_decoded
+
+
+def restore_padding(s):
+    # string length must be a multiple of 4
+    pad = len(s) % 4
+    padding = ""
+    if pad:
+        if pad == 1:
+            raise Exception("InvalidLengthError: Input base64url string is the wrong length to determine padding")
+        padding = "=" * (4 - pad)
+    return s + padding
+
+```
+
+Given the following content state annotation:
+
+```json
+{
+  "id": "https://example.org/object1/canvas7#xywh=1000,2000,1000,2000",
+  "type": "Canvas",
+  "partOf": [{
+    "id": "https://example.org/object1/manifest",
+    "type": "Manifest"
+  }]
+}
+```
+
+The JSON can be optionally condensed to remove unnecessary whitespace:
+
+```
+{"id":"https://example.org/object1/canvas7#xywh=1000,2000,1000,2000","type":"Canvas","partOf":[{"id":"https://example.org/object1/manifest","type":"Manifest"}]}
+```
+
+The condensed form is then encoded (this example in Python):
+
+```python
+>>> encode_content_state(condensed)
+
+'JTdCJTIyaWQlMjIlM0ElMjJodHRwcyUzQSUyRiUyRmV4YW1wbGUub3JnJTJGb2JqZWN0MSUyRmNhbnZhczclMjN4eXdoJTNEMTAwMCUyQzIwMDAlMkMxMDAwJTJDMjAwMCUyMiUyQyUyMnR5cGUlMjIlM0ElMjJDYW52YXMlMjIlMkMlMjJwYXJ0T2YlMjIlM0ElNUIlN0IlMjJpZCUyMiUzQSUyMmh0dHBzJTNBJTJGJTJGZXhhbXBsZS5vcmclMkZvYmplY3QxJTJGbWFuaWZlc3QlMjIlMkMlMjJ0eXBlJTIyJTNBJTIyTWFuaWZlc3QlMjIlN0QlNUQlN0Q'
+```
+
+The string "JTdC..." is the now URI-safe, encoded form of the content state, suitable for passing to and from web applications.
+
+
+
+## 7. HTTP Requests and Responses
 
 This section describes the _RECOMMENDED_ request and response interactions for the API, when served as JSON-LD bodies of HTTP responses. It does not apply to _inline_ content states, which are encoded as described in section 2.3, and transfered by the other mechanisms described above. This section follows the specification given in [Section 6][prezi30-http] of the Presentation API.
 
-###  6.1. Requests
+### 7.1. Requests
 
 An HTTP request for a content state is the same as an HTTP request for a Presentation API resource. Unlike [IIIF Image API][image-api] requests, or other parameterized services, the URIs for Presentation API resources cannot be assumed to follow any particular pattern. A client that fetches URIs for content states and URIs for Presentation API resources (such as Manifests and Collections) by the same mechanism _MUST_ inspect the response to determine whether it is a Presentation API resource, or a content state that references part of a Presentation API resource.
 
-###  6.2. Responses
+### 7.2. Responses
 
 The format for content states as HTTP responses is JSON, as described above. It is good practice for all resources with an HTTP(S) URI to provide their description when the URI is dereferenced. If a resource is [referenced][prezi30-terminology] within a response, rather than being [embedded][prezi30-terminology], then it _MUST_ be able to be dereferenced.
 
