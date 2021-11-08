@@ -17,6 +17,7 @@
 [contentstate09]: {{ site.url }}{{ site.baseurl }}/api/content-state/0.9/
 [contentstate-http]: {{ site.url }}{{ site.baseurl }}/api/content-state/0.9/#6-http-requests-and-responses "HTTP Request and Responses"
 [contentstate-initialization]: {{ site.url }}{{ site.baseurl }}/api/content-state/0.9/#initialization "Initialization mechanisms (protocol)"
+[contentstate-encoding]: {{ site.url }}{{ site.baseurl }}/api/content-state/0.9/#6-content-state-encoding "Content State Section 6"
 [contentstate-export]: {{ site.url }}{{ site.baseurl }}/api/content-state/0.9/#export
 [contentstate03]: {{ site.url }}{{ site.baseurl }}/api/content-state/0.3/ "IIIF Content State API"
 [discovery-api]: {{ site.url }}{{ site.baseurl }}/api/discovery/ "IIIF Change Discovery API"

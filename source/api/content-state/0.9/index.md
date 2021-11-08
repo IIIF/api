@@ -79,7 +79,7 @@ The intended audience of this document is developers of applications that implem
 
 #### 1.1.1. Relationship with Change Discovery API
 
-The resources made available via the [IIIF Presentation API][prezi-api] are useful only if they can be found. While the [Change Discovery API][discovery-api] is for implementing systems that allow these resources to be found, the Content State API is used to open the found resource in a compatible environment, such as a viewer, annotation tool or other IIIF-compatible software. However, the Content State API has general  applications beyond the passing of search results to software. 
+The resources made available via the [IIIF Presentation API][prezi-api] are useful only if they can be found. While the [Change Discovery API][discovery-api] is for implementing systems that allow these resources to be found, the Content State API is used to open the found resource in a compatible environment, such as a viewer, annotation tool or other IIIF-compatible software. The Content State API also has general applications beyond the passing of search results to software. 
 
 
 ### 1.2. Terminology
@@ -240,11 +240,11 @@ If the intention is that the linked-to client loads an entire IIIF resource with
 {% endraw %}
 ```
 
-In this case the client at `https://example.org/viewer` would load the resource `http://dams.llgc.org.uk/iiif/2.0/4389767/manifest.json` provided, determine that it is a Manifest (rather than, say, a Collection), and process accordingly.
+In this case the client at `https://example.org/viewer` would load the resource at `http://dams.llgc.org.uk/iiif/2.0/4389767/manifest.json`, determine that it is a Manifest (rather than, say, a Collection), and process accordingly.
 
 When the intention is to initialize the viewer at a particular part of the resource, the client provides more than just a URI; it must provide either the full annotation as in 2.2.1., or, preferably (for brevity) the body of the annotation, as in 2.2.3.
 
-In both of these scenarios, the GET request parameter _MUST_ be content-state-encoded as described in Section 6 below. This is required to avoid potential corruption of the content state, as explained in Section 6.
+In both of these scenarios, the GET request parameter _MUST_ be content-state-encoded as described in [Section 6][contentstate-encoding] below. This is required to avoid potential corruption of the content state, as explained in [Section 6][contentstate-encoding].
 
 In the following examples, the same Annotation is used each time. As JSON-LD this annotation is:
 
@@ -276,7 +276,7 @@ Without the required content-state-encoding, the (invalid) link to the viewer wo
 {% endraw %}
 ```
 
-However, as JSON-LD, this _MUST_ be content-state-encoded as described in section 2.3:
+However, this JSON-LD content MUST be content-state-encoded as in [Section 6][contentstate-encoding] below:
 
 ```html
 {% raw %}
@@ -308,7 +308,7 @@ This results in a more compact form, unencoded (and invalid), this would be:
 {% endraw %}
 ```
 
-However, as JSON-LD again, this _MUST_ be content-state-encoded as in section 6 below:
+However, this JSON-LD content MUST be content-state-encoded as in [Section 6][contentstate-encoding] below:
 
 ```html
 {% raw %}
