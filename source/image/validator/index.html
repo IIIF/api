@@ -1,0 +1,95 @@
+---
+title: IIIF Image API Validator
+title_override: IIIF Image API Validator
+id: technical-details
+categories: [pages]
+layout: page
+breadcrumbs:
+  - label: APIs & Documentation
+    link: '{{ site.api_url }}/'
+  - label: Image Validator
+    link: '{{ site.api_url }}/image/validator'
+---
+
+<section class="wrapper">
+    <link href="{{ site.api_url | absolute_url }}/image/validator/css/iiif.css" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/cupertino/jquery-ui.css" />
+    <script src="{{ site.api_url | absolute_url }}/image/validator/js/select.js"></script>
+
+    <div id="dialog" title="Test Title"><p></p></div>
+
+    <div>
+        <p>The IIIF Image API validator runs a set of tests against your implementation. </p>
+        <p>You must first download a <a href="download.html">test image</a> then save and import the test image into your repository, to be served through your IIIF Image service.  Once the image is accessible through your IIIF service, you may then run the tests below. Fill out <code>server</code> with the hostname of your server, <code>prefix</code> with everything in the URI path up to the identifier, and your <code>identifier</code> for the test image.
+		</p>
+	</div>
+    <br/>
+	<div>
+		<h3>Technical Note</h3>
+		<p> If you would like to use the validator programmatically, there are two options: </p>
+		<ul>
+			<li><a href="http://github.com/IIIF/image-api/">Download</a> the code from github and run it locally.</li>
+			<li>Use it online with JSON based output, by an HTTP GET endpoints following this pattern:<br/>
+				<br/><code>https://image-validator.iiif.io/<i>test-name</i>?server=<i>server-here</i>&amp;prefix=<i>prefix-here</i>&amp;identifier=<i>identifier-here</i>&amp;version=2.0</code><br/><br/>
+			The list of tests is available at: <a href="https://image-validator.iiif.io/list_tests">https://image-validator.iiif.io/list_tests</a>
+			</li>
+		</ul>
+	</div>
+
+    <h3>Image Validator</h3>
+	<form method="get" action="results/">
+		<div id="val">
+			<div id="inputs" class="section ui-corner-all ui-widget-header">
+				<div class="content ui-corner-all ui-widget-content">
+					<div class="category">
+						<h2>IIIF Server to Validate</h2>
+						<div class="input">
+							<label for="server">Server:</label>
+							<input type="text" id="server" name="server">
+							<ins class="ui-icon ui-icon-help"> </ins>
+						</div>
+						<div class="input">
+							<label for="prefix">Prefix:</label>
+							<input type="text" id="prefix" name="prefix">
+							<ins class="ui-icon ui-icon-help"> </ins>
+						</div>
+						<div class="input">
+							<label for="identifier">Image ID:</label>
+							<input type="text" id="identifier" name="identifier" value="67352ccc-d1b0-11e1-89ae-279075081939">
+							<ins class="ui-icon ui-icon-help"> </ins>
+						</div>
+						<div class="input">
+							<label for="version">Version:</label>
+							<select id="version" name="version">
+								<option value="3.0">Version 3.0</option>
+								<option value="2.0" selected>Version 2.0</option>
+								<option value="1.1">Version 1.1</option>
+								<option value="1.0">Version 1.0</option>
+							</select>
+						</div>
+						<div class="input">
+							<label for="level">Level:</label>
+							<select id="level" name="level">
+								<option value="0">Level 0 - Minimum</option>
+								<option value="1">Level 1 - Recommended</option>
+								<option value="2">Level 2 - Desirable</option>
+								<option value="3">Complete</option>
+								<option value="-1">Custom</option>
+							</select>
+						</div>
+
+					</div>
+					<div class="category">
+						<input type="submit" id="run_tests" value="Run Tests">
+					</div>
+				</div>
+			</div>
+            <br/>
+			<div id="tests" class="section ui-corner-all ui-widget-header">
+				<h2>Tests</h2>
+				<div class="content ui-corner-all ui-widget-content">
+				</div>
+			</div>
+		</div>
+	</form>
+</section>

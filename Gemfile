@@ -1,16 +1,13 @@
 source 'https://rubygems.org'
 
-gem 'jekyll', '> 3.7'
-gem 'kramdown', '> 1.16'
-gem 'jekyll-sitemap', '> 0.10.0'
-gem 'jekyll-redirect-from', '> 0.10.0'
-# gem 'rouge', '2.0.0' # pinned to keep keys a different color.
-gem 'rouge', '2.0.5' # pinned to keep keys a different color. 
-gem 'capistrano', '> 3.4'
-gem 'capistrano-bundler', '> 1.1.4'
-gem 'capistrano-rvm'
+gem 'jekyll', '~> 4.1.1'
 
-group :test do
+# for local development, clone theme + use path loader
+# gem 'iiifc-theme', path: 'iiifc-theme'
+gem 'iiifc-theme', github: 'iiif/iiifc-theme', branch: 'main'
+
+gem 'jekyll-redirect-from'
+
+group :development, :test do
   gem 'rspec'
-  gem 'html-proofer'
 end

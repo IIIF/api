@@ -42,7 +42,7 @@ Images must be PNG.
 
 ## Use of Page vs Site Variables
 
-The _config.yml file defines various site level variables, notably the current versions for the various APIs.  These variables are to be used when linking _between_ APIs, and not in the pages that define the APIs themselves.  For example, when linking from Image to Presentation, Image should use site.presentation_api.latest.major, whereas the Presentation API internally should use page.major.  This will ensure that links always go to the latest version, and that the individual specifications are internally consistent.  If a specification used the site level variable, older versions would incorrectly automatically update themselves, suggesting a version 3 link in a version 2 specification, for example.
+The _config.yml file defines various site level variables, notably the current versions for the various APIs.  These variables are to be used when linking _between_ APIs, and not in the pages that define the APIs themselves.  For example, when linking from Image to Presentation, Image should use site.data.apis.presentation.latest.major, whereas the Presentation API internally should use page.major.  This will ensure that links always go to the latest version, and that the individual specifications are internally consistent.  If a specification used the site level variable, older versions would incorrectly automatically update themselves, suggesting a version 3 link in a version 2 specification, for example.
 
 ## Front Matter
 

@@ -1,0 +1,121 @@
+
+label {
+	margin-right: 5px;
+    margin-left: 5px;
+	font-weight: normal !important;
+}
+
+input[type=text] {
+	margin: 0;
+    width:100%;
+}
+
+ul {
+	padding: 0;
+	margin: 0;
+}
+
+li {
+	list-style: square inside none;
+    margin: 0;
+    padding: 3px;
+}
+
+#header {
+	background-color: #AED0EA;
+	border-bottom: 1px solid #2779AA;
+	color: #FFFFFF;
+	margin: -10px -10px 0 -10px;
+	height: 70px;
+}
+
+#uri {
+	width: 250px;
+}
+
+#uuid {
+	width: 300px;
+}
+
+.ui-corner-all {
+    padding-left: 10px;
+    padding-bottom: 10px;
+}    
+
+.section h2 {
+	font-size: 20px;
+	padding-top: 5px;
+	padding-left: 5px;
+}
+
+.code {
+	font-family: monospace;
+}
+
+#inputs .content {
+	min-height: 45px;
+}
+
+#gen_img, #run_tests {
+	font-size: 16px;
+}
+
+#run_tests {
+	margin-top: 30px;
+    margin-left: 10px;
+}
+
+#inputs .input label {
+	min-width: 90px;
+	text-align: right;
+	display: inline-block;
+}
+
+#inputs ins {
+	display: inline-block;
+    margin-left: -5px;
+    cursor: pointer;
+}
+
+.category {
+	padding: 5px 15px 5px 0;
+}
+
+.input {
+	margin-top: 5px;
+}
+
+
+
+#results .content {
+	min-width: 300px;
+}
+
+#resultsBack {
+	float: left;
+}
+
+#resultDetails {
+	clear: left;
+}
+
+.result {
+	margin: 5px 0;
+	padding: 5px;
+}
+
+.resultLabel {
+	font-weight: bold;
+}
+
+.result span {
+	display: block;
+}
+
+.pass {
+	background-color: #70E070;
+}
+
+.fail {
+	background-color: #F06060;
+}
