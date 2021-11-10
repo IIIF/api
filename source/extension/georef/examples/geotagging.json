@@ -1,0 +1,36 @@
+{
+  "type": "Annotation",
+  "@context": [
+    "http://www.w3.org/ns/anno.jsonld",
+    "http://geojson.org/geojson-ld/geojson-context.jsonld",
+    "http://iiif.io/api/presentation/3/context.json"
+  ],
+  "motivation": "georeferencing",
+  "target": {
+    "type": "Image",
+    "source": "https://iiif.bodleian.ox.ac.uk/iiif/image/a8a29d29-3d14-4ca9-84bc-e14668de7625/full/full/0/default.jpg",
+    "service": [
+      {
+        "@id": "https://iiif.bodleian.ox.ac.uk/iiif/image/a8a29d29-3d14-4ca9-84bc-e14668de7625/",
+        "type": "ImageService2"
+      }
+    ]
+  },
+  "body": {
+    "type": "FeatureCollection",
+    "purpose": "geotagging",
+    "features": [
+      {
+        "type": "Feature",
+        "properties": {},
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            51.6019627,
+            -3.8140584
+          ]
+        }
+      }
+    ]
+  }
+}
