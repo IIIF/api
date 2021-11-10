@@ -79,7 +79,9 @@ Collectively the use cases require a model in which one can characterize the obj
 ##  3. Primary Resource Types
 {: #primary-resource-types}
 
+<div style="float:right;max-width:400px">
 {% include content/inline-image.html image="presentation/2.0/img/objects.png" alt_text="Primary Resource Types" caption="Primary Resource Types" float="right"%}
+</div>
 
 This specification makes use of the following primary resource types:
 

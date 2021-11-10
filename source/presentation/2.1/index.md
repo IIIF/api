@@ -100,8 +100,9 @@ This section provides an overview of the resource types (or classes) that are us
 
 This specification makes use of the following primary resource types:
 
-
+<div style="float:right;max-width:400px">
 {% include content/inline-image.html image="presentation/2.1/img/objects.png" alt_text="Primary Resource Types" caption="Primary Resource Types" float="right"%}
+</div>
 
 
 ##### Manifest
