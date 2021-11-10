@@ -165,7 +165,7 @@ The content state _MAY_ be supplied as JSON-LD, as the value of the `target` pro
 }
 ```
 
-This form is better suited to scenarios where compactness is important, for example a query string parameter, where it will be combined with the encoding described in Section 2.3.
+This form is better suited to scenarios where compactness is important.
 
 #### 2.2.4. Target URI
 
@@ -246,10 +246,12 @@ When the intention is to initialize the viewer at a particular part of the resou
 
 In both of these scenarios, the GET request parameter _MUST_ be content-state-encoded as described in [Section 6][contentstate-encoding] below. This is required to avoid potential corruption of the content state, as explained in [Section 6][contentstate-encoding].
 
-In the following examples, the same Annotation is used each time. As JSON-LD this annotation is:
+In the following examples, the same Annotation is used each time. As the full JSON-LD annotation, this is:
 
 ```json
 {
+  "@context": "http://iiif.io/api/presentation/3/context.json",
+  "id": "https://example.org/content-states/1",
   "type": "Annotation",
   "motivation": ["contentState"],
   "target": {
@@ -272,7 +274,7 @@ Without the required content-state-encoding, the (invalid) link to the viewer wo
 ```html
 {% raw %}
 <!-- INVALID, unencoded form -->
-<a href='https://example.org/viewer?iiif-content={"type":"Annotation","motivation":"contentState","target":{"id":"http://dams.llgc.org.uk/iiif/2.0/4389767/canvas/4389772.json","type":"Canvas","partOf":[{"id":"http://dams.llgc.org.uk/iiif/2.0/4389767/manifest.json","type":"Manifest"}]}}'>INVALID, unencoded link to Viewer</a>
+<a href='https://example.org/viewer?iiif-content={"@context":"http://iiif.io/api/presentation/3/context.json","id": "https://example.org/content-states/1","type":"Annotation","motivation":"contentState","target":{"id":"http://dams.llgc.org.uk/iiif/2.0/4389767/canvas/4389772.json","type":"Canvas","partOf":[{"id":"http://dams.llgc.org.uk/iiif/2.0/4389767/manifest.json","type":"Manifest"}]}}'>INVALID, unencoded link to Viewer</a>
 {% endraw %}
 ```
 
@@ -280,11 +282,11 @@ However, this JSON-LD content MUST be content-state-encoded as in [Section 6][co
 
 ```html
 {% raw %}
-<a href="https://example.org/viewer?iiif-content=JTdCJTIydHlwZSUyMiUzQSUyMkFubm90YXRpb24lMjIlMkMlMjJtb3RpdmF0aW9uJTIyJTNBJTIyY29udGVudFN0YXRlJTIyJTJDJTIydGFyZ2V0JTIyJTNBJTdCJTIyaWQlMjIlM0ElMjJodHRwJTNBJTJGJTJGZGFtcy5sbGdjLm9yZy51ayUyRmlpaWYlMkYyLjAlMkY0Mzg5NzY3JTJGY2FudmFzJTJGNDM4OTc3Mi5qc29uJTIyJTJDJTIydHlwZSUyMiUzQSUyMkNhbnZhcyUyMiUyQyUyMnBhcnRPZiUyMiUzQSU1QiU3QiUyMmlkJTIyJTNBJTIyaHR0cCUzQSUyRiUyRmRhbXMubGxnYy5vcmcudWslMkZpaWlmJTJGMi4wJTJGNDM4OTc2NyUyRm1hbmlmZXN0Lmpzb24lMjIlMkMlMjJ0eXBlJTIyJTNBJTIyTWFuaWZlc3QlMjIlN0QlNUQlN0QlN0Q">Link to Viewer</a>
+<a href="https://example.org/viewer?iiif-content=aHR0cHMlM0ElMkYlMkZleGFtcGxlLm9yZyUyRnZpZXdlciUzRmlpaWYtY29udGVudCUzRCU3QiUyMiU0MGNvbnRleHQlMjIlM0ElMjJodHRwJTNBJTJGJTJGaWlpZi5pbyUyRmFwaSUyRnByZXNlbnRhdGlvbiUyRjMlMkZjb250ZXh0Lmpzb24lMjIlMkMlMjJpZCUyMiUzQSUyMCUyMmh0dHBzJTNBJTJGJTJGZXhhbXBsZS5vcmclMkZjb250ZW50LXN0YXRlcyUyRjElMjIlMkMlMjJ0eXBlJTIyJTNBJTIyQW5ub3RhdGlvbiUyMiUyQyUyMm1vdGl2YXRpb24lMjIlM0ElMjJjb250ZW50U3RhdGUlMjIlMkMlMjJ0YXJnZXQlMjIlM0ElN0IlMjJpZCUyMiUzQSUyMmh0dHAlM0ElMkYlMkZkYW1zLmxsZ2Mub3JnLnVrJTJGaWlpZiUyRjIuMCUyRjQzODk3NjclMkZjYW52YXMlMkY0Mzg5NzcyLmpzb24lMjIlMkMlMjJ0eXBlJTIyJTNBJTIyQ2FudmFzJTIyJTJDJTIycGFydE9mJTIyJTNBJTVCJTdCJTIyaWQlMjIlM0ElMjJodHRwJTNBJTJGJTJGZGFtcy5sbGdjLm9yZy51ayUyRmlpaWYlMkYyLjAlMkY0Mzg5NzY3JTJGbWFuaWZlc3QuanNvbiUyMiUyQyUyMnR5cGUlMjIlM0ElMjJNYW5pZmVzdCUyMiU3RCU1RCU3RCU3RA">Link to Viewer</a>
 {% endraw %}
 ```
 
-The content state may be passed as just the `target` property of an implied Annotation with motivation `contentState`, that is:
+To reduce the size of the encoded content state, it _SHOULD_ be passed as just the `target` property of an implied Annotation with motivation `contentState`, that is, the fragment:
 
 ```json
 {
@@ -308,7 +310,7 @@ This results in a more compact form, unencoded (and invalid), this would be:
 {% endraw %}
 ```
 
-However, this JSON-LD content MUST be content-state-encoded as in [Section 6][contentstate-encoding] below:
+However, this fragment MUST be content-state-encoded as in [Section 6][contentstate-encoding] below:
 
 ```html
 {% raw %}
@@ -323,6 +325,8 @@ This is a variant of the above, with the parameter value being a URI rather than
 ```html
 <a href="https://example.org/viewer?iiif-content=https://publisher.org/fragment123.json">Link to Viewer</a>
 ```
+
+If the Content State is a URI, it _MUST NOT_ be content-state-encoded.
 
 ### 3.2. HTTP POST (Form) Parameter
 {: #initialization-mechanisms-post}
@@ -426,7 +430,7 @@ And another system provides an element capable of receiving a `drop` event:
 
 This technique can also be used within the same client, to drag a content state from one part to another.
 
-The first parameter to `setData` and `getData` is the content type, and for maximum interoperability within the scope of this specification this _MUST_ be `"text/plain"`. Applications can assert multiple additional content types for their own custom behavior, such as dragging from the application to the desktop and saving as a file, but this is outside the scope of the specification. In the above example, the content of the drag and drop operation could be a plain URI, or unencoded JSON-LD.
+The first parameter to `setData` and `getData` is the content type, and for maximum interoperability within the scope of this specification this _MUST_ be `"text/plain"`. Applications can assert multiple additional content types for their own custom behavior, such as dragging from the application to the desktop and saving as a file, but this is outside the scope of the specification. In the above example, the content of the drag and drop operation could be a plain URI, or unencoded JSON-LD. It _MUST NOT_ be content-state-encoded.
 
 
 ### 3.5. Upload File
@@ -458,11 +462,11 @@ A JavaScript client can accept content state from the local machine via the `Fil
 </script>
 ```
 
-The same rules apply; the viewer _MUST_ dereference and process the Annotation at that URI.
+The same rules apply; the viewer _MUST_ dereference and process the Annotation at that URI. The uploaded content _MUST NOT_ be content-state-encoded.
 
 ### 3.6. Common Initialization Parameter
 
-If a IIIF client can accept a content state via a custom HTML attribute, then it _SHOULD_ use the attribute `data-iiif-content` for this purpose, to assist page developers using that client in understanding what the attribute is for. A viewer that accepts a content state _SHOULD_ process an Annotation in any of the forms described in the GET parameter section.
+If a IIIF client can accept a content state via a custom HTML attribute, then it _SHOULD_ use the attribute `data-iiif-content` for this purpose, to assist page developers using that client in understanding what the attribute is for. A viewer that accepts a content state _SHOULD_ process an Annotation in any of the forms described in the GET parameter section, but _MUST NOT_ be content-state-encoded.
 
 ```html
 
@@ -625,7 +629,7 @@ Firstly, in non-valid, unencoded form to show the annotation:
 
 ## 6. Content State Encoding
 
-When a Content State is sent in an HTTP GET operation such as a query string parameter on a link in a search result or even an email, it is vulnerable to corruption - it might get encoded and re-encoded before it arrives at a viewer or other IIIF software. This section defines the requirements for safely encoding content states, to provide the string representation seen in the above examples.
+When a Content State is sent in an HTTP GET operation such as a query string parameter on a link in a search result or even an email, it is vulnerable to corruption - it might get encoded and re-encoded before it arrives at a viewer or other IIIF-compatible software. This section defines the requirements for safely encoding content states, to provide the string representation seen in the above examples.
 
 ### 6.1. Choice of encoding mechanism
 
@@ -657,13 +661,13 @@ Code samples for these operations are given in the next section.
 
 Any content state that is in JSON-LD form, rather than a simple URI string, _MUST_ be _content-state-encoded_ in this way when passed as a GET parameter on a query string, and a client _MUST_ accept it in this form.
 
-Simple URI forms _MAY_ be either plain strings, URI-encoded plain strings, or content-state-encoded strings as above, and a client _MUST_ accept these forms and distinguish between them.
+Simple URI forms _MAY_ be either plain strings or URI-encoded plain strings, but _MUST NOT_ be content-state-encoded strings.
 
 Any content state passed by mechanisms other than a HTTP GET request parameter _MUST NOT_ be content-state-encoded.
 
 When published as inline, encoded JSON-LD in the full form given in section 2.2. above, the content state Annotation _MAY_ omit the `id` and `@context` properties.
 
-When published on a server for clients to fetch over HTTP, in the same way a client would fetch a Manifest or Collection, content states _MUST_ be valid JSON-LD documents conforming to the [IIIF Presentation API][prezi-api] and served as described in [Section 6][contentstate-http] below. They _MUST NOT_ be content-state-encoded, but _MAY_ have other encodings appropriate for JSON content, such as `Content-Encoding: gzip` to reduce the response size.
+When published on a server for clients to fetch over HTTP, in the same way a client would fetch a Manifest or Collection, content states _MUST_ be valid JSON-LD documents conforming to the [IIIF Presentation API][prezi-api] and served as described in [Section 7][contentstate-http] below. They _MUST NOT_ be content-state-encoded, but _MAY_ have other encodings appropriate for JSON content, such as `Content-Encoding: gzip` to reduce the response size.
 
 
 ### 6.2. Examples of Content State Encoding

@@ -15,7 +15,7 @@
 [auth10]: {{ site.url }}{{ site.baseurl }}/api/auth/1.0/ "IIIF Authentication API 1.0"
 [btoa-unicode-problem]: https://developer.mozilla.org/en-US/docs/Glossary/Base64#the_unicode_problem "The Unicode Problem"
 [contentstate09]: {{ site.url }}{{ site.baseurl }}/api/content-state/0.9/
-[contentstate-http]: {{ site.url }}{{ site.baseurl }}/api/content-state/0.9/#6-http-requests-and-responses "HTTP Request and Responses"
+[contentstate-http]: {{ site.url }}{{ site.baseurl }}/api/content-state/0.9/#7-http-requests-and-responses "HTTP Request and Responses"
 [contentstate-initialization]: {{ site.url }}{{ site.baseurl }}/api/content-state/0.9/#initialization "Initialization mechanisms (protocol)"
 [contentstate-encoding]: {{ site.url }}{{ site.baseurl }}/api/content-state/0.9/#6-content-state-encoding "Content State Section 6"
 [contentstate-export]: {{ site.url }}{{ site.baseurl }}/api/content-state/0.9/#export
