@@ -475,7 +475,7 @@ If a IIIF client can accept a content state via a custom HTML attribute, then it
 <p>Loading a manifest to show a particular Canvas</p>
 <div
     id="iiif-viewer"
-    data-iiif-content='https://example.org/viewer?iiif-content={"id":"http://dams.llgc.org.uk/iiif/2.0/4389767/canvas/4389772.json","type":"Canvas","partOf":[{"id":"http://dams.llgc.org.uk/iiif/2.0/4389767/manifest.json","type":"Manifest"}]}'>
+    data-iiif-content='{"id":"http://dams.llgc.org.uk/iiif/2.0/4389767/canvas/4389772.json","type":"Canvas","partOf":[{"id":"http://dams.llgc.org.uk/iiif/2.0/4389767/manifest.json","type":"Manifest"}]}'>
 </div>
 ```
 
