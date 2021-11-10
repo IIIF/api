@@ -1,0 +1,66 @@
+{
+   "@context":{
+      "@version":1.1,
+      "geo":"https://purl.org/geojson/vocab#",
+      "iiif_prezi":"http://iiif.io/api/presentation/3#",
+      "iiif_image":"http://iiif.io/api/image/3#",
+      "rdfs":"http://www.w3.org/2000/01/rdf-schema#",
+      "as":"http://www.w3.org/ns/activitystreams#",
+      "foaf":"http://xmlns.com/foaf/0.1/",
+      "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+      "xsd": "http://www.w3.org/2001/XMLSchema#",
+      "gdal" : "https://gdal.org/programs/gdaltransform.html",
+      "proto":"https://thehabes.github.io/GeoreferencePrototype/vocab/new_terms.md#",
+      "georeferencing" : "proto:georeferencing",
+      "geotagging" : "proto:geotagging",
+      "transformation" : {
+        "@id":"proto:transformation"
+      },
+      "polynomial" : "proto:polynomial",
+
+      "thinPlateSpline" : "proto:thinPlateSpline",
+      "polynomialOrder" : {
+         "@id":"proto:polynomialOrder",
+         "@type":"xsd:integer"
+      },
+      "properties":{
+         "@id":"geo:properties",
+         "@context":{
+            "label":{
+               "@id":"rdfs:label",
+               "@container":[
+                  "@language",
+                  "@set"
+               ],
+               "@context":{
+                  "none":"@none"
+               }
+            },
+            "summary":{
+               "@id":"as:summary",
+               "@container":[
+                  "@language",
+                  "@set"
+               ],
+               "@context":{
+                  "none":"@none"
+               }
+            },
+            "metadata":{
+               "@type":"@id",
+               "@id":"iiif_prezi:metadataEntries",
+               "@container":"@list"
+            },
+            "pixelCoords":{
+               "@id":"proto:pixel_coords",
+               "@container":"@list",
+               "@type" : "xsd:float",
+            },
+            "pic":{
+               "@id":"foaf:depiction",
+               "@type":"@id"
+            }
+         }
+      }
+   }
+}
