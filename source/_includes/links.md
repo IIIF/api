@@ -236,6 +236,7 @@
 [prezi3]: {{ site.api_url | absolute_url }}/presentation/3.{{ site.data.apis.presentation.latest.minor }}/ "Presentation API"
 [extensions]: {{ site.api_url | absolute_url }}/extension/
 [text-granularity]: {{ site.api_url | absolute_url }}/extension/text-granularity/
+[navPlace]: {{ site.api_url | absolute_url }}/extension/navplace/
 [registry]: {{ site.api_url | absolute_url }}/registry/ "IIIF Extension Registry"
 [registry-activity-streams]: https://registry.iiif.io/ "IIIF Registry of Activity Streams"
 [registry-image-extensions]: {{ site.api_url | absolute_url }}/registry/image-extensions/ "IIIF Image Extension Registry"
