@@ -28,7 +28,7 @@ editors:
     institution: OCLC
   - name: Robert Sanderson
     ORCID: https://orcid.org/0000-0003-4441-6852
-    institution: J. Paul Getty Trust
+    institution: Yale University
   - name: Simeon Warner
     ORCID: https://orcid.org/0000-0002-7970-7855
     institution: Cornell University
