@@ -194,6 +194,7 @@ Consistent data structures make code that consumes those structures easier to wr
 
 #### 3.4.1. Always Use Arrays for Multiple Value Properties
 {: #always-use-arrays-for-multiple-value-properties}
+{: #json-ld-design-patterns}
 
 If a property can ever have multiple values, it will always be an array even if it has only one value. This means that code can always iterate over the values without checking first to see if it's an array.  Thus we use `"language": [ "en" ]` and not `"language": "en"`.
 
