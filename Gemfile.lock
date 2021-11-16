@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/iiif/iiifc-theme.git
-  revision: ed7379b131617c444ad82bd2c45bbd0369682421
+  revision: c14cff5b86e32c474f84b23b9647077be684ec68
   branch: main
   specs:
     iiifc-theme (0.1.0)
@@ -21,9 +21,9 @@ GEM
     colorator (1.1.0)
     concurrent-ruby (1.1.9)
     diff-lcs (1.4.4)
-    em-websocket (0.5.2)
+    em-websocket (0.5.3)
       eventmachine (>= 0.12.9)
-      http_parser.rb (~> 0.6.0)
+      http_parser.rb (~> 0)
     ethon (0.15.0)
       ffi (>= 1.15.0)
     eventmachine (1.2.7)
@@ -37,7 +37,7 @@ GEM
       rainbow (~> 3.0)
       typhoeus (~> 1.3)
       yell (~> 2.0)
-    http_parser.rb (0.6.0)
+    http_parser.rb (0.8.0)
     i18n (1.8.11)
       concurrent-ruby (~> 1.0)
     jekyll (4.1.1)

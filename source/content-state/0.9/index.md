@@ -15,25 +15,25 @@ redirect_from:
 pre: final
 editors:
   - name: Michael Appleby
-    orchid: https://orcid.org/0000-0002-1266-298X
+    ORCID: https://orcid.org/0000-0002-1266-298X
     institution: Yale University
   - name: Dawn Childress  
     orcid: https://orcid.org/0000-0003-2602-2788
     institution: UCLA
   - name: Tom Crane
-    orchid: https://orcid.org/0000-0003-1881-243X
+    ORCID: https://orcid.org/0000-0003-1881-243X
     institution: Digirati
   - name: Jeff Mixter
     orcid: https://orcid.org/0000-0002-8411-2952
     institution: OCLC
   - name: Robert Sanderson
-    orchid: https://orcid.org/0000-0003-4441-6852
+    ORCID: https://orcid.org/0000-0003-4441-6852
     institution: J. Paul Getty Trust
   - name: Jon Stroop
-    orchid: https://orcid.org/0000-0002-0367-1243
+    ORCID: https://orcid.org/0000-0002-0367-1243
     institution: Princeton University Library
   - name: Simeon Warner
-    orchid: https://orcid.org/0000-0002-7970-7855
+    ORCID: https://orcid.org/0000-0002-7970-7855
     institution: Cornell University
   - name: Maria Whitaker
     orcid: https://orcid.org/0000-0002-3003-8582
