@@ -5,19 +5,19 @@ tags: [annex, service, services, specifications]
 cssversion: 2
 editors:
   - name: Michael Appleby
-    orchid: https://orcid.org/0000-0002-1266-298X
+    ORCID: https://orcid.org/0000-0002-1266-298X
     institution: Yale University
   - name: Tom Crane
-    orchid: https://orcid.org/0000-0003-1881-243X
+    ORCID: https://orcid.org/0000-0003-1881-243X
     institution: Digirati
   - name: Robert Sanderson
-    orchid: https://orcid.org/0000-0003-4441-6852
+    ORCID: https://orcid.org/0000-0003-4441-6852
     institution: J. Paul Getty Trust
   - name: Jon Stroop
-    orchid: https://orcid.org/0000-0002-0367-1243
+    ORCID: https://orcid.org/0000-0002-0367-1243
     institution: Princeton University Library
   - name: Simeon Warner
-    orchid: https://orcid.org/0000-0002-7970-7855
+    ORCID: https://orcid.org/0000-0002-7970-7855
     institution: Cornell University
 ---
 
