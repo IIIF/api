@@ -662,7 +662,7 @@ Code samples for these operations are given in the next section.
 
 * Any content state that is in JSON-LD form, rather than a simple URI string, _MUST_ be _content-state-encoded_  when passed as a GET parameter on a query string, and a client _MUST_ accept it in this form.
 
-* Simple URI forms _MAY_ be either plain strings or URI-encoded plain strings, but _MUST NOT_ be content-state-encoded strings. While most  resource identifiers for content states will be URIs, because they point to IIIF resources which MUST have URIs, some could be annotations, which may have [IRIs][org-rfc-3987], so might contain characters outside of the permitted URI range. For this reason, if the content state is an [IRI][org-rfc-3987] containing characters outside the permitted URI range, it must be URI-encoded when used as a GET parameter. It MUST NOT be content-state-encoded.
+* Simple URI forms _MAY_ be either plain strings or URI-encoded plain strings, but _MUST NOT_ be content-state-encoded strings. While most resource identifiers for content states will be URIs, because they point to IIIF resources which MUST have URIs, some could be annotations, which may have [IRIs][org-rfc-3987], so might contain characters outside of the permitted URI range. For this reason, if the content state is an [IRI][org-rfc-3987] containing characters outside the permitted URI range, it must be URI-encoded when used as a GET parameter. It _MUST NOT_ be content-state-encoded.
 
 * Any content state passed by mechanisms other than a HTTP GET request parameter _MUST NOT_ be content-state-encoded.
 
