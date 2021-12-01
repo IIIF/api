@@ -374,6 +374,8 @@ The client allows the content state URI or data to be pasted into part of its UI
 </script>
 ```
 
+The first parameter to `getData` is the content type, and for maximum interoperability within the scope of this specification this _MUST_ be `"text/plain"`.
+
 In that scenario the user can paste the content state directly into the application. If this scenario is supported, the client _SHOULD_ accept resource URIs directly, such as the URI of a Manifest. The content state _MUST NOT_ be content-state-encoded.
 
 Refer to [Section 3.7][contentstate-export] below for methods of exporting data, including the _Copy to Clipboard_ pattern, a natural pairing with a paste operation, from one viewer to another.
