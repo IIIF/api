@@ -235,11 +235,11 @@ If the intention is that the linked-to client loads an entire IIIF resource with
 
 ```html
 {% raw %}
-<a href="https://example.org/viewer?iiif-content=http://dams.llgc.org.uk/iiif/2.0/4389767/manifest.json">Link to Viewer</a>
+<a href="https://example.org/viewer?iiif-content=https://damsssl.llgc.org.uk/iiif/2.0/4389767/manifest.json">Link to Viewer</a>
 {% endraw %}
 ```
 
-In this case the client at `https://example.org/viewer` would load the resource at `http://dams.llgc.org.uk/iiif/2.0/4389767/manifest.json`, determine that it is a Manifest (rather than, say, a Collection), and process accordingly.
+In this case the client at `https://example.org/viewer` would load the resource at `https://damsssl.llgc.org.uk/iiif/2.0/4389767/manifest.json`, determine that it is a Manifest (rather than, say, a Collection), and process accordingly.
 
 When the intention is to initialize the viewer at a particular part of the resource, the client provides more than just a URI; it must provide either the full annotation as in 2.2.1., or, preferably (for brevity) the body of the annotation, as in 2.2.3.
 
@@ -254,11 +254,11 @@ In the following examples, the same Annotation is used each time. As the full JS
   "type": "Annotation",
   "motivation": ["contentState"],
   "target": {
-    "id": "http://dams.llgc.org.uk/iiif/2.0/4389767/canvas/4389772.json",
+    "id": "https://damsssl.llgc.org.uk/iiif/2.0/4389767/canvas/4389772.json",
     "type": "Canvas",
     "partOf": [
       {
-        "id": "http://dams.llgc.org.uk/iiif/2.0/4389767/manifest.json",
+        "id": "https://damsssl.llgc.org.uk/iiif/2.0/4389767/manifest.json",
         "type": "Manifest"
       }
     ]
@@ -273,7 +273,7 @@ Without the required content-state-encoding, the (invalid) link to the viewer wo
 ```html
 {% raw %}
 <!-- INVALID, unencoded form -->
-<a href='https://example.org/viewer?iiif-content={"@context":"http://iiif.io/api/presentation/3/context.json","id": "https://example.org/content-states/1","type":"Annotation","motivation":"contentState","target":{"id":"http://dams.llgc.org.uk/iiif/2.0/4389767/canvas/4389772.json","type":"Canvas","partOf":[{"id":"http://dams.llgc.org.uk/iiif/2.0/4389767/manifest.json","type":"Manifest"}]}}'>INVALID, unencoded link to Viewer</a>
+<a href='https://example.org/viewer?iiif-content={"@context":"http://iiif.io/api/presentation/3/context.json","id": "https://example.org/content-states/1","type":"Annotation","motivation":"contentState","target":{"id":"https://damsssl.llgc.org.uk/iiif/2.0/4389767/canvas/4389772.json","type":"Canvas","partOf":[{"id":"https://damsssl.llgc.org.uk/iiif/2.0/4389767/manifest.json","type":"Manifest"}]}}'>INVALID, unencoded link to Viewer</a>
 {% endraw %}
 ```
 
@@ -281,7 +281,7 @@ However, this JSON-LD content MUST be content-state-encoded as in [Section 6][co
 
 ```html
 {% raw %}
-<a href="https://example.org/viewer?iiif-content=aHR0cHMlM0ElMkYlMkZleGFtcGxlLm9yZyUyRnZpZXdlciUzRmlpaWYtY29udGVudCUzRCU3QiUyMiU0MGNvbnRleHQlMjIlM0ElMjJodHRwJTNBJTJGJTJGaWlpZi5pbyUyRmFwaSUyRnByZXNlbnRhdGlvbiUyRjMlMkZjb250ZXh0Lmpzb24lMjIlMkMlMjJpZCUyMiUzQSUyMCUyMmh0dHBzJTNBJTJGJTJGZXhhbXBsZS5vcmclMkZjb250ZW50LXN0YXRlcyUyRjElMjIlMkMlMjJ0eXBlJTIyJTNBJTIyQW5ub3RhdGlvbiUyMiUyQyUyMm1vdGl2YXRpb24lMjIlM0ElMjJjb250ZW50U3RhdGUlMjIlMkMlMjJ0YXJnZXQlMjIlM0ElN0IlMjJpZCUyMiUzQSUyMmh0dHAlM0ElMkYlMkZkYW1zLmxsZ2Mub3JnLnVrJTJGaWlpZiUyRjIuMCUyRjQzODk3NjclMkZjYW52YXMlMkY0Mzg5NzcyLmpzb24lMjIlMkMlMjJ0eXBlJTIyJTNBJTIyQ2FudmFzJTIyJTJDJTIycGFydE9mJTIyJTNBJTVCJTdCJTIyaWQlMjIlM0ElMjJodHRwJTNBJTJGJTJGZGFtcy5sbGdjLm9yZy51ayUyRmlpaWYlMkYyLjAlMkY0Mzg5NzY3JTJGbWFuaWZlc3QuanNvbiUyMiUyQyUyMnR5cGUlMjIlM0ElMjJNYW5pZmVzdCUyMiU3RCU1RCU3RCU3RA">Link to Viewer</a>
+<a href="https://example.org/viewer?iiif-content=aHR0cHMlM0ElMkYlMkZleGFtcGxlLm9yZyUyRnZpZXdlciUzRmlpaWYtY29udGVudCUzRCU3QiUyMiU0MGNvbnRleHQlMjIlM0ElMjJodHRwJTNBJTJGJTJGaWlpZi5pbyUyRmFwaSUyRnByZXNlbnRhdGlvbiUyRjMlMkZjb250ZXh0Lmpzb24lMjIlMkMlMjJpZCUyMiUzQSUyMCUyMmh0dHBzJTNBJTJGJTJGZXhhbXBsZS5vcmclMkZjb250ZW50LXN0YXRlcyUyRjElMjIlMkMlMjJ0eXBlJTIyJTNBJTIyQW5ub3RhdGlvbiUyMiUyQyUyMm1vdGl2YXRpb24lMjIlM0ElMjJjb250ZW50U3RhdGUlMjIlMkMlMjJ0YXJnZXQlMjIlM0ElN0IlMjJpZCUyMiUzQSUyMmh0dHBzJTNBJTJGJTJGZGFtc3NzbC5sbGdjLm9yZy51ayUyRmlpaWYlMkYyLjAlMkY0Mzg5NzY3JTJGY2FudmFzJTJGNDM4OTc3Mi5qc29uJTIyJTJDJTIydHlwZSUyMiUzQSUyMkNhbnZhcyUyMiUyQyUyMnBhcnRPZiUyMiUzQSU1QiU3QiUyMmlkJTIyJTNBJTIyaHR0cHMlM0ElMkYlMkZkYW1zc3NsLmxsZ2Mub3JnLnVrJTJGaWlpZiUyRjIuMCUyRjQzODk3NjclMkZtYW5pZmVzdC5qc29uJTIyJTJDJTIydHlwZSUyMiUzQSUyMk1hbmlmZXN0JTIyJTdEJTVEJTdEJTdE">Link to Viewer</a>
 {% endraw %}
 ```
 
@@ -289,11 +289,11 @@ To reduce the size of the encoded content state, it _SHOULD_ be passed as just t
 
 ```json
 {
-  "id": "http://dams.llgc.org.uk/iiif/2.0/4389767/canvas/4389772.json",
+  "id": "https://damsssl.llgc.org.uk/iiif/2.0/4389767/canvas/4389772.json",
   "type": "Canvas",
   "partOf": [
     {
-      "id": "http://dams.llgc.org.uk/iiif/2.0/4389767/manifest.json",
+      "id": "https://damsssl.llgc.org.uk/iiif/2.0/4389767/manifest.json",
       "type": "Manifest"
     }
   ]
@@ -305,7 +305,7 @@ This results in a more compact form, unencoded (and invalid), this would be:
 ```html
 {% raw %}
 <!-- INVALID, unencoded form -->
-<a href='https://example.org/viewer?iiif-content={"id":"http://dams.llgc.org.uk/iiif/2.0/4389767/canvas/4389772.json","type":"Canvas","partOf":[{"id":"http://dams.llgc.org.uk/iiif/2.0/4389767/manifest.json","type":"Manifest"}]}'>Link to Viewer</a>
+<a href='https://example.org/viewer?iiif-content={"id":"https://damsssl.llgc.org.uk/iiif/2.0/4389767/canvas/4389772.json","type":"Canvas","partOf":[{"id":"https://damsssl.llgc.org.uk/iiif/2.0/4389767/manifest.json","type":"Manifest"}]}'>Link to Viewer</a>
 {% endraw %}
 ```
 
@@ -313,7 +313,7 @@ However, this fragment MUST be content-state-encoded as in [Section 6][contentst
 
 ```html
 {% raw %}
-<a href="https://example.org/viewer?iiif-content=JTdCJTIyaWQlMjIlM0ElMjJodHRwJTNBJTJGJTJGZGFtcy5sbGdjLm9yZy51ayUyRmlpaWYlMkYyLjAlMkY0Mzg5NzY3JTJGY2FudmFzJTJGNDM4OTc3Mi5qc29uJTIyJTJDJTIydHlwZSUyMiUzQSUyMkNhbnZhcyUyMiUyQyUyMnBhcnRPZiUyMiUzQSU1QiU3QiUyMmlkJTIyJTNBJTIyaHR0cCUzQSUyRiUyRmRhbXMubGxnYy5vcmcudWslMkZpaWlmJTJGMi4wJTJGNDM4OTc2NyUyRm1hbmlmZXN0Lmpzb24lMjIlMkMlMjJ0eXBlJTIyJTNBJTIyTWFuaWZlc3QlMjIlN0QlNUQlN0Q">Link to Viewer</a>
+<a href="https://example.org/viewer?iiif-content=aHR0cHMlM0ElMkYlMkZleGFtcGxlLm9yZyUyRnZpZXdlciUzRmlpaWYtY29udGVudCUzRCU3QiUyMmlkJTIyJTNBJTIyaHR0cHMlM0ElMkYlMkZkYW1zc3NsLmxsZ2Mub3JnLnVrJTJGaWlpZiUyRjIuMCUyRjQzODk3NjclMkZjYW52YXMlMkY0Mzg5NzcyLmpzb24lMjIlMkMlMjJ0eXBlJTIyJTNBJTIyQ2FudmFzJTIyJTJDJTIycGFydE9mJTIyJTNBJTVCJTdCJTIyaWQlMjIlM0ElMjJodHRwcyUzQSUyRiUyRmRhbXNzc2wubGxnYy5vcmcudWslMkZpaWlmJTJGMi4wJTJGNDM4OTc2NyUyRm1hbmlmZXN0Lmpzb24lMjIlMkMlMjJ0eXBlJTIyJTNBJTIyTWFuaWZlc3QlMjIlN0QlNUQlN0Q">Link to Viewer</a>
 {% endraw %}
 ```
 
@@ -472,13 +472,13 @@ If a IIIF client can accept a content state via a custom HTML attribute, then it
 <p>Loading a whole manifest</p>
 <div
     id="iiif-viewer"
-    data-iiif-content="http://dams.llgc.org.uk/iiif/2.0/4389767/manifest.json">
+    data-iiif-content="https://damsssl.llgc.org.uk/iiif/2.0/4389767/manifest.json">
 </div>
 
 <p>Loading a manifest to show a particular Canvas</p>
 <div
     id="iiif-viewer"
-    data-iiif-content='{"id":"http://dams.llgc.org.uk/iiif/2.0/4389767/canvas/4389772.json","type":"Canvas","partOf":[{"id":"http://dams.llgc.org.uk/iiif/2.0/4389767/manifest.json","type":"Manifest"}]}'>
+    data-iiif-content='{"id":"https://damsssl.llgc.org.uk/iiif/2.0/4389767/canvas/4389772.json","type":"Canvas","partOf":[{"id":"https://damsssl.llgc.org.uk/iiif/2.0/4389767/manifest.json","type":"Manifest"}]}'>
 </div>
 ```
 
