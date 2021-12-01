@@ -632,13 +632,13 @@ When a Content State is sent in an HTTP GET operation such as a query string par
 
 ### 6.1. Choice of encoding mechanism
 
-A content state will contain characters from JSON syntax, and may contain strings from any language. The identifiers of IIIF and other resources within the content state _MAY_ be Internationalized Resource Identifiers (IRIs), as defined in [RFC 3987][org-rfc-3987]. For these reasons the content state _MUST_ be _encoded_ using an encoding that:
+A content state will contain characters from JSON syntax, and may contain strings from any language. The identifiers of annotations and other resources within the content state _MAY_ be Internationalized Resource Identifiers (IRIs), as defined in [RFC 3987][org-rfc-3987]. For these reasons the content state _MUST_ be _encoded_ using an encoding that:
 
 * Is simple to implement, for both decoding and encoding, in a web browser and on the server
 * Will safely encode any UTF-16 string from JavaScript, avoiding known browser issues such as the ["Unicode Problem"][btoa-unicode-problem]
 * Is impervious to _double encoding_ - that is, once encoded, any further likely encodings of any request or response parts will not change the already-encoded content state.
 
-For these reasons, this specification defines a two-step encoding that uses both the [encodeURIComponent][org-ecma-encodeuricomponent] function available in web browsers, followed by [Base 64 Encoding with URL and Filename Safe Alphabet][org-rfc-4648-5] ("base64url") encoding, with padding characters removed. The initial encodeURIComponent step allows any UTF-16 string in JavaScript to then be safely encoded to base64url in a web browser. The final step of removing padding removes the "=" character which might be subject to further percent-encoding as part of a URL.
+This specification defines a two-step encoding that uses both the [encodeURIComponent][org-ecma-encodeuricomponent] function available in web browsers, followed by [Base 64 Encoding with URL and Filename Safe Alphabet][org-rfc-4648-5] ("base64url") encoding, with padding characters removed. The initial encodeURIComponent step allows any UTF-16 string in JavaScript to then be safely encoded to base64url in a web browser. The final step of removing padding removes the "=" character which might be subject to further percent-encoding as part of a URL.
 
 This process is described by the term _content-state-encoding_ throughout this specification.
 
@@ -658,22 +658,24 @@ Conversely to decode a content state:
 
 Code samples for these operations are given in the next section.
 
-Any content state that is in JSON-LD form, rather than a simple URI string, _MUST_ be _content-state-encoded_ in this way when passed as a GET parameter on a query string, and a client _MUST_ accept it in this form.
+### 6.2. When to encode Content State
 
-Simple URI forms _MAY_ be either plain strings or URI-encoded plain strings, but _MUST NOT_ be content-state-encoded strings.
+* Any content state that is in JSON-LD form, rather than a simple URI string, _MUST_ be _content-state-encoded_  when passed as a GET parameter on a query string, and a client _MUST_ accept it in this form.
 
-Any content state passed by mechanisms other than a HTTP GET request parameter _MUST NOT_ be content-state-encoded.
+* Simple URI forms _MAY_ be either plain strings or URI-encoded plain strings, but _MUST NOT_ be content-state-encoded strings. While most  resource identifiers for content states will be URIs, because they point to IIIF resources which MUST have URIs, some could be annotations, which may have [IRIs][org-rfc-3987], so might contain characters outside of the permitted URI range. For this reason, if the content state is an [IRI][org-rfc-3987] containing characters outside the permitted URI range, it must be URI-encoded when used as a GET parameter. It MUST NOT be content-state-encoded.
 
-When published as inline, encoded JSON-LD in the full form given in section 2.2. above, the content state Annotation _MAY_ omit the `id` and `@context` properties.
+* Any content state passed by mechanisms other than a HTTP GET request parameter _MUST NOT_ be content-state-encoded.
 
-When published on a server for clients to fetch over HTTP, in the same way a client would fetch a Manifest or Collection, content states _MUST_ be valid JSON-LD documents conforming to the [IIIF Presentation API][prezi-api] and served as described in [Section 7][contentstate-http] below. They _MUST NOT_ be content-state-encoded, but _MAY_ have other encodings appropriate for JSON content, such as `Content-Encoding: gzip` to reduce the response size.
+* When published as inline, encoded JSON-LD in the full form given in section 2.2. above, the content state Annotation _MAY_ omit the `id` and `@context` properties.
+
+* When published on a server for clients to fetch over HTTP, in the same way a client would fetch a Manifest or Collection, content states _MUST_ be valid JSON-LD documents conforming to the [IIIF Presentation API][prezi-api] and served as described in [Section 7][contentstate-http] below. They _MUST NOT_ be content-state-encoded, but _MAY_ have other encodings appropriate for JSON content, such as `Content-Encoding: gzip` to reduce the response size.
 
 
-### 6.2. Examples of Content State Encoding
+### 6.3. Examples of Content State Encoding
 
 JavaScript and Python examples are given below. Examples for other languages and frameworks can be found in the [IIIF Cookbook][annex-cookbook].
 
-#### 6.2.1. JavaScript
+#### 6.3.1. JavaScript
 
 ```javascript
 function encodeContentState(plainContentState) {
@@ -708,7 +710,7 @@ function restorePadding(s) {
 }
 ```
 
-#### 6.2.2. Python
+#### 6.3.2. Python
 
 ```python
 import base64
