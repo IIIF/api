@@ -664,7 +664,7 @@ Code samples for these operations are given in the next section.
 
 * Any content state that is in JSON-LD form, rather than a simple URI string, _MUST_ be _content-state-encoded_ when passed as a GET parameter on a query string, and a client _MUST_ accept it in this form.
 
-* Content state resource identifiers must be URIs, for consistency with the IIIF Presentation API. They _MUST NOT_ be [IRIs][org-rfc-3987], even though the [W3C Web Annotation Data Model][org-w3c-webanno] permits IRIs. 
+* Content state resource identifiers must be URIs, for consistency with the IIIF Presentation API. They _MUST NOT_ contain characters that would make them [IRIs][org-rfc-3987] but not URIs, even though the [W3C Web Annotation Data Model][org-w3c-webanno] permits IRIs. 
 
 * When the content state is a plain URI, rather than a JSON object, it _MUST NOT_ be content-state-encoded.
 
