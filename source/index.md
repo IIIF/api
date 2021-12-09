@@ -49,6 +49,7 @@ We welcome feedback on all IIIF Specifications. Please send any feedback to [iii
 | Authentication API | 1.0     | [Chinese][auth1-chinese] |
 | Discovery API      | 1.0     | [Chinese][discovery1-chinese] |
 | Content State API  | 0.9     | [Chinese][contentstate-09-chinese] |
+|NavPlace Extension  |         | [Chinese][Navplace-chinese]
 {: .api-table}
 
 __Translation Note__<br/>
@@ -110,6 +111,7 @@ IIIF Specifications are created and published following the [IIIF Editorial Proc
 [contentsearch1-chinese]: https://www.yuque.com/iiifchina/df4qfk/ygbnck
 [discovery1-chinese]: https://www.yuque.com/iiifchina/df4qfk/hdb26g
 [contentstate-09-chinese]: https://www.yuque.com/iiifchina/df4qfk/wysy7i
+[navplace-chinese]: https://iiif.io/api/extension/navplace/
 
 {% include acronyms.md %}
 {% include links.md %}
