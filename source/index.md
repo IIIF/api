@@ -38,10 +38,17 @@ We welcome feedback on all IIIF Specifications. Please send any feedback to [iii
 
 | API                | Version | Translation           |
 | ------------------ | ------- | --------------------- |
-| Image API          | [3.0][image3-jp], [2.1][image-jp] | Japanese |
-| Presentation API   | 2.1     | [Japanese][prezi-jp]  |
+| Image API          | 3.0     | [Japanese][image3-jp] |
+| Image API          | 2.1     | [Japanese][image-jp] |
+| Image API          | 3.0     | [Chinese][image3-chinese] |
+| Presentation API   | 2.1     | [Japanese][prezi-jp] |
+| Presentation API   | 3.0     | [Chinese] [prezi3-chinese] |
 | Content Search API | 1.0     | [Japanese][search-jp] |
-| Authentication API | 1.0     | [Japanese][auth-jp]   |
+| Content Search API | 1.0     | [Chinese][contentsearch1-chinese] |
+| Authentication API | 1.0     | [Japanese][auth-jp] |
+| Authentication API | 1.0     | [Chinese][auth1-chinese] |
+| Discovery API      | 1.0     | [Chinese][discovery1-chinese] |
+| Content State API  | 0.9     | [Chinese][contentstate-09-chinese] |
 {: .api-table}
 
 __Translation Note__<br/>
@@ -97,7 +104,12 @@ IIIF Specifications are created and published following the [IIIF Editorial Proc
 [prezi-jp]: http://www.asahi-net.or.jp/~ax2s-kmtn/ref/iiif/apipresentation2.1.html
 [search-jp]: http://www.asahi-net.or.jp/~ax2s-kmtn/ref/iiif/searchapi1.0.html
 [auth-jp]: http://www.asahi-net.or.jp/~ax2s-kmtn/ref/iiif/apiauthentication1.0.html
-
+[image3-chinese]: https://www.yuque.com/iiifchina/df4qfk/fwybkl
+[prezi3-chinese]: https://www.yuque.com/iiifchina/df4qfk/gpf6od
+[auth1-chinese]: https://www.yuque.com/iiifchina/df4qfk/vkxifz
+[contentsearch1-chinese]: https://www.yuque.com/iiifchina/df4qfk/ygbnck
+[discovery1-chinese]: https://www.yuque.com/iiifchina/df4qfk/hdb26g
+[contentstate-09-chinese]: https://www.yuque.com/iiifchina/df4qfk/wysy7i
 
 {% include acronyms.md %}
 {% include links.md %}
