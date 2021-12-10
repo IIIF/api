@@ -1,15 +1,13 @@
 ---
 title: "API Specifications - International Image Interoperability Framework™"
-id: apis
 layout: spec
-tags: [specifications ]
-cssversion: 2
 hero:
   image: ''
 api_current_table:
   headers:
     - API
     - Current Version
+    - Description
   version: latest
   apis:
     - image
