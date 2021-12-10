@@ -121,7 +121,7 @@ IIIF Specifications are created and published following the [IIIF Editorial Proc
 [contentsearch1-chinese]: https://www.yuque.com/iiifchina/df4qfk/ygbnck
 [discovery1-chinese]: https://www.yuque.com/iiifchina/df4qfk/hdb26g
 [contentstate-09-chinese]: https://www.yuque.com/iiifchina/df4qfk/wysy7i
-[navplace-chinese]: https://iiif.io/api/extension/navplace/
+[navplace-chinese]: https://www.yuque.com/iiifchina/df4qfk/xh0bna
 
 {% include acronyms.md %}
 {% include links.md %}
