@@ -38,18 +38,15 @@ We welcome feedback on all IIIF Specifications. Please send any feedback to [iii
 
 | API                | Version | Translation           |
 | ------------------ | ------- | --------------------- |
-| Image API          | 3.0     | [Japanese][image3-jp] |
-| Image API          | 2.1     | [Japanese][image-jp] |
-| Image API          | 3.0     | [Chinese][image3-chinese] |
-| Presentation API   | 2.1     | [Japanese][prezi-jp] |
-| Presentation API   | 3.0     | [Chinese] [prezi3-chinese] |
-| Content Search API | 1.0     | [Japanese][search-jp] |
-| Content Search API | 1.0     | [Chinese][contentsearch1-chinese] |
-| Authentication API | 1.0     | [Japanese][auth-jp] |
-| Authentication API | 1.0     | [Chinese][auth1-chinese] |
-| Discovery API      | 1.0     | [Chinese][discovery1-chinese] |
-| Content State API  | 0.9     | [Chinese][contentstate-09-chinese] |
-|NavPlace Extension  |         | [Chinese][Navplace-chinese]
+| Image API          | 3.0   | [Japanese][image3-jp], [Chinese][image3-chinese]|
+| Image API          | 2.1   | [Japanese][image-jp] |
+| Presentation API   | 3.0   | [Chinese] [prezi3-chinese] |
+| Presentation API   | 2.1   | [Japanese][prezi-jp] |
+| Content Search API | 1.0   | [Japanese][search-jp], [Chinese][contentsearch1-chinese]|
+| Authentication API | 1.0   | [Japanese][auth-jp], [Chinese][auth1-chinese] |
+| Discovery API      | 1.0   | [Chinese][discovery1-chinese] |
+| Content State API  | 0.9   | [Chinese][contentstate-09-chinese] |
+|NavPlace Extension  |       | [Chinese][Navplace-chinese]
 {: .api-table}
 
 __Translation note__<br/>
