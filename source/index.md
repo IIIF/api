@@ -19,22 +19,22 @@ api_current_table:
     - search
 ---
 
-## Current Specifications
+## Current specifications
 
 {% include api/api-listing-table.html table=page.api_current_table %}
 
-## Draft Specifications
+## Draft specifications
 
 | API                  | Draft Version (Status) |
 | -------------------- | ---------------------- |
 | Content State API    | [0.9.0][contentstate09]|
 {: .api-table}
 
-__Feedback Requested__<br/>
+__Feedback requested__<br/>
 We welcome feedback on all IIIF Specifications. Please send any feedback to [iiif-discuss@googlegroups.com][iiif-discuss].
 {: .alert}
 
-## Community Translations
+## Community translations
 
 | API                | Version | Translation           |
 | ------------------ | ------- | --------------------- |
@@ -52,11 +52,11 @@ We welcome feedback on all IIIF Specifications. Please send any feedback to [iii
 |NavPlace Extension  |         | [Chinese][Navplace-chinese]
 {: .api-table}
 
-__Translation Note__<br/>
+__Translation note__<br/>
 Please note that the IIIF community does not guarantee the accuracy of any translation. They are linked to for information purposes only, and any discrepancies with the specifications are unintentional. The English versions of the specifications linked above are the definitive versions.
 {: .alert}
 
-## Community Cookbook
+## Community cookbook
 
 The [Cookbook][annex-cookbook] gathers together examples of how to create IIIF Presentation API assets, in order to:
 
@@ -73,7 +73,7 @@ The [Cookbook][annex-cookbook] webpages are under constant development and the l
 - [Image API validator]({{ site.api_url | absolute_url }}/image/validator/) - A service to validate a IIIF Image API resource against the specification.
 - [Presentation API validator]({{ site.api_url | absolute_url }}/presentation/validator/service/) - A service to validate a IIIF Presentation API resource against the specification.
 
-## Older Versions
+## Older versions
 
 Current IIIF specifications _SHOULD_ be used for all new work. Old versions are retained for reference and are listed below. Technical resources and reference implementations of older versions are _NOT_ guaranteed to be maintained across new major versions.
 
