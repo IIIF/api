@@ -15,12 +15,12 @@
 [auth10]: {{ site.api_url | absolute_url }}/auth/1.0/ "IIIF Authentication API 1.0"
 [contentstate09]: {{ site.api_url | absolute_url }}/content-state/0.9/
 [contentstate-export]: {{ site.api_url | absolute_url }}/content-state/0.9/#export "3.7. Exporting Current Content State from Viewer" 
-[contentstate-http]: {{ site.api_url | absolute_url }}/content-state/0.9/#6-http-requests-and-responses "HTTP Request and Responses"
+[contentstate-http]: {{ site.api_url | absolute_url }}/content-state/0.9/#7-http-requests-and-responses "HTTP Request and Responses"
 [contentstate-initialization]: {{ site.api_url | absolute_url }}/content-state/0.9/#initialization "Initialization mechanisms (protocol)"
 [contentstate03]: {{ site.api_url | absolute_url }}/content-state/0.3/ "IIIF Content State API"
 [btoa-unicode-problem]: https://developer.mozilla.org/en-US/docs/Glossary/Base64#the_unicode_problem "The Unicode Problem"
-[contentstate-encoding]: {{ site.api_url | absolute_url }}/api/content-state/0.9/#6-content-state-encoding "Content State Section 6"
-[contentstate-export]: {{ site.api_url | absolute_url }}/api/content-state/0.9/#export
+[contentstate-encoding]: {{ site.api_url | absolute_url }}/content-state/0.9/#6-content-state-encoding "Content State Section 6"
+[contentstate-export]: {{ site.api_url | absolute_url }}/content-state/0.9/#export
 [discovery-api]: {{ site.api_url | absolute_url }}/discovery/ "IIIF Change Discovery API"
 [discovery01]: {{ site.api_url | absolute_url }}/discovery/0.1/ "IIIF Change Discovery API"
 [discovery02]: {{ site.api_url | absolute_url }}/discovery/0.2/ "IIIF Change Discovery API"
