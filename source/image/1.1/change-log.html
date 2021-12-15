@@ -1,0 +1,60 @@
+---
+sitemap: false
+redirect_from:
+  - /image/1.1/change-log.html
+layout: spec
+title: Change Log for Version 1.1
+---
+
+            <p>
+              The following changes have been made to the
+              <a href="{{ site.api_url | absolute_url }}/image/1.1/">IIIF Image API Specification, version 1.1</a>.
+            </p>
+
+            <h2>Section 2</h2>
+            <ul>
+              <li>
+                <strong>Base URI defined</strong>. <a href="{{ site.api_url | absolute_url }}/image/1.1/#url-syntax-image-info">Section 2.2</a> recommends that this URI returns the image
+                information or redirects to the image information request URI when dereferenced.
+              </li>
+              <li>
+                Clarified definition of the prefix segment of the base URI.
+              </li>
+            </ul>
+
+            <h2>Section 5</h2>
+            <ul>
+              <li>
+                Added <strong>@id</strong> and <strong>@context</strong> properties to make image information
+                <a href="http://json-ld.org/" target="_blank">JSON-LD</a> compatible. The addition of the base URI in the @id property should make it easier
+                for clients to get around XSS/SOP issues when working with IIIF image servers in different domains.
+              </li>
+              <li>
+                Image information in XML (<span class="monospace">http[s]://server/[prefix/]identifier/info.xml</span>) and related schemas have been removed.
+                </li>
+              <li>
+                Clarified the definition of <strong>scale_factors</strong>.
+                </li>
+            </ul>
+
+            <h2>Section 6.2</h2>
+            <ul>
+              <li>
+                Removed Error condition XML response. It is recommended that the response body contain human-readable information for development and
+                debugging purposes.
+              </li>
+              <li>
+                Re-defined when a <strong>414</strong> error code should be returned. Implementations may add non-normative features that require query
+                parameters, so the previous explanation was not accurate.
+              </li>
+            </ul>
+
+            <h2>Section 8</h2>
+            <ul>
+              <li>JPEG 2000 format is no longer required for Level 2 compliance.</li>
+            </ul>
+
+            <h2>Additional Changes</h2>
+            <ul>
+              <li>Other minor informative clarifications and non-normative corrections were made throughout.</li>
+            </ul>

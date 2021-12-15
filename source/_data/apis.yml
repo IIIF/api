@@ -1,0 +1,70 @@
+image:
+  label: Image API
+  description: Retrieves images from anywhere in the world and allows the user to select an area of the image and to resize, rotate, and edit the quality.
+  image: assets/images/icons/image@2x.webp
+  alt_text: Image API icon
+  draft:
+    major: 3
+    minor: 0
+    patch: 0
+  stable:
+    major: 3
+    minor: 0
+    patch: 0
+presentation:
+  label: Presentation API
+  description: Packages each image with its metadata so users know the origin, title of the image, and even what page of a book the image was from.
+  image: assets/images/icons/location-info@2x.webp
+  alt_text: Presentation API icon
+  draft:
+    major: 3
+    minor: 0
+    patch: 0
+  stable:
+    major: 3
+    minor: 0
+    patch: 0
+auth:
+  label: Authentication API
+  description: Control and restrict access by creating a link to a user interface for logging in and services that provide credentials.
+  image: assets/images/icons/auth-group@2x.webp
+  alt_text: Authentication API icon
+  draft:
+    major: 1
+    minor: 0
+    patch: 0
+  stable:
+    major: 1
+    minor: 0
+    patch: 0
+search:
+  label: Content Search API
+  description: Access high-quality images, examine them closely, and share your work with collaborators to aid research and presentation.
+  image: assets/images/icons/search-group@2x.webp
+  alt_text: Content Search API icon
+  draft:
+    major: 1
+    minor: 0
+    patch: 0
+  stable:
+    major: 1
+    minor: 0
+    patch: 0
+discovery:
+  label: Change Discovery API
+  description: Harvest any changes published by organizations that deliver digital objects.
+  image: assets/images/icons/shape@2x.webp
+  alt_text: Change Discovery API icon
+  draft:
+    major: 0
+    minor: 9
+    patch: 0
+content-state:
+  label: Content State API
+  description: Generate a very specific link to a particular view of an object, like a specific area on a particulat page rotated at a certain angle.
+  image: assets/images/icons/link-group@2x.webp
+  alt_text: Content State API icon
+  draft:
+    major: 0
+    minor: 3
+    patch: 0
