@@ -779,7 +779,7 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 [paging]: {{ site.api_url | absolute_url }}/presentation/2.1/
 [image-api]: {{ site.api_url | absolute_url }}/image/{{ site.data.apis.image.latest.major }}.{{ site.data.apis.image.latest.minor }}/ "Image API"
 [openanno]: http://www.openannotation.org/spec/core/ "Open Annotation"
-[prezi-api]: {{ site.api_url | absolute_url }}/presentation/{{ site.data.apis.presentation.latest.major }}.{{ site.data.apis.presentation.latest.minor }}/ "Presentation API"
+[prezi21]: {{ site.api_url | absolute_url }}/presentation/2.1/ "IIIF Presentation API 2.1"
 [rfc-2119]: https://datatracker.ietf.org/doc/html/rfc2119
 [service-annex]: {{ site.api_url | absolute_url }}/annex/services/
 [prezi-annolist]: {{ site.api_url | absolute_url }}/presentation/2.1/#annotation-list
