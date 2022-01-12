@@ -71,7 +71,7 @@ This table summarizes the services available and which APIs they may be used in.
 | Service                        | Image API                 | Presentation API          |
 | ------------------------------ |:-------------------------:|:-------------------------:|
 | [Image Information][imageinfo] | ![optional][icon3-opt]     | ![recommended][icon3-rec] |  
-| [GeoJSON][lgeojson]            | ![not allowed][icon3-na]   | ![recommended][icon3-rec] |
+| [GeoJSON][lgeojson]            | ![not allowed][icon3-na]   | ![not allowed][icon3-na] |
 | [Physical Dimensions][physdim] | ![recommended][icon3-rec] | ![recommended][icon3-rec] |
 {: .api-table}
 
@@ -162,41 +162,11 @@ With the `logo` property added to the Image Information description in version 2
 
 ### 3.2 GeoJSON
 {: #geojson}
-_Added: 2014-05-20_, _Latest Revision: 2017-03-29_
+_Added: 2014-05-20_, _Latest Revision: 2022-01-22_
 
 [GeoJSON][geojson] provides the ability to associate a geographical place with a resource, in order to drive a map-based user interface or visualization tool.  This might be a location associated with the provenance of the object such as where it was created, or where it is currently held.  The location might also be related to the content of the resource, such as a city mentioned in the text or the landmark depicted in a photograph.  It is not appropriate to use this feature for tagging of time, people, events, and other semantic metadata outside of the scope of the Presentation API.
 
-The [JSON-LD representation][geojson-ld] of GeoJSON, with `@context` `http://geojson.org/geojson-ld/geojson-context.jsonld` _SHOULD_ be used. See the GeoJSON documentation for a full description of the functionality available.
-
-An external reference example for tagging a place, where the URI would return a GeoJSON description of the city of Paris, France:
-
-{% include api/code_header.html %}
-``` json-doc
-{
-  "service": {
-    "@context" : "http://geojson.org/geojson-ld/geojson-context.jsonld",
-    "@id" : "http://www.example.org/geojson/paris.json"
-  }
-}
-```
-
-Or embedding the content:
-
-{% include api/code_header.html %}
-``` json-doc
-{
-  "service": {
-    "@context" : "http://geojson.org/geojson-ld/geojson-context.jsonld",
-    "@id" : "http://www.example.org/geojson/paris.json",
-    "type": "Feature",
-    "properties": {"name": "Paris"},
-    "geometry": {
-      "type": "Point",
-      "coordinates" : [48.8567,2.3508]
-    }
-  }
-}
-```
+Though it is possible to use GeoJSON in a service object, there are complications that require a carefully formed Linked Data context to resolve. The Presentation API offers a property for supplying GeoJSON called `navPlace` that can be used with any IIIF resource type. This property already handles the Linked Data complications and syncronizes with the Presentation API. The `navPlace` property should be used instead of using a service object. Please go to the [navPlace Extension documentation](https://iiif.io/api/extension/navplace/) to learn more about using GeoJSON with the Presentation API.
 
 ### 3.3 Physical Dimensions
 {: #physical-dimensions}
