@@ -143,8 +143,6 @@ With the `logo` property added to the Image Information description in version 2
 ```
 
 ### 3.2 GeoJSON
-
-### 3.2 GeoJSON
 {: #geojson}
 _Added: 2014-05-20_, _Latest Revision: 2022-02-01_
 
