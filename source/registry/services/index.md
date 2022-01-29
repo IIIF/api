@@ -246,3 +246,9 @@ Thanks to the members of the [IIIF][iiif-community] for their continuous engagem
 
 {% include acronyms.md %}
 {% include links.md %}
+
+  [geojson]: http://geojson.org/ "GeoJSON"
+  [geojson-ld]: http://geojson.org/geojson-ld/ "GeoJSON-LD"
+  [imageinfo]: #image-information
+  [lgeojson]: #geojson
+  [physdim]: #physical-dimensions
