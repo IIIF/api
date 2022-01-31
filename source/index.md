@@ -25,7 +25,7 @@ api_current_table:
 
 | API                  | Draft Version (Status) |
 | -------------------- | ---------------------- |
-| Content State API    | [0.9.0][contentstate09]|
+| Content State API    | [0.9.1][contentstate09]|
 {: .api-table}
 
 __Feedback requested__<br/>

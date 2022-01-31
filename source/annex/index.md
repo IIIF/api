@@ -20,4 +20,4 @@ hero:
 - [Note on Image Rotation Algorithm]({{ site.api_url | absolute_url }}/annex/notes/rotation/)
 - [Note on Semantic Versioning]({{ site.api_url | absolute_url }}/annex/notes/semver/)
 - [Disclaimer of Liability]({{ site.api_url | absolute_url }}/annex/notes/disclaimer/)
-- [IIIF Design Patterns]({{ site.api_url | absolute_url }}/annex/notes/design_patterns/)
+- [IIIF Design Principles]({{ site.api_url | absolute_url }}/annex/notes/design_principles/)

@@ -5,7 +5,7 @@
 [annex-cookbook]: {{ site.cookbook_url | absolute_url }}/ "IIIF Cookbook"
 [annex-json-ld]: {{ site.api_url | absolute_url }}/annex/notes/jsonld/ "JSON-LD Frames Implementation Notes"
 [annex-oa]: {{ site.api_url | absolute_url }}/annex/openannotation/ "Open Annotation Extensions"
-[annex-patterns]: {{ site.api_url | absolute_url }}/annex/notes/design_patterns/
+[annex-patterns]: {{ site.api_url | absolute_url }}/annex/notes/design_principles/
 [annex-services]: {{ site.api_url | absolute_url }}/annex/services/ "Services Annex Document"
 [auth094]: {{ site.api_url | absolute_url }}/auth/0.9/ "Authentication API v0.9.4"
 [auth1-cookie-service]: {{ site.api_url | absolute_url }}/auth/1.0/#access-cookie-service "IIIF Authentication Cookie Service"
@@ -15,9 +15,12 @@
 [auth10]: {{ site.api_url | absolute_url }}/auth/1.0/ "IIIF Authentication API 1.0"
 [contentstate09]: {{ site.api_url | absolute_url }}/content-state/0.9/
 [contentstate-export]: {{ site.api_url | absolute_url }}/content-state/0.9/#export "3.7. Exporting Current Content State from Viewer" 
-[contentstate-http]: {{ site.api_url | absolute_url }}/content-state/0.9/#6-http-requests-and-responses "HTTP Request and Responses"
-[contentstate-initialization]: {{ site.api_url | absolute_url }}/content-state/0.3/#initialization "Initialization mechanisms (protocol)"
+[contentstate-http]: {{ site.api_url | absolute_url }}/content-state/0.9/#7-http-requests-and-responses "HTTP Request and Responses"
+[contentstate-initialization]: {{ site.api_url | absolute_url }}/content-state/0.9/#initialization "Initialization mechanisms (protocol)"
 [contentstate03]: {{ site.api_url | absolute_url }}/content-state/0.3/ "IIIF Content State API"
+[btoa-unicode-problem]: https://developer.mozilla.org/en-US/docs/Glossary/Base64#the_unicode_problem "The Unicode Problem"
+[contentstate-encoding]: {{ site.api_url | absolute_url }}/content-state/0.9/#6-content-state-encoding "Content State Section 6"
+[contentstate-export]: {{ site.api_url | absolute_url }}/content-state/0.9/#export
 [discovery-api]: {{ site.api_url | absolute_url }}/discovery/ "IIIF Change Discovery API"
 [discovery01]: {{ site.api_url | absolute_url }}/discovery/0.1/ "IIIF Change Discovery API"
 [discovery02]: {{ site.api_url | absolute_url }}/discovery/0.2/ "IIIF Change Discovery API"
@@ -148,8 +151,8 @@
 [notes-versioning]: {{ site.api_url | absolute_url }}/annex/notes/semver/ "Versioning of APIs"
 [org-bcp-47]: https://tools.ietf.org/html/bcp47 "Tags for Identifying Languages"
 [org-cc-licenses]: https://creativecommons.org/licenses/ "Create Commons Licenses"
-[org-ecma-encodeuri]: https://tc39.es/ecma262/#sec-encodeuri-uri "encodeURI"
-[org-ecma-decodeuri]: https://tc39.es/ecma262/#sec-decodeuri-encodeduri "decodeURI"
+[org-ecma-encodeuricomponent]: https://tc39.es/ecma262/#sec-encodeuricomponent-uricomponent "encodeURIComponent"
+[org-ecma-decodeuricomponent]: https://tc39.es/ecma262/#sec-decodeuricomponent-encodeduricomponent "decodeURIComponent"
 [org-iana-uri-schemes]: http://www.iana.org/assignments/uri-schemes/uri-schemes.xhtml "IANA URI Schemes"
 [org-json-ld]: http://www.json-ld.org/ "JSON for Linking Data"
 [org-linked-data]: http://linkeddata.org/ "Linked Data"
