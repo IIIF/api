@@ -1,13 +1,13 @@
 ---
-title: "IIIF Content State API 0.9"
-title_override: "IIIF Content State API 0.9"
+title: "IIIF Content State API 0.9.1"
+title_override: "IIIF Content State API 0.9.1"
 id: discovery-api-content-state
 layout: spec
 cssversion: 3
 tags: [specifications, presentation-api]
 major: 0
 minor: 9
-patch: 0
+patch: 1
 pre: final
 redirect_from:
   - /content-state/index.html
@@ -844,11 +844,12 @@ This version is due to the work of the [IIIF Discovery Technical Specification G
 ### B. Change Log
 {: #change-log}
 
-| Date       | Description           |
-| ---------- | --------------------- |
-| 2021-06-21 | Version 0.9 (unnamed) |
-| 2020-11-22 | Version 0.3 (unnamed) |
-| 2019-02-04 | Version 0.2 (unnamed) |
-| 2018-10-31 | Version 0.1 (unnamed) |
+| Date       | Description             |
+| ---------- | ----------------------- |
+| 2022-01-31 | Version 0.9.1 (unnamed) |
+| 2021-06-21 | Version 0.9   (unnamed) |
+| 2020-11-22 | Version 0.3   (unnamed) |
+| 2019-02-04 | Version 0.2   (unnamed) |
+| 2018-10-31 | Version 0.1   (unnamed) |
 
 {% include links.md %}
