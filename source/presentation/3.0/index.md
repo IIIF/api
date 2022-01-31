@@ -1,13 +1,13 @@
 ---
-title: "Presentation API 3.0"
-title_override: "IIIF Presentation API 3.0"
+title: "Presentation API 3.0.1"
+title_override: "IIIF Presentation API 3.0.1"
 id: presentation-api
 layout: spec
 cssversion: 3
 tags: [specifications, presentation-api]
 major: 3
 minor: 0
-patch: 0
+patch: 1
 pre: final
 redirect_from:
   - /presentation/index.html
