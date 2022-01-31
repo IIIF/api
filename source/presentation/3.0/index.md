@@ -1187,7 +1187,7 @@ Clients _SHOULD_ allow only `a`, `b`, `br`, `i`, `img`, `p`, `small`, `span`, `s
 
 {% include api/code_header.html %}
 ``` json-doc
-{ "summary": { "en-latn": [ "<p>Short <b>summary</b> of the resource.</p>" ] } }
+{ "summary": { "en": [ "<p>Short <b>summary</b> of the resource.</p>" ] } }
 ```
 
 ### 4.6. Linked Data Context and Extensions
