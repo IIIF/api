@@ -733,7 +733,7 @@ match
 | `q`       | recommended | recommended | mandatory |
 | `motivation` | optional | recommended | optional |
 | `date`    | optional | optional | optional |
-| `uri`     | optional | optional | optional |
+| `user`    | optional | optional | optional |
 | `min`     | optional | n/a | optional |
 {: .api-table}
 
