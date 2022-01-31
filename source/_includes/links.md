@@ -5,7 +5,7 @@
 [annex-cookbook]: {{ site.cookbook_url | absolute_url }}/ "IIIF Cookbook"
 [annex-json-ld]: {{ site.api_url | absolute_url }}/annex/notes/jsonld/ "JSON-LD Frames Implementation Notes"
 [annex-oa]: {{ site.api_url | absolute_url }}/annex/openannotation/ "Open Annotation Extensions"
-[annex-patterns]: {{ site.api_url | absolute_url }}/annex/notes/design_patterns/
+[annex-patterns]: {{ site.api_url | absolute_url }}/annex/notes/design_principles/
 [annex-services]: {{ site.api_url | absolute_url }}/annex/services/ "Services Annex Document"
 [auth094]: {{ site.api_url | absolute_url }}/auth/0.9/ "Authentication API v0.9.4"
 [auth1-cookie-service]: {{ site.api_url | absolute_url }}/auth/1.0/#access-cookie-service "IIIF Authentication Cookie Service"
