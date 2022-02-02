@@ -2004,7 +2004,7 @@ __Behavior Values__
   "behavior": [ "paged" ],
   "navDate": "1856-01-01T00:00:00Z",
 
-  "rights": "https://creativecommons.org/licenses/by/4.0/",
+  "rights": "http://creativecommons.org/licenses/by/4.0/",
   "requiredStatement": {
     "label": { "en": [ "Attribution" ] },
     "value": { "en": [ "Provided by Example Organization" ] }
