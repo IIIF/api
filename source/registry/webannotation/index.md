@@ -90,7 +90,7 @@ And would result in this SpecificResource, when applied to an image service at `
 
 It can be used in the Presentation API as demonstrated in the section on [Rotation][prezi-rot].
 
-## 2.2. Point Selector
+### 2.2. Point Selector
 {: #point-selector}
 
 There are common use cases in which a point, rather than a range or area, is the target of the Annotation. For example, putting a pin in a map should result in an exact point, not a very small rectangle. Points in time are not very short durations, and user interfaces should also treat these differently.  This is particularly important when zooming in (either spatially or temporally) beyond the scale of the frame of reference. Even if the point takes up a 10 by 10 pixel square at the user's current resolution, it is not a rectangle bounding an area.
@@ -117,7 +117,7 @@ For example, to select a point in a video that is 10 pixels in from the top left
 }
 ```
 
-## 2.3. Content Selectors
+### 2.3. Content Selectors
 {: #content-selectors}
 
 Video content resources consist of both visual and audio content within the same bit-level representation.  There are situations when it is useful to refer to only one aspect of the content -- either the visual or the audio, but not both.  For example, an Annotation might associate only the visual content of a video that has spoken English in the audio, and an audio file that has the translation of that content in Spanish.
@@ -153,4 +153,3 @@ Thanks to the members of the [IIIF][iiif-community] for their continuous engagem
 [prezi-rot]: {{ site.api_url | absolute_url }}/presentation/2.0/#rotation "Rotation in Presentation API"
 {% include acronyms.md %}
 {% include links.md %}
-
