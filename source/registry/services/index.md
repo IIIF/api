@@ -62,7 +62,7 @@ The process for having a new entry added to this registry is [described here][re
 
 ## 3. Registry
 
-This table summarizes the services available and which APIs they may be used in.  For the icons and their meanings, consult the [Summary of Property Requirements][prezi30-appendixa] icon table in the IIIF Presentation 3 API documentation.
+This table summarizes the services available and in which APIs they may be used.  For the icons and their meanings, consult the [Summary of Property Requirements][prezi30-appendixa] icon table in the IIIF Presentation 3 API documentation.
 
 | Service                        | Image API                 | Presentation 2 API        | Presentation 3 API   |
 | ------------------------------ |:-------------------------:|:-------------------------:|:-------------------------:|
@@ -75,8 +75,8 @@ The following names have been added as of version 3.0 of the Image and Presentat
 
 | Value                | Specification |
 | -------------------- | ------------- |
-| ImageService1        | [Image API version 1][image11]  |
 | ImageService2        | [Image API version 2][image21]  |
+| ImageService3        | [Image API version 3][image-api]  |
 | SearchService1       | [Search API version 1][search1] |
 | SearchService2       | In development |
 | AutoCompleteService1 | [Search API version 1][search1-autocomplete] |
