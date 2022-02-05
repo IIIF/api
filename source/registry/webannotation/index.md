@@ -2,6 +2,28 @@
 title: "IIIF Open/Web Annotation Extensions"
 title_override: "IIIF Open/Web Annotation Extensions"
 layout: spec
+editors:
+  - name: Michael Appleby
+    ORCID: https://orcid.org/0000-0002-1266-298X
+    institution: Yale University
+  - name: Tom Crane
+    ORCID: https://orcid.org/0000-0003-1881-243X
+    institution: Digirati
+  - name: Robert Sanderson
+    ORCID: https://orcid.org/0000-0003-4441-6852
+    institution: J. Paul Getty Trust
+  - name: Jon Stroop
+    ORCID: https://orcid.org/0000-0002-0367-1243
+    institution: Princeton University Library
+  - name: Simeon Warner
+    ORCID: https://orcid.org/0000-0002-7970-7855
+    institution: Cornell University
+  - name: Dawn Childress
+    ORCID: https://orcid.org/0000-0003-2602-2788
+    institution: UCLA
+  - name: Jeff Mixter
+    ORCID: https://orcid.org/0000-0002-8411-2952
+    institution: OCLC Research
 ---
 
 ## Status of this Document
@@ -10,14 +32,9 @@ layout: spec
 This document is not subject to [semantic versioning][notes-versioning].
 Changes will be tracked within the document.
 
-**Editors**
+**Editors:**
 
-  * **[Michael Appleby](https://orcid.org/0000-0002-1266-298X)** [![ORCID iD]({{ site.root_url | absolute_url }}/assets/uploads/orcid_16x16.png)](https://orcid.org/0000-0002-1266-298X), [_Yale University_](http://www.yale.edu/)
-  * **[Tom Crane](https://orcid.org/0000-0003-1881-243X)** [![ORCID iD]({{ site.root_url | absolute_url }}/assets/uploads/orcid_16x16.png)](https://orcid.org/0000-0003-1881-243X), [_Digirati_](http://digirati.com/)
-  * **[Robert Sanderson](https://orcid.org/0000-0003-4441-6852)** [![ORCID iD]({{ site.root_url | absolute_url }}/assets/uploads/orcid_16x16.png)](https://orcid.org/0000-0003-4441-6852), [_J. Paul Getty Trust_](http://www.getty.edu/)
-  * **[Jon Stroop](https://orcid.org/0000-0002-0367-1243)** [![ORCID iD]({{ site.root_url | absolute_url }}/assets/uploads/orcid_16x16.png)](https://orcid.org/0000-0002-0367-1243), [_Princeton University Library_](https://library.princeton.edu/)
-  * **[Simeon Warner](https://orcid.org/0000-0002-7970-7855)** [![ORCID iD]({{ site.root_url | absolute_url }}/assets/uploads/orcid_16x16.png)](https://orcid.org/0000-0002-7970-7855), [_Cornell University_](https://www.cornell.edu/)
-  {: .names}
+{% include api/editors.md editors=page.editors %}
 
 {% include copyright.md %}
 
@@ -27,10 +44,7 @@ This document describes extensions to the [Web Annotation][org-w3c-webanno] Data
 
 Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss]
 
-
 {:.no_toc}
-
-
 
 
 ## 1. Introduction
@@ -146,6 +160,7 @@ Thanks to the members of the [IIIF][iiif-community] for their continuous engagem
 
 | Date       | Description                                        |
 | ---------- | -------------------------------------------------- |
+| 2022-02-04 | Version 1.2 (Style edits, migrate from Annex, update context) |
 | 2018-03-14 | Version 1.1 (Update ImageApi, add Point Selectors) |
 | 2014-07-01 | Version 1.0 (RFC)                                  |
 {:.api-table}
