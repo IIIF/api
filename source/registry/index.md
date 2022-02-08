@@ -17,7 +17,7 @@ The process for having an entry included in one of the IIIF extension registries
 * [Presentation API Extensions][extensions]
 * [Motivations][registry-motivations]
 * [Profiles][registry-profiles]
-* [Open Annotation ImageApiSelector]({{ site.api_url | absolute_url }}/registry/webannotation/)
+* [Open/Web Annotation Extensions][annex-wa]
 * [Services][registry-services]
 * [TimeModes][registry-timeModes]
 * [Types][registry-types]

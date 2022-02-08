@@ -5,6 +5,7 @@
 [annex-cookbook]: {{ site.cookbook_url | absolute_url }}/ "IIIF Cookbook"
 [annex-json-ld]: {{ site.api_url | absolute_url }}/annex/notes/jsonld/ "JSON-LD Frames Implementation Notes"
 [annex-oa]: {{ site.api_url | absolute_url }}/annex/openannotation/ "Open Annotation Extensions"
+[annex-wa]: {{ site.api_url | absolute_url }}/registry/webannotation/ "Open/Web Annotation Extensions"
 [annex-patterns]: {{ site.api_url | absolute_url }}/annex/notes/design_principles/
 [annex-services]: {{ site.api_url | absolute_url }}/annex/services/ "Services Annex Document"
 [auth094]: {{ site.api_url | absolute_url }}/auth/0.9/ "Authentication API v0.9.4"
@@ -14,7 +15,7 @@
 [auth1]: {{ site.api_url | absolute_url }}/auth/1.0/ "IIIF Authentication API 1.0"
 [auth10]: {{ site.api_url | absolute_url }}/auth/1.0/ "IIIF Authentication API 1.0"
 [contentstate09]: {{ site.api_url | absolute_url }}/content-state/0.9/
-[contentstate-export]: {{ site.api_url | absolute_url }}/content-state/0.9/#export "3.7. Exporting Current Content State from Viewer" 
+[contentstate-export]: {{ site.api_url | absolute_url }}/content-state/0.9/#export "3.7. Exporting Current Content State from Viewer"
 [contentstate-http]: {{ site.api_url | absolute_url }}/content-state/0.9/#7-http-requests-and-responses "HTTP Request and Responses"
 [contentstate-initialization]: {{ site.api_url | absolute_url }}/content-state/0.9/#initialization "Initialization mechanisms (protocol)"
 [contentstate03]: {{ site.api_url | absolute_url }}/content-state/0.3/ "IIIF Content State API"
