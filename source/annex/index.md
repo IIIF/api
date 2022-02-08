@@ -9,9 +9,7 @@ hero:
 
 ## API Annex Documents
 
-- [Open Annotation ImageApiSelector]({{ site.api_url | absolute_url }}/annex/openannotation/)
 - [Description of REST usage with IIIF APIs]({{ site.api_url | absolute_url }}/annex/rest/)
-- [Known External Services]({{ site.api_url | absolute_url }}/annex/services/)
 
 ## API Implementation Notes
 

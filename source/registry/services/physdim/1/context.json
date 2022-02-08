@@ -1,0 +1,16 @@
+---
+---
+{
+  "@context": {
+    "iiif": "http://iiif.io/api/presentation/2#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "physicalScale": {
+      "@id": "iiif:physicalScale",
+      "@type": "xsd:float"
+    },
+    "physicalUnits": {
+      "@id": "iiif:physicalUnits",
+      "@type": "xsd:string"
+    }
+  }
+}
