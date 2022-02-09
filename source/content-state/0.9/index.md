@@ -10,8 +10,7 @@ minor: 9
 patch: 1
 pre: final
 redirect_from:
-  - /content-state/index.html
-  - /0/content-state/index.html
+  - /content-state/0/index.html
 pre: final
 editors:
   - name: Michael Appleby
@@ -45,7 +44,7 @@ hero:
 {:.no_toc}
 __This Version:__ {{ page.major }}.{{ page.minor }}.{{ page.patch }}{% if page.pre != 'final' %}-{{ page.pre }}{% endif %}
 
-__Latest Stable Version:__ None
+__Latest Stable Version:__ [{{ site.data.apis.content-state.latest.major }}.{{ site.data.apis.content-state.latest.minor }}.{{ site.data.apis.content-state.latest.patch }}][contenstate-stable-version]
 
 __Previous Version:__ [0.3][contentstate03]
 
