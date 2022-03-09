@@ -55,9 +55,6 @@ __Previous Version:__ [0.9][contentstate09]
 
 {% include copyright.md %}
 
-__Status Warning__
-This is a work in progress and may change without notice. Implementers should be aware that this document is not stable. Implementers are likely to find the specification changing in incompatible ways. Those interested in implementing this document before it reaches beta or release stages should join the IIIF [mailing list][iiif-discuss] and the [Discovery Specification Group][groups-discovery], take part in the discussions, and follow the [emerging issues][github-discovery-issues] on Github.
-{: .warning}
 
 ----
 
