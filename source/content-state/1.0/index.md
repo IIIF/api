@@ -837,7 +837,7 @@ This version is due to the work of the [IIIF Discovery Technical Specification G
 
 | Date       | Description             |
 | ---------- | ----------------------- |
-| 2022-02-09 | Version 1.0 (unnamed)   |
+| 2022-02-09 | Version 1.0 (Drop Dragon)   |
 | 2022-01-31 | Version 0.9.1 (unnamed) |
 | 2021-06-21 | Version 0.9   (unnamed) |
 | 2020-11-22 | Version 0.3   (unnamed) |
