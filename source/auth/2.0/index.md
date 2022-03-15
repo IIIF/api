@@ -39,9 +39,9 @@ hero:
 
 __This Version:__ {{ page.major }}.{{ page.minor }}.{{ page.patch }}{% if page.pre != 'final' %}-{{ page.pre }}{% endif %}
 
-__Latest Stable Version:__ [{{ site.data.apis.auth.latest.major }}.{{ site.data.apis.auth.latest.minor }}.{{ site.data.apis.auth.latest.patch }}][stable-version]
+__Latest Stable Version:__ [{{ site.data.apis.auth.latest.major }}.{{ site.data.apis.auth.latest.minor }}.{{ site.data.apis.auth.latest.patch }}][auth-stable-version]
 
-__Previous Version:__ [1.0.0][prev-version]
+__Previous Version:__ [1.0.0][auth1]
 
 **Editors:**
 
@@ -87,11 +87,11 @@ Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss].
 ### 1.1. Terminology
 {: #terminology}
 
-This specification distinguishes between __Content Resources__, such as images or videos, and __Description Resources__ which conform to IIIF specifications, such as [Image API][image-api] image information (info.json) and [Presentation API][prezi-api] collection or manifest resources.  From the point of view of a browser-based application, Content Resources are loaded indirectly via browser interpretation of HTML elements, whereas Description Resources are typically loaded directly by JavaScript using the `XMLHttpRequest` interface. The [Cross Origin Resource Sharing][cors-spec] (CORS) specification implemented in modern browsers describes the different security rules that apply to the interactions with these two types of resource.
+This specification distinguishes between __Content Resources__, such as images or videos, and __Description Resources__ which conform to IIIF specifications, such as [Image API][image-api] image information (info.json) and [Presentation API][prezi-api] collection or manifest resources.  From the point of view of a browser-based application, Content Resources are loaded indirectly via browser interpretation of HTML elements, whereas Description Resources are typically loaded directly by JavaScript using the `XMLHttpRequest` interface. The [Cross Origin Resource Sharing][org-w3c-cors] (CORS) specification implemented in modern browsers describes the different security rules that apply to the interactions with these two types of resource.
 
 Two additional concepts, the __access cookie__ and __access token__, are described below.
 
-The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _SHOULD NOT_, _RECOMMENDED_, _MAY_, and _OPTIONAL_ in this document are to be interpreted as described in [RFC 2119][rfc-2119].
+The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _SHOULD NOT_, _RECOMMENDED_, _MAY_, and _OPTIONAL_ in this document are to be interpreted as described in [RFC 2119][org-rfc-2119].
 
 ### 1.2. Authentication for Content Resources
 {: #authentication-for-content-resources}
@@ -103,23 +103,23 @@ Content Resources, such as images, are generally secondary resources embedded in
 
 Description Resources, such as a Presentation API manifest or an Image API information document (info.json), give the client application the information it needs to have the browser request the Content Resources. A Description Resource must be on the same domain as the Content Resource it describes, but there is no requirement that the executing client code is also hosted on this domain.
 
-A browser running JavaScript retrieved from one domain cannot use `XMLHttpRequest` to load a Description Resource from another domain and include that domain's cookies in the request, without violating the requirement introduced above that the client must work when _untrusted_.  Instead, the client sends an __access token__, technically a type of [bearer token][bearer-token], as a proxy for the access cookie. This specification describes how, once the browser has acquired the access cookie for the Content Resources, the client acquires the access token to use when making direct requests for Description Resources.
+A browser running JavaScript retrieved from one domain cannot use `XMLHttpRequest` to load a Description Resource from another domain and include that domain's cookies in the request, without violating the requirement introduced above that the client must work when _untrusted_.  Instead, the client sends an __access token__, technically a type of [bearer token][org-rfc-6570-1-2], as a proxy for the access cookie. This specification describes how, once the browser has acquired the access cookie for the Content Resources, the client acquires the access token to use when making direct requests for Description Resources.
 
 The server on the Resource Domain treats the access token as a representation of, or proxy for, the cookie that gains access to the Content Resources. When the client makes requests for the Description Resources and presents the access token, the responses tell the client what will happen when the browser requests the corresponding content resources with the access cookie the access token represents. These responses let the client decide what user interface and/or Content Resources to show to the user.
 
 ### 1.4. Security
 {: #security}
 
-The purpose of this specification to support access-control for IIIF resources and hence security is a core concern. To prevent misuse, cookies and bearer tokens described in this specification need to be protected from disclosure in storage and in transport. Implementations _SHOULD_ use [HTTP over TLS][rfc-2818], commonly known as HTTPS, for all communication. Furthermore, all IIIF clients that interact with access-controlled resources _SHOULD_ also be run from pages served via HTTPS. All references to HTTP in this specification should be read assuming the use of HTTPS.
+The purpose of this specification to support access-control for IIIF resources and hence security is a core concern. To prevent misuse, cookies and bearer tokens described in this specification need to be protected from disclosure in storage and in transport. Implementations _SHOULD_ use [HTTP over TLS][org-rfc-2818], commonly known as HTTPS, for all communication. Furthermore, all IIIF clients that interact with access-controlled resources _SHOULD_ also be run from pages served via HTTPS. All references to HTTP in this specification should be read assuming the use of HTTPS.
 
 This specification protects Content Resources such as images by making the access token value available to the script of the client application, for use in requesting Description Resources. Knowledge of the access token is of no value to a malicious client, because the access _cookie_ (which the client cannot see) is the only credential accepted for Content Resources, and a Description Resource is of no value on its own. However, the interaction patterns introduced in this specification will in future versions be extended to write operations on IIIF resources, for example creating annotations in an annotation server, or modifying the `structures` element in a manifest. For these kinds of operations, the access token _is_ the credential, and the flow introduced below may require one or more additional steps to establish trust between client and server. However, it is anticipated that these changes will be backwards compatible with version {{ page.major }}.{{ page.minor }}.
 
-Further discussion of security considerations can be found in the [Implementation Notes][implementation-notes].
+Further discussion of security considerations can be found in the [Implementation Notes][auth2-implementation-notes].
 
 ## 2. Authentication Services
 {: #authentication-services}
 
-Authentication services follow the pattern described in the IIIF [Linking to External Services][ext-services] note, and are referenced in one or more `service` blocks from the descriptions of the resources that are protected. There is a primary login service profile for authenticating users, and it has related services nested within its description.  The related services include a mandatory access token service, and an optional logout service.
+Authentication services follow the pattern described in the IIIF [Linking to External Services][annex-services] note, and are referenced in one or more `service` blocks from the descriptions of the resources that are protected. There is a primary login service profile for authenticating users, and it has related services nested within its description.  The related services include a mandatory access token service, and an optional logout service.
 
 ### 2.1. Access Cookie Service
 {: #access-cookie-service}
@@ -141,20 +141,25 @@ There are four interaction patterns by which the client can obtain an access coo
 | External     | `http://iiif.io/api/auth/{{ page.major }}/external` | The user is expected to have already acquired the appropriate cookie, and the access cookie service will not be used at all. |
 {: .api-table .first-col-normal }
 
-The service description is included in the Description Resource and has the following properties:
+The service description is included in the Description Resource and has the following technical properties:
 
 | Property     | Required?   | Description |
 | ------------ | ----------- | ----------- |
 | @context     | _REQUIRED_    | The context document that describes the IIIF Authentication API. The value _MUST_ be `http://iiif.io/api/auth/{{ page.major }}/context.json`.|
 | id          | _see description_ | It is _REQUIRED_ with the Login, Clickthrough, or Kiosk patterns, in which the client opens the URI in order to obtain an access cookie. It is _OPTIONAL_ with the External pattern, as the user is expected to have obtained the cookie by other means and any value provided is ignored. |
 | profile      | _REQUIRED_    | The profile for the service _MUST_ be one of the profile URIs from the table above.|
+| service      | _REQUIRED_    | References to access token and other related services, described below.|
+
+The service description also includes the following descriptive properties, all of which are JSON objects conforming to the section [Language of Property Values][prezi3-languages] in the Presentation API. In the case where multiple language values are supplied, clients must use the algorithm in that section to determine which values to display to the user.
+
+| Property     | Required?   | Description |
+| ------------ | ----------- | ----------- |
 | label        | _REQUIRED_    | The text to be shown to the user to initiate the loading of the authentication service when there are multiple services required. The value _MUST_ include the domain or institution to which the user is authenticating. |
 | confirmLabel | _RECOMMENDED_ | The text to be shown to the user on the button or element that triggers opening of the access cookie service. If not present, the client supplies text appropriate to the interaction pattern if needed. |
 | header       | _RECOMMENDED_ | A short text that, if present, _MUST_ be shown to the user as a header for the description, or alone if no description is given. |
 | description  | _RECOMMENDED_ | Text that, if present, _MUST_ be shown to the user before opening the access cookie service. |
 | failureHeader | _OPTIONAL_ | A short text that, if present, _MAY_ be shown to the user as a header after failing to receive a token, or using the token results in an error. |
 | failureDescription | _OPTIONAL_ | Text that, if present, _MAY_ be shown to the user after failing to receive a token, or using the token results in an error. |
-| service      | _REQUIRED_    | References to access token and other related services, described below.|
 {: .api-table}
 
 #### 2.1.2. Interaction with the Access Cookie Service
@@ -164,7 +169,7 @@ The client _MUST_ append the following query parameter to all requests to an acc
 
 | Parameter | Description |
 | --------- | ----------- |
-| origin    | A string containing the origin of the page in the window, consisting of a protocol, hostname and optionally port number, as described in the [postMessage API][postmessage] specification.  |
+| origin    | A string containing the origin of the page in the window, consisting of a protocol, hostname and optionally port number, as described in the [postMessage API][org-mozilla-postmessage] specification.  |
 {: .api-table}
 
 For example, given an access cookie service URI of `https://authentication.example.org/login`, a client instantiated by the page `https://client.example.com/viewer/index.html` would make its request to:
@@ -401,7 +406,7 @@ If the client is a JavaScript application running in a web browser, it needs to 
 | Parameter | Description |
 | --------- | ----------- |
 | messageId | A string that both prompts the server to respond with a web page instead of JSON, and allows the client to match access token service requests with the messages received.  If a client has no need to interact with multiple token services, it can use a dummy value for the parameter, e.g., `messageId=1`. |
-| origin    | A string containing the origin of the page in the window, consisting of a protocol, hostname and optionally port number, as described in the [postMessage API][postmessage] specification. |
+| origin    | A string containing the origin of the page in the window, consisting of a protocol, hostname and optionally port number, as described in the [postMessage API][org-mozilla-postmessage] specification. |
 {: .api-table}
 
 For example, a client instantiated by the page at `https://client.example.com/viewer/index.html` would request:
@@ -660,7 +665,7 @@ Guidance for implementers is provided in a separate [Implementation Notes][imple
 
 ### B. Versioning
 
-Starting with version 0.9.0, this specification follows [Semantic Versioning][semver]. See the note [Versioning of APIs][versioning] for details regarding how this is implemented.
+Starting with version 0.9.0, this specification follows [Semantic Versioning][org-semver]. See the note [Versioning of APIs][notes-versioning] for details regarding how this is implemented.
 
 ###  C. Acknowledgments
 
@@ -679,21 +684,5 @@ Many thanks to the members of the [IIIF Community][iiif-community] for their con
 | 2015-07-28 | Version 0.9.0 (unnamed) draft |
 {: .api-table .first-col-normal}
 
-[postmessage]: https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage "window.postMessage"
-[cors-spec]: http://www.w3.org/TR/cors/ "Cross-Origin Resource Sharing"
-[iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
-[semver]: http://semver.org/spec/v2.0.0.html "Semantic Versioning 2.0.0"
-[iiif-community]: {{ site.root_url | absolute_url }}/community/ "IIIF Community"
-[versioning]: {{ site.api_url | absolute_url }}/annex/notes/semver/ "Versioning of APIs"
-[mellon]: http://www.mellon.org/ "The Andrew W. Mellon Foundation"
-[rfc-2119]: https://datatracker.ietf.org/doc/html/rfc2119 "Key words for use in RFCs to Indicate Requirement Levels"
-[prezi-api]: {{ site.api_url | absolute_url }}/presentation/
-[image-api]: {{ site.api_url | absolute_url }}/image/
-[ext-services]: {{ site.api_url | absolute_url }}/annex/services/
-[bearer-token]: https://tools.ietf.org/html/rfc6750#section-1.2 "OAuth2 Bearer Tokens"
-[rfc-2818]: https://tools.ietf.org/html/rfc2818 "HTTP Over TLS"
-[implementation-notes]: implementation/ "IIIF Authentication: Implementation Notes"
-[stable-version]: {{ site.api_url | absolute_url }}/auth/{{ site.data.apis.auth.latest.major }}.{{ site.data.apis.auth.latest.minor }}/ "Stable Version"
-[prev-version]: {{ site.api_url | absolute_url }}/auth/0.9/ "Previous Version"
-
+{% include links.md %}
 {% include acronyms.md %}
