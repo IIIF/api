@@ -1,30 +1,32 @@
 ---
-title: "IIIF Authentication API 1.0"
-title_override: "IIIF Authentication API 1.0"
+title: "IIIF Authentication API 2.0"
+title_override: "IIIF Authentication API 2.0"
 id: auth-api
 layout: spec
 tags: [specifications, auth-api]
-major: 1
+major: 2
 minor: 0
 patch: 0
-pre: final
+pre: alpha
 cssversion: 2
 redirect_from:
-  - /auth/index.html
-  - /auth/1/index.html
+  - /auth/2/index.html
 editors:
   - name: Michael Appleby
     ORCID: https://orcid.org/0000-0002-1266-298X
     institution: Yale University
+  - name: Dawn Childress  
+    orcid: https://orcid.org/0000-0003-2602-2788
+    institution: UCLA
   - name: Tom Crane
     ORCID: https://orcid.org/0000-0003-1881-243X
     institution: Digirati
+  - name: Jeff Mixter
+    orcid: https://orcid.org/0000-0002-8411-2952
+    institution: OCLC
   - name: Robert Sanderson
     ORCID: https://orcid.org/0000-0003-4441-6852
-    institution: J. Paul Getty Trust
-  - name: Jon Stroop
-    ORCID: https://orcid.org/0000-0002-0367-1243
-    institution: Princeton University Library
+    institution: Yale University
   - name: Simeon Warner
     ORCID: https://orcid.org/0000-0002-7970-7855
     institution: Cornell University
@@ -39,7 +41,7 @@ __This Version:__ {{ page.major }}.{{ page.minor }}.{{ page.patch }}{% if page.p
 
 __Latest Stable Version:__ [{{ site.data.apis.auth.latest.major }}.{{ site.data.apis.auth.latest.minor }}.{{ site.data.apis.auth.latest.patch }}][stable-version]
 
-__Previous Version:__ [0.9.4][prev-version]
+__Previous Version:__ [1.0.0][prev-version]
 
 **Editors:**
 
@@ -48,11 +50,6 @@ __Previous Version:__ [0.9.4][prev-version]
 {% include copyright2015.md %}
 
 ----
-
-__Warning__<br/>
-Recent developments in the browser community to discontinue support for third-party cookies have meant that IIIF Authentication API 1.0 workflows that rely on third-party cookies are now, or will soon be, obsolete in most browsers. The [IIIF Authentication TSG]({{ site.root_url | absolute_url }}/community/groups/auth-tsg/) is currently working on the next iteration of the Auth specification, which should address the third-party cookies issue. Workflows relying on first-party cookies remain unaffected by these developments. For a more detailed discussion of the issues, see [What happens if there are no third-party cookies?](https://tom-crane.medium.com/what-happens-if-there-are-no-third-party-cookies-5ee5edb84d75).
-{: .alert}
-
 
 ## 1. Introduction
 {: #introduction}
@@ -149,7 +146,7 @@ The service description is included in the Description Resource and has the foll
 | Property     | Required?   | Description |
 | ------------ | ----------- | ----------- |
 | @context     | _REQUIRED_    | The context document that describes the IIIF Authentication API. The value _MUST_ be `http://iiif.io/api/auth/{{ page.major }}/context.json`.|
-| @id          | _see description_ | It is _REQUIRED_ with the Login, Clickthrough, or Kiosk patterns, in which the client opens the URI in order to obtain an access cookie. It is _OPTIONAL_ with the External pattern, as the user is expected to have obtained the cookie by other means and any value provided is ignored. |
+| id          | _see description_ | It is _REQUIRED_ with the Login, Clickthrough, or Kiosk patterns, in which the client opens the URI in order to obtain an access cookie. It is _OPTIONAL_ with the External pattern, as the user is expected to have obtained the cookie by other means and any value provided is ignored. |
 | profile      | _REQUIRED_    | The profile for the service _MUST_ be one of the profile URIs from the table above.|
 | label        | _REQUIRED_    | The text to be shown to the user to initiate the loading of the authentication service when there are multiple services required. The value _MUST_ include the domain or institution to which the user is authenticating. |
 | confirmLabel | _RECOMMENDED_ | The text to be shown to the user on the button or element that triggers opening of the access cookie service. If not present, the client supplies text appropriate to the interaction pattern if needed. |
