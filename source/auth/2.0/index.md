@@ -124,21 +124,21 @@ Authentication services follow the pattern described in the IIIF [Linking to Ext
 ### 2.1. Access Cookie Service
 {: #access-cookie-service}
 
-The client uses this service to obtain a cookie that will be used when interacting with content such as images, and with the access token service. There are several different interaction patterns in which the client will use this service, based on the user interface that must be rendered for the user, indicated by a profile URI. The client obtains the link to the access cookie service from a service block in a description of the protected resource.
+The client uses this service to obtain a cookie that will be used when interacting with content such as images, and with the access token service. There are several different interaction patterns in which the client will use this service, based on the user interface that must be rendered for the user. The different patterns are indicated by the `profile` property. The client obtains the link to the access cookie service from a service block in a description of the protected resource.
 
 The purpose of the access cookie service is to set a cookie during the user's interaction with the content server, so that when the client then makes image requests to the content server, the requests will succeed. The client has no knowledge of what happens at the login service, and it cannot see any cookies set for the content domain during the user's interaction with the login service. The browser may be redirected one or more times but this is invisible to the client application. The final response in the opened tab _SHOULD_ contain JavaScript that will attempt to close the tab, in order to trigger the next step in the workflow.
 
 #### 2.1.1. Service Description
 {: #service-description}
 
-There are four interaction patterns by which the client can obtain an access cookie, each identified by a profile URI. These patterns are described in more detail in the following sections.
+There are four interaction patterns by which the client can obtain an access cookie, each identified by a different value of the `profile` property. These patterns are described in more detail in the following sections.
 
-| Pattern      | Profile URI | Description |
+| Pattern      | `profile` value | Description |
 | ------------ | ----------- | ----------- |
-| Login        | `http://iiif.io/api/auth/{{ page.major }}/login` | The user will be required to log in using a separate window with a UI provided by an external authentication system. |
-| Clickthrough | `http://iiif.io/api/auth/{{ page.major }}/clickthrough` | The user will be required to click a button within the client using content provided in the service description. |
-| Kiosk        | `http://iiif.io/api/auth/{{ page.major }}/kiosk` | The user will not be required to interact with an authentication system, the client is expected to use the access cookie service automatically. |
-| External     | `http://iiif.io/api/auth/{{ page.major }}/external` | The user is expected to have already acquired the appropriate cookie, and the access cookie service will not be used at all. |
+| Login        | `login` | The user will be required to log in using a separate window with a UI provided by an external authentication system. |
+| Clickthrough | `clickthrough` | The user will be required to click a button within the client using content provided in the service description. |
+| Kiosk        | `kiosk` | The user will not be required to interact with an authentication system, the client is expected to use the access cookie service automatically. |
+| External     | `external` | The user is expected to have already acquired the appropriate cookie, and the access cookie service will not be used at all. |
 {: .api-table .first-col-normal }
 
 The service description is included in the Description Resource and has the following technical properties:
@@ -147,7 +147,7 @@ The service description is included in the Description Resource and has the foll
 | ------------ | ----------- | ----------- |
 | @context     | _REQUIRED_    | The context document that describes the IIIF Authentication API. The value _MUST_ be `http://iiif.io/api/auth/{{ page.major }}/context.json`.|
 | id          | _see description_ | It is _REQUIRED_ with the Login, Clickthrough, or Kiosk patterns, in which the client opens the URI in order to obtain an access cookie. It is _OPTIONAL_ with the External pattern, as the user is expected to have obtained the cookie by other means and any value provided is ignored. |
-| profile      | _REQUIRED_    | The profile for the service _MUST_ be one of the profile URIs from the table above.|
+| profile      | _REQUIRED_    | The profile for the service _MUST_ be one of the profile values from the table above.|
 | service      | _REQUIRED_    | References to access token and other related services, described below.|
 
 The service description also includes the following descriptive properties, all of which are JSON objects conforming to the section [Language of Property Values][prezi3-languages] in the Presentation API. In the case where multiple language values are supplied, clients must use the algorithm in that section to determine which values to display to the user.
@@ -203,7 +203,7 @@ An example service description for the Login interaction pattern:
   "service" : {
     "@context": "http://iiif.io/api/auth/{{ page.major }}/context.json",
     "id": "https://authentication.example.org/login",
-    "profile": "http://iiif.io/api/auth/{{ page.major }}/login",
+    "profile": "login",
     "label": { "en": [ "Login to Example Institution" ] },
     "header": { "en": [ "Please Log In" ] },
     "description": { "en": [ "Example Institution requires that you log in with your example account to view this content." ] },
@@ -237,7 +237,7 @@ An example service description for the Clickthrough interaction pattern:
   "service" : {
     "@context": "http://iiif.io/api/auth/{{ page.major }}/context.json",
     "id": "https://authentication.example.org/clickthrough",
-    "profile": "http://iiif.io/api/auth/{{ page.major }}/clickthrough",
+    "profile": "clickthrough",
     "label": { "en": [ "Terms of Use for Example Institution" ] },
     "header": { "en": [ "Restricted Material with Terms of Use" ] },
     "description": { "en": [ "<span>... terms of use ... </span>" ] },
@@ -271,7 +271,7 @@ An example service description for the Kiosk interaction pattern:
   "service" : {
     "@context": "http://iiif.io/api/auth/{{ page.major }}/context.json",
     "id": "https://authentication.example.org/cookiebaker",
-    "profile": "http://iiif.io/api/auth/{{ page.major }}/kiosk",
+    "profile": "kiosk",
     "label": { "en": [ "Internal cookie granting service" ] },
     "failureHeader": { "en": [ "Ooops!" ] },
     "failureDescription": { "en": [ "Call Bob at ext. 1234 to reboot the cookie server" ] },
@@ -301,7 +301,7 @@ An example service description for the External interaction pattern:
   // ...
   "service" : {
     "@context": "http://iiif.io/api/auth/{{ page.major }}/context.json",
-    "profile": "http://iiif.io/api/auth/{{ page.major }}/external",
+    "profile": "external",
     "label": { "en": [ "External Authentication Required" ] },
     "failureHeader": { "en": [ "Restricted Material" ] },
     "failureDescription": { "en": [ "This material is not viewable without prior agreement" ] },
@@ -329,21 +329,21 @@ The access cookie service description _MUST_ include an access token service des
   "service" : {
     "@context": "http://iiif.io/api/auth/{{ page.major }}/context.json",
     "id": "https://authentication.example.org/login",
-    "profile": "http://iiif.io/api/auth/{{ page.major }}/login",
+    "profile": "login",
     "label": { "en": [ "Login to Example Institution" ] },
 
     // Access Token Service
     "service": [
       {
         "id": "https://authentication.example.org/token",
-        "profile": "http://iiif.io/api/auth/{{ page.major }}/token"
+        "profile": "token"
       }
     ]
   }
 }
 ```
 
-The `id` property of the access token service _MUST_ be present, and its value _MUST_ be the URI from which the client can obtain the access token. The `profile` property _MUST_ be present and its value _MUST_ be `http://iiif.io/api/auth/{{ page.major }}/token` to distinguish it from other services. There is no requirement to repeat the `@context` property included in the enclosing access cookie service description, and there are no other properties for this service.
+The `id` property of the access token service _MUST_ be present, and its value _MUST_ be the URI from which the client can obtain the access token. The `profile` property _MUST_ be present and its value _MUST_ be `token` to distinguish it from other services. There is no requirement to repeat the `@context` property included in the enclosing access cookie service description, and there are no other properties for this service.
 
 #### 2.2.2. The JSON Access Token Response
 {: #the-json-access-token-response}
@@ -526,16 +526,16 @@ If the authentication system supports users intentionally logging out, there _SH
   "service" : {
     "@context": "http://iiif.io/api/auth/{{ page.major }}/context.json",
     "id": "https://authentication.example.org/login",
-    "profile": "http://iiif.io/api/auth/{{ page.major }}/login",
+    "profile": "login",
     "label": { "en": [ "Login to Example Institution" ] },
     "service" : [
       {
         "id": "https://authentication.example.org/token",
-        "profile": "http://iiif.io/api/auth/{{ page.major }}/token"
+        "profile": "token"
       },
       {
         "id": "https://authentication.example.org/logout",
-        "profile": "http://iiif.io/api/auth/{{ page.major }}/logout",
+        "profile": "logout",
         "label": { "en": [ "Logout from Example Institution" ] }
       }
     ]
@@ -543,7 +543,7 @@ If the authentication system supports users intentionally logging out, there _SH
 }
 ```
 
-The value of the `profile` property _MUST_ be `http://iiif.io/api/auth/{{ page.major }}/logout`.
+The value of the `profile` property _MUST_ be `logout`.
 
 #### 2.3.2. Interaction
 {: #interaction}
@@ -576,16 +576,16 @@ The example below is a complete image information response for an example image 
   "service" : {
     "@context": "http://iiif.io/api/auth/{{ page.major }}/context.json",
     "id": "https://authentication.example.org/login",
-    "profile": "http://iiif.io/api/auth/{{ page.major }}/login",
+    "profile": "login",
     "label": { "en": [ "Login to Example Institution" ] },
     "service" : [
       {
         "id": "https://authentication.example.org/token",
-        "profile": "http://iiif.io/api/auth/{{ page.major }}/token"
+        "profile": "token"
       },
       {
         "id": "https://authentication.example.org/logout",
-        "profile": "http://iiif.io/api/auth/{{ page.major }}/logout",
+        "profile": "logout",
         "label": { "en": [ "Logout from Example Institution" ] }
       }
     ]
