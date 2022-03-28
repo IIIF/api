@@ -507,6 +507,7 @@ The value of the `error` property _MUST_ be one of the types in the following ta
 | `invalidRequest`     | The service could not process the information sent in the body of the request. |
 | `missingCredentials` | The request did not have the credentials required. |
 | `invalidCredentials` | The request had credentials that are not valid for the service. |
+| `expiredCredentials` | The request had credentials that are no longer valid for the service. |
 | `invalidOrigin`      | The request came from a different origin than that specified in the access cookie service request, or an origin that the server rejects for other reasons. |
 | `unavailable`        | The request could not be fulfilled for reasons other than those listed above, such as scheduled maintenance. |
 {: .api-table}
@@ -514,6 +515,8 @@ The value of the `error` property _MUST_ be one of the types in the following ta
 The `description` property is _OPTIONAL_ and may give additional human-readable information about the error.
 
 When returning JSON directly, the service _MUST_ use the appropriate HTTP status code for the response to describe the error (for example 400, 401 or 503).  The postMessage web page response _MUST_ use the 200 HTTP status code to ensure that the body is received by the client correctly.
+
+If the error is `expiredCredentials`, the client _SHOULD_ first try to acquire another token from the token service, before sending the user to the login service again. The client _MAY_ also do this for `invalidCredentials`.
 
 ### 2.3. Logout Service
 {: #logout-service}
