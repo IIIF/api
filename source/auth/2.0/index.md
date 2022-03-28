@@ -619,7 +619,7 @@ If the user is authorized for a Description Resource, the client can assume that
 ### 3.2. Tiered Access
 {: #tiered-access}
 
-If a Content Resource supports multiple tiers of access, then it _MUST_ use a different URI for each Description Resource and its corresponding Content Resource(s). For example, there _MUST_ be different Image Information documents (`/info.json`) at different URIs for each tier. When refering to Description Resources that have multiple tiers of access, systems _SHOULD_ use the URI of the version that an appropriated authorized user should see. For example, when refering to an Image service from a Manifest, the reference would normally be to the highest quality image version rather than a degraded version. 
+If a Content Resource supports multiple tiers of access, then it _MUST_ use a different URI for each Description Resource and its corresponding Content Resource(s). For example, there _MUST_ be different Image Information documents (`/info.json`) at different URIs for each tier. When refering to Description Resources that have multiple tiers of access, systems _SHOULD_ use the URI of the version that an appropriately authorized user should see. For example, when refering to an Image service from a Manifest, the reference would normally be to the highest quality image version rather than a degraded version. 
 
 When a Description Resource is requested and the user is not authorized to access it and there are lower tiers available, the server _MUST_ issue a `302` (Found) HTTP status response to redirect to the Description Resource of a lower tier.  
 
