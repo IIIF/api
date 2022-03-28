@@ -145,7 +145,7 @@ The service description is included in the Description Resource and has the foll
 
 | Property     | Required?   | Description |
 | ------------ | ----------- | ----------- |
-| @context     | _REQUIRED_    | The context document that describes the IIIF Authentication API. The value _MUST_ be `http://iiif.io/api/auth/{{ page.major }}/context.json`.|
+| @context     | _REQUIRED_    | The context document that describes the IIIF Authentication API. The value _MUST_ be `http://iiif.io/api/auth/{{ page.major }}/context.json`. If the Access Cookie service is embedded within an Image API 3.0 service, or a Presentation API 3.0 resource, the `@context` key _SHOULD NOT_ be present within the service, but instead _SHOULD_ be included in the list of values for `@context` at the beginning of that image service or Presentation API resource.  |
 | id          | _see description_ | It is _REQUIRED_ with the Login, Clickthrough, or Kiosk patterns, in which the client opens the URI in order to obtain an access cookie. It is _OPTIONAL_ with the External pattern, as the user is expected to have obtained the cookie by other means and any value provided is ignored. |
 | type         | _REQUIRED_    | The value _MUST_ be the string `AuthCookieService2` |
 | profile      | _REQUIRED_    | The profile for the service _MUST_ be one of the profile values from the table above.|
@@ -219,6 +219,28 @@ An example service description for the Login interaction pattern:
 }
 ```
 
+When the service is embedded within the resource it applies to, the `@context` _SHOULD_ be declared at the beginning of that resource and not within the service:
+
+{% include api/code_header.html %}
+``` json-doc
+{
+  "@context": [
+    "http://iiif.io/api/image/3/context.json",
+    "http://iiif.io/api/auth/{{ page.major }}/context.json"
+  ],
+  "id": "https://example.org/image-service/abcd12345",
+  "type": "ImageService3",
+    // other image service properties ...
+  "service": [
+    {    
+      "id": "https://authentication.example.org/login",
+      "type": "AuthCookieService2",
+      // other auth service properties ...
+    }
+  ]
+}
+```
+
 #### 2.1.4. Clickthrough Interaction Pattern
 {: #clickthrough-interaction-pattern}
 
@@ -254,6 +276,8 @@ An example service description for the Clickthrough interaction pattern:
 }
 ```
 
+When the service is embedded within the resource it applies to, the `@context` _SHOULD_ be declared at the beginning of that resource and not within the service, as in the second example in Section 2.1.3.
+
 #### 2.1.5. Kiosk Interaction Pattern
 {: #kiosk-interaction-pattern}
 
@@ -286,6 +310,8 @@ An example service description for the Kiosk interaction pattern:
 }
 ```
 
+When the service is embedded within the resource it applies to, the `@context` _SHOULD_ be declared at the beginning of that resource and not within the service, as in the second example in Section 2.1.3.
+
 #### 2.1.6. External Interaction Pattern
 {: #external-interaction-pattern}
 
@@ -316,6 +342,8 @@ An example service description for the External interaction pattern:
   }
 }
 ```
+
+When the service is embedded within the resource it applies to, the `@context` _SHOULD_ be declared at the beginning of that resource and not within the service, as in the second example in Section 2.1.3.
 
 ### 2.2. Access Token Service
 {: #access-token-service}
@@ -349,7 +377,9 @@ The access cookie service description _MUST_ include an access token service des
 }
 ```
 
-The `id` property of the access token service _MUST_ be present, and its value _MUST_ be the URI from which the client can obtain the access token. The `type` property _MUST_ be present and its value _MUST_ be `AuthCookieService2` to distinguish it from other services. There is no requirement to repeat the `@context` property included in the enclosing access cookie service description, and there are no other properties for this service.
+The `id` property of the access token service _MUST_ be present, and its value _MUST_ be the URI from which the client can obtain the access token. The `type` property _MUST_ be present and its value _MUST_ be `AuthCookieService2` to distinguish it from other services. 
+
+There are no other properties for this service.
 
 #### 2.2.2. The JSON Access Token Response
 {: #the-json-access-token-response}
@@ -555,6 +585,7 @@ If the authentication system supports users intentionally logging out, there _SH
 
 The value of the `type` property _MUST_ be `AuthLogoutService2`.
 
+
 #### 2.3.2. Interaction
 {: #interaction}
 
@@ -584,7 +615,6 @@ The example below is a complete image information response for an example image 
   ],
   "profile" : "level2",
   "service" : {
-    "@context": "http://iiif.io/api/auth/{{ page.major }}/context.json",
     "id": "https://authentication.example.org/login",
     "type": "AuthCookieService2",
     "profile": "login",
