@@ -621,7 +621,7 @@ If the user is authorized for a Description Resource, the client can assume that
 
 If a Content Resource supports multiple tiers of access, then it _MUST_ use a different URI for each Description Resource and its corresponding Content Resource(s). For example, there _MUST_ be different Image Information documents (`/info.json`) at different URIs for each tier. When refering to Description Resources that have multiple tiers of access, systems _SHOULD_ use the URI of the version that an appropriately authorized user should see. For example, when refering to an Image service from a Manifest, the reference would normally be to the highest quality image version rather than a degraded version. 
 
-When a Description Resource is requested and the user is not authorized to access it and there are lower tiers available, the server _MUST_ issue a `302` (Found) HTTP status response to redirect to the Description Resource of a lower tier.  
+When a server receives an HTTP GET request for a Description Resource, and the user is not authorized to access it, and there are lower tiers available, the server _MUST_ issue a `302` (Found) HTTP status response to redirect to the Description Resource of a lower tier. Please note that the server _MUST_ return a 200 (OK) HTTP status response to an HTTP OPTIONS request, regardless of the user's access, as this is the required response for a successful CORS Preflight request.
 
 When there are no lower tiers and the user is not authorized to access the current Description Resource, the server _MUST_ issue a `401` (Unauthorized) response. The client _SHOULD_ present information about the Login and/or Clickthrough services included in the Description Resource to allow the user to attempt to authenticate.
 
