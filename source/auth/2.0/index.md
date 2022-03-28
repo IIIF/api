@@ -520,15 +520,19 @@ Authorization: Bearer TOKEN_HERE
 #### 2.2.6. Access Token Error Conditions
 {: #access-token-error-conditions}
 
-The response from the access token service may be an error. The error _MUST_ be supplied as JSON with the following template. For browser-based clients using the postMessage API, the error object must be sent to the client via JavaScript, in the same way the access token is sent. For direct requests the response body is the raw JSON.
+The response from the access token service may be an error. The error _MUST_ be supplied as a JSON-LD resource of type `AuthTokenError2`, as in the following template. For browser-based clients using the postMessage API, the error object must be sent to the client via JavaScript, in the same way the access token is sent. For direct requests the response body is the raw JSON.
 
 {% include api/code_header.html %}
 ``` json-doc
 {
+  "@context": "http://iiif.io/api/auth/{{ page.major }}/context.json",
+  "type": "AuthTokenError2",
   "error": "ERROR_TYPE_HERE",
-  "description": "..."
+  "description": { "en": [ "Error message here" ] }
 }
 ```
+
+The error resource _MAY_ have an `id` property, but clients will likely ignore it.
 
 The value of the `error` property _MUST_ be one of the types in the following table:  
 
@@ -542,7 +546,7 @@ The value of the `error` property _MUST_ be one of the types in the following ta
 | `unavailable`        | The request could not be fulfilled for reasons other than those listed above, such as scheduled maintenance. |
 {: .api-table}
 
-The `description` property is _OPTIONAL_ and may give additional human-readable information about the error.
+The `description` property is _OPTIONAL_ and may give additional human-readable information about the error. The value of the `description` property is a JSON-LD Language Map conforming to the section [Language of Property Values][prezi3-languages] in the Presentation API.
 
 When returning JSON directly, the service _MUST_ use the appropriate HTTP status code for the response to describe the error (for example 400, 401 or 503).  The postMessage web page response _MUST_ use the 200 HTTP status code to ensure that the body is received by the client correctly.
 
