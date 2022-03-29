@@ -26,7 +26,6 @@ __Previous Version:__ [1.0.0][search1]
   * **[Michael Appleby](https://orcid.org/0000-0002-1266-298X)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0002-1266-298X), [_Yale University_](http://www.yale.edu/)
   * **[Tom Crane](https://orcid.org/0000-0003-1881-243X)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0003-1881-243X), [_Digirati_](http://digirati.com/)
   * **[Robert Sanderson](https://orcid.org/0000-0003-4441-6852)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0003-4441-6852), [_Stanford University_](http://www.stanford.edu/)
-  * **[Jon Stroop](https://orcid.org/0000-0002-0367-1243)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0002-0367-1243), [_Princeton University Library_](https://library.princeton.edu/)
   * **[Simeon Warner](https://orcid.org/0000-0002-7970-7855)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0002-7970-7855), [_Cornell University_](https://www.cornell.edu/)
   {: .names}
 
@@ -215,10 +214,18 @@ And the responses for the Annotation Collection and the first page of annotation
   "type":"AnnotationCollection",
 
   "total": 125,
-  "first": "http://example.org/service/manifest/search?q=bird&page=1",
-  "last": "http://example.org/service/manifest/search?q=bird&page=13"
+  "first": {
+    "id": "http://example.org/service/identifier/search?q=bird&page=1",
+    "type": "AnnotationPage"
+  },
+  "last": {
+    "id": "http://example.org/service/identifier/search?q=bird&page=13",
+    "type": "AnnotationPage"
+  },
 }
 ```
+
+
 
 ``` json-doc
 {
@@ -226,8 +233,14 @@ And the responses for the Annotation Collection and the first page of annotation
   "id":"http://example.org/service/manifest/search?q=bird&page=1",
   "type":"AnnotationPage",
 
-  "partOf": "http://example.org/service/manifest/search?q=bird",
-  "next": "http://example.org/service/identifier/search?q=bird&page=2",
+  "partOf": {
+    "id": "http://example.org/service/manifest/search?q=bird",
+    "type": "AnnotationCollection"
+  },
+  "next": {
+    "id": "http://example.org/service/identifier/search?q=bird&page=2",
+    "type": "AnnotationPage"
+  },
 
   "items": [
     {
@@ -292,11 +305,9 @@ There may be properties that are specific to the search result, and not features
 
 As these responses include Search specific information, the value of `@context` _MUST_ be an array with both the Presentation API and the Search API context URIs included, in that order.  This allows the two APIs to develop separately and yet remain as synchronized as possible.
 
-To incrementally build upon existing solutions and provide graceful degradation for clients that do not support these features and retain compatibility with the Presentation API, the search API specific information is included in a second list within the annotation list called `hits`, other than the `ignored` property.  Annotation lists _MAY_ have this property, and servers _MAY_ support these features.
+To incrementally build upon existing solutions and provide graceful degradation for clients that do not support these features and retain compatibility with the Presentation API, the search API specific information is included in a second list of annotations called `annotations`, other than the `ignored` property. This structure mirrors the distinction in the [Presentation API][prezi3], where the main content annotations are listed in `items` and additional annotations such as comments are listed in `annotations`. 
 
-If supported, each entry in the `hits` list is a `Hit` object.  This type _MUST_ be included as the value of the `type` property. Hit objects reference one or more annotations that they provide additional information for, in a list as the value of the hit's `items` property.  The reference is made to the value of the `id` property of the annotation, and thus annotations _MUST_ have a URI to enable this further information.
-
-The basic structure is:
+The extended structure is:
 
 ``` json-doc
 {
@@ -307,27 +318,33 @@ The basic structure is:
   "id":"http://example.org/service/manifest/search?q=bird&page=1",
   "type":"AnnotationPage",
 
-  "partOf": "http://example.org/service/manifest/search?q=bird",
-  "next": "http://example.org/service/identifier/search?q=bird&page=2",
+  "partOf": {
+    "id": "http://example.org/service/manifest/search?q=bird",
+    "type": "AnnotationCollection"
+  },
+  "next": {
+    "id": "http://example.org/service/identifier/search?q=bird&page=2",
+    "type": "AnnotationPage"
+  },
+
+  "ignored": [ "parameter" ], // Ignored parameters here ...
 
   "items": [
-    {
-      "id": "http://example.org/identifier/annotation/anno1",
-      "type": "Annotation"
-      // More regular annotation information here ...
-    }
-    // Further annotations from the first page here ...
+      // Regular content annotations here ...
   ],
 
-  "hits": [
+  "annotations": [
     {
-      "type": "Hit",
+      "type": "AnnotationPage",
+      "partOf": {
+        "http://example.org/service/manifest/search?q=bird",
+        "type": "AnnotationCollection",
+        "total": 129
+      }
       "items": [
-        "http://example.org/identifier/annotation/anno1"
+        // Additional information in annotations here ...
       ]
-      // More search specific information for anno1 here ...
     }
-    // Further hits for the first page here ...
   ]
 }
 ```
@@ -335,7 +352,7 @@ The basic structure is:
 #### 3.4.1. Ignored Parameters
 {: #ignored-parameters}
 
-If the server has ignored any of the parameters in the request, then an `ignored` property _MUST_ be present _MUST_ contain a list of the ignored parameters.
+If the server has ignored any of the parameters in the request, then an `ignored` property _MUST_ be present, and _MUST_ contain a list of the ignored parameters.
 
 If the request from previous examples had been:
 
@@ -344,7 +361,7 @@ http://example.org/service/manifest/search?q=bird&user=myusername
 ```
 {: .urltemplate}
 
-And the user parameter was ignored when processing the request, the response would be:
+And the `user` parameter was ignored when processing the request, the response would be:
 
 ``` json-doc
 {
@@ -355,8 +372,14 @@ And the user parameter was ignored when processing the request, the response wou
   "id":"http://example.org/service/manifest/search?q=bird&page=1",
   "type":"AnnotationPage",
 
-  "partOf": "http://example.org/service/manifest/search?q=bird",
-  "next": "http://example.org/service/identifier/search?q=bird&page=2",
+  "partOf": {
+    "id": "http://example.org/service/manifest/search?q=bird",
+    "type": "AnnotationCollection"
+  },
+  "next": {
+    "id": "http://example.org/service/identifier/search?q=bird&page=2",
+    "type": "AnnotationPage"
+  },
 
   "ignored": ["user"],
 
@@ -367,12 +390,13 @@ And the user parameter was ignored when processing the request, the response wou
 ```
 
 
-#### 3.4.2. Search Term Snippets
+#### 3.4.2. Search Term Context
 {: #search-term-snippets}
+
 
 The simplest addition to the hit object is to add text that appears before and after the matching text in the annotation.  This allows the client to construct a snippet where the matching text is provided in the context of surrounding content, rather than simply by itself.  This is most useful when the service has word-level boundaries of the text on the canvas, such as are available when Optical Character Recognition (OCR) has been used to generate the text positions.
 
-The service _MAY_ add a `before` property to the hit with some amount of text that appears before the content of the annotation (given in `chars`), and _MAY_ also add an `after` property with some amount of text that appears after the content of the annotation.
+This is done by adding an entry to the `annotations` list with a `motivation` of "contextualizing", and a TextQuoteSelector with `prefix` and `suffix` of the text immediately before and after the matching content in the annotation. The selector has the URI of the annotation it refers to in the `source` property, to be matched against the `id` property of the annotations in `items`.
 
 For example, in a search for the query term "bird" in our example sentence, when the server has full word level coordinates:
 
@@ -392,7 +416,7 @@ That the server matches against the plural "birds":
   "id":"http://example.org/service/manifest/search?q=bird",
   "type":"AnnotationPage",
 
-  "resources": [
+  "items": [
     {
       "id": "http://example.org/identifier/annotation/anno-bird",
       "type": "Annotation",
@@ -404,19 +428,36 @@ That the server matches against the plural "birds":
       },
       "target": "http://example.org/identifier/canvas1#xywh=200,100,40,20"
     }
-    // Further annotations here ...
+    // Further 'bird' annotations here ...
   ],
 
-  "hits": [
+  "annotations": [
     {
-      "type": "Hit",
+      "type": "AnnotationPage",
+      "partOf": {
+        "id": "http://example.org/service/manifest/search?q=bird",
+        "type": "AnnotationCollection",
+        "total": 129
+      }
       "items": [
-        "http://example.org/identifier/annotation/anno-bird"
-      ],
-      "before": "There are two ",
-      "after": " in the bush"
+        {
+          "id": "http://example.org/identifier/annotation/match-1",
+          "type": "Annotation",
+          "motivation": "contextualizing",
+          "target": {
+            "source": "http://example.org/identifier/annotation/anno-bird",
+            "selector": [
+              {
+                "type": "TextQuoteSelector",
+                "prefix": "There are two ",
+                "exact": "birds",
+                "suffix": " in the bush"
+              }
+            ]
+          }
+        }
+      ]
     }
-    // Further hits for the first page here ...
   ]
 }
 ```
@@ -426,22 +467,78 @@ That the server matches against the plural "birds":
 
 Many systems do not have full word-level coordinate information, and are restricted to line or paragraph level boundaries.  In this case the most useful thing that the client can do is to display the entire annotation and highlight the hits within it.  This is similar, but different, to the previous use case.  Here the word will appear somewhere within the `body` property of the annotation, and the client needs to make it more prominent.  In the previous situation, the word was the entire content of the annotation, and the information was convenient for presenting it in a list.
 
-The client in this case needs to know the text that caused the service to create the hit, and enough information about where it occurs in the content to reliably highlight it and not highlight non-matches.  To do this, the service can supply text before and after the matching term within the content of the annotation, via an [Web Annotation Data Model][org-w3c-webanno-TextQuoteSelector] `TextQuoteSelector` object.  TextQuoteSelectors have three properties: `exact` to record the exact text to look for, `prefix` with some text before the match, and `suffix` with some text after the match.
+The client in this case needs to know the text that caused the service to create the hit, and enough information about where it occurs in the content to reliably highlight it and not highlight non-matching content of the annotation.  To do this, the service can use the `selector` pattern to supply the text before and after the matching term **within the content of the annotation**, again via a [Web Annotation Data Model][org-w3c-webanno-TextQuoteSelector] `TextQuoteSelector` object. The value of the `motivation` property is "highlighting" in this case, to distinguish from the search snippet in the previous section. Non-textual content, such as audio or video resources, would use other selectors instead, but the pattern would otherwise remain the same.  
 
-This would look like:
+``` none
+http://example.org/service/manifest/search?q=bird
+```
+{: .urltemplate}
+
+The result might be:
 
 ``` json-doc
 {
-  "selectors": {
-    "type": "TextQuoteSelector",
-    "exact": "birds",
-    "prefix": "There are two ",
-    "suffix": " in the bush"
-  }
+  "@context":[
+      "http://iiif.io/api/presentation/{{ site.presentation_api.stable.major }}/context.json",
+      "http://iiif.io/api/search/{{ page.major }}/context.json"
+  ],
+  "id":"http://example.org/service/manifest/search?q=bird",
+  "type":"AnnotationPage",
+
+  "items": [
+    {
+      "id": "http://example.org/identifier/annotation/anno-bird",
+      "type": "Annotation",
+      "motivation": "painting",
+      "body": {
+        "type": "TextualBody",
+        "value": "There are two birds in the bush",
+        "format": "text/plain"
+      },
+      "target": "http://example.org/identifier/canvas1#xywh=200,100,200,20"
+    }
+    // Further 'bird' annotations here ...
+  ],
+
+  "annotations": [
+    {
+      "type": "AnnotationPage",
+      "partOf": {
+        "id": "http://example.org/service/manifest/search?q=bird",
+        "type": "AnnotationCollection",
+        "total": 129
+      }
+      "items": [
+        {
+          "id": "http://example.org/identifier/annotation/match-1",
+          "type": "Annotation",
+          "motivation": "highlighting",
+          "target": {
+            "source": "http://example.org/identifier/annotation/anno-bird",
+            "selector": [
+              {
+                "type": "TextQuoteSelector",
+                "prefix": "There are two ",
+                "exact": "birds",
+                "suffix": " in the bush"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
 }
 ```
 
-As multiple words might match the query within the same annotation, multiple selectors may be given in the hit as objects within a `selectors` property.  For example, if the search used a wildcard to search for all words starting with "b" it would match the same annotation twice:
+#### 3.4.4. Multi-Match Annotations
+{: #multi-match-annotations}
+
+The same annotation might generate multiple matches against a single query, especially if wildcards or stemming are enabled or the content of the annotation is long.
+
+This is handled by having the content annotation only once, but to have two entries for it in the `annotations` list. Each entry then uses a different TextQuoteSelector on the same source Annotation to describe where the matching content can be found. A client could then process each in turn to highlight each match.
+
+For example, if the search was for words beginning with "b":
 
 ``` none
 http://example.org/service/manifest/search?q=b*
@@ -461,54 +558,78 @@ The result might be:
 
   "items": [
     {
-      "id": "http://example.org/identifier/annotation/anno-line",
+      "id": "http://example.org/identifier/annotation/anno-bird",
       "type": "Annotation",
-      "motivation": "sc:painting",
+      "motivation": "painting",
       "body": {
         "type": "TextualBody",
-        "value": "birds",
+        "value": "There are two birds in the bush",
         "format": "text/plain"
       },
-      "target": "http://example.org/identifier/canvas1#xywh=200,100,40,20"
+      "target": "http://example.org/identifier/canvas1#xywh=200,100,200,20"
     }
-    // Further annotations here ...
+    // Further 'b' annotations here ...
   ],
 
-  "hits": [
+  "annotations": [
     {
-      "type": "Hit",
+      "type": "AnnotationPage",
+      "partOf": {
+        "id": "http://example.org/service/manifest/search?q=bird",
+        "type": "AnnotationCollection",
+        "total": 521
+      }
       "items": [
-        "http://example.org/identifier/annotation/anno-line"
-      ],
-      "selectors": [
         {
-          "type": "TextQuoteSelector",
-          "exact": "birds",
-          "prefix": "There are two ",
-          "suffix": " in the bush"
+          "id": "http://example.org/identifier/annotation/match-1",
+          "type": "Annotation",
+          "motivation": "highlighting",
+          "target": {
+            "source": "http://example.org/identifier/annotation/anno-bird",
+            "selector": [
+              {
+                "type": "TextQuoteSelector",
+                "prefix": "There are two ",
+                "exact": "birds",
+                "suffix": " in the bush"
+              }
+            ]
+          }
         },
         {
-          "type": "TextQuoteSelector",
-          "exact": "bush",
-          "prefix": "two birds in the ",
-          "suffix": "."
-        }        
+          "id": "http://example.org/identifier/annotation/match-2",
+          "type": "Annotation",
+          "motivation": "highlighting",
+          "target": {
+            "source": "http://example.org/identifier/annotation/anno-bird",
+            "selector": [
+              {
+                "type": "TextQuoteSelector",
+                "prefix": "birds in the ",
+                "exact": "bush"
+              }
+            ]
+          }
+        }
       ]
     }
-    // Further hits for the first page here ...
   ]
 }
 ```
 
-#### 3.4.4. Multi-Annotations Hits
-{: #multi-annotations-hits}
+#### 3.4.5. Multi-Annotation Matches
+{: #multi-annotation-matches}
 
-Given the flexibility of alignment between the sections of the text (such as word, line, paragraph, page, or arbitrary sections) and the annotations that expose that text to the client, there may be multiple annotations that match a single multi-term search. These differences will depend primarily on the method by which the text and annotations were generated and will likely be very different for manually transcribed texts and text that it is generated by OCR.
+Given the flexibility of alignment between the sections of the text (such as word, line, paragraph, page, or arbitrary sections) and the annotations that expose that text to the client, there may be multiple annotations that are required to match a single multi-term search. 
 
-For example, imagine that the annotations are divided up line by line, as they were manually transcribed that way, and there are two lines of text. In this example the first line is "A bird in the hand", the second line is "is worth two in the bush", and the search is for the phrase "hand is". Therefore the match spans both of the line-based annotations.  If the annotations were instead at word level, then all phrase searches would require multiple annotations.
+For example, imagine that the annotations are divided up line by line as they were manually transcribed that way, and that there are two lines of text. In this example the first line is "A bird in the hand", the second line is "is worth two in the bush", and the search is for the phrase "hand is". Therefore the match spans both of the line-based annotations.
 
-In cases like this there are more annotations than hits as two or more annotations are needed to make up one hit.  The `match` property of the hit captures the text across the annotations.
+In cases like this there are more annotations in the `items` list than in the `annotations` list as two or more annotations will be needed to make a match. This is handled by referencing all of the required annotations as multiple targets in a single highlighting annotation.
 
+``` none
+http://example.org/service/manifest/search?q=hand+is
+```
+{: .urltemplate}
 
 ``` json-doc
 {
@@ -521,9 +642,9 @@ In cases like this there are more annotations than hits as two or more annotatio
 
   "items": [
     {
-      "id": "http://example.org/identifier/annotation/anno-bird",
+      "id": "http://example.org/identifier/annotation/anno-hand",
       "type": "Annotation",
-      "motivation": "sc:painting",
+      "motivation": "painting",
       "body": {
         "type": "TextualBody",
         "value": "A bird in the hand",
@@ -532,9 +653,9 @@ In cases like this there are more annotations than hits as two or more annotatio
       "target": "http://example.org/identifier/canvas1#xywh=200,100,150,30"
     },
     {
-      "id": "http://example.org/identifier/annotation/anno-are",
+      "id": "http://example.org/identifier/annotation/anno-is",
       "type": "Annotation",
-      "motivation": "sc:painting",
+      "motivation": "painting",
       "body": {
         "type": "TextualBody",
         "value": "is worth two in the bush.",
@@ -545,22 +666,47 @@ In cases like this there are more annotations than hits as two or more annotatio
     // Further annotations here ...
   ],
 
-  "hits": [
+  "annotations": [
     {
-      "type": "Hit",
+      "type": "AnnotationPage",
+      "partOf": {
+        "id": "http://example.org/service/manifest/search?q=hand+is",
+        "type": "AnnotationCollection",
+        "total": 7
+      }
       "items": [
-        "http://example.org/identifier/annotation/anno-bush",
-        "http://example.org/identifier/annotation/anno-are"
-      ],
-      "match": "hand is",
-      "before": "A bird in the ",
-      "after": " worth two in the bush"
+        {
+          "id": "http://example.org/identifier/annotation/match-1",
+          "type": "Annotation",
+          "motivation": "highlighting",
+          "target": [
+            {
+              "source": "http://example.org/identifier/annotation/anno-hand",
+              "selector": [
+                {
+                  "type": "TextQuoteSelector",
+                  "prefix": "bird in the ",
+                  "exact": "hand"
+                }
+              ]
+            },
+            {
+              "source": "http://example.org/identifier/annotation/anno-is",
+              "selector": [
+                {
+                  "type": "TextQuoteSelector",
+                  "exact": "is",
+                  "suffix": " worth two in the"
+                }
+              ]
+            },
+          ]
+        }
+      ]
     }
-    // Further hits for the first page here ...
   ]
 }
 ```
-
 
 ## 4. Autocomplete
 {: #autocomplete}
