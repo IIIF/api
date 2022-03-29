@@ -145,7 +145,7 @@ The service description is included in the Description Resource and has the foll
 
 | Property     | Required?   | Description |
 | ------------ | ----------- | ----------- |
-| @context     | _REQUIRED_    | The context document that describes the IIIF Authentication API. The value _MUST_ be `http://iiif.io/api/auth/{{ page.major }}/context.json`.|
+| @context     | _REQUIRED_    | The context document that describes the IIIF Authentication API. The value _MUST_ be `http://iiif.io/api/auth/{{ page.major }}/context.json`. If the Access Cookie service is embedded within an Image API 3.0 service, or a Presentation API 3.0 resource, the `@context` key _SHOULD NOT_ be present within the service, but instead _SHOULD_ be included in the list of values for `@context` at the beginning of that image service or Presentation API resource.  |
 | id          | _see description_ | It is _REQUIRED_ with the Login, Clickthrough, or Kiosk patterns, in which the client opens the URI in order to obtain an access cookie. It is _OPTIONAL_ with the External pattern, as the user is expected to have obtained the cookie by other means and any value provided is ignored. |
 | type         | _REQUIRED_    | The value _MUST_ be the string `AuthCookieService2` |
 | profile      | _REQUIRED_    | The profile for the service _MUST_ be one of the profile values from the table above.|
@@ -219,6 +219,28 @@ An example service description for the Login interaction pattern:
 }
 ```
 
+When the service is embedded within the resource it applies to, the `@context` _SHOULD_ be declared at the beginning of that resource and not within the service:
+
+{% include api/code_header.html %}
+``` json-doc
+{
+  "@context": [
+    "http://iiif.io/api/image/3/context.json",
+    "http://iiif.io/api/auth/{{ page.major }}/context.json"
+  ],
+  "id": "https://example.org/image-service/abcd12345",
+  "type": "ImageService3",
+    // other image service properties ...
+  "service": [
+    {    
+      "id": "https://authentication.example.org/login",
+      "type": "AuthCookieService2",
+      // other auth service properties ...
+    }
+  ]
+}
+```
+
 #### 2.1.4. Clickthrough Interaction Pattern
 {: #clickthrough-interaction-pattern}
 
@@ -254,6 +276,8 @@ An example service description for the Clickthrough interaction pattern:
 }
 ```
 
+When the service is embedded within the resource it applies to, the `@context` _SHOULD_ be declared at the beginning of that resource and not within the service, as in the second example in Section 2.1.3.
+
 #### 2.1.5. Kiosk Interaction Pattern
 {: #kiosk-interaction-pattern}
 
@@ -286,6 +310,8 @@ An example service description for the Kiosk interaction pattern:
 }
 ```
 
+When the service is embedded within the resource it applies to, the `@context` _SHOULD_ be declared at the beginning of that resource and not within the service, as in the second example in Section 2.1.3.
+
 #### 2.1.6. External Interaction Pattern
 {: #external-interaction-pattern}
 
@@ -316,6 +342,8 @@ An example service description for the External interaction pattern:
   }
 }
 ```
+
+When the service is embedded within the resource it applies to, the `@context` _SHOULD_ be declared at the beginning of that resource and not within the service, as in the second example in Section 2.1.3.
 
 ### 2.2. Access Token Service
 {: #access-token-service}
@@ -349,7 +377,9 @@ The access cookie service description _MUST_ include an access token service des
 }
 ```
 
-The `id` property of the access token service _MUST_ be present, and its value _MUST_ be the URI from which the client can obtain the access token. The `type` property _MUST_ be present and its value _MUST_ be `AuthCookieService2` to distinguish it from other services. There is no requirement to repeat the `@context` property included in the enclosing access cookie service description, and there are no other properties for this service.
+The `id` property of the access token service _MUST_ be present, and its value _MUST_ be the URI from which the client can obtain the access token. The `type` property _MUST_ be present and its value _MUST_ be `AuthCookieService2` to distinguish it from other services. 
+
+There are no other properties for this service.
 
 #### 2.2.2. The JSON Access Token Response
 {: #the-json-access-token-response}
@@ -490,30 +520,37 @@ Authorization: Bearer TOKEN_HERE
 #### 2.2.6. Access Token Error Conditions
 {: #access-token-error-conditions}
 
-The response from the access token service may be an error. The error _MUST_ be supplied as JSON with the following template. For browser-based clients using the postMessage API, the error object must be sent to the client via JavaScript, in the same way the access token is sent. For direct requests the response body is the raw JSON.
+The response from the access token service may be an error. The error _MUST_ be supplied as a JSON-LD resource of type `AuthTokenError2`, as in the following template. For browser-based clients using the postMessage API, the error object must be sent to the client via JavaScript, in the same way the access token is sent. For direct requests the response body is the raw JSON.
 
 {% include api/code_header.html %}
 ``` json-doc
 {
-  "error": "ERROR_TYPE_HERE",
-  "description": "..."
+  "@context": "http://iiif.io/api/auth/{{ page.major }}/context.json",
+  "type": "AuthTokenError2",
+  "profile": "ERROR_TYPE_HERE",
+  "description": { "en": [ "Error message here" ] }
 }
 ```
 
-The value of the `error` property _MUST_ be one of the types in the following table:  
+The error resource _MAY_ have an `id` property, but clients will likely ignore it.
+
+The value of the `profile` property _MUST_ be one of the types in the following table:  
 
 | Type | Description |
 | ---- | ----------- |
 | `invalidRequest`     | The service could not process the information sent in the body of the request. |
 | `missingCredentials` | The request did not have the credentials required. |
 | `invalidCredentials` | The request had credentials that are not valid for the service. |
+| `expiredCredentials` | The request had credentials that are no longer valid for the service. |
 | `invalidOrigin`      | The request came from a different origin than that specified in the access cookie service request, or an origin that the server rejects for other reasons. |
 | `unavailable`        | The request could not be fulfilled for reasons other than those listed above, such as scheduled maintenance. |
 {: .api-table}
 
-The `description` property is _OPTIONAL_ and may give additional human-readable information about the error.
+The `description` property is _OPTIONAL_ and may give additional human-readable information about the error. The value of the `description` property is a JSON-LD Language Map conforming to the section [Language of Property Values][prezi3-languages] in the Presentation API.
 
 When returning JSON directly, the service _MUST_ use the appropriate HTTP status code for the response to describe the error (for example 400, 401 or 503).  The postMessage web page response _MUST_ use the 200 HTTP status code to ensure that the body is received by the client correctly.
+
+If the error profile is `expiredCredentials`, the client _SHOULD_ first try to acquire another token from the token service, before sending the user to the login service again. The client _MAY_ also do this for `invalidCredentials`.
 
 ### 2.3. Logout Service
 {: #logout-service}
@@ -552,6 +589,7 @@ If the authentication system supports users intentionally logging out, there _SH
 
 The value of the `type` property _MUST_ be `AuthLogoutService2`.
 
+
 #### 2.3.2. Interaction
 {: #interaction}
 
@@ -581,7 +619,6 @@ The example below is a complete image information response for an example image 
   ],
   "profile" : "level2",
   "service" : {
-    "@context": "http://iiif.io/api/auth/{{ page.major }}/context.json",
     "id": "https://authentication.example.org/login",
     "type": "AuthCookieService2",
     "profile": "login",
@@ -619,11 +656,13 @@ If the user is authorized for a Description Resource, the client can assume that
 ### 3.2. Tiered Access
 {: #tiered-access}
 
-If a server supports multiple tiers of access, then it _MUST_ use a different identifier for each Description Resource and its corresponding Content Resource(s). For example, there _MUST_ be different Image Information documents (`/info.json`) at different URIs for each tier. When refering to Description Resources that have multiple tiers of access, systems _SHOULD_ use the identifier of the version that an appropriated authorized user should see. For example, when refering to an Image service from a Manifest, the reference would normally be to the highest quality image version rather than a degraded version.
+If a Content Resource supports multiple tiers of access, then it _MUST_ use a different URI for each Description Resource and its corresponding Content Resource(s). For example, there _MUST_ be different Image Information documents (`/info.json`) at different URIs for each tier. When refering to Description Resources that have multiple tiers of access, systems _SHOULD_ use the URI of the version that an appropriately authorized user should see. For example, when refering to an Image service from a Manifest, the reference would normally be to the highest quality image version rather than a degraded version. 
 
-When a Description Resource is requested and the user is not authorized to access it and there are lower tiers available, the server _MUST_ issue a `302` (Found) HTTP status response to redirect to the Description Resource of a lower tier.  
+When a server receives an HTTP GET request for a Description Resource, and the user is not authorized to access it, and there are lower tiers available, the server _MUST_ issue a `302` (Found) HTTP status response to redirect to the Description Resource of a lower tier. Please note that the server _MUST_ return a 200 (OK) HTTP status response to an HTTP OPTIONS request, regardless of the user's access, as this is the required response for a successful CORS Preflight request.
 
 When there are no lower tiers and the user is not authorized to access the current Description Resource, the server _MUST_ issue a `401` (Unauthorized) response. The client _SHOULD_ present information about the Login and/or Clickthrough services included in the Description Resource to allow the user to attempt to authenticate.
+
+Different tiers of access _MAY_ be published on different hosts, and/or use different image server identifiers. 
 
 ## 4. Workflow from the Browser Client Perspective
 {: #workflow-from-the-browser-client-perspective}
