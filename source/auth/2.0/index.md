@@ -119,24 +119,24 @@ Further discussion of security considerations can be found in the [Implementatio
 ## 2. Authentication Services
 {: #authentication-services}
 
-Authentication services follow the pattern described in the IIIF [Linking to External Services][annex-services] note, and are referenced in one or more `service` blocks from the descriptions of the resources that are protected. There is a primary login service profile for authenticating users, and it has related services nested within its description.  The related services include a mandatory access token service, and an optional logout service.
+Authentication services follow the pattern described in the IIIF [Linking to External Services][annex-services] note, and are referenced in one or more `service` blocks from the descriptions of the resources that are protected. There is a primary service profile for authenticating users and granting access, and it has related services nested within its description.  The related services include a mandatory access token service, and an optional logout service.
 
-### 2.1. Access Cookie Service
+### 2.1. Access Service
 {: #access-cookie-service}
 
-The client uses this service to obtain a cookie that will be used when interacting with content such as images, and with the access token service. There are several different interaction patterns in which the client will use this service, based on the user interface that must be rendered for the user. The different patterns are indicated by the `profile` property. The client obtains the link to the access cookie service from a service block in a description of the protected resource.
+<!-- broaden to IP-validation etc -->
+The client uses this service to obtain a cookie that will be used when interacting with content such as images, and with the access token service. There are three different interaction patterns in which the client will use this service, based on the user interface that must be rendered for the user. The different patterns are indicated by the `profile` property. The client obtains the link to the access cookie service from a service block in a description of the protected resource, then opens that URI in a new browser tab.
 
-The purpose of the access cookie service is to set a cookie during the user's interaction with the content server, so that when the client then makes image requests to the content server, the requests will succeed. The client has no knowledge of what happens at the login service, and it cannot see any cookies set for the content domain during the user's interaction with the login service. The browser may be redirected one or more times but this is invisible to the client application. The final response in the opened tab _SHOULD_ contain JavaScript that will attempt to close the tab, in order to trigger the next step in the workflow.
+The purpose of the access cookie service is to set a cookie during the user's interaction with the content server, so that when the client then makes image requests to the content server, the requests will succeed. The client has no knowledge of what the user does at the access service, and it cannot see any cookies set for the content domain during the user's interaction there. The browser may be redirected one or more times but this is invisible to the client application. The final response in the opened tab _SHOULD_ contain JavaScript that will attempt to close the tab, in order to trigger the next step in the workflow.
 
 #### 2.1.1. Service Description
 {: #service-description}
 
-There are four interaction patterns by which the client can obtain an access cookie, each identified by a different value of the `profile` property. These patterns are described in more detail in the following sections.
+There are three interaction patterns by which the client can obtain an access cookie, each identified by a different value of the `profile` property. These patterns are described in more detail in the following sections.
 
 | Pattern      | `profile` value | Description |
 | ------------ | ----------- | ----------- |
-| Login        | `login` | The user will be required to log in using a separate window with a UI provided by an external authentication system. |
-| Clickthrough | `clickthrough` | The user will be required to click a button within the client using content provided in the service description. |
+| Interactive  | `interactive` | The user will be required to visit the user interface of an external authentication system in a separate tab (or window) opened by the client. This user interface might prompt for credentials, or require acceptance of a usage agreement, or validate the user's IP address. |
 | Kiosk        | `kiosk` | The user will not be required to interact with an authentication system, the client is expected to use the access cookie service automatically. |
 | External     | `external` | The user is expected to have already acquired the appropriate cookie, and the access cookie service will not be used at all. |
 {: .api-table .first-col-normal }
@@ -145,9 +145,9 @@ The service description is included in the Description Resource and has the foll
 
 | Property     | Required?   | Description |
 | ------------ | ----------- | ----------- |
-| @context     | _REQUIRED_    | The context document that describes the IIIF Authentication API. The value _MUST_ be `http://iiif.io/api/auth/{{ page.major }}/context.json`. If the Access Cookie service is embedded within an Image API 3.0 service, or a Presentation API 3.0 resource, the `@context` key _SHOULD NOT_ be present within the service, but instead _SHOULD_ be included in the list of values for `@context` at the beginning of that image service or Presentation API resource.  |
-| id          | _see description_ | It is _REQUIRED_ with the Login, Clickthrough, or Kiosk patterns, in which the client opens the URI in order to obtain an access cookie. It is _OPTIONAL_ with the External pattern, as the user is expected to have obtained the cookie by other means and any value provided is ignored. |
-| type         | _REQUIRED_    | The value _MUST_ be the string `AuthCookieService2` |
+| @context     | _REQUIRED_    | The context document that describes the IIIF Authentication API. The value _MUST_ be `http://iiif.io/api/auth/{{ page.major }}/context.json`. If the Access Cookie service is embedded within an Image API 3.0 service, or a Presentation API 3.0 resource, the `@context` key _SHOULD NOT_ be present within the service, but instead _SHOULD_ be included in the list of values for `@context` at the beginning of that image service or Presentation API resource.  
+| id          | _see description_ | It is _REQUIRED_ with the Interactive and Kiosk patterns, in which the client opens the URI in order to obtain an access cookie. It is _OPTIONAL_ with the External pattern, as the user is expected to have obtained the cookie by other means and any value provided is ignored. |
+| type         | _REQUIRED_    | The value _MUST_ be the string `AuthAccessService2` |
 | profile      | _REQUIRED_    | The profile for the service _MUST_ be one of the profile values from the table above.|
 | service      | _REQUIRED_    | References to access token and other related services, described below.|
 
@@ -163,7 +163,7 @@ The service description also includes the following descriptive properties, all 
 | failureDescription | _OPTIONAL_ | Text that, if present, _MAY_ be shown to the user after failing to receive a token, or using the token results in an error. |
 {: .api-table}
 
-#### 2.1.2. Interaction with the Access Cookie Service
+#### 2.1.2. Interaction with the Access Service
 {: #interaction-with-the-access-cookie-service}
 
 The client _MUST_ append the following query parameter to all requests to an access cookie service URI, regardless of the interaction pattern, and open this URI in a new window or tab.
@@ -173,7 +173,7 @@ The client _MUST_ append the following query parameter to all requests to an acc
 | origin    | A string containing the origin of the page in the window, consisting of a protocol, hostname and optionally port number, as described in the [postMessage API][org-mozilla-postmessage] specification.  |
 {: .api-table}
 
-For example, given an access cookie service URI of `https://authentication.example.org/login`, a client instantiated by the page `https://client.example.com/viewer/index.html` would make its request to:
+For example, given an access service URI of `https://authentication.example.org/login`, a client instantiated by the page `https://client.example.com/viewer/index.html` would make its request to:
 
 {% include api/code_header.html %}
 ```
@@ -182,10 +182,16 @@ https://authentication.example.org/login?origin=https://client.example.com/
 
 The server _MAY_ use this information to validate the origin supplied in subsequent requests to the access token service, for example by encoding it in the cookie returned.
 
-#### 2.1.3. Login Interaction Pattern
+#### 2.1.3. Interactive Access Service Pattern
 {: #login-interaction-pattern}
 
-In order to have the client prompt the user to log in, it must display part of the content provider's user interface. For the Login interaction pattern, the value of the `id` property is the URI of that user interface.
+This pattern requires the user to interact with the content provider's user interface in the opened tab. Typical scenarios are:
+
+* The user interface presents a login process, in which the user provides credentials to the content provider and the content provider sets an access cookie.
+* The user interface presents a usage agreement, or a content advisory notice, or some other form of _Clickthrough_ interaction in which credentials are not required, but deliberate confirmation of terms is required, to set an access cookie.
+* The service validates some other aspect of the HTTP request, such as origin IP address, but does not set an access cookie.
+
+The value of the `id` property is the URI of this user interface.
 
 The interaction has the following steps:
 
@@ -204,7 +210,7 @@ An example service description for the Login interaction pattern:
   "service" : {
     "@context": "http://iiif.io/api/auth/{{ page.major }}/context.json",
     "id": "https://authentication.example.org/login",
-    "type": "AuthCookieService2",
+    "type": "AuthAccessService2",
     "profile": "login",
     "label": { "en": [ "Login to Example Institution" ] },
     "header": { "en": [ "Please Log In" ] },
@@ -234,60 +240,35 @@ When the service is embedded within the resource it applies to, the `@context` _
   "service": [
     {    
       "id": "https://authentication.example.org/login",
-      "type": "AuthCookieService2",
+      "type": "AuthAccessService2",
       // other auth service properties ...
     }
   ]
 }
 ```
 
-#### 2.1.4. Clickthrough Interaction Pattern
-{: #clickthrough-interaction-pattern}
+#### 2.1.3.1 User interaction at the Access Service and third party cookies
 
-For the Clickthrough interaction pattern, the value of the `id` property is the URI of a service that _MUST_ set an access cookie and then immediately close its window or tab without user interaction.  The interaction has the following steps:
+While it is possible for the access service to immediately set a cookie in the response and generate client-side script that closes the opened tab, this behavior will likely result in browsers failing to send that cookie on subsequent requests for the token service or content resources if the client is hosted on a different domain from them. In this scenario, the user has not interacted with the access service origin in a _first party context_ as defined in the [Storage Access API][org-mozilla-storageaccess], and therefore that origin does not have access to _first party storage_, which means that any cookies for that origin are not included in requests to that origin.
 
-* If the `header` and/or `description` properties are present, before opening the service, the client _MUST_ display the values of the properties to the user.  The properties will describe the agreement implied by clicking the element with the `confirmLabel`.
-* When the `confirmLabel` element is activated, the client _MUST_ then open the URI from `id` with the added `origin` query parameter. This _SHOULD_ be done in a new window or tab. Browser security rules prevent the client from knowing what is happening in the new tab, therefore the client can only wait for and detect the closing of the opened window or tab or iframe.
-* After the opened tab is closed, the client _MUST_ then use the related access token service, as described below.
+For this reason, if the subsequent token service and access to content resources require the presence of a cookie, the user interface of the access service _MUST_ involve a [user gesture][org-whatwg-user-gesture] such as a click or a tap. Logging in with credentials, or clicking acceptance of a usage agreement, typically meet the definition of a user gesture.
 
-Non-user-driven clients _MUST_ not use access cookie services with the Clickthrough interaction pattern, and instead halt.
+If the token service and content resources will depend on some other aspect of the request, such as IP address, then the Access Service tab _MAY_ be closed without user interaction.
 
-An example service description for the Clickthrough interaction pattern:
-
-{% include api/code_header.html %}
-``` json-doc
-{
-  // ...
-  "service" : {
-    "@context": "http://iiif.io/api/auth/{{ page.major }}/context.json",
-    "id": "https://authentication.example.org/clickthrough",
-    "type": "AuthCookieService2",
-    "profile": "clickthrough",
-    "label": { "en": [ "Terms of Use for Example Institution" ] },
-    "header": { "en": [ "Restricted Material with Terms of Use" ] },
-    "description": { "en": [ "<span>... terms of use ... </span>" ] },
-    "confirmLabel": { "en": [ "I Agree" ] },
-    "failureHeader": { "en": [ "Terms of Use Not Accepted" ] },
-    "failureDescription": { "en": [ "You must accept the terms of use to see the content." ] },
-    "service": {
-      // Access token service ...
-    }
-  }
-}
-```
-
-When the service is embedded within the resource it applies to, the `@context` _SHOULD_ be declared at the beginning of that resource and not within the service, as in the second example in Section 2.1.3.
-
-#### 2.1.5. Kiosk Interaction Pattern
+#### 2.1.4. Kiosk Access Service Pattern
 {: #kiosk-interaction-pattern}
 
 For the Kiosk interaction pattern, the value of the `id` property is the URI of a service that _MUST_ set an access cookie and then immediately close its window or tab without user interaction.  The interaction has the following steps:
 
-* There is no user interaction before opening the access cookie service URI, and therefore any of the `label`, `header`, `description` and `confirmLabel` properties are ignored if present.
+* There is no user interaction before opening the Access Service URI, and therefore any of the `label`, `header`, `description` and `confirmLabel` properties are ignored if present.
 * The client _MUST_ immediately open the URI from `id` with the added `origin` query parameter. This _SHOULD_ be done in a new window or tab. Browser security rules prevent the client from knowing what is happening in the new tab, therefore the client can only wait for and detect the closing of the opened window or tab or frame.
 * After the opened tab is closed, the client _MUST_ then use the related access token service, as described below.
 
-Non-user-driven clients simply access the URI from `id` to obtain the access cookie, and then use the related access token service, as described below.
+Non-user-driven clients simply access the URI from `id` to obtain any access cookie, and then use the related access token service, as described below.
+
+__Warning__<br/>
+If the content resources and access service are on a different origin from the client, and the authorisation is based on an access cookie, the Kiosk pattern will likely fail unless the user has recently interacted with the access service origin in a first party context as described in section 2.1.3.1. above. 
+{: .alert}
 
 An example service description for the Kiosk interaction pattern:
 
@@ -298,7 +279,7 @@ An example service description for the Kiosk interaction pattern:
   "service" : {
     "@context": "http://iiif.io/api/auth/{{ page.major }}/context.json",
     "id": "https://authentication.example.org/cookiebaker",
-    "type": "AuthCookieService2",
+    "type": "AuthAccessService2",
     "profile": "kiosk",
     "label": { "en": [ "Internal cookie granting service" ] },
     "failureHeader": { "en": [ "Ooops!" ] },
@@ -312,16 +293,20 @@ An example service description for the Kiosk interaction pattern:
 
 When the service is embedded within the resource it applies to, the `@context` _SHOULD_ be declared at the beginning of that resource and not within the service, as in the second example in Section 2.1.3.
 
-#### 2.1.6. External Interaction Pattern
+#### 2.1.5. External Access Service Pattern
 {: #external-interaction-pattern}
 
-For the External interaction pattern, the user is required to have acquired the access cookie by out of band means. If the access cookie is not present, the user will receive the failure messages. The interaction has the following steps:
+For the External interaction pattern, the user already has whatever aspect of the request the token service and content resources are expecting. This may be a cookie acquired "out-of-band" in a separate interaction, such as a normal login outside the scope of this specification. This pattern is also suitable for authorisation that is based on non-cookie aspects of the request, such as a user's IP address. If the user lacks the expected aspect of the request (is missing the cookie, or the wrong IP address) the user will receive the failure messages. The interaction has the following steps:
 
 * There is no user interaction before opening the __access token__ service URI, and therefore any of the `label`, `header`, `description` and `confirmLabel` properties are ignored if present.
-* There is no access cookie service. Any URI specified in the `id` property _MUST_ be ignored.
+* There is no access service. Any URI specified in the `id` property _MUST_ be ignored.
 * The client _MUST_ immediately use the related access token service, as described below.
 
-Non-user-driven clients simply use the related access token service with a previously acquired access cookie, as described below.
+Non-user-driven clients simply use the related access token service, typically with a previously acquired access cookie, as described below.
+
+__Warning__<br/>
+If the content resources and token service are on a different origin from the client, and the authorisation is based on an access cookie, the External pattern will likely fail unless the user has recently interacted with the token service origin in a first party context as described in section 2.1.3.1. above. 
+{: .alert}
 
 An example service description for the External interaction pattern:
 
@@ -331,7 +316,7 @@ An example service description for the External interaction pattern:
   // ...
   "service" : {
     "@context": "http://iiif.io/api/auth/{{ page.major }}/context.json",
-    "type": "AuthCookieService2",
+    "type": "AuthAccessService2",
     "profile": "external",
     "label": { "en": [ "External Authentication Required" ] },
     "failureHeader": { "en": [ "Restricted Material" ] },
@@ -348,21 +333,21 @@ When the service is embedded within the resource it applies to, the `@context` _
 ### 2.2. Access Token Service
 {: #access-token-service}
 
-The client uses this service to obtain an access token which it then uses when requesting Description Resources. A request to the access token service must include any cookies for the content domain acquired from the user's interaction with the corresponding access cookie service, so that the server can issue the access token.
+The client uses this service to obtain an access token which it then uses when requesting Description Resources. If authorisation for the content resources is based on cookies, a request to the access token service must include any cookies for the content domain acquired from the user's interaction with the corresponding access service, so that the server can issue the access token.
 
 #### 2.2.1. Service Description
 {: #service-description-1}
 
-The access cookie service description _MUST_ include an access token service description following the template below:
+The access service description _MUST_ include an access token service description following the template below:
 
 {% include api/code_header.html %}
 ``` json-doc
 {
-  // Access Cookie Service
+  // Access Service
   "service" : {
     "@context": "http://iiif.io/api/auth/{{ page.major }}/context.json",
     "id": "https://authentication.example.org/login",
-    "type": "AuthCookieService2",
+    "type": "AuthAccessService2",
     "profile": "login",
     "label": { "en": [ "Login to Example Institution" ] },
 
@@ -377,14 +362,14 @@ The access cookie service description _MUST_ include an access token service des
 }
 ```
 
-The `id` property of the access token service _MUST_ be present, and its value _MUST_ be the URI from which the client can obtain the access token. The `type` property _MUST_ be present and its value _MUST_ be `AuthCookieService2` to distinguish it from other services. 
+The `id` property of the access token service _MUST_ be present, and its value _MUST_ be the URI from which the client can obtain the access token. The `type` property _MUST_ be present and its value _MUST_ be `AuthTokenService2` to distinguish it from other services. 
 
 There are no other properties for this service.
 
 #### 2.2.2. The JSON Access Token Response
 {: #the-json-access-token-response}
 
-If the request has a valid cookie that the server recognises as having been issued by the access cookie service, the access token service response _MUST_ include a JSON (not JSON-LD) object with the following structure:
+If the request satisfies the same demands that requests for Content Resources must meet (such as having a valid cookie that the server recognises as having been issued by the access service, or originating from a permitted IP Address range), the access token service response _MUST_ include a JSON (not JSON-LD) object with the following structure:
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -437,7 +422,7 @@ The response is the JSON access token object with the media type `application/js
 #### 2.2.4. Interaction for Browser-Based Client Applications
 {: #interaction-for-browser-based-client-applications}
 
-If the client is a JavaScript application running in a web browser, it needs to make a direct request for the access token and store the result. The client can't use `XMLHttpRequest` because it can't include the access cookie in a cross-domain request. Instead, the client _MUST_ open the access token service in a frame using an `iframe` element and be ready to receive a message posted by script in that frame using the [postMessage API][postmessage]. To trigger this behavior, the client _MUST_ append the following query parameters to the access token service URI, and open this new URI in the frame.
+If the client is a JavaScript application running in a web browser, it needs to make a direct request for the access token and store the result. The client can't use `XMLHttpRequest` or `fetch` because it can't include any access cookie in a cross-domain request. Instead, the client _MUST_ open the access token service in a frame using an `iframe` element and be ready to receive a message posted by script in that frame using the [postMessage API][org-mozilla-postmessage]. To trigger this behavior, the client _MUST_ append the following query parameters to the access token service URI, and open this new URI in the frame.
 
 | Parameter | Description |
 | --------- | ----------- |
@@ -542,7 +527,7 @@ The value of the `error` property _MUST_ be one of the types in the following ta
 | `missingCredentials` | The request did not have the credentials required. |
 | `invalidCredentials` | The request had credentials that are not valid for the service. |
 | `expiredCredentials` | The request had credentials that are no longer valid for the service. |
-| `invalidOrigin`      | The request came from a different origin than that specified in the access cookie service request, or an origin that the server rejects for other reasons. |
+| `invalidOrigin`      | The request came from a different origin than that specified in the access service request, or an origin that the server rejects for other reasons. |
 | `unavailable`        | The request could not be fulfilled for reasons other than those listed above, such as scheduled maintenance. |
 {: .api-table}
 
@@ -555,12 +540,12 @@ If the error is `expiredCredentials`, the client _SHOULD_ first try to acquire a
 ### 2.3. Logout Service
 {: #logout-service}
 
-In the case of the Login interaction pattern, the client will need to know if and where the user can go to log out. For example, the user may wish to close their session on a public terminal, or to log in again with a different account.
+In the case of the Interactive Access Service pattern, the client may need to know if and where the user can go to log out. For example, the user may wish to close their session on a public terminal, or to log in again with a different account.
 
 #### 2.3.1. Service Description
 {: #service-description-2}
 
-If the authentication system supports users intentionally logging out, there _SHOULD_ be a logout service associated with the access cookie service following the template below:
+If the authentication system supports users intentionally logging out, there _SHOULD_ be a logout service associated with the access service following the template below:
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -569,7 +554,7 @@ If the authentication system supports users intentionally logging out, there _SH
   "service" : {
     "@context": "http://iiif.io/api/auth/{{ page.major }}/context.json",
     "id": "https://authentication.example.org/login",
-    "type": "AuthCookieService2",
+    "type": "AuthAccessService2",
     "profile": "login",
     "label": { "en": [ "Login to Example Institution" ] },
     "service" : [
@@ -593,7 +578,7 @@ The value of the `type` property _MUST_ be `AuthLogoutService2`.
 #### 2.3.2. Interaction
 {: #interaction}
 
-The client _SHOULD_ present the results of an HTTP `GET` request on the service's URI in a separate tab or window with a URL bar.  At the same time, the client _SHOULD_ discard any access token that it has received from the corresponding service. The server _SHOULD_ reset the user's logged in status when this request is made and delete the access cookie.
+The client _SHOULD_ present the results of an HTTP `GET` request on the service's URI in a separate tab or window with a URL bar.  At the same time, the client _SHOULD_ discard any access token that it has received from the corresponding service. The server _SHOULD_ reset the user's logged in status when this request is made and delete any access cookie previously set.
 
 ### 2.4. Example Description Resource with Authentication Services
 {: #example-description-resource-with-authentication-services}
@@ -620,7 +605,7 @@ The example below is a complete image information response for an example image 
   "profile" : "level2",
   "service" : {
     "id": "https://authentication.example.org/login",
-    "type": "AuthCookieService2",
+    "type": "AuthAccessService2",
     "profile": "login",
     "label": { "en": [ "Login to Example Institution" ] },
     "service" : [
@@ -651,7 +636,7 @@ These interactions rely on requests for Description Resources returning HTTP sta
 
 If the server does not support multiple tiers of access to a Content Resource, and the user is not authorized to access it, then the server _MUST_ return a response with a `401` (Unauthorized) HTTP status code for the corresponding Description Resource.
 
-If the user is authorized for a Description Resource, the client can assume that requests for the described Content Resources will also be authorized. Requests for the Content Resources rely on the access cookie to convey the authorization state.
+If the user is authorized for a Description Resource, the client can assume that requests for the described Content Resources will also be authorized. Requests for the Content Resources rely on an access cookie to convey the authorization state, or on other aspects of the request such as IP address.
 
 ### 3.2. Tiered Access
 {: #tiered-access}
@@ -660,7 +645,7 @@ If a Content Resource supports multiple tiers of access, then it _MUST_ use a di
 
 When a server receives an HTTP GET request for a Description Resource, and the user is not authorized to access it, and there are lower tiers available, the server _MUST_ issue a `302` (Found) HTTP status response to redirect to the Description Resource of a lower tier. Please note that the server _MUST_ return a 200 (OK) HTTP status response to an HTTP OPTIONS request, regardless of the user's access, as this is the required response for a successful CORS Preflight request.
 
-When there are no lower tiers and the user is not authorized to access the current Description Resource, the server _MUST_ issue a `401` (Unauthorized) response. The client _SHOULD_ present information about the Login and/or Clickthrough services included in the Description Resource to allow the user to attempt to authenticate.
+When there are no lower tiers and the user is not authorized to access the current Description Resource, the server _MUST_ issue a `401` (Unauthorized) response. The client _SHOULD_ present information about the Access Service included in the Description Resource to allow the user to attempt to authenticate.
 
 Different tiers of access _MAY_ be published on different hosts, and/or use different image server identifiers. 
 
@@ -691,12 +676,11 @@ Browser-based clients will perform the following workflow in order to access acc
   * The client does not have access to the Content Resource, and thus the client checks for authentication services in the JSON received.
 * If the response is neither 200 nor 401, the client must handle other HTTP status codes
 
-* When the client checks for authentication services, it first checks the authentication services:
-  * First it looks for a External interaction pattern as this does not require any user interaction.  If present, it opens the Access Token service to see if the cookie has already been obtained.
-  * If not, it checks for a Kiosk interaction pattern as it does not involve user interaction. If present, it opens the Access Cookie service in a separate window.
-  * If not, it checks for a Clickthrough interaction pattern. If present, it renders the description of the service and a confirmation button to prompt for the user to click through. Once the user has clicked the confirmation, it opens the Access Cookie service in a separate window.
-  * If not, it presents any Login interaction patterns available and prompts the user to login with one of them. When the user selects the realm to log in at, which takes the Access Cookie service role, it opens that realm's user interface in a separate window.
-  * When the Access Cookie service window closes, either automatically or by the user, the   client Opens the Access Token Service.
+* When the client checks for authentication services:
+  * First it looks for a External access service pattern as this does not require any user interaction.  If present, it opens the Access Token service to see if a cookie has already been obtained, or if some other aspect of the request meets the authorisation requirement.
+  * If no External service is present, the client checks for a Kiosk access service pattern as it does not involve user interaction. If present, it opens the Access Service in a separate window.
+  * If no Kiosk access service is present, the client presents any Interactive Access Service patterns available and prompts the user to interact with one of them. When the user selects the realm to interact with, which takes the Access Service role, it opens that realm's user interface in a separate tab (or window).
+  * When the Access service window closes, either automatically or by the user, the client Opens the Access Token Service.
 
 * After the Access Token service has been requested, if the client receives a token, it tries again to read the Description Resource with the newly acquired credentials.
   * If the client instead receives an error, it returns to look for further authentication services to interact with.
@@ -708,7 +692,7 @@ Please note that the server implementation involves providing `302` status respo
 
 ### A. Implementation Notes
 
-Guidance for implementers is provided in a separate [Implementation Notes][implementation-notes] document. The notes cover many details relating to implementation of this specification in browser-based JavaScript applications, and additional security considerations.
+Guidance for implementers is provided in a separate [Implementation Notes][implementation-notes] document. The notes cover many details relating to implementation of this specification in browser-based JavaScript applications, and additional security considerations, as well as highlighting relevant [Cookbook Recipes][annex-cookbook].
 
 ### B. Versioning
 
