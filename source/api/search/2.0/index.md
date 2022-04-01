@@ -11,6 +11,26 @@ pre: alpha
 cssversion: 2
 redirect_from:
   - /api/search/2/index.html
+editors:
+  - name: Michael Appleby
+    ORCID: https://orcid.org/0000-0002-1266-298X
+    institution: Yale University
+  - name: Dawn Childress  
+    orcid: https://orcid.org/0000-0003-2602-2788
+    institution: UCLA
+  - name: Tom Crane
+    ORCID: https://orcid.org/0000-0003-1881-243X
+    institution: Digirati
+  - name: Jeff Mixter
+    orcid: https://orcid.org/0000-0002-8411-2952
+    institution: OCLC
+  - name: Robert Sanderson
+    ORCID: https://orcid.org/0000-0003-4441-6852
+    institution: Yale University
+  - name: Simeon Warner
+    ORCID: https://orcid.org/0000-0002-7970-7855
+    institution: Cornell University
+
 ---
 
 ## Status of this Document
@@ -23,13 +43,10 @@ __Previous Version:__ [1.0.0][search1]
 
 **Editors**
 
-  * **[Michael Appleby](https://orcid.org/0000-0002-1266-298X)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0002-1266-298X), [_Yale University_](http://www.yale.edu/)
-  * **[Tom Crane](https://orcid.org/0000-0003-1881-243X)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0003-1881-243X), [_Digirati_](http://digirati.com/)
-  * **[Robert Sanderson](https://orcid.org/0000-0003-4441-6852)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0003-4441-6852), [_Stanford University_](http://www.stanford.edu/)
-  * **[Simeon Warner](https://orcid.org/0000-0002-7970-7855)** [![ORCID iD]({{ site.url }}{{ site.baseurl }}/img/orcid_16x16.png)](https://orcid.org/0000-0002-7970-7855), [_Cornell University_](https://www.cornell.edu/)
-  {: .names}
+{% include api/editors.md editors=page.editors %}
 
-{% include copyright2015.md %}
+{% include copyright.md %}
+
 
 ----
 
@@ -445,6 +462,7 @@ That the server matches against the plural "birds":
           "type": "Annotation",
           "motivation": "contextualizing",
           "target": {
+            "type": "SpecificResource",
             "source": "http://example.org/identifier/annotation/anno-bird",
             "selector": [
               {
@@ -514,6 +532,7 @@ The result might be:
           "type": "Annotation",
           "motivation": "highlighting",
           "target": {
+            "type": "SpecificResource",
             "source": "http://example.org/identifier/annotation/anno-bird",
             "selector": [
               {
@@ -536,7 +555,7 @@ The result might be:
 
 The same annotation might generate multiple matches against a single query, especially if wildcards or stemming are enabled or the content of the annotation is long.
 
-This is handled by having the content annotation only once, but to have two entries for it in the `annotations` list. Each entry then uses a different TextQuoteSelector on the same source Annotation to describe where the matching content can be found. A client could then process each in turn to highlight each match.
+This is handled by having the content annotation only once, but to have two entries for it in the `annotations` list. Each entry then uses a different TextQuoteSelector on the same source Annotation to describe where the matching content can be found. A client could then process each in turn to highlight each match in the annotation.
 
 For example, if the search was for words beginning with "b":
 
@@ -585,6 +604,7 @@ The result might be:
           "type": "Annotation",
           "motivation": "highlighting",
           "target": {
+            "type": "SpecificResource",
             "source": "http://example.org/identifier/annotation/anno-bird",
             "selector": [
               {
@@ -601,6 +621,7 @@ The result might be:
           "type": "Annotation",
           "motivation": "highlighting",
           "target": {
+            "type": "SpecificResource",
             "source": "http://example.org/identifier/annotation/anno-bird",
             "selector": [
               {
@@ -681,6 +702,7 @@ http://example.org/service/manifest/search?q=hand+is
           "motivation": "highlighting",
           "target": [
             {
+              "type": "SpecificResource",
               "source": "http://example.org/identifier/annotation/anno-hand",
               "selector": [
                 {
@@ -691,6 +713,7 @@ http://example.org/service/manifest/search?q=hand+is
               ]
             },
             {
+              "type": "SpecificResource", 
               "source": "http://example.org/identifier/annotation/anno-is",
               "selector": [
                 {
