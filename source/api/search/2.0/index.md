@@ -396,7 +396,7 @@ And the `user` parameter was ignored when processing the request, the response w
 
 The simplest addition to the hit object is to add text that appears before and after the matching text in the annotation.  This allows the client to construct a snippet where the matching text is provided in the context of surrounding content, rather than simply by itself.  This is most useful when the service has word-level boundaries of the text on the canvas, such as are available when Optical Character Recognition (OCR) has been used to generate the text positions.
 
-This is done by adding an entry to the `annotations` list with a `motivation` of "contextualizing", and a TextQuoteSelector with `prefix` and `suffix` of the text immediately before and after the matching content in the annotation. The selector has the URI of the annotation it refers to in the `source` property, to be matched against the `id` property of the annotations in `items`.
+This is done by adding an entry to the `annotations` list with a `motivation` of "contextualizing", and a TextQuoteSelector with `prefix` and `suffix` of the text immediately before and after the matching content in the annotation. The matching content is conveyed in the `exact` property. The selector has the URI of the annotation it refers to in the `source` property, to be matched against the `id` property of the annotations in `items`.
 
 For example, in a search for the query term "bird" in our example sentence, when the server has full word level coordinates:
 
