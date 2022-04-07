@@ -1,6 +1,5 @@
 {
   "type": "Annotation",
-  "id": "https://annotations.allmaps.org/maps/qP7VwmmJQYutccpC",
   "@context": [
     "http://www.w3.org/ns/anno.jsonld",
     "http://geojson.org/geojson-ld/geojson-context.jsonld",
@@ -18,7 +17,7 @@
     ],
     "selector": {
       "type": "SvgSelector",
-      "value": "<svg width=\"5965\" height=\"2514\"><polygon points=\"59,84 44,2329 5932,2353 5920,103 59,84\" /></svg>"
+      "value": "<svg width=\"5965\" height=\"2514\"><polygon points=\"59,84 44,2329 5932,2353 5920,103 \" /></svg>"
     }
   },
   "body": {
@@ -31,7 +30,6 @@
     "features": [
       {
         "type": "Feature",
-        "id": "3PxT6XD1hx7qMppe",
         "properties": {
           "pixelCoords": [
             5085,
@@ -48,7 +46,6 @@
       },
       {
         "type": "Feature",
-        "id": "UhF5ACkLf4Unp1ah",
         "properties": {
           "pixelCoords": [
             5467,
@@ -65,7 +62,6 @@
       },
       {
         "type": "Feature",
-        "id": "xBzgA9DqGWBSS3dX",
         "properties": {
           "pixelCoords": [
             2006,
