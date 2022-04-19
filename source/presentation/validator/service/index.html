@@ -1,0 +1,111 @@
+---
+title: Presentation API Validator
+title_override: Presentation API Validator
+id: index.html
+categories: [pages]
+layout: page
+---
+
+<section class="wrapper">
+    <div>
+        This service will validate a IIIF Presentation API resource against the specification.  Fill in the URL of your manifest, and it will try to parse it and issue errors for failed requirements, and warnings for recommendations that haven't been followed.
+    </div>
+    <div style="border: 1px solid black;margin-left: 10px; margin-top: 20px; padding: 10px">
+        <form id='manifest-validation-form' method="GET" action="https://presentation-validator.iiif.io/validate">
+            URL of Manifest to Validate:<br/>
+            <input style="margin-left: 25px" type="text" id="url" name="url" size="80"><br/>
+
+            Select Presentation API Version:
+            <select name="version" id="version">
+                <option value="3.0" selected>3.0</option>
+                <option value="2.1">2.1</option>
+                <option value="2.0">2.0</option>
+                <option value="1.0">1.0</option>
+            </select>
+            <br/>
+
+            <input type="submit" value="Go!" id="submit-url">
+        </form>
+    </div>
+    <br/>
+    <div id='results' style="display: none;" >
+        <h3>Validation Results:</h3>
+        <hr/>
+        <div id='results-content'></div>
+    </div>
+    <br/>
+    <hr/>
+    <div style="margin-top:20px">
+        <b>Technical Note</b>
+        <p>
+        If you would like to use the validator programmatically, there are two options:
+        </p>
+        <ul>
+            <li><a href="http://github.com/IIIF/presentation-validator/">Download</a> the code from github and run it locally.</li>
+            <li>Use it online with JSON based output, by an HTTP GET to this endpoint:<br/>https://presentation-validator.iiif.io/validate?format=json&amp;version=2.0&amp;url=<i>manifest-url-here</i></li>
+        </ul>
+    </div>
+
+    <!-- AJAX code for form submission -->
+    <script>
+        // Call out to the validation service and get a result
+        function handleSubmission(e) {
+            e.preventDefault();
+            var data = {
+                url: document.getElementById('url').value,
+                version: document.getElementById('version').value
+            }
+            document.getElementById('results-content').innerHTML = 'Processing ' + data.version + " validation...";
+            document.getElementById('results').style.display = "block";
+            var url = document.getElementById('manifest-validation-form').action + '?' + new URLSearchParams(data);
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => handleValidationResponse(data));
+        }
+
+        // Handle validation service response, render response block
+        function handleValidationResponse(data) {
+            str  = '<div style="margin-left: 20px">'
+            str += '<div>URL Tested: '+ data.url + '</div><br/>'
+            if (data.okay) {
+                str += '<div><h2 style="color:green">Validated successfully</h2></div>'
+            }  else {
+                if (data.errorList) {
+                    for (var i = 0; i < data.errorList.length; i++) {
+                        var error = data.errorList[i];
+                        str+='<div>';
+                        str+='<h2 style="color:red">' + error.title + '</h2>';
+                        str+='<p><ul>';
+                        str+='<li><b>Detail: </b> ' + error.detail + '</li>';
+                        str+='<li><b>Path: </b>' + error.path + '</li>';
+                        str+='<li><b>Description: </b>' + error.description + '</li>';
+                        str+='</li></p>';
+                        str+='<pre>';
+                        str+= JSON.stringify(error.context);
+                        str+='</pre>';
+                        str+='</div>';
+                    }
+                } else {
+                    str += '<div><h2 style="color:red">Validation Error: '+data.error+'</h2></div>'
+                }
+            }
+            if (data.warnings.length){
+                str += '<div style="margin-top: 20px">Warnings:<ul>';
+                for(var i =0; i < data.warnings.length; i++) {
+                    str+= '<li>'+data.warnings[i]+'</li>';
+                }
+                str += '</ul></div>';
+            }
+            str += '</div>';
+
+            document.getElementById('results-content').innerHTML = str;
+            document.getElementById('results').style.display = "block";
+        }
+
+        // Set up event handler.
+        document.getElementById("submit-url").onclick =  handleSubmission;
+    </script>
+
+
+</section>

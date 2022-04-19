@@ -1,0 +1,29 @@
+<table class="api-table"  style="max-width: 780px">
+  <thead>
+    <tr>
+      <th>{{ include.table.headers[0] }}</th>
+      <th>{{ include.table.headers[1] }}</th>
+      <th>{{ include.table.headers[2] }}</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for a in include.table.apis %}
+    <tr>
+      {% assign api   = site.data.apis[a] %}
+      {% assign major = api[include.table.version].major %}
+      {% assign minor = api[include.table.version].minor %}
+      {% assign patch = api[include.table.version].patch %}
+      {%- capture api_link -%}
+        {{ site.api_url | absolute_url }}/{{ a }}/{{ major }}.{{ minor }}/
+      {%- endcapture -%}
+      <td>{{ api.label }}</td>
+      <td>
+        <a href="{{ api_link }}">
+        {{ major }}.{{ minor }}.{{ patch }}
+        </a>
+      </td>
+      <td>{{ api.tech_description }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>

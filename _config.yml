@@ -1,65 +1,22 @@
-markdown: kramdown
-source: source
-safe: false
-permalink: /news/:year/:month/:day/:title/
+site_id:        api
+theme:          iiifc-theme
+source:         source
+permalink:      pretty
+baseurl:        '/api'
+
+api_url:        ''
 
 plugins:
-  - jekyll-sitemap
+  - jekyll-data
+  - jekyll-gzip
+  - jekyll-liquify
   - jekyll-redirect-from
+  - jekyll-seo-tag
 
-kramdown:
-  input: GFM
-  parse_block_html: true
-  toc_levels: 2..4
+# notification:
+#   enabled: true
+#   title: This website design is in pre-beta.
+#   subtitle: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+#   link: '#'
+#   link_label: This is a test link
 
-image_api:
-  draft:
-    major: 3
-    minor: 0
-    patch: 0
-  stable:
-    major: 3
-    minor: 0
-    patch: 0
-presentation_api:
-  draft:
-    major: 3
-    minor: 0
-    patch: 0
-  stable:
-    major: 3
-    minor: 0
-    patch: 0
-shared_canvas:
-  draft:
-    major: 1
-    minor: 0
-    patch: 0
-  stable:
-    major: 1
-    minor: 0
-    patch: 0
-search_api:
-  draft:
-    major: 1
-    minor: 0
-    patch: 0
-  stable:
-    major: 1
-    minor: 0
-    patch: 0
-auth_api:
-  draft:
-    major: 1
-    minor: 0
-    patch: 0
-  stable:
-    major: 1
-    minor: 0
-    patch: 0
-defaults:
-  -
-    scope:
-      path: ""
-    values:
-      webprefix: "https://iiif.io"

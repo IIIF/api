@@ -2,7 +2,7 @@
 title: Shared Canvas Data Model
 title_override: "IIIF Presentation API 2.0"
 id: shared-canvas
-layout: sub-page
+layout: page
 categories: [specifications, presentation-api, spec-doc]
 major: 2
 minor: 0
