@@ -798,8 +798,7 @@ The objects in the list of terms are all of `type` "Term", and this _MAY_ be inc
   * The matching term is given as the value of the `match` property, and _MUST_ be present.
   * The link to the search to perform is the value of the `url` property, and this _MUST_ be present.
   * The number of matches for the term is the integer value of the `count` property, and _SHOULD_ be present.
-  * A label to display instead of the match can be given as the value of the `label` property, and _MAY_ be present.  There may be more than one label given, to allow for internationalization.
-
+  * A label to display instead of the match can be given as the value of the `label` property, and _MAY_ be present, following the pattern for language maps described in the [Presentation API][prezi30-languages]
 
 The terms _SHOULD_ be provided in ascending alphabetically sorted order, but other orders are allowed, such as by the term's count descending to put the most common matches first.
 
@@ -849,7 +848,7 @@ It is also possible to associate one or more `label`s to display to the user wit
       "url": "http://example.org/service/identifier/autocomplete?motivation=tagging&q=http%3A%2F%2Fsemtag.example.org%2Ftag%2Fbird",
       "count": 15,
       "label": {
-        "none": "bird"
+        "none": [ "bird" ]
         }
     },
     {
@@ -857,7 +856,7 @@ It is also possible to associate one or more `label`s to display to the user wit
       "url": "http://example.org/service/identifier/autocomplete?motivation=tagging&q=http%3A%2F%2Fsemtag.example.org%2Ftag%2Fbiro",
       "count": 3,
       "label": {
-        "none": "biro"
+        "none": [ "biro" ]
         }
     }
   ]
