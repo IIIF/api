@@ -75,7 +75,7 @@ Additionally, the IIIF community has the following goals for this specification:
 * A IIIF client should not accept credentials and authenticate the user itself; the server hosting the content must be responsible for capturing credentials from a user and the IIIF viewer needs no knowledge of or access to this exchange.
 * A browser-based IIIF client must be able to maintain its own internal state during an authentication flow. That is, it must be able to stay running while the user interacts with third parties in another tab.
 * A registry of trusted domains should not be required; anyone should be able to create any kind of viewer and run it from anywhere.
-* Institutions should be able to use their existing authentication systems without modification: this specification can provide a bridge to existing systems without requiring that the systems themselves be changed.
+* Institutions should be able to work with their existing authentication systems without modifying them: this specification can provide a bridge to existing systems without requiring that the systems themselves be changed.
 
 To meet these challenges and goals, the IIIF Authentication specification describes a set of workflows for guiding the user through an _existing_ access control system. The process of authenticating and authorising the user is mostly outside the scope of the specification and may involve a round-trip to a CAS server, or an OAuth2 provider, or a bespoke login system. In this sense, IIIF Authentication is not the same as a protocol like CAS; it is a pattern for interacting with arbitrary third party protocols.
 
