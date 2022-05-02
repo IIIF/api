@@ -102,7 +102,7 @@ And would result in this SpecificResource, when applied to an image service at `
 }
 ```
 
-It can be used in the Presentation API as demonstrated in the section on [Rotation][prezi-rot].
+It can be used in the Presentation API as demonstrated in the IIIF Cookbook recipe [...].
 
 ### 2.2. Point Selector
 {: #point-selector}
