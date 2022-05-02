@@ -4,21 +4,27 @@ layout: spec
 tags: [annex, service, services, specifications]
 cssversion: 2
 editors:
-  - name: Michael Appleby
-    ORCID: https://orcid.org/0000-0002-1266-298X
-    institution: Yale University
-  - name: Tom Crane
-    ORCID: https://orcid.org/0000-0003-1881-243X
-    institution: Digirati
-  - name: Robert Sanderson
-    ORCID: https://orcid.org/0000-0003-4441-6852
-    institution: J. Paul Getty Trust
-  - name: Jon Stroop
-    ORCID: https://orcid.org/0000-0002-0367-1243
-    institution: Princeton University Library
-  - name: Simeon Warner
-    ORCID: https://orcid.org/0000-0002-7970-7855
-    institution: Cornell University
+- name: Michael Appleby
+  ORCID: https://orcid.org/0000-0002-1266-298X
+  institution: Yale University
+- name: Tom Crane
+  ORCID: https://orcid.org/0000-0003-1881-243X
+  institution: Digirati
+- name: Robert Sanderson
+  ORCID: https://orcid.org/0000-0003-4441-6852
+  institution: J. Paul Getty Trust
+- name: Jon Stroop
+  ORCID: https://orcid.org/0000-0002-0367-1243
+  institution: Princeton University Library
+- name: Simeon Warner
+  ORCID: https://orcid.org/0000-0002-7970-7855
+  institution: Cornell University
+- name: Dawn Childress
+  ORCID: https://orcid.org/0000-0003-2602-2788
+  institution: UCLA
+- name: Jeff Mixter
+  ORCID: https://orcid.org/0000-0002-8411-2952
+  institution: OCLC Research
 ---
 
 ## Status of this Document
@@ -56,10 +62,17 @@ The process for having a new entry added to this registry is [described here][re
 
 ## 3. Registry
 
-This table summarizes the known behaviors available, for use with the [Presentation API][prezi-api].
+This table summarizes the known motivations available, for use with the [Presentation API][prezi-api].
 
-| Behavior                       |
-| ------------------------------ |
+| Motivation    |  |
+|--------------------|------|
+| `painting`	| Only annotations with the sc:painting motivation |
+| `non-painting` |	Annotations with any motivation other than sc:painting |
+| `commenting`	| Annotations with the oa:commenting motivation |
+| `describing`	| Annotations with the oa:describing motivation |
+| `tagging`	| Annotations with the oa:tagging motivation |
+| `linking`	| Annotations with the oa:linking motivation |
+| `contextualizing` |  |
 {: .api-table}
 
 
@@ -73,6 +86,7 @@ Thanks to the members of the [IIIF][iiif-community] for their continuous engagem
 
 | Date       | Description                                        |
 | ---------- | -------------------------------------------------- |
+| 2022-XX-YY | Add known motivations, plus new `contextualizing` motivation |
 | 2018-XX-YY | New Version 3 Registries                           |
 
 {% include acronyms.md %}
