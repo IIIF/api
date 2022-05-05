@@ -237,7 +237,7 @@ Where no probe service is supplied, the protected resource acts as its own probe
 
 <!-- Either way the probe service is not one of the auth services and certainly not a child of the access service. But this means it has no direct connection to the token service either. 
 
-A resource with two login services each with their own token service. The resource can only have one probe service.
+A resource with two login (interactive) services each with their own token service. The resource can only have one probe service.
 So the client would have to try the probe service twice, testing each token.
 
 This is OK though, it's going to be rare.
@@ -310,7 +310,7 @@ https://authentication.example.org/login?origin=https://client.example.com/
 The server _MAY_ use this information to validate the origin supplied in subsequent requests to the access token service, for example by encoding it in the cookie returned.
 
 #### 2.1.3. Interactive Access Service Pattern
-{: #login-interaction-pattern}
+{: #interactive-interaction-pattern}
 
 This pattern requires the user to interact with the content provider's user interface in the opened tab. Typical scenarios are:
 
@@ -328,7 +328,7 @@ The interaction has the following steps:
 
 With out-of-band knowledge, authorized non-user-driven clients _MAY_ use POST to send the pre-authenticated user’s information to the service. As the information required depends on authorization logic, the details are not specified by this API.
 
-An example service description for the Login interaction pattern:
+An example service description for the Interactive interaction pattern:
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -338,7 +338,7 @@ An example service description for the Login interaction pattern:
     "@context": "http://iiif.io/api/auth/{{ page.major }}/context.json",
     "id": "https://authentication.example.org/login",
     "type": "AuthAccessService2",
-    "profile": "login",
+    "profile": "interactive",
     "label": { "en": [ "Login to Example Institution" ] },
     "header": { "en": [ "Please Log In" ] },
     "description": { "en": [ "Example Institution requires that you log in with your example account to view this content." ] },
@@ -475,7 +475,7 @@ The access service description _MUST_ include an access token service descriptio
     "@context": "http://iiif.io/api/auth/{{ page.major }}/context.json",
     "id": "https://authentication.example.org/login",
     "type": "AuthAccessService2",
-    "profile": "login",
+    "profile": "interactive",
     "label": { "en": [ "Login to Example Institution" ] },
 
     // Access Token Service
@@ -683,7 +683,7 @@ The `description` property is _OPTIONAL_ and may give additional human-readable 
 
 When returning JSON directly, the service _MUST_ use the appropriate HTTP status code for the response to describe the error (for example 400, 401 or 503).  The postMessage web page response _MUST_ use the 200 HTTP status code to ensure that the body is received by the client correctly.
 
-If the error is `expiredCredentials`, the client _SHOULD_ first try to acquire another token from the token service, before sending the user to the login service again. The client _MAY_ also do this for `invalidCredentials`.
+If the error is `expiredCredentials`, the client _SHOULD_ first try to acquire another token from the token service, before sending the user to the access service again. The client _MAY_ also do this for `invalidCredentials`.
 
 ### 2.3. Logout Service
 {: #logout-service}
@@ -703,7 +703,7 @@ If the authentication system supports users intentionally logging out, there _SH
     "@context": "http://iiif.io/api/auth/{{ page.major }}/context.json",
     "id": "https://authentication.example.org/login",
     "type": "AuthAccessService2",
-    "profile": "login",
+    "profile": "interactive",
     "label": { "en": [ "Login to Example Institution" ] },
     "service" : [
       {
@@ -712,7 +712,7 @@ If the authentication system supports users intentionally logging out, there _SH
       },
       {
         "id": "https://authentication.example.org/logout",
-        "type": "AuthLogoutService2"
+        "type": "AuthLogoutService2",
         "label": { "en": [ "Logout from Example Institution" ] }
       }
     ]
@@ -757,7 +757,7 @@ An Image Service _MUST NOT_ declare a separate probe service; it is always its o
   "service" : [ {
     "id": "https://authentication.example.org/login",
     "type": "AuthAccessService2",
-    "profile": "login",
+    "profile": "interactive",
     "label": { "en": [ "Login to Example Institution" ] },
     "service" : [
       {
@@ -803,7 +803,7 @@ The Manifest must include the Auth context.
             {
               "id": "https://authentication.example.org/login",
               "type": "AuthAccessService2",
-              "profile": "login",
+              "profile": "interactive",
               "label": { "en": [ "Login to Example Institution" ] },
               "service" : [
                 {
