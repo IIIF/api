@@ -36,13 +36,52 @@ Situations which are not in scope include:
 - 3D spatial representation
 - Photo geotagging
 
-## 2. Full Georef Annotation Example
+### 1.3 Terminology
+
+This extension uses the following terms:
+
+* __embedded__: When a resource (A) is embedded within an embedding resource (B), the complete JSON representation of resource A is present within the JSON representation of resource B, and dereferencing the URI of resource A will not result in additional information. Example: Canvas A is embedded in Manifest B.
+* __referenced__: When a resource (A) is referenced from a referencing resource (B), an incomplete JSON representation of resource A is present within the JSON representation of resource B, and dereferencing the URI of resource A will result in additional information. Example: Manifest A is referenced from Collection B.
+* __HTTP(S)__: The HTTP or HTTPS URI scheme and internet protocol.
+
+The terms _array_, _JSON object_, _number_, _string_, and _boolean_ in this document are to be interpreted as defined by the [Javascript Object Notation (JSON)][org-rfc-8259] specification.
+
+The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _SHOULD NOT_, _RECOMMENDED_, _MAY_, and _OPTIONAL_ in this document are to be interpreted as described in [RFC 2119][org-rfc-2119].
+
+## 2. Georeferencing with Ground Control Points
+
+mapping between image coordinates in pixels and geospatial coordinates.
+
+Examples/references:
+
+- GDAL
+- QGIS
+- Map Warper
+
+## 3. Annotation target and body
+
+- Annotation target:
+    - IIIF image service
+    - selector: either complete image, or SvgSelector
+
+
+- Georef annotations target IIIF Images, not Canvases.
+    - Images are georeferenced using the original image. Images on a canvas can be scaled or rotated
+- Waarom alleen IIIF-afbeeldingen? Manifests with non-IIIF images, like Europeana is sometimes using in their manifests, are not supported. Zie motivating use cases: anders niet mogelijk om in te zoomen, XYZ-tiles te maken, aan elkaar te plakken.
+- IIIF Image API 2 and 3 are supported.
+- Annotations can be separate, or [embedded in manifest](https://iiif.io/api/cookbook/recipe/0269-embedded-or-referenced-annotations/).
+- multiple georeferenced maps in a single image
+
+- Annotation body: ground control points
+
+
+## 4. Full Georef Annotation Example
 
 {% include api/code_header.html %}
 ```json-doc
 {
-	"type": "Annotation",
-	"@context": [
+  "type": "Annotation",
+  "@context": [
 		"http://www.w3.org/ns/anno.jsonld",
 		"http://geojson.org/geojson-ld/geojson-context.jsonld",
 		"http://iiif.io/api/presentation/3/context.json"
@@ -67,7 +106,8 @@ Situations which are not in scope include:
 			"type": "polynomial",
 			"order": 0
 		},
-		"features": [{
+		"features": [
+      {
 				"type": "Feature",
 				"properties": {
 					"pixelCoords": [
@@ -200,14 +240,15 @@ Situations which are not in scope include:
 }
 ```
 
-- Georef annotations target IIIF Images, not Canvases.
-    - Images are georeferenced using the original image. Images on a canvas can be scaled or rotated
-- Waarom alleen IIIF-afbeeldingen? Manifests with non-IIIF images, like Europeana is sometimes using in their manifests, are not supported. Zie motivating use cases: anders niet mogelijk om in te zoomen, XYZ-tiles te maken, aan elkaar te plakken.
-- IIIF Image API 2 and 3 are supported.
-- Annotations can be separate, or [embedded in manifest](https://iiif.io/api/cookbook/recipe/0269-embedded-or-referenced-annotations/).
+## 5. Specification
 
+- `type` must be `Annotation` or `AnnotationPage`
+- `motivation` must be `georeferencing`
 
-## 3. Implementation Notes
+...
+
+## 6. Implementation Notes
+
 
 
 ## Appendices
