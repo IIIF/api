@@ -58,7 +58,17 @@ Examples/references:
 - QGIS
 - Map Warper
 
-## 3. Annotation target and body
+What data is needed to georeference and warp a map? (reference use cases)?
+
+- image data
+- GCPs
+- pixel mask
+
+## 3. Web Annotations
+
+Why web annotation?
+Anyone can georeference any IIIF image.
+
 
 - Annotation target:
     - IIIF image service
