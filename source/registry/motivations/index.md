@@ -62,19 +62,25 @@ The process for having a new entry added to this registry is [described here][re
 
 ## 3. Registry
 
-This table summarizes the known motivations available, for use with the [Presentation API][prezi-api].
+This table summarizes the known motivations available for use with the current version of the [Presentation API][prezi-api]. There may be other motivations available for use with older versions of the specification.
 
-| Motivation    |  |
+| Motivation    | Where defined |
 |--------------------|------|
-| `painting`	| Only annotations with the sc:painting motivation |
-| `non-painting` |	Annotations with any motivation other than sc:painting |
-| `commenting`	| Annotations with the oa:commenting motivation |
-| `describing`	| Annotations with the oa:describing motivation |
-| `tagging`	| Annotations with the oa:tagging motivation |
-| `linking`	| Annotations with the oa:linking motivation |
-| `contextualizing` |  |
+| `painting`	| [Presentation API Values for Motivation][prezi30-values-for-motivation] |
+| `supplementing` | [Presentation API Values for Motivation][prezi30-values-for-motivation] |
+| `contextualizing` | [Content Search API Search Term Context][search20-search-term-snippets] |
+| `contentState` | [Content State API Form of Annotation][contentstate10-22-form-of-annotation] |
 {: .api-table}
 
+Additional motivations are available from the [W3 Web Annotation motivations][https://www.w3.org/TR/annotation-model/#motivation-and-purpose]. This table includes W3 motivations that are common or recommended in IIIF APIs.
+
+| Motivation    | Reference |
+|--------------------|------|
+| `highlighting` | [Content Search API Search Term Highlighting][search20-search-term-highlighting] |
+| `commenting`	| (mentioned in search, recipes 266, 269) |
+| `describing`	| (mentioned in search) |
+| `tagging`	| (mentioned in search, recipes 21, 258, 261) |
+| `linking`	| (mentioned in search) |
 
 ## Appendices
 
