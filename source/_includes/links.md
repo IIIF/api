@@ -13,12 +13,14 @@
 [auth1-token-service]: {{ site.api_url | absolute_url }}/auth/1.0/#access-token-service "IIIF Authentication Access Token Service"
 [auth1]: {{ site.api_url | absolute_url }}/auth/1.0/ "IIIF Authentication API 1.0"
 [auth10]: {{ site.api_url | absolute_url }}/auth/1.0/ "IIIF Authentication API 1.0"
-[contentstate09]: {{ site.api_url | absolute_url }}/content-state/0.9/
-[contentstate-export]: {{ site.api_url | absolute_url }}/content-state/0.9/#export "3.7. Exporting Current Content State from Viewer"
+[contentstate01]: {{ site.api_url | absolute_url }}/content-state/0.1/ "IIIF Content State API 0.1"
+[contentstate02]: {{ site.api_url | absolute_url }}/content-state/0.2/ "IIIF Content State API 0.2"
+[contentstate03]: {{ site.api_url | absolute_url }}/content-state/0.3/ "IIIF Content State API 0.3"
+[contentstate09]: {{ site.api_url | absolute_url }}/content-state/0.9/ "IIIF Content State API 0.9"
+[contenstate-stable-version]: {{ site.api_url | absolute_url }}/content-state/{{ site.data.apis.content-state.latest.major }}.{{ site.data.apis.content-state.latest.minor }}/ "Latest Content State API Stable Version"
+[contentstate-export]: {{ site.api_url | absolute_url }}/content-state/0.9/#export "3.7. Exporting Current Content State from Viewer" 
 [contentstate-http]: {{ site.api_url | absolute_url }}/content-state/0.9/#7-http-requests-and-responses "HTTP Request and Responses"
 [contentstate-initialization]: {{ site.api_url | absolute_url }}/content-state/0.9/#initialization "Initialization mechanisms (protocol)"
-[contentstate03]: {{ site.api_url | absolute_url }}/content-state/0.3/ "IIIF Content State API"
-[contentstate10]: {{ site.api_url | absolute_url }}/content-state/1.0/ "IIIF Content State API"
 [contentstate10-22-form-of-annotation]: {{ site.api_url | absolute_url }}/content-state/1.0/#22-form-of-annotation
 [btoa-unicode-problem]: https://developer.mozilla.org/en-US/docs/Glossary/Base64#the_unicode_problem "The Unicode Problem"
 [contentstate-encoding]: {{ site.api_url | absolute_url }}/content-state/0.9/#6-content-state-encoding "Content State Section 6"

@@ -11,6 +11,7 @@ plugins:
   - jekyll-gzip
   - jekyll-liquify
   - jekyll-redirect-from
+  - jekyll-seo-tag
 
 # notification:
 #   enabled: true
