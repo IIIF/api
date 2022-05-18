@@ -59,7 +59,7 @@ The process for having a new entry added to this registry is [described here][re
 
 ## 3. Registry
 
-This table summarizes the known motivations available for use with the current version of the [Presentation API][prezi-api]. There may be other motivations available for use with older versions of the specification.
+This table summarizes the motivations available for use within the current versions of the suite of IIIF specifications. There may be other motivations available for use with older versions of the specification.
 
 | Motivation    | Reference |
 |--------------------|------|
