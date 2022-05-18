@@ -69,7 +69,7 @@ This table summarizes the known motivations available for use with the current v
 | `contentState` | [Content State API Form of Annotation][contentstate10-22-form-of-annotation] |
 {: .api-table}
 
-Additional motivations are available from the [W3 Web Annotation motivations][https://www.w3.org/TR/annotation-model/#motivation-and-purpose]. This table includes W3 motivations that are common or recommended for use in IIIF.
+Additional motivations are available from the [W3 Web Annotation motivations][org-w3c-webanno-motivation]. This table includes W3 motivations that are common or recommended for use in IIIF.
 
 | Motivation    | Reference |
 |--------------------|------|
