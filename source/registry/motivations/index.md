@@ -64,23 +64,21 @@ The process for having a new entry added to this registry is [described here][re
 
 This table summarizes the known motivations available for use with the current version of the [Presentation API][prezi-api]. There may be other motivations available for use with older versions of the specification.
 
-| Motivation    | Where defined |
+| Motivation    | Reference |
 |--------------------|------|
 | `painting`	| [Presentation API Values for Motivation][prezi30-values-for-motivation] |
 | `supplementing` | [Presentation API Values for Motivation][prezi30-values-for-motivation] |
-| `contextualizing` | [Content Search API Search Term Context][search20-search-term-snippets] |
+| `contextualizing` | [Content Search API Search Term Context][] |
 | `contentState` | [Content State API Form of Annotation][contentstate10-22-form-of-annotation] |
 {: .api-table}
 
-Additional motivations are available from the [W3 Web Annotation motivations][https://www.w3.org/TR/annotation-model/#motivation-and-purpose]. This table includes W3 motivations that are common or recommended in IIIF APIs.
+Additional motivations are available from the [W3 Web Annotation motivations][https://www.w3.org/TR/annotation-model/#motivation-and-purpose]. This table includes W3 motivations that are common or recommended for use in IIIF.
 
 | Motivation    | Reference |
 |--------------------|------|
-| `highlighting` | [Content Search API Search Term Highlighting][search20-search-term-highlighting] |
-| `commenting`	| (mentioned in search, recipes 266, 269) |
-| `describing`	| (mentioned in search) |
-| `tagging`	| (mentioned in search, recipes 21, 258, 261) |
-| `linking`	| (mentioned in search) |
+| `highlighting` | [Content Search API Search Term Highlighting][] |
+| `commenting`	| [Recipe: Simplest Annotation](https://iiif.io/api/cookbook/recipe/0266-full-canvas-annotation/) |
+| `tagging`	| [Recipe: Simple Annotation - Tagging](https://iiif.io/api/cookbook/recipe/0021-tagging/) |
 
 ## Appendices
 
