@@ -142,20 +142,8 @@ Servers _SHOULD_ implement the `q` and `motivation` parameters and _MAY_ impleme
 | `user`       | A space separated list of URIs that are the identities of users. If multiple users are supplied, an annotation matches the search if any of the users created the annotation. |
 {: .api-table}
 
-Common values for the motivation parameter are:
+Common values for the motivation parameter can be found in the [IIIF Registry of Motivations][registry-motivations], including the two Content Search motivations `contextualizing` and `highlighting` defined in sections [3.4.2][search20-search-term-snippets] and [3.4.3][search20-search-term-highlighting] below.
 
-| Motivation | Definition |
-| ---------- | ---------- |
-| `painting`     | Only annotations with the `painting` motivation |
-| `non-painting` | Annotations with any motivation other than `painting` |
-| `commenting`   | Annotations with the `commenting` motivation |
-| `describing`   | Annotations with the `describing` motivation |
-| `tagging`      | Annotations with the `tagging` motivation |
-| `linking`      | Annotations with the `linking` motivation |
-| `supplementing`| Annotations with the `supplementing` motivation |
-{: .api-table}
-
-Other motivations are possible, and the full list from the [Web Annotation][org-w3c-webanno] specification _SHOULD_ be available by dropping the "oa:" prefix.  Other, community specific motivations _SHOULD_ include a prefix or use their full URI.
 
 #### 3.2.2. Example Request
 {: #example-request}
@@ -322,7 +310,7 @@ There may be properties that are specific to the search result, and not features
 
 As these responses include Search specific information, the value of `@context` _MUST_ be an array with both the Presentation API and the Search API context URIs included, in that order.  This allows the two APIs to develop separately and yet remain as synchronized as possible.
 
-To incrementally build upon existing solutions and provide graceful degradation for clients that do not support these features and retain compatibility with the Presentation API, the search API specific information is included in a second list of annotations called `annotations`, other than the `ignored` property. This structure mirrors the distinction in the [Presentation API][prezi3], where the main content annotations are listed in `items` and additional annotations such as comments are listed in `annotations`. 
+To incrementally build upon existing solutions and provide graceful degradation for clients that do not support these features and retain compatibility with the Presentation API, the search API specific information is included in a second list of annotations called `annotations`, other than the `ignored` property. This structure mirrors the distinction in the [Presentation API][prezi3], where the main content annotations are listed in `items` and additional annotations such as comments are listed in `annotations`.
 
 The extended structure is:
 
@@ -641,7 +629,7 @@ The result might be:
 #### 3.4.5. Multi-Annotation Matches
 {: #multi-annotation-matches}
 
-Given the flexibility of alignment between the sections of the text (such as word, line, paragraph, page, or arbitrary sections) and the annotations that expose that text to the client, there may be multiple annotations that are required to match a single multi-term search. 
+Given the flexibility of alignment between the sections of the text (such as word, line, paragraph, page, or arbitrary sections) and the annotations that expose that text to the client, there may be multiple annotations that are required to match a single multi-term search.
 
 For example, imagine that the annotations are divided up line by line as they were manually transcribed that way, and that there are two lines of text. In this example the first line is "A bird in the hand", the second line is "is worth two in the bush", and the search is for the phrase "hand is". Therefore the match spans both of the line-based annotations.
 
@@ -713,7 +701,7 @@ http://example.org/service/manifest/search?q=hand+is
               ]
             },
             {
-              "type": "SpecificResource", 
+              "type": "SpecificResource",
               "source": "http://example.org/identifier/annotation/anno-is",
               "selector": [
                 {

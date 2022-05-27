@@ -18,7 +18,7 @@
 [contentstate03]: {{ site.api_url | absolute_url }}/content-state/0.3/ "IIIF Content State API 0.3"
 [contentstate09]: {{ site.api_url | absolute_url }}/content-state/0.9/ "IIIF Content State API 0.9"
 [contenstate-stable-version]: {{ site.api_url | absolute_url }}/content-state/{{ site.data.apis.content-state.latest.major }}.{{ site.data.apis.content-state.latest.minor }}/ "Latest Content State API Stable Version"
-[contentstate-export]: {{ site.api_url | absolute_url }}/content-state/0.9/#export "3.7. Exporting Current Content State from Viewer" 
+[contentstate-export]: {{ site.api_url | absolute_url }}/content-state/0.9/#export "3.7. Exporting Current Content State from Viewer"
 [contentstate-http]: {{ site.api_url | absolute_url }}/content-state/0.9/#7-http-requests-and-responses "HTTP Request and Responses"
 [contentstate-initialization]: {{ site.api_url | absolute_url }}/content-state/0.9/#initialization "Initialization mechanisms (protocol)"
 [contentstate10-22-form-of-annotation]: {{ site.api_url | absolute_url }}/content-state/1.0/#22-form-of-annotation
@@ -248,7 +248,14 @@
 [navPlace]: {{ site.api_url | absolute_url }}/extension/navplace/
 [registry]: {{ site.api_url | absolute_url }}/registry/ "IIIF Extension Registry"
 [registry-activity-streams]: https://registry.iiif.io/ "IIIF Registry of Activity Streams"
-
+[registry-motivations]: {{ site.api_url | absolute_url }}/registry/motivations/
+[registry-behaviors]: {{ site.api_url | absolute_url }}/registry/behaviors/
+[registry-process]: {{ site.api_url | absolute_url }}/registry/process/
+[registry-services]: {{ site.api_url | absolute_url }}/registry/services/
+[registry-profiles]: {{ site.api_url | absolute_url }}/registry/profiles/
+[registry-timeModes]: {{ site.api_url | absolute_url }}/registry/timeModes/
+[registry-types]: {{ site.api_url | absolute_url }}/registry/types/
+[registry-viewingDirections]: {{ site.api_url | absolute_url }}/registry/viewingDirections/
 [search-stable-version]: {{ site.api_url | absolute_url }}/search/{{ site.search_api.stable.major }}.{{ site.search_api.stable.minor }}/ "Latest Content Search API Stable Version"
 
 [search-api]: {{ site.api_url | absolute_url }}/search/{{ site.data.apis.search.latest.major }}.{{ site.data.apis.search.latest.minor }}/ "Content Search API"
