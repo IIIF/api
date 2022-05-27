@@ -58,17 +58,17 @@ This table summarizes the motivations available for use within the current versi
 
 | Motivation    | Reference |
 |--------------------|------|
-| `painting`	| [Presentation API Values for Motivation][prezi30-values-for-motivation] |
-| `supplementing` | [Presentation API Values for Motivation][prezi30-values-for-motivation] |
-| `contextualizing` | Reserved for future use with Content Search 2 API |
-| `contentState` | [Content State API Form of Annotation][contentstate10-22-form-of-annotation] |
+| `painting`	| [Presentation API: Values for Motivation][prezi30-values-for-motivation] |
+| `supplementing` | [Presentation API: Values for Motivation][prezi30-values-for-motivation] |
+| `contextualizing` | [Content Search API: Search Term Context][search20-search-term-snippets] |
+| `contentState` | [Content State API: Form of Annotation][contentstate10-22-form-of-annotation] |
 {: .api-table}
 
 Additional motivations are available from the [W3 Web Annotation motivations][org-w3c-webanno-motivation]. This table includes W3 motivations that are common or recommended for use in IIIF.
 
 | Motivation    | Reference |
 |--------------------|------|
-| `highlighting` | Reserved for future use with Content Search 2 API |
+| `highlighting` | [Content Search API: Search Term Highlighting][search20-search-term-highlighting] |
 | `commenting`	| [Recipe: Simplest Annotation](https://iiif.io/api/cookbook/recipe/0266-full-canvas-annotation/) |
 | `tagging`	| [Recipe: Simple Annotation - Tagging](https://iiif.io/api/cookbook/recipe/0021-tagging/) |
 
@@ -82,6 +82,7 @@ Thanks to the members of the [IIIF][iiif-community] for their continuous engagem
 
 | Date       | Description                                        |
 | ---------- | -------------------------------------------------- |
+| 2022-MM-DD | Add links to Content Search motivations |
 | 2022-05-26 | Add known motivations, plus new `contextualizing` motivation |
 | 2020-06-03 | New Version 3 Registries                           |
 
