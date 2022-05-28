@@ -24,7 +24,6 @@
 [contentstate10-22-form-of-annotation]: {{ site.api_url | absolute_url }}/content-state/1.0/#22-form-of-annotation
 [btoa-unicode-problem]: https://developer.mozilla.org/en-US/docs/Glossary/Base64#the_unicode_problem "The Unicode Problem"
 [contentstate-encoding]: {{ site.api_url | absolute_url }}/content-state/0.9/#6-content-state-encoding "Content State Section 6"
-[contentstate-export]: {{ site.api_url | absolute_url }}/content-state/0.9/#export
 [discovery-api]: {{ site.api_url | absolute_url }}/discovery/ "IIIF Change Discovery API"
 [discovery01]: {{ site.api_url | absolute_url }}/discovery/0.1/ "IIIF Change Discovery API"
 [discovery02]: {{ site.api_url | absolute_url }}/discovery/0.2/ "IIIF Change Discovery API"
