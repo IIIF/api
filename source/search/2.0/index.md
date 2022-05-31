@@ -89,7 +89,7 @@ The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _S
 ## 2. Overview
 {: #overview}
 
-The IIIF [Presentation API][prezi-api] provides just enough information to a viewer so that it can present the images and other content to the user in a rich and understandable way.  Those content resources may have textual annotations associated with them.  Annotations may also be associated with the structural components of the Presentation API, such as the manifest itself, sequences, ranges, and layers.  Further, annotations can be replied to by annotating them to form a threaded discussion about the commentary, transcription, edition or translation.
+The IIIF [Presentation API][prezi-api] provides just enough information to a viewer so that it can present the images and other content to the user in a rich and understandable way.  Those content resources may have textual annotations associated with them.  Annotations may also be associated with the structural components of the Presentation API, such as a Collection, Manifest, Sequence, or Range.  Further, annotations can be replied to by annotating them to form a threaded discussion about the commentary, transcription, edition or translation.
 
 Annotations are typically made available to viewing applications in an annotation list, where all of the annotations in the list target the same resource, or part of it.  Where known, these lists can be directly referenced from the manifest document to allow clients to simply follow the link to retrieve them.  For fixed, curated content, this is an appropriate method to discover them, as the annotations do not frequently change, nor are they potentially distributed amongst multiple servers. Annotation lists can be included in layers to group them together, such as by the source of the annotations, to allow the user to manipulate that grouping as a whole.
 
@@ -132,7 +132,7 @@ The search request is made to a service that is related to a particular Presenta
 
 Other than `q`, which is _RECOMMENDED_, all other parameters are _OPTIONAL_ in the request.  The default, if a parameter is empty or not supplied, is to not restrict the annotations that match the search by that parameter.  If the value is supplied but the field is not present in an annotation, then the search does not match that annotation. For example if an annotation does not have a creator, and the query specifies a `user` parameter, then the annotation does not match the query.
 
-Servers _SHOULD_ implement the `q` and `motivation` parameters and _MAY_ implement the other parameters. Parameters that are received in a request but not implemented _MUST_ be ignored, and _SHOULD_ be included in the `ignored` property of the Layer in the response, described [below][ignored-parameters].
+Servers _SHOULD_ implement the `q` and `motivation` parameters and _MAY_ implement the other parameters. Parameters that are received in a request but not implemented _MUST_ be ignored, and _SHOULD_ be included in the `ignored` property in the response, described [below][ignored-parameters].
 
 | Parameter  | Definition |
 | ---------  | ---------- |
@@ -872,7 +872,7 @@ count
 ignored
 :   The set of parameters that were received by the server but not taken into account when processing the query. The value _MUST_ be an array of strings.
 
-    * A TermList or a Layer _MAY_ have an ignored property, and _MUST_ have it if the server ignored any query parameter.
+    * A TermList _MAY_ have an ignored property, and _MUST_ have it if the server ignored any query parameter.
 
 match
 :   The text that triggered the search to match the particular annotation.  The value _MUST_ be a single string.
