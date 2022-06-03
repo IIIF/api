@@ -89,23 +89,23 @@ The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _S
 ## 2. Overview
 {: #overview}
 
-The IIIF [Presentation API][prezi-api] provides just enough information to a viewer so that it can present the images and other content to the user in a rich and understandable way.  Those content resources may have textual annotations associated with them.  Annotations may also be associated with the structural components of the Presentation API, such as the manifest itself, sequences, ranges, and layers.  Further, annotations can be replied to by annotating them to form a threaded discussion about the commentary, transcription, edition or translation.
+The IIIF [Presentation API][prezi-api] provides just enough information to a viewer so that it can present the images and other content to the user in a rich and understandable way.  Those content resources may have textual annotations associated with them.  Annotations may also be associated with the structural components of the Presentation API, such as a Collection, Manifest, Sequence, or Range.  Further, annotations can be replied to by annotating them to form a threaded discussion about the commentary, transcription, edition or translation.
 
-Annotations are typically made available to viewing applications in an annotation list, where all of the annotations in the list target the same resource, or part of it.  Where known, these lists can be directly referenced from the manifest document to allow clients to simply follow the link to retrieve them.  For fixed, curated content, this is an appropriate method to discover them, as the annotations do not frequently change, nor are they potentially distributed amongst multiple servers. Annotation lists can be included in layers to group them together, such as by the source of the annotations, to allow the user to manipulate that grouping as a whole.
+Annotations are typically made available to viewing applications in an annotation list, where all of the annotations in the list target the same resource, or part of it.  Where known, these lists can be directly referenced from the Manifest document to allow clients to simply follow the link to retrieve them.  For fixed, curated content, this is an appropriate method to discover them, as the annotations do not frequently change, nor are they potentially distributed amongst multiple servers. Annotation lists can be included in Annotation Collections to group them together, such as by the source of the annotations, to allow the user to manipulate that grouping as a whole.
 
 However this is less useful for comment-style annotations, crowd-sourced or distributed transcriptions, corrections to automated OCR transcription, and similar, as the annotations may be in constant flux.  Further, being able to quickly discover individual annotations without stepping through all of the views of an object is essential for a reasonable user experience.  This specification adds this capability to the IIIF suite of specifications.  
 
 Beyond the ability to search for words or phrases, users find it helpful to have suggestions for what terms they should be searching for.  This facility is often called auto-complete or type-ahead, and within the context of a single object can provide insight into the language and content.  The auto-complete service is associated with a search service into which the terms can be fed as part of a query.
 
-## 3. Search
+## 3. Content Search
 {: #search}
 
-The search service takes a query, including typically a search term or URI, and potentially filtering further by other properties including the date the annotation was created or last modified, the motivation for the annotation, or the user that created the annotation.
+The Content Search service takes a query, including typically a search term or URI, and potentially filtering further by other properties including the date the annotation was created or last modified, the motivation for the annotation, or the user that created the annotation.
 
 ### 3.1. Service Description
 {: #service-description}
 
-Any resource in the Presentation API may have a search service associated with it.  The resource determines the scope of the content that will be searched.  A service associated with a manifest will search all of the annotations on canvases or other objects below the manifest, a service associated with a particular range will only search the canvases within the range, or a service on a canvas will search only annotations on that particular canvas.  
+Any resource in the Presentation API may have a Content Search service associated with it.  The resource determines the scope of the content that will be searched.  A service associated with a Manifest will search all of the annotations on Canvases or other objects below the Manifest, a service associated with a particular Range will only search the Canvases within the Range, or a service on a Canvas will search only Annotations on that particular Canvas.  
 
 The description of the service follows the pattern established in the [Linking to Services][annex-services] specification.  The description block _MUST_ have the `@context` property with the value "http://iiif.io/api/search/{{ page.major }}/context.json", the  `profile` property with the value "http://iiif.io/api/search/{{ page.major }}/search", and the `id` property that contains the URI where the search can be performed.  
 
@@ -132,30 +132,16 @@ The search request is made to a service that is related to a particular Presenta
 
 Other than `q`, which is _RECOMMENDED_, all other parameters are _OPTIONAL_ in the request.  The default, if a parameter is empty or not supplied, is to not restrict the annotations that match the search by that parameter.  If the value is supplied but the field is not present in an annotation, then the search does not match that annotation. For example if an annotation does not have a creator, and the query specifies a `user` parameter, then the annotation does not match the query.
 
-Servers _SHOULD_ implement the `q` and `motivation` parameters and _MAY_ implement the other parameters. Parameters that are received in a request but not implemented _MUST_ be ignored, and _SHOULD_ be included in the `ignored` property of the Layer in the response, described [below][ignored-parameters].
+Servers _SHOULD_ implement the `q` and `motivation` parameters and _MAY_ implement the other parameters. Parameters that are received in a request but not implemented _MUST_ be ignored, and _SHOULD_ be included in the `ignored` property in the response, described [below][ignored-parameters].
 
 | Parameter  | Definition |
 | ---------  | ---------- |
 | `q`          | A space separated list of search terms. The search terms _MAY_ be either words (to search for within textual bodies) or URIs (to search identities of annotation body resources).  The semantics of multiple, space separated terms is server implementation dependent.|
-| `motivation` | A space separated list of motivation terms. If multiple motivations are supplied, an annotation matches the search if any of the motivations are present. Expected values are given below. |
+| `motivation` | A space separated list of motivation terms. If multiple motivations are supplied, an annotation matches the search if any of the motivations are present. Common values for the motivation parameter can be found in the [IIIF Registry of Motivations][registry-motivations], including the two Content Search motivations `contextualizing` and `highlighting` defined in sections [3.4.2][search20-search-term-snippets] and [3.4.3][search20-search-term-highlighting] below. |
 | `date`       | A space separated list of date ranges.  An annotation matches if the date on which it was created falls within any of the supplied date ranges. The dates _MUST_ be supplied in the ISO8601 format: `YYYY-MM-DDThh:mm:ssZ/YYYY-MM-DDThh:mm:ssZ`. The dates _MUST_ be expressed in UTC and _MUST_ be given in the `Z` based format. |
 | `user`       | A space separated list of URIs that are the identities of users. If multiple users are supplied, an annotation matches the search if any of the users created the annotation. |
 {: .api-table}
 
-Common values for the motivation parameter are:
-
-| Motivation | Definition |
-| ---------- | ---------- |
-| `painting`     | Only annotations with the `painting` motivation |
-| `non-painting` | Annotations with any motivation other than `painting` |
-| `commenting`   | Annotations with the `commenting` motivation |
-| `describing`   | Annotations with the `describing` motivation |
-| `tagging`      | Annotations with the `tagging` motivation |
-| `linking`      | Annotations with the `linking` motivation |
-| `supplementing`| Annotations with the `supplementing` motivation |
-{: .api-table}
-
-Other motivations are possible, and the full list from the [Web Annotation][org-w3c-webanno] specification _SHOULD_ be available by dropping the "oa:" prefix.  Other, community specific motivations _SHOULD_ include a prefix or use their full URI.
 
 #### 3.2.2. Example Request
 {: #example-request}
@@ -174,7 +160,7 @@ Would search for annotations with the word "bird" in their textual content, and 
 
 The response from the server is an [annotation page][prezi30-annopage], following the format from the Presentation API with a few additional features.  This allows clients that already implement the AnnotationPage format to avoid further implementation work to support search results.
 
-The search results are returned as annotations in the regular IIIF syntax. Note that the annotations can come from multiple canvases, rather than the default situation from the Presentation API where all of the annotations target a single canvas.
+The search results are returned as annotations in the regular IIIF syntax. Note that the annotations can come from multiple Canvases, rather than the default situation from the Presentation API where all of the annotations target a single Canvas.
 
 #### 3.3.1. Simple Lists
 {: #simple-lists}
@@ -315,14 +301,14 @@ This structure is called out explicitly as although it uses only properties from
 }
 ```
 
-### 3.4 Search API Specific Responses
+### 3.4 Content Search API Specific Responses
 {: #search-api-specific-responses}
 
 There may be properties that are specific to the search result, and not features of the annotation in general, that are valuable to return to the client.  Examples of such properties include the text before and after the matched content (to allow a result snippet to be presented), the matched text itself (when case normalization, stemming or wildcards have been applied), and a reference to the set of annotations that together fulfill the search query (when a phrase spans across multiple annotations).
 
-As these responses include Search specific information, the value of `@context` _MUST_ be an array with both the Presentation API and the Search API context URIs included, in that order.  This allows the two APIs to develop separately and yet remain as synchronized as possible.
+As these responses include Content Search specific information, the value of `@context` _MUST_ be an array with both the Presentation API and the Content Search API context URIs included, in that order.  This allows the two APIs to develop separately and yet remain as synchronized as possible.
 
-To incrementally build upon existing solutions and provide graceful degradation for clients that do not support these features and retain compatibility with the Presentation API, the search API specific information is included in a second list of annotations called `annotations`, other than the `ignored` property. This structure mirrors the distinction in the [Presentation API][prezi3], where the main content annotations are listed in `items` and additional annotations such as comments are listed in `annotations`. 
+To incrementally build upon existing solutions and provide graceful degradation for clients that do not support these features and retain compatibility with the Presentation API, the Content Search API specific information is included in a second list of annotations called `annotations`, other than the `ignored` property. This structure mirrors the distinction in the [Presentation API][prezi3], where the main content annotations are listed in `items` and additional annotations such as comments are listed in `annotations`.
 
 The extended structure is:
 
@@ -411,7 +397,7 @@ And the `user` parameter was ignored when processing the request, the response w
 {: #search-term-snippets}
 
 
-The simplest addition to the hit object is to add text that appears before and after the matching text in the annotation.  This allows the client to construct a snippet where the matching text is provided in the context of surrounding content, rather than simply by itself.  This is most useful when the service has word-level boundaries of the text on the canvas, such as are available when Optical Character Recognition (OCR) has been used to generate the text positions.
+The simplest addition to the hit object is to add text that appears before and after the matching text in the annotation.  This allows the client to construct a snippet where the matching text is provided in the context of surrounding content, rather than simply by itself.  This is most useful when the service has word-level boundaries of the text on the Canvas, such as are available when Optical Character Recognition (OCR) has been used to generate the text positions.
 
 This is done by adding an entry to the `annotations` list with a `motivation` of "contextualizing", and a TextQuoteSelector with `prefix` and `suffix` of the text immediately before and after the matching content in the annotation. The matching content is conveyed in the `exact` property. The selector has the URI of the annotation it refers to in the `source` property, to be matched against the `id` property of the annotations in `items`.
 
@@ -641,7 +627,7 @@ The result might be:
 #### 3.4.5. Multi-Annotation Matches
 {: #multi-annotation-matches}
 
-Given the flexibility of alignment between the sections of the text (such as word, line, paragraph, page, or arbitrary sections) and the annotations that expose that text to the client, there may be multiple annotations that are required to match a single multi-term search. 
+Given the flexibility of alignment between the sections of the text (such as word, line, paragraph, page, or arbitrary sections) and the annotations that expose that text to the client, there may be multiple annotations that are required to match a single multi-term search.
 
 For example, imagine that the annotations are divided up line by line as they were manually transcribed that way, and that there are two lines of text. In this example the first line is "A bird in the hand", the second line is "is worth two in the bush", and the search is for the phrase "hand is". Therefore the match spans both of the line-based annotations.
 
@@ -713,7 +699,7 @@ http://example.org/service/manifest/search?q=hand+is
               ]
             },
             {
-              "type": "SpecificResource", 
+              "type": "SpecificResource",
               "source": "http://example.org/identifier/annotation/anno-is",
               "selector": [
                 {
@@ -885,7 +871,7 @@ count
 ignored
 :   The set of parameters that were received by the server but not taken into account when processing the query. The value _MUST_ be an array of strings.
 
-    * A TermList or a Layer _MAY_ have an ignored property, and _MUST_ have it if the server ignored any query parameter.
+    * A TermList _MAY_ have an ignored property, and _MUST_ have it if the server ignored any query parameter.
 
 match
 :   The text that triggered the search to match the particular annotation.  The value _MUST_ be a single string.
@@ -898,7 +884,7 @@ match
 
 ### A. Request Parameter Requirements
 
-| Parameter | Required in Request | Required in Search | Required in Autocomplete |
+| Parameter | Required in Request | Required in Content Search | Required in Autocomplete |
 | --------- | ------------------- | ------------------ | ------------------------ |
 | `q`       | recommended | recommended | mandatory |
 | `motivation` | optional | recommended | optional |
