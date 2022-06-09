@@ -284,7 +284,7 @@ An organization or person that contributed to providing the content of the resou
 The organization or person is represented as an `Agent` resource.
 
 * Agents _MUST_ have the `id` property, and its value _MUST_ be a string. The string _MUST_ be a URI that identifies the agent.
-* Agents _MUST_ have the `type` property, and its value _MUST_ be the string "Agent".
+* Agents _MUST_ have the `type` property, and its value _MUST_ be the string `Agent`.
 * Agents _MUST_ have the `label` property, and its value _MUST_ be a JSON object as described in the [languages][prezi30-languages] section.
 * Agents _SHOULD_ have the `homepage` property, and its value _MUST_ be an array of JSON objects as described in the [homepage][prezi30-homepage] section.
 * Agents _SHOULD_ have the `logo` property, and its value _MUST_ be an array of JSON objects as described in the [logo][prezi30-logo] section.
@@ -753,7 +753,7 @@ A small image resource that represents the Agent resource it is associated with.
 
 When more than one logo is present, the client _SHOULD_ pick only one of them, based on the information in the logo properties. For example, the client could select a logo of appropriate aspect ratio based on the `height` and `width` properties of the available logos. The client _MAY_ decide on the logo by inspecting properties defined as [extensions][prezi30-ldce].
 
-The value of this property _MUST_ be an array of JSON objects, each of which _MUST_ have `id` and `type` properties, and _SHOULD_ have `format`. The value of `type` _MUST_ be "Image".
+The value of this property _MUST_ be an array of JSON objects, each of which _MUST_ have `id` and `type` properties, and _SHOULD_ have `format`. The value of `type` _MUST_ be `Image`.
 
  * Agent resources _SHOULD_ have the `logo` property.<br/>
    Clients _MUST_ render `logo` on Agent resources.
