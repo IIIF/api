@@ -95,14 +95,11 @@ However this is less useful for comment-style annotations, crowd-sourced or dist
 
 Beyond the ability to search for words or phrases, users find it helpful to have suggestions for what terms they should be searching for.  This facility is often called auto-complete or type-ahead, and within the context of a single object can provide insight into the language and content.  The Autocomplete service is associated with a search service into which the terms can be fed as part of a query.
 
-## 3. Service References
+## 3. Declaring Services
 
-This specification defines two services to be associated with other IIIF resources: the Content Search service and the Autocomplete service.
+This specification defines two services to be associated with IIIF resources: the Content Search service and the Autocomplete service. These associations are made using the `service` or `services` properties, defined by the [Presentation API][prezi3-service] as an array of JSON objects. These objects _MUST_ have the `id` and `type` properties. The value of the `id` property _MUST_ be the URI used to interact with the service.
 
-Services are referenced with the `service` or `services` properties, defined by the [Presentation API][prezi3-service] as an array of JSON objects. For Content Search and Autocomplete, these objects _MUST_ have the `id` and `type` properties. The value of the `id` property _MUST_ be the URI used to interact with the service.
-
-
-Any resource in the [Presentation API][prezi3] may have a Content Search service associated with it. The resource determines the scope of the content that will be searched. A service associated with a Manifest will search all of the annotations on Canvases or other resources below the Manifest, a service associated with a particular Range will only search the Canvases within the Range, or a service on a Canvas will search only Annotations on that particular Canvas.  
+Any resource in the [Presentation API][prezi3] _MAY_ have a Content Search service associated with it. The resource determines the scope of the content that will be searched. A service associated with a Manifest will search all of the annotations on Canvases or other resources below the Manifest, a service associated with a particular Range will only search the Canvases within the Range, or a service on a Canvas will search only Annotations on that particular Canvas.  
 
 An example service description block:
 
@@ -118,10 +115,9 @@ An example service description block:
 }
 ```
 
+Any Content Search service _MAY_ have a nested Autocomplete service which provides term completion functionality specific to the Content Search service. This structure allows multiple Content Search services to be referenced, each with their own Autocomplete service.
 
-The Autocomplete service is nested within the Content Search service for which it provides term completion.  This allows multiple Content Search services to be referenced, each with their own Autocomplete service.
-
-A full service description block would become:
+The above service description block would become:
 
 ``` json-doc
 {
@@ -141,9 +137,7 @@ A full service description block would become:
 }
 ```
 
-
-
-## 3. Content Search
+## 4. Content Search
 {: #search}
 
 The Content Search service takes a query, including typically a search term or URI, and potentially filtering further by other properties including the date the annotation was created or last modified, the motivation for the annotation, or the user that created the annotation.
