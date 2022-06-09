@@ -16,13 +16,13 @@ editors:
     ORCID: https://orcid.org/0000-0002-1266-298X
     institution: Yale University
   - name: Dawn Childress  
-    orcid: https://orcid.org/0000-0003-2602-2788
+    ORCID: https://orcid.org/0000-0003-2602-2788
     institution: UCLA
   - name: Tom Crane
     ORCID: https://orcid.org/0000-0003-1881-243X
     institution: Digirati
   - name: Jeff Mixter
-    orcid: https://orcid.org/0000-0002-8411-2952
+    ORCID: https://orcid.org/0000-0002-8411-2952
     institution: OCLC
   - name: Robert Sanderson
     ORCID: https://orcid.org/0000-0003-4441-6852
