@@ -175,7 +175,7 @@ https://example.org/services/manifest/search?q=bird&motivation=painting
 ```
 {: .urltemplate}
 
-Would search for annotations with the word "bird" in their textual content, and have the motivation of `painting`.  It would search annotations within the resource with which the service was associated.
+Would search for annotations with the word `bird` in their textual content, and have the motivation of `painting`.  It would search annotations within the resource with which the service was associated.
 
 ### 4.2. Responses
 {: #responses}
@@ -362,7 +362,7 @@ Further information which is not part of the matching Annotation directly is inc
 
 The value of `annotations` is an array containing a single Annotation Page. Each match context is added as an Annotation to the `items` property of the Annotation Page. The Annotations have a `motivation` of `contextualizing`, and a TextQuoteSelector with `prefix` and `suffix` of the text immediately before and after the matching content in the annotation. The matching content is conveyed in the `exact` property. The selector has the URI of the annotation it refers to in the `source` property, to be matched against the `id` property of the annotations in `items`.
 
-For example, in a search for the query term "bird" in our example sentence, when the server has full word level coordinates:
+For example, in a search for the query term `bird` in our example sentence, when the server has full word level coordinates:
 
 {% include api/code_header.html %}
 ```
@@ -370,7 +370,7 @@ https://example.org/service/manifest/search?q=bird
 ```
 {: .urltemplate}
 
-That the server matches against the plural "birds":
+That the server matches against the plural `birds`:
 
 ``` json-doc
 {
@@ -488,7 +488,7 @@ The result might be:
 
 A query might result in multiple matches within a single annotation, especially if wildcards or stemming are enabled or the content of the annotation is long. This is handled by including the matching Annotation once in `items`, and multiple entries that refer to it in the `annotations` list. Each entry then uses a different TextQuoteSelector on the same matching Annotation to describe where the matching content can be found. A client can process each entry in turn to highlight each match in the Annotation.
 
-For example, if the search was for words beginning with "b":
+For example, if the search was for words beginning with `b`:
 
 {% include api/code_header.html %}
 ```
@@ -579,7 +579,7 @@ The result might be:
 
 Given the flexibility of alignment between the sections of a text (such as word, line, paragraph, page, or arbitrary sections) and the annotations that expose that text to the client, there may be multiple matching annotations that are required to match a single multi-term search.
 
-For example, imagine that the annotations are divided up line by line as they were manually transcribed that way, and that there are two lines of text. In this example the first line is "A bird in the hand", the second line is "is worth two in the bush", and the search is for the phrase "hand is". Therefore the match comprises parts of both line-based annotations.
+For example, imagine that the annotations are divided up line by line as they were manually transcribed that way, and that there are two lines of text. In this example the first line is `A bird in the hand`, the second line is `is worth two in the bush`, and the search is for the phrase `hand is`. Therefore the match comprises parts of both line-based annotations.
 
 In cases like this there are more annotations in the `items` list than in the `annotations` list as two or more annotations will be needed to make a match. This is handled by referencing all of the required matching annotations as multiple targets in a single annotation with the `highlighting` motivation in the `annotations` list.
 
@@ -686,7 +686,7 @@ An Autocomplete request takes the same parameters as a Content Search request, w
 
 The `q` parameter _MUST_ be present. Its value is interpreted as a single character string to match within terms in the index, often beginning characters. For example, the query term of 'bir' might complete to 'bird', 'biro', 'birth', and 'birthday'.
 
-The other parameters (`motivation`, `date` and `user`), if supported, refine the set of terms in the response to only ones from the annotations that match those filters.  For example, if the motivation is given as "painting", then only text from painting transcriptions will contribute to the list of terms in the response.
+The other parameters (`motivation`, `date` and `user`), if supported, refine the set of terms in the response to only ones from the annotations that match those filters.  For example, if the motivation is given as `painting`, then only text from painting transcriptions will contribute to the list of terms in the response.
 
 An example request:
 
@@ -703,7 +703,7 @@ The response is a list (of type `TermList`) of simple objects that include the t
 
 Parameters that were not processed by the service _MUST_ be returned in the `ignored` property of the main `TermList` object.  The value _MUST_ be an array of strings.
 
-The objects in the list of terms are all of `type` "Term", and this _MAY_ be included explicitly but is not necessary.  The Term object has a number of possible properties:
+The objects in the list of terms are all of `type` `Term`, and this _MAY_ be included explicitly but is not necessary.  The Term object has a number of possible properties:
 
   * The matching term is given as the value of the `match` property, and _MUST_ be present.
   * The link to the search to perform is the value of the `url` property, and this _MUST_ be present.
