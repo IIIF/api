@@ -212,11 +212,13 @@
 [prezi21-change-log]: {{ site.api_url | absolute_url }}/presentation/2.1/change-log/ "Presentation API 2.1 Change Log"
 [prezi211-change-log]: {{ site.api_url | absolute_url }}/presentation/2.1/change-log-211/ "Presentation API 2.1.1 Change Log"
 [prezi21]: {{ site.api_url | absolute_url }}/presentation/2.1/ "IIIF Presentation API 2.1"
+[prezi3-considerations]: {{ site.api_url | absolute_url }}/presentation/3.{{ site.data.apis.presentation.latest.minor }}/#4-json-ld-considerations "Presentation API Section 4"
 [prezi3-html]: {{ site.api_url | absolute_url }}/presentation/3.{{ site.data.apis.presentation.latest.minor }}/#45-html-markup-in-property-values "Presentation API Section 4.4"
 [prezi3-languages]: {{ site.api_url | absolute_url }}/presentation/{{site.data.apis.presentation.latest.major}}.{{ site.data.apis.presentation.latest.minor }}/#language-of-property-values "Language of Property Values"
 [prezi3-ldce]: {{ site.api_url | absolute_url }}/presentation/3.{{ site.data.apis.presentation.latest.minor }}/#linked-data-context-and-extensions "Linked Data Context and Extensions"
-[prezi3-type]: {{ site.api_url | absolute_url }}/presentation/3.{{ site.data.apis.presentation.latest.minor }}/#type
 [prezi3-provider]: {{ site.api_url | absolute_url }}/presentation/3.{{ site.data.apis.presentation.latest.minor }}/#provider
+[prezi3-service]: {{ site.api_url | absolute_url }}/presentation/3.{{ site.data.apis.presentation.latest.minor }}/#service
+[prezi3-type]: {{ site.api_url | absolute_url }}/presentation/3.{{ site.data.apis.presentation.latest.minor }}/#type
 [prezi30-anno]: {{ site.api_url | absolute_url }}/presentation/3.0/#annotation
 [prezi30-annopage]: {{ site.api_url | absolute_url }}/presentation/3.0/#55-annotation-page
 [prezi30-annocoll]: {{ site.api_url | absolute_url }}/presentation/3.0/#58-annotation-collection

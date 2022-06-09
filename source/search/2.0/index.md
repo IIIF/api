@@ -47,14 +47,7 @@ __Previous Version:__ [1.0.0][search1]
 
 {% include copyright.md %}
 
-
 ----
-
-## Table of Contents
-{:.no_toc}
-
-* Table of Discontent (will be replaced by macro)
-{:toc}
 
 ## 1. Introduction
 {: #introduction}
@@ -86,6 +79,11 @@ User interfaces that could be built using the search response include highlighti
 
 The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _SHOULD NOT_, _RECOMMENDED_, _MAY_, and _OPTIONAL_ in this document are to be interpreted as described in [RFC 2119][org-rfc-2119].
 
+### 1.3. Common Specification Features
+{: #common}
+
+All IIIF specifications share common features to ensure consistency across the IIIF ecosystem. These features are documented in the [Presentation API][prezi3-considerations] and are foundational to this specification. Common principles for the design of the specifications are documented in the [IIIF Design Principles][annex-patterns].
+
 ## 2. Overview
 {: #overview}
 
@@ -95,32 +93,61 @@ Annotations are typically made available to viewing applications in an annotatio
 
 However this is less useful for comment-style annotations, crowd-sourced or distributed transcriptions, corrections to automated OCR transcription, and similar, as the annotations may be in constant flux.  Further, being able to quickly discover individual annotations without stepping through all of the views of an object is essential for a reasonable user experience.  This specification adds this capability to the IIIF suite of specifications.  
 
-Beyond the ability to search for words or phrases, users find it helpful to have suggestions for what terms they should be searching for.  This facility is often called auto-complete or type-ahead, and within the context of a single object can provide insight into the language and content.  The auto-complete service is associated with a search service into which the terms can be fed as part of a query.
+Beyond the ability to search for words or phrases, users find it helpful to have suggestions for what terms they should be searching for.  This facility is often called auto-complete or type-ahead, and within the context of a single object can provide insight into the language and content.  The Autocomplete service is associated with a search service into which the terms can be fed as part of a query.
 
-## 3. Content Search
-{: #search}
+## 3. Service References
 
-The Content Search service takes a query, including typically a search term or URI, and potentially filtering further by other properties including the date the annotation was created or last modified, the motivation for the annotation, or the user that created the annotation.
+This specification defines two services to be associated with other IIIF resources: the Content Search service and the Autocomplete service.
 
-### 3.1. Service Description
-{: #service-description}
+Services are referenced with the `service` or `services` properties, defined by the [Presentation API][prezi3-service] as an array of JSON objects. For Content Search and Autocomplete, these objects _MUST_ have the `id` and `type` properties. The value of the `id` property _MUST_ be the URI used to interact with the service.
 
-Any resource in the Presentation API may have a Content Search service associated with it.  The resource determines the scope of the content that will be searched.  A service associated with a Manifest will search all of the annotations on Canvases or other objects below the Manifest, a service associated with a particular Range will only search the Canvases within the Range, or a service on a Canvas will search only Annotations on that particular Canvas.  
 
-The description of the service follows the pattern established in the [Linking to Services][annex-services] specification.  The description block _MUST_ have the `@context` property with the value "http://iiif.io/api/search/{{ page.major }}/context.json", the  `profile` property with the value "http://iiif.io/api/search/{{ page.major }}/search", and the `id` property that contains the URI where the search can be performed.  
+Any resource in the [Presentation API][prezi3] may have a Content Search service associated with it. The resource determines the scope of the content that will be searched. A service associated with a Manifest will search all of the annotations on Canvases or other resources below the Manifest, a service associated with a particular Range will only search the Canvases within the Range, or a service on a Canvas will search only Annotations on that particular Canvas.  
 
 An example service description block:
 
 ``` json-doc
 {
   // ... the resource that the search service is associated with ...
-  "service": {
-    "id": "http://example.org/services/identifier/search",
-    "type": "SearchService2",
-    "profile": "http://iiif.io/api/search/{{ page.major }}/search"
-  }
+  "service": [
+    {
+      "id": "http://example.org/services/identifier/search",
+      "type": "SearchService2"
+    }
+  ]
 }
 ```
+
+
+The Autocomplete service is nested within the Content Search service for which it provides term completion.  This allows multiple Content Search services to be referenced, each with their own Autocomplete service.
+
+A full service description block would become:
+
+``` json-doc
+{
+  // Resource that the services are associated with ...
+  "service": [
+    {
+      "id": "http://example.org/services/identifier/search",
+      "type": "SearchService2"
+      "service": [
+        {
+          "id": "http://example.org/services/identifier/autocomplete",
+          "type": "AutoCompleteService2"
+        }
+      ]
+    }
+  ]
+}
+```
+
+
+
+## 3. Content Search
+{: #search}
+
+The Content Search service takes a query, including typically a search term or URI, and potentially filtering further by other properties including the date the annotation was created or last modified, the motivation for the annotation, or the user that created the annotation.
+
 
 ### 3.2. Request
 {: #request-1}
@@ -722,27 +749,6 @@ http://example.org/service/manifest/search?q=hand+is
 
 The autocomplete service returns terms that can be added into the `q` parameter of the related search service, given the first characters of the term.
 
-### 4.1. Service Description
-{: #service-description-1}
-
-The autocomplete service is nested within the search service that it provides term completion for.  This is to allow multiple search services, each with their own autocomplete service.
-
-The autocomplete service _MUST_ have an `id` property with the value of the URI where the service can be interacted with, and _MUST_ have a `profile` property with the value "http://iiif.io/api/search/{{ page.major }}/autocomplete" to distinguish it from other types of service.
-
-``` json-doc
-{
-  // Resource that the services are associated with ...
-  "service": {
-    "@context": "http://iiif.io/api/search/{{ page.major}}/context.json",
-    "id": "http://example.org/services/identifier/search",
-    "profile": "http://iiif.io/api/search/{{ page.major }}/search",
-    "service": {
-      "id": "http://example.org/services/identifier/autocomplete",
-      "profile": "http://iiif.io/api/search/{{ page.major }}/autocomplete"
-    }
-  }
-}
-```
 
 ### 4.2. Request
 {: #request}
