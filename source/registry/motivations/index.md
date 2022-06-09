@@ -68,7 +68,7 @@ Additional motivations are available from the [W3 Web Annotation motivations][or
 
 | Motivation    | Reference |
 |--------------------|------|
-| `highlighting` | [Content Search API: Search Term Highlighting][search20-search-term-highlighting] |
+| `highlighting` | [Content Search API: Search Term Highlighting][search20-match-highlighting] |
 | `commenting`	| [Recipe: Simplest Annotation](https://iiif.io/api/cookbook/recipe/0266-full-canvas-annotation/) |
 | `tagging`	| [Recipe: Simple Annotation - Tagging](https://iiif.io/api/cookbook/recipe/0021-tagging/) |
 
