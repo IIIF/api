@@ -108,7 +108,7 @@ An example service description block:
   // ... the resource that the search service is associated with ...
   "service": [
     {
-      "id": "http://example.org/services/identifier/search",
+      "id": "https://example.org/services/identifier/search",
       "type": "SearchService2"
     }
   ]
@@ -124,11 +124,11 @@ The above service description block would become:
   // Resource that the services are associated with ...
   "service": [
     {
-      "id": "http://example.org/services/identifier/search",
+      "id": "https://example.org/services/identifier/search",
       "type": "SearchService2"
       "service": [
         {
-          "id": "http://example.org/services/identifier/autocomplete",
+          "id": "https://example.org/services/identifier/autocomplete",
           "type": "AutoCompleteService2"
         }
       ]
@@ -142,63 +142,63 @@ The above service description block would become:
 
 The Content Search service takes a query, including typically a search term or URI, and potentially filtering further by other properties including the date the annotation was created or last modified, the motivation for the annotation, or the user that created the annotation.
 
-
-### 3.2. Request
+### 4.1. Request
 {: #request-1}
 
-The search request is made to a service that is related to a particular Presentation API resource.  The URIs for services associated with different resources must be different to allow the client to use the correct one for the desired scope of the search.  To perform a search, the client _MUST_ use HTTP GET (rather than POST) to make the request to the service, with query parameters to specify the search terms.
+The search request is made to a service that is associated with a particular Presentation API resource.  The URIs for services associated with different resources _MUST_ be different to allow the client to use the correct one for the desired scope of the search.  To perform a search, the client _MUST_ use the HTTP GET method (rather than POST) to make the request to the service, with query parameters to specify the search terms.
 
-#### 3.2.1. Query Parameters
+#### 4.1.1. Query Parameters
 {: #query-parameters}
+
+The following query parameters are defined:
+
+| Parameter  | Definition |
+| ---------  | ---------- |
+| `q`          | A space separated list of search terms. The search terms _MAY_ be either words (to search for within textual bodies) or URIs (to search identities of annotation body resources).  The semantics of multiple, space separated terms is server implementation dependent.|
+| `motivation` | A space separated list of motivation terms. If multiple motivations are supplied, an annotation matches the search if any of the motivations are present. Common values for the motivation parameter can be found in the [IIIF Registry of Motivations][registry-motivations], including the two Content Search motivations `contextualizing` and `highlighting` defined in sections [4.3.2][search20-search-term-snippets] and [4.3.3][search20-search-term-highlighting] below. |
+| `date`       | A space separated list of date ranges.  An annotation matches if the date on which it was created falls within any of the supplied date ranges. The dates _MUST_ be supplied in the ISO8601 format: `YYYY-MM-DDThh:mm:ssZ/YYYY-MM-DDThh:mm:ssZ`. The dates _MUST_ be expressed in UTC and _MUST_ be given in the `Z` based format. |
+| `user`       | A space separated list of URIs that are the identities of users. If multiple users are supplied, an annotation matches the search if any of the users created the annotation. |
+{: .api-table}
 
 Other than `q`, which is _RECOMMENDED_, all other parameters are _OPTIONAL_ in the request.  The default, if a parameter is empty or not supplied, is to not restrict the annotations that match the search by that parameter.  If the value is supplied but the field is not present in an annotation, then the search does not match that annotation. For example if an annotation does not have a creator, and the query specifies a `user` parameter, then the annotation does not match the query.
 
 Servers _SHOULD_ implement the `q` and `motivation` parameters and _MAY_ implement the other parameters. Parameters that are received in a request but not implemented _MUST_ be ignored, and _SHOULD_ be included in the `ignored` property in the response, described [below][ignored-parameters].
 
-| Parameter  | Definition |
-| ---------  | ---------- |
-| `q`          | A space separated list of search terms. The search terms _MAY_ be either words (to search for within textual bodies) or URIs (to search identities of annotation body resources).  The semantics of multiple, space separated terms is server implementation dependent.|
-| `motivation` | A space separated list of motivation terms. If multiple motivations are supplied, an annotation matches the search if any of the motivations are present. Common values for the motivation parameter can be found in the [IIIF Registry of Motivations][registry-motivations], including the two Content Search motivations `contextualizing` and `highlighting` defined in sections [3.4.2][search20-search-term-snippets] and [3.4.3][search20-search-term-highlighting] below. |
-| `date`       | A space separated list of date ranges.  An annotation matches if the date on which it was created falls within any of the supplied date ranges. The dates _MUST_ be supplied in the ISO8601 format: `YYYY-MM-DDThh:mm:ssZ/YYYY-MM-DDThh:mm:ssZ`. The dates _MUST_ be expressed in UTC and _MUST_ be given in the `Z` based format. |
-| `user`       | A space separated list of URIs that are the identities of users. If multiple users are supplied, an annotation matches the search if any of the users created the annotation. |
-{: .api-table}
-
-
-#### 3.2.2. Example Request
+#### 4.1.2. Example Request
 {: #example-request}
 
 This example request:
 
 ``` none
-http://example.org/services/manifest/search?q=bird&motivation=painting
+https://example.org/services/manifest/search?q=bird&motivation=painting
 ```
 {: .urltemplate}
 
-Would search for annotations with the word "bird" in their textual content, and have the motivation of `painting`.  It would search annotations within the resource the service was associated with.
+Would search for annotations with the word "bird" in their textual content, and have the motivation of `painting`.  It would search annotations within the resource with which the service was associated.
 
-### 3.3. Presentation API Compatible Responses
+### 4.2. Presentation API Compatible Responses
 {: #presentation-api-compatible-responses}
 
-The response from the server is an [annotation page][prezi30-annopage], following the format from the Presentation API with a few additional features.  This allows clients that already implement the AnnotationPage format to avoid further implementation work to support search results.
+The response from the server is an [Annotation Page][prezi30-annopage], following the format from the Presentation API with a few additional features.  This allows clients that already implement the Annotation Page format to avoid further implementation work to support search results.
 
-The search results are returned as annotations in the regular IIIF syntax. Note that the annotations can come from multiple Canvases, rather than the default situation from the Presentation API where all of the annotations target a single Canvas.
+The results are returned as Annotations. Note that these Annotations can come from multiple Canvases.
 
-#### 3.3.1. Simple Lists
+#### 4.2.1. Simple Lists
 {: #simple-lists}
 
-The simplest response looks exactly like a regular annotation page, where all of the matching annotations are returned in a single response. The value of `id` will be the same as the URI used in the query, however servers _MAY_ drop query parameters that are ignored so long as they are reported in the `ignored` property.
+The simplest response is a normal Annotation Page, where all of the matching Annotations are returned in a single response. 
 
-Clients wishing to know the total number of annotations that match may count the number of annotations in the `items` property, as all matches have been returned.  The full annotation description _MUST_ be included in the response, even if the annotations are separately dereferenceable via their URIs.
+The total number of matching Annotations is the length of the `items` array, as all matching Annotations have been returned in the response. Every Annotation _MUST_ be fully embedded in the response.
 
 ``` json-doc
 {
-  "@context":"http://iiif.io/api/presentation/{{ site.presentation_api.stable.major }}/context.json",
-  "id":"http://example.org/service/manifest/search?q=bird&motivation=painting",
-  "type":"AnnotationPage",
+  "@context": "http://iiif.io/api/presentation/3/context.json",
+  "id": "https://example.org/service/manifest/search?q=bird&motivation=painting",
+  "type": "AnnotationPage",
 
   "items": [
     {
-      "id": "http://example.org/identifier/annotation/anno-line",
+      "id": "https://example.org/identifier/annotation/anno-line",
       "type": "Annotation",
       "motivation": "painting",
       "body": {
@@ -206,69 +206,70 @@ Clients wishing to know the total number of annotations that match may count the
         "value": "A bird in the hand is worth two in the bush",
         "format": "text/plain"
       },
-      "target": "http://example.org/identifier/canvas1#xywh=100,100,250,20"
+      "target": "https://example.org/identifier/canvas1#xywh=100,100,250,20"
     }
     // Further matching annotations here ...
   ]
 }
 ```
 
-#### 3.3.2. Paging Results
+#### 4.2.2. Paging Results
 {: #paging-results}
 
-For long lists of annotations, the server may choose to divide the response into multiple sections using an Annotation Collection. Each section is an Annotation Page and links to adjacent pages to allow the client to traverse the entire set. The Annotation Collection _MUST_ link to the first Annotation Page using the `first` property and _SHOULD_ link to the last Annotation Page using the `last` property.
+For long lists of Annotations, the server _MAY_ divide the response into multiple Annotation Pages within one Annotation Collection. The response is the first Annotation Page, which _MUST_ include an embedded Annotation Collection.
 
-The URI of the first Annotation Page reported in the `id` property _MAY_ be different from the one used by the client to request the search.  
+The URI of the Annotation Page reported in the `id` property _MAY_ be different from the one used by the client to request the search. This would allow, for example, a `page` query parameter to be appended to the URI to allow the server to track which page is being requested.
 
-Each Annotation Page _MUST_ have the `type` property, with the value of "AnnotationPage".  The next page of results that follows the current response _MUST_ be referenced in a `next` property, and the previous page _SHOULD_ be referenced in a `prev` property.  Each Annotation Page _SHOULD_ also have a `partOf` property with the value being the URI of the Annotation Collection.
+When results are paged, the Annotation Pages have several additional properties:
+
+* `partOf` - The Annotation Page _MUST_ have a `partOf` property. The value is a JSON object, which is the embedded Annotation Collection resource.
+* `next` - The Annotation Page _MUST_ have a `next` property if there is a subsequent page. The value is a JSON object with an `id` of the URI of the subsequent page, and `type` with a value of `AnnotationPage`.
+* `prev` - The Annotation Page _SHOULD_ have a `prev` property if there is a previous page. The value is a JSON object with `id` containing the URI of the previous page, and `type` with a value of `AnnotationPage`.
+* `startIndex` - The Annotation Page _MAY_ have the `startIndex` property, which is the position of the first Annotation in this page’s `items` list, relative to the overall ordering of Annotations across all pages within the Annotation Collection. The value is a zero-based integer.
+
+The embedded Annotation Collection has the following properties:
+
+* `first` - The Annotation Collection _MUST_ have a `first` property. The value is a JSON object, with an `id` of the URI of the first page, and `type` with a value of `AnnotationPage`.
+* `last` - The Annotation Collection _MAY_ have a `last` property. The value is a JSON object, with an `id` of the URI of the last page, and `type` with a value of `AnnotationPage`.
+* `total` - The Annotation Collection _MAY_ have a `total` property. The value is an integer, which is the total number of Annotations in the Collection, across all Annotation Pages.
 
 An example request:
 
-``` none
-http://example.org/service/manifest/search?q=bird
+{% include api/code_header.html %}
+```
+https://example.org/service/manifest/search?q=bird
 ```
 {: .urltemplate}
 
-And the responses for the Annotation Collection and the first page of annotations from a total of 125 matches:
+Might result in the following response:
 
 ``` json-doc
 {
-  "@context":"http://iiif.io/api/presentation/{{ site.presentation_api.stable.major }}/context.json",
-  "id":"http://example.org/service/manifest/search?q=bird",
-  "type":"AnnotationCollection",
-
-  "total": 125,
-  "first": {
-    "id": "http://example.org/service/identifier/search?q=bird&page=1",
-    "type": "AnnotationPage"
-  },
-  "last": {
-    "id": "http://example.org/service/identifier/search?q=bird&page=13",
-    "type": "AnnotationPage"
-  },
-}
-```
-
-
-
-``` json-doc
-{
-  "@context":"http://iiif.io/api/presentation/{{ site.presentation_api.stable.major }}/context.json",
-  "id":"http://example.org/service/manifest/search?q=bird&page=1",
-  "type":"AnnotationPage",
+  "@context": "http://iiif.io/api/presentation/3/context.json",
+  "id": "https://example.org/service/manifest/search?q=bird&page=1",
+  "type": "AnnotationPage",
 
   "partOf": {
-    "id": "http://example.org/service/manifest/search?q=bird",
-    "type": "AnnotationCollection"
+    "id": "https://example.org/service/manifest/search?q=bird",
+    "type": "AnnotationCollection",
+    "total": 125,
+    "first": {
+      "id": "https://example.org/service/identifier/search?q=bird&page=1",
+      "type": "AnnotationPage"
+    },
+    "last": {
+      "id": "https://example.org/service/identifier/search?q=bird&page=13",
+      "type": "AnnotationPage"
+    }
   },
   "next": {
-    "id": "http://example.org/service/identifier/search?q=bird&page=2",
+    "id": "https://example.org/service/identifier/search?q=bird&page=2",
     "type": "AnnotationPage"
   },
 
   "items": [
     {
-      "id": "http://example.org/identifier/annotation/anno-line",
+      "id": "https://example.org/identifier/annotation/anno-line",
       "type": "Annotation",
       "motivation": "painting",
       "body": {
@@ -276,7 +277,7 @@ And the responses for the Annotation Collection and the first page of annotation
         "value": "A bird in the hand is worth two in the bush",
         "format": "text/plain"
       },
-      "target": "http://example.org/identifier/canvas1#xywh=100,100,250,20"
+      "target": "https://example.org/identifier/canvas1#xywh=100,100,250,20"
     }
     // Further annotations from the first page here ...
   ]
@@ -286,7 +287,7 @@ And the responses for the Annotation Collection and the first page of annotation
 #### 3.3.3. Target Resource Structure
 {: #target-resource-structure}
 
-The annotations may also include references to the structure or structures that the target (the resource in the `target` property) is found within.  The URI and type of the including resource _MUST_ be given, and a `label` _SHOULD_ be included.
+The Annotations may also include references to the structure or structures that the target (the resource in the `target` property) is found within.  The URI and type of the including resource _MUST_ be given, and a `label` _SHOULD_ be included.
 
 This structure is called out explicitly as although it uses only properties from the Presentation API, it is not a common pattern and thus clients may not be expecting it.
 
@@ -377,6 +378,8 @@ The extended structure is:
 {: #ignored-parameters}
 
 If the server has ignored any of the parameters in the request, then an `ignored` property _MUST_ be present, and _MUST_ contain a list of the ignored parameters.
+
+The value of `id` will be the same as the URI used in the query, however servers _MAY_ drop query parameters that are ignored so long as they are reported in the `ignored` property.
 
 If the request from previous examples had been:
 
