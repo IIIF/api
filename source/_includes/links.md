@@ -265,7 +265,7 @@
 [search1]: {{ site.api_url | absolute_url }}/search/1.0/
 [search10]: {{ site.api_url | absolute_url }}/search/1.0/
 [search20]: {{ site.api_url | absolute_url }}/search/2.0/
-[search20-search-term-snippets]: {{ site.api_url | absolute_url }}/search/2.0/#search-term-snippets
+[search20-match-context]: {{ site.api_url | absolute_url }}/search/2.0/#match-context
 [search20-search-term-highlighting]: {{ site.api_url | absolute_url }}/search/2.0/#search-term-highlighting
 [shared-canvas]: {{ site.api_url | absolute_url }}/model/shared-canvas/1.0/  "Shared Canvas Data Model"
 [recipe-process]: {{  site.cookbook_url | absolute_url }}/recipe/ "Cookbook process"

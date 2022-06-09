@@ -60,7 +60,7 @@ This table summarizes the motivations available for use within the current versi
 |--------------------|------|
 | `painting`	| [Presentation API: Values for Motivation][prezi30-values-for-motivation] |
 | `supplementing` | [Presentation API: Values for Motivation][prezi30-values-for-motivation] |
-| `contextualizing` | [Content Search API: Search Term Context][search20-search-term-snippets] |
+| `contextualizing` | [Content Search API: Search Term Context][search20-match-context] |
 | `contentState` | [Content State API: Form of Annotation][contentstate10-22-form-of-annotation] |
 {: .api-table}
 
