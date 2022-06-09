@@ -859,7 +859,7 @@ A list of one or more service definitions on the top-most resource of the docume
 
 A client encountering a `service` property where the definition consists only of an `id` and `type` _SHOULD_ then check the `services` property on the top-most resource for an expanded definition.  If the service is not present in the `services` list, and the client requires more information in order to use the service, then it _SHOULD_ dereference the `id` (or `@id`) of the service in order to retrieve a service description.
 
-The value _MUST_ be an array of JSON objects. Each object _MUST_ a service resource, as described above.
+The value _MUST_ be an array of JSON objects. Each object _MUST_ be a service resource, as described above.
 
 * A Collection _MAY_ have the `services` property, if it is the topmost Collection in a response document.<br/>
   Clients _SHOULD_ process `services` on a Collection.
