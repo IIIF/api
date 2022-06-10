@@ -58,8 +58,7 @@ This specification lays out the interoperability mechanism for performing these 
 
 In order to make searches easier against unknown content, a related service for the automatic completion of search terms is also specified.
 
-<!-- Intent to refer to page -->
-Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss]
+We welcome [feedback][feedback] on all IIIF Specifications.
 
 ### 1.1. Use Cases
 {: #use-cases}
@@ -73,7 +72,7 @@ Use cases for being able to search the annotations within the Presentation API i
  * Searching for user provided commentary about the resource, either as a discovery mechanism for the resource or for the discussion.
  * Discovering similar sections of text to compare either the content or the object.
  * Searching for non-textual annotations, such as tags or highlights.
- * Searching within captions, subtitles or transcriptions of audio/visual material. 
+ * Searching within captions, subtitles or transcriptions of audio/visual material.
 
 User interfaces that could be built using the search response include highlighting matching words in the display, providing a heatmap of where the matches occur within the object, and providing a mechanism to jump between points within the object.
 
@@ -104,7 +103,7 @@ This specification uses Annotation Pages to deliver search results, in which the
 
 Beyond the ability to search for words or phrases, users find it helpful to have suggestions for what terms they should be searching for. This facility is often called autocomplete or type-ahead, and within the context of a single object can provide insight into the language and content.
 
-This specification defines two services to be associated with IIIF resources: the Content Search service and the Autocomplete service. 
+This specification defines two services to be associated with IIIF resources: the Content Search service and the Autocomplete service.
 
 ## 3. Declaring Services
 {: content-search-autocomplete-services}
@@ -179,7 +178,7 @@ Servers _SHOULD_ implement the `q` and `motivation` parameters and _MAY_ impleme
 #### 4.1.2. Example Request
 {: #example-request}
 
-Consider the example request: 
+Consider the example request:
 
 `https://example.org/service/manifest/search?q=bird&motivation=painting`
 
@@ -197,11 +196,11 @@ The simplest response is a normal Annotation Page, where all of the matching Ann
 
 The total number of matching Annotations is the length of the `items` array, as all matching Annotations have been returned in the response. Every Annotation _MUST_ be fully embedded in the response.
 
-Consider the example request: 
+Consider the example request:
 
 `https://example.org/service/manifest/search?q=bird&motivation=painting`
 
-This request might result in: 
+This request might result in:
 
 ``` json-doc
 {
@@ -301,11 +300,11 @@ It is possible that Canvases referenced by the Annotations in the results are co
 
 This reference to the containing resource is included in the `target` structure of the Annotation, in a `partOf` property, with a JSON object as its value. The `id` and `type` of the containing resource _MUST_ be given, and a `label` _SHOULD_ be included.
 
-Consider the example request: 
+Consider the example request:
 
 `https://example.org/service/collection/search?q=bird&motivation=painting`
 
-This request might result in: 
+This request might result in:
 
 ``` json-doc
 {
@@ -385,7 +384,7 @@ The structure of extended responses is:
     {
       "type": "AnnotationPage",
       "items": [
-        // Annotations with additional information about matching Annotations here ... 
+        // Annotations with additional information about matching Annotations here ...
       ]
     }
   ]
@@ -519,13 +518,13 @@ This request might have the response:
 
 A query might result in multiple matches within a single annotation, especially if wildcards or stemming are enabled or the content of the annotation is long. This is handled by including the matching Annotation once in `items`, and the multiple entries that refer to it in the `annotations` list. Each entry then uses a different `TextQuoteSelector` on the same matching Annotation to describe where the matching content can be found. A client can process each entry in turn to highlight each match in the Annotation.
 
-The Annotation Page in `annotations` _MAY_ embed an Annotation Collection allowing the response to include the total number of additional information Annotations. This Annotation Collection _MUST_ be different from the Annotation Collection embedded within the Annotation Page at the top level of the response. In this and similar scenarios, the values of the `total` properties of the two Annotation Collections may not be the same: the total number of matching annotations is determined by the division of the content, whereas the total number of additional annotations is determined by the query. 
+The Annotation Page in `annotations` _MAY_ embed an Annotation Collection allowing the response to include the total number of additional information Annotations. This Annotation Collection _MUST_ be different from the Annotation Collection embedded within the Annotation Page at the top level of the response. In this and similar scenarios, the values of the `total` properties of the two Annotation Collections may not be the same: the total number of matching annotations is determined by the division of the content, whereas the total number of additional annotations is determined by the query.
 
 Consider the request for words beginning with "b":
 
 `https://example.org/service/manifest/search?q=b*`
 
-The request might have the response: 
+The request might have the response:
 
 ``` json-doc
 {
@@ -722,16 +721,16 @@ An example request would be:
 ### 5.2. Autocomplete Response
 {: #autocomplete-response}
 
-Most auto-complete scenarios can be fulfilled by a simple list of terms. These terms can be converted into a search by using them as the value of the `q` parameter of the related Content Search service. 
+Most auto-complete scenarios can be fulfilled by a simple list of terms. These terms can be converted into a search by using them as the value of the `q` parameter of the related Content Search service.
 
-In order to accommodate this use case, a new class `TermPage` is introduced for the response, and a class `Term` to describe the values. 
+In order to accommodate this use case, a new class `TermPage` is introduced for the response, and a class `Term` to describe the values.
 
 The `TermPage` has the following properties:
 
 * `id` - The `TermPage` _MUST_ have an `id` property. The value is a URI and _MAY_ be different from the one requested.
-* `type` - The `TermPage` _MUST_ have a `type` property. The value _MUST_ be `TermPage`. 
+* `type` - The `TermPage` _MUST_ have a `type` property. The value _MUST_ be `TermPage`.
 * `ignored` - The `TermPage` _MAY_ have an `ignored` property. The value _MUST_ be an array of strings, each of which is the name of a query parameter which was ignored by the server.
-* `items` - The `TermPage` _MUST_ have an `items` property. The value _MUST_ be an array of zero or more items. Each item _MUST_ be a JSON object, each of which is a `Term`. 
+* `items` - The `TermPage` _MUST_ have an `items` property. The value _MUST_ be an array of zero or more items. Each item _MUST_ be a JSON object, each of which is a `Term`.
 
 In this simple case, `Term` resources have a single property `value` which contains the term string. The number of terms provided in the list is determined by the server.
 
@@ -767,9 +766,9 @@ There are cases where a simple list of terms is not sufficient to support use of
 
 The use cases are fulfilled by extending the properties of the `Term` resources to include further information.
 
-`Term` resources have the following properties: 
+`Term` resources have the following properties:
 
-* `value` 
+* `value`
 
 * `type` - The `Term` _MAY_ have a `type` property which may be omitted for brevity. If present, the value _MUST_ be `Term`.
 
