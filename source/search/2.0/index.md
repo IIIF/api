@@ -179,16 +179,16 @@ Servers _SHOULD_ implement the `q` and `motivation` parameters and _MAY_ impleme
 #### 4.1.2. Example Request
 {: #example-request}
 
-Consider the example request: `https://example.org/services/manifest/search?q=bird&motivation=painting`
+Consider the example request: 
 
-This request would search for annotations with the word `bird` in their textual content, and have the motivation of `painting`. It would search annotations within the resource with which the service was associated.
+`https://example.org/services/manifest/search?q=bird&motivation=painting`
+
+This request would search for annotations with the word "bird" in their textual content, and have the motivation of `painting`. It would search annotations within the resource with which the service was associated.
 
 ### 4.2. Responses
 {: #responses}
 
-The response from the server is an [Annotation Page][prezi30-annopage], following the format from the Presentation API with a few additional features. This allows clients that already implement the Annotation Page format to avoid further implementation work to support search results.
-
-The results are returned as Annotations. Note that these Annotations can come from multiple Canvases.
+The response from the server _MUST_ be an [Annotation Page][prezi30-annopage], following the format from the Presentation API with some additional features. This allows clients that already implement the Annotation Page format to avoid further implementation work to support search results.
 
 #### 4.2.1. Simple Lists
 {: #simple-lists}
@@ -223,16 +223,16 @@ The total number of matching Annotations is the length of the `items` array, as 
 #### 4.2.2. Paging Results
 {: #paging-results}
 
-For long lists of Annotations, the server _MAY_ divide the response into multiple Annotation Pages within one Annotation Collection. The response is the first Annotation Page, which _MUST_ include an embedded Annotation Collection.
+For long lists of Annotations, the server _MAY_ divide the response into multiple Annotation Pages within one Annotation Collection. The initial response is the first Annotation Page, which includes an embedded Annotation Collection and references subsequent pages to be retrieved.
 
 The URI of the Annotation Page reported in the `id` property _MAY_ be different from the one used by the client to request the search. This would allow, for example, a `page` query parameter to be appended to the URI to allow the server to track which page is being requested.
 
 When results are paged, the Annotation Pages have several additional properties:
 
-* `partOf` - The Annotation Page _MUST_ have a `partOf` property. The value is a JSON object, which is the embedded Annotation Collection resource.
+* `partOf` - The Annotation Page _MUST_ have a `partOf` property. The value is a JSON object, which is the embedded Annotation Collection resource, following the structure defined below.
 * `next` - The Annotation Page _MUST_ have a `next` property if there is a subsequent page. The value is a JSON object with an `id` of the URI of the subsequent page, and `type` with a value of `AnnotationPage`.
 * `prev` - The Annotation Page _SHOULD_ have a `prev` property if there is a previous page. The value is a JSON object with `id` containing the URI of the previous page, and `type` with a value of `AnnotationPage`.
-* `startIndex` - The Annotation Page _MAY_ have the `startIndex` property, which is the position of the first Annotation in this page’s `items` list, relative to the overall ordering of Annotations across all pages within the Annotation Collection. The value is a zero-based integer.
+* `startIndex` - The Annotation Page _MAY_ have a `startIndex` property, which is the position of the first Annotation in this page’s `items` list, relative to the overall ordering of Annotations across all pages within the Annotation Collection. The value is a zero-based integer.
 
 The embedded Annotation Collection has the following properties:
 
@@ -273,6 +273,7 @@ Might result in the following response:
     "id": "https://example.org/service/identifier/search?q=bird&page=2",
     "type": "AnnotationPage"
   },
+  "startIndex": 0,
 
   "items": [
     {
