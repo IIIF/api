@@ -766,107 +766,78 @@ There are cases where a simple list of terms is not sufficient to support use of
 
 The use cases are fulfilled by extending the properties of the `Term` resources to include further information.
 
-`Term` resources have the following properties:
+`Term` resources have the following properties: 
 
-* `value`
+* `type` - The `Term` _MAY_ have a `type` property. If present, the value _MUST_ be `Term`. The use of the property is _NOT RECOMMENDED_ to keep the response shorter.
+* `value` - The `Term` _MUST_ have a `value` property. The value is a the string form of the term.
+* `total` - The `Term` _MAY_ have a `total` property. The value is an integer, which is the number of times the term occurs in the index.
+* `label` - The `Term` _MAY_ have a `label` property. The value is a JSON object which follows the definition of a [language map][prezi30-languages]. This label should be displayed to the user instead of the `value`, for example when the `value` is a URI or a string that has been manipulated with stemming or other normalization.
+* `language` - The `Term` _MAY_ have a `language` property. The value is a string conforming to the [BCP 47][org-bcp-47] language code specification, and gives the language of the term string in the `value` property.
+* `service` - The `Term` _MAY_ have a `service` property. The value is an array of JSON objects, where each object is a Service. The `Term` _MUST_ include an entry for the full link to the related `SearchService2`, when the `value` cannot be used directly in the `q` parameter. In this case, the `id` of the service is the full link including the `q` and other parameters.
 
-* `type` - The `Term` _MAY_ have a `type` property which may be omitted for brevity. If present, the value _MUST_ be `Term`.
+The usage of the properties in terms need not be consistent within a single response, and properties should only be included when needed.
 
+The terms _SHOULD_ be provided in ascending alphabetically sorted order, but other orders are allowed, such as by the term's `total` count descending to put the most common matches first, or to alphabetize on the `label` rather than the `value`.
 
+Consider the example request:
 
+`https://example.org/service/identifier/autocomplete?q=bir&user=wigglesworth`
 
-  * The matching term is given as the value of the `value` property, and _MUST_ be present.
-  * The link to the search to perform is the value of the `service` property, and this _MUST_ be present.
-  * The number of matches for the term is the integer value of the `total` property, and _SHOULD_ be present.
-  * A label to display instead of the match can be given as the value of the `label` property, and _MAY_ be present, following the pattern for language maps described in the [Presentation API][prezi30-languages]
-
-The terms _SHOULD_ be provided in ascending alphabetically sorted order, but other orders are allowed, such as by the term's count descending to put the most common matches first.
-
-The example request above might generate the following response:
-
-``` json-doc
-{
-  "@context": "http://iiif.io/api/presentation/3/context.json",
-  "id": "https://example.org/service/identifier/autocomplete?q=bir&motivation=painting",
-  "type": "TermList",
-  "ignored": ["user"],
-  "terms": [
-    {
-      "match": "bird",
-      "url": "http://example.org/service/identifier/search?motivation=painting&q=bird",
-      "count": 15
-    },
-    {
-      "match": "biro",
-      "url": "http://example.org/service/identifier/search?motivation=painting&q=biro",
-      "count": 3
-    },
-    {
-      "match": "birth",
-      "url": "http://example.org/service/identifier/search?motivation=painting&q=birth",
-      "count": 9
-    },
-    {
-      "match": "birthday",
-      "url": "http://example.org/service/identifier/search?motivation=painting&q=birthday",
-      "count": 21
-    }
-  ]
-}
-```
-
-It is also possible to associate one or more `label` values to display to the user with URIs or other data that are searchable via the `q` parameter, rather than using the exact string that matched. This can also be useful if stemming or other term normalization has occurred, in order to display the original rather than the processed term.
+This request might generate the response:
 
 ``` json-doc
 {
   "@context": "http://iiif.io/api/presentation/3/context.json",
-  "id": "https://example.org/service/identifier/autocomplete?q=https%3A%2F%2Fsemtag.example.org%2Ftag%2Fb&motivation=tagging",
+  "id": "https://example.org/service/identifier/autocomplete?q=bir",
+  "type": "TermPage",
   "ignored": ["user"],
-  "terms": [
+  "items": [
     {
-      "match": "https://semtag.example.org/tag/bird",
-      "url": "https://example.org/service/identifier/autocomplete?motivation=tagging&q=https%3A%2F%2Fsemtag.example.org%2Ftag%2Fbird",
-      "count": 15,
-      "label": {
-        "en": [ "bird" ]
-      }
-    },
+      "value": "bird",
+      "language": "en",
+      "total": 15
+      },
     {
-      "match": "https://semtag.example.org/tag/biro",
-      "url": "https://example.org/service/identifier/autocomplete?motivation=tagging&q=https%3A%2F%2Fsemtag.example.org%2Ftag%2Fbiro",
-      "count": 3,
+      "type": "Term",
+      "value": "https://semtag.example.org/tag/biro",
+      "total": 3,
       "label": {
         "en": [ "biro" ]
+      },
+      "service": [
+        {
+          "id": "https://example.org/service/identifier/search?motivation=tagging&q=semtag:biro",
+          "type": "SearchService2"
+        }
+      ],      
+    },
+    {
+      "value": "birth",
+      "total": 9,
+      "label": {
+        "en": ["birth"],
+        "fr": ["naissance"]
       }
     }
   ]
 }
 ```
+
 
 ## Appendices
 
-### A. Request Parameter Requirements
 
-| Parameter | Required in Request | Required in Content Search | Required in Autocomplete |
-| --------- | ------------------- | ------------------ | ------------------------ |
-| `q`       | recommended | recommended | mandatory |
-| `motivation` | optional | recommended | optional |
-| `date`    | optional | optional | optional |
-| `user`    | optional | optional | optional |
-| `min`     | optional | n/a | optional |
-{: .api-table}
-
-### B. Versioning
+### A. Versioning
 
 This specification follows [Semantic Versioning][org-semver]. See the note [Versioning of APIs][notes-versioning] for details regarding how this is implemented.
 
-### C. Acknowledgements
+### B. Acknowledgements
 
 The production of this document was generously supported by a grant from the [Andrew W. Mellon Foundation][org-mellon].
 
 Many thanks to the members of the [IIIF][iiif-community] for their continuous engagement, innovative ideas and feedback.
 
-### D. Change Log
+### C. Change Log
 
 | Date       | Description               |
 | ---------- | ------------------------- |
