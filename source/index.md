@@ -30,7 +30,9 @@ api_current_table:
 {: .api-table}
 -->
 
-__Feedback requested__<br/>
+### Feedback requested
+{: #feedback}
+
 We welcome feedback on all IIIF Specifications. Please send any feedback to [iiif-discuss@googlegroups.com][iiif-discuss].
 {: .alert}
 
