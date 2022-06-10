@@ -36,6 +36,7 @@
 [discovery-activity-types]: {{ site.api_url | absolute_url }}/discovery#type-ordered-collection-activity "Activity Types"
 [discovery-registry]: https://registry.iiif.io/ "IIIF Change Discovery Registry"
 [editorial-process]: {{ site.root_url | absolute_url }}/community/policy/editorial/ "IIIF Editorial Process"
+[feedback]: {{ site.root_url | absolute_url }}/api/#feedback "IIIF APIs: Feedback requested"
 [github-discovery-issues]: https://github.com/IIIF/discovery/issues
 [github-milestone-image-prezi-3]: https://github.com/IIIF/api/milestone/22
 [github-webanno-437]: https://github.com/w3c/web-annotation/issues/437
