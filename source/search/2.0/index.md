@@ -363,7 +363,7 @@ If the `user` parameter was ignored when processing this request, the response c
 }
 ```
 
-#### 4.3. Extended Responses
+### 4.3. Extended Responses
 {: #extended-responses}
 
 Clients may require additional information about the matches in order to generate a rich user experience for search. This additional information about matches in search results is provided by further Annotations in a property called `annotations`. This structure maintains the distinction in the [Presentation API][prezi3], where the main content annotations are listed in `items` and additional annotations such as comments are listed in `annotations`. The value of `annotations` is an array containing a single Annotation Page, in which all of the Annotations reference Annotations in the `items` property.
@@ -391,7 +391,7 @@ The structure of extended responses is:
 }
 ```
 
-### 4.3.1. Match Context
+#### 4.3.1. Match Context
 {: #match-context}
 
 Search interfaces often display text before and after the matching text in a search result, as a snippet which shows the match in the context of the surrounding content. This is most useful when the service has word-level boundaries of the text on the Canvas, such as when OCR has been used to generate the text positions.
@@ -760,7 +760,7 @@ This request might have the response:
 ```
 
 ### 5.3. Extended Autocomplete Responses
-
+{: #extended-autocomplete-response}
 
 There are cases where a simple list of terms is not sufficient to support use of the Autocomplete service. These include when a label is required to allow a user to select an appropriate term, when the term cannot be used as a query parameter directly, and when it is useful to know the total number of occurences of a term within the index.
 
