@@ -52,9 +52,9 @@ __Previous Version:__ [1.0.0][search1]
 ## 1. Introduction
 {: #introduction}
 
-In the IIIF (pronounced "Triple-Eye-Eff") [Presentation API][prezi-api], content is brought together from distributed systems via annotations.  That content might include images, often with a IIIF [Image API][image-api] service to access them, audio, video, rich or plain text, or anything else.  In a vibrant and dynamic system, that content can come from many sources and be rich, varied and abundant.  Of that list of content types, textual resources lend themselves to being searched, either as the transcription, translation or edition of the intellectual content, or commentary, description, tagging or other annotations about the object.  
+In the IIIF (pronounced "Triple-Eye-Eff") [Presentation API][prezi-api], content is brought together from distributed systems via annotations. That content might include images, often with a IIIF [Image API][image-api] service to access them, audio, video, rich or plain text, or anything else. In a vibrant and dynamic system, that content can come from many sources and be rich, varied and abundant. Of that list of content types, textual resources lend themselves to being searched, either as the transcription, translation or edition of the intellectual content, or commentary, description, tagging or other annotations about the object.  
 
-This specification lays out the interoperability mechanism for performing these searches within the IIIF context.  The scope of the specification is searching annotation content within a single IIIF resource, such as a Manifest, Range or Collection.  Every effort is made to keep the interaction as consistent with existing IIIF patterns as possible.  Searching for metadata or other descriptive properties is __not__ in scope for this work.
+This specification lays out the interoperability mechanism for performing these searches within the IIIF context. The scope of the specification is searching annotation content within a single IIIF resource, such as a Manifest, Range or Collection. Every effort is made to keep the interaction as consistent with existing IIIF patterns as possible. Searching for metadata or other descriptive properties is __not__ in scope for this work.
 
 In order to make searches easier against unknown content, a related service for the auto-completion of search terms is also specified. The auto-complete service is specific to a search service to ensure that the retrieved terms can simply be copied to the query of the search.
 
@@ -72,7 +72,7 @@ Use cases for being able to search the annotations within the Presentation API i
  * Searching for user provided commentary about the resource, either as a discovery mechanism for the resource or for the discussion.
  * Discovering similar sections of text to compare either the content or the object.
 
-User interfaces that could be built using the search response include highlighting matching words in the display, providing a heatmap of where the matches occur within the object, and providing a mechanism to jump between points within the object.  The auto-complete service assists users in identifying terms that exist within the selected scope.
+User interfaces that could be built using the search response include highlighting matching words in the display, providing a heatmap of where the matches occur within the object, and providing a mechanism to jump between points within the object. The auto-complete service assists users in identifying terms that exist within the selected scope.
 
 ### 1.2. Terminology
 {: #terminology}
@@ -87,13 +87,13 @@ All IIIF specifications share common features to ensure consistency across the I
 ## 2. Overview
 {: #overview}
 
-The IIIF [Presentation API][prezi-api] provides just enough information to a viewer so that it can present the images and other content to the user in a rich and understandable way.  Those content resources may have textual annotations associated with them.  Annotations may also be associated with the structural components of the Presentation API, such as a Collection, Manifest, Sequence, or Range.  Further, annotations can be replied to by annotating them to form a threaded discussion about the commentary, transcription, edition or translation.
+The IIIF [Presentation API][prezi-api] provides just enough information to a viewer so that it can present the images and other content to the user in a rich and understandable way. Those content resources may have textual annotations associated with them. Annotations may also be associated with the structural components of the Presentation API, such as a Collection, Manifest, Sequence, or Range. Further, annotations can be replied to by annotating them to form a threaded discussion about the commentary, transcription, edition or translation.
 
-Annotations are typically made available to viewing applications in an annotation list, where all of the annotations in the list target the same resource, or part of it.  Where known, these lists can be directly referenced from the Manifest document to allow clients to simply follow the link to retrieve them.  For fixed, curated content, this is an appropriate method to discover them, as the annotations do not frequently change, nor are they potentially distributed amongst multiple servers. Annotation lists can be included in Annotation Collections to group them together, such as by the source of the annotations, to allow the user to manipulate that grouping as a whole.
+Annotations are typically made available to viewing applications in an annotation list, where all of the annotations in the list target the same resource, or part of it. Where known, these lists can be directly referenced from the Manifest document to allow clients to simply follow the link to retrieve them. For fixed, curated content, this is an appropriate method to discover them, as the annotations do not frequently change, nor are they potentially distributed amongst multiple servers. Annotation lists can be included in Annotation Collections to group them together, such as by the source of the annotations, to allow the user to manipulate that grouping as a whole.
 
-However this is less useful for comment-style annotations, crowd-sourced or distributed transcriptions, corrections to automated OCR transcription, and similar, as the annotations may be in constant flux.  Further, being able to quickly discover individual annotations without stepping through all of the views of an object is essential for a reasonable user experience.  This specification adds this capability to the IIIF suite of specifications.  
+However this is less useful for comment-style annotations, crowd-sourced or distributed transcriptions, corrections to automated OCR transcription, and similar, as the annotations may be in constant flux. Further, being able to quickly discover individual annotations without stepping through all of the views of an object is essential for a reasonable user experience. This specification adds this capability to the IIIF suite of specifications.  
 
-Beyond the ability to search for words or phrases, users find it helpful to have suggestions for what terms they should be searching for.  This facility is often called auto-complete or type-ahead, and within the context of a single object can provide insight into the language and content.  The Autocomplete service is associated with a search service into which the terms can be fed as part of a query.
+Beyond the ability to search for words or phrases, users find it helpful to have suggestions for what terms they should be searching for. This facility is often called auto-complete or type-ahead, and within the context of a single object can provide insight into the language and content. The Autocomplete service is associated with a search service into which the terms can be fed as part of a query.
 
 ## 3. Declaring Services
 
@@ -145,7 +145,7 @@ The Content Search service takes a query, including typically a search term or U
 ### 4.1. Request
 {: #request-1}
 
-The search request is made to a service that is associated with a particular Presentation API resource.  The URIs for services associated with different resources _MUST_ be different to allow the client to use the correct one for the desired scope of the search.  To perform a search, the client _MUST_ use the HTTP GET method (rather than POST) to make the request to the service, with query parameters to specify the search terms.
+The search request is made to a service that is associated with a particular Presentation API resource. The URIs for services associated with different resources _MUST_ be different to allow the client to use the correct one for the desired scope of the search. To perform a search, the client _MUST_ use the HTTP GET method (rather than POST) to make the request to the service, with query parameters to specify the search terms.
 
 #### 4.1.1. Query Parameters
 {: #query-parameters}
@@ -154,13 +154,13 @@ The following query parameters are defined:
 
 | Parameter  | Definition |
 | ---------  | ---------- |
-| `q`          | A space separated list of search terms. The search terms _MAY_ be either words (to search for within textual bodies) or URIs (to search identities of annotation body resources).  The semantics of multiple, space separated terms is server implementation dependent.|
+| `q`          | A space separated list of search terms. The search terms _MAY_ be either words (to search for within textual bodies) or URIs (to search identities of annotation body resources). The semantics of multiple, space separated terms is server implementation dependent.|
 | `motivation` | A space separated list of motivation terms. If multiple motivations are supplied, an annotation matches the search if any of the motivations are present. Common values for the motivation parameter can be found in the [IIIF Registry of Motivations][registry-motivations], including the two Content Search motivations `contextualizing` and `highlighting` defined in sections [4.3.2][search20-search-term-snippets] and [4.3.3][search20-search-term-highlighting] below. |
-| `date`       | A space separated list of date ranges.  An annotation matches if the date on which it was created falls within any of the supplied date ranges. The dates _MUST_ be supplied in the ISO8601 format: `YYYY-MM-DDThh:mm:ssZ/YYYY-MM-DDThh:mm:ssZ`. The dates _MUST_ be expressed in UTC and _MUST_ be given in the `Z` based format. |
+| `date`       | A space separated list of date ranges. An annotation matches if the date on which it was created falls within any of the supplied date ranges. The dates _MUST_ be supplied in the ISO8601 format: `YYYY-MM-DDThh:mm:ssZ/YYYY-MM-DDThh:mm:ssZ`. The dates _MUST_ be expressed in UTC and _MUST_ be given in the `Z` based format. |
 | `user`       | A space separated list of URIs that are the identities of users. If multiple users are supplied, an annotation matches the search if any of the users created the annotation. |
 {: .api-table}
 
-Other than `q`, which is _RECOMMENDED_, all other parameters are _OPTIONAL_ in the request.  The default, if a parameter is empty or not supplied, is to not restrict the annotations that match the search by that parameter.  If the value is supplied but the field is not present in an annotation, then the search does not match that annotation. For example if an annotation does not have a creator, and the query specifies a `user` parameter, then the annotation does not match the query.
+Other than `q`, which is _RECOMMENDED_, all other parameters are _OPTIONAL_ in the request. The default, if a parameter is empty or not supplied, is to not restrict the annotations that match the search by that parameter. If the value is supplied but the field is not present in an annotation, then the search does not match that annotation. For example if an annotation does not have a creator, and the query specifies a `user` parameter, then the annotation does not match the query.
 
 Servers _SHOULD_ implement the `q` and `motivation` parameters and _MAY_ implement the other parameters. Parameters that are received in a request but not implemented _MUST_ be ignored, and _SHOULD_ be included in the `ignored` property in the response, described [below](#ignored-parameters).
 
@@ -175,19 +175,19 @@ https://example.org/services/manifest/search?q=bird&motivation=painting
 ```
 {: .urltemplate}
 
-Would search for annotations with the word `bird` in their textual content, and have the motivation of `painting`.  It would search annotations within the resource with which the service was associated.
+Would search for annotations with the word `bird` in their textual content, and have the motivation of `painting`. It would search annotations within the resource with which the service was associated.
 
 ### 4.2. Responses
 {: #responses}
 
-The response from the server is an [Annotation Page][prezi30-annopage], following the format from the Presentation API with a few additional features.  This allows clients that already implement the Annotation Page format to avoid further implementation work to support search results.
+The response from the server is an [Annotation Page][prezi30-annopage], following the format from the Presentation API with a few additional features. This allows clients that already implement the Annotation Page format to avoid further implementation work to support search results.
 
 The results are returned as Annotations. Note that these Annotations can come from multiple Canvases.
 
 #### 4.2.1. Simple Lists
 {: #simple-lists}
 
-The simplest response is a normal Annotation Page, where all of the matching Annotations are returned in a single response. 
+The simplest response is a normal Annotation Page, where all of the matching Annotations are returned in a single response.
 
 The total number of matching Annotations is the length of the `items` array, as all matching Annotations have been returned in the response. Every Annotation _MUST_ be fully embedded in the response.
 
@@ -285,7 +285,7 @@ Might result in the following response:
 }  
 ```
 
-#### 4.2.3. References to Containing Resources 
+#### 4.2.3. References to Containing Resources
 {: #references-containing-resources}
 
 It is possible that Canvases referenced by the Annotations in the results are contained in Manifests that the client has not loaded, for example when searching in a Collection. In this and similar cases, it is important to have a reference to the containing resource such that a client can retrieve and render it.
@@ -323,7 +323,7 @@ This reference to the containing resource is included in the `target` structure 
   ]
 }
 ```
- 
+
 #### 4.2.4. Ignored Parameters
 {: #ignored-parameters}
 
@@ -356,7 +356,7 @@ If the `user` parameter was ignored when processing the request, the response co
 #### 4.2.5. Match Context
 {: #match-context}
 
-A common use case is to add text that appears before and after the matching text in the Annotation.  This allows the client to construct a snippet where the matching text is provided in the context of surrounding content, rather than simply by itself.  This is most useful when the service has word-level boundaries of the text on the Canvas, such as when Optical Character Recognition (OCR) has been used to generate the text positions.
+A common use case is to add text that appears before and after the matching text in the Annotation. This allows the client to construct a snippet where the matching text is provided in the context of surrounding content, rather than simply by itself. This is most useful when the service has word-level boundaries of the text on the Canvas, such as when Optical Character Recognition (OCR) has been used to generate the text positions.
 
 Further information which is not part of the matching Annotation directly is included in a property called `annotations`. This structure maintains the distinction in the [Presentation API][prezi3], where the main content annotations are listed in `items` and additional annotations such as comments are listed in `annotations`.
 
@@ -425,7 +425,7 @@ That the server matches against the plural `birds`:
 
 Many systems do not have full word-level coordinate information, and are restricted to line or paragraph level boundaries. In these cases the client may display the entire annotation and highlight the matches within it. This is similar, but different, to the match context use case. Here, the match is somewhere within the `body` property of the annotation, and the client needs to make it more prominent.
 
-The client needs to know the text that matched, and enough information about where it occurs in the content to reliably highlight it and not highlight non-matching content.  To do this, the service can use the `selector` pattern to supply the text before and after the matching term **within the content of the annotation**, again via a [Web Annotation Data Model][org-w3c-webanno-TextQuoteSelector] `TextQuoteSelector` object. The value of the `motivation` property is `highlighting` in this case, to distinguish from the match context use case. Non-textual content, such as audio or video resources, would use other selectors instead, but the pattern would otherwise remain the same.  
+The client needs to know the text that matched, and enough information about where it occurs in the content to reliably highlight it and not highlight non-matching content. To do this, the service can use the `selector` pattern to supply the text before and after the matching term **within the content of the annotation**, again via a [Web Annotation Data Model][org-w3c-webanno-TextQuoteSelector] `TextQuoteSelector` object. The value of the `motivation` property is `highlighting` in this case, to distinguish from the match context use case. Non-textual content, such as audio or video resources, would use other selectors instead, but the pattern would otherwise remain the same.  
 
 {% include api/code_header.html %}
 ```
@@ -671,7 +671,6 @@ http://example.org/service/manifest/search?q=hand+is
 
 An autocomplete service returns terms that can be added into the `q` parameter of the related search service, given the first characters of the term.
 
-
 ### 5.1. Autocomplete Request
 {: #request}
 
@@ -679,19 +678,19 @@ An Autocomplete request takes the same parameters as a Content Search request, w
 
 | Parameter | Definition |
 | --------- | ---------- |
-| `min`     | The minimum number of occurrences for a term in the index in order for it to appear within the response; default is 1 if not present.  Support for this parameter is _OPTIONAL_ |
+| `min`     | The minimum number of occurrences for a term in the index in order for it to appear within the response; default is 1 if not present. Support for this parameter is _OPTIONAL_ |
 {: .api-table}
 
 <!-- Eds, we should add `max` -->
 
 The `q` parameter _MUST_ be present. Its value is interpreted as a single character string to match within terms in the index, often beginning characters. For example, the query term of 'bir' might complete to 'bird', 'biro', 'birth', and 'birthday'.
 
-The other parameters (`motivation`, `date` and `user`), if supported, refine the set of terms in the response to only ones from the annotations that match those filters.  For example, if the motivation is given as `painting`, then only text from painting transcriptions will contribute to the list of terms in the response.
+The other parameters (`motivation`, `date` and `user`), if supported, refine the set of terms in the response to only ones from the annotations that match those filters. For example, if the motivation is given as `painting`, then only text from painting transcriptions will contribute to the list of terms in the response.
 
 An example request:
 
 {% include api/code_header.html %}
-``` 
+```
 https://example.org/service/identifier/autocomplete?q=bir&motivation=painting&user=http%3A%2F%2Fexample.com%2Fusers%2Fwigglesworth
 ```
 {: .urltemplate}
@@ -699,11 +698,11 @@ https://example.org/service/identifier/autocomplete?q=bir&motivation=painting&us
 ### 5.2. Autocomplete Response
 {: #autocomplete-response}
 
-The response is a list (of type `TermList`) of simple objects that include the term, a link to the search for that term, and the number of matches that search will have.  The number of terms provided in the list is determined by the server.  
+The response is a list (of type `TermList`) of simple objects that include the term, a link to the search for that term, and the number of matches that search will have. The number of terms provided in the list is determined by the server.  
 
-Parameters that were not processed by the service _MUST_ be returned in the `ignored` property of the main `TermList` object.  The value _MUST_ be an array of strings.
+Parameters that were not processed by the service _MUST_ be returned in the `ignored` property of the main `TermList` object. The value _MUST_ be an array of strings.
 
-The objects in the list of terms are all of `type` `Term`, and this _MAY_ be included explicitly but is not necessary.  The Term object has a number of possible properties:
+The objects in the list of terms are all of `type` `Term`, and this _MAY_ be included explicitly but is not necessary. The Term object has a number of possible properties:
 
   * The matching term is given as the value of the `match` property, and _MUST_ be present.
   * The link to the search to perform is the value of the `url` property, and this _MUST_ be present.
@@ -745,7 +744,7 @@ The example request above might generate the following response:
 }
 ```
 
-It is also possible to associate one or more `label` values to display to the user with URIs or other data that are searchable via the `q` parameter, rather than using the exact string that matched.  This can also be useful if stemming or other term normalization has occurred, in order to display the original rather than the processed term.
+It is also possible to associate one or more `label` values to display to the user with URIs or other data that are searchable via the `q` parameter, rather than using the exact string that matched. This can also be useful if stemming or other term normalization has occurred, in order to display the original rather than the processed term.
 
 ``` json-doc
 {
@@ -773,7 +772,6 @@ It is also possible to associate one or more `label` values to display to the us
 }
 ```
 
-
 ## Appendices
 
 ### A. Request Parameter Requirements
@@ -786,7 +784,6 @@ It is also possible to associate one or more `label` values to display to the us
 | `user`    | optional | optional | optional |
 | `min`     | optional | n/a | optional |
 {: .api-table}
-
 
 ### B. Versioning
 
@@ -802,7 +799,7 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 
 | Date       | Description               |
 | ---------- | ------------------------- |
-| 2022-0X-YY | Version 2.0 () | 
+| 2022-0X-YY | Version 2.0 () |
 | 2016-05-12 | Version 1.0 (Lost Summer) |
 | 2015-07-20 | Version 0.9 (Trip Life)   |
 {: .api-table}
