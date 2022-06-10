@@ -52,12 +52,13 @@ __Previous Version:__ [1.0.0][search1]
 ## 1. Introduction
 {: #introduction}
 
-In the IIIF (pronounced "Triple-Eye-Eff") [Presentation API][prezi-api], content is brought together from distributed systems via annotations. That content might include images, often with a IIIF [Image API][image-api] service to access them, audio, video, rich or plain text, or anything else. In a vibrant and dynamic system, that content can come from many sources and be rich, varied and abundant. Of that list of content types, textual resources lend themselves to being searched, either as the transcription, translation or edition of the intellectual content, or commentary, description, tagging or other annotations about the object.  
+In the IIIF (pronounced "Triple-Eye-Eff") [Presentation API][prezi-api], content is brought together from distributed systems via annotations. That content might include images, audio, video, rich or plain text, or anything else. In a vibrant and dynamic system, that content can come from many sources and be rich, varied and abundant. Of that list of content types, textual resources lend themselves to being searched, either as the transcription, translation or edition of the intellectual content, or commentary, description, tagging or other annotations about the object.  
 
-This specification lays out the interoperability mechanism for performing these searches within the IIIF context. The scope of the specification is searching annotation content within a single IIIF resource, such as a Manifest, Range or Collection. Every effort is made to keep the interaction as consistent with existing IIIF patterns as possible. Searching for metadata or other descriptive properties is __not__ in scope for this work.
+This specification lays out the interoperability mechanism for performing these searches within the IIIF context. The scope of the specification is searching annotation content within a single IIIF resource, such as a Manifest, Canvas, Range or Collection. Every effort is made to keep the interaction as consistent with existing IIIF patterns as possible. Searching for metadata or other descriptive properties is __not__ in scope for this work.
 
-In order to make searches easier against unknown content, a related service for the auto-completion of search terms is also specified. The auto-complete service is specific to a search service to ensure that the retrieved terms can simply be copied to the query of the search.
+In order to make searches easier against unknown content, a related service for the automatic completion of search terms is also specified.
 
+<!-- Intent to refer to page -->
 Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss]
 
 ### 1.1. Use Cases
@@ -71,11 +72,20 @@ Use cases for being able to search the annotations within the Presentation API i
  * Searching on sections of text, such as defined chapters or articles.
  * Searching for user provided commentary about the resource, either as a discovery mechanism for the resource or for the discussion.
  * Discovering similar sections of text to compare either the content or the object.
+ * Searching for non-textual annotations, such as tags or highlights.
+ * Searching within captions, subtitles or transcriptions of audio/visual material. 
 
-User interfaces that could be built using the search response include highlighting matching words in the display, providing a heatmap of where the matches occur within the object, and providing a mechanism to jump between points within the object. The auto-complete service assists users in identifying terms that exist within the selected scope.
+User interfaces that could be built using the search response include highlighting matching words in the display, providing a heatmap of where the matches occur within the object, and providing a mechanism to jump between points within the object.
 
 ### 1.2. Terminology
 {: #terminology}
+
+This specification uses the following terms:
+
+* __embedded__: When a resource (A) is embedded within an embedding resource (B), the complete JSON representation of resource A is present within the JSON representation of resource B, and dereferencing the URI of resource A will not result in additional information. Example: Canvas A is embedded in Manifest B.
+* __referenced__: When a resource (A) is referenced from a referencing resource (B), an incomplete JSON representation of resource A is present within the JSON representation of resource B, and dereferencing the URI of resource A will result in additional information. Example:  Manifest A is referenced from Collection B.
+
+The terms _array_, _JSON object_, _number_, _string_, and _boolean_ in this document are to be interpreted as defined by the [Javascript Object Notation (JSON)][org-rfc-8259] specification.
 
 The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _SHOULD NOT_, _RECOMMENDED_, _MAY_, and _OPTIONAL_ in this document are to be interpreted as described in [RFC 2119][org-rfc-2119].
 
@@ -87,17 +97,19 @@ All IIIF specifications share common features to ensure consistency across the I
 ## 2. Overview
 {: #overview}
 
-The IIIF [Presentation API][prezi-api] provides just enough information to a viewer so that it can present the images and other content to the user in a rich and understandable way. Those content resources may have textual annotations associated with them. Annotations may also be associated with the structural components of the Presentation API, such as a Collection, Manifest, Sequence, or Range. Further, annotations can be replied to by annotating them to form a threaded discussion about the commentary, transcription, edition or translation.
+The IIIF [Presentation API][prezi-api] provides just enough information to a viewer so that it can present the images and other content to the user in a rich and understandable way. Those content resources may have textual annotations associated with them. Annotations may also be associated with the structural components of the Presentation API, such as a Collection, Manifest, or Range. Further, annotations can be replied to by annotating them to form a threaded discussion about the commentary, transcription, edition or translation.
 
-Annotations are typically made available to viewing applications in an annotation list, where all of the annotations in the list target the same resource, or part of it. Where known, these lists can be directly referenced from the Manifest document to allow clients to simply follow the link to retrieve them. For fixed, curated content, this is an appropriate method to discover them, as the annotations do not frequently change, nor are they potentially distributed amongst multiple servers. Annotation lists can be included in Annotation Collections to group them together, such as by the source of the annotations, to allow the user to manipulate that grouping as a whole.
+Annotations are made available in IIIF via Annotation Pages, where typically the included Annotations target the same resource or part of it. Where known, these Annotation Pages can be directly referenced from the Manifest to allow clients to simply follow the link to retrieve them.
+This specification uses Annotation Pages to deliver search results, in which the Annotations in one Annotation Page can target multiple Canvases or other resources, and the Annotation Pages are likely to be generated dynamically.
 
-However this is less useful for comment-style annotations, crowd-sourced or distributed transcriptions, corrections to automated OCR transcription, and similar, as the annotations may be in constant flux. Further, being able to quickly discover individual annotations without stepping through all of the views of an object is essential for a reasonable user experience. This specification adds this capability to the IIIF suite of specifications.  
+Beyond the ability to search for words or phrases, users find it helpful to have suggestions for what terms they should be searching for. This facility is often called autocomplete or type-ahead, and within the context of a single object can provide insight into the language and content.
 
-Beyond the ability to search for words or phrases, users find it helpful to have suggestions for what terms they should be searching for. This facility is often called auto-complete or type-ahead, and within the context of a single object can provide insight into the language and content. The Autocomplete service is associated with a search service into which the terms can be fed as part of a query.
+This specification defines two services to be associated with IIIF resources: the Content Search service and the Autocomplete service. 
 
 ## 3. Declaring Services
+{: content-search-autocomplete-services}
 
-This specification defines two services to be associated with IIIF resources: the Content Search service and the Autocomplete service. These associations are made using the `service` or `services` properties, defined by the [Presentation API][prezi3-service] as an array of JSON objects. These objects _MUST_ have the `id` and `type` properties. The value of the `id` property _MUST_ be the URI used to interact with the service.
+The Content Search and the Autocomplete services are associated with IIIF resources using the `service` property, defined by the [Presentation API][prezi3-service] as an array of JSON objects. These objects _MUST_ have the `id` and `type` properties. The value of the `id` property _MUST_ be the URI used to interact with the service.
 
 Any resource in the [Presentation API][prezi3] _MAY_ have a Content Search service associated with it. The resource determines the scope of the content that will be searched. A service associated with a Manifest will search all of the annotations on Canvases or other resources below the Manifest, a service associated with a particular Range will only search the Canvases within the Range, or a service on a Canvas will search only Annotations on that particular Canvas.  
 
@@ -140,12 +152,12 @@ The above service description block would become:
 ## 4. Content Search
 {: #search}
 
-The Content Search service takes a query, including typically a search term or URI, and potentially filtering further by other properties including the date the annotation was created or last modified, the motivation for the annotation, or the user that created the annotation.
+The Content Search service takes a query, typically including a search term or URI. Results may be constrained by other properties, such as the date the annotation was created or last modified, the motivation for the annotation, or the user that created the annotation.
 
 ### 4.1. Request
 {: #request-1}
 
-The search request is made to a service that is associated with a particular Presentation API resource. The URIs for services associated with different resources _MUST_ be different to allow the client to use the correct one for the desired scope of the search. To perform a search, the client _MUST_ use the HTTP GET method (rather than POST) to make the request to the service, with query parameters to specify the search terms.
+A search request is made to a service that is associated with a particular Presentation API resource. The URIs for services associated with different resources _MUST_ be different to allow the client to use the correct one for the desired scope of the search. To perform a search, the client _MUST_ use the HTTP GET method to make the request to the service, with query parameters to specify the search terms.
 
 #### 4.1.1. Query Parameters
 {: #query-parameters}
@@ -155,27 +167,21 @@ The following query parameters are defined:
 | Parameter  | Definition |
 | ---------  | ---------- |
 | `q`          | A space separated list of search terms. The search terms _MAY_ be either words (to search for within textual bodies) or URIs (to search identities of annotation body resources). The semantics of multiple, space separated terms is server implementation dependent.|
-| `motivation` | A space separated list of motivation terms. If multiple motivations are supplied, an annotation matches the search if any of the motivations are present. Common values for the motivation parameter can be found in the [IIIF Registry of Motivations][registry-motivations], including the two Content Search motivations `contextualizing` and `highlighting` defined in sections [4.3.2][search20-search-term-snippets] and [4.3.3][search20-search-term-highlighting] below. |
+| `motivation` | A space separated list of motivation terms. If multiple motivations are supplied, an annotation matches the search if any of the motivations are present. Common values for the motivation parameter can be found in the [IIIF Registry of Motivations][registry-motivations], including the two Content Search motivations `contextualizing` and `highlighting` defined in sections [4.3.2][search20-match-context] and [4.3.3][search20-match-highlighting] below. |
 | `date`       | A space separated list of date ranges. An annotation matches if the date on which it was created falls within any of the supplied date ranges. The dates _MUST_ be supplied in the ISO8601 format: `YYYY-MM-DDThh:mm:ssZ/YYYY-MM-DDThh:mm:ssZ`. The dates _MUST_ be expressed in UTC and _MUST_ be given in the `Z` based format. |
-| `user`       | A space separated list of URIs that are the identities of users. If multiple users are supplied, an annotation matches the search if any of the users created the annotation. |
+| `user`       | A space separated list of URIs that are the identities of users. If multiple users are supplied, an annotation matches the search if any of the supplied users created the annotation. |
 {: .api-table}
 
 Other than `q`, which is _RECOMMENDED_, all other parameters are _OPTIONAL_ in the request. The default, if a parameter is empty or not supplied, is to not restrict the annotations that match the search by that parameter. If the value is supplied but the field is not present in an annotation, then the search does not match that annotation. For example if an annotation does not have a creator, and the query specifies a `user` parameter, then the annotation does not match the query.
 
-Servers _SHOULD_ implement the `q` and `motivation` parameters and _MAY_ implement the other parameters. Parameters that are received in a request but not implemented _MUST_ be ignored, and _SHOULD_ be included in the `ignored` property in the response, described [below](#ignored-parameters).
+Servers _SHOULD_ implement the `q` and `motivation` parameters and _MAY_ implement the other parameters. Parameters defined by this specification that are received in a request but not implemented _MUST_ be ignored, and _MUST_ be included in the `ignored` property in the response, described [below](#ignored-parameters).
 
 #### 4.1.2. Example Request
 {: #example-request}
 
-This example request:
+Consider the example request: `https://example.org/services/manifest/search?q=bird&motivation=painting`
 
-{% include api/code_header.html %}
-```
-https://example.org/services/manifest/search?q=bird&motivation=painting
-```
-{: .urltemplate}
-
-Would search for annotations with the word `bird` in their textual content, and have the motivation of `painting`. It would search annotations within the resource with which the service was associated.
+This request would search for annotations with the word `bird` in their textual content, and have the motivation of `painting`. It would search annotations within the resource with which the service was associated.
 
 ### 4.2. Responses
 {: #responses}
