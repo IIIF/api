@@ -166,7 +166,7 @@ The following query parameters are defined:
 
 | Parameter  | Definition |
 | ---------  | ---------- |
-| `q`          | A space separated list of search terms. The search terms _MAY_ be either words (to search for within textual bodies) or URIs (to search identities of annotation body resources). The semantics of multiple, space separated terms is server implementation dependent.|
+| `q`          | A space separated list of search terms. For example, the search terms might be words (to search for within textual bodies) or URIs (to search identities of annotation body resources). The semantics of multiple, space separated terms is server implementation dependent.|
 | `motivation` | A space separated list of motivation terms. If multiple motivations are supplied, an annotation matches the search if any of the motivations are present. Common values for the motivation parameter can be found in the [IIIF Registry of Motivations][registry-motivations], including the two Content Search motivations `contextualizing` and `highlighting` defined in sections [4.3.2][search20-match-context] and [4.3.3][search20-match-highlighting] below. |
 | `date`       | A space separated list of date ranges. An annotation matches if the date on which it was created falls within any of the supplied date ranges. The dates _MUST_ be supplied in the ISO8601 format: `YYYY-MM-DDThh:mm:ssZ/YYYY-MM-DDThh:mm:ssZ`. The dates _MUST_ be expressed in UTC and _MUST_ be given in the `Z` based format. |
 | `user`       | A space separated list of URIs that are the identities of users. If multiple users are supplied, an annotation matches the search if any of the supplied users created the annotation. |
@@ -181,7 +181,7 @@ Servers _SHOULD_ implement the `q` and `motivation` parameters and _MAY_ impleme
 
 Consider the example request: 
 
-`https://example.org/services/manifest/search?q=bird&motivation=painting`
+`https://example.org/service/manifest/search?q=bird&motivation=painting`
 
 This request would search for annotations with the word "bird" in their textual content, and have the motivation of `painting`. It would search annotations within the resource with which the service was associated.
 
@@ -196,6 +196,12 @@ The response from the server _MUST_ be an [Annotation Page][prezi30-annopage], f
 The simplest response is a normal Annotation Page, where all of the matching Annotations are returned in a single response.
 
 The total number of matching Annotations is the length of the `items` array, as all matching Annotations have been returned in the response. Every Annotation _MUST_ be fully embedded in the response.
+
+Consider the example request: 
+
+`https://example.org/service/manifest/search?q=bird&motivation=painting`
+
+This request might result in: 
 
 ``` json-doc
 {
@@ -240,15 +246,11 @@ The embedded Annotation Collection has the following properties:
 * `last` - The Annotation Collection _MAY_ have a `last` property. The value is a JSON object, with an `id` of the URI of the last page, and `type` with a value of `AnnotationPage`.
 * `total` - The Annotation Collection _MAY_ have a `total` property. The value is an integer, which is the total number of Annotations in the Collection, across all Annotation Pages.
 
-An example request:
+Consider the example request:
 
-{% include api/code_header.html %}
-```
-https://example.org/service/manifest/search?q=bird
-```
-{: .urltemplate}
+`https://example.org/service/manifest/search?q=bird`
 
-Might result in the following response:
+This request might result in the following response:
 
 ``` json-doc
 {
@@ -295,9 +297,15 @@ Might result in the following response:
 #### 4.2.3. References to Containing Resources
 {: #references-containing-resources}
 
-It is possible that Canvases referenced by the Annotations in the results are contained in Manifests that the client has not loaded, for example when searching in a Collection. In this and similar cases, it is important to have a reference to the containing resource such that a client can retrieve and render it.
+It is possible that Canvases referenced by the Annotations in the results are contained in Manifests that the client has not loaded, for example when searching in a Collection. In this and similar cases, it is important to have a reference to the containing resource so that a client can retrieve and render it.
 
 This reference to the containing resource is included in the `target` structure of the Annotation, in a `partOf` property, with a JSON object as its value. The `id` and `type` of the containing resource _MUST_ be given, and a `label` _SHOULD_ be included.
+
+Consider the example request: 
+
+`https://example.org/service/collection/search?q=bird&motivation=painting`
+
+This request might result in: 
 
 ``` json-doc
 {
@@ -334,17 +342,13 @@ This reference to the containing resource is included in the `target` structure 
 #### 4.2.4. Ignored Parameters
 {: #ignored-parameters}
 
-If the server has ignored any of the parameters in the request, then an `ignored` property _MUST_ be present, and _MUST_ contain a list of the ignored parameters. Servers _MAY_ drop ignored query parameters from the `id` of the Annotation Page.
+If the server has ignored any of the parameters in the request, then an `ignored` property _MUST_ be present, and _MUST_ contain a list of the ignored parameters. Servers _MAY_ omit ignored query parameters from the `id` of the Annotation Page.
 
-For the request:
+Consider the example request:
 
-{% include api/code_header.html %}
-```
-http://example.org/service/manifest/search?q=bird&user=myusername
-```
-{: .urltemplate}
+`http://example.org/service/manifest/search?q=bird&user=myusername`
 
-If the `user` parameter was ignored when processing the request, the response could be:
+If the `user` parameter was ignored when processing this request, the response could be:
 
 ``` json-doc
 {
@@ -360,24 +364,46 @@ If the `user` parameter was ignored when processing the request, the response co
 }
 ```
 
-#### 4.2.5. Match Context
+#### 4.3. Extended Responses
+{: #extended-responses}
+
+Clients may require additional information about the matches in order to generate a rich user experience for search. This additional information about matches in search results is provided by further Annotations in a property called `annotations`. This structure maintains the distinction in the [Presentation API][prezi3], where the main content annotations are listed in `items` and additional annotations such as comments are listed in `annotations`. The value of `annotations` is an array containing a single Annotation Page, in which all of the Annotations reference Annotations in the `items` property.
+
+The structure of extended responses is:
+
+``` json-doc
+{
+  "@context": "http://iiif.io/api/presentation/3/context.json",
+  "id": "https://example.org/service/manifest/search?q=bird",
+  "type": "AnnotationPage",
+
+  "items": [
+    // Matching Annotations here ...
+  ],
+
+  "annotations": [
+    {
+      "type": "AnnotationPage",
+      "items": [
+        // Annotations with additional information about matching Annotations here ... 
+      ]
+    }
+  ]
+}
+```
+
+### 4.3.1. Match Context
 {: #match-context}
 
-A common use case is to add text that appears before and after the matching text in the Annotation. This allows the client to construct a snippet where the matching text is provided in the context of surrounding content, rather than simply by itself. This is most useful when the service has word-level boundaries of the text on the Canvas, such as when Optical Character Recognition (OCR) has been used to generate the text positions.
+Search interfaces often display text before and after the matching text in a search result, as a snippet which shows the match in the context of the surrounding content. This is most useful when the service has word-level boundaries of the text on the Canvas, such as when OCR has been used to generate the text positions.
 
-Further information which is not part of the matching Annotation directly is included in a property called `annotations`. This structure maintains the distinction in the [Presentation API][prezi3], where the main content annotations are listed in `items` and additional annotations such as comments are listed in `annotations`.
+To meet this requirement, the Annotations have a `motivation` of `contextualizing`, and a [Web Annotation Data Model][org-w3c-webanno-TextQuoteSelector] `TextQuoteSelector` with `prefix` and `suffix` of the text immediately before and after the matching content in the annotation. The matching content is conveyed in the `exact` property. The selector has the URI of the annotation it refers to in the `source` property, to be matched against the `id` property of the annotations in `items`.
 
-The value of `annotations` is an array containing a single Annotation Page. Each match context is added as an Annotation to the `items` property of the Annotation Page. The Annotations have a `motivation` of `contextualizing`, and a TextQuoteSelector with `prefix` and `suffix` of the text immediately before and after the matching content in the annotation. The matching content is conveyed in the `exact` property. The selector has the URI of the annotation it refers to in the `source` property, to be matched against the `id` property of the annotations in `items`.
+Consider a search request for the query term "bird":
 
-For example, in a search for the query term `bird` in our example sentence, when the server has full word level coordinates:
+`https://example.org/service/manifest/search?q=bird`
 
-{% include api/code_header.html %}
-```
-https://example.org/service/manifest/search?q=bird
-```
-{: .urltemplate}
-
-That the server matches against the plural `birds`:
+This request might match the plural "birds":
 
 ``` json-doc
 {
@@ -427,20 +453,18 @@ That the server matches against the plural `birds`:
 }
 ```
 
-#### 4.2.6. Match Highlighting
+#### 4.3.2. Match Highlighting
 {: #match-highlighting}
 
-Many systems do not have full word-level coordinate information, and are restricted to line or paragraph level boundaries. In these cases the client may display the entire annotation and highlight the matches within it. This is similar, but different, to the match context use case. Here, the match is somewhere within the `body` property of the annotation, and the client needs to make it more prominent.
+Many systems do not have full word-level coordinate information, and are restricted to line or paragraph level boundaries. In these cases the client may display the entire annotation and highlight the matches within it. This is similar, but different, to the match context use case. Here, the match is somewhere within the `body` property of the annotation and the client needs to make it more prominent.
 
-The client needs to know the text that matched, and enough information about where it occurs in the content to reliably highlight it and not highlight non-matching content. To do this, the service can use the `selector` pattern to supply the text before and after the matching term **within the content of the annotation**, again via a [Web Annotation Data Model][org-w3c-webanno-TextQuoteSelector] `TextQuoteSelector` object. The value of the `motivation` property is `highlighting` in this case, to distinguish from the match context use case. Non-textual content, such as audio or video resources, would use other selectors instead, but the pattern would otherwise remain the same.  
+The client needs to know the text that matched and enough information about where it occurs in the content to reliably highlight it and not highlight non-matching content. To do this, the service can use the `selector` pattern to supply the text before and after the matching term _within the content of the annotation_, again via a `TextQuoteSelector` object. The value of the `motivation` property is `highlighting` in this case, to distinguish from the match context use case. Non-textual content, such as audio or video resources, would use other selectors instead, but the pattern would otherwise remain the same.  
 
-{% include api/code_header.html %}
-```
-https://example.org/service/manifest/search?q=bird
-```
-{: .urltemplate}
+Consider the example request:
 
-The result might be:
+`https://example.org/service/manifest/search?q=bird`
+
+This request might have the response:
 
 ``` json-doc
 {
@@ -490,20 +514,18 @@ The result might be:
 }
 ```
 
-#### 4.2.7. Multi-Match Annotations
+#### 4.3.3. Multi-Match Annotations
 {: #multi-match-annotations}
 
-A query might result in multiple matches within a single annotation, especially if wildcards or stemming are enabled or the content of the annotation is long. This is handled by including the matching Annotation once in `items`, and multiple entries that refer to it in the `annotations` list. Each entry then uses a different TextQuoteSelector on the same matching Annotation to describe where the matching content can be found. A client can process each entry in turn to highlight each match in the Annotation.
+A query might result in multiple matches within a single annotation, especially if wildcards or stemming are enabled or the content of the annotation is long. This is handled by including the matching Annotation once in `items`, and the multiple entries that refer to it in the `annotations` list. Each entry then uses a different `TextQuoteSelector` on the same matching Annotation to describe where the matching content can be found. A client can process each entry in turn to highlight each match in the Annotation.
 
-For example, if the search was for words beginning with `b`:
+The Annotation Page in `annotations` _MAY_ embed an Annotation Collection allowing the response to include the total number of additional information Annotations. This Annotation Collection _MUST_ be different from the Annotation Collection embedded within the Annotation Page at the top level of the response. In this and similar scenarios, the values of the `total` properties of the two Annotation Collections may not be the same: the total number of matching annotations is determined by the division of the content, whereas the total number of additional annotations is determined by the query. 
 
-{% include api/code_header.html %}
-```
-https://example.org/service/manifest/search?q=b*
-```
-{: .urltemplate}
+Consider the request for words beginning with "b":
 
-The result might be:
+`https://example.org/service/manifest/search?q=b*`
+
+The request might have the response: 
 
 ``` json-doc
 {
@@ -534,16 +556,16 @@ The result might be:
 
   "annotations": [
     {
-      "id": "https://example.org/meta/manifest/search?q=b*&page=1",
+      "id": "https://example.org/service/additional/search?q=b*&page=1",
       "type": "AnnotationPage",
       "partOf": {
-        "id": "https://example.org/meta/manifest/search?q=b*",
+        "id": "https://example.org/service/additional/search?q=b*",
         "type": "AnnotationCollection",
         "total": 521
       }
       "items": [
         {
-          "id": "https://example.org/identifier/annotation/match-1",
+          "id": "https://example.org/additional/annotation/match-1",
           "type": "Annotation",
           "motivation": "highlighting",
           "target": {
@@ -560,7 +582,7 @@ The result might be:
           }
         },
         {
-          "id": "https://example.org/identifier/annotation/match-2",
+          "id": "https://example.org/additional/annotation/match-2",
           "type": "Annotation",
           "motivation": "highlighting",
           "target": {
@@ -581,20 +603,20 @@ The result might be:
 }
 ```
 
-#### 4.2.8. Multi-Annotation Matches
+#### 4.3.4. Multi-Annotation Matches
 {: #multi-annotation-matches}
 
-Given the flexibility of alignment between the sections of a text (such as word, line, paragraph, page, or arbitrary sections) and the annotations that expose that text to the client, there may be multiple matching annotations that are required to match a single multi-term search.
+For some queries, matching result text may be spread across multiple annotations that encode the sections of the source text. This means that multiple matching annotations may be required to match a single search.
 
-For example, imagine that the annotations are divided up line by line as they were manually transcribed that way, and that there are two lines of text. In this example the first line is `A bird in the hand`, the second line is `is worth two in the bush`, and the search is for the phrase `hand is`. Therefore the match comprises parts of both line-based annotations.
+For example, imagine a set of manual transcription annotations which are divided up line by line, and that there are two lines of text. In this example the first line is "A bird in the hand", the second line is "is worth two in the bush", and the search is for the phrase "hand is". Therefore the match comprises parts of both line-based annotations.
 
 In cases like this there are more annotations in the `items` list than in the `annotations` list as two or more annotations will be needed to make a match. This is handled by referencing all of the required matching annotations as multiple targets in a single annotation with the `highlighting` motivation in the `annotations` list.
 
-{% include api/code_header.html %}
-```
-http://example.org/service/manifest/search?q=hand+is
-```
-{: .urltemplate}
+Consider the example request:
+
+`http://example.org/service/manifest/search?q=hand+is`
+
+This request might have the response:
 
 ``` json-doc
 {
@@ -625,21 +647,20 @@ http://example.org/service/manifest/search?q=hand+is
       },
       "target": "https://example.org/identifier/canvas1#xywh=200,140,170,30"
     }
-    // Further annotations here ...
   ],
 
   "annotations": [
     {
-      "id": "https://example.org/meta/manifest/search?q=hand+is&page=1",
+      "id": "https://example.org/service/additional/search?q=hand+is&page=1",
       "type": "AnnotationPage",
       "partOf": {
-        "id": "https://example.org/meta/manifest/search?q=hand+is",
+        "id": "https://example.org/service/additional/search?q=hand+is",
         "type": "AnnotationCollection",
-        "total": 7
+        "total": 1
       }
       "items": [
         {
-          "id": "https://example.org/identifier/annotation/match-1",
+          "id": "https://example.org/additional/annotation/match-1",
           "type": "Annotation",
           "motivation": "highlighting",
           "target": [
@@ -676,7 +697,7 @@ http://example.org/service/manifest/search?q=hand+is
 ## 5. Autocomplete
 {: #autocomplete}
 
-An autocomplete service returns terms that can be added into the `q` parameter of the related search service, given the first characters of the term.
+An Autocomplete service returns terms that can be used to perform a search using the related search service, given some characters.
 
 ### 5.1. Autocomplete Request
 {: #request}
@@ -688,32 +709,76 @@ An Autocomplete request takes the same parameters as a Content Search request, w
 | `min`     | The minimum number of occurrences for a term in the index in order for it to appear within the response; default is 1 if not present. Support for this parameter is _OPTIONAL_ |
 {: .api-table}
 
-<!-- Eds, we should add `max` -->
-
 The `q` parameter _MUST_ be present. Its value is interpreted as a single character string to match within terms in the index, often beginning characters. For example, the query term of 'bir' might complete to 'bird', 'biro', 'birth', and 'birthday'.
 
 The other parameters (`motivation`, `date` and `user`), if supported, refine the set of terms in the response to only ones from the annotations that match those filters. For example, if the motivation is given as `painting`, then only text from painting transcriptions will contribute to the list of terms in the response.
 
-An example request:
+An example request would be:
 
-{% include api/code_header.html %}
-```
-https://example.org/service/identifier/autocomplete?q=bir&motivation=painting&user=http%3A%2F%2Fexample.com%2Fusers%2Fwigglesworth
-```
+`https://example.org/service/identifier/autocomplete?q=bir&motivation=painting&user=http%3A%2F%2Fexample.com%2Fusers%2Fwigglesworth`
+
 {: .urltemplate}
 
 ### 5.2. Autocomplete Response
 {: #autocomplete-response}
 
-The response is a list (of type `TermList`) of simple objects that include the term, a link to the search for that term, and the number of matches that search will have. The number of terms provided in the list is determined by the server.  
+Most auto-complete scenarios can be fulfilled by a simple list of terms. These terms can be converted into a search by using them as the value of the `q` parameter of the related Content Search service. 
 
-Parameters that were not processed by the service _MUST_ be returned in the `ignored` property of the main `TermList` object. The value _MUST_ be an array of strings.
+In order to accommodate this use case, a new class `TermPage` is introduced for the response, and a class `Term` to describe the values. 
 
-The objects in the list of terms are all of `type` `Term`, and this _MAY_ be included explicitly but is not necessary. The Term object has a number of possible properties:
+The `TermPage` has the following properties:
 
-  * The matching term is given as the value of the `match` property, and _MUST_ be present.
-  * The link to the search to perform is the value of the `url` property, and this _MUST_ be present.
-  * The number of matches for the term is the integer value of the `count` property, and _SHOULD_ be present.
+* `id` - The `TermPage` _MUST_ have an `id` property. The value is a URI and _MAY_ be different from the one requested.
+* `type` - The `TermPage` _MUST_ have a `type` property. The value _MUST_ be `TermPage`. 
+* `ignored` - The `TermPage` _MAY_ have an `ignored` property. The value _MUST_ be an array of strings, each of which is the name of a query parameter which was ignored by the server.
+* `items` - The `TermPage` _MUST_ have an `items` property. The value _MUST_ be an array of zero or more items. Each item _MUST_ be a JSON object, each of which is a `Term`. 
+
+In this simple case, `Term` resources have a single property `value` which contains the term string. The number of terms provided in the list is determined by the server.
+
+Consider the example request:
+
+`https://example.org/service/identifier/autocomplete?q=bir`
+
+This request might have the response:
+
+```json-doc
+{
+  "@context": "http://iiif.io/api/presentation/3/context.json",
+  "id": "https://example.org/service/identifier/autocomplete?q=bir",
+  "type": "TermPage",  
+  "items": [
+    {
+      "value": "bird"
+    },
+    {
+      "value": "biro"
+    },
+    {
+      "value": "birthday"
+    }
+  ]
+}
+```
+
+### 5.3. Extended Autocomplete Responses
+
+
+There are cases where a simple list of terms is not sufficient to support use of the Autocomplete service. These include when a label is required to allow a user to select an appropriate term, when the term cannot be used as a query parameter directly, and when it is useful to know the total number of occurences of a term within the index.
+
+The use cases are fulfilled by extending the properties of the `Term` resources to include further information.
+
+`Term` resources have the following properties: 
+
+* `value` 
+
+* `type` - The `Term` _MAY_ have a `type` property which may be omitted for brevity. If present, the value _MUST_ be `Term`.
+
+
+
+
+  * The matching term is given as the value of the `value` property, and _MUST_ be present.
+  * The link to the search to perform is the value of the `service` property, and this _MUST_ be present.
+  * The number of matches for the term is the integer value of the `total` property, and _SHOULD_ be present.
   * A label to display instead of the match can be given as the value of the `label` property, and _MAY_ be present, following the pattern for language maps described in the [Presentation API][prezi30-languages]
 
 The terms _SHOULD_ be provided in ascending alphabetically sorted order, but other orders are allowed, such as by the term's count descending to put the most common matches first.
