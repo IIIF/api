@@ -166,7 +166,7 @@ The following query parameters are defined:
 | Parameter  | Definition |
 | ---------  | ---------- |
 | `q`          | A space separated list of search terms. For example, the search terms might be words (to search for within textual bodies) or URIs (to search identities of annotation body resources). The semantics of multiple, space separated terms is server implementation dependent.|
-| `motivation` | A space separated list of motivation terms. If multiple motivations are supplied, an annotation matches the search if any of the motivations are present. Common values for the motivation parameter can be found in the [IIIF Registry of Motivations][registry-motivations], including the two Content Search motivations `contextualizing` and `highlighting` defined in sections [4.3.2][search20-match-context] and [4.3.3][search20-match-highlighting] below. |
+| `motivation` | A space separated list of motivation terms. If multiple motivations are supplied, an annotation matches the search if any of the motivations are present. Common values for the motivation parameter can be found in the [IIIF Registry of Motivations][registry-motivations], including the two Content Search motivations `contextualizing` and `highlighting` defined in sections [4.3.1][search20-match-context] and [4.3.2][search20-match-highlighting] below. |
 | `date`       | A space separated list of date ranges. An annotation matches if the date on which it was created falls within any of the supplied date ranges. The dates _MUST_ be supplied in the ISO8601 format: `YYYY-MM-DDThh:mm:ssZ/YYYY-MM-DDThh:mm:ssZ`. The dates _MUST_ be expressed in UTC and _MUST_ be given in the `Z` based format. |
 | `user`       | A space separated list of URIs that are the identities of users. If multiple users are supplied, an annotation matches the search if any of the supplied users created the annotation. |
 {: .api-table}
@@ -766,7 +766,7 @@ There are cases where a simple list of terms is not sufficient to support use of
 
 The use cases are fulfilled by extending the properties of the `Term` resources to include further information.
 
-`Term` resources have the following properties: 
+`Term` resources have the following properties:
 
 * `type` - The `Term` _MAY_ have a `type` property. If present, the value _MUST_ be `Term`. The use of the property is _NOT RECOMMENDED_ to keep the response shorter.
 * `value` - The `Term` _MUST_ have a `value` property. The value is a the string form of the term.
