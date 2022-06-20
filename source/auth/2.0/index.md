@@ -54,7 +54,7 @@ __Previous Version:__ [1.0.0][auth1]
 ## 1. Introduction
 {: #introduction}
 
-The IIIF (pronounced "Triple-Eye-Eff") specifications are designed to support uniform and rich access to resources hosted around the world. Open access to content is desirable, but internal policies, legal regulations, business models, and other constraints can require users to authenticate and be authorized to interact with some resources. The authentication process could range from a simple restriction by IP address or a click-through agreement, to a multi-factor scheme with a secure identity provider.
+The IIIF (pronounced "Triple-Eye-Eff") specifications are designed to support uniform and rich access to images, audio, video and other resources hosted around the world. Open access to content is desirable, but internal policies, sensitive material, legal regulations, business models, and other constraints can require users to authenticate and be authorized to interact with some resources. The authentication process could range from a simple restriction by IP address or a click-through agreement, to a multi-factor scheme with a secure identity provider.
 
 Content providers that need to restrict access to their resources may offer tiered access to alternative versions that go beyond a simple all-or-nothing proposition. These alternative versions could be degraded based on resolution, watermarking, or compression, for example, but are often better than no access at all.
 
@@ -72,7 +72,7 @@ The access service _could_ be different, but would need to visit the content dom
 
 Additionally, the IIIF community has the following goals for this specification:
 
-* A IIIF client should not accept credentials and authenticate the user itself; the server hosting the content must be responsible for capturing credentials from a user and the IIIF viewer needs no knowledge of or access to this exchange.
+* A IIIF client should not accept credentials and authenticate the user itself; the server hosting the content must be responsible for capturing credentials from a user and the IIIF viewer needs no knowledge of or access to this exchange. <!-- One aim of the eventual updated auth spec _could_ be to allow an extension mechanism where aware clients can do this -->
 * A browser-based IIIF client must be able to maintain its own internal state during an authentication flow. That is, it must be able to stay running while the user interacts with third parties in another tab.
 * A registry of trusted domains should not be required; anyone should be able to create any kind of viewer and run it from anywhere.
 * Institutions should be able to work with their existing authentication systems without modifying them: this specification can provide a bridge to existing systems without requiring that the systems themselves be changed.
@@ -83,23 +83,29 @@ IIIF Authentication provides a link to a user interface for logging in, and serv
 
 In summary, the specification describes how to:
 
-* From within a viewer, initiate an interaction with an access control system so that a user can acquire any credentials they need to view restricted content.
-* Give the client just enough knowledge of the user's state with respect to the content provider to ensure a good user experience.
+* From within a client application such as a viewer, initiate an interaction with an access control system so that a user can acquire any credentials they need to view restricted content.
+* Give the client application just enough knowledge of the user's state with respect to the content provider to ensure a good user experience: that is, allow the client to learn whether the user currently has access to a resource, without needing to know anything else about their relationship.
 
 Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss].
+
 
 ### 1.1. Terminology
 {: #terminology}
 
 This specification distinguishes between three different types of resources:
 
-* __IIIF Resources__ <!-- formerly description resources, need a better name? --> are the Manifests, Collections and other resources described by the IIIF [Presentation API][prezi-api], including external Annotation Pages. <!-- Come back to this; Annotation pages can be search results, too -->
+* __IIIF Resources__ <!-- formerly description resources, need a better name? --> are the Manifests, Collections and other resources described by the IIIF [Presentation API][prezi-api], including external Annotation Pages. <!-- Come back to this; Annotation pages can be search results, too. In this first pass of the spec, we are not going to deal with access control on IIIF resources themselves. -->
 * __Content Resources__ are images, videos, PDFs and other resources that are linked from IIIF Manifests, Annotation pages and other IIIF Resources.
-* __Content Resource Services__ <!--Content Resource Descriptions? --> are loaded by client applications such as viewers to obtain information about content resources, and/or how to obtain content resources from a service. The [IIIF Image API][image-api] image information (info.json) and the probe service introduced later in this specification are both Content Resource _Services_. 
+* __Content Resource Services__ <!--Content Resource Descriptions? --> are loaded by client applications such as viewers to obtain information about content resources, and/or how to obtain content resources from a service. The [IIIF Image API][image-api] image information (info.json) and the probe service introduced later in this specification are both Content Resource _Services_, but an individual image, served from an image service endpoint is a Content Resource (e.g., a JPEG tile). 
 
-From the point of view of a browser-based application, Content Resources are loaded indirectly via browser interpretation of HTML elements, whereas IIIF Resources and Content Resource Services are typically loaded directly by JavaScript using the `XMLHttpRequest` interface or `fetch` API. The [Cross Origin Resource Sharing][org-w3c-cors] (CORS) specification describes the different security rules that apply to the interactions with these types of resource.
+From the point of view of a browser-based application, Content Resources are loaded indirectly via browser interpretation of HTML elements, whereas IIIF Resources and Content Resource Services are typically loaded directly by JavaScript using the `fetch` API or `XMLHttpRequest` interface. The [Cross Origin Resource Sharing][org-w3c-cors] (CORS) specification describes the different security rules that apply to the interactions with these types of resource.
 
-Two additional concepts, the __access cookie__ and __access token__, are described below.
+<!-- Careful not to push this too far, but I think the __access cookie__ should not be a formal part of the auth spec; instead it should be something like "the aspect of the request that grants access" - need a more concise name, though. -->
+This specification introduces three additional concepts:
+
+ * The __aspect of the request__ that a content provider uses to determine authorization (e.g., presence of a valid __access cookie__ as a credential).
+ * The __access token__, a proxy for this aspect of the request that can be seen by a client, without revealing to the client what that aspect is.
+ * The __probe service__, an endpoint defined by this specification that the client uses to learn about the user's relationship to the Content Resource the probe service is for, including sending an __access token__ to the probe service.
 
 The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _SHOULD NOT_, _RECOMMENDED_, _MAY_, and _OPTIONAL_ in this document are to be interpreted as described in [RFC 2119][org-rfc-2119].
 
@@ -108,7 +114,7 @@ The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _S
 
 Content Resources, such as images or video, are generally secondary resources embedded in a web page or application. Content Resources may also be linked to and requested directly, such as a link to a PDF. In the case of web pages, images might be included via the HTML `img` tag, and loaded via additional HTTP requests made by the browser. When a user is not authorized to load a web page, the server can redirect the user to another page and offer the opportunity to authenticate. This redirection can't be used for embedded Content Resources, and the user is simply presented with a broken image icon. Even for externally linked Content Resources (e.g., a link to a PDF) the viewer application benefits from knowing whether the user has access to the resource at the other end of the link. 
 
-If an image is access controlled, the browser must avoid broken images by sending whatever credential the server is expecting that grants access to the image. In the most common case the credential is an __access cookie__, and this specification describes the process by which the user acquires this __access cookie__. The credential may be some other aspect of the request (such as IP address), and this specification describes the process by which the client application learns that the user has this valid aspect. In either case, the client is never aware of what that aspect is, the flow is the same.
+If an image, video or other Content Resource is access controlled, the browser must avoid broken images or media in the user interface by sending whatever credential the server is expecting that grants access to the Content Resource. Very often the credential is an __access cookie__, and this specification describes the process by which the user acquires this __access cookie__. The credential may be some other aspect of the request (such as IP address), and this specification describes the process by which the client application learns that the user has this valid aspect. In either case, the client is never aware of what that aspect is, the flow is the same.
 <!-- later on when we try to extend support for access-controlled IIIF Resources like manifests or search results that might be protected by JWTs or other bearer tokens, and URLs for video fragments from a media server that have custom tokens in path elements, we can broaden the idea that these are also non-cookie aspects of the request, and that some aspects of the request are available to our script and some are not. -->
 
 ### 1.3. Authentication for IIIF Resources and Content Resource Services
@@ -124,14 +130,14 @@ This specification describes how, once the browser has been given the chance to 
 
 The server on the Resource Domain treats the access token as a representation of, or proxy for, any credential that permits access to the Content Resources. When the client makes requests for <!--IIIF Resources and-->Content Resource Services and presents the access token, the responses tell the client what will happen when the browser requests the corresponding Content Resources with the credential the access token represents. These responses let the client decide what user interface and/or Content Resources to show to the user.
 
-Thus the access token usually represents an access cookie, but may represent other forms of credential or aspects of the request. The client does not know what the token represents.
+Thus the access token often represents an access cookie, but may represent other forms of credential or aspects of the request. The client does not know what the token represents.
 
 ### 1.4. Security
 {: #security}
 
 The purpose of this specification to support access-control for IIIF resources and hence security is a core concern. To prevent misuse, cookies and bearer tokens described in this specification need to be protected from disclosure in storage and in transport. Implementations _SHOULD_ use [HTTP over TLS][org-rfc-2818], commonly known as HTTPS, for all communication. Furthermore, all IIIF clients that interact with access-controlled resources _SHOULD_ also be run from pages served via HTTPS. All references to HTTP in this specification should be read assuming the use of HTTPS.
 
-This specification protects Content Resources such as images by making the access token value available to the script of the client application, for use in requesting <!--IIIF Resources and-->Content Resource Services. Knowledge of the access token is of no value to a malicious client, because the access _cookie_ (which the client cannot see) is the credential accepted for Content Resources, and a Content Resource Service is of no value on its own. However, the interaction patterns introduced in this specification will in future versions be extended to support write operations on IIIF resources, for example creating annotations in an annotation server, or modifying the `structures` element in a manifest. For these kinds of operations, the access token _is_ the credential, and the flow introduced below may require one or more additional steps to establish trust between client and server. However, it is anticipated that these changes will be backwards compatible with version {{ page.major }}.{{ page.minor }}.
+This specification protects Content Resources such as images by making the access token value available to the script of the client application, for use in requesting <!--IIIF Resources and-->Content Resource Services. Knowledge of the access token is of no value to a malicious client, because (for example) the access _cookie_ (which the client cannot see) is the credential accepted for Content Resources, and a Content Resource Service is of no value on its own. However, the interaction patterns introduced in this specification will in future versions be extended to support write operations on IIIF resources, for example creating annotations in an annotation server, or modifying the `structures` element in a manifest. For these kinds of operations, the access token _could be_ the credential, and the flow introduced below may require one or more additional steps to establish trust between client and server. However, it is anticipated that these changes will be backwards compatible with version {{ page.major }}.{{ page.minor }}.
 
 Further discussion of security considerations can be found in the [Implementation Notes][auth2-implementation-notes].
 
@@ -141,15 +147,15 @@ Further discussion of security considerations can be found in the [Implementatio
 
 For IIIF Image Services, the same [IIIF Image API][image-api] specification describes how clients retrieve the image information response (the info.json) and then use that information to make requests for content (specific image requests using image service parameters, such as tile requests). This Access Control Specification describes additional services to include in the info.json that the client uses to steer the user through the access control flow. 
 
-The info.json also acts as a _probe_ service: the client can see the HTTP response status code when it requests the info.json. It uses the status code to determine the user's current access to the image service: a 200 status code on the info.json indicates that the user will be able to see images requested from the service. The client sends any access token it has acquired from the resource's access service(s) as part of the probe request.
+The info.json also acts as a __probe service__: the client can see the HTTP response status code when it requests the info.json. It uses the status code to determine the user's current access to the image service: a 200 status code on the info.json indicates that the user will be able to see images requested from the service. The client sends any access token it has acquired from the resource's access service(s) as part of the probe request.
 
-Content Resources like videos and PDFs do not have service descriptions equivalent to the info.json. Therefore the additional services for access control must be described alongside the Content Resource in the Manifest (or other IIIF resource). A Content Resource, like an info.json, may act as its own _probe service_ - the client can make an HTTP request and observe the response status code. However, it is not efficient to make GET requests for very large Content Resources just to observe the HTTP status. It is also not possible to convey any additional information this way because the response body is not JSON-LD but the binary content of the resource itself.
+Content Resources like videos and PDFs do not have service descriptions equivalent to the info.json. Therefore the additional services for access control must be described alongside the Content Resource in the Manifest (or other IIIF resource). A Content Resource, like an info.json, may act as its own __probe service__ - the client can make an HTTP request and observe the response status code. However, it is not efficient to make GET requests for very large Content Resources just to observe the HTTP status. It is also not possible to convey any additional information this way because the response body is not JSON-LD but the binary content of the resource itself.
 
 For this reason:
 
-* The info.json is always its own probe service, and always requested with HTTP GET.
-* Other Content Resources _MAY_ be their own probe services, using HEAD requests (not GET), in scenarios where a separate probe service is not possible, but:
-* Other Content Resources _SHOULD_ provide a separate probe service, which is always requested with HTTP GET and may carry additional information.
+* The info.json _MUST_ always be its own __probe service__, and is always requested with HTTP `GET`.
+* Other Content Resources _MAY_ be their own probe services, using HTTP `HEAD` requests (not `GET`), in scenarios where a separate probe service is not possible, but:
+* Other Content Resources _SHOULD_ provide a separate probe service, which is always requested with HTTP `GET` and may carry additional information.
 
 ### 1.5.1 Probe Service Example
 
@@ -186,10 +192,10 @@ This probe service _MUST_ always return a response to the client. The response c
 }
 ```
 
-* The response status code is 200, and the response JSON-LD includes a `location` property. This indicates that the user cannot see https://authentication.example.org/my-video.mp4, but they can see the resource at the URL indicated by location. This would give the user access to (for example) a degraded version of the resource immediately, and potentially allow them to go through a login process to access the full resource.
+* The response status code is 401, and the response JSON-LD includes a `location` property. This indicates that the user cannot see https://authentication.example.org/my-video.mp4, but they can see the resource at the URL indicated by `location`. This would give the user access to (for example) a degraded version of the resource immediately, and potentially allow them to go through a login process to access the full resource.
 
 ```json
-// 200
+// 401
 {
     "@context": "http://iiif.io/api/auth/{{ page.major }}/context.json",
     "id": "https://authentication.example.org/my-video.mp4/probe",
@@ -199,7 +205,7 @@ This probe service _MUST_ always return a response to the client. The response c
 }
 ```
 
-* The response status code is 401, indicating that the user does not have access to the Content Resource the Probe Service was declared for, and no alternative is available.
+* The response status code is 401, and no `location` property is present, indicating that the user does not have access to the Content Resource the Probe Service was declared for, and no alternative is available.
 
 ```json
 // 401
@@ -211,28 +217,57 @@ This probe service _MUST_ always return a response to the client. The response c
 }
 ```
 
-When a Content Resource is its own probe service, it is requested via HEAD and there is no JSON body. This means the degraded access flow is not available, because there's no information to distinguish between the first and second cases above. The `location` property of the probe response is equivalent to an HTTP Location header, but this header won't be seen by the client.
+<!-- Now more controversial -->
+
+* The response status code is 200, and the response JSON-LD includes a `location` property. This indicates that the client has the aspect of the request required to see the content, but it _MUST_ request it using the provided `location` URL rather than the published URL.
+
+ ```json
+// 200
+{
+    "@context": "http://iiif.io/api/auth/{{ page.major }}/context.json",
+    "id": "https://authentication.example.org/my-HLS-video.m3u8/probe",
+    "type": "AuthProbeService2",
+    "location": "https://authentication.example.org/1232123432123/my-HLS-video.m3u8",
+    "label": { "en": [ "Label for my-video.mp4's probe service" ] }
+}
+```
+
+<!-- 
+The above is controversial because the client has used the access token to disover the URL of an actual content resource, that perhaps doesn't require a credential.
+This use case may be helpful for streaming media services where the use of modified paths containing short-lived tokens as path elements is common.
+
+TAKE THIS TO THE AV GROUP!!
+-->
+
+
+When a Content Resource is its own probe service, it is requested via HEAD and there is no JSON body. This means the degraded access flow is not available, because there's no information to distinguish between the second and third cases above. The `location` property of the probe response is equivalent to an HTTP Location header, but this header won't be seen by the client.
+
+For IIIF Image Services, where the info.json is it's own probe service, the behavior is identical to the above, and when required, the `location` property is included: <!-- https://iiif-auth2-server.herokuapp.com/img/02_gauguin.jpg/info.json -->
+
+{% include api/code_header.html %}
+```json-doc
+{
+  "@context": [
+    "http://iiif.io/api/image/3/context.json",
+    "http://iiif.io/api/auth/{{ page.major }}/context.json"
+  ],
+  "id": "https://example.org/image-service/abcd12345",
+  "type": "ImageService3",
+  "location": "https://example.org/image-service/abcd12345-degraded",
+  // other image service properties ...
+}
+```
 
 <!-- Do we allow for use of location header? In redirects this won't even be seen so it's not much use. We'd then be asking for servers to be returning location headers with a 200 HEAD response, which would be weird. Instead, steer implementers towards the separate JSON probe service, and only allow HEAD to direct resource for all-or-nothing access, and if you can't implement a probe service for whatever reason. -->
 
-<!-- QUESTION 
-
-Should auth 2.0 declare `location` for use on info.json too? So an info.json can have this property (as long as it has the auth context).
-This formalises the degraded flow pattern, rather than have it depend on the client detecting that the returned `id` was different from the one it asked for. This is sometimes hard to test and is not as simple as just saying "does the probe have a location property?"
-It keeps redirect mechanics separate from the evaluation of JSON-LD - the info is ALL in the JSON.
-
-If we're doing that though... 
-Devil's advocate - why not convey the 200/401 in the JSON too?
-
--->
 
 ## 2. Authentication Services
 {: #authentication-services}
 
 Authentication services follow the pattern described in the IIIF [Linking to External Services][annex-services] note, and are referenced in one or more `service` blocks from the descriptions of the resources that are protected. There is a primary service profile for authenticating users and granting access, and it has related services nested within its description.  The related services include a mandatory access token service, and an optional logout service.
 
-<!-- reword this -->
-When a protected resource has a separate probe service, the authentication resources sit alongside it as siblings.
+When a protected resource has a separate probe service, the probe service is declared directly as a service on the resource: the probe service does not belong to any of the authentication services. There might be multiple authentication services (if there is more than one way to gain access) but only one probe service. 
+
 Where no probe service is supplied, the protected resource acts as its own probe service, as described above.
 
 <!-- Either way the probe service is not one of the auth services and certainly not a child of the access service. But this means it has no direct connection to the token service either. 
@@ -250,11 +285,17 @@ https://github.com/IIIF/api/issues/1290#issuecomment-1107831915
 ### 2.1. Access Service
 {: #access-service}
 
-The client typically uses this service to obtain a credential (usually a cookie) that will be used when interacting with content such as images, and with the access token service. There are three different interaction patterns in which the client will use this service, based on the user interface that must be rendered for the user. The different patterns are indicated by the `profile` property. The client obtains the link to the access cookie service from a service block in a description of the protected resource, then opens that URI in a new browser tab.
+The client typically uses this service to obtain a credential (usually a cookie) that will be used when interacting with content such as images, and with the access token service. There are three different interaction patterns in which the client will use this service, based on the user interface that must be rendered for the user. The different patterns are indicated by the `profile` property. The client obtains the link to the access service from a service block in a description of the protected resource, then opens that URI in a new browser tab.
 
-The purpose of the access service is to set any required cookie(s) during the user's interaction with the content server, so that when the client then makes image requests to the content server, the requests will succeed. The client has no knowledge of what the user does at the access service, and it cannot see any cookies set for the content domain during the user's interaction there. The browser may be redirected one or more times but this is invisible to the client application. The final response in the opened tab _SHOULD_ contain JavaScript that will attempt to close the tab, in order to trigger the next step in the workflow.
+The access service will typically set any required cookie(s) during the user's interaction with the content server, so that when the client then makes image requests to the content server, the requests will succeed. The client has no knowledge of what the user does at the access service, and it cannot see any cookies set for the content domain during the user's interaction there. The browser may be redirected one or more times (e.g., through a single sign on flow) but this is invisible to the client application. The final response in the opened tab _SHOULD_ contain JavaScript that will attempt to close the tab, in order to trigger the next step in the workflow.
 
-The access service is not required to set a cookie. Many authorisation mechanisms are possible; it may be that access to content resources will be determined by other aspects of the request. In some scenarios, what happens at the access service may have no affect on subsequent steps, but the client does not know this and should always follow the same flow.
+The access service is not required to set a cookie. Many authorisation mechanisms are possible; it may be that access to content resources will be determined by other aspects of the request. In some scenarios, what happens at the access service may have no affect on subsequent steps, but the client does not know this and should always follow the same flow. For example, if the __aspect of the request__ used by the server to determine access is IP address range, the client already has this aspect of the request and doesn't need to acquire it through interaction with an access service. The client doesn't know this, though, so always follows the same flow.
+<!-- not the best example because in the IP address case, the external service would be better -->
+<!-- need another example that's easy to understand -->
+
+<!-- two types of location: 401 and 200 -->
+<!-- 401: you can't see this but you can see that -->
+<!-- 200: please use this location (one-time path) to see the resource -->
 
 #### 2.1.1. Service Description
 {: #service-description}
@@ -263,9 +304,9 @@ There are three interaction patterns by which the client can use the access serv
 
 | Pattern      | `profile` value | Description |
 | ------------ | ----------- | ----------- |
-| Interactive  | `interactive` | The user will be required to visit the user interface of an external authentication system in a separate tab (or window) opened by the client. This user interface might prompt for credentials, or require acceptance of a usage agreement, or validate the user's IP address. |
+| Interactive  | `interactive` | The user will be required to visit the user interface of an external authentication system in a separate tab (or window) opened by the client. This user interface might (for example) prompt for credentials, or require acceptance of a usage agreement, or validate the user's IP address. |
 | Kiosk        | `kiosk` | The user will not be required to interact with an authentication system, the client is expected to use the access cookie service automatically. |
-| External     | `external` | The user is expected to have already acquired the appropriate cookie, and the access cookie service will not be used at all. |
+| External     | `external` | The user is expected to have already acquired the appropriate cookie or other aspect of the request, and the access cookie service will not be used at all. |
 {: .api-table .first-col-normal }
 
 The service description is included in the IIIF Resource or Content Resource Service and has the following technical properties:
@@ -278,7 +319,7 @@ The service description is included in the IIIF Resource or Content Resource Ser
 | profile      | _REQUIRED_    | The profile for the service _MUST_ be one of the profile values from the table above.|
 | service      | _REQUIRED_    | References to access token and other related services, described below.|
 
-The service description also includes the following descriptive properties, all of which are JSON objects conforming to the section [Language of Property Values][prezi3-languages] in the Presentation API. In the case where multiple language values are supplied, clients must use the algorithm in that section to determine which values to display to the user.
+The service description also includes the following descriptive properties, all of which are JSON objects conforming to the section [Language of Property Values][prezi3-languages] in the Presentation API. <!-- TODO: from search discussion, this references section 4 of prezi as foundational --> In the case where multiple language values are supplied, clients must use the algorithm in that section to determine which values to display to the user.
 
 | Property     | Required?   | Description |
 | ------------ | ----------- | ----------- |
@@ -376,11 +417,11 @@ When the service is embedded within the resource it applies to, the `@context` _
 
 #### 2.1.3.1 User interaction at the Access Service and third party cookies
 
-While it is possible for the access service to immediately set a cookie in the response and generate client-side script that closes the opened tab, this behavior will likely result in browsers failing to send that cookie on subsequent requests for the token service or content resources if the client is hosted on a different domain from them. In this scenario, the user has not interacted with the access service origin in a _first party context_ as defined in the [Storage Access API][org-mozilla-storageaccess], and therefore that origin does not have access to _first party storage_, which means that any cookies for that origin are not included in requests to that origin.
+While it is possible for the access service to immediately set a cookie in the response and generate client-side script that closes the opened tab, this behavior will likely result in browsers failing to send that cookie on subsequent requests for the token service or content resources if the client is hosted on a different domain. In this scenario, the user has not interacted with the access service origin in a _first party context_ as defined in the [Storage Access API][org-mozilla-storageaccess], and therefore that origin does not have access to _first party storage_, which means that any cookies for that origin are not included in requests to that origin.
 
 For this reason, if the subsequent token service and access to content resources require the presence of a cookie, the user interface of the access service _MUST_ involve a [user gesture][org-whatwg-user-gesture] such as a click or a tap. Logging in with credentials, or clicking acceptance of a usage agreement, typically meet the definition of a user gesture.
 
-If the token service and content resources will depend on some other aspect of the request, such as IP address, then the Access Service tab _MAY_ be closed without user interaction.
+If the token service and Content Resources will depend on some other aspect of the request, such as IP address, then the Access Service tab _MAY_ be closed without user interaction.
 
 #### 2.1.4. Kiosk Access Service Pattern
 {: #kiosk-interaction-pattern}
@@ -829,16 +870,12 @@ As the resource has a Probe service, clients should make GET requests and parse 
 If there were no Probe service, clients should use the MP4 as the Probe and make HEAD requests.
 
 
-<!-- TODO
-Continue from here
- -->
-
 ## 3. Interaction with Access-Controlled Resources
 {: #interaction-with-access-controlled-resources}
 
 This section describes how clients use the services above when interacting with Content Resources and Content Resource Services. It also applies to the special case of making HEAD requests to a content resource, in the absence of a probe service.
 
-These interactions rely on requests for Content Resource Services returning HTTP status codes `200`, `302`, and `401` in different circumstances. In cases other than `302` and HEAD requests where the information is in a Manifest or other IIIF Resource, the body of the response _MUST_ be a valid Content Resource Service Response, because the client needs to see any Authentication service descriptions or other information it contains in order to follow the appropriate workflow. Any response with a `302` status code will never be seen by browser-based client script interacting via the `XMLHttpRequest` or `fetch` API. The reported response will be the final one in the chain, and therefore the body of redirection responses is not required to be the Content Resource Service's representation.
+These interactions rely on requests for Content Resource Services returning HTTP status codes `200` and `401` in different circumstances. Other than HEAD requests where the information is in a Manifest or other IIIF Resource, the body of the response _MUST_ be a valid Content Resource Service Response, because the client needs to see any Authentication service descriptions or other information it contains in order to follow the appropriate workflow. 
 
 ### 3.1. All or Nothing Access
 {: #all-or-nothing-access}
@@ -850,6 +887,7 @@ If the user is authorized for a Content Resource Service, the client can assume 
 ### 3.2. Tiered Access
 {: #tiered-access}
 
+<!-- Can the same probe service be used for different tiers? -->
 If a Content Resource supports multiple tiers of access, then it _MUST_ use a different URI for each Content Resource Service and its corresponding Content Resource(s). For example, there _MUST_ be different Image Information documents (`/info.json`) at different URIs for each tier. When refering to Content Resource Services that have multiple tiers of access, systems _SHOULD_ use the URI of the version that an appropriately authorized user should see. For example, when refering to an Image service from a Manifest, the reference would normally be to the highest quality image version rather than a degraded version. 
 
 <!-- Need to experiment here. What can use of Location do for us, in a probe service, or in a info.json? -->
@@ -857,15 +895,25 @@ If a Content Resource supports multiple tiers of access, then it _MUST_ use a di
 
 <!-- MUST below becomes MAY? for a probe service, it makes no difference whether a redirect happened, the end response will be the same, with a Location property. -->
 <!-- TODO - no MUST! -->
-When a server receives an HTTP GET request for a Content Resource Service, and the user is not authorized to access it, and there are lower tiers available, the server _MUST_ issue a `302` (Found) HTTP status response to redirect to the Content Resource Service of a lower tier. Please note that the server _MUST_ return a 200 (OK) HTTP status response to an HTTP OPTIONS request, regardless of the user's access, as this is the required response for a successful CORS Preflight request.
+When a server receives an HTTP GET request for a Content Resource Service, and the user is not authorized to access it, and there are lower tiers available, the server _MUST_ issue a `401` (Not Authorised) HTTP status response, and include the URL of the next highest tier in the `location` property. Please note that the server _MUST_ return a 200 (OK) HTTP status response to an HTTP OPTIONS request, regardless of the user's access, as this is the required response for a successful CORS Preflight request.
 
-When there are no lower tiers and the user is not authorized to access the current Content Resource Service, the server _MUST_ issue a `401` (Unauthorized) response. The client _SHOULD_ present information about the Access Service included in the Content Resource Service to allow the user to attempt to authenticate.
+<!-- this pattern isn't yet right for MULTIPLE-TIERED access -->
+<!--
+Scenarios:
+info.json -> location is another info.json, therefore is another probe service and the client can repeat the auth flow
+probe service -> location is the media itself - the open.mp4 or whatever. There's no way to redirect to another piece of presentation API with a new resource _with a new set of auth and probe services_.
+
+How important is truly tiered, as opposed to single-degraded access?
+Needs more discussion.
+ -->
+
+When there are no lower tiers and the user is not authorized to access the current Content Resource Service, the server _MUST_ issue a `401` (Unauthorized) response with no `location` property. The client _SHOULD_ present information about the Access Service included in the Content Resource Service to allow the user to attempt to authenticate.
 
 <!-- so... can a probe service carry the auth services just like an info.json can? Or do we want to assert them in the manifest? WOuld we _prefer_ to have them in the probe service? In which case it becomes more of a services.json - although probe is a good description still -->
 
 Different tiers of access _MAY_ be published on different hosts, and/or use different image server identifiers. 
 
-## 4. Workflow from the Browser Client Perspective
+## 4. (PLACEHOLDER IMAGE) Workflow from the Browser Client Perspective
 {: #workflow-from-the-browser-client-perspective}
 
 <table class="ex_table">
@@ -873,7 +921,7 @@ Different tiers of access _MAY_ be published on different hosts, and/or use diff
     <tr>
       <td>
         <img style="max-width: 1000px" src="img/auth-flow-client-2-provisional.png" alt="Client Authentication Flow" class="fullPct" />
-        <p><strong>1</strong> Client Authentication Workflow (earlier draft)</p>
+        <p><strong>1</strong> Client Authentication Workflow (earlier draft - PLACEHOLDER IMAGE)</p>
       </td>
     </tr>
   </tbody>
@@ -883,14 +931,12 @@ Different tiers of access _MAY_ be published on different hosts, and/or use diff
 
 Browser-based clients will perform the following workflow in order to access access controlled resources:
 
-<!-- TODO - this flow not yet updated!!! -->
 * The client requests the Content Resource Service and checks the status code of the response.
-* If the response is a 200,
-  * The client checks whether the `id` property in the response is the same URI as was requested.  
-  * If it is, then the client can proceed to request the Content Resource.
-  * If the URIs are different, then the resource is from a different tier from the requested one. The 200 status implies that the resource is available to be used, and the client can therefore render the resource. At the same time, the client checks for authentication services in the JSON received.
+* If the response is a 200 and no `location` property is present, the client can proceed to request the Content Resource.
+* If the response is a 200 and the `location` property is present, the client _MUST_ use the supplied location to request the Content Resource.
 * If the response is a 401,
   * The client does not have access to the Content Resource, and thus the client checks for authentication services in the JSON received.
+  * If the resource has a `location` property, the client can choose to show this immediately while offering the authentication flow to the user.
 * If the response is neither 200 nor 401, the client must handle other HTTP status codes
 
 * When the client checks for authentication services:
@@ -903,7 +949,6 @@ Browser-based clients will perform the following workflow in order to access acc
   * If the client instead receives an error, it returns to look for further authentication services to interact with.
   * If there are no further authentication services, then the user does not have the credentials to interact with any of the Content Resource versions, and the client cannot display anything.
 
-Please note that the server implementation involves providing `302` status responses to redirect the client from the requested tier to another tier if the user is not yet authorized to see the resource.  The browser-based client does not see these responses, and hence tests whether the identifier of the resource is the same as the one requested, rather than for the HTTP status code.
 
 ## Appendices
 
