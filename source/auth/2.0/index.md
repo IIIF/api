@@ -423,6 +423,9 @@ For this reason, if the subsequent token service and access to content resources
 
 If the token service and Content Resources will depend on some other aspect of the request, such as IP address, then the Access Service tab _MAY_ be closed without user interaction.
 
+If the client informs the access service that it is on the same domain, via the `origin` parameter, then the Access Service tab _MAY_ be closed without user interaction on that domain.
+<!-- example - the initial login hop in a multi-hop single sign on. If the domain of the content resources is the same as the client, it's not going to have third party cookie issues so could bounce immediately to the single sign on provider -->
+
 #### 2.1.4. Kiosk Access Service Pattern
 {: #kiosk-interaction-pattern}
 
