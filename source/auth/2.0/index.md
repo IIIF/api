@@ -305,8 +305,8 @@ There are three interaction patterns by which the client can use the access serv
 | Pattern      | `profile` value | Description |
 | ------------ | ----------- | ----------- |
 | Interactive  | `interactive` | The user will be required to visit the user interface of an external authentication system in a separate tab (or window) opened by the client. This user interface might (for example) prompt for credentials, or require acceptance of a usage agreement, or validate the user's IP address. |
-| Kiosk        | `kiosk` | The user will not be required to interact with an authentication system, the client is expected to use the access cookie service automatically. |
-| External     | `external` | The user is expected to have already acquired the appropriate cookie or other aspect of the request, and the access cookie service will not be used at all. |
+| Kiosk        | `kiosk` | The user will not be required to interact with an authentication system, the client is expected to use the access service automatically. |
+| External     | `external` | The user is expected to have already acquired the appropriate cookie or other aspect of the request, and the access service will not be used at all. |
 {: .api-table .first-col-normal }
 
 The service description is included in the IIIF Resource or Content Resource Service and has the following technical properties:
