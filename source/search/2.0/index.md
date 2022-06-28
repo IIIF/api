@@ -114,6 +114,7 @@ Any resource in the [Presentation API][prezi3] _MAY_ have a Content Search servi
 
 An example service description block:
 
+{% include api/code_header.html %}
 ``` json-doc
 {
   // ... the resource that the search service is associated with ...
@@ -130,6 +131,7 @@ Any Content Search service _MAY_ have a nested Autocomplete service which provid
 
 The above service description block would become:
 
+{% include api/code_header.html %}
 ``` json-doc
 {
   // Resource that the services are associated with ...
@@ -202,6 +204,7 @@ Consider the example request:
 
 This request might result in:
 
+{% include api/code_header.html %}
 ``` json-doc
 {
   "@context": "http://iiif.io/api/presentation/3/context.json",
@@ -251,6 +254,7 @@ Consider the example request:
 
 This request might result in the following response:
 
+{% include api/code_header.html %}
 ``` json-doc
 {
   "@context": "http://iiif.io/api/presentation/3/context.json",
@@ -306,6 +310,7 @@ Consider the example request:
 
 This request might result in:
 
+{% include api/code_header.html %}
 ``` json-doc
 {
   "@context": "http://iiif.io/api/presentation/3/context.json",
@@ -349,6 +354,7 @@ Consider the example request:
 
 If the `user` parameter was ignored when processing this request, the response could be:
 
+{% include api/code_header.html %}
 ``` json-doc
 {
   "@context": "http://iiif.io/api/presentation/3/context.json",
@@ -370,6 +376,7 @@ Clients may require additional information about the matches in order to generat
 
 The structure of extended responses is:
 
+{% include api/code_header.html %}
 ``` json-doc
 {
   "@context": "http://iiif.io/api/presentation/3/context.json",
@@ -404,6 +411,7 @@ Consider a search request for the query term "bird":
 
 This request might match the plural "birds":
 
+{% include api/code_header.html %}
 ``` json-doc
 {
   "@context": "http://iiif.io/api/presentation/3/context.json",
@@ -465,6 +473,7 @@ Consider the example request:
 
 This request might have the response:
 
+{% include api/code_header.html %}
 ``` json-doc
 {
   "@context": "http://iiif.io/api/presentation/3/context.json",
@@ -526,6 +535,7 @@ Consider the request for words beginning with "b":
 
 The request might have the response:
 
+{% include api/code_header.html %}
 ``` json-doc
 {
   "@context": "http://iiif.io/api/presentation/3/context.json",
@@ -617,6 +627,7 @@ Consider the example request:
 
 This request might have the response:
 
+{% include api/code_header.html %}
 ``` json-doc
 {
   "@context": "http://iiif.io/api/presentation/3/context.json",
@@ -740,6 +751,7 @@ Consider the example request:
 
 This request might have the response:
 
+{% include api/code_header.html %}
 ```json-doc
 {
   "@context": "http://iiif.io/api/presentation/3/context.json",
@@ -785,6 +797,7 @@ Consider the example request:
 
 This request might generate the response:
 
+{% include api/code_header.html %}
 ``` json-doc
 {
   "@context": "http://iiif.io/api/presentation/3/context.json",
