@@ -233,7 +233,7 @@ This request might result in:
 
 For long lists of Annotations, the server _MAY_ divide the response into multiple Annotation Pages within one Annotation Collection. The initial response is the first Annotation Page, which includes an embedded Annotation Collection and references subsequent pages to be retrieved.
 
-The URI of the Annotation Page reported in the `id` property _MAY_ be different from the one used by the client to request the search. This would allow, for example, a `page` query parameter to be appended to the URI to allow the server to track which page is being requested.
+The URI of the Annotation Page reported in the `id` property _MAY_ be different from the one used by the client to request the search. This would allow, for example, a `page` query parameter to be appended to the URI to allow the server to track which Annotation Page is being requested.
 
 When results are paged, the Annotation Pages have several additional properties:
 
