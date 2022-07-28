@@ -350,7 +350,7 @@ If the server has ignored any of the parameters in the request, then an `ignored
 
 Consider the example request:
 
-`http://example.org/service/manifest/search?q=bird&user=myusername`
+`http://example.org/service/manifest/search?q=bird&user=https%3A%2F%2Fexample.com%2Fusers%2Fwigglesworth`
 
 If the `user` parameter was ignored when processing this request, the response could be:
 
@@ -361,7 +361,7 @@ If the `user` parameter was ignored when processing this request, the response c
   "id": "http://example.org/service/manifest/search?q=bird&page=1",
   "type": "AnnotationPage",
 
-  "ignored": ["user"],
+  "ignored": [ "user" ],
 
   "items": [
     // Annotations ...
@@ -725,7 +725,7 @@ The other parameters (`motivation`, `date` and `user`), if supported, refine the
 
 An example request would be:
 
-`https://example.org/service/identifier/autocomplete?q=bir&motivation=painting&user=http%3A%2F%2Fexample.com%2Fusers%2Fwigglesworth`
+`https://example.org/service/identifier/autocomplete?q=bir&motivation=painting&user=https%3A%2F%2Fexample.com%2Fusers%2Fwigglesworth`
 
 {: .urltemplate}
 
@@ -793,7 +793,7 @@ The terms _SHOULD_ be provided in ascending alphabetically sorted order, but oth
 
 Consider the example request:
 
-`https://example.org/service/identifier/autocomplete?q=bir&user=wigglesworth`
+`https://example.org/service/identifier/autocomplete?q=bir&user=https%3A%2F%2Fexample.com%2Fusers%2Fwigglesworth`
 
 This request might generate the response:
 
@@ -803,7 +803,7 @@ This request might generate the response:
   "@context": "http://iiif.io/api/search/2/context.json",
   "id": "https://example.org/service/identifier/autocomplete?q=bir",
   "type": "TermPage",
-  "ignored": ["user"],
+  "ignored": [ "user" ],
   "items": [
     {
       "value": "bird",
