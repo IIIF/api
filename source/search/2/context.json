@@ -8,8 +8,7 @@
       "Term": {"@id": "search:Term"},
       "terms": {"@id": "search:hasTermPage", "@container": "@list", "@type": "@id"},
       "match": {"@id": "search:match"},
-      "url": {"@id": "search:url"},
-      "count": {"@id": "search:count"}
+      "total": {"@id": "search:total"}
     }
   ]
 }
