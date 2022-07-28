@@ -6,7 +6,6 @@
       "ignored": {"@id": "search:ignored", "@container": "@set"},
       "TermPage": {"@id": "search:TermPage"},
       "Term": {"@id": "search:Term"},
-      "terms": {"@id": "search:hasTermPage", "@container": "@list", "@type": "@id"},
       "match": {"@id": "search:match"},
       "total": {"@id": "as:totalItems", "@type": "xsd:nonNegativeInteger"}
     }
