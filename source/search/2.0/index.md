@@ -207,7 +207,7 @@ This request might result in:
 {% include api/code_header.html %}
 ``` json-doc
 {
-  "@context": "http://iiif.io/api/presentation/3/context.json",
+  "@context": "http://iiif.io/api/search/2/context.json",
   "id": "https://example.org/service/manifest/search?q=bird&motivation=painting",
   "type": "AnnotationPage",
 
@@ -257,7 +257,7 @@ This request might result in the following response:
 {% include api/code_header.html %}
 ``` json-doc
 {
-  "@context": "http://iiif.io/api/presentation/3/context.json",
+  "@context": "http://iiif.io/api/search/2/context.json",
   "id": "https://example.org/service/manifest/search?q=bird&page=1",
   "type": "AnnotationPage",
 
@@ -313,7 +313,7 @@ This request might result in:
 {% include api/code_header.html %}
 ``` json-doc
 {
-  "@context": "http://iiif.io/api/presentation/3/context.json",
+  "@context": "http://iiif.io/api/search/2/context.json",
   "id": "https://example.org/service/collection/search?q=bird&motivation=painting",
   "type": "AnnotationPage",
 
@@ -357,7 +357,7 @@ If the `user` parameter was ignored when processing this request, the response c
 {% include api/code_header.html %}
 ``` json-doc
 {
-  "@context": "http://iiif.io/api/presentation/3/context.json",
+  "@context": "http://iiif.io/api/search/2/context.json",
   "id": "http://example.org/service/manifest/search?q=bird&page=1",
   "type": "AnnotationPage",
 
@@ -379,7 +379,7 @@ The structure of extended responses is:
 {% include api/code_header.html %}
 ``` json-doc
 {
-  "@context": "http://iiif.io/api/presentation/3/context.json",
+  "@context": "http://iiif.io/api/search/2/context.json",
   "id": "https://example.org/service/manifest/search?q=bird",
   "type": "AnnotationPage",
 
@@ -414,7 +414,7 @@ This request might match the plural "birds":
 {% include api/code_header.html %}
 ``` json-doc
 {
-  "@context": "http://iiif.io/api/presentation/3/context.json",
+  "@context": "http://iiif.io/api/search/2/context.json",
   "id": "https://example.org/service/manifest/search?q=bird",
   "type": "AnnotationPage",
 
@@ -476,7 +476,7 @@ This request might have the response:
 {% include api/code_header.html %}
 ``` json-doc
 {
-  "@context": "http://iiif.io/api/presentation/3/context.json",
+  "@context": "http://iiif.io/api/search/2/context.json",
   "id": "https://example.org/service/manifest/search?q=bird",
   "type": "AnnotationPage",
 
@@ -538,7 +538,7 @@ The request might have the response:
 {% include api/code_header.html %}
 ``` json-doc
 {
-  "@context": "http://iiif.io/api/presentation/3/context.json",
+  "@context": "http://iiif.io/api/search/2/context.json",
   "id": "https://example.org/service/manifest/search?q=b*&page=1",
   "type": "AnnotationPage",
 
@@ -630,7 +630,7 @@ This request might have the response:
 {% include api/code_header.html %}
 ``` json-doc
 {
-  "@context": "http://iiif.io/api/presentation/3/context.json",
+  "@context": "http://iiif.io/api/search/2/context.json",
   "id": "https://example.org/service/manifest/search?q=hand+is",
   "type": "AnnotationPage",
 
@@ -754,7 +754,7 @@ This request might have the response:
 {% include api/code_header.html %}
 ```json-doc
 {
-  "@context": "http://iiif.io/api/presentation/3/context.json",
+  "@context": "http://iiif.io/api/search/2/context.json",
   "id": "https://example.org/service/identifier/autocomplete?q=bir",
   "type": "TermPage",  
   "items": [
@@ -800,7 +800,7 @@ This request might generate the response:
 {% include api/code_header.html %}
 ``` json-doc
 {
-  "@context": "http://iiif.io/api/presentation/3/context.json",
+  "@context": "http://iiif.io/api/search/2/context.json",
   "id": "https://example.org/service/identifier/autocomplete?q=bir",
   "type": "TermPage",
   "ignored": ["user"],
