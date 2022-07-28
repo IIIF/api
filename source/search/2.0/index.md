@@ -333,7 +333,7 @@ This request might result in:
           "id": "https://example.org/manifest1868",
           "type": "Manifest",
           "label": {
-            "en": "Example Manifest"
+            "en": [ "Example Manifest" ]
           }
         }
       }
@@ -828,8 +828,8 @@ This request might generate the response:
       "value": "birth",
       "total": 9,
       "label": {
-        "en": ["birth"],
-        "fr": ["naissance"]
+        "en": [ "birth" ],
+        "fr": [ "naissance" ]
       }
     }
   ]
