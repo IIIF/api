@@ -331,7 +331,8 @@ The service description is included in the IIIF Resource or Content Resource Ser
 | profile      | _REQUIRED_    | The profile for the service _MUST_ be one of the profile values from the table above.|
 | service      | _REQUIRED_    | References to access token and other related services, described below.|
 
-The service description also includes the following descriptive properties, all of which are JSON objects conforming to the section [Language of Property Values][prezi3-languages] in the Presentation API. <!-- TODO: from search discussion, this references section 4 of prezi as foundational --> In the case where multiple language values are supplied, clients must use the algorithm in that section to determine which values to display to the user.
+The service description also includes the following descriptive properties, all of which are JSON objects conforming to the section [Language of Property Values][prezi3-languages] in the Presentation API. <!-- TODO: from search discussion, this references section 4 of prezi as foundational --> In the case where multiple language values are supplied, clients must use the algorithm in that section to determine which values to display to the user. The "Required?" indication in the following table only applies when the `profile` property of the service description is `interactive`. For `kiosk` and `external` profiles, the following properties _SHOULD NOT_ be supplied, and clients _MUST_ ignore them if present.
+
 
 | Property     | Required?   | Description |
 | ------------ | ----------- | ----------- |
