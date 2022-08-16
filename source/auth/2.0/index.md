@@ -716,14 +716,14 @@ The response from the access token service may be an error. The error _MUST_ be 
 {
   "@context": "http://iiif.io/api/auth/{{ page.major }}/context.json",
   "type": "AuthTokenError2",
-  "error": "ERROR_TYPE_HERE",
+  "profile": "ERROR_TYPE_HERE",
   "description": { "en": [ "Error message here" ] }
 }
 ```
 
 The error resource _MAY_ have an `id` property, but clients will likely ignore it.
 
-The value of the `error` property _MUST_ be one of the types in the following table:  
+The value of the `profile` property _MUST_ be one of the types in the following table:  
 
 | Type | Description |
 | ---- | ----------- |
@@ -739,7 +739,7 @@ The `description` property is _OPTIONAL_ and may give additional human-readable 
 
 When returning JSON directly, the service _MUST_ use the appropriate HTTP status code for the response to describe the error (for example 400, 401 or 503).  The postMessage web page response _MUST_ use the 200 HTTP status code to ensure that the body is received by the client correctly.
 
-If the error is `expiredCredentials`, the client _SHOULD_ first try to acquire another token from the token service, before sending the user to the access service again. The client _MAY_ also do this for `invalidCredentials`.
+If the error profile is `expiredCredentials`, the client _SHOULD_ first try to acquire another token from the token service, before sending the user to the login service again. The client _MAY_ also do this for `invalidCredentials`.
 
 ### 2.3. Logout Service
 {: #logout-service}
