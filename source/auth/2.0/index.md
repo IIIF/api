@@ -94,7 +94,7 @@ Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss].
 
 This specification distinguishes between three different types of resources:
 
-* __IIIF Resources__ <!-- formerly description resources, need a better name? --> are the Manifests, Collections and other resources described by the IIIF [Presentation API][prezi-api], including external Annotation Pages. <!-- Come back to this; Annotation pages can be search results, too. In this first pass of the spec, we are not going to deal with access control on IIIF resources themselves. -->
+* __IIIF Resources__ <!-- Documents? --><!-- formerly description resources, need a better name? --> are the Manifests, Collections and other resources described by the IIIF [Presentation API][prezi-api], including external Annotation Pages. <!-- Come back to this; Annotation pages can be search results, too. In this first pass of the spec, we are not going to deal with access control on IIIF resources themselves. -->
 * __Content Resources__ are images, videos, PDFs and other resources that are linked from IIIF Manifests, Annotation pages and other IIIF Resources.
 * __Content Resource Services__ <!--Content Resource Descriptions? --> are loaded by client applications such as viewers to obtain information about content resources, and/or how to obtain content resources from a service. The [IIIF Image API][image-api] image information (info.json) and the probe service introduced later in this specification are both Content Resource _Services_, but an individual image, served from an image service endpoint is a Content Resource (e.g., a JPEG tile). 
 
@@ -109,7 +109,14 @@ This specification introduces three additional concepts:
 
 The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _SHOULD NOT_, _RECOMMENDED_, _MAY_, and _OPTIONAL_ in this document are to be interpreted as described in [RFC 2119][org-rfc-2119].
 
-### 1.2. Authentication for Content Resources
+
+### 1.2. Common Specification Features
+{: #common}
+
+All IIIF specifications share common features to ensure consistency across the IIIF ecosystem. These features are documented in the [Presentation API][prezi3-considerations] and are foundational to this specification. Common principles for the design of the specifications are documented in the [IIIF Design Principles][annex-patterns].
+
+
+### 1.3. Authentication for Content Resources
 {: #authentication-for-content-resources}
 
 Content Resources, such as images or video, are generally secondary resources embedded in a web page or application. Content Resources may also be linked to and requested directly, such as a link to a PDF. In the case of web pages, images might be included via the HTML `img` tag, and loaded via additional HTTP requests made by the browser. When a user is not authorized to load a web page, the server can redirect the user to another page and offer the opportunity to authenticate. This redirection can't be used for embedded Content Resources, and the user is simply presented with a broken image icon. Even for externally linked Content Resources (e.g., a link to a PDF) the viewer application benefits from knowing whether the user has access to the resource at the other end of the link. 
@@ -117,7 +124,7 @@ Content Resources, such as images or video, are generally secondary resources em
 If an image, video or other Content Resource is access controlled, the browser must avoid broken images or media in the user interface by sending whatever credential the server is expecting that grants access to the Content Resource. Very often the credential is an __access cookie__, and this specification describes the process by which the user acquires this __access cookie__. The credential may be some other aspect of the request (such as IP address), and this specification describes the process by which the client application learns that the user has this valid aspect. In either case, the client is never aware of what that aspect is, the flow is the same.
 <!-- later on when we try to extend support for access-controlled IIIF Resources like manifests or search results that might be protected by JWTs or other bearer tokens, and URLs for video fragments from a media server that have custom tokens in path elements, we can broaden the idea that these are also non-cookie aspects of the request, and that some aspects of the request are available to our script and some are not. -->
 
-### 1.3. Authentication for IIIF Resources and Content Resource Services
+### 1.4. Authentication for IIIF Resources and Content Resource Services
 {: #authentication-for-non-content-resources}
 
  <!-- not true for manifest referencing content: -->
@@ -132,7 +139,7 @@ The server on the Resource Domain treats the access token as a representation of
 
 Thus the access token often represents an access cookie, but may represent other forms of credential or aspects of the request. The client does not know what the token represents.
 
-### 1.4. Security
+### 1.5. Security
 {: #security}
 
 The purpose of this specification to support access-control for IIIF resources and hence security is a core concern. To prevent misuse, cookies and bearer tokens described in this specification need to be protected from disclosure in storage and in transport. Implementations _SHOULD_ use [HTTP over TLS][org-rfc-2818], commonly known as HTTPS, for all communication. Furthermore, all IIIF clients that interact with access-controlled resources _SHOULD_ also be run from pages served via HTTPS. All references to HTTP in this specification should be read assuming the use of HTTPS.
@@ -142,10 +149,10 @@ This specification protects Content Resources such as images by making the acces
 Further discussion of security considerations can be found in the [Implementation Notes][auth2-implementation-notes].
 
 
-### 1.5. Content Resource Descriptions and Probes
+### 1.6. Content Resource Descriptions and Probes
 <!-- provisional title -->
 
-For IIIF Image Services, the same [IIIF Image API][image-api] specification describes how clients retrieve the image information response (the info.json) and then use that information to make requests for content (specific image requests using image service parameters, such as tile requests). This Access Control Specification describes additional services to include in the info.json that the client uses to steer the user through the access control flow. 
+For IIIF Image Services, the same [IIIF Image API][image-api] specification describes how clients retrieve the image information response (the `info.json`) and then use that information to make requests for content (specific image requests using image service parameters, such as tile requests). This Access Control Specification describes additional services to include in the `info.json` that the client uses to steer the user through the access control flow. 
 
 The info.json also acts as a __probe service__: the client can see the HTTP response status code when it requests the info.json. It uses the status code to determine the user's current access to the image service: a 200 status code on the info.json indicates that the user will be able to see images requested from the service. The client sends any access token it has acquired from the resource's access service(s) as part of the probe request.
 
@@ -154,10 +161,10 @@ Content Resources like videos and PDFs do not have service descriptions equivale
 For this reason:
 
 * The info.json _MUST_ always be its own __probe service__, and is always requested with HTTP `GET`.
-* Other Content Resources _MAY_ be their own probe services, using HTTP `HEAD` requests (not `GET`), in scenarios where a separate probe service is not possible, but:
+* <!-- we may want to drop this -->Other Content Resources _MAY_ be their own probe services, using HTTP `HEAD` requests (not `GET`), in scenarios where a separate probe service is not possible, but:
 * Other Content Resources _SHOULD_ provide a separate probe service, which is always requested with HTTP `GET` and may carry additional information.
 
-### 1.5.1 Probe Service Example
+### 1.6.1 Probe Service Example
 
 Consider a resource declared in a Manifest or other IIIF Resource:
 
@@ -188,9 +195,13 @@ This probe service _MUST_ always return a response to the client. The response c
     "@context": "http://iiif.io/api/auth/{{ page.major }}/context.json",
     "id": "https://authentication.example.org/my-video.mp4/probe",
     "type": "AuthProbeService2",
-    "label": { "en": [ "Label for my-video.mp4's probe service" ] }
+    "label": { "en": [ "Label for my-video.mp4's probe service" ] },
+    "for": "https://authentication.example.org/my-video.mp4", // TODO
+    "statusFor": 200
 }
 ```
+
+<!-- status code as property of the probe, or of the response itself -->
 
 * The response status code is 401, and the response JSON-LD includes a `location` property. This indicates that the user cannot see https://authentication.example.org/my-video.mp4, but they can see the resource at the URL indicated by `location`. This would give the user access to (for example) a degraded version of the resource immediately, and potentially allow them to go through a login process to access the full resource.
 
@@ -239,6 +250,7 @@ This use case may be helpful for streaming media services where the use of modif
 TAKE THIS TO THE AV GROUP!!
 -->
 
+<!-- should a probe service be able to re-declare auth services? -->
 
 When a Content Resource is its own probe service, it is requested via HEAD and there is no JSON body. This means the degraded access flow is not available, because there's no information to distinguish between the second and third cases above. The `location` property of the probe response is equivalent to an HTTP Location header, but this header won't be seen by the client.
 
