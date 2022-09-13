@@ -248,9 +248,7 @@ This probe service _MUST_ always return a response to the client. The response c
 ```
 
 __Warning__<br/>
-The previous example contradicts the description of `location` in the table above. The client has used the access token to discover the URL of an actual content resource, that perhaps doesn't require a credential. This use case may be helpful for streaming media services where the use of modified paths containing short-lived tokens as path elements is common. However, it is a fundamental change in the approach that IIIF Auth has taken up to now, where a malicious client application gaining access to the token doesn't grant access to protected resources.
-
-This should be discussed in the AV group as well to see if it meets streaming media / adaptive bit rate use cases.
+The previous example contradicts the description of `location` in the table above. The client has used the access token to discover the URL of an actual content resource, that perhaps doesn't require a credential. This use case may be helpful for streaming media services where the use of modified paths containing short-lived tokens as path elements is common. However, it is a fundamental change in the approach that IIIF Auth has taken up to now, where a malicious client application gaining access to the token doesn't grant access to protected resources. This should be discussed in the AV group as well to see if it meets streaming media / adaptive bit rate use cases.
 {: .alert}
 
 
