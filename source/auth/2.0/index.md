@@ -181,7 +181,7 @@ For this reason:
 * <!-- we may want to drop this -->Other Content Resources _MAY_ be their own probe services, using HTTP `HEAD` requests (not `GET`), in scenarios where a separate probe service is not possible, but:
 * Other Content Resources _SHOULD_ provide a separate probe service, which is always requested with HTTP `GET` and may carry additional information.
 
-#### 2.1.1 Probe Service Example
+#### 2.1.1. Probe Service Example
 
 Consider a resource declared in a Manifest or other IIIF Resource:
 
@@ -196,13 +196,13 @@ Consider a resource declared in a Manifest or other IIIF Resource:
        "type": "AuthProbeService2"
      },
      {
-        // Other necessary services for Access Control described later in Section 2
+        // Other necessary services for Access Control described later in Section 2.2 onwards
      }
    ]
 }
 ```
 
-The service listed here is a Probe Service:
+The service declared on this resource is a Probe Service:
 
 | Property     | Required?   | Description |
 | ------------ | ----------- | ----------- |
@@ -215,7 +215,7 @@ The service listed here is a Probe Service:
 
 This probe service _MUST_ always return a response to the client. The response can take different forms:
 
-* The response status code is 200, and the response JSON-LD does not include a `location` property. This indicates that based on the request sent, the server determines that the user will be able to see https://authentication.example.org/my-video.mp4
+* The response status code is **200**, and the response JSON-LD does not include a `location` property. This indicates that based on the request sent, the server determines that the user will be able to see https://authentication.example.org/my-video.mp4:
 
 ```json
 // 200
@@ -230,7 +230,7 @@ This probe service _MUST_ always return a response to the client. The response c
 
 <!-- status code as property of the probe, or of the response itself -->
 
-* The response status code is 401, and the response JSON-LD includes a `location` property. This indicates that the user cannot see https://authentication.example.org/my-video.mp4, but they can see the resource at the URL indicated by `location`. This would give the user access to (for example) a degraded version of the resource immediately, and potentially allow them to go through a login process to access the full resource.
+* The response status code is **401**, and the response JSON-LD includes a `location` property. This indicates that the user cannot see https://authentication.example.org/my-video.mp4, but they can see the resource at the URL indicated by `location`. This would give the user access to (for example) a degraded version of the resource immediately, and potentially allow them to go through a login process to access the full resource:
 
 ```json
 // 401
@@ -243,7 +243,7 @@ This probe service _MUST_ always return a response to the client. The response c
 }
 ```
 
-* The response status code is 401, and no `location` property is present, indicating that the user does not have access to the Content Resource the Probe Service was declared for, and no alternative is available.
+* The response status code is **401**, and no `location` property is present, indicating that the user does not have access to the Content Resource the Probe Service was declared for, and no alternative is available:
 
 ```json
 // 401
@@ -255,7 +255,7 @@ This probe service _MUST_ always return a response to the client. The response c
 }
 ```
 
-* The response status code is 200, and the response JSON-LD includes a `location` property. This indicates that the client has the aspect of the request required to see the content, but it _MUST_ request it using the provided `location` URL rather than the published URL.
+* The response status code is **200**, and the response JSON-LD includes a `location` property. This indicates that the client has the aspect of the request required to see the content, but it _MUST_ request it using the provided `location` URL rather than the published URL:
 
  ```json
 // 200
@@ -269,13 +269,14 @@ This probe service _MUST_ always return a response to the client. The response c
 ```
 
 __Warning__<br/>
-The previous example contradicts the description of `location` in the table above. The client has used the access token to discover the URL of an actual content resource, that perhaps doesn't require a credential. This use case may be helpful for streaming media services where the use of modified paths containing short-lived tokens as path elements is common. However, it is a fundamental change in the approach that IIIF Auth has taken up to now, where a malicious client application gaining access to the token doesn't grant access to protected resources. This should be discussed in the AV group as well to see if it meets streaming media / adaptive bit rate use cases.
+The previous example potentially bypasses the intention of `location` as described in the table above. The client, presenting a token, has used the access token to discover the URL of an actual content resource, that  _might not require a credential_. This use case may be helpful for streaming media services where the use of modified paths containing short-lived tokens as path elements is common. However, it is a fundamental change in the approach that IIIF Auth has taken up to now, where a malicious client application gaining access to the token doesn't grant access to protected resources. This should be discussed in the AV group as well to see if it meets streaming media / adaptive bit rate use cases.
 {: .alert}
-
 
 <!-- should a probe service be able to re-declare auth services? -->
 
-When a Content Resource is its own probe service, it is requested via HEAD and there is no JSON body. This means the degraded access flow is not available, because there's no information to distinguish between the second and third cases above. The `location` property of the probe response is equivalent to an HTTP Location header, but this header won't be seen by the client.
+When a Content Resource is its own probe service, it is requested via HEAD and there is no JSON body. This means the degraded access flow is not available, because there's no information to distinguish between the second and third cases above. The `location` property of the probe response is equivalent to an HTTP Location header, but this header won't be seen by a browser-based client.
+
+#### 2.1.2. Image Service as Probe Service
 
 For IIIF Image Services, where the info.json is its own probe service, the behavior is identical to the above, and when required, the `location` property is included: <!-- https://iiif-auth2-server.herokuapp.com/img/02_gauguin.jpg/info.json -->
 
@@ -296,7 +297,7 @@ For IIIF Image Services, where the info.json is its own probe service, the behav
 In the above example the Image Service acts a Probe Service for itself, rather than declaring a separate probe service. This allows a client to obtain the image service description and information about the user's access to it in the same request. Clients that process an `AuthProbeService2` can treat an Image Service in the same way when used as a probe. An image service _MUST NOT_ ? _SHOULD NOT_ ? _SHOULD_ ? _MUST_ declare a separate probe service  of type `AuthProbeService2`.
 
 __Warning__<br/>
-(it's not obvious which of _MUST NOT_, _SHOULD NOT_, _SHOULD_, or _MUST_ is desirable above)
+It's not obvious which of _MUST NOT_, _SHOULD NOT_, _SHOULD_, or _MUST_ is desirable above. The opening part of the spec says _MUST NOT_, but we could completely flip this and say all resources have an external probe service if they have one at all. This separates the auth and image specs completely, which has pros and cons.
 {: .alert}
 
 
@@ -308,8 +309,10 @@ The client typically uses this service to obtain a credential (usually a cookie)
 The access service will typically set any required cookie(s) during the user's interaction with the content server, so that when the client then makes image requests to the content server, the requests will succeed. The client has no knowledge of what the user does at the access service, and it cannot see any cookies set for the content domain during the user's interaction there. The browser may be redirected one or more times (e.g., through a single sign on flow) but this is invisible to the client application. The final response in the opened tab _SHOULD_ contain JavaScript that will attempt to close the tab, in order to trigger the next step in the workflow.
 
 The access service is not required to set a cookie. Many authorisation mechanisms are possible; it may be that access to content resources will be determined by other aspects of the request. In some scenarios, what happens at the access service may have no affect on subsequent steps, but the client does not know this and should always follow the same flow. For example, if the __aspect of the request__ used by the server to determine access is IP address range, the client already has this aspect of the request and doesn't need to acquire it through interaction with an access service. The client doesn't know this, though, so always follows the same flow.
-<!-- not the best example because in the IP address case, the external service would be better -->
-<!-- need another example that's easy to understand -->
+
+__Warning__<br/>
+This IP address example is easy to understand but contrived because the External pattern (see below) would be more appropriate. Other `interactive` flows may not set a cookie but might do something else, e.g., log a browser fingerprint or IP after some interaction. The interactive pattern is also this spec's defence mechanism and/or extension point for future third-party-cookie replacement strategies; the user does _something_ here that allows later steps to be trusted.
+{: .alert}
 
 
 #### 2.2.1. Service Description
