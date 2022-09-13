@@ -946,6 +946,8 @@ Different tiers of access _MAY_ be published on different hosts, and/or use diff
   </tbody>
 </table>
 
+See also a [version without HEAD request support](img/auth-flow-client-2-provisional.png)
+
 
 
 Browser-based clients will perform the following workflow in order to access access controlled resources:
