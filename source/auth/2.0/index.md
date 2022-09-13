@@ -181,6 +181,17 @@ Consider a resource declared in a Manifest or other IIIF Resource:
 }
 ```
 
+The service listed here is a Probe Service:
+
+| Property     | Required?   | Description |
+| ------------ | ----------- | ----------- |
+| id           | _REQUIRED_  |             |
+| type         | _REQUIRED_  | `AuthProbeService2`            |
+| label        | _OPTIONAL_  | Unlikely to be shown to a user |
+| for          | _REQUIRED_  | The `id` of the Content Resource the probe service is provided for | <!-- too many prov/prob here -->
+| location     | _REQUIRED_ (conditional) | The `location` property provides a URL to an alternative resource, such as a watermarked or otherwise degraded version. If present, this resource _MUST_ be accessible to the user. If the user has access to the current resouce, or no alternative is available, this property _MUST NOT_ be included. |
+{: .api-table .first-col-normal }
+
 This probe service _MUST_ always return a response to the client. The response can take different forms:
 
 * The response status code is 200, and the response JSON-LD does not include a `location` property. This indicates that based on the request sent, the server determines that the user will be able to see https://authentication.example.org/my-video.mp4
@@ -192,11 +203,10 @@ This probe service _MUST_ always return a response to the client. The response c
     "id": "https://authentication.example.org/my-video.mp4/probe",
     "type": "AuthProbeService2",
     "label": { "en": [ "Label for my-video.mp4's probe service" ] },
-    "for": "https://authentication.example.org/my-video.mp4", // TODO
-    "statusFor": 200
+    "for": "https://authentication.example.org/my-video.mp4",
 }
 ```
-<!-- do we want those last two properties? -->
+
 <!-- status code as property of the probe, or of the response itself -->
 
 * The response status code is 401, and the response JSON-LD includes a `location` property. This indicates that the user cannot see https://authentication.example.org/my-video.mp4, but they can see the resource at the URL indicated by `location`. This would give the user access to (for example) a degraded version of the resource immediately, and potentially allow them to go through a login process to access the full resource.
@@ -224,8 +234,6 @@ This probe service _MUST_ always return a response to the client. The response c
 }
 ```
 
-<!-- Now more controversial -->
-
 * The response status code is 200, and the response JSON-LD includes a `location` property. This indicates that the client has the aspect of the request required to see the content, but it _MUST_ request it using the provided `location` URL rather than the published URL.
 
  ```json
@@ -239,12 +247,12 @@ This probe service _MUST_ always return a response to the client. The response c
 }
 ```
 
-<!-- 
-The above is controversial because the client has used the access token to disover the URL of an actual content resource, that perhaps doesn't require a credential.
-This use case may be helpful for streaming media services where the use of modified paths containing short-lived tokens as path elements is common.
+__Warning__<br/>
+The previous example contradicts the description of `location` in the table above. The client has used the access token to discover the URL of an actual content resource, that perhaps doesn't require a credential. This use case may be helpful for streaming media services where the use of modified paths containing short-lived tokens as path elements is common. However, it is a fundamental change in the approach that IIIF Auth has taken up to now, where a malicious client application gaining access to the token doesn't grant access to protected resources.
 
-TAKE THIS TO THE AV GROUP!!
--->
+This should be discussed in the AV group as well to see if it meets streaming media / adaptive bit rate use cases.
+{: .alert}
+
 
 <!-- should a probe service be able to re-declare auth services? -->
 
