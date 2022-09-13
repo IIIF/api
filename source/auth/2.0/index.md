@@ -145,8 +145,29 @@ This specification protects Content Resources such as images by making the acces
 Further discussion of security considerations can be found in the [Implementation Notes][auth2-implementation-notes].
 
 
-### 1.6. Content Resource Descriptions and Probes
-<!-- provisional title -->
+## 2. Authentication Services
+{: #authentication-services}
+
+Authentication services follow the pattern described in the IIIF [Linking to External Services][annex-services] note, and are referenced in one or more `service` blocks from the descriptions of the resources that are protected. 
+
+There is a primary service profile for authenticating users and granting access, and it has related services nested within its description.  The related services include a mandatory access token service, and an optional logout service.
+
+When a protected resource has a separate probe service, the probe service is declared directly as a service on the resource: the probe service does not belong to any of the authentication services. There might be multiple authentication services (if there is more than one way to gain access) but only one probe service. 
+
+Where no probe service is supplied, the protected resource acts as its own probe service, as described below.
+
+<!-- Either way the probe service is not one of the auth services and certainly not a child of the access service. But this means it has no direct connection to the token service either. 
+
+A resource with two login (interactive) services each with their own token service. The resource can only have one probe service.
+So the client would have to try the probe service twice, testing each token.
+
+This is OK though, it's going to be rare.
+
+https://github.com/IIIF/api/issues/1290#issuecomment-1107831915 
+
+-->
+
+### 2.1. Probe Service
 
 For IIIF Image Services, the same [IIIF Image API][image-api] specification describes how clients retrieve the image information response (the `info.json`) and then use that information to make requests for content (specific image requests using image service parameters, such as tile requests). This Access Control Specification describes additional services to include in the `info.json` that the client uses to steer the user through the access control flow. 
 
@@ -160,7 +181,7 @@ For this reason:
 * <!-- we may want to drop this -->Other Content Resources _MAY_ be their own probe services, using HTTP `HEAD` requests (not `GET`), in scenarios where a separate probe service is not possible, but:
 * Other Content Resources _SHOULD_ provide a separate probe service, which is always requested with HTTP `GET` and may carry additional information.
 
-### 1.6.1 Probe Service Example
+#### 2.1.1 Probe Service Example
 
 Consider a resource declared in a Manifest or other IIIF Resource:
 
@@ -272,31 +293,14 @@ For IIIF Image Services, where the info.json is its own probe service, the behav
 }
 ```
 
-<!-- Do we allow for use of location header? In redirects this won't even be seen so it's not much use. We'd then be asking for servers to be returning location headers with a 200 HEAD response, which would be weird. Instead, steer implementers towards the separate JSON probe service, and only allow HEAD to direct resource for all-or-nothing access, and if you can't implement a probe service for whatever reason. -->
+In the above example the Image Service acts a Probe Service for itself, rather than declaring a separate probe service. This allows a client to obtain the image service description and information about the user's access to it in the same request. Clients that process an `AuthProbeService2` can treat an Image Service in the same way when used as a probe. An image service _MUST NOT_ ? _SHOULD NOT_ ? _SHOULD_ ? _MUST_ declare a separate probe service  of type `AuthProbeService2`.
+
+__Warning__<br/>
+(it's not obvious which of _MUST NOT_, _SHOULD NOT_, _SHOULD_, or _MUST_ is desirable above)
+{: .alert}
 
 
-## 2. Authentication Services
-{: #authentication-services}
-
-Authentication services follow the pattern described in the IIIF [Linking to External Services][annex-services] note, and are referenced in one or more `service` blocks from the descriptions of the resources that are protected. There is a primary service profile for authenticating users and granting access, and it has related services nested within its description.  The related services include a mandatory access token service, and an optional logout service.
-
-When a protected resource has a separate probe service, the probe service is declared directly as a service on the resource: the probe service does not belong to any of the authentication services. There might be multiple authentication services (if there is more than one way to gain access) but only one probe service. 
-
-Where no probe service is supplied, the protected resource acts as its own probe service, as described above.
-
-<!-- Either way the probe service is not one of the auth services and certainly not a child of the access service. But this means it has no direct connection to the token service either. 
-
-A resource with two login (interactive) services each with their own token service. The resource can only have one probe service.
-So the client would have to try the probe service twice, testing each token.
-
-This is OK though, it's going to be rare.
-
-https://github.com/IIIF/api/issues/1290#issuecomment-1107831915 
-
--->
-
-
-### 2.1. Access Service
+### 2.2. Access Service
 {: #access-service}
 
 The client typically uses this service to obtain a credential (usually a cookie) that will be used when interacting with content such as images, and with the access token service. There are three different interaction patterns in which the client will use this service, based on the user interface that must be rendered for the user. The different patterns are indicated by the `profile` property. The client obtains the link to the access service from a service block in a description of the protected resource, then opens that URI in a new browser tab.
@@ -308,7 +312,7 @@ The access service is not required to set a cookie. Many authorisation mechanism
 <!-- need another example that's easy to understand -->
 
 
-#### 2.1.1. Service Description
+#### 2.2.1. Service Description
 {: #service-description}
 
 There are three interaction patterns by which the client can use the access service, each identified by a different value of the `profile` property. These patterns are described in more detail in the following sections.
@@ -343,7 +347,7 @@ The service description also includes the following descriptive properties, all 
 | failureDescription | _OPTIONAL_ | Text that, if present, _MAY_ be shown to the user after failing to receive a token, or using the token results in an error. |
 {: .api-table}
 
-#### 2.1.2. Interaction with the Access Service
+#### 2.2.2. Interaction with the Access Service
 {: #interaction-with-the-access-service}
 
 The client _MUST_ append the following query parameter to all requests to an access service URI, regardless of the interaction pattern, and open this URI in a new window or tab.
@@ -362,7 +366,7 @@ https://authentication.example.org/login?origin=https://client.example.com/
 
 The server _MAY_ use this information to validate the origin supplied in subsequent requests to the access token service, for example by encoding it in the cookie returned.
 
-#### 2.1.3. Interactive Access Service Pattern
+#### 2.2.3. Interactive Access Service Pattern
 {: #interactive-interaction-pattern}
 
 This pattern requires the user to interact with the content provider's user interface in the opened tab. Typical scenarios are:
@@ -427,7 +431,7 @@ When the service is embedded within the resource it applies to, the `@context` _
 }
 ```
 
-#### 2.1.3.1 User interaction at the Access Service and third party cookies
+#### 2.2.3.1 User interaction at the Access Service and third party cookies
 
 While it is possible for the access service to immediately set a cookie in the response and generate client-side script that closes the opened tab, this behavior will likely result in browsers failing to send that cookie on subsequent requests for the token service or content resources if the client is hosted on a different domain. In this scenario, the user has not interacted with the access service origin in a _first party context_ as defined in the [Storage Access API][org-mozilla-storageaccess], and therefore that origin does not have access to _first party storage_, which means that any cookies for that origin are not included in requests to that origin.
 
@@ -438,7 +442,7 @@ If the token service and Content Resources will depend on some other aspect of t
 If the client informs the access service that it is on the same domain, via the `origin` parameter, then the Access Service tab _MAY_ be closed without user interaction on that domain.
 <!-- example - the initial login hop in a multi-hop single sign on. If the domain of the content resources is the same as the client, it's not going to have third party cookie issues so could bounce immediately to the single sign on provider -->
 
-#### 2.1.4. Kiosk Access Service Pattern
+#### 2.2.4. Kiosk Access Service Pattern
 {: #kiosk-interaction-pattern}
 
 For the Kiosk interaction pattern, the value of the `id` property is the URI of a service that _MUST_ set an access cookie and then immediately close its window or tab without user interaction.  The interaction has the following steps:
@@ -450,7 +454,7 @@ For the Kiosk interaction pattern, the value of the `id` property is the URI of 
 Non-user-driven clients simply access the URI from `id` to obtain any access cookie, and then use the related access token service, as described below.
 
 __Warning__<br/>
-If the content resources and access service are on a different origin from the client, and the authorisation is based on an access cookie, the Kiosk pattern will likely fail unless the user has recently interacted with the access service origin in a first party context as described in section 2.1.3.1. above. 
+If the content resources and access service are on a different origin from the client, and the authorisation is based on an access cookie, the Kiosk pattern will likely fail unless the user has recently interacted with the access service origin in a first party context as described in section 2.2.3.1. above. 
 {: .alert}
 
 An example service description for the Kiosk interaction pattern:
@@ -474,9 +478,9 @@ An example service description for the Kiosk interaction pattern:
 }
 ```
 
-When the service is embedded within the resource it applies to, the `@context` _SHOULD_ be declared at the beginning of that resource and not within the service, as in the second example in Section 2.1.3.
+When the service is embedded within the resource it applies to, the `@context` _SHOULD_ be declared at the beginning of that resource and not within the service, as in the second example in Section 2.2.3.
 
-#### 2.1.5. External Access Service Pattern
+#### 2.2.5. External Access Service Pattern
 {: #external-interaction-pattern}
 
 For the External interaction pattern, the user already has whatever aspect of the request the token service and content resources are expecting. This may be a cookie acquired "out-of-band" in a separate interaction, such as a normal login outside the scope of this specification. This pattern is also suitable for authorisation that is based on non-cookie aspects of the request, such as a user's IP address. If the user lacks the expected aspect of the request (is missing the cookie, or the wrong IP address) the user will receive the failure messages. The interaction has the following steps:
@@ -488,7 +492,7 @@ For the External interaction pattern, the user already has whatever aspect of th
 Non-user-driven clients simply use the related access token service, typically with a previously acquired access cookie, as described below.
 
 __Warning__<br/>
-If the content resources and token service are on a different origin from the client, and the authorisation is based on an access cookie, the External pattern will likely fail unless the user has recently interacted with the token service origin in a first party context as described in section 2.1.3.1. above. 
+If the content resources and token service are on a different origin from the client, and the authorisation is based on an access cookie, the External pattern will likely fail unless the user has recently interacted with the token service origin in a first party context as described in section 2.2.3.1. above. 
 {: .alert}
 
 An example service description for the External interaction pattern:
@@ -511,14 +515,14 @@ An example service description for the External interaction pattern:
 }
 ```
 
-When the service is embedded within the resource it applies to, the `@context` _SHOULD_ be declared at the beginning of that resource and not within the service, as in the second example in Section 2.1.3.
+When the service is embedded within the resource it applies to, the `@context` _SHOULD_ be declared at the beginning of that resource and not within the service, as in the second example in Section 2.2.3.
 
-### 2.2. Access Token Service
+### 2.3. Access Token Service
 {: #access-token-service}
 
 The client uses this service to obtain an access token which it then uses when requesting Content Resource Services. If authorisation for the content resources is based on cookies, a request to the access token service must include any cookies for the content domain acquired from the user's interaction with the corresponding access service, so that the server can issue the access token.
 
-#### 2.2.1. Service Description
+#### 2.3.1. Service Description
 {: #service-description-1}
 
 The access service description _MUST_ include an access token service description following the template below:
@@ -549,7 +553,7 @@ The `id` property of the access token service _MUST_ be present, and its value _
 
 There are no other properties for this service.
 
-#### 2.2.2. The JSON Access Token Response
+#### 2.3.2. The JSON Access Token Response
 {: #the-json-access-token-response}
 
 If the request satisfies the same demands that requests for Content Resources must meet (such as having a valid cookie that the server recognises as having been issued by the access service, or originating from a permitted IP Address range), the access token service response _MUST_ include a JSON (not JSON-LD) object with the following structure:
@@ -573,7 +577,7 @@ Authorization: Bearer TOKEN_HERE
 
 This authorization header _SHOULD_ be added to all requests for resources from the same domain and subdomains that have a reference to the service, regardless of which API is being interacted with. It _MUST NOT_ be sent to other domains.
 
-#### 2.2.3. Interaction for Non-Browser Client Applications
+#### 2.3.3. Interaction for Non-Browser Client Applications
 {: #interaction-for-non-browser-client-applications}
 
 The simplest access token request comes from a non-browser client that can send cookies across domains, where the CORS restrictions do not apply. An example URI:
@@ -603,7 +607,7 @@ The response is the JSON access token object with the media type `application/js
 }
 ```
 
-#### 2.2.4. Interaction for Browser-Based Client Applications
+#### 2.3.4. Interaction for Browser-Based Client Applications
 {: #interaction-for-browser-based-client-applications}
 
 If the client is a JavaScript application running in a web browser, it needs to make a direct request for the access token and store the result. The client can't use `XMLHttpRequest` or `fetch` because it can't include any access cookie in a cross-domain request. Instead, the client _MUST_ open the access token service in a frame using an `iframe` element and be ready to receive a message posted by script in that frame using the [postMessage API][org-mozilla-postmessage]. To trigger this behavior, the client _MUST_ append the following query parameters to the access token service URI, and open this new URI in the frame.
@@ -674,7 +678,7 @@ The server response will then be a web page with a media type of `text/html` tha
 </html>
 ```
 
-#### 2.2.5. Using the Access Token
+#### 2.3.5. Using the Access Token
 {: #using-the-access-token}
 
 The access token is sent on all subsequent requests for Content Resource Services (info.json descriptions and probe services). 
@@ -707,7 +711,7 @@ Authorization: Bearer TOKEN_HERE
 {: .urltemplate}
 
 
-#### 2.2.6. Access Token Error Conditions
+#### 2.3.6. Access Token Error Conditions
 {: #access-token-error-conditions}
 
 The response from the access token service may be an error. The error _MUST_ be supplied as a JSON-LD resource of type `AuthTokenError2`, as in the following template. For browser-based clients using the postMessage API, the error object must be sent to the client via JavaScript, in the same way the access token is sent. For direct requests the response body is the raw JSON.
@@ -742,12 +746,12 @@ When returning JSON directly, the service _MUST_ use the appropriate HTTP status
 
 If the error profile is `expiredCredentials`, the client _SHOULD_ first try to acquire another token from the token service, before sending the user to the login service again. The client _MAY_ also do this for `invalidCredentials`.
 
-### 2.3. Logout Service
+### 2.4. Logout Service
 {: #logout-service}
 
 In the case of the Interactive Access Service pattern, the client may need to know if and where the user can go to log out. For example, the user may wish to close their session on a public terminal, or to log in again with a different account.
 
-#### 2.3.1. Service Description
+#### 2.4.1. Service Description
 {: #service-description-2}
 
 If the authentication system supports users intentionally logging out, there _SHOULD_ be a logout service associated with the access service following the template below:
@@ -780,12 +784,12 @@ If the authentication system supports users intentionally logging out, there _SH
 The value of the `type` property _MUST_ be `AuthLogoutService2`.
 
 
-#### 2.3.2. Interaction
+#### 2.4.2. Interaction
 {: #interaction}
 
 The client _SHOULD_ present the results of an HTTP `GET` request on the service's URI in a separate tab or window with an address bar.  At the same time, the client _SHOULD_ discard any access token that it has received from the corresponding service. The server _SHOULD_ reset the user's logged in status when this request is made and delete any access cookie previously set.
 
-### 2.4. Example Image Information with Authentication Services
+### 2.5. Example Image Information with Authentication Services
 {: #example-description-resource-with-authentication-services}
 
 The example below is a complete image information response for an example image with all of the authentication services. No probe service has been declared.
@@ -832,7 +836,7 @@ An Image Service _MUST NOT_ declare a separate probe service; it is always its o
 ```
 
 
-### 2.5. Example Content Resource with Authentication Services
+### 2.6. Example Content Resource with Authentication Services
 {: #example-content-resource-with-authentication-services}
 
 The example below would typically be included in a Manifest or other IIIF Resource.
