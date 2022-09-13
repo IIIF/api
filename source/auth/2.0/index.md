@@ -918,21 +918,17 @@ If a Content Resource supports multiple tiers of access, then it _MUST_ use a di
 
 <!-- MUST below becomes MAY? for a probe service, it makes no difference whether a redirect happened, the end response will be the same, with a Location property. -->
 <!-- TODO - no MUST! -->
-When a server receives an HTTP GET request for a Content Resource Service, and the user is not authorized to access it, and there are lower tiers available, the server _MUST_ issue a `401` (Not Authorised) HTTP status response, and include the URL of the next highest tier in the `location` property. Please note that the server _MUST_ return a 200 (OK) HTTP status response to an HTTP OPTIONS request, regardless of the user's access, as this is the required response for a successful CORS Preflight request.
+When a server receives an HTTP GET request for a Content Resource Service, and the user is not authorized to access it based on aspects of the request _including the Access Token, if present_, and there are lower tiers available, the server _MUST_ issue a `401` (Not Authorised) HTTP status response, and include the URL of the next highest tier to which the user has access in the `location` property. Please note that the server _MUST_ return a 200 (OK) HTTP status response to an HTTP OPTIONS request, regardless of the user's access, as this is the required response for a successful CORS Preflight request.
 
-<!-- this pattern isn't yet right for MULTIPLE-TIERED access -->
-<!--
-Scenarios:
-info.json -> location is another info.json, therefore is another probe service and the client can repeat the auth flow
-probe service -> location is the media itself - the open.mp4 or whatever. There's no way to redirect to another piece of presentation API with a new resource _with a new set of auth and probe services_.
-
-How important is truly tiered, as opposed to single-degraded access?
-Needs more discussion.
- -->
+__Warning__<br/>
+This pattern isn't yet right for MULTIPLE-TIERED access, in which a user cascades down until they get something they can see. So far we have defined `location` as "here's something you can see" not "here's the next-best thing you might be able to see". Which do we want? There might be an "economy" level between "premium" and "free" - how would our not-logged-in but has-economy-account user get access to it?
+{: .alert}
 
 When there are no lower tiers and the user is not authorized to access the current Content Resource Service, the server _MUST_ issue a `401` (Unauthorized) response with no `location` property. The client _SHOULD_ present information about the Access Service included in the Content Resource Service to allow the user to attempt to authenticate.
 
-<!-- so... can a probe service carry the auth services just like an info.json can? Or do we want to assert them in the manifest? WOuld we _prefer_ to have them in the probe service? In which case it becomes more of a services.json - although probe is a good description still -->
+__Warning__<br/>
+Can a probe service carry the auth services just like an info.json can? Or do we want to assert them in the manifest? WOuld we _prefer_ to have them in the probe service? In which case it becomes more of a services.json - although probe is a good description still
+{: .alert}
 
 Different tiers of access _MAY_ be published on different hosts, and/or use different image server identifiers. 
 
