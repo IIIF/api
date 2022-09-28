@@ -1,8 +1,9 @@
-<table class="api-table">
+<table class="api-table"  style="max-width: 780px">
   <thead>
     <tr>
       <th>{{ include.table.headers[0] }}</th>
       <th>{{ include.table.headers[1] }}</th>
+      <th>{{ include.table.headers[2] }}</th>
     </tr>
   </thead>
   <tbody>
@@ -21,6 +22,7 @@
         {{ major }}.{{ minor }}.{{ patch }}
         </a>
       </td>
+      <td>{{ api.tech_description }}</td>
     </tr>
   {% endfor %}
   </tbody>

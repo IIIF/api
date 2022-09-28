@@ -49,7 +49,7 @@ __Latest Stable Version:__ [{{ site.data.apis.search.latest.major }}.{{ site.dat
 ## 1. Introduction
 {: #introduction}
 
-In the IIIF (pronounced "Triple-Eye-Eff") [Presentation API][prezi-api], content is brought together from distributed systems via annotations.  That content might include images, often with a IIIF [Image API][image-api] service to access them, audio, video, rich or plain text, or anything else.  In a vibrant and dynamic system, that content can come from many sources and be rich, varied and abundant.  Of that list of content types, textual resources lend themselves to being searched, either as the transcription, translation or edition of the intellectual content, or commentary, description, tagging or other annotations about the object.  
+In the IIIF (pronounced "Triple-Eye-Eff") [Presentation API][prezi21], content is brought together from distributed systems via annotations.  That content might include images, often with a IIIF [Image API][image-api] service to access them, audio, video, rich or plain text, or anything else.  In a vibrant and dynamic system, that content can come from many sources and be rich, varied and abundant.  Of that list of content types, textual resources lend themselves to being searched, either as the transcription, translation or edition of the intellectual content, or commentary, description, tagging or other annotations about the object.  
 
 This specification lays out the interoperability mechanism for performing these searches within the IIIF context.  The scope of the specification is searching annotation content within a single IIIF resource, such as a Manifest, Range or Collection.  Every effort is made to keep the interaction as consistent with existing IIIF patterns as possible.  Searching for metadata or other descriptive properties is __not__ in scope for this work.
 
@@ -79,7 +79,7 @@ The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _S
 ## 2. Overview
 {: #overview}
 
-The IIIF [Presentation API][prezi-api] provides just enough information to a viewer so that it can present the images and other content to the user in a rich and understandable way.  Those content resources may have textual annotations associated with them.  Annotations may also be associated with the structural components of the Presentation API, such as the manifest itself, sequences, ranges, and layers.  Further, annotations can be replied to by annotating them to form a threaded discussion about the commentary, transcription, edition or translation.
+The IIIF [Presentation API][prezi21] provides just enough information to a viewer so that it can present the images and other content to the user in a rich and understandable way.  Those content resources may have textual annotations associated with them.  Annotations may also be associated with the structural components of the Presentation API, such as the manifest itself, sequences, ranges, and layers.  Further, annotations can be replied to by annotating them to form a threaded discussion about the commentary, transcription, edition or translation.
 
 Annotations are typically made available to viewing applications in an annotation list, where all of the annotations in the list target the same resource, or part of it.  Where known, these lists can be directly referenced from the manifest document to allow clients to simply follow the link to retrieve them.  For fixed, curated content, this is an appropriate method to discover them, as the annotations do not frequently change, nor are they potentially distributed amongst multiple servers. Annotation lists can be included in layers to group them together, such as by the source of the annotations, to allow the user to manipulate that grouping as a whole.
 
@@ -177,7 +177,7 @@ Clients wishing to know the total number of annotations that match may count the
 {% include api/code_header.html %}
 ``` json-doc
 {
-  "@context":"http://iiif.io/api/presentation/{{ site.data.apis.presentation.latest.major }}/context.json",
+  "@context":"http://iiif.io/api/presentation/2/context.json",
   "@id":"http://example.org/service/manifest/search?q=bird&motivation=painting",
   "@type":"sc:AnnotationList",
 
@@ -221,7 +221,7 @@ And the response for the first page of annotations from a total of 125 matches:
 {% include api/code_header.html %}
 ``` json-doc
 {
-  "@context":"http://iiif.io/api/presentation/{{ site.data.apis.presentation.latest.major }}/context.json",
+  "@context":"http://iiif.io/api/presentation/2/context.json",
   "@id":"http://example.org/service/manifest/search?q=bird&page=1",
   "@type":"sc:AnnotationList",
 
@@ -304,7 +304,7 @@ The basic structure is:
 ``` json-doc
 {
   "@context":[
-      "http://iiif.io/api/presentation/{{ site.data.apis.presentation.latest.major }}/context.json",
+      "http://iiif.io/api/presentation/2/context.json",
       "http://iiif.io/api/search/{{ page.major }}/context.json"
   ],
   "@id":"http://example.org/service/manifest/search?q=bird&page=1",
@@ -356,7 +356,7 @@ And the user parameter was ignored when processing the request, the response wou
 ``` json-doc
 {
   "@context":[
-      "http://iiif.io/api/presentation/{{ site.data.apis.presentation.latest.major }}/context.json",
+      "http://iiif.io/api/presentation/2/context.json",
       "http://iiif.io/api/search/{{ page.major }}/context.json"
   ],
   "@id":"http://example.org/service/manifest/search?q=bird&page=1",
@@ -398,7 +398,7 @@ That the server matches against the plural "birds":
 ``` json-doc
 {
   "@context":[
-      "http://iiif.io/api/presentation/{{ site.data.apis.presentation.latest.major }}/context.json",
+      "http://iiif.io/api/presentation/2/context.json",
       "http://iiif.io/api/search/{{ page.major }}/context.json"
   ],
   "@id":"http://example.org/service/manifest/search?q=bird",
@@ -465,7 +465,7 @@ The result might be:
 ``` json-doc
 {
   "@context":[
-      "http://iiif.io/api/presentation/{{ site.data.apis.presentation.latest.major }}/context.json",
+      "http://iiif.io/api/presentation/2/context.json",
       "http://iiif.io/api/search/{{ page.major }}/context.json"
   ],
   "@id":"http://example.org/service/manifest/search?q=b*&page=1",
@@ -525,7 +525,7 @@ In cases like this there are more annotations than hits as two or more annotatio
 ``` json-doc
 {
   "@context":[
-      "http://iiif.io/api/presentation/{{ site.data.apis.presentation.latest.major }}/context.json",
+      "http://iiif.io/api/presentation/2/context.json",
       "http://iiif.io/api/search/{{ page.major }}/context.json"
   ],
   "@id":"http://example.org/service/manifest/search?q=hand+is",
@@ -779,7 +779,7 @@ Many thanks to the members of the [IIIF][iiif-community] for their continuous en
 [paging]: {{ site.api_url | absolute_url }}/presentation/2.1/
 [image-api]: {{ site.api_url | absolute_url }}/image/{{ site.data.apis.image.latest.major }}.{{ site.data.apis.image.latest.minor }}/ "Image API"
 [openanno]: http://www.openannotation.org/spec/core/ "Open Annotation"
-[prezi-api]: {{ site.api_url | absolute_url }}/presentation/{{ site.data.apis.presentation.latest.major }}.{{ site.data.apis.presentation.latest.minor }}/ "Presentation API"
+[prezi21]: {{ site.api_url | absolute_url }}/presentation/2.1/ "IIIF Presentation API 2.1"
 [rfc-2119]: https://datatracker.ietf.org/doc/html/rfc2119
 [service-annex]: {{ site.api_url | absolute_url }}/annex/services/
 [prezi-annolist]: {{ site.api_url | absolute_url }}/presentation/2.1/#annotation-list
