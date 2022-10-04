@@ -207,7 +207,7 @@ This request might result in:
 {% include api/code_header.html %}
 ``` json-doc
 {
-  "@context": "http://iiif.io/api/presentation/3/context.json",
+  "@context": "http://iiif.io/api/search/2/context.json",
   "id": "https://example.org/service/manifest/search?q=bird&motivation=painting",
   "type": "AnnotationPage",
 
@@ -233,7 +233,7 @@ This request might result in:
 
 For long lists of Annotations, the server _MAY_ divide the response into multiple Annotation Pages within one Annotation Collection. The initial response is the first Annotation Page, which includes an embedded Annotation Collection and references subsequent pages to be retrieved.
 
-The URI of the Annotation Page reported in the `id` property _MAY_ be different from the one used by the client to request the search. This would allow, for example, a `page` query parameter to be appended to the URI to allow the server to track which page is being requested.
+The URI of the Annotation Page reported in the `id` property _MAY_ be different from the one used by the client to request the search. This would allow, for example, a `page` query parameter to be appended to the URI to allow the server to track which Annotation Page is being requested.
 
 When results are paged, the Annotation Pages have several additional properties:
 
@@ -257,7 +257,7 @@ This request might result in the following response:
 {% include api/code_header.html %}
 ``` json-doc
 {
-  "@context": "http://iiif.io/api/presentation/3/context.json",
+  "@context": "http://iiif.io/api/search/2/context.json",
   "id": "https://example.org/service/manifest/search?q=bird&page=1",
   "type": "AnnotationPage",
 
@@ -313,7 +313,7 @@ This request might result in:
 {% include api/code_header.html %}
 ``` json-doc
 {
-  "@context": "http://iiif.io/api/presentation/3/context.json",
+  "@context": "http://iiif.io/api/search/2/context.json",
   "id": "https://example.org/service/collection/search?q=bird&motivation=painting",
   "type": "AnnotationPage",
 
@@ -333,7 +333,7 @@ This request might result in:
           "id": "https://example.org/manifest1868",
           "type": "Manifest",
           "label": {
-            "en": "Example Manifest"
+            "en": [ "Example Manifest" ]
           }
         }
       }
@@ -350,18 +350,18 @@ If the server has ignored any of the parameters in the request, then an `ignored
 
 Consider the example request:
 
-`http://example.org/service/manifest/search?q=bird&user=myusername`
+`http://example.org/service/manifest/search?q=bird&user=https%3A%2F%2Fexample.com%2Fusers%2Fwigglesworth`
 
 If the `user` parameter was ignored when processing this request, the response could be:
 
 {% include api/code_header.html %}
 ``` json-doc
 {
-  "@context": "http://iiif.io/api/presentation/3/context.json",
+  "@context": "http://iiif.io/api/search/2/context.json",
   "id": "http://example.org/service/manifest/search?q=bird&page=1",
   "type": "AnnotationPage",
 
-  "ignored": ["user"],
+  "ignored": [ "user" ],
 
   "items": [
     // Annotations ...
@@ -379,7 +379,7 @@ The structure of extended responses is:
 {% include api/code_header.html %}
 ``` json-doc
 {
-  "@context": "http://iiif.io/api/presentation/3/context.json",
+  "@context": "http://iiif.io/api/search/2/context.json",
   "id": "https://example.org/service/manifest/search?q=bird",
   "type": "AnnotationPage",
 
@@ -414,7 +414,7 @@ This request might match the plural "birds":
 {% include api/code_header.html %}
 ``` json-doc
 {
-  "@context": "http://iiif.io/api/presentation/3/context.json",
+  "@context": "http://iiif.io/api/search/2/context.json",
   "id": "https://example.org/service/manifest/search?q=bird",
   "type": "AnnotationPage",
 
@@ -476,7 +476,7 @@ This request might have the response:
 {% include api/code_header.html %}
 ``` json-doc
 {
-  "@context": "http://iiif.io/api/presentation/3/context.json",
+  "@context": "http://iiif.io/api/search/2/context.json",
   "id": "https://example.org/service/manifest/search?q=bird",
   "type": "AnnotationPage",
 
@@ -538,7 +538,7 @@ The request might have the response:
 {% include api/code_header.html %}
 ``` json-doc
 {
-  "@context": "http://iiif.io/api/presentation/3/context.json",
+  "@context": "http://iiif.io/api/search/2/context.json",
   "id": "https://example.org/service/manifest/search?q=b*&page=1",
   "type": "AnnotationPage",
 
@@ -630,7 +630,7 @@ This request might have the response:
 {% include api/code_header.html %}
 ``` json-doc
 {
-  "@context": "http://iiif.io/api/presentation/3/context.json",
+  "@context": "http://iiif.io/api/search/2/context.json",
   "id": "https://example.org/service/manifest/search?q=hand+is",
   "type": "AnnotationPage",
 
@@ -725,7 +725,7 @@ The other parameters (`motivation`, `date` and `user`), if supported, refine the
 
 An example request would be:
 
-`https://example.org/service/identifier/autocomplete?q=bir&motivation=painting&user=http%3A%2F%2Fexample.com%2Fusers%2Fwigglesworth`
+`https://example.org/service/identifier/autocomplete?q=bir&motivation=painting&user=https%3A%2F%2Fexample.com%2Fusers%2Fwigglesworth`
 
 {: .urltemplate}
 
@@ -754,7 +754,7 @@ This request might have the response:
 {% include api/code_header.html %}
 ```json-doc
 {
-  "@context": "http://iiif.io/api/presentation/3/context.json",
+  "@context": "http://iiif.io/api/search/2/context.json",
   "id": "https://example.org/service/identifier/autocomplete?q=bir",
   "type": "TermPage",  
   "items": [
@@ -793,17 +793,17 @@ The terms _SHOULD_ be provided in ascending alphabetically sorted order, but oth
 
 Consider the example request:
 
-`https://example.org/service/identifier/autocomplete?q=bir&user=wigglesworth`
+`https://example.org/service/identifier/autocomplete?q=bir&user=https%3A%2F%2Fexample.com%2Fusers%2Fwigglesworth`
 
 This request might generate the response:
 
 {% include api/code_header.html %}
 ``` json-doc
 {
-  "@context": "http://iiif.io/api/presentation/3/context.json",
+  "@context": "http://iiif.io/api/search/2/context.json",
   "id": "https://example.org/service/identifier/autocomplete?q=bir",
   "type": "TermPage",
-  "ignored": ["user"],
+  "ignored": [ "user" ],
   "items": [
     {
       "value": "bird",
@@ -828,8 +828,8 @@ This request might generate the response:
       "value": "birth",
       "total": 9,
       "label": {
-        "en": ["birth"],
-        "fr": ["naissance"]
+        "en": [ "birth" ],
+        "fr": [ "naissance" ]
       }
     }
   ]

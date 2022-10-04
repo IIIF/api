@@ -4,12 +4,10 @@
     {    
       "search": "http://iiif.io/api/search/2#",
       "ignored": {"@id": "search:ignored", "@container": "@set"},
-      "TermList": {"@id": "search:TermList"},
+      "TermPage": {"@id": "search:TermPage"},
       "Term": {"@id": "search:Term"},
-      "terms": {"@id": "search:hasTermList", "@container": "@list", "@type": "@id"},
       "match": {"@id": "search:match"},
-      "url": {"@id": "search:url"},
-      "count": {"@id": "search:count"}
+      "total": {"@id": "as:totalItems", "@type": "xsd:nonNegativeInteger"}
     }
   ]
 }
