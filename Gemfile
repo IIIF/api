@@ -7,6 +7,7 @@ gem 'jekyll', '~> 4.1.1'
 gem 'iiifc-theme', github: 'iiif/iiifc-theme', branch: 'main'
 
 gem 'jekyll-redirect-from'
+gem 'jekyll-seo-tag'
 
 group :development, :test do
   gem 'rspec'

@@ -15,20 +15,24 @@ api_current_table:
     - auth
     - discovery
     - search
+    - content-state
 ---
 
 ## Current specifications
 
 {% include api/api-listing-table.html table=page.api_current_table %}
 
+<!--
 ## Draft specifications
 
 | API                  | Draft Version (Status) |
 | -------------------- | ---------------------- |
-| Content State API    | [0.9.1][contentstate09]|
 {: .api-table}
+-->
 
-__Feedback requested__<br/>
+### Feedback requested
+{: #feedback}
+
 We welcome feedback on all IIIF Specifications. Please send any feedback to [iiif-discuss@googlegroups.com][iiif-discuss].
 {: .alert}
 
