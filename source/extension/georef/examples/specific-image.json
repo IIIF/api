@@ -1,18 +1,21 @@
 {
-   "id":"http://iiif.io/api/extension/georef/examples/specificResource.json",
+   "id":"http://iiif.io/api/extension/georef/examples/specific-image.json",
    "type":"SpecificResource",
    "source":{
-    "id":"https://cdm21033.contentdm.oclc.org/digital/iiif/krt/2891/full/5965,2514/0/default.jpg",
-    "service":[
-       {
-          "@id":"https://cdm21033.contentdm.oclc.org/digital/iiif/krt/2891",
-          "type":"ImageService2"
-       }
-    ]
+      "id":"https://cdm21033.contentdm.oclc.org/digital/iiif/krt/2891/full/5965,2514/0/default.jpg",
+      "type":"Image",
+      "format":"image/jpeg",
+      "height":2514,
+      "width":5965,
+      "service":[
+         {
+            "@id":"https://cdm21033.contentdm.oclc.org/digital/iiif/krt/2891",
+            "type":"ImageService2"
+         }
+      ]
    },
    "selector":{
-    "type":"SvgSelector",
-    "value":"<svg width=\"5965\" height=\"2514\"><polygon points=\"59,84 44,2329 5932,2353 5920,103 \" /></svg>"
-   },
-   "scope":"https://cdm21033.contentdm.oclc.org/digital/iiif/krt/2891/full/full/0/default.jpg"
+      "type":"SvgSelector",
+      "value":"<svg width=\"5965\" height=\"2514\"><polygon points=\"59,84 44,2329 5932,2353 5920,103 \" /></svg>"
+   }
 }

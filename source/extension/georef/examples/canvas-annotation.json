@@ -1,15 +1,11 @@
 {
    "@context":[
-      "http://iiif.io/api/extension/georef/context.json",
+      "http://iiif.io/api/extension/georef/1/context.json",
       "http://iiif.io/api/presentation/3/context.json"
    ],
    "id":"http://iiif.io/api/extension/georef/examples/canvas-annotation.json",
    "type":"Annotation",
    "motivation":"georeferencing",
-   "transformation":{
-      "type":"polynomial",
-      "order":0
-   },
    "target":{
       "id":"http://iiif.io/api/extension/georef/examples/canvas.json",
       "type":"Canvas",
@@ -49,12 +45,20 @@
                }
             ]
          }
-      ]
+      ],
+      "partOf":{
+         "id":"http://example.org/manifest/1",
+         "type":"Manifest"
+      }
    },
    "body":{
       "id":"http://iiif.io/api/extension/georef/examples/feature-collection.json",
       "type":"FeatureCollection",
       "purpose":"gcp-georeferencing",
+      "transformation":{
+         "type":"polynomial",
+         "order":0
+      },
       "features":[
          {
             "type":"Feature",

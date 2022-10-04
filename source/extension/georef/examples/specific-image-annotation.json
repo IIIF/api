@@ -3,56 +3,24 @@
       "http://iiif.io/api/extension/georef/context.json",
       "http://iiif.io/api/presentation/3/context.json"
    ],
-   "id":"http://iiif.io/api/extension/georef/examples/canvas-specific-resource-annotation.json",
+   "id":"http://iiif.io/api/extension/georef/examples/specific-image-annotation.json",
    "type":"Annotation",
    "motivation":"georeferencing",
    "target":{
-      "id":"http://iiif.io/api/extension/georef/examples/canvas-specific-resource.json",
+      "id":"http://iiif.io/api/extension/georef/examples/specific-image.json",
       "type":"SpecificResource",
       "source":{
-         "id":"http://iiif.io/api/extension/georef/examples/canvas.json",
-         "type":"Canvas",
-         "label":{
-            "nl":[
-               "River Nieuwe Maas and Rotterdam's Havens"
-            ],
-            "en":[
-               "Guide to the New-Waterway"
-            ]
-         },
+         "id":"https://cdm21033.contentdm.oclc.org/digital/iiif/krt/2891/full/5965,2514/0/default.jpg",
+         "type":"Image",
+         "format":"image/jpeg",
          "height":2514,
          "width":5965,
-         "items":[
+         "service":[
             {
-               "id":"http://iiif.io/api/extension/georef/examples/contentPage.json",
-               "type":"AnnotationPage",
-               "items":[
-                  {
-                     "id":"http://iiif.io/api/extension/georef/examples/content.json",
-                     "type":"Annotation",
-                     "motivation":"painting",
-                     "body":{
-                        "id":"https://cdm21033.contentdm.oclc.org/digital/iiif/krt/2891/full/full/0/default.jpg",
-                        "type":"Image",
-                        "format":"image/jpeg",
-                        "height":2514,
-                        "width":5965,
-                        "service":[
-                           {
-                              "@id":"https://cdm21033.contentdm.oclc.org/digital/iiif/krt/2891",
-                              "type":"ImageService2"
-                           }
-                        ]
-                     },
-                     "target":"http://iiif.io/api/extension/georef/examples/canvas.json"
-                  }
-               ]
+               "@id":"https://cdm21033.contentdm.oclc.org/digital/iiif/krt/2891",
+               "type":"ImageService2"
             }
-         ],
-         "partOf":{
-            "id":"http://example.org/manifest/1",
-            "type":"Manifest"
-         }
+         ]
       },
       "selector":{
          "type":"SvgSelector",

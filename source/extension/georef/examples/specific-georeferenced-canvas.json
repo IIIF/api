@@ -56,14 +56,12 @@
                   "order":0
                },
                "target":{
-                  "id":"http://iiif.io/api/extension/georef/examples/canvas-specific-resource.json",
                   "type":"SpecificResource",
                   "source":"http://iiif.io/api/extension/georef/examples/specific-georeferenced-canvas.json",
                   "selector":{
                      "type":"SvgSelector",
                      "value":"<svg width=\"5965\" height=\"2514\"><polygon points=\"59,84 44,2329 5932,2353 5920,103 \" /></svg>"
-                  },
-                  "scope":"http://iiif.io/api/extension/georef/examples/specific-georeferenced-canvas.json"
+                  }
                },
                "body":{
                   "id":"http://iiif.io/api/extension/georef/examples/feature-collection.json",
@@ -123,5 +121,9 @@
             }
          ]
       }
-   ]
+   ],
+   "partOf":{
+      "id":"http://example.org/manifest/1",
+      "type":"Manifest"
+   }
 }

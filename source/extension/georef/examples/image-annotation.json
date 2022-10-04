@@ -6,32 +6,27 @@
    "id":"http://iiif.io/api/extension/georef/examples/image-annotation.json",
    "type":"Annotation",
    "motivation":"georeferencing",
-   "transformation":{
-      "type":"polynomial",
-      "order":0
-   },
    "target":{
-      "id":"http://iiif.io/api/extension/georef/examples/specific-image.json",
-      "type":"SpecificResource",
-      "source":{
-         "id":"https://cdm21033.contentdm.oclc.org/digital/iiif/krt/2891/full/5965,2514/0/default.jpg",
-         "service":[
-            {
-               "@id":"https://cdm21033.contentdm.oclc.org/digital/iiif/krt/2891",
-               "type":"ImageService2"
-            }
-         ]
-      },
-      "selector":{
-         "type":"SvgSelector",
-         "value":"<svg width=\"5965\" height=\"2514\"><polygon points=\"59,84 44,2329 5932,2353 5920,103 \" /></svg>"
-      },
-      "scope":"https://cdm21033.contentdm.oclc.org/digital/iiif/krt/2891/full/full/0/default.jpg"
+      "id":"https://cdm21033.contentdm.oclc.org/digital/iiif/krt/2891/full/full/0/default.jpg",
+      "type":"Image",
+      "format":"image/jpeg",
+      "height":2514,
+      "width":5965,
+      "service":[
+         {
+            "@id":"https://cdm21033.contentdm.oclc.org/digital/iiif/krt/2891",
+            "type":"ImageService2"
+         }
+      ]
    },
    "body":{
       "id":"http://iiif.io/api/extension/georef/examples/feature-collection.json",
       "type":"FeatureCollection",
       "purpose":"gcp-georeferencing",
+      "transformation":{
+         "type":"polynomial",
+         "order":0
+      },
       "features":[
          {
             "type":"Feature",
