@@ -4,6 +4,7 @@
       "geo":"https://purl.org/geojson/vocab#",
       "iiif_prezi":"http://iiif.io/api/presentation/3#",
       "iiif_image":"http://iiif.io/api/image/3#",
+      "oa": "http://www.w3.org/ns/oa#",
       "proto":"http://iiif.io/api/extension/georef/vocab/georef-terms.md#",
       "georeferencing":"proto:georeferencing",
       "geotagging":"proto:geotagging",
@@ -13,6 +14,10 @@
       "polynomialOrder":{
          "@id":"proto:polynomialOrder",
          "@type":"xsd:integer"
+      },
+      "body": {
+         "@context": ["https://geojson.org/geojson-ld/geojson-context.jsonld", "http://www.w3.org/ns/anno.jsonld"],
+         "@id": "oa:body"
       },
       "properties":{
          "@id":"geo:properties",
