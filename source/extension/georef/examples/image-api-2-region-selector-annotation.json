@@ -3,21 +3,18 @@
       "http://iiif.io/api/extension/georef/1/context.json",
       "http://iiif.io/api/presentation/3/context.json"
    ],
-   "id":"http://iiif.io/api/extension/georef/examples/image-annotation.json",
+   "id":"http://iiif.io/api/extension/georef/examples/image-api-2-region-selector-annotation.json",
    "type":"Annotation",
    "motivation":"georeferencing",
-   "target":{
-      "id":"https://cdm21033.contentdm.oclc.org/digital/iiif/krt/2891/full/full/0/default.jpg",
-      "type":"Image",
-      "format":"image/jpeg",
-      "height":2514,
-      "width":5965,
-      "service":[
-         {
-            "@id":"https://cdm21033.contentdm.oclc.org/digital/iiif/krt/2891",
-            "type":"ImageService2"
-         }
-      ]
+   "target": {
+      "id": "https://cdm21033.contentdm.oclc.org/digital/iiif/krt/2891",
+      "type": "ImageService2",
+      "profile": "http://iiif.io/api/image/2/level2.json",
+      "selector": {
+         "type": "ImageApiSelector",
+         "region": "810,900,260,370",
+         "size": "5965,2514"
+       }
    },
    "body":{
       "id":"http://iiif.io/api/extension/georef/examples/feature-collection.json",
@@ -79,3 +76,5 @@
       ]
    }
 }
+
+

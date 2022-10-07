@@ -1,6 +1,6 @@
 {
    "@context":[
-      "http://iiif.io/api/extension/georef/context.json",
+      "http://iiif.io/api/extension/georef/1/context.json",
       "http://iiif.io/api/presentation/3/context.json"
    ],
    "id":"http://iiif.io/api/extension/georef/examples/georeferenced-canvas.json",
@@ -50,16 +50,16 @@
             {
                "id":"http://iiif.io/api/extension/georef/examples/canvas-annotation.json",
                "type":"Annotation",
-               "motivation":"georeferencing",
-               "transformation":{
-                  "type":"polynomial",
-                  "order":0
-               },
+               "motivation":"georeferencing",              
                "target":"http://iiif.io/api/extension/georef/examples/georeferenced-canvas.json",
                "body":{
                   "id":"http://iiif.io/api/extension/georef/examples/feature-collection.json",
                   "type":"FeatureCollection",
                   "purpose":"gcp-georeferencing",
+                  "transformation":{
+                     "type":"polynomial",
+                     "order":0
+                  },
                   "features":[
                      {
                         "type":"Feature",
