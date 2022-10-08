@@ -7,14 +7,18 @@
    "type":"Annotation",
    "motivation":"georeferencing",
    "target": {
-      "id": "https://cdm21033.contentdm.oclc.org/digital/iiif/krt/2891",
-      "type": "ImageService2",
-      "profile": "http://iiif.io/api/image/2/level2.json",
+      "id":"http://iiif.io/api/extension/georef/examples/specific-image-service-region.json",
+      "type":"SpecificResource",
+      "source": {
+         "id": "https://cdm21033.contentdm.oclc.org/digital/iiif/krt/2891",
+         "type": "ImageService2",
+         "profile": "http://iiif.io/api/image/2/level2.json",
+      },
       "selector": {
          "type": "ImageApiSelector",
          "region": "810,900,260,370",
          "size": "5965,2514"
-       }
+      }
    },
    "body":{
       "id":"http://iiif.io/api/extension/georef/examples/feature-collection.json",
