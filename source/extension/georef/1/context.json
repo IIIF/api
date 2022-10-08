@@ -4,7 +4,6 @@
       "geo":"https://purl.org/geojson/vocab#",
       "iiif_prezi":"http://iiif.io/api/presentation/3#",
       "iiif_image":"http://iiif.io/api/image/3#",
-      "iiif_image_old":"http://iiif.io/api/image/2#",
       "oa": "http://www.w3.org/ns/oa#",
       "proto":"http://iiif.io/api/extension/georef/vocab/georef-terms.md#",
       "georeferencing":"proto:georeferencing",
@@ -20,7 +19,7 @@
          "@context": ["https://geojson.org/geojson-ld/geojson-context.jsonld", "http://www.w3.org/ns/anno.jsonld"],
          "@id": "oa:body"
       },
-      "ImageAPISelector":"iiif_image_old:ImageAPISelector",
+      "ImageAPISelector":"https://iiif.io/api/annex/openannotation/#iiif-image-api-selector",
       "properties":{
          "@id":"geo:properties",
          "@context":{
