@@ -12,7 +12,7 @@
       "source": {
          "id": "https://cdm21033.contentdm.oclc.org/digital/iiif/krt/2891",
          "type": "ImageService2",
-         "profile": "http://iiif.io/api/image/2/level2.json",
+         "profile": "http://iiif.io/api/image/2/level2.json"
       },
       "selector": {
          "type": "ImageApiSelector",
