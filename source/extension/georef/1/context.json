@@ -20,6 +20,8 @@
          "@id": "oa:body"
       },
       "ImageAPISelector":"https://iiif.io/api/annex/openannotation/#iiif-image-api-selector",
+      "region":"https://iiif.io/api/image/3.0/#41-region",
+      "size" : "https://iiif.io/api/image/3.0/#42-size",
       "properties":{
          "@id":"geo:properties",
          "@context":{
