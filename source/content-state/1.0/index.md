@@ -1,16 +1,17 @@
 ---
-title: "IIIF Content State API 0.9.1"
-title_override: "IIIF Content State API 0.9.1"
+title: "IIIF Content State API 1.0"
+title_override: "IIIF Content State API 1.0"
 id: discovery-api-content-state
 layout: spec
 cssversion: 3
 tags: [specifications, presentation-api]
-major: 0
-minor: 9
-patch: 1
+major: 1
+minor: 0
+patch: 0
 pre: final
 redirect_from:
-  - /content-state/0/index.html
+  - /content-state/index.html
+  - /content-state/1/index.html
 pre: final
 editors:
   - name: Michael Appleby
@@ -46,7 +47,7 @@ __This Version:__ {{ page.major }}.{{ page.minor }}.{{ page.patch }}{% if page.p
 
 __Latest Stable Version:__ [{{ site.data.apis.content-state.latest.major }}.{{ site.data.apis.content-state.latest.minor }}.{{ site.data.apis.content-state.latest.patch }}][contenstate-stable-version]
 
-__Previous Version:__ [0.3][contentstate03]
+__Previous Version:__ [0.9][contentstate09]
 
 **Editors**
 
@@ -54,9 +55,6 @@ __Previous Version:__ [0.3][contentstate03]
 
 {% include copyright.md %}
 
-__Status Warning__
-This is a work in progress and may change without notice. Implementers should be aware that this document is not stable. Implementers are likely to find the specification changing in incompatible ways. Those interested in implementing this document before it reaches beta or release stages should join the IIIF [mailing list][iiif-discuss] and the [Discovery Specification Group][groups-discovery], take part in the discussions, and follow the [emerging issues][github-discovery-issues] on Github.
-{: .warning}
 
 ----
 
@@ -839,6 +837,7 @@ This version is due to the work of the [IIIF Discovery Technical Specification G
 
 | Date       | Description             |
 | ---------- | ----------------------- |
+| 2022-02-09 | Version 1.0 (Drop Dragon)   |
 | 2022-01-31 | Version 0.9.1 (unnamed) |
 | 2021-06-21 | Version 0.9   (unnamed) |
 | 2020-11-22 | Version 0.3   (unnamed) |

@@ -1,0 +1,46 @@
+{
+   "@context": "http://iiif.io/api/presentation/3/context.json",
+   "id":"http://iiif.io/api/extension/georef/examples/canvas.json",
+   "type":"Canvas",
+   "label":{
+      "nl":[
+         "River Nieuwe Maas and Rotterdam's Havens"
+      ],
+      "en":[
+         "Guide to the New-Waterway"
+      ]
+   },
+   "height":2514,
+   "width":5965,
+   "items":[
+      {
+         "id":"http://iiif.io/api/extension/georef/examples/contentPage.json",
+         "type":"AnnotationPage",
+         "items":[
+            {
+               "id":"http://iiif.io/api/extension/georef/examples/content.json",
+               "type":"Annotation",
+               "motivation":"painting",
+               "body":{
+                  "id":"https://cdm21033.contentdm.oclc.org/digital/iiif/krt/2891/full/full/0/default.jpg",
+                  "type":"Image",
+                  "format":"image/jpeg",
+                  "height":2514,
+                  "width":5965,
+                  "service":[
+                     {
+                        "@id":"https://cdm21033.contentdm.oclc.org/digital/iiif/krt/2891",
+                        "type":"ImageService2"
+                     }
+                  ]
+               },
+               "target":"http://iiif.io/api/extension/georef/examples/canvas.json"
+            }
+         ]
+      }
+   ],
+   "partOf": {
+      "id": "http://example.org/manifest/1",
+      "type": "Manifest"
+   }
+}

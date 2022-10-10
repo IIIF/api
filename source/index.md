@@ -1,15 +1,13 @@
 ---
 title: "API Specifications - International Image Interoperability Framework™"
-id: apis
 layout: spec
-tags: [specifications ]
-cssversion: 2
 hero:
   image: ''
 api_current_table:
   headers:
     - API
     - Current Version
+    - Description
   version: latest
   apis:
     - image
@@ -17,38 +15,62 @@ api_current_table:
     - auth
     - discovery
     - search
+    - content-state
 ---
 
-## Current Specifications
+## Current specifications
 
 {% include api/api-listing-table.html table=page.api_current_table %}
 
-## Draft Specifications
+<!--
+## Draft specifications
 
 | API                  | Draft Version (Status) |
 | -------------------- | ---------------------- |
-| Content State API    | [0.9.0][contentstate09]|
 {: .api-table}
+-->
 
-__Feedback Requested__<br/>
+### Feedback requested
+{: #feedback}
+
 We welcome feedback on all IIIF Specifications. Please send any feedback to [iiif-discuss@googlegroups.com][iiif-discuss].
 {: .alert}
 
-## Community Translations
+## Approved extensions
+
+Please see the [Registry of Extensions][registry] for full details on how extensions work and the process for creating them. 
+
+Currently, there are two formally published extensions available for use with the Presentation API.
+
+| Presentation API Extensions    | Description |
+| ------------------------------ | ----------- |
+| [navPlace Extension][navPlace] | This IIIF Presentation 3 API extension defines a new property, navPlace, which is defined by earthbound geographic coordinates in the form of GeoJSON-LD. |
+| [Text Granularity Extension][text-granularity] | This extension recommends a pattern for indicating the level of text granularity for an annotation related to optical character recognition (OCR) software, manual transcription, and existing digitized text. |
+{: .api-table style="max-width: 780px;"}
+
+
+
+
+## Community translations
 
 | API                | Version | Translation           |
 | ------------------ | ------- | --------------------- |
-| Image API          | [3.0][image3-jp], [2.1][image-jp] | Japanese |
-| Presentation API   | 2.1     | [Japanese][prezi-jp]  |
-| Content Search API | 1.0     | [Japanese][search-jp] |
-| Authentication API | 1.0     | [Japanese][auth-jp]   |
+| Image API          | 3.0   | [Japanese][image3-jp], [Chinese][image3-chinese]|
+| Image API          | 2.1   | [Japanese][image-jp] |
+| Presentation API   | 3.0   | [Chinese] [prezi3-chinese] |
+| Presentation API   | 2.1   | [Japanese][prezi-jp] |
+| Content Search API | 1.0   | [Japanese][search-jp], [Chinese][contentsearch1-chinese]|
+| Authentication API | 1.0   | [Japanese][auth-jp], [Chinese][auth1-chinese] |
+| Discovery API      | 1.0   | [Chinese][discovery1-chinese] |
+| Content State API  | 0.9   | [Chinese][contentstate-09-chinese] |
+|NavPlace Extension  |       | [Chinese][Navplace-chinese]
 {: .api-table}
 
-__Translation Note__<br/>
+__Translation note__<br/>
 Please note that the IIIF community does not guarantee the accuracy of any translation. They are linked to for information purposes only, and any discrepancies with the specifications are unintentional. The English versions of the specifications linked above are the definitive versions.
 {: .alert}
 
-## Community Cookbook
+## Community cookbook
 
 The [Cookbook][annex-cookbook] gathers together examples of how to create IIIF Presentation API assets, in order to:
 
@@ -65,7 +87,7 @@ The [Cookbook][annex-cookbook] webpages are under constant development and the l
 - [Image API validator]({{ site.api_url | absolute_url }}/image/validator/) - A service to validate a IIIF Image API resource against the specification.
 - [Presentation API validator]({{ site.api_url | absolute_url }}/presentation/validator/service/) - A service to validate a IIIF Presentation API resource against the specification.
 
-## Older Versions
+## Older versions
 
 Current IIIF specifications _SHOULD_ be used for all new work. Old versions are retained for reference and are listed below. Technical resources and reference implementations of older versions are _NOT_ guaranteed to be maintained across new major versions.
 
@@ -97,7 +119,13 @@ IIIF Specifications are created and published following the [IIIF Editorial Proc
 [prezi-jp]: http://www.asahi-net.or.jp/~ax2s-kmtn/ref/iiif/apipresentation2.1.html
 [search-jp]: http://www.asahi-net.or.jp/~ax2s-kmtn/ref/iiif/searchapi1.0.html
 [auth-jp]: http://www.asahi-net.or.jp/~ax2s-kmtn/ref/iiif/apiauthentication1.0.html
-
+[image3-chinese]: https://www.yuque.com/iiifchina/df4qfk/fwybkl
+[prezi3-chinese]: https://www.yuque.com/iiifchina/df4qfk/gpf6od
+[auth1-chinese]: https://www.yuque.com/iiifchina/df4qfk/vkxifz
+[contentsearch1-chinese]: https://www.yuque.com/iiifchina/df4qfk/ygbnck
+[discovery1-chinese]: https://www.yuque.com/iiifchina/df4qfk/hdb26g
+[contentstate-09-chinese]: https://www.yuque.com/iiifchina/df4qfk/wysy7i
+[navplace-chinese]: https://www.yuque.com/iiifchina/df4qfk/xh0bna
 
 {% include acronyms.md %}
 {% include links.md %}

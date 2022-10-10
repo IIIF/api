@@ -5,7 +5,7 @@
 [annex-cookbook]: {{ site.cookbook_url | absolute_url }}/ "IIIF Cookbook"
 [annex-json-ld]: {{ site.api_url | absolute_url }}/annex/notes/jsonld/ "JSON-LD Frames Implementation Notes"
 [annex-oa]: {{ site.api_url | absolute_url }}/annex/openannotation/ "Open Annotation Extensions"
-[annex-patterns]: {{ site.api_url | absolute_url }}/annex/notes/design_patterns/
+[annex-patterns]: {{ site.api_url | absolute_url }}/annex/notes/design_principles/
 [annex-services]: {{ site.api_url | absolute_url }}/annex/services/ "Services Annex Document"
 [auth094]: {{ site.api_url | absolute_url }}/auth/0.9/ "Authentication API v0.9.4"
 [auth1-cookie-service]: {{ site.api_url | absolute_url }}/auth/1.0/#access-cookie-service "IIIF Authentication Cookie Service"
@@ -13,11 +13,18 @@
 [auth1-token-service]: {{ site.api_url | absolute_url }}/auth/1.0/#access-token-service "IIIF Authentication Access Token Service"
 [auth1]: {{ site.api_url | absolute_url }}/auth/1.0/ "IIIF Authentication API 1.0"
 [auth10]: {{ site.api_url | absolute_url }}/auth/1.0/ "IIIF Authentication API 1.0"
-[contentstate09]: {{ site.api_url | absolute_url }}/content-state/0.9/
+[contentstate01]: {{ site.api_url | absolute_url }}/content-state/0.1/ "IIIF Content State API 0.1"
+[contentstate02]: {{ site.api_url | absolute_url }}/content-state/0.2/ "IIIF Content State API 0.2"
+[contentstate03]: {{ site.api_url | absolute_url }}/content-state/0.3/ "IIIF Content State API 0.3"
+[contentstate09]: {{ site.api_url | absolute_url }}/content-state/0.9/ "IIIF Content State API 0.9"
+[contenstate-stable-version]: {{ site.api_url | absolute_url }}/content-state/{{ site.data.apis.content-state.latest.major }}.{{ site.data.apis.content-state.latest.minor }}/ "Latest Content State API Stable Version"
 [contentstate-export]: {{ site.api_url | absolute_url }}/content-state/0.9/#export "3.7. Exporting Current Content State from Viewer" 
-[contentstate-http]: {{ site.api_url | absolute_url }}/content-state/0.9/#6-http-requests-and-responses "HTTP Request and Responses"
-[contentstate-initialization]: {{ site.api_url | absolute_url }}/content-state/0.3/#initialization "Initialization mechanisms (protocol)"
-[contentstate03]: {{ site.api_url | absolute_url }}/content-state/0.3/ "IIIF Content State API"
+[contentstate-http]: {{ site.api_url | absolute_url }}/content-state/0.9/#7-http-requests-and-responses "HTTP Request and Responses"
+[contentstate-initialization]: {{ site.api_url | absolute_url }}/content-state/0.9/#initialization "Initialization mechanisms (protocol)"
+[contentstate10-22-form-of-annotation]: {{ site.api_url | absolute_url }}/content-state/1.0/#22-form-of-annotation
+[btoa-unicode-problem]: https://developer.mozilla.org/en-US/docs/Glossary/Base64#the_unicode_problem "The Unicode Problem"
+[contentstate-encoding]: {{ site.api_url | absolute_url }}/content-state/0.9/#6-content-state-encoding "Content State Section 6"
+[contentstate-export]: {{ site.api_url | absolute_url }}/content-state/0.9/#export
 [discovery-api]: {{ site.api_url | absolute_url }}/discovery/ "IIIF Change Discovery API"
 [discovery01]: {{ site.api_url | absolute_url }}/discovery/0.1/ "IIIF Change Discovery API"
 [discovery02]: {{ site.api_url | absolute_url }}/discovery/0.2/ "IIIF Change Discovery API"
@@ -148,8 +155,8 @@
 [notes-versioning]: {{ site.api_url | absolute_url }}/annex/notes/semver/ "Versioning of APIs"
 [org-bcp-47]: https://tools.ietf.org/html/bcp47 "Tags for Identifying Languages"
 [org-cc-licenses]: https://creativecommons.org/licenses/ "Create Commons Licenses"
-[org-ecma-encodeuri]: https://tc39.es/ecma262/#sec-encodeuri-uri "encodeURI"
-[org-ecma-decodeuri]: https://tc39.es/ecma262/#sec-decodeuri-encodeduri "decodeURI"
+[org-ecma-encodeuricomponent]: https://tc39.es/ecma262/#sec-encodeuricomponent-uricomponent "encodeURIComponent"
+[org-ecma-decodeuricomponent]: https://tc39.es/ecma262/#sec-decodeuricomponent-encodeduricomponent "decodeURIComponent"
 [org-iana-uri-schemes]: http://www.iana.org/assignments/uri-schemes/uri-schemes.xhtml "IANA URI Schemes"
 [org-json-ld]: http://www.json-ld.org/ "JSON for Linking Data"
 [org-linked-data]: http://linkeddata.org/ "Linked Data"
@@ -234,6 +241,7 @@
 [prezi30-type-overview]: {{ site.api_url | absolute_url }}/presentation/3.0/#2-resource-type-overview
 [prezi30]: {{ site.api_url | absolute_url }}/presentation/3.0/
 [prezi3]: {{ site.api_url | absolute_url }}/presentation/3.{{ site.data.apis.presentation.latest.minor }}/ "Presentation API"
+[prezi30-values-for-motivation]: {{ site.api_url | absolute_url }}/presentation/3.0/#values-for-motivation
 [extensions]: {{ site.api_url | absolute_url }}/extension/
 [text-granularity]: {{ site.api_url | absolute_url }}/extension/text-granularity/
 [navPlace]: {{ site.api_url | absolute_url }}/extension/navplace/
@@ -253,6 +261,9 @@
 [search1-autocomplete]: {{ site.api_url | absolute_url }}/search/1.0/#autocomplete
 [search1]: {{ site.api_url | absolute_url }}/search/1.0/
 [search10]: {{ site.api_url | absolute_url }}/search/1.0/
+[search20]: {{ site.api_url | absolute_url }}/search/2.0/
+[search20-search-term-snippets]: {{ site.api_url | absolute_url }}/search/2.0/#search-term-snippets
+[search20-search-term-highlighting]: {{ site.api_url | absolute_url }}/search/2.0/#search-term-highlighting
 [shared-canvas]: {{ site.api_url | absolute_url }}/model/shared-canvas/1.0/  "Shared Canvas Data Model"
 [recipe-process]: {{  site.cookbook_url | absolute_url }}/recipe/ "Cookbook process"
 [recipe-mvm-image]: {{ site.cookbook_url | absolute_url }}/recipe/0001-mvm-image/ "Simplest Manifest - Image"
