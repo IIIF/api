@@ -224,7 +224,7 @@ This probe service _MUST_ always return a response to the client. The response c
     "id": "https://authentication.example.org/my-video.mp4/probe",
     "type": "AuthProbeService2",
     "label": { "en": [ "Label for my-video.mp4's probe service" ] },
-    "for": "https://authentication.example.org/my-video.mp4",
+    "for": "https://authentication.example.org/my-video.mp4"
 }
 ```
 
@@ -239,25 +239,34 @@ This probe service _MUST_ always return a response to the client. The response c
     "id": "https://authentication.example.org/my-video.mp4/probe",
     "type": "AuthProbeService2",
     "location": "https://authentication.example.org/my-video-lo-res.mp4",
-    "label": { "en": [ "Label for my-video.mp4's probe service" ] }
+    "label": { "en": [ "Label for my-video.mp4's probe service" ] },
+    "for": "https://authentication.example.org/my-video.mp4"
 }
 ```
 
-<!-- call notes -->
-<!-- TODO -->
+The `location` property _MUST_ be different from the `for` property, to avoid clients going round in circles.
+
+<!-- ********** -->
+<!-- Should the location property be a full content resource, like this: 
+
+
 ```json
-// 200
 {
     "@context": "http://iiif.io/api/auth/{{ page.major }}/context.json",
     "id": "https://authentication.example.org/my-video.mp4/probe",
     "type": "AuthProbeService2",
-    "behavior": [ "retry-with-auth" ],
+    "location": {
+      "id": "https://authentication.example.org/my-video-lo-res.mp4",
+      "type": "Video"
+    },
     "label": { "en": [ "Label for my-video.mp4's probe service" ] },
-    "for": "https://authentication.example.org/my-video.mp4",
+    "for": "https://authentication.example.org/my-video.mp4"
 }
 ```
-<!-- / call notes -->
 
+This would allow different auth services to be attached to that resource, to allow for tiered access.
+It also allows a client expecting a typed JSON-LD object to process it again.
+-->
 
 
 * The response status code is **401**, and no `location` property is present, indicating that the user does not have access to the Content Resource the Probe Service was declared for, and no alternative is available:
@@ -268,7 +277,8 @@ This probe service _MUST_ always return a response to the client. The response c
     "@context": "http://iiif.io/api/auth/{{ page.major }}/context.json",
     "id": "https://authentication.example.org/my-video.mp4/probe",
     "type": "AuthProbeService2",
-    "label": { "en": [ "Label for my-video.mp4's probe service" ] }
+    "label": { "en": [ "Label for my-video.mp4's probe service" ] },
+    "for": "https://authentication.example.org/my-video.mp4"
 }
 ```
 
@@ -281,7 +291,8 @@ This probe service _MUST_ always return a response to the client. The response c
     "id": "https://authentication.example.org/my-HLS-video.m3u8/probe",
     "type": "AuthProbeService2",
     "location": "https://authentication.example.org/1232123432123/my-HLS-video.m3u8",
-    "label": { "en": [ "Label for my-video.mp4's probe service" ] }
+    "label": { "en": [ "Label for my-video.mp4's probe service" ] },
+    "for": "https://authentication.example.org/my-video.mp4"
 }
 ```
 
