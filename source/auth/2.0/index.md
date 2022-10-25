@@ -243,6 +243,23 @@ This probe service _MUST_ always return a response to the client. The response c
 }
 ```
 
+<!-- call notes -->
+<!-- TODO -->
+```json
+// 200
+{
+    "@context": "http://iiif.io/api/auth/{{ page.major }}/context.json",
+    "id": "https://authentication.example.org/my-video.mp4/probe",
+    "type": "AuthProbeService2",
+    "behavior": [ "retry-with-auth" ],
+    "label": { "en": [ "Label for my-video.mp4's probe service" ] },
+    "for": "https://authentication.example.org/my-video.mp4",
+}
+```
+<!-- / call notes -->
+
+
+
 * The response status code is **401**, and no `location` property is present, indicating that the user does not have access to the Content Resource the Probe Service was declared for, and no alternative is available:
 
 ```json
