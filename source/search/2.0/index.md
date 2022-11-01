@@ -854,7 +854,7 @@ This specification is due primarily to the work of the [IIIF Content Search Tech
 
 | Date       | Description               |
 | ---------- | ------------------------- |
-| 2022-0X-YY | Version 2.0 (Mr. Wigglesworth) |
+| 2022-11-15 | Version 2.0 (Mr. Wigglesworth) |
 | 2016-05-12 | Version 1.0 (Lost Summer) |
 | 2015-07-20 | Version 0.9 (Trip Life)   |
 {: .api-table}
