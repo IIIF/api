@@ -48,7 +48,7 @@ The terms _array_, _JSON object_, _number_, _string_, and _boolean_ in this docu
 The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _SHOULD NOT_, _RECOMMENDED_, _MAY_, and _OPTIONAL_ in this document are to be interpreted as described in [RFC 2119][org-rfc-2119].
 
 ## 2. Georeferencing with Ground Control Points
-The main process for georeferencing a IIIF resources involves connecting image coordinates in pixels to WGS84 geographic coordinates over a projection of the surface of the Earth. The main pieces of data required to do this are 
+Georeferecing can only be applied to a single resource.  For example, georeferencing a Manifest or Collection is a non-sequetor as one cannot supply the information for each 'image' within the Manifest at the Manifest level.  Therefore, these Web Annotations can only be used with Canvas, Image Service or Image resources. The main process for georeferencing a IIIF resources involves connecting image coordinates in pixels to WGS84 geographic coordinates over a projection of the surface of the Earth. The main pieces of data required to do this are 
 
 - Image -- A IIIF Image API service, or raw IIIF Image
 - Ground Control Points (GCP) -- WGS82 geographic coordinate points represented as GeoJSON Features
