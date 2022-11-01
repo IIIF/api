@@ -15,7 +15,7 @@ Changes will be tracked within the document.
 
 ## 1. Introduction
 
-The [IIIF Presentation API 3](https://iiif.io/api/presentation/3.0/) has the capability to support complex Web Annotations which can provide detailed and specific information regarding IIIF resources. You can see various use cases which implement such Web Annotations in the IIIF Cookbook. Through the work of IIIF Maps, a commonality of techniques to georeference IIIF Canvases and Images in the context of a global map became evident, and a desire to have standards and best practices for georeferencing became known.
+The [IIIF Presentation API](https://iiif.io/api/presentation/3.0/) has the capability to support complex Web Annotations which can provide detailed and specific information regarding IIIF resources. You can see various use cases which implement such Web Annotations in the IIIF Cookbook. Through the work of IIIF Maps, a commonality of techniques to georeference IIIF Canvases and Images in the context of a global map became evident, and a desire to have standards and best practices for georeferencing became known.
 
 ### 1.1 Objectives and Scope
 
@@ -48,17 +48,21 @@ The terms _array_, _JSON object_, _number_, _string_, and _boolean_ in this docu
 The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _SHOULD NOT_, _RECOMMENDED_, _MAY_, and _OPTIONAL_ in this document are to be interpreted as described in [RFC 2119][org-rfc-2119].
 
 ## 2. Georeferencing with Ground Control Points
-Georeferecing can only be applied to a single resource.  For example, georeferencing a Manifest or Collection is a non-sequetor as one cannot supply the information for each 'image' within the Manifest at the Manifest level.  Therefore, these Web Annotations can only be used with Canvas, Image Service or Image resources. The main process for georeferencing a IIIF resources involves connecting image coordinates in pixels to WGS84 geographic coordinates over a projection of the surface of the Earth. The main pieces of data required to do this are 
+Why georeference this way vs. a different way? - This is what most software uses.  "Easiest" way to do it when relying heavily on user input.
+Georeferecing can only be applied to a single or partial IIIF Canvas or Image Service.  For example, georeferencing a Manifest or Collection is a non sequitur as one cannot supply the information for each 'image' within the Manifest at the Manifest level. The main process for georeferencing a IIIF resources involves connecting image coordinates in pixels to WGS84 geographic coordinates. The main pieces of data required to do this are 
 
-- Image -- A IIIF Image API service, or raw IIIF Image
-- Ground Control Points (GCP) -- WGS82 geographic coordinate points represented as GeoJSON Features
+- Image Service or Canvas -- A IIIF Image API service or Canvas
+- Ground Control Points (GCP) -- WGS84 geographic coordinate points represented as GeoJSON Features
 - Pixel Mask -- The specific pixel region of the Image to display as they relate to the WGS84 GCPs represented by a `selector` on the Image
 - Transformation -- The specific transformation type and order to apply to the coordinate conversion
-  
+
+"A place in the Annotation to define which transformation is best for a specific georeferenced type (like linear or polynomial.  This is up to the client, and if a kind of transformation we define is not supported they should have the freedom to use a different one."
+
 A new property, `transformation` is described by this document in order to supply the Transformation mentioned here. The value for `transformation` is a JSON Object which includes the properties `type` and `order`. The property _MUST_ be added to the Feature Collection used in the Annotation `body`.
 
 - `type` is the type of transformation, which can be "linear", "polynomial", or ??
-- `order` is the ?? of transformation, which can be ??
+
+Another new property, `pixelCoord` ...
 
 All of the other information can already be supplied through the Web Annotation.
 
@@ -67,18 +71,18 @@ All of the other information can already be supplied through the Web Annotation.
 Web Annotations can contain all of the required information mentioned in Section 2. We will describe how each piece of the Web Annotation is used and what its job is, followed by a full example.
 
 ### Embedded vs. Referenced Targets and Resources
-Web Annotations can exist independent of the resource they target. The resource they target is often only referenced in the Web Annotation.  For the purposes of this extension, implmenters _SHOULD_ embed the target within the Web Annotation instead of referecing it. This reduces the need to make HTTP calls to resolve the resource, which is especially important for Canvas resources.  Likewise, resources that record the Web Annotations pertinent to the resource via the `annotations` property have the option to be referenced or embedded.  For the purposes of this extension, implementers _SHOULD_ embed the Annotation Lists in the `annotations` property as opposed to referencing them.
+Web Annotations can exist independent of the resource they target. The resource they target is often only referenced in the Web Annotation.  For the purposes of this extension, implmenters _SHOULD_ embed the target within the Web Annotation instead of referecing it. This reduces the need to make HTTP calls to resolve the resource, which is especially important for Canvases. Likewise, resources that record the Web Annotations pertinent to the resource via the `annotations` property have the option to be referenced or embedded.  For the purposes of this extension, implementers _SHOULD_ embed the Annotation Lists in the `annotations` property as opposed to referencing them.
 
 ### Annotation `motivation` and `purpose`
 The `motivation` and `purpose` properties are used by Web Annotations to understand the reasons why the Annotation was created, or why the `body` was included in the Annotation.  These properties _SHOULD_ be included, and when they are included they _MUST_ be "georeferencing" or "gcp-georeferecing".
 
-### Annotation `body`
-The `body` of an Annotation contains the data you would like to relate to some web resource. In our case, the `body` must contain the transformation information, the GCPs, and the Pixel Mask. We do this through a GeoJSON-LD Feature Collection where each Feature contains the pixel coordinate information and the GCP those pixels relate to. The transformation information is supplied as its own property on the Feature Collection. As such, the transformation _MUST_ be the same for each feature. See the `body` in the example at the end of this section.
-
 ### Annotation `target`
-The Annotation `target` is the resource to supply the `body` information to.  In our case, the `target` _SHOULD_ be an IIIF Canvas or Image Service. It is important that viewers processing this information know the original height and width of the resources in order to have the proper aspect ratios. Implementers _SHOULD_ supply this information via an embedded resource as opposed to a referenced resource.
+The Annotation `target` is the resource to supply the `body` information to.  In our case, the `target` _SHOULD_ be an IIIF Canvas or Image Service. It is important that viewers processing this information know the original height and width of the resources in order to have the proper aspect ratios. Implementers _SHOULD_ supply this information with their embedded resource.
 
-In cases where the `target` is not the entire resource and is instead an area of interest, the selected area must be supplied as part of the target.  This is accomplished using a [Specific Resource]() where the `source` and `selector` can be supplied. See the `target` in the example at the end of this section
+In cases where the `target` is not the entire resource and is instead an area of interest, the selected area _MUST_ be supplied as part of the target.  This is accomplished using a [Specific Resource]() where the `source` and `selector` can be supplied. See the `target` in the example at the end of this section.
+
+### Annotation `body`
+The `body` of an Annotation contains the data you would like to relate to some Canvas or IIIF Image Service. In our case, the `body` contains the GCPs and optionally the `transformation`. For the purposes of this extension, the `body` _SHOULD_ contain at least three ground control points.  We supply this information through a GeoJSON-LD Feature Collection where each Feature contains the pixel coordinate information and the GCP those pixels relate to. The transformation information is supplied as its own property on the Feature Collection.  See the `body` in the example at the end of this section.
 
 ### 4. Full Examples
 
@@ -307,7 +311,7 @@ The linked data context of this extension must be included before the IIIF Prese
 Consult the [Linked Data Context and Extensions section of IIIF Presentation API 3]() for further guidance on use of the `@context` property.
 
 ## 6. Implementation Notes
-Not sure we need this.  The way this is designed, we will have said everything that would belong here I think.
+Briefly explain transformation algorithms, why you need 3 or more control points, examples to show different implementations.
 
 ## Appendices
 Examples/references:
