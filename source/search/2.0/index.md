@@ -846,15 +846,15 @@ This specification follows [Semantic Versioning][org-semver]. See the note [Vers
 
 ### B. Acknowledgements
 
-The production of this document was generously supported by a grant from the [Andrew W. Mellon Foundation][org-mellon].
-
 Many thanks to the members of the [IIIF][iiif-community] for their continuous engagement, innovative ideas and feedback.
+
+This specification is due primarily to the work of the [IIIF Content Search Technical Specification Group](https://iiif.io/community/groups/content-search-tsg/), chaired by Mike Bennett, Dawn Childress (UCLA), Tom Crane (Digirati), and Maria Whitaker (Indiana University, 2021). The IIIF Community thanks them for their leadership, and the members of the group for their tireless work.
 
 ### C. Change Log
 
 | Date       | Description               |
 | ---------- | ------------------------- |
-| 2022-0X-YY | Version 2.0 () |
+| 2022-0X-YY | Version 2.0 (Mr. Wigglesworth) |
 | 2016-05-12 | Version 1.0 (Lost Summer) |
 | 2015-07-20 | Version 0.9 (Trip Life)   |
 {: .api-table}
