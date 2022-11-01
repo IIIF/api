@@ -62,9 +62,12 @@ A new property, `transformation` is described by this document in order to suppl
 
 All of the other information can already be supplied through the Web Annotation.
 
-## 3. [Web Annotations](https://www.w3.org/TR/annotation-model/)
+## 3. [Web Annotations for Georeferencing](https://www.w3.org/TR/annotation-model/)
 
-Web Annotations can contain all of the required information mentioned in Section 2.  We will describe how each piece of the Web Annotation is used and what its job is, followed by a full example.
+Web Annotations can contain all of the required information mentioned in Section 2. We will describe how each piece of the Web Annotation is used and what its job is, followed by a full example.
+
+### Embedded vs. Referenced Targets and Resources
+Web Annotations can exist independent of the resource they target. The resource they target is often only referenced in the Web Annotation.  For the purposes of this extension, implmenters _SHOULD_ embed the target within the Web Annotation instead of referecing it. This reduces the need to make HTTP calls to resolve the resource, which is especially important for Canvas resources.  Likewise, resources that record the Web Annotations pertinent to the resource via the `annotations` property have the option to be referenced or embedded.  For the purposes of this extension, implementers _SHOULD_ embed the Annotation Lists in the `annotations` property as opposed to referencing them.
 
 ### Annotation `motivation` and `purpose`
 The `motivation` and `purpose` properties are used by Web Annotations to understand the reasons why the Annotation was created, or why the `body` was included in the Annotation.  These properties _SHOULD_ be included, and when they are included they _MUST_ be "georeferencing" or "gcp-georeferecing".
