@@ -848,7 +848,7 @@ This specification follows [Semantic Versioning][org-semver]. See the note [Vers
 
 Many thanks to the members of the [IIIF][iiif-community] for their continuous engagement, innovative ideas and feedback.
 
-This specification is due primarily to the work of the [IIIF Content Search Technical Specification Group](https://iiif.io/community/groups/content-search-tsg/), chaired by Mike Bennett, Dawn Childress (UCLA), Tom Crane (Digirati), and Maria Whitaker (Indiana University, 2021). The IIIF Community thanks them for their leadership, and the members of the group for their tireless work.
+This specification is due primarily to the work of the [IIIF Content Search Technical Specification Group](https://iiif.io/community/groups/content-search-tsg/), chaired by Mike Bennett, Dawn Childress (UCLA), Tom Crane (Digirati), and the IIIF Editors, including Maria Whitaker (Indiana University, Editor 2020-2021). The IIIF Community thanks them for their leadership, and the members of the group for their tireless work.
 
 ### C. Change Log
 
