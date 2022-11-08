@@ -63,7 +63,7 @@ A new property, `transformation` is described by this document in order to suppl
 - `type` is the type of transformation, which can be "linear", "polynomial", or ??
 - `order` is...
 
-Another new property, `pixelCoord` is defined in order to supply the pixel coordinates from the IIIF Canvas or Image Service along with the WGS84 `coordinates` in the Features.  The value is an integer array representing a pixel point at [x,y] and __MUST__ be precisely in that order.
+Another new property, `pixelCoord` is defined in order to supply the pixel coordinates from the IIIF Canvas or Image Service along with the WGS84 `coordinates` in the Features.  The value is an array representing a pixel point at [x,y] and __MUST__ be precisely in that order.
 
 All of the other information can already be supplied through the Web Annotation.
 
