@@ -6,6 +6,7 @@
       "iiif_image":"http://iiif.io/api/image/3#",
       "oa": "http://www.w3.org/ns/oa#",
       "sc": "http://iiif.io/api/presentation/2#",
+      "as": "http://www.w3.org/ns/activitystreams#",
       "proto":"http://iiif.io/api/extension/georef/vocab/georef-terms.md#",
       "id": "@id",
       "type": "@type",
