@@ -79,12 +79,27 @@ The `motivation` and `purpose` properties are used by Web Annotations to underst
 ### Annotation `target`
 The Annotation `target` is the resource to supply the `body` information to.  In our case, the `target` _SHOULD_ be an IIIF Canvas or Image Service. It is important that viewers processing this information know the original height and width of the resources in order to have the proper aspect ratios. Implementers _SHOULD_ supply this information with their embedded resource.
 
+It is important to maintain a link back to the Manifest for a given Canvas so clients consuming these resource have the opportunity to provide contextual information about the Manifest.  To do this, implementers _SHOULD_ use the `partOf` property on the Canvas with as much information about the Manifest as is useful.  For example,
+
+```JSON
+"partOf":{
+   "id":"http://example.org/manifest/1",
+   "type":"Manifest",
+   "label":{
+      "en": ["Example Property"]
+   }
+}
+```
+
 In cases where the `target` is not the entire resource and is instead an area of interest, the selected area _MUST_ be supplied as part of the target.  This is accomplished using a [Specific Resource]() where the `source` and `selector` can be supplied. See the `target` in the example at the end of this section.
+
+Note that it is possible for multiple Annotations within a single Annotation List to target different, more specific areas of a single Image or Canvas.  This is useful when your image contains multiple maps, or displays a single map with inset maps built in.  Link to Allmaps Viewer documentation for example, or include a snippet here??  
 
 ### Annotation `body`
 The `body` of an Annotation contains the data you would like to relate to some Canvas or IIIF Image Service. In our case, the `body` contains the GCPs and optionally the `transformation`. For the purposes of this extension, the `body` _SHOULD_ contain at least three ground control points.  We supply this information through a GeoJSON-LD Feature Collection where each Feature contains the pixel coordinate information and the GCP those pixels relate to. The transformation information is supplied as its own property on the Feature Collection.  See the `body` in the example at the end of this section.
 
 ### 4. Full Examples
+Link to Allmaps Viewer documentation for more exmaples??
 
 #### 4.1 Full Web Annotation Example
 {% include api/code_header.html %}
@@ -94,11 +109,11 @@ The `body` of an Annotation contains the data you would like to relate to some C
       "http://iiif.io/api/extension/georef/1/context.json",
       "http://iiif.io/api/presentation/3/context.json"
    ],
-   "id":"http://iiif.io/api/extension/georef/examples/specific-image-service-2-svg-annotation.json",
+   "id":"http://iiif.io/api/extension/georef/examples/3/specific-image-service-2-svg-annotation.json",
    "type":"Annotation",
    "motivation":"georeferencing",
    "target":{
-      "id":"http://iiif.io/api/extension/georef/examples/specific-image-service.json",
+      "id":"http://iiif.io/api/extension/georef/examples/3/specific-image-service.json",
       "type":"SpecificResource",
       "source":{
          "@id":"https://cdm21033.contentdm.oclc.org/digital/iiif/krt/2891",
@@ -112,7 +127,7 @@ The `body` of an Annotation contains the data you would like to relate to some C
       }
    },
    "body":{
-      "id":"http://iiif.io/api/extension/georef/examples/feature-collection.json",
+      "id":"http://iiif.io/api/extension/georef/examples/3/feature-collection.json",
       "type":"FeatureCollection",
       "purpose":"gcp-georeferencing",
       "transformation":{
@@ -181,7 +196,7 @@ The `body` of an Annotation contains the data you would like to relate to some C
       "http://iiif.io/api/extension/georef/1/context.json",
       "http://iiif.io/api/presentation/3/context.json"
    ],
-   "id":"http://iiif.io/api/extension/georef/examples/georeferenced-canvas.json",
+   "id":"http://iiif.io/api/extension/georef/examples/3/georeferenced-canvas.json",
    "type":"Canvas",
    "label":{
       "nl":[
@@ -195,11 +210,11 @@ The `body` of an Annotation contains the data you would like to relate to some C
    "width":5965,
    "items":[
       {
-         "id":"http://iiif.io/api/extension/georef/examples/contentPage.json",
+         "id":"http://iiif.io/api/extension/georef/examples/3/contentPage.json",
          "type":"AnnotationPage",
          "items":[
             {
-               "id":"http://iiif.io/api/extension/georef/examples/content.json",
+               "id":"http://iiif.io/api/extension/georef/examples/3/content.json",
                "type":"Annotation",
                "motivation":"painting",
                "body":{
@@ -215,23 +230,23 @@ The `body` of an Annotation contains the data you would like to relate to some C
                      }
                   ]
                },
-               "target":"http://iiif.io/api/extension/georef/examples/georeferenced-canvas.json"
+               "target":"http://iiif.io/api/extension/georef/examples/3/georeferenced-canvas.json"
             }
          ]
       }
    ],
    "annotations":[
       {
-         "id":"http://iiif.io/api/extension/georef/examples/annotationPage.json",
+         "id":"http://iiif.io/api/extension/georef/examples/3/annotationPage.json",
          "type":"AnnotationPage",
          "items":[
             {
-               "id":"http://iiif.io/api/extension/georef/examples/canvas-annotation.json",
+               "id":"http://iiif.io/api/extension/georef/examples/3/canvas-annotation.json",
                "type":"Annotation",
                "motivation":"georeferencing",
-               "target":"http://iiif.io/api/extension/georef/examples/georeferenced-canvas.json",
+               "target":"http://iiif.io/api/extension/georef/examples/3/georeferenced-canvas.json",
                "body":{
-                  "id":"http://iiif.io/api/extension/georef/examples/feature-collection.json",
+                  "id":"http://iiif.io/api/extension/georef/examples/3/feature-collection.json",
                   "type":"FeatureCollection",
                   "purpose":"gcp-georeferencing",
                   "transformation":{
