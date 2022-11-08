@@ -37,7 +37,7 @@
             {
                "@id":"http://iiif.io/api/extension/georef/examples/2/canvas-annotation.json",
                "@type":"oa:Annotation",
-               "motivation":"proto:georeferencing",
+               "motivation":"georeferencing",
                "target":{
                   "@context":"http://iiif.io/api/presentation/2/context.json",
                   "@id":"http://iiif.io/api/extension/georef/examples/2/canvas.json",

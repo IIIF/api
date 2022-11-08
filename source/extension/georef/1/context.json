@@ -6,6 +6,8 @@
       "iiif_image":"http://iiif.io/api/image/3#",
       "oa": "http://www.w3.org/ns/oa#",
       "proto":"http://iiif.io/api/extension/georef/vocab/georef-terms.md#",
+      "id": "@id",
+      "type": "@type",
       "georeferencing":"proto:georeferencing",
       "geotagging":"proto:geotagging",
       "transformation":"proto:transformation",
