@@ -1,0 +1,32 @@
+{
+   "@context": "http://iiif.io/api/presentation/2/context.json",
+   "@id":"http://iiif.io/api/extension/georef/examples/2/canvas.json",
+   "@type":"sc:Canvas",
+   "label":"River Nieuwe Maas and Rotterdam's Havens",
+   "height":2514,
+   "width":5965,
+   "images": [
+      {
+        "@id": "http://example.org/iiif/book1/annotation/p0001-image",
+        "@type": "oa:Annotation",
+        "motivation": "sc:painting",
+        "resource": {
+          "@id": "https://cdm21033.contentdm.oclc.org/digital/iiif/krt/2891/full/full/0/default.jpg",
+          "@type": "dctypes:Image",
+          "format": "image/jpeg",
+          "service": {
+            "@context": "http://iiif.io/api/image/2/context.json",
+            "@id":"https://cdm21033.contentdm.oclc.org/digital/iiif/krt/2891",
+            "profile": "http://iiif.io/api/image/2/level2.json"
+          },
+          "height":2514,
+          "width":5965
+        },
+        "on": "http://iiif.io/api/extension/georef/examples/2/canvas.json"
+      }
+  ],
+   "within": {
+      "@id": "http://example.org/manifest/1",
+      "@type": "sc:Manifest"
+   }
+}

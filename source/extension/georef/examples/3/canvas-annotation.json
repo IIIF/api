@@ -3,11 +3,11 @@
       "http://iiif.io/api/extension/georef/1/context.json",
       "http://iiif.io/api/presentation/3/context.json"
    ],
-   "id":"http://iiif.io/api/extension/georef/examples/canvas-annotation.json",
+   "id":"http://iiif.io/api/extension/georef/examples/3/canvas-annotation.json",
    "type":"Annotation",
    "motivation":"georeferencing",
    "target":{
-      "id":"http://iiif.io/api/extension/georef/examples/canvas.json",
+      "id":"http://iiif.io/api/extension/georef/examples/3/canvas.json",
       "type":"Canvas",
       "label":{
          "nl":[
@@ -21,11 +21,11 @@
       "width":5965,
       "items":[
          {
-            "id":"http://iiif.io/api/extension/georef/examples/contentPage.json",
+            "id":"http://iiif.io/api/extension/georef/examples/3/contentPage.json",
             "type":"AnnotationPage",
             "items":[
                {
-                  "id":"http://iiif.io/api/extension/georef/examples/content.json",
+                  "id":"http://iiif.io/api/extension/georef/examples/3/content.json",
                   "type":"Annotation",
                   "motivation":"painting",
                   "body":{
@@ -41,7 +41,7 @@
                         }
                      ]
                   },
-                  "target":"http://iiif.io/api/extension/georef/examples/canvas.json"
+                  "target":"http://iiif.io/api/extension/georef/examples/3/canvas.json"
                }
             ]
          }
@@ -52,7 +52,7 @@
       }
    },
    "body":{
-      "id":"http://iiif.io/api/extension/georef/examples/feature-collection.json",
+      "id":"http://iiif.io/api/extension/georef/examples/3/feature-collection.json",
       "type":"FeatureCollection",
       "purpose":"gcp-georeferencing",
       "transformation":{

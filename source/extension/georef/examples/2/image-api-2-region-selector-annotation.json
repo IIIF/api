@@ -1,34 +1,33 @@
 {
    "@context":[
       "http://iiif.io/api/extension/georef/1/context.json",
-      "http://iiif.io/api/presentation/3/context.json"
+      "http://iiif.io/api/presentation/2/context.json"
    ],
-   "id":"http://iiif.io/api/extension/georef/examples/specific-image-annotation.json",
-   "type":"Annotation",
-   "motivation":"georeferencing",
+   "@id":"http://iiif.io/api/extension/georef/examples/2/canvas-annotation.json",
+   "@type":"oa:Annotation",
+   "motivation":"proto:georeferencing",
    "target":{
-      "id":"http://iiif.io/api/extension/georef/examples/specific-image.json",
-      "type":"SpecificResource",
-      "source":{
-         "id":"https://cdm21033.contentdm.oclc.org/digital/iiif/krt/2891/full/5965,2514/0/default.jpg",
-         "type":"Image",
+      "@type":"oa:SpecificResource",
+      "full":{
+         "@id":"https://cdm21033.contentdm.oclc.org/digital/iiif/krt/2891/full/full/0/default.jpg",
+         "@type":"dctypes:Image",
          "format":"image/jpeg",
+         "service":{
+            "@context":"http://iiif.io/api/image/2/context.json",
+            "@id":"https://cdm21033.contentdm.oclc.org/digital/iiif/krt/2891",
+            "profile":"http://iiif.io/api/image/2/level2.json"
+         },
          "height":2514,
-         "width":5965,
-         "service":[
-            {
-               "@id":"https://cdm21033.contentdm.oclc.org/digital/iiif/krt/2891",
-               "type":"ImageService2"
-            }
-         ]
+         "width":5965
       },
-      "selector":{
-         "type":"SvgSelector",
-         "value":"<svg width=\"5965\" height=\"2514\"><polygon points=\"59,84 44,2329 5932,2353 5920,103 \" /></svg>"
+      "selector": {
+         "type": "ImageApiSelector",
+         "region": "810,900,260,370",
+         "size": "5965,2514"
       }
    },
    "body":{
-      "id":"http://iiif.io/api/extension/georef/examples/feature-collection.json",
+      "id":"http://iiif.io/api/extension/georef/examples/2/feature-collection.json",
       "type":"FeatureCollection",
       "purpose":"gcp-georeferencing",
       "transformation":{
