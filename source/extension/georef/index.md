@@ -58,12 +58,25 @@ Georeferecing can only be applied to a single or partial IIIF Canvas or Image Se
 
 "A place in the Annotation to define which transformation is best for a specific georeferenced type, like linear or polynomial.  This is up to the client, and if a kind of transformation we define is not supported they should have the freedom to use a different one."
 
-A new property, `transformation` is described by this document in order to supply the Transformation mentioned here. The value for `transformation` is a JSON Object which includes the properties `type` and `order`. The property _MUST_ be added to the Feature Collection used in the Annotation `body`.
+A new property, `transformation` is described by this document in order to supply the Transformation mentioned here. The value for `transformation` is a JSON Object which includes the properties `type` and `order`. The property _MAY_ be added to the Feature Collection used in the Annotation `body`.
 
-- `type` is the type of transformation, which can be "linear", "polynomial", or ??
-- `order` is...
+```JSON
+"transformation":{
+  "type":"polynomial",
+  "options": {
+    "order":0
+  }
+}
+```
 
-Another new property, `pixelCoord` is defined in order to supply the pixel coordinates from the IIIF Canvas or Image Service along with the WGS84 `coordinates` in the Features.  The value is an array representing a pixel point at [x,y] and __MUST__ be precisely in that order.
+The value for `type` _SHOULD_ or _COULD_ be "polynomial", "thinPlateSpine", "etc." but _MAY_ be any string.  It only matters for clients when they use the Annotation for computation.
+The value for `option` is a JSON Object and _SHOULD_ contain an `order` property.
+
+"and we can say in implementation notes: allmaps supports type: polynomial"
+"and later we can update the spec, when allmaps supports multiple transformation algorithms"
+"and we can link to implementation details"
+
+Another new property, `pixelCoords` is defined in order to supply the pixel coordinates from the IIIF Canvas or Image Service along with the WGS84 `coordinates` in the Features.  The value is an array representing a pixel point at [x,y] and __MUST__ be precisely in that order.
 
 All of the other information can already be supplied through the Web Annotation.
 
@@ -94,13 +107,21 @@ It is important to maintain a link back to the Manifest for a given Canvas so cl
 
 In cases where the `target` is not the entire resource and is instead an area of interest, the selected area _MUST_ be supplied as part of the target.  This is accomplished using a [Specific Resource]() where the `source` and `selector` can be supplied. See the `target` in the example at the end of this section.
 
-Note that it is possible for multiple Annotations within a single Annotation List to target different, more specific areas of a single Image or Canvas.  This is useful when the Image or Canvas contains multiple maps, or displays a single map with inset maps built in.  Link to Allmaps Viewer documentation for example, or include a snippet here??  
+Note that it is possible for multiple Annotations within a single Annotation Page to target different, more specific areas of a single Image or Canvas.  It is also possible for a Canvas to contain multiple unique images.  This is useful when the Image or Canvas contains multiple maps, or displays a single map with inset maps built in. 
+
+"Good to mention.  Maybe not worth prototyping it.  There is also a new example in the repo at https://github.com/allmaps/iiif-api/tree/georef/source/extension/georef/images" Worth showing the image, not the data object.
 
 ### 3.4 Annotation `body`
-The `body` of an Annotation contains the data you would like to relate to some Canvas or IIIF Image Service. In our case, the `body` contains the GCPs and optionally the `transformation`. For the purposes of this extension, the `body` _SHOULD_ contain at least three ground control points.  We supply this information through a GeoJSON-LD Feature Collection where each Feature contains the pixel coordinate information and the GCP those pixels relate to. The transformation information is supplied as its own property on the Feature Collection.  See the `body` in the example at the end of this section.
+The `body` of an Annotation contains the data you would like to relate to some Canvas or IIIF Image Service. In our case, the `body` contains the GCPs and optionally the `transformation`. 
+`body` _MUST_ be a GeoJSON Feature Collection
+The Feature Collection _MAY_ contain `transformation`
+_MUST_ only contain Features with Point geometry
+_SHOULD_ be at least three point Features
+_MUST_ have properties containing `pixelCoords` and `coordinates`
+
+For the purposes of this extension, the `body` _SHOULD_ contain at least three ground control points, which are represented by a GeoJSON Point Feature.  Note that each Feature _MUST_ be a Point.  We supply this information through a GeoJSON-LD Feature Collection where each Feature contains the pixel coordinate information and the GCP those pixels relate to. The transformation information is supplied as its own property on the Feature Collection.  See the `body` in the example at the end of this section.
 
 ### 4. Full Examples
-Link to Allmaps Viewer documentation for more exmaples??
 
 #### 4.1 Full Web Annotation Example
 {% include api/code_header.html %}
