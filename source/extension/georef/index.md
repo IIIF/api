@@ -105,6 +105,8 @@ Using other properties within `options` is permissable so long as a Linked Data 
 
 ### 2.4 The `pixelCoords` Property
 Another new property, `pixelCoords` is defined by this document in order to supply the pixel coordinates from the IIIF Canvas or Image Service along with the WGS84 `coordinates` in the Features.  The value is an array representing a pixel point at [x,y] and __MUST__ be precisely in that order.  An example is:
+
+{% include api/code_header.html %}
 ```json-doc
 {"pixelCoords":[10,20]}
 ```
