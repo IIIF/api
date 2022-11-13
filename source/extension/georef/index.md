@@ -78,7 +78,7 @@ This property is for clients using the coordinates in the Annotation for computa
 | `thinPlateSpline`            |  Lorem Ipusm and some other stuff |
 {: .api-table #table-transformation-types}
 
-The `options` property is used to supply further computational parameters for use with the coordinates found in the Annotation.  The value of `options` is a JSON object and typically includes the following properties:
+The `options` property is used to supply further computational parameters for use with the coordinates found in the Annotation.  The value of `options` is a JSON object and typically includes but is not limited to the following properties:
 
 [@bert and @jules]
 |Transformation Options        |  Description                      |
