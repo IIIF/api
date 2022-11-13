@@ -260,7 +260,7 @@ The `motivation` and `purpose` properties are used by Web Annotations to underst
 {: .api-table #table-motivation-extension}
 
 - The `motivation` property _SHOULD_ be included on all Web Annotations and when included its value _MUST_ be the string "georeferencing".
-- `purpose` property _SHOULD_ be included on all Web Annotation `body` objects and when included its value _MUST_ be the string "gcp-georeferecing".
+- The `purpose` property _SHOULD_ be included on all Web Annotation `body` objects and when included its value _MUST_ be the string "gcp-georeferecing".
 
 Note that the linked data context provided with this document includes the formal Linked Data 1.1 Motivation Extension, and the vocabulary provided with this document contains the formal vocabulary.
 
