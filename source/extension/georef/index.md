@@ -156,7 +156,7 @@ In cases where the `target` is not the entire Canvas or Image Service and is ins
 
 Note that it is possible for multiple Annotations within a single Annotation Page to target different, more specific areas of a single Image or Canvas.  It is also possible for a Canvas to contain multiple unique images.  This is useful when the Image or Canvas contains multiple maps, or displays a single map with inset maps built in. Below is an image that exemplifies this scenario.
 
-!["Multi Map Image"](/images/loc-acadia-np-maps.jpg "Multi Map Image")
+!["Multi Map Image"](images/loc-acadia-np-maps.jpg "Multi Map Image")
 
 ### 3.4 Annotation `body`
 The `body` of an Annotation contains the data you would like to relate to some Canvas or IIIF Image Service. In our case, the `body` contains the GCPs and geocoordinates.
