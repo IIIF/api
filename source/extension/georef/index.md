@@ -109,7 +109,7 @@ Another new property, `pixelCoords` is defined by this document in order to supp
 {"pixelCoords":[10,20]}
 ```
 
-## 3. [Web Annotations for Georeferencing](https://www.w3.org/TR/annotation-model/)
+## 3. [Web Annotations](https://www.w3.org/TR/annotation-model/) for Georeferencing
 
 Web Annotations can contain all of the required information mentioned in Section 2. We will describe how each piece of the Annotation is used and what its job is, followed by full example.
 
