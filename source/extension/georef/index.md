@@ -109,13 +109,141 @@ Another new property, `pixelCoords` is defined by this document in order to supp
 {"pixelCoords":[10,20]}
 ```
 
+#### 2.5 Full Canvas Example
+
+{% include api/code_header.html %}
+```json-doc
+{
+   "@context":[
+      "http://iiif.io/api/extension/georef/1/context.json",
+      "http://iiif.io/api/presentation/3/context.json"
+   ],
+   "id":"http://iiif.io/api/extension/georef/examples/3/georeferenced-canvas.json",
+   "type":"Canvas",
+   "label":{
+      "nl":[
+         "River Nieuwe Maas and Rotterdam's Havens"
+      ],
+      "en":[
+         "Guide to the New-Waterway"
+      ]
+   },
+   "height":2514,
+   "width":5965,
+   "items":[
+      {
+         "id":"http://iiif.io/api/extension/georef/examples/3/contentPage.json",
+         "type":"AnnotationPage",
+         "items":[
+            {
+               "id":"http://iiif.io/api/extension/georef/examples/3/content.json",
+               "type":"Annotation",
+               "motivation":"painting",
+               "body":{
+                  "id":"https://cdm21033.contentdm.oclc.org/digital/iiif/krt/2891/full/full/0/default.jpg",
+                  "type":"Image",
+                  "format":"image/jpeg",
+                  "height":2514,
+                  "width":5965,
+                  "service":[
+                     {
+                        "@id":"https://cdm21033.contentdm.oclc.org/digital/iiif/krt/2891",
+                        "type":"ImageService2"
+                     }
+                  ]
+               },
+               "target":"http://iiif.io/api/extension/georef/examples/3/georeferenced-canvas.json"
+            }
+         ]
+      }
+   ],
+   "annotations":[
+      {
+         "id":"http://iiif.io/api/extension/georef/examples/3/annotationPage.json",
+         "type":"AnnotationPage",
+         "items":[
+            {
+               "id":"http://iiif.io/api/extension/georef/examples/3/canvas-annotation.json",
+               "type":"Annotation",
+               "motivation":"georeferencing",
+               "target":"http://iiif.io/api/extension/georef/examples/3/georeferenced-canvas.json",
+               "body":{
+                  "id":"http://iiif.io/api/extension/georef/examples/3/feature-collection.json",
+                  "type":"FeatureCollection",
+                  "purpose":"gcp-georeferencing",
+                  "transformation":{
+                     "type":"polynomial",
+                     "order":0
+                  },
+                  "features":[
+                     {
+                        "type":"Feature",
+                        "properties":{
+                           "pixelCoords":[
+                              5085,
+                              782
+                           ]
+                        },
+                        "geometry":{
+                           "type":"Point",
+                           "coordinates":[
+                              4.4885839,
+                              51.9101828
+                           ]
+                        }
+                     },
+                     {
+                        "type":"Feature",
+                        "properties":{
+                           "pixelCoords":[
+                              5467,
+                              1338
+                           ]
+                        },
+                        "geometry":{
+                           "type":"Point",
+                           "coordinates":[
+                              4.5011785,
+                              51.901595
+                           ]
+                        }
+                     },
+                     {
+                        "type":"Feature",
+                        "properties":{
+                           "pixelCoords":[
+                              2006,
+                              374
+                           ]
+                        },
+                        "geometry":{
+                           "type":"Point",
+                           "coordinates":[
+                              4.405981,
+                              51.9091596
+                           ]
+                        }
+                     }
+                  ]
+               }
+            }
+         ]
+      }
+   ],
+   "partOf":{
+      "id":"http://example.org/manifest/1",
+      "type":"Manifest"
+   }
+}
+```
+
 ## 3. [Web Annotations](https://www.w3.org/TR/annotation-model/) for Georeferencing
 
-Web Annotations can contain all of the required information mentioned in Section 2. We will describe how each piece of the Annotation is used and what its job is, followed by full example.
+Web Annotations can contain all of the required information mentioned in Section 2. We will describe how each piece of the Annotation is used and what its job is, followed by a full example.
 
 ### 3.1 Embedded vs. Referenced Targets and Resources
 
-To supply a IIIF Canvas or Image Service with georeferecing information, implmenters _MUST_ add at least one Annotation Page to the `annotations` property.  Implementer have the option to reference or embed those Annotation Pages.  For the purposes of this extension, implementers _SHOULD_ embed the Annotation Pages in the `annotations` property as opposed to referencing them. [@bert and jules] a sentence about why?
+To supply a IIIF Canvas or Image Service with georeferecing information, implmenters _MUST_ add at least one Annotation Page to the `annotations` property.  Implementers have the option to reference or embed those Annotation Pages.  For the purposes of this extension, implementers _SHOULD_ embed the Annotation Pages in the `annotations` property as opposed to referencing them. [@bert and jules] a sentence about why?
 
 Web Annotations can exist independent of the Canvas or Image Service they target and in such cases the Canvas or Image Service is often only referenced via its URI in the Web Annotation `target` property.  For the purposes of this extension, implmenters _SHOULD_ embed the Canvas or Image Service within the Web Annotation instead of referecing it. [@bert and jules] a sentence about why? This reduces the need to make HTTP calls to resolve the resource, which is especially important for Canvases. 
 
@@ -255,134 +383,6 @@ See the `body` in the example in the next section for a complete example.
             }
          }
       ]
-   }
-}
-```
-
-#### 4.2 Full Canvas Example
-
-{% include api/code_header.html %}
-```json-doc
-{
-   "@context":[
-      "http://iiif.io/api/extension/georef/1/context.json",
-      "http://iiif.io/api/presentation/3/context.json"
-   ],
-   "id":"http://iiif.io/api/extension/georef/examples/3/georeferenced-canvas.json",
-   "type":"Canvas",
-   "label":{
-      "nl":[
-         "River Nieuwe Maas and Rotterdam's Havens"
-      ],
-      "en":[
-         "Guide to the New-Waterway"
-      ]
-   },
-   "height":2514,
-   "width":5965,
-   "items":[
-      {
-         "id":"http://iiif.io/api/extension/georef/examples/3/contentPage.json",
-         "type":"AnnotationPage",
-         "items":[
-            {
-               "id":"http://iiif.io/api/extension/georef/examples/3/content.json",
-               "type":"Annotation",
-               "motivation":"painting",
-               "body":{
-                  "id":"https://cdm21033.contentdm.oclc.org/digital/iiif/krt/2891/full/full/0/default.jpg",
-                  "type":"Image",
-                  "format":"image/jpeg",
-                  "height":2514,
-                  "width":5965,
-                  "service":[
-                     {
-                        "@id":"https://cdm21033.contentdm.oclc.org/digital/iiif/krt/2891",
-                        "type":"ImageService2"
-                     }
-                  ]
-               },
-               "target":"http://iiif.io/api/extension/georef/examples/3/georeferenced-canvas.json"
-            }
-         ]
-      }
-   ],
-   "annotations":[
-      {
-         "id":"http://iiif.io/api/extension/georef/examples/3/annotationPage.json",
-         "type":"AnnotationPage",
-         "items":[
-            {
-               "id":"http://iiif.io/api/extension/georef/examples/3/canvas-annotation.json",
-               "type":"Annotation",
-               "motivation":"georeferencing",
-               "target":"http://iiif.io/api/extension/georef/examples/3/georeferenced-canvas.json",
-               "body":{
-                  "id":"http://iiif.io/api/extension/georef/examples/3/feature-collection.json",
-                  "type":"FeatureCollection",
-                  "purpose":"gcp-georeferencing",
-                  "transformation":{
-                     "type":"polynomial",
-                     "order":0
-                  },
-                  "features":[
-                     {
-                        "type":"Feature",
-                        "properties":{
-                           "pixelCoords":[
-                              5085,
-                              782
-                           ]
-                        },
-                        "geometry":{
-                           "type":"Point",
-                           "coordinates":[
-                              4.4885839,
-                              51.9101828
-                           ]
-                        }
-                     },
-                     {
-                        "type":"Feature",
-                        "properties":{
-                           "pixelCoords":[
-                              5467,
-                              1338
-                           ]
-                        },
-                        "geometry":{
-                           "type":"Point",
-                           "coordinates":[
-                              4.5011785,
-                              51.901595
-                           ]
-                        }
-                     },
-                     {
-                        "type":"Feature",
-                        "properties":{
-                           "pixelCoords":[
-                              2006,
-                              374
-                           ]
-                        },
-                        "geometry":{
-                           "type":"Point",
-                           "coordinates":[
-                              4.405981,
-                              51.9091596
-                           ]
-                        }
-                     }
-                  ]
-               }
-            }
-         ]
-      }
-   ],
-   "partOf":{
-      "id":"http://example.org/manifest/1",
-      "type":"Manifest"
    }
 }
 ```
