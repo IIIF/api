@@ -51,66 +51,103 @@ The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _S
 [@bert and @jules] a sentence on why you georeference this way vs. a different way? - This is what most software uses.  "Easiest" way to do it when relying heavily on user input.
 
 ### 2.1 Georefereced Canvases and Image Services
-Georeferecing can only be applied to a single or partial IIIF [Canvas](https://iiif.io/api/presentation/3.0/#53-canvas) or [Image Service](https://iiif.io/api/presentation/3.0/#service).  For example, georeferencing a Manifest or Collection is a non sequitur as one cannot supply the specific information for each 'image' within the Canvases of a Manifest at the Manifest level. The main process for georeferencing a IIIF Canvas or Image Service involves connecting image coordinates in pixels to WGS84 geographic coordinates. The main pieces of data required to do this are 
 
-- IIIF Image Service or Canvas -- An IIIF Image API service or Canvas
-- Ground Control Points (GCPs) -- WGS84 geographic coordinate points represented as GeoJSON Features within a GeoJSON Feature Collection
-- Pixel Mask -- The specific pixel region of the Image to display as they relate to the WGS84 GCPs represented by a `selector` on the Image
-- Transformation -- The specific transformation type and order to apply to the pixel-to-geographic coordinate conversion
+Georeferecing can only be applied to a single or partial IIIF [Canvas](https://iiif.io/api/presentation/3.0/#53-canvas) or [Image Service](https://iiif.io/api/presentation/3.0/#service).  For example, georeferencing a Manifest or Collection is a non sequitur as one cannot supply the specific information for each 'image' within the Canvases of a Manifest at the Manifest level. The main process for georeferencing a IIIF Canvas or Image Service involves connecting image coordinates in pixels to WGS84 geographic coordinates. The main pieces of data required to do this are:
+
+|Required Data                 |  Data Encoding                                         |
+|------------------------------|--------------------------------------------------------|
+| IIIF Image Service or Canvas |  An IIIF Image API service or Presentation API Canvas  |
+| Ground Control Points (GCPs) |  GeoJSON Feature Collection Containing Point Features  |
+| Pixel Mask                   |  `selector` on the Image Service or Canvas             |
+| Transformation               |  Feature `properties` property `transformation`        |
+{: .api-table #table-required-data}
+
+The sections below will detail the required data and specifics for data encoding.
 
 ### 2.1 `transformation` Object Properties
+
 The `transformation` is described by this document in order to supply the Transformation mentioned above. The value for `transformation` is a JSON Object which includes the properties `type` and `options`. The property _MAY_ be added to the Feature Collection used in the Annotation `body`.
 
 This property is for clients using the coordinates in the Annotation for computation and is not always necessary.  Which transformation types are expected or supported will vary between clients.  The value for `type` is a string, and typical types include but are not limited to:
 
 [@bert and @jules]
-- polynomial : 
-- linear :
-- thinPlateSpline
+|Transformation Types          |  Description                      |
+|------------------------------|-----------------------------------|
+| `polynomial`                 |  Lorem Ipusm and some other stuff |
+| `linear`                     |  Lorem Ipusm and some other stuff |
+| `thinPlateSpline`            |  Lorem Ipusm and some other stuff |
+{: .api-table #table-transformation-types}
 
 The `options` property is used to supply further computational parameters for use with the coordinates found in the Annotation.  The value of `options` is a JSON object and typically includes the following properties:
 
 [@bert and @jules]
-- order: An integer...all `options` JSON objects _SHOULD_ contain an `order` property
-- another: A string...
-- third: An array...
+|Transformation Options        |  Description                      |
+|------------------------------|-----------------------------------|
+| `order`                      |  An integer that...               |
+| `another`                    |  Lorem Ipusm and some other stuff |
+| `athirdone`                  |  Lorem Ipusm and some other stuff |
+{: .api-table #table-transformation-options}
 
 Using other properties within `options` is permissable so long as a Linked Data context has been provided that properly defines the vocabulary of those properties.
 
 ### 2.2 Example `transformation` JSON Object
-```JSON
-"transformation":{
-  "type":"polynomial",
-  "options": {
-    "order":0
-  }
+{% include api/code_header.html %}
+```json-doc
+{
+   "transformation":{
+     "type":"polynomial",
+     "options": {
+       "order":0
+     }
+   }
 }
 ```
 
 ### 2.3 The `pixelCoords` Property
-Another new property, `pixelCoords` is defined by this document in order to supply the pixel coordinates from the IIIF Canvas or Image Service along with the WGS84 `coordinates` in the Features.  The value is an array representing a pixel point at [x,y] and __MUST__ be precisely in that order.  An example is `"pixelCoords":[10,20]`.
+Another new property, `pixelCoords` is defined by this document in order to supply the pixel coordinates from the IIIF Canvas or Image Service along with the WGS84 `coordinates` in the Features.  The value is an array representing a pixel point at [x,y] and __MUST__ be precisely in that order.  An example is:
+```json-doc
+{"pixelCoords":[10,20]}
+```
 
 ## 3. [Web Annotations for Georeferencing](https://www.w3.org/TR/annotation-model/)
 
-Web Annotations can contain all of the required information mentioned in Section 2. We will describe how each piece of the Web Annotation is used and what its job is, followed by a full example.
+Web Annotations can contain all of the required information mentioned in Section 2. We will describe how each piece of the Web Annotation is used and what its job is, followed by full example.
 
 ### 3.1 Embedded vs. Referenced Targets and Resources
-Web Annotations can exist independent of the Canvas or Image Service they target and in such cases the Canvas or Image Service is often only referenced via its URI in the Web Annotation.  For the purposes of this extension, implmenters _SHOULD_ embed the Canvas or Image Service within the Web Annotation instead of referecing it. This reduces the need to make HTTP calls to resolve the resource, which is especially important for Canvases. Likewise, a Canvas or Image Service that records the Web Annotations pertinent to the resource via the `annotations` property has the option to reference or embed those Annotation Pages.  For the purposes of this extension, implementers _SHOULD_ embed the Annotation Pages in the `annotations` property as opposed to referencing them.
+
+To supply a IIIF Canvas or Image Service with georeferecing information, implmenters _MUST_ add at least one Annotation Page to the `annotations` property.  Implementer have the option to reference or embed those Annotation Pages.  For the purposes of this extension, implementers _SHOULD_ embed the Annotation Pages in the `annotations` property as opposed to referencing them. [@bert and jules] a sentence about why?
+
+Web Annotations can exist independent of the Canvas or Image Service they target and in such cases the Canvas or Image Service is often only referenced via its URI in the Web Annotation `target` property.  For the purposes of this extension, implmenters _SHOULD_ embed the Canvas or Image Service within the Web Annotation instead of referecing it. [@bert and jules] a sentence about why? This reduces the need to make HTTP calls to resolve the resource, which is especially important for Canvases. 
 
 ### 3.2 Annotation `motivation` and `purpose`
-The `motivation` and `purpose` properties are used by Web Annotations to understand the reasons why the Annotation was created, or why the `body` was included in the Annotation.  These properties _SHOULD_ be included, and when they are included they _MUST_ be "georeferencing" or "gcp-georeferecing".
+The `motivation` and `purpose` properties are used by Web Annotations to understand the reasons why the Annotation was created, or why the `body` was included in the Annotation.  This document offers two defined Web Annotation motivation extensions.  
+
+[@bert and @jules] see https://www.w3.org/TR/annotation-model/#motivation-and-purpose
+|Transformation Options        |  Description                                                        |
+|------------------------------|---------------------------------------------------------------------|
+| `georeferencing`             |  [@bert and jules] The motivation for when the user intends to...   |
+| `gcp-georeferecing`          |  [@bert and jules] The motivation for when the user intends to...   |
+{: .api-table #table-motivation-extension}
+
+- The `motivation` property _SHOULD_ be included on all Web Annotations and when included its value _MUST_ be the string "georeferencing".
+- `purpose` property _SHOULD_ be included on all Web Annotation `body` objects and when included its value _MUST_ be the string "gcp-georeferecing".
+
+Note that the linked data context provided with this document includes the formal Linked Data 1.1 Motivation Extension, and the vocabulary provided with this documenta contains the formal vocabulary.
 
 ### 3.3 Annotation `target`
 The Annotation `target` is the resource to supply the `body` information to.  In our case, the `target` _SHOULD_ be an IIIF Canvas or Image Service. It is important that viewers processing this information know the original height and width of the resources in order to have the proper aspect ratios. Implementers _SHOULD_ supply this information with their embedded Canvas or Image Service.
 
 It is important to maintain a link back to the Manifest for a given Canvas so clients consuming the Canvases have the opportunity to provide contextual information about the Manifest.  To do this, implementers _SHOULD_ use the `partOf` property on the Canvas with as much information about the Manifest as is useful.  For example,
 
-```JSON
-"partOf":{
-   "id":"http://example.org/manifest/1",
-   "type":"Manifest",
-   "label":{
-      "en": ["Example Label"]
+{% include api/code_header.html %}
+```json-doc
+{
+   "partOf":{
+      "id":"http://example.org/manifest/1",
+      "type":"Manifest",
+      "label":{
+         "en": ["Example Label"]
+      }
    }
 }
 ```
