@@ -12,6 +12,7 @@
       "id": "@id",
       "type": "@type",
       "georeferencing":"proto:georeferencing",
+      "gcp-georeferencing":"proto:gcp-georeferencing",
       "geotagging":"proto:geotagging",
       "transformation":"proto:transformation",
       "polynomial":"proto:polynomial",
