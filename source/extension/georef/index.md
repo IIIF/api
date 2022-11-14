@@ -296,7 +296,7 @@ The `body` of an Annotation contains the data you would like to relate to some C
 
 - The value for `body` _MUST_ be a GeoJSON Feature Collection.
 - The Feature Collection _MAY_ contain the `transformation` property.
-- The Feature Collection _MUST_ only contain Features with [Point](#https://www.rfc-editor.org/rfc/rfc7946#section-3.1.2) geometry, a each `geometry` property must contain the `coordinates` property. 
+- The Feature Collection _MUST_ only contain Features with [Point](https://www.rfc-editor.org/rfc/rfc7946#section-3.1.2) geometry, a each `geometry` property must contain the `coordinates` property. 
 - The Feature Collection _SHOULD_ contain at least three point Features.
 - Each Point Feature in the Feature Collection _MUST_ have the `pixelCoords` property in the `properties` property
 
