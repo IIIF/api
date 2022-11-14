@@ -48,7 +48,7 @@ The terms _array_, _JSON object_, _number_, _string_, and _boolean_ in this docu
 The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _SHOULD NOT_, _RECOMMENDED_, _MAY_, and _OPTIONAL_ in this document are to be interpreted as described in [RFC 2119][org-rfc-2119].
 
 ## 2. Georeferencing with Ground Control Points
-[@bert and @jules] a sentence on why you georeference this way vs. a different way? - This is what most software uses.  "Easiest" way to do it when relying heavily on user input.
+`[@bert and @jules]` a sentence on why you georeference this way vs. a different way? - This is what most software uses.  "Easiest" way to do it when relying heavily on user input.
 
 ### 2.1 Georefereced Canvases and Image Services
 
@@ -70,7 +70,7 @@ The `transformation` property is defined by this document in order to supply the
 
 This property is for clients using the coordinates in the Annotation for computation and is not always necessary.  Which transformation types are expected or supported will vary between clients.  The value for `type` is a string, and typical types include but are not limited to:
 
-[@bert and @jules]
+`[@bert and @jules]`
 |Transformation Types          |  Description                      |
 |------------------------------|-----------------------------------|
 | `polynomial`                 |  Lorem Ipusm and some other stuff |
@@ -80,7 +80,7 @@ This property is for clients using the coordinates in the Annotation for computa
 
 The `options` property is used to supply further computational parameters for use with the coordinates found in the Annotation.  The value of `options` is a JSON object and typically includes but is not limited to the following properties:
 
-[@bert and @jules]
+`[@bert and @jules]`
 |Transformation Options        |  Description                      |
 |------------------------------|-----------------------------------|
 | `order`                      |  An integer that...               |
@@ -252,7 +252,7 @@ Web Annotations can exist independent of the Canvas or Image Service they target
 ### 3.2 [Web Annotation `motivation` and `purpose`](https://www.w3.org/TR/annotation-model/#motivation-and-purpose)
 The `motivation` and `purpose` properties are used by Web Annotations to understand the reasons why the Annotation was created, or why the `body` was included in the Annotation.  This document offers two defined Web Annotation Motivation Extensions, seen below.  
 
-[@bert and @jules] see https://www.w3.org/TR/annotation-model/#motivation-and-purpose
+`[@bert and @jules]` see https://www.w3.org/TR/annotation-model/#motivation-and-purpose
 |Transformation Options        |  Description                                                        |
 |------------------------------|---------------------------------------------------------------------|
 | `georeferencing`             |  [@bert and jules] The motivation for when the user intends to...   |
@@ -400,7 +400,7 @@ The linked data context of this extension must be included before the IIIF Prese
 Consult the [Linked Data Context and Extensions section of IIIF Presentation API 3](https://iiif.io/api/presentation/3.0/#46-linked-data-context-and-extensions) for further guidance on use of the `@context` property.
 
 ## 6. Implementation Notes
-[@bert and @jules]
+`[@bert and @jules]`
 This section will likely link back to specific implementation notes as they relate to how the Allmaps viewer is processing this information to display it within a web map.
 
 Briefly explain `transformation` algorithms, why you need 3 or more control points, perhaps examples to show different implementations.  Mention IIIF Presentation API 2 and the presi 2 examples??  Mention GeoJSON sections on FeatureCollection, Feature, or position??
