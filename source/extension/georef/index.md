@@ -114,7 +114,7 @@ Another new property, `pixelCoords` is defined by this document in order to supp
 {"pixelCoords":[10,20]}
 ```
 
-#### 2.5 Full Canvas Example
+### 2.5 Full Canvas Example
 
 {% include api/code_header.html %}
 ```json-doc
