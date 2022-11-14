@@ -72,6 +72,7 @@ The `transformation` property is defined by this document in order to supply the
 This property is for clients using the coordinates in the Annotation for computation and is not always necessary.  Which transformation types are expected or supported will vary between clients.  The value for `type` is a string, and typical types include but are not limited to:
 
 `[@BERT and @JULES]`
+
 |Transformation Types          |  Description                      |
 |------------------------------|-----------------------------------|
 | `polynomial`                 |  Lorem Ipusm and some other stuff |
@@ -82,6 +83,7 @@ This property is for clients using the coordinates in the Annotation for computa
 The `options` property is used to supply further computational parameters for use with the coordinates found in the Annotation.  The value of `options` is a JSON object and typically includes but is not limited to the following properties:
 
 `[@BERT and @JULES]`
+
 |Transformation Options        |  Description                      |
 |------------------------------|-----------------------------------|
 | `order`                      |  An integer that...               |
@@ -256,8 +258,9 @@ Web Annotations can exist independent of the Canvas or Image Service they target
 The `motivation` and `purpose` properties are used by Web Annotations to understand the reasons why the Annotation was created, or why the `body` was included in the Annotation.  This document offers two defined Web Annotation Motivation Extensions, seen below.  
 
 `[@BERT and @JULES]` see https://www.w3.org/TR/annotation-model/#motivation-and-purpose
-|Transformation Options        |  Description                                                        |
-|------------------------------|---------------------------------------------------------------------|
+
+|Motivation Name               |  Description                                                           |
+|------------------------------|------------------------------------------------------------------------|
 | `georeferencing`             |  `[@BERT and @JULES]` The motivation for when the user intends to...   |
 | `gcp-georeferecing`          |  `[@BERT and @JULES]` The motivation for when the user intends to...   |
 {: .api-table #table-motivation-extension}
@@ -268,6 +271,7 @@ The `motivation` and `purpose` properties are used by Web Annotations to underst
 Note that the linked data context provided with this document includes the formal Linked Data 1.1 Motivation Extension, and the vocabulary provided with this document contains the formal vocabulary.
 
 ### 3.3 Annotation `target`
+
 The Annotation `target` is the resource to supply the `body` information to.  In our case, the `target` _SHOULD_ be an IIIF Canvas or Image Service. It is important that viewers processing this information know the original height and width of the resources in order to have the proper aspect ratios. Implementers _SHOULD_ supply this information with their embedded Canvas or Image Service.
 
 It is important to maintain a link back to the Manifest for a given Canvas so clients consuming the Canvases have the opportunity to provide contextual information about the Manifest.  To do this, implementers _SHOULD_ use the `partOf` property on the Canvas with as much information about the Manifest as is useful.  For example,
@@ -292,6 +296,7 @@ Note that it is possible for multiple Annotations within a single Annotation Pag
 !["Multi Map Image"](images/loc-acadia-np-maps.jpg "Multi Map Image")
 
 ### 3.4 Annotation `body`
+
 The `body` of an Annotation contains the data you would like to relate to some Canvas or IIIF Image Service. In our case, the `body` contains the GCPs and geocoordinates.
 
 - The value for `body` _MUST_ be a GeoJSON Feature Collection.
@@ -393,6 +398,7 @@ See the `body` in the example in the next section for a complete example.
 ```
 
 ## 5. Linked Data Context
+
 - The URI of this extension's linked data context is 
 `http://iiif.io/api/extension/georef/1/context.json`
 - The URI of the IIIF Presentation API 3 linked data context is 
@@ -403,6 +409,7 @@ The linked data context of this extension must be included before the IIIF Prese
 Consult the [Linked Data Context and Extensions section of IIIF Presentation API 3](https://iiif.io/api/presentation/3.0/#46-linked-data-context-and-extensions) for further guidance on use of the `@context` property.
 
 ## 6. Implementation Notes
+
 `[@BERT and @JULES]`
 This section will likely link back to specific implementation notes as they relate to how the Allmaps viewer is processing this information to display it within a web map.
 
