@@ -3,24 +3,25 @@
       "http://iiif.io/api/extension/georef/1/context.json",
       "http://iiif.io/api/presentation/3/context.json"
    ],
-   "id":"http://iiif.io/api/extension/georef/examples/image-annotation.json",
+   "id":"http://iiif.io/api/extension/georef/examples/3/specific-image-service-2-svg-annotation.json",
    "type":"Annotation",
    "motivation":"georeferencing",
    "target":{
-      "id":"https://cdm21033.contentdm.oclc.org/digital/iiif/krt/2891/full/full/0/default.jpg",
-      "type":"Image",
-      "format":"image/jpeg",
-      "height":2514,
-      "width":5965,
-      "service":[
-         {
-            "@id":"https://cdm21033.contentdm.oclc.org/digital/iiif/krt/2891",
-            "type":"ImageService2"
-         }
-      ]
+      "id":"http://iiif.io/api/extension/georef/examples/3/specific-image-service.json",
+      "type":"SpecificResource",
+      "source": {
+         "@id":"https://cdm21033.contentdm.oclc.org/digital/iiif/krt/2891",
+         "type":"ImageService2",
+         "height":2514,
+         "width":5965
+      },
+      "selector":{
+         "type":"SvgSelector",
+         "value":"<svg width=\"5965\" height=\"2514\"><polygon points=\"59,84 44,2329 5932,2353 5920,103 \" /></svg>"
+      }
    },
    "body":{
-      "id":"http://iiif.io/api/extension/georef/examples/feature-collection.json",
+      "id":"http://iiif.io/api/extension/georef/examples/3/feature-collection.json",
       "type":"FeatureCollection",
       "purpose":"gcp-georeferencing",
       "transformation":{
@@ -79,3 +80,5 @@
       ]
    }
 }
+
+

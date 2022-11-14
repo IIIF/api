@@ -1,20 +1,20 @@
 {
    "@context":[
       "http://iiif.io/api/extension/georef/1/context.json",
-      "http://iiif.io/api/presentation/3/context.json"
+      "http://iiif.io/api/presentation/2/context.json"
    ],
-   "id":"http://iiif.io/api/extension/georef/examples/image-service-2-annotation.json",
-   "type":"Annotation",
+   "@id":"http://iiif.io/api/extension/georef/examples/2/canvas-annotation.json",
+   "@type":"oa:Annotation",
    "motivation":"georeferencing",
-   "target": {
-      "id": "https://cdm21033.contentdm.oclc.org/digital/iiif/krt/2891",
-      "type": "ImageService2",
-      "profile": "http://iiif.io/api/image/2/level2.json",
+   "target":{
+      "@context":"http://iiif.io/api/image/2/context.json",
+      "@id":"https://cdm21033.contentdm.oclc.org/digital/iiif/krt/2891",
+      "profile":"http://iiif.io/api/image/2/level2.json",
       "height":2514,
       "width":5965
    },
    "body":{
-      "id":"http://iiif.io/api/extension/georef/examples/feature-collection.json",
+      "id":"http://iiif.io/api/extension/georef/examples/2/feature-collection.json",
       "type":"FeatureCollection",
       "purpose":"gcp-georeferencing",
       "transformation":{
@@ -73,5 +73,3 @@
       ]
    }
 }
-
-
