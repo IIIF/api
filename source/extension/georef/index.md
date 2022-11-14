@@ -48,7 +48,8 @@ The terms _array_, _JSON object_, _number_, _string_, and _boolean_ in this docu
 The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _SHOULD NOT_, _RECOMMENDED_, _MAY_, and _OPTIONAL_ in this document are to be interpreted as described in [RFC 2119][org-rfc-2119].
 
 ## 2. Georeferencing with Ground Control Points
-BERT and JULES! a sentence on why you georeference this way vs. a different way? - This is what most software uses.  "Easiest" way to do it when relying heavily on user input.
+
+`[@BERT and @JULES]` a sentence on why you georeference this way vs. a different way? - This is what most software uses.  "Easiest" way to do it when relying heavily on user input.
 
 ### 2.1 Georefereced Canvases and Image Services
 
@@ -70,7 +71,7 @@ The `transformation` property is defined by this document in order to supply the
 
 This property is for clients using the coordinates in the Annotation for computation and is not always necessary.  Which transformation types are expected or supported will vary between clients.  The value for `type` is a string, and typical types include but are not limited to:
 
-BERT and JULES!
+`[@BERT and @JULES]`
 |Transformation Types          |  Description                      |
 |------------------------------|-----------------------------------|
 | `polynomial`                 |  Lorem Ipusm and some other stuff |
@@ -80,7 +81,7 @@ BERT and JULES!
 
 The `options` property is used to supply further computational parameters for use with the coordinates found in the Annotation.  The value of `options` is a JSON object and typically includes but is not limited to the following properties:
 
-BERT and JULES!
+`[@BERT and @JULES]`
 |Transformation Options        |  Description                      |
 |------------------------------|-----------------------------------|
 | `order`                      |  An integer that...               |
@@ -91,6 +92,7 @@ BERT and JULES!
 Using other properties within `options` is permissable so long as a Linked Data context has been provided that properly defines the vocabulary of those properties.
 
 ### 2.3 Example `transformation` JSON Object
+
 {% include api/code_header.html %}
 ```json-doc
 {
@@ -104,6 +106,7 @@ Using other properties within `options` is permissable so long as a Linked Data 
 ```
 
 ### 2.4 The `pixelCoords` Property
+
 Another new property, `pixelCoords` is defined by this document in order to supply the pixel coordinates from the IIIF Canvas or Image Service along with the WGS84 `coordinates` in the Features.  The value is an array representing a pixel point at [x,y] and __MUST__ be precisely in that order.  An example is:
 
 {% include api/code_header.html %}
@@ -239,24 +242,24 @@ Another new property, `pixelCoords` is defined by this document in order to supp
 }
 ```
 
-## 3. [Web Annotations](https://www.w3.org/TR/annotation-model/) for Georeferencing
+## 3. Web Annotations for Georeferencing
 
 Web Annotations can contain all of the required information mentioned in Section 2. We will describe how each piece of the Annotation is used and what its job is, followed by a full example.
 
 ### 3.1 Embedded vs. Referenced Targets and Resources
 
-To supply a IIIF Canvas or Image Service with georeferecing information, implmenters _MUST_ add at least one Annotation Page to the `annotations` property.  Implementers have the option to reference or embed those Annotation Pages.  For the purposes of this extension, implementers _SHOULD_ embed the Annotation Pages in the `annotations` property as opposed to referencing them. [@bert and jules] a sentence about why?
+To supply a IIIF Canvas or Image Service with georeferecing information, implmenters _MUST_ add at least one Annotation Page to the `annotations` property.  Implementers have the option to reference or embed those Annotation Pages.  For the purposes of this extension, implementers _SHOULD_ embed the Annotation Pages in the `annotations` property as opposed to referencing them. `[@BERT and @JULES]` a sentence about why?
 
-Web Annotations can exist independent of the Canvas or Image Service they target and in such cases the Canvas or Image Service is often only referenced via its URI in the Web Annotation `target` property.  For the purposes of this extension, implmenters _SHOULD_ embed the Canvas or Image Service within the Web Annotation instead of referecing it. [@bert and jules] a sentence about why? This reduces the need to make HTTP calls to resolve the resource, which is especially important for Canvases. 
+Web Annotations can exist independent of the Canvas or Image Service they target and in such cases the Canvas or Image Service is often only referenced via its URI in the Web Annotation `target` property.  For the purposes of this extension, implmenters _SHOULD_ embed the Canvas or Image Service within the Web Annotation instead of referecing it. `[@BERT and @JULES]` a sentence about why? This reduces the need to make HTTP calls to resolve the resource, which is especially important for Canvases. 
 
-### 3.2 [Web Annotation `motivation` and `purpose`](https://www.w3.org/TR/annotation-model/#motivation-and-purpose)
+### 3.2 Web Annotation `motivation` and `purpose`
 The `motivation` and `purpose` properties are used by Web Annotations to understand the reasons why the Annotation was created, or why the `body` was included in the Annotation.  This document offers two defined Web Annotation Motivation Extensions, seen below.  
 
-BERT and JULES! see https://www.w3.org/TR/annotation-model/#motivation-and-purpose
+`[@BERT and @JULES]` see https://www.w3.org/TR/annotation-model/#motivation-and-purpose
 |Transformation Options        |  Description                                                        |
 |------------------------------|---------------------------------------------------------------------|
-| `georeferencing`             |  [@bert and jules] The motivation for when the user intends to...   |
-| `gcp-georeferecing`          |  [@bert and jules] The motivation for when the user intends to...   |
+| `georeferencing`             |  `[@BERT and @JULES]` The motivation for when the user intends to...   |
+| `gcp-georeferecing`          |  `[@BERT and @JULES]` The motivation for when the user intends to...   |
 {: .api-table #table-motivation-extension}
 
 - The `motivation` property _SHOULD_ be included on all Web Annotations and when included its value _MUST_ be the string "georeferencing".
@@ -264,7 +267,7 @@ BERT and JULES! see https://www.w3.org/TR/annotation-model/#motivation-and-purpo
 
 Note that the linked data context provided with this document includes the formal Linked Data 1.1 Motivation Extension, and the vocabulary provided with this document contains the formal vocabulary.
 
-### 3.3 [Annotation `target`](https://www.w3.org/TR/annotation-model/#bodies-and-targets)
+### 3.3 Annotation `target`
 The Annotation `target` is the resource to supply the `body` information to.  In our case, the `target` _SHOULD_ be an IIIF Canvas or Image Service. It is important that viewers processing this information know the original height and width of the resources in order to have the proper aspect ratios. Implementers _SHOULD_ supply this information with their embedded Canvas or Image Service.
 
 It is important to maintain a link back to the Manifest for a given Canvas so clients consuming the Canvases have the opportunity to provide contextual information about the Manifest.  To do this, implementers _SHOULD_ use the `partOf` property on the Canvas with as much information about the Manifest as is useful.  For example,
@@ -288,7 +291,7 @@ Note that it is possible for multiple Annotations within a single Annotation Pag
 
 !["Multi Map Image"](images/loc-acadia-np-maps.jpg "Multi Map Image")
 
-### 3.4 [Annotation `body`](https://www.w3.org/TR/annotation-model/#bodies-and-targets)
+### 3.4 Annotation `body`
 The `body` of an Annotation contains the data you would like to relate to some Canvas or IIIF Image Service. In our case, the `body` contains the GCPs and geocoordinates.
 
 - The value for `body` _MUST_ be a GeoJSON Feature Collection.
@@ -400,7 +403,7 @@ The linked data context of this extension must be included before the IIIF Prese
 Consult the [Linked Data Context and Extensions section of IIIF Presentation API 3](https://iiif.io/api/presentation/3.0/#46-linked-data-context-and-extensions) for further guidance on use of the `@context` property.
 
 ## 6. Implementation Notes
-BERT and JULES!
+`[@BERT and @JULES]`
 This section will likely link back to specific implementation notes as they relate to how the Allmaps viewer is processing this information to display it within a web map.
 
 Briefly explain `transformation` algorithms, why you need 3 or more control points, perhaps examples to show different implementations.  Mention IIIF Presentation API 2 and the presi 2 examples??  Mention GeoJSON sections on FeatureCollection, Feature, or position??
