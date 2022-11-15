@@ -59,7 +59,7 @@ The process for having a new entry added to this registry is [described here][re
 This table summarizes the known profiles available, for use with the [Presentation API][prezi-api].
 
 | Profile  | Description        | 
-| ------------------------------ |
+| ------------------------------ | ------------------------------ |
 | http://www.loc.gov/mods/v3  | The URI for identifying [MODS (Metadata Object Description Schema)](https://www.loc.gov/standards/mods/) version 3 metadata records.  |
 | http://www.europeana.eu/schemas/edm/  | The URI for identifying [EDM (Europeana Data Model)](https://pro.europeana.eu/page/edm-documentation) metadata records.  |
 {: .api-table}
