@@ -939,7 +939,7 @@ When there are no lower tiers and the user is not authorized to access the curre
   <tbody>
     <tr>
       <td>
-        <img style="max-width: 1000px" src="img/auth-flow-client-2-provisional.png" alt="Client Authentication Flow" class="fullPct" />
+        <img style="max-width: 1000px" src="../img/auth-flow-client-2-provisional.png" alt="Client Authentication Flow" class="fullPct" />
         <p><strong>1</strong> Client Authentication Workflow (earlier draft - PLACEHOLDER IMAGE)</p>
       </td>
     </tr>
