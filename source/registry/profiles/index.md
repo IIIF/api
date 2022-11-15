@@ -61,6 +61,7 @@ This table summarizes the known profiles available, for use with the [Presentati
 | Profile  | Description        | 
 | ------------------------------ |
 | http://www.loc.gov/mods/v3  | The URI for identifying [MODS (Metadata Object Description Schema)](https://www.loc.gov/standards/mods/) version 3 metadata records.  |
+| http://www.europeana.eu/schemas/edm/  | The URI for identifying [EDM (Europeana Data Model)](https://pro.europeana.eu/page/edm-documentation) metadata records.  |
 {: .api-table}
 
 
@@ -75,6 +76,7 @@ Thanks to the members of the [IIIF][iiif-community] for their continuous engagem
 | Date       | Description                                        |
 | ---------- | -------------------------------------------------- |
 | 2018-XX-YY | New Version 3 Registries                           |
+| 2022-11-15 | Addition of EDM (Europeana Data Model)             |
 
 {% include acronyms.md %}
 {% include links.md %}
