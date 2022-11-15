@@ -154,6 +154,7 @@
 [notes-apache-set-compliance-link-header]: {{ site.api_url | absolute_url }}/annex/notes/apache/#set-compliance-link-header "Apache HTTP Server Implementation Notes: Set Compliance Link Header"
 [notes-apache]: {{ site.api_url | absolute_url }}/annex/notes/apache/ "Apache HTTP Server Implementation Notes"
 [notes-versioning]: {{ site.api_url | absolute_url }}/annex/notes/semver/ "Versioning of APIs"
+[oauth2]: https://oauth.net/2/ "OAuth 2"
 [org-bcp-47]: https://tools.ietf.org/html/bcp47 "Tags for Identifying Languages"
 [org-cc-licenses]: https://creativecommons.org/licenses/ "Create Commons Licenses"
 [org-ecma-encodeuricomponent]: https://tc39.es/ecma262/#sec-encodeuricomponent-uricomponent "encodeURIComponent"
