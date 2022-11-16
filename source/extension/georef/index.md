@@ -21,7 +21,7 @@ The [IIIF Presentation API](https://iiif.io/api/presentation/3.0/) has the capab
 
 This document will supply a Linked Data 1.1 context and JSON-LD pattern by which to extend Web Annotation and the IIIF Presentation API in support of georeferenced Canvases and Images.
 
-We will adopt the [existing GeoJSON specification](https://datatracker.ietf.org/doc/html/rfc7946) for its Linked Data vocabulary and context for geographic coordinates. This means coordinates are expressed through the [WGS84](http://www.w3.org/2003/01/geo/wgs84_pos) coordinate reference system. As such, expressing the location of extraterrestrial entities is not supported by this technique.  
+We will adopt the [existing GeoJSON specification](https://datatracker.ietf.org/doc/html/rfc7946) for its Linked Data vocabulary and context for geographic coordinates. This means coordinates are expressed through the [WGS84](http://www.w3.org/2003/01/geo/wgs84_pos) coordinate reference system. As such, expressing the location of extraterrestrial entities is not supported by this technique.
 
 ### 1.2 Motivating Use Cases
 
@@ -252,10 +252,10 @@ Web Annotations can contain all of the required information mentioned in Section
 
 To supply a IIIF Canvas or Image Service with georeferecing information, implmenters _MUST_ add at least one Annotation Page to the `annotations` property.  Implementers have the option to reference or embed those Annotation Pages.  For the purposes of this extension, implementers _SHOULD_ embed the Annotation Pages in the `annotations` property as opposed to referencing them. `[@BERT and @JULES]` a sentence about why?
 
-Web Annotations can exist independent of the Canvas or Image Service they target and in such cases the Canvas or Image Service is often only referenced via its URI in the Web Annotation `target` property.  For the purposes of this extension, implmenters _SHOULD_ embed the Canvas or Image Service within the Web Annotation instead of referecing it. `[@BERT and @JULES]` a sentence about why? This reduces the need to make HTTP calls to resolve the resource, which is especially important for Canvases. 
+Web Annotations can exist independent of the Canvas or Image Service they target and in such cases the Canvas or Image Service is often only referenced via its URI in the Web Annotation `target` property.  For the purposes of this extension, implmenters _SHOULD_ embed the Canvas or Image Service within the Web Annotation instead of referecing it. `[@BERT and @JULES]` a sentence about why? This reduces the need to make HTTP calls to resolve the resource, which is especially important for Canvases.
 
 ### 3.2 Web Annotation `motivation` and `purpose`
-The `motivation` and `purpose` properties are used by Web Annotations to understand the reasons why the Annotation was created, or why the `body` was included in the Annotation.  This document offers two defined Web Annotation Motivation Extensions, seen below.  
+The `motivation` and `purpose` properties are used by Web Annotations to understand the reasons why the Annotation was created, or why the `body` was included in the Annotation.  This document offers two defined Web Annotation Motivation Extensions, seen below.
 
 `[@BERT and @JULES]` see https://www.w3.org/TR/annotation-model/#motivation-and-purpose
 
@@ -293,7 +293,12 @@ In cases where the `target` is not the entire Canvas or Image Service and is ins
 
 Note that it is possible for multiple Annotations within a single Annotation Page to target different, more specific areas of a single Image or Canvas.  It is also possible for a Canvas to contain multiple unique images.  This is useful when the Image or Canvas contains multiple maps, or displays a single map with inset maps built in. Below is an image that exemplifies this scenario.
 
-!["Multi Map Image"](images/loc-acadia-np-maps.jpg "Multi Map Image")
+<table border="0">
+  <tr>
+    <td><img alt="" src="images/loc-acadia-np-original.jpg"></td>
+    <td><img alt="" src="images/loc-acadia-np-maps.jpg"></td>
+   </tr>
+</table>
 
 ### 3.4 Annotation `body`
 
@@ -301,11 +306,11 @@ The `body` of an Annotation contains the data you would like to relate to some C
 
 - The value for `body` _MUST_ be a GeoJSON Feature Collection.
 - The Feature Collection _MAY_ contain the `transformation` property.
-- The Feature Collection _MUST_ only contain Features with [Point](https://www.rfc-editor.org/rfc/rfc7946#section-3.1.2) geometry, a each `geometry` property must contain the `coordinates` property. 
+- The Feature Collection _MUST_ only contain Features with [Point](https://www.rfc-editor.org/rfc/rfc7946#section-3.1.2) geometry, a each `geometry` property must contain the `coordinates` property.
 - The Feature Collection _SHOULD_ contain at least three point Features.
 - Each Point Feature in the Feature Collection _MUST_ have the `pixelCoords` property in the `properties` property
 
-See the `body` in the example in the next section for a complete example.  
+See the `body` in the example in the next section for a complete example.
 
 ### 4. Full Examples
 
@@ -399,12 +404,12 @@ See the `body` in the example in the next section for a complete example.
 
 ## 5. Linked Data Context
 
-- The URI of this extension's linked data context is 
+- The URI of this extension's linked data context is
 `http://iiif.io/api/extension/georef/1/context.json`
-- The URI of the IIIF Presentation API 3 linked data context is 
+- The URI of the IIIF Presentation API 3 linked data context is
 `http://iiif.io/api/presentation/3/context.json`
 
-The linked data context of this extension must be included before the IIIF Presentation API 3 linked data context on the top-level object. The extension linked data context file includes the [GeoJSON-LD context](https://geojson.org/geojson-ld/geojson-context.jsonld) through [context scoping](https://www.w3.org/TR/json-ld11/#dfn-scoped-context). This means the GeoJSON-LD context URI does not have to be explicitly included on the top level object. It is important to note that since the IIIF Presentation API 3 linked data context has the JSON-LD `@version` set to 1.1, all linked data contexts are processed as JSON-LD 1.1.  It is also worth noting the linked data context for this extension also has `@version` set to 1.1.  If this context is used in another setting, it will have the same behavior.  JSON-LD 1.0 processors will throw a version error.  
+The linked data context of this extension must be included before the IIIF Presentation API 3 linked data context on the top-level object. The extension linked data context file includes the [GeoJSON-LD context](https://geojson.org/geojson-ld/geojson-context.jsonld) through [context scoping](https://www.w3.org/TR/json-ld11/#dfn-scoped-context). This means the GeoJSON-LD context URI does not have to be explicitly included on the top level object. It is important to note that since the IIIF Presentation API 3 linked data context has the JSON-LD `@version` set to 1.1, all linked data contexts are processed as JSON-LD 1.1.  It is also worth noting the linked data context for this extension also has `@version` set to 1.1.  If this context is used in another setting, it will have the same behavior.  JSON-LD 1.0 processors will throw a version error.
 
 Consult the [Linked Data Context and Extensions section of IIIF Presentation API 3](https://iiif.io/api/presentation/3.0/#46-linked-data-context-and-extensions) for further guidance on use of the `@context` property.
 
