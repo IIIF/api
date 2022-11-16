@@ -145,7 +145,6 @@ The `motivation` and `purpose` properties are used by Web Annotations to underst
 
 - The `motivation` property _SHOULD_ be included on all Web Annotations and when included its value _MUST_ be one of the strings listed above.
 
-
 Note that the linked data context provided with this document includes the formal Linked Data 1.1 Motivation Extension, and the vocabulary provided with this document contains the formal vocabulary for the "Motvation Names" listed in the table above.
 
 ### 3.3 Annotation `target`
@@ -169,7 +168,7 @@ It is important to maintain a link back to the Manifest for a given Canvas so cl
 
 In cases where the `target` is not the entire Canvas or Image Service and is instead an area of interest, the selected area _MUST_ be supplied as part of the `target`.  This is accomplished using a [Specific Resource](https://www.w3.org/TR/annotation-model/#specific-resources) where the `source` and `selector` can be supplied. See the `target` in the example at the end of this section.
 
-Note that it is possible for multiple Annotations within a single Annotation Page to target different, more specific areas of a single Image or Canvas.  It is also possible for a Canvas to contain multiple unique images.  It is also possible that a single Canvas or Image Service have more than one Annotation Page in `annotations`    This is useful when the Image or Canvas contains multiple maps, or displays a single map with inset maps built in. Below is an image that exemplifies this scenario.
+Note that it is possible for multiple Annotations within a single Annotation Page to target different, more specific areas of a single Image or Canvas.  It is also possible for a Canvas to contain multiple unique images.  It is also possible that a single Canvas or Image Service have more than one Annotation Page in `annotations`.    This usuall occurs when the Image or Canvas contains multiple maps, or displays a single map with inset maps built in. Below is an image that exemplifies this scenario.
 
 <table border="0">
   <tr>
