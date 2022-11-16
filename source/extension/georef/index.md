@@ -121,126 +121,104 @@ Another new property, `pixelCoords` is defined by this document in order to supp
 {% include api/code_header.html %}
 ```json-doc
 {
-   "@context":[
-      "http://iiif.io/api/extension/georef/1/context.json",
-      "http://iiif.io/api/presentation/3/context.json"
-   ],
-   "id":"http://iiif.io/api/extension/georef/examples/3/georeferenced-canvas.json",
-   "type":"Canvas",
-   "label":{
-      "nl":[
-         "River Nieuwe Maas and Rotterdam's Havens"
-      ],
-      "en":[
-         "Guide to the New-Waterway"
+  "@context": [
+    "http://iiif.io/api/extension/georef/1/context.json",
+    "http://iiif.io/api/presentation/3/context.json"
+  ],
+  "id": "http://iiif.io/api/extension/georef/examples/3/georeferenced-canvas.json",
+  "type": "Canvas",
+  "label": {
+    "nl": ["River Nieuwe Maas and Rotterdam's Havens"],
+    "en": ["Guide to the New-Waterway"]
+  },
+  "height": 2514,
+  "width": 5965,
+  "items": [
+    {
+      "id": "http://iiif.io/api/extension/georef/examples/3/contentPage.json",
+      "type": "AnnotationPage",
+      "items": [
+        {
+          "id": "http://iiif.io/api/extension/georef/examples/3/content.json",
+          "type": "Annotation",
+          "motivation": "painting",
+          "body": {
+            "id": "https://cdm21033.contentdm.oclc.org/digital/iiif/krt/2891/full/full/0/default.jpg",
+            "type": "Image",
+            "format": "image/jpeg",
+            "height": 2514,
+            "width": 5965,
+            "service": [
+              {
+                "@id": "https://cdm21033.contentdm.oclc.org/digital/iiif/krt/2891",
+                "type": "ImageService2"
+              }
+            ]
+          },
+          "target": "http://iiif.io/api/extension/georef/examples/3/georeferenced-canvas.json"
+        }
       ]
-   },
-   "height":2514,
-   "width":5965,
-   "items":[
-      {
-         "id":"http://iiif.io/api/extension/georef/examples/3/contentPage.json",
-         "type":"AnnotationPage",
-         "items":[
-            {
-               "id":"http://iiif.io/api/extension/georef/examples/3/content.json",
-               "type":"Annotation",
-               "motivation":"painting",
-               "body":{
-                  "id":"https://cdm21033.contentdm.oclc.org/digital/iiif/krt/2891/full/full/0/default.jpg",
-                  "type":"Image",
-                  "format":"image/jpeg",
-                  "height":2514,
-                  "width":5965,
-                  "service":[
-                     {
-                        "@id":"https://cdm21033.contentdm.oclc.org/digital/iiif/krt/2891",
-                        "type":"ImageService2"
-                     }
-                  ]
-               },
-               "target":"http://iiif.io/api/extension/georef/examples/3/georeferenced-canvas.json"
-            }
-         ]
-      }
-   ],
-   "annotations":[
-      {
-         "id":"http://iiif.io/api/extension/georef/examples/3/annotationPage.json",
-         "type":"AnnotationPage",
-         "items":[
-            {
-               "id":"http://iiif.io/api/extension/georef/examples/3/canvas-annotation.json",
-               "type":"Annotation",
-               "motivation":"georeferencing",
-               "target":"http://iiif.io/api/extension/georef/examples/3/georeferenced-canvas.json",
-               "body":{
-                  "id":"http://iiif.io/api/extension/georef/examples/3/feature-collection.json",
-                  "type":"FeatureCollection",
-                  "purpose":"gcp-georeferencing",
-                  "transformation":{
-                     "type":"polynomial",
-                     "order":0
-                  },
-                  "features":[
-                     {
-                        "type":"Feature",
-                        "properties":{
-                           "pixelCoords":[
-                              5085,
-                              782
-                           ]
-                        },
-                        "geometry":{
-                           "type":"Point",
-                           "coordinates":[
-                              4.4885839,
-                              51.9101828
-                           ]
-                        }
-                     },
-                     {
-                        "type":"Feature",
-                        "properties":{
-                           "pixelCoords":[
-                              5467,
-                              1338
-                           ]
-                        },
-                        "geometry":{
-                           "type":"Point",
-                           "coordinates":[
-                              4.5011785,
-                              51.901595
-                           ]
-                        }
-                     },
-                     {
-                        "type":"Feature",
-                        "properties":{
-                           "pixelCoords":[
-                              2006,
-                              374
-                           ]
-                        },
-                        "geometry":{
-                           "type":"Point",
-                           "coordinates":[
-                              4.405981,
-                              51.9091596
-                           ]
-                        }
-                     }
-                  ]
-               }
-            }
-         ]
-      }
-   ],
-   "partOf":{
-      "id":"http://example.org/manifest/1",
-      "type":"Manifest"
-   }
+    }
+  ],
+  "annotations": [
+    {
+      "id": "http://iiif.io/api/extension/georef/examples/3/annotationPage.json",
+      "type": "AnnotationPage",
+      "items": [
+        {
+          "id": "http://iiif.io/api/extension/georef/examples/3/canvas-annotation.json",
+          "type": "Annotation",
+          "motivation": "georeferencing",
+          "target": "http://iiif.io/api/extension/georef/examples/3/georeferenced-canvas.json",
+          "body": {
+            "id": "http://iiif.io/api/extension/georef/examples/3/feature-collection.json",
+            "type": "FeatureCollection",
+            "purpose": "gcp-georeferencing",
+            "transformation": {
+              "type": "polynomial",
+              "order": 0
+            },
+            "features": [
+              {
+                "type": "Feature",
+                "properties": {
+                  "pixelCoords": [5085, 782]
+                },
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [4.4885839, 51.9101828]
+                }
+              },
+              {
+                "type": "Feature",
+                "properties": {
+                  "pixelCoords": [5467, 1338]
+                },
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [4.5011785, 51.901595]
+                }
+              },
+              {
+                "type": "Feature",
+                "properties": {
+                  "pixelCoords": [2006, 374]
+                },
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [4.405981, 51.9091596]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "partOf": {
+    "id": "http://example.org/manifest/1",
+    "type": "Manifest"
+  }
 }
 ```
 
@@ -301,7 +279,7 @@ The `body` of an Annotation contains the data you would like to relate to some C
 
 - The value for `body` _MUST_ be a GeoJSON Feature Collection.
 - The Feature Collection _MAY_ contain the `transformation` property.
-- The Feature Collection _MUST_ only contain Features with [Point](https://www.rfc-editor.org/rfc/rfc7946#section-3.1.2) geometry, a each `geometry` property must contain the `coordinates` property. 
+- The Feature Collection _MUST_ only contain Features with [Point](https://www.rfc-editor.org/rfc/rfc7946#section-3.1.2) geometry, and each `geometry` property _MUST_ contain the `coordinates` property. 
 - The Feature Collection _SHOULD_ contain at least three point Features.
 - Each Point Feature in the Feature Collection _MUST_ have the `pixelCoords` property in the `properties` property
 
@@ -314,86 +292,68 @@ See the `body` in the example in the next section for a complete example.
 {% include api/code_header.html %}
 ```json-doc
 {
-   "@context":[
-      "http://iiif.io/api/extension/georef/1/context.json",
-      "http://iiif.io/api/presentation/3/context.json"
-   ],
-   "id":"http://iiif.io/api/extension/georef/examples/3/specific-image-service-2-svg-annotation.json",
-   "type":"Annotation",
-   "motivation":"georeferencing",
-   "target":{
-      "id":"http://iiif.io/api/extension/georef/examples/3/specific-image-service.json",
-      "type":"SpecificResource",
-      "source":{
-         "@id":"https://cdm21033.contentdm.oclc.org/digital/iiif/krt/2891",
-         "type":"ImageService2",
-         "height":2514,
-         "width":5965
+  "@context": [
+    "http://iiif.io/api/extension/georef/1/context.json",
+    "http://iiif.io/api/presentation/3/context.json"
+  ],
+  "id": "http://iiif.io/api/extension/georef/examples/3/specific-image-service-2-svg-annotation.json",
+  "type": "Annotation",
+  "motivation": "georeferencing",
+  "target": {
+    "id": "http://iiif.io/api/extension/georef/examples/3/specific-image-service.json",
+    "type": "SpecificResource",
+    "source": {
+      "@id": "https://cdm21033.contentdm.oclc.org/digital/iiif/krt/2891",
+      "type": "ImageService2",
+      "height": 2514,
+      "width": 5965
+    },
+    "selector": {
+      "type": "SvgSelector",
+      "value": "<svg width=\"5965\" height=\"2514\"><polygon points=\"59,84 44,2329 5932,2353 5920,103 \" /></svg>"
+    }
+  },
+  "body": {
+    "id": "http://iiif.io/api/extension/georef/examples/3/feature-collection.json",
+    "type": "FeatureCollection",
+    "purpose": "gcp-georeferencing",
+    "transformation": {
+      "type": "polynomial",
+      "order": 0
+    },
+    "features": [
+      {
+        "type": "Feature",
+        "properties": {
+          "pixelCoords": [5085, 782]
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [4.4885839, 51.9101828]
+        }
       },
-      "selector":{
-         "type":"SvgSelector",
-         "value":"<svg width=\"5965\" height=\"2514\"><polygon points=\"59,84 44,2329 5932,2353 5920,103 \" /></svg>"
+      {
+        "type": "Feature",
+        "properties": {
+          "pixelCoords": [5467, 1338]
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [4.5011785, 51.901595]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "pixelCoords": [2006, 374]
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [4.405981, 51.9091596]
+        }
       }
-   },
-   "body":{
-      "id":"http://iiif.io/api/extension/georef/examples/3/feature-collection.json",
-      "type":"FeatureCollection",
-      "purpose":"gcp-georeferencing",
-      "transformation":{
-         "type":"polynomial",
-         "order":0
-      },
-      "features":[
-         {
-            "type":"Feature",
-            "properties":{
-               "pixelCoords":[
-                  5085,
-                  782
-               ]
-            },
-            "geometry":{
-               "type":"Point",
-               "coordinates":[
-                  4.4885839,
-                  51.9101828
-               ]
-            }
-         },
-         {
-            "type":"Feature",
-            "properties":{
-               "pixelCoords":[
-                  5467,
-                  1338
-               ]
-            },
-            "geometry":{
-               "type":"Point",
-               "coordinates":[
-                  4.5011785,
-                  51.901595
-               ]
-            }
-         },
-         {
-            "type":"Feature",
-            "properties":{
-               "pixelCoords":[
-                  2006,
-                  374
-               ]
-            },
-            "geometry":{
-               "type":"Point",
-               "coordinates":[
-                  4.405981,
-                  51.9091596
-               ]
-            }
-         }
-      ]
-   }
+    ]
+  }
 }
 ```
 
@@ -404,7 +364,7 @@ See the `body` in the example in the next section for a complete example.
 - The URI of the IIIF Presentation API 3 linked data context is 
 `http://iiif.io/api/presentation/3/context.json`
 
-The linked data context of this extension must be included before the IIIF Presentation API 3 linked data context on the top-level object. The extension linked data context file includes the [GeoJSON-LD context](https://geojson.org/geojson-ld/geojson-context.jsonld) through [context scoping](https://www.w3.org/TR/json-ld11/#dfn-scoped-context). This means the GeoJSON-LD context URI does not have to be explicitly included on the top level object. It is important to note that since the IIIF Presentation API 3 linked data context has the JSON-LD `@version` set to 1.1, all linked data contexts are processed as JSON-LD 1.1.  It is also worth noting the linked data context for this extension also has `@version` set to 1.1.  If this context is used in another setting, it will have the same behavior.  JSON-LD 1.0 processors will throw a version error.  
+The linked data context of this extension _MUST_ be included before the IIIF Presentation API 3 linked data context on the top-level object. The extension linked data context file includes the [GeoJSON-LD context](https://geojson.org/geojson-ld/geojson-context.jsonld) through [context scoping](https://www.w3.org/TR/json-ld11/#dfn-scoped-context). This means the GeoJSON-LD context URI does not have to be explicitly included on the top level object. It is important to note that since the IIIF Presentation API 3 linked data context has the JSON-LD `@version` set to 1.1, all linked data contexts are processed as JSON-LD 1.1.  It is also worth noting the linked data context for this extension also has `@version` set to 1.1.  If this context is used in another setting, it will have the same behavior.  JSON-LD 1.0 processors will throw a version error.  
 
 Consult the [Linked Data Context and Extensions section of IIIF Presentation API 3](https://iiif.io/api/presentation/3.0/#46-linked-data-context-and-extensions) for further guidance on use of the `@context` property.
 
