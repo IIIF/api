@@ -28,7 +28,7 @@
    "body":{
       "id":"http://iiif.io/api/extension/georef/examples/2/feature-collection.json",
       "type":"FeatureCollection",
-      "purpose":"gcp-georeferencing",
+      
       "transformation":{
          "type":"polynomial",
          "order":0

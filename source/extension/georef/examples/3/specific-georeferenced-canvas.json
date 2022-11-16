@@ -66,7 +66,7 @@
                "body":{
                   "id":"http://iiif.io/api/extension/georef/examples/3/feature-collection.json",
                   "type":"FeatureCollection",
-                  "purpose":"gcp-georeferencing",
+                  
                   "features":[
                      {
                         "type":"Feature",

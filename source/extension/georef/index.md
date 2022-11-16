@@ -129,7 +129,7 @@ Web Annotations can contain all of the required information mentioned in Section
 
 To supply a IIIF Canvas or Image Service with georeferecing information, implmenters _MUST_ add at least one Annotation Page to the `annotations` property.  Implementers have the option to reference or embed those Annotation Pages.  For the purposes of this extension, implementers _SHOULD_ embed the Annotation Pages in the `annotations` property as opposed to referencing them. `[@BERT and @JULES]` a sentence about why?
 
-Web Annotations can exist independent of the Canvas or Image Service they target and in such cases the Canvas or Image Service is often only referenced via its URI in the Web Annotation `target` property.  For the purposes of this extension, implmenters _SHOULD_ embed the Canvas or Image Service within the Web Annotation instead of referecing it. `[@BERT and @JULES]` a sentence about why? This reduces the need to make HTTP calls to resolve the resource, which is especially important for Canvases.
+Web Annotations can exist independent of the Canvas or Image Service they target and in such cases the Canvas or Image Service is often only referenced via its URI in the Web Annotation's `target` property.  For the purposes of this extension, implmenters _SHOULD_ embed the Canvas or Image Service within the Web Annotation instead of referecing it. `[@BERT and @JULES]` a sentence about why? This reduces the need to make HTTP calls to resolve the resource, which is especially important for Canvases.
 
 ### 3.2 Web Annotation `motivation` and `purpose`
 
@@ -143,10 +143,10 @@ The `motivation` and `purpose` properties are used by Web Annotations to underst
 | `gcp-georeferecing`          |  `[@BERT and @JULES]` The motivation for when the user intends to...   |
 {: .api-table #table-motivation-extension}
 
-- The `motivation` property _SHOULD_ be included on all Web Annotations and when included its value _MUST_ be the string "georeferencing".
-- The `purpose` property _SHOULD_ be included on all Web Annotation `body` objects and when included its value _MUST_ be the string "gcp-georeferecing".
+- The `motivation` property _SHOULD_ be included on all Web Annotations and when included its value _MUST_ be one of the strings listed above.
 
-Note that the linked data context provided with this document includes the formal Linked Data 1.1 Motivation Extension, and the vocabulary provided with this document contains the formal vocabulary.
+
+Note that the linked data context provided with this document includes the formal Linked Data 1.1 Motivation Extension, and the vocabulary provided with this document contains the formal vocabulary for the "Motvation Names" listed in the table above.
 
 ### 3.3 Annotation `target`
 
@@ -161,15 +161,15 @@ It is important to maintain a link back to the Manifest for a given Canvas so cl
       "id":"http://example.org/manifest/1",
       "type":"Manifest",
       "label":{
-         "en": ["Example Label"]
+         "en": ["Useful Label"]
       }
    }
 }
 ```
 
-In cases where the `target` is not the entire Canvas or Image Service and is instead an area of interest, the selected area _MUST_ be supplied as part of the target.  This is accomplished using a [Specific Resource](https://www.w3.org/TR/annotation-model/#specific-resources) where the `source` and `selector` can be supplied. See the `target` in the example at the end of this section.
+In cases where the `target` is not the entire Canvas or Image Service and is instead an area of interest, the selected area _MUST_ be supplied as part of the `target`.  This is accomplished using a [Specific Resource](https://www.w3.org/TR/annotation-model/#specific-resources) where the `source` and `selector` can be supplied. See the `target` in the example at the end of this section.
 
-Note that it is possible for multiple Annotations within a single Annotation Page to target different, more specific areas of a single Image or Canvas.  It is also possible for a Canvas to contain multiple unique images.  This is useful when the Image or Canvas contains multiple maps, or displays a single map with inset maps built in. Below is an image that exemplifies this scenario.
+Note that it is possible for multiple Annotations within a single Annotation Page to target different, more specific areas of a single Image or Canvas.  It is also possible for a Canvas to contain multiple unique images.  It is also possible that a single Canvas or Image Service have more than one Annotation Page in `annotations`    This is useful when the Image or Canvas contains multiple maps, or displays a single map with inset maps built in. Below is an image that exemplifies this scenario.
 
 <table border="0">
   <tr>
@@ -249,7 +249,6 @@ See the `body` in the example in the next section for a complete example.
           "body": {
             "id": "http://iiif.io/api/extension/georef/examples/3/feature-collection.json",
             "type": "FeatureCollection",
-            "purpose": "gcp-georeferencing",
             "transformation": {
               "type": "polynomial",
               "order": 0
@@ -329,7 +328,6 @@ See the `body` in the example in the next section for a complete example.
   "body": {
     "id": "http://iiif.io/api/extension/georef/examples/3/feature-collection.json",
     "type": "FeatureCollection",
-    "purpose": "gcp-georeferencing",
     "transformation": {
       "type": "polynomial",
       "order": 0
