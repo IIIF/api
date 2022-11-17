@@ -76,7 +76,7 @@ The `pixelCoords` property is defined by this document in order to supply the pi
 
 {% include api/code_header.html %}
 ```json-doc
-{"pixelCoords":[10,20]}
+{ "pixelCoords": [10, 20] }
 ```
 
 ### 2.2 The `transformation` Property
@@ -112,12 +112,12 @@ Example of a `transformation` JSON Object:
 {% include api/code_header.html %}
 ```json-doc
 {
-   "transformation":{
-     "type":"polynomial",
-     "options": {
-       "order":0
-     }
-   }
+  "transformation": {
+    "type": "polynomial",
+    "options": {
+      "order": 0
+    }
+  }
 }
 ```
 
@@ -156,13 +156,13 @@ It is important to maintain a link back to the Manifest for a given Canvas so cl
 {% include api/code_header.html %}
 ```json-doc
 {
-   "partOf":{
-      "id":"http://example.org/manifest/1",
-      "type":"Manifest",
-      "label":{
-         "en": ["Useful Label"]
-      }
-   }
+  "partOf": {
+    "id": "http://example.org/manifest/1",
+    "type": "Manifest",
+    "label": {
+      "en": ["Useful Label"]
+    }
+  }
 }
 ```
 
