@@ -59,67 +59,16 @@ The process of georeferencing consists of the following steps:
 
 To store the resulting data in a Web Annotation, the following encoding is used:
 
-| Required Data                |  Data Encoding                                         |
-|------------------------------|--------------------------------------------------------|
-| Resource                     |  IIIF Presentation API Canvas or Image API Service     |
-| Pixel Mask                   |  `selector` on the Canvas or Image Service             |
-| Pixel Coordinates            |  A new property called `pixelCoords`                   |
-| Geographic coordinates       |  GeoJSON Feature Collection containing Point Features  |
-| Transformation algoritm      |  Feature `properties` property `transformation`        |
+| Required Data                |  Data Encoding                                                      |
+|------------------------------|---------------------------------------------------------------------|
+| Resource                     |  IIIF Presentation API Canvas or Image API Service                  |
+| Pixel Mask                   |  `selector` on the Canvas or Image Service                          |
+| Pixel Coordinates            |  A new property called `pixelCoords`                                |
+| Geographic coordinates       |  GeoJSON Feature Collection containing Point Features               |
+| Transformation algorithm     |  `transformation` property within the Feature's `properties` object.|
 {: .api-table #table-required-data}
 
 The sections below will introduce the two new properties `pixelCoords` and `transformation`.
-
-### 2.4 The `pixelCoords` Property
-
-The `pixelCoords` property is defined by this document in order to supply the pixel coordinates from the IIIF Canvas or Image Service along with the WGS84 `coordinates` in the Features. The value is an array representing a pixel point at [x,y] and __MUST__ be precisely in that order. An example is:
-
-{% include api/code_header.html %}
-```json-doc
-{ "pixelCoords": [10, 20] }
-```
-
-### 2.2 The `transformation` Property
-
-The `transformation` property is defined by this document in order to supply the preferred transformation algoritm. The value for `transformation` is a JSON Object which includes the properties `type` and `options`. The property _MAY_ be added to the Feature Collection used in the Annotation `body` and clients _MAY_ use the information in the object.
-
-The value for `type` is a string, and typical values include but are not limited to:
-
-`[@BERT and @JULES]`
-
-|Transformation Types          |  Description                      |
-|------------------------------|-----------------------------------|
-| `polynomial`                 |  Lorem Ipusm and some other stuff |
-| `linear`                     |  Lorem Ipusm and some other stuff |
-| `thinPlateSpline`            |  Lorem Ipusm and some other stuff |
-{: .api-table #table-transformation-types}
-
-The `options` property is used to supply additional parameters related to the selected transformation type. The value of `options` is a JSON object and typically includes but is not limited to the following properties:
-
-`[@BERT and @JULES]`
-
-|Transformation Options        |  Description                      |
-|------------------------------|-----------------------------------|
-| `order`                      |  An integer that...               |
-| `another`                    |  Lorem Ipusm and some other stuff |
-| `athirdone`                  |  Lorem Ipusm and some other stuff |
-{: .api-table #table-transformation-options}
-
-Using other properties within `options` is permissable so long as a Linked Data context has been provided that properly defines the vocabulary of those properties.
-
-Example of a `transformation` JSON Object:
-
-{% include api/code_header.html %}
-```json-doc
-{
-  "transformation": {
-    "type": "polynomial",
-    "options": {
-      "order": 0
-    }
-  }
-}
-```
 
 ## 3. Web Annotations for Georeferencing
 
@@ -127,7 +76,7 @@ Web Annotations can contain all of the required information mentioned in Section
 
 ### 3.1 Embedded vs. Referenced Targets and Resources
 
-To supply a IIIF Canvas or Image Service with georeferecing information, implmenters _MUST_ add at least one Annotation Page to the `annotations` property.  Implementers have the option to reference or embed those Annotation Pages.  For the purposes of this extension, implementers _SHOULD_ embed the Annotation Pages in the `annotations` property as opposed to referencing them. `[@BERT and @JULES]` a sentence about why?
+To supply a IIIF Canvas or Image Service with georeferecing information, implmenters _MUST_ add at least one Annotation Page to the `annotations` property.  Implementers have the option to reference or embed those Annotation Pages.  For the purposes of this extension, implementers _SHOULD_ embed the Annotation Pages in the `annotations` property as opposed to referencing them. This reduces the need to make HTTP calls to resolve the resource.
 
 Web Annotations can exist independent of the Canvas or Image Service they target and in such cases the Canvas or Image Service is often only referenced via its URI in the Web Annotation's `target` property.  For the purposes of this extension, implmenters _SHOULD_ embed the Canvas or Image Service within the Web Annotation instead of referecing it. `[@BERT and @JULES]` a sentence about why? This reduces the need to make HTTP calls to resolve the resource, which is especially important for Canvases.
 
@@ -179,13 +128,65 @@ Note that it is possible for multiple Annotations within a single Annotation Pag
 
 ### 3.4 Annotation `body`
 
-The `body` of an Annotation contains the data you would like to relate to some Canvas or IIIF Image Service. In our case, the `body` contains the GCPs and geocoordinates.
+The `body` of an Annotation contains the data you would like to relate to some Canvas or IIIF Image Service. In our case, the `body` contains the GCPs and geocoordinates.  Since geocoordinates are encoded as GeoJSON-LD, the value for `body` _MUST_ be a GeoJSON Feature Collection.  The Feature Collection _MUST_ only contain Features with [Point](https://www.rfc-editor.org/rfc/rfc7946#section-3.1.2) geometry, and each `geometry` property must contain the `coordinates` property.  The Feature Collection _SHOULD_ contain at least three point Features.
 
-- The value for `body` _MUST_ be a GeoJSON Feature Collection.
-- The Feature Collection _MAY_ contain the `transformation` property.
-- The Feature Collection _MUST_ only contain Features with [Point](https://www.rfc-editor.org/rfc/rfc7946#section-3.1.2) geometry, a each `geometry` property must contain the `coordinates` property.
-- The Feature Collection _SHOULD_ contain at least three point Features.
-- Each Point Feature in the Feature Collection _MUST_ have the `pixelCoords` property in the `properties` property
+### 3.5 The `pixelCoords` Property
+
+The `pixelCoords` property is defined by this document in order to supply the pixel coordinates from the IIIF Canvas or Image Service along with the WGS84 `coordinates` in the Features.  Each Point Feature in the Feature Collection _MUST_ have the `pixelCoords` property in the `properties` property.  The value is an array representing a pixel point at [x,y] and __MUST__ be precisely in that order. Here is an example of a Feature with the `pixelCoords` property:
+
+{% include api/code_header.html %}
+```json-doc
+{
+  "type": "Feature",
+  "properties": {
+    "pixelCoords": [5085, 782]
+  },
+  "geometry": {
+    "type": "Point",
+    "coordinates": [4.4885839, 51.9101828]
+  }
+}
+```
+
+### 3.6 The `transformation` Property
+
+The `transformation` property is defined by this document in order to supply the preferred transformation algoritm. The value for `transformation` is a JSON Object which includes the properties `type` and `options`. The property _MAY_ be added to the Feature Collection used in the Annotation `body` and clients _MAY_ use the information in the object.
+
+The value for `type` is a string, and typical values include but are not limited to:
+
+`[@BERT and @JULES]`
+
+|Transformation Types          |  Description                      |  Options                      |
+|------------------------------|-----------------------------------|--------------------------------
+| `polynomial`                 |  Lorem Ipusm and some other stuff | `order`
+| `thinPlateSpline`            |  Lorem Ipusm and some other stuff | N/A
+{: .api-table #table-transformation-types}
+
+If an implementer chooses to use other transformation types, they _SHOULD_ supply the Linked Data Context terms and vocabulary for those types.  `[@Bryan]` See xyz for examples of more types.
+
+The `options` property is used to supply additional parameters related to the selected transformation type. If a Transformation Type does not have or need options, implementers _SHOULD NOT_ include the `options` property.  Typically `options` will include an `order` property with one of the following values.
+
+|Order Value                      |  Description                      |
+|---------------------------------|-----------------------------------|
+| 1                               |  Linear                           |
+| 2                               |  Quadratic                        |
+| 3                               |  Cubic                            |
+
+Using other properties within `options` is permissable so long as a Linked Data context has been provided that properly defines the vocabulary of those properties.
+
+Example of a `transformation` JSON Object:
+
+{% include api/code_header.html %}
+```json-doc
+{
+  "transformation": {
+    "type": "polynomial",
+    "options": {
+      "order": 1
+    }
+  }
+}
+```
 
 See the `body` in the example in the next section for a complete example.
 
@@ -307,26 +308,54 @@ See the `body` in the example in the next section for a complete example.
     "http://iiif.io/api/extension/georef/1/context.json",
     "http://iiif.io/api/presentation/3/context.json"
   ],
-  "id": "http://iiif.io/api/extension/georef/examples/3/specific-image-service-2-svg-annotation.json",
+  "id": "http://iiif.io/api/extension/georef/examples/3/canvas-annotation.json",
   "type": "Annotation",
   "motivation": "georeferencing",
   "target": {
-    "id": "http://iiif.io/api/extension/georef/examples/3/specific-image-service.json",
-    "type": "SpecificResource",
-    "source": {
-      "@id": "https://cdm21033.contentdm.oclc.org/digital/iiif/krt/2891",
-      "type": "ImageService2",
-      "height": 2514,
-      "width": 5965
+    "id": "http://iiif.io/api/extension/georef/examples/3/canvas.json",
+    "type": "Canvas",
+    "label": {
+      "nl": ["River Nieuwe Maas and Rotterdam's Havens"],
+      "en": ["Guide to the New-Waterway"]
     },
-    "selector": {
-      "type": "SvgSelector",
-      "value": "<svg width=\"5965\" height=\"2514\"><polygon points=\"59,84 44,2329 5932,2353 5920,103 \" /></svg>"
+    "height": 2514,
+    "width": 5965,
+    "items": [
+      {
+        "id": "http://iiif.io/api/extension/georef/examples/3/contentPage.json",
+        "type": "AnnotationPage",
+        "items": [
+          {
+            "id": "http://iiif.io/api/extension/georef/examples/3/content.json",
+            "type": "Annotation",
+            "motivation": "painting",
+            "body": {
+              "id": "https://cdm21033.contentdm.oclc.org/digital/iiif/krt/2891/full/full/0/default.jpg",
+              "type": "Image",
+              "format": "image/jpeg",
+              "height": 2514,
+              "width": 5965,
+              "service": [
+                {
+                  "@id": "https://cdm21033.contentdm.oclc.org/digital/iiif/krt/2891",
+                  "type": "ImageService2"
+                }
+              ]
+            },
+            "target": "http://iiif.io/api/extension/georef/examples/3/canvas.json"
+          }
+        ]
+      }
+    ],
+    "partOf": {
+      "id": "http://example.org/manifest/1",
+      "type": "Manifest"
     }
   },
   "body": {
     "id": "http://iiif.io/api/extension/georef/examples/3/feature-collection.json",
     "type": "FeatureCollection",
+
     "transformation": {
       "type": "polynomial",
       "order": 0
