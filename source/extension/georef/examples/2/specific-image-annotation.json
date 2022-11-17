@@ -1,87 +1,69 @@
 {
-   "@context":[
-      "http://iiif.io/api/extension/georef/1/context.json",
-      "http://iiif.io/api/presentation/2/context.json"
-   ],
-   "@id":"http://iiif.io/api/extension/georef/examples/2/canvas-annotation.json",
-   "@type":"oa:Annotation",
-   "motivation":"georeferencing",
-   "target":{
-      "@type":"oa:SpecificResource",
-      "full":{
-         "@id":"https://cdm21033.contentdm.oclc.org/digital/iiif/krt/2891/full/full/0/default.jpg",
-         "@type":"dctypes:Image",
-         "format":"image/jpeg",
-         "service":{
-            "@context":"http://iiif.io/api/image/2/context.json",
-            "@id":"https://cdm21033.contentdm.oclc.org/digital/iiif/krt/2891",
-            "profile":"http://iiif.io/api/image/2/level2.json"
-         },
-         "height":2514,
-         "width":5965
+  "@context": [
+    "http://iiif.io/api/extension/georef/1/context.json",
+    "http://iiif.io/api/presentation/2/context.json"
+  ],
+  "@id": "http://iiif.io/api/extension/georef/examples/2/canvas-annotation.json",
+  "@type": "oa:Annotation",
+  "motivation": "georeferencing",
+  "target": {
+    "@type": "oa:SpecificResource",
+    "full": {
+      "@id": "https://cdm21033.contentdm.oclc.org/digital/iiif/krt/2891/full/full/0/default.jpg",
+      "@type": "dctypes:Image",
+      "format": "image/jpeg",
+      "service": {
+        "@context": "http://iiif.io/api/image/2/context.json",
+        "@id": "https://cdm21033.contentdm.oclc.org/digital/iiif/krt/2891",
+        "profile": "http://iiif.io/api/image/2/level2.json"
       },
-      "selector":{
-         "@type":"oa:SvgSelector",
-         "chars":"<svg width=\"5965\" height=\"2514\"><polygon points=\"59,84 44,2329 5932,2353 5920,103 \" /></svg>"
+      "height": 2514,
+      "width": 5965
+    },
+    "selector": {
+      "@type": "oa:SvgSelector",
+      "chars": "<svg width=\"5965\" height=\"2514\"><polygon points=\"59,84 44,2329 5932,2353 5920,103 \" /></svg>"
+    }
+  },
+  "body": {
+    "id": "http://iiif.io/api/extension/georef/examples/2/feature-collection.json",
+    "type": "FeatureCollection",
+
+    "transformation": {
+      "type": "polynomial",
+      "order": 0
+    },
+    "features": [
+      {
+        "type": "Feature",
+        "properties": {
+          "pixelCoords": [5085, 782]
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [4.4885839, 51.9101828]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "pixelCoords": [5467, 1338]
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [4.5011785, 51.901595]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "pixelCoords": [2006, 374]
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [4.405981, 51.9091596]
+        }
       }
-   },
-   "body":{
-      "id":"http://iiif.io/api/extension/georef/examples/2/feature-collection.json",
-      "type":"FeatureCollection",
-      "purpose":"gcp-georeferencing",
-      "transformation":{
-         "type":"polynomial",
-         "order":0
-      },
-      "features":[
-         {
-            "type":"Feature",
-            "properties":{
-               "pixelCoords":[
-                  5085,
-                  782
-               ]
-            },
-            "geometry":{
-               "type":"Point",
-               "coordinates":[
-                  4.4885839,
-                  51.9101828
-               ]
-            }
-         },
-         {
-            "type":"Feature",
-            "properties":{
-               "pixelCoords":[
-                  5467,
-                  1338
-               ]
-            },
-            "geometry":{
-               "type":"Point",
-               "coordinates":[
-                  4.5011785,
-                  51.901595
-               ]
-            }
-         },
-         {
-            "type":"Feature",
-            "properties":{
-               "pixelCoords":[
-                  2006,
-                  374
-               ]
-            },
-            "geometry":{
-               "type":"Point",
-               "coordinates":[
-                  4.405981,
-                  51.9091596
-               ]
-            }
-         }
-      ]
-   }
+    ]
+  }
 }
