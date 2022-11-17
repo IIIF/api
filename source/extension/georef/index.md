@@ -415,10 +415,13 @@ This section will likely link back to specific implementation notes as they rela
 Briefly explain `transformation` algorithms, why you need 3 or more control points, perhaps examples to show different implementations.  Mention IIIF Presentation API 2 and the presi 2 examples??  Mention GeoJSON sections on FeatureCollection, Feature, or position??
 
 ## Appendices
+
+`[@BERT]`
+
 Examples/references:
-- GDAL
-- QGIS
-- Map Warper
+- GDAL - https://gdal.org/programs/gdaltransform.html
+- QGIS - https://docs.qgis.org/3.22/en/docs/user_manual/working_with_raster/georeferencer.html
+- Map Warper - https://github.com/timwaters/mapwarper
 
 ### A. Acknowledgements
 
