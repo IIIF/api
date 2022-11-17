@@ -121,8 +121,8 @@ Note that it is possible for multiple Annotations within a single Annotation Pag
 
 <table border="0">
   <tr>
-    <td><img alt="" src="images/loc-acadia-np-original.jpg"></td>
-    <td><img alt="" src="images/loc-acadia-np-maps.jpg"></td>
+    <td><img alt="Multi Map Example" src="images/loc-acadia-np-original.jpg"></td>
+    <td><img alt="Multi Map Example" src="images/loc-acadia-np-maps.jpg"></td>
    </tr>
 </table>
 
