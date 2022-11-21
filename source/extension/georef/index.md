@@ -149,23 +149,21 @@ The `transformation` property is defined by this document in order to supply the
 
 The value for `type` is a string, and typical values include but are not limited to:
 
-`[@BERT and @JULES]`
-
-|Transformation Types          |  Description                      |  Options                      |
-|------------------------------|-----------------------------------|-------------------------------|
-| `polynomial`                 |  Lorem Ipusm and some other stuff | `order`                       |
-| `thinPlateSpline`            |  Lorem Ipusm and some other stuff | N/A                           |
+| Transformation type          | Description                                                       | Options  |
+|------------------------------|-------------------------------------------------------------------|----------|
+| `polynomial`                 | 1st, 2nd or 3rd order polynomial transformation                   | `order`  |
+| `thinPlateSpline`            | Thin plate spline transformation, also known as _rubber sheeting_ | N/A      |
 {: .api-table #table-transformation-types}
 
-If an implementer chooses to use other transformation types, they _SHOULD_ supply the Linked Data Context terms and vocabulary for those types. `[@Bryan]` See xyz for examples of more types.
+If an implementer chooses to use other transformation types, they _SHOULD_ supply the Linked Data Context terms and vocabulary for those types.
 
-The `options` property is used to supply additional parameters related to the selected transformation type. If a Transformation Type does not have or need options, implementers _SHOULD NOT_ include the `options` property. Typically `options` will include an `order` property with one of the following values.
+The `options` property is used to supply additional parameters related to the selected transformation type. If a Transformation type does not have or need options, implementers _SHOULD NOT_ include the `options` property.
 
-| Order Value                     | Description                      |
-|---------------------------------|----------------------------------|
-| 1                               | Linear                           |
-| 2                               | Quadratic                        |
-| 3                               | Cubic                            |
+| Transformation type | Option  | Value | Description                                     |
+|---------------------|---------|-------|-------------------------------------------------|
+| `polynomial`        | `order` | `1`   | 1st order (linear) polynomial transformation    |
+| `polynomial`        | `order` | `2`   |  2nd order (quadratic polynomial transformation |
+| `polynomial`        | `order` | `3`   |  3nd order (cubic) polynomial transformation    |
 
 Using other properties within `options` is permissable so long as a Linked Data context has been provided that properly defines the vocabulary of those properties.
 
