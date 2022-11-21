@@ -26,41 +26,41 @@
     }
   },
   "resource": {
-    "id": "http://iiif.io/api/extension/georef/examples/2/feature-collection.json",
-    "type": "FeatureCollection",
+    "@id": "http://iiif.io/api/extension/georef/examples/2/feature-collection.json",
+    "@type": "FeatureCollection",
 
     "transformation": {
-      "type": "polynomial",
+      "@type": "polynomial",
       "order": 0
     },
     "features": [
       {
-        "type": "Feature",
+        "@type": "Feature",
         "properties": {
           "pixelCoords": [5085, 782]
         },
         "geometry": {
-          "type": "Point",
+          "@type": "Point",
           "coordinates": [4.4885839, 51.9101828]
         }
       },
       {
-        "type": "Feature",
+        "@type": "Feature",
         "properties": {
           "pixelCoords": [5467, 1338]
         },
         "geometry": {
-          "type": "Point",
+          "@type": "Point",
           "coordinates": [4.5011785, 51.901595]
         }
       },
       {
-        "type": "Feature",
+        "@type": "Feature",
         "properties": {
           "pixelCoords": [2006, 374]
         },
         "geometry": {
-          "type": "Point",
+          "@type": "Point",
           "coordinates": [4.405981, 51.9091596]
         }
       }
