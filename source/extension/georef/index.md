@@ -115,7 +115,7 @@ It is important to maintain a link back to the Manifest for a given Canvas so cl
 }
 ```
 
-In cases where the `target` is not the entire Canvas or Image Service and is instead an area of interest, the selected area _MUST_ be supplied as part of the `target`.  This is accomplished using a [Specific Resource](https://www.w3.org/TR/annotation-model/#specific-resources) where the `source` and `selector` can be supplied. See the `target` in the example at the end of this section.
+In cases where the `target` is not the entire Canvas or Image Service and is instead an area of interest, the selected area _MUST_ be supplied as part of the `target`.  This is accomplished using a [Specific Resource](https://www.w3.org/TR/annotation-model/#specific-resources) where the `source` and `selector` can be supplied. `[@BERT and @JULES]` link to an example?
 
 Note that it is possible for multiple Annotations within a single Annotation Page to target different, more specific areas of a single Image or Canvas.  It is also possible for a Canvas to contain multiple unique images.  It is also possible that a single Canvas or Image Service have more than one Annotation Page in `annotations`.    This usually occurs when the Image or Canvas contains multiple maps, or displays a single map with inset maps built in. Below is an image that exemplifies this scenario.
 
@@ -187,8 +187,6 @@ Example of a `transformation` JSON Object:
   }
 }
 ```
-
-See the `body` in the example in the next section for a complete example.
 
 ## 4. Full Examples
 
@@ -298,8 +296,6 @@ See the `body` in the example in the next section for a complete example.
 ```
 
 ### 4.2 Full Web Annotation Example
-
-`[@Bryan: I think it's better to include an example with an embedded canvas rather than image]`
 
 {% include api/code_header.html %}
 ```json-doc
