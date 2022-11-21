@@ -25,6 +25,10 @@
          "@context": ["https://geojson.org/geojson-ld/geojson-context.jsonld", "http://www.w3.org/ns/anno.jsonld"],
          "@id": "oa:body"
       },
+      "resource":{
+         "@context": ["https://geojson.org/geojson-ld/geojson-context.jsonld", "http://www.w3.org/ns/anno.jsonld"],
+         "@id": "oa:hasBody"
+      },
       "ImageAPISelector":"https://iiif.io/api/annex/openannotation/#iiif-image-api-selector",
       "region":"https://iiif.io/api/image/3.0/#41-region",
       "size" : "https://iiif.io/api/image/3.0/#42-size",
