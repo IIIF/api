@@ -20,7 +20,7 @@
       "chars": "<svg width=\"5965\" height=\"2514\"><polygon points=\"59,84 44,2329 5932,2353 5920,103 \" /></svg>"
     }
   },
-  "body": {
+  "resource": {
     "id": "http://iiif.io/api/extension/georef/examples/2/feature-collection.json",
     "type": "FeatureCollection",
 

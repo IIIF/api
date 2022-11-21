@@ -70,7 +70,7 @@
               "@type": "sc:Manifest"
             }
           },
-          "body": {
+          "resource": {
             "id": "http://iiif.io/api/extension/georef/examples/2/feature-collection.json",
             "type": "FeatureCollection",
 

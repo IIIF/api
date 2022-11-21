@@ -13,7 +13,7 @@
     "height": 2514,
     "width": 5965
   },
-  "body": {
+  "resource": {
     "id": "http://iiif.io/api/extension/georef/examples/2/feature-collection.json",
     "type": "FeatureCollection",
 
