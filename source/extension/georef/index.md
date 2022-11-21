@@ -396,12 +396,12 @@ Example of a `transformation` JSON Object:
 
 - The URI of this extension's linked data context is
 `http://iiif.io/api/extension/georef/1/context.json`
-- The URI of the IIIF Presentation API 3 linked data context is
+- The URI of the IIIF Presentation API linked data context is
 `http://iiif.io/api/presentation/3/context.json`
 
-The linked data context of this extension must be included before the IIIF Presentation API 3 linked data context on the top-level object. The extension linked data context file includes the [GeoJSON-LD context](https://geojson.org/geojson-ld/geojson-context.jsonld) through [context scoping](https://www.w3.org/TR/json-ld11/#dfn-scoped-context). This means the GeoJSON-LD context URI does not have to be explicitly included on the top level object. It is important to note that since the IIIF Presentation API 3 linked data context has the JSON-LD `@version` set to 1.1, all linked data contexts are processed as JSON-LD 1.1.  It is also worth noting the linked data context for this extension also has `@version` set to 1.1.  If this context is used in another setting, it will have the same behavior.  JSON-LD 1.0 processors will throw a version error.
+The linked data context of this extension must be included before the IIIF Presentation API linked data context on the top-level object. The extension linked data context file includes the [GeoJSON-LD context](https://geojson.org/geojson-ld/geojson-context.jsonld) through [context scoping](https://www.w3.org/TR/json-ld11/#dfn-scoped-context). This means the GeoJSON-LD context URI does not have to be explicitly included on the top level object. It is important to note that since the IIIF Presentation API linked data context has the JSON-LD `@version` set to 1.1, all linked data contexts are processed as JSON-LD 1.1.  It is also worth noting the linked data context for this extension also has `@version` set to 1.1.  If this context is used in another setting, it will have the same behavior.  JSON-LD 1.0 processors will throw a version error.
 
-Consult the [Linked Data Context and Extensions section of IIIF Presentation API 3](https://iiif.io/api/presentation/3.0/#46-linked-data-context-and-extensions) for further guidance on use of the `@context` property.
+Consult the [Linked Data Context and Extensions section of IIIF Presentation API](https://iiif.io/api/presentation/3.0/#46-linked-data-context-and-extensions) for further guidance on use of the `@context` property.
 
 ## 6. Implementation Notes
 
