@@ -54,7 +54,7 @@ The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _S
 
 The process of georeferencing consists of the following steps:
 
-1. The cartographic part of the resource is selected by means of a pixel mask. This accounts for the fact that resources often contain non-cartographic parts and may contain multiple cartographic projections that should be focused on individually. The shape of the mask varies from a simple rectangle to a complex polygon.
+1. The cartographic part of the resource is selected by means of a pixel mask. This accounts for the fact that resources often contain non-cartographic parts and may contain multiple cartographic projections that should be focused on individually. The shape of the mask can vary from a simple rectangle to a more complex polygon.
 2. Three or more pixel coordinates of the resource are mapped on to geographic coordinates, in this case WGS84. Each pair of pixel coordinates and geographic coordinates is called a Ground Control Point (GCP).
 3. Optionally, a preferred transformation algoritm is defined for interpolating other values, based on the GCPs. This may be used by clients to calculate the geographic coordinates of other pixel coordinates and vice versa.
 
