@@ -6,7 +6,7 @@
   "@id": "http://iiif.io/api/extension/georef/examples/2/canvas-annotation.json",
   "@type": "oa:Annotation",
   "motivation": "georeferencing",
-  "target": {
+  "on": {
     "@id": "https://cdm21033.contentdm.oclc.org/digital/iiif/krt/2891/full/full/0/default.jpg",
     "@type": "dctypes:Image",
     "format": "image/jpeg",
