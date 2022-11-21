@@ -86,17 +86,7 @@ It is recommended to embed your resources because this reduces the need to make 
 
 ### 3.2 Web Annotation `motivation`
 
-The `motivation` property is used by Web Annotations to understand the reason why the Annotation was created. This document offers two defined Web Annotation Motivation Extensions, seen below.
-
-`[@BERT and @JULES]` see https://www.w3.org/TR/annotation-model/#motivation-and-purpose
-
-| Motivation Name              | Description                                                            |
-|------------------------------|------------------------------------------------------------------------|
-| `georeferencing`             | `[@BERT and @JULES]` The motivation for when the user intends to...    |
-| `gcp-georeferecing`          | `[@BERT and @JULES]` The motivation for when the user intends to...    |
-{: .api-table #table-motivation-extension}
-
-- The `motivation` property _SHOULD_ be included on all Web Annotations and when included its value _MUST_ be one of the strings listed above.
+The `motivation` property is used by Web Annotations to understand the reason why the Annotation was created. The `motivation` property _SHOULD_ be included on all Web Annotations and when included its value _MUST_ be `georeferencing`.
 
 Note that the linked data context provided with this document includes the formal Linked Data 1.1 Motivation Extension, and the vocabulary provided with this document contains the formal vocabulary for the "Motvation Names" listed in the table above.
 
