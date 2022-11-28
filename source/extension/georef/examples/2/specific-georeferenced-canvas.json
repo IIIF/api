@@ -79,10 +79,11 @@
           "resource": {
             "@id": "http://iiif.io/api/extension/georef/examples/2/feature-collection.json",
             "@type": "FeatureCollection",
-
             "transformation": {
-              "@type": "polynomial",
-              "order": 0
+              "type": "polynomial",
+              "options": {
+                "order": 1
+              }
             },
             "features": [
               {
