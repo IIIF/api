@@ -52,37 +52,36 @@ The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _S
 
 [Georeferencing](https://en.wikipedia.org/wiki/Georeferencing) is the process of mapping internal coordinates of a resource to geographic coordinates. For the purposes of this extension, the resource is a IIIF [Canvas](https://iiif.io/api/presentation/3.0/#53-canvas) or [Image Service](https://iiif.io/api/presentation/3.0/#service) that contains one or more carthographic projections such as plans, maps and aerial photographs.
 
+[@BERT, JULES, BRYAN]: is "carthographic projection" a good word? Maybe confusing, projection also is used in "WGS84 projection" for example.
+
 The process of georeferencing consists of the following steps:
 
-1. The cartographic part of the resource is selected by means of a pixel mask. This accounts for the fact that resources often contain non-cartographic parts and may contain multiple cartographic projections that should be focused on individually. The shape of the mask can vary from a simple rectangle to a more complex polygon.
-2. Three or more pixel coordinates of the resource are mapped on to geographic coordinates, in this case WGS84. Each pair of pixel coordinates and geographic coordinates is called a Ground Control Point (GCP).
-3. Optionally, a preferred transformation algorithm is defined for interpolating other values, based on the GCPs. This may be used by clients to calculate the geographic coordinates of other pixel coordinates and vice versa.
+1. A pointer to a IIIF Canvas or Image Service, or a part of it. When a resource depicts multiple carthographic projections (such as inset maps) or when the resource contains non-cartographic parts (such as legends or borders), a pixel mask can be used to select the portion of the resource that belongs to a single carthographic projection. The shape of such a pixel mask can vary from a simple rectangle to a more complex polygon.
+2. A mapping between the pixel coordinates of the IIIF resource and geographic WGS84 coordinates. This mapping consists of pairs of pixel coordinates and geographic coordinates. Each pair of coordinates is called a Ground Control Point (GCP). At least three GCPs are needed to enable clients to overlay a georeferenced IIIF resource on a map.
+3. Optionally, a transformation algorithm can be defined that tells clients what algorithm should be used to turn the discrete set of GCPs into a function that can transform any of the IIIF resource pixel coordinates to geographic coordinates, and vice versa.
 
-To store the resulting data in a Web Annotation, the following encoding is used:
+The following encoding is used to store the data needed by the steps above:
 
-| Required Data                | Data Encoding                                                       |
-|------------------------------|---------------------------------------------------------------------|
-| Resource                     | IIIF Presentation API Canvas or Image API Service                   |
-| Pixel Mask                   | `selector` on the resource                                          |
-| Pixel Coordinates            | A new property called `pixelCoords`                                 |
-| Geographic coordinates       | GeoJSON Feature Collection containing Point Features                |
-| Transformation algorithm     | `transformation` property within the Feature's `properties` object. |
+| Required data            | Encoding                                                       |
+|--------------------------|---------------------------------------------------------------------|
+| Resource and pixel mask  | IIIF Presentation API Canvas or Image API Image Service with an optional [SVG Selector](https://www.w3.org/TR/annotation-model/#svg-selector) or [Image API Selector](https://iiif.io/api/annex/openannotation/#iiif-image-api-selector) to specify a pixel mask |
+| GCPs                     | A GeoJSON Feature Collection where each GCP is stored as a GeoJSON Feature with a Point geometry and a `pixelCoords` property in the Feature's `properties` object |
+| Transformation algorithm | A `transformation` property defined on the GeoJSON Feature Collection that holds the GCPs |
 {: .api-table #table-required-data}
 
-The sections below will introduce the two new properties `pixelCoords` and `transformation`.
-
 ## 3. Web Annotations for Georeferencing
+
 `[@Bryan]` instead of using "Web Annotation" throughout, introduce this as the "Georef Annotation" and then replace "Web Annotation" with "Georef Annotation" in this section and below.
 
 Web Annotations can contain all of the required information mentioned in Section 2. We will describe how each piece of the Web Annotation is used and what its job is, followed by a full example.
 
 ### 3.1 Embedded vs. Referenced Targets and Resources
 
-To supply a resource with georeferecing information, implmenters _MUST_ add at least one Annotation Page to the `annotations` property.  Implementers have the option to reference or embed those Annotation Pages.  For the purposes of this extension, implementers _SHOULD_ embed the Annotation Pages in the `annotations` property as opposed to referencing them. 
+To supply a resource with georeferecing information, implmenters _MUST_ add at least one Annotation Page to the `annotations` property. Implementers have the option to reference or embed those Annotation Pages. For the purposes of this extension, implementers _SHOULD_ embed the Annotation Pages in the `annotations` property as opposed to referencing them.
 
-Web Annotations can exist independent of the resource they target and in such cases the resource is often only referenced via its URI in the Web Annotation's `target` property.  For the purposes of this extension, implmenters _SHOULD_ embed the Canvas or Image Service within the Web Annotation instead of referecing it. 
+Web Annotations can exist independent of the resource they target and in such cases the resource is often only referenced via its URI in the Web Annotation's `target` property. For the purposes of this extension, implmenters _SHOULD_ embed the Canvas or Image Service within the Web Annotation instead of referencing it.
 
-It is recommended to embed your resources because this reduces the need to make HTTP calls to resolve the resource.  It also ensures the original height and width which the resources were generated against is present.  
+ [@BRYAN]: add paragraph: This reduces the need to make HTTP calls to resolve the resource.
 
 ### 3.2 Web Annotation `motivation`
 
@@ -92,8 +91,7 @@ Note that the linked data context provided with this document includes the forma
 
 ### 3.3 Web Annotation `target`
 
-The Web Annotation `target` is the resource to supply the `body` information to.  In our case, the `target` _SHOULD_ be an IIIF Canvas or Image Service.  `[@BERT and @JULES]` check this wording for validity. For clients to rely on the GCP and Pixel Mask to properly align the pixel points to the geographic points they _MUST_ know the height and width of the resources the data was created against. This will result in consistent aspect ratios. Implementers _SHOULD_ supply this information with their embedded resources.
-
+The Web Annotation `target` is the resource to supply the `body` information to. In our case, the `target` _SHOULD_ be an IIIF Canvas or Image Service. It is important that viewers processing this information know the original height and width of the resources in order to have the proper aspect ratios. Implementers _SHOULD_ supply this information with their embedded resources.
 
 It is important to maintain a link back to the Manifest for a given Canvas so clients consuming the Canvases have the opportunity to provide contextual information about the Manifest. To do this, implementers _SHOULD_ use the `partOf` property on the Canvas with as much information about the Manifest as is useful. For example,
 
@@ -112,7 +110,9 @@ It is important to maintain a link back to the Manifest for a given Canvas so cl
 
 In cases where the `target` is not the entire Canvas or Image Service and is instead an area of interest, the selected area _MUST_ be supplied as part of the `target`.  This is accomplished using a [Specific Resource](https://www.w3.org/TR/annotation-model/#specific-resources) where the `source` and `selector` can be supplied. `[@Bryan just link out to our actually example/3]`.
 
-Note that it is possible for multiple Annotations within a single Annotation Page to target different, more specific areas of a single Image or Canvas. It is also possible for a Canvas to contain multiple unique images. It is also possible that a single Canvas or Image Service have more than one Annotation Page in `annotations`. This usually occurs when the Image or Canvas contains multiple maps, or displays a single map with inset maps built in. Below is an image that exemplifies this scenario.
+Note that it is possible for multiple Annotations within a single Annotation Page to target different, more specific areas of a single Image or Canvas. It is also possible for a Canvas to contain multiple unique images `[@BRYAN, JULES example?]`.
+
+It is also possible that a single Canvas or Image Service have more than one Annotation in `annotations`. This can occur when a single Canvas or Image Service depicts multiple carthographic projections such as inset maps. Below is an image that exemplifies this scenario.
 
 <table border="0">
   <tr>
@@ -145,9 +145,13 @@ The `pixelCoords` property is defined by this document in order to supply the pi
 
 ### 3.6 The `transformation` Property
 
-The `transformation` property is defined by this document in order to supply the preferred transformation algoritm. The value for `transformation` is a JSON Object which includes the properties `type` and `options`. The property _MAY_ be added to the Feature Collection used in the Web Annotation `body` and clients _MAY_ use the information in the object.
+The `transformation` property is defined by this document in order to supply the preferred transformation algoritm that is used to create a complete mapping from pixel coordinates to geographic coordinates (and vice versa), based on a list of GCPs. The value for `transformation` is a JSON object which includes the properties `type` and `options`. The property _MAY_ be added to the Feature Collection used in the Web Annotation `body` and clients _MAY_ use the information in the object.
 
-The value for `type` is a string, and typical values include but are not limited to:
+If a transformation algorithm is not provided, clients _SHOULD_ use their default algorithm if they are using a Georef Annotatiopn to transform between pixel coordinates and geographic coordinates. Similarly, if the supplied transformation algorithm is not implemented by a client, this default algorithm _SHOULD_ be used as well.
+
+For more details about different transformation algorithms, see the [Implementation Notes](#6-implementation-notes) section.
+
+The name of the preferred transformation algoritm is stored in the `type` property inside the `transformation` JSON object. Typical values include but are not limited to:
 
 | Transformation type          | Description                                                       | Options  |
 |------------------------------|-------------------------------------------------------------------|----------|
@@ -157,13 +161,13 @@ The value for `type` is a string, and typical values include but are not limited
 
 If an implementer chooses to use other transformation types, they _SHOULD_ supply the Linked Data Context terms and vocabulary for those types.
 
-The `options` property is used to supply additional parameters related to the selected transformation type. If a Transformation type does not have or need options, implementers _SHOULD NOT_ include the `options` property.
+The `options` property is used to supply additional parameters related to the selected transformation type. If a transformation type does not have or need options, implementers _SHOULD NOT_ include the `options` property.
 
-| Transformation type | Option  | Value | Description                                     |
-|---------------------|---------|-------|-------------------------------------------------|
-| `polynomial`        | `order` | `1`   | 1st order (linear) polynomial transformation    |
-| `polynomial`        | `order` | `2`   |  2nd order (quadratic polynomial transformation |
-| `polynomial`        | `order` | `3`   |  3nd order (cubic) polynomial transformation    |
+| Transformation type | Option  | Value | Description                                    |
+|---------------------|---------|-------|------------------------------------------------|
+| `polynomial`        | `order` | `1`   | 1st order (linear) polynomial transformation   |
+| `polynomial`        | `order` | `2`   | 2nd order (quadratic polynomial transformation |
+| `polynomial`        | `order` | `3`   | 3nd order (cubic) polynomial transformation    |
 
 Using other properties within `options` is permissable so long as a Linked Data context has been provided that properly defines the vocabulary of those properties.
 
@@ -242,7 +246,9 @@ Example of a `transformation` JSON Object:
             "type": "FeatureCollection",
             "transformation": {
               "type": "polynomial",
-              "order": 0
+              "options": {
+                "order": 1
+              }
             },
             "features": [
               {
@@ -344,10 +350,11 @@ Example of a `transformation` JSON Object:
   "body": {
     "id": "http://iiif.io/api/extension/georef/examples/3/feature-collection.json",
     "type": "FeatureCollection",
-
     "transformation": {
       "type": "polynomial",
-      "order": 0
+      "options": {
+        "order": 1
+      }
     },
     "features": [
       {
@@ -405,12 +412,15 @@ Briefly explain `transformation` algorithms, why you need 3 or more control poin
 
 ## Appendices
 
-`[@BERT]`
+## Open source implementations
 
-Examples/references:
-- GDAL - https://gdal.org/programs/gdaltransform.html
-- QGIS - https://docs.qgis.org/3.22/en/docs/user_manual/working_with_raster/georeferencer.html
-- Map Warper - https://github.com/timwaters/mapwarper
+GCP-based image georeferencing is a common task that's available in many GIS applications. For example, the following open source applications provide this functionality:
+
+- [GDAL](https://gdal.org/programs/gdaltransform.html)
+- [QGIS](https://docs.qgis.org/3.22/en/docs/user_manual/working_with_raster/georeferencer.html)
+- [Map Warper](https://github.com/timwaters/mapwarper)
+
+Note that none of the tools listed above currently support georeferencing IIIF resources using Georef Annotations.
 
 ### A. Acknowledgements
 
