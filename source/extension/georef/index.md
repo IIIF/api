@@ -49,15 +49,20 @@ The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _S
 
 ## 2. Georeferencing IIIF Resources
 
+### 2.1 Georeferencing
 [Georeferencing](https://en.wikipedia.org/wiki/Georeferencing) is the process of mapping internal coordinates of a resource to geographic coordinates. For the purposes of this extension, the resource is a IIIF [Canvas](https://iiif.io/api/presentation/3.0/#53-canvas) or [Image Service](https://iiif.io/api/presentation/3.0/#service) that contains one or more carthographic projections such as plans, maps and aerial photographs.
 
 `[@BERT, @JULES, @BRYAN]` is "carthographic projection" a good word? Maybe confusing, projection also is used in "WGS84 projection" for example.  Calling it "map" may also be confusing, because you overlay the "image" on the "map".  We are trying to separate the "image of the earth" from the "cartographic system" giving it the ability to use coordinates.  
+
+### 2.2 Georeferencing Process
 
 The process of georeferencing consists of the following steps:
 
 1. A pointer to a IIIF Canvas or Image Service, or a part of it. When a resource depicts multiple carthographic projections (such as inset maps) or when the resource contains non-cartographic parts (such as legends or borders), a pixel mask can be used to select the portion of the resource that belongs to a single carthographic projection. The shape of such a pixel mask can vary from a simple rectangle to a more complex polygon.
 2. A mapping between the pixel coordinates of the IIIF resource and geographic WGS84 coordinates. This mapping consists of pairs of pixel coordinates and geographic coordinates. Each pair of coordinates is called a Ground Control Point (GCP). At least three GCPs are needed to enable clients to overlay a georeferenced IIIF resource on a map.
-3. Optionally, a transformation algorithm can be defined that tells clients what algorithm should be used to turn the discrete set of GCPs into a function that can transform any of the IIIF resource pixel coordinates to geographic coordinates, and vice versa.
+3. Optionally, a transformation algorithm can be defined that tells clients what algorithm _SHOULD_ be used to turn the discrete set of GCPs into a function that can transform any of the IIIF resource pixel coordinates to geographic coordinates, and vice versa.
+
+### 2.3 Required Data for Georeferencing
 
 The following encoding is used to store the data needed by the steps above:
 
@@ -123,7 +128,7 @@ However, it is possible for multiple Annotations within a single Annotation Page
 
 ### 3.4 Georef Annotation `body`
 
-The `body` of a Georef Annotation contains the data you would like to relate to some Canvas or IIIF Image Service. In our case, the `body` contains the GCPs and geocoordinates. Since geocoordinates are encoded as GeoJSON-LD, the value for `body` _MUST_ be a GeoJSON Feature Collection. The Feature Collection _MUST_ only contain Features with [Point](https://www.rfc-editor.org/rfc/rfc7946#section-3.1.2) geometries, and each `geometry` property must contain the `coordinates` property. The Feature Collection _SHOULD_ contain at least three Features. `[@BERT @JULES @BRYAN]` explain WHY should it contain at least three Features in the implementation notes
+The `body` of a Georef Annotation contains the data you would like to relate to some Canvas or IIIF Image Service. In our case, the `body` contains the GCPs and geocoordinates. Since geocoordinates are encoded as GeoJSON-LD, the value for `body` _MUST_ be a GeoJSON Feature Collection. The Feature Collection _MUST_ only contain Features with [Point](https://www.rfc-editor.org/rfc/rfc7946#section-3.1.2) geometries, and each `geometry` property _MUST_ contain the `coordinates` property. The Feature Collection _SHOULD_ contain at least three Features. `[@BERT @JULES @BRYAN]` explain WHY should it contain at least three Features in the implementation notes
 
 ### 3.5 The `pixelCoords` Property
 
@@ -399,7 +404,7 @@ Example of a `transformation` JSON object:
 - The URI of the IIIF Presentation API linked data context is
 `http://iiif.io/api/presentation/3/context.json`
 
-The linked data context of this extension must be included before the IIIF Presentation API linked data context on the top-level object. The extension linked data context file includes the [GeoJSON-LD context](https://geojson.org/geojson-ld/geojson-context.jsonld) through [context scoping](https://www.w3.org/TR/json-ld11/#dfn-scoped-context). This means the GeoJSON-LD context URI does not have to be explicitly included on the top level object. Note that since the IIIF Presentation API linked data context has the JSON-LD `@version` set to 1.1, all linked data contexts are processed as JSON-LD 1.1. It is also worth noting the linked data context for this extension also has `@version` set to 1.1. If this context is used in another setting, it will have the same behavior. JSON-LD 1.0 processors will throw a version error.
+The linked data context of this extension _MUST_ be included before the IIIF Presentation API linked data context on the top-level object. The extension linked data context file includes the [GeoJSON-LD context](https://geojson.org/geojson-ld/geojson-context.jsonld) through [context scoping](https://www.w3.org/TR/json-ld11/#dfn-scoped-context). This means the GeoJSON-LD context URI does not have to be explicitly included on the top level object. Note that since the IIIF Presentation API linked data context has the JSON-LD `@version` set to 1.1, all linked data contexts are processed as JSON-LD 1.1. It is also worth noting the linked data context for this extension also has `@version` set to 1.1. If this context is used in another setting, it will have the same behavior. JSON-LD 1.0 processors will throw a version error.
 
 Consult the [Linked Data Context and Extensions section of IIIF Presentation API](https://iiif.io/api/presentation/3.0/#46-linked-data-context-and-extensions) for further guidance on use of the `@context` property.
 
