@@ -12,15 +12,22 @@
     "id": "@id",
     "type": "@type",
     "georeferencing": "proto:georeferencing",
-    "gcp-georeferencing": "proto:gcp-georeferencing",
-    "geotagging": "proto:geotagging",
-    "transformation": "proto:transformation",
+    "transformation":{
+      "@id": "proto:transformation",
+      "@context": {
+        "options":{
+          "@id": "proto:options",
+          "@context": {
+            "order": {
+              "@id": "proto:order",
+              "@type": "xsd:integer"
+            }  
+          }
+        }
+      }
+    },
     "polynomial": "proto:polynomial",
     "thinPlateSpline": "proto:thinPlateSpline",
-    "polynomialOrder": {
-      "@id": "proto:polynomialOrder",
-      "@type": "xsd:integer"
-    },
     "body": {
       "@context": [
         "https://geojson.org/geojson-ld/geojson-context.jsonld",
@@ -64,10 +71,6 @@
           "@id": "proto:pixel_coords",
           "@container": "@list",
           "@type": "xsd:float"
-        },
-        "pic": {
-          "@id": "foaf:depiction",
-          "@type": "@id"
         }
       }
     }

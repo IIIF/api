@@ -19,13 +19,12 @@ The [IIIF Presentation API](https://iiif.io/api/presentation/3.0/) has the capab
 
 ### 1.1 Objectives and Scope
 
-This document will supply a Linked Data 1.1 context and JSON-LD pattern by which to extend Web Annotation and the IIIF Presentation API to support georeferening.
+This document will supply [vocabulary](/vocab/georef-terms.md) and a [linked data 1.1 context](/1/context.json) allowing for a JSON-LD pattern by which to extend Web Annotation and the IIIF Presentation API to support georeferening.
 
-We will adopt the [existing GeoJSON specification](https://datatracker.ietf.org/doc/html/rfc7946) for its Linked Data vocabulary and context for geographic coordinates. This means coordinates are expressed through the [WGS84](http://www.w3.org/2003/01/geo/wgs84_pos) coordinate reference system. As such, expressing the location of extraterrestrial entities is not supported by this technique.
-
+We will adopt the [existing GeoJSON specification](https://datatracker.ietf.org/doc/html/rfc7946) for its linked data vocabulary and context for geographic coordinates. This means coordinates are expressed through the [WGS84](http://www.w3.org/2003/01/geo/wgs84_pos) coordinate reference system. As such, expressing the location of extraterrestrial entities is not supported by this technique.
 
 ### 1.2 Motivating Use Cases
-
+`[@BERT]` improve these a bit
 - overlay iiif images on a map, which may include warping the image
 - stitching multiple maps together
 - geospatial area, enabling them to be found by search engines with geospatial coordinates
@@ -52,7 +51,7 @@ The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _S
 
 [Georeferencing](https://en.wikipedia.org/wiki/Georeferencing) is the process of mapping internal coordinates of a resource to geographic coordinates. For the purposes of this extension, the resource is a IIIF [Canvas](https://iiif.io/api/presentation/3.0/#53-canvas) or [Image Service](https://iiif.io/api/presentation/3.0/#service) that contains one or more carthographic projections such as plans, maps and aerial photographs.
 
-[@BERT, JULES, BRYAN]: is "carthographic projection" a good word? Maybe confusing, projection also is used in "WGS84 projection" for example.
+`[@BERT, @JULES, @BRYAN]` is "carthographic projection" a good word? Maybe confusing, projection also is used in "WGS84 projection" for example.  Calling it "map" may also be confusing, because you overlay the "image" on the "map".  We are trying to separate the "image of the earth" from the "cartographic system" giving it the ability to use coordinates.  
 
 The process of georeferencing consists of the following steps:
 
@@ -71,29 +70,28 @@ The following encoding is used to store the data needed by the steps above:
 
 ## 3. Web Annotations for Georeferencing
 
-`[@Bryan]` instead of using "Web Annotation" throughout, introduce this as the "Georef Annotation" and then replace "Web Annotation" with "Georef Annotation" in this section and below.
-
-Web Annotations can contain all of the required information mentioned in Section 2. We will describe how each piece of the Web Annotation is used and what its job is, followed by a full example.
+Web Annotations can contain all of the required information mentioned in Section 2 and when they do we will refer to them as a "Georef Annotation". We will describe how each piece of the Georef Annotation is used and what its job is, followed by a full example.
 
 ### 3.1 Embedded vs. Referenced Targets and Resources
 
 To supply a resource with georeferecing information, implmenters _MUST_ add at least one Annotation Page to the `annotations` property. Implementers have the option to reference or embed those Annotation Pages. For the purposes of this extension, implementers _SHOULD_ embed the Annotation Pages in the `annotations` property as opposed to referencing them.
 
-Web Annotations can exist independent of the resource they target and in such cases the resource is often only referenced via its URI in the Web Annotation's `target` property. For the purposes of this extension, implmenters _SHOULD_ embed the Canvas or Image Service within the Web Annotation instead of referencing it.
+Georef Annotations can exist independent of the resource they target and in such cases the resource is often only referenced via its URI in the Georef Annotation's `target` property. For the purposes of this extension, implmenters _SHOULD_ embed the Canvas or Image Service within the Georef Annotation instead of referencing it.
 
- [@BRYAN]: add paragraph: This reduces the need to make HTTP calls to resolve the resource.
+Embedding resources reduces the need to make HTTP calls and increases the reliability of the included resources.  Sometimes URIs do not resolve and in those cases it will not be possible to display or use those resources in georeferencing scenarios.  Embedding the resources ensures each resource is available for georeferencing algorithms and viewers and ensures the metadata about the resource, such as height and width, remains consistent.
 
-### 3.2 Web Annotation `motivation`
+### 3.2 Georef Annotation `motivation`
 
-The `motivation` property is used by Web Annotations to understand the reason why the Annotation was created. The `motivation` property _SHOULD_ be included on all Web Annotations and when included its value _MUST_ be `georeferencing`.
+The `motivation` property is used by Georef Annotations to understand the reason why the Annotation was created. The `motivation` property _SHOULD_ be included on all Georef Annotations and when included its value _MUST_ be `georeferencing`.
 
-Note that the linked data context provided with this document includes the formal Linked Data 1.1 Motivation Extension, and the vocabulary provided with this document contains the formal vocabulary for the "Motvation Names" listed in the table above.
+Note that the linked data context provided with this document includes the formal linked data 1.1 motivation extension, and the [vocabulary](/vocab/georef-terms.md#georeferencing) provided with this document contains the formal vocabulary for the "georeferencing" motivation discussed above.
 
-### 3.3 Web Annotation `target`
+### 3.3 Georef Annotation `target`
 
-The Web Annotation `target` is the resource to supply the `body` information to. In our case, the `target` _SHOULD_ be an IIIF Canvas or Image Service. It is important that viewers processing this information know the original height and width of the resources in order to have the proper aspect ratios. Implementers _SHOULD_ supply this information with their embedded resources.
+The Georef Annotation `target` is the resource to supply the `body` information to. In our case, the `target` _SHOULD_ be an IIIF Canvas or Image Service. Viewers processing this information require the original height and width of the resources in order to have the proper aspect ratios. Implementers _SHOULD_ supply this information with their embedded resources.
 
 It is important to maintain a link back to the Manifest for a given Canvas so clients consuming the Canvases have the opportunity to provide contextual information about the Manifest. To do this, implementers _SHOULD_ use the `partOf` property on the Canvas with as much information about the Manifest as is useful. For example,
+
 
 {% include api/code_header.html %}
 ```json-doc
@@ -108,11 +106,11 @@ It is important to maintain a link back to the Manifest for a given Canvas so cl
 }
 ```
 
-In cases where the `target` is not the entire Canvas or Image Service and is instead an area of interest, the selected area _MUST_ be supplied as part of the `target`.  This is accomplished using a [Specific Resource](https://www.w3.org/TR/annotation-model/#specific-resources) where the `source` and `selector` can be supplied. `[@Bryan just link out to our actually example/3]`.
+In cases where the `target` is not the entire Canvas or Image Service and is instead an area of interest, the selected area _MUST_ be supplied as part of the `target`.  This is accomplished using a [Specific Resource](https://www.w3.org/TR/annotation-model/#specific-resources) where the `source` and `selector` can be supplied.  See the [Specific Resource Example](/examples/3/specific-georeferenced-canvas.json) from the examples directory provided with this document.
 
-Note that it is possible for multiple Annotations within a single Annotation Page to target different, more specific areas of a single Image or Canvas. It is also possible for a Canvas to contain multiple unique images `[@BRYAN, JULES example?]`.
+This specification expects that a single Image is painted on the Canvas and that the Images contain only a single map depiction.  When the resource is a Canvas, it expects that the Image within the Canvas and the Canvas itserlf have the same `height` and `width` values.  Further, it expects the Canvas or Image Service has only a single Annotation Page in the `annotations` property which supplies the georeferencing information.  
 
-It is also possible that a single Canvas or Image Service have more than one Annotation in `annotations`. This can occur when a single Canvas or Image Service depicts multiple carthographic projections such as inset maps. Below is an image that exemplifies this scenario.
+However, it is possible for multiple Annotations within a single Annotation Page to target different, more specific areas of a single Image or Canvas. It is also possible for a Canvas to contain multiple unique Images.  It is also possible that a single Canvas or Image Service have more than one Annotation Page in `annotations` whose Georef Annotations target different areas of the resource. These situations can occur when a single Canvas or Image Service depicts multiple carthographic projections such as inset maps. Below is an image that exemplifies these scenarios.
 
 <table border="0">
   <tr>
@@ -121,13 +119,15 @@ It is also possible that a single Canvas or Image Service have more than one Ann
    </tr>
 </table>
 
-### 3.4 Web Annotation `body`
+`[@BERT]` add caption to image(s) explaining why this isn't quite supported.
 
-The `body` of a Web Annotation contains the data you would like to relate to some Canvas or IIIF Image Service. In our case, the `body` contains the GCPs and geocoordinates. Since geocoordinates are encoded as GeoJSON-LD, the value for `body` _MUST_ be a GeoJSON Feature Collection. The Feature Collection _MUST_ only contain Features with [Point](https://www.rfc-editor.org/rfc/rfc7946#section-3.1.2) geometry, and each `geometry` property must contain the `coordinates` property. The Feature Collection _SHOULD_ contain at least three point Features.
+### 3.4 Georef Annotation `body`
+
+The `body` of a Georef Annotation contains the data you would like to relate to some Canvas or IIIF Image Service. In our case, the `body` contains the GCPs and geocoordinates. Since geocoordinates are encoded as GeoJSON-LD, the value for `body` _MUST_ be a GeoJSON Feature Collection. The Feature Collection _MUST_ only contain Features with [Point](https://www.rfc-editor.org/rfc/rfc7946#section-3.1.2) geometries, and each `geometry` property must contain the `coordinates` property. The Feature Collection _SHOULD_ contain at least three Features. `[@BERT @JULES @BRYAN]` explain WHY should it contain at least three Features in the implementation notes
 
 ### 3.5 The `pixelCoords` Property
 
-The `pixelCoords` property is defined by this document in order to supply the pixel coordinates from the IIIF Canvas or Image Service along with the WGS84 `coordinates` in the Features. Each Point Feature in the Feature Collection _MUST_ have the `pixelCoords` property in the `properties` property. The value is an array representing a pixel point at [x,y] and _MUST_ be precisely in that order. Here is an example of a Feature with the `pixelCoords` property:
+The `pixelCoords` property is defined by this document in order to supply the pixel coordinates from the IIIF Canvas or Image Service along with the WGS84 `coordinates` in the Features. Each Feature in the Feature Collection _MUST_ have the `pixelCoords` property in the `properties` property. The value is an array representing a pixel coordinate at `[@BERT] a mathy version of this x,y` [x,y] and _MUST_ be exactly in that order. Here is an example of a Feature with the `pixelCoords` property:
 
 {% include api/code_header.html %}
 ```json-doc
@@ -145,13 +145,13 @@ The `pixelCoords` property is defined by this document in order to supply the pi
 
 ### 3.6 The `transformation` Property
 
-The `transformation` property is defined by this document in order to supply the preferred transformation algoritm that is used to create a complete mapping from pixel coordinates to geographic coordinates (and vice versa), based on a list of GCPs. The value for `transformation` is a JSON object which includes the properties `type` and `options`. The property _MAY_ be added to the Feature Collection used in the Web Annotation `body` and clients _MAY_ use the information in the object.
+The `transformation` property is defined by this document in order to supply the preferred transformation algoritm that is used to create a complete mapping from pixel coordinates to geographic coordinates (and vice versa) based on a list of GCPs. The value for `transformation` is a JSON object which includes the properties `type` and `options`. The property _MAY_ be added to the Feature Collection used in the Georef Annotation `body` and clients _MAY_ use the information in the object.
 
-If a transformation algorithm is not provided, clients _SHOULD_ use their default algorithm if they are using a Georef Annotatiopn to transform between pixel coordinates and geographic coordinates. Similarly, if the supplied transformation algorithm is not implemented by a client, this default algorithm _SHOULD_ be used as well.
+If a transformation algorithm is not provided, clients _SHOULD_ use their default algorithm if they are using a Georef Annotation to transform between pixel coordinates and geographic coordinates. Similarly, if the supplied transformation algorithm is not implemented by a client, the default algorithm _SHOULD_ be used as well.
 
 For more details about different transformation algorithms, see the [Implementation Notes](#6-implementation-notes) section.
 
-The name of the preferred transformation algoritm is stored in the `type` property inside the `transformation` JSON object. Typical values include but are not limited to:
+The name of the preferred transformation algorithm is stored in the `type` property inside the `transformation` JSON object. Typical values include but are not limited to:
 
 | Transformation type          | Description                                                       | Options  |
 |------------------------------|-------------------------------------------------------------------|----------|
@@ -159,19 +159,19 @@ The name of the preferred transformation algoritm is stored in the `type` proper
 | `thinPlateSpline`            | Thin plate spline transformation, also known as _rubber sheeting_ | N/A      |
 {: .api-table #table-transformation-types}
 
-If an implementer chooses to use other transformation types, they _SHOULD_ supply the Linked Data Context terms and vocabulary for those types.
-
 The `options` property is used to supply additional parameters related to the selected transformation type. If a transformation type does not have or need options, implementers _SHOULD NOT_ include the `options` property.
 
-| Transformation type | Option  | Value | Description                                    |
-|---------------------|---------|-------|------------------------------------------------|
-| `polynomial`        | `order` | `1`   | 1st order (linear) polynomial transformation   |
-| `polynomial`        | `order` | `2`   | 2nd order (quadratic polynomial transformation |
-| `polynomial`        | `order` | `3`   | 3nd order (cubic) polynomial transformation    |
+The table below describes all the different possible `order` values for the `polynomial` transformation type.
 
-Using other properties within `options` is permissable so long as a Linked Data context has been provided that properly defines the vocabulary of those properties.
+| Value | Description                                     |
+|-------|-------------------------------------------------|
+| `1`   | 1st order (linear) polynomial transformation    |
+| `2`   | 2nd order (quadratic) polynomial transformation |
+| `3`   | 3nd order (cubic) polynomial transformation     |
 
-Example of a `transformation` JSON Object:
+Other properties within `options`, including other transformation types not defined in this document, _SHOULD_ be described either by [registered IIIF API extensions](https://iiif.io/api/extension/) or [local linked data contexts](https://www.w3.org/TR/json-ld11/#dfn-local-context). If a client discovers properties that it does not understand, then it _MUST_ ignore them.
+
+Example of a `transformation` JSON object:
 
 {% include api/code_header.html %}
 ```json-doc
@@ -294,7 +294,7 @@ Example of a `transformation` JSON Object:
 }
 ```
 
-### 4.2 Full Web Annotation Example
+### 4.2 Full Georef Annotation Example
 
 {% include api/code_header.html %}
 ```json-doc
@@ -399,13 +399,13 @@ Example of a `transformation` JSON Object:
 - The URI of the IIIF Presentation API linked data context is
 `http://iiif.io/api/presentation/3/context.json`
 
-The linked data context of this extension must be included before the IIIF Presentation API linked data context on the top-level object. The extension linked data context file includes the [GeoJSON-LD context](https://geojson.org/geojson-ld/geojson-context.jsonld) through [context scoping](https://www.w3.org/TR/json-ld11/#dfn-scoped-context). This means the GeoJSON-LD context URI does not have to be explicitly included on the top level object. It is important to note that since the IIIF Presentation API linked data context has the JSON-LD `@version` set to 1.1, all linked data contexts are processed as JSON-LD 1.1. It is also worth noting the linked data context for this extension also has `@version` set to 1.1. If this context is used in another setting, it will have the same behavior. JSON-LD 1.0 processors will throw a version error.
+The linked data context of this extension must be included before the IIIF Presentation API linked data context on the top-level object. The extension linked data context file includes the [GeoJSON-LD context](https://geojson.org/geojson-ld/geojson-context.jsonld) through [context scoping](https://www.w3.org/TR/json-ld11/#dfn-scoped-context). This means the GeoJSON-LD context URI does not have to be explicitly included on the top level object. Note that since the IIIF Presentation API linked data context has the JSON-LD `@version` set to 1.1, all linked data contexts are processed as JSON-LD 1.1. It is also worth noting the linked data context for this extension also has `@version` set to 1.1. If this context is used in another setting, it will have the same behavior. JSON-LD 1.0 processors will throw a version error.
 
 Consult the [Linked Data Context and Extensions section of IIIF Presentation API](https://iiif.io/api/presentation/3.0/#46-linked-data-context-and-extensions) for further guidance on use of the `@context` property.
 
 ## 6. Implementation Notes
 
-`[@BERT and @JULES]`
+`[@BERT @JULES @BRYAN]`
 This section will likely link back to specific implementation notes as they relate to how the Allmaps viewer is processing this information to display it within a web map.
 
 Briefly explain `transformation` algorithms, why you need 3 or more control points, perhaps examples to show different implementations. Mention IIIF Presentation API 2 and the presi 2 examples?? Mention GeoJSON sections on FeatureCollection, Feature, or position??
