@@ -82,7 +82,7 @@ Thanks to the members of the [IIIF][iiif-community] for their continuous engagem
 
 | Date       | Description                                        |
 | ---------- | -------------------------------------------------- |
-| 2022-MM-DD | Add links to Content Search motivations |
+| 2022-11-15 | Add links to Content Search motivations |
 | 2022-05-26 | Add known motivations, plus new `contextualizing` motivation |
 | 2020-06-03 | New Version 3 Registries                           |
 
