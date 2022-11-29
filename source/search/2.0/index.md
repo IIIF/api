@@ -138,7 +138,7 @@ The above service description block would become:
   "service": [
     {
       "id": "https://example.org/services/identifier/search",
-      "type": "SearchService2"
+      "type": "SearchService2",
       "service": [
         {
           "id": "https://example.org/services/identifier/autocomplete",
@@ -571,7 +571,7 @@ The request might have the response:
         "id": "https://example.org/service/additional/search?q=b*",
         "type": "AnnotationCollection",
         "total": 521
-      }
+      },
       "items": [
         {
           "id": "https://example.org/additional/annotation/match-1",
@@ -667,7 +667,7 @@ This request might have the response:
         "id": "https://example.org/service/additional/search?q=hand+is",
         "type": "AnnotationCollection",
         "total": 1
-      }
+      },
       "items": [
         {
           "id": "https://example.org/additional/annotation/match-1",
@@ -695,7 +695,7 @@ This request might have the response:
                   "suffix": " worth two in the"
                 }
               ]
-            },
+            }
           ]
         }
       ]
