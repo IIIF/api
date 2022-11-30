@@ -119,12 +119,22 @@ However, it is possible for multiple Annotations within a single Annotation Page
 
 <table border="0">
   <tr>
-    <td><img alt="Multi Map Example" src="images/loc-acadia-np-original.jpg"></td>
-    <td><img alt="Multi Map Example" src="images/loc-acadia-np-maps.jpg"></td>
-   </tr>
+    <td>
+      <figure>
+        <img src="images/loc-acadia-np-original.jpg"
+          alt="Original image (National Park Service map of Acadia National Park, from the Library of Congress)">
+        <figcaption>Original image (National Park Service map of Acadia National Park, from the <a href="https://www.loc.gov/resource/g3732a.np000049/">Library of Congress</a>)</figcaption>
+      </figure>
+    </td>
+    <td>
+      <figure>
+        <img src="images/loc-acadia-np-maps.jpg"
+          alt="The same image with four pixel masks that capture the cartographic projections contained by the image">
+        <figcaption>The same image with four pixel masks that capture the cartographic projections contained by the image</figcaption>
+      </figure>
+    </td>
+  </tr>
 </table>
-
-`[@BERT]` add caption to image(s) explaining why this isn't quite supported.
 
 ### 3.4 Georef Annotation `body`
 
