@@ -19,7 +19,7 @@ The [IIIF Presentation API](https://iiif.io/api/presentation/3.0/) has the capab
 
 ### 1.1 Objectives and Scope
 
-This document will supply [vocabulary](vocab/georef-terms.md) and a [linked data 1.1 context](/1/context.json) allowing for a JSON-LD pattern by which to extend Web Annotation and the IIIF Presentation API to support georeferening.
+This document will supply vocabulary and a linked data 1.1 context allowing for a JSON-LD pattern by which to extend Web Annotation and the IIIF Presentation API to support georeferening.
 
 We will adopt the [existing GeoJSON specification](https://datatracker.ietf.org/doc/html/rfc7946) for its linked data vocabulary and context for geographic coordinates. This means coordinates are expressed through the [WGS84](http://www.w3.org/2003/01/geo/wgs84_pos) coordinate reference system. As such, expressing the location of extraterrestrial entities is not supported by this technique.
 
@@ -91,7 +91,7 @@ Embedding resources reduces the need to make HTTP calls and increases the reliab
 
 The `motivation` property is used by Georef Annotations to understand the reason why the Annotation was created. The `motivation` property _SHOULD_ be included on all Georef Annotations and when included its value _MUST_ be `georeferencing`.
 
-Note that the linked data context provided with this document includes the formal linked data 1.1 motivation extension, and the [vocabulary](vocab/georef-terms.md#georeferencing) provided with this document contains the formal vocabulary for the "georeferencing" motivation discussed above.
+Note that the linked data context provided with this document includes the formal linked data 1.1 motivation extension, and the vocabulary provided with this document contains the formal vocabulary for the "georeferencing" motivation discussed above.
 
 ### 3.3 Georef Annotation `target`
 
@@ -113,7 +113,7 @@ It is important to maintain a link back to the Manifest for a given Canvas so cl
 }
 ```
 
-In cases where the `target` is not the entire Canvas or Image Service and is instead an area of interest, the selected area _MUST_ be supplied as part of the `target`. This is accomplished using a [Specific Resource](https://www.w3.org/TR/annotation-model/#specific-resources) where the `source` and `selector` can be supplied. See the [Specific Resource Example](examples/3/specific-georeferenced-canvas.json) from the examples directory provided with this document.
+In cases where the `target` is not the entire Canvas or Image Service and is instead an area of interest, the selected area _MUST_ be supplied as part of the `target`. This is accomplished using a [Specific Resource](https://www.w3.org/TR/annotation-model/#specific-resources) where the `source` and `selector` can be supplied. See the Specific Resource Example from the examples directory provided with this document.
 
 This specification expects that a single Image is painted on the Canvas and that the Images contain only a single map depiction. When the resource is a Canvas, it expects that the Image within the Canvas and the Canvas itserlf have the same `height` and `width` values. Further, it expects the Canvas or Image Service has only a single Annotation Page in the `annotations` property which supplies the georeferencing information.
 
