@@ -62,7 +62,7 @@ The process of georeferencing consists of the following steps:
 
 1. A pointer to a IIIF Canvas or Image Service, or a part of it. When a resource depicts multiple carthographic projections (such as inset maps) or when the resource contains non-cartographic parts (such as legends or borders), a pixel mask can be used to select the portion of the resource that belongs to a single carthographic projection. The shape of such a pixel mask can vary from a simple rectangle to a more complex polygon.
 2. A mapping between the pixel coordinates of the IIIF resource and geographic WGS84 coordinates. This mapping consists of pairs of pixel coordinates and geographic coordinates. Each pair of coordinates is called a Ground Control Point (GCP). At least three GCPs are needed to enable clients to overlay a georeferenced IIIF resource on a map.
-3. Optionally, a transformation algorithm can be defined that tells clients what algorithm _SHOULD_ be used to turn the discrete set of GCPs into a function that can transform any of the IIIF resource pixel coordinates to geographic coordinates, and vice versa.
+3. Optionally, a transformation algorithm can be defined that tells clients what algorithm should be used to turn the discrete set of GCPs into a function that can transform any of the IIIF resource pixel coordinates to geographic coordinates, and vice versa.
 
 ### 2.3 Required Data for Georeferencing
 
