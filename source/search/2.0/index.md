@@ -10,6 +10,7 @@ patch: 0
 pre: final
 cssversion: 2
 redirect_from:
+  - /search/index.html
   - /api/search/2/index.html
 editors:
   - name: Michael Appleby
