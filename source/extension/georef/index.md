@@ -24,11 +24,13 @@ This document will supply [vocabulary](/vocab/georef-terms.md) and a [linked dat
 We will adopt the [existing GeoJSON specification](https://datatracker.ietf.org/doc/html/rfc7946) for its linked data vocabulary and context for geographic coordinates. This means coordinates are expressed through the [WGS84](http://www.w3.org/2003/01/geo/wgs84_pos) coordinate reference system. As such, expressing the location of extraterrestrial entities is not supported by this technique.
 
 ### 1.2 Motivating Use Cases
-`[@BERT]` improve these a bit
-- overlay iiif images on a map, which may include warping the image
-- stitching multiple maps together
-- geospatial area, enabling them to be found by search engines with geospatial coordinates
-- xyz map tile layer, gis software
+
+A georeference extension for IIIF resources will enable the following use cases:
+
+- Overlay IIIF image resources on a geographic map by rotating and stretching it. This transforming an image to make it fit on a map is also called _warping_.
+- Stitching multiple images of map sheets together to form a single map.
+- Georeference data can also be used to compute the exact geospatial area depicted on an image. This will enable geospatial indexing of IIIF resources and enabling them to be found by geospatial search engines.
+- A georeferenced IIIF resource can be converted to a variaty of GIS formats, like GeoTIFF, GeoJSON and XYZ map tiles.
 
 Situations which are not in scope include:
 
