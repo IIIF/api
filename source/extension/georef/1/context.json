@@ -1,71 +1,78 @@
 {
-   "@context":{
-      "@version":1.1,
-      "geo":"https://purl.org/geojson/vocab#",
-      "iiif_prezi":"http://iiif.io/api/presentation/3#",
-      "iiif_image":"http://iiif.io/api/image/3#",
-      "oa": "http://www.w3.org/ns/oa#",
-      "sc": "http://iiif.io/api/presentation/2#",
-      "as": "http://www.w3.org/ns/activitystreams#",
-      "xsd": "http://www.w3.org/2001/XMLSchema#",
-      "proto":"http://iiif.io/api/extension/georef/vocab/georef-terms.md#",
-      "id": "@id",
-      "type": "@type",
-      "georeferencing":"proto:georeferencing",
-      "gcp-georeferencing":"proto:gcp-georeferencing",
-      "geotagging":"proto:geotagging",
-      "transformation":"proto:transformation",
-      "polynomial":"proto:polynomial",
-      "thinPlateSpline":"proto:thinPlateSpline",
-      "polynomialOrder":{
-         "@id":"proto:polynomialOrder",
-         "@type":"xsd:integer"
-      },
-      "body":{
-         "@context": ["https://geojson.org/geojson-ld/geojson-context.jsonld", "http://www.w3.org/ns/anno.jsonld"],
-         "@id": "oa:body"
-      },
-      "ImageAPISelector":"https://iiif.io/api/annex/openannotation/#iiif-image-api-selector",
-      "region":"https://iiif.io/api/image/3.0/#41-region",
-      "size" : "https://iiif.io/api/image/3.0/#42-size",
-      "properties":{
-         "@id":"geo:properties",
-         "@context":{
-            "label":{
-               "@id":"rdfs:label",
-               "@container":[
-                  "@language",
-                  "@set"
-               ],
-               "@context":{
-                  "none":"@none"
-               }
-            },
-            "summary":{
-               "@id":"as:summary",
-               "@container":[
-                  "@language",
-                  "@set"
-               ],
-               "@context":{
-                  "none":"@none"
-               }
-            },
-            "metadata":{
-               "@type":"@id",
-               "@id":"iiif_prezi:metadataEntries",
-               "@container":"@list"
-            },
-            "pixelCoords":{
-               "@id":"proto:pixel_coords",
-               "@container":"@list",
-               "@type":"xsd:float"
-            },
-            "pic":{
-               "@id":"foaf:depiction",
-               "@type":"@id"
-            }
-         }
+  "@context": {
+    "@version": 1.1,
+    "geo": "https://purl.org/geojson/vocab#",
+    "iiif_prezi": "http://iiif.io/api/presentation/3#",
+    "iiif_image": "http://iiif.io/api/image/3#",
+    "oa": "http://www.w3.org/ns/oa#",
+    "sc": "http://iiif.io/api/presentation/2#",
+    "as": "http://www.w3.org/ns/activitystreams#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "proto": "http://iiif.io/api/extension/georef/vocab/georef-terms.md#",
+    "id": "@id",
+    "type": "@type",
+    "georeferencing": "proto:georeferencing",
+    "transformation":{
+      "@id": "proto:transformation",
+      "@context": {
+        "options":{
+          "@id": "proto:options",
+          "@context": {
+            "order": {
+              "@id": "proto:order",
+              "@type": "xsd:integer"
+            }  
+          }
+        }
       }
-   }
+    },
+    "polynomial": "proto:polynomial",
+    "thinPlateSpline": "proto:thinPlateSpline",
+    "body": {
+      "@context": [
+        "https://geojson.org/geojson-ld/geojson-context.jsonld",
+        "http://www.w3.org/ns/anno.jsonld"
+      ],
+      "@id": "oa:body"
+    },
+    "resource": {
+      "@context": [
+        "https://geojson.org/geojson-ld/geojson-context.jsonld",
+        "http://www.w3.org/ns/anno.jsonld"
+      ],
+      "@id": "oa:hasBody"
+    },
+    "ImageAPISelector": "https://iiif.io/api/annex/openannotation/#iiif-image-api-selector",
+    "region": "https://iiif.io/api/image/3.0/#41-region",
+    "size": "https://iiif.io/api/image/3.0/#42-size",
+    "properties": {
+      "@id": "geo:properties",
+      "@context": {
+        "label": {
+          "@id": "rdfs:label",
+          "@container": ["@language", "@set"],
+          "@context": {
+            "none": "@none"
+          }
+        },
+        "summary": {
+          "@id": "as:summary",
+          "@container": ["@language", "@set"],
+          "@context": {
+            "none": "@none"
+          }
+        },
+        "metadata": {
+          "@type": "@id",
+          "@id": "iiif_prezi:metadataEntries",
+          "@container": "@list"
+        },
+        "pixelCoords": {
+          "@id": "proto:pixel_coords",
+          "@container": "@list",
+          "@type": "xsd:float"
+        }
+      }
+    }
+  }
 }
