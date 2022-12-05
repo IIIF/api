@@ -43,11 +43,11 @@ search:
   image: assets/images/icons/search-group@2x.webp
   alt_text: Content Search API icon
   draft:
-    major: 1
+    major: 2
     minor: 0
     patch: 0
   stable:
-    major: 1
+    major: 2
     minor: 0
     patch: 0
 discovery:
