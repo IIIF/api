@@ -268,6 +268,7 @@
 [search20]: {{ site.api_url | absolute_url }}/search/2.0/
 [search20-match-context]: {{ site.api_url | absolute_url }}/search/2.0/#match-context
 [search20-match-highlighting]: {{ site.api_url | absolute_url }}/search/2.0/#match-highlighting
+[search20-change-log]: {{ site.api_url | absolute_url }}/search/2.0/change-log/ "Content Search API 2.0 Change Log"
 [shared-canvas]: {{ site.api_url | absolute_url }}/model/shared-canvas/1.0/  "Shared Canvas Data Model"
 [recipe-process]: {{  site.cookbook_url | absolute_url }}/recipe/ "Cookbook process"
 [recipe-mvm-image]: {{ site.cookbook_url | absolute_url }}/recipe/0001-mvm-image/ "Simplest Manifest - Image"
