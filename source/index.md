@@ -38,7 +38,7 @@ We welcome feedback on all IIIF Specifications. Please send any feedback to [iii
 
 ## Approved extensions
 
-Please see the [Registry of Extensions][registry] for full details on how extensions work and the process for creating them. 
+Please see the [Registry of Extensions][registry] for full details on how extensions work and the process for creating them.
 
 Currently, there are two formally published extensions available for use with the Presentation API.
 
@@ -104,6 +104,7 @@ Current IIIF specifications _SHOULD_ be used for all new work. Old versions are 
 | [Metadata API 1.0][meta10] | "Metadata API" was replaced with the Presentation API, published 2013-09-16 |
 | [Metadata API 0.9][meta09] | Draft of the "Metadata API", published 2013-06-11 |
 | [Search API 0.9][search09] | Draft published 2016-04-11 |
+| [Search API 1.0][search10] | Published 2016-05-12 |
 {: .api-table}
 
 ## Notes
