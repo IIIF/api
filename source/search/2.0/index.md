@@ -38,7 +38,7 @@ editors:
 {:.no_toc}
 __This Version:__ {{ page.major }}.{{ page.minor }}.{{ page.patch }}{% if page.pre != 'final' %}-{{ page.pre }}{% endif %}
 
-__Latest Stable Version:__ [{{ site.search_api.stable.major }}.{{ site.search_api.stable.minor }}.{{ site.search_api.stable.patch }}][search-stable-version]
+__Latest Stable Version:__ [{{ site.data.apis.search.latest.major }}.{{ site.data.apis.search.latest.minor }}.{{ site.data.apis.search.latest.patch }}][search-stable-version]
 
 __Previous Version:__ [1.0.0][search1]
 
