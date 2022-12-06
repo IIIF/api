@@ -10,5 +10,6 @@ gem 'jekyll-redirect-from'
 gem 'jekyll-seo-tag'
 
 group :development, :test do
+  gem 'html-proofer', "3.19.0"
   gem 'rspec'
 end
