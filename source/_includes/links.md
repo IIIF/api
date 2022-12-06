@@ -18,13 +18,12 @@
 [contentstate03]: {{ site.api_url | absolute_url }}/content-state/0.3/ "IIIF Content State API 0.3"
 [contentstate09]: {{ site.api_url | absolute_url }}/content-state/0.9/ "IIIF Content State API 0.9"
 [contenstate-stable-version]: {{ site.api_url | absolute_url }}/content-state/{{ site.data.apis.content-state.latest.major }}.{{ site.data.apis.content-state.latest.minor }}/ "Latest Content State API Stable Version"
-[contentstate-export]: {{ site.api_url | absolute_url }}/content-state/0.9/#export "3.7. Exporting Current Content State from Viewer" 
+[contentstate-export]: {{ site.api_url | absolute_url }}/content-state/0.9/#export "3.7. Exporting Current Content State from Viewer"
 [contentstate-http]: {{ site.api_url | absolute_url }}/content-state/0.9/#7-http-requests-and-responses "HTTP Request and Responses"
 [contentstate-initialization]: {{ site.api_url | absolute_url }}/content-state/0.9/#initialization "Initialization mechanisms (protocol)"
 [contentstate10-22-form-of-annotation]: {{ site.api_url | absolute_url }}/content-state/1.0/#22-form-of-annotation
 [btoa-unicode-problem]: https://developer.mozilla.org/en-US/docs/Glossary/Base64#the_unicode_problem "The Unicode Problem"
 [contentstate-encoding]: {{ site.api_url | absolute_url }}/content-state/0.9/#6-content-state-encoding "Content State Section 6"
-[contentstate-export]: {{ site.api_url | absolute_url }}/content-state/0.9/#export
 [discovery-api]: {{ site.api_url | absolute_url }}/discovery/ "IIIF Change Discovery API"
 [discovery01]: {{ site.api_url | absolute_url }}/discovery/0.1/ "IIIF Change Discovery API"
 [discovery02]: {{ site.api_url | absolute_url }}/discovery/0.2/ "IIIF Change Discovery API"
@@ -37,6 +36,7 @@
 [discovery-activity-types]: {{ site.api_url | absolute_url }}/discovery#type-ordered-collection-activity "Activity Types"
 [discovery-registry]: https://registry.iiif.io/ "IIIF Change Discovery Registry"
 [editorial-process]: {{ site.root_url | absolute_url }}/community/policy/editorial/ "IIIF Editorial Process"
+[feedback]: {{ site.api_url | absolute_url }}/#feedback "IIIF APIs: Feedback requested"
 [github-discovery-issues]: https://github.com/IIIF/discovery/issues
 [github-milestone-image-prezi-3]: https://github.com/IIIF/api/milestone/22
 [github-webanno-437]: https://github.com/w3c/web-annotation/issues/437
@@ -199,6 +199,7 @@
 [org-w3c-webanno-protocol]: http://w3.org/TR/annotation-protocol/ "Web Annotation Protocol"
 [org-w3c-webanno]: http://w3.org/TR/annotation-model/ "Web Annotation Model"
 [org-w3c-webanno-motivation]: https://www.w3.org/TR/annotation-model/#motivation-and-purpose "Web Annotation Model - Motivation"
+[org-w3c-webanno-TextQuoteSelector]: https://www.w3.org/TR/annotation-model/#text-quote-selector "Web Annotation Model - Text Quote Selector"
 [org-w3c-webarch]: http://www.w3.org/TR/webarch/ "Architecture of the World Wide Web"
 [org-w3c-xsd-datetime]: https://www.w3.org/TR/xmlschema11-2/#dateTime "XSD DateTime"
 [org-wsgi-pep333]: https://www.python.org/dev/peps/pep-0333/ "PEP 0333"
@@ -212,11 +213,13 @@
 [prezi21-change-log]: {{ site.api_url | absolute_url }}/presentation/2.1/change-log/ "Presentation API 2.1 Change Log"
 [prezi211-change-log]: {{ site.api_url | absolute_url }}/presentation/2.1/change-log-211/ "Presentation API 2.1.1 Change Log"
 [prezi21]: {{ site.api_url | absolute_url }}/presentation/2.1/ "IIIF Presentation API 2.1"
+[prezi3-considerations]: {{ site.api_url | absolute_url }}/presentation/3.{{ site.data.apis.presentation.latest.minor }}/#4-json-ld-considerations "Presentation API Section 4"
 [prezi3-html]: {{ site.api_url | absolute_url }}/presentation/3.{{ site.data.apis.presentation.latest.minor }}/#45-html-markup-in-property-values "Presentation API Section 4.4"
 [prezi3-languages]: {{ site.api_url | absolute_url }}/presentation/{{site.data.apis.presentation.latest.major}}.{{ site.data.apis.presentation.latest.minor }}/#language-of-property-values "Language of Property Values"
 [prezi3-ldce]: {{ site.api_url | absolute_url }}/presentation/3.{{ site.data.apis.presentation.latest.minor }}/#linked-data-context-and-extensions "Linked Data Context and Extensions"
-[prezi3-type]: {{ site.api_url | absolute_url }}/presentation/3.{{ site.data.apis.presentation.latest.minor }}/#type
 [prezi3-provider]: {{ site.api_url | absolute_url }}/presentation/3.{{ site.data.apis.presentation.latest.minor }}/#provider
+[prezi3-service]: {{ site.api_url | absolute_url }}/presentation/3.{{ site.data.apis.presentation.latest.minor }}/#service
+[prezi3-type]: {{ site.api_url | absolute_url }}/presentation/3.{{ site.data.apis.presentation.latest.minor }}/#type
 [prezi30-anno]: {{ site.api_url | absolute_url }}/presentation/3.0/#annotation
 [prezi30-annopage]: {{ site.api_url | absolute_url }}/presentation/3.0/#55-annotation-page
 [prezi30-annocoll]: {{ site.api_url | absolute_url }}/presentation/3.0/#58-annotation-collection
@@ -247,7 +250,6 @@
 [navPlace]: {{ site.api_url | absolute_url }}/extension/navplace/
 [registry]: {{ site.api_url | absolute_url }}/registry/ "IIIF Extension Registry"
 [registry-activity-streams]: https://registry.iiif.io/ "IIIF Registry of Activity Streams"
-[registry-image-extensions]: {{ site.api_url | absolute_url }}/registry/image-extensions/ "IIIF Image Extension Registry"
 [registry-motivations]: {{ site.api_url | absolute_url }}/registry/motivations/
 [registry-behaviors]: {{ site.api_url | absolute_url }}/registry/behaviors/
 [registry-process]: {{ site.api_url | absolute_url }}/registry/process/
@@ -256,14 +258,17 @@
 [registry-timeModes]: {{ site.api_url | absolute_url }}/registry/timeModes/
 [registry-types]: {{ site.api_url | absolute_url }}/registry/types/
 [registry-viewingDirections]: {{ site.api_url | absolute_url }}/registry/viewingDirections/
+[search-stable-version]: {{ site.api_url | absolute_url }}/search/{{ site.search_api.stable.major }}.{{ site.search_api.stable.minor }}/ "Latest Content Search API Stable Version"
+
 [search-api]: {{ site.api_url | absolute_url }}/search/{{ site.data.apis.search.latest.major }}.{{ site.data.apis.search.latest.minor }}/ "Content Search API"
 [search09]: {{ site.api_url | absolute_url }}/search/0.9/ "Search API v0.9"
 [search1-autocomplete]: {{ site.api_url | absolute_url }}/search/1.0/#autocomplete
 [search1]: {{ site.api_url | absolute_url }}/search/1.0/
 [search10]: {{ site.api_url | absolute_url }}/search/1.0/
 [search20]: {{ site.api_url | absolute_url }}/search/2.0/
-[search20-search-term-snippets]: {{ site.api_url | absolute_url }}/search/2.0/#search-term-snippets
-[search20-search-term-highlighting]: {{ site.api_url | absolute_url }}/search/2.0/#search-term-highlighting
+[search20-match-context]: {{ site.api_url | absolute_url }}/search/2.0/#match-context
+[search20-match-highlighting]: {{ site.api_url | absolute_url }}/search/2.0/#match-highlighting
+[search20-change-log]: {{ site.api_url | absolute_url }}/search/2.0/change-log/ "Content Search API 2.0 Change Log"
 [shared-canvas]: {{ site.api_url | absolute_url }}/model/shared-canvas/1.0/  "Shared Canvas Data Model"
 [recipe-process]: {{  site.cookbook_url | absolute_url }}/recipe/ "Cookbook process"
 [recipe-mvm-image]: {{ site.cookbook_url | absolute_url }}/recipe/0001-mvm-image/ "Simplest Manifest - Image"
