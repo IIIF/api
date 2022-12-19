@@ -69,7 +69,7 @@
               {
                 "type": "Feature",
                 "properties": {
-                  "pixelCoords": [5085, 782]
+                  "resourceCoords": [5085, 782]
                 },
                 "geometry": {
                   "type": "Point",
@@ -79,7 +79,7 @@
               {
                 "type": "Feature",
                 "properties": {
-                  "pixelCoords": [5467, 1338]
+                  "resourceCoords": [5467, 1338]
                 },
                 "geometry": {
                   "type": "Point",
@@ -89,7 +89,7 @@
               {
                 "type": "Feature",
                 "properties": {
-                  "pixelCoords": [2006, 374]
+                  "resourceCoords": [2006, 374]
                 },
                 "geometry": {
                   "type": "Point",

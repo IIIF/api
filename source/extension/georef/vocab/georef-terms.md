@@ -1,6 +1,6 @@
 # New terms introduced in the Allmaps + IIIF Georeferencing Extension
 
-## pixelCoords
+## resourceCoords
 A property that appears inside of a GeoJSON Feature's `properties`.  It is a pixel coordinate array representing a pixel coordinate point on the resource.  It is used to align the pixel coordinate point from the resource to a WGS84 geographic coordinate point.
 
 ## georeferencing
