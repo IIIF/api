@@ -115,6 +115,11 @@ It is important to maintain a link back to the Manifest for a given Canvas so cl
 
 In cases where the `target` is not the entire Canvas or Image Service and is instead an area of interest, the selected area _MUST_ be supplied as part of the `target`. This is accomplished using a [Specific Resource](https://www.w3.org/TR/annotation-model/#specific-resources) where the `source` and `selector` can be supplied. You can use a IIIF Image Selector when the are of intereste is a rectangle, or an SVG Polygon that... [@BERT what Polygons can and cannot be used?].  See the Specific Resource Example from the examples directory provided with this document.
 
+
+[@BERT] tell about svg selector, and the shape of SVG. polygon, rect, no transforms, no <g>.
+or iiif image selector
+EXAMPLE!!
+
 This specification expects that a single Image is painted on the Canvas and that the Images contain only a single map depiction. When the resource is a Canvas, it expects that the Image within the Canvas and the Canvas itserlf have the same `height` and `width` values. Further, it expects the Canvas or Image Service has only a single Annotation Page in the `annotations` property which supplies the georeferencing information.
 
 However, it is possible for multiple Annotations within a single Annotation Page to target different, more specific areas of a single Image or Canvas. It is also possible for a Canvas to contain multiple unique Images. It is also possible that a single Canvas or Image Service have more than one Annotation Page in `annotations` whose Georeferencing Annotations target different areas of the resource. These situations can occur when a single Canvas or Image Service depicts multiple carthographic projections such as inset maps. Below is an image that exemplifies these scenarios.
