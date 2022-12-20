@@ -8,8 +8,6 @@ minor: 0
 patch: 0
 pre: final
 sitemap: false
-redirect_from:
-  /image/2.0/compliance.html
 ---
 
 ## Status of this Document

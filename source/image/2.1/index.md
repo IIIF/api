@@ -9,7 +9,7 @@ minor: 1
 patch: 1
 pre: final
 redirect_from:
-  /image/2/index.html
+ - /image/2/index.html
 editors:
   - name: Michael Appleby
     ORCID: https://orcid.org/0000-0002-1266-298X

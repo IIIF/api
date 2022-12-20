@@ -9,7 +9,7 @@ patch: 0
 pre: draft1
 sitemap: false
 redirect_from:
-  /presentation/2.0/zones.html
+ - /presentation/2.0/zones.html
 ---
 
 ## Zones Notes
