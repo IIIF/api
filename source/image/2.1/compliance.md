@@ -8,8 +8,7 @@ minor: 1
 patch: 0
 pre: final
 redirect_from:
-  /image/compliance.html
-  /image/2/compliance.html
+ - /image/2/compliance.html
 ---
 
 ## Status of this Document

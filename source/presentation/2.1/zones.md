@@ -8,7 +8,7 @@ minor: 1
 patch: 0
 pre: draft1
 redirect_from:
-  /presentation/2.1/zones.html
+ - /presentation/2.1/zones.html
 ---
 
 ## Zones Notes

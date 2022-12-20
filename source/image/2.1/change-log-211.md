@@ -8,7 +8,7 @@ minor: 1
 patch: 1
 pre: final
 redirect_from:
-  /image/2.1/change-log-211.html
+ - /image/2.1/change-log-211.html
 ---
 
 This document is a companion to the [IIIF Image API Specification, Version 2.1.1][image-api]. It describes the editorial changes to the API made in this patch release. The changes are all clarifications, typo corrections or to related documents that are not [semantically versioned][semver] such as inline examples and resources to manage transformation to and from the JSON-LD serialization.

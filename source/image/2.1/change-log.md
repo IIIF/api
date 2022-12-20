@@ -9,7 +9,7 @@ minor: 1
 # no patch
 pre: final
 redirect_from:
-  /image/2.1/change-log.html
+ - /image/2.1/change-log.html
 ---
 
 This document is a companion to the [IIIF Image API Specification, Version 2.1][api-21]. It describes the significant changes to the API since [Version 2.0][api-20]. The changes are broken into three groups: [Non-breaking Changes][non-breaking-changes], i.e. those that are backwards compatible from client or server perspectives; [Deprecations][deprecations] and [Deferred Changes][deferred-changes], i.e. those that will be made in a future iteration of the Image API.
