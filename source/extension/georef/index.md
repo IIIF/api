@@ -60,6 +60,8 @@ The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _S
 
 The process of georeferencing consists of the following steps:
 
+`[@BRYAN]` should we rename pixel mask to resource mask? Or something similar?
+
 1. A pointer to a IIIF Canvas or Image Service, or a part of it. When a resource depicts multiple carthographic projections (such as inset maps) or when the resource contains non-cartographic parts (such as legends or borders), a pixel mask can be used to select the portion of the resource that belongs to a single carthographic projection. The shape of such a pixel mask can vary from a simple rectangle to a more complex polygon.
 2. A mapping between the pixel coordinates of the IIIF resource and geographic WGS84 coordinates. This mapping consists of pairs of pixel coordinates and geographic coordinates. Each pair of coordinates is called a Ground Control Point (GCP). At least three GCPs are needed to enable clients to overlay a georeferenced IIIF resource on a map.
 3. Optionally, a transformation algorithm can be defined that tells clients what algorithm should be used to turn the discrete set of GCPs into a function that can transform any of the IIIF resource pixel coordinates to geographic coordinates, and vice versa.
@@ -95,14 +97,50 @@ Note that the linked data context provided with this document includes the forma
 
 ### 3.3 Georeferencing Annotation `target`
 
-The Georeferencing Annotation `target` is the resource to supply the `body` information to. Here the `target` _COULD_ either be an entire IIIF Canvas or Image Service, or an area of interest within a IIIF Canvas or Image Service represented as a [Specific Resource](https://www.w3.org/TR/annotation-model/#specific-resources).  Viewers processing the georeferencing information require the original height and width of the resources in order to have the proper aspect ratios. Implementers _SHOULD_ supply this information with their embedded resources.
+The Georeferencing Annotation `target` is the resource to supply the `body` information to. Here the `target` _COULD_ either be an entire IIIF Canvas or Image Service, or an area of interest within a IIIF Canvas or Image Service represented as a [Specific Resource](https://www.w3.org/TR/annotation-model/#specific-resources). Viewers processing the georeferencing information require the original height and width of the resources in order to have the proper aspect ratios. Implementers _SHOULD_ supply this information with their embedded resources.
+
+`[@BERT]` finish this section!
+`[@BRYAN]` do you think including examples of different possible IIIF and SVG selectors is a good idea?
+
+Example of a Georeference Annotation with a ImageService `target`:
+
+{% include api/code_header.html %}
+```json-doc
+"target": {
+  "type": "SpecificResource",
+  "source": {
+    "@id": "https://cdm21033.contentdm.oclc.org/digital/iiif/krt/2891",
+    "type": "ImageService2",
+    "height": 2514,
+    "width": 5965
+  }
+}
+```
+
+Example of a Georeference Annotation with a Canvas `target`:
+`[@BRYAN]` should a Canvas be in a SpecificResource as well?
+
+{% include api/code_header.html %}
+```json-doc
+"target": {
+  "type": "Canvas",
+  "height": 2514,
+  "width": 5965,
+  "items": [
+    // single AnnotationPage with single painting annotation `[@BRYAN]` how can we
+    ...
+  ]
+},
+```
 
 It is important to maintain a link back to the Manifest for a given Canvas so clients consuming the Canvases have the opportunity to provide contextual information about the Manifest. To do this, implementers _SHOULD_ use the `partOf` property on the Canvas with as much information about the Manifest as is useful. For example,
 
 
 {% include api/code_header.html %}
 ```json-doc
-{
+"target": {
+  "type": "Canvas",
+  ...
   "partOf": {
     "id": "http://example.org/manifest/1",
     "type": "Manifest",
@@ -113,14 +151,81 @@ It is important to maintain a link back to the Manifest for a given Canvas so cl
 }
 ```
 
-In cases where the `target` is not the entire Canvas or Image Service and is instead an area of interest, the selected area _MUST_ be supplied as part of the `target`. This is accomplished using a [Specific Resource](https://www.w3.org/TR/annotation-model/#specific-resources) where the `source` and `selector` can be supplied. You can use a IIIF Image Selector when the are of intereste is a rectangle, or an SVG Polygon that... [@BERT what Polygons can and cannot be used?].  See the Specific Resource Example from the examples directory provided with this document.
+`[@BRYAN]` can a ImageService target also have a `partOf` property?
+
+In cases where the `target` is not the entire Canvas or Image Service and is instead an area of interest, the selected area _MUST_ be supplied as part of the `target`. This is accomplished using a [Specific Resource](https://www.w3.org/TR/annotation-model/#specific-resources) where the `source` and `selector` can be supplied. You can use a IIIF Image Selector when the area of intereste is a rectangle, or an SVG Polygon that... [@BERT what Polygons can and cannot be used?].  See the Specific Resource Example from the examples directory provided with this document.
+
+
 
 
 [@BERT] tell about svg selector, and the shape of SVG. polygon, rect, no transforms, no <g>.
 or iiif image selector
 EXAMPLE!!
 
+{% include api/code_header.html %}
+```json-doc
+"target": {
+  "type": "SpecificResource",
+  "source": {
+    "id": "https://cdm21033.contentdm.oclc.org/digital/iiif/krt/2891",
+    "type": "ImageService2",
+    "profile": "http://iiif.io/api/image/2/level2.json"
+  },
+  "selector": {
+    "type": "ImageApiSelector",
+    "region": "810,900,260,370",
+    "size": "5965,2514"
+  }
+}
+```
+
+
+SVgSelector link to
+
+
+
+{% include api/code_header.html %}
+```json-doc
+"target": {
+  "type": "SpecificResource",
+  "source": {
+    "@id": "https://cdm21033.contentdm.oclc.org/digital/iiif/krt/2891",
+    "type": "ImageService2",
+    "height": 2514,
+    "width": 5965
+  },
+  "selector": {
+    "type": "SvgSelector",
+    "value": "<svg width=\"5965\" height=\"2514\"><rect x=\"59\" y=\"84\" width=\"5921\" height=\"2343\" /></svg>"
+  }
+}
+```
+
+{% include api/code_header.html %}
+```json-doc
+"target": {
+  "type": "SpecificResource",
+  "source": {
+    "@id": "https://cdm21033.contentdm.oclc.org/digital/iiif/krt/2891",
+    "type": "ImageService2",
+    "height": 2514,
+    "width": 5965
+  },
+  "selector": {
+    "type": "SvgSelector",
+    "value": "<svg width=\"5965\" height=\"2514\"><polygon points=\"59,84 44,2329 5932,2353 5920,103 \" /></svg>"
+  }
+}
+```
+
+
+
 This specification expects that a single Image is painted on the Canvas and that the Images contain only a single map depiction. When the resource is a Canvas, it expects that the Image within the Canvas and the Canvas itserlf have the same `height` and `width` values. Further, it expects the Canvas or Image Service has only a single Annotation Page in the `annotations` property which supplies the georeferencing information.
+
+
+
+
+
 
 However, it is possible for multiple Annotations within a single Annotation Page to target different, more specific areas of a single Image or Canvas. It is also possible for a Canvas to contain multiple unique Images. It is also possible that a single Canvas or Image Service have more than one Annotation Page in `annotations` whose Georeferencing Annotations target different areas of the resource. These situations can occur when a single Canvas or Image Service depicts multiple carthographic projections such as inset maps. Below is an image that exemplifies these scenarios.
 
@@ -145,11 +250,13 @@ However, it is possible for multiple Annotations within a single Annotation Page
 
 ### 3.4 Georeferencing Annotation `body`
 
-The `body` of a Georeferencing Annotation contains the data you would like to relate to some Canvas or IIIF Image Service. In our case, the `body` contains the GCPs and geocoordinates. Since geocoordinates are encoded as GeoJSON-LD, the value for `body` _MUST_ be a GeoJSON Feature Collection. The Feature Collection _MUST_ only contain Features with [Point](https://www.rfc-editor.org/rfc/rfc7946#section-3.1.2) geometries, and each `geometry` property _MUST_ contain the `coordinates` property. The Feature Collection _SHOULD_ contain at least three Features. `[@BERT @JULES @BRYAN]` explain WHY should it contain at least three Features in the implementation notes
+The `body` of a Georeferencing Annotation contains the data you would like to relate `[@BRYAN maybe rewrite this sentence?]` to some Canvas or IIIF Image Service. In our case, the `body` contains the GCPs. Since geospatial coordinates are encoded as GeoJSON-LD, the value for `body` _MUST_ be a GeoJSON Feature Collection `[@BRYAN why is this a requirement of using GeoJSON-LD?]`.  Each Feature in the GeoJSON Feature Collection represents a single GCP. The Feature Collection _MUST_ only contain Features with [Point](https://www.rfc-editor.org/rfc/rfc7946#section-3.1.2) geometries, and _SHOULD_ contain at least three Features. To warp a resource and overlay it on a geospatial map, and to transform the pixel mask to a GeoJSON Polygon, at least three GCPs are needed. See the section about [the `transformation` Property](#3.6-the-transformation-property) for more details.
+
+polynomial
 
 ### 3.5 The `resourceCoords` Property
 
-The `resourceCoords` property is defined by this document in order to supply the pixel coordinates from the IIIF Canvas or Image Service along with the WGS84 `coordinates` in the Features. Each Feature in the Feature Collection _MUST_ have the `resourceCoords` property in the `properties` property. The value is an array representing a pixel coordinate at `[@BERT] a mathy version of this x,y` [x,y] and _MUST_ be exactly in that order. Here is an example of a Feature with the `resourceCoords` property:
+The `resourceCoords` property is defined by this document in order to supply the resource coordinates from the IIIF Canvas or Image Service along with the WGS84 `coordinates` in a Feature to form a single GCP. Each Feature in the Feature Collection _MUST_ have the `resourceCoords` property in the `properties` property. The value is an array representing a resource coordinate at (x, y) and _MUST_ be exactly in that order. Here is an example of a Feature with the `resourceCoords` property:
 
 {% include api/code_header.html %}
 ```json-doc
