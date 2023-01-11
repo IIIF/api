@@ -64,6 +64,7 @@ This table summarizes the known profiles available, for use with the [Presentati
 | https://linked.art/ns/terms | The URI for identifying records that follow the [Linked Art model](https://linked.art/) and [API version 1](https://linked.art/api/1.0/). |
 | http://www.lido-schema.org/ | The URI for identifying records that follow the [LIDO XML schema](https://cidoc.mini.icom.museum/working-groups/lido/lido-overview/). |
 | https://www.wikidata.org/entity/Q115365241 | The URI for identifying the canonical JSON for information in [Wikidata](https://www.wikidata.org/wiki/Wikidata:Main_Page). | 
+| http://www.tdwg.org/standards/450 | The URI for identifying records that follow the [Darwin Core](http://www.tdwg.org/standards/450) schema. |
 {: .api-table}
 
 
