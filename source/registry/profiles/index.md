@@ -61,6 +61,7 @@ This table summarizes the known profiles available, for use with the [Presentati
 | Profile  | Description        | 
 | ------------------------------ |
 | http://www.loc.gov/mods/v3  | The URI for identifying [MODS (Metadata Object Description Schema)](https://www.loc.gov/standards/mods/) version 3 metadata records.  |
+| http://www.loc.gov/standards/alto  | The URI for identifying [ALTO](https://www.loc.gov/standards/alto/) which is used for encoding OCR text. |
 {: .api-table}
 
 
