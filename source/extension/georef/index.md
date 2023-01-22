@@ -101,7 +101,7 @@ Note that the linked data context provided with this document includes the forma
 
 ### 3.3 Georeferencing Annotation `target`
 
-The Georeferencing Annotation `target` is the resource to supply the `body` information to. Here the `target` _COULD_ either be an entire IIIF Canvas or Image Service, or an area of interest within a IIIF Canvas or Image Service represented as a [Specific Resource](https://www.w3.org/TR/annotation-model/#specific-resources). Viewers processing the georeferencing information require the original height and width of the resources in order to have the proper aspect ratios. Implementers _SHOULD_ supply this information with their embedded resources.
+The Georeferencing Annotation `target` is the resource to supply the `body` information to. Here the `target` _MUST_ either be an entire IIIF Canvas or Image Service, or an area of interest within a IIIF Canvas or Image Service represented as a [Specific Resource](https://www.w3.org/TR/annotation-model/#specific-resources). Viewers processing the georeferencing information require the original height and width of the resources in order to have the proper aspect ratios. Implementers _SHOULD_ supply this information with their embedded resources.
 
 `[@BERT]` finish this section!
 `[@BRYAN]` do you think including examples of different possible IIIF and SVG selectors is a good idea?
