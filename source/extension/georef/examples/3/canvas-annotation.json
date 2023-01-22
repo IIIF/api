@@ -42,10 +42,10 @@
         ]
       }
     ],
-    "partOf": {
+    "partOf": [{
       "id": "http://example.org/manifest/1",
       "type": "Manifest"
-    }
+    }]
   },
   "body": {
     "id": "http://iiif.io/api/extension/georef/examples/3/feature-collection.json",

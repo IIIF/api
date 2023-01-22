@@ -10,7 +10,7 @@ gem 'jekyll-redirect-from'
 gem 'jekyll-seo-tag'
 
 # A Fix
-gem "webrick", "~> 1.7"
+gem 'webrick', "~> 1.7"
 
 group :development, :test do
   gem 'html-proofer', "3.19.0"
