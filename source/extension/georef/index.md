@@ -64,7 +64,7 @@ The process of georeferencing consists of the following steps:
 
 `[@BRYAN]` should we rename pixel mask to resource mask? Or something similar?
 
-`[@BRYAN] suggests` -- Maybe definiing early on that it is a "selected area of a resource, referred to as a 'mask'" then we can just call it 'the mask' 
+`[@BRYAN] suggests` -- We renamed the property itself, but for the narrative maybe definiing early on that it is a "selected area of a resource, referred to as a 'mask'" then we can just call it 'the mask' 
 
 1. A pointer to a IIIF Canvas or Image Service, or a part of it. When a resource depicts multiple carthographic projections (such as inset maps) or when the resource contains non-cartographic parts (such as legends or borders), a pixel mask can be used to select the portion of the resource that belongs to a single carthographic projection. The shape of such a pixel mask can vary from a simple rectangle to a more complex polygon.
 2. A mapping between the pixel coordinates of the IIIF resource and geographic WGS84 coordinates. This mapping consists of pairs of pixel coordinates and geographic coordinates. Each pair of coordinates is called a Ground Control Point (GCP). At least three GCPs are needed to enable clients to overlay a georeferenced IIIF resource on a map.
@@ -225,8 +225,10 @@ SVgSelector link to
 ```
 
 
+`[@BERT @JULES @BRYAN]` The paragraphi below will require some real focus.  If we really have these limits, we may have to say it in the section in pertains to and should/must language.
 
-This specification expects that a single Image is painted on the Canvas and that the Images contain only a single map depiction. When the resource is a Canvas, it expects that the Image within the Canvas and the Canvas itserlf have the same `height` and `width` values. Further, it expects the Canvas or Image Service has only a single Annotation Page in the `annotations` property which supplies the georeferencing information.
+
+This specification expects that a single Image is painted on the Canvas and that the Images contain only a single cartographic depiction/representation. When the resource is a Canvas, it expects that the Image within the Canvas and the Canvas itself have the same `height` and `width` values. Further, it expects the Canvas or Image Service has only a single Annotation Page in the `annotations` property which supplies the georeferencing information.
 
 
 
@@ -256,7 +258,7 @@ However, it is possible for multiple Annotations within a single Annotation Page
 
 ### 3.4 Georeferencing Annotation `body`
 
-The `body` of a Georeferencing Annotation contains geospatial information to apply to the resource noted in the `target` property.  For the purposes of this extension the `body` contains the GCPs.  The value for `body` _MUST_ be a GeoJSON Feature Collection.  The Feature Collection _MUST_ only contain Features with [Point](https://www.rfc-editor.org/rfc/rfc7946#section-3.1.2) geometries, and _SHOULD_ contain at least three Point Features as prescribed by Section 2.2. 
+The `body` of a Georeferencing Annotation contains geospatial information to apply to the resource noted in the `target` property.  For the purposes of this extension the `body` contains the GCPs.  The value for `body` _MUST_ be a GeoJSON Feature Collection.  The Feature Collection _MUST_ only contain Features with [Point](https://www.rfc-editor.org/rfc/rfc7946#section-3.1.2) geometries, `[@BERT] is it _SHOULD_ or _MUST_` contain at least three Point Features as prescribed by Section 2.2. 
 
 
 ### 3.5 The `resourceCoords` Property
