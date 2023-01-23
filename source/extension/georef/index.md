@@ -19,7 +19,7 @@ The [IIIF Presentation API](https://iiif.io/api/presentation/3.0/) has the capab
 
 ### 1.1 Objectives and Scope
 
-This document will supply vocabulary and a linked data 1.1 context allowing for a JSON-LD pattern by which to extend Web Annotation and the IIIF Presentation API to support georeferening.
+This document will supply vocabulary and a linked data 1.1 context allowing for a JSON-LD pattern by which to extend Web Annotation and the IIIF Presentation API to support georeferencing.
 
 We will adopt the [existing GeoJSON specification](https://datatracker.ietf.org/doc/html/rfc7946) for its linked data vocabulary and context for geographic coordinates. This means coordinates are expressed through the [WGS84](http://www.w3.org/2003/01/geo/wgs84_pos) coordinate reference system. As such, expressing the location of extraterrestrial entities is not supported by this technique.
 
@@ -30,7 +30,7 @@ A georeferencing extension for IIIF resources will enable the following use case
 - Overlay IIIF image resources on a geographic map by rotating and stretching it. This transforming an image to make it fit on a map is also called _warping_.
 - Stitching multiple images of map sheets together to form a single map.
 - Georeference data can also be used to compute the exact geospatial area depicted on an image. This will enable geospatial indexing of IIIF resources and enabling them to be found by geospatial search engines.
-- A georeferenced IIIF resource can be converted to a variaty of GIS formats, like GeoTIFF, GeoJSON and XYZ map tiles.
+- A georeferenced IIIF resource can be converted to a variety of GIS formats, like GeoTIFF, GeoJSON and XYZ map tiles.
 
 Situations which are not in scope include:
 
@@ -52,9 +52,9 @@ The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _S
 ## 2. Georeferencing IIIF Resources
 
 ### 2.1 Georeferencing
-[Georeferencing](https://en.wikipedia.org/wiki/Georeferencing) is the process of mapping internal coordinates of a resource to geographic coordinates. For the purposes of this extension, references to "resource" equates to a IIIF [Canvas](https://iiif.io/api/presentation/3.0/#53-canvas) or [Image Service](https://iiif.io/api/presentation/3.0/#service) that contains one or more carthographic projections such as plans, maps and aerial photographs.
+[Georeferencing](https://en.wikipedia.org/wiki/Georeferencing) is the process of mapping internal coordinates of a resource to geographic coordinates. For the purposes of this extension, references to "resource" equates to a IIIF [Canvas](https://iiif.io/api/presentation/3.0/#53-canvas) or [Image Service](https://iiif.io/api/presentation/3.0/#service) that contains one or more cartographic projections such as plans, maps and aerial photographs.
 
-`[@BERT, @JULES, @BRYAN]` is "carthographic projection" a good word? Maybe confusing, projection also is used in "WGS84 projection" for example. Calling it "map" may also be confusing, because you overlay the "image" on the "map". We are trying to separate the "image of the earth" from the "cartographic system" giving it the ability to use coordinates.
+`[@BERT, @JULES, @BRYAN]` is "cartographic projection" a good word? Maybe confusing, projection also is used in "WGS84 projection" for example. Calling it "map" may also be confusing, because you overlay the "image" on the "map". We are trying to separate the "image of the earth" from the "cartographic system" giving it the ability to use coordinates.
 
 `[@BRYAN] suggests` "...that contains one or more representations of cartographic information relative to modern Geographic Information Systems such as..."
 
@@ -64,9 +64,9 @@ The process of georeferencing consists of the following steps:
 
 `[@BRYAN]` should we rename pixel mask to resource mask? Or something similar?
 
-`[@BRYAN] suggests` -- We renamed the property itself, but for the narrative maybe definiing early on that it is a "selected area of a resource, referred to as a 'mask'" then we can just call it 'the mask' 
+`[@BRYAN] suggests` -- We renamed the property itself, but for the narrative maybe defining early on that it is a "selected area of a resource, referred to as a 'mask'" then we can just call it 'the mask' 
 
-1. A pointer to a IIIF Canvas or Image Service, or a part of it. When a resource depicts multiple carthographic projections (such as inset maps) or when the resource contains non-cartographic parts (such as legends or borders), a pixel mask can be used to select the portion of the resource that belongs to a single carthographic projection. The shape of such a pixel mask can vary from a simple rectangle to a more complex polygon.
+1. A pointer to a IIIF Canvas or Image Service, or a part of it. When a resource depicts multiple cartographic projections (such as inset maps) or when the resource contains non-cartographic parts (such as legends or borders), a pixel mask can be used to select the portion of the resource that belongs to a single cartographic projection. The shape of such a pixel mask can vary from a simple rectangle to a more complex polygon.
 2. A mapping between the pixel coordinates of the IIIF resource and geographic WGS84 coordinates. This mapping consists of pairs of pixel coordinates and geographic coordinates. Each pair of coordinates is called a Ground Control Point (GCP). At least three GCPs are needed to enable clients to overlay a georeferenced IIIF resource on a map.
 3. Optionally, a transformation algorithm can be defined that tells clients what algorithm should be used to turn the discrete set of GCPs into a function that can transform any of the IIIF resource pixel coordinates to geographic coordinates, and vice versa.
 
@@ -89,7 +89,7 @@ Web Annotations can contain all of the required information mentioned in Section
 
 To supply a resource with georeferecing information, implementers _MUST_ add at least one Annotation Page to the `annotations` property. Implementers have the option to reference or embed those Annotation Pages. For the purposes of this extension, implementers _SHOULD_ embed the Annotation Pages in the `annotations` property as opposed to referencing them.
 
-Georeferencing Annotations can exist independent of the resource they target and in such cases the resource is often only referenced via its URI in the Georeferencing Annotation's `target` property. For the purposes of this extension, implmenters _SHOULD_ embed the Canvas or Image Service within the Georeferencing Annotation instead of referencing it.
+Georeferencing Annotations can exist independent of the resource they target and in such cases the resource is often only referenced via its URI in the Georeferencing Annotation's `target` property. For the purposes of this extension, implementers _SHOULD_ embed the Canvas or Image Service within the Georeferencing Annotation instead of referencing it.
 
 Embedding resources reduces the need to make HTTP calls and increases the reliability of the included resources. Sometimes URIs do not resolve and in those cases it will not be possible to display or use those resources in georeferencing scenarios. Embedding the resources ensures each resource is available for georeferencing algorithms and viewers and ensures the metadata about the resource, such as height and width, remains consistent.
 
@@ -159,7 +159,7 @@ It is important to maintain a link back to the Manifest for a given Canvas so cl
 `[@BRYAN]` can a ImageService target also have a `partOf` property?
 `[@BRYAN] says` Yes, _ANY_ resource type can have a `partOf` property.
 
-In cases where the `target` is not the entire Canvas or Image Service and is instead an area of interest, the selected area _MUST_ be supplied as part of the `target`. This is accomplished using a [Specific Resource](https://www.w3.org/TR/annotation-model/#specific-resources) where the `source` and `selector` can be supplied. You can use a IIIF Image Selector when the area of intereste is a rectangle, or an SVG Polygon that... [@BERT what Polygons can and cannot be used?].  See the Specific Resource Example from the examples directory provided with this document.
+In cases where the `target` is not the entire Canvas or Image Service and is instead an area of interest, the selected area _MUST_ be supplied as part of the `target`. This is accomplished using a [Specific Resource](https://www.w3.org/TR/annotation-model/#specific-resources) where the `source` and `selector` can be supplied. You can use a IIIF Image Selector when the area of interest is a rectangle, or an SVG Polygon that... [@BERT what Polygons can and cannot be used?].  See the Specific Resource Example from the examples directory provided with this document.
 
 
 
@@ -225,7 +225,7 @@ SVgSelector link to
 ```
 
 
-`[@BERT @JULES @BRYAN]` The paragraphi below will require some real focus.  If we really have these limits, we may have to say it in the section in pertains to and should/must language.
+`[@BERT @JULES @BRYAN]` The paragraph below will require some real focus.  If we really have these limits, we may have to say it in the section in pertains to and should/must language.
 
 
 This specification expects that a single Image is painted on the Canvas and that the Images contain only a single cartographic depiction/representation. When the resource is a Canvas, it expects that the Image within the Canvas and the Canvas itself have the same `height` and `width` values. Further, it expects the Canvas or Image Service has only a single Annotation Page in the `annotations` property which supplies the georeferencing information.
@@ -235,7 +235,7 @@ This specification expects that a single Image is painted on the Canvas and that
 
 
 
-However, it is possible for multiple Annotations within a single Annotation Page to target different, more specific areas of a single Image or Canvas. It is also possible for a Canvas to contain multiple unique Images. It is also possible that a single Canvas or Image Service have more than one Annotation Page in `annotations` whose Georeferencing Annotations target different areas of the resource. These situations can occur when a single Canvas or Image Service depicts multiple carthographic projections such as inset maps. Below is an image that exemplifies these scenarios.
+However, it is possible for multiple Annotations within a single Annotation Page to target different, more specific areas of a single Image or Canvas. It is also possible for a Canvas to contain multiple unique Images. It is also possible that a single Canvas or Image Service have more than one Annotation Page in `annotations` whose Georeferencing Annotations target different areas of the resource. These situations can occur when a single Canvas or Image Service depicts multiple cartographic projections such as inset maps. Below is an image that exemplifies these scenarios.
 
 <table border="0">
   <tr>
@@ -281,7 +281,7 @@ The `resourceCoords` property is defined by this document in order to supply the
 
 ### 3.6 The `transformation` Property
 
-The `transformation` property is defined by this document in order to supply the preferred transformation algoritm that is used to create a complete mapping from pixel coordinates to geographic coordinates (and vice versa) based on a list of GCPs. The value for `transformation` is a JSON object which includes the properties `type` and `options`. The property _MAY_ be added to the Feature Collection used in the Georeferencing Annotation `body` and clients _MAY_ use the information in the object.
+The `transformation` property is defined by this document in order to supply the preferred transformation algorithm that is used to create a complete mapping from pixel coordinates to geographic coordinates (and vice versa) based on a list of GCPs. The value for `transformation` is a JSON object which includes the properties `type` and `options`. The property _MAY_ be added to the Feature Collection used in the Georeferencing Annotation `body` and clients _MAY_ use the information in the object.
 
 If a transformation algorithm is not provided, clients _SHOULD_ use their default algorithm if they are using a Georeferencing Annotation to transform between pixel coordinates and geographic coordinates. Similarly, if the supplied transformation algorithm is not implemented by a client, the default algorithm _SHOULD_ be used as well.
 
