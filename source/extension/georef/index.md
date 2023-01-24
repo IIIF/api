@@ -52,21 +52,14 @@ The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _S
 ## 2. Georeferencing IIIF Resources
 
 ### 2.1 Georeferencing
-[Georeferencing](https://en.wikipedia.org/wiki/Georeferencing) is the process of mapping internal coordinates of a resource to geographic coordinates. For the purposes of this extension, references to "resource" equates to a IIIF [Canvas](https://iiif.io/api/presentation/3.0/#53-canvas) or [Image Service](https://iiif.io/api/presentation/3.0/#service) that contains one or more cartographic projections such as plans, maps and aerial photographs.
+[Georeferencing](https://en.wikipedia.org/wiki/Georeferencing) is the process of mapping internal coordinates of a resource to geographic coordinates. For the purposes of this extension, references to "resource" equates to a IIIF [Canvas](https://iiif.io/api/presentation/3.0/#53-canvas) or [Image Service](https://iiif.io/api/presentation/3.0/#service) that contains one or more maps.  Support extends to other resources with geographic depictions, such as aerial photographs, archaeological drawings, or building plans.
 
-`[@BERT, @JULES, @BRYAN]` is "cartographic projection" a good word? Maybe confusing, projection also is used in "WGS84 projection" for example. Calling it "map" may also be confusing, because you overlay the "image" on the "map". We are trying to separate the "image of the earth" from the "cartographic system" giving it the ability to use coordinates.
-
-`[@BRYAN] suggests` "...that contains one or more representations of cartographic information relative to modern Geographic Information Systems such as..."
 
 ### 2.2 Georeferencing Process
 
 The process of georeferencing consists of the following steps:
 
-`[@BRYAN]` should we rename pixel mask to resource mask? Or something similar?
-
-`[@BRYAN] suggests` -- We renamed the property itself, but for the narrative maybe defining early on that it is a "selected area of a resource, referred to as a 'mask'" then we can just call it 'the mask' 
-
-1. A pointer to a IIIF Canvas or Image Service, or a part of it. When a resource depicts multiple cartographic projections (such as inset maps) or when the resource contains non-cartographic parts (such as legends or borders), a pixel mask can be used to select the portion of the resource that belongs to a single cartographic projection. The shape of such a pixel mask can vary from a simple rectangle to a more complex polygon.
+1. A pointer to a IIIF Canvas or Image Service, or a part of it. When a resource depicts multiple cartographic projections (such as inset maps) or when the resource contains non-cartographic parts (such as legends or borders), a mask can be used to select the portion of the resource that belongs to a single cartographic projection. The shape of such a mask can vary from a simple rectangle to a more complex polygon.
 2. A mapping between the pixel coordinates of the IIIF resource and geographic WGS84 coordinates. This mapping consists of pairs of pixel coordinates and geographic coordinates. Each pair of coordinates is called a Ground Control Point (GCP). At least three GCPs are needed to enable clients to overlay a georeferenced IIIF resource on a map.
 3. Optionally, a transformation algorithm can be defined that tells clients what algorithm should be used to turn the discrete set of GCPs into a function that can transform any of the IIIF resource pixel coordinates to geographic coordinates, and vice versa.
 
@@ -76,7 +69,7 @@ The following encoding is used to store the data needed by the steps above:
 
 | Required data            | Encoding                                                       |
 |--------------------------|---------------------------------------------------------------------|
-| Resource and pixel mask  | IIIF Presentation API Canvas or Image API Image Service with an optional [SVG Selector](https://www.w3.org/TR/annotation-model/#svg-selector) or [Image API Selector](https://iiif.io/api/annex/openannotation/#iiif-image-api-selector) to specify a pixel mask |
+| Resource and mask  | IIIF Presentation API Canvas or Image API Image Service with an optional [SVG Selector](https://www.w3.org/TR/annotation-model/#svg-selector) or [Image API Selector](https://iiif.io/api/annex/openannotation/#iiif-image-api-selector) to specify a mask |
 | GCPs                     | A GeoJSON Feature Collection where each GCP is stored as a GeoJSON Feature with a Point geometry and a `resourceCoords` property in the Feature's `properties` object |
 | Transformation algorithm | A `transformation` property defined on the GeoJSON Feature Collection that holds the GCPs |
 {: .api-table #table-required-data}
@@ -101,11 +94,10 @@ Note that the linked data context provided with this document includes the forma
 
 ### 3.3 Georeferencing Annotation `target`
 
-The Georeferencing Annotation `target` is the resource to supply the `body` information to. Here the `target` _MUST_ either be an entire IIIF Canvas or Image Service, or an area of interest within a IIIF Canvas or Image Service represented as a [Specific Resource](https://www.w3.org/TR/annotation-model/#specific-resources). Viewers processing the georeferencing information require the original height and width of the resources in order to have the proper aspect ratios. Implementers _SHOULD_ supply this information with their embedded resources.
+The Georeferencing Annotation `target` is the resource to supply the `body` information to. It is valid for an Annotation to have multiple targets...Here the `target` _MUST_ either be an entire IIIF Canvas or Image Service, or an area of interest within a IIIF Canvas or Image Service represented as a [Specific Resource](https://www.w3.org/TR/annotation-model/#specific-resources). Viewers processing the georeferencing information require the original height and width of the resources in order to have the proper aspect ratios. Implementers _SHOULD_ supply this information with their embedded resources.
 
 `[@BERT]` finish this section!
-`[@BRYAN]` do you think including examples of different possible IIIF and SVG selectors is a good idea?
-`[@BRYAN] suggests` I do not think having all the examples in here is a good idea.  We can say "there's too much variance to give examples of everything here.  For more examples, see 'The IIIF Georeferencing Guide'.  For more examples, see Implementation notes below for links.  See these from our /examples space. Something like that, but then we need to have a thing that lists examples."
+`[@BRYAN]` there are two that are the most cricital - an example against the whole resource and an example against a fragment of a resource (as a SpecificResource).  We want 3, one using an entire resource, one using a SpecificSelector for a rectangular fragment, one using the SVG polygon selector for another.
 
 Example of a Georeference Annotation with an ImageService `target`:
 
@@ -155,9 +147,6 @@ It is important to maintain a link back to the Manifest for a given Canvas so cl
   }]
 }
 ```
-
-`[@BRYAN]` can a ImageService target also have a `partOf` property?
-`[@BRYAN] says` Yes, _ANY_ resource type can have a `partOf` property.
 
 In cases where the `target` is not the entire Canvas or Image Service and is instead an area of interest, the selected area _MUST_ be supplied as part of the `target`. This is accomplished using a [Specific Resource](https://www.w3.org/TR/annotation-model/#specific-resources) where the `source` and `selector` can be supplied. You can use a IIIF Image Selector when the area of interest is a rectangle, or an SVG Polygon that... [@BERT what Polygons can and cannot be used?].  See the Specific Resource Example from the examples directory provided with this document.
 
@@ -224,18 +213,10 @@ SVgSelector link to
 }
 ```
 
+It is valid for a Canvas to have multiple painting Annotations. However, to leverage the most support from viewers this specification encourages using a single painting Annotation to place an Image on a Canvas. The Image within the Canvas and the Canvas itself _SHOULD_ have the same `height` and `width` values.
 
-`[@BERT @JULES @BRYAN]` The paragraph below will require some real focus.  If we really have these limits, we may have to say it in the section in pertains to and should/must language.
+It is valid for an Annotation to have multiple targets.  However, having discrete Georeferencing Annotations for each target will elicit the most support.  
 
-
-This specification expects that a single Image is painted on the Canvas and that the Images contain only a single cartographic depiction/representation. When the resource is a Canvas, it expects that the Image within the Canvas and the Canvas itself have the same `height` and `width` values. Further, it expects the Canvas or Image Service has only a single Annotation Page in the `annotations` property which supplies the georeferencing information.
-
-
-
-
-
-
-However, it is possible for multiple Annotations within a single Annotation Page to target different, more specific areas of a single Image or Canvas. It is also possible for a Canvas to contain multiple unique Images. It is also possible that a single Canvas or Image Service have more than one Annotation Page in `annotations` whose Georeferencing Annotations target different areas of the resource. These situations can occur when a single Canvas or Image Service depicts multiple cartographic projections such as inset maps. Below is an image that exemplifies these scenarios.
 
 <table border="0">
   <tr>
@@ -249,8 +230,8 @@ However, it is possible for multiple Annotations within a single Annotation Page
     <td>
       <figure>
         <img src="images/loc-acadia-np-maps.jpg"
-          alt="The same image with four pixel masks that capture the cartographic projections contained by the image">
-        <figcaption>The same image with four pixel masks that capture the cartographic projections contained by the image</figcaption>
+          alt="The same image with four masks that capture the cartographic projections contained by the image">
+        <figcaption>The same image with four masks that capture the cartographic projections contained by the image</figcaption>
       </figure>
     </td>
   </tr>
