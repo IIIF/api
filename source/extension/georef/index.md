@@ -258,7 +258,7 @@ However, it is possible for multiple Annotations within a single Annotation Page
 
 ### 3.4 Georeferencing Annotation `body`
 
-The `body` of a Georeferencing Annotation contains geospatial information to apply to the resource noted in the `target` property.  For the purposes of this extension the `body` contains the GCPs.  The value for `body` _MUST_ be a GeoJSON Feature Collection.  The Feature Collection _MUST_ only contain Features with [Point](https://www.rfc-editor.org/rfc/rfc7946#section-3.1.2) geometries, `[@BERT] is it _SHOULD_ or _MUST_` contain at least three Point Features as prescribed by Section 2.2. 
+The `body` of a Georeferencing Annotation contains geospatial information to apply to the resource noted in the `target` property.  For the purposes of this extension the `body` contains the GCPs.  The value for `body` _MUST_ be a GeoJSON Feature Collection.  The Feature Collection _MUST_ only contain Features with [Point](https://www.rfc-editor.org/rfc/rfc7946#section-3.1.2) geometries, `[@BERT] is it _SHOULD_ or _MUST_` contain at least three Point Features as prescribed by [Section 2.2](#22-georeferencing-process). 
 
 
 ### 3.5 The `resourceCoords` Property
