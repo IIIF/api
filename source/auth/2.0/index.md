@@ -165,13 +165,42 @@ https://github.com/IIIF/api/issues/1290#issuecomment-1107831915
 
 ### 2.1. Probe Service
 
-<!-- editorial
-This draft introduces the probe service first as a key concept even though it isn't necessarily the first point of interation in the flow. It can be though... It seems clearer to talk about the probe first to show what the other services are for.
--->
+The Probe Service is used by the client to determine the user's access to the resource it is declared for. The Probe Service is declared in the `service` property of a Content Resource or Image Information Document (info.json). For audio, video, PDFs and other documents, this means the probe service is present in a IIIF Manifest or other IIIF API Resource. For image services, the Probe Service _MUST_ always be declared in the Image Information Document (info.json) and _MAY_ additionally be declared in the Manifest with the image service.
 
-The Probe Service is declared in the `service` property of a Content Resource or Image Information Document (info.json). For audio, video, PDFs and other documents, this means the probe service is present in a IIIF Manifest or other IIIF API Resource. For image services, the Probe Service _MUST_ always be declared in the Image Information Document (info.json) and _MAY_ additionally be declared in the Manifest with the image service. <!-- make this clearer -->
+The __Probe Service__ has the following properties:
 
-#### 2.1.1. Probe Service Example
+| Property     | Required?   | Description |
+| ------------ | ----------- | ----------- |
+| `id`         | _REQUIRED_  |             |
+| `type`       | _REQUIRED_  | `AuthProbeService2`            |
+| `status`     | _REQUIRED_  | An integer that represents the HTTP status code that would be returned for the resource for which this is a probe service.           |
+| `alternate`  | _OPTIONAL_  | A reference to one or more alternate resources, such as watermarked or otherwise degraded versions.  |
+| `location`   | _OPTIONAL_  | If present, the client should request this resource instead of the the resource the probe service was declared for. |
+{: .api-table .first-col-normal }
+
+#### status
+
+* The semantics of the value of this property are equivalent to HTTP status codes.
+* Note: while the `status` property of the probe response represents the HTTP status code for the resource and may take different values, the status code of the probe HTTP response itself must always be `200`.
+
+#### alternate
+
+* If multiple alternate resources are available, clients _SHOULD_ allow the user to choose between them, using the `label` or other descriptive properties available on the resources.
+* An alternate resource may declare new IIIF Authorization Flow Services, including its own probe services, allowing for _tiered access_. If present, and no further IIIF Authorization Flow services are declared on it, this resource _MUST_ be accessible to the user who requested the probe service. 
+* An alternate resource _MUST_ have a different URI from the original resource.
+* If the `status` value indicates success, or no alternative is available, this property _MUST NOT_ be included.
+* The `alternate` property _MUST NOT_ be present if the `location` property is present.
+
+#### location
+
+* A probe response _MUST NOT_ provide a resource for `location` if the `status` is anything other than a `30x` redirect response.
+* A probe response _MUST NOT_ have multiple `location` properties.
+* The location resource _MUST_ have a different URI from the original resource.
+* The client _MUST_ request this resource instead of the original resource.
+* The `location` property _MUST NOT_ be present if the `alternate` property is present.
+
+
+#### 2.1.1. Probe Service Examples
 
 Consider a resource declared in a Manifest or other IIIF API Resource:
 
@@ -192,30 +221,11 @@ Consider a resource declared in a Manifest or other IIIF API Resource:
 }
 ```
   
-The service declared on this resource is a __Probe Service__ which has the following properties:
+* The client _MAY_ request the probe service without including an access token.
+* This probe service _MUST_ always return a JSON-LD response body to the client and this response _MUST_ always have an HTTP 200 status code. The response can take different forms:
 
-| Property     | Required?   | Description |
-| ------------ | ----------- | ----------- |
-| `id`         | _REQUIRED_  |             |
-| `type`       | _REQUIRED_  | `AuthProbeService2`            |
-| `status`     | _REQUIRED_  | An integer that represents the HTTP status code that would be returned for the resource for which this is a probe service.           |
-| `alternate`  | _OPTIONAL_  | A reference to one or more alternate resources, such as watermarked or otherwise degraded versions. An alternate resource may declare new IIIF Authorization Flow Services, including its own probe services, allowing for _tiered access_. If present, and no further IIIF Authorization Flow services are declared on it, this resource _MUST_ be accessible to the user who requested the probe service. If the user has access to the current resource<!-- ? need to be careful what this means -->, or no alternative is available, this property _MUST NOT_ be included. |
-| `location`   | _OPTIONAL_  | If status=200, and this is present, use this not the original resource id.
-{: .api-table .first-col-normal }
 
-#### Status
-
-*  
-* Note: while the `status` property of the probe response represents the HTTP status code for the resource, the HTTP status code of the probe response itself must always be `200`
-
-<!-- alternate: you can't see the resource, try this -->
-<!-- location: you can see the resource but use this URI -->
-
-<!-- talk about how alternate can have its own services... e.g., the original resource was an image, but that image has an image service which we can add in. Can location have services? It's just a redirect... -->
-
-The client _MAY_ request the probe service without including an access token.
-
-This probe service _MUST_ always return a JSON-LD response body to the client and this response _MUST_ always have an HTTP 200 status code. The response can take different forms:
+##### 2.1.1.2. Probe indicates success
 
 * The `status` property value is `200`, and the response JSON-LD does not include a `location` property. This indicates that based on the request sent, the server determines that the user will be able to see `https://authentication.example.org/my-video.mp4`:
 
@@ -227,6 +237,8 @@ This probe service _MUST_ always return a JSON-LD response body to the client an
     "status": 200
 }
 ```
+
+##### 2.1.1.2. Probe provides an alternate resource
 
 * The `status` property value is `401`, and the response JSON-LD includes a `alternate` property. This indicates that the user cannot see `https://authentication.example.org/my-video.mp4`, but they can see the resource provided by `alternate`. This would give the user access to (for example) a degraded version of the resource immediately, and potentially allow them to go through a login process to access the full resource:
 
@@ -249,6 +261,8 @@ The resource in the `alternate` property _MUST_ have a different `id` from the r
 
 In the above example, the resource in the `alternate` property does not declare any services of its own, and clients can conclude that it is accessible to the user. The resource in the `alternate` property _MAY_ declare IIIF Authorization Flow services of its own, including a probe service. This pattern allows _tiered access_ to any depth. A client can keep following probe service `alternate` properties until it finds a resource without its own probe service, indicating that this resource is accessible to the user.
 
+##### 2.1.1.3 Probe indicates no access
+
 * The `status` property value is `401`, and no `alternate` property is present, indicating that the user does not have access to the Content Resource the Probe Service was declared for, and no alternative is available:
 
 ```json
@@ -262,7 +276,9 @@ In the above example, the resource in the `alternate` property does not declare 
 }
 ```
 
-* The `status` property value is **302**, and the response JSON-LD includes a `location` property. This indicates that the client has the __authorizing aspect__ required to see the content, but it _MUST_ request it using the provided `location` URL rather than the published URL:
+##### 2.1.1.4 Probe provides a different resource location
+
+* The `status` property value is `302`, and the response JSON-LD includes a `location` property. This indicates that the client has the __authorizing aspect__ required to see the content, but it _MUST_ request it using the provided `location` URL rather than the published URL:
 
  ```json
 {
@@ -277,10 +293,6 @@ In the above example, the resource in the `alternate` property does not declare 
 }
 ```
 
-<!--
-if you have a location property, the status code must be 3xx ??? (and the inverse)
-Add the 202 pdf creating example.. ??
- -->
 
 __Warning__<br/><!-- rewrite this -->
 The previous example potentially bypasses the intention of `location` as described in the table above. The client, presenting a token, has used the access token to discover the URL of an actual content resource, that _might not require a credential_. This use case may be helpful for streaming media services where the use of modified paths containing short-lived tokens as path elements is common. However, it is a fundamental change in the approach that IIIF Auth has taken up to now, where a malicious client application gaining access to the token doesn't grant access to protected resources. The client has used a token to get access to the protected resource, rather than only get access to information about the user's access to that resource.
