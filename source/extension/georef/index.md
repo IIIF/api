@@ -52,7 +52,7 @@ The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _S
 ## 2. Georeferencing IIIF Resources
 
 ### 2.1 Georeferencing
-[Georeferencing](https://en.wikipedia.org/wiki/Georeferencing) is the process of mapping internal coordinates of a resource to geographic coordinates. For the purposes of this extension, references to "resource" equates to a IIIF [Canvas](https://iiif.io/api/presentation/3.0/#53-canvas) or [Image Service](https://iiif.io/api/presentation/3.0/#service) that contains one or more maps.  Support extends to other resources with geographic depictions, such as aerial photographs, archaeological drawings, or building plans.
+[Georeferencing](https://en.wikipedia.org/wiki/Georeferencing) is the process of mapping internal coordinates of a resource to geographic coordinates. For the purposes of this extension, references to "resource" equates to a IIIF [Canvas](https://iiif.io/api/presentation/3.0/#53-canvas) or [Image Service](https://iiif.io/api/presentation/3.0/#service) that contains one or more maps. Support extends to other resources with geographic depictions, such as aerial photographs, archaeological drawings, or building plans.
 
 
 ### 2.2 Georeferencing Process
@@ -94,7 +94,7 @@ Note that the linked data context provided with this document includes the forma
 
 ### 3.3 Georeferencing Annotation `target`
 
-The Georeferencing Annotation `target` is the resource to supply the `body` information to.  The value for `target` _MUST_ either be a single full IIIF Canvas or Image Service, or a single area of interest within a IIIF Canvas or Image Service represented as a [Specific Resource](https://www.w3.org/TR/annotation-model/#specific-resources). Viewers processing the georeferencing information require the original height and width of the resources in order to have the proper aspect ratios. Implementers _SHOULD_ add the `height` and `width` properties to their embedded resources for consistency.
+The Georeferencing Annotation `target` is the resource to supply the `body` information to. The value for `target` _MUST_ either be a single full IIIF Canvas or Image Service, or a single area of interest within a IIIF Canvas or Image Service represented as a [Specific Resource](https://www.w3.org/TR/annotation-model/#specific-resources). Viewers processing the georeferencing information require the original height and width of the resources in order to have the proper aspect ratios. Implementers _SHOULD_ add the `height` and `width` properties to their embedded resources for consistency.
 
 `[@BERT]` finish this section!
 
@@ -107,9 +107,9 @@ Example of a Georeference Annotation with an entire Canvas `target`:
 }
 ```
 
-A [Specific Resource](https://www.w3.org/TR/annotation-model/#specific-resources) has the `source` and `selector` properties which supply the resource and area of interest.  The `selector` indicates the mask, which is the the region of the resource that is being georeferenced. There are various ways to select the region of the resource.  You can select the entire image, a rectangular fragment, or a polygonal area.  A polygonal area can cover all these cases and so is the preferred technique which we will give an example of below.
+A [Specific Resource](https://www.w3.org/TR/annotation-model/#specific-resources) has the `source` and `selector` properties which supply the resource and area of interest. The `selector` indicates the mask, which is the the region of the resource that is being georeferenced. There are various ways to select the region of the resource. You can select the entire image, a rectangular fragment, or a polygonal area. A polygonal area can cover all these cases and so is the preferred technique which we will give an example of below.
 
-There are some limitations to the type of polygon you can use... [@BERT what Polygons can and cannot be used?].  See the Specific Resource Example from the examples directory provided with this document.
+There are some limitations to the type of polygon you can use... [@BERT what Polygons can and cannot be used?]. See the Specific Resource Example from the examples directory provided with this document.
 
 `[@BERT]` tell about svg selector, and the shape of SVG. polygon, rect, no transforms, no <g>.
 or iiif image selector
@@ -170,7 +170,7 @@ It is valid for a Canvas to have multiple painting Annotations. However, to leve
 
 ### 3.4 Georeferencing Annotation `body`
 
-The `body` of a Georeferencing Annotation contains geospatial information to apply to the resource noted in the `target` property.  For the purposes of this extension the `body` contains the GCPs.  The value for `body` _MUST_ be a GeoJSON Feature Collection.  The Feature Collection _MUST_ only contain Features with [Point](https://www.rfc-editor.org/rfc/rfc7946#section-3.1.2) geometries _SHOULD_ contain at least three Point Features as prescribed by [Section 2.2](#22-georeferencing-process). `[@BERT] explain why three, and why _SHOULD_ not _MUST_`.
+The `body` of a Georeferencing Annotation contains geospatial information to apply to the resource noted in the `target` property. For the purposes of this extension the `body` contains the GCPs. The value for `body` _MUST_ be a GeoJSON Feature Collection. The Feature Collection _MUST_ only contain Features with [Point](https://www.rfc-editor.org/rfc/rfc7946#section-3.1.2) geometries _SHOULD_ contain at least three Point Features as prescribed by [Section 2.2](#22-georeferencing-process). `[@BERT] explain why three, and why _SHOULD_ not _MUST_`.
 
 
 ### 3.5 The `resourceCoords` Property
