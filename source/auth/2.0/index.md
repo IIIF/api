@@ -83,22 +83,18 @@ In summary, this specification describes how to:
 ### 1.1. Terminology
 {: #terminology}
 
-This specification distinguishes between two different types of resource:
+This specification distinguishes between two types of resource:
 
-* __IIIF API Resources__ are the Manifests, Collections and other resources described by the IIIF [Presentation API][prezi-api], including external Annotation Pages, and the [image information][image30-information] document (info.json) provided by the [IIIF Image API][image-api].
-* __Content Resources__ are images, videos, PDFs and other resources that are linked from IIIF Manifests, Annotation Pages and other IIIF API Resources. This includes image responses (e.g., tiles for deep zoom) from the [IIIF Image API][image-api].
+* __IIIF API resources__: the Manifests, Collections and other resources described by the IIIF [Presentation API][prezi-api], including external Annotation Pages, and the [image information][image30-information] document (info.json) provided by the [IIIF Image API][image-api]. These resources are typically loaded directly by JavaScript using the `fetch` API or `XMLHttpRequest` interface. 
+* __Content resources__: images, videos, PDFs and other resources that are linked from IIIF Manifests, Annotation Pages and other IIIF API resources. This includes image responses (e.g., tiles for deep zoom) from the [IIIF Image API][image-api]. These resources are typically loaded indirectly via browser interpretation of HTML elements.
 
-From the point of view of a browser-based application, Content Resources are usually loaded indirectly via browser interpretation of HTML elements, whereas IIIF API Resources are typically loaded directly by JavaScript using the `fetch` API or `XMLHttpRequest` interface. The [Cross Origin Resource Sharing][org-w3c-cors] (CORS) specification describes the different security rules that apply to the interactions with these types of resource. <!-- mention script-driven scenarios here? e.g., HTML Canvas, av fragment requests via hls.js and similar? -->
+This specification uses the following terms:
 
-This specification introduces five additional concepts:
+* __Authorizing aspect__: the aspect of the request that a content provider uses to authorize a request for a content resource. This is often a cookie used as a credential, but can be another aspect of the request, such as the IP address.
+* __Access token__: a proxy for the authorizing aspect of the request. An access token can be seen by a IIIF client without revealing to the client what the authorizing aspect is.
+ * __HTTP(S)__: the HTTP or HTTPS URI scheme and internet protocol.
 
- * The __authorizing aspect__ of the request that a content provider uses to authorize a request for a Content Resource. This is very often a cookie used as a credential, but can be other features of the request.
- * The __access token__, a proxy for this __authorizing aspect__ that can be seen by a IIIF client, without revealing to the client what that __authorizing aspect__ is.
- * The __token service__ from which the client obtains this token. The client needs to present to the token service the same __authorizing aspect__ that the browser will present to the corresponding Content Resource.
- * The __probe service__, an endpoint defined by this specification that the client uses to learn about the user's relationship to the resource the probe service is for. An access-controlled Content Resource has a probe service. An [image information][image30-information] document (info.json) also has a probe service, if the image responses it produces are access-controlled.
- * The __original resource__ is the Content Resource or Image Information Document for which a probe service is declared.
-
-Clients obtain an __access token__ from a __token service__ and then send the __access token__ to a __probe service__.
+The terms _array_, _JSON object_, _number_, and _string_ in this document are to be interpreted as defined by the [Javascript Object Notation (JSON)][org-rfc-8259] specification.
 
 The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _SHOULD NOT_, _RECOMMENDED_, _MAY_, and _OPTIONAL_ in this document are to be interpreted as described in [RFC 2119][org-rfc-2119].
 
@@ -146,6 +142,14 @@ Authorization Flow services follow the pattern described in the IIIF [Linking to
 There is a primary service profile for authenticating users and granting access, and it has related services nested within its description.  The related services include a mandatory access token service, and an optional logout service.
 
 The probe service is declared directly as a service on the resource: the probe service does not belong to any of the authentication services. There might be multiple authentication services for a resource (if there is more than one way to gain access) but only one probe service.
+
+ 
+ 
+ * The __token service__ from which the client obtains an access token. The client needs to present to the token service the same authorizing aspect that the browser will present to the corresponding content resource.
+ * The __probe service__, an endpoint defined by this specification that the client uses to learn about the user's relationship to the resource the probe service is for. An access-controlled Content Resource has a probe service. An [image information][image30-information] document (info.json) also has a probe service, if the image responses it produces are access-controlled.
+
+Clients obtain an __access token__ from a __token service__ and then send the __access token__ to a __probe service__.
+
 
 <!--
 A resource with two login (interactive) services each with their own token service. The resource can only have one probe service.
