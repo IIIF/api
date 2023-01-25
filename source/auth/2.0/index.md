@@ -1,4 +1,4 @@
-authorize---
+---
 title: "IIIF Authorization Flow API 2.0"
 title_override: "IIIF Authorization Flow API 2.0"
 id: auth-api
@@ -191,17 +191,22 @@ Consider a resource declared in a Manifest or other IIIF API Resource:
    ]
 }
 ```
-
+  
 The service declared on this resource is a __Probe Service__ which has the following properties:
 
 | Property     | Required?   | Description |
 | ------------ | ----------- | ----------- |
 | `id`         | _REQUIRED_  |             |
 | `type`       | _REQUIRED_  | `AuthProbeService2`            |
-| `status`     | _REQUIRED_  |             |
-| `alternate`  | _OPTIONAL_  | A reference to an alternative resource, such as a watermarked or otherwise degraded version. This resource may declare new IIIF Authorization Flow Services, including its own probe service, allowing for _tiered access_. If present, and no further IIIF Authorization Flow services are declared on it, this resource _MUST_ be accessible to the user who requested the probe service. If the user has access to the current resource<!-- ? need to be careful what this means -->, or no alternative is available, this property _MUST NOT_ be included. |
+| `status`     | _REQUIRED_  | An integer that represents the HTTP status code that would be returned for the resource for which this is a probe service.           |
+| `alternate`  | _OPTIONAL_  | A reference to one or more alternate resources, such as watermarked or otherwise degraded versions. An alternate resource may declare new IIIF Authorization Flow Services, including its own probe services, allowing for _tiered access_. If present, and no further IIIF Authorization Flow services are declared on it, this resource _MUST_ be accessible to the user who requested the probe service. If the user has access to the current resource<!-- ? need to be careful what this means -->, or no alternative is available, this property _MUST NOT_ be included. |
 | `location`   | _OPTIONAL_  | If status=200, and this is present, use this not the original resource id.
 {: .api-table .first-col-normal }
+
+#### Status
+
+*  
+* Note: while the `status` property of the probe response represents the HTTP status code for the resource, the HTTP status code of the probe response itself must always be `200`
 
 <!-- alternate: you can't see the resource, try this -->
 <!-- location: you can see the resource but use this URI -->
@@ -212,7 +217,7 @@ The client _MAY_ request the probe service without including an access token.
 
 This probe service _MUST_ always return a JSON-LD response body to the client and this response _MUST_ always have an HTTP 200 status code. The response can take different forms:
 
-* The `status` property value is **200**, and the response JSON-LD does not include a `location` property. This indicates that based on the request sent, the server determines that the user will be able to see `https://authentication.example.org/my-video.mp4`:
+* The `status` property value is `200`, and the response JSON-LD does not include a `location` property. This indicates that based on the request sent, the server determines that the user will be able to see `https://authentication.example.org/my-video.mp4`:
 
 ```json
 {
@@ -223,7 +228,7 @@ This probe service _MUST_ always return a JSON-LD response body to the client an
 }
 ```
 
-* The `status` property value is **401**, and the response JSON-LD includes a `alternate` property. This indicates that the user cannot see `https://authentication.example.org/my-video.mp4`, but they can see the resource provided by `alternate`. This would give the user access to (for example) a degraded version of the resource immediately, and potentially allow them to go through a login process to access the full resource:
+* The `status` property value is `401`, and the response JSON-LD includes a `alternate` property. This indicates that the user cannot see `https://authentication.example.org/my-video.mp4`, but they can see the resource provided by `alternate`. This would give the user access to (for example) a degraded version of the resource immediately, and potentially allow them to go through a login process to access the full resource:
 
 ```json
 {
@@ -244,7 +249,7 @@ The resource in the `alternate` property _MUST_ have a different `id` from the r
 
 In the above example, the resource in the `alternate` property does not declare any services of its own, and clients can conclude that it is accessible to the user. The resource in the `alternate` property _MAY_ declare IIIF Authorization Flow services of its own, including a probe service. This pattern allows _tiered access_ to any depth. A client can keep following probe service `alternate` properties until it finds a resource without its own probe service, indicating that this resource is accessible to the user.
 
-* The `status` property value is **401**, and no `alternate` property is present, indicating that the user does not have access to the Content Resource the Probe Service was declared for, and no alternative is available:
+* The `status` property value is `401`, and no `alternate` property is present, indicating that the user does not have access to the Content Resource the Probe Service was declared for, and no alternative is available:
 
 ```json
 {
