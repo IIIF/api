@@ -56,35 +56,28 @@ __Previous Version:__ [1.0.0][auth1]
 
 The IIIF (pronounced "Triple-Eye-Eff") specifications are designed to support uniform and rich access to images, audio, video and other resources hosted around the world. Open access to content is desirable, but internal policies, sensitive material, legal regulations, business models, and other constraints can require users to authenticate and be authorized to interact with some resources. The authentication process could range from a simple restriction by IP address or a click-through agreement, to a multi-factor scheme with a secure identity provider.
 
-Content providers that need to restrict access to their resources may offer tiered access to alternative versions that go beyond a simple all-or-nothing proposition. These alternative versions could be degraded based on resolution, watermarking, or compression, for example, but are often better than no access at all.
-
 Providing interoperable access to restricted content through client applications running in a web browser poses many challenges:
 
-* A single IIIF Presentation API manifest can reference content resources at multiple institutions and hence from multiple domains.
+* A single IIIF Presentation API Manifest can reference content resources at multiple institutions and hence from multiple domains.
 * Each version of a resource must have a distinct URI to prevent web caches from providing the wrong version.
 * Institutions have different existing access control systems.
-* Most IIIF viewers are client-side JavaScript applications, and may be served from a domain that is different from, and unknown to, the domain hosting the content it is required to load.
-* Protocols like [OAuth2][oauth2] serve the needs of identified (i.e., known) clients (including JavaScript applications) making HTTP requests for API resources. For IIIF, API resources like Manifests are not usually access-controlled; it is the content resources they point to that require protection. These content resources are typically not loaded directly by client script, but indirectly by HTML elements like `<img />`, `<audio />` and `<video />` tags.
+* Most IIIF viewers are browser-based JavaScript applications, and may be served from a domain that is different from, and unknown to, the domain hosting the content it is required to load.
+* Content resources are typically loaded indirectly by HTML elements like `<img />`, `<audio />` and `<video />`. While authentication protocols like [OAuth2][oauth2] serve the needs of identified, trusted clients making direct HTTP requests for API resources, they do not serve the HTML element case.
 
 Additionally, the IIIF community has the following goals for this specification:
 
-* A IIIF client should not accept credentials and authenticate the user itself; the server hosting the content must be responsible for capturing credentials from a user and the IIIF viewer needs no knowledge of or access to this exchange. <!-- One aim of the eventual updated auth spec _could_ be to allow an extension mechanism where aware clients can do this, see https://github.com/IIIF/api/issues/2017#issuecomment-1216630022 -->
-* A browser-based IIIF client must be able to maintain its own internal state during an authentication flow. That is, it must be able to stay running while the user interacts with third parties in another tab. The user cannot be redirected away from the client.
-* A registry of trusted IIIF domains should not be required; anyone should be able to create any kind of viewer and run it from anywhere.
-* Institutions should be able to work with their existing authentication systems without modifying them: this specification can provide a bridge to existing systems without requiring that the systems themselves be changed.
-* A IIIF Client should be able to use simple HTML elements like `<img />`, `<audio />` and `<video />` tags. The specification should neither require nor prevent more complex script-driven interactions with content resources.
+* A IIIF client should not accept credentials and authenticate the user itself and should have no access to this information.
+* The user cannot be redirected away from the client in order to authenticate. In order to maintain state, the client must be able to stay running while the user interacts with an access control system in another tab. 
+* A registry of trusted IIIF client domains should not be required. Anyone should be able to create any kind of viewer and run it from anywhere.
+* Institutions should be able to work with their existing authentication systems without modifying them.
+* It should be possible to offer tiered access to alternate versions instead of simple all-or-nothing access. These alternate versions could be of lower quality based on resolution, watermarking, or compression.
 
-To meet these challenges and goals, this specification describes a set of workflows for guiding the user through an _existing_ access control system. The process of authenticating and authorising the user is mostly outside the scope of the specification and may involve a round-trip to a CAS server, or an OAuth2 provider, or a bespoke login system. In this sense, the IIIF Authorization Flow API is not the same as a protocol like OAuth2; it is a pattern for interacting with arbitrary third party protocols.
+To meet these challenges and goals, this specification describes services that allow the client to guide the user through existing access control systems. The process of authenticating and authorizing the user is outside the scope of this specification and may involve a round-trip to a CAS server, or an OAuth2 provider, or a bespoke login system. In this sense, the IIIF Authorization Flow API is not a protocol like OAuth2; it is a pattern for interacting with arbitrary third party protocols. The patterns established by this specification act as a bridge to the access control systems without the client requiring knowledge of those systems.
 
-<!-- Drop this para? -->
-This API provides a link to a user interface for logging in, and services that provide credentials, modeled after elements of the OAuth2 workflow. Together they act as a bridge to the access control system in use on the server, without the client requiring knowledge of that system.
-
-In summary, the specification describes how to:
+In summary, this specification describes how to:
 
 * From within a client application such as a viewer, initiate an interaction with an access control system so that a user can acquire any credentials they need to view restricted content.
-* Give the client application just enough knowledge of the user's state with respect to the content provider to ensure a good user experience: that is, allow the client to learn whether the user currently has access to a resource, without needing to know anything else about their relationship.
-
-Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss].
+* Give the client application just enough knowledge of the user's state with respect to the content provider to ensure a good user experience: that is, allow the client to learn whether the user currently has access to a resource, without needing to know anything about how they are authorized.
 
 
 ### 1.1. Terminology
@@ -97,12 +90,13 @@ This specification distinguishes between two different types of resource:
 
 From the point of view of a browser-based application, Content Resources are usually loaded indirectly via browser interpretation of HTML elements, whereas IIIF API Resources are typically loaded directly by JavaScript using the `fetch` API or `XMLHttpRequest` interface. The [Cross Origin Resource Sharing][org-w3c-cors] (CORS) specification describes the different security rules that apply to the interactions with these types of resource. <!-- mention script-driven scenarios here? e.g., HTML Canvas, av fragment requests via hls.js and similar? -->
 
-This specification introduces four additional concepts:
+This specification introduces five additional concepts:
 
  * The __authorizing aspect__ of the request that a content provider uses to authorize a request for a Content Resource. This is very often a cookie used as a credential, but can be other features of the request.
  * The __access token__, a proxy for this __authorizing aspect__ that can be seen by a IIIF client, without revealing to the client what that __authorizing aspect__ is.
  * The __token service__ from which the client obtains this token. The client needs to present to the token service the same __authorizing aspect__ that the browser will present to the corresponding Content Resource.
- * The __probe service__, an endpoint defined by this specification that the client uses to learn about the user's relationship to the Content Resource the probe service is for. An access-controlled Content Resource has a probe service. An [image information][image30-information] document (info.json) also has a probe service, if the image responses it produces are access-controlled.
+ * The __probe service__, an endpoint defined by this specification that the client uses to learn about the user's relationship to the resource the probe service is for. An access-controlled Content Resource has a probe service. An [image information][image30-information] document (info.json) also has a probe service, if the image responses it produces are access-controlled.
+ * The __original resource__ is the Content Resource or Image Information Document for which a probe service is declared.
 
 Clients obtain an __access token__ from a __token service__ and then send the __access token__ to a __probe service__.
 
@@ -165,9 +159,25 @@ https://github.com/IIIF/api/issues/1290#issuecomment-1107831915
 
 ### 2.1. Probe Service
 
-The Probe Service is used by the client to determine the user's access to the resource it is declared for. The Probe Service is declared in the `service` property of a Content Resource or Image Information Document (info.json). For audio, video, PDFs and other documents, this means the probe service is present in a IIIF Manifest or other IIIF API Resource. For image services, the Probe Service _MUST_ always be declared in the Image Information Document (info.json) and _MAY_ additionally be declared in the Manifest with the image service.
+The Probe Service is declared in the `service` property of a Content Resource or Image Information Document (info.json), and is used by the client to determine the user's access to the resource it is declared for, the _original resource_. For Content Resources such as audio, video, PDFs and other documents, this means the probe service is present in a IIIF Manifest or other IIIF API Resource. For image services, the Probe Service _MUST_ always be declared in the Image Information Document (info.json) and _MAY_ additionally be declared in the Manifest with the image service.
 
-The __Probe Service__ has the following properties:
+#### 2.1.1. Probe Service Request
+
+...
+
+#### 2.1.1. Probe Service Response
+
+The JSON-LD response from the Probe Service can have the following properties, described in detail below.
+
+| Name          | Required?  | Summary |
+| ------------- | ---------  | ------- |
+| `id`          | _REQUIRED_ | The URI of the service |
+| `type`        | _REQUIRED_ | The type of the service, `AuthProbeService2` |
+| `status`      | _REQUIRED_ | The HTTP status code that would be returned for the resource for which this is a Probe Service.  |
+| `alternate`   | _OPTIONAL_ | A reference to one or more alternate resources, such as watermarked or otherwise degraded versions. |
+| `location`    | _OPTIONAL_ | A resource to use rather than the `id` |
+| `header`      | _OPTIONAL_ | Header text for the error UI |
+| `description` | _OPTIONAL_ | Block text for the error UI |
 
 | Property     | Required?   | Description |
 | ------------ | ----------- | ----------- |
