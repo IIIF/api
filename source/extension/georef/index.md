@@ -96,33 +96,55 @@ Note that the linked data context provided with this document includes the forma
 
 The Georeferencing Annotation `target` is the resource to supply the `body` information to. The value for `target` _MUST_ either be a single full IIIF Canvas or Image Service, or a single area of interest within a IIIF Canvas or Image Service represented as a [Specific Resource](https://www.w3.org/TR/annotation-model/#specific-resources). Viewers processing the georeferencing information require the original height and width of the resources in order to have the proper aspect ratios. Implementers _SHOULD_ add the `height` and `width` properties to their embedded resources for consistency.
 
-`[@BERT]` finish this section!
-
-Example of a Georeference Annotation with an entire Canvas `target`:
+Example of a Georeference Annotation `target` with an entire Canvas:
 
 {% include api/code_header.html %}
 ```json-doc
 "target": {
-
+  "id": "http://iiif.io/api/extension/georef/examples/3/canvas.json",
+  "type": "Canvas",
+  "height": 2514,
+  "width": 5965
 }
 ```
 
-A [Specific Resource](https://www.w3.org/TR/annotation-model/#specific-resources) has the `source` and `selector` properties which supply the resource and area of interest. The `selector` indicates the mask, which is the the region of the resource that is being georeferenced. There are various ways to select the region of the resource. You can select the entire image, a rectangular fragment, or a polygonal area. A polygonal area can cover all these cases and so is the preferred technique which we will give an example of below.
+When a [Specific Resource](https://www.w3.org/TR/annotation-model/#specific-resources) is used as a `target`, the `source` property supplies the resource and the `selector` property indicates the region of the resource that is being georeferenced. This region can be the complete resource, or a rectangular or polygonal area. To select a rectangular or polygonal area, a [IIIF Image API Selector](https://iiif.io/api/annex/openannotation/#iiif-image-api-selector) or an [SVG Selector](https://www.w3.org/TR/annotation-model/#svg-selector) can be used.
 
-There are some limitations to the type of polygon you can use... [@BERT what Polygons can and cannot be used?]. See the Specific Resource Example from the examples directory provided with this document.
+An SVG Selector can be used on both Canvas and ImageService resources and is the preferred technique.
 
-`[@BERT]` tell about svg selector, and the shape of SVG. polygon, rect, no transforms, no <g>.
-or iiif image selector
-
-Example of a Georeference Annotation with an SVG selector on a canvas `target`:
+Example of a Georeference Annotation `target` with an [SVG Selector](https://www.w3.org/TR/annotation-model/#svg-selector) on a Canvas:
 
 {% include api/code_header.html %}
 ```json-doc
 "target": {
-
+  "id": "http://iiif.io/api/extension/georef/examples/3/canvas-specific-resource.json",
+  "type": "SpecificResource",
+  "source": {
+    "id": "http://iiif.io/api/extension/georef/examples/3/canvas.json",
+    "type": "Canvas",
+    "height": 2514,
+    "width": 5965
+  },
+  "selector": {
+    "type": "SvgSelector",
+    "value": "<svg><polygon points=\"59,84 44,2329 5932,2353 5920,103 \" /></svg>"
+  }
 }
 ```
 
+There are some limitations to the type of SVG Selectors you can use:
+
+- The `svg` element _MUST_ contain a single child element.
+- The [`viewBox`](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox) attribute _MUST NOT_ be used on the `svg` element.
+- The `svg` element _MAY_ include `width` and `height` attributes. When these attributes are included, they _MUST_ be equal to the width and height of the targeted resource and they _MUST_ be numbers without units.
+- The single child element _MUST_ either be a [`<polygon>`](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/polygon) or a [`<rect>`](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/rect).
+- When a `rect` element is used, the `rx` and `ry` attributes _MUST NOT_ be used.
+- The [`transform`](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/transform) attribute _MUST NOT_ be used on any of the SVG Selector's elements.
+
+More Specific Resource examples can be found in the examples directory provided with this document.
+`[@BRYAN] add link to examples????`
+
+`[@BRYAN] add subsection for partOf?`
 It is important to maintain a link back to the Manifest for a given Canvas so clients consuming the Canvases have the opportunity to provide contextual information about the Manifest. To do this, implementers _SHOULD_ use the `partOf` property on the Canvas with as much information about the Manifest as is useful. For example,
 
 {% include api/code_header.html %}
@@ -140,9 +162,8 @@ It is important to maintain a link back to the Manifest for a given Canvas so cl
 }
 ```
 
-It is valid for a Canvas to have multiple painting Annotations. However, to leverage the most support from viewers this specification encourages using a single painting Annotation to place an Image on a Canvas. The Image within the Canvas and the Canvas itself _SHOULD_ have the same `height` and `width` values.
-
-"A single resource with multiple maps" -- this is the example below
+`[@BRYAN] turn into section? And add text to explain?`
+"A single resource with multiple maps, selected with multiple Georeference Annotations in a AnnotationPage"
 
 <table border="0">
   <tr>
@@ -163,15 +184,24 @@ It is valid for a Canvas to have multiple painting Annotations. However, to leve
   </tr>
 </table>
 
+
+`[@BRYAN] turn into section? And add text to explain?`
 "A Canvas with multiple painting Annotations (painting multiple maps onto the same Canvas)"
+
+It is valid for a Canvas to have multiple painting Annotations. However, to leverage the most support from viewers this specification encourages using a single painting Annotation to place an Image on a Canvas. The Image within the Canvas and the Canvas itself _SHOULD_ have the same `height` and `width` values.
 
 "The example will be a Canvas with multiple sheets of an atlas".
 "Geoereference the sheets combined or using multiple fragments"
 
+`[@BERT] optinally add example of Canvas with multiple map sheets of an atlas`
+
 ### 3.4 Georeferencing Annotation `body`
 
-The `body` of a Georeferencing Annotation contains geospatial information to apply to the resource noted in the `target` property. For the purposes of this extension the `body` contains the GCPs. The value for `body` _MUST_ be a GeoJSON Feature Collection. The Feature Collection _MUST_ only contain Features with [Point](https://www.rfc-editor.org/rfc/rfc7946#section-3.1.2) geometries _SHOULD_ contain at least three Point Features as prescribed by [Section 2.2](#22-georeferencing-process). `[@BERT] explain why three, and why _SHOULD_ not _MUST_`.
+The `body` of a Georeferencing Annotation contains geospatial information to apply to the resource noted in the `target` property. For the purposes of this extension the `body` contains the GCPs. The value for `body` _MUST_ be a GeoJSON Feature Collection. The Feature Collection _MUST_ only contain Features with [Point](https://www.rfc-editor.org/rfc/rfc7946#section-3.1.2) geometries _SHOULD_ contain at least three Point Features as prescribed by [Section 2.2](#22-georeferencing-process).
 
+All commonly used transformation algorithms (including the ones described below) that are used to warp images need at least three GCPs. Algorithms exist that only need 2 GCPs, but they require information about the coordinate reference system (CRS) of the georeferenced map. This specification does not support adding information about a map's CRS.
+
+Still, a Georeference Annotation that contains less than three GCPs is valid. These Annotations still hold geospatial information that can be used in geospatial databases or GIS tools. And allowing Annotations with less than three GCPs is useful for crowdsourding purposes: incomplete Annotations can be finished by someone else while the intermediary results are still valid according to this specification.
 
 ### 3.5 The `resourceCoords` Property
 
