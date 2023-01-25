@@ -92,7 +92,6 @@ This specification uses the following terms:
 
 * __Authorizing aspect__: the aspect of the request that a content provider uses to authorize a request for a content resource. This is often a cookie used as a credential, but can be another aspect of the request, such as the IP address.
 * __Access token__: a proxy for the authorizing aspect of the request. An access token can be seen by a IIIF client without revealing to the client what the authorizing aspect is.
- * __HTTP(S)__: the HTTP or HTTPS URI scheme and internet protocol.
 
 The terms _array_, _JSON object_, _number_, and _string_ in this document are to be interpreted as defined by the [Javascript Object Notation (JSON)][org-rfc-8259] specification.
 
@@ -105,17 +104,8 @@ The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _S
 All IIIF specifications share common features to ensure consistency across the IIIF ecosystem. These features are documented in the [Presentation API][prezi3-considerations] and are foundational to this specification. Common principles for the design of the specifications are documented in the [IIIF Design Principles][annex-patterns].
 
 
-### 1.3. Authorization Flow for Content Resources
-{: #authentication-for-content-resources}
 
-Content Resources, such as images or video, are generally secondary resources embedded in a web page or application. Content Resources may also be linked to and requested directly, such as a link to a PDF. In the case of web pages, images might be included via the HTML `<img />` tag, and loaded via additional HTTP requests made by the browser. When a user is not authorized to load a web page, the server can redirect the user to another page and offer the opportunity to authenticate. This redirection can't be used for embedded Content Resources, and the user is simply presented with a broken image icon. Even for externally linked Content Resources (e.g., a link to a PDF) the viewer application can produce a better user experience when it knows whether the user has access to the resource at the other end of the link.
-
-If an image, video or other Content Resource is access controlled, the browser must avoid broken images or media in the user interface by sending whatever credential the server is expecting that grants access to the Content Resource. Very often the credential is a cookie, but it may be some other __authorizing aspect__ (such as IP address). This specification describes the process by which the client application learns that the user has this valid __authorizing aspect__. Whether a cookie, IP address or some other mechanism, the client is never aware of what that __authorizing aspect__ is, the flow is the same.
-<!-- later on when we try to extend support for access-controlled IIIF Resources like manifests or search results that might be protected by JWTs or other bearer tokens, and URLs for video fragments from a media server that have custom tokens in path elements, we can broaden the idea that these are also non-cookie aspects of the request, and that some aspects of the request are available to our script and some are not. See https://github.com/IIIF/api/issues/2017#issuecomment-1216630022 -->
-
-### 1.4. Authorization Flow for IIIF API Resources
-{: #authentication-for-non-content-resources}
-
+<!-- 
 For some types of authorization, such as IP address range, the information required for the server to authorize the request is present in the requests the browser makes indirectly for Content Resources, and in the requests the client code makes directly for IIIF API Resources using `XMLHttpRequest` or `fetch`. This is not true for cross-domain requests that include credentials. A browser running JavaScript retrieved from one domain cannot load a resource from another domain and include that domain's cookies in the request, without violating the requirement introduced above that the client must work when _untrusted_. In both cases, the client sends an __access token__, technically a type of [bearer token][org-rfc-6570-1-2], to a __probe service__. This interaction is a proxy for the client sending a cookie (or other __authorizing aspect__) to the __content resource__. The client does not know what __authorizing aspect__ of the request the server is basing authorization decisions on, so always sends this token it has obtained from the token service, even when for some types of authorization the information is present in the direct request.
 
 This specification describes how, once the browser has been given the chance to acquire any required credentials such as a cookie, the client then acquires the access token to use when making direct requests to a __probe service__.
@@ -123,32 +113,53 @@ This specification describes how, once the browser has been given the chance to 
 The server on the Resource Domain treats the access token as a representation of, or proxy for, any credential that permits access to the Content Resources. When the client makes requests for a probe service and presents the access token, the responses tell the client what will happen when the browser requests the corresponding Content Resource (or makes image requests to the image service) with the credential the access token represents. These responses let the client decide what user interface and/or Content Resources to show to the user.
 
 Thus the access token often represents an access cookie, but may represent other __authorizing aspects__. The client does not know what the token represents.
-
-### 1.5. Security
-{: #security}
-
-The purpose of this specification is to support access-control for IIIF resources and hence security is a core concern. To prevent misuse, cookies and bearer tokens described in this specification need to be protected from disclosure in storage and in transport. Implementations _SHOULD_ use [HTTP over TLS][org-rfc-2818], commonly known as HTTPS, for all communication. Furthermore, all IIIF clients that interact with access-controlled resources _SHOULD_ also be run from pages served via HTTPS. All references to HTTP in this specification should be read assuming the use of HTTPS.
-
-This specification protects Content Resources such as images by making the access token value available to the script of the client application, for use in requesting a probe service. Knowledge of the access token is of no value to a malicious client, because (for example) the access _cookie_ (which the client cannot see) is the credential accepted for Content Resources. However, the interaction patterns introduced in this specification may in future versions be extended to support write operations on IIIF resources, for example creating annotations in an annotation server, or modifying the `structures` element in a Manifest. For these kinds of operations, the access token _could be_ the credential, and the flow introduced below may require one or more additional steps to establish trust between client and server. However, it is anticipated that these changes will be backwards compatible with version {{ page.major }}.{{ page.minor }}. <!-- This paragraph is the crucial extension point for e.g., an OAuth2 workflow for annotations -->
-
-Further discussion of security considerations can be found in the [Implementation Notes][auth2-implementation-notes].
-
+-->
 
 ## 2. Authorization Flow Services
 {: #authorization-flow-services}
 
-Authorization Flow services follow the pattern described in the IIIF [Linking to External Services][annex-services] note, and are referenced in one or more `service` blocks from the descriptions of the resources that are protected.
+This specification defines four services to support authorization flows:
 
-There is a primary service profile for authenticating users and granting access, and it has related services nested within its description.  The related services include a mandatory access token service, and an optional logout service.
+* The __access service__, blah...
+* The __token service__ from which the client obtains an access token. The client needs to present to the token service the same authorizing aspect that the browser will present to the corresponding content resource.
+* The __probe service__, an endpoint defined by this specification that the client uses to learn about the user's relationship to the access-controlled resource the probe service is for. An access-controlled Content Resource has a probe service. An [image information][image30-information] document (info.json) also has a probe service, if the image responses it produces are access-controlled.
+* The __logout service__, blah 
 
-The probe service is declared directly as a service on the resource: the probe service does not belong to any of the authentication services. There might be multiple authentication services for a resource (if there is more than one way to gain access) but only one probe service.
+
+
+The purpose of this specification is to support access-control for IIIF resources and hence security is a core concern. To prevent misuse, cookies and bearer tokens described in this specification need to be protected from disclosure in storage and in transport. Implementations _MUST_ use [HTTP over TLS][org-rfc-2818], commonly known as HTTPS, for all communication. Furthermore, all IIIF clients that interact with access-controlled resources _SHOULD_ also be run from pages served via HTTPS. All references to HTTP in this specification should be read assuming the use of HTTPS.
+
+This specification protects resources such as images by making the access token value available to the script of the client application, for use in requesting a probe service. Knowledge of the access token is of no value to a malicious client, because (for example) the access _cookie_ (which the client cannot see) is the credential accepted for Content Resources. 
 
 
 
- * The __token service__ from which the client obtains an access token. The client needs to present to the token service the same authorizing aspect that the browser will present to the corresponding content resource.
- * The __probe service__, an endpoint defined by this specification that the client uses to learn about the user's relationship to the resource the probe service is for. An access-controlled Content Resource has a probe service. An [image information][image30-information] document (info.json) also has a probe service, if the image responses it produces are access-controlled.
+### 2.1. Simple Authorization Flow
+{: #simple-authorization-flow}
 
-Clients obtain an __access token__ from a __token service__ and then send the __access token__ to a __probe service__.
+This section illustrates the use of these services in a successful authorization flow.
+
+A user wishes to see an access-controlled resource such as an image, video, PDF or image service tiles for deep zoom.
+The client sees from the Manifest or info.json that the resource has authorization flow services and determines that the user will have to authenticate.
+
+The client opens the content provider's login page in a new tab.
+The user logs in.
+The tab closes.
+The client detects that the tab has closed.
+The client requests an access token.
+The server gives the client an access token.
+The client sends the access token to the probe service.
+The probe service indicates that the request for the access-controlled resource would succeed.
+The client renders the access-controlled resource.
+Later, the user logs out.
+
+(to be FLESHED OUT later DIAGRAM HERE)
+
+
+
+
+
+
+
 
 
 <!--
@@ -161,15 +172,57 @@ https://github.com/IIIF/api/issues/1290#issuecomment-1107831915
 
 -->
 
-### 2.1. Probe Service
+### 2.2. Declaring Services
+{: declaring-services}
+
+Authorization flow services are declared in IIIF API resources using the `service` property, defined by the [Presentation API][prezi3-service] as an array of JSON objects. The probe service is declared in the `service` property of an access-controlled resource. The access service is declared in the `service` property of the probe service. The token and logout services are declared in the `service` property of the access service.
+
+<!-- These objects _MUST_ have the `id` and `type` properties. The value of the `id` property _MUST_ be the URI used to interact with the service. -->
+
+An example access-controlled resource with authorization flow services:
+
+{% include api/code_header.html %}
+```json
+{
+   "id": "https://authentication.example.org/my-video.mp4",
+   "type": "Video",
+   "service": [
+     {    
+       "id": "https://authentication.example.org/probe/my-video",
+       "type": "AuthProbeService2",
+       "service" : [
+        {
+          "id": "https://authentication.example.org/login",
+          "type": "AuthAccessService2",
+          "profile": "interactive",
+          "label": { "en": [ "Login to Example Institution" ] },
+          "service" : [
+            {
+              "id": "https://authentication.example.org/token",
+              "type": "AuthTokenService2"
+            },
+            {
+              "id": "https://authentication.example.org/logout",
+              "type": "AuthLogoutService2",
+              "label": { "en": [ "Logout from Example Institution" ] }
+            }
+          ]
+        }
+       ]
+      }
+   ]
+}
+```
+
+### 2.3. Probe Service
 
 The Probe Service is declared in the `service` property of a Content Resource or Image Information Document (info.json), and is used by the client to determine the user's access to the resource it is declared for, the _original resource_. For Content Resources such as audio, video, PDFs and other documents, this means the probe service is present in a IIIF Manifest or other IIIF API Resource. For image services, the Probe Service _MUST_ always be declared in the Image Information Document (info.json) and _MAY_ additionally be declared in the Manifest with the image service.
 
-#### 2.1.1. Probe Service Request
+#### 2.3.1. Probe Service Request
 
-...
 
-#### 2.1.1. Probe Service Response
+
+#### 2.3.1. Probe Service Response
 
 The JSON-LD response from the Probe Service can have the following properties, described in detail below.
 
@@ -214,7 +267,7 @@ The JSON-LD response from the Probe Service can have the following properties, d
 * The `location` property _MUST NOT_ be present if the `alternate` property is present.
 
 
-#### 2.1.1. Probe Service Examples
+#### 2.3.1. Probe Service Examples
 
 Consider a resource declared in a Manifest or other IIIF API Resource:
 
@@ -239,7 +292,7 @@ Consider a resource declared in a Manifest or other IIIF API Resource:
 * This probe service _MUST_ always return a JSON-LD response body to the client and this response _MUST_ always have an HTTP 200 status code. The response can take different forms:
 
 
-##### 2.1.1.2. Probe indicates success
+##### 2.3.1.2. Probe indicates success
 
 * The `status` property value is `200`, and the response JSON-LD does not include a `location` property. This indicates that based on the request sent, the server determines that the user will be able to see `https://authentication.example.org/my-video.mp4`:
 
@@ -252,7 +305,7 @@ Consider a resource declared in a Manifest or other IIIF API Resource:
 }
 ```
 
-##### 2.1.1.2. Probe provides an alternate resource
+##### 2.3.1.2. Probe provides an alternate resource
 
 * The `status` property value is `401`, and the response JSON-LD includes a `alternate` property. This indicates that the user cannot see `https://authentication.example.org/my-video.mp4`, but they can see the resource provided by `alternate`. This would give the user access to (for example) a degraded version of the resource immediately, and potentially allow them to go through a login process to access the full resource:
 
@@ -275,7 +328,7 @@ The resource in the `alternate` property _MUST_ have a different `id` from the r
 
 In the above example, the resource in the `alternate` property does not declare any services of its own, and clients can conclude that it is accessible to the user. The resource in the `alternate` property _MAY_ declare IIIF Authorization Flow services of its own, including a probe service. This pattern allows _tiered access_ to any depth. A client can keep following probe service `alternate` properties until it finds a resource without its own probe service, indicating that this resource is accessible to the user.
 
-##### 2.1.1.3 Probe indicates no access
+##### 2.3.1.3 Probe indicates no access
 
 * The `status` property value is `401`, and no `alternate` property is present, indicating that the user does not have access to the Content Resource the Probe Service was declared for, and no alternative is available:
 
@@ -290,7 +343,7 @@ In the above example, the resource in the `alternate` property does not declare 
 }
 ```
 
-##### 2.1.1.4 Probe provides a different resource location
+##### 2.3.1.4 Probe provides a different resource location
 
 * The `status` property value is `302`, and the response JSON-LD includes a `location` property. This indicates that the client has the __authorizing aspect__ required to see the content, but it _MUST_ request it using the provided `location` URL rather than the published URL:
 
@@ -313,7 +366,7 @@ The previous example potentially bypasses the intention of `location` as describ
 {: .alert}
 
 
-#### 2.1.2. IIIF Image Service with Probe Service
+#### 2.3.2. IIIF Image Service with Probe Service
 
 An Image Service may declare a probe service in exactly the same way as a Content Resource in a Manifest. The probe service is `for` the image service. This should be interpreted as `for` the image resources provided by the Image Service, rather than for the Image Information Document (info.json) that _describes_ the service, which is assumed not be access-controlled.
 
