@@ -1,3 +1,9 @@
+
+manifest : resource
+resource : probe
+probe : access
+
+
 one:one | one:one
 
 R1
@@ -18,6 +24,7 @@ R2
   P2
     A1
     A2
+
 
 one:one | many:one
 
