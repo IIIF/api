@@ -67,7 +67,7 @@ Providing interoperable access to restricted content through client applications
 Additionally, the IIIF community has the following goals for this specification:
 
 * A IIIF client should not accept credentials and authenticate the user itself and should have no access to this information.
-* The user cannot be redirected away from the client in order to authenticate. In order to maintain state, the client must be able to stay running while the user interacts with an access control system in another tab. 
+* The user cannot be redirected away from the client in order to authenticate. In order to maintain state, the client must be able to stay running while the user interacts with an access control system in another tab.
 * A registry of trusted IIIF client domains should not be required. Anyone should be able to create any kind of viewer and run it from anywhere.
 * Institutions should be able to work with their existing authentication systems without modifying them.
 * It should be possible to offer tiered access to alternate versions instead of simple all-or-nothing access. These alternate versions could be of lower quality based on resolution, watermarking, or compression.
@@ -85,7 +85,7 @@ In summary, this specification describes how to:
 
 This specification distinguishes between two types of resource:
 
-* __IIIF API resources__: the Manifests, Collections and other resources described by the IIIF [Presentation API][prezi-api], including external Annotation Pages, and the [image information][image30-information] document (info.json) provided by the [IIIF Image API][image-api]. These resources are typically loaded directly by JavaScript using the `fetch` API or `XMLHttpRequest` interface. 
+* __IIIF API resources__: the Manifests, Collections and other resources described by the IIIF [Presentation API][prezi-api], including external Annotation Pages, and the [image information][image30-information] document (info.json) provided by the [IIIF Image API][image-api]. These resources are typically loaded directly by JavaScript using the `fetch` API or `XMLHttpRequest` interface.
 * __Content resources__: images, videos, PDFs and other resources that are linked from IIIF Manifests, Annotation Pages and other IIIF API resources. This includes image responses (e.g., tiles for deep zoom) from the [IIIF Image API][image-api]. These resources are typically loaded indirectly via browser interpretation of HTML elements.
 
 This specification uses the following terms:
@@ -102,7 +102,7 @@ The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _S
 ### 1.2. Common Specification Features
 {: #common}
 
-All IIIF specifications share common features to ensure consistency across the IIIF ecosystem. These features are documented in the [Presentation API][prezi3-json-ld-considerations] and are foundational to this specification. Common principles for the design of the specifications are documented in the [IIIF Design Principles][annex-patterns].
+All IIIF specifications share common features to ensure consistency across the IIIF ecosystem. These features are documented in the [Presentation API][prezi3-considerations] and are foundational to this specification. Common principles for the design of the specifications are documented in the [IIIF Design Principles][annex-patterns].
 
 
 ### 1.3. Authorization Flow for Content Resources
@@ -143,8 +143,8 @@ There is a primary service profile for authenticating users and granting access,
 
 The probe service is declared directly as a service on the resource: the probe service does not belong to any of the authentication services. There might be multiple authentication services for a resource (if there is more than one way to gain access) but only one probe service.
 
- 
- 
+
+
  * The __token service__ from which the client obtains an access token. The client needs to present to the token service the same authorizing aspect that the browser will present to the corresponding content resource.
  * The __probe service__, an endpoint defined by this specification that the client uses to learn about the user's relationship to the resource the probe service is for. An access-controlled Content Resource has a probe service. An [image information][image30-information] document (info.json) also has a probe service, if the image responses it produces are access-controlled.
 
@@ -200,7 +200,7 @@ The JSON-LD response from the Probe Service can have the following properties, d
 #### alternate
 
 * If multiple alternate resources are available, clients _SHOULD_ allow the user to choose between them, using the `label` or other descriptive properties available on the resources.
-* An alternate resource may declare new IIIF Authorization Flow Services, including its own probe services, allowing for _tiered access_. If present, and no further IIIF Authorization Flow services are declared on it, this resource _MUST_ be accessible to the user who requested the probe service. 
+* An alternate resource may declare new IIIF Authorization Flow Services, including its own probe services, allowing for _tiered access_. If present, and no further IIIF Authorization Flow services are declared on it, this resource _MUST_ be accessible to the user who requested the probe service.
 * An alternate resource _MUST_ have a different URI from the original resource.
 * If the `status` value indicates success, or no alternative is available, this property _MUST NOT_ be included.
 * The `alternate` property _MUST NOT_ be present if the `location` property is present.
@@ -234,7 +234,7 @@ Consider a resource declared in a Manifest or other IIIF API Resource:
    ]
 }
 ```
-  
+
 * The client _MAY_ request the probe service without including an access token.
 * This probe service _MUST_ always return a JSON-LD response body to the client and this response _MUST_ always have an HTTP 200 status code. The response can take different forms:
 

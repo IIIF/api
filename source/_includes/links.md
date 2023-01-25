@@ -223,7 +223,6 @@
 [prezi21]: {{ site.api_url | absolute_url }}/presentation/2.1/ "IIIF Presentation API 2.1"
 [prezi3-considerations]: {{ site.api_url | absolute_url }}/presentation/3.{{ site.data.apis.presentation.latest.minor }}/#4-json-ld-considerations "Presentation API Section 4"
 [prezi3-html]: {{ site.api_url | absolute_url }}/presentation/3.{{ site.data.apis.presentation.latest.minor }}/#45-html-markup-in-property-values "Presentation API Section 4.4"
-[prezi3-json-ld-considerations] {{ site.api_url | absolute_url }}/presentation/{{site.data.apis.presentation.latest.major}}.{{ site.data.apis.presentation.latest.minor }}/#4-json-ld-considerations "JSON-LD Considerations"
 [prezi3-languages]: {{ site.api_url | absolute_url }}/presentation/{{site.data.apis.presentation.latest.major}}.{{ site.data.apis.presentation.latest.minor }}/#language-of-property-values "Language of Property Values"
 [prezi3-ldce]: {{ site.api_url | absolute_url }}/presentation/3.{{ site.data.apis.presentation.latest.minor }}/#linked-data-context-and-extensions "Linked Data Context and Extensions"
 [prezi3-provider]: {{ site.api_url | absolute_url }}/presentation/3.{{ site.data.apis.presentation.latest.minor }}/#provider
