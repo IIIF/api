@@ -380,43 +380,42 @@ An example service description for the `external` pattern:
 
 The access token service is called by the client to obtain an access token which it then sends to a probe service.
 
-The access token service is not called directly by client script in the way other IIIF API Resources are requested. It is essential that the access token service is presented with the same authorizing aspect that browser-initiated requests will present to the corresponding access-controlled resource. For this reason, the access token service URI is opened by setting the `src` property of an `<iframe />` HTML element, as described in Section 4.4. below.
+The access token service is not called directly by client script in the way other IIIF API Resources are requested. It is essential that the access token service is presented with the same authorizing aspect that browser-initiated requests will present to the corresponding access-controlled resource. For this reason, the access token service URI is opened by setting the `src` property of an `<iframe />` HTML element, as described in the [fix me](interaction-for-browser-based-client-applications) section.
 
 ### 4.1. Service Description
-{: #service-description-1}
+{: #access-token-service-description}
 
-The access service description _MUST_ include an access token service description following the template below:
+The access service description _MUST_ include an access token service description as shown below:
 
 {% include api/code_header.html %}
-``` json-doc
+``` json
 {
   // Access Service
-  "service" : {
-    "@context": "http://iiif.io/api/auth/{{ page.major }}/context.json",
-    "id": "https://authentication.example.org/login",
-    "type": "AuthAccessService2",
-    "profile": "interactive",
-    "label": { "en": [ "Login to Example Institution" ] },
+  "service" : [
+    {
+      "id": "https://authentication.example.org/login",
+      "type": "AuthAccessService2",
+      "profile": "interactive",
+      "label": { "en": [ "Login to Example Institution" ] },
 
-    // Access Token Service
-    "service": [
-      {
-        "id": "https://authentication.example.org/token",
-        "type": "AuthTokenService2"
-      }
-    ]
-  }
+      // Access Token Service
+      "service": [
+        {
+          "id": "https://authentication.example.org/token",
+          "type": "AuthTokenService2"
+        }
+      ]
+    }
+  ]
 }
 ```
 
-The `id` property of the access token service _MUST_ be present, and its value _MUST_ be the URI from which the client can obtain the access token. The `type` property _MUST_ be present and its value _MUST_ be `AuthTokenService2` to distinguish it from other services.
+The `id` property of the access token service _MUST_ be present, and its value _MUST_ be the URI from which the client can obtain the access token. The `type` property _MUST_ be present and its value _MUST_ be `AuthTokenService2`. There are no other properties for this service.
 
-There are no other properties for this service.
+### 4.2. Access Token Format
+{: #access-token-format}
 
-### 4.2. The Access Token Response
-{: #the-access-token-response}
-
-If the request satisfies the same demands that requests for Content Resources must meet (such as having a valid cookie that the server recognises as having been issued by the access service, or originating from a permitted IP Address range), the access token service response _MUST_ be a JSON-LD object with the following structure:
+If the request presents the required authorizing aspect, the access token service response _MUST_ be a JSON-LD object with the following structure:
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -428,19 +427,10 @@ If the request satisfies the same demands that requests for Content Resources mu
 }
 ```
 
-    "failureHeader": { "en": [ "Ooops!" ] },
-    "failureDescription": { "en": [ "Call Bob at ext. 1234 to reboot the cookie server" ] },
+* The `accessToken` property is _REQUIRED_, and its value is the access token to be sent to the probe service. 
+* The `expiresIn` property is _OPTIONAL_ and, if present, the value is the number of seconds in which the access token will cease to be valid.
 
-
-| `failureHeader` | _NOPE_ | _OPTIONAL_ | _NOPE_ | A short text that, if present, _MAY_ be shown to the user as a header after failing to receive a token, or using the token results in an error. |
-| `failureDescription` | _NOPE_ | _OPTIONAL_ | _NOPE_ | Text that, if present, _MAY_ be shown to the user after failing to receive a token, or using the token results in an error. |
-
-
-
-
-The `accessToken` property is _REQUIRED_, and its value is the access token to be passed back in future requests. The `expiresIn` property is _OPTIONAL_ and, if present, the value is the number of seconds in which the access token will cease to be valid.
-
-Once obtained, the access token _MUST_ be included with all future requests for __probe services__ by adding an `Authorization` request header, with the value `Bearer` followed by a space and the access token, such as:
+Once obtained, the access token _MUST_ be included with all future requests for probe services by adding an `Authorization` HTTP request header, with the value `Bearer` followed by a space and the access token, such as:
 
 ```
 Authorization: Bearer TOKEN_HERE
@@ -570,10 +560,11 @@ The response from the access token service may be an error. The error _MUST_ be 
   "@context": "http://iiif.io/api/auth/{{ page.major }}/context.json",
   "type": "AuthTokenError2",
   "profile": "ERROR_TYPE_HERE",
-  "header": { "en": [ "Error message header here" ] },
-  "description": { "en": [ "Error message description here" ] }
+  "header": { "en": [ "Oops!" ] },
+  "description": { "en": [ "Call Bob at ext. 1234 to refill the cookie jar" ] }
 }
 ```
+
 
 The error resource _MAY_ have an `id` property, but clients will likely ignore it.
 
