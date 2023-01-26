@@ -320,10 +320,11 @@ To support these user-facing interactions, the access service description for th
 | Property       | Required?     | Description |
 | -------------- | ------------- | ----------- |
 | `label`        | _REQUIRED_    | The name of the access service. |
-| `header`       | _RECOMMENDED_ | Text to show on the user interface element that contains the `description` and `confirmLabel`. |
-| `description`  | _RECOMMENDED_ | A longer description of the service, if required. |
-| `confirmLabel` | _RECOMMENDED_ | The label for the button or other element that opens the access service. |
+| `heading`      | _RECOMMENDED_ | Heading text to be shown with the user interface element that opens the access service. |
+| `note`         | _RECOMMENDED_ | Additional text to be shown with the user interface element that opens the access service. |
+| `confirmLabel` | _RECOMMENDED_ | The label for the user interface element that opens the access service. |
 {: .api-table}
+
 
 #### label
 
@@ -342,21 +343,21 @@ The text to be shown to the user on the button or element that triggers opening 
 { "confirmLabel": { "en": [ "Login" ] } }
 ```
 
-#### header
+#### heading
 
-A short text that, if present, _MUST_ be shown to the user as a header for the description, or alone if no description is given. The value of the property _MUST_ be a JSON object as described in the [Language of Property Values][prezi3-languages] section of the Presentation API. 
+Heading text to be shown with the user interface element that opens the access service. If present, it _MUST_ be shown to the user. The value of the property _MUST_ be a JSON object as described in the [Language of Property Values][prezi3-languages] section of the Presentation API. 
 
 ```json-doc
-{ "header": { "en": [ "Please Log In" ] } }
+{ "heading": { "en": [ "Please Log In" ] } }
 ```
 
 
-#### description
+#### note
 
-Text that, if present, _MUST_ be shown to the user before opening the access service. The value of the property _MUST_ be a JSON object as described in the [Language of Property Values][prezi3-languages] section of the Presentation API. 
+Additional text to be shown with the user interface element that opens the access service. If present, it _MUST_ be shown to the user. The value of the property _MUST_ be a JSON object as described in the [Language of Property Values][prezi3-languages] section of the Presentation API. 
 
 ```json-doc
-"{ description": { "en": [ "Example Institution requires that you log in with your example account to view this content." ] } 
+{ "note": { "en": [ "Example Institution requires that you log in with your example account to view this content." ] } 
 ```
 
 #### Complete Service Description
@@ -372,8 +373,8 @@ An example service description for the `interactive` interaction pattern:
     "type": "AuthAccessService2",
     "profile": "interactive",
     "label": { "en": [ "Login to Example Institution" ] },
-    "header": { "en": [ "Please Log In" ] },
-    "description": { "en": [ "Example Institution requires that you log in with your example account to view this content." ] },
+    "heading": { "en": [ "Please Log In" ] },
+    "note": { "en": [ "Example Institution requires that you log in with your example account to view this content." ] },
     "confirmLabel": { "en": [ "Login" ] },
     "service": [
       // Access token and Logout services ...
@@ -386,7 +387,7 @@ An example service description for the `interactive` interaction pattern:
 
 The interaction has the following steps:
 
-* If the `header` and/or `description` properties are present, before opening the access service URI, the client _SHOULD_ display the values of the properties to the user.  The properties will describe what is about to happen when they click the element with the `confirmLabel`.
+* If the `heading` and/or `note` properties are present, before opening the access service URI, the client _MUST_ display the values of the properties to the user. The properties will describe what is about to happen when they click the element with the `confirmLabel`.
 * When the `confirmLabel` element is activated, the client _MUST_ then open the URI from `id` with the added `origin` query parameter. This _MUST_ be done in a new window or tab to help prevent spoofing attacks. Browser security rules prevent the client from knowing what is happening in the new tab, therefore the client can only wait for and detect the closing of the opened tab.
 * After the opened tab is closed, the client _MUST_ then use the related access token service, as described below.
 
@@ -611,10 +612,19 @@ If the request presents the required authorizing aspect, the access token messag
 | Property       | Required?  | Description                                                                              |
 | -------------- | ---------- | ---------------------------------------------------------------------------------------- |
 | `@context`     | _REQUIRED_ | The URI of the context document, `http://iiif.io/api/auth/{{ page.major }}/context.json` |
-| `type`         | _REQUIRED_ | The value _MUST_ be the string `AuthAccessToken2`.                                             |
+| `type`         | _REQUIRED_ | The value _MUST_ be the string `AuthAccessToken2`.                                       |
 | `messageId`    | _REQUIRED_ | The message identifier supplied by the client.                                           |
 | `accessToken`  | _REQUIRED_ | The access token to be sent to the probe service.                                        |
 | `expiresIn`    | _OPTIONAL_ | The number of seconds until the token ceases to be valid.                                |
+
+
+#### messageId
+
+The `messageId` property _MUST_ be present, and the value _MUST_ be the value originally sent in the `messageId` query parameter when the token service was requested. The value _MUST_ be a string. Clients _MUST_ ignore messages with `messageId` values that they do not recognise. 
+
+```json-doc
+{ "messageId": "ae3415"}
+```
 
 #### accessToken
 
@@ -642,10 +652,6 @@ The `expiresIn` property _MAY_ be present. Its value _MUST_ be a positive intege
 { "expiresIn": 300 }
 ```
 
-#### messageId
-
-The `messageId` property _MUST_ be present, and the value _MUST_ be the value originally sent in the `messageId` query parameter when the token service was requested. The value _MUST_ be a string. Clients _MUST_ ignore messages with `messageId` values that they do not recognise. 
-
 #### Example Access Token Message Body
 
 {% include api/code_header.html %}
@@ -660,24 +666,21 @@ The `messageId` property _MUST_ be present, and the value _MUST_ be the value or
 ```
 
 
-### 4.5. Access Token Error Conditions
-{: #access-token-error-conditions}
+### 4.5. Access Token Error Format
+{: #access-token-error-format}
 
-The response from the access token service may be an error. The error _MUST_ be supplied as a JSON-LD resource of type `AuthTokenError2`, as in the following template. For browser-based clients using the postMessage API, the error object must be sent to the client via JavaScript, in the same way the access token is sent. For direct requests the response body is JSON.
+If the request does not present the required authorizing aspect, the access token message returned via postMessage _MUST_ be a JSON-LD object with the following properties:
 
-{% include api/code_header.html %}
-``` json-doc
-{
-  "@context": "http://iiif.io/api/auth/{{ page.major }}/context.json",
-  "type": "AuthTokenError2",
-  "profile": "ERROR_TYPE_HERE",
-  "header": { "en": [ "Oops!" ] },
-  "description": { "en": [ "Call Bob at ext. 1234 to refill the cookie jar" ] }
-}
-```
+| Property    | Required?     | Description                                                                              |
+| ----------- | ------------- | ---------------------------------------------------------------------------------------- |
+| `@context`  | _REQUIRED_    | The URI of the context document, `http://iiif.io/api/auth/{{ page.major }}/context.json` |
+| `type`      | _REQUIRED_    | The value _MUST_ be the string `AuthAccessTokenError2`.                                  | 
+| `profile`   | _REQUIRED_    | The specific type of error.                                                              |
+| `messageId` | _REQUIRED_    | The message identifier supplied by the client.                                           |
+| `heading`   | _RECOMMENDED_ | Heading text to render with the user interface element that conveys the error.           |
+| `note`      | _RECOMMENDED_ | Additional text to render with the user interface element that conveys the error.        |   
 
-
-The error resource _MAY_ have an `id` property, but clients will likely ignore it.
+#### profile
 
 The value of the `profile` property _MUST_ be one of the types in the following table:  
 
@@ -691,7 +694,42 @@ The value of the `profile` property _MUST_ be one of the types in the following 
 | `unavailable`        | The request could not be fulfilled for reasons other than those listed above, such as scheduled maintenance. |
 {: .api-table}
 
-The `description` property is _OPTIONAL_ and may give additional human-readable information about the error. The value of the `description` property is a JSON-LD Language Map conforming to the section [Language of Property Values][prezi3-languages] in the Presentation API.
+
+#### messageId
+
+The `messageId` property _MUST_ be present, and the value _MUST_ be the value originally sent in the `messageId` query parameter when the token service was requested. The value _MUST_ be a string. Clients _MUST_ ignore messages with `messageId` values that they do not recognise. 
+
+
+#### heading
+
+Heading text to render with the user interface element that conveys the error. If present, it _MUST_ be shown to the user. The value of the property _MUST_ be a JSON object as described in the [Language of Property Values][prezi3-languages] section of the Presentation API. 
+
+
+#### note
+
+Additional text to render with the user interface element that conveys the error. If present, it _MUST_ be shown to the user. The value of the property _MUST_ be a JSON object as described in the [Language of Property Values][prezi3-languages] section of the Presentation API. 
+
+
+#### Example Access Token Error Response
+
+{% include api/code_header.html %}
+``` json-doc
+{
+  "@context": "http://iiif.io/api/auth/{{ page.major }}/context.json",
+  "type": "AuthAccessTokenError2",
+  "profile": "ERROR_TYPE_HERE",
+  "heading": { "en": [ "Oops!" ] },
+  "note": { "en": [ "Call Bob at ext. 1234 to refill the cookie jar" ] },
+  "messageId": "ae3415"
+}
+```
+
+
+The error resource _MAY_ have an `id` property, but clients will likely ignore it.
+
+
+
+The `note` property is _OPTIONAL_ and may give additional human-readable information about the error. The value of the `note` property is a JSON-LD Language Map conforming to the section [Language of Property Values][prezi3-languages] in the Presentation API.
 
 When returning JSON directly, the service _MUST_ use the appropriate HTTP status code for the response to describe the error (for example 400, 401 or 503).  The postMessage web page response _MUST_ use the 200 HTTP status code to ensure that the body is received by the client correctly.
 
@@ -731,8 +769,8 @@ The JSON-LD response from the Probe Service can have the following properties, d
 | `status`      | _REQUIRED_ | The HTTP status code that would be returned for the resource for which this is a Probe Service.  |
 | `alternate`   | _OPTIONAL_ | A reference to one or more alternate resources, such as watermarked or otherwise degraded versions. |
 | `location`    | _OPTIONAL_ | A resource to use rather than the `id` |
-| `header`      | _OPTIONAL_ | Header text for the error UI |
-| `description` | _OPTIONAL_ | Block text for the error UI |
+| `heading`      | _OPTIONAL_ | heading text for the error UI |
+| `note` | _OPTIONAL_ | Block text for the error UI |
 
 | Property     | Required?   | Description |
 | ------------ | ----------- | ----------- |
@@ -817,8 +855,8 @@ Consider a resource declared in a Manifest or other IIIF API Resource:
       "id": "https://auth.example.org/my-video-lo-res.mp4",
       "type": "Video"
     },
-    "header":  { "en": [ "You can't see this" ] },
-    "description": { "en": [ "But try the alternate" ] }
+    "heading":  { "en": [ "You can't see this" ] },
+    "note": { "en": [ "But try the alternate" ] }
 }
 ```
 
@@ -836,8 +874,8 @@ In the above example, the resource in the `alternate` property does not declare 
     "id": "https://auth.example.org/my-video.mp4/probe",
     "type": "AuthProbeService2",
     "status": 401,
-    "header":  { "en": [ "You can't see this" ] },
-    "description": { "en": [ "Sorry" ] }
+    "heading":  { "en": [ "You can't see this" ] },
+    "note": { "en": [ "Sorry" ] }
 }
 ```
 
