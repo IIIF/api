@@ -150,7 +150,7 @@ There are some limitations to the type of SVG Selectors you can use:
 - When a `rect` element is used, the `rx` and `ry` attributes _MUST NOT_ be used.
 - The [`transform`](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/transform) attribute _MUST NOT_ be used on any of the SVG Selector's elements.
 
-More Specific Resource examples can be found in the [examples directory provided with this document](/api/extension/georef/examples/3).
+More Specific Resource examples can be found in the [examples directory provided with this document](/api/georef/examples/3).
 
 #### 3.3.3 More Complex Variants
 
