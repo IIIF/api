@@ -86,7 +86,7 @@ In summary, this specification describes how to:
 This specification distinguishes between two types of resource:
 
 * __IIIF API resources__: the Manifests, Collections and other resources described by the IIIF [Presentation API][prezi-api], including external Annotation Pages, and the [image information][image30-information] document (info.json) provided by the [IIIF Image API][image-api]. These resources are typically loaded directly by JavaScript using the `fetch` API or `XMLHttpRequest` interface.
-* __Content resources__: images, videos, PDFs and other resources that are linked from IIIF Manifests, Annotation Pages and other IIIF API resources. This includes image responses (e.g., tiles for deep zoom) from the [IIIF Image API][image-api]. These resources are typically loaded indirectly via browser interpretation of HTML elements.
+* __Access-controlled resources__: images, videos, PDFs and other resources that are linked from IIIF Manifests, Annotation Pages and other IIIF API resources. This includes image responses (e.g., tiles for deep zoom) from the [IIIF Image API][image-api]. These resources are typically loaded indirectly via browser interpretation of HTML elements.
 
 This specification uses the following terms:
 
@@ -134,6 +134,9 @@ This specification protects resources such as images by making the access token 
 {: declaring-services}
 
 Authorization flow services are declared in IIIF API resources using the `service` property, defined by the [Presentation API][prezi3-service] as an array of JSON objects. The probe service is declared in the `service` property of an access-controlled resource. The access service is declared in the `service` property of the probe service. The token and logout services are declared in the `service` property of the access service.
+
+For content resources such as audio, video, PDFs and other documents, the probe service is present in a IIIF Manifest or other IIIF API Resource. For IIIF Image API services, the probe service _MUST_ be declared in the Image Information Document (info.json) and _MAY_ additionally be declared in the Manifest with the image service.
+
 
 <!-- These objects _MUST_ have the `id` and `type` properties. The value of the `id` property _MUST_ be the URI used to interact with the service. -->
 
@@ -473,7 +476,32 @@ The access token service URI is opened by setting the `src` property of an `<ifr
 ### 4.1. Service Description
 {: #access-token-service-description}
 
-The access token service _MUST_ be included in the `services` property of the access service it is associated with, and the client uses that access token service after the user interacts with the parent access service.
+The access token service _MUST_ be included in the `service` property of the access service it is associated with, and the client uses that access token service after the user interacts with the parent access service. It has the following properties:
+
+| Property       | Required?  | Description |
+| -------------- | ---------- | ----------- |
+| `id`           | _see description_ | The URI of the access token service. |
+| `type`         | _REQUIRED_ | The value _MUST_ be the string `AuthAccessTokenService2`. |
+| `errorHeading` | _OPTIONAL_ | Default heading text to render if an error occurs. |
+| `errorNote`    | _OPTIONAL_ | Default additional text to render if an error occurs. |
+
+#### id
+
+The URI of the access token service that the client opens in a frame. The `id` property _MUST_ be present. The value _MUST_ be a string containing the HTTPS URI of the service. 
+
+#### type
+
+The type of the service. The `type` property _MUST_ be present in the JSON, and the value _MUST_ be the string `AuthTokenService2`.
+
+#### errorHeading
+
+Default heading text to render if an error occurs. If the access token service returns an error object (see link), the `heading` property of the error object _MUST_ be used instead if supplied.
+
+#### errorNote
+
+Default additional text to render if an error occurs. If the access token service returns an error object (see link), the `note` property of the error object _MUST_ be used instead if supplied. If present, `errorHeading` _MUST_ also be present.
+
+#### Example Service Description
 
 {% include api/code_header.html %}
 ``` json
@@ -497,7 +525,9 @@ The access token service _MUST_ be included in the `services` property of the ac
             "service": [
               {
                 "id": "https://auth.example.org/token",
-                "type": "AuthTokenService2"
+                "type": "AuthTokenService2",
+                "errorHeading": { "en": [ "Something went wrong" ] },
+                "errorNote": { "en": [ "Could not get a token." ] },
               }
             ]
           }
@@ -507,24 +537,6 @@ The access token service _MUST_ be included in the `services` property of the ac
   } 
 }
 ```
-
-
-#### id
-
-The URI of the access token service that the client opens in a frame. The `id` property _MUST_ be present. The value _MUST_ be a string containing the HTTPS URI of the service. 
-
-```json-doc
-{ "id": "https://auth.example.org/token" }
-```
-
-#### type
-
-The type of the service. The `type` property _MUST_ be present in the JSON, and the value _MUST_ be the string `AuthTokenService2`.
-
-```json-doc
-{ "type": "AuthTokenService2" }
-``` 
-
 
 ### 4.2. Access Token Service Request
 {: #access-token-service-request}
@@ -578,9 +590,10 @@ document.getElementById('messageFrame').src =
 
 ### 4.3. Access Token Service Response
 
-When the server receives a request for the access token service, it _MUST_ respond with an HTML web page. The web page _MUST_ contain a script that sends a message to the opening page using the postMessage API. The message body will be a JSON object that either provides an access token or describes an error condition. These are specified in sections foo and bar respectively.
+When the server receives a request for the access token service, it _MUST_ respond with an HTML web page. The web page _MUST_ contain a script that sends a message to the opening page using the postMessage API. The message body will be a JSON object that either provides an access token or describes an error condition. These are specified in sections foo and bar respectively. The postMessage web page response _MUST_ use the 200 HTTP status code to ensure that the body is received by the client correctly.
 
 The server _MAY_ use the `origin` provided in the request for further authorization logic, even though the user is already authenticated. If the client sends an incorrect `origin` value, it will not receive the posted message, as the postMessage API will not dispatch the event. The `targetOrigin` parameter of the `postMessage()` function call _MUST_ be the same `origin` value.
+
 
 Example access token response:
 
@@ -677,37 +690,34 @@ If the request does not present the required authorizing aspect, the access toke
 | `type`      | _REQUIRED_    | The value _MUST_ be the string `AuthAccessTokenError2`.                                  | 
 | `profile`   | _REQUIRED_    | The specific type of error.                                                              |
 | `messageId` | _REQUIRED_    | The message identifier supplied by the client.                                           |
-| `heading`   | _RECOMMENDED_ | Heading text to render with the user interface element that conveys the error.           |
-| `note`      | _RECOMMENDED_ | Additional text to render with the user interface element that conveys the error.        |   
+| `heading`   | _OPTIONAL_    | Heading text to render with the user interface element that conveys the error.           |
+| `note`      | _OPTIONAL_    | Additional text to render with the user interface element that conveys the error.        |   
 
 #### profile
 
-The value of the `profile` property _MUST_ be one of the types in the following table:  
+The `profile` property classifies the error and _MUST_ have one of the values in the following table:
 
-| Type | Description |
-| ---- | ----------- |
-| `invalidRequest`     | The service could not process the information sent in the body of the request. |
-| `missingCredentials` | The request did not have the credentials required. |
-| `invalidCredentials` | The request had credentials that are not valid for the service. |
-| `expiredCredentials` | The request had credentials that are no longer valid for the service. |
-| `invalidOrigin`      | The request came from a different origin than that specified in the access service request, or an origin that the server rejects for other reasons. |
-| `unavailable`        | The request could not be fulfilled for reasons other than those listed above, such as scheduled maintenance. |
+| Value            | Description |
+| ---------------- | ----------- |
+| `invalidRequest` | The service could not process the access token request. |
+| `invalidOrigin`  | The request came from a different origin than that specified in the access service request, or an origin that the server rejects for other reasons. |
+| `missingAspect`  | The access token request did not have the required authorizing aspect.  |
+| `invalidAspect`  | The access token request had the aspect used for authorization but it was not valid. |
+| `expiredAspect`  | The request had credentials that are no longer valid for the service.   |
+| `unavailable`    | The request could not be fulfilled for reasons other than those listed above, such as scheduled maintenance. |
 {: .api-table}
-
 
 #### messageId
 
 The `messageId` property _MUST_ be present, and the value _MUST_ be the value originally sent in the `messageId` query parameter when the token service was requested. The value _MUST_ be a string. Clients _MUST_ ignore messages with `messageId` values that they do not recognise. 
 
-
 #### heading
 
-Heading text to render with the user interface element that conveys the error. If present, it _MUST_ be shown to the user. The value of the property _MUST_ be a JSON object as described in the [Language of Property Values][prezi3-languages] section of the Presentation API. 
-
+Heading text to render with the user interface element that conveys the error. If present, it _SHOULD_ be shown to the user if the client can't recover from the error without user interaction. The value of the property _MUST_ be a JSON object as described in the [Language of Property Values][prezi3-languages] section of the Presentation API. 
 
 #### note
 
-Additional text to render with the user interface element that conveys the error. If present, it _MUST_ be shown to the user. The value of the property _MUST_ be a JSON object as described in the [Language of Property Values][prezi3-languages] section of the Presentation API. 
+Additional human-readable information about the error to render with the user interface element that conveys the error. If present, it _SHOULD_ be shown to the user if the client can't recover from the error without user interaction. The value of the property _MUST_ be a JSON object as described in the [Language of Property Values][prezi3-languages] section of the Presentation API. If present, `heading` _MUST_ also be present.
 
 
 #### Example Access Token Error Response
@@ -717,34 +727,45 @@ Additional text to render with the user interface element that conveys the error
 {
   "@context": "http://iiif.io/api/auth/{{ page.major }}/context.json",
   "type": "AuthAccessTokenError2",
-  "profile": "ERROR_TYPE_HERE",
-  "heading": { "en": [ "Oops!" ] },
+  "profile": "missingAspect",
+  "heading": { "en": [ "Unauthorized" ] },
   "note": { "en": [ "Call Bob at ext. 1234 to refill the cookie jar" ] },
   "messageId": "ae3415"
 }
 ```
 
-
-The error resource _MAY_ have an `id` property, but clients will likely ignore it.
-
-
-
-The `note` property is _OPTIONAL_ and may give additional human-readable information about the error. The value of the `note` property is a JSON-LD Language Map conforming to the section [Language of Property Values][prezi3-languages] in the Presentation API.
-
-When returning JSON directly, the service _MUST_ use the appropriate HTTP status code for the response to describe the error (for example 400, 401 or 503).  The postMessage web page response _MUST_ use the 200 HTTP status code to ensure that the body is received by the client correctly.
-
-If the error profile is `expiredCredentials`, the client _SHOULD_ first try to acquire another token from the token service, before sending the user to the login service again. The client _MAY_ also do this for `invalidCredentials`.
-
-
-
-
-
-
 ## 5. Probe Service
 
-The Probe Service is declared in the `service` property of a content resource or Image Information Document (info.json), and is used by the client to determine the user's access to the access-controlled resource. For Content Resources such as audio, video, PDFs and other documents, this means the probe service is present in a IIIF Manifest or other IIIF API Resource. For image services, the Probe Service _MUST_ always be declared in the Image Information Document (info.json) and _MAY_ additionally be declared in the Manifest with the image service.
+The probe service is used by the client to determine the user's access to the access-controlled resource. 
+
+### 5.1. Probe Service Description
+
+| Property       | Required?  | Description |
+| -------------- | ---------- | ----------- |
+| `id`           | _REQUIRED_ | The URI of the probe service. |
+| `type`         | _REQUIRED_ | The value _MUST_ be the string `AuthProbeService2`. |
+| `errorHeading` | _OPTIONAL_ | Default heading text to render if the probe indicates the user cannot access the resource. |
+| `errorNote`    | _OPTIONAL_ | Default additional text to render if the probe indicates the user cannot access the resource. |
+
+#### id
+
+The URI of the probe service. The `id` property _MUST_ be present. The value _MUST_ be a string containing the HTTPS URI of the service. 
+
+#### type
+
+The type of the service. The `type` property _MUST_ be present in the JSON, and the value _MUST_ be the string `AuthProbeService2`.
+
+#### errorHeading
+
+Default heading text to render if the probe indicates the user cannot access the resource. If the probe response `status` property indicates access would not be granted, the `heading` property of the probe response _MUST_ be used instead if supplied.
+
+#### errorNote
+
+Default additional text to render if the probe indicates the user cannot access the resource. If the probe response `status` property indicates access would not be granted, the `note` property of the probe response _MUST_ be used instead if supplied. If present, `errorHeading` _MUST_ also be present.
+
 
 ### 5.1. Probe Service Request
+
 
 If the client has an access token acquired from a token service declared on the access service declared on the probe service, send it to that probe service 
 
@@ -768,17 +789,9 @@ The JSON-LD response from the Probe Service can have the following properties, d
 | `type`        | _REQUIRED_ | The type of the service, `AuthProbeService2` |
 | `status`      | _REQUIRED_ | The HTTP status code that would be returned for the resource for which this is a Probe Service.  |
 | `alternate`   | _OPTIONAL_ | A reference to one or more alternate resources, such as watermarked or otherwise degraded versions. |
-| `location`    | _OPTIONAL_ | A resource to use rather than the `id` |
+| `location`   | _OPTIONAL_  | If present, the client should request this resource instead of the the resource the probe service was declared for. |
 | `heading`      | _OPTIONAL_ | heading text for the error UI |
 | `note` | _OPTIONAL_ | Block text for the error UI |
-
-| Property     | Required?   | Description |
-| ------------ | ----------- | ----------- |
-| `id`         | _REQUIRED_  |             |
-| `type`       | _REQUIRED_  | `AuthProbeService2`            |
-| `status`     | _REQUIRED_  | An integer that represents the HTTP status code that would be returned for the resource for which this is a probe service.           |
-| `alternate`  | _OPTIONAL_  | A reference to one or more alternate resources, such as watermarked or otherwise degraded versions.  |
-| `location`   | _OPTIONAL_  | If present, the client should request this resource instead of the the resource the probe service was declared for. |
 {: .api-table .first-col-normal }
 
 #### status
@@ -1193,6 +1206,11 @@ If the token service and Content Resources will depend on some other authorizing
 If the client informs the access service that it is on the same domain, via the `origin` parameter, then the Access Service tab _MAY_ be closed without user interaction on that domain. For example, the initial login step in a multi-step single sign-on. If the domain of the content resources is the same as the client, it's not going to have third party cookie issues so could bounce immediately to the single sign on provider.
 
 ### B. Token Response for non-browser client
+
+
+
+When returning JSON directly, the service _MUST_ use the appropriate HTTP status code for the response to describe the error (for example 400, 401 or 503).
+
 
 (explain how invoked, extra param)
 
