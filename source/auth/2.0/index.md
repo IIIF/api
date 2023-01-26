@@ -142,25 +142,25 @@ An example access-controlled resource with authorization flow services:
 {% include api/code_header.html %}
 ```json
 {
-   "id": "https://authentication.example.org/my-video.mp4",
+   "id": "https://auth.example.org/my-video.mp4",
    "type": "Video",
    "service": [
      {    
-       "id": "https://authentication.example.org/probe/my-video",
+       "id": "https://auth.example.org/probe/my-video",
        "type": "AuthProbeService2",
        "service" : [
         {
-          "id": "https://authentication.example.org/login",
+          "id": "https://auth.example.org/login",
           "type": "AuthAccessService2",
           "profile": "interactive",
           "label": { "en": [ "Login to Example Institution" ] },
           "service" : [
             {
-              "id": "https://authentication.example.org/token",
+              "id": "https://auth.example.org/token",
               "type": "AuthTokenService2"
             },
             {
-              "id": "https://authentication.example.org/logout",
+              "id": "https://auth.example.org/logout",
               "type": "AuthLogoutService2",
               "label": { "en": [ "Logout from Example Institution" ] }
             }
@@ -206,6 +206,7 @@ Later, the user logs out.
 ## 3. Access Service
 {: #access-service}
 
+<!-- simplify and move details below? --->
 The access service either grants the authorizing aspect, or determines whether the user already has that aspect. The client obtains the link to an access service from a service description in a probe service, then opens that URI in a new browser tab. The user interacts with the access service in the opened tab while the client waits until it detects that the opened tab has closed. The client then continues with the authorization flow to determine whether the authorizing aspect is present.
 
 The client has no knowledge of the user's interactions in the opened tab, such as any cookies set, or redirects that happened. The final response in the opened tab _SHOULD_ contain JavaScript that will attempt to close the tab, in order to trigger the next step in the workflow.
@@ -218,25 +219,68 @@ There are three different interaction patterns based on the user interface that 
 ### 3.1. Service Description
 {: #service-description}
 
+The service description is included in the IIIF API Resource and has the following technical properties:
+
+| Property    | Required?  | Description |
+| ----------- | ---------- | ----------- |
+| `id`        | _see description_ | The URI of the access service. |
+| `type`      | _REQUIRED_ | The value _MUST_ be the string `AuthAccessService2`. |
+| `profile`   | _REQUIRED_ | The profile for the service _MUST_ be one of the profile values from the table above.|
+| `service`   | _REQUIRED_ | References to access token and other related services, described below.|
+
+#### id
+
+The URI of the access service that the client opens in a new tab. The `id` property _MUST_ be present if the `profile` property is `interactive` or `kiosk`.  The value _MUST_ be a string containing the HTTPS URI of the service. 
+
+If the profile property is `external`, the `id` property _SHOULD NOT_ be present, and any value _MUST_ be ignored.
+
+```json-doc
+{ "id": "https://auth.example.org/login" }
+```
+
+#### type
+
+The type of the service. The `type` property _MUST_ be present in the JSON, and the value _MUST_ be the string `AuthAccessService2`.
+
+```json-doc
+{ "type": "AuthAccessService2" }
+``` 
+
+#### profile
+
 There are three interaction patterns by which the client can use the access service, each identified by a different value of the `profile` property. These patterns are described in more detail in the following sections.
 
 |`profile` value | Description |
 |----------- | ----------- |
 |`interactive` | The user will be required to visit the user interface of an external authentication system. |
 |`kiosk` | The user will not be required to interact with an authentication system, the client is expected to use the access service automatically. |
-|`external` | The user is expected to have already acquired the authorizing aspect, and the access service will not be used. |
+|`external` | The user is expected to have already acquired the authorizing aspect, and no access service will be used. |
 {: .api-table .first-col-normal }
 
-The service description is included in the IIIF API Resource and has the following technical properties:
-
-| Property     | Required?   | Description |
-| ------------ | ----------- | ----------- |
-| `id`        | _see description_ | It is _REQUIRED_ with the Interactive and Kiosk patterns, in which the client opens the URI in order to obtain an access cookie or other credential. It is _OPTIONAL_ with the External pattern, as the user is expected to have obtained a credential by other means and any value provided is ignored. |
-| `type`      | _REQUIRED_    | The value _MUST_ be the string `AuthAccessService2` |
-| `profile`   | _REQUIRED_    | The profile for the service _MUST_ be one of the profile values from the table above.|
-| `service`    | _REQUIRED_    | References to access token and other related services, described below.|
-
 The `interactive` profile requires additional properties in the service description, defined in section xxx below.
+
+```json-doc
+{ "profile": "interactive" }
+``` 
+
+#### service
+
+The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id` and `type` properties. The `service` array _MUST_ contain exactly one access token service (TODO:link) and _MAY_ contain a logout service (TODO:link).
+
+
+```json-doc
+"service" : [
+  {
+    "id": "https://auth.example.org/token",
+    "type": "AuthTokenService2"
+  },
+  {
+    "id": "https://auth.example.org/logout",
+    "type": "AuthLogoutService2",
+    "label": { "en": [ "Logout from Example Institution" ] }
+  }
+]
+```
 
 ### 3.2. Client Interaction with Access Services
 {: #interaction-with-the-access-service}
@@ -248,18 +292,18 @@ The client _MUST_ append the following query parameter to all requests to an acc
 | `origin`  | A string containing the origin of the page in the window, consisting of a protocol, hostname and optionally port number, as described in the [postMessage API][org-mozilla-postmessage] specification.  |
 {: .api-table}
 
-For example, given an access service URI of `https://authentication.example.org/login`, a client instantiated by the page `https://client.example.com/viewer/index.html` would make its request to:
+For example, given an access service URI of `https://auth.example.org/login`, a client instantiated by the page `https://client.example.com/viewer/index.html` would make its request to:
 
 {% include api/code_header.html %}
 ```
-https://authentication.example.org/login?origin=https://client.example.com/
+https://auth.example.org/login?origin=https://client.example.com/
 ```
 
 The server _MAY_ use this information to validate the origin supplied in subsequent requests to the access token service.
 
 ### 3.3. Interaction Patterns
 
-Intro here 
+There are three distinct interaction patterns, identified by the `profile` property. These enable different styles of user, client and server interaction.
 
 #### 3.3.1 Interactive Pattern
 {: #interactive-interaction-pattern}
@@ -270,17 +314,52 @@ This pattern requires the user to interact in the opened tab. Typical scenarios 
 * The user interface presents a usage agreement, or a content advisory notice, or some other form of clickthrough interaction in which credentials are not required, but deliberate confirmation of terms is required, to set an access cookie.
 * The access service stores the result of a user interaction in browser local storage, which is later available to the token service.
 
-To support these user-facing interactions, the access service description for the `interactive` profile includes the following additional descriptive properties, all of which are JSON objects conforming to the section [Language of Property Values][prezi3-languages] in the Presentation API. 
+To support these user-facing interactions, the access service description for the `interactive` profile includes the following additional descriptive properties for constructing a user interface in the client: 
 
 
-| Property     | Required?  |  Description |
-| ------------ | ----------- | ----------- |
-| `label`      | _REQUIRED_    | The text to be shown to the user to initiate the loading of the authentication service when there are multiple services required. The value _MUST_ include the domain or institution to which the user is authenticating. |
-| `confirmLabel` | _RECOMMENDED_ | The text to be shown to the user on the button or element that triggers opening of the access service. If not present, the client supplies text appropriate to the interaction pattern if needed. |
-| `header`    | _RECOMMENDED_ | A short text that, if present, _MUST_ be shown to the user as a header for the description, or alone if no description is given. |
-| `description` | _RECOMMENDED_ | Text that, if present, _MUST_ be shown to the user before opening the access service. |
+| Property       | Required?     | Description |
+| -------------- | ------------- | ----------- |
+| `label`        | _REQUIRED_    | The name of the access service. |
+| `header`       | _RECOMMENDED_ | Text to show on the user interface element that contains the `description` and `confirmLabel`. |
+| `description`  | _RECOMMENDED_ | A longer description of the service, if required. |
+| `confirmLabel` | _RECOMMENDED_ | The label for the button or other element that opens the access service. |
 {: .api-table}
 
+#### label
+
+The text to be shown to the user to initiate the loading of the access service. The value _MUST_ clearly indicate the domain or institution to which the user is authenticating. The value of the property _MUST_ be a JSON object as described in the [Language of Property Values][prezi3-languages] section of the Presentation API. 
+
+```json-doc
+{ "label": { "en": [ "Login to Example Institution" ] } }
+```
+
+#### confirmLabel
+
+The text to be shown to the user on the button or element that triggers opening of the access service. If not present, the client supplies text appropriate to the interaction pattern if needed. The value of the property _MUST_ be a JSON object as described in the [Language of Property Values][prezi3-languages] section of the Presentation API. 
+
+
+```json-doc
+{ "confirmLabel": { "en": [ "Login" ] } }
+```
+
+#### header
+
+A short text that, if present, _MUST_ be shown to the user as a header for the description, or alone if no description is given. The value of the property _MUST_ be a JSON object as described in the [Language of Property Values][prezi3-languages] section of the Presentation API. 
+
+```json-doc
+{ "header": { "en": [ "Please Log In" ] } }
+```
+
+
+#### description
+
+Text that, if present, _MUST_ be shown to the user before opening the access service. The value of the property _MUST_ be a JSON object as described in the [Language of Property Values][prezi3-languages] section of the Presentation API. 
+
+```json-doc
+"{ description": { "en": [ "Example Institution requires that you log in with your example account to view this content." ] } 
+```
+
+#### Complete Service Description
 
 An example service description for the `interactive` interaction pattern:
 
@@ -289,7 +368,7 @@ An example service description for the `interactive` interaction pattern:
 {
   // ...
   "service" : {
-    "id": "https://authentication.example.org/login",
+    "id": "https://auth.example.org/login",
     "type": "AuthAccessService2",
     "profile": "interactive",
     "label": { "en": [ "Login to Example Institution" ] },
@@ -303,6 +382,8 @@ An example service description for the `interactive` interaction pattern:
 }
 ```
 
+##### 3.3.1.1. Interactive Pattern Interaction
+
 The interaction has the following steps:
 
 * If the `header` and/or `description` properties are present, before opening the access service URI, the client _SHOULD_ display the values of the properties to the user.  The properties will describe what is about to happen when they click the element with the `confirmLabel`.
@@ -314,6 +395,8 @@ At the time of writing, browsers will only send cookies to third party domains w
 
 #### 3.3.2. Kiosk Pattern
 {: #kiosk-interaction-pattern}
+
+This pattern requires no user interaction in the opened tab. This pattern supports exhibitions, in-gallery interactives and other IIIF user experiences on managed devices that are configured in advance. 
 
 For the `kiosk` pattern the interaction has the following steps:
 
@@ -334,7 +417,7 @@ An example service description for the `kiosk` pattern:
 {
   // ...
   "service" : {
-    "id": "https://authentication.example.org/cookiebaker",
+    "id": "https://auth.example.org/cookiebaker",
     "type": "AuthAccessService2",
     "profile": "kiosk",
     "service": {
@@ -347,7 +430,11 @@ An example service description for the `kiosk` pattern:
 #### 3.3.3. External Pattern
 {: #external-interaction-pattern}
 
-For the `external` pattern, the user is assumed to have already acquired the authorizing aspect that the token service and access-controlled resources are expecting. This may be a cookie acquired out-of-band in a separate interaction, such as a normal login outside the scope of this specification. This pattern is also suitable for authorization that is based on ambient aspects of the request, such as a user's IP address. 
+This pattern involves no user interaction with an access service. Typical scenarios are:
+
+* Clients are authorized by ambient aspects of the request such as IP address or user-agent.
+* Avoiding displaying unnecessary login prompts to users who are already logged in some out-of-band interaction such as a normal login outside the scope of this specification.
+* This pattern can be used instead of the kiosk pattern when the managed devices have an ambient authorizing aspect of the request (e.g., a particular IP range for in-gallery devices).
 
 The interaction has the following steps:
 
@@ -378,39 +465,65 @@ An example service description for the `external` pattern:
 ## 4. Access Token Service
 {: #access-token-service}
 
-The access token service is called by the client to obtain an access token which it then sends to a probe service.
+The access token service is used by the client to obtain an access token, which it then sends to a probe service.
 
-The access token service is not called directly by client script in the way other IIIF API Resources are requested. It is essential that the access token service is presented with the same authorizing aspect that browser-initiated requests will present to the corresponding access-controlled resource. For this reason, the access token service URI is opened by setting the `src` property of an `<iframe />` HTML element, as described in the [fix me](interaction-for-browser-based-client-applications) section.
+The access token service URI is opened by setting the `src` property of an `<iframe />` HTML element and waiting for a message from that frame, as described in the [fix me](interaction-for-browser-based-client-applications) section. This approach is necessary because the access token service needs to be presented with the same authorizing aspect that browser-initiated requests will present to the corresponding access-controlled resource.
 
 ### 4.1. Service Description
 {: #access-token-service-description}
 
-The access service description _MUST_ include an access token service description as shown below:
+The access token service _MUST_ be included in the `services` property of the access service it is associated with, and the client uses that access token service after the user interacts with the parent access service.
 
 {% include api/code_header.html %}
 ``` json
 {
-  // Access Service
-  "service" : [
-    {
-      "id": "https://authentication.example.org/login",
-      "type": "AuthAccessService2",
-      "profile": "interactive",
-      "label": { "en": [ "Login to Example Institution" ] },
+  // Probe Service
+  {
+    "id": "https://auth.example.org/probe",
+    "type": "AuthProbeService2",
+    "service": [
+      {
+        // Access Service
+        "service" : [
+          {
+            "id": "https://auth.example.org/login",
+            "type": "AuthAccessService2",
+            "profile": "interactive",
+            "label": { "en": [ "Login to Example Institution" ] },
+            // ... other recommended strings for user interface
 
-      // Access Token Service
-      "service": [
-        {
-          "id": "https://authentication.example.org/token",
-          "type": "AuthTokenService2"
-        }
-      ]
-    }
-  ]
+            // Access Token Service
+            "service": [
+              {
+                "id": "https://auth.example.org/token",
+                "type": "AuthTokenService2"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  } 
 }
 ```
 
-The `id` property of the access token service _MUST_ be present, and its value _MUST_ be the URI from which the client can obtain the access token. The `type` property _MUST_ be present and its value _MUST_ be `AuthTokenService2`. There are no other properties for this service.
+
+#### id
+
+The URI of the access token service that the client opens in a frame. The `id` property _MUST_ be present. The value _MUST_ be a string containing the HTTPS URI of the service. 
+
+```json-doc
+{ "id": "https://auth.example.org/token" }
+```
+
+#### type
+
+The type of the service. The `type` property _MUST_ be present in the JSON, and the value _MUST_ be the string `AuthTokenService2`.
+
+```json-doc
+{ "type": "AuthTokenService2" }
+``` 
+
 
 ### 4.2. Access Token Format
 {: #access-token-format}
@@ -428,57 +541,27 @@ If the request presents the required authorizing aspect, the access token servic
 ```
 
 * The `accessToken` property is _REQUIRED_, and its value is the access token to be sent to the probe service. 
-* The `expiresIn` property is _OPTIONAL_ and, if present, the value is the number of seconds in which the access token will cease to be valid.
+* The `expiresIn` property is _OPTIONAL_ and, if present, the value is the number of seconds until the token ceases to be valid.
 
-Once obtained, the access token _MUST_ be included with all future requests for probe services by adding an `Authorization` HTTP request header, with the value `Bearer` followed by a space and the access token, such as:
+Once obtained, the access token _MUST_ be included with all future requests for the parent probe service by adding an `Authorization` HTTP request header, with the value `Bearer` followed by a space and the access token, such as:
 
 ```
 Authorization: Bearer TOKEN_HERE
 ```
 
-This authorization header _SHOULD_ be added to all requests for resources from the same domain and subdomains that have a reference to the service, regardless of which API is being interacted with. It _MUST NOT_ be sent to other domains.
+The access token _MUST NOT_ be sent anywhere else. Access tokens _SHOULD_ have limited lifetimes, whether the `expiresIn` property is provided or not.
 
-<!-- Put a properties table in here...
+__Warning__<br/>
+Any client can see this access token. The access token must not contain any sensitive information. It should be an opaque string different from any cookie value or other credential. For example, using an access cookie value as the access token value would allow an attacker to construct a cookie with the same content as the token and gain access to resources. 
+{: .alert}
 
-(need an explanation) Do not put anything in an access token.
 
--->
-<!-- need to be clearer about choosing which probes to send which tokens to -->
-
-### 4.3. Interaction for Non-Browser Client Applications
-{: #interaction-for-non-browser-client-applications}
-
-The simplest access token request comes from a non-browser client that can send cookies across domains, where CORS and third-party cookie restrictions do not apply. An example URI:
-
-{% include api/code_header.html %}
-```
-https://authentication.example.org/token
-```
-{: .urltemplate}
-
-Would result in the HTTP Request:
-
-{% include api/code_header.html %}
-```
-GET /token HTTP/1.1
-Cookie: <cookie-acquired-during-login>
-```
-{: .urltemplate}
-
-The response is the JSON access token object with the media type `application/json`:
-
-{% include api/code_header.html %}
-``` json-doc
-{
-  "accessToken": "TOKEN_HERE",
-  "expiresIn": 3600
-}
-```
-
-### 4.4. Interaction for Browser-Based Client Applications
+### 4.3. Interaction for Browser-Based Client Applications
 {: #interaction-for-browser-based-client-applications}
 
-If the client is a JavaScript application running in a web browser, it needs to make a request for the access token and store the result. The client can't use `XMLHttpRequest` or `fetch` because it can't include any access cookie in a cross-domain request. Such `fetch` requests do not have the same security context as requests made by (for example) the browser interpreting `src` attributes on image tags. Instead, the client _MUST_ open the access token service in a frame using an `iframe` element and be ready to receive a message posted by script in that frame using the [postMessage API][org-mozilla-postmessage]. To trigger this behavior, the client _MUST_ append the following query parameters to the access token service URI, and open this new URI in the frame.
+If the client is a JavaScript application running in a web browser, it needs to make a request for the access token and store the result. The client can't use `XMLHttpRequest` or `fetch` because it can't include any access cookie in a cross-domain request. Such `fetch` requests do not have the same security context as requests made by the browser interpreting `src` attributes on HTML media elements. Instead, the client _MUST_ open the access token service in a frame using an `<iframe />` element and be ready to receive a message posted by a script in that frame using the [postMessage API][org-mozilla-postmessage]. 
+
+To trigger this behavior, the client _MUST_ append the following query parameters to the access token service URI, and open this new URI in the frame:
 
 | Parameter   | Description |
 | ----------- | ----------- |
@@ -490,7 +573,7 @@ For example, a client instantiated by the page at `https://client.example.com/vi
 
 {% include api/code_header.html %}
 ```
-https://authentication.example.org/token?messageId=1&origin=https://client.example.com/
+https://auth.example.org/token?messageId=1&origin=https://client.example.com/
 ```
 
 When the server receives a request for the access token service with the `messageId` parameter, it _MUST_ respond with an HTML web page rather than JSON. The web page _MUST_ contain script that sends a message to the opening page using the postMessage API. The message body is the JSON access token object, with the value of the supplied `messageId` as an extra property, as shown in the examples in the next section.  
@@ -523,7 +606,7 @@ It can then open the access token service in a frame:
 {% include api/code_header.html %}
 ``` javascript
 document.getElementById('messageFrame').src =
-  'https://authentication.example.org/token?messageId=1234&origin=https://client.example.com/';
+  'https://auth.example.org/token?messageId=1234&origin=https://client.example.com/';
 ```
 
 The server response will then be a web page with a media type of `text/html` that can post a message to the registered listener:
@@ -548,6 +631,37 @@ The server response will then be a web page with a media type of `text/html` tha
 
 
 
+
+
+### 4.4. Interaction for Non-Browser Client Applications
+{: #interaction-for-non-browser-client-applications}
+
+The simplest access token request comes from a non-browser client that can send cookies across domains, where CORS and third-party cookie restrictions do not apply. An example URI:
+
+{% include api/code_header.html %}
+```
+https://auth.example.org/token
+```
+{: .urltemplate}
+
+Would result in the HTTP Request:
+
+{% include api/code_header.html %}
+```
+GET /token HTTP/1.1
+Cookie: <cookie-acquired-during-login>
+```
+{: .urltemplate}
+
+The response is the JSON access token object with the media type `application/json`:
+
+{% include api/code_header.html %}
+``` json-doc
+{
+  "accessToken": "TOKEN_HERE",
+  "expiresIn": 3600
+}
+```
 
 ### 4.5. Access Token Error Conditions
 {: #access-token-error-conditions}
@@ -660,12 +774,12 @@ Consider a resource declared in a Manifest or other IIIF API Resource:
 
 ```json
 {
-   "id": "https://authentication.example.org/my-video.mp4",
+   "id": "https://auth.example.org/my-video.mp4",
    "type": "Video",
    "format": "video/mp4",
    "service": [
      {    
-       "id": "https://authentication.example.org/my-video.mp4/probe",
+       "id": "https://auth.example.org/my-video.mp4/probe",
        "type": "AuthProbeService2"
      },
      {
@@ -681,12 +795,12 @@ Consider a resource declared in a Manifest or other IIIF API Resource:
 
 ##### 5.3.1. Probe indicates success
 
-* The `status` property value is `200`, and the response JSON-LD does not include a `location` property. This indicates that based on the request sent, the server determines that the user will be able to see `https://authentication.example.org/my-video.mp4`:
+* The `status` property value is `200`, and the response JSON-LD does not include a `location` property. This indicates that based on the request sent, the server determines that the user will be able to see `https://auth.example.org/my-video.mp4`:
 
 ```json
 {
     "@context": "http://iiif.io/api/auth/{{ page.major }}/context.json",
-    "id": "https://authentication.example.org/my-video.mp4/probe",
+    "id": "https://auth.example.org/my-video.mp4/probe",
     "type": "AuthProbeService2",
     "status": 200
 }
@@ -694,16 +808,16 @@ Consider a resource declared in a Manifest or other IIIF API Resource:
 
 ##### 5.3.2 Probe provides an alternate resource
 
-* The `status` property value is `401`, and the response JSON-LD includes a `alternate` property. This indicates that the user cannot see `https://authentication.example.org/my-video.mp4`, but they can see the resource provided by `alternate`. This would give the user access to (for example) a degraded version of the resource immediately, and potentially allow them to go through a login process to access the full resource:
+* The `status` property value is `401`, and the response JSON-LD includes a `alternate` property. This indicates that the user cannot see `https://auth.example.org/my-video.mp4`, but they can see the resource provided by `alternate`. This would give the user access to (for example) a degraded version of the resource immediately, and potentially allow them to go through a login process to access the full resource:
 
 ```json
 {
     "@context": "http://iiif.io/api/auth/{{ page.major }}/context.json",
-    "id": "https://authentication.example.org/my-video.mp4/probe",
+    "id": "https://auth.example.org/my-video.mp4/probe",
     "type": "AuthProbeService2",
     "status": 401,
     "alternate": {
-      "id": "https://authentication.example.org/my-video-lo-res.mp4",
+      "id": "https://auth.example.org/my-video-lo-res.mp4",
       "type": "Video"
     },
     "header":  { "en": [ "You can't see this" ] },
@@ -722,7 +836,7 @@ In the above example, the resource in the `alternate` property does not declare 
 ```json
 {
     "@context": "http://iiif.io/api/auth/{{ page.major }}/context.json",
-    "id": "https://authentication.example.org/my-video.mp4/probe",
+    "id": "https://auth.example.org/my-video.mp4/probe",
     "type": "AuthProbeService2",
     "status": 401,
     "header":  { "en": [ "You can't see this" ] },
@@ -737,11 +851,11 @@ In the above example, the resource in the `alternate` property does not declare 
  ```json
 {
     "@context": "http://iiif.io/api/auth/{{ page.major }}/context.json",
-    "id": "https://authentication.example.org/my-HLS-video.m3u8/probe",
+    "id": "https://auth.example.org/my-HLS-video.m3u8/probe",
     "type": "AuthProbeService2",
     "status": 302,
     "location": {
-      "id": "https://authentication.example.org/1232123432123/my-HLS-video.m3u8",
+      "id": "https://auth.example.org/1232123432123/my-HLS-video.m3u8",
       "type": "Video"
     }
 }
@@ -768,7 +882,7 @@ An Image Service may declare a probe service in exactly the same way as a Conten
   "type": "ImageService3",
   "service": [
      {    
-       "id": "https://authentication.example.org/probes/image-service/abcd123454",
+       "id": "https://auth.example.org/probes/image-service/abcd123454",
        "type": "AuthProbeService2"
      },
      {
@@ -828,17 +942,17 @@ If the authentication system supports users intentionally logging out, there _SH
   // ...
   "service" : {
     "@context": "http://iiif.io/api/auth/{{ page.major }}/context.json",
-    "id": "https://authentication.example.org/login",
+    "id": "https://auth.example.org/login",
     "type": "AuthAccessService2",
     "profile": "interactive",
     "label": { "en": [ "Login to Example Institution" ] },
     "service" : [
       {
-        "id": "https://authentication.example.org/token",
+        "id": "https://auth.example.org/token",
         "type": "AuthTokenService2"
       },
       {
-        "id": "https://authentication.example.org/logout",
+        "id": "https://auth.example.org/logout",
         "type": "AuthLogoutService2",
         "label": { "en": [ "Logout from Example Institution" ] }
       }
@@ -887,21 +1001,21 @@ The example below is a complete image information response for an example image 
   "profile" : "level2",
   "service" : [
     {
-        "id": "https://authentication.example.org/probe-for-image1",
+        "id": "https://auth.example.org/probe-for-image1",
         "type": "AuthProbeService2"
     },
     {
-        "id": "https://authentication.example.org/login",
+        "id": "https://auth.example.org/login",
         "type": "AuthAccessService2",
         "profile": "interactive",
         "label": { "en": [ "Login to Example Institution" ] },
         "service" : [
         {
-            "id": "https://authentication.example.org/token",
+            "id": "https://auth.example.org/token",
             "type": "AuthTokenService2"
         },
         {
-            "id": "https://authentication.example.org/logout",
+            "id": "https://auth.example.org/logout",
             "type": "AuthLogoutService2",
             "label": { "en": [ "Logout from Example Institution" ] }
         }
@@ -929,26 +1043,26 @@ The Manifest must include the Auth context.
   // rest of Manifest
 
         {
-          "id": "https://authentication.example.org/my-video.mp4",
+          "id": "https://auth.example.org/my-video.mp4",
           "type": "Video",
           "format": "video/mp4",
           "service": [
             {    
-              "id": "https://authentication.example.org/my-video.mp4/probe",
+              "id": "https://auth.example.org/my-video.mp4/probe",
               "type": "AuthProbeService2"
             },
             {
-              "id": "https://authentication.example.org/login",
+              "id": "https://auth.example.org/login",
               "type": "AuthAccessService2",
               "profile": "interactive",
               "label": { "en": [ "Login to Example Institution" ] },
               "service" : [
                 {
-                  "id": "https://authentication.example.org/token",
+                  "id": "https://auth.example.org/token",
                   "type": "AuthTokenService2"
                 },
                 {
-                  "id": "https://authentication.example.org/logout",
+                  "id": "https://auth.example.org/logout",
                   "type": "AuthLogoutService2",
                   "label": { "en": [ "Logout from Example Institution" ] }
                 }
