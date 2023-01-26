@@ -82,13 +82,13 @@ Web Annotations can contain all of the required information mentioned in Section
 
 To supply a resource with georeferecing information, implementers _MUST_ add at least one Annotation Page to the `annotations` property. Implementers have the option to reference or embed those Annotation Pages. For the purposes of this extension, implementers _SHOULD_ embed the Annotation Pages in the `annotations` property as opposed to referencing them.
 
-Georeferencing Annotations can exist independent of the resource they target and in such cases the resource is often only referenced via its URI in the Georeference Annotation's `target` property. For the purposes of this extension, implementers _SHOULD_ embed the Canvas or Image Service within the Georeference Annotation instead of referencing it.
+Georeference Annotations can exist independent of the resource they target and in such cases the resource is often only referenced via its URI in the Georeference Annotation's `target` property. For the purposes of this extension, implementers _SHOULD_ embed the Canvas or Image Service within the Georeference Annotation instead of referencing it.
 
 Embedding resources reduces the need to make HTTP calls and increases the reliability of the included resources. Sometimes URIs do not resolve and in those cases it will not be possible to display or use those resources in georeferencing scenarios. Embedding the resources ensures each resource is available for georeferencing algorithms and viewers and ensures the metadata about the resource, such as height and width, remains consistent.
 
 ### 3.2 Georeference Annotation `motivation`
 
-The `motivation` property is used by Georeferencing Annotations to understand the reason why the Annotation was created. The `motivation` property _SHOULD_ be included on all Georeferencing Annotations and when included its value _MUST_ be `georeferencing`.
+The `motivation` property is used by Georeference Annotations to understand the reason why the Annotation was created. The `motivation` property _SHOULD_ be included on all Georeference Annotations and when included its value _MUST_ be `georeferencing`.
 
 Note that the linked data context provided with this document includes the formal linked data 1.1 motivation extension, and the vocabulary provided with this document contains the formal vocabulary for the "georeferencing" motivation discussed above.
 
@@ -493,7 +493,7 @@ GCP-based image georeferencing is a common task that's available in many GIS app
 - [QGIS](https://docs.qgis.org/3.22/en/docs/user_manual/working_with_raster/georeferencer.html)
 - [Map Warper](https://github.com/timwaters/mapwarper)
 
-Note that none of the tools listed above currently support georeferencing IIIF resources using Georeferencing Annotations.
+Note that none of the tools listed above currently support georeferencing IIIF resources using Georeference Annotations.
 
 ### A. Acknowledgements
 
