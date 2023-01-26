@@ -164,7 +164,7 @@ It is valid for a Canvas to have multiple painting Annotations. However, to leve
 
 It is valid for a Canvas to have multiple Annotation Pages within `annotations`, and it is valid that those Annotation Pages have a mix of Georeference Annotations and other Annotations.  However, to leverage the most support from viewers this specification encourages putting all Georeference Annotations in one Annotation Page. Then, multiple Georeference Annotations can target different areas of interest of that Image by targeting different areas of the Canvas.
 
-`[@BERT] need to make a final decision about this scenario.`  It is also valid for an Annotation to have multiple targets where each target is some part of the resource it is embedded in. However, to leverage the most support from viewers this specification encourages using multiple Georeference Annotations with the same target instead of one Georeference Annotation with multiple targets.  
+`[@BERT] need to make a final decision about this scenario.`  It is also valid for an Annotation to have multiple targets where each target is some part of the resource it is embedded in. However, to leverage the most support from viewers this specification encourages using multiple Georeference Annotations with the same target resource instead of one Georeference Annotation with multiple targets where each target selects a fragment of the same resource.
 
 An example where a single painted Image has multiple discrete maps:
 <table border="0">
