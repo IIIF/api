@@ -9,7 +9,7 @@ minor: 1
 patch: 1
 pre: final
 redirect_from:
-  /presentation/2.1/change-log-211.html
+ - /presentation/2.1/change-log-211.html
 ---
 
 This document is a companion to the [IIIF Presentation API Specification, Version 2.1.1][prezi21]. It describes the editorial changes to the API specification made in this patch release, such as clarifications and typo corrections. It also describes corrections to related documents that are not [semantically versioned][notes-versioning], such as example resources and resources to manage transformation to and from the JSON-LD serialization.

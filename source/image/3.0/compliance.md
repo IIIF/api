@@ -9,8 +9,8 @@ patch: 0
 pre: final
 cssversion: 3
 redirect_from:
-  /image/compliance.html
-  /image/3/compliance.html
+ - /image/compliance.html
+ - /image/3/compliance.html
 ---
 
 ## Status of this Document

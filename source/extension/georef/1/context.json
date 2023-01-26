@@ -67,7 +67,7 @@
           "@id": "iiif_prezi:metadataEntries",
           "@container": "@list"
         },
-        "pixelCoords": {
+        "resourceCoords": {
           "@id": "proto:pixel_coords",
           "@container": "@list",
           "@type": "xsd:float"

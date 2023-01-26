@@ -1,5 +1,5 @@
 ---
-title: Georeferencing Extension
+title: Georeference Extension
 layout: spec
 tags: [extension, georef]
 cssversion: 2
@@ -19,18 +19,18 @@ The [IIIF Presentation API](https://iiif.io/api/presentation/3.0/) has the capab
 
 ### 1.1 Objectives and Scope
 
-This document will supply vocabulary and a linked data 1.1 context allowing for a JSON-LD pattern by which to extend Web Annotation and the IIIF Presentation API to support georeferening.
+This document will supply vocabulary and a linked data 1.1 context allowing for a JSON-LD pattern by which to extend Web Annotation and the IIIF Presentation API to support georeferencing.
 
 We will adopt the [existing GeoJSON specification](https://datatracker.ietf.org/doc/html/rfc7946) for its linked data vocabulary and context for geographic coordinates. This means coordinates are expressed through the [WGS84](http://www.w3.org/2003/01/geo/wgs84_pos) coordinate reference system. As such, expressing the location of extraterrestrial entities is not supported by this technique.
 
 ### 1.2 Motivating Use Cases
 
-A georeference extension for IIIF resources will enable the following use cases:
+A georeferencing extension for IIIF resources will enable the following use cases:
 
 - Overlay IIIF image resources on a geographic map by rotating and stretching it. This transforming an image to make it fit on a map is also called _warping_.
 - Stitching multiple images of map sheets together to form a single map.
 - Georeference data can also be used to compute the exact geospatial area depicted on an image. This will enable geospatial indexing of IIIF resources and enabling them to be found by geospatial search engines.
-- A georeferenced IIIF resource can be converted to a variaty of GIS formats, like GeoTIFF, GeoJSON and XYZ map tiles.
+- A georeferenced IIIF resource can be converted to a variety of GIS formats, like GeoTIFF, GeoJSON and XYZ map tiles.
 
 Situations which are not in scope include:
 
@@ -52,73 +52,121 @@ The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _S
 ## 2. Georeferencing IIIF Resources
 
 ### 2.1 Georeferencing
-[Georeferencing](https://en.wikipedia.org/wiki/Georeferencing) is the process of mapping internal coordinates of a resource to geographic coordinates. For the purposes of this extension, the resource is a IIIF [Canvas](https://iiif.io/api/presentation/3.0/#53-canvas) or [Image Service](https://iiif.io/api/presentation/3.0/#service) that contains one or more carthographic projections such as plans, maps and aerial photographs.
+[Georeferencing](https://en.wikipedia.org/wiki/Georeferencing) is the process of mapping internal coordinates of a resource to geographic coordinates. For the purposes of this extension, references to "resource" equates to a IIIF [Canvas](https://iiif.io/api/presentation/3.0/#53-canvas) or [Image Service](https://iiif.io/api/presentation/3.0/#service) that contains one or more maps. Support extends to other resources with geographic depictions, such as aerial photographs, archaeological drawings, or building plans.
 
-`[@BERT, @JULES, @BRYAN]` is "carthographic projection" a good word? Maybe confusing, projection also is used in "WGS84 projection" for example. Calling it "map" may also be confusing, because you overlay the "image" on the "map". We are trying to separate the "image of the earth" from the "cartographic system" giving it the ability to use coordinates.
 
 ### 2.2 Georeferencing Process
 
 The process of georeferencing consists of the following steps:
 
-1. A pointer to a IIIF Canvas or Image Service, or a part of it. When a resource depicts multiple carthographic projections (such as inset maps) or when the resource contains non-cartographic parts (such as legends or borders), a pixel mask can be used to select the portion of the resource that belongs to a single carthographic projection. The shape of such a pixel mask can vary from a simple rectangle to a more complex polygon.
+1. A pointer to a IIIF Canvas or Image Service, or a part of it. When a resource depicts multiple cartographic projections (such as inset maps) or when the resource contains non-cartographic parts (such as legends or borders), a mask can be used to select the portion of the resource that belongs to a single cartographic projection. The shape of such a mask can vary from a simple rectangle to a more complex polygon.
 2. A mapping between the pixel coordinates of the IIIF resource and geographic WGS84 coordinates. This mapping consists of pairs of pixel coordinates and geographic coordinates. Each pair of coordinates is called a Ground Control Point (GCP). At least three GCPs are needed to enable clients to overlay a georeferenced IIIF resource on a map.
-3. Optionally, a transformation algorithm can be defined that tells clients what algorithm _SHOULD_ be used to turn the discrete set of GCPs into a function that can transform any of the IIIF resource pixel coordinates to geographic coordinates, and vice versa.
+3. Optionally, a transformation algorithm can be defined that tells clients what algorithm should be used to turn the discrete set of GCPs into a function that can transform any of the IIIF resource pixel coordinates to geographic coordinates, and vice versa.
 
-### 2.3 Required Data for Georeferencing
+### 2.3 Critical Data for Georeferencing
 
 The following encoding is used to store the data needed by the steps above:
 
 | Required data            | Encoding                                                       |
 |--------------------------|---------------------------------------------------------------------|
-| Resource and pixel mask  | IIIF Presentation API Canvas or Image API Image Service with an optional [SVG Selector](https://www.w3.org/TR/annotation-model/#svg-selector) or [Image API Selector](https://iiif.io/api/annex/openannotation/#iiif-image-api-selector) to specify a pixel mask |
-| GCPs                     | A GeoJSON Feature Collection where each GCP is stored as a GeoJSON Feature with a Point geometry and a `pixelCoords` property in the Feature's `properties` object |
+| Resource and mask  | IIIF Presentation API Canvas or Image API Image Service with an optional [SVG Selector](https://www.w3.org/TR/annotation-model/#svg-selector) or [Image API Selector](https://iiif.io/api/annex/openannotation/#iiif-image-api-selector) to specify a mask |
+| GCPs                     | A GeoJSON Feature Collection where each GCP is stored as a GeoJSON Feature with a Point geometry and a `resourceCoords` property in the Feature's `properties` object |
 | Transformation algorithm | A `transformation` property defined on the GeoJSON Feature Collection that holds the GCPs |
 {: .api-table #table-required-data}
 
 ## 3. Web Annotations for Georeferencing
 
-Web Annotations can contain all of the required information mentioned in Section 2 and when they do we will refer to them as a "Georef Annotation". We will describe how each piece of the Georef Annotation is used and what its job is, followed by a full example.
+Web Annotations can contain all of the required information mentioned in Section 2 and when they do we will refer to them as a "Georeference Annotation". We will describe how each piece of the Georeference Annotation is used and what its job is, followed by a full example.
 
 ### 3.1 Embedded vs. Referenced Targets and Resources
 
-To supply a resource with georeferecing information, implmenters _MUST_ add at least one Annotation Page to the `annotations` property. Implementers have the option to reference or embed those Annotation Pages. For the purposes of this extension, implementers _SHOULD_ embed the Annotation Pages in the `annotations` property as opposed to referencing them.
+To supply a resource with georeferecing information, implementers _MUST_ add at least one Annotation Page to the `annotations` property. Implementers have the option to reference or embed those Annotation Pages. For the purposes of this extension, implementers _SHOULD_ embed the Annotation Pages in the `annotations` property as opposed to referencing them.
 
-Georef Annotations can exist independent of the resource they target and in such cases the resource is often only referenced via its URI in the Georef Annotation's `target` property. For the purposes of this extension, implmenters _SHOULD_ embed the Canvas or Image Service within the Georef Annotation instead of referencing it.
+Georeferencing Annotations can exist independent of the resource they target and in such cases the resource is often only referenced via its URI in the Georeference Annotation's `target` property. For the purposes of this extension, implementers _SHOULD_ embed the Canvas or Image Service within the Georeference Annotation instead of referencing it.
 
 Embedding resources reduces the need to make HTTP calls and increases the reliability of the included resources. Sometimes URIs do not resolve and in those cases it will not be possible to display or use those resources in georeferencing scenarios. Embedding the resources ensures each resource is available for georeferencing algorithms and viewers and ensures the metadata about the resource, such as height and width, remains consistent.
 
-### 3.2 Georef Annotation `motivation`
+### 3.2 Georeference Annotation `motivation`
 
-The `motivation` property is used by Georef Annotations to understand the reason why the Annotation was created. The `motivation` property _SHOULD_ be included on all Georef Annotations and when included its value _MUST_ be `georeferencing`.
+The `motivation` property is used by Georeferencing Annotations to understand the reason why the Annotation was created. The `motivation` property _SHOULD_ be included on all Georeferencing Annotations and when included its value _MUST_ be `georeferencing`.
 
 Note that the linked data context provided with this document includes the formal linked data 1.1 motivation extension, and the vocabulary provided with this document contains the formal vocabulary for the "georeferencing" motivation discussed above.
 
-### 3.3 Georef Annotation `target`
+### 3.3 Georeference Annotation `target`
 
-The Georef Annotation `target` is the resource to supply the `body` information to. In our case, the `target` _SHOULD_ be an IIIF Canvas or Image Service. Viewers processing this information require the original height and width of the resources in order to have the proper aspect ratios. Implementers _SHOULD_ supply this information with their embedded resources.
+The Georeference Annotation `target` is the resource to supply the `body` information to. The value for `target` _MUST_ either be a single full IIIF Canvas or Image Service, or a single area of interest within a IIIF Canvas or Image Service represented as a [Specific Resource](https://www.w3.org/TR/annotation-model/#specific-resources). Viewers processing the georeferencing information require the original height and width of the resources in order to have the proper aspect ratios. Implementers _SHOULD_ add the `height` and `width` properties to their embedded resources for consistency.  
 
-It is important to maintain a link back to the Manifest for a given Canvas so clients consuming the Canvases have the opportunity to provide contextual information about the Manifest. To do this, implementers _SHOULD_ use the `partOf` property on the Canvas with as much information about the Manifest as is useful. For example,
+#### 3.3.1 Targeting the Full Resource
+Sometimes the targeted resource exists within a parent resource, such as a Canvas within a Manifest, and it is important to maintain the link between them to access useful contextual information about the resource.  Implementers _SHOULD_ use the `partOf` property in these cases.
 
+Example of a Georeference Annotation `target` that is an entire Canvas:
 
 {% include api/code_header.html %}
 ```json-doc
-{
-  "partOf": {
+"target": {
+  "type": "Canvas",
+  "height": 2000,
+  "width": 1000
+  ...
+  "partOf": [{
     "id": "http://example.org/manifest/1",
     "type": "Manifest",
     "label": {
       "en": ["Useful Label"]
     }
+  }]
+}
+```
+
+#### 3.3.2 Targeting a Specific Area of the Resource
+When a [Specific Resource](https://www.w3.org/TR/annotation-model/#specific-resources) is used as a `target`, the `source` property supplies the resource and the `selector` property indicates the region of the resource that is being georeferenced. This region can be the complete resource, or a rectangular or polygonal area. To select a rectangular or polygonal area, a [IIIF Image API Selector](https://iiif.io/api/annex/openannotation/#iiif-image-api-selector) or an [SVG Selector](https://www.w3.org/TR/annotation-model/#svg-selector) can be used. An SVG Selector can be used on both Canvas and ImageService resources and is the preferred technique.
+
+Example of a Georeference Annotation `target` with an [SVG Selector](https://www.w3.org/TR/annotation-model/#svg-selector) on a Canvas:
+
+{% include api/code_header.html %}
+```json-doc
+"target": {
+  "id": "http://iiif.io/api/extension/georef/examples/3/canvas-specific-resource.json",
+  "type": "SpecificResource",
+  "source": {
+    "id": "http://iiif.io/api/extension/georef/examples/3/canvas.json",
+    "type": "Canvas",
+    "height": 2514,
+    "width": 5965
+  },
+  "selector": {
+    "type": "SvgSelector",
+    "value": "<svg><polygon points=\"59,84 44,2329 5932,2353 5920,103 \" /></svg>"
   }
 }
 ```
 
-In cases where the `target` is not the entire Canvas or Image Service and is instead an area of interest, the selected area _MUST_ be supplied as part of the `target`. This is accomplished using a [Specific Resource](https://www.w3.org/TR/annotation-model/#specific-resources) where the `source` and `selector` can be supplied. See the Specific Resource Example from the examples directory provided with this document.
+There are some limitations to the type of SVG Selectors you can use:
 
-This specification expects that a single Image is painted on the Canvas and that the Images contain only a single map depiction. When the resource is a Canvas, it expects that the Image within the Canvas and the Canvas itserlf have the same `height` and `width` values. Further, it expects the Canvas or Image Service has only a single Annotation Page in the `annotations` property which supplies the georeferencing information.
+- The `svg` element _MUST_ contain a single child element.
+- The [`viewBox`](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox) attribute _MUST NOT_ be used on the `svg` element.
+- The `svg` element _MAY_ include `width` and `height` attributes. When these attributes are included, they _MUST_ be equal to the width and height of the targeted resource and they _MUST_ be numbers without units.
+- The single child element _MUST_ either be a [`<polygon>`](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/polygon) or a [`<rect>`](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/rect).
+- When a `rect` element is used, the `rx` and `ry` attributes _MUST NOT_ be used.
+- The [`transform`](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/transform) attribute _MUST NOT_ be used on any of the SVG Selector's elements.
 
-However, it is possible for multiple Annotations within a single Annotation Page to target different, more specific areas of a single Image or Canvas. It is also possible for a Canvas to contain multiple unique Images. It is also possible that a single Canvas or Image Service have more than one Annotation Page in `annotations` whose Georef Annotations target different areas of the resource. These situations can occur when a single Canvas or Image Service depicts multiple carthographic projections such as inset maps. Below is an image that exemplifies these scenarios.
+More Specific Resource examples can be found in the [examples directory provided with this document](/api/extension/georef/examples/3).
 
+#### 3.3.3 More Complex Variants
+
+"A Canvas with multiple painting Annotations (painting multiple maps onto the same Canvas)"
+"A single resource with multiple maps, selected with multiple Georeference Annotations in a AnnotationPage"
+"The example will be a Canvas with multiple sheets of an atlas".
+"Geoereference the sheets combined or using multiple fragments"
+`[@BERT] optinally add example of Canvas with multiple map sheets of an atlas`
+
+It is valid for a Canvas to have multiple painting Annotations. However, to leverage the most support from viewers this specification encourages using a single painting Annotation to place an Image on a Canvas. The Image within the Canvas and the Canvas itself _SHOULD_ have the same `height` and `width` values.
+
+It is valid for a Canvas to have multiple Annotation Pages within `annotations`, and it is valid that those Annotation Pages have a mix of Georeference Annotations and other Annotations.  However, to leverage the most support from viewers this specification encourages putting all Georeference Annotations in one Annotation Page. Then, multiple Georeference Annotations can target different areas of interest of that Image by targeting different areas of the Canvas.
+
+`[@BERT] need to make a final decision about this scenario.`  It is also valid for an Annotation to have multiple targets where each target is some part of the resource it is embedded in. However, to leverage the most support from viewers this specification encourages using multiple Georeference Annotations with the same target instead of one Georeference Annotation with multiple targets.  
+
+An example where a single painted Image has multiple discrete maps:
 <table border="0">
   <tr>
     <td>
@@ -131,27 +179,31 @@ However, it is possible for multiple Annotations within a single Annotation Page
     <td>
       <figure>
         <img src="images/loc-acadia-np-maps.jpg"
-          alt="The same image with four pixel masks that capture the cartographic projections contained by the image">
-        <figcaption>The same image with four pixel masks that capture the cartographic projections contained by the image</figcaption>
+          alt="The same image with four masks that capture the cartographic projections contained by the image">
+        <figcaption>The same image with four masks that capture the cartographic projections contained by the image</figcaption>
       </figure>
     </td>
   </tr>
 </table>
 
-### 3.4 Georef Annotation `body`
+### 3.4 Georeference Annotation `body`
 
-The `body` of a Georef Annotation contains the data you would like to relate to some Canvas or IIIF Image Service. In our case, the `body` contains the GCPs and geocoordinates. Since geocoordinates are encoded as GeoJSON-LD, the value for `body` _MUST_ be a GeoJSON Feature Collection. The Feature Collection _MUST_ only contain Features with [Point](https://www.rfc-editor.org/rfc/rfc7946#section-3.1.2) geometries, and each `geometry` property _MUST_ contain the `coordinates` property. The Feature Collection _SHOULD_ contain at least three Features. `[@BERT @JULES @BRYAN]` explain WHY should it contain at least three Features in the implementation notes
+The `body` of a Georeference Annotation contains geospatial information to apply to the resource noted in the `target` property. For the purposes of this extension the `body` contains the GCPs. The value for `body` _MUST_ be a GeoJSON Feature Collection. The Feature Collection _MUST_ only contain Features with [Point](https://www.rfc-editor.org/rfc/rfc7946#section-3.1.2) geometries _SHOULD_ contain at least three Point Features as prescribed by [Section 2.2](#22-georeferencing-process).
 
-### 3.5 The `pixelCoords` Property
+All commonly used transformation algorithms (including the ones described below) that are used to warp images need at least three GCPs. Algorithms exist that only need 2 GCPs, but they require information about the coordinate reference system (CRS) of the georeferenced map. This specification does not support adding information about a map's CRS.
 
-The `pixelCoords` property is defined by this document in order to supply the pixel coordinates from the IIIF Canvas or Image Service along with the WGS84 `coordinates` in the Features. Each Feature in the Feature Collection _MUST_ have the `pixelCoords` property in the `properties` property. The value is an array representing a pixel coordinate at `[@BERT] a mathy version of this x,y` [x,y] and _MUST_ be exactly in that order. Here is an example of a Feature with the `pixelCoords` property:
+Still, a Georeference Annotation that contains less than three GCPs is valid. These Annotations still hold geospatial information that can be used in geospatial databases or GIS tools. And allowing Annotations with less than three GCPs is useful for crowdsourding purposes: incomplete Annotations can be finished by someone else while the intermediary results are still valid according to this specification.
+
+### 3.5 The `resourceCoords` Property
+
+The `resourceCoords` property is defined by this document in order to supply the resource coordinates from the IIIF Canvas or Image Service with the WGS84 `coordinates` in a Feature to form a single GCP. Each Feature in the Feature Collection _MUST_ have the `resourceCoords` property in the `properties` property. The value is an array representing a resource coordinate at (x, y) and _MUST_ be exactly in that order. Here is an example of a Feature with the `resourceCoords` property:
 
 {% include api/code_header.html %}
 ```json-doc
 {
   "type": "Feature",
   "properties": {
-    "pixelCoords": [5085, 782]
+    "resourceCoords": [5085, 782]
   },
   "geometry": {
     "type": "Point",
@@ -162,9 +214,9 @@ The `pixelCoords` property is defined by this document in order to supply the pi
 
 ### 3.6 The `transformation` Property
 
-The `transformation` property is defined by this document in order to supply the preferred transformation algoritm that is used to create a complete mapping from pixel coordinates to geographic coordinates (and vice versa) based on a list of GCPs. The value for `transformation` is a JSON object which includes the properties `type` and `options`. The property _MAY_ be added to the Feature Collection used in the Georef Annotation `body` and clients _MAY_ use the information in the object.
+The `transformation` property is defined by this document in order to supply the preferred transformation algorithm that is used to create a complete mapping from pixel coordinates to geographic coordinates (and vice versa) based on a list of GCPs. The value for `transformation` is a JSON object which includes the properties `type` and `options`. The property _MAY_ be added to the Feature Collection used in the Georeference Annotation `body` and clients _MAY_ use the information in the object.
 
-If a transformation algorithm is not provided, clients _SHOULD_ use their default algorithm if they are using a Georef Annotation to transform between pixel coordinates and geographic coordinates. Similarly, if the supplied transformation algorithm is not implemented by a client, the default algorithm _SHOULD_ be used as well.
+If a transformation algorithm is not provided, clients _SHOULD_ use their default algorithm if they are using a Georeference Annotation to transform between pixel coordinates and geographic coordinates. Similarly, if the supplied transformation algorithm is not implemented by a client, the default algorithm _SHOULD_ be used as well.
 
 For more details about different transformation algorithms, see the [Implementation Notes](#6-implementation-notes) section.
 
@@ -271,7 +323,7 @@ Example of a `transformation` JSON object:
               {
                 "type": "Feature",
                 "properties": {
-                  "pixelCoords": [5085, 782]
+                  "resourceCoords": [5085, 782]
                 },
                 "geometry": {
                   "type": "Point",
@@ -281,7 +333,7 @@ Example of a `transformation` JSON object:
               {
                 "type": "Feature",
                 "properties": {
-                  "pixelCoords": [5467, 1338]
+                  "resourceCoords": [5467, 1338]
                 },
                 "geometry": {
                   "type": "Point",
@@ -291,7 +343,7 @@ Example of a `transformation` JSON object:
               {
                 "type": "Feature",
                 "properties": {
-                  "pixelCoords": [2006, 374]
+                  "resourceCoords": [2006, 374]
                 },
                 "geometry": {
                   "type": "Point",
@@ -304,14 +356,14 @@ Example of a `transformation` JSON object:
       ]
     }
   ],
-  "partOf": {
+  "partOf": [{
     "id": "http://example.org/manifest/1",
     "type": "Manifest"
-  }
+  }]
 }
 ```
 
-### 4.2 Full Georef Annotation Example
+### 4.2 Full Georeference Annotation Example
 
 {% include api/code_header.html %}
 ```json-doc
@@ -359,10 +411,10 @@ Example of a `transformation` JSON object:
         ]
       }
     ],
-    "partOf": {
+    "partOf": [{
       "id": "http://example.org/manifest/1",
       "type": "Manifest"
-    }
+    }]
   },
   "body": {
     "id": "http://iiif.io/api/extension/georef/examples/3/feature-collection.json",
@@ -377,7 +429,7 @@ Example of a `transformation` JSON object:
       {
         "type": "Feature",
         "properties": {
-          "pixelCoords": [5085, 782]
+          "resourceCoords": [5085, 782]
         },
         "geometry": {
           "type": "Point",
@@ -387,7 +439,7 @@ Example of a `transformation` JSON object:
       {
         "type": "Feature",
         "properties": {
-          "pixelCoords": [5467, 1338]
+          "resourceCoords": [5467, 1338]
         },
         "geometry": {
           "type": "Point",
@@ -397,7 +449,7 @@ Example of a `transformation` JSON object:
       {
         "type": "Feature",
         "properties": {
-          "pixelCoords": [2006, 374]
+          "resourceCoords": [2006, 374]
         },
         "geometry": {
           "type": "Point",
@@ -437,7 +489,7 @@ GCP-based image georeferencing is a common task that's available in many GIS app
 - [QGIS](https://docs.qgis.org/3.22/en/docs/user_manual/working_with_raster/georeferencer.html)
 - [Map Warper](https://github.com/timwaters/mapwarper)
 
-Note that none of the tools listed above currently support georeferencing IIIF resources using Georef Annotations.
+Note that none of the tools listed above currently support georeferencing IIIF resources using Georeferencing Annotations.
 
 ### A. Acknowledgements
 

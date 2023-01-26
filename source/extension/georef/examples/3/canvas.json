@@ -35,8 +35,8 @@
       ]
     }
   ],
-  "partOf": {
+  "partOf": [{
     "id": "http://example.org/manifest/1",
     "type": "Manifest"
-  }
+  }]
 }
