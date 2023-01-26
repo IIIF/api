@@ -292,11 +292,11 @@ The client _MUST_ append the following query parameter to all requests to an acc
 | `origin`  | A string containing the origin of the page in the window, consisting of a protocol, hostname and optionally port number, as described in the [postMessage API][org-mozilla-postmessage] specification.  |
 {: .api-table}
 
-For example, given an access service URI of `https://auth.example.org/login`, a client instantiated by the page `https://client.example.com/viewer/index.html` would make its request to:
+For example, given an access service URI of `https://auth.example.org/login`, a client instantiated by the page `https://client.example.org/viewer/index.html` would make its request to:
 
 {% include api/code_header.html %}
 ```
-https://auth.example.org/login?origin=https://client.example.com/
+https://auth.example.org/login?origin=https://client.example.org/
 ```
 
 The server _MAY_ use this information to validate the origin supplied in subsequent requests to the access token service.
@@ -525,39 +525,8 @@ The type of the service. The `type` property _MUST_ be present in the JSON, and 
 ``` 
 
 
-### 4.2. Access Token Format
-{: #access-token-format}
-
-If the request presents the required authorizing aspect, the access token service response _MUST_ be a JSON-LD object with the following structure:
-
-{% include api/code_header.html %}
-``` json-doc
-{
-  "@context": "http://iiif.io/api/auth/{{ page.major }}/context.json",
-  "type": "AuthToken2",
-  "accessToken": "TOKEN_HERE",
-  "expiresIn": 3600
-}
-```
-
-* The `accessToken` property is _REQUIRED_, and its value is the access token to be sent to the probe service. 
-* The `expiresIn` property is _OPTIONAL_ and, if present, the value is the number of seconds until the token ceases to be valid.
-
-Once obtained, the access token _MUST_ be included with all future requests for the parent probe service by adding an `Authorization` HTTP request header, with the value `Bearer` followed by a space and the access token, such as:
-
-```
-Authorization: Bearer TOKEN_HERE
-```
-
-The access token _MUST NOT_ be sent anywhere else. Access tokens _SHOULD_ have limited lifetimes, whether the `expiresIn` property is provided or not.
-
-__Warning__<br/>
-Any client can see this access token. The access token must not contain any sensitive information. It should be an opaque string different from any cookie value or other credential. For example, using an access cookie value as the access token value would allow an attacker to construct a cookie with the same content as the token and gain access to resources. 
-{: .alert}
-
-
-### 4.3. Interaction for Browser-Based Client Applications
-{: #interaction-for-browser-based-client-applications}
+### 4.2. Access Token Service Request
+{: #access-token-service-request}
 
 If the client is a JavaScript application running in a web browser, it needs to make a request for the access token and store the result. The client can't use `XMLHttpRequest` or `fetch` because it can't include any access cookie in a cross-domain request. Such `fetch` requests do not have the same security context as requests made by the browser interpreting `src` attributes on HTML media elements. Instead, the client _MUST_ open the access token service in a frame using an `<iframe />` element and be ready to receive a message posted by a script in that frame using the [postMessage API][org-mozilla-postmessage]. 
 
@@ -565,22 +534,18 @@ To trigger this behavior, the client _MUST_ append the following query parameter
 
 | Parameter   | Description |
 | ----------- | ----------- |
-| `messageId` | A string that both prompts the server to respond with a web page instead of JSON, and allows the client to match access token service requests with the messages received.  If a client has no need to interact with multiple token services, it can use a dummy value for the parameter, e.g., `messageId=1`. |
+| `messageId` | Used by the client to correlate the token service requests it makes with the messages received from the postMessage frame. The value _MUST_ be a string. |
 | `origin`    | A string containing the origin of the page in the window, consisting of a protocol, hostname and optionally port number, as described in the [postMessage API][org-mozilla-postmessage] specification. |
 {: .api-table}
 
-For example, a client instantiated by the page at `https://client.example.com/viewer/index.html` would request:
+For example, a client instantiated by the page at `https://client.example.org/viewer/index.html` would request:
 
 {% include api/code_header.html %}
 ```
-https://auth.example.org/token?messageId=1&origin=https://client.example.com/
+https://auth.example.org/token?messageId=ae3415&origin=https://client.example.org
 ```
 
-When the server receives a request for the access token service with the `messageId` parameter, it _MUST_ respond with an HTML web page rather than JSON. The web page _MUST_ contain script that sends a message to the opening page using the postMessage API. The message body is the JSON access token object, with the value of the supplied `messageId` as an extra property, as shown in the examples in the next section.  
-
-The server _MAY_ use the origin information for further authorization logic, even though the user is already authenticated. For example, the server may trust only specific domains for certain actions like creating or deleting resources compared to simply reading them. If the client sends an incorrect value, it will not receive the posted response, as the postMessage API will not dispatch the event. The `targetOrigin` parameter of the `postMessage()` function call _MUST_ be the origin provided in the request.
-
-The frame _SHOULD NOT_ be shown to the user. It is a mechanism for cross-domain messaging. The client _MUST_ register an event listener to receive the message that the token service page in the frame will send. The client can reuse the same listener and frame for multiple calls to the access token service, or it can create new ones for each invocation.
+The frame _SHOULD NOT_ be shown to the user. It is a mechanism for cross-domain messaging. The client _MUST_ register an event listener to receive the message that the access token service page in the frame will send. The client can reuse the same listener and frame for multiple calls to the access token service, or it can create new ones for each invocation.
 
 The exact implementation may vary but _MUST_ include features equivalent to the following steps.
 
@@ -606,10 +571,17 @@ It can then open the access token service in a frame:
 {% include api/code_header.html %}
 ``` javascript
 document.getElementById('messageFrame').src =
-  'https://auth.example.org/token?messageId=1234&origin=https://client.example.com/';
+  'https://auth.example.org/token?messageId=ae3415&origin=https://client.example.org';
 ```
 
-The server response will then be a web page with a media type of `text/html` that can post a message to the registered listener:
+
+### 4.3. Access Token Service Response
+
+When the server receives a request for the access token service, it _MUST_ respond with an HTML web page. The web page _MUST_ contain a script that sends a message to the opening page using the postMessage API. The message body will be a JSON object that either provides an access token or describes an error condition. These are specified in sections foo and bar respectively.
+
+The server _MAY_ use the `origin` provided in the request for further authorization logic, even though the user is already authenticated. If the client sends an incorrect `origin` value, it will not receive the posted message, as the postMessage API will not dispatch the event. The `targetOrigin` parameter of the `postMessage()` function call _MUST_ be the same `origin` value.
+
+Example access token response:
 
 {% include api/code_header.html %}
 ``` html
@@ -618,50 +590,75 @@ The server response will then be a web page with a media type of `text/html` tha
 <script>    
     window.parent.postMessage(
       {
-        "messageId": "1234",
-        "accessToken": "TOKEN_HERE",
-        "expiresIn": 3600
+        "@context": "http://iiif.io/api/auth/{{ page.major }}/context.json",
+        "type": "AuthAccessToken2",
+        "accessToken": "ddc76e416e3804e2369e6c9cee806f5e438a5cdc",
+        "expiresIn": 300,
+        "messageId": "ae3415"
       },
-      'https://client.example.com/'
+      'https://client.example.org'
     );    
 </script>
 </body>
 </html>
 ```
 
+### 4.4. Access Token Message Format
+{: #access-token-message-format}
 
+If the request presents the required authorizing aspect, the access token message returned via postMessage _MUST_ be a JSON-LD object with the following properties:
 
+| Property       | Required?  | Description                                                                              |
+| -------------- | ---------- | ---------------------------------------------------------------------------------------- |
+| `@context`     | _REQUIRED_ | The URI of the context document, `http://iiif.io/api/auth/{{ page.major }}/context.json` |
+| `type`         | _REQUIRED_ | The value _MUST_ be the string `AuthAccessToken2`.                                             |
+| `messageId`    | _REQUIRED_ | The message identifier supplied by the client.                                           |
+| `accessToken`  | _REQUIRED_ | The access token to be sent to the probe service.                                        |
+| `expiresIn`    | _OPTIONAL_ | The number of seconds until the token ceases to be valid.                                |
 
+#### accessToken
 
-### 4.4. Interaction for Non-Browser Client Applications
-{: #interaction-for-non-browser-client-applications}
+The value is the access token to be sent to the probe service. The value _MUST_ be a string. Once obtained, the access token _MUST_ be included with all future requests for the parent probe service by adding an `Authorization` HTTP request header, with the value `Bearer` followed by a space and the access token, such as: 
 
-The simplest access token request comes from a non-browser client that can send cookies across domains, where CORS and third-party cookie restrictions do not apply. An example URI:
-
-{% include api/code_header.html %}
 ```
-https://auth.example.org/token
+Authorization: Bearer ddc76e416e3804e2369e6c9cee806f5e438a5cdc
 ```
-{: .urltemplate}
 
-Would result in the HTTP Request:
+The access token _MUST NOT_ be sent anywhere else. Access tokens _SHOULD_ have limited lifetimes, whether the `expiresIn` property is provided or not.
 
-{% include api/code_header.html %}
+```json-doc
+{ "accessToken": "ddc76e416e3804e2369e6c9cee806f5e438a5cdc" }
 ```
-GET /token HTTP/1.1
-Cookie: <cookie-acquired-during-login>
-```
-{: .urltemplate}
 
-The response is the JSON access token object with the media type `application/json`:
+__Warning__<br/>
+Any client can see this access token. The access token must not contain any sensitive information. It should be an opaque string different from any cookie value or other credential. For example, using an access cookie value as the access token value would allow an attacker to construct a cookie with the same content as the token and gain access to resources. 
+{: .alert}
+
+#### expiresIn
+
+The `expiresIn` property _MAY_ be present. Its value _MUST_ be a positive integer and is the number of seconds until the token ceases to be valid.
+
+```json-doc
+{ "expiresIn": 300 }
+```
+
+#### messageId
+
+The `messageId` property _MUST_ be present, and the value _MUST_ be the value originally sent in the `messageId` query parameter when the token service was requested. The value _MUST_ be a string. Clients _MUST_ ignore messages with `messageId` values that they do not recognise. 
+
+#### Example Access Token Message Body
 
 {% include api/code_header.html %}
 ``` json-doc
 {
-  "accessToken": "TOKEN_HERE",
-  "expiresIn": 3600
+  "@context": "http://iiif.io/api/auth/{{ page.major }}/context.json",
+  "type": "AuthAccessToken2",
+  "accessToken": "ddc76e416e3804e2369e6c9cee806f5e438a5cdc",
+  "expiresIn": 300,
+  "messageId": "ae3415"
 }
 ```
+
 
 ### 4.5. Access Token Error Conditions
 {: #access-token-error-conditions}
@@ -717,7 +714,7 @@ If the client has an access token acquired from a token service declared on the 
 {% include api/code_header.html %}
 ```
 GET /media/video/my-movie/probe HTTP/1.1
-Authorization: Bearer TOKEN_HERE
+Authorization: Bearer ddc76e416e3804e2369e6c9cee806f5e438a5cdc
 ```
 {: .urltemplate}
 
@@ -1156,6 +1153,39 @@ For this reason, if the subsequent token service and access to content resources
 If the token service and Content Resources will depend on some other authorizing aspect, such as IP address, then the Access Service tab _MAY_ be closed without user interaction.
 
 If the client informs the access service that it is on the same domain, via the `origin` parameter, then the Access Service tab _MAY_ be closed without user interaction on that domain. For example, the initial login step in a multi-step single sign-on. If the domain of the content resources is the same as the client, it's not going to have third party cookie issues so could bounce immediately to the single sign on provider.
+
+### B. Token Response for non-browser client
+
+(explain how invoked, extra param)
+
+{: #interaction-for-non-browser-client-applications}
+
+The simplest access token request comes from a non-browser client that can send cookies across domains, where CORS and third-party cookie restrictions do not apply. An example URI:
+
+{% include api/code_header.html %}
+```
+https://auth.example.org/token
+```
+{: .urltemplate}
+
+Would result in the HTTP Request:
+
+{% include api/code_header.html %}
+```
+GET /token HTTP/1.1
+Cookie: <cookie-acquired-during-login>
+```
+{: .urltemplate}
+
+The response is the JSON access token object with the media type `application/json`:
+
+{% include api/code_header.html %}
+``` json-doc
+{
+  "accessToken": "ddc76e416e3804e2369e6c9cee806f5e438a5cdc",
+  "expiresIn": 300
+}
+```
 
 
 ### B. Versioning
