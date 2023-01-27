@@ -393,8 +393,7 @@ The interaction has the following steps:
 * When the `confirmLabel` element is activated, the client _MUST_ then open the URI from `id` with the added `origin` query parameter. This _MUST_ be done in a new window or tab to help prevent spoofing attacks. Browser security rules prevent the client from knowing what is happening in the new tab, therefore the client can only wait for and detect the closing of the opened tab.
 * After the opened tab is closed, the client _MUST_ then use the related access token service, as described below.
 
-At the time of writing, browsers will only send cookies to third party domains when the user has performed a _user gesture_ at that domain. For more information see Appendix A.
-
+At the time of writing, browsers will only send cookies to third party domains when the user has performed a _user gesture_ at that domain. For more information see [Appendix A][auth20-user-interaction-at-access-service].
 
 #### 3.3.2. Kiosk Pattern
 {: #kiosk-interaction-pattern}
@@ -410,7 +409,7 @@ For the `kiosk` pattern the interaction has the following steps:
 Non-user-driven clients simply access the URI from `id` to obtain any access cookie, and then use the related access token service, as described below.
 
 __Warning__<br/>
-If the content resources and access service are on a different origin from the client, and the authorization is based on an access cookie, the `kiosk` pattern will likely fail unless the user has recently interacted with the access service origin in a first party context as described in Appendix A.
+If the content resources and access service are on a different origin from the client, and the authorization is based on an access cookie, the `kiosk` pattern will likely fail unless the user has recently interacted with the access service origin in a first party context as described in [Appendix A][auth20-user-interaction-at-access-service].
 {: .alert}
 
 An example service description for the `kiosk` pattern:
@@ -445,7 +444,7 @@ The interaction has the following steps:
 * The client _MUST_ immediately use the related access token service, as described below.
 
 __Warning__<br/>
-If the content resources and token service are on a different origin from the client, and the authorization is based on an access cookie, the `external` pattern will likely fail unless the user has recently interacted with the token service origin in a first party context as described in Appendix A.
+If the content resources and token service are on a different origin from the client, and the authorization is based on an access cookie, the `external` pattern will likely fail unless the user has recently interacted with the token service origin in a first party context as described in [Appendix A][auth20-user-interaction-at-access-service].
 {: .alert}
 
 An example service description for the `external` pattern:
@@ -963,7 +962,8 @@ When there are no lower tiers and the user is not authorized to access the acces
 
 ## Appendices
 
-### A. User interaction at the Access Service and third party cookies
+### A. User Interaction at the Access Service and Third Party Cookies
+{: #user-interaction-at-access-service}
 
 While it is possible for the access service to immediately set a cookie in the response and generate client-side script that closes the opened tab, this behavior will likely result in browsers failing to send that cookie on subsequent requests for the token service or content resources if the client is hosted on a different domain. In this scenario, the user has not interacted with the access service origin in a _first party context_ as defined in the [Storage Access API][org-mozilla-storageaccess], and therefore that origin does not have access to _first party storage_, which means that any cookies for that origin are not included in requests to that origin.
 

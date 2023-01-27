@@ -24,6 +24,7 @@
 [auth20-probe-service]: {{ site.api_url | absolute_url }}/auth/2.0/#probe-service "Probe Service"
 [auth20-substitute]: {{ site.api_url | absolute_url }}/auth/2.0/#substitute "substitute"
 [auth20-tiered-access]: {{ site.api_url | absolute_url }}/auth/2.0/#tiered-access "Tiered Access"
+[auth20-user-interaction-at-access-service]: {{ site.api_url | absolute_url }}/auth/2.0/#user-interaction-at-access-service "A. User Interaction at the Access Service and Third Party Cookies"
 [auth20-workflow-from-the-browser-client-perspective]: {{ site.api_url | absolute_url }}/auth/2.0/#workflow-from-the-browser-client-perspective "Workflow from the Browser Client Perspective"
 [auth-stable-version]: {{ site.api_url | absolute_url }}/auth/{{ site.data.apis.auth.latest.major }}.{{ site.data.apis.auth.latest.minor }}/ "Latest Authentication API Stable Version"
 [contentstate01]: {{ site.api_url | absolute_url }}/content-state/0.1/ "IIIF Content State API 0.1"
