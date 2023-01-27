@@ -785,12 +785,9 @@ The response from the probe service is a JSON-LD object with the following prope
 | `note` | _OPTIONAL_ | Block text for the error UI |
 {: .api-table .first-col-normal }
 
-
-
 #### type
 
 The type of the probe result. The `type` property _MUST_ be present in the JSON, and the value _MUST_ be the string `AuthProbeResult2`.
-
 
 #### status
 
@@ -805,8 +802,8 @@ The HTTP status code that the client should expect to receive if it were to issu
 }
 ```
 
-
 #### substitute
+{: #substitute}
 
 A list of alternate resources that a client _MAY_ use instead of the access-controlled resource if the user is not authorized to retrieve that resource. The `substitute` property _MAY_ be present in the JSON if the value of the `status` property indicates that access to the access-controlled resource would be denied, and _MUST NOT_ be present otherwise. The value _MUST_ be an array of JSON objects, each of which describes an substitute resource.
 
@@ -819,8 +816,7 @@ Clients _SHOULD_ expect to encounter substitute resources with the following pro
 * `label` - The name, title or label to display to the user for the substitute resource. The value _MUST_ be a language map, as described in IIIF Presentation API 3.0 (link)
 * `service` - A list of services that apply to the substitute resource.
 
-When IIIF API resources refer to access-controlled resources with substitute resources, the access-controlled resource  _SHOULD_ be the resource most users would prefer to see, typically the highest quality version. An substitute resource may declare new IIIF Authorization Flow services, including its own probe services, allowing for _tiered access_ (link). If present, and no further IIIF Authorization Flow services are declared on it, an substitute resource _MUST_ be accessible to the user who requested the probe service.
-
+When IIIF API resources refer to access-controlled resources with substitute resources, the access-controlled resource  _SHOULD_ be the resource most users would prefer to see, typically the highest quality version. An substitute resource may declare new IIIF Authorization Flow services, including its own probe services, allowing for [tiered access][auth20-tiered-access]. If present, and no further IIIF Authorization Flow services are declared on it, an substitute resource _MUST_ be accessible to the user who requested the probe service.
 
 ```json
 {
@@ -835,7 +831,6 @@ When IIIF API resources refer to access-controlled resources with substitute res
 }
 ```
 
-
 #### location
 
 The location property describes a resource that the client _MUST_ request instead of the access-controlled resource. A probe response _MUST NOT_ provide a resource for `location` if the `status` is anything other than a `30x` redirect response. The value _MUST_ be a JSON object which describes this resource.
@@ -845,7 +840,6 @@ Clients _SHOULD_ expect to encounter a resource with the following properties, h
 * `id` - The URI of the resource, which is _REQUIRED_.
 * `type` - The type of the resource, which is _REQUIRED_ and _MUST_ be the same as the access-controlled resource.  
 * `service` - A list of services that apply to the resource.
-
 
 ```json
 {
@@ -966,19 +960,13 @@ Browser-based clients will perform the following workflow in order to access acc
 ### 7.1 Tiered Access
 {: #tiered-access}
 
-If a Content Resource supports multiple tiers of access, then it _MUST_ use a different URI for each tiered Content Resource and its corresponding probe service. For example, there _MUST_ be different Image Information documents (`/info.json`) at different URIs for each tier.
+When a probe service indicates that the user would be denied access to an access-controlled resource, it may also indicate that one or more [substitute][auth20-substitute] resources are potentially available, each at a different URI. In many cases there will be an access-controlled version available to certain authorized users, and then substitute that is openly available.
 
-<!-- Need to experiment here. What can use of Location do for us, in a probe service, or in a info.json? -->
-<!-- We still need redirects - a redirected info.json could have very different features from the requested one. But the client doesn't have to make inferences, a client doesn't have to deduce that a redirect happened. -->
+It is also possible that a substitute resource is itself an access-controlled resource, indicated by the presence of a new set of IIIF Authorization Flow services. In this case a client will re-enter the [workflow][auth20-workflow-from-the-browser-client-perspective] above. A useful user experience requires the substitute resource to have a different authorization scope and thus at least the probe service _MUST_ be different from that of the original access-controlled resource.
 
-<!-- MUST below becomes MAY? for a probe service, it makes no difference whether a redirect happened, the end response will be the same, with a Location property. -->
-<!-- TODO - no MUST! -->
-When a server receives an HTTP GET request for a Probe Service, and determines that the user is not authorized to access the corresponding Content Resource (based on aspects of the request including the Access Token, if present), and there are lower tiers available, the server _MUST_ issue a `401` (Not Authorised) HTTP status response, and include a reference to an alternative resource in the `location` property. Please note that the server _MUST_ return a 200 (OK) HTTP status response to an HTTP OPTIONS request, regardless of the user's access, as this is the required response for a successful CORS Preflight request.
+This pattern supports multiple tiers of access, and choices of substitute resource. The server _MAY_ hide some tiers and immediately present a much lower tier that it knows the user can access.
 
-The resource provided in the `location` property _MAY_ itself be access-controlled, and if so this resource _MUST_ provide its own set of IIIF Authorization Flow Services (including a new probe service) so that the client can process it in the same way. This pattern can continue through multiple tiers of access. The server _MAY_ hide the multiple tiers and immediately present a much lower tier that it knows the user can access.<!-- Lots of flexibility to leave details up to the implementation here, need to be careful what's mandatory -->
-
-When there are no lower tiers and the user is not authorized to access the current Content Resource, the server _MUST_ return the Probe Service response with a `401` (Unauthorized) response with no `location` property. The client _SHOULD_ present information about the Access Service(s) included in previous tier's Content Resource to allow the user to attempt to authenticate.
-
+When there are no lower tiers and the user is not authorized to access the access-controlled resource, the client _SHOULD_ present information about the access service(s) included in last tier's access-controlled resource to allow the user to attempt to authenticate again.
 
 ## Appendices
 
