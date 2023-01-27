@@ -70,7 +70,7 @@ Additionally, the IIIF community has the following goals for this specification:
 * The user cannot be redirected away from the client in order to authenticate. In order to maintain state, the client must be able to stay running while the user interacts with an access control system in another tab.
 * A registry of trusted IIIF client domains should not be required. Anyone should be able to create any kind of viewer and run it from anywhere.
 * Institutions should be able to work with their existing authentication systems without modifying them.
-* It should be possible to offer tiered access to alternate versions instead of simple all-or-nothing access. These alternate versions could be of lower quality based on resolution, watermarking, or compression.
+* It should be possible to offer tiered access to substitute versions instead of simple all-or-nothing access. These substitute versions could be of lower quality based on resolution, watermarking, or compression.
 
 To meet these challenges and goals, this specification describes services that allow the client to guide the user through existing access control systems. The process of authenticating and authorizing the user is outside the scope of this specification and may involve a round-trip to a CAS server, or an OAuth2 provider, or a bespoke login system. In this sense, the IIIF Authorization Flow API is not a protocol like OAuth2; it is a pattern for interacting with arbitrary third party protocols. The patterns established by this specification act as a bridge to the access control systems without the client requiring knowledge of those systems.
 
@@ -641,11 +641,7 @@ The `messageId` property _MUST_ be present, and the value _MUST_ be the value or
 
 #### accessToken
 
-The value is the access token to be sent to the probe service. The value _MUST_ be a string. Once obtained, the access token _MUST_ be included with all future requests for the parent probe service by adding an `Authorization` HTTP request header, with the value `Bearer` followed by a space and the access token, such as: 
-
-```
-Authorization: Bearer ddc76e416e3804e2369e6c9cee806f5e438a5cdc
-```
+The value is the access token to be sent to the probe service. The value _MUST_ be a string. Once obtained, the access token _MUST_ be included with all future requests for the parent probe service (link).
 
 The access token _MUST NOT_ be sent anywhere else. Access tokens _SHOULD_ have limited lifetimes, whether the `expiresIn` property is provided or not.
 
@@ -736,7 +732,7 @@ Additional human-readable information about the error to render with the user in
 
 ## 5. Probe Service
 
-The probe service is used by the client to determine the user's access to the access-controlled resource. 
+The probe service is used by the client to understand whether the user has access to the access-controlled resource for which the probe service is declared. The client sends the token obtained from the corresponding access token service to the probe service.
 
 ### 5.1. Probe Service Description
 
@@ -766,84 +762,39 @@ Default additional text to render if the probe indicates the user cannot access 
 
 ### 5.1. Probe Service Request
 
-
-If the client has an access token acquired from a token service declared on the access service declared on the probe service, send it to that probe service 
-
+The client passes the access token to the probe service using the `Authorization` HTTP request header and the [bearer token][org-rfc-6570-1-2] pattern. The header value is the string `Bearer` followed by a space and the access token, for example: 
 
 {% include api/code_header.html %}
+
 ```
-GET /media/video/my-movie/probe HTTP/1.1
 Authorization: Bearer ddc76e416e3804e2369e6c9cee806f5e438a5cdc
 ```
-{: .urltemplate}
 
+### 5.2. Probe Service Response
 
-
-#### 5.2. Probe Service Response
-
-The JSON-LD response from the Probe Service can have the following properties, described in detail below.
+The response from the probe service is a JSON-LD object with the following properties:
 
 | Name          | Required?  | Summary |
 | ------------- | ---------  | ------- |
-| `id`          | _REQUIRED_ | The URI of the service |
-| `type`        | _REQUIRED_ | The type of the service, `AuthProbeService2` |
-| `status`      | _REQUIRED_ | The HTTP status code that would be returned for the resource for which this is a Probe Service.  |
-| `alternate`   | _OPTIONAL_ | A reference to one or more alternate resources, such as watermarked or otherwise degraded versions. |
+| `@context`    | _REQUIRED_ | The URI of the context document, `http://iiif.io/api/auth/{{ page.major }}/context.json`. |
+| `type`        | _REQUIRED_ | The type of the service, `AuthProbeResult2`. |
+| `status`      | _REQUIRED_ | The HTTP status code that would be returned for the access-controlled resource.  |
+| `substitute`   | _OPTIONAL_ | A reference to one or more substitute resources, such as watermarked or other less preferable versions. |
 | `location`   | _OPTIONAL_  | If present, the client should request this resource instead of the the resource the probe service was declared for. |
 | `heading`      | _OPTIONAL_ | heading text for the error UI |
 | `note` | _OPTIONAL_ | Block text for the error UI |
 {: .api-table .first-col-normal }
 
+
+
+#### type
+
+The type of the probe result. The `type` property _MUST_ be present in the JSON, and the value _MUST_ be the string `AuthProbeResult2`.
+
+
 #### status
 
-* The semantics of the value of this property are equivalent to HTTP status codes.
-* Note: while the `status` property of the probe response represents the HTTP status code for the resource and may take different values, the status code of the probe HTTP response itself must always be `200`.
-
-#### alternate
-
-* If multiple alternate resources are available, clients _SHOULD_ allow the user to choose between them, using the `label` or other descriptive properties available on the resources.
-* An alternate resource may declare new IIIF Authorization Flow Services, including its own probe services, allowing for _tiered access_. If present, and no further IIIF Authorization Flow services are declared on it, this resource _MUST_ be accessible to the user who requested the probe service.
-* An alternate resource _MUST_ have a different URI from the original resource.
-* If the `status` value indicates success, or no alternative is available, this property _MUST NOT_ be included.
-* The `alternate` property _MUST NOT_ be present if the `location` property is present.
-
-#### location
-
-* A probe response _MUST NOT_ provide a resource for `location` if the `status` is anything other than a `30x` redirect response.
-* A probe response _MUST NOT_ have multiple `location` properties.
-* The location resource _MUST_ have a different URI from the original resource.
-* The client _MUST_ request this resource instead of the original resource.
-* The `location` property _MUST NOT_ be present if the `alternate` property is present.
-
-
-#### 5.3. Probe Service Examples
-
-Consider a resource declared in a Manifest or other IIIF API Resource:
-
-```json
-{
-   "id": "https://auth.example.org/my-video.mp4",
-   "type": "Video",
-   "format": "video/mp4",
-   "service": [
-     {    
-       "id": "https://auth.example.org/my-video.mp4/probe",
-       "type": "AuthProbeService2"
-     },
-     {
-        // Other necessary services for Access Control described later in Section 2.2 onwards
-     }
-   ]
-}
-```
-
-* The client _MAY_ request the probe service without including an access token.
-* This probe service _MUST_ always return a JSON-LD response body to the client and this response _MUST_ always have an HTTP 200 status code. The response can take different forms:
-
-
-##### 5.3.1. Probe indicates success
-
-* The `status` property value is `200`, and the response JSON-LD does not include a `location` property. This indicates that based on the request sent, the server determines that the user will be able to see `https://auth.example.org/my-video.mp4`:
+The HTTP status code that the client should expect to receive if it were to issue the same request to the resource as it has just issued to the probe service. Note well that the HTTP status code of the response itself _MUST_ be 200. The `status` property _MUST_ be present in the JSON, and the value _MUST_ be an integer drawn from the list of [HTTP status codes][some-link-here]
 
 ```json
 {
@@ -854,9 +805,22 @@ Consider a resource declared in a Manifest or other IIIF API Resource:
 }
 ```
 
-##### 5.3.2 Probe provides an alternate resource
 
-* The `status` property value is `401`, and the response JSON-LD includes a `alternate` property. This indicates that the user cannot see `https://auth.example.org/my-video.mp4`, but they can see the resource provided by `alternate`. This would give the user access to (for example) a degraded version of the resource immediately, and potentially allow them to go through a login process to access the full resource:
+#### substitute
+
+A list of alternate resources that a client _MAY_ use instead of the access-controlled resource if the user is not authorized to retrieve that resource. The `substitute` property _MAY_ be present in the JSON if the value of the `status` property indicates that access to the access-controlled resource would be denied, and _MUST NOT_ be present otherwise. The value _MUST_ be an array of JSON objects, each of which describes an substitute resource.
+
+If multiple substitute resources are available, clients _SHOULD_ allow the user to choose between them, using the `label` or other descriptive properties available on the resources.
+
+Clients _SHOULD_ expect to encounter substitute resources with the following properties, however any property from the IIIF Presentation API that is valid for a content resource _MAY_ be present.
+
+* `id` - The URI of the substitute resource.
+* `type` - The type of the substitute resource, which _SHOULD_ be the same as the access-controlled resource.  
+* `label` - The name, title or label to display to the user for the substitute resource. The value _MUST_ be a language map, as described in IIIF Presentation API 3.0 (link)
+* `service` - A list of services that apply to the substitute resource.
+
+When IIIF API resources refer to access-controlled resources with substitute resources, the access-controlled resource  _SHOULD_ be the resource most users would prefer to see, typically the highest quality version. An substitute resource may declare new IIIF Authorization Flow services, including its own probe services, allowing for _tiered access_ (link). If present, and no further IIIF Authorization Flow services are declared on it, an substitute resource _MUST_ be accessible to the user who requested the probe service.
+
 
 ```json
 {
@@ -864,22 +828,41 @@ Consider a resource declared in a Manifest or other IIIF API Resource:
     "id": "https://auth.example.org/my-video.mp4/probe",
     "type": "AuthProbeService2",
     "status": 401,
-    "alternate": {
+    "substitute": [{
       "id": "https://auth.example.org/my-video-lo-res.mp4",
       "type": "Video"
-    },
-    "heading":  { "en": [ "You can't see this" ] },
-    "note": { "en": [ "But try the alternate" ] }
+    }]
 }
 ```
 
-The resource in the `alternate` property _MUST_ have a different `id` from the resource in the `for` property, to avoid clients going round in circles.
 
-In the above example, the resource in the `alternate` property does not declare any services of its own, and clients can conclude that it is accessible to the user. The resource in the `alternate` property _MAY_ declare IIIF Authorization Flow services of its own, including a probe service. This pattern allows _tiered access_ to any depth. A client can keep following probe service `alternate` properties until it finds a resource without its own probe service, indicating that this resource is accessible to the user.
+#### location
 
-##### 5.3.3 Probe indicates no access
+The location property describes a resource that the client _MUST_ request instead of the access-controlled resource. A probe response _MUST NOT_ provide a resource for `location` if the `status` is anything other than a `30x` redirect response. The value _MUST_ be a JSON object which describes this resource. 
 
-* The `status` property value is `401`, and no `alternate` property is present, indicating that the user does not have access to the Content Resource the Probe Service was declared for, and no alternative is available:
+Clients _SHOULD_ expect to encounter a resource with the following properties, however any property from the IIIF Presentation API that is valid for a content resource _MAY_ be present.
+
+* `id` - The URI of the resource, which is _REQUIRED_.
+* `type` - The type of the resource, which is _REQUIRED_ and _MUST_ be the same as the access-controlled resource.  
+* `service` - A list of services that apply to the resource.
+
+
+```json
+{
+    "@context": "http://iiif.io/api/auth/{{ page.major }}/context.json",
+    "id": "https://auth.example.org/my-HLS-video.m3u8/probe",
+    "type": "AuthProbeService2",
+    "status": 302,
+    "location": {
+      "id": "https://auth-cdn-2.example.org/my-video.m3u8",
+      "type": "Video"
+    }
+}
+```
+
+#### heading
+
+If the status code does not indicate success, the response _SHOULD_ include the `heading` property. This provides heading text to render with the user interface element that conveys the error. If present, it _SHOULD_ be shown to the user if the client can't recover from the error without user interaction. The value of the property _MUST_ be a JSON object as described in the [Language of Property Values][prezi3-languages] section of the Presentation API. 
 
 ```json
 {
@@ -892,92 +875,17 @@ In the above example, the resource in the `alternate` property does not declare 
 }
 ```
 
-##### 5.3.4 Probe provides a different resource location
+#### note
 
-* The `status` property value is `302`, and the response JSON-LD includes a `location` property. This indicates that the client has the authorizing aspect required to see the content, but it _MUST_ request it using the provided `location` URL rather than the published URL:
+If the status code does not indicate success, the response _SHOULD_ include the `note` property. This provides additional human-readable information about the error to render with the user interface element that conveys the error. If present, it _SHOULD_ be shown to the user if the client can't recover from the error without user interaction. The value of the property _MUST_ be a JSON object as described in the [Language of Property Values][prezi3-languages] section of the Presentation API. If present, `heading` _MUST_ also be present.
 
- ```json
-{
-    "@context": "http://iiif.io/api/auth/{{ page.major }}/context.json",
-    "id": "https://auth.example.org/my-HLS-video.m3u8/probe",
-    "type": "AuthProbeService2",
-    "status": 302,
-    "location": {
-      "id": "https://auth.example.org/1232123432123/my-HLS-video.m3u8",
-      "type": "Video"
-    }
-}
-```
-
-
-__Warning__<br/><!-- rewrite this -->
-The previous example potentially bypasses the intention of `location` as described in the table above. The client, presenting a token, has used the access token to discover the URL of an actual content resource, that _might not require a credential_. This use case may be helpful for streaming media services where the use of modified paths containing short-lived tokens as path elements is common. However, it is a fundamental change in the approach that IIIF Auth has taken up to now, where a malicious client application gaining access to the token doesn't grant access to protected resources. The client has used a token to get access to the protected resource, rather than only get access to information about the user's access to that resource.
-{: .alert}
-
-
-#### 5.4. IIIF Image Service with Probe Service
-
-An Image Service may declare a probe service in exactly the same way as a Content Resource in a Manifest. The probe service is `for` the image service. This should be interpreted as `for` the image resources provided by the Image Service, rather than for the Image Information Document (info.json) that _describes_ the service, which is assumed not be access-controlled.
-
-{% include api/code_header.html %}
-```json-doc
-{
-  "@context": [
-    "http://iiif.io/api/image/3/context.json",
-    "http://iiif.io/api/auth/{{ page.major }}/context.json"
-  ],
-  "id": "https://example.org/image-service/abcd12345",
-  "type": "ImageService3",
-  "service": [
-     {    
-       "id": "https://auth.example.org/probes/image-service/abcd123454",
-       "type": "AuthProbeService2"
-     },
-     {
-        // Other necessary services for Access Control described later in Section 2.2 onwards
-     }
-  ]
-  // other image service properties like width, height, tiles...
-}
-```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+(see above)
 
 
 ## 6. Logout Service
 {: #logout-service}
 
-In the case of the Interactive Access Service pattern, the client may need to know if and where the user can go to log out. For example, the user may wish to close their session on a public terminal, or to log in again with a different account.
+In the case of the `interactive` access service pattern, the client may need to know if and where the user can go to log out. For example, the user may wish to close their session on a public terminal, or to log in again with a different account.
 
 ### 6.1. Service Description
 {: #service-description-2}
@@ -1011,153 +919,16 @@ If the authentication system supports users intentionally logging out, there _SH
 
 The value of the `type` property _MUST_ be `AuthLogoutService2`.
 
-
 ### 6.2. Interaction
 {: #interaction}
 
 The client _SHOULD_ present the results of an HTTP `GET` request on the service's URI in a separate tab or window with an address bar.  At the same time, the client _SHOULD_ discard any access token that it has received from the corresponding service. The server _SHOULD_ reset the user's logged in status when this request is made and delete any access cookie previously set.
 
+If possible, the server _SHOULD_ invalidate any authorizing aspects it controls and any access tokens representing those aspects.
 
 
 
-## 7. Examples
-
-
-
-### 7.1 Example Image Information with Authorization Flow Services
-{: #example-description-resource-with-authentication-services}
-
-The example below is a complete image information response for an example image with all of the authentication services.
-
-{% include api/code_header.html %}
-``` json-doc
-{
-  "@context" : [
-    "http://iiif.io/api/image/3/context.json",
-    "http://iiif.io/api/auth/{{ page.major }}/context.json"
-  ],
-  "id" : "https://www.example.org/images/image1",
-  "type": "ImageService3",
-  "protocol" : "http://iiif.io/api/image",
-  "width" : 6000,
-  "height" : 4000,
-  "maxWidth": 3000,
-  "sizes" : [
-    {"width" : 150, "height" : 100},
-    {"width" : 600, "height" : 400}
-  ],
-  "profile" : "level2",
-  "service" : [
-    {
-        "id": "https://auth.example.org/probe-for-image1",
-        "type": "AuthProbeService2"
-    },
-    {
-        "id": "https://auth.example.org/login",
-        "type": "AuthAccessService2",
-        "profile": "interactive",
-        "label": { "en": [ "Login to Example Institution" ] },
-        "service" : [
-        {
-            "id": "https://auth.example.org/token",
-            "type": "AuthTokenService2"
-        },
-        {
-            "id": "https://auth.example.org/logout",
-            "type": "AuthLogoutService2",
-            "label": { "en": [ "Logout from Example Institution" ] }
-        }
-        ]
-    }
-  ]
-}
-```
-
-
-### 7.2. Example Content Resource with Authorization Flow Services
-{: #example-content-resource-with-authentication-services}
-
-The example below would typically be included in a Manifest or other IIIF Resource.
-The Manifest must include the Auth context.
-
-{% include api/code_header.html %}
-``` json-doc
-{
-  "@context" : [
-    "http://iiif.io/api/presentation/3/context.json",
-    "http://iiif.io/api/auth/{{ page.major }}/context.json"
-  ],
-
-  // rest of Manifest
-
-        {
-          "id": "https://auth.example.org/my-video.mp4",
-          "type": "Video",
-          "format": "video/mp4",
-          "service": [
-            {    
-              "id": "https://auth.example.org/my-video.mp4/probe",
-              "type": "AuthProbeService2"
-            },
-            {
-              "id": "https://auth.example.org/login",
-              "type": "AuthAccessService2",
-              "profile": "interactive",
-              "label": { "en": [ "Login to Example Institution" ] },
-              "service" : [
-                {
-                  "id": "https://auth.example.org/token",
-                  "type": "AuthTokenService2"
-                },
-                {
-                  "id": "https://auth.example.org/logout",
-                  "type": "AuthLogoutService2",
-                  "label": { "en": [ "Logout from Example Institution" ] }
-                }
-              ]
-            }
-          ]
-        }
-
-  // rest of Manifest
-}
-```
-
-
-## 8. Interaction with Access-Controlled Resources
-{: #interaction-with-access-controlled-resources}
-
-These interactions rely on requests for __probe services__ returning HTTP status codes `200` and `401` in different circumstances. The body of the response _MUST_ be a valid Probe Service Response, because the client needs to see any `location` of further Authorization Flow service descriptions or other information it contains in order to follow the appropriate workflow.
-
-### 8.1. All or Nothing Access
-{: #all-or-nothing-access}
-
-If the server does not support multiple tiers of access to a Content Resource, and the user is not authorized to access it, then the server _MUST_ return a response with a `401` (Unauthorized) HTTP status code for the corresponding Probe Service.
-
-If the user has access to the Content Resource, then the server _MUST_ return a response with a `200` (OK) HTTP status code for the corresponding Probe Service.
-
-If the user is authorized for a Probe Service, the client can assume that requests for the described Content Resources will also be authorized. Requests for the Content Resources rely on an access cookie to convey the authorization state, or on other aspects of the request such as IP address.
-
-### 8.2. Tiered Access
-{: #tiered-access}
-
-<!-- Can the same probe service be used for different tiers? -->
-If a Content Resource supports multiple tiers of access, then it _MUST_ use a different URI for each tiered Content Resource and its corresponding probe service. For example, there _MUST_ be different Image Information documents (`/info.json`) at different URIs for each tier. When refering to Content Resources or Image Services that have multiple tiers of access, publishers _SHOULD_ use the URI of the version that an appropriately authorized user should see. For example, when refering to an Image service from a Manifest, the reference would normally be to the highest quality image version rather than a degraded version.
-
-<!-- Need to experiment here. What can use of Location do for us, in a probe service, or in a info.json? -->
-<!-- We still need redirects - a redirected info.json could have very different features from the requested one. But the client doesn't have to make inferences, a client doesn't have to deduce that a redirect happened. -->
-
-<!-- MUST below becomes MAY? for a probe service, it makes no difference whether a redirect happened, the end response will be the same, with a Location property. -->
-<!-- TODO - no MUST! -->
-When a server receives an HTTP GET request for a Probe Service, and determines that the user is not authorized to access the corresponding Content Resource (based on aspects of the request including the Access Token, if present), and there are lower tiers available, the server _MUST_ issue a `401` (Not Authorised) HTTP status response, and include a reference to an alternative resource in the `location` property. Please note that the server _MUST_ return a 200 (OK) HTTP status response to an HTTP OPTIONS request, regardless of the user's access, as this is the required response for a successful CORS Preflight request.
-
-The resource provided in the `location` property _MAY_ itself be access-controlled, and if so this resource _MUST_ provide its own set of IIIF Authorization Flow Services (including a new probe service) so that the client can process it in the same way. This pattern can continue through multiple tiers of access. The server _MAY_ hide the multiple tiers and immediately present a much lower tier that it knows the user can access.<!-- Lots of flexibility to leave details up to the implementation here, need to be careful what's mandatory -->
-
-When there are no lower tiers and the user is not authorized to access the current Content Resource, the server _MUST_ return the Probe Service response with a `401` (Unauthorized) response with no `location` property. The client _SHOULD_ present information about the Access Service(s) included in previous tier's Content Resource to allow the user to attempt to authenticate.
-
-
-
-## 9. (PLACEHOLDER IMAGE) Workflow from the Browser Client Perspective
+## 7. (PLACEHOLDER IMAGE) Workflow from the Browser Client Perspective
 {: #workflow-from-the-browser-client-perspective}
 
 <table class="ex_table">
@@ -1191,6 +962,22 @@ Browser-based clients will perform the following workflow in order to access acc
 * After the Access Token service has been requested, if the client receives a token, it tries the Probe Service again with this newly acquired token.
   * If the client instead receives an error, it returns to look for further authentication services to interact with.
   * If there are no further authentication services, then the user does not have the credentials to interact with any of the Content Resource versions, and the client cannot display anything.
+
+### 7.1 Tiered Access
+{: #tiered-access}
+
+If a Content Resource supports multiple tiers of access, then it _MUST_ use a different URI for each tiered Content Resource and its corresponding probe service. For example, there _MUST_ be different Image Information documents (`/info.json`) at different URIs for each tier. 
+
+<!-- Need to experiment here. What can use of Location do for us, in a probe service, or in a info.json? -->
+<!-- We still need redirects - a redirected info.json could have very different features from the requested one. But the client doesn't have to make inferences, a client doesn't have to deduce that a redirect happened. -->
+
+<!-- MUST below becomes MAY? for a probe service, it makes no difference whether a redirect happened, the end response will be the same, with a Location property. -->
+<!-- TODO - no MUST! -->
+When a server receives an HTTP GET request for a Probe Service, and determines that the user is not authorized to access the corresponding Content Resource (based on aspects of the request including the Access Token, if present), and there are lower tiers available, the server _MUST_ issue a `401` (Not Authorised) HTTP status response, and include a reference to an alternative resource in the `location` property. Please note that the server _MUST_ return a 200 (OK) HTTP status response to an HTTP OPTIONS request, regardless of the user's access, as this is the required response for a successful CORS Preflight request.
+
+The resource provided in the `location` property _MAY_ itself be access-controlled, and if so this resource _MUST_ provide its own set of IIIF Authorization Flow Services (including a new probe service) so that the client can process it in the same way. This pattern can continue through multiple tiers of access. The server _MAY_ hide the multiple tiers and immediately present a much lower tier that it knows the user can access.<!-- Lots of flexibility to leave details up to the implementation here, need to be careful what's mandatory -->
+
+When there are no lower tiers and the user is not authorized to access the current Content Resource, the server _MUST_ return the Probe Service response with a `401` (Unauthorized) response with no `location` property. The client _SHOULD_ present information about the Access Service(s) included in previous tier's Content Resource to allow the user to attempt to authenticate.
 
 
 ## Appendices
