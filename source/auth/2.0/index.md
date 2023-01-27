@@ -219,8 +219,8 @@ The access service is not required to set a cookie, as the authorizing aspect ma
 There are three different interaction patterns based on the user interface that must be rendered for the user. The different patterns are indicated by the `profile` property given in the service description.
 
 
-### 3.1. Service Description
-{: #service-description}
+### 3.1. Access Service Description
+{: #access-service-description}
 
 The service description is included in the IIIF API Resource and has the following technical properties:
 
@@ -260,7 +260,7 @@ There are three interaction patterns by which the client can use the access serv
 |`external` | The user is expected to have already acquired the authorizing aspect, and no access service will be used. |
 {: .api-table .first-col-normal }
 
-The `interactive` profile requires additional properties in the service description, defined in section xxx below.
+The `interactive` profile requires additional properties in the service description, defined in the [Interactive Interaction Pattern][auth20-interactive-pattern] section below.
 
 ```json-doc
 { "profile": "interactive" }
@@ -268,8 +268,7 @@ The `interactive` profile requires additional properties in the service descript
 
 #### service
 
-The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id` and `type` properties. The `service` array _MUST_ contain exactly one access token service (TODO:link) and _MAY_ contain a logout service (TODO:link).
-
+The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id` and `type` properties. The `service` array _MUST_ contain exactly one [access token service][auth20-access-token-service] and _MAY_ contain a [logout service][auth20-logout-service].
 
 ```json-doc
 "service" : [
@@ -286,7 +285,7 @@ The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id` a
 ```
 
 ### 3.2. Client Interaction with Access Services
-{: #interaction-with-the-access-service}
+{: #interaction-with-access-services}
 
 The client _MUST_ append the following query parameter to all requests to an access service URI, regardless of the interaction pattern, and open this URI in a new window or tab.
 
@@ -309,7 +308,7 @@ The server _MAY_ use this information to validate the origin supplied in subsequ
 There are three distinct interaction patterns, identified by the `profile` property. These enable different styles of user, client and server interaction.
 
 #### 3.3.1 Interactive Pattern
-{: #interactive-interaction-pattern}
+{: #interactive-pattern}
 
 This pattern requires the user to interact in the opened tab. Typical scenarios are:
 
@@ -471,9 +470,9 @@ An example service description for the `external` pattern:
 
 The access token service is used by the client to obtain an access token, which it then sends to a probe service.
 
-The access token service URI is opened by setting the `src` property of an `<iframe />` HTML element and waiting for a message from that frame, as described in the [fix me](interaction-for-browser-based-client-applications) section. This approach is necessary because the access token service needs to be presented with the same authorizing aspect that browser-initiated requests will present to the corresponding access-controlled resource.
+The access token service URI is opened by setting the `src` property of an `<iframe />` HTML element and waiting for a message from that frame, as described in the [Access Token Service Request][auth20-access-token-service-request] section. This approach is necessary because the access token service needs to be presented with the same authorizing aspect that browser-initiated requests will present to the corresponding access-controlled resource.
 
-### 4.1. Service Description
+### 4.1. Access Token Service Description
 {: #access-token-service-description}
 
 The access token service _MUST_ be included in the `service` property of the access service it is associated with, and the client uses that access token service after the user interacts with the parent access service. It has the following properties:
@@ -495,11 +494,11 @@ The type of the service. The `type` property _MUST_ be present in the JSON, and 
 
 #### errorHeading
 
-Default heading text to render if an error occurs. If the access token service returns an error object (see link), the `heading` property of the error object _MUST_ be used instead if supplied.
+Default heading text to render if an error occurs. If the access token service returns an [error object][auth20-access-token-error-format], the `heading` property of the error object _MUST_ be used instead if supplied.
 
 #### errorNote
 
-Default additional text to render if an error occurs. If the access token service returns an error object (see link), the `note` property of the error object _MUST_ be used instead if supplied. If present, `errorHeading` _MUST_ also be present.
+Default additional text to render if an error occurs. If the access token service returns an [error object][auth20-access-token-error-format], the `note` property of the error object _MUST_ be used instead if supplied. If present, `errorHeading` _MUST_ also be present.
 
 #### Example Service Description
 
@@ -590,10 +589,9 @@ document.getElementById('messageFrame').src =
 
 ### 4.3. Access Token Service Response
 
-When the server receives a request for the access token service, it _MUST_ respond with an HTML web page. The web page _MUST_ contain a script that sends a message to the opening page using the postMessage API. The message body will be a JSON object that either provides an access token or describes an error condition. These are specified in sections foo and bar respectively. The postMessage web page response _MUST_ use the 200 HTTP status code to ensure that the body is received by the client correctly.
+When the server receives a request for the access token service, it _MUST_ respond with an HTML web page. The web page _MUST_ contain a script that sends a message to the opening page using the postMessage API. The message body will be a JSON object that either provides an access token or describes an error condition. These are specified in the [Access Token Message Format][auth20-access-token-message-format] and [Access Token Error Format][auth20-access-token-error-format] sections respectively. The postMessage web page response _MUST_ use the 200 HTTP status code to ensure that the body is received by the client correctly.
 
 The server _MAY_ use the `origin` provided in the request for further authorization logic, even though the user is already authenticated. If the client sends an incorrect `origin` value, it will not receive the posted message, as the postMessage API will not dispatch the event. The `targetOrigin` parameter of the `postMessage()` function call _MUST_ be the same `origin` value.
-
 
 Example access token response:
 
@@ -641,7 +639,7 @@ The `messageId` property _MUST_ be present, and the value _MUST_ be the value or
 
 #### accessToken
 
-The value is the access token to be sent to the probe service. The value _MUST_ be a string. Once obtained, the access token _MUST_ be included with all future requests for the parent probe service (link).
+The value is the access token to be sent to the probe service. The value _MUST_ be a string. Once obtained, the access token _MUST_ be included with all future requests for the parent [probe service][auth20-probe-service].
 
 The access token _MUST NOT_ be sent anywhere else. Access tokens _SHOULD_ have limited lifetimes, whether the `expiresIn` property is provided or not.
 
@@ -731,6 +729,7 @@ Additional human-readable information about the error to render with the user in
 ```
 
 ## 5. Probe Service
+{: #probe-service}
 
 The probe service is used by the client to understand whether the user has access to the access-controlled resource for which the probe service is declared. The client sends the token obtained from the corresponding access token service to the probe service.
 
@@ -791,7 +790,7 @@ The type of the probe result. The `type` property _MUST_ be present in the JSON,
 
 #### status
 
-The HTTP status code that the client should expect to receive if it were to issue the same request to the resource as it has just issued to the probe service. Note well that the HTTP status code of the response itself _MUST_ be 200. The `status` property _MUST_ be present in the JSON, and the value _MUST_ be an integer drawn from the list of [HTTP status codes][some-link-here]
+The HTTP status code that the client should expect to receive if it were to issue the same request to the resource as it has just issued to the probe service. Note well that the HTTP status code of the response itself _MUST_ be 200. The `status` property _MUST_ be present in the JSON, and the value _MUST_ be an integer drawn from the list of [HTTP status codes][org-rfc-7231-status].
 
 ```json
 {
@@ -813,7 +812,7 @@ Clients _SHOULD_ expect to encounter substitute resources with the following pro
 
 * `id` - The URI of the substitute resource.
 * `type` - The type of the substitute resource, which _SHOULD_ be the same as the access-controlled resource.  
-* `label` - The name, title or label to display to the user for the substitute resource. The value _MUST_ be a language map, as described in IIIF Presentation API 3.0 (link)
+* `label` - The name, title or label to display to the user for the substitute resource. The value _MUST_ be a JSON object as described in the [Language of Property Values][prezi3-languages] section of the Presentation API.
 * `service` - A list of services that apply to the substitute resource.
 
 When IIIF API resources refer to access-controlled resources with substitute resources, the access-controlled resource  _SHOULD_ be the resource most users would prefer to see, typically the highest quality version. An substitute resource may declare new IIIF Authorization Flow services, including its own probe services, allowing for [tiered access][auth20-tiered-access]. If present, and no further IIIF Authorization Flow services are declared on it, an substitute resource _MUST_ be accessible to the user who requested the probe service.
@@ -881,8 +880,8 @@ If the status code does not indicate success, the response _SHOULD_ include the 
 
 In the case of the `interactive` access service pattern, the client may need to know if and where the user can go to log out. For example, the user may wish to close their session on a public terminal, or to log in again with a different account.
 
-### 6.1. Service Description
-{: #service-description-2}
+### 6.1. Logout Service Description
+{: #logout-service-description}
 
 If the authentication system supports users intentionally logging out, there _SHOULD_ be a logout service associated with the access service following the template below:
 
@@ -913,14 +912,12 @@ If the authentication system supports users intentionally logging out, there _SH
 
 The value of the `type` property _MUST_ be `AuthLogoutService2`.
 
-### 6.2. Interaction
-{: #interaction}
+### 6.2. Logout Interaction
+{: #logout-interaction}
 
 The client _SHOULD_ present the results of an HTTP `GET` request on the service's URI in a separate tab or window with an address bar.  At the same time, the client _SHOULD_ discard any access token that it has received from the corresponding service. The server _SHOULD_ reset the user's logged in status when this request is made and delete any access cookie previously set.
 
 If possible, the server _SHOULD_ invalidate any authorizing aspects it controls and any access tokens representing those aspects.
-
-
 
 ## 7. (PLACEHOLDER IMAGE) Workflow from the Browser Client Perspective
 {: #workflow-from-the-browser-client-perspective}
