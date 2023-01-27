@@ -105,7 +105,7 @@ All IIIF specifications share common features to ensure consistency across the I
 
 
 
-<!-- 
+<!--
 For some types of authorization, such as IP address range, the information required for the server to authorize the request is present in the requests the browser makes indirectly for Content Resources, and in the requests the client code makes directly for IIIF API Resources using `XMLHttpRequest` or `fetch`. This is not true for cross-domain requests that include credentials. A browser running JavaScript retrieved from one domain cannot load a resource from another domain and include that domain's cookies in the request, without violating the requirement introduced above that the client must work when _untrusted_. In both cases, the client sends an __access token__, technically a type of [bearer token][org-rfc-6570-1-2], to a __probe service__. This interaction is a proxy for the client sending a cookie (or other __authorizing aspect__) to the __content resource__. The client does not know what __authorizing aspect__ of the request the server is basing authorization decisions on, so always sends this token it has obtained from the token service, even when for some types of authorization the information is present in the direct request.
 
 This specification describes how, once the browser has been given the chance to acquire any required credentials such as a cookie, the client then acquires the access token to use when making direct requests to a __probe service__.
@@ -127,7 +127,7 @@ This specification defines four services to support authorization flows:
 
 The purpose of this specification is to support access-control for IIIF resources and hence security is a core concern. To prevent misuse, cookies and bearer tokens described in this specification need to be protected from disclosure in storage and in transport. Implementations _MUST_ use [HTTP over TLS][org-rfc-2818], commonly known as HTTPS, for all communication. Furthermore, all IIIF clients that interact with access-controlled resources _SHOULD_ also be run from pages served via HTTPS. All references to HTTP in this specification should be read assuming the use of HTTPS.
 
-This specification protects resources such as images by making the access token value available to the script of the client application, for use in requesting a probe service. Knowledge of the access token is of no value to a malicious client, because (for example) the access _cookie_ (which the client cannot see) is the credential accepted for Content Resources. 
+This specification protects resources such as images by making the access token value available to the script of the client application, for use in requesting a probe service. Knowledge of the access token is of no value to a malicious client, because (for example) the access _cookie_ (which the client cannot see) is the credential accepted for Content Resources.
 
 
 ### 2.1. Declaring Services
@@ -216,7 +216,7 @@ The client has no knowledge of the user's interactions in the opened tab, such a
 
 The access service is not required to set a cookie, as the authorizing aspect may be an ambient aspect of the request such as IP address, user-agent, or even the time of day. In some scenarios, what happens at the access service may have no affect on subsequent steps, but the client does not know this and should always follow the same flow.
 
-There are three different interaction patterns based on the user interface that must be rendered for the user. The different patterns are indicated by the `profile` property given in the service description. 
+There are three different interaction patterns based on the user interface that must be rendered for the user. The different patterns are indicated by the `profile` property given in the service description.
 
 
 ### 3.1. Service Description
@@ -233,7 +233,7 @@ The service description is included in the IIIF API Resource and has the followi
 
 #### id
 
-The URI of the access service that the client opens in a new tab. The `id` property _MUST_ be present if the `profile` property is `interactive` or `kiosk`.  The value _MUST_ be a string containing the HTTPS URI of the service. 
+The URI of the access service that the client opens in a new tab. The `id` property _MUST_ be present if the `profile` property is `interactive` or `kiosk`.  The value _MUST_ be a string containing the HTTPS URI of the service.
 
 If the profile property is `external`, the `id` property _SHOULD NOT_ be present, and any value _MUST_ be ignored.
 
@@ -247,7 +247,7 @@ The type of the service. The `type` property _MUST_ be present in the JSON, and 
 
 ```json-doc
 { "type": "AuthAccessService2" }
-``` 
+```
 
 #### profile
 
@@ -264,7 +264,7 @@ The `interactive` profile requires additional properties in the service descript
 
 ```json-doc
 { "profile": "interactive" }
-``` 
+```
 
 #### service
 
@@ -317,7 +317,7 @@ This pattern requires the user to interact in the opened tab. Typical scenarios 
 * The user interface presents a usage agreement, or a content advisory notice, or some other form of clickthrough interaction in which credentials are not required, but deliberate confirmation of terms is required, to set an access cookie.
 * The access service stores the result of a user interaction in browser local storage, which is later available to the token service.
 
-To support these user-facing interactions, the access service description for the `interactive` profile includes the following additional descriptive properties for constructing a user interface in the client: 
+To support these user-facing interactions, the access service description for the `interactive` profile includes the following additional descriptive properties for constructing a user interface in the client:
 
 
 | Property       | Required?     | Description |
@@ -331,7 +331,7 @@ To support these user-facing interactions, the access service description for th
 
 #### label
 
-The text to be shown to the user to initiate the loading of the access service. The value _MUST_ clearly indicate the domain or institution to which the user is authenticating. The value of the property _MUST_ be a JSON object as described in the [Language of Property Values][prezi3-languages] section of the Presentation API. 
+The text to be shown to the user to initiate the loading of the access service. The value _MUST_ clearly indicate the domain or institution to which the user is authenticating. The value of the property _MUST_ be a JSON object as described in the [Language of Property Values][prezi3-languages] section of the Presentation API.
 
 ```json-doc
 { "label": { "en": [ "Login to Example Institution" ] } }
@@ -339,7 +339,7 @@ The text to be shown to the user to initiate the loading of the access service. 
 
 #### confirmLabel
 
-The text to be shown to the user on the button or element that triggers opening of the access service. If not present, the client supplies text appropriate to the interaction pattern if needed. The value of the property _MUST_ be a JSON object as described in the [Language of Property Values][prezi3-languages] section of the Presentation API. 
+The text to be shown to the user on the button or element that triggers opening of the access service. If not present, the client supplies text appropriate to the interaction pattern if needed. The value of the property _MUST_ be a JSON object as described in the [Language of Property Values][prezi3-languages] section of the Presentation API.
 
 
 ```json-doc
@@ -348,7 +348,7 @@ The text to be shown to the user on the button or element that triggers opening 
 
 #### heading
 
-Heading text to be shown with the user interface element that opens the access service. If present, it _MUST_ be shown to the user. The value of the property _MUST_ be a JSON object as described in the [Language of Property Values][prezi3-languages] section of the Presentation API. 
+Heading text to be shown with the user interface element that opens the access service. If present, it _MUST_ be shown to the user. The value of the property _MUST_ be a JSON object as described in the [Language of Property Values][prezi3-languages] section of the Presentation API.
 
 ```json-doc
 { "heading": { "en": [ "Please Log In" ] } }
@@ -357,10 +357,10 @@ Heading text to be shown with the user interface element that opens the access s
 
 #### note
 
-Additional text to be shown with the user interface element that opens the access service. If present, it _MUST_ be shown to the user. The value of the property _MUST_ be a JSON object as described in the [Language of Property Values][prezi3-languages] section of the Presentation API. 
+Additional text to be shown with the user interface element that opens the access service. If present, it _MUST_ be shown to the user. The value of the property _MUST_ be a JSON object as described in the [Language of Property Values][prezi3-languages] section of the Presentation API.
 
 ```json-doc
-{ "note": { "en": [ "Example Institution requires that you log in with your example account to view this content." ] } 
+{ "note": { "en": [ "Example Institution requires that you log in with your example account to view this content." ] }
 ```
 
 #### Complete Service Description
@@ -394,18 +394,18 @@ The interaction has the following steps:
 * When the `confirmLabel` element is activated, the client _MUST_ then open the URI from `id` with the added `origin` query parameter. This _MUST_ be done in a new window or tab to help prevent spoofing attacks. Browser security rules prevent the client from knowing what is happening in the new tab, therefore the client can only wait for and detect the closing of the opened tab.
 * After the opened tab is closed, the client _MUST_ then use the related access token service, as described below.
 
-At the time of writing, browsers will only send cookies to third party domains when the user has performed a _user gesture_ at that domain. For more information see Appendix A. 
+At the time of writing, browsers will only send cookies to third party domains when the user has performed a _user gesture_ at that domain. For more information see Appendix A.
 
 
 #### 3.3.2. Kiosk Pattern
 {: #kiosk-interaction-pattern}
 
-This pattern requires no user interaction in the opened tab. This pattern supports exhibitions, in-gallery interactives and other IIIF user experiences on managed devices that are configured in advance. 
+This pattern requires no user interaction in the opened tab. This pattern supports exhibitions, in-gallery interactives and other IIIF user experiences on managed devices that are configured in advance.
 
 For the `kiosk` pattern the interaction has the following steps:
 
 * There is no user interaction before opening the Access Service URI.
-* The client _MUST_ immediately open the URI from `id` with the added `origin` query parameter. This _MUST_ be done in a new window or tab. 
+* The client _MUST_ immediately open the URI from `id` with the added `origin` query parameter. This _MUST_ be done in a new window or tab.
 * After the opened window or tab is closed, the client _MUST_ then use the related access token service, as described below.
 
 Non-user-driven clients simply access the URI from `id` to obtain any access cookie, and then use the related access token service, as described below.
@@ -487,7 +487,7 @@ The access token service _MUST_ be included in the `service` property of the acc
 
 #### id
 
-The URI of the access token service that the client opens in a frame. The `id` property _MUST_ be present. The value _MUST_ be a string containing the HTTPS URI of the service. 
+The URI of the access token service that the client opens in a frame. The `id` property _MUST_ be present. The value _MUST_ be a string containing the HTTPS URI of the service.
 
 #### type
 
@@ -534,14 +534,14 @@ Default additional text to render if an error occurs. If the access token servic
         ]
       }
     ]
-  } 
+  }
 }
 ```
 
 ### 4.2. Access Token Service Request
 {: #access-token-service-request}
 
-If the client is a JavaScript application running in a web browser, it needs to make a request for the access token and store the result. The client can't use `XMLHttpRequest` or `fetch` because it can't include any access cookie in a cross-domain request. Such `fetch` requests do not have the same security context as requests made by the browser interpreting `src` attributes on HTML media elements. Instead, the client _MUST_ open the access token service in a frame using an `<iframe />` element and be ready to receive a message posted by a script in that frame using the [postMessage API][org-mozilla-postmessage]. 
+If the client is a JavaScript application running in a web browser, it needs to make a request for the access token and store the result. The client can't use `XMLHttpRequest` or `fetch` because it can't include any access cookie in a cross-domain request. Such `fetch` requests do not have the same security context as requests made by the browser interpreting `src` attributes on HTML media elements. Instead, the client _MUST_ open the access token service in a frame using an `<iframe />` element and be ready to receive a message posted by a script in that frame using the [postMessage API][org-mozilla-postmessage].
 
 To trigger this behavior, the client _MUST_ append the following query parameters to the access token service URI, and open this new URI in the frame:
 
@@ -633,7 +633,7 @@ If the request presents the required authorizing aspect, the access token messag
 
 #### messageId
 
-The `messageId` property _MUST_ be present, and the value _MUST_ be the value originally sent in the `messageId` query parameter when the token service was requested. The value _MUST_ be a string. Clients _MUST_ ignore messages with `messageId` values that they do not recognise. 
+The `messageId` property _MUST_ be present, and the value _MUST_ be the value originally sent in the `messageId` query parameter when the token service was requested. The value _MUST_ be a string. Clients _MUST_ ignore messages with `messageId` values that they do not recognise.
 
 ```json-doc
 { "messageId": "ae3415"}
@@ -650,7 +650,7 @@ The access token _MUST NOT_ be sent anywhere else. Access tokens _SHOULD_ have l
 ```
 
 __Warning__<br/>
-Any client can see this access token. The access token must not contain any sensitive information. It should be an opaque string different from any cookie value or other credential. For example, using an access cookie value as the access token value would allow an attacker to construct a cookie with the same content as the token and gain access to resources. 
+Any client can see this access token. The access token must not contain any sensitive information. It should be an opaque string different from any cookie value or other credential. For example, using an access cookie value as the access token value would allow an attacker to construct a cookie with the same content as the token and gain access to resources.
 {: .alert}
 
 #### expiresIn
@@ -683,7 +683,7 @@ If the request does not present the required authorizing aspect, the access toke
 | Property    | Required?     | Description                                                                              |
 | ----------- | ------------- | ---------------------------------------------------------------------------------------- |
 | `@context`  | _REQUIRED_    | The URI of the context document, `http://iiif.io/api/auth/{{ page.major }}/context.json` |
-| `type`      | _REQUIRED_    | The value _MUST_ be the string `AuthAccessTokenError2`.                                  | 
+| `type`      | _REQUIRED_    | The value _MUST_ be the string `AuthAccessTokenError2`.                                  |
 | `profile`   | _REQUIRED_    | The specific type of error.                                                              |
 | `messageId` | _REQUIRED_    | The message identifier supplied by the client.                                           |
 | `heading`   | _OPTIONAL_    | Heading text to render with the user interface element that conveys the error.           |
@@ -705,11 +705,11 @@ The `profile` property classifies the error and _MUST_ have one of the values in
 
 #### messageId
 
-The `messageId` property _MUST_ be present, and the value _MUST_ be the value originally sent in the `messageId` query parameter when the token service was requested. The value _MUST_ be a string. Clients _MUST_ ignore messages with `messageId` values that they do not recognise. 
+The `messageId` property _MUST_ be present, and the value _MUST_ be the value originally sent in the `messageId` query parameter when the token service was requested. The value _MUST_ be a string. Clients _MUST_ ignore messages with `messageId` values that they do not recognise.
 
 #### heading
 
-Heading text to render with the user interface element that conveys the error. If present, it _SHOULD_ be shown to the user if the client can't recover from the error without user interaction. The value of the property _MUST_ be a JSON object as described in the [Language of Property Values][prezi3-languages] section of the Presentation API. 
+Heading text to render with the user interface element that conveys the error. If present, it _SHOULD_ be shown to the user if the client can't recover from the error without user interaction. The value of the property _MUST_ be a JSON object as described in the [Language of Property Values][prezi3-languages] section of the Presentation API.
 
 #### note
 
@@ -745,7 +745,7 @@ The probe service is used by the client to understand whether the user has acces
 
 #### id
 
-The URI of the probe service. The `id` property _MUST_ be present. The value _MUST_ be a string containing the HTTPS URI of the service. 
+The URI of the probe service. The `id` property _MUST_ be present. The value _MUST_ be a string containing the HTTPS URI of the service.
 
 #### type
 
@@ -762,7 +762,7 @@ Default additional text to render if the probe indicates the user cannot access 
 
 ### 5.1. Probe Service Request
 
-The client passes the access token to the probe service using the `Authorization` HTTP request header and the [bearer token][org-rfc-6570-1-2] pattern. The header value is the string `Bearer` followed by a space and the access token, for example: 
+The client passes the access token to the probe service using the `Authorization` HTTP request header and the [bearer token][org-rfc-6570-1-2] pattern. The header value is the string `Bearer` followed by a space and the access token, for example:
 
 {% include api/code_header.html %}
 
@@ -838,7 +838,7 @@ When IIIF API resources refer to access-controlled resources with substitute res
 
 #### location
 
-The location property describes a resource that the client _MUST_ request instead of the access-controlled resource. A probe response _MUST NOT_ provide a resource for `location` if the `status` is anything other than a `30x` redirect response. The value _MUST_ be a JSON object which describes this resource. 
+The location property describes a resource that the client _MUST_ request instead of the access-controlled resource. A probe response _MUST NOT_ provide a resource for `location` if the `status` is anything other than a `30x` redirect response. The value _MUST_ be a JSON object which describes this resource.
 
 Clients _SHOULD_ expect to encounter a resource with the following properties, however any property from the IIIF Presentation API that is valid for a content resource _MAY_ be present.
 
@@ -862,7 +862,7 @@ Clients _SHOULD_ expect to encounter a resource with the following properties, h
 
 #### heading
 
-If the status code does not indicate success, the response _SHOULD_ include the `heading` property. This provides heading text to render with the user interface element that conveys the error. If present, it _SHOULD_ be shown to the user if the client can't recover from the error without user interaction. The value of the property _MUST_ be a JSON object as described in the [Language of Property Values][prezi3-languages] section of the Presentation API. 
+If the status code does not indicate success, the response _SHOULD_ include the `heading` property. This provides heading text to render with the user interface element that conveys the error. If present, it _SHOULD_ be shown to the user if the client can't recover from the error without user interaction. The value of the property _MUST_ be a JSON object as described in the [Language of Property Values][prezi3-languages] section of the Presentation API.
 
 ```json
 {
@@ -966,7 +966,7 @@ Browser-based clients will perform the following workflow in order to access acc
 ### 7.1 Tiered Access
 {: #tiered-access}
 
-If a Content Resource supports multiple tiers of access, then it _MUST_ use a different URI for each tiered Content Resource and its corresponding probe service. For example, there _MUST_ be different Image Information documents (`/info.json`) at different URIs for each tier. 
+If a Content Resource supports multiple tiers of access, then it _MUST_ use a different URI for each tiered Content Resource and its corresponding probe service. For example, there _MUST_ be different Image Information documents (`/info.json`) at different URIs for each tier.
 
 <!-- Need to experiment here. What can use of Location do for us, in a probe service, or in a info.json? -->
 <!-- We still need redirects - a redirected info.json could have very different features from the requested one. But the client doesn't have to make inferences, a client doesn't have to deduce that a redirect happened. -->
@@ -993,8 +993,6 @@ If the token service and Content Resources will depend on some other authorizing
 If the client informs the access service that it is on the same domain, via the `origin` parameter, then the Access Service tab _MAY_ be closed without user interaction on that domain. For example, the initial login step in a multi-step single sign-on. If the domain of the content resources is the same as the client, it's not going to have third party cookie issues so could bounce immediately to the single sign on provider.
 
 ### B. Token Response for non-browser client
-
-
 
 When returning JSON directly, the service _MUST_ use the appropriate HTTP status code for the response to describe the error (for example 400, 401 or 503).
 
@@ -1031,15 +1029,15 @@ The response is the JSON access token object with the media type `application/js
 ```
 
 
-### B. Versioning
+### C. Versioning
 
 Starting with version 0.9.0, this specification follows [Semantic Versioning][org-semver]. See the note [Versioning of APIs][notes-versioning] for details regarding how this is implemented.
 
-###  C. Acknowledgments
+### D. Acknowledgments
 
 Many thanks to the members of the [IIIF Community][iiif-community] for their continuous engagement, innovative ideas and feedback.
 
-###  D. Change Log
+### E. Change Log
 
 | Date       | Description |
 | ---------- | ----------- |
