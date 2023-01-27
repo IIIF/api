@@ -254,7 +254,7 @@ The type of the service. The `type` property _MUST_ be present in the JSON, and 
 There are three interaction patterns by which the client can use the access service, each identified by a different value of the `profile` property. These patterns are described in more detail in the following sections.
 
 |`profile` value | Description |
-|----------- | ----------- |
+|--------------- | ----------- |
 |`interactive` | The user will be required to visit the user interface of an external authentication system. |
 |`kiosk` | The user will not be required to interact with an authentication system, the client is expected to use the access service automatically. |
 |`external` | The user is expected to have already acquired the authorizing aspect, and no access service will be used. |
@@ -773,8 +773,8 @@ Authorization: Bearer ddc76e416e3804e2369e6c9cee806f5e438a5cdc
 
 The response from the probe service is a JSON-LD object with the following properties:
 
-| Name          | Required?  | Summary |
-| ------------- | ---------  | ------- |
+| Name          | Required?  | Description |
+| ------------- | ---------  | ----------- |
 | `@context`    | _REQUIRED_ | The URI of the context document, `http://iiif.io/api/auth/{{ page.major }}/context.json`. |
 | `type`        | _REQUIRED_ | The type of the service, `AuthProbeResult2`. |
 | `status`      | _REQUIRED_ | The HTTP status code that would be returned for the access-controlled resource.  |
