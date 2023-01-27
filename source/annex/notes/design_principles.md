@@ -4,7 +4,7 @@ layout: spec
 tags: [annex, presentation-api, image-api]
 cssversion: 3
 redirect_from:
-  /annex/notes/design_patterns/
+ - /annex/notes/design_patterns/
 editors:
   - name: Michael Appleby
     ORCID: https://orcid.org/0000-0002-1266-298X
