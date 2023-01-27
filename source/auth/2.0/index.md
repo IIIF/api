@@ -795,8 +795,7 @@ The HTTP status code that the client should expect to receive if it were to issu
 ```json
 {
     "@context": "http://iiif.io/api/auth/{{ page.major }}/context.json",
-    "id": "https://auth.example.org/my-video.mp4/probe",
-    "type": "AuthProbeService2",
+    "type": "AuthProbeResult2",
     "status": 200
 }
 ```
@@ -820,8 +819,7 @@ When IIIF API resources refer to access-controlled resources with substitute res
 ```json
 {
     "@context": "http://iiif.io/api/auth/{{ page.major }}/context.json",
-    "id": "https://auth.example.org/my-video.mp4/probe",
-    "type": "AuthProbeService2",
+    "type": "AuthProbeResult2",
     "status": 401,
     "substitute": [{
       "id": "https://auth.example.org/my-video-lo-res.mp4",
@@ -843,8 +841,7 @@ Clients _SHOULD_ expect to encounter a resource with the following properties, h
 ```json
 {
     "@context": "http://iiif.io/api/auth/{{ page.major }}/context.json",
-    "id": "https://auth.example.org/my-HLS-video.m3u8/probe",
-    "type": "AuthProbeService2",
+    "type": "AuthProbeResult2",
     "status": 302,
     "location": {
       "id": "https://auth-cdn-2.example.org/my-video.m3u8",
@@ -860,8 +857,7 @@ If the status code does not indicate success, the response _SHOULD_ include the 
 ```json
 {
     "@context": "http://iiif.io/api/auth/{{ page.major }}/context.json",
-    "id": "https://auth.example.org/my-video.mp4/probe",
-    "type": "AuthProbeService2",
+    "type": "AuthProbeResult2",
     "status": 401,
     "heading":  { "en": [ "You can't see this" ] },
     "note": { "en": [ "Sorry" ] }
