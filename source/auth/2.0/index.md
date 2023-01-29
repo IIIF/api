@@ -630,7 +630,7 @@ If the request presents the required authorizing aspect, the access token messag
 
 #### messageId
 
-The `messageId` property _MUST_ be present, and the value _MUST_ be the value originally sent in the `messageId` query parameter when the token service was requested. The value _MUST_ be a string. Clients _MUST_ ignore messages with `messageId` values that they do not recognise.
+The `messageId` property _MUST_ be present, and the value _MUST_ be the value originally sent in the `messageId` query parameter when the token service was requested. The value _MUST_ be a string. Clients _MUST_ ignore messages with `messageId` values that they do not recognize.
 
 ```json-doc
 { "messageId": "ae3415"}
