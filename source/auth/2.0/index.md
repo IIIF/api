@@ -125,7 +125,7 @@ This specification defines four services to support authorization flows:
 * The __probe service__, an endpoint defined by this specification that the client uses to learn about the user's relationship to the access-controlled resource the probe service is for. An access-controlled Content Resource has a probe service. An [image information][image30-information] document (info.json) also has a probe service, if the image responses it produces are access-controlled.
 * The __logout service__, an optional service for logging out.
 
-The purpose of this specification is to support access-control for IIIF resources and hence security is a core concern. To prevent misuse, cookies and bearer tokens described in this specification need to be protected from disclosure in storage and in transport. Implementations _MUST_ use [HTTP over TLS][org-rfc-2818], commonly known as HTTPS, for all communication. Furthermore, all IIIF clients that interact with access-controlled resources _SHOULD_ also be run from pages served via HTTPS. All references to HTTP in this specification should be read assuming the use of HTTPS.
+The purpose of this specification is to support access control for IIIF resources and hence security is a core concern. To prevent misuse, cookies and bearer tokens described in this specification need to be protected from disclosure in storage and in transport. Implementations _MUST_ use [HTTP over TLS][org-rfc-2818], commonly known as HTTPS, for all communication. Furthermore, all IIIF clients that interact with access-controlled resources _SHOULD_ also be run from pages served via HTTPS. All references to HTTP in this specification should be read assuming the use of HTTPS.
 
 This specification protects resources such as images by making the access token value available to the script of the client application, for use in requesting a probe service. Knowledge of the access token is of no value to a malicious client, because (for example) the access _cookie_ (which the client cannot see) is the credential accepted for Content Resources.
 
@@ -185,7 +185,7 @@ An example access-controlled resource with authorization flow services:
 
 This section illustrates the use of these services in a successful authorization flow.
 
-A user wishes to see an access-controlled resource such as an image, video, PDF or image service tiles for deep zoom.
+A user wishes to see an access-controlled resource such as an image, video, PDF, or image service tiles for deep zoom.
 The client sees from the above JSON structure in the Manifest or info.json that the resource has authorization flow services, and determines that the user will have to authenticate.
 
 The client opens the content provider's login page in a new tab.
@@ -210,11 +210,11 @@ Later, the user logs out.
 {: #access-service}
 
 <!-- simplify and move details below? --->
-The access service either grants the authorizing aspect, or determines whether the user already has that aspect. The client obtains the link to an access service from a service description in a probe service, then opens that URI in a new browser tab. The user interacts with the access service in the opened tab while the client waits until it detects that the opened tab has closed. The client then continues with the authorization flow to determine whether the authorizing aspect is present.
+The access service either grants the authorizing aspect or determines whether the user already has that aspect. The client obtains the link to an access service from a service description in a probe service, then opens that URI in a new browser tab. The user interacts with the access service in the opened tab while the client waits until it detects that the opened tab has closed. The client then continues with the authorization flow to determine whether the authorizing aspect is present.
 
 The client has no knowledge of the user's interactions in the opened tab, such as any cookies set, or redirects that happened. The final response in the opened tab _SHOULD_ contain JavaScript that will attempt to close the tab, in order to trigger the next step in the workflow.
 
-The access service is not required to set a cookie, as the authorizing aspect may be an ambient aspect of the request such as IP address, user-agent, or even the time of day. In some scenarios, what happens at the access service may have no affect on subsequent steps, but the client does not know this and should always follow the same flow.
+The access service is not required to set a cookie, as the authorizing aspect may be an ambient aspect of the request such as IP address, user-agent, or even the time of day. In some scenarios, what happens at the access service may have no effect on subsequent steps, but the client does not know this and should always follow the same flow.
 
 There are three different interaction patterns based on the user interface that must be rendered for the user. The different patterns are indicated by the `profile` property given in the service description.
 
@@ -313,7 +313,7 @@ There are three distinct interaction patterns, identified by the `profile` prope
 This pattern requires the user to interact in the opened tab. Typical scenarios are:
 
 * The user interface presents a login process, in which the user provides credentials to the content provider and the content provider sets an access cookie.
-* The user interface presents a usage agreement, or a content advisory notice, or some other form of clickthrough interaction in which credentials are not required, but deliberate confirmation of terms is required, to set an access cookie.
+* The user interface presents a usage agreement, a content advisory notice, or some other form of clickthrough interaction in which credentials are not required, but deliberate confirmation of terms is required, to set an access cookie.
 * The access service stores the result of a user interaction in browser local storage, which is later available to the token service.
 
 To support these user-facing interactions, the access service description for the `interactive` profile includes the following additional descriptive properties for constructing a user interface in the client:
@@ -630,7 +630,7 @@ If the request presents the required authorizing aspect, the access token messag
 
 #### messageId
 
-The `messageId` property _MUST_ be present, and the value _MUST_ be the value originally sent in the `messageId` query parameter when the token service was requested. The value _MUST_ be a string. Clients _MUST_ ignore messages with `messageId` values that they do not recognise.
+The `messageId` property _MUST_ be present, and the value _MUST_ be the value originally sent in the `messageId` query parameter when the token service was requested. The value _MUST_ be a string. Clients _MUST_ ignore messages with `messageId` values that they do not recognize.
 
 ```json-doc
 { "messageId": "ae3415"}
@@ -702,7 +702,7 @@ The `profile` property classifies the error and _MUST_ have one of the values in
 
 #### messageId
 
-The `messageId` property _MUST_ be present, and the value _MUST_ be the value originally sent in the `messageId` query parameter when the token service was requested. The value _MUST_ be a string. Clients _MUST_ ignore messages with `messageId` values that they do not recognise.
+The `messageId` property _MUST_ be present, and the value _MUST_ be the value originally sent in the `messageId` query parameter when the token service was requested. The value _MUST_ be a string. Clients _MUST_ ignore messages with `messageId` values that they do not recognize.
 
 #### heading
 
@@ -810,7 +810,7 @@ Clients _SHOULD_ expect to encounter substitute resources with the following pro
 
 * `id` - The URI of the substitute resource.
 * `type` - The type of the substitute resource, which _SHOULD_ be the same as the access-controlled resource.  
-* `label` - The name, title or label to display to the user for the substitute resource. The value _MUST_ be a JSON object as described in the [Language of Property Values][prezi3-languages] section of the Presentation API.
+* `label` - The name, title, or label to display to the user for the substitute resource. The value _MUST_ be a JSON object as described in the [Language of Property Values][prezi3-languages] section of the Presentation API.
 * `service` - A list of services that apply to the substitute resource.
 
 When IIIF API resources refer to access-controlled resources with substitute resources, the access-controlled resource  _SHOULD_ be the resource most users would prefer to see, typically the highest quality version. An substitute resource may declare new IIIF Authorization Flow services, including its own probe services, allowing for [tiered access][auth20-tiered-access]. If present, and no further IIIF Authorization Flow services are declared on it, an substitute resource _MUST_ be accessible to the user who requested the probe service.
@@ -975,7 +975,7 @@ If the client informs the access service that it is on the same domain, via the 
 
 ### B. Token Response for non-browser client
 
-When returning JSON directly, the service _MUST_ use the appropriate HTTP status code for the response to describe the error (for example 400, 401 or 503).
+When returning JSON directly, the service _MUST_ use the appropriate HTTP status code for the response to describe the error (for example 400, 401, or 503).
 
 
 (explain how invoked, extra param)
