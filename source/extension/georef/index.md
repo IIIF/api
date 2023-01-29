@@ -194,6 +194,24 @@ All commonly used transformation algorithms (including the ones described below)
 
 Still, a Georeference Annotation that contains less than three GCPs is valid. These Annotations still hold geospatial information that can be used in geospatial databases or GIS tools. And allowing Annotations with less than three GCPs is useful for crowdsourding purposes: incomplete Annotations can be finished by someone else while the intermediary results are still valid according to this specification.
 
+An example of the Georeference Annotation `body`:
+
+{% include api/code_header.html %}
+```json-doc
+{
+  "body": {
+    "id": "http://iiif.io/api/extension/georef/examples/3/feature-collection.json",
+    "type": "FeatureCollection",
+    "transformation": {
+      ...
+    },
+    "features": [
+      ...
+    ]
+  }
+}
+```
+
 ### 3.5 The `resourceCoords` Property
 
 The `resourceCoords` property is defined by this document in order to supply the resource coordinates from the IIIF Canvas or Image Service with the WGS84 `coordinates` in a Feature to form a single GCP. Each Feature in the Feature Collection _MUST_ have the `resourceCoords` property in the `properties` property. The value is an array representing a resource coordinate at (x, y) and _MUST_ be exactly in that order. Here is an example of a Feature with the `resourceCoords` property:
