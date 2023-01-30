@@ -1016,7 +1016,7 @@ Starting with version 0.9.0, this specification follows [Semantic Versioning][or
 
 ### D. Acknowledgments
 
-We gratefully acknowledge support from the [Wellcome Trust](https://wellcome.org/) that allowed one of the editors, Tom Crane, to devote a significant amount of time to this specification. Many thanks to the members of the [IIIF Community][iiif-community] for their continuous engagement, innovative ideas and feedback.
+We gratefully acknowledge the support from [Wellcome Collection](https://wellcomecollection.org/) that allowed one of the editors, Tom Crane, to devote a significant amount of time to this specification. Many thanks to the members of the [IIIF Community][iiif-community] for their continuous engagement, innovative ideas and feedback.
 
 ### E. Change Log
 
