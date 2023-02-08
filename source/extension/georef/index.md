@@ -90,7 +90,7 @@ Embedding resources reduces the need to make HTTP calls and increases the reliab
 
 The `motivation` property is used by Georeference Annotations to understand the reason why the Annotation was created. The `motivation` property _SHOULD_ be included on all Georeference Annotations and when included its value _MUST_ be `georeferencing`.
 
-Note that the [linked data context](1/context.json) provided with this document includes the formal linked data 1.1 motivation extension, and the [vocabulary](vocab/georef-terms.md) provided with this document contains the formal vocabulary for the "georeferencing" motivation discussed above.
+Note that the `[@BRYAN internal link needed]` linked data context provided with this document includes the formal linked data 1.1 motivation extension, and the `[@BRYAN internal link needed]` vocabulary provided with this document contains the formal vocabulary for the "georeferencing" motivation discussed above.
 
 ### 3.3 Georeference Annotation `target`
 
@@ -150,7 +150,7 @@ There are some limitations to the type of SVG Selectors you can use:
 - When a `rect` element is used, the `rx` and `ry` attributes _MUST NOT_ be used.
 - The [`transform`](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/transform) attribute _MUST NOT_ be used on any of the SVG Selector's elements.
 
-More Specific Resource examples can be found in the [examples directory](examples/) provided with this document.
+More Specific Resource examples can be found in the `[@BRYAN internal link needed]` examples directory provided with this document.
 
 #### 3.3.3 More Complex Variants
 
