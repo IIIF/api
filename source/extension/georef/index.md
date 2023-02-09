@@ -56,7 +56,7 @@ The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _S
 
 ### 2.1 Georeferencing
 
-[Georeferencing](https://en.wikipedia.org/wiki/Georeferencing) is the process of mapping internal coordinates of a resource to geographic coordinates. For the purposes of this extension, references to "IIIF resource" equate to a IIIF Presentation API [Canvas](https://iiif.io/api/presentation/3.0/#53-canvas) or [Image Service](https://iiif.io/api/presentation/3.0/#service) that depicts one or more maps. `[@JULES check]` For the purposes of this extension, a map is broadly defined as an image, or a part of an image, that can be georeferenced, such as carthographic projections, aerial photographs, archaeological drawings, and building plans.
+[Georeferencing](https://en.wikipedia.org/wiki/Georeferencing) is the process of mapping internal coordinates of a resource to geographic coordinates. For the purposes of this extension, references to "IIIF resource" equate to a IIIF Presentation API [Canvas](https://iiif.io/api/presentation/3.0/#53-canvas) or [Image Service](https://iiif.io/api/presentation/3.0/#service). To qualify for georeferencing, the IIIF resource must include one or more regions that can be mapped to geographic coordinates, such as cartographic projections, aerial photographs, archaeological drawings, and building plans. Each of these regions is referred to as a 'map' below.
 
 ### 2.2 Georeferencing Process
 
