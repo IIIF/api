@@ -25,17 +25,20 @@ The [existing GeoJSON specification](https://datatracker.ietf.org/doc/html/rfc79
 
 ### 1.2 Motivating Use Cases
 
-`[@JULES] expand:` A georeferencing extension for IIIF resources will enable the following use cases:
+A georeference extension for IIIF resources will enable the following use cases:
 
-- Overlay IIIF image resources on a geographic map by rotating and stretching it. This transforming an image to make it fit on a map is also called _warping_.
-- Stitching multiple images of map sheets together to form a single map.
-- Georeference data can also be used to compute the exact geospatial area depicted on an image. This will enable geospatial indexing of IIIF resources and enabling them to be found by geospatial search engines.
-- A georeferenced IIIF resource can be converted to a variety of GIS formats, like GeoTIFF, GeoJSON and XYZ map tiles.
+- Adding IIIF resources as map layers to dynamic web maps or in GIS-applications. Based on georeference data, clients can transform IIIF resources by scaling, skewing and rotating them. This process, that is also called _warping_, can be carried out through various methods.
+- The previous use case also supports stitching together multiple map sheets, each represented by a single IIIF resource, to form a composite map. It can also be used to compare different versions of the same map or a collection of maps of the same area.
+- Geospatial exploration of IIIF resources. Georeference data can be used to compute the geospatial areas depicted on IIIF resources. This enables geospatial indexing and harvesting by geospatial search engines.
+- The same method can be used to convert IIIF Web Annotations to geographic formats such as GeoJSON, and vice versa. This can be used to display annotations as vectors in a map interface or to paint geographic data as annotations on a IIIF Canvas.
+- Calculating the scale (in pixels per unit of length) and orientation (compass direction) of IIIF resources. This can be used to improve user experiences when viewing IIIF resources or for indexing. In addition the georeference data might be used to approximate the original cartographic projection of the map.
+- Converting IIIF resources to a variety of raster map formats such as GeoTIFF and XYZ map tiles. This allows resources to be used in conventional GIS-software.
 
-Situations which are not in scope include:
+The following use cases are not in scope:
 
-- 3D spatial representation
-- Photo geotagging
+- Geotagging of (non-aerial) photographs. This is extension is aimed at georeferencing IIIF resources containing cartographic projections, i.e. two-dimensional representations of the three-dimensional surface of the globe. Usage may extent to other projection types that can be mapped to geospatial coordinates, such as orthographic plan projections or vertical aerial photos. Geotagging photographs is out of scope because this requires a different set of datapoints and relates to other use cases. Please refer to the [navPlace Extension](https://iiif.io/api/extension/navplace/) for an alternative solution.
+- Georeferencing altitude or elevation. Although the GeoJSON specifications support a third position element indicating the "height in meters above or below the WGS 84 reference ellipsoid", this is not included in the extension. Adding a third position element will however not result in an invalid Georeference Annotation, and it might be supported in future versions.
+- Georeferencing map projections. When selecting a transformation method in order to warp the map, it can be useful to know the original cartographic projection of a IIIF resource. Including this in the georeference annotation would require a complex taxonomy of projection types and related properties, which is out of scope. A solution is to include this information in the metadata of the IIIF Manifest, or in a machine readable format referenced through the [seeAlso](https://iiif.io/api/presentation/3.0/#seealso) property.
 
 ### 1.3 Terminology
 
