@@ -1,10 +1,4 @@
-# Images used in Georef Spec
+# Images used in Georefence Extension document
 
-- Acadia National Park: https://www.loc.gov/resource/g3732a.np000049/
-
-<table border="0">
-  <tr>
-    <td><img src="loc-acadia-np-original.jpg" /></td>
-    <td><img src="loc-acadia-np-maps.jpg" /></td>
-  </tr>
-</table>
+- [`greenpoint.jpg`](greenpoint.jpg): [Brooklyn, Vol. 1, 2nd Part, Double Page Plate No. 34; Part of Ward 17, Section 9](https://digitalcollections.nypl.org/items/69582cf7-d6cd-ba72-e040-e00a18065eba) from the New York Public Library.
+- [`watergraafsmeer.jpg`](watergraafsmeer.jpg): [Watergraafs of Diemer-meer](https://tudelft.on.worldcat.org/oclc/708029770) from Delft University of Technology Library.
