@@ -498,3 +498,7 @@ Note that none of the tools listed above currently support georeferencing IIIF r
 This document was produced by the IIIF Maps Community Group and IIIF Maps Technical Specification Group.  Of course, assistance came from many branches of the IIIF Community.  We thank everyone for their time and perserverance given to ensure this extension is as useful as possible.
 
 ### C. Change Log
+
+{% include acronyms.md %}
+
+{% include links.md %}
