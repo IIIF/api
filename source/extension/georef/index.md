@@ -62,19 +62,19 @@ The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _S
 
 The process of georeferencing consists of the following steps:
 
-1. A pointer to a IIIF resource. When a resource depicts multiple maps (such as inset maps) or when the resource contains non-cartographic parts (such as legends or borders), a mask is used to select the region of the resource that contains a single map. The shape of a mask can vary from a simple rectangle to a more complex polygon.
-2. A mapping between a selection of coordinates of the IIIF resource and geographic WGS84 coordinates. This mapping consists of pairs of resource coordinates and geographic coordinates. Each pair of coordinates is called a Ground Control Point (GCP). At least three GCPs are needed to enable clients to warp a map.
+1. Selecting a IIIF resource. When a resource depicts multiple maps (such as inset maps) or when the resource contains non-cartographic parts (such as legends or borders), a polygonal selector is used to select the region of the resource that contains a single map. The shape of a polygonal selector can vary from a simple rectangle to a more complex polygon. This step is called _cropping_ or _masking_ in other georeferencing software.
+2. Defining a mapping between coordinates on the IIIF resource and corresponding geographic WGS84 coordinates. This mapping consists of pairs of resource coordinates and geographic coordinates. Each pair of coordinates is called a Ground Control Point (GCP). At least three GCPs are needed to enable clients to warp a map.
 3. Optionally, a preferred transformation algorithm is defined that clients can use to turn the discrete set of GCPs into a function that interpolates any of the IIIF resource coordinates to geographic coordinates, and vice versa.
 
 ### 2.3 Critical Data for Georeferencing
 
 The following encoding is used to store the data for georeferencing:
 
-| Data                     | Encoding                                                            |
-|--------------------------|---------------------------------------------------------------------|
-| Resource and mask  | IIIF Presentation API Canvas or Image API Image Service with an optional [SVG Selector](https://www.w3.org/TR/annotation-model/#svg-selector) or [Image API Selector](https://iiif.io/api/annex/openannotation/#iiif-image-api-selector) to specify a mask |
-| GCPs                     | A GeoJSON Feature Collection where each GCP is stored as a GeoJSON Feature with a Point geometry and a `resourceCoords` property in the Feature's `properties` object |
-| Transformation algorithm | A `transformation` property defined on the GeoJSON Feature Collection that holds the GCPs |
+| Data                           | Encoding                                                            |
+|--------------------------------|---------------------------------------------------------------------|
+| Resource and selector | IIIF Presentation API Canvas or Image API Image Service with an optional [SVG Selector](https://www.w3.org/TR/annotation-model/#svg-selector) or [Image API Selector](https://iiif.io/api/annex/openannotation/#iiif-image-api-selector) |
+| GCPs                           | A GeoJSON Feature Collection where each GCP is stored as a GeoJSON Feature with a Point geometry and a `resourceCoords` property in the Feature's `properties` object |
+| Transformation algorithm       | A `transformation` property defined on the GeoJSON Feature Collection that holds the GCPs |
 {: .api-table #table-critical-data-for-georeferencing}
 
 ## 3. Web Annotations for Georeferencing
@@ -103,7 +103,7 @@ The `target` property describes the resource that the Georeference Annotation ap
 
 `[@BERT/BRYAN: I moved this here bc it also applies to specific resource, right?]` Sometimes the targeted resource exists within a parent resource, such as a Canvas within a Manifest. In these cases, it is important to maintain the link between them to access useful contextual information. Implementers _SHOULD_ use the `partOf` property to reference the parent resource.
 
-`[@BERT/BRYAN: Is this really needed? Either the full canvas is already embedded or the height & width can be inferred from the Canvas in the Manifest that the annotation is embedded in. Seems double.]` Clients processing the georeferencing information require the original height and width of the resources in order to have the proper aspect ratios. Implementers _SHOULD_ add the `height` and `width` properties to their embedded resources for consistency.  
+`[@BERT/BRYAN: Is this really needed? Either the full canvas is already embedded or the height & width can be inferred from the Canvas in the Manifest that the annotation is embedded in. Seems double.]` Clients processing the georeferencing information require the original height and width of the resources in order to have the proper aspect ratios. Implementers _SHOULD_ add the `height` and `width` properties to their embedded resources for consistency.
 
 #### 3.3.1 Targeting the Full Resource
 
@@ -187,8 +187,8 @@ An example where a single painted Image has multiple discrete maps:
     <td>
       <figure>
         <img src="images/loc-acadia-np-maps.jpg"
-          alt="The same image with four masks that capture the cartographic projections contained by the image">
-        <figcaption>The same image with four masks that capture the cartographic projections contained by the image</figcaption>
+          alt="The same image with four selectors that capture the cartographic projections contained by the image">
+        <figcaption>The same image with four selectors that capture the cartographic projections contained by the image</figcaption>
       </figure>
     </td>
   </tr>
