@@ -153,8 +153,6 @@ There are some limitations to the type of SVG Selectors you can use to ensure th
 - The `svg` element _MAY_ include `width` and `height` attributes. When these attributes are included, they _MUST_ be equal to the width and height of the targeted resource and they _MUST_ be numbers without units.
 - The [`transform`](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/transform) attribute _MUST NOT_ be used on any of the SVG Selector's elements.
 
-More Georeference Annotation examples will be available through the IIIF Cookbook. This document will be updated with links to those recipes as they become available.  
-
 #### 3.3.3 Content Variants
 
 ##### Multiple Maps Depicted on a Single IIIF Resource
@@ -176,6 +174,8 @@ It is also possible for a Canvas to contain multiple painting Annotations, each 
     alt="Watergraafs of Diemer-meer, from Delft University of Technology Library">
   <figcaption>Four map sheets painted on a single Canvas: <a href="https://tudelft.on.worldcat.org/oclc/708029770">Watergraafs of Diemer-meer</a>, from Delft University of Technology Library.</figcaption>
 </figure>
+
+More Georeference Annotation examples with robuse implementation guidance will be available through the IIIF Cookbook. This document will be updated with links to those recipes as they become available.
 
 ### 3.4 Georeference Annotation `body`
 
