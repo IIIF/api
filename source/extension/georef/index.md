@@ -38,7 +38,7 @@ The following use cases are not in scope:
 
 - Geotagging of (non-aerial) photographs. This is extension is aimed at georeferencing cartographic IIIF resources containing two-dimensional representations of the three-dimensional surface of the globe. Usage may extent to other representations that can be mapped to geospatial coordinates, such as orthographic plan projections or vertical aerial photographs. Geotagging photographs is out of scope because this requires a different set of datapoints and relates to other use cases. Please refer to the [navPlace Extension](https://iiif.io/api/extension/navplace/) for an alternative solution.
 - Georeferencing altitude or elevation. Although the GeoJSON specifications support a third position element indicating the "height in meters above or below the WGS 84 reference ellipsoid", this is not included in the extension. Adding a third position element will however not result in an invalid Georeference Annotation, and it might be supported in future versions of the extension.
-- Specifying the original map projection type of the IIIF resource. When selecting a transformation method in order to warp a map, it can be useful to know the original map projection type of a IIIF resource, such as Mercator or Lambert. Including this in the Georeference Annotation would require a complex taxonomy of projection types and related properties, which is out of scope. A solution is to include this information in the metadata of the IIIF Manifest, or in a machine readable format referenced through the [seeAlso](https://iiif.io/api/presentation/3.0/#seealso) property.
+- Specifying the original map projection and related coordinate reference system (CRS) of a IIIF resource. When selecting a transformation method in order to warp a map, it can be useful to know the original map projection of a IIIF resource, such as Mercator or Lambert. Including this in the Georeference Annotation would require a complex taxonomy, which is out of scope. A solution is to include this information in the metadata of the IIIF Manifest, or in a machine readable format referenced through the [seeAlso](https://iiif.io/api/presentation/3.0/#seealso) property.
 
 ### 1.3 Terminology
 
@@ -81,15 +81,13 @@ The following encoding is used to store the data for georeferencing:
 
 The combined information described in Section 2 is stored in a Georeference Annotation which is modelled on the Web Annotation Data Model. This section details the structure of a Georeference Annotation and its relationship to the IIIF Presentation API and Image API. It includes examples of the different properties and options.
 
-### 3.1 Embedded vs. Referenced Targets and Resources
+### 3.1 Embedded vs. Referenced Annotations
 
 Georeference Annotations can be included in a IIIF Presentation API response as part of an [Annotation Page](https://iiif.io/api/presentation/3.0/#annotations) under the `annotations` property of a Canvas. Alternatively, annotations can exist independent of the targeted IIIF resource.
 
 For Georeference Annotations included in a IIIF Manifest, implementers _MUST_ at least add one Annotation Page to the `annotations` property of the targeted Canvas. Implementers have the option to [reference or embed](https://iiif.io/api/presentation/3.0/#12-terminology) those Annotation Pages. For the purposes of this extension, implementers _SHOULD_ embed the Annotation Pages in the `annotations` property as opposed to referencing them. See the Cookbook entry [Embedded or referenced Annotations](https://iiif.io/api/cookbook/recipe/0269-embedded-or-referenced-annotations/) for a close look at the difference.
 
-`[@JULES: I think this should be moved to 3.3]` Georeference Annotations can exist independent of the resource they target and in such cases the resource is often only referenced via its URI in the Georeference Annotation's `target` property. For the purposes of this extension, implementers _SHOULD_ embed the IIIF resource within the Georeference Annotation instead of referencing it.
-
-Embedding resources reduces the need to make HTTP calls and increases the reliability of the included resources. Sometimes URIs do not resolve and in those cases it will not be possible to display or use those resources in georeferencing scenarios. Embedding the resources ensures each resource is available for georeferencing algorithms and ensures the metadata about the resource, such as height and width, remains consistent.
+Embedding resources reduces the need to make HTTP calls. It also ensures the availability of resources when URIs do not resolve. In those cases it would otherwise not be possible to display or use those resources in client applications.
 
 ### 3.2 Georeference Annotation `motivation`
 
@@ -99,13 +97,15 @@ Note that the `[@BRYAN internal link needed]` linked data context provided with 
 
 ### 3.3 Georeference Annotation `target`
 
-The `target` property describes the resource that the Georeference Annotation applies to. The value for `target` _MUST_ either be a single and full IIIF resource, or a single area of interest within a IIIF resource represented as a [Specific Resource](https://www.w3.org/TR/annotation-model/#specific-resources).
+The `target` property describes the resource that the Georeference Annotation applies to. The value for `target` _MUST_ either be a single and full IIIF resource, or a single region within a IIIF resource represented as a [Specific Resource](https://www.w3.org/TR/annotation-model/#specific-resources).
 
-Clients processing the georeferencing information require the original height and width of the resources in order to have the proper aspect ratios. Implementers _SHOULD_ add the `height` and `width` properties to their embedded resources for consistency.  
+`[@BERT/BRYAN: Please check]` For Georeference Annotations embedded in an Annotation Page as part of a Canvas, the `target` _MUST_ be the Canvas URI or a part of it, following the specifications of the IIIF Presentation API. For Georeference Annotations that exist independent of the resource they target, implementers _SHOULD_ embed the IIIF resource within the Georeference Annotation instead of referencing it.
+
+`[@BERT/BRYAN: I moved this here bc it also applies to specific resource, right?]` Sometimes the targeted resource exists within a parent resource, such as a Canvas within a Manifest. In these cases, it is important to maintain the link between them to access useful contextual information. Implementers _SHOULD_ use the `partOf` property to reference the parent resource.
+
+`[@BERT/BRYAN: Is this really needed? Either the full canvas is already embedded or the height & width can be inferred from the Canvas in the Manifest that the annotation is embedded in. Seems double.]` Clients processing the georeferencing information require the original height and width of the resources in order to have the proper aspect ratios. Implementers _SHOULD_ add the `height` and `width` properties to their embedded resources for consistency.  
 
 #### 3.3.1 Targeting the Full Resource
-
-Sometimes the targeted resource exists within a parent resource, such as a Canvas within a Manifest. In these cases, it is important to maintain the link between them to access useful contextual information about one in relation to the other. Implementers _SHOULD_ use the `partOf` property to reference the parent resource.
 
 Example of a Georeference Annotation `target` that is an entire Canvas:
 
@@ -126,10 +126,11 @@ Example of a Georeference Annotation `target` that is an entire Canvas:
 }
 ```
 
-#### 3.3.2 Targeting a Specific Area of the Resource
-`[@JULES: Make sure we refer consistently to region or area (of interest)]` When a [Specific Resource](https://www.w3.org/TR/annotation-model/#specific-resources) is used as a `target`, the `source` property supplies the resource and the `selector` property indicates the region of the resource that is being georeferenced. This region can be the complete resource, or a rectangular or polygonal area. To select a rectangular or polygonal area, a [IIIF Image API Selector](https://iiif.io/api/annex/openannotation/#iiif-image-api-selector) or an [SVG Selector](https://www.w3.org/TR/annotation-model/#svg-selector) can be used. An SVG Selector can be used on both Canvas and ImageService resources and is the preferred technique.
+#### 3.3.2 Targeting a Specific Region of the Resource
 
-Example of a Georeference Annotation `target` with an [SVG Selector](https://www.w3.org/TR/annotation-model/#svg-selector) on a Canvas:
+When a [Specific Resource](https://www.w3.org/TR/annotation-model/#specific-resources) is used as a `target`, the `source` property supplies the resource and the `selector` property indicates the region of the resource that the annotation applies to. To select a rectangular or polygonal region, a [IIIF Image API Selector](https://iiif.io/api/annex/openannotation/#iiif-image-api-selector) or an [SVG Selector](https://www.w3.org/TR/annotation-model/#svg-selector) can be used. An SVG Selector can be used on both Canvas and ImageService resources and is the preferred technique.
+
+Example of a Georeference Annotation `target` with a [SVG Selector](https://www.w3.org/TR/annotation-model/#svg-selector) on a Canvas:
 
 {% include api/code_header.html %}
 ```json-doc
@@ -195,11 +196,11 @@ An example where a single painted Image has multiple discrete maps:
 
 ### 3.4 Georeference Annotation `body`
 
-The `body` of a Georeference Annotation contains geospatial information to apply to the resource noted in the `target` property. For the purposes of this extension the `body` contains the GCPs. The value for `body` _MUST_ be a GeoJSON Feature Collection. The Feature Collection _MUST_ only contain Features with [Point](https://www.rfc-editor.org/rfc/rfc7946#section-3.1.2) geometries and _SHOULD_ contain at least three Point Features as prescribed by [Section 2.2](#22-georeferencing-process).
+The `body` of a Georeference Annotation contains the geospatial information about the resource that is referenced or embedded in the `target` property. For the purposes of this extension the `body` contains the GCPs. The value for `body` _MUST_ be a GeoJSON Feature Collection. The Feature Collection _MUST_ only contain Features with [Point](https://www.rfc-editor.org/rfc/rfc7946#section-3.1.2) geometries and _SHOULD_ contain at least three Point Features.
 
-All commonly used transformation algorithms (including the ones described below) that are used to warp images need at least three GCPs. Algorithms exist that only need 2 GCPs, but they require information about the coordinate reference system (CRS) of the georeferenced map. This specification does not support adding information about a map's CRS.
+All commonly used transformation algorithms (including the ones described below) that are used to warp images require at least three GCPs. Algorithms exist that only need two GCPs, but they require information about the coordinate reference system (CRS) of the map. This specification does not support adding information about a map's CRS, as explained in `[@BRYAN: Add link:]`[Section 1.2].
 
-Still, a Georeference Annotation that contains less than three GCPs is valid. These Annotations still hold geospatial information that can be used in geospatial databases or GIS tools. Supporting Annotations with less than three GCPs is useful for crowdsourding purposes: incomplete Annotations can be finished by someone else while the intermediary results are still valid according to this specification.
+Still, a Georeference Annotation that contains less than three GCPs is valid. These annotations hold geospatial information that can be used in geospatial databases or GIS applications. Supporting annotations with less than three GCPs is also useful for crowdsourcing: incomplete annotations can be finished by someone else while intermediary results still comply to the specification.
 
 An example of the Georeference Annotation `body`:
 
@@ -221,7 +222,9 @@ An example of the Georeference Annotation `body`:
 
 ### 3.5 The `resourceCoords` Property
 
-The `resourceCoords` property is defined by this document in order to supply the resource coordinates from the IIIF resource with the WGS84 `coordinates` in a Feature to form a single GCP. Each Feature in the Feature Collection _MUST_ have the `resourceCoords` property in the `properties` property. The value is an array representing a resource coordinate at (x, y) and _MUST_ be exactly in that order. Here is an example of a Feature with the `resourceCoords` property:
+The `resourceCoords` property is defined by this document in order to supply the coordinates from the IIIF resource together with the WGS84 `coordinates` in a Feature to form a single GCP. Each Feature in the Feature Collection _MUST_ have the `resourceCoords` property in the `properties` property. The value is an array representing a resource coordinate at (x, y) and _MUST_ be exactly in that order.
+
+An example of a Feature with the `resourceCoords` property:
 
 {% include api/code_header.html %}
 ```json-doc
@@ -241,7 +244,7 @@ The `resourceCoords` property is defined by this document in order to supply the
 
 The `transformation` property is defined by this document in order to supply the preferred transformation algorithm that is used to create a complete mapping from pixel coordinates to geographic coordinates (and vice versa) based on a list of GCPs. The value for `transformation` is a JSON object which includes the properties `type` and `options`. The property _MAY_ be added to the Feature Collection used in the Georeference Annotation `body` and clients _MAY_ use the information in the object.
 
-If a transformation algorithm is not provided, clients _SHOULD_ use their default algorithm if they are using a Georeference Annotation to transform between pixel coordinates and geographic coordinates. Similarly, if the supplied transformation algorithm is not implemented by a client, the default algorithm _SHOULD_ be used.
+If a transformation algorithm is not provided, clients _SHOULD_ use their default algorithm. Similarly, if the supplied transformation algorithm is not implemented by a client, the default algorithm _SHOULD_ be used.
 
 For more details about different transformation algorithms, see the [Implementation Notes](#6-implementation-notes) section.
 
@@ -253,7 +256,7 @@ The name of the preferred transformation algorithm is stored in the `type` prope
 | `thinPlateSpline`            | Thin plate spline transformation, also known as _rubber sheeting_ | N/A      |
 {: .api-table #table-transformation-types}
 
-The `options` property is used to supply additional parameters related to the selected transformation type. If a transformation type does not have or need options, implementers _SHOULD NOT_ include the `options` property.
+The `options` property is used to supply additional parameters related to the selected transformation type. If a transformation type does not have or require options, implementers _SHOULD NOT_ include the `options` property.
 
 The table below describes the different possible `order` values for the `polynomial` transformation type.
 
@@ -263,7 +266,7 @@ The table below describes the different possible `order` values for the `polynom
 | `2`   | 2nd order (quadratic) polynomial transformation |
 | `3`   | 3nd order (cubic) polynomial transformation     |
 
-Other properties within `options`, including other transformation types not defined in this document, _SHOULD_ be described either by [registered IIIF API extensions](https://iiif.io/api/extension/) or [local linked data contexts](https://www.w3.org/TR/json-ld11/#dfn-local-context). If a client discovers properties that it does not understand, then it _MUST_ ignore them.
+Other properties within `options`, including other transformation types not defined in this document, _SHOULD_ be described either by [registered IIIF API extensions](https://iiif.io/api/extension/) or [local linked data contexts](https://www.w3.org/TR/json-ld11/#dfn-local-context). If a client is not able to process properties it _MUST_ ignore them.
 
 Example of a `transformation` JSON object:
 
