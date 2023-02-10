@@ -15,12 +15,7 @@ Changes will be tracked within the document.
 
 ## 1. Introduction
 
-`[@BERT] finish paragraph:`
-this document desribes how
-web annotations
-iiif resources
-warp maps
-georeference annotation
+This document desribes a way to store the metadata needed to georeference a IIIF resource in a _Georeference Annotation_. Georeferenced Annotations can be used to convert images such as digitized maps and aerial photographs to geospatial assets.
 
 The [IIIF Presentation API](https://iiif.io/api/presentation/3.0/) has the capability to support complex Web Annotations which can provide detailed and specific information regarding IIIF resources. You can see various use cases which implement such Web Annotations in the [IIIF Cookbook](https://iiif.io/api/cookbook/). Through the work of the [IIIF Maps](https://iiif.io/community/groups/maps/) and [IIIF Maps TSG](https://iiif.io/community/groups/maps-tsg/) groups, a commonality of techniques to georeference IIIF Canvases and Images in the context of a global map became evident, and a desire to have standards and best practices for georeferencing became known.
 
@@ -34,7 +29,7 @@ The [existing GeoJSON specification](https://datatracker.ietf.org/doc/html/rfc79
 
 A georeference extension for IIIF resources will enable the following use cases:
 
-- Adding IIIF resources as map layers to dynamic web maps or in GIS applications. Based on georeference data, clients can transform IIIF resources by scaling, skewing and rotating them. This process, also called _warping_, can be carried out through various methods.
+- Adding IIIF resources as map layers to dynamic web maps or in GIS applications. Based on georeference data, clients can transform IIIF resources by scaling, skewing, rotating and stretching them. This process, also called _warping_, can be carried out through various methods.
 - The previous use case also supports stitching together multiple map sheets, each represented by a single IIIF resource, to form a composite map. Alternatively, it can be used to compare different versions of the same map or a collection of maps of the same area.
 - Geospatial exploration of IIIF resources. Georeference data can be used to compute the geospatial areas depicted on IIIF resources. This enables geospatial indexing and harvesting by geospatial search engines.
 - The same method can be used to convert IIIF Web Annotations to geographic formats such as GeoJSON, and vice versa. This can be used to display IIIF annotations as vectors in a map interface or to paint geographic data as IIIF annotations on a Canvas.
@@ -65,7 +60,7 @@ The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _S
 
 Georeferencing is the process of mapping internal coordinates of an image to geographic coordinates. For the purposes of this extension, references to _IIIF resource_ equate to a IIIF Presentation API [Canvas](https://iiif.io/api/presentation/3.0/#53-canvas) or [Image Service](https://iiif.io/api/presentation/3.0/#service). To qualify for georeferencing, the IIIF resource must include one or more regions that can be mapped to geographic coordinates, such as cartographic material, aerial photographs, archaeological drawings, and building plans. In this specification, each of these regions is called a _map_.
 
-In order to be georeferenced with a single Georeference Annotation, the image information of the IIIF resource must be accessible with a single, continuous cartesian coordinate system. This is why a Georeferencing Annotation can be used to georeference a Canvas or Images Service, but not a [Manifest](https://iiif.io/api/presentation/3.0/#52-manifest) or [Range](https://iiif.io/api/presentation/3.0/#54-range). To georeference a Manifest or Range, multiple Georeference Annotations are needed, one for each item in the Manifest or Range.
+In order to be georeferenced with a single Georeference Annotation, the image information of the IIIF resource must be accessible with a single, continuous cartesian coordinate system. This is why a Georeferencing Annotation can be used to georeference a Canvas or Images Service, but not a [Manifest](https://iiif.io/api/presentation/3.0/#52-manifest) or [Range](https://iiif.io/api/presentation/3.0/#54-range). To georeference a Manifest or Range, multiple Georeference Annotations are needed, one for each Canvas or Image Service in the Manifest or Range.
 
 ### 2.2 Georeferencing Process
 
@@ -75,11 +70,9 @@ The process of georeferencing consists of the following steps:
 2. Defining a mapping between coordinates on the IIIF resource and corresponding geographic WGS84 coordinates. This mapping consists of pairs of resource coordinates and geographic coordinates. Each pair of coordinates is called a Ground Control Point (GCP). At least three GCPs are needed to enable clients to warp a map.
 3. Optionally, a preferred transformation algorithm is defined that clients can use to turn the discrete set of GCPs into a function that interpolates any of the IIIF resource coordinates to geographic coordinates, and vice versa.
 
-### 2.3 Critical Data for Georeferencing
+In a Georeference Annotations, these steps are stored as follows:
 
-In a Georeference Annotations, these steps are encoded as follows:
-
-| Data                     | Encoding                                                            |
+| Data                     | Georeference Annotation                                             |
 |--------------------------|---------------------------------------------------------------------|
 | Resource and selector    | IIIF Presentation API Canvas or Image API Image Service with an optional [SVG Selector](https://www.w3.org/TR/annotation-model/#svg-selector) or [Image API Selector](https://iiif.io/api/annex/openannotation/#iiif-image-api-selector) |
 | GCPs                     | A GeoJSON Feature Collection where each GCP is stored as a GeoJSON Feature with a Point geometry and a `resourceCoords` property in the Feature's `properties` object |
@@ -159,44 +152,38 @@ Example of a Georeference Annotation `target` with a [SVG Selector](https://www.
 }
 ```
 
-There are some limitations to the type of SVG Selectors you can use:
+There are some limitations to the type of SVG Selectors you can use to ensure that each map is a single shape without holes:
 
 - The `svg` element _MUST_ contain a single child element.
+- This single child element _MUST_ either be a [`<polygon>`](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/polygon) or a [`<rect>`](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/rect).
+- When a `rect` element is used, the `rx` and `ry` attributes _MUST NOT_ be used.
 - The [`viewBox`](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox) attribute _MUST NOT_ be used on the `svg` element.
 - The `svg` element _MAY_ include `width` and `height` attributes. When these attributes are included, they _MUST_ be equal to the width and height of the targeted resource and they _MUST_ be numbers without units.
-- The single child element _MUST_ either be a [`<polygon>`](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/polygon) or a [`<rect>`](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/rect).
-- When a `rect` element is used, the `rx` and `ry` attributes _MUST NOT_ be used.
 - The [`transform`](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/transform) attribute _MUST NOT_ be used on any of the SVG Selector's elements.
-
-This means that, when a SVG Selector is used, each map is a single shape without holes.
 
 More Specific Resource examples can be found in the `[@BRYAN internal link needed]` examples directory provided with this document.
 
 #### 3.3.3 More Complex Variants
 
-Multiple maps depicted on a single resource
-"A single resource with multiple maps, selected with multiple Georeference Annotations in a AnnotationPage"
+##### Multiple maps depicted on a single IIIF resource
 
-An example where a single painted Image has multiple discrete maps:
+It's common that a single IIIF resource depicts multiple maps, such as inset maps. Such a resource can be georeferenced by using multiple Georeference Annotation, each with their own SVG Selector and GCPs.
 
 <figure>
   <img src="images/greenpoint.jpg"
     alt="Brooklyn, Vol. 1, 2nd Part, Double Page Plate No. 34; Part of Ward 17, Section 9, from the New York Public Library">
-  <figcaption><a href="https://digitalcollections.nypl.org/items/69582cf7-d6cd-ba72-e040-e00a18065eba">Brooklyn, Vol. 1, 2nd Part, Double Page Plate No. 34; Part of Ward 17, Section 9</a>, from the New York Public Library</figcaption>
+  <figcaption>Three maps depicted and selected on a single IIIF resource: <a href="https://digitalcollections.nypl.org/items/69582cf7-d6cd-ba72-e040-e00a18065eba">Brooklyn, Vol. 1, 2nd Part, Double Page Plate No. 34; Part of Ward 17, Section 9</a>, from the New York Public Library</figcaption>
 </figure>
 
-"A Canvas with multiple painting Annotations (painting multiple maps onto the same Canvas)"
+##### A Canvas with multiple painting Annotations
 
-"The example will be a Canvas with multiple sheets of an atlas". Or: different layers, like different versions of the river maps.
-"Geoereference the sheets combined or using multiple fragments"
+It's also possible for a Canvas to contain multiple painting Annotations, each of a separate map. When the maps on the canvas align properly, such a Canvas can be georeferenced at once, using a single Georeference Annotation.
 
 <figure>
   <img src="images/watergraafsmeer.jpg"
     alt="Watergraafs of Diemer-meer, from Delft University of Technology Library">
-  <figcaption><a href="https://tudelft.on.worldcat.org/oclc/708029770">Watergraafs of Diemer-meer</a>, from Delft University of Technology Library.</figcaption>
+  <figcaption>Four map sheets painted on a single Canvas: <a href="https://tudelft.on.worldcat.org/oclc/708029770">Watergraafs of Diemer-meer</a>, from Delft University of Technology Library.</figcaption>
 </figure>
-
-`[@BERT] review` It is valid for a Canvas to have multiple painting Annotations. However, to leverage the most support from viewers this specification encourages using a single painting Annotation to place an Image on a Canvas. The Image within the Canvas and the Canvas itself _SHOULD_ have the same `height` and `width` values.
 
 ### 3.4 Georeference Annotation `body`
 
