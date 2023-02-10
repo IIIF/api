@@ -93,7 +93,7 @@ Embedding resources reduces the need to make HTTP calls. It also ensures the ava
 
 The `motivation` property declares the reason for creating the Georeference Annotation. The `motivation` property _SHOULD_ be included on all Georeference Annotations and when included it _MUST_ have the value `georeferencing`.
 
-Note that the [linked data context]({{ site.api_url }}/georef/1/context.json) provided with this document includes the formal linked data 1.1 motivation extension, and the [vocabulary provided]({{ site.api_url }}/georef/vocab/georef-terms.md) with this document contains the formal vocabulary for the "georeferencing" motivation discussed above.
+Note that the [linked data context]({{ site.api_url | absolute_url }}/extension/georef/1/context.json) provided with this document includes the formal linked data 1.1 motivation extension, and the [vocabulary]({{ site.api_url | absolute_url }}/extension/georef/vocab/georef-terms.md) provided with this document contains the formal vocabulary for the "georeferencing" motivation discussed above.
 
 ### 3.3 Georeference Annotation `target`
 
@@ -498,3 +498,7 @@ Note that none of the tools listed above currently support georeferencing IIIF r
 This document was produced by the IIIF Maps Community Group and IIIF Maps Technical Specification Group.  Of course, assistance came from many branches of the IIIF Community.  We thank everyone for their time and perserverance given to ensure this extension is as useful as possible.
 
 ### C. Change Log
+
+{% include acronyms.md %}
+
+{% include links.md %}
