@@ -15,6 +15,13 @@ Changes will be tracked within the document.
 
 ## 1. Introduction
 
+`[@BERT] finish paragraph:`
+this document desribes how
+web annotations
+iiif resources
+warp maps
+georeference annotation
+
 The [IIIF Presentation API](https://iiif.io/api/presentation/3.0/) has the capability to support complex Web Annotations which can provide detailed and specific information regarding IIIF resources. You can see various use cases which implement such Web Annotations in the [IIIF Cookbook](https://iiif.io/api/cookbook/). Through the work of the [IIIF Maps](https://iiif.io/community/groups/maps/) and [IIIF Maps TSG](https://iiif.io/community/groups/maps-tsg/) groups, a commonality of techniques to georeference IIIF Canvases and Images in the context of a global map became evident, and a desire to have standards and best practices for georeferencing became known.
 
 ### 1.1 Objectives and Scope
@@ -27,12 +34,12 @@ The [existing GeoJSON specification](https://datatracker.ietf.org/doc/html/rfc79
 
 A georeference extension for IIIF resources will enable the following use cases:
 
-- Adding IIIF resources as map layers to dynamic web maps or in GIS-applications. Based on georeference data, clients can transform IIIF resources by scaling, skewing and rotating them. This process, also called _warping_, can be carried out through various methods.
+- Adding IIIF resources as map layers to dynamic web maps or in GIS applications. Based on georeference data, clients can transform IIIF resources by scaling, skewing and rotating them. This process, also called _warping_, can be carried out through various methods.
 - The previous use case also supports stitching together multiple map sheets, each represented by a single IIIF resource, to form a composite map. Alternatively, it can be used to compare different versions of the same map or a collection of maps of the same area.
 - Geospatial exploration of IIIF resources. Georeference data can be used to compute the geospatial areas depicted on IIIF resources. This enables geospatial indexing and harvesting by geospatial search engines.
 - The same method can be used to convert IIIF Web Annotations to geographic formats such as GeoJSON, and vice versa. This can be used to display IIIF annotations as vectors in a map interface or to paint geographic data as IIIF annotations on a Canvas.
 - Calculating the scale (in pixels per unit of length) and orientation (compass direction) of IIIF resources. This can be used to improve user experiences when viewing IIIF resources or for indexing.
-- Converting IIIF resources to a variety of raster map formats such as GeoTIFF and XYZ map tiles. This allows resources to be used in conventional GIS-software.
+- Converting IIIF resources to a variety of raster map formats such as GeoTIFF and XYZ map tiles. This allows resources to be used in conventional GIS software.
 
 The following use cases are not in scope:
 
@@ -56,7 +63,9 @@ The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _S
 
 ### 2.1 Georeferencing
 
-[Georeferencing](https://en.wikipedia.org/wiki/Georeferencing) is the process of mapping internal coordinates of a resource to geographic coordinates. For the purposes of this extension, references to "IIIF resource" equate to a IIIF Presentation API [Canvas](https://iiif.io/api/presentation/3.0/#53-canvas) or [Image Service](https://iiif.io/api/presentation/3.0/#service). To qualify for georeferencing, the IIIF resource must include one or more regions that can be mapped to geographic coordinates, such as cartographic material, aerial photographs, archaeological drawings, and building plans. Each of these regions is referred to as a 'map' below.
+Georeferencing is the process of mapping internal coordinates of an image to geographic coordinates. For the purposes of this extension, references to _IIIF resource_ equate to a IIIF Presentation API [Canvas](https://iiif.io/api/presentation/3.0/#53-canvas) or [Image Service](https://iiif.io/api/presentation/3.0/#service). To qualify for georeferencing, the IIIF resource must include one or more regions that can be mapped to geographic coordinates, such as cartographic material, aerial photographs, archaeological drawings, and building plans. In this specification, each of these regions is called a _map_.
+
+In order to be georeferenced with a single Georeference Annotation, the image information of the IIIF resource must be accessible with a single, continuous cartesian coordinate system. This is why a Georeferencing Annotation can be used to georeference a Canvas or Images Service, but not a [Manifest](https://iiif.io/api/presentation/3.0/#52-manifest) or [Range](https://iiif.io/api/presentation/3.0/#54-range). To georeference a Manifest or Range, multiple Georeference Annotations are needed, one for each item in the Manifest or Range.
 
 ### 2.2 Georeferencing Process
 
@@ -68,13 +77,13 @@ The process of georeferencing consists of the following steps:
 
 ### 2.3 Critical Data for Georeferencing
 
-The following encoding is used to store the data for georeferencing:
+In a Georeference Annotations, these steps are encoded as follows:
 
-| Data                           | Encoding                                                            |
-|--------------------------------|---------------------------------------------------------------------|
-| Resource and selector | IIIF Presentation API Canvas or Image API Image Service with an optional [SVG Selector](https://www.w3.org/TR/annotation-model/#svg-selector) or [Image API Selector](https://iiif.io/api/annex/openannotation/#iiif-image-api-selector) |
-| GCPs                           | A GeoJSON Feature Collection where each GCP is stored as a GeoJSON Feature with a Point geometry and a `resourceCoords` property in the Feature's `properties` object |
-| Transformation algorithm       | A `transformation` property defined on the GeoJSON Feature Collection that holds the GCPs |
+| Data                     | Encoding                                                            |
+|--------------------------|---------------------------------------------------------------------|
+| Resource and selector    | IIIF Presentation API Canvas or Image API Image Service with an optional [SVG Selector](https://www.w3.org/TR/annotation-model/#svg-selector) or [Image API Selector](https://iiif.io/api/annex/openannotation/#iiif-image-api-selector) |
+| GCPs                     | A GeoJSON Feature Collection where each GCP is stored as a GeoJSON Feature with a Point geometry and a `resourceCoords` property in the Feature's `properties` object |
+| Transformation algorithm | A `transformation` property defined on the GeoJSON Feature Collection that holds the GCPs |
 {: .api-table #table-critical-data-for-georeferencing}
 
 ## 3. Web Annotations for Georeferencing
@@ -159,6 +168,8 @@ There are some limitations to the type of SVG Selectors you can use:
 - When a `rect` element is used, the `rx` and `ry` attributes _MUST NOT_ be used.
 - The [`transform`](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/transform) attribute _MUST NOT_ be used on any of the SVG Selector's elements.
 
+This means that, when a SVG Selector is used, each map is a single shape without holes.
+
 More Specific Resource examples can be found in the `[@BRYAN internal link needed]` examples directory provided with this document.
 
 #### 3.3.3 More Complex Variants
@@ -166,33 +177,26 @@ More Specific Resource examples can be found in the `[@BRYAN internal link neede
 Multiple maps depicted on a single resource
 "A single resource with multiple maps, selected with multiple Georeference Annotations in a AnnotationPage"
 
+An example where a single painted Image has multiple discrete maps:
+
+<figure>
+  <img src="images/greenpoint.jpg"
+    alt="Brooklyn, Vol. 1, 2nd Part, Double Page Plate No. 34; Part of Ward 17, Section 9, from the New York Public Library">
+  <figcaption><a href="https://digitalcollections.nypl.org/items/69582cf7-d6cd-ba72-e040-e00a18065eba">Brooklyn, Vol. 1, 2nd Part, Double Page Plate No. 34; Part of Ward 17, Section 9</a>, from the New York Public Library</figcaption>
+</figure>
+
 "A Canvas with multiple painting Annotations (painting multiple maps onto the same Canvas)"
 
 "The example will be a Canvas with multiple sheets of an atlas". Or: different layers, like different versions of the river maps.
 "Geoereference the sheets combined or using multiple fragments"
-`[@BERT] optinally add example of Canvas with multiple map sheets of an atlas`
+
+<figure>
+  <img src="images/watergraafsmeer.jpg"
+    alt="Watergraafs of Diemer-meer, from Delft University of Technology Library">
+  <figcaption><a href="https://tudelft.on.worldcat.org/oclc/708029770">Watergraafs of Diemer-meer</a>, from Delft University of Technology Library.</figcaption>
+</figure>
 
 `[@BERT] review` It is valid for a Canvas to have multiple painting Annotations. However, to leverage the most support from viewers this specification encourages using a single painting Annotation to place an Image on a Canvas. The Image within the Canvas and the Canvas itself _SHOULD_ have the same `height` and `width` values.
-
-An example where a single painted Image has multiple discrete maps:
-<table border="0">
-  <tr>
-    <td>
-      <figure>
-        <img src="images/loc-acadia-np-original.jpg"
-          alt="Original image (National Park Service map of Acadia National Park, from the Library of Congress)">
-        <figcaption>Original image (National Park Service map of Acadia National Park, from the <a href="https://www.loc.gov/resource/g3732a.np000049/">Library of Congress</a>)</figcaption>
-      </figure>
-    </td>
-    <td>
-      <figure>
-        <img src="images/loc-acadia-np-maps.jpg"
-          alt="The same image with four selectors that capture the cartographic projections contained by the image">
-        <figcaption>The same image with four selectors that capture the cartographic projections contained by the image</figcaption>
-      </figure>
-    </td>
-  </tr>
-</table>
 
 ### 3.4 Georeference Annotation `body`
 
@@ -499,13 +503,6 @@ Example of a `transformation` JSON object:
 The linked data context of this extension _MUST_ be included before the IIIF Presentation API linked data context on the top-level object. The extension linked data context file includes the [GeoJSON-LD context](https://geojson.org/geojson-ld/geojson-context.jsonld) through [context scoping](https://www.w3.org/TR/json-ld11/#dfn-scoped-context). This means the GeoJSON-LD context URI does not have to be explicitly included on the top level object. Note that since the IIIF Presentation API linked data context has the JSON-LD `@version` set to 1.1, all linked data contexts are processed as JSON-LD 1.1. It is also worth noting the linked data context for this extension also has `@version` set to 1.1. If this context is used in another setting, it will have the same behavior. JSON-LD 1.0 processors will throw a version error.
 
 Consult the [Linked Data Context and Extensions section of IIIF Presentation API](https://iiif.io/api/presentation/3.0/#46-linked-data-context-and-extensions) for further guidance on use of the `@context` property.
-
-## 6. Implementation Notes
-
-`[@BERT @JULES @BRYAN]`
-This section will likely link back to specific implementation notes as they relate to how the Allmaps viewer is processing this information to display it within a web map.
-
-Briefly explain `transformation` algorithms, why you need 3 or more control points, perhaps examples to show different implementations. Mention IIIF Presentation API 2 and the presi 2 examples?? Mention GeoJSON sections on FeatureCollection, Feature, or position??
 
 ## Appendices
 
