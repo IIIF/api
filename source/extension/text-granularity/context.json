@@ -13,7 +13,8 @@
           "paragraph":"iiif_text_granularity:paragraph",
           "line":"iiif_text_granularity:line",
           "word":"iiif_text_granularity:word",
-          "glyph":"iiif_text_granularity:glyph"
+          "glyph":"iiif_text_granularity:glyph",
+          "timed-text":"iiif_text_granularity:timedText"
         }
       }
   }
