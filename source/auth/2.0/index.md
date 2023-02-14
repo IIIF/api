@@ -160,7 +160,7 @@ An example access-controlled resource with authorization flow services:
           "service" : [
             {
               "id": "https://auth.example.org/token",
-              "type": "AuthTokenService2"
+              "type": "AuthAccessTokenService2"
             },
             {
               "id": "https://auth.example.org/logout",
@@ -274,7 +274,7 @@ The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id` a
 "service" : [
   {
     "id": "https://auth.example.org/token",
-    "type": "AuthTokenService2"
+    "type": "AuthAccessTokenService2"
   },
   {
     "id": "https://auth.example.org/logout",
@@ -489,7 +489,7 @@ The URI of the access token service that the client opens in a frame. The `id` p
 
 #### type
 
-The type of the service. The `type` property _MUST_ be present in the JSON, and the value _MUST_ be the string `AuthTokenService2`.
+The type of the service. The `type` property _MUST_ be present in the JSON, and the value _MUST_ be the string `AuthAccessTokenService2`.
 
 #### errorHeading
 
@@ -523,7 +523,7 @@ Default additional text to render if an error occurs. If the access token servic
             "service": [
               {
                 "id": "https://auth.example.org/token",
-                "type": "AuthTokenService2",
+                "type": "AuthAccessTokenService2",
                 "errorHeading": { "en": [ "Something went wrong" ] },
                 "errorNote": { "en": [ "Could not get a token." ] },
               }
@@ -893,7 +893,7 @@ If the authentication system supports users intentionally logging out, there _SH
     "service" : [
       {
         "id": "https://auth.example.org/token",
-        "type": "AuthTokenService2"
+        "type": "AuthAccessTokenService2"
       },
       {
         "id": "https://auth.example.org/logout",
