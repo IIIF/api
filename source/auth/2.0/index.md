@@ -175,9 +175,7 @@ An example access-controlled resource with authorization flow services:
 }
 ```
 
-
-| `@context`   | _REQUIRED_    | The context document that describes the IIIF Authorization Flow API. The value _MUST_ be `http://iiif.io/api/auth/{{ page.major }}/context.json`. If the Access service is embedded within an Image API 3.0 service, or a Presentation API 3.0 resource, the `@context` key _SHOULD NOT_ be present within the service, but instead _SHOULD_ be included in the list of values for `@context` at the beginning of that image service or Presentation API resource.  
-
+If the Access service is embedded within an Image API 3.0 service, or a Presentation API 3.0 resource, the `@context` key _SHOULD NOT_ be present within the service. Instead the value `http://iiif.io/api/auth/{{ page.major }}/context.json` _MUST_ be included in the list of values for `@context` at the beginning of that Image service or Presentation API resource. It _MUST_ come before the Image or Presentation API context value. See the section [Linked Data Context and Extensions][prezi30-ldce] in the Presentation API.
 
 
 ### 2.2. Simple Authorization Flow
