@@ -919,7 +919,7 @@ If possible, the server _SHOULD_ invalidate any authorizing aspects it controls 
   <tbody>
     <tr>
       <td>
-        <img style="max-width: 1000px" src="{{ site.api_url | absolute_url }}/assets/images/auth2-client-flow.png" alt="Client Authorization Flow" class="fullPct" />
+        <img src="{{ site.api_url | absolute_url }}/assets/images/auth2-client-flow.png" alt="Client Authorization Flow" class="fullPct" />
         <p><strong>1</strong> Client Authorization Flow Workflow</p>
       </td>
     </tr>
