@@ -912,15 +912,15 @@ The client _SHOULD_ present the results of an HTTP `GET` request on the service'
 
 If possible, the server _SHOULD_ invalidate any authorizing aspects it controls and any access tokens representing those aspects.
 
-## 7. (PLACEHOLDER IMAGE) Workflow from the Browser Client Perspective
+## 7. Workflow from the Browser Client Perspective
 {: #workflow-from-the-browser-client-perspective}
 
 <table class="ex_table">
   <tbody>
     <tr>
       <td>
-        <img style="max-width: 1000px" src="../img/auth-flow-client-2-provisional.png" alt="Client Authorization Flow" class="fullPct" />
-        <p><strong>1</strong> Client Authorization Flow Workflow (earlier draft - PLACEHOLDER IMAGE)</p>
+        <img style="max-width: 1000px" src="{{ site.api_url | absolute_url }}/assets/images/auth2-client-flow.png" alt="Client Authorization Flow" class="fullPct" />
+        <p><strong>1</strong> Client Authorization Flow Workflow</p>
       </td>
     </tr>
   </tbody>
