@@ -226,7 +226,7 @@ The service description is included in the IIIF API Resource and has the followi
 | ----------- | ---------- | ----------- |
 | `id`        | _see description_ | The URI of the access service. |
 | `type`      | _REQUIRED_ | The value _MUST_ be the string `AuthAccessService2`. |
-| `profile`   | _REQUIRED_ | The profile for the service _MUST_ be one of the profile values from the table above.|
+| `profile`   | _REQUIRED_ | The profile for the service _MUST_ be one of the profile values from the table below.|
 | `service`   | _REQUIRED_ | References to access token and other related services, described below.|
 
 #### id
