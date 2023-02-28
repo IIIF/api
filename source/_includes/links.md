@@ -196,7 +196,7 @@
 [org-rfc-5988]: https://tools.ietf.org/html/rfc5988 "Web Linking"
 [org-rfc-6266]: https://tools.ietf.org/html/rfc6266 "Use of the Content-Disposition Header Field in the Hypertext Transfer Protocol (HTTP)"
 [org-rfc-6570]: https://tools.ietf.org/html/rfc6570 "URI Template"
-[org-rfc-6570-1-2]: https://tools.ietf.org/html/rfc6570#section-1.2 "Bearer Tokens"
+[org-rfc-6570-1-2]: https://tools.ietf.org/html/rfc6750#section-1.2 "Bearer Tokens"
 [org-rfc-7230]: https://tools.ietf.org/html/rfc7230 "HTTP 1.1"
 [org-rfc-7231-conneg]: https://tools.ietf.org/html/rfc7231#section-5.3.2 "HTTP 1.1, 5.3.2. Accept"
 [org-rfc-7231-status]: https://tools.ietf.org/html/rfc7231#section-6 "HTTP 1.1, 6. Response Status Codes"
