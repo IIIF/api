@@ -251,11 +251,11 @@ The type of the service. The `type` property _MUST_ be present in the JSON, and 
 
 There are three interaction patterns by which the client can use the access service, each identified by a different value of the `profile` property. These patterns are described in more detail in the following sections.
 
-|`profile` value | Description |
-|--------------- | ----------- |
-|`interactive` | The user will be required to visit the user interface of an external authentication system. |
-|`kiosk` | The user will not be required to interact with an authentication system, the client is expected to use the access service automatically. |
-|`external` | The user is expected to have already acquired the authorizing aspect, and no access service will be used. |
+| Value of `profile` | Description |
+|------------------- | ----------- |
+|`interactive`       | The user will be required to visit the user interface of an external authentication system. |
+|`kiosk`             | The user will not be required to interact with an authentication system, the client is expected to use the access service automatically. |
+|`external`          | The user is expected to have already acquired the authorizing aspect, and no access service will be used. |
 {: .api-table .first-col-normal }
 
 The `interactive` profile requires additional properties in the service description, defined in the [Interactive Interaction Pattern][auth20-interactive-pattern] section below.
