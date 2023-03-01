@@ -77,6 +77,12 @@ In a Georeference Annotations, these steps are stored as follows:
 | Transformation algorithm | A `transformation` property defined on the GeoJSON Feature Collection that holds the GCPs |
 {: .api-table #table-critical-data-for-georeferencing}
 
+#### 2.2.1 Handling Projections
+
+Please note that version 1.1 of this extension has no explicit provisions for indicating which projection, if any, was used during the georeferencing process described above.
+
+If an individual creates GCPs manually on an interactive web map interface, for example, they will most likely be visually referencing an underlying basemap displayed in [WGS84 / Pseudo Mercator](https://epsg.io/?q=3857) (EPSG:3857), which is the current *de facto* standard for web mapping interfaces. In this case, if an implementor of the Georeference Extension does not warp the IIIF resource into the projection used during GCP creation (Pseudo Mercator), the results may be unexpectedly distorted.
+
 ## 3. Web Annotations for Georeferencing
 
 The combined information described in Section 2 is stored in a Georeference Annotation which is modelled on the Web Annotation Data Model. This section details the structure of a Georeference Annotation and its relationship to the IIIF Presentation API and Image API. It includes examples of the different properties and options.
