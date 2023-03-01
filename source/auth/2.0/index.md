@@ -104,17 +104,6 @@ The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _S
 All IIIF specifications share common features to ensure consistency across the IIIF ecosystem. These features are documented in the [Presentation API][prezi3-considerations] and are foundational to this specification. Common principles for the design of the specifications are documented in the [IIIF Design Principles][annex-patterns].
 
 
-
-<!--
-For some types of authorization, such as IP address range, the information required for the server to authorize the request is present in the requests the browser makes indirectly for Content Resources, and in the requests the client code makes directly for IIIF API Resources using `XMLHttpRequest` or `fetch`. This is not true for cross-domain requests that include credentials. A browser running JavaScript retrieved from one domain cannot load a resource from another domain and include that domain's cookies in the request, without violating the requirement introduced above that the client must work when _untrusted_. In both cases, the client sends an __access token__, technically a type of [bearer token][org-rfc-6570-1-2], to a __probe service__. This interaction is a proxy for the client sending a cookie (or other __authorizing aspect__) to the __content resource__. The client does not know what __authorizing aspect__ of the request the server is basing authorization decisions on, so always sends this token it has obtained from the token service, even when for some types of authorization the information is present in the direct request.
-
-This specification describes how, once the browser has been given the chance to acquire any required credentials such as a cookie, the client then acquires the access token to use when making direct requests to a __probe service__.
-
-The server on the Resource Domain treats the access token as a representation of, or proxy for, any credential that permits access to the Content Resources. When the client makes requests for a probe service and presents the access token, the responses tell the client what will happen when the browser requests the corresponding Content Resource (or makes image requests to the image service) with the credential the access token represents. These responses let the client decide what user interface and/or Content Resources to show to the user.
-
-Thus the access token often represents an access cookie, but may represent other __authorizing aspects__. The client does not know what the token represents.
--->
-
 ## 2. Authorization Flow Services
 {: #authorization-flow-services}
 
@@ -137,9 +126,6 @@ Authorization flow services are declared in IIIF API resources using the `servic
 
 For content resources such as audio, video, PDFs and other documents, the probe service is present in a IIIF Manifest or other IIIF API Resource. For IIIF Image API services, the probe service _MUST_ be declared in the Image Information Document (info.json) and _MAY_ additionally be declared in the Manifest with the image service.
 
-
-<!-- These objects _MUST_ have the `id` and `type` properties. The value of the `id` property _MUST_ be the URI used to interact with the service. -->
-
 An example access-controlled resource with authorization flow services:
 
 {% include api/code_header.html %}
@@ -155,7 +141,7 @@ An example access-controlled resource with authorization flow services:
         {
           "id": "https://auth.example.org/login",
           "type": "AuthAccessService2",
-          "profile": "interactive",
+          "profile": "active",
           "label": { "en": [ "Login to Example Institution" ] },
           "service" : [
             {
@@ -201,13 +187,9 @@ Later, the user logs out.
 (to be FLESHED OUT later DIAGRAM HERE)
 
 
-
-
-
 ## 3. Access Service
 {: #access-service}
 
-<!-- simplify and move details below? --->
 The access service either grants the authorizing aspect or determines whether the user already has that aspect. The client obtains the link to an access service from a service description in a probe service, then opens that URI in a new browser tab. The user interacts with the access service in the opened tab while the client waits until it detects that the opened tab has closed. The client then continues with the authorization flow to determine whether the authorizing aspect is present.
 
 The client has no knowledge of the user's interactions in the opened tab, such as any cookies set, or redirects that happened. The final response in the opened tab _SHOULD_ contain JavaScript that will attempt to close the tab, in order to trigger the next step in the workflow.
@@ -231,7 +213,7 @@ The service description is included in the IIIF API Resource and has the followi
 
 #### id
 
-The URI of the access service that the client opens in a new tab. The `id` property _MUST_ be present if the `profile` property is `interactive` or `kiosk`.  The value _MUST_ be a string containing the HTTPS URI of the service.
+The URI of the access service that the client opens in a new tab. The `id` property _MUST_ be present if the `profile` property is `active` or `kiosk`.  The value _MUST_ be a string containing the HTTPS URI of the service.
 
 If the profile property is `external`, the `id` property _SHOULD NOT_ be present, and any value _MUST_ be ignored.
 
@@ -253,15 +235,15 @@ There are three interaction patterns by which the client can use the access serv
 
 | Value of `profile` | Description |
 |------------------- | ----------- |
-|`interactive`       | The user will be required to visit the user interface of an external authentication system. |
+|`active`            | The user will be required to visit the user interface of an external authentication system. |
 |`kiosk`             | The user will not be required to interact with an authentication system, the client is expected to use the access service automatically. |
 |`external`          | The user is expected to have already acquired the authorizing aspect, and no access service will be used. |
 {: .api-table .first-col-normal }
 
-The `interactive` profile requires additional properties in the service description, defined in the [Interactive Interaction Pattern][auth20-interactive-pattern] section below.
+The `active` profile requires additional properties in the service description, defined in the [Active Interaction Pattern][auth20-active-interaction-pattern] section below.
 
 ```json-doc
-{ "profile": "interactive" }
+{ "profile": "active" }
 ```
 
 #### service
@@ -305,8 +287,8 @@ The server _MAY_ use this information to validate the origin supplied in subsequ
 
 There are three distinct interaction patterns, identified by the `profile` property. These enable different styles of user, client and server interaction.
 
-#### 3.3.1 Interactive Pattern
-{: #interactive-pattern}
+#### 3.3.1 Active Interaction Pattern
+{: #active-interaction-pattern}
 
 This pattern requires the user to interact in the opened tab. Typical scenarios are:
 
@@ -314,8 +296,7 @@ This pattern requires the user to interact in the opened tab. Typical scenarios 
 * The user interface presents a usage agreement, a content advisory notice, or some other form of clickthrough interaction in which credentials are not required, but deliberate confirmation of terms is required, to set an access cookie.
 * The access service stores the result of a user interaction in browser local storage, which is later available to the token service.
 
-To support these user-facing interactions, the access service description for the `interactive` profile includes the following additional descriptive properties for constructing a user interface in the client:
-
+To support these user-facing interactions, the access service description for the `active` profile includes the following additional descriptive properties for constructing a user interface in the client:
 
 | Property       | Required?     | Description |
 | -------------- | ------------- | ----------- |
@@ -362,7 +343,7 @@ Additional text to be shown with the user interface element that opens the acces
 
 #### Complete Service Description
 
-An example service description for the `interactive` interaction pattern:
+An example service description for the `active` interaction pattern:
 
 {% include api/code_header.html %}
 ``` json
@@ -371,7 +352,7 @@ An example service description for the `interactive` interaction pattern:
   "service" : {
     "id": "https://auth.example.org/login",
     "type": "AuthAccessService2",
-    "profile": "interactive",
+    "profile": "active",
     "label": { "en": [ "Login to Example Institution" ] },
     "heading": { "en": [ "Please Log In" ] },
     "note": { "en": [ "Example Institution requires that you log in with your example account to view this content." ] },
@@ -383,7 +364,7 @@ An example service description for the `interactive` interaction pattern:
 }
 ```
 
-##### 3.3.1.1. Interactive Pattern Interaction
+##### 3.3.1.1. Active Pattern Interaction
 
 The interaction has the following steps:
 
@@ -393,7 +374,7 @@ The interaction has the following steps:
 
 At the time of writing, browsers will only send cookies to third party domains when the user has performed a _user gesture_ at that domain. For more information see [Appendix A][auth20-user-interaction-at-access-service].
 
-#### 3.3.2. Kiosk Pattern
+#### 3.3.2. Kiosk Interaction Pattern
 {: #kiosk-interaction-pattern}
 
 This pattern requires no user interaction in the opened tab. This pattern supports exhibitions, in-gallery interactives and other IIIF user experiences on managed devices that are configured in advance.
@@ -427,7 +408,7 @@ An example service description for the `kiosk` pattern:
 }
 ```
 
-#### 3.3.3. External Pattern
+#### 3.3.3. External Interaction Pattern
 {: #external-interaction-pattern}
 
 This pattern involves no user interaction with an access service. Typical scenarios are:
@@ -513,7 +494,7 @@ Default additional text to render if an error occurs. If the access token servic
           {
             "id": "https://auth.example.org/login",
             "type": "AuthAccessService2",
-            "profile": "interactive",
+            "profile": "active",
             "label": { "en": [ "Login to Example Institution" ] },
             // ... other recommended strings for user interface
 
@@ -871,7 +852,7 @@ If the status code does not indicate success, the response _SHOULD_ include the 
 ## 6. Logout Service
 {: #logout-service}
 
-In the case of the `interactive` access service pattern, the client may need to know if and where the user can go to log out. For example, the user may wish to close their session on a public terminal, or to log in again with a different account.
+In the case of the `active` access service pattern, the client may need to know if and where the user can go to log out. For example, the user may wish to close their session on a public terminal, or to log in again with a different account.
 
 ### 6.1. Logout Service Description
 {: #logout-service-description}
@@ -886,7 +867,7 @@ If the authentication system supports users intentionally logging out, there _SH
     "@context": "http://iiif.io/api/auth/{{ page.major }}/context.json",
     "id": "https://auth.example.org/login",
     "type": "AuthAccessService2",
-    "profile": "interactive",
+    "profile": "active",
     "label": { "en": [ "Login to Example Institution" ] },
     "service" : [
       {
@@ -934,13 +915,13 @@ Browser-based clients will perform the following workflow in order to access acc
 * If the response is a 200 and the `location` property is present, the client _MUST_ use the supplied location to request the Content Resource.
 * If the response is a 401,
   * The client does not have access to the Content Resource or images from an image service, and thus the client __checks for authentication services__ associated with the Content Resource or Image Service - e.g., in the Manifest, or in the Image Information Document (info.json).
-  * If the probe response has a `location` property, the client can choose to show this immediately while offering the authentication flow to the user. If the Content Resource in the `location` property itself has authentication services (including a probe service), the client should... <!-- wording! keep this succinct! -->
+  * If the probe response has a `location` property, the client can choose to show this immediately while offering the authentication flow to the user. If the Content Resource in the `location` property itself has authentication services (including a probe service), the client should... **FIXME wording! keep this succinct!**
 * If the response is neither 200 nor 401, the client must handle other HTTP status codes.
 
 * When the client checks for authentication services:
   * First it looks for a External access service pattern as this does not require any user interaction.  If present, it opens the Access Token service to see if the user has the authorizing aspect required to meet the authorization requirement.
   * If no External service is present, the client checks for a Kiosk access service pattern as it does not involve user interaction. If present, it opens the Access Service in a separate window.
-  * If no Kiosk access service is present, the client presents any Interactive Access Service patterns available and prompts the user to interact with one of them. When the user selects the access service to interact with the client opens that service URI in a separate tab (or window).
+  * If no Kiosk access service is present, the client presents any Active Access Service patterns available and prompts the user to interact with one of them. When the user selects the access service to interact with the client opens that service URI in a separate tab (or window).
   * When the Access service window closes, either automatically or by the user, the client Opens the Access Token Service.
 
 * After the Access Token service has been requested, if the client receives a token, it tries the Probe Service again with this newly acquired token.
