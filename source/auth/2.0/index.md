@@ -15,7 +15,7 @@ editors:
   - name: Michael Appleby
     ORCID: https://orcid.org/0000-0002-1266-298X
     institution: Yale University
-  - name: Dawn Childress  
+  - name: Dawn Childress
     ORCID: https://orcid.org/0000-0003-2602-2788
     institution: UCLA
   - name: Tom Crane
@@ -134,7 +134,7 @@ An example access-controlled resource with authorization flow services:
    "id": "https://auth.example.org/my-video.mp4",
    "type": "Video",
    "service": [
-     {    
+     {
        "id": "https://auth.example.org/probe/my-video",
        "type": "AuthProbeService2",
        "service" : [
@@ -577,7 +577,7 @@ Example access token response:
 ``` html
 <html>
 <body>
-<script>    
+<script>
     window.parent.postMessage(
       {
         "@context": "http://iiif.io/api/auth/{{ page.major }}/context.json",
@@ -587,7 +587,7 @@ Example access token response:
         "messageId": "ae3415"
       },
       'https://client.example.org'
-    );    
+    );
 </script>
 </body>
 </html>
@@ -663,7 +663,7 @@ If the request does not present the required authorizing aspect, the access toke
 | `profile`   | _REQUIRED_    | The specific type of error.                                                              |
 | `messageId` | _REQUIRED_    | The message identifier supplied by the client.                                           |
 | `heading`   | _OPTIONAL_    | Heading text to render with the user interface element that conveys the error.           |
-| `note`      | _OPTIONAL_    | Additional text to render with the user interface element that conveys the error.        |   
+| `note`      | _OPTIONAL_    | Additional text to render with the user interface element that conveys the error.        |
 
 #### profile
 
