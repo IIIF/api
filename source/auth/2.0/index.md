@@ -213,7 +213,7 @@ The service description is included in the IIIF API Resource and has the followi
 
 #### id
 
-The URI of the access service that the client opens in a new tab. The `id` property _MUST_ be present if the `profile` property is `active` or `kiosk`.  The value _MUST_ be a string containing the HTTPS URI of the service.
+The URI of the access service that the client opens in a new tab. The `id` property _MUST_ be present if the `profile` property is `active` or `kiosk`. The value _MUST_ be a string containing the HTTPS URI of the service.
 
 If the profile property is `external`, the `id` property _SHOULD NOT_ be present, and any value _MUST_ be ignored.
 
@@ -271,7 +271,7 @@ The client _MUST_ append the following query parameter to all requests to an acc
 
 | Parameter | Description |
 | --------- | ----------- |
-| `origin`  | A string containing the origin of the page in the window, consisting of a protocol, hostname and optionally port number, as described in the [postMessage API][org-mozilla-postmessage] specification.  |
+| `origin`  | A string containing the origin of the page in the window, consisting of a protocol, hostname and optionally port number, as described in the [postMessage API][org-mozilla-postmessage] specification. |
 {: .api-table}
 
 For example, given an access service URI of `https://auth.example.org/login`, a client instantiated by the page `https://client.example.org/viewer/index.html` would make its request to:
@@ -673,9 +673,9 @@ The `profile` property classifies the error and _MUST_ have one of the values in
 | ---------------- | ----------- |
 | `invalidRequest` | The service could not process the access token request. |
 | `invalidOrigin`  | The request came from a different origin than that specified in the access service request, or an origin that the server rejects for other reasons. |
-| `missingAspect`  | The access token request did not have the required authorizing aspect.  |
+| `missingAspect`  | The access token request did not have the required authorizing aspect. |
 | `invalidAspect`  | The access token request had the aspect used for authorization but it was not valid. |
-| `expiredAspect`  | The request had credentials that are no longer valid for the service.   |
+| `expiredAspect`  | The request had credentials that are no longer valid for the service.  |
 | `unavailable`    | The request could not be fulfilled for reasons other than those listed above, such as scheduled maintenance. |
 {: .api-table}
 
@@ -755,7 +755,7 @@ The response from the probe service is a JSON-LD object with the following prope
 | ------------- | ---------  | ----------- |
 | `@context`    | _REQUIRED_ | The URI of the context document, `http://iiif.io/api/auth/{{ page.major }}/context.json`. |
 | `type`        | _REQUIRED_ | The type of the service, `AuthProbeResult2`. |
-| `status`      | _REQUIRED_ | The HTTP status code that would be returned for the access-controlled resource.  |
+| `status`      | _REQUIRED_ | The HTTP status code that would be returned for the access-controlled resource. |
 | `substitute`   | _OPTIONAL_ | A reference to one or more substitute resources, such as watermarked or other less preferable versions. |
 | `location`   | _OPTIONAL_  | If present, the client should request this resource instead of the the resource the probe service was declared for. |
 | `heading`      | _OPTIONAL_ | heading text for the error UI |
@@ -788,7 +788,7 @@ If multiple substitute resources are available, clients _SHOULD_ allow the user 
 Clients _SHOULD_ expect to encounter substitute resources with the following properties, however any property from the IIIF Presentation API that is valid for a content resource _MAY_ be present.
 
 * `id` - The URI of the substitute resource.
-* `type` - The type of the substitute resource, which _SHOULD_ be the same as the access-controlled resource.  
+* `type` - The type of the substitute resource, which _SHOULD_ be the same as the access-controlled resource.
 * `label` - The name, title, or label to display to the user for the substitute resource. The value _MUST_ be a JSON object as described in the [Language of Property Values][prezi3-languages] section of the Presentation API.
 * `service` - A list of services that apply to the substitute resource.
 
@@ -813,7 +813,7 @@ The location property describes a resource that the client _MUST_ request instea
 Clients _SHOULD_ expect to encounter a resource with the following properties, however any property from the IIIF Presentation API that is valid for a content resource _MAY_ be present.
 
 * `id` - The URI of the resource, which is _REQUIRED_.
-* `type` - The type of the resource, which is _REQUIRED_ and _MUST_ be the same as the access-controlled resource.  
+* `type` - The type of the resource, which is _REQUIRED_ and _MUST_ be the same as the access-controlled resource.
 * `service` - A list of services that apply to the resource.
 
 ```json
@@ -889,7 +889,7 @@ The value of the `type` property _MUST_ be `AuthLogoutService2`.
 ### 6.2. Logout Interaction
 {: #logout-interaction}
 
-The client _SHOULD_ present the results of an HTTP `GET` request on the service's URI in a separate tab or window with an address bar.  At the same time, the client _SHOULD_ discard any access token that it has received from the corresponding service. The server _SHOULD_ reset the user's logged in status when this request is made and delete any access cookie previously set.
+The client _SHOULD_ present the results of an HTTP `GET` request on the service's URI in a separate tab or window with an address bar. At the same time, the client _SHOULD_ discard any access token that it has received from the corresponding service. The server _SHOULD_ reset the user's logged in status when this request is made and delete any access cookie previously set.
 
 If possible, the server _SHOULD_ invalidate any authorizing aspects it controls and any access tokens representing those aspects.
 
@@ -919,7 +919,7 @@ Browser-based clients will perform the following workflow in order to access acc
 * If the response is neither 200 nor 401, the client must handle other HTTP status codes.
 
 * When the client checks for authentication services:
-  * First it looks for a External access service pattern as this does not require any user interaction.  If present, it opens the Access Token service to see if the user has the authorizing aspect required to meet the authorization requirement.
+  * First it looks for a External access service pattern as this does not require any user interaction. If present, it opens the Access Token service to see if the user has the authorizing aspect required to meet the authorization requirement.
   * If no External service is present, the client checks for a Kiosk access service pattern as it does not involve user interaction. If present, it opens the Access Service in a separate window.
   * If no Kiosk access service is present, the client presents any Active Access Service patterns available and prompts the user to interact with one of them. When the user selects the access service to interact with the client opens that service URI in a separate tab (or window).
   * When the Access service window closes, either automatically or by the user, the client Opens the Access Token Service.
