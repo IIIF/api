@@ -10,7 +10,7 @@ minor: 0
 patch: 0
 pre: final
 redirect_from:
- /presentation/3.0/change-log-30.html
+ - /presentation/3.0/change-log-30.html
 ---
 
 This document is a companion to the [IIIF Presentation API Specification, Version 3.0][prezi30]. It describes the changes to the API specification made in this major release, including ones that are backwards incompatible with [version 2.1.1][prezi21], the previous version.
