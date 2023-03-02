@@ -787,12 +787,14 @@ If multiple substitute resources are available, clients _SHOULD_ allow the user 
 
 Clients _SHOULD_ expect to encounter substitute resources with the following properties, however any property from the IIIF Presentation API that is valid for a content resource _MAY_ be present.
 
-* `id` - The URI of the substitute resource.
-* `type` - The type of the substitute resource, which _SHOULD_ be the same as the access-controlled resource.
-* `label` - The name, title, or label to display to the user for the substitute resource. The value _MUST_ be a JSON object as described in the [Language of Property Values][prezi3-languages] section of the Presentation API.
-* `service` - A list of services that apply to the substitute resource.
+| Name      | Required?  | Description |
+| --------- | ---------  | ----------- |
+| `id`      | _REQUIRED_ | The URI of the substitute resource. |
+| `type`    | _REQUIRED_ | The type of the substitute resource, which _SHOULD_ be the same as the access-controlled resource. |
+| `label`   | _REQUIRED_ | The name, title, or label to display to the user for the substitute resource. The value _MUST_ be a JSON object as described in the [Language of Property Values][prezi3-languages] section of the Presentation API. |
+| `service` | _OPTIONAL_ | A list of services that apply to the substitute resource. |
 
-When IIIF API resources refer to access-controlled resources with substitute resources, the access-controlled resource  _SHOULD_ be the resource most users would prefer to see, typically the highest quality version. An substitute resource may declare new IIIF Authorization Flow services, including its own probe services, allowing for [tiered access][auth20-tiered-access]. If present, and no further IIIF Authorization Flow services are declared on it, an substitute resource _MUST_ be accessible to the user who requested the probe service.
+When IIIF API resources refer to access-controlled resources with substitute resources, the access-controlled resource _SHOULD_ be the resource most users would prefer to see, typically the highest quality version. An substitute resource may declare new IIIF Authorization Flow services, including its own probe services, allowing for [tiered access][auth20-tiered-access]. If present, and no further IIIF Authorization Flow services are declared on it, an substitute resource _MUST_ be accessible to the user who requested the probe service.
 
 ```json
 {
@@ -812,9 +814,11 @@ The location property describes a resource that the client _MUST_ request instea
 
 Clients _SHOULD_ expect to encounter a resource with the following properties, however any property from the IIIF Presentation API that is valid for a content resource _MAY_ be present.
 
-* `id` - The URI of the resource, which is _REQUIRED_.
-* `type` - The type of the resource, which is _REQUIRED_ and _MUST_ be the same as the access-controlled resource.
-* `service` - A list of services that apply to the resource.
+| Name      | Required?  | Description |
+| --------- | ---------  | ----------- |
+| `id`      | _REQUIRED_ | The URI of the resource. |
+| `type`    | _REQUIRED_ | The type of the resource, which _MUST_ be the same as the access-controlled resource. |
+| `service` | _OPTIONAL_ | A list of services that apply to the resource. |
 
 ```json
 {
