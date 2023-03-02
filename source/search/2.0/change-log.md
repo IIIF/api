@@ -10,7 +10,7 @@ minor: 0
 patch: 0
 pre: final
 redirect_from:
- /search/2.0/change-log-20.html
+ - /search/2.0/change-log-20.html
 ---
 
 This document is a companion to the [IIIF Content Search API Specification, Version 2.0][search20]. It describes the changes to the API specification made in this major release, including ones that are backwards incompatible with [version 1.0][search10], the previous version.

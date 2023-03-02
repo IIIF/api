@@ -10,7 +10,7 @@ minor: 0
 pre: final
 sitemap: false
 redirect_from:
-  /image/2.0/change-log.html
+ - /image/2.0/change-log.html
 ---
 
 This document is a companion to the [IIIF Image API Specification, Version 2.0][api]. It describes the significant changes to the API since [Version 1.1][api-11]. The changes are broken into three groups: [Breaking Changes][breaking-changes], i.e. those that are not backwards compatible from either a client or server perspective (or both) and mostly consists of new features; [Other Changes][other-changes], i.e. those that are backwards compatible; and [Deferred Changes][deferred-changes], i.e. those that will be made in a future iteration of the Image API.
