@@ -170,7 +170,7 @@ If the access service is embedded within an Image API 3.0 service, or a Presenta
 This section illustrates the use of these services in a successful authorization flow.
 
 A user wishes to see an access-controlled resource such as an image, video, PDF, or image service tiles for deep zoom. The client recognizes from the above JSON structure in the Manifest or info.json that the resource has authorization flow services, and determines that the user will have to authenticate. The client then progresses through a series of interactions with these services:
-1. The client opens the content provider's access service in a new tab.  In a typical case, the user logs in and the server sets a cookie for use by the access token service. The tab closes.
+1. The client opens the content provider's access service in a new tab.  In a typical case, the user logs in and the access service sets a cookie for use by the access token service. The tab closes.
 2. The client detects that the access service tab has closed and makes a request to the access token service.  The access token service evaluates the cookie or other authorizing aspect of the request and returns an access token.
 3. The client sends the access token to the probe service.  The probe service indicates that the request for the access-controlled resource would succeed.  The client renders the access-controlled resource.
 4. Later, the user logs out.
