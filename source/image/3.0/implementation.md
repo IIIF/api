@@ -3,7 +3,7 @@ title: "Image API 3.0 Implementation Notes"
 layout: spec
 cssversion: 2
 redirect_from:
-  /image/3/implementation.html
+ - /image/3/implementation.html
 ---
 
 ## 1. HTTP implementation

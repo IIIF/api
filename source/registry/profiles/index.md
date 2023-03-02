@@ -62,6 +62,7 @@ This table summarizes the known profiles available, for use with the [Presentati
 | ------------------------------ |
 | http://www.loc.gov/mods/v3  | The URI for identifying [MODS (Metadata Object Description Schema)](https://www.loc.gov/standards/mods/) version 3 metadata records.  |
 | http://www.loc.gov/standards/marcxml  | The URI for identifying [MarcXML](https://www.loc.gov/standards/marcxml/) metadata records.  |
+| http://purl.org/dc/terms/ | The URI for identifying records that follow the [Dublin Core Metadata Initiative Metadata Terms](https://www.dublincore.org/specifications/dublin-core/dcmi-terms/) (NB: these are different from the legacy Dublin Core Metadata Element Set, Version 1.1, refered to as http://purl.org/dc/elements/1.1/). |
 {: .api-table}
 
 
