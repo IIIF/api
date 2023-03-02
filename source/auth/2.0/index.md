@@ -161,7 +161,7 @@ An example access-controlled resource with authorization flow services:
 }
 ```
 
-If the Access service is embedded within an Image API 3.0 service, or a Presentation API 3.0 resource, the `@context` key _SHOULD NOT_ be present within the service. Instead the value `http://iiif.io/api/auth/{{ page.major }}/context.json` _MUST_ be included in the list of values for `@context` at the beginning of that Image service or Presentation API resource. It _MUST_ come before the Image or Presentation API context value. See the section [Linked Data Context and Extensions][prezi30-ldce] in the Presentation API.
+If the access service is embedded within an Image API 3.0 service, or a Presentation API 3.0 resource, the `@context` key _SHOULD NOT_ be present within the service. Instead the value `http://iiif.io/api/auth/{{ page.major }}/context.json` _MUST_ be included in the list of values for `@context` at the beginning of that Image service or Presentation API resource. It _MUST_ come before the Image or Presentation API context value. See the section [Linked Data Context and Extensions][prezi30-ldce] in the Presentation API.
 
 
 ### 2.2. Simple Authorization Flow
@@ -171,21 +171,22 @@ This section illustrates the use of these services in a successful authorization
 
 A user wishes to see an access-controlled resource such as an image, video, PDF, or image service tiles for deep zoom.
 The client sees from the above JSON structure in the Manifest or info.json that the resource has authorization flow services, and determines that the user will have to authenticate.
+The client then progresses through a series of interactions with these services:
+* The client opens the content provider's access service in a new tab.  In a typical case, the user logs in and the server sets a cookie for use by the access token service. The tab closes.
+* The client detects that the access service tab has closed and makes a request to the access token service.  The access token service evaluates the cookie or other authorizing aspect of the request and returns an access token.
+* The client sends the access token to the probe service.  The probe service indicates that the request for the access-controlled resource would succeed.  The client renders the access-controlled resource.
+* Later, the user logs out.
 
-The client opens the content provider's login page in a new tab.
-The user logs in.
-_The server may set a cookie here_.
-The tab closes.
-The client detects that the tab has closed.
-The client requests an access token.
-The server gives the client an access token.
-The client sends the access token to the probe service.
-The probe service indicates that the request for the access-controlled resource would succeed.
-The client renders the access-controlled resource.
-Later, the user logs out.
-
-(to be FLESHED OUT later DIAGRAM HERE)
-
+<table class="ex_table">
+  <tbody>
+    <tr>
+      <td>
+        <img src="{{ site.api_url | absolute_url }}/assets/images/auth2-sequence.png" alt="Authorization Flow Service Interactions diagram" class="fullPct" />
+        <p><strong>1</strong> Client Interactions With Authorization Flow Services </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 ## 3. Access Service
 {: #access-service}
@@ -903,7 +904,7 @@ If possible, the server _SHOULD_ invalidate any authorizing aspects it controls 
     <tr>
       <td>
         <img src="{{ site.api_url | absolute_url }}/assets/images/auth2-client-flow.png" alt="Client Authorization Flow" class="fullPct" />
-        <p><strong>1</strong> Client Authorization Flow Workflow</p>
+        <p><strong>2</strong> Client Authorization Flow Workflow</p>
       </td>
     </tr>
   </tbody>
