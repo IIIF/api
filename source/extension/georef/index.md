@@ -79,9 +79,7 @@ In a Georeference Annotations, these steps are stored as follows:
 
 #### 2.2.1 Handling Projections
 
-Please note that version 1.1 of this extension has no explicit provisions for indicating which projection, if any, was used during the georeferencing process described above.
-
-If an individual creates GCPs manually on an interactive web map interface, for example, they will most likely be visually referencing an underlying basemap displayed in [WGS84 / Pseudo Mercator](https://epsg.io/?q=3857) (EPSG:3857), which is the current *de facto* standard for web mapping interfaces. In this case, if an implementor of the Georeference Extension does not warp the IIIF resource into the projection used during GCP creation (Pseudo Mercator), the results may be unexpectedly distorted.
+At this time, the Georeference Extension does not provide a property for specifying which geographic projection should be targeted during the warping process. Most commonly, IIIF resources will be warped to fit the [WGS84 / Pseudo Mercator](https://epsg.io/?q=3857) projection (EPSG:3857), which is the current *de facto* standard for web mapping interfaces. This is important to keep in mind, because targeting another projection, even while using the same set of GCPs, will produce a different warped image result.
 
 ## 3. Web Annotations for Georeferencing
 
