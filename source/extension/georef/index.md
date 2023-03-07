@@ -17,17 +17,17 @@ Changes will be tracked within the document.
 
 This document desribes a way to store the metadata needed to georeference a IIIF resource in a _Georeference Annotation_. Georeferenced Annotations can be used to convert images such as digitized maps and aerial photographs to geospatial assets.
 
-The [IIIF Presentation API](https://iiif.io/api/presentation/3.0/) has the capability to support complex Web Annotations which can provide detailed and specific information regarding IIIF resources. You can see various use cases which implement such Web Annotations in the [IIIF Cookbook](https://iiif.io/api/cookbook/). Through the work of the [IIIF Maps](https://iiif.io/community/groups/maps/) and [IIIF Maps TSG](https://iiif.io/community/groups/maps-tsg/) groups, a commonality of techniques to georeference IIIF Canvases and Images in the context of a global map became evident, and a desire to have standards and best practices for georeferencing became known.
+The [IIIF Presentation API](https://iiif.io/api/presentation/3.0/) has the capability to support complex Web Annotations which can provide detailed and specific information regarding IIIF resources. You can see various use cases which implement such Web Annotations in the [IIIF Cookbook](https://iiif.io/api/cookbook/). Through the work of the [IIIF Maps Community Group](https://iiif.io/community/groups/maps/) and [IIIF Maps TSG](https://iiif.io/community/groups/maps-tsg/), a commonality of techniques to georeference IIIF Canvases and Images in the context of a global map became evident, and a desire to have standards and best practices for georeferencing became known.
 
 ### 1.1 Objectives and Scope
 
-This document will supply vocabulary and a linked data 1.1 context allowing for a JSON-LD pattern by which to extend Web Annotation and the IIIF Presentation API to support georeferencing. This pattern promotes interoperability for geoerferenced maps across different georeferencing platforms, even those which focus on georeferencing for a specific use case such as those listed in the [Motivating Use Cases](#12-motivating-use-cases) section below.
+This document will supply vocabulary and a linked data 1.1 context allowing for a JSON-LD pattern by which to extend Web Annotation and the IIIF Presentation API to support georeferencing. This pattern promotes interoperability for georeferenced maps across different georeferencing platforms, even those which focus on georeferencing for a specific use case such as those listed in the [Motivating Use Cases](#12-motivating-use-cases) section below.
 
 The [existing GeoJSON specification](https://datatracker.ietf.org/doc/html/rfc7946) is adopted for its linked data vocabulary and context for geographic coordinates. This means coordinates are expressed through the [WGS84](http://www.w3.org/2003/01/geo/wgs84_pos) coordinate reference system. As such, expressing the location of extraterrestrial entities is not supported by this technique.
 
 Further, the following use cases are not in scope:
 
-- Geotagging of (non-aerial) photographs. This is extension is aimed at georeferencing cartographic IIIF resources containing two-dimensional representations of the three-dimensional surface of the globe. Usage may extent to other representations that can be mapped to geospatial coordinates, such as orthographic plan projections or vertical aerial photographs. Geotagging photographs is out of scope because this requires a different set of datapoints and relates to other use cases. Please refer to the [navPlace Extension](https://iiif.io/api/extension/navplace/) for an alternative solution.
+- Geotagging of (non-aerial) photographs. This extension is aimed at georeferencing cartographic IIIF resources containing two-dimensional representations of the three-dimensional surface of the globe. Usage may extent to other representations that can be mapped to geospatial coordinates, such as orthographic plan projections or vertical aerial photographs. Geotagging photographs is out of scope because this requires a different set of datapoints and relates to other use cases. Please refer to the [navPlace Extension](https://iiif.io/api/extension/navplace/) for an alternative solution.
 - Georeferencing altitude or elevation. Although the GeoJSON specifications support a third position element indicating the "height in meters above or below the WGS 84 reference ellipsoid", this is not included in the extension. Adding a third position element will however not result in an invalid Georeference Annotation, and it might be supported in future versions of the extension.
 - Specifying the original map projection and related coordinate reference system (CRS) of a IIIF resource. When selecting a transformation method in order to warp a map, it can be useful to know the original map projection of a IIIF resource, such as Mercator or Lambert. Including this in the Georeference Annotation would require a complex taxonomy, which is out of scope. A solution is to include this information in the metadata of the IIIF Manifest, or in a machine readable format referenced through the [seeAlso](https://iiif.io/api/presentation/3.0/#seealso) property.
 
@@ -68,7 +68,7 @@ The process of georeferencing consists of the following steps:
 2. Defining a mapping between coordinates on the IIIF resource and corresponding geographic WGS84 coordinates. This mapping consists of pairs of resource coordinates and geographic coordinates. Each pair of coordinates is called a Ground Control Point (GCP). At least three GCPs are needed to enable clients to warp a map.
 3. Optionally, a preferred transformation algorithm is defined that clients can use to turn the discrete set of GCPs into a function that interpolates any of the IIIF resource coordinates to geographic coordinates, and vice versa.
 
-In a Georeference Annotations, these steps are stored as follows:
+In a Georeference Annotations, these steps are encoded as follows:
 
 | Data                     | Georeference Annotation                                             |
 |--------------------------|---------------------------------------------------------------------|
@@ -175,7 +175,7 @@ It is also possible for a Canvas to contain multiple painting Annotations, each 
   <figcaption>Four map sheets painted on a single Canvas: <a href="https://tudelft.on.worldcat.org/oclc/708029770">Watergraafs of Diemer-meer</a>, from Delft University of Technology Library.</figcaption>
 </figure>
 
-More Georeference Annotation examples with robuse implementation guidance will be available through the IIIF Cookbook. This document will be updated with links to those recipes as they become available.
+More Georeference Annotation examples with robust implementation guidance will be available through the IIIF Cookbook. This document will be updated with links to those recipes as they become available.
 
 ### 3.4 Georeference Annotation `body`
 
@@ -481,7 +481,7 @@ The linked data context of this extension _MUST_ be included before the IIIF Pre
 
 Consult the [Linked Data Context and Extensions section of IIIF Presentation API](https://iiif.io/api/presentation/3.0/#46-linked-data-context-and-extensions) for further guidance on use of the `@context` property.
 
-## 6. Appendecies
+## 6. Appendices
 
 ### A. Open Source Implementations
 
@@ -495,7 +495,7 @@ Note that none of the tools listed above currently support georeferencing IIIF r
 
 ### B. Acknowledgements
 
-This document was produced by the IIIF Maps Community Group and IIIF Maps Technical Specification Group.  Of course, assistance came from many branches of the IIIF Community.  We thank everyone for their time and perserverance given to ensure this extension is as useful as possible.
+This document was produced by the IIIF Maps Community Group and IIIF Maps Technical Specification Group.  Of course, assistance came from many branches of the IIIF Community.  We thank everyone for their time and perseverance given to ensure this extension is as useful as possible.
 
 ### C. Change Log
 
