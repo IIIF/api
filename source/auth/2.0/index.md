@@ -793,7 +793,7 @@ Clients _SHOULD_ expect to encounter substitute resources with the following pro
 | `label`   | _OPTIONAL_ | The name, title, or label to display to the user for the substitute resource. The value _MUST_ be a JSON object as described in the [Language of Property Values][prezi3-languages] section of the Presentation API. |
 | `service` | _OPTIONAL_ | A list of services that apply to the substitute resource. |
 
-When IIIF API resources refer to access-controlled resources with substitute resources, the access-controlled resource _SHOULD_ be the resource most users would prefer to see, typically the highest quality version. An substitute resource may declare new IIIF Authorization Flow services, including its own probe services, allowing for [tiered access][auth20-tiered-access]. If present, and no further IIIF Authorization Flow services are declared on it, an substitute resource _MUST_ be accessible to the user who requested the probe service.
+When IIIF API resources refer to access-controlled resources with substitute resources, the access-controlled resource _SHOULD_ be the resource most users would prefer to see, typically the highest quality version. A substitute resource may declare new IIIF Authorization Flow services, including its own probe services, allowing for [tiered access][auth20-tiered-access]. If present, and no further IIIF Authorization Flow services are declared on it, a substitute resource _MUST_ be accessible to the user who requested the probe service.
 
 ```json
 {
