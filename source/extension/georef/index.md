@@ -161,7 +161,7 @@ There are some limitations to the type of SVG Selectors you can use to ensure th
 
 ##### Multiple Maps Depicted on a Single IIIF Resource
 
-It is common that a single IIIF resource depicts multiple maps, such as an image of a map with additional inset maps. Such a resource can be georeferenced by using multiple Georeference Annotation, each with their own SVG Selector and GCPs.
+It is common that a single IIIF resource depicts multiple maps, such as an image of a map with additional inset maps. Such a resource can be georeferenced by using multiple Georeference Annotations, each with their own SVG Selector and GCPs.
 
 <figure>
   <img src="images/greenpoint.jpg"
