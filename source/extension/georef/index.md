@@ -227,6 +227,10 @@ An example of a Feature with the `resourceCoords` property:
 }
 ```
 
+__Coordinate System of GCP Resource Coordinates__<br/>
+The `resourceCoords` property uses the same coordinate system as the targeted IIIF resource. When this is a IIIF Presentation API Canvas or Image API Image Service (either the full resource or using an SVG Selector), this means that `resourceCoords` value (x, y) corresponds to coordinates (x, y) on the resource. However, when an [Image API Selector](https://iiif.io/api/annex/openannotation/#iiif-image-api-selector) is used, this means that `resourceCoords` value (x, y) corresponds to the _translated_, _resized_ and _rotated_ coordinates according to the Selector's [region](https://iiif.io/api/image/3.0/#41-region), [size](https://iiif.io/api/image/3.0/#42-size) and [rotation](https://iiif.io/api/image/3.0/#43-rotation) parameters.
+{: .note}
+
 ### 3.6 The `transformation` Property
 
 The `transformation` property is defined by this document in order to supply the preferred transformation algorithm that is used to create a complete mapping from pixel coordinates to geographic coordinates (and vice versa) based on a list of GCPs. The value for `transformation` is a JSON object which includes the properties `type` and `options`. The property _MAY_ be added to the Feature Collection used in the Georeference Annotation `body` and clients _MAY_ use the information in the object.
