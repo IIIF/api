@@ -68,7 +68,7 @@ The process of georeferencing consists of the following steps:
 2. Defining a mapping between coordinates on the IIIF resource and corresponding geographic WGS84 coordinates. This mapping consists of pairs of resource coordinates and geographic coordinates. Each pair of coordinates is called a Ground Control Point (GCP). At least three GCPs are needed to enable clients to warp a map.
 3. Optionally, a preferred transformation algorithm is defined that clients can use to turn the discrete set of GCPs into a function that interpolates any of the IIIF resource coordinates to geographic coordinates, and vice versa.
 
-In a Georeference Annotations, these steps are encoded as follows:
+In Georeference Annotations, these steps are encoded as follows:
 
 | Data                     | Georeference Annotation                                             |
 |--------------------------|---------------------------------------------------------------------|
