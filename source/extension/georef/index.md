@@ -15,7 +15,7 @@ Changes will be tracked within the document.
 
 ## 1. Introduction
 
-This document desribes a way to store the metadata needed to georeference a IIIF resource in a _Georeference Annotation_. Georeferenced Annotations can be used to convert images such as digitized maps and aerial photographs to geospatial assets.
+This document describes a way to store the metadata needed to georeference a IIIF resource in a _Georeference Annotation_. Georeferenced Annotations can be used to convert images such as digitized maps and aerial photographs to geospatial assets.
 
 The [IIIF Presentation API](https://iiif.io/api/presentation/3.0/) has the capability to support complex Web Annotations which can provide detailed and specific information regarding IIIF resources. You can see various use cases which implement such Web Annotations in the [IIIF Cookbook](https://iiif.io/api/cookbook/). Through the work of the [IIIF Maps Community Group](https://iiif.io/community/groups/maps/) and [IIIF Maps TSG](https://iiif.io/community/groups/maps-tsg/), a commonality of techniques to georeference IIIF Canvases and Images in the context of a global map became evident, and a desire to have standards and best practices for georeferencing became known.
 
