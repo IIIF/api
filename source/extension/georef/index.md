@@ -77,9 +77,9 @@ In a Georeference Annotations, these steps are stored as follows:
 | Transformation algorithm | A `transformation` property defined on the GeoJSON Feature Collection that holds the GCPs |
 {: .api-table #table-critical-data-for-georeferencing}
 
-#### 2.2.1 Handling Projections
-
-At this time, the Georeference Extension does not provide a property for specifying which geographic projection should be targeted during the warping process. Most commonly, IIIF resources will be warped to fit the [WGS84 / Pseudo Mercator](https://epsg.io/?q=3857) projection (EPSG:3857), which is the current *de facto* standard for web mapping interfaces. This is important to keep in mind, because targeting another projection, even while using the same set of GCPs, will produce a different warped image result.
+__Target Projection__<br/>
+Please note that, at this time, the Georeference Extension does not provide a property for specifying which geographic projection should be targeted when warping a IIIF resource. Most commonly, IIIF resources will be warped to the [WGS84 / Pseudo Mercator](https://epsg.io/?q=3857) projection (EPSG:3857), which is the current *de facto* standard for web mapping interfaces. Targeting another projection, even while using the same set of GCPs, will produce a different result. A property for specifying a target projection may be added in future versions of the extension.
+{: .note}
 
 ## 3. Web Annotations for Georeferencing
 
