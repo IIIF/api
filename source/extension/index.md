@@ -64,6 +64,7 @@ This table summarizes the known extensions available, for use with the [Presenta
 | ------------------------------ |
 | [navPlace Extension][navPlace] |
 | [Text Granularity Extension][text-granularity] |
+| [Georeference Extension][georeference] |
 {: .api-table}
 
 
