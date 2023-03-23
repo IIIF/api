@@ -68,7 +68,7 @@
           "@container": "@list"
         },
         "resourceCoords": {
-          "@id": "iiif_georef:pixel_coords",
+          "@id": "iiif_georef:resourceCoords",
           "@container": "@list",
           "@type": "xsd:float"
         }
