@@ -36,7 +36,7 @@ Further, the following use cases are not in scope:
 - Adding IIIF resources as map layers to dynamic web maps or in GIS applications. Based on georeference data, clients can transform IIIF resources by scaling, skewing, rotating and stretching them. This process, also called _warping_, can be carried out through various methods.
 - The previous use case also supports stitching together multiple map sheets, each represented by a single IIIF resource, to form a composite map. Alternatively, it can be used to compare different versions of the same map or a collection of maps of the same area.
 - Geospatial exploration of IIIF resources. Georeference data can be used to compute the geospatial areas depicted on IIIF resources. This enables geospatial indexing and harvesting by geospatial search engines.
-- The same method can be used to convert Web Annotations to geographic formats such as GeoJSON, and vice versa. This can be used to display Web Annotations as vectors in a map interface or to paint geographic data on a Canvas from its connected Annotations.
+- The same method can be used to convert Web Annotations to geographic formats such as GeoJSON, and vice versa. This can be used to display Web Annotations as vectors in a map interface or to paint geographic data onto a Canvas from its connected Annotations.
 - Calculating the scale (in pixels per unit of length) and orientation (compass direction) of IIIF resources. This can be used to improve user experiences when viewing IIIF resources or for indexing.
 - Converting IIIF resources to a variety of raster map formats such as GeoTIFF and XYZ map tiles. This allows resources to be used in conventional GIS software.
 
