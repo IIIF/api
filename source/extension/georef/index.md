@@ -87,7 +87,7 @@ The combined information described in Section 2 is stored in a Georeference Anno
 
 ### 3.1 Embedded vs. Referenced Annotations
 
-Georeference Annotations can be included in a IIIF Presentation API response as part of an [Annotation Page](https://iiif.io/api/presentation/3.0/#annotations) under the `annotations` property of a Canvas. Alternatively, Georeference Annotations can exist independent of their targeted IIIF resources at their URI `id`.
+Georeference Annotations can be included in a IIIF Presentation API response as part of an [Annotation Page](https://iiif.io/api/presentation/3.0/#annotations) under the `annotations` property of a Canvas. Alternatively, Georeference Annotations can exist independent of their targeted IIIF resource and can be retrieved by resolving their URI `id`.
 
 For Georeference Annotations included in a Canvas, implementers _MUST_ have at least one Annotation Page in the `annotations` property of the targeted Canvas. Implementers have the option to [reference or embed](https://iiif.io/api/presentation/3.0/#12-terminology) those Annotation Pages. For the purposes of this extension, implementers _SHOULD_ embed the Annotation Pages in the `annotations` property as opposed to referencing them.  See the Cookbook entry [Embedded or referenced Annotations](https://iiif.io/api/cookbook/recipe/0269-embedded-or-referenced-annotations/) for a close look at the difference.
 
@@ -105,7 +105,7 @@ The [linked data context]({{ site.api_url | absolute_url }}/extension/georef/1/c
 
 The `target` property describes the resource that the Georeference Annotation applies to. The value for `target` _MUST_ either be a single and full IIIF resource, or a single region within a IIIF resource represented as a [Specific Resource](https://www.w3.org/TR/annotation-model/#specific-resources).
 
-For Georeference Annotations embedded in the `annotations` property of a Canvas, the `target` _MUST_ be the Canvas URI. When the desired target is a part of a Canvas represented by a Specific Resource, the `source` _MUST_ be the Canvas URI. For Georeference Annotations that are external to the IIIF resource they target, implementers SHOULD_ embed the IIIF resource in the `target` property instead of referencing it.
+For Georeference Annotations embedded in the `annotations` property of a Canvas, the `target` _MUST_ be the Canvas URI. When the desired target is a part of a Canvas represented by a Specific Resource, the `source` _MUST_ be the Canvas URI. For Georeference Annotations that are external to the IIIF resource they target, implementers _SHOULD_ embed the IIIF resource in the `target` property instead of referencing it.
 
 Clients processing the georeferencing information require the original height and width of the resources to have the proper aspect ratios. Implementers _SHOULD_ add the `height` and `width` properties to their embedded resources for consistency.
 
