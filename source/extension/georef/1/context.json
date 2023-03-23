@@ -8,26 +8,26 @@
     "sc": "http://iiif.io/api/presentation/2#",
     "as": "http://www.w3.org/ns/activitystreams#",
     "xsd": "http://www.w3.org/2001/XMLSchema#",
-    "proto": "http://iiif.io/api/extension/georef/vocab/georef-terms.md#",
+    "iiif_georef": "http://iiif.io/api/extension/georef/vocab/georef-terms.md#",
     "id": "@id",
     "type": "@type",
-    "georeferencing": "proto:georeferencing",
+    "georeferencing": "iiif_georef:georeferencing",
     "transformation":{
-      "@id": "proto:transformation",
+      "@id": "iiif_georef:transformation",
       "@context": {
         "options":{
-          "@id": "proto:options",
+          "@id": "iiif_georef:options",
           "@context": {
             "order": {
-              "@id": "proto:order",
+              "@id": "iiif_georef:order",
               "@type": "xsd:integer"
             }  
           }
         }
       }
     },
-    "polynomial": "proto:polynomial",
-    "thinPlateSpline": "proto:thinPlateSpline",
+    "polynomial": "iiif_georef:polynomial",
+    "thinPlateSpline": "iiif_georef:thinPlateSpline",
     "body": {
       "@context": [
         "https://geojson.org/geojson-ld/geojson-context.jsonld",
@@ -68,7 +68,7 @@
           "@container": "@list"
         },
         "resourceCoords": {
-          "@id": "proto:pixel_coords",
+          "@id": "iiif_georef:pixel_coords",
           "@container": "@list",
           "@type": "xsd:float"
         }
