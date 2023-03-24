@@ -503,7 +503,9 @@ Note that none of the tools listed above currently support georeferencing IIIF r
 
 ### B. Acknowledgements
 
-This document was produced by the IIIF Maps Community Group and IIIF Maps Technical Specification Group.  Of course, assistance came from many branches of the IIIF Community.  We thank everyone for their time and perseverance given to ensure this extension is as useful as possible.
+This extension was produced by the IIIF Maps Community Group and IIIF Maps Technical Specification Group. Of course, assistance came from many branches of the IIIF Community. We thank everyone for their time and perseverance given to ensure this extension is as useful as possible.
+
+A grant of [Stichting Pica](https://www.stichtingpica.nl) for the further development of the [Allmaps Viewer](https://viewer.allmaps.org) made possible the completion of this extension.
 
 ### C. Change Log
 
