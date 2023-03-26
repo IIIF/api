@@ -12,16 +12,16 @@
     "id": "@id",
     "type": "@type",
     "georeferencing": "proto:georeferencing",
-    "transformation":{
+    "transformation": {
       "@id": "proto:transformation",
       "@context": {
-        "options":{
+        "options": {
           "@id": "proto:options",
           "@context": {
             "order": {
               "@id": "proto:order",
               "@type": "xsd:integer"
-            }  
+            }
           }
         }
       }
@@ -68,7 +68,7 @@
           "@container": "@list"
         },
         "resourceCoords": {
-          "@id": "proto:pixel_coords",
+          "@id": "proto:resourceCoords",
           "@container": "@list",
           "@type": "xsd:float"
         }
