@@ -858,7 +858,7 @@ In the case of the `active` access service pattern, the client may need to know 
 ### 6.1. Logout Service Description
 {: #logout-service-description}
 
-If the authentication system supports users intentionally logging out, there _SHOULD_ be a logout service associated with the access service following the template below:
+If the authentication system supports users intentionally logging out, there _SHOULD_ be a logout service associated with the access service.
 
 | Property       | Required?  | Description                                            |
 | -------------- |------------|--------------------------------------------------------|
