@@ -1,31 +1,21 @@
 {
   "@context": {
     "@version": 1.1,
-    "geo": "https://purl.org/geojson/vocab#",
+    "geojson": "https://purl.org/geojson/vocab#",
     "iiif_prezi": "http://iiif.io/api/presentation/3#",
     "iiif_image": "http://iiif.io/api/image/3#",
+    "iiif_georef": "http://iiif.io/api/extension/georef/vocab/georef-terms.md#",
     "oa": "http://www.w3.org/ns/oa#",
-    "sc": "http://iiif.io/api/presentation/2#",
     "as": "http://www.w3.org/ns/activitystreams#",
     "xsd": "http://www.w3.org/2001/XMLSchema#",
-    "iiif_georef": "http://iiif.io/api/extension/georef/vocab/georef-terms.md#",
     "id": "@id",
     "type": "@type",
-<<<<<<< HEAD
     "georeferencing": "iiif_georef:georeferencing",
     "transformation":{
       "@id": "iiif_georef:transformation",
       "@context": {
         "options":{
           "@id": "iiif_georef:options",
-=======
-    "georeferencing": "proto:georeferencing",
-    "transformation": {
-      "@id": "proto:transformation",
-      "@context": {
-        "options": {
-          "@id": "proto:options",
->>>>>>> georef
           "@context": {
             "order": {
               "@id": "iiif_georef:order",
@@ -55,7 +45,7 @@
     "region": "https://iiif.io/api/image/3.0/#41-region",
     "size": "https://iiif.io/api/image/3.0/#42-size",
     "properties": {
-      "@id": "geo:properties",
+      "@id": "geojson:properties",
       "@context": {
         "label": {
           "@id": "rdfs:label",
@@ -77,11 +67,7 @@
           "@container": "@list"
         },
         "resourceCoords": {
-<<<<<<< HEAD
           "@id": "iiif_georef:resourceCoords",
-=======
-          "@id": "proto:resourceCoords",
->>>>>>> georef
           "@container": "@list",
           "@type": "xsd:float"
         }
