@@ -1,25 +1,33 @@
-# New terms introduced in the Allmaps + IIIF Georeferencing Extension
+# New terms introduced in the Georeference Extension
 
-## resourceCoords
-A property that appears inside of a GeoJSON Feature's `properties`.  It is a pixel coordinate array representing a pixel coordinate point on the resource.  It is used to align the pixel coordinate point from the resource to a WGS84 geographic coordinate point.
+## `georeferencing`
 
-## georeferencing
-The Web Annotation `motivation` value for when the user intends to georeference the target resource so that the target resource can be displayed within a finite area of a projection of the surface of the Earth.
+Georeference Annotations use `georeferencing` as the value for their [motivation](https://www.w3.org/TR/annotation-model/#motivation-and-purpose). The `motivation` property is part of the [Web Annotation specification](https://www.w3.org/TR/annotation-model/).
 
-## transformation
-A property that appears on a Feature Collection to supply the preferred transformation algoritm for all of its Features.  The data in the `transformation` property is used to create a complete mapping from pixel coordinates to geographic coordinates (and vice versa), based on a list of GCPs. The value is a JSON object which includes the properties `type` and `options`.
+## `resourceCoords`
 
-## options
-A property that appears within a `transformation` JSON object to supply additional parameters related to the selected transformation `type`.  Not all transformation types require the `options` property.
+The `resourceCoords` property appears inside each `properties` object of each Ground Control Point (GCP).  It defines the resource coordinates of the GCP.
 
-## order
-A property that appears within a `transformation` JSON object with a `polynomial` transformation type.  The value will be `1` for first order linear transformations, `2` for second order quadratic transformation, or `3` for third order cubic transformations.
+## `transformation`
 
-## polynomial
-A typical transformation type that means...
+The `transformation` property may appear in the body of a Georeference Annotation to supply clients with information about the preferred transformation algorithm. Its value is a JSON object with properties `type` and `options`.
 
-## thinPlateSpline
-A typical transformation type that means...also known as "rubber sheeting"
+## `type`
 
+The preferred transformation algorithm that clients should use for the GCPs in a specific Georeference Annotation.  It appears as the `type` property of a `transformation` object and does not override the meaning of any other `type` property. Valid values are `thinPlateSpline` and `polynomial`.
 
+## `options`
 
+A property that appears within a `transformation` object to supply additional parameters related to the selected transformation type.
+
+## `order`
+
+A property that appears within a `transformation` object with a `polynomial` transformation type.  The value will be `1` for first order linear transformations, `2` for second order quadratic transformation, or `3` for third order cubic transformations.
+
+## `thinPlateSpline`
+
+`thinPlateSpline` is one of the possible values of the transformation `type` property. It means that 'thin plate spline' transformation algorithm should be used. Thin plate spline is also known as _rubbersheeting_.
+
+## `polynomial`
+
+`polynomial` is one of the possible values of the transformation `type` property.  It indicates that a first, second or third order polynomial transformation should be used.

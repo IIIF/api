@@ -11,17 +11,26 @@
     "iiif_georef": "http://iiif.io/api/extension/georef/vocab/georef-terms.md#",
     "id": "@id",
     "type": "@type",
+<<<<<<< HEAD
     "georeferencing": "iiif_georef:georeferencing",
     "transformation":{
       "@id": "iiif_georef:transformation",
       "@context": {
         "options":{
           "@id": "iiif_georef:options",
+=======
+    "georeferencing": "proto:georeferencing",
+    "transformation": {
+      "@id": "proto:transformation",
+      "@context": {
+        "options": {
+          "@id": "proto:options",
+>>>>>>> georef
           "@context": {
             "order": {
               "@id": "iiif_georef:order",
               "@type": "xsd:integer"
-            }  
+            }
           }
         }
       }
@@ -68,7 +77,11 @@
           "@container": "@list"
         },
         "resourceCoords": {
+<<<<<<< HEAD
           "@id": "iiif_georef:resourceCoords",
+=======
+          "@id": "proto:resourceCoords",
+>>>>>>> georef
           "@container": "@list",
           "@type": "xsd:float"
         }
