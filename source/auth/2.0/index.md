@@ -857,10 +857,11 @@ In the case of the `active` access service pattern, the client may need to know 
 ### 6.1. Logout Service Description
 {: #logout-service-description}
 
-| Property       | Required?  | Description                                            |
-| -------------- |------------|--------------------------------------------------------|
-| `id`           | _REQUIRED_ | The URI of the logout service.                         |
-| `type`         | _REQUIRED_ | The value _MUST_ be the string `AuthLogoutService2`.   |
+| Property       | Required?  | Description                                          |
+| -------------- |------------|------------------------------------------------------|
+| `id`           | _REQUIRED_ | The URI of the logout service.                       |
+| `type`         | _REQUIRED_ | The value _MUST_ be the string `AuthLogoutService2`. |
+| `label`        | _REQUIRED_ | The name of the logout service.                      |
 
 #### id
 
@@ -869,6 +870,14 @@ The URI of the logout service. The `id` property _MUST_ be present. The value _M
 #### type
 
 The type of the service. The `type` property _MUST_ be present in the JSON, and the value _MUST_ be the string `AuthLogoutService2`.
+
+#### label
+
+The text to be shown to the user to initiate the interaction with the logout service. The value _MUST_ clearly indicate the domain or institution from which the user is logging out. The value of the property _MUST_ be a JSON object as described in the [Language of Property Values][prezi3-languages] section of the Presentation API.
+
+```json-doc
+{ "label": { "en": [ "Logout from Example Institution" ] } }
+```
 
 #### Example Service Description
 
