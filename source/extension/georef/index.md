@@ -497,11 +497,7 @@ Consult the [Linked Data Context and Extensions section of IIIF Presentation API
 
 This extension was produced by the IIIF Maps Community Group and IIIF Maps Technical Specification Group. Of course, assistance came from many branches of the IIIF Community. We thank everyone for their time and perseverance given to ensure this extension is as useful as possible.
 
-<<<<<<< HEAD
-A grant of [Stichting Pica](https://www.stichtingpica.nl) for further development of the [Allmaps Viewer](https://viewer.allmaps.org) made possible the completion of this extension.
-=======
 A grant from [Stichting Pica](https://www.stichtingpica.nl) for the further development of [Allmaps Viewer](https://viewer.allmaps.org) made the completion of this extension possible.
->>>>>>> georef
 
 ### B. Change Log
 
