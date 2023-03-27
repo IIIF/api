@@ -491,23 +491,13 @@ Consult the [Linked Data Context and Extensions section of IIIF Presentation API
 
 ## 6. Appendices
 
-### A. Open Source Implementations
-
-GCP-based image georeferencing is a common task that's available in many GIS applications. For example, the following open source applications provide this functionality:
-
-- [GDAL](https://gdal.org/programs/gdaltransform.html)
-- [QGIS](https://docs.qgis.org/3.22/en/docs/user_manual/working_with_raster/georeferencer.html)
-- [Map Warper](https://github.com/timwaters/mapwarper)
-
-Note that none of the tools listed above currently support georeferencing IIIF resources using Georeference Annotations.
-
-### B. Acknowledgements
+### A. Acknowledgements
 
 This extension was produced by the IIIF Maps Community Group and IIIF Maps Technical Specification Group. Of course, assistance came from many branches of the IIIF Community. We thank everyone for their time and perseverance given to ensure this extension is as useful as possible.
 
-A grant of [Stichting Pica](https://www.stichtingpica.nl) for the further development of the [Allmaps Viewer](https://viewer.allmaps.org) made possible the completion of this extension.
+A grant from [Stichting Pica](https://www.stichtingpica.nl) for the further development of [Allmaps Viewer](https://viewer.allmaps.org) made the completion of this extension possible.
 
-### C. Change Log
+### B. Change Log
 
 {% include acronyms.md %}
 
