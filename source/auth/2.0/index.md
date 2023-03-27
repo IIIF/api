@@ -849,7 +849,6 @@ If the status code does not indicate success, the response _SHOULD_ include the 
 
 If the status code does not indicate success, the response _SHOULD_ include the `note` property. This provides additional human-readable information about the error to render with the user interface element that conveys the error. If present, it _SHOULD_ be shown to the user if the client can't recover from the error without user interaction. The value of the property _MUST_ be a JSON object as described in the [Language of Property Values][prezi3-languages] section of the Presentation API. If present, `heading` _MUST_ also be present.
 
-
 ## 6. Logout Service
 {: #logout-service}
 
