@@ -853,12 +853,10 @@ If the status code does not indicate success, the response _SHOULD_ include the 
 ## 6. Logout Service
 {: #logout-service}
 
-In the case of the `active` access service pattern, the client may need to know if and where the user can go to log out. For example, the user may wish to close their session on a public terminal, or to log in again with a different account.
+In the case of the `active` access service pattern, the client may need to know if and where the user can go to log out. For example, the user may wish to close their session on a public terminal, or to log in again with a different account.  If the authentication system supports users intentionally logging out, there _SHOULD_ be a logout service associated with the access service.
 
 ### 6.1. Logout Service Description
 {: #logout-service-description}
-
-If the authentication system supports users intentionally logging out, there _SHOULD_ be a logout service associated with the access service.
 
 | Property       | Required?  | Description                                            |
 | -------------- |------------|--------------------------------------------------------|
