@@ -860,6 +860,21 @@ In the case of the `active` access service pattern, the client may need to know 
 
 If the authentication system supports users intentionally logging out, there _SHOULD_ be a logout service associated with the access service following the template below:
 
+| Property       | Required?  | Description                                            |
+| -------------- |------------|--------------------------------------------------------|
+| `id`           | _REQUIRED_ | The URI of the logout service.                         |
+| `type`         | _REQUIRED_ | The value _MUST_ be the string `AuthLogoutService2`.   |
+
+#### id
+
+The URI of the logout service. The `id` property _MUST_ be present. The value _MUST_ be a string containing the HTTPS URI of the service.
+
+#### type
+
+The type of the service. The `type` property _MUST_ be present in the JSON, and the value _MUST_ be the string `AuthLogoutService2`.
+
+#### Example Service Description
+
 {% include api/code_header.html %}
 ``` json-doc
 {
@@ -884,8 +899,6 @@ If the authentication system supports users intentionally logging out, there _SH
   }
 }
 ```
-
-The value of the `type` property _MUST_ be `AuthLogoutService2`.
 
 ### 6.2. Logout Interaction
 {: #logout-interaction}
