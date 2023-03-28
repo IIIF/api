@@ -869,7 +869,7 @@ The URI of the logout service. The `id` property _MUST_ be present. The value _M
 
 #### type
 
-The type of the service. The `type` property _MUST_ be present in the JSON, and the value _MUST_ be the string `AuthLogoutService2`.
+The type of the service. The `type` property _MUST_ be present and the value _MUST_ be the string `AuthLogoutService2`.
 
 #### label
 
