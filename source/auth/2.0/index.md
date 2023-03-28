@@ -180,7 +180,7 @@ A user wishes to see an access-controlled resource such as an image, video, PDF,
     <tr>
       <td>
         <img src="{{ site.api_url | absolute_url }}/assets/images/auth2-sequence.png" alt="Authorization Flow Service Interactions diagram" class="fullPct" />
-        <p><strong>1</strong> Client Interactions With Authorization Flow Services </p>
+        <p>Client Interactions With Authorization Flow Services</p>
       </td>
     </tr>
   </tbody>
@@ -903,7 +903,7 @@ If possible, the server _SHOULD_ invalidate any authorizing aspects it controls 
     <tr>
       <td>
         <img src="{{ site.api_url | absolute_url }}/assets/images/auth2-client-flow.png" alt="Client Authorization Flow" class="fullPct" />
-        <p><strong>2</strong> Client Authorization Flow Workflow</p>
+        <p>Client Authorization Flow Workflow</p>
       </td>
     </tr>
   </tbody>
