@@ -873,7 +873,7 @@ The type of the service. The `type` property _MUST_ be present in the JSON, and 
 
 #### label
 
-The text to be shown to the user to initiate the interaction with the logout service. The `label` property _MUST_ be present and the value _MUST_ clearly indicate the domain or institution from which the user is logging out. The value of the property _MUST_ be a JSON object as described in the [Language of Property Values][prezi3-languages] section of the Presentation API.
+The text to be shown to the user to initiate the interaction with the logout service. The `label` property _MUST_ be present. The value _MUST_ clearly indicate the domain or institution from which the user is logging out. The value of the property _MUST_ be a JSON object as described in the [Language of Property Values][prezi3-languages] section of the Presentation API.
 
 ```json-doc
 { "label": { "en": [ "Logout from Example Institution" ] } }
