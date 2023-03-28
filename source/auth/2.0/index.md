@@ -222,7 +222,7 @@ If the profile property is `external`, the `id` property _SHOULD NOT_ be present
 
 #### type
 
-The type of the service. The `type` property _MUST_ be present in the JSON, and the value _MUST_ be the string `AuthAccessService2`.
+The type of the service. The `type` property _MUST_ be present and the value _MUST_ be the string `AuthAccessService2`.
 
 ```json-doc
 { "type": "AuthAccessService2" }
@@ -240,6 +240,15 @@ There are three interaction patterns by which the client can use the access serv
 {: .api-table .first-col-normal }
 
 The `active` profile requires additional properties in the service description, defined in the [Active Interaction Pattern][auth20-active-interaction-pattern] section below.
+
+<!-- TODO 
+
+The text needs to describe the order the services are tried - external, kiosk, active
+
+This is only in the diagram and algorithm at the moment.
+
+
+-->
 
 ```json-doc
 { "profile": "active" }
@@ -467,7 +476,7 @@ The URI of the access token service that the client opens in a frame. The `id` p
 
 #### type
 
-The type of the service. The `type` property _MUST_ be present in the JSON, and the value _MUST_ be the string `AuthAccessTokenService2`.
+The type of the service. The `type` property _MUST_ be present and the value _MUST_ be the string `AuthAccessTokenService2`.
 
 #### errorHeading
 
@@ -722,7 +731,7 @@ The URI of the probe service. The `id` property _MUST_ be present. The value _MU
 
 #### type
 
-The type of the service. The `type` property _MUST_ be present in the JSON, and the value _MUST_ be the string `AuthProbeService2`.
+The type of the service. The `type` property _MUST_ be present, and the value _MUST_ be the string `AuthProbeService2`.
 
 #### errorHeading
 
@@ -734,7 +743,7 @@ Default additional text to render if the probe indicates the user cannot access 
 
 #### service
 
-The value _MUST_ be an array of JSON objects. Each object _MUST_ have the `id` and `type` properties. The `service` array _MUST_ contain one or more [access services][auth20-access-token-service].
+The value _MUST_ be an array of JSON objects. They _MUST_ all have the `type` property with value `AuthAccessService2` as described in [Access Service][auth20-access-service].  
 
 
 ### 5.1. Probe Service Request
@@ -764,11 +773,11 @@ The response from the probe service is a JSON-LD object with the following prope
 
 #### type
 
-The type of the probe result. The `type` property _MUST_ be present in the JSON, and the value _MUST_ be the string `AuthProbeResult2`.
+The type of the probe result. The `type` property _MUST_ be present and the value _MUST_ be the string `AuthProbeResult2`.
 
 #### status
 
-The HTTP status code that the client should expect to receive if it were to issue the same request to the resource as it has just issued to the probe service. Note well that the HTTP status code of the response itself _MUST_ be 200. The `status` property _MUST_ be present in the JSON, and the value _MUST_ be an integer drawn from the list of [HTTP status codes][org-rfc-7231-status].
+The HTTP status code that the client should expect to receive if it were to issue the same request to the resource as it has just issued to the probe service. Note well that the HTTP status code of the response itself _MUST_ be 200. The `status` property _MUST_ be present and the value _MUST_ be an integer drawn from the list of [HTTP status codes][org-rfc-7231-status].
 
 ```json
 {
@@ -781,7 +790,7 @@ The HTTP status code that the client should expect to receive if it were to issu
 #### substitute
 {: #substitute}
 
-A list of alternate resources that a client _MAY_ use instead of the access-controlled resource if the user is not authorized to retrieve that resource. The `substitute` property _MAY_ be present in the JSON if the value of the `status` property indicates that access to the access-controlled resource would be denied, and _MUST NOT_ be present otherwise. The value _MUST_ be an array of JSON objects, each of which describes an substitute resource.
+A list of alternate resources that a client _MAY_ use instead of the access-controlled resource if the user is not authorized to retrieve that resource. The `substitute` property _MAY_ be present if the value of the `status` property indicates that access to the access-controlled resource would be denied, and _MUST NOT_ be present otherwise. The value _MUST_ be an array of JSON objects, each of which describes an substitute resource.
 
 If multiple substitute resources are available, clients _SHOULD_ allow the user to choose between them, using the `label` or other descriptive properties available on the resources.
 
@@ -911,7 +920,7 @@ If possible, the server _SHOULD_ invalidate any authorizing aspects it controls 
 
 ### 7.1. Authorization Flow Algorithm
 
-As specified above, a resource _MAY_ have multiple Probe services, and a Probe service _MAY_ have multiple Access services. The same Access service (e.g., a login page) _MAY_ be shared by multiple Probe services. Each Access service _MUST_ have one associated Token service, and _MAY_ have one associated Logout service. While multiple Probe services per resource and multiple Access services per Probe service are not likely to be common, clients _SHOULD_ be able to interact with multiple services.
+As specified above, a resource may have multiple Probe services, and a Probe service may have multiple Access services. The same Access service (e.g., a login page) may be shared by multiple Probe services. Each Access service must have one associated Token service, and may have one associated Logout service. While multiple Probe services per resource and multiple Access services per Probe service are not likely to be common, clients should be able to interact with multiple services.
 
 A Token service is _associated with_ a Probe service if that Probe service's `service` property includes an Access service whose `service` property includes the Token service (i.e., the Probe service is the grandparent of the Token service).
 
@@ -922,7 +931,7 @@ For each Probe service `ps` in the set of Probe services `P`
   In the Probe Service response:
     If `status` = 200, display the resource (end)
     If `status` = 30x and `location` is not empty, display the resource at `location` (end)
-    If `status` = 401 and `substitute` is not empty, display the resource at `substitute` (goto `99`)
+    If `status` = 401 and `substitute` is not empty, display the resource at `substitute` (goto LABEL)
 
   Let `T` be the set of non-expired tokens acquired from token services _associated with_ `ps`
   For each token `t` in `T`
@@ -930,10 +939,10 @@ For each Probe service `ps` in the set of Probe services `P`
     In the Probe Service response:
       If `status` = 200, display the resource (end)
       If `status` = 30x and `location` is not empty, display the resource at `location` (end)
-      If `status` = 401 and `substitute` is not empty, display the resource at `substitute` (goto `99`)
+      If `status` = 401 and `substitute` is not empty, display the resource at `substitute` (goto LABEL)
   
-  (`99`) Let `A` be the set of Access services included in the `services` property of `ps`
-    For each Access service `as` in `A` where `as.profile` == `external`
+  LABEL: Let `A` be the set of Access services included in the `services` property of `ps`
+    For each Access service `as` in `A` where `as.profile` == `external` and you haven't tried it!!!!
       Open the token service `ts` associated with `as`
       Receive postMessage response `pm` from `ts`
       If `pm` has `accessToken` `t`
