@@ -1,33 +1,32 @@
 {
   "@context": {
     "@version": 1.1,
-    "geo": "https://purl.org/geojson/vocab#",
+    "geojson": "https://purl.org/geojson/vocab#",
     "iiif_prezi": "http://iiif.io/api/presentation/3#",
     "iiif_image": "http://iiif.io/api/image/3#",
+    "iiif_georef": "http://iiif.io/api/extension/georef/vocab/georef-terms.md#",
     "oa": "http://www.w3.org/ns/oa#",
-    "sc": "http://iiif.io/api/presentation/2#",
     "as": "http://www.w3.org/ns/activitystreams#",
     "xsd": "http://www.w3.org/2001/XMLSchema#",
-    "proto": "http://iiif.io/api/extension/georef/vocab/georef-terms.md#",
     "id": "@id",
     "type": "@type",
-    "georeferencing": "proto:georeferencing",
-    "transformation": {
-      "@id": "proto:transformation",
+    "georeferencing": "iiif_georef:georeferencing",
+    "transformation":{
+      "@id": "iiif_georef:transformation",
       "@context": {
-        "options": {
-          "@id": "proto:options",
+        "options":{
+          "@id": "iiif_georef:options",
           "@context": {
             "order": {
-              "@id": "proto:order",
+              "@id": "iiif_georef:order",
               "@type": "xsd:integer"
             }
           }
         }
       }
     },
-    "polynomial": "proto:polynomial",
-    "thinPlateSpline": "proto:thinPlateSpline",
+    "polynomial": "iiif_georef:polynomial",
+    "thinPlateSpline": "iiif_georef:thinPlateSpline",
     "body": {
       "@context": [
         "https://geojson.org/geojson-ld/geojson-context.jsonld",
@@ -46,7 +45,7 @@
     "region": "https://iiif.io/api/image/3.0/#41-region",
     "size": "https://iiif.io/api/image/3.0/#42-size",
     "properties": {
-      "@id": "geo:properties",
+      "@id": "geojson:properties",
       "@context": {
         "label": {
           "@id": "rdfs:label",
@@ -68,7 +67,7 @@
           "@container": "@list"
         },
         "resourceCoords": {
-          "@id": "proto:resourceCoords",
+          "@id": "iiif_georef:resourceCoords",
           "@container": "@list",
           "@type": "xsd:float"
         }
