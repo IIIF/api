@@ -911,7 +911,7 @@ If possible, the server _SHOULD_ invalidate any authorizing aspects it controls 
 
 ### 7.1. Authorization Flow Algorithm
 
-As specified above, a resource may have multiple Probe services, and a Probe service may have multiple Access services. The same Access service (e.g., a login page) may be shared by multiple Probe services. Each Access service must have one associated Token service, and may have one associated Logout service. While multiple Probe services per resource and multiple Access services per Probe service are not likely to be common, clients should be able to interact with multiple services.
+A resource may have multiple Probe services, and a Probe service may have multiple Access services. The same Access service (e.g., a login page) may be shared by multiple Probe services. Each Access service must have one associated Token service, and may have one associated Logout service. While multiple Probe services per resource and multiple Access services per Probe service are not likely to be common, clients should be able to interact with multiple services.
 
 A Token service is _associated with_ a Probe service if that Probe service's `service` property includes an Access service whose `service` property includes the Token service (i.e., the Probe service is the grandparent of the Token service).
 
@@ -922,7 +922,7 @@ For each Probe service `ps` in the set of Probe services `P`
   In the Probe Service response:
     If `status` = 200, display the resource (end)
     If `status` = 30x and `location` is not empty, display the resource at `location` (end)
-    If `status` = 401 and `substitute` is not empty, display the resource at `substitute` (goto LABEL)
+    If `status` = 401 and `substitute` is not empty, display the resource at `substitute` (goto ACCESS_SERVICE)
 
   Let `T` be the set of non-expired tokens acquired from token services _associated with_ `ps`
   For each token `t` in `T`
@@ -930,69 +930,43 @@ For each Probe service `ps` in the set of Probe services `P`
     In the Probe Service response:
       If `status` = 200, display the resource (end)
       If `status` = 30x and `location` is not empty, display the resource at `location` (end)
-      If `status` = 401 and `substitute` is not empty, display the resource at `substitute` (goto LABEL)
+      If `status` = 401 and `substitute` is not empty, display the resource at `substitute` (goto ACCESS_SERVICE)
   
-  LABEL: Let `A` be the set of Access services included in the `services` property of `ps`
-    For each Access service `as` in `A` where `as.profile` == `external` and you haven't tried it!!!!
+  ACCESS_SERVICE: Let `A` be the set of Access services included in the `services` property of `ps`
+    For each untried Access service `as` in `A` where `as.profile` == `external`:
       Open the token service `ts` associated with `as`
       Receive postMessage response `pm` from `ts`
       If `pm` has `accessToken` `t`
         Make a GET request to `ps` with a header carrying Bearer token `t`
-        ... (same)
-    For each Access service `as` in `A` where `as.profile` == `kiosk`
+        In the Probe Service response:
+          If `status` = 200, display the resource (end)
+          If `status` = 30x and `location` is not empty, display the resource at `location` (end)
+          If `status` = 401 and `substitute` is not empty, display the resource at `substitute` (goto ACCESS_SERVICE)
+    For each untried Access service `as` in `A` where `as.profile` == `kiosk`
       Open `as`
       Wait for window to close
         Open the token service `ts` associated with `as`
         Receive postMessage response `pm` from `ts`
         If `pm` has `accessToken` `t`
           Make a GET request to `ps` with a header carrying Bearer token `t`
-          ... (same)
-    For each Access service `as` in `A` where `as.profile` == `active`
-      Display user interface (using strings) - need algo for string selection
-      Accept user call to action
+          In the Probe Service response:
+            If `status` = 200, display the resource (end)
+            If `status` = 30x and `location` is not empty, display the resource at `location` (end)
+            If `status` = 401 and `substitute` is not empty, display the resource at `substitute` (goto ACCESS_SERVICE)
+    For each untried Access service `as` in `A` where `as.profile` == `active`
+      Display user interface using available strings
+      Accept user call to action to open the Access Service
       Open `as`
       Wait for window to close
         Open the token service `ts` associated with `as`
         Receive postMessage response `pm` from `ts`
         If `pm` has `accessToken` `t`
           Make a GET request to `ps` with a header carrying Bearer token `t`
-          ... (same)
+            In the Probe Service response:
+              If `status` = 200, display the resource (end)
+              If `status` = 30x and `location` is not empty, display the resource at `location` (end)
+              If `status` = 401 and `substitute` is not empty, display the resource at `substitute` (goto ACCESS_SERVICE)
 No display possible
-
-
-For each Probe service `ps` in the set of Probe services `P`
-
-
-
-* Given a set of Probe services (`P`) and a set of Access services (`A`) associated with the access controlled resource,
-* For each access service (`as`) in `A`,
-  * If the user has already authenticated to `as` and the client has a token (`t`) from a related Access Token service,
-    * For each probe service (`ps`) in `P`,
-      * Make a request to `ps` with token `t` to get the response (`resp`)
-      * If the `status` property of `resp` is `200`, then the user can retrieve the access controlled resource, so exit with success
-      * If the `status` property of `resp` is `401`, ...
-
-<!-- 
-Browser-based clients will perform the following workflow in order to access access controlled resources:
-
-* The client requests the Probe Service and checks the status code of the response.
-* If the response is a 200 and no `location` property is present, the client can proceed to request the Content Resource.
-* If the response is a 200 and the `location` property is present, the client _MUST_ use the supplied location to request the Content Resource.
-* If the response is a 401,
-  * The client does not have access to the Content Resource or images from an image service, and thus the client __checks for authentication services__ associated with the Content Resource or Image Service - e.g., in the Manifest, or in the Image Information Document (info.json).
-  * If the probe response has a `location` property, the client can choose to show this immediately while offering the authentication flow to the user. If the Content Resource in the `location` property itself has authentication services (including a probe service), the client should... **FIXME wording! keep this succinct!**
-* If the response is neither 200 nor 401, the client must handle other HTTP status codes.
-
-* When the client checks for authentication services:
-  * First it looks for a External access service pattern as this does not require any user interaction. If present, it opens the Access Token service to see if the user has the authorizing aspect required to meet the authorization requirement.
-  * If no External service is present, the client checks for a Kiosk access service pattern as it does not involve user interaction. If present, it opens the Access Service in a separate window.
-  * If no Kiosk access service is present, the client presents any Active Access Service patterns available and prompts the user to interact with one of them. When the user selects the access service to interact with the client opens that service URI in a separate tab (or window).
-  * When the Access service window closes, either automatically or by the user, the client Opens the Access Token Service.
-
-* After the Access Token service has been requested, if the client receives a token, it tries the Probe Service again with this newly acquired token.
-  * If the client instead receives an error, it returns to look for further authentication services to interact with.
-  * If there are no further authentication services, then the user does not have the credentials to interact with any of the Content Resource versions, and the client cannot display anything.
--->
 
 
 ### 7.1 Tiered Access
