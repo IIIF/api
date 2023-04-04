@@ -849,16 +849,37 @@ If the status code does not indicate success, the response _SHOULD_ include the 
 
 If the status code does not indicate success, the response _SHOULD_ include the `note` property. This provides additional human-readable information about the error to render with the user interface element that conveys the error. If present, it _SHOULD_ be shown to the user if the client can't recover from the error without user interaction. The value of the property _MUST_ be a JSON object as described in the [Language of Property Values][prezi3-languages] section of the Presentation API. If present, `heading` _MUST_ also be present.
 
-
 ## 6. Logout Service
 {: #logout-service}
 
-In the case of the `active` access service pattern, the client may need to know if and where the user can go to log out. For example, the user may wish to close their session on a public terminal, or to log in again with a different account.
+In the case of the `active` access service pattern, the client may need to know if and where the user can go to log out. For example, the user may wish to close their session on a public terminal, or to log in again with a different account.  If the authentication system supports users intentionally logging out, there _SHOULD_ be a logout service associated with the access service.
 
 ### 6.1. Logout Service Description
 {: #logout-service-description}
 
-If the authentication system supports users intentionally logging out, there _SHOULD_ be a logout service associated with the access service following the template below:
+| Property       | Required?  | Description                                          |
+| -------------- |------------|------------------------------------------------------|
+| `id`           | _REQUIRED_ | The URI of the logout service.                       |
+| `type`         | _REQUIRED_ | The value _MUST_ be the string `AuthLogoutService2`. |
+| `label`        | _REQUIRED_ | The name of the logout service.                      |
+
+#### id
+
+The URI of the logout service. The `id` property _MUST_ be present. The value _MUST_ be a string containing the HTTPS URI of the service.
+
+#### type
+
+The type of the service. The `type` property _MUST_ be present and the value _MUST_ be the string `AuthLogoutService2`.
+
+#### label
+
+The text to be shown to the user to initiate the interaction with the logout service. The `label` property _MUST_ be present. The value _MUST_ clearly indicate the domain or institution from which the user is logging out. The value of the property _MUST_ be a JSON object as described in the [Language of Property Values][prezi3-languages] section of the Presentation API.
+
+```json-doc
+{ "label": { "en": [ "Logout from Example Institution" ] } }
+```
+
+#### Example Service Description
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -884,8 +905,6 @@ If the authentication system supports users intentionally logging out, there _SH
   }
 }
 ```
-
-The value of the `type` property _MUST_ be `AuthLogoutService2`.
 
 ### 6.2. Logout Interaction
 {: #logout-interaction}
