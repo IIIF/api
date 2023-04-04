@@ -241,15 +241,6 @@ There are three interaction patterns by which the client can use the access serv
 
 The `active` profile requires additional properties in the service description, defined in the [Active Interaction Pattern][auth20-active-interaction-pattern] section below.
 
-<!-- TODO 
-
-The text needs to describe the order the services are tried - external, kiosk, active
-
-This is only in the diagram and algorithm at the moment.
-
-
--->
-
 ```json-doc
 { "profile": "active" }
 ```
@@ -293,7 +284,7 @@ The server _MAY_ use this information to validate the origin supplied in subsequ
 
 ### 3.3. Interaction Patterns
 
-There are three distinct interaction patterns, identified by the `profile` property. These enable different styles of user, client and server interaction.
+The three distinct interaction patterns identified by the `profile` property enable different styles of user, client and server interaction. If more than one Access Service is available, the client _SHOULD_ interact with them in the order `external`, `kiosk`, `active`. The client _SHOULD_ stop processing Access Services once it determines that the user has access to the resource. This order ensures that access is obtained with the minimum of user interaction.
 
 #### 3.3.1 Active Interaction Pattern
 {: #active-interaction-pattern}
@@ -346,7 +337,7 @@ Heading text to be shown with the user interface element that opens the access s
 Additional text to be shown with the user interface element that opens the access service. If present, it _MUST_ be shown to the user. The value of the property _MUST_ be a JSON object as described in the [Language of Property Values][prezi3-languages] section of the Presentation API.
 
 ```json-doc
-{ "note": { "en": [ "Example Institution requires that you log in with your example account to view this content." ] }
+{ "note": { "en": [ "Example Institution requires that you log in with your example account to view this content." ] } }
 ```
 
 #### Complete Service Description
