@@ -917,56 +917,101 @@ A token service is _associated with_ a probe service if that probe service's `se
 
 Given a resource that has a set of probe services `P` with at least one member:
 
-For each probe service `ps` in the set of probe services `P`  
-  Make a GET request to `ps` with no token
-  In the probe service response:
-    If `status` = 200, display the resource (end)
-    If `status` = 30x and `location` is not empty, display the resource at `location` (end)
-    If `status` = 401 and `substitute` is not empty, display the resource at `substitute` (goto ACCESS_SERVICE)
-
-  Let `T` be the set of non-expired tokens acquired from token services _associated with_ `ps`
-  For each token `t` in `T`
-    Make a GET request to `ps` with a header carrying Bearer token `t`
-    In the probe service response:
-      If `status` = 200, display the resource (end)
-      If `status` = 30x and `location` is not empty, display the resource at `location` (end)
-      If `status` = 401 and `substitute` is not empty, display the resource at `substitute` (goto ACCESS_SERVICE)
-  
-  ACCESS_SERVICE: Let `A` be the set of access services included in the `services` property of `ps`
-    For each untried access service `as` in `A` where `as.profile` == `external`:
-      Open the token service `ts` associated with `as`
-      Receive postMessage response `pm` from `ts`
-      If `pm` has `accessToken` `t`
-        Make a GET request to `ps` with a header carrying Bearer token `t`
-        In the probe service response:
-          If `status` = 200, display the resource (end)
-          If `status` = 30x and `location` is not empty, display the resource at `location` (end)
-          If `status` = 401 and `substitute` is not empty, display the resource at `substitute` (goto ACCESS_SERVICE)
-    For each untried access service `as` in `A` where `as.profile` == `kiosk`
-      Open `as`
-      Wait for window to close
-        Open the token service `ts` associated with `as`
-        Receive postMessage response `pm` from `ts`
-        If `pm` has `accessToken` `t`
-          Make a GET request to `ps` with a header carrying Bearer token `t`
-          In the probe service response:
-            If `status` = 200, display the resource (end)
-            If `status` = 30x and `location` is not empty, display the resource at `location` (end)
-            If `status` = 401 and `substitute` is not empty, display the resource at `substitute` (goto ACCESS_SERVICE)
-    For each untried access service `as` in `A` where `as.profile` == `active`
-      Display user interface using available strings
-      Accept user call to action to open the access service
-      Open `as`
-      Wait for window to close
-        Open the token service `ts` associated with `as`
-        Receive postMessage response `pm` from `ts`
-        If `pm` has `accessToken` `t`
-          Make a GET request to `ps` with a header carrying Bearer token `t`
-            In the probe service response:
-              If `status` = 200, display the resource (end)
-              If `status` = 30x and `location` is not empty, display the resource at `location` (end)
-              If `status` = 401 and `substitute` is not empty, display the resource at `substitute` (goto ACCESS_SERVICE)
-No display possible
+<ul>
+  <li>For each probe service <code class="highlighter-rouge">ps</code> in the set of probe services <code class="highlighter-rouge">P</code>
+    <ul>
+      <li>Make a GET request to <code class="highlighter-rouge">ps</code> with no token</li>
+      <li>In the probe service response
+        <ul>
+          <li>If <code class="highlighter-rouge">status</code> = 200, display the resource (end)</li>
+          <li>If <code class="highlighter-rouge">status</code> = 30x and <code class="highlighter-rouge">location</code> is not empty, display the resource at <code class="highlighter-rouge">location</code> (end)</li>
+          <li>If <code class="highlighter-rouge">status</code> = 401 and <code class="highlighter-rouge">substitute</code> is not empty, display the resource at <code class="highlighter-rouge">substitute</code> (goto ACCESS_SERVICE)</li>
+        </ul>
+      </li>
+      <li>Let <code class="highlighter-rouge">T</code> be the set of non-expired tokens acquired from token services _associated with_ <code class="highlighter-rouge">ps</code></li>
+      <li>For each token <code class="highlighter-rouge">t</code> in <code class="highlighter-rouge">T</code>
+        <ul>
+          <li>Make a GET request to <code class="highlighter-rouge">ps</code> with a header carrying Bearer token <code class="highlighter-rouge">t</code></li>
+          <li>In the probe service response:
+            <ul>
+              <li>If <code class="highlighter-rouge">status</code> = 200, display the resource (end)</li>
+              <li>If <code class="highlighter-rouge">status</code> = 30x and <code class="highlighter-rouge">location</code> is not empty, display the resource at <code class="highlighter-rouge">location</code> (end)</li>
+              <li>If <code class="highlighter-rouge">status</code> = 401 and <code class="highlighter-rouge">substitute</code> is not empty, display the resource at <code class="highlighter-rouge">substitute</code> (goto ACCESS_SERVICE)</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>ACCESS_SERVICE: Let <code class="highlighter-rouge">A</code> be the set of access services included in the <code class="highlighter-rouge">services</code> property of <code class="highlighter-rouge">ps</code></li>
+      <li>For each untried access service <code class="highlighter-rouge">as</code> in <code class="highlighter-rouge">A</code> where <code class="highlighter-rouge">as.profile</code> == <code class="highlighter-rouge">external</code>
+        <ul>
+          <li>Open the token service <code class="highlighter-rouge">ts</code> associated with <code class="highlighter-rouge">as</code></li>
+          <li>Receive postMessage response <code class="highlighter-rouge">pm</code> from <code class="highlighter-rouge">ts</code></li>
+          <li>If <code class="highlighter-rouge">pm</code> has <code class="highlighter-rouge">accessToken</code> <code class="highlighter-rouge">t</code>
+            <ul>
+              <li>Make a GET request to <code class="highlighter-rouge">ps</code> with a header carrying Bearer token <code class="highlighter-rouge">t</code></li>
+              <li>In the probe service response
+                <ul>
+                  <li>If <code class="highlighter-rouge">status</code> = 200, display the resource (end)</li>
+                  <li>If <code class="highlighter-rouge">status</code> = 30x and <code class="highlighter-rouge">location</code> is not empty, display the resource at <code class="highlighter-rouge">location</code> (end) </li>
+                  <li>If <code class="highlighter-rouge">status</code> = 401 and <code class="highlighter-rouge">substitute</code> is not empty, display the resource at <code class="highlighter-rouge">substitute</code> (goto ACCESS_SERVICE)</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>For each untried access service <code class="highlighter-rouge">as</code> in <code class="highlighter-rouge">A</code> where <code class="highlighter-rouge">as.profile</code> == <code class="highlighter-rouge">kiosk</code>
+        <ul>
+          <li>Open <code class="highlighter-rouge">as</code></li>
+          <li>Wait for window to close
+            <ul>
+              <li>Open the token service <code class="highlighter-rouge">ts</code> associated with <code class="highlighter-rouge">as</code></li>
+              <li>Receive postMessage response <code class="highlighter-rouge">pm</code> from <code class="highlighter-rouge">ts</code></li>
+              <li>If <code class="highlighter-rouge">pm</code> has <code class="highlighter-rouge">accessToken</code> <code class="highlighter-rouge">t</code>
+                <ul>
+                  <li>Make a GET request to <code class="highlighter-rouge">ps</code> with a header carrying Bearer token <code class="highlighter-rouge">t</code></li>
+                  <li>In the probe service response:
+                    <ul>
+                      <li>If <code class="highlighter-rouge">status</code> = 200, display the resource (end)</li>
+                      <li>If <code class="highlighter-rouge">status</code> = 30x and <code class="highlighter-rouge">location</code> is not empty, display the resource at <code class="highlighter-rouge">location</code> (end)</li>
+                      <li>If <code class="highlighter-rouge">status</code> = 401 and <code class="highlighter-rouge">substitute</code> is not empty, display the resource at <code class="highlighter-rouge">substitute</code> (goto ACCESS_SERVICE)</li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>For each untried access service <code class="highlighter-rouge">as</code> in <code class="highlighter-rouge">A</code> where <code class="highlighter-rouge">as.profile</code> == <code class="highlighter-rouge">active</code>
+        <ul>
+          <li>Display user interface using available strings</li>
+          <li>Accept user call to action to open the access service</li>
+          <li>Open <code class="highlighter-rouge">as</code></li>
+          <li>Wait for window to close
+            <ul>
+              <li>Open the token service <code class="highlighter-rouge">ts</code> associated with <code class="highlighter-rouge">as</code></li>
+              <li>Receive postMessage response <code class="highlighter-rouge">pm</code> from <code class="highlighter-rouge">ts</code></li>
+              <li>If <code class="highlighter-rouge">pm</code> has <code class="highlighter-rouge">accessToken</code> <code class="highlighter-rouge">t</code>
+                <ul>
+                  <li>Make a GET request to <code class="highlighter-rouge">ps</code> with a header carrying Bearer token <code class="highlighter-rouge">t</code></li>
+                  <li>In the probe service response
+                    <ul>
+                      <li>If <code class="highlighter-rouge">status</code> = 200, display the resource (end)</li>
+                      <li>If <code class="highlighter-rouge">status</code> = 30x and <code class="highlighter-rouge">location</code> is not empty, display the resource at <code class="highlighter-rouge">location</code> (end)</li>
+                      <li>If <code class="highlighter-rouge">status</code> = 401 and <code class="highlighter-rouge">substitute</code> is not empty, display the resource at <code class="highlighter-rouge">substitute</code> (goto ACCESS_SERVICE)</li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>No display possible</li>
+</ul>
 
 
 ### 7.1 Tiered Access
