@@ -277,7 +277,7 @@ For example, given an access service URI of `https://auth.example.org/login`, a 
 
 {% include api/code_header.html %}
 ```
-https://auth.example.org/login?origin=https://client.example.org/
+https://auth.example.org/login?origin=https://client.example.org
 ```
 
 The server _MAY_ use this information to validate the origin supplied in subsequent requests to the access token service.
