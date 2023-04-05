@@ -180,7 +180,7 @@ A user wishes to see an access-controlled resource such as an image, video, PDF,
     <tr>
       <td>
         <img src="{{ site.api_url | absolute_url }}/assets/images/auth2-sequence.png" alt="Authorization Flow Service Interactions diagram" class="fullPct" />
-        <p><strong>1</strong> Client Interactions With Authorization Flow Services </p>
+        <p>Client Interactions With Authorization Flow Services</p>
       </td>
     </tr>
   </tbody>
@@ -222,7 +222,7 @@ If the profile property is `external`, the `id` property _SHOULD NOT_ be present
 
 #### type
 
-The type of the service. The `type` property _MUST_ be present in the JSON, and the value _MUST_ be the string `AuthAccessService2`.
+The type of the service. The `type` property _MUST_ be present and the value _MUST_ be the string `AuthAccessService2`.
 
 ```json-doc
 { "type": "AuthAccessService2" }
@@ -284,7 +284,7 @@ The server _MAY_ use this information to validate the origin supplied in subsequ
 
 ### 3.3. Interaction Patterns
 
-There are three distinct interaction patterns, identified by the `profile` property. These enable different styles of user, client and server interaction.
+The three distinct interaction patterns identified by the `profile` property enable different styles of user, client and server interaction. If more than one Access Service is available, the client _SHOULD_ interact with them in the order `external`, `kiosk`, `active`. The client _SHOULD_ stop processing Access Services once it determines that the user has access to the resource. This order ensures that access is obtained with the minimum of user interaction.
 
 #### 3.3.1 Active Interaction Pattern
 {: #active-interaction-pattern}
@@ -337,7 +337,7 @@ Heading text to be shown with the user interface element that opens the access s
 Additional text to be shown with the user interface element that opens the access service. If present, it _MUST_ be shown to the user. The value of the property _MUST_ be a JSON object as described in the [Language of Property Values][prezi3-languages] section of the Presentation API.
 
 ```json-doc
-{ "note": { "en": [ "Example Institution requires that you log in with your example account to view this content." ] }
+{ "note": { "en": [ "Example Institution requires that you log in with your example account to view this content." ] } }
 ```
 
 #### Complete Service Description
@@ -467,7 +467,7 @@ The URI of the access token service that the client opens in a frame. The `id` p
 
 #### type
 
-The type of the service. The `type` property _MUST_ be present in the JSON, and the value _MUST_ be the string `AuthAccessTokenService2`.
+The type of the service. The `type` property _MUST_ be present and the value _MUST_ be the string `AuthAccessTokenService2`.
 
 #### errorHeading
 
@@ -486,26 +486,22 @@ Default additional text to render if an error occurs. If the access token servic
   {
     "id": "https://auth.example.org/probe",
     "type": "AuthProbeService2",
-    "service": [
+    // Access Service
+    "service" : [
       {
-        // Access Service
-        "service" : [
-          {
-            "id": "https://auth.example.org/login",
-            "type": "AuthAccessService2",
-            "profile": "active",
-            "label": { "en": [ "Login to Example Institution" ] },
-            // ... other recommended strings for user interface
+        "id": "https://auth.example.org/login",
+        "type": "AuthAccessService2",
+        "profile": "active",
+        "label": { "en": [ "Login to Example Institution" ] },
+        // ... other recommended strings for user interface
 
-            // Access Token Service
-            "service": [
-              {
-                "id": "https://auth.example.org/token",
-                "type": "AuthAccessTokenService2",
-                "errorHeading": { "en": [ "Something went wrong" ] },
-                "errorNote": { "en": [ "Could not get a token." ] },
-              }
-            ]
+        // Access Token Service
+        "service": [
+          {
+            "id": "https://auth.example.org/token",
+            "type": "AuthAccessTokenService2",
+            "errorHeading": { "en": [ "Something went wrong" ] },
+            "errorNote": { "en": [ "Could not get a token." ] },
           }
         ]
       }
@@ -716,6 +712,7 @@ The probe service is used by the client to understand whether the user has acces
 | -------------- | ---------- | ----------- |
 | `id`           | _REQUIRED_ | The URI of the probe service. |
 | `type`         | _REQUIRED_ | The value _MUST_ be the string `AuthProbeService2`. |
+| `service`      | _REQUIRED_ | References to one or more Access Services. |
 | `errorHeading` | _OPTIONAL_ | Default heading text to render if the probe indicates the user cannot access the resource. |
 | `errorNote`    | _OPTIONAL_ | Default additional text to render if the probe indicates the user cannot access the resource. |
 
@@ -725,7 +722,7 @@ The URI of the probe service. The `id` property _MUST_ be present. The value _MU
 
 #### type
 
-The type of the service. The `type` property _MUST_ be present in the JSON, and the value _MUST_ be the string `AuthProbeService2`.
+The type of the service. The `type` property _MUST_ be present, and the value _MUST_ be the string `AuthProbeService2`.
 
 #### errorHeading
 
@@ -734,6 +731,10 @@ Default heading text to render if the probe indicates the user cannot access the
 #### errorNote
 
 Default additional text to render if the probe indicates the user cannot access the resource. If the probe response `status` property indicates access would not be granted, the `note` property of the probe response _MUST_ be used instead if supplied. If present, `errorHeading` _MUST_ also be present.
+
+#### service
+
+The value _MUST_ be an array of JSON objects. They _MUST_ all have the `type` property with value `AuthAccessService2` as described in [Access Service][auth20-access-service].  
 
 
 ### 5.1. Probe Service Request
@@ -763,11 +764,11 @@ The response from the probe service is a JSON-LD object with the following prope
 
 #### type
 
-The type of the probe result. The `type` property _MUST_ be present in the JSON, and the value _MUST_ be the string `AuthProbeResult2`.
+The type of the probe result. The `type` property _MUST_ be present and the value _MUST_ be the string `AuthProbeResult2`.
 
 #### status
 
-The HTTP status code that the client should expect to receive if it were to issue the same request to the resource as it has just issued to the probe service. Note well that the HTTP status code of the response itself _MUST_ be 200. The `status` property _MUST_ be present in the JSON, and the value _MUST_ be an integer drawn from the list of [HTTP status codes][org-rfc-7231-status].
+The HTTP status code that the client should expect to receive if it were to issue the same request to the resource as it has just issued to the probe service. Note well that the HTTP status code of the response itself _MUST_ be 200. The `status` property _MUST_ be present and the value _MUST_ be an integer drawn from the list of [HTTP status codes][org-rfc-7231-status].
 
 ```json
 {
@@ -780,7 +781,7 @@ The HTTP status code that the client should expect to receive if it were to issu
 #### substitute
 {: #substitute}
 
-A list of alternate resources that a client _MAY_ use instead of the access-controlled resource if the user is not authorized to retrieve that resource. The `substitute` property _MAY_ be present in the JSON if the value of the `status` property indicates that access to the access-controlled resource would be denied, and _MUST NOT_ be present otherwise. The value _MUST_ be an array of JSON objects, each of which describes an substitute resource.
+A list of alternate resources that a client _MAY_ use instead of the access-controlled resource if the user is not authorized to retrieve that resource. The `substitute` property _MAY_ be present if the value of the `status` property indicates that access to the access-controlled resource would be denied, and _MUST NOT_ be present otherwise. The value _MUST_ be an array of JSON objects, each of which describes an substitute resource.
 
 If multiple substitute resources are available, clients _SHOULD_ allow the user to choose between them, using the `label` or other descriptive properties available on the resources.
 
@@ -921,32 +922,116 @@ If possible, the server _SHOULD_ invalidate any authorizing aspects it controls 
     <tr>
       <td>
         <img src="{{ site.api_url | absolute_url }}/assets/images/auth2-client-flow.png" alt="Client Authorization Flow" class="fullPct" />
-        <p><strong>2</strong> Client Authorization Flow Workflow</p>
+        <p>Client Authorization Flow Workflow</p>
       </td>
     </tr>
   </tbody>
 </table>
 
+### 7.1. Authorization Flow Algorithm
 
-Browser-based clients will perform the following workflow in order to access access controlled resources:
+A resource may have multiple probe services, and a probe service may have multiple Access services. The same access service (e.g., a login page) may be shared by multiple probe services. Each access service must have one associated token service, and may have one associated Logout service. While multiple probe services per resource and multiple access services per probe service are not likely to be common, clients should be able to interact with multiple services.
 
-* The client requests the Probe Service and checks the status code of the response.
-* If the response is a 200 and no `location` property is present, the client can proceed to request the Content Resource.
-* If the response is a 200 and the `location` property is present, the client _MUST_ use the supplied location to request the Content Resource.
-* If the response is a 401,
-  * The client does not have access to the Content Resource or images from an image service, and thus the client __checks for authentication services__ associated with the Content Resource or Image Service - e.g., in the Manifest, or in the Image Information Document (info.json).
-  * If the probe response has a `location` property, the client can choose to show this immediately while offering the authentication flow to the user. If the Content Resource in the `location` property itself has authentication services (including a probe service), the client should... **FIXME wording! keep this succinct!**
-* If the response is neither 200 nor 401, the client must handle other HTTP status codes.
+A token service is _associated with_ a probe service if that probe service's `service` property includes an access service whose `service` property includes the token service (i.e., the probe service is the grandparent of the token service).
 
-* When the client checks for authentication services:
-  * First it looks for a External access service pattern as this does not require any user interaction. If present, it opens the Access Token service to see if the user has the authorizing aspect required to meet the authorization requirement.
-  * If no External service is present, the client checks for a Kiosk access service pattern as it does not involve user interaction. If present, it opens the Access Service in a separate window.
-  * If no Kiosk access service is present, the client presents any Active Access Service patterns available and prompts the user to interact with one of them. When the user selects the access service to interact with the client opens that service URI in a separate tab (or window).
-  * When the Access service window closes, either automatically or by the user, the client Opens the Access Token Service.
+Given a resource that has a set of probe services `P` with at least one member:
 
-* After the Access Token service has been requested, if the client receives a token, it tries the Probe Service again with this newly acquired token.
-  * If the client instead receives an error, it returns to look for further authentication services to interact with.
-  * If there are no further authentication services, then the user does not have the credentials to interact with any of the Content Resource versions, and the client cannot display anything.
+<ul>
+  <li>For each probe service <code class="highlighter-rouge">ps</code> in the set of probe services <code class="highlighter-rouge">P</code>
+    <ul>
+      <li>Make a GET request to <code class="highlighter-rouge">ps</code> with no token</li>
+      <li>In the probe service response
+        <ul>
+          <li>If <code class="highlighter-rouge">status</code> = 200, display the resource (end)</li>
+          <li>If <code class="highlighter-rouge">status</code> = 30x and <code class="highlighter-rouge">location</code> is not empty, display the resource at <code class="highlighter-rouge">location</code> (end)</li>
+          <li>If <code class="highlighter-rouge">status</code> = 401 and <code class="highlighter-rouge">substitute</code> is not empty, display the resource at <code class="highlighter-rouge">substitute</code> (goto ACCESS_SERVICE)</li>
+        </ul>
+      </li>
+      <li>Let <code class="highlighter-rouge">T</code> be the set of non-expired tokens acquired from token services _associated with_ <code class="highlighter-rouge">ps</code></li>
+      <li>For each token <code class="highlighter-rouge">t</code> in <code class="highlighter-rouge">T</code>
+        <ul>
+          <li>Make a GET request to <code class="highlighter-rouge">ps</code> with a header carrying Bearer token <code class="highlighter-rouge">t</code></li>
+          <li>In the probe service response:
+            <ul>
+              <li>If <code class="highlighter-rouge">status</code> = 200, display the resource (end)</li>
+              <li>If <code class="highlighter-rouge">status</code> = 30x and <code class="highlighter-rouge">location</code> is not empty, display the resource at <code class="highlighter-rouge">location</code> (end)</li>
+              <li>If <code class="highlighter-rouge">status</code> = 401 and <code class="highlighter-rouge">substitute</code> is not empty, display the resource at <code class="highlighter-rouge">substitute</code> (goto ACCESS_SERVICE)</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>ACCESS_SERVICE: Let <code class="highlighter-rouge">A</code> be the set of access services included in the <code class="highlighter-rouge">services</code> property of <code class="highlighter-rouge">ps</code></li>
+      <li>For each untried access service <code class="highlighter-rouge">as</code> in <code class="highlighter-rouge">A</code> where <code class="highlighter-rouge">as.profile</code> == <code class="highlighter-rouge">external</code>
+        <ul>
+          <li>Open the token service <code class="highlighter-rouge">ts</code> associated with <code class="highlighter-rouge">as</code></li>
+          <li>Receive postMessage response <code class="highlighter-rouge">pm</code> from <code class="highlighter-rouge">ts</code></li>
+          <li>If <code class="highlighter-rouge">pm</code> has <code class="highlighter-rouge">accessToken</code> <code class="highlighter-rouge">t</code>
+            <ul>
+              <li>Make a GET request to <code class="highlighter-rouge">ps</code> with a header carrying Bearer token <code class="highlighter-rouge">t</code></li>
+              <li>In the probe service response
+                <ul>
+                  <li>If <code class="highlighter-rouge">status</code> = 200, display the resource (end)</li>
+                  <li>If <code class="highlighter-rouge">status</code> = 30x and <code class="highlighter-rouge">location</code> is not empty, display the resource at <code class="highlighter-rouge">location</code> (end) </li>
+                  <li>If <code class="highlighter-rouge">status</code> = 401 and <code class="highlighter-rouge">substitute</code> is not empty, display the resource at <code class="highlighter-rouge">substitute</code> (goto ACCESS_SERVICE)</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>For each untried access service <code class="highlighter-rouge">as</code> in <code class="highlighter-rouge">A</code> where <code class="highlighter-rouge">as.profile</code> == <code class="highlighter-rouge">kiosk</code>
+        <ul>
+          <li>Open <code class="highlighter-rouge">as</code></li>
+          <li>Wait for window to close
+            <ul>
+              <li>Open the token service <code class="highlighter-rouge">ts</code> associated with <code class="highlighter-rouge">as</code></li>
+              <li>Receive postMessage response <code class="highlighter-rouge">pm</code> from <code class="highlighter-rouge">ts</code></li>
+              <li>If <code class="highlighter-rouge">pm</code> has <code class="highlighter-rouge">accessToken</code> <code class="highlighter-rouge">t</code>
+                <ul>
+                  <li>Make a GET request to <code class="highlighter-rouge">ps</code> with a header carrying Bearer token <code class="highlighter-rouge">t</code></li>
+                  <li>In the probe service response:
+                    <ul>
+                      <li>If <code class="highlighter-rouge">status</code> = 200, display the resource (end)</li>
+                      <li>If <code class="highlighter-rouge">status</code> = 30x and <code class="highlighter-rouge">location</code> is not empty, display the resource at <code class="highlighter-rouge">location</code> (end)</li>
+                      <li>If <code class="highlighter-rouge">status</code> = 401 and <code class="highlighter-rouge">substitute</code> is not empty, display the resource at <code class="highlighter-rouge">substitute</code> (goto ACCESS_SERVICE)</li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>For each untried access service <code class="highlighter-rouge">as</code> in <code class="highlighter-rouge">A</code> where <code class="highlighter-rouge">as.profile</code> == <code class="highlighter-rouge">active</code>
+        <ul>
+          <li>Display user interface using available strings</li>
+          <li>Accept user call to action to open the access service</li>
+          <li>Open <code class="highlighter-rouge">as</code></li>
+          <li>Wait for window to close
+            <ul>
+              <li>Open the token service <code class="highlighter-rouge">ts</code> associated with <code class="highlighter-rouge">as</code></li>
+              <li>Receive postMessage response <code class="highlighter-rouge">pm</code> from <code class="highlighter-rouge">ts</code></li>
+              <li>If <code class="highlighter-rouge">pm</code> has <code class="highlighter-rouge">accessToken</code> <code class="highlighter-rouge">t</code>
+                <ul>
+                  <li>Make a GET request to <code class="highlighter-rouge">ps</code> with a header carrying Bearer token <code class="highlighter-rouge">t</code></li>
+                  <li>In the probe service response
+                    <ul>
+                      <li>If <code class="highlighter-rouge">status</code> = 200, display the resource (end)</li>
+                      <li>If <code class="highlighter-rouge">status</code> = 30x and <code class="highlighter-rouge">location</code> is not empty, display the resource at <code class="highlighter-rouge">location</code> (end)</li>
+                      <li>If <code class="highlighter-rouge">status</code> = 401 and <code class="highlighter-rouge">substitute</code> is not empty, display the resource at <code class="highlighter-rouge">substitute</code> (goto ACCESS_SERVICE)</li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>No display possible</li>
+</ul>
+
 
 ### 7.1 Tiered Access
 {: #tiered-access}

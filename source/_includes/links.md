@@ -14,6 +14,7 @@
 [auth1]: {{ site.api_url | absolute_url }}/auth/1.0/ "IIIF Authentication API 1.0"
 [auth10]: {{ site.api_url | absolute_url }}/auth/1.0/ "IIIF Authentication API 1.0"
 [auth2-implementation-notes]: {{ site.api_url | absolute_url }}/auth/2.0/implementation/  "IIIF Authentication 2.0: Implementation Notes"
+[auth20-access-service]: {{ site.api_url | absolute_url }}/auth/2.0/#access-service "Access Service"
 [auth20-access-token-service]: {{ site.api_url | absolute_url }}/auth/2.0/#access-token-service "Access Token Service"
 [auth20-access-token-message-format]: {{ site.api_url | absolute_url }}/auth/2.0/#access-token-message-format "Access Token Message Format"
 [auth20-access-token-error-format]: {{ site.api_url | absolute_url }}/auth/2.0/#access-token-error-format "Access Token Error Format"
