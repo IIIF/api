@@ -380,7 +380,7 @@ This pattern requires no user interaction in the opened tab. This pattern suppor
 
 For the `kiosk` pattern the interaction has the following steps:
 
-* There is no user interaction before opening the Access Service URI.
+* There is no user interaction before opening the access service URI.
 * The client _MUST_ immediately open the URI from `id` with the added `origin` query parameter. This _MUST_ be done in a new window or tab.
 * After the opened window or tab is closed, the client _MUST_ then use the related access token service, as described below.
 
@@ -968,9 +968,9 @@ While it is possible for the access service to immediately set a cookie in the r
 
 For this reason, if the subsequent token service and access to content resources require the presence of a cookie, the user interface of the access service _MUST_ involve a [user gesture][org-whatwg-user-gesture] such as a click or a tap. Logging in with credentials, or clicking acceptance of a usage agreement, typically meet the definition of a user gesture.
 
-If the token service and Content Resources will depend on some other authorizing aspect, such as IP address, then the Access Service tab _MAY_ be closed without user interaction.
+If the token service and Content Resources will depend on some other authorizing aspect, such as IP address, then the access service tab _MAY_ be closed without user interaction.
 
-If the client informs the access service that it is on the same domain, via the `origin` parameter, then the Access Service tab _MAY_ be closed without user interaction on that domain. For example, the initial login step in a multi-step single sign-on. If the domain of the content resources is the same as the client, it's not going to have third party cookie issues so could bounce immediately to the single sign on provider.
+If the client informs the access service that it is on the same domain, via the `origin` parameter, then the access service tab _MAY_ be closed without user interaction on that domain. For example, the initial login step in a multi-step single sign-on. If the domain of the content resources is the same as the client, it's not going to have third party cookie issues so could bounce immediately to the single sign on provider.
 
 ### B. Token Response for non-browser client
 
