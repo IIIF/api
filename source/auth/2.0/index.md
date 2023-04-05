@@ -911,15 +911,15 @@ If possible, the server _SHOULD_ invalidate any authorizing aspects it controls 
 
 ### 7.1. Authorization Flow Algorithm
 
-A resource may have multiple Probe services, and a Probe service may have multiple Access services. The same Access service (e.g., a login page) may be shared by multiple Probe services. Each Access service must have one associated Token service, and may have one associated Logout service. While multiple Probe services per resource and multiple Access services per Probe service are not likely to be common, clients should be able to interact with multiple services.
+A resource may have multiple probe services, and a probe service may have multiple Access services. The same access service (e.g., a login page) may be shared by multiple probe services. Each access service must have one associated token service, and may have one associated Logout service. While multiple probe services per resource and multiple access services per probe service are not likely to be common, clients should be able to interact with multiple services.
 
-A Token service is _associated with_ a Probe service if that Probe service's `service` property includes an Access service whose `service` property includes the Token service (i.e., the Probe service is the grandparent of the Token service).
+A token service is _associated with_ a probe service if that probe service's `service` property includes an access service whose `service` property includes the token service (i.e., the probe service is the grandparent of the token service).
 
-Given a resource that has a set of Probe services `P` with at least one member:
+Given a resource that has a set of probe services `P` with at least one member:
 
-For each Probe service `ps` in the set of Probe services `P`  
+For each probe service `ps` in the set of probe services `P`  
   Make a GET request to `ps` with no token
-  In the Probe Service response:
+  In the probe service response:
     If `status` = 200, display the resource (end)
     If `status` = 30x and `location` is not empty, display the resource at `location` (end)
     If `status` = 401 and `substitute` is not empty, display the resource at `substitute` (goto ACCESS_SERVICE)
@@ -927,42 +927,42 @@ For each Probe service `ps` in the set of Probe services `P`
   Let `T` be the set of non-expired tokens acquired from token services _associated with_ `ps`
   For each token `t` in `T`
     Make a GET request to `ps` with a header carrying Bearer token `t`
-    In the Probe Service response:
+    In the probe service response:
       If `status` = 200, display the resource (end)
       If `status` = 30x and `location` is not empty, display the resource at `location` (end)
       If `status` = 401 and `substitute` is not empty, display the resource at `substitute` (goto ACCESS_SERVICE)
   
-  ACCESS_SERVICE: Let `A` be the set of Access services included in the `services` property of `ps`
-    For each untried Access service `as` in `A` where `as.profile` == `external`:
+  ACCESS_SERVICE: Let `A` be the set of access services included in the `services` property of `ps`
+    For each untried access service `as` in `A` where `as.profile` == `external`:
       Open the token service `ts` associated with `as`
       Receive postMessage response `pm` from `ts`
       If `pm` has `accessToken` `t`
         Make a GET request to `ps` with a header carrying Bearer token `t`
-        In the Probe Service response:
+        In the probe service response:
           If `status` = 200, display the resource (end)
           If `status` = 30x and `location` is not empty, display the resource at `location` (end)
           If `status` = 401 and `substitute` is not empty, display the resource at `substitute` (goto ACCESS_SERVICE)
-    For each untried Access service `as` in `A` where `as.profile` == `kiosk`
+    For each untried access service `as` in `A` where `as.profile` == `kiosk`
       Open `as`
       Wait for window to close
         Open the token service `ts` associated with `as`
         Receive postMessage response `pm` from `ts`
         If `pm` has `accessToken` `t`
           Make a GET request to `ps` with a header carrying Bearer token `t`
-          In the Probe Service response:
+          In the probe service response:
             If `status` = 200, display the resource (end)
             If `status` = 30x and `location` is not empty, display the resource at `location` (end)
             If `status` = 401 and `substitute` is not empty, display the resource at `substitute` (goto ACCESS_SERVICE)
-    For each untried Access service `as` in `A` where `as.profile` == `active`
+    For each untried access service `as` in `A` where `as.profile` == `active`
       Display user interface using available strings
-      Accept user call to action to open the Access Service
+      Accept user call to action to open the access service
       Open `as`
       Wait for window to close
         Open the token service `ts` associated with `as`
         Receive postMessage response `pm` from `ts`
         If `pm` has `accessToken` `t`
           Make a GET request to `ps` with a header carrying Bearer token `t`
-            In the Probe Service response:
+            In the probe service response:
               If `status` = 200, display the resource (end)
               If `status` = 30x and `location` is not empty, display the resource at `location` (end)
               If `status` = 401 and `substitute` is not empty, display the resource at `substitute` (goto ACCESS_SERVICE)
