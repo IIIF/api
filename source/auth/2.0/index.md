@@ -659,7 +659,7 @@ If the request does not present the required authorizing aspect, the access toke
 | ----------- | ------------- | ---------------------------------------------------------------------------------------- |
 | `@context`  | _REQUIRED_    | The URI of the context document, `http://iiif.io/api/auth/{{ page.major }}/context.json` |
 | `type`      | _REQUIRED_    | The value _MUST_ be the string `AuthAccessTokenError2`.                                  |
-| `profile`   | _REQUIRED_    | The specific type of error.                                                              |
+| `profile`   | _REQUIRED_    | The specific type of error (see table of values below).                                  |
 | `messageId` | _REQUIRED_    | The message identifier supplied by the client.                                           |
 | `heading`   | _OPTIONAL_    | Heading text to render with the user interface element that conveys the error.           |
 | `note`      | _OPTIONAL_    | Additional text to render with the user interface element that conveys the error.        |
@@ -755,10 +755,10 @@ The response from the probe service is a JSON-LD object with the following prope
 | `@context`    | _REQUIRED_ | The URI of the context document, `http://iiif.io/api/auth/{{ page.major }}/context.json`. |
 | `type`        | _REQUIRED_ | The type of the service, `AuthProbeResult2`. |
 | `status`      | _REQUIRED_ | The HTTP status code that would be returned for the access-controlled resource. |
-| `substitute`   | _OPTIONAL_ | A reference to one or more substitute resources, such as watermarked or other less preferable versions. |
-| `location`   | _OPTIONAL_  | If present, the client should request this resource instead of the the resource the probe service was declared for. |
-| `heading`      | _OPTIONAL_ | heading text for the error UI |
-| `note` | _OPTIONAL_ | Block text for the error UI |
+| `substitute`  | _OPTIONAL_ | A reference to one or more substitute resources, such as watermarked or other less preferable versions. |
+| `location`    | _OPTIONAL_  | If present, the client should request this resource instead of the the resource the probe service was declared for. |
+| `heading`     | _OPTIONAL_ | Heading text to render if an error occurs. |
+| `note`        | _OPTIONAL_ | Additional text to render if an error occurs. |
 {: .api-table .first-col-normal }
 
 #### type
