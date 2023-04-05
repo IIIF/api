@@ -972,52 +972,15 @@ If the token service and Content Resources will depend on some other authorizing
 
 If the client informs the access service that it is on the same domain, via the `origin` parameter, then the access service tab _MAY_ be closed without user interaction on that domain. For example, the initial login step in a multi-step single sign-on. If the domain of the content resources is the same as the client, it's not going to have third party cookie issues so could bounce immediately to the single sign on provider.
 
-### B. Token Response for non-browser client
-
-When returning JSON directly, the service _MUST_ use the appropriate HTTP status code for the response to describe the error (for example 400, 401, or 503).
-
-
-(explain how invoked, extra param)
-
-{: #interaction-for-non-browser-client-applications}
-
-The simplest access token request comes from a non-browser client that can send cookies across domains, where CORS and third-party cookie restrictions do not apply. An example URI:
-
-{% include api/code_header.html %}
-```
-https://auth.example.org/token
-```
-{: .urltemplate}
-
-Would result in the HTTP Request:
-
-{% include api/code_header.html %}
-```
-GET /token HTTP/1.1
-Cookie: <cookie-acquired-during-login>
-```
-{: .urltemplate}
-
-The response is the JSON access token object with the media type `application/json`:
-
-{% include api/code_header.html %}
-``` json-doc
-{
-  "accessToken": "ddc76e416e3804e2369e6c9cee806f5e438a5cdc",
-  "expiresIn": 300
-}
-```
-
-
-### C. Versioning
+### B. Versioning
 
 Starting with version 0.9.0, this specification follows [Semantic Versioning][org-semver]. See the note [Versioning of APIs][notes-versioning] for details regarding how this is implemented.
 
-### D. Acknowledgments
+### C. Acknowledgments
 
 We gratefully acknowledge the support from [Wellcome Collection](https://wellcomecollection.org/) that allowed one of the editors, Tom Crane, to devote a significant amount of time to this specification. Many thanks to the members of the [IIIF Community][iiif-community] for their continuous engagement, innovative ideas and feedback.
 
-### E. Change Log
+### D. Change Log
 
 | Date       | Description |
 | ---------- | ----------- |
