@@ -1,3 +1,10 @@
+---
+title: Georeference Extension Terminology
+layout: spec
+tags: [extension, georef]
+cssversion: 2
+---
+
 # New terms introduced in the Georeference Extension
 
 ## `georeferencing`
