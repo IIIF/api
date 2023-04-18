@@ -21,7 +21,7 @@ The [IIIF Presentation API](https://iiif.io/api/presentation/3.0/) has the capab
 
 ### 1.1 Objectives and Scope
 
-This document will supply vocabulary and a linked data 1.1 context allowing for a JSON-LD pattern by which to extend Web Annotation and the IIIF Presentation API to support georeferencing. This pattern promotes interoperability for georeferenced maps across different georeferencing platforms, even those which focus on georeferencing for a specific use case such as those listed in the [Motivating Use Cases](#12-motivating-use-cases) section below.
+This document will supply vocabulary and a JSON-LD 1.1 context allowing for a JSON-LD pattern by which to extend Web Annotation and the IIIF Presentation API to support georeferencing. This pattern promotes interoperability for georeferenced maps across different georeferencing platforms, even those which focus on georeferencing for a specific use case such as those listed in the [Motivating Use Cases](#12-motivating-use-cases) section below.
 
 The [existing GeoJSON format](https://datatracker.ietf.org/doc/html/rfc7946) is adopted for its linked data vocabulary and context for geographic coordinates. This means coordinates are expressed through the [WGS84](http://www.w3.org/2003/01/geo/wgs84_pos) coordinate reference system. As such, expressing the location of extraterrestrial entities is not supported by this technique.
 
@@ -99,7 +99,7 @@ Embedding resources reduces the need to make HTTP calls. It also ensures the ava
 
 The `motivation` property declares the reason for creating the Georeference Annotation. The `motivation` property _SHOULD_ be included on all Georeference Annotations and when included it _MUST_ have the value `georeferencing`.
 
-The [linked data context]({{ site.api_url | absolute_url }}/extension/georef/1/context.json) provided with this document includes the formal linked data 1.1 motivation extension, and the [vocabulary]({{ site.api_url | absolute_url }}/extension/georef/vocab/georef-terms.md) provided with this document contains the formal vocabulary for the `georeferencing` motivation discussed above.
+The [linked data context]({{ site.api_url | absolute_url }}/extension/georef/1/context.json) provided with this document includes the formal JSON-LD 1.1 motivation extension, and the [vocabulary]({{ site.api_url | absolute_url }}/extension/georef/vocab/georef-terms.md) provided with this document contains the formal vocabulary for the `georeferencing` motivation discussed above.
 
 ### 3.3 Georeference Annotation `target`
 
