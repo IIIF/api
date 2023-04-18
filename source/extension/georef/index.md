@@ -27,7 +27,7 @@ The [existing GeoJSON format](https://datatracker.ietf.org/doc/html/rfc7946) is 
 
 Further, the following use cases are not in scope:
 
-- Geotagging of (non-aerial) photographs. This extension is aimed at georeferencing cartographic IIIF resources containing two-dimensional representations of the three-dimensional surface of the globe. Usage may extentd to other representations that can be mapped to geospatial coordinates, such as orthographic plan projections or vertical aerial photographs. Geotagging photographs is out of scope because this requires a different set of data points and relates to other use cases. Please refer to the [navPlace Extension](https://iiif.io/api/extension/navplace/) for an alternative solution.
+- Geotagging of (non-aerial) photographs. This extension is aimed at georeferencing cartographic IIIF resources containing two-dimensional representations of the three-dimensional surface of the globe. Usage may extend to other representations that can be mapped to geospatial coordinates, such as orthographic plan projections or vertical aerial photographs. Geotagging photographs is out of scope because this requires a different set of data points and relates to other use cases. Please refer to the [navPlace Extension](https://iiif.io/api/extension/navplace/) for an alternative solution.
 - Georeferencing altitude or elevation. The GeoJSON format [supports a third position element](https://datatracker.ietf.org/doc/html/rfc7946#section-3.1.1) indicating the "height in meters above or below the WGS84 reference ellipsoid". Adding this position element will not result in an invalid Georeference Annotation, but this extension will not cover any use of this element. It may be utilized in future versions of this extension.
 - Specifying the original map projection and related coordinate reference system (CRS) of a IIIF resource. When selecting a transformation method to warp a map, it can be useful to know the original map projection of a IIIF resource, such as Mercator or Lambert. Including this in the Georeference Annotation would require a complex taxonomy, which is out of scope. A solution is to include this information in the metadata of the IIIF Manifest, or in a machine readable format referenced through the [seeAlso](https://iiif.io/api/presentation/3.0/#seealso) property.
 
@@ -64,7 +64,7 @@ To be georeferenced with a single Georeference Annotation the image information 
 
 The process of georeferencing consists of the following steps:
 
-1. Selecting a IIIF resource. When a resource depicts multiple maps (such as inset maps) or when the resource contains non-cartographic parts (such as legends or borders), a polygonal selector is used to select a region of the resource that corresponds to a single map.<sup title="use multiple Georeference Annotations, one for each individual map, to select the multitude of maps on a single IIIF resource.">ⓘ</sup> The shape of a polygonal selector can vary from a simple rectangle to a more complex polygon. This step is called _cropping_ or _masking_ in other georeferencing software.
+1. Selecting a IIIF resource. When a resource depicts multiple maps (such as inset maps) or when the resource contains non-cartographic parts (such as legends or borders), a polygonal selector is used to select a region of the resource that corresponds to a single map. The shape of a polygonal selector can vary from a simple rectangle to a more complex polygon. This step is called _cropping_ or _masking_ in other georeferencing software.
 2. Defining a mapping between coordinates on the IIIF resource and corresponding geographic WGS84 coordinates. This mapping consists of pairs of resource coordinates and geographic coordinates. Each pair of coordinates is called a Ground Control Point (GCP). At least three GCPs are needed to enable clients to warp a map.
 3. Optionally, a preferred transformation algorithm is defined that clients can use to turn the discrete set of GCPs into a function that interpolates any of the IIIF resource coordinates to geographic coordinates, and vice versa.
 
@@ -99,7 +99,7 @@ Embedding resources reduces the need to make HTTP calls. It also ensures the ava
 
 The `motivation` property declares the reason for creating the Georeference Annotation. The `motivation` property _SHOULD_ be included on all Georeference Annotations and when included it _MUST_ have the value `georeferencing`.
 
-The [linked data context]({{ site.api_url | absolute_url }}/extension/georef/1/context.json) provided with this document includes the formal linked data 1.1 motivation extension, and the [vocabulary]({{ site.api_url | absolute_url }}/extension/georef/vocab/georef-terms.md) provided with this document contains the formal vocabulary for the "georeferencing" motivation discussed above.
+The [linked data context]({{ site.api_url | absolute_url }}/extension/georef/1/context.json) provided with this document includes the formal linked data 1.1 motivation extension, and the [vocabulary]({{ site.api_url | absolute_url }}/extension/georef/vocab/georef-terms.md) provided with this document contains the formal vocabulary for the `georeferencing` motivation discussed above.
 
 ### 3.3 Georeference Annotation `target`
 
@@ -500,6 +500,13 @@ This extension was produced by the IIIF Maps Community Group and IIIF Maps Techn
 A grant from [Stichting Pica](https://www.stichtingpica.nl) for the further development of [Allmaps Viewer](https://viewer.allmaps.org) made the completion of this extension possible.
 
 ### B. Change Log
+
+{: #change-log}
+
+| Date       | Description           |
+|------------| --------------------- |
+| 2023-04-18 | Initial publication   |
+{: .api-table #table-changelog}
 
 {% include acronyms.md %}
 
