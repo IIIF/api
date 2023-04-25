@@ -252,9 +252,9 @@
 [registry-activity-streams]: https://registry.iiif.io/ "IIIF Registry of Activity Streams"
 [registry-motivations]: {{ site.api_url | absolute_url }}/registry/motivations/
 [registry-behaviors]: {{ site.api_url | absolute_url }}/registry/behaviors/
-[registry-image-api-selector]: {{ site.api_url | absolute_url }}/registry/selectors/image-api-selector/
+[registry-image-api-selector]: {{ site.api_url | absolute_url }}/registry/selectors/image-api-selector/context.json
 [registry-process]: {{ site.api_url | absolute_url }}/registry/process/
-[registry-selectors]: {{ site.api.url | absolute_url }}/registry/selectors/
+[registry-selectors]: {{ site.api_url | absolute_url }}/registry/selectors/
 [registry-services]: {{ site.api_url | absolute_url }}/registry/services/
 [registry-profiles]: {{ site.api_url | absolute_url }}/registry/profiles/
 [registry-timeModes]: {{ site.api_url | absolute_url }}/registry/timeModes/
