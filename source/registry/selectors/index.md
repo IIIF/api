@@ -59,7 +59,7 @@ One use of this is within the [IIIF Presentation API][prezi-api], when a Canvas 
 | -------- | --------- | -----------------------------------------------------  |
 | type     |           | Required.  Must be the value "ImageApiSelector".       |
 | region   | "full"    | The string to put in the region parameter of the URI.  |
-| size     | "full"    | The string to put in the size parameter of the URI.    |
+| size     | "max"    | The string to put in the size parameter of the URI.    |
 | rotation | "0"       | The string to put in the rotation parameter of the URI. Note that this must be a string in order to allow mirroring, for example "!90". |
 | quality  | "default" | The string to put in the quality parameter of the URI. |
 | format   | "jpg"     | The string to put in the format parameter of the URI.  Note that the '.' character is not part of the format, just the URI syntax.  |
