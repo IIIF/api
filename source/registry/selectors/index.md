@@ -58,11 +58,11 @@ One use of this is within the [IIIF Presentation API][prezi-api], when a Canvas 
 | Property | Default   | Description                                            |
 | -------- | --------- | -----------------------------------------------------  |
 | type     |           | Required. Must be the value "ImageApiSelector".       |
-| region   | "full"    | The string to put in the region parameter of the URI.  |
-| size     | "max"    | The string to put in the size parameter of the URI.    |
-| rotation | "0"       | The string to put in the rotation parameter of the URI. Note that this must be a string in order to allow mirroring, for example "!90". |
-| quality  | "default" | The string to put in the quality parameter of the URI. |
-| format   | "jpg"     | The string to put in the format parameter of the URI. Note that the '.' character is not part of the format, just the URI syntax.  |
+| region   | `full`    | The string to put in the region parameter of the URI.  |
+| size     | `max`    | The string to put in the size parameter of the URI.    |
+| rotation | `0`      | The string to put in the rotation parameter of the URI. Note that this must be a string in order to allow mirroring, for example "!90". |
+| quality  | `default` | The string to put in the quality parameter of the URI. |
+| format   | `jpg`     | The string to put in the format parameter of the URI. Note that the '.' character is not part of the format, just the URI syntax.  |
 {: .api-table}
 
 For example, to rotate the top left hand 10% of the image clockwise by 90 degrees would use this configuration of the Selector:
@@ -102,7 +102,7 @@ It is not possible to select a point using URI Fragments with the Media Fragment
 
 | Property | Description                                            |
 | -------- | -----------------------------------------------------  |
-| type     | Required.  Must be the value "PointSelector".          |
+| type     | Required.  Must be the value `PointSelector`.          |
 | x        | Optional. An integer giving the x coordinate of the point, relative to the dimensions of the target resource.  |
 | y        | Optional. An integer giving the y coordinate of the point, relative to the dimensions of the target resource.    |
 | t        | Optional. A floating point number giving the time of the point in seconds, relative to the duration of the target resource. |
