@@ -1,0 +1,57 @@
+{
+  "@context": {
+    
+    "iiif_image": "http://iiif.io/api/image/#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+    "ImageApiSelector": {
+      "@id": "iiif_selectors:ImageApiSelector",
+      "@context": [
+        "http://iiif.io/api/image/#",
+        {
+          "region": {
+            "@id": "iiif_image:regionValue",
+            "@type": "xsd:string"
+          },
+          "size": {
+            "@id": "iiif_image:sizeValue",
+            "@type": "xsd:string"
+          },
+          "rotation": {
+            "@id": "iiif_image:rotationValue",
+            "@type": "xsd:string"
+          },
+          "format": {
+            "@id": "iiif_image:formatValue",
+            "@type": "xsd:string"
+          },
+          "quality": {
+            "@id": "iiif_image:qualityValue",
+            "@type": "xsd:string"
+          }       
+        }
+      ]
+    },
+    "PointSelector": {
+      "@id": "iiif_selectors:PointSelector",
+      "@context":
+        {
+          "x": {
+            "@id": "iiif_selectors:xValue",
+            "@type": "xsd:integer"
+          },
+          "y": {
+            "@id": "iiif_selectors:yValue",
+            "@type": "xsd:integer"
+          },
+          "t": {
+            "@id": "iiif_selectors:tValue",
+            "@type": "xsd:float"
+          }  
+        }
+    },
+
+    "AudioContentSelector": "iiif_selectors:AudioContentSelector",
+    "VisualContentSelector": "iiif_selectors:VisualContentSelector"
+  }
+}
