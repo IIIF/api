@@ -57,7 +57,7 @@ One use of this is within the [IIIF Presentation API][prezi-api], when a Canvas 
 
 | Property | Default   | Description                                            |
 | -------- | --------- | -----------------------------------------------------  |
-| type     |           | Required. Must be the value "ImageApiSelector".       |
+| type     |           | Required. Must be the value `ImageApiSelector`.       |
 | region   | `full`    | The string to put in the region parameter of the URI.  |
 | size     | `max`    | The string to put in the size parameter of the URI.    |
 | rotation | `0`      | The string to put in the rotation parameter of the URI. Note that this must be a string in order to allow mirroring, for example "!90". |
