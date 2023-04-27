@@ -91,7 +91,7 @@ And would result in this SpecificResource, when applied to an image service at `
 }
 ```
 
-It can be used in the Presentation API as demonstrated in the section on [Rotation][prezi-rot].
+It can be used in the Presentation API as demonstrated in the section on [Rotation (Presentation 2.1)][prezi21-rot]. For more information on using Selectors in IIIF, see the current [Presentation API 3 specification][prezi-api]. 
 
 ### 2.2 Point Selectors
 {: #point-selector}
@@ -154,7 +154,6 @@ Thanks to the members of the [IIIF][iiif-community] for their continuous engagem
 | 2014-07-01 | Version 1.0 (RFC)                                  |
 {:.api-table}
 
-[prezi-rot]: {{ site.api_url | absolute_url }}/presentation/2.0/#rotation "Rotation in Presentation API"
 {% include acronyms.md %}
 {% include links.md %}
 
