@@ -1,13 +1,13 @@
 {
   "@context": {
     
-    "iiif_image": "http://iiif.io/api/image/#",
+    "iiif_image": "https://iiif.io/api/image/3/context.json",
     "xsd": "http://www.w3.org/2001/XMLSchema#",
 
     "ImageApiSelector": {
       "@id": "iiif_selectors:ImageApiSelector",
       "@context": [
-        "http://iiif.io/api/image/#",
+        "https://iiif.io/api/image/3/context.json",
         {
           "region": {
             "@id": "iiif_image:regionValue",
