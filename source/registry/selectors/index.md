@@ -55,14 +55,14 @@ In order to make this as easy as possible for the situations when a IIIF Image A
 
 One use of this is within the [IIIF Presentation API][prezi-api], when a Canvas is being painted by part of an image, or an image that requires rotation before display.  
 
-| Property | Default   | Description                                            |
-| -------- | --------- | -----------------------------------------------------  |
-| type     |           | Required. Must be the value `ImageApiSelector`.       |
-| region   | `full`    | The string to put in the region parameter of the URI.  |
-| size     | `max`    | The string to put in the size parameter of the URI.    |
-| rotation | `0`      | The string to put in the rotation parameter of the URI. Note that this must be a string in order to allow mirroring, for example "!90". |
+| Property | Default   | Description                                     |
+| -------- | --------  |-----------------------------------------------  |
+| type     |           | Required. Must be the value `ImageApiSelector`. |
+| region   | `full`    | The string to put in the region parameter of the URI. |
+| size     | `max`     | The string to put in the size parameter of the URI. |
+| rotation | `0`       | The string to put in the rotation parameter of the URI. Note that this must be a string in order to allow mirroring, for example "!90". |
 | quality  | `default` | The string to put in the quality parameter of the URI. |
-| format   | `jpg`     | The string to put in the format parameter of the URI. Note that the '.' character is not part of the format, just the URI syntax.  |
+| format   | `jpg`     | The string to put in the format parameter of the URI. Note that the '.' character is not part of the format, just the URI syntax. |
 {: .api-table}
 
 For example, to rotate the top left hand 10% of the image clockwise by 90 degrees would use this configuration of the Selector:
@@ -92,6 +92,8 @@ And would result in this SpecificResource, when applied to an image service at `
 ```
 
 It can be used in the Presentation API as demonstrated in the section on [Rotation (Presentation 2.1)][prezi21-rot]. For more information on using Selectors in IIIF, see the current [Presentation API 3 specification][prezi-api]. 
+
+*Note: The default values in the table above follow the IIIF Image API 3. For default values in previous Image API versions, you will need to consult the corresponding documentation.*
 
 ### 2.2 Point Selectors
 {: #point-selector}
