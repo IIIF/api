@@ -1,9 +1,8 @@
 {
   "@context": {
-    
-    "iiif_image": "http://iiif.io/api/image/#",
     "iiif_selectors": "http://iiif.io/api/selectors/#",
     "xsd": "http://www.w3.org/2001/XMLSchema#",
+
 
     "ImageApiSelector": {
       "@id": "iiif_selectors:ImageApiSelector",
@@ -33,6 +32,7 @@
         }
       ]
     },
+
     "PointSelector": {
       "@id": "iiif_selectors:PointSelector",
       "@context":
@@ -51,6 +51,7 @@
           }  
         }
     },
+
 
     "AudioContentSelector": "iiif_selectors:AudioContentSelector",
     "VisualContentSelector": "iiif_selectors:VisualContentSelector"
