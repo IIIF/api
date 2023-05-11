@@ -1,77 +1,63 @@
 {
-  "@context": {
-    "@version": 1.1,
-    "geojson": "https://purl.org/geojson/vocab#",
-    "iiif_prezi": "http://iiif.io/api/presentation/3#",
-    "iiif_image": "http://iiif.io/api/image/3#",
-    "iiif_georef": "http://iiif.io/api/extension/georef/vocab/georef-terms.md#",
-    "oa": "http://www.w3.org/ns/oa#",
-    "as": "http://www.w3.org/ns/activitystreams#",
-    "xsd": "http://www.w3.org/2001/XMLSchema#",
-    "id": "@id",
-    "type": "@type",
-    "georeferencing": "iiif_georef:georeferencing",
-    "transformation":{
-      "@id": "iiif_georef:transformation",
-      "@context": {
-        "options":{
-          "@id": "iiif_georef:options",
-          "@context": {
-            "order": {
-              "@id": "iiif_georef:order",
-              "@type": "xsd:integer"
+   "@context":[
+      "https://geojson.org/geojson-ld/geojson-context.jsonld",
+      "http://www.w3.org/ns/anno.jsonld",
+      {
+         "@version":1.1,
+         "iiif_georef":"http://iiif.io/api/extension/georef/vocab/georef-terms/#",
+         "iiif_selectors":"http://iiif.io/api/registry/selectors#",
+         "georeferencing":"iiif_georef:georeferencing",
+         "polynomial":"iiif_georef:polynomial",
+         "thinPlateSpline":"iiif_georef:thinPlateSpline",
+         "id":"@id",
+         "type":"@type",
+         "ImageApiSelector":{
+            "@id":"iiif_selectors:ImageApiSelector",
+            "@context":[
+               {
+                  "iiif_image":"http://iiif.io/api/image/#",
+                  "region":{
+                     "@id":"iiif_image:regionValue",
+                     "@type":"xsd:string"
+                  },
+                  "size":{
+                     "@id":"iiif_image:sizeValue",
+                     "@type":"xsd:string"
+                  },
+                  "rotation":{
+                     "@id":"iiif_image:rotationValue",
+                     "@type":"xsd:string"
+                  },
+                  "format":{
+                     "@id":"iiif_image:formatValue",
+                     "@type":"xsd:string"
+                  },
+                  "quality":{
+                     "@id":"iiif_image:qualityValue",
+                     "@type":"xsd:string"
+                  }
+               }
+            ]
+         },
+         "transformation":{
+            "@id":"iiif_georef:transformation",
+            "@context":{
+               "options":{
+                  "@id":"iiif_georef:options",
+                  "@context":{
+                     "order":{
+                        "@id":"iiif_georef:order",
+                        "@type":"xsd:integer"
+                     }
+                  }
+               }
             }
-          }
-        }
+         },
+         "resourceCoords":{
+            "@id":"iiif_georef:resourceCoords",
+            "@container":"@list",
+            "@type":"xsd:float"
+         }
       }
-    },
-    "polynomial": "iiif_georef:polynomial",
-    "thinPlateSpline": "iiif_georef:thinPlateSpline",
-    "body": {
-      "@context": [
-        "https://geojson.org/geojson-ld/geojson-context.jsonld",
-        "http://www.w3.org/ns/anno.jsonld"
-      ],
-      "@id": "oa:body"
-    },
-    "resource": {
-      "@context": [
-        "https://geojson.org/geojson-ld/geojson-context.jsonld",
-        "http://www.w3.org/ns/anno.jsonld"
-      ],
-      "@id": "oa:hasBody"
-    },
-    "ImageAPISelector": "https://iiif.io/api/annex/openannotation/#iiif-image-api-selector",
-    "region": "https://iiif.io/api/image/3.0/#41-region",
-    "size": "https://iiif.io/api/image/3.0/#42-size",
-    "properties": {
-      "@id": "geojson:properties",
-      "@context": {
-        "label": {
-          "@id": "rdfs:label",
-          "@container": ["@language", "@set"],
-          "@context": {
-            "none": "@none"
-          }
-        },
-        "summary": {
-          "@id": "as:summary",
-          "@container": ["@language", "@set"],
-          "@context": {
-            "none": "@none"
-          }
-        },
-        "metadata": {
-          "@type": "@id",
-          "@id": "iiif_prezi:metadataEntries",
-          "@container": "@list"
-        },
-        "resourceCoords": {
-          "@id": "iiif_georef:resourceCoords",
-          "@container": "@list",
-          "@type": "xsd:float"
-        }
-      }
-    }
-  }
+   ]
 }
