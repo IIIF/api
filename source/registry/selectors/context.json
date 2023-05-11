@@ -8,8 +8,8 @@
     "ImageApiSelector": {
       "@id": "iiif_selectors:ImageApiSelector",
       "@context": [
-        "http://iiif.io/api/image/#",
         {
+          "iiif_image": "http://iiif.io/api/image/#",
           "region": {
             "@id": "iiif_image:regionValue",
             "@type": "xsd:string"
