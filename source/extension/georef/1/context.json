@@ -4,6 +4,7 @@
       "http://www.w3.org/ns/anno.jsonld",
       {
          "@version":1.1,
+         "xsd": "http://www.w3.org/2001/XMLSchema#",
          "iiif_georef":"http://iiif.io/api/extension/georef/vocab/georef-terms/#",
          "iiif_selectors":"http://iiif.io/api/registry/selectors#",
          "georeferencing":"iiif_georef:georeferencing",
