@@ -40,12 +40,13 @@ We welcome feedback on all IIIF Specifications. Please send any feedback to [iii
 
 Please see the [Registry of Extensions][registry] for full details on how extensions work and the process for creating them.
 
-Currently, there are two formally published extensions available for use with the Presentation API.
+Currently, there are three formally published extensions available for use with the Presentation API.
 
 | Presentation API Extensions    | Description |
 | ------------------------------ | ----------- |
 | [navPlace Extension][navPlace] | This IIIF Presentation 3 API extension defines a new property, navPlace, which is defined by earthbound geographic coordinates in the form of GeoJSON-LD. |
 | [Text Granularity Extension][text-granularity] | This extension recommends a pattern for indicating the level of text granularity for an annotation related to optical character recognition (OCR) software, manual transcription, and existing digitized text. |
+| [Georeference Extension][georeference] | This extension leverages Web Annotations to provide a pattern for georeferencing IIIF Presentation 3 API Canvases as well as images served through the IIIF Image API. |
 {: .api-table style="max-width: 780px;"}
 
 
