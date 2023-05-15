@@ -505,7 +505,7 @@ A grant from [Stichting Pica](https://www.stichtingpica.nl) for the further deve
 
 | Date       | Description           |
 |------------| --------------------- |
-| 2023-04-18 | Initial publication   |
+| 2023-05-15 | Initial publication   |
 {: .api-table #table-changelog}
 
 {% include acronyms.md %}
