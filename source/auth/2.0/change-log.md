@@ -59,7 +59,7 @@ The previous version assumed that access to Image Service responses would be aut
 
 In the previous version the client learned the user's access to IIIF API Image responses from the HTTP response status code of the IIIF Image API Service Description (info.json). To support access control on any resource, the new version introduces a _Probe Service_, which returns a Probe Service Response (of new type `AuthProbeResult2`) that conveys the access status as the field of a JSON object. The Image API Service is no longer used as a probe, and clients are no longer required to base flow decisions on HTTP status codes. For all access-controlled resources, the probe service acts as a proxy returning JSON that browser-based scripts can easily interact with. See [#1290](https://github.com/IIIF/api/issues/1290), [#1166](https://github.com/IIIF/api/issues/1166), [#2194](https://github.com/IIIF/api/issues/2194) and [#2201](https://github.com/IIIF/api/issues/2201).
 
-#### 2.4. Allow responses to provide user-facing strings
+### 2.4. Allow responses to provide user-facing strings
 
 In the previous version, most user-facing strings were defined on the service description, including failure messages. In the new version, these can be also returned in service responses, allowing for greater flexibility in the messages shown to users. Examples are the `heading` and `note` fields on the [Probe Service response][auth20-probe-service] (see below).
 
