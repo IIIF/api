@@ -13,7 +13,7 @@ redirect_from:
   /auth/2.0/change-log.html
 ---
 
-This document is a companion to the [IIIF Authorization Flow API Specification, Version 2.0][auth20]. It describes the changes to the API specification made in this major release. While the approach taken by the specification is fundamentally the same as the previous version, this specification is backwards incompatible with [version 1.0][auth10], the previous version.
+This document is a companion to the [IIIF Authorization Flow API Specification, Version 2.0][auth20]. It describes the changes to the API specification made in this major release. While the approach taken by the specification is fundamentally the same as the [previous version][auth10], this specification is backwards incompatible.
 
 ## 1. Breaking Changes
 
@@ -33,19 +33,19 @@ These properties were renamed to enable Javascript developers to use the "dot no
 
 #### 1.2.2. Every class has a `type`
 
-In the previous version, services defined by this specification did not have a `@type` and were instead identified by the `profile` property. Version 2.0 provides a `type` for all services defined by this specification.
+In the previous version, services defined by this specification did not have a `@type` and were instead identified by their `profile` property. Version 2.0 provides a `type` for all services defined by this specification.
 
 #### 1.2.3. Removal of `profile` where no longer necessary; use of @context-aliased URIs
 
-Resources that can now be understood by their `type` property alone no longer have the `profile` property. Resources that need further classification (the Access Service and Access Token Error Response) retain the `profile` property. These profiles are now simple strings (e.g., `kiosk`) defined in the JSON-LD `@context` rather than fully-qualified URIs in the JSON, in line with the Presentation API 3.0.
+Resources that can now be understood by their `type` property alone no longer have the `profile` property. Resources that need further classification (the [Access Service][auth20-access-service] and [Access Token Error Response][auth20-access-token-error-format]) retain the `profile` property. These profiles are now simple strings (e.g., `kiosk`) defined in the JSON-LD `@context` rather than fully-qualified URIs in the JSON, in line with the Presentation API 3.0.
 
 #### 1.2.4. Use Language Maps
 
-In further alignment with Presentation 3.0, the resources defined by this specification now use Language Maps for any strings that will be presented to a user. This also means that some resources in the previous version that were not JSON-LD now become JSON-LD resources and therefore introduce the new types `AuthAccessToken2` and `AuthAccessTokenError2`. See [#1247][https://github.com/IIIF/api/issues/1247]. The specification also clarifies where user-facing strings are required. See [#2112][https://github.com/IIIF/api/issues/2112].
+In further alignment with Presentation 3.0, the resources defined by this specification now use Language Maps for any strings that will be presented to a user. This also means that some resources in the previous version that were not JSON-LD now become JSON-LD resources and therefore introduce the new types `AuthAccessToken2` and `AuthAccessTokenError2`. See [#1247](https://github.com/IIIF/api/issues/1247). The specification also clarifies where user-facing strings are required. See [#2112](https://github.com/IIIF/api/issues/2112).
 
 #### 1.2.5. Allow responses to provide user-facing strings
 
-In the previous version, most user-facing strings were defined on the service description, including failure messages. In the new version, these can be also returned in service responses, allowing for greater flexibility in the messages shown to users.
+In the previous version, most user-facing strings were defined on the service description, including failure messages. In the new version, these can be also returned in service responses, allowing for greater flexibility in the messages shown to users. Examples are the `heading` and `note` fields on the [Probe Service response][auth20-probe-service] (see below).
 
 
 
@@ -61,15 +61,15 @@ The previous version defined only services declared on IIIF Image API service de
 
 #### 1.3.3. Introduce a Probe Service
 
-In the previous version the client learned the user's access to IIIF API Image responses from the HTTP response status code of the IIIF Image API Service Description (info.json). To support access control on any resource, the new version introduces a _Probe Service_, which returns a Probe Service Response (of new type `AuthProbeResult2`) that conveys the access status as the field of a JSON object. The Image API Service is no longer used as a probe, and clients are no longer required to base flow decisions on HTTP status codes. For all access-controlled resources, the probe service acts as a proxy returning JSON that browser-based scripts can easily interact with. See [#1290][https://github.com/IIIF/api/issues/1290], [#1166][https://github.com/IIIF/api/issues/1166], [#2194][https://github.com/IIIF/api/issues/2194] and [#2201][https://github.com/IIIF/api/issues/2201].
+In the previous version the client learned the user's access to IIIF API Image responses from the HTTP response status code of the IIIF Image API Service Description (info.json). To support access control on any resource, the new version introduces a _Probe Service_, which returns a Probe Service Response (of new type `AuthProbeResult2`) that conveys the access status as the field of a JSON object. The Image API Service is no longer used as a probe, and clients are no longer required to base flow decisions on HTTP status codes. For all access-controlled resources, the probe service acts as a proxy returning JSON that browser-based scripts can easily interact with. See [#1290](https://github.com/IIIF/api/issues/1290), [#1166](https://github.com/IIIF/api/issues/1166), [#2194](https://github.com/IIIF/api/issues/2194) and [#2201](https://github.com/IIIF/api/issues/2201).
 
 #### 1.3.4. Rename Cookie Service to Access Service; no longer assume or require use of cookies
 
-The previous version assumed that access to Image Service responses would be authorized by the server based on the presence of an _access cookie_. While this is still fully supported, the specification does not assume it. The new version introduces the concept of _Authorizing aspect_: the content or characteristics of an HTTP request for a content resource, that the server bases an access control decision on. This may be a cookie, but can be anything, it is independent of this specification. See [#2017][https://github.com/IIIF/api/issues/2017] and [#1959][https://github.com/IIIF/api/issues/1959]. This therefore allows "ambient" aspects of the request, such as IP address, to be considered as the Authorizing aspect. See [#2112][https://github.com/IIIF/api/issues/2112].
+The previous version assumed that access to Image Service responses would be authorized by the server based on the presence of an _access cookie_. While this is still fully supported, the specification does not assume it. The new version introduces the concept of _Authorizing aspect_: the content or characteristics of an HTTP request for a content resource, that the server bases an access control decision on. This may be a cookie, but can be anything, it is independent of this specification. See [#2017](https://github.com/IIIF/api/issues/2017) and [#1959](https://github.com/IIIF/api/issues/1959). This therefore allows "ambient" aspects of the request, such as IP address, to be considered as the Authorizing aspect. See [#2112](https://github.com/IIIF/api/issues/2112).
 
 #### 1.3.5. Remove the "clickthrough" and "login" patterns, merge into new "active" interaction pattern
 
-In the previous version, clickthrough and login were distinct interaction patterns for the Cookie Service. The clickthrough pattern had ceased to work cross-domain in most browsers as a result of changing treatment of third-party cookies. A similar user interaction can still be implemented if the user performs a significant _user gesture_ (such as a click) at the access service. This eliminates any difference between login and clickthrough as far as the authorization flow is concerned, and the single `active` service simply implies that the user has some interaction with the web page(s) offered by the access service. See [#2035][https://github.com/IIIF/api/issues/2035].
+In the previous version, clickthrough and login were distinct interaction patterns for the Cookie Service. The clickthrough pattern had ceased to work cross-domain in most browsers as a result of changing treatment of third-party cookies. A similar user interaction can still be implemented if the user performs a significant _user gesture_ (such as a click) at the access service. This eliminates any difference between login and clickthrough as far as the authorization flow is concerned, and the single `active` service simply implies that the user has some interaction with the web page(s) offered by the access service. See [#2035](https://github.com/IIIF/api/issues/2035).
 
 
 {% include links.md %}
