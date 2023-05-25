@@ -1069,6 +1069,7 @@ We gratefully acknowledge the support from [Wellcome Collection](https://wellcom
 
 | Date       | Description |
 | ---------- | ----------- |
+| 2023-05-25 | Version 2.0 Vesuvian Starship [View change log][auth20-change-log]|
 | 2022-      | Version 2.0-alpha |
 | 2017-01-19 | Version 1.0 (Alchemical Key) |
 | 2016-10-05 | Version 0.9.4 (Incrementing Integer) add to security notes |
