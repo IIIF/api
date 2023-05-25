@@ -94,6 +94,7 @@ Current IIIF specifications _SHOULD_ be used for all new work. Old versions are 
 | Old API Version            | Notes |
 | -------------------------- | ----- |
 | [Authentication API 0.9.4][auth094] | Published 2016-10-05 |
+| [Authentication API 1.0][auth10] | Published 2017-01-19 |
 | [Change Discovery API 0.9.2][discovery09] | Published 2021-04-28 |
 | [Image API 2.1][image21]   | Published 2016-05-12, updated 2017-06-09 |
 | [Image API 2.0][image20]   | Published 2014-09-11 |
