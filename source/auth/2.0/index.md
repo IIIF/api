@@ -707,6 +707,7 @@ Additional human-readable information about the error to render with the user in
 The probe service is used by the client to understand whether the user has access to the access-controlled resource for which the probe service is declared. The client sends the token obtained from the corresponding access token service to the probe service.
 
 ### 5.1. Probe Service Description
+{: #probe-service-description}
 
 | Property       | Required?  | Description |
 | -------------- | ---------- | ----------- |
@@ -738,6 +739,7 @@ The value _MUST_ be an array of JSON objects. They _MUST_ all have the `type` pr
 
 
 ### 5.1. Probe Service Request
+{: #probe-service-request}
 
 The client passes the access token to the probe service using the `Authorization` HTTP request header and the [bearer token][org-rfc-6570-1-2] pattern. The header value is the string `Bearer` followed by a space and the access token, for example:
 
@@ -748,6 +750,7 @@ Authorization: Bearer ddc76e416e3804e2369e6c9cee806f5e438a5cdc
 ```
 
 ### 5.2. Probe Service Response
+{: #probe-service-response}
 
 The response from the probe service is a JSON-LD object with the following properties:
 
