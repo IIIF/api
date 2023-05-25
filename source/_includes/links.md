@@ -20,6 +20,7 @@
 [auth20-access-token-message-format]: {{ site.api_url | absolute_url }}/auth/2.0/#access-token-message-format "Access Token Message Format"
 [auth20-access-token-error-format]: {{ site.api_url | absolute_url }}/auth/2.0/#access-token-error-format "Access Token Error Format"
 [auth20-access-token-service-request]: {{ site.api_url | absolute_url }}/auth/2.0/#access-token-service-request "Access Token Service Request"
+[auth20-change-log]: {{ site.api_url | absolute_url }}/auth/2.0/change-log/ "Authorization Flow API 2.0 Change Log"
 [auth20-interaction-with-access-services]: {{ site.api_url | absolute_url }}/auth/2.0/#interaction-with-access-services "Client Interaction with Access Services"
 [auth20-introduction]: {{ site.api_url | absolute_url }}/auth/2.0/#introduction "Introduction"
 [auth20-active-interaction-pattern]: {{ site.api_url | absolute_url }}/auth/2.0/#active-interaction-pattern "Active Interaction Pattern"
