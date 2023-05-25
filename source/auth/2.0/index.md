@@ -7,9 +7,10 @@ tags: [specifications, auth-api]
 major: 2
 minor: 0
 patch: 0
-pre: alpha
+pre: final
 cssversion: 2
 redirect_from:
+  - /auth/index.html
   - /auth/2/index.html
 editors:
   - name: Michael Appleby
