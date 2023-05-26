@@ -248,6 +248,7 @@
 [extensions]: {{ site.api_url | absolute_url }}/extension/
 [text-granularity]: {{ site.api_url | absolute_url }}/extension/text-granularity/
 [navPlace]: {{ site.api_url | absolute_url }}/extension/navplace/
+[georeference]: {{ site.api_url | absolute_url }}/extension/georef/
 [registry]: {{ site.api_url | absolute_url }}/registry/ "IIIF Extension Registry"
 [registry-activity-streams]: https://registry.iiif.io/ "IIIF Registry of Activity Streams"
 [registry-motivations]: {{ site.api_url | absolute_url }}/registry/motivations/
