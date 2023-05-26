@@ -59,7 +59,7 @@ The process for having a new entry added to this registry is [described here][re
 This table summarizes the known profiles available, for use with the [Presentation API][prezi-api].
 
 | Profile  | Description        | 
-| ------------------------------ |
+| ------------------------------ | ------------------------------ |
 | http://www.loc.gov/mods/v3  | The URI for identifying [MODS (Metadata Object Description Schema)](https://www.loc.gov/standards/mods/) version 3 metadata records.  |
 | https://linked.art/ns/terms | The URI for identifying records that follow the [Linked Art model](https://linked.art/) and [API version 1](https://linked.art/api/1.0/). |
 | http://www.lido-schema.org/ | The URI for identifying records that follow the [LIDO XML schema](https://cidoc.mini.icom.museum/working-groups/lido/lido-overview/). |
@@ -68,6 +68,7 @@ This table summarizes the known profiles available, for use with the [Presentati
 | http://www.loc.gov/standards/alto  | The URI for identifying [ALTO](https://www.loc.gov/standards/alto/) which is used for encoding OCR text. |
 | http://www.loc.gov/standards/marcxml  | The URI for identifying [MarcXML](https://www.loc.gov/standards/marcxml/) metadata records.  |
 | http://purl.org/dc/terms/ | The URI for identifying records that follow the [Dublin Core Metadata Initiative Metadata Terms](https://www.dublincore.org/specifications/dublin-core/dcmi-terms/) (NB: these are different from the legacy Dublin Core Metadata Element Set, Version 1.1, refered to as http://purl.org/dc/elements/1.1/). |
+| http://www.europeana.eu/schemas/edm/  | The URI for identifying [EDM (Europeana Data Model)](https://pro.europeana.eu/page/edm-documentation) metadata records.  |
 {: .api-table}
 
 
@@ -83,6 +84,7 @@ Thanks to the members of the [IIIF][iiif-community] for their continuous engagem
 | ---------- | -------------------------------------------------- |
 | 2018-XX-YY | New Version 3 Registries                           |
 | 2023-XX-YY | Added MarcXML as a profile                         |
+| 2022-11-15 | Addition of EDM (Europeana Data Model)             |
 
 {% include acronyms.md %}
 {% include links.md %}
