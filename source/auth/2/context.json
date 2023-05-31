@@ -30,12 +30,6 @@
             },
 
 
-            "expiresIn": {
-                "@id": "auth:expiresIn",
-                "@type": "xsd:integer"
-            },
-
-
             "AuthProbeResult2": {
                 "@id": "auth:AuthProbeResult2",
                 "@context": {
@@ -43,7 +37,11 @@
                         "@id": "auth:probeResultStatus",
                         "@type": "xsd:integer"
                     },
-                    "substitute": "auth:substituteResource",
+                    "substitute": {
+                        "@type": "@id",
+                        "@id": "auth:substituteResource",
+                        "@container": "@set"
+                    },
                     "location": "auth:location"
                 }
             },
@@ -51,11 +49,24 @@
                 "@id": "auth:AuthAccessToken2",
                 "@context": {
                     "accessToken": "auth:accessToken",
-                    "messageId": "auth:messageId"
+                    "messageId": "auth:messageId",
+                    "expiresIn": {
+                        "@id": "auth:expiresIn",
+                        "@type": "xsd:integer"
+                    }
                 }
             },
             "AuthAccessTokenError2": {
-                "@id": "auth:AuthAccessTokenError2"
+                "@id": "auth:AuthAccessTokenError2",
+                "@context": {
+                    "messageId": "auth:messageId",
+                    "invalidRequest": "auth:accessTokenErrorInvalidRequest",
+                    "invalidOrigin": "auth:accessTokenErrorInvalidOrigin",
+                    "missingAspect": "auth:accessTokenErrorMissingAspect",
+                    "invalidAspect": "auth:accessTokenErrorInvalidAspect",
+                    "expiredAspect": "auth:accessTokenErrorExpiredAspect",
+                    "unavailable": "auth:accessTokenErrorUnavailable"
+                }
             },
 
 
