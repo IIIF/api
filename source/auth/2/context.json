@@ -1,0 +1,94 @@
+{
+    "@context": [
+        "https://iiif.io/api/presentation/3/context.json",
+        {
+            "auth": "http://iiif.io/api/auth/2#",
+
+
+            "active": {
+                "@id": "auth:activeInteractionPattern"
+            },
+            "kiosk": {
+                "@id": "auth:kioskInteractionPattern"
+            },
+            "external": {
+                "@id": "auth:externalInteractionPattern"
+            },
+
+
+            "AuthProbeService2": {
+                "@id": "auth:AuthProbeService2"
+            },
+            "AuthAccessService2": {
+                "@id": "auth:AuthAccessService2"
+            },
+            "AuthAccessTokenService2": {
+                "@id": "auth:AuthAccessTokenService2"
+            },
+            "AuthLogoutService2": {
+                "@id": "auth:AuthLogoutService2"
+            },
+
+
+            "expiresIn": {
+                "@id": "auth:expiresIn",
+                "@type": "xsd:integer"
+            },
+
+
+            "AuthProbeResult2": {
+                "@id": "auth:AuthProbeResult2",
+                "@context": {
+                    "status": {
+                        "@id": "auth:probeResultStatus",
+                        "@type": "xsd:integer"
+                    },
+                    "substitute": "auth:substituteResource",
+                    "location": "auth:location"
+                }
+            },
+            "AuthAccessToken2": {
+                "@id": "auth:AuthAccessToken2",
+                "@context": {
+                    "accessToken": "auth:accessToken",
+                    "messageId": "auth:messageId"
+                }
+            },
+            "AuthAccessTokenError2": {
+                "@id": "auth:AuthAccessTokenError2"
+            },
+
+            
+            "confirmLabel": {
+                "@id": "auth:confirmLabel",
+                "@container": [
+                    "@language",
+                    "@set"
+                ],
+                "@context": {
+                    "none": "@none"
+                }
+            },
+            "heading": {
+                "@id": "auth:heading",
+                "@container": [
+                    "@language",
+                    "@set"
+                ],
+                "@context": {
+                    "none": "@none"
+                }
+            },
+            "note": {
+                "@id": "auth:note",
+                "@container": [
+                    "@language",
+                    "@set"
+                ],
+                "@context": {
+                    "none": "@none"
+                }
+            }
+        }
+    ]
+}
