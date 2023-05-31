@@ -58,7 +58,7 @@
                 "@id": "auth:AuthAccessTokenError2"
             },
 
-            
+
             "confirmLabel": {
                 "@id": "auth:confirmLabel",
                 "@container": [
@@ -81,6 +81,28 @@
             },
             "note": {
                 "@id": "auth:note",
+                "@container": [
+                    "@language",
+                    "@set"
+                ],
+                "@context": {
+                    "none": "@none"
+                }
+            },
+
+            
+            "errorHeading": {
+                "@id": "auth:errorHeading",
+                "@container": [
+                    "@language",
+                    "@set"
+                ],
+                "@context": {
+                    "none": "@none"
+                }
+            },
+            "errorNote": {
+                "@id": "auth:errorNote",
                 "@container": [
                     "@language",
                     "@set"
