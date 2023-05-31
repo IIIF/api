@@ -1,0 +1,127 @@
+{
+    "@context": [
+        "https://iiif.io/api/presentation/3/context.json",
+        {
+            "auth": "http://iiif.io/api/auth/2#",
+
+
+            "active": {
+                "@id": "auth:activeInteractionPattern"
+            },
+            "kiosk": {
+                "@id": "auth:kioskInteractionPattern"
+            },
+            "external": {
+                "@id": "auth:externalInteractionPattern"
+            },
+
+
+            "AuthProbeService2": {
+                "@id": "auth:AuthProbeService2"
+            },
+            "AuthAccessService2": {
+                "@id": "auth:AuthAccessService2"
+            },
+            "AuthAccessTokenService2": {
+                "@id": "auth:AuthAccessTokenService2"
+            },
+            "AuthLogoutService2": {
+                "@id": "auth:AuthLogoutService2"
+            },
+
+
+            "AuthProbeResult2": {
+                "@id": "auth:AuthProbeResult2",
+                "@context": {
+                    "status": {
+                        "@id": "auth:probeResultStatus",
+                        "@type": "xsd:integer"
+                    },
+                    "substitute": {
+                        "@type": "@id",
+                        "@id": "auth:substituteResource",
+                        "@container": "@set"
+                    },
+                    "location": "auth:location"
+                }
+            },
+            "AuthAccessToken2": {
+                "@id": "auth:AuthAccessToken2",
+                "@context": {
+                    "accessToken": "auth:accessToken",
+                    "messageId": "auth:messageId",
+                    "expiresIn": {
+                        "@id": "auth:expiresIn",
+                        "@type": "xsd:integer"
+                    }
+                }
+            },
+            "AuthAccessTokenError2": {
+                "@id": "auth:AuthAccessTokenError2",
+                "@context": {
+                    "messageId": "auth:messageId",
+                    "invalidRequest": "auth:accessTokenErrorInvalidRequest",
+                    "invalidOrigin": "auth:accessTokenErrorInvalidOrigin",
+                    "missingAspect": "auth:accessTokenErrorMissingAspect",
+                    "invalidAspect": "auth:accessTokenErrorInvalidAspect",
+                    "expiredAspect": "auth:accessTokenErrorExpiredAspect",
+                    "unavailable": "auth:accessTokenErrorUnavailable"
+                }
+            },
+
+
+            "confirmLabel": {
+                "@id": "auth:confirmLabel",
+                "@container": [
+                    "@language",
+                    "@set"
+                ],
+                "@context": {
+                    "none": "@none"
+                }
+            },
+            "heading": {
+                "@id": "auth:heading",
+                "@container": [
+                    "@language",
+                    "@set"
+                ],
+                "@context": {
+                    "none": "@none"
+                }
+            },
+            "note": {
+                "@id": "auth:note",
+                "@container": [
+                    "@language",
+                    "@set"
+                ],
+                "@context": {
+                    "none": "@none"
+                }
+            },
+
+            
+            "errorHeading": {
+                "@id": "auth:errorHeading",
+                "@container": [
+                    "@language",
+                    "@set"
+                ],
+                "@context": {
+                    "none": "@none"
+                }
+            },
+            "errorNote": {
+                "@id": "auth:errorNote",
+                "@container": [
+                    "@language",
+                    "@set"
+                ],
+                "@context": {
+                    "none": "@none"
+                }
+            }
+        }
+    ]
+}
