@@ -20,13 +20,13 @@ This document is a companion to the [IIIF Authorization Flow API Specification, 
 
 The "clickthrough" and "login" interaction patterns have been replaced with a new "active" pattern. Several existing properties were renamed for consistency, developer convenience, or to better reflect the intended semantics. Some of the semantics were also clarified based on implementation experience from previous versions. The specification was aligned with current versions of the other IIIF APIs in its use of JSON-LD 1.1.
 
-### 1.1. Use JSON-LD 1.1 
+### 1.1. Use JSON-LD 1.1
 
-The IIIF Authorization Flow API Version 2.0 adopts JSON-LD 1.1 in order to align with the IIIF Presentation API 3.0. See the [IIIF Presentation API 3.0 Change Log, Section 1.1](https://iiif.io/api/presentation/3.0/change-log/#11-external-specifications) for details.
+The IIIF Authorization Flow API Version 2.0 adopts [JSON-LD 1.1][org-w3c-json-ld11] in order to align with the IIIF Presentation API 3.0. See the [IIIF Presentation API 3.0 Change Log, Section 1.1](https://iiif.io/api/presentation/3.0/change-log/#11-external-specifications) for details.
 
 ### 1.2. Rename `@id` to `id`, `@type` to `type`
 
-These properties were renamed to enable Javascript developers to use the "dot notation" (`service.id`) instead of the square-brackets-based equivalent needed with the @ character (`service['@id']`). This follows JSON-LD community best practices established by schema.org, the JSON-LD, Web Annotation and Social Web working groups. See issue [#590](https://github.com/IIIF/api/issues/590).
+These properties were renamed to enable Javascript developers to use the "dot notation" (`service.id`) instead of the square-brackets-based equivalent needed with the @ character (`service['@id']`). This follows JSON-LD community best practices established by schema.org, and the JSON-LD, Web Annotation and Social Web working groups. See issue [#590](https://github.com/IIIF/api/issues/590).
 
 ### 1.3. Every class has a `type`
 
@@ -49,11 +49,11 @@ In the previous version, clickthrough and login were distinct interaction patter
 
 ### 2.1. Support Access Control on any Content Resource
 
-The previous version defined only services declared on IIIF Image API service descriptions (info.json). The new version supports _Authorization Flow_ patterns on any content resource, as described in the [introduction][auth20-introduction]. 
+The previous version defined only services declared on IIIF Image API service descriptions (info.json). The new version supports _Authorization Flow_ patterns on any content resource, as described in the [introduction][auth20-introduction].
 
-### 2.2. Introduce concept of "Authorizing aspect"
+### 2.2. Introduce concept of "authorizing aspect"
 
-The previous version assumed that access to Image Service responses would be authorized by the server based on the presence of an _access cookie_. While this is still fully supported, the specification does not assume it. The new version introduces the concept of _Authorizing aspect_: the content or characteristics of an HTTP request for a content resource, that the server bases an access control decision on. This may be a cookie, but can be anything, it is independent of this specification. See [#2017](https://github.com/IIIF/api/issues/2017) and [#1959](https://github.com/IIIF/api/issues/1959). This therefore allows "ambient" aspects of the request, such as IP address, to be considered as the Authorizing aspect. See [#2108](https://github.com/IIIF/api/issues/2108).
+The previous version assumed that access to Image Service responses would be authorized by the server based on the presence of an _access cookie_. While this is still fully supported, the specification does not assume it. The new version introduces the concept of _authorizing aspect_: the content or characteristics of an HTTP request for a content resource, that the server bases an access control decision on. This may be a cookie, but can be anything, it is independent of this specification. See [#2017](https://github.com/IIIF/api/issues/2017) and [#1959](https://github.com/IIIF/api/issues/1959). This therefore allows "ambient" aspects of the request, such as IP address, to be considered as the authorizing aspect. See [#2108](https://github.com/IIIF/api/issues/2108).
 
 ### 2.3. Introduce a Probe Service
 
@@ -61,7 +61,7 @@ In the previous version the client learned about the user’s ability to access 
 
 ### 2.4. Allow responses to provide user-facing strings
 
-In the previous version, most user-facing strings were defined on the service description, including failure messages. In the new version, these can be also returned in service responses, allowing for greater flexibility in the messages shown to users. Examples are the `heading` and `note` fields on the [Probe Service response][auth20-probe-service-response].
+In the previous version, most user-facing strings were defined on the service description, including failure messages. In the new version, these can be also returned in service responses, allowing for greater flexibility in the messages shown to users. Examples are the `heading` and `note` fields on the [Probe Service Response][auth20-probe-service-response].
 
 
 ## 3. Editorial and Naming Changes
@@ -72,10 +72,7 @@ The specification has been renamed, using the term _Authorization Flow_ rather t
 
 ### 3.2. Rename Cookie Service to Access Service
 
-Now that the _Authorizing aspect_ may be something other than a cookie, the former _Cookie Service_ becomes the more general _Access Service_: the service that grants the Authorizing aspect.
-
-
-
+Now that the _authorizing aspect_ may be something other than a cookie, the former _Cookie Service_ becomes the more general _Access Service_: the service that grants the authorizing aspect.
 
 
 {% include links.md %}
