@@ -285,7 +285,7 @@ The server _MAY_ use this information to validate the origin supplied in subsequ
 
 ### 3.3. Interaction Patterns
 
-The three distinct interaction patterns identified by the `profile` property enable different styles of user, client and server interaction. If more than one Access Service is available, the client _SHOULD_ interact with them in the order `external`, `kiosk`, `active`. The client _SHOULD_ stop processing Access Services once it determines that the user has access to the resource. This order ensures that access is obtained with the minimum of user interaction.
+The three distinct interaction patterns identified by the `profile` property enable different styles of user, client and server interaction. If more than one access service is available, the client _SHOULD_ interact with them in the order `external`, `kiosk`, `active`. The client _SHOULD_ stop processing access services once it determines that the user has access to the resource. This order ensures that access is obtained with the minimum of user interaction.
 
 #### 3.3.1 Active Interaction Pattern
 {: #active-interaction-pattern}
@@ -358,7 +358,7 @@ An example service description for the `active` interaction pattern:
     "note": { "en": [ "Example Institution requires that you log in with your example account to view this content." ] },
     "confirmLabel": { "en": [ "Login" ] },
     "service": [
-      // Access token and Logout services ...
+      // Access token and logout services ...
     ]
   }
 }
@@ -478,7 +478,7 @@ Default heading text to render if an error occurs. If the access token service r
 
 Default additional text to render if an error occurs. If the access token service returns an [error object][auth20-access-token-error-format], the `note` property of the error object _MUST_ be used instead if supplied. If present, `errorHeading` _MUST_ also be present.
 
-#### Example Service Description
+#### Example Access Token Service Description
 
 {% include api/code_header.html %}
 ``` json
@@ -714,7 +714,7 @@ The probe service is used by the client to understand whether the user has acces
 | -------------- | ---------- | ----------- |
 | `id`           | _REQUIRED_ | The URI of the probe service. |
 | `type`         | _REQUIRED_ | The value _MUST_ be the string `AuthProbeService2`. |
-| `service`      | _REQUIRED_ | References to one or more Access Services. |
+| `service`      | _REQUIRED_ | References to one or more access services. |
 | `errorHeading` | _OPTIONAL_ | Default heading text to render if the probe indicates the user cannot access the resource. |
 | `errorNote`    | _OPTIONAL_ | Default additional text to render if the probe indicates the user cannot access the resource. |
 
@@ -884,7 +884,7 @@ The text to be shown to the user to initiate the interaction with the logout ser
 { "label": { "en": [ "Logout from Example Institution" ] } }
 ```
 
-#### Example Service Description
+#### Example Logout Service Description
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -934,7 +934,7 @@ If possible, the server _SHOULD_ invalidate any authorizing aspects it controls 
 
 ### 7.1. Authorization Flow Algorithm
 
-A resource may have multiple probe services, and a probe service may have multiple Access services. The same access service (e.g., a login page) may be shared by multiple probe services. Each access service must have one associated token service, and may have one associated Logout service. While multiple probe services per resource and multiple access services per probe service are not likely to be common, clients should be able to interact with multiple services.
+A resource may have multiple probe services, and a probe service may have multiple access services. The same access service (e.g., a login page) may be shared by multiple probe services. Each access service must have one associated token service, and may have one associated logout service. While multiple probe services per resource and multiple access services per probe service are not likely to be common, clients should be able to interact with multiple services.
 
 A token service is _associated with_ a probe service if that probe service's `service` property includes an access service whose `service` property includes the token service (i.e., the probe service is the grandparent of the token service).
 
@@ -1074,7 +1074,6 @@ We gratefully acknowledge the support from [Wellcome Collection](https://wellcom
 | Date       | Description |
 | ---------- | ----------- |
 | 2023-05-25 | Version 2.0 Vesuvian Starship [View change log][auth20-change-log]|
-| 2022-      | Version 2.0-alpha |
 | 2017-01-19 | Version 1.0 (Alchemical Key) |
 | 2016-10-05 | Version 0.9.4 (Incrementing Integer) add to security notes |
 | 2016-08-22 | Version 0.9.3 (Wasabi KitKat) separate profiles, remove client identity service, add query parameters |
