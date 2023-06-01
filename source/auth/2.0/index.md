@@ -456,8 +456,8 @@ The access token service URI is opened by setting the `src` property of an `<ifr
 The access token service _MUST_ be included in the `service` property of the access service it is associated with, and the client uses that access token service after the user interacts with the parent access service. It has the following properties:
 
 | Property       | Required?  | Description |
-| -------------- | ---------- | ----------- |
-| `id`           | _see description_ | The URI of the access token service. |
+| -------------- |------------| ----------- |
+| `id`           | _REQUIRED_ | The URI of the access token service. |
 | `type`         | _REQUIRED_ | The value _MUST_ be the string `AuthAccessTokenService2`. |
 | `errorHeading` | _OPTIONAL_ | Default heading text to render if an error occurs. |
 | `errorNote`    | _OPTIONAL_ | Default additional text to render if an error occurs. |
