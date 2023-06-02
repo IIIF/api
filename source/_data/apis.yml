@@ -25,16 +25,16 @@ presentation:
     minor: 0
     patch: 0
 auth:
-  label: Authentication API
+  label: Authorization Flow API
   description: Control and restrict access by creating a link to a user interface for logging in and services that provide credentials.
   image: assets/images/icons/auth-group@2x.webp
-  alt_text: Authentication API icon
+  alt_text: Authorization Flow API icon
   draft:
-    major: 1
+    major: 2
     minor: 0
     patch: 0
   stable:
-    major: 1
+    major: 2
     minor: 0
     patch: 0
 search:

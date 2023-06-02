@@ -10,7 +10,6 @@ patch: 0
 pre: final
 cssversion: 2
 redirect_from:
-  - /auth/index.html
   - /auth/1/index.html
 editors:
   - name: Michael Appleby

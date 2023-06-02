@@ -316,7 +316,7 @@ If, for example, the client domain and resource domain are in the *Internet* zon
 [moonscript]: https://github.com/MoonScript/jQuery-ajaxTransport-XDomainRequest "jQuery-ajaxTransport-XDomainRequest"
 [xdr-error]: https://developer.mozilla.org/en-US/docs/Web/API/XDomainRequest/onerror "XDomainRequest.onerror"
 [P3P]: https://www.w3.org/P3P/ "P3P"
-[p3p-summary]: http://blogs.msdn.com/b/ieinternals/archive/2013/09/17/simple-introduction-to-p3p-cookie-blocking-frame.aspx "P3P minimum details"
+[p3p-summary]: https://docs.microsoft.com/en-gb/archive/blogs/ieinternals/a-quick-look-at-p3p "A quick look at P3P"
 [oauth2-considerations]: https://tools.ietf.org/html/rfc6750#section-5 "OAuth2 Security Considerations"
 [xmlhttprequest]: https://xhr.spec.whatwg.org/ "XMLHttpRequest API"
 
