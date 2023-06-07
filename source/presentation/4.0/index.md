@@ -787,7 +787,16 @@ The color to render as the background for a Canvas or Scene.
 
 ##### transforms
 
-An ordered list of Transformer instances to be applied to the source object in a SpecificResource.
+An ordered list of Transformer instances to be applied to the source object in a SpecificResource, in the order given in the list.  Transformers are instructions as to how to change the resource before rendering in the client, and as such comes between the Selector and the Style in the Annotation rendering workflow.
+
+The value of the `transforms` property _MUST_ be an array. The items in the array _MUST_ be JSON objects, which have the `id` and `type` properties. The `type` _MUST_ be a string, and _MUST_ be a subclass of "Transformer", such as "ScaleTransformer". The JSON object _MAY_ have other properties, dependent on the type of Transformer.
+
+This specification defines "ScaleTransformer" ad "RotationTransformer" in Section 5.4.1.
+
+* A SpecificResource _MAY_ have the `transforms` property.
+  Clients _MUST_ process the `transforms` property on SpecificResources.
+* Other resources _MUST NOT_ have the `transforms` property.
+  Clients _SHOULD NOT_ process the `transforms` property on other resources.
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -807,14 +816,18 @@ An ordered list of Transformer instances to be applied to the source object in a
 ##### lookAt
 
 
-A Camera is annotated into a Scene, and its facing is calculated via the `lookAt` property. The property's value is either a Selector or a Model instance that has been annotated into the Scene with the camera.
+A Camera is annotated into a Scene, and its facing is calculated via the `lookAt` property. The property's value is either a Selector or a Model instance that has been annotated into the Scene with the camera. The Selector will describe a polygon or point within the Scene, such as a PointSelector instance that gives the x,y and z coordinates.
 
-If not defined, then the client _SHOULD_ calculate the bounding box of all content in the Scene, and 
+For the Model or polygonal Selector, the client should treat this as a PointSelector at the origin of the model or polygon. If the Model which the Camera is configured to look at is not, in fact, annotated into the Scene, then the client _SHOULD_ treat it as if the `lookAt` property was not defined.
 
-**Question** What if there's no contents?
+If not defined, then the client _SHOULD_ calculate the bounding cube of all content in the Scene, and look at the origin (0,0,0) of that cube. If there are no contents in the Scene, the camera will look at the origin of the Scene itself.
 
-**Question** What to do if the model is NOT in the scene?
+The value of `lookAt` _MUST_ be a JSON object. That object _MUST_ have an `id` and `type` property, and _MAY_ have other properties dependent on its type. The `type` _SHOULD_ be either "Model" or a subclass of Selector, such as "PointSelector".
 
+* A Camera object _SHOULD_ have the `lookAt` property.
+  Clients _MUST_ process the `lookAt` property on a Camera.
+* Other resources _MUST NOT_ have the `lookAt` property.
+  Clients _SHOULD_ ignore the `lookAt` property on other resources.
 
 {% include api/code_header.html %}
 ``` json-doc
