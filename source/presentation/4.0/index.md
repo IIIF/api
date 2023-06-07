@@ -699,6 +699,7 @@ The value _MUST_ be an array of strings.
 | `world` | Valid on Scenes.  |
 | `group` | Valid on Scenes.  |
 | `fly-through` | Valid on Scenes.  |
+| `render-light` | Valid on Annotations. If present in a behavior property on an Annotation, then the client should render the lights in the model. If it is not present, then the client _MUST NOT_ render lights in the model. |
 | | **Miscellaneous Behaviors** |
 | `hidden` | Valid on Annotation Collections, Annotation Pages, Annotations, Specific Resources and Choices. If this behavior is provided, then the client _SHOULD NOT_ render the resource by default, but allow the user to turn it on and off. This behavior does not inherit, as it is not valid on Collections, Manifests, Ranges or Canvases. |
 {: .api-table #table-behavior}
@@ -754,6 +755,100 @@ If a Scene does not have an `ambientLighting` property, then the client _SHOULD_
 }
 ```
 
+##### backgroundCanvas
+
+The Canvas to render as the background for a Canvas or Scene.
+
+
+**Question** Should this be available beyond Canvas/Scene to have backgrounds for Manifests, Ranges and/or Collections?
+
+
+{% include api/code_header.html %}
+``` json-doc
+{
+  "backgroundCanvas": {
+    "id": "https://example.org/canvas/background/black",
+    "type": "Canvas",
+    "backgroundColor": 256
+  }
+}
+```
+
+##### backgroundColor
+
+The color to render as the background for a Canvas or Scene.
+
+{% include api/code_header.html %}
+``` json-doc
+{
+  "backgroundColor": 256
+}
+```
+
+##### transforms
+
+An ordered list of Transformer instances to be applied to the source object in a SpecificResource.
+
+{% include api/code_header.html %}
+``` json-doc
+{
+  "transforms": [
+    {
+      "id": "https://example.org/iiif/transforms/1",
+      "type": "ScaleTransformer",
+      "x": 1.0,
+      "y": 1.5,
+      "z": 0.9
+    }
+  ]
+}
+```
+
+##### lookAt
+
+
+A Camera is annotated into a Scene, and its facing is calculated via the `lookAt` property. The property's value is either a Selector or a Model instance that has been annotated into the Scene with the camera.
+
+If not defined, then the client _SHOULD_ calculate the bounding box of all content in the Scene, and 
+
+**Question** What if there's no contents?
+
+**Question** What to do if the model is NOT in the scene?
+
+
+{% include api/code_header.html %}
+``` json-doc
+{
+  "lookAt": {
+    "id": "https://example.org/iiif/selectors/1",
+    "type": "PointSelector",
+    "x": 0.0,
+    "y": 0.0,
+    "z": 0.0
+  }
+}
+```
+
+{% include api/code_header.html %}
+``` json-doc
+{
+  "lookAt": {
+    "id": "https://example.org/iiif/3d-models/spaceman-1.obj",
+    "type": "Model"
+  }
+}
+```
+
+
+##### fieldOfView
+
+
+{% include api/code_header.html %}
+``` json-doc
+{
+  "backgroundColor": 256
+}
+```
 
 ###  3.3. Linking Properties
 
@@ -1346,11 +1441,11 @@ Note that while the Collection _MAY_ reference Collections or Manifests from pre
 
 ### 5.2. Manifest
 
-The Manifest resource typically represents a single object and any intellectual work or works embodied within that object. In particular it includes descriptive, rights and linking information for the object. The Manifest embeds the Canvases that should be rendered as views of the object and contains sufficient information for the client to initialize itself and begin to display something quickly to the user.
+The Manifest resource typically represents a single object and any intellectual work or works embodied within that object. In particular it includes descriptive, rights and linking information for the object. The Manifest embeds the Canvases or Scenes that should be rendered as views and contains sufficient information for the client to initialize itself and begin to display something quickly to the user.
 
 The identifier in `id` _MUST_ be able to be dereferenced to retrieve the JSON description of the Manifest, and thus _MUST_ use the HTTP(S) URI scheme.
 
-The Manifest _MUST_ have an `items` property, which is an array of JSON-LD objects. Each object is a Canvas, with requirements as described in the next section. The Manifest _MAY_ also have a `structures` property listing one or more [Ranges][prezi30-range] which describe additional structure of the content, such as might be rendered as a table of contents. The Manifest _MAY_ have an `annotations` property, which includes Annotation Page resources where the Annotations have the Manifest as their `target`. These will typically be comment style Annotations, and _MUST NOT_ have `painting` as their `motivation`.
+The Manifest _MUST_ have an `items` property, which is an array of JSON-LD objects. Each object is either a Canvas or a Scene, with requirements as described in the next section. The Manifest _MAY_ also have a `structures` property listing one or more [Ranges][prezi30-range] which describe additional structure of the content, such as might be rendered as a table of contents. The Manifest _MAY_ have an `annotations` property, which includes Annotation Page resources where the Annotations have the Manifest as their `target`. These will typically be comment style Annotations, and _MUST NOT_ have `painting` as their `motivation`.
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -1599,6 +1694,37 @@ Renderers _MUST_ scale content into the space represented by the Canvas, and _SH
   ]
 }
 ```
+
+###  5.4. Scene
+
+Scenes are used to represent a 3 dimensional space with infinite height (y axis), width (x axis) and depth dimensions (z axis). 3d models, and all other content resources, can be annotated into the Scene to arrange and render a view of a 3 dimensional environment.
+
+The Scene's dimensions have an origin (x=0,y=0,z=0) at the center of the infinite universe. Positive Y is up, positive X is to the right, and positive Z is towards the user.
+
+A Scene has an ambient light source, given in the `ambientLight` property, which if not present has a default of **0.75 intensity white light**. Other lights can be added in a model file, and annotated on to the Scene. This allows the simplest case of just ambient white light to be assumed, and gives publishers full control over lighting in more complex cases. Lights which are in other models MUST be rendered only if the Annotation of the model has the "render-light" behavior.
+
+**Question** How to do "headlight" lights that are tied to a camera, when that camera can move or be swapped away from to a different camera? Need to turn lights on or off?
+
+A Scene can have a background color or texture. The default is to have a flat black background color, if not specified. The background information is presented in either the `backgroundColor` property, or the `backgroundCanvas` property which supplies a Canvas, which then has one or more content resources such as images or videos annotated on to it.
+
+
+Cameras.
+
+Camera has `lookAt` and `fieldOfView`. The camera is positioned in an Annotation, with a target that has a PointSelector to give the origin for the camera in the Scene. The `lookAt` is a Selector into the Scene to give a point, a polygon, or a rendered content resource by its URI.
+
+
+
+#### 5.4.1. Selectors and Transformers
+
+
+* PointSelector
+* WktSelector
+
+* ScaleTransformer
+* RotationTransformer
+
+
+
 
 ###  5.4. Range
 
