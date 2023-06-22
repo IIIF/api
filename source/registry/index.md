@@ -17,7 +17,7 @@ The process for having an entry included in one of the IIIF extension registries
 * [Presentation API Extensions][extensions]
 * [Motivations][registry-motivations]
 * [Profiles][registry-profiles]
-* [Rights][registry-rights]
+* [Rights Statements and Licenses][registry-rights]
 * [Services][registry-services]
 * [TimeModes][registry-timeModes]
 * [Types][registry-types]
