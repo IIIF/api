@@ -4,24 +4,24 @@ layout: spec
 tags: [registry, rights, specifications]
 cssversion: 2
 editors:
-  - name: Michael Appleby
-    ORCID: https://orcid.org/0000-0002-1266-298X
-    institution: Yale University
-  - name: Tom Crane
-    ORCID: https://orcid.org/0000-0003-1881-243X
-    institution: Digirati
-  - name: Robert Sanderson
-    ORCID: https://orcid.org/0000-0003-4441-6852
-    institution: J. Paul Getty Trust
-  - name: Simeon Warner
-    ORCID: https://orcid.org/0000-0002-7970-7855
-    institution: Cornell University
-  - name: Dawn Childress
-    ORCID: https://orcid.org/0000-0003-2602-2788
-    institution: UCLA
+- name: Michael Appleby
+  ORCID: https://orcid.org/0000-0002-1266-298X
+  institution: Yale University
+- name: Tom Crane
+  ORCID: https://orcid.org/0000-0003-1881-243X
+  institution: Digirati
+- name: Robert Sanderson
+  ORCID: https://orcid.org/0000-0003-4441-6852
+  institution: J. Paul Getty Trust
+- name: Simeon Warner
+  ORCID: https://orcid.org/0000-0002-7970-7855
+  institution: Cornell University
+- name: Dawn Childress
+  ORCID: https://orcid.org/0000-0003-2602-2788
+  institution: UCLA
 - name: Jeff Mixter
-    ORCID: https://orcid.org/0000-0002-8411-2952
-    institution: OCLC Research
+  ORCID: https://orcid.org/0000-0002-8411-2952
+  institution: OCLC Research
 ---
 
 ## Status of this Document
@@ -35,7 +35,6 @@ Changes will be tracked within the document.
 {% include api/editors.md editors=page.editors %}
 
 {% include copyright.md %}
-
 
 ## 1. Introduction
 
