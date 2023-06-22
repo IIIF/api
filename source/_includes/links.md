@@ -285,8 +285,7 @@
 [registry-profiles]: {{ site.api_url | absolute_url }}/registry/profiles/
 [registry-timeModes]: {{ site.api_url | absolute_url }}/registry/timeModes/
 [registry-types]: {{ site.api_url | absolute_url }}/registry/types/
-[registry-viewingDirections]: {{ site.api_url | absolute_url }}/registry/
-viewingDirections/
+[registry-viewingDirections]: {{ site.api_url | absolute_url }}/registry/viewingDirections/
 [registry-rights]: {{ site.api_url | absolute_url }}/registry/rights/
 [search-stable-version]: {{ site.api_url | absolute_url }}/search/{{ site.search_api.stable.major }}.{{ site.search_api.stable.minor }}/ "Latest Content Search API Stable Version"
 
