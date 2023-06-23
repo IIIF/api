@@ -3,7 +3,7 @@ title: Presentation API Use Cases
 layout: spec
 tags: [presentation-api, use-cases]
 redirect_from:
-  /presentation/usecases.html
+ - /presentation/usecases.html
 ---
 
 ## Status of this Document

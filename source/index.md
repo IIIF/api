@@ -15,33 +15,38 @@ api_current_table:
     - auth
     - discovery
     - search
+    - content-state
 ---
 
 ## Current specifications
 
 {% include api/api-listing-table.html table=page.api_current_table %}
 
+<!--
 ## Draft specifications
 
 | API                  | Draft Version (Status) |
 | -------------------- | ---------------------- |
-| Content State API    | [0.9.1][contentstate09]|
 {: .api-table}
+-->
 
-__Feedback requested__<br/>
+### Feedback requested
+{: #feedback}
+
 We welcome feedback on all IIIF Specifications. Please send any feedback to [iiif-discuss@googlegroups.com][iiif-discuss].
 {: .alert}
 
 ## Approved extensions
 
-Please see the [Registry of Extensions][registry] for full details on how extensions work and the process for creating them. 
+Please see the [Registry of Extensions][registry] for full details on how extensions work and the process for creating them.
 
-Currently, there are two formally published extensions available for use with the Presentation API.
+Currently, there are three formally published extensions available for use with the Presentation API.
 
 | Presentation API Extensions    | Description |
 | ------------------------------ | ----------- |
 | [navPlace Extension][navPlace] | This IIIF Presentation 3 API extension defines a new property, navPlace, which is defined by earthbound geographic coordinates in the form of GeoJSON-LD. |
 | [Text Granularity Extension][text-granularity] | This extension recommends a pattern for indicating the level of text granularity for an annotation related to optical character recognition (OCR) software, manual transcription, and existing digitized text. |
+| [Georeference Extension][georeference] | This extension leverages Web Annotations to provide a pattern for georeferencing IIIF Presentation 3 API Canvases as well as images served through the IIIF Image API. |
 {: .api-table style="max-width: 780px;"}
 
 
@@ -90,6 +95,7 @@ Current IIIF specifications _SHOULD_ be used for all new work. Old versions are 
 | Old API Version            | Notes |
 | -------------------------- | ----- |
 | [Authentication API 0.9.4][auth094] | Published 2016-10-05 |
+| [Authentication API 1.0][auth10] | Published 2017-01-19 |
 | [Change Discovery API 0.9.2][discovery09] | Published 2021-04-28 |
 | [Image API 2.1][image21]   | Published 2016-05-12, updated 2017-06-09 |
 | [Image API 2.0][image20]   | Published 2014-09-11 |
@@ -100,6 +106,7 @@ Current IIIF specifications _SHOULD_ be used for all new work. Old versions are 
 | [Metadata API 1.0][meta10] | "Metadata API" was replaced with the Presentation API, published 2013-09-16 |
 | [Metadata API 0.9][meta09] | Draft of the "Metadata API", published 2013-06-11 |
 | [Search API 0.9][search09] | Draft published 2016-04-11 |
+| [Search API 1.0][search10] | Published 2016-05-12 |
 {: .api-table}
 
 ## Notes

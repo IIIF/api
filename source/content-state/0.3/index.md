@@ -9,8 +9,6 @@ major: 0
 minor: 3
 patch: 0
 pre: final
-redirect_from:
-  - /0/content-state/index.html
 editors:
   - name: Michael Appleby
     ORCID: https://orcid.org/0000-0002-1266-298X
@@ -36,9 +34,9 @@ hero:
 {:.no_toc}
 __This Version:__ {{ page.major }}.{{ page.minor }}.{{ page.patch }}{% if page.pre != 'final' %}-{{ page.pre }}{% endif %}
 
-__Latest Stable Version:__ None
+__Latest Stable Version:__ [{{ site.data.apis.content-state.latest.major }}.{{ site.data.apis.content-state.latest.minor }}.{{ site.data.apis.content-state.latest.patch }}][contenstate-stable-version]
 
-__Previous Version:__ None
+__Previous Version:__ [0.2][contentstate02]
 
 **Editors:**
 

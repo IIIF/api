@@ -706,12 +706,6 @@ The value _MUST_ be a string.
 { "timeMode": "trim" }
 ```
 
-
-{% highlight json %}
-{ "timeMode": "trim" }
-{% endhighlight %}
-
-
 ###  3.3. Linking Properties
 
 These properties are references or links between resources, and split into external references where the linked object is outside of the IIIF space, and internal references where the linked object is a IIIF resource.  Clients typically create a link to the resource that is able to be activated by the user, or interact directly with the linked resource to improve the user's experience.
