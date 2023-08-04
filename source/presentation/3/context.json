@@ -16,6 +16,7 @@
     "as": "http://www.w3.org/ns/activitystreams#",
     "ebu": "http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#",
     "schema": "https://schema.org/",
+    "iiif_selectors": "http://iiif.io/api/registry/selectors#",
 
     "id": "@id",
     "type": "@type",
