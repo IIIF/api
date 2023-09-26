@@ -151,7 +151,7 @@ Thanks to the members of the [IIIF][iiif-community] for their continuous engagem
 
 | Date       | Description                                        |
 | ---------- | -------------------------------------------------- |
-| 2023-04-27 | Version 1.2 (Change document to Registry of Selectors from Open/Web Annotation Extensions)
+| 2023-09-26 | Version 1.2 (Change document to Registry of Selectors from Open/Web Annotation Extensions)
 | 2018-03-14 | Version 1.1 (Update ImageApi, add Point Selectors) |
 | 2014-07-01 | Version 1.0 (RFC)                                  |
 {:.api-table}
