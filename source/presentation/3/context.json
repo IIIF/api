@@ -346,29 +346,12 @@
       "@container": "@set"
     },
 
-    "selector": {
-      "@type": "@id",
-      "@id": "oa:selector",
-      "@container": "@set",
-      "@context": {
-        "ImageApiSelector": {
-          "@id": "https://preview.iiif.io/api/image-api-selector-update/registry/selectors#:ImageApiSelector",
-          "@context": "https://preview.iiif.io/api/image-api-selector-update/registry/selectors/context.json"
-        },
-        "PointSelector": {
-          "@id": "https://preview.iiif.io/api/image-api-selector-update/registry/selectors#:PointSelector",
-          "@context": "https://preview.iiif.io/api/image-api-selector-update/registry/selectors/context.json"
-        },
-        "AudioContentSelector": {
-          "@id": "https://preview.iiif.io/api/image-api-selector-update/registry/selectors#:AudioContentSelector",
-          "@context": "https://preview.iiif.io/api/image-api-selector-update/registry/selectors/context.json"
-        },
-        "VisualContentSelector": {
-          "@id": "https://preview.iiif.io/api/image-api-selector-update/registry/selectors#:VisualContentSelector",
-          "@context": "https://preview.iiif.io/api/image-api-selector-update/registry/selectors/context.json"
-        }
-      }
-    },
+    "selector":{
+      "@type":"@id",
+      "@id":"oa:selector",
+      "@container" : "@set",
+      "@context":"https://iiif.io/api/registry/selectors/context.json"
+   },
 
     "start": {
       "@type": "@id",
