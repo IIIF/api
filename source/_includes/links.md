@@ -200,6 +200,7 @@
 [org-w3c-webanno]: http://w3.org/TR/annotation-model/ "Web Annotation Model"
 [org-w3c-webanno-motivation]: https://www.w3.org/TR/annotation-model/#motivation-and-purpose "Web Annotation Model - Motivation"
 [org-w3c-webanno-TextQuoteSelector]: https://www.w3.org/TR/annotation-model/#text-quote-selector "Web Annotation Model - Text Quote Selector"
+[org-w3c-webanno-Selectors]: https://www.w3.org/TR/annotation-model/#selectors "Web Annotation model - Selectors"
 [org-w3c-webarch]: http://www.w3.org/TR/webarch/ "Architecture of the World Wide Web"
 [org-w3c-xsd-datetime]: https://www.w3.org/TR/xmlschema11-2/#dateTime "XSD DateTime"
 [org-wsgi-pep333]: https://www.python.org/dev/peps/pep-0333/ "PEP 0333"

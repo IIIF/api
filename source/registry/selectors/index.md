@@ -42,7 +42,9 @@ Changes will be tracked within the document.
 
 Selectors in Annotations are used to describe how to retrieve a given part of a resource. They are then associated with an instance of `SpecificResource` that also references the resource of which the Specific Resource is part.
 
-The Selectors described here extend the use of the [Web Annotation][org-w3c-webanno] model within the IIIF APIs, and were previously applied to the predecessor of the Web Annotation model, Open Annotation. These Selectors can be used with either annotation model.
+The Selectors described here extend the use of the [Web Annotation][org-w3c-webanno] model within the IIIF APIs, and were previously applied to the predecessor of the Web Annotation model, Open Annotation. These Selectors can be used with either annotation model. 
+
+IIIF also supports the use of Web Annotation model Selectors, such as `FragmentSelector`. For more information on these Selectors, see the [IIIF Presentation API][prezi-api] and the [Web Annotation Selectors documentation][org-w3c-webanno-Selectors].
 
 ## 2. Selector Classes
 
