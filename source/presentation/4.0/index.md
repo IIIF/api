@@ -734,7 +734,7 @@ The value _MUST_ be a string.
 
 The ambient lighting for the Scene to ensure there is light to view the content resources in a Scene. Ambient light means that even if there are no other lights in the Scene, the objects will still be visible.
 
-The value of `ambientLighting` _MUST_ be a JSON object with the `id`, `type`, `color` and `intensity` properties. The value of the `color` property _MUST_ be an integer and represents the color of the light as described in more detail in the `backgroundColor` property. The value of the `intensity` property _MUST_ be a floating point number within the range of 0 and 1.0, with 0 being no light and 1.0 being the maximum possible light.
+The value of `ambientLighting` _MUST_ be a JSON object with the `id`, `type`, `color` and `intensity` properties. The value of the `color` property _MUST_ be a string and represents the color of the light as described in more detail in the `backgroundColor` property. The value of the `intensity` property _MUST_ be a floating point number within the range of 0 and 1.0, with 0 being no light and 1.0 being the maximum possible light.
 
 If a Scene does not have an `ambientLighting` property, then the client _SHOULD_ assume an ambient light with white color and **0.75 intensity**.
 
@@ -749,11 +749,13 @@ If a Scene does not have an `ambientLighting` property, then the client _SHOULD_
   "ambientLighting": {
     "id": "https://example.org/lights/1",
     "type": "Lighting",
-    "color": 256,
+    "color": "red",
     "intensity": 1.0
   }
 }
 ```
+
+<!--
 
 ##### backgroundCanvas
 
@@ -770,23 +772,24 @@ The value of `backgroundCanvas` _MUST_ be a JSON object, with `id` and `type` pr
   "backgroundCanvas": {
     "id": "https://example.org/canvas/background/black",
     "type": "Canvas",
-    "backgroundColor": 256
+    "backgroundColor": "#000000"
   }
 }
 ```
+
+-->
 
 ##### backgroundColor
 
 The color to render as the background for a Canvas or Scene.
 
-The value of the `backgroundColor` property _MUST_ be an integer representing a color after parsing as a hexidecimal value. For example 0 is black, and 16777215 (or FFFFFF in hex) is white.
+The value of the `backgroundColor` property _MUST_ be a string representing a color according to the color specification for the CSS standard. [link to css][css]
 
-**Question** Is this correct? Or should it be alpha,r,g,b instead? Or something else?
 
 {% include api/code_header.html %}
 ``` json-doc
 {
-  "backgroundColor": 256
+  "backgroundColor": "#FF00FF"
 }
 ```
 
