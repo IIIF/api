@@ -173,3 +173,49 @@ Transform the model, including translation, before positioning in the scene
     }
 }
 ```
+
+Create and rotate a light, before positioning in the scene
+```
+{
+  "id": "https://example.org/iiif/3d/anno1",
+  "type": "Annotation",
+  "motivation": ["painting"],
+  "body": {
+    "id": "",
+    "type": "SpecificResource",
+    "source": [
+      {
+        "type": "DirectionalLight",
+        "color": "yellow",
+        "intensity": 1.0
+      }
+    ],
+    "transforms": [
+      {
+        "__comment": "rotate to the right direction in the model's space",
+        "type": "RotateTransform",
+        "x": -45.0,
+        "y": -45.0,
+        "z": 0.0
+      }
+    ]
+  },
+  "target": {
+      "type": "SpecificResource",
+      "source": [
+        {
+          "id": "https://example.org/iiif/scene1/page/p1/1",
+	      "type": "Scene"
+        }
+      ],
+      "selector": [
+        {
+          "__comment": "position at the right point in the scene's space",
+	      "type": "PointSelector",
+          "x": 500.0,
+          "y": 500.0,
+          "z": 500.0
+        }
+      ]
+    }
+}
