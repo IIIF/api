@@ -29,6 +29,7 @@ Positioning: Position the model not at the center of the scene
       ],
       "selector": [
         {
+          "__comment": "position at the right point in the scene's space",
 	      "type": "PointSelector",
           "x": 0.0,
           "y": -25.0,
@@ -58,7 +59,7 @@ Transform the model before putting into the scene (at the center)
     ],
     "transforms": [
       {
-        "__comment": "translate to the right place in the model's space",
+        "__comment": "scale to the right size in the model's space",
         "type": "ScaleTransform",
         "x": 10.0,
         "y": 10.0,
@@ -89,7 +90,7 @@ Transform the model and position it in the scene
     ],
     "transforms": [
       {
-        "__comment": "translate to the right place in the model's space",
+        "__comment": "scale to the right size in the model's space",
         "type": "ScaleTransform",
         "x": 10.0,
         "y": 10.0,
@@ -107,6 +108,7 @@ Transform the model and position it in the scene
       ],
       "selector": [
         {
+          "__comment": "position at the right point in the scene's space",
 	      "type": "PointSelector",
           "x": 0.0,
           "y": -25.0,
@@ -143,7 +145,7 @@ Transform the model, including translation, before positioning in the scene
         "z": 10.0
       }, 
       {
-        "__comment": "scaleto the right size in the model's space",
+        "__comment": "scale to the right size in the model's space",
         "type": "ScaleTransform",
         "x": 10.0,
         "y": 10.0,
@@ -161,6 +163,7 @@ Transform the model, including translation, before positioning in the scene
       ],
       "selector": [
         {
+          "__comment": "position at the right point in the scene's space",
 	      "type": "PointSelector",
           "x": 0.0,
           "y": -25.0,
