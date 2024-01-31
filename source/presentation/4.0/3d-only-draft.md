@@ -1,3 +1,39 @@
+---
+title: "Presentation API 4.0 PRE-ALPHA"
+title_override: "IIIF Presentation API 4.0 PRE-ALPHA"
+id: presentation-api
+layout: spec
+cssversion: 3
+tags: [specifications, presentation-api]
+major: 4
+minor: 0
+patch: 0
+pre: final
+redirect_from:
+  - /presentation/index.html
+  - /presentation/4/index.html
+editors:
+  - name: Michael Appleby
+    ORCID: https://orcid.org/0000-0002-1266-298X
+    institution: Yale University
+  - name: Dawn Childress  
+    ORCID: https://orcid.org/0000-0003-2602-2788
+    institution: UCLA
+  - name: Tom Crane
+    ORCID: https://orcid.org/0000-0003-1881-243X
+    institution: Digirati
+  - name: Jeff Mixter
+    ORCID: https://orcid.org/0000-0002-8411-2952
+    institution: OCLC
+  - name: Robert Sanderson
+    ORCID: https://orcid.org/0000-0003-4441-6852
+    institution: Yale University
+  - name: Julie Winchester
+    ORCID: 
+    institution: Duke University
+hero:
+  image: ''
+---
 ### 2.1. Defined Types
 
 ##### Scene
