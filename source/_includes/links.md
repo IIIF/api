@@ -226,6 +226,7 @@
 [org-w3c-webanno]: http://w3.org/TR/annotation-model/ "Web Annotation Model"
 [org-w3c-webanno-motivation]: https://www.w3.org/TR/annotation-model/#motivation-and-purpose "Web Annotation Model - Motivation"
 [org-w3c-webanno-TextQuoteSelector]: https://www.w3.org/TR/annotation-model/#text-quote-selector "Web Annotation Model - Text Quote Selector"
+[org-w3c-webanno-Selectors]: https://www.w3.org/TR/annotation-model/#selectors "Web Annotation model - Selectors"
 [org-w3c-webarch]: http://www.w3.org/TR/webarch/ "Architecture of the World Wide Web"
 [org-w3c-xsd-datetime]: https://www.w3.org/TR/xmlschema11-2/#dateTime "XSD DateTime"
 [org-whatwg-user-gesture]: https://html.spec.whatwg.org/multipage/interaction.html#user-activation-processing-model "User Gesture"
@@ -240,6 +241,7 @@
 [prezi21-change-log]: {{ site.api_url | absolute_url }}/presentation/2.1/change-log/ "Presentation API 2.1 Change Log"
 [prezi211-change-log]: {{ site.api_url | absolute_url }}/presentation/2.1/change-log-211/ "Presentation API 2.1.1 Change Log"
 [prezi21]: {{ site.api_url | absolute_url }}/presentation/2.1/ "IIIF Presentation API 2.1"
+[prezi21-rot]: {{ site.api_url | absolute_url }}/presentation/2.0/#rotation "Rotation in Presentation API"
 [prezi3-considerations]: {{ site.api_url | absolute_url }}/presentation/3.{{ site.data.apis.presentation.latest.minor }}/#4-json-ld-considerations "Presentation API Section 4"
 [prezi3-html]: {{ site.api_url | absolute_url }}/presentation/3.{{ site.data.apis.presentation.latest.minor }}/#45-html-markup-in-property-values "Presentation API Section 4.4"
 [prezi3-languages]: {{ site.api_url | absolute_url }}/presentation/{{site.data.apis.presentation.latest.major}}.{{ site.data.apis.presentation.latest.minor }}/#language-of-property-values "Language of Property Values"
@@ -281,6 +283,7 @@
 [registry-motivations]: {{ site.api_url | absolute_url }}/registry/motivations/
 [registry-behaviors]: {{ site.api_url | absolute_url }}/registry/behaviors/
 [registry-process]: {{ site.api_url | absolute_url }}/registry/process/
+[registry-selectors]: {{ site.api_url | absolute_url }}/registry/selectors/
 [registry-services]: {{ site.api_url | absolute_url }}/registry/services/
 [registry-profiles]: {{ site.api_url | absolute_url }}/registry/profiles/
 [registry-timeModes]: {{ site.api_url | absolute_url }}/registry/timeModes/

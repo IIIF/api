@@ -346,6 +346,16 @@
       "@container": "@set"
     },
 
+    "selector":{
+      "@type":"@id",
+      "@id":"oa:selector",
+      "@container" : "@set",
+      "@context":[
+        "https://iiif.io/api/registry/selectors/context.json",
+        "http://www.w3.org/ns/anno.jsonld"
+      ]
+   },
+
     "start": {
       "@type": "@id",
       "@id": "iiif_prezi:start"
