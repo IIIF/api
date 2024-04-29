@@ -178,7 +178,7 @@
 [org-ecma-encodeuricomponent]: https://tc39.es/ecma262/#sec-encodeuricomponent-uricomponent "encodeURIComponent"
 [org-ecma-decodeuricomponent]: https://tc39.es/ecma262/#sec-decodeuricomponent-encodeduricomponent "decodeURIComponent"
 [org-iana-uri-schemes]: http://www.iana.org/assignments/uri-schemes/uri-schemes.xhtml "IANA URI Schemes"
-[org-json-ld]: http://www.json-ld.org/ "JSON for Linking Data"
+[org-json-ld]: https://json-ld.org/ "JSON for Linking Data"
 [org-linked-data]: http://linkeddata.org/ "Linked Data"
 [org-mellon]: http://www.mellon.org/ "The Andrew W. Mellon Foundation"
 [org-mozilla-drag-drop]: https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API "HTML Drag and Drop API"
