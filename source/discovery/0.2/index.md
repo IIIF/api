@@ -32,7 +32,7 @@ editors:
 {:.no_toc}
 __This Version:__ {{ page.major }}.{{ page.minor }}.{{ page.patch }}{% if page.pre != 'final' %}-{{ page.pre }}{% endif %}
 
-__Latest Stable Version:__ None
+__Latest Stable Version:__ [{{ site.discovery.stable.major }}.{{ site.discovery.stable.minor }}.{{ site.discovery.stable.patch }}][discovery-stable-version]
 
 __Previous Version:__ [0.1][discovery01]
 
