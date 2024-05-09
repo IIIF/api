@@ -44,7 +44,7 @@ hero:
 {:.no_toc}
 __This Version:__ {{ page.major }}.{{ page.minor }}.{{ page.patch }}{% if page.pre != 'final' %}-{{ page.pre }}{% endif %}
 
-__Latest Stable Version:__ [{{ site.data.apis.content-state.latest.major }}.{{ site.data.apis.content-state.latest.minor }}.{{ site.data.apis.content-state.latest.patch }}][contenstate-stable-version]
+__Latest Stable Version:__ [{{ site.data.apis.content-state.stable.major }}.{{ site.data.apis.content-state.stable.minor }}.{{ site.data.apis.content-state.stable.patch }}][contenstate-stable-version]
 
 __Previous Version:__ [0.3][contentstate03]
 

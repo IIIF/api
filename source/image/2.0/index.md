@@ -782,7 +782,7 @@ Many thanks to  Ben Albritton, Matthieu Bonicel, Anatol Broder, Kevin Clarke, To
 [cors-spec]: http://www.w3.org/TR/cors/ "Cross-Origin Resource Sharing"
 [iiif-discuss]: mailto:iiif-discuss@googlegroups.com "Email Discussion List"
 [json-as-json-ld]: http://www.w3.org/TR/json-ld/#interpreting-json-as-json-ld "JSON-LD 1.0: 6.8 Interpreting JSON as JSON-LD"
-[json-ld-org]: http://www.json-ld.org/ "JSON for Linking Data"
+[json-ld-org]: https://json-ld.org/ "JSON for Linking Data"
 [json-ld-w3c]: http://www.w3.org/TR/json-ld/ "JSON-LD 1.0"
 [mellon]: http://www.mellon.org/ "The Andrew W. Mellon Foundation"
 [rfc-2617]: https://datatracker.ietf.org/doc/html/rfc2617 "HTTP Authentication: Basic and Digest Access Authentication"

@@ -9,3 +9,5 @@ package-lock.json
 .jekyll-cache
 tmp/
 iiifc-theme
+Gemfile.lock
+vendor

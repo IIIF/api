@@ -55,16 +55,16 @@ discovery:
   description: Harvest any changes published by organizations that deliver digital objects.
   image: assets/images/icons/shape@2x.webp
   alt_text: Change Discovery API icon
-  draft:
-    major: 0
-    minor: 9
+  stable:
+    major: 1
+    minor: 0
     patch: 0
 content-state:
   label: Content State API
-  description: Generate a very specific link to a particular view of an object, like a specific area on a particulat page rotated at a certain angle.
+  description: Generate a very specific link to a particular view of an object, like a specific area on a particular page rotated at a certain angle.
   image: assets/images/icons/link-group@2x.webp
   alt_text: Content State API icon
-  draft:
-    major: 0
-    minor: 3
+  stable:
+    major: 1
+    minor: 0
     patch: 0
