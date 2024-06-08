@@ -381,7 +381,9 @@
     },
 
     "painting": "iiif_prezi:painting",
-    "supplementing": "iiif_prezi:supplementing"
+    "supplementing": "iiif_prezi:supplementing",
+    "contentState": "iiif_prezi:contentState",
+    "contextualizing": "iiif_prezi:contextualizing"
   }
 }
 
