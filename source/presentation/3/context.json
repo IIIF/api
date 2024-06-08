@@ -24,7 +24,7 @@
       "@id": "iiif_prezi:Collection",
       "@context": {
         "partOf": {
-          "@id": "dcterms:partOf",
+          "@id": "dcterms:isPartOf",
           "@type": "@id",
           "@container": "@set"
         }
@@ -34,7 +34,7 @@
       "@id": "iiif_prezi:Manifest",
       "@context": {
         "partOf": {
-          "@id": "dcterms:partOf",
+          "@id": "dcterms:isPartOf",
           "@type": "@id",
           "@container": "@set"
         }
@@ -44,7 +44,7 @@
       "@id": "iiif_prezi:Canvas",
       "@context": {
         "partOf": {
-          "@id": "dcterms:partOf",
+          "@id": "dcterms:isPartOf",
           "@type": "@id",
           "@container": "@set"
         }
@@ -54,7 +54,7 @@
       "@id": "iiif_prezi:Range",
       "@context": {
         "partOf": {
-          "@id": "dcterms:partOf",
+          "@id": "dcterms:isPartOf",
           "@type": "@id",
           "@container": "@set"
         }
@@ -67,7 +67,7 @@
         "http://www.w3.org/ns/anno.jsonld",
         {
           "partOf": {
-            "@id": "dcterms:partOf",
+            "@id": "dcterms:isPartOf",
             "@type": "@id",
             "@container": "@set"
           },
@@ -206,7 +206,6 @@
     "viewingDirection": {
       "@id": "iiif_prezi:viewingDirection",
       "@type": "@vocab",
-      "@container": "@set",
       "@context": {
 	    "left-to-right": "iiif_prezi:leftToRightDirection",
 	    "right-to-left": "iiif_prezi:rightToLeftDirection",
@@ -382,7 +381,9 @@
     },
 
     "painting": "iiif_prezi:painting",
-    "supplementing": "iiif_prezi:supplementing"
+    "supplementing": "iiif_prezi:supplementing",
+    "contentState": "iiif_prezi:contentState",
+    "contextualizing": "iiif_prezi:contextualizing"
   }
 }
 
