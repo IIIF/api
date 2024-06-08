@@ -206,7 +206,6 @@
     "viewingDirection": {
       "@id": "iiif_prezi:viewingDirection",
       "@type": "@vocab",
-      "@container": "@set",
       "@context": {
 	    "left-to-right": "iiif_prezi:leftToRightDirection",
 	    "right-to-left": "iiif_prezi:rightToLeftDirection",
