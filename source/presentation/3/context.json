@@ -24,7 +24,7 @@
       "@id": "iiif_prezi:Collection",
       "@context": {
         "partOf": {
-          "@id": "dcterms:partOf",
+          "@id": "dcterms:isPartOf",
           "@type": "@id",
           "@container": "@set"
         }
@@ -34,7 +34,7 @@
       "@id": "iiif_prezi:Manifest",
       "@context": {
         "partOf": {
-          "@id": "dcterms:partOf",
+          "@id": "dcterms:isPartOf",
           "@type": "@id",
           "@container": "@set"
         }
@@ -44,7 +44,7 @@
       "@id": "iiif_prezi:Canvas",
       "@context": {
         "partOf": {
-          "@id": "dcterms:partOf",
+          "@id": "dcterms:isPartOf",
           "@type": "@id",
           "@container": "@set"
         }
@@ -54,7 +54,7 @@
       "@id": "iiif_prezi:Range",
       "@context": {
         "partOf": {
-          "@id": "dcterms:partOf",
+          "@id": "dcterms:isPartOf",
           "@type": "@id",
           "@container": "@set"
         }
@@ -67,7 +67,7 @@
         "http://www.w3.org/ns/anno.jsonld",
         {
           "partOf": {
-            "@id": "dcterms:partOf",
+            "@id": "dcterms:isPartOf",
             "@type": "@id",
             "@container": "@set"
           },
