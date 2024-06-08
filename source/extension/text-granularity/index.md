@@ -28,6 +28,7 @@ A number of common workflows can result in annotation sets with discrete levels 
 - Manual transcription user interfaces may constrain user input to the level of the line,
 block, or page.
 - Transcriptions may be produced without coordinate data and thus have a very coarse level of granularity, such as page- or block-level.
+- In A/V content, the text granularity of subtitles follows standard subtitling guidelines in terms of reading speed, number of lines in each subtitle, line length (number of characters).
 
 Identification of the level of text granularity in published annotations can facilitate the use of their textual content and target regions in other applications.  A primary use case is search: clients can use word-level transcription annotations to provide a search function capable of accurate hit highlighting.  Other common use cases derive from crowdsourced text input, such as the correction of OCR transcription, which may require the user to work with a text at a specific level of granularity.
 
@@ -37,12 +38,13 @@ The `textGranularity` property identifies the Text Granularity Level of a resour
 
 | Text Granularity Level       |  Description   |
 |------------------------------|-----------------
-| `page`                       |  A page in a paginated document |
-| `block`                      |  An arbitrary region of text    |
-| `paragraph`                  |  A paragraph                    |
-| `line`                       |  A topographic line             |
-| `word`                       |  A single word                  |
-| `glyph`                      |  A single glyph or symbol       |
+| `page`                       |  A page in a paginated document  |
+| `block`                      |  An arbitrary region of text     |
+| `paragraph`                  |  A paragraph                     |
+| `line`                       |  A topographic line              |
+| `word`                       |  A single word                   |
+| `glyph`                      |  A single glyph or symbol        |
+| `timed-text`                 |  A synchronized fragment of text |
 {: .api-table #table-granularity-level-dfn}
 
 {% include api/code_header.html %}
@@ -152,6 +154,7 @@ Many thanks to the members of the [IIIF community][iiif-community] for their con
 | ---------- | --------------------- |
 | 2018-09-20 | Initial commit        |
 | 2019-11-03 | Minor pre-publication revisions      |
+| 2023-03-07 | Addition of the 'timed-text' granularity |
 {: .api-table #table-changelog}
 
 {% include acronyms.md %}
