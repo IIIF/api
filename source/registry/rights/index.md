@@ -44,7 +44,7 @@ Please send feedback to [iiif-discuss@googlegroups.com][iiif-discuss]
 
 ### 1.1. Disclaimer
 
-The inclusion of entries in this document that are outside of the IIIF domain _MUST NOT_ be interpreted as endorsement, support, or approval from the editors, the IIIF community or any individual. This annex is provided as a registry to advertise the existence of these extensions and attempt to ensure some consistency between implementations for common but not universal requirements.
+The inclusion of entries in this document that are outside of the IIIF domain _MUST NOT_ be interpreted as endorsement, support, or approval from the editors, the IIIF community or any individual. This document is provided as a registry to advertise the existence of these extensions and attempt to ensure some consistency between implementations for common but not universal requirements.
 
 ### 1.2. Inclusion Process
 
@@ -56,10 +56,10 @@ The process for having a new entry added to this registry is [described here][re
 
 This table summarizes the known rights statements and licenses available for use with the IIIF APIs.
 
-| Rights Statement / License URI   | 
-| ------------------------------ |
-| http://creativecommons.org/licenses/ |
-| http://rightsstatements.org/page/1.0/ |
+| Source  | URIs | Notes |
+| ------------------------------ | --------------------- | ------------------|
+| Creative Commons | `http://creativecommons.org/licenses/by-nc-sa/4.0/`<br>`http://creativecommons.org/licenses/by/4.0/`<br>For the full list of licenses, see [About CC Licenses](http://creativecommons.org/licenses/). | For usage, see the [Presentation 3.0 Rights][prezi30-rights] section |
+| Rights Statements | `http://rightsstatements.org/vocab/InC/1.0/`<br>`http://rightsstatements.org/vocab/InC-NC/1.0/`<br>For the full list of statements, see [Rights Statements](http://rightsstatements.org/page/1.0/). | For usage, see the [Presentation 3.0 Rights][prezi30-rights] section |
 {: .api-table}
 
 
@@ -73,7 +73,7 @@ Thanks to the members of the [IIIF][iiif-community] for their continuous engagem
 
 | Date       | Description                                        |
 | ---------- | -------------------------------------------------- |
-| 2023-07-15 | Add existing Creative Commons and RightsStatements to table.                           |
+| 2024-08-02 | Add existing Creative Commons and RightsStatements to table. |
 
 {% include acronyms.md %}
 {% include links.md %}
