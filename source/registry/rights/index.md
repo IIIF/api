@@ -13,15 +13,15 @@ editors:
 - name: Robert Sanderson
   ORCID: https://orcid.org/0000-0003-4441-6852
   institution: J. Paul Getty Trust
-- name: Simeon Warner
-  ORCID: https://orcid.org/0000-0002-7970-7855
-  institution: Cornell University
 - name: Dawn Childress
   ORCID: https://orcid.org/0000-0003-2602-2788
   institution: UCLA
 - name: Jeff Mixter
   ORCID: https://orcid.org/0000-0002-8411-2952
   institution: OCLC Research
+- name: Julie Winchester
+  ORCID: 
+  institution: MorphoSource, Duke University
 ---
 
 ## Status of this Document
