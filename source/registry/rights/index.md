@@ -20,7 +20,7 @@ editors:
   ORCID: https://orcid.org/0000-0002-8411-2952
   institution: OCLC Research
 - name: Julie Winchester
-  ORCID: 
+  ORCID: https://orcid.org/0000-0001-6578-764X
   institution: MorphoSource, Duke University
 ---
 
