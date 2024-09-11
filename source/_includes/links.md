@@ -266,7 +266,7 @@
 [prezi30-range]: {{ site.api_url | absolute_url }}/presentation/3.0/#54-range
 [prezi30-resource-properties]: {{ site.api_url | absolute_url }}/presentation/3.0/#3-resource-properties
 [prezi30-resource-structure]: {{ site.api_url | absolute_url }}/presentation/3.0/#5-resource-structure
-[prezi30-rights]: {{ site.api_urlurl | absolute_url }}/presentation/3.0/#rights
+[prezi30-rights]: {{ site.api_url | absolute_url }}/presentation/3.0/#rights
 [prezi30-seealso]: {{ site.api_url | absolute_url }}/presentation/3.0/#seealso "seeAlso property"
 [prezi30-terminology]: {{ site.api_url | absolute_url }}/presentation/3.0/#12-terminology
 [prezi30-type-overview]: {{ site.api_url | absolute_url }}/presentation/3.0/#2-resource-type-overview
