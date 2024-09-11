@@ -1,7 +1,7 @@
 ---
 title: Registry of Motivations
 layout: spec
-tags: [annex, service, services, specifications]
+tags: [registry, motivations, specifications]
 cssversion: 2
 editors:
 - name: Michael Appleby
