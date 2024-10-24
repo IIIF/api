@@ -1,5 +1,52 @@
 # Vocabulary?
 
+## Resource Classes
+
+* Collection
+* CollectionPage
+* Manifest
+* Containers
+    * Timeline
+    * Canvas
+    * Scene
+* Content Resources
+* Range
+* Cameras
+    * PerspectiveCamera
+    * OrthographicCamera
+* Lights
+    * AmbientLight
+    * DirectionalLight
+    * PointLight
+    * SpotLight
+* Transforms
+    * TranslateTransform
+    * RotateTransform
+    * ScaleTransform
+* Selectors
+    * PointSelector
+    * WktSelector (need both LineString Z and Polygon Z)
+    * AudioContentSelector
+    * VisualContentSelector
+    * AnimationSelector
+    * ImageApiSelector
+* Other Classes
+    * Agent
+    * Service
+    * Value (used for `intensity`)
+
+* Annotation Classes imported from WADM:
+    * Annotation
+    * AnnotationCollection
+    * AnnotationPage
+    * SpecificResource
+    * FragmentSelector
+    * SvgSelector
+    * CssStyle
+    * TextualBody
+    * Choice
+
+
 ## Resource Properties
 
 ### Descriptive Properties
@@ -14,10 +61,10 @@ The value of the property _MUST_ be a JSON object, as described in the [language
    Clients _MUST_ render `label` on a Collection.
  * A Manifest _MUST_ have the `label` property with at least one entry.<br/>
    Clients _MUST_ render `label` on a Manifest.
- * A Canvas _SHOULD_ have the `label` property with at least one entry.<br/>
-   Clients _MUST_ render `label` on a Canvas, and _SHOULD_ generate a `label` for Canvases that do not have them.
- * A content resource _MAY_ have the `label` property with at least one entry. If there is a Choice of content resource for the same Canvas, then they _SHOULD_ each have at least the `label` property with at least one entry.<br/>
-   Clients _MAY_ render `label` on content resources, and _SHOULD_ render them when part of a Choice.
+ * All Container types _SHOULD_ have the `label` property with at least one entry.<br/>
+   Clients _MUST_ render `label` on Container types, and _SHOULD_ generate a `label` for Containers that do not have them.
+ * All Content Resource types _MAY_ have the `label` property with at least one entry. If there is a Choice of Content Resource for the same Container, then they _SHOULD_ each have the `label` property with at least one entry.<br/>
+   Clients _MAY_ render `label` on Content Resources, and _SHOULD_ render them when part of a Choice.
  * A Range _SHOULD_ have the `label` property with at least one entry. <br/>
    Clients _MUST_ render `label` on a Range.
  * An Annotation Collection _SHOULD_ have the `label` property with at least one entry.<br/>
@@ -40,8 +87,8 @@ The value of the `metadata` property _MUST_ be an array of JSON objects, where e
    Clients _MUST_ render `metadata` on a Collection.
  * A Manifest _SHOULD_ have the `metadata` property with at least one item.<br/>
    Clients _MUST_ render `metadata` on a Manifest.
- * A Canvas _MAY_ have the `metadata` property with at least one item.<br/>
-   Clients _SHOULD_ render `metadata` on a Canvas.
+ * All Container types _MAY_ have the `metadata` property with at least one item.<br/>
+   Clients _SHOULD_ render `metadata` on Containers.
  * Other types of resource _MAY_ have the `metadata` property with at least one item.<br/>
    Clients _MAY_ render `metadata` on other types of resource.
 
@@ -69,8 +116,8 @@ The value of the property _MUST_ be a JSON object, as described in the [language
    Clients _SHOULD_ render `summary` on a Collection.
  * A Manifest _SHOULD_ have the `summary` property with at least one entry.<br/>
    Clients _SHOULD_ render `summary` on a Manifest.
- * A Canvas _MAY_ have the `summary` property with at least one entry.<br/>
-   Clients _SHOULD_ render `summary` on a Canvas.
+ * All Container types _MAY_ have the `summary` property with at least one entry.<br/>
+   Clients _SHOULD_ render `summary` on Containers.
  * Other types of resource _MAY_ have the `summary` property with at least one entry.<br/>
    Clients _MAY_ render `summary` on other types of resource.
 
@@ -125,7 +172,7 @@ An organization or person that contributed to providing the content of the resou
 The organization or person is represented as an `Agent` resource.
 
 * Agents _MUST_ have the `id` property, and its value _MUST_ be a string. The string _MUST_ be a URI that identifies the agent.
-* Agents _MUST_ have the `type` property, and its value _MUST_ be the string "Agent".
+* Agents _MUST_ have the `type` property, and its value _MUST_ be the string `Agent`.
 * Agents _MUST_ have the `label` property, and its value _MUST_ be a JSON object as described in the [languages][prezi30-languages] section.
 * Agents _SHOULD_ have the `homepage` property, and its value _MUST_ be an array of JSON objects as described in the [homepage][prezi30-homepage] section.
 * Agents _SHOULD_ have the `logo` property, and its value _MUST_ be an array of JSON objects as described in the [logo][prezi30-logo] section.
@@ -188,9 +235,9 @@ The value _MUST_ be an array of JSON objects, each of which _MUST_ have the `id`
    Clients _SHOULD_ render `thumbnail` on a Collection.
  * A Manifest _SHOULD_ have the `thumbnail` property with at least one item.<br/>
    Clients _SHOULD_ render `thumbnail` on a Manifest.
- * A Canvas _MAY_ have the `thumbnail` property with at least one item. A Canvas _SHOULD_ have the `thumbnail` property if there are multiple resources that make up the view.<br/>
-   Clients _SHOULD_ render `thumbnail` on a Canvas.
- * A content resource _MAY_ have the `thumbnail` property with at least one item. Content resources _SHOULD_ have the `thumbnail` property with at least one item if it is an option in a Choice of resources.<br/>
+ * All Container types _SHOULD_ have the `thumbnail` property with at least one item.<br/>
+   Clients _SHOULD_ render `thumbnail` on Containers.
+ * Content Resource types _MAY_ have the `thumbnail` property with at least one item. Content Resources _SHOULD_ have the `thumbnail` property with at least one item if it is an option in a Choice of resources.<br/>
    Clients _SHOULD_ render `thumbnail` on a content resource.
  * Other types of resource _MAY_ have the `thumbnail` property with at least one item.<br/>
    Clients _MAY_ render `thumbnail` on other types of resource.
@@ -222,8 +269,10 @@ The value _MUST_ be an [XSD dateTime literal][org-w3c-xsd-datetime]. The value _
    Clients _MAY_ render `navDate` on a Manifest.
  * A Range _MAY_ have the `navDate` property.<br/>
    Clients _MAY_ render `navDate` on a Range.
- * A Canvas _MAY_ have the `navDate` property.<br/>
-   Clients _MAY_ render `navDate` on a Canvas.
+ * All Container types _MAY_ have the `navDate` property.<br/>
+   Clients _MAY_ render `navDate` on Containers.
+* Annotations _MAY_ have the `navDate` property.
+   Clients _MAY_ render `navDate` on Annotations.   
  * Other types of resource _MUST NOT_ have the `navDate` property.<br/>
    Clients _SHOULD_ ignore `navDate` on other types of resource.
 
@@ -232,29 +281,77 @@ The value _MUST_ be an [XSD dateTime literal][org-w3c-xsd-datetime]. The value _
 { "navDate": "2010-01-01T00:00:00Z" }
 ```
 
-##### placeholderCanvas
+##### navPlace
 
-A single Canvas that provides additional content for use before the main content of the resource that has the `placeholderCanvas` property is rendered, or as an advertisement or stand-in for that content. Examples include images, text and sound standing in for video content before the user initiates playback; or a film poster to attract user attention. The content provided by `placeholderCanvas` differs from a thumbnail: a client might use `thumbnail` to summarize and navigate multiple resources, then show content from `placeholderCanvas` as part of the initial presentation of a single resource. A placeholder Canvas is likely to have different dimensions to those of the Canvas(es) of the resource that has the `placeholderCanvas` property.
+A geographic location that clients may use for navigation purposes when presenting the resource to the user in a map-based user interface.
 
-Clients _MAY_ display the content of a linked placeholder Canvas when presenting the resource. When more than one such Canvas is available, for example if `placeholderCanvas` is provided for the currently selected Range and the current Manifest, the client _SHOULD_ pick the one most specific to the content. Publishers _SHOULD NOT_ assume that the placeholder Canvas will be processed by all clients. Clients _SHOULD_ take care to avoid conflicts between time-based media in the rendered placeholder Canvas and the content of the resource that has the `placeholderCanvas` property.
+The value of the property _MUST_ be a [GeoJSON Feature Collection](link) containing one or more [Features](link).  The value _SHOULD_ be embedded and _MAY_ be a reference. Feature Collections referenced in the `navPlace` property _MUST_ have the `id` and `type` properties and _MUST NOT_ have the `features` property.
 
-The value _MUST_ be a JSON object with the `id` and `type` properties, and _MAY_ have other properties of Canvases. The value of `type` _MUST_ be the string `Canvas`. The object _MUST NOT_ have the `placeholderCanvas` property, nor the `accompanyingCanvas` property.
+*   A Collection _MAY_ have the `navPlace` property.<br/>
+   Clients _MAY_ render `navPlace` on a Collection.
+*   A Manifest _MAY_ have the `navPlace` property.<br/>
+   Clients _MAY_ render `navPlace` on a Manifest.
+*   A Range _MAY_ have the `navPlace` property.<br/>
+   Clients _MAY_ render `navPlace` on a Range.
+* All Container types _MAY_ have the `navPlace` property.<br/>
+   Clients _MAY_ render `navPlace` on Containers.
+* Annotations _MAY_ have the `navPlace` property.
+   Clients _MAY_ render `navPlace` on Annotations.   
+*   Other types of resource _MUST NOT_ have the `navPlace` property.<br/>
+   Clients _SHOULD_ ignore `navPlace` on other types of resource.
 
-  * A Collection _MAY_ have the `placeholderCanvas` property.<br/>
-    Clients _MAY_ render `placeholderCanvas` on a Collection.
-  * A Manifest _MAY_ have the `placeholderCanvas` property.<br/>
-    Clients _MAY_ render `placeholderCanvas` on a Manifest.
-  * A Canvas _MAY_ have the `placeholderCanvas` property.<br/>
-    Clients _MAY_ render `placeholderCanvas` on a Canvas.
-  * A Range _MAY_ have the `placeholderCanvas` property.<br/>
-    Clients _MAY_ render `placeholderCanvas` on a Range.
-  * Other types of resource _MUST NOT_ have the `placeholderCanvas` property.<br/>
-    Clients _SHOULD_ ignore `placeholderCanvas` on other types of resource.
+
+{% include api/code_header.html %}
+```json-doc
+{
+   "navPlace":{
+      "id": "http://example.com/feature-collection/1",
+      "type": "FeatureCollection",
+      "features":[
+         {
+            "id": "http://example.com/feature/1",
+            "type": "Feature",
+            "properties":{},
+            "geometry":{
+               "type": "Point",
+               "coordinates":[
+                  9.938,
+                  51.533
+               ]
+            }
+         }
+      ]
+   }
+}
+```
+
+
+
+
+
+##### placeholderContainer
+
+A single Container that provides additional content for use before the main content of the resource that has the `placeholderContainer` property is rendered, or as an advertisement or stand-in for that content. Examples include images, text and sound standing in for video content before the user initiates playback; or a film poster to attract user attention. The content provided by `placeholderContainer` differs from a thumbnail: a client might use `thumbnail` to summarize and navigate multiple resources, then show content from `placeholderContainer` as part of the initial presentation of a single resource. A placeholder Container is likely to have different dimensions to those of the Container(s) of the resource that has the `placeholderContainer` property. A placeholder Container may be of a different type from the resource that has the `placeholderContainer` property. For example, a `Scene` may have a placeholder Container of type `Canvas`.
+
+Clients _MAY_ display the content of a linked placeholder Container when presenting the resource. When more than one such Container is available, for example if `placeholderContainer` is provided for the currently selected Range and the current Manifest, the client _SHOULD_ pick the one most specific to the content. Publishers _SHOULD NOT_ assume that the placeholder Container will be processed by all clients. Clients _SHOULD_ take care to avoid conflicts between time-based media in the rendered placeholder Container and the content of the resource that has the `placeholderContainer` property.
+
+The value of `placeholderContainer` _MUST_ be a JSON object with the `id` and `type` properties.  The value of `type` _MUST_ be a Container type.  The JSON object _MAY_ have other properties valid for that Container type.
+
+  * A Collection _MAY_ have the `placeholderContainer` property.<br/>
+    Clients _MAY_ render `placeholderContainer` on a Collection.
+  * A Manifest _MAY_ have the `placeholderContainer` property.<br/>
+    Clients _MAY_ render `placeholderContainer` on a Manifest.
+  * All Container types _MAY_ have the `placeholderContainer` property.<br/>
+    Clients _MAY_ render `placeholderContainer` on Container types.
+  * A Range _MAY_ have the `placeholderContainer` property.<br/>
+    Clients _MAY_ render `placeholderContainer` on a Range.
+  * Other types of resource _MUST NOT_ have the `placeholderContainer` property.<br/>
+    Clients _SHOULD_ ignore `placeholderContainer` on other types of resource.
 
 {% include api/code_header.html %}
 ``` json-doc
 {
-  "placeholderCanvas": {
+  "placeholderContainer": {
     "id": "https://example.org/iiif/1/canvas/placeholder",
     "type": "Canvas",
     "height": 1400,
@@ -263,31 +360,31 @@ The value _MUST_ be a JSON object with the `id` and `type` properties, and _MAY_
 }
 ```
 
-##### accompanyingCanvas
+##### accompanyingContainer
 
-A single Canvas that provides additional content for use while rendering the resource that has the `accompanyingCanvas` property. Examples include an image to show while a duration-only Canvas is playing audio; or background audio to play while a user is navigating an image-only Manifest.
+A single Container that provides additional content for use while rendering the resource that has the `accompanyingContainer` property. Examples include an image to show while a duration-only Canvas is playing audio; or background audio to play while a user is navigating an image-only Manifest.
 
-Clients _MAY_ display the content of an accompanying Canvas when presenting the resource. As with `placeholderCanvas` above, when more than one accompanying Canvas is available, the client _SHOULD_ pick the one most specific to the content. Publishers _SHOULD NOT_ assume that the accompanying Canvas will be processed by all clients. Clients _SHOULD_ take care to avoid conflicts between time-based media in the accompanying Canvas and the content of the resource that has the `accompanyingCanvas` property.
+Clients _MAY_ display the content of an accompanying Container when presenting the resource. As with `placeholderContainer` above, when more than one accompanying Container is available, the client _SHOULD_ pick the one most specific to the content. Publishers _SHOULD NOT_ assume that the accompanying Container will be processed by all clients. Clients _SHOULD_ take care to avoid conflicts between time-based media in the accompanying Container and the content of the resource that has the `accompanyingContainer` property.
 
-The value _MUST_ be a JSON object with the `id` and `type` properties, and _MAY_ have other properties of Canvases. The value of `type` _MUST_ be the string `Canvas`. The object _MUST NOT_ have the `placeholderCanvas` property, nor the `accompanyingCanvas` property.
+The value of `accompanyingContainer` _MUST_ be a JSON object with the `id` and `type` properties.  The value of `type` _MUST_ be a Container type.  The JSON object _MAY_ have other properties valid for that Container type.
 
- * A Collection _MAY_ have the `accompanyingCanvas` property.<br/>
-   Clients _MAY_ render `accompanyingCanvas` on a Collection.
- * A Manifest _MAY_ have the `accompanyingCanvas` property.<br/>
-   Clients _MAY_ render `accompanyingCanvas` on a Manifest.
- * A Canvas _MAY_ have the `accompanyingCanvas` property.<br/>
-   Clients _MAY_ render `accompanyingCanvas` on a Canvas.
- * A Range _MAY_ have the `accompanyingCanvas` property.<br/>
-   Clients _MAY_ render `accompanyingCanvas` on a Range.
- * Other types of resource _MUST NOT_ have the `accompanyingCanvas` property.<br/>
-   Clients _SHOULD_ ignore `accompanyingCanvas` on other types of resource.
+ * A Collection _MAY_ have the `accompanyingContainer` property.<br/>
+   Clients _MAY_ render `accompanyingContainer` on a Collection.
+ * A Manifest _MAY_ have the `accompanyingContainer` property.<br/>
+   Clients _MAY_ render `accompanyingContainer` on a Manifest.
+ * All Container types _MAY_ have the `accompanyingContainer` property.<br/>
+   Clients _MAY_ render `accompanyingContainer` on Container types.
+ * A Range _MAY_ have the `accompanyingContainer` property.<br/>
+   Clients _MAY_ render `accompanyingContainer` on a Range.
+ * Other types of resource _MUST NOT_ have the `accompanyingContainer` property.<br/>
+   Clients _SHOULD_ ignore `accompanyingContainer` on other types of resource.
 
 {% include api/code_header.html %}
 ``` json-doc
 {
-  "accompanyingCanvas": {
-    "id": "https://example.org/iiif/1/canvas/accompany",
-    "type": "Canvas",
+  "accompanyingContainer": {
+    "id": "https://example.org/iiif/1/timeline/accompany",
+    "type": "Timeline",
     "duration": 180.0
   }
 }
@@ -329,6 +426,7 @@ The value _MUST_ be a string.
 | Class         | Description                      |
 | ------------- | -------------------------------- |
 | `Dataset`     | Data not intended to be rendered to humans directly |
+| `Abouty-Metadata`     | Machine-readable _thing_ such as a linked art metadata JSON doc or a MARC record. |
 | `Image`       | Two dimensional visual resources primarily intended to be seen, such as might be rendered with an &lt;img> HTML tag |
 | `Model`       | A three (or more) dimensional model intended to be interacted with by humans |
 | `Sound`       | Auditory resources primarily intended to be heard, such as might be rendered with an &lt;audio> HTML tag |
@@ -895,6 +993,12 @@ The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id` and
 }
 ```
 
+Common types of seeAlso:
+
+| `Dataset`     | Data not intended to be rendered to humans directly |
+| `Abouty-Metadata`     | Machine-readable _thing_ such as a linked art metadata JSON doc or a MARC record. |
+
+
 #### 3.3.2. Internal Links
 
 ##### partOf
@@ -910,6 +1014,9 @@ The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id` and
 ``` json-doc
 { "partOf": [ { "id": "https://example.org/iiif/1", "type": "Manifest" } ] }
 ```
+
+The resources referred to by the `accompanyingContainer` and `placeholderContainer` properties are `partOf` that referring Container.
+
 
 ##### start
 
