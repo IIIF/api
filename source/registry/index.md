@@ -18,6 +18,7 @@ The process for having an entry included in one of the IIIF extension registries
 * [Motivations][registry-motivations]
 * [Profiles][registry-profiles]
 * [Selectors][registry-selectors]
+* [Rights Statements and Licenses][registry-rights]
 * [Services][registry-services]
 * [TimeModes][registry-timeModes]
 * [Types][registry-types]

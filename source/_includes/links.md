@@ -268,6 +268,7 @@
 [prezi30-range]: {{ site.api_url | absolute_url }}/presentation/3.0/#54-range
 [prezi30-resource-properties]: {{ site.api_url | absolute_url }}/presentation/3.0/#3-resource-properties
 [prezi30-resource-structure]: {{ site.api_url | absolute_url }}/presentation/3.0/#5-resource-structure
+[prezi30-rights]: {{ site.api_url | absolute_url }}/presentation/3.0/#rights
 [prezi30-seealso]: {{ site.api_url | absolute_url }}/presentation/3.0/#seealso "seeAlso property"
 [prezi30-terminology]: {{ site.api_url | absolute_url }}/presentation/3.0/#12-terminology
 [prezi30-type-overview]: {{ site.api_url | absolute_url }}/presentation/3.0/#2-resource-type-overview
@@ -289,6 +290,7 @@
 [registry-timeModes]: {{ site.api_url | absolute_url }}/registry/timeModes/
 [registry-types]: {{ site.api_url | absolute_url }}/registry/types/
 [registry-viewingDirections]: {{ site.api_url | absolute_url }}/registry/viewingDirections/
+[registry-rights]: {{ site.api_url | absolute_url }}/registry/rights/
 [search-stable-version]: {{ site.api_url | absolute_url }}/search/{{ site.search_api.stable.major }}.{{ site.search_api.stable.minor }}/ "Latest Content Search API Stable Version"
 
 [search-api]: {{ site.api_url | absolute_url }}/search/{{ site.data.apis.search.latest.major }}.{{ site.data.apis.search.latest.minor }}/ "Content Search API"
