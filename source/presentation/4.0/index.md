@@ -5,27 +5,38 @@
 Manifests, Containers, Annotations oh my!
 Manifest as unit of distribution
 
-## Content Resources?
+## Content Resources
 
-There is stuff that we want to show
+There is stuff that we want to show - images, video, audio, 3D models etc
 
 ## Containers
 
+This is where we put content resources
 "painting"
+
+And we can also put other things:
 "supplementing"
 
+And we can nest them
 "Nesting" (see 3d draft)
 
+
 ### Timeline
+
+A Container that represents a bounded temporal range, without any spatial coordinates.
 
 * has continuous duration in seconds
 
 ### Canvas
 
+A Container that represents a bounded, two-dimensional space and has content resources associated with all or parts of it. It may also have a bounded temporal range in the same manner as a Timeline.
+
 * has integer, unitless width and height
 * has optional continuous duration in seconds
 
 ### Scene
+
+A Container that represents a boundless three-dimensional space and has content resources positioned at locations within it. Rendering a Scene requires the use of Cameras and Lights. It may also have a bounded temporal range in the same manner as a Timeline.
 
 * has continuous, unitless x,y,z cartesian coordinate space
 * has optional continuous duration in seconds
