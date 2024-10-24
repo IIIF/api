@@ -5,11 +5,21 @@
 Manifests, Containers, Annotations oh my!
 Manifest as unit of distribution
 
- - 
 
 ## Content Resources
 
 There is stuff that we want to show - images, video, audio, 3D models etc
+
+### type value of Content Resources
+
+| Class         | Description                      |
+| ------------- | -------------------------------- |
+| `Image`       | Two dimensional visual resources primarily intended to be seen, such as might be rendered with an &lt;img> HTML tag |
+| `Model`       | A three (or more) dimensional model intended to be interacted with by humans |
+| `Sound`       | Auditory resources primarily intended to be heard, such as might be rendered with an &lt;audio> HTML tag |
+| `Text`        | Resources primarily intended to be read |
+| `Video`       | Moving images, with or without accompanying audio, such as might be rendered with a &lt;video> HTML tag |
+{: .api-table #table-type}
 
 ## Containers
 
@@ -21,6 +31,8 @@ And we can also put other things:
 
 And we can nest them
 "Nesting" (see 3d draft)
+
+The defined Container types are `Timeline`, `Canvas` and `Scene`. Extensions may define additional Container types.
 
 As multiple models, lights, cameras, and other resources can be associated with and placed within a Scene container, Scenes provide a straightforward way of grouping content resources together within a space. Scenes, as well as other IIIF containers such as Canvases, can also be embedded within a Scene, allowing for the nesting of content resources. 
 
@@ -285,6 +297,12 @@ content state intended to:
  - modify the Container in a particular context (`scope`, storytelling)
  - contribute additional information permanently (rerum **inbox** - move to protocol doc)
 
+### reset
+
+"diff", "original state" etc
+
+behavior for "force-order"?
+behavior: sequence
 
 ## Selectors
 
