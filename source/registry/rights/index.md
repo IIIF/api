@@ -12,7 +12,7 @@ editors:
   institution: Digirati
 - name: Robert Sanderson
   ORCID: https://orcid.org/0000-0003-4441-6852
-  institution: J. Paul Getty Trust
+  institution: Yale University
 - name: Dawn Childress
   ORCID: https://orcid.org/0000-0003-2602-2788
   institution: UCLA
@@ -21,7 +21,7 @@ editors:
   institution: OCLC Research
 - name: Julie Winchester
   ORCID: https://orcid.org/0000-0001-6578-764X
-  institution: MorphoSource, Duke University
+  institution: Duke University
 ---
 
 ## Status of this Document
