@@ -326,9 +326,6 @@ The value of the property _MUST_ be a [GeoJSON Feature Collection](link) contain
 ```
 
 
-
-
-
 ##### placeholderContainer
 
 A single Container that provides additional content for use before the main content of the resource that has the `placeholderContainer` property is rendered, or as an advertisement or stand-in for that content. Examples include images, text and sound standing in for video content before the user initiates playback; or a film poster to attract user attention. The content provided by `placeholderContainer` differs from a thumbnail: a client might use `thumbnail` to summarize and navigate multiple resources, then show content from `placeholderContainer` as part of the initial presentation of a single resource. A placeholder Container is likely to have different dimensions to those of the Container(s) of the resource that has the `placeholderContainer` property. A placeholder Container may be of a different type from the resource that has the `placeholderContainer` property. For example, a `Scene` may have a placeholder Container of type `Canvas`.
@@ -342,7 +339,7 @@ The value of `placeholderContainer` _MUST_ be a JSON object with the `id` and `t
   * A Manifest _MAY_ have the `placeholderContainer` property.<br/>
     Clients _MAY_ render `placeholderContainer` on a Manifest.
   * All Container types _MAY_ have the `placeholderContainer` property.<br/>
-    Clients _MAY_ render `placeholderContainer` on Container types.
+    Clients _MAY_ render `placeholderContainer` on Containers.
   * A Range _MAY_ have the `placeholderContainer` property.<br/>
     Clients _MAY_ render `placeholderContainer` on a Range.
   * Other types of resource _MUST NOT_ have the `placeholderContainer` property.<br/>
@@ -373,7 +370,7 @@ The value of `accompanyingContainer` _MUST_ be a JSON object with the `id` and `
  * A Manifest _MAY_ have the `accompanyingContainer` property.<br/>
    Clients _MAY_ render `accompanyingContainer` on a Manifest.
  * All Container types _MAY_ have the `accompanyingContainer` property.<br/>
-   Clients _MAY_ render `accompanyingContainer` on Container types.
+   Clients _MAY_ render `accompanyingContainer` on Containers.
  * A Range _MAY_ have the `accompanyingContainer` property.<br/>
    Clients _MAY_ render `accompanyingContainer` on a Range.
  * Other types of resource _MUST NOT_ have the `accompanyingContainer` property.<br/>
@@ -425,10 +422,9 @@ The value _MUST_ be a string.
 
 | Class         | Description                      |
 | ------------- | -------------------------------- |
-| `Dataset`     | Data not intended to be rendered to humans directly |
-| `Abouty-Metadata`     | Machine-readable _thing_ such as a linked art metadata JSON doc or a MARC record. |
+| `Dataset`     | Data not intended to be rendered to humans directly, such as a CSV or RDF |
 | `Image`       | Two dimensional visual resources primarily intended to be seen, such as might be rendered with an &lt;img> HTML tag |
-| `Model`       | A three (or more) dimensional model intended to be interacted with by humans |
+| `Model`       | A three dimensional spatial model intended to be visualized, such as might be rendered with a 3d javascript library |
 | `Sound`       | Auditory resources primarily intended to be heard, such as might be rendered with an &lt;audio> HTML tag |
 | `Text`        | Resources primarily intended to be read |
 | `Video`       | Moving images, with or without accompanying audio, such as might be rendered with a &lt;video> HTML tag |
@@ -993,10 +989,10 @@ The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id` and
 }
 ```
 
-Common types of seeAlso:
 
-| `Dataset`     | Data not intended to be rendered to humans directly |
-| `Abouty-Metadata`     | Machine-readable _thing_ such as a linked art metadata JSON doc or a MARC record. |
+#### abouty-field-name-here
+
+Point to a `Dataset` with more semantics than just `seeAlso`
 
 
 #### 3.3.2. Internal Links
