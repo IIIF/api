@@ -1,3 +1,56 @@
+---
+title: "Presentation API 4.0 Properties"
+title_override: "IIIF Presentation API 4.0 Properties"
+id: presentation-api-properties
+layout: spec-properties
+cssversion: 3
+tags: [specifications, presentation-api]
+major: 4
+minor: 0
+patch: 0
+pre: 
+redirect_from:
+  - /presentation/properties.html
+  - /presentation/4/properties.html
+editors:
+  - name: Michael Appleby
+    ORCID: https://orcid.org/0000-0002-1266-298X
+    institution: Yale University
+  - name: Tom Crane
+    ORCID: https://orcid.org/0000-0003-1881-243X
+    institution: Digirati
+  - name: Robert Sanderson
+    ORCID: https://orcid.org/0000-0003-4441-6852
+    institution: J. Paul Getty Trust
+  - name: Dawn Childress
+    ORCID:
+    institution: UCLA
+  - name: Julie Winchester
+    ORCID: 
+    institution: Duke University
+  - name: Jeff Mixter
+    ORCID: 
+    institution: OCLC
+hero:
+  image: ''
+---
+
+## Status of this Document
+{:.no_toc}
+__This Version:__ {{ page.major }}.{{ page.minor }}.{{ page.patch }}{% if page.pre != 'final' %}-{{ page.pre }}{% endif %}
+
+__Latest Stable Version:__ [{{ site.data.apis.presentation.latest.major }}.{{ site.data.apis.presentation.latest.minor }}.{{ site.data.apis.presentation.latest.patch }}][prezi-stable-version]
+
+__Previous Version:__ [3.0][prezi30]
+
+**Editors:**
+
+{% include api/editors.md editors=page.editors %}
+
+{% include copyright.md %}
+
+----
+
 # Vocabulary?
 
 ## Resource Classes
