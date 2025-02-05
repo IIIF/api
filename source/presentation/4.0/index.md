@@ -1,5 +1,5 @@
 ---
-title: "Presentation API 4.0 - DRAFT"
+title: "Presentation API 4.0"
 title_override: "IIIF Presentation API 4.0"
 id: presentation-api
 layout: spec
@@ -8,7 +8,7 @@ tags: [specifications, presentation-api]
 major: 4
 minor: 0
 patch: 0
-pre: final
+pre: 
 redirect_from:
   - /presentation/index.html
   - /presentation/4/index.html
@@ -41,7 +41,7 @@ __This Version:__ {{ page.major }}.{{ page.minor }}.{{ page.patch }}{% if page.p
 
 __Latest Stable Version:__ [{{ site.data.apis.presentation.latest.major }}.{{ site.data.apis.presentation.latest.minor }}.{{ site.data.apis.presentation.latest.patch }}][prezi-stable-version]
 
-__Previous Version:__ [3.0][prezi3]
+__Previous Version:__ [3.0][prezi30]
 
 **Editors:**
 
