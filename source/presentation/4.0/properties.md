@@ -106,9 +106,9 @@ __Previous Version:__ [3.0][prezi30]
 
 ##### label
 
-A human readable label, name or title. The `label` property is intended to be displayed as a short, textual surrogate for the resource if a human needs to make a distinction between it and similar resources, for example between objects, pages, or options for a choice of images to display. The `label` property can be fully internationalized, and each language can have multiple values.  This pattern is described in more detail in the [languages][prezi30-languages] section.
+A human readable label, name or title. The `label` property is intended to be displayed as a short, textual surrogate for the resource if a human needs to make a distinction between it and similar resources, for example between objects, pages, or options for a choice of images to display. The `label` property can be fully internationalized, and each language can have multiple values.  This pattern is described in more detail in the [languages][prezi40-languages] section.
 
-The value of the property _MUST_ be a JSON object, as described in the [languages][prezi30-languages] section.
+The value of the property _MUST_ be a JSON object, as described in the [languages][prezi40-languages] section.
 
  * A Collection _MUST_ have the `label` property with at least one entry.<br/>
    Clients _MUST_ render `label` on a Collection.
@@ -134,7 +134,7 @@ The value of the property _MUST_ be a JSON object, as described in the [language
 
 An ordered list of descriptions to be displayed to the user when they interact with the resource, given as pairs of human readable `label` and `value` entries. The content of these entries is intended for presentation only; descriptive semantics _SHOULD NOT_ be inferred. An entry might be used to convey information about the creation of the object, a physical description, ownership information, or other purposes.
 
-The value of the `metadata` property _MUST_ be an array of JSON objects, where each item in the array has both `label` and `value` properties. The values of both `label` and `value` _MUST_ be JSON objects, as described in the [languages][prezi30-languages] section.
+The value of the `metadata` property _MUST_ be an array of JSON objects, where each item in the array has both `label` and `value` properties. The values of both `label` and `value` _MUST_ be JSON objects, as described in the [languages][prezi40-languages] section.
 
  * A Collection _SHOULD_ have the `metadata` property with at least one item. <br/>
    Clients _MUST_ render `metadata` on a Collection.
@@ -163,7 +163,7 @@ Clients _SHOULD_ display the entries in the order provided. Clients _SHOULD_ exp
 
 A short textual summary intended to be conveyed to the user when the `metadata` entries for the resource are not being displayed. This could be used as a brief description for item level search results, for small-screen environments, or as an alternative user interface when the `metadata` property is not currently being rendered. The `summary` property follows the same pattern as the `label` property described above.
 
-The value of the property _MUST_ be a JSON object, as described in the [languages][prezi30-languages] section.
+The value of the property _MUST_ be a JSON object, as described in the [languages][prezi40-languages] section.
 
  * A Collection _SHOULD_ have the `summary` property with at least one entry.<br/>
    Clients _SHOULD_ render `summary` on a Collection.
@@ -183,7 +183,7 @@ The value of the property _MUST_ be a JSON object, as described in the [language
 
 Text that _MUST_ be displayed when the resource is displayed or used. For example, the `requiredStatement` property could be used to present copyright or ownership statements, an acknowledgement of the owning and/or publishing institution, or any other text that the publishing organization deems critical to display to the user. Given the wide variation of potential client user interfaces, it will not always be possible to display this statement to the user in the client's initial state. If initially hidden, clients _MUST_ make the method of revealing it as obvious as possible.
 
-The value of the property _MUST_ be a JSON object, that has the `label` and `value` properties, in the same way as a `metadata` property entry. The values of both `label` and `value` _MUST_ be JSON objects, as described in the [languages][prezi30-languages] section.
+The value of the property _MUST_ be a JSON object, that has the `label` and `value` properties, in the same way as a `metadata` property entry. The values of both `label` and `value` _MUST_ be JSON objects, as described in the [languages][prezi40-languages] section.
 
  * Any resource type _MAY_ have the `requiredStatement` property.<br/>
    Clients _MUST_ render `requiredStatement` on every resource type.
@@ -200,7 +200,9 @@ The value of the property _MUST_ be a JSON object, that has the `label` and `val
 
 ##### rights
 
-A string that identifies a license or rights statement that applies to the content of the resource, such as the JSON of a Manifest or the pixels of an image. The value _MUST_ be drawn from the set of [Creative Commons][org-cc-licenses] license URIs, the [RightsStatements.org][org-rs-terms] rights statement URIs, or those added via the [extension][prezi30-ldce] mechanism. The inclusion of this property is informative, and for example could be used to display an icon representing the rights assertions.
+A string that identifies a license or rights statement that applies to the content of the resource, such as the JSON of a Manifest or the pixels of an image. The value _MUST_ be drawn from the set of [Creative Commons][org-cc-licenses] license URIs, the [RightsStatements.org][org-rs-terms] rights statement URIs, or those added via the [extension][prezi40-ldce] mechanism. The inclusion of this property is informative, and for example could be used to display an icon representing the rights assertions.
+
+!!! registration not extension
 
 If displaying rights information directly to the user is the desired interaction, or a publisher-defined label is needed, then it is _RECOMMENDED_ to include the information using the `requiredStatement` property or in the `metadata` property.
 
@@ -336,7 +338,7 @@ The value _MUST_ be an [XSD dateTime literal][org-w3c-xsd-datetime]. The value _
 
 ##### navPlace
 
-A geographic location that clients may use for navigation purposes when presenting the resource to the user in a map-based user interface.
+A geographic location that clients may use for navigation purposes when presenting the resource to the user in a map-based user interface. The location is identified using structured data, described below, with latitude and longitude based points or polygons. If the location is only textual, then the information should instead be included in the `metadata` property.
 
 The value of the property _MUST_ be a [GeoJSON Feature Collection](link) containing one or more [Features](link).  The value _SHOULD_ be embedded and _MAY_ be a reference. Feature Collections referenced in the `navPlace` property _MUST_ have the `id` and `type` properties and _MUST NOT_ have the `features` property.
 
@@ -358,14 +360,14 @@ The value of the property _MUST_ be a [GeoJSON Feature Collection](link) contain
 ```json-doc
 {
    "navPlace":{
-      "id": "http://example.com/feature-collection/1",
+      "id": "https://example.com/feature-collection/1",
       "type": "FeatureCollection",
       "features":[
          {
-            "id": "http://example.com/feature/1",
+            "id": "https://example.com/feature/1",
             "type": "Feature",
-            "properties":{},
             "geometry":{
+               "id": "https://example.com/geometry/1",
                "type": "Point",
                "coordinates":[
                   9.938,
@@ -544,7 +546,7 @@ The height of the Canvas or external content resource. For content resources, th
 
 The value _MUST_ be a positive integer.
 
- * A Canvas _MAY_ have the `height` property. If it has a `height`, it _MUST_ also have a `width`.<br/>
+ * A Canvas _MUST_ have the `height` property.<br/>
    Clients _MUST_ process `height` on a Canvas.
  * Content resources _SHOULD_ have the `height` property, with the value given in pixels, if appropriate to the resource type.<br/>
    Clients _SHOULD_ process `height` on content resources.
@@ -562,7 +564,7 @@ The width of the Canvas or external content resource. For content resources, the
 
 The value _MUST_ be a positive integer.
 
- * A Canvas _MAY_ have the `width` property. If it has a `width`, it _MUST_ also have a `height`.<br/>
+ * A Canvas _MUST_ have the `width` property.<br/>
    Clients _MUST_ process `width` on a Canvas.
  * Content resources _SHOULD_ have the `width` property, with the value given in pixels, if appropriate to the resource type.<br/>
    Clients _SHOULD_ process `width` on content resources.
@@ -576,12 +578,14 @@ The value _MUST_ be a positive integer.
 
 ##### duration
 
-The duration of the Canvas or external content resource, given in seconds.
+The duration of a container or external content resource, given in seconds.
 
 The value _MUST_ be a positive floating point number.
 
- * A Canvas _MAY_ have the `duration` property.<br/>
-   Clients _MUST_ process `duration` on a Canvas.
+ * A Timeline _MUST_ have the `duration` property.<br/>
+   Clients _MUST_ process `duration` on a Timeline.
+ * A Canvas or Scene _MAY_ have the `duration` property.<br/>
+   Clients _MUST_ process `duration` on a Canvas or Scene, if present.
  * Content resources _SHOULD_ have the `duration` property, if appropriate to the resource type.<br/>
    Clients _SHOULD_ process `duration` on content resources.
  * Other types of resource _MUST NOT_ have a `duration`.<br/>
@@ -594,7 +598,9 @@ The value _MUST_ be a positive floating point number.
 
 ##### viewingDirection
 
-The direction in which a set of Canvases _SHOULD_ be displayed to the user. This specification defines four direction values in the table below. Others may be defined externally [as an extension][prezi30-ldce].
+The direction in which a list of Containers _SHOULD_ be displayed to the user. This specification defines four direction values in the table below. Others may be defined externally [as an extension][prezi30-ldce]. For example,
+if the `viewingDirection` value is `left-to-right`, then backwards in the list is to the left, and forwards in the
+list is to the right.
 
 The value _MUST_ be a string.
 
@@ -627,16 +633,12 @@ A set of user experience features that the publisher of the content would prefer
 In order to determine the behaviors that are governing a particular resource, there are four inheritance rules from resources that reference the current resource:
 * Collections inherit behaviors from their referencing Collection.
 * Manifests **DO NOT** inherit behaviors from any referencing Collections.
-* Canvases inherit behaviors from their referencing Manifest, but **DO NOT** inherit behaviors from any referencing Ranges, as there might be several with different behaviors.
+* Containers inherit behaviors from their referencing Manifest, but **DO NOT** inherit behaviors from any referencing Ranges, as there might be several with different behaviors.
 * Ranges inherit behaviors from any referencing Range and referencing Manifest.
 
-Clients should interpret behaviors on a Range only when that Range is selected or is in some other way the context for the user's current interaction with the resources. A Range with the `behavior` value `continuous`, in a Manifest with the `behavior` value `paged`, would mean that the Manifest's Canvases should be rendered in a paged fashion, unless the range is selected to be viewed, and its included Canvases would be rendered in that context only as being virtually stitched together. This might occur, for example, when a physical scroll is cut into pages and bound into a codex with other pages, and the publisher would like to provide the user the experience of the scroll in its original form.
+Clients should interpret behaviors on a Range only when that Range is selected or is in some other way the context for the user's current interaction with the resources. A Range with the `behavior` value `continuous`, in a Manifest with the `behavior` value `paged`, would mean that the Manifest's Containers should be rendered in a paged fashion, unless the range is selected to be viewed, and its included Containers would be rendered in that context only as being virtually stitched together. This might occur, for example, when a physical scroll is cut into pages and bound into a codex with other pages, and the publisher would like to provide the user the experience of the scroll in its original form.
 
 The descriptions of the behavior values have a set of which other values they are disjoint with, meaning that the same resource _MUST NOT_ have both of two or more from that set. In order to determine which is in effect, the client _SHOULD_ follow the inheritance rules above, taking the value from the closest resource. The user interface effects of the possible permutations of non-disjoint behavior values are client dependent, and implementers are advised to look for relevant recipes in the [IIIF cookbook][annex-cookbook].
-
-__Future Clarification Anticipated__<br/>
-Further clarifications about the implications of interactions between behavior values should be expected in subsequent minor releases.
-{: .warning}
 
 The value _MUST_ be an array of strings.
 
@@ -646,13 +648,13 @@ The value _MUST_ be an array of strings.
 | Value | Description |
 | ----- | ----------- |
 || **Temporal Behaviors** |
-| `auto-advance`{: style="white-space:nowrap;"} | Valid on Collections, Manifests, Canvases, and Ranges that include or are Canvases with at least the `duration` dimension. When the client reaches the end of a Canvas, or segment thereof as specified in a Range, with a duration dimension that has this behavior, it _SHOULD_ immediately proceed to the next Canvas or segment and render it. If there is no subsequent Canvas in the current context, then this behavior should be ignored. When applied to a Collection, the client should treat the first Canvas of the next Manifest as following the last Canvas of the previous Manifest, respecting any `start` property specified. Disjoint with `no-auto-advance`. |
-| `no-auto-advance`{: style="white-space:nowrap;"} | Valid on Collections, Manifests, Canvases, and Ranges that include or are Canvases with at least the `duration` dimension. When the client reaches the end of a Canvas or segment with a duration dimension that has this behavior, it _MUST NOT_ proceed to the next Canvas, if any. This is a default temporal behavior if not specified. Disjoint with `auto-advance`.|
-| `repeat` | Valid on Collections and Manifests, that include Canvases that have at least the `duration` dimension. When the client reaches the end of the duration of the final Canvas in the resource, and the `behavior` value `auto-advance`{: style="white-space:nowrap;"} is also in effect, then the client _SHOULD_ return to the first Canvas, or segment of Canvas, in the resource that has the `behavior` value `repeat` and start playing again. If the `behavior` value `auto-advance` is not in effect, then the client _SHOULD_ render a navigation control for the user to manually return to the first Canvas or segment. Disjoint with `no-repeat`.|
-| `no-repeat` | Valid on Collections and Manifests, that include Canvases that have at least the `duration` dimension. When the client reaches the end of the duration of the final Canvas in the resource, the client _MUST NOT_ return to the first Canvas, or segment of Canvas. This is a default temporal behavior if not specified. Disjoint with `repeat`.|
+| `auto-advance`{: style="white-space:nowrap;"} | Valid on Collections, Manifests, Containers, and Ranges that include or are Containers with at least the `duration` dimension. When the client reaches the end of a Canvas, or segment thereof as specified in a Range, with a duration dimension that has this behavior, it _SHOULD_ immediately proceed to the next Container or segment and render it. If there is no subsequent Container in the current context, then this behavior should be ignored. When applied to a Collection, the client should treat the first Container of the next Manifest as following the last Container of the previous Manifest, respecting any `start` property specified. Disjoint with `no-auto-advance`. |
+| `no-auto-advance`{: style="white-space:nowrap;"} | Valid on Collections, Manifests, Containers, and Ranges that include or are Containers with at least the `duration` dimension. When the client reaches the end of a Container or segment with a duration dimension that has this behavior, it _MUST NOT_ proceed to the next Container, if any. This is a default temporal behavior if not specified. Disjoint with `auto-advance`.|
+| `repeat` | Valid on Collections and Manifests, that include Containers that have at least the `duration` dimension. When the client reaches the end of the duration of the final Container in the resource, and the `behavior` value `auto-advance`{: style="white-space:nowrap;"} is also in effect, then the client _SHOULD_ return to the first Container, or segment of a Container, in the resource that has the `behavior` value `repeat` and start playing again. If the `behavior` value `auto-advance` is not in effect, then the client _SHOULD_ render a navigation control for the user to manually return to the first Container or segment. Disjoint with `no-repeat`.|
+| `no-repeat` | Valid on Collections and Manifests, that include Containers that have at least the `duration` dimension. When the client reaches the end of the duration of the final Container in the resource, the client _MUST NOT_ return to the first Container, or segment of Container. This is a default temporal behavior if not specified. Disjoint with `repeat`.|
 | | **Layout Behaviors** |
 | `unordered` | Valid on Collections, Manifests and Ranges. The resources included in resources that have this behavior have no inherent order, and user interfaces _SHOULD_ avoid implying an order to the user. Disjoint with `individuals`, `continuous`, and `paged`.|
-| `individuals` | Valid on Collections, Manifests, and Ranges. For Collections that have this behavior, each of the included Manifests are distinct objects in the given order. For Manifests and Ranges, the included Canvases are distinct views, and _SHOULD NOT_ be presented in a page-turning interface. This is the default layout behavior if not specified. Disjoint with `unordered`, `continuous`, and `paged`. |
+| `individuals` | Valid on Collections, Manifests, and Ranges. For Collections that have this behavior, each of the included Manifests are distinct objects in the given order. For Manifests and Ranges, the included Containers are distinct views, and _SHOULD NOT_ be presented in a page-turning interface. This is the default layout behavior if not specified. Disjoint with `unordered`, `continuous`, and `paged`. |
 | `continuous` | Valid on Collections, Manifests and Ranges, which include Canvases. Canvases included in resources that have this behavior are partial views and an appropriate rendering might display all of the Canvases virtually stitched together, such as a long scroll split into sections. This behavior has no implication for audio resources. The `viewingDirection` of the Manifest will determine the appropriate arrangement of the Canvases. Disjoint with `unordered`, `individuals` and `paged`. |
 | `paged` | Valid on Collections, Manifests and Ranges, which include Canvases. Canvases included in resources that have this behavior represent views that _SHOULD_ be presented in a page-turning interface if one is available. The first canvas is a single view (the first recto) and thus the second canvas likely represents the back of the object in the first canvas. If this is not the case, see the `behavior` value `non-paged`. Disjoint with `unordered`, `individuals`, and `continuous`. |
 | `facing-pages`{: style="white-space:nowrap;"} | Valid only on Canvases. Canvases that have this behavior, in a Manifest that has the `behavior` value `paged`, _MUST_ be displayed by themselves, as they depict both parts of the opening. If all of the Canvases are like this, then page turning is not possible, so simply use `individuals` instead. Disjoint with `non-paged`.|
@@ -661,11 +663,11 @@ The value _MUST_ be an array of strings.
 | `multi-part` | Valid only on Collections. Collections that have this behavior consist of multiple Manifests or Collections which together form part of a logical whole or a contiguous set, such as multi-volume books or a set of journal issues. Clients might render these Collections as a table of contents rather than with thumbnails, or provide viewing interfaces that can easily advance from one member to the next. Disjoint with `together`.|
 | `together` | Valid only on Collections. A client _SHOULD_ present all of the child Manifests to the user at once in a separate viewing area with its own controls. Clients _SHOULD_ catch attempts to create too many viewing areas. This behavior _SHOULD NOT_ be interpreted as applying to the members of any child resources. Disjoint with `multi-part`.|
 | | **Range Behaviors** |
-| `sequence` | Valid only on Ranges, where the Range is [referenced][prezi30-terminology] in the `structures` property of a Manifest. Ranges that have this behavior represent different orderings of the Canvases listed in the `items` property of the Manifest, and user interfaces that interact with this order _SHOULD_ use the order within the selected Range, rather than the default order of `items`. Disjoint with `thumbnail-nav` and `no-nav`.|
+| `sequence` | Valid only on Ranges, where the Range is [referenced][prezi30-terminology] in the `structures` property of a Manifest. Ranges that have this behavior represent different orderings of the Containers listed in the `items` property of the Manifest, and user interfaces that interact with this order _SHOULD_ use the order within the selected Range, rather than the default order of `items`. Disjoint with `thumbnail-nav` and `no-nav`.|
 | `thumbnail-nav`{: style="white-space:nowrap;"} | Valid only on Ranges. Ranges that have this behavior _MAY_ be used by the client to present an alternative navigation or overview based on thumbnails, such as regular keyframes along a timeline for a video, or sections of a long scroll. Clients _SHOULD NOT_ use them to generate a conventional table of contents. Child Ranges of a Range with this behavior _MUST_ have a suitable `thumbnail` property. Disjoint with `sequence` and `no-nav`.|
 | `no-nav` | Valid only on Ranges. Ranges that have this behavior _MUST NOT_ be displayed to the user in a navigation hierarchy. This allows for Ranges to be present that capture unnamed regions with no interesting content, such as the set of blank pages at the beginning of a book, or dead air between parts of a performance, that are still part of the Manifest but do not need to be navigated to directly. Disjoint with `sequence` and `thumbnail-nav`.|
 | | **Miscellaneous Behaviors** |
-| `hidden` | Valid on Annotation Collections, Annotation Pages, Annotations, Specific Resources and Choices. If this behavior is provided, then the client _SHOULD NOT_ render the resource by default, but allow the user to turn it on and off. This behavior does not inherit, as it is not valid on Collections, Manifests, Ranges or Canvases. |
+| `hidden` | Valid on Annotation Collections, Annotation Pages, Annotations, Specific Resources, Lights, Cameras and Choices. If this behavior is provided, then the client _SHOULD NOT_ render the resource by default, but allow the user to turn it on and off. This behavior does not inherit, as it is not valid on Collections, Manifests, Ranges or Canvases. |
 {: .api-table #table-behavior}
 
 {% include api/code_header.html %}
@@ -708,6 +710,8 @@ Note that the majority of the values have been selected from [accessibility feat
 { "provides": [ "closedCaption" ] }
 ```
 
+!!! warning "This breaks the graph as the file doesn't provide X in all contexts"
+
 
 ##### timeMode
 
@@ -732,7 +736,7 @@ The value _MUST_ be a string.
 
 #### backgroundColor
 
-This property sets the background color behind any painted resources on a spatial resource, such as a Canvas or Scene.
+This property sets the background color behind any painted resources on a spatial Container, such as a Canvas or Scene.
 
 The value _MUST_ be string, which defines an RGB color. It SHOULD be a hex value starting with "#" and is treated in a case-insensitive fashion. If this property is not specified, then the default value is client-dependent.
 
@@ -742,60 +746,86 @@ The value _MUST_ be string, which defines an RGB color. It SHOULD be a hex value
    Clients _SHOULD_ render `backgroundColor` on any resource type.
  * Other resources _MUST NOT_ have the `backgroundColor` property.
 
-```json
-"backgroundColor": "#FFFFFF"
+```json-doc
+{ "backgroundColor": "#FFFFFF" }
 ```
 
-<div style="background: #A0F0A0; padding: 10px; padding-left: 30px; margin-bottom: 10px">
-❓Can you set bgColor on a transparent image? An area? Conflict with `style` on a SpecificResource?
-</div>
+##### position
 
+It is important to be able to position the (textual) body of an annotation within the Container's space that the annotation also targets. For example, a description of part of an image in a Canvas should be positioned such that it does not obscure the image region itself and labels to be displayed as part of a Scene should not be rendered such that the text is hidden by the three dimensional geometry of the model. If this property is not supplied, then the client should do its best to ensure the content is visible to the user.
+
+The value of this property _MUST_ be a JSON object conforming to the `SpecificResource` pattern of the Web Annotation Model. The Specific Resource _MUST_ have a `source` property that refers to a Container, and a `selector` that describes a point or region within the Container.
+
+* A TextualBody _MAY_ have the `position` property.<br/>
+  Clients _SHOULD_ process the `position` property on TextualBody instances.
+* Other classes _MUST NOT_ have the `position` property.<br/>
+  Clients _MUST_ ignore the `position` property on all other classes.
+
+```json-doc
+{ "position": {
+    "type": "SpecificResource",
+      "source": [{
+        "id": "https://example.org/iiif/scene1",
+        "type": "Scene"
+        }],
+      "selector": [{
+        "type": "PointSelector",
+        "x": 1.0,
+        "y": 19.2,
+        "z": 2.7
+      }]
+    }
+}
+
+```
 
 
 ##### near
 
 This property gives the distance from the camera from which objects are visible. Objects closer to the camera than the `near` distance cannot be seen.
 
-The value is a non-negative floating point number. If this property is not specified, then the default value is client-dependent.
+The value is a non-negative floating point number, in the coordinate space of the Scene in which the Camera is positioned. The value _MUST_ be less than the value for `far` for the same Camera. If this property is not specified, then the default value is client-dependent.
 
 * A Camera _MAY_ have the `near` property<br/>
   Clients _SHOULD_ process the `near` property on Cameras.
 
-```json
-"near": 1.5
+```json-doc
+{ "near": 1.5 }
 ```
 
 ##### far
 
 This property gives the distance from the camera after which objects are no longer visible. Objects further from the camera than the `far` distance cannot be seen.
 
-The value is a non-negative floating point number, and _MUST_ be greater than the value for `near` on the same camera. If this property is not specified, then the default value is client-dependent.
+The value is a non-negative floating point number, in the coordinate space of the Scene in which the Camera is positioned. The value _MUST_ be greater than the value for `near` of the same Camera. If this property is not specified, then the default value is client-dependent.
 
 * A Camera _MAY_ have the `far` property<br/>
   Clients _SHOULD_ process the `far` property on Cameras.
 
-```json
-"far": 200.0
+```json-doc
+{ "far": 200.0 }
 ```
 
 ##### fieldOfView
 
-_Summary here_
+The angle which a PerspectiveCamera can "see".
 
-The value _MUST_ be a floating point number greater than 0 and less than 180. If this property is not specified, then the default value is client-dependent.
+!!! warning "Need more info"
+
+The value _MUST_ be a floating point number greater than 0 and less than 180, and is measured in degrees. If this property is not specified, then the default value is client-dependent.
 
 * A PerspectiveCamera _SHOULD_ have the `fieldOfView` property.<br/>
   Clients _SHOULD_ process the `fieldOfView` property on Cameras.
 
-```json
-  "fieldOfView": 50.0
+```json-doc
+{ "fieldOfView": 50.0 }
 ```
 
 ##### angle
 
-_Summary here_
+!!! warning "Need more info"
 
-The value _MUST_ be a floating point number greater than 0 and less than 90. If this property is not specified, then the default value is client-dependent.
+The value _MUST_ be a floating point number greater than 0 and less than 90, and is measure in degrees. If this property is not specified, then the default value is client-dependent.
 
 * A SpotLight _SHOULD_ have the `angle` property.<br/>
   Clients _SHOULD_ process the `angle` property on SpotLights.
@@ -808,7 +838,11 @@ The value _MUST_ be a floating point number greater than 0 and less than 90. If 
 
 _Summary here_
 
-The value _MUST_ be a JSON object, conforming to either a reference to an Annotation with an `id` and a `type` of "Anntoation", or a PointSelector. If this property is not specified, then the default value is null -- the camera or light is not looking at anything.
+The value _MUST_ be a JSON object, conforming to either a reference to an Annotation, or an embedded PointSelector. If this property is not specified, then the default value for cameras is to look straight backwards (-Z) and for lights to point straight down (-Y).
+
+* A Camera _MAY_ have the `lookAt` property.<br/>
+  Clients _SHOULD_ process the `lookAt` property on Cameras.
+* A SpotLight or a DirectionalLight _SHOULD_ have the `lookAt` property.<br/>
 
 ```json
 "lookAt": {
@@ -850,7 +884,7 @@ This specification defines the unit value of "relative" which constrains the val
 }
 ```
 
-##### Exclude
+##### exclude
 
 _Summary here_
 
@@ -866,6 +900,9 @@ _On Annotation, a list of strings drawn from table_
 ```json
 "exclude": [ "Audio", "Lights", "Cameras", "Animations" ]
 ```
+
+
+
 
 
 ##### transform
