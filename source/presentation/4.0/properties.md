@@ -340,7 +340,7 @@ The value _MUST_ be an [XSD dateTime literal][org-w3c-xsd-datetime]. The value _
 
 A geographic location that clients may use for navigation purposes when presenting the resource to the user in a map-based user interface. The location is identified using structured data, described below, with latitude and longitude based points or polygons. If the location is only textual, then the information should instead be included in the `metadata` property.
 
-The value of the property _MUST_ be a [GeoJSON Feature Collection](link) containing one or more [Features](link).  The value _SHOULD_ be embedded and _MAY_ be a reference. Feature Collections referenced in the `navPlace` property _MUST_ have the `id` and `type` properties and _MUST NOT_ have the `features` property.
+The value of the property _MUST_ be a [GeoJSON Feature Collection] [link] containing one or more [Features] [link].  The value _SHOULD_ be embedded and _MAY_ be a reference. Feature Collections referenced in the `navPlace` property _MUST_ have the `id` and `type` properties and _MUST NOT_ have the `features` property.
 
 *   A Collection _MAY_ have the `navPlace` property.<br/>
    Clients _MAY_ render `navPlace` on a Collection.
