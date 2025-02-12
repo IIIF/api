@@ -296,6 +296,18 @@ Example Annotation that positions a model at a point within a Scene:
 }
 ```
 
+Annotations may alternately use a type of Selector called a `WktSelector` to align the Annotation to a region with the Scene that is not the Scene's origin. WktSelectors have a single property, `value`, which is a string conforming to a WKT Linestring, LineStringZ, Polygon, or PolygonZ list of 2D or 3D coordinate points. Whether and how a region defined by a WktSelector may be translated to a single 2D or 3D coordinate point, for targeting or other purposes, is client-dependent.
+
+<div style="background: #A0F0A0; padding: 10px; padding-left: 30px; margin-bottom: 10px">
+❓Does WKTSelector have a duration/instant property? 
+</div>
+
+Example Annotation that comments on a 3D polygon within a Scene:
+
+```
+Todo add example
+```
+
 #### URI Fragments
 
 (move up, include xywh)
@@ -398,10 +410,6 @@ xywh
 
 A Camera provides a view of a region of the Scene's space from a particular position within the Scene; the client constructs a viewport into the Scene and uses the view of one or more Cameras to render that region. The size and aspect ratio of the viewport is client and device dependent.
 
-<div style="background: #A0F0A0; padding: 10px; padding-left: 30px; margin-bottom: 10px">
-❓Does this prevent extension cameras from requiring a fixed aspect ratio? 
-</div>
-
 This specification defines two types of Camera:
 
 | Class               | Description  |
@@ -409,7 +417,7 @@ This specification defines two types of Camera:
 | `PerspectiveCamera` | `PerspectiveCamera` mimics the way the human eye sees, in that objects further from the camera are smaller |
 | `OrthographicCamera` | `OrthographicCamera` removes visual perspective, resulting in object size remaining constant regardless of its distance from the camera |
 
-Cameras are positioned within the Scene facing in a specified direction. Both position and direction are defined through the Annotation which adds the Camera to the Scene, described below in the sections on [Painting Annotations][] and [Transforms][]. If either the position or direction is not specified, then the position defaults to the origin, and direction defaults to facing along the z axis towards negative infinity.
+Cameras are positioned within the Scene facing in a specified direction. Both position and direction are defined through the Annotation which adds the Camera to the Scene, described below in the sections on [Painting Annotations][], [Transforms][], and [Relative Rotation][]. If either the position or direction is not specified, then the position defaults to the origin, and facing direction defaults to pointing along the z axis towards negative infinity. The camera's up direction by default points along the y axis towards positive infinity, but this may be modified by transforms.   
 
 The region of the Scene's space that is observable by the camera is bounded by two planes orthogonal to the direction the camera is facing, given in the `near` and `far` properties, and a vertical projection angle that provides the top and bottom planes of the region.
 
@@ -422,7 +430,7 @@ If any of these properties are not specified explicitly, they default to the cho
 <img src="https://raw.githubusercontent.com/IIIF/3d/eds/assets/images/near-far.png" title="Diagram showing near and far properties"  alt="drawing of a geometrical frustrum truncated by near and far distances" width="300" />
 
 
-If the Scene does not have any Cameras defined within it, then the client MUST provide a default Camera. The type, properties and position of this default camera are client-dependent.
+The first Camera defined and not hidden in a Scene is the default Camera used to display Scene contents. If the Scene does not have any Cameras defined within it, then the client MUST provide a default Camera. The type, properties and position of this default camera are client-dependent.
 
 ```json
 {
@@ -518,15 +526,11 @@ Transforms are only used in the Presentation API when the SpecificResource is th
 
 #### Relative Rotation
 
-It is useful to be able to rotate a light or camera resource such that it is facing another object or point in the Scene, rather than calculating the angles within the Scene's coordinate space. This is accomplished with a property called `lookAt`, valid on DirectionalLight, SpotLight, and all Cameras. The value of the property is either a PointSelector or the URI of an Annotation which paints something into the current Scene.
+It is useful to be able to rotate a light or camera resource such that it is facing another object or point in the Scene, rather than calculating the angles within the Scene's coordinate space. This is accomplished with a property called `lookAt`, valid on DirectionalLight, SpotLight, and all Cameras. The value of the property is either a PointSelector, a WktSelector, the URI of an Annotation which paints something into the current Scene, or a Specific Resource with a selector identifying a point or region in an arbitrary container.
 
-If the value is a PointSelector, then the light or camera resource is rotated around the x and y axes such that it is facing the given point. If the value is an Annotation which targets a point via a PointSelector, URI fragment or other mechanism, then the direction the resource is facing that point.
+If the value is a PointSelector, then the light or camera resource is rotated around the x and y axes such that it is facing the given point. If the value is a WktSelector, then the resource should be rotated to face the given region. If the value is an Annotation which targets a point via a PointSelector, URI fragment or other mechanism, then the resource should be rotated to face that point. If the value is a Specific Resource, the source container for the Specific Resource must be painted into the current Scene, and the Specific Resource selector should identify a point or region in the source container. In this case, the light or camera resource should be rotated to face the point or region in the source container where the point or region is located within the current Scene's coordinate space. This allows light or camera resources to face a specific 2D point on a Canvas painted into a 3D scene.
 
-<div style="background: #A0F0A0; padding: 10px; padding-left: 30px; margin-bottom: 10px">
-❓What happens if the Annotation targets a Polygon or other non-Point? Calculate centroid? Error? First point given in the Poly / center of a sphere?
-</div>
-
-This rotation happens after the resource has been added to the Scene, and thus after any transforms have taken place in the local coordinate space. As the z axis is not affected by the rotation, any RotateTransform that changes z will be retained, but any change to x or y will be lost.
+This rotation happens after the resource has been added to the Scene, and thus after any transforms have taken place in the local coordinate space.
 
 ```json
 "lookAt": {
@@ -577,23 +581,26 @@ A Canvas in a Scene has a specific forward face and a backward face. By default,
 
 A `PointSelector` can be used to modify the point at which the Canvas will be painted, by establishing a new point to align with the top-left corner of the Canvas instead of the Scene coordinate origin. Transforms can also be used to modify Canvas rotation, scale, or translation.
 
-It may be desirable to exercise greater control over how the Canvas is painted into the Scene by selecting the coordinate points in the Scene that should correspond to each corner of the Canvas. This provides fine-grained manipulation of Canvas placement and/or scale, and for optionally introducing Canvas distortion or skew. Annotations may use a type of Selector called a `PolygonZSelector` to select different points in the Scene to align with the top-left, bottom-left, bottom-right, and top-right corners of the Canvas. PolygonZSelectors have a single property, `value`, which is a string listing a WKT `POLYGONZ` expression containing four coordinate points, with each coordinate separated by commas, and axes within a coordinate separated by spaces. The four Scene coordinates should be listed beginning with the coordinate corresponding to the top-left corner of the Canvas, and should proceed in a counter-clockwise winding order around the Canvas, with coordinates corresponding to bottom-left, bottom-right, and top-right corners in order respectively. The use of PolygonZSelector overrides any use of Transforms on the Canvas Annotation.
+It may be desirable to exercise greater control over how the Canvas is painted into the Scene by selecting the coordinate points in the Scene that should correspond to each corner of the Canvas. This provides fine-grained manipulation of Canvas placement and/or scale, and for optionally introducing Canvas distortion or skew. Annotations may use a WktSelector to select different points in the Scene to align with the top-left, bottom-left, bottom-right, and top-right corners of the Canvas. In this case, the four Scene coordinates should be listed beginning with the coordinate corresponding to the top-left corner of the Canvas, and should proceed in a counter-clockwise winding order around the Canvas, with coordinates corresponding to bottom-left, bottom-right, and top-right corners in order respectively. The use of WktSelector for this purpose overrides any use of Transforms on the Canvas Annotation.
 
 Example placing top-left at (0, 1, 0); bottom-left at (0, 0, 0); bottom-right at (1, 0, 0); and top-right at (1, 1, 0):
 ```json
 "selector": [
   {
-    "type": "PolygonZSelector",
+    "type": "WktSelector",
     "value": "POLYGONZ((0 1 0, 0 0 0, 1 0 0, 1 1 0))"
   }
 ]
 ```
 
+When a Scene is nested into another Scene, the `backgroundColor` of the Scene to be nested should be ignored as it is non-sensible to import. All Annotations painted into the Scene to be nested will be painted into the Scene into which content is being nested, including Light or Camera resources. If the Scene to be nested has one or more Camera Annotations while the Scene into which content is being nested does not, the first Camera Annotation from the nested Scene will become the default Camera for the overall Scene. 
 
 ### Embedded Content
 
 e.g., painting TextualBody on Canvas
 
+Todo: This is mostly copy-pasted from properties, is it needed here?
+It is important to be able to position the textual body of an annotation within the Container's space that the annotation also targets. For example, a description of part of an image in a Canvas should be positioned such that it does not obscure the image region itself and labels to be displayed as part of a Scene should not be rendered such that the text is hidden by the three dimensional geometry of the model. The positioning of the textual body in a container is accomplished through the `position` property, which has as a value a Specific Resource identifying the targeted container as the source and a selector defining how the textual body should be positioned in the targeted container. If this property is not supplied, then the client should do its best to ensure the content is visible to the user.
 
 ### Comment Annotations
 
