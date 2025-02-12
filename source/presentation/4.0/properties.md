@@ -2,7 +2,7 @@
 title: "Presentation API 4.0 Properties"
 title_override: "IIIF Presentation API 4.0 Properties"
 id: presentation-api-properties
-layout: spec-properties
+layout: spec
 cssversion: 3
 tags: [specifications, presentation-api]
 major: 4
