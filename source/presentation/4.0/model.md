@@ -21,7 +21,7 @@ editors:
     institution: Digirati
   - name: Robert Sanderson
     ORCID: https://orcid.org/0000-0003-4441-6852
-    institution: J. Paul Getty Trust
+    institution: Yale University
   - name: Dawn Childress
     ORCID:
     institution: UCLA
@@ -51,56 +51,202 @@ __Previous Version:__ [3.0][prezi30]
 
 ----
 
-# Vocabulary?
+# IIIF Presentation API Data Model
 
-## Resource Classes
-
-* Collection
-* CollectionPage
-* Manifest
-* Containers
-    * Timeline
-    * Canvas
-    * Scene
-* Content Resources
-* Range
-* Cameras
-    * PerspectiveCamera
-    * OrthographicCamera
-* Lights
-    * AmbientLight
-    * DirectionalLight
-    * PointLight
-    * SpotLight
-* Transforms
-    * TranslateTransform
-    * RotateTransform
-    * ScaleTransform
-* Selectors
-    * PointSelector
-    * WktSelector (need both LineString Z and Polygon Z)
-    * AudioContentSelector
-    * VisualContentSelector
-    * AnimationSelector
-    * ImageApiSelector
-* Other Classes
-    * Agent
-    * Service
-    * Value (used for `intensity`)
-
-* Annotation Classes imported from WADM:
-    * Annotation
-    * AnnotationCollection
-    * AnnotationPage
-    * SpecificResource
-    * FragmentSelector
-    * SvgSelector
-    * CssStyle
-    * TextualBody
-    * Choice
+## Introduction
 
 
-## Resource Properties
+### 1.2. Terminology
+
+This specification uses the following terms:
+
+* __embedded__: When a resource (A) is embedded within an embedding resource (B), the complete JSON representation of resource A is present within the JSON representation of resource B, and dereferencing the URI of resource A will not result in additional information. Example: Canvas A is embedded in Manifest B.
+* __referenced__: When a resource (A) is referenced from a referencing resource (B), an incomplete JSON representation of resource A is present within the JSON representation of resource B, and dereferencing the URI of resource A will result in additional information. Example:  Manifest A is referenced from Collection B.
+* __HTTP(S)__: The HTTP or HTTPS URI scheme and internet protocol.
+
+The terms _array_, _JSON object_, _number_, _string_, and _boolean_ in this document are to be interpreted as defined by the [Javascript Object Notation (JSON)][org-rfc-8259] specification.
+
+The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _SHOULD NOT_, _RECOMMENDED_, _MAY_, and _OPTIONAL_ in this document are to be interpreted as described in [RFC 2119][org-rfc-2119].
+
+
+
+## Classes
+
+### Collection
+
+A Collection is an ordered list of Manifests, and/or Collections. Collections allow Manifests and child Collections to be grouped in a hierarchical structure for presentation, which can be for generating navigation, showing dynamic results from a search, or providing fixed sets of related resources for any other purpose. IIIF Collections might align with the curated management of cultural heritage resources in sets, also called "collections", but can also be used for many other purposes.
+
+The intended usage of Collections is to allow clients to:
+
+  * Load a pre-defined set of Manifests at initialization time.
+  * Receive a set of Manifests, such as search results, for rendering.
+  * Visualize lists or hierarchies of related Manifests.
+  * Provide navigation through a list or hierarchy of available Manifests.
+
+The identifier in `id` _MUST_ be able to be dereferenced to retrieve the JSON description of the Collection, and thus _MUST_ use the HTTP(S) URI scheme.
+
+The members of a Collection are listed in the `items` property. The members _MAY_ include both other Collections and Manifests, in order, to form a tree-structured hierarchy.
+
+Member Collections _MAY_ be [embedded][prezi30-terminology] inline within other Collections, such as when the Collection is used primarily to subdivide a larger one into more manageable pieces, however Manifests _MUST NOT_ be [embedded][prezi30-terminology] within Collections. An [embedded][prezi30-terminology] Collection _SHOULD_ also have its own URI from which the JSON description is available.
+
+Manifests or Collections _MAY_ be [referenced][prezi30-terminology] from more than one Collection. For example, an institution might define four Collections: one for modern works, one for historical works, one for newspapers and one for books. The Manifest for a modern newspaper would then appear in both the modern Collection and the newspaper Collection. Alternatively, the institution may choose to have two separate newspaper Collections, and reference each as a sub-Collection of modern and historical.
+
+Collections with an empty `items` property are allowed but discouraged.  For example, if the user performs a search that matches no Manifests, then the server _MAY_ return a Collection response with no Manifests.
+
+Collections or Manifests [referenced][prezi30-terminology] in the `items` property _MUST_ have the `id`, `type` and `label` properties. They _SHOULD_ have the `thumbnail` property.
+
+
+#### CollectionPage
+
+
+
+### Manifest
+
+A Manifest is a description of the structure and properties of a single item to be presented to the user, such as a title and other descriptive and linking information about the object and/or the intellectual work that it conveys. The scope of what constitutes an item, and thus its Manifest, is up to the publisher of that Manifest. The Manifest contains sufficient information for the client to initialize itself and begin to display something quickly to the user.
+
+The identifier in `id` _MUST_ be able to be dereferenced to retrieve the JSON description of the Manifest, and thus _MUST_ use the HTTP(S) URI scheme.
+
+The members of a Manifest are listed in the `items` property. The members of Manifests _MUST_ be Containers, defined below, and are embedded within the Manifest.
+
+The Manifest _MAY_ also have a `structures` property listing one or more [Ranges][prezi30-range] which describe additional structure of the content, such as might be rendered as a table of contents.
+
+The Manifest _MAY_ have an `annotations` property, which includes Annotation Page resources where the Annotations have the Manifest as their `target`. These will typically be comment style Annotations, and _MUST NOT_ have `painting` as their `motivation`.
+
+
+### Container Classes
+
+A Container is a frame of reference that allows the relative positioning of content, a concept borrowed from standards like PDF and HTML, or applications like Photoshop and PowerPoint, where an initially blank display surface has images, video, text and other content "painted" on to it. The frame is defined by a set of dimensions, with different types of Container having different dimensions. This specification defines three sub-classes of Container: Timeline (which only has a duration), Canvas (which has bounded height and width, and may have a duration), and Scene (which has infinite height, width and depth, and may have a duration).
+
+All Containers _MUST_ be identified by a URI and it _MUST_ be an HTTP(S) URI. The URI of the Container _MUST NOT_ contain a fragment (a `#` followed by further characters), as this would make it impossible to refer to a segment of the Container's area using the [media fragment syntax][org-w3c-media-frags] of `#xywh=` for spatial regions, and/or `#t=` for temporal segments. Containers _MAY_ be able to be dereferenced separately from the Manifest via their URIs as well as being [embedded][prezi30-terminology].
+
+Containers have an `items` property which is a list of Annotation Pages. Each Annotation Page, defined below, maintains a list of Annotations, which associate Content Resources to be rendered as part of the Container.
+
+Annotations that do not associate content to be rendered, but instead are about the Container such as a comment or tag, are recorded using Annotation Pages in the `annotations` property of the Container.
+
+#### Timeline
+
+A Timeline is a Container that represents only a temporal duration, measured in seconds. Timelines allow audio content to be presented, but do not allow anything with a height or width like an image or video.  The duration of the Timeline is given in the `duration` property.
+
+#### Canvas
+
+A Canvas is a Container that represents a particular rectangular 2 dimensional view of the object and has content resources associated with it or with parts of it. This aspect ratio is defined by the `height` and `width` properties. A Canvas _MAY_ also have a duration, given in the `duration` property, allowing audio and video to be correctly positioned in time as well as the 2 dimensional space.
+
+#### Scene
+
+A Scene is a Container that represents an infinitely large three-dimensional space, with an optional duration. As the Scene is infinite, it does not have `height`, `width` or `depth` properties.
+
+### Annotation Classes
+
+#### Annotation
+
+Annotations are primarily used to associate content resources with Containers. The same mechanism is used for the visible and/or audible resources as is used for transcriptions, commentary, tags and other content. This provides a single, unified method for aligning information, and provides a standards-based framework for distinguishing parts of resources and parts of Canvases. As Annotations can be added later, it promotes a distributed system in which publishers can align their content with the descriptions created by others.
+
+The IIIF Specifications adopt the W3C's [Web Annotation Data Model][org-w3c-webanno] and Vocabulary. Any necessary deviations from those specifications are explicitly noted and explained, such as the need for internationalization of labels.
+
+Annotations _MUST_ have their own HTTP(S) URIs, conveyed in the `id` property. The JSON-LD description of the Annotation _SHOULD_ be returned if the URI is dereferenced, according to the [Web Annotation Protocol][org-w3c-webanno-protocol].
+
+When Annotations are used to associate content resources with a Canvas, the content resource is linked in the `body` of the Annotation. The URI of the Canvas _MUST_ be repeated in the `target` property of the Annotation, or the `source` property of a Specific Resource used in the `target` property.
+
+Content that is to be rendered as part of the Container _MUST_ be associated by an Annotation that has the `motivation` value `painting`.
+
+
+Note that the Web Annotation data model defines different patterns for the `value` property compared to IIIF, when used within an Annotation. The `value` of a Textual Body or a Fragment Selector, for example, are strings rather than JSON objects with languages and values. Care must be taken to use the correct string form in these cases.
+
+
+#### AnnotationCollection
+
+Annotation Collections allow groups of Annotations to be recorded. For example, all of the English translation Annotations of a medieval French document could be kept separate from the transcription or an edition in modern French, or the director's commentary on a film can be separated from the script.
+
+Annotation Collections _MUST_ have a URI, and it _SHOULD_ be an HTTP(S) URI. They _SHOULD_ have a `label` and _MAY_ have any of the other descriptive, linking or rights properties.
+
+Annotation Collections are paged rather than enumerated. The first page of items is linked using the `first` property, and the last page with the `last` property. The pages link to the next and previous pages in a chain, using the `next` and `prev` properties respectively.
+
+
+#### AnnotationPage
+
+An ordered list of Annotations, typically associated with a Container, but may be referenced from other types of resource as well. Annotation Pages collect and order lists of Annotations.
+
+An Annotation Page _MUST_ have an HTTP(S) URI given in `id`, and _MAY_ have any of the other properties defined in this specification or the Web Annotation specification. The Annotations are listed in the `items` property of the Annotation Page.
+
+Annotations are embedded within an Annotation Page in the `items` property.
+
+__Incompatibility Warning__<br/>
+The definition of `label` in the Web Annotation specification does not produce JSON conformant with the structure defined in this specification for languages. Given the absolute requirement for internationalized labels and the strong desire for consistently handling properties, the `label` property on Annotation model classes does not conform to the string requirement of the Web Annotation Data Model.  This [issue has been filed with the W3C][github-webanno-437] and will hopefully be addressed in a future version of the standard.
+{: .warning}
+
+
+#### SpecificResource
+#### TextualBody
+#### Choice
+#### CssStyle
+
+### Content Resources
+
+Content resources are resources on the Web such as images, audio, video, or text which can be associated with a Container via an Annotation, or provide a representation of any resource.
+
+Content resources _MUST_ have an `id` property, with the value being the URI at which the resource can be obtained.
+
+The type of the content resource _MUST_ be included, and _SHOULD_ be taken from the table listed under the definition of `type`. The `format` of the resource _SHOULD_ be included and, if so, _SHOULD_ be the media type that is returned when the resource is dereferenced. The `profile` of the resource, if it has one, _SHOULD_ also be included.
+
+If the content resource is an Image, and a IIIF Image service is available for it, then the `id` property of the content resource _MAY_ be a complete URI to any particular representation supported by the Image Service, such as `https://example.org/image1/full/1000,/0/default.jpg`, but _MUST NOT_ be just the URI of the IIIF Image service. Its `type` value _MUST_ be the string `Image`. Its media type _MAY_ be listed in `format`, and its height and width _MAY_ be given as integer values for `height` and `width` respectively. The Image _SHOULD_ have the service [referenced][prezi30-terminology] from it using the `service` property.
+
+If there is a need to distinguish between content resources, then the resource _SHOULD_ have the `label` property.
+
+Containers _MAY_ be treated as content resources for the purposes of annotating on to other Containers. In this situation, the Container _MAY_ be [embedded][prezi30-terminology] within the Annotation, be a reference within the same Manifest, or require dereferencing to obtain its description.
+
+
+
+### Selectors
+#### PointSelector
+#### WktSelector
+(need both LineString Z and Polygon Z)
+#### AudioContentSelector
+#### VisualContentSelector
+#### AnimationSelector
+#### ImageApiSelector
+#### FragmentSelector
+#### SvgSelector
+
+### Range
+
+Ranges are used to represent structure within an object beyond the default order of the Canvases in the `items` property of the Manifest, such as newspaper sections or articles, chapters within a book, or movements within a piece of music. Ranges can include Canvases, parts of Canvases, or other Ranges, creating a tree structure like a table of contents.
+
+The intent of adding a Range to the Manifest is to allow the client to display a linear or hierarchical navigation interface to enable the user to quickly move through the object's content. Clients _SHOULD_ present only Ranges that have the `label` property and do not have a `behavior` value `no-nav` to the user. Clients _SHOULD NOT_ render Canvas labels as part of the navigation, and a Range that wraps the Canvas _MUST_ be created if this is the desired presentation.
+
+If there is no Range that has the `behavior` value `sequence`, and the Manifest does not have the `behavior` value `unordered`, then the client _SHOULD_ treat the order of the Canvases in the Manifest's `items` array as the default order. If there is one Range that has the `behavior` value `sequence`, then the client _MUST_ instead use this Range for the ordering. If there is more than one Range that has the `behavior` value `sequence`, for example a second Range to represent an alternative ordering of the pages of a manuscript, the first Range _SHOULD_ be used as the default and the others _SHOULD_ be able to be selected. Ranges that have the `behavior` value `sequence` _MUST_ be directly within the `structures` property of the Manifest, and _MUST NOT_ be [embedded][prezi30-terminology] or [referenced][prezi30-terminology] within other Ranges. These Ranges may have limited hierarchical nesting, but clients are not expected to traverse very deep structures in determining the default order. If this Range includes parts of Canvases, then these parts are the content to render by default and would generate separate entries in a navigation display. This allows for the Canvas to include content outside of the default view, such as a color bar or ruler.
+
+Ranges _MUST_ have URIs and they _SHOULD_ be HTTP(S) URIs. Top level Ranges are [embedded][prezi30-terminology] or externally [referenced][prezi30-terminology] within the Manifest in a `structures` property. These top level Ranges then embed or reference other Ranges, Canvases or parts of Canvases in the `items` property. Each entry in the `items` property _MUST_ be a JSON object, and it _MUST_ have the `id` and `type` properties. If a top level Range needs to be dereferenced by the client, then it _MUST NOT_ have the `items` property, such that clients are able to recognize that it should be retrieved in order to be processed.
+
+All of the Canvases or parts that should be considered as being part of a Range _MUST_ be included within the Range's `items` property, or a descendant Range's `items`.
+
+The Canvases and parts of Canvases need not be contiguous or in the same order as in the Manifest's `items` property or any other Range. Examples include newspaper articles that are continued in different sections, a chapter that starts half way through a page, or time segments of a single canvas that represent different sections of a piece of music.
+
+Ranges _MAY_ link to an Annotation Collection that has the content of the Range using the `supplementary` property. The [referenced][prezi30-terminology] Annotation Collection will contain Annotations that target areas of Canvases within the Range and link content resources to those Canvases.
+
+
+
+### Scene Components
+#### Cameras
+##### PerspectiveCamera
+##### OrthographicCamera
+#### Lights
+##### AmbientLight
+##### DirectionalLight
+##### PointLight
+##### SpotLight
+#### Transforms
+##### TranslateTransform
+##### RotateTransform
+##### ScaleTransform
+
+### Other Classes
+#### Agent
+#### Service
+#### Value
+
+
+
+## Properties
 
 ### Descriptive Properties
 
@@ -598,6 +744,9 @@ The value _MUST_ be a positive floating point number.
 
 ##### viewingDirection
 
+!!! Rewrite to be where is the navigation control to step to the next/ previous in the items of hte manifest
+
+
 The direction in which a list of Containers _SHOULD_ be displayed to the user. This specification defines four direction values in the table below. Others may be defined externally [as an extension][prezi30-ldce]. For example,
 if the `viewingDirection` value is `left-to-right`, then backwards in the list is to the left, and forwards in the
 list is to the right.
@@ -644,6 +793,10 @@ The value _MUST_ be an array of strings.
 
  * Any resource type _MAY_ have the `behavior` property with at least one item.<br/>
    Clients _SHOULD_ process `behavior` on any resource type.
+
+
+!!! Could continuous stitch together Timelines?
+
 
 | Value | Description |
 | ----- | ----------- |
@@ -871,7 +1024,7 @@ The value _MUST_ be string, which defines an RGB color. It SHOULD be a hex value
 
 This property sets the strength or brightness of a Light.
 
-The value _MUST_ be a JSON object, that has the `type`, `value` and `unit` properties. All three properties are required. The value of `type` _MUST_ be the string "Value". The value of `value` is a floating point number. The value of `unit` is a string, drawn from a controlled vocabulary of units. If this property is not specified, then the default intensity value is client-dependent.
+The value _MUST_ be a JSON object, that has the `type`, `value` and `unit` properties. All three properties are required. The value of `type` _MUST_ be the string "UnitValue". The value of `value` is a floating point number. The value of `unit` is a string, drawn from a controlled vocabulary of units. If this property is not specified, then the default intensity value is client-dependent.
 
 This specification defines the unit value of "relative" which constrains the value to be a linear scale between 0.0 (no brightness) and 1.0 (as bright as the client will render).
 
@@ -880,7 +1033,7 @@ This specification defines the unit value of "relative" which constrains the val
 
 ```json
 {
- "intensity": {"type": "Value", "value": 0.5, "unit": "relative"}
+ "intensity": {"id": "", "type": "UnitValue", "value": 0.5, "unit": "relative"}
 }
 ```
 
