@@ -72,6 +72,10 @@ The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _S
 
 ## Classes
 
+The following sub-sections define the classes used in the IIIF Presentation Data Model. The properties and relationships of the classes are defined in the following section, including which classes they are able to be used with. Only the semantics and core structural requirements are defined within this section, along with any deviations from other specifications that the classes might be drawn from.
+
+The descriptions also do not define how the classes are used, which is done in the Presentation API Processing Model.
+
 ### Collection
 
 A Collection is an ordered list of Manifests, and/or Collections. Collections allow Manifests and child Collections to be grouped in a hierarchical structure for presentation, which can be for generating navigation, showing dynamic results from a search, or providing fixed sets of related resources for any other purpose. IIIF Collections might align with the curated management of cultural heritage resources in sets, also called "collections", but can also be used for many other purposes.
@@ -85,7 +89,9 @@ The intended usage of Collections is to allow clients to:
 
 The identifier in `id` _MUST_ be able to be dereferenced to retrieve the JSON description of the Collection, and thus _MUST_ use the HTTP(S) URI scheme.
 
-The members of a Collection are listed in the `items` property. The members _MAY_ include both other Collections and Manifests, in order, to form a tree-structured hierarchy.
+The members of a Collection are typically listed in the `items` property. The members _MAY_ include both other Collections and Manifests, in order, to form a tree-structured hierarchy.
+
+If there are too many members in the collection to fit within a single document, then the members _MAY_ be listed in Collection Pages. A reference to the first page of members is given in the `first` property, and the last page in the `last` property. In this case, the Collection _MUST NOT_ use the `items` property.
 
 Member Collections _MAY_ be [embedded][prezi30-terminology] inline within other Collections, such as when the Collection is used primarily to subdivide a larger one into more manageable pieces, however Manifests _MUST NOT_ be [embedded][prezi30-terminology] within Collections. An [embedded][prezi30-terminology] Collection _SHOULD_ also have its own URI from which the JSON description is available.
 
@@ -98,13 +104,18 @@ Collections or Manifests [referenced][prezi30-terminology] in the `items` proper
 
 #### CollectionPage
 
+A Collection Page is an arbitrary division of members within the Collection to make it easier to consume.
+
+A Collection Page _MUST_ have an HTTP(S) URI given in `id`. It _MUST_ be able to be dereferenced to retrieve the JSON description of the Collection Page.
+
+Collection Pages follow the ActivityStreams model, as also used in Annotation Collections, the IIIF Change Discovery API, and the IIIF Search API.
 
 
 ### Manifest
 
 A Manifest is a description of the structure and properties of a single item to be presented to the user, such as a title and other descriptive and linking information about the object and/or the intellectual work that it conveys. The scope of what constitutes an item, and thus its Manifest, is up to the publisher of that Manifest. The Manifest contains sufficient information for the client to initialize itself and begin to display something quickly to the user.
 
-The identifier in `id` _MUST_ be able to be dereferenced to retrieve the JSON description of the Manifest, and thus _MUST_ use the HTTP(S) URI scheme.
+Manifests _MUST_ be identified by a URI and it _MUST_ be an HTTP(S) URI, given in the `id` property. It _MUST_ be able to be dereferenced to retrieve the JSON description of the Manifest.
 
 The members of a Manifest are listed in the `items` property. The members of Manifests _MUST_ be Containers, defined below, and are embedded within the Manifest.
 
@@ -137,18 +148,17 @@ A Scene is a Container that represents an infinitely large three-dimensional spa
 
 ### Annotation Classes
 
+The following set of classes are defined by the W3C's [Web Annotation Data Model][org-w3c-webanno] and Vocabulary, and are heavily used within the IIIF Data Model. Any necessary deviations from those specifications are explicitly noted and explained, such as the need for internationalization of labels.
+
 #### Annotation
 
 Annotations are primarily used to associate content resources with Containers. The same mechanism is used for the visible and/or audible resources as is used for transcriptions, commentary, tags and other content. This provides a single, unified method for aligning information, and provides a standards-based framework for distinguishing parts of resources and parts of Canvases. As Annotations can be added later, it promotes a distributed system in which publishers can align their content with the descriptions created by others.
-
-The IIIF Specifications adopt the W3C's [Web Annotation Data Model][org-w3c-webanno] and Vocabulary. Any necessary deviations from those specifications are explicitly noted and explained, such as the need for internationalization of labels.
 
 Annotations _MUST_ have their own HTTP(S) URIs, conveyed in the `id` property. The JSON-LD description of the Annotation _SHOULD_ be returned if the URI is dereferenced, according to the [Web Annotation Protocol][org-w3c-webanno-protocol].
 
 When Annotations are used to associate content resources with a Canvas, the content resource is linked in the `body` of the Annotation. The URI of the Canvas _MUST_ be repeated in the `target` property of the Annotation, or the `source` property of a Specific Resource used in the `target` property.
 
 Content that is to be rendered as part of the Container _MUST_ be associated by an Annotation that has the `motivation` value `painting`.
-
 
 Note that the Web Annotation data model defines different patterns for the `value` property compared to IIIF, when used within an Annotation. The `value` of a Textual Body or a Fragment Selector, for example, are strings rather than JSON objects with languages and values. Care must be taken to use the correct string form in these cases.
 
@@ -164,7 +174,7 @@ Annotation Collections are paged rather than enumerated. The first page of items
 
 #### AnnotationPage
 
-An ordered list of Annotations, typically associated with a Container, but may be referenced from other types of resource as well. Annotation Pages collect and order lists of Annotations.
+An ordered list of Annotations, typically associated with a Container, but may be referenced from other types of resource as well. Annotation Pages enumerate and order lists of Annotations, in the same way that Collection Pages order lists of Manifests and Collections within the containing Collection.
 
 An Annotation Page _MUST_ have an HTTP(S) URI given in `id`, and _MAY_ have any of the other properties defined in this specification or the Web Annotation specification. The Annotations are listed in the `items` property of the Annotation Page.
 
@@ -176,9 +186,16 @@ The definition of `label` in the Web Annotation specification does not produce J
 
 
 #### SpecificResource
+
+A Specific Resource is a resource in the context of an Annotation. They are used to record further properties or relationships needed to understand the particular contextual use, such as which part of the resource is used or how it should be rendered. In IIIF, the Specific Resource model from the Web Annotation Data Model has some additional properties beyond those defined by the W3C, such as `transform`.
+
 #### TextualBody
+
+A Textual Body is an embedded resource within an Annotation that carries, as the name suggests, a text as the body of the Annotation. It is defined by the Web Annotation Data Model, and this specification defines a new property for it `position` that allows it to be positioned within a Container.
+
 #### Choice
-#### CssStyle
+
+A Choice is a Web Annotation construction that allows one entry from a list to be selected for processing or display. This specification allows `behavior` to be added to a Choice to influence how it is processed.
 
 ### Content Resources
 
@@ -194,18 +211,125 @@ If there is a need to distinguish between content resources, then the resource _
 
 Containers _MAY_ be treated as content resources for the purposes of annotating on to other Containers. In this situation, the Container _MAY_ be [embedded][prezi30-terminology] within the Annotation, be a reference within the same Manifest, or require dereferencing to obtain its description.
 
-
-
 ### Selectors
+
+The Web Annotation Data Model defines several Selectors, which describe how to find a specific segment of that resource to be used. As noted, the nature of Selectors are dependent on the type of resources that they select out of, and the methods needed for those descriptions will vary. The Selectors from the Web Annotation Data Model and other sources can be used within the IIIF Data Model. This specification defines additional Selector classes for use.
+
 #### PointSelector
+
+There are common use cases in which a point, rather than a range or area, is the target of the Annotation. For example, putting a pin in a map should result in an exact point, not a very small rectangle. Points in time are not very short durations, and user interfaces should also treat these differently. This is particularly important when zooming in (either spatially or temporally) beyond the scale of the frame of reference.
+
+Point Selectors have the following properties:
+
+| Name | Description |
+|------|-------------|
+| id   | The HTTP(S) URI of the selector |
+| type | The class of the selector, which must be "PointSelector" |
+| x    | A number (floating point or integer) giving the x coordinate of the point, relative to the dimensions of the source resource |
+| y    | A number (floating point or integer) giving the y coordinate of the point, relative to the dimensions of the source resource |
+| z    | A number (floating point or integer) giving the z coordinate of the point, relative to the dimensions of the source resource |
+| t    | A number (floating point or integer) giving the time of the point in seconds, relative to the duration of the source resource |
+
+
+```json
+{
+  "id": "https://example.org/selectors/1",
+  "type": "PointSelector",
+  "x": 0.001,
+  "y": 12.3,
+  "z": 0,
+  "t": 180.0
+}
+```
+
+
 #### WktSelector
-(need both LineString Z and Polygon Z)
+
+Well-known text, or WKT, is an ISO standard method for describing 2 and 3 dimensional geometries. This selector thus goes beyond what the Web Annotation's SvgSelector enables by incorporating the z axis, as well as additional types of selection such as MultiPolygon. Additional types, such as CIRCULARSTRING may also be supported.
+
+WKT Selectors have the following properties:
+
+| Name  | Description |
+|-------|-------------|
+| id    | The HTTP(S) URI of the selector |
+| type  | The class of the selector, which must be "VisualContentSelector" |
+| value | The WKT string that defines the geometry to be selected |
+
+```json
+{
+  "id": "https://example.org/selectors/2",
+  "type": "WktSelector",
+  "value": "POLYGON Z (0 0 0, 10 0.5 3.2 10 5.0 0, 0 0 0)"
+}
+```
+
+<!-- Yes, Wkt not WKT, c.f. CssStyle, SvgSelector, ImageApiSelector, etc -->
+
+
 #### AudioContentSelector
+
+Video content resources consist of both visual and audio content within the same bit-level representation. There are situations when it is useful to refer to only one aspect of the content – either the visual or the audio, but not both. For example, an Annotation might associate only the visual content of a video that has spoken English in the audio, and an audio file that has the translation of that content in Spanish. The Audio Content Selector selects all of the audio content from an A/V content resource, and may be further refined with subsequent selectors to select a segment of it.
+
+Audio Content Selectors have the following properties:
+
+| Name | Description |
+|------|-------------|
+| id   | The HTTP(S) URI of the selector |
+| type | The class of the selector, which must be "AudioContentSelector" |
+
+
+```json
+{
+  "id": "https://example.org/selectors/3",
+  "type": "AudioContentSelector"
+}
+```
+
+
 #### VisualContentSelector
+
+Similar to Audio Content Selectors, Visual Content Selectors select the visual aspects of the content of an A/V content resource. They may be further refined by subsequent selectors that select an area or temporal segment of it.
+
+Visual Content Selectors have the following properties:
+
+| Name | Description |
+|------|-------------|
+| id   | The HTTP(S) URI of the selector |
+| type | The class of the selector, which must be "VisualContentSelector" |
+
+```json
+{
+  "id": "https://example.org/selectors/4",
+  "type": "VisualContentSelector"
+}
+```
+
+
 #### AnimationSelector
+
+More interactive content resources, such as 3d models, may have activatable animations or similar features. For example, a model of a box might have an animation that opens the lid and a second animation that closes the lid. In order to activate those animations, they need to be selectable, and thus the specification defines an Animation Selector.
+
+Animation Selectors have the following properties:
+
+| Name  | Description |
+|-------|-------------|
+| id    | The HTTP(S) URI of the selector |
+| type  | The class of the selector, which must be "AnimationSelector" |
+| value | The identity of the animation in whichever form is used by the source resource |
+
+
+```json
+{
+  "id": "https://example.org/selectors/5",
+  "type": "AnimationSelector",
+  "value": "opening-1"
+}
+```
+
 #### ImageApiSelector
-#### FragmentSelector
-#### SvgSelector
+
+
+
 
 ### Range
 
@@ -828,6 +952,24 @@ The value _MUST_ be an array of strings.
 { "behavior": [ "auto-advance", "individuals" ] }
 ```
 
+##### interactionMode
+
+*within* the Scene, whereas viewingDirection and behavior are across containers.
+
+* Containers _MAY_ have the `interactionMode`
+
+Table here with values
+
+
+locked
+orbit
+hemisphere-orbit
+free
+free-direction
+
+other examples: no-zoom, no-scrub, rti-mode
+
+
 ##### provides
 
 A set of features or additional functionality that a linked resource enables relative to the linking or including resource, which is not defined by the `type`, `format` or `profile` of the linked resource. It provides information as to why and how a client might want to interact with the resource, rather than what the resource is. For example, a text file (linked resource) that `provides` a `closedCaptions` for a Video (context resource), or an audio file (linked resource) that `provides` an `audioDescription` of a Canvas (context resource).
@@ -1446,6 +1588,12 @@ Additional motivations may be added to the Annotation to further clarify the int
 | ----- | ----------- |
 | `painting` | Resources associated with a Canvas by an Annotation that has the `motivation` value `painting`  _MUST_ be presented to the user as the representation of the Canvas. The content can be thought of as being _of_ the Canvas. The use of this motivation with target resources other than Canvases is undefined. For example, an Annotation that has the `motivation` value `painting`, a body of an Image and the target of the Canvas is an instruction to present that Image as (part of) the visual representation of the Canvas. Similarly, a textual body is to be presented as (part of) the visual representation of the Canvas and not positioned in some other part of the user interface.|
 | `supplementing` | Resources associated with a Canvas by an Annotation that has the `motivation` value `supplementing`  _MAY_ be presented to the user as part of the representation of the Canvas, or _MAY_ be presented in a different part of the user interface. The content can be thought of as being _from_ the Canvas. The use of this motivation with target resources other than Canvases is undefined. For example, an Annotation that has the `motivation` value `supplementing`, a body of an Image and the target of part of the Canvas is an instruction to present that Image to the user either in the Canvas's rendering area or somewhere associated with it, and could be used to present an easier to read representation of a diagram. Similarly, a textual body is to be presented either in the targeted region of the Canvas or otherwise associated with it, and might be OCR, a manual transcription or a translation of handwritten text, or captions for what is being said in a Canvas with audio content. |
+
+| `contentState` | ... content state here ...|
+
+| `activating`   | ... activating annotations here ... |
+
+
 {: .api-table #table-motivations}
 
 
