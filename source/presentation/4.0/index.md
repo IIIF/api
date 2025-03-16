@@ -361,25 +361,383 @@ use totalItems? https://iiif.io/api/discovery/1.0/#totalitems
 
 ## Content State
 
-(introduce motivation and reasons)
+A Content State is simply any valid IIIF Presentation Resource, or part of a Presentation resource. The following are all Content States that describe a "fragment" of IIIF:
 
-Separate Content State Sharing spec (protocols for sharing annotations)
+A "bare" Manifest URI:
 
-content state intended to:
+```
+https://example.org/manifests/1
+```
 
- - load a view of some resource (existing spec)
- - load a view of some resource AND modify the Container (show you my new anno, add camera)
- - modify the Container in a particular context (`scope`, storytelling)
- - contribute additional information permanently (rerum **inbox** - move to protocol doc)
+A reference to a Manifest:
 
-### Using Content State
+```json
+{
+  "id": "https://example.org/manifests/1",
+  "type": "Manifest"
+}
+```
 
-(not in section 6)
+A region of a Canvas within a Manifest:
+
+```json
+{
+  "id": "https://example.org/canvases/aabb#xywh=4500,1266,600,600",
+  "type": "Canvas",
+  "partOf": {
+    "id": "https://example.org/manifests/1",
+    "type": "Manifest"
+  }
+}
+```
+
+Two versions of a painting from different publishers:
+
+```json
+[
+  {
+    "id": "https://gallery-1.org/iiif/sunflowers/canvas1",
+    "type": "Canvas",
+    "partOf": [
+      {
+        "id": "https://gallery-1.org/iiif/sunflowers",
+        "type": "Manifest"
+      }
+    ]
+  },
+  {
+    "id": "https://gallery-2.org/collection/sunflowers/c1",
+    "type": "Canvas",
+    "partOf": [
+      {
+        "id": "https://gallery-2.org/collection/sunflowers",
+        "type": "Manifest"
+      }
+    ]
+  }
+]
+```
+
+A Scene with a Camera at a particular point:
+
+
+```json
+{
+  "id": "https://example.org/iiif/scene1/page/p1/1",
+  "type": "Scene",
+  "items": [
+    {
+      "id": "https://example.org/iiif/3d/anno8",
+      "type": "Annotation",
+      "motivation": ["painting"],
+      "body": {
+        "type": "SpecificResource",
+        "source": [
+          {
+            "id": "https://example.org/iiif/3d/cameras/1",
+            "type": "PerspectiveCamera",
+            "label": {
+              "en": [
+                "Perspective Camera Pointed At Front of Cranium and Mandible"
+              ]
+            },
+            "fieldOfView": 50.0,
+            "near": 0.1,
+            "far": 2000.0
+          }
+        ]
+      },
+      "target": {
+        "type": "SpecificResource",
+        "source": [
+          {
+            "id": "https://example.org/iiif/scene1",
+            "type": "Scene"
+          }
+        ],
+        "selector": [
+          {
+            "type": "PointSelector",
+            "x": 0.0, "y": 0.15, "z": 0.75
+          }
+        ]
+      }
+    }
+  ]
+}
+```
+
+The term _Content State_ is used for any arbitrary fragments of IIIF such as the above when they are used in the particular ways defined by this specification. A Content State is **usually** carried by the `target` of an annotation with the motivation `contentState`, or `body` of an annotation with the motivation `activating`, but in some scenarios may be transferred between client applications without an enclosing annotation, as a "bare" URI (see Content State 2.0 specification).
+
+Content States are used for the following applications:
+
+### Load a particular view of a resource or group of resources
+
+In this usage, an annotation with the motivation `contentState` is passed to a client to initialize it with a particular view of a resource. Almost all IIIF Clients initialize from the very simplest form of Content State - a Manifest URI. A more complex Content State might target a particular region of a particular canvas within a Manifest, as in the second example above. A client initialized from such a Content State would load the Manifest, show the particular Canvas, and perhaps zoom in on the target region.
+
+The mechanisms for passing Content State into a client, and exporting a Content State from a client, are given in the [Content State Protocol API 2.0](content-state-2) specification, which describes the scenarios in which a URI, or Content State not carried by an annotation, should be interpreted by a Client as a Content State.
+
+
+### Load a particular view of some resource and modify it
+
+In the previous usage, the fragment of IIIF carried by the annotation with the motivation `contentState` provides enough information for a Client to load a resource and show it. This fragment can also carry additional IIIF Presentation API resources not shown in the referred-to resource. For example, in the following example the Content State carries additional annotations not present in the original published Manifest. A client initializing from this Content State would show these additional annotations to the user:
+
+```json
+{
+  "id": "https://example.org/import/3",
+  "type": "Annotation",
+  "motivation": "contentState",
+  "target": {
+    "id": "https://example.org/canvases/aabb#xywh=4500,1266,600,600",
+    "type": "Canvas",
+    "partOf": {
+      "id": "https://example.org/manifests/nook12",
+      "type": "Manifest"
+    },
+    "annotations": [
+      {
+        "id": "https://my-annotation-store.org/user4532/notes-on-book12/p1",
+        "type": "AnnotationPage"
+      }
+    ]
+  }
+}
+```
+
+As well as adding resources not present in the referred-to resource, the Content State can also remove parts of the referred-to resource from the user's view by applying the behavior `hidden` to them:
+
+```jsonc
+{
+  // What does this actually look like? I want to load bnf_chateauroux example but HIDE the illumination
+  // ...
+  "id": "https://iiif.io/api/cookbook/recipe/0036-composition-from-multiple-images/annotation/p0001-image",
+  "type": "Annotation",
+  "motivation": "painting",
+  "behavior": ["hidden"]
+}
+```
+
+TODO: what is the processing algorithm for applying incoming `hidden` ?
+
+When a Content State annotation carries a Scene, a view might be initialized from a Content State that introduces an additional Camera that shows the user the point of interest. 
+
+
+### Modify the Container in a particular context
+
+The techniques in the previous example are also used within a published IIIF Manifest to modify the contents of a Container in the contexts of different annotations on that Container. This technique allows IIIF to be used for _storytelling_ and other narrative applications beyond simply conveying a static Digital Object into a viewer and leaving subsequent interactions entirely in the control of the user. The `scope` property indicates to the client that the Content State provides valuable context for displaying some aspect of a Scene or other Container. In the case of a commenting annotation, this means that the Content State should be loaded when the commenting annotation is selected or otherwise highlighted. 
+
+
+Consider a Scene with two models, and two `commenting` annotations:
+
+```jsonc
+{
+  "id": "https://example.org/iiif/3d/whale_comment_scope_content_state.json",
+  "type": "Manifest",
+  "label": { "en": ["Whale Cranium and Mandible with Dynamic Commenting Annotations and Custom Per-Anno Views"] },
+  "items": [
+    {
+      "id": "https://example.org/iiif/scene1/page/p1/1",
+      "type": "Scene",
+      "label": { "en": ["A Scene Containing a Whale Cranium and Mandible"] },
+      "items": [
+        {
+          "id": "https://example.org/iiif/scene1/page/p1/1",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://example.org/iiif/3d/anno1",
+              "type": "Annotation",
+              "motivation": ["painting"],
+              "body": {
+                "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/whale/whale_mandible.glb",
+                "type": "Model"
+              },
+              "target": { 
+                // SpecificResource with PointSelector
+              }
+            },
+            {
+              "id": "https://example.org/iiif/3d/anno2",
+              "type": "Annotation",
+              "motivation": ["painting"],
+              "body": {
+                "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/whale/whale_cranium.glb",
+                "type": "Model"
+              },
+              "target": { 
+                // SpecificResource with PointSelector
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "annotations": [
+    {
+      "id": "https://example.org/iiif/scene1/page/p1/annotations/1",
+      "type": "AnnotationPage",
+      "items": [
+        {
+          "id": "https://example.org/iiif/3d/anno7",
+          "type": "Annotation",
+          "motivation": ["commenting"],
+          "bodyValue": "Mandibular tooth",
+          "target": { 
+            // SpecificResource with PointSelector
+          }
+        },
+        {
+          "id": "https://example.org/iiif/3d/anno5",
+          "type": "Annotation",
+          "motivation": ["commenting"],
+          "bodyValue": "Right pterygoid hamulus",
+          "target": { 
+            // SpecificResource with PointSelector
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
+In that form, the user is left to interpret the commenting annotations and explore the Scene. The client will render a UI that presents the two commenting annotation in some form and allow the user to navigate between them. The commenting annotations are ordered; while the user might explore them freely in the Scene they might also go "forward" from the first to the second commenting annotation and "back" to the first from the second. 
+
+In many complex 3D Scenes, it may not be clear what or how to look at a particular point of interest even when the commenting annotation targets a particular point. The view may be occluded by parts of the model, or other models in the Scene. It may be useful to light the Scene differently in different contexts.
+
+In the same way an incoming Content State can modify a Scene as it initializes the client, so can a Content State attached to each (non-`painting`) annotation target modify the Scene as the user moves between different annotations.
+
+The `scope` property of an annotation `target` provides _contextual_ Content State - the viewer should modify the Scene by applying the Content State carried by the `scope` property _only when the user is in the context of that annotation_.
+
+Taking the first commenting annotation from the above example and adding a `scope` property, whose value is an annotation with the motivation `contentState`, we can introduce a new Camera specifically for this particular annotation, so that when the user selects this comment, the client will switch the view to this camera. This example also changes the background color of the Scene:
+
+```jsonc
+{
+  "id": "https://example.org/iiif/3d/anno7",
+  "type": "Annotation",
+  "motivation": ["commenting"],
+  "bodyValue": "Mandibular tooth",
+  "target": {
+
+    // SpecificResource with PointSelector
+    // "type": "SpecificResource",
+    // "source": ... the Scene...
+    // "selector": ... a point ...
+
+    "scope": {  // a modification to the Scene, only in the context of this annotation
+
+      "id": "https://example.org/iiif/3d/anno4",
+      "type": "Annotation",
+      "motivation": ["contentState"],
+      "target": {
+        "id": "https://example.org/iiif/scene1/page/p1/1",
+        "type": "Scene",
+        "backgroundColor": "yellow",
+        "items": [
+          {
+            "id": "https://example.org/iiif/3d/anno8",
+            "type": "Annotation",
+            "motivation": ["painting"],
+            "body": {
+              "type": "SpecificResource",
+              "source": [
+                {
+                  "id": "https://example.org/iiif/3d/cameras/1",
+                  "type": "PerspectiveCamera",
+                  "label": {"en": ["Perspective Camera Pointed At Front of Cranium and Mandible"]},
+                  "fieldOfView": 50.0,
+                  "near": 0.10,
+                  "far": 2000.0
+                }
+              ]
+            },
+            "target": {
+              "type": "SpecificResource",
+              "source": [
+                {
+                  "id": "https://example.org/iiif/scene1",
+                  "type": "Scene"
+                }
+              ],
+              "selector": [
+                {
+                  "type": "PointSelector",
+                  "x": 0.0, "y": 0.15, "z": 0.75
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  }
+}
+```
+
+In a storytelling or exhibition scenario, the non-painting `annotations` might be carrying informative text, or even rich HTML bodies. They can be considered to be _steps_ in the story. The use of `scope` allows a precise storytelling experience to be specified, including:
+
+ - providing a specific viewpoint for each step of the narrative (or even a choice of viewpoints)
+ - modifying the lighting of the Scene for each step, for example shining a spotlight on a point of interest
+ - hiding parts of the Scene for a step
+ - introducing additional models at a particular step
+ - (and many more!)
+
+Use of `scope` is permitted in annotations on any Container type, not just Scenes. For example, a 2D narrative around a Canvas might show or hide different `painting` annotations at each step.
+
+#### The `sequence` behavior
+
+// Is this right? Language...
+
+While all AnnotationPage `items` are inherently ordered, an Annotation Page with the behavior `sequence` is explicitly a narrative, and clients should prevent (dissuade) users from jumping about. The presence of `sequence` affects the way a client should interpret the `reset` property described below.
+
+### Content States on Manifests
+
+When an annotation with the motivation `contentState` is provided via the `annotations` property of a Manifest, rather than contextually via `scope`, it is assumed to be generally available for selection by the user at any time. A client may present such as annotations as a menu of views, allowing arbitrary jumping into any Scene (or Canvas or Timeline) from any other point.
+
+// Is there some overlap here with Range?
+
+### Processing Content States in Scopes: reset
+
+// This may not be what we have discussed...
+
+When a Content State is applied to a Container such as a Scene, it is assumed to be a "diff" - for example if 3 cameras and 4 lights are already present in the Scene, and a Content State asserts a single new Camera, the default behavior is to add this fourth Camera to the Scene and leave the existing resources as they are.
+
+The client should reset the Container to its original state before applying the diff operation. However, for narratives that cumulatively build a Scene this may lead to excessively verbose Manifests. When moving through the items of an Annotation page with the behavior `sequence`, the Container is not reset and the diff is cumulative; modifications from one `scope` persist into the next. If this behavior is not wanted, the `reset` property of the content state annotation should be set to `true`:
+
+```json
+{
+  "type": "Annotation",
+  "motivation": ["contentState"],
+  "reset": true
+}
+```
+
+Before applying the content state to the Scene, the client should reset the Scene to its original state as provided by the Manifest.
+
+// I am assuming reset is always true except in `sequence` - otherwise it's completely unpredictable!! or is it... arbitrary navigation, state provided by initialization content states, etc...
+
+### Contribute additional information permanently
+
+Rerum inbox scenario - should be covered in CS2 protocol
+
+### activating
+
+Extension of hotspot linking
+
+An annotation with the motivation `activating` can also carry a Content State in its body.
+
+There are two uses of the `activating` annotation:
+
+- triggering a content state
+- triggering a named animation
+
 
 ### reset
 
-"diff", "original state" etc
+See above...
 
+"diff", "original state" etc
 behavior for "force-order"?
 behavior: sequence
 
