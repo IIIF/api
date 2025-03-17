@@ -156,7 +156,7 @@ The target of the annotation is, in this case, a complete IIIF resource (here, a
 
 The content state _MAY_ be supplied as a string whose value is the URI of an Annotation with the motivation `contentState`, that the client must dereference and process. For the example in 2.2.1 above, this would be the URI `https://example.org/Annotation-server/bookmarks/b1`. The response from that URI would be the JSON above.
 
-#### 2.2.3. Target Body
+#### 2.2.3. Target Body // see #2294
 
 The content state _MAY_ be supplied as JSON-LD, as the value of the `target` property of an implied Annotation with the motivation `contentState`. For the example in 2.2.1, this would be:
 
@@ -236,6 +236,8 @@ If a client is capable of reading the content state from the value of an HTTP GE
 
 If the intention is that the linked-to client loads an entire IIIF resource without focusing on any particular part, the simplest form of the content state _SHOULD_ be used:
 
+// Talk about URI encoding here, as per #2292
+
 ```html
 {% raw %}
 <a href="https://example.org/viewer?iiif-content=https://damsssl.llgc.org.uk/iiif/2.0/4389767/manifest.json">Link to Viewer</a>
@@ -276,7 +278,7 @@ Without the required content-state-encoding, the (invalid) link to the viewer wo
 ```html
 {% raw %}
 <!-- INVALID, unencoded form -->
-<a href='https://example.org/viewer?iiif-content={"@context":"http://iiif.io/api/presentation/3/context.json","id": "https://example.org/content-states/1","type":"Annotation","motivation":"contentState","target":{"id":"https://damsssl.llgc.org.uk/iiif/2.0/4389767/canvas/4389772.json","type":"Canvas","partOf":[{"id":"https://damsssl.llgc.org.uk/iiif/2.0/4389767/manifest.json","type":"Manifest"}]}}'>INVALID, unencoded link to Viewer</a>
+<a href='https://example.org/viewer?iiif-content={"@context":"http://iiif.io/api/presentation/3/context.json","id": "https://example.org/content-states/1","type":"Annotation","motivation":["contentState"],"target":{"id":"https://damsssl.llgc.org.uk/iiif/2.0/4389767/canvas/4389772.json","type":"Canvas","partOf":[{"id":"https://damsssl.llgc.org.uk/iiif/2.0/4389767/manifest.json","type":"Manifest"}]}}'>INVALID, unencoded link to Viewer</a>
 {% endraw %}
 ```
 
@@ -571,7 +573,7 @@ This example should cause a viewer to open Manifest `https://example.org/iiif/id
   "@context": "http://iiif.io/api/presentation/3/context.json",
   "id": "https://example.org/import/3",
   "type": "Annotation",
-  "motivation": "contentState",
+  "motivation": ["contentState"],
   "target": [
       {
           "id": "https://example.org/iiif/item1/canvas37",
@@ -718,6 +720,8 @@ function restorePadding(s) {
 ```
 
 #### 6.3.2. Python
+
+// Add in one for query string as #2292
 
 ```python
 import base64
