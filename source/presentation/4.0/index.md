@@ -469,6 +469,8 @@ A Scene with a Camera at a particular point:
 
 The term _Content State_ is used for any arbitrary fragments of IIIF such as the above when they are used in the particular ways defined by this specification. A Content State is **usually** carried by the `target` of an annotation with the motivation `contentState`, or `body` of an annotation with the motivation `activating`, but in some scenarios may be transferred between client applications without an enclosing annotation, as a "bare" URI (see Content State 2.0 specification).
 
+Annotations with the motivation `contentState` are referred to as _content state_ annotations.
+
 Content States are used for the following applications:
 
 ### Load a particular view of a resource or group of resources
@@ -721,16 +723,163 @@ Before applying the content state to the Scene, the client should reset the Scen
 
 Rerum inbox scenario - should be covered in CS2 protocol
 
-### activating
+### activating - animation and interactions
 
-Extension of hotspot linking
+Annotations with the motivation `activating` are referred to as _activating_ annotations.
 
-An annotation with the motivation `activating` can also carry a Content State in its body.
+There are two uses of `activating` annotations:
 
-There are two uses of the `activating` annotation:
+#### Triggering a content state
 
-- triggering a content state
-- triggering a named animation
+An activating annotation links a painting annotation to a content state. When a user interacts with the painting annotation - whether through clicking it, tapping it, or other client-specific behaviors - the linked content state should be processed to modify the Scene or other Container, as in the previous examples. The painting annotation is the target of the activating annotation, and the content state is the body value. Only one content state may be specified in the body array, but the body array may include a `TextualBody` to provide a label for the interaction. The pattern is the same as for the `linking` motivation, but rather than the client opening a new browser window on the resource specified in the `body`, it applies the modification provided by the Content State.
+
+The activating annotation is provided in a Container's `annotations` property. In this (contrived for brevity) example, if the user clicks the mandible model, the Scene background changes color:
+
+```jsonc
+{
+  "id": "https://example.org/iiif/3d/activating.json",
+  "type": "Manifest",
+  "label": { "en": ["Whale Cranium and Mandible with Dynamic Commenting Annotations and Custom Per-Anno Views"] },
+  "items": [
+    {
+      "id": "https://example.org/iiif/scene1/scene-with-activation",
+      "type": "Scene",
+      "label": { "en": ["A Scene Containing a Whale Cranium and Mandible"] },
+      "items": [
+        {
+          "id": "https://example.org/iiif/scene1/page/p1/1",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://example.org/iiif/3d/painting-anno-for-mandible",
+              "type": "Annotation",
+              "motivation": ["painting"],
+              "body": {
+                "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/whale/whale_mandible.glb",
+                "type": "Model"
+              },
+              "target": { 
+                // SpecificResource with PointSelector
+              }
+            }
+          ],
+          "annotations": [
+            {
+              "id": "https://example.org/iiif/scene1/page/activators",
+              "type": "AnnotationPage",
+              "items": [
+                {
+                  "id": "https://example.org/iiif/3d/anno2",
+                  "type": "Annotation",
+                  "motivation": ["activating"],
+                  "body": [
+                    {
+                      "type": "TextualBody",
+                      "value": "A label for the activation may be provided as a TextualBody"
+                    },
+                    {
+                      // A body where the type is a IIIF Resource (eg Scene) is the Content State to apply
+                      "id": "https://example.org/iiif/scene1/scene-with-activation",
+                      "type": "Scene",
+                      "backgroundColor": "#FF99AA"
+                    }
+                  ],
+                  "target": {
+                    "id": "https://example.org/iiif/3d/painting-anno-for-mandible",
+                    "type": "Annotation"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+// Can you put activating annotations in `manifest.annotations`? They would work there too, you have all the information.
+
+
+
+#### Triggering a named animation in a model
+
+Sometimes a model file has inbuilt animations. While a description of these is outside the scope of IIIF, because it is 3D-implementation-specific, as long as there is a way to refer to a model's animation(s) by name, we can connect the animation to IIIF resources.
+
+This pattern is similar to the above, except that:
+
+ - There is no Content State in the `body`, but there _MUST_ be a TextualBody to label the interaction. (?? must?)
+ - The `target` selects a _named animation_ in the model. The `target` MUST be a SpecificResource, where the `source` is the painting annotation that paints the model, and the `selector` is of type `AnimationSelector` with the `value` being a string that corresponds to the animation in the model.
+
+ The format of the `value` string is implementation=specific, and will depend on how different 3D formats support addressing of animations within models.
+
+
+```jsonc
+{
+  "id": "https://example.org/iiif/3d/activating-animation.json",
+  "type": "Manifest",
+  "label": { "en": ["Music Box with lid that opens as an internal animation"] },
+  "items": [
+    {
+      "id": "https://example.org/iiif/scene1/scene-with-activation-animation",
+      "type": "Scene",
+      "label": { "en": ["A Scene Containing a Music Box"] },
+      "items": [
+        {
+          "id": "https://example.org/iiif/scene-with-activation-animation/page/p1/1",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://example.org/iiif/3d/painting-anno-for-music-box",
+              "type": "Annotation",
+              "motivation": ["painting"],
+              "body": {
+                "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/music-box.glb",
+                "type": "Model"
+              },
+              "target": { 
+                // SpecificResource with PointSelector
+              }
+            }
+          ],
+          "annotations": [
+            {
+              "id": "https://example.org/iiif/scene1/page/activators",
+              "type": "AnnotationPage",
+              "items": [
+                {
+                  "id": "https://example.org/iiif/3d/anno2",
+                  "type": "Annotation",
+                  "motivation": ["activating"],
+                  "body": [
+                    {
+                      "type": "TextualBody",
+                      "value": "Click the box to open the lid"
+                    }
+                  ],
+                  "target": [
+                    {
+                      "type": "SpecificResource",
+                      "source": "https://example.org/iiif/3d/painting-anno-for-music-box",
+                      "selector": [
+                        {
+                        "type": "AnimationSelector",
+                        "value": "open-the-lid"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
 
 
 ### reset
