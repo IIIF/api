@@ -51,74 +51,9 @@ __Previous Version:__ [3.0][prezi30]
 
 ----
 
-# Presentation 4
-
-## Introduction
-
-Manifests, Containers, Annotations oh my!
-Manifest as unit of distribution
-
-
-## Content Resources
-
-There is stuff that we want to show - images, video, audio, 3D models etc
-
-### type value of Content Resources
-
-| Class         | Description                      |
-| ------------- | -------------------------------- |
-| `Image`       | Two dimensional visual resources primarily intended to be seen, such as might be rendered with an &lt;img> HTML tag |
-| `Model`       | A three (or more) dimensional model intended to be interacted with by humans |
-| `Sound`       | Auditory resources primarily intended to be heard, such as might be rendered with an &lt;audio> HTML tag |
-| `Text`        | Resources primarily intended to be read |
-| `Video`       | Moving images, with or without accompanying audio, such as might be rendered with a &lt;video> HTML tag |
-{: .api-table #table-type}
-
-## Containers
-
-This is where we put content resources
-"painting"
-
-And we can also put other things:
-"supplementing"
-
-And we can nest them
-"Nesting" (see 3d draft)
-
-The defined Container types are `Timeline`, `Canvas` and `Scene`. Extensions may define additional Container types.
-
-As multiple models, lights, cameras, and other resources can be associated with and placed within a Scene container, Scenes provide a straightforward way of grouping content resources together within a space. Scenes, as well as other IIIF containers such as Canvases, can also be embedded within a Scene, allowing for the nesting of content resources. 
-
-A Scene or a Canvas may be treated as a content resource, referenced or described within the `body` of an Annotation. As with models and other resources, the Annotation is associated with a Scene into which the Scene or Canvas is to be nested through an Annotation `target`. The content resource Scene will be placed within the `target` Scene by aligning the coordinate origins of the two scenes. Alternately, Scene Annotations may use `PointSelector` to place the origin of the resource Scene at a specified coordinate within the `target` Scene.
-
-As with other resources, it may be appropriate to modify the initial scale, rotation, or translation of a content resource Scene prior to painting it within another Scene. Scenes associated with SpecificResources may be manipulated through the transforms described in Transforms(transforms_section). 
-
-A simple example painting one Scene into another:
-
-```json
-{
-    "id": "https://example.org/iiif/3d/anno1",
-    "type": "Annotation",
-    "motivation": ["painting"],
-    "body": {
-        "id": "https://example.org/iiif/scene1",
-        "type": "Scene"
-    },
-    "target": "https://example.org/iiif/scene2"
-}
-```
-
-
-Content resources of the appropriate dimension(s) may be annotated into a Container that has those dimensions.
 
 
 ### Timeline
-
-A Container that represents a bounded temporal range, without any spatial coordinates.
-
-* has continuous duration in seconds
- for all or part of its duration.
-
 
 A Timeline _MUST_ have a `duration` property that defines its length in seconds.  The `duration` value must be a positive floating point number.  
 
@@ -212,47 +147,6 @@ It is an error to select a temporal region of a Scene that does not have a `dura
 
 
 
-
-
-### Canvas
-
-A Container that represents a bounded, two-dimensional space and has content resources associated with all or parts of it. It may also have a bounded temporal range in the same manner as a Timeline.
-
-* has integer, unitless width and height
-* has optional continuous duration in seconds
-
-### Scene
-
-A Container that represents a boundless three-dimensional space and has content resources positioned at locations within it. Rendering a Scene requires the use of Cameras and Lights. It may also have a bounded temporal range in the same manner as a Timeline.
-
-* has continuous, unitless x,y,z cartesian coordinate space
-* has optional continuous duration in seconds
-
-A Scene in IIIF is a virtual container that represents a boundless three-dimensional space and has content resources, lights and cameras positioned at locations within it. It may also have a duration to allow the sequencing of events and timed media. Scenes have infinite height (y axis), width (x axis) and depth (z axis), where 0 on each axis (the origin of the coordinate system) is treated as the center of the scene's space. 
-The positive y axis points upwards, the positive x axis points to the right, and the positive z axis points forwards (a [right-handed cartesian coordinate system](https://en.wikipedia.org/wiki/Right-hand_rule)).
-
-The axes of the coordinate system are measured in arbitrary units and these units do not necessarily correspond to any physical unit of measurement. This allows arbitrarily scaled models to be used, including very small or very large, without needing to deal with very small or very large values. If there is a correspondence to a physical scale, then this can be asserted using the physical dimensions pattern(fwd-ref-to-phys-dims).
-
-<img src="https://raw.githubusercontent.com/IIIF/3d/eds/assets/images/right-handed-cartesian.png" title="Right handed cartesian coordinate system" alt="diagram of Right handed cartesian coordinate system" width=200 />
-
-
-As with other containers in IIIF, Annotations are used to target the Scene to place content such as 3d models into the scene. Annotations are also used to add lights and cameras. A Scene can have multiple models, lights, cameras and other resources, allowing them to be grouped together. Scenes and other IIIF containers, such as Canvases, may also be embedded within Scenes, as described below in the nesting section [fwd-ref-to-nesting]. 
-
-```json
-{
-  "id": "https://example.org/iiif/scenes/1",
-  "type": "Scene",
-  "label": {"en": ["Chessboard"]},
-  "backgroundColor": "#000000",
-  "items": [
-   "Note: Annotations Live Here"  
-  ]
-}
-```
-
-
-
-## Putting stuff into Containers (composition)
 
 ### Annotation
 
@@ -812,7 +706,7 @@ This pattern is similar to the above, except that:
  - There is no Content State in the `body`, but there _MUST_ be a TextualBody to label the interaction. (?? must?)
  - The `target` selects a _named animation_ in the model. The `target` MUST be a SpecificResource, where the `source` is the painting annotation that paints the model, and the `selector` is of type `AnimationSelector` with the `value` being a string that corresponds to the animation in the model.
 
- The format of the `value` string is implementation=specific, and will depend on how different 3D formats support addressing of animations within models. The same model can be painted multiple times into the scene, and you might want to activate only one model's animation, thus we need to refer to the annotation that paints the model, not the model directly.
+ The format of the `value` string is implementation-specific, and will depend on how different 3D formats support addressing of animations within models. The same model can be painted multiple times into the scene, and you might want to activate only one model's animation, thus we need to refer to the annotation that paints the model, not the model directly.
 
 
 

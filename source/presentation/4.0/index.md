@@ -81,26 +81,88 @@ Simple model diagram
 Manifests and Containers briefly
 
 
+
 ### Manifests
 
-The document, the unit of distribution of IIIF
+A Manifest is the primary unit of distribution of IIIF. It is a JSON document that provides a description of the structure and properties of a single item to be presented to the user, such as a title and other descriptive and linking information about the object and/or the intellectual work that it conveys. The scope of what constitutes an item, and thus its Manifest, is up to the publisher of that Manifest. The Manifest contains sufficient information for the client to initialize itself and begin to display something quickly to the user.
 
-A sequence of Containers that carry the content.
+The Manifest's `items` property is a list of _Containers_ of _Content Resources_ (images, 3D models, audio, etc). Client software loads the Manifest and presents the Content Resources to the user. The `items` property provides an order to the content.
+
+Manifests have descriptive, technical and linking properties. The required properties of Manifests are `id`, `type`, `items` and `label`. Additional descriptive properties include `summary`, `metadata`, `rights`, `thumbnail`, `homepage` and `provider`. 
+
+[See Model Docs](manifest)
+
+```
+Manifest JSON
+```
 
 
 ### Containers
 
-Timeline, Canvas, Scene
+A Container is a frame of reference that allows the relative positioning of Content Resources, a concept borrowed from standards like PDF and HTML, or applications like Photoshop and PowerPoint, where an initially blank display surface has images, video, text and other content "painted" on to it. The frame is defined by a set of dimensions, with different types of Container having different dimensions. This specification defines three sub-classes of Container: Timeline (which only has a duration), Canvas (which has bounded height and width, and may have a duration), and Scene (which has infinite height, width and depth, and may have a duration). 
+
+And we can also put other things:
+"supplementing"
 
 
-### Painting Annotations
 
+The defined Container types are: 
+
+#### Timeline
+
+A Container that represents a bounded temporal range, without any spatial coordinates.
+
+* has continuous duration in seconds for all or part of its duration.
+* Typically used for audio-only content
+
+#### Canvas
+
+A Container that represents a bounded, two-dimensional space and has content resources associated with all or parts of it. It may also have a bounded temporal range in the same manner as a Timeline.
+
+* has integer, unitless width and height
+* has optional continuous duration in seconds
+* Typically used for Image content, and with duration, for Video content.
+
+#### Scene
+
+A Container that represents a boundless three-dimensional space and has content resources positioned at locations within it. Rendering a Scene requires the use of Cameras and Lights. It may also have a bounded temporal range in the same manner as a Timeline.
+
+* has continuous, unitless x,y,z cartesian coordinate space
+* has optional continuous duration in seconds
+* Typically used for 3D models, and can include audio, video and image content
+
+
+### Annotations
+
+IIIF uses the concept of _Annotation_ to link resources together. Why is this a different sense from what I am used to? Because this: W3C go read that then come back.
+
+BUT it can be used for notes in the margin, commentary and all those more usual senses of the word, too. It's just that we borrow that linking mechanism for the Content Resources, too.
+
+Annotations are primarily used to associate content resources with Containers. The same mechanism is used for the visible and/or audible resources as is used for transcriptions, commentary, tags and other content. This provides a single, unified method for aligning information, and provides a standards-based framework for distinguishing parts of resources and parts of Canvases. As Annotations can be added later, it promotes a distributed system in which publishers can align their content with the descriptions created by others.
+
+Now that we have this linking mechanism... PAINTING
+
+Painting Annotations are used to associate models, lights, cameras, and IIIF containers such as Canvases, with Scenes. They have a `type` of "Annotation", a `body` (being the resource to be added to the scene) and a `target` (being the scene or a position within the scene). They must have a `motivation` property with the value of "painting" to assert that the resource is being painted into the Scene, rather than the Annotation being a comment about the Scene.
 Everything is an anno but these are special and core
+
+There are other important uses of annotation, they are not all painting annos - see later...
+
+```
+JSON of painting anno
+```
+
+By the time you get here you are comfortable dropping the phrase "painting annotation" into casual conversation.
+
 
 ### Content Resources
 
+
+There is stuff that we want to show - images, video, audio, 3D models etc
+
 Image, Sound, Video, Model, Text 
 (see model)
+
+And we can nest Containers so they are Content Resources too
 
 SpecificResource
 
@@ -123,6 +185,52 @@ A video on a Canvas with duration
 
 
 ### 3D
+
+A Scene in IIIF is a virtual container that represents a boundless three-dimensional space and has content resources, lights and cameras positioned at locations within it. It may also have a duration to allow the sequencing of events and timed media. Scenes have infinite height (y axis), width (x axis) and depth (z axis), where 0 on each axis (the origin of the coordinate system) is treated as the center of the scene's space. 
+The positive y axis points upwards, the positive x axis points to the right, and the positive z axis points forwards (a [right-handed cartesian coordinate system](https://en.wikipedia.org/wiki/Right-hand_rule)).
+
+The axes of the coordinate system are measured in arbitrary units and these units do not necessarily correspond to any physical unit of measurement. This allows arbitrarily scaled models to be used, including very small or very large, without needing to deal with very small or very large values. If there is a correspondence to a physical scale, then this can be asserted using the physical dimensions pattern(fwd-ref-to-phys-dims).
+
+<img src="https://raw.githubusercontent.com/IIIF/3d/eds/assets/images/right-handed-cartesian.png" title="Right handed cartesian coordinate system" alt="diagram of Right handed cartesian coordinate system" width=200 />
+
+
+
+As multiple models, lights, cameras, and other resources can be associated with and placed within a Scene container, Scenes provide a straightforward way of grouping content resources together within a space. Scenes, as well as other IIIF containers such as Canvases, can also be embedded within a Scene, allowing for the nesting of content resources. 
+
+A Scene or a Canvas may be treated as a content resource, referenced or described within the `body` of an Annotation. As with models and other resources, the Annotation is associated with a Scene into which the Scene or Canvas is to be nested through an Annotation `target`. The content resource Scene will be placed within the `target` Scene by aligning the coordinate origins of the two scenes. Alternately, Scene Annotations may use `PointSelector` to place the origin of the resource Scene at a specified coordinate within the `target` Scene.
+
+
+As with other containers in IIIF, Annotations are used to target the Scene to place content such as 3d models into the scene. Annotations are also used to add lights and cameras. A Scene can have multiple models, lights, cameras and other resources, allowing them to be grouped together. Scenes and other IIIF containers, such as Canvases, may also be embedded within Scenes, as described below in the nesting section [fwd-ref-to-nesting]. 
+
+```json
+{
+  "id": "https://example.org/iiif/scenes/1",
+  "type": "Scene",
+  "label": {"en": ["Chessboard"]},
+  "backgroundColor": "#000000",
+  "items": [
+   "Note: Annotations Live Here"  
+  ]
+}
+```
+As with other resources, it may be appropriate to modify the initial scale, rotation, or translation of a content resource Scene prior to painting it within another Scene. Scenes associated with SpecificResources may be manipulated through the transforms described in Transforms(transforms_section). 
+
+A simple example painting one Scene into another:
+
+```json
+{
+    "id": "https://example.org/iiif/3d/anno1",
+    "type": "Annotation",
+    "motivation": ["painting"],
+    "body": {
+        "id": "https://example.org/iiif/scene1",
+        "type": "Scene"
+    },
+    "target": "https://example.org/iiif/scene2"
+}
+```
+
+
 
 Whale bone with a camera and a light
 
