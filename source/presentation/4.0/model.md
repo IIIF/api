@@ -191,7 +191,7 @@ A Specific Resource is a resource in the context of an Annotation. They are used
 
 #### TextualBody
 
-A Textual Body is an embedded resource within an Annotation that carries, as the name suggests, a text as the body of the Annotation. It is defined by the Web Annotation Data Model, and this specification defines a new property for it `position` that allows it to be positioned within a Container.
+A Textual Body is an embedded resource within an Annotation that carries, as the name suggests, a text as the body of the Annotation. It is defined by the Web Annotation Data Model, and this specification defines a new property for `position` that allows it to be positioned within a Container.
 
 #### Choice
 
@@ -252,7 +252,7 @@ WKT Selectors have the following properties:
 | Name  | Description |
 |-------|-------------|
 | id    | The HTTP(S) URI of the selector |
-| type  | The class of the selector, which must be "VisualContentSelector" |
+| type  | The class of the selector, which must be "WktSelector" |
 | value | The WKT string that defines the geometry to be selected |
 
 ```json
