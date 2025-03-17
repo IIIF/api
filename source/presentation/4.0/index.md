@@ -812,7 +812,8 @@ This pattern is similar to the above, except that:
  - There is no Content State in the `body`, but there _MUST_ be a TextualBody to label the interaction. (?? must?)
  - The `target` selects a _named animation_ in the model. The `target` MUST be a SpecificResource, where the `source` is the painting annotation that paints the model, and the `selector` is of type `AnimationSelector` with the `value` being a string that corresponds to the animation in the model.
 
- The format of the `value` string is implementation=specific, and will depend on how different 3D formats support addressing of animations within models.
+ The format of the `value` string is implementation=specific, and will depend on how different 3D formats support addressing of animations within models. The same model can be painted multiple times into the scene, and you might want to activate only one model's animation, thus we need to refer to the annotation that paints the model, not the model directly.
+
 
 
 ```jsonc
@@ -881,6 +882,14 @@ This pattern is similar to the above, except that:
 }
 ```
 
+// TODO
+
+activating to apply a content state and activating to trigger a named animation - use of body and target... what if we want to click a painting anno to trigger the animation?
+Can we ADD that to the target, alongside the SpecificResource with the AnimationSelector?
+
+if the `target` is an AnimationSelector, then the `body` can ONLY be TextualBody (or list of TextualBody)?
+
+There is a more general rule here!
 
 ### reset
 
