@@ -113,7 +113,14 @@ Collection Pages follow the ActivityStreams model, as also used in Annotation Co
 
 ### Manifest
 
-A Manifest is a description of the structure and properties of a single item to be presented to the user, such as a title and other descriptive and linking information about the object and/or the intellectual work that it conveys. The scope of what constitutes an item, and thus its Manifest, is up to the publisher of that Manifest. The Manifest contains sufficient information for the client to initialize itself and begin to display something quickly to the user.
+A Manifest is the primary unit of distribution of IIIF and provides a description of the structure and properties of a single item to be presented to the user.
+
+A Manifest _MUST_ have the following properties: [id](#id), [type](#type), [label](#label), and [items](#items)
+
+A Manfiest _SHOULD_ have the following properties: [metadata](#metadata), [summary](#summary), [provider](#provider), and [thumbnail](#thumbnail)
+
+A Manifest _MAY_ have the following properties: [requiredStatement](#requiredStatement), rights, navDate, navPlace, placeholder, accompanying, viewingDirection, behavior, seeAlso, service, services, homepage, rendering, partOf, start, structures, and annotations.
+
 
 Manifests _MUST_ be identified by a URI and it _MUST_ be an HTTP(S) URI, given in the `id` property. It _MUST_ be able to be dereferenced to retrieve the JSON description of the Manifest.
 
@@ -126,7 +133,7 @@ The Manifest _MAY_ have an `annotations` property, which includes Annotation Pag
 
 ### Container Classes
 
-A Container is a frame of reference that allows the relative positioning of content, a concept borrowed from standards like PDF and HTML, or applications like Photoshop and PowerPoint, where an initially blank display surface has images, video, text and other content "painted" on to it. The frame is defined by a set of dimensions, with different types of Container having different dimensions. This specification defines three sub-classes of Container: Timeline (which only has a duration), Canvas (which has bounded height and width, and may have a duration), and Scene (which has infinite height, width and depth, and may have a duration).
+A Container is a frame of reference that allows the relative positioning of content.
 
 All Containers _MUST_ be identified by a URI and it _MUST_ be an HTTP(S) URI. The URI of the Container _MUST NOT_ contain a fragment (a `#` followed by further characters), as this would make it impossible to refer to a segment of the Container's area using the [media fragment syntax][org-w3c-media-frags] of `#xywh=` for spatial regions, and/or `#t=` for temporal segments. Containers _MAY_ be able to be dereferenced separately from the Manifest via their URIs as well as being [embedded][prezi30-terminology].
 
@@ -152,7 +159,7 @@ The following set of classes are defined by the W3C's [Web Annotation Data Model
 
 #### Annotation
 
-Annotations are primarily used to associate content resources with Containers. The same mechanism is used for the visible and/or audible resources as is used for transcriptions, commentary, tags and other content. This provides a single, unified method for aligning information, and provides a standards-based framework for distinguishing parts of resources and parts of Canvases. As Annotations can be added later, it promotes a distributed system in which publishers can align their content with the descriptions created by others.
+Annotations are used to associate content resources with Containers, as well as for transcriptions, commentary, tags and the association of other content. This provides a single, unified method for aligning information, and provides a standards-based framework for distinguishing parts of resources and parts of Canvases.
 
 Annotations _MUST_ have their own HTTP(S) URIs, conveyed in the `id` property. The JSON-LD description of the Annotation _SHOULD_ be returned if the URI is dereferenced, according to the [Web Annotation Protocol][org-w3c-webanno-protocol].
 
