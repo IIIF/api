@@ -11,3 +11,5 @@ tmp/
 iiifc-theme
 Gemfile.lock
 vendor
+
+.vscode
