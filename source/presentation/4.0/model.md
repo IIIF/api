@@ -216,6 +216,10 @@ The Web Annotation Data Model defines several Selectors, which describe how to f
 
 There are common use cases in which a point, rather than a range or area, is the target of the Annotation. For example, putting a pin in a map should result in an exact point, not a very small rectangle. Points in time are not very short durations, and user interfaces should also treat these differently. This is particularly important when zooming in (either spatially or temporally) beyond the scale of the frame of reference.
 
+
+* FIXME: either supply instant, or all applicable dimensions for the source
+
+
 Point Selectors have the following properties:
 
 | Name | Description |
@@ -225,7 +229,7 @@ Point Selectors have the following properties:
 | x    | A number (floating point or integer) giving the x coordinate of the point, relative to the dimensions of the source resource |
 | y    | A number (floating point or integer) giving the y coordinate of the point, relative to the dimensions of the source resource |
 | z    | A number (floating point) giving the z coordinate of the point, relative to the dimensions of the source resource |
-| t    | A number (floating point) giving the time of the point in seconds, relative to the duration of the source resource |
+| instant | A number (floating point) giving the time of the point in seconds, relative to the duration of the source resource |
 
 
 ```json
@@ -235,7 +239,7 @@ Point Selectors have the following properties:
   "x": 0.001,
   "y": 12.3,
   "z": 0,
-  "t": 180.0
+  "instant": 180.0
 }
 ```
 
@@ -325,6 +329,8 @@ Animation Selectors have the following properties:
 
 #### ImageApiSelector
 
+FIXME: write this
+
 
 
 
@@ -359,7 +365,7 @@ Ranges _MAY_ link to an Annotation Collection that has the content of the Range 
 ### Other Classes
 #### Agent
 #### Service
-#### Value
+#### UnitValue
 
 
 
@@ -1501,6 +1507,12 @@ The value _MUST_ be a string.
 ``` json-doc
 { "type": "Image" }
 ```
+
+##### unit
+
+FIXME: possible values are 'm' and 's' and 'relative' and not 'smoot'
+
+
 
 ##### viewingDirection
 {: #viewingDirection}

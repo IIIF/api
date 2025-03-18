@@ -1382,22 +1382,24 @@ See above...
 
 (move the props to vocab doc)
 
-### spatialScale
 
-### temporalScale
-
+Continental drift simulation example
 
 ```
 {
-    "spatialScale": {
-        "factor": 22.0,
-        "units": "m"
-    },
+  "type": "Scene",
 
+    "spatialScale": {
+        "type": "UnitValue",
+        "value": 22.0,
+        "unit": "m"
+    },
     
     // this would be rarely used
     "temporalScale": {
-        "factor": 0.00001
+        "type": "UnitValue",
+        "value": 0.00001,
+        "unit": "s"
     }
 
 }
