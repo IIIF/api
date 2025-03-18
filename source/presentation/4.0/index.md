@@ -90,7 +90,7 @@ The Manifest's `items` property is a list of _Containers_ of _Content Resources_
 
 Manifests have descriptive, technical and linking properties. The required properties of Manifests are `id`, `type`, `items` and `label`. Additional descriptive properties include `summary`, `metadata`, `rights`, `thumbnail`, `homepage` and `provider`. 
 
-[See Model Docs](manifest)
+[See Model Docs]()
 
 ```
 Manifest JSON
