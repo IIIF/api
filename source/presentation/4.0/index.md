@@ -184,25 +184,59 @@ comment annotation about part of the previous example's Canvas using FragmentSel
 ```
 
 
-## Presenting Content Resources - what you came here for
+## Presenting Content Resources
+
+This section of the specification uses the use cases listed in the introduction to demonstrate the use of the IIIF Presentation API and introduce additional features.
+
 
 ### Images
 
-A painting
+#### Example 1: a painting
 
-A paged thing
+This example demonstrates the use of the properties `label`, `metadata`,  ...
+
+```
+Example: a painting {}
+Will demonstrate:
+
+Manifest -> items -> Canvas -> items -> AnnoPage -> items -> Anno -> body -> Image
+label, summary, metadata, rights, provider, homepage, thumbnail
+```
+
+Some text, maybe mention requiredStatement
+
+#### Example 2: a digitized book
+
+```
+Example: a paged thing - a book
+requiredStatement, behavior, viewingDirection, (no Ranges), rendering - PDF version, start
+```
+
+Introduce new props used, link to model
+
+More text - paging behaviors - ref the Model
 
 
 ### Audio and Video
 
-A timeline - audio only
+#### Example: a short recording with a transcript
 
-A video on a Canvas with duration
+```
+Timeline
+duration, format, annotations (transcript), language, accompanyingContainer
+```
+
+#### Example: a movie with subtitles
+
+```
+Canvas
+duration, format, Choice of video 720p, 4K? (forward ref), timeMode, placeholderContainer
+```
 
 
 ### 3D
 
-A Scene in IIIF is a virtual container that represents a boundless three-dimensional space and has content resources, lights and cameras positioned at locations within it. It may also have a duration to allow the sequencing of events and timed media. Scenes have infinite height (y axis), width (x axis) and depth (z axis), where 0 on each axis (the origin of the coordinate system) is treated as the center of the scene's space. 
+Scenes have infinite height (y axis), width (x axis) and depth (z axis), where 0 on each axis (the origin of the coordinate system) is treated as the center of the scene's space. 
 The positive y axis points upwards, the positive x axis points to the right, and the positive z axis points forwards (a [right-handed cartesian coordinate system](https://en.wikipedia.org/wiki/Right-hand_rule)).
 
 The axes of the coordinate system are measured in arbitrary units and these units do not necessarily correspond to any physical unit of measurement. This allows arbitrarily scaled models to be used, including very small or very large, without needing to deal with very small or very large values. If there is a correspondence to a physical scale, then this can be asserted using the physical dimensions pattern(fwd-ref-to-phys-dims).
@@ -211,7 +245,6 @@ The axes of the coordinate system are measured in arbitrary units and these unit
 
 
 
-As multiple models, lights, cameras, and other resources can be associated with and placed within a Scene container, Scenes provide a straightforward way of grouping content resources together within a space. Scenes, as well as other IIIF containers such as Canvases, can also be embedded within a Scene, allowing for the nesting of content resources. 
 
 A Scene or a Canvas may be treated as a content resource, referenced or described within the `body` of an Annotation. As with models and other resources, the Annotation is associated with a Scene into which the Scene or Canvas is to be nested through an Annotation `target`. The content resource Scene will be placed within the `target` Scene by aligning the coordinate origins of the two scenes. Alternately, Scene Annotations may use `PointSelector` to place the origin of the resource Scene at a specified coordinate within the `target` Scene.
 
@@ -619,6 +652,8 @@ transcripts (and back ref to OCR on images etc)
 
 
 ### Choice of Alternative Resources
+
+Multispectral here
 
 
 ### Embedded Content
@@ -1268,6 +1303,10 @@ Table of Contents as simple example
 thumbnail-nav
 sequence
 
+`structures` property
+
+supplementary
+
 
 ### Collections
 
@@ -1277,8 +1316,19 @@ back ref to periodical?
 
 Paged collections and conceptual collections
 
+partOf
+
+Periodicals - navDate, navPlace
 
 
+## Integration
+
+seeAlso, service(s), extensions
+mention search, image api, auth
+
+profile for seeAlso
+
+partOf - 
 
 
 ## Conveying Physical Dimensions
