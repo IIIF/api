@@ -139,6 +139,8 @@ The same linking mechanism is also used in IIIF with other motivations for trans
 
 The required properties of Annotations are `id`, `type`, `motivation`, and `target`. Most Annotations also have the `body` property.
 
+The relationship between a Container and a painting annotation is not direct. Annotations are grouped within the `items` property of an Annotation Page, and the `items` property of the Container is a list of Annotation Pages. 
+
 (👀) [Model Documentation](model/#annotations)
 
 ```
@@ -191,9 +193,9 @@ This section of the specification uses the use cases listed in the introduction 
 
 ### Images
 
-#### Example 1: a painting
+#### Use Case 1: Artwork
 
-This example demonstrates the use of the properties `label`, `metadata`,  ...
+This example is a Manifest with one Canvas, with an image of an artwork "painted" onto the Canvas. It demonstrates the use of the common descriptive properties `label` for the title of the artwork, `metadata` for additional information to display to the user, `summary` for a brief description of the artwork, `rights` to assert a rights statement or license from a controlled vocabulary, `homepage` to link to the artwork's specific web page, `thumbnail` to provide a small image to stand for the Manifest, and `provider` to give information about the publisher of the Manifest.
 
 ```
 Example: a painting {}
@@ -203,34 +205,45 @@ Manifest -> items -> Canvas -> items -> AnnoPage -> items -> Anno -> body -> Ima
 label, summary, metadata, rights, provider, homepage, thumbnail
 ```
 
-Some text, maybe mention requiredStatement
+Notice that the painting Annotation is a member of the `items` property of an Annotation Page. While in this case there is only one Annotation Page and one Annotation, the mechanism is needed for consistency when there are multiple Annotation Pages, and it allows for Annotation Pages in general to be separate resources on the web.
 
-#### Example 2: a digitized book
+
+#### Example 2: Book
+
+This example is a Manifest with multiple Canvases, each of which represents a page of a book. It demonstrates the use of the `behavior` property to indicate to a client that the object is _paged_: this helps a client generate the correct user experience. The `viewingDirection` property indicates that the book is read left-to-right. In this case, the property is redundant as `left-to-right` is the default value. The Manifest has a `rendering` property linking to a PDF representation; typically a client would offer this as a download or "view as" option. The `start` property is used to tell a client to initialize the view on a particular Canvas, useful if the digitized work contains a large amount of irrelevant front matter or blank pages. The `requiredStatement` is a message that a client MUST show to the user when presenting the Manifest.
 
 ```
 Example: a paged thing - a book
 requiredStatement, behavior, viewingDirection, (no Ranges), rendering - PDF version, start
 ```
 
-Introduce new props used, link to model
-
-More text - paging behaviors - ref the Model
 
 
 ### Audio and Video
 
-#### Example: a short recording with a transcript
+#### Example: a 45 single with one Timeline per song/side
+
+This example is a Manifest with two Timelines, each of which represent a temporal extent during which a song is played. As in most cases, the Timeline `duration` is the same length as that of Content Resource painted into it. This example is a recording digitized from a 45 RPM 7 inch single. It demonstrates the use of `format` for the audio files' content type, `language` (One song is in English and one is in German), `behavior` with value "autoPlay" that tells a client to automatically advance to the second Timeline after playing the first, `annotations` that link to Annotation Pages of annotations with the motivation `supplementing` that provide the lyrics (one example is given afterwards) - and an `accompanyingContainer` that carries a picture of the single's cover that is shown while the songs are playing.
+
 
 ```
 Timeline
-duration, format, annotations (transcript), language, accompanyingContainer
+duration, autoPlay, format, annotations (transcript), language, accompanyingContainer
+```
+
+```
+...
+  (A single supplementing annotation for a line of the song) t= fragment
+...
 ```
 
 #### Example: a movie with subtitles
 
+This example is a Manifest with one Canvas that represents the temporal extent of the movie (the Canvas `duration`) and its aspect ratio (given by the `width` and `height` of the Canvas). The example demonstrates the use of a `Choice` annotation body to give two alternative versions of the movie, the `timeMode` property 
+
 ```
 Canvas
-duration, format, Choice of video 720p, 4K? (forward ref), timeMode, placeholderContainer
+duration, behavior=autoplay, format, Choice of video 720p, 4K? (forward ref), timeMode, placeholderContainer
 ```
 
 
@@ -244,7 +257,8 @@ The axes of the coordinate system are measured in arbitrary units and these unit
 <img src="https://raw.githubusercontent.com/IIIF/3d/eds/assets/images/right-handed-cartesian.png" title="Right handed cartesian coordinate system" alt="diagram of Right handed cartesian coordinate system" width=200 />
 
 
-
+```
+```
 
 A Scene or a Canvas may be treated as a content resource, referenced or described within the `body` of an Annotation. As with models and other resources, the Annotation is associated with a Scene into which the Scene or Canvas is to be nested through an Annotation `target`. The content resource Scene will be placed within the `target` Scene by aligning the coordinate origins of the two scenes. Alternately, Scene Annotations may use `PointSelector` to place the origin of the resource Scene at a specified coordinate within the `target` Scene.
 
@@ -1395,6 +1409,8 @@ For a timeline it's the ratio of time in the recording to time in the real world
 (new section)
 
 `provides`
+`provides[]`
+
 
 
 
