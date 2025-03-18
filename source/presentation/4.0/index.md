@@ -87,9 +87,9 @@ A Manifest is the primary unit of distribution of IIIF. Each Manifest usually de
 
 The Manifest's `items` property is an ordered list of _Containers_ of _Content Resources_ (images, 3D models, audio, etc). Client software loads the Manifest and presents the Content Resources to the user in that order.
 
-Manifests have descriptive, technical and linking properties. The required properties of Manifests are `id`, `type`, `items` and `label`. Additional descriptive properties include `summary`, `metadata`, `rights`, `thumbnail`, `homepage` and `provider`. 
+Manifests have descriptive, technical and linking properties. The required properties of Manifests are `id`, `type`, `items` and `label`. Other commonly used properties include `summary`, `metadata`, `rights`, `thumbnail`, `homepage` and `provider`.
 
-See the [Model Documentation](model/#manifest) for more information.
+(👀) [Model Documentation](model/#manifest)
 
 ```
 Manifest JSON
@@ -100,30 +100,30 @@ Manifest JSON
 
 A Container is a frame of reference that allows the relative positioning of Content Resources, a concept borrowed from standards like PDF and HTML, or applications like Photoshop and PowerPoint, where an initially blank display surface has images, video, text and other content "painted" on to it. The frame is defined by a set of dimensions, with different types of Container having different dimensions. This specification defines three sub-classes of Container: Timeline (which only has a duration), Canvas (which has bounded height and width, and may have a duration), and Scene (which has infinite height, width and depth, and may have a duration). 
 
+The required properties of all Containers are `id`, and `type`. Most Containers also have the `items` and `label` properties. Further properties are required for the different types of Container.
+
 The defined Container types are: 
 
 #### Timeline
 
-A Container that represents a bounded temporal range, without any spatial coordinates.
+A Container that represents a bounded temporal range, without any spatial coordinates. It is typically used for audio-only content.
 
-* A Timeline has continuous duration in seconds for all or part of its duration.
-* A Timeline is typically used for audio-only content
+Timelines have an additional required property of `duration`, which gives the extent of the Timeline as a floating point number of seconds.
+
 
 #### Canvas
 
-A Container that represents a bounded, two-dimensional space and has content resources associated with all or parts of it. It may also have a bounded temporal range in the same manner as a Timeline.
+A Container that represents a bounded, two-dimensional space, optionally with a bounded temporal range. Canvases are typically used for Image and Video content.
 
-* A Canvas has a width and height, given as unitless integers
-* A Canvas has an optional continuous duration in seconds
-* A Canvas is typically used for Image content, and with duration, for Video content.
+Canvases have two additional required properties: `height` and `width`, which give the spatial extent as unitless integers. Canvases may also have the `duration` property in the same manner as Timelines.
 
 #### Scene
 
-A Container that represents a boundless three-dimensional space and has content resources positioned at locations within it. Rendering a Scene requires the use of Cameras and Lights. It may also have a bounded temporal range in the same manner as a Timeline.
+A Container that represents a boundless three-dimensional space, optionally with a bounded temporal range. Scenes are typically used for rendering 3D models, and can additionally have Cameras and Lights.
 
-* A Scene has a continuous, unitless x,y,z cartesian coordinate space
-* A Scene has an optional continuous duration in seconds
-* A Scene is typically used for 3D models, and can include audio, video and image content
+Scenes may also have the `duration` property in the same manner as Timelines.
+
+(👀) [Model Documentation](model/#containers)
 
 ```json
 Manifest JSON with a Timeline, a Canvas and a Scene
@@ -133,26 +133,55 @@ Manifest JSON with a Timeline, a Canvas and a Scene
 
 IIIF uses the concept of _Annotation_ to link resources together from around the web. This specification uses a World Wide Web Consortium (W3C) standard for this called the [Web Annotation Data Model][org-web-anno]. This is a structured linking mechanism useful for making comments about Content Resources, but IIIF's primary use of it is to associate the images, audio and other Content Resources with their Containers for presentation.
 
-Different uses of Annotation are distinguished through their `motivation` property. This specification defines a value for `motivation` called `painting` for associating Content Resources with Containers, which this specification calls a Painting Annotation. This is from the notion of painting onto a canvas, a metaphor borrowed from art and used for image-based digital applications, and expanded by IIIF into "painting" any Content Resource into a Container of any number of dimensions.
+Different uses of Annotation are distinguished through their `motivation` property. This specification defines a value for `motivation` called `painting` for associating Content Resources with Containers, which this specification calls a Painting Annotation. The verb "paint" is also used to refer to the associating of a Content Resource with a Container by a Painting Annotation. This is from the notion of painting onto a canvas, a metaphor borrowed from art and used for image-based digital applications, and expanded by IIIF into "painting" any Content Resource into a Container of any number of dimensions.
 
 The same linking mechanism is also used in IIIF with other motivations for transcriptions, commentary, tags and other content. This provides a single, unified method for aligning content, and provides a standards-based framework for referencing parts of resources. As Annotations can be added later, it promotes a distributed system in which further content such as commentary can be aligned with the objects published on the web.
 
+The required properties of Annotations are `id`, `type`, `motivation`, and `target`. Most Annotations also have the `body` property.
+
+(👀) [Model Documentation](model/#annotations)
+
 ```
-JSON of painting anno
+JSON of painting anno - image to canvas
 ```
 
 ### Content Resources
 
+Content Resources are external web resources, including images, video, audio, 3D models, data, web pages or any other format. Typically these are the resources that will be "painted" onto a Container using a Painting Annotation.
 
-There is stuff that we want to show - images, video, audio, 3D models etc
+The required properties of Content Resources are `id` and `type`. Other commonly used properties include `format`, and `width`, `height` and `duration` as appropriate to the Content Resource format.
 
-Image, Sound, Video, Model, Text 
-(see model)
 
-And we can nest Containers so they are Content Resources too
+#### Containers as Content Resources
 
-SpecificResource
+Containers may also be treated as Content Resources and painted into other Containers. This allows rich composition of content, such as painting a Canvas bearing a Video into a Scene, or painting a 3D model along with its associated Lights into an encompassing Scene.
 
+#### Referencing Parts of Resources
+
+A common requirement is to refer to only part of a resource, either a Container or a Content Resource. There are two primary methods for achieving this: adding a fragment to the end of the URI for the resource, or creating a Specific Resource that describes the method for selecting the desired part.
+
+##### Fragments
+
+Parts of resources on the Web are identified using URIs with a fragment component that both describes how to select the part from the resource, and, as a URI, also identifies it. In HTML this is frequently used to refer to part of the web page, called an anchor. The URI with the fragment can be used in place of the URI without the fragment in order to refer to this part.
+
+There are different types of fragment based on the format of the resource. The most commonly used type in IIIF is the W3C's Media Fragments specification, as it can define a temporal and 2D spatial region.
+
+```
+comment annotation about part of the previous example's Canvas using #Fragment
+```
+
+
+##### Specific Resource
+
+URIs with fragments are insufficient for complex referencing, like circular regions or arbitrary text spans, and do not support other useful features such as describing styling or transformation. The Web Annotation Data Model introduces a class called `SpecificResource` that represents the resource in a specific context or role, which IIIF uses to describe these more complex requirements. The Specific Resource then identifies the part, and the description of how to extract it is given as an instance of a `Selector` class associated with it.
+
+Several different classes of Selector are used in IIIF, including an alternative implementation of the fragment pattern called `FragmentSelector`. The fragment is given in the `value` property of the `FragmentSelector`, and the resource it should be applied to is given in `source`.
+
+The required properties of Specific Resources are `id`, `type`, and `source`. Other commonly used properties include `selector`, `transform`, and `scope`.
+
+```
+comment annotation about part of the previous example's Canvas using FragmentSelector
+```
 
 
 ## Presenting Content Resources - what you came here for

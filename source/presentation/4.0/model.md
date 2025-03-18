@@ -129,6 +129,7 @@ The members of a Manifest are listed in the `items` property. The members of Man
 
 
 ### Container Classes
+{: #containers}
 
 A Container is a frame of reference that allows the relative positioning of content.
 
@@ -149,6 +150,7 @@ A Canvas is a Container that represents a particular rectangular 2 dimensional v
 A Scene is a Container that represents an infinitely large three-dimensional space, with an optional duration. As the Scene is infinite, it does not have `height`, `width` or `depth` properties.
 
 ### Annotation Classes
+{: #annotations}
 
 The following set of classes are defined by the W3C's [Web Annotation Data Model][org-w3c-webanno] and Vocabulary, and are heavily used within the IIIF Data Model. Any necessary deviations from those specifications are explicitly noted and explained, such as the need for internationalization of labels.
 
