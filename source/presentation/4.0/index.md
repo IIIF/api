@@ -58,6 +58,18 @@ Presentation, the clue is in the name
 
 (non-exhaustive) List of use cases
 
+1. Artwork
+2. Book
+3. 45 Single
+4. Movie
+5. 3D 1 (Single model at 0,0,0 in Scene with ambient Light and Camera)
+6. 3D 2 (Complex stuff)
+7. Periodical
+8. 3D 3 (storytelling)
+9. Manuscript (integration)
+
+
+
 1. Digitized books and manuscripts   (images, paged things, transcripts, translations)
 2. Artworks and Maps                 (navPlace, maybe commenting annos)
 3. Audio and Video recordings        (time-based, transcriptions)
@@ -261,6 +273,12 @@ Sometimes, two different formats derived from the same source may have slightly 
 ### 3D
 
 Need to get PointSelector in early
+
+Example 3D 1
+
+Example 3D 2
+
+backgroundColor, exclude, color, intensity, far, fieldOfView, near, viewHeight, interactionMode, lookAt
 
 
 Scenes have infinite height (y axis), width (x axis) and depth (z axis), where 0 on each axis (the origin of the coordinate system) is treated as the center of the scene's space. 
@@ -637,7 +655,7 @@ Example placing top-left at (0, 1, 0); bottom-left at (0, 0, 0); bottom-right at
 "selector": [
   {
     "type": "WktSelector",
-    "value": "POLYGONZ((0 1 0, 0 0 0, 1 0 0, 1 1 0))"
+    "value": "POLYGON Z ((0 1 0, 0 0 0, 1 0 0, 1 1 0))"
   }
 ]
 ```
