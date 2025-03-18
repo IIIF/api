@@ -189,7 +189,7 @@
 [org-open-annotation-multi]: http://www.openannotation.org/spec/core/multiplicity.html#Choice "Open Annotation: Multiplicity"
 [org-open-annotation-types]: http://www.openannotation.org/spec/core/core.html#BodyTargetType "Open Annotation: Body Target"
 [org-open-annotation]: http://www.openannotation.org/spec/core/ "Open Annotation"
-[org-openarchives-rsync]: http://openarchives.org/rs/toc
+[org-openarchives-rsync]: https://openarchives.org/rs/toc
 [org-rfc-2119]: https://tools.ietf.org/html/rfc2119 "RFC Keywords"
 [org-rfc-2617]: https://tools.ietf.org/html/rfc2617 "HTTP Authentication: Basic and Digest Access Authentication"
 [org-rfc-2818]: https://tools.ietf.org/html/rfc2818 "HTTP Over TLS"

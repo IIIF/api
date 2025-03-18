@@ -944,7 +944,7 @@ hero:
     This API does not specify whether the image server will support authentication or what mechanism it might use. In the
     case of  "401 Unauthorized" HTTP error response, the content of the WWW-Authenticate header will depend on the
     authentication mechanism supported by the server. If the server supports HTTP Basic or Digest authentication then the
-    header should follow <a href="http://www.ietf.org/rfc/rfc2617" target="_blank">RFC2617</a>, for example:
+    header should follow <a href="https://www.ietf.org/rfc/rfc2617" target="_blank">RFC2617</a>, for example:
   </p>
   <p class="code-block">
     WWW-Authenticate: Basic realm="Images"
@@ -1002,7 +1002,7 @@ hero:
   <p>
     The URL syntax of this API relies upon slash (/) separators which MUST NOT be encoded. Clients MUST percent-encode
     special characters (the to-encode set below: percent and gen-delims of
-    <a href="http://www.ietf.org/rfc/rfc3986" target="_blank">RFC3986</a> except the colon) within the components
+    <a href="https://www.ietf.org/rfc/rfc3986" target="_blank">RFC3986</a> except the colon) within the components
     of requests. For example, any slashes within the identifier part of the URL MUST be percent-encoded. Encoding is
     necessary only for the identifier because other components will not include special characters.
   </p>

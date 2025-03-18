@@ -76,21 +76,20 @@ Mention cookbook
 
 ## Foundations
 
-Simple model diagram
-
-Manifests and Containers briefly
-
+<p style="float: right">
+  <img src="{{ site.api_url | absolute_url }}/assets/images/data-model.png" alt="Data Model" width="400"><br/>
+</p>
 
 
 ### Manifests
 
-A Manifest is the primary unit of distribution of IIIF. It is a JSON document that provides a description of the structure and properties of a single item to be presented to the user, such as a title and other descriptive and linking information about the object and/or the intellectual work that it conveys. The scope of what constitutes an item, and thus its Manifest, is up to the publisher of that Manifest. The Manifest contains sufficient information for the client to initialize itself and begin to display something quickly to the user.
+A Manifest is the primary unit of distribution of IIIF. Each Manifest usually describes how to present an object, such as a book, statue, music album or 3 dimensional scene. It is a JSON document that carries information needed for the client to present content to the user, such as a title and other descriptive information. The scope of what constitutes an object, and thus its Manifest, is up to the publisher of that Manifest. The Manifest contains sufficient information for the client to initialize itself and begin to display something quickly to the user.
 
-The Manifest's `items` property is a list of _Containers_ of _Content Resources_ (images, 3D models, audio, etc). Client software loads the Manifest and presents the Content Resources to the user. The `items` property provides an order to the content.
+The Manifest's `items` property is an ordered list of _Containers_ of _Content Resources_ (images, 3D models, audio, etc). Client software loads the Manifest and presents the Content Resources to the user in that order.
 
 Manifests have descriptive, technical and linking properties. The required properties of Manifests are `id`, `type`, `items` and `label`. Additional descriptive properties include `summary`, `metadata`, `rights`, `thumbnail`, `homepage` and `provider`. 
 
-[See Model Docs](manifest)
+See the [Model Documentation](model/#manifest) for more information.
 
 ```
 Manifest JSON
