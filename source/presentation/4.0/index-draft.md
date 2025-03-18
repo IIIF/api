@@ -371,7 +371,7 @@ Content States are used for the following applications:
 
 In this usage, an annotation with the motivation `contentState` is passed to a client to initialize it with a particular view of a resource. Almost all IIIF Clients initialize from the very simplest form of Content State - a Manifest URI. A more complex Content State might target a particular region of a particular canvas within a Manifest, as in the second example above. A client initialized from such a Content State would load the Manifest, show the particular Canvas, and perhaps zoom in on the target region.
 
-The mechanisms for passing Content State into a client, and exporting a Content State from a client, are given in the [Content State Protocol API 2.0](content-state-2) specification, which describes the scenarios in which a URI, or Content State not carried by an annotation, should be interpreted by a Client as a Content State.
+The mechanisms for passing Content State into a client, and exporting a Content State from a client, are given in the _Content State Protocol API 2.0_ specification, which describes the scenarios in which a URI, or Content State not carried by an annotation, should be interpreted by a Client as a Content State.
 
 
 ### Load a particular view of some resource and modify it

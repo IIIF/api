@@ -100,58 +100,46 @@ Manifest JSON
 
 A Container is a frame of reference that allows the relative positioning of Content Resources, a concept borrowed from standards like PDF and HTML, or applications like Photoshop and PowerPoint, where an initially blank display surface has images, video, text and other content "painted" on to it. The frame is defined by a set of dimensions, with different types of Container having different dimensions. This specification defines three sub-classes of Container: Timeline (which only has a duration), Canvas (which has bounded height and width, and may have a duration), and Scene (which has infinite height, width and depth, and may have a duration). 
 
-And we can also put other things:
-"supplementing"
-
-
-
 The defined Container types are: 
 
 #### Timeline
 
 A Container that represents a bounded temporal range, without any spatial coordinates.
 
-* has continuous duration in seconds for all or part of its duration.
-* Typically used for audio-only content
+* A Timeline has continuous duration in seconds for all or part of its duration.
+* A Timeline is typically used for audio-only content
 
 #### Canvas
 
 A Container that represents a bounded, two-dimensional space and has content resources associated with all or parts of it. It may also have a bounded temporal range in the same manner as a Timeline.
 
-* has integer, unitless width and height
-* has optional continuous duration in seconds
-* Typically used for Image content, and with duration, for Video content.
+* A Canvas has a width and height, given as unitless integers
+* A Canvas has an optional continuous duration in seconds
+* A Canvas is typically used for Image content, and with duration, for Video content.
 
 #### Scene
 
 A Container that represents a boundless three-dimensional space and has content resources positioned at locations within it. Rendering a Scene requires the use of Cameras and Lights. It may also have a bounded temporal range in the same manner as a Timeline.
 
-* has continuous, unitless x,y,z cartesian coordinate space
-* has optional continuous duration in seconds
-* Typically used for 3D models, and can include audio, video and image content
+* A Scene has a continuous, unitless x,y,z cartesian coordinate space
+* A Scene has an optional continuous duration in seconds
+* A Scene is typically used for 3D models, and can include audio, video and image content
 
+```json
+Manifest JSON with a Timeline, a Canvas and a Scene
+```
 
 ### Annotations
 
-IIIF uses the concept of _Annotation_ to link resources together. Why is this a different sense from what I am used to? Because this: W3C go read that then come back.
+IIIF uses the concept of _Annotation_ to link resources together from around the web. This specification uses a World Wide Web Consortium (W3C) standard for this called the [Web Annotation Data Model][org-web-anno]. This is a structured linking mechanism useful for making comments about Content Resources, but IIIF's primary use of it is to associate the images, audio and other Content Resources with their Containers for presentation.
 
-BUT it can be used for notes in the margin, commentary and all those more usual senses of the word, too. It's just that we borrow that linking mechanism for the Content Resources, too.
+Different uses of Annotation are distinguished through their `motivation` property. This specification defines a value for `motivation` called `painting` for associating Content Resources with Containers, which this specification calls a Painting Annotation. This is from the notion of painting onto a canvas, a metaphor borrowed from art and used for image-based digital applications, and expanded by IIIF into "painting" any Content Resource into a Container of any number of dimensions.
 
-Annotations are primarily used to associate content resources with Containers. The same mechanism is used for the visible and/or audible resources as is used for transcriptions, commentary, tags and other content. This provides a single, unified method for aligning information, and provides a standards-based framework for distinguishing parts of resources and parts of Canvases. As Annotations can be added later, it promotes a distributed system in which publishers can align their content with the descriptions created by others.
-
-Now that we have this linking mechanism... PAINTING
-
-Painting Annotations are used to associate models, lights, cameras, and IIIF containers such as Canvases, with Scenes. They have a `type` of "Annotation", a `body` (being the resource to be added to the scene) and a `target` (being the scene or a position within the scene). They must have a `motivation` property with the value of "painting" to assert that the resource is being painted into the Scene, rather than the Annotation being a comment about the Scene.
-Everything is an anno but these are special and core
-
-There are other important uses of annotation, they are not all painting annos - see later...
+The same linking mechanism is also used in IIIF with other motivations for transcriptions, commentary, tags and other content. This provides a single, unified method for aligning content, and provides a standards-based framework for referencing parts of resources. As Annotations can be added later, it promotes a distributed system in which further content such as commentary can be aligned with the objects published on the web.
 
 ```
 JSON of painting anno
 ```
-
-By the time you get here you are comfortable dropping the phrase "painting annotation" into casual conversation.
-
 
 ### Content Resources
 
