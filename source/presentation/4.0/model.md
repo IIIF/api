@@ -78,14 +78,7 @@ The descriptions also do not define how the classes are used, which is done in t
 
 ### Collection
 
-A Collection is an ordered list of Manifests, and/or Collections. Collections allow Manifests and child Collections to be grouped in a hierarchical structure for presentation, which can be for generating navigation, showing dynamic results from a search, or providing fixed sets of related resources for any other purpose. IIIF Collections might align with the curated management of cultural heritage resources in sets, also called "collections", but can also be used for many other purposes.
-
-The intended usage of Collections is to allow clients to:
-
-  * Load a pre-defined set of Manifests at initialization time.
-  * Receive a set of Manifests, such as search results, for rendering.
-  * Visualize lists or hierarchies of related Manifests.
-  * Provide navigation through a list or hierarchy of available Manifests.
+A Collection is an ordered list of Manifests, and/or Collections.
 
 The identifier in `id` _MUST_ be able to be dereferenced to retrieve the JSON description of the Collection, and thus _MUST_ use the HTTP(S) URI scheme.
 
@@ -231,8 +224,8 @@ Point Selectors have the following properties:
 | type | The class of the selector, which must be "PointSelector" |
 | x    | A number (floating point or integer) giving the x coordinate of the point, relative to the dimensions of the source resource |
 | y    | A number (floating point or integer) giving the y coordinate of the point, relative to the dimensions of the source resource |
-| z    | A number (floating point or integer) giving the z coordinate of the point, relative to the dimensions of the source resource |
-| t    | A number (floating point or integer) giving the time of the point in seconds, relative to the duration of the source resource |
+| z    | A number (floating point) giving the z coordinate of the point, relative to the dimensions of the source resource |
+| t    | A number (floating point) giving the time of the point in seconds, relative to the duration of the source resource |
 
 
 ```json
@@ -337,7 +330,7 @@ Animation Selectors have the following properties:
 
 ### Range
 
-Ranges are used to represent structure within a Manifest beyond the default order of the Containers in the `items` property of the Manifest, such as newspaper sections or articles, chapters within a book, or movements within a piece of music. Ranges can include Containers, parts of Containers via SpecificResources or fragment URIs, or other Ranges, creating a tree structure like a table of contents. The typical intent of adding a Range to the Manifest is to allow the client to display a linear or hierarchical navigation interface to enable the user to quickly move through the object's content.
+Ranges are used to represent structure within a Manifest beyond the default order of the Containers in the `items` property.
 
 Ranges _MUST_ have URIs and they _SHOULD_ be HTTP(S) URIs. Top level Ranges are [embedded][prezi30-terminology] or externally [referenced][prezi30-terminology] within the Manifest in a `structures` property. These top level Ranges then embed or reference other Ranges, Containers or parts of Containers in the `items` property. Each entry in the `items` property _MUST_ be a JSON object, and it _MUST_ have the `id` and `type` properties. If a top level Range needs to be dereferenced by the client, then it _MUST NOT_ have the `items` property, such that clients are able to recognize that it should be retrieved in order to be processed.
 
@@ -376,7 +369,7 @@ Ranges _MAY_ link to an Annotation Collection that has the content of the Range 
 ##### accompanyingContainer
 {: #accompanyingContainer}
 
-A single Container that provides additional content for use while rendering the resource that has the `accompanyingContainer` property. Examples include an image to show while a duration-only Canvas is playing audio; or background audio to play while a user is navigating an image-only Manifest.
+A Container that provides additional content for use while the resource that has the `accompanyingContainer` property is shown or played. Examples include an image to show while a duration-only Canvas is playing audio; or background audio to play while a user is navigating an image-only Manifest.
 
 Clients _MAY_ display the content of an accompanying Container when presenting the resource. As with `placeholderContainer` above, when more than one accompanying Container is available, the client _SHOULD_ pick the one most specific to the content. Publishers _SHOULD NOT_ assume that the accompanying Container will be processed by all clients. Clients _SHOULD_ take care to avoid conflicts between time-based media in the accompanying Container and the content of the resource that has the `accompanyingContainer` property.
 
