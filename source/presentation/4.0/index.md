@@ -734,7 +734,78 @@ use totalItems? https://iiif.io/api/discovery/1.0/#totalitems
 
 
 
-### State
+
+
+## Navigation
+
+### Collection
+
+IIIF Collections are ordered lists of Manifests, Collections, and/or Specific Resources. Collections allow these resources to be grouped in a hierarchical structure for navigation and other purposes.
+
+:eyes: 
+
+### Range
+
+IIIF Ranges are used to represent structure _WITHIN_ a Manifest beyond the default order of the Containers in the `items` property. Example uses include newspaper sections or articles, chapters within a book for a table of contents, or movements within a piece of music. Ranges can include Containers, parts of Containers via Specific Resources or fragment URIs, or other Ranges, creating a tree structure like a table of contents. The typical intent of adding a Range to the Manifest is to allow the client to display a linear or hierarchical navigation interface to enable the user to quickly move through the object's content.
+
+:eyes:
+
+### Example: Periodical
+
+This example demonstrates the use of IIIF Collections to group Manifests into a hierarchy. In this case, there is a Collection for a publishing run of the _The Tombstone Epitaph_ from 1880 to 1920. This contains 41 child Collections each representing a year's worth of issues. Each of these year Collections in turn has one Manifest for each daily issue of the newspaper.
+
+Within each Manifest, the `structures` property provides Ranges which are used to identify individual sections of the Newspaper, and individual stories within the sections which may be spread across multiple columns and pages.
+
+Each Manifest has a `navDate` property that could be used to plot the issues on a calendar-style user interface. 
+The top level Collection has a `navPlace` property that could be used on a "Newspapers of America" map to allow users to view newspapers by location. Each story's Range links to an Annotation Collection that provides the text of the story via the `supplementary` property.
+
+
+```
+demonstrates navDate, navPlace, structures (Ranges), supplementary, Collections
+...
+```
+
+
+
+```json
+"navPlace": {
+  "id": "https://iiif.io/api/cookbook/recipe/0318-navPlace-navDate/feature-collection/1",
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "id": "https://iiif.io/api/cookbook/recipe/0318-navPlace-navDate/feature/1",
+      "type": "Feature",
+      "properties": {
+        "label": { "en": ["Castel Sant'Angelo, Rome"] }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [12.4663, 41.9031]
+      }
+    }
+  ]
+}
+```
+
+
+thumbnail-nav
+sequence
+
+
+
+## Integration
+
+seeAlso, service(s), extensions
+mention search, image api, auth
+
+profile for seeAlso
+
+partOf - 
+
+
+
+
+## State
 
 
 ## Content State
@@ -1285,107 +1356,6 @@ See above...
 
 
 
-## Navigation
-
-### Collection
-
-IIIF Collections are ordered lists of Manifests, Collections, and/or Specific Resources. Collections allow these resources to be grouped in a hierarchical structure for navigation and other purposes.
-
-:eyes: 
-
-### Range
-
-IIIF Ranges are used to represent structure _WITHIN_ a Manifest beyond the default order of the Containers in the `items` property. Example uses include newspaper sections or articles, chapters within a book for a table of contents, or movements within a piece of music. Ranges can include Containers, parts of Containers via Specific Resources or fragment URIs, or other Ranges, creating a tree structure like a table of contents. The typical intent of adding a Range to the Manifest is to allow the client to display a linear or hierarchical navigation interface to enable the user to quickly move through the object's content.
-
-:eyes:
-
-### Example: Periodical
-
-This example demonstrates the use of IIIF Collections to group Manifests into a hierarchy. In this case, there is a Collection for a publishing run of the _The Tombstone Epitaph_ from 1880 to 1920. This contains 41 child Collections each representing a year's worth of issues. Each of these year Collections in turn has one Manifest for each daily issue of the newspaper.
-
-Within each Manifest, the `structures` property provides Ranges which are used to identify individual sections of the Newspaper, and individual stories within the sections which may be spread across multiple columns and pages.
-
-Each Manifest has a `navDate` property that could be used to plot the issues on a calendar-style user interface. 
-The top level Collection has a `navPlace` property that could be used on a "Newspapers of America" map to allow users to view newspapers by location. Each story's Range links to an Annotation Collection that provides the text of the story via the `supplementary` property.
-
-
-```
-demonstrates navDate, navPlace, structures (Ranges), supplementary, Collections
-...
-```
-
-### navXXXX
-
-These are just extracts as examples
-
-```json
-"navDate": "1776-01-01T00:00:00+00:00",
-```
-
-See this in Periodicals
-
-
-
-```json
-"navPlace": {
-  "id": "https://iiif.io/api/cookbook/recipe/0318-navPlace-navDate/feature-collection/1",
-  "type": "FeatureCollection",
-  "features": [
-    {
-      "id": "https://iiif.io/api/cookbook/recipe/0318-navPlace-navDate/feature/1",
-      "type": "Feature",
-      "properties": {
-        "label": { "en": ["Castel Sant'Angelo, Rome"] }
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [12.4663, 41.9031]
-      }
-    }
-  ]
-}
-```
-Map example
-
-navDate
-??? example
-
-
-### Ranges
-
-
-
-Periodical example - with navDate again
-Table of Contents as simple example
-thumbnail-nav
-sequence
-
-`structures` property
-
-supplementary
-
-
-### Collections
-
-Multi-vol work
-Archive example
-back ref to periodical?
-
-Paged collections and conceptual collections
-
-partOf
-
-Periodicals - navDate, navPlace
-
-
-## Integration
-
-seeAlso, service(s), extensions
-mention search, image api, auth
-
-profile for seeAlso
-
-partOf - 
 
 
 ## Conveying Physical Dimensions
