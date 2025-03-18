@@ -63,8 +63,7 @@ Presentation, the clue is in the name
 3. Audio and Video recordings        (time-based, transcriptions)
 4. 3D scans of objects               (3D)
 5. Periodicals                       (Collections, Ranges, navDate)
-6. Archival collections              (Collections, Ranges, navDate)
-7. Storytelling and exhibitions      (State, annotations)
+6. Storytelling and exhibitions      (State, annotations)
 
 see Terminology at the end
 
@@ -239,15 +238,30 @@ duration, autoPlay, format, annotations (transcript), language, accompanyingCont
 
 #### Example: a movie with subtitles
 
-This example is a Manifest with one Canvas that represents the temporal extent of the movie (the Canvas `duration`) and its aspect ratio (given by the `width` and `height` of the Canvas). The example demonstrates the use of a `Choice` annotation body to give two alternative versions of the movie, the `timeMode` property 
+This example is a Manifest with one Canvas that represents the temporal extent of the movie (the Canvas `duration`) and its aspect ratio (given by the `width` and `height` of the Canvas). The example demonstrates the use of a `Choice` annotation body to give two alternative versions of the movie, the `timeMode` property ..., and `placeholderContainer` that provides a poster image to show in place of the video file before the user initiates playback.
 
 ```
 Canvas
 duration, behavior=autoplay, format, Choice of video 720p, 4K? (forward ref), timeMode, placeholderContainer
 ```
 
+{
+  Canvas
+      duration: 3600
+          movie.mp4
+              duration: 3599.68
+          movie.flv
+              duration: 3600.8
+
+}
+
+Sometimes, two different formats derived from the same source may have slightly different durations, perhaps a few milliseconds out. What to do...
+
 
 ### 3D
+
+Need to get PointSelector in early
+
 
 Scenes have infinite height (y axis), width (x axis) and depth (z axis), where 0 on each axis (the origin of the coordinate system) is treated as the center of the scene's space. 
 The positive y axis points upwards, the positive x axis points to the right, and the positive z axis points forwards (a [right-handed cartesian coordinate system](https://en.wikipedia.org/wiki/Right-hand_rule)).
@@ -1273,6 +1287,33 @@ See above...
 
 ## Navigation
 
+### Collection
+
+IIIF Collections are ordered lists of Manifests, Collections, and/or Specific Resources. Collections allow these resources to be grouped in a hierarchical structure for navigation and other purposes.
+
+:eyes: 
+
+### Range
+
+IIIF Ranges are used to represent structure _WITHIN_ a Manifest beyond the default order of the Containers in the `items` property. Example uses include newspaper sections or articles, chapters within a book for a table of contents, or movements within a piece of music. Ranges can include Containers, parts of Containers via Specific Resources or fragment URIs, or other Ranges, creating a tree structure like a table of contents. The typical intent of adding a Range to the Manifest is to allow the client to display a linear or hierarchical navigation interface to enable the user to quickly move through the object's content.
+
+:eyes:
+
+### Example: Periodical
+
+This example demonstrates the use of IIIF Collections to group Manifests into a hierarchy. In this case, there is a Collection for a publishing run of the _The Tombstone Epitaph_ from 1880 to 1920. This contains 41 child Collections each representing a year's worth of issues. Each of these year Collections in turn has one Manifest for each daily issue of the newspaper.
+
+Within each Manifest, the `structures` property provides Ranges which are used to identify individual sections of the Newspaper, and individual stories within the sections which may be spread across multiple columns and pages.
+
+Each Manifest has a `navDate` property that could be used to plot the issues on a calendar-style user interface. 
+The top level Collection has a `navPlace` property that could be used on a "Newspapers of America" map to allow users to view newspapers by location. Each story's Range links to an Annotation Collection that provides the text of the story via the `supplementary` property.
+
+
+```
+demonstrates navDate, navPlace, structures (Ranges), supplementary, Collections
+...
+```
+
 ### navXXXX
 
 These are just extracts as examples
@@ -1311,6 +1352,8 @@ navDate
 
 
 ### Ranges
+
+
 
 Periodical example - with navDate again
 Table of Contents as simple example
