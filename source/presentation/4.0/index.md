@@ -69,20 +69,14 @@ Presentation, the clue is in the name
 9. Manuscript (integration)
 
 
-
-1. Digitized books and manuscripts   (images, paged things, transcripts, translations)
-2. Artworks and Maps                 (navPlace, maybe commenting annos)
-3. Audio and Video recordings        (time-based, transcriptions)
-4. 3D scans of objects               (3D)
-5. Periodicals                       (Collections, Ranges, navDate)
-6. Storytelling and exhibitions      (State, annotations)
-
 see Terminology at the end
 
 Mention model.md
 
 Mention cookbook
 
+
+Consider diagrams
 
 
 ## Foundations
@@ -272,17 +266,59 @@ Sometimes, two different formats derived from the same source may have slightly 
 
 ### 3D
 
-Need to get PointSelector in early
+3D Content Resources are painted into Scenes.
 
-Example 3D 1
+Scenes have infinite height (y axis), width (x axis) and depth (z axis), where 0 on each axis (the origin of the coordinate system) is treated as the center of the scene's space.
 
-Example 3D 2
-
-backgroundColor, exclude, color, intensity, far, fieldOfView, near, viewHeight, interactionMode, lookAt
-
-
-Scenes have infinite height (y axis), width (x axis) and depth (z axis), where 0 on each axis (the origin of the coordinate system) is treated as the center of the scene's space. 
 The positive y axis points upwards, the positive x axis points to the right, and the positive z axis points forwards (a [right-handed cartesian coordinate system](https://en.wikipedia.org/wiki/Right-hand_rule)).
+
+
+#### Example: Static 3D Model of a Spacesuit
+
+
+This example is a Manifest with a single Scene, with a single model of a space suit painted at the Scene's origin.
+
+
+
+
+The model also has its own local coordinate space, which may be scaled differently from the Scene's coordinate space.
+
+Unlike when you paint a resource into a Canvas where it fills the space, instead targeting the Scene is equivalent to having a point selector that targets the origin.
+
+
+
+
+```jsonc
+
+manifest
+  scene
+    annotationpage
+      annotation
+         model
+```
+
+
+model
+light Ambient color
+camera (put it in the right place looking -Z) near, far, fieldOfView, lookAt  (note that Orthographic w/ viewHeight possible)
+backgroundColor: #000
+point selector for positioning
+
+
+#### Example: 3D Model of a Chessboard
+
+Chessboard is a Canvas with image
+more than one model
+transforms for scale and rotation
+Scene in Scene
+Exclude
+interactionMode
+
+
+
+
+
+
 
 The axes of the coordinate system are measured in arbitrary units and these units do not necessarily correspond to any physical unit of measurement. This allows arbitrarily scaled models to be used, including very small or very large, without needing to deal with very small or very large values. If there is a correspondence to a physical scale, then this can be asserted using the physical dimensions pattern(fwd-ref-to-phys-dims).
 
@@ -491,7 +527,6 @@ If any of these properties are not specified explicitly, they default to the cho
 
 <img src="https://raw.githubusercontent.com/IIIF/3d/eds/assets/images/near-far.png" title="Diagram showing near and far properties"  alt="drawing of a geometrical frustrum truncated by near and far distances" width="300" />
 
-
 The first Camera defined and not hidden in a Scene is the default Camera used to display Scene contents. If the Scene does not have any Cameras defined within it, then the client MUST provide a default Camera. The type, properties and position of this default camera are client-dependent.
 
 ```json
@@ -507,8 +542,6 @@ The first Camera defined and not hidden in a Scene is the default Camera used to
 
 
 ##### Light
-
-One or more Lights MUST be present within the Scene in order to have objects within it be visible to the Cameras. 
 
 This specification defines four types of Light:
 

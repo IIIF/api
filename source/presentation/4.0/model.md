@@ -70,8 +70,6 @@ The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _S
 
 
 
-
-
 ## JSON Considerations
 
 This section describes features applicable to all of the Presentation API content.
@@ -178,9 +176,16 @@ JSON descriptions _SHOULD_ be [embedded][prezi30-terminology] within the JSON of
 
 The following sub-sections define the classes used in the IIIF Presentation Data Model. The properties and relationships of the classes are defined in the following section, including which classes they are able to be used with. Only the semantics and core structural requirements are defined within this section, along with any deviations from other specifications that the classes might be drawn from.
 
-The descriptions also do not define how the classes are used, which is done in the Presentation API Processing Model.
+Each class has a
+
+The descriptions also do not define how the classes are used, which is done in the Presentation API Overview.
+
+
 
 ### Collection
+{: #Collection}
+
+`"type": "Collection"`
 
 A Collection is an ordered list of Manifests, and/or Collections.
 
@@ -199,7 +204,10 @@ Collections with an empty `items` property are allowed but discouraged.  For exa
 Collections or Manifests [referenced][prezi30-terminology] in the `items` property _MUST_ have the `id`, `type` and `label` properties. They _SHOULD_ have the `thumbnail` property.
 
 
-#### CollectionPage
+#### Collection Page
+{: #CollectionPage}
+
+Class: `CollectionPage`
 
 A Collection Page is an arbitrary division of members within the Collection to make it easier to consume.
 
@@ -213,6 +221,8 @@ Collection Pages follow the ActivityStreams model, as also used in Annotation Co
 A Manifest is the primary unit of distribution of IIIF and provides a description of the structure and properties of a single item to be presented to the user.
 
 Manifests _MUST_ be identified by a URI and it _MUST_ be an HTTP(S) URI, given in the `id` property. It _MUST_ be able to be dereferenced to retrieve the JSON description of the Manifest.
+
+The `type` property of a Manifest _MUST_ have the value `"Manifest"`.
 
 The members of a Manifest are listed in the `items` property. The members of Manifests _MUST_ be Containers, defined below, and are embedded within the Manifest. The Manifest _MAY_ have a `structures` property listing one or more [Ranges][#range] which describe additional structure of the content, such as might be rendered as a table of contents. The Manifest _MAY_ have an `annotations` property, which includes Annotation Page resources where the Annotations have the Manifest as their `target`. These Annotations _MUST NOT_ have `painting` as their `motivation`.
 
@@ -242,9 +252,17 @@ A Timeline is a Container that represents only a temporal duration, measured in 
 
 A Canvas is a Container that represents a particular rectangular 2 dimensional view of the object and has content resources associated with it or with parts of it. This aspect ratio is defined by the `height` and `width` properties. A Canvas _MAY_ also have a duration, given in the `duration` property, allowing audio and video to be correctly positioned in time as well as the 2 dimensional space.
 
+FIXME: arbitrary units
+
 #### Scene
 
-A Scene is a Container that represents an infinitely large three-dimensional space, with an optional duration. As the Scene is infinite, it does not have `height`, `width` or `depth` properties.
+A Scene is a Container that represents an infinitely large three-dimensional space, with an optional `duration` property. Scenes have infinite height (y axis), width (x axis) and depth (z axis), where 0 on each axis (the origin of the coordinate system) is treated as the center of the scene's space. From a perspective looking along the z axis towards negative infinity, the positive y axis points upwards and the positive x axis points to the right (a [right-handed Cartesian coordinate system](https://en.wikipedia.org/wiki/Right-hand_rule)).
+
+<img src="https://raw.githubusercontent.com/IIIF/3d/eds/assets/images/right-handed-cartesian.png" title="Right handed cartesian coordinate system" alt="diagram of Right handed cartesian coordinate system" width=200 />
+
+The axes of the coordinate system are measured in arbitrary units and these units do not necessarily correspond to any physical unit of measurement, unless `spatialScale` is supplied.
+
+
 
 ### Annotation Classes
 {: #annotations}
@@ -264,7 +282,7 @@ Content that is to be rendered as part of the Container _MUST_ be associated by 
 Note that the Web Annotation data model defines different patterns for the `value` property compared to IIIF, when used within an Annotation. The `value` of a Textual Body or a Fragment Selector, for example, are strings rather than JSON objects with languages and values. Care must be taken to use the correct string form in these cases.
 
 
-#### AnnotationCollection
+#### Annotation Collection
 
 Annotation Collections allow groups of Annotations to be recorded. For example, all of the English translation Annotations of a medieval French document could be kept separate from the transcription or an edition in modern French, or the director's commentary on a film can be separated from the script.
 
@@ -273,7 +291,7 @@ Annotation Collections _MUST_ have a URI, and it _SHOULD_ be an HTTP(S) URI. The
 Annotation Collections are paged rather than enumerated. The first page of items is linked using the `first` property, and the last page with the `last` property. The pages link to the next and previous pages in a chain, using the `next` and `prev` properties respectively.
 
 
-#### AnnotationPage
+#### Annotation Page
 
 An ordered list of Annotations, typically associated with a Container, but may be referenced from other types of resource as well. Annotation Pages enumerate and order lists of Annotations, in the same way that Collection Pages order lists of Manifests and Collections within the containing Collection.
 
@@ -286,17 +304,18 @@ The definition of `label` in the Web Annotation specification does not produce J
 {: .warning}
 
 
-#### SpecificResource
+#### Specific Resource
 
 A Specific Resource is a resource in the context of an Annotation. They are used to record further properties or relationships needed to understand the particular contextual use, such as which part of the resource is used or how it should be rendered. In IIIF, the Specific Resource model from the Web Annotation Data Model has some additional properties beyond those defined by the W3C, such as `transform`.
 
-#### TextualBody
+#### Textual Body
 
 A Textual Body is an embedded resource within an Annotation that carries, as the name suggests, a text as the body of the Annotation. It is defined by the Web Annotation Data Model, and this specification defines a new property for `position` that allows it to be positioned within a Container.
 
 #### Choice
 
 A Choice is a Web Annotation construction that allows one entry from a list to be selected for processing or display. This specification allows `behavior` to be added to a Choice to influence how it is processed.
+
 
 ### Content Resources
 
@@ -316,7 +335,7 @@ Containers _MAY_ be treated as content resources for the purposes of annotating 
 
 The Web Annotation Data Model defines several Selectors, which describe how to find a specific segment of that resource to be used. As noted, the nature of Selectors are dependent on the type of resources that they select out of, and the methods needed for those descriptions will vary. The Selectors from the Web Annotation Data Model and other sources can be used within the IIIF Data Model. This specification defines additional Selector classes for use.
 
-#### PointSelector
+#### Point Selector
 
 There are common use cases in which a point, rather than a range or area, is the target of the Annotation. For example, putting a pin in a map should result in an exact point, not a very small rectangle. Points in time are not very short durations, and user interfaces should also treat these differently. This is particularly important when zooming in (either spatially or temporally) beyond the scale of the frame of reference.
 
@@ -330,9 +349,7 @@ Point Selectors have the following properties:
 |------|-------------|
 | id   | The HTTP(S) URI of the selector |
 | type | The class of the selector, which must be "PointSelector" |
-| x    | A number (floating point or integer) giving the x coordinate of the point, relative to the dimensions of the source resource |
-| y    | A number (floating point or integer) giving the y coordinate of the point, relative to the dimensions of the source resource |
-| z    | A number (floating point) giving the z coordinate of the point, relative to the dimensions of the source resource |
+
 | instant | A number (floating point) giving the time of the point in seconds, relative to the duration of the source resource |
 
 
@@ -348,7 +365,7 @@ Point Selectors have the following properties:
 ```
 
 
-#### WktSelector
+#### WKT Selector
 
 Well-known text, or WKT, is an ISO standard method for describing 2 and 3 dimensional geometries. This selector thus goes beyond what the Web Annotation's SvgSelector enables by incorporating the z axis, as well as additional types of selection such as MultiPolygon. Additional types, such as CIRCULARSTRING may also be supported.
 
@@ -371,7 +388,7 @@ WKT Selectors have the following properties:
 <!-- Yes, Wkt not WKT, c.f. CssStyle, SvgSelector, ImageApiSelector, etc -->
 
 
-#### AudioContentSelector
+#### Audio Content Selector
 
 Video content resources consist of both visual and audio content within the same bit-level representation. There are situations when it is useful to refer to only one aspect of the content – either the visual or the audio, but not both. For example, an Annotation might associate only the visual content of a video that has spoken English in the audio, and an audio file that has the translation of that content in Spanish. The Audio Content Selector selects all of the audio content from an A/V content resource, and may be further refined with subsequent selectors to select a segment of it.
 
@@ -391,7 +408,7 @@ Audio Content Selectors have the following properties:
 ```
 
 
-#### VisualContentSelector
+#### Visual Content Selector
 
 Similar to Audio Content Selectors, Visual Content Selectors select the visual aspects of the content of an A/V content resource. They may be further refined by subsequent selectors that select an area or temporal segment of it.
 
@@ -410,7 +427,7 @@ Visual Content Selectors have the following properties:
 ```
 
 
-#### AnimationSelector
+#### Animation Selector
 
 More interactive content resources, such as 3d models, may have activatable animations or similar features. For example, a model of a box might have an animation that opens the lid and a second animation that closes the lid. In order to activate those animations, they need to be selectable, and thus the specification defines an Animation Selector.
 
@@ -448,17 +465,66 @@ The included Containers and parts of Containers need not be contiguous or in the
 
 Ranges _MAY_ link to an Annotation Collection that has the content of the Range using the `supplementary` property. The [referenced][prezi30-terminology] Annotation Collection will contain Annotations that target the Containers within the Range and link content resources to those Containers.
 
+
 ### Scene Components
 
 #### Cameras
+
+A Camera provides a view of a region of the Scene's space from a particular position within the Scene; the client constructs a viewport into the Scene and uses the view of one or more Cameras to render that region. The size and aspect ratio of the viewport is client and device dependent.
+
 ##### PerspectiveCamera
+
+`PerspectiveCamera` mimics the way the human eye sees, in that objects further from the camera are smaller
+
+!!! Properties
+...
+
+
+```json
+{
+  "id": "https://example.org/iiif/camera/1",
+  "type": "PerspectiveCamera",
+  "near": 1.0,
+  "far": 100.0,
+  "fieldOfView": 45.0
+}
+```
+
+
 ##### OrthographicCamera
 
+`OrthographicCamera` removes visual perspective, resulting in object size remaining constant regardless of its distance from the camera
+
+
+
+
+
+
+
+
 #### Lights
+
+
 ##### AmbientLight
+
+AmbientLight evenly illuminates all objects in the scene, and does not have a direction or position.
+
+
 ##### DirectionalLight
+
+DirectionalLight emits in a specific direction as if it is infinitely far away and the rays produced from it are all parallel. It does not have a specific position.
+
+
 ##### PointLight
+
+ PointLight emits from a single point within the scene in all directions.
+
 ##### SpotLight
+
+SpotLight emits a cone of light from a single point in a given direction.
+
+
+
 
 #### Transforms
 ##### TranslateTransform
@@ -466,7 +532,7 @@ Ranges _MAY_ link to an Annotation Collection that has the content of the Range 
 ##### ScaleTransform
 
 
-### Other Classes
+### Utility Classes
 #### Agent
 #### Service
 #### UnitValue
@@ -1684,16 +1750,22 @@ The value _MUST_ be a positive integer.
 ``` json-doc
 { "width": 1200 }
 ```
+
 ##### x
 {: #x}
+
+A number (floating point or integer) giving the x coordinate of the point, relative to the dimensions of the source resource
+
 
 ##### y
 {: #y}
 
+A number (floating point or integer) giving the y coordinate of the point, relative to the dimensions of the source resource
+
 ##### z
 {: #z}
 
-
+A number (floating point) giving the z coordinate of the point, relative to the dimensions of the source resource
 
 
 
