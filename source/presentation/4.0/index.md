@@ -1205,21 +1205,75 @@ When an annotation with the motivation `contentState` is provided via the `annot
 
 #### Processing Content States in Scopes: reset
 
-// This may not be what we have discussed...
-
 When a Content State is applied to a Container such as a Scene, it is assumed to be a "diff" - for example if 3 cameras and 4 lights are already present in the Scene, and a Content State asserts a single new Camera, the default behavior is to add this fourth Camera to the Scene and leave the existing resources as they are.
 
-The client should reset the Container to its original state before applying the diff operation. However, for narratives that cumulatively build a Scene this may lead to excessively verbose Manifests. When moving through the items of an Annotation page with the behavior `sequence`, the Container is not reset and the diff is cumulative; modifications from one `scope` persist into the next. If this behavior is not wanted, the `reset` property of the content state annotation should be set to `true`:
+The client should reset the Container to its original state before applying the diff operation. However, for narratives that cumulatively build a Scene this may lead to excessively verbose Manifests. When moving through the items of an Annotation page with the behavior `linear-nav`, the Container is not reset and the diff is cumulative; modifications from one `scope` persist into the next. This can be overridden for an individual annotation with the behavior `reset`:
+
+`linear-nav` does not inherit, but `reset` does. `reset` is the default behavior for AnnotationPage and Annotation.
 
 ```json
 {
-  "type": "Annotation",
-  "motivation": ["contentState"],
-  "behavior": ["reset"]
+  // a story, but we reset the Scene for each content state
+  "type": "AnnotationPage",
+  "behavior": ["linear-nav"],
+  "items": [
+
+  ]
 }
 ```
 
+```json
+{
+  // a story, but the application of content-state is cumulative
+  // what if you go backwards?
+  // What if other content states have been applied before you start the story?
+  // **** Is linear-nav implicitly reset on the first anno?
+  // Should all anno pages reset the Scene - no because I might send you a view with a content state
+  "type": "AnnotationPage",
+  "behavior": ["linear-nav", "no-reset"], // no-reset is a behavior for the annos not the page
+  "items": [
+
+  ]
+}
+```
+
+```jsonc
+[
+  {  
+    "id": "https://.../step-1",
+    "type": "Annotation",
+    "motivation": ["contentState"]    
+    // if you really want to ensure that any ad-hoc applied content states are wiped out,
+    // then put an explicit reset here. But usually, we can start the nav by applying
+    // the content state in the scope to the Scene without worrying that someone has
+    // modified the Scene already.
+  },
+  // ....
+
+  
+  {  
+    "id": "https://.../step-20",
+    "type": "Annotation",
+    "motivation": ["contentState"]
+    // inherit no-reset
+  },
+
+
+  {  
+    // However, this particular step (step 37) needs to reset the Scene to the initial state.
+    "id": "https://.../step-37",
+    "type": "Annotation",
+    "motivation": ["contentState"],
+    "behavior": ["reset"]
+  }
+]
+```
+
 behavior: `linear-nav` -- cannot jump around only one step forward/back
+
+client _MUST_ support forward nav and _MAY_ support backward nav
+
+If you go backwards from step n in a linear-nav, **and** you have applied one or more content states during the linear-nav, the client _MAY_ reset the whole Scene to default condition and then replay the linear-nav up to step n-1. (client doesn't have to maintain infinite undo history)
 
 
 
