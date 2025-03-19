@@ -228,7 +228,7 @@ A Manifest _MUST_ have the following properties: [id](#id), [type](#type), [labe
 
 A Manfiest _SHOULD_ have the following properties: [metadata](#metadata), [summary](#summary), [provider](#provider), and [thumbnail](#thumbnail)
 
-A Manifest _MAY_ have the following properties: [requiredStatement](#requiredStatement), [rights](#rights), [navDate](#navDate), [navPlace](#navPlace), [placeholderContainer](#placeholderContainer), [accompanyingContainer](#accompanyingContainer), [viewingDirection](#viewingDirection), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [services](#services), [homepage](#homepage), [rendering](#rendering), [partOf](#partOf), [start](#start), [structures](#structures), and [annotations](#annotations).
+A Manifest _MAY_ have the following properties: [requiredStatement](#requiredStatement), [rights](#rights), [navDate](#navDate), [navPlace](#navPlace), [placeholderContainer](#placeholdercontainer), [accompanyingContainer](#accompanyingcontainer), [viewingDirection](#viewingdirection), [behavior](#behavior), [seeAlso](#seealso), [service](#service), [services](#services), [homepage](#homepage), [rendering](#rendering), [partOf](#partof), [start](#start), [structures](#structures), and [annotations](#annotations).
 
 
 ### Container Classes
@@ -561,33 +561,17 @@ All have `source`, `volume`
 
 
 ```json
-
-
-"body":
 {
   "id": "iiif/my/spotAudio",
   "type": "SpotAudio",
   "source": {
     "id": "/path/to/my.mp3",
     "type": "Audio",
-    "format": "audio/mp3",
-    "profile": "some profile thing of mp3"
+    "format": "audio/mp3"
   },
   "angle": 45.0
 }
-"target":
-  {
-    "type": "SpecificResource",
-    "selector": [{
-      "type": "PointSelector"
-      "x", "y", "z"
-    },
-    "transform":
-      {"RotateTransform"}
-  }
-
-
-`angle`
+```
 
 No default direction, MUST provide a Rotate Transform.
 
@@ -625,7 +609,7 @@ A TranslateTransform moves all of the objects in the local coordinate space the 
 
 
 ##### accompanyingContainer
-{: #accompanyingContainer}
+{: #accompanyingcontainer}
 
 A Container that provides additional content for use while the resource that has the `accompanyingContainer` property is shown or played. Examples include an image to show while a duration-only Canvas is playing audio; or background audio to play while a user is navigating an image-only Manifest.
 
@@ -759,12 +743,15 @@ The value _MUST_ be an array of strings.
 | | **Collection Behaviors** |
 | `multi-part` | Valid only on Collections. Collections that have this behavior consist of multiple Manifests or Collections which together form part of a logical whole or a contiguous set, such as multi-volume books or a set of journal issues. Clients might render these Collections as a table of contents rather than with thumbnails, or provide viewing interfaces that can easily advance from one member to the next. Disjoint with `together`.|
 | `together` | Valid only on Collections. A client _SHOULD_ present all of the child Manifests to the user at once in a separate viewing area with its own controls. Clients _SHOULD_ catch attempts to create too many viewing areas. This behavior _SHOULD NOT_ be interpreted as applying to the members of any child resources. Disjoint with `multi-part`.|
-| | **Range Behaviors** |
+| | **Navigation Behaviors** |
 | `sequence` | Valid only on Ranges, where the Range is [referenced][prezi30-terminology] in the `structures` property of a Manifest. Ranges that have this behavior represent different orderings of the Containers listed in the `items` property of the Manifest, and user interfaces that interact with this order _SHOULD_ use the order within the selected Range, rather than the default order of `items`. Disjoint with `thumbnail-nav` and `no-nav`.|
 | `thumbnail-nav`{: style="white-space:nowrap;"} | Valid only on Ranges. Ranges that have this behavior _MAY_ be used by the client to present an alternative navigation or overview based on thumbnails, such as regular keyframes along a timeline for a video, or sections of a long scroll. Clients _SHOULD NOT_ use them to generate a conventional table of contents. Child Ranges of a Range with this behavior _MUST_ have a suitable `thumbnail` property. Disjoint with `sequence` and `no-nav`.|
 | `no-nav` | Valid only on Ranges. Ranges that have this behavior _MUST NOT_ be displayed to the user in a navigation hierarchy. This allows for Ranges to be present that capture unnamed regions with no interesting content, such as the set of blank pages at the beginning of a book, or dead air between parts of a performance, that are still part of the Manifest but do not need to be navigated to directly. Disjoint with `sequence` and `thumbnail-nav`.|
+| `linear-nav` | FIXME: ... |
 | | **Miscellaneous Behaviors** |
 | `hidden` | Valid on Annotation Collections, Annotation Pages, Annotations, Specific Resources, Lights, Cameras and Choices. If this behavior is provided, then the client _SHOULD NOT_ render the resource by default, but allow the user to turn it on and off. This behavior does not inherit, as it is not valid on Collections, Manifests, Ranges or Canvases. |
+| `reset` | Valid on Annotations with a scope property. FIXME: ...  |
+| `no-reset` | Valid on Annotations with a scope property. FIXME: ... |
 {: .api-table #table-behavior}
 
 {% include api/code_header.html %}

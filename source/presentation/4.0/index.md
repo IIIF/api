@@ -317,6 +317,9 @@ interactionMode
 
 
 
+
+#### Merge the below into the examples or into model
+
 This (no units for scale) allows arbitrarily scaled models to be used, including very small or very large, without needing to deal with very small or very large values. If there is a correspondence to a physical scale, then this can be asserted using the physical dimensions pattern(fwd-ref-to-phys-dims).
 
 
@@ -709,27 +712,19 @@ Example placing top-left at (0, 1, 0); bottom-left at (0, 0, 0); bottom-right at
 
 When a Scene is nested into another Scene, the `backgroundColor` of the Scene to be nested should be ignored as it is non-sensible to import. All Annotations painted into the Scene to be nested will be painted into the Scene into which content is being nested, including Light or Camera resources. If the Scene to be nested has one or more Camera Annotations while the Scene into which content is being nested does not, the first Camera Annotation from the nested Scene will become the default Camera for the overall Scene. 
 
+---
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Whale bone with a camera and a light
 
 
 ## Annotations and State
+
+
+
+### Example: Multi-spectral Images with Comments
+
+
 
 ### Annotations
 
