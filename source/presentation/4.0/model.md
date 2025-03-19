@@ -234,7 +234,7 @@ A Manifest _MAY_ have the following properties: [requiredStatement](#requiredSta
 
 A Container is a frame of reference that allows the relative positioning of content.
 
-All Containers _MUST_ be identified by a URI and it _MUST_ be an HTTP(S) URI. The URI of the Container _MUST NOT_ contain a fragment (a `#` followed by further characters), as this would make it impossible to refer to a segment of the Container's area using the [media fragment syntax][org-w3c-media-frags] of `#xywh=` for spatial regions, and/or `#t=` for temporal segments. Containers _MAY_ be able to be dereferenced separately from the Manifest via their URIs as well as being [embedded][prezi30-terminology].
+All Containers _MUST_ be identified by a URI and it _MUST_ be an HTTP(S) URI. The URI of the Container _MUST NOT_ contain a fragment (a `#` followed by further characters), as this would make it impossible to refer to a segment of the Container's area using the [media fragment syntax][org-w3c-media-frags] of `#xywh=` for spatial regions, and/or `#t=` for temporal segments. The temporal segment _MUST_ be expressed using seconds. Containers _MAY_ be able to be dereferenced separately from the Manifest via their URIs as well as being [embedded][prezi30-terminology].
 
 Containers _MUST_ have an `items` property which is a list of Annotation Pages. Each Annotation Page, defined below, maintains a list of Annotations, which associate Content Resources to be rendered as part of the Container. Annotations that do not associate content to be rendered, but instead are about the Container such as a comment or tag, are recorded using Annotation Pages in the `annotations` property of the Container.
 
@@ -639,7 +639,7 @@ A TranslateTransform moves all of the objects in the local coordinate space the 
 ## Properties
 
 
-##### accompanyingContainer
+### accompanyingContainer
 {: #accompanyingContainer}
 
 A Container that provides additional content for use while the resource that has the `accompanyingContainer` property is shown or played. Examples include an image to show while a duration-only Canvas is playing audio; or background audio to play while a user is navigating an image-only Manifest.
@@ -670,7 +670,7 @@ The value of `accompanyingContainer` _MUST_ be a JSON object with the `id` and `
 }
 ```
 
-##### angle
+### angle
 {: #angle}
 
 !!! warning "Need more info"
@@ -684,7 +684,7 @@ The value _MUST_ be a floating point number greater than 0 and less than 90, and
   "angle": 15.0
 ```
 
-##### annotations
+### annotations
 {: #annotations}
 
 An ordered list of Annotation Pages that contain commentary or other Annotations about this resource, separate from the Annotations that are used to paint content on to a Canvas. The `motivation` of the Annotations _MUST NOT_ be `painting`, and the target of the Annotations _MUST_ include this resource or part of it.
@@ -717,7 +717,7 @@ The value _MUST_ be an array of JSON objects. Each item _MUST_ have at least the
 }
 ```
 
-##### backgroundColor
+### backgroundColor
 {: #backgroundColor}
 
 This property sets the background color behind any painted resources on a spatial Container, such as a Canvas or Scene.
