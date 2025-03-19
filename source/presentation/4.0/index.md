@@ -318,11 +318,8 @@ interactionMode
 
 
 
+This (no units for scale) allows arbitrarily scaled models to be used, including very small or very large, without needing to deal with very small or very large values. If there is a correspondence to a physical scale, then this can be asserted using the physical dimensions pattern(fwd-ref-to-phys-dims).
 
-
-The axes of the coordinate system are measured in arbitrary units and these units do not necessarily correspond to any physical unit of measurement. This allows arbitrarily scaled models to be used, including very small or very large, without needing to deal with very small or very large values. If there is a correspondence to a physical scale, then this can be asserted using the physical dimensions pattern(fwd-ref-to-phys-dims).
-
-<img src="https://raw.githubusercontent.com/IIIF/3d/eds/assets/images/right-handed-cartesian.png" title="Right handed cartesian coordinate system" alt="diagram of Right handed cartesian coordinate system" width=200 />
 
 
 ```
@@ -490,15 +487,15 @@ Example Annotation that positions a model at a point within a Scene:
 
 Annotations may alternately use a type of Selector called a `WktSelector` to align the Annotation to a region with the Scene that is not the Scene's origin. WktSelectors have a single property, `value`, which is a string conforming to a WKT Linestring, LineStringZ, Polygon, or PolygonZ list of 2D or 3D coordinate points. Whether and how a region defined by a WktSelector may be translated to a single 2D or 3D coordinate point, for targeting or other purposes, is client-dependent.
 
-<div style="background: #A0F0A0; padding: 10px; padding-left: 30px; margin-bottom: 10px">
-❓Does WKTSelector have a duration/instant property? 
-</div>
 
 Example Annotation that comments on a 3D polygon within a Scene:
 
 ```
 Todo add example
 ```
+
+
+### Give example of refinedBy ? e.g. WktSelector + Instant
 
 
 
@@ -515,7 +512,10 @@ This specification defines two types of Camera:
 | `PerspectiveCamera` | `PerspectiveCamera` mimics the way the human eye sees, in that objects further from the camera are smaller |
 | `OrthographicCamera` | `OrthographicCamera` removes visual perspective, resulting in object size remaining constant regardless of its distance from the camera |
 
-Cameras are positioned within the Scene facing in a specified direction. Both position and direction are defined through the Annotation which adds the Camera to the Scene, described below in the sections on [Painting Annotations][], [Transforms][], and [Relative Rotation][]. If either the position or direction is not specified, then the position defaults to the origin, and facing direction defaults to pointing along the z axis towards negative infinity. The camera's up direction by default points along the y axis towards positive infinity, but this may be modified by transforms.   
+Cameras are positioned within the Scene facing in a specified direction. Both position and direction are defined through the Annotation which adds the Camera to the Scene, described below in the sections on [Painting Annotations][], [Transforms][], and [Relative Rotation][].
+
+If either the position or direction is not specified, then the position defaults to the origin, and facing direction defaults to pointing along the z axis towards negative infinity.
+
 
 The region of the Scene's space that is observable by the camera is bounded by two planes orthogonal to the direction the camera is facing, given in the `near` and `far` properties, and a vertical projection angle that provides the top and bottom planes of the region.
 
@@ -558,7 +558,11 @@ SpotLight has an additional property of `angle`, specified in degrees, which is 
 
 <img src="https://raw.githubusercontent.com/IIIF/3d/eds/assets/images/angle-of-cone.png" title="Angle of cone" alt="diagram of cone geometry showing how the angle of the cone is defined" width="250"/>
 
-Lights that require a position and/or direction have these through the Annotation which associates them with the Scene, described below in the sections on [Painting Annotations][] and [Transforms][]. If a Light does not have an explicit direction, then the default is in the negative y direction (downwards). If a Light does not have an explicit position in the coordinate space, then the default is at the origin.
+Lights that require a position and/or direction have these through the Annotation which associates them with the Scene, described below in the sections on [Painting Annotations][] and [Transforms][].
+
+
+ If a Light does not have an explicit direction, then the default is in the negative y direction (downwards).
+ If a Light does not have an explicit position in the coordinate space, then the default is at the origin.
 
 This specification does not define other aspects of Lights, such as the rate of decay of the intensity of the light over a distance, the maximum range of the light, or the penumbra of a cone. Implementation of these aspects is client-dependent.
 
@@ -1211,9 +1215,13 @@ The client should reset the Container to its original state before applying the 
 {
   "type": "Annotation",
   "motivation": ["contentState"],
-  "reset": true
+  "behavior": ["reset"]
 }
 ```
+
+behavior: `linear-nav` -- cannot jump around only one step forward/back
+
+
 
 Before applying the content state to the Scene, the client should reset the Scene to its original state as provided by the Manifest.
 

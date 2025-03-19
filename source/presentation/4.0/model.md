@@ -174,13 +174,9 @@ JSON descriptions _SHOULD_ be [embedded][prezi30-terminology] within the JSON of
 
 ## Classes
 
-The following sub-sections define the classes used in the IIIF Presentation Data Model. The properties and relationships of the classes are defined in the following section, including which classes they are able to be used with. Only the semantics and core structural requirements are defined within this section, along with any deviations from other specifications that the classes might be drawn from.
+The following sub-sections define the classes used in the IIIF Presentation Data Model. Only the semantics and core structural requirements are defined within this section, along with any deviations from other specifications that the classes might be drawn from. The descriptions do not define how the classes are used together, which is done in the Presentation API Overview.
 
-Each class has a
-
-The descriptions also do not define how the classes are used, which is done in the Presentation API Overview.
-
-
+The name of each class is given at the top of its definition below. The exact string _MUST_ be used as the value of `type` in the JSON for the class.
 
 ### Collection
 {: #Collection}
@@ -337,20 +333,13 @@ The Web Annotation Data Model defines several Selectors, which describe how to f
 
 #### Point Selector
 
+`"type": "PointSelector"`
+
 There are common use cases in which a point, rather than a range or area, is the target of the Annotation. For example, putting a pin in a map should result in an exact point, not a very small rectangle. Points in time are not very short durations, and user interfaces should also treat these differently. This is particularly important when zooming in (either spatially or temporally) beyond the scale of the frame of reference.
 
 
 * FIXME: either supply instant, or all applicable dimensions for the source
-
-
-Point Selectors have the following properties:
-
-| Name | Description |
-|------|-------------|
-| id   | The HTTP(S) URI of the selector |
-| type | The class of the selector, which must be "PointSelector" |
-
-| instant | A number (floating point) giving the time of the point in seconds, relative to the duration of the source resource |
+   list properties here like manifest
 
 
 ```json
@@ -472,6 +461,16 @@ Ranges _MAY_ link to an Annotation Collection that has the content of the Range 
 
 A Camera provides a view of a region of the Scene's space from a particular position within the Scene; the client constructs a viewport into the Scene and uses the view of one or more Cameras to render that region. The size and aspect ratio of the viewport is client and device dependent.
 
+FIXME: If either the position or direction is not specified, then the position defaults to the origin, and facing direction defaults to pointing along the z axis towards negative infinity.
+
+The region of the Scene's space that is observable by the camera is bounded by two planes orthogonal to the direction the camera is facing, given in the `near` and `far` properties, (PERSPECTIVE) and a vertical projection angle that provides the top and bottom planes of the region. (viewHeight?)
+
+
+##### OrthographicCamera
+
+`OrthographicCamera` removes visual perspective, resulting in object size remaining constant regardless of its distance from the camera
+
+
 ##### PerspectiveCamera
 
 `PerspectiveCamera` mimics the way the human eye sees, in that objects further from the camera are smaller
@@ -491,9 +490,7 @@ A Camera provides a view of a region of the Scene's space from a particular posi
 ```
 
 
-##### OrthographicCamera
 
-`OrthographicCamera` removes visual perspective, resulting in object size remaining constant regardless of its distance from the camera
 
 
 
@@ -505,31 +502,49 @@ A Camera provides a view of a region of the Scene's space from a particular posi
 #### Lights
 
 
-##### AmbientLight
 
-AmbientLight evenly illuminates all objects in the scene, and does not have a direction or position.
+##### Ambient Light
 
-
-##### DirectionalLight
-
-DirectionalLight emits in a specific direction as if it is infinitely far away and the rays produced from it are all parallel. It does not have a specific position.
+Ambient Lights evenly illuminates all objects in the scene, and does not have a direction or position.
 
 
-##### PointLight
+##### Directional Light
 
- PointLight emits from a single point within the scene in all directions.
+Directional Lights emits in a specific direction as if it is infinitely far away and the rays produced from it are all parallel. It does not have a specific position.
 
-##### SpotLight
+ If a DirectionalLight does not have an explicit direction, then the default is in the negative y direction (downwards).
 
-SpotLight emits a cone of light from a single point in a given direction.
 
+##### Point Light
+
+ Point Lights emits from a single point within the scene in all directions.
+
+##### Spot Light
+
+Spot Lights emit a cone of light from a single point in a given direction.
+
+ If a SpotLight does not have an explicit direction, then the default is in the negative y direction (downwards).
 
 
 
 #### Transforms
-##### TranslateTransform
+
+here are the rules about transforms?
+
+
+
 ##### RotateTransform
+
+A RotateTransform rotates the local coordinate space around the given axis in a counter-clockwise direction around the axis itself (e.g. around a pivot point of 0 on the axis). A point that was at x=1,y=1 and was rotated 90 degrees around the x axis would be at x=1,y=0,z=1. If an axis value is not specified, then it is not changed, resulting in a default of 0.0
+
+
 ##### ScaleTransform
+
+A ScaleTransform applies a multiplier to one or more axes in the local coordinate space. A point that was at 3.5, after applying a ScaleTransform of 2.0 would then be at 7.0. If an axis value is not specified, then it is not changed, resulting in a default of 1.0
+
+##### TranslateTransform
+
+A TranslateTransform moves all of the objects in the local coordinate space the given distance along the axis. A point that was at x=1.0, after applying a TranslateTransform of x=1.0 would be at x=2.0. If an axis value is not specified then it is not changed, resulting in a default of 0.0
 
 
 ### Utility Classes
@@ -852,6 +867,15 @@ The existence of an HTTP(S) URI in the `id` property does not mean that the URI 
 ``` json-doc
 { "id": "https://example.org/iiif/1/manifest" }
 ```
+
+##### instant
+{: #instant}
+
+A number (floating point) giving the time of the point in seconds, relative to the duration of the source resource
+
+FIXME: fix
+
+
 ##### intensity
 {: #intensity}
 
@@ -1648,6 +1672,10 @@ The value _MUST_ be a string.
 _Summary here_
 
 The value of this property is an array of JSON objects, each of which is a Transform.
+
+Process them in order.
+
+
 
 ##### type
 {: #type}
