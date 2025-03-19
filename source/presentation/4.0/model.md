@@ -240,6 +240,11 @@ All Containers _MUST_ be identified by a URI and it _MUST_ be an HTTP(S) URI. Th
 
 Containers _MUST_ have an `items` property which is a list of Annotation Pages. Each Annotation Page, defined below, maintains a list of Annotations, which associate Content Resources to be rendered as part of the Container. Annotations that do not associate content to be rendered, but instead are about the Container such as a comment or tag, are recorded using Annotation Pages in the `annotations` property of the Container.
 
+FIXME: It is an error to select a temporal region of a Scene that does not have a `duration`, or to select a temporal region that is not within the Scene's temporal extent.  A Canvas or Scene with a `duration` may not be annotated as a content resource into a Scene that does not itself have a `duration`.
+
+
+
+
 #### Timeline
 
 A Timeline is a Container that represents only a temporal duration, measured in seconds. Timelines allow audio content to be presented, but do not allow anything with a height or width like an image or video.  The duration of the Timeline is given in the `duration` property.
@@ -257,6 +262,10 @@ A Scene is a Container that represents an infinitely large three-dimensional spa
 <img src="https://raw.githubusercontent.com/IIIF/3d/eds/assets/images/right-handed-cartesian.png" title="Right handed cartesian coordinate system" alt="diagram of Right handed cartesian coordinate system" width=200 />
 
 The axes of the coordinate system are measured in arbitrary units and these units do not necessarily correspond to any physical unit of measurement, unless `spatialScale` is supplied.
+
+All resources that can be added to a Scene have an implicit (e.g. Lights, Cameras) or explicit (e.g. Models, Scenes), local coordinate space.
+
+
 
 
 
@@ -326,6 +335,13 @@ If the content resource is an Image, and a IIIF Image service is available for i
 If there is a need to distinguish between content resources, then the resource _SHOULD_ have the `label` property.
 
 Containers _MAY_ be treated as content resources for the purposes of annotating on to other Containers. In this situation, the Container _MAY_ be [embedded][prezi30-terminology] within the Annotation, be a reference within the same Manifest, or require dereferencing to obtain its description.
+
+
+### Audio Content
+
+
+
+
 
 ### Selectors
 
@@ -515,6 +531,10 @@ Directional Lights emits in a specific direction as if it is infinitely far away
  If a DirectionalLight does not have an explicit direction, then the default is in the negative y direction (downwards).
 
 
+this is really that the light always has a direction of (-y) and is rotated from there. So no rotation = "default" direction.
+
+
+
 ##### Point Light
 
  Point Lights emits from a single point within the scene in all directions.
@@ -524,6 +544,53 @@ Directional Lights emits in a specific direction as if it is infinitely far away
 Spot Lights emit a cone of light from a single point in a given direction.
 
  If a SpotLight does not have an explicit direction, then the default is in the negative y direction (downwards).
+
+
+
+#### Audio in Scenes
+
+All have `source`, `volume`
+
+##### Ambient Audio
+
+
+##### Point Audio
+
+
+##### Spot Audio
+
+
+```json
+
+
+"body":
+{
+  "id": "iiif/my/spotAudio",
+  "type": "SpotAudio",
+  "source": {
+    "id": "/path/to/my.mp3",
+    "type": "Audio",
+    "format": "audio/mp3",
+    "profile": "some profile thing of mp3"
+  },
+  "angle": 45.0
+}
+"target":
+  {
+    "type": "SpecificResource",
+    "selector": [{
+      "type": "PointSelector"
+      "x", "y", "z"
+    },
+    "transform":
+      {"RotateTransform"}
+  }
+
+
+`angle`
+
+No default direction, MUST provide a Rotate Transform.
+
 
 
 
@@ -745,6 +812,9 @@ The value _MUST_ be a positive floating point number.
 {: #exclude}
 
 _Summary here_
+
+Just as a Scene may contain multiple Annotations with model, light, and camera resources, a single 3D model file may contain a collection of 3D resources, including model geometry, assemblages of lights, and/or multiple cameras, with some of these potentially manipulated by animations. When painting Scenes or models that themselves may contain groups of resources within a single Scene, it may not always be appropriate to include all possible cameras, lights, or other resources, and it may be desirable to opt not to import some of these resources. This is accomplished through the Annotation property `exclude`, which prevents the import of audio, lights, cameras, or animations from a particular Scene or model prior to the Annotation being painted into a Scene. When `exclude` is used, the excluded resource type should not be loaded into the Scene, and it is not possible to reactivate or turn on these excluded resources after loading.
+
 
 _On Annotation, a list of strings drawn from table_
 
@@ -1019,12 +1089,20 @@ The value of this property _MUST_ be an array of JSON objects, each of which _MU
 {: #lookAt}
 
 _Summary here_
+It is useful to be able to rotate a light or camera or audio resource such that it is facing another object or point in the Scene, rather than calculating the angles within the Scene's coordinate space. This is accomplished with a property called `lookAt`, valid on DirectionalLight, SpotLight, and all Cameras. The value of the property is either a PointSelector, a WktSelector, the URI of an Annotation which paints something into the current Scene, or a Specific Resource with a selector identifying a point or region in an arbitrary container.
+
+If the value is a PointSelector, then the light or camera resource is rotated around the x and y axes such that it is facing the given point. If the value is a WktSelector, then the resource should be rotated to face the given region. If the value is an Annotation which targets a point via a PointSelector, URI fragment or other mechanism, then the resource should be rotated to face that point. If the value is a Specific Resource, the source container for the Specific Resource must be painted into the current Scene, and the Specific Resource selector should identify a point or region in the source container. In this case, the light or camera resource should be rotated to face the point or region in the source container where the point or region is located within the current Scene's coordinate space. This allows light or camera resources to face a specific 2D point on a Canvas painted into a 3D scene.
+
+This rotation happens after the resource has been added to the Scene, and thus after any transforms have taken place in the local coordinate space.
+
 
 The value _MUST_ be a JSON object, conforming to either a reference to an Annotation, or an embedded PointSelector. If this property is not specified, then the default value for cameras is to look straight backwards (-Z) and for lights to point straight down (-Y).
 
 * A Camera _MAY_ have the `lookAt` property.<br/>
   Clients _SHOULD_ process the `lookAt` property on Cameras.
 * A SpotLight or a DirectionalLight _SHOULD_ have the `lookAt` property.<br/>
+* A SpotSound _SHOULD_ have the `lookAt` property.
+
 
 ```json
 "lookAt": {
@@ -1673,7 +1751,7 @@ _Summary here_
 
 The value of this property is an array of JSON objects, each of which is a Transform.
 
-Process them in order.
+Process them in order given.
 
 
 
@@ -1693,13 +1771,18 @@ The value _MUST_ be a string.
 
 | Class         | Description                      |
 | ------------- | -------------------------------- |
+| `Audio`       | Auditory resources primarily intended to be heard, such as might be rendered with an &lt;audio> HTML tag |
 | `Dataset`     | Data not intended to be rendered to humans directly, such as a CSV, an RDF serialization or a zip file |
 | `Image`       | Two dimensional visual resources primarily intended to be seen, such as might be rendered with an &lt;img> HTML tag |
 | `Model`       | A three dimensional spatial model intended to be visualized, such as might be rendered with a 3d javascript library |
-| `Sound`       | Auditory resources primarily intended to be heard, such as might be rendered with an &lt;audio> HTML tag |
+
 | `Text`        | Resources primarily intended to be read |
 | `Video`       | Moving images, with or without accompanying audio, such as might be rendered with a &lt;video> HTML tag |
 {: .api-table #table-type}
+
+!!! note
+For compatibility with previous versions, clients _SHOULD_ accept `Sound` as a synonym for `Audio`.
+
 
 {% include api/code_header.html %}
 ``` json-doc

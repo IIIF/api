@@ -278,9 +278,6 @@ The positive y axis points upwards, the positive x axis points to the right, and
 
 This example is a Manifest with a single Scene, with a single model of a space suit painted at the Scene's origin.
 
-
-
-
 The model also has its own local coordinate space, which may be scaled differently from the Scene's coordinate space.
 
 Unlike when you paint a resource into a Canvas where it fills the space, instead targeting the Scene is equivalent to having a point selector that targets the origin.
@@ -313,6 +310,8 @@ transforms for scale and rotation
 Scene in Scene
 Exclude
 interactionMode
+
+
 
 
 
@@ -448,6 +447,22 @@ It is an error to select a temporal region of a Scene that does not have a `dura
 
 
 An annotation that targets a Scene using a PointSelector without any temporal refinement implicitly targets the Scene's entire duration.
+
+
+Audio and 3D
+
+
+AmbientAudio (everywhere)
+PointAudio (sphere)
+SpotAudio (cone)
+
+   source: Audio (id, type, format, profile, duration, label)
+   volume: UnitValue (value: 0.3, unit: relative)
+   angle: degrees of the cone, per SpotLight
+
+Ambient and Point can be painted on to Canvas
+hidden on audio = inaudible
+
 
 
 All resources that can be added to a Scene have an implicit (e.g. Lights, Cameras) or explicit (e.g. Models, Scenes), local coordinate space. If a resource does not have an explicit coordinate space, then it is positioned at the origin of its coordinate space. In order to add a resource with its local coordinate space into a Scene with its own coordinate space, these spaces must be aligned. This done by aligning the origins of the two coordinate spaces.
