@@ -245,15 +245,21 @@ FIXME: It is an error to select a temporal region of a Scene that does not have 
 
 #### Timeline
 
+`"type": "Timeline"`
+
 A Timeline is a Container that represents only a temporal duration, measured in seconds. Timelines allow audio content to be presented, but do not allow anything with a height or width like an image or video.  The duration of the Timeline is given in the `duration` property.
 
 #### Canvas
+
+`"type": "Canvas"`
 
 A Canvas is a Container that represents a particular rectangular 2 dimensional view of the object and has content resources associated with it or with parts of it. This aspect ratio is defined by the `height` and `width` properties. A Canvas _MAY_ also have a duration, given in the `duration` property, allowing audio and video to be correctly positioned in time as well as the 2 dimensional space.
 
 FIXME: arbitrary units
 
 #### Scene
+
+`"type": "Scene"`
 
 A Scene is a Container that represents an infinitely large three-dimensional space, with an optional `duration` property. Scenes have infinite height (y axis), width (x axis) and depth (z axis), where 0 on each axis (the origin of the coordinate system) is treated as the center of the scene's space. From a perspective looking along the z axis towards negative infinity, the positive y axis points upwards and the positive x axis points to the right (a [right-handed Cartesian coordinate system](https://en.wikipedia.org/wiki/Right-hand_rule)).
 
@@ -274,6 +280,8 @@ The following set of classes are defined by the W3C's [Web Annotation Data Model
 
 #### Annotation
 
+`"type": "Annotation"`
+
 Annotations are used to associate content resources with Containers, as well as for transcriptions, commentary, tags and the association of other content. This provides a single, unified method for aligning information, and provides a standards-based framework for distinguishing parts of resources and parts of Canvases.
 
 Annotations _MUST_ have their own HTTP(S) URIs, conveyed in the `id` property. The JSON-LD description of the Annotation _SHOULD_ be returned if the URI is dereferenced, according to the [Web Annotation Protocol][org-w3c-webanno-protocol].
@@ -287,6 +295,8 @@ Note that the Web Annotation data model defines different patterns for the `valu
 
 #### Annotation Collection
 
+`"type": "AnnotationCollection"`
+
 Annotation Collections allow groups of Annotations to be recorded. For example, all of the English translation Annotations of a medieval French document could be kept separate from the transcription or an edition in modern French, or the director's commentary on a film can be separated from the script.
 
 Annotation Collections _MUST_ have a URI, and it _SHOULD_ be an HTTP(S) URI. They _SHOULD_ have a `label` and _MAY_ have any of the other descriptive, linking or rights properties.
@@ -295,6 +305,8 @@ Annotation Collections are paged rather than enumerated. The first page of items
 
 
 #### Annotation Page
+
+`"type": "AnnotationPage"`
 
 An ordered list of Annotations, typically associated with a Container, but may be referenced from other types of resource as well. Annotation Pages enumerate and order lists of Annotations, in the same way that Collection Pages order lists of Manifests and Collections within the containing Collection.
 
@@ -309,13 +321,19 @@ The definition of `label` in the Web Annotation specification does not produce J
 
 #### Specific Resource
 
+`"type": "SpecificResource"`
+
 A Specific Resource is a resource in the context of an Annotation. They are used to record further properties or relationships needed to understand the particular contextual use, such as which part of the resource is used or how it should be rendered. In IIIF, the Specific Resource model from the Web Annotation Data Model has some additional properties beyond those defined by the W3C, such as `transform`.
 
 #### Textual Body
 
+`"type": "TextualBody"`
+
 A Textual Body is an embedded resource within an Annotation that carries, as the name suggests, a text as the body of the Annotation. It is defined by the Web Annotation Data Model, and this specification defines a new property for `position` that allows it to be positioned within a Container.
 
 #### Choice
+
+`"type": "Choice"`
 
 A Choice is a Web Annotation construction that allows one entry from a list to be selected for processing or display. This specification allows `behavior` to be added to a Choice to influence how it is processed.
 
@@ -370,15 +388,11 @@ There are common use cases in which a point, rather than a range or area, is the
 
 #### WKT Selector
 
+`"type": "WktSelector"`
+
 Well-known text, or WKT, is an ISO standard method for describing 2 and 3 dimensional geometries. This selector thus goes beyond what the Web Annotation's SvgSelector enables by incorporating the z axis, as well as additional types of selection such as MultiPolygon. Additional types, such as CIRCULARSTRING may also be supported.
 
-WKT Selectors have the following properties:
-
-| Name  | Description |
-|-------|-------------|
-| id    | The HTTP(S) URI of the selector |
-| type  | The class of the selector, which must be "WktSelector" |
-| value | The WKT string that defines the geometry to be selected |
+WKT Selectors _MUST_ have a `value` property, which is the WKT string that defines the geometry to be selected.
 
 ```json
 {
@@ -393,14 +407,9 @@ WKT Selectors have the following properties:
 
 #### Audio Content Selector
 
+`"type": "AudioContentSelector"`
+
 Video content resources consist of both visual and audio content within the same bit-level representation. There are situations when it is useful to refer to only one aspect of the content – either the visual or the audio, but not both. For example, an Annotation might associate only the visual content of a video that has spoken English in the audio, and an audio file that has the translation of that content in Spanish. The Audio Content Selector selects all of the audio content from an A/V content resource, and may be further refined with subsequent selectors to select a segment of it.
-
-Audio Content Selectors have the following properties:
-
-| Name | Description |
-|------|-------------|
-| id   | The HTTP(S) URI of the selector |
-| type | The class of the selector, which must be "AudioContentSelector" |
 
 
 ```json
@@ -413,14 +422,9 @@ Audio Content Selectors have the following properties:
 
 #### Visual Content Selector
 
+`"type": "VisualContentSelector"`
+
 Similar to Audio Content Selectors, Visual Content Selectors select the visual aspects of the content of an A/V content resource. They may be further refined by subsequent selectors that select an area or temporal segment of it.
-
-Visual Content Selectors have the following properties:
-
-| Name | Description |
-|------|-------------|
-| id   | The HTTP(S) URI of the selector |
-| type | The class of the selector, which must be "VisualContentSelector" |
 
 ```json
 {
@@ -432,16 +436,11 @@ Visual Content Selectors have the following properties:
 
 #### Animation Selector
 
-More interactive content resources, such as 3d models, may have activatable animations or similar features. For example, a model of a box might have an animation that opens the lid and a second animation that closes the lid. In order to activate those animations, they need to be selectable, and thus the specification defines an Animation Selector.
+`"type": "AnimationSelector"`
 
-Animation Selectors have the following properties:
+More interactive content resources, such as 3D models, may have animations or similar features that can be _activated_ by user interaction. For example, a model of a box might have an animation that opens the lid and a second animation that closes the lid. In order to activate those animations, they need to be selectable, and thus the specification defines an Animation Selector.
 
-| Name  | Description |
-|-------|-------------|
-| id    | The HTTP(S) URI of the selector |
-| type  | The class of the selector, which must be "AnimationSelector" |
-| value | The identity of the animation in whichever form is used by the source resource |
-
+Animation Selectors _MUST_ have a `value` property, which is the identity of the animation in whichever form is used by the source resource.
 
 ```json
 {
@@ -451,7 +450,9 @@ Animation Selectors have the following properties:
 }
 ```
 
-#### ImageApiSelector
+#### IIIF Image API Selector
+
+`"type": "ImageApiSelector"`
 
 FIXME: write this
 
@@ -459,6 +460,8 @@ FIXME: write this
 
 
 ### Range
+
+`"type": "Range"`
 
 Ranges are used to represent structure within a Manifest beyond the default order of the Containers in the `items` property.
 
@@ -480,17 +483,20 @@ FIXME: If either the position or direction is not specified, then the position d
 The region of the Scene's space that is observable by the camera is bounded by two planes orthogonal to the direction the camera is facing, given in the `near` and `far` properties, (PERSPECTIVE) and a vertical projection angle that provides the top and bottom planes of the region. (viewHeight?)
 
 
-##### OrthographicCamera
+##### Orthographic Camera
+
+`"type": "OrthographicCamera"`
 
 `OrthographicCamera` removes visual perspective, resulting in object size remaining constant regardless of its distance from the camera
 
 
-##### PerspectiveCamera
+##### Perspective Camera
+
+`"type": "PerspectiveCamera"`
 
 `PerspectiveCamera` mimics the way the human eye sees, in that objects further from the camera are smaller
 
-!!! Properties
-...
+Properties...
 
 
 ```json
@@ -519,29 +525,37 @@ The region of the Scene's space that is observable by the camera is bounded by t
 
 ##### Ambient Light
 
+`"type": "AmbientLight"`
+
 Ambient Lights evenly illuminates all objects in the scene, and does not have a direction or position.
 
 
 ##### Directional Light
 
+`"type": "DirectionalLight"`
+
 Directional Lights emits in a specific direction as if it is infinitely far away and the rays produced from it are all parallel. It does not have a specific position.
 
- If a DirectionalLight does not have an explicit direction, then the default is in the negative y direction (downwards).
+If a DirectionalLight does not have an explicit direction, then the default is in the negative y direction (downwards).
 
-
-this is really that the light always has a direction of (-y) and is rotated from there. So no rotation = "default" direction.
+This is really that the light always has a direction of (-y) and is rotated from there. So no rotation = "default" direction.
 
 
 
 ##### Point Light
 
- Point Lights emits from a single point within the scene in all directions.
+`"type": "PointLight"`
+
+Point Lights emits from a single point within the scene in all directions.
+
 
 ##### Spot Light
 
+`"type": "SpotLight"`
+
 Spot Lights emit a cone of light from a single point in a given direction.
 
- If a SpotLight does not have an explicit direction, then the default is in the negative y direction (downwards).
+If a SpotLight does not have an explicit direction, then the default is in the negative y direction (downwards).
 
 
 
@@ -551,12 +565,16 @@ All have `source`, `volume`
 
 ##### Ambient Audio
 
+`"type": "AmbientAudio"`
+
 
 ##### Point Audio
 
+`"type": "PointAudio"`
 
 ##### Spot Audio
 
+`"type": "SpotAudio"`
 
 ```json
 {
@@ -582,24 +600,39 @@ here are the rules about transforms?
 
 
 
-##### RotateTransform
+##### Rotate Transform
+
+`"type": "RotateTransform"`
 
 A RotateTransform rotates the local coordinate space around the given axis in a counter-clockwise direction around the axis itself (e.g. around a pivot point of 0 on the axis). A point that was at x=1,y=1 and was rotated 90 degrees around the x axis would be at x=1,y=0,z=1. If an axis value is not specified, then it is not changed, resulting in a default of 0.0
 
 
-##### ScaleTransform
+##### Scale Transform
+
+`"type": "ScaleTransform"`
 
 A ScaleTransform applies a multiplier to one or more axes in the local coordinate space. A point that was at 3.5, after applying a ScaleTransform of 2.0 would then be at 7.0. If an axis value is not specified, then it is not changed, resulting in a default of 1.0
 
-##### TranslateTransform
+##### Translate Transform
+
+`"type": "TranslateTransform"`
 
 A TranslateTransform moves all of the objects in the local coordinate space the given distance along the axis. A point that was at x=1.0, after applying a TranslateTransform of x=1.0 would be at x=2.0. If an axis value is not specified then it is not changed, resulting in a default of 0.0
 
 
 ### Utility Classes
+
 #### Agent
+
+`"type": "Agent"`
+
 #### Service
-#### UnitValue
+
+`"type": "Service"`
+
+#### Unit Value
+
+`"type": "UnitValue"`
 
 
 
@@ -650,6 +683,7 @@ The value _MUST_ be a floating point number greater than 0 and less than 90, and
 ```json
   "angle": 15.0
 ```
+
 ##### annotations
 {: #annotations}
 

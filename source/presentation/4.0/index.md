@@ -1289,7 +1289,7 @@ If you go backwards from step n in a linear-nav, **and** you have applied one or
 
 Before applying the content state to the Scene, the client should reset the Scene to its original state as provided by the Manifest.
 
-// I am assuming reset is always true except in `sequence` - otherwise it's completely unpredictable!! or is it... arbitrary navigation, state provided by initialization content states, etc...
+// I am assuming reset is always true except in `linear-nav` - otherwise it's completely unpredictable!! or is it... arbitrary navigation, state provided by initialization content states, etc...
 
 #### Contribute additional information permanently
 
