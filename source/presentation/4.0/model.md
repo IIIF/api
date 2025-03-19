@@ -203,7 +203,7 @@ Collections or Manifests [referenced][prezi30-terminology] in the `items` proper
 #### Collection Page
 {: #CollectionPage}
 
-Class: `CollectionPage`
+`"type": "CollectionPage"`
 
 A Collection Page is an arbitrary division of members within the Collection to make it easier to consume.
 
@@ -214,18 +214,18 @@ Collection Pages follow the ActivityStreams model, as also used in Annotation Co
 
 ### Manifest
 
+`"type": "Manifest"`
+
 A Manifest is the primary unit of distribution of IIIF and provides a description of the structure and properties of a single item to be presented to the user.
 
 Manifests _MUST_ be identified by a URI and it _MUST_ be an HTTP(S) URI, given in the `id` property. It _MUST_ be able to be dereferenced to retrieve the JSON description of the Manifest.
-
-The `type` property of a Manifest _MUST_ have the value `"Manifest"`.
 
 The members of a Manifest are listed in the `items` property. The members of Manifests _MUST_ be Containers, defined below, and are embedded within the Manifest. The Manifest _MAY_ have a `structures` property listing one or more [Ranges][#range] which describe additional structure of the content, such as might be rendered as a table of contents. The Manifest _MAY_ have an `annotations` property, which includes Annotation Page resources where the Annotations have the Manifest as their `target`. These Annotations _MUST NOT_ have `painting` as their `motivation`.
 
 
 __Properties__<br/>
-A Manifest _MUST_ have the following properties: [id](#id), [type](#type), [label](#label), and [items](#items)<br/>
-A Manifest _SHOULD_ have the following properties: [metadata](#metadata), [summary](#summary), [provider](#provider), and [thumbnail](#thumbnail)<br/>
+A Manifest _MUST_ have the following properties: [id](#id), [type](#type), [label](#label), and [items](#items)<br/><br/>
+A Manifest _SHOULD_ have the following properties: [metadata](#metadata), [summary](#summary), [provider](#provider), and [thumbnail](#thumbnail)<br/><br/>
 A Manifest _MAY_ have the following properties: [requiredStatement](#requiredStatement), [rights](#rights), [navDate](#navDate), [navPlace](#navPlace), [placeholderContainer](#placeholderContainer), [accompanyingContainer](#accompanyingContainer), [viewingDirection](#viewingDirection), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [services](#services), [homepage](#homepage), [rendering](#rendering), [partOf](#partOf), [start](#start), [structures](#structures), and [annotations](#annotations).
 {: .note}
 
@@ -827,6 +827,10 @@ The value is a non-negative floating point number, in the coordinate space of th
 ```json-doc
 { "far": 200.0 }
 ```
+
+##### first
+
+
 ##### fieldOfView
 {: #fieldOfView}
 
@@ -1043,6 +1047,9 @@ The value _MUST_ be an array of strings. Each item in the array _MUST_ be a vali
 ``` json-doc
 { "language": [ "en" ] }
 ```
+
+##### last
+
 ##### logo
 {: #logo}
 
@@ -1070,6 +1077,7 @@ The value of this property _MUST_ be an array of JSON objects, each of which _MU
   ]
 }
 ```
+
 ##### lookAt
 {: #lookAt}
 
@@ -1194,6 +1202,7 @@ The value of the property _MUST_ be a [GeoJSON Feature Collection] [link] contai
    }
 }
 ```
+
 ##### near
 {: #near}
 
@@ -1207,6 +1216,11 @@ The value is a non-negative floating point number, in the coordinate space of th
 ```json-doc
 { "near": 1.5 }
 ```
+
+##### next
+
+...
+
 
 ##### partOf
 {: #partOf}
@@ -1285,6 +1299,10 @@ The value of this property _MUST_ be a JSON object conforming to the `SpecificRe
 }
 
 ```
+
+##### prev
+
+
 ##### profile
 {: #profile}
 
@@ -1727,6 +1745,11 @@ The value _MUST_ be a string.
 ``` json-doc
 { "timeMode": "trim" }
 ```
+
+
+##### totalItems
+
+For compatability with the Web Annotation Data Model, clients _SHOULD_ also accept `total` as the name of this property when used on the `AnnotationCollection` class.
 
 
 ##### transform
