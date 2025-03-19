@@ -757,6 +757,7 @@ The value _MUST_ be an array of strings.
 
 !!! Could continuous stitch together Timelines?
 
+TODO: Address https://github.com/IIIF/api/issues/2318
 
 | Value | Description |
 | ----- | ----------- |
