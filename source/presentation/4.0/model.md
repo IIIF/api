@@ -223,13 +223,11 @@ The `type` property of a Manifest _MUST_ have the value `"Manifest"`.
 The members of a Manifest are listed in the `items` property. The members of Manifests _MUST_ be Containers, defined below, and are embedded within the Manifest. The Manifest _MAY_ have a `structures` property listing one or more [Ranges][#range] which describe additional structure of the content, such as might be rendered as a table of contents. The Manifest _MAY_ have an `annotations` property, which includes Annotation Page resources where the Annotations have the Manifest as their `target`. These Annotations _MUST NOT_ have `painting` as their `motivation`.
 
 
-!!! Properties
-A Manifest _MUST_ have the following properties: [id](#id), [type](#type), [label](#label), and [items](#items)
-
-A Manfiest _SHOULD_ have the following properties: [metadata](#metadata), [summary](#summary), [provider](#provider), and [thumbnail](#thumbnail)
-
-A Manifest _MAY_ have the following properties: [requiredStatement](#requiredStatement), [rights](#rights), [navDate](#navDate), [navPlace](#navPlace), [placeholderContainer](#placeholdercontainer), [accompanyingContainer](#accompanyingcontainer), [viewingDirection](#viewingdirection), [behavior](#behavior), [seeAlso](#seealso), [service](#service), [services](#services), [homepage](#homepage), [rendering](#rendering), [partOf](#partof), [start](#start), [structures](#structures), and [annotations](#annotations).
-
+__Properties__<br/>
+A Manifest _MUST_ have the following properties: [id](#id), [type](#type), [label](#label), and [items](#items)<br/>
+A Manifest _SHOULD_ have the following properties: [metadata](#metadata), [summary](#summary), [provider](#provider), and [thumbnail](#thumbnail)<br/>
+A Manifest _MAY_ have the following properties: [requiredStatement](#requiredStatement), [rights](#rights), [navDate](#navDate), [navPlace](#navPlace), [placeholderContainer](#placeholderContainer), [accompanyingContainer](#accompanyingContainer), [viewingDirection](#viewingDirection), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [services](#services), [homepage](#homepage), [rendering](#rendering), [partOf](#partOf), [start](#start), [structures](#structures), and [annotations](#annotations).
+{: .note}
 
 ### Container Classes
 {: #containers}
@@ -609,7 +607,7 @@ A TranslateTransform moves all of the objects in the local coordinate space the 
 
 
 ##### accompanyingContainer
-{: #accompanyingcontainer}
+{: #accompanyingContainer}
 
 A Container that provides additional content for use while the resource that has the `accompanyingContainer` property is shown or played. Examples include an image to show while a duration-only Canvas is playing audio; or background audio to play while a user is navigating an image-only Manifest.
 
