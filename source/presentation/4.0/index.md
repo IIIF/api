@@ -466,14 +466,9 @@ Todo add example
 
 
 
-## Scene-Specific Resources
+#### Scene-Specific Resources
 
-### 3D considerations / principles
-
-"models" (content resources in 3D)
-"local coordinate spaces"
-
-### Camera
+##### Camera
 
 A Camera provides a view of a region of the Scene's space from a particular position within the Scene; the client constructs a viewport into the Scene and uses the view of one or more Cameras to render that region. The size and aspect ratio of the viewport is client and device dependent.
 
@@ -511,7 +506,7 @@ The first Camera defined and not hidden in a Scene is the default Camera used to
 
 
 
-### Light
+##### Light
 
 One or more Lights MUST be present within the Scene in order to have objects within it be visible to the Cameras. 
 
@@ -547,7 +542,7 @@ If there are no Lights present within the Scene, then the viewer MUST add at lea
 
 
 
-### Transforms
+#### Transforms
 
 The Annotation with a Selector on the target can paint a resource at a point other than the origin, however it will be at its initial scale and rotation, which may not be appropriate for the scene that is being constructed.
 
@@ -634,7 +629,7 @@ Painting a Scene into another while excluding import of several types of resourc
 
 
 
-### Nesting
+#### Nesting
 
 A Canvas can be painted into a Scene as an Annotation, but the 2D nature of Canvases requires special consideration due to important differences between Canvases and Scenes. A Canvas describes a bounded 2D space with finite `height` and `width` measured in pixels with a pixel origin at the top-left corner of the Canvas, while Scenes describe a boundless 3D space with x, y, and z axes of arbitrary coordinate units and a coordinate origin at the center of the space. It is important to note that in many cases the pixel scale used by a Canvas or a 2D image content resource will not be in proportion to the desired 3D coordinate unit scale in a Scene. 
 
@@ -693,16 +688,16 @@ Comments, tags, etc
 transcripts (and back ref to OCR on images etc)
 
 
-### Comment Annotations
+#### Comment Annotations
 
 
 
-### Choice of Alternative Resources
+#### Choice of Alternative Resources
 
 Multispectral here
 
 
-### Embedded Content
+#### Embedded Content
 
 e.g., painting TextualBody on Canvas
 
@@ -713,20 +708,20 @@ It is important to be able to position the textual body of an annotation within 
 
 
 
-### Non Rectangular Segments
+#### Non Rectangular Segments
 
 SvgSelector - move to SpecificResource too ^^
 
 
-### Style
+#### Style
 
 Move to SpecificResource
 
 
-### Rotation
+#### Rotation
 
 
-### Hotspot Linking and Activation
+#### Hotspot Linking and Activation
 
 Move to SpecificResource
 
@@ -826,7 +821,7 @@ partOf -
 ## State
 
 
-## Content State
+### Content State
 
 A Content State is simply any valid IIIF Presentation Resource, or part of a Presentation resource. The following are all Content States that describe a "fragment" of IIIF:
 
@@ -940,14 +935,14 @@ Annotations with the motivation `contentState` are referred to as _content state
 
 Content States are used for the following applications:
 
-### Load a particular view of a resource or group of resources
+#### Load a particular view of a resource or group of resources
 
 In this usage, an annotation with the motivation `contentState` is passed to a client to initialize it with a particular view of a resource. Almost all IIIF Clients initialize from the very simplest form of Content State - a Manifest URI. A more complex Content State might target a particular region of a particular canvas within a Manifest, as in the second example above. A client initialized from such a Content State would load the Manifest, show the particular Canvas, and perhaps zoom in on the target region.
 
 The mechanisms for passing Content State into a client, and exporting a Content State from a client, are given in the [Content State Protocol API 2.0](content-state-2) specification, which describes the scenarios in which a URI, or Content State not carried by an annotation, should be interpreted by a Client as a Content State.
 
 
-### Load a particular view of some resource and modify it
+#### Load a particular view of some resource and modify it
 
 In the previous usage, the fragment of IIIF carried by the annotation with the motivation `contentState` provides enough information for a Client to load a resource and show it. This fragment can also carry additional IIIF Presentation API resources not shown in the referred-to resource. For example, in the following example the Content State carries additional annotations not present in the original published Manifest. A client initializing from this Content State would show these additional annotations to the user:
 
@@ -991,7 +986,7 @@ TODO: what is the processing algorithm for applying incoming `hidden` ?
 When a Content State annotation carries a Scene, a view might be initialized from a Content State that introduces an additional Camera that shows the user the point of interest. 
 
 
-### Modify the Container in a particular context
+#### Modify the Container in a particular context
 
 The techniques in the previous example are also used within a published IIIF Manifest to modify the contents of a Container in the contexts of different annotations on that Container. This technique allows IIIF to be used for _storytelling_ and other narrative applications beyond simply conveying a static Digital Object into a viewer and leaving subsequent interactions entirely in the control of the user. The `scope` property indicates to the client that the Content State provides valuable context for displaying some aspect of a Scene or other Container. In the case of a commenting annotation, this means that the Content State should be loaded when the commenting annotation is selected or otherwise highlighted. 
 
@@ -1165,13 +1160,13 @@ Use of `scope` is permitted in annotations on any Container type, not just Scene
 
 While all AnnotationPage `items` are inherently ordered, an Annotation Page with the behavior `sequence` is explicitly a narrative, and clients should prevent (dissuade) users from jumping about. The presence of `sequence` affects the way a client should interpret the `reset` property described below.
 
-### Content States on Manifests
+#### Content States on Manifests
 
 When an annotation with the motivation `contentState` is provided via the `annotations` property of a Manifest, rather than contextually via `scope`, it is assumed to be generally available for selection by the user at any time. A client may present such as annotations as a menu of views, allowing arbitrary jumping into any Scene (or Canvas or Timeline) from any other point.
 
 // Is there some overlap here with Range?
 
-### Processing Content States in Scopes: reset
+#### Processing Content States in Scopes: reset
 
 // This may not be what we have discussed...
 
@@ -1191,17 +1186,17 @@ Before applying the content state to the Scene, the client should reset the Scen
 
 // I am assuming reset is always true except in `sequence` - otherwise it's completely unpredictable!! or is it... arbitrary navigation, state provided by initialization content states, etc...
 
-### Contribute additional information permanently
+#### Contribute additional information permanently
 
 Rerum inbox scenario - should be covered in CS2 protocol
 
-### activating - animation and interactions
+#### activating - animation and interactions
 
 Annotations with the motivation `activating` are referred to as _activating_ annotations.
 
 There are two uses of `activating` annotations:
 
-#### Triggering a content state
+##### Triggering a content state
 
 An activating annotation links a painting annotation to a content state. When a user interacts with the painting annotation - whether through clicking it, tapping it, or other client-specific behaviors - the linked content state should be processed to modify the Scene or other Container, as in the previous examples. The painting annotation is the target of the activating annotation, and the content state is the body value. Only one content state may be specified in the body array, but the body array may include a `TextualBody` to provide a label for the interaction. The pattern is the same as for the `linking` motivation, but rather than the client opening a new browser window on the resource specified in the `body`, it applies the modification provided by the Content State.
 
@@ -1275,7 +1270,7 @@ The activating annotation is provided in a Container's `annotations` property. I
 
 
 
-#### Triggering a named animation in a model
+##### Triggering a named animation in a model
 
 Sometimes a model file has inbuilt animations. While a description of these is outside the scope of IIIF, because it is 3D-implementation-specific, as long as there is a way to refer to a model's animation(s) by name, we can connect the animation to IIIF resources.
 
@@ -1363,7 +1358,7 @@ if the `target` is an AnimationSelector, then the `body` can ONLY be TextualBody
 
 There is a more general rule here!
 
-### reset
+#### reset
 
 See above...
 
@@ -1422,15 +1417,15 @@ For a timeline it's the ratio of time in the recording to time in the real world
 
 
 
-## HTTP Requests and Responses
+### HTTP Requests and Responses
 
-### URI Recommendations
+#### URI Recommendations
 
-### Requests
+#### Requests
 
-### Responses
+#### Responses
 
-### Authentication
+#### Authentication
 
 
 
