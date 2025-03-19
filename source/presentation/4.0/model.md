@@ -70,6 +70,110 @@ The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _S
 
 
 
+
+
+## JSON Considerations
+
+This section describes features applicable to all of the Presentation API content.
+
+### Case Sensitivity
+
+Keys in JSON objects are [case sensitive][org-w3c-json-ld-case].  The cases of properties and enumerated values in IIIF Presentation API responses _MUST_ match those used in this specification. For example to specify that a resource is a Manifest, the property _MUST_ be given as `type` and not `Type` or `tYpE`, and the value _MUST_ be given as `Manifest` and not `manifest` or `manIfEsT`.
+
+### Properties with Multiple Values
+
+Any of the properties in the API that can have multiple values _MUST_ always be given as an array of values, even if there is only a single item in that array.
+
+{% include api/code_header.html %}
+``` json-doc
+{
+  "thumbnail": [
+    {
+      "id": "https://example.org/images/thumb1.jpg",
+      "type": "Image",
+      "format": "image/jpeg"
+    }
+  ]
+}
+```
+
+### Language of Property Values
+{: #language-of-property-values}
+
+Language _SHOULD_ be associated with strings that are intended to be displayed to the user for the `label` and `summary` properties, plus the `label` and `value` properties of the `metadata` and `requiredStatement` objects.
+
+The values of these properties _MUST_ be JSON objects, with the keys being the [BCP 47][org-bcp-47] language code for the language, or if the language is either not known or the string does not have a language, then the key _MUST_ be the string `none`. The associated values _MUST_ be arrays of strings, where each item is the content in the given language.
+
+{% include api/code_header.html %}
+``` json-doc
+{
+  "label": {
+    "en": [
+      "Whistler's Mother",
+      "Arrangement in Grey and Black No. 1: The Artist's Mother"
+    ],
+    "fr": [
+      "Arrangement en gris et noir no 1",
+      "Portrait de la mère de l'artiste",
+      "La Mère de Whistler"
+    ],
+    "none": [ "Whistler (1871)" ]
+  }
+}
+```
+
+Note that [BCP 47][org-bcp-47] allows the script of the text to be included after a hyphen, such as `ar-latn`, and clients should be aware of this possibility.
+
+In the case where multiple values are supplied, clients _MUST_ use the following algorithm to determine which values to display to the user.
+
+* If all of the values are associated with the `none` key, the client _MUST_ display all of those values.
+* Else, the client should try to determine the user's language preferences, or failing that use some default language preferences. Then:
+  * If any of the values have a language associated with them, the client _MUST_ display all of the values associated with the language that best matches the language preference.
+  * If all of the values have a language associated with them, and none match the language preference, the client _MUST_ select a language and display all of the values associated with that language.
+  * If some of the values have a language associated with them, but none match the language preference, the client _MUST_ display all of the values that do not have a language associated with them.
+
+Note that this does not apply to [embedded][prezi30-terminology] textual bodies in Annotations, which use the Web Annotation pattern of `value` and `language` as separate properties.
+
+### HTML Markup in Property Values
+
+Minimal HTML markup _MAY_ be included for processing in the `summary` property and the `value` property in the `metadata` and `requiredStatement` objects. It _MUST NOT_ be used in `label` or other properties. This is included to allow content publishers to add links and simple formatting instructions to blocks of text. The content _MUST_ be well-formed XML and therefore _MUST_ be wrapped in an element such as `p` or `span`. There _MUST NOT_ be whitespace on either side of the HTML string, and thus the first character in the string _MUST_ be a '<' character and the last character _MUST_ be '>', allowing a consuming application to test whether the value is HTML or plain text using these. To avoid a non-HTML string matching this, it is _RECOMMENDED_ that an additional whitespace character be added to the end of the value in situations where plain text happens to start and end this way.
+
+In order to avoid HTML or script injection attacks, clients _MUST_ remove:
+
+  * Tags such as `script`, `style`, `object`, `form`, `input` and similar.
+  * All attributes other than `href` on the `a` tag, `src` and `alt` on the `img` tag.
+  * All `href` attributes that start with the strings other than "http:", "https:", and "mailto:".
+  * CData sections.
+  * XML Comments.
+  * Processing instructions.
+
+Clients _SHOULD_ allow only `a`, `b`, `br`, `i`, `img`, `p`, `small`, `span`, `sub` and `sup` tags. Clients _MAY_ choose to remove any and all tags, therefore it _SHOULD NOT_ be assumed that the formatting will always be rendered.  Note that publishers _MAY_ include arbitrary HTML content for processing using customized or experimental applications, and the requirements for clients assume an untrusted or unknown publisher.
+
+{% include api/code_header.html %}
+``` json-doc
+{ "summary": { "en": [ "<p>Short <b>summary</b> of the resource.</p>" ] } }
+```
+
+### JSON Description Availability
+
+JSON descriptions _SHOULD_ be [embedded][prezi30-terminology] within the JSON of parent resources, and _MAY_ also be available via separate requests from the HTTP(S) URI given in the resource's `id` property. Links to Content Resources _MUST_ be given as a JSON object with the `id` and `type` properties and _SHOULD_ have `format` or `profile` to give a hint as to what sort of resource is being referred to.
+
+{% include api/code_header.html %}
+``` json-doc
+{
+  "rendering": [
+    {
+      "id": "https://example.org/content/book.pdf",
+      "type": "Text",
+      "label": { "en": [ "Example Book (pdf)" ] },
+      "format": "application/pdf"
+    }
+  ]
+}
+```
+
+
+
 ## Classes
 
 The following sub-sections define the classes used in the IIIF Presentation Data Model. The properties and relationships of the classes are defined in the following section, including which classes they are able to be used with. Only the semantics and core structural requirements are defined within this section, along with any deviations from other specifications that the classes might be drawn from.
@@ -108,17 +212,17 @@ Collection Pages follow the ActivityStreams model, as also used in Annotation Co
 
 A Manifest is the primary unit of distribution of IIIF and provides a description of the structure and properties of a single item to be presented to the user.
 
+Manifests _MUST_ be identified by a URI and it _MUST_ be an HTTP(S) URI, given in the `id` property. It _MUST_ be able to be dereferenced to retrieve the JSON description of the Manifest.
 
+The members of a Manifest are listed in the `items` property. The members of Manifests _MUST_ be Containers, defined below, and are embedded within the Manifest. The Manifest _MAY_ have a `structures` property listing one or more [Ranges][#range] which describe additional structure of the content, such as might be rendered as a table of contents. The Manifest _MAY_ have an `annotations` property, which includes Annotation Page resources where the Annotations have the Manifest as their `target`. These Annotations _MUST NOT_ have `painting` as their `motivation`.
+
+
+!!! Properties
 A Manifest _MUST_ have the following properties: [id](#id), [type](#type), [label](#label), and [items](#items)
 
 A Manfiest _SHOULD_ have the following properties: [metadata](#metadata), [summary](#summary), [provider](#provider), and [thumbnail](#thumbnail)
 
 A Manifest _MAY_ have the following properties: [requiredStatement](#requiredStatement), [rights](#rights), [navDate](#navDate), [navPlace](#navPlace), [placeholderContainer](#placeholderContainer), [accompanyingContainer](#accompanyingContainer), [viewingDirection](#viewingDirection), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [services](#services), [homepage](#homepage), [rendering](#rendering), [partOf](#partOf), [start](#start), [structures](#structures), and [annotations](#annotations).
-
-
-Manifests _MUST_ be identified by a URI and it _MUST_ be an HTTP(S) URI, given in the `id` property. It _MUST_ be able to be dereferenced to retrieve the JSON description of the Manifest.
-
-The members of a Manifest are listed in the `items` property. The members of Manifests _MUST_ be Containers, defined below, and are embedded within the Manifest. The Manifest _MAY_ have a `structures` property listing one or more [Ranges][#range] which describe additional structure of the content, such as might be rendered as a table of contents. The Manifest _MAY_ have an `annotations` property, which includes Annotation Page resources where the Annotations have the Manifest as their `target`. These Annotations _MUST NOT_ have `painting` as their `motivation`.
 
 
 ### Container Classes
@@ -1510,7 +1614,21 @@ The value _MUST_ be a string.
 
 ##### unit
 
-FIXME: possible values are 'm' and 's' and 'relative' and not 'smoot'
+FIXME: possible values are 'm' and 's' and 'relative'
+
+
+##### value
+
+
+metadata:
+
+{label: value: {"en": ["foo"]}}
+
+UnitValue
+
+unit: value: 0.1234123
+
+FIXME: use scoped context for UnitValue to change the meaning of `value`
 
 
 
@@ -1602,112 +1720,9 @@ Additional motivations may be added to the Annotation to further clarify the int
 
 
 
+## JSON-LD and Extensions
 
-
-
-
-
-##  4. JSON-LD Considerations
-
-This section describes features applicable to all of the Presentation API content. For the most part, these are features of the JSON-LD specification that have particular uses within the API.
-
-### 4.1. Case Sensitivity
-
-Terms in JSON-LD are [case sensitive][org-w3c-json-ld-case].  The cases of properties and enumerated values in IIIF Presentation API responses _MUST_ match those used in this specification. For example to specify that a resource is a Manifest, the property _MUST_ be given as `type` and not `Type` or `tYpE`, and the value _MUST_ be given as `Manifest` and not `manifest` or `manIfEsT`.
-
-### 4.2. Resource Representations
-
-Resource descriptions _SHOULD_ be [embedded][prezi30-terminology] within the JSON description of parent resources, and _MAY_ also be available via separate requests from the HTTP(S) URI given in the resource's `id` property. Links to resources _MUST_ be given as a JSON object with the `id` and `type` properties and _SHOULD_ have `format` or `profile` to give a hint as to what sort of resource is being referred to.
-
-{% include api/code_header.html %}
-``` json-doc
-{
-  "rendering": [
-    {
-      "id": "https://example.org/content/book.pdf",
-      "type": "Text",
-      "label": { "en": [ "Example Book (pdf)" ] },
-      "format": "application/pdf"
-    }
-  ]
-}
-```
-
-### 4.3. Properties with Multiple Values
-
-Any of the properties in the API that can have multiple values _MUST_ always be given as an array of values, even if there is only a single item in that array.
-
-{% include api/code_header.html %}
-``` json-doc
-{
-  "thumbnail": [
-    {
-      "id": "https://example.org/images/thumb1.jpg",
-      "type": "Image",
-      "format": "image/jpeg"
-    }
-  ]
-}
-```
-
-### 4.4. Language of Property Values
-{: #language-of-property-values}
-
-Language _MAY_ be associated with strings that are intended to be displayed to the user for the `label` and `summary` properties, plus the `label` and `value` properties of the `metadata` and `requiredStatement` objects.
-
-The values of these properties _MUST_ be JSON objects, with the keys being the [BCP 47][org-bcp-47] language code for the language, or if the language is either not known or the string does not have a language, then the key _MUST_ be the string `none`. The associated values _MUST_ be arrays of strings, where each item is the content in the given language.
-
-{% include api/code_header.html %}
-``` json-doc
-{
-  "label": {
-    "en": [
-      "Whistler's Mother",
-      "Arrangement in Grey and Black No. 1: The Artist's Mother"
-    ],
-    "fr": [
-      "Arrangement en gris et noir no 1",
-      "Portrait de la mère de l'artiste",
-      "La Mère de Whistler"
-    ],
-    "none": [ "Whistler (1871)" ]
-  }
-}
-```
-
-Note that [BCP 47][org-bcp-47] allows the script of the text to be included after a hyphen, such as `ar-latn`, and clients should be aware of this possibility.
-
-In the case where multiple values are supplied, clients _MUST_ use the following algorithm to determine which values to display to the user.
-
-* If all of the values are associated with the `none` key, the client _MUST_ display all of those values.
-* Else, the client should try to determine the user's language preferences, or failing that use some default language preferences. Then:
-  * If any of the values have a language associated with them, the client _MUST_ display all of the values associated with the language that best matches the language preference.
-  * If all of the values have a language associated with them, and none match the language preference, the client _MUST_ select a language and display all of the values associated with that language.
-  * If some of the values have a language associated with them, but none match the language preference, the client _MUST_ display all of the values that do not have a language associated with them.
-
-Note that this does not apply to [embedded][prezi30-terminology] textual bodies in Annotations, which use the Web Annotation pattern of `value` and `language` as separate properties.
-
-### 4.5. HTML Markup in Property Values
-
-Minimal HTML markup _MAY_ be included for processing in the `summary` property and the `value` property in the `metadata` and `requiredStatement` objects. It _MUST NOT_ be used in `label` or other properties. This is included to allow content publishers to add links and simple formatting instructions to blocks of text. The content _MUST_ be well-formed XML and therefore _MUST_ be wrapped in an element such as `p` or `span`. There _MUST NOT_ be whitespace on either side of the HTML string, and thus the first character in the string _MUST_ be a '<' character and the last character _MUST_ be '>', allowing a consuming application to test whether the value is HTML or plain text using these. To avoid a non-HTML string matching this, it is _RECOMMENDED_ that an additional whitespace character be added to the end of the value in situations where plain text happens to start and end this way.
-
-In order to avoid HTML or script injection attacks, clients _MUST_ remove:
-
-  * Tags such as `script`, `style`, `object`, `form`, `input` and similar.
-  * All attributes other than `href` on the `a` tag, `src` and `alt` on the `img` tag.
-  * All `href` attributes that start with the strings other than "http:", "https:", and "mailto:".
-  * CData sections.
-  * XML Comments.
-  * Processing instructions.
-
-Clients _SHOULD_ allow only `a`, `b`, `br`, `i`, `img`, `p`, `small`, `span`, `sub` and `sup` tags. Clients _MAY_ choose to remove any and all tags, therefore it _SHOULD NOT_ be assumed that the formatting will always be rendered.  Note that publishers _MAY_ include arbitrary HTML content for processing using customized or experimental applications, and the requirements for clients assume an untrusted or unknown publisher.
-
-{% include api/code_header.html %}
-``` json-doc
-{ "summary": { "en": [ "<p>Short <b>summary</b> of the resource.</p>" ] } }
-```
-
-### 4.6. Linked Data Context and Extensions
+### JSON-LD Contexts and Extensions
 
 The top level resource in the response _MUST_ have the `@context` property, and it _SHOULD_ appear as the very first key/value pair of the JSON representation. This tells Linked Data processors how to interpret the document. The IIIF Presentation API context, below, _MUST_ occur once per response in the top-most resource, and thus _MUST NOT_ appear within [embedded][prezi30-terminology] resources. For example, when embedding a Canvas within a Manifest, the Canvas will not have the `@context` property.
 
@@ -1734,7 +1749,7 @@ Any additional properties beyond those defined in this specification or the Web 
 
 The JSON representation _MUST NOT_ include the `@graph` key at the top level. This key might be created when serializing directly from RDF data using the JSON-LD 1.0 compaction algorithm. Instead, JSON-LD framing and/or custom code should be used to ensure the structure of the document is as defined by this specification.
 
-### 4.7. Term Collisions between Contexts
+### Term Collisions between Contexts
 
 There are some common terms used in more than one JSON-LD context document. Every attempt has been made to minimize these collisions, but some are inevitable. In order to know which specification is in effect at any given point, the class of the resource that has the property is the primary governing factor. Thus properties on Annotation based resources use the context from the [Web Annotation Data Model][org-w3c-webanno], whereas properties on classes defined by this specification use the IIIF Presentation API context's definition.
 
@@ -1750,7 +1765,14 @@ The following properties are defined by both, and the IIIF representation is mor
 
 The `rights`, `partOf`, and `items` properties are defined by both in the same way.
 
-### 4.8. Keyword Mappings
+### Keyword Mappings
 
 The JSON-LD keywords `@id`, `@type` and `@none` are mapped to `id`, `type` and `none` by the Presentation API [linked data context][prezi30-ldce]. Thus in content conforming to this version of the Presentation API, the only JSON key beginning with `@` will be `@context`. However, the content may include data conforming to older specifications or external specifications that use keywords beginning with `@`. Clients should expect to encounter both syntaxes.
+
+### Registries of Values
+
+FIXME: Describe the registries
+
+
+
 
