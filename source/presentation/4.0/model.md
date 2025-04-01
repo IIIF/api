@@ -509,54 +509,35 @@ Properties...
 }
 ```
 
-
-
-
-
-
-
-
-
-
-
 #### Lights
-
-
-
+ 
 ##### Ambient Light
 
 `"type": "AmbientLight"`
 
-Ambient Lights evenly illuminates all objects in the scene, and does not have a direction or position.
-
+Ambient Light evenly illuminates all objects in the Scene, and does not have a direction or position.
 
 ##### Directional Light
 
 `"type": "DirectionalLight"`
 
-Directional Lights emits in a specific direction as if it is infinitely far away and the rays produced from it are all parallel. It does not have a specific position.
+Directional Light emits in a specific direction as if it is infinitely far away and the rays produced from it are all parallel. It does not have a specific position.  
 
-If a DirectionalLight does not have an explicit direction, then the default is in the negative y direction (downwards).
-
-This is really that the light always has a direction of (-y) and is rotated from there. So no rotation = "default" direction.
-
-
+The light emits in the negative Y (-y) direction by default, but the orientation of the light can be altered by subsequent transforms.
 
 ##### Point Light
 
 `"type": "PointLight"`
 
-Point Lights emits from a single point within the scene in all directions.
-
+Point Light emits from a single point within the Scene in all directions.
 
 ##### Spot Light
 
 `"type": "SpotLight"`
 
-Spot Lights emit a cone of light from a single point in a given direction.
+Spot Light emits a cone of light from a single point in a given direction.  The Spot Light's `angle` property defines the radius of the cone.
 
-If a SpotLight does not have an explicit direction, then the default is in the negative y direction (downwards).
-
+The light emits in the negative Y (-y) direction by default, but the orientation of the light can be altered by subsequent transforms.
 
 
 #### Audio in Scenes
@@ -632,9 +613,9 @@ A TranslateTransform moves all of the objects in the local coordinate space the 
 
 #### Unit Value
 
-`"type": "UnitValue"`
+A UnitValue expresses a quantity through a numerical value and associated unit of measurement.
 
-
+`"type": "UnitValue"` 
 
 ## Properties
 
@@ -973,18 +954,24 @@ FIXME: fix
 ### intensity
 {: #intensity}
 
-This property sets the strength or brightness of a Light.
+This property sets the strength or brightness of a Light. If this property is not specified, then the default intensity value is client-dependent.
 
-The value _MUST_ be a JSON object, that has the `type`, `value` and `unit` properties. All three properties are required. The value of `type` _MUST_ be the string "UnitValue". The value of `value` is a floating point number. The value of `unit` is a string, drawn from a controlled vocabulary of units. If this property is not specified, then the default intensity value is client-dependent.
-
-This specification defines the unit value of "relative" which constrains the value to be a linear scale between 0.0 (no brightness) and 1.0 (as bright as the client will render).
+The value of this proerty _MUST_ be a UnitValue object.
+The `unit` property of the UnitValue _MUST_ be `relative`.
+The `value` property of the UnitValue _MUST_ be between 0.0 and 1.0.
 
 * A Light _SHOULD_ have the `intensity` property.<br/>
-  Clients _SHOULD_ process the `intensity` property on Lights.
+  Clients _SHOULD_ process the `intensity` property on Lights.<br/>
+  Clients _SHOULD_ interpret the `value` on a linear scale between 0.0 (no brightness) and 1.0 (as bright as the client will render)
+* Other resources _MUST NOT_ have the `intensity` property.
 
 ```json
 {
- "intensity": {"id": "", "type": "UnitValue", "value": 0.5, "unit": "relative"}
+ "intensity": {
+  "id": "https://example.org/iiif/intensity/1",
+  "type": "UnitValue",
+  "value": 0.5,
+  "unit": "relative"}
 }
 ```
 ### interactionMode
@@ -1834,8 +1821,19 @@ For compatibility with previous versions, clients _SHOULD_ accept `Sound` as a s
 
 ### unit
 
-FIXME: possible values are 'm' and 's' and 'relative'
+The unit of measurement of a quantity expressed by a UnitValue.
 
+The value _MUST_ be a string value.  This specification defines the values in the table below. Others may be defined externally as an [extension][prezi30-ldce].
+
+| Value    |  Unit     |
+|----------|-----------|
+|   m      |  meters   |
+|   s      |  seconds  |
+| relative |  relative |
+
+* A UnitValue _MUST_ have the `unit` property
+
+FIXME: possible values are 'm' and 's' and 'relative'.  Is relative always 0-1.0, or context-dependent (see def of intensity)?  Allow extensions?
 
 ### value
 
@@ -1844,13 +1842,21 @@ metadata:
 
 {label: value: {"en": ["foo"]}}
 
-UnitValue
+### value (UnitValue)
 
-unit: value: 0.1234123
+The `value` property of a UnitValue represents the numerical component of a quantity.
+
+The value _MUST_ be a floating point number.
+
+*  A UnitValue _MUST_ have the `value` property.
+
+`"value": 0.1234123`
 
 FIXME: use scoped context for UnitValue to change the meaning of `value`
 
+### value (WktSelector)
 
+FIXME: another value value!
 
 ### viewingDirection
 {: #viewingDirection}
