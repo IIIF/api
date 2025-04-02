@@ -986,7 +986,6 @@ The `value` property of the UnitValue _MUST_ be between 0.0 and 1.0.
 
 * A Light _SHOULD_ have the `intensity` property.<br/>
   Clients _SHOULD_ process the `intensity` property on a Light.
-* Other types of resource _MUST NOT_ have the `intensity` property.
 
 ```json
 {
@@ -1646,7 +1645,7 @@ The value _MUST_ be an array of JSON objects. Each object _MUST_ be a service re
 ### source
 {: #source}
 
-A Content Resource that is used as the souce of audio information in an Audio resource.  The value _MUST_ be a Content Resource with the `id`, `type`, and `format` properties.
+A Content Resource that is used as the souce of audio information in an Audio resource.  The value _MUST_ be a Content Resource with the `id`, `type` properties.
 
 * Audio resources _MUST_ have the `source` property.<br/>
   Clients _SHOULD_ process the `source` property on an Audio resource.
