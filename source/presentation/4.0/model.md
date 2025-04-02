@@ -523,7 +523,7 @@ Ambient Light evenly illuminates all objects in the Scene, and does not have a d
 
 Directional Light emits in a specific direction as if it is infinitely far away and the rays produced from it are all parallel. It does not have a specific position.  
 
-The light emits in the negative Y (-y) direction by default, but the orientation of the light can be altered by subsequent transforms.
+The light is emitted in the negative Y (-y) direction by default, but the orientation of the light can be altered by subsequent transforms.
 
 ##### Point Light
 
@@ -537,42 +537,66 @@ Point Light emits from a single point within the Scene in all directions.
 
 Spot Light emits a cone of light from a single point in a given direction.  The Spot Light's `angle` property defines the radius of the cone.
 
-The light emits in the negative Y (-y) direction by default, but the orientation of the light can be altered by subsequent transforms.
+The Spot Light emits in the negative Y (-y) direction by default, but the orientation of the light can be altered by subsequent transforms.
 
+```json
+{
+  "id": "https://example.org/iiif/spotLight/1",
+  "type": "SpotLight",
+  "angle": 15.0,
+  "color": "#FFFFFF",
+  "intensity": {
+    "type": "UnitValue",
+    "unit": "relative",
+    "value": 0.5
+  }
+}
+```
 
 #### Audio in Scenes
 
-All have `source`, `volume`
+Positional audio is supported through the use of Audio resources annotated into Scenes.
+Audio resources _MUST_ have a `source` property that references an audio Content Resource, and _SHOULD_ have a `volume` property.
 
 ##### Ambient Audio
 
 `"type": "AmbientAudio"`
 
+Ambient Audio emits equally throughout the Scene, and does not have a position or direction.
 
 ##### Point Audio
 
 `"type": "PointAudio"`
 
+Point Audio emits from a single point in the Scene in all directions.
+
 ##### Spot Audio
 
 `"type": "SpotAudio"`
 
+Spot Audio emits a cone of sound from a single point in a given direction.  The Spot Audio's `angle` property defines the radius of the cone.
+
+The Spot Audio emits in the negative Y (-y) direction by default, but the orientation of the sound can be altered by subsequent transforms.
+
 ```json
 {
-  "id": "iiif/my/spotAudio",
+  "id": "https://example.org/iiif/spotAudio/1",
   "type": "SpotAudio",
   "source": {
-    "id": "/path/to/my.mp3",
+    "id": "https://example.org/media/path/to/my.mp3",
     "type": "Audio",
     "format": "audio/mp3"
   },
-  "angle": 45.0
+  "angle": 45.0,
+  "volume": {
+    "type": "UnitValue",
+    "unit": "relative",
+    "value": 2.0
+  }
 }
 ```
 
-No default direction, MUST provide a Rotate Transform.
-
-
+FIXME: "No default direction, MUST provide a Rotate Transform.", changed language to default to -y to match Spot Light
 
 
 #### Transforms
@@ -954,16 +978,15 @@ FIXME: fix
 ### intensity
 {: #intensity}
 
-This property sets the strength or brightness of a Light. If this property is not specified, then the default intensity value is client-dependent.
+This property sets the strength or brightness of a Light.  The `value` of the referenced UnitValue indicates the desired intensity on a linear scale between 0.0 (no brightness) and 1.0 (as bright as the client will render).  If this property is not specified, then the default intensity value is client-dependent.
 
-The value of this proerty _MUST_ be a UnitValue object.
+The value of this proerty _MUST_ be a UnitValue.
 The `unit` property of the UnitValue _MUST_ be `relative`.
 The `value` property of the UnitValue _MUST_ be between 0.0 and 1.0.
 
 * A Light _SHOULD_ have the `intensity` property.<br/>
-  Clients _SHOULD_ process the `intensity` property on Lights.<br/>
-  Clients _SHOULD_ interpret the `value` on a linear scale between 0.0 (no brightness) and 1.0 (as bright as the client will render)
-* Other resources _MUST NOT_ have the `intensity` property.
+  Clients _SHOULD_ process the `intensity` property on a Light.
+* Other types of resource _MUST NOT_ have the `intensity` property.
 
 ```json
 {
@@ -1438,6 +1461,7 @@ Note that the majority of the values have been selected from [accessibility feat
 ```
 
 !!! warning "This breaks the graph as the file doesn't provide X in all contexts"
+
 ### rendering
 {: #rendering}
 
@@ -1618,6 +1642,15 @@ The value _MUST_ be an array of JSON objects. Each object _MUST_ be a service re
   ]
 }
 ```
+
+### source
+{: #source}
+
+A Content Resource that is used as the souce of audio information in an Audio resource.  The value _MUST_ be a Content Resource with the `id`, `type`, and `format` properties.
+
+* Audio resources _MUST_ have the `source` property.<br/>
+  Clients _SHOULD_ process the `source` property on an Audio resource.
+
 ### start
 {: #start}
 
@@ -1891,6 +1924,18 @@ The value _MUST_ be a string.
 ``` json-doc
 { "viewingDirection": "left-to-right" }
 ```
+
+### volume
+{: #volume}
+
+The volume propery represents the relative volume of an audio source. The `value` of the specified UnitValue represents the desired volume on a linear scale from 0.0 (silence) to 1.0 (maximum volume).  If this property is not specified, then the default volume value is client-dependent.
+
+The value of this property _MUST_ be a UnitValue.
+The `unit` property of the UnitValue _MUST_ be `relative`.
+The `value` property of the UnitValue _MUST_ be between 0.0 and 1.0.
+
+* Audio resource types _SHOULD_ have the `volume` property.<br/>
+  Clients _SHOULD_ process the `volume` property on an Audio resource.
 
 ### width
 {: #width}
