@@ -1,7 +1,7 @@
 ---
 title: "Presentation API 4.0 Properties"
 title_override: "IIIF Presentation API 4.0 Properties"
-id: presentation-api-properties
+id: presentation-api-model
 layout: spec
 cssversion: 3
 tags: [specifications, presentation-api]
@@ -10,8 +10,8 @@ minor: 0
 patch: 0
 pre: 
 redirect_from:
-  - /presentation/properties.html
-  - /presentation/4/properties.html
+  - /presentation/model.html
+  - /presentation/4/model.html
 editors:
   - name: Michael Appleby
     ORCID: https://orcid.org/0000-0002-1266-298X
@@ -55,6 +55,9 @@ __Previous Version:__ [3.0][prezi30]
 
 ## Introduction
 
+The IIIF Presentation API is backed by a standards-based data model inspired by both earlier tree structured representations of cultural heritage objects, as well as linked data approaches with the same goal. It comprises four main types of resource: Structural (such as Collections, Manifests, and Ranges), Presentational Containers (Canvas, Scene and Timeline), Linking (Annotations), and Content (the images, texts, audio, video and models to be displayed).
+The model intentionaly does not include any semantic or descriptive relationships or properties such as the author of a book or the place where a statue was sculpted; it is solely for presenting content in a structured fashion to human users.
+
 
 ### Terminology
 
@@ -67,7 +70,6 @@ This specification uses the following terms:
 The terms _array_, _JSON object_, _number_, _string_, and _boolean_ in this document are to be interpreted as defined by the [Javascript Object Notation (JSON)][org-rfc-8259] specification.
 
 The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _SHOULD NOT_, _RECOMMENDED_, _MAY_, and _OPTIONAL_ in this document are to be interpreted as described in [RFC 2119][org-rfc-2119].
-
 
 
 ## JSON Considerations
@@ -100,7 +102,7 @@ Any of the properties in the API that can have multiple values _MUST_ always be 
 
 Language _SHOULD_ be associated with strings that are intended to be displayed to the user for the `label` and `summary` properties, plus the `label` and `value` properties of the `metadata` and `requiredStatement` objects.
 
-The values of these properties _MUST_ be JSON objects, with the keys being the [BCP 47][org-bcp-47] language code for the language, or if the language is either not known or the string does not have a language, then the key _MUST_ be the string `none`. The associated values _MUST_ be arrays of strings, where each item is the content in the given language.
+The values of these properties _MUST_ be JSON objects, with the keys being the [BCP 47][org-bcp-47] language code for the language, or if the language is either not known or the string does not have a language, then the key _MUST_ be the string `none`. The script _SHOULD NOT_ be included in the tag, even though BCP 47 allows for this possibility. The associated values _MUST_ be arrays of strings, where each item is the content in the given language.
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -120,8 +122,6 @@ The values of these properties _MUST_ be JSON objects, with the keys being the [
 }
 ```
 
-Note that [BCP 47][org-bcp-47] allows the script of the text to be included after a hyphen, such as `ar-latn`, and clients should be aware of this possibility.
-
 In the case where multiple values are supplied, clients _MUST_ use the following algorithm to determine which values to display to the user.
 
 * If all of the values are associated with the `none` key, the client _MUST_ display all of those values.
@@ -134,7 +134,7 @@ Note that this does not apply to [embedded][prezi30-terminology] textual bodies 
 
 ### HTML Markup in Property Values
 
-Minimal HTML markup _MAY_ be included for processing in the `summary` property and the `value` property in the `metadata` and `requiredStatement` objects. It _MUST NOT_ be used in `label` or other properties. This is included to allow content publishers to add links and simple formatting instructions to blocks of text. The content _MUST_ be well-formed XML and therefore _MUST_ be wrapped in an element such as `p` or `span`. There _MUST NOT_ be whitespace on either side of the HTML string, and thus the first character in the string _MUST_ be a '<' character and the last character _MUST_ be '>', allowing a consuming application to test whether the value is HTML or plain text using these. To avoid a non-HTML string matching this, it is _RECOMMENDED_ that an additional whitespace character be added to the end of the value in situations where plain text happens to start and end this way.
+Minimal HTML markup _MAY_ be included for processing in the `summary` property and the `value` property in the `metadata` and `requiredStatement` objects. It _MUST NOT_ be used in `label` or other properties. This is included to allow content publishers to add links and simple formatting instructions to blocks of text. The content _MUST_ be well-formed XML and wrapped in a single element such as `div`, `p` or `span`. There _MUST NOT_ be whitespace on either side of the HTML string, and thus the first character in the string _MUST_ be a '<' character and the last character _MUST_ be '>', allowing a consuming application to test whether the value is HTML or plain text using these. To avoid a non-HTML string matching this, it is _RECOMMENDED_ that an additional whitespace character be added to the end of the value in situations where plain text happens to start and end this way.
 
 In order to avoid HTML or script injection attacks, clients _MUST_ remove:
 
@@ -145,7 +145,7 @@ In order to avoid HTML or script injection attacks, clients _MUST_ remove:
   * XML Comments.
   * Processing instructions.
 
-Clients _SHOULD_ allow only `a`, `b`, `br`, `i`, `img`, `p`, `small`, `span`, `sub` and `sup` tags. Clients _MAY_ choose to remove any and all tags, therefore it _SHOULD NOT_ be assumed that the formatting will always be rendered.  Note that publishers _MAY_ include arbitrary HTML content for processing using customized or experimental applications, and the requirements for clients assume an untrusted or unknown publisher.
+Clients _SHOULD_ allow only `a`, `b`, `br`, `div`, `i`, `img`, `p`, `small`, `span`, `sub` and `sup` tags. Clients _MAY_ choose to remove any and all tags, therefore it _SHOULD NOT_ be assumed that the formatting will always be rendered.  Note that publishers _MAY_ include arbitrary HTML content for processing using customized or experimental applications, and the requirements for clients assume an untrusted or unknown publisher.
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -154,7 +154,7 @@ Clients _SHOULD_ allow only `a`, `b`, `br`, `i`, `img`, `p`, `small`, `span`, `s
 
 ### JSON Description Availability
 
-JSON descriptions _SHOULD_ be [embedded][prezi30-terminology] within the JSON of parent resources, and _MAY_ also be available via separate requests from the HTTP(S) URI given in the resource's `id` property. Links to Content Resources _MUST_ be given as a JSON object with the `id` and `type` properties and _SHOULD_ have `format` or `profile` to give a hint as to what sort of resource is being referred to.
+JSON descriptions _SHOULD_ be embedded within the JSON of parent resources, and _MAY_ also be available via separate requests from the HTTP(S) URI given in the resource's `id` property. Links to Content Resources _MUST_ be given as a JSON object with the `id` and `type` properties and _SHOULD_ have `format` or `profile` to give a hint as to what sort of resource is being referred to.
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -170,8 +170,6 @@ JSON descriptions _SHOULD_ be [embedded][prezi30-terminology] within the JSON of
 }
 ```
 
-
-
 ## Classes
 
 The following sub-sections define the classes used in the IIIF Presentation Data Model. Only the semantics and core structural requirements are defined within this section, along with any deviations from other specifications that the classes might be drawn from. The descriptions do not define how the classes are used together, which is done in the Presentation API Overview.
@@ -181,44 +179,57 @@ The name of each class is given at the top of its definition below. The exact st
 ### Collection
 {: #Collection}
 
-`"type": "Collection"`
+> `"type": "Collection"`
 
 A Collection is an ordered list of Manifests, and/or Collections.
 
-The identifier in `id` _MUST_ be able to be dereferenced to retrieve the JSON description of the Collection, and thus _MUST_ use the HTTP(S) URI scheme.
+A Collection _MUST_ have an HTTP(S) URI given in `id`. It _MUST_ be able to be dereferenced to retrieve the JSON description.
 
-The members of a Collection are typically listed in the `items` property. The members _MAY_ include both other Collections and Manifests, in order, to form a tree-structured hierarchy.
+The members of a Collection are typically listed in the `items` property or in a series of Collection Pages. The members _MAY_ include both other Collections and Manifests, in order, to form a tree-structured hierarchy. Collections without any members are allowed but discouraged.  For example, a collection that had its last member removed might still be valuable to maintain as an empty collection.
 
-If there are too many members in the collection to fit within a single document, then the members _MAY_ be listed in Collection Pages. A reference to the first page of members is given in the `first` property, and the last page in the `last` property. In this case, the Collection _MUST NOT_ use the `items` property.
+If there are too many members in the collection to fit within a single document, then the members _MAY_ be listed in Collection Pages. A reference to the first page of members is given in the `first` property, and the last page in the `last` property. In this case, the Collection _MUST NOT_ use the `items` property. Collections with pages _MUST_ have at least two pages, otherwise the members should be included in `items` on the Collection. Collection Pages _MUST NOT_ be embedded within the Collection for the same reason.
 
-Member Collections _MAY_ be [embedded][prezi30-terminology] inline within other Collections, such as when the Collection is used primarily to subdivide a larger one into more manageable pieces, however Manifests _MUST NOT_ be [embedded][prezi30-terminology] within Collections. An [embedded][prezi30-terminology] Collection _SHOULD_ also have its own URI from which the JSON description is available.
+Member Collections _MAY_ be embedded inline within other Collections, however Manifests _MUST NOT_ be embedded within Collections. An embedded Collection _SHOULD_ also have its own URI from which the JSON description is available.
 
 Manifests or Collections _MAY_ be [referenced][prezi30-terminology] from more than one Collection. For example, an institution might define four Collections: one for modern works, one for historical works, one for newspapers and one for books. The Manifest for a modern newspaper would then appear in both the modern Collection and the newspaper Collection. Alternatively, the institution may choose to have two separate newspaper Collections, and reference each as a sub-Collection of modern and historical.
 
-Collections with an empty `items` property are allowed but discouraged.  For example, if the user performs a search that matches no Manifests, then the server _MAY_ return a Collection response with no Manifests.
 
-Collections or Manifests [referenced][prezi30-terminology] in the `items` property _MUST_ have the `id`, `type` and `label` properties. They _SHOULD_ have the `thumbnail` property.
+Collections or Manifests referenced in the `items` property _MUST_ have the `id`, `type` and `label` properties. They _SHOULD_ have the `thumbnail` property.
+
+__Properties__<br/>
+A Collection _MUST_ have the following properties: [id](#id), [type](#type), and [label](#label)<br/><br/>
+A Collection _SHOULD_ have the following properties: [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), and [items](#items)<br/><br/>
+A Collection _MAY_ have the following properties: [requiredStatement](#requiredStatement), [rights](#rights), [navDate](#navDate), [navPlace](#navPlace), [placeholderContainer](#placeholderContainer), [accompanyingContainer](#accompanyingContainer), [viewingDirection](#viewingDirection), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [services](#services), [homepage](#homepage), [rendering](#rendering), [partOf](#partOf), [start](#start), [first](#first), [last](#last), [total](#total) and [annotations](#annotations).
+{: .note}
+
 
 
 #### Collection Page
 {: #CollectionPage}
 
-`"type": "CollectionPage"`
+> `"type": "CollectionPage"`
 
-A Collection Page is an arbitrary division of members within the Collection to make it easier to consume.
+A Collection Page is an arbitrary division of members within the Collection to make it easier to consume by clients. It does not have any semantic implications by itself. The Collection Page model follows the ActivityStreams OrderedCollection model, as also used in Annotation Collections, the IIIF Change Discovery API, and the IIIF Search API.
 
-A Collection Page _MUST_ have an HTTP(S) URI given in `id`. It _MUST_ be able to be dereferenced to retrieve the JSON description of the Collection Page.
+A Collection Page _MUST_ have an HTTP(S) URI given in `id`. It _MUST_ be able to be dereferenced to retrieve the JSON description. Collection Pages _MUST NOT_ be embedded within Collections.
 
-Collection Pages follow the ActivityStreams model, as also used in Annotation Collections, the IIIF Change Discovery API, and the IIIF Search API.
+All Collection Pages in a Collection, with the exception of the last page, _MUST_ have the `next` property, which provides a reference to the following Collection Page. All Collection Pages in a Collection, with the exception of the first page, _MUST_ have the `prev` property, which provides a reference to the preceding Collection Page. These properties allow the navigation backwards and forwards within the overall set of pages. There is no way to jump to arbitrary positions in the sequence of pages, and clients _MUST NOT_ attempt to infer such methods from the structure of the URI of the Collection Page. Collection Pages _MUST_ have the `partOf` property, refering to the Collection of which they are part.
+
+__Properties__<br/>
+A Collection Page _MUST_ have the following properties: [id](#id), [type](#type), [partOf](#partOf) and [items](#items)<br/><br/>
+A Collection Page _SHOULD_ have the following properties:  [next](#next), and [prev](#prev)<br/><br/>
+A Collection Page _MAY_ have the following properties: [startIndex](#startIndex), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), and [annotations](#annotations).
+{: .note}
 
 
 ### Manifest
+{: #Manifest}
 
-`"type": "Manifest"`
+> `"type": "Manifest"`
 
 A Manifest is the primary unit of distribution of IIIF and provides a description of the structure and properties of a single item to be presented to the user.
 
-Manifests _MUST_ be identified by a URI and it _MUST_ be an HTTP(S) URI, given in the `id` property. It _MUST_ be able to be dereferenced to retrieve the JSON description of the Manifest.
+Manifests _MUST_ be identified by a URI and it _MUST_ be an HTTP(S) URI, given in the `id` property. It _MUST_ be able to be dereferenced to retrieve the JSON description.
 
 The members of a Manifest are listed in the `items` property. The members of Manifests _MUST_ be Containers, defined below, and are embedded within the Manifest. The Manifest _MAY_ have a `structures` property listing one or more [Ranges][#range] which describe additional structure of the content, such as might be rendered as a table of contents. The Manifest _MAY_ have an `annotations` property, which includes Annotation Page resources where the Annotations have the Manifest as their `target`. These Annotations _MUST NOT_ have `painting` as their `motivation`.
 
@@ -234,32 +245,44 @@ A Manifest _MAY_ have the following properties: [requiredStatement](#requiredSta
 
 A Container is a frame of reference that allows the relative positioning of content.
 
-All Containers _MUST_ be identified by a URI and it _MUST_ be an HTTP(S) URI. The URI of the Container _MUST NOT_ contain a fragment (a `#` followed by further characters), as this would make it impossible to refer to a segment of the Container's area using the [media fragment syntax][org-w3c-media-frags] of `#xywh=` for spatial regions, and/or `#t=` for temporal segments. The temporal segment _MUST_ be expressed using seconds. Containers _MAY_ be able to be dereferenced separately from the Manifest via their URIs as well as being [embedded][prezi30-terminology].
+All Containers _MUST_ be identified by a URI and it _MUST_ be an HTTP(S) URI. The URI of the Container _MUST NOT_ contain a fragment (a `#` followed by further characters), as this would make it impossible to refer to a segment of the Container's area using the [media fragment syntax][org-w3c-media-frags] of `#xywh=` for spatial regions, and/or `#t=` for temporal segments. The temporal segment _MUST_ be expressed using seconds. Containers _MAY_ be able to be dereferenced separately from the Manifest via their URIs as well as being embedded.
 
 Containers _MUST_ have an `items` property which is a list of Annotation Pages. Each Annotation Page, defined below, maintains a list of Annotations, which associate Content Resources to be rendered as part of the Container. Annotations that do not associate content to be rendered, but instead are about the Container such as a comment or tag, are recorded using Annotation Pages in the `annotations` property of the Container.
 
-FIXME: It is an error to select a temporal region of a Scene that does not have a `duration`, or to select a temporal region that is not within the Scene's temporal extent.  A Canvas or Scene with a `duration` may not be annotated as a content resource into a Scene that does not itself have a `duration`.
+For Timelines and Canvases, Annotations _MUST NOT_ target spatial or temporal points or regions outside of the bounds of the Container. For Scenes with a `duration`, Annotations _MUST NOT_ target temporal points or regions outside of that duration. Scenes, Canvases and other content with spatial extents _MUST NOT_ be annotated directly onto a Timeline which does not have a spatial extent. Resources with a `duration`, including Timelines and Canvases, _MAY_ be painted into Canvases and Scenes without a `duration`, however the playback of the resource will not able to be controlled or synchronized without other time-based media.
 
-
+__Properties__<br/>
+All Containers _MUST_ have the following properties: [id](#id), and [type](#type)<br/><br/>
+All Containers _SHOULD_ have the following properties: [label](#label), and [items](#items)<br/><br/>
+All Containers _MAY_ have the following properites: [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [navDate](#navDate), [navPlace](#navPlace), [placeholderContainer](#placeholderContainer), [accompanyingContainer](#accompanyingContainer), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [partOf](#partOf), and [annotations](#annotations).
+{: .note}
 
 
 #### Timeline
 
-`"type": "Timeline"`
+> `"type": "Timeline"`
 
 A Timeline is a Container that represents only a temporal duration, measured in seconds. Timelines allow audio content to be presented, but do not allow anything with a height or width like an image or video.  The duration of the Timeline is given in the `duration` property.
 
+__Properties__<br/>
+A Timeline _MUST_ have the following additional properties: [duration](#duration).
+{: .note}
+
 #### Canvas
 
-`"type": "Canvas"`
+> `"type": "Canvas"`
 
-A Canvas is a Container that represents a particular rectangular 2 dimensional view of the object and has content resources associated with it or with parts of it. This aspect ratio is defined by the `height` and `width` properties. A Canvas _MAY_ also have a duration, given in the `duration` property, allowing audio and video to be correctly positioned in time as well as the 2 dimensional space.
+A Canvas is a Container that represents a particular rectangular 2 dimensional view of the object and has content resources associated with it or with parts of it. This aspect ratio is defined by the `height` and `width` properties. The values of these properties are not pixels, but arbitrary units into which pixel-based resources can be scaled. A Canvas _MAY_ also have a duration, given in the `duration` property, allowing audio and video to be correctly positioned in time as well as the 2 dimensional space.
 
-FIXME: arbitrary units
+__Properties__<br/>
+A Canvas _MUST_ have the following additional properties: [height](#height), and [width](#width).<br/><br/>
+A Canvas _MAY_ have the following additional properties: [duration](#duration).
+{: .note}
+
 
 #### Scene
 
-`"type": "Scene"`
+> `"type": "Scene"`
 
 A Scene is a Container that represents an infinitely large three-dimensional space, with an optional `duration` property. Scenes have infinite height (y axis), width (x axis) and depth (z axis), where 0 on each axis (the origin of the coordinate system) is treated as the center of the scene's space. From a perspective looking along the z axis towards negative infinity, the positive y axis points upwards and the positive x axis points to the right (a [right-handed Cartesian coordinate system](https://en.wikipedia.org/wiki/Right-hand_rule)).
 
@@ -269,7 +292,9 @@ The axes of the coordinate system are measured in arbitrary units and these unit
 
 All resources that can be added to a Scene have an implicit (e.g. Lights, Cameras) or explicit (e.g. Models, Scenes), local coordinate space.
 
-
+__Properties__<br/>
+A Scene _MAY_ have the following additional properties: [duration](#duration).
+{: .note}
 
 
 
@@ -280,7 +305,7 @@ The following set of classes are defined by the W3C's [Web Annotation Data Model
 
 #### Annotation
 
-`"type": "Annotation"`
+> `"type": "Annotation"`
 
 Annotations are used to associate content resources with Containers, as well as for transcriptions, commentary, tags and the association of other content. This provides a single, unified method for aligning information, and provides a standards-based framework for distinguishing parts of resources and parts of Canvases.
 
@@ -1653,10 +1678,14 @@ A Content Resource that is used as the souce of audio information in an Audio re
 ### start
 {: #start}
 
-A Canvas, or part of a Canvas, which the client _SHOULD_ show on initialization for the resource that has the `start` property. The reference to part of a Canvas is handled in the same way that Ranges reference parts of Canvases. This property allows the client to begin with the first Canvas that contains interesting content rather than requiring the user to manually navigate to find it.
+A Canvas, or part of a Canvas, which the client _SHOULD_ show on initialization for the resource that has the `start` property. The reference to part of a Canvas is handled in the same way that Ranges reference parts of Canvases by using either a Canvas URI, a Canvas URI with a fragment in the URI, or a SpecificResource with a Selector. This property allows the client to begin with the first Canvas that contains interesting content rather than requiring the user to manually navigate to find it.
+
+If the resource with the `start` property is a Collection, then the Canvas (or SpecificResource) _MUST_ have the `partOf` property refering to the Manifest that it is part of, such that the client can retrieve it.
 
 The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` properties.  The object _MUST_ be either a Canvas (as in the first example below), or a Specific Resource with a Selector and a `source` property where the value is a Canvas (as in the second example below).
 
+ * A Collection _MAY_ have the `start` property.<br/>
+   Clients _SHOULD_ process `start` on a Collection.
  * A Manifest _MAY_ have the `start` property.<br/>
    Clients _SHOULD_ process `start` on a Manifest.
  * A Range _MAY_ have the `start` property.<br/>
@@ -1683,6 +1712,12 @@ The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` propert
   }
 }
 ```
+
+### startIndex
+{: #startIndex}
+
+
+
 ### structures
 {: #structures}
 
@@ -1801,9 +1836,10 @@ The value _MUST_ be a string.
 ```
 
 
-### totalItems
+### total
 
-For compatability with the Web Annotation Data Model, clients _SHOULD_ also accept `total` as the name of this property when used on the `AnnotationCollection` class.
+For compatability with ActivityStreams and the Change Discovery API, clients _SHOULD_ also accept `totalItems` as the name of this property.
+{: .note}
 
 
 ### transform
