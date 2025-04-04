@@ -176,6 +176,10 @@ The following sub-sections define the classes used in the IIIF Presentation Data
 
 The name of each class is given at the top of its definition below. The exact string _MUST_ be used as the value of `type` in the JSON for the class.
 
+__Properties__<br>
+All resources _MUST_ have the following properties: [id](#id), and [type](#type).
+{: .note}
+
 ### Collection
 {: #Collection}
 
@@ -199,7 +203,7 @@ Collections or Manifests referenced in the `items` property _MUST_ have the `id`
 __Properties__<br/>
 A Collection _MUST_ have the following properties: [id](#id), [type](#type), and [label](#label)<br/><br/>
 A Collection _SHOULD_ have the following properties: [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), and [items](#items)<br/><br/>
-A Collection _MAY_ have the following properties: [requiredStatement](#requiredStatement), [rights](#rights), [navDate](#navDate), [navPlace](#navPlace), [placeholderContainer](#placeholderContainer), [accompanyingContainer](#accompanyingContainer), [viewingDirection](#viewingDirection), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [services](#services), [homepage](#homepage), [rendering](#rendering), [partOf](#partOf), [start](#start), [first](#first), [last](#last), [total](#total) and [annotations](#annotations).
+A Collection _MAY_ have the following properties: [requiredStatement](#requiredStatement), [rights](#rights), [navDate](#navDate), [navPlace](#navPlace), [placeholderContainer](#placeholderContainer), [accompanyingContainer](#accompanyingContainer), [viewingDirection](#viewingDirection), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [services](#services), [homepage](#homepage), [rendering](#rendering), [partOf](#partOf), [start](#start), [first](#first), [last](#last), [total](#total), [canonical](#canonical), [via](#via), and [annotations](#annotations).
 {: .note}
 
 
@@ -218,7 +222,7 @@ All Collection Pages in a Collection, with the exception of the last page, _MUST
 __Properties__<br/>
 A Collection Page _MUST_ have the following properties: [id](#id), [type](#type), [partOf](#partOf) and [items](#items)<br/><br/>
 A Collection Page _SHOULD_ have the following properties:  [next](#next), and [prev](#prev)<br/><br/>
-A Collection Page _MAY_ have the following properties: [startIndex](#startIndex), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), and [annotations](#annotations).
+A Collection Page _MAY_ have the following properties: [startIndex](#startIndex), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [canonical](#canonical), [via](#via), and [annotations](#annotations).
 {: .note}
 
 
@@ -237,7 +241,7 @@ The members of a Manifest are listed in the `items` property. The members of Man
 __Properties__<br/>
 A Manifest _MUST_ have the following properties: [id](#id), [type](#type), [label](#label), and [items](#items)<br/><br/>
 A Manifest _SHOULD_ have the following properties: [metadata](#metadata), [summary](#summary), [provider](#provider), and [thumbnail](#thumbnail)<br/><br/>
-A Manifest _MAY_ have the following properties: [requiredStatement](#requiredStatement), [rights](#rights), [navDate](#navDate), [navPlace](#navPlace), [placeholderContainer](#placeholderContainer), [accompanyingContainer](#accompanyingContainer), [viewingDirection](#viewingDirection), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [services](#services), [homepage](#homepage), [rendering](#rendering), [partOf](#partOf), [start](#start), [structures](#structures), and [annotations](#annotations).
+A Manifest _MAY_ have the following properties: [requiredStatement](#requiredStatement), [rights](#rights), [navDate](#navDate), [navPlace](#navPlace), [placeholderContainer](#placeholderContainer), [accompanyingContainer](#accompanyingContainer), [viewingDirection](#viewingDirection), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [services](#services), [homepage](#homepage), [rendering](#rendering), [partOf](#partOf), [start](#start), [canonical](#canonical), [via](#via), [structures](#structures), and [annotations](#annotations).
 {: .note}
 
 ### Container Classes
@@ -254,7 +258,7 @@ For Timelines and Canvases, Annotations _MUST NOT_ target spatial or temporal po
 __Properties__<br/>
 All Containers _MUST_ have the following properties: [id](#id), and [type](#type)<br/><br/>
 All Containers _SHOULD_ have the following properties: [label](#label), and [items](#items)<br/><br/>
-All Containers _MAY_ have the following properites: [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [navDate](#navDate), [navPlace](#navPlace), [placeholderContainer](#placeholderContainer), [accompanyingContainer](#accompanyingContainer), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [partOf](#partOf), and [annotations](#annotations).
+All Containers _MAY_ have the following properites: [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [navDate](#navDate), [navPlace](#navPlace), [placeholderContainer](#placeholderContainer), [accompanyingContainer](#accompanyingContainer), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [partOf](#partOf), [canonical](#canonical), [via](#via), and [annotations](#annotations).
 {: .note}
 
 
@@ -309,58 +313,92 @@ The following set of classes are defined by the W3C's [Web Annotation Data Model
 
 Annotations are used to associate content resources with Containers, as well as for transcriptions, commentary, tags and the association of other content. This provides a single, unified method for aligning information, and provides a standards-based framework for distinguishing parts of resources and parts of Canvases.
 
-Annotations _MUST_ have their own HTTP(S) URIs, conveyed in the `id` property. The JSON-LD description of the Annotation _SHOULD_ be returned if the URI is dereferenced, according to the [Web Annotation Protocol][org-w3c-webanno-protocol].
+An Annotation _MUST_ have an HTTP(S) URI given in `id`. The JSON-LD description of the Annotation _SHOULD_ be returned if the URI is dereferenced, according to the [Web Annotation Protocol][org-w3c-webanno-protocol].
 
-When Annotations are used to associate content resources with a Canvas, the content resource is linked in the `body` of the Annotation. The URI of the Canvas _MUST_ be repeated in the `target` property of the Annotation, or the `source` property of a Specific Resource used in the `target` property.
+When Annotations are used to associate content resources with a Canvas, the content resource is linked in the `body` of the Annotation. The URI of the Canvas _MUST_ be repeated in the `target` property of the Annotation, or the `source` property of a Specific Resource used in the `target` property. Content that is to be rendered as part of the Container _MUST_ be associated by an Annotation that has the `motivation` value `painting`.
 
-Content that is to be rendered as part of the Container _MUST_ be associated by an Annotation that has the `motivation` value `painting`.
+Annotations _SHOULD NOT_ use the `bodyValue` property defined by the Web Annotation Data Model, but instead use the more consistent TextualBody class.
 
-Note that the Web Annotation data model defines different patterns for the `value` property compared to IIIF, when used within an Annotation. The `value` of a Textual Body or a Fragment Selector, for example, are strings rather than JSON objects with languages and values. Care must be taken to use the correct string form in these cases.
+__Properties__<br/>
+An Annotation _MUST_ have the following properties: [id](#id), [type](#type), [target](#target), [motivation](#motivation).<br/><br/>
+An Annotation _SHOULD_ have the following properties: [body](#body).<br/><br/>
+An Annotation _MAY_ have the following properties: [label](#label), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [navDate](#navDate), [navPlace](#navPlace), [provides](#provides), [behavior](#behavior), [timeMode](#timeMode), [stylesheet](#stylesheet), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [partOf](#partOf), [canonical](#canonical), and [via](#via).<br/><br/>
+{: .note}
 
 
 #### Annotation Collection
 
-`"type": "AnnotationCollection"`
+> `"type": "AnnotationCollection"`
 
 Annotation Collections allow groups of Annotations to be recorded. For example, all of the English translation Annotations of a medieval French document could be kept separate from the transcription or an edition in modern French, or the director's commentary on a film can be separated from the script.
 
-Annotation Collections _MUST_ have a URI, and it _SHOULD_ be an HTTP(S) URI. They _SHOULD_ have a `label` and _MAY_ have any of the other descriptive, linking or rights properties.
+Annotation Collections _MUST_ have an HTTP(S) URI. The JSON-LD description _SHOULD_ be returned if the URI is dereferenced.
 
-Annotation Collections are paged rather than enumerated. The first page of items is linked using the `first` property, and the last page with the `last` property. The pages link to the next and previous pages in a chain, using the `next` and `prev` properties respectively.
+Annotation Collections are always paged using `first` and `last`, rather than `items` as with IIIF Collections.
+
+__Properties__<br/>
+An Annotation Collection _MUST_ have the following properties: [id](#id), [type](#type), [label](#label), [first](#first), and [last](#last).<br/><br/>
+An Annotation Collection _SHOULD_ have the following properties: [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail).<br/><br/>
+An Annotation Collection _MAY_ have the following properties: [requiredStatement](#requiredStatement), [rights](#rights), [navDate](#navDate), [navPlace](#navPlace), [placeholderContainer](#placeholderContainer), [accompanyingContainer](#accompanyingContainer), [viewingDirection](#viewingDirection), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [services](#services), [homepage](#homepage), [rendering](#rendering), [partOf](#partOf), [start](#start), [first](#first), [last](#last), [total](#total), [canonical](#canonical), [via](#via), and [annotations](#annotations).
+{: .note}
 
 
 #### Annotation Page
 
-`"type": "AnnotationPage"`
+> `"type": "AnnotationPage"`
 
 An ordered list of Annotations, typically associated with a Container, but may be referenced from other types of resource as well. Annotation Pages enumerate and order lists of Annotations, in the same way that Collection Pages order lists of Manifests and Collections within the containing Collection.
 
-An Annotation Page _MUST_ have an HTTP(S) URI given in `id`, and _MAY_ have any of the other properties defined in this specification or the Web Annotation specification. The Annotations are listed in the `items` property of the Annotation Page.
+An Annotation Page _MUST_ have an HTTP(S) URI given in `id`. The Annotations are listed in the `items` property of the Annotation Page.
 
-Annotations are embedded within an Annotation Page in the `items` property.
-
-__Incompatibility Warning__<br/>
-The definition of `label` in the Web Annotation specification does not produce JSON conformant with the structure defined in this specification for languages. Given the absolute requirement for internationalized labels and the strong desire for consistently handling properties, the `label` property on Annotation model classes does not conform to the string requirement of the Web Annotation Data Model.  This [issue has been filed with the W3C][github-webanno-437] and will hopefully be addressed in a future version of the standard.
-{: .warning}
+__Properties__<br/>
+An Annotation Page _MUST_ have the following properties: [id](#id), [type](#type), and [items](#items)<br/><br/>
+An Annotation Page _SHOULD_ have the following properties:  [next](#next), [prev](#prev), and [partOf](#partOf)<br/><br/>
+An Annotation Page _MAY_ have the following properties: [label](#label), [startIndex](#startIndex), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [canonical](#canonical), [via](#via), and [annotations](#annotations).
+{: .note}
 
 
 #### Specific Resource
 
-`"type": "SpecificResource"`
+> `"type": "SpecificResource"`
 
-A Specific Resource is a resource in the context of an Annotation. They are used to record further properties or relationships needed to understand the particular contextual use, such as which part of the resource is used or how it should be rendered. In IIIF, the Specific Resource model from the Web Annotation Data Model has some additional properties beyond those defined by the W3C, such as `transform`.
+A Specific Resource is a resource in the context of an Annotation. They are used to record further properties or relationships needed to understand the particular contextual use, such as which part of the resource is used or how it should be rendered. In IIIF, the Specific Resource model from the Web Annotation Data Model has some additional properties beyond those defined by the W3C, such as `transform` and `position`.
+
+A Specific Resource _MUST_ have an HTTP(S) URI given in `id`. This allows for it to be addressed by other parts of the model, such as Content State Annotations.
+
+__Properties__<br/>
+A Specific Resource _MUST_ have the following properties: [id](#id), [type](#type), [source](#source)<br/><br/>
+A Specific Resource _SHOULD_ have the following properties: [selector](#selector)<br/><br/>
+A Specific Resource _MAY_ have the following properties: [position](#position), [transform](#transform), [scope](#scope), [styleClass](#styleClass), [height](#height), [width](#width), [duration](#duration), [language](#language), [label](#label), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [canonical](#canonical), [via](#via), and [annotations](#annotations).<br/><br/>
+{: .note}
 
 #### Textual Body
 
-`"type": "TextualBody"`
+> `"type": "TextualBody"`
 
 A Textual Body is an embedded resource within an Annotation that carries, as the name suggests, a text as the body of the Annotation. It is defined by the Web Annotation Data Model, and this specification defines a new property for `position` that allows it to be positioned within a Container.
 
+A Textual Body _MUST_ have an HTTP(S) URI given in `id`. This allows for it to be addressed by other parts of the model, such as Content State Annotations.
+
+__Properties__<br/>
+A Textual Body _MUST_ have the following properties: [id](#id), [type](#type), [value](#value)<br/><br/>
+A Specific Resource _MAY_ have the following properties: [position](#position), [transform](#transform), [scope](#scope), [styleClass](#styleClass), [height](#height), [width](#width), [duration](#duration), [language](#language), [format](#format), [label](#label), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [canonical](#canonical), [via](#via), and [annotations](#annotations).<br/><br/>
+{: .note}
+
+
 #### Choice
 
-`"type": "Choice"`
+> `"type": "Choice"`
 
-A Choice is a Web Annotation construction that allows one entry from a list to be selected for processing or display. This specification allows `behavior` to be added to a Choice to influence how it is processed.
+A Choice is a Web Annotation construction that allows one entry from a list to be selected for processing or display. This specification allows `behavior` and other properties to be added to a Choice to influence how it is processed.
+
+A Choice _MUST_ have an HTTP(S) URI given in `id`. It _SHOULD_ have a `label` in order to present the choice to the user, along with its items. This allows for it to be addressed by other parts of the model, such as Content State Annotations.
+
+__Properties__<br/>
+A Choice _MUST_ have the following properties: [id](#id), [type](#type), [items](#items)<br/><br/>
+A Choice _SHOULD_ have the following properties: [label](#label)<br/><br/>
+A Choice _MAY_ have the following properties: [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [behavior](#behavior), and [seeAlso](#seeAlso).<br/><br/>
+{: .note}
 
 
 ### Content Resources
@@ -376,12 +414,6 @@ If the content resource is an Image, and a IIIF Image service is available for i
 If there is a need to distinguish between content resources, then the resource _SHOULD_ have the `label` property.
 
 Containers _MAY_ be treated as content resources for the purposes of annotating on to other Containers. In this situation, the Container _MAY_ be [embedded][prezi30-terminology] within the Annotation, be a reference within the same Manifest, or require dereferencing to obtain its description.
-
-
-### Audio Content
-
-
-
 
 
 ### Selectors
@@ -821,6 +853,10 @@ TODO: Address https://github.com/IIIF/api/issues/2318
 ``` json-doc
 { "behavior": [ "auto-advance", "individuals" ] }
 ```
+
+### canonical
+{: #canonical}
+
 
 ### color
 {: #color}
@@ -1670,10 +1706,8 @@ The value _MUST_ be an array of JSON objects. Each object _MUST_ be a service re
 ### source
 {: #source}
 
-A Content Resource that is used as the souce of audio information in an Audio resource.  The value _MUST_ be a Content Resource with the `id`, `type` properties.
 
-* Audio resources _MUST_ have the `source` property.<br/>
-  Clients _SHOULD_ process the `source` property on an Audio resource.
+
 
 ### start
 {: #start}
@@ -1742,6 +1776,14 @@ The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id` and
   ]
 }
 ```
+
+### styleClass
+{: #styleClass}
+
+### stylesheet
+{: #stylesheet}
+
+
 ### summary
 {: #summary}
 
@@ -1905,8 +1947,7 @@ FIXME: possible values are 'm' and 's' and 'relative'.  Is relative always 0-1.0
 
 ### value
 
-
-metadata:
+within metadata:
 
 {label: value: {"en": ["foo"]}}
 
@@ -1922,9 +1963,15 @@ The value _MUST_ be a floating point number.
 
 FIXME: use scoped context for UnitValue to change the meaning of `value`
 
-### value (WktSelector)
+### value (WktSelector, TextualBody)
 
-FIXME: another value value!
+FIXME: string value!
+
+
+### via
+
+
+
 
 ### viewingDirection
 {: #viewingDirection}
@@ -2066,6 +2113,14 @@ The JSON representation _MUST NOT_ include the `@graph` key at the top level. Th
 There are some common terms used in more than one JSON-LD context document. Every attempt has been made to minimize these collisions, but some are inevitable. In order to know which specification is in effect at any given point, the class of the resource that has the property is the primary governing factor. Thus properties on Annotation based resources use the context from the [Web Annotation Data Model][org-w3c-webanno], whereas properties on classes defined by this specification use the IIIF Presentation API context's definition.
 
 There is one property that is in direct conflict - the `label` property is defined by both and is available for every resource. The use of `label` in IIIF follows modern best practices for internationalization by allowing the language to be associated with the value using the language map construction [described above][prezi30-languages], also allowing multiple languages to be used. The Web Annotation Data Model uses it only for [Annotation Collections][prezi30-annocoll], and mandates the format is a string. For this property, the API overrides the definition from the Annotation model to ensure that labels can consistently be represented in multiple languages.
+
+__Incompatibility Warning__<br/>
+The definition of `label` in the Web Annotation specification does not produce JSON conformant with the structure defined in this specification for languages. Given the absolute requirement for internationalized labels and the strong desire for consistently handling properties, the `label` property on Annotation model classes does not conform to the string requirement of the Web Annotation Data Model.  This [issue has been filed with the W3C][github-webanno-437] and will hopefully be addressed in a future version of the standard.
+{: .warning}
+
+
+### FIXME: value, value, and value
+
 
 The following properties are defined by both, and the IIIF representation is more specific than the Web Annotation Data Model but are not in conflict, or are never used on the same resource:
 
