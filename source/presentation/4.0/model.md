@@ -1927,7 +1927,7 @@ The value _MUST_ be a string.
 ### volume
 {: #volume}
 
-The volume propery represents the relative volume of an audio source. The `value` of the specified UnitValue represents the desired volume on a linear scale from 0.0 (silence) to 1.0 (maximum volume).  If this property is not specified, then the default volume value is client-dependent.
+The volume property represents the relative volume of an audio source. The `value` of the specified UnitValue represents the desired volume on a linear scale from 0.0 (silence) to 1.0 (maximum volume).  If this property is not specified, then the default volume value is client-dependent.
 
 The value of this property _MUST_ be a UnitValue.
 The `unit` property of the UnitValue _MUST_ be `relative`.
