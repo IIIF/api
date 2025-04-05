@@ -403,33 +403,40 @@ A Choice _MAY_ have the following properties: [metadata](#metadata), [summary](#
 
 ### Content Resources
 
-Content resources are resources on the Web such as images, audio, video, or text which can be associated with a Container via an Annotation, or provide a representation of any resource.
+Content Resources are resources on the Web such as images, audio, video, 3d models, or text which can be associated with a Container via an Annotation, or be used with `thumbnail`, `rendering` or similar properties.
 
-Content resources _MUST_ have an `id` property, with the value being the URI at which the resource can be obtained.
+Content Resources _MUST_ have an HTTP(s) given in `id`. It _MUST_ be able to be dereferenced to retrieve the representation of the Content Resource.
 
-The type of the content resource _MUST_ be included, and _SHOULD_ be taken from the table listed under the definition of `type`. The `format` of the resource _SHOULD_ be included and, if so, _SHOULD_ be the media type that is returned when the resource is dereferenced. The `profile` of the resource, if it has one, _SHOULD_ also be included.
+If the Content Resource is an Image, and a IIIF Image service is available for it, then the `id` property of the Content Resource _MAY_ be a complete URI to any particular representation supported by the Image Service, such as `https://example.org/image1/full/1000,/0/default.jpg`, but _MUST NOT_ be just the URI of the Image Service. The Image _SHOULD_ have the service referenced from it using the `service` property.
 
-If the content resource is an Image, and a IIIF Image service is available for it, then the `id` property of the content resource _MAY_ be a complete URI to any particular representation supported by the Image Service, such as `https://example.org/image1/full/1000,/0/default.jpg`, but _MUST NOT_ be just the URI of the IIIF Image service. Its `type` value _MUST_ be the string `Image`. Its media type _MAY_ be listed in `format`, and its height and width _MAY_ be given as integer values for `height` and `width` respectively. The Image _SHOULD_ have the service [referenced][prezi30-terminology] from it using the `service` property.
-
-If there is a need to distinguish between content resources, then the resource _SHOULD_ have the `label` property.
+If there is a need to distinguish between Content Resources, then the resource _SHOULD_ have the `label` property.
 
 Containers _MAY_ be treated as content resources for the purposes of annotating on to other Containers. In this situation, the Container _MAY_ be [embedded][prezi30-terminology] within the Annotation, be a reference within the same Manifest, or require dereferencing to obtain its description.
+
+__Properties__<br/>
+A Content Resource _MUST_ have the following properties: [id](#id), and [type](#type)<br/><br/>
+A Content Resource _SHOULD_ have the following properties: [label](#label)<br/><br/>
+A Content Resource _MAY_ have the following properties: [height](#height), [width](#width), [duration](#duration), [language](#language), [format](#format), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [behavior](#behavior), [profile](#profile), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [canonical](#canonical), [via](#via), and [annotations](#annotations).<br/><br/>
+{: .note}
 
 
 ### Selectors
 
 The Web Annotation Data Model defines several Selectors, which describe how to find a specific segment of that resource to be used. As noted, the nature of Selectors are dependent on the type of resources that they select out of, and the methods needed for those descriptions will vary. The Selectors from the Web Annotation Data Model and other sources can be used within the IIIF Data Model. This specification defines additional Selector classes for use.
 
+
 #### Point Selector
 
-`"type": "PointSelector"`
+> `"type": "PointSelector"`
 
-There are common use cases in which a point, rather than a range or area, is the target of the Annotation. For example, putting a pin in a map should result in an exact point, not a very small rectangle. Points in time are not very short durations, and user interfaces should also treat these differently. This is particularly important when zooming in (either spatially or temporally) beyond the scale of the frame of reference.
+There are common use cases in which a point, rather than a range or area, is the target of the Annotation. For example, putting a pin in a map should result in an exact point, not a very small rectangle. Points in time are not very short durations, and user interfaces should, equally, treat these differently. This is particularly important when zooming in (either spatially or temporally) beyond the scale of the frame of reference.
 
+If `instant` is not supplied, and the target resource has a `duration`, the selector is interpreted as targeting the entire duration. If `instant` is supplied, but no spatial point, the selector is interpreted as targeting the entire spatial aspect of the resource.
 
-* FIXME: either supply instant, or all applicable dimensions for the source
-   list properties here like manifest
-
+__Properties__<br/>
+A Point Selector _MUST_ have the following properties: [id](#id), and [type](#type)<br/><br/>
+A Point Selector _MAY_ have the following properties: [x](#x), [y](#y), [z](#z), and [instant](#instant).<br/><br/>
+{: .note}
 
 ```json
 {
@@ -445,11 +452,15 @@ There are common use cases in which a point, rather than a range or area, is the
 
 #### WKT Selector
 
-`"type": "WktSelector"`
+> `"type": "WktSelector"`
 
 Well-known text, or WKT, is an ISO standard method for describing 2 and 3 dimensional geometries. This selector thus goes beyond what the Web Annotation's SvgSelector enables by incorporating the z axis, as well as additional types of selection such as MultiPolygon. Additional types, such as CIRCULARSTRING may also be supported.
 
-WKT Selectors _MUST_ have a `value` property, which is the WKT string that defines the geometry to be selected.
+The text representation is given in the `value` property of the selector.
+
+__Properties__<br/>
+A WKT Selector _MUST_ have the following properties: [id](#id), [type](#type), and [value](#value).
+{: .note}
 
 ```json
 {
@@ -459,15 +470,15 @@ WKT Selectors _MUST_ have a `value` property, which is the WKT string that defin
 }
 ```
 
-<!-- Yes, Wkt not WKT, c.f. CssStyle, SvgSelector, ImageApiSelector, etc -->
-
-
 #### Audio Content Selector
 
-`"type": "AudioContentSelector"`
+> `"type": "AudioContentSelector"`
 
 Video content resources consist of both visual and audio content within the same bit-level representation. There are situations when it is useful to refer to only one aspect of the content – either the visual or the audio, but not both. For example, an Annotation might associate only the visual content of a video that has spoken English in the audio, and an audio file that has the translation of that content in Spanish. The Audio Content Selector selects all of the audio content from an A/V content resource, and may be further refined with subsequent selectors to select a segment of it.
 
+__Properties__<br/>
+An Audio Content Selector _MUST_ have the following properties: [id](#id), and [type](#type).
+{: .note}
 
 ```json
 {
@@ -479,7 +490,7 @@ Video content resources consist of both visual and audio content within the same
 
 #### Visual Content Selector
 
-`"type": "VisualContentSelector"`
+> `"type": "VisualContentSelector"`
 
 Similar to Audio Content Selectors, Visual Content Selectors select the visual aspects of the content of an A/V content resource. They may be further refined by subsequent selectors that select an area or temporal segment of it.
 
@@ -490,14 +501,20 @@ Similar to Audio Content Selectors, Visual Content Selectors select the visual a
 }
 ```
 
+__Properties__<br/>
+A Visual Content Selector _MUST_ have the following properties: [id](#id), and [type](#type).
+{: .note}
+
 
 #### Animation Selector
 
-`"type": "AnimationSelector"`
+> `"type": "AnimationSelector"`
 
-More interactive content resources, such as 3D models, may have animations or similar features that can be _activated_ by user interaction. For example, a model of a box might have an animation that opens the lid and a second animation that closes the lid. In order to activate those animations, they need to be selectable, and thus the specification defines an Animation Selector.
+More interactive content resources, such as 3D models, may have animations or similar features that can be _activated_ by user interaction. For example, a model of a box might have an animation that opens the lid and a second animation that closes the lid. In order to activate those animations, they need to be selectable, and thus the specification defines an Animation Selector. The identity of the activatable aspect is given in the `value` property.
 
-Animation Selectors _MUST_ have a `value` property, which is the identity of the animation in whichever form is used by the source resource.
+__Properties__<br/>
+An Animation Selector _MUST_ have the following properties: [id](#id), [type](#type), and [value](#value).
+{: .note}
 
 ```json
 {
@@ -509,16 +526,38 @@ Animation Selectors _MUST_ have a `value` property, which is the identity of the
 
 #### IIIF Image API Selector
 
-`"type": "ImageApiSelector"`
+> `"type": "ImageApiSelector"`
 
-FIXME: write this
+The Image API Selector is used to describe the operations available via the Image API in order to retrieve a particular image representation.  In this case the resource is the abstract image as identified by the [IIIF Image API][image-api] base URI plus identifier, and the retrieval process involves adding the correct parameters after that base URI.
 
+The Image API Selector has properties following the parameters from the API, and record the values needed to fill out the URL structure in the request.  If the property is not given, then a default should be used.
 
+| Property | Default   | Description                                            |
+| -------- | --------- | -----------------------------------------------------  |
+| region   | "full"    | The string to put in the region parameter of the URI.  |
+| size     | "max"    | The string to put in the size parameter of the URI. If used with a version 2.0 Image API server, the default should be considered to be "full". |
+| rotation | "0"       | The string to put in the rotation parameter of the URI. Note that this must be a string in order to allow mirroring, for example "!90". |
+| quality  | "default" | The string to put in the quality parameter of the URI. |
+| format   | "jpg"     | The string to put in the format parameter of the URI.  Note that the '.' character is not part of the format, just the URI syntax.  |
+{: .api-table}
 
+__Properties__<br/>
+A IIIF Image API Selector _MUST_ have the following properties: [id](#id), [type](#type).<br/><br/>
+A IIIF Image API Selector _MAY_ have the following properties: [region](#region), [size](#size), [rotation](#rotation), [quality](#quality), [format](#format).
+{: .note}
+
+```json
+{
+  "id": "https://example.org/selectors/6",
+  "type": "ImageApiSelector",
+  "region": "0,0,256,256",
+  "rotation": "90"
+}
+```
 
 ### Range
 
-`"type": "Range"`
+> `"type": "Range"`
 
 Ranges are used to represent structure within a Manifest beyond the default order of the Containers in the `items` property.
 
@@ -697,6 +736,10 @@ A TranslateTransform moves all of the objects in the local coordinate space the 
 A UnitValue expresses a quantity through a numerical value and associated unit of measurement.
 
 `"type": "UnitValue"` 
+
+
+
+
 
 ## Properties
 
