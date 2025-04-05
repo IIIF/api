@@ -561,18 +561,28 @@ A IIIF Image API Selector _MAY_ have the following properties: [region](#region)
 
 Ranges are used to represent structure within a Manifest beyond the default order of the Containers in the `items` property.
 
-Ranges _MUST_ have URIs and they _SHOULD_ be HTTP(S) URIs. Top level Ranges are [embedded][prezi30-terminology] or externally [referenced][prezi30-terminology] within the Manifest in a `structures` property. These top level Ranges then embed or reference other Ranges, Containers or parts of Containers in the `items` property. Each entry in the `items` property _MUST_ be a JSON object, and it _MUST_ have the `id` and `type` properties. If a top level Range needs to be dereferenced by the client, then it _MUST NOT_ have the `items` property, such that clients are able to recognize that it should be retrieved in order to be processed.
+Ranges _MUST_ have an HTTP(s) given in `id`. Top level Ranges are embedded or externally referenced within the Manifest in a `structures` property. These top level Ranges then embed or reference other Ranges, Containers or parts of Containers in the `items` property. Each entry in the `items` property _MUST_ be a JSON object, and it _MUST_ have the `id` and `type` properties. If a top level Range needs to be dereferenced by the client, then it _MUST NOT_ have the `items` property, such that clients are able to recognize that it should be retrieved.
 
 The included Containers and parts of Containers need not be contiguous or in the same order as in the Manifest's `items` property or any other Range. Examples include newspaper articles that are continued in different sections, a chapter that starts half way through a page, or time segments of a single canvas that represent different sections of a piece of music.
 
-Ranges _MAY_ link to an Annotation Collection that has the content of the Range using the `supplementary` property. The [referenced][prezi30-terminology] Annotation Collection will contain Annotations that target the Containers within the Range and link content resources to those Containers.
+Ranges _MAY_ link to an Annotation Collection that has the content of the Range using the `supplementary` property. The referenced Annotation Collection will contain Annotations that target the Containers within the Range and link content resources to those Containers.
+
+__Properties__<br/>
+A Range _MUST_ have the following properties: [id](#id), and [type](#type).<br/><br/>
+A Range _SHOULD_ have the following properties: .
+A Range _MAY_ have the following properties: .
+{: .note}
+
 
 
 ### Scene Components
 
+The following classes are only usable within Scenes.
+
+
 #### Cameras
 
-A Camera provides a view of a region of the Scene's space from a particular position within the Scene; the client constructs a viewport into the Scene and uses the view of one or more Cameras to render that region. The size and aspect ratio of the viewport is client and device dependent.
+A Camera provides a view of a region of a Scene's space from a particular position within the Scene; the client constructs a viewport into the Scene and uses the Camera to render that region. The size and aspect ratio of the viewport is client and device dependent.
 
 FIXME: If either the position or direction is not specified, then the position defaults to the origin, and facing direction defaults to pointing along the z axis towards negative infinity.
 
