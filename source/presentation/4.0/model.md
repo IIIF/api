@@ -1113,20 +1113,32 @@ The `value` property of the UnitValue _MUST_ be between 0.0 and 1.0.
 ### interactionMode
 {: #interactionMode}
 
-*within* the Scene, whereas viewingDirection and behavior are across containers.
+A set of features that guide or limit user interaction with content within a Container that the publisher of the content would prefer the client to use when presenting the resource. This specification defines values in the table below that guide interactions with Cameras within a Scene. Other values for other Container types or specifying other interaction modes for 3D content may be defined externally as an [extension][prezi30-ldce]. For interaction modes pertaining to Cameras within a Scene, the client _SHOULD_ use `interactionMode` to determine the user experience features and approaches whereby users are permitted to change or adjust Cameras when viewing content within a Scene (e.g., orbiting around the scene or locking the user to a first-person perspective).
 
-* Containers _MAY_ have the `interactionMode`
+When more than one interaction mode is present, the client _SHOULD_ pick the first interaction mode that the client is capable of supporting. 
 
-Table here with values
+For interaction modes that involve a Camera orbiting around a target point, the target point _SHOULD_ be the same as the Camera's `lookAt` property.
 
+The value _MUST_ be an array of strings.
 
-locked
-orbit
-hemisphere-orbit
-free
-free-direction
+* A Container _MAY_ have the `interactionMode` property.<br/>
+  Clients _SHOULD_ process `interactionMode` on a Container.
+* Other types of resource _MUST NOT_ have the `interactionMode` property.<br/>
+  Clients _SHOULD_ ignore `interactionMode` on other types of resource.
 
-other examples: no-zoom, no-scrub, rti-mode
+| Value | Description |
+| ----- | ----------- |
+| `locked` | Camera is locked. User interaction _MUST NOT_ modify Camera. |
+| `orbit` | Camera orbits around a target point in response to user interaction. |
+| `hemisphere-orbit` | Camera orbits around a target point in response to user interaction, but orbital freedom is limited to a hemisphere. |
+| `free` | Camera mimics a first-person perspective. User interaction pans or tilts Camera perspective, trucks Camera position, and/or dollies or zooms Camera. |
+| `free-direction` | Camera mimics a first-person perspective, but Camera position is fixed. User interaction pans or tilts Camera perspective. |
+{: .api-table #table-interaction}
+
+{% include api/code_header.html %}
+``` json-doc
+{ "interactionMode": [ "hemisphere-orbit", "orbit" ] }
+```
 ### items
 {: #items}
 
