@@ -598,6 +598,16 @@ __Properties__<br/>
 Orthographic Cameras _SHOULD_ have the following additional properties: [viewHeight](#viewHeight).
 {: .note}
 
+```json
+{
+  "id": "https://example.org/iiif/camera/1",
+  "type": "OrthographicCamera",
+  "near": 1.0,
+  "far": 100.0,
+  "viewHeight": 40.0
+}
+```
+
 
 ##### Perspective Camera
 
@@ -607,12 +617,14 @@ Orthographic Cameras _SHOULD_ have the following additional properties: [viewHei
 
 The region of the Scene's space that is observable by the camera is bounded by two planes orthogonal to the direction the camera is facing, given in the `near` and `far` properties, and a vertical projection angle that provides the top and bottom planes of the region in the `fieldOfView` property.
 
-Properties...
+__Properties__<br/>
+Perspective Cameras _SHOULD_ have the following additional properties: [fieldOfView](#fieldOfView).
+{: .note}
 
 
 ```json
 {
-  "id": "https://example.org/iiif/camera/1",
+  "id": "https://example.org/iiif/camera/2",
   "type": "PerspectiveCamera",
   "near": 1.0,
   "far": 100.0,
@@ -621,42 +633,95 @@ Properties...
 ```
 
 #### Lights
+
+It is necessary for there to be a Light within a Scene that illuminates the objects. If no Light is provided by the Scene's description, then the client _MUST_ add a Light.
+
+This specification does not define other aspects of Lights, such as the rate of decay of the intensity of the light over a distance, the maximum range of the light, or the penumbra of a cone. Implementation of these aspects is client-dependent.
+
+The specification defines four types of Light, below.
+
+__Properties__<br/>
+All Lights _MUST_ have the following properties: [id](#id), and [type](#type).<br/><br/>
+All Lights _SHOULD_ have the following properties: [color](#color), and [intensity](#intensity).<br/><br/>
+All Lights _MAY_ have the following properties: [label](#label).
+{: .note}
+
  
 ##### Ambient Light
 
-`"type": "AmbientLight"`
+> `"type": "AmbientLight"`
 
-Ambient Light evenly illuminates all objects in the Scene, and does not have a direction or position.
+Ambient Light evenly illuminates all objects in the Scene, and does not have a direction or position. It does not have any new properties. The Light itself _MUST_ be added into the scene at a specific position, however this is only such that editing interfaces can render the object to the user.
+
+```json
+{
+  "id": "https://example.org/iiif/light/1",
+  "type": "AmbientLight",
+  "color": "#F0A0F0",
+}
+```
 
 ##### Directional Light
 
-`"type": "DirectionalLight"`
+> `"type": "DirectionalLight"`
 
-Directional Light emits in a specific direction as if it is infinitely far away and the rays produced from it are all parallel. It does not have a specific position.  
+Directional Lights emit their light in a specific direction as if infinitely far away, and as such the light does not come from a specific position. The rays produced are all parallel. The Light itself _MUST_ be added into the scene at a specific position, however this is only such that editing interfaces can render the object to the user.
 
-The light is emitted in the negative Y (-y) direction by default, but the orientation of the light can be altered by subsequent transforms.
+The light is emitted in the negative Y (-y) direction by default, thus straight down, but the orientation of the light can be altered with `lookAt` or with a `RotationTransform`.
+
+__Properties__<br/>
+Directional Lights _MAY_ have the following additional properties: [lookAt](#lookAt)
+{: .note}
+
+```json
+{
+  "id": "https://example.org/iiif/light/2",
+  "type": "DirectionalLight",
+  "color": "#A0A0F0",
+  "lookAt": {"id": "https://example.org/iiif/annotations/models/1"}
+}
+```
 
 ##### Point Light
 
-`"type": "PointLight"`
+> `"type": "PointLight"`
 
-Point Light emits from a single point within the Scene in all directions.
+Point Lights emit from a single point within the Scene in all directions.
+
+```json
+{
+  "id": "https://example.org/iiif/light/3",
+  "type": "PointLight",
+  "color": "#A0F0F0"
+}
+```
+
 
 ##### Spot Light
 
-`"type": "SpotLight"`
+> `"type": "SpotLight"`
 
 Spot Light emits a cone of light from a single point in a given direction.  The Spot Light's `angle` property defines the radius of the cone.
 
 The Spot Light emits in the negative Y (-y) direction by default, but the orientation of the light can be altered by subsequent transforms.
 
+<img src="https://raw.githubusercontent.com/IIIF/3d/eds/assets/images/angle-of-cone.png" title="Angle of cone" alt="diagram of cone geometry showing how the angle of the cone is defined" width="250"/>
+
+__Properties__<br/>
+Spot Lights _SHOULD_ have the following additional properties: [angle](#angle)<br/><br/>
+Spot Lights _MAY_ have the following additional properties: [lookAt](#lookAt)
+{: .note}
+
+
+
 ```json
 {
-  "id": "https://example.org/iiif/spotLight/1",
+  "id": "https://example.org/iiif/spotlight/1",
   "type": "SpotLight",
   "angle": 15.0,
   "color": "#FFFFFF",
   "intensity": {
+    "id": "https://example.org/iiif/spotlight/1/value",
     "type": "UnitValue",
     "unit": "relative",
     "value": 0.5
@@ -674,19 +739,19 @@ Volume is relative to the input audio source's volume.
 
 ##### Ambient Audio
 
-`"type": "AmbientAudio"`
+> `"type": "AmbientAudio"`
 
 Ambient Audio emits equally throughout the Scene, and does not have a position or direction.
 
 ##### Point Audio
 
-`"type": "PointAudio"`
+> `"type": "PointAudio"`
 
 Point Audio emits from a single point in the Scene in all directions.
 
 ##### Spot Audio
 
-`"type": "SpotAudio"`
+> `"type": "SpotAudio"`
 
 Spot Audio emits a cone of sound from a single point in a given direction.  The Spot Audio's `angle` property defines the radius of the cone.
 
@@ -725,20 +790,20 @@ here are the rules about transforms?
 
 ##### Rotate Transform
 
-`"type": "RotateTransform"`
+> `"type": "RotateTransform"`
 
 A RotateTransform rotates the local coordinate space around the given axis in a counter-clockwise direction around the axis itself (e.g. around a pivot point of 0 on the axis). A point that was at x=1,y=1 and was rotated 90 degrees around the x axis would be at x=1,y=0,z=1. If an axis value is not specified, then it is not changed, resulting in a default of 0.0
 
 
 ##### Scale Transform
 
-`"type": "ScaleTransform"`
+> `"type": "ScaleTransform"`
 
 A ScaleTransform applies a multiplier to one or more axes in the local coordinate space. A point that was at 3.5, after applying a ScaleTransform of 2.0 would then be at 7.0. If an axis value is not specified, then it is not changed, resulting in a default of 1.0
 
 ##### Translate Transform
 
-`"type": "TranslateTransform"`
+> `"type": "TranslateTransform"`
 
 A TranslateTransform moves all of the objects in the local coordinate space the given distance along the axis. A point that was at x=1.0, after applying a TranslateTransform of x=1.0 would be at x=2.0. If an axis value is not specified then it is not changed, resulting in a default of 0.0
 
