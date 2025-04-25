@@ -102,7 +102,7 @@ Any of the properties in the API that can have multiple values _MUST_ always be 
 
 Language _SHOULD_ be associated with strings that are intended to be displayed to the user for the `label` and `summary` properties, plus the `label` and `value` properties of the `metadata` and `requiredStatement` objects.
 
-The values of these properties _MUST_ be JSON objects, with the keys being the [BCP 47][org-bcp-47] language code for the language, or if the language is either not known or the string does not have a language, then the key _MUST_ be the string `none`. The script _SHOULD NOT_ be included in the tag, even though BCP 47 allows for this possibility. The associated values _MUST_ be arrays of strings, where each item is the content in the given language.
+The values of these properties _MUST_ be JSON objects, with the keys being the [BCP 47][org-bcp-47] language code for the language, or if the language is either not known or the string does not have a language, then the key _MUST_ be the string `none`. The locale, script and other subtags _MAY_ be included. Clients _SHOULD_ process subtags when comparing the values with the user's provided preferences, however _MAY_ simply reduce all tags down to just the language, discarding everything after the first hyphen, and display all matching values. The associated values _MUST_ be arrays of strings, where each item is the content in the given language.
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -454,7 +454,7 @@ A Point Selector _MAY_ have the following properties: [x](#x), [y](#y), [z](#z),
 
 > `"type": "WktSelector"`
 
-Well-known text, or WKT, is an ISO standard method for describing 2 and 3 dimensional geometries. This selector thus goes beyond what the Web Annotation's SvgSelector enables by incorporating the z axis, as well as additional types of selection such as MultiPolygon. Additional types, such as CIRCULARSTRING may also be supported.
+Well-known text, or WKT, is an ISO standard method for describing 2 and 3 dimensional geometries. This selector thus goes beyond what the Web Annotation's SvgSelector enables by incorporating the z axis, as well as additional types of selection such as MULTIPOLYGON. Additional types, such as CIRCULARSTRING may also be supported.
 
 The text representation is given in the `value` property of the selector.
 
@@ -528,7 +528,7 @@ An Animation Selector _MUST_ have the following properties: [id](#id), [type](#t
 
 > `"type": "ImageApiSelector"`
 
-The Image API Selector is used to describe the operations available via the Image API in order to retrieve a particular image representation.  In this case the resource is the abstract image as identified by the [IIIF Image API][image-api] base URI plus identifier, and the retrieval process involves adding the correct parameters after that base URI.
+The Image API Selector is used to describe the operations available via the IIIF Image API in order to retrieve a particular image representation.  In this case the resource is the abstract image as identified by the [IIIF Image API][image-api] base URI plus identifier, and the retrieval process involves adding the correct parameters after that base URI.
 
 The Image API Selector has properties following the parameters from the API, and record the values needed to fill out the URL structure in the request.  If the property is not given, then a default should be used.
 
@@ -565,42 +565,47 @@ Ranges _MUST_ have an HTTP(s) given in `id`. Top level Ranges are embedded or ex
 
 The included Containers and parts of Containers need not be contiguous or in the same order as in the Manifest's `items` property or any other Range. Examples include newspaper articles that are continued in different sections, a chapter that starts half way through a page, or time segments of a single canvas that represent different sections of a piece of music.
 
-Ranges _MAY_ link to an Annotation Collection that has the content of the Range using the `supplementary` property. The referenced Annotation Collection will contain Annotations that target the Containers within the Range and link content resources to those Containers.
-
 __Properties__<br/>
 A Range _MUST_ have the following properties: [id](#id), and [type](#type).<br/><br/>
-A Range _SHOULD_ have the following properties: .
-A Range _MAY_ have the following properties: .
+A Range _SHOULD_ have the following properties: [label](#label), and [items](#items)<br/><br/>.
+A Range _MAY_ have the following properties: [start](#start), [supplementary](#supplementary), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [navDate](#navDate), [navPlace](#navPlace), [placeholderContainer](#placeholderContainer), [accompanyingContainer](#accompanyingContainer), [viewingDirection](#viewingDirection), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [partOf](#partOf), [canonical](#canonical), [via](#via), and [annotations](#annotations).
 {: .note}
-
 
 
 ### Scene Components
 
 The following classes are only usable within Scenes.
 
-
 #### Cameras
 
 A Camera provides a view of a region of a Scene's space from a particular position within the Scene; the client constructs a viewport into the Scene and uses the Camera to render that region. The size and aspect ratio of the viewport is client and device dependent.
 
-FIXME: If either the position or direction is not specified, then the position defaults to the origin, and facing direction defaults to pointing along the z axis towards negative infinity.
+If either the position or direction is not specified, then the position defaults to the origin of the Scene, and the direction defaults to pointing along the z axis towards negative infinity.
 
-The region of the Scene's space that is observable by the camera is bounded by two planes orthogonal to the direction the camera is facing, given in the `near` and `far` properties, (PERSPECTIVE) and a vertical projection angle that provides the top and bottom planes of the region. (viewHeight?)
+__Properties__<br/>
+All Cameras _MUST_ have the following properties: [id](#id), and [type](#type).<br/><br/>
+All Cameras _MAY_ have the following properties: [label](#label), [lookAt](#lookAt), [near](#near), and [far](#far)
+{: .note}
 
 
 ##### Orthographic Camera
 
-`"type": "OrthographicCamera"`
+> `"type": "OrthographicCamera"`
 
-`OrthographicCamera` removes visual perspective, resulting in object size remaining constant regardless of its distance from the camera
+An Orthographic Camera removes visual perspective, resulting in object size remaining constant regardless of its distance from the camera.
+
+__Properties__<br/>
+Orthographic Cameras _SHOULD_ have the following additional properties: [viewHeight](#viewHeight).
+{: .note}
 
 
 ##### Perspective Camera
 
-`"type": "PerspectiveCamera"`
+> `"type": "PerspectiveCamera"`
 
-`PerspectiveCamera` mimics the way the human eye sees, in that objects further from the camera are smaller
+`PerspectiveCamera` mimics the way the human eye sees, in that objects further from the camera are smaller.
+
+The region of the Scene's space that is observable by the camera is bounded by two planes orthogonal to the direction the camera is facing, given in the `near` and `far` properties, and a vertical projection angle that provides the top and bottom planes of the region in the `fieldOfView` property.
 
 Properties...
 
@@ -662,7 +667,10 @@ The Spot Light emits in the negative Y (-y) direction by default, but the orient
 #### Audio in Scenes
 
 Positional audio is supported through the use of Audio resources annotated into Scenes.
-Audio resources _MUST_ have a `source` property that references an audio Content Resource, and _SHOULD_ have a `volume` property.
+Audio resources _MUST_ have a `source` property that references an audio Content Resource, and _SHOULD_ have a `volume` property. Positional Audio classes are subclasses of SpecificResource.
+
+Volume is relative to the input audio source's volume.
+
 
 ##### Ambient Audio
 
@@ -684,6 +692,9 @@ Spot Audio emits a cone of sound from a single point in a given direction.  The 
 
 The Spot Audio emits in the negative Y (-y) direction by default, but the orientation of the sound can be altered by subsequent transforms.
 
+Can have a Timeline as the source of the audio?
+
+
 ```json
 {
   "id": "https://example.org/iiif/spotAudio/1",
@@ -697,8 +708,9 @@ The Spot Audio emits in the negative Y (-y) direction by default, but the orient
   "volume": {
     "type": "UnitValue",
     "unit": "relative",
-    "value": 2.0
-  }
+    "value": 1.0
+  },
+  "transform": []
 }
 ```
 
