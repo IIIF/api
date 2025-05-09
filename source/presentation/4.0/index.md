@@ -1478,43 +1478,15 @@ See above...
 
 ## Conveying Physical Dimensions
 
-(why is this important!?)
+It is often important to know how big something is, especially when comparing objects together. The dimensions of a Canvas, or the pixel density of a photograph, are unrelated to the real-world size of the object they show. A large wall painting and a tiny miniature may both be conveyed by 20 megapixel source images on a 4000 by 3000 unit Canvas. 
 
-(move the props to vocab doc)
+The `spatialScale` property of a Canvas or Scene provides a corresponding real-world scale for a unit of the Canvas or Scene coordinate system, allowing clients to provide scale information to users, for example by an on-screen virtual ruler. In a 2-up viewer, a client could scale two views to convey the true relative sizes of two objects. 
 
+The value of `spatialScale` is a `UnitValue` (ref) that always has the value "m", i.e., metres. If source size metadata is machine readable (or parse-able) in other measurement systems (e.g., feet and inches) then it should be converted to metres for use in `spatialScale`. Publishers may wish to present the original given measure (e.g., from catalogue metadata) in a `metadata` field for context.
 
-Continental drift simulation example
+The Presentation API also offers a corresponding `temporalScale` property for the `duration` dimension of a Container, when 1 second in the Container does not correspond to 1 second of real time. This is useful for speeded-up or slowed-down audio or video. 
 
-```
-{
-  "type": "Scene",
-
-    "spatialScale": {
-        "type": "UnitValue",
-        "value": 22.0,
-        "unit": "m"
-    },
-    
-    // this would be rarely used
-    "temporalScale": {
-        "type": "UnitValue",
-        "value": 0.00001,
-        "unit": "s"
-    }
-
-}
-```
-
-`factor`	Required	A floating point ratio.
-`units`	    Required	A real-world measuring unit. Always seconds for temporalScale. Possible values for spatialScale include: "m", "ft". (is that it?)
-
-For a Canvas, it's the physical "size" of each cartesian integer unit.
-For a Scene, it's the physical size of the unit vector. 
-For a timeline it's the ratio of time in the recording to time in the real world.
-
-
-(define props in the Vocabulary doc)
-
+An extreme example of both physical dimension properties together is a Canvas showing an animation of continental drift over the course of Earth history, where the spatialScale could convey that each Canvas unit is several thousand metres, and each second of the Canvas `duration` is several million years.
 
 
 
