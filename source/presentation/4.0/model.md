@@ -1849,6 +1849,29 @@ The value _MUST_ be an array of JSON objects. Each object _MUST_ be a service re
 {: #source}
 
 
+### spatialScale
+{: #spatialScale}
+
+A single UnitValue that defines a real-world scale factor for the coordinate units of a Canvas or Scene. A Canvas with a `width` of 5000 and a `spatialScale` with `value` 0.00008 represents a physical space 0.4 metres wide. The value of `unit` _MUST_ always be `m`, i.e., metres.
+
+
+{% include api/code_header.html %}
+``` json-doc
+{
+  "type": "Scene",
+
+    "spatialScale": {
+        "type": "UnitValue",
+        "value": 22.0,
+        "unit": "m"
+    }
+}
+```
+
+ * A Canvas _MAY_ have the `spatialScale` property.<br/>
+   Clients _SHOULD_ process `spatialScale` on a Canvas.
+ * A Scene _MAY_ have the `spatialScale` property.<br/>
+   Clients _SHOULD_ process `spatialScale` on a Scene.
 
 
 ### start
@@ -1963,6 +1986,33 @@ The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` propert
 ``` json-doc
 { "supplementary": { "id": "https://example.org/iiif/1/annos/1", "type": "AnnotationCollection" } }
 ```
+
+### temporalScale
+{: #temporalScale}
+
+A single UnitValue that defines a multiplier or scale factor for the `duration` property of a Container, indicating that one second in "Container time" represents some other real world duration. A Canvas with a `duration` of 450 seconds and a `temporalScale` with `value` 1000 represents a real-world duration of 450,000 seconds (5.2 days), for example a time-lapse video of a growing plant. The value of `unit` _MUST_ always be `s`, i.e., seconds.
+
+
+{% include api/code_header.html %}
+``` json-doc
+{
+  "type": "Canvas",
+
+    "temporalScale": {
+        "type": "UnitValue",
+        "value": 1000,
+        "unit": "s"
+    }
+}
+```
+
+ * A Timeline _MAY_ have the `temporalScale` property.<br/>
+   Clients _MAY_ process `temporalScale` on a Timeline.
+ * A Canvas _MAY_ have the `temporalScale` property.<br/>
+   Clients _MAY_ process `temporalScale` on a Canvas.
+ * A Scene _MAY_ have the `temporalScale` property.<br/>
+   Clients _MAY_ process `temporalScale` on a Scene.
+   
 
 ### thumbnail
 {: #thumbnail}
