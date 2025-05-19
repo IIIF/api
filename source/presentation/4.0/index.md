@@ -53,33 +53,37 @@ __Previous Version:__ [3.0][prezi30]
 
 ## Introduction
 
-Presentation, the clue is in the name
+The purpose of the IIIF Presentation API specification is to provide a [model](model) and JSON serialization format of that model. 
 
+It provides a document format - the IIIF Manifest - for cultural heritage organizations (and anyone else) to publish standardized, interoperable objects. This allows compatible software such as viewers and annotation tools to load and present complex digital objects on the web. 
 
-(non-exhaustive) List of use cases
+The specification is solely concerned with presentation - providing enough information to render an object in compatible software, and leaving the meaning of the object to external descriptive metadata standards.
 
-1. Artwork
-2. Book
-3. 45 Single
-4. Movie
-5. 3D 1 (Single model at 0,0,0 in Scene with ambient Light and Camera)
-6. 3D 2 (Complex stuff)
-7. Periodical
-8. 3D 3 (storytelling)
-9. Manuscript (integration)
+_Presentation, the clue is in the name_
 
+This specification is presented in two parts. This document acts as an introduction to the specification through a set of typical (but non-exhaustive) use cases. The model [model](model) provides the formal specification of the terms used in this introduction.
 
-see Terminology at the end
+### IIIF Use cases 
 
-Mention model.md
+1. **Artwork** - a IIIF Manifest that represents a painting, comprising a single image and accompanying display information. 
+2. **Book** - a IIIF Manifest that represents a digitized bound volume made up many separate images in order. The IIIF model provides structural elements to indicate the chapters. The text of the book is made available in machine-readable form as Web Annotations.
+3. **45 Single** - a IIIF Manifest that represents the digitized audio from the two sides of a vinyl 7 inch record.
+4. **Movie** - a IIIF Manifest that represents the digitized video of a film. A transcript of the audio is provided as Web Annotations, and additional machine-readable files provide subtitles and captions.
+5. **Simple 3D Model** - a IIIF Manifest that publishes a single 3D model.
+6. **Complex Scene** - a IIIF Manifest that publishes a complex 3D scene comprising multiple models, lights and cameras.
+7. **Periodical** - a IIIF Collection that provides multiple IIIF child IIIF Collections and Manifests, representing the publication run of a newspaper over many years. The IIIF model provides structural elements to indicate individual articles and other elements. 
+8. **Storytelling in 3D** - a IIIF Manifest that defines a sequence of states in a complex scene for the purposes of guiding a user through a particular experience.
+9. **Manuscript** - (integration)
 
-Mention cookbook
+These use case were chosen as a broad sample to introduce IIIF Concepts. Many more use cases are provided as recipes in the [IIIF Cookbook](link).
 
 
 Consider diagrams
 
 
 ## Foundations
+
+(needs updating)
 
 <p style="float: right">
   <img src="{{ site.api_url | absolute_url }}/assets/images/data-model.png" alt="Data Model" width="400"><br/>
@@ -96,8 +100,19 @@ Manifests have descriptive, technical and linking properties. The required prope
 
 (👀) [Model Documentation](model/#manifest)
 
-```
-Manifest JSON
+
+```json
+{
+  "@context": "http://iiif.io/api/presentation/4/context.json",
+  "id": "https://iiif.io/api/cookbook/recipe/0001-mvm-image/manifest.json",
+  "type": "Manifest",
+  "label": {
+    "en": [ "Single Image Example" ]
+  },
+  "items": [
+    // A list of Containers
+  ]
+}
 ```
 
 
@@ -122,6 +137,7 @@ A Container that represents a bounded, two-dimensional space, optionally with a 
 
 Canvases have two additional required properties: `height` and `width`, which give the spatial extent as unitless integers. Canvases may also have the `duration` property in the same manner as Timelines.
 
+
 #### Scene
 
 A Container that represents a boundless three-dimensional space, optionally with a bounded temporal range. Scenes are typically used for rendering 3D models, and can additionally have Cameras and Lights.
@@ -131,14 +147,111 @@ Scenes may also have the `duration` property in the same manner as Timelines.
 (👀) [Model Documentation](model/#containers)
 
 ```json
-Manifest JSON with a Timeline, a Canvas and a Scene
+{
+  "@context": "http://iiif.io/api/presentation/4/context.json",
+  "id": "https://iiif.io/api/presentation/examples/manifest-with-containers",
+  "type": "Manifest",
+  "label": {
+    "en": [ "A Manifest with all three types of Container" ]
+  },
+  "items": [
+    {
+      "id": "https://iiif.io/api/presentation/examples/manifest-with-containers/timeline",
+      "type": "Timeline",
+      "duration": 32.76,
+      "items": [
+        {
+          "id": "https://iiif.io/api/presentation/examples/manifest-with-containers/page/p1",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://iiif.io/api/presentation/examples/manifest-with-containers/annotation/t1",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://iiif.io/api/presentation/example-content-resources/audio/clip.mp3",
+                "type": "Audio",
+                "format": "audio/mp3",
+                "duration": 32.76,
+              },
+              "target": "https://iiif.io/api/presentation/examples/manifest-with-containers/timeline"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "https://iiif.io/api/presentation/examples/manifest-with-containers/canvas",
+      "type": "Canvas",
+      "width": 12000,
+      "height": 9000,
+      "items": [
+        {
+          "id": "https://iiif.io/api/presentation/examples/manifest-with-containers/page/p2",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://iiif.io/api/presentation/examples/manifest-with-containers/annotation/c1",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://iiif.io/api/presentation/example-content-resources/image/painting.jpg",
+                "type": "Image",
+                "format": "image/jpeg",
+                "width": 4000,
+                "height": 3000
+              },
+              "target": "https://iiif.io/api/presentation/examples/manifest-with-containers/canvas"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "https://iiif.io/api/presentation/examples/manifest-with-containers/scene",
+      "type": "Scene",
+      "items": [
+        {
+          "id": "https://iiif.io/api/presentation/examples/manifest-with-containers/page/p3",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://iiif.io/api/presentation/examples/manifest-with-containers/annotation/s1",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://iiif.io/api/presentation/example-content-resources/models/astronaut.glb",
+                "type": "Model",
+                "format": "model/gltf-binary"
+              },
+              "target": "https://iiif.io/api/presentation/examples/manifest-with-containers/scene"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
 ```
+
+The above Manifest has three Containers, one of each type. While contrived, it is still valid and the expected user experience would be for a viewer to begin on the Timeline Container, presenting UI for the user to play the audio. The viewer would also present navigation elements to move to the next Container (the Canvas) or otherwise navigate the available Content Containers. Usually, even when a Manifest has a large number of Containers in its `items` property, they are of the same type (e.g., a 100 page book is modelled as a Manifest with 100 Canvases, each bearing an image of one page). But it is not a requirement that all Containers in a Manifest must be of the same type.
+
+In each of the three Containers, an **Annotation** links the Container to a Content Resource. The Content Resource is _painted_ into the Container by an Annotation whose `target` property is the `id` of the Container. In all three simple cases here the `target` property is the the `id` of the Container with no further qualification. 
+
+
 
 ### Annotations
 
 IIIF uses the concept of _Annotation_ to link resources together from around the web. This specification uses a World Wide Web Consortium (W3C) standard for this called the [Web Annotation Data Model][org-web-anno]. This is a structured linking mechanism useful for making comments about Content Resources, but IIIF's primary use of it is to associate the images, audio and other Content Resources with their Containers for presentation.
 
 Different uses of Annotation are distinguished through their `motivation` property. This specification defines a value for `motivation` called `painting` for associating Content Resources with Containers, which this specification calls a Painting Annotation. The verb "paint" is also used to refer to the associating of a Content Resource with a Container by a Painting Annotation. This is from the notion of painting onto a canvas, a metaphor borrowed from art and used for image-based digital applications, and expanded by IIIF into "painting" any Content Resource into a Container of any number of dimensions.
+
+In the example Manifest above the first Container is a Timeline. One content resource, an MP3 file, is associated with the Timeline via a Painting Annotation for its entire duration. Typically the duration of the Timeline matches the duration of its content. This is the simplest time-based use case. The `target` property of the Painting Annotation is the whole Timeline, because it is simply the `id` of the Timeline without further qualification. In this simple case, playing the Timeline is the same as playing the MP3.
+
+The second Container is a Canvas, representing a 2D surface. In this case the Canvas represents an artwork, and there is no duration property. The content resource, a JPEG image of the artwork, is associated with the Canvas via a Painting Annotation. The unit integer coordinates of the Canvas (12000 x 9000) are not the same as the pixel dimensions of the JPEG image (4000 x 3000), but they are proportional - the Canvas has a 4:3 landscape aspect ratio, and so does the JPEG image. The `target` property of the Annotation is the Canvas `id`, unqualified by any particular region; this is taken to mean the content (the image) should fill the Canvas completely. As the Canvas and the image are the same aspect ratio, no distortion will occur. This approach allows the current image to be replaced by a higher resolution image in future, on the same Canvas. The Canvas dimensions establish a coordinate system for _painting annotations_ and other kinds of annotation that link content with the Canvas; they are not pixels of images.
+
+The third Container is a Scene. Unlike a Canvas, it is not a bounded spatial extent, but may be a bounded temporal extent if it has the optional duration property. It still establishes a coordinate space (x, y, z) but doesn't need any spatial properties to do so as it is always the same, infinite unbounded space. The Annotation paints the astronaut model into the Scene. As no further qualification is given, the astronaut model is placed at the (0,0,0) origin of the Scene. Later examples will show how to control the lighting and camera position(s) and properties, but this is not required; a IIIF viewer is expected to supply ambient light and a default camera position in the absence of specific values.
+
 
 The same linking mechanism is also used in IIIF with other motivations for transcriptions, commentary, tags and other content. This provides a single, unified method for aligning content, and provides a standards-based framework for referencing parts of resources. As Annotations can be added later, it promotes a distributed system in which further content such as commentary can be aligned with the objects published on the web.
 
@@ -148,8 +261,34 @@ The relationship between a Container and a painting annotation is not direct. An
 
 (👀) [Model Documentation](model/#annotations)
 
-```
-JSON of painting anno - image to canvas
+```json
+{
+  "id": "https://iiif.io/api/presentation/examples/manifest-with-containers/canvas",
+  "type": "Canvas",
+  "width": 12000,
+  "height": 9000,
+  "items": [
+    {
+      "id": "https://iiif.io/api/presentation/examples/manifest-with-containers/page/p2",
+      "type": "AnnotationPage",
+      "items": [
+        {
+          "id": "https://iiif.io/api/presentation/examples/manifest-with-containers/annotation/c1",
+          "type": "Annotation",
+          "motivation": "painting",
+          "body": {
+            "id": "https://iiif.io/api/presentation/example-content-resources/image/painting.jpg",
+            "type": "Image",
+            "format": "image/jpeg",
+            "width": 4000,
+            "height": 3000
+          },
+          "target": "https://iiif.io/api/presentation/examples/manifest-with-containers/canvas"
+        }
+      ]
+    }
+  ]
+}
 ```
 
 ### Content Resources
@@ -158,6 +297,7 @@ Content Resources are external web resources, including images, video, audio, 3D
 
 The required properties of Content Resources are `id` and `type`. Other commonly used properties include `format`, and `width`, `height` and `duration` as appropriate to the Content Resource format.
 
+The Containers example also demonstrates that if you have existing content resources with web URIs - images, audio, video and models - you can quite easily publish IIIF Manifests for them by constructing the appropriate JSON around them and publishing the JSON documents. This requires careful consideration of the URI schemes for `id` properties of Containers and their Manifests to ensure they remain referenceable in the future. The choice of Timeline or Canvas dimensions (duration, width, height) can usually be derived simply from the content; the same duration as the audio or video, and the same unit Canvas dimensions as the image or video pixel dimensions, with the caveat that you should avoid low values for `width` and `height` (ref model).
 
 #### Containers as Content Resources
 
@@ -173,9 +313,22 @@ Parts of resources on the Web are identified using URIs with a fragment componen
 
 There are different types of fragment based on the format of the resource. The most commonly used type in IIIF is the W3C's Media Fragments specification, as it can define a temporal and 2D spatial region.
 
+```json
+{
+  "id": "https://iiif.io/api/presentation/examples/manifest-with-containers/comments/c1",
+  "type": "Annotation",
+  "motivation": "commenting",
+  "body": {
+    "type": "TextualBody",
+    "value": "Koto with a cover being carried",
+    "language": "en",
+    "format": "text/plain"
+  },
+  "target": "https://iiif.io/api/presentation/examples/manifest-with-containers/canvas#xywh=6050,3220,925,1250"
+}
 ```
-comment annotation about part of the previous example's Canvas using #Fragment
-```
+
+Here the Canvas `id` from the earlier example is still the `target` of an Annotation, but it has been qualified to a specific region of that Canvas by a Fragment Selector `#xywh=6050,3220,925,1250`. Note that the x, y, w, and h are in the Canvas coordinate space, not the pixel dimensions space. This annotation has no knowledge of or dependency on the particular image we painted onto the Canvas; we could replace that image with one of a different, higher resolution without affecting this annotation or the region of the Canvas it targets.
 
 
 ##### Specific Resource
@@ -186,8 +339,29 @@ Several different classes of Selector are used in IIIF, including an alternative
 
 The required properties of Specific Resources are `id`, `type`, and `source`. Other commonly used properties include `selector`, `transform`, and `scope`.
 
-```
-comment annotation about part of the previous example's Canvas using FragmentSelector
+```json
+{
+  "id": "https://iiif.io/api/presentation/examples/manifest-with-containers/comments/c1",
+  "type": "Annotation",
+  "motivation": "commenting",
+  "body": {
+    "type": "TextualBody",
+    "value": "Koto with a cover being carried",
+    "language": "en",
+    "format": "text/plain"
+  },
+  "target": {
+    "type": "SpecificResource",
+    "source":  {
+      "id": "https://iiif.io/api/presentation/examples/manifest-with-containers/canvas",
+      "type": "Canvas"
+    },
+    "selector": {
+      "type": "FragmentSelector",
+      "value": "xywh=6050,3220,925,1250"
+    }
+  }
+}
 ```
 
 
