@@ -1478,7 +1478,7 @@ See above...
 
 ## Conveying Physical Dimensions
 
-It is often important to know how big something is, especially when comparing objects together. The dimensions of a Canvas, or the pixel density of a photograph, are unrelated to the real-world size of the object they show. A large wall painting and a tiny miniature may both be conveyed by 20 megapixel source images on a 4000 by 3000 unit Canvas. 
+In many cases, the dimensions of a Canvas, or the pixel density of a photograph, are not necessarily related to the real-world size of the object they show. A large wall painting and a tiny miniature may both be conveyed by 20 megapixel source images on a 4000 by 3000 unit Canvas. But it can be important to know how big something is or if there is a relationship between pixel density and physical length, especially when comparing objects together. An X-Ray image may have a tight expectation for the physical distance between two adjacent pixels, or a scanned 3D model may be constructed such that each 3D coordinate unit corresponds to one meter of physical distance.
 
 The `spatialScale` property of a Canvas or Scene provides a corresponding real-world scale for a unit of the Canvas or Scene coordinate system, allowing clients to provide scale information to users, for example by an on-screen virtual ruler. In a 2-up viewer, a client could scale two views to convey the true relative sizes of two objects. 
 
