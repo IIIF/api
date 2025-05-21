@@ -1059,6 +1059,22 @@ The value is a non-negative floating point number, in the coordinate space of th
 { "far": 200.0 }
 ```
 
+### fieldOfView
+{: #fieldOfView}
+
+The angle which a PerspectiveCamera can "see".
+
+!!! warning "Need more info"
+
+The value _MUST_ be a floating point number greater than 0 and less than 180, and is measured in degrees. If this property is not specified, then the default value is client-dependent.
+
+* A PerspectiveCamera _SHOULD_ have the `fieldOfView` property.<br/>
+  Clients _SHOULD_ process the `fieldOfView` property on Cameras.
+
+```json-doc
+{ "fieldOfView": 50.0 }
+```
+
 ### first
 {: #first}
 
@@ -1079,21 +1095,7 @@ The value _MUST_ be a JSON object with `id` and `type` properties.   The `id` _M
 }
 ```
 
-### fieldOfView
-{: #fieldOfView}
 
-The angle which a PerspectiveCamera can "see".
-
-!!! warning "Need more info"
-
-The value _MUST_ be a floating point number greater than 0 and less than 180, and is measured in degrees. If this property is not specified, then the default value is client-dependent.
-
-* A PerspectiveCamera _SHOULD_ have the `fieldOfView` property.<br/>
-  Clients _SHOULD_ process the `fieldOfView` property on Cameras.
-
-```json-doc
-{ "fieldOfView": 50.0 }
-```
 ### format
 {: #format}
 
@@ -1506,7 +1508,7 @@ A reference from an Annotation Page to the following Annotation Page within an A
 
 The value must be a JSON object, with the `id` and `type` properties. The value of the `id` property must be a string, and must be the HTTP(S) URI of the following Annotation Page. The value of the `type` property must be the string `AnnotationPage`.
 
-* An AnnotationPage _MUST_ have a `next` property, unless it is the last page in the AnnotationCollection.<br/>
+* An AnnotationPage _MUST_ have the `next` property, unless it is the last page in the AnnotationCollection.<br/>
   Clients _MUST_ processs the `next` property on an AnnotationPage.
 
 {% include api/code_header.html %}
@@ -1604,7 +1606,7 @@ A reference from an Annotation Page to the preceding Annotation Page within an A
 
 The value must be a JSON object, with the `id` and `type` properties. The value of the `id` property must be a string, and must be the HTTP(S) URI of the preceding Annotation Page. The value of the `type` property must be the string `AnnotationPage`.
 
-* An AnnotationPage _SHOULD_ have a `prev` property, unless it is the first page in the AnnotationCollection.<br/>
+* An AnnotationPage _SHOULD_ have the `prev` property, unless it is the first page in the AnnotationCollection.<br/>
   Clients _SHOULD_ processs the `prev` property on an AnnotationPage.
 
 {% include api/code_header.html %}
