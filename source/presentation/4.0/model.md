@@ -1315,7 +1315,7 @@ The value _MUST_ be an array of strings. Each item in the array _MUST_ be a vali
 ```
 
 ### last
-{: #lsst}
+{: #last}
 
 This property references the last Annotation Page within an Annotation Collection.
 
