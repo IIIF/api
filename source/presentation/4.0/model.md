@@ -781,32 +781,62 @@ Can have a Timeline as the source of the audio?
 
 FIXME: "No default direction, MUST provide a Rotate Transform.", changed language to default to -y to match Spot Light
 
-
 #### Transforms
 
-here are the rules about transforms?
+An operation to transform a 3D resource. Transforms are specified by the [transform](#transform) property on a Specific Resource. Transforms are carried out on a resource in the implicit or explicit local coordinate space of the resource, and are performed prior to painting that resource into the relatively more global coordinate space of a Scene. 
 
-
+__Properties__<br/>
+All Transforms _MUST_ have the following properties: [type](#type).<br/><br/>
+All Transforms _MAY_ have the following properties: [x](#x), [y](#y), and [z](#z).
+{: .note}
 
 ##### Rotate Transform
 
 > `"type": "RotateTransform"`
 
-A RotateTransform rotates the local coordinate space around the given axis in a counter-clockwise direction around the axis itself (e.g. around a pivot point of 0 on the axis). A point that was at x=1,y=1 and was rotated 90 degrees around the x axis would be at x=1,y=0,z=1. If an axis value is not specified, then it is not changed, resulting in a default of 0.0
+A RotateTransform rotates the resource around one or more axes. If present, the values of properties `x`, `y`, and `z` _MUST_ be angular values in degrees that specify the extent of rotation around each axis. Positive angular values indicate counter-clockwise rotation around the axis due to coordinate right-handedness. Axis rotation is performed with a pivot point at the origin of the local coordinate space. As an example, for a point at (1, 1, 0) in local coordinate space, rotating 90 degrees around the x axis would transform the point to be at (1, 0, 1). If any property `x`, `y`, or `z` is not specified or is specified to be 0.0, rotation around that axis does not occur. When more than one axis rotation is specified through multiple non-zero values for `x`, `y`, and `z`, rotations comprise an Euler angle with ordering x-y-z, and rotation _MUST_ be carried out first around the x axis, second around the y axis, and third around the z axis. 
 
+{% include api/code_header.html %}
+```json
+{
+  "type": "RotateTransform",
+  "x": 0.0,
+  "y": 180.0,
+  "z": 0.0
+}
+```
 
 ##### Scale Transform
 
 > `"type": "ScaleTransform"`
 
-A ScaleTransform applies a multiplier to one or more axes in the local coordinate space. A point that was at 3.5, after applying a ScaleTransform of 2.0 would then be at 7.0. If an axis value is not specified, then it is not changed, resulting in a default of 1.0
+A ScaleTransform scales the resource along one or more axes. If present, the values of properties `x`, `y`, and `z` _MUST_ be multiplicative scale factors that specify the extent of scaling along each axis. As an example, for a point at 3.5 along the x axis in local coordinate space, scaling along the x axis by 2.0 would result in the point being at 7.0. If any property `x`, `y`, or `z` is not specified or is specified to be 1.0, scaling does not occur along that axis. Negative scale factor values indicate mirroring as well as scaling along that axis. 
+
+{% include api/code_header.html %}
+```json
+{
+  "type": "ScaleTransform",
+  "x": 2.0,
+  "y": 2.0,
+  "z": 2.0
+}
+```
 
 ##### Translate Transform
 
 > `"type": "TranslateTransform"`
 
-A TranslateTransform moves all of the objects in the local coordinate space the given distance along the axis. A point that was at x=1.0, after applying a TranslateTransform of x=1.0 would be at x=2.0. If an axis value is not specified then it is not changed, resulting in a default of 0.0
+A TranslateTransform translates or moves the resource across one or more axes. If present, the values of properties `x`, `y`, and `z` _MUST_ be coordinate unit distances that specify the distance across each axis to translate the resource. As an example, for a point at 1.0 along the x axis, translating across the x axis by 3.0 would result in the point being at 4.0. If any property `x`, `y`, or `z` is not present or is specified to be 0.0, translation does not occur across that axis.  
 
+{% include api/code_header.html %}
+```json
+{
+  "type": "TranslateTransform",
+  "x": -1.0,
+  "y": 0.0,
+  "z": 0.0
+}
+```
 
 ### Utility Classes
 
@@ -2029,13 +2059,28 @@ For compatability with ActivityStreams and the Change Discovery API, clients _SH
 ### transform
 {: #transform}
 
-_Summary here_
+An ordered list of 3D transform operations (translation, rotation, and scale) to be performed on a resource prior to painting that resource into a Scene. Transforms _MUST_ be applied to the resource in the order given. The resulting state of the resource after applying a transform _MUST_ be the input state for the subsequent transform in the ordered list. Therefore, transforms are not independent, and different orders of the same set of transforms can produce different results. The list of transforms _MAY_ include multiple transforms of the same type, e.g., multiple rotation operations.
 
-The value of this property is an array of JSON objects, each of which is a Transform.
+The value of this property _MUST_ be array of JSON objects, each of which _MUST_ be a Transform. 
 
-Process them in order given.
+* A Specific Resource _MAY_ have the `transform` property.<br/>
+  Clients _SHOULD_ process the `transform` property on Specific Resources.
+* Other classes _MUST NOT_ have the `transform` property.<br/>
+  Clients _MUST_ ignore the `transform` property on all other classes.
 
-
+{% include api/code_header.html %}
+```json
+{
+  "transform": [
+    {
+      "type": "RotateTransform",
+      "x": 0.0,
+      "y": 180.0,
+      "z": 0.0
+    }
+  ]
+}
+```
 
 ### type
 {: #type}
