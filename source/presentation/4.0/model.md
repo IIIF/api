@@ -1059,9 +1059,6 @@ The value is a non-negative floating point number, in the coordinate space of th
 { "far": 200.0 }
 ```
 
-### first
-
-
 ### fieldOfView
 {: #fieldOfView}
 
@@ -1077,6 +1074,28 @@ The value _MUST_ be a floating point number greater than 0 and less than 180, an
 ```json-doc
 { "fieldOfView": 50.0 }
 ```
+
+### first
+{: #first}
+
+This property references the first Annotation Page within an Annotation Collection.
+
+The value _MUST_ be a JSON object with `id` and `type` properties.   The `id` _MUST_ be the HTTP(S) URI of the referenced Annotation Page.  The value of `type` _MUST_ be `AnnotationPage`.
+
+* A non-empty AnnotationCollection _MUST_ have the `first` property.<br/>
+  Clients _MUST_ process the `first` property on an AnnotationCollection.
+
+{% include api/code_header.html %}
+``` json-doc
+{
+  "first": {
+     "id": "https://example.org/iiif/annotationPage/1",
+     "type": "AnnotationPage"
+  }
+}
+```
+
+
 ### format
 {: #format}
 
@@ -1296,6 +1315,24 @@ The value _MUST_ be an array of strings. Each item in the array _MUST_ be a vali
 ```
 
 ### last
+{: #last}
+
+This property references the last Annotation Page within an Annotation Collection.
+
+The value _MUST_ be a JSON object with `id` and `type` properties.   The `id` _MUST_ be the HTTP(S) URI of the referenced Annotation Page.  The value of `type` _MUST_ be `AnnotationPage`.
+
+* A non-empty AnnotationCollection _SHOULD_ have the `last` property.<br/>
+  Clients _SHOULD_ process the `last` property on an AnnotationCollection.
+
+{% include api/code_header.html %}
+``` json-doc
+{
+  "last": {
+     "id": "https://example.org/iiif/annotationPage/17",
+     "type": "AnnotationPage"
+  }
+}
+```
 
 ### logo
 {: #logo}
@@ -1465,9 +1502,24 @@ The value is a non-negative floating point number, in the coordinate space of th
 ```
 
 ### next
+{: #next}
 
-...
+A reference from an Annotation Page to the following Annotation Page within an Annotation Collection.
 
+The value must be a JSON object, with the `id` and `type` properties. The value of the `id` property must be a string, and must be the HTTP(S) URI of the following Annotation Page. The value of the `type` property must be the string `AnnotationPage`.
+
+* An AnnotationPage _MUST_ have the `next` property, unless it is the last page in the AnnotationCollection.<br/>
+  Clients _MUST_ processs the `next` property on an AnnotationPage.
+
+{% include api/code_header.html %}
+``` json-doc
+{
+  "next": {
+     "id": "https://example.org/iiif/annotationPage/3",
+     "type": "AnnotationPage"
+  }
+}
+```
 
 ### partOf
 {: #partOf}
@@ -1548,7 +1600,24 @@ The value of this property _MUST_ be a JSON object conforming to the `SpecificRe
 ```
 
 ### prev
+{: #prev}
 
+A reference from an Annotation Page to the preceding Annotation Page within an Annotation Collection.
+
+The value must be a JSON object, with the `id` and `type` properties. The value of the `id` property must be a string, and must be the HTTP(S) URI of the preceding Annotation Page. The value of the `type` property must be the string `AnnotationPage`.
+
+* An AnnotationPage _SHOULD_ have the `prev` property, unless it is the first page in the AnnotationCollection.<br/>
+  Clients _SHOULD_ processs the `prev` property on an AnnotationPage.
+
+{% include api/code_header.html %}
+``` json-doc
+{
+  "prev": {
+     "id": "https://example.org/iiif/annotationPage/1",
+     "type": "AnnotationPage"
+  }
+}
+```
 
 ### profile
 {: #profile}
@@ -2021,10 +2090,22 @@ The value _MUST_ be a string.
 
 
 ### total
+{: #total}
 
 For compatability with ActivityStreams and the Change Discovery API, clients _SHOULD_ also accept `totalItems` as the name of this property.
 {: .note}
 
+The `total` property indicates the total number of annotations contained in an Annotation Collection.
+
+The value of this property _MUST_ be a non-negative integer.
+
+* An AnnotationCollection _SHOULD_ have the `total` property.<br/>
+  Clients _SHOULD_ process the `total` property on an AnnotationCollection.
+
+{% include api/code_header.html %}
+``` json-doc
+{ "total": 1701 }
+```
 
 ### transform
 {: #transform}
