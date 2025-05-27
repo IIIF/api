@@ -8,7 +8,7 @@ tags: [specifications, presentation-api]
 major: 4
 minor: 0
 patch: 0
-pre: 
+pre:
 redirect_from:
   - /presentation/model.html
   - /presentation/4/model.html
@@ -26,10 +26,10 @@ editors:
     ORCID:
     institution: UCLA
   - name: Julie Winchester
-    ORCID: 
+    ORCID:
     institution: Duke University
   - name: Jeff Mixter
-    ORCID: 
+    ORCID:
     institution: OCLC
 hero:
   image: ''
@@ -613,7 +613,7 @@ Orthographic Cameras _SHOULD_ have the following additional properties: [viewHei
 
 > `"type": "PerspectiveCamera"`
 
-`PerspectiveCamera` mimics the way the human eye sees, in that objects further from the camera are smaller.
+A Perspective Camera mimics the way the human eye sees, in that objects further from the camera are smaller.
 
 The region of the Scene's space that is observable by the camera is bounded by two planes orthogonal to the direction the camera is facing, given in the `near` and `far` properties, and a vertical projection angle that provides the top and bottom planes of the region in the `fieldOfView` property.
 
@@ -646,7 +646,7 @@ All Lights _SHOULD_ have the following properties: [color](#color), and [intensi
 All Lights _MAY_ have the following properties: [label](#label).
 {: .note}
 
- 
+
 ##### Ambient Light
 
 > `"type": "AmbientLight"`
@@ -667,7 +667,7 @@ Ambient Light evenly illuminates all objects in the Scene, and does not have a d
 
 Directional Lights emit their light in a specific direction as if infinitely far away, and as such the light does not come from a specific position. The rays produced are all parallel. The Light itself _MUST_ be added into the scene at a specific position, however this is only such that editing interfaces can render the object to the user.
 
-The light is emitted in the negative Y (-y) direction by default, thus straight down, but the orientation of the light can be altered with `lookAt` or with a `RotationTransform`.
+The light is emitted in the negative Y direction by default, thus straight down, but the orientation of the light can be altered with `lookAt` or with a `RotationTransform`.
 
 __Properties__<br/>
 Directional Lights _MAY_ have the following additional properties: [lookAt](#lookAt)
@@ -686,7 +686,7 @@ Directional Lights _MAY_ have the following additional properties: [lookAt](#loo
 
 > `"type": "PointLight"`
 
-Point Lights emit from a single point within the Scene in all directions.
+Point Lights emit in all directions from a single point within the Scene.
 
 ```json
 {
@@ -701,9 +701,9 @@ Point Lights emit from a single point within the Scene in all directions.
 
 > `"type": "SpotLight"`
 
-Spot Light emits a cone of light from a single point in a given direction.  The Spot Light's `angle` property defines the radius of the cone.
+Spot Light emits a cone of light in a given direction from a single point.  The Spot Light's `angle` property defines the radius of the cone. The default angle is client dependent if not specified.
 
-The Spot Light emits in the negative Y (-y) direction by default, but the orientation of the light can be altered by subsequent transforms.
+The Spot Light emits in the negative Y direction by default, but the orientation of the light can be altered by subsequent transforms, or by setting the `lookAt` property.
 
 <img src="https://raw.githubusercontent.com/IIIF/3d/eds/assets/images/angle-of-cone.png" title="Angle of cone" alt="diagram of cone geometry showing how the angle of the cone is defined" width="250"/>
 
@@ -711,8 +711,6 @@ __Properties__<br/>
 Spot Lights _SHOULD_ have the following additional properties: [angle](#angle)<br/><br/>
 Spot Lights _MAY_ have the following additional properties: [lookAt](#lookAt)
 {: .note}
-
-
 
 ```json
 {
@@ -729,40 +727,73 @@ Spot Lights _MAY_ have the following additional properties: [lookAt](#lookAt)
 }
 ```
 
-#### Audio in Scenes
+#### Audio Emitters
 
-Positional audio is supported through the use of Audio resources annotated into Scenes.
-Audio resources _MUST_ have a `source` property that references an audio Content Resource, and _SHOULD_ have a `volume` property. Positional Audio classes are subclasses of SpecificResource.
+Positional audio is supported through the use of Audio Emitter resources annotated into Scenes, in the same way that light is emitted from the various subclasses of Light.
 
-Volume is relative to the input audio source's volume.
+As the audio content must come from an audio resource, the Audio Emitter classes are subclasses of SpecificResource. Note that the `source` of the Audio could be a Timeline, or could be further constrained with additional specifiers as to start point, end point or other transformations.
 
+Volume is given relative to the input audio content's volume, and thus a volume of 1.0 is the volume as provided, 0.5 is half the volume, and 2.0 is double the volume.
+
+__Properties__<br/>
+All Audio Emitters _MUST_ have the following properties: [id](#id), [type](#type) and [source](#source).<br/><br/>
+All Audio Emitters _SHOULD_ have the following properties: [volume](#volume).<br/><br/>
+All Audio Emitters _MAY_ have the following properties: [label](#label).
+{: .note}
 
 ##### Ambient Audio
 
 > `"type": "AmbientAudio"`
 
-Ambient Audio emits equally throughout the Scene, and does not have a position or direction.
+Ambient Audio emits equally throughout the Scene, and does not have a position or direction. The Emitter _MUST_ be annotated somewhere within the Scene so that it can be rendered by editing interfaces, and exists within the Scene's hierarchy.
+
+```json
+{
+  "id": "https://example.org/iiif/audio/1",
+  "type": "AmbientAudio",
+  "source": {
+    "id": "https://example.org/media/path/to/my.mp3",
+    "type": "Audio",
+    "format": "audio/mp3"
+  }
+}
+```
 
 ##### Point Audio
 
 > `"type": "PointAudio"`
 
-Point Audio emits from a single point in the Scene in all directions.
+Point Audio emits in all directions from a single point in the Scene.
+
+```json
+{
+  "id": "https://example.org/iiif/audio/2",
+  "type": "PointAudio",
+  "source": {
+    "id": "https://example.org/media/path/to/my.mp3",
+    "type": "Audio",
+    "format": "audio/mp3"
+  }
+}
+```
 
 ##### Spot Audio
 
 > `"type": "SpotAudio"`
 
-Spot Audio emits a cone of sound from a single point in a given direction.  The Spot Audio's `angle` property defines the radius of the cone.
+Spot Audio emits a cone of sound in a given direction from a single point.  The Spot Audio's `angle` property defines the radius of the cone. The default angle is client dependent if not specified.
 
-The Spot Audio emits in the negative Y (-y) direction by default, but the orientation of the sound can be altered by subsequent transforms.
+The Spot Audio emits in the negative Y direction by default, but the orientation of the sound can be altered by subsequent transforms, or by setting the `lookAt` property.
 
-Can have a Timeline as the source of the audio?
+__Properties__<br/>
+Spot Audio Emitters _SHOULD_ have the following additional properties: [angle](#angle)<br/><br/>
+Spot Audio Emitters _MAY_ have the following additional properties: [lookAt](#lookAt)
+{: .note}
 
 
 ```json
 {
-  "id": "https://example.org/iiif/spotAudio/1",
+  "id": "https://example.org/iiif/audio/3",
   "type": "SpotAudio",
   "source": {
     "id": "https://example.org/media/path/to/my.mp3",
@@ -774,16 +805,13 @@ Can have a Timeline as the source of the audio?
     "type": "UnitValue",
     "unit": "relative",
     "value": 1.0
-  },
-  "transform": []
+  }
 }
 ```
 
-FIXME: "No default direction, MUST provide a Rotate Transform.", changed language to default to -y to match Spot Light
-
 #### Transforms
 
-An operation to transform a 3D resource. Transforms are specified by the [transform](#transform) property on a Specific Resource. Transforms are carried out on a resource in the implicit or explicit local coordinate space of the resource, and are performed prior to painting that resource into the relatively more global coordinate space of a Scene. 
+An operation to transform a 3D resource. Transforms are specified by the [transform](#transform) property on a Specific Resource. Transforms are carried out on a resource in the implicit or explicit local coordinate space of the resource, and are performed prior to painting that resource into the relatively more global coordinate space of a Scene.
 
 __Properties__<br/>
 All Transforms _MUST_ have the following properties: [type](#type).<br/><br/>
@@ -794,7 +822,7 @@ All Transforms _MAY_ have the following properties: [x](#x), [y](#y), and [z](#z
 
 > `"type": "RotateTransform"`
 
-A RotateTransform rotates the resource around one or more axes. If present, the values of properties `x`, `y`, and `z` _MUST_ be angular values in degrees that specify the extent of rotation around each axis. Positive angular values indicate counter-clockwise rotation around the axis due to coordinate right-handedness. Axis rotation is performed with a pivot point at the origin of the local coordinate space. As an example, for a point at (1, 1, 0) in local coordinate space, rotating 90 degrees around the x axis would transform the point to be at (1, 0, 1). If any property `x`, `y`, or `z` is not specified or is specified to be 0.0, rotation around that axis does not occur. When more than one axis rotation is specified through multiple non-zero values for `x`, `y`, and `z`, rotations comprise an Euler angle with ordering x-y-z, and rotation _MUST_ be carried out first around the x axis, second around the y axis, and third around the z axis. 
+A RotateTransform rotates the resource around one or more axes. If present, the values of properties `x`, `y`, and `z` _MUST_ be angular values in degrees that specify the extent of rotation around each axis. Positive angular values indicate counter-clockwise rotation around the axis due to coordinate right-handedness. Axis rotation is performed with a pivot point at the origin of the local coordinate space. As an example, for a point at (1, 1, 0) in local coordinate space, rotating 90 degrees around the x axis would transform the point to be at (1, 0, 1). If any property `x`, `y`, or `z` is not specified or is specified to be 0.0, rotation around that axis does not occur. When more than one axis rotation is specified through multiple non-zero values for `x`, `y`, and `z`, rotations comprise an Euler angle with ordering x-y-z, and rotation _MUST_ be carried out first around the x axis, second around the y axis, and third around the z axis.
 
 {% include api/code_header.html %}
 ```json
@@ -810,7 +838,7 @@ A RotateTransform rotates the resource around one or more axes. If present, the 
 
 > `"type": "ScaleTransform"`
 
-A ScaleTransform scales the resource along one or more axes. If present, the values of properties `x`, `y`, and `z` _MUST_ be multiplicative scale factors that specify the extent of scaling along each axis. As an example, for a point at 3.5 along the x axis in local coordinate space, scaling along the x axis by 2.0 would result in the point being at 7.0. If any property `x`, `y`, or `z` is not specified or is specified to be 1.0, scaling does not occur along that axis. Negative scale factor values indicate mirroring as well as scaling along that axis. 
+A ScaleTransform scales the resource along one or more axes. If present, the values of properties `x`, `y`, and `z` _MUST_ be multiplicative scale factors that specify the extent of scaling along each axis. As an example, for a point at 3.5 along the x axis in local coordinate space, scaling along the x axis by 2.0 would result in the point being at 7.0. If any property `x`, `y`, or `z` is not specified or is specified to be 1.0, scaling does not occur along that axis. Negative scale factor values indicate mirroring as well as scaling along that axis.
 
 {% include api/code_header.html %}
 ```json
@@ -826,7 +854,7 @@ A ScaleTransform scales the resource along one or more axes. If present, the val
 
 > `"type": "TranslateTransform"`
 
-A TranslateTransform translates or moves the resource across one or more axes. If present, the values of properties `x`, `y`, and `z` _MUST_ be coordinate unit distances that specify the distance across each axis to translate the resource. As an example, for a point at 1.0 along the x axis, translating across the x axis by 3.0 would result in the point being at 4.0. If any property `x`, `y`, or `z` is not present or is specified to be 0.0, translation does not occur across that axis.  
+A TranslateTransform translates or moves the resource across one or more axes. If present, the values of properties `x`, `y`, and `z` _MUST_ be coordinate unit distances that specify the distance across each axis to translate the resource. As an example, for a point at 1.0 along the x axis, translating across the x axis by 3.0 would result in the point being at 4.0. If any property `x`, `y`, or `z` is not present or is specified to be 0.0, translation does not occur across that axis.
 
 {% include api/code_header.html %}
 ```json
@@ -852,7 +880,7 @@ A TranslateTransform translates or moves the resource across one or more axes. I
 
 A UnitValue expresses a quantity through a numerical value and associated unit of measurement.
 
-`"type": "UnitValue"` 
+`"type": "UnitValue"`
 
 
 
@@ -1241,7 +1269,7 @@ The `value` property of the UnitValue _MUST_ be between 0.0 and 1.0.
 
 A set of features that guide or limit user interaction with content within a Container that the publisher of the content would prefer the client to use when presenting the resource. This specification defines values in the table below that guide interactions with Cameras within a Scene. Other values for other Container types or specifying other interaction modes for 3D content may be defined externally as an [extension][prezi30-ldce]. For interaction modes pertaining to Cameras within a Scene, the client _SHOULD_ use `interactionMode` to determine the user experience features and approaches whereby users are permitted to change or adjust Cameras when viewing content within a Scene (e.g., orbiting around the scene or locking the user to a first-person perspective).
 
-When more than one interaction mode is present, the client _SHOULD_ pick the first interaction mode that the client is capable of supporting. 
+When more than one interaction mode is present, the client _SHOULD_ pick the first interaction mode that the client is capable of supporting.
 
 For interaction modes that involve a Camera orbiting around a target point, the target point _SHOULD_ be the same as the Camera's `lookAt` property.
 
@@ -2142,7 +2170,7 @@ The value of this property _MUST_ be a non-negative integer.
 
 An ordered list of 3D transform operations (translation, rotation, and scale) to be performed on a resource prior to painting that resource into a Scene. Transforms _MUST_ be applied to the resource in the order given. The resulting state of the resource after applying a transform _MUST_ be the input state for the subsequent transform in the ordered list. Therefore, transforms are not independent, and different orders of the same set of transforms can produce different results. The list of transforms _MAY_ include multiple transforms of the same type, e.g., multiple rotation operations.
 
-The value of this property _MUST_ be array of JSON objects, each of which _MUST_ be a Transform. 
+The value of this property _MUST_ be array of JSON objects, each of which _MUST_ be a Transform.
 
 * A Specific Resource _MAY_ have the `transform` property.<br/>
   Clients _SHOULD_ process the `transform` property on Specific Resources.
@@ -2407,7 +2435,3 @@ The JSON-LD keywords `@id`, `@type` and `@none` are mapped to `id`, `type` and `
 ### Registries of Values
 
 FIXME: Describe the registries
-
-
-
-
