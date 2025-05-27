@@ -811,22 +811,23 @@ Spot Audio Emitters _MAY_ have the following additional properties: [lookAt](#lo
 
 #### Transforms
 
-An operation to transform a 3D resource. Transforms are specified by the [transform](#transform) property on a Specific Resource. Transforms are carried out on a resource in the implicit or explicit local coordinate space of the resource, and are performed prior to painting that resource into the relatively more global coordinate space of a Scene.
+An operation to transform a 3D resource. Transforms are specified by the [transform](#transform) property on a Specific Resource. Transforms are carried out on a resource in the implicit or explicit local coordinate space of the resource, and are performed prior to painting that resource into any subsequent coordinate space.
 
 __Properties__<br/>
-All Transforms _MUST_ have the following properties: [type](#type).<br/><br/>
-All Transforms _MAY_ have the following properties: [x](#x), [y](#y), and [z](#z).
+All Transforms _MUST_ have the following properties: [id](#id), [type](#type).<br/><br/>
+All Transforms _MAY_ have the following properties: [label](#label), [x](#x), [y](#y), and [z](#z).
 {: .note}
 
 ##### Rotate Transform
 
 > `"type": "RotateTransform"`
 
-A RotateTransform rotates the resource around one or more axes. If present, the values of properties `x`, `y`, and `z` _MUST_ be angular values in degrees that specify the extent of rotation around each axis. Positive angular values indicate counter-clockwise rotation around the axis due to coordinate right-handedness. Axis rotation is performed with a pivot point at the origin of the local coordinate space. As an example, for a point at (1, 1, 0) in local coordinate space, rotating 90 degrees around the x axis would transform the point to be at (1, 0, 1). If any property `x`, `y`, or `z` is not specified or is specified to be 0.0, rotation around that axis does not occur. When more than one axis rotation is specified through multiple non-zero values for `x`, `y`, and `z`, rotations comprise an Euler angle with ordering x-y-z, and rotation _MUST_ be carried out first around the x axis, second around the y axis, and third around the z axis.
+A Rotate Transform rotates the resource around one or more axes. If present, the values of properties `x`, `y`, and `z` _MUST_ be angular values in degrees that specify the extent of rotation around each axis. Positive angular values indicate counter-clockwise rotation around the axis due to coordinate right-handedness. Axis rotation is performed with a pivot point at the origin of the local coordinate space. As an example, for a point at (1, 1, 0) in local coordinate space, rotating 90 degrees around the x axis would transform the point to be at (1, 0, 1). If any property `x`, `y`, or `z` is not specified or is specified to be 0.0, rotation around that axis does not occur. When more than one axis rotation is specified through multiple non-zero values for `x`, `y`, and `z`, rotations comprise a Euler angle with ordering x-y-z, and rotation _MUST_ be carried out first around the x axis, second around the y axis, and third around the z axis.
 
 {% include api/code_header.html %}
 ```json
 {
+  "id": "https://example.org/iiif/transform/1",
   "type": "RotateTransform",
   "x": 0.0,
   "y": 180.0,
@@ -838,11 +839,12 @@ A RotateTransform rotates the resource around one or more axes. If present, the 
 
 > `"type": "ScaleTransform"`
 
-A ScaleTransform scales the resource along one or more axes. If present, the values of properties `x`, `y`, and `z` _MUST_ be multiplicative scale factors that specify the extent of scaling along each axis. As an example, for a point at 3.5 along the x axis in local coordinate space, scaling along the x axis by 2.0 would result in the point being at 7.0. If any property `x`, `y`, or `z` is not specified or is specified to be 1.0, scaling does not occur along that axis. Negative scale factor values indicate mirroring as well as scaling along that axis.
+A Scale Transform scales the resource along one or more axes. If present, the values of properties `x`, `y`, and `z` _MUST_ be multiplicative scale factors that specify the extent of scaling along each axis. As an example, for a point at 3.5 along the x axis in local coordinate space, scaling along the x axis by 2.0 would result in the point being at 7.0. If any property `x`, `y`, or `z` is not specified or is specified to be 1.0, scaling does not occur along that axis. Negative scale factor values indicate mirroring as well as scaling along that axis.
 
 {% include api/code_header.html %}
 ```json
 {
+  "id": "https://example.org/iiif/transform/2",
   "type": "ScaleTransform",
   "x": 2.0,
   "y": 2.0,
@@ -854,11 +856,12 @@ A ScaleTransform scales the resource along one or more axes. If present, the val
 
 > `"type": "TranslateTransform"`
 
-A TranslateTransform translates or moves the resource across one or more axes. If present, the values of properties `x`, `y`, and `z` _MUST_ be coordinate unit distances that specify the distance across each axis to translate the resource. As an example, for a point at 1.0 along the x axis, translating across the x axis by 3.0 would result in the point being at 4.0. If any property `x`, `y`, or `z` is not present or is specified to be 0.0, translation does not occur across that axis.
+A Translate Transform translates or moves the resource across one or more axes. If present, the values of properties `x`, `y`, and `z` _MUST_ be coordinate unit distances that specify the distance across each axis to translate the resource. As an example, for a point at 1.0 along the x axis, translating across the x axis by 3.0 would result in the point being at 4.0. If any property `x`, `y`, or `z` is not present or is specified to be 0.0, translation does not occur across that axis.
 
 {% include api/code_header.html %}
 ```json
 {
+  "id": "https://example.org/iiif/transform/3",
   "type": "TranslateTransform",
   "x": -1.0,
   "y": 0.0,
@@ -870,19 +873,37 @@ A TranslateTransform translates or moves the resource across one or more axes. I
 
 #### Agent
 
-`"type": "Agent"`
+> `"type": "Agent"`
+
+An Agent represents a person or organization, typically referenced with the `provider` property.
+The Agent is not intended to be used as a primary identifier for the person or organization, nor to provide structured metadata, but instead to ensure that the information to be rendered to the user can be kept together in the situation when there are multiple agents being referenced.
+
+__Properties__<br/>
+An Agent _MUST_ have the following properties: [id](#id), [type](#type), and [label](#label).<br/><br/>
+An Agent _SHOULD_ have the following properties: [homepage](#homepage), and [logo](#logo)<br/><br/>.
+An Agent _MAY_ have the following properties: [seeAlso](#seeAlso), and [summary](#summary).
+{: .note}
+
 
 #### Service
 
-`"type": "Service"`
+> `"type": "Service"`
+
+A Service is a software application outside of the Manifest that a client might interact with to gain additional information or functionality for the resource that is associated with the Service. The IIIF Image API is an example of a Service, as are the Auth API services. Known types of Service are registered in the Service Registry.
+
+__Properties__<br/>
+A Service _MUST_ have the following properties: [id](#id), and [type](#type).<br/><br/>
+A Service _SHOULD_ have the following properties: [label](#label), [profile](#profile).<br/><br/>
+A Service _MAY_ have the following properties: [service](#service).<br/><br/>
+Services will also have specific requirements as to additional properties based on the type of service.
+{: .note}
+
 
 #### Unit Value
 
+> `"type": "UnitValue"`
+
 A UnitValue expresses a quantity through a numerical value and associated unit of measurement.
-
-`"type": "UnitValue"`
-
-
 
 
 
