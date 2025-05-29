@@ -937,8 +937,7 @@ Services will also have specific requirements as to additional properties based 
 
 > `"type": "UnitValue"`
 
-A UnitValue expresses a quantity through a numerical value and associated unit of measurement. The unit _MUST_ be drawn from the
-
+A UnitValue expresses a quantity through a numerical value and associated unit of measurement. The value of `unit` _MUST_ be drawn from the list of possible units, or a registered extension.
 
 __Properties__<br/>
 A Unit Value _MUST_ have the following properties: [id](#id), [type](#type), [value](#value), and [unit](#unit).<br/><br/>
