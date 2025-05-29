@@ -621,7 +621,7 @@ __Properties__<br/>
 Perspective Cameras _SHOULD_ have the following additional properties: [fieldOfView](#fieldOfView).
 {: .note}
 
-
+{% include api/code_header.html %}
 ```json
 {
   "id": "https://example.org/iiif/camera/2",
@@ -653,6 +653,7 @@ All Lights _MAY_ have the following properties: [label](#label).
 
 Ambient Light evenly illuminates all objects in the Scene, and does not have a direction or position. It does not have any new properties. The Light itself _MUST_ be added into the scene at a specific position, however this is only such that editing interfaces can render the object to the user.
 
+{% include api/code_header.html %}
 ```json
 {
   "id": "https://example.org/iiif/light/1",
@@ -673,6 +674,7 @@ __Properties__<br/>
 Directional Lights _MAY_ have the following additional properties: [lookAt](#lookAt)
 {: .note}
 
+{% include api/code_header.html %}
 ```json
 {
   "id": "https://example.org/iiif/light/2",
@@ -688,6 +690,7 @@ Directional Lights _MAY_ have the following additional properties: [lookAt](#loo
 
 Point Lights emit in all directions from a single point within the Scene.
 
+{% include api/code_header.html %}
 ```json
 {
   "id": "https://example.org/iiif/light/3",
@@ -712,6 +715,7 @@ Spot Lights _SHOULD_ have the following additional properties: [angle](#angle)<b
 Spot Lights _MAY_ have the following additional properties: [lookAt](#lookAt)
 {: .note}
 
+{% include api/code_header.html %}
 ```json
 {
   "id": "https://example.org/iiif/spotlight/1",
@@ -747,6 +751,7 @@ All Audio Emitters _MAY_ have the following properties: [label](#label).
 
 Ambient Audio emits equally throughout the Scene, and does not have a position or direction. The Emitter _MUST_ be annotated somewhere within the Scene so that it can be rendered by editing interfaces, and exists within the Scene's hierarchy.
 
+{% include api/code_header.html %}
 ```json
 {
   "id": "https://example.org/iiif/audio/1",
@@ -765,6 +770,7 @@ Ambient Audio emits equally throughout the Scene, and does not have a position o
 
 Point Audio emits in all directions from a single point in the Scene.
 
+{% include api/code_header.html %}
 ```json
 {
   "id": "https://example.org/iiif/audio/2",
@@ -790,7 +796,7 @@ Spot Audio Emitters _SHOULD_ have the following additional properties: [angle](#
 Spot Audio Emitters _MAY_ have the following additional properties: [lookAt](#lookAt)
 {: .note}
 
-
+{% include api/code_header.html %}
 ```json
 {
   "id": "https://example.org/iiif/audio/3",
@@ -802,6 +808,7 @@ Spot Audio Emitters _MAY_ have the following additional properties: [lookAt](#lo
   },
   "angle": 45.0,
   "volume": {
+    "id": "https://example.org/iiif/value/1",
     "type": "UnitValue",
     "unit": "relative",
     "value": 1.0
@@ -884,6 +891,33 @@ An Agent _SHOULD_ have the following properties: [homepage](#homepage), and [log
 An Agent _MAY_ have the following properties: [seeAlso](#seeAlso), and [summary](#summary).
 {: .note}
 
+{% include api/code_header.html %}
+```json
+{
+  "id": "https://example.org/iiif/agent/1",
+  "type": "Agent",
+  "label": {"en": ["IIIF Consortium"]},
+  "summary": {"en": ["The IIIF Consortium is a global community of organizations and individuals working to develop and promote the International Image Interoperability Framework (IIIF)."]},
+  "homepage": [
+    {
+      "id": "https://iiif.io/",`
+      "type": "Text",
+      "label": {"en": ["IIIF Home Page"]},
+      "format": "text/html"
+    }
+  ],
+  "logo": [
+    {
+     "id": "https://iiif.io/assets/images/logos/logo-sm.png",
+     "type": "Image",
+     "format": "image/png",
+     "height": 30,
+     "width": 34
+    }
+  ]
+}
+```
+
 
 #### Service
 
@@ -903,8 +937,23 @@ Services will also have specific requirements as to additional properties based 
 
 > `"type": "UnitValue"`
 
-A UnitValue expresses a quantity through a numerical value and associated unit of measurement.
+A UnitValue expresses a quantity through a numerical value and associated unit of measurement. The unit _MUST_ be drawn from the
 
+
+__Properties__<br/>
+A Unit Value _MUST_ have the following properties: [id](#id), [type](#type), [value](#value), and [unit](#unit).<br/><br/>
+A Unit Value _MAY_ have the following properties: [label](#label).
+{: .note}
+
+{% include api/code_header.html %}
+```json
+{
+  "id": "https://example.org/iiif/unit/2",
+  "type": "UnitValue",
+  "value": 1.0,
+  "unit": "m"
+}
+```
 
 
 ## Properties
