@@ -235,7 +235,7 @@ A Manifest is the primary unit of distribution of IIIF and provides a descriptio
 
 Manifests _MUST_ be identified by a URI and it _MUST_ be an HTTP(S) URI, given in the `id` property. It _MUST_ be able to be dereferenced to retrieve the JSON description.
 
-The members of a Manifest are listed in the `items` property. The members of Manifests _MUST_ be Containers, defined below, and are embedded within the Manifest. The Manifest _MAY_ have a `structures` property listing one or more [Ranges][#range] which describe additional structure of the content, such as might be rendered as a table of contents. The Manifest _MAY_ have an `annotations` property, which includes Annotation Page resources where the Annotations have the Manifest as their `target`. These Annotations _MUST NOT_ have `painting` as their `motivation`.
+The members of a Manifest are listed in the `items` property. The members of Manifests _MUST_ be Containers, defined below, and are embedded within the Manifest. The Containers in a single Manifest _MAY_ be of different classes. The Manifest _MAY_ have a `structures` property listing one or more [Ranges][#range] which describe additional structure of the content, such as might be rendered as a table of contents. The Manifest _MAY_ have an `annotations` property, which includes Annotation Page resources where the Annotations have the Manifest as their `target`. These Annotations _MUST NOT_ have `painting` as their `motivation`.
 
 
 __Properties__<br/>
@@ -245,7 +245,7 @@ A Manifest _MAY_ have the following properties: [requiredStatement](#requiredSta
 {: .note}
 
 ### Container Classes
-{: #containers}
+{: #Containers}
 
 A Container is a frame of reference that allows the relative positioning of content.
 
@@ -263,6 +263,7 @@ All Containers _MAY_ have the following properites: [metadata](#metadata), [summ
 
 
 #### Timeline
+{: #Timeline}
 
 > `"type": "Timeline"`
 
@@ -273,6 +274,7 @@ A Timeline _MUST_ have the following additional properties: [duration](#duration
 {: .note}
 
 #### Canvas
+{: #Canvas}
 
 > `"type": "Canvas"`
 
@@ -285,6 +287,7 @@ A Canvas _MAY_ have the following additional properties: [duration](#duration).
 
 
 #### Scene
+{: #Scene}
 
 > `"type": "Scene"`
 
@@ -301,13 +304,13 @@ A Scene _MAY_ have the following additional properties: [duration](#duration).
 {: .note}
 
 
-
 ### Annotation Classes
-{: #annotations}
+{: #Annotations}
 
 The following set of classes are defined by the W3C's [Web Annotation Data Model][org-w3c-webanno] and Vocabulary, and are heavily used within the IIIF Data Model. Any necessary deviations from those specifications are explicitly noted and explained, such as the need for internationalization of labels.
 
 #### Annotation
+{: #Annotation}
 
 > `"type": "Annotation"`
 
@@ -327,6 +330,7 @@ An Annotation _MAY_ have the following properties: [label](#label), [metadata](#
 
 
 #### Annotation Collection
+{: #AnnotationCollection}
 
 > `"type": "AnnotationCollection"`
 
@@ -344,6 +348,7 @@ An Annotation Collection _MAY_ have the following properties: [requiredStatement
 
 
 #### Annotation Page
+{: #AnnotationPage}
 
 > `"type": "AnnotationPage"`
 
@@ -359,6 +364,7 @@ An Annotation Page _MAY_ have the following properties: [label](#label), [startI
 
 
 #### Specific Resource
+{: #SpecificResource}
 
 > `"type": "SpecificResource"`
 
@@ -373,6 +379,7 @@ A Specific Resource _MAY_ have the following properties: [position](#position), 
 {: .note}
 
 #### Textual Body
+{: #TextualBody}
 
 > `"type": "TextualBody"`
 
@@ -387,6 +394,7 @@ A Specific Resource _MAY_ have the following properties: [position](#position), 
 
 
 #### Choice
+{: #Choice}
 
 > `"type": "Choice"`
 
@@ -402,6 +410,7 @@ A Choice _MAY_ have the following properties: [metadata](#metadata), [summary](#
 
 
 ### Content Resources
+{: #ContentResources}
 
 Content Resources are resources on the Web such as images, audio, video, 3d models, or text which can be associated with a Container via an Annotation, or be used with `thumbnail`, `rendering` or similar properties.
 
@@ -421,11 +430,13 @@ A Content Resource _MAY_ have the following properties: [height](#height), [widt
 
 
 ### Selectors
+{: #Selectors}
 
 The Web Annotation Data Model defines several Selectors, which describe how to find a specific segment of that resource to be used. As noted, the nature of Selectors are dependent on the type of resources that they select out of, and the methods needed for those descriptions will vary. The Selectors from the Web Annotation Data Model and other sources can be used within the IIIF Data Model. This specification defines additional Selector classes for use.
 
 
 #### Point Selector
+{: #PointSelector}
 
 > `"type": "PointSelector"`
 
@@ -451,6 +462,7 @@ A Point Selector _MAY_ have the following properties: [x](#x), [y](#y), [z](#z),
 
 
 #### WKT Selector
+{: #WktSelector}
 
 > `"type": "WktSelector"`
 
@@ -2206,7 +2218,7 @@ A single UnitValue that defines a multiplier or scale factor for the `duration` 
    Clients _MAY_ process `temporalScale` on a Canvas.
  * A Scene _MAY_ have the `temporalScale` property.<br/>
    Clients _MAY_ process `temporalScale` on a Scene.
-   
+
 
 ### thumbnail
 {: #thumbnail}
