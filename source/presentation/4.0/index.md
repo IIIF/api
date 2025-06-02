@@ -329,9 +329,11 @@ The fragment example above can be expressed using a Specific Resource:
 
 ## Use Case 1: Artwork
 
-This example is a Manifest with one Canvas, representing a 2D surface. In this case the Canvas represents an artwork, and there is no duration property. The content resource, a JPEG image of the artwork, is associated with the Canvas via a Painting Annotation. The unit integer coordinates of the Canvas (12000 x 9000) are not the same as the pixel dimensions of the JPEG image (4000 x 3000), but they are proportional - the Canvas has a 4:3 landscape aspect ratio, and so does the JPEG image. The `target` property of the Annotation is the Canvas `id`, unqualified by any particular region; this is taken to mean the content (the image) should fill the Canvas completely. As the Canvas and the image are the same aspect ratio, no distortion will occur. This approach allows the current image to be replaced by a higher resolution image in future, on the same Canvas. The Canvas dimensions establish a coordinate system for _painting annotations_ and other kinds of annotation that link content with the Canvas; they are not pixels of images.
+This example is a Manifest with one Canvas, representing an artwork. The content resource, a JPEG image of the artwork, is associated with the Canvas via a Painting Annotation.
 
-It demonstrates the use of the common descriptive properties `label` for the title of the artwork, `metadata` for additional information to display to the user, `summary` for a brief description of the artwork, `rights` to assert a rights statement or license from a controlled vocabulary, `homepage` to link to the artwork's specific web page, `thumbnail` to provide a small image to stand for the Manifest, and `provider` to give information about the publisher of the Manifest.
+The unit integer coordinates of the Canvas (12000 x 9000) are not the same as the pixel dimensions of the JPEG image (4000 x 3000), but they are proportional - the Canvas has a 4:3 landscape aspect ratio, and so does the JPEG image.The `target` property of the Annotation is the Canvas `id`, unqualified by any particular region; this is taken to mean the content (the image) should fill the Canvas completely. As the Canvas and the image are the same aspect ratio, no distortion will occur. This approach allows the current image to be replaced by a higher resolution image in future, on the same Canvas. The Canvas dimensions establish a coordinate system for _painting annotations_ and other kinds of annotation that link content with the Canvas; they are not pixels of images.
+
+The example demonstrates the use of the common descriptive properties `label` for the title of the artwork, `metadata` for additional information to display to the user, `summary` for a brief description of the artwork, `rights` to assert a rights statement or license from a controlled vocabulary, `homepage` to link to the artwork's specific web page, `thumbnail` to provide a small image to stand for the Manifest, and `provider` to give information about the publisher of the Manifest.
 
 ```json
 {
@@ -428,6 +430,7 @@ It demonstrates the use of the common descriptive properties `label` for the tit
 ```
 
 **Key Points**
+
 * All IIIF documents begin with the `@context` key, which maps the JSON structure into a linked data representation. The value identifies the version of the specification in use. [👀 Model Documentation](model/#json-ld-contexts-and-extensions)
 * Every JSON object that has a `type` property also has an `id` property and vice versa.
 * Text elements intended for display to the user are conveyed by _Language Maps_, JSON objects in which the keys are language codes and the values are lists of one or more strings in that language.  [👀 Model Documentation](model/#language-of-property-values)
@@ -436,8 +439,13 @@ It demonstrates the use of the common descriptive properties `label` for the tit
 * The `rights` property is always a single string value which is a URI.
 {: .note}
 
+!!! warning TODO: The above should be a green class rgb(244,252,239) to distinguish from properties
 
-> List of properties used with links to model for each
+__Definitions__<br/>
+Classes: [Manifest](#model/Manifest), ...<br/><br/>
+Properties: [id](#model/id), [type](#type), [label](#label), [lookAt](#lookAt), [near](#near), and [far](#far)
+{: .note}
+
 
 ## Example 2: Book
 
