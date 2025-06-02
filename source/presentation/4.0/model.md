@@ -1869,8 +1869,6 @@ Note that the majority of the values have been selected from [accessibility feat
 { "provides": [ "closedCaption" ] }
 ```
 
-!!! warning "This breaks the graph as the file doesn't provide X in all contexts"
-
 ### rendering
 {: #rendering}
 
