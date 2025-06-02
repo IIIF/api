@@ -1852,19 +1852,18 @@ The value _MUST_ be an array of JSON objects. Each object _MUST_ be a service re
 ### spatialScale
 {: #spatialScale}
 
-A single UnitValue that defines a real-world scale factor for the coordinate units of a Canvas or Scene. For a Canvas, this defines the physical distance between adjacent units horizontally and vertically. A Canvas with a `width` of 5000 and a `spatialScale` with `value` 0.00008 represents a physical space 0.4 metres wide. For a Scene, this defines the physical distance corresponding to the XYZ coordinate units, or in other words, the physical distance length of a unit vector in the 3D coordinate space. The value of `unit` _MUST_ always be `m`, i.e., metres.
+A single UnitValue that defines a real-world scale factor for the coordinate units of a Canvas or Scene. For a Canvas, this defines the physical distance between adjacent units horizontally and vertically. A Canvas with a `width` of 5000 and a `spatialScale` with `value` 0.00008 represents a physical space 0.4 metres wide. For a Scene, this defines the physical distance corresponding to the XYZ coordinate units, or in other words, the physical distance length of a unit vector in the 3D coordinate space. The value of `unit` _MUST_ be a length unit. In this specification, the only length unit defined is `m`, i.e., metres. Unless other values are defined externally as an [extension][prezi30-ldce], the value of `unit` _SHOULD_ always be `m`.
 
 
 {% include api/code_header.html %}
 ``` json-doc
 {
   "type": "Scene",
-
-    "spatialScale": {
-        "type": "UnitValue",
-        "value": 22.0,
-        "unit": "m"
-    }
+  "spatialScale": {
+    "type": "UnitValue",
+    "value": 22.0,
+    "unit": "m"
+  }
 }
 ```
 
@@ -1990,19 +1989,18 @@ The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` propert
 ### temporalScale
 {: #temporalScale}
 
-A single UnitValue that defines a multiplier or scale factor for the `duration` property of a Container, indicating that one second in "Container time" represents some other real world duration. A Canvas with a `duration` of 450 seconds and a `temporalScale` with `value` 1000 represents a real-world duration of 450,000 seconds (5.2 days), for example a time-lapse video of a growing plant. The value of `unit` _MUST_ always be `s`, i.e., seconds.
+A single UnitValue that defines a multiplier or scale factor for the `duration` property of a Container, indicating that one second in "Container time" represents some other real world duration. A Canvas with a `duration` of 450 seconds and a `temporalScale` with `value` 1000 represents a real-world duration of 450,000 seconds (5.2 days), for example a time-lapse video of a growing plant. The value of `unit` _MUST_ be a time unit. In this specification, the only time unit defined is `s`, i.e., seconds. Unless other values are defined externally as an [extension][prezi30-ldce], the value of `unit` _SHOULD_ always be `s`.
 
 
 {% include api/code_header.html %}
 ``` json-doc
 {
   "type": "Canvas",
-
-    "temporalScale": {
-        "type": "UnitValue",
-        "value": 1000,
-        "unit": "s"
-    }
+  "temporalScale": {
+    "type": "UnitValue",
+    "value": 1000,
+    "unit": "s"
+  }
 }
 ```
 
