@@ -329,18 +329,120 @@ The fragment example above can be expressed using a Specific Resource:
 
 ## Use Case 1: Artwork
 
-This example is a Manifest with one Canvas, with an image of an artwork "painted" onto the Canvas. It demonstrates the use of the common descriptive properties `label` for the title of the artwork, `metadata` for additional information to display to the user, `summary` for a brief description of the artwork, `rights` to assert a rights statement or license from a controlled vocabulary, `homepage` to link to the artwork's specific web page, `thumbnail` to provide a small image to stand for the Manifest, and `provider` to give information about the publisher of the Manifest.
+This example is a Manifest with one Canvas, representing a 2D surface. In this case the Canvas represents an artwork, and there is no duration property. The content resource, a JPEG image of the artwork, is associated with the Canvas via a Painting Annotation. The unit integer coordinates of the Canvas (12000 x 9000) are not the same as the pixel dimensions of the JPEG image (4000 x 3000), but they are proportional - the Canvas has a 4:3 landscape aspect ratio, and so does the JPEG image. The `target` property of the Annotation is the Canvas `id`, unqualified by any particular region; this is taken to mean the content (the image) should fill the Canvas completely. As the Canvas and the image are the same aspect ratio, no distortion will occur. This approach allows the current image to be replaced by a higher resolution image in future, on the same Canvas. The Canvas dimensions establish a coordinate system for _painting annotations_ and other kinds of annotation that link content with the Canvas; they are not pixels of images.
 
+It demonstrates the use of the common descriptive properties `label` for the title of the artwork, `metadata` for additional information to display to the user, `summary` for a brief description of the artwork, `rights` to assert a rights statement or license from a controlled vocabulary, `homepage` to link to the artwork's specific web page, `thumbnail` to provide a small image to stand for the Manifest, and `provider` to give information about the publisher of the Manifest.
+
+```json
+{
+  "@context": "http://iiif.io/api/presentation/4/context.json",
+  "id": "https://iiif.io/api/cookbook/recipe/0001-mvm-image/manifest.json",
+  "type": "Manifest",
+  "label": {
+    "en": [ "Use case 1: Artwork" ]
+  },
+  "metadata": [
+    {
+      "label": { "en": [ "Artist" ] },
+      "value": { "en": [ "Anne Artist" ] }
+    },
+    {
+      "label": { "en": [ "Date" ] },
+      "value": { "en": [ "c. 1800" ] }
+    }
+  ],
+  "summary":  { "en": [ "A longer piece of text to be shown when the metadata is not." ] },
+  "rights": "http://rightsstatements.org/vocab/NoC-NC/1.0/",
+  "homepage": [
+    {
+      "id": "https://example.org/works/artwork37",
+      "type": "Text",
+      "format": "text/html",
+      "label": { "en": [ "Homepage for artwork37" ] }
+    }
+  ],
+  "thumbnail": [
+    {
+      "id": "https://example.org/works/artwork37/thumbnail.jpg",
+      "type": "Image",
+      "format": "image/jpeg",
+      "width": 100,
+      "height": 150
+    }
+  ],
+  "provider": 
+    [
+      {
+        "id": "https://example.org/about",
+        "type": "Agent",
+        "label": { "en": [ "Example Organization" ] },
+        "homepage": [
+          {
+            "id": "https://example.org/",
+            "type": "Text",
+            "label": { "en": [ "Example Organization Homepage" ] },
+            "format": "text/html"
+          }
+        ],
+        "logo": [
+          {
+            "id": "https://example.org/images/logo.png",
+            "type": "Image",
+            "format": "image/png",
+            "height": 100,
+            "width": 120
+          }
+        ]
+      }
+    ],
+  "items": [
+    {
+      "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/canvas",
+      "type": "Canvas",
+      "width": 12000,
+      "height": 9000,
+      "items": [
+        {
+          "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/page/p2",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/annotation/c1",
+              "type": "Annotation",
+              "motivation": [ "painting" ],
+              "body": {
+                "id": "https://iiif.io/api/presentation/example-content-resources/image/painting.jpg",
+                "type": "Image",
+                "format": "image/jpeg",
+                "width": 4000,
+                "height": 3000
+              },
+              "target": "https://example.org/iiif/presentation/examples/manifest-with-containers/canvas"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
 ```
-Example: a painting {}
-Will demonstrate:
 
-Manifest -> items -> Canvas -> items -> AnnoPage -> items -> Anno -> body -> Image
-label, summary, metadata, rights, provider, homepage, thumbnail
-```
 
-Notice that the Painting Annotation is a member of the `items` property of an Annotation Page. While in this case there is only one Annotation Page and one Annotation, the mechanism is needed for consistency when there are multiple Annotation Pages, and it allows for Annotation Pages in general to be separate resources on the web.
+<div>
 
+  **Key Points**
+  
+  * All IIIF documents begin with the `@context` key, which maps the JSON structure into a linked data representation. The value identifies the version of the specification in use. [👀 Model Documentation](model/#json-ld-contexts-and-extensions)
+  * Every JSON object that has a `type` property also has an `id` property and vice versa.
+  * Text elements intended for display to the user are conveyed by _Language Maps_, JSON objects in which the keys are language codes and the values are lists of one or more strings in that language.  [👀 Model Documentation](model/#language-of-property-values)
+  * The Painting Annotation is a member of the `items` property of an Annotation Page. While in this case there is only one Annotation Page and one Annotation, the mechanism is needed for consistency when there are multiple Annotation Pages, and it allows for Annotation Pages in general to be separate resources on the web.
+  * The `metadata` label and value pairs are for display to the user rather than for machines to interpret.
+  * The `rights` property is always a single string value which is a URI.
+</div>
+{: .note}
+
+
+> List of properties used with links to model for each
 
 ## Example 2: Book
 
