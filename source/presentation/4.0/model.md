@@ -483,6 +483,7 @@ A WKT Selector _MUST_ have the following properties: [id](#id), [type](#type), a
 ```
 
 #### Audio Content Selector
+{: #AudioContentSelector}
 
 > `"type": "AudioContentSelector"`
 
@@ -501,6 +502,7 @@ An Audio Content Selector _MUST_ have the following properties: [id](#id), and [
 
 
 #### Visual Content Selector
+{: #VisualContentSelector}
 
 > `"type": "VisualContentSelector"`
 
