@@ -8,7 +8,7 @@ tags: [specifications, presentation-api]
 major: 4
 minor: 0
 patch: 0
-pre: 
+pre:
 redirect_from:
   - /presentation/index.html
   - /presentation/4/index.html
@@ -53,9 +53,9 @@ __Previous Version:__ [3.0][prezi30]
 
 # Introduction
 
-The purpose of the IIIF Presentation API specification is to provide a [model](model) and JSON serialization format of that model. 
+The purpose of the IIIF Presentation API specification is to provide a [model](model) and JSON serialization format of that model.
 
-It provides a document format - the IIIF Manifest - for cultural heritage organizations (and anyone else) to present objects in a standardized, interoperable fashion. This allows compatible software such as viewers and annotation tools to load and present complex digital objects on the web from thousands of different providers. 
+It provides a document format - the IIIF Manifest - for cultural heritage organizations (and anyone else) to present objects in a standardized, interoperable fashion. This allows compatible software such as viewers and annotation tools to load and present complex digital objects on the web from thousands of different providers.
 
 **If you have existing images, audio, video and models on the web, you can easily provide IIIF Manifests for them by publishing the appropriate JSON documents.**
 
@@ -63,15 +63,15 @@ The IIIF Presentation API is concerned with enabling user experiences - providin
 
 This document acts as an introduction to the specification through a set of typical (but non-exhaustive) use cases. The model [model](model) document provides the formal specification of the terms used in this introduction.
 
-## IIIF Use cases 
+## IIIF Use cases
 
-1. **Artwork** - a Manifest that represents a painting, comprising a single image and accompanying display information. 
+1. **Artwork** - a Manifest that represents a painting, comprising a single image and accompanying display information.
 2. **Book** - a Manifest that represents a digitized bound volume made up many separate images in order. The IIIF model provides structural elements to indicate the chapters. The text of the book is made available in machine-readable form as Web Annotations.
 3. **45 Single** - a Manifest that represents the digitized audio from the two sides of a vinyl 7 inch record.
 4. **Movie** - a Manifest that represents the digitized video of a film. A transcript of the audio is provided as Web Annotations, and additional machine-readable files provide subtitles and captions.
 5. **Simple 3D Model** - a Manifest that publishes a single 3D model.
 6. **Complex Scene** - a Manifest that publishes a complex 3D scene comprising multiple models, lights and cameras.
-7. **Periodical** - a IIIF Collection that provides multiple child Collections and Manifests, representing the publication run of a newspaper over many years. The IIIF model provides structural elements to indicate individual articles and other elements. 
+7. **Periodical** - a IIIF Collection that provides multiple child Collections and Manifests, representing the publication run of a newspaper over many years. The IIIF model provides structural elements to indicate individual articles and other elements.
 8. **Storytelling in 3D** - a Manifest that defines a sequence of states in a complex scene for the purposes of guiding a user through a particular experience.
 9. **Manuscript** - (integration)
 
@@ -94,7 +94,7 @@ This section is what you need to know to make sense of the examples that follow 
 
 A Manifest is the primary unit of distribution of IIIF. Each Manifest usually describes how to present an object, such as a book, statue, music album or 3 dimensional scene. It is a JSON document that carries information needed for the client to present content to the user, such as a title and other descriptive information. The scope of what constitutes an object, and thus its Manifest, is up to the publisher of that Manifest. The Manifest contains sufficient information for the client to initialize itself and begin to display something quickly to the user.
 
-The Manifest's `items` property is an ordered list of _Containers_ of _Content Resources_ (images, 3D models, audio, etc). Client software loads the Manifest and presents each Container's Content Resources. The client software also presents user interface controls to navigate the list of Content Containers. 
+The Manifest's `items` property is an ordered list of _Containers_ of _Content Resources_ (images, 3D models, audio, etc). Client software loads the Manifest and presents each Container's Content Resources. The client software also presents user interface controls to navigate the list of Content Containers.
 
 Manifests have descriptive, technical and linking properties. The required properties of Manifests are `id`, `type`, `items` and `label`. Other commonly used properties include `summary`, `metadata`, `rights`, `thumbnail`, `homepage` and `provider`.
 
@@ -119,11 +119,11 @@ Manifests have descriptive, technical and linking properties. The required prope
 
 ## Containers
 
-A Container is a frame of reference that allows the relative positioning of Content Resources, a concept borrowed from standards like PDF and HTML, or applications like Photoshop and PowerPoint, where an initially blank display surface has images, video, text and other content "painted" on to it. The frame is defined by a set of dimensions, with different types of Container having different dimensions. This specification defines three sub-classes of Container: Timeline (which only has a duration), Canvas (which has bounded height and width, and may have a duration), and Scene (which has infinite height, width and depth, and may have a duration). 
+A Container is a frame of reference that allows the relative positioning of Content Resources, a concept borrowed from standards like PDF and HTML, or applications like Photoshop and PowerPoint, where an initially blank display surface has images, video, text and other content "painted" on to it. The frame is defined by a set of dimensions, with different types of Container having different dimensions. This specification defines three sub-classes of Container: Timeline (which only has a duration), Canvas (which has bounded height and width, and may have a duration), and Scene (which has infinite height, width and depth, and may have a duration).
 
 The required properties of all Containers are `id`, and `type`. Most Containers also have the `items` and `label` properties. Further properties are required for the different types of Container.
 
-The defined Container types are: 
+The defined Container types are:
 
 ### Timeline
 
@@ -235,7 +235,7 @@ Scenes may also have the `duration` property in the same manner as Timelines.
 
 IIIF uses the concept of _Annotation_ to link resources together from around the web. This specification uses a World Wide Web Consortium (W3C) standard for this called the [Web Annotation Data Model][org-web-anno]. This is a structured linking mechanism useful for making comments about Content Resources, but IIIF's primary use of it is to associate the images, audio and other Content Resources with their Containers for presentation.
 
-In each of the three Containers above, an **Annotation** links the Container to a Content Resource. The Content Resource in the `body` property is _painted_ into the Container by an Annotation whose `target` property is the `id` of the Container. In all three simple cases here the `target` property is the `id` of the Container with no further qualification. 
+In each of the three Containers above, an **Annotation** links the Container to a Content Resource. The Content Resource in the `body` property is _painted_ into the Container by an Annotation whose `target` property is the `id` of the Container. In all three simple cases here the `target` property is the `id` of the Container with no further qualification.
 
 Different uses of Annotation are distinguished through their `motivation` property. This specification defines a value for `motivation` called `painting` for associating Content Resources with Containers, which this specification calls a Painting Annotation. The verb "paint" is also used to refer to the associating of a Content Resource with a Container by a Painting Annotation. This is from the notion of painting onto a canvas, a metaphor borrowed from art and used for image-based digital applications, and expanded by IIIF into "painting" any Content Resource into a Container of any number of dimensions.
 
@@ -250,7 +250,7 @@ Annotations are grouped within the `items` property of an Annotation Page, and t
 
 Content Resources are external web resources, including images, video, audio, 3D models, data, web pages or any other format. Typically these are the resources that will be painted into a Container using a Painting Annotation.
 
-In addition to the required properties `id` and `type`, other commonly used properties include `format`, and `width`, `height` and `duration` as appropriate to the Content Resource format. The values of these properties are often the source of the equivalent Container properties. 
+In addition to the required properties `id` and `type`, other commonly used properties include `format`, and `width`, `height` and `duration` as appropriate to the Content Resource format. The values of these properties are often the source of the equivalent Container properties.
 
 (👀) [Model Documentation](model/#ContentResources)
 
@@ -370,7 +370,7 @@ It demonstrates the use of the common descriptive properties `label` for the tit
       "height": 150
     }
   ],
-  "provider": 
+  "provider":
     [
       {
         "id": "https://example.org/about",
@@ -427,18 +427,13 @@ It demonstrates the use of the common descriptive properties `label` for the tit
 }
 ```
 
-
-<div>
-
-  **Key Points**
-  
-  * All IIIF documents begin with the `@context` key, which maps the JSON structure into a linked data representation. The value identifies the version of the specification in use. [👀 Model Documentation](model/#json-ld-contexts-and-extensions)
-  * Every JSON object that has a `type` property also has an `id` property and vice versa.
-  * Text elements intended for display to the user are conveyed by _Language Maps_, JSON objects in which the keys are language codes and the values are lists of one or more strings in that language.  [👀 Model Documentation](model/#language-of-property-values)
-  * The Painting Annotation is a member of the `items` property of an Annotation Page. While in this case there is only one Annotation Page and one Annotation, the mechanism is needed for consistency when there are multiple Annotation Pages, and it allows for Annotation Pages in general to be separate resources on the web.
-  * The `metadata` label and value pairs are for display to the user rather than for machines to interpret.
-  * The `rights` property is always a single string value which is a URI.
-</div>
+**Key Points**
+* All IIIF documents begin with the `@context` key, which maps the JSON structure into a linked data representation. The value identifies the version of the specification in use. [👀 Model Documentation](model/#json-ld-contexts-and-extensions)
+* Every JSON object that has a `type` property also has an `id` property and vice versa.
+* Text elements intended for display to the user are conveyed by _Language Maps_, JSON objects in which the keys are language codes and the values are lists of one or more strings in that language.  [👀 Model Documentation](model/#language-of-property-values)
+* The Painting Annotation is a member of the `items` property of an Annotation Page. While in this case there is only one Annotation Page and one Annotation, the mechanism is needed for consistency when there are multiple Annotation Pages, and it allows for Annotation Pages in general to be separate resources on the web.
+* The `metadata` label and value pairs are for display to the user rather than for machines to interpret.
+* The `rights` property is always a single string value which is a URI.
 {: .note}
 
 
@@ -561,7 +556,7 @@ This (no units for scale) allows arbitrarily scaled models to be used, including
 A Scene or a Canvas may be treated as a content resource, referenced or described within the `body` of an Annotation. As with models and other resources, the Annotation is associated with a Scene into which the Scene or Canvas is to be nested through an Annotation `target`. The content resource Scene will be placed within the `target` Scene by aligning the coordinate origins of the two scenes. Alternately, Scene Annotations may use `PointSelector` to place the origin of the resource Scene at a specified coordinate within the `target` Scene.
 
 
-As with other containers in IIIF, Annotations are used to target the Scene to place content such as 3d models into the scene. Annotations are also used to add lights and cameras. A Scene can have multiple models, lights, cameras and other resources, allowing them to be grouped together. Scenes and other IIIF containers, such as Canvases, may also be embedded within Scenes, as described below in the nesting section [fwd-ref-to-nesting]. 
+As with other containers in IIIF, Annotations are used to target the Scene to place content such as 3d models into the scene. Annotations are also used to add lights and cameras. A Scene can have multiple models, lights, cameras and other resources, allowing them to be grouped together. Scenes and other IIIF containers, such as Canvases, may also be embedded within Scenes, as described below in the nesting section [fwd-ref-to-nesting].
 
 ```json
 {
@@ -570,11 +565,11 @@ As with other containers in IIIF, Annotations are used to target the Scene to pl
   "label": {"en": ["Chessboard"]},
   "backgroundColor": "#000000",
   "items": [
-   "Note: Annotations Live Here"  
+   "Note: Annotations Live Here"
   ]
 }
 ```
-As with other resources, it may be appropriate to modify the initial scale, rotation, or translation of a content resource Scene prior to painting it within another Scene. Scenes associated with SpecificResources may be manipulated through the transforms described in Transforms(transforms_section). 
+As with other resources, it may be appropriate to modify the initial scale, rotation, or translation of a content resource Scene prior to painting it within another Scene. Scenes associated with SpecificResources may be manipulated through the transforms described in Transforms(transforms_section).
 
 A simple example painting one Scene into another:
 
@@ -624,7 +619,7 @@ A content resource may be annotated into a Scene for a period of time by use of 
             "id": "https://example.org/uuid/3d0d097b-2b37-4a15-b6a5-506e417d5115",
             "type": "FragmentSelector",
             "value": "t=45,95"
-        } 
+        }
       }
     ]
   }
@@ -646,7 +641,7 @@ When using a URL fragment in place of a SpecificResource, the parameter `t` can 
 }
 ```
 
-An Annotation may target a specific point in time using a PointSelector's `instant` property.  The property's value must be a positive floating point number indicating a value in seconds that falls within the Scene's duration. 
+An Annotation may target a specific point in time using a PointSelector's `instant` property.  The property's value must be a positive floating point number indicating a value in seconds that falls within the Scene's duration.
 
 ```json
 {
@@ -708,7 +703,7 @@ Annotations may use a type of Selector called a `PointSelector` to align the Ann
 
 Example Annotation that positions a model at a point within a Scene:
 
-```json 
+```json
 {
     "id": "https://example.org/iiif/3d/anno1",
     "type": "Annotation",
@@ -773,7 +768,7 @@ The region of the Scene's space that is observable by the camera is bounded by t
 
 The `near` property defines the minimum distance from the camera at which something in the space must exist in order to be viewed by the camera. Anything nearer to the camera than this distance will not be viewed. Conversely, the `far` property defines a maximum distance from the camera at which something in the space must exist in order to be viewed by the camera. Anything further away will not be viewed.
 
-For PerspectiveCameras, the vertical projection angle is specificed using the full angular extent in degrees from the top plane to the bottom plane using the `fieldOfView` property. The `fieldOfView` angle MUST be greater than 0 and less than 180. For OrthographicCameras, the vertical projection is always parallel and thus not defined. 
+For PerspectiveCameras, the vertical projection angle is specificed using the full angular extent in degrees from the top plane to the bottom plane using the `fieldOfView` property. The `fieldOfView` angle MUST be greater than 0 and less than 180. For OrthographicCameras, the vertical projection is always parallel and thus not defined.
 
 If any of these properties are not specified explicitly, they default to the choice of the client implementation.
 
@@ -787,7 +782,7 @@ The first Camera defined and not hidden in a Scene is the default Camera used to
   "type": "PerspectiveCamera",
   "near": 1.0,
   "far": 100.0,
-  "fieldOfView": 45.0    
+  "fieldOfView": 45.0
 }
 ```
 
@@ -806,7 +801,7 @@ This specification defines four types of Light:
 
 Lights defined in this specification have a `color` and an `intensity`. The color is given as an RGB value, such as "#FFFFFF" for white. The intensity is the strength or brightness of the light, and described using a `Value` construct.
 
-SpotLight has an additional property of `angle`, specified in degrees, which is the angle from the direction that the Light is facing to the outside extent of the cone. 
+SpotLight has an additional property of `angle`, specified in degrees, which is the angle from the direction that the Light is facing to the outside extent of the cone.
 
 <img src="https://raw.githubusercontent.com/IIIF/3d/eds/assets/images/angle-of-cone.png" title="Angle of cone" alt="diagram of cone geometry showing how the angle of the cone is defined" width="250"/>
 
@@ -895,7 +890,7 @@ This rotation happens after the resource has been added to the Scene, and thus a
 
 ### Excluding
 
-Just as a Scene may contain multiple Annotations with model, light, and camera resources, a single 3D model file may contain a collection of 3D resources, including model geometry, assemblages of lights, and/or multiple cameras, with some of these potentially manipulated by animations. When painting Scenes or models that themselves may contain groups of resources within a single Scene, it may not always be appropriate to include all possible cameras, lights, or other resources, and it may be desirable to opt not to import some of these resources. This is accomplished through the Annotation property `exclude`, which prevents the import of audio, lights, cameras, or animations from a particular Scene or model prior to the Annotation being painted into a Scene. When `exclude` is used, the excluded resource type should not be loaded into the Scene, and it is not possible to reactivate or turn on these excluded resources after loading. 
+Just as a Scene may contain multiple Annotations with model, light, and camera resources, a single 3D model file may contain a collection of 3D resources, including model geometry, assemblages of lights, and/or multiple cameras, with some of these potentially manipulated by animations. When painting Scenes or models that themselves may contain groups of resources within a single Scene, it may not always be appropriate to include all possible cameras, lights, or other resources, and it may be desirable to opt not to import some of these resources. This is accomplished through the Annotation property `exclude`, which prevents the import of audio, lights, cameras, or animations from a particular Scene or model prior to the Annotation being painted into a Scene. When `exclude` is used, the excluded resource type should not be loaded into the Scene, and it is not possible to reactivate or turn on these excluded resources after loading.
 
 Painting a Scene into another while excluding import of several types of resources:
 ```json
@@ -920,7 +915,7 @@ Painting a Scene into another while excluding import of several types of resourc
 
 ### Nesting
 
-A Canvas can be painted into a Scene as an Annotation, but the 2D nature of Canvases requires special consideration due to important differences between Canvases and Scenes. A Canvas describes a bounded 2D space with finite `height` and `width` measured in pixels with a pixel origin at the top-left corner of the Canvas, while Scenes describe a boundless 3D space with x, y, and z axes of arbitrary coordinate units and a coordinate origin at the center of the space. It is important to note that in many cases the pixel scale used by a Canvas or a 2D image content resource will not be in proportion to the desired 3D coordinate unit scale in a Scene. 
+A Canvas can be painted into a Scene as an Annotation, but the 2D nature of Canvases requires special consideration due to important differences between Canvases and Scenes. A Canvas describes a bounded 2D space with finite `height` and `width` measured in pixels with a pixel origin at the top-left corner of the Canvas, while Scenes describe a boundless 3D space with x, y, and z axes of arbitrary coordinate units and a coordinate origin at the center of the space. It is important to note that in many cases the pixel scale used by a Canvas or a 2D image content resource will not be in proportion to the desired 3D coordinate unit scale in a Scene.
 
 When a Canvas is painted as an Annotation targeting a Scene, the top-left corner of the Canvas (the pixel origin) is aligned with the 3D coordinate origin of the Scene. The top edge of the Canvas is aligned with (e.g., is colinear to) the positive x axis extending from the coordinate origin. The left edge of the Canvas is aligned with (e.g., is colinear to) the negative y axis extending from the coordinate origin. The Canvas is scaled to the Scene such that the pixel dimensions correspond to 3D coordinate units - a Canvas 200 pixels wide and 400 pixels high will extend 200 coordinate units across the x axis and 400 coordinate units across the y axis. Please note: direction terms "top", "bottom", "right", and "left" used in this section refer to the frame of reference of the Canvas itself, not the Scene into which the Canvas is painted.
 
@@ -944,7 +939,7 @@ Example placing top-left at (0, 1, 0); bottom-left at (0, 0, 0); bottom-right at
 ]
 ```
 
-When a Scene is nested into another Scene, the `backgroundColor` of the Scene to be nested should be ignored as it is non-sensible to import. All Annotations painted into the Scene to be nested will be painted into the Scene into which content is being nested, including Light or Camera resources. If the Scene to be nested has one or more Camera Annotations while the Scene into which content is being nested does not, the first Camera Annotation from the nested Scene will become the default Camera for the overall Scene. 
+When a Scene is nested into another Scene, the `backgroundColor` of the Scene to be nested should be ignored as it is non-sensible to import. All Annotations painted into the Scene to be nested will be painted into the Scene into which content is being nested, including Light or Camera resources. If the Scene to be nested has one or more Camera Annotations while the Scene into which content is being nested does not, the first Camera Annotation from the nested Scene will become the default Camera for the overall Scene.
 
 ---
 
@@ -1008,7 +1003,7 @@ link to https://developer.mozilla.org/en-US/docs/Web/CSS/z-index
 deal with this:
 https://github.com/IIIF/api/pull/2304/files#diff-cc70f02818f6bed2b14dfbf8bf3206e0825047951c8e83ad56fc73e489f82ac4R1757
 
-use totalItems? https://iiif.io/api/discovery/1.0/#totalitems 
+use totalItems? https://iiif.io/api/discovery/1.0/#totalitems
 
 
 
@@ -1023,7 +1018,7 @@ use totalItems? https://iiif.io/api/discovery/1.0/#totalitems
 
 IIIF Collections are ordered lists of Manifests, Collections, and/or Specific Resources. Collections allow these resources to be grouped in a hierarchical structure for navigation and other purposes.
 
-:eyes: 
+:eyes:
 
 ## Range
 
@@ -1037,7 +1032,7 @@ This example demonstrates the use of IIIF Collections to group Manifests into a 
 
 Within each Manifest, the `structures` property provides Ranges which are used to identify individual sections of the Newspaper, and individual stories within the sections which may be spread across multiple columns and pages.
 
-Each Manifest has a `navDate` property that could be used to plot the issues on a calendar-style user interface. 
+Each Manifest has a `navDate` property that could be used to plot the issues on a calendar-style user interface.
 The top level Collection has a `navPlace` property that could be used on a "Newspapers of America" map to allow users to view newspapers by location. Each story's Range links to an Annotation Collection that provides the text of the story via the `supplementary` property.
 
 
@@ -1081,7 +1076,7 @@ mention search, image api, auth
 
 profile for seeAlso
 
-partOf - 
+partOf -
 
 
 
@@ -1249,12 +1244,12 @@ As well as adding resources not present in the referred-to resource, the Content
 
 TODO: what is the processing algorithm for applying incoming `hidden` ?
 
-When a Content State annotation carries a Scene, a view might be initialized from a Content State that introduces an additional Camera that shows the user the point of interest. 
+When a Content State annotation carries a Scene, a view might be initialized from a Content State that introduces an additional Camera that shows the user the point of interest.
 
 
 ## Modify the Container in a particular context
 
-The techniques in the previous example are also used within a published IIIF Manifest to modify the contents of a Container in the contexts of different annotations on that Container. This technique allows IIIF to be used for _storytelling_ and other narrative applications beyond simply conveying a static Digital Object into a viewer and leaving subsequent interactions entirely in the control of the user. The `scope` property indicates to the client that the Content State provides valuable context for displaying some aspect of a Scene or other Container. In the case of a commenting annotation, this means that the Content State should be loaded when the commenting annotation is selected or otherwise highlighted. 
+The techniques in the previous example are also used within a published IIIF Manifest to modify the contents of a Container in the contexts of different annotations on that Container. This technique allows IIIF to be used for _storytelling_ and other narrative applications beyond simply conveying a static Digital Object into a viewer and leaving subsequent interactions entirely in the control of the user. The `scope` property indicates to the client that the Content State provides valuable context for displaying some aspect of a Scene or other Container. In the case of a commenting annotation, this means that the Content State should be loaded when the commenting annotation is selected or otherwise highlighted.
 
 
 Consider a Scene with two models, and two `commenting` annotations:
@@ -1282,7 +1277,7 @@ Consider a Scene with two models, and two `commenting` annotations:
                 "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/whale/whale_mandible.glb",
                 "type": "Model"
               },
-              "target": { 
+              "target": {
                 // SpecificResource with PointSelector
               }
             },
@@ -1294,7 +1289,7 @@ Consider a Scene with two models, and two `commenting` annotations:
                 "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/whale/whale_cranium.glb",
                 "type": "Model"
               },
-              "target": { 
+              "target": {
                 // SpecificResource with PointSelector
               }
             }
@@ -1313,7 +1308,7 @@ Consider a Scene with two models, and two `commenting` annotations:
           "type": "Annotation",
           "motivation": ["commenting"],
           "bodyValue": "Mandibular tooth",
-          "target": { 
+          "target": {
             // SpecificResource with PointSelector
           }
         },
@@ -1322,7 +1317,7 @@ Consider a Scene with two models, and two `commenting` annotations:
           "type": "Annotation",
           "motivation": ["commenting"],
           "bodyValue": "Right pterygoid hamulus",
-          "target": { 
+          "target": {
             // SpecificResource with PointSelector
           }
         }
@@ -1332,7 +1327,7 @@ Consider a Scene with two models, and two `commenting` annotations:
 }
 ```
 
-In that form, the user is left to interpret the commenting annotations and explore the Scene. The client will render a UI that presents the two commenting annotation in some form and allow the user to navigate between them. The commenting annotations are ordered; while the user might explore them freely in the Scene they might also go "forward" from the first to the second commenting annotation and "back" to the first from the second. 
+In that form, the user is left to interpret the commenting annotations and explore the Scene. The client will render a UI that presents the two commenting annotation in some form and allow the user to navigate between them. The commenting annotations are ordered; while the user might explore them freely in the Scene they might also go "forward" from the first to the second commenting annotation and "back" to the first from the second.
 
 In many complex 3D Scenes, it may not be clear what or how to look at a particular point of interest even when the commenting annotation targets a particular point. The view may be occluded by parts of the model, or other models in the Scene. It may be useful to light the Scene differently in different contexts.
 
@@ -1468,10 +1463,10 @@ The client should reset the Container to its original state before applying the 
 
 ```jsonc
 [
-  {  
+  {
     "id": "https://.../step-1",
     "type": "Annotation",
-    "motivation": ["contentState"]    
+    "motivation": ["contentState"]
     // if you really want to ensure that any ad-hoc applied content states are wiped out,
     // then put an explicit reset here. But usually, we can start the nav by applying
     // the content state in the scope to the Scene without worrying that someone has
@@ -1479,8 +1474,8 @@ The client should reset the Container to its original state before applying the 
   },
   // ....
 
-  
-  {  
+
+  {
     "id": "https://.../step-20",
     "type": "Annotation",
     "motivation": ["contentState"]
@@ -1488,7 +1483,7 @@ The client should reset the Container to its original state before applying the 
   },
 
 
-  {  
+  {
     // However, this particular step (step 37) needs to reset the Scene to the initial state.
     "id": "https://.../step-37",
     "type": "Annotation",
@@ -1549,7 +1544,7 @@ The activating annotation is provided in a Container's `annotations` property. I
                 "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/whale/whale_mandible.glb",
                 "type": "Model"
               },
-              "target": { 
+              "target": {
                 // SpecificResource with PointSelector
               }
             }
@@ -1630,7 +1625,7 @@ This pattern is similar to the above, except that:
                 "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/music-box.glb",
                 "type": "Model"
               },
-              "target": { 
+              "target": {
                 // SpecificResource with PointSelector
               }
             }
@@ -1699,11 +1694,11 @@ See above...
 
 In many cases, the dimensions of a Canvas, or the pixel density of a photograph, are not necessarily related to a real-world size of the object they show. A large wall painting and a tiny miniature may both be conveyed by 20 megapixel source images on a 4000 by 3000 unit Canvas. But it can be important to know how big something is or if there is a relationship between pixel density and physical length, especially when comparing objects together. Each pixel in an image may correspond precisely to a physical area, allowing measurement of real world distances from the image. A scanned 3D model may be constructed such that each 3D coordinate unit corresponds to one meter of physical distance.
 
-The `spatialScale` property of a Canvas or Scene provides a corresponding real-world scale for a unit of the Canvas or Scene coordinate system, allowing clients to provide scale information to users, for example by an on-screen virtual ruler. In a 2-up viewer, a client could scale two views to convey the true relative sizes of two objects. 
+The `spatialScale` property of a Canvas or Scene provides a corresponding real-world scale for a unit of the Canvas or Scene coordinate system, allowing clients to provide scale information to users, for example by an on-screen virtual ruler. In a 2-up viewer, a client could scale two views to convey the true relative sizes of two objects.
 
 The value of `spatialScale` is a `UnitValue` (ref) that has as a value a length unit. This specification defines only one length unit, "m", i.e., meters, though others may be defined externally as an [extension][prezi30-ldce]. If source size metadata is machine readable (or parse-able) in other measurement systems (e.g., feet and inches) then it should be converted to meters for use in `spatialScale`. Publishers may wish to present the original given measure (e.g., from catalogue metadata) in a `metadata` field for context.
 
-The Presentation API also offers a corresponding `temporalScale` property for the `duration` dimension of a Container, when 1 second in the Container does not correspond to 1 second of real time. This is useful for speeded-up or slowed-down audio or video. 
+The Presentation API also offers a corresponding `temporalScale` property for the `duration` dimension of a Container, when 1 second in the Container does not correspond to 1 second of real time. This is useful for speeded-up or slowed-down audio or video.
 
 An extreme example of both physical dimension properties together is a Canvas showing an animation of continental drift over the course of Earth history, where the spatialScale could convey that each Canvas unit is several thousand meters, and each second of the Canvas `duration` is several million years.
 
