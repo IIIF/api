@@ -23,13 +23,13 @@ editors:
     ORCID: https://orcid.org/0000-0003-4441-6852
     institution: Yale University
   - name: Dawn Childress
-    ORCID:
+    ORCID: https://orcid.org/0000-0003-2602-2788
     institution: UCLA
   - name: Julie Winchester
-    ORCID:
+    ORCID: https://orcid.org/0000-0001-6578-764X
     institution: Duke University
   - name: Jeff Mixter
-    ORCID:
+    ORCID: https://orcid.org/0000-0002-8411-2952
     institution: OCLC
 hero:
   image: ''
@@ -1839,17 +1839,14 @@ The value _MUST_ be an array of JSON objects, where each item in the array confo
 ### provides
 {: #provides}
 
-A set of features or additional functionality that a linked resource enables relative to the linking or including resource, which is not defined by the `type`, `format` or `profile` of the linked resource. It provides information as to why and how a client might want to interact with the resource, rather than what the resource is. For example, a text file (linked resource) that `provides` a `closedCaptions` for a Video (context resource), or an audio file (linked resource) that `provides` an `audioDescription` of a Canvas (context resource).
+A set of features or additional functionality that a linked resource enables relative to the linking or including resource, often for accessibility purposes and which are not defined by the `type`, `format` or `profile` of the linked resource. It provides information as to why and how a client might want to interact with the resource, rather than what the resource is. For example, a text file (linked resource) that `provides` a `closedCaptions` for a Video (context resource), or an audio file (linked resource) that `provides` an `audioDescription` of a Canvas (context resource).
 
 The value _MUST_ be an array of strings, each string identifies a particular feature and _MUST_ be taken from the table below or the [provides registry][link].
 
 Note that the majority of the values have been selected from [accessibility feature spec][link] and thus use the original form rather than being consistent with the hyphen-based form of the values of `behavior` and `viewingDirection`.
 
-
-* Annotations with the `painting` motivation _SHOULD NOT_ have the `provides` property.<br/>
-  Clients _SHOULD_ ignore the `provides` property on Annotations with the `painting` motivation.
-* Any resource linked to or included in another resource _MAY_ have the `provides` property.<br/>
-  Clients _SHOULD_ process the `provides` property on these resources.
+* Annotations with the `supplementing` motivation _MAY_ have the `provides` property.<br/>
+  Clients _SHOULD_ ignore the `provides` property on all other resource.
 
 | Value | Description |
 | ----- | ----------- |
