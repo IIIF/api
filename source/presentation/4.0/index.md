@@ -1482,7 +1482,7 @@ In many cases, the dimensions of a Canvas, or the pixel density of a photograph,
 
 The `spatialScale` property of a Canvas or Scene provides a corresponding real-world scale for a unit of the Canvas or Scene coordinate system, allowing clients to provide scale information to users, for example by an on-screen virtual ruler. In a 2-up viewer, a client could scale two views to convey the true relative sizes of two objects. 
 
-The value of `spatialScale` is a `UnitValue` (ref) that always has the value "m", i.e., metres. If source size metadata is machine readable (or parse-able) in other measurement systems (e.g., feet and inches) then it should be converted to metres for use in `spatialScale`. Publishers may wish to present the original given measure (e.g., from catalogue metadata) in a `metadata` field for context.
+The value of `spatialScale` is a `UnitValue` (ref) that has as a value a length unit. This specification defines only one length unit, "m", i.e., metres, though others may be defined externally as an [extension][prezi30-ldce]. If source size metadata is machine readable (or parse-able) in other measurement systems (e.g., feet and inches) then it should be converted to metres for use in `spatialScale`. Publishers may wish to present the original given measure (e.g., from catalogue metadata) in a `metadata` field for context.
 
 The Presentation API also offers a corresponding `temporalScale` property for the `duration` dimension of a Container, when 1 second in the Container does not correspond to 1 second of real time. This is useful for speeded-up or slowed-down audio or video. 
 
