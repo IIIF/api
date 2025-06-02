@@ -23,13 +23,13 @@ editors:
     ORCID: https://orcid.org/0000-0003-4441-6852
     institution: J. Paul Getty Trust
   - name: Dawn Childress
-    ORCID:
+    ORCID: https://orcid.org/0000-0003-2602-2788
     institution: UCLA
   - name: Julie Winchester
-    ORCID: 
+    ORCID: https://orcid.org/0000-0001-6578-764X
     institution: Duke University
   - name: Jeff Mixter
-    ORCID: 
+    ORCID: https://orcid.org/0000-0002-8411-2952
     institution: OCLC
 hero:
   image: ''
