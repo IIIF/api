@@ -1852,7 +1852,7 @@ The value _MUST_ be an array of JSON objects. Each object _MUST_ be a service re
 ### spatialScale
 {: #spatialScale}
 
-A single UnitValue that defines a real-world scale factor for the coordinate units of a Canvas or Scene. For a Canvas, this defines the physical distance between adjacent units horizontally and vertically. A Canvas with a `width` of 5000 and a `spatialScale` with `value` 0.00008 represents a physical space 0.4 metres wide. For a Scene, this defines the physical distance corresponding to the XYZ coordinate units, or in other words, the physical distance length of a unit vector in the 3D coordinate space. The value of `unit` _MUST_ be a length unit. In this specification, the only length unit defined is `m`, i.e., metres. Unless other values are defined externally as an [extension][prezi30-ldce], the value of `unit` _SHOULD_ always be `m`.
+A single UnitValue that defines a real-world scale factor for the coordinate units of a Canvas or Scene. For a Canvas, this defines the physical distance between adjacent units horizontally and vertically. A Canvas with a `width` of 5000 and a `spatialScale` with `value` 0.00008 represents a physical space 0.4 meters wide. For a Scene, this defines the physical distance corresponding to the XYZ coordinate units, or in other words, the physical distance length of a unit vector in the 3D coordinate space. The value of `unit` _MUST_ be a length unit. In this specification, the only length unit defined is `m`, i.e., meters. Unless other values are defined externally as an [extension][prezi30-ldce], the value of `unit` _SHOULD_ always be `m`.
 
 
 {% include api/code_header.html %}

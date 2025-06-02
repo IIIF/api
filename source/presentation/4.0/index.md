@@ -1478,15 +1478,15 @@ See above...
 
 ## Conveying Physical Dimensions
 
-In many cases, the dimensions of a Canvas, or the pixel density of a photograph, are not necessarily related to the real-world size of the object they show. A large wall painting and a tiny miniature may both be conveyed by 20 megapixel source images on a 4000 by 3000 unit Canvas. But it can be important to know how big something is or if there is a relationship between pixel density and physical length, especially when comparing objects together. Each pixel in an image may correspond precisely to a physical area in the real world, or a scanned 3D model may be constructed such that each 3D coordinate unit corresponds to one meter of physical distance.
+In many cases, the dimensions of a Canvas, or the pixel density of a photograph, are not necessarily related to a real-world size of the object they show. A large wall painting and a tiny miniature may both be conveyed by 20 megapixel source images on a 4000 by 3000 unit Canvas. But it can be important to know how big something is or if there is a relationship between pixel density and physical length, especially when comparing objects together. Each pixel in an image may correspond precisely to a physical area, allowing measurement of real world distances from the image. A scanned 3D model may be constructed such that each 3D coordinate unit corresponds to one meter of physical distance.
 
 The `spatialScale` property of a Canvas or Scene provides a corresponding real-world scale for a unit of the Canvas or Scene coordinate system, allowing clients to provide scale information to users, for example by an on-screen virtual ruler. In a 2-up viewer, a client could scale two views to convey the true relative sizes of two objects. 
 
-The value of `spatialScale` is a `UnitValue` (ref) that has as a value a length unit. This specification defines only one length unit, "m", i.e., metres, though others may be defined externally as an [extension][prezi30-ldce]. If source size metadata is machine readable (or parse-able) in other measurement systems (e.g., feet and inches) then it should be converted to metres for use in `spatialScale`. Publishers may wish to present the original given measure (e.g., from catalogue metadata) in a `metadata` field for context.
+The value of `spatialScale` is a `UnitValue` (ref) that has as a value a length unit. This specification defines only one length unit, "m", i.e., meters, though others may be defined externally as an [extension][prezi30-ldce]. If source size metadata is machine readable (or parse-able) in other measurement systems (e.g., feet and inches) then it should be converted to meters for use in `spatialScale`. Publishers may wish to present the original given measure (e.g., from catalogue metadata) in a `metadata` field for context.
 
 The Presentation API also offers a corresponding `temporalScale` property for the `duration` dimension of a Container, when 1 second in the Container does not correspond to 1 second of real time. This is useful for speeded-up or slowed-down audio or video. 
 
-An extreme example of both physical dimension properties together is a Canvas showing an animation of continental drift over the course of Earth history, where the spatialScale could convey that each Canvas unit is several thousand metres, and each second of the Canvas `duration` is several million years.
+An extreme example of both physical dimension properties together is a Canvas showing an animation of continental drift over the course of Earth history, where the spatialScale could convey that each Canvas unit is several thousand meters, and each second of the Canvas `duration` is several million years.
 
 
 
