@@ -429,8 +429,9 @@ The example demonstrates the use of the common descriptive properties `label` fo
 }
 ```
 
-**Key Points**
 
+>
+**Key Points**
 * All IIIF documents begin with the `@context` key, which maps the JSON structure into a linked data representation. The value identifies the version of the specification in use. [👀 Model Documentation](model/#json-ld-contexts-and-extensions)
 * Every JSON object that has a `type` property also has an `id` property and vice versa.
 * Text elements intended for display to the user are conveyed by _Language Maps_, JSON objects in which the keys are language codes and the values are lists of one or more strings in that language.  [👀 Model Documentation](model/#language-of-property-values)
