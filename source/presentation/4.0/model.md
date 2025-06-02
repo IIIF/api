@@ -100,7 +100,7 @@ Any of the properties in the API that can have multiple values _MUST_ always be 
 ### Language of Property Values
 {: #language-of-property-values}
 
-Language _SHOULD_ be associated with strings that are intended to be displayed to the user for the `label` and `summary` properties, plus the `label` and `value` properties of the `metadata` and `requiredStatement` objects.
+Language _SHOULD_ be associated with strings that are intended to be displayed to the user for the `label` and `summary` properties, plus the `label` and `value` properties of the `metadata` and `requiredStatement` objects. This construction is called a Language Map in the [JSON-LD specification](https://www.w3.org/TR/json-ld11/#language-maps).
 
 The values of these properties _MUST_ be JSON objects, with the keys being the [BCP 47][org-bcp-47] language code for the language, or if the language is either not known or the string does not have a language, then the key _MUST_ be the string `none`. The locale, script and other subtags _MAY_ be included. Clients _SHOULD_ process subtags when comparing the values with the user's provided preferences, however _MAY_ simply reduce all tags down to just the language, discarding everything after the first hyphen, and display all matching values. The associated values _MUST_ be arrays of strings, where each item is the content in the given language.
 
@@ -2502,8 +2502,10 @@ Additional motivations may be added to the Annotation to further clarify the int
 
 
 ## JSON-LD and Extensions
+{: #json-ld-and-extensions}
 
 ### JSON-LD Contexts and Extensions
+{: #json-ld-contexts-and-extensions}
 
 The top level resource in the response _MUST_ have the `@context` property, and it _SHOULD_ appear as the very first key/value pair of the JSON representation. This tells Linked Data processors how to interpret the document. The IIIF Presentation API context, below, _MUST_ occur once per response in the top-most resource, and thus _MUST NOT_ appear within [embedded][prezi30-terminology] resources. For example, when embedding a Canvas within a Manifest, the Canvas will not have the `@context` property.
 
@@ -2531,6 +2533,7 @@ Any additional properties beyond those defined in this specification or the Web 
 The JSON representation _MUST NOT_ include the `@graph` key at the top level. This key might be created when serializing directly from RDF data using the JSON-LD 1.0 compaction algorithm. Instead, JSON-LD framing and/or custom code should be used to ensure the structure of the document is as defined by this specification.
 
 ### Term Collisions between Contexts
+{: #term-collisions-between-contexts}
 
 There are some common terms used in more than one JSON-LD context document. Every attempt has been made to minimize these collisions, but some are inevitable. In order to know which specification is in effect at any given point, the class of the resource that has the property is the primary governing factor. Thus properties on Annotation based resources use the context from the [Web Annotation Data Model][org-w3c-webanno], whereas properties on classes defined by this specification use the IIIF Presentation API context's definition.
 
