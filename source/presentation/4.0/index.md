@@ -243,30 +243,26 @@ The same linking mechanism is also used in IIIF with other motivations for trans
 
 Annotations are grouped within the `items` property of an Annotation Page, and the `items` property of the Container is a list of Annotation Pages. This allows consistent grouping of Annotations when required.
 
-(👀) [Model Documentation](model/#annotations)
+(👀) [Model Documentation](model/#Annotations)
 
 
 ## Content Resources
 
 Content Resources are external web resources, including images, video, audio, 3D models, data, web pages or any other format. Typically these are the resources that will be painted into a Container using a Painting Annotation.
 
-In addition to the required properties `id` and `type`, other commonly used properties include `format`, and `width`, `height` and `duration` as appropriate to the Content Resource format.
+In addition to the required properties `id` and `type`, other commonly used properties include `format`, and `width`, `height` and `duration` as appropriate to the Content Resource format. The values of these properties are often the source of the equivalent Container properties. 
 
-If you have existing content resources with web URIs - images, audio, video and models - you can publish IIIF Manifests for them by constructing the appropriate JSON around them and publishing the JSON documents. This requires careful consideration of the URI schemes for `id` properties of Containers and their Manifests to ensure they remain referenceable in the future. The choice of Timeline or Canvas dimensions (duration, width, height) can usually be derived simply from the content; the same duration as the audio or video, and the same unit Canvas dimensions as the image or video pixel dimensions, with the caveat that you should avoid low values for `width` and `height` (ref model).
-
-(👀) [Model Documentation](model/#contentresources)
+(👀) [Model Documentation](model/#ContentResources)
 
 ### Containers as Content Resources
 
-Containers may also be treated as Content Resources and painted into other Containers. This allows rich composition of content, such as painting a Canvas bearing a Video into a Scene, or painting a 3D model along with its associated Lights into an encompassing Scene.
+Containers may also be treated as Content Resources and painted into other Containers. This allows composition of content, such as painting a Canvas bearing a Video into a Scene, or painting a 3D model along with its associated Lights into an encompassing Scene.
 
 ### Referencing Parts of Resources
 
-A common requirement is to refer to only part of a resource, either a Container or a Content Resource. There are two primary methods for achieving this: adding a fragment to the end of the URI for the resource, or creating a Specific Resource that describes the method for selecting the desired part.
+A common scenario is to refer to only part of a resource, either a Container or a Content Resource. There are two primary methods for achieving this: adding a fragment to the end of the URI for the resource, or creating a Specific Resource that describes the method for selecting the desired part.
 
-#### Fragments
-
-Parts of resources on the Web are identified using URIs with a fragment component that both describes how to select the part from the resource, and, as a URI, also identifies it. In HTML this is frequently used to refer to part of the web page, called an anchor. The URI with the fragment can be used in place of the URI without the fragment in order to refer to this part.
+Parts of resources on the Web can be identified using URIs with a fragment component that both describes how to select the part from the resource, and, as a URI, also identifies it. In HTML this is frequently used to refer to part of the web page, called an anchor. The URI with the fragment can be used in place of the URI without the fragment in order to refer to this part.
 
 There are different types of fragment based on the format of the resource. The most commonly used type in IIIF is the W3C's Media Fragments specification, as it can define a temporal and 2D spatial region.
 
@@ -274,8 +270,9 @@ There are different types of fragment based on the format of the resource. The m
 {
   "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/comments/c1",
   "type": "Annotation",
-  "motivation": "commenting",
+  "motivation": [ "commenting" ],
   "body": {
+    "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/bodies/koto-body",
     "type": "TextualBody",
     "value": "Koto with a cover being carried",
     "language": "en",
@@ -285,35 +282,40 @@ There are different types of fragment based on the format of the resource. The m
 }
 ```
 
-Here the Canvas `id` from the earlier example is still the `target` of an Annotation, but it has been qualified to a specific region of that Canvas by a Fragment Selector `#xywh=6050,3220,925,1250`. Note that the x, y, w, and h are in the Canvas coordinate space, not the pixel dimensions space. This annotation has no knowledge of or dependency on the particular image we painted onto the Canvas; we could replace that image with one of a different, higher resolution without affecting this annotation or the region of the Canvas it targets.
+Here the Canvas `id` from the earlier example is still the `target` of an Annotation, but it has been qualified to a specific region of that Canvas by a URI fragment `#xywh=6050,3220,925,1250`. Note that the x, y, w, and h are in the Canvas coordinate space, not the image pixel dimensions space. This annotation has no knowledge of or dependency on the particular image we painted onto the Canvas; we could replace that image with one of a different, higher resolution without affecting this annotation or the region of the Canvas it targets.
 
 
-#### Specific Resource
+### Specific Resource
 
-URIs with fragments are insufficient for complex referencing, like circular regions or arbitrary text spans, and do not support other useful features such as describing styling or transformation. The Web Annotation Data Model introduces a class called `SpecificResource` that represents the resource in a specific context or role, which IIIF uses to describe these more complex requirements. The Specific Resource then identifies the part, and the description of how to extract it is given as an instance of a `Selector` class associated with it.
+URIs with fragments are insufficient for complex referencing, like circular regions or arbitrary text spans, and do not support other useful features such as describing styling or transformation. The Web Annotation Data Model introduces a class called `SpecificResource` that represents the resource in a specific context or role, which IIIF uses to describe these more complex requirements.
 
 Several different classes of Selector are used in IIIF, including an alternative implementation of the fragment pattern called `FragmentSelector`. The fragment is given in the `value` property of the `FragmentSelector`, and the resource it should be applied to is given in `source`.
 
 The required properties of Specific Resources are `id`, `type`, and `source`. Other commonly used properties include `selector`, `transform`, and `scope`.
 
+The fragment example above can be expressed using a Specific Resource:
+
 ```json
 {
   "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/comments/c1",
   "type": "Annotation",
-  "motivation": "commenting",
+  "motivation": [ "commenting" ],
   "body": {
+    "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/bodies/koto-body",
     "type": "TextualBody",
     "value": "Koto with a cover being carried",
     "language": "en",
     "format": "text/plain"
   },
   "target": {
+    "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/resources/koto-sr",
     "type": "SpecificResource",
     "source":  {
       "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/canvas",
       "type": "Canvas"
     },
     "selector": {
+      "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/selectors/koto-selector",
       "type": "FragmentSelector",
       "value": "xywh=6050,3220,925,1250"
     }
@@ -493,34 +495,37 @@ A content resource may be annotated into a Scene for a period of time by use of 
 
 ```json
 {
-    "id": "https://example.org/iiif/3d/anno1",
-    "type": "Annotation",
-    "motivation": ["painting"],
-    "body": {
-        "id": "https://example.org/iiif/assets/model1.glb",
-        "type": "Model"
-    },
-    "target": {
-        "type": "SpecificResource",
-        "source": [
-          {
-            "id": "https://example.org/iiif/scene1",
-            "type": "Scene"
-          }
-        ],
-        "selector": [
-            {
-                "type": "PointSelector",
-                "x": -1.0,
-                "y": -1.0,
-                "z": 3.0,
-                "refinedBy": {
-                    "type": "FragmentSelector",
-                    "value": "t=45,95"
-                } 
-            }
-        ]
-    }
+  "id": "https://example.org/iiif/3d/anno1",
+  "type": "Annotation",
+  "motivation": ["painting"],
+  "body": {
+      "id": "https://example.org/iiif/assets/model1.glb",
+      "type": "Model"
+  },
+  "target": {
+    "id": "https://example.org/iiif/selectors/model1-glb-sr",
+    "type": "SpecificResource",
+    "source": [
+      {
+        "id": "https://example.org/iiif/scene1",
+        "type": "Scene"
+      }
+    ],
+    "selector": [
+      {
+        "id": "https://example.org/uuid/9fbd580b-895b-41b9-974a-1553329037f2",
+        "type": "PointSelector",
+        "x": -1.0,
+        "y": -1.0,
+        "z": 3.0,
+        "refinedBy": {
+            "id": "https://example.org/uuid/3d0d097b-2b37-4a15-b6a5-506e417d5115",
+            "type": "FragmentSelector",
+            "value": "t=45,95"
+        } 
+      }
+    ]
+  }
 }
 ```
 
