@@ -448,15 +448,135 @@ Properties: [id](#model/id), [type](#type), [label](#label), [lookAt](#lookAt), 
 {: .note}
 
 
-## Example 2: Book
+## Use Case 2: Book
 
 This example is a Manifest with multiple Canvases, each of which represents a page of a book. It demonstrates the use of the `behavior` property to indicate to a client that the object is _paged_: this helps a client generate the correct user experience. The `viewingDirection` property indicates that the book is read left-to-right. In this case, the property is redundant as `left-to-right` is the default value. The Manifest has a `rendering` property linking to a PDF representation; typically a client would offer this as a download or "view as" option. The `start` property is used to tell a client to initialize the view on a particular Canvas, useful if the digitized work contains a large amount of irrelevant front matter or blank pages. The `requiredStatement` is a message that a client MUST show to the user when presenting the Manifest.
 
-```
-Example: a paged thing - a book
-requiredStatement, behavior, viewingDirection, (no Ranges), rendering - PDF version, start
+```json
+{
+  "@context": "http://iiif.io/api/presentation/4/context.json",
+  "id": "https://example.org/iiif/presentation/examples/manifest-with-book.json",
+  "type": "Manifest",
+  "label": { "en": [ "Use case 2: Book" ] },
+  "behavior": [ "paged" ],
+  "viewingDirection": "left-to-right",
+  "rendering": [
+    {
+      "id": "https://example.org/pdfs/book.pdf",
+      "type": "Text",
+      "label": { "en": [ "PDF version" ] },
+      "format": "application/pdf"
+    }
+  ],
+  "start": {
+    "id": "https://example.org/iiif/presentation/examples/manifest-with-book/canvas/c2",
+    "type": "Canvas"
+  },
+  "requiredStatement": {
+    "label": { "en": [ "Attribution" ] },
+    "value": { "en": [ "Provided courtesy of Example Institution" ] }
+  },
+  "items": [
+    {
+      "id": "https://example.org/iiif/presentation/examples/manifest-with-book/canvas/c1",
+      "type": "Canvas",
+      "label": { "en": [ "Blank page" ] },
+      "height": 4613,
+      "width": 3204,
+      "items": [
+        {
+          "id": "https://example.org/iiif/presentation/examples/manifest-with-book/page/p1",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://example.org/iiif/presentation/examples/manifest-with-book/annotation/a1",
+              "type": "Annotation",
+              "motivation": [ "painting" ],
+              "body": {
+                "id": "https://iiif.io/api/presentation/example-content-resources/image/page1.jpg",
+                "type": "Image",
+                "format": "image/jpeg",
+                "height": 4613,
+                "width": 3204,
+                },
+              "target": "https://example.org/iiif/presentation/examples/manifest-with-book/canvas/c1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "https://example.org/iiif/presentation/examples/manifest-with-book/canvas/c2",
+      "type": "Canvas",
+      "label": { "en": [ "Frontispiece" ] },
+      "height": 4613,
+      "width": 3204,
+      "items": [
+        {
+          "id": "https://example.org/iiif/presentation/examples/manifest-with-book/page/p2",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://example.org/iiif/presentation/examples/manifest-with-book/annotation/a2",
+              "type": "Annotation",
+              "motivation": [ "painting" ],
+              "body": {
+                "id": "https://iiif.io/api/presentation/example-content-resources/image/page2.jpg",
+                "type": "Image",
+                "format": "image/jpeg",
+                "height": 4613,
+                "width": 3204,
+              },
+              "target": "https://example.org/iiif/presentation/examples/manifest-with-book/canvas/c2"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "https://example.org/iiif/presentation/examples/manifest-with-book/canvas/c3",
+      "type": "Canvas",
+      "label": { "en": [ "Title Page" ] },
+      "height": 4613,
+      "width": 3204,
+      "items": [
+        {
+          "id": "https://example.org/iiif/presentation/examples/manifest-with-book/page/p3",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://example.org/iiif/presentation/examples/manifest-with-book/annotation/a3",
+              "type": "Annotation",
+              "motivation": [ "painting" ],
+              "body": {
+                "id": "https://iiif.io/api/presentation/example-content-resources/image/page3.jpg",
+                "type": "Image",
+                "format": "image/jpeg",
+                "height": 4613,
+                "width": 3204,
+              },
+              "target": "https://example.org/iiif/presentation/examples/manifest-with-book/canvas/c3"
+            }
+          ]
+        }
+      ]
+    },
+    // Additional Canvases...
+  ]
+}
 ```
 
+>
+**Key Points**
+* Recommend using Canvas labels when more than one Canvas...
+{: .note}
+
+!!! warning TODO: The above should be a green class rgb(244,252,239) to distinguish from properties
+
+__Definitions__<br/>
+Classes: [Manifest](#model/Manifest), ...<br/><br/>
+Properties: [behavior](#model/behavior), [viewingDirection](#model/viewingDirection), [start](#model/start), [rendering](#model/rendering), [requiredStatement](#model/requiredStatement)
+{: .note}
 
 
 # Audio and Video
