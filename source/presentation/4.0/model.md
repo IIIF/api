@@ -430,7 +430,7 @@ Containers _MAY_ be treated as content resources for the purposes of annotating 
 __Properties__<br/>
 A Content Resource _MUST_ have the following properties: [id](#id), and [type](#type)<br/><br/>
 A Content Resource _SHOULD_ have the following properties: [label](#label)<br/><br/>
-A Content Resource _MAY_ have the following properties: [height](#height), [width](#width), [duration](#duration), [language](#language), [format](#format), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [behavior](#behavior), [profile](#profile), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [canonical](#canonical), [via](#via), and [annotations](#annotations).<br/><br/>
+A Content Resource _MAY_ have the following properties: [height](#height), [width](#width), [duration](#duration), [language](#language), [format](#format), [fileSize](#fileSize),[metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [behavior](#behavior), [profile](#profile), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [canonical](#canonical), [via](#via), and [annotations](#annotations).<br/><br/>
 {: .note}
 
 
@@ -1229,6 +1229,19 @@ The value _MUST_ be a floating point number greater than 0 and less than 180, an
 
 ```json-doc
 { "fieldOfView": 50.0 }
+```
+
+### fileSize
+
+The size of a content resource in bytes. This will allow clients to determine whether the resource should be retrieved in the user's current context. For example, the same 3d Model or AV file might be available in multiple formats, and the client can choose the most appropriate one based on the `fileSize` property.
+
+The value _MUST_ be a positive integer.
+
+* Any Content Resource _MAY_ have the `fileSize` property.<br/>
+  Clients _SHOULD_ process the `fileSize` property on Resources.
+
+```json-doc
+{ "fileSize": 132465987 }
 ```
 
 ### first
