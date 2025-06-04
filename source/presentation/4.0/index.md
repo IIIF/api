@@ -561,7 +561,7 @@ This example is a Manifest with multiple Canvases, each of which represents a pa
         }
       ]
     },
-    // Additional Canvases...
+    // Additional Canvases
   ]
 }
 ```
@@ -581,21 +581,152 @@ Properties: [behavior](#model/behavior), [viewingDirection](#model/viewingDirect
 
 # Audio and Video
 
-## Example: a 45 single with one Timeline per song/side
+## Use Case 3: a 45 single with one Timeline per song/side
 
 This example is a Manifest with two Timelines, each of which represent a temporal extent during which a song is played. As in most cases, the Timeline `duration` is the same length as that of Content Resource painted into it. This example is a recording digitized from a 45 RPM 7 inch single. It demonstrates the use of `format` for the audio files' content type, `language` (One song is in English and one is in German), `behavior` with value "autoPlay" that tells a client to automatically advance to the second Timeline after playing the first, `annotations` that link to Annotation Pages of annotations with the motivation `supplementing` that provide the lyrics (one example is given afterwards) - and an `accompanyingContainer` that carries a picture of the single's cover that is shown while the songs are playing.
 
 
-```
-Timeline
-duration, autoPlay, format, annotations (transcript), language, accompanyingContainer
+```json
+{
+  "@context": "http://iiif.io/api/presentation/4/context.json",
+  "id": "https://example.org/iiif/presentation/examples/manifest-with-audio.json",
+  "type": "Manifest",
+  "label": { "en": [ "Use case 3: 45 single with 2 tracks" ] },
+  "behavior": [ "autoPlay" ],
+  "accompanyingContainer": {
+    "id": "https://example.org/iiif/presentation/examples/manifest-with-audio/accompany/c1",
+    "type": "Canvas",
+    "label": { "en": [ "Photo of cover sleeve" ] },
+    "height": 900,
+    "width": 900,
+    "items": [
+      {
+        "id": "https://example.org/iiif/presentation/examples/manifest-with-audio/accompany/c1/page",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://example.org/iiif/presentation/examples/manifest-with-audio/accompany/c1/image",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://example.org/presentation/example-content-resources/image/cover.jpg",
+                "type": "Image",
+                "format": "image/jpeg",
+                "height": 900,
+                "width": 900
+              },
+              "target": "https://example.org/iiif/presentation/examples/manifest-with-audio/accompany/ac1"
+            }
+          ]
+      }
+    ]
+  },
+  
+  "items": [
+    {
+      "id": "https://example.org/iiif/presentation/examples/manifest-with-audio/timeline/t1",
+      "type": "Timeline",
+      "label": { "en": [ "Side A: 99 Luftballons" ] },
+      "duration": 242.40,
+      "items": [
+        {
+          "id": "https://example.org/iiif/presentation/examples/manifest-with-audio/track/tr1",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://example.org/iiif/presentation/examples/manifest-with-audio/annotation/a1",
+              "type": "Annotation",
+              "motivation": [ "painting" ],
+              "body": {
+                "id": "https://example.org/presentation/example-content-resources/audio/track1.mp4",
+                "type": "Sound",
+                "format": "audio/mp4",
+                "duration": 242.40,
+                "language": [ "de" ],
+                },
+              "target": "https://example.org/iiif/presentation/examples/manifest-with-audio/timeline/t1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "https://example.org/iiif/presentation/examples/manifest-with-audio/timeline/t2",
+      "type": "Timeline",
+      "label": { "en": [ "Side B: 99 Red Balloons" ] },
+      "duration": 242.40,
+      "items": [
+        {
+          "id": "https://example.org/iiif/presentation/examples/manifest-with-audio/track/tr2",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://example.org/iiif/presentation/examples/manifest-with-audio/annotation/a2",
+              "type": "Annotation",
+              "motivation": [ "painting" ],
+              "body": {
+                "id": "https://example.org/presentation/example-content-resources/audio/track2.mp4",
+                "type": "Sound",
+                "format": "audio/mp4",
+                "duration": 242.40,
+                "language": [ "en" ],
+                },
+              "target": "https://example.org/iiif/presentation/examples/manifest-with-audio/timeline/t2"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "annotations": [
+    {
+      "id": "https://example.org/iiif/presentation/examples/external-anno.json",
+      "type": "AnnotationPage",
+    }
+  }
 ```
 
+```json
+{
+  "@context": "http://iiif.io/api/presentation/3/context.json",
+  "id": "https://example.org/iiif/presentation/examples/external-anno.json",
+  "type": "AnnotationPage",
+  "items": [
+    {
+      "id": "https://example.org/iiif/presentation/examples/external-anno/a1",
+      "type": "Annotation",
+      "motivation": "supplementing",
+      "body": {
+        "id": "https://example.org/presentation/example-content-resources/lyrics1.txt",
+        "type": "TextualBody",
+        "language": "de",
+        "format": "text/plain",
+        "value": "Hast du etwas Zeit für mich?"
+      },
+      "target": {
+        "type": "SpecificResource",
+        "source": "https://example.org/iiif/presentation/examples/manifest-with-audio/timeline/t1",
+        "selector": {
+         "type": "PointSelector",
+         "instant": 3.5
+        }
+    }
+  ]
+}
 ```
-...
-  (A single supplementing annotation for a line of the song) t= fragment
-...
-```
+
+>
+**Key Points**
+* t vs. instant / verbose vs. append to URI???
+{: .note}
+
+!!! warning TODO: The above should be a green class rgb(244,252,239) to distinguish from properties
+
+__Definitions__<br/>
+Classes: [Manifest](#model/Manifest), ...<br/><br/>
+Properties: [duration](#model/duration), [format](#model/format), [language](#model/language), [behavior](#model/behavior), [annotations](#model/annotations), [accompanyingContainer](#model/accompanyingContainer)
+{: .note}
+
 
 ## Example: a movie with subtitles
 
