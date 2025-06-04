@@ -54,12 +54,14 @@ __Previous Version:__ [3.0][prezi30]
 # IIIF Presentation API Data Model
 
 ## Introduction
+{: #introduction}
 
 The IIIF Presentation API is backed by a standards-based data model inspired by both earlier tree structured representations of cultural heritage objects, as well as linked data approaches with the same goal. It comprises four main types of resource: Structural (such as Collections, Manifests, and Ranges), Presentational Containers (Canvas, Scene and Timeline), Linking (Annotations), and Content (the images, texts, audio, video and models to be displayed).
 The model intentionaly does not include any semantic or descriptive relationships or properties such as the author of a book or the place where a statue was sculpted; it is solely for presenting content in a structured fashion to human users.
 
 
 ### Terminology
+{: #terminology}
 
 This specification uses the following terms:
 
@@ -73,14 +75,17 @@ The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _S
 
 
 ## JSON Considerations
+{: #json-considerations}
 
 This section describes features applicable to all of the Presentation API content.
 
 ### Case Sensitivity
+{: #case-sensitivity}
 
 Keys in JSON objects are [case sensitive][org-w3c-json-ld-case].  The cases of properties and enumerated values in IIIF Presentation API responses _MUST_ match those used in this specification. For example to specify that a resource is a Manifest, the property _MUST_ be given as `type` and not `Type` or `tYpE`, and the value _MUST_ be given as `Manifest` and not `manifest` or `manIfEsT`.
 
 ### Properties with Multiple Values
+{: #properties-with-multiple-values}
 
 Any of the properties in the API that can have multiple values _MUST_ always be given as an array of values, even if there is only a single item in that array.
 
@@ -521,7 +526,7 @@ A Visual Content Selector _MUST_ have the following properties: [id](#id), and [
 
 
 #### Animation Selector
-
+{: #AnimationSelector}
 > `"type": "AnimationSelector"`
 
 More interactive content resources, such as 3D models, may have animations or similar features that can be _activated_ by user interaction. For example, a model of a box might have an animation that opens the lid and a second animation that closes the lid. In order to activate those animations, they need to be selectable, and thus the specification defines an Animation Selector. The identity of the activatable aspect is given in the `value` property.
@@ -539,7 +544,7 @@ An Animation Selector _MUST_ have the following properties: [id](#id), [type](#t
 ```
 
 #### IIIF Image API Selector
-
+{: #ImageApiSelector}
 > `"type": "ImageApiSelector"`
 
 The Image API Selector is used to describe the operations available via the IIIF Image API in order to retrieve a particular image representation.  In this case the resource is the abstract image as identified by the [IIIF Image API][image-api] base URI plus identifier, and the retrieval process involves adding the correct parameters after that base URI.
@@ -570,7 +575,7 @@ A IIIF Image API Selector _MAY_ have the following properties: [region](#region)
 ```
 
 ### Range
-
+{: #Range}
 > `"type": "Range"`
 
 Ranges are used to represent structure within a Manifest beyond the default order of the Containers in the `items` property.
@@ -587,10 +592,12 @@ A Range _MAY_ have the following properties: [start](#start), [supplementary](#s
 
 
 ### Scene Components
+{: #scene-components}
 
 The following classes are only usable within Scenes.
 
 #### Cameras
+{: #Camera}
 
 A Camera provides a view of a region of a Scene's space from a particular position within the Scene; the client constructs a viewport into the Scene and uses the Camera to render that region. The size and aspect ratio of the viewport is client and device dependent.
 
@@ -603,6 +610,7 @@ All Cameras _MAY_ have the following properties: [label](#label), [lookAt](#look
 
 
 ##### Orthographic Camera
+{: #OrthographicCamera}
 
 > `"type": "OrthographicCamera"`
 
@@ -624,7 +632,7 @@ Orthographic Cameras _SHOULD_ have the following additional properties: [viewHei
 
 
 ##### Perspective Camera
-
+{: #PerspectiveCamera}
 > `"type": "PerspectiveCamera"`
 
 A Perspective Camera mimics the way the human eye sees, in that objects further from the camera are smaller.
@@ -647,6 +655,7 @@ Perspective Cameras _SHOULD_ have the following additional properties: [fieldOfV
 ```
 
 #### Lights
+{: #Light}
 
 It is necessary for there to be a Light within a Scene that illuminates the objects. If no Light is provided by the Scene's description, then the client _MUST_ add a Light.
 
@@ -662,7 +671,7 @@ All Lights _MAY_ have the following properties: [label](#label).
 
 
 ##### Ambient Light
-
+{: #AmbientLight}
 > `"type": "AmbientLight"`
 
 Ambient Light evenly illuminates all objects in the Scene, and does not have a direction or position. It does not have any new properties. The Light itself _MUST_ be added into the scene at a specific position, however this is only such that editing interfaces can render the object to the user.
@@ -677,7 +686,7 @@ Ambient Light evenly illuminates all objects in the Scene, and does not have a d
 ```
 
 ##### Directional Light
-
+{: #DirectionalLight}
 > `"type": "DirectionalLight"`
 
 Directional Lights emit their light in a specific direction as if infinitely far away, and as such the light does not come from a specific position. The rays produced are all parallel. The Light itself _MUST_ be added into the scene at a specific position, however this is only such that editing interfaces can render the object to the user.
@@ -699,7 +708,7 @@ Directional Lights _MAY_ have the following additional properties: [lookAt](#loo
 ```
 
 ##### Point Light
-
+{: #PointLight}
 > `"type": "PointLight"`
 
 Point Lights emit in all directions from a single point within the Scene.
@@ -715,7 +724,7 @@ Point Lights emit in all directions from a single point within the Scene.
 
 
 ##### Spot Light
-
+{: #SpotLight}
 > `"type": "SpotLight"`
 
 Spot Light emits a cone of light in a given direction from a single point.  The Spot Light's `angle` property defines the radius of the cone. The default angle is client dependent if not specified.
@@ -746,6 +755,7 @@ Spot Lights _MAY_ have the following additional properties: [lookAt](#lookAt)
 ```
 
 #### Audio Emitters
+{: #AudioEmitters}
 
 Positional audio is supported through the use of Audio Emitter resources annotated into Scenes, in the same way that light is emitted from the various subclasses of Light.
 
@@ -760,7 +770,7 @@ All Audio Emitters _MAY_ have the following properties: [label](#label).
 {: .note}
 
 ##### Ambient Audio
-
+{: #AmbientAudio}
 > `"type": "AmbientAudio"`
 
 Ambient Audio emits equally throughout the Scene, and does not have a position or direction. The Emitter _MUST_ be annotated somewhere within the Scene so that it can be rendered by editing interfaces, and exists within the Scene's hierarchy.
@@ -779,7 +789,7 @@ Ambient Audio emits equally throughout the Scene, and does not have a position o
 ```
 
 ##### Point Audio
-
+{: #PointAudio}
 > `"type": "PointAudio"`
 
 Point Audio emits in all directions from a single point in the Scene.
@@ -798,6 +808,7 @@ Point Audio emits in all directions from a single point in the Scene.
 ```
 
 ##### Spot Audio
+{: #SpotAudio}
 
 > `"type": "SpotAudio"`
 
@@ -831,6 +842,7 @@ Spot Audio Emitters _MAY_ have the following additional properties: [lookAt](#lo
 ```
 
 #### Transforms
+{: #Transforms}
 
 An operation to transform a 3D resource. Transforms are specified by the [transform](#transform) property on a Specific Resource. Transforms are carried out on a resource in the implicit or explicit local coordinate space of the resource, and are performed prior to painting that resource into any subsequent coordinate space.
 
@@ -840,7 +852,7 @@ All Transforms _MAY_ have the following properties: [label](#label), [x](#x), [y
 {: .note}
 
 ##### Rotate Transform
-
+{: #RotateTransform}
 > `"type": "RotateTransform"`
 
 A Rotate Transform rotates the resource around one or more axes. If present, the values of properties `x`, `y`, and `z` _MUST_ be angular values in degrees that specify the extent of rotation around each axis. Positive angular values indicate counter-clockwise rotation around the axis due to coordinate right-handedness. Axis rotation is performed with a pivot point at the origin of the local coordinate space. As an example, for a point at (1, 1, 0) in local coordinate space, rotating 90 degrees around the x axis would transform the point to be at (1, 0, 1). If any property `x`, `y`, or `z` is not specified or is specified to be 0.0, rotation around that axis does not occur. When more than one axis rotation is specified through multiple non-zero values for `x`, `y`, and `z`, rotations comprise a Euler angle with ordering x-y-z, and rotation _MUST_ be carried out first around the x axis, second around the y axis, and third around the z axis.
@@ -857,7 +869,7 @@ A Rotate Transform rotates the resource around one or more axes. If present, the
 ```
 
 ##### Scale Transform
-
+{: #ScaleTransform}
 > `"type": "ScaleTransform"`
 
 A Scale Transform scales the resource along one or more axes. If present, the values of properties `x`, `y`, and `z` _MUST_ be multiplicative scale factors that specify the extent of scaling along each axis. As an example, for a point at 3.5 along the x axis in local coordinate space, scaling along the x axis by 2.0 would result in the point being at 7.0. If any property `x`, `y`, or `z` is not specified or is specified to be 1.0, scaling does not occur along that axis. Negative scale factor values indicate mirroring as well as scaling along that axis.
@@ -874,7 +886,7 @@ A Scale Transform scales the resource along one or more axes. If present, the va
 ```
 
 ##### Translate Transform
-
+{: #TranslateTransform}
 > `"type": "TranslateTransform"`
 
 A Translate Transform translates or moves the resource across one or more axes. If present, the values of properties `x`, `y`, and `z` _MUST_ be coordinate unit distances that specify the distance across each axis to translate the resource. As an example, for a point at 1.0 along the x axis, translating across the x axis by 3.0 would result in the point being at 4.0. If any property `x`, `y`, or `z` is not present or is specified to be 0.0, translation does not occur across that axis.
@@ -891,9 +903,10 @@ A Translate Transform translates or moves the resource across one or more axes. 
 ```
 
 ### Utility Classes
+{: #utility-classes}
 
 #### Agent
-
+{: #Agent}
 > `"type": "Agent"`
 
 An Agent represents a person or organization, typically referenced with the `provider` property.
@@ -934,6 +947,7 @@ An Agent _MAY_ have the following properties: [seeAlso](#seeAlso), and [summary]
 
 
 #### Service
+{: #Service}
 
 > `"type": "Service"`
 
@@ -948,6 +962,7 @@ Services will also have specific requirements as to additional properties based 
 
 
 #### Unit Value
+{: #UnitValue}
 
 > `"type": "UnitValue"`
 
@@ -970,7 +985,7 @@ A Unit Value _MAY_ have the following properties: [label](#label).
 
 
 ## Properties
-
+{: #properties}
 
 ### accompanyingContainer
 {: #accompanyingContainer}
