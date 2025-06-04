@@ -703,13 +703,7 @@ This example is a Manifest with two Timelines, each of which represent a tempora
         "format": "text/plain",
         "value": "Hast du etwas Zeit für mich?"
       },
-      "target": {
-        "type": "SpecificResource",
-        "source": "https://example.org/iiif/presentation/examples/manifest-with-audio/timeline/t1",
-        "selector": {
-         "type": "PointSelector",
-         "instant": 3.5
-        }
+      "target": "https://example.org/iiif/presentation/examples/manifest-with-audio/timeline/t1#instant=3.5"
     }
   ]
 }
