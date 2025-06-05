@@ -583,7 +583,7 @@ Properties: [behavior](#model/behavior), [viewingDirection](#model/viewingDirect
 
 ## Use Case 3: a 45 single with one Timeline per song/side
 
-This example is a Manifest with two Timelines, each of which represent a temporal extent during which a song is played. As in most cases, the Timeline `duration` is the same length as that of Content Resource painted into it. This example is a recording digitized from a 45 RPM 7 inch single. It demonstrates the use of `format` for the audio files' content type, `language` (One song is in English and one is in German), `behavior` with value "autoPlay" that tells a client to automatically advance to the second Timeline after playing the first, `annotations` that link to Annotation Pages of annotations with the motivation `supplementing` that provide the lyrics (one example is given afterwards) - and an `accompanyingContainer` that carries a picture of the single's cover that is shown while the songs are playing.
+This example is a Manifest with two Timelines, each of which represent a temporal extent during which a song is played. As in most cases, the Timeline `duration` is the same length as that of Content Resource painted into it. This example is a recording digitized from a 45 RPM 7 inch single. It demonstrates the use of `format` for the audio files' content type, `language` (One song is in English and one is in German), `behavior` with value "auto-advance" that tells a client to automatically advance to the second Timeline after playing the first, `annotations` that link to Annotation Pages of annotations with the motivation `supplementing` that provide the lyrics (one example is given afterwards) - and an `accompanyingContainer` that carries a picture of the single's cover that is shown while the songs are playing.
 
 
 ```json
@@ -592,7 +592,7 @@ This example is a Manifest with two Timelines, each of which represent a tempora
   "id": "https://example.org/iiif/presentation/examples/manifest-with-audio.json",
   "type": "Manifest",
   "label": { "en": [ "Use case 3: 45 single with 2 tracks" ] },
-  "behavior": [ "autoPlay" ],
+  "behavior": [ "auto-advance" ],
   "accompanyingContainer": {
     "id": "https://example.org/iiif/presentation/examples/manifest-with-audio/accompany/c1",
     "type": "Canvas",
@@ -627,7 +627,7 @@ This example is a Manifest with two Timelines, each of which represent a tempora
       "id": "https://example.org/iiif/presentation/examples/manifest-with-audio/timeline/t1",
       "type": "Timeline",
       "label": { "en": [ "Side A: 99 Luftballons" ] },
-      "duration": 242.40,
+      "duration": 231,
       "items": [
         {
           "id": "https://example.org/iiif/presentation/examples/manifest-with-audio/track/tr1",
@@ -641,7 +641,7 @@ This example is a Manifest with two Timelines, each of which represent a tempora
                 "id": "https://example.org/presentation/example-content-resources/audio/track1.mp4",
                 "type": "Sound",
                 "format": "audio/mp4",
-                "duration": 242.40,
+                "duration": 231,
                 "language": [ "de" ],
                 },
               "target": "https://example.org/iiif/presentation/examples/manifest-with-audio/timeline/t1"
@@ -654,7 +654,7 @@ This example is a Manifest with two Timelines, each of which represent a tempora
       "id": "https://example.org/iiif/presentation/examples/manifest-with-audio/timeline/t2",
       "type": "Timeline",
       "label": { "en": [ "Side B: 99 Red Balloons" ] },
-      "duration": 242.40,
+      "duration": 230.5,
       "items": [
         {
           "id": "https://example.org/iiif/presentation/examples/manifest-with-audio/track/tr2",
@@ -668,7 +668,7 @@ This example is a Manifest with two Timelines, each of which represent a tempora
                 "id": "https://example.org/presentation/example-content-resources/audio/track2.mp4",
                 "type": "Sound",
                 "format": "audio/mp4",
-                "duration": 242.40,
+                "duration": 230.5,
                 "language": [ "en" ],
                 },
               "target": "https://example.org/iiif/presentation/examples/manifest-with-audio/timeline/t2"
