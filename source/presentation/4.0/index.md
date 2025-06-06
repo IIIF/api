@@ -1433,7 +1433,7 @@ Each Manifest has a `navDate` property that could be used to plot the issues on 
 demonstrates navDate, navPlace, structures (Ranges), supplementary, Collections
 ...
 ```
-IIIF Collection with `behavior:multi-part` that contains the individual `multi-part` Collections for each year/volume
+IIIF Collection with `behavior` "multi-part" that contains the individual "multi-part" Collections for each year/volume.
 
 ```json
 {
@@ -1474,7 +1474,7 @@ IIIF Collection with `behavior:multi-part` that contains the individual `multi-p
   ]
 }
 ```
-IIIF Collection with `behavior:multi-part` for the second volume (1881), with individual Manifests for each issue.
+IIIF Collection with `behavior` "multi-part" for the second volume (1881), with individual Manifests for each issue.
 
 ```json
 {
@@ -1504,6 +1504,7 @@ Manifest for the October 27, 1881 issue, with Ranges for table of contents.
   "type": "Manifest",
   "label": { "en": [ "The Tombstone Epitaph, October 27, 1881" ] },
   "behavior": [ "paged" ],
+  "navDate": "1881-10-27T00:00:00+00:00",
   "items": [
     {
       "id": "https://example.org/iiif/periodical/multi-part-collection/canvas/c1",
@@ -1570,7 +1571,7 @@ Manifest for the October 27, 1881 issue, with Ranges for table of contents.
       "label": { "en": [ "October 27, 1881" ] },
       "items": [
         {
-          "id": "https://iiif.io/api/cookbook/recipe/0031-bound-multivolume/range/r1",
+          "id": "https://example.org/iiif/periodical/multi-part-collection/range/r1",
           "type": "Range",
           "label": { "en": [ "Yesterday's Tragedy: Three Men Hurled Into Eternity In the Duration of a Moment" ] },
           "items": [
