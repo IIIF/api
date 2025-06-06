@@ -1587,7 +1587,7 @@ Manifest for the October 27, 1881 issue, with Ranges for table of contents.
 
 __Definitions__<br/>
 Classes: [Collection](#model/Collection), [Range](#model/Range), [AnnotationCollection](#model/AnnotationCollection)<br/><br/>
-Properties: [behavior](#model/behavior), [navPlace](#model/navPlace), [navDate](#model/navDate), [structure](#model/structures)
+Properties: [behavior](#model/behavior), [navPlace](#model/navPlace), [navDate](#model/navDate), [structure](#model/structures), [supplementary](#model/supplementary)
 {: .note}
 
 thumbnail-nav
