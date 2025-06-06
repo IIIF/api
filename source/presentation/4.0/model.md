@@ -1427,6 +1427,10 @@ For interaction modes that involve a Camera orbiting around a target point, the 
 
 The value _MUST_ be an array of strings.
 
+> TODO: Undecided whether this is Camera and/or Container
+
+* A Camera _MAY_ have the `interactionMode` property.<br/>
+  Clients _SHOULD_ process `interactionMode` on a Camera.
 * A Container _MAY_ have the `interactionMode` property.<br/>
   Clients _SHOULD_ process `interactionMode` on a Container.
 * Other types of resource _MUST NOT_ have the `interactionMode` property.<br/>
