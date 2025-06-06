@@ -915,8 +915,6 @@ This example is a Manifest with a single Scene, with a single model of a space s
 
 This example adds a Light and a Camera to the previous example, and places the model at a specific point rather than at the default origin position. The Light is green and has a position, but has its default orientation of looking along the negative-y axis as no rotation has been specified. The Camera has a position and is pointing at the model's origin via the `lookAt` property. The Camera has a `fieldOfView` of 50. The `near` and `far` properties are included to ensure the model falls within the camera's range (although unnecessary in a simple Scene like this). The Scene has a background color.
 
-> PNG of Scene - lurid green light half-illuminating the astronaut.
-
 <img src="{{ site.api_url | absolute_url }}/assets/images/p4/use-case-5a.png" alt="Use case 5a" >
 
 
@@ -1044,14 +1042,6 @@ This example adds a Light and a Camera to the previous example, and places the m
 
 
 ## Use Case 6: Complex Scene
-
-
-
-model
-light Ambient color
-camera (put it in the right place looking -Z) near, far, fieldOfView, lookAt  (note that Orthographic w/ viewHeight possible)
-backgroundColor: #000
-point selector for positioning
 
 
 Chessboard is a Canvas with image
@@ -1276,81 +1266,24 @@ Todo add example
 
 A Camera provides a view of a region of the Scene's space from a particular position within the Scene; the client constructs a viewport into the Scene and uses the view of one or more Cameras to render that region. The size and aspect ratio of the viewport is client and device dependent.
 
-This specification defines two types of Camera:
-
-| Class               | Description  |
-| ------------------- | ------------ |
-| `PerspectiveCamera` | `PerspectiveCamera` mimics the way the human eye sees, in that objects further from the camera are smaller |
-| `OrthographicCamera` | `OrthographicCamera` removes visual perspective, resulting in object size remaining constant regardless of its distance from the camera |
-
-Cameras are positioned within the Scene facing in a specified direction. Both position and direction are defined through the Annotation which adds the Camera to the Scene, described below in the sections on [Painting Annotations][], [Transforms][], and [Relative Rotation][].
-
-If either the position or direction is not specified, then the position defaults to the origin, and facing direction defaults to pointing along the z axis towards negative infinity.
-
-
-The region of the Scene's space that is observable by the camera is bounded by two planes orthogonal to the direction the camera is facing, given in the `near` and `far` properties, and a vertical projection angle that provides the top and bottom planes of the region.
-
-The `near` property defines the minimum distance from the camera at which something in the space must exist in order to be viewed by the camera. Anything nearer to the camera than this distance will not be viewed. Conversely, the `far` property defines a maximum distance from the camera at which something in the space must exist in order to be viewed by the camera. Anything further away will not be viewed.
-
-For PerspectiveCameras, the vertical projection angle is specificed using the full angular extent in degrees from the top plane to the bottom plane using the `fieldOfView` property. The `fieldOfView` angle MUST be greater than 0 and less than 180. For OrthographicCameras, the vertical projection is always parallel and thus not defined.
-
-If any of these properties are not specified explicitly, they default to the choice of the client implementation.
-
-<img src="https://raw.githubusercontent.com/IIIF/3d/eds/assets/images/near-far.png" title="Diagram showing near and far properties"  alt="drawing of a geometrical frustrum truncated by near and far distances" width="300" />
-
-The first Camera defined and not hidden in a Scene is the default Camera used to display Scene contents. If the Scene does not have any Cameras defined within it, then the client MUST provide a default Camera. The type, properties and position of this default camera are client-dependent.
-
-```json
-{
-  "id": "https://example.org/iiif/camera/1",
-  "type": "PerspectiveCamera",
-  "near": 1.0,
-  "far": 100.0,
-  "fieldOfView": 45.0
-}
-```
-
+There are two types of Camera, `PerspectiveCamera` and `OrthographicCamera`. The first Camera defined and not hidden in a Scene is the default Camera used to display Scene contents. If the Scene does not have any Cameras defined within it, then the client provides a default Camera. The type, properties and position of this default camera are client-dependent.
 
 
 ### Light
 
-This specification defines four types of Light:
+There are four types of Light: AmbientLight, DirectionalLight, PointLight and SpotLight. They have a `color` and an `intensity`. SpotLight has an additional property of `angle` that determines the spread of its light cone.
 
-| Class | Description  |
-| ----- | ------------ |
-| `AmbientLight` | AmbientLight evenly illuminates all objects in the scene, and does not have a direction or position. |
-| `DirectionalLight` | DirectionalLight emits in a specific direction as if it is infinitely far away and the rays produced from it are all parallel. It does not have a specific position. |
-| `PointLight` | PointLight emits from a single point within the scene in all directions. |
-| `SpotLight` | SpotLight emits a cone of light from a single point in a given direction. |
-
-Lights defined in this specification have a `color` and an `intensity`. The color is given as an RGB value, such as "#FFFFFF" for white. The intensity is the strength or brightness of the light, and described using a `Value` construct.
-
-SpotLight has an additional property of `angle`, specified in degrees, which is the angle from the direction that the Light is facing to the outside extent of the cone.
-
-<img src="https://raw.githubusercontent.com/IIIF/3d/eds/assets/images/angle-of-cone.png" title="Angle of cone" alt="diagram of cone geometry showing how the angle of the cone is defined" width="250"/>
-
-Lights that require a position and/or direction have these through the Annotation which associates them with the Scene, described below in the sections on [Painting Annotations][] and [Transforms][].
+If the Scene has no Lights, then the client provides its own lighting as it sees fit.
 
 
- If a Light does not have an explicit direction, then the default is in the negative y direction (downwards).
- If a Light does not have an explicit position in the coordinate space, then the default is at the origin.
+### Audio Emitters
 
-This specification does not define other aspects of Lights, such as the rate of decay of the intensity of the light over a distance, the maximum range of the light, or the penumbra of a cone. Implementation of these aspects is client-dependent.
-
-If there are no Lights present within the Scene, then the viewer MUST add at least one Light. The types and properties of Lights added in this way are client-dependent.
-
-```json
-{
-  "id": "https://example.org/iiif/light/1",
-  "type": "AmbientLight",
-  "color": "#FFFFFF",
-  "intensity": {"type": "Value", "value": 0.6, "unit": "relativeUnit"}
-}
-```
-
+There are three types of Audio emitter: AmbientAudio, PointAudio and SpotAudio. They have a `source` (an audio Content Resource) and a `volume`.
 
 
 ### Transforms
+
+A Transform is a property 
 
 The Annotation with a Selector on the target can paint a resource at a point other than the origin, however it will be at its initial scale and rotation, which may not be appropriate for the scene that is being constructed.
 
