@@ -378,9 +378,9 @@ A Specific Resource is a resource in the context of an Annotation. They are used
 A Specific Resource _MUST_ have an HTTP(S) URI given in `id`. This allows for it to be addressed by other parts of the model, such as Content State Annotations.
 
 __Properties__<br/>
-A Specific Resource _MUST_ have the following properties: [id](#id), [type](#type), [source](#source)<br/><br/>
+A Specific Resource _MUST_ have the following properties: [type](#type), [source](#source)<br/><br/>
 A Specific Resource _SHOULD_ have the following properties: [selector](#selector)<br/><br/>
-A Specific Resource _MAY_ have the following properties: [position](#position), [transform](#transform), [scope](#scope), [styleClass](#styleClass), [height](#height), [width](#width), [duration](#duration), [language](#language), [label](#label), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [canonical](#canonical), [via](#via), and [annotations](#annotations).<br/><br/>
+A Specific Resource _MAY_ have the following properties: [id](#id), [position](#position), [transform](#transform), [scope](#scope), [styleClass](#styleClass), [height](#height), [width](#width), [duration](#duration), [language](#language), [label](#label), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [canonical](#canonical), [via](#via), and [annotations](#annotations).<br/><br/>
 {: .note}
 
 #### Textual Body
@@ -390,11 +390,10 @@ A Specific Resource _MAY_ have the following properties: [position](#position), 
 
 A Textual Body is an embedded resource within an Annotation that carries, as the name suggests, a text as the body of the Annotation. It is defined by the Web Annotation Data Model, and this specification defines a new property for `position` that allows it to be positioned within a Container.
 
-A Textual Body _MUST_ have an HTTP(S) URI given in `id`. This allows for it to be addressed by other parts of the model, such as Content State Annotations.
 
 __Properties__<br/>
-A Textual Body _MUST_ have the following properties: [id](#id), [type](#type), [value](#value)<br/><br/>
-A Specific Resource _MAY_ have the following properties: [position](#position), [transform](#transform), [scope](#scope), [styleClass](#styleClass), [height](#height), [width](#width), [duration](#duration), [language](#language), [format](#format), [label](#label), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [canonical](#canonical), [via](#via), and [annotations](#annotations).<br/><br/>
+A Textual Body _MUST_ have the following properties: [type](#type), [value](#value)<br/><br/>
+A Specific Resource _MAY_ have the following properties: [id](#id), [position](#position), [transform](#transform), [scope](#scope), [styleClass](#styleClass), [height](#height), [width](#width), [duration](#duration), [language](#language), [format](#format), [label](#label), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [canonical](#canonical), [via](#via), and [annotations](#annotations).<br/><br/>
 {: .note}
 
 
@@ -403,14 +402,15 @@ A Specific Resource _MAY_ have the following properties: [position](#position), 
 
 > `"type": "Choice"`
 
-A Choice is a Web Annotation construction that allows one entry from a list to be selected for processing or display. This specification allows `behavior` and other properties to be added to a Choice to influence how it is processed.
+A Choice is a Web Annotation construction that allows one entry from a list to be selected for processing or display.
+The client may use any method to determine which item to select, including presenting the Choice to the user for a decision or using the properties of the items to make the decision. In the absence of any information, the client _SHOULD_ select the first item in the array and publishers _SHOULD_ list the items in order of preference. This specification allows `behavior` and other properties to be added to a Choice to influence how it is processed.
 
-A Choice _MUST_ have an HTTP(S) URI given in `id`. It _SHOULD_ have a `label` in order to present the choice to the user, along with its items. This allows for it to be addressed by other parts of the model, such as Content State Annotations.
+A Choice _SHOULD_ have a `label` in order to present the choice to the user, along with its items.
 
 __Properties__<br/>
-A Choice _MUST_ have the following properties: [id](#id), [type](#type), [items](#items)<br/><br/>
+A Choice _MUST_ have the following properties: [type](#type), [items](#items)<br/><br/>
 A Choice _SHOULD_ have the following properties: [label](#label)<br/><br/>
-A Choice _MAY_ have the following properties: [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [behavior](#behavior), and [seeAlso](#seeAlso).<br/><br/>
+A Choice _MAY_ have the following properties: [id](#id), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [behavior](#behavior), and [seeAlso](#seeAlso).<br/><br/>
 {: .note}
 
 
@@ -430,7 +430,7 @@ Containers _MAY_ be treated as content resources for the purposes of annotating 
 __Properties__<br/>
 A Content Resource _MUST_ have the following properties: [id](#id), and [type](#type)<br/><br/>
 A Content Resource _SHOULD_ have the following properties: [label](#label)<br/><br/>
-A Content Resource _MAY_ have the following properties: [height](#height), [width](#width), [duration](#duration), [language](#language), [format](#format), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [behavior](#behavior), [profile](#profile), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [canonical](#canonical), [via](#via), and [annotations](#annotations).<br/><br/>
+A Content Resource _MAY_ have the following properties: [height](#height), [width](#width), [duration](#duration), [language](#language), [format](#format), [fileSize](#fileSize),[metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [behavior](#behavior), [profile](#profile), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [canonical](#canonical), [via](#via), and [annotations](#annotations).<br/><br/>
 {: .note}
 
 
@@ -450,8 +450,8 @@ There are common use cases in which a point, rather than a range or area, is the
 If `instant` is not supplied, and the target resource has a `duration`, the selector is interpreted as targeting the entire duration. If `instant` is supplied, but no spatial point, the selector is interpreted as targeting the entire spatial aspect of the resource.
 
 __Properties__<br/>
-A Point Selector _MUST_ have the following properties: [id](#id), and [type](#type)<br/><br/>
-A Point Selector _MAY_ have the following properties: [x](#x), [y](#y), [z](#z), and [instant](#instant).<br/><br/>
+A Point Selector _MUST_ have the following properties: [type](#type)<br/><br/>
+A Point Selector _MAY_ have the following properties: [id](#id), [x](#x), [y](#y), [z](#z), and [instant](#instant).
 {: .note}
 
 ```json
@@ -476,7 +476,8 @@ Well-known text, or WKT, is an ISO standard method for describing 2 and 3 dimens
 The text representation is given in the `value` property of the selector.
 
 __Properties__<br/>
-A WKT Selector _MUST_ have the following properties: [id](#id), [type](#type), and [value](#value).
+A WKT Selector _MUST_ have the following properties: [type](#type), and [value](#value).<br/><br/>
+A WKT Selector _MAY_ have the following properties: [id](#id)
 {: .note}
 
 ```json
@@ -495,7 +496,8 @@ A WKT Selector _MUST_ have the following properties: [id](#id), [type](#type), a
 Video content resources consist of both visual and audio content within the same bit-level representation. There are situations when it is useful to refer to only one aspect of the content – either the visual or the audio, but not both. For example, an Annotation might associate only the visual content of a video that has spoken English in the audio, and an audio file that has the translation of that content in Spanish. The Audio Content Selector selects all of the audio content from an A/V content resource, and may be further refined with subsequent selectors to select a segment of it.
 
 __Properties__<br/>
-An Audio Content Selector _MUST_ have the following properties: [id](#id), and [type](#type).
+An Audio Content Selector _MUST_ have the following properties: [type](#type).<br/><br/>
+An Audio Content Selector _MAY_ have the following properties: [id](#id)
 {: .note}
 
 ```json
@@ -521,7 +523,8 @@ Similar to Audio Content Selectors, Visual Content Selectors select the visual a
 ```
 
 __Properties__<br/>
-A Visual Content Selector _MUST_ have the following properties: [id](#id), and [type](#type).
+A Visual Content Selector _MUST_ have the following properties: [type](#type).<br/><br/>
+A Visual Content Selector _MAY_ have the following properties: [id](#id)
 {: .note}
 
 
@@ -533,6 +536,7 @@ More interactive content resources, such as 3D models, may have animations or si
 
 __Properties__<br/>
 An Animation Selector _MUST_ have the following properties: [id](#id), [type](#type), and [value](#value).
+An Animation Selector _MAY_ have the following properties: [id](#id)
 {: .note}
 
 ```json
@@ -1028,6 +1032,7 @@ The value _MUST_ be a floating point number greater than 0 and less than 90, and
 * A SpotLight _SHOULD_ have the `angle` property.<br/>
   Clients _SHOULD_ process the `angle` property on SpotLights.
 
+{% include api/code_header.html %}
 ```json
   "angle": 15.0
 ```
@@ -1078,6 +1083,7 @@ The value _MUST_ be string, which defines an RGB color. It SHOULD be a hex value
    Clients _SHOULD_ render `backgroundColor` on any resource type.
  * Other resources _MUST NOT_ have the `backgroundColor` property.
 
+{% include api/code_header.html %}
 ```json-doc
 { "backgroundColor": "#FFFFFF" }
 ```
@@ -1139,6 +1145,11 @@ TODO: Address https://github.com/IIIF/api/issues/2318
 ``` json-doc
 { "behavior": [ "auto-advance", "individuals" ] }
 ```
+
+### body
+{: #body}
+
+
 
 ### canonical
 {: #canonical}
@@ -1231,6 +1242,19 @@ The value _MUST_ be a floating point number greater than 0 and less than 180, an
 { "fieldOfView": 50.0 }
 ```
 
+### fileSize
+
+The size of a content resource in bytes. This will allow clients to determine whether the resource should be retrieved in the user's current context. For example, the same 3d Model or AV file might be available in multiple formats, and the client can choose the most appropriate one based on the `fileSize` property.
+
+The value _MUST_ be a positive integer.
+
+* Any Content Resource _MAY_ have the `fileSize` property.<br/>
+  Clients _SHOULD_ process the `fileSize` property on Resources.
+
+```json-doc
+{ "fileSize": 132465987 }
+```
+
 ### first
 {: #first}
 
@@ -1316,17 +1340,20 @@ Please note that this specification has stricter requirements about the JSON pat
   ]
 }
 ```
+
 ### id
 {: #id}
 
-The URI that identifies the resource. If the resource is only available embedded  within another resource (see the [terminology section][prezi30-terminology] for an explanation of "embedded"), such as a Range within a Manifest, then the URI _MAY_ be the URI of the embedding resource with a unique fragment on the end. This is not true for Canvases, which _MUST_ have their own URI without a fragment.
+The URI that identifies the resource. If the resource is only available embedded within another resource (see the [terminology section][prezi30-terminology] for an explanation of "embedded"), such as a Range within a Manifest, then the URI _MAY_ be the URI of the embedding resource with a unique fragment on the end. This is not true for Canvases, which _MUST_ have their own URI without a fragment.
 
-The value _MUST_ be a string, and the value _MUST_ be an HTTP(S) URI for resources defined in this specification. If the resource is retrievable via HTTP(S), then the URI _MUST_ be the URI at which it is published. External resources, such as profiles, _MAY_ have non-HTTP(S) URIs defined by other communities.
+The value _MUST_ be a string, and the value _MUST_ be an absolute HTTP(S) URI for resource classes defined or described in this specification. If the resource is retrievable via HTTP(S), then the URI _MUST_ be the URI at which it is published. External resources, such as profiles, _MAY_ have non-HTTP(S) URIs defined by other communities.
 
-The existence of an HTTP(S) URI in the `id` property does not mean that the URI will always be dereferenceable.  If the resource with the `id` property is [embedded][prezi30-terminology], it _MAY_ also be dereferenceable. If the resource is referenced (again, see the [terminology section][prezi30-terminology] for an explanation of "referenced"), it _MUST_ be dereferenceable. The [definitions of the Resources][prezi30-resource-structure] give further guidance.
+The existence of an HTTP(S) URI in the `id` property does not mean that the URI will always be dereferenceable.  If the resource with the `id` property is embedded, it _MAY_ also be dereferenceable. If the resource is referenced, it _MUST_ be dereferenceable.
 
- * All resource types _MUST_ have the `id` property.<br/>
+ * Collections, Collection Pages, Manifests, Timelines, Canvases, Scenes, Annotations, Annotation Pages, Annotation Collections, Ranges, Content Resources, and Services _MUST_ have the `id` property.<br/>
    Clients _MAY_ render `id` on any resource type, and _SHOULD_ render `id` on Collections, Manifests and Canvases.
+ * All other resources _MAY_ have the `id` property.<br/>
+   Clients _MAY_ render `id` on any resource type.
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -1336,9 +1363,15 @@ The existence of an HTTP(S) URI in the `id` property does not mean that the URI 
 ### instant
 {: #instant}
 
-A number (floating point) giving the time of the point in seconds, relative to the duration of the source resource
+A floating point number giving the time of the point in seconds from the beginning of the temporal resource. For example, an `instant` value of 4.5 means the exact point 4.5 seconds from the beginning of the resource.
 
-FIXME: fix
+* PointSelector _MAY_ have the `instant` property.<br/>
+  Clients _SHOULD_ process `instant`.
+
+{% include api/code_header.html %}
+``` json-doc
+{ "instant": 4.5 }
+```
 
 
 ### intensity
@@ -1536,7 +1569,7 @@ The value _MUST_ be a JSON object, conforming to either a reference to an Annota
 * A SpotLight or a DirectionalLight _SHOULD_ have the `lookAt` property.<br/>
 * A SpotSound _SHOULD_ have the `lookAt` property.
 
-
+{% include api/code_header.html %}
 ```json
 "lookAt": {
     "type": "PointSelector",
@@ -1545,6 +1578,7 @@ The value _MUST_ be a JSON object, conforming to either a reference to an Annota
     "z": -10
 }
 ```
+
 ### metadata
 {: #metadata}
 
@@ -1574,6 +1608,7 @@ Clients _SHOULD_ display the entries in the order provided. Clients _SHOULD_ exp
   ]
 }
 ```
+
 ### navDate
 {: #navDate}
 
@@ -1598,6 +1633,7 @@ The value _MUST_ be an [XSD dateTime literal][org-w3c-xsd-datetime]. The value _
 ``` json-doc
 { "navDate": "2010-01-01T00:00:00Z" }
 ```
+
 ### navPlace
 {: #navPlace}
 
@@ -2205,6 +2241,11 @@ The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` propert
 ``` json-doc
 { "supplementary": { "id": "https://example.org/iiif/1/annos/1", "type": "AnnotationCollection" } }
 ```
+
+### target
+{: #target}
+
+...
 
 ### temporalScale
 {: #temporalScale}
