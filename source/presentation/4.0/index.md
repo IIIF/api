@@ -2111,11 +2111,49 @@ The activating annotation is provided in a Container's `annotations` property. I
 }
 ```
 
+
+
+```json
+{
+  "items": [
+    {
+      "id": "https://example.org/iiif/3d/anno2",
+      "type": "Annotation",
+      "motivation": ["activating"],
+      "body": [
+        {
+          "type": "TextualBody",
+          "value": "A label for the activation may be provided as a TextualBody"
+        }
+      ],
+      "target": {
+        "source": {
+          "id": "https://example.org/iiif/3d/painting-anno-for-mandible",
+          "type": "Annotation"
+        },
+        "scope": {
+          "type": "Annotation",
+          "motivation": ["contentState"],
+          "target": {
+            // A body where the type is a IIIF Resource (eg Scene) is the Content State to apply
+            "id": "https://example.org/iiif/scene1/scene-with-activation",
+            "type": "Scene",
+            "backgroundColor": "#FF99AA"
+          }
+        }
+      }
+    }
+  ]
+}
+```
+
 // Can you put activating annotations in `manifest.annotations`? They would work there too, you have all the information.
 
 
 
 ### Triggering a named animation in a model
+
+> toggles: anno supplies the label. This anno's `toggles` property lists id of an activating anno that activates the animation.
 
 Sometimes a model file has inbuilt animations. While a description of these is outside the scope of IIIF, because it is 3D-implementation-specific, as long as there is a way to refer to a model's animation(s) by name, we can connect the animation to IIIF resources.
 
@@ -2162,7 +2200,7 @@ This pattern is similar to the above, except that:
               "type": "AnnotationPage",
               "items": [
                 {
-                  "id": "https://example.org/iiif/3d/anno2",
+                  "id": "https://example.org/iiif/3d/box-opening-activating-anno",
                   "type": "Annotation",
                   "motivation": ["activating"],
                   "body": [
@@ -2192,6 +2230,134 @@ This pattern is similar to the above, except that:
     }
   ]
 }
+```
+
+> Toggles example
+
+```json
+{
+  "id": "https://example.org/iiif/3d/activating-animation.json",
+  "type": "Manifest",
+  "label": { "en": ["Music Box with lid that opens as an internal animation"] },
+  "items": [
+    {
+      "id": "https://example.org/iiif/scene1/scene-with-activation-animation",
+      "type": "Scene",
+      "label": { "en": ["A Scene Containing a Music Box"] },
+      "items": [
+        {
+          "id": "https://example.org/iiif/scene-with-activation-animation/page/p1/1",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://example.org/iiif/3d/painting-anno-for-music-box",
+              "type": "Annotation",
+              "motivation": ["painting"],
+              "body": {
+                "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/music-box.glb",
+                "type": "Model"
+              },
+              "target": {
+                // SpecificResource with PointSelector
+              },
+              "toggles": [
+                // Clicking the box opens the lid
+                "https://example.org/iiif/3d/activating-anno-for-music-box"
+              ]
+            }
+          ],
+          "annotations": [
+            {
+              "id": "https://example.org/iiif/scene1/page/activators",
+              "type": "AnnotationPage",
+              "items": [
+                {
+                  "id": "https://example.org/iiif/3d/activation-labelling-anno",
+                  "type": "Annotation",
+                  "motivation": ["commenting-maybe"],
+                  "body": [
+                    {
+                      "type": "TextualBody",
+                      "value": "Click me to open the lid of the box"
+                    }
+                  ],
+                  "toggles": [
+                    // clicking the 'Click me' opens the lid
+                    "https://example.org/iiif/3d/activating-anno-for-music-box"
+                  ],
+                  "target": [ 
+                    "https://example.org/iiif/3d/painting-anno-for-music-box" 
+                  ]
+                },
+                {
+                  "id": "https://example.org/iiif/3d/activating-anno-for-music-box",
+                  "type": "Annotation",
+                  "motivation": ["activating"],
+                  "body": [
+                    {
+                      "type": "TextualBody",
+                      "value": "Click me to open the lid of the box"
+                    }
+                  ],
+                  "target": {
+                    "type": "SpecificResource",
+                    "source": "https://example.org/iiif/3d/painting-anno-for-music-box",
+                    "selector": [
+                      {
+                        "type": "AnimationSelector",
+                        "value": "open-the-lid"
+                      }
+                    ],
+                    "refinedBy": [
+                      // fragment time selector
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+
+
+
+
+            {
+              "id": "https://example.org/iiif/scene1/page/activators",
+              "type": "AnnotationPage",
+              "items": [
+                {
+                  "id": "https://example.org/iiif/3d/box-opening-activating-anno",
+                  "type": "Annotation",
+                  "motivation": ["activating"],
+                  "body": [
+                    {
+                      "type": "TextualBody",
+                      "value": "Click the box to open the lid"
+                    }
+                  ],
+                  "target": [
+                    {
+                      "type": "SpecificResource",
+                      "source": "https://example.org/iiif/3d/painting-anno-for-music-box",
+                      "selector": [
+                        {
+                        "type": "AnimationSelector",
+                        "value": "open-the-lid"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+
+
 ```
 
 // TODO
