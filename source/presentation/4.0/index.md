@@ -1041,7 +1041,10 @@ This example adds a Light and a Camera to the previous example, and places the m
 * The provided Light should replace any default lighting the client might have.
 {: .note}
 
-
+__Definitions__<br/>
+Classes: [Manifest](#model/Manifest), [Scene](#model/Scene), [Model](#model/Model), [SpecificResource](#model/SpecificResource), [PointSelector](#model/PointSelector), [PerspectiveCamera](#model/PerspectiveCamera), [SpotLight](#model/SpotLight) <br/><br/>
+Properties: [backgroundColor](#model/backgroundColor), [lookAt](#model/lookAt), [near](#model/near), [far](#model/far), [feildOfView](#model/fieldOfView), [angle](#model/angle), [color](#model/color)
+{: .note}
 
 ## Use Case 6: Complex Scene
 
