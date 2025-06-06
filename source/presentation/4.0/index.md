@@ -913,7 +913,7 @@ This example is a Manifest with a single Scene, with a single model of a space s
 
 ## Use Case 5a: Simple 3D Model in Configured Scene
 
-This example adds a Light and a Camera to the previous example, and places the model at a specific point rather than at the default origin position. The Light is green and has a position, but has its default orientation of looking along the negative-y axis as no rotation has been specified. The Camera has a position and is pointing at the model's origin via the `lookAt` property. The Scene has a background color.
+This example adds a Light and a Camera to the previous example, and places the model at a specific point rather than at the default origin position. The Light is green and has a position, but has its default orientation of looking along the negative-y axis as no rotation has been specified. The Camera has a position and is pointing at the model's origin via the `lookAt` property. The Camera has a `fieldOfView` of 50. The `near` and `far` properties are included to ensure the model falls within the camera's range (although unnecessary in a simple Scene like this). The Scene has a background color.
 
 > PNG of Scene - lurid green light half-illuminating the astronaut.
 
@@ -976,7 +976,10 @@ This example adds a Light and a Camera to the previous example, and places the m
                 "lookAt": {
                   "id": "https://example.org/iiif/3d/anno1",
                   "type": "Annotation"
-                }
+                },
+                "near": 1,
+                "far": 100,
+                "fieldOfView": 50
               },
               "target": {
                 "type": "SpecificResource",
