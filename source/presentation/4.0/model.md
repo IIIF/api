@@ -1233,7 +1233,7 @@ The value is a non-negative floating point number, in the coordinate space of th
 ### fieldOfView
 {: #fieldOfView}
 
-The vertical projection angle from the top plane to the bottom plane of the camera's field of view, specified in degrees.
+The vertical projection angle from the top plane to the bottom plane of the camera's field of view, specified in degrees. The horizontal projection angle is dependent on the aspect ratio of the client's viewport.
 
 The value _MUST_ be a floating point number greater than 0 and less than 180, and is measured in degrees. If this property is not specified, then the default value is client-dependent.
 
