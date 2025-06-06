@@ -1428,12 +1428,7 @@ The top level Collection has a `navPlace` property that could be used on a "News
 
 Each Manifest has a `navDate` property that could be used to plot the issues on a calendar-style user interface.
 
-
-```
-demonstrates navDate, navPlace, structures (Ranges), supplementary, Collections
-...
-```
-IIIF Collection with `behavior` "multi-part" that contains the individual "multi-part" Collections for each year/volume.
+IIIF Collection with `behavior` "multi-part" that contains the individual "multi-part" Collections for each year/volume:
 
 ```json
 {
@@ -1587,7 +1582,10 @@ Manifest for the October 27, 1881 issue, with Ranges for table of contents.
   ]
 }
 ```
-
+__Definitions__<br/>
+Classes: [Collection](#model/Collection), [Range](#model/Range), [AnnotationCollection](#model/AnnotationCollection)<br/><br/>
+Properties: [behavior](#model/behavior), [navPlace](#model/navPlace), [navDate](#model/navDate), [structure](#model/structures)
+{: .note}
 
 thumbnail-nav
 sequence
