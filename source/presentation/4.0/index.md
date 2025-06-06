@@ -581,7 +581,7 @@ Properties: [behavior](#model/behavior), [viewingDirection](#model/viewingDirect
 
 # Audio and Video
 
-## Use Case 3: a 45 single with one Timeline per song/side
+## Use Case 3: A 45 single with 2 tracks
 
 This example is a Manifest with two Timelines, each of which represent a temporal extent during which a song is played. As in most cases, the Timeline `duration` is the same length as that of Content Resource painted into it. This example is a recording digitized from a 45 RPM 7 inch single. It demonstrates the use of `format` for the audio files' content type, `language` (One song is in English and one is in German), `behavior` with value "auto-advance" that tells a client to automatically advance to the second Timeline after playing the first, `annotations` that link to Annotation Pages of annotations with the motivation `supplementing` that provide the lyrics (one example is given afterwards) - and an `accompanyingContainer` that carries a picture of the single's cover that is shown while the songs are playing.
 
@@ -722,13 +722,119 @@ Properties: [duration](#model/duration), [format](#model/format), [language](#mo
 {: .note}
 
 
-## Example: a movie with subtitles
+## Use Case 4: Movie with subtitles
 
 This example is a Manifest with one Canvas that represents the temporal extent of the movie (the Canvas `duration`) and its aspect ratio (given by the `width` and `height` of the Canvas). The example demonstrates the use of a `Choice` annotation body to give two alternative versions of the movie, the `timeMode` property ..., and `placeholderContainer` that provides a poster image to show in place of the video file before the user initiates playback.
 
+```json
+{
+  "@context": "http://iiif.io/api/presentation/4/context.json",
+  "id": "https://example.org/iiif/presentation/examples/manifest-with-movie.json",
+  "type": "Manifest",
+  "label": { "en": [ "Use Case 4: Movie with Subtitles" ] },
+  "items": [
+    {
+      "id": "https://example.org/iiif/presentation/examples/manifest-with-movie/canvas",
+      "type": "Canvas",
+      "height": 360,
+      "width": 480,
+      "duration": 3600,
+      "timeMode": "trim",
+      "placeholderContainer": {
+        "id": "https://example.org/iiif/presentation/examples/manifest-with-movie/placeholder",
+        "type": "Canvas",
+        "height": 320,
+        "width": 400,
+        "items": [
+          {
+            "id": "https://example.org/image/placeholder/annopage",
+            "type": "AnnotationPage",
+            "items": [
+              {
+                "id": "https://example.org/iiif/presentation/examples/manifest-with-movie/placeholder/image",
+                "type": "Annotation",
+                "motivation": "painting",
+                "body": {
+                  "id": "https://example.org/image/placeholder.png",
+                  "type": "Image",
+                  "format": "image/png",
+                  "height": 320,
+                  "width": 400,
+                },
+                "target": "https://iiif.io/api/cookbook/recipe/0013-placeholderCanvas/canvas/donizetti/placeholder"
+              }
+            ]
+          }
+        ]
+      },
+      "items": [
+        {
+          "id": "https://example.org/iiif/presentation/examples/manifest-with-movie/annopage1",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://example.org/iiif/presentation/examples/manifest-with-movie/anno1",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "type": "Choice",
+                "items": [
+                  {
+                    "id": "https://example.org/video/movie.mp4",
+                    "type": "Video",
+                    "height": 360,
+                    "width": 480,
+                    "duration": 3599.68,
+                    "format": "video/mp4"
+                  },
+                  {
+                    "id": "https://example.org/video/movie.flv",
+                    "type": "Video",
+                    "height": 360,
+                    "width": 480,
+                    "duration": 3600.8,
+                    "format": "video/flv"
+                  }
+                ]
+              },
+              "target": "https://example.org/iiif/presentation/examples/manifest-with-movie/canvas"
+            }
+          ]
+        }
+      ],
+      "annotations": [
+        {
+          "id": "https://example.org/iiif/presentation/examples/manifest-with-movie/subtitles",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://example.org/iiif/presentation/examples/manifest-with-movie/subtitles/anno",
+              "type": "Annotation",
+              "motivation": "supplementing",
+              "body": {
+                "id": "https://example.org/text/subtitles.vtt",
+                "type": "Text",
+                "format": "text/vtt",
+                "label": {
+                  "en": [
+                    "Subtitles in WebVTT format"
+                  ]
+                },
+                "language": "en"
+              },
+              "target": "https://example.org/iiif/presentation/examples/manifest-with-movie/canvas"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
 ```
 Canvas
-duration, behavior=autoplay, format, Choice of video 720p, 4K? (forward ref), timeMode, placeholderContainer
+duration, behavior=auto-advance, format, Choice of video 720p, 4K? (forward ref), timeMode, placeholderContainer
 ```
 
 {
@@ -743,6 +849,17 @@ duration, behavior=autoplay, format, Choice of video 720p, 4K? (forward ref), ti
 
 Sometimes, two different formats derived from the same source may have slightly different durations, perhaps a few milliseconds out. What to do...
 
+>
+**Key Points**
+* 
+{: .note}
+
+!!! warning TODO: The above should be a green class rgb(244,252,239) to distinguish from properties
+
+__Definitions__<br/>
+Classes: [Manifest](#model/Manifest), ...<br/><br/>
+Properties: [duration](#model/duration), [format](#model/format), [timeMode](#model/timeMode), [behavior](#model/behavior), [placeholderContainer](#model/placeholderContainer)
+{: .note}
 
 # 3D
 
