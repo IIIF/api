@@ -423,6 +423,8 @@ Content Resources _MUST_ have an HTTP(s) given in `id`. It _MUST_ be able to be 
 
 If the Content Resource is an Image, and a IIIF Image service is available for it, then the `id` property of the Content Resource _MAY_ be a complete URI to any particular representation supported by the Image Service, such as `https://example.org/image1/full/1000,/0/default.jpg`, but _MUST NOT_ be just the URI of the Image Service. The Image _SHOULD_ have the service referenced from it using the `service` property.
 
+If the Content Resource is a 3d Model, then regardless of the file format, it is treated as being within an infinitely large three dimensional space with an origin (0 on all three axes).
+
 If there is a need to distinguish between Content Resources, then the resource _SHOULD_ have the `label` property.
 
 Containers _MAY_ be treated as content resources for the purposes of annotating on to other Containers. In this situation, the Container _MAY_ be [embedded][prezi30-terminology] within the Annotation, be a reference within the same Manifest, or require dereferencing to obtain its description.
@@ -565,8 +567,8 @@ The Image API Selector has properties following the parameters from the API, and
 {: .api-table}
 
 __Properties__<br/>
-A IIIF Image API Selector _MUST_ have the following properties: [id](#id), [type](#type).<br/><br/>
-A IIIF Image API Selector _MAY_ have the following properties: [region](#region), [size](#size), [rotation](#rotation), [quality](#quality), [format](#format).
+A IIIF Image API Selector _MUST_ have the following properties: [type](#type).<br/><br/>
+A IIIF Image API Selector _MAY_ have the following properties: [id](#id), [region](#region), [size](#size), [rotation](#rotation), [quality](#quality), [format](#format).
 {: .note}
 
 ```json
@@ -598,7 +600,7 @@ A Range _MAY_ have the following properties: [start](#start), [supplementary](#s
 ### Scene Components
 {: #scene-components}
 
-The following classes are only usable within Scenes.
+The following classes are typically used within Scenes. They might have utility in other contexts, however those uses have not been defined in this specification.
 
 #### Cameras
 {: #Camera}
@@ -608,8 +610,8 @@ A Camera provides a view of a region of a Scene's space from a particular positi
 If either the position or direction is not specified, then the position defaults to the origin of the Scene, and the direction defaults to pointing along the z axis towards negative infinity.
 
 __Properties__<br/>
-All Cameras _MUST_ have the following properties: [id](#id), and [type](#type).<br/><br/>
-All Cameras _MAY_ have the following properties: [label](#label), [lookAt](#lookAt), [near](#near), and [far](#far)
+All Cameras _MUST_ have the following properties: [type](#type).<br/><br/>
+All Cameras _MAY_ have the following properties: [id](#id), [label](#label), [lookAt](#lookAt), [near](#near), and [far](#far)
 {: .note}
 
 
@@ -668,9 +670,9 @@ This specification does not define other aspects of Lights, such as the rate of 
 The specification defines four types of Light, below.
 
 __Properties__<br/>
-All Lights _MUST_ have the following properties: [id](#id), and [type](#type).<br/><br/>
+All Lights _MUST_ have the following properties: [type](#type).<br/><br/>
 All Lights _SHOULD_ have the following properties: [color](#color), and [intensity](#intensity).<br/><br/>
-All Lights _MAY_ have the following properties: [label](#label).
+All Lights _MAY_ have the following properties: [id](#id), and [label](#label).
 {: .note}
 
 
@@ -768,9 +770,9 @@ As the audio content must come from an audio resource, the Audio Emitter classes
 Volume is given relative to the input audio content's volume, and thus a volume of 1.0 is the volume as provided, 0.5 is half the volume, and 2.0 is double the volume.
 
 __Properties__<br/>
-All Audio Emitters _MUST_ have the following properties: [id](#id), [type](#type) and [source](#source).<br/><br/>
+All Audio Emitters _MUST_ have the following properties: [type](#type) and [source](#source).<br/><br/>
 All Audio Emitters _SHOULD_ have the following properties: [volume](#volume).<br/><br/>
-All Audio Emitters _MAY_ have the following properties: [label](#label).
+All Audio Emitters _MAY_ have the following properties: [id](#id) and [label](#label).
 {: .note}
 
 ##### Ambient Audio
@@ -851,8 +853,8 @@ Spot Audio Emitters _MAY_ have the following additional properties: [lookAt](#lo
 An operation to transform a 3D resource. Transforms are specified by the [transform](#transform) property on a Specific Resource. Transforms are carried out on a resource in the implicit or explicit local coordinate space of the resource, and are performed prior to painting that resource into any subsequent coordinate space.
 
 __Properties__<br/>
-All Transforms _MUST_ have the following properties: [id](#id), [type](#type).<br/><br/>
-All Transforms _MAY_ have the following properties: [label](#label), [x](#x), [y](#y), and [z](#z).
+All Transforms _MUST_ have the following properties: [type](#type).<br/><br/>
+All Transforms _MAY_ have the following properties: [id](#id), [label](#label), [x](#x), [y](#y), and [z](#z).
 {: .note}
 
 ##### Rotate Transform
@@ -917,9 +919,9 @@ An Agent represents a person or organization, typically referenced with the `pro
 The Agent is not intended to be used as a primary identifier for the person or organization, nor to provide structured metadata, but instead to ensure that the information to be rendered to the user can be kept together in the situation when there are multiple agents being referenced.
 
 __Properties__<br/>
-An Agent _MUST_ have the following properties: [id](#id), [type](#type), and [label](#label).<br/><br/>
-An Agent _SHOULD_ have the following properties: [homepage](#homepage), and [logo](#logo)<br/><br/>.
-An Agent _MAY_ have the following properties: [seeAlso](#seeAlso), and [summary](#summary).
+An Agent _MUST_ have the following properties: [type](#type) and [label](#label).<br/><br/>
+An Agent _SHOULD_ have the following properties: [homepage](#homepage) and [logo](#logo)<br/><br/>.
+An Agent _MAY_ have the following properties: [id](#id), [seeAlso](#seeAlso) and [summary](#summary).
 {: .note}
 
 {% include api/code_header.html %}
@@ -973,8 +975,8 @@ Services will also have specific requirements as to additional properties based 
 A UnitValue expresses a quantity through a numerical value and associated unit of measurement. The value of `unit` _MUST_ be drawn from the list of possible units, or a registered extension.
 
 __Properties__<br/>
-A Unit Value _MUST_ have the following properties: [id](#id), [type](#type), [value](#value), and [unit](#unit).<br/><br/>
-A Unit Value _MAY_ have the following properties: [label](#label).
+A Unit Value _MUST_ have the following properties: [type](#type), [value](#value), and [unit](#unit).<br/><br/>
+A Unit Value _MAY_ have the following properties: [id](#id) and [label](#label).
 {: .note}
 
 {% include api/code_header.html %}
@@ -1025,12 +1027,14 @@ The value of `accompanyingContainer` _MUST_ be a JSON object with the `id` and `
 ### angle
 {: #angle}
 
-!!! warning "Need more info"
+The `angle` property is used with SpotLights and Spot Audio Emitters to define the radius of the cone of emitted light or sound. Note that the `fieldOfView` property is defined as the entire field of view, not half (as might be inferred from `angle` using radius).
 
 The value _MUST_ be a floating point number greater than 0 and less than 90, and is measure in degrees. If this property is not specified, then the default value is client-dependent.
 
 * A SpotLight _SHOULD_ have the `angle` property.<br/>
   Clients _SHOULD_ process the `angle` property on SpotLights.
+* A Spot Audio Emitter _SHOULD_ have the `angle` property.<br/>
+  Clients _SHOULD_ process the `angle` property on Spot Audio Emitters.
 
 {% include api/code_header.html %}
 ```json
@@ -1215,7 +1219,7 @@ _On Annotation, a list of strings drawn from table_
 ### far
 {: #far}
 
-This property gives the distance from the camera after which objects are no longer visible. Objects further from the camera than the `far` distance cannot be seen.
+This property gives the distance along the axis of the camera's orientation after which objects are no longer visible. Objects further from the camera than the `far` distance cannot be seen.
 
 The value is a non-negative floating point number, in the coordinate space of the Scene in which the Camera is positioned. The value _MUST_ be greater than the value for `near` of the same Camera. If this property is not specified, then the default value is client-dependent.
 
@@ -1229,9 +1233,7 @@ The value is a non-negative floating point number, in the coordinate space of th
 ### fieldOfView
 {: #fieldOfView}
 
-The angle which a PerspectiveCamera can "see".
-
-!!! warning "Need more info"
+The vertical projection angle from the top plane to the bottom plane of the camera's field of view, specified in degrees. The horizontal projection angle is dependent on the aspect ratio of the client's viewport.
 
 The value _MUST_ be a floating point number greater than 0 and less than 180, and is measured in degrees. If this property is not specified, then the default value is client-dependent.
 
@@ -1349,6 +1351,8 @@ The URI that identifies the resource. If the resource is only available embedded
 The value _MUST_ be a string, and the value _MUST_ be an absolute HTTP(S) URI for resource classes defined or described in this specification. If the resource is retrievable via HTTP(S), then the URI _MUST_ be the URI at which it is published. External resources, such as profiles, _MAY_ have non-HTTP(S) URIs defined by other communities.
 
 The existence of an HTTP(S) URI in the `id` property does not mean that the URI will always be dereferenceable.  If the resource with the `id` property is embedded, it _MAY_ also be dereferenceable. If the resource is referenced, it _MUST_ be dereferenceable.
+
+If a publisher wishes for a resource be able to be referenced, such as in an Annotation, then the resource _MUST_ have an `id` property.
 
  * Collections, Collection Pages, Manifests, Timelines, Canvases, Scenes, Annotations, Annotation Pages, Annotation Collections, Ranges, Content Resources, and Services _MUST_ have the `id` property.<br/>
    Clients _MAY_ render `id` on any resource type, and _SHOULD_ render `id` on Collections, Manifests and Canvases.
@@ -1554,7 +1558,6 @@ The value of this property _MUST_ be an array of JSON objects, each of which _MU
 ### lookAt
 {: #lookAt}
 
-_Summary here_
 It is useful to be able to rotate a light or camera or audio resource such that it is facing another object or point in the Scene, rather than calculating the angles within the Scene's coordinate space. This is accomplished with a property called `lookAt`, valid on DirectionalLight, SpotLight, and all Cameras. The value of the property is either a PointSelector, a WktSelector, the URI of an Annotation which paints something into the current Scene, or a Specific Resource with a selector identifying a point or region in an arbitrary container.
 
 If the value is a PointSelector, then the light or camera resource is rotated around the x and y axes such that it is facing the given point. If the value is a WktSelector, then the resource should be rotated to face the given region. If the value is an Annotation which targets a point via a PointSelector, URI fragment or other mechanism, then the resource should be rotated to face that point. If the value is a Specific Resource, the source container for the Specific Resource must be painted into the current Scene, and the Specific Resource selector should identify a point or region in the source container. In this case, the light or camera resource should be rotated to face the point or region in the source container where the point or region is located within the current Scene's coordinate space. This allows light or camera resources to face a specific 2D point on a Canvas painted into a 3D scene.
@@ -1567,7 +1570,7 @@ The value _MUST_ be a JSON object, conforming to either a reference to an Annota
 * A Camera _MAY_ have the `lookAt` property.<br/>
   Clients _SHOULD_ process the `lookAt` property on Cameras.
 * A SpotLight or a DirectionalLight _SHOULD_ have the `lookAt` property.<br/>
-* A SpotSound _SHOULD_ have the `lookAt` property.
+* A SpotAudio _SHOULD_ have the `lookAt` property.
 
 {% include api/code_header.html %}
 ```json
@@ -1682,7 +1685,7 @@ The value of the property _MUST_ be a [GeoJSON Feature Collection] [link] contai
 ### near
 {: #near}
 
-This property gives the distance from the camera from which objects are visible. Objects closer to the camera than the `near` distance cannot be seen.
+This property gives the distance along the cameria's axis of orientation from which objects are visible. Objects closer to the camera than the `near` distance cannot be seen.
 
 The value is a non-negative floating point number, in the coordinate space of the Scene in which the Camera is positioned. The value _MUST_ be less than the value for `far` for the same Camera. If this property is not specified, then the default value is client-dependent.
 
@@ -2110,6 +2113,7 @@ The value _MUST_ be an array of JSON objects. Each object _MUST_ be a service re
 
 A single UnitValue that defines a real-world scale factor for the coordinate units of a Canvas or Scene. For a Canvas, this defines the physical distance corresponding to the length of a single Canvas coordinate unit. A Canvas with a `width` of 5000 and a `spatialScale` with `value` 0.00008 represents a physical space 0.4 meters wide. For a Scene, this defines the physical distance corresponding to the XYZ coordinate units, or in other words, the physical distance length of a unit vector in the 3D coordinate space. The value of `unit` _MUST_ be a length unit. In this specification, the only length unit defined is `m`, i.e., meters. Unless other values are defined externally as an [extension][prezi30-ldce], the value of `unit` _SHOULD_ always be `m`.
 
+To assert a `spatialScale` for a Content Resource, the resource _MUST_ first be painted into a Container and the `spatialScale` is asserted on that Container. For example, a 3d model would be painted into a Scene, and then `spatialScale` is asserted on the Scene.
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -2127,7 +2131,6 @@ A single UnitValue that defines a real-world scale factor for the coordinate uni
    Clients _SHOULD_ process `spatialScale` on a Canvas.
  * A Scene _MAY_ have the `spatialScale` property.<br/>
    Clients _SHOULD_ process `spatialScale` on a Scene.
-
 
 ### start
 {: #start}
@@ -2252,6 +2255,7 @@ The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` propert
 
 A single UnitValue that defines a multiplier or scale factor for the `duration` property of a Container, indicating that one second in "Container time" represents some other real world duration. A Canvas with a `duration` of 450 seconds and a `temporalScale` with `value` 1000 represents a real-world duration of 450,000 seconds (5.2 days), for example a time-lapse video of a growing plant. The value of `unit` _MUST_ be a time unit. In this specification, the only time unit defined is `s`, i.e., seconds. Unless other values are defined externally as an [extension][prezi30-ldce], the value of `unit` _SHOULD_ always be `s`.
 
+To assert a `temporalScale` for a Content Resource, the resource _MUST_ first be painted into a Container with a `duration` and the `temporalScale` is asserted on that Container. For example, an Audio file is painted into a Timeline, and then `temporalScale` is asserted on the Timeline.
 
 {% include api/code_header.html %}
 ``` json-doc
