@@ -227,6 +227,8 @@ Scenes may also have the `duration` property in the same manner as Timelines.
 }
 ```
 
+Scenes can have time-based and image content in them as well as 3D content. See model for how to do this.
+
 [👀 Model Documentation](model/#containers)
 
 
@@ -256,7 +258,7 @@ In addition to the required properties `id` and `type`, other commonly used prop
 
 ### Containers as Content Resources
 
-Containers may also be treated as Content Resources and painted into other Containers. This allows composition of content, such as painting a Canvas bearing a Video into a Scene, or painting a 3D model along with its associated Lights into an encompassing Scene.
+Containers may also be treated as Content Resources and painted into other Containers. This allows composition of content, such as painting a Canvas bearing a Video into a Scene, or painting a 3D model along with its associated Lights into an encompassing Scene. This capability is described further in [nesting](#nesting).
 
 ### Referencing Parts of Resources
 
@@ -324,6 +326,45 @@ The fragment example above can be expressed using a Specific Resource:
 ```
 
 
+## Supporting Resources
+
+Constructs from the domain of 3D graphics are expressed in IIIF as Resources. They are associated with Scenes via Painting Annotations in the same manner as Content Resources. They aid in or enhance the rendering of Content Resources, especially in Scenes. 
+
+### Cameras
+
+A Camera provides a view of a region of the Scene's space from a particular position within the Scene; the client constructs a viewport into the Scene and uses the view of one or more Cameras to render that region. The size and aspect ratio of the viewport is client and device dependent.
+
+There are two types of Camera, `PerspectiveCamera` and `OrthographicCamera`. The first Camera defined and not hidden in a Scene is the default Camera used to display Scene contents. If the Scene does not have any Cameras defined within it, then the client provides a default Camera. The type, properties and position of this default camera are client-dependent.
+
+
+### Lights
+
+There are four types of Light: AmbientLight, DirectionalLight, PointLight and SpotLight. They have a `color` and an `intensity`. SpotLight has an additional property of `angle` that determines the spread of its light cone.
+
+If the Scene has no Lights, then the client provides its own lighting as it sees fit.
+
+
+### Audio Emitters
+
+There are three types of Audio emitter: AmbientAudio, PointAudio and SpotAudio. They have a `source` (an audio Content Resource) and a `volume`.
+
+### Transforms
+
+When painting resources into Scenes, it is often necessary to resize, rotate or move them relative to the coordinate space of the Scene. These operations are specified using three Transforms: ScaleTransform, RotateTransform and TranslateTransform. Each Transform has three properties, `x`, `y` and `z` which determine how the Transform affects that axis in the local coordinate space.
+
+Transforms are added to a SpecificResource using the `transform` property, and there may be more than one applied when adding a model to a Scene. Different orders of the same set of transforms can have different results, so attention must be paid when creating the array and when processing it.
+
+### Agent
+
+Any resource can have a `provider` property which a client can display to the user. This typically tells the user who the publisher is and how they might be contacted. The value of this property is an [Agent](model/#agent).
+
+### Service
+
+A Service is a software application that a client might interact with to gain additional information or functionality. The IIIF Image API is an example of a Service.
+
+### Unit Value
+
+To express a numerical measure in some particular unit, we use a UnitValue resource that has `value` and `unit` properties. For example a Scene coordinate system might be in meters.
 
 # Image Content
 
@@ -1260,117 +1301,8 @@ Todo add example
 
 
 
-## Scene-Specific Resources
 
-### Camera
-
-A Camera provides a view of a region of the Scene's space from a particular position within the Scene; the client constructs a viewport into the Scene and uses the view of one or more Cameras to render that region. The size and aspect ratio of the viewport is client and device dependent.
-
-There are two types of Camera, `PerspectiveCamera` and `OrthographicCamera`. The first Camera defined and not hidden in a Scene is the default Camera used to display Scene contents. If the Scene does not have any Cameras defined within it, then the client provides a default Camera. The type, properties and position of this default camera are client-dependent.
-
-
-### Light
-
-There are four types of Light: AmbientLight, DirectionalLight, PointLight and SpotLight. They have a `color` and an `intensity`. SpotLight has an additional property of `angle` that determines the spread of its light cone.
-
-If the Scene has no Lights, then the client provides its own lighting as it sees fit.
-
-
-### Audio Emitters
-
-There are three types of Audio emitter: AmbientAudio, PointAudio and SpotAudio. They have a `source` (an audio Content Resource) and a `volume`.
-
-
-### Transforms
-
-A Transform is a property 
-
-The Annotation with a Selector on the target can paint a resource at a point other than the origin, however it will be at its initial scale and rotation, which may not be appropriate for the scene that is being constructed.
-
-This specification defines a new class of manipulations for SpecificResources called a `Transform`, with three specific sub-classes. Each Transform has three properties, `x`, `y` and `z` which determine how the Transform affects that axis in the local coordinate space.
-
-
-| Class           | Description  |
-| --------------- | ------------ |
-| ScaleTransform  | A ScaleTransform applies a multiplier to one or more axes in the local coordinate space. A point that was at 3.5, after applying a ScaleTransform of 2.0 would then be at 7.0. If an axis value is not specified, then it is not changed, resulting in a default of 1.0 |
-| RotateTransform | A RotateTransform rotates the local coordinate space around the given axis in a counter-clockwise direction around the axis itself (e.g. around a pivot point of 0 on the axis). A point that was at x=1,y=1 and was rotated 90 degrees around the x axis would be at x=1,y=0,z=1. If an axis value is not specified, then it is not changed, resulting in a default of 0.0 |
-| TranslateTransform | A TranslateTransform moves all of the objects in the local coordinate space the given distance along the axis. A point that was at x=1.0, after applying a TranslateTransform of x=1.0 would be at x=2.0. If an axis value is not specified then it is not changed, resulting in a default of 0.0 |
-
-Transforms are added to a SpecificResource using the `transform` property. The value of the property is an array, which determines the order in which the transforms are to be applied. The resulting state of the first transform is the input state for the second transform, and so on. Different orders of the same set of transforms can have different results, so attention must be paid when creating the array and when processing it.
-
-The point around which RotateTransform rotates the space is the origin. This "pivot point" cannot be changed directly, but instead a TranslateTransform can be used to move the desired pivot point to the be at the origin, then the RotateTransform applied.
-
-Transforms are only used in the Presentation API when the SpecificResource is the `body` of the Annotation, and are applied before the resource is painted into the scene at the point given in the `target`.
-
-```json
-{
-    "type": "SpecificResource",
-    "source": {
-        "id": "https://example.org/iiif/assets/model1.glb",
-        "type": "Model"
-    },
-    "transform": [
-      {
-        "type": "RotateTransform",
-        "x": 0.0,
-        "y": 180.0,
-        "z": 0.0
-      },
-      {
-        "type": "TranslateTransform",
-        "x": 1.0,
-        "y": 0.0,
-        "z": 0.0
-      }
-    ]
-}
-```
-
-
-### Relative Rotation
-
-It is useful to be able to rotate a light or camera resource such that it is facing another object or point in the Scene, rather than calculating the angles within the Scene's coordinate space. This is accomplished with a property called `lookAt`, valid on DirectionalLight, SpotLight, and all Cameras. The value of the property is either a PointSelector, a WktSelector, the URI of an Annotation which paints something into the current Scene, or a Specific Resource with a selector identifying a point or region in an arbitrary container.
-
-If the value is a PointSelector, then the light or camera resource is rotated around the x and y axes such that it is facing the given point. If the value is a WktSelector, then the resource should be rotated to face the given region. If the value is an Annotation which targets a point via a PointSelector, URI fragment or other mechanism, then the resource should be rotated to face that point. If the value is a Specific Resource, the source container for the Specific Resource must be painted into the current Scene, and the Specific Resource selector should identify a point or region in the source container. In this case, the light or camera resource should be rotated to face the point or region in the source container where the point or region is located within the current Scene's coordinate space. This allows light or camera resources to face a specific 2D point on a Canvas painted into a 3D scene.
-
-This rotation happens after the resource has been added to the Scene, and thus after any transforms have taken place in the local coordinate space.
-
-```json
-"lookAt": {
-    "type": "PointSelector",
-    "x": 3,
-    "y": 0,
-    "z": -10
-}
-```
-
-
-### Excluding
-
-Just as a Scene may contain multiple Annotations with model, light, and camera resources, a single 3D model file may contain a collection of 3D resources, including model geometry, assemblages of lights, and/or multiple cameras, with some of these potentially manipulated by animations. When painting Scenes or models that themselves may contain groups of resources within a single Scene, it may not always be appropriate to include all possible cameras, lights, or other resources, and it may be desirable to opt not to import some of these resources. This is accomplished through the Annotation property `exclude`, which prevents the import of audio, lights, cameras, or animations from a particular Scene or model prior to the Annotation being painted into a Scene. When `exclude` is used, the excluded resource type should not be loaded into the Scene, and it is not possible to reactivate or turn on these excluded resources after loading.
-
-Painting a Scene into another while excluding import of several types of resources:
-```json
-{
-    "id": "https://example.org/iiif/3d/anno1",
-    "type": "Annotation",
-    "motivation": ["painting"],
-    "exclude": ["Audio", "Lights", "Cameras", "Animations"],
-    "body": {
-        "id": "https://example.org/iiif/scene1",
-        "type": "Scene"
-    },
-    "target": "https://example.org/iiif/scene2"
-}
-```
-
-
-
-
-
-
-
-### Nesting
+# Nesting (more about Containers as Content Resources)
 
 A Canvas can be painted into a Scene as an Annotation, but the 2D nature of Canvases requires special consideration due to important differences between Canvases and Scenes. A Canvas describes a bounded 2D space with finite `height` and `width` measured in pixels with a pixel origin at the top-left corner of the Canvas, while Scenes describe a boundless 3D space with x, y, and z axes of arbitrary coordinate units and a coordinate origin at the center of the space. It is important to note that in many cases the pixel scale used by a Canvas or a 2D image content resource will not be in proportion to the desired 3D coordinate unit scale in a Scene.
 
