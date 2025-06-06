@@ -443,8 +443,8 @@ The example demonstrates the use of the common descriptive properties `label` fo
 !!! warning TODO: The above should be a green class rgb(244,252,239) to distinguish from properties
 
 __Definitions__<br/>
-Classes: [Manifest](#model/Manifest), ...<br/><br/>
-Properties: [id](#model/id), [type](#type), [label](#label), [lookAt](#lookAt), [near](#near), and [far](#far)
+Classes: [Manifest](#model/Manifest), [Canvas](#model/Canvas), [AnnotationPage](#model/AnnotationPage), [Annotation](#model/Annotation)<br/><br/>
+Properties: [id](#model/id), [type](#type), [label](#label), [metadata](#metadata), [summary](#summary), [rights](#rights), [homepage](#homepage), [thumbnail](#thumbnail), and [provider](#provider)
 {: .note}
 
 
@@ -574,7 +574,7 @@ This example is a Manifest with multiple Canvases, each of which represents a pa
 !!! warning TODO: The above should be a green class rgb(244,252,239) to distinguish from properties
 
 __Definitions__<br/>
-Classes: [Manifest](#model/Manifest), ...<br/><br/>
+Classes: [Manifest](#model/Manifest), [Canvas](#model/Canvas)<br/><br/>
 Properties: [behavior](#model/behavior), [viewingDirection](#model/viewingDirection), [start](#model/start), [rendering](#model/rendering), [requiredStatement](#model/requiredStatement)
 {: .note}
 
@@ -719,7 +719,7 @@ This example is a Manifest with two Timelines, each of which represent a tempora
 !!! warning TODO: The above should be a green class rgb(244,252,239) to distinguish from properties
 
 __Definitions__<br/>
-Classes: [Manifest](#model/Manifest), ...<br/><br/>
+Classes: [Manifest](#model/Manifest), [Timeline](#model/Timeline),[TextualBody](#model/TextualBody)<br/><br/>
 Properties: [duration](#model/duration), [format](#model/format), [language](#model/language), [behavior](#model/behavior), [annotations](#model/annotations), [accompanyingContainer](#model/accompanyingContainer)
 {: .note}
 
@@ -849,8 +849,8 @@ This example is a Manifest with one Canvas that represents the temporal extent o
 !!! warning TODO: The above should be a green class rgb(244,252,239) to distinguish from properties
 
 __Definitions__<br/>
-Classes: [Manifest](#model/Manifest), ...<br/><br/>
-Properties: [duration](#model/duration), [format](#model/format), [timeMode](#model/timeMode), [behavior](#model/behavior), [placeholderContainer](#model/placeholderContainer)
+Classes: [Manifest](#model/Manifest), [Canvas](#model/Canvas), [Choice](#model/Choice)<br/><br/>
+Properties: [fileSize](#model/fileSize), [format](#model/format), [provides](#model/provides), [timeMode](#model/timeMode), [behavior](#model/behavior), [placeholderContainer](#model/placeholderContainer)
 {: .note}
 
 # 3D
