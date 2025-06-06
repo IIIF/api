@@ -621,7 +621,6 @@ This example is a Manifest with two Timelines, each of which represent a tempora
       }
     ]
   },
-  
   "items": [
     {
       "id": "https://example.org/iiif/presentation/examples/manifest-with-audio/timeline/t1",
@@ -683,8 +682,10 @@ This example is a Manifest with two Timelines, each of which represent a tempora
       "id": "https://example.org/iiif/presentation/examples/external-anno.json",
       "type": "AnnotationPage",
     }
-  }
+  ]
+}  
 ```
+
 
 ```json
 {
@@ -703,9 +704,10 @@ This example is a Manifest with two Timelines, each of which represent a tempora
         "format": "text/plain",
         "value": "Hast du etwas Zeit für mich?"
       },
-      "target": "https://example.org/iiif/presentation/examples/manifest-with-audio/timeline/t1#instant=3.5"
+      "target": "https://example.org/iiif/presentation/examples/manifest-with-audio/timeline/t1#t=3.5,6.8"
     }
-  ]
+  ],
+  // (annotations for the rest of the song lines) 
 }
 ```
 
@@ -724,7 +726,7 @@ Properties: [duration](#model/duration), [format](#model/format), [language](#mo
 
 ## Use Case 4: Movie with subtitles
 
-This example is a Manifest with one Canvas that represents the temporal extent of the movie (the Canvas `duration`) and its aspect ratio (given by the `width` and `height` of the Canvas). The example demonstrates the use of a `Choice` annotation body to give two alternative versions of the movie, the `timeMode` property ..., and `placeholderContainer` that provides a poster image to show in place of the video file before the user initiates playback.
+This example is a Manifest with one Canvas that represents the temporal extent of the movie (the Canvas `duration`) and its aspect ratio (given by the `width` and `height` of the Canvas). The example demonstrates the use of a `Choice` annotation body to give two alternative versions of the movie, indicated by their `label` and `fileSize` properties as well as `height` and `width`. Subtitles are provided by an annotation that links to a VTT file. The motivation of this annotation is `supplementing` and the `provides` property of this annotation indicates what accessibility feature it provides, in this case the term `subtitles`. The `timeMode` property in this case is redundant as `trim` is the default value. The Canvas has a `placeholderContainer` that provides a poster image to show in place of the video file before the user initiates playback.
 
 ```json
 {
@@ -736,8 +738,8 @@ This example is a Manifest with one Canvas that represents the temporal extent o
     {
       "id": "https://example.org/iiif/presentation/examples/manifest-with-movie/canvas",
       "type": "Canvas",
-      "height": 360,
-      "width": 480,
+      "height": 1080,
+      "width": 1440,
       "duration": 3600,
       "timeMode": "trim",
       "placeholderContainer": {
@@ -780,20 +782,24 @@ This example is a Manifest with one Canvas that represents the temporal extent o
                 "type": "Choice",
                 "items": [
                   {
-                    "id": "https://example.org/video/movie.mp4",
+                    "id": "https://example.org/video/movie-low.mp4",
                     "type": "Video",
+                    "label": { "en": ["Low resolution (360 MB)" ]},
                     "height": 360,
                     "width": 480,
-                    "duration": 3599.68,
-                    "format": "video/mp4"
+                    "duration": 3600,
+                    "format": "video/mp4",
+                    "fileSize": 360553219
                   },
                   {
-                    "id": "https://example.org/video/movie.flv",
+                    "id": "https://example.org/video/movie-hi.mp4",
                     "type": "Video",
-                    "height": 360,
-                    "width": 480,
-                    "duration": 3600.8,
-                    "format": "video/flv"
+                    "label": { "en": ["High resolution (1.3 GB)" ]},
+                    "height": 1080,
+                    "width": 1440,
+                    "duration": 3600,
+                    "format": "video/mp4",
+                    "fileSize": 1345876231
                   }
                 ]
               },
@@ -815,6 +821,7 @@ This example is a Manifest with one Canvas that represents the temporal extent o
                 "id": "https://example.org/text/subtitles.vtt",
                 "type": "Text",
                 "format": "text/vtt",
+                "provides": [ "subtitles" ],
                 "label": {
                   "en": [
                     "Subtitles in WebVTT format"
@@ -832,27 +839,12 @@ This example is a Manifest with one Canvas that represents the temporal extent o
 }
 ```
 
-```
-Canvas
-duration, behavior=auto-advance, format, Choice of video 720p, 4K? (forward ref), timeMode, placeholderContainer
-```
-
-{
-  Canvas
-      duration: 3600
-          movie.mp4
-              duration: 3599.68
-          movie.flv
-              duration: 3600.8
-
-}
-
-Sometimes, two different formats derived from the same source may have slightly different durations, perhaps a few milliseconds out. What to do...
-
 >
 **Key Points**
-* 
+* The decision about which item in the `Choice` to play by default is client dependent. In the absence of any other decision process the client should play the first item. In this specific example, the user might make the decision after reading the `label`, or the client might make the decision based on the `fileSize` property and an assessment of the user's available bandwidth. However, the client may have no way of determining why the publisher has offered the choices, and should not prevent the user from making the choice. The cookbook demonstrates several uses of `Choice` for common use cases.
+* Slop
 {: .note}
+
 
 !!! warning TODO: The above should be a green class rgb(244,252,239) to distinguish from properties
 
@@ -870,7 +862,7 @@ Scenes have infinite height (y axis), width (x axis) and depth (z axis), where 0
 The positive y axis points upwards, the positive x axis points to the right, and the positive z axis points forwards (a [right-handed cartesian coordinate system](https://en.wikipedia.org/wiki/Right-hand_rule)).
 
 
-## Example: Static 3D Model of a Spacesuit
+## Use Case 5: Simple 3D Model
 
 
 This example is a Manifest with a single Scene, with a single model of a space suit painted at the Scene's origin.
@@ -899,7 +891,8 @@ backgroundColor: #000
 point selector for positioning
 
 
-## Example: 3D Model of a Chessboard
+## Use Case 6: Complex Scene
+
 
 Chessboard is a Canvas with image
 more than one model
