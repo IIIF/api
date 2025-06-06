@@ -484,7 +484,7 @@ The example demonstrates the use of the common descriptive properties `label` fo
 !!! warning TODO: The above should be a green class rgb(244,252,239) to distinguish from properties
 
 __Definitions__<br/>
-Classes: [Manifest](#model/Manifest), [Canvas](#model/Canvas), [AnnotationPage](#model/AnnotationPage), [Annotation](#model/Annotation)<br/><br/>
+Classes: [Manifest](#model/Manifest), [Canvas](#model/Canvas), [AnnotationPage](#model/AnnotationPage), [Annotation](#model/Annotation), [Agent](#model/Agent)<br/><br/>
 Properties: [id](#model/id), [type](#type), [label](#label), [metadata](#metadata), [summary](#summary), [rights](#rights), [homepage](#homepage), [thumbnail](#thumbnail), and [provider](#provider)
 {: .note}
 
@@ -1349,7 +1349,7 @@ When a Scene is nested into another Scene, the `backgroundColor` of the Scene to
 
 ## Choice of Alternative Resources
 
-Example: Multi-spectral Images with Comments
+## Use Case : Multi-spectral Images with Comments
 
 
 ## Embedded Content
@@ -1418,43 +1418,174 @@ IIIF Ranges are used to represent structure _WITHIN_ a Manifest beyond the defau
 
 :eyes:
 
-## Example: Periodical
+## Use Case : Periodical
 
-This example demonstrates the use of IIIF Collections to group Manifests into a hierarchy. In this case, there is a Collection for a publishing run of the _The Tombstone Epitaph_ from 1880 to 1920. This contains 41 child Collections each representing a year's worth of issues. Each of these year Collections in turn has one Manifest for each daily issue of the newspaper.
+This example demonstrates the use of IIIF Collections to group Manifests into a hierarchy. In this case, there is a Collection using the `behavior` "multi-part" for a publishing run of the _The Tombstone Epitaph_ from 1880 to 1920. This contains 41 child Collections, also using the "multi-part" behavior, each representing a year's worth of issues. Each of these year Collections in turn has one Manifest for each daily issue of the newspaper.
 
 Within each Manifest, the `structures` property provides Ranges which are used to identify individual sections of the Newspaper, and individual stories within the sections which may be spread across multiple columns and pages.
 
-Each Manifest has a `navDate` property that could be used to plot the issues on a calendar-style user interface.
 The top level Collection has a `navPlace` property that could be used on a "Newspapers of America" map to allow users to view newspapers by location. Each story's Range links to an Annotation Collection that provides the text of the story via the `supplementary` property.
 
+Each Manifest has a `navDate` property that could be used to plot the issues on a calendar-style user interface.
 
-```
-demonstrates navDate, navPlace, structures (Ranges), supplementary, Collections
-...
-```
-
-
+IIIF Collection with `behavior` "multi-part" that contains the individual "multi-part" Collections for each year/volume:
 
 ```json
-"navPlace": {
-  "id": "https://iiif.io/api/cookbook/recipe/0318-navPlace-navDate/feature-collection/1",
-  "type": "FeatureCollection",
-  "features": [
-    {
-      "id": "https://iiif.io/api/cookbook/recipe/0318-navPlace-navDate/feature/1",
-      "type": "Feature",
-      "properties": {
-        "label": { "en": ["Castel Sant'Angelo, Rome"] }
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [12.4663, 41.9031]
+{
+  "@context": "http://iiif.io/api/presentation/4/context.json",
+  "id": "https://example.org/iiif/periodical/collection.json",
+  "type": "Collection",
+  "label": { "en": [ "The Tombstone Epitaph (1880-1920)" ] },
+  "behavior": [ "multi-part" ],
+  "navPlace": {
+    "id": "https://example.org/iiif/periodical/collection/place/1",
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "id": "https://example.org/iiif/periodical/collection/feature/1",
+        "type": "Feature",
+        "properties": {
+          "label": { "en": ["Tombstone, Cochise County, Arizona"] }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [31.715940, −110.064827]
+        }
       }
-    }
+    ]
+  },
+  "items": [
+    {
+      "id": "https://example.org/iiif/periodical/multi-part-collection/v1.json",
+      "type": "Collection",
+      "label": { "en": [ "The Tombstone Epitaph, 1880" ] } 
+    },
+    {
+      "id": "https://example.org/iiif/periodical/multi-part-collection/v2.json",
+      "type": "Collection",
+      "label": { "en": [ "The Tombstone Epitaph, 1881" ] } 
+    },
+    // Additional multi-part collections for each year/volume
+  ]
+}
+```
+IIIF Collection with `behavior` "multi-part" for the second volume (1881), with individual Manifests for each issue.
+
+```json
+{
+  "@context": "http://iiif.io/api/presentation/4/context.json",
+  "id": "https://example.org/iiif/periodical/multi-part-collection/v1.json",
+  "type": "Collection",
+  "label": { "en": [ "The Tombstone Epitaph, 1881" ] },
+  "behavior": [ "multi-part" ],
+  "items": [
+    // Previous issues
+    {
+      "id": "https://example.org/iiif/periodical/multi-part-collection/issue1.json",
+      "type": "Manifest",
+      "label": { "en": [ "October 27, 1881" ] }
+    },
+    // Subsequent issues
   ]
 }
 ```
 
+Manifest for the October 27, 1881 issue, with Ranges for table of contents.
+
+```json
+{
+  "@context": "http://iiif.io/api/presentation/4/context.json",
+  "id": "https://example.org/iiif/periodical/multi-part-collection/issue1.json",
+  "type": "Manifest",
+  "label": { "en": [ "The Tombstone Epitaph, October 27, 1881" ] },
+  "behavior": [ "paged" ],
+  "navDate": "1881-10-27T00:00:00+00:00",
+  "items": [
+    {
+      "id": "https://example.org/iiif/periodical/multi-part-collection/canvas/c1",
+      "type": "Canvas",
+      "label": { "en": [ "Page 1" ] },
+      "height": 4613,
+      "width": 3204,
+      "items": [
+        {
+          "id": "https://example.org/iiif/periodical/multi-part-collection/page/p1",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://example.org/iiif/periodical/multi-part-collection/annotation/a1",
+              "type": "Annotation",
+              "motivation": [ "painting" ],
+              "body": {
+                "id": "https://example.org/image/page1.jpg",
+                "type": "Image",
+                "format": "image/jpeg",
+                "height": 4613,
+                "width": 3204,
+                },
+              "target": "https://example.org/iiif/periodical/multi-part-collection/canvas/c1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "https://example.org/iiif/periodical/multi-part-collection/canvas/c2",
+      "type": "Canvas",
+      "label": { "en": [ "Page 2" ] },
+      "height": 4613,
+      "width": 3204,
+      "items": [
+        {
+          "id": "https://example.org/iiif/periodical/multi-part-collection/page/p2",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://example.org/iiif/periodical/multi-part-collection/annotation/a2",
+              "type": "Annotation",
+              "motivation": [ "painting" ],
+              "body": {
+                "id": "https://example.org/image/page2.jpg",
+                "type": "Image",
+                "format": "image/jpeg",
+                "height": 4613,
+                "width": 3204,
+                },
+              "target": "https://example.org/iiif/periodical/multi-part-collection/canvas/c2"
+            }
+          ]
+        }
+      ]
+    },
+    // Additional Canvases
+  ],
+  "structures": [
+    {
+      "id": "https://example.org/iiif/periodical/multi-part-collection/range/r0",
+      "type": "Range",
+      "label": { "en": [ "October 27, 1881" ] },
+      "items": [
+        {
+          "id": "https://example.org/iiif/periodical/multi-part-collection/range/r1",
+          "type": "Range",
+          "label": { "en": [ "Yesterday's Tragedy: Three Men Hurled Into Eternity In the Duration of a Moment" ] },
+          "items": [
+            {
+              "id": "https://example.org/iiif/periodical/multi-part-collection/canvas/c1",
+              "type": "Canvas"
+            },
+            // Additional contents
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+__Definitions__<br/>
+Classes: [Collection](#model/Collection), [Range](#model/Range), [AnnotationCollection](#model/AnnotationCollection)<br/><br/>
+Properties: [behavior](#model/behavior), [navPlace](#model/navPlace), [navDate](#model/navDate), [structure](#model/structures)
+{: .note}
 
 thumbnail-nav
 sequence
