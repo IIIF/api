@@ -11,3 +11,27 @@ This requires careful consideration of the URI schemes for `id` properties of Co
 
 use this in an example:
 The point around which RotateTransform rotates the space is the origin. This "pivot point" cannot be changed directly, but instead a TranslateTransform can be used to move the desired pivot point to the be at the origin, then the RotateTransform applied.
+
+
+
+
+                  "body": [
+                    {
+                      "type": "TextualBody",
+                      "value": "A label for the activation may be provided as a TextualBody"
+                    },
+                    {
+                      "type": "SpecificResource",
+                      "source": {
+                        "id": "https://example.org/iiif/scene1/scene-with-activation",
+                        "type": "Scene"
+                      },
+                      "transform": [
+                        {
+                          "type": "PropertyTransform",
+                          "propertyName": "backgroundColor",
+                          "propertyValue": "#FF99AA"
+                        }
+                      ]
+                    }
+                  ],
