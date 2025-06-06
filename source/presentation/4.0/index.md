@@ -864,11 +864,9 @@ The positive y axis points upwards, the positive x axis points to the right, and
 
 ## Use Case 5: Simple 3D Model
 
-
 This example is a Manifest with a single Scene, with a single model of a space suit painted at the Scene's origin.
 
-
-
+> PNG of Scene
 
 ```jsonc
 {
@@ -910,10 +908,136 @@ This example is a Manifest with a single Scene, with a single model of a space s
 **Key Points**
 * As this Scene only has one resource in it (the model), the client must provide lighting and a default camera.
 * In this simplest use case, the Painting Annotation targets the whole Scene rather than a specific point. The client places the model's origin at the Scene's origin. This is in contrast to the _bounded_ Containers `Canvas` and `Timeline`, where the painted resource fills the Container completely.
-
-* this is equivalent to having a point selector that targets the origin.
-* The model also has its own local coordinate space, which may be scaled differently from the Scene's coordinate space.
 {: .note}
+
+
+## Use Case 5a: Simple 3D Model in Configured Scene
+
+This example adds a Light and a Camera to the previous example, and places the model at a specific point rather than at the default origin position. The Light is green and has a position, but has its default orientation of looking along the negative-y axis as no rotation has been specified. The Camera has a position and is pointing at the model's origin via the `lookAt` property. The Scene has a background color.
+
+> PNG of Scene - lurid green light half-illuminating the astronaut.
+
+<img src="{{ site.api_url | absolute_url }}/assets/images/p4/use-case-5a.png" alt="Use case 5a" >
+
+
+```jsonc
+ {
+  "@context": "http://iiif.io/api/presentation/4/context.json",
+  "id": "https://example.org/iiif/3d/model_origin.json",
+  "type": "Manifest",
+  "label": { "en": ["Single Model with light and Camera"] },
+  "summary": { "en": ["Viewer should render the model at (-1,0,1), add the light, and base the viewport on the provided camera"] },
+  "items": [
+    {
+      "id": "https://example.org/iiif/scene1/page/p1/1",
+      "type": "Scene",
+      "label": { "en": ["A Scene"] },
+      "backgroundColor": "#FF00FE",
+      "items": [
+        {
+          "id": "https://example.org/iiif/scene1/page/p1/1",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://example.org/iiif/3d/anno1",
+              "type": "Annotation",
+              "motivation": ["painting"],
+              "body": {
+                "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/astronaut/astronaut.glb",
+                "type": "Model",
+                "format": "model/gltf-binary"
+              },
+              "target": {
+                "type": "SpecificResource",
+                "source": [
+                  {
+                    "id": "https://example.org/iiif/scene1/page/p1/1",
+                    "type": "Scene"
+                  }
+                ],
+                "selector": [
+                  {
+                    "type": "PointSelector",
+                    "x": -1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                  }
+                ]
+              }
+            },   
+            {
+              "id": "https://example.org/iiif/3d/anno2",
+              "type": "Annotation",
+              "motivation": ["painting"],
+              "body": {
+                "id": "https://example.org/iiif/3d/cameras/1",
+                "type": "PerspectiveCamera",
+                "label": {"en": ["Perspective Camera 1"]},
+                "lookAt": {
+                  "id": "https://example.org/iiif/3d/anno1",
+                  "type": "Annotation"
+                }
+              },
+              "target": {
+                "type": "SpecificResource",
+                "source": [
+                  {
+                    "id": "https://example.org/iiif/scene1/page/p1/1",
+                    "type": "Scene"
+                  }
+                ],
+                "selector": [
+                  {
+                    "type": "PointSelector",
+                    "x": 0.0,
+                    "y": 6.0,
+                    "z": 10.0
+                  }
+                ]
+              }
+            },
+            {
+              "id": "https://example.org/iiif/3d/anno2",
+              "type": "Annotation",
+              "motivation": ["painting"],
+              "body": {
+                  "id": "https://example.org/iiif/3d/lights/1",
+                  "type": "SpotLight",
+                  "label": {"en": ["Spot Light 1"]},
+                  "angle": 90.0,
+                  "color": "#A0FFA0"
+              },
+              "target": {
+                "type": "SpecificResource",
+                "source": {
+                  "id": "https://example.org/iiif/scene1/page/p1/1",
+                  "type": "Scene"
+                },
+                "selector": [
+                  {
+                    "type": "PointSelector",
+                    "x": 0.0,
+                    "y": 3.0,
+                    "z": 1.0
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+>
+**Key Points**
+* This example uses some of the Scene-Specific resources introduced in the next section.
+* A Point Selector explicitly places the model in the Scene via the Painting Annotation's `target` property. In the previous example, there was an implicit Point Selector placing the model at (0,0,0) because no explicit Point Selector was provided.
+* The provided Light should replace any default lighting the client might have.
+{: .note}
+
 
 
 ## Use Case 6: Complex Scene
@@ -1479,7 +1603,7 @@ partOf -
 
 
 
-# Content State
+# Content State and toggles
 
 A Content State is simply any valid IIIF Presentation Resource, or part of a Presentation resource. The following are all Content States that describe a "fragment" of IIIF:
 
