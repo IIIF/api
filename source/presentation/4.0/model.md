@@ -605,7 +605,7 @@ The following classes are typically used within Scenes. They might have utility 
 #### Cameras
 {: #Camera}
 
-A Camera provides a view of a region of a Scene's space from a particular position within the Scene; the client constructs a viewport into the Scene and uses the Camera to render that region. The size and aspect ratio of the viewport is client and device dependent.
+A Camera provides a view of a region of a Scene's space from a particular position within the Scene; the client constructs a viewport into the Scene and uses the Camera to render that region. The size and aspect ratio of the viewport is client and device dependent. The first Camera defined in a Scene without the `hidden` behavior is the default Camera.
 
 If either the position or direction is not specified, then the position defaults to the origin of the Scene, and the direction defaults to pointing along the z axis towards negative infinity.
 
@@ -645,6 +645,8 @@ A Perspective Camera mimics the way the human eye sees, in that objects further 
 
 The region of the Scene's space that is observable by the camera is bounded by two planes orthogonal to the direction the camera is facing, given in the `near` and `far` properties, and a vertical projection angle that provides the top and bottom planes of the region in the `fieldOfView` property.
 
+<img src="https://raw.githubusercontent.com/IIIF/3d/eds/assets/images/near-far.png" title="Diagram showing near and far properties"  alt="drawing of a geometrical frustrum truncated by near and far distances" width="300" />
+
 __Properties__<br/>
 Perspective Cameras _SHOULD_ have the following additional properties: [fieldOfView](#fieldOfView).
 {: .note}
@@ -663,7 +665,7 @@ Perspective Cameras _SHOULD_ have the following additional properties: [fieldOfV
 #### Lights
 {: #Light}
 
-It is necessary for there to be a Light within a Scene that illuminates the objects. If no Light is provided by the Scene's description, then the client _MUST_ add a Light.
+It is necessary for there to be a Light within a Scene that illuminates the objects. If no Light is provided by the Scene's description, then the client _MUST_ provide default lighting.
 
 This specification does not define other aspects of Lights, such as the rate of decay of the intensity of the light over a distance, the maximum range of the light, or the penumbra of a cone. Implementation of these aspects is client-dependent.
 
@@ -763,7 +765,7 @@ Spot Lights _MAY_ have the following additional properties: [lookAt](#lookAt)
 #### Audio Emitters
 {: #AudioEmitters}
 
-Positional audio is supported through the use of Audio Emitter resources annotated into Scenes, in the same way that light is emitted from the various subclasses of Light.
+Audio is supported through the use of Audio Emitter resources annotated into Scenes, in the same way that light is emitted from the various subclasses of Light.
 
 As the audio content must come from an audio resource, the Audio Emitter classes are subclasses of SpecificResource. Note that the `source` of the Audio could be a Timeline, or could be further constrained with additional specifiers as to start point, end point or other transformations.
 
@@ -850,7 +852,7 @@ Spot Audio Emitters _MAY_ have the following additional properties: [lookAt](#lo
 #### Transforms
 {: #Transforms}
 
-An operation to transform a 3D resource. Transforms are specified by the [transform](#transform) property on a Specific Resource. Transforms are carried out on a resource in the implicit or explicit local coordinate space of the resource, and are performed prior to painting that resource into any subsequent coordinate space.
+An operation to apply a transformation to a resource. Transforms are specified by the [transform](#transform) property on a Specific Resource. Transforms are carried out on a resource in the implicit or explicit local coordinate space of the resource, and are performed prior to painting that resource into any subsequent coordinate space.
 
 __Properties__<br/>
 All Transforms _MUST_ have the following properties: [type](#type).<br/><br/>
