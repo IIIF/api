@@ -867,21 +867,57 @@ The positive y axis points upwards, the positive x axis points to the right, and
 
 This example is a Manifest with a single Scene, with a single model of a space suit painted at the Scene's origin.
 
-The model also has its own local coordinate space, which may be scaled differently from the Scene's coordinate space.
-
-Unlike when you paint a resource into a Canvas where it fills the space, instead targeting the Scene is equivalent to having a point selector that targets the origin.
-
 
 
 
 ```jsonc
-
-manifest
-  scene
-    annotationpage
-      annotation
-         model
+{
+  "@context": "http://iiif.io/api/presentation/4/context.json",
+  "id": "https://example.org/iiif/3d/model_origin.json",
+  "type": "Manifest",
+  "label": { "en": ["Single Model"] },
+  "summary": { "en": ["Viewer should render the model at the scene origin, and then viewer should add default lighting and camera"] },
+  "items": [
+    {
+      "id": "https://example.org/iiif/scene1/page/p1/1",
+      "type": "Scene",
+      "label": { "en": ["A Scene"] },
+      "items": [
+        {
+          "id": "https://example.org/iiif/scene1/page/p1/1",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://example.org/iiif/3d/anno1",
+              "type": "Annotation",
+              "motivation": ["painting"],
+              "body": {
+                "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/astronaut/astronaut.glb",
+                "type": "Model",
+                "format": "model/gltf-binary"
+              },
+              "target": "https://example.org/iiif/scene1/page/p1/1"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
 ```
+
+>
+**Key Points**
+* As this Scene only has one resource in it (the model), the client must provide lighting and a default camera.
+* In this simplest use case, the Painting Annotation targets the whole Scene rather than a specific point. The client places the model's origin at the Scene's origin. This is in contrast to the _bounded_ Containers `Canvas` and `Timeline`, where the painted resource fills the Container completely.
+
+* this is equivalent to having a point selector that targets the origin.
+* The model also has its own local coordinate space, which may be scaled differently from the Scene's coordinate space.
+{: .note}
+
+
+## Use Case 6: Complex Scene
+
 
 
 model
@@ -889,9 +925,6 @@ light Ambient color
 camera (put it in the right place looking -Z) near, far, fieldOfView, lookAt  (note that Orthographic w/ viewHeight possible)
 backgroundColor: #000
 point selector for positioning
-
-
-## Use Case 6: Complex Scene
 
 
 Chessboard is a Canvas with image
