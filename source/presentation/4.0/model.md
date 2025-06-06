@@ -852,7 +852,7 @@ Spot Audio Emitters _MAY_ have the following additional properties: [lookAt](#lo
 #### Transforms
 {: #Transforms}
 
-An operation to apply a transformation to a resource. Transforms are specified by the [transform](#transform) property on a Specific Resource. Transforms are carried out on a resource in the implicit or explicit local coordinate space of the resource, and are performed prior to painting that resource into any subsequent coordinate space.
+An operation to apply a transformation to a resource. Transforms are specified by the [transform](#transform) property on a Specific Resource. In the context of Scenes, transforms are carried out on a resource in the implicit or explicit local coordinate space of the resource, and are performed prior to painting that resource into any subsequent coordinate space.
 
 __Properties__<br/>
 All Transforms _MUST_ have the following properties: [type](#type).<br/><br/>
@@ -959,12 +959,27 @@ An Agent _MAY_ have the following properties: [id](#id), [seeAlso](#seeAlso) and
 
 > `"type": "Service"`
 
-A Service is a software application outside of the Manifest that a client might interact with to gain additional information or functionality for the resource that is associated with the Service. The IIIF Image API is an example of a Service, as are the Auth API services. Known types of Service are registered in the Service Registry.
+A Service is an external software application that a client might interact with to gain additional information or functionality for the resource that is associated with the Service. The IIIF Image API is an example of a Service, as are the Auth API services. Known types of Service are registered in the Service Registry.
+
+For cross-version consistency, this specification defines the following values for the `type` or `@type` property for backwards compatibility with other IIIF APIs. Future versions of these APIs will define their own types. These `type` values are necessary extensions for compatibility of the older versions.
+
+| Value                | Specification |
+| -------------------- | ------------- |
+| ImageService1        | [Image API version 1][image11]  |
+| ImageService2        | [Image API version 2][image21]  |
+| SearchService1       | [Search API version 1][search1] |
+| AutoCompleteService1 | [Search API version 1][search1-autocomplete] |
+| AuthCookieService1   | [Authentication API version 1][auth1-cookie-service] |
+| AuthTokenService1    | [Authentication API version 1][auth1-token-service] |
+| AuthLogoutService1   | [Authentication API version 1][auth1-logout-service] |
+{: .api-table #table-service-types}
+
+Implementations _SHOULD_ be prepared to recognize the `@id` and `@type` property names used by older specifications, as well as `id` and `type`. Note that the `@context` key _SHOULD NOT_ be present within the `service`, but instead included at the beginning of the document.
 
 __Properties__<br/>
 A Service _MUST_ have the following properties: [id](#id), and [type](#type).<br/><br/>
 A Service _SHOULD_ have the following properties: [label](#label), [profile](#profile).<br/><br/>
-A Service _MAY_ have the following properties: [service](#service).<br/><br/>
+A Service _MAY_ have the following properties: [service](#service), `@id` and `@type`.<br/><br/>
 Services will also have specific requirements as to additional properties based on the type of service.
 {: .note}
 
@@ -1200,19 +1215,19 @@ The value _MUST_ be a positive floating point number.
 ### exclude
 {: #exclude}
 
-_Summary here_
-
-Just as a Scene may contain multiple Annotations with model, light, and camera resources, a single 3D model file may contain a collection of 3D resources, including model geometry, assemblages of lights, and/or multiple cameras, with some of these potentially manipulated by animations. When painting Scenes or models that themselves may contain groups of resources within a single Scene, it may not always be appropriate to include all possible cameras, lights, or other resources, and it may be desirable to opt not to import some of these resources. This is accomplished through the Annotation property `exclude`, which prevents the import of audio, lights, cameras, or animations from a particular Scene or model prior to the Annotation being painted into a Scene. When `exclude` is used, the excluded resource type should not be loaded into the Scene, and it is not possible to reactivate or turn on these excluded resources after loading.
-
-
-_On Annotation, a list of strings drawn from table_
+Just as a Scene may contain multiple Annotations with model, light, and camera resources, a single 3D model file may contain a collection of 3D resources, including model geometry, assemblages of lights, and/or multiple cameras, with some of these potentially manipulated by animations. When painting Scenes or models that themselves may contain groups of resources within a single Scene, it may not always be appropriate to include all possible cameras, lights, or other resources, and it may be desirable to opt not to import some of these resources. This is accomplished through the Annotation property `exclude`, which prevents the import of audio, lights, cameras, or animations from a particular Scene or model prior to the Annotation being painted into a Scene. When `exclude` is used, the excluded resource type or functionality should not be loaded into the Scene, and it is not possible to reactivate or turn on these excluded resources after loading.
 
 | Value      | Description |
 |------------|-------------|
-| Audio      | |
-| Animations | |
-| Cameras    | |
-| Lights     | |
+| Audio      | Exclude all sound from resources, including audio tracks, audio emitters, and audio from video |
+| Animations | Exclude all definitions of animations from resources |
+| Cameras    | Exclude all cameras from resources |
+| Lights     | Exclude all lights from resources |
+
+The value of `exclude` is an array of strings, each of which is one of the values listed above. If the `exclude` property is not specified, then no resources are excluded.
+
+* An Annotation _MAY_ have the `exclude` property.
+  Clients _SHOULD_ process the `exclude` property.
 
 ```json
 "exclude": [ "Audio", "Lights", "Cameras", "Animations" ]

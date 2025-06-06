@@ -7,3 +7,7 @@ The third Container is a Scene. Unlike a Canvas, it is not a bounded spatial ext
 
 
 This requires careful consideration of the URI schemes for `id` properties of Containers and their Manifests to ensure they remain referenceable in the future.
+
+
+use this in an example:
+The point around which RotateTransform rotates the space is the origin. This "pivot point" cannot be changed directly, but instead a TranslateTransform can be used to move the desired pivot point to the be at the origin, then the RotateTransform applied.
