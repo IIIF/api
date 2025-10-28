@@ -626,9 +626,9 @@ Properties: [behavior](#model/behavior), [viewingDirection](#model/viewingDirect
 
 ## Use Case 3: Periodical
 
-This example demonstrates the use of IIIF Collections to group Manifests into a hierarchy. In this case, there is a Collection for a publishing run of the _The Tombstone Epitaph_ from 1880 to 1920. This contains 41 child Collections each representing a year's worth of issues. The parent Collection and each of its child Collections use the `behavior` "multi-part" to signal that the Collections and their Manifests are part of a logical whole or contiguous set. Each of the year Collections has one Manifest for each issue of the newspaper.
+This example demonstrates the use of IIIF Collections to group Manifests into a hierarchy. In this case, there is a Collection for a run of the _The Tombstone Epitaph_, published from 1880 to 1920. This contains 41 child Collections each representing a year's worth of issues. The parent Collection and each of its child Collections use the `behavior` "multi-part" to signal that the Collections and their Manifests are part of a logical set. Each of the year Collections has one Manifest for each issue of the newspaper.
 
-The top level Collection has a `navPlace` property that could be used on a "Newspapers of America" map to allow users to view newspapers by location. Each Manifest has a `navDate` property that could be used to plot the issues on a calendar-style user interface. Within each Manifest, the `structures` property provides Ranges which are used to identify individual sections of the Newspaper, and individual stories within the sections, which may be spread across multiple columns and pages. Each story's Range includes the `supplementary` property to link to an Annotation Collection that provides the text of the story.
+The top-level Collection has a `navPlace` property that could be used on a "Newspapers of America" map to allow users to view newspapers by location. Each Manifest has a `navDate` property that could be used to plot the issues on a timeline or calendar-style user interface. Within each Manifest, the `structures` property provides Ranges which are used to identify individual sections of the Newspaper, and individual stories within those sections, which may be spread across multiple columns and pages. Each story's Range includes the `supplementary` property to link to an Annotation Collection that provides the text of the story.
 
 IIIF Collection with `behavior` "multi-part" that contains the individual "multi-part" Collections for each year/volume:
 
@@ -671,7 +671,7 @@ IIIF Collection with `behavior` "multi-part" that contains the individual "multi
   ]
 }
 ```
-IIIF Collection with `behavior` "multi-part" for the second volume (1881), with individual Manifests for each issue.
+IIIF Collection with `behavior` "multi-part" for the second volume (1881), with individual Manifests for each issue:
 
 ```json
 {
@@ -692,7 +692,7 @@ IIIF Collection with `behavior` "multi-part" for the second volume (1881), with 
 }
 ```
 
-Manifest for the October 27, 1881 issue, with Ranges for table of contents.
+Manifest for the October 27, 1881 issue, with Ranges for table of contents:
 
 ```json
 {
