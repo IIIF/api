@@ -1063,7 +1063,7 @@ This example is a Manifest with one Canvas that represents the temporal extent o
 
 >
 **Key Points**
-* The decision about which item in the `Choice` to play by default is client dependent. In the absence of any other decision process the client should play the first item. In this specific example, the user might make the decision after reading the `label`, or the client might make the decision based on the `fileSize` property and an assessment of the user's available bandwidth. However, the client may have no way of determining why the publisher has offered the choices, and should not prevent the user from making the choice. The cookbook demonstrates several uses of `Choice` for common use cases.
+* The decision about which item in the `Choice` to play by default is client dependent. In the absence of any other decision process the client should play the first item. In this specific example, the user might make the decision after reading the `label`, or the client might make the decision based on the `fileSize` property and an assessment of the user's available bandwidth. However, the client may have no way of determining why the publisher has offered the choices, and should not prevent the user from making the choice. The cookbook demonstrates several uses of `Choice` for common image and AV use cases.
 * Slop - impl note - don't interpret **very** minor discrepancies between `duration` on the different Choices and the Container `duration` as an instruction to stretch or compress the audio/video stream to match the Container duration. No real way to quantify this, just _be sensible_.
 {: .note}
 
@@ -1441,7 +1441,7 @@ hidden on audio = inaudible
 
 All resources that can be added to a Scene have an implicit (e.g. Lights, Cameras) or explicit (e.g. Models, Scenes), local coordinate space. If a resource does not have an explicit coordinate space, then it is positioned at the origin of its coordinate space. In order to add a resource with its local coordinate space into a Scene with its own coordinate space, these spaces must be aligned. This done by aligning the origins of the two coordinate spaces.
 
-
+"Exclude Audio"
 
 
 
@@ -1540,58 +1540,6 @@ Manifest
             Annotation
 ```                     
 
-## Comment Annotations
-
-> (examples are just the anno)
-
-### A comment about a segment of music 
-
-(targets Timeline)
-"Here begins the development of the second theme"
-
-### A comment about a face in a painting
-
-(targets Canvas)
-"This might be so-and-so"
-
-### A comment about something in a Model
-
-(targets Scene)
-Look at this scratch in the helmet
-
-> Todo: This is mostly copy-pasted from properties, is it needed here? Use in above example.
-
-It is important to be able to position the textual body of an annotation within the Container's space that the annotation also targets. For example, a description of part of an image in a Canvas should be positioned such that it does not obscure the image region itself and labels to be displayed as part of a Scene should not be rendered such that the text is hidden by the three dimensional geometry of the model. The positioning of the textual body in a container is accomplished through the `position` property, which has as a value a Specific Resource identifying the targeted container as the source and a selector defining how the textual body should be positioned in the targeted container. If this property is not supplied, then the client should do its best to ensure the content is visible to the user.
-
-## Choice of Alternative Resources
-
-## Use Case 7: Multi-spectral Images with Comments
-
-(same as cookbook example?)
-
-## Embedded Content
-
-e.g., painting TextualBody on Canvas
-
-
-## Non Rectangular Segments
-
-SvgSelector - move to SpecificResource too ^^
-
-Annotations may alternately use a type of Selector called a `WktSelector` to align the Annotation to a region with the Scene that is not the Scene's origin. WktSelectors have a single property, `value`, which is a string conforming to a WKT Linestring, LineStringZ, Polygon, or PolygonZ list of 2D or 3D coordinate points. Whether and how a region defined by a WktSelector may be translated to a single 2D or 3D coordinate point, for targeting or other purposes, is client-dependent.
-
-## Style
-
-Move to SpecificResource
-
-
-## Rotation
-
-
-## Hotspot Linking and Activation
-
-Move to SpecificResource
-
 
 ## Annotation Page
 
@@ -1607,9 +1555,59 @@ https://github.com/IIIF/api/pull/2304/files#diff-cc70f02818f6bed2b14dfbf8bf3206e
 use totalItems? https://iiif.io/api/discovery/1.0/#totalitems
 
 
-# Navigation
 
-(need intro to navigation)
+
+## Comment Annotations
+
+> (examples are just the anno)
+
+### A comment about a segment of music 
+
+(targets Timeline)
+"Here begins the development of the second theme"
+
+### A comment about a face in a painting
+
+(is this a full use case?)
+
+(targets Canvas)
+"This might be so-and-so"
+
+(Uses Non Rectangular Segments - SvgSelector)
+
+Annotations may alternately use a type of Selector called a `WktSelector` to align the Annotation to a region with the Scene that is not the Scene's origin. WktSelectors have a single property, `value`, which is a string conforming to a WKT Linestring, LineStringZ, Polygon, or PolygonZ list of 2D or 3D coordinate points. Whether and how a region defined by a WktSelector may be translated to a single 2D or 3D coordinate point, for targeting or other purposes, is client-dependent.
+
+
+### A comment about something in a Model
+
+(targets Scene)
+Look at this scratch in the helmet
+
+> Todo: This is mostly copy-pasted from properties, is it needed here? Use in above example.
+
+It is important to be able to position the textual body of an annotation within the Container's space that the annotation also targets. For example, a description of part of an image in a Canvas should be positioned such that it does not obscure the image region itself and labels to be displayed as part of a Scene should not be rendered such that the text is hidden by the three dimensional geometry of the model. The positioning of the textual body in a container is accomplished through the `position` property, which has as a value a Specific Resource identifying the targeted container as the source and a selector defining how the textual body should be positioned in the targeted container. If this property is not supplied, then the client should do its best to ensure the content is visible to the user.
+
+> Forward ref to 3D comments with Cameras
+
+
+## Linking Annotations
+
+
+Simple hotspot linking example
+
+----
+
+## Activating Annotations
+
+Lightweight intro here
+
+Timeline example - reach point in timeline, do something
+enables and disables?
+
+Can we use light switch example here - in 2D?
+
+Moving books? - tab moves something revealing something else
+click to fold out and fold back
 
 
 
@@ -1755,6 +1753,8 @@ The mechanisms for passing Content State into a client, and exporting a Content 
 
 In the previous usage, the fragment of IIIF carried by the annotation with the motivation `contentState` provides enough information for a Client to load a resource and show it. This fragment can also carry additional IIIF Presentation API resources not shown in the referred-to resource. For example, in the following example the Content State carries additional annotations not present in the original published Manifest. A client initializing from this Content State would show these additional annotations to the user:
 
+What to do about activating annos in the introduced content?
+
 ```json
 {
   "id": "https://example.org/import/3",
@@ -1777,33 +1777,15 @@ In the previous usage, the fragment of IIIF carried by the annotation with the m
 }
 ```
 
-As well as adding resources not present in the referred-to resource, the Content State can also remove parts of the referred-to resource from the user's view by applying the behavior `hidden` to them:
-
-⚠⚠⚠⚠
-
-now we are entering the danger zone
-
-```jsonc
-{
-  // What does this actually look like? I want to load bnf_chateauroux example but HIDE the illumination
-  // ...
-  "id": "https://iiif.io/api/cookbook/recipe/0036-composition-from-multiple-images/annotation/p0001-image",
-  "type": "Annotation",
-  "motivation": "painting",
-  "behavior": ["hidden"]
-}
-```
-
-TODO: what is the processing algorithm for applying incoming `hidden` ?
-
-~When a Content State annotation carries a Scene, a view might be initialized from a Content State that introduces an additional Camera that shows the user the point of interest.~
-
 
 # Interactivity and Storytelling
 
 Sometimes it is necessary to modify the contents of a Container in the contexts of different annotations on that Container. This technique allows IIIF to be used for _storytelling_ and other narrative applications beyond simply conveying a static Digital Object into a viewer and leaving subsequent interactions entirely in the control of the user. 
 
-A narrative might comprise a set (an AnnotationPage) of `commenting` annotations that target different parts of the Container, for example a guided tour of a painting or a map. For a Canvas or Timeline it is usually sufficient to leave the interactivity to the client; the fact that comments target different extents implies the client must offer some affordance for those comments (typically the user can click each one), and in response the client will move the current play point of the Timeline to the commenting annotation target, or pan and zoom the viewport to show the relevant part of an image. For 3D this may not be enough; a particular comment only make sense from a certain viewpoint (i.e., Camera), or different steps of the story require different Lights to be active.
+A narrative might comprise a set (an AnnotationPage) of `commenting` annotations that target different parts of the Container, for example a guided tour of a painting or a map. For a Canvas or Timeline it is usually sufficient to leave the interactivity to the client; the fact that comments target different extents implies the client must offer some affordance for those comments (typically the user can click each one), and in response the client will move the current play point of the Timeline to the commenting annotation target, or pan and zoom the viewport to show the relevant part of an image. For 3D this may not be enough; a particular comment may only make sense from a certain viewpoint (i.e., Camera), or different steps of the story require different Lights to be active.
+
+
+## 3D Comments with Cameras
 
 Consider a Scene with two models, two `commenting` annotations, and a camera. We really only want the camera to be used when the user is looking at the Mandibular tooth, by default and at other times we don't need a specific camera, we can let them explore freely.
 
@@ -1958,7 +1940,7 @@ Activating annotations are provided in a Container's `annotations` property. The
 }
 ```
 
-The pattern is similar to that for hotspot linking (ref)
+The pattern is similar to that for linking (ref)
 
 In a storytelling or exhibition scenario, the non-painting `annotations` might be carrying informative text, or even rich HTML bodies. They can be considered to be _steps_ in the story. The use of activating annotations allows a precise storytelling experience to be specified, including:
 
@@ -2337,6 +2319,22 @@ An extreme example of both physical dimension properties together is a Canvas sh
 
 
 
+# Other stuff
+
+## Embedded Content
+
+e.g., painting TextualBody on Canvas
+
+
+## Style
+
+### Rotation
+
+
+
+
+
+
 # Protocol
 
 
@@ -2393,4 +2391,4 @@ The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _S
 
 ## Change Log
 
-"Exclude Audio"
+
