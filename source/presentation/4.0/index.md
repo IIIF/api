@@ -74,25 +74,24 @@ __Previous Version:__ [3.0][prezi30]
 
 The purpose of the IIIF Presentation API specification is to provide a [model](model) and JSON serialization format of that model.
 
-It provides a document format - the IIIF Manifest - for cultural heritage organizations (and anyone else) to present objects in a standardized, interoperable fashion. This allows compatible software such as viewers and annotation tools to load and present complex digital objects on the web from thousands of different providers.
+It provides a document format---the IIIF Manifest---for cultural heritage organizations (and anyone else) to present objects in a standardized, interoperable way. This allows compatible software such as viewers and annotation tools to load and present complex digital objects on the web from thousands of different providers.
 
 **If you have existing images, audio, video and models on the web, you can easily provide IIIF Manifests for them by publishing the appropriate JSON documents.**
 
-The IIIF Presentation API is concerned with enabling user experiences - providing enough information to present objects in compatible software, and leaving the meaning of the objects to external descriptive metadata standards.
+The IIIF Presentation API is concerned with enabling user experiences---providing enough information to present objects in compatible software, and leaving the meaning of the objects to external descriptive metadata standards.
 
-This document acts as an introduction to the specification through a set of typical (but non-exhaustive) use cases. The model [model](model) document provides the formal specification of the terms used in this introduction.
+This document acts as an introduction to the specification through a set of typical (but non-exhaustive) use cases. The [Presentation API 4.0 Properties](model) document provides the formal specification of the model and terms used in this introduction.
 
 ## IIIF Use cases
 
 1. **Artwork** - a Manifest that represents a painting, comprising a single image and accompanying display information.
 2. **Book** - a Manifest that represents a digitized bound volume made up many separate images in order. The IIIF model provides structural elements to indicate the chapters. The text of the book is made available in machine-readable form as Web Annotations.
-3. **45 Single** - a Manifest that represents the digitized audio from the two sides of a vinyl 7 inch record.
-4. **Movie** - a Manifest that represents the digitized video of a film. A transcript of the audio is provided as Web Annotations, and additional machine-readable files provide subtitles and captions.
-5. **Simple 3D Model** - a Manifest that publishes a single 3D model.
-6. **Complex Scene** - a Manifest that publishes a complex 3D scene comprising multiple models, lights and cameras.
-7. **Periodical** - a IIIF Collection that provides multiple child Collections and Manifests, representing the publication run of a newspaper over many years. The IIIF model provides structural elements to indicate individual articles and other elements.
+3. **Periodical** - a IIIF Collection that provides multiple child Collections and Manifests, representing the publication run of a newspaper over many years. The IIIF model provides structural elements to indicate individual articles and other elements.
+4. **45 Single** - a Manifest that represents the digitized audio from the two sides of a vinyl 7 inch record.
+5. **Movie** - a Manifest that represents the digitized video of a film. A transcript of the audio is provided as Web Annotations, and additional machine-readable files provide subtitles and captions.
+6. **Simple 3D Model** - a Manifest that publishes a single 3D model.
+7. **Complex Scene** - a Manifest that publishes a complex 3D scene comprising multiple models, lights and cameras.
 8. **Storytelling in 3D** - a Manifest that defines a sequence of states in a complex scene for the purposes of guiding a user through a particular experience.
-9. **Manuscript** - (integration)
 
 These use case were chosen as a broad sample to introduce IIIF concepts. Many more use cases are provided as recipes in the [IIIF Cookbook](link).
 
