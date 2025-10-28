@@ -35,6 +35,12 @@ hero:
   image: ''
 ---
 
+<style>
+.content {
+  max-width:auto;
+}
+</style>
+
 # Status of this Document
 {:.no_toc}
 __This Version:__ {{ page.major }}.{{ page.minor }}.{{ page.patch }}{% if page.pre != 'final' %}-{{ page.pre }}{% endif %}
@@ -2197,7 +2203,7 @@ Many Scene interaction use cases can be accomplished using the `enables` and `di
 
 > when to use enables and when to use the `body` of the activating anno - are they equivalent for, say, a hidden model: enable it, activate it - interchangeable?
 
-For some interactions it is necessary to do more than show or hide or "activate" resources, by changing just `"behavior": ["hidden"]`. Other properties can also be changed via the JSON Patch mechanism.
+For some interactions it is necessary to do more than show or hide or "activate" resources, by changing just `"behavior": ["hidden"]`. Other properties can also be changed via the [JSON Patch](link) mechanism.
 
 ```jsonc
 {
