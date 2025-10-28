@@ -40,8 +40,9 @@ hero:
   max-width:100%;
 }
 
-code {
-  font-size:0.9rem
+pre.highlight code {
+  font-size:0.9rem;
+  line-height:1.0;
 }
 
 .content h3 {
