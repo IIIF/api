@@ -36,7 +36,7 @@ hero:
 ---
 
 <style>
-.content {
+.content, .highlight {
   max-width:auto;
 }
 </style>
