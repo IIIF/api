@@ -60,6 +60,11 @@ The IIIF Presentation API is backed by a standards-based data model inspired by 
 The model intentionaly does not include any semantic or descriptive relationships or properties such as the author of a book or the place where a statue was sculpted; it is solely for presenting content in a structured fashion to human users.
 
 
+## Technical Considerations
+{: #json-considerations}
+
+This section describes features applicable to all of the Presentation API content.
+
 ### Terminology
 {: #terminology}
 
@@ -73,11 +78,6 @@ The terms _array_, _JSON object_, _number_, _string_, and _boolean_ in this docu
 
 The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _SHOULD NOT_, _RECOMMENDED_, _MAY_, and _OPTIONAL_ in this document are to be interpreted as described in [RFC 2119][org-rfc-2119].
 
-
-## JSON Considerations
-{: #json-considerations}
-
-This section describes features applicable to all of the Presentation API content.
 
 ### Case Sensitivity
 {: #case-sensitivity}
