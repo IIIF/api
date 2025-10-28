@@ -344,50 +344,25 @@ The fragment example above can be expressed using a Specific Resource:
 }
 ```
 
+## Navigational Resources
 
-## Supporting Resources
+### Collection
 
-Constructs from the domain of 3D graphics are expressed in IIIF as Resources. They are associated with Scenes via Painting Annotations in the same manner as Content Resources. They aid in or enhance the rendering of Content Resources, especially in Scenes. 
+IIIF Collections are ordered lists of Manifests, Collections, and/or Specific Resources. Collections allow these resources to be grouped in a hierarchical structure for navigation and other purposes.
 
-### Cameras
+:eyes:
 
-A Camera provides a view of a region of the Scene's space from a particular position within the Scene; the client constructs a viewport into the Scene and uses the view of one or more Cameras to render that region. The size and aspect ratio of the viewport is client and device dependent.
+### Range
 
-There are two types of Camera, `PerspectiveCamera` and `OrthographicCamera`. The first Camera defined and not hidden in a Scene is the default Camera used to display Scene contents. If the Scene does not have any Cameras defined within it, then the client provides a default Camera. The type, properties and position of this default camera are client-dependent.
+IIIF Ranges are used to represent structure _WITHIN_ a Manifest beyond the default order of the Containers in the `items` property. Example uses include newspaper sections or articles, chapters within a book for a table of contents, or movements within a piece of music. Ranges can include Containers, parts of Containers via Specific Resources or fragment URIs, or other Ranges, creating a tree structure like a table of contents. The typical intent of adding a Range to the Manifest is to allow the client to display a linear or hierarchical navigation interface to enable the user to quickly move through the object's content.
 
-
-### Lights
-
-There are four types of Light: AmbientLight, DirectionalLight, PointLight and SpotLight. They have a `color` and an `intensity`. SpotLight has an additional property of `angle` that determines the spread of its light cone.
-
-If the Scene has no Lights, then the client provides its own lighting as it sees fit.
+:eyes:
 
 
-### Audio Emitters
-
-There are three types of Audio emitter: AmbientAudio, PointAudio and SpotAudio. They have a `source` (an audio Content Resource) and a `volume`.
-
-### Transforms
-
-When painting resources into Scenes, it is often necessary to resize, rotate or move them relative to the coordinate space of the Scene. These operations are specified using three Transforms: ScaleTransform, RotateTransform and TranslateTransform. Each Transform has three properties, `x`, `y` and `z` which determine how the Transform affects that axis in the local coordinate space.
-
-Transforms are added to a SpecificResource using the `transform` property, and there may be more than one applied when adding a model to a Scene. Different orders of the same set of transforms can have different results, so attention must be paid when creating the array and when processing it.
-
-### Agent
-
-Any resource can have a `provider` property which a client can display to the user. This typically tells the user who the publisher is and how they might be contacted. The value of this property is an [Agent](model/#agent).
-
-### Service
-
-A Service is a software application that a client might interact with to gain additional information or functionality. The IIIF Image API is an example of a Service.
-
-### Unit Value
-
-To express a numerical measure in some particular unit, we use a UnitValue resource that has `value` and `unit` properties. For example a Scene coordinate system might be in meters.
 
 # Image Content
 
-## Use Case 1: Artwork
+## Use Case 1: Artwork with deep zoom
 
 This example is a Manifest with one Canvas, representing an artwork. The content resource, a JPEG image of the artwork, is associated with the Canvas via a Painting Annotation.
 
@@ -395,7 +370,7 @@ The unit integer coordinates of the Canvas (12000 x 9000) are not the same as th
 
 The example demonstrates the use of the common descriptive properties `label` for the title of the artwork, `metadata` for additional information to display to the user, `summary` for a brief description of the artwork, `rights` to assert a rights statement or license from a controlled vocabulary, `homepage` to link to the artwork's specific web page, `thumbnail` to provide a small image to stand for the Manifest, and `provider` to give information about the publisher of the Manifest.
 
-```json
+```jsonc
 {
   "@context": "http://iiif.io/api/presentation/4/context.json",
   "id": "https://iiif.io/api/cookbook/recipe/0001-mvm-image/manifest.json",
@@ -477,7 +452,14 @@ The example demonstrates the use of the common descriptive properties `label` fo
                 "type": "Image",
                 "format": "image/jpeg",
                 "width": 4000,
-                "height": 3000
+                "height": 3000,
+                "service": [
+                  {
+                    "id": "https://iiif.io/api/image/efjfpewjfpewjfoiewjf",
+                    "type": "imageService3",
+                    // etc
+                  }
+                ]
               },
               "target": "https://example.org/iiif/presentation/examples/manifest-with-containers/canvas"
             }
@@ -498,6 +480,8 @@ The example demonstrates the use of the common descriptive properties `label` fo
 * The Painting Annotation is a member of the `items` property of an Annotation Page. While in this case there is only one Annotation Page and one Annotation, the mechanism is needed for consistency when there are multiple Annotation Pages, and it allows for Annotation Pages in general to be separate resources on the web.
 * The `metadata` label and value pairs are for display to the user rather than for machines to interpret.
 * The `rights` property is always a single string value which is a URI.
+* Any resource can have a `provider` property which a client can display to the user. This typically tells the user who the publisher is and how they might be contacted. The value of this property is an [Agent](model/#agent).
+* A Service is a software application that a client might interact with to gain additional information or functionality. The IIIF Image API in this example ia a Service, which provides deep zoom functionality. Images in IIIF do not have to have Image Services - the following examples don't.
 {: .note}
 
 !!! warning TODO: The above should be a green class rgb(244,252,239) to distinguish from properties
@@ -639,820 +623,8 @@ Properties: [behavior](#model/behavior), [viewingDirection](#model/viewingDirect
 {: .note}
 
 
-# Audio and Video
 
-## Use Case 3: A 45 single with 2 tracks
-
-This example is a Manifest with two Timelines, each of which represent a temporal extent during which a song is played. As in most cases, the Timeline `duration` is the same length as that of Content Resource painted into it. This example is a recording digitized from a 45 RPM 7 inch single. It demonstrates the use of `format` for the audio files' content type, `language` (One song is in English and one is in German), `behavior` with value "auto-advance" that tells a client to automatically advance to the second Timeline after playing the first, `annotations` that link to Annotation Pages of annotations with the motivation `supplementing` that provide the lyrics (one example is given afterwards) - and an `accompanyingContainer` that carries a picture of the single's cover that is shown while the songs are playing.
-
-
-```json
-{
-  "@context": "http://iiif.io/api/presentation/4/context.json",
-  "id": "https://example.org/iiif/presentation/examples/manifest-with-audio.json",
-  "type": "Manifest",
-  "label": { "en": [ "Use case 3: 45 single with 2 tracks" ] },
-  "behavior": [ "auto-advance" ],
-  "accompanyingContainer": {
-    "id": "https://example.org/iiif/presentation/examples/manifest-with-audio/accompany/c1",
-    "type": "Canvas",
-    "label": { "en": [ "Photo of cover sleeve" ] },
-    "height": 900,
-    "width": 900,
-    "items": [
-      {
-        "id": "https://example.org/iiif/presentation/examples/manifest-with-audio/accompany/c1/page",
-          "type": "AnnotationPage",
-          "items": [
-            {
-              "id": "https://example.org/iiif/presentation/examples/manifest-with-audio/accompany/c1/image",
-              "type": "Annotation",
-              "motivation": "painting",
-              "body": {
-                "id": "https://example.org/presentation/example-content-resources/image/cover.jpg",
-                "type": "Image",
-                "format": "image/jpeg",
-                "height": 900,
-                "width": 900
-              },
-              "target": "https://example.org/iiif/presentation/examples/manifest-with-audio/accompany/ac1"
-            }
-          ]
-      }
-    ]
-  },
-  "items": [
-    {
-      "id": "https://example.org/iiif/presentation/examples/manifest-with-audio/timeline/t1",
-      "type": "Timeline",
-      "label": { "en": [ "Side A: 99 Luftballons" ] },
-      "duration": 231,
-      "items": [
-        {
-          "id": "https://example.org/iiif/presentation/examples/manifest-with-audio/track/tr1",
-          "type": "AnnotationPage",
-          "items": [
-            {
-              "id": "https://example.org/iiif/presentation/examples/manifest-with-audio/annotation/a1",
-              "type": "Annotation",
-              "motivation": [ "painting" ],
-              "body": {
-                "id": "https://example.org/presentation/example-content-resources/audio/track1.mp4",
-                "type": "Sound",
-                "format": "audio/mp4",
-                "duration": 231,
-                "language": [ "de" ],
-                },
-              "target": "https://example.org/iiif/presentation/examples/manifest-with-audio/timeline/t1"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "https://example.org/iiif/presentation/examples/manifest-with-audio/timeline/t2",
-      "type": "Timeline",
-      "label": { "en": [ "Side B: 99 Red Balloons" ] },
-      "duration": 230.5,
-      "items": [
-        {
-          "id": "https://example.org/iiif/presentation/examples/manifest-with-audio/track/tr2",
-          "type": "AnnotationPage",
-          "items": [
-            {
-              "id": "https://example.org/iiif/presentation/examples/manifest-with-audio/annotation/a2",
-              "type": "Annotation",
-              "motivation": [ "painting" ],
-              "body": {
-                "id": "https://example.org/presentation/example-content-resources/audio/track2.mp4",
-                "type": "Sound",
-                "format": "audio/mp4",
-                "duration": 230.5,
-                "language": [ "en" ],
-                },
-              "target": "https://example.org/iiif/presentation/examples/manifest-with-audio/timeline/t2"
-            }
-          ]
-        }
-      ]
-    }
-  ],
-  "annotations": [
-    {
-      "id": "https://example.org/iiif/presentation/examples/external-anno.json",
-      "type": "AnnotationPage",
-    }
-  ]
-}  
-```
-
-
-```json
-{
-  "@context": "http://iiif.io/api/presentation/3/context.json",
-  "id": "https://example.org/iiif/presentation/examples/external-anno.json",
-  "type": "AnnotationPage",
-  "items": [
-    {
-      "id": "https://example.org/iiif/presentation/examples/external-anno/a1",
-      "type": "Annotation",
-      "motivation": "supplementing",
-      "body": {
-        "id": "https://example.org/presentation/example-content-resources/lyrics1.txt",
-        "type": "TextualBody",
-        "language": "de",
-        "format": "text/plain",
-        "value": "Hast du etwas Zeit für mich?"
-      },
-      "target": "https://example.org/iiif/presentation/examples/manifest-with-audio/timeline/t1#t=3.5,6.8"
-    }
-  ],
-  // (annotations for the rest of the song lines) 
-}
-```
-
->
-**Key Points**
-* t vs. instant / verbose vs. append to URI???
-{: .note}
-
-!!! warning TODO: The above should be a green class rgb(244,252,239) to distinguish from properties
-
-__Definitions__<br/>
-Classes: [Manifest](#model/Manifest), [Timeline](#model/Timeline),[TextualBody](#model/TextualBody)<br/><br/>
-Properties: [duration](#model/duration), [format](#model/format), [language](#model/language), [behavior](#model/behavior), [annotations](#model/annotations), [accompanyingContainer](#model/accompanyingContainer)
-{: .note}
-
-
-## Use Case 4: Movie with subtitles
-
-This example is a Manifest with one Canvas that represents the temporal extent of the movie (the Canvas `duration`) and its aspect ratio (given by the `width` and `height` of the Canvas). The example demonstrates the use of a `Choice` annotation body to give two alternative versions of the movie, indicated by their `label` and `fileSize` properties as well as `height` and `width`. Subtitles are provided by an annotation that links to a VTT file. The motivation of this annotation is `supplementing` and the `provides` property of this annotation indicates what accessibility feature it provides, in this case the term `subtitles`. The `timeMode` property in this case is redundant as `trim` is the default value. The Canvas has a `placeholderContainer` that provides a poster image to show in place of the video file before the user initiates playback.
-
-```json
-{
-  "@context": "http://iiif.io/api/presentation/4/context.json",
-  "id": "https://example.org/iiif/presentation/examples/manifest-with-movie.json",
-  "type": "Manifest",
-  "label": { "en": [ "Use Case 4: Movie with Subtitles" ] },
-  "items": [
-    {
-      "id": "https://example.org/iiif/presentation/examples/manifest-with-movie/canvas",
-      "type": "Canvas",
-      "height": 1080,
-      "width": 1440,
-      "duration": 3600,
-      "timeMode": "trim",
-      "placeholderContainer": {
-        "id": "https://example.org/iiif/presentation/examples/manifest-with-movie/placeholder",
-        "type": "Canvas",
-        "height": 320,
-        "width": 400,
-        "items": [
-          {
-            "id": "https://example.org/image/placeholder/annopage",
-            "type": "AnnotationPage",
-            "items": [
-              {
-                "id": "https://example.org/iiif/presentation/examples/manifest-with-movie/placeholder/image",
-                "type": "Annotation",
-                "motivation": "painting",
-                "body": {
-                  "id": "https://example.org/image/placeholder.png",
-                  "type": "Image",
-                  "format": "image/png",
-                  "height": 320,
-                  "width": 400,
-                },
-                "target": "https://iiif.io/api/cookbook/recipe/0013-placeholderCanvas/canvas/donizetti/placeholder"
-              }
-            ]
-          }
-        ]
-      },
-      "items": [
-        {
-          "id": "https://example.org/iiif/presentation/examples/manifest-with-movie/annopage1",
-          "type": "AnnotationPage",
-          "items": [
-            {
-              "id": "https://example.org/iiif/presentation/examples/manifest-with-movie/anno1",
-              "type": "Annotation",
-              "motivation": "painting",
-              "body": {
-                "type": "Choice",
-                "items": [
-                  {
-                    "id": "https://example.org/video/movie-low.mp4",
-                    "type": "Video",
-                    "label": { "en": ["Low resolution (360 MB)" ]},
-                    "height": 360,
-                    "width": 480,
-                    "duration": 3600,
-                    "format": "video/mp4",
-                    "fileSize": 360553219
-                  },
-                  {
-                    "id": "https://example.org/video/movie-hi.mp4",
-                    "type": "Video",
-                    "label": { "en": ["High resolution (1.3 GB)" ]},
-                    "height": 1080,
-                    "width": 1440,
-                    "duration": 3600,
-                    "format": "video/mp4",
-                    "fileSize": 1345876231
-                  }
-                ]
-              },
-              "target": "https://example.org/iiif/presentation/examples/manifest-with-movie/canvas"
-            }
-          ]
-        }
-      ],
-      "annotations": [
-        {
-          "id": "https://example.org/iiif/presentation/examples/manifest-with-movie/subtitles",
-          "type": "AnnotationPage",
-          "items": [
-            {
-              "id": "https://example.org/iiif/presentation/examples/manifest-with-movie/subtitles/anno",
-              "type": "Annotation",
-              "motivation": "supplementing",
-              "body": {
-                "id": "https://example.org/text/subtitles.vtt",
-                "type": "Text",
-                "format": "text/vtt",
-                "provides": [ "subtitles" ],
-                "label": {
-                  "en": [
-                    "Subtitles in WebVTT format"
-                  ]
-                },
-                "language": "en"
-              },
-              "target": "https://example.org/iiif/presentation/examples/manifest-with-movie/canvas"
-            }
-          ]
-        }
-      ]
-    }
-  ]
-}
-```
-
->
-**Key Points**
-* The decision about which item in the `Choice` to play by default is client dependent. In the absence of any other decision process the client should play the first item. In this specific example, the user might make the decision after reading the `label`, or the client might make the decision based on the `fileSize` property and an assessment of the user's available bandwidth. However, the client may have no way of determining why the publisher has offered the choices, and should not prevent the user from making the choice. The cookbook demonstrates several uses of `Choice` for common use cases.
-* Slop - impl note - don't interpret **very** minor discrepancies between `duration` on the different Choices and the Container `duration` as an instruction to stretch or compress the audio/video stream to match the Container duration. No real way to quantify this, just _be sensible_.
-{: .note}
-
-
-!!! warning TODO: The above should be a green class rgb(244,252,239) to distinguish from properties
-
-__Definitions__<br/>
-Classes: [Manifest](#model/Manifest), [Canvas](#model/Canvas), [Choice](#model/Choice)<br/><br/>
-Properties: [fileSize](#model/fileSize), [format](#model/format), [provides](#model/provides), [timeMode](#model/timeMode), [behavior](#model/behavior), [placeholderContainer](#model/placeholderContainer)
-{: .note}
-
-# 3D
-
-3D Content Resources are painted into Scenes.
-
-Scenes have infinite height (y axis), width (x axis) and depth (z axis), where 0 on each axis (the origin of the coordinate system) is treated as the center of the scene's space.
-
-The positive y axis points upwards, the positive x axis points to the right, and the positive z axis points forwards (a [right-handed cartesian coordinate system](https://en.wikipedia.org/wiki/Right-hand_rule)).
-
-(image of coordinate system here)
-
-## Use Case 5: Simple 3D Model
-
-This example is a Manifest with a single Scene, with a single model of a space suit painted at the Scene's origin.
-
-> PNG of Scene
-
-```jsonc
-{
-  "@context": "http://iiif.io/api/presentation/4/context.json",
-  "id": "https://example.org/iiif/3d/model_origin.json",
-  "type": "Manifest",
-  "label": { "en": ["Single Model"] },
-  "summary": { "en": ["Viewer should render the model at the scene origin, and then viewer should add default lighting and camera"] },
-  "items": [
-    {
-      "id": "https://example.org/iiif/scene1/page/p1/1",
-      "type": "Scene",
-      "label": { "en": ["A Scene"] },
-      "items": [
-        {
-          "id": "https://example.org/iiif/scene1/page/p1/1",
-          "type": "AnnotationPage",
-          "items": [
-            {
-              "id": "https://example.org/iiif/3d/anno1",
-              "type": "Annotation",
-              "motivation": ["painting"],
-              "body": {
-                "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/astronaut/astronaut.glb",
-                "type": "Model",
-                "format": "model/gltf-binary"
-              },
-              "target": "https://example.org/iiif/scene1/page/p1/1"
-            }
-          ]
-        }
-      ]
-    }
-  ]
-}
-```
-
->
-**Key Points**
-* As this Scene only has one resource in it (the model), the client must provide lighting and a default camera.
-* In this simplest use case, the Painting Annotation targets the whole Scene rather than a specific point. The client places the model's origin at the Scene's origin. This is in contrast to the _bounded_ Containers `Canvas` and `Timeline`, where the painted resource fills the Container completely.
-{: .note}
-
-
-## Use Case 5a: Simple 3D Model in Configured Scene
-
-This example adds a Light and a Camera to the previous example, and places the model at a specific point rather than at the default origin position. The Light is green and has a position, but has its default orientation of looking along the negative-y axis as no rotation has been specified. The Camera has a position and is pointing at the model's origin via the `lookAt` property. The Camera has a `fieldOfView` of 50. The `near` and `far` properties are included to ensure the model falls within the camera's range (although unnecessary in a simple Scene like this). The Scene has a background color.
-
-<img src="{{ site.api_url | absolute_url }}/assets/images/p4/use-case-5a.png" alt="Use case 5a" >
-
-
-```jsonc
- {
-  "@context": "http://iiif.io/api/presentation/4/context.json",
-  "id": "https://example.org/iiif/3d/model_origin.json",
-  "type": "Manifest",
-  "label": { "en": ["Single Model with light and Camera"] },
-  "summary": { "en": ["Viewer should render the model at (-1,0,1), add the light, and base the viewport on the provided camera"] },
-  "items": [
-    {
-      "id": "https://example.org/iiif/scene1/page/p1/1",
-      "type": "Scene",
-      "label": { "en": ["A Scene"] },
-      "backgroundColor": "#FF00FE",
-      "items": [
-        {
-          "id": "https://example.org/iiif/scene1/page/p1/1",
-          "type": "AnnotationPage",
-          "items": [
-            {
-              "id": "https://example.org/iiif/3d/anno1",
-              "type": "Annotation",
-              "motivation": ["painting"],
-              "body": {
-                "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/astronaut/astronaut.glb",
-                "type": "Model",
-                "format": "model/gltf-binary"
-              },
-              "target": {
-                "type": "SpecificResource",
-                "source": [
-                  {
-                    "id": "https://example.org/iiif/scene1/page/p1/1",
-                    "type": "Scene"
-                  }
-                ],
-                "selector": [
-                  {
-                    "type": "PointSelector",
-                    "x": -1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                  }
-                ]
-              }
-            },   
-            {
-              "id": "https://example.org/iiif/3d/anno2",
-              "type": "Annotation",
-              "motivation": ["painting"],
-              "body": {
-                "id": "https://example.org/iiif/3d/cameras/1",
-                "type": "PerspectiveCamera",
-                "label": {"en": ["Perspective Camera 1"]},
-                "lookAt": {
-                  "id": "https://example.org/iiif/3d/anno1",
-                  "type": "Annotation"
-                },
-                "near": 1,
-                "far": 100,
-                "fieldOfView": 50
-              },
-              "target": {
-                "type": "SpecificResource",
-                "source": [
-                  {
-                    "id": "https://example.org/iiif/scene1/page/p1/1",
-                    "type": "Scene"
-                  }
-                ],
-                "selector": [
-                  {
-                    "type": "PointSelector",
-                    "x": 0.0,
-                    "y": 6.0,
-                    "z": 10.0
-                  }
-                ]
-              }
-            },
-            {
-              "id": "https://example.org/iiif/3d/anno2",
-              "type": "Annotation",
-              "motivation": ["painting"],
-              "body": {
-                  "id": "https://example.org/iiif/3d/lights/1",
-                  "type": "SpotLight",
-                  "label": {"en": ["Spot Light 1"]},
-                  "angle": 90.0,
-                  "color": "#A0FFA0"
-              },
-              "target": {
-                "type": "SpecificResource",
-                "source": {
-                  "id": "https://example.org/iiif/scene1/page/p1/1",
-                  "type": "Scene"
-                },
-                "selector": [
-                  {
-                    "type": "PointSelector",
-                    "x": 0.0,
-                    "y": 3.0,
-                    "z": 1.0
-                  }
-                ]
-              }
-            }
-          ]
-        }
-      ]
-    }
-  ]
-}
-```
-
->
-**Key Points**
-* This example uses some of the Scene-Specific resources introduced in the next section.
-* A Point Selector explicitly places the model in the Scene via the Painting Annotation's `target` property. In the previous example, there was an implicit Point Selector placing the model at (0,0,0) because no explicit Point Selector was provided.
-* The provided Light should replace any default lighting the client might have.
-{: .note}
-
-__Definitions__<br/>
-Classes: [Manifest](#model/Manifest), [Scene](#model/Scene), [Model](#model/Model), [SpecificResource](#model/SpecificResource), [PointSelector](#model/PointSelector), [PerspectiveCamera](#model/PerspectiveCamera), [SpotLight](#model/SpotLight) <br/><br/>
-Properties: [backgroundColor](#model/backgroundColor), [lookAt](#model/lookAt), [near](#model/near), [far](#model/far), [feildOfView](#model/fieldOfView), [angle](#model/angle), [color](#model/color)
-{: .note}
-
-## Use Case 6: Complex Scene
-
-Annotations may use a type of Selector called a `PointSelector` to align the Annotation to a point within the Scene that is not the Scene's origin. PointSelectors have three spatial properties, `x`, `y` and `z` which give the value on that axis. They also have a temporal property `instant` which can be used if the Scene has a duration, which gives the temporal point in seconds from the start of the duration, the use of which is defined in the [section on Scenes with Durations]().
-
-Example Annotation that positions a model at a point within a Scene:
-
-```json
-{
-    "id": "https://example.org/iiif/3d/anno1",
-    "type": "Annotation",
-    "motivation": ["painting"],
-    "body": {
-        "id": "https://example.org/iiif/assets/model1.glb",
-        "type": "Model"
-    },
-    "target": {
-        "type": "SpecificResource",
-        "source": [
-          {
-            "id": "https://example.org/iiif/scene1",
-            "type": "Scene"
-          }
-        ],
-        "selector": [
-          {
-            "type": "PointSelector",
-            "x": -1.0,
-            "y": 0.0,
-            "z": 1.0
-          }
-        ]
-    }
-}
-```
-
-Annotations may alternately use a type of Selector called a `WktSelector` to align the Annotation to a region with the Scene that is not the Scene's origin. WktSelectors have a single property, `value`, which is a string conforming to a WKT Linestring, LineStringZ, Polygon, or PolygonZ list of 2D or 3D coordinate points. Whether and how a region defined by a WktSelector may be translated to a single 2D or 3D coordinate point, for targeting or other purposes, is client-dependent.
-
-
-Example Annotation that comments on a 3D polygon within a Scene:
-
-```
-Todo add example
-```
-
-### Chessboard is a Canvas with image (not a 3D chessboard)
-
-A Scene or a Canvas may be treated as a content resource, referenced or described within the `body` of an Annotation. As with models and other resources, the Annotation is associated with a Scene into which the Scene or Canvas is to be nested through an Annotation `target`. The content resource Scene will be placed within the `target` Scene by aligning the coordinate origins of the two scenes. Alternately, Scene Annotations may use `PointSelector` to place the origin of the resource Scene at a specified coordinate within the `target` Scene.
-
-### More than one model
-
-**transforms for scale and rotation**
-This (no units for scale) allows arbitrarily scaled models to be used, including very small or very large, without needing to deal with very small or very large values. If there is a correspondence to a physical scale, then this can be asserted using the physical dimensions pattern(fwd-ref-to-phys-dims).
-
-### Scene in Scene
-
-Scenes and other IIIF containers, such as Canvases, may also be embedded within Scenes, as described below in the nesting section [fwd-ref-to-nesting].
-
-```json
-{
-  "id": "https://example.org/iiif/scenes/1",
-  "type": "Scene",
-  "label": {"en": ["Chessboard"]},
-  "backgroundColor": "#000000",
-  "items": [
-   "Note: Annotations Live Here"
-  ]
-}
-```
-As with other resources, it may be appropriate to modify the initial scale, rotation, or translation of a content resource Scene prior to painting it within another Scene. Scenes associated with SpecificResources may be manipulated through the transforms described in Transforms(transforms_section).
-
-A simple example painting one Scene into another:
-
-```json
-{
-    "id": "https://example.org/iiif/3d/anno1",
-    "type": "Annotation",
-    "motivation": ["painting"],
-    "body": {
-        "id": "https://example.org/iiif/scene1",
-        "type": "Scene"
-    },
-    "target": "https://example.org/iiif/scene2"
-}
-```
-
-### More on Point and Fragment Selectors
-
-A content resource may be annotated into a Scene for a period of time by use of a PointSelector that is temporally scoped by a [FragmentSelector](https://www.w3.org/TR/annotation-model/#fragment-selector).  The FragmentSelector has a `value` property, the value of which follows the [media fragment syntax](https://www.w3.org/TR/media-frags/#naming-time) of `t=`.  This annotation pattern uses the `refinedBy` property [defined by the W3C Web Annotation Data Model](https://www.w3.org/TR/annotation-model/#refinement-of-selection).
-
-```json
-{
-  "id": "https://example.org/iiif/3d/anno1",
-  "type": "Annotation",
-  "motivation": ["painting"],
-  "body": {
-      "id": "https://example.org/iiif/assets/model1.glb",
-      "type": "Model"
-  },
-  "target": {
-    "id": "https://example.org/iiif/selectors/model1-glb-sr",
-    "type": "SpecificResource",
-    "source": [
-      {
-        "id": "https://example.org/iiif/scene1",
-        "type": "Scene"
-      }
-    ],
-    "selector": [
-      {
-        "id": "https://example.org/uuid/9fbd580b-895b-41b9-974a-1553329037f2",
-        "type": "PointSelector",
-        "x": -1.0,
-        "y": -1.0,
-        "z": 3.0,
-        "refinedBy": {
-            "id": "https://example.org/uuid/3d0d097b-2b37-4a15-b6a5-506e417d5115",
-            "type": "FragmentSelector",
-            "value": "t=45,95"
-        }
-      }
-    ]
-  }
-}
-```
-
-When using a URL fragment in place of a SpecificResource, the parameter `t` can be used to select the temporal region:
-
-```json
-{
-    "id": "https://example.org/iiif/3d/anno1",
-    "type": "Annotation",
-    "motivation": ["painting"],
-    "body": {
-        "id": "https://example.org/iiif/assets/model1.glb",
-        "type": "Model"
-    },
-    "target": "https://example.org/iiif/scene1#xyz=-1,-1,3&t=45,95"
-}
-```
-
-An Annotation may target a specific point in time using a PointSelector's `instant` property.  The property's value must be a positive floating point number indicating a value in seconds that falls within the Scene's duration.
-
-```json
-{
-    "id": "https://example.org/iiif/3d/anno1",
-    "type": "Annotation",
-    "motivation": ["painting"],
-    "body": {
-        "id": "https://example.org/iiif/assets/model1.glb",
-        "type": "Model"
-    },
-    "target": {
-        "type": "SpecificResource",
-        "source": [
-          {
-            "id": "https://example.org/iiif/scene1",
-            "type": "Scene"
-          }
-        ],
-        "selector": [
-            {
-                "type": "PointSelector",
-                "x": -1.0,
-                "y": -1.0,
-                "z": 3.0,
-                "instant": 45.0
-            }
-        ]
-    }
-}
-```
-
-**Give example of refinedBy ? e.g. WktSelector + Instant**
-
-
-### Exclude
-
-### Time mode
-
-The Annotation's [`timeMode` property](https://iiif.io/api/presentation/3.0/#timemode) can be used to indicate the desired behavior when the duration of the content resource that is not equal to the temporal region targeted by the annotation.
-
-It is an error to select a temporal region of a Scene that does not have a `duration`, or to select a temporal region that is not within the Scene's temporal extent.  A Canvas or Scene with a `duration` may not be annotated as a content resource into a Scene that does not itself have a `duration`.
-
-
-An annotation that targets a Scene using a PointSelector without any temporal refinement implicitly targets the Scene's entire duration.
-
-
-### interactionMode
-
-
-
-
-
-
-
-## Audio and 3D
-
-
-AmbientAudio (everywhere)
-PointAudio (sphere)
-SpotAudio (cone)
-
-   source: Audio (id, type, format, profile, duration, label)
-   volume: UnitValue (value: 0.3, unit: relative)
-   angle: degrees of the cone, per SpotLight
-
-Ambient and Point can be painted on to Canvas
-hidden on audio = inaudible
-
-
-
-All resources that can be added to a Scene have an implicit (e.g. Lights, Cameras) or explicit (e.g. Models, Scenes), local coordinate space. If a resource does not have an explicit coordinate space, then it is positioned at the origin of its coordinate space. In order to add a resource with its local coordinate space into a Scene with its own coordinate space, these spaces must be aligned. This done by aligning the origins of the two coordinate spaces.
-
-
-
-
-
-
-
-
-# Nesting (more about Containers as Content Resources)
-
-A Canvas can be painted into a Scene as an Annotation, but the 2D nature of Canvases requires special consideration due to important differences between Canvases and Scenes. A Canvas describes a bounded 2D space with finite `height` and `width` measured in pixels with a pixel origin at the top-left corner of the Canvas, while Scenes describe a boundless 3D space with x, y, and z axes of arbitrary coordinate units and a coordinate origin at the center of the space. It is important to note that in many cases the pixel scale used by a Canvas or a 2D image content resource will not be in proportion to the desired 3D coordinate unit scale in a Scene.
-
-When a Canvas is painted as an Annotation targeting a Scene, the top-left corner of the Canvas (the pixel origin) is aligned with the 3D coordinate origin of the Scene. The top edge of the Canvas is aligned with (e.g., is colinear to) the positive x axis extending from the coordinate origin. The left edge of the Canvas is aligned with (e.g., is colinear to) the negative y axis extending from the coordinate origin. The Canvas is scaled to the Scene such that the pixel dimensions correspond to 3D coordinate units - a Canvas 200 pixels wide and 400 pixels high will extend 200 coordinate units across the x axis and 400 coordinate units across the y axis. Please note: direction terms "top", "bottom", "right", and "left" used in this section refer to the frame of reference of the Canvas itself, not the Scene into which the Canvas is painted.
-
-A Canvas in a Scene has a specific forward face and a backward face. By default, the forward face of a Canvas should point in the direction of the positive z axis. If the property `backgroundColor` is used, this color should be used for the backward face of the Canvas. Otherwise, a reverse view of the forward face of the Canvas should be visible on the backward face.
-
-<div style="background: #A0F0A0; padding: 10px; padding-left: 30px; margin-bottom: 10px">
-  To Do: Add an image demonstrating default Canvas placement in Scene
-</div>
-
-A `PointSelector` can be used to modify the point at which the Canvas will be painted, by establishing a new point to align with the top-left corner of the Canvas instead of the Scene coordinate origin. Transforms can also be used to modify Canvas rotation, scale, or translation.
-
-It may be desirable to exercise greater control over how the Canvas is painted into the Scene by selecting the coordinate points in the Scene that should correspond to each corner of the Canvas. This provides fine-grained manipulation of Canvas placement and/or scale, and for optionally introducing Canvas distortion or skew. Annotations may use a WktSelector to select different points in the Scene to align with the top-left, bottom-left, bottom-right, and top-right corners of the Canvas. In this case, the four Scene coordinates should be listed beginning with the coordinate corresponding to the top-left corner of the Canvas, and should proceed in a counter-clockwise winding order around the Canvas, with coordinates corresponding to bottom-left, bottom-right, and top-right corners in order respectively. The use of WktSelector for this purpose overrides any use of Transforms on the Canvas Annotation.
-
-Example placing top-left at (0, 1, 0); bottom-left at (0, 0, 0); bottom-right at (1, 0, 0); and top-right at (1, 1, 0):
-```json
-"selector": [
-  {
-    "type": "WktSelector",
-    "value": "POLYGON Z ((0 1 0, 0 0 0, 1 0 0, 1 1 0))"
-  }
-]
-```
-
-When a Scene is nested into another Scene, the `backgroundColor` of the Scene to be nested should be ignored as it is non-sensible to import. All Annotations painted into the Scene to be nested will be painted into the Scene into which content is being nested, including Light or Camera resources. If the Scene to be nested has one or more Camera Annotations while the Scene into which content is being nested does not, the first Camera Annotation from the nested Scene will become the default Camera for the overall Scene.
-
----
-
-
-
-
-
-# Annotations
-
-In the examples so far, Annotations have been used to associate the images, audio and other Content Resources with their Containers for presentation. IIIF uses the same W3C standard for the perhaps more familiar _annotation_ concepts of commenting, tagging, describing and so on. Annotations can carry textual transcriptions or translations of the content, discussion about the content and any other linking between resources.
-
-Whereas annotations that associate content resources with Containers are included in the `items` property of the Container, all other types of Annotation are referenced from the `annotations` property. Containers, Manifests, Collections and Ranges can all have this property, linking to relevant annotations. As with the `items` property, annotations are grouped into one or more AnnotationPage resources. These are usually external references.
-
-```
-Manifest
-  items
-    Canvas
-      annotations
-        AnnotationPage
-          items
-            Annotation
-```                     
-
-## Comment Annotations
-
-### A comment about a segment of music 
-
-(targets Timeline)
-"Here begins the development of the second theme"
-
-### A comment about a face in a painting
-
-(targets Canvas)
-"This might be so-and-so"
-
-### A comment about something in a Model
-
-(targets Scene)
-Look at this scratch in the helmet
-
-Todo: This is mostly copy-pasted from properties, is it needed here?
-It is important to be able to position the textual body of an annotation within the Container's space that the annotation also targets. For example, a description of part of an image in a Canvas should be positioned such that it does not obscure the image region itself and labels to be displayed as part of a Scene should not be rendered such that the text is hidden by the three dimensional geometry of the model. The positioning of the textual body in a container is accomplished through the `position` property, which has as a value a Specific Resource identifying the targeted container as the source and a selector defining how the textual body should be positioned in the targeted container. If this property is not supplied, then the client should do its best to ensure the content is visible to the user.
-
-## Choice of Alternative Resources
-
-## Use Case 7: Multi-spectral Images with Comments
-
-(same as cookbook example?)
-
-## Embedded Content
-
-e.g., painting TextualBody on Canvas
-
-
-## Non Rectangular Segments
-
-SvgSelector - move to SpecificResource too ^^
-
-
-## Style
-
-Move to SpecificResource
-
-
-## Rotation
-
-
-## Hotspot Linking and Activation
-
-Move to SpecificResource
-
-
-## Annotation Page
-
-"Overlapping elements with a larger z-index cover those with a smaller one."
-link to https://developer.mozilla.org/en-US/docs/Web/CSS/z-index
-
-
-## Annotation Collection
-
-deal with this:
-https://github.com/IIIF/api/pull/2304/files#diff-cc70f02818f6bed2b14dfbf8bf3206e0825047951c8e83ad56fc73e489f82ac4R1757
-
-use totalItems? https://iiif.io/api/discovery/1.0/#totalitems
-
-
-# Navigation
-
-## Collection
-
-IIIF Collections are ordered lists of Manifests, Collections, and/or Specific Resources. Collections allow these resources to be grouped in a hierarchical structure for navigation and other purposes.
-
-:eyes:
-
-## Range
-
-IIIF Ranges are used to represent structure _WITHIN_ a Manifest beyond the default order of the Containers in the `items` property. Example uses include newspaper sections or articles, chapters within a book for a table of contents, or movements within a piece of music. Ranges can include Containers, parts of Containers via Specific Resources or fragment URIs, or other Ranges, creating a tree structure like a table of contents. The typical intent of adding a Range to the Manifest is to allow the client to display a linear or hierarchical navigation interface to enable the user to quickly move through the object's content.
-
-:eyes:
-
-## Use Case : Periodical
+## Use Case 3: Periodical
 
 This example demonstrates the use of IIIF Collections to group Manifests into a hierarchy. In this case, there is a Collection for a publishing run of the _The Tombstone Epitaph_ from 1880 to 1920. This contains 41 child Collections each representing a year's worth of issues. The parent Collection and each of its child Collections use the `behavior` "multi-part" to signal that the Collections and their Manifests are part of a logical whole or contiguous set. Each of the year Collections has one Manifest for each issue of the newspaper.
 
@@ -1626,6 +798,818 @@ Properties: [behavior](#model/behavior), [navPlace](#model/navPlace), [navDate](
 
 thumbnail-nav
 sequence
+
+
+
+# Audio and Video
+
+## Use Case 4: A 45 single with 2 tracks
+
+This example is a Manifest with two Timelines, each of which represent a temporal extent during which a song is played. As in most cases, the Timeline `duration` is the same length as that of Content Resource painted into it. This example is a recording digitized from a 45 RPM 7 inch single. It demonstrates the use of `format` for the audio files' content type, `language` (One song is in English and one is in German), `behavior` with value "auto-advance" that tells a client to automatically advance to the second Timeline after playing the first, `annotations` that link to Annotation Pages of annotations with the motivation `supplementing` that provide the lyrics (one example is given afterwards) - and an `accompanyingContainer` that carries a picture of the single's cover that is shown while the songs are playing.
+
+
+```json
+{
+  "@context": "http://iiif.io/api/presentation/4/context.json",
+  "id": "https://example.org/iiif/presentation/examples/manifest-with-audio.json",
+  "type": "Manifest",
+  "label": { "en": [ "Use case 3: 45 single with 2 tracks" ] },
+  "behavior": [ "auto-advance" ],
+  "accompanyingContainer": {
+    "id": "https://example.org/iiif/presentation/examples/manifest-with-audio/accompany/c1",
+    "type": "Canvas",
+    "label": { "en": [ "Photo of cover sleeve" ] },
+    "height": 900,
+    "width": 900,
+    "items": [
+      {
+        "id": "https://example.org/iiif/presentation/examples/manifest-with-audio/accompany/c1/page",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://example.org/iiif/presentation/examples/manifest-with-audio/accompany/c1/image",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://example.org/presentation/example-content-resources/image/cover.jpg",
+                "type": "Image",
+                "format": "image/jpeg",
+                "height": 900,
+                "width": 900
+              },
+              "target": "https://example.org/iiif/presentation/examples/manifest-with-audio/accompany/ac1"
+            }
+          ]
+      }
+    ]
+  },
+  "items": [
+    {
+      "id": "https://example.org/iiif/presentation/examples/manifest-with-audio/timeline/t1",
+      "type": "Timeline",
+      "label": { "en": [ "Side A: 99 Luftballons" ] },
+      "duration": 231,
+      "items": [
+        {
+          "id": "https://example.org/iiif/presentation/examples/manifest-with-audio/track/tr1",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://example.org/iiif/presentation/examples/manifest-with-audio/annotation/a1",
+              "type": "Annotation",
+              "motivation": [ "painting" ],
+              "body": {
+                "id": "https://example.org/presentation/example-content-resources/audio/track1.mp4",
+                "type": "Sound",
+                "format": "audio/mp4",
+                "duration": 231,
+                "language": [ "de" ],
+                },
+              "target": "https://example.org/iiif/presentation/examples/manifest-with-audio/timeline/t1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "https://example.org/iiif/presentation/examples/manifest-with-audio/timeline/t2",
+      "type": "Timeline",
+      "label": { "en": [ "Side B: 99 Red Balloons" ] },
+      "duration": 230.5,
+      "items": [
+        {
+          "id": "https://example.org/iiif/presentation/examples/manifest-with-audio/track/tr2",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://example.org/iiif/presentation/examples/manifest-with-audio/annotation/a2",
+              "type": "Annotation",
+              "motivation": [ "painting" ],
+              "body": {
+                "id": "https://example.org/presentation/example-content-resources/audio/track2.mp4",
+                "type": "Sound",
+                "format": "audio/mp4",
+                "duration": 230.5,
+                "language": [ "en" ],
+                },
+              "target": "https://example.org/iiif/presentation/examples/manifest-with-audio/timeline/t2"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "annotations": [
+    {
+      "id": "https://example.org/iiif/presentation/examples/external-anno.json",
+      "type": "AnnotationPage",
+    }
+  ]
+}  
+```
+
+
+```json
+{
+  "@context": "http://iiif.io/api/presentation/3/context.json",
+  "id": "https://example.org/iiif/presentation/examples/external-anno.json",
+  "type": "AnnotationPage",
+  "items": [
+    {
+      "id": "https://example.org/iiif/presentation/examples/external-anno/a1",
+      "type": "Annotation",
+      "motivation": "supplementing",
+      "body": {
+        "id": "https://example.org/presentation/example-content-resources/lyrics1.txt",
+        "type": "TextualBody",
+        "language": "de",
+        "format": "text/plain",
+        "value": "Hast du etwas Zeit für mich?"
+      },
+      "target": "https://example.org/iiif/presentation/examples/manifest-with-audio/timeline/t1#t=3.5,6.8"
+    }
+  ],
+  // (annotations for the rest of the song lines) 
+}
+```
+
+>
+**Key Points**
+* t vs. instant / verbose vs. append to URI???
+{: .note}
+
+!!! warning TODO: The above should be a green class rgb(244,252,239) to distinguish from properties
+
+__Definitions__<br/>
+Classes: [Manifest](#model/Manifest), [Timeline](#model/Timeline),[TextualBody](#model/TextualBody)<br/><br/>
+Properties: [duration](#model/duration), [format](#model/format), [language](#model/language), [behavior](#model/behavior), [annotations](#model/annotations), [accompanyingContainer](#model/accompanyingContainer)
+{: .note}
+
+
+## Use Case 5: Movie with subtitles
+
+This example is a Manifest with one Canvas that represents the temporal extent of the movie (the Canvas `duration`) and its aspect ratio (given by the `width` and `height` of the Canvas). The example demonstrates the use of a `Choice` annotation body to give two alternative versions of the movie, indicated by their `label` and `fileSize` properties as well as `height` and `width`. Subtitles are provided by an annotation that links to a VTT file. The motivation of this annotation is `supplementing` and the `provides` property of this annotation indicates what accessibility feature it provides, in this case the term `subtitles`. The `timeMode` property in this case is redundant as `trim` is the default value. The Canvas has a `placeholderContainer` that provides a poster image to show in place of the video file before the user initiates playback.
+
+```json
+{
+  "@context": "http://iiif.io/api/presentation/4/context.json",
+  "id": "https://example.org/iiif/presentation/examples/manifest-with-movie.json",
+  "type": "Manifest",
+  "label": { "en": [ "Use Case 4: Movie with Subtitles" ] },
+  "items": [
+    {
+      "id": "https://example.org/iiif/presentation/examples/manifest-with-movie/canvas",
+      "type": "Canvas",
+      "height": 1080,
+      "width": 1440,
+      "duration": 3600,
+      "timeMode": "trim",
+      "placeholderContainer": {
+        "id": "https://example.org/iiif/presentation/examples/manifest-with-movie/placeholder",
+        "type": "Canvas",
+        "height": 320,
+        "width": 400,
+        "items": [
+          {
+            "id": "https://example.org/image/placeholder/annopage",
+            "type": "AnnotationPage",
+            "items": [
+              {
+                "id": "https://example.org/iiif/presentation/examples/manifest-with-movie/placeholder/image",
+                "type": "Annotation",
+                "motivation": "painting",
+                "body": {
+                  "id": "https://example.org/image/placeholder.png",
+                  "type": "Image",
+                  "format": "image/png",
+                  "height": 320,
+                  "width": 400,
+                },
+                "target": "https://iiif.io/api/cookbook/recipe/0013-placeholderCanvas/canvas/donizetti/placeholder"
+              }
+            ]
+          }
+        ]
+      },
+      "items": [
+        {
+          "id": "https://example.org/iiif/presentation/examples/manifest-with-movie/annopage1",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://example.org/iiif/presentation/examples/manifest-with-movie/anno1",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "type": "Choice",
+                "items": [
+                  {
+                    "id": "https://example.org/video/movie-low.mp4",
+                    "type": "Video",
+                    "label": { "en": ["Low resolution (360 MB)" ]},
+                    "height": 360,
+                    "width": 480,
+                    "duration": 3600,
+                    "format": "video/mp4",
+                    "fileSize": 360553219
+                  },
+                  {
+                    "id": "https://example.org/video/movie-hi.mp4",
+                    "type": "Video",
+                    "label": { "en": ["High resolution (1.3 GB)" ]},
+                    "height": 1080,
+                    "width": 1440,
+                    "duration": 3600,
+                    "format": "video/mp4",
+                    "fileSize": 1345876231
+                  }
+                ]
+              },
+              "target": "https://example.org/iiif/presentation/examples/manifest-with-movie/canvas"
+            }
+          ]
+        }
+      ],
+      "annotations": [
+        {
+          "id": "https://example.org/iiif/presentation/examples/manifest-with-movie/subtitles",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://example.org/iiif/presentation/examples/manifest-with-movie/subtitles/anno",
+              "type": "Annotation",
+              "motivation": "supplementing",
+              "body": {
+                "id": "https://example.org/text/subtitles.vtt",
+                "type": "Text",
+                "format": "text/vtt",
+                "provides": [ "subtitles" ],
+                "label": {
+                  "en": [
+                    "Subtitles in WebVTT format"
+                  ]
+                },
+                "language": "en"
+              },
+              "target": "https://example.org/iiif/presentation/examples/manifest-with-movie/canvas"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+>
+**Key Points**
+* The decision about which item in the `Choice` to play by default is client dependent. In the absence of any other decision process the client should play the first item. In this specific example, the user might make the decision after reading the `label`, or the client might make the decision based on the `fileSize` property and an assessment of the user's available bandwidth. However, the client may have no way of determining why the publisher has offered the choices, and should not prevent the user from making the choice. The cookbook demonstrates several uses of `Choice` for common use cases.
+* Slop - impl note - don't interpret **very** minor discrepancies between `duration` on the different Choices and the Container `duration` as an instruction to stretch or compress the audio/video stream to match the Container duration. No real way to quantify this, just _be sensible_.
+{: .note}
+
+
+!!! warning TODO: The above should be a green class rgb(244,252,239) to distinguish from properties
+
+__Definitions__<br/>
+Classes: [Manifest](#model/Manifest), [Canvas](#model/Canvas), [Choice](#model/Choice)<br/><br/>
+Properties: [fileSize](#model/fileSize), [format](#model/format), [provides](#model/provides), [timeMode](#model/timeMode), [behavior](#model/behavior), [placeholderContainer](#model/placeholderContainer)
+{: .note}
+
+# 3D
+
+3D Content Resources are painted into Scenes.
+
+Scenes have infinite height (y axis), width (x axis) and depth (z axis), where 0 on each axis (the origin of the coordinate system) is treated as the center of the scene's space.
+
+The positive y axis points upwards, the positive x axis points to the right, and the positive z axis points forwards (a [right-handed cartesian coordinate system](https://en.wikipedia.org/wiki/Right-hand_rule)).
+
+(image of coordinate system here)
+
+## 3D Supporting Resources
+
+
+Constructs from the domain of 3D graphics are expressed in IIIF as Resources. They are associated with Scenes via Painting Annotations in the same manner as Content Resources. They aid in or enhance the rendering of Content Resources, especially in Scenes. 
+
+### Cameras
+
+A Camera provides a view of a region of the Scene's space from a particular position within the Scene; the client constructs a viewport into the Scene and uses the view of one or more Cameras to render that region. The size and aspect ratio of the viewport is client and device dependent.
+
+There are two types of Camera, `PerspectiveCamera` and `OrthographicCamera`. The first Camera defined and not hidden in a Scene is the default Camera used to display Scene contents. If the Scene does not have any Cameras defined within it, then the client provides a default Camera. The type, properties and position of this default camera are client-dependent.
+
+
+### Lights
+
+There are four types of Light: AmbientLight, DirectionalLight, PointLight and SpotLight. They have a `color` and an `intensity`. SpotLight has an additional property of `angle` that determines the spread of its light cone.
+
+If the Scene has no Lights, then the client provides its own lighting as it sees fit.
+
+
+### Audio Emitters
+
+There are three types of Audio emitter: AmbientAudio, PointAudio and SpotAudio. They have a `source` (an audio Content Resource) and a `volume`.
+
+### Transforms
+
+When painting resources into Scenes, it is often necessary to resize, rotate or move them relative to the coordinate space of the Scene. These operations are specified using three Transforms: ScaleTransform, RotateTransform and TranslateTransform. Each Transform has three properties, `x`, `y` and `z` which determine how the Transform affects that axis in the local coordinate space.
+
+Transforms are added to a SpecificResource using the `transform` property, and there may be more than one applied when adding a model to a Scene. Different orders of the same set of transforms can have different results, so attention must be paid when creating the array and when processing it.
+
+
+## Use Case 5: Simple 3D Model
+
+This example is a Manifest with a single Scene, with a single model of a space suit painted at the Scene's origin.
+
+> PNG of Scene
+
+```jsonc
+{
+  "@context": "http://iiif.io/api/presentation/4/context.json",
+  "id": "https://example.org/iiif/3d/model_origin.json",
+  "type": "Manifest",
+  "label": { "en": ["Single Model"] },
+  "summary": { "en": ["Viewer should render the model at the scene origin, and then viewer should add default lighting and camera"] },
+  "items": [
+    {
+      "id": "https://example.org/iiif/scene1/page/p1/1",
+      "type": "Scene",
+      "label": { "en": ["A Scene"] },
+      "items": [
+        {
+          "id": "https://example.org/iiif/scene1/page/p1/1",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://example.org/iiif/3d/anno1",
+              "type": "Annotation",
+              "motivation": ["painting"],
+              "body": {
+                "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/astronaut/astronaut.glb",
+                "type": "Model",
+                "format": "model/gltf-binary"
+              },
+              "target": "https://example.org/iiif/scene1/page/p1/1"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+>
+**Key Points**
+* As this Scene only has one resource in it (the model), the client must provide lighting and a default camera.
+* In this simplest use case, the Painting Annotation targets the whole Scene rather than a specific point. The client places the model's origin at the Scene's origin. This is in contrast to the _bounded_ Containers `Canvas` and `Timeline`, where the painted resource fills the Container completely.
+{: .note}
+
+
+## Use Case 5a: Simple 3D Model in Configured Scene
+
+This example adds a Light and a Camera to the previous example, and places the model at a specific point rather than at the default origin position. 
+
+Annotations may use a type of Selector called a `PointSelector` to align the Annotation to a point within the Scene that is not the Scene's origin. PointSelectors have three spatial properties, `x`, `y` and `z` which give the value on that axis. They also have a temporal property `instant` which can be used if the Scene has a duration, which gives the temporal point in seconds from the start of the duration, the use of which is defined in the [section on Scenes with Durations]().
+
+The Light is green and has a position, but has its default orientation of looking along the negative-y axis as no rotation has been specified. The Camera has a position and is pointing at the model's origin via the `lookAt` property. The Camera has a `fieldOfView` of 50. The `near` and `far` properties are included to ensure the model falls within the camera's range (although unnecessary in a simple Scene like this). The Scene has a background color.
+
+<img src="{{ site.api_url | absolute_url }}/assets/images/p4/use-case-5a.png" alt="Use case 5a" >
+
+
+```jsonc
+ {
+  "@context": "http://iiif.io/api/presentation/4/context.json",
+  "id": "https://example.org/iiif/3d/model_origin.json",
+  "type": "Manifest",
+  "label": { "en": ["Single Model with light and Camera"] },
+  "summary": { "en": ["Viewer should render the model at (-1,0,1), add the light, and base the viewport on the provided camera"] },
+  "items": [
+    {
+      "id": "https://example.org/iiif/scene1/page/p1/1",
+      "type": "Scene",
+      "label": { "en": ["A Scene"] },
+      "backgroundColor": "#FF00FE",
+      "items": [
+        {
+          "id": "https://example.org/iiif/scene1/page/p1/1",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://example.org/iiif/3d/anno1",
+              "type": "Annotation",
+              "motivation": ["painting"],
+              "body": {
+                "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/astronaut/astronaut.glb",
+                "type": "Model",
+                "format": "model/gltf-binary"
+              },
+              "target": {
+                "type": "SpecificResource",
+                "source": [
+                  {
+                    "id": "https://example.org/iiif/scene1/page/p1/1",
+                    "type": "Scene"
+                  }
+                ],
+                "selector": [
+                  {
+                    "type": "PointSelector",
+                    "x": -1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                  }
+                ]
+              }
+            },   
+            {
+              "id": "https://example.org/iiif/3d/anno2",
+              "type": "Annotation",
+              "motivation": ["painting"],
+              "body": {
+                "id": "https://example.org/iiif/3d/cameras/1",
+                "type": "PerspectiveCamera",
+                "label": {"en": ["Perspective Camera 1"]},
+                "lookAt": {
+                  "id": "https://example.org/iiif/3d/anno1",
+                  "type": "Annotation"
+                },
+                "near": 1,
+                "far": 100,
+                "fieldOfView": 50
+              },
+              "target": {
+                "type": "SpecificResource",
+                "source": [
+                  {
+                    "id": "https://example.org/iiif/scene1/page/p1/1",
+                    "type": "Scene"
+                  }
+                ],
+                "selector": [
+                  {
+                    "type": "PointSelector",
+                    "x": 0.0,
+                    "y": 6.0,
+                    "z": 10.0
+                  }
+                ]
+              }
+            },
+            {
+              "id": "https://example.org/iiif/3d/anno2",
+              "type": "Annotation",
+              "motivation": ["painting"],
+              "body": {
+                  "id": "https://example.org/iiif/3d/lights/1",
+                  "type": "SpotLight",
+                  "label": {"en": ["Spot Light 1"]},
+                  "angle": 90.0,
+                  "color": "#A0FFA0"
+              },
+              "target": {
+                "type": "SpecificResource",
+                "source": {
+                  "id": "https://example.org/iiif/scene1/page/p1/1",
+                  "type": "Scene"
+                },
+                "selector": [
+                  {
+                    "type": "PointSelector",
+                    "x": 0.0,
+                    "y": 3.0,
+                    "z": 1.0
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+>
+**Key Points**
+* This example uses some of the Scene-Specific resources introduced in the next section.
+* A Point Selector explicitly places the model in the Scene via the Painting Annotation's `target` property. In the previous example, there was an implicit Point Selector placing the model at (0,0,0) because no explicit Point Selector was provided.
+* The provided Light should replace any default lighting the client might have.
+{: .note}
+
+__Definitions__<br/>
+Classes: [Manifest](#model/Manifest), [Scene](#model/Scene), [Model](#model/Model), [SpecificResource](#model/SpecificResource), [PointSelector](#model/PointSelector), [PerspectiveCamera](#model/PerspectiveCamera), [SpotLight](#model/SpotLight) <br/><br/>
+Properties: [backgroundColor](#model/backgroundColor), [lookAt](#model/lookAt), [near](#model/near), [far](#model/far), [feildOfView](#model/fieldOfView), [angle](#model/angle), [color](#model/color)
+{: .note}
+
+## Use Case 6: Complex Scene
+
+Example Annotation that comments on a 3D polygon within a Scene:
+
+```
+Todo add example
+```
+
+### Chessboard is a Canvas with image (not a 3D chessboard)
+
+A Scene or a Canvas may be treated as a content resource, referenced or described within the `body` of an Annotation. As with models and other resources, the Annotation is associated with a Scene into which the Scene or Canvas is to be nested through an Annotation `target`. The content resource Scene will be placed within the `target` Scene by aligning the coordinate origins of the two scenes. Alternately, Scene Annotations may use `PointSelector` to place the origin of the resource Scene at a specified coordinate within the `target` Scene.
+
+### More than one model
+
+### Transforms for scale and rotation
+
+### Exclude
+
+### interactionMode
+
+
+
+## Use Case 7: Another Complex Scene
+
+What is it
+
+### More on Point and Fragment Selectors
+
+A content resource may be annotated into a Scene for a period of time by use of a PointSelector that is temporally scoped by a [FragmentSelector](https://www.w3.org/TR/annotation-model/#fragment-selector).  The FragmentSelector has a `value` property, the value of which follows the [media fragment syntax](https://www.w3.org/TR/media-frags/#naming-time) of `t=`.  This annotation pattern uses the `refinedBy` property [defined by the W3C Web Annotation Data Model](https://www.w3.org/TR/annotation-model/#refinement-of-selection).
+
+```json
+{
+  "id": "https://example.org/iiif/3d/anno1",
+  "type": "Annotation",
+  "motivation": ["painting"],
+  "body": {
+      "id": "https://example.org/iiif/assets/model1.glb",
+      "type": "Model"
+  },
+  "target": {
+    "id": "https://example.org/iiif/selectors/model1-glb-sr",
+    "type": "SpecificResource",
+    "source": [
+      {
+        "id": "https://example.org/iiif/scene1",
+        "type": "Scene"
+      }
+    ],
+    "selector": [
+      {
+        "id": "https://example.org/uuid/9fbd580b-895b-41b9-974a-1553329037f2",
+        "type": "PointSelector",
+        "x": -1.0,
+        "y": -1.0,
+        "z": 3.0,
+        "refinedBy": {
+            "id": "https://example.org/uuid/3d0d097b-2b37-4a15-b6a5-506e417d5115",
+            "type": "FragmentSelector",
+            "value": "t=45,95"
+        }
+      }
+    ]
+  }
+}
+```
+
+When using a URL fragment in place of a SpecificResource, the parameter `t` can be used to select the temporal region:
+
+```json
+{
+    "id": "https://example.org/iiif/3d/anno1",
+    "type": "Annotation",
+    "motivation": ["painting"],
+    "body": {
+        "id": "https://example.org/iiif/assets/model1.glb",
+        "type": "Model"
+    },
+    "target": "https://example.org/iiif/scene1#xyz=-1,-1,3&t=45,95"
+}
+```
+
+An Annotation may target a specific point in time using a PointSelector's `instant` property.  The property's value must be a positive floating point number indicating a value in seconds that falls within the Scene's duration.
+
+```json
+{
+    "id": "https://example.org/iiif/3d/anno1",
+    "type": "Annotation",
+    "motivation": ["painting"],
+    "body": {
+        "id": "https://example.org/iiif/assets/model1.glb",
+        "type": "Model"
+    },
+    "target": {
+        "type": "SpecificResource",
+        "source": [
+          {
+            "id": "https://example.org/iiif/scene1",
+            "type": "Scene"
+          }
+        ],
+        "selector": [
+            {
+                "type": "PointSelector",
+                "x": -1.0,
+                "y": -1.0,
+                "z": 3.0,
+                "instant": 45.0
+            }
+        ]
+    }
+}
+```
+
+### Time mode
+
+The Annotation's [`timeMode` property](https://iiif.io/api/presentation/3.0/#timemode) can be used to indicate the desired behavior when the duration of the content resource that is not equal to the temporal region targeted by the annotation.
+
+It is an error to select a temporal region of a Scene that does not have a `duration`, or to select a temporal region that is not within the Scene's temporal extent.  A Canvas or Scene with a `duration` may not be annotated as a content resource into a Scene that does not itself have a `duration`.
+
+
+An annotation that targets a Scene using a PointSelector without any temporal refinement implicitly targets the Scene's entire duration.
+
+
+### Audio and 3D
+
+
+AmbientAudio (everywhere)
+PointAudio (sphere)
+SpotAudio (cone)
+
+   source: Audio (id, type, format, profile, duration, label)
+   volume: UnitValue (value: 0.3, unit: relative)
+   angle: degrees of the cone, per SpotLight
+
+Ambient and Point can be painted on to Canvas
+hidden on audio = inaudible
+
+
+All resources that can be added to a Scene have an implicit (e.g. Lights, Cameras) or explicit (e.g. Models, Scenes), local coordinate space. If a resource does not have an explicit coordinate space, then it is positioned at the origin of its coordinate space. In order to add a resource with its local coordinate space into a Scene with its own coordinate space, these spaces must be aligned. This done by aligning the origins of the two coordinate spaces.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Nesting (more about Containers as Content Resources)
+
+> How does this relate to model doc? What's normative and needs to be in model.md because it defines a Scene?
+
+A Canvas can be painted into a Scene as an Annotation, but the 2D nature of Canvases requires special consideration due to important differences between Canvases and Scenes. A Canvas describes a bounded 2D space with finite `height` and `width` measured in pixels with a pixel origin at the top-left corner of the Canvas, while Scenes describe a boundless 3D space with x, y, and z axes of arbitrary coordinate units and a coordinate origin at the center of the space. It is important to note that in many cases the pixel scale used by a Canvas or a 2D image content resource will not be in proportion to the desired 3D coordinate unit scale in a Scene.
+
+When a Canvas is painted as an Annotation targeting a Scene, the top-left corner of the Canvas (the pixel origin) is aligned with the 3D coordinate origin of the Scene. The top edge of the Canvas is aligned with (e.g., is colinear to) the positive x axis extending from the coordinate origin. The left edge of the Canvas is aligned with (e.g., is colinear to) the negative y axis extending from the coordinate origin. The Canvas is scaled to the Scene such that the pixel dimensions correspond to 3D coordinate units - a Canvas 200 pixels wide and 400 pixels high will extend 200 coordinate units across the x axis and 400 coordinate units across the y axis. Please note: direction terms "top", "bottom", "right", and "left" used in this section refer to the frame of reference of the Canvas itself, not the Scene into which the Canvas is painted.
+
+A Canvas in a Scene has a specific forward face and a backward face. By default, the forward face of a Canvas should point in the direction of the positive z axis. If the property `backgroundColor` is used, this color should be used for the backward face of the Canvas. Otherwise, a reverse view of the forward face of the Canvas should be visible on the backward face.
+
+<div style="background: #A0F0A0; padding: 10px; padding-left: 30px; margin-bottom: 10px">
+  To Do: Add an image demonstrating default Canvas placement in Scene
+</div>
+
+A `PointSelector` can be used to modify the point at which the Canvas will be painted, by establishing a new point to align with the top-left corner of the Canvas instead of the Scene coordinate origin. Transforms can also be used to modify Canvas rotation, scale, or translation.
+
+<!-- 
+It may be desirable to exercise greater control over how the Canvas is painted into the Scene by selecting the coordinate points in the Scene that should correspond to each corner of the Canvas. This provides fine-grained manipulation of Canvas placement and/or scale, and for optionally introducing Canvas distortion or skew. Annotations may use a WktSelector to select different points in the Scene to align with the top-left, bottom-left, bottom-right, and top-right corners of the Canvas. In this case, the four Scene coordinates should be listed beginning with the coordinate corresponding to the top-left corner of the Canvas, and should proceed in a counter-clockwise winding order around the Canvas, with coordinates corresponding to bottom-left, bottom-right, and top-right corners in order respectively. The use of WktSelector for this purpose overrides any use of Transforms on the Canvas Annotation.
+
+Example placing top-left at (0, 1, 0); bottom-left at (0, 0, 0); bottom-right at (1, 0, 0); and top-right at (1, 1, 0):
+
+```json
+"selector": [
+  {
+    "type": "WktSelector",
+    "value": "POLYGON Z ((0 1 0, 0 0 0, 1 0 0, 1 1 0))"
+  }
+]
+```
+-->
+
+## Scene in Scene
+
+Scenes and other IIIF containers, such as Canvases, may also be embedded within Scenes, as described below in the nesting section [fwd-ref-to-nesting].
+
+```json
+{
+  "id": "https://example.org/iiif/scenes/1",
+  "type": "Scene",
+  "label": {"en": ["Chessboard"]},
+  "backgroundColor": "#000000",
+  "items": [
+   "Note: Annotations Live Here"
+  ]
+}
+```
+As with other resources, it may be appropriate to modify the initial scale, rotation, or translation of a content resource Scene prior to painting it within another Scene. Scenes associated with SpecificResources may be manipulated through the transforms described in Transforms(transforms_section).
+
+A simple example painting one Scene into another:
+
+```json
+{
+    "id": "https://example.org/iiif/3d/anno1",
+    "type": "Annotation",
+    "motivation": ["painting"],
+    "body": {
+        "id": "https://example.org/iiif/scene1",
+        "type": "Scene"
+    },
+    "target": "https://example.org/iiif/scene2"
+}
+```
+
+When a Scene is nested into another Scene, the `backgroundColor` of the Scene to be nested should be ignored as it is non-sensible to import. All Annotations painted into the Scene to be nested will be painted into the Scene into which content is being nested, including Light or Camera resources. If the Scene to be nested has one or more Camera Annotations while the Scene into which content is being nested does not, the first Camera Annotation from the nested Scene will become the default Camera for the overall Scene.
+
+
+
+
+# Annotations
+
+In the examples so far, Annotations have been used to associate the images, audio and other Content Resources with their Containers for presentation. IIIF uses the same W3C standard for the perhaps more familiar _annotation_ concepts of commenting, tagging, describing and so on. Annotations can carry textual transcriptions or translations of the content, discussion about the content and any other linking between resources.
+
+Whereas annotations that associate content resources with Containers are included in the `items` property of the Container, all other types of Annotation are referenced from the `annotations` property. Containers, Manifests, Collections and Ranges can all have this property, linking to relevant annotations. As with the `items` property, annotations are grouped into one or more AnnotationPage resources. These are usually external references.
+
+```
+Manifest
+  items
+    Canvas
+      annotations
+        AnnotationPage
+          items
+            Annotation
+```                     
+
+## Comment Annotations
+
+> (examples are just the anno)
+
+### A comment about a segment of music 
+
+(targets Timeline)
+"Here begins the development of the second theme"
+
+### A comment about a face in a painting
+
+(targets Canvas)
+"This might be so-and-so"
+
+### A comment about something in a Model
+
+(targets Scene)
+Look at this scratch in the helmet
+
+> Todo: This is mostly copy-pasted from properties, is it needed here? Use in above example.
+
+It is important to be able to position the textual body of an annotation within the Container's space that the annotation also targets. For example, a description of part of an image in a Canvas should be positioned such that it does not obscure the image region itself and labels to be displayed as part of a Scene should not be rendered such that the text is hidden by the three dimensional geometry of the model. The positioning of the textual body in a container is accomplished through the `position` property, which has as a value a Specific Resource identifying the targeted container as the source and a selector defining how the textual body should be positioned in the targeted container. If this property is not supplied, then the client should do its best to ensure the content is visible to the user.
+
+## Choice of Alternative Resources
+
+## Use Case 7: Multi-spectral Images with Comments
+
+(same as cookbook example?)
+
+## Embedded Content
+
+e.g., painting TextualBody on Canvas
+
+
+## Non Rectangular Segments
+
+SvgSelector - move to SpecificResource too ^^
+
+Annotations may alternately use a type of Selector called a `WktSelector` to align the Annotation to a region with the Scene that is not the Scene's origin. WktSelectors have a single property, `value`, which is a string conforming to a WKT Linestring, LineStringZ, Polygon, or PolygonZ list of 2D or 3D coordinate points. Whether and how a region defined by a WktSelector may be translated to a single 2D or 3D coordinate point, for targeting or other purposes, is client-dependent.
+
+## Style
+
+Move to SpecificResource
+
+
+## Rotation
+
+
+## Hotspot Linking and Activation
+
+Move to SpecificResource
+
+
+## Annotation Page
+
+"Overlapping elements with a larger z-index cover those with a smaller one."
+link to https://developer.mozilla.org/en-US/docs/Web/CSS/z-index
+
+
+## Annotation Collection
+
+deal with this: (use in example)
+https://github.com/IIIF/api/pull/2304/files#diff-cc70f02818f6bed2b14dfbf8bf3206e0825047951c8e83ad56fc73e489f82ac4R1757
+
+use totalItems? https://iiif.io/api/discovery/1.0/#totalitems
+
+
+# Navigation
+
+(need intro to navigation)
 
 
 
