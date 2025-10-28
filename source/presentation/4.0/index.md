@@ -36,8 +36,16 @@ hero:
 ---
 
 <style>
-.content, .highlight {
+.content, .api-content.highlight {
   max-width:auto;
+}
+
+.content h3 {
+  font-size:1.4rem
+}
+
+.highlight .s2 { 
+  color: #a0f0f0 
 }
 </style>
 
