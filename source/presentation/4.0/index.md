@@ -1542,10 +1542,10 @@ Manifest
 
 ## Annotation Page
 
-Annotation Pages are used to group Annotations.  In cases where many annotations are present, such as when transcription, translation, and commentary are associated with a manuscript, it can be useful to separate these annotations into groups that may facilitate improved user interactions in a client.  
+Annotation Pages are used to group Annotations.  In cases where many annotations are present, such as when transcription, translation, and commentary are associated with a manuscript, it can be useful to separate these annotations into groups that can facilitate improved user interactions in a client.  
 
-Each Annotation Page can be embedded or externally referenced. Clients should process the Annotation Pages and their items in the order given in the Container.  Publishers may choose to expedite the processing of embedded Annotation Pages by ordering them before external pages, which will need to be dereferenced by the client.  Order can be significant, however. Painting annotations are assigned an ascending [z-index](https://developer.mozilla.org/en-US/docs/Web/CSS/z-index) from the first painting annotation encountered. Annotations with a higher z-index will render in front of those with a lower z-index when displayed on a Canvas. <!-- Any impact in a Timeline or Scene? -->
-
+Each Annotation Page can be embedded or externally referenced. Clients should process the Annotation Pages and their items in the order given in the Container.  Publishers may choose to expedite the processing of embedded Annotation Pages by ordering them before external pages, which will need to be dereferenced by the client.  Order can be significant, however. Painting annotations are assigned an ascending [z-index](https://developer.mozilla.org/en-US/docs/Web/CSS/z-index) from the first painting annotation encountered. Annotations with a higher z-index will render in front of those with a lower z-index when displayed on a Canvas.
+<!-- Any impact in a Timeline or Scene? -->
 <!-- https://iiif.io/api/cookbook/recipe/0036-composition-from-multiple-images/ -->
 
 ## Annotation Collection
@@ -1599,13 +1599,13 @@ https://github.com/IIIF/api/issues/2118
 
 ## Comment Annotations
 
-Commentary can be associated with a Timeline, Canvas, or Scene via Annotations with a `commenting` motivation.  
+Commentary can be associated with a Timeline, Canvas, or Scene via Annotations with a `commenting` motivation.
 
 ### A comment about a segment of music 
 
 <!-- This is redundant with Use Case 4 -->
 
-This is an example of a commenting annotation that targets two-minute segment of a muscial performance.   
+This is an example of a commenting annotation that targets two-minute segment of a muscial performance.
 
 ```json
 {
@@ -1656,7 +1656,7 @@ A comment on a Canvas can target a non-rectangular area.  This example uses a `S
 }
 ```
 
-Annotations may alternately use a type of Selector called a `WktSelector` to align the Annotation to a region within a Canvas or Scene.
+Annotations may alternately use a different type of Selector, called a `WktSelector`, to align the Annotation to a target region within a Canvas or Scene.
 
 ### A comment about something in a Model
 
