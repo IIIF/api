@@ -883,7 +883,7 @@ This example is a Manifest with one Canvas that represents the temporal extent o
 >
 **Key Points**
 * The decision about which item in the `Choice` to play by default is client dependent. In the absence of any other decision process the client should play the first item. In this specific example, the user might make the decision after reading the `label`, or the client might make the decision based on the `fileSize` property and an assessment of the user's available bandwidth. However, the client may have no way of determining why the publisher has offered the choices, and should not prevent the user from making the choice. The cookbook demonstrates several uses of `Choice` for common use cases.
-* Slop
+* Slop - impl note - don't interpret **very** minor discrepancies between `duration` on the different Choices and the Container `duration` as an instruction to stretch or compress the audio/video stream to match the Container duration. No real way to quantify this, just _be sensible_.
 {: .note}
 
 
@@ -902,6 +902,7 @@ Scenes have infinite height (y axis), width (x axis) and depth (z axis), where 0
 
 The positive y axis points upwards, the positive x axis points to the right, and the positive z axis points forwards (a [right-handed cartesian coordinate system](https://en.wikipedia.org/wiki/Right-hand_rule)).
 
+(image of coordinate system here)
 
 ## Use Case 5: Simple 3D Model
 
@@ -1088,12 +1089,20 @@ Properties: [backgroundColor](#model/backgroundColor), [lookAt](#model/lookAt), 
 ## Use Case 6: Complex Scene
 
 
-Chessboard is a Canvas with image
-more than one model
-transforms for scale and rotation
-Scene in Scene
-Exclude
-interactionMode
+**Chessboard is a Canvas with image (not a 3D chessboard)**
+
+A Scene or a Canvas may be treated as a content resource, referenced or described within the `body` of an Annotation. As with models and other resources, the Annotation is associated with a Scene into which the Scene or Canvas is to be nested through an Annotation `target`. The content resource Scene will be placed within the `target` Scene by aligning the coordinate origins of the two scenes. Alternately, Scene Annotations may use `PointSelector` to place the origin of the resource Scene at a specified coordinate within the `target` Scene.
+
+**more than one model**
+
+**transforms for scale and rotation**
+This (no units for scale) allows arbitrarily scaled models to be used, including very small or very large, without needing to deal with very small or very large values. If there is a correspondence to a physical scale, then this can be asserted using the physical dimensions pattern(fwd-ref-to-phys-dims).
+
+**Scene in Scene**
+
+**Exclude**
+
+**interactionMode**
 
 
 
@@ -1103,16 +1112,6 @@ interactionMode
 
 
 ## Merge the below into the examples or into model
-
-This (no units for scale) allows arbitrarily scaled models to be used, including very small or very large, without needing to deal with very small or very large values. If there is a correspondence to a physical scale, then this can be asserted using the physical dimensions pattern(fwd-ref-to-phys-dims).
-
-
-
-```
-```
-
-A Scene or a Canvas may be treated as a content resource, referenced or described within the `body` of an Annotation. As with models and other resources, the Annotation is associated with a Scene into which the Scene or Canvas is to be nested through an Annotation `target`. The content resource Scene will be placed within the `target` Scene by aligning the coordinate origins of the two scenes. Alternately, Scene Annotations may use `PointSelector` to place the origin of the resource Scene at a specified coordinate within the `target` Scene.
-
 
 As with other containers in IIIF, Annotations are used to target the Scene to place content such as 3d models into the scene. Annotations are also used to add lights and cameras. A Scene can have multiple models, lights, cameras and other resources, allowing them to be grouped together. Scenes and other IIIF containers, such as Canvases, may also be embedded within Scenes, as described below in the nesting section [fwd-ref-to-nesting].
 
@@ -1341,26 +1340,49 @@ When a Scene is nested into another Scene, the `backgroundColor` of the Scene to
 
 # Annotations
 
+In the examples so far, Annotations have been used to associate the images, audio and other Content Resources with their Containers for presentation. IIIF uses the same W3C standard for the perhaps more familiar _annotation_ concepts of commenting, tagging, describing and so on. Annotations can carry textual transcriptions or translations of the content, discussion about the content and any other linking between resources.
 
+Whereas annotations that associate content resources with Containers are included in the `items` property of the Container, all other types of Annotation are referenced from the `annotations` property. Containers, Manifests, Collections and Ranges can all have this property, linking to relevant annotations. As with the `items` property, annotations are grouped into one or more AnnotationPage resources. These are usually external references.
+
+```
+Manifest
+  items
+    Canvas
+      annotations
+        AnnotationPage
+          items
+            Annotation
+```                     
 
 ## Comment Annotations
 
+### A comment about a segment of music 
 
+(targets Timeline)
+"Here begins the development of the second theme"
 
-## Choice of Alternative Resources
+### A comment about a face in a painting
 
-## Use Case : Multi-spectral Images with Comments
+(targets Canvas)
+"This might be so-and-so"
 
+### A comment about something in a Model
 
-## Embedded Content
-
-e.g., painting TextualBody on Canvas
+(targets Scene)
+Look at this scratch in the helmet
 
 Todo: This is mostly copy-pasted from properties, is it needed here?
 It is important to be able to position the textual body of an annotation within the Container's space that the annotation also targets. For example, a description of part of an image in a Canvas should be positioned such that it does not obscure the image region itself and labels to be displayed as part of a Scene should not be rendered such that the text is hidden by the three dimensional geometry of the model. The positioning of the textual body in a container is accomplished through the `position` property, which has as a value a Specific Resource identifying the targeted container as the source and a selector defining how the textual body should be positioned in the targeted container. If this property is not supplied, then the client should do its best to ensure the content is visible to the user.
 
+## Choice of Alternative Resources
 
+## Use Case 7: Multi-spectral Images with Comments
 
+(same as cookbook example?)
+
+## Embedded Content
+
+e.g., painting TextualBody on Canvas
 
 
 ## Non Rectangular Segments
@@ -1381,13 +1403,10 @@ Move to SpecificResource
 Move to SpecificResource
 
 
-
-
 ## Annotation Page
 
 "Overlapping elements with a larger z-index cover those with a smaller one."
 link to https://developer.mozilla.org/en-US/docs/Web/CSS/z-index
-
 
 
 ## Annotation Collection
@@ -1396,12 +1415,6 @@ deal with this:
 https://github.com/IIIF/api/pull/2304/files#diff-cc70f02818f6bed2b14dfbf8bf3206e0825047951c8e83ad56fc73e489f82ac4R1757
 
 use totalItems? https://iiif.io/api/discovery/1.0/#totalitems
-
-
-
-
-
-
 
 
 # Navigation
@@ -1608,7 +1621,9 @@ partOf -
 
 
 
-# Content State and toggles
+# Content State
+
+(this + model doc should relieve Content State spec of modelling concerns and leave it entirely about protocol)
 
 A Content State is simply any valid IIIF Presentation Resource, or part of a Presentation resource. The following are all Content States that describe a "fragment" of IIIF:
 
@@ -1731,6 +1746,8 @@ The mechanisms for passing Content State into a client, and exporting a Content 
 
 ## Load a particular view of some resource and modify it
 
+⚠ what are we doing with this? Do we still allow it? It's a good use case...
+
 In the previous usage, the fragment of IIIF carried by the annotation with the motivation `contentState` provides enough information for a Client to load a resource and show it. This fragment can also carry additional IIIF Presentation API resources not shown in the referred-to resource. For example, in the following example the Content State carries additional annotations not present in the original published Manifest. A client initializing from this Content State would show these additional annotations to the user:
 
 ```json
@@ -1757,6 +1774,10 @@ In the previous usage, the fragment of IIIF carried by the annotation with the m
 
 As well as adding resources not present in the referred-to resource, the Content State can also remove parts of the referred-to resource from the user's view by applying the behavior `hidden` to them:
 
+⚠⚠⚠⚠
+
+now we are entering the danger zone
+
 ```jsonc
 {
   // What does this actually look like? I want to load bnf_chateauroux example but HIDE the illumination
@@ -1770,15 +1791,16 @@ As well as adding resources not present in the referred-to resource, the Content
 
 TODO: what is the processing algorithm for applying incoming `hidden` ?
 
-When a Content State annotation carries a Scene, a view might be initialized from a Content State that introduces an additional Camera that shows the user the point of interest.
+~When a Content State annotation carries a Scene, a view might be initialized from a Content State that introduces an additional Camera that shows the user the point of interest.~
 
 
-## Modify the Container in a particular context
+# Interactivity and Storytelling
 
-The techniques in the previous example are also used within a published IIIF Manifest to modify the contents of a Container in the contexts of different annotations on that Container. This technique allows IIIF to be used for _storytelling_ and other narrative applications beyond simply conveying a static Digital Object into a viewer and leaving subsequent interactions entirely in the control of the user. The `scope` property indicates to the client that the Content State provides valuable context for displaying some aspect of a Scene or other Container. In the case of a commenting annotation, this means that the Content State should be loaded when the commenting annotation is selected or otherwise highlighted.
+Sometimes it is necessary to modify the contents of a Container in the contexts of different annotations on that Container. This technique allows IIIF to be used for _storytelling_ and other narrative applications beyond simply conveying a static Digital Object into a viewer and leaving subsequent interactions entirely in the control of the user. 
 
+A narrative might comprise a set (an AnnotationPage) of `commenting` annotations that target different parts of the Container, for example a guided tour of a painting or a map. For a Canvas or Timeline it is usually sufficient to leave the interactivity to the client; the fact that comments target different extents implies the client must offer some affordance for those comments (typically the user can click each one), and in response the client will move the current play point of the Timeline to the commenting annotation target, or pan and zoom the viewport to show the relevant part of an image. For 3D this may not be enough; a particular comment only make sense from a certain viewpoint (i.e., Camera), or different steps of the story require different Lights to be active.
 
-Consider a Scene with two models, and two `commenting` annotations:
+Consider a Scene with two models, two `commenting` annotations, and a camera. We really only want the camera to be used when the user is looking at the Mandibular tooth, by default and at other times we don't need a specific camera, we can let them explore freely.
 
 ```jsonc
 {
@@ -1808,6 +1830,40 @@ Consider a Scene with two models, and two `commenting` annotations:
               }
             },
             {
+              "id": "https://example.org/iiif/3d/anno-that-paints-desired-camera",
+              "type": "Annotation",
+              "motivation": ["painting"],
+              "behavior": ["hidden"],
+              "body": {
+                "type": "SpecificResource",
+                "source": [
+                  {
+                    "id": "https://example.org/iiif/3d/cameras/1",
+                    "type": "PerspectiveCamera",
+                    "label": {"en": ["Perspective Camera Pointed At Front of Cranium and Mandible"]},
+                    "fieldOfView": 50.0,
+                    "near": 0.10,
+                    "far": 2000.0
+                  }
+                ]
+              },
+              "target": {
+                "type": "SpecificResource",
+                "source": [
+                  {
+                    "id": "https://example.org/iiif/scene1",
+                    "type": "Scene"
+                  }
+                ],
+                "selector": [
+                  {
+                    "type": "PointSelector",
+                    "x": 0.0, "y": 0.15, "z": 0.75
+                  }
+                ]
+              }
+            },
+            {
               "id": "https://example.org/iiif/3d/anno2",
               "type": "Annotation",
               "motivation": ["painting"],
@@ -1830,7 +1886,7 @@ Consider a Scene with two models, and two `commenting` annotations:
       "type": "AnnotationPage",
       "items": [
         {
-          "id": "https://example.org/iiif/3d/anno7",
+          "id": "https://example.org/iiif/3d/commenting-anno-for-mandibular-tooth",
           "type": "Annotation",
           "motivation": ["commenting"],
           "bodyValue": "Mandibular tooth",
@@ -1839,7 +1895,7 @@ Consider a Scene with two models, and two `commenting` annotations:
           }
         },
         {
-          "id": "https://example.org/iiif/3d/anno5",
+          "id": "https://example.org/iiif/3d/commenting-anno-for-right-pterygoid-hamulus",
           "type": "Annotation",
           "motivation": ["commenting"],
           "bodyValue": "Right pterygoid hamulus",
@@ -1855,208 +1911,309 @@ Consider a Scene with two models, and two `commenting` annotations:
 
 In that form, the user is left to interpret the commenting annotations and explore the Scene. The client will render a UI that presents the two commenting annotation in some form and allow the user to navigate between them. The commenting annotations are ordered; while the user might explore them freely in the Scene they might also go "forward" from the first to the second commenting annotation and "back" to the first from the second.
 
-In many complex 3D Scenes, it may not be clear what or how to look at a particular point of interest even when the commenting annotation targets a particular point. The view may be occluded by parts of the model, or other models in the Scene. It may be useful to light the Scene differently in different contexts.
+In many complex 3D Scenes, it may not be clear what or how to look at a particular point of interest even when the commenting annotation targets a particular point. The view may be occluded by parts of the model, or other models in the Scene. In this case we only want that camera to be used for looking at the Mandibular tooth. For now, it has been given the behavior `hidden`.
 
-In the same way an incoming Content State can modify a Scene as it initializes the client, so can a Content State attached to each (non-`painting`) annotation target modify the Scene as the user moves between different annotations.
+## Activating Annotations
 
-The `scope` property of an annotation `target` provides _contextual_ Content State - the viewer should modify the Scene by applying the Content State carried by the `scope` property _only when the user is in the context of that annotation_.
+Annotations with the motivation `activating` are referred to as _activating_ annotations, and are used to link a resource that triggers an action with the resource(s) to change, enable or disable. In the above case the `target` of the activating annotation could be one of the commenting annotations, for which a user might click a corresponding UI element. In other scenarios the `target` could be the painting annotation of a 3D model, or an annotation that targets part of a model, or a region of a Canvas, or a point or segment of a Timeline, or any other annotation that a user could interact with (in whatever manner) to trigger an event. The `body` of the annotation is the resource that is then activated - for example, a Camera which then becomes the active viewport.
 
-Taking the first commenting annotation from the above example and adding a `scope` property, whose value is an annotation with the motivation `contentState`, we can introduce a new Camera specifically for this particular annotation, so that when the user selects this comment, the client will switch the view to this camera. This example also changes the background color of the Scene:
+`target` variations
+
+- user "walks into a room" 
+- AV scrub bar reaches time t1
+- user interacts with a model
+- user touches a face in a painting
+
+We can add an additional `activating` annotation to the existing annotations, to connect them to the resources activated.
+
+Activating annotations are provided in a Container's `annotations` property. They can be mixed in with the commenting (or other interactive annotations) they target, or they can be in a separate AnnotationPage. The client should evaluate all the activating annotations it can find.
+
+> recommend they are inline in the manifest?
+
+> use cases for loading in new pages of annos later - activate the French translations
+
 
 ```jsonc
 {
-  "id": "https://example.org/iiif/3d/anno7",
+  "id": "https://example.org/iiif/3d/anno9",
   "type": "Annotation",
-  "motivation": ["commenting"],
-  "bodyValue": "Mandibular tooth",
-  "target": {
-
-    // SpecificResource with PointSelector
-    // "type": "SpecificResource",
-    // "source": ... the Scene...
-    // "selector": ... a point ...
-
-    "scope": {  // a modification to the Scene, only in the context of this annotation
-
-      "id": "https://example.org/iiif/3d/anno4",
-      "type": "Annotation",
-      "motivation": ["contentState"],
-      "target": {
-        "id": "https://example.org/iiif/scene1/page/p1/1",
-        "type": "Scene",
-        "backgroundColor": "yellow",
-        "items": [
-          {
-            "id": "https://example.org/iiif/3d/anno8",
-            "type": "Annotation",
-            "motivation": ["painting"],
-            "body": {
-              "type": "SpecificResource",
-              "source": [
-                {
-                  "id": "https://example.org/iiif/3d/cameras/1",
-                  "type": "PerspectiveCamera",
-                  "label": {"en": ["Perspective Camera Pointed At Front of Cranium and Mandible"]},
-                  "fieldOfView": 50.0,
-                  "near": 0.10,
-                  "far": 2000.0
-                }
-              ]
-            },
-            "target": {
-              "type": "SpecificResource",
-              "source": [
-                {
-                  "id": "https://example.org/iiif/scene1",
-                  "type": "Scene"
-                }
-              ],
-              "selector": [
-                {
-                  "type": "PointSelector",
-                  "x": 0.0, "y": 0.15, "z": 0.75
-                }
-              ]
-            }
-          }
-        ]
-      }
+  "motivation": ["activating"],
+  "target": [
+    {
+      "id": "https://example.org/iiif/3d/commenting-anno-for-mandibular-tooth",
+      "type": "Annotation"
     }
-  }
+  ],
+  "body": [
+    {
+      "id": "https://example.org/iiif/3d/anno-that-paints-desired-camera",
+      "type": "Annotation"
+    }
+  ]
 }
 ```
 
-In a storytelling or exhibition scenario, the non-painting `annotations` might be carrying informative text, or even rich HTML bodies. They can be considered to be _steps_ in the story. The use of `scope` allows a precise storytelling experience to be specified, including:
+The pattern is similar to that for hotspot linking (ref)
+
+In a storytelling or exhibition scenario, the non-painting `annotations` might be carrying informative text, or even rich HTML bodies. They can be considered to be _steps_ in the story. The use of activating annotations allows a precise storytelling experience to be specified, including:
 
  - providing a specific viewpoint for each step of the narrative (or even a choice of viewpoints)
  - modifying the lighting of the Scene for each step, for example shining a spotlight on a point of interest
- - hiding parts of the Scene for a step
- - introducing additional models at a particular step
- - (and many more!)
+ - hiding models in the Scene at a particular step
+ - showing additional models at a particular step
 
-Use of `scope` is permitted in annotations on any Container type, not just Scenes. For example, a 2D narrative around a Canvas might show or hide different `painting` annotations at each step.
-
+As in the above example, all the other annotations referred to by the activating annotations `target` and `body` properties are already present in the Scene from the beginning. Initially, many of them may have the behavior `hidden`, invisible until activated.
 
 
+The `body` is anything that is can be activated:
+
+- Camera: if "hidden" the behavior is removed, and (crucially) this Camera becomes the viewport.
+- AnimationSelector: A named animation within a model is played.
+- (anything else yet?)
 
 
+## Showing and hiding resources
 
-## The `sequence` behavior
+An activating annotation has two additional optional properties:
 
-// Is this right? Language...
+* `enables`: For each annotation in the value, remove the 'hidden' behavior if it has it.
+* `disables`: For each annotation in the value, add the 'hidden' behavior if it does not have it.
 
-While all AnnotationPage `items` are inherently ordered, an Annotation Page with the behavior `sequence` is explicitly a narrative, and clients should prevent (dissuade) users from jumping about. The presence of `sequence` affects the way a client should interpret the `reset` property described below.
+Hidden resources cannot be active or activated. If the values are the `id` properties of painting resources that paint models, they are hidden or made visible. If Lights, they are turned on.
 
-## Content States on Manifests
+### Example: a light switch
 
-When an annotation with the motivation `contentState` is provided via the `annotations` property of a Manifest, rather than contextually via `scope`, it is assumed to be generally available for selection by the user at any time. A client may present such as annotations as a menu of views, allowing arbitrary jumping into any Scene (or Canvas or Timeline) from any other point.
+* Initially, a model of a light switch is painted into the Scene. A PointLight is also painted, but with the `behavior` "hidden", which means it is inactive (i.e., off). A commenting annotation with the text "Click the switch to turn the light on or off" targets the light switch. An activating annotation targets the commenting annotation, so that user interaction with the commenting annotation will trigger the activating annotation. This activating annotation has no `body`, but it does have `enables` with values that are the `id` properties of the painting annotation for the light switch model, and the activating annotation that turns the light off. It also has a `disables` with the value of its own `id` - i.e., it disables _itself_. A further activating annotation has the opposite effect. Initially this has the `behavior` "hidden" - which means it is inactive. It also targets the commenting annotation, but has no effect while hidden.
+* When the user interacts with the light switch model, the client processes any activating annotations that target it and are not hidden. In this case, the first activating annotation is triggered because while both target the switch, only the first is not hidden. This activation `enables` the light (i.e., removing its "hidden" `behavior` and therefore turning it on) and the other activating annotation, and `disables` itself.
+* If the user clicks the light again, the client again processes any activating annotations that target it and are not hidden. This time the second annotation is the active one - and it `disables` the light (turning it off) and itself, and enables the first activating annotation again.
+* Subsequent clicks simply alternate between these two states, indefinitely.
 
-// Is there some overlap here with Range?
-
-## Processing Content States in Scopes: reset
-
-When a Content State is applied to a Container such as a Scene, it is assumed to be a "diff" - for example if 3 cameras and 4 lights are already present in the Scene, and a Content State asserts a single new Camera, the default behavior is to add this fourth Camera to the Scene and leave the existing resources as they are.
-
-The client should reset the Container to its original state before applying the diff operation. However, for narratives that cumulatively build a Scene this may lead to excessively verbose Manifests. When moving through the items of an Annotation page with the behavior `linear-nav`, the Container is not reset and the diff is cumulative; modifications from one `scope` persist into the next. This can be overridden for an individual annotation with the behavior `reset`:
-
-`linear-nav` does not inherit, but `reset` does. `reset` is the default behavior for AnnotationPage and Annotation.
-
-```json
-{
-  // a story, but we reset the Scene for each content state
-  "type": "AnnotationPage",
-  "behavior": ["linear-nav"],
-  "items": [
-
-  ]
-}
-```
-
-```json
-{
-  // a story, but the application of content-state is cumulative
-  // what if you go backwards?
-  // What if other content states have been applied before you start the story?
-  // **** Is linear-nav implicitly reset on the first anno?
-  // Should all anno pages reset the Scene - no because I might send you a view with a content state
-  "type": "AnnotationPage",
-  "behavior": ["linear-nav", "no-reset"], // no-reset is a behavior for the annos not the page
-  "items": [
-
-  ]
-}
-```
-
-```jsonc
-[
-  {
-    "id": "https://.../step-1",
-    "type": "Annotation",
-    "motivation": ["contentState"]
-    // if you really want to ensure that any ad-hoc applied content states are wiped out,
-    // then put an explicit reset here. But usually, we can start the nav by applying
-    // the content state in the scope to the Scene without worrying that someone has
-    // modified the Scene already.
-  },
-  // ....
-
-
-  {
-    "id": "https://.../step-20",
-    "type": "Annotation",
-    "motivation": ["contentState"]
-    // inherit no-reset
-  },
-
-
-  {
-    // However, this particular step (step 37) needs to reset the Scene to the initial state.
-    "id": "https://.../step-37",
-    "type": "Annotation",
-    "motivation": ["contentState"],
-    "behavior": ["reset"]
-  }
-]
-```
-
-behavior: `linear-nav` -- cannot jump around only one step forward/back
-
-client _MUST_ support forward nav and _MAY_ support backward nav
-
-If you go backwards from step n in a linear-nav, **and** you have applied one or more content states during the linear-nav, the client _MAY_ reset the whole Scene to default condition and then replay the linear-nav up to step n-1. (client doesn't have to maintain infinite undo history)
-
-
-
-Before applying the content state to the Scene, the client should reset the Scene to its original state as provided by the Manifest.
-
-// I am assuming reset is always true except in `linear-nav` - otherwise it's completely unpredictable!! or is it... arbitrary navigation, state provided by initialization content states, etc...
-
-## Contribute additional information permanently
-
-Rerum inbox scenario - should be covered in CS2 protocol
-
-## activating - animation and interactions
-
-Annotations with the motivation `activating` are referred to as _activating_ annotations.
-
-There are two uses of `activating` annotations:
-
-### Triggering a content state
-
-An activating annotation links a Painting Annotation to a content state. When a user interacts with the Painting Annotation - whether through clicking it, tapping it, or other client-specific behaviors - the linked content state should be processed to modify the Scene or other Container, as in the previous examples. The Painting Annotation is the target of the activating annotation, and the content state is the body value. Only one content state may be specified in the body array, but the body array may include a `TextualBody` to provide a label for the interaction. The pattern is the same as for the `linking` motivation, but rather than the client opening a new browser window on the resource specified in the `body`, it applies the modification provided by the Content State.
-
-The activating annotation is provided in a Container's `annotations` property. In this (contrived for brevity) example, if the user clicks the mandible model, the Scene background changes color:
 
 ```jsonc
 {
-  "id": "https://example.org/iiif/3d/activating.json",
+    "@context": "http://iiif.io/api/presentation/4/context.json",
+    "id": "https://example.org/iiif/manifest/switch",
+    "type": "Manifest",
+    "label": { "en": [ "Light switch" ] },
+    "items": [
+        {
+            "id": "https://example.org/iiif/scene/switch/scene-1",
+            "type": "Scene",
+            "items": [
+                {
+                    "id": "https://example.org/iiif/scene/switch/scene-1/painting-annotation-pages/1",
+                    "type": "AnnotationPage",
+                    "items": [
+                        {
+                            "id": "https://example.org/iiif/painting-annotation/lightswitch-1",
+                            "type": "Annotation",
+                            "motivation": ["painting"],
+                            "label": {
+                                "en": ["A light switch"]
+                            },
+                            "body": {
+                                "id": "https://example.org/iiif/model/models/lightswitch.gltf",
+                                "type": "Model"
+                            },
+                            "target": "https://example.org/iiif/scene/switch/scene-1"
+                        },
+                        {
+                            "id": "https://example.org/iiif/scene/switch/scene-1/lights/point-light-4",
+                            "type": "Annotation",
+                            "motivation": ["painting"],
+                            "body": {
+                                "id": "https://example.org/iiif/scene/switch/scene-1/lights/4/body",
+                                "type": "PointLight"
+                            },
+                            "target": {
+                                "type": "SpecificResource",
+                                "source": "https://example.org/iiif/scene/switch/scene-1",
+                                "selector": [
+                                    {
+                                        "type": "PointSelector",
+                                        "x": 5, "y": 5, "z": 5
+                                    }
+                                ]
+                            },
+                            "behavior": ["hidden"]
+                        }
+                    ]
+                }
+            ],
+            "annotations": [
+                {
+                    "id": "https://example.org/iiif/scene/switch/scene-1/annos/1",
+                    "type": "AnnotationPage",
+                    "items": [
+                        {
+                            "id": "https://example.org/iiif/scene/switch/scene-1/annos/1/switch-comment-0",
+                            "type": "Annotation",
+                            "motivation": [
+                                "commenting"
+                            ],
+                            "body": {
+                                "type": "TextualBody",
+                                "value": "Click the switch to turn the light on or off"
+                            },
+                            "target": "https://example.org/iiif/painting-annotation/lightswitch-1"
+                        },
+                        {
+                            "id": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-on-2",
+                            "type": "Annotation",
+                            "motivation": [
+                                "activating"
+                            ],
+                            "target": "https://example.org/iiif/painting-annotation/lightswitch-1",
+                            "disables": [
+                                "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-on-2"
+                            ],
+                            "enables": [
+                                "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-off-3",
+                                "https://example.org/iiif/scene/switch/scene-1/lights/point-light-4"
+                            ]
+                        },
+                        {
+                            "id": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-off-3",
+                            "type": "Annotation",
+                            "motivation": [
+                                "activating"
+                            ],
+                            "target": "https://example.org/iiif/painting-annotation/lightswitch-1",
+                            "disables": [
+                                "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-off-3",
+                                "https://example.org/iiif/scene/switch/scene-1/lights/point-light-4"
+                            ],
+                            "enables": [
+                                "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-on-2"
+                            ],
+                            "behavior": ["hidden"]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
+```
+
+### Triggering a named animation in a model
+
+Sometimes a model file has inbuilt animations. While a description of these is outside the scope of IIIF, because it is 3D-implementation-specific, as long as there is a way to refer to a model's animation(s) by name, we can connect the animation to IIIF resources.
+
+This pattern is also achieved with activating annotations, except that the body of the activating annotation references a _named animation_ in the model. The `body` MUST be a SpecificResource, where the `source` is the Painting Annotation that paints the model, and the `selector` is of type `AnimationSelector` with the `value` being a string that corresponds to the animation in the model.
+
+The format of the `value` string is implementation-specific, and will depend on how different 3D formats support addressing of animations within models. The same model can be painted multiple times into the scene, and you might want to activate only one model's animation, thus we need to refer to the annotation that paints the model, not the model directly.
+
+
+```jsonc
+{
+  "id": "https://example.org/iiif/3d/activating-animation.json",
   "type": "Manifest",
-  "label": { "en": ["Whale Cranium and Mandible with Dynamic Commenting Annotations and Custom Per-Anno Views"] },
+  "label": { "en": ["Music Box with lid that opens as an internal animation"] },
   "items": [
     {
-      "id": "https://example.org/iiif/scene1/scene-with-activation",
+      "id": "https://example.org/iiif/scene1/scene-with-activation-animation",
       "type": "Scene",
-      "label": { "en": ["A Scene Containing a Whale Cranium and Mandible"] },
+      "label": { "en": ["A Scene Containing a Music Box"] },
+      "items": [
+        {
+          "id": "https://example.org/iiif/scene-with-activation-animation/page/p1/1",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://example.org/iiif/3d/painting-anno-for-music-box",
+              "type": "Annotation",
+              "motivation": ["painting"],
+              "body": {
+                "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/music-box.glb",
+                "type": "Model"
+              },
+              "target": {
+                // SpecificResource with PointSelector
+              }
+            }
+          ],
+          "annotations": [
+            {
+              "id": "https://example.org/iiif/scene1/page/activators",
+              "type": "AnnotationPage",
+              "items": [
+                {
+                  "id": "https://example.org/iiif/3d/box-opening-commenting-anno",
+                  "type": "Annotation",
+                  "motivation": ["commenting"],
+                  "body": [
+                    {
+                      "type": "TextualBody",
+                      "value": "Click the box to open the lid"
+                    }
+                  ],
+                  "target": [
+                    {
+                      "id": "https://example.org/iiif/3d/painting-anno-for-music-box",
+                      "type": "Annotation"
+                    }
+                  ]
+                }
+                {
+                  "id": "https://example.org/iiif/3d/box-opening-activating-anno",
+                  "type": "Annotation",
+                  "motivation": ["activating"],
+                  "target": [
+                    {
+                      "id": "https://example.org/iiif/3d/box-opening-commenting-anno",
+                      "type": "Annotation"
+                    }
+                  ],
+                  "body": [
+                    {
+                      "type": "SpecificResource",
+                      "source": "https://example.org/iiif/3d/painting-anno-for-music-box",
+                      "selector": [
+                        {
+                          "type": "AnimationSelector",
+                          "value": "open-the-lid"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+
+### Modifying resource properties
+
+Many Scene interaction use cases can be accomplished using the `enables` and `disables` properties to toggle the `"behavior": ["hidden"]`, and/or using activating annotations with bodies that can be _activated_: the examples above show a Camera and then an Animation being activated. Models in the Scene can also be shown and hidden via these properties.
+
+> when to use enables and when to use the `body` of the activating anno - are they equivalent for, say, a hidden model: enable it, activate it - interchangeable?
+
+For some interactions it is necessary to do more than show or hide or "activate" resources, by changing just `"behavior": ["hidden"]`. Other properties can also be changed via the JSON Patch mechanism.
+
+> **This is a clear distinction like level0, level1 - a client can simply choose not to support arbitrary patching.**
+
+> Be clear that you still need to have all the patchable resources present from the start, you can't pull them in later.
+
+In the following simple example, the background color of the Scene is changed:
+
+
+```jsonc
+{
+  "id": "https://example.org/iiif/3d/property-change.json",
+  "type": "Manifest",
+  "label": { "en": ["Whale Mandible"] },
+  "items": [
+    {
+      "id": "https://example.org/iiif/scene1/scene-with-color-change",
+      "type": "Scene",
+      "label": { "en": ["A Scene Containing a Whale Mandible"] },
       "items": [
         {
           "id": "https://example.org/iiif/scene1/page/p1/1",
@@ -2070,9 +2227,7 @@ The activating annotation is provided in a Container's `annotations` property. I
                 "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/whale/whale_mandible.glb",
                 "type": "Model"
               },
-              "target": {
-                // SpecificResource with PointSelector
-              }
+              "target": "https://example.org/iiif/scene1/scene-with-color-change"
             }
           ],
           "annotations": [
@@ -2081,142 +2236,41 @@ The activating annotation is provided in a Container's `annotations` property. I
               "type": "AnnotationPage",
               "items": [
                 {
-                  "id": "https://example.org/iiif/3d/anno2",
+                  "id": "https://example.org/iiif/3d/color-change-commenting-anno",
                   "type": "Annotation",
-                  "motivation": ["activating"],
+                  "motivation": ["commenting"],
                   "body": [
                     {
                       "type": "TextualBody",
-                      "value": "A label for the activation may be provided as a TextualBody"
-                    },
-                    {
-                      // A body where the type is a IIIF Resource (eg Scene) is the Content State to apply
-                      "id": "https://example.org/iiif/scene1/scene-with-activation",
-                      "type": "Scene",
-                      "backgroundColor": "#FF99AA"
-                    }
-                  ],
-                  "target": {
-                    "id": "https://example.org/iiif/3d/painting-anno-for-mandible",
-                    "type": "Annotation"
-                  }
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    }
-  ]
-}
-```
-
-
-
-```json
-{
-  "items": [
-    {
-      "id": "https://example.org/iiif/3d/anno2",
-      "type": "Annotation",
-      "motivation": ["activating"],
-      "body": [
-        {
-          "type": "TextualBody",
-          "value": "A label for the activation may be provided as a TextualBody"
-        }
-      ],
-      "target": {
-        "source": {
-          "id": "https://example.org/iiif/3d/painting-anno-for-mandible",
-          "type": "Annotation"
-        },
-        "scope": {
-          "type": "Annotation",
-          "motivation": ["contentState"],
-          "target": {
-            // A body where the type is a IIIF Resource (eg Scene) is the Content State to apply
-            "id": "https://example.org/iiif/scene1/scene-with-activation",
-            "type": "Scene",
-            "backgroundColor": "#FF99AA"
-          }
-        }
-      }
-    }
-  ]
-}
-```
-
-// Can you put activating annotations in `manifest.annotations`? They would work there too, you have all the information.
-
-
-
-### Triggering a named animation in a model
-
-> toggles: anno supplies the label. This anno's `toggles` property lists id of an activating anno that activates the animation.
-
-Sometimes a model file has inbuilt animations. While a description of these is outside the scope of IIIF, because it is 3D-implementation-specific, as long as there is a way to refer to a model's animation(s) by name, we can connect the animation to IIIF resources.
-
-This pattern is similar to the above, except that:
-
- - There is no Content State in the `body`, but there _MUST_ be a TextualBody to label the interaction. (?? must?)
- - The `target` selects a _named animation_ in the model. The `target` MUST be a SpecificResource, where the `source` is the Painting Annotation that paints the model, and the `selector` is of type `AnimationSelector` with the `value` being a string that corresponds to the animation in the model.
-
- The format of the `value` string is implementation-specific, and will depend on how different 3D formats support addressing of animations within models. The same model can be painted multiple times into the scene, and you might want to activate only one model's animation, thus we need to refer to the annotation that paints the model, not the model directly.
-
-
-
-```jsonc
-{
-  "id": "https://example.org/iiif/3d/activating-animation.json",
-  "type": "Manifest",
-  "label": { "en": ["Music Box with lid that opens as an internal animation"] },
-  "items": [
-    {
-      "id": "https://example.org/iiif/scene1/scene-with-activation-animation",
-      "type": "Scene",
-      "label": { "en": ["A Scene Containing a Music Box"] },
-      "items": [
-        {
-          "id": "https://example.org/iiif/scene-with-activation-animation/page/p1/1",
-          "type": "AnnotationPage",
-          "items": [
-            {
-              "id": "https://example.org/iiif/3d/painting-anno-for-music-box",
-              "type": "Annotation",
-              "motivation": ["painting"],
-              "body": {
-                "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/music-box.glb",
-                "type": "Model"
-              },
-              "target": {
-                // SpecificResource with PointSelector
-              }
-            }
-          ],
-          "annotations": [
-            {
-              "id": "https://example.org/iiif/scene1/page/activators",
-              "type": "AnnotationPage",
-              "items": [
-                {
-                  "id": "https://example.org/iiif/3d/box-opening-activating-anno",
-                  "type": "Annotation",
-                  "motivation": ["activating"],
-                  "body": [
-                    {
-                      "type": "TextualBody",
-                      "value": "Click the box to open the lid"
+                      "value": "Change the background color"
                     }
                   ],
                   "target": [
                     {
-                      "type": "SpecificResource",
-                      "source": "https://example.org/iiif/3d/painting-anno-for-music-box",
-                      "selector": [
+                      "id": "https://example.org/iiif/3d/painting-anno-for-mandible", // or the Scene?
+                      "type": "Annotation"
+                    }
+                  ]
+                }
+                {
+                  "id": "https://example.org/iiif/3d/color-change-activating-anno",
+                  "type": "Annotation",
+                  "motivation": ["activating"],
+                  "target": [
+                    {
+                      "id": "https://example.org/iiif/3d/color-change-commenting-anno",
+                      "type": "Annotation"
+                    }
+                  ],
+                  "body": [
+                    {
+                      "type": "JSONPatch",
+                      "patchTarget":  "https://example.org/iiif/scene1/scene-with-color-change",
+                      "value": [
                         {
-                        "type": "AnimationSelector",
-                        "value": "open-the-lid"
+                            "op": "replace",
+                            "path": "/backgroundColor",
+                            "value": "#FF99AA"
                         }
                       ]
                     }
@@ -2232,152 +2286,20 @@ This pattern is similar to the above, except that:
 }
 ```
 
-> Toggles example
 
-```json
-{
-  "id": "https://example.org/iiif/3d/activating-animation.json",
-  "type": "Manifest",
-  "label": { "en": ["Music Box with lid that opens as an internal animation"] },
-  "items": [
-    {
-      "id": "https://example.org/iiif/scene1/scene-with-activation-animation",
-      "type": "Scene",
-      "label": { "en": ["A Scene Containing a Music Box"] },
-      "items": [
-        {
-          "id": "https://example.org/iiif/scene-with-activation-animation/page/p1/1",
-          "type": "AnnotationPage",
-          "items": [
-            {
-              "id": "https://example.org/iiif/3d/painting-anno-for-music-box",
-              "type": "Annotation",
-              "motivation": ["painting"],
-              "body": {
-                "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/music-box.glb",
-                "type": "Model"
-              },
-              "target": {
-                // SpecificResource with PointSelector
-              },
-              "toggles": [
-                // Clicking the box opens the lid
-                "https://example.org/iiif/3d/activating-anno-for-music-box"
-              ]
-            }
-          ],
-          "annotations": [
-            {
-              "id": "https://example.org/iiif/scene1/page/activators",
-              "type": "AnnotationPage",
-              "items": [
-                {
-                  "id": "https://example.org/iiif/3d/activation-labelling-anno",
-                  "type": "Annotation",
-                  "motivation": ["commenting-maybe"],
-                  "body": [
-                    {
-                      "type": "TextualBody",
-                      "value": "Click me to open the lid of the box"
-                    }
-                  ],
-                  "toggles": [
-                    // clicking the 'Click me' opens the lid
-                    "https://example.org/iiif/3d/activating-anno-for-music-box"
-                  ],
-                  "target": [ 
-                    "https://example.org/iiif/3d/painting-anno-for-music-box" 
-                  ]
-                },
-                {
-                  "id": "https://example.org/iiif/3d/activating-anno-for-music-box",
-                  "type": "Annotation",
-                  "motivation": ["activating"],
-                  "body": [
-                    {
-                      "type": "TextualBody",
-                      "value": "Click me to open the lid of the box"
-                    }
-                  ],
-                  "target": {
-                    "type": "SpecificResource",
-                    "source": "https://example.org/iiif/3d/painting-anno-for-music-box",
-                    "selector": [
-                      {
-                        "type": "AnimationSelector",
-                        "value": "open-the-lid"
-                      }
-                    ],
-                    "refinedBy": [
-                      // fragment time selector
-                    ]
-                  }
-                }
-              ]
-            }
-          ]
-        }
+## The `sequence` behavior
+
+While all AnnotationPage `items` are inherently ordered, an Annotation Page with the `behavior` "sequence" is explicitly a narrative, and clients should prevent (dissuade) users from jumping about - the annotations, and the effects of them _activating_ other contents of the Container, are intended to be experienced in order and individually. Normally, a client might display all the comments in an AnnotationPage in a sidebar so they are all visible in the UI, but for an AnnotationPage with `behavior` "sequence" only show the currently active annotation text, and next and previous UI.
 
 
+## Chains of activation
 
+Chaining together activating annotations can then allow the implementation of, at least:
 
-            {
-              "id": "https://example.org/iiif/scene1/page/activators",
-              "type": "AnnotationPage",
-              "items": [
-                {
-                  "id": "https://example.org/iiif/3d/box-opening-activating-anno",
-                  "type": "Annotation",
-                  "motivation": ["activating"],
-                  "body": [
-                    {
-                      "type": "TextualBody",
-                      "value": "Click the box to open the lid"
-                    }
-                  ],
-                  "target": [
-                    {
-                      "type": "SpecificResource",
-                      "source": "https://example.org/iiif/3d/painting-anno-for-music-box",
-                      "selector": [
-                        {
-                        "type": "AnimationSelector",
-                        "value": "open-the-lid"
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    }
-  ]
-}
-
-
-```
-
-// TODO
-
-activating to apply a content state and activating to trigger a named animation - use of body and target... what if we want to click a painting anno to trigger the animation?
-Can we ADD that to the target, alongside the SpecificResource with the AnimationSelector?
-
-if the `target` is an AnimationSelector, then the `body` can ONLY be TextualBody (or list of TextualBody)?
-
-There is a more general rule here!
-
-## reset
-
-See above...
-
-
-
-
-
-
+* Specific camera position to look at an Annotation
+* Multi-step linear stories
+* Animations, including as part of stories without disrupting the flow, and looping animations (they activate themselves)
+* Interactive components such as light switches (enable/disable a light), jukeboxes (enable/disable Audio Emitter)
 
 
 
