@@ -84,7 +84,7 @@ The Presentation API data model intentionally does not include any semantic or d
 ## Technical Considerations
 {: #json-considerations}
 
-This section describes features applicable to all of the Presentation API content.
+This section describes features applicable to all of the classes, properties and affordances of the Presentation API.
 
 ### Terminology
 {: #terminology}
@@ -178,7 +178,7 @@ Clients _SHOULD_ allow only `a`, `b`, `br`, `div`, `i`, `img`, `p`, `small`, `sp
 { "summary": { "en": [ "<p>Short <b>summary</b> of the resource.</p>" ] } }
 ```
 
-### JSON Description Availability
+### Resource Availability on the Web
 
 JSON descriptions _SHOULD_ be embedded within the JSON of parent resources, and _MAY_ also be available via separate requests from the HTTP(S) URI given in the resource's `id` property. Links to Content Resources _MUST_ be given as a JSON object with the `id` and `type` properties and _SHOULD_ have `format` or `profile` to give a hint as to what sort of resource is being referred to.
 
@@ -203,7 +203,7 @@ The following sub-sections define the classes used in the IIIF Presentation Data
 The name of each class is given at the top of its definition below. The exact string _MUST_ be used as the value of `type` in the JSON for the class.
 
 __Properties__<br>
-All resources _MUST_ have the following properties: [id](#id), and [type](#type).
+All resources _MUST_ have the following property: [type](#type).
 {: .note}
 
 ### Collection
@@ -399,9 +399,9 @@ A Specific Resource is a resource in the context of an Annotation. They are used
 A Specific Resource _MUST_ have an HTTP(S) URI given in `id`. This allows for it to be addressed by other parts of the model, such as Content State Annotations.
 
 __Properties__<br/>
-A Specific Resource _MUST_ have the following properties: [type](#type), [source](#source)<br/><br/>
+A Specific Resource _MUST_ have the following properties: [id](#id), [type](#type), [source](#source)<br/><br/>
 A Specific Resource _SHOULD_ have the following properties: [selector](#selector)<br/><br/>
-A Specific Resource _MAY_ have the following properties: [id](#id), [position](#position), [transform](#transform), [scope](#scope), [styleClass](#styleClass), [height](#height), [width](#width), [duration](#duration), [language](#language), [label](#label), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [canonical](#canonical), [via](#via), and [annotations](#annotations).<br/><br/>
+A Specific Resource _MAY_ have the following properties: [position](#position), [transform](#transform), [scope](#scope), [styleClass](#styleClass), [height](#height), [width](#width), [duration](#duration), [language](#language), [label](#label), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [canonical](#canonical), [via](#via), and [annotations](#annotations).<br/><br/>
 {: .note}
 
 #### Textual Body
@@ -496,10 +496,10 @@ A Point Selector _MAY_ have the following properties: [id](#id), [x](#x), [y](#y
 
 Well-known text, or WKT, is an ISO standard method for describing 2 and 3 dimensional geometries. This selector thus goes beyond what the Web Annotation's SvgSelector enables by incorporating the z axis, as well as additional types of selection such as MULTIPOLYGON. Additional types, such as CIRCULARSTRING may also be supported.
 
-The text representation is given in the `value` property of the selector.
+The text representation is given in the `wktLiteral` property of the selector.
 
 __Properties__<br/>
-A WKT Selector _MUST_ have the following properties: [type](#type), and [value](#value).<br/><br/>
+A WKT Selector _MUST_ have the following properties: [type](#type), and [wktLiteral](#wktLiteral).<br/><br/>
 A WKT Selector _MAY_ have the following properties: [id](#id)
 {: .note}
 
@@ -507,7 +507,7 @@ A WKT Selector _MAY_ have the following properties: [id](#id)
 {
   "id": "https://example.org/selectors/2",
   "type": "WktSelector",
-  "value": "POLYGON Z (0 0 0, 10 0.5 3.2 10 5.0 0, 0 0 0)"
+  "wktLiteral": "POLYGON Z (0 0 0, 10 0.5 3.2 10 5.0 0, 0 0 0)"
 }
 ```
 
@@ -585,7 +585,10 @@ The Image API Selector has properties following the parameters from the API, and
 | rotation | "0"       | The string to put in the rotation parameter of the URI. Note that this must be a string in order to allow mirroring, for example "!90". |
 | quality  | "default" | The string to put in the quality parameter of the URI. |
 | format   | "jpg"     | The string to put in the format parameter of the URI.  Note that the '.' character is not part of the format, just the URI syntax.  |
+
+<!--
 {: .api-table}
+-->
 
 __Properties__<br/>
 A IIIF Image API Selector _MUST_ have the following properties: [type](#type).<br/><br/>
@@ -1082,7 +1085,7 @@ The value _MUST_ be a floating point number greater than 0 and less than 90, and
 ### annotations
 {: #annotations}
 
-An ordered list of Annotation Pages that contain commentary or other Annotations about this resource, separate from the Annotations that are used to paint content on to a Canvas. The `motivation` of the Annotations _MUST NOT_ be `painting`, and the target of the Annotations _MUST_ include this resource or part of it.
+An ordered list of Annotation Pages that contain commentary or other Annotations about this resource, separate from the Annotations that are used to paint content on to a Container. The `motivation` of the Annotations _MUST NOT_ be `painting`, and the target of the Annotations _MUST_ include this resource, part of it. or some resource within its `items` hierarchy.
 
 The value _MUST_ be an array of JSON objects. Each item _MUST_ have at least the `id` and `type` properties.
 
@@ -1151,8 +1154,6 @@ The value _MUST_ be an array of strings.
    Clients _SHOULD_ process `behavior` on any resource type.
 
 
-!!! Could continuous stitch together Timelines?
-
 TODO: Address https://github.com/IIIF/api/issues/2318
 
 | Value | Description |
@@ -1191,10 +1192,40 @@ TODO: Address https://github.com/IIIF/api/issues/2318
 ### body
 {: #body}
 
+The list of bodies of an Annotation. As there _MAY_ be more than one body, the value _MUST_ be an array, even though the W3C specification does not require this. The resources listed in `body` can be instances of `TextualBody`, `SpecificResource`, core Structural Resources, or Content Resources.
 
+Some Annotations do not have bodies at all. For example a highlighting annotation only needs to visually highlight the region targeted. Note that use of the W3C `bodyValue` property is prohibited in IIIF, and the `TextualBody` class _MUST_ be used instead.
+
+For more information about Annotation bodies, see the [W3C Annotation Model](https://www.w3.org/TR/annotation-model/#bodies-and-targets).
+
+The value _MUST_ be an array of JSON objects.
+
+* An Annotation _SHOULD_ have the `body` property.<br/>
+  Clients _MUST_ process the `body` property on Annotations.
+
+{% include api/code_header.html %}
+``` json-doc
+{ "body": [ {"type": "TextualBody", "value": "Great!"} ] }
+```
 
 ### canonical
 {: #canonical}
+
+The URI that SHOULD be used to track the resource's identity, regardless of where it is made accessible or its `id` property. The canonical URI can then be used as the target for annotations, regardless of the URI from which it was retrieved. If this property is set, then clients _MUST NOT_ change or delete it. Clients _MUST NOT_ assign a canonical URI if one is not present, as the resource might already have one assigned by a different system but it was not included in the representation received. Any reference to the `canonical` URI _MUST_ be treated as a reference to this resource.
+
+As the W3C model allows the property to be used on bodies and targets, and any resource _MAY_ be a body or target of an Annotation, this property _MAY_ be used on any resource in the IIIF specifications.
+
+For more information about `canonical`, see the [W3C Annotation Model](https://www.w3.org/TR/annotation-model/#other-identities).
+
+The value _MUST_ be a string, and the value must be an absolute HTTP(S) URI.
+
+* Any resource _MAY_ have the `canonical` property.
+  Clients _MAY_ process the `canonical` property on any resource.
+
+{% include api/code_header.html %}
+``` json-doc
+{ "canonical": "https://example.org/annotations/123569" }
+```
 
 
 ### color
@@ -1298,12 +1329,14 @@ The value _MUST_ be a positive integer.
 ### first
 {: #first}
 
-This property references the first Annotation Page within an Annotation Collection.
+This property references the first Annotation Page within an Annotation Collection, or the first CollectionPage within a Collection. Note that Collections will only have the `first` property if there is a large number of items, more than could conveniently be included in a single page.
 
-The value _MUST_ be a JSON object with `id` and `type` properties.   The `id` _MUST_ be the HTTP(S) URI of the referenced Annotation Page.  The value of `type` _MUST_ be `AnnotationPage`.
+The value _MUST_ be a JSON object with `id` and `type` properties.   The `id` _MUST_ be the HTTP(S) URI of the referenced Annotation or Collection Page.  The value of `type` _MUST_ be `AnnotationPage` or `CollectionPage`.
 
 * A non-empty AnnotationCollection _MUST_ have the `first` property.<br/>
   Clients _MUST_ process the `first` property on an AnnotationCollection.
+* A non-empty Collection _MAY_ have the `first` property.<br/>
+  Clients _MUST_ process the `first` property on a Collection.
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -1319,21 +1352,33 @@ The value _MUST_ be a JSON object with `id` and `type` properties.   The `id` _M
 ### format
 {: #format}
 
-The specific media type (often called a MIME type) for a content resource, for example `image/jpeg`. This is important for distinguishing different formats of the same overall type of resource, such as distinguishing text in XML from plain text.
+For Content resources, the `format` property records the specific media type (often called a MIME type) for a content resource, for example `image/jpeg`. This is important for distinguishing different formats of the same overall type of resource, such as distinguishing text in XML from plain text. The value of the property should thus be the same as the value of the `Content-Type` header returned when the URI of the Content Resource is dereferenced.
 
-Note that this is different to the `formats` property in the [Image API][image-api], which gives the extension to use within that API. It would be inappropriate to use in this case, as `format` can be used with any content resource, not just images.
+For the IIIF Image API Selector class however, the value of `format` is the parameter to use in the Image API URL construction, and thus to request a jpeg image, the value would be `jpg` instead.
 
-The value _MUST_ be a string, and it _SHOULD_ be the value of the `Content-Type` header returned when the resource is dereferenced.
+The value _MUST_ be a string, and _SHOULD_ either be a valid media type or an image extension format valid for the IIIF Image Api.
 
  * A content resource _SHOULD_ have the `format` property.<br/>
    Clients _MAY_ render the `format` of any content resource.
+ * A IIIF Image API Selector class _SHOULD_ have the `format` property.<br/>
+   Clients _MUST_ process the `format` property on a IIIF Image API Selector.
  * Other types of resource _MUST NOT_ have the `format` property.<br/>
    Clients _SHOULD_ ignore `format` on other types of resource.
 
+
+For a Content Resource:
 {% include api/code_header.html %}
 ``` json-doc
 { "format": "application/xml" }
 ```
+
+For a IIIF Image API Selector:
+{% include api/code_header.html %}
+``` json-doc
+{ "format": "jpg" }
+```
+
+
 ### height
 {: #height}
 
@@ -1360,7 +1405,7 @@ A web page that is about the object represented by the resource that has the `ho
 The value of this property _MUST_ be an array of JSON objects, each of which _MUST_ have the `id`, `type`, and `label` properties, _SHOULD_ have a `format` property, and _MAY_ have the `language` property.
 
  * Any resource type _MAY_ have the `homepage` property.<br/>
-   Clients _SHOULD_ render `homepage` on a Collection, Manifest or Canvas, and _MAY_ render `homepage` on other types of resource.
+   Clients _SHOULD_ render `homepage` on a Collection, Manifest or Container, and _MAY_ render `homepage` on other types of resource.
 
 __Model Alignment__<br/>
 Please note that this specification has stricter requirements about the JSON pattern used for the `homepage` property than the [Web Annotation Data Model][org-w3c-webanno]. The IIIF requirements are compatible, but the home page of an Agent found might have only a URI, or might be a JSON object with other properties. See the section on [collisions between contexts][prezi30-context-collisions] for more information.
@@ -1384,7 +1429,7 @@ Please note that this specification has stricter requirements about the JSON pat
 ### id
 {: #id}
 
-The URI that identifies the resource. If the resource is only available embedded within another resource (see the [terminology section][prezi30-terminology] for an explanation of "embedded"), such as a Range within a Manifest, then the URI _MAY_ be the URI of the embedding resource with a unique fragment on the end. This is not true for Canvases, which _MUST_ have their own URI without a fragment.
+The URI that identifies the resource. If the resource is only available embedded within another resource (see the [terminology section][prezi30-terminology] for an explanation of "embedded"), such as a Range within a Manifest, then the URI _MAY_ be the URI of the embedding resource with a unique fragment on the end. This is not true for Containers, which _MUST_ have their own URI without a fragment.
 
 The value _MUST_ be a string, and the value _MUST_ be an absolute HTTP(S) URI for resource classes defined or described in this specification. If the resource is retrievable via HTTP(S), then the URI _MUST_ be the URI at which it is published. External resources, such as profiles, _MAY_ have non-HTTP(S) URIs defined by other communities.
 
@@ -1393,7 +1438,7 @@ The existence of an HTTP(S) URI in the `id` property does not mean that the URI 
 If a publisher wishes for a resource be able to be referenced, such as in an Annotation, then the resource _MUST_ have an `id` property.
 
  * Collections, Collection Pages, Manifests, Timelines, Canvases, Scenes, Annotations, Annotation Pages, Annotation Collections, Ranges, Content Resources, and Services _MUST_ have the `id` property.<br/>
-   Clients _MAY_ render `id` on any resource type, and _SHOULD_ render `id` on Collections, Manifests and Canvases.
+   Clients _MAY_ render `id` on any resource type, and _SHOULD_ render `id` on Collections, Manifests and Containers.
  * All other resources _MAY_ have the `id` property.<br/>
    Clients _MAY_ render `id` on any resource type.
 
@@ -1479,10 +1524,10 @@ The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id` and
 
  * A Collection _MUST_ have the `items` property. Each item _MUST_ be either a Collection or a Manifest.<br/>
    Clients _MUST_ process `items` on a Collection.
- * A Manifest _MUST_ have the `items` property with at least one item. Each item _MUST_ be a Canvas.<br/>
+ * A Manifest _MUST_ have the `items` property with at least one item. Each item _MUST_ be a Container.<br/>
    Clients _MUST_ process `items` on a Manifest.
- * A Canvas _SHOULD_ have the `items` property with at least one item. Each item _MUST_ be an Annotation Page.<br/>
-   Clients _MUST_ process `items` on a Canvas.
+ * A Container _SHOULD_ have the `items` property with at least one item. Each item _MUST_ be an Annotation Page.<br/>
+   Clients _MUST_ process `items` on a Container.
  * An Annotation Page _SHOULD_ have the `items` property with at least one item. Each item _MUST_ be an Annotation.<br/>
    Clients _MUST_ process `items` on an Annotation Page.
  * A Range _MUST_ have the `items` property with at least one item. Each item _MUST_ be a Range, a Canvas or a Specific Resource where the source is a Canvas.<br/>
@@ -1552,12 +1597,14 @@ The value _MUST_ be an array of strings. Each item in the array _MUST_ be a vali
 ### last
 {: #last}
 
-This property references the last Annotation Page within an Annotation Collection.
+This property references the last Annotation Page within an Annotation Collection, or last Collection Page within a Collection.
 
-The value _MUST_ be a JSON object with `id` and `type` properties.   The `id` _MUST_ be the HTTP(S) URI of the referenced Annotation Page.  The value of `type` _MUST_ be `AnnotationPage`.
+The value _MUST_ be a JSON object with `id` and `type` properties.   The `id` _MUST_ be the HTTP(S) URI of the referenced Annotation or Collection Page.  The value of `type` _MUST_ be `AnnotationPage` or `CollectionPage`.
 
 * A non-empty AnnotationCollection _SHOULD_ have the `last` property.<br/>
   Clients _SHOULD_ process the `last` property on an AnnotationCollection.
+* A non-empty Collection _MAY_ have the `last` property.<br/>
+  Clients _MAY_ process the `last` property on a Collection.
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -1741,12 +1788,12 @@ The value is a non-negative floating point number, in the coordinate space of th
 ### next
 {: #next}
 
-A reference from an Annotation Page to the following Annotation Page within an Annotation Collection.
+A reference from an Annotation Page to the following Annotation Page within an Annotation Collection, or from a Collection Page to the following Collection Page.
 
-The value must be a JSON object, with the `id` and `type` properties. The value of the `id` property must be a string, and must be the HTTP(S) URI of the following Annotation Page. The value of the `type` property must be the string `AnnotationPage`.
+The value must be a JSON object, with the `id` and `type` properties. The value of the `id` property must be a string, and must be the HTTP(S) URI of the following Annotation or Collection Page. The value of the `type` property must be the string `AnnotationPage` or `CollectionPage`.
 
-* An AnnotationPage _MUST_ have the `next` property, unless it is the last page in the AnnotationCollection.<br/>
-  Clients _MUST_ processs the `next` property on an AnnotationPage.
+* An AnnotationPage _MUST_ have the `next` property, unless it is the last page in the AnnotationCollection or Collection.<br/>
+  Clients _MUST_ processs the `next` property on an AnnotationPage or CollectionPage.
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -1839,12 +1886,14 @@ The value of this property _MUST_ be a JSON object conforming to the `SpecificRe
 ### prev
 {: #prev}
 
-A reference from an Annotation Page to the preceding Annotation Page within an Annotation Collection.
+A reference from an Annotation Page to the preceding Annotation Page within an Annotation Collection, or from a Collection Page to the preceding Collection Page.
 
-The value must be a JSON object, with the `id` and `type` properties. The value of the `id` property must be a string, and must be the HTTP(S) URI of the preceding Annotation Page. The value of the `type` property must be the string `AnnotationPage`.
+The value must be a JSON object, with the `id` and `type` properties. The value of the `id` property must be a string, and must be the HTTP(S) URI of the preceding Annotation or Collection Page. The value of the `type` property must be the string `AnnotationPage` or `CollectionPage`.
 
 * An AnnotationPage _SHOULD_ have the `prev` property, unless it is the first page in the AnnotationCollection.<br/>
   Clients _SHOULD_ processs the `prev` property on an AnnotationPage.
+* A CollectionPage _SHOULD_ have the `prev` property, unless it is the first page in the Collection.<br/>
+  Clients _SHOULD_ processs the `prev` property on a CollectionPage.
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -1872,6 +1921,7 @@ The value _MUST_ be a string, either taken from the [profiles registry][registry
 ``` json-doc
 { "profile": "https://example.org/profile/statuary" }
 ```
+
 ### provider
 {: #provider}
 
@@ -1965,6 +2015,38 @@ Note that the majority of the values have been selected from [accessibility feat
 { "provides": [ "closedCaption" ] }
 ```
 
+### quality
+{: #quality}
+
+The value of the quality parameter in the IIIF Image API URL structure, as recorded in an Image API Selector.
+
+* The IIIF Image API Selector _MAY_ have the `quality` property with exactly one value.<br/>
+  Clients _MUST_ process the `quality` property on a IIIF Image API Selector.
+* Other types of resource _MUST NOT_ have the `quality` property.<br/>
+  Clients _MUST_ ignore the `quality` property on other types of resource.
+
+{% include api/code_header.html %}
+``` json-doc
+{ "quality": "default" }
+```
+
+
+### region
+{: #region}
+
+The value of the region parameter in the IIIF Image API URL structure, as recorded in an Image API Selector.
+
+* The IIIF Image API Selector _MAY_ have the `region` property with exactly one value.<br/>
+  Clients _MUST_ process the `region` property on a IIIF Image API Selector.
+* Other types of resource _MUST NOT_ have the `region` property.<br/>
+  Clients _MUST_ ignore the `region` property on other types of resource.
+
+{% include api/code_header.html %}
+``` json-doc
+{ "region": "full" }
+```
+
+
 ### rendering
 {: #rendering}
 
@@ -2029,6 +2111,22 @@ The value _MUST_ be a string. If the value is drawn from Creative Commons or Rig
 __Machine actionable URIs and links for users__<br/>
 The machine actionable URIs for both Creative Commons licenses and RightsStatements.org right statements are `http` URIs. In both cases, human readable descriptions are available from equivalent `https` URIs. Clients may wish to rewrite links presented to users to use these equivalent `https` URIs.
 {: .note}
+
+
+### rotation
+{: #rotation}
+
+The value of the rotation parameter in the IIIF Image API URL structure, as recorded in an Image API Selector. Note well that the value _MUST_ be a string, not a number, in order to allow for the "!" character which indicates a mirror image.
+
+* The IIIF Image API Selector _MAY_ have the `rotation` property with exactly one value.<br/>
+  Clients _MUST_ process the `rotation` property on a IIIF Image API Selector.
+* Other types of resource _MUST NOT_ have the `rotation` property.<br/>
+  Clients _MUST_ ignore the `rotation` property on other types of resource.
+
+{% include api/code_header.html %}
+``` json-doc
+{ "rotation": "0" }
+```
 
 ### seeAlso
 {: #seeAlso}
@@ -2146,14 +2244,33 @@ The value _MUST_ be an array of JSON objects. Each object _MUST_ be a service re
 }
 ```
 
+### size
+{: #size}
+
+The value of the size parameter in the IIIF Image API URL structure, as recorded in an Image API Selector.
+
+* The IIIF Image API Selector _MAY_ have the `size` property with exactly one value.<br/>
+  Clients _MUST_ process the `size` property on a IIIF Image API Selector.
+* Other types of resource _MUST NOT_ have the `size` property.<br/>
+  Clients _MUST_ ignore the `size` property on other types of resource.
+
+{% include api/code_header.html %}
+``` json-doc
+{ "size": "max" }
+```
+
 ### source
 {: #source}
+
+SpecificResource
+
+FIXME: import from WADM
 
 
 ### spatialScale
 {: #spatialScale}
 
-A single UnitValue that defines a real-world scale factor for the coordinate units of a Canvas or Scene. For a Canvas, this defines the physical distance corresponding to the length of a single Canvas coordinate unit. A Canvas with a `width` of 5000 and a `spatialScale` with `value` 0.00008 represents a physical space 0.4 meters wide. For a Scene, this defines the physical distance corresponding to the XYZ coordinate units, or in other words, the physical distance length of a unit vector in the 3D coordinate space. The value of `unit` _MUST_ be a length unit. In this specification, the only length unit defined is `m`, i.e., meters. Unless other values are defined externally as an [extension][prezi30-ldce], the value of `unit` _SHOULD_ always be `m`.
+A single UnitValue that defines a real-world scale factor for the coordinate units of a Canvas or Scene. For a Canvas, this defines the physical distance corresponding to the length of a single Canvas coordinate unit. A Canvas with a `width` of 5000 and a `spatialScale` with `quantity` 0.00008 represents a physical space 0.4 meters wide. For a Scene, this defines the physical distance corresponding to the XYZ coordinate units, or in other words, the physical distance length of a unit vector in the 3D coordinate space. The value of `unit` _MUST_ be a length unit. In this specification, the only length unit defined is `m`, i.e., meters. Unless other values are defined externally as an [extension][prezi30-ldce], the value of `unit` _SHOULD_ always be `m`.
 
 To assert a `spatialScale` for a Content Resource, the resource _MUST_ first be painted into a Container and the `spatialScale` is asserted on that Container. For example, a 3d model would be painted into a Scene, and then `spatialScale` is asserted on the Scene.
 
@@ -2163,7 +2280,7 @@ To assert a `spatialScale` for a Content Resource, the resource _MUST_ first be 
   "type": "Scene",
   "spatialScale": {
     "type": "UnitValue",
-    "value": 22.0,
+    "quantity": 22.0,
     "unit": "m"
   }
 }
@@ -2177,11 +2294,11 @@ To assert a `spatialScale` for a Content Resource, the resource _MUST_ first be 
 ### start
 {: #start}
 
-A Canvas, or part of a Canvas, which the client _SHOULD_ show on initialization for the resource that has the `start` property. The reference to part of a Canvas is handled in the same way that Ranges reference parts of Canvases by using either a Canvas URI, a Canvas URI with a fragment in the URI, or a SpecificResource with a Selector. This property allows the client to begin with the first Canvas that contains interesting content rather than requiring the user to manually navigate to find it.
+A Container, or part of a Container, which the client _SHOULD_ show on initialization for the resource that has the `start` property. The reference to part of a Container is handled in the same way that Ranges reference parts of Containers by using either its URI, a URI with a fragment specifier, or a SpecificResource with a Selector. This property allows the client to begin with the first Container that contains interesting content rather than requiring the user to manually navigate to find it.
 
-If the resource with the `start` property is a Collection, then the Canvas (or SpecificResource) _MUST_ have the `partOf` property refering to the Manifest that it is part of, such that the client can retrieve it.
+If the resource with the `start` property is a Collection, then the Container (or SpecificResource) _MUST_ have the `partOf` property referring to the Manifest that it is part of, such that the client can retrieve it.
 
-The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` properties.  The object _MUST_ be either a Canvas (as in the first example below), or a Specific Resource with a Selector and a `source` property where the value is a Canvas (as in the second example below).
+The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` properties.  The object _MUST_ be either a Container (as in the first example below), or a Specific Resource with a Selector and a `source` property where the value is a Canvas (as in the second example below).
 
  * A Collection _MAY_ have the `start` property.<br/>
    Clients _SHOULD_ process `start` on a Collection.
@@ -2215,6 +2332,7 @@ The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` propert
 ### startIndex
 {: #startIndex}
 
+FIXME
 
 
 ### structures
@@ -2245,9 +2363,12 @@ The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id` and
 ### styleClass
 {: #styleClass}
 
+FIXME: Import from WADM
+
 ### stylesheet
 {: #stylesheet}
 
+FIXME: Import from WADM
 
 ### summary
 {: #summary}
@@ -2290,12 +2411,14 @@ The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` propert
 ### target
 {: #target}
 
-...
+FIXME: Import from WADM
+
+
 
 ### temporalScale
 {: #temporalScale}
 
-A single UnitValue that defines a multiplier or scale factor for the `duration` property of a Container, indicating that one second in "Container time" represents some other real world duration. A Canvas with a `duration` of 450 seconds and a `temporalScale` with `value` 1000 represents a real-world duration of 450,000 seconds (5.2 days), for example a time-lapse video of a growing plant. The value of `unit` _MUST_ be a time unit. In this specification, the only time unit defined is `s`, i.e., seconds. Unless other values are defined externally as an [extension][prezi30-ldce], the value of `unit` _SHOULD_ always be `s`.
+A single UnitValue that defines a multiplier or scale factor for the `duration` property of a Container, indicating that one second in "Container time" represents some other real world duration. A Canvas with a `duration` of 450 seconds and a `temporalScale` with `quantity` 1000 represents a real-world duration of 450,000 seconds (5.2 days), for example a time-lapse video of a growing plant. The value of `unit` _MUST_ be a time unit. In this specification, the only time unit defined is `s`, i.e., seconds. Unless other values are defined externally as an [extension][prezi30-ldce], the value of `unit` _SHOULD_ always be `s`.
 
 To assert a `temporalScale` for a Content Resource, the resource _MUST_ first be painted into a Container with a `duration` and the `temporalScale` is asserted on that Container. For example, an Audio file is painted into a Timeline, and then `temporalScale` is asserted on the Timeline.
 
@@ -2305,7 +2428,7 @@ To assert a `temporalScale` for a Content Resource, the resource _MUST_ first be
   "type": "Canvas",
   "temporalScale": {
     "type": "UnitValue",
-    "value": 1000,
+    "quantity": 1000,
     "unit": "s"
   }
 }
@@ -2375,7 +2498,7 @@ The value _MUST_ be a string.
 ```
 
 
-### total
+### total (totalItems)
 {: #total}
 
 For compatability with ActivityStreams and the Change Discovery API, clients _SHOULD_ also accept `totalItems` as the name of this property.
@@ -2392,6 +2515,7 @@ The value of this property _MUST_ be a non-negative integer.
 ``` json-doc
 { "total": 1701 }
 ```
+
 
 ### transform
 {: #transform}
@@ -2494,7 +2618,7 @@ FIXME: string value!
 
 ### via
 
-
+FIXME: import from WADM
 
 
 ### viewingDirection
