@@ -49,8 +49,8 @@ pre.highlight code {
   font-size:1.4rem
 }
 
-.highlight .s2 { 
-  color: #a0f0f0 
+.highlight .s2 {
+  color: #a0f0f0
 }
 </style>
 
@@ -659,12 +659,12 @@ IIIF Collection with `behavior` "multi-part" that contains the individual "multi
     {
       "id": "https://example.org/iiif/periodical/multi-part-collection/v1.json",
       "type": "Collection",
-      "label": { "en": [ "The Tombstone Epitaph, 1880" ] } 
+      "label": { "en": [ "The Tombstone Epitaph, 1880" ] }
     },
     {
       "id": "https://example.org/iiif/periodical/multi-part-collection/v2.json",
       "type": "Collection",
-      "label": { "en": [ "The Tombstone Epitaph, 1881" ] } 
+      "label": { "en": [ "The Tombstone Epitaph, 1881" ] }
     },
     // Additional multi-part collections for each year/volume
   ]
@@ -787,7 +787,7 @@ Manifest for the October 27, 1881 issue, with Ranges for table of contents:
 
 >
 **Key Points**
-* 
+*
 {: .note}
 
 __Definitions__<br/>
@@ -904,7 +904,7 @@ This example is a Manifest with two Timelines, each of which represent a tempora
       "type": "AnnotationPage",
     }
   ]
-}  
+}
 ```
 
 
@@ -928,7 +928,7 @@ This example is a Manifest with two Timelines, each of which represent a tempora
       "target": "https://example.org/iiif/presentation/examples/manifest-with-audio/timeline/t1#t=3.5,6.8"
     }
   ],
-  // (annotations for the rest of the song lines) 
+  // (annotations for the rest of the song lines)
 }
 ```
 
@@ -1087,7 +1087,7 @@ The positive y axis points upwards, the positive x axis points to the right, and
 ## 3D Supporting Resources
 
 
-Constructs from the domain of 3D graphics are expressed in IIIF as Resources. They are associated with Scenes via Painting Annotations in the same manner as Content Resources. They aid in or enhance the rendering of Content Resources, especially in Scenes. 
+Constructs from the domain of 3D graphics are expressed in IIIF as Resources. They are associated with Scenes via Painting Annotations in the same manner as Content Resources. They aid in or enhance the rendering of Content Resources, especially in Scenes.
 
 ### Cameras
 
@@ -1165,7 +1165,7 @@ This example is a Manifest with a single Scene, with a single model of a space s
 
 ## Use Case 5a: Simple 3D Model in Configured Scene
 
-This example adds a Light and a Camera to the previous example, and places the model at a specific point rather than at the default origin position. 
+This example adds a Light and a Camera to the previous example, and places the model at a specific point rather than at the default origin position.
 
 Annotations may use a type of Selector called a `PointSelector` to align the Annotation to a point within the Scene that is not the Scene's origin. PointSelectors have three spatial properties, `x`, `y` and `z` which give the value on that axis. They also have a temporal property `instant` which can be used if the Scene has a duration, which gives the temporal point in seconds from the start of the duration, the use of which is defined in the [section on Scenes with Durations]().
 
@@ -1218,7 +1218,7 @@ The Light is green and has a position, but has its default orientation of lookin
                   }
                 ]
               }
-            },   
+            },
             {
               "id": "https://example.org/iiif/3d/anno2",
               "type": "Annotation",
@@ -1302,25 +1302,167 @@ Properties: [backgroundColor](#model/backgroundColor), [lookAt](#model/lookAt), 
 
 ## Use Case 6: Complex Scene
 
-Example Annotation that comments on a 3D polygon within a Scene:
+This example is a Manifest with a single Scene with multiple models painted into the Scene at specific positions with transforms applied. It represents a collection of chess game pieces with multiple pawns and a single queen. The example demonstrates painting multiple models into a Scene, including one Content Resource being painted into a Scene multiple times. Transforms and Point Selectors are used to establish position and scale for Annotations. Some external web resources referenced as Content Resources may include elements such as lights or audio that are undesirable within a Manifest, and the `exclude` property is used to prevent these from being rendered. The property `interactionMode` is used to guide clients in how to best guide or limit user interaction with rendered content.
 
+```jsonc
+{
+  "@context": "http://iiif.io/api/presentation/4/context.json",
+  "id": "https://example.org/iiif/3d/model_origin.json",
+  "type": "Manifest",
+  "label": { "en": ["Use Case 6: Complex Scene"] },
+  "items": [
+    {
+      "id": "https://example.org/iiif/scene1/page/p1/1",
+      "type": "Scene",
+      "label": { "en": ["Chess Game Pieces"] },
+      "interactionMode": ["hemisphere-orbit"],
+      "items": [
+        {
+          "id": "https://example.org/iiif/scene1/page/p1/1",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://example.org/iiif/3d/anno1",
+              "type": "Annotation",
+              "motivation": ["painting"],
+              "body": {
+                "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/chess/pawn.glb",
+                "label": {"en": ["Pawn 1"]},
+                "type": "Model",
+                "format": "model/gltf-binary"
+              },
+              "target": {
+                "type": "SpecificResource",
+                "source": {
+                  "id": "https://example.org/iiif/scene1/page/p1/1",
+                  "type": "Scene"
+                },
+                "selector": [
+                  {
+                    "type": "PointSelector",
+                    "x": 1.0,
+                    "y": 0.0,
+                    "z": 0.0
+                  }
+                ]
+              }
+            },
+            {
+              "id": "https://example.org/iiif/3d/anno1",
+              "type": "Annotation",
+              "motivation": ["painting"],
+              "body": {
+                "type": "SpecificResource",
+                "source": [
+                  {
+                    "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/chess/pawn.glb",
+                    "label": {"en": ["Pawn 2 tipped over"]},
+                    "type": "Model",
+                    "format": "model/gltf-binary"
+                  }
+                ],
+                "transform": [
+                  {
+                    "type": "RotateTransform",
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": -90.0
+                  },
+                  {
+                    "type": "Translate Transform",
+                    "x": 0.0,
+                    "y": 1.0,
+                    "z": 0.0
+                  }
+                ]
+              },
+              "target": {
+                "type": "SpecificResource",
+                "source": {
+                  "id": "https://example.org/iiif/scene1/page/p1/1",
+                  "type": "Scene"
+                },
+                "selector": [
+                  {
+                    "type": "PointSelector",
+                    "x": 2.0,
+                    "y": 0.0,
+                    "z": 3.0
+                  }
+                ]
+              }
+            },
+            {
+              "id": "https://example.org/iiif/3d/anno1",
+              "type": "Annotation",
+              "motivation": ["painting"],
+              "exclude": ["Audio", "Lights"],
+              "body": {
+                "type": "SpecificResource",
+                "source": [
+                  {
+                    "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/chess/queen.glb",
+                    "label": {"en": ["Queen"]},
+                    "type": "Model",
+                    "format": "model/gltf-binary"
+                  }
+                ],
+                "transform": [
+                  {
+                    "type": "ScaleTransform",
+                    "x": 1.5,
+                    "y": 1.5,
+                    "z": 1.5
+                  },
+                ]
+              },
+              "target": {
+                "type": "SpecificResource",
+                "source": {
+                  "id": "https://example.org/iiif/scene1/page/p1/1",
+                  "type": "Scene"
+                },
+                "selector": [
+                  {
+                    "type": "PointSelector",
+                    "x": 1.0,
+                    "y": 0.0,
+                    "z": 2.0
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
 ```
-Todo add example
-```
+
+>
+**Key Points**
+* Each Annotation is painted into the Scene at a different point via Point Selectors.
+* The second Annotation represents a pawn game piece that is tipped over, and Transforms are used to achieve this. RotateTransform is used to tip the pawn over and TranslateTransform is used to align the bottom of the pawn with the coordinate origin's XY plane.
+* The third Annotation represents a queen game piece that is scaled to be larger than the pawns using ScaleTransform.
+* The `exclude` property instructs clients not to import or render any external audio or light content present in the Content Resource for the queen game piece.
+* The `interactionMode` property instructs clients that, if possible, user interactions relating to orbiting the scene should be restricted to a hemisphere.
+{: .note}
+
+__Definitions__<br/>
+Classes: [Manifest](#model/Manifest), [Scene](#model/Scene), [Model](#model/Model), [SpecificResource](#model/SpecificResource), [PointSelector](#model/PointSelector), [RotateTransform](#model/RotateTransform), [TranslateTransform](#model/TranslateTransform), [ScaleTransform](#model/ScaleTransform)<br/><br/>
+Properties: [exclude](#model/exclude), [interactionMode](#model/interactionMode)
+{: .note}
+
+<!--
+
+Is this still needed or wanted here?
 
 ### Chessboard is a Canvas with image (not a 3D chessboard)
 
 A Scene or a Canvas may be treated as a content resource, referenced or described within the `body` of an Annotation. As with models and other resources, the Annotation is associated with a Scene into which the Scene or Canvas is to be nested through an Annotation `target`. The content resource Scene will be placed within the `target` Scene by aligning the coordinate origins of the two scenes. Alternately, Scene Annotations may use `PointSelector` to place the origin of the resource Scene at a specified coordinate within the `target` Scene.
 
-### More than one model
-
-### Transforms for scale and rotation
-
-### Exclude
-
-### interactionMode
-
-
+-->
 
 ## Use Case 7: Another Complex Scene
 
@@ -1471,7 +1613,7 @@ A Canvas in a Scene has a specific forward face and a backward face. By default,
 
 A `PointSelector` can be used to modify the point at which the Canvas will be painted, by establishing a new point to align with the top-left corner of the Canvas instead of the Scene coordinate origin. Transforms can also be used to modify Canvas rotation, scale, or translation.
 
-<!-- 
+<!--
 It may be desirable to exercise greater control over how the Canvas is painted into the Scene by selecting the coordinate points in the Scene that should correspond to each corner of the Canvas. This provides fine-grained manipulation of Canvas placement and/or scale, and for optionally introducing Canvas distortion or skew. Annotations may use a WktSelector to select different points in the Scene to align with the top-left, bottom-left, bottom-right, and top-right corners of the Canvas. In this case, the four Scene coordinates should be listed beginning with the coordinate corresponding to the top-left corner of the Canvas, and should proceed in a counter-clockwise winding order around the Canvas, with coordinates corresponding to bottom-left, bottom-right, and top-right corners in order respectively. The use of WktSelector for this purpose overrides any use of Transforms on the Canvas Annotation.
 
 Example placing top-left at (0, 1, 0); bottom-left at (0, 0, 0); bottom-right at (1, 0, 0); and top-right at (1, 1, 0):
@@ -1537,7 +1679,7 @@ Manifest
         AnnotationPage
           items
             Annotation
-```                     
+```
 
 
 ## Annotation Page
@@ -1560,7 +1702,7 @@ use totalItems? https://iiif.io/api/discovery/1.0/#totalitems
 
 > (examples are just the anno)
 
-### A comment about a segment of music 
+### A comment about a segment of music
 
 (targets Timeline)
 "Here begins the development of the second theme"
@@ -1779,7 +1921,7 @@ What to do about activating annos in the introduced content?
 
 # Interactivity and Storytelling
 
-Sometimes it is necessary to modify the contents of a Container in the contexts of different annotations on that Container. This technique allows IIIF to be used for _storytelling_ and other narrative applications beyond simply conveying a static Digital Object into a viewer and leaving subsequent interactions entirely in the control of the user. 
+Sometimes it is necessary to modify the contents of a Container in the contexts of different annotations on that Container. This technique allows IIIF to be used for _storytelling_ and other narrative applications beyond simply conveying a static Digital Object into a viewer and leaving subsequent interactions entirely in the control of the user.
 
 A narrative might comprise a set (an AnnotationPage) of `commenting` annotations that target different parts of the Container, for example a guided tour of a painting or a map. For a Canvas or Timeline it is usually sufficient to leave the interactivity to the client; the fact that comments target different extents implies the client must offer some affordance for those comments (typically the user can click each one), and in response the client will move the current play point of the Timeline to the commenting annotation target, or pan and zoom the viewport to show the relevant part of an image. For 3D this may not be enough; a particular comment may only make sense from a certain viewpoint (i.e., Camera), or different steps of the story require different Lights to be active.
 
@@ -1905,7 +2047,7 @@ Annotations with the motivation `activating` are referred to as _activating_ ann
 
 `target` variations
 
-- user "walks into a room" 
+- user "walks into a room"
 - AV scrub bar reaches time t1
 - user interacts with a model
 - user touches a face in a painting
