@@ -367,7 +367,7 @@ This example is a Manifest with one Canvas, representing an artwork. The content
 
 The unit integer coordinates of the Canvas (12000 x 9000) are not the same as the pixel dimensions of the JPEG image (4000 x 3000), but they are proportional - the Canvas has a 4:3 landscape aspect ratio, and so does the JPEG image.The `target` property of the Annotation is the Canvas `id`, unqualified by any particular region; this is taken to mean the content (the image) should fill the Canvas completely. As the Canvas and the image are the same aspect ratio, no distortion will occur. This approach allows the current image to be replaced by a higher resolution image in future, on the same Canvas. The Canvas dimensions establish a coordinate system for _painting annotations_ and other kinds of annotation that link content with the Canvas; they are not pixels of images.
 
-The example demonstrates the use of the common descriptive properties `label` for the title of the artwork, `metadata` for additional information to display to the user, `summary` for a brief description of the artwork, `rights` to assert a rights statement or license from a controlled vocabulary, `homepage` to link to the artwork's specific web page, `thumbnail` to provide a small image to stand for the Manifest, and `provider` to give information about the publisher of the Manifest.
+The example demonstrates the use of the common descriptive properties `label` for the title of the artwork, `metadata` for additional information to display to the user, `summary` for a brief description of the artwork, `rights` to assert a rights statement or license from a controlled vocabulary, `homepage` to link to the artwork's specific web page, `thumbnail` to provide a small image to stand for the Manifest, `provider` to give information about the publisher of the Manifest, and finally, `service` to specify a IIIF Image API service that provides features such as deep zooming, derivative generation, image fragment referencing, rotation, and more.
 
 ```jsonc
 {
@@ -447,14 +447,15 @@ The example demonstrates the use of the common descriptive properties `label` fo
               "type": "Annotation",
               "motivation": [ "painting" ],
               "body": {
-                "id": "https://iiif.io/api/presentation/example-content-resources/image/painting.jpg",
+                "id": "https://iiif.io/api/presentation/example/image/painting/full/max/0/default.jpg",
                 "type": "Image",
                 "format": "image/jpeg",
                 "width": 4000,
                 "height": 3000,
                 "service": [
                   {
-                    "id": "https://iiif.io/api/image/efjfpewjfpewjfoiewjf",
+                    "id": "https://iiif.io/api/presentation/example/image/painting",
+                    "profile": "level1",
                     "type": "imageService3",
                     // etc
                   }
@@ -480,20 +481,20 @@ The example demonstrates the use of the common descriptive properties `label` fo
 * The `metadata` label and value pairs are for display to the user rather than for machines to interpret.
 * The `rights` property is always a single string value which is a URI.
 * Any resource can have a `provider` property which a client can display to the user. This typically tells the user who the publisher is and how they might be contacted. The value of this property is an [Agent](model/#agent).
-* A Service is a software application that a client might interact with to gain additional information or functionality. The IIIF Image API in this example ia a Service, which provides deep zoom functionality. Images in IIIF do not have to have Image Services - the following examples don't.
+* The `service` property speficifies a software application that a client might interact with to gain additional information or functionality, in this case, the IIIF Image API. Images in IIIF do not require an Image Service---we have included one here as an example, but do not include a service in the following image examples for brevity.
 {: .note}
 
 !!! warning TODO: The above should be a green class rgb(244,252,239) to distinguish from properties
 
 __Definitions__<br/>
 Classes: [Manifest](#model/Manifest), [Canvas](#model/Canvas), [AnnotationPage](#model/AnnotationPage), [Annotation](#model/Annotation), [Agent](#model/Agent)<br/><br/>
-Properties: [id](#model/id), [type](#type), [label](#label), [metadata](#metadata), [summary](#summary), [rights](#rights), [homepage](#homepage), [thumbnail](#thumbnail), and [provider](#provider)
+Properties: [id](#model/id), [type](#model/type), [label](#model/label), [metadata](#modle/metadata), [summary](#modle/summary), [rights](#model/rights), [homepage](#model/homepage), [thumbnail](#model/thumbnail), [provider](#model/provider), and [service](#model/Service)
 {: .note}
 
 
 ## Use Case 2: Book
 
-This example is a Manifest with multiple Canvases, each of which represents a page of a book. It demonstrates the use of the `behavior` property to indicate to a client that the object is _paged_: this helps a client generate the correct user experience. The `viewingDirection` property indicates that the book is read left-to-right. In this case, the property is redundant as `left-to-right` is the default value. The Manifest has a `rendering` property linking to a PDF representation; typically a client would offer this as a download or "view as" option. The `start` property is used to tell a client to initialize the view on a particular Canvas, useful if the digitized work contains a large amount of irrelevant front matter or blank pages. The `requiredStatement` is a message that a client MUST show to the user when presenting the Manifest.
+This example is a Manifest with multiple Canvases, each of which represents a page of a book. It demonstrates the use of the `behavior` property to indicate to a client that the object is _paged_---this helps a client generate the correct user experience. The `viewingDirection` property indicates that the book is read left-to-right. In this case, the property is redundant as `left-to-right` is the default value. The Manifest has a `rendering` property linking to a PDF representation; typically a client would offer this as a download or "view as" option. The `start` property is used to tell a client to initialize the view on a particular Canvas, useful if the digitized work contains a large amount of irrelevant front matter or blank pages. The `requiredStatement` is a message that a client MUST show to the user when presenting the Manifest.
 
 ```json
 {
@@ -611,7 +612,7 @@ This example is a Manifest with multiple Canvases, each of which represents a pa
 
 >
 **Key Points**
-* Recommend using Canvas labels when more than one Canvas...
+* Canvas labels are not required, but are recommend when a Manifest has more than one Canvas in order to provide visual labels for each Canvas for navigation within the IIIF client UI.
 {: .note}
 
 !!! warning TODO: The above should be a green class rgb(244,252,239) to distinguish from properties
