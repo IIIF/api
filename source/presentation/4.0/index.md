@@ -2199,6 +2199,20 @@ Many Scene interaction use cases can be accomplished using the `enables` and `di
 
 For some interactions it is necessary to do more than show or hide or "activate" resources, by changing just `"behavior": ["hidden"]`. Other properties can also be changed via the JSON Patch mechanism.
 
+```jsonc
+{
+  "type": "JSONPatch",
+  "patchTarget":  "https://example.org/iiif/scene1/scene-with-color-change", // the Scene
+  "operations": [
+    {
+        "op": "replace",
+        "path": "/backgroundColor", // path to the property being changed.
+        "value": "#FF99AA"
+    }
+  ]
+}
+```
+
 > **This is a clear distinction like level0, level1 - a client can simply choose not to support arbitrary patching.**
 
 > Be clear that you still need to have all the patchable resources present from the start, you can't pull them in later.
@@ -2268,7 +2282,7 @@ In the following simple example, the background color of the Scene is changed:
                     {
                       "type": "JSONPatch",
                       "patchTarget":  "https://example.org/iiif/scene1/scene-with-color-change",
-                      "value": [
+                      "operations": [
                         {
                             "op": "replace",
                             "path": "/backgroundColor",
