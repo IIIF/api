@@ -37,7 +37,7 @@ hero:
 
 <style>
 .content, .api-content .highlight, .api-content .code-header {
-  max-width:auto;
+  max-width:100%;
 }
 
 code {
