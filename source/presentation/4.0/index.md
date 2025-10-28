@@ -1088,32 +1088,60 @@ Properties: [backgroundColor](#model/backgroundColor), [lookAt](#model/lookAt), 
 
 ## Use Case 6: Complex Scene
 
+Annotations may use a type of Selector called a `PointSelector` to align the Annotation to a point within the Scene that is not the Scene's origin. PointSelectors have three spatial properties, `x`, `y` and `z` which give the value on that axis. They also have a temporal property `instant` which can be used if the Scene has a duration, which gives the temporal point in seconds from the start of the duration, the use of which is defined in the [section on Scenes with Durations]().
 
-**Chessboard is a Canvas with image (not a 3D chessboard)**
+Example Annotation that positions a model at a point within a Scene:
+
+```json
+{
+    "id": "https://example.org/iiif/3d/anno1",
+    "type": "Annotation",
+    "motivation": ["painting"],
+    "body": {
+        "id": "https://example.org/iiif/assets/model1.glb",
+        "type": "Model"
+    },
+    "target": {
+        "type": "SpecificResource",
+        "source": [
+          {
+            "id": "https://example.org/iiif/scene1",
+            "type": "Scene"
+          }
+        ],
+        "selector": [
+          {
+            "type": "PointSelector",
+            "x": -1.0,
+            "y": 0.0,
+            "z": 1.0
+          }
+        ]
+    }
+}
+```
+
+Annotations may alternately use a type of Selector called a `WktSelector` to align the Annotation to a region with the Scene that is not the Scene's origin. WktSelectors have a single property, `value`, which is a string conforming to a WKT Linestring, LineStringZ, Polygon, or PolygonZ list of 2D or 3D coordinate points. Whether and how a region defined by a WktSelector may be translated to a single 2D or 3D coordinate point, for targeting or other purposes, is client-dependent.
+
+
+Example Annotation that comments on a 3D polygon within a Scene:
+
+```
+Todo add example
+```
+
+### Chessboard is a Canvas with image (not a 3D chessboard)
 
 A Scene or a Canvas may be treated as a content resource, referenced or described within the `body` of an Annotation. As with models and other resources, the Annotation is associated with a Scene into which the Scene or Canvas is to be nested through an Annotation `target`. The content resource Scene will be placed within the `target` Scene by aligning the coordinate origins of the two scenes. Alternately, Scene Annotations may use `PointSelector` to place the origin of the resource Scene at a specified coordinate within the `target` Scene.
 
-**more than one model**
+### More than one model
 
 **transforms for scale and rotation**
 This (no units for scale) allows arbitrarily scaled models to be used, including very small or very large, without needing to deal with very small or very large values. If there is a correspondence to a physical scale, then this can be asserted using the physical dimensions pattern(fwd-ref-to-phys-dims).
 
-**Scene in Scene**
+### Scene in Scene
 
-**Exclude**
-
-**interactionMode**
-
-
-
-
-
-
-
-
-## Merge the below into the examples or into model
-
-As with other containers in IIIF, Annotations are used to target the Scene to place content such as 3d models into the scene. Annotations are also used to add lights and cameras. A Scene can have multiple models, lights, cameras and other resources, allowing them to be grouped together. Scenes and other IIIF containers, such as Canvases, may also be embedded within Scenes, as described below in the nesting section [fwd-ref-to-nesting].
+Scenes and other IIIF containers, such as Canvases, may also be embedded within Scenes, as described below in the nesting section [fwd-ref-to-nesting].
 
 ```json
 {
@@ -1143,7 +1171,7 @@ A simple example painting one Scene into another:
 }
 ```
 
-
+### More on Point and Fragment Selectors
 
 A content resource may be annotated into a Scene for a period of time by use of a PointSelector that is temporally scoped by a [FragmentSelector](https://www.w3.org/TR/annotation-model/#fragment-selector).  The FragmentSelector has a `value` property, the value of which follows the [media fragment syntax](https://www.w3.org/TR/media-frags/#naming-time) of `t=`.  This annotation pattern uses the `refinedBy` property [defined by the W3C Web Annotation Data Model](https://www.w3.org/TR/annotation-model/#refinement-of-selection).
 
@@ -1230,6 +1258,13 @@ An Annotation may target a specific point in time using a PointSelector's `insta
 }
 ```
 
+**Give example of refinedBy ? e.g. WktSelector + Instant**
+
+
+### Exclude
+
+### Time mode
+
 The Annotation's [`timeMode` property](https://iiif.io/api/presentation/3.0/#timemode) can be used to indicate the desired behavior when the duration of the content resource that is not equal to the temporal region targeted by the annotation.
 
 It is an error to select a temporal region of a Scene that does not have a `duration`, or to select a temporal region that is not within the Scene's temporal extent.  A Canvas or Scene with a `duration` may not be annotated as a content resource into a Scene that does not itself have a `duration`.
@@ -1238,7 +1273,15 @@ It is an error to select a temporal region of a Scene that does not have a `dura
 An annotation that targets a Scene using a PointSelector without any temporal refinement implicitly targets the Scene's entire duration.
 
 
-Audio and 3D
+### interactionMode
+
+
+
+
+
+
+
+## Audio and 3D
 
 
 AmbientAudio (everywhere)
@@ -1256,50 +1299,9 @@ hidden on audio = inaudible
 
 All resources that can be added to a Scene have an implicit (e.g. Lights, Cameras) or explicit (e.g. Models, Scenes), local coordinate space. If a resource does not have an explicit coordinate space, then it is positioned at the origin of its coordinate space. In order to add a resource with its local coordinate space into a Scene with its own coordinate space, these spaces must be aligned. This done by aligning the origins of the two coordinate spaces.
 
-Annotations may use a type of Selector called a `PointSelector` to align the Annotation to a point within the Scene that is not the Scene's origin. PointSelectors have three spatial properties, `x`, `y` and `z` which give the value on that axis. They also have a temporal property `instant` which can be used if the Scene has a duration, which gives the temporal point in seconds from the start of the duration, the use of which is defined in the [section on Scenes with Durations]().
-
-Example Annotation that positions a model at a point within a Scene:
-
-```json
-{
-    "id": "https://example.org/iiif/3d/anno1",
-    "type": "Annotation",
-    "motivation": ["painting"],
-    "body": {
-        "id": "https://example.org/iiif/assets/model1.glb",
-        "type": "Model"
-    },
-    "target": {
-        "type": "SpecificResource",
-        "source": [
-          {
-            "id": "https://example.org/iiif/scene1",
-            "type": "Scene"
-          }
-        ],
-        "selector": [
-          {
-            "type": "PointSelector",
-            "x": -1.0,
-            "y": 0.0,
-            "z": 1.0
-          }
-        ]
-    }
-}
-```
-
-Annotations may alternately use a type of Selector called a `WktSelector` to align the Annotation to a region with the Scene that is not the Scene's origin. WktSelectors have a single property, `value`, which is a string conforming to a WKT Linestring, LineStringZ, Polygon, or PolygonZ list of 2D or 3D coordinate points. Whether and how a region defined by a WktSelector may be translated to a single 2D or 3D coordinate point, for targeting or other purposes, is client-dependent.
 
 
-Example Annotation that comments on a 3D polygon within a Scene:
 
-```
-Todo add example
-```
-
-
-## Give example of refinedBy ? e.g. WktSelector + Instant
 
 
 
