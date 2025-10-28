@@ -1583,10 +1583,12 @@ For Annotation Collections with many Annotations, there will be many pages. The 
       // ...
     }
   ],
-  "partOf": {
-    "id": "https://example.org/iiif/book1/annocoll/transcription",
-    "type": "AnnotationCollection",
-  }
+  "partOf": [
+    {
+      "id": "https://example.org/iiif/book1/annocoll/transcription",
+      "type": "AnnotationCollection",
+    }
+  ]
 }
 ```
 
@@ -1621,18 +1623,40 @@ This is an example of a commenting annotation that targets two-minute segment of
     }
 ```
 
-
 ### A comment about a face in a painting
 
-(is this a full use case?)
+A comment on a Canvas can target a non-rectangular area.  This example uses a `SvgSelector` to comment on a painting.
 
-(targets Canvas)
-"This might be so-and-so"
+```json
+{
+      "id": "https://example.org/iiif/presentation/examples/commenting/anno/2",
+      "type": "Annotation",
+      "motivation": "commenting",
+      "body": {
+        "id": "https://example.org/iiif/presentation/examples/commenting/anno/2/person2",
+        "type": "TextualBody",
+        "language": "en",
+        "format": "text/plain",
+        "value": "Note the expressive eyes of the subject of this painting."
+      },
+      "target": {
+        "type": "SpecificResource",
+        "source": {
+          "id": "https://example.org/iiif/presentation/examples/commenting/canvas/2",
+          "type": "Canvas"
+        },
+        "selector": [
+          {
+            "id": "https://example.org/iiif/presentation/examples/commenting/anno2/selector2",
+            "type": "SvgSelector",
+            "value": "<svg:svg> ... </svg:svg>"
+          }
+        ]
+    }
+}
+```
 
-(Uses Non Rectangular Segments - SvgSelector)
-
-Annotations may alternately use a type of Selector called a `WktSelector` to align the Annotation to a region with the Scene that is not the Scene's origin. WktSelectors have a single property, `value`, which is a string conforming to a WKT Linestring, LineStringZ, Polygon, or PolygonZ list of 2D or 3D coordinate points. Whether and how a region defined by a WktSelector may be translated to a single 2D or 3D coordinate point, for targeting or other purposes, is client-dependent.
-
+Annotations may alternately use a type of Selector called a `WktSelector` to align the Annotation to a region within a Canvas or Scene.
 
 ### A comment about something in a Model
 
