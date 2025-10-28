@@ -53,11 +53,32 @@ __Previous Version:__ [3.0][prezi30]
 
 # IIIF Presentation API Data Model
 
+<style>
+.content, .api-content .highlight, .api-content .code-header {
+  max-width:100%;
+}
+
+pre.highlight code {
+  font-size:0.9rem;
+  line-height:1.0;
+}
+
+.content h3 {
+  font-size:1.4rem
+}
+
+.highlight .s2 {
+  color: #a0f0f0
+}
+</style>
+
+
 ## Introduction
 {: #introduction}
 
-The IIIF Presentation API is backed by a standards-based data model inspired by both earlier tree structured representations of cultural heritage objects, as well as linked data approaches with the same goal. It comprises four main types of resource: Structural (such as Collections, Manifests, and Ranges), Presentational Containers (Canvas, Scene and Timeline), Linking (Annotations), and Content (the images, texts, audio, video and models to be displayed).
-The model intentionaly does not include any semantic or descriptive relationships or properties such as the author of a book or the place where a statue was sculpted; it is solely for presenting content in a structured fashion to human users.
+The IIIF Presentation API is backed by a standards-based data model inspired by both earlier tree structured representations of cultural heritage objects, as well as linked data approaches with the same goal. It comprises four main types of resource: Structural (such as Collections, Manifests, and Ranges), Presentational Containers (Canvas, Scene and Timeline), Linking (Annotations), and Content (the images, texts, audio, video and models to be displayed). In addition to these, the model includes supporting classes such as Agents, and extensions to the standards for IIIF specific use cases, such as Transforms for manipulating 3d models within a Scene.
+
+The Presentation API data model intentionally does not include any semantic or descriptive relationships or properties, such as the author of a book or the place where a statue was sculpted; it is solely for presenting content in a structured fashion to human users.
 
 
 ### Terminology
