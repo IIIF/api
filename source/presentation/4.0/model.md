@@ -60,6 +60,11 @@ The IIIF Presentation API is backed by a standards-based data model inspired by 
 The model intentionaly does not include any semantic or descriptive relationships or properties such as the author of a book or the place where a statue was sculpted; it is solely for presenting content in a structured fashion to human users.
 
 
+## Technical Considerations
+{: #json-considerations}
+
+This section describes features applicable to all of the Presentation API content.
+
 ### Terminology
 {: #terminology}
 
@@ -73,11 +78,6 @@ The terms _array_, _JSON object_, _number_, _string_, and _boolean_ in this docu
 
 The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _SHOULD NOT_, _RECOMMENDED_, _MAY_, and _OPTIONAL_ in this document are to be interpreted as described in [RFC 2119][org-rfc-2119].
 
-
-## JSON Considerations
-{: #json-considerations}
-
-This section describes features applicable to all of the Presentation API content.
 
 ### Case Sensitivity
 {: #case-sensitivity}
@@ -1155,7 +1155,7 @@ TODO: Address https://github.com/IIIF/api/issues/2318
 | `sequence` | Valid only on Ranges, where the Range is [referenced][prezi30-terminology] in the `structures` property of a Manifest. Ranges that have this behavior represent different orderings of the Containers listed in the `items` property of the Manifest, and user interfaces that interact with this order _SHOULD_ use the order within the selected Range, rather than the default order of `items`. Disjoint with `thumbnail-nav` and `no-nav`.|
 | `thumbnail-nav`{: style="white-space:nowrap;"} | Valid only on Ranges. Ranges that have this behavior _MAY_ be used by the client to present an alternative navigation or overview based on thumbnails, such as regular keyframes along a timeline for a video, or sections of a long scroll. Clients _SHOULD NOT_ use them to generate a conventional table of contents. Child Ranges of a Range with this behavior _MUST_ have a suitable `thumbnail` property. Disjoint with `sequence` and `no-nav`.|
 | `no-nav` | Valid only on Ranges. Ranges that have this behavior _MUST NOT_ be displayed to the user in a navigation hierarchy. This allows for Ranges to be present that capture unnamed regions with no interesting content, such as the set of blank pages at the beginning of a book, or dead air between parts of a performance, that are still part of the Manifest but do not need to be navigated to directly. Disjoint with `sequence` and `thumbnail-nav`.|
-| `linear-nav` | FIXME: ... |
+| `linear-nav` | FIXME: Obsolete? use `sequence`, now valid for AnnotationPage as well as Range |
 | | **Miscellaneous Behaviors** |
 | `hidden` | Valid on Annotation Collections, Annotation Pages, Annotations, Specific Resources, Lights, Cameras and Choices. If this behavior is provided, then the client _SHOULD NOT_ render the resource by default, but allow the user to turn it on and off. This behavior does not inherit, as it is not valid on Collections, Manifests, Ranges or Canvases. |
 | `reset` | Valid on Annotations with a scope property. FIXME: ...  |
