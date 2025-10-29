@@ -1812,24 +1812,513 @@ It is important to be able to position the textual body of an annotation within 
 
 ## Linking Annotations
 
+An Annotation with the motivation `linking` is used to create links between resources, both within the Manifest or to external content on the web, including other IIIF resources. Examples include linking to the continuation of an article in a digitized newspaper in a different Canvas, or to an external web page that describes the diagram in the Canvas. A client typically renders the links as clickable "Hotspots" - but can offer whatever accessible affordance as appropriate. The user experience of whether the linked resource is opened in a new tab, new window or by replacing the current view is up to the implementation.
 
-Simple hotspot linking example
+The resource the user should be taken to is the `body` of the annotation, and the region of the Container that the user clicks or otherwise activates to follow the link is the `target`: 
 
-----
+```jsonc
+{
+  "id": "https://example.com/annotation/p0002-link",
+  "type": "Annotation",
+  "motivation": "linking",
+  "body": [
+    {
+    "id": "https://example.com/website1",
+    "type": "Text"
+    }
+  ],
+  "target": "https://example.com/canvas/p1#xywh=265,661,1260,1239"
+}
+```
+
 
 ## Activating Annotations
 
-Lightweight intro here
+Sometimes it is necessary to modify the contents of a Container in the contexts of different annotations on that Container. This technique allows IIIF to be used for _storytelling_ (ref) and other narrative applications beyond simply conveying a static Digital Object into a viewer and leaving subsequent interactions entirely in the control of the user.
 
-Timeline example - reach point in timeline, do something
-enables and disables?
+Annotations with the motivation `activating` are referred to as _activating_ annotations, and are used to link a resource that triggers an action with the resource(s) to change, enable or disable. The `target` of the activating annotation could be a commenting annotation, for which a user might click a corresponding UI element. In other scenarios the `target` could be the painting annotation of a 3D model, or an annotation that targets part of a model, or a region of a Canvas, or a point or segment of a Timeline, or any other annotation that a user could interact with (in whatever manner) to trigger an event. Even a region of space in a Scene or an extent of time in a Container with `duration` could be the `target`, so that when the user "enters" that region or extent, something happens. The `body` of the annotation is the resource that is then activated:
 
-Can we use light switch example here - in 2D?
+- a Camera: if "hidden" the behavior is removed, and this Camera becomes the viewport.
+- AnimationSelector: A named animation within a model is played (fwd ref)
+- (anything else yet?)
 
-Moving books? - tab moves something revealing something else
-click to fold out and fold back
+Activating annotations are provided in a Container's `annotations` property. They can be mixed in with the commenting (or other interactive annotations) they target, or they can be in a separate AnnotationPage. The client should evaluate all the activating annotations it can find.
+
+```jsonc
+{
+  "id": "https://example.org/iiif/3d/anno9",
+  "type": "Annotation",
+  "motivation": ["activating"],
+  "target": [
+    {
+      "id": "https://example.org/iiif/3d/commenting-anno-for-mandibular-tooth",
+      "type": "Annotation"
+    }
+  ],
+  "body": [
+    {
+      "id": "https://example.org/iiif/3d/anno-that-paints-desired-camera-to-view-tooth",
+      "type": "Annotation"
+    }
+  ]
+}
+```
 
 
+### Showing and hiding resources
+
+An activating annotation has two additional optional properties:
+
+* `enables`: For each annotation in the value, remove the 'hidden' behavior if it has it.
+* `disables`: For each annotation in the value, add the 'hidden' behavior if it does not have it.
+
+Hidden resources cannot be active or activated. If the values are the `id` properties of painting resources that paint models, they are hidden or made visible. If Lights, they are turned on. The following example demonstrates a light switch that can be toggled on and off.
+
+```jsonc
+{
+    "@context": "http://iiif.io/api/presentation/4/context.json",
+    "id": "https://example.org/iiif/manifest/switch",
+    "type": "Manifest",
+    "label": { "en": [ "Light switch" ] },
+    "items": [
+        {
+            "id": "https://example.org/iiif/scene/switch/scene-1",
+            "type": "Scene",
+            "items": [
+                {
+                    "id": "https://example.org/iiif/scene/switch/scene-1/painting-annotation-pages/1",
+                    "type": "AnnotationPage",
+                    "items": [
+                        {
+                            "id": "https://example.org/iiif/painting-annotation/lightswitch-1",
+                            "type": "Annotation",
+                            "motivation": ["painting"],
+                            "label": {
+                                "en": ["A light switch"]
+                            },
+                            "body": {
+                                "id": "https://example.org/iiif/model/models/lightswitch.gltf",
+                                "type": "Model"
+                            },
+                            "target": "https://example.org/iiif/scene/switch/scene-1"
+                        },
+                        {
+                            "id": "https://example.org/iiif/scene/switch/scene-1/lights/point-light-4",
+                            "type": "Annotation",
+                            "motivation": ["painting"],
+                            "body": {
+                                "id": "https://example.org/iiif/scene/switch/scene-1/lights/4/body",
+                                "type": "PointLight"
+                            },
+                            "target": {
+                                "type": "SpecificResource",
+                                "source": "https://example.org/iiif/scene/switch/scene-1",
+                                "selector": [
+                                    {
+                                        "type": "PointSelector",
+                                        "x": 5, "y": 5, "z": 5
+                                    }
+                                ]
+                            },
+                            "behavior": ["hidden"]
+                        }
+                    ]
+                }
+            ],
+            "annotations": [
+                {
+                    "id": "https://example.org/iiif/scene/switch/scene-1/annos/1",
+                    "type": "AnnotationPage",
+                    "items": [
+                        {
+                            "id": "https://example.org/iiif/scene/switch/scene-1/annos/1/switch-comment-0",
+                            "type": "Annotation",
+                            "motivation": [
+                                "commenting"
+                            ],
+                            "body": {
+                                "type": "TextualBody",
+                                "value": "Click the switch to turn the light on or off"
+                            },
+                            "target": "https://example.org/iiif/painting-annotation/lightswitch-1"
+                        },
+                        {
+                            "id": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-on-2",
+                            "type": "Annotation",
+                            "motivation": [
+                                "activating"
+                            ],
+                            "target": "https://example.org/iiif/painting-annotation/lightswitch-1",
+                            "disables": [
+                                "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-on-2"
+                            ],
+                            "enables": [
+                                "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-off-3",
+                                "https://example.org/iiif/scene/switch/scene-1/lights/point-light-4"
+                            ]
+                        },
+                        {
+                            "id": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-off-3",
+                            "type": "Annotation",
+                            "motivation": [
+                                "activating"
+                            ],
+                            "target": "https://example.org/iiif/painting-annotation/lightswitch-1",
+                            "disables": [
+                                "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-off-3",
+                                "https://example.org/iiif/scene/switch/scene-1/lights/point-light-4"
+                            ],
+                            "enables": [
+                                "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-on-2"
+                            ],
+                            "behavior": ["hidden"]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
+```
+
+* Initially, a model of a light switch is painted into the Scene. A PointLight is also painted, but with the `behavior` "hidden", which means it is inactive (i.e., off). A commenting annotation with the text "Click the switch to turn the light on or off" targets the light switch. An activating annotation targets the commenting annotation, so that user interaction with the commenting annotation will trigger the activating annotation. This activating annotation has no `body`, but it does have `enables` with values that are the `id` properties of the painting annotation for the light switch model, and the activating annotation that turns the light off. It also has a `disables` with the value of its own `id` - i.e., it disables _itself_. A further activating annotation has the opposite effect. Initially this has the `behavior` "hidden" - which means it is inactive. It also targets the commenting annotation, but has no effect while hidden.
+* When the user interacts with the light switch model, the client processes any activating annotations that target it and are not hidden. In this case, the first activating annotation is triggered because while both target the switch, only the first is not hidden. This activation `enables` the light (i.e., removing its "hidden" `behavior` and therefore turning it on) and the other activating annotation, and `disables` itself.
+* If the user clicks the light again, the client again processes any activating annotations that target it and are not hidden. This time the second annotation is the active one - and it `disables` the light (turning it off) and itself, and enables the first activating annotation again.
+* Subsequent clicks simply alternate between these two states, indefinitely.
+
+
+### Triggering a named animation in a model
+
+Sometimes a model file has inbuilt animations. While a description of these is outside the scope of IIIF, because it is 3D-implementation-specific, as long as there is a way to refer to a model's animation(s) by name, we can connect the animation to IIIF resources.
+
+This pattern is also achieved with activating annotations, except that the body of the activating annotation references a _named animation_ in the model. The `body` MUST be a SpecificResource, where the `source` is the Painting Annotation that paints the model, and the `selector` is of type `AnimationSelector` with the `value` being a string that corresponds to the animation in the model.
+
+The format of the `value` string is implementation-specific, and will depend on how different 3D formats support addressing of animations within models. The same model can be painted multiple times into the scene, and you might want to activate only one model's animation, thus we need to refer to the annotation that paints the model, not the model directly.
+
+
+```jsonc
+{
+  "id": "https://example.org/iiif/3d/activating-animation.json",
+  "type": "Manifest",
+  "label": { "en": ["Music Box with lid that opens as an internal animation"] },
+  "items": [
+    {
+      "id": "https://example.org/iiif/scene1/scene-with-activation-animation",
+      "type": "Scene",
+      "label": { "en": ["A Scene Containing a Music Box"] },
+      "items": [
+        {
+          "id": "https://example.org/iiif/scene-with-activation-animation/page/p1/1",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://example.org/iiif/3d/painting-anno-for-music-box",
+              "type": "Annotation",
+              "motivation": ["painting"],
+              "body": {
+                "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/music-box.glb",
+                "type": "Model"
+              },
+              "target": {
+                // SpecificResource with PointSelector
+              }
+            }
+          ],
+          "annotations": [
+            {
+              "id": "https://example.org/iiif/scene1/page/activators",
+              "type": "AnnotationPage",
+              "items": [
+                {
+                  "id": "https://example.org/iiif/3d/box-opening-commenting-anno",
+                  "type": "Annotation",
+                  "motivation": ["commenting"],
+                  "body": [
+                    {
+                      "type": "TextualBody",
+                      "value": "Click the box to open the lid"
+                    }
+                  ],
+                  "target": [
+                    {
+                      "id": "https://example.org/iiif/3d/painting-anno-for-music-box",
+                      "type": "Annotation"
+                    }
+                  ]
+                }
+                {
+                  "id": "https://example.org/iiif/3d/box-opening-activating-anno",
+                  "type": "Annotation",
+                  "motivation": ["activating"],
+                  "target": [
+                    {
+                      "id": "https://example.org/iiif/3d/box-opening-commenting-anno",
+                      "type": "Annotation"
+                    }
+                  ],
+                  "body": [
+                    {
+                      "type": "SpecificResource",
+                      "source": "https://example.org/iiif/3d/painting-anno-for-music-box",
+                      "selector": [
+                        {
+                          "type": "AnimationSelector",
+                          "value": "open-the-lid"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+### 3D Comments with Cameras
+
+In many complex 3D Scenes, it may not be clear what or how to look at a particular point of interest even when the commenting annotation targets a particular point. The view may be occluded by parts of the model, or other models in the Scene. In the following example, the user can explore the Scene freely, but when they select a particular comment, a specific Camera that was previously hidden (unavailable to the user) is activated, moving the user (i.e., setting the viewport) to a chosen position suitable for looking at the point of interest:
+
+```jsonc
+{
+  "id": "https://example.org/iiif/3d/whale_comment_scope_content_state.json",
+  "type": "Manifest",
+  "label": { "en": ["Whale Cranium and Mandible with Dynamic Commenting Annotations and Custom Per-Anno Views"] },
+  "items": [
+    {
+      "id": "https://example.org/iiif/scene1/page/p1/1",
+      "type": "Scene",
+      "label": { "en": ["A Scene Containing a Whale Cranium and Mandible"] },
+      "items": [
+        {
+          "id": "https://example.org/iiif/scene1/page/p1/1",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://example.org/iiif/3d/anno1",
+              "type": "Annotation",
+              "motivation": ["painting"],
+              "body": {
+                "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/whale/whale_mandible.glb",
+                "type": "Model"
+              },
+              "target": {
+                // SpecificResource with PointSelector
+              }
+            },
+            {
+              "id": "https://example.org/iiif/3d/anno-that-paints-desired-camera-to-view-tooth",
+              "type": "Annotation",
+              "motivation": ["painting"],
+              "behavior": ["hidden"],
+              "body": {
+                "type": "SpecificResource",
+                "source": [
+                  {
+                    "id": "https://example.org/iiif/3d/cameras/1",
+                    "type": "PerspectiveCamera",
+                    "label": {"en": ["Perspective Camera Pointed At Front of Cranium and Mandible"]},
+                    "fieldOfView": 50.0,
+                    "near": 0.10,
+                    "far": 2000.0
+                  }
+                ]
+              },
+              "target": {
+                "type": "SpecificResource",
+                "source": [
+                  {
+                    "id": "https://example.org/iiif/scene1",
+                    "type": "Scene"
+                  }
+                ],
+                "selector": [
+                  {
+                    "type": "PointSelector",
+                    "x": 0.0, "y": 0.15, "z": 0.75
+                  }
+                ]
+              }
+            },
+            {
+              "id": "https://example.org/iiif/3d/anno2",
+              "type": "Annotation",
+              "motivation": ["painting"],
+              "body": {
+                "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/whale/whale_cranium.glb",
+                "type": "Model"
+              },
+              "target": {
+                // SpecificResource with PointSelector
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "annotations": [
+    {
+      "id": "https://example.org/iiif/scene1/page/p1/annotations/1",
+      "type": "AnnotationPage",
+      "items": [
+        {
+          "id": "https://example.org/iiif/3d/commenting-anno-for-mandibular-tooth",
+          "type": "Annotation",
+          "motivation": ["commenting"],
+          "bodyValue": "Mandibular tooth",
+          "target": {
+            // SpecificResource with PointSelector
+          }
+        },
+        {
+          "id": "https://example.org/iiif/3d/commenting-anno-for-right-pterygoid-hamulus",
+          "type": "Annotation",
+          "motivation": ["commenting"],
+          "bodyValue": "Right pterygoid hamulus",
+          "target": {
+            // SpecificResource with PointSelector
+          }
+        },
+        {
+          "id": "https://example.org/iiif/3d/anno9",
+          "type": "Annotation",
+          "motivation": ["activating"],
+          "target": [
+            {
+              "id": "https://example.org/iiif/3d/commenting-anno-for-mandibular-tooth",
+              "type": "Annotation"
+            }
+          ],
+          "body": [
+            {
+              "id": "https://example.org/iiif/3d/anno-that-paints-desired-camera-to-view-tooth",
+              "type": "Annotation"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+The client will render a UI that presents the two commenting annotations in some form and allows the user to navigate between them. An active Camera is not provided (while there is a Camera in the Scene it has `behavior` "hidden", i.e., it is inactive: not usable). The commenting annotations are ordered; while the user might explore them freely in the Scene they might also go "forward" from the first to the second commenting annotation and "back" to the first from the second. In either case the above example instructs the client to activate the Camera when the user interacts with the comment. The user is free to move away but any interaction with that comment will bring them back to the specific viewpoint. (forward ref to chains of activation example)
+
+
+### Modifying resource properties
+
+Many Scene interaction use cases can be accomplished using the `enables` and `disables` properties to toggle the `"behavior": ["hidden"]`, and/or using activating annotations with bodies that can be _activated_: the examples above show a Camera and then an Animation being activated. Models in the Scene can also be shown and hidden via these properties.
+
+> when to use enables and when to use the `body` of the activating anno - are they equivalent for, say, a hidden model: enable it, activate it - interchangeable?
+
+For some interactions it is necessary to do more than show or hide or "activate" resources, by changing just `"behavior": ["hidden"]`. Other properties can also be changed via the [JSON Patch](link) mechanism.
+
+```jsonc
+{
+  "type": "JSONPatch",
+  "patchTarget":  "https://example.org/iiif/scene1/scene-with-color-change", // the Scene
+  "operations": [
+    {
+        "op": "replace",
+        "path": "/backgroundColor", // path to the property being changed.
+        "value": "#FF99AA"
+    }
+  ]
+}
+```
+
+> **This is a clear distinction like level0, level1 - a client can simply choose not to support arbitrary patching.**
+
+> Be clear that you still need to have all the patchable resources present from the start, you can't pull them in later.
+
+In the following simple example, the background color of the Scene is changed:
+
+
+```jsonc
+{
+  "id": "https://example.org/iiif/3d/property-change.json",
+  "type": "Manifest",
+  "label": { "en": ["Whale Mandible"] },
+  "items": [
+    {
+      "id": "https://example.org/iiif/scene1/scene-with-color-change",
+      "type": "Scene",
+      "label": { "en": ["A Scene Containing a Whale Mandible"] },
+      "items": [
+        {
+          "id": "https://example.org/iiif/scene1/page/p1/1",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://example.org/iiif/3d/painting-anno-for-mandible",
+              "type": "Annotation",
+              "motivation": ["painting"],
+              "body": {
+                "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/whale/whale_mandible.glb",
+                "type": "Model"
+              },
+              "target": "https://example.org/iiif/scene1/scene-with-color-change"
+            }
+          ],
+          "annotations": [
+            {
+              "id": "https://example.org/iiif/scene1/page/activators",
+              "type": "AnnotationPage",
+              "items": [
+                {
+                  "id": "https://example.org/iiif/3d/color-change-commenting-anno",
+                  "type": "Annotation",
+                  "motivation": ["commenting"],
+                  "body": [
+                    {
+                      "type": "TextualBody",
+                      "value": "Change the background color"
+                    }
+                  ],
+                  "target": [
+                    {
+                      "id": "https://example.org/iiif/3d/painting-anno-for-mandible", // or the Scene?
+                      "type": "Annotation"
+                    }
+                  ]
+                }
+                {
+                  "id": "https://example.org/iiif/3d/color-change-activating-anno",
+                  "type": "Annotation",
+                  "motivation": ["activating"],
+                  "target": [
+                    {
+                      "id": "https://example.org/iiif/3d/color-change-commenting-anno",
+                      "type": "Annotation"
+                    }
+                  ],
+                  "body": [
+                    {
+                      "type": "JSONPatch",
+                      "patchTarget":  "https://example.org/iiif/scene1/scene-with-color-change",
+                      "operations": [
+                        {
+                            "op": "replace",
+                            "path": "/backgroundColor",
+                            "value": "#FF99AA"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
 
 # Integration
 
@@ -1998,514 +2487,19 @@ What to do about activating annos in the introduced content?
 ```
 
 
-# Interactivity and Storytelling
-
-Sometimes it is necessary to modify the contents of a Container in the contexts of different annotations on that Container. This technique allows IIIF to be used for _storytelling_ and other narrative applications beyond simply conveying a static Digital Object into a viewer and leaving subsequent interactions entirely in the control of the user.
-
-A narrative might comprise a set (an AnnotationPage) of `commenting` annotations that target different parts of the Container, for example a guided tour of a painting or a map. For a Canvas or Timeline it is usually sufficient to leave the interactivity to the client; the fact that comments target different extents implies the client must offer some affordance for those comments (typically the user can click each one), and in response the client will move the current play point of the Timeline to the commenting annotation target, or pan and zoom the viewport to show the relevant part of an image. For 3D this may not be enough; a particular comment may only make sense from a certain viewpoint (i.e., Camera), or different steps of the story require different Lights to be active.
+# Interactivity, Guided Viewing and Storytelling
 
 
-## 3D Comments with Cameras
+A narrative might comprise an AnnotationPage of `commenting` annotations that target different parts of the Container, for example a guided tour of a painting or a map. For a Canvas or Timeline it is usually sufficient to leave the interactivity to the client; the fact that comments target different extents implies the client must offer some affordance for those comments (typically the user can click each one), and in response the client will move the current play point of the Timeline to the commenting annotation target, or pan and zoom the viewport to show the relevant part of an image. For 3D this may not be enough; a particular comment may only make sense from a certain viewpoint (i.e., Camera), or different steps of the story require different Lights to be active.
 
-Consider a Scene with two models, two `commenting` annotations, and a camera. We really only want the camera to be used when the user is looking at the Mandibular tooth, by default and at other times we don't need a specific camera, we can let them explore freely.
-
-```jsonc
-{
-  "id": "https://example.org/iiif/3d/whale_comment_scope_content_state.json",
-  "type": "Manifest",
-  "label": { "en": ["Whale Cranium and Mandible with Dynamic Commenting Annotations and Custom Per-Anno Views"] },
-  "items": [
-    {
-      "id": "https://example.org/iiif/scene1/page/p1/1",
-      "type": "Scene",
-      "label": { "en": ["A Scene Containing a Whale Cranium and Mandible"] },
-      "items": [
-        {
-          "id": "https://example.org/iiif/scene1/page/p1/1",
-          "type": "AnnotationPage",
-          "items": [
-            {
-              "id": "https://example.org/iiif/3d/anno1",
-              "type": "Annotation",
-              "motivation": ["painting"],
-              "body": {
-                "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/whale/whale_mandible.glb",
-                "type": "Model"
-              },
-              "target": {
-                // SpecificResource with PointSelector
-              }
-            },
-            {
-              "id": "https://example.org/iiif/3d/anno-that-paints-desired-camera",
-              "type": "Annotation",
-              "motivation": ["painting"],
-              "behavior": ["hidden"],
-              "body": {
-                "type": "SpecificResource",
-                "source": [
-                  {
-                    "id": "https://example.org/iiif/3d/cameras/1",
-                    "type": "PerspectiveCamera",
-                    "label": {"en": ["Perspective Camera Pointed At Front of Cranium and Mandible"]},
-                    "fieldOfView": 50.0,
-                    "near": 0.10,
-                    "far": 2000.0
-                  }
-                ]
-              },
-              "target": {
-                "type": "SpecificResource",
-                "source": [
-                  {
-                    "id": "https://example.org/iiif/scene1",
-                    "type": "Scene"
-                  }
-                ],
-                "selector": [
-                  {
-                    "type": "PointSelector",
-                    "x": 0.0, "y": 0.15, "z": 0.75
-                  }
-                ]
-              }
-            },
-            {
-              "id": "https://example.org/iiif/3d/anno2",
-              "type": "Annotation",
-              "motivation": ["painting"],
-              "body": {
-                "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/whale/whale_cranium.glb",
-                "type": "Model"
-              },
-              "target": {
-                // SpecificResource with PointSelector
-              }
-            }
-          ]
-        }
-      ]
-    }
-  ],
-  "annotations": [
-    {
-      "id": "https://example.org/iiif/scene1/page/p1/annotations/1",
-      "type": "AnnotationPage",
-      "items": [
-        {
-          "id": "https://example.org/iiif/3d/commenting-anno-for-mandibular-tooth",
-          "type": "Annotation",
-          "motivation": ["commenting"],
-          "bodyValue": "Mandibular tooth",
-          "target": {
-            // SpecificResource with PointSelector
-          }
-        },
-        {
-          "id": "https://example.org/iiif/3d/commenting-anno-for-right-pterygoid-hamulus",
-          "type": "Annotation",
-          "motivation": ["commenting"],
-          "bodyValue": "Right pterygoid hamulus",
-          "target": {
-            // SpecificResource with PointSelector
-          }
-        }
-      ]
-    }
-  ]
-}
-```
-
-In that form, the user is left to interpret the commenting annotations and explore the Scene. The client will render a UI that presents the two commenting annotation in some form and allow the user to navigate between them. The commenting annotations are ordered; while the user might explore them freely in the Scene they might also go "forward" from the first to the second commenting annotation and "back" to the first from the second.
-
-In many complex 3D Scenes, it may not be clear what or how to look at a particular point of interest even when the commenting annotation targets a particular point. The view may be occluded by parts of the model, or other models in the Scene. In this case we only want that camera to be used for looking at the Mandibular tooth. For now, it has been given the behavior `hidden`.
-
-## Activating Annotations
-
-Annotations with the motivation `activating` are referred to as _activating_ annotations, and are used to link a resource that triggers an action with the resource(s) to change, enable or disable. In the above case the `target` of the activating annotation could be one of the commenting annotations, for which a user might click a corresponding UI element. In other scenarios the `target` could be the painting annotation of a 3D model, or an annotation that targets part of a model, or a region of a Canvas, or a point or segment of a Timeline, or any other annotation that a user could interact with (in whatever manner) to trigger an event. The `body` of the annotation is the resource that is then activated - for example, a Camera which then becomes the active viewport.
-
-`target` variations
-
-- user "walks into a room"
-- AV scrub bar reaches time t1
-- user interacts with a model
-- user touches a face in a painting
-
-We can add an additional `activating` annotation to the existing annotations, to connect them to the resources activated.
-
-Activating annotations are provided in a Container's `annotations` property. They can be mixed in with the commenting (or other interactive annotations) they target, or they can be in a separate AnnotationPage. The client should evaluate all the activating annotations it can find.
-
-> recommend they are inline in the manifest?
-
-> use cases for loading in new pages of annos later - activate the French translations
-
-
-```jsonc
-{
-  "id": "https://example.org/iiif/3d/anno9",
-  "type": "Annotation",
-  "motivation": ["activating"],
-  "target": [
-    {
-      "id": "https://example.org/iiif/3d/commenting-anno-for-mandibular-tooth",
-      "type": "Annotation"
-    }
-  ],
-  "body": [
-    {
-      "id": "https://example.org/iiif/3d/anno-that-paints-desired-camera",
-      "type": "Annotation"
-    }
-  ]
-}
-```
-
-The pattern is similar to that for linking (ref)
-
-In a storytelling or exhibition scenario, the non-painting `annotations` might be carrying informative text, or even rich HTML bodies. They can be considered to be _steps_ in the story. The use of activating annotations allows a precise storytelling experience to be specified, including:
+In a storytelling or exhibition scenario, the non-painting `annotations` might be carrying informative text, or even rich HTML bodies. They can be considered to be _steps_ in the story. The use of activating annotations (back ref) allows a precise storytelling experience to be specified, including:
 
  - providing a specific viewpoint for each step of the narrative (or even a choice of viewpoints)
  - modifying the lighting of the Scene for each step, for example shining a spotlight on a point of interest
  - hiding models in the Scene at a particular step
  - showing additional models at a particular step
 
-As in the above example, all the other annotations referred to by the activating annotations `target` and `body` properties are already present in the Scene from the beginning. Initially, many of them may have the behavior `hidden`, invisible until activated.
-
-
-The `body` is anything that is can be activated:
-
-- Camera: if "hidden" the behavior is removed, and (crucially) this Camera becomes the viewport.
-- AnimationSelector: A named animation within a model is played.
-- (anything else yet?)
-
-
-## Showing and hiding resources
-
-An activating annotation has two additional optional properties:
-
-* `enables`: For each annotation in the value, remove the 'hidden' behavior if it has it.
-* `disables`: For each annotation in the value, add the 'hidden' behavior if it does not have it.
-
-Hidden resources cannot be active or activated. If the values are the `id` properties of painting resources that paint models, they are hidden or made visible. If Lights, they are turned on.
-
-### Example: a light switch
-
-* Initially, a model of a light switch is painted into the Scene. A PointLight is also painted, but with the `behavior` "hidden", which means it is inactive (i.e., off). A commenting annotation with the text "Click the switch to turn the light on or off" targets the light switch. An activating annotation targets the commenting annotation, so that user interaction with the commenting annotation will trigger the activating annotation. This activating annotation has no `body`, but it does have `enables` with values that are the `id` properties of the painting annotation for the light switch model, and the activating annotation that turns the light off. It also has a `disables` with the value of its own `id` - i.e., it disables _itself_. A further activating annotation has the opposite effect. Initially this has the `behavior` "hidden" - which means it is inactive. It also targets the commenting annotation, but has no effect while hidden.
-* When the user interacts with the light switch model, the client processes any activating annotations that target it and are not hidden. In this case, the first activating annotation is triggered because while both target the switch, only the first is not hidden. This activation `enables` the light (i.e., removing its "hidden" `behavior` and therefore turning it on) and the other activating annotation, and `disables` itself.
-* If the user clicks the light again, the client again processes any activating annotations that target it and are not hidden. This time the second annotation is the active one - and it `disables` the light (turning it off) and itself, and enables the first activating annotation again.
-* Subsequent clicks simply alternate between these two states, indefinitely.
-
-
-```jsonc
-{
-    "@context": "http://iiif.io/api/presentation/4/context.json",
-    "id": "https://example.org/iiif/manifest/switch",
-    "type": "Manifest",
-    "label": { "en": [ "Light switch" ] },
-    "items": [
-        {
-            "id": "https://example.org/iiif/scene/switch/scene-1",
-            "type": "Scene",
-            "items": [
-                {
-                    "id": "https://example.org/iiif/scene/switch/scene-1/painting-annotation-pages/1",
-                    "type": "AnnotationPage",
-                    "items": [
-                        {
-                            "id": "https://example.org/iiif/painting-annotation/lightswitch-1",
-                            "type": "Annotation",
-                            "motivation": ["painting"],
-                            "label": {
-                                "en": ["A light switch"]
-                            },
-                            "body": {
-                                "id": "https://example.org/iiif/model/models/lightswitch.gltf",
-                                "type": "Model"
-                            },
-                            "target": "https://example.org/iiif/scene/switch/scene-1"
-                        },
-                        {
-                            "id": "https://example.org/iiif/scene/switch/scene-1/lights/point-light-4",
-                            "type": "Annotation",
-                            "motivation": ["painting"],
-                            "body": {
-                                "id": "https://example.org/iiif/scene/switch/scene-1/lights/4/body",
-                                "type": "PointLight"
-                            },
-                            "target": {
-                                "type": "SpecificResource",
-                                "source": "https://example.org/iiif/scene/switch/scene-1",
-                                "selector": [
-                                    {
-                                        "type": "PointSelector",
-                                        "x": 5, "y": 5, "z": 5
-                                    }
-                                ]
-                            },
-                            "behavior": ["hidden"]
-                        }
-                    ]
-                }
-            ],
-            "annotations": [
-                {
-                    "id": "https://example.org/iiif/scene/switch/scene-1/annos/1",
-                    "type": "AnnotationPage",
-                    "items": [
-                        {
-                            "id": "https://example.org/iiif/scene/switch/scene-1/annos/1/switch-comment-0",
-                            "type": "Annotation",
-                            "motivation": [
-                                "commenting"
-                            ],
-                            "body": {
-                                "type": "TextualBody",
-                                "value": "Click the switch to turn the light on or off"
-                            },
-                            "target": "https://example.org/iiif/painting-annotation/lightswitch-1"
-                        },
-                        {
-                            "id": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-on-2",
-                            "type": "Annotation",
-                            "motivation": [
-                                "activating"
-                            ],
-                            "target": "https://example.org/iiif/painting-annotation/lightswitch-1",
-                            "disables": [
-                                "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-on-2"
-                            ],
-                            "enables": [
-                                "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-off-3",
-                                "https://example.org/iiif/scene/switch/scene-1/lights/point-light-4"
-                            ]
-                        },
-                        {
-                            "id": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-off-3",
-                            "type": "Annotation",
-                            "motivation": [
-                                "activating"
-                            ],
-                            "target": "https://example.org/iiif/painting-annotation/lightswitch-1",
-                            "disables": [
-                                "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-off-3",
-                                "https://example.org/iiif/scene/switch/scene-1/lights/point-light-4"
-                            ],
-                            "enables": [
-                                "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-on-2"
-                            ],
-                            "behavior": ["hidden"]
-                        }
-                    ]
-                }
-            ]
-        }
-    ]
-}
-```
-
-### Triggering a named animation in a model
-
-Sometimes a model file has inbuilt animations. While a description of these is outside the scope of IIIF, because it is 3D-implementation-specific, as long as there is a way to refer to a model's animation(s) by name, we can connect the animation to IIIF resources.
-
-This pattern is also achieved with activating annotations, except that the body of the activating annotation references a _named animation_ in the model. The `body` MUST be a SpecificResource, where the `source` is the Painting Annotation that paints the model, and the `selector` is of type `AnimationSelector` with the `value` being a string that corresponds to the animation in the model.
-
-The format of the `value` string is implementation-specific, and will depend on how different 3D formats support addressing of animations within models. The same model can be painted multiple times into the scene, and you might want to activate only one model's animation, thus we need to refer to the annotation that paints the model, not the model directly.
-
-
-```jsonc
-{
-  "id": "https://example.org/iiif/3d/activating-animation.json",
-  "type": "Manifest",
-  "label": { "en": ["Music Box with lid that opens as an internal animation"] },
-  "items": [
-    {
-      "id": "https://example.org/iiif/scene1/scene-with-activation-animation",
-      "type": "Scene",
-      "label": { "en": ["A Scene Containing a Music Box"] },
-      "items": [
-        {
-          "id": "https://example.org/iiif/scene-with-activation-animation/page/p1/1",
-          "type": "AnnotationPage",
-          "items": [
-            {
-              "id": "https://example.org/iiif/3d/painting-anno-for-music-box",
-              "type": "Annotation",
-              "motivation": ["painting"],
-              "body": {
-                "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/music-box.glb",
-                "type": "Model"
-              },
-              "target": {
-                // SpecificResource with PointSelector
-              }
-            }
-          ],
-          "annotations": [
-            {
-              "id": "https://example.org/iiif/scene1/page/activators",
-              "type": "AnnotationPage",
-              "items": [
-                {
-                  "id": "https://example.org/iiif/3d/box-opening-commenting-anno",
-                  "type": "Annotation",
-                  "motivation": ["commenting"],
-                  "body": [
-                    {
-                      "type": "TextualBody",
-                      "value": "Click the box to open the lid"
-                    }
-                  ],
-                  "target": [
-                    {
-                      "id": "https://example.org/iiif/3d/painting-anno-for-music-box",
-                      "type": "Annotation"
-                    }
-                  ]
-                }
-                {
-                  "id": "https://example.org/iiif/3d/box-opening-activating-anno",
-                  "type": "Annotation",
-                  "motivation": ["activating"],
-                  "target": [
-                    {
-                      "id": "https://example.org/iiif/3d/box-opening-commenting-anno",
-                      "type": "Annotation"
-                    }
-                  ],
-                  "body": [
-                    {
-                      "type": "SpecificResource",
-                      "source": "https://example.org/iiif/3d/painting-anno-for-music-box",
-                      "selector": [
-                        {
-                          "type": "AnimationSelector",
-                          "value": "open-the-lid"
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    }
-  ]
-}
-```
-
-
-### Modifying resource properties
-
-Many Scene interaction use cases can be accomplished using the `enables` and `disables` properties to toggle the `"behavior": ["hidden"]`, and/or using activating annotations with bodies that can be _activated_: the examples above show a Camera and then an Animation being activated. Models in the Scene can also be shown and hidden via these properties.
-
-> when to use enables and when to use the `body` of the activating anno - are they equivalent for, say, a hidden model: enable it, activate it - interchangeable?
-
-For some interactions it is necessary to do more than show or hide or "activate" resources, by changing just `"behavior": ["hidden"]`. Other properties can also be changed via the [JSON Patch](link) mechanism.
-
-```jsonc
-{
-  "type": "JSONPatch",
-  "patchTarget":  "https://example.org/iiif/scene1/scene-with-color-change", // the Scene
-  "operations": [
-    {
-        "op": "replace",
-        "path": "/backgroundColor", // path to the property being changed.
-        "value": "#FF99AA"
-    }
-  ]
-}
-```
-
-> **This is a clear distinction like level0, level1 - a client can simply choose not to support arbitrary patching.**
-
-> Be clear that you still need to have all the patchable resources present from the start, you can't pull them in later.
-
-In the following simple example, the background color of the Scene is changed:
-
-
-```jsonc
-{
-  "id": "https://example.org/iiif/3d/property-change.json",
-  "type": "Manifest",
-  "label": { "en": ["Whale Mandible"] },
-  "items": [
-    {
-      "id": "https://example.org/iiif/scene1/scene-with-color-change",
-      "type": "Scene",
-      "label": { "en": ["A Scene Containing a Whale Mandible"] },
-      "items": [
-        {
-          "id": "https://example.org/iiif/scene1/page/p1/1",
-          "type": "AnnotationPage",
-          "items": [
-            {
-              "id": "https://example.org/iiif/3d/painting-anno-for-mandible",
-              "type": "Annotation",
-              "motivation": ["painting"],
-              "body": {
-                "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/whale/whale_mandible.glb",
-                "type": "Model"
-              },
-              "target": "https://example.org/iiif/scene1/scene-with-color-change"
-            }
-          ],
-          "annotations": [
-            {
-              "id": "https://example.org/iiif/scene1/page/activators",
-              "type": "AnnotationPage",
-              "items": [
-                {
-                  "id": "https://example.org/iiif/3d/color-change-commenting-anno",
-                  "type": "Annotation",
-                  "motivation": ["commenting"],
-                  "body": [
-                    {
-                      "type": "TextualBody",
-                      "value": "Change the background color"
-                    }
-                  ],
-                  "target": [
-                    {
-                      "id": "https://example.org/iiif/3d/painting-anno-for-mandible", // or the Scene?
-                      "type": "Annotation"
-                    }
-                  ]
-                }
-                {
-                  "id": "https://example.org/iiif/3d/color-change-activating-anno",
-                  "type": "Annotation",
-                  "motivation": ["activating"],
-                  "target": [
-                    {
-                      "id": "https://example.org/iiif/3d/color-change-commenting-anno",
-                      "type": "Annotation"
-                    }
-                  ],
-                  "body": [
-                    {
-                      "type": "JSONPatch",
-                      "patchTarget":  "https://example.org/iiif/scene1/scene-with-color-change",
-                      "operations": [
-                        {
-                            "op": "replace",
-                            "path": "/backgroundColor",
-                            "value": "#FF99AA"
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    }
-  ]
-}
-```
+All the annotations referred to by the activating annotations' `target` and `body` properties are already present in the Scene from the beginning. Initially, many of them may have the behavior `hidden`, invisible until activated.
 
 
 ## The `sequence` behavior
@@ -2523,6 +2517,10 @@ Chaining together activating annotations can then allow the implementation of, a
 * Interactive components such as light switches (enable/disable a light), jukeboxes (enable/disable Audio Emitter)
 
 
+## Storytelling example
+
+* Something really cool that brings a lot of things together!
+* Use JSONPatch to move a model too.
 
 
 # Conveying Physical Dimensions
