@@ -553,10 +553,10 @@ A Point Selector _MAY_ have the following properties: [id](#id), [x](#x), [y](#y
 
 Well-known text, or WKT, is an ISO standard method for describing 2 and 3 dimensional geometries. This selector thus goes beyond what the Web Annotation's SvgSelector enables by incorporating the z axis, as well as additional types of selection such as MULTIPOLYGON. Additional types, such as CIRCULARSTRING may also be supported.
 
-The text representation is given in the `wktLiteral` property of the selector.
+The text representation is given in the `value` property of the selector.
 
 __Properties__<br/>
-A WKT Selector _MUST_ have the following properties: [type](#type), and [wktLiteral](#wktLiteral).<br/><br/>
+A WKT Selector _MUST_ have the following properties: [type](#type), and [value](#value).<br/><br/>
 A WKT Selector _MAY_ have the following properties: [id](#id)
 {: .note}
 
@@ -564,7 +564,7 @@ A WKT Selector _MAY_ have the following properties: [id](#id)
 {
   "id": "https://example.org/selectors/2",
   "type": "WktSelector",
-  "wktLiteral": "POLYGON Z (0 0 0, 10 0.5 3.2 10 5.0 0, 0 0 0)"
+  "value": "POLYGON Z (0 0 0, 10 0.5 3.2 10 5.0 0, 0 0 0)"
 }
 ```
 
