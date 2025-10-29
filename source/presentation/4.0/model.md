@@ -2434,7 +2434,14 @@ The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` propert
 ### startIndex
 {: #startIndex}
 
-FIXME
+A non-negative, 0-based integer value identifying the relative position of the first entry in the `items` list of a Collection Page or Annotation Collection Page within the overall logical order of its parent Collection or Annotation Collection. If this is the second page, and there are 100 entries on the first page, then the value is 100 (the first page contains entries 0 through 99 inclusive).
+
+The value of `startIndex` must be an integer greater than -1.
+
+* An Annotation Page _MAY_ have the `startIndex` property.<br/>
+  Clients _MAY_ process `startIndex` on an Annotation Page.
+* A Collection Page _MAY_ have the `startIndex` property.<br/>
+  Clients _MAY_ process `startIndex` on a Collection Page.
 
 
 ### structures
