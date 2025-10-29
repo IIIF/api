@@ -2488,14 +2488,41 @@ The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id` and
 ### styleClass
 {: #styleClass}
 
-The name of a CSS class to apply when rendering the Specific Resource it is associated with.
+The name of a CSS class to apply when rendering the Specific Resource the style class is associated with. This might change the color of the text, the background color, add borders to the element, change the font size or family, or any other CSS-based styling. The class definition is given using the `stylesheet` property, defined below, which can be used on an Annotation. While Specific Resources _MAY_ appear outside of Annotations, `styleClass` is not valid in these circumstances as there will not be a corresponding `stylesheet` to define the style. If the stylesheet does not define the class given in `styleClass`, then the class _MUST_ be ignored.
 
-FIXME: Get rid of styles completely???
+The value of the `styleClass` _MUST_ be a string.
+
+For more information about `styleClass`, see the [Web Annotation Data Model](https://www.w3.org/TR/annotation-model/#styles).
+
+* A Specific Resource _MAY_ have the `styleClass` property.<br/>
+  Clients _SHOULD_ process the `styleClass` property.
+
+{% include api/code_header.html %}
+``` json-doc
+{ "styleClass": "red" }
+```
 
 ### stylesheet
 {: #stylesheet}
 
-FIXME: Delete???
+The `stylesheet` property conveys either a reference to an external CSS stylesheet document, or carries an embedded stylesheet. This stylesheet is used to resolve CSS classes for processing the `styleClass` directive on Specific Resources, described above.
+
+The value for `stylesheet` _MUST_ be a JSON object. If the stylesheet is referenced, then the JSON object _MUST_ have the `id` and `type` properties. Conversely, if the stylesheet's content is embedded, then it _MUST_ have the `type` and `value` properties, and _MUST NOT_ have the `id` property. The value of `type` _MUST_ be "CssStylesheet".
+
+For more information about `stylesheet`, see the [Web Annotation Data Model](https://www.w3.org/TR/annotation-model/#styles).
+
+* An Annotation _MAY_ have the `stylesheet` property.<br/>
+  Clients _SHOULD_ process the `stylesheet` property on Annotations.
+
+{% include api/code_header.html %}
+``` json-doc
+{ "stylesheet":
+  {
+    "type": "CssStylesheet",
+    "value": ".red { color: red }"
+  }
+}
+```
 
 
 ### summary
