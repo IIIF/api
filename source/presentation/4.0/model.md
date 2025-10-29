@@ -2578,6 +2578,8 @@ The value of this property _MUST_ be a non-negative integer.
 
 * An AnnotationCollection _SHOULD_ have the `total` property.<br/>
   Clients _SHOULD_ process the `total` property on an AnnotationCollection.
+* A Collection with Collection Pages _SHOULD_ have the `total` property.<br/>
+  Clients _SHOULD_ process the `total` property on a Collection.
 
 {% include api/code_header.html %}
 ``` json-doc
