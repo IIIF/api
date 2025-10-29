@@ -349,7 +349,7 @@ Navigational resources provide structure for IIIF resources that allow viewing c
 
 ### Collection
 
-IIIF Collections are ordered lists of Manifests, Collections, and/or Specific Resources. Collections allow these resources to be grouped in a hierarchical structure for navigation and other purposes.
+IIIF Collections are ordered lists of Manifests and Collections. Collections allow these resources to be grouped in a hierarchical structure for navigation and other purposes.
 
 Collections may include both other Collections and Manifests, forming a tree-structured hierarchy that expresses relationships among IIIF resources. This organization can represent archival or curatorial structures, logical groupings such as volumes or series, or dynamically generated sets of related items. As such, they enable clients to load predefined sets of resources at initialization, render dynamically generated sets such as search results, visualize lists or hierarchies of related content, and facilitate navigation through structured aggregations of Manifests and Collections.
 
