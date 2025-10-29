@@ -1802,7 +1802,7 @@ Annotations may alternately use a different type of Selector, called a `WktSelec
 
 A commenting annotation can also reference a Content Resource, such as a Model, within a Scene.  This is accomplished by targeting the annotation that paints the resource into the Scene.  In this example, the commenting annotation targets an annotation that paints a model of a portrait bust into a scene.
 
-In some cases it is desirable to influence the client's positioning of the commenting annotation when rendered.  This may be done to ensure that the annotation does not hide key visual elements or to ensure that the annotation itself is not obscured by resources painted in the container, such as 3D models. In these cases, the `position` property may be used to define the position where a TextualBody should be rendered.  The example shows a `position` that places the annotation at a specific coordinate within the Scene.  The position is a `SpecificResource` that requires a `source` and `selector`.
+In some cases it is desirable to influence the client's positioning of the commenting annotation when rendered.  This may be done to ensure that the annotation does not hide key visual elements or to ensure that the annotation itself is not obscured by resources painted in the Container, such as 3D models. In these cases, the `position` property may be used to define the position where a TextualBody should be rendered.  The example shows a `position` that places the annotation at a specific coordinate within the Scene.  The position is a `SpecificResource` that requires a `source` and `selector`.
 
 ```jsonc
 {
