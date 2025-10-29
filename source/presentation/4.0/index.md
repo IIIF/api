@@ -1681,43 +1681,123 @@ Manifest
             Annotation
 ```
 
-
 ## Annotation Page
 
-"Overlapping elements with a larger z-index cover those with a smaller one."
-link to https://developer.mozilla.org/en-US/docs/Web/CSS/z-index
+Annotation Pages are used to group Annotations.  In cases where many annotations are present, such as when transcription, translation, and commentary are associated with a manuscript, it can be useful to separate these annotations into groups that can facilitate improved user interactions in a client.  
 
+Each Annotation Page can be embedded or externally referenced. Clients should process the Annotation Pages and their items in the order given in the Container.  Publishers may choose to expedite the processing of embedded Annotation Pages by ordering them before external pages, which will need to be dereferenced by the client.  Order can be significant, however. Painting annotations are assigned an ascending [z-index](https://developer.mozilla.org/en-US/docs/Web/CSS/z-index) from the first painting annotation encountered. Annotations with a higher z-index will render in front of those with a lower z-index when displayed on a Canvas.
+<!-- Any impact of order in a Timeline or Scene? -->
+<!-- https://iiif.io/api/cookbook/recipe/0036-composition-from-multiple-images/ -->
 
 ## Annotation Collection
 
-deal with this: (use in example)
-https://github.com/IIIF/api/pull/2304/files#diff-cc70f02818f6bed2b14dfbf8bf3206e0825047951c8e83ad56fc73e489f82ac4R1757
+Annotation Collections represent groupings of Annotation Pages that should be managed as a single whole, regardless of which Container or resource they target. This allows, for example, all of the Annotations that make up a particular translation of the text of a book to be collected together. A client might then present a user interface that allows all of the Annotations in an Annotation Collection to be displayed or hidden according to the user’s preference.
 
+For Annotation Collections with many Annotations, there will be many pages. The Annotation Collection refers to the first and last page, and then the pages refer to the previous and next pages in the ordered list. Each page is part of the Annotation Collection.
+
+```json
+{
+  "id": "https://example.org/iiif/book1/annocoll/transcription",
+  "type": "AnnotationCollection",
+  "label": {"en": ["Diplomatic Transcription"]},
+  "total": 112,
+  "first": { "id": "https://example.org/iiif/book1/annopage/l1", "type": "AnnotationPage" },
+  "last": { "id": "https://example.org/iiif/book1/annopage/l112", "type": "AnnotationPage" }
+}
+```
+
+```jsonc
+{
+  "id": "https://example.org/iiif/book1/annopage/l2",
+  "type": "AnnotationPage",
+  "prev": "https://example.org/iiif/book1/annopage/l1",
+  "next": "https://example.org/iiif/book1/annopage/l3",
+  "items": [
+    {
+      "id": "https://example.org/iiif/book1/annopage/l2/a1",
+      "type": "Annotation"
+      // ...
+    },
+    {
+      "id": "https://example.org/iiif/book1/annopage/l2/a2",
+      "type": "Annotation"
+      // ...
+    }
+  ],
+  "partOf": [
+    {
+      "id": "https://example.org/iiif/book1/annocoll/transcription",
+      "type": "AnnotationCollection",
+    }
+  ]
+}
+```
+
+<!--
 use totalItems? https://iiif.io/api/discovery/1.0/#totalitems
-
-
-
+https://github.com/IIIF/api/issues/2118
+-->
 
 ## Comment Annotations
 
-> (examples are just the anno)
+Commentary can be associated with a Timeline, Canvas, or Scene via Annotations with a `commenting` motivation.
 
 ### A comment about a segment of music
 
-(targets Timeline)
-"Here begins the development of the second theme"
+<!-- This is redundant with Use Case 4 -->
+
+This is an example of a commenting annotation that targets two-minute segment of a muscial performance.
+
+```json
+{
+      "id": "https://example.org/iiif/presentation/examples/commenting/anno/1",
+      "type": "Annotation",
+      "motivation": "commenting",
+      "body": {
+        "id": "https://example.org/iiif/presentation/examples/commenting/anno/1/theme2",
+        "type": "TextualBody",
+        "language": "en",
+        "format": "text/plain",
+        "value": "The second theme of the concerto is introduced."
+      },
+      "target": "https://example.org/iiif/presentation/examples/commenting/timeline/t1#t=38.0,158.0"
+    }
+```
 
 ### A comment about a face in a painting
 
-(is this a full use case?)
+A comment on a Canvas can target a non-rectangular area.  This example uses a `SvgSelector` to comment on a painting.
 
-(targets Canvas)
-"This might be so-and-so"
+```json
+{
+      "id": "https://example.org/iiif/presentation/examples/commenting/anno/2",
+      "type": "Annotation",
+      "motivation": "commenting",
+      "body": {
+        "id": "https://example.org/iiif/presentation/examples/commenting/anno/2/person2",
+        "type": "TextualBody",
+        "language": "en",
+        "format": "text/plain",
+        "value": "Note the expressive eyes of the subject of this painting."
+      },
+      "target": {
+        "type": "SpecificResource",
+        "source": {
+          "id": "https://example.org/iiif/presentation/examples/commenting/canvas/2",
+          "type": "Canvas"
+        },
+        "selector": [
+          {
+            "id": "https://example.org/iiif/presentation/examples/commenting/anno2/selector2",
+            "type": "SvgSelector",
+            "value": "<svg:svg> ... </svg:svg>"
+          }
+        ]
+    }
+}
+```
 
-(Uses Non Rectangular Segments - SvgSelector)
-
-Annotations may alternately use a type of Selector called a `WktSelector` to align the Annotation to a region with the Scene that is not the Scene's origin. WktSelectors have a single property, `value`, which is a string conforming to a WKT Linestring, LineStringZ, Polygon, or PolygonZ list of 2D or 3D coordinate points. Whether and how a region defined by a WktSelector may be translated to a single 2D or 3D coordinate point, for targeting or other purposes, is client-dependent.
-
+Annotations may alternately use a different type of Selector, called a `WktSelector`, to align the Annotation to a target region within a Canvas or Scene.
 
 ### A comment about something in a Model
 
